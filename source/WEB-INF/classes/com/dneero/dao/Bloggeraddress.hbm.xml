@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 17, 2006 3:45:27 PM by Hibernate Tools 3.1.0.beta4 -->
+<hibernate-mapping>
+    <class name="com.dneero.dao.Bloggeraddress" table="bloggeraddress">
+        <id name="bloggeraddressid" type="int">
+            <column name="bloggeraddressid" />
+            <generator class="native" />
+        </id>
+        <property name="bloggerid" type="int">
+            <column name="bloggerid" not-null="true" />
+        </property>
+        <property name="addressid" type="int">
+            <column name="addressid" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

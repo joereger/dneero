@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        
+		<mapping resource="com/dneero/dao/Marketer.hbm.xml" />
+        <mapping resource="com/dneero/dao/Bloggeraddress.hbm.xml" />
+        <mapping resource="com/dneero/dao/Format.hbm.xml" />
+        <mapping resource="com/dneero/dao/Blogger.hbm.xml" />
+        <mapping resource="com/dneero/dao/Userrole.hbm.xml" />
+        <mapping resource="com/dneero/dao/Offer.hbm.xml" />
+        <mapping resource="com/dneero/dao/Blogsite.hbm.xml" />
+        <mapping resource="com/dneero/dao/Marketeraddress.hbm.xml" />
+        <mapping resource="com/dneero/dao/User.hbm.xml" />
+        <mapping resource="com/dneero/dao/Datausageevent.hbm.xml" />
+        <mapping resource="com/dneero/dao/Address.hbm.xml" />
+        <mapping resource="com/dneero/dao/Blogpost.hbm.xml" />
+        <mapping resource="com/dneero/dao/Offerformat.hbm.xml" />
+
+    </session-factory>
+</hibernate-configuration>
