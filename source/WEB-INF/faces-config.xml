@@ -20,16 +20,16 @@
     </managed-bean>
 
     <managed-bean>
-        <managed-bean-name>BloggerRegistration</managed-bean-name>
-        <managed-bean-class>com.dneero.formbeans.BloggerRegistration</managed-bean-class>
+        <managed-bean-name>Registration</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.Registration</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
 
     <navigation-rule>
-        <from-view-id>/blogger-registration.jsp</from-view-id>
+        <from-view-id>/registration.jsp</from-view-id>
         <navigation-case>
             <from-outcome>success</from-outcome>
-            <to-view-id>/blogger-registration-success.jsp</to-view-id>
+            <to-view-id>/registration-success.jsp</to-view-id>
         </navigation-case>
     </navigation-rule>
 
@@ -53,8 +53,8 @@
             <to-view-id>/page4.jsp</to-view-id>
         </navigation-case>
         <navigation-case>
-            <from-outcome>blogger_registration</from-outcome>
-            <to-view-id>/blogger-registration.jsp</to-view-id>
+            <from-outcome>registration</from-outcome>
+            <to-view-id>/registration.jsp</to-view-id>
         </navigation-case>
     </navigation-rule>
 

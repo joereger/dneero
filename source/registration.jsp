@@ -5,28 +5,32 @@
 
 <h:form>
     <f:verbatim><br></f:verbatim>
-    <h:inputText value="#{BloggerRegistration.email}" id="email" required="true">
+    <f:verbatim>Email: </f:verbatim>
+    <h:inputText value="#{Registration.email}" id="email" required="true">
         <f:validateLength minimum="3" maximum="255"></f:validateLength>
         <t:validateEmail></t:validateEmail>
     </h:inputText>
     <h:message for="email" styleClass="RED"></h:message>
     <f:verbatim><br></f:verbatim>
-    <h:inputText value="#{BloggerRegistration.password}" id="password">
+    <f:verbatim>Password: </f:verbatim>
+    <h:inputText value="#{Registration.password}" id="password">
         <f:validateLength minimum="3" maximum="255"></f:validateLength>
     </h:inputText>
     <h:message for="password" styleClass="RED"></h:message>
     <f:verbatim><br></f:verbatim>
-    <h:inputText value="#{BloggerRegistration.firstname}" id="firstname">
+    <f:verbatim>First Name: </f:verbatim>
+    <h:inputText value="#{Registration.firstname}" id="firstname">
         <f:validateLength minimum="3" maximum="255"></f:validateLength>
     </h:inputText>
     <h:message for="firstname" styleClass="RED"></h:message>
     <f:verbatim><br></f:verbatim>
-    <h:inputText value="#{BloggerRegistration.lastname}" id="lastname">
+    <f:verbatim>Last Name: </f:verbatim>
+    <h:inputText value="#{Registration.lastname}" id="lastname">
         <f:validateLength minimum="3" maximum="255"></f:validateLength>
     </h:inputText>
     <h:message for="lastname" styleClass="RED"></h:message>
     <f:verbatim><br></f:verbatim>
-    <h:commandButton action="#{BloggerRegistration.registerAction}"></h:commandButton>
+    <h:commandButton action="#{Registration.registerAction}" title="Create Account"></h:commandButton>
 </h:form>
 
 

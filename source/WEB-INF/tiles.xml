@@ -55,12 +55,12 @@
         <put name="body" value="/page2.jsp" />
     </definition>
 
-    <definition name="/blogger-registration.tiles" extends="layout.example" >
-        <put name="body" value="/blogger-registration.jsp" />
+    <definition name="/registration.tiles" extends="layout.example" >
+        <put name="body" value="/registration.jsp" />
     </definition>
 
-    <definition name="/blogger-registration-success.tiles" extends="layout.example" >
-        <put name="body" value="/blogger-registration-success.jsp" />
+    <definition name="/registration-success.tiles" extends="layout.example" >
+        <put name="body" value="/registration-success.jsp" />
     </definition>
 
     <!-- workaround for non-tiles JSF pages-->

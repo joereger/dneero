@@ -8,6 +8,13 @@
             <column name="userid" />
             <generator class="native" />
         </id>
+
+        <set name="userroles" inverse="true" cascade="all-delete-orphan">
+            <cache usage="nonstrict-read-write"/>
+            <key column="userid"></key>
+            <one-to-many class="com.dneero.dao.Userrole" not-found="ignore"></one-to-many>
+        </set>
+
         <property name="email" type="string">
             <column name="email" not-null="true" />
         </property>

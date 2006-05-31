@@ -9,7 +9,7 @@ import com.dneero.util.GeneralException;
  * Date: Apr 21, 2006
  * Time: 10:38:03 AM
  */
-public class BloggerRegistration {
+public class Registration {
 
     //Form props
     private String email;
@@ -22,7 +22,7 @@ public class BloggerRegistration {
 
     Logger logger = Logger.getLogger(this.getClass().getName());
 
-    public BloggerRegistration(){
+    public Registration(){
 
     }
 

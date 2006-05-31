@@ -2,8 +2,8 @@
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h"%>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f"%>
 <h:panelGrid columns="1" >
-    <h:commandLink action="blogger_registration">
-        <h:outputText value="Blogger Registration" />
+    <h:commandLink action="registration">
+        <h:outputText value="Registration" />
     </h:commandLink>
     <h:commandLink action="nav_page1">
         <h:outputText value="Page1" />

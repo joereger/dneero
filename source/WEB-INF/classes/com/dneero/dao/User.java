@@ -5,6 +5,9 @@ import com.dneero.dao.hibernate.BasePersistentClass;
 import com.dneero.dao.hibernate.RegerEntity;
 import com.dneero.dao.hibernate.HibernateUtil;
 import org.apache.log4j.Logger;
+
+import java.util.Set;
+import java.util.HashSet;
 // Generated Apr 17, 2006 3:45:25 PM by Hibernate Tools 3.1.0.beta4
 
 
@@ -23,6 +26,15 @@ public class User extends BasePersistentClass implements java.io.Serializable, R
      private String password;
      private String firstname;
      private String lastname;
+
+     //Association
+    private Set<Userrole> userroles = new HashSet<Userrole>();
+    public Set<Userrole> getUserroles() {
+        return userroles;
+    }
+    public void setUserroles(Set<Userrole> userroles) {
+        this.userroles = userroles;
+    }
 
     //Validator
     public void validateRegerEntity() throws GeneralException {
