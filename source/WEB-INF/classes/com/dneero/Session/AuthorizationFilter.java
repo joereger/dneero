@@ -34,10 +34,12 @@ public class AuthorizationFilter implements Filter{
         HttpServletResponse httpResponse = (HttpServletResponse)response;
         HttpSession session = httpRequest.getSession();
         String requestPath = httpRequest.getPathInfo();
-        logger.debug("Auth filter called for requestPath="+requestPath+" sessionid="+session.getId());
+
+        logger.debug("Auth filter called for requestPath="+requestPath+" httpRequest.getServletPath()="+httpRequest.getServletPath()+" sessionid="+session.getId());
         UserSession userSession = (UserSession)session.getAttribute(UserSession.SESSIONLOOKUPKEY);
         if (userSession==null){
             userSession = new UserSession();
+            session.setAttribute(UserSession.SESSIONLOOKUPKEY, userSession);
         }
 
         boolean isAuthorized = false;
@@ -53,12 +55,23 @@ public class AuthorizationFilter implements Filter{
                 }
             }
         }
-        if (requestPath!=null && requestPath.indexOf("marketer")>0){
+        if (requestPath!=null && requestPath.indexOf("researcher")>0){
             isPageprotected = true;
             for (Iterator<Userrole> iterator = userSession.getUser().getUserroles().iterator(); iterator.hasNext();) {
                 Userrole userrole = iterator.next();
-                if (userrole.getRoleid()==Roles.MARKETER){
-                    logger.debug("Marketer authorized.");
+                if (userrole.getRoleid()==Roles.RESEARCHER){
+                    logger.debug("Researcher authorized.");
+                    isAuthorized = true;
+                }
+            }
+        }
+
+        if (requestPath!=null && requestPath.indexOf("account")>0){
+            isPageprotected = true;
+            for (Iterator<Userrole> iterator = userSession.getUser().getUserroles().iterator(); iterator.hasNext();) {
+                Userrole userrole = iterator.next();
+                if (userrole.getRoleid()!=Roles.ANONYMOUS){
+                    logger.debug("Non-anonymous authorized for common account section.");
                     isAuthorized = true;
                 }
             }

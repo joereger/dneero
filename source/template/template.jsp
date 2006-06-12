@@ -7,6 +7,7 @@
   <meta http-equiv="Content-Type" content="text/html;CHARSET=iso-8859-1" />
   <title>dNeero - blog for pay or pay for blog</title>
   <link rel="stylesheet" type="text/css" href="/css/tiles.css" />
+  <link rel="stylesheet" type="text/css" href="/css/basic.css" />
 </head>
 <f:view>
 <body>

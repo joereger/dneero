@@ -8,7 +8,7 @@ body {
 #level1 {
 }
 #level2 {
-    margin-left:150px;
+    margin-left:225px;
     padding:15px;
 }
 #topBar {
@@ -18,6 +18,6 @@ body {
 #lftBar {
     background:#e6e6e6;
     position:absolute;
-    width:120px;
+    width:200px;
     top:200px;
 }

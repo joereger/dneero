@@ -16,7 +16,8 @@ import com.dneero.util.GeneralException;
 
 public class BasePersistentClass implements Lifecycle, Validatable, Serializable {
 
-   Logger logger = Logger.getLogger(this.getClass().getName());
+    //private Logger logger = Logger.getLogger(this.getClass().getName());
+    private static Logger logger = Logger.getLogger(BasePersistentClass.class);
 
    public void save() throws GeneralException {
        logger.debug("save() called on "+this.getClass().getName());

@@ -25,6 +25,26 @@
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
 
+
+    <managed-bean>
+        <managed-bean-name>UserList</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.UserList</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>BloggerOfferList</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.BloggerOfferList</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>ResearcherOfferList</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.ResearcherOfferList</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+
     <navigation-rule>
         <from-view-id>/registration.jsp</from-view-id>
         <navigation-case>
@@ -37,24 +57,24 @@
     <navigation-rule>
         <from-view-id>*</from-view-id>
         <navigation-case>
-            <from-outcome>nav_page1</from-outcome>
-            <to-view-id>/page1.jsp</to-view-id>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>nav_page2</from-outcome>
-            <to-view-id>/page2.jsp</to-view-id>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>nav_page3</from-outcome>
-            <to-view-id>/non-tile.jsp</to-view-id>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>nav_page4</from-outcome>
-            <to-view-id>/page4.jsp</to-view-id>
+            <from-outcome>home</from-outcome>
+            <to-view-id>/index.jsp</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>registration</from-outcome>
             <to-view-id>/registration.jsp</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>userlist</from-outcome>
+            <to-view-id>/userlist.jsp</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>bloggerofferlist</from-outcome>
+            <to-view-id>/blogger/bloggerofferlist.jsp</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>researcherofferlist</from-outcome>
+            <to-view-id>/researcher/researcherofferlist.jsp</to-view-id>
         </navigation-case>
     </navigation-rule>
 
