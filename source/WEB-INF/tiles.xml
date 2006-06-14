@@ -67,6 +67,10 @@
         <put name="body" value="/blogger/bloggerofferlist.jsp" />
     </definition>
 
+    <definition name="/blogger/bloggerofferdetail.tiles" extends="layout.example" >
+        <put name="body" value="/blogger/bloggerofferdetail.jsp" />
+    </definition>
+
     <definition name="/researcher/researcherofferlist.tiles" extends="layout.example" >
         <put name="body" value="/researcher/researcherofferlist.jsp" />
     </definition>

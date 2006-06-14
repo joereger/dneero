@@ -20,7 +20,7 @@ public class UserList extends SortableList {
 
     public UserList() {
         //Default sort column
-        super("email");
+        super("userid");
         //Go get the users from the database
         users = HibernateUtil.getSession().createQuery("from User").list();
     }
@@ -46,6 +46,7 @@ public class UserList extends SortableList {
             public int compare(Object o1, Object o2) {
                 User user1 = (User)o1;
                 User user2 = (User)o2;
+
                 if (column == null) {
                     return 0;
                 }
@@ -53,6 +54,8 @@ public class UserList extends SortableList {
                     return ascending ? user1.getEmail().compareTo(user2.getEmail()) : user2.getEmail().compareTo(user1.getEmail());
                 } else if (column.equals("firstname")) {
                     return ascending ? user1.getFirstname().compareTo(user2.getFirstname()) : user2.getFirstname().compareTo(user1.getFirstname());
+                } else if (column.equals("userid")){
+                    return ascending ? user2.getUserid()-user1.getUserid() : user1.getUserid()-user2.getUserid() ;
                 } else {
                     return 0;
                 }

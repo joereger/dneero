@@ -39,6 +39,16 @@
     </managed-bean>
 
     <managed-bean>
+        <managed-bean-name>BloggerOfferDetail</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.BloggerOfferDetail</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+        <managed-property>
+            <property-name>offer</property-name>
+            <value>#{offer}</value>
+        </managed-property>
+    </managed-bean>
+
+    <managed-bean>
         <managed-bean-name>ResearcherOfferList</managed-bean-name>
         <managed-bean-class>com.dneero.formbeans.ResearcherOfferList</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
@@ -73,10 +83,22 @@
             <to-view-id>/blogger/bloggerofferlist.jsp</to-view-id>
         </navigation-case>
         <navigation-case>
+            <from-outcome>bloggerofferdetail</from-outcome>
+            <to-view-id>/blogger/bloggerofferdetail.jsp</to-view-id>
+        </navigation-case>
+        <navigation-case>
             <from-outcome>researcherofferlist</from-outcome>
             <to-view-id>/researcher/researcherofferlist.jsp</to-view-id>
         </navigation-case>
     </navigation-rule>
+
+    <navigation-rule>
+		<from-view-id>/blogger/bloggerofferlist.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>beginview_success</from-outcome>
+			<to-view-id>/blogger/bloggerofferdetail.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
 
 	<navigation-rule>
 		<from-view-id>/non-tile.jsp</from-view-id>
