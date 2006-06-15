@@ -47,13 +47,6 @@
         <put name="menu" value="/common/navigation.jsp" />
     </definition>
 
-    <definition name="/page1.tiles" extends="layout.example" >
-        <put name="body" value="/page1.jsp" />
-    </definition>
-
-    <definition name="/page2.tiles" extends="layout.example" >
-        <put name="body" value="/page2.jsp" />
-    </definition>
 
     <definition name="/registration.tiles" extends="layout.example" >
         <put name="body" value="/registration.jsp" />
@@ -71,8 +64,24 @@
         <put name="body" value="/blogger/bloggerofferdetail.jsp" />
     </definition>
 
+    <definition name="/blogger/index.tiles" extends="layout.example" >
+        <put name="body" value="/blogger/index.jsp" />
+    </definition>
+
+    <definition name="/blogger/earnings.tiles" extends="layout.example" >
+        <put name="body" value="/blogger/earnings.jsp" />
+    </definition>
+
+    <definition name="/researcher/index.tiles" extends="layout.example" >
+        <put name="body" value="/researcher/index.jsp" />
+    </definition>
+
     <definition name="/researcher/researcherofferlist.tiles" extends="layout.example" >
         <put name="body" value="/researcher/researcherofferlist.jsp" />
+    </definition>
+
+    <definition name="/researcher/newoffer.tiles" extends="layout.example" >
+        <put name="body" value="/researcher/newoffer.jsp" />
     </definition>
 
     <definition name="/registration-success.tiles" extends="layout.example" >

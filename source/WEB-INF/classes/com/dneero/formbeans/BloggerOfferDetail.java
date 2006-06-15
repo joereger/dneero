@@ -26,17 +26,13 @@ public class BloggerOfferDetail {
 
     public String beginView(){
         logger.debug("beginView called: offer.offerid="+offer.getOfferid());
-
         String tmpOfferid = (String)FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("offerid");
         if (com.dneero.util.Num.isinteger(tmpOfferid)){
             logger.debug("beginView called: found offerid in param="+tmpOfferid);
             this.offer = Offer.get(Integer.parseInt(tmpOfferid));
         } else {
-            logger.debug("beginView called: NOT found offerid in param="+tmpOfferid);   
+            logger.debug("beginView called: NOT found offerid in param="+tmpOfferid);
         }
-
-
-
         return "bloggerofferdetail";
     }
 
@@ -47,6 +43,5 @@ public class BloggerOfferDetail {
     public void setOffer(Offer offer) {
         this.offer = offer;
     }
-
 
 }

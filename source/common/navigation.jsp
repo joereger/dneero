@@ -28,15 +28,23 @@
                     </t:commandNavigation2>
                 </t:commandNavigation2>
                 <t:commandNavigation2 value="Bloggers" action="bloggerhome">
-                    <t:commandNavigation2 action="bloggerofferlist">
+                    <t:commandNavigation2 action="bloggerofferlist" >
                         <f:verbatim> </f:verbatim>
                         <t:outputText value="Offers"/>
+                    </t:commandNavigation2>
+                    <t:commandNavigation2 action="bloggerearnings">
+                        <f:verbatim> </f:verbatim>
+                        <t:outputText value="Earnings"/>
                     </t:commandNavigation2>
                 </t:commandNavigation2>
                 <t:commandNavigation2 value="Researchers" action="researcherhome">
                     <t:commandNavigation2 action="researcherofferlist">
                         <f:verbatim> </f:verbatim>
                         <t:outputText value="Offers"/>
+                    </t:commandNavigation2>
+                    <t:commandNavigation2 action="newoffer">
+                        <f:verbatim> </f:verbatim>
+                        <t:outputText value="New Offer"/>
                     </t:commandNavigation2>
                 </t:commandNavigation2>
                 <t:commandNavigation2 value="Admin" action="adminhome">
