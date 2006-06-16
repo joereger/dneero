@@ -10,14 +10,15 @@
 
 <faces-config>
     <application>
-        <view-handler>org.apache.myfaces.application.jsp.JspTilesViewHandlerImpl</view-handler>
+        <view-handler>org.apache.myfaces.tomahawk.application.jsp.JspTilesViewHandlerImpl</view-handler>
     </application>
 
-	<managed-bean>
-        <managed-bean-name>tilesBacking</managed-bean-name>
-        <managed-bean-class>org.apache.myfaces.tiles.example.TilesBacking</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
-    </managed-bean>
+    <application>
+        <locale-config>
+          <default-locale>en_US</default-locale>
+        </locale-config>
+    </application>
+
 
     <managed-bean>
         <managed-bean-name>Registration</managed-bean-name>
@@ -61,27 +62,19 @@
     </managed-bean>
 
     <managed-bean>
+        <managed-bean-name>Login</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.Login</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
         <managed-bean-name>ResearcherOfferList</managed-bean-name>
         <managed-bean-class>com.dneero.formbeans.ResearcherOfferList</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
 
 
-    <navigation-rule>
-        <from-view-id>/registration.jsp</from-view-id>
-        <navigation-case>
-            <from-outcome>success</from-outcome>
-            <to-view-id>/registration-success.jsp</to-view-id>
-        </navigation-case>
-    </navigation-rule>
 
-    <navigation-rule>
-        <from-view-id>/researcher/newoffer.jsp</from-view-id>
-        <navigation-case>
-            <from-outcome>success</from-outcome>
-            <to-view-id>/researcher/researcherofferlist.jsp</to-view-id>
-        </navigation-case>
-    </navigation-rule>
 
 
     <navigation-rule>
@@ -93,6 +86,10 @@
         <navigation-case>
             <from-outcome>registration</from-outcome>
             <to-view-id>/registration.jsp</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>login</from-outcome>
+            <to-view-id>/login.jsp</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>userlist</from-outcome>
@@ -137,11 +134,20 @@
 	</navigation-rule>
 
 	<navigation-rule>
-		<from-view-id>/non-tile.jsp</from-view-id>
-		<navigation-case>
-			<from-outcome>back</from-outcome>
-			<to-view-id>/page1.jsp</to-view-id>
-		</navigation-case>
-	</navigation-rule>    
+        <from-view-id>/registration.jsp</from-view-id>
+        <navigation-case>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/registration-success.jsp</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/researcher/newoffer.jsp</from-view-id>
+        <navigation-case>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/researcher/researcherofferlist.jsp</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
 
 </faces-config>

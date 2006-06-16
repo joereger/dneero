@@ -56,6 +56,10 @@
         <put name="body" value="/userlist.jsp" />
     </definition>
 
+    <definition name="/login.tiles" extends="layout.example" >
+        <put name="body" value="/login.jsp" />
+    </definition>
+
     <definition name="/blogger/bloggerofferlist.tiles" extends="layout.example" >
         <put name="body" value="/blogger/bloggerofferlist.jsp" />
     </definition>
@@ -92,17 +96,7 @@
         <put name="body" value="/index.jsp" />
     </definition>
 
-    <!-- workaround for non-tiles JSF pages-->
-    <definition name="non.tiles1" path="/non-tile.jsp" />	
+    
 
-    <!-- nested tiles definition -->
-    <definition name="nested.example" path="/template/template2.jsp" >
-        <put name="nested1" value="/common/nested1.jsp" />
-        <put name="nested2" value="/common/nested2.jsp" />
-    </definition>
-
-    <definition name="/page4.tiles" extends="layout.example" >
-        <put name="body" value="nested.example" />
-    </definition>
 
 </tiles-definitions>

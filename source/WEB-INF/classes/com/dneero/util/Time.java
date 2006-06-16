@@ -18,6 +18,7 @@ public class Time {
 	* The offset var = the user's timezone offset
 	*/
 	public static Calendar usertogmttime(Calendar date, String timezoneid){
+
 	    //System.out.println("-----------");
 	    //System.out.println("-----------");
 	    //System.out.println("timezoneid: "+timezoneid+"<br>dateformatfordb(date): " +reger.core.TimeUtils.dateformatfordb(date) + "<br>date.getTimeZone().getID():"+date.getTimeZone().getID());

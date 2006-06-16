@@ -1,22 +1,23 @@
 <%@ taglib uri="http://myfaces.apache.org/tomahawk" prefix="t"%>
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h"%>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f"%>
-<%--
+
+<h:form>
 <h:panelGrid columns="1" >
-    <h:commandLink action="registration">
-        <h:outputText value="Registration" />
-    </h:commandLink>
-    <h:commandLink action="userlist">
-        <h:outputText value="User List" />
-    </h:commandLink>
-    <h:commandLink action="bloggerofferlist">
-        <h:outputText value="Blogger Offer List" />
-    </h:commandLink>
-    <h:commandLink action="researcherofferlist">
-        <h:outputText value="Researcher Offer List" />
-    </h:commandLink>
+    <h:commandLink value="Home" action="home"/>
+    <h:commandLink value="Sign Up" action="registration" style="padding-left: 25px;"/>
+    <h:commandLink value="   Log In" action="login" style="padding-left: 25px;"/>
+    <h:commandLink value="Bloggers" action="bloggerhome"/>
+    <h:commandLink value="   Offers" action="bloggerofferlist" style="padding-left: 25px;"/>
+    <h:commandLink value="   Earnings" action="bloggerearnings" style="padding-left: 25px;"/>
+    <h:commandLink value="Researchers" action="researcherhome"/>
+    <h:commandLink value="   Offers" action="researcherofferlist" style="padding-left: 25px;"/>
+    <h:commandLink value="   New Offer" action="newoffer" style="padding-left: 25px;"/>
+    <h:commandLink value="Admins" action="adminhome"/>
+    <h:commandLink value="   Users" action="userlist" style="padding-left: 25px;"/>
 </h:panelGrid>
---%>
+</h:form>
+<%--
 <t:div id="subnavigation_outer">
     <t:div id="subnavigation">
         <h:form>
@@ -25,6 +26,10 @@
                     <t:commandNavigation2 action="registration">
                         <f:verbatim> </f:verbatim>
                         <t:outputText value="Sign Up"/>
+                    </t:commandNavigation2>
+                    <t:commandNavigation2 action="login">
+                        <f:verbatim> </f:verbatim>
+                        <t:outputText value="Log In"/>
                     </t:commandNavigation2>
                 </t:commandNavigation2>
                 <t:commandNavigation2 value="Bloggers" action="bloggerhome">
@@ -57,5 +62,6 @@
         </h:form>
     </t:div>
 </t:div>
+--%>
 
 

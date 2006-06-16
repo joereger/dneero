@@ -1,7 +1,38 @@
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h"%>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f"%>
-<%@ taglib uri="http://myfaces.apache.org/extensions" prefix="t"%>
+<%@ taglib uri="http://myfaces.apache.org/tomahawk" prefix="t"%>
 
+
+<%--
+<h:form>
+    <af:table value="#{UserList.users}" bandingInterval="2" banding="row" var="user">
+      <af:column>
+        <f:facet name="header">
+          <af:outputText value="Userid"/>
+        </f:facet>
+        <af:outputText value="#{user.userid}"/>
+      </af:column>
+      <af:column>
+        <f:facet name="header">
+          <af:outputText value="Email"/>
+        </f:facet>
+        <af:outputText value="#{user.email}"/>
+      </af:column>
+      <af:column>
+        <f:facet name="header">
+          <af:outputText value="First Name"/>
+        </f:facet>
+        <af:outputText value="#{user.firstname}"/>
+      </af:column>
+      <af:column>
+        <f:facet name="header">
+          <af:outputText value="Last Name"/>
+        </f:facet>
+        <af:outputText value="#{user.lastname}"/>
+      </af:column>
+    </af:table>
+</h:form>
+--%>
 
 
 <h:form>
@@ -45,22 +76,8 @@
             </f:facet>
             <h:outputText value="#{user.firstname}"/>
         </t:column>
-
-        <t:column>
-            <%-- Below is shown the use of the t:updateActionListener tag, which
-            sets the employee.id of our backing bean (employeeAction) and we can then use that
-            employee.id in that Action. I find this much cleaner than using f:param and having
-            to pull request params from the FacesContext. --%>
-            <%--
-            <t:commandLink action="#{UserList.prepareForEdit}">
-                <h:outputText value="Edit" />
-                <t:updateActionListener property="#{UserList.user.id}" value="#{user.id}" />
-            </t:commandLink>
-            --%>
-        </t:column>
     </t:dataTable>
 
-    <%--
     <h:panelGrid columns="1" styleClass="scrollerTable2" columnClasses="standardTable_ColumnCentered" >
         <t:dataScroller id="scroll_1"
                         for="usertable"
@@ -93,10 +110,6 @@
         </t:dataScroller>
 
     </h:panelGrid>
-    --%>
-
-
-
 
 </h:form>
 
