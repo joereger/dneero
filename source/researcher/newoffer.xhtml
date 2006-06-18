@@ -1,10 +1,17 @@
-<%@ taglib uri="http://java.sun.com/jsf/html" prefix="h"%>
-<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f"%>
-<%@ taglib uri="http://myfaces.apache.org/tomahawk" prefix="t"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:t="http://myfaces.apache.org/tomahawk">
+
+<ui:composition template="/template/template-facelets.xhtml">
+    <ui:define name="body">
 
 <h:form>
-    <h:panelGrid columns="3" cellpadding="3" border="1">
-        <%-- Title --%>
+    <h:panelGrid columns="3" cellpadding="3" border="0">
         <h:panelGroup>
             <h:outputText value="Offer Title"></h:outputText>
         </h:panelGroup>
@@ -17,7 +24,6 @@
             <h:message for="title" styleClass="RED"></h:message>
         </h:panelGroup>
 
-        <%-- Description --%>
         <h:panelGroup>
             <h:outputText value="Description"></h:outputText>
         </h:panelGroup>
@@ -30,13 +36,12 @@
             <h:message for="description" styleClass="RED"></h:message>
         </h:panelGroup>
 
-        <%-- Willingtopayperrespondent --%>
+
         <h:panelGroup>
             <h:outputText value="Willing to Pay Per Respondent"></h:outputText>
         </h:panelGroup>
         <h:panelGroup>
             <h:inputText value="#{NewOffer.willingtopayperrespondent}" id="willingtopayperrespondent" required="true">
-                <%--<f:converter converterId="javax.faces.convert.DoubleConverter"/>--%>
                 <f:validateDoubleRange minimum="0" maximum="10000"></f:validateDoubleRange>
             </h:inputText>
         </h:panelGroup>
@@ -44,13 +49,12 @@
             <h:message for="willingtopayperrespondent" styleClass="RED"></h:message>
         </h:panelGroup>
 
-        <%-- Numberofrespondentsrequested --%>
+
         <h:panelGroup>
             <h:outputText value="Number of Respondents Requested"></h:outputText>
         </h:panelGroup>
         <h:panelGroup>
             <h:inputText value="#{NewOffer.numberofrespondentsrequested}" id="numberofrespondentsrequested" required="true">
-                <%--<f:converter converterId="javax.faces.convert.IntegerConverter"/>--%>
                 <f:validateDoubleRange minimum="100" maximum="10000000"></f:validateDoubleRange>
             </h:inputText>
         </h:panelGroup>
@@ -58,7 +62,7 @@
             <h:message for="numberofrespondentsrequested" styleClass="RED"></h:message>
         </h:panelGroup>
 
-        <%-- Startdate --%>
+
         <h:panelGroup>
             <h:outputText value="Start Date"></h:outputText>
         </h:panelGroup>
@@ -69,7 +73,7 @@
             <h:message for="startdate" styleClass="RED"></h:message>
         </h:panelGroup>
 
-        <%-- Enddate --%>
+
         <h:panelGroup>
             <h:outputText value="End Date"></h:outputText>
         </h:panelGroup>
@@ -80,7 +84,7 @@
             <h:message for="enddate" styleClass="RED"></h:message>
         </h:panelGroup>
 
-        <%-- Submit Button --%>
+
         <h:panelGroup>
             <h:commandButton action="#{NewOffer.createNewOffer}" title="Create Offer"></h:commandButton>
         </h:panelGroup>
@@ -91,3 +95,9 @@
 
     </h:panelGrid>
 </h:form>
+
+</ui:define>
+
+
+</ui:composition>
+</html>

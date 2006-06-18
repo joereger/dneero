@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:t="http://myfaces.apache.org/tomahawk">
+
+<ui:composition template="/template/template-facelets.xhtml">
+    <ui:define name="body">
+
+
+<h:form>
+
+    <h:panelGrid columns="2" cellpadding="3" border="0">
+
+        <h:panelGroup>
+            <h:outputText value="Offerid"/>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:outputText value="#{BloggerOfferDetail.offer.offerid}"/>
+        </h:panelGroup>
+
+        <h:panelGroup>
+            <h:outputText value="Title"/>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:outputText value="#{BloggerOfferDetail.offer.title}"/>
+        </h:panelGroup>
+
+        <h:panelGroup>
+            <h:outputText value="Description"/>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:outputText value="#{BloggerOfferDetail.offer.description}"/>
+        </h:panelGroup>
+
+        <h:panelGroup>
+            <h:outputText value="Willing to Pay Respondent"/>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:outputText value="#{BloggerOfferDetail.offer.willingtopayperrespondent}"/>
+        </h:panelGroup>
+
+        <h:panelGroup>
+            <h:outputText value="Number of Respondents Requested"/>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:outputText value="#{BloggerOfferDetail.offer.numberofrespondentsrequested}"/>
+        </h:panelGroup>
+
+        <h:panelGroup>
+            <h:outputText value="Start Date"/>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:outputText value="#{BloggerOfferDetail.offer.startdate}"/>
+        </h:panelGroup>
+
+        <h:panelGroup>
+            <h:outputText value="End Date"/>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:outputText value="#{BloggerOfferDetail.offer.enddate}"/>
+        </h:panelGroup>
+
+
+     </h:panelGrid>
+
+</h:form>
+
+</ui:define>
+
+
+</ui:composition>
+</html>
+
+

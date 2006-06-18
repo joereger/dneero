@@ -1,11 +1,19 @@
-<%@ taglib uri="http://java.sun.com/jsf/html" prefix="h"%>
-<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f"%>
-<%@ taglib uri="http://myfaces.apache.org/tomahawk" prefix="t"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:t="http://myfaces.apache.org/tomahawk">
+
+<ui:composition template="/template/template-facelets.xhtml">
+    <ui:define name="body">
 
 
 <h:form>
     <h:panelGrid columns="3" cellpadding="3" border="0">
-        <%-- Email --%>
+
         <h:panelGroup>
             <h:outputText value="Email"></h:outputText>
         </h:panelGroup>
@@ -18,7 +26,7 @@
             <h:message for="email" styleClass="RED"></h:message>
         </h:panelGroup>
 
-        <%-- Password --%>
+
         <h:panelGroup>
             <h:outputText value="Password"></h:outputText>
         </h:panelGroup>
@@ -31,7 +39,7 @@
             <h:message for="password" styleClass="RED"></h:message>
         </h:panelGroup>
 
-        <%-- Submit Button --%>
+
         <h:panelGroup>
             <h:commandButton action="#{Login.login}" title="Log In"></h:commandButton>
         </h:panelGroup>
@@ -43,4 +51,8 @@
     </h:panelGrid>
 </h:form>
 
+</ui:define>
 
+
+</ui:composition>
+</html>

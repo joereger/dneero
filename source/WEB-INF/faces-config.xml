@@ -9,15 +9,12 @@
 ]>
 
 <faces-config>
-    <!--
-    <application>
-        <view-handler>org.apache.myfaces.tomahawk.application.jsp.JspTilesViewHandlerImpl</view-handler>
-    </application>
-    -->
 
+    <!--
     <application>
         <view-handler>com.sun.facelets.FaceletViewHandler</view-handler>
       </application>
+      -->
 
 
     <application>
@@ -26,11 +23,11 @@
         </locale-config>
     </application>
 
-    <!--
+
     <application>
         <default-render-kit-id>oracle.adf.core</default-render-kit-id>
     </application>
-    -->
+
 
 
     <managed-bean>

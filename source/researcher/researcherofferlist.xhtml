@@ -1,9 +1,14 @@
-<%@ taglib uri="http://java.sun.com/jsf/html" prefix="h"%>
-<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f"%>
-<%@ taglib uri="http://myfaces.apache.org/tomahawk" prefix="t"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:t="http://myfaces.apache.org/tomahawk">
 
-
+<ui:composition template="/template/template-facelets.xhtml">
+    <ui:define name="body">
 
     <h:form>
         <t:dataTable id="usertable"
@@ -55,24 +60,16 @@
                 <h:outputText value="#{offer.willingtopayperrespondent}"/>
             </t:column>
 
-            <t:column>
-                <%-- Below is shown the use of the t:updateActionListener tag, which
-                sets the employee.id of our backing bean (employeeAction) and we can then use that
-                employee.id in that Action. I find this much cleaner than using f:param and having
-                to pull request params from the FacesContext. --%>
-                <%--
-                <t:commandLink action="#{UserList.prepareForEdit}">
-                    <h:outputText value="Edit" />
-                    <t:updateActionListener property="#{UserList.user.id}" value="#{user.id}" />
-                </t:commandLink>
-                --%>
-            </t:column>
         </t:dataTable>
 
 
     </h:form>
 
+</ui:define>
 
+
+</ui:composition>
+</html>
 
 
 

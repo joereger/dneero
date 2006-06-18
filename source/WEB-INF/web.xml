@@ -28,14 +28,6 @@
         <param-value>true</param-value>
     </context-param>
 
-
-    <!--
-    <context-param>
-    	<param-name>tiles-definitions</param-name>
-    	<param-value>/WEB-INF/tiles.xml</param-value>
-    </context-param>
-    -->
-
     <filter>
         <filter-name>MyFacesExtensionsFilter</filter-name>
         <filter-class>org.apache.myfaces.webapp.filter.ExtensionsFilter</filter-class>
@@ -101,11 +93,11 @@
 
 
 
-    <!--
     <context-param>
-        <param-name>oracle.adf.view.faces.ALTERNATE_VIEW_HANDLER</param-name>
-        <param-value>org.apache.myfaces.tomahawk.application.jsp.JspTilesViewHandlerImpl</param-value>
-    </context-param>
+    <param-name>oracle.adf.view.faces.ALTERNATE_VIEW_HANDLER</param-name>
+    <param-value>com.sun.facelets.FaceletViewHandler</param-value>
+  </context-param>
+    
     <filter>
         <filter-name>adfFaces</filter-name>
         <filter-class>oracle.adf.view.faces.webapp.AdfFacesFilter</filter-class>
@@ -122,7 +114,6 @@
         <servlet-name>resources</servlet-name>
         <url-pattern>/adf/*</url-pattern>
     </servlet-mapping>
-    -->
 
 
 
