@@ -91,71 +91,71 @@
         <from-view-id>*</from-view-id>
         <navigation-case>
             <from-outcome>home</from-outcome>
-            <to-view-id>/index.jsp</to-view-id>
+            <to-view-id>/index.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>registration</from-outcome>
-            <to-view-id>/registration.jsp</to-view-id>
+            <to-view-id>/registration.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>login</from-outcome>
-            <to-view-id>/login.jsp</to-view-id>
+            <to-view-id>/login.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>userlist</from-outcome>
-            <to-view-id>/userlist.jsp</to-view-id>
+            <to-view-id>/userlist.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>researcherhome</from-outcome>
-            <to-view-id>/researcher/index.jsp</to-view-id>
+            <to-view-id>/researcher/index.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>newoffer</from-outcome>
-            <to-view-id>/researcher/newoffer.jsp</to-view-id>
+            <to-view-id>/researcher/newoffer.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>bloggerearnings</from-outcome>
-            <to-view-id>/blogger/earnings.jsp</to-view-id>
+            <to-view-id>/blogger/earnings.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>bloggerhome</from-outcome>
-            <to-view-id>/blogger/index.jsp</to-view-id>
+            <to-view-id>/blogger/index.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>bloggerofferlist</from-outcome>
-            <to-view-id>/blogger/bloggerofferlist.jsp</to-view-id>
+            <to-view-id>/blogger/bloggerofferlist.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>bloggerofferdetail</from-outcome>
-            <to-view-id>/blogger/bloggerofferdetail.jsp</to-view-id>
+            <to-view-id>/blogger/bloggerofferdetail.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>researcherofferlist</from-outcome>
-            <to-view-id>/researcher/researcherofferlist.jsp</to-view-id>
+            <to-view-id>/researcher/researcherofferlist.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
 
     <navigation-rule>
-		<from-view-id>/blogger/bloggerofferlist.jsp</from-view-id>
+		<from-view-id>/blogger/bloggerofferlist.xhtml</from-view-id>
 		<navigation-case>
 			<from-outcome>beginview_success</from-outcome>
-			<to-view-id>/blogger/bloggerofferdetail.jsp</to-view-id>
+			<to-view-id>/blogger/bloggerofferdetail.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 
 	<navigation-rule>
-        <from-view-id>/registration.jsp</from-view-id>
+        <from-view-id>/registration.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>success</from-outcome>
-            <to-view-id>/registration-success.jsp</to-view-id>
+            <to-view-id>/registration-success.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
 
     <navigation-rule>
-        <from-view-id>/researcher/newoffer.jsp</from-view-id>
+        <from-view-id>/researcher/newoffer.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>success</from-outcome>
-            <to-view-id>/researcher/researcherofferlist.jsp</to-view-id>
+            <to-view-id>/researcher/researcherofferlist.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
 

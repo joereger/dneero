@@ -74,12 +74,10 @@
         <param-value>.xhtml</param-value>
     </context-param>
 
-
     <context-param>
         <param-name>facelets.LIBRARIES</param-name>
         <param-value>/WEB-INF/tomahawk.taglib.xml</param-value>
     </context-param>
-
 
     <context-param>
         <param-name>facelets.DEVELOPMENT</param-name>
@@ -94,10 +92,9 @@
 
 
     <context-param>
-    <param-name>oracle.adf.view.faces.ALTERNATE_VIEW_HANDLER</param-name>
-    <param-value>com.sun.facelets.FaceletViewHandler</param-value>
-  </context-param>
-    
+        <param-name>oracle.adf.view.faces.ALTERNATE_VIEW_HANDLER</param-name>
+        <param-value>com.sun.facelets.FaceletViewHandler</param-value>
+    </context-param>
     <filter>
         <filter-name>adfFaces</filter-name>
         <filter-class>oracle.adf.view.faces.webapp.AdfFacesFilter</filter-class>
@@ -115,11 +112,29 @@
         <url-pattern>/adf/*</url-pattern>
     </servlet-mapping>
 
+    <!--
+    <context-param>
+        <param-name>facelets.LIBRARIES</param-name>
+        <param-value>/WEB-INF/ajaxanywhere.taglib.xml</param-value>
+    </context-param>
+    <filter>
+        <filter-name>AjaxAnywhere</filter-name>
+        <filter-class>org.ajaxanywhere.AAFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>AjaxAnywhere</filter-name>
+        <url-pattern>*.xhtml</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>AjaxAnywhere</filter-name>
+        <url-pattern>*.jsf</url-pattern>
+    </filter-mapping>
+    -->
 
 
     <welcome-file-list>
+        <welcome-file>index.xhtml</welcome-file>
         <welcome-file>index.jsf</welcome-file>
-        <welcome-file>index.jsp</welcome-file>
         <welcome-file>index.html</welcome-file>
     </welcome-file-list>
 

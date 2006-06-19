@@ -6,11 +6,11 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:t="http://myfaces.apache.org/tomahawk"
-      xmlns:af="http://xmlns.oracle.com/adf/faces">
+      xmlns:af="http://xmlns.oracle.com/adf/faces"
+      xmlns:aa="http://ajaxanywhere.sourceforge.net/">
 
 <ui:composition template="/template/template-facelets.xhtml">
     <ui:define name="body">
-
 
 <h:form>
     <af:table value="#{UserList.users}" bandingInterval="2" rows="15" banding="row" var="user">
@@ -40,7 +40,6 @@
       </af:column>
     </af:table>
 </h:form>
-
 
 
 

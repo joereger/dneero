@@ -11,33 +11,74 @@
     <ui:define name="body">
 
         <h:form>
-            <f:verbatim><br/></f:verbatim>
-            <f:verbatim>Email: </f:verbatim>
-            <h:inputText value="#{Registration.email}" id="email" required="true">
-                <f:validateLength minimum="3" maximum="255"></f:validateLength>
-                <t:validateEmail></t:validateEmail>
-            </h:inputText>
-            <h:message for="email" styleClass="RED"></h:message>
-            <f:verbatim><br/></f:verbatim>
-            <f:verbatim>Password: </f:verbatim>
-            <h:inputText value="#{Registration.password}" id="password">
-                <f:validateLength minimum="3" maximum="255"></f:validateLength>
-            </h:inputText>
-            <h:message for="password" styleClass="RED"></h:message>
-            <f:verbatim><br/></f:verbatim>
-            <f:verbatim>First Name: </f:verbatim>
-            <h:inputText value="#{Registration.firstname}" id="firstname">
-                <f:validateLength minimum="3" maximum="255"></f:validateLength>
-            </h:inputText>
-            <h:message for="firstname" styleClass="RED"></h:message>
-            <f:verbatim><br/></f:verbatim>
-            <f:verbatim>Last Name: </f:verbatim>
-            <h:inputText value="#{Registration.lastname}" id="lastname">
-                <f:validateLength minimum="3" maximum="255"></f:validateLength>
-            </h:inputText>
-            <h:message for="lastname" styleClass="RED"></h:message>
-            <f:verbatim><br/></f:verbatim>
-            <h:commandButton action="#{Registration.registerAction}" title="Create Account"></h:commandButton>
+
+            <h:panelGrid columns="3" cellpadding="3" border="0">
+
+                <h:panelGroup>
+                    <h:outputText value="Email"></h:outputText>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:inputText value="#{Registration.email}" id="email" required="true">
+                        <f:validateLength minimum="3" maximum="255"></f:validateLength>
+                        <t:validateEmail></t:validateEmail>
+                    </h:inputText>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:message for="email" styleClass="RED"></h:message>
+                </h:panelGroup>
+
+
+                <h:panelGroup>
+                    <h:outputText value="Password"></h:outputText>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:inputSecret value="#{Registration.password}" id="password" required="true">
+                        <f:validateLength minimum="3" maximum="255"></f:validateLength>
+                    </h:inputSecret>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:message for="password" styleClass="RED"></h:message>
+                </h:panelGroup>
+
+
+                <h:panelGroup>
+                    <h:outputText value="First Name"></h:outputText>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:inputText value="#{Registration.firstname}" id="firstname" required="true">
+                        <f:validateLength minimum="1" maximum="255"></f:validateLength>
+                    </h:inputText>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:message for="firstname" styleClass="RED"></h:message>
+                </h:panelGroup>
+
+                <h:panelGroup>
+                    <h:outputText value="Last Name"></h:outputText>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:inputText value="#{Registration.lastname}" id="lastname" required="true">
+                        <f:validateLength minimum="1" maximum="255"></f:validateLength>
+                    </h:inputText>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:message for="lastname" styleClass="RED"></h:message>
+                </h:panelGroup>
+
+
+                <h:panelGroup>
+                    <h:commandButton action="#{Registration.registerAction}" title="Sign Up"></h:commandButton>
+                </h:panelGroup>
+                <h:panelGroup>
+                </h:panelGroup>
+                <h:panelGroup>
+                </h:panelGroup>
+
+            </h:panelGrid>
+
+
+
+
         </h:form>
 
     </ui:define>

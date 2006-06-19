@@ -5,7 +5,8 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:t="http://myfaces.apache.org/tomahawk">
+      xmlns:t="http://myfaces.apache.org/tomahawk"
+      xmlns:af="http://xmlns.oracle.com/adf/faces">
 
 <ui:composition template="/template/template-facelets.xhtml">
     <ui:define name="body">
@@ -13,62 +14,44 @@
 
 
 <h:form>
-    <t:dataTable id="usertable"
-                 var="offer"
-                 value="#{BloggerOfferList.offers}"
-                 styleClass="scrollerTable"
-                 headerClass="standardTable_Header"
-                 footerClass="standardTable_Header"
-                 rowClasses="standardTable_Row1,standardTable_Row2"
-                 columnClasses="standardTable_Column,standardTable_ColumnCentered,standardTable_Column"
-                 preserveDataModel="true"
-                 sortColumn="#{BloggerOfferList.sort}"
-                 sortAscending="#{BloggerOfferList.ascending}"
-                 rows="100"
-                 rowId="#{offer.offerid}"
-                 rendered="#{!empty BloggerOfferList.offers}"
-                 preserveSort="true"
-                 >
-        <t:column width="40px;">
-            <f:facet name="header">
-                 <h:outputText value="Offerid"/>
-            </f:facet>
-            <h:outputText value="#{offer.offerid}"/>
-            <h:inputHidden value="#{offer.offerid}"/>
-        </t:column>
-        <t:column style="width:200px;">
-            <f:facet name="header">
-                <t:commandSortHeader columnName="title">
-                    <h:outputText value="Title"/>
-                </t:commandSortHeader>
-            </f:facet>
-            <t:outputText value="#{offer.title}"/>
-        </t:column>
-        <t:column>
-            <f:facet name="header">
-                <t:commandSortHeader columnName="description">
-                    <h:outputText value="Description"/>
-                </t:commandSortHeader>
-            </f:facet>
-            <h:outputText value="#{offer.description}"/>
-        </t:column>
 
-        <t:column>
-            <f:facet name="header">
-                <t:commandSortHeader columnName="willingtopayperrespondent">
-                    <h:outputText value="Willing to Pay"/>
-                </t:commandSortHeader>
-            </f:facet>
-            <h:outputText value="#{offer.willingtopayperrespondent}"/>
-        </t:column>
 
-        <t:column>
-            <h:commandLink action="#{BloggerOfferDetail.beginView}">
-                <h:outputText value="View" escape="false" />
-                <f:param name="offerid" value="#{offer.offerid}" />
-            </h:commandLink>
-        </t:column>
-    </t:dataTable>
+
+    <af:table value="#{BloggerOfferList.offers}" bandingInterval="2" rows="15" banding="row" var="offer">
+      <af:column>
+        <f:facet name="header">
+          <af:outputText value="Offerid"/>
+        </f:facet>
+        <af:outputText value="#{offer.offerid}"/>
+      </af:column>
+      <af:column>
+        <f:facet name="header">
+          <af:outputText value="Title"/>
+        </f:facet>
+        <af:outputText value="#{offer.title}"/>
+      </af:column>
+      <af:column>
+        <f:facet name="header">
+          <af:outputText value="Description"/>
+        </f:facet>
+        <af:outputText value="#{offer.description}"/>
+      </af:column>
+      <af:column>
+        <f:facet name="header">
+          <af:outputText value="Willing to Pay"/>
+        </f:facet>
+        <af:outputText value="#{offer.willingtopayperrespondent}"/>
+      </af:column>
+      <af:column>
+        <f:facet name="header">
+          <af:outputText value="Willing to Pay"/>
+        </f:facet>
+        <h:commandLink action="#{BloggerOfferDetail.beginView}">
+            <h:outputText value="View" escape="false" />
+            <f:param name="offerid" value="#{offer.offerid}" />
+        </h:commandLink>
+      </af:column>
+    </af:table>
 
 
 </h:form>
