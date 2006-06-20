@@ -11,9 +11,9 @@ import org.apache.log4j.Logger;
  */
 public class UserSession {
     Logger logger = Logger.getLogger(this.getClass().getName());
-
-    private com.dneero.dao.User user;
     public static final String SESSIONLOOKUPKEY = "dneerosessionkey";
+    private com.dneero.dao.User user;
+    private boolean isloggedin = false;
 
     public UserSession(){
         //Used for anonymous access
@@ -32,5 +32,11 @@ public class UserSession {
         this.user = user;
     }
 
+    public boolean isIsloggedin() {
+        return isloggedin;
+    }
 
+    public void setIsloggedin(boolean isloggedin) {
+        this.isloggedin = isloggedin;
+    }
 }

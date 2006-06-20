@@ -3,9 +3,18 @@ package com.dneero.formbeans;
 import org.apache.log4j.Logger;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Iterator;
 
 import com.dneero.dao.Offer;
+import com.dneero.dao.User;
+import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.util.GeneralException;
+import com.dneero.session.UserSession;
+
+import javax.faces.context.FacesContext;
+import javax.faces.el.ValueBinding;
+import javax.servlet.http.HttpSession;
 
 /**
  * User: Joe Reger Jr
@@ -27,10 +36,28 @@ public class Login {
     public String login(){
         logger.debug("login() called.");
 
+        List users = HibernateUtil.getSession().createQuery("FROM User as user WHERE user.email='"+email+"' AND user.password='"+password+"'").setMaxResults(1).list();
+        for (Iterator it = users.iterator(); it.hasNext(); ) {
+            User user = (User)it.next();
+            UserSession userSession = new UserSession();
+            userSession.setUser(user);
+            userSession.setIsloggedin(true);
+
+            FacesContext ctx = FacesContext.getCurrentInstance();
+            ValueBinding binding = ctx.getApplication().createValueBinding("#{userSession}");
+            binding.setValue(ctx, userSession);
+
+            //HttpSession session = (HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+            //session.setAttribute(UserSession.SESSIONLOOKUPKEY, userSession);
+
+           
+
+            return "success";
+        }
 
 
 
-        return "success";
+        return "failure";
     }
 
     public String getEmail() {

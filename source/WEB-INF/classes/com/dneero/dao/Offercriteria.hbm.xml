@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 17, 2006 3:45:28 PM by Hibernate Tools 3.1.0.beta4 -->
+<hibernate-mapping>
+    <class name="com.dneero.dao.Offercriteria" table="offercriteria">
+        <id name="offercriteriaid" type="int">
+            <column name="offercriteriaid" />
+            <generator class="native" />
+        </id>
+        <set name="offercriteriaethnicity" inverse="true" cascade="all-delete-orphan">
+            <cache usage="nonstrict-read-write"/>
+            <key column="offercriteriaid"></key>
+            <one-to-many class="com.dneero.dao.Offercriteriaethnicity" not-found="ignore"></one-to-many>
+        </set>
+        <set name="offercriteriamaritalstatus" inverse="true" cascade="all-delete-orphan">
+            <cache usage="nonstrict-read-write"/>
+            <key column="offercriteriaid"></key>
+            <one-to-many class="com.dneero.dao.Offercriteriamaritalstatus" not-found="ignore"></one-to-many>
+        </set>
+        <set name="offercriteriaincomerange" inverse="true" cascade="all-delete-orphan">
+            <cache usage="nonstrict-read-write"/>
+            <key column="offercriteriaid"></key>
+            <one-to-many class="com.dneero.dao.Offercriteriaincomerange" not-found="ignore"></one-to-many>
+        </set>
+        <set name="offercriteriaeducationlevel" inverse="true" cascade="all-delete-orphan">
+            <cache usage="nonstrict-read-write"/>
+            <key column="offercriteriaid"></key>
+            <one-to-many class="com.dneero.dao.Offercriteriaeducationlevel" not-found="ignore"></one-to-many>
+        </set>
+        <property name="offerid" type="int">
+            <column name="offerid" not-null="true" />
+        </property>
+        <property name="agemin" type="int">
+            <column name="agemin" not-null="true" />
+        </property>
+        <property name="agemax" type="int">
+            <column name="agemax" not-null="true" />
+        </property>
+        <property name="gender" type="int">
+            <column name="gender" not-null="true" />
+        </property>
+
+    </class>
+</hibernate-mapping>

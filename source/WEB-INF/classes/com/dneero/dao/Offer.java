@@ -7,6 +7,8 @@ import com.dneero.dao.hibernate.RegerEntity;
 import com.dneero.dao.hibernate.HibernateUtil;
 
 import java.util.Date;
+import java.util.Set;
+import java.util.HashSet;
 
 import org.apache.log4j.Logger;
 
@@ -28,9 +30,20 @@ public class Offer extends BasePersistentClass implements java.io.Serializable, 
      private Date startdate;
      private Date enddate;
 
+     private Set<Offercriteria> offercriteria = new HashSet<Offercriteria>();
+
+    public Set<Offercriteria> getOffercriteria() {
+        return offercriteria;
+    }
+
+    public void setOffercriteria(Set<Offercriteria> offercriteria) {
+        this.offercriteria = offercriteria;
+    }
+
+
     //Validator
     public void validateRegerEntity() throws GeneralException {
-
+      
     }
 
     //Loader
@@ -140,10 +153,6 @@ public class Offer extends BasePersistentClass implements java.io.Serializable, 
     public void setEnddate(Date enddate) {
         this.enddate = enddate;
     }
-
-
-
-
 
 
 

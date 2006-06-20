@@ -18,7 +18,7 @@
                     <h:outputText value="Email"></h:outputText>
                 </h:panelGroup>
                 <h:panelGroup>
-                    <h:inputText value="#{Registration.email}" id="email" required="true">
+                    <h:inputText value="#{registration.email}" id="email" required="true">
                         <f:validateLength minimum="3" maximum="255"></f:validateLength>
                         <t:validateEmail></t:validateEmail>
                     </h:inputText>
@@ -32,7 +32,7 @@
                     <h:outputText value="Password"></h:outputText>
                 </h:panelGroup>
                 <h:panelGroup>
-                    <h:inputSecret value="#{Registration.password}" id="password" required="true">
+                    <h:inputSecret value="#{registration.password}" id="password" required="true">
                         <f:validateLength minimum="3" maximum="255"></f:validateLength>
                     </h:inputSecret>
                 </h:panelGroup>
@@ -45,7 +45,7 @@
                     <h:outputText value="First Name"></h:outputText>
                 </h:panelGroup>
                 <h:panelGroup>
-                    <h:inputText value="#{Registration.firstname}" id="firstname" required="true">
+                    <h:inputText value="#{registration.firstname}" id="firstname" required="true">
                         <f:validateLength minimum="1" maximum="255"></f:validateLength>
                     </h:inputText>
                 </h:panelGroup>
@@ -57,7 +57,7 @@
                     <h:outputText value="Last Name"></h:outputText>
                 </h:panelGroup>
                 <h:panelGroup>
-                    <h:inputText value="#{Registration.lastname}" id="lastname" required="true">
+                    <h:inputText value="#{registration.lastname}" id="lastname" required="true">
                         <f:validateLength minimum="1" maximum="255"></f:validateLength>
                     </h:inputText>
                 </h:panelGroup>
@@ -67,7 +67,7 @@
 
 
                 <h:panelGroup>
-                    <h:commandButton action="#{Registration.registerAction}" title="Sign Up"></h:commandButton>
+                    <h:commandButton action="#{registration.registerAction}" title="Sign Up"></h:commandButton>
                 </h:panelGroup>
                 <h:panelGroup>
                 </h:panelGroup>

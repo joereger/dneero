@@ -28,35 +28,39 @@
         <default-render-kit-id>oracle.adf.core</default-render-kit-id>
     </application>
 
-
+    <managed-bean>
+        <managed-bean-name>userSession</managed-bean-name>
+        <managed-bean-class>com.dneero.session.UserSession</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
 
     <managed-bean>
-        <managed-bean-name>Registration</managed-bean-name>
+        <managed-bean-name>registration</managed-bean-name>
         <managed-bean-class>com.dneero.formbeans.Registration</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
 
 
     <managed-bean>
-        <managed-bean-name>UserList</managed-bean-name>
+        <managed-bean-name>userList</managed-bean-name>
         <managed-bean-class>com.dneero.formbeans.UserList</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
 
     <managed-bean>
-        <managed-bean-name>BloggerOfferList</managed-bean-name>
+        <managed-bean-name>bloggerOfferList</managed-bean-name>
         <managed-bean-class>com.dneero.formbeans.BloggerOfferList</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
 
     <managed-bean>
-        <managed-bean-name>BloggerEarnings</managed-bean-name>
+        <managed-bean-name>bloggerEarnings</managed-bean-name>
         <managed-bean-class>com.dneero.formbeans.BloggerEarnings</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
 
     <managed-bean>
-        <managed-bean-name>BloggerOfferDetail</managed-bean-name>
+        <managed-bean-name>bloggerOfferDetail</managed-bean-name>
         <managed-bean-class>com.dneero.formbeans.BloggerOfferDetail</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
         <managed-property>
@@ -66,19 +70,19 @@
     </managed-bean>
 
     <managed-bean>
-        <managed-bean-name>NewOffer</managed-bean-name>
+        <managed-bean-name>newOffer</managed-bean-name>
         <managed-bean-class>com.dneero.formbeans.NewOffer</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
 
     <managed-bean>
-        <managed-bean-name>Login</managed-bean-name>
+        <managed-bean-name>login</managed-bean-name>
         <managed-bean-class>com.dneero.formbeans.Login</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
 
     <managed-bean>
-        <managed-bean-name>ResearcherOfferList</managed-bean-name>
+        <managed-bean-name>researcherOfferList</managed-bean-name>
         <managed-bean-class>com.dneero.formbeans.ResearcherOfferList</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
@@ -132,6 +136,18 @@
         <navigation-case>
             <from-outcome>researcherofferlist</from-outcome>
             <to-view-id>/researcher/researcherofferlist.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/login.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/blogger/index.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>failure</from-outcome>
+            <to-view-id>/login.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
 

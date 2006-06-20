@@ -3,9 +3,9 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated Apr 17, 2006 3:45:26 PM by Hibernate Tools 3.1.0.beta4 -->
 <hibernate-mapping>
-    <class name="com.dneero.dao.Marketer" table="marketer">
-        <id name="marketerid" type="int">
-            <column name="marketerid" />
+    <class name="com.dneero.dao.Researcher" table="researcher">
+        <id name="researcherid" type="int">
+            <column name="researcherid" />
             <generator class="native" />
         </id>
     </class>

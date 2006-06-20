@@ -8,8 +8,8 @@
             <column name="bloggerid" />
             <generator class="native" />
         </id>
-        <property name="age" type="int">
-            <column name="age" not-null="true" />
+        <property name="birthdate" type="timestamp">
+            <column name="birthdate" length="19" not-null="true" />
         </property>
         <property name="gender" type="int">
             <column name="gender" not-null="true" />
@@ -26,5 +26,8 @@
         <property name="educationlevel" type="int">
             <column name="educationlevel" not-null="true" />
         </property>
+
+
+
     </class>
 </hibernate-mapping>

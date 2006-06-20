@@ -5,6 +5,8 @@ import com.dneero.dao.hibernate.BasePersistentClass;
 import com.dneero.dao.hibernate.RegerEntity;
 import com.dneero.dao.hibernate.HibernateUtil;
 import org.apache.log4j.Logger;
+
+import java.util.Date;
 // Generated Apr 17, 2006 3:45:23 PM by Hibernate Tools 3.1.0.beta4
 
 
@@ -16,10 +18,40 @@ import org.apache.log4j.Logger;
 public class Blogger extends BasePersistentClass implements java.io.Serializable, RegerEntity {
 
 
-    // Fields    
+    public static int GENDERMALE = 0;
+    public static int GENDERFEMALE = 1;
+    //http://www.whitehouse.gov/omb/fedreg/race-ethnicity.html
+    public static int ETHNICITYWHITENOTHISPANIC = 0;
+    public static int ETHNICITYBLACKNOTHISPANIC = 1;
+    public static int ETHNICITYHISPANIC = 2;
+    public static int ETHNICITYASIAN = 3;
+    public static int ETHNICITYAMERICANINDIAN = 4;
+    public static int MARITALSTATUSSINGLE = 0;
+    public static int MARITALSTATUSMARRIED = 1;
+    public static int MARITALSTATUSDIVORCED = 2;
+    public static int MARITALSTATUSENGAGED = 3;
+    public static int INCOMERANGE0TO20000 = 0;
+    public static int INCOMERANGE20001TO30000 = 1;
+    public static int INCOMERANGE30001TO40000 = 2;
+    public static int INCOMERANGE40001TO50000 = 3;
+    public static int INCOMERANGE50001TO60000 = 4;
+    public static int INCOMERANGE60001TO70000 = 5;
+    public static int INCOMERANGE70001TO80000 = 6;
+    public static int INCOMERANGE80001TO90000 = 7;
+    public static int INCOMERANGE90001TO100000 = 8;
+    public static int INCOMERANGE100001TO150000 = 9;
+    public static int INCOMERANGE150001TO200000 = 10;
+    public static int INCOMERANGE200001TO400000 = 11;
+    public static int INCOMERANGE400001ANDABOVE = 12;
+    public static int EDUCATIONLEVELNONE = 0;
+    public static int EDUCATIONLEVELHIGHSCHOOL = 1;
+    public static int EDUCATIONLEVELSOMECOLLEGE = 2;
+    public static int EDUCATIONLEVELCOLLEGE = 3;
+    public static int EDUCATIONLEVELADVANCEDDEGREE = 4;
 
+    // Fields
      private int bloggerid;
-     private int age;
+     private Date birthdate;
      private int gender;
      private int ethnicity;
      private int maritalstatus;
@@ -60,9 +92,9 @@ public class Blogger extends BasePersistentClass implements java.io.Serializable
 
     
     /** full constructor */
-    public Blogger(int bloggerid, int age, int gender, int ethnicity, int maritalstatus, int incomerange, int educationlevel) {
+    public Blogger(int bloggerid, Date birthdate, int gender, int ethnicity, int maritalstatus, int incomerange, int educationlevel) {
         this.bloggerid = bloggerid;
-        this.age = age;
+        this.birthdate = birthdate;
         this.gender = gender;
         this.ethnicity = ethnicity;
         this.maritalstatus = maritalstatus;
@@ -82,12 +114,12 @@ public class Blogger extends BasePersistentClass implements java.io.Serializable
         this.bloggerid = bloggerid;
     }
 
-    public int getAge() {
-        return this.age;
+    public Date getBirthdate() {
+        return birthdate;
     }
-    
-    public void setAge(int age) {
-        this.age = age;
+
+    public void setBirthdate(Date birthdate) {
+        this.birthdate = birthdate;
     }
 
     public int getGender() {

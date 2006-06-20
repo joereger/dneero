@@ -17,7 +17,7 @@
 
 
 
-    <af:table value="#{BloggerOfferList.offers}" bandingInterval="2" rows="15" banding="row" var="offer">
+    <af:table value="#{bloggerOfferList.offers}" bandingInterval="2" rows="15" banding="row" var="offer">
       <af:column>
         <f:facet name="header">
           <af:outputText value="Offerid"/>
@@ -46,7 +46,7 @@
         <f:facet name="header">
           <af:outputText value="Willing to Pay"/>
         </f:facet>
-        <h:commandLink action="#{BloggerOfferDetail.beginView}">
+        <h:commandLink action="#{bloggerOfferDetail.beginView}">
             <h:outputText value="View" escape="false" />
             <f:param name="offerid" value="#{offer.offerid}" />
         </h:commandLink>
