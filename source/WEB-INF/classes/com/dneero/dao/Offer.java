@@ -30,20 +30,18 @@ public class Offer extends BasePersistentClass implements java.io.Serializable, 
      private Date startdate;
      private Date enddate;
 
-     private Set<Offercriteria> offercriteria = new HashSet<Offercriteria>();
-
-    public Set<Offercriteria> getOffercriteria() {
+     private Offercriteria offercriteria;
+     public Offercriteria getOffercriteria() {
         return offercriteria;
-    }
-
-    public void setOffercriteria(Set<Offercriteria> offercriteria) {
+     }
+     public void setOffercriteria(Offercriteria offercriteria) {
         this.offercriteria = offercriteria;
-    }
+     }
 
 
     //Validator
     public void validateRegerEntity() throws GeneralException {
-      
+
     }
 
     //Loader

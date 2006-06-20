@@ -75,11 +75,7 @@
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
 
-    <managed-bean>
-        <managed-bean-name>login</managed-bean-name>
-        <managed-bean-class>com.dneero.formbeans.Login</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
-    </managed-bean>
+
 
     <managed-bean>
         <managed-bean-name>researcherOfferList</managed-bean-name>

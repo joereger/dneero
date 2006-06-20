@@ -11,6 +11,7 @@
     <ui:define name="body">
 
 <h:form>
+    <h:messages />
     <h:panelGrid columns="3" cellpadding="3" border="0">
         <h:panelGroup>
             <h:outputText value="Offer Title"></h:outputText>
@@ -83,6 +84,27 @@
         <h:panelGroup>
             <h:message for="enddate" styleClass="RED"></h:message>
         </h:panelGroup>
+
+
+
+        <h:panelGroup>
+            <h:outputText value="Age"></h:outputText>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:inputText value="#{newOffer.agemin}" id="agemin" required="true">
+                <f:validateDoubleRange minimum="1" maximum="120"></f:validateDoubleRange>
+            </h:inputText>
+            <h:outputText value=" - "></h:outputText>
+            <h:inputText value="#{newOffer.agemax}" id="agemax" required="true">
+                <f:validateDoubleRange minimum="1" maximum="120"></f:validateDoubleRange>
+            </h:inputText>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:message for="agemin" styleClass="RED"></h:message>
+            <h:message for="agemax" styleClass="RED"></h:message>
+        </h:panelGroup>
+
+
 
 
         <h:panelGroup>

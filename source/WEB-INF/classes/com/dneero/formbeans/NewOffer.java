@@ -1,9 +1,12 @@
 package com.dneero.formbeans;
 
 import com.dneero.dao.Offer;
+import com.dneero.dao.Offercriteria;
 import com.dneero.util.GeneralException;
 import org.apache.log4j.Logger;
 
+import javax.faces.context.FacesContext;
+import javax.faces.application.FacesMessage;
 import java.util.Date;
 
 /**
@@ -13,13 +16,15 @@ import java.util.Date;
  */
 public class NewOffer {
 
-    //private Offer offer;
+//    private Offer offer;
     private String title;
     private String description;
     private double willingtopayperrespondent;
     private int numberofrespondentsrequested;
     private Date startdate;
     private Date enddate;
+    private int agemin;
+    private int agemax;
 
     Logger logger = Logger.getLogger(this.getClass().getName());
 
@@ -43,8 +48,28 @@ public class NewOffer {
             offer.save();
         } catch (GeneralException gex){
             logger.debug("createNewOffer failed: " + gex.getErrorsAsSingleString());
+            String message = "New Offer creation failed: " + gex.getErrorsAsSingleString();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage( FacesMessage.SEVERITY_INFO, message, message));
             return null;
         }
+
+        Offercriteria offercriteria = new Offercriteria();
+        offercriteria.setOfferid(offer.getOfferid());
+        offercriteria.setAgemin(agemin);
+        offercriteria.setAgemax(agemax);
+
+        try{
+            offercriteria.save();
+        } catch (GeneralException gex){
+            logger.debug("createNewOffer failed: " + gex.getErrorsAsSingleString());
+            String message = "New Offer creation failed: " + gex.getErrorsAsSingleString();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage( FacesMessage.SEVERITY_INFO, message, message));
+            return null;
+        }
+
+        offer.setOffercriteria(offercriteria);
+
+
         return "success";
     }
 
@@ -102,6 +127,22 @@ public class NewOffer {
 
     public void setEnddate(Date enddate) {
         this.enddate = enddate;
+    }
+
+    public int getAgemin() {
+        return agemin;
+    }
+
+    public void setAgemin(int agemin) {
+        this.agemin = agemin;
+    }
+
+    public int getAgemax() {
+        return agemax;
+    }
+
+    public void setAgemax(int agemax) {
+        this.agemax = agemax;
     }
 
 }

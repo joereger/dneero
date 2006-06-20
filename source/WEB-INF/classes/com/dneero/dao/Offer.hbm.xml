@@ -8,11 +8,14 @@
             <column name="offerid" />
             <generator class="native" />
         </id>
+        <!--
         <set name="offercriteria" inverse="true" cascade="all-delete-orphan">
             <cache usage="nonstrict-read-write"/>
             <key column="offerid"></key>
             <one-to-many class="com.dneero.dao.Offercriteria" not-found="ignore"></one-to-many>
         </set>
+        -->
+        <one-to-one name="offercriteria" class="com.dneero.dao.Offercriteria" property-ref="offerid" cascade="all"/>
         <property name="title" type="string">
             <column name="title" not-null="true" />
         </property>
