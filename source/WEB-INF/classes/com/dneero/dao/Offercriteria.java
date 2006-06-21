@@ -24,7 +24,14 @@ public class Offercriteria extends BasePersistentClass implements java.io.Serial
      private int offerid;
      private int agemin;
      private int agemax;
-     private int gender;
+
+    private Set<Offercriteriagender> offercriteriagender = new HashSet<Offercriteriagender>();
+    public Set<Offercriteriagender> getOffercriteriagender() {
+        return offercriteriagender;
+    }
+    public void setOffercriteriagender(Set<Offercriteriagender> offercriteriagender) {
+        this.offercriteriagender = offercriteriagender;
+    }
 
     private Set<Offercriteriaethnicity> offercriteriaethnicity = new HashSet<Offercriteriaethnicity>();
     public Set<Offercriteriaethnicity> getOffercriteriaethnicity() {
@@ -128,13 +135,7 @@ public class Offercriteria extends BasePersistentClass implements java.io.Serial
         this.agemax = agemax;
     }
 
-    public int getGender() {
-        return gender;
-    }
 
-    public void setGender(int gender) {
-        this.gender = gender;
-    }
 
 
 }

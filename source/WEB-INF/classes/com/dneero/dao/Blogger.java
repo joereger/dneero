@@ -18,37 +18,6 @@ import java.util.Date;
 public class Blogger extends BasePersistentClass implements java.io.Serializable, RegerEntity {
 
 
-    public static int GENDERMALE = 0;
-    public static int GENDERFEMALE = 1;
-    //http://www.whitehouse.gov/omb/fedreg/race-ethnicity.html
-    public static int ETHNICITYWHITENOTHISPANIC = 0;
-    public static int ETHNICITYBLACKNOTHISPANIC = 1;
-    public static int ETHNICITYHISPANIC = 2;
-    public static int ETHNICITYASIAN = 3;
-    public static int ETHNICITYAMERICANINDIAN = 4;
-    public static int MARITALSTATUSSINGLE = 0;
-    public static int MARITALSTATUSMARRIED = 1;
-    public static int MARITALSTATUSDIVORCED = 2;
-    public static int MARITALSTATUSENGAGED = 3;
-    public static int INCOMERANGE0TO20000 = 0;
-    public static int INCOMERANGE20001TO30000 = 1;
-    public static int INCOMERANGE30001TO40000 = 2;
-    public static int INCOMERANGE40001TO50000 = 3;
-    public static int INCOMERANGE50001TO60000 = 4;
-    public static int INCOMERANGE60001TO70000 = 5;
-    public static int INCOMERANGE70001TO80000 = 6;
-    public static int INCOMERANGE80001TO90000 = 7;
-    public static int INCOMERANGE90001TO100000 = 8;
-    public static int INCOMERANGE100001TO150000 = 9;
-    public static int INCOMERANGE150001TO200000 = 10;
-    public static int INCOMERANGE200001TO400000 = 11;
-    public static int INCOMERANGE400001ANDABOVE = 12;
-    public static int EDUCATIONLEVELNONE = 0;
-    public static int EDUCATIONLEVELHIGHSCHOOL = 1;
-    public static int EDUCATIONLEVELSOMECOLLEGE = 2;
-    public static int EDUCATIONLEVELCOLLEGE = 3;
-    public static int EDUCATIONLEVELADVANCEDDEGREE = 4;
-
     // Fields
      private int bloggerid;
      private Date birthdate;

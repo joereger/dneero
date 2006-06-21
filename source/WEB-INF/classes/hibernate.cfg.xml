@@ -10,6 +10,7 @@
         <mapping resource="com/dneero/dao/Userrole.hbm.xml" />
         <mapping resource="com/dneero/dao/Offer.hbm.xml" />
         <mapping resource="com/dneero/dao/Offercriteria.hbm.xml" />
+        <mapping resource="com/dneero/dao/Offercriteriagender.hbm.xml" />
         <mapping resource="com/dneero/dao/Offercriteriaethnicity.hbm.xml" />
         <mapping resource="com/dneero/dao/Offercriteriamaritalstatus.hbm.xml" />
         <mapping resource="com/dneero/dao/Offercriteriaincomerange.hbm.xml" />

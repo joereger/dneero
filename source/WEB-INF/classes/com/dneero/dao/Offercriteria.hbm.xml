@@ -8,6 +8,11 @@
             <column name="offercriteriaid" />
             <generator class="native" />
         </id>
+        <set name="offercriteriagender" inverse="true" cascade="all-delete-orphan">
+            <cache usage="nonstrict-read-write"/>
+            <key column="offercriteriaid"></key>
+            <one-to-many class="com.dneero.dao.Offercriteriagender" not-found="ignore"></one-to-many>
+        </set>
         <set name="offercriteriaethnicity" inverse="true" cascade="all-delete-orphan">
             <cache usage="nonstrict-read-write"/>
             <key column="offercriteriaid"></key>
@@ -37,9 +42,7 @@
         <property name="agemax" type="int">
             <column name="agemax" not-null="true" />
         </property>
-        <property name="gender" type="int">
-            <column name="gender" not-null="true" />
-        </property>
+
 
     </class>
 </hibernate-mapping>

@@ -105,6 +105,68 @@
         </h:panelGroup>
 
 
+        <h:panelGroup>
+            <h:outputText value="Gender"></h:outputText>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:selectManyCheckbox value="#{newOffer.gender}" id="gender">
+                <f:selectItems value="#{genders}"/>
+            </h:selectManyCheckbox>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:message for="gender" styleClass="RED"></h:message>
+        </h:panelGroup>
+
+
+        <h:panelGroup>
+            <h:outputText value="Ethnicity"></h:outputText>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:selectManyCheckbox value="#{newOffer.ethnicity}" id="ethnicity" layout="pageDirection">
+                <f:selectItems value="#{ethnicities}"/>
+            </h:selectManyCheckbox>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:message for="ethnicity" styleClass="RED"></h:message>
+        </h:panelGroup>
+
+        <h:panelGroup>
+            <h:outputText value="Marital Status"></h:outputText>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:selectManyCheckbox value="#{newOffer.maritalstatus}" id="maritalstatus">
+                <f:selectItems value="#{maritalstatuses}"/>
+            </h:selectManyCheckbox>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:message for="maritalstatus" styleClass="RED"></h:message>
+        </h:panelGroup>
+
+        <h:panelGroup>
+            <h:outputText value="Income"></h:outputText>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:selectManyCheckbox value="#{newOffer.income}" id="income" layout="pageDirection">
+                <f:selectItems value="#{incomes}"/>
+            </h:selectManyCheckbox>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:message for="income" styleClass="RED"></h:message>
+        </h:panelGroup>
+
+        <h:panelGroup>
+            <h:outputText value="Education"></h:outputText>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:selectManyCheckbox value="#{newOffer.educationlevel}" id="educationlevel" layout="pageDirection">
+                <f:selectItems value="#{educationlevels}"/>
+            </h:selectManyCheckbox>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:message for="educationlevel" styleClass="RED"></h:message>
+        </h:panelGroup>
+
+
 
 
         <h:panelGroup>

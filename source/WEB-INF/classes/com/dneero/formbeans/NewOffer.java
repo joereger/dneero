@@ -1,13 +1,16 @@
 package com.dneero.formbeans;
 
-import com.dneero.dao.Offer;
-import com.dneero.dao.Offercriteria;
+import com.dneero.dao.*;
 import com.dneero.util.GeneralException;
+import com.dneero.util.Jsf;
 import org.apache.log4j.Logger;
 
 import javax.faces.context.FacesContext;
 import javax.faces.application.FacesMessage;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.HashSet;
 
 /**
  * User: Joe Reger Jr
@@ -19,12 +22,17 @@ public class NewOffer {
 //    private Offer offer;
     private String title;
     private String description;
-    private double willingtopayperrespondent;
-    private int numberofrespondentsrequested;
+    private double willingtopayperrespondent = 1.00;
+    private int numberofrespondentsrequested = 10000;
     private Date startdate;
     private Date enddate;
-    private int agemin;
-    private int agemax;
+    private int agemin = 13;
+    private int agemax = 100;
+    private String[] gender;
+    private String[] ethnicity;
+    private String[] maritalstatus;
+    private String[] income;
+    private String[] educationlevel;
 
     Logger logger = Logger.getLogger(this.getClass().getName());
 
@@ -58,6 +66,7 @@ public class NewOffer {
         offercriteria.setAgemin(agemin);
         offercriteria.setAgemax(agemax);
 
+
         try{
             offercriteria.save();
         } catch (GeneralException gex){
@@ -67,7 +76,105 @@ public class NewOffer {
             return null;
         }
 
-        offer.setOffercriteria(offercriteria);
+        HashMap genders = (HashMap)Jsf.getManagedBean("genders");
+        HashMap ethnicities = (HashMap)Jsf.getManagedBean("ethnicities");
+        HashMap maritalstatuses = (HashMap)Jsf.getManagedBean("maritalstatuses");
+        HashMap incomes = (HashMap)Jsf.getManagedBean("incomes");
+        HashMap educationlevels = (HashMap)Jsf.getManagedBean("educationlevels");
+
+        //Gender
+        for (int i = 0; i < gender.length; i++) {
+            if (com.dneero.util.Num.isinteger(gender[i])){
+                Offercriteriagender criteria = new Offercriteriagender();
+                criteria.setOffercriteriaid(offercriteria.getOffercriteriaid());
+                criteria.setGender(Integer.parseInt(gender[i]));
+                logger.debug("added gender: "+gender[i]);
+                try{
+                    criteria.save();
+                } catch (GeneralException gex){
+                    logger.debug("saving a criteria failed: " + gex.getErrorsAsSingleString());
+                    String message = "New Offer creation failed: " + gex.getErrorsAsSingleString();
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage( FacesMessage.SEVERITY_INFO, message, message));
+                    return null;
+                }
+            }
+        }
+
+        //Ethnicity
+        for (int i = 0; i < ethnicity.length; i++) {
+            if (com.dneero.util.Num.isinteger(ethnicity[i])){
+                Offercriteriaethnicity criteria = new Offercriteriaethnicity();
+                criteria.setOffercriteriaid(offercriteria.getOffercriteriaid());
+                criteria.setEthnicity(Integer.parseInt(ethnicity[i]));
+                logger.debug("added ethnicity: "+ethnicity[i]);
+                try{
+                    criteria.save();
+                } catch (GeneralException gex){
+                    logger.debug("saving a criteria failed: " + gex.getErrorsAsSingleString());
+                    String message = "New Offer creation failed: " + gex.getErrorsAsSingleString();
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage( FacesMessage.SEVERITY_INFO, message, message));
+                    return null;
+                }
+            }
+        }
+
+        //Marital Status
+        for (int i = 0; i < maritalstatus.length; i++) {
+            if (com.dneero.util.Num.isinteger(maritalstatus[i])){
+                Offercriteriamaritalstatus criteria = new Offercriteriamaritalstatus();
+                criteria.setOffercriteriaid(offercriteria.getOffercriteriaid());
+                criteria.setMaritalstatus(Integer.parseInt(maritalstatus[i]));
+                logger.debug("added maritalstatus: "+maritalstatus[i]);
+                try{
+                    criteria.save();
+                } catch (GeneralException gex){
+                    logger.debug("saving a criteria failed: " + gex.getErrorsAsSingleString());
+                    String message = "New Offer creation failed: " + gex.getErrorsAsSingleString();
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage( FacesMessage.SEVERITY_INFO, message, message));
+                    return null;
+                }
+            }
+        }
+
+        //Income
+        for (int i = 0; i < income.length; i++) {
+            if (com.dneero.util.Num.isinteger(income[i])){
+                Offercriteriaincomerange criteria = new Offercriteriaincomerange();
+                criteria.setOffercriteriaid(offercriteria.getOffercriteriaid());
+                criteria.setIncomerange(Integer.parseInt(income[i]));
+                logger.debug("added income: "+income[i]);
+                try{
+                    criteria.save();
+                } catch (GeneralException gex){
+                    logger.debug("saving a criteria failed: " + gex.getErrorsAsSingleString());
+                    String message = "New Offer creation failed: " + gex.getErrorsAsSingleString();
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage( FacesMessage.SEVERITY_INFO, message, message));
+                    return null;
+                }
+            }
+        }
+
+        //Education
+        for (int i = 0; i < educationlevel.length; i++) {
+            if (com.dneero.util.Num.isinteger(educationlevel[i])){
+                Offercriteriaeducationlevel criteria = new Offercriteriaeducationlevel();
+                criteria.setOffercriteriaid(offercriteria.getOffercriteriaid());
+                criteria.setEducationlevel(Integer.parseInt(educationlevel[i]));
+                logger.debug("added educationlevel: "+educationlevel[i]);
+                try{
+                    criteria.save();
+                } catch (GeneralException gex){
+                    logger.debug("saving a criteria failed: " + gex.getErrorsAsSingleString());
+                    String message = "New Offer creation failed: " + gex.getErrorsAsSingleString();
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage( FacesMessage.SEVERITY_INFO, message, message));
+                    return null;
+                }
+            }
+        }
+
+
+        //Refresh
+        offer.refresh();
 
 
         return "success";
@@ -144,5 +251,46 @@ public class NewOffer {
     public void setAgemax(int agemax) {
         this.agemax = agemax;
     }
+
+    public String[] getGender() {
+        return gender;
+    }
+
+    public void setGender(String[] gender) {
+        this.gender = gender;
+    }
+
+    public String[] getEducationlevel() {
+        return educationlevel;
+    }
+
+    public void setEducationlevel(String[] educationlevel) {
+        this.educationlevel = educationlevel;
+    }
+
+    public String[] getIncome() {
+        return income;
+    }
+
+    public void setIncome(String[] income) {
+        this.income = income;
+    }
+
+    public String[] getMaritalstatus() {
+        return maritalstatus;
+    }
+
+    public void setMaritalstatus(String[] maritalstatus) {
+        this.maritalstatus = maritalstatus;
+    }
+
+    public String[] getEthnicity() {
+        return ethnicity;
+    }
+
+    public void setEthnicity(String[] ethnicity) {
+        this.ethnicity = ethnicity;
+    }
+
 
 }
