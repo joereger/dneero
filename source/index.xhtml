@@ -5,12 +5,18 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:t="http://myfaces.apache.org/tomahawk">
+      xmlns:t="http://myfaces.apache.org/tomahawk"
+      xmlns:d="http://dneero.com/taglib">
 
 <ui:composition template="/template/template-facelets.xhtml">
     <ui:define name="body">
 
 <h:outputText value="Welcome"></h:outputText>
+
+<d:roundedCornerBox uniqueboxname="indexBox" bodycolor="00ff00">
+    <h:outputText value="Here is some text."></h:outputText>
+</d:roundedCornerBox>
+
 
 </ui:define>
 

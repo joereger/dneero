@@ -8,6 +8,9 @@
             <column name="bloggerid" />
             <generator class="native" />
         </id>
+        <property name="userid" type="int">
+            <column name="userid" not-null="true" />
+        </property>
         <property name="birthdate" type="timestamp">
             <column name="birthdate" length="19" not-null="true" />
         </property>

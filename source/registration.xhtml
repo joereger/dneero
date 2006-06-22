@@ -11,7 +11,7 @@
     <ui:define name="body">
 
         <h:form>
-
+            <h:messages />
             <h:panelGrid columns="3" cellpadding="3" border="0">
 
                 <h:panelGroup>
@@ -42,6 +42,18 @@
 
 
                 <h:panelGroup>
+                    <h:outputText value="Verify Password"></h:outputText>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:inputSecret value="#{registration.passwordverify}" id="passwordverify" required="true">
+                        <f:validateLength minimum="3" maximum="255"></f:validateLength>
+                    </h:inputSecret>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:message for="passwordverify" styleClass="RED"></h:message>
+                </h:panelGroup>
+
+                <h:panelGroup>
                     <h:outputText value="First Name"></h:outputText>
                 </h:panelGroup>
                 <h:panelGroup>
@@ -64,6 +76,84 @@
                 <h:panelGroup>
                     <h:message for="lastname" styleClass="RED"></h:message>
                 </h:panelGroup>
+
+
+
+
+
+                <h:panelGroup>
+                    <h:outputText value="Birthdate"></h:outputText>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <t:inputDate value="#{registration.birthdate}" type="both" popupCalendar="true" id="birthdate" required="true"></t:inputDate>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:message for="birthdate" styleClass="RED"></h:message>
+                </h:panelGroup>
+
+
+                <h:panelGroup>
+                    <h:outputText value="Gender"></h:outputText>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:selectOneRadio value="#{registration.gender}" id="gender" required="true">
+                        <f:selectItems value="#{genders}"/>
+                    </h:selectOneRadio>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:message for="gender" styleClass="RED"></h:message>
+                </h:panelGroup>
+
+
+                <h:panelGroup>
+                    <h:outputText value="Ethnicity"></h:outputText>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:selectOneMenu value="#{registration.ethnicity}" id="ethnicity" layout="pageDirection" required="true">
+                        <f:selectItems value="#{ethnicities}"/>
+                    </h:selectOneMenu>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:message for="ethnicity" styleClass="RED"></h:message>
+                </h:panelGroup>
+
+                <h:panelGroup>
+                    <h:outputText value="Marital Status"></h:outputText>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:selectOneMenu value="#{registration.maritalstatus}" id="maritalstatus" required="true">
+                        <f:selectItems value="#{maritalstatuses}"/>
+                    </h:selectOneMenu>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:message for="maritalstatus" styleClass="RED"></h:message>
+                </h:panelGroup>
+
+                <h:panelGroup>
+                    <h:outputText value="Income"></h:outputText>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:selectOneListbox value="#{registration.income}" id="income" layout="pageDirection" required="true">
+                        <f:selectItems value="#{incomes}"/>
+                    </h:selectOneListbox>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:message for="income" styleClass="RED"></h:message>
+                </h:panelGroup>
+
+                <h:panelGroup>
+                    <h:outputText value="Education"></h:outputText>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:selectOneMenu value="#{registration.educationlevel}" id="educationlevel" layout="pageDirection" required="true">
+                        <f:selectItems value="#{educationlevels}"/>
+                    </h:selectOneMenu>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:message for="educationlevel" styleClass="RED"></h:message>
+                </h:panelGroup>
+
+
 
 
                 <h:panelGroup>

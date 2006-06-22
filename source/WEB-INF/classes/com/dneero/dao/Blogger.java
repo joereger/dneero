@@ -20,6 +20,7 @@ public class Blogger extends BasePersistentClass implements java.io.Serializable
 
     // Fields
      private int bloggerid;
+     private int userid;
      private Date birthdate;
      private int gender;
      private int ethnicity;
@@ -74,6 +75,14 @@ public class Blogger extends BasePersistentClass implements java.io.Serializable
 
    
     // Property accessors
+
+    public int getUserid() {
+        return userid;
+    }
+
+    public void setUserid(int userid) {
+        this.userid = userid;
+    }
 
     public int getBloggerid() {
         return this.bloggerid;
