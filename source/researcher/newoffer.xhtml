@@ -5,10 +5,12 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:t="http://myfaces.apache.org/tomahawk">
+      xmlns:t="http://myfaces.apache.org/tomahawk"
+      xmlns:d="http://dneero.com/taglib">
 
 <ui:composition template="/template/template-facelets.xhtml">
     <ui:define name="body">
+    <d:authorization acl="researcher" redirectonfail="true"/>
 
 <h:form>
     <h:messages />
@@ -35,6 +37,19 @@
         </h:panelGroup>
         <h:panelGroup>
             <h:message for="description" styleClass="RED"></h:message>
+        </h:panelGroup>
+
+
+        <h:panelGroup>
+            <h:outputText value="Offer Body"></h:outputText>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:inputTextarea value="#{newOffer.offerbody}" id="offerbody" required="true" cols="45" rows="10">
+                <f:validateLength minimum="3" maximum="50000"></f:validateLength>
+            </h:inputTextarea>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:message for="offerbody" styleClass="RED"></h:message>
         </h:panelGroup>
 
 

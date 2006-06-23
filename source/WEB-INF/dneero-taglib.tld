@@ -11,66 +11,109 @@
 
 
 <tag>
-<name>roundedCornerBox</name>
-<tag-class>com.dneero.ui.RoundedCornerBox</tag-class>
+    <name>roundedCornerBox</name>
+    <tag-class>com.dneero.ui.RoundedCornerBox</tag-class>
 
-<attribute>
-<name>binding</name>
-<description>A value binding that points to a bean property</description>
-</attribute>
+    <attribute>
+    <name>binding</name>
+    <description>A value binding that points to a bean property</description>
+    </attribute>
 
-<attribute>
-<name>id</name>
-<description>The client id of this component</description>
-</attribute>
-
-
-<attribute>
-<name>rendered</name>
-<description>Is this component rendered?</description>
-</attribute>
+    <attribute>
+    <name>id</name>
+    <description>The client id of this component</description>
+    </attribute>
 
 
-<attribute>
-<name>uniqueboxname</name>
-<description>A unique name for the box so that javascrips ids don't conflict.</description>
-</attribute>
+    <attribute>
+    <name>rendered</name>
+    <description>Is this component rendered?</description>
+    </attribute>
 
-<attribute>
-<name>widthinpercent</name>
-<description>Width in percent</description>
-</attribute>
+
+    <attribute>
+    <name>uniqueboxname</name>
+    <description>A unique name for the box so that javascrips ids don't conflict.</description>
+    </attribute>
+
+    <attribute>
+    <name>widthinpercent</name>
+    <description>Width in percent</description>
+    </attribute>
+
+
+    <attribute>
+    <name>widthinpercent</name>
+    <description>Width in pixels</description>
+    </attribute>
+
+
+    <attribute>
+    <name>titlecolor</name>
+    <description>Color of title</description>
+    </attribute>
+
+    <attribute>
+    <name>subtitlecolor</name>
+    <description>Color of subtitle</description>
+    </attribute>
+
+    <attribute>
+    <name>bodycolor</name>
+    <description>Main body color</description>
+    </attribute>
+
+    <attribute>
+    <name>bordercolor</name>
+    <description>Color of the border</description>
+    </attribute>
+
+    <attribute>
+    <name>title</name>
+    <description>Title for the contents of the box</description>
+    </attribute>
+
+    <attribute>
+    <name>subtitle</name>
+    <description>A subtitle description</description>
+    </attribute>
+
 </tag>
 
-<attribute>
-<name>titlecolor</name>
-<description>Color of title</description>
-</attribute>
 
-<attribute>
-<name>subtitlecolor</name>
-<description>Color of subtitle</description>
-</attribute>
 
-<attribute>
-<name>bodycolor</name>
-<description>Main body color</description>
-</attribute>
+<tag>
+    <name>authorization</name>
+    <tag-class>com.dneero.session.Authorization</tag-class>
 
-<attribute>
-<name>bordercolor</name>
-<description>Color of the border</description>
-</attribute>
+    <attribute>
+    <name>binding</name>
+    <description>A value binding that points to a bean property</description>
+    </attribute>
 
-<attribute>
-<name>title</name>
-<description>Title for the contents of the box</description>
-</attribute>
+    <attribute>
+    <name>id</name>
+    <description>The client id of this component</description>
+    </attribute>
 
-<attribute>
-<name>subtitle</name>
-<description>A subtitle description</description>
-</attribute>
 
+    <attribute>
+    <name>rendered</name>
+    <description>Is this component rendered?</description>
+    </attribute>
+
+
+    <attribute>
+    <name>acl</name>
+    <description>acl object being controlled</description>
+    </attribute>
+
+    <attribute>
+    <name>redirectonfail</name>
+    <description>Whether or not to redirect to the login page when fail.  If false, component will simply not be rendered.</description>
+    </attribute>
+
+
+</tag>
 
 </taglib>

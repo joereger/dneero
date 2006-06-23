@@ -1,5 +1,7 @@
 package com.dneero.ui;
 
+import org.apache.log4j.Logger;
+
 import javax.faces.component.UIComponentBase;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
@@ -12,6 +14,8 @@ import java.io.IOException;
  */
 public class RoundedCornerBox extends UIComponentBase {
 
+    Logger logger = Logger.getLogger(this.getClass().getName());
+
     public String getFamily(){
         return "dNeeroUi";
     }
@@ -19,9 +23,11 @@ public class RoundedCornerBox extends UIComponentBase {
     public void encodeBegin(FacesContext context) throws IOException {
         StringBuffer mb = new StringBuffer();
         ResponseWriter writer = context.getResponseWriter();
+        
 
         String uniqueboxname = (String)getAttributes().get("uniqueboxname");
         String widthinpercentString = (String)getAttributes().get("widthinpercent");
+        String widthinpixelsString = (String)getAttributes().get("widthinpixels");
         String titlecolor = (String)getAttributes().get("titlecolor");
         String subtitlecolor = (String)getAttributes().get("subtitlecolor");
         String bodycolor = (String)getAttributes().get("bodycolor");
@@ -35,6 +41,9 @@ public class RoundedCornerBox extends UIComponentBase {
         }
         if (widthinpercentString==null){
             widthinpercentString = "100";
+        }
+        if (widthinpixelsString==null){
+            widthinpercentString = "200";
         }
         if (titlecolor==null){
             titlecolor = "000000";
@@ -57,11 +66,15 @@ public class RoundedCornerBox extends UIComponentBase {
 
 
         String x = uniqueboxname;
-        int widthinpercent = 0;
-        String width = "width=100%";
+        String width = "width:100%";
         if (com.dneero.util.Num.isinteger(widthinpercentString) && Integer.parseInt(widthinpercentString)>0){
-            width = "width="+widthinpercent+"%";
+             width = "width:"+Integer.parseInt(widthinpercentString)+"%";
         }
+        if (com.dneero.util.Num.isinteger(widthinpixelsString) && Integer.parseInt(widthinpixelsString)>0){
+             width = "width:"+Integer.parseInt(widthinpixelsString)+"px";
+        }
+
+        logger.debug("width="+width+" widthinpercentString="+widthinpercentString+ " widthinpixelsString="+widthinpixelsString);
 
         mb.append("<!-- Start Rounded Corner Box -->\n" +
                 "<style type=\"text/css\">\n" +
@@ -70,7 +83,7 @@ public class RoundedCornerBox extends UIComponentBase {
                 "#xsnazzy"+x+" h2 {font-size:2em;color:#"+subtitlecolor+"; border:0;}\n" +
                 "#xsnazzy"+x+" p {padding-bottom:0.5em;}\n" +
                 "#xsnazzy"+x+" h2 {padding-top:0.5em;}\n" +
-                "#xsnazzy"+x+" {background: transparent; margin:1em;}\n" +
+                "#xsnazzy"+x+" {background: transparent; margin:1em; "+width+"}\n" +
                 ".xtop"+x+", .xbottom"+x+" {display:block; background:transparent; font-size:1px;}\n" +
                 ".xb1"+x+", .xb2"+x+", .xb3"+x+", .xb4"+x+" {display:block; overflow:hidden;}\n" +
                 ".xb1"+x+", .xb2"+x+", .xb3"+x+" {height:1px;}\n" +
@@ -81,7 +94,7 @@ public class RoundedCornerBox extends UIComponentBase {
                 ".xb4"+x+" {height:2px; margin:0 1px;}\n" +
                 ".xboxcontent"+x+" {display:block; background:#"+bodycolor+"; border:0 solid #"+bordercolor+"; border-width:0 1px;}\n" +
                 "</style>\n" +
-                "<div id=\"xsnazzy"+x+"\" "+width+" >\n" +
+                "<div id=\"xsnazzy"+x+"\" >\n" +
                 "<b class=\"xtop"+x+"\"><b class=\"xb1"+x+"\"></b><b class=\"xb2"+x+"\"></b><b class=\"xb3"+x+"\"></b><b class=\"xb4"+x+"\"></b></b>\n" +
                 "<div class=\"xboxcontent"+x+"\">\n");
          if(title!=null && !title.equals("")){

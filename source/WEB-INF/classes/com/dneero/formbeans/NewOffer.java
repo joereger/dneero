@@ -7,10 +7,7 @@ import org.apache.log4j.Logger;
 
 import javax.faces.context.FacesContext;
 import javax.faces.application.FacesMessage;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.*;
 
 /**
  * User: Joe Reger Jr
@@ -33,6 +30,7 @@ public class NewOffer {
     private String[] maritalstatus;
     private String[] income;
     private String[] educationlevel;
+    private String offerbody;
 
     Logger logger = Logger.getLogger(this.getClass().getName());
 
@@ -51,6 +49,7 @@ public class NewOffer {
         offer.setNumberofrespondentsrequested(numberofrespondentsrequested);
         offer.setStartdate(startdate);
         offer.setEnddate(enddate);
+        offer.setOfferbody(offerbody);
 
         try{
             offer.save();
@@ -76,11 +75,11 @@ public class NewOffer {
             return null;
         }
 
-        HashMap genders = (HashMap)Jsf.getManagedBean("genders");
-        HashMap ethnicities = (HashMap)Jsf.getManagedBean("ethnicities");
-        HashMap maritalstatuses = (HashMap)Jsf.getManagedBean("maritalstatuses");
-        HashMap incomes = (HashMap)Jsf.getManagedBean("incomes");
-        HashMap educationlevels = (HashMap)Jsf.getManagedBean("educationlevels");
+        TreeMap genders = (TreeMap)Jsf.getManagedBean("genders");
+        TreeMap ethnicities = (TreeMap)Jsf.getManagedBean("ethnicities");
+        TreeMap maritalstatuses = (TreeMap)Jsf.getManagedBean("maritalstatuses");
+        TreeMap incomes = (TreeMap)Jsf.getManagedBean("incomes");
+        TreeMap educationlevels = (TreeMap)Jsf.getManagedBean("educationlevels");
 
         //Gender
         for (int i = 0; i < gender.length; i++) {
@@ -292,5 +291,11 @@ public class NewOffer {
         this.ethnicity = ethnicity;
     }
 
+    public String getOfferbody() {
+        return offerbody;
+    }
 
+    public void setOfferbody(String offerbody) {
+        this.offerbody = offerbody;
+    }
 }

@@ -9,50 +9,47 @@
 
 <ui:composition template="/template/template-facelets.xhtml">
     <ui:define name="body">
+        <h:form>
+            <h:messages styleClass="RED"/>
+            <h:panelGrid columns="3" cellpadding="3" border="0">
+
+                <h:panelGroup>
+                    <h:outputText value="Email"></h:outputText>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:inputText value="#{login.email}" id="email" required="true">
+                        <f:validateLength minimum="3" maximum="255"></f:validateLength>
+                    </h:inputText>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:message for="email" styleClass="RED"></h:message>
+                </h:panelGroup>
 
 
-<h:form>
-    <h:panelGrid columns="3" cellpadding="3" border="0">
-
-        <h:panelGroup>
-            <h:outputText value="Email"></h:outputText>
-        </h:panelGroup>
-        <h:panelGroup>
-            <h:inputText value="#{login.email}" id="email" required="true">
-                <f:validateLength minimum="3" maximum="255"></f:validateLength>
-            </h:inputText>
-        </h:panelGroup>
-        <h:panelGroup>
-            <h:message for="email" styleClass="RED"></h:message>
-        </h:panelGroup>
+                <h:panelGroup>
+                    <h:outputText value="Password"></h:outputText>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:inputSecret value="#{login.password}" id="password" required="true">
+                        <f:validateLength minimum="3" maximum="255"></f:validateLength>
+                    </h:inputSecret>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:message for="password" styleClass="RED"></h:message>
+                </h:panelGroup>
 
 
-        <h:panelGroup>
-            <h:outputText value="Password"></h:outputText>
-        </h:panelGroup>
-        <h:panelGroup>
-            <h:inputSecret value="#{login.password}" id="password" required="true">
-                <f:validateLength minimum="3" maximum="255"></f:validateLength>
-            </h:inputSecret>
-        </h:panelGroup>
-        <h:panelGroup>
-            <h:message for="password" styleClass="RED"></h:message>
-        </h:panelGroup>
+                <h:panelGroup>
+                    <h:commandButton action="#{login.login}" title="Log In"></h:commandButton>
+                </h:panelGroup>
+                <h:panelGroup>
+                </h:panelGroup>
+                <h:panelGroup>
+                </h:panelGroup>
 
+            </h:panelGrid>
+        </h:form>
 
-        <h:panelGroup>
-            <h:commandButton action="#{login.login}" title="Log In"></h:commandButton>
-        </h:panelGroup>
-        <h:panelGroup>
-        </h:panelGroup>
-        <h:panelGroup>
-        </h:panelGroup>
-
-    </h:panelGrid>
-</h:form>
-
-</ui:define>
-
-
+    </ui:define>
 </ui:composition>
 </html>

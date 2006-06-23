@@ -16,6 +16,7 @@ public class RoundedCornerBoxTaghandler extends UIComponentTag {
     // Declare a bean property for the hellomsg attribute.
     public String uniqueboxname = null;
     public String widthinpercent = null;
+    public String widthinpixels = null;
     public String titlecolor = null;
     public String subtitlecolor = null;
     public String bodycolor = null;
@@ -52,6 +53,17 @@ public class RoundedCornerBoxTaghandler extends UIComponentTag {
                 component.setValueBinding("widthinpercent", vb);
             } else {
                 component.getAttributes().put("widthinpercent", widthinpercent);
+            }
+        }
+
+        if (widthinpixels != null){
+            if (isValueReference(widthinpixels)) {
+                FacesContext context = FacesContext.getCurrentInstance();
+                Application app = context.getApplication();
+                ValueBinding vb = app.createValueBinding(widthinpixels);
+                component.setValueBinding("widthinpixels", vb);
+            } else {
+                component.getAttributes().put("widthinpixels", widthinpixels);
             }
         }
 
@@ -126,6 +138,7 @@ public class RoundedCornerBoxTaghandler extends UIComponentTag {
         super.release();
         uniqueboxname = null;
         widthinpercent = null;
+        widthinpixels = null;
         titlecolor = null;
         subtitlecolor = null;
         bodycolor = null;

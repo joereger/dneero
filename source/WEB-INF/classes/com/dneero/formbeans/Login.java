@@ -10,6 +10,7 @@ import com.dneero.dao.Offer;
 import com.dneero.dao.User;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.util.GeneralException;
+import com.dneero.util.Jsf;
 import com.dneero.session.UserSession;
 
 import javax.faces.context.FacesContext;
@@ -37,6 +38,10 @@ public class Login {
         logger.debug("login() called.");
 
         List users = HibernateUtil.getSession().createQuery("FROM User as user WHERE user.email='"+email+"' AND user.password='"+password+"'").setMaxResults(1).list();
+        if (users.size()==0){
+            Jsf.setFacesMessage("Email/password incorrect.");
+            return null;
+        }
         for (Iterator it = users.iterator(); it.hasNext(); ) {
             User user = (User)it.next();
             UserSession userSession = new UserSession();
@@ -50,12 +55,10 @@ public class Login {
             //HttpSession session = (HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(false);
             //session.setAttribute(UserSession.SESSIONLOOKUPKEY, userSession);
 
-           
+
 
             return "success";
         }
-
-
 
         return "failure";
     }

@@ -11,11 +11,25 @@
 <ui:composition template="/template/template-facelets.xhtml">
     <ui:define name="body">
 
-<h:outputText value="Welcome"></h:outputText>
 
-<d:roundedCornerBox uniqueboxname="indexBox" bodycolor="00ff00">
-    <h:outputText value="Here is some text."></h:outputText>
-</d:roundedCornerBox>
+<h:form>
+    <h:panelGrid columns="2" cellpadding="3" border="0">
+        <h:panelGroup>
+            <d:roundedCornerBox uniqueboxname="payforbloghomepage" bodycolor="e6e6e6" widthinpixels="200">
+                <h:outputText>Pay for Blog</h:outputText>
+                <f:verbatim><br/><br/></f:verbatim>
+                <h:outputText>dNeero allows advertisers and market researchers to create surveys, pay bloggers to fill them out and post them to their blogs.</h:outputText>
+            </d:roundedCornerBox>
+        </h:panelGroup>
+        <h:panelGroup>
+            <d:roundedCornerBox uniqueboxname="blogforpayhomepage" bodycolor="e6e6e6" widthinpixels="200">
+                <h:outputText>Blog for Pay</h:outputText>
+                <f:verbatim><br/><br/></f:verbatim>
+                <h:outputText>dNeero allows bloggers to make money blogging the things that they're passionate about.</h:outputText>
+            </d:roundedCornerBox>
+        </h:panelGroup>
+    </h:panelGrid>
+</h:form>
 
 
 </ui:define>

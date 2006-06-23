@@ -7,39 +7,42 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:t="http://myfaces.apache.org/tomahawk"
       xmlns:af="http://xmlns.oracle.com/adf/faces"
-      xmlns:aa="http://ajaxanywhere.sourceforge.net/">
+      xmlns:d="http://dneero.com/taglib">
+
+
 
 <ui:composition template="/template/template-facelets.xhtml">
     <ui:define name="body">
+    <d:authorization acl="systemadmin" redirectonfail="true"/>
 
-<h:form>
-    <af:table value="#{userList.users}" bandingInterval="2" rows="15" banding="row" var="user">
-      <af:column>
-        <f:facet name="header">
-          <af:outputText value="Userid"/>
-        </f:facet>
-        <af:outputText value="#{user.userid}"/>
-      </af:column>
-      <af:column>
-        <f:facet name="header">
-          <af:outputText value="Email"/>
-        </f:facet>
-        <af:outputText value="#{user.email}"/>
-      </af:column>
-      <af:column>
-        <f:facet name="header">
-          <af:outputText value="First Name"/>
-        </f:facet>
-        <af:outputText value="#{user.firstname}"/>
-      </af:column>
-      <af:column>
-        <f:facet name="header">
-          <af:outputText value="Last Name"/>
-        </f:facet>
-        <af:outputText value="#{user.lastname}"/>
-      </af:column>
-    </af:table>
-</h:form>
+    <h:form>
+        <af:table value="#{userList.users}" bandingInterval="2" rows="15" banding="row" var="user">
+          <af:column>
+            <f:facet name="header">
+              <af:outputText value="Userid"/>
+            </f:facet>
+            <af:outputText value="#{user.userid}"/>
+          </af:column>
+          <af:column>
+            <f:facet name="header">
+              <af:outputText value="Email"/>
+            </f:facet>
+            <af:outputText value="#{user.email}"/>
+          </af:column>
+          <af:column>
+            <f:facet name="header">
+              <af:outputText value="First Name"/>
+            </f:facet>
+            <af:outputText value="#{user.firstname}"/>
+          </af:column>
+          <af:column>
+            <f:facet name="header">
+              <af:outputText value="Last Name"/>
+            </f:facet>
+            <af:outputText value="#{user.lastname}"/>
+          </af:column>
+        </af:table>
+    </h:form>
 
 
 

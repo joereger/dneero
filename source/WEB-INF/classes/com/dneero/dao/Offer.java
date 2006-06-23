@@ -29,6 +29,7 @@ public class Offer extends BasePersistentClass implements java.io.Serializable, 
      private int numberofrespondentsrequested;
      private Date startdate;
      private Date enddate;
+     private String offerbody;
 
      private Offercriteria offercriteria;
      public Offercriteria getOffercriteria() {
@@ -152,8 +153,13 @@ public class Offer extends BasePersistentClass implements java.io.Serializable, 
         this.enddate = enddate;
     }
 
+    public String getOfferbody() {
+        return offerbody;
+    }
 
-
+    public void setOfferbody(String offerbody) {
+        this.offerbody = offerbody;
+    }
 
 
 }

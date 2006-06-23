@@ -13,4 +13,13 @@
         </component>
     </tag>
 
+    <tag>
+        <tag-name>authorization</tag-name>
+        <component>
+            <component-type>com.dneero.session.Authorization</component-type>
+        </component>
+    </tag>
+
+
+
 </facelet-taglib>

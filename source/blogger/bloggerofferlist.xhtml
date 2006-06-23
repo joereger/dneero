@@ -6,10 +6,12 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:t="http://myfaces.apache.org/tomahawk"
-      xmlns:af="http://xmlns.oracle.com/adf/faces">
+      xmlns:af="http://xmlns.oracle.com/adf/faces"
+      xmlns:d="http://dneero.com/taglib">
 
 <ui:composition template="/template/template-facelets.xhtml">
     <ui:define name="body">
+    <d:authorization acl="blogger" redirectonfail="true"/>
 
 
 

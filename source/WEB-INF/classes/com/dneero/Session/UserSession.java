@@ -20,10 +20,6 @@ public class UserSession {
         logger.debug("New UserSession created.");
     }
 
-    public void login(String email, String password){
-
-    }
-
     public User getUser() {
         return user;
     }
@@ -32,7 +28,7 @@ public class UserSession {
         this.user = user;
     }
 
-    public boolean isIsloggedin() {
+    public boolean getIsloggedin() {
         return isloggedin;
     }
 

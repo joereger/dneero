@@ -4,12 +4,24 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:d="http://dneero.com/taglib">
 
     <ui:define name="header">
-
-        <h:graphicImage id="logo" url="/images/dneero-logo.jpg" />
-
+        <h:form>
+            <h:panelGrid columns="2" cellpadding="3" border="0">
+                <h:panelGroup>
+                    <h:graphicImage id="logo" url="/images/dneero-logo.jpg" />
+                </h:panelGroup>
+                <h:panelGroup>
+                    <d:roundedCornerBox uniqueboxname="loginHeaderBox" bodycolor="00ff00" widthinpixels="500">
+                        <h:outputText value="Welcome #{userSession.user.email}! " rendered="#{userSession.isloggedin}"></h:outputText>
+                        <h:commandLink value="Log Out" action="logout" rendered="#{userSession.isloggedin}"></h:commandLink>
+                        <h:commandLink value="Log In" action="login" rendered="#{!userSession.isloggedin}"></h:commandLink>
+                    </d:roundedCornerBox>
+                </h:panelGroup>
+            </h:panelGrid>
+        </h:form>
     </ui:define>
 
 </html>

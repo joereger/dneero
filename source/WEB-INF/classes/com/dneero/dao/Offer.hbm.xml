@@ -34,5 +34,8 @@
         <property name="enddate" type="timestamp">
             <column name="enddate" length="19" not-null="true" />
         </property>
+        <property name="offerbody" type="string">
+            <column name="offerbody" length="65535" />
+        </property>
     </class>
 </hibernate-mapping>

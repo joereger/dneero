@@ -32,6 +32,11 @@
         <component-class>com.dneero.ui.RoundedCornerBox</component-class>
     </component>
 
+    <component>
+        <component-type>com.dneero.session.Authorization</component-type>
+        <component-class>com.dneero.session.Authorization</component-class>
+    </component>
+
     <managed-bean>
         <managed-bean-name>userSession</managed-bean-name>
         <managed-bean-class>com.dneero.session.UserSession</managed-bean-class>
@@ -80,167 +85,9 @@
     </managed-bean>
 
     <managed-bean>
-        <managed-bean-name>genders</managed-bean-name>
-        <managed-bean-class>java.util.TreeMap</managed-bean-class>
-        <managed-bean-scope>application</managed-bean-scope>
-        <map-entries>
-            <map-entry>
-                <key>Male</key>
-                <value>0</value>
-            </map-entry>
-            <map-entry>
-                <key>Female</key>
-                <value>1</value>
-            </map-entry>
-        </map-entries>
-    </managed-bean>
-
-    <managed-bean>
-        <managed-bean-name>ethnicities</managed-bean-name>
-        <managed-bean-class>java.util.TreeMap</managed-bean-class>
-        <managed-bean-scope>application</managed-bean-scope>
-        <map-entries>
-            <map-entry>
-                <key>Not Specified</key>
-                <value>0</value>
-            </map-entry>
-            <map-entry>
-                <key>White, Not Hispanic</key>
-                <value>1</value>
-            </map-entry>
-            <map-entry>
-                <key>Black, Not Hispanic</key>
-                <value>2</value>
-            </map-entry>
-            <map-entry>
-                <key>Hispanic</key>
-                <value>3</value>
-            </map-entry>
-            <map-entry>
-                <key>Asian</key>
-                <value>4</value>
-            </map-entry>
-            <map-entry>
-                <key>American Indian</key>
-                <value>5</value>
-            </map-entry>
-        </map-entries>
-    </managed-bean>
-
-    <managed-bean>
-        <managed-bean-name>maritalstatuses</managed-bean-name>
-        <managed-bean-class>java.util.TreeMap</managed-bean-class>
-        <managed-bean-scope>application</managed-bean-scope>
-        <map-entries>
-            <map-entry>
-                <key>Single</key>
-                <value>0</value>
-            </map-entry>
-            <map-entry>
-                <key>Married</key>
-                <value>1</value>
-            </map-entry>
-            <map-entry>
-                <key>Divorced</key>
-                <value>2</value>
-            </map-entry>
-            <map-entry>
-                <key>Engaged</key>
-                <value>3</value>
-            </map-entry>
-        </map-entries>
-    </managed-bean>
-
-    <managed-bean>
-        <managed-bean-name>incomes</managed-bean-name>
-        <managed-bean-class>java.util.TreeMap</managed-bean-class>
-        <managed-bean-scope>application</managed-bean-scope>
-        <map-entries>
-            <map-entry>
-                <key>0 - 10000</key>
-                <value>0</value>
-            </map-entry>
-            <map-entry>
-                <key>10001 - 20000</key>
-                <value>1</value>
-            </map-entry>
-            <map-entry>
-                <key>20001 - 30000</key>
-                <value>2</value>
-            </map-entry>
-            <map-entry>
-                <key>30001 - 40000</key>
-                <value>3</value>
-            </map-entry>
-            <map-entry>
-                <key>40001 - 50000</key>
-                <value>4</value>
-            </map-entry>
-            <map-entry>
-                <key>50001 - 60000</key>
-                <value>5</value>
-            </map-entry>
-            <map-entry>
-                <key>60001 - 70000</key>
-                <value>6</value>
-            </map-entry>
-            <map-entry>
-                <key>70001 - 80000</key>
-                <value>7</value>
-            </map-entry>
-            <map-entry>
-                <key>80001 - 90000</key>
-                <value>8</value>
-            </map-entry>
-            <map-entry>
-                <key>90001 - 100000</key>
-                <value>9</value>
-            </map-entry>
-            <map-entry>
-                <key>100001 - 120000</key>
-                <value>10</value>
-            </map-entry>
-            <map-entry>
-                <key>120001 - 150000</key>
-                <value>11</value>
-            </map-entry>
-            <map-entry>
-                <key>150001 - 200000</key>
-                <value>12</value>
-            </map-entry>
-            <map-entry>
-                <key>200000 and Above</key>
-                <value>13</value>
-            </map-entry>
-        </map-entries>
-    </managed-bean>
-
-    <managed-bean>
-        <managed-bean-name>educationlevels</managed-bean-name>
-        <managed-bean-class>java.util.TreeMap</managed-bean-class>
-        <managed-bean-scope>application</managed-bean-scope>
-        <map-entries>
-            <map-entry>
-                <key>None</key>
-                <value>0</value>
-            </map-entry>
-            <map-entry>
-                <key>High School</key>
-                <value>1</value>
-            </map-entry>
-            <map-entry>
-                <key>Some College</key>
-                <value>2</value>
-            </map-entry>
-            <map-entry>
-                <key>College Degree</key>
-                <value>3</value>
-            </map-entry>
-            <map-entry>
-                <key>Advanced Degree</key>
-                <value>4</value>
-            </map-entry>
-        </map-entries>
+        <managed-bean-name>login</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.Login</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
 
 
@@ -266,6 +113,10 @@
         </navigation-case>
         <navigation-case>
             <from-outcome>login</from-outcome>
+            <to-view-id>/login.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>logout</from-outcome>
             <to-view-id>/login.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
@@ -337,6 +188,10 @@
             <to-view-id>/researcher/researcherofferlist.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
+
+
+
+
 
 
 </faces-config>
