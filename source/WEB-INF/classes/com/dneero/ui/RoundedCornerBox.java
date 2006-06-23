@@ -29,6 +29,7 @@ public class RoundedCornerBox extends UIComponentBase {
         String title = (String)getAttributes().get("title");
         String subtitle = (String)getAttributes().get("subtitle");
 
+
         if (uniqueboxname==null){
             uniqueboxname = "thunder";
         }
@@ -90,10 +91,10 @@ public class RoundedCornerBox extends UIComponentBase {
             mb.append("<h2>"+subtitle+"</h2>\n");
          }
          mb.append("<p>");
-         
+
 
         //Output
-        writer.writeText(mb.toString(), null);
+        writer.write(mb.toString());
 
     }
 
@@ -113,7 +114,7 @@ public class RoundedCornerBox extends UIComponentBase {
                 "<!-- End Rounded Corner Box -->");
 
         //Output
-        writer.writeText(mb.toString(), null);
+        writer.write(mb.toString());
 
     }
 
