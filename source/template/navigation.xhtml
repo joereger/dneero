@@ -13,17 +13,17 @@
     <h:form>
         <d:roundedCornerBox uniqueboxname="leftNavBox" bodycolor="ffffcc" widthinpixels="190">
             <h:panelGrid columns="1" >
-                <h:commandLink value="Home" action="home"/>
-                <h:commandLink value="Sign Up" action="registration" style="padding-left: 25px;"/>
-                <h:commandLink value="   Log In" action="login" style="padding-left: 25px;"/>
-                <h:commandLink value="Bloggers" action="bloggerhome"/>
-                <h:commandLink value="   Offers" action="bloggerofferlist" style="padding-left: 25px;"/>
-                <h:commandLink value="   Earnings" action="bloggerearnings" style="padding-left: 25px;"/>
-                <h:commandLink value="Researchers" action="researcherhome"/>
-                <h:commandLink value="   Offers" action="researcherofferlist" style="padding-left: 25px;"/>
-                <h:commandLink value="   New Offer" action="newoffer" style="padding-left: 25px;"/>
-                <h:commandLink value="Admins" action="adminhome"/>
-                <h:commandLink value="   Users" action="userlist" style="padding-left: 25px;"/>
+                <h:commandLink value="Home" action="home" style="padding-left: 10px;"/>
+                <h:commandLink value=" Sign Up" action="registration" style="padding-left: 25px;" rendered="#{!userSession.isloggedin}"/>
+                <h:commandLink value=" Log In" action="login" style="padding-left: 25px;" rendered="#{!userSession.isloggedin}"/>
+                <h:commandLink value="Blog for Pay" action="bloggerhome" style="padding-left: 10px;"/>
+                <h:commandLink value="  Offers" action="bloggerofferlist" style="padding-left: 25px;"/>
+                <h:commandLink value="  Earnings" action="bloggerearnings" style="padding-left: 25px;"/>
+                <h:commandLink value="Pay for Blog" action="researcherhome" style="padding-left: 10px;"/>
+                <h:commandLink value="  Your Offers" action="researcherofferlist" style="padding-left: 25px;"/>
+                <h:commandLink value="  Create New Offer" action="newoffer" style="padding-left: 25px;"/>
+                <h:commandLink value="Admins" action="adminhome" style="padding-left: 10px;"/>
+                <h:commandLink value="  Users" action="userlist" style="padding-left: 25px;"/>
             </h:panelGrid>
         </d:roundedCornerBox>
     </h:form> 

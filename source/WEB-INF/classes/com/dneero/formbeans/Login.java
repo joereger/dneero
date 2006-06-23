@@ -55,12 +55,18 @@ public class Login {
             //HttpSession session = (HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(false);
             //session.setAttribute(UserSession.SESSIONLOOKUPKEY, userSession);
 
-
-
             return "success";
         }
 
         return "failure";
+    }
+
+    public String logout(){
+        UserSession userSession = new UserSession();
+        FacesContext ctx = FacesContext.getCurrentInstance();
+        ValueBinding binding = ctx.getApplication().createValueBinding("#{userSession}");
+        binding.setValue(ctx, userSession);
+        return "logout_success";
     }
 
     public String getEmail() {

@@ -97,6 +97,12 @@
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
 
+    <managed-bean>
+        <managed-bean-name>userSession</managed-bean-name>
+        <managed-bean-class>com.dneero.session.UserSession</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+
 
 
 
@@ -114,6 +120,10 @@
         <navigation-case>
             <from-outcome>login</from-outcome>
             <to-view-id>/login.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>logout_success</from-outcome>
+            <to-view-id>/index.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>logout</from-outcome>
