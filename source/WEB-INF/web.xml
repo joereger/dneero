@@ -138,6 +138,15 @@
     -->
 
 
+    <servlet>
+        <servlet-name>SurveyJavascriptServlet</servlet-name>
+        <servlet-class>com.dneero.survey.servlet.SurveyJavascriptServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SurveyJavascriptServlet</servlet-name>
+        <url-pattern>/survey.js</url-pattern>
+    </servlet-mapping>
+
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>

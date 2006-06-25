@@ -10,13 +10,14 @@ import com.dneero.dao.User;
  */
 public class OfferAsHtml {
 
-    public String getHtml(Offer offer, User user){
+    public static String getHtml(Offer offer, User user){
         StringBuffer out = new StringBuffer();
 
-
+        out.append("Hello Javascript World! Offerid="+offer.getOfferid()+" userid="+user.getUserid()+"\n");
+        out.append("<br>"+"\n");
+        out.append("<b>This is a line in bold</b>"+"\n");
 
         return out.toString();
     }
-
 
 }

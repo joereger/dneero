@@ -73,6 +73,13 @@
             <h:outputText value="#{bloggerOfferDetail.offer.enddate}"/>
         </h:panelGroup>
 
+        <h:panelGroup>
+            <h:outputText value="Copy and Paste Into Blog Post"/>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:outputText>&lt;script src="http://localhost/survey.js?offerid=#{bloggerOfferDetail.offer.offerid}&amp;userid=#{userSession.user.userid}"&gt;&lt;/script&gt;</h:outputText>
+        </h:panelGroup>
+
 
      </h:panelGrid>
 

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.ServletException;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 /**
  * User: Joe Reger Jr
@@ -22,6 +23,8 @@ public class SurveyJavascriptServlet extends HttpServlet {
 
     public void doPost (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        PrintWriter out = response.getWriter();
+
         Offer offer = null;
         if (request.getParameter("offerid")!=null && com.dneero.util.Num.isinteger(request.getParameter("offerid"))){
             offer = Offer.get(Integer.parseInt(request.getParameter("offerid")));
@@ -33,9 +36,19 @@ public class SurveyJavascriptServlet extends HttpServlet {
         }
 
         if (offer!=null && user!=null){
-            
+
+            String output = OfferAsHtml.getHtml(offer, user);
+
+            String[] outArray = output.split("\n");
+
+            for (int i = 0; i < outArray.length; i++) {
+                String s = outArray[i];
+                out.print("document.write(\""+s+"\");"+"\n");
+            }
 
 
+        } else {
+            out.print("Sorry, offer or user not found.");
         }
 
 
