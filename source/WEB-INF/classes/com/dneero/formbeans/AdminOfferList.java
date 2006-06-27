@@ -2,44 +2,29 @@ package com.dneero.formbeans;
 
 import com.dneero.util.SortableList;
 import com.dneero.util.Jsf;
-import com.dneero.dao.Offer;
-import com.dneero.dao.Researcher;
-import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.session.UserSession;
-import com.dneero.finders.FindSurveysForBlogger;
+import com.dneero.dao.Researcher;
+import com.dneero.dao.Offer;
+import com.dneero.dao.hibernate.HibernateUtil;
+import org.apache.log4j.Logger;
 
 import java.util.*;
-
-import org.apache.log4j.Logger;
 
 /**
  * User: Joe Reger Jr
  * Date: Jun 8, 2006
  * Time: 10:16:03 AM
  */
-public class ResearcherOfferList extends SortableList {
+public class AdminOfferList extends SortableList {
 
     private Logger logger = Logger.getLogger(UserList.class);
     private List offers;
 
-    public ResearcherOfferList() {
+    public AdminOfferList() {
         //Default sort column
         super("title");
         //Go get the offers from the database
-        //offers = HibernateUtil.getSession().createQuery("from Offer").list();
-
-        UserSession userSession = (UserSession) Jsf.getManagedBean("userSession");
-
-        if (userSession!=null && userSession.getUser()!=null && userSession.getUser().getResearchers()!=null){
-            logger.debug("userSession, user and researcher not null");
-            Set researchers = userSession.getUser().getResearchers();
-            logger.debug("researchers.size()="+researchers.size());
-            for (Iterator iterator = researchers.iterator(); iterator.hasNext();) {
-                Researcher researcher = (Researcher) iterator.next();
-                logger.debug("into loop for bloggers.getResearcherid()="+researcher.getResearcherid());
-                offers = HibernateUtil.getSession().createQuery("from Offer where researcherid='"+researcher.getResearcherid()+"'").list();
-            }
-        }
+        offers = HibernateUtil.getSession().createQuery("from Offer").list();
 
 
     }

@@ -19,6 +19,7 @@ public class Researcher extends BasePersistentClass implements java.io.Serializa
     // Fields    
 
      private int researcherid;
+     private int userid;
 
     //Validator
     public void validateRegerEntity() throws GeneralException {
@@ -69,13 +70,14 @@ public class Researcher extends BasePersistentClass implements java.io.Serializa
     public void setResearcherid(int researcherid) {
         this.researcherid = researcherid;
     }
-   
 
+    public int getUserid() {
+        return userid;
+    }
 
-
-
-
-
+    public void setUserid(int userid) {
+        this.userid = userid;
+    }
 
 
 }

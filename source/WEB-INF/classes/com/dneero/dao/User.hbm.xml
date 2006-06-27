@@ -20,7 +20,13 @@
             <key column="userid"></key>
             <one-to-many class="com.dneero.dao.Blogger" not-found="ignore"></one-to-many>
         </set>
-       
+
+        <set name="researchers" inverse="true" cascade="all-delete-orphan">
+            <cache usage="nonstrict-read-write"/>
+            <key column="userid"></key>
+            <one-to-many class="com.dneero.dao.Researcher" not-found="ignore"></one-to-many>
+        </set>
+
 
         <property name="email" type="string">
             <column name="email" not-null="true" />

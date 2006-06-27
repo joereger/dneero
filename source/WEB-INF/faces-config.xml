@@ -63,6 +63,12 @@
     </managed-bean>
 
     <managed-bean>
+        <managed-bean-name>sysadminOfferList</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.AdminOfferList</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
         <managed-bean-name>bloggerEarnings</managed-bean-name>
         <managed-bean-class>com.dneero.formbeans.BloggerEarnings</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
@@ -131,7 +137,15 @@
         </navigation-case>
         <navigation-case>
             <from-outcome>userlist</from-outcome>
-            <to-view-id>/userlist.xhtml</to-view-id>
+            <to-view-id>/sysadmin/userlist.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>sysadminhome</from-outcome>
+            <to-view-id>/sysadmin/index.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>sysadminofferlist</from-outcome>
+            <to-view-id>/sysadmin/sysadminofferlist.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>researcherhome</from-outcome>

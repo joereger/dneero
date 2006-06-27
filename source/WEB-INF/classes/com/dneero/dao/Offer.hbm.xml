@@ -16,6 +16,9 @@
         </set>
         -->
         <one-to-one name="offercriteria" class="com.dneero.dao.Offercriteria" property-ref="offerid" cascade="all"/>
+        <property name="researcherid" type="int">
+            <column name="researcherid" not-null="true" />
+        </property>
         <property name="title" type="string">
             <column name="title" not-null="true" />
         </property>

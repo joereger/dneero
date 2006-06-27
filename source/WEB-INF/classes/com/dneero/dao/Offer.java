@@ -23,6 +23,7 @@ public class Offer extends BasePersistentClass implements java.io.Serializable, 
     // Fields    
 
      private int offerid;
+     private int researcherid;
      private String title;
      private String description;
      private double willingtopayperrespondent;
@@ -103,6 +104,14 @@ public class Offer extends BasePersistentClass implements java.io.Serializable, 
 
     public void setOfferid(int offerid) {
         this.offerid = offerid;
+    }
+
+    public int getResearcherid() {
+        return researcherid;
+    }
+
+    public void setResearcherid(int researcherid) {
+        this.researcherid = researcherid;
     }
 
     public String getTitle() {

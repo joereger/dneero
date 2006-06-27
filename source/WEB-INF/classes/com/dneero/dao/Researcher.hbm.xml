@@ -8,5 +8,9 @@
             <column name="researcherid" />
             <generator class="native" />
         </id>
+
+        <property name="userid" type="int">
+            <column name="userid" not-null="true" />
+        </property>
     </class>
 </hibernate-mapping>
