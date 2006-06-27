@@ -49,6 +49,18 @@
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
 
+    <managed-bean>
+        <managed-bean-name>accountSettings</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.AccountSettings</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>changePassword</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.ChangePassword</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
 
     <managed-bean>
         <managed-bean-name>userList</managed-bean-name>
@@ -138,6 +150,14 @@
         <navigation-case>
             <from-outcome>login</from-outcome>
             <to-view-id>/login.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>accountsettings</from-outcome>
+            <to-view-id>/account/accountsettings.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>changepassword</from-outcome>
+            <to-view-id>/account/changepassword.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>logout_success</from-outcome>
@@ -254,6 +274,22 @@
         <navigation-case>
             <from-outcome>success</from-outcome>
             <to-view-id>/researcher/researcherofferlist.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/account/accountsettings.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/index.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/account/changepassword.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/index.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
 

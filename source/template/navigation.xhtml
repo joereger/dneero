@@ -16,6 +16,8 @@
                 <h:commandLink value="Home" action="home" style="padding-left: 10px;"/>
                 <h:commandLink value=" Sign Up" action="registration" style="padding-left: 25px;" styleClass="smallfont" rendered="#{!userSession.isloggedin}"/>
                 <h:commandLink value=" Log In" action="login" style="padding-left: 25px;" styleClass="smallfont" rendered="#{!userSession.isloggedin}"/>
+                <h:commandLink value=" Account Settings" action="accountsettings" style="padding-left: 25px;" styleClass="smallfont" rendered="#{userSession.isloggedin}"/>
+                <h:commandLink value=" Change Password" action="changepassword" style="padding-left: 25px;" styleClass="smallfont" rendered="#{userSession.isloggedin}"/>
                 <h:commandLink value="Blog for Pay" action="bloggerhome" style="padding-left: 10px;"/>
                 <h:commandLink value="  Settings" action="bloggerdetails" styleClass="smallfont" style="padding-left: 25px;"/>
                 <h:commandLink value="  Offers" action="bloggerofferlist" styleClass="smallfont" style="padding-left: 25px;"/>

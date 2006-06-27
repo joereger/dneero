@@ -5,12 +5,15 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:t="http://myfaces.apache.org/tomahawk">
+      xmlns:t="http://myfaces.apache.org/tomahawk"
+      xmlns:d="http://dneero.com/taglib">
 
 <ui:composition template="/template/template-facelets.xhtml">
     <ui:define name="body">
+    <d:authorization acl="account" redirectonfail="true"/>
 
-        <h:form>
+
+    <h:form>
             <h:messages />
             <h:panelGrid columns="3" cellpadding="3" border="0">
 
@@ -19,7 +22,7 @@
                     <h:outputText value="First Name"></h:outputText>
                 </h:panelGroup>
                 <h:panelGroup>
-                    <h:inputText value="#{registration.firstname}" id="firstname" required="true">
+                    <h:inputText value="#{accountSettings.firstname}" id="firstname" required="true">
                         <f:validateLength minimum="1" maximum="255"></f:validateLength>
                     </h:inputText>
                 </h:panelGroup>
@@ -31,7 +34,7 @@
                     <h:outputText value="Last Name"></h:outputText>
                 </h:panelGroup>
                 <h:panelGroup>
-                    <h:inputText value="#{registration.lastname}" id="lastname" required="true">
+                    <h:inputText value="#{accountSettings.lastname}" id="lastname" required="true">
                         <f:validateLength minimum="1" maximum="255"></f:validateLength>
                     </h:inputText>
                 </h:panelGroup>
@@ -44,7 +47,7 @@
                     <h:outputText value="Email"></h:outputText>
                 </h:panelGroup>
                 <h:panelGroup>
-                    <h:inputText value="#{registration.email}" id="email" required="true">
+                    <h:inputText value="#{accountSettings.email}" id="email" required="true">
                         <f:validateLength minimum="3" maximum="255"></f:validateLength>
                         <t:validateEmail></t:validateEmail>
                     </h:inputText>
@@ -58,25 +61,10 @@
                     <h:outputText value="Password"></h:outputText>
                 </h:panelGroup>
                 <h:panelGroup>
-                    <h:inputSecret value="#{registration.password}" id="password" required="true">
-                        <f:validateLength minimum="3" maximum="255"></f:validateLength>
-                    </h:inputSecret>
+                    <h:commandLink value="Change Password" action="changepassword"/>
                 </h:panelGroup>
                 <h:panelGroup>
-                    <h:message for="password" styleClass="RED"></h:message>
-                </h:panelGroup>
 
-
-                <h:panelGroup>
-                    <h:outputText value="Verify Password"></h:outputText>
-                </h:panelGroup>
-                <h:panelGroup>
-                    <h:inputSecret value="#{registration.passwordverify}" id="passwordverify" required="true">
-                        <f:validateLength minimum="3" maximum="255"></f:validateLength>
-                    </h:inputSecret>
-                </h:panelGroup>
-                <h:panelGroup>
-                    <h:message for="passwordverify" styleClass="RED"></h:message>
                 </h:panelGroup>
 
 
@@ -84,8 +72,9 @@
 
 
 
+
                 <h:panelGroup>
-                    <h:commandButton action="#{registration.registerAction}" value="Sign Up"></h:commandButton>
+                    <h:commandButton action="#{accountSettings.saveAction}" value="Save"></h:commandButton>
                 </h:panelGroup>
                 <h:panelGroup>
                 </h:panelGroup>
@@ -99,8 +88,10 @@
 
         </h:form>
 
-    </ui:define>
+</ui:define>
 
 
 </ui:composition>
 </html>
+
+
