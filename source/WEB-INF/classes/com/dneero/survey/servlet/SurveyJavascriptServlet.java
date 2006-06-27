@@ -38,13 +38,14 @@ public class SurveyJavascriptServlet extends HttpServlet {
         if (offer!=null && user!=null){
 
             String output = OfferAsHtml.getHtml(offer, user);
+            out.print("document.write(\""+output+"\");"+"\n");
 
-            String[] outArray = output.split("\n");
-
-            for (int i = 0; i < outArray.length; i++) {
-                String s = outArray[i];
-                out.print("document.write(\""+s+"\");"+"\n");
-            }
+//            String[] outArray = output.split("\n");
+//
+//            for (int i = 0; i < outArray.length; i++) {
+//                String s = outArray[i];
+//                out.print("document.write(\""+s+"\");"+"\n");
+//            }
 
 
         } else {

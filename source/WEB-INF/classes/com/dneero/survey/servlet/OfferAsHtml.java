@@ -13,9 +13,11 @@ public class OfferAsHtml {
     public static String getHtml(Offer offer, User user){
         StringBuffer out = new StringBuffer();
 
-        out.append("Hello Javascript World! Offerid="+offer.getOfferid()+" userid="+user.getUserid()+"\n");
-        out.append("<br>"+"\n");
-        out.append("<b>This is a line in bold</b>"+"\n");
+        out.append("<b>dNeero Survey</b>");
+        out.append("<br>");
+        out.append(offer.getOfferbody());
+        out.append("<br>");
+        out.append("<b>dNeero - blog for pay</b>");
 
         return out.toString();
     }

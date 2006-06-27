@@ -1,12 +1,16 @@
 package com.dneero.formbeans;
 
 import com.dneero.util.SortableList;
+import com.dneero.util.Jsf;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.dao.Offer;
+import com.dneero.dao.Blogger;
+import com.dneero.session.UserSession;
+import com.dneero.finders.FindSurveysForBlogger;
 
-import java.util.List;
-import java.util.Comparator;
-import java.util.Collections;
+import java.util.*;
+
+import org.apache.log4j.Logger;
 
 /**
  * User: Joe Reger Jr
@@ -15,14 +19,32 @@ import java.util.Collections;
  */
 public class BloggerOfferList extends SortableList {
 
-    //private Logger logger = Logger.getLogger(UserList.class);
+    private Logger logger = Logger.getLogger(UserList.class);
     private List offers;
 
     public BloggerOfferList() {
-        //Default sort column
         super("title");
+        logger.debug("instanciating BloggerOfferList");
+        //Default sort column
+
         //Go get the offers from the database
-        offers = HibernateUtil.getSession().createQuery("from Offer").list();
+        //offers = HibernateUtil.getSession().createQuery("from Offer").list();
+
+        UserSession userSession = (UserSession)Jsf.getManagedBean("userSession");
+
+        if (userSession!=null && userSession.getUser()!=null && userSession.getUser().getBloggers()!=null){
+            logger.debug("userSession, user and blogger not null");
+            Set bloggers = userSession.getUser().getBloggers();
+            logger.debug("bloggers.size()="+bloggers.size());
+            for (Iterator iterator = bloggers.iterator(); iterator.hasNext();) {
+                Blogger blogger = (Blogger) iterator.next();
+                logger.debug("into loop for bloggers.getBloggerid()="+blogger.getBloggerid());
+                FindSurveysForBlogger finder = new FindSurveysForBlogger(blogger);
+                offers = finder.getOffers();
+            }
+        }
+
+
     }
 
     public List getOffers() {
@@ -40,7 +62,7 @@ public class BloggerOfferList extends SortableList {
         return true;
     }
 
-    
+
 
     protected void sort(final String column, final boolean ascending) {
         //logger.debug("sort called");
