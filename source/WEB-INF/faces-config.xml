@@ -63,8 +63,20 @@
     </managed-bean>
 
     <managed-bean>
+        <managed-bean-name>bloggerDetails</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.BloggerDetails</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>researcherDetails</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.ResearcherDetails</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
         <managed-bean-name>sysadminOfferList</managed-bean-name>
-        <managed-bean-class>com.dneero.formbeans.AdminOfferList</managed-bean-class>
+        <managed-bean-class>com.dneero.formbeans.SystemadminOfferList</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
 
@@ -164,6 +176,10 @@
             <to-view-id>/blogger/index.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
+            <from-outcome>bloggerdetails</from-outcome>
+            <to-view-id>/blogger/bloggerdetails.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
             <from-outcome>bloggerofferlist</from-outcome>
             <to-view-id>/blogger/bloggerofferlist.xhtml</to-view-id>
         </navigation-case>
@@ -174,6 +190,10 @@
         <navigation-case>
             <from-outcome>researcherofferlist</from-outcome>
             <to-view-id>/researcher/researcherofferlist.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>researcherdetails</from-outcome>
+            <to-view-id>/researcher/researcherdetails.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
 
@@ -202,6 +222,30 @@
         <navigation-case>
             <from-outcome>success</from-outcome>
             <to-view-id>/registration-success.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/blogger/bloggerdetails.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/blogger/index.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>success_newblogger</from-outcome>
+            <to-view-id>/blogger/welcomenewblogger.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/researcher/researcherdetails.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/researcher/index.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>success_newresearcher</from-outcome>
+            <to-view-id>/researcher/welcomenewresearcher.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
 

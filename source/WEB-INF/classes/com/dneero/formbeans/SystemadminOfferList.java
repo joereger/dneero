@@ -15,12 +15,12 @@ import java.util.*;
  * Date: Jun 8, 2006
  * Time: 10:16:03 AM
  */
-public class AdminOfferList extends SortableList {
+public class SystemadminOfferList extends SortableList {
 
     private Logger logger = Logger.getLogger(UserList.class);
     private List offers;
 
-    public AdminOfferList() {
+    public SystemadminOfferList() {
         //Default sort column
         super("title");
         //Go get the offers from the database

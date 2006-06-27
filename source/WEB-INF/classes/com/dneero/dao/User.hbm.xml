@@ -15,17 +15,9 @@
             <one-to-many class="com.dneero.dao.Userrole" not-found="ignore"></one-to-many>
         </set>
 
-        <set name="bloggers" inverse="true" cascade="all-delete-orphan">
-            <cache usage="nonstrict-read-write"/>
-            <key column="userid"></key>
-            <one-to-many class="com.dneero.dao.Blogger" not-found="ignore"></one-to-many>
-        </set>
+        <one-to-one name="blogger" class="com.dneero.dao.Blogger" property-ref="userid" cascade="all"/>
 
-        <set name="researchers" inverse="true" cascade="all-delete-orphan">
-            <cache usage="nonstrict-read-write"/>
-            <key column="userid"></key>
-            <one-to-many class="com.dneero.dao.Researcher" not-found="ignore"></one-to-many>
-        </set>
+        <one-to-one name="researcher" class="com.dneero.dao.Researcher" property-ref="userid" cascade="all"/>
 
 
         <property name="email" type="string">

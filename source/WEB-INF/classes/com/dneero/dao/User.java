@@ -36,20 +36,20 @@ public class User extends BasePersistentClass implements java.io.Serializable, R
         this.userroles = userroles;
     }
 
-    private Set<Blogger> bloggers = new HashSet<Blogger>();
-    public Set<Blogger> getBloggers() {
-        return bloggers;
+    private Blogger blogger;
+    public Blogger getBlogger() {
+        return blogger;
     }
-    public void setBloggers(Set<Blogger> bloggers) {
-        this.bloggers = bloggers;
+    public void setBlogger(Blogger blogger) {
+        this.blogger = blogger;
     }
-
-    private Set<Researcher> researchers = new HashSet<Researcher>();
-    public Set<Researcher> getResearchers() {
-        return researchers;
+    
+    private Researcher researcher;
+    public Researcher getResearcher() {
+        return researcher;
     }
-    public void setResearchers(Set<Researcher> researchers) {
-        this.researchers = researchers;
+    public void setResearcher(Researcher researcher) {
+        this.researcher = researcher;
     }
 
     //Validator

@@ -5,6 +5,7 @@ import com.dneero.dao.User;
 import com.dneero.dao.Blogger;
 import com.dneero.util.GeneralException;
 import com.dneero.util.Jsf;
+import com.dneero.session.UserSession;
 
 import javax.faces.context.FacesContext;
 import javax.faces.application.FacesMessage;
@@ -23,12 +24,6 @@ public class Registration {
     private String passwordverify;
     private String firstname;
     private String lastname;
-    private Date birthdate;
-    private String gender;
-    private String ethnicity;
-    private String income;
-    private String maritalstatus;
-    private String educationlevel;
 
     //Other props
     private int userid;
@@ -62,31 +57,12 @@ public class Registration {
             return null;
         }
 
-        Blogger blogger = new Blogger();
-        blogger.setUserid(user.getUserid());
-        blogger.setBirthdate(birthdate);
-        if (com.dneero.util.Num.isinteger(educationlevel)){
-            blogger.setEducationlevel(Integer.parseInt(educationlevel));
-        }
-        if (com.dneero.util.Num.isinteger(ethnicity)){
-            blogger.setEthnicity(Integer.parseInt(ethnicity));
-        }
-        if (com.dneero.util.Num.isinteger(gender)){
-            blogger.setGender(Integer.parseInt(gender));
-        }
-        if (com.dneero.util.Num.isinteger(income)){
-            blogger.setIncomerange(Integer.parseInt(income));
-        }
-        if (com.dneero.util.Num.isinteger(maritalstatus)){
-            blogger.setMaritalstatus(Integer.parseInt(maritalstatus));
-        }
+        //Log the user in
+        UserSession userSession = (UserSession)Jsf.getManagedBean("userSession");
+        userSession.setUser(user);
+        userSession.setIsloggedin(true);
 
-        try{
-            blogger.save();
-        } catch (GeneralException gex){
-            logger.debug("registerAction failed: " + gex.getErrorsAsSingleString());
-            return null;
-        }
+
 
         return "success";
     }
@@ -142,51 +118,5 @@ public class Registration {
         this.userid = userid;
     }
 
-    public Date getBirthdate() {
-        return birthdate;
-    }
 
-    public void setBirthdate(Date birthdate) {
-        this.birthdate = birthdate;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
-    public String getEthnicity() {
-        return ethnicity;
-    }
-
-    public void setEthnicity(String ethnicity) {
-        this.ethnicity = ethnicity;
-    }
-
-    public String getMaritalstatus() {
-        return maritalstatus;
-    }
-
-    public void setMaritalstatus(String maritalstatus) {
-        this.maritalstatus = maritalstatus;
-    }
-
-    public String getEducationlevel() {
-        return educationlevel;
-    }
-
-    public void setEducationlevel(String educationlevel) {
-        this.educationlevel = educationlevel;
-    }
-
-    public String getIncome() {
-        return income;
-    }
-
-    public void setIncome(String income) {
-        this.income = income;
-    }
 }

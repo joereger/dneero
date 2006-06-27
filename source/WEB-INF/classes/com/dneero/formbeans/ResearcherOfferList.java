@@ -30,15 +30,10 @@ public class ResearcherOfferList extends SortableList {
 
         UserSession userSession = (UserSession) Jsf.getManagedBean("userSession");
 
-        if (userSession!=null && userSession.getUser()!=null && userSession.getUser().getResearchers()!=null){
+        if (userSession!=null && userSession.getUser()!=null && userSession.getUser().getResearcher()!=null){
             logger.debug("userSession, user and researcher not null");
-            Set researchers = userSession.getUser().getResearchers();
-            logger.debug("researchers.size()="+researchers.size());
-            for (Iterator iterator = researchers.iterator(); iterator.hasNext();) {
-                Researcher researcher = (Researcher) iterator.next();
-                logger.debug("into loop for bloggers.getResearcherid()="+researcher.getResearcherid());
-                offers = HibernateUtil.getSession().createQuery("from Offer where researcherid='"+researcher.getResearcherid()+"'").list();
-            }
+            logger.debug("into loop for userSession.getUser().getResearcher().getResearcherid()="+userSession.getUser().getResearcher().getResearcherid());
+            offers = HibernateUtil.getSession().createQuery("from Offer where researcherid='"+userSession.getUser().getResearcher().getResearcherid()+"'").list();
         }
 
 

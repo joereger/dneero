@@ -62,7 +62,7 @@ public class Authorization extends UIComponentBase {
 
     }
 
-    private boolean isAuthorized(FacesContext context, String acl){
+    private boolean isAuthorized(FacesContext context, String acl)  throws IOException {
 
         UserSession userSession = (UserSession)Jsf.getManagedBean("userSession");
 
@@ -76,6 +76,9 @@ public class Authorization extends UIComponentBase {
                         return true;
                     }
                 }
+                if (userSession.getUser()!=null){
+                    context.getExternalContext().redirect("/blogger/bloggerdetails.jsf");
+                }
                 return false;
             }
 
@@ -86,6 +89,9 @@ public class Authorization extends UIComponentBase {
                         logger.debug("Researcher authorized.");
                         return true;
                     }
+                }
+                if (userSession.getUser()!=null){
+                    context.getExternalContext().redirect("/researcher/researcherdetails.jsf");    
                 }
                 return false;
             }

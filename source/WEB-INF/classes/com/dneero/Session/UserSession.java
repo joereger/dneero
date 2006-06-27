@@ -35,4 +35,6 @@ public class UserSession {
     public void setIsloggedin(boolean isloggedin) {
         this.isloggedin = isloggedin;
     }
+
+
 }

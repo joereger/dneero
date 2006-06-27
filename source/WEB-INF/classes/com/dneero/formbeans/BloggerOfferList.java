@@ -32,16 +32,11 @@ public class BloggerOfferList extends SortableList {
 
         UserSession userSession = (UserSession)Jsf.getManagedBean("userSession");
 
-        if (userSession!=null && userSession.getUser()!=null && userSession.getUser().getBloggers()!=null){
+        if (userSession!=null && userSession.getUser()!=null && userSession.getUser().getBlogger()!=null){
             logger.debug("userSession, user and blogger not null");
-            Set bloggers = userSession.getUser().getBloggers();
-            logger.debug("bloggers.size()="+bloggers.size());
-            for (Iterator iterator = bloggers.iterator(); iterator.hasNext();) {
-                Blogger blogger = (Blogger) iterator.next();
-                logger.debug("into loop for bloggers.getBloggerid()="+blogger.getBloggerid());
-                FindSurveysForBlogger finder = new FindSurveysForBlogger(blogger);
-                offers = finder.getOffers();
-            }
+            logger.debug("into loop for userSession.getUser().getBlogger().getBloggerid()="+userSession.getUser().getBlogger().getBloggerid());
+            FindSurveysForBlogger finder = new FindSurveysForBlogger(userSession.getUser().getBlogger());
+            offers = finder.getOffers();
         }
 
 
