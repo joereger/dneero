@@ -3,6 +3,7 @@ package com.dneero.formbeans;
 import com.dneero.dao.*;
 import com.dneero.util.GeneralException;
 import com.dneero.util.Jsf;
+import com.dneero.session.UserSession;
 import org.apache.log4j.Logger;
 
 import javax.faces.context.FacesContext;
@@ -42,7 +43,13 @@ public class NewOffer {
     public String createNewOffer(){
         logger.debug("createNewOffer() called.");
 
+        UserSession userSession = (UserSession)Jsf.getManagedBean("userSession");
+
         Offer offer = new Offer();
+
+
+
+
         offer.setTitle(title);
         offer.setDescription(description);
         offer.setWillingtopayperrespondent(willingtopayperrespondent);
@@ -50,6 +57,7 @@ public class NewOffer {
         offer.setStartdate(startdate);
         offer.setEnddate(enddate);
         offer.setOfferbody(offerbody);
+        offer.setResearcherid(userSession.getUser().getResearcher().getResearcherid());
 
         try{
             offer.save();
