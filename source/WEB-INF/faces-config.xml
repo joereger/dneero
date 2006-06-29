@@ -27,6 +27,11 @@
         <default-render-kit-id>oracle.adf.core</default-render-kit-id>
     </application>
 
+    <converter>
+      <converter-id>com.dneero.converters.Offercriteriagender</converter-id>
+      <converter-class>com.dneero.converters.Offercriteriagender</converter-class>
+    </converter>
+
     <component>
         <component-type>com.dneero.ui.RoundedCornerBox</component-type>
         <component-class>com.dneero.ui.RoundedCornerBox</component-class>
@@ -37,11 +42,10 @@
         <component-class>com.dneero.session.Authorization</component-class>
     </component>
 
-    <managed-bean>
-        <managed-bean-name>userSession</managed-bean-name>
-        <managed-bean-class>com.dneero.session.UserSession</managed-bean-class>
-        <managed-bean-scope>session</managed-bean-scope>
-    </managed-bean>
+    <component>
+        <component-type>com.dneero.util.UpdateActionListenerTaghandler</component-type>
+        <component-class>com.dneero.util.UpdateActionListenerTaghandler</component-class>
+    </component>
 
     <managed-bean>
         <managed-bean-name>registration</managed-bean-name>
@@ -109,8 +113,8 @@
     </managed-bean>
 
     <managed-bean>
-        <managed-bean-name>newOffer</managed-bean-name>
-        <managed-bean-class>com.dneero.formbeans.NewOffer</managed-bean-class>
+        <managed-bean-name>offerBackingBean</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.OfferBackingBean</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
 
@@ -185,7 +189,7 @@
         </navigation-case>
         <navigation-case>
             <from-outcome>newoffer</from-outcome>
-            <to-view-id>/researcher/newoffer.xhtml</to-view-id>
+            <to-view-id>/researcher/researcherofferdetail.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>bloggerearnings</from-outcome>
@@ -210,6 +214,10 @@
         <navigation-case>
             <from-outcome>researcherofferlist</from-outcome>
             <to-view-id>/researcher/researcherofferlist.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>researcherofferdetail</from-outcome>
+            <to-view-id>/researcher/researcherofferdetail.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>researcherdetails</from-outcome>
@@ -270,7 +278,7 @@
     </navigation-rule>
 
     <navigation-rule>
-        <from-view-id>/researcher/newoffer.xhtml</from-view-id>
+        <from-view-id>/researcher/researcherofferdetail.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>success</from-outcome>
             <to-view-id>/researcher/researcherofferlist.xhtml</to-view-id>

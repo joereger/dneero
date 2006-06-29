@@ -14,13 +14,13 @@ import javax.faces.context.FacesContext;
  */
 public class BloggerOfferDetail {
 
-    //Form props
     private Offer offer;
 
     Logger logger = Logger.getLogger(this.getClass().getName());
 
     public BloggerOfferDetail(){
         logger.debug("BloggerOfferDetail instanciated.");
+        offer = new Offer();
     }
 
 
@@ -29,7 +29,7 @@ public class BloggerOfferDetail {
         String tmpOfferid = (String)FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("offerid");
         if (com.dneero.util.Num.isinteger(tmpOfferid)){
             logger.debug("beginView called: found offerid in param="+tmpOfferid);
-            this.offer = Offer.get(Integer.parseInt(tmpOfferid));
+            offer = Offer.get(Integer.parseInt(tmpOfferid));
         } else {
             logger.debug("beginView called: NOT found offerid in param="+tmpOfferid);
         }

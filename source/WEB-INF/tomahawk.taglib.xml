@@ -284,6 +284,10 @@
             <component-type>org.apache.myfaces.Stylesheet</component-type>
         </component>
     </tag>
+    <tag>
+        <tag-name>updateActionListener</tag-name>
+        <handler-class>com.dneero.util.UpdateActionListenerTaghandler</handler-class>
+    </tag>
     <!-- Note that "tree" will not work as-is.  Tree either needs a facelets
          TagHandler, or a refactoring of
          org.apache.myfaces.custom.tree.taglib.TreeTag

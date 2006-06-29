@@ -73,6 +73,9 @@ public class HibernateUtil {
             conf.setProperty("hibernate.cache.use_query_cache", "true");
             conf.setProperty("hibernate.cache.usage", "nonstrict-read-write");
 
+            //Session context mgr
+            //conf.setProperty("hibernate.current_session_context_class", "thread");
+
             //Update the schema in the database
             try{
                 SchemaUpdate schemaUpdate = new SchemaUpdate(conf);
@@ -95,11 +98,14 @@ public class HibernateUtil {
 
     public static Session getSession() throws HibernateException {
         Session s = (Session) HibernateUtil.session.get();
+
+
         if (s==null||!s.isOpen()) {
             s = sessionFactory.openSession();
             session.set(s);
         }
         return s;
+
     }
 
     public static void closeSession() throws HibernateException {

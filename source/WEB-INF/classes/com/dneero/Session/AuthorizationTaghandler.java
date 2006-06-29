@@ -26,6 +26,7 @@ public class AuthorizationTaghandler extends UIComponentTag {
     protected void setProperties(UIComponent component)
     {
         super.setProperties(component);
+        
 
         if (acl != null){
             if (isValueReference(acl)) {

@@ -15,35 +15,41 @@
 
     <h:form>
 
-
-
-
-        <af:table value="#{researcherOfferList.offers}" bandingInterval="2" rows="15" banding="row" var="offer">
-      <af:column>
-        <f:facet name="header">
-          <af:outputText value="Offerid"/>
-        </f:facet>
-        <af:outputText value="#{offer.offerid}"/>
-      </af:column>
-      <af:column>
-        <f:facet name="header">
-          <af:outputText value="Title"/>
-        </f:facet>
-        <af:outputText value="#{offer.title}"/>
-      </af:column>
-      <af:column>
-        <f:facet name="header">
-          <af:outputText value="Description"/>
-        </f:facet>
-        <af:outputText value="#{offer.description}"/>
-      </af:column>
-      <af:column>
-        <f:facet name="header">
-          <af:outputText value="Willing to Pay"/>
-        </f:facet>
-        <af:outputText value="#{offer.willingtopayperrespondent}"/>
-      </af:column>
-    </af:table>
+        <af:table value="#{researcherOfferList.offers}" bandingInterval="2" rows="50" banding="row" var="offer">
+          <af:column>
+            <f:facet name="header">
+              <af:outputText value="Offerid"/>
+            </f:facet>
+            <af:outputText value="#{offer.offerid}"/>
+          </af:column>
+          <af:column>
+            <f:facet name="header">
+              <af:outputText value="Title"/>
+            </f:facet>
+            <af:outputText value="#{offer.title}"/>
+          </af:column>
+          <af:column>
+            <f:facet name="header">
+              <af:outputText value="Description"/>
+            </f:facet>
+            <af:outputText value="#{offer.description}"/>
+          </af:column>
+          <af:column>
+            <f:facet name="header">
+              <af:outputText value="Willing to Pay"/>
+            </f:facet>
+            <af:outputText value="#{offer.willingtopayperrespondent}"/>
+          </af:column>
+          <af:column>
+            <f:facet name="header">
+              <af:outputText value=" "/>
+            </f:facet>
+            <h:commandLink action="#{offerBackingBean.beginView}">
+                <h:outputText value="View" escape="false" />
+                <f:param name="offerid" value="#{offer.offerid}" />
+            </h:commandLink>
+          </af:column>
+        </af:table>
 
     </h:form>
 
