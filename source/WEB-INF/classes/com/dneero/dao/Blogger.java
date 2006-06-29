@@ -27,6 +27,11 @@ public class Blogger extends BasePersistentClass implements java.io.Serializable
      private int maritalstatus;
      private int incomerange;
      private int educationlevel;
+     private int state;
+     private int city;
+     private int profession;
+     private int blogfocus;
+     private int politics;
 
     //Validator
     public void validateRegerEntity() throws GeneralException {
@@ -139,13 +144,46 @@ public class Blogger extends BasePersistentClass implements java.io.Serializable
     public void setEducationlevel(int educationlevel) {
         this.educationlevel = educationlevel;
     }
-   
 
+    public int getState() {
+        return state;
+    }
 
+    public void setState(int state) {
+        this.state = state;
+    }
 
+    public int getCity() {
+        return city;
+    }
 
+    public void setCity(int city) {
+        this.city = city;
+    }
 
+    public int getProfession() {
+        return profession;
+    }
 
+    public void setProfession(int profession) {
+        this.profession = profession;
+    }
+
+    public int getBlogfocus() {
+        return blogfocus;
+    }
+
+    public void setBlogfocus(int blogfocus) {
+        this.blogfocus = blogfocus;
+    }
+
+    public int getPolitics() {
+        return politics;
+    }
+
+    public void setPolitics(int politics) {
+        this.politics = politics;
+    }
 
 
 }

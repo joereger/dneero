@@ -19,30 +19,30 @@
 
 
 
-    <af:table value="#{sysadminOfferList.offers}" bandingInterval="2" rows="15" banding="row" var="offer">
+    <af:table value="#{sysadminSurveyList.surveys}" bandingInterval="2" rows="15" banding="row" var="survey">
       <af:column>
         <f:facet name="header">
-          <af:outputText value="Offerid"/>
+          <af:outputText value="Surveyid"/>
         </f:facet>
-        <af:outputText value="#{offer.offerid}"/>
+        <af:outputText value="#{survey.surveyid}"/>
       </af:column>
       <af:column>
         <f:facet name="header">
           <af:outputText value="Title"/>
         </f:facet>
-        <af:outputText value="#{offer.title}"/>
+        <af:outputText value="#{survey.title}"/>
       </af:column>
       <af:column>
         <f:facet name="header">
           <af:outputText value="Description"/>
         </f:facet>
-        <af:outputText value="#{offer.description}"/>
+        <af:outputText value="#{survey.description}"/>
       </af:column>
       <af:column>
         <f:facet name="header">
           <af:outputText value="Willing to Pay"/>
         </f:facet>
-        <af:outputText value="#{offer.willingtopayperrespondent}"/>
+        <af:outputText value="#{survey.willingtopayperrespondent}"/>
       </af:column>
 
     </af:table>

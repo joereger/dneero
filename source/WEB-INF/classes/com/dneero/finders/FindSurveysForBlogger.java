@@ -1,8 +1,8 @@
 package com.dneero.finders;
 
 import com.dneero.dao.Blogger;
-import com.dneero.dao.Offercriteria;
-import com.dneero.dao.Offer;
+import com.dneero.dao.Surveycriteria;
+import com.dneero.dao.Survey;
 import com.dneero.dao.hibernate.HibernateUtil;
 
 import java.util.List;
@@ -22,54 +22,69 @@ public class FindSurveysForBlogger {
 
     Logger logger = Logger.getLogger(this.getClass().getName());
 
-    private List offers;
+    private List surveys;
     private Blogger blogger;
 
     public FindSurveysForBlogger(Blogger blogger){
         logger.debug("start building criteria to FindSurveysForBlogger");
 
-        this.offers = new ArrayList();
+        this.surveys = new ArrayList();
         this.blogger = blogger;
 
         //Create the criteria
-        Criteria crit = HibernateUtil.getSession().createCriteria(Offercriteria.class);
+        Criteria crit = HibernateUtil.getSession().createCriteria(Surveycriteria.class);
 
         //Birthdate
         crit.add(Restrictions.between("agemin", 0, 100));
         crit.add(Restrictions.between("agemax", 0, 100));
         //Gender
-        crit.createCriteria("offercriteriagender")
+        crit.createCriteria("surveycriteriagender")
             .add(Restrictions.eq("gender", blogger.getGender()));
         //Ethnicity
-        crit.createCriteria("offercriteriaethnicity")
+        crit.createCriteria("surveycriteriaethnicity")
             .add(Restrictions.eq("ethnicity", blogger.getEthnicity()));
         //Marital Status
-        crit.createCriteria("offercriteriamaritalstatus")
+        crit.createCriteria("surveycriteriamaritalstatus")
             .add(Restrictions.eq("maritalstatus", blogger.getMaritalstatus()));
         //Income Range
-        crit.createCriteria("offercriteriaincomerange")
+        crit.createCriteria("surveycriteriaincomerange")
             .add(Restrictions.eq("incomerange", blogger.getIncomerange()));
         //Education Level
-        crit.createCriteria("offercriteriaeducationlevel")
+        crit.createCriteria("surveycriteriaeducationlevel")
             .add(Restrictions.eq("educationlevel", blogger.getEducationlevel()));
+        //State
+        crit.createCriteria("surveycriteriastate")
+            .add(Restrictions.eq("state", blogger.getState()));
+        //City
+        crit.createCriteria("surveycriteriacity")
+            .add(Restrictions.eq("city", blogger.getCity()));
+        //Profession
+        crit.createCriteria("surveycriteriaprofession")
+            .add(Restrictions.eq("profession", blogger.getProfession()));
+        //Focus
+        crit.createCriteria("surveycriteriablogfocus")
+            .add(Restrictions.eq("blogfocus", blogger.getBlogfocus()));
+        //Politics
+        crit.createCriteria("surveycriteriapolitics")
+            .add(Restrictions.eq("politics", blogger.getPolitics()));
 
         //Run the query
-        List<Offercriteria> offercriteria = crit.list();
-        logger.debug("offercriteria.size()=" + offercriteria.size());
+        List<Surveycriteria> surveycriteria = crit.list();
+        logger.debug("surveycriteria.size()=" + surveycriteria.size());
         //Iterate results
-        for (Iterator it = offercriteria.iterator(); it.hasNext(); ) {
-            Offercriteria oc = (Offercriteria)it.next();
-            offers.add(Offer.get(oc.getOfferid()));
+        for (Iterator it = surveycriteria.iterator(); it.hasNext(); ) {
+            Surveycriteria oc = (Surveycriteria)it.next();
+            surveys.add(Survey.get(oc.getSurveyid()));
         }
 
     }
 
-    public List getOffers() {
-        return offers;
+    public List getSurveys() {
+        return surveys;
     }
 
-    public void setOffers(List offers) {
-        this.offers = offers;
+    public void setSurveys(List surveys) {
+        this.surveys = surveys;
     }
 
     public Blogger getBlogger() {

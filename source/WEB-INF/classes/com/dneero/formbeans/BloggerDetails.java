@@ -7,7 +7,6 @@ import java.util.Iterator;
 
 import com.dneero.util.Jsf;
 import com.dneero.util.GeneralException;
-import com.dneero.dao.User;
 import com.dneero.dao.Blogger;
 import com.dneero.dao.Userrole;
 import com.dneero.session.UserSession;
@@ -27,6 +26,11 @@ public class BloggerDetails {
     private String income;
     private String maritalstatus;
     private String educationlevel;
+    private String state;
+    private String city;
+    private String profession;
+    private String blogfocus;
+    private String politics;
 
     //Other props
     private int userid;
@@ -43,6 +47,11 @@ public class BloggerDetails {
             income = String.valueOf(blogger.getIncomerange());
             maritalstatus = String.valueOf(blogger.getMaritalstatus());
             educationlevel = String.valueOf(blogger.getEducationlevel());
+            state = String.valueOf(blogger.getState());
+            city = String.valueOf(blogger.getCity());
+            profession = String.valueOf(blogger.getProfession());
+            blogfocus = String.valueOf(blogger.getBlogfocus());
+            politics = String.valueOf(blogger.getPolitics());
         }
     }
 
@@ -77,6 +86,21 @@ public class BloggerDetails {
             }
             if (com.dneero.util.Num.isinteger(maritalstatus)){
                 blogger.setMaritalstatus(Integer.parseInt(maritalstatus));
+            }
+            if (com.dneero.util.Num.isinteger(state)){
+                blogger.setState(Integer.parseInt(state));
+            }
+            if (com.dneero.util.Num.isinteger(city)){
+                blogger.setCity(Integer.parseInt(city));
+            }
+            if (com.dneero.util.Num.isinteger(profession)){
+                blogger.setProfession(Integer.parseInt(profession));
+            }
+            if (com.dneero.util.Num.isinteger(blogfocus)){
+                blogger.setBlogfocus(Integer.parseInt(blogfocus));
+            }
+            if (com.dneero.util.Num.isinteger(politics)){
+                blogger.setPolitics(Integer.parseInt(politics));
             }
 
             try{
@@ -183,4 +207,45 @@ public class BloggerDetails {
     public void setIncome(String income) {
         this.income = income;
     }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getProfession() {
+        return profession;
+    }
+
+    public void setProfession(String profession) {
+        this.profession = profession;
+    }
+
+    public String getBlogfocus() {
+        return blogfocus;
+    }
+
+    public void setBlogfocus(String blogfocus) {
+        this.blogfocus = blogfocus;
+    }
+
+    public String getPolitics() {
+        return politics;
+    }
+
+    public void setPolitics(String politics) {
+        this.politics = politics;
+    }
+
 }

@@ -29,6 +29,21 @@
         <property name="educationlevel" type="int">
             <column name="educationlevel" not-null="true" />
         </property>
+        <property name="state" type="int">
+            <column name="state" not-null="true" />
+        </property>
+        <property name="city" type="int">
+            <column name="city" not-null="true" />
+        </property>
+        <property name="profession" type="int">
+            <column name="profession" not-null="true" />
+        </property>
+        <property name="blogfocus" type="int">
+            <column name="blogfocus" not-null="true" />
+        </property>
+        <property name="politics" type="int">
+            <column name="politics" not-null="true" />
+        </property>
 
 
 

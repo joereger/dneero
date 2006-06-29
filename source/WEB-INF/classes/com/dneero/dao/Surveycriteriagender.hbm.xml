@@ -3,13 +3,13 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated Apr 17, 2006 3:45:28 PM by Hibernate Tools 3.1.0.beta4 -->
 <hibernate-mapping>
-    <class name="com.dneero.dao.Offercriteriagender" table="offercriteriagender">
-        <id name="offercriteriagenderid" type="int">
-            <column name="offercriteriagenderid" />
+    <class name="com.dneero.dao.Surveycriteriagender" table="surveycriteriagender">
+        <id name="surveycriteriagenderid" type="int">
+            <column name="surveycriteriagenderid" />
             <generator class="native" />
         </id>
-        <property name="offercriteriaid" type="int">
-            <column name="offercriteriaid" not-null="true" />
+        <property name="surveycriteriaid" type="int">
+            <column name="surveycriteriaid" not-null="true" />
         </property>
         <property name="gender" type="int">
             <column name="gender" not-null="true" />

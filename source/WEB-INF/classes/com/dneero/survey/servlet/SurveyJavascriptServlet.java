@@ -1,6 +1,6 @@
 package com.dneero.survey.servlet;
 
-import com.dneero.dao.Offer;
+import com.dneero.dao.Survey;
 import com.dneero.dao.User;
 
 import javax.servlet.http.HttpServlet;
@@ -25,9 +25,9 @@ public class SurveyJavascriptServlet extends HttpServlet {
 
         PrintWriter out = response.getWriter();
 
-        Offer offer = null;
-        if (request.getParameter("offerid")!=null && com.dneero.util.Num.isinteger(request.getParameter("offerid"))){
-            offer = Offer.get(Integer.parseInt(request.getParameter("offerid")));
+        Survey survey = null;
+        if (request.getParameter("surveyid")!=null && com.dneero.util.Num.isinteger(request.getParameter("surveyid"))){
+            survey = Survey.get(Integer.parseInt(request.getParameter("surveyid")));
         }
 
         User user = null;
@@ -35,9 +35,9 @@ public class SurveyJavascriptServlet extends HttpServlet {
             user = User.get(Integer.parseInt(request.getParameter("userid")));
         }
 
-        if (offer!=null && user!=null){
+        if (survey!=null && user!=null){
 
-            String output = OfferAsHtml.getHtml(offer, user);
+            String output = SurveyAsHtml.getHtml(survey, user);
             out.print("document.write(\""+output+"\");"+"\n");
 
 //            String[] outArray = output.split("\n");
@@ -49,7 +49,7 @@ public class SurveyJavascriptServlet extends HttpServlet {
 
 
         } else {
-            out.print("Sorry, offer or user not found.");
+            out.print("Sorry, survey or user not found.");
         }
 
 

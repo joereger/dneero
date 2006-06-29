@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 17, 2006 3:45:28 PM by Hibernate Tools 3.1.0.beta4 -->
+<hibernate-mapping>
+    <class name="com.dneero.dao.Surveycriteria" table="surveycriteria">
+        <id name="surveycriteriaid" type="int">
+            <column name="surveycriteriaid" />
+            <generator class="native" />
+        </id>
+        <set name="surveycriteriagender" inverse="true" cascade="all-delete-orphan">
+            <cache usage="nonstrict-read-write"/>
+            <key column="surveycriteriaid"></key>
+            <one-to-many class="com.dneero.dao.Surveycriteriagender" not-found="ignore"></one-to-many>
+        </set>
+        <set name="surveycriteriaethnicity" inverse="true" cascade="all-delete-orphan">
+            <cache usage="nonstrict-read-write"/>
+            <key column="surveycriteriaid"></key>
+            <one-to-many class="com.dneero.dao.Surveycriteriaethnicity" not-found="ignore"></one-to-many>
+        </set>
+        <set name="surveycriteriamaritalstatus" inverse="true" cascade="all-delete-orphan">
+            <cache usage="nonstrict-read-write"/>
+            <key column="surveycriteriaid"></key>
+            <one-to-many class="com.dneero.dao.Surveycriteriamaritalstatus" not-found="ignore"></one-to-many>
+        </set>
+        <set name="surveycriteriaincomerange" inverse="true" cascade="all-delete-orphan">
+            <cache usage="nonstrict-read-write"/>
+            <key column="surveycriteriaid"></key>
+            <one-to-many class="com.dneero.dao.Surveycriteriaincomerange" not-found="ignore"></one-to-many>
+        </set>
+        <set name="surveycriteriaeducationlevel" inverse="true" cascade="all-delete-orphan">
+            <cache usage="nonstrict-read-write"/>
+            <key column="surveycriteriaid"></key>
+            <one-to-many class="com.dneero.dao.Surveycriteriaeducationlevel" not-found="ignore"></one-to-many>
+        </set>
+        <set name="surveycriteriastate" inverse="true" cascade="all-delete-orphan">
+            <cache usage="nonstrict-read-write"/>
+            <key column="surveycriteriaid"></key>
+            <one-to-many class="com.dneero.dao.Surveycriteriastate" not-found="ignore"></one-to-many>
+        </set>
+        <set name="surveycriteriacity" inverse="true" cascade="all-delete-orphan">
+            <cache usage="nonstrict-read-write"/>
+            <key column="surveycriteriaid"></key>
+            <one-to-many class="com.dneero.dao.Surveycriteriacity" not-found="ignore"></one-to-many>
+        </set>
+        <set name="surveycriteriaprofession" inverse="true" cascade="all-delete-orphan">
+            <cache usage="nonstrict-read-write"/>
+            <key column="surveycriteriaid"></key>
+            <one-to-many class="com.dneero.dao.Surveycriteriaprofession" not-found="ignore"></one-to-many>
+        </set>
+        <set name="surveycriteriablogfocus" inverse="true" cascade="all-delete-orphan">
+            <cache usage="nonstrict-read-write"/>
+            <key column="surveycriteriaid"></key>
+            <one-to-many class="com.dneero.dao.Surveycriteriablogfocus" not-found="ignore"></one-to-many>
+        </set>
+        <set name="surveycriteriapolitics" inverse="true" cascade="all-delete-orphan">
+            <cache usage="nonstrict-read-write"/>
+            <key column="surveycriteriaid"></key>
+            <one-to-many class="com.dneero.dao.Surveycriteriapolitics" not-found="ignore"></one-to-many>
+        </set>
+        <property name="surveyid" type="int">
+            <column name="surveyid" not-null="true" />
+        </property>
+        <property name="agemin" type="int">
+            <column name="agemin" not-null="true" />
+        </property>
+        <property name="agemax" type="int">
+            <column name="agemax" not-null="true" />
+        </property>
+
+
+    </class>
+</hibernate-mapping>

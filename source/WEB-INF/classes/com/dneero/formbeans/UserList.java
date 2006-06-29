@@ -26,13 +26,13 @@ public class UserList extends SortableList {
     }
 
     public List getUsers() {
-        //logger.debug("getOffers");
+        //logger.debug("getSurveys");
         sort(getSort(), isAscending());
         return users;
     }
 
     public void setUsers(List users) {
-        //logger.debug("setOffers");
+        //logger.debug("setSurveys");
         this.users = users;
     }
 

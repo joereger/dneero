@@ -1,6 +1,6 @@
 package com.dneero.formbeans;
 
-import com.dneero.dao.Offer;
+import com.dneero.dao.Survey;
 import org.apache.log4j.Logger;
 
 import javax.faces.context.FacesContext;

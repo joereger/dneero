@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Iterator;
 
-import com.dneero.dao.Offer;
+import com.dneero.dao.Survey;
 import com.dneero.dao.User;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.util.GeneralException;
@@ -30,8 +30,8 @@ public class Login {
     Logger logger = Logger.getLogger(this.getClass().getName());
 
     public Login(){
-        logger.debug("Instanciating a NewOffer object.");
-        //offer = new Offer();
+        logger.debug("Instanciating a NewSurvey object.");
+        //survey = new Survey();
     }
 
     public String login(){

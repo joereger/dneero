@@ -3,19 +3,19 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated Apr 17, 2006 3:45:28 PM by Hibernate Tools 3.1.0.beta4 -->
 <hibernate-mapping>
-    <class name="com.dneero.dao.Offer" table="offer">
-        <id name="offerid" type="int">
-            <column name="offerid" />
+    <class name="com.dneero.dao.Survey" table="survey">
+        <id name="surveyid" type="int">
+            <column name="surveyid" />
             <generator class="native" />
         </id>
         <!--
-        <set name="offercriteria" inverse="true" cascade="all-delete-orphan">
+        <set name="surveycriteria" inverse="true" cascade="all-delete-orphan">
             <cache usage="nonstrict-read-write"/>
-            <key column="offerid"></key>
-            <one-to-many class="com.dneero.dao.Offercriteria" not-found="ignore"></one-to-many>
+            <key column="surveyid"></key>
+            <one-to-many class="com.dneero.dao.Surveycriteria" not-found="ignore"></one-to-many>
         </set>
         -->
-        <one-to-one name="offercriteria" class="com.dneero.dao.Offercriteria" property-ref="offerid" cascade="all"/>
+        <one-to-one name="surveycriteria" class="com.dneero.dao.Surveycriteria" property-ref="surveyid" cascade="all"/>
         <property name="researcherid" type="int">
             <column name="researcherid" not-null="true" />
         </property>
@@ -37,8 +37,8 @@
         <property name="enddate" type="timestamp">
             <column name="enddate" length="19" not-null="true" />
         </property>
-        <property name="offerbody" type="string">
-            <column name="offerbody" length="65535" />
+        <property name="surveybody" type="string">
+            <column name="surveybody" length="65535" />
         </property>
     </class>
 </hibernate-mapping>

@@ -28,8 +28,8 @@
     </application>
 
     <converter>
-      <converter-id>com.dneero.converters.Offercriteriagender</converter-id>
-      <converter-class>com.dneero.converters.Offercriteriagender</converter-class>
+      <converter-id>com.dneero.converters.Surveycriteriagender</converter-id>
+      <converter-class>com.dneero.converters.Surveycriteriagender</converter-class>
     </converter>
 
     <component>
@@ -73,8 +73,8 @@
     </managed-bean>
 
     <managed-bean>
-        <managed-bean-name>bloggerOfferList</managed-bean-name>
-        <managed-bean-class>com.dneero.formbeans.BloggerOfferList</managed-bean-class>
+        <managed-bean-name>bloggerSurveyList</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.BloggerSurveyList</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
 
@@ -91,8 +91,8 @@
     </managed-bean>
 
     <managed-bean>
-        <managed-bean-name>sysadminOfferList</managed-bean-name>
-        <managed-bean-class>com.dneero.formbeans.SystemadminOfferList</managed-bean-class>
+        <managed-bean-name>sysadminSurveyList</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.SystemadminSurveyList</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
 
@@ -103,18 +103,18 @@
     </managed-bean>
 
     <managed-bean>
-        <managed-bean-name>bloggerOfferDetail</managed-bean-name>
-        <managed-bean-class>com.dneero.formbeans.BloggerOfferDetail</managed-bean-class>
+        <managed-bean-name>bloggerSurveyDetail</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.BloggerSurveyDetail</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
         <managed-property>
-            <property-name>offer</property-name>
-            <value>#{offer}</value>
+            <property-name>survey</property-name>
+            <value>#{survey}</value>
         </managed-property>
     </managed-bean>
 
     <managed-bean>
-        <managed-bean-name>offerBackingBean</managed-bean-name>
-        <managed-bean-class>com.dneero.formbeans.OfferBackingBean</managed-bean-class>
+        <managed-bean-name>surveyBackingBean</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.SurveyBackingBean</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
 
@@ -126,8 +126,8 @@
 
 
     <managed-bean>
-        <managed-bean-name>researcherOfferList</managed-bean-name>
-        <managed-bean-class>com.dneero.formbeans.ResearcherOfferList</managed-bean-class>
+        <managed-bean-name>researcherSurveyList</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.ResearcherSurveyList</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
 
@@ -180,16 +180,16 @@
             <to-view-id>/sysadmin/index.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
-            <from-outcome>sysadminofferlist</from-outcome>
-            <to-view-id>/sysadmin/sysadminofferlist.xhtml</to-view-id>
+            <from-outcome>sysadminsurveylist</from-outcome>
+            <to-view-id>/sysadmin/sysadminsurveylist.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>researcherhome</from-outcome>
             <to-view-id>/researcher/index.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
-            <from-outcome>newoffer</from-outcome>
-            <to-view-id>/researcher/researcherofferdetail.xhtml</to-view-id>
+            <from-outcome>newsurvey</from-outcome>
+            <to-view-id>/researcher/researchersurveydetail.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>bloggerearnings</from-outcome>
@@ -204,20 +204,20 @@
             <to-view-id>/blogger/bloggerdetails.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
-            <from-outcome>bloggerofferlist</from-outcome>
-            <to-view-id>/blogger/bloggerofferlist.xhtml</to-view-id>
+            <from-outcome>bloggersurveylist</from-outcome>
+            <to-view-id>/blogger/bloggersurveylist.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
-            <from-outcome>bloggerofferdetail</from-outcome>
-            <to-view-id>/blogger/bloggerofferdetail.xhtml</to-view-id>
+            <from-outcome>bloggersurveydetail</from-outcome>
+            <to-view-id>/blogger/bloggersurveydetail.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
-            <from-outcome>researcherofferlist</from-outcome>
-            <to-view-id>/researcher/researcherofferlist.xhtml</to-view-id>
+            <from-outcome>researchersurveylist</from-outcome>
+            <to-view-id>/researcher/researchersurveylist.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
-            <from-outcome>researcherofferdetail</from-outcome>
-            <to-view-id>/researcher/researcherofferdetail.xhtml</to-view-id>
+            <from-outcome>researchersurveydetail</from-outcome>
+            <to-view-id>/researcher/researchersurveydetail.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>researcherdetails</from-outcome>
@@ -238,10 +238,10 @@
     </navigation-rule>
 
     <navigation-rule>
-		<from-view-id>/blogger/bloggerofferlist.xhtml</from-view-id>
+		<from-view-id>/blogger/bloggersurveylist.xhtml</from-view-id>
 		<navigation-case>
 			<from-outcome>beginview_success</from-outcome>
-			<to-view-id>/blogger/bloggerofferdetail.xhtml</to-view-id>
+			<to-view-id>/blogger/bloggersurveydetail.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 
@@ -278,10 +278,10 @@
     </navigation-rule>
 
     <navigation-rule>
-        <from-view-id>/researcher/researcherofferdetail.xhtml</from-view-id>
+        <from-view-id>/researcher/researchersurveydetail.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>success</from-outcome>
-            <to-view-id>/researcher/researcherofferlist.xhtml</to-view-id>
+            <to-view-id>/researcher/researchersurveylist.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
 

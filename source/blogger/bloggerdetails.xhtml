@@ -89,6 +89,67 @@
                     <h:message for="educationlevel" styleClass="RED"></h:message>
                 </h:panelGroup>
 
+                <h:panelGroup>
+                    <h:outputText value="State"></h:outputText>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:selectOneMenu value="#{bloggerDetails.state}" id="state" layout="pageDirection" required="true">
+                        <f:selectItems value="#{states}"/>
+                    </h:selectOneMenu>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:message for="state" styleClass="RED"></h:message>
+                </h:panelGroup>
+
+                <h:panelGroup>
+                    <h:outputText value="City"></h:outputText>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:selectOneMenu value="#{bloggerDetails.city}" id="city" layout="pageDirection" required="true">
+                        <f:selectItems value="#{cities}"/>
+                    </h:selectOneMenu>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:message for="city" styleClass="RED"></h:message>
+                </h:panelGroup>
+
+
+                <h:panelGroup>
+                    <h:outputText value="Profession"></h:outputText>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:selectOneMenu value="#{bloggerDetails.profession}" id="profession" layout="pageDirection" required="true">
+                        <f:selectItems value="#{professions}"/>
+                    </h:selectOneMenu>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:message for="profession" styleClass="RED"></h:message>
+                </h:panelGroup>
+
+
+                <h:panelGroup>
+                    <h:outputText value="Blog Focus"></h:outputText>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:selectOneMenu value="#{bloggerDetails.blogfocus}" id="blogfocus" layout="pageDirection" required="true">
+                        <f:selectItems value="#{blogfocuses}"/>
+                    </h:selectOneMenu>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:message for="blogfocus" styleClass="RED"></h:message>
+                </h:panelGroup>
+
+                <h:panelGroup>
+                    <h:outputText value="Politics"></h:outputText>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:selectOneMenu value="#{bloggerDetails.politics}" id="politics" layout="pageDirection" required="true">
+                        <f:selectItems value="#{politics}"/>
+                    </h:selectOneMenu>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:message for="politics" styleClass="RED"></h:message>
+                </h:panelGroup>
 
 
 
