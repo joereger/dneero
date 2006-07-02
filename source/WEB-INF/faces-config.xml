@@ -27,10 +27,6 @@
         <default-render-kit-id>oracle.adf.core</default-render-kit-id>
     </application>
 
-    <converter>
-      <converter-id>com.dneero.converters.Surveycriteriagender</converter-id>
-      <converter-class>com.dneero.converters.Surveycriteriagender</converter-class>
-    </converter>
 
     <component>
         <component-type>com.dneero.ui.RoundedCornerBox</component-type>
