@@ -15,7 +15,7 @@
 
     <h:form>
 
-        <af:table value="#{researcherSurveyList.surveys}" bandingInterval="2" rows="50" banding="row" var="survey">
+        <af:table value="#{researcherSurveyList.surveys}" bandingInterval="2" rows="50" banding="row" var="survey" rendered="#{!empty researcherSurveyList.surveys}">
           <af:column>
             <f:facet name="header">
               <af:outputText value="Surveyid"/>
@@ -50,6 +50,8 @@
             </h:commandLink>
           </af:column>
         </af:table>
+
+        <h:commandButton action="#{researcherSurveyDetail01.beginViewNewSurvey}" value="New Survey"></h:commandButton>
 
     </h:form>
 

@@ -36,6 +36,11 @@ public class ResearcherSurveyDetail01 {
         loadSurvey(Jsf.getUserSession().getCurrentResearcherSurveyDetailSurveyid());
     }
 
+    public String beginViewNewSurvey(){
+        Jsf.getUserSession().setCurrentResearcherSurveyDetailSurveyid(0);
+        return "researchersurveydetail_01";
+    }
+
     public String beginView(){
         //logger.debug("beginView called:");
         String tmpSurveyid = (String)FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("surveyid");

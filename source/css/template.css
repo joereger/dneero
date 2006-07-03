@@ -2,22 +2,24 @@ body {
     margin:12px 12px 0 9px;
     padding:0;
     background:#FFFFFF;
+    background-image: url("/images/background-green.gif");
 }
 #level0 {
 }
 #level1 {
 }
 #level2 {
-    margin-left:225px;
+    margin-left:160px;
     padding:15px;
+    width: 575px;
+    background: #ffffff;
 }
 #topBar {
-    background:#ffffff;
     padding:4px;
 }
 #lftBar {
     background:#ffffff;
     position:absolute;
-    width:200px;
+    width:150px;
     top:125px;
 }
