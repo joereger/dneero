@@ -16,7 +16,7 @@
         </set>
         -->
         <one-to-one name="surveycriteria" class="com.dneero.dao.Surveycriteria" property-ref="surveyid" cascade="all"/>
-        <one-to-one name="researcherbilling" class="com.dneero.dao.Researcherbilling" cascade="save-update"/>
+        <!--<one-to-one name="researcherbilling" class="com.dneero.dao.Researcherbilling" cascade="save-update"/>-->
         <property name="researcherid" type="int">
             <column name="researcherid" not-null="true" />
         </property>

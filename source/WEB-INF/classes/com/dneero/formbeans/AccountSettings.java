@@ -25,7 +25,7 @@ public class AccountSettings {
     Logger logger = Logger.getLogger(this.getClass().getName());
 
     public AccountSettings(){
-        UserSession userSession = (UserSession)Jsf.getManagedBean("userSession");
+        UserSession userSession = Jsf.getUserSession();
         if (userSession.getUser()!=null){
             User user = userSession.getUser();
             email = user.getEmail();
@@ -36,7 +36,7 @@ public class AccountSettings {
 
     public String saveAction(){
 
-        UserSession userSession = (UserSession)Jsf.getManagedBean("userSession");
+        UserSession userSession = Jsf.getUserSession();
         if (userSession.getUser()!=null){
             User user = userSession.getUser();
             user.setEmail(email);

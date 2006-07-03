@@ -15,7 +15,7 @@
 
 <h:form>
     <h:messages />
-    <h:inputHidden name="surveyid" value="#{surveyBackingBean.surveyid}" />
+    <h:inputHidden name="surveyid" value="#{userSession.currentResearcherSurveyDetailSurveyid}" />
 
     <af:processTrain  value="#{surveyDetailProcessTrain}" var="surveyNode">
         <f:facet name="nodeStamp">
@@ -30,7 +30,7 @@
             <h:outputText value="Survey Id"></h:outputText>
         </h:panelGroup>
         <h:panelGroup>
-            <h:outputText value="#{surveyBackingBean.surveyid}"></h:outputText>
+            <h:outputText value="#{userSession.currentResearcherSurveyDetailSurveyid}"></h:outputText>
         </h:panelGroup>
         <h:panelGroup>
         </h:panelGroup>
@@ -39,11 +39,11 @@
             <h:outputText value="Age"></h:outputText>
         </h:panelGroup>
         <h:panelGroup>
-            <h:inputText value="#{surveyBackingBean.agemin}" id="agemin" required="true">
+            <h:inputText value="#{researcherSurveyDetail02.agemin}" id="agemin" required="true">
                 <f:validateDoubleRange minimum="1" maximum="120"></f:validateDoubleRange>
             </h:inputText>
             <h:outputText value=" - "></h:outputText>
-            <h:inputText value="#{surveyBackingBean.agemax}" id="agemax" required="true">
+            <h:inputText value="#{researcherSurveyDetail02.agemax}" id="agemax" required="true">
                 <f:validateDoubleRange minimum="1" maximum="120"></f:validateDoubleRange>
             </h:inputText>
         </h:panelGroup>
@@ -59,7 +59,7 @@
             <h:outputText value="Gender"></h:outputText>
         </h:panelGroup>
         <h:panelGroup>
-            <h:selectManyCheckbox value="#{surveyBackingBean.gender}" id="gender" required="true">
+            <h:selectManyCheckbox value="#{researcherSurveyDetail02.gender}" id="gender" required="true">
                 <f:selectItems value="#{genders}"/>
             </h:selectManyCheckbox>
         </h:panelGroup>
@@ -72,7 +72,7 @@
             <h:outputText value="Ethnicity"></h:outputText>
         </h:panelGroup>
         <h:panelGroup>
-            <h:selectManyListbox value="#{surveyBackingBean.ethnicity}" id="ethnicity" size="6" layout="pageDirection" required="true">
+            <h:selectManyListbox value="#{researcherSurveyDetail02.ethnicity}" id="ethnicity" size="6" layout="pageDirection" required="true">
                 <f:selectItems value="#{ethnicities}"/>
             </h:selectManyListbox>
         </h:panelGroup>
@@ -84,7 +84,7 @@
             <h:outputText value="Marital Status"></h:outputText>
         </h:panelGroup>
         <h:panelGroup>
-            <h:selectManyCheckbox value="#{surveyBackingBean.maritalstatus}" id="maritalstatus" required="true">
+            <h:selectManyCheckbox value="#{researcherSurveyDetail02.maritalstatus}" id="maritalstatus" required="true">
                 <f:selectItems value="#{maritalstatuses}"/>
             </h:selectManyCheckbox>
         </h:panelGroup>
@@ -96,7 +96,7 @@
             <h:outputText value="Income"></h:outputText>
         </h:panelGroup>
         <h:panelGroup>
-            <h:selectManyListbox value="#{surveyBackingBean.income}" size="5" id="income" layout="pageDirection" required="true">
+            <h:selectManyListbox value="#{researcherSurveyDetail02.income}" size="5" id="income" layout="pageDirection" required="true">
                 <f:selectItems value="#{incomes}"/>
             </h:selectManyListbox>
         </h:panelGroup>
@@ -108,7 +108,7 @@
             <h:outputText value="Education"></h:outputText>
         </h:panelGroup>
         <h:panelGroup>
-            <h:selectManyCheckbox value="#{surveyBackingBean.educationlevel}" id="educationlevel" layout="pageDirection" required="true">
+            <h:selectManyCheckbox value="#{researcherSurveyDetail02.educationlevel}" id="educationlevel" layout="pageDirection" required="true">
                 <f:selectItems value="#{educationlevels}"/>
             </h:selectManyCheckbox>
         </h:panelGroup>
@@ -122,7 +122,7 @@
             <h:outputText value="State"></h:outputText>
         </h:panelGroup>
         <h:panelGroup>
-            <h:selectManyListbox value="#{surveyBackingBean.state}" size="5" id="state" layout="pageDirection" required="true">
+            <h:selectManyListbox value="#{researcherSurveyDetail02.state}" size="5" id="state" layout="pageDirection" required="true">
                 <f:selectItems value="#{states}"/>
             </h:selectManyListbox>
         </h:panelGroup>
@@ -134,7 +134,7 @@
             <h:outputText value="City"></h:outputText>
         </h:panelGroup>
         <h:panelGroup>
-            <h:selectManyListbox value="#{surveyBackingBean.city}" size="5" id="city" layout="pageDirection" required="true">
+            <h:selectManyListbox value="#{researcherSurveyDetail02.city}" size="5" id="city" layout="pageDirection" required="true">
                 <f:selectItems value="#{cities}"/>
             </h:selectManyListbox>
         </h:panelGroup>
@@ -147,7 +147,7 @@
             <h:outputText value="Profession"></h:outputText>
         </h:panelGroup>
         <h:panelGroup>
-            <h:selectManyListbox value="#{surveyBackingBean.profession}" size="5" id="profession" layout="pageDirection" required="true">
+            <h:selectManyListbox value="#{researcherSurveyDetail02.profession}" size="5" id="profession" layout="pageDirection" required="true">
                 <f:selectItems value="#{professions}"/>
             </h:selectManyListbox>
         </h:panelGroup>
@@ -160,7 +160,7 @@
             <h:outputText value="Blog Focus"></h:outputText>
         </h:panelGroup>
         <h:panelGroup>
-            <h:selectManyListbox value="#{surveyBackingBean.blogfocus}" size="5" id="blogfocus" layout="pageDirection" required="true">
+            <h:selectManyListbox value="#{researcherSurveyDetail02.blogfocus}" size="5" id="blogfocus" layout="pageDirection" required="true">
                 <f:selectItems value="#{blogfocuses}"/>
             </h:selectManyListbox>
         </h:panelGroup>
@@ -172,7 +172,7 @@
             <h:outputText value="Politics"></h:outputText>
         </h:panelGroup>
         <h:panelGroup>
-            <h:selectManyListbox value="#{surveyBackingBean.politics}" size="5" id="politics" layout="pageDirection" required="true">
+            <h:selectManyListbox value="#{researcherSurveyDetail02.politics}" size="5" id="politics" layout="pageDirection" required="true">
                 <f:selectItems value="#{politics}"/>
             </h:selectManyListbox>
         </h:panelGroup>
@@ -185,7 +185,7 @@
         <h:panelGroup>
         </h:panelGroup>
         <h:panelGroup>
-            <h:commandButton action="researchersurveydetail_03" value="Continue"></h:commandButton>
+            <h:commandButton action="#{researcherSurveyDetail02.saveSurvey}" value="Continue"></h:commandButton>
         </h:panelGroup>
         <h:panelGroup>
         </h:panelGroup>

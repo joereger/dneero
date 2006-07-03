@@ -31,7 +31,7 @@ public class ChangePassword {
         }
 
 
-        UserSession userSession = (UserSession)Jsf.getManagedBean("userSession");
+        UserSession userSession = Jsf.getUserSession();
         if (userSession.getUser()!=null){
             User user = userSession.getUser();
             user.setPassword(password);

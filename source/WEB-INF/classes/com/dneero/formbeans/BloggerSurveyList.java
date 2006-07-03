@@ -30,7 +30,7 @@ public class BloggerSurveyList extends SortableList {
         //Go get the surveys from the database
         //surveys = HibernateUtil.getSession().createQuery("from Survey").list();
 
-        UserSession userSession = (UserSession)Jsf.getManagedBean("userSession");
+        UserSession userSession = Jsf.getUserSession();
 
         if (userSession!=null && userSession.getUser()!=null && userSession.getUser().getBlogger()!=null){
             logger.debug("userSession, user and blogger not null");

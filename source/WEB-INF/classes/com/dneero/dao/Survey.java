@@ -37,7 +37,6 @@ public class Survey extends BasePersistentClass implements java.io.Serializable,
      private int researcherbillingid;
 
      private Surveycriteria surveycriteria;
-     private Researcherbilling researcherbilling;
 
 
     //Validator
@@ -199,14 +198,6 @@ public class Survey extends BasePersistentClass implements java.io.Serializable,
 
     public void setSurveycriteria(Surveycriteria surveycriteria) {
         this.surveycriteria = surveycriteria;
-    }
-
-    public Researcherbilling getResearcherbilling() {
-        return researcherbilling;
-    }
-
-    public void setResearcherbilling(Researcherbilling researcherbilling) {
-        this.researcherbilling = researcherbilling;
     }
 
     public int getResearcherbillingid() {

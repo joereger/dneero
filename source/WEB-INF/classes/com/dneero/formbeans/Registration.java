@@ -58,7 +58,7 @@ public class Registration {
         }
 
         //Log the user in
-        UserSession userSession = (UserSession)Jsf.getManagedBean("userSession");
+        UserSession userSession = Jsf.getUserSession();
         userSession.setUser(user);
         userSession.setIsloggedin(true);
 

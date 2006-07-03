@@ -15,7 +15,7 @@
 
 <h:form>
     <h:messages />
-    <h:inputHidden name="surveyid" value="#{surveyBackingBean.surveyid}" />
+    <h:inputHidden name="surveyid" value="#{userSession.currentResearcherSurveyDetailSurveyid}" />
 
     <af:processTrain  value="#{surveyDetailProcessTrain}" var="surveyNode">
         <f:facet name="nodeStamp">
@@ -30,7 +30,7 @@
             <h:outputText value="Survey Id"></h:outputText>
         </h:panelGroup>
         <h:panelGroup>
-            <h:outputText value="#{surveyBackingBean.surveyid}"></h:outputText>
+            <h:outputText value="#{userSession.currentResearcherSurveyDetailSurveyid}"></h:outputText>
         </h:panelGroup>
         <h:panelGroup>
         </h:panelGroup>
@@ -40,7 +40,7 @@
             <h:outputText value="Willing to Pay Per Respondent"></h:outputText>
         </h:panelGroup>
         <h:panelGroup>
-            <h:inputText value="#{surveyBackingBean.willingtopayperrespondent}" id="willingtopayperrespondent" required="true">
+            <h:inputText value="#{researcherSurveyDetail03.willingtopayperrespondent}" id="willingtopayperrespondent" required="true">
                 <f:validateDoubleRange minimum=".25" maximum="10000"></f:validateDoubleRange>
             </h:inputText>
         </h:panelGroup>
@@ -53,7 +53,7 @@
             <h:outputText value="Number of Respondents Requested"></h:outputText>
         </h:panelGroup>
         <h:panelGroup>
-            <h:inputText value="#{surveyBackingBean.numberofrespondentsrequested}" id="numberofrespondentsrequested" required="true">
+            <h:inputText value="#{researcherSurveyDetail03.numberofrespondentsrequested}" id="numberofrespondentsrequested" required="true">
                 <f:validateDoubleRange minimum="100" maximum="10000000"></f:validateDoubleRange>
             </h:inputText>
         </h:panelGroup>
@@ -65,7 +65,7 @@
             <h:outputText value="Willing to Pay Per Survey Display"></h:outputText>
         </h:panelGroup>
         <h:panelGroup>
-            <h:inputText value="#{surveyBackingBean.willingtopaypercpm}" id="willingtopaypercpm" required="true">
+            <h:inputText value="#{researcherSurveyDetail03.willingtopaypercpm}" id="willingtopaypercpm" required="true">
                 <f:validateDoubleRange minimum=".01" maximum="100"></f:validateDoubleRange>
             </h:inputText>
         </h:panelGroup>
@@ -78,7 +78,7 @@
             <h:outputText value="Max Survey Displays Per Blog"></h:outputText>
         </h:panelGroup>
         <h:panelGroup>
-            <h:inputText value="#{surveyBackingBean.maxdisplaysperblog}" id="maxdisplaysperblog" required="true">
+            <h:inputText value="#{researcherSurveyDetail03.maxdisplaysperblog}" id="maxdisplaysperblog" required="true">
                 <f:validateDoubleRange minimum="100" maximum="10000000"></f:validateDoubleRange>
             </h:inputText>
         </h:panelGroup>
@@ -90,7 +90,7 @@
             <h:outputText value="Max Survey Displays Total"></h:outputText>
         </h:panelGroup>
         <h:panelGroup>
-            <h:inputText value="#{surveyBackingBean.maxdisplaystotal}" id="maxdisplaystotal" required="true">
+            <h:inputText value="#{researcherSurveyDetail03.maxdisplaystotal}" id="maxdisplaystotal" required="true">
                 <f:validateDoubleRange minimum="100" maximum="10000000"></f:validateDoubleRange>
             </h:inputText>
         </h:panelGroup>
@@ -102,7 +102,7 @@
         <h:panelGroup>
         </h:panelGroup>
         <h:panelGroup>
-            <h:commandButton action="researchersurveydetail_04" value="Continue"></h:commandButton>
+            <h:commandButton action="#{researcherSurveyDetail03.saveSurvey}" value="Continue"></h:commandButton>
         </h:panelGroup>
         <h:panelGroup>
         </h:panelGroup>

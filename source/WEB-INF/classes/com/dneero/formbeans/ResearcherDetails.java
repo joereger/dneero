@@ -29,7 +29,7 @@ public class ResearcherDetails {
     Logger logger = Logger.getLogger(this.getClass().getName());
 
     public ResearcherDetails(){
-        UserSession userSession = (UserSession)Jsf.getManagedBean("userSession");
+        UserSession userSession = Jsf.getUserSession();
         if (userSession.getUser()!=null && userSession.getUser().getResearcher()!=null){
             Researcher researcher = userSession.getUser().getResearcher();
             userid = researcher.getUserid();
@@ -38,7 +38,7 @@ public class ResearcherDetails {
 
     public String saveAction(){
 
-        UserSession userSession = (UserSession) Jsf.getManagedBean("userSession");
+        UserSession userSession = Jsf.getUserSession();
 
         Researcher researcher;
         boolean isnewresearcher = false;

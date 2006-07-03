@@ -44,7 +44,7 @@ public class Authorization extends UIComponentBase {
 
         if (!acl.equals("") && !isAuthorized(context, acl)){
             if (redirectonfail.equals("true")){
-                UserSession userSession = (UserSession)Jsf.getManagedBean("userSession");
+                UserSession userSession = Jsf.getUserSession();
                 if (userSession!=null && userSession.getUser()!=null && userSession.getIsloggedin()){
                     context.getExternalContext().redirect("/notauthorized.jsf");
                 } else {
@@ -64,7 +64,7 @@ public class Authorization extends UIComponentBase {
 
     private boolean isAuthorized(FacesContext context, String acl)  throws IOException {
 
-        UserSession userSession = (UserSession)Jsf.getManagedBean("userSession");
+        UserSession userSession = Jsf.getUserSession();
 
         if (userSession.getUser()!=null){
 

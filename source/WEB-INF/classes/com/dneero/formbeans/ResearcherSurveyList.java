@@ -28,7 +28,7 @@ public class ResearcherSurveyList extends SortableList {
         //Go get the surveys from the database
         //surveys = HibernateUtil.getSession().createQuery("from Survey").list();
 
-        UserSession userSession = (UserSession) Jsf.getManagedBean("userSession");
+        UserSession userSession = Jsf.getUserSession();
 
         if (userSession!=null && userSession.getUser()!=null && userSession.getUser().getResearcher()!=null){
             logger.debug("userSession, user and researcher not null");
@@ -40,13 +40,13 @@ public class ResearcherSurveyList extends SortableList {
     }
 
     public List getSurveys() {
-        //logger.debug("getSurveys");
+        logger.debug("getSurveys");
         sort(getSort(), isAscending());
         return surveys;
     }
 
     public void setSurveys(List surveys) {
-        //logger.debug("setSurveys");
+        logger.debug("setSurveys");
         this.surveys = surveys;
     }
 
@@ -55,7 +55,7 @@ public class ResearcherSurveyList extends SortableList {
     }
 
     protected void sort(final String column, final boolean ascending) {
-        //logger.debug("sort called");
+        logger.debug("sort called");
         Comparator comparator = new Comparator() {
             public int compare(Object o1, Object o2) {
                 Survey survey1 = (Survey)o1;
@@ -63,7 +63,7 @@ public class ResearcherSurveyList extends SortableList {
                 if (column == null) {
                     return 0;
                 }
-                if (column.equals("title")) {
+                if (survey1!=null && survey2!=null && column.equals("title")) {
                     return ascending ? survey1.getTitle().compareTo(survey2.getTitle()) : survey2.getTitle().compareTo(survey1.getTitle());
                 } else {
                     return 0;
@@ -74,7 +74,7 @@ public class ResearcherSurveyList extends SortableList {
         //sort and also set our model with the new sort, since using DataTable with
         //ListDataModel on front end
         if (surveys != null && !surveys.isEmpty()) {
-            //logger.debug("sorting surveys and initializing ListDataModel");
+            logger.debug("sorting surveys and initializing ListDataModel");
             Collections.sort(surveys, comparator);
         }
     }

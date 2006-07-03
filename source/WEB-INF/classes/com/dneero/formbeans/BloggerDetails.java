@@ -38,7 +38,7 @@ public class BloggerDetails {
     Logger logger = Logger.getLogger(this.getClass().getName());
 
     public BloggerDetails(){
-        UserSession userSession = (UserSession)Jsf.getManagedBean("userSession");
+        UserSession userSession = Jsf.getUserSession();
         if (userSession.getUser()!=null && userSession.getUser().getBlogger()!=null){
             Blogger blogger = userSession.getUser().getBlogger();
             birthdate = blogger.getBirthdate();
@@ -57,7 +57,7 @@ public class BloggerDetails {
 
     public String saveAction(){
 
-        UserSession userSession = (UserSession)Jsf.getManagedBean("userSession");
+        UserSession userSession = Jsf.getUserSession();
 
         Blogger blogger;
         boolean isnewblogger = false;

@@ -1,5 +1,7 @@
 package com.dneero.util;
 
+import com.dneero.session.UserSession;
+
 import javax.faces.context.FacesContext;
 import javax.faces.application.FacesMessage;
 
@@ -17,6 +19,10 @@ public class Jsf {
 
     public static void setFacesMessage(String message){
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage( FacesMessage.SEVERITY_INFO, message, message));
+    }
+
+    public static UserSession getUserSession(){
+        return (UserSession)getManagedBean("userSession");
     }
 
 }
