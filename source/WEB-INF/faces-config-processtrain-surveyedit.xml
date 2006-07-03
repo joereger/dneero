@@ -1,0 +1,166 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE faces-config PUBLIC
+  "-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.0//EN"
+  "http://java.sun.com/dtd/web-facesconfig_1_0.dtd" [
+<!ENTITY managed-beans_gen          SYSTEM "managed-beans_gen.xml">
+<!ENTITY sample-navigation-rules    SYSTEM "sample-navigation-rules.xml">
+ <!ENTITY converters_gen    SYSTEM "converters_gen.xml">
+]>
+
+<faces-config>
+
+
+
+
+  <managed-bean>
+    <managed-bean-name>surveyDetailProcessTrainPageList</managed-bean-name>
+    <managed-bean-class>java.util.ArrayList</managed-bean-class>
+    <managed-bean-scope>application</managed-bean-scope>
+    <list-entries>
+      <value-class>com.dneero.processtrain.ProcessTrainPage</value-class>
+      <value>#{survey1}</value>
+      <value>#{survey2}</value>
+      <value>#{survey3}</value>
+      <value>#{survey4}</value>
+      <value>#{survey5}</value>
+    </list-entries>
+  </managed-bean>
+
+
+  <managed-bean>
+    <managed-bean-name>surveyDetailProcessTrain</managed-bean-name>
+    <managed-bean-class>oracle.adf.view.faces.model.ViewIdPropertyMenuModel</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+    <managed-property>
+      <property-name>viewIdProperty</property-name>
+      <value>viewId</value>
+    </managed-property>
+    <managed-property>
+      <property-name>wrappedData</property-name>
+      <value>#{surveyDetailProcessTrainPageList}</value>
+    </managed-property>
+  </managed-bean>
+
+
+
+  <managed-bean>
+    <managed-bean-name>survey1</managed-bean-name>
+    <managed-bean-class>com.dneero.processtrain.ProcessTrainPage</managed-bean-class>
+    <managed-bean-scope>none</managed-bean-scope>
+    <managed-property>
+      <property-name>viewId</property-name>
+      <value>/researcher/researchersurveydetail_01.xhtml</value>
+    </managed-property>
+    <managed-property>
+      <property-name>label</property-name>
+      <value>Build Survey</value>
+    </managed-property>
+    <managed-property>
+      <property-name>outcome</property-name>
+      <value>survey1</value>
+    </managed-property>
+  </managed-bean>
+  <managed-bean>
+    <managed-bean-name>survey2</managed-bean-name>
+    <managed-bean-class>com.dneero.processtrain.ProcessTrainPage</managed-bean-class>
+    <managed-bean-scope>none</managed-bean-scope>
+    <managed-property>
+      <property-name>viewId</property-name>
+      <value>/researcher/researchersurveydetail_02.xhtml</value>
+    </managed-property>
+    <managed-property>
+      <property-name>label</property-name>
+      <value>Target Bloggers</value>
+    </managed-property>
+    <managed-property>
+      <property-name>outcome</property-name>
+      <value>survey2</value>
+    </managed-property>
+  </managed-bean>
+  <managed-bean>
+    <managed-bean-name>survey3</managed-bean-name>
+    <managed-bean-class>com.dneero.processtrain.ProcessTrainPage</managed-bean-class>
+    <managed-bean-scope>none</managed-bean-scope>
+    <managed-property>
+      <property-name>viewId</property-name>
+      <value>/researcher/researchersurveydetail_03.xhtml</value>
+    </managed-property>
+    <managed-property>
+      <property-name>label</property-name>
+      <value>Pay Incentive</value>
+    </managed-property>
+    <managed-property>
+      <property-name>outcome</property-name>
+      <value>survey3</value>
+    </managed-property>
+  </managed-bean>
+  <managed-bean>
+    <managed-bean-name>survey4</managed-bean-name>
+    <managed-bean-class>com.dneero.processtrain.ProcessTrainPage</managed-bean-class>
+    <managed-bean-scope>none</managed-bean-scope>
+    <managed-property>
+      <property-name>viewId</property-name>
+      <value>/researcher/researchersurveydetail_04.xhtml</value>
+    </managed-property>
+    <managed-property>
+      <property-name>label</property-name>
+      <value>Billing</value>
+    </managed-property>
+    <managed-property>
+      <property-name>outcome</property-name>
+      <value>survey4</value>
+    </managed-property>
+  </managed-bean>
+  <managed-bean>
+    <managed-bean-name>survey5</managed-bean-name>
+    <managed-bean-class>com.dneero.processtrain.ProcessTrainPage</managed-bean-class>
+    <managed-bean-scope>none</managed-bean-scope>
+    <managed-property>
+      <property-name>viewId</property-name>
+      <value>/researcher/researchersurveydetail_05.xhtml</value>
+    </managed-property>
+    <managed-property>
+      <property-name>label</property-name>
+      <value>Finalize</value>
+    </managed-property>
+    <managed-property>
+      <property-name>outcome</property-name>
+      <value>survey5</value>
+    </managed-property>
+  </managed-bean>
+
+  <navigation-rule>
+    <navigation-case>
+      <from-outcome>survey1</from-outcome>
+      <to-view-id>/researcher/researchersurveydetail_01.xhtml</to-view-id>
+      <redirect/>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>survey2</from-outcome>
+      <to-view-id>/researcher/researchersurveydetail_02.xhtml</to-view-id>
+      <redirect/>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>survey3</from-outcome>
+      <to-view-id>/researcher/researchersurveydetail_03.xhtml</to-view-id>
+      <redirect/>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>survey4</from-outcome>
+      <to-view-id>/researcher/researchersurveydetail_04.xhtml</to-view-id>
+      <redirect/>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>survey5</from-outcome>
+      <to-view-id>/researcher/researchersurveydetail_05.xhtml</to-view-id>
+      <redirect/>
+    </navigation-case>
+  </navigation-rule>
+
+
+
+
+
+
+</faces-config>

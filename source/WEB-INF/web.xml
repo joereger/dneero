@@ -5,7 +5,10 @@
 
     <context-param>
         <param-name>javax.faces.CONFIG_FILES</param-name>
-        <param-value>/WEB-INF/faces-config-constants.xml</param-value>
+        <param-value>
+            /WEB-INF/faces-config-constants.xml,
+            /WEB-INF/faces-config-processtrain-surveyedit.xml
+        </param-value>
     </context-param>
 
     <context-param>

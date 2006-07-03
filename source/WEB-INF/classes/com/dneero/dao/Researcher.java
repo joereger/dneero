@@ -5,6 +5,9 @@ import com.dneero.dao.hibernate.BasePersistentClass;
 import com.dneero.dao.hibernate.RegerEntity;
 import com.dneero.dao.hibernate.HibernateUtil;
 import org.apache.log4j.Logger;
+
+import java.util.Set;
+import java.util.HashSet;
 // Generated Apr 17, 2006 3:45:22 PM by Hibernate Tools 3.1.0.beta4
 
 
@@ -20,6 +23,8 @@ public class Researcher extends BasePersistentClass implements java.io.Serializa
 
      private int researcherid;
      private int userid;
+
+     private Set<Researcherbilling> researcherbillings = new HashSet<Researcherbilling>();
 
     //Validator
     public void validateRegerEntity() throws GeneralException {
@@ -79,5 +84,11 @@ public class Researcher extends BasePersistentClass implements java.io.Serializa
         this.userid = userid;
     }
 
+    public Set<Researcherbilling> getResearcherbillings() {
+        return researcherbillings;
+    }
 
+    public void setResearcherbillings(Set<Researcherbilling> researcherbillings) {
+        this.researcherbillings = researcherbillings;
+    }
 }

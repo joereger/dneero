@@ -1,0 +1,120 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:t="http://myfaces.apache.org/tomahawk"
+      xmlns:d="http://dneero.com/taglib"
+      xmlns:af="http://xmlns.oracle.com/adf/faces">
+
+<ui:composition template="/template/template-facelets.xhtml">
+    <ui:define name="body">
+    <d:authorization acl="researcher" redirectonfail="true"/>
+
+<h:form>
+    <h:messages />
+    <h:inputHidden name="surveyid" value="#{surveyBackingBean.surveyid}" />
+
+    <af:processTrain  value="#{surveyDetailProcessTrain}" var="surveyNode">
+        <f:facet name="nodeStamp">
+            <af:commandMenuItem text="#{surveyNode.label}" action="#{surveyNode.getOutcome}" readOnly="true"/>
+        </f:facet>
+    </af:processTrain>
+    <f:verbatim><br/><br/></f:verbatim>
+
+    <h:panelGrid columns="3" cellpadding="3" border="0">
+
+
+        <h:panelGroup>
+            <h:outputText value="Survey Id"></h:outputText>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:outputText value="#{surveyBackingBean.surveyid}"></h:outputText>
+        </h:panelGroup>
+        <h:panelGroup>
+        </h:panelGroup>
+
+        <h:panelGroup>
+            <h:outputText value="Survey Title"></h:outputText>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:inputText value="#{surveyBackingBean.title}" id="title" required="true">
+                <f:validateLength minimum="3" maximum="255"></f:validateLength>
+            </h:inputText>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:message for="title" styleClass="RED"></h:message>
+        </h:panelGroup>
+
+
+
+        <h:panelGroup>
+            <h:outputText value="Description"></h:outputText>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:inputTextarea value="#{surveyBackingBean.description}" id="description" required="true">
+                <f:validateLength minimum="3" maximum="50000"></f:validateLength>
+            </h:inputTextarea>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:message for="description" styleClass="RED"></h:message>
+        </h:panelGroup>
+
+
+        <h:panelGroup>
+            <h:outputText value="Start Date"></h:outputText>
+        </h:panelGroup>
+        <h:panelGroup>
+            <t:inputDate value="#{surveyBackingBean.startdate}"  type="both" popupCalendar="true" id="startdate" required="true"></t:inputDate>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:message for="startdate" styleClass="RED"></h:message>
+        </h:panelGroup>
+
+
+        <h:panelGroup>
+            <h:outputText value="End Date"></h:outputText>
+        </h:panelGroup>
+        <h:panelGroup>
+            <t:inputDate value="#{surveyBackingBean.enddate}" type="both" popupCalendar="true" id="enddate" required="true"></t:inputDate>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:message for="enddate" styleClass="RED"></h:message>
+        </h:panelGroup>
+
+
+        <h:panelGroup>
+            <h:outputText value="Survey Body"></h:outputText>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:inputTextarea value="#{surveyBackingBean.surveybody}" id="surveybody" required="true" cols="45" rows="10">
+                <f:validateLength minimum="3" maximum="50000"></f:validateLength>
+            </h:inputTextarea>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:message for="surveybody" styleClass="RED"></h:message>
+        </h:panelGroup>
+
+
+
+
+
+
+        <h:panelGroup>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:commandButton action="researchersurveydetail_02" value="Continue"></h:commandButton>
+        </h:panelGroup>
+        <h:panelGroup>
+        </h:panelGroup>
+
+    </h:panelGrid>
+</h:form>
+
+</ui:define>
+
+
+</ui:composition>
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:t="http://myfaces.apache.org/tomahawk"
+      xmlns:d="http://dneero.com/taglib"
+      xmlns:af="http://xmlns.oracle.com/adf/faces">
+
+<ui:composition template="/template/template-facelets.xhtml">
+    <ui:define name="body">
+    <d:authorization acl="researcher" redirectonfail="true"/>
+
+<h:form>
+    <h:messages />
+    <h:inputHidden name="surveyid" value="#{surveyBackingBean.surveyid}" />
+
+    <af:processTrain  value="#{surveyDetailProcessTrain}" var="surveyNode">
+        <f:facet name="nodeStamp">
+            <af:commandMenuItem text="#{surveyNode.label}" action="#{surveyNode.getOutcome}" readOnly="true"/>
+        </f:facet>
+    </af:processTrain>
+    <f:verbatim><br/><br/></f:verbatim>
+
+    <h:panelGrid columns="3" cellpadding="3" border="0">
+
+        <h:panelGroup>
+            <h:outputText value="Survey Id"></h:outputText>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:outputText value="#{surveyBackingBean.surveyid}"></h:outputText>
+        </h:panelGroup>
+        <h:panelGroup>
+        </h:panelGroup>
+
+        <h:panelGroup>
+            <h:outputText value="Billing Name"></h:outputText>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:inputText value="#{surveyBackingBean.billingname}" id="billingname" required="true">
+                <f:validateLength minimum="3" maximum="255"></f:validateLength>
+            </h:inputText>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:message for="billingname" styleClass="RED"></h:message>
+        </h:panelGroup>
+
+        <h:panelGroup>
+            <h:outputText value="Billing Address1"></h:outputText>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:inputText value="#{surveyBackingBean.billingaddress1}" id="billingaddress1" required="true">
+                <f:validateLength minimum="3" maximum="255"></f:validateLength>
+            </h:inputText>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:message for="billingaddress1" styleClass="RED"></h:message>
+        </h:panelGroup>
+
+        <h:panelGroup>
+            <h:outputText value="Billing Address2"></h:outputText>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:inputText value="#{surveyBackingBean.billingaddress2}" id="billingaddress2">
+                <f:validateLength minimum="3" maximum="255"></f:validateLength>
+            </h:inputText>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:message for="billingaddress2" styleClass="RED"></h:message>
+        </h:panelGroup>
+
+        <h:panelGroup>
+            <h:outputText value="Billing City"></h:outputText>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:inputText value="#{surveyBackingBean.billingcity}" id="billingcity" required="true">
+                <f:validateLength minimum="3" maximum="255"></f:validateLength>
+            </h:inputText>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:message for="billingcity" styleClass="RED"></h:message>
+        </h:panelGroup>
+
+        <h:panelGroup>
+            <h:outputText value="Billing State"></h:outputText>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:inputText value="#{surveyBackingBean.billingstate}" id="billingstate" required="true">
+                <f:validateLength minimum="3" maximum="255"></f:validateLength>
+            </h:inputText>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:message for="billingstate" styleClass="RED"></h:message>
+        </h:panelGroup>
+
+        <h:panelGroup>
+            <h:outputText value="Billing Zip"></h:outputText>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:inputText value="#{surveyBackingBean.billingzip}" id="billingzip" required="true">
+                <f:validateLength minimum="3" maximum="255"></f:validateLength>
+            </h:inputText>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:message for="billingzip" styleClass="RED"></h:message>
+        </h:panelGroup>
+
+
+
+        <h:panelGroup>
+            <h:outputText value="Credit Card Number"></h:outputText>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:inputText value="#{surveyBackingBean.ccnum}" id="ccnum" required="true">
+                <t:validateCreditCard />
+            </h:inputText>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:message for="ccnum" styleClass="RED"></h:message>
+        </h:panelGroup>
+
+        <h:panelGroup>
+            <h:outputText value="Credit Card Exp Month"></h:outputText>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:inputText value="#{surveyBackingBean.ccexpmonth}" id="ccexpmonth" required="true">
+                <f:validateDoubleRange minimum="1" maximum="12"></f:validateDoubleRange>
+            </h:inputText>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:message for="ccexpmonth" styleClass="RED"></h:message>
+        </h:panelGroup>
+
+        <h:panelGroup>
+            <h:outputText value="Credit Card Exp Year"></h:outputText>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:inputText value="#{surveyBackingBean.ccexpyear}" id="ccexpyear" required="true">
+                <f:validateDoubleRange minimum="2006" maximum="2020"></f:validateDoubleRange>
+            </h:inputText>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:message for="ccexpyear" styleClass="RED"></h:message>
+        </h:panelGroup>
+
+
+        <h:panelGroup>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:commandButton action="researchersurveydetail_05" value="Continue"></h:commandButton>
+        </h:panelGroup>
+        <h:panelGroup>
+        </h:panelGroup>
+
+    </h:panelGrid>
+</h:form>
+
+</ui:define>
+
+
+</ui:composition>
+</html>

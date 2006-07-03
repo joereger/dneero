@@ -332,5 +332,12 @@
             <validator-id>org.apache.myfaces.validator.RegExpr</validator-id>
         </validator>
     </tag>
+    <tag>
+        <tag-name>validateCreditCard</tag-name>
+        <validator>
+            <validator-id>org.apache.myfaces.custom.creditcardvalidator.CreditCardValidator</validator-id>
+        </validator>
+    </tag>
+
 
 </facelet-taglib>

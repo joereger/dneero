@@ -11,6 +11,8 @@ import javax.faces.context.FacesContext;
 import javax.faces.application.FacesMessage;
 import java.util.*;
 
+import oracle.adf.view.faces.model.*;
+
 /**
  * User: Joe Reger Jr
  * Date: Jun 15, 2006
@@ -23,6 +25,9 @@ public class SurveyBackingBean {
     private String description;
     private double willingtopayperrespondent;
     private int numberofrespondentsrequested;
+    private double willingtopaypercpm;
+    private int maxdisplaysperblog;
+    private int maxdisplaystotal;
     private Date startdate;
     private Date enddate;
     private String surveybody;
@@ -38,12 +43,22 @@ public class SurveyBackingBean {
     private String[] profession;
     private String[] blogfocus;
     private String[] politics;
+    private String billingname;
+    private String billingaddress1;
+    private String billingaddress2;
+    private String billingcity;
+    private String billingstate;
+    private String billingzip;
+    private int billingpaymentmethod;
+    private String ccnum;
+    private int ccexpmonth;
+    private int ccexpyear;
+
 
     Logger logger = Logger.getLogger(this.getClass().getName());
 
     public SurveyBackingBean(){
         logger.debug("Instanciating object... tmpsurveyid="+surveyid);
-
     }
 
     public String beginView(){
@@ -53,7 +68,7 @@ public class SurveyBackingBean {
             logger.debug("beginView called: found surveyid in param="+tmpSurveyid);
             loadSurvey(Integer.parseInt(tmpSurveyid));
         }
-        return "researchersurveydetail";
+        return "researchersurveydetail_01";
     }
 
     public void loadSurvey(int surveyid){
@@ -67,9 +82,24 @@ public class SurveyBackingBean {
             description = survey.getDescription();
             willingtopayperrespondent = survey.getWillingtopayperrespondent();
             numberofrespondentsrequested = survey.getNumberofrespondentsrequested();
+            willingtopaypercpm = survey.getWillingtopaypercpm();
+            maxdisplaysperblog = survey.getMaxdisplaysperblog();
+            maxdisplaystotal = survey.getMaxdisplaystotal();
             startdate = survey.getStartdate();
             enddate = survey.getEnddate();
             surveybody = survey.getSurveybody();
+            if (survey.getResearcherbilling()!=null){
+                billingname = survey.getResearcherbilling().getBillingname();
+                billingaddress1 = survey.getResearcherbilling().getBillingaddress1();
+                billingaddress2 = survey.getResearcherbilling().getBillingaddress2();
+                billingcity = survey.getResearcherbilling().getBillingcity();
+                billingstate = survey.getResearcherbilling().getBillingstate();
+                billingzip = survey.getResearcherbilling().getBillingzip();
+                billingpaymentmethod = survey.getResearcherbilling().getBillingpaymentmethod();
+                ccnum = survey.getResearcherbilling().getCcnum();
+                ccexpmonth = survey.getResearcherbilling().getCcexpmonth();
+                ccexpyear = survey.getResearcherbilling().getCcexpyear();
+            }
 
             agemin = survey.getSurveycriteria().getAgemin();
             agemax = survey.getSurveycriteria().getAgemax();
@@ -153,6 +183,9 @@ public class SurveyBackingBean {
         survey.setDescription(description);
         survey.setWillingtopayperrespondent(willingtopayperrespondent);
         survey.setNumberofrespondentsrequested(numberofrespondentsrequested);
+        survey.setWillingtopaypercpm(willingtopaypercpm);
+        survey.setMaxdisplaysperblog(maxdisplaysperblog);
+        survey.setMaxdisplaystotal(maxdisplaystotal);
         survey.setStartdate(startdate);
         survey.setEnddate(enddate);
         survey.setSurveybody(surveybody);
@@ -166,6 +199,19 @@ public class SurveyBackingBean {
             String message = "saveSurvey() save failed: " + gex.getErrorsAsSingleString();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage( FacesMessage.SEVERITY_INFO, message, message));
             return null;
+        }
+
+        if (survey.getResearcherbilling()!=null){
+            survey.getResearcherbilling().setBillingname(billingname);
+            survey.getResearcherbilling().setBillingaddress1(billingaddress1);
+            survey.getResearcherbilling().setBillingaddress2(billingaddress2);
+            survey.getResearcherbilling().setBillingcity(billingcity);
+            survey.getResearcherbilling().setBillingstate(billingstate);
+            survey.getResearcherbilling().setBillingzip(billingzip);
+            survey.getResearcherbilling().setBillingpaymentmethod(billingpaymentmethod);
+            survey.getResearcherbilling().setCcnum(ccnum);
+            survey.getResearcherbilling().setCcexpmonth(ccexpmonth);
+            survey.getResearcherbilling().setCcexpyear(ccexpyear);
         }
 
         Surveycriteria surveycriteria = new Surveycriteria();
@@ -545,5 +591,109 @@ public class SurveyBackingBean {
 
     public void setPolitics(String[] politics) {
         this.politics = politics;
+    }
+
+    public double getWillingtopaypercpm() {
+        return willingtopaypercpm;
+    }
+
+    public void setWillingtopaypercpm(double willingtopaypercpm) {
+        this.willingtopaypercpm = willingtopaypercpm;
+    }
+
+    public int getMaxdisplaysperblog() {
+        return maxdisplaysperblog;
+    }
+
+    public void setMaxdisplaysperblog(int maxdisplaysperblog) {
+        this.maxdisplaysperblog = maxdisplaysperblog;
+    }
+
+    public int getMaxdisplaystotal() {
+        return maxdisplaystotal;
+    }
+
+    public void setMaxdisplaystotal(int maxdisplaystotal) {
+        this.maxdisplaystotal = maxdisplaystotal;
+    }
+
+    public String getBillingname() {
+        return billingname;
+    }
+
+    public void setBillingname(String billingname) {
+        this.billingname = billingname;
+    }
+
+    public String getBillingaddress1() {
+        return billingaddress1;
+    }
+
+    public void setBillingaddress1(String billingaddress1) {
+        this.billingaddress1 = billingaddress1;
+    }
+
+    public String getBillingaddress2() {
+        return billingaddress2;
+    }
+
+    public void setBillingaddress2(String billingaddress2) {
+        this.billingaddress2 = billingaddress2;
+    }
+
+    public String getBillingcity() {
+        return billingcity;
+    }
+
+    public void setBillingcity(String billingcity) {
+        this.billingcity = billingcity;
+    }
+
+    public String getBillingstate() {
+        return billingstate;
+    }
+
+    public void setBillingstate(String billingstate) {
+        this.billingstate = billingstate;
+    }
+
+    public String getBillingzip() {
+        return billingzip;
+    }
+
+    public void setBillingzip(String billingzip) {
+        this.billingzip = billingzip;
+    }
+
+    public int getBillingpaymentmethod() {
+        return billingpaymentmethod;
+    }
+
+    public void setBillingpaymentmethod(int billingpaymentmethod) {
+        this.billingpaymentmethod = billingpaymentmethod;
+    }
+
+    public String getCcnum() {
+        return ccnum;
+    }
+
+    public void setCcnum(String ccnum) {
+        this.ccnum = ccnum;
+    }
+
+    public int getCcexpmonth() {
+        return ccexpmonth;
+    }
+
+    public void setCcexpmonth(int ccexpmonth) {
+        this.ccexpmonth = ccexpmonth;
+    }
+
+    public int getCcexpyear() {
+        return ccexpyear;
+    }
+
+    public void setCcexpyear(int ccexpyear) {
+        this.ccexpyear = ccexpyear;
     }
 }

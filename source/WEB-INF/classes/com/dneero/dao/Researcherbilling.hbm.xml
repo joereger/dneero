@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 17, 2006 3:45:26 PM by Hibernate Tools 3.1.0.beta4 -->
+<hibernate-mapping>
+    <class name="com.dneero.dao.Researcherbilling" table="researcherbilling">
+        <id name="researcherbillingid" type="int">
+            <column name="researcherbillingid" />
+            <generator class="native" />
+        </id>
+
+        <property name="researcherid" type="int">
+            <column name="researcherid" not-null="true" />
+        </property>
+        <property name="billingname" type="string">
+            <column name="name" length="65535" not-null="true" />
+        </property>
+        <property name="billingaddress1" type="string">
+            <column name="billingaddress1" length="65535" not-null="true" />
+        </property>
+        <property name="billingaddress2" type="string">
+            <column name="billingaddress2" length="65535"/>
+        </property>
+        <property name="billingcity" type="string">
+            <column name="billingcity" length="65535" not-null="true" />
+        </property>
+        <property name="billingstate" type="string">
+            <column name="billingstate" length="65535" not-null="true" />
+        </property>
+        <property name="billingzip" type="string">
+            <column name="billingzip" length="65535" not-null="true" />
+        </property>
+        <property name="billingpaymentmethod" type="int">
+            <column name="billingpaymentmethod" not-null="true" />
+        </property>
+        <property name="ccnum" type="string">
+            <column name="ccnum" length="65535" not-null="true" />
+        </property>
+        <property name="ccexpmonth" type="int">
+            <column name="ccexpmonth" not-null="true" />
+        </property>
+        <property name="ccexpyear" type="int">
+            <column name="ccexpyear" not-null="true" />
+        </property>
+
+    </class>
+</hibernate-mapping>

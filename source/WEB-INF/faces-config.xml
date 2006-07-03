@@ -27,6 +27,11 @@
         <default-render-kit-id>oracle.adf.core</default-render-kit-id>
     </application>
 
+    <validator>
+        <validator-id>org.apache.myfaces.custom.creditcardvalidator.CreditCardValidator</validator-id>
+        <validator-class>org.apache.myfaces.custom.creditcardvalidator.CreditCardValidator</validator-class>
+    </validator>
+
 
     <component>
         <component-type>com.dneero.ui.RoundedCornerBox</component-type>
@@ -185,7 +190,7 @@
         </navigation-case>
         <navigation-case>
             <from-outcome>newsurvey</from-outcome>
-            <to-view-id>/researcher/researchersurveydetail.xhtml</to-view-id>
+            <to-view-id>/researcher/researchersurveydetail_01.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>bloggerearnings</from-outcome>
@@ -212,8 +217,24 @@
             <to-view-id>/researcher/researchersurveylist.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
-            <from-outcome>researchersurveydetail</from-outcome>
-            <to-view-id>/researcher/researchersurveydetail.xhtml</to-view-id>
+            <from-outcome>researchersurveydetail_01</from-outcome>
+            <to-view-id>/researcher/researchersurveydetail_01.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>researchersurveydetail_02</from-outcome>
+            <to-view-id>/researcher/researchersurveydetail_02.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>researchersurveydetail_03</from-outcome>
+            <to-view-id>/researcher/researchersurveydetail_03.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>researchersurveydetail_04</from-outcome>
+            <to-view-id>/researcher/researchersurveydetail_04.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>researchersurveydetail_05</from-outcome>
+            <to-view-id>/researcher/researchersurveydetail_05.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>researcherdetails</from-outcome>
@@ -274,7 +295,7 @@
     </navigation-rule>
 
     <navigation-rule>
-        <from-view-id>/researcher/researchersurveydetail.xhtml</from-view-id>
+        <from-view-id>/researcher/researchersurveydetail_01.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>success</from-outcome>
             <to-view-id>/researcher/researchersurveylist.xhtml</to-view-id>

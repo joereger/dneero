@@ -6,7 +6,8 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:t="http://myfaces.apache.org/tomahawk"
-      xmlns:d="http://dneero.com/taglib">
+      xmlns:d="http://dneero.com/taglib"
+      xmlns:af="http://xmlns.oracle.com/adf/faces">
 
 <ui:composition template="/template/template-facelets.xhtml">
     <ui:define name="body">
@@ -15,19 +16,15 @@
 <h:form>
     <h:messages />
     <h:inputHidden name="surveyid" value="#{surveyBackingBean.surveyid}" />
-    <h:panelGrid columns="3" cellpadding="3" border="0">
 
-        <h:panelGroup>
-            <h:outputText value="Survey Title"></h:outputText>
-        </h:panelGroup>
-        <h:panelGroup>
-            <h:inputText value="#{surveyBackingBean.title}" id="title" required="true">
-                <f:validateLength minimum="3" maximum="255"></f:validateLength>
-            </h:inputText>
-        </h:panelGroup>
-        <h:panelGroup>
-            <h:message for="title" styleClass="RED"></h:message>
-        </h:panelGroup>
+    <af:processTrain  value="#{surveyDetailProcessTrain}" var="surveyNode">
+        <f:facet name="nodeStamp">
+            <af:commandMenuItem text="#{surveyNode.label}" action="#{surveyNode.getOutcome}" readOnly="true"/>
+        </f:facet>
+    </af:processTrain>
+    <f:verbatim><br/><br/></f:verbatim>
+
+    <h:panelGrid columns="3" cellpadding="3" border="0">
 
         <h:panelGroup>
             <h:outputText value="Survey Id"></h:outputText>
@@ -37,81 +34,6 @@
         </h:panelGroup>
         <h:panelGroup>
         </h:panelGroup>
-
-        <h:panelGroup>
-            <h:outputText value="Description"></h:outputText>
-        </h:panelGroup>
-        <h:panelGroup>
-            <h:inputTextarea value="#{surveyBackingBean.description}" id="description" required="true">
-                <f:validateLength minimum="3" maximum="50000"></f:validateLength>
-            </h:inputTextarea>
-        </h:panelGroup>
-        <h:panelGroup>
-            <h:message for="description" styleClass="RED"></h:message>
-        </h:panelGroup>
-
-
-        <h:panelGroup>
-            <h:outputText value="Survey Body"></h:outputText>
-        </h:panelGroup>
-        <h:panelGroup>
-            <h:inputTextarea value="#{surveyBackingBean.surveybody}" id="surveybody" required="true" cols="45" rows="10">
-                <f:validateLength minimum="3" maximum="50000"></f:validateLength>
-            </h:inputTextarea>
-        </h:panelGroup>
-        <h:panelGroup>
-            <h:message for="surveybody" styleClass="RED"></h:message>
-        </h:panelGroup>
-
-
-        <h:panelGroup>
-            <h:outputText value="Willing to Pay Per Respondent"></h:outputText>
-        </h:panelGroup>
-        <h:panelGroup>
-            <h:inputText value="#{surveyBackingBean.willingtopayperrespondent}" id="willingtopayperrespondent" required="true">
-                <f:validateDoubleRange minimum="0" maximum="10000"></f:validateDoubleRange>
-            </h:inputText>
-        </h:panelGroup>
-        <h:panelGroup>
-            <h:message for="willingtopayperrespondent" styleClass="RED"></h:message>
-        </h:panelGroup>
-
-
-        <h:panelGroup>
-            <h:outputText value="Number of Respondents Requested"></h:outputText>
-        </h:panelGroup>
-        <h:panelGroup>
-            <h:inputText value="#{surveyBackingBean.numberofrespondentsrequested}" id="numberofrespondentsrequested" required="true">
-                <f:validateDoubleRange minimum="100" maximum="10000000"></f:validateDoubleRange>
-            </h:inputText>
-        </h:panelGroup>
-        <h:panelGroup>
-            <h:message for="numberofrespondentsrequested" styleClass="RED"></h:message>
-        </h:panelGroup>
-
-
-        <h:panelGroup>
-            <h:outputText value="Start Date"></h:outputText>
-        </h:panelGroup>
-        <h:panelGroup>
-            <t:inputDate value="#{surveyBackingBean.startdate}"  type="both" popupCalendar="true" id="startdate" required="true"></t:inputDate>
-        </h:panelGroup>
-        <h:panelGroup>
-            <h:message for="startdate" styleClass="RED"></h:message>
-        </h:panelGroup>
-
-
-        <h:panelGroup>
-            <h:outputText value="End Date"></h:outputText>
-        </h:panelGroup>
-        <h:panelGroup>
-            <t:inputDate value="#{surveyBackingBean.enddate}" type="both" popupCalendar="true" id="enddate" required="true"></t:inputDate>
-        </h:panelGroup>
-        <h:panelGroup>
-            <h:message for="enddate" styleClass="RED"></h:message>
-        </h:panelGroup>
-
-
 
         <h:panelGroup>
             <h:outputText value="Age"></h:outputText>
@@ -150,9 +72,9 @@
             <h:outputText value="Ethnicity"></h:outputText>
         </h:panelGroup>
         <h:panelGroup>
-            <h:selectManyCheckbox value="#{surveyBackingBean.ethnicity}" id="ethnicity" layout="pageDirection" required="true">
+            <h:selectManyListbox value="#{surveyBackingBean.ethnicity}" id="ethnicity" size="6" layout="pageDirection" required="true">
                 <f:selectItems value="#{ethnicities}"/>
-            </h:selectManyCheckbox>
+            </h:selectManyListbox>
         </h:panelGroup>
         <h:panelGroup>
             <h:message for="ethnicity" styleClass="RED"></h:message>
@@ -174,9 +96,9 @@
             <h:outputText value="Income"></h:outputText>
         </h:panelGroup>
         <h:panelGroup>
-            <h:selectManyCheckbox value="#{surveyBackingBean.income}" id="income" layout="pageDirection" required="true">
+            <h:selectManyListbox value="#{surveyBackingBean.income}" size="5" id="income" layout="pageDirection" required="true">
                 <f:selectItems value="#{incomes}"/>
-            </h:selectManyCheckbox>
+            </h:selectManyListbox>
         </h:panelGroup>
         <h:panelGroup>
             <h:message for="income" styleClass="RED"></h:message>
@@ -200,7 +122,7 @@
             <h:outputText value="State"></h:outputText>
         </h:panelGroup>
         <h:panelGroup>
-            <h:selectManyListbox value="#{surveyBackingBean.state}" id="state" layout="pageDirection" required="true">
+            <h:selectManyListbox value="#{surveyBackingBean.state}" size="5" id="state" layout="pageDirection" required="true">
                 <f:selectItems value="#{states}"/>
             </h:selectManyListbox>
         </h:panelGroup>
@@ -212,7 +134,7 @@
             <h:outputText value="City"></h:outputText>
         </h:panelGroup>
         <h:panelGroup>
-            <h:selectManyListbox value="#{surveyBackingBean.city}" id="city" layout="pageDirection" required="true">
+            <h:selectManyListbox value="#{surveyBackingBean.city}" size="5" id="city" layout="pageDirection" required="true">
                 <f:selectItems value="#{cities}"/>
             </h:selectManyListbox>
         </h:panelGroup>
@@ -225,7 +147,7 @@
             <h:outputText value="Profession"></h:outputText>
         </h:panelGroup>
         <h:panelGroup>
-            <h:selectManyListbox value="#{surveyBackingBean.profession}" id="profession" layout="pageDirection" required="true">
+            <h:selectManyListbox value="#{surveyBackingBean.profession}" size="5" id="profession" layout="pageDirection" required="true">
                 <f:selectItems value="#{professions}"/>
             </h:selectManyListbox>
         </h:panelGroup>
@@ -238,7 +160,7 @@
             <h:outputText value="Blog Focus"></h:outputText>
         </h:panelGroup>
         <h:panelGroup>
-            <h:selectManyListbox value="#{surveyBackingBean.blogfocus}" id="blogfocus" layout="pageDirection" required="true">
+            <h:selectManyListbox value="#{surveyBackingBean.blogfocus}" size="5" id="blogfocus" layout="pageDirection" required="true">
                 <f:selectItems value="#{blogfocuses}"/>
             </h:selectManyListbox>
         </h:panelGroup>
@@ -250,7 +172,7 @@
             <h:outputText value="Politics"></h:outputText>
         </h:panelGroup>
         <h:panelGroup>
-            <h:selectManyListbox value="#{surveyBackingBean.politics}" id="politics" layout="pageDirection" required="true">
+            <h:selectManyListbox value="#{surveyBackingBean.politics}" size="5" id="politics" layout="pageDirection" required="true">
                 <f:selectItems value="#{politics}"/>
             </h:selectManyListbox>
         </h:panelGroup>
@@ -261,9 +183,9 @@
 
 
         <h:panelGroup>
-            <h:commandButton action="#{surveyBackingBean.saveSurvey}" value="Save Survey"></h:commandButton>
         </h:panelGroup>
         <h:panelGroup>
+            <h:commandButton action="researchersurveydetail_03" value="Continue"></h:commandButton>
         </h:panelGroup>
         <h:panelGroup>
         </h:panelGroup>

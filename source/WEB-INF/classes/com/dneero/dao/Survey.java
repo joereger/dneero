@@ -28,17 +28,16 @@ public class Survey extends BasePersistentClass implements java.io.Serializable,
      private String description;
      private double willingtopayperrespondent;
      private int numberofrespondentsrequested;
+     private double willingtopaypercpm;
+     private int maxdisplaysperblog;
+     private int maxdisplaystotal;
      private Date startdate;
      private Date enddate;
      private String surveybody;
+     private int researcherbillingid;
 
      private Surveycriteria surveycriteria;
-     public Surveycriteria getSurveycriteria() {
-        return surveycriteria;
-     }
-     public void setSurveycriteria(Surveycriteria surveycriteria) {
-        this.surveycriteria = surveycriteria;
-     }
+     private Researcherbilling researcherbilling;
 
 
     //Validator
@@ -170,5 +169,51 @@ public class Survey extends BasePersistentClass implements java.io.Serializable,
         this.surveybody = surveybody;
     }
 
+    public double getWillingtopaypercpm() {
+        return willingtopaypercpm;
+    }
 
+    public void setWillingtopaypercpm(double willingtopaypercpm) {
+        this.willingtopaypercpm = willingtopaypercpm;
+    }
+
+    public int getMaxdisplaysperblog() {
+        return maxdisplaysperblog;
+    }
+
+    public void setMaxdisplaysperblog(int maxdisplaysperblog) {
+        this.maxdisplaysperblog = maxdisplaysperblog;
+    }
+
+    public int getMaxdisplaystotal() {
+        return maxdisplaystotal;
+    }
+
+    public void setMaxdisplaystotal(int maxdisplaystotal) {
+        this.maxdisplaystotal = maxdisplaystotal;
+    }
+
+    public Surveycriteria getSurveycriteria() {
+        return surveycriteria;
+    }
+
+    public void setSurveycriteria(Surveycriteria surveycriteria) {
+        this.surveycriteria = surveycriteria;
+    }
+
+    public Researcherbilling getResearcherbilling() {
+        return researcherbilling;
+    }
+
+    public void setResearcherbilling(Researcherbilling researcherbilling) {
+        this.researcherbilling = researcherbilling;
+    }
+
+    public int getResearcherbillingid() {
+        return researcherbillingid;
+    }
+
+    public void setResearcherbillingid(int researcherbillingid) {
+        this.researcherbillingid = researcherbillingid;
+    }
 }

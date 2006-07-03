@@ -16,6 +16,7 @@
         </set>
         -->
         <one-to-one name="surveycriteria" class="com.dneero.dao.Surveycriteria" property-ref="surveyid" cascade="all"/>
+        <one-to-one name="researcherbilling" class="com.dneero.dao.Researcherbilling" cascade="save-update"/>
         <property name="researcherid" type="int">
             <column name="researcherid" not-null="true" />
         </property>
@@ -31,6 +32,15 @@
         <property name="numberofrespondentsrequested" type="int">
             <column name="numberofrespondentsrequested" not-null="true" />
         </property>
+        <property name="willingtopaypercpm" type="double">
+            <column name="willingtopaypercpm" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="maxdisplaysperblog" type="int">
+            <column name="maxdisplaysperblog" not-null="true" />
+        </property>
+        <property name="maxdisplaystotal" type="int">
+            <column name="maxdisplaystotal" not-null="true" />
+        </property>
         <property name="startdate" type="timestamp">
             <column name="startdate" length="19" not-null="true" />
         </property>
@@ -39,6 +49,9 @@
         </property>
         <property name="surveybody" type="string">
             <column name="surveybody" length="65535" />
+        </property>
+        <property name="researcherbillingid" type="int">
+            <column name="researcherbillingid" not-null="true" />
         </property>
     </class>
 </hibernate-mapping>
