@@ -35,6 +35,7 @@ public class FindSurveysForBlogger {
         Criteria crit = HibernateUtil.getSession().createCriteria(Surveycriteria.class);
 
         //Birthdate
+        //@todo convert birthdate to agemin and agemax
         crit.add(Restrictions.between("agemin", 0, 100));
         crit.add(Restrictions.between("agemax", 0, 100));
         //Gender
@@ -61,12 +62,11 @@ public class FindSurveysForBlogger {
         //Profession
         crit.createCriteria("surveycriteriaprofession")
             .add(Restrictions.eq("profession", blogger.getProfession()));
-        //Focus
-        crit.createCriteria("surveycriteriablogfocus")
-            .add(Restrictions.eq("blogfocus", blogger.getBlogfocus()));
         //Politics
         crit.createCriteria("surveycriteriapolitics")
             .add(Restrictions.eq("politics", blogger.getPolitics()));
+        //@todo add blog.blogfocus criteria
+
 
         //Run the query
         List<Surveycriteria> surveycriteria = crit.list();

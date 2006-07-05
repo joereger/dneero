@@ -50,7 +50,6 @@ public class BloggerDetails {
             state = String.valueOf(blogger.getState());
             city = String.valueOf(blogger.getCity());
             profession = String.valueOf(blogger.getProfession());
-            blogfocus = String.valueOf(blogger.getBlogfocus());
             politics = String.valueOf(blogger.getPolitics());
         }
     }
@@ -95,9 +94,6 @@ public class BloggerDetails {
             }
             if (com.dneero.util.Num.isinteger(profession)){
                 blogger.setProfession(Integer.parseInt(profession));
-            }
-            if (com.dneero.util.Num.isinteger(blogfocus)){
-                blogger.setBlogfocus(Integer.parseInt(blogfocus));
             }
             if (com.dneero.util.Num.isinteger(politics)){
                 blogger.setPolitics(Integer.parseInt(politics));

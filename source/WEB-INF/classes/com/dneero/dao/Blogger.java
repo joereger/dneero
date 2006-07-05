@@ -7,6 +7,8 @@ import com.dneero.dao.hibernate.HibernateUtil;
 import org.apache.log4j.Logger;
 
 import java.util.Date;
+import java.util.Set;
+import java.util.HashSet;
 // Generated Apr 17, 2006 3:45:23 PM by Hibernate Tools 3.1.0.beta4
 
 
@@ -30,8 +32,8 @@ public class Blogger extends BasePersistentClass implements java.io.Serializable
      private int state;
      private int city;
      private int profession;
-     private int blogfocus;
      private int politics;
+     private Set<Blog> blogs = new HashSet<Blog>();
 
     //Validator
     public void validateRegerEntity() throws GeneralException {
@@ -169,13 +171,7 @@ public class Blogger extends BasePersistentClass implements java.io.Serializable
         this.profession = profession;
     }
 
-    public int getBlogfocus() {
-        return blogfocus;
-    }
 
-    public void setBlogfocus(int blogfocus) {
-        this.blogfocus = blogfocus;
-    }
 
     public int getPolitics() {
         return politics;
@@ -185,5 +181,11 @@ public class Blogger extends BasePersistentClass implements java.io.Serializable
         this.politics = politics;
     }
 
+    public Set<Blog> getBlogs() {
+        return blogs;
+    }
 
+    public void setBlogs(Set<Blog> blogs) {
+        this.blogs = blogs;
+    }
 }

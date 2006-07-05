@@ -35,24 +35,8 @@ public class SurveyJavascriptServlet extends HttpServlet {
             user = User.get(Integer.parseInt(request.getParameter("userid")));
         }
 
-        if (survey!=null && user!=null){
-
-            String output = SurveyAsHtml.getHtml(survey, user);
-            out.print("document.write(\""+output+"\");"+"\n");
-
-//            String[] outArray = output.split("\n");
-//
-//            for (int i = 0; i < outArray.length; i++) {
-//                String s = outArray[i];
-//                out.print("document.write(\""+s+"\");"+"\n");
-//            }
-
-
-        } else {
-            out.print("Sorry, survey or user not found.");
-        }
-
-
+        String output = SurveyAsHtml.getHtml(survey, user, request);
+        out.print("document.write(\""+output+"\");"+"\n");
 
     }
 

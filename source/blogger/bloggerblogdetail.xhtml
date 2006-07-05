@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:t="http://myfaces.apache.org/tomahawk"
+      xmlns:d="http://dneero.com/taglib">
+
+<ui:composition template="/template/template-facelets.xhtml">
+    <ui:define name="body">
+    <d:authorization acl="blogger" redirectonfail="true"/>
+
+
+<h:form>
+    <h:messages />
+    <h:inputHidden name="blogid" value="#{bloggerBlogDetail.blogid}" />
+    <h:panelGrid columns="3" cellpadding="3" border="0">
+
+        <h:panelGroup>
+            <h:outputText value="Blogid"/>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:outputText value="#{bloggerBlogDetail.blogid}"/>
+        </h:panelGroup>
+        <h:panelGroup>
+        </h:panelGroup>
+
+        <h:panelGroup>
+            <h:outputText value="Url"></h:outputText>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:inputText value="#{bloggerBlogDetail.url}" id="url" required="true">
+                <f:validateLength minimum="3" maximum="255"></f:validateLength>
+            </h:inputText>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:message for="url" styleClass="RED"></h:message>
+        </h:panelGroup>
+
+        <h:panelGroup>
+            <h:outputText value="Blog Title"></h:outputText>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:inputText value="#{bloggerBlogDetail.title}" id="title" required="true">
+                <f:validateLength minimum="3" maximum="255"></f:validateLength>
+            </h:inputText>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:message for="title" styleClass="RED"></h:message>
+        </h:panelGroup>
+
+        <h:panelGroup>
+            <h:outputText value="Blog Focus"></h:outputText>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:selectOneMenu value="#{bloggerBlogDetail.blogfocus}" id="blogfocus" required="true">
+                <f:selectItems value="#{blogfocuses}"/>
+            </h:selectOneMenu>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:message for="blogfocus" styleClass="RED"></h:message>
+        </h:panelGroup>
+
+
+        <h:panelGroup>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:commandButton action="#{bloggerBlogDetail.saveAction}" value="Save"></h:commandButton>
+        </h:panelGroup>
+        <h:panelGroup>
+        </h:panelGroup>
+
+
+
+     </h:panelGrid>
+
+</h:form>
+
+</ui:define>
+
+
+</ui:composition>
+</html>
+
+

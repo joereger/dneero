@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:t="http://myfaces.apache.org/tomahawk"
+      xmlns:af="http://xmlns.oracle.com/adf/faces"
+      xmlns:d="http://dneero.com/taglib">
+
+<ui:composition template="/template/template-facelets.xhtml">
+    <ui:define name="body">
+    <d:authorization acl="blogger" redirectonfail="true"/>
+
+
+
+<h:form>
+
+
+
+    <af:table value="#{bloggerBlogsList.blogs}" bandingInterval="2" rows="15" banding="row" var="blog" rendered="#{!empty bloggerBlogsList.blogs}">
+      <af:column>
+        <f:facet name="header">
+          <af:outputText value="Blogid"/>
+        </f:facet>
+        <af:outputText value="#{blog.blogid}"/>
+      </af:column>
+      <af:column>
+        <f:facet name="header">
+          <af:outputText value="Title"/>
+        </f:facet>
+        <af:outputText value="#{blog.title}"/>
+      </af:column>
+      <af:column>
+        <f:facet name="header">
+          <af:outputText value="Url"/>
+        </f:facet>
+        <af:outputText value="#{blog.url}"/>
+      </af:column>
+      <af:column>
+        <f:facet name="header">
+          <af:outputText value=" "/>
+        </f:facet>
+        <h:commandLink action="#{bloggerBlogDetail.beginView}">
+            <h:outputText value="Edit" escape="false" />
+            <f:param name="blogid" value="#{blog.blogid}" />
+        </h:commandLink>
+      </af:column>
+    </af:table>
+
+    <h:commandButton action="bloggerblogdetail" value="Add a Blog"></h:commandButton>
+
+
+
+</h:form>
+
+</ui:define>
+
+
+</ui:composition>
+</html>
+
+
+
