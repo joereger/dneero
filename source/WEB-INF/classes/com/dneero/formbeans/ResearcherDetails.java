@@ -9,9 +9,10 @@ import com.dneero.session.UserSession;
 import com.dneero.session.Roles;
 import com.dneero.util.Jsf;
 import com.dneero.util.GeneralException;
-import com.dneero.dao.Blogger;
-import com.dneero.dao.Researcher;
-import com.dneero.dao.Userrole;
+import com.dneero.dao.*;
+
+import javax.faces.context.FacesContext;
+import javax.faces.application.FacesMessage;
 
 /**
  * User: Joe Reger Jr
@@ -21,7 +22,16 @@ import com.dneero.dao.Userrole;
 public class ResearcherDetails {
 
     //Form props
-
+    private String billingname;
+    private String billingaddress1;
+    private String billingaddress2;
+    private String billingcity;
+    private String billingstate;
+    private String billingzip;
+    private int billingpaymentmethod;
+    private String ccnum;
+    private int ccexpmonth;
+    private int ccexpyear;
 
     //Other props
     private int userid;
@@ -34,6 +44,27 @@ public class ResearcherDetails {
             Researcher researcher = userSession.getUser().getResearcher();
             userid = researcher.getUserid();
         }
+    }
+
+    public void load(){
+        logger.debug("load called");
+        UserSession userSession = Jsf.getUserSession();
+        if (userSession.getUser()!=null && userSession.getUser().getResearcher()!=null && userSession.getUser().getResearcher().getResearcherbilling()!=null){
+            Researcherbilling researcherbilling = userSession.getUser().getResearcher().getResearcherbilling();
+
+            billingname = researcherbilling.getBillingname();
+            billingaddress1 = researcherbilling.getBillingaddress1();
+            billingaddress2 = researcherbilling.getBillingaddress2();
+            billingcity = researcherbilling.getBillingcity();
+            billingstate = researcherbilling.getBillingstate();
+            billingzip = researcherbilling.getBillingzip();
+            billingpaymentmethod = researcherbilling.getBillingpaymentmethod();
+            ccnum = researcherbilling.getCcnum();
+            ccexpmonth = researcherbilling.getCcexpmonth();
+            ccexpyear = researcherbilling.getCcexpyear();
+        }
+
+
     }
 
     public String saveAction(){
@@ -62,6 +93,7 @@ public class ResearcherDetails {
                 return null;
             }
 
+
             boolean hasroleassigned = false;
             if (userSession.getUser()!=null && userSession.getUser().getUserroles()!=null){
                 for (Iterator iterator = userSession.getUser().getUserroles().iterator(); iterator.hasNext();) {
@@ -83,6 +115,33 @@ public class ResearcherDetails {
                     return null;
                 }
             }
+
+            Researcherbilling researcherBilling = userSession.getUser().getResearcher().getResearcherbilling();
+            if (researcherBilling==null){
+                researcherBilling = new Researcherbilling();
+            }
+
+            researcherBilling.setResearcherid(researcher.getResearcherid());
+            researcherBilling.setBillingname(billingname);
+            researcherBilling.setBillingaddress1(billingaddress1);
+            researcherBilling.setBillingaddress2(billingaddress2);
+            researcherBilling.setBillingcity(billingcity);
+            researcherBilling.setBillingstate(billingstate);
+            researcherBilling.setBillingzip(billingzip);
+            researcherBilling.setBillingpaymentmethod(billingpaymentmethod);
+            researcherBilling.setCcnum(ccnum);
+            researcherBilling.setCcexpmonth(ccexpmonth);
+            researcherBilling.setCcexpyear(ccexpyear);
+            try{
+                researcherBilling.save();
+            } catch (GeneralException gex){
+                logger.debug("Save research billing failed: " + gex.getErrorsAsSingleString());
+                String message = "Researcher Details save failed: " + gex.getErrorsAsSingleString();
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage( FacesMessage.SEVERITY_INFO, message, message));
+                return null;
+            }
+
+
 
             userSession.getUser().refresh();
 
@@ -107,5 +166,83 @@ public class ResearcherDetails {
         this.userid = userid;
     }
 
+    public String getBillingname() {
+        return billingname;
+    }
 
+    public void setBillingname(String billingname) {
+        this.billingname = billingname;
+    }
+
+    public String getBillingaddress1() {
+        return billingaddress1;
+    }
+
+    public void setBillingaddress1(String billingaddress1) {
+        this.billingaddress1 = billingaddress1;
+    }
+
+    public String getBillingaddress2() {
+        return billingaddress2;
+    }
+
+    public void setBillingaddress2(String billingaddress2) {
+        this.billingaddress2 = billingaddress2;
+    }
+
+    public String getBillingcity() {
+        return billingcity;
+    }
+
+    public void setBillingcity(String billingcity) {
+        this.billingcity = billingcity;
+    }
+
+    public String getBillingstate() {
+        return billingstate;
+    }
+
+    public void setBillingstate(String billingstate) {
+        this.billingstate = billingstate;
+    }
+
+    public String getBillingzip() {
+        return billingzip;
+    }
+
+    public void setBillingzip(String billingzip) {
+        this.billingzip = billingzip;
+    }
+
+    public int getBillingpaymentmethod() {
+        return billingpaymentmethod;
+    }
+
+    public void setBillingpaymentmethod(int billingpaymentmethod) {
+        this.billingpaymentmethod = billingpaymentmethod;
+    }
+
+    public String getCcnum() {
+        return ccnum;
+    }
+
+    public void setCcnum(String ccnum) {
+        this.ccnum = ccnum;
+    }
+
+    public int getCcexpmonth() {
+        return ccexpmonth;
+    }
+
+    public void setCcexpmonth(int ccexpmonth) {
+        this.ccexpmonth = ccexpmonth;
+    }
+
+    public int getCcexpyear() {
+        return ccexpyear;
+    }
+
+    public void setCcexpyear(int ccexpyear) {
+        this.ccexpyear = ccexpyear;
+    }
 }

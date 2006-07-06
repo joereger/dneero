@@ -37,11 +37,11 @@ public class BasePersistentClass implements Lifecycle, Validatable, Serializable
             logger.debug("GeneralException found in save()");
             throw vex;
         } catch (HibernateException hex){
+            logger.debug("HibernateException found in save()");
+            logger.error("HibernateException", hex);
             hsession.getTransaction().rollback();
             //hsession.evict(this);
             HibernateUtil.closeSession();
-            logger.debug("HibernateException found in save()");
-            logger.error("HibernateException", hex);
             GeneralException vex = new GeneralException();
             vex.addValidationError("Hibernate error saving "+this.getClass().getName());
             throw vex;

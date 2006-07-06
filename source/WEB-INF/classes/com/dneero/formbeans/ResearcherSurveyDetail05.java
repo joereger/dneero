@@ -20,6 +20,13 @@ import com.dneero.session.UserSession;
  */
 public class ResearcherSurveyDetail05 {
 
+    private double willingtopayperrespondent = 1;
+    private int numberofrespondentsrequested = 1000;
+    private double willingtopaypercpm = 10;
+    private int maxdisplaysperblog = 5000;
+    private int maxdisplaystotal = 100000;
+
+
 
     Logger logger = Logger.getLogger(this.getClass().getName());
 
@@ -44,6 +51,11 @@ public class ResearcherSurveyDetail05 {
         if (survey!=null){
             logger.debug("Found survey in db: survey.getSurveyid()="+survey.getSurveyid()+" survey.getTitle()="+survey.getTitle());
 
+            willingtopayperrespondent = survey.getWillingtopayperrespondent();
+            numberofrespondentsrequested = survey.getNumberofrespondentsrequested();
+            willingtopaypercpm = survey.getWillingtopaypercpm();
+            maxdisplaysperblog = survey.getMaxdisplaysperblog();
+            maxdisplaystotal = survey.getMaxdisplaystotal();
 
         }
 
@@ -60,8 +72,11 @@ public class ResearcherSurveyDetail05 {
             survey = Survey.get(userSession.getCurrentResearcherSurveyDetailSurveyid());
         }
 
-        //survey.setResearcherid(userSession.getUser().getResearcher().getResearcherid());
-
+        survey.setWillingtopayperrespondent(willingtopayperrespondent);
+        survey.setNumberofrespondentsrequested(numberofrespondentsrequested);
+        survey.setWillingtopaypercpm(willingtopaypercpm);
+        survey.setMaxdisplaysperblog(maxdisplaysperblog);
+        survey.setMaxdisplaystotal(maxdisplaystotal);
 
         try{
             logger.debug("saveSurvey() about to save survey.getSurveyid()=" + survey.getSurveyid());
@@ -74,14 +89,51 @@ public class ResearcherSurveyDetail05 {
             return null;
         }
 
-
-
         //Refresh
         survey.refresh();
-
 
         return "success";
     }
 
-   
+
+
+    public double getWillingtopayperrespondent() {
+        return willingtopayperrespondent;
+    }
+
+    public void setWillingtopayperrespondent(double willingtopayperrespondent) {
+        this.willingtopayperrespondent = willingtopayperrespondent;
+    }
+
+    public int getNumberofrespondentsrequested() {
+        return numberofrespondentsrequested;
+    }
+
+    public void setNumberofrespondentsrequested(int numberofrespondentsrequested) {
+        this.numberofrespondentsrequested = numberofrespondentsrequested;
+    }
+
+    public double getWillingtopaypercpm() {
+        return willingtopaypercpm;
+    }
+
+    public void setWillingtopaypercpm(double willingtopaypercpm) {
+        this.willingtopaypercpm = willingtopaypercpm;
+    }
+
+    public int getMaxdisplaysperblog() {
+        return maxdisplaysperblog;
+    }
+
+    public void setMaxdisplaysperblog(int maxdisplaysperblog) {
+        this.maxdisplaysperblog = maxdisplaysperblog;
+    }
+
+    public int getMaxdisplaystotal() {
+        return maxdisplaystotal;
+    }
+
+    public void setMaxdisplaystotal(int maxdisplaystotal) {
+        this.maxdisplaystotal = maxdisplaystotal;
+    }
 }

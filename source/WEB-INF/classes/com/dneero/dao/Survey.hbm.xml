@@ -15,6 +15,11 @@
             <one-to-many class="com.dneero.dao.Surveycriteria" not-found="ignore"></one-to-many>
         </set>
         -->
+        <set name="questions" inverse="true" cascade="all-delete-orphan">
+            <cache usage="nonstrict-read-write"/>
+            <key column="surveyid"></key>
+            <one-to-many class="com.dneero.dao.Question" not-found="ignore"></one-to-many>
+        </set>
         <one-to-one name="surveycriteria" class="com.dneero.dao.Surveycriteria" property-ref="surveyid" cascade="all"/>
         <!--<one-to-one name="researcherbilling" class="com.dneero.dao.Researcherbilling" cascade="save-update"/>-->
         <property name="researcherid" type="int">
@@ -47,11 +52,8 @@
         <property name="enddate" type="timestamp">
             <column name="enddate" length="19" not-null="true" />
         </property>
-        <property name="surveybody" type="string">
-            <column name="surveybody" length="65535" />
-        </property>
-        <property name="researcherbillingid" type="int">
-            <column name="researcherbillingid" not-null="true" />
+        <property name="template" type="string">
+            <column name="template" length="65535" />
         </property>
     </class>
 </hibernate-mapping>

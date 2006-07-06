@@ -36,114 +36,150 @@
         </h:panelGroup>
 
         <h:panelGroup>
-            <h:outputText value="Billing Name"></h:outputText>
+            <h:outputText value="Age"></h:outputText>
         </h:panelGroup>
         <h:panelGroup>
-            <h:inputText value="#{researcherSurveyDetail04.billingname}" id="billingname" required="true">
-                <f:validateLength minimum="3" maximum="255"></f:validateLength>
+            <h:inputText value="#{researcherSurveyDetail04.agemin}" id="agemin" required="true">
+                <f:validateDoubleRange minimum="1" maximum="120"></f:validateDoubleRange>
+            </h:inputText>
+            <h:outputText value=" - "></h:outputText>
+            <h:inputText value="#{researcherSurveyDetail04.agemax}" id="agemax" required="true">
+                <f:validateDoubleRange minimum="1" maximum="120"></f:validateDoubleRange>
             </h:inputText>
         </h:panelGroup>
         <h:panelGroup>
-            <h:message for="billingname" styleClass="RED"></h:message>
-        </h:panelGroup>
-
-        <h:panelGroup>
-            <h:outputText value="Billing Address1"></h:outputText>
-        </h:panelGroup>
-        <h:panelGroup>
-            <h:inputText value="#{researcherSurveyDetail04.billingaddress1}" id="billingaddress1" required="true">
-                <f:validateLength minimum="3" maximum="255"></f:validateLength>
-            </h:inputText>
-        </h:panelGroup>
-        <h:panelGroup>
-            <h:message for="billingaddress1" styleClass="RED"></h:message>
-        </h:panelGroup>
-
-        <h:panelGroup>
-            <h:outputText value="Billing Address2"></h:outputText>
-        </h:panelGroup>
-        <h:panelGroup>
-            <h:inputText value="#{researcherSurveyDetail04.billingaddress2}" id="billingaddress2">
-                <f:validateLength minimum="3" maximum="255"></f:validateLength>
-            </h:inputText>
-        </h:panelGroup>
-        <h:panelGroup>
-            <h:message for="billingaddress2" styleClass="RED"></h:message>
-        </h:panelGroup>
-
-        <h:panelGroup>
-            <h:outputText value="Billing City"></h:outputText>
-        </h:panelGroup>
-        <h:panelGroup>
-            <h:inputText value="#{researcherSurveyDetail04.billingcity}" id="billingcity" required="true">
-                <f:validateLength minimum="3" maximum="255"></f:validateLength>
-            </h:inputText>
-        </h:panelGroup>
-        <h:panelGroup>
-            <h:message for="billingcity" styleClass="RED"></h:message>
-        </h:panelGroup>
-
-        <h:panelGroup>
-            <h:outputText value="Billing State"></h:outputText>
-        </h:panelGroup>
-        <h:panelGroup>
-            <h:inputText value="#{researcherSurveyDetail04.billingstate}" id="billingstate" required="true">
-                <f:validateLength minimum="2" maximum="2"></f:validateLength>
-            </h:inputText>
-        </h:panelGroup>
-        <h:panelGroup>
-            <h:message for="billingstate" styleClass="RED"></h:message>
-        </h:panelGroup>
-
-        <h:panelGroup>
-            <h:outputText value="Billing Zip"></h:outputText>
-        </h:panelGroup>
-        <h:panelGroup>
-            <h:inputText value="#{researcherSurveyDetail04.billingzip}" id="billingzip" required="true">
-                <f:validateLength minimum="5" maximum="20"></f:validateLength>
-            </h:inputText>
-        </h:panelGroup>
-        <h:panelGroup>
-            <h:message for="billingzip" styleClass="RED"></h:message>
+            <h:message for="agemin" styleClass="RED"></h:message>
+            <h:message for="agemax" styleClass="RED"></h:message>
         </h:panelGroup>
 
 
 
+
         <h:panelGroup>
-            <h:outputText value="Credit Card Number"></h:outputText>
+            <h:outputText value="Gender"></h:outputText>
         </h:panelGroup>
         <h:panelGroup>
-            <h:inputText value="#{researcherSurveyDetail04.ccnum}" id="ccnum" required="true">
-                <t:validateCreditCard />
-            </h:inputText>
+            <h:selectManyCheckbox value="#{researcherSurveyDetail04.gender}" id="gender" required="true">
+                <f:selectItems value="#{genders}"/>
+            </h:selectManyCheckbox>
         </h:panelGroup>
         <h:panelGroup>
-            <h:message for="ccnum" styleClass="RED"></h:message>
+            <h:message for="gender" styleClass="RED"></h:message>
+        </h:panelGroup>
+
+
+        <h:panelGroup>
+            <h:outputText value="Ethnicity"></h:outputText>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:selectManyListbox value="#{researcherSurveyDetail04.ethnicity}" id="ethnicity" size="6" layout="pageDirection" required="true">
+                <f:selectItems value="#{ethnicities}"/>
+            </h:selectManyListbox>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:message for="ethnicity" styleClass="RED"></h:message>
         </h:panelGroup>
 
         <h:panelGroup>
-            <h:outputText value="Credit Card Exp Month"></h:outputText>
+            <h:outputText value="Marital Status"></h:outputText>
         </h:panelGroup>
         <h:panelGroup>
-            <h:inputText value="#{researcherSurveyDetail04.ccexpmonth}" id="ccexpmonth" required="true">
-                <f:validateDoubleRange minimum="1" maximum="12"></f:validateDoubleRange>
-            </h:inputText>
+            <h:selectManyCheckbox value="#{researcherSurveyDetail04.maritalstatus}" id="maritalstatus" required="true">
+                <f:selectItems value="#{maritalstatuses}"/>
+            </h:selectManyCheckbox>
         </h:panelGroup>
         <h:panelGroup>
-            <h:message for="ccexpmonth" styleClass="RED"></h:message>
+            <h:message for="maritalstatus" styleClass="RED"></h:message>
         </h:panelGroup>
 
         <h:panelGroup>
-            <h:outputText value="Credit Card Exp Year"></h:outputText>
+            <h:outputText value="Income"></h:outputText>
         </h:panelGroup>
         <h:panelGroup>
-            <h:inputText value="#{researcherSurveyDetail04.ccexpyear}" id="ccexpyear" required="true">
-                <f:validateDoubleRange minimum="2006" maximum="2020"></f:validateDoubleRange>
-            </h:inputText>
+            <h:selectManyListbox value="#{researcherSurveyDetail04.income}" size="5" id="income" layout="pageDirection" required="true">
+                <f:selectItems value="#{incomes}"/>
+            </h:selectManyListbox>
         </h:panelGroup>
         <h:panelGroup>
-            <h:message for="ccexpyear" styleClass="RED"></h:message>
+            <h:message for="income" styleClass="RED"></h:message>
         </h:panelGroup>
+
+        <h:panelGroup>
+            <h:outputText value="Education"></h:outputText>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:selectManyCheckbox value="#{researcherSurveyDetail04.educationlevel}" id="educationlevel" layout="pageDirection" required="true">
+                <f:selectItems value="#{educationlevels}"/>
+            </h:selectManyCheckbox>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:message for="educationlevel" styleClass="RED"></h:message>
+        </h:panelGroup>
+
+
+
+        <h:panelGroup>
+            <h:outputText value="State"></h:outputText>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:selectManyListbox value="#{researcherSurveyDetail04.state}" size="5" id="state" layout="pageDirection" required="true">
+                <f:selectItems value="#{states}"/>
+            </h:selectManyListbox>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:message for="state" styleClass="RED"></h:message>
+        </h:panelGroup>
+
+        <h:panelGroup>
+            <h:outputText value="City"></h:outputText>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:selectManyListbox value="#{researcherSurveyDetail04.city}" size="5" id="city" layout="pageDirection" required="true">
+                <f:selectItems value="#{cities}"/>
+            </h:selectManyListbox>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:message for="city" styleClass="RED"></h:message>
+        </h:panelGroup>
+
+
+        <h:panelGroup>
+            <h:outputText value="Profession"></h:outputText>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:selectManyListbox value="#{researcherSurveyDetail04.profession}" size="5" id="profession" layout="pageDirection" required="true">
+                <f:selectItems value="#{professions}"/>
+            </h:selectManyListbox>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:message for="profession" styleClass="RED"></h:message>
+        </h:panelGroup>
+
+
+        <h:panelGroup>
+            <h:outputText value="Blog Focus"></h:outputText>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:selectManyListbox value="#{researcherSurveyDetail04.blogfocus}" size="5" id="blogfocus" layout="pageDirection" required="true">
+                <f:selectItems value="#{blogfocuses}"/>
+            </h:selectManyListbox>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:message for="blogfocus" styleClass="RED"></h:message>
+        </h:panelGroup>
+
+        <h:panelGroup>
+            <h:outputText value="Politics"></h:outputText>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:selectManyListbox value="#{researcherSurveyDetail04.politics}" size="5" id="politics" layout="pageDirection" required="true">
+                <f:selectItems value="#{politics}"/>
+            </h:selectManyListbox>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:message for="politics" styleClass="RED"></h:message>
+        </h:panelGroup>
+
 
 
         <h:panelGroup>

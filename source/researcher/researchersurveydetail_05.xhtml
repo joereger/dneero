@@ -35,6 +35,70 @@
         <h:panelGroup>
         </h:panelGroup>
 
+
+        <h:panelGroup>
+            <h:outputText value="Willing to Pay Per Respondent"></h:outputText>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:inputText value="#{researcherSurveyDetail05.willingtopayperrespondent}" id="willingtopayperrespondent" required="true">
+                <f:validateDoubleRange minimum=".25" maximum="10000"></f:validateDoubleRange>
+            </h:inputText>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:message for="willingtopayperrespondent" styleClass="RED"></h:message>
+        </h:panelGroup>
+
+
+        <h:panelGroup>
+            <h:outputText value="Number of Respondents Requested"></h:outputText>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:inputText value="#{researcherSurveyDetail05.numberofrespondentsrequested}" id="numberofrespondentsrequested" required="true">
+                <f:validateDoubleRange minimum="100" maximum="10000000"></f:validateDoubleRange>
+            </h:inputText>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:message for="numberofrespondentsrequested" styleClass="RED"></h:message>
+        </h:panelGroup>
+
+        <h:panelGroup>
+            <h:outputText value="Willing to Pay Per Survey Display"></h:outputText>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:inputText value="#{researcherSurveyDetail05.willingtopaypercpm}" id="willingtopaypercpm" required="true">
+                <f:validateDoubleRange minimum=".01" maximum="100"></f:validateDoubleRange>
+            </h:inputText>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:message for="willingtopaypercpm" styleClass="RED"></h:message>
+        </h:panelGroup>
+
+
+        <h:panelGroup>
+            <h:outputText value="Max Survey Displays Per Blog"></h:outputText>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:inputText value="#{researcherSurveyDetail05.maxdisplaysperblog}" id="maxdisplaysperblog" required="true">
+                <f:validateDoubleRange minimum="100" maximum="10000000"></f:validateDoubleRange>
+            </h:inputText>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:message for="maxdisplaysperblog" styleClass="RED"></h:message>
+        </h:panelGroup>
+
+        <h:panelGroup>
+            <h:outputText value="Max Survey Displays Total"></h:outputText>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:inputText value="#{researcherSurveyDetail05.maxdisplaystotal}" id="maxdisplaystotal" required="true">
+                <f:validateDoubleRange minimum="100" maximum="10000000"></f:validateDoubleRange>
+            </h:inputText>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:message for="maxdisplaystotal" styleClass="RED"></h:message>
+        </h:panelGroup>
+
+
         <h:panelGroup>
         </h:panelGroup>
         <h:panelGroup>

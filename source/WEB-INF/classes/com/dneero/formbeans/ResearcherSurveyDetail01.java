@@ -25,7 +25,7 @@ public class ResearcherSurveyDetail01 {
     private String description;
     private Date startdate;
     private Date enddate;
-    private String surveybody;
+    private String template;
 
 
 
@@ -63,7 +63,7 @@ public class ResearcherSurveyDetail01 {
             description = survey.getDescription();
             startdate = survey.getStartdate();
             enddate = survey.getEnddate();
-            surveybody = survey.getSurveybody();
+            template = survey.getTemplate();
         }
 
     }
@@ -84,7 +84,7 @@ public class ResearcherSurveyDetail01 {
         survey.setDescription(description);
         survey.setStartdate(startdate);
         survey.setEnddate(enddate);
-        survey.setSurveybody(surveybody);
+        survey.setTemplate(template);
 
         try{
             logger.debug("saveSurvey() about to save survey.getSurveyid()=" + survey.getSurveyid());
@@ -136,11 +136,11 @@ public class ResearcherSurveyDetail01 {
         this.enddate = enddate;
     }
 
-    public String getSurveybody() {
-        return surveybody;
+    public String getTemplate() {
+        return template;
     }
 
-    public void setSurveybody(String surveybody) {
-        this.surveybody = surveybody;
+    public void setTemplate(String template) {
+        this.template = template;
     }
 }

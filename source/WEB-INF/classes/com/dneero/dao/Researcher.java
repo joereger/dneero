@@ -24,7 +24,7 @@ public class Researcher extends BasePersistentClass implements java.io.Serializa
      private int researcherid;
      private int userid;
 
-     private Set<Researcherbilling> researcherbillings = new HashSet<Researcherbilling>();
+     private Researcherbilling researcherbilling;
 
     //Validator
     public void validateRegerEntity() throws GeneralException {
@@ -84,11 +84,11 @@ public class Researcher extends BasePersistentClass implements java.io.Serializa
         this.userid = userid;
     }
 
-    public Set<Researcherbilling> getResearcherbillings() {
-        return researcherbillings;
+    public Researcherbilling getResearcherbilling() {
+        return researcherbilling;
     }
 
-    public void setResearcherbillings(Set<Researcherbilling> researcherbillings) {
-        this.researcherbillings = researcherbillings;
+    public void setResearcherbilling(Researcherbilling researcherbilling) {
+        this.researcherbilling = researcherbilling;
     }
 }

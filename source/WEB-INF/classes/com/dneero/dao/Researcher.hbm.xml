@@ -8,11 +8,7 @@
             <column name="researcherid" />
             <generator class="native" />
         </id>
-        <set name="researcherbillings" inverse="true" cascade="all-delete-orphan">
-            <cache usage="nonstrict-read-write"/>
-            <key column="researcherid"></key>
-            <one-to-many class="com.dneero.dao.Researcherbilling" not-found="ignore"></one-to-many>
-        </set>
+        <one-to-one name="researcherbilling" class="com.dneero.dao.Researcherbilling" property-ref="researcherid" cascade="all"/>
 
         <property name="userid" type="int">
             <column name="userid" not-null="true" />

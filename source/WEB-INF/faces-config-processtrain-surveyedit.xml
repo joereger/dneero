@@ -24,6 +24,7 @@
       <value>#{survey3}</value>
       <value>#{survey4}</value>
       <value>#{survey5}</value>
+      <value>#{survey6}</value>
     </list-entries>
   </managed-bean>
 
@@ -54,7 +55,7 @@
     </managed-property>
     <managed-property>
       <property-name>label</property-name>
-      <value>Build Survey</value>
+      <value>Start</value>
     </managed-property>
     <managed-property>
       <property-name>outcome</property-name>
@@ -71,7 +72,7 @@
     </managed-property>
     <managed-property>
       <property-name>label</property-name>
-      <value>Target Bloggers</value>
+      <value>Questions</value>
     </managed-property>
     <managed-property>
       <property-name>outcome</property-name>
@@ -88,7 +89,7 @@
     </managed-property>
     <managed-property>
       <property-name>label</property-name>
-      <value>Pay Incentive</value>
+      <value>Format</value>
     </managed-property>
     <managed-property>
       <property-name>outcome</property-name>
@@ -105,7 +106,7 @@
     </managed-property>
     <managed-property>
       <property-name>label</property-name>
-      <value>Billing</value>
+      <value>Target</value>
     </managed-property>
     <managed-property>
       <property-name>outcome</property-name>
@@ -122,13 +123,31 @@
     </managed-property>
     <managed-property>
       <property-name>label</property-name>
-      <value>Finalize</value>
+      <value>Pay</value>
     </managed-property>
     <managed-property>
       <property-name>outcome</property-name>
       <value>survey5</value>
     </managed-property>
   </managed-bean>
+  <managed-bean>
+    <managed-bean-name>survey6</managed-bean-name>
+    <managed-bean-class>com.dneero.processtrain.ProcessTrainPage</managed-bean-class>
+    <managed-bean-scope>none</managed-bean-scope>
+    <managed-property>
+      <property-name>viewId</property-name>
+      <value>/researcher/researchersurveydetail_06.xhtml</value>
+    </managed-property>
+    <managed-property>
+      <property-name>label</property-name>
+      <value>Finish</value>
+    </managed-property>
+    <managed-property>
+      <property-name>outcome</property-name>
+      <value>survey6</value>
+    </managed-property>
+  </managed-bean>
+
 
   <navigation-rule>
     <navigation-case>
@@ -154,6 +173,11 @@
     <navigation-case>
       <from-outcome>survey5</from-outcome>
       <to-view-id>/researcher/researchersurveydetail_05.xhtml</to-view-id>
+      <redirect/>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>survey6</from-outcome>
+      <to-view-id>/researcher/researchersurveydetail_06.xhtml</to-view-id>
       <redirect/>
     </navigation-case>
   </navigation-rule>

@@ -33,9 +33,8 @@ public class Survey extends BasePersistentClass implements java.io.Serializable,
      private int maxdisplaystotal;
      private Date startdate;
      private Date enddate;
-     private String surveybody;
-     private int researcherbillingid;
-
+     private String template;
+     private Set<Question> questions = new HashSet<Question>();
      private Surveycriteria surveycriteria;
 
 
@@ -160,12 +159,12 @@ public class Survey extends BasePersistentClass implements java.io.Serializable,
         this.enddate = enddate;
     }
 
-    public String getSurveybody() {
-        return surveybody;
+    public String getTemplate() {
+        return template;
     }
 
-    public void setSurveybody(String surveybody) {
-        this.surveybody = surveybody;
+    public void setTemplate(String template) {
+        this.template = template;
     }
 
     public double getWillingtopaypercpm() {
@@ -200,11 +199,11 @@ public class Survey extends BasePersistentClass implements java.io.Serializable,
         this.surveycriteria = surveycriteria;
     }
 
-    public int getResearcherbillingid() {
-        return researcherbillingid;
+    public Set<Question> getQuestions() {
+        return questions;
     }
 
-    public void setResearcherbillingid(int researcherbillingid) {
-        this.researcherbillingid = researcherbillingid;
+    public void setQuestions(Set<Question> questions) {
+        this.questions = questions;
     }
 }

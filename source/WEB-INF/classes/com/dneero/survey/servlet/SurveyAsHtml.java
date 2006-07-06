@@ -44,7 +44,7 @@ public class SurveyAsHtml {
 
             out.append("<b>dNeero Survey</b>");
             out.append("<br>");
-            out.append(survey.getSurveybody());
+            out.append(survey.getTitle());
             out.append("<br>");
             out.append("<b>dNeero - blog for pay</b>");
 
