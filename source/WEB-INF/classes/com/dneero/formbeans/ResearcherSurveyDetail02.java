@@ -16,8 +16,11 @@ import javax.faces.application.FacesMessage;
  */
 public class ResearcherSurveyDetail02 {
 
-
     Logger logger = Logger.getLogger(this.getClass().getName());
+
+    private boolean istopon = true;
+    private boolean isbottomon = false;
+    private int newquestiontype = 0;
 
     public ResearcherSurveyDetail02(){
         logger.debug("Instanciating object.");
@@ -79,5 +82,42 @@ public class ResearcherSurveyDetail02 {
         return "success";
     }
 
+    public String addQuestion(){
+        istopon= false;
+        isbottomon = true;
 
+        return "researchersurveydetail_02";
+    }
+
+    public String saveQuestionConfig(){
+        istopon= true;
+        isbottomon = false;
+
+        return "researchersurveydetail_02";
+    }
+
+
+    public boolean isIstopon() {
+        return istopon;
+    }
+
+    public void setIstopon(boolean istopon) {
+        this.istopon = istopon;
+    }
+
+    public boolean isIsbottomon() {
+        return isbottomon;
+    }
+
+    public void setIsbottomon(boolean isbottomon) {
+        this.isbottomon = isbottomon;
+    }
+
+    public int getNewquestiontype() {
+        return newquestiontype;
+    }
+
+    public void setNewquestiontype(int newquestiontype) {
+        this.newquestiontype = newquestiontype;
+    }
 }

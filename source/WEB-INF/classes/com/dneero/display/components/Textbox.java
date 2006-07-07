@@ -14,6 +14,7 @@ public class Textbox implements Component {
 
     private Question question;
     private Blogger blogger;
+    private int COMPONENTTYPE = 1;
 
     public Textbox(Question question, Blogger blogger){
         this.question = question;

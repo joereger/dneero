@@ -24,7 +24,9 @@
     </af:processTrain>
     <f:verbatim><br/><br/></f:verbatim>
 
-    <h:panelGrid columns="3" cellpadding="3" border="0">
+    <!-- Start Top -->
+
+    <h:panelGrid columns="3" cellpadding="3" border="0" rendered="#{researcherSurveyDetail03.istopon}">
 
         <h:panelGroup>
             <h:outputText value="Survey Id"></h:outputText>
@@ -36,14 +38,61 @@
         </h:panelGroup>
 
         <h:panelGroup>
+            <h:outputText value="Survey Takers Will See:"></h:outputText>
         </h:panelGroup>
         <h:panelGroup>
+            <h:outputText value="Inside a Blog Survey Will Look Like:"></h:outputText>
+        </h:panelGroup>
+        <h:panelGroup>
+        </h:panelGroup>
+
+        <h:panelGroup>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:commandButton action="#{researcherSurveyDetail03.viewAdvanced}" value="View Advanced"></h:commandButton>
             <h:commandButton action="#{researcherSurveyDetail03.saveSurvey}" value="Continue"></h:commandButton>
         </h:panelGroup>
         <h:panelGroup>
         </h:panelGroup>
 
+
     </h:panelGrid>
+
+    <!-- End Top -->
+
+    <!-- Start Bottom -->
+
+    <h:panelGrid columns="3" cellpadding="3" border="0" rendered="#{researcherSurveyDetail03.isbottomon}">
+
+        <h:panelGroup>
+            <h:outputText value="Survey Id"></h:outputText>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:outputText value="#{userSession.currentResearcherSurveyDetailSurveyid}"></h:outputText>
+        </h:panelGroup>
+        <h:panelGroup>
+        </h:panelGroup>
+
+        <h:panelGroup>
+            <h:outputText value="Advanced Template View"></h:outputText>
+        </h:panelGroup>
+        <h:panelGroup>
+        </h:panelGroup>
+        <h:panelGroup>
+        </h:panelGroup>
+
+
+        <h:panelGroup>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:commandButton action="#{researcherSurveyDetail03.saveAdvanced}" value="Save and Continue"></h:commandButton>
+        </h:panelGroup>
+        <h:panelGroup>
+        </h:panelGroup>
+
+    </h:panelGrid>
+
+    <!-- End Bottom -->
 </h:form>
 
 </ui:define>

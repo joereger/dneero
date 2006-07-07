@@ -33,17 +33,11 @@ public class ResearcherDetails {
     private int ccexpmonth;
     private int ccexpyear;
 
-    //Other props
-    private int userid;
 
     Logger logger = Logger.getLogger(this.getClass().getName());
 
     public ResearcherDetails(){
-        UserSession userSession = Jsf.getUserSession();
-        if (userSession.getUser()!=null && userSession.getUser().getResearcher()!=null){
-            Researcher researcher = userSession.getUser().getResearcher();
-            userid = researcher.getUserid();
-        }
+        load();
     }
 
     public void load(){
@@ -158,13 +152,7 @@ public class ResearcherDetails {
 
 
 
-    public int getUserid() {
-        return userid;
-    }
 
-    public void setUserid(int userid) {
-        this.userid = userid;
-    }
 
     public String getBillingname() {
         return billingname;

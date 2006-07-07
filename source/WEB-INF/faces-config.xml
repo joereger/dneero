@@ -136,13 +136,13 @@
 
     <managed-bean>
         <managed-bean-name>researcherSurveyDetail02</managed-bean-name>
-        <managed-bean-class>com.dneero.formbeans.ResearcherSurveyDetail04</managed-bean-class>
+        <managed-bean-class>com.dneero.formbeans.ResearcherSurveyDetail02</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
 
     <managed-bean>
         <managed-bean-name>researcherSurveyDetail03</managed-bean-name>
-        <managed-bean-class>com.dneero.formbeans.ResearcherSurveyDetail05</managed-bean-class>
+        <managed-bean-class>com.dneero.formbeans.ResearcherSurveyDetail03</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
 

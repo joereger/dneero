@@ -24,13 +24,26 @@
     </af:processTrain>
     <f:verbatim><br/><br/></f:verbatim>
 
-    <h:panelGrid columns="3" cellpadding="3" border="0">
+    <!-- Start Top -->
+
+    <h:panelGrid columns="3" cellpadding="3" border="0" rendered="#{researcherSurveyDetail02.istopon}">
 
         <h:panelGroup>
             <h:outputText value="Survey Id"></h:outputText>
         </h:panelGroup>
         <h:panelGroup>
             <h:outputText value="#{userSession.currentResearcherSurveyDetailSurveyid}"></h:outputText>
+        </h:panelGroup>
+        <h:panelGroup>
+        </h:panelGroup>
+
+        <h:panelGroup>
+            <h:selectOneMenu value="#{researcherSurveyDetail02.newquestiontype}" id="newquestiontype" required="true">
+                <f:selectItems value="#{componenttypes}"/>
+            </h:selectOneMenu>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:commandButton action="#{researcherSurveyDetail02.addQuestion}" value="Add Question"></h:commandButton>
         </h:panelGroup>
         <h:panelGroup>
         </h:panelGroup>
@@ -44,6 +57,44 @@
         </h:panelGroup>
 
     </h:panelGrid>
+
+    <!-- End Top -->
+
+    <!-- Start Bottom -->
+
+    <h:panelGrid columns="3" cellpadding="3" border="0" rendered="#{researcherSurveyDetail02.isbottomon}">
+
+        <h:panelGroup>
+            <h:outputText value="Survey Id"></h:outputText>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:outputText value="#{userSession.currentResearcherSurveyDetailSurveyid}"></h:outputText>
+        </h:panelGroup>
+        <h:panelGroup>
+        </h:panelGroup>
+
+        <h:panelGroup>
+            <h:outputText value="Question Type Selected"></h:outputText>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:outputText value="#{researcherSurveyDetail02.newquestiontype}"></h:outputText>
+        </h:panelGroup>
+        <h:panelGroup>
+        </h:panelGroup>
+
+
+        <h:panelGroup>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:commandButton action="#{researcherSurveyDetail02.saveQuestionConfig}" value="Save Question and Continue"></h:commandButton>
+        </h:panelGroup>
+        <h:panelGroup>
+        </h:panelGroup>
+
+    </h:panelGrid>
+
+    <!-- End Bottom -->
+
 </h:form>
 
 </ui:define>
