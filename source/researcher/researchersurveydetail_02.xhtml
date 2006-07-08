@@ -14,7 +14,7 @@
     <d:authorization acl="researcher" redirectonfail="true"/>
 
 <h:form>
-    <h:messages />
+
     <h:inputHidden name="surveyid" value="#{userSession.currentResearcherSurveyDetailSurveyid}" />
 
     <af:processTrain  value="#{surveyDetailProcessTrain}" var="surveyNode">
@@ -26,7 +26,7 @@
 
     <!-- Start Top -->
 
-    <h:panelGrid columns="3" cellpadding="3" border="0" rendered="#{researcherSurveyDetail02.istopon}">
+    <h:panelGrid columns="3" cellpadding="3" border="0">
 
         <h:panelGroup>
             <h:outputText value="Survey Id"></h:outputText>
@@ -62,7 +62,7 @@
 
     <!-- Start Bottom -->
 
-    <h:panelGrid columns="3" cellpadding="3" border="0" rendered="#{researcherSurveyDetail02.isbottomon}">
+    <h:panelGrid columns="3" cellpadding="3" border="0">
 
         <h:panelGroup>
             <h:outputText value="Survey Id"></h:outputText>
@@ -81,6 +81,17 @@
         </h:panelGroup>
         <h:panelGroup>
         </h:panelGroup>
+
+        <h:panelGroup>
+            <h:outputText value="Configure this Question"></h:outputText>
+        </h:panelGroup>
+        <h:panelGroup>
+            <d:componentConfig id="megatest" value="#{researcherSurveyDetail02.questionconfig}"></d:componentConfig>
+        </h:panelGroup>
+        <h:panelGroup>
+        </h:panelGroup>
+
+
 
 
         <h:panelGroup>

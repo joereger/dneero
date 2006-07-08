@@ -8,6 +8,9 @@ import com.dneero.session.UserSession;
 
 import javax.faces.context.FacesContext;
 import javax.faces.application.FacesMessage;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  * User: Joe Reger Jr
@@ -21,6 +24,7 @@ public class ResearcherSurveyDetail02 {
     private boolean istopon = true;
     private boolean isbottomon = false;
     private int newquestiontype = 0;
+    private HashMap questionconfig = new HashMap();
 
     public ResearcherSurveyDetail02(){
         logger.debug("Instanciating object.");
@@ -78,11 +82,12 @@ public class ResearcherSurveyDetail02 {
         //Refresh
         survey.refresh();
 
-
         return "success";
     }
 
     public String addQuestion(){
+        logger.debug("addQuestion() called");
+
         istopon= false;
         isbottomon = true;
 
@@ -90,8 +95,23 @@ public class ResearcherSurveyDetail02 {
     }
 
     public String saveQuestionConfig(){
+        logger.debug("saveQuestionConfig() called");
+
         istopon= true;
         isbottomon = false;
+
+        if (questionconfig!=null && questionconfig.size()>0){
+            logger.debug("questionconfig not null and not empty");
+            Iterator keyValuePairs = questionconfig.entrySet().iterator();
+            for (int i = 0; i < questionconfig.size(); i++){
+                Map.Entry mapentry = (Map.Entry) keyValuePairs.next();
+                String key = (String)mapentry.getKey();
+                String value = (String)mapentry.getValue();
+                logger.debug("questionconfig-> "+key+"="+value);
+            }
+        } else {
+            logger.debug("questionconfig null or empty");
+        }
 
         return "researchersurveydetail_02";
     }
@@ -120,4 +140,14 @@ public class ResearcherSurveyDetail02 {
     public void setNewquestiontype(int newquestiontype) {
         this.newquestiontype = newquestiontype;
     }
+
+    public HashMap getQuestionconfig() {
+        return questionconfig;
+    }
+
+    public void setQuestionconfig(HashMap questionconfig) {
+        this.questionconfig = questionconfig;
+    }
+
+
 }

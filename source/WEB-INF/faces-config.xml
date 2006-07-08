@@ -47,6 +47,11 @@
     </component>
 
     <component>
+        <component-type>com.dneero.display.customtags.ComponentConfig</component-type>
+        <component-class>com.dneero.display.customtags.ComponentConfig</component-class>
+    </component>
+
+    <component>
         <component-type>com.dneero.util.UpdateActionListenerTaghandler</component-type>
         <component-class>com.dneero.util.UpdateActionListenerTaghandler</component-class>
     </component>

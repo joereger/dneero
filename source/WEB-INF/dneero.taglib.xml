@@ -20,6 +20,13 @@
         </component>
     </tag>
 
+    <tag>
+        <tag-name>componentConfig</tag-name>
+        <component>
+            <component-type>com.dneero.display.customtags.ComponentConfig</component-type>
+        </component>
+    </tag>
+
 
 
 </facelet-taglib>

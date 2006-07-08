@@ -30,8 +30,7 @@ public class RoundedCornerBoxTaghandler extends UIComponentTag {
     public String getRendererType() { return null; }
 
 
-    protected void setProperties(UIComponent component)
-    {
+    protected void setProperties(UIComponent component){
         super.setProperties(component);
 
         if (uniqueboxname != null){
