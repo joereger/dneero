@@ -1,6 +1,11 @@
 package com.dneero.formbeans;
 
 import org.apache.log4j.Logger;
+
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+
 import com.dneero.util.Jsf;
 import com.dneero.util.GeneralException;
 import com.dneero.dao.Survey;
@@ -8,23 +13,20 @@ import com.dneero.session.UserSession;
 
 import javax.faces.context.FacesContext;
 import javax.faces.application.FacesMessage;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
 
 /**
  * User: Joe Reger Jr
  * Date: Jun 15, 2006
  * Time: 9:54:08 AM
  */
-public class ResearcherSurveyDetail02 {
+public class ResearcherSurveyDetail02a {
 
     Logger logger = Logger.getLogger(this.getClass().getName());
 
     private int newquestiontype = 0;
     private HashMap questionconfig = new HashMap();
 
-    public ResearcherSurveyDetail02(){
+    public ResearcherSurveyDetail02a(){
         logger.debug("Instanciating object.");
         loadSurvey(Jsf.getUserSession().getCurrentResearcherSurveyDetailSurveyid());
     }
@@ -79,10 +81,24 @@ public class ResearcherSurveyDetail02 {
     }
 
 
-    public String addQuestion(){
-        logger.debug("addQuestion() called");
 
-        return "researchersurveydetail_02a";
+    public String saveQuestionConfig(){
+        logger.debug("saveQuestionConfig() called");
+
+        if (questionconfig!=null && questionconfig.size()>0){
+            logger.debug("questionconfig not null and not empty");
+            Iterator keyValuePairs = questionconfig.entrySet().iterator();
+            for (int i = 0; i < questionconfig.size(); i++){
+                Map.Entry mapentry = (Map.Entry) keyValuePairs.next();
+                String key = (String)mapentry.getKey();
+                String value = (String)mapentry.getValue();
+                logger.debug("questionconfig-> "+key+"="+value);
+            }
+        } else {
+            logger.debug("questionconfig null or empty");
+        }
+
+        return "researchersurveydetail_02";
     }
 
 

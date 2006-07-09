@@ -17,10 +17,13 @@
 
     <h:inputHidden name="surveyid" value="#{userSession.currentResearcherSurveyDetailSurveyid}" />
 
-    <h:graphicImage url="/images/process-train-survey-03.gif"></h:graphicImage>
+
+    <h:graphicImage url="/images/process-train-survey-02.gif"></h:graphicImage>
     <f:verbatim><br/><br/></f:verbatim>
 
-    <!-- Start Top -->
+
+
+    <!-- Start Bottom -->
 
     <h:panelGrid columns="3" cellpadding="3" border="0">
 
@@ -33,30 +36,40 @@
         <h:panelGroup>
         </h:panelGroup>
 
+
         <h:panelGroup>
-            <h:outputText value="Survey Takers Will See:"></h:outputText>
+            <h:outputText value="Question Type Selected"></h:outputText>
         </h:panelGroup>
         <h:panelGroup>
-            <h:outputText value="Inside a Blog Survey Will Look Like:"></h:outputText>
+            <h:outputText value="#{researcherSurveyDetail02a.newquestiontype}"></h:outputText>
         </h:panelGroup>
         <h:panelGroup>
         </h:panelGroup>
 
         <h:panelGroup>
+            <h:outputText value="Configure this Question"></h:outputText>
         </h:panelGroup>
         <h:panelGroup>
-            <h:commandButton action="#{researcherSurveyDetail03.viewAdvanced}" value="View Advanced"></h:commandButton>
-            <h:commandButton action="#{researcherSurveyDetail03.saveSurvey}" value="Continue"></h:commandButton>
+            <d:componentConfig id="megatest" value="#{researcherSurveyDetail02a.questionconfig}"></d:componentConfig>
         </h:panelGroup>
         <h:panelGroup>
         </h:panelGroup>
 
+
+
+
+        <h:panelGroup>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:commandButton action="#{researcherSurveyDetail02a.saveQuestionConfig}" value="Save Question and Continue"></h:commandButton>
+        </h:panelGroup>
+        <h:panelGroup>
+        </h:panelGroup>
 
     </h:panelGrid>
 
-    <!-- End Top -->
+    <!-- End Bottom -->
 
-    
 </h:form>
 
 </ui:define>

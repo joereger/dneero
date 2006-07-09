@@ -146,8 +146,20 @@
     </managed-bean>
 
     <managed-bean>
+        <managed-bean-name>researcherSurveyDetail02a</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.ResearcherSurveyDetail02a</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
         <managed-bean-name>researcherSurveyDetail03</managed-bean-name>
         <managed-bean-class>com.dneero.formbeans.ResearcherSurveyDetail03</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>researcherSurveyDetail03a</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.ResearcherSurveyDetail03a</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
 
@@ -284,8 +296,16 @@
             <to-view-id>/researcher/researchersurveydetail_02.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
+            <from-outcome>researchersurveydetail_02a</from-outcome>
+            <to-view-id>/researcher/researchersurveydetail_02a.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
             <from-outcome>researchersurveydetail_03</from-outcome>
             <to-view-id>/researcher/researchersurveydetail_03.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>researchersurveydetail_03a</from-outcome>
+            <to-view-id>/researcher/researchersurveydetail_03a.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>researchersurveydetail_04</from-outcome>
@@ -374,10 +394,26 @@
     </navigation-rule>
 
     <navigation-rule>
+        <from-view-id>/researcher/researchersurveydetail_02a.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/researcher/researchersurveydetail_02.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
         <from-view-id>/researcher/researchersurveydetail_03.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>success</from-outcome>
             <to-view-id>/researcher/researchersurveydetail_04.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/researcher/researchersurveydetail_03a.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/researcher/researchersurveydetail_03.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
 

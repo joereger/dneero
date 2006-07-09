@@ -17,11 +17,7 @@
     <h:messages />
     <h:inputHidden name="surveyid" value="#{userSession.currentResearcherSurveyDetailSurveyid}" />
 
-    <af:processTrain  value="#{surveyDetailProcessTrain}" var="surveyNode">
-        <f:facet name="nodeStamp">
-            <af:commandMenuItem text="#{surveyNode.label}" action="#{surveyNode.getOutcome}" readOnly="true"/>
-        </f:facet>
-    </af:processTrain>
+    <h:graphicImage url="/images/process-train-survey-05.gif"></h:graphicImage>
     <f:verbatim><br/><br/></f:verbatim>
 
     <h:panelGrid columns="3" cellpadding="3" border="0">

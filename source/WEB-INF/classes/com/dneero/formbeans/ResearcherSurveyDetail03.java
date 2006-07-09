@@ -16,8 +16,6 @@ import javax.faces.application.FacesMessage;
  */
 public class ResearcherSurveyDetail03 {
 
-    private boolean istopon = true;
-    private boolean isbottomon = false;
 
     Logger logger = Logger.getLogger(this.getClass().getName());
 
@@ -82,32 +80,12 @@ public class ResearcherSurveyDetail03 {
     }
 
     public String viewAdvanced(){
-        istopon= false;
-        isbottomon = true;
+
 
         return "researchersurveydetail_03";
     }
 
-    public String saveAdvanced(){
-        istopon= true;
-        isbottomon = false;
 
-        return "researchersurveydetail_03";
-    }
 
-    public boolean isIstopon() {
-        return istopon;
-    }
 
-    public void setIstopon(boolean istopon) {
-        this.istopon = istopon;
-    }
-
-    public boolean isIsbottomon() {
-        return isbottomon;
-    }
-
-    public void setIsbottomon(boolean isbottomon) {
-        this.isbottomon = isbottomon;
-    }
 }

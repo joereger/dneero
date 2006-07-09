@@ -8,23 +8,18 @@ import com.dneero.session.UserSession;
 
 import javax.faces.context.FacesContext;
 import javax.faces.application.FacesMessage;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
 
 /**
  * User: Joe Reger Jr
  * Date: Jun 15, 2006
  * Time: 9:54:08 AM
  */
-public class ResearcherSurveyDetail02 {
+public class ResearcherSurveyDetail03a {
+
 
     Logger logger = Logger.getLogger(this.getClass().getName());
 
-    private int newquestiontype = 0;
-    private HashMap questionconfig = new HashMap();
-
-    public ResearcherSurveyDetail02(){
+    public ResearcherSurveyDetail03a(){
         logger.debug("Instanciating object.");
         loadSurvey(Jsf.getUserSession().getCurrentResearcherSurveyDetailSurveyid());
     }
@@ -36,7 +31,7 @@ public class ResearcherSurveyDetail02 {
             logger.debug("beginView called: found surveyid in param="+tmpSurveyid);
             loadSurvey(Integer.parseInt(tmpSurveyid));
         }
-        return "researchersurveydetail_02";
+        return "researchersurveydetail_03";
     }
 
     public void loadSurvey(int surveyid){
@@ -44,6 +39,8 @@ public class ResearcherSurveyDetail02 {
         Survey survey = Survey.get(surveyid);
         if (survey!=null){
             logger.debug("Found survey in db: survey.getSurveyid()="+survey.getSurveyid()+" survey.getTitle()="+survey.getTitle());
+
+
         }
 
     }
@@ -61,6 +58,7 @@ public class ResearcherSurveyDetail02 {
 
         //survey.setResearcherid(userSession.getUser().getResearcher().getResearcherid());
 
+
         try{
             logger.debug("saveSurvey() about to save survey.getSurveyid()=" + survey.getSurveyid());
             survey.save();
@@ -72,37 +70,21 @@ public class ResearcherSurveyDetail02 {
             return null;
         }
 
+
+
         //Refresh
         survey.refresh();
+
 
         return "success";
     }
 
 
-    public String addQuestion(){
-        logger.debug("addQuestion() called");
 
-        return "researchersurveydetail_02a";
+    public String saveAdvanced(){
+
+        return "researchersurveydetail_03";
     }
 
-
-
-
-    public int getNewquestiontype() {
-        return newquestiontype;
-    }
-
-    public void setNewquestiontype(int newquestiontype) {
-        this.newquestiontype = newquestiontype;
-    }
-
-    public HashMap getQuestionconfig() {
-        return questionconfig;
-    }
-
-    public void setQuestionconfig(HashMap questionconfig) {
-        this.questionconfig = questionconfig;
-    }
-
-
+    
 }
