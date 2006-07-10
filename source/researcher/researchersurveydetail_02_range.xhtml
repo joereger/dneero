@@ -78,8 +78,73 @@
             <h:message for="isrequired" styleClass="RED"></h:message>
         </h:panelGroup>
 
+    </h:panelGrid>
 
 
+    <h:panelGrid columns="5" cellpadding="3" border="0">
+
+        <h:panelGroup>
+            <h:outputText value="Min Title"></h:outputText>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:outputText value="Min"></h:outputText>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:outputText value="Step"></h:outputText>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:outputText value="Max"></h:outputText>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:outputText value="Max Title"></h:outputText>
+        </h:panelGroup>
+
+        <h:panelGroup>
+            <h:inputText value="#{researcherSurveyDetail02range.mintitle}" id="mintitle" required="false" size="7" maxlength="20">
+                <f:validateLength maximum="20"></f:validateLength>
+            </h:inputText>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:inputText value="#{researcherSurveyDetail02range.min}" id="min" required="true" size="3" maxlength="7">
+                <f:validateDoubleRange minimum=".0001" maximum="1200000"></f:validateDoubleRange>
+            </h:inputText>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:inputText value="#{researcherSurveyDetail02range.step}" id="step" required="true" size="3" maxlength="7">
+                <f:validateDoubleRange minimum=".0001" maximum="1200000"></f:validateDoubleRange>
+            </h:inputText>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:inputText value="#{researcherSurveyDetail02range.max}" id="max" required="true" size="3" maxlength="7">
+                <f:validateDoubleRange minimum=".0001" maximum="1200000"></f:validateDoubleRange>
+            </h:inputText>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:inputText value="#{researcherSurveyDetail02range.maxtitle}" id="maxtitle" required="true" size="7" maxlength="20">
+                <f:validateLength maximum="20"></f:validateLength>
+            </h:inputText>
+        </h:panelGroup>
+
+        <h:panelGroup>
+            <h:message for="mintitle" styleClass="RED"></h:message>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:message for="min" styleClass="RED"></h:message>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:message for="step" styleClass="RED"></h:message>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:message for="max" styleClass="RED"></h:message>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:message for="maxtitle" styleClass="RED"></h:message>
+        </h:panelGroup>
+
+    </h:panelGrid>
+
+
+    <h:panelGrid columns="3" cellpadding="3" border="0">
 
         <h:panelGroup>
         </h:panelGroup>

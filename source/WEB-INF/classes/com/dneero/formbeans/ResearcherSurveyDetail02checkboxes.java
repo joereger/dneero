@@ -7,6 +7,7 @@ import javax.faces.application.FacesMessage;
 
 import com.dneero.dao.Question;
 import com.dneero.dao.Survey;
+import com.dneero.dao.Questionconfig;
 import com.dneero.session.UserSession;
 import com.dneero.util.Jsf;
 import com.dneero.util.GeneralException;
@@ -27,6 +28,7 @@ public class ResearcherSurveyDetail02checkboxes {
     private String question;
     private boolean isrequired=true;
     private int componenttype;
+    private String options = "";
 
 
 
@@ -61,6 +63,13 @@ public class ResearcherSurveyDetail02checkboxes {
             this.question = question.getQuestion();
             this.isrequired = question.getIsrequired();
             this.componenttype = question.getComponenttype();
+
+            for (Iterator<Questionconfig> iterator = question.getQuestionconfigs().iterator(); iterator.hasNext();) {
+                Questionconfig questionconfig = iterator.next();
+                if (questionconfig.getName().equals("options")){
+                    this.options = questionconfig.getValue();
+                }
+            }
         }
     }
 
@@ -94,6 +103,28 @@ public class ResearcherSurveyDetail02checkboxes {
         }
 
         survey.getQuestions().add(question);
+
+        try{
+            logger.debug("saveSurvey() about to save survey.getSurveyid()=" + survey.getSurveyid());
+            survey.save();
+            logger.debug("saveSurvey() done saving survey.getSurveyid()=" + survey.getSurveyid());
+        } catch (GeneralException gex){
+            logger.debug("saveSurvey() failed: " + gex.getErrorsAsSingleString());
+            String message = "saveSurvey() save failed: " + gex.getErrorsAsSingleString();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage( FacesMessage.SEVERITY_INFO, message, message));
+            return null;
+        }
+
+        for (Iterator<Questionconfig> iterator = question.getQuestionconfigs().iterator(); iterator.hasNext();) {
+            Questionconfig questionconfig = iterator.next();
+            iterator.remove();
+        }
+
+        Questionconfig qc1 = new Questionconfig();
+        qc1.setQuestionid(question.getQuestionid());
+        qc1.setName("options");
+        qc1.setValue(options);
+        question.getQuestionconfigs().add(qc1);
 
         try{
             logger.debug("saveSurvey() about to save survey.getSurveyid()=" + survey.getSurveyid());
@@ -145,5 +176,11 @@ public class ResearcherSurveyDetail02checkboxes {
         this.componenttype = componenttype;
     }
 
+    public String getOptions() {
+        return options;
+    }
 
+    public void setOptions(String options) {
+        this.options = options;
+    }
 }
