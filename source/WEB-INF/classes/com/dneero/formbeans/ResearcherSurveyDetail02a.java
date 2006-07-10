@@ -24,7 +24,10 @@ public class ResearcherSurveyDetail02a {
     Logger logger = Logger.getLogger(this.getClass().getName());
 
     private int newquestiontype = 0;
-    private HashMap questionconfig = new HashMap();
+    private String question;
+    private boolean isrequired;
+
+
 
     public ResearcherSurveyDetail02a(){
         logger.debug("Instanciating object.");
@@ -50,7 +53,7 @@ public class ResearcherSurveyDetail02a {
 
     }
 
-    public String saveSurvey(){
+    public String saveQuestion(){
         logger.debug("saveSurvey() called.");
 
         UserSession userSession = Jsf.getUserSession();
@@ -61,7 +64,7 @@ public class ResearcherSurveyDetail02a {
             survey = Survey.get(userSession.getCurrentResearcherSurveyDetailSurveyid());
         }
 
-        //survey.setResearcherid(userSession.getUser().getResearcher().getResearcherid());
+        
 
         try{
             logger.debug("saveSurvey() about to save survey.getSurveyid()=" + survey.getSurveyid());
@@ -82,24 +85,7 @@ public class ResearcherSurveyDetail02a {
 
 
 
-    public String saveQuestionConfig(){
-        logger.debug("saveQuestionConfig() called");
 
-        if (questionconfig!=null && questionconfig.size()>0){
-            logger.debug("questionconfig not null and not empty");
-            Iterator keyValuePairs = questionconfig.entrySet().iterator();
-            for (int i = 0; i < questionconfig.size(); i++){
-                Map.Entry mapentry = (Map.Entry) keyValuePairs.next();
-                String key = (String)mapentry.getKey();
-                String value = (String)mapentry.getValue();
-                logger.debug("questionconfig-> "+key+"="+value);
-            }
-        } else {
-            logger.debug("questionconfig null or empty");
-        }
-
-        return "researchersurveydetail_02";
-    }
 
 
 
@@ -112,13 +98,20 @@ public class ResearcherSurveyDetail02a {
         this.newquestiontype = newquestiontype;
     }
 
-    public HashMap getQuestionconfig() {
-        return questionconfig;
+    public String getQuestion() {
+        return question;
     }
 
-    public void setQuestionconfig(HashMap questionconfig) {
-        this.questionconfig = questionconfig;
+    public void setQuestion(String question) {
+        this.question = question;
     }
 
+    public boolean isIsrequired() {
+        return isrequired;
+    }
+
+    public void setIsrequired(boolean isrequired) {
+        this.isrequired = isrequired;
+    }
 
 }

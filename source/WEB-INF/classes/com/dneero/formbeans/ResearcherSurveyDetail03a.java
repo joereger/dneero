@@ -8,6 +8,9 @@ import com.dneero.session.UserSession;
 
 import javax.faces.context.FacesContext;
 import javax.faces.application.FacesMessage;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.HashMap;
 
 /**
  * User: Joe Reger Jr
@@ -18,6 +21,8 @@ public class ResearcherSurveyDetail03a {
 
 
     Logger logger = Logger.getLogger(this.getClass().getName());
+
+    private HashMap questionconfig = new HashMap();
 
     public ResearcherSurveyDetail03a(){
         logger.debug("Instanciating object.");
@@ -80,11 +85,36 @@ public class ResearcherSurveyDetail03a {
     }
 
 
+    public String saveQuestionConfig(){
+        logger.debug("saveQuestionConfig() called");
+
+        if (questionconfig!=null && questionconfig.size()>0){
+            logger.debug("questionconfig not null and not empty");
+            Iterator keyValuePairs = questionconfig.entrySet().iterator();
+            for (int i = 0; i < questionconfig.size(); i++){
+                Map.Entry mapentry = (Map.Entry) keyValuePairs.next();
+                String key = (String)mapentry.getKey();
+                String value = (String)mapentry.getValue();
+                logger.debug("questionconfig-> "+key+"="+value);
+            }
+        } else {
+            logger.debug("questionconfig null or empty");
+        }
+
+        return "researchersurveydetail_02";
+    }
+
 
     public String saveAdvanced(){
 
         return "researchersurveydetail_03";
     }
 
-    
+    public HashMap getQuestionconfig() {
+        return questionconfig;
+    }
+
+    public void setQuestionconfig(HashMap questionconfig) {
+        this.questionconfig = questionconfig;
+    }
 }
