@@ -2,8 +2,13 @@ package com.dneero.display.components;
 
 import com.dneero.dao.Question;
 import com.dneero.dao.Blogger;
+import com.dneero.dao.Questionconfig;
+import com.dneero.dao.Questionresponse;
+import com.dneero.dao.hibernate.HibernateUtil;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * User: Joe Reger Jr
@@ -32,11 +37,41 @@ public class Dropdown implements Component {
     }
 
     public String getHtmlForInput() {
-        return "Dropdown";
+        String options = "";
+        for (Iterator<Questionconfig> iterator = question.getQuestionconfigs().iterator(); iterator.hasNext();) {
+            Questionconfig questionconfig = iterator.next();
+            if (questionconfig.getName().equals("options")){
+                options = questionconfig.getValue();
+            }
+        }
+
+        String[] optionsSplit = options.split("\\n");
+
+        StringBuffer out = new StringBuffer();
+        out.append("<select name=\"dneero_questionid_"+question.getQuestionid()+"\">");
+        for (int i = 0; i < optionsSplit.length; i++) {
+            String s = optionsSplit[i];
+            out.append("<option value=\""+com.dneero.util.Str.cleanForHtml(s)+"\">" + s + "</option>");
+        }
+        out.append("</select>");
+
+
+        return out.toString();
     }
 
     public String getHtmlForDisplay() {
-        return "Dropdown";
+        StringBuffer out = new StringBuffer();
+
+        List<Questionresponse> responses = HibernateUtil.getSession().createQuery("from Questionresponse where questionid='"+question.getQuestionid()+"' and bloggerid='"+blogger.getBloggerid()+"'").list();
+        for (Iterator<Questionresponse> iterator = responses.iterator(); iterator.hasNext();) {
+            Questionresponse questionresponse = iterator.next();
+            out.append(questionresponse.getValue());
+            if (iterator.hasNext()){
+                out.append("<br/>");
+            }
+        }
+
+        return out.toString();
     }
 
     public void validateAnswer(HttpServletRequest request) throws ComponentException {

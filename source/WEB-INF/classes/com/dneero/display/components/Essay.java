@@ -2,8 +2,13 @@ package com.dneero.display.components;
 
 import com.dneero.dao.Question;
 import com.dneero.dao.Blogger;
+import com.dneero.dao.Questionconfig;
+import com.dneero.dao.Questionresponse;
+import com.dneero.dao.hibernate.HibernateUtil;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * User: Joe Reger Jr
@@ -32,11 +37,25 @@ public class Essay implements Component {
     }
 
     public String getHtmlForInput() {
-        return "Essay";
+        StringBuffer out = new StringBuffer();
+        out.append("<textarea cols=\"25\" rows=\"5\" name=\"dneero_questionid_"+question.getQuestionid()+"\"></textarea>");
+
+        return out.toString();
     }
 
     public String getHtmlForDisplay() {
-        return "Essay";
+        StringBuffer out = new StringBuffer();
+
+        List<Questionresponse> responses = HibernateUtil.getSession().createQuery("from Questionresponse where questionid='"+question.getQuestionid()+"' and bloggerid='"+blogger.getBloggerid()+"'").list();
+        for (Iterator<Questionresponse> iterator = responses.iterator(); iterator.hasNext();) {
+            Questionresponse questionresponse = iterator.next();
+            out.append(questionresponse.getValue());
+            if (iterator.hasNext()){
+                out.append("<br/>");
+            }
+        }
+
+        return out.toString();
     }
 
     public void validateAnswer(HttpServletRequest request) throws ComponentException {
