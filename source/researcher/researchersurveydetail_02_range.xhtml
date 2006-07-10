@@ -16,7 +16,7 @@
 <h:form>
 
     <h:inputHidden name="surveyid" value="#{userSession.currentResearcherSurveyDetailSurveyid}" />
-    <h:inputHidden name="questionid" value="#{researcherSurveyDetail02a.questionid}" />
+    <h:inputHidden name="questionid" value="#{researcherSurveyDetail02range.questionid}" />
 
     <h:graphicImage url="/images/process-train-survey-02.gif"></h:graphicImage>
     <f:verbatim><br/><br/></f:verbatim>
@@ -26,6 +26,15 @@
     <!-- Start Bottom -->
 
     <h:panelGrid columns="3" cellpadding="3" border="0">
+
+        <h:panelGroup>
+            <h:outputText value="Question Type"></h:outputText>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:outputText value="Range"></h:outputText>
+        </h:panelGroup>
+        <h:panelGroup>
+        </h:panelGroup>
 
         <h:panelGroup>
             <h:outputText value="Survey Id"></h:outputText>
@@ -40,7 +49,7 @@
             <h:outputText value="Question Id"></h:outputText>
         </h:panelGroup>
         <h:panelGroup>
-            <h:outputText value="#{researcherSurveyDetail02a.questionid}"></h:outputText>
+            <h:outputText value="#{researcherSurveyDetail02range.questionid}"></h:outputText>
         </h:panelGroup>
         <h:panelGroup>
         </h:panelGroup>
@@ -50,7 +59,7 @@
             <h:outputText value="Question"></h:outputText>
         </h:panelGroup>
         <h:panelGroup>
-            <h:inputText value="#{researcherSurveyDetail02a.question}" id="question" required="true">
+            <h:inputText value="#{researcherSurveyDetail02range.question}" id="question" required="true">
                 <f:validateLength minimum="3" maximum="255"></f:validateLength>
             </h:inputText>
         </h:panelGroup>
@@ -63,7 +72,7 @@
             <h:outputText value="Is Required?"></h:outputText>
         </h:panelGroup>
         <h:panelGroup>
-            <h:selectBooleanCheckbox value="#{researcherSurveyDetail02a.isrequired}" id="isrequired" required="true"></h:selectBooleanCheckbox>
+            <h:selectBooleanCheckbox value="#{researcherSurveyDetail02range.isrequired}" id="isrequired" required="true"></h:selectBooleanCheckbox>
         </h:panelGroup>
         <h:panelGroup>
             <h:message for="isrequired" styleClass="RED"></h:message>
@@ -75,7 +84,7 @@
         <h:panelGroup>
         </h:panelGroup>
         <h:panelGroup>
-            <h:commandButton action="#{researcherSurveyDetail02a.saveQuestion}" value="Save Question and Continue"></h:commandButton>
+            <h:commandButton action="#{researcherSurveyDetail02range.saveQuestion}" value="Save Question and Continue"></h:commandButton>
         </h:panelGroup>
         <h:panelGroup>
         </h:panelGroup>

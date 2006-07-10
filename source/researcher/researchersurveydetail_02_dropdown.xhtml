@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:t="http://myfaces.apache.org/tomahawk"
+      xmlns:d="http://dneero.com/taglib"
+      xmlns:af="http://xmlns.oracle.com/adf/faces">
+
+<ui:composition template="/template/template-facelets.xhtml">
+    <ui:define name="body">
+    <d:authorization acl="researcher" redirectonfail="true"/>
+
+<h:form>
+
+    <h:inputHidden name="surveyid" value="#{userSession.currentResearcherSurveyDetailSurveyid}" />
+    <h:inputHidden name="questionid" value="#{researcherSurveyDetail02dropdown.questionid}" />
+
+    <h:graphicImage url="/images/process-train-survey-02.gif"></h:graphicImage>
+    <f:verbatim><br/><br/></f:verbatim>
+
+
+
+    <!-- Start Bottom -->
+
+    <h:panelGrid columns="3" cellpadding="3" border="0">
+
+        <h:panelGroup>
+            <h:outputText value="Question Type"></h:outputText>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:outputText value="Dropdown"></h:outputText>
+        </h:panelGroup>
+        <h:panelGroup>
+        </h:panelGroup>
+
+        <h:panelGroup>
+            <h:outputText value="Survey Id"></h:outputText>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:outputText value="#{userSession.currentResearcherSurveyDetailSurveyid}"></h:outputText>
+        </h:panelGroup>
+        <h:panelGroup>
+        </h:panelGroup>
+
+        <h:panelGroup>
+            <h:outputText value="Question Id"></h:outputText>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:outputText value="#{researcherSurveyDetail02dropdown.questionid}"></h:outputText>
+        </h:panelGroup>
+        <h:panelGroup>
+        </h:panelGroup>
+
+
+        <h:panelGroup>
+            <h:outputText value="Question"></h:outputText>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:inputText value="#{researcherSurveyDetail02dropdown.question}" id="question" required="true">
+                <f:validateLength minimum="3" maximum="255"></f:validateLength>
+            </h:inputText>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:message for="question" styleClass="RED"></h:message>
+        </h:panelGroup>
+
+
+        <h:panelGroup>
+            <h:outputText value="Is Required?"></h:outputText>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:selectBooleanCheckbox value="#{researcherSurveyDetail02dropdown.isrequired}" id="isrequired" required="true"></h:selectBooleanCheckbox>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:message for="isrequired" styleClass="RED"></h:message>
+        </h:panelGroup>
+
+
+
+
+        <h:panelGroup>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:commandButton action="#{researcherSurveyDetail02dropdown.saveQuestion}" value="Save Question and Continue"></h:commandButton>
+        </h:panelGroup>
+        <h:panelGroup>
+        </h:panelGroup>
+
+    </h:panelGrid>
+
+    <!-- End Bottom -->
+
+</h:form>
+
+</ui:define>
+
+
+</ui:composition>
+</html>

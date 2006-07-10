@@ -11,10 +11,10 @@ public interface Component {
 
 
     public String getName();
-    public String getHtmlForConfig();
+    public int getID();
     public String getHtmlForInput();
     public String getHtmlForDisplay();
     public void validateAnswer(HttpServletRequest request) throws ComponentException;
     public void processAnswer(HttpServletRequest request) throws ComponentException;
-    public void processConfig(HttpServletRequest request) throws ComponentException;
+    
 }

@@ -11,24 +11,6 @@
 <faces-config>
 
 
-
-    <managed-bean>
-        <managed-bean-name>componenttypes</managed-bean-name>
-        <managed-bean-class>java.util.TreeMap</managed-bean-class>
-        <managed-bean-scope>application</managed-bean-scope>
-        <map-entries>
-            <map-entry>
-                <key>Textbox</key>
-                <value>1</value>
-            </map-entry>
-            <map-entry>
-                <key>Checkboxes Vertical</key>
-                <value>2</value>
-            </map-entry>
-        </map-entries>
-    </managed-bean>
-
-
     <managed-bean>
         <managed-bean-name>genders</managed-bean-name>
         <managed-bean-class>java.util.TreeMap</managed-bean-class>
@@ -47,7 +29,7 @@
 
     <managed-bean>
         <managed-bean-name>ethnicities</managed-bean-name>
-        <managed-bean-class>java.util.TreeMap</managed-bean-class>
+        <managed-bean-class>java.util.LinkedHashMap</managed-bean-class>
         <managed-bean-scope>application</managed-bean-scope>
         <map-entries>
             <map-entry>
@@ -79,7 +61,7 @@
 
     <managed-bean>
         <managed-bean-name>maritalstatuses</managed-bean-name>
-        <managed-bean-class>java.util.TreeMap</managed-bean-class>
+        <managed-bean-class>java.util.LinkedHashMap</managed-bean-class>
         <managed-bean-scope>application</managed-bean-scope>
         <map-entries>
             <map-entry>
@@ -103,7 +85,7 @@
 
     <managed-bean>
         <managed-bean-name>incomes</managed-bean-name>
-        <managed-bean-class>java.util.TreeMap</managed-bean-class>
+        <managed-bean-class>java.util.LinkedHashMap</managed-bean-class>
         <managed-bean-scope>application</managed-bean-scope>
         <map-entries>
             <map-entry>
@@ -167,7 +149,7 @@
 
     <managed-bean>
         <managed-bean-name>educationlevels</managed-bean-name>
-        <managed-bean-class>java.util.TreeMap</managed-bean-class>
+        <managed-bean-class>java.util.LinkedHashMap</managed-bean-class>
         <managed-bean-scope>application</managed-bean-scope>
         <map-entries>
             <map-entry>
@@ -496,7 +478,7 @@
 
     <managed-bean>
         <managed-bean-name>politics</managed-bean-name>
-        <managed-bean-class>java.util.TreeMap</managed-bean-class>
+        <managed-bean-class>java.util.LinkedHashMap</managed-bean-class>
         <managed-bean-scope>application</managed-bean-scope>
         <map-entries>
             <map-entry>
@@ -536,7 +518,7 @@
 
     <managed-bean>
         <managed-bean-name>states</managed-bean-name>
-        <managed-bean-class>java.util.TreeMap</managed-bean-class>
+        <managed-bean-class>java.util.LinkedHashMap</managed-bean-class>
         <managed-bean-scope>application</managed-bean-scope>
         <map-entries>
             <map-entry>
@@ -780,7 +762,7 @@
 
     <managed-bean>
         <managed-bean-name>cities</managed-bean-name>
-        <managed-bean-class>java.util.TreeMap</managed-bean-class>
+        <managed-bean-class>java.util.LinkedHashMap</managed-bean-class>
         <managed-bean-scope>application</managed-bean-scope>
         <map-entries>
             <map-entry>

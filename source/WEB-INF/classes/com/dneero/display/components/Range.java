@@ -10,33 +10,33 @@ import javax.servlet.http.HttpServletRequest;
  * Date: Jul 6, 2006
  * Time: 1:01:00 PM
  */
-public class Textbox implements Component {
+public class Range implements Component {
 
-    public static int ID = 1;
-    public static String NAME = "Textbox (Short Text)";
+    public static int ID = 5;
+    public static String NAME = "Range (i.e. 1-10)";
     private Question question;
     private Blogger blogger;
 
 
-    public Textbox(Question question, Blogger blogger){
+    public Range(Question question, Blogger blogger){
         this.question = question;
         this.blogger = blogger;
     }
 
     public String getName() {
-        return NAME;
+        return Range.NAME;
     }
 
     public int getID(){
-        return ID;
+        return Range.ID;
     }
 
     public String getHtmlForInput() {
-        return "Textbox";
+        return "Range";
     }
 
     public String getHtmlForDisplay() {
-        return "Textbox";
+        return "Range";
     }
 
     public void validateAnswer(HttpServletRequest request) throws ComponentException {

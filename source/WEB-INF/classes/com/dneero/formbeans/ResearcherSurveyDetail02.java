@@ -6,6 +6,7 @@ import com.dneero.util.GeneralException;
 import com.dneero.dao.Survey;
 import com.dneero.dao.Question;
 import com.dneero.session.UserSession;
+import com.dneero.display.components.*;
 
 import javax.faces.context.FacesContext;
 import javax.faces.application.FacesMessage;
@@ -75,15 +76,57 @@ public class ResearcherSurveyDetail02 {
         return "success";
     }
 
+    public String beginEdit(){
+        logger.debug("beginEdit() called");
+
+        int componenttype = 0;
+        String tmpComponenttype = (String) FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("componenttype");
+        if (com.dneero.util.Num.isinteger(tmpComponenttype)){
+            logger.debug("beginEdit called: found componenttype in param="+tmpComponenttype);
+            componenttype = Integer.parseInt(tmpComponenttype);
+        }
+
+        if (componenttype== Textbox.ID){
+            return "researchersurveydetail_02_textbox";
+        }
+        if (componenttype== Essay.ID){
+            return "researchersurveydetail_02_essay";
+        }
+        if (componenttype== Dropdown.ID){
+            return "researchersurveydetail_02_dropdown";
+        }
+        if (componenttype== Checkboxes.ID){
+            return "researchersurveydetail_02_checkboxes";
+        }
+        if (componenttype== Range.ID){
+            return "researchersurveydetail_02_range";
+        }
+
+        Jsf.setFacesMessage("Couldn't find componenttype="+componenttype);
+        return "researchersurveydetail_02";
+    }
+
 
     public String addQuestion(){
         logger.debug("addQuestion() called");
 
-        if (newquestioncomponenttype==1){
-            return "researchersurveydetail_02a";
+        if (newquestioncomponenttype== Textbox.ID){
+            return "researchersurveydetail_02_textbox";
+        }
+        if (newquestioncomponenttype== Essay.ID){
+            return "researchersurveydetail_02_essay";
+        }
+        if (newquestioncomponenttype== Dropdown.ID){
+            return "researchersurveydetail_02_dropdown";
+        }
+        if (newquestioncomponenttype== Checkboxes.ID){
+            return "researchersurveydetail_02_checkboxes";
+        }
+        if (newquestioncomponenttype== Range.ID){
+            return "researchersurveydetail_02_range";
         }
 
-        return "researchersurveydetail_02a";
+        return "researchersurveydetail_02_textbox";
     }
 
     public String deleteQuestion(){
@@ -125,7 +168,7 @@ public class ResearcherSurveyDetail02 {
         //Refresh
         survey.refresh();
 
-        //Reset list 
+        //Reset list
         ResearcherSurveyQuestionList rsql = (ResearcherSurveyQuestionList)Jsf.getManagedBean("researcherSurveyQuestionList");
         rsql.load();
 

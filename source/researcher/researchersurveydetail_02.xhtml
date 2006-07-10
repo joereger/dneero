@@ -47,9 +47,10 @@
         <f:facet name="header">
           <af:outputText value=" "/>
         </f:facet>
-        <h:commandLink action="#{researcherSurveyDetail02a.beginView}">
+        <h:commandLink action="#{researcherSurveyDetail02.beginEdit}">
             <h:outputText value="Edit" escape="false" />
             <f:param name="questionid" value="#{question.questionid}" />
+            <f:param name="componenttype" value="#{question.componenttype}" />
         </h:commandLink>
         <h:commandLink action="#{researcherSurveyDetail02.deleteQuestion}">
             <h:outputText value="Del" escape="false" />
@@ -76,11 +77,13 @@
 
         <h:panelGroup>
             <h:selectOneMenu value="#{researcherSurveyDetail02.newquestioncomponenttype}" id="newquestioncomponenttype" required="true">
-                <f:selectItems value="#{componenttypes}"/>
+                <f:selectItems value="#{componentTypes.typesaslinkedhashmap}"/>
             </h:selectOneMenu>
         </h:panelGroup>
         <h:panelGroup>
-            <h:commandButton action="#{researcherSurveyDetail02.addQuestion}" value="Add Question"></h:commandButton>
+            <h:commandButton action="#{researcherSurveyDetail02.addQuestion}" value="Add Question">
+                <f:param name="isnewquestion" value="1" />    
+            </h:commandButton>
         </h:panelGroup>
         <h:panelGroup>
         </h:panelGroup>

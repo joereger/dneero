@@ -10,33 +10,33 @@ import javax.servlet.http.HttpServletRequest;
  * Date: Jul 6, 2006
  * Time: 1:01:00 PM
  */
-public class Textbox implements Component {
+public class Checkboxes implements Component {
 
-    public static int ID = 1;
-    public static String NAME = "Textbox (Short Text)";
+    public static int ID = 4;
+    public static String NAME = "Checkboxes (Choose Multiple)";
     private Question question;
     private Blogger blogger;
 
 
-    public Textbox(Question question, Blogger blogger){
+    public Checkboxes(Question question, Blogger blogger){
         this.question = question;
         this.blogger = blogger;
     }
 
     public String getName() {
-        return NAME;
+        return Checkboxes.NAME;
     }
 
     public int getID(){
-        return ID;
+        return Checkboxes.ID;
     }
 
     public String getHtmlForInput() {
-        return "Textbox";
+        return "Checkboxes";
     }
 
     public String getHtmlForDisplay() {
-        return "Textbox";
+        return "Checkboxes";
     }
 
     public void validateAnswer(HttpServletRequest request) throws ComponentException {

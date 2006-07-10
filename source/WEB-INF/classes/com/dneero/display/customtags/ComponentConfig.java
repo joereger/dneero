@@ -100,7 +100,7 @@ public class ComponentConfig extends UIInput {
         logger.debug("encodeEnd called getClientId(context)=" + getClientId(context));
 
         ResearcherSurveyDetail02 rsd02 = (ResearcherSurveyDetail02)Jsf.getManagedBean("researcherSurveyDetail02");
-        value = rsd02.getQuestionconfig();
+        //value = rsd02.getQuestionconfig();
 
         if (value==null){
             logger.debug("value in encodeEnd()=null");

@@ -111,6 +111,11 @@
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
 
+    <managed-bean>
+        <managed-bean-name>componentTypes</managed-bean-name>
+        <managed-bean-class>com.dneero.display.components.ComponentTypes</managed-bean-class>
+        <managed-bean-scope>application</managed-bean-scope>
+    </managed-bean>
 
     <managed-bean>
         <managed-bean-name>bloggerBlogsList</managed-bean-name>
@@ -153,8 +158,28 @@
     </managed-bean>
 
     <managed-bean>
-        <managed-bean-name>researcherSurveyDetail02a</managed-bean-name>
-        <managed-bean-class>com.dneero.formbeans.ResearcherSurveyDetail02a</managed-bean-class>
+        <managed-bean-name>researcherSurveyDetail02dropdown</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.ResearcherSurveyDetail02dropdown</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>researcherSurveyDetail02checkboxes</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.ResearcherSurveyDetail02checkboxes</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>researcherSurveyDetail02textbox</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.ResearcherSurveyDetail02textbox</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>researcherSurveyDetail02essay</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.ResearcherSurveyDetail02essay</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>researcherSurveyDetail02range</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.ResearcherSurveyDetail02range</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
 
@@ -303,8 +328,24 @@
             <to-view-id>/researcher/researchersurveydetail_02.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
-            <from-outcome>researchersurveydetail_02a</from-outcome>
-            <to-view-id>/researcher/researchersurveydetail_02a.xhtml</to-view-id>
+            <from-outcome>researchersurveydetail_02_dropdown</from-outcome>
+            <to-view-id>/researcher/researchersurveydetail_02_dropdown.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>researchersurveydetail_02_checkboxes</from-outcome>
+            <to-view-id>/researcher/researchersurveydetail_02_checkboxes.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>researchersurveydetail_02_textbox</from-outcome>
+            <to-view-id>/researcher/researchersurveydetail_02_textbox.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>researchersurveydetail_02_essay</from-outcome>
+            <to-view-id>/researcher/researchersurveydetail_02_essay.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>researchersurveydetail_02_range</from-outcome>
+            <to-view-id>/researcher/researchersurveydetail_02_range.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>researchersurveydetail_03</from-outcome>
@@ -400,13 +441,6 @@
         </navigation-case>
     </navigation-rule>
 
-    <navigation-rule>
-        <from-view-id>/researcher/researchersurveydetail_02a.xhtml</from-view-id>
-        <navigation-case>
-            <from-outcome>success</from-outcome>
-            <to-view-id>/researcher/researchersurveydetail_02.xhtml</to-view-id>
-        </navigation-case>
-    </navigation-rule>
 
     <navigation-rule>
         <from-view-id>/researcher/researchersurveydetail_03.xhtml</from-view-id>

@@ -2,63 +2,70 @@ package com.dneero.formbeans;
 
 import org.apache.log4j.Logger;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-
-import com.dneero.util.Jsf;
-import com.dneero.util.GeneralException;
-import com.dneero.dao.Survey;
-import com.dneero.dao.Question;
-import com.dneero.session.UserSession;
-
 import javax.faces.context.FacesContext;
 import javax.faces.application.FacesMessage;
+
+import com.dneero.dao.Question;
+import com.dneero.dao.Survey;
+import com.dneero.session.UserSession;
+import com.dneero.util.Jsf;
+import com.dneero.util.GeneralException;
+import com.dneero.display.components.Dropdown;
+
+import java.util.Iterator;
 
 /**
  * User: Joe Reger Jr
  * Date: Jun 15, 2006
  * Time: 9:54:08 AM
  */
-public class ResearcherSurveyDetail02a {
+public class ResearcherSurveyDetail02dropdown {
 
     Logger logger = Logger.getLogger(this.getClass().getName());
 
-    private int questionid;
+    private int questionid = 0;
     private String question;
     private boolean isrequired=true;
     private int componenttype;
 
 
 
-    public ResearcherSurveyDetail02a(){
-        logger.debug("Instanciating object.");
-    }
-
-    public String beginView(){
-        //logger.debug("beginView called:");
+    public ResearcherSurveyDetail02dropdown(){
+        logger.debug("Instanciating object");
         String tmpQuestionid = (String) FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("questionid");
-        if (com.dneero.util.Num.isinteger(tmpQuestionid)){
-            logger.debug("beginView called: found questionid in param="+tmpQuestionid);
-            loadQuestion(Integer.parseInt(tmpQuestionid));
+        String tmpIsnewquestion = (String) FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("isnewquestion");
+        if (questionid==0 && com.dneero.util.Num.isinteger(tmpQuestionid) && (tmpIsnewquestion==null || !tmpIsnewquestion.equals("1"))){
+            logger.debug("constructor: found questionid in param="+tmpQuestionid);
+            questionid = Integer.parseInt(tmpQuestionid);
+            loadQuestion();
         }
-        return "researchersurveydetail_02a";
     }
 
-    public void loadQuestion(int questionid){
-        logger.debug("loadQuestion called");
+//    public String beginView(){
+//        //logger.debug("beginView called:");
+//        String tmpQuestionid = (String) FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("questionid");
+//        if (questionid==0 && com.dneero.util.Num.isinteger(tmpQuestionid)){
+//            logger.debug("beginView called: found questionid in param="+tmpQuestionid);
+//            questionid = Integer.parseInt(tmpQuestionid);
+//            loadQuestion();
+//        }
+//        return "researchersurveydetail_02_textbox";
+//    }
+
+    public void loadQuestion(){
+        logger.debug("loadQuestion called questionid="+questionid);
         Question question = Question.get(questionid);
         if (question!=null){
             logger.debug("Found question in db: question.getQuestionid()="+question.getQuestionid()+" question.getQuestion()="+question.getQuestion());
+            this.questionid = question.getQuestionid();
+            this.question = question.getQuestion();
+            this.isrequired = question.getIsrequired();
+            this.componenttype = question.getComponenttype();
         }
-        this.questionid = question.getQuestionid();
-        this.question = question.getQuestion();
-        this.isrequired = question.getIsrequired();
-        this.componenttype = question.getComponenttype();
     }
 
     public String saveQuestion(){
-        logger.debug("saveQuestion() called.");
+        logger.debug("saveQuestion() called. - questionid="+questionid);
 
         UserSession userSession = Jsf.getUserSession();
 
@@ -77,7 +84,7 @@ public class ResearcherSurveyDetail02a {
         question.setSurveyid(survey.getSurveyid());
         question.setQuestion(this.question);
         question.setIsrequired(isrequired);
-        question.setComponenttype(1);
+        question.setComponenttype(Dropdown.ID);
 
         for (Iterator<Question> iterator = survey.getQuestions().iterator(); iterator.hasNext();) {
             Question question1 = iterator.next();
@@ -102,7 +109,7 @@ public class ResearcherSurveyDetail02a {
         //Refresh
         survey.refresh();
 
-        return "success";
+        return "researchersurveydetail_02";
     }
 
 
