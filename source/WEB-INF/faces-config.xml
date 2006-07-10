@@ -106,6 +106,13 @@
     </managed-bean>
 
     <managed-bean>
+        <managed-bean-name>researcherSurveyQuestionList</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.ResearcherSurveyQuestionList</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+
+    <managed-bean>
         <managed-bean-name>bloggerBlogsList</managed-bean-name>
         <managed-bean-class>com.dneero.formbeans.BloggerBlogsList</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>

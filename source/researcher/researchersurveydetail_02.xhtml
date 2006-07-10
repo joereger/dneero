@@ -23,6 +23,40 @@
 
     <!-- Start Top -->
 
+
+    <af:table value="#{researcherSurveyQuestionList.questions}" bandingInterval="2" rows="50" banding="row" var="question" rendered="#{!empty researcherSurveyQuestionList.questions}">
+      <af:column>
+        <f:facet name="header">
+          <af:outputText value="Questionid"/>
+        </f:facet>
+        <af:outputText value="#{question.questionid}"/>
+      </af:column>
+      <af:column>
+        <f:facet name="header">
+          <af:outputText value="Question"/>
+        </f:facet>
+        <af:outputText value="#{question.question}"/>
+      </af:column>
+      <af:column>
+        <f:facet name="header">
+          <af:outputText value="Is Required"/>
+        </f:facet>
+        <af:outputText value="#{question.isrequired}"/>
+      </af:column>
+      <af:column>
+        <f:facet name="header">
+          <af:outputText value=" "/>
+        </f:facet>
+        <h:commandLink action="#{researcherSurveyDetail02a.beginView}">
+            <h:outputText value="Edit" escape="false" />
+            <f:param name="questionid" value="#{question.questionid}" />
+        </h:commandLink>
+      </af:column>
+    </af:table>
+
+
+
+
     <h:panelGrid columns="3" cellpadding="3" border="0">
 
         <h:panelGroup>
@@ -37,7 +71,7 @@
 
 
         <h:panelGroup>
-            <h:selectOneMenu value="#{researcherSurveyDetail02.newquestiontype}" id="newquestiontype" required="true">
+            <h:selectOneMenu value="#{researcherSurveyDetail02.newquestioncomponenttype}" id="newquestioncomponenttype" required="true">
                 <f:selectItems value="#{componenttypes}"/>
             </h:selectOneMenu>
         </h:panelGroup>

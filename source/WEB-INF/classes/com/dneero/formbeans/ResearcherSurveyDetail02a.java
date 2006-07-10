@@ -9,6 +9,7 @@ import java.util.Map;
 import com.dneero.util.Jsf;
 import com.dneero.util.GeneralException;
 import com.dneero.dao.Survey;
+import com.dneero.dao.Question;
 import com.dneero.session.UserSession;
 
 import javax.faces.context.FacesContext;
@@ -23,38 +24,41 @@ public class ResearcherSurveyDetail02a {
 
     Logger logger = Logger.getLogger(this.getClass().getName());
 
-    private int newquestiontype = 0;
+    private int questionid;
     private String question;
-    private boolean isrequired;
+    private boolean isrequired=true;
+    private int componenttype;
 
 
 
     public ResearcherSurveyDetail02a(){
         logger.debug("Instanciating object.");
-        loadSurvey(Jsf.getUserSession().getCurrentResearcherSurveyDetailSurveyid());
     }
 
     public String beginView(){
         //logger.debug("beginView called:");
-        String tmpSurveyid = (String) FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("surveyid");
-        if (com.dneero.util.Num.isinteger(tmpSurveyid)){
-            logger.debug("beginView called: found surveyid in param="+tmpSurveyid);
-            loadSurvey(Integer.parseInt(tmpSurveyid));
+        String tmpQuestionid = (String) FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("questionid");
+        if (com.dneero.util.Num.isinteger(tmpQuestionid)){
+            logger.debug("beginView called: found questionid in param="+tmpQuestionid);
+            loadQuestion(Integer.parseInt(tmpQuestionid));
         }
-        return "researchersurveydetail_02";
+        return "researchersurveydetail_02a";
     }
 
-    public void loadSurvey(int surveyid){
-        logger.debug("loadSurvey called");
-        Survey survey = Survey.get(surveyid);
-        if (survey!=null){
-            logger.debug("Found survey in db: survey.getSurveyid()="+survey.getSurveyid()+" survey.getTitle()="+survey.getTitle());
+    public void loadQuestion(int questionid){
+        logger.debug("loadQuestion called");
+        Question question = Question.get(questionid);
+        if (question!=null){
+            logger.debug("Found question in db: question.getQuestionid()="+question.getQuestionid()+" question.getQuestion()="+question.getQuestion());
         }
-
+        this.questionid = question.getQuestionid();
+        this.question = question.getQuestion();
+        this.isrequired = question.getIsrequired();
+        this.componenttype = question.getComponenttype();
     }
 
     public String saveQuestion(){
-        logger.debug("saveSurvey() called.");
+        logger.debug("saveQuestion() called.");
 
         UserSession userSession = Jsf.getUserSession();
 
@@ -64,7 +68,25 @@ public class ResearcherSurveyDetail02a {
             survey = Survey.get(userSession.getCurrentResearcherSurveyDetailSurveyid());
         }
 
-        
+        Question question = new Question();
+        if (questionid>0){
+            question = Question.get(questionid);
+            logger.debug("questionid = "+questionid);
+        }
+
+        question.setSurveyid(survey.getSurveyid());
+        question.setQuestion(this.question);
+        question.setIsrequired(isrequired);
+        question.setComponenttype(1);
+
+        for (Iterator<Question> iterator = survey.getQuestions().iterator(); iterator.hasNext();) {
+            Question question1 = iterator.next();
+            if (question1.getQuestionid()==questionid){
+                iterator.remove();
+            }
+        }
+
+        survey.getQuestions().add(question);
 
         try{
             logger.debug("saveSurvey() about to save survey.getSurveyid()=" + survey.getSurveyid());
@@ -84,18 +106,12 @@ public class ResearcherSurveyDetail02a {
     }
 
 
-
-
-
-
-
-
-    public int getNewquestiontype() {
-        return newquestiontype;
+    public int getQuestionid() {
+        return questionid;
     }
 
-    public void setNewquestiontype(int newquestiontype) {
-        this.newquestiontype = newquestiontype;
+    public void setQuestionid(int questionid) {
+        this.questionid = questionid;
     }
 
     public String getQuestion() {
@@ -113,5 +129,14 @@ public class ResearcherSurveyDetail02a {
     public void setIsrequired(boolean isrequired) {
         this.isrequired = isrequired;
     }
+
+    public int getComponenttype() {
+        return componenttype;
+    }
+
+    public void setComponenttype(int componenttype) {
+        this.componenttype = componenttype;
+    }
+
 
 }

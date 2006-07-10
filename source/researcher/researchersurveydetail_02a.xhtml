@@ -16,7 +16,7 @@
 <h:form>
 
     <h:inputHidden name="surveyid" value="#{userSession.currentResearcherSurveyDetailSurveyid}" />
-
+    <h:inputHidden name="questionid" value="#{researcherSurveyDetail02a.questionid}" />
 
     <h:graphicImage url="/images/process-train-survey-02.gif"></h:graphicImage>
     <f:verbatim><br/><br/></f:verbatim>
@@ -36,21 +36,21 @@
         <h:panelGroup>
         </h:panelGroup>
 
+        <h:panelGroup>
+            <h:outputText value="Question Id"></h:outputText>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:outputText value="#{researcherSurveyDetail02a.questionid}"></h:outputText>
+        </h:panelGroup>
+        <h:panelGroup>
+        </h:panelGroup>
 
-        <h:panelGroup>
-            <h:outputText value="Question Type Selected"></h:outputText>
-        </h:panelGroup>
-        <h:panelGroup>
-            <h:outputText value="#{researcherSurveyDetail02a.newquestiontype}"></h:outputText>
-        </h:panelGroup>
-        <h:panelGroup>
-        </h:panelGroup>
 
         <h:panelGroup>
             <h:outputText value="Question"></h:outputText>
         </h:panelGroup>
         <h:panelGroup>
-            <h:inputText value="#{researcherSurveyDetail02a.title}" id="question" required="true">
+            <h:inputText value="#{researcherSurveyDetail02a.question}" id="question" required="true">
                 <f:validateLength minimum="3" maximum="255"></f:validateLength>
             </h:inputText>
         </h:panelGroup>

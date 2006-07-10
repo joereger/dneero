@@ -4,6 +4,7 @@ import org.apache.log4j.Logger;
 import com.dneero.util.Jsf;
 import com.dneero.util.GeneralException;
 import com.dneero.dao.Survey;
+import com.dneero.dao.Question;
 import com.dneero.session.UserSession;
 
 import javax.faces.context.FacesContext;
@@ -11,6 +12,7 @@ import javax.faces.application.FacesMessage;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.List;
 
 /**
  * User: Joe Reger Jr
@@ -20,9 +22,8 @@ import java.util.Map;
 public class ResearcherSurveyDetail02 {
 
     Logger logger = Logger.getLogger(this.getClass().getName());
+    private int newquestioncomponenttype;
 
-    private int newquestiontype = 0;
-    private HashMap questionconfig = new HashMap();
 
     public ResearcherSurveyDetail02(){
         logger.debug("Instanciating object.");
@@ -45,7 +46,6 @@ public class ResearcherSurveyDetail02 {
         if (survey!=null){
             logger.debug("Found survey in db: survey.getSurveyid()="+survey.getSurveyid()+" survey.getTitle()="+survey.getTitle());
         }
-
     }
 
     public String saveSurvey(){
@@ -82,26 +82,19 @@ public class ResearcherSurveyDetail02 {
     public String addQuestion(){
         logger.debug("addQuestion() called");
 
+        if (newquestioncomponenttype==1){
+            return "researchersurveydetail_02a";    
+        }
+
         return "researchersurveydetail_02a";
     }
 
-
-
-
-    public int getNewquestiontype() {
-        return newquestiontype;
+    public int getNewquestioncomponenttype() {
+        return newquestioncomponenttype;
     }
 
-    public void setNewquestiontype(int newquestiontype) {
-        this.newquestiontype = newquestiontype;
-    }
-
-    public HashMap getQuestionconfig() {
-        return questionconfig;
-    }
-
-    public void setQuestionconfig(HashMap questionconfig) {
-        this.questionconfig = questionconfig;
+    public void setNewquestioncomponenttype(int newquestioncomponenttype) {
+        this.newquestioncomponenttype = newquestioncomponenttype;
     }
 
 
