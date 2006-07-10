@@ -23,7 +23,11 @@ public class ResearcherSurveyQuestionList extends SortableList {
     public ResearcherSurveyQuestionList() {
         //Default sort column
         super("questionid");
+        load();
+    }
 
+    public void load(){
+        questions = new ArrayList();
         Survey survey = Survey.get(Jsf.getUserSession().getCurrentResearcherSurveyDetailSurveyid());
         if (survey!=null){
             logger.debug("Found survey in db: survey.getSurveyid()="+survey.getSurveyid()+" survey.getTitle()="+survey.getTitle());
@@ -32,7 +36,6 @@ public class ResearcherSurveyQuestionList extends SortableList {
             Question question = iterator.next();
             questions.add(question);
         }
-
     }
 
     public List getQuestions() {
@@ -41,9 +44,9 @@ public class ResearcherSurveyQuestionList extends SortableList {
         return questions;
     }
 
-    public void setSurveys(List surveys) {
+    public void setQuestions(List questions) {
         logger.debug("setQuestions");
-        this.questions = questions;
+        this.questions = (ArrayList)questions;
     }
 
     protected boolean isDefaultAscending(String sortColumn) {
@@ -60,7 +63,7 @@ public class ResearcherSurveyQuestionList extends SortableList {
                     return 0;
                 }
                 if (question1!=null && question2!=null && column.equals("questionid")) {
-                    return ascending ? question2.getQuestionid()-question1.getQuestionid() : question1.getQuestionid()-question2.getQuestionid() ;
+                    return ascending ? question1.getQuestionid()-question2.getQuestionid() : question2.getQuestionid()-question1.getQuestionid() ;
                 } else {
                     return 0;
                 }

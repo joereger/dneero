@@ -51,6 +51,10 @@
             <h:outputText value="Edit" escape="false" />
             <f:param name="questionid" value="#{question.questionid}" />
         </h:commandLink>
+        <h:commandLink action="#{researcherSurveyDetail02.deleteQuestion}">
+            <h:outputText value="Del" escape="false" />
+            <f:param name="questionid" value="#{question.questionid}" />
+        </h:commandLink>
       </af:column>
     </af:table>
 
