@@ -5,10 +5,15 @@ import com.dneero.dao.Blogger;
 import com.dneero.dao.Questionconfig;
 import com.dneero.dao.Questionresponse;
 import com.dneero.dao.hibernate.HibernateUtil;
+import com.dneero.util.GeneralException;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.faces.context.FacesContext;
+import javax.faces.application.FacesMessage;
 import java.util.Iterator;
 import java.util.List;
+
+import org.apache.log4j.Logger;
 
 /**
  * User: Joe Reger Jr
@@ -21,6 +26,8 @@ public class Checkboxes implements Component {
     public static String NAME = "Checkboxes (Choose Multiple)";
     private Question question;
     private Blogger blogger;
+
+    Logger logger = Logger.getLogger(this.getClass().getName());
 
 
     public Checkboxes(Question question, Blogger blogger){
@@ -82,7 +89,30 @@ public class Checkboxes implements Component {
     }
 
     public void processAnswer(HttpServletRequest request) throws ComponentException {
+        String[] requestParams = request.getParameterValues("dneero_questionid_"+question.getQuestionid());
+        if (requestParams!=null){
+            boolean addedAResponse = false;
+            for (int i = 0; i < requestParams.length; i++) {
+                String requestParam = requestParams[i];
+                Questionresponse questionresponse = new Questionresponse();
+                questionresponse.setQuestionid(question.getQuestionid());
+                questionresponse.setBloggerid(blogger.getBloggerid());
+                questionresponse.setName("response");
+                questionresponse.setValue(requestParam);
 
+                question.getQuestionresponses().add(questionresponse);
+                addedAResponse = true;
+            }
+            if (addedAResponse){
+                try{
+                    logger.debug("processAnswer() about to save question.getQuestionid()=" + question.getQuestionid());
+                    question.save();
+                    logger.debug("processAnswer() done saving question.getQuestionid()=" + question.getQuestionid());
+                } catch (GeneralException gex){
+                    logger.debug("processAnswer() failed: " + gex.getErrorsAsSingleString());
+                }
+            }
+        }
     }
 
 }
