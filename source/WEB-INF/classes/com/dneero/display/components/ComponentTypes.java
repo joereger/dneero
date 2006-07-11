@@ -5,6 +5,8 @@ import com.dneero.dao.Question;
 
 import java.util.LinkedHashMap;
 
+import org.apache.log4j.Logger;
+
 /**
  * User: Joe Reger Jr
  * Date: Jul 10, 2006
@@ -13,6 +15,8 @@ import java.util.LinkedHashMap;
 public class ComponentTypes {
 
     private LinkedHashMap typesaslinkedhashmap;
+
+    Logger logger = Logger.getLogger(this.getClass().getName());
 
     public static Component getComponentByID(int ID, Question question, Blogger blogger){
         if (ID==Textbox.ID){
@@ -47,6 +51,17 @@ public class ComponentTypes {
 
     public void setTypesaslinkedhashmap(LinkedHashMap typesaslinkedhashmap){
         this.typesaslinkedhashmap = typesaslinkedhashmap;
+    }
+
+    public Component getByTagSyntax(String tag, Blogger blogger){
+        //Get questionid from <$question_22334$>
+        String qidStr = tag.substring(11, tag.length()-2);
+        logger.debug("tag="+tag+" qidStr="+qidStr);
+        if (com.dneero.util.Num.isinteger(qidStr)){
+            Question question = Question.get(Integer.parseInt(qidStr));
+            return getComponentByID(question.getComponenttype(), question, blogger);
+        }
+        return null;
     }
 
 

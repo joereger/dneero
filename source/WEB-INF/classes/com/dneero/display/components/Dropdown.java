@@ -41,6 +41,10 @@ public class Dropdown implements Component {
     }
 
     public String getHtmlForInput() {
+        StringBuffer out = new StringBuffer();
+        out.append(question.getQuestion());
+        out.append("<br/>");
+
         String options = "";
         for (Iterator<Questionconfig> iterator = question.getQuestionconfigs().iterator(); iterator.hasNext();) {
             Questionconfig questionconfig = iterator.next();
@@ -48,10 +52,8 @@ public class Dropdown implements Component {
                 options = questionconfig.getValue();
             }
         }
-
         String[] optionsSplit = options.split("\\n");
 
-        StringBuffer out = new StringBuffer();
         out.append("<select name=\"dneero_questionid_"+question.getQuestionid()+"\">");
         for (int i = 0; i < optionsSplit.length; i++) {
             String s = optionsSplit[i];
@@ -65,14 +67,20 @@ public class Dropdown implements Component {
 
     public String getHtmlForDisplay() {
         StringBuffer out = new StringBuffer();
+        out.append(question.getQuestion());
+        out.append("<br/>");
 
-        List<Questionresponse> responses = HibernateUtil.getSession().createQuery("from Questionresponse where questionid='"+question.getQuestionid()+"' and bloggerid='"+blogger.getBloggerid()+"'").list();
-        for (Iterator<Questionresponse> iterator = responses.iterator(); iterator.hasNext();) {
-            Questionresponse questionresponse = iterator.next();
-            out.append(questionresponse.getValue());
-            if (iterator.hasNext()){
-                out.append("<br/>");
+        if (blogger!=null){
+            List<Questionresponse> responses = HibernateUtil.getSession().createQuery("from Questionresponse where questionid='"+question.getQuestionid()+"' and bloggerid='"+blogger.getBloggerid()+"'").list();
+            for (Iterator<Questionresponse> iterator = responses.iterator(); iterator.hasNext();) {
+                Questionresponse questionresponse = iterator.next();
+                out.append(questionresponse.getValue());
+                if (iterator.hasNext()){
+                    out.append("<br/>");
+                }
             }
+        } else {
+            out.append("Not answered.");
         }
 
         return out.toString();

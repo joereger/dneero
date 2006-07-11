@@ -109,4 +109,14 @@ public class Str {
             return out;
         }
 
+
+     public static String cleanForAppendreplacement(String in){
+        String out = "";
+        if(in!=null){
+            out=in.replaceAll("\\\\","\\\\\\\\").replaceAll("\\$", "\\\\\\$");
+        }
+
+        return out;
+    }
+
 }

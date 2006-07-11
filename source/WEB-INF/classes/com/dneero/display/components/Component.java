@@ -1,5 +1,7 @@
 package com.dneero.display.components;
 
+import com.dneero.dao.Blogger;
+
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -16,5 +18,5 @@ public interface Component {
     public String getHtmlForDisplay();
     public void validateAnswer(HttpServletRequest request) throws ComponentException;
     public void processAnswer(HttpServletRequest request) throws ComponentException;
-    
+
 }

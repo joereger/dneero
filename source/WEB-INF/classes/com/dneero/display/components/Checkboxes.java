@@ -46,6 +46,10 @@ public class Checkboxes implements Component {
 
 
     public String getHtmlForInput() {
+        StringBuffer out = new StringBuffer();
+        out.append(question.getQuestion());
+        out.append("<br/>");
+
         String options = "";
         for (Iterator<Questionconfig> iterator = question.getQuestionconfigs().iterator(); iterator.hasNext();) {
             Questionconfig questionconfig = iterator.next();
@@ -53,10 +57,8 @@ public class Checkboxes implements Component {
                 options = questionconfig.getValue();
             }
         }
-
         String[] optionsSplit = options.split("\\n");
 
-        StringBuffer out = new StringBuffer();
         for (int i = 0; i < optionsSplit.length; i++) {
             String s = optionsSplit[i];
             out.append("<input type=checkbox name=\"dneero_questionid_"+question.getQuestionid()+"\" value=\""+com.dneero.util.Str.cleanForHtml(s)+"\">" + s);
@@ -71,14 +73,20 @@ public class Checkboxes implements Component {
 
     public String getHtmlForDisplay() {
         StringBuffer out = new StringBuffer();
+        out.append(question.getQuestion());
+        out.append("<br/>");
 
-        List<Questionresponse> responses = HibernateUtil.getSession().createQuery("from Questionresponse where questionid='"+question.getQuestionid()+"' and bloggerid='"+blogger.getBloggerid()+"'").list();
-        for (Iterator<Questionresponse> iterator = responses.iterator(); iterator.hasNext();) {
-            Questionresponse questionresponse = iterator.next();
-            out.append(questionresponse.getValue());
-            if (iterator.hasNext()){
-                out.append("<br/>");
+        if (blogger!=null){
+            List<Questionresponse> responses = HibernateUtil.getSession().createQuery("from Questionresponse where questionid='"+question.getQuestionid()+"' and bloggerid='"+blogger.getBloggerid()+"'").list();
+            for (Iterator<Questionresponse> iterator = responses.iterator(); iterator.hasNext();) {
+                Questionresponse questionresponse = iterator.next();
+                out.append(questionresponse.getValue());
+                if (iterator.hasNext()){
+                    out.append("<br/>");
+                }
             }
+        } else {
+            out.append("Not answered.");
         }
 
         return out.toString();

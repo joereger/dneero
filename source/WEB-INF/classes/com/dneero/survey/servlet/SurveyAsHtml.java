@@ -3,6 +3,8 @@ package com.dneero.survey.servlet;
 import com.dneero.dao.Survey;
 import com.dneero.dao.User;
 import com.dneero.dao.Blog;
+import com.dneero.display.SurveyTemplateProcessor;
+import com.dneero.util.Str;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -24,16 +26,17 @@ public class SurveyAsHtml {
 
         if (survey!=null && user!=null){
 
-            //Try to figure out which blogid this is coming from
+            //@todo how is it possible to get a null referer?  i've had it happen
             String referer = request.getHeader("referer");
             logger.debug("referer=" + referer);
 
             //Find blogid
             Blog blog=null;
-            if (user.getBlogger()!=null){
+            if (user.getBlogger()!=null && referer!=null){
                 for (Iterator it = user.getBlogger().getBlogs().iterator(); it.hasNext(); ) {
-                    blog = (Blog)it.next();
-                    if (referer.indexOf(blog.getUrl())>0){
+                    Blog blogTmp = (Blog)it.next();
+                    if (referer.indexOf(blogTmp.getUrl())>0){
+                        blog = blogTmp;
                         break;
                     }
                 }
@@ -42,10 +45,12 @@ public class SurveyAsHtml {
             //Record
             RecordImpression.record(survey, user, blog, request);
 
+            //Output
+            SurveyTemplateProcessor stp = new SurveyTemplateProcessor(survey, user.getBlogger());
             out.append("<b>dNeero Survey</b>");
-            out.append("<br>");
-            out.append(survey.getTitle());
-            out.append("<br>");
+            out.append("<br/>");
+            out.append(Str.cleanForjavascript(stp.getSurveyForDisplay()));
+            out.append("<br/>");
             out.append("<b>dNeero - blog for pay</b>");
 
             return out.toString();

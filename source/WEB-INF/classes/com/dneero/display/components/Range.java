@@ -42,6 +42,9 @@ public class Range implements Component {
 
     public String getHtmlForInput() {
         StringBuffer out = new StringBuffer();
+        out.append(question.getQuestion());
+        out.append("<br/>");
+
 
         String mintitle = "Low";
         double min = 1;
@@ -87,78 +90,86 @@ public class Range implements Component {
         out.append("</td>");
         out.append("</tr>");
         out.append("</table>");
+        
 
         return out.toString();
     }
 
     public String getHtmlForDisplay() {
         StringBuffer out = new StringBuffer();
+        out.append(question.getQuestion());
+        out.append("<br/>");
 
-        double response = 0;
-        List<Questionresponse> responses = HibernateUtil.getSession().createQuery("from Questionresponse where questionid='"+question.getQuestionid()+"' and bloggerid='"+blogger.getBloggerid()+"'").list();
-        for (Iterator<Questionresponse> iterator = responses.iterator(); iterator.hasNext();) {
-            Questionresponse questionresponse = iterator.next();
-            response = Double.parseDouble(questionresponse.getValue());
-        }
+        if (blogger!=null){
 
-        String mintitle = "Low";
-        double min = 1;
-        double step = 1;
-        double max = 5;
-        String maxtitle = "High";
-        for (Iterator<Questionconfig> iterator = question.getQuestionconfigs().iterator(); iterator.hasNext();) {
-            Questionconfig questionconfig = iterator.next();
-            if (questionconfig.getName().equals("mintitle")){
-                mintitle = questionconfig.getValue();
-            } else if (questionconfig.getName().equals("min")){
-                min = Double.parseDouble(questionconfig.getValue());
-            } else if (questionconfig.getName().equals("step")){
-                step = Double.parseDouble(questionconfig.getValue());
-            } else if (questionconfig.getName().equals("max")){
-                max = Double.parseDouble(questionconfig.getValue());
-            } else if (questionconfig.getName().equals("maxtitle")){
-                maxtitle = questionconfig.getValue();
+            double response = 0;
+            List<Questionresponse> responses = HibernateUtil.getSession().createQuery("from Questionresponse where questionid='"+question.getQuestionid()+"' and bloggerid='"+blogger.getBloggerid()+"'").list();
+            for (Iterator<Questionresponse> iterator = responses.iterator(); iterator.hasNext();) {
+                Questionresponse questionresponse = iterator.next();
+                response = Double.parseDouble(questionresponse.getValue());
             }
-        }
 
-        out.append("<table cellpadding=\"3\" cellspacing=\"0\" border=\"0\">");
-        out.append("<tr>");
-        out.append("<td valign=top>");
-        out.append(mintitle);
-        out.append("</td>");
-        boolean createdExactlyMaxRadio = false;
-        for (double i = min; i<=max; i=i+step) {
-            if (i==max){
-                createdExactlyMaxRadio = true;
+            String mintitle = "Low";
+            double min = 1;
+            double step = 1;
+            double max = 5;
+            String maxtitle = "High";
+            for (Iterator<Questionconfig> iterator = question.getQuestionconfigs().iterator(); iterator.hasNext();) {
+                Questionconfig questionconfig = iterator.next();
+                if (questionconfig.getName().equals("mintitle")){
+                    mintitle = questionconfig.getValue();
+                } else if (questionconfig.getName().equals("min")){
+                    min = Double.parseDouble(questionconfig.getValue());
+                } else if (questionconfig.getName().equals("step")){
+                    step = Double.parseDouble(questionconfig.getValue());
+                } else if (questionconfig.getName().equals("max")){
+                    max = Double.parseDouble(questionconfig.getValue());
+                } else if (questionconfig.getName().equals("maxtitle")){
+                    maxtitle = questionconfig.getValue();
+                }
+            }
+
+            out.append("<table cellpadding=\"3\" cellspacing=\"0\" border=\"0\">");
+            out.append("<tr>");
+            out.append("<td valign=top>");
+            out.append(mintitle);
+            out.append("</td>");
+            boolean createdExactlyMaxRadio = false;
+            for (double i = min; i<=max; i=i+step) {
+                if (i==max){
+                    createdExactlyMaxRadio = true;
+                }
+                out.append("<td valign=top>");
+                if (response==i){
+                    out.append("<b>"+i+"</b>");
+                } else {
+                    out.append(i);
+                }
+                out.append("</td>");
+            }
+            if (!createdExactlyMaxRadio){
+                out.append("<td valign=top>");
+                if (response==max){
+                    out.append("<b>"+max+"</b>");
+                } else {
+                    out.append(max);
+                }
+                out.append("</td>");
             }
             out.append("<td valign=top>");
-            if (response==i){
-                out.append("<b>"+i+"</b>");
-            } else {
-                out.append(i);
-            }
+            out.append(maxtitle);
             out.append("</td>");
+            out.append("</tr>");
+            out.append("</table>");
+        } else {
+            out.append("Not answered.");
         }
-        if (!createdExactlyMaxRadio){
-            out.append("<td valign=top>");
-            if (response==max){
-                out.append("<b>"+max+"</b>");
-            } else {
-                out.append(max);
-            }
-            out.append("</td>");
-        }
-        out.append("<td valign=top>");
-        out.append(maxtitle);
-        out.append("</td>");
-        out.append("</tr>");
-        out.append("</table>");
 
         return out.toString();
     }
 
     public void validateAnswer(HttpServletRequest request) throws ComponentException {
-        
+
     }
 
     public void processAnswer(HttpServletRequest request) throws ComponentException {

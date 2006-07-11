@@ -42,6 +42,9 @@ public class Essay implements Component {
 
     public String getHtmlForInput() {
         StringBuffer out = new StringBuffer();
+        out.append(question.getQuestion());
+        out.append("<br/>");
+
         out.append("<textarea cols=\"25\" rows=\"5\" name=\"dneero_questionid_"+question.getQuestionid()+"\"></textarea>");
 
         return out.toString();
@@ -49,14 +52,20 @@ public class Essay implements Component {
 
     public String getHtmlForDisplay() {
         StringBuffer out = new StringBuffer();
+        out.append(question.getQuestion());
+        out.append("<br/>");
 
-        List<Questionresponse> responses = HibernateUtil.getSession().createQuery("from Questionresponse where questionid='"+question.getQuestionid()+"' and bloggerid='"+blogger.getBloggerid()+"'").list();
-        for (Iterator<Questionresponse> iterator = responses.iterator(); iterator.hasNext();) {
-            Questionresponse questionresponse = iterator.next();
-            out.append(questionresponse.getValue());
-            if (iterator.hasNext()){
-                out.append("<br/>");
+        if (blogger!=null){
+            List<Questionresponse> responses = HibernateUtil.getSession().createQuery("from Questionresponse where questionid='"+question.getQuestionid()+"' and bloggerid='"+blogger.getBloggerid()+"'").list();
+            for (Iterator<Questionresponse> iterator = responses.iterator(); iterator.hasNext();) {
+                Questionresponse questionresponse = iterator.next();
+                out.append(questionresponse.getValue());
+                if (iterator.hasNext()){
+                    out.append("<br/>");
+                }
             }
+        } else {
+            out.append("Not answered.");
         }
 
         return out.toString();
