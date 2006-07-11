@@ -13,6 +13,11 @@
             <key column="bloggerid"></key>
             <one-to-many class="com.dneero.dao.Blog" not-found="ignore"></one-to-many>
         </set>
+        <set name="responses" inverse="true" cascade="save-update">
+            <cache usage="nonstrict-read-write"/>
+            <key column="bloggerid"></key>
+            <one-to-many class="com.dneero.dao.Response" not-found="ignore"></one-to-many>
+        </set>
         <property name="userid" type="int">
             <column name="userid" not-null="true" />
         </property>

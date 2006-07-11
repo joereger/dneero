@@ -16,7 +16,7 @@ public class UserSession {
     public static final String SESSIONLOOKUPKEY = "dneerosessionkey";
     private com.dneero.dao.User user;
     private boolean isloggedin = false;
-    private int currentResearcherSurveyDetailSurveyid;
+    private int currentSurveyid;
 
     public UserSession(){
         //Used for anonymous access
@@ -39,12 +39,12 @@ public class UserSession {
         this.isloggedin = isloggedin;
     }
 
-    public int getCurrentResearcherSurveyDetailSurveyid() {
-        return currentResearcherSurveyDetailSurveyid;
+    public int getCurrentSurveyid() {
+        return currentSurveyid;
     }
 
-    public void setCurrentResearcherSurveyDetailSurveyid(int currentResearcherSurveyDetailSurveyid) {
-        this.currentResearcherSurveyDetailSurveyid = currentResearcherSurveyDetailSurveyid;
+    public void setCurrentSurveyid(int currentSurveyid) {
+        this.currentSurveyid = currentSurveyid;
     }
 
 

@@ -32,11 +32,11 @@ public class ResearcherSurveyDetail01 {
 
     public ResearcherSurveyDetail01(){
         logger.debug("Instanciating object.");
-        loadSurvey(Jsf.getUserSession().getCurrentResearcherSurveyDetailSurveyid());
+        loadSurvey(Jsf.getUserSession().getCurrentSurveyid());
     }
 
     public String beginViewNewSurvey(){
-        Jsf.getUserSession().setCurrentResearcherSurveyDetailSurveyid(0);
+        Jsf.getUserSession().setCurrentSurveyid(0);
         return "researchersurveydetail_01";
     }
 
@@ -46,7 +46,7 @@ public class ResearcherSurveyDetail01 {
         if (com.dneero.util.Num.isinteger(tmpSurveyid)){
             logger.debug("beginView called: found surveyid in request param="+tmpSurveyid);
             UserSession userSession = Jsf.getUserSession();
-            userSession.setCurrentResearcherSurveyDetailSurveyid(Integer.parseInt(tmpSurveyid));
+            userSession.setCurrentSurveyid(Integer.parseInt(tmpSurveyid));
             loadSurvey(Integer.parseInt(tmpSurveyid));
         }
         return "researchersurveydetail_01";
@@ -73,9 +73,9 @@ public class ResearcherSurveyDetail01 {
         UserSession userSession = Jsf.getUserSession();
 
         Survey survey = new Survey();
-        if (userSession.getCurrentResearcherSurveyDetailSurveyid()>0){
-            logger.debug("saveSurvey() called: going to get Survey.get(surveyid)="+userSession.getCurrentResearcherSurveyDetailSurveyid());
-            survey = Survey.get(userSession.getCurrentResearcherSurveyDetailSurveyid());
+        if (userSession.getCurrentSurveyid()>0){
+            logger.debug("saveSurvey() called: going to get Survey.get(surveyid)="+userSession.getCurrentSurveyid());
+            survey = Survey.get(userSession.getCurrentSurveyid());
         }
 
         survey.setResearcherid(userSession.getUser().getResearcher().getResearcherid());
@@ -87,7 +87,7 @@ public class ResearcherSurveyDetail01 {
         try{
             logger.debug("saveSurvey() about to save survey.getSurveyid()=" + survey.getSurveyid());
             survey.save();
-            userSession.setCurrentResearcherSurveyDetailSurveyid(survey.getSurveyid());
+            userSession.setCurrentSurveyid(survey.getSurveyid());
             logger.debug("saveSurvey() done saving survey.getSurveyid()=" + survey.getSurveyid());
         } catch (GeneralException gex){
             logger.debug("saveSurvey() failed: " + gex.getErrorsAsSingleString());

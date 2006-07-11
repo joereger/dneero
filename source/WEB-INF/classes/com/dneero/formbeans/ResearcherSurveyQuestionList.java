@@ -28,7 +28,7 @@ public class ResearcherSurveyQuestionList extends SortableList {
 
     public void load(){
         questions = new ArrayList();
-        Survey survey = Survey.get(Jsf.getUserSession().getCurrentResearcherSurveyDetailSurveyid());
+        Survey survey = Survey.get(Jsf.getUserSession().getCurrentSurveyid());
         if (survey!=null){
             logger.debug("Found survey in db: survey.getSurveyid()="+survey.getSurveyid()+" survey.getTitle()="+survey.getTitle());
         }

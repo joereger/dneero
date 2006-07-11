@@ -70,9 +70,9 @@ public class ResearcherSurveyDetail02essay {
         UserSession userSession = Jsf.getUserSession();
 
         Survey survey = new Survey();
-        if (userSession.getCurrentResearcherSurveyDetailSurveyid()>0){
-            logger.debug("saveSurvey() called: going to get Survey.get(surveyid)="+userSession.getCurrentResearcherSurveyDetailSurveyid());
-            survey = Survey.get(userSession.getCurrentResearcherSurveyDetailSurveyid());
+        if (userSession.getCurrentSurveyid()>0){
+            logger.debug("saveSurvey() called: going to get Survey.get(surveyid)="+userSession.getCurrentSurveyid());
+            survey = Survey.get(userSession.getCurrentSurveyid());
         }
 
         Question question = new Question();

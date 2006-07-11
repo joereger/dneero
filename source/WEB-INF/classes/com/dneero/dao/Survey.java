@@ -36,7 +36,7 @@ public class Survey extends BasePersistentClass implements java.io.Serializable,
      private String template;
      private Set<Question> questions = new HashSet<Question>();
      private Surveycriteria surveycriteria;
-
+     private Set<Response> responses = new HashSet<Response>();
 
     //Validator
     public void validateRegerEntity() throws GeneralException {
@@ -206,4 +206,13 @@ public class Survey extends BasePersistentClass implements java.io.Serializable,
     public void setQuestions(Set<Question> questions) {
         this.questions = questions;
     }
+
+    public Set<Response> getResponses() {
+        return responses;
+    }
+
+    public void setResponses(Set<Response> responses) {
+        this.responses = responses;
+    }
+
 }

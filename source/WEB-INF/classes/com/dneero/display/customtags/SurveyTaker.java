@@ -18,19 +18,19 @@ import com.dneero.formbeans.ResearcherSurveyDetail02;
  * Date: Jul 7, 2006
  * Time: 9:51:56 AM
  */
-public class ComponentConfig extends UIInput {
+public class SurveyTaker extends UIInput {
 
     Logger logger = Logger.getLogger(this.getClass().getName());
 
     private HashMap value = new HashMap();
 
-    public ComponentConfig() {
+    public SurveyTaker() {
         super();
         setRendererType( null );
     }
 
     public String getFamily() {
-        return "COMPONENTCONFIG_FAMILY";
+        return "SURVEYTAKER_FAMILY";
     }
 
 

@@ -7,20 +7,19 @@ import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 import javax.faces.webapp.UIComponentTag;
-import java.util.HashMap;
 
 /**
  * User: Joe Reger Jr
  * Date: Jul 7, 2006
  * Time: 10:04:09 AM
  */
-public class ComponentConfigTag extends UIComponentTag {
+public class SurveyTakerTag extends UIComponentTag {
 
     private String value;
     Logger logger = Logger.getLogger(this.getClass().getName());
 
     public String getComponentType() {
-        return "com.dneero.display.components.ComponentConfig";
+        return "com.dneero.display.customtags.SurveyTaker";
     }
 
     public String getRendererType() {

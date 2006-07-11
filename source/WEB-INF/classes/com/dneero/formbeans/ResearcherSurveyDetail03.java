@@ -21,7 +21,7 @@ public class ResearcherSurveyDetail03 {
 
     public ResearcherSurveyDetail03(){
         logger.debug("Instanciating object.");
-        loadSurvey(Jsf.getUserSession().getCurrentResearcherSurveyDetailSurveyid());
+        loadSurvey(Jsf.getUserSession().getCurrentSurveyid());
     }
 
     public String beginView(){
@@ -51,9 +51,9 @@ public class ResearcherSurveyDetail03 {
         UserSession userSession = Jsf.getUserSession();
 
         Survey survey = new Survey();
-        if (userSession.getCurrentResearcherSurveyDetailSurveyid()>0){
-            logger.debug("saveSurvey() called: going to get Survey.get(surveyid)="+userSession.getCurrentResearcherSurveyDetailSurveyid());
-            survey = Survey.get(userSession.getCurrentResearcherSurveyDetailSurveyid());
+        if (userSession.getCurrentSurveyid()>0){
+            logger.debug("saveSurvey() called: going to get Survey.get(surveyid)="+userSession.getCurrentSurveyid());
+            survey = Survey.get(userSession.getCurrentSurveyid());
         }
 
         //survey.setResearcherid(userSession.getUser().getResearcher().getResearcherid());

@@ -21,9 +21,9 @@
     </tag>
 
     <tag>
-        <tag-name>componentConfig</tag-name>
+        <tag-name>surveyTaker</tag-name>
         <component>
-            <component-type>com.dneero.display.customtags.ComponentConfig</component-type>
+            <component-type>com.dneero.display.customtags.SurveyTaker</component-type>
         </component>
     </tag>
 

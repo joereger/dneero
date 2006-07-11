@@ -34,7 +34,7 @@ import com.sun.facelets.tag.jsf.ComponentConfig;
  * @author $Author: arobinson74 $
  */
 public class UpdateActionListenerTaghandler extends TagHandler {
-    	private static Log logger = LogFactory.getLog(UpdateActionListenerTaghandler.class);
+    private static Log logger = LogFactory.getLog(UpdateActionListenerTaghandler.class);
 
 	private TagAttribute converterAttr;
 	private TagAttribute propertyAttr;

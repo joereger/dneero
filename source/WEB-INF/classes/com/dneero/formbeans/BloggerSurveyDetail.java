@@ -4,6 +4,7 @@ import org.apache.log4j.Logger;
 import com.dneero.dao.User;
 import com.dneero.dao.Survey;
 import com.dneero.util.GeneralException;
+import com.dneero.util.Jsf;
 
 import javax.faces.context.FacesContext;
 
@@ -29,6 +30,7 @@ public class BloggerSurveyDetail {
         String tmpSurveyid = (String)FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("surveyid");
         if (com.dneero.util.Num.isinteger(tmpSurveyid)){
             logger.debug("beginView called: found surveyid in param="+tmpSurveyid);
+            Jsf.getUserSession().setCurrentSurveyid(Integer.parseInt(tmpSurveyid));
             survey = Survey.get(Integer.parseInt(tmpSurveyid));
         } else {
             logger.debug("beginView called: NOT found surveyid in param="+tmpSurveyid);

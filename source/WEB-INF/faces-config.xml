@@ -47,8 +47,8 @@
     </component>
 
     <component>
-        <component-type>com.dneero.display.customtags.ComponentConfig</component-type>
-        <component-class>com.dneero.display.customtags.ComponentConfig</component-class>
+        <component-type>com.dneero.display.customtags.SurveyTaker</component-type>
+        <component-class>com.dneero.display.customtags.SurveyTaker</component-class>
     </component>
 
     <component>
@@ -84,6 +84,18 @@
     <managed-bean>
         <managed-bean-name>bloggerSurveyList</managed-bean-name>
         <managed-bean-class>com.dneero.formbeans.BloggerSurveyList</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>bloggerSurveyTake</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.BloggerSurveyTake</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>bloggerSurveyPosttoblog</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.BloggerSurveyPosttoblog</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
 
@@ -314,6 +326,14 @@
         <navigation-case>
             <from-outcome>bloggersurveydetail</from-outcome>
             <to-view-id>/blogger/bloggersurveydetail.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>bloggersurveytake</from-outcome>
+            <to-view-id>/blogger/bloggersurveytake.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>bloggersurveyposttoblog</from-outcome>
+            <to-view-id>/blogger/bloggersurveyposttoblog.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>researchersurveylist</from-outcome>

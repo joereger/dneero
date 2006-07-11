@@ -3,8 +3,7 @@ package com.dneero.formbeans;
 import com.dneero.util.SortableList;
 import com.dneero.util.Jsf;
 import com.dneero.session.UserSession;
-import com.dneero.finders.FindSurveysForBlogger;
-import com.dneero.dao.Survey;
+import com.dneero.dao.Blog;
 import com.dneero.dao.hibernate.HibernateUtil;
 import org.apache.log4j.Logger;
 
@@ -71,13 +70,13 @@ public class BloggerBlogsList extends SortableList {
         //logger.debug("sort called");
         Comparator comparator = new Comparator() {
             public int compare(Object o1, Object o2) {
-                Survey survey1 = (Survey)o1;
-                Survey survey2 = (Survey)o2;
+                Blog blog1 = (Blog)o1;
+                Blog blog2 = (Blog)o2;
                 if (column == null) {
                     return 0;
                 }
                 if (column.equals("title")) {
-                    return ascending ? survey1.getTitle().compareTo(survey2.getTitle()) : survey2.getTitle().compareTo(survey1.getTitle());
+                    return ascending ? blog1.getTitle().compareTo(blog2.getTitle()) : blog2.getTitle().compareTo(blog1.getTitle());
                 } else {
                     return 0;
                 }

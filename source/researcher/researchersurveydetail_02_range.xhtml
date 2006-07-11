@@ -15,10 +15,10 @@
 
 <h:form>
 
-    <h:inputHidden name="surveyid" value="#{userSession.currentResearcherSurveyDetailSurveyid}" />
+    <h:inputHidden name="surveyid" value="#{userSession.currentSurveyid}" />
     <h:inputHidden name="questionid" value="#{researcherSurveyDetail02range.questionid}" />
 
-    <h:graphicImage url="/images/process-train-survey-02.gif"></h:graphicImage>
+    <h:graphicImage url="/images/process-train-survey-02.gif" style="display: block; margin-left: auto; margin-right: auto;"></h:graphicImage>
     <f:verbatim><br/><br/></f:verbatim>
 
 
@@ -40,7 +40,7 @@
             <h:outputText value="Survey Id"></h:outputText>
         </h:panelGroup>
         <h:panelGroup>
-            <h:outputText value="#{userSession.currentResearcherSurveyDetailSurveyid}"></h:outputText>
+            <h:outputText value="#{userSession.currentSurveyid}"></h:outputText>
         </h:panelGroup>
         <h:panelGroup>
         </h:panelGroup>

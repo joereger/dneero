@@ -6,55 +6,59 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:t="http://myfaces.apache.org/tomahawk"
-      xmlns:d="http://dneero.com/taglib"
-      xmlns:af="http://xmlns.oracle.com/adf/faces">
+      xmlns:d="http://dneero.com/taglib">
 
 <ui:composition template="/template/template-facelets.xhtml">
     <ui:define name="body">
-    <d:authorization acl="researcher" redirectonfail="true"/>
+    <d:authorization acl="blogger" redirectonfail="true"/>
+
 
 <h:form>
 
-    <h:inputHidden name="surveyid" value="#{userSession.currentSurveyid}" />
-
-    <h:graphicImage url="/images/process-train-survey-03.gif" style="display: block; margin-left: auto; margin-right: auto;"></h:graphicImage>
+    <h:graphicImage url="/images/process-train-blogger-02.gif"  style="display: block; margin-left: auto; margin-right: auto;"></h:graphicImage>
     <f:verbatim><br/><br/></f:verbatim>
-
-
-
-    <!-- Start Bottom -->
 
     <h:panelGrid columns="3" cellpadding="3" border="0">
 
         <h:panelGroup>
-            <h:outputText value="Survey Id"></h:outputText>
+            <h:outputText value="Surveyid"/>
         </h:panelGroup>
         <h:panelGroup>
-            <h:outputText value="#{userSession.currentSurveyid}"></h:outputText>
-        </h:panelGroup>
-        <h:panelGroup>
-        </h:panelGroup>
-
-        <h:panelGroup>
-            <h:outputText value="Advanced Template View"></h:outputText>
-        </h:panelGroup>
-        <h:panelGroup>
+            <h:outputText value="#{bloggerSurveyTake.survey.surveyid}"/>
         </h:panelGroup>
         <h:panelGroup>
         </h:panelGroup>
 
-
         <h:panelGroup>
+            <h:outputText value="Title"/>
         </h:panelGroup>
         <h:panelGroup>
-            <h:commandButton action="#{researcherSurveyDetail03a.saveAdvanced}" value="Save and Continue"></h:commandButton>
+            <h:outputText value="#{bloggerSurveyTake.survey.title}"/>
         </h:panelGroup>
         <h:panelGroup>
         </h:panelGroup>
 
-    </h:panelGrid>
 
-    <!-- End Bottom -->
+     </h:panelGrid>
+
+     <h:panelGrid columns="1" cellpadding="3" border="0">
+
+        <h:panelGroup>
+            <d:surveyTaker id="surveytaker" value="#{bloggerSurveyTake.valueMap}"/>
+        </h:panelGroup>
+
+     </h:panelGrid>
+
+     <h:panelGrid columns="1" cellpadding="3" border="0">
+
+        <h:panelGroup>
+            <h:commandButton action="#{bloggerSurveyTake.takeSurvey}" value="Complete the Survey">
+            </h:commandButton>
+        </h:panelGroup>
+
+     </h:panelGrid>
+
+
 </h:form>
 
 </ui:define>
@@ -62,3 +66,5 @@
 
 </ui:composition>
 </html>
+
+
