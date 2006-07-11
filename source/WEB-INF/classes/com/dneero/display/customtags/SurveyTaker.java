@@ -12,6 +12,10 @@ import java.io.IOException;
 
 import com.dneero.util.Jsf;
 import com.dneero.formbeans.ResearcherSurveyDetail02;
+import com.dneero.dao.Question;
+import com.dneero.dao.Survey;
+import com.dneero.display.components.Component;
+import com.dneero.display.components.ComponentTypes;
 
 /**
  * User: Joe Reger Jr
@@ -99,8 +103,10 @@ public class SurveyTaker extends UIInput {
     public void encodeEnd(FacesContext context) throws IOException {
         logger.debug("encodeEnd called getClientId(context)=" + getClientId(context));
 
-        ResearcherSurveyDetail02 rsd02 = (ResearcherSurveyDetail02)Jsf.getManagedBean("researcherSurveyDetail02");
+        //ResearcherSurveyDetail02 rsd02 = (ResearcherSurveyDetail02)Jsf.getManagedBean("researcherSurveyDetail02");
         //value = rsd02.getQuestionconfig();
+
+
 
         if (value==null){
             logger.debug("value in encodeEnd()=null");
@@ -115,39 +121,37 @@ public class SurveyTaker extends UIInput {
             }
         }
 
+        StringBuffer out = new StringBuffer();
+        Survey survey = Survey.get(Jsf.getUserSession().getCurrentSurveyid());
+        for (Iterator<Question> iterator = survey.getQuestions().iterator(); iterator.hasNext();) {
+            Question question = iterator.next();
+            logger.debug("found question.getQuestionid()="+question.getQuestionid());
+            Component component = ComponentTypes.getComponentByID(question.getComponenttype(), question, Jsf.getUserSession().getUser().getBlogger());
+            logger.debug("found component.getName()="+component.getName());
+            out.append(component.getHtmlForInput());
+            if (iterator.hasNext()){
+                out.append("<br/>");
+            }
+        }
+
         ResponseWriter writer = context.getResponseWriter();
-        writer.write("<br>");
-        writer.write("First Field: ");
-        String firstfield = "";
-        if (value !=null && value.get(getClientId(context)+"_firstfield")!=null){
-            logger.debug("value!=null (String)value.get(\""+getClientId(context)+"_firstfield\")="+(String)value.get(getClientId(context)+"_firstfield"));
-            firstfield = (String)value.get(getClientId(context)+"_firstfield");
-        } else {
-            logger.debug("value==null or value.get(\""+getClientId(context)+"_firstfield\")==null");
-        }
-        outputInputBox(getClientId(context)+"_firstfield", firstfield, context);
-        writer.write("<br>");
-        writer.write("Second Field: ");
-        String secondfield = "";
-        if (value !=null && value.get(getClientId(context)+"_secondfield")!=null){
-            secondfield = (String)value.get(getClientId(context)+"_secondfield");
-        }
-        outputInputBox(getClientId(context)+"_secondfield", secondfield, context);
+        writer.write(out.toString());
+
     }
 
-    private void outputInputBox(String id, String value, FacesContext context)  throws IOException{
-        ResponseWriter writer = context.getResponseWriter();
-        writer.startElement("input", this);
-        writer.writeAttribute("type", "text", "text");
-        writer.writeAttribute("id", id, "id");
-        writer.writeAttribute("name", id, "id");
-        writer.writeAttribute("size", 15, "size");
-        if (value==null){
-            value="";
-        }
-        writer.writeAttribute("value", value, "value");
-        writer.endElement("input");
-    }
+//    private void outputInputBox(String id, String value, FacesContext context)  throws IOException{
+//        ResponseWriter writer = context.getResponseWriter();
+//        writer.startElement("input", this);
+//        writer.writeAttribute("type", "text", "text");
+//        writer.writeAttribute("id", id, "id");
+//        writer.writeAttribute("name", id, "id");
+//        writer.writeAttribute("size", 15, "size");
+//        if (value==null){
+//            value="";
+//        }
+//        writer.writeAttribute("value", value, "value");
+//        writer.endElement("input");
+//    }
 
 
 //    public HashMap getValue() {

@@ -20,13 +20,10 @@ import oracle.adf.view.faces.model.*;
  */
 public class ResearcherSurveyDetail01 {
 
-
     private String title;
     private String description;
     private Date startdate;
     private Date enddate;
-
-
 
     Logger logger = Logger.getLogger(this.getClass().getName());
 
@@ -37,6 +34,10 @@ public class ResearcherSurveyDetail01 {
 
     public String beginViewNewSurvey(){
         Jsf.getUserSession().setCurrentSurveyid(0);
+        title = "";
+        description = "";
+        startdate = new Date();
+        enddate = new Date();
         return "researchersurveydetail_01";
     }
 
