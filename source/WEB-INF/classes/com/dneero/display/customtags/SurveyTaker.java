@@ -5,17 +5,22 @@ import org.apache.log4j.Logger;
 import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
+import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Date;
 import java.io.IOException;
 
 import com.dneero.util.Jsf;
+import com.dneero.util.GeneralException;
 import com.dneero.formbeans.ResearcherSurveyDetail02;
 import com.dneero.dao.Question;
 import com.dneero.dao.Survey;
+import com.dneero.dao.Response;
 import com.dneero.display.components.Component;
 import com.dneero.display.components.ComponentTypes;
+import com.dneero.display.components.ComponentException;
 
 /**
  * User: Joe Reger Jr
@@ -89,24 +94,60 @@ public class SurveyTaker extends UIInput {
             String key = (String)mapentry.getKey();
             String value = (String)mapentry.getValue();
             logger.debug("key=" + key + " value=" + value);
-            if (key.indexOf(getClientId(context))>-1){
-                this.value.put(key, value);
-                logger.debug("added");
-            } else {
-                logger.debug("not added");
-            }
+            this.value.put(key, value);
         }
         setValue(value);
         //setSubmittedValue(value);
+
+
+        //Validation
+        Survey survey = Survey.get(Jsf.getUserSession().getCurrentSurveyid());
+        ComponentException allCex = new ComponentException();
+        for (Iterator<Question> iterator = survey.getQuestions().iterator(); iterator.hasNext();) {
+            Question question = iterator.next();
+            logger.debug("found question.getQuestionid()="+question.getQuestionid());
+            Component component = ComponentTypes.getComponentByID(question.getComponenttype(), question, Jsf.getUserSession().getUser().getBlogger());
+            logger.debug("found component.getName()="+component.getName());
+            try{
+                component.validateAnswer((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest());
+            } catch (ComponentException cex){
+                allCex.addErrorsFromAnotherGeneralException(cex);
+            }
+        }
+        if (allCex.getErrors().length>0){
+            Jsf.setFacesMessage(allCex.getErrorsAsSingleString());
+        } else {
+            //Processing
+            for (Iterator<Question> iterator = survey.getQuestions().iterator(); iterator.hasNext();) {
+                Question question = iterator.next();
+                logger.debug("found question.getQuestionid()="+question.getQuestionid());
+                Component component = ComponentTypes.getComponentByID(question.getComponenttype(), question, Jsf.getUserSession().getUser().getBlogger());
+                logger.debug("found component.getName()="+component.getName());
+                try{
+                    component.processAnswer((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest());
+                } catch (ComponentException cex){
+                    allCex.addErrorsFromAnotherGeneralException(cex);
+                }
+            }
+            Response response = new Response();
+            response.setBloggerid(Jsf.getUserSession().getUser().getBlogger().getBloggerid());
+            response.setResponsedate(new Date());
+            response.setSurveyid(survey.getSurveyid());
+
+            survey.getResponses().add(response);
+
+            try{
+                logger.debug("processAnswer() about to save response.getResponseid()=" + response.getResponseid());
+                survey.save();
+                logger.debug("processAnswer() done saving response.getResponseid()=" + response.getResponseid());
+            } catch (GeneralException gex){
+                logger.debug("processAnswer() failed: " + gex.getErrorsAsSingleString());
+            }
+        }
     }
 
     public void encodeEnd(FacesContext context) throws IOException {
         logger.debug("encodeEnd called getClientId(context)=" + getClientId(context));
-
-        //ResearcherSurveyDetail02 rsd02 = (ResearcherSurveyDetail02)Jsf.getManagedBean("researcherSurveyDetail02");
-        //value = rsd02.getQuestionconfig();
-
-
 
         if (value==null){
             logger.debug("value in encodeEnd()=null");
@@ -138,31 +179,6 @@ public class SurveyTaker extends UIInput {
         writer.write(out.toString());
 
     }
-
-//    private void outputInputBox(String id, String value, FacesContext context)  throws IOException{
-//        ResponseWriter writer = context.getResponseWriter();
-//        writer.startElement("input", this);
-//        writer.writeAttribute("type", "text", "text");
-//        writer.writeAttribute("id", id, "id");
-//        writer.writeAttribute("name", id, "id");
-//        writer.writeAttribute("size", 15, "size");
-//        if (value==null){
-//            value="";
-//        }
-//        writer.writeAttribute("value", value, "value");
-//        writer.endElement("input");
-//    }
-
-
-//    public HashMap getValue() {
-//        logger.debug("getValue() called");
-//        return value;
-//    }
-//
-//    public void setValue(HashMap value) {
-//        logger.debug("setValue() called");
-//        this.value = value;
-//    }
 
 
 }
