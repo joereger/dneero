@@ -6,6 +6,7 @@ import com.dneero.util.GeneralException;
 import com.dneero.dao.User;
 import com.dneero.dao.Blogger;
 import com.dneero.session.UserSession;
+import com.dneero.email.EmailActivationSend;
 
 /**
  * User: Joe Reger Jr
@@ -38,7 +39,11 @@ public class AccountSettings {
 
         UserSession userSession = Jsf.getUserSession();
         if (userSession.getUser()!=null){
+            boolean emailNeedsToBeReactivated = false;
             User user = userSession.getUser();
+            if (!user.getEmail().equals(email)){
+                emailNeedsToBeReactivated = true;
+            }
             user.setEmail(email);
             user.setFirstname(firstname);
             user.setLastname(lastname);
@@ -48,6 +53,10 @@ public class AccountSettings {
             } catch (GeneralException gex){
                 logger.debug("registerAction failed: " + gex.getErrorsAsSingleString());
                 return null;
+            }
+
+            if (emailNeedsToBeReactivated){
+                EmailActivationSend.sendActivationEmail(user);
             }
         }
 

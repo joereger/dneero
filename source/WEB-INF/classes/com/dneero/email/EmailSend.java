@@ -48,7 +48,7 @@ public class EmailSend {
         Logger logger = Logger.getLogger(EmailSend.class);
         try{
 
-            System.out.println("EMAIL BEGIN SEND: to"+to+" from:"+from+" subject:"+subject);
+            logger.debug("EMAIL BEGIN SEND: to"+to+" from:"+from+" subject:"+subject);
 
             Properties props =  System.getProperties();
             props.put("mail.smtp.host",  SMTPSERVER);
@@ -95,7 +95,7 @@ public class EmailSend {
             throw esex;
         }
 
-        logger.debug("EMAIL END SEND: to"+to+" from:"+from+" subject:"+subject);
+        logger.debug("EMAIL END SEND: to"+to+" from:"+from+" subject:"+subject+" message: "+message);
     }
 
 

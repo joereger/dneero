@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 
 import java.util.Set;
 import java.util.HashSet;
+import java.util.Date;
 // Generated Apr 17, 2006 3:45:25 PM by Hibernate Tools 3.1.0.beta4
 
 
@@ -26,6 +27,9 @@ public class User extends BasePersistentClass implements java.io.Serializable, R
      private String password;
      private String firstname;
      private String lastname;
+     private boolean isactivatedbyemail;
+     private String emailactivationkey;
+     private Date emailactivationlastsent;
 
      //Association
     private Set<Userrole> userroles = new HashSet<Userrole>();
@@ -137,13 +141,30 @@ public class User extends BasePersistentClass implements java.io.Serializable, R
     public void setLastname(String lastname) {
         this.lastname = lastname;
     }
-   
 
+    public boolean getIsactivatedbyemail() {
+        return isactivatedbyemail;
+    }
 
+    public void setIsactivatedbyemail(boolean isactivatedbyemail) {
+        this.isactivatedbyemail = isactivatedbyemail;
+    }
 
+    public String getEmailactivationkey() {
+        return emailactivationkey;
+    }
 
+    public void setEmailactivationkey(String emailactivationkey) {
+        this.emailactivationkey = emailactivationkey;
+    }
 
+    public Date getEmailactivationlastsent() {
+        return emailactivationlastsent;
+    }
 
+    public void setEmailactivationlastsent(Date emailactivationlastsent) {
+        this.emailactivationlastsent = emailactivationlastsent;
+    }
 
 
 }

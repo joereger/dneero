@@ -246,6 +246,13 @@
     </managed-bean>
 
 
+    <managed-bean>
+        <managed-bean-name>emailActivationResend</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.EmailActivationResend</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+
 
 
 
@@ -390,6 +397,14 @@
         <navigation-case>
             <from-outcome>researcherdetails</from-outcome>
             <to-view-id>/researcher/researcherdetails.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>emailactivationresend</from-outcome>
+            <to-view-id>/emailactivationresend.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>emailactivationwaiting</from-outcome>
+            <to-view-id>/emailactivationwaiting.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
 

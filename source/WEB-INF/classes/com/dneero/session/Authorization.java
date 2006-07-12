@@ -42,6 +42,10 @@ public class Authorization extends UIComponentBase {
             redirectonfail = "true";
         }
 
+        if (Jsf.getUserSession().getUser()!=null && !Jsf.getUserSession().getUser().getIsactivatedbyemail()){
+            context.getExternalContext().redirect("/emailactivationwaiting.jsf");
+        }
+
         if (!acl.equals("") && !isAuthorized(context, acl)){
             if (redirectonfail.equals("true")){
                 UserSession userSession = Jsf.getUserSession();

@@ -32,5 +32,14 @@
         <property name="lastname" type="string">
             <column name="lastname" not-null="true" />
         </property>
+        <property name="isactivatedbyemail" type="boolean">
+            <column name="isactivatedbyemail" />
+        </property>
+        <property name="emailactivationkey" type="string">
+            <column name="emailactivationkey" not-null="true" />
+        </property>
+        <property name="emailactivationlastsent" type="timestamp">
+            <column name="emailactivationlastsent" length="19" not-null="true" />
+        </property>
     </class>
 </hibernate-mapping>

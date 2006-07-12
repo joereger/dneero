@@ -153,6 +153,16 @@
 
 
     <servlet>
+        <servlet-name>EmailActivationServlet</servlet-name>
+        <servlet-class>com.dneero.email.EmailActivationServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EmailActivationServlet</servlet-name>
+        <url-pattern>/eas</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
         <servlet-name>SurveyJavascriptServlet</servlet-name>
         <servlet-class>com.dneero.survey.servlet.SurveyJavascriptServlet</servlet-class>
     </servlet>

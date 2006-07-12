@@ -3,15 +3,19 @@ package com.dneero.formbeans;
 import org.apache.log4j.Logger;
 import com.dneero.dao.User;
 import com.dneero.dao.Blogger;
+import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.util.GeneralException;
 import com.dneero.util.Jsf;
+import com.dneero.util.RandomString;
 import com.dneero.util.jcaptcha.CaptchaServiceSingleton;
 import com.dneero.session.UserSession;
+import com.dneero.email.EmailActivationSend;
 import com.octo.captcha.service.CaptchaServiceException;
 
 import javax.faces.context.FacesContext;
 import javax.faces.application.FacesMessage;
 import java.util.Date;
+import java.util.List;
 
 /**
  * User: Joe Reger Jr
@@ -40,9 +44,11 @@ public class Registration {
     public String registerAction(){
         logger.debug("registerAction called:  email="+email+" password="+password+" firstname="+firstname+" lastname="+lastname);
 
+        //Validation
+        boolean haveErrors = false;
         if (!password.equals(passwordverify)){
             Jsf.setFacesMessage("registrationForm:password", "Password and Verify Password must match.");
-            return null;
+            haveErrors = true;
         }
 
         boolean isCaptchaCorrect = false;
@@ -53,6 +59,15 @@ public class Registration {
         }
         if (!isCaptchaCorrect){
             Jsf.setFacesMessage("registrationForm:j_captcha_response", "You failed to correctly type the letters into the box.");
+            haveErrors = true;
+        }
+
+        List<User> users = HibernateUtil.getSession().createQuery("from User where email="+email).list();
+        if (users.size()>0){
+            Jsf.setFacesMessage("registrationForm:email", "That email address is already in use.");
+        }
+
+        if (haveErrors){
             return null;
         }
 
@@ -62,6 +77,9 @@ public class Registration {
         user.setPassword(password);
         user.setFirstname(firstname);
         user.setLastname(lastname);
+        user.setIsactivatedbyemail(false);
+        user.setEmailactivationkey(RandomString.randomAlphanumeric(5));
+        user.setEmailactivationlastsent(new Date());
 
         try{
             user.save();
@@ -70,6 +88,9 @@ public class Registration {
             logger.debug("registerAction failed: " + gex.getErrorsAsSingleString());
             return null;
         }
+
+        //Send the activation email
+        EmailActivationSend.sendActivationEmail(user);
 
         //Log the user in
         UserSession userSession = Jsf.getUserSession();

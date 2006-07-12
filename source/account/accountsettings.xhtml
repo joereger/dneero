@@ -51,6 +51,8 @@
                         <f:validateLength minimum="3" maximum="255"></f:validateLength>
                         <t:validateEmail></t:validateEmail>
                     </h:inputText>
+                    <f:verbatim><br/></f:verbatim>
+                    <h:outputText value="Changing email will require re-activation." styleClass="tinyfont"></h:outputText>
                 </h:panelGroup>
                 <h:panelGroup>
                     <h:message for="email" styleClass="RED"></h:message>
