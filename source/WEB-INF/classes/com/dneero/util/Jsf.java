@@ -4,6 +4,9 @@ import com.dneero.session.UserSession;
 
 import javax.faces.context.FacesContext;
 import javax.faces.application.FacesMessage;
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.log4j.Logger;
 
 /**
  * User: Joe Reger Jr
@@ -21,8 +24,16 @@ public class Jsf {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage( FacesMessage.SEVERITY_INFO, message, message));
     }
 
+    public static void setFacesMessage(String clientId, String message){
+        FacesContext.getCurrentInstance().addMessage(clientId, new FacesMessage( FacesMessage.SEVERITY_INFO, message, message));
+    }
+
     public static UserSession getUserSession(){
         return (UserSession)getManagedBean("userSession");
+    }
+
+    public static HttpServletRequest getHttpServletRequest(){
+        return (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();
     }
 
 }

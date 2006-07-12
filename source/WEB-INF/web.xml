@@ -99,6 +99,17 @@
     </context-param>
 
 
+    <servlet>
+      <servlet-name>jcaptcha</servlet-name>
+      <servlet-class>com.dneero.util.jcaptcha.ImageCaptchaServlet</servlet-class>
+      <load-on-startup>0</load-on-startup>
+   </servlet>
+   <servlet-mapping>
+        <servlet-name>jcaptcha</servlet-name>
+        <url-pattern>/jcaptcha</url-pattern>
+    </servlet-mapping>
+
+
 
     <context-param>
         <param-name>oracle.adf.view.faces.ALTERNATE_VIEW_HANDLER</param-name>

@@ -5,7 +5,9 @@ import com.dneero.dao.User;
 import com.dneero.dao.Blogger;
 import com.dneero.util.GeneralException;
 import com.dneero.util.Jsf;
+import com.dneero.util.jcaptcha.CaptchaServiceSingleton;
 import com.dneero.session.UserSession;
+import com.octo.captcha.service.CaptchaServiceException;
 
 import javax.faces.context.FacesContext;
 import javax.faces.application.FacesMessage;
@@ -24,6 +26,7 @@ public class Registration {
     private String passwordverify;
     private String firstname;
     private String lastname;
+    private String j_captcha_response;
 
     //Other props
     private int userid;
@@ -38,7 +41,18 @@ public class Registration {
         logger.debug("registerAction called:  email="+email+" password="+password+" firstname="+firstname+" lastname="+lastname);
 
         if (!password.equals(passwordverify)){
-            Jsf.setFacesMessage("Password and Verify Password must match.");
+            Jsf.setFacesMessage("registrationForm:password", "Password and Verify Password must match.");
+            return null;
+        }
+
+        boolean isCaptchaCorrect = false;
+        try {
+            isCaptchaCorrect = CaptchaServiceSingleton.getInstance().validateResponseForID(Jsf.getHttpServletRequest().getSession().getId(), j_captcha_response);
+        } catch (CaptchaServiceException e) {
+             //should not happen, may be thrown if the id is not valid
+        }
+        if (!isCaptchaCorrect){
+            Jsf.setFacesMessage("registrationForm:j_captcha_response", "You failed to correctly type the letters into the box.");
             return null;
         }
 
@@ -118,5 +132,11 @@ public class Registration {
         this.userid = userid;
     }
 
+    public String getJ_captcha_response() {
+        return j_captcha_response;
+    }
 
+    public void setJ_captcha_response(String j_captcha_response) {
+        this.j_captcha_response = j_captcha_response;
+    }
 }

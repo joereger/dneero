@@ -10,8 +10,7 @@
 <ui:composition template="/template/template-facelets.xhtml">
     <ui:define name="body">
 
-        <h:form>
-            <h:messages />
+        <h:form id="registrationForm">
             <h:panelGrid columns="3" cellpadding="3" border="0">
 
 
@@ -80,7 +79,18 @@
                 </h:panelGroup>
 
 
-
+                <h:panelGroup>
+                    <h:outputText value="Prove You're a Human"></h:outputText>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:graphicImage url="/jcaptcha"></h:graphicImage>
+                    <f:verbatim><br/></f:verbatim>
+                    <h:inputText value="#{registration.j_captcha_response}" id="j_captcha_response" required="true">
+                    </h:inputText>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:message for="j_captcha_response" styleClass="RED"></h:message>
+                </h:panelGroup>
 
 
 
