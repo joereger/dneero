@@ -1,18 +1,14 @@
 package com.dneero.formbeans;
 
 import org.apache.log4j.Logger;
-import com.dneero.util.Jsf;
-import com.dneero.util.RandomString;
-import com.dneero.util.GeneralException;
 import com.dneero.util.jcaptcha.CaptchaServiceSingleton;
+import com.dneero.util.Jsf;
 import com.dneero.dao.User;
 import com.dneero.dao.hibernate.HibernateUtil;
-import com.dneero.session.UserSession;
-import com.dneero.email.EmailSend;
 import com.dneero.email.EmailActivationSend;
+import com.dneero.email.LostPasswordSend;
 import com.octo.captcha.service.CaptchaServiceException;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Iterator;
 
@@ -21,7 +17,7 @@ import java.util.Iterator;
  * Date: Apr 21, 2006
  * Time: 10:38:03 AM
  */
-public class EmailActivationResend {
+public class LostPassword {
 
     //Form props
     private String email;
@@ -29,11 +25,11 @@ public class EmailActivationResend {
 
     Logger logger = Logger.getLogger(this.getClass().getName());
 
-    public EmailActivationResend(){
+    public LostPassword(){
 
     }
 
-    public String reSendEmail(){
+    public String recoverPassword(){
 
         boolean isCaptchaCorrect = false;
         try {
@@ -42,17 +38,22 @@ public class EmailActivationResend {
              //should not happen, may be thrown if the id is not valid
         }
         if (!isCaptchaCorrect){
-            Jsf.setFacesMessage("resendform:j_captcha_response", "You failed to correctly type the letters into the box.");
+            Jsf.setFacesMessage("lostpasswordform:j_captcha_response", "You failed to correctly type the letters into the box.");
             return null;
         }
 
         List<User> users = HibernateUtil.getSession().createQuery("from User where email='"+email+"'").list();
-        for (Iterator<User> iterator = users.iterator(); iterator.hasNext();) {
-            User user = iterator.next();
-            EmailActivationSend.sendActivationEmail(user);
+        if (users.size()>0){
+            for (Iterator<User> iterator = users.iterator(); iterator.hasNext();) {
+                User user = iterator.next();
+                LostPasswordSend.sendLostPasswordEmail(user);
+            }
+        } else {
+            Jsf.setFacesMessage("lostpasswordform:email", "Email address not found.");
+            return null;
         }
 
-        return "success";
+        return "lostpasswordsent";
     }
 
 

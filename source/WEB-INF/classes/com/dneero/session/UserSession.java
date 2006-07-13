@@ -17,6 +17,7 @@ public class UserSession {
     private com.dneero.dao.User user;
     private boolean isloggedin = false;
     private int currentSurveyid;
+    private boolean isAllowedToResetPasswordBecauseHasValidatedByEmail = false;
 
     public UserSession(){
         //Used for anonymous access
@@ -47,5 +48,11 @@ public class UserSession {
         this.currentSurveyid = currentSurveyid;
     }
 
+    public boolean getIsAllowedToResetPasswordBecauseHasValidatedByEmail() {
+        return isAllowedToResetPasswordBecauseHasValidatedByEmail;
+    }
 
+    public void setAllowedToResetPasswordBecauseHasValidatedByEmail(boolean allowedToResetPasswordBecauseHasValidatedByEmail) {
+        isAllowedToResetPasswordBecauseHasValidatedByEmail = allowedToResetPasswordBecauseHasValidatedByEmail;
+    }
 }

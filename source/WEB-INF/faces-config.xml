@@ -252,7 +252,17 @@
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
 
+    <managed-bean>
+        <managed-bean-name>lostPassword</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.LostPassword</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
 
+    <managed-bean>
+        <managed-bean-name>lostPasswordChoose</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.LostPasswordChoose</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
 
 
 
@@ -405,6 +415,14 @@
         <navigation-case>
             <from-outcome>emailactivationwaiting</from-outcome>
             <to-view-id>/emailactivationwaiting.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>lostpassword</from-outcome>
+            <to-view-id>/lostpassword.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>lostpasswordsent</from-outcome>
+            <to-view-id>/lostpasswordsent.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
 

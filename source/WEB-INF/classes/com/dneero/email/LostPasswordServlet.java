@@ -7,24 +7,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
-import javax.servlet.ServletOutputStream;
 import java.io.IOException;
-import java.io.ByteArrayOutputStream;
 import java.io.PrintWriter;
-import java.awt.image.BufferedImage;
 
-import com.dneero.util.jcaptcha.CaptchaServiceSingleton;
-import com.dneero.util.GeneralException;
-import com.dneero.dao.Survey;
 import com.dneero.dao.User;
-import com.sun.image.codec.jpeg.JPEGImageEncoder;
-import com.sun.image.codec.jpeg.JPEGCodec;
-import com.octo.captcha.service.CaptchaServiceException;
+import com.dneero.util.GeneralException;
+import com.dneero.util.Jsf;
+import com.dneero.session.UserSession;
 
 /**
  * Serves a captcha image
  */
-public class EmailActivationServlet extends HttpServlet {
+public class LostPasswordServlet extends HttpServlet {
 
     Logger logger = Logger.getLogger(this.getClass().getName());
 
@@ -38,7 +32,7 @@ public class EmailActivationServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        PrintWriter out = response.getWriter();
+        logger.debug("doPost() -> request.getParameter(\"u\")="+request.getParameter("u")+" request.getParameter(\"k\")="+request.getParameter("k"));
 
         User user=null;
         if (request.getParameter("u")!=null && com.dneero.util.Num.isinteger(request.getParameter("u"))){
@@ -50,6 +44,8 @@ public class EmailActivationServlet extends HttpServlet {
             emailactivationkey = request.getParameter("k");
         }
 
+        logger.debug("user.getUserid()="+user.getUserid()+" emailactivationkey="+emailactivationkey);
+
         if (user!=null && user.getEmailactivationkey().equals(emailactivationkey)){
             user.setIsactivatedbyemail(true);
             try{
@@ -58,12 +54,16 @@ public class EmailActivationServlet extends HttpServlet {
                 logger.error("registerAction failed: " + gex.getErrorsAsSingleString());
             }
 
-            //@todo send a welcome message after successful email activation
+            //Set the flag in the session that'll allow this user to reset their password
+            UserSession userSession = (UserSession)request.getSession().getAttribute("userSession");
 
-            response.sendRedirect("/emailactivationsuceed.jsf");
+            userSession.setAllowedToResetPasswordBecauseHasValidatedByEmail(true);
+            userSession.setUser(user);
+
+            response.sendRedirect("/lostpasswordchoose.jsf");
             return;
         } else {
-            response.sendRedirect("/emailactivationfail.jsf");
+            response.sendRedirect("/lostpassword.jsf");
             return;
         }
 

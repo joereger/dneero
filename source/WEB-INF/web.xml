@@ -161,6 +161,15 @@
         <url-pattern>/eas</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>LostPasswordServlet</servlet-name>
+        <servlet-class>com.dneero.email.LostPasswordServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LostPasswordServlet</servlet-name>
+        <url-pattern>/lps</url-pattern>
+    </servlet-mapping>
+
 
     <servlet>
         <servlet-name>SurveyJavascriptServlet</servlet-name>
