@@ -30,7 +30,9 @@ public class EmailActivationResend {
     Logger logger = Logger.getLogger(this.getClass().getName());
 
     public EmailActivationResend(){
-
+        if (Jsf.getUserSession().getUser()!=null){
+            email = Jsf.getUserSession().getUser().getEmail();
+        }
     }
 
     public String reSendEmail(){
@@ -47,12 +49,16 @@ public class EmailActivationResend {
         }
 
         List<User> users = HibernateUtil.getSession().createQuery("from User where email='"+email+"'").list();
+        if (users.size()<=0){
+            Jsf.setFacesMessage("resendform:email", "That email address was not found.");
+            return null;
+        }
         for (Iterator<User> iterator = users.iterator(); iterator.hasNext();) {
             User user = iterator.next();
             EmailActivationSend.sendActivationEmail(user);
         }
 
-        return "success";
+        return "emailactivationresendcomplete";
     }
 
 

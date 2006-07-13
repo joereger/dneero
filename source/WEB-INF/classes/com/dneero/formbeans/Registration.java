@@ -3,12 +3,14 @@ package com.dneero.formbeans;
 import org.apache.log4j.Logger;
 import com.dneero.dao.User;
 import com.dneero.dao.Blogger;
+import com.dneero.dao.Userrole;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.util.GeneralException;
 import com.dneero.util.Jsf;
 import com.dneero.util.RandomString;
 import com.dneero.util.jcaptcha.CaptchaServiceSingleton;
 import com.dneero.session.UserSession;
+import com.dneero.session.Roles;
 import com.dneero.email.EmailActivationSend;
 import com.octo.captcha.service.CaptchaServiceException;
 
@@ -62,7 +64,7 @@ public class Registration {
             haveErrors = true;
         }
 
-        List<User> users = HibernateUtil.getSession().createQuery("from User where email="+email).list();
+        List<User> users = HibernateUtil.getSession().createQuery("from User where email='"+email+"'").list();
         if (users.size()>0){
             Jsf.setFacesMessage("registrationForm:email", "That email address is already in use.");
         }
@@ -88,6 +90,8 @@ public class Registration {
             logger.debug("registerAction failed: " + gex.getErrorsAsSingleString());
             return null;
         }
+
+        
 
         //Send the activation email
         EmailActivationSend.sendActivationEmail(user);

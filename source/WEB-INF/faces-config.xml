@@ -413,6 +413,10 @@
             <to-view-id>/emailactivationresend.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
+            <from-outcome>emailactivationresendcomplete</from-outcome>
+            <to-view-id>/emailactivationresendcomplete.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
             <from-outcome>emailactivationwaiting</from-outcome>
             <to-view-id>/emailactivationwaiting.xhtml</to-view-id>
         </navigation-case>

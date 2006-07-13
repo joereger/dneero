@@ -29,7 +29,6 @@ public class Authorization extends UIComponentBase {
     }
 
     public void encodeBegin(FacesContext context) throws IOException {
-
         logger.debug("encodeBegin called");
 
         String acl = (String)getAttributes().get("acl");
@@ -44,15 +43,26 @@ public class Authorization extends UIComponentBase {
 
         if (Jsf.getUserSession().getUser()!=null && !Jsf.getUserSession().getUser().getIsactivatedbyemail()){
             context.getExternalContext().redirect("/emailactivationwaiting.jsf");
+            return;
         }
 
         if (!acl.equals("") && !isAuthorized(context, acl)){
             if (redirectonfail.equals("true")){
                 UserSession userSession = Jsf.getUserSession();
                 if (userSession!=null && userSession.getUser()!=null && userSession.getIsloggedin()){
+                    if(acl.equals("blogger") && userSession.getUser().getBlogger()==null){
+                        context.getExternalContext().redirect("/blogger/bloggerdetails.jsf");
+                        return;
+                    }
+                    if(acl.equals("researcher") && userSession.getUser().getResearcher()==null){
+                        context.getExternalContext().redirect("/researcher/researcherdetails.jsf");
+                        return;
+                    }
                     context.getExternalContext().redirect("/notauthorized.jsf");
+                    return;
                 } else {
                     context.getExternalContext().redirect("/login.jsf");
+                    return;
                 }
             } else {
                 setRendered(false);
@@ -63,7 +73,6 @@ public class Authorization extends UIComponentBase {
                 }
             }
         }
-
     }
 
     private boolean isAuthorized(FacesContext context, String acl)  throws IOException {
@@ -80,9 +89,6 @@ public class Authorization extends UIComponentBase {
                         return true;
                     }
                 }
-                if (userSession.getUser()!=null){
-                    context.getExternalContext().redirect("/blogger/bloggerdetails.jsf");
-                }
                 return false;
             }
 
@@ -93,9 +99,6 @@ public class Authorization extends UIComponentBase {
                         logger.debug("Researcher authorized.");
                         return true;
                     }
-                }
-                if (userSession.getUser()!=null){
-                    context.getExternalContext().redirect("/researcher/researcherdetails.jsf");    
                 }
                 return false;
             }
@@ -112,14 +115,7 @@ public class Authorization extends UIComponentBase {
             }
 
             if (acl!=null && acl.equals("account")){
-                for (Iterator<Userrole> iterator = userSession.getUser().getUserroles().iterator(); iterator.hasNext();) {
-                    Userrole userrole = iterator.next();
-                    if (userrole.getRoleid()!=Roles.ANONYMOUS){
-                        logger.debug("Non-anonymous authorized for common account section.");
-                        return true;
-                    }
-                }
-                return false;
+                return true;
             }
         }
 

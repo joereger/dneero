@@ -11,7 +11,8 @@
     <ui:define name="body">
         <h:form>
             <h:outputText>Your account has not yet been activated by email.  Please check your email inbox and click the link that we sent you to begin the activation process.</h:outputText>
-            <h:commandLink action="emailactivationresend" value="Click here to re-send email activation message."></h:commandLink>
+            <f:verbatim><br/><br/></f:verbatim>
+            <h:commandLink action="emailactivationresend" value="Click here to re-send your email activation message."></h:commandLink>
         </h:form>
     </ui:define>
 </ui:composition>

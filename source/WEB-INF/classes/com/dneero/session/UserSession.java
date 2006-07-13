@@ -13,7 +13,6 @@ import javax.faces.context.FacesContext;
  */
 public class UserSession {
     Logger logger = Logger.getLogger(this.getClass().getName());
-    public static final String SESSIONLOOKUPKEY = "dneerosessionkey";
     private com.dneero.dao.User user;
     private boolean isloggedin = false;
     private int currentSurveyid;

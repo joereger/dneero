@@ -5,22 +5,15 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:t="http://myfaces.apache.org/tomahawk"
-      xmlns:d="http://dneero.com/taglib">
+      xmlns:t="http://myfaces.apache.org/tomahawk">
 
 <ui:composition template="/template/template-facelets.xhtml">
     <ui:define name="body">
-    <d:authorization acl="blogger" redirectonfail="true"/>
-
         <h:form>
-            <f:verbatim><br/></f:verbatim>
-            <f:verbatim>Earnings: </f:verbatim>
-            <h:outputText value="#{bloggerEarnings.earnings}"/>
-
+            <h:outputText>Your email activation message has been sent.  Please check your email inbox.</h:outputText>
+            <f:verbatim><br/><br/></f:verbatim>
+            <h:outputText>Also, please note that all previous activation emails are now invalid... you must use the most recent one that we've sent.  This is for your security.  Thanks!</h:outputText>
         </h:form>
-
     </ui:define>
 </ui:composition>
 </html>
-
-

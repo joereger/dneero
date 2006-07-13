@@ -52,9 +52,6 @@ public class Login {
             ValueBinding binding = ctx.getApplication().createValueBinding("#{userSession}");
             binding.setValue(ctx, userSession);
 
-            //HttpSession session = (HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(false);
-            //session.setAttribute(UserSession.SESSIONLOOKUPKEY, userSession);
-
             return "success";
         }
 
