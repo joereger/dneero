@@ -26,7 +26,6 @@ public class SurveyAsHtml {
 
         if (survey!=null && user!=null){
 
-            //@todo how is it possible to get a null referer?  i've had it happen
             String referer = request.getHeader("referer");
             logger.debug("referer=" + referer);
 

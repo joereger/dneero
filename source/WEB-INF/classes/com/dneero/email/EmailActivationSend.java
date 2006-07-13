@@ -7,6 +7,7 @@ import com.dneero.util.GeneralException;
 import java.util.Date;
 
 import org.apache.log4j.Logger;
+import org.apache.commons.mail.HtmlEmail;
 
 /**
  * User: Joe Reger Jr
@@ -27,12 +28,23 @@ public class EmailActivationSend {
         } catch (GeneralException gex){
             logger.error("registerAction failed: " + gex.getErrorsAsSingleString());
         }
-        
+
         //@todo make link dynamic for instance base address
         String url = "http://dneero.com/eas?u="+user.getUserid()+"&k="+user.getEmailactivationkey();
         //@todo better email activation email message
         String message = url;
-        EmailSend.sendMail("info@dneero.com", user.getEmail(), "dNeero Account Activation", message);
+
+        try{
+            HtmlEmail email = new HtmlEmail();
+            email.addTo(user.getEmail());
+            email.setFrom(EmailSendThread.DEFAULTFROM);
+            email.setSubject("dNeero Account Activation");
+            email.setHtmlMsg("<html><font face=arial size=+1 color=#00ff00>"+message+"</font></html>");
+            email.setTextMsg(message);
+            EmailSend.sendMail(email);
+        } catch (Exception e){
+            logger.error(e);
+        }
 
     }
 

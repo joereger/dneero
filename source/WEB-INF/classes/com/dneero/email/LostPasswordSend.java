@@ -4,6 +4,7 @@ import com.dneero.dao.User;
 import com.dneero.util.RandomString;
 import com.dneero.util.GeneralException;
 import org.apache.log4j.Logger;
+import org.apache.commons.mail.HtmlEmail;
 
 import java.util.Date;
 
@@ -30,7 +31,18 @@ public class LostPasswordSend {
         String url = "http://dneero.com/lps?u="+user.getUserid()+"&k="+user.getEmailactivationkey();
         //@todo better lost password email message
         String message = url;
-        EmailSend.sendMail("info@dneero.com", user.getEmail(), "dNeero Password Recovery Message", message);
+
+        try{
+            HtmlEmail email = new HtmlEmail();
+            email.addTo(user.getEmail());
+            email.setFrom(EmailSendThread.DEFAULTFROM);
+            email.setSubject("dNeero Password Recovery Message");
+            email.setHtmlMsg("<html><font face=arial size=+1 color=#00ff00>"+message+"</font></html>");
+            email.setTextMsg(message);
+            EmailSend.sendMail(email);
+        } catch (Exception e){
+            logger.error(e);
+        }
 
     }
 
