@@ -91,8 +91,6 @@ public class Registration {
             return null;
         }
 
-        
-
         //Send the activation email
         EmailActivationSend.sendActivationEmail(user);
 
@@ -100,8 +98,6 @@ public class Registration {
         UserSession userSession = Jsf.getUserSession();
         userSession.setUser(user);
         userSession.setIsloggedin(true);
-
-
 
         return "success";
     }
