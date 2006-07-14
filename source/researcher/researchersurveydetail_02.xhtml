@@ -22,42 +22,49 @@
     <f:verbatim><br/><br/></f:verbatim>
 
     <!-- Start Top -->
-
-
-    <af:table value="#{researcherSurveyQuestionList.questions}" bandingInterval="2" rows="50" banding="row" var="question" rendered="#{!empty researcherSurveyQuestionList.questions}">
-      <af:column>
-        <f:facet name="header">
-          <af:outputText value="Questionid"/>
-        </f:facet>
-        <af:outputText value="#{question.questionid}"/>
-      </af:column>
-      <af:column>
-        <f:facet name="header">
-          <af:outputText value="Question"/>
-        </f:facet>
-        <af:outputText value="#{question.question}"/>
-      </af:column>
-      <af:column>
-        <f:facet name="header">
-          <af:outputText value="Is Required"/>
-        </f:facet>
-        <af:outputText value="#{question.isrequired}"/>
-      </af:column>
-      <af:column>
-        <f:facet name="header">
-          <af:outputText value=" "/>
-        </f:facet>
-        <h:commandLink action="#{researcherSurveyDetail02.beginEdit}">
-            <h:outputText value="Edit" escape="false" />
-            <f:param name="questionid" value="#{question.questionid}" />
-            <f:param name="componenttype" value="#{question.componenttype}" />
-        </h:commandLink>
-        <h:commandLink action="#{researcherSurveyDetail02.deleteQuestion}">
-            <h:outputText value="Del" escape="false" />
-            <f:param name="questionid" value="#{question.questionid}" />
-        </h:commandLink>
-      </af:column>
-    </af:table>
+    <t:panelTabbedPane id="panel" bgcolor="#ffffff">
+        <t:panelTab id="panel_a" label="Questions">
+            <h:graphicImage url="/images/clear.gif" width="550" height="1"><br/></h:graphicImage>
+            <af:table value="#{researcherSurveyQuestionList.questions}" bandingInterval="2" rows="50" banding="row" var="question" rendered="#{!empty researcherSurveyQuestionList.questions}">
+              <af:column>
+                <f:facet name="header">
+                  <af:outputText value="Questionid"/>
+                </f:facet>
+                <af:outputText value="#{question.questionid}"/>
+              </af:column>
+              <af:column>
+                <f:facet name="header">
+                  <af:outputText value="Question"/>
+                </f:facet>
+                <af:outputText value="#{question.question}"/>
+              </af:column>
+              <af:column>
+                <f:facet name="header">
+                  <af:outputText value="Is Required"/>
+                </f:facet>
+                <af:outputText value="#{question.isrequired}"/>
+              </af:column>
+              <af:column>
+                <f:facet name="header">
+                  <af:outputText value=" "/>
+                </f:facet>
+                <h:commandLink action="#{researcherSurveyDetail02.beginEdit}">
+                    <h:outputText value="Edit" escape="false" />
+                    <f:param name="questionid" value="#{question.questionid}" />
+                    <f:param name="componenttype" value="#{question.componenttype}" />
+                </h:commandLink>
+                <h:commandLink action="#{researcherSurveyDetail02.deleteQuestion}">
+                    <h:outputText value="Del" escape="false" />
+                    <f:param name="questionid" value="#{question.questionid}" />
+                </h:commandLink>
+              </af:column>
+            </af:table>
+        </t:panelTab>
+        <t:panelTab id="panel_b" label="Preview the Survey">
+            <h:graphicImage url="/images/clear.gif" width="550" height="1"><br/></h:graphicImage>
+            <f:verbatim>#{researcherSurveyDetail02.surveyForTakers}</f:verbatim>
+        </t:panelTab>
+    </t:panelTabbedPane>
 
 
 
@@ -79,11 +86,13 @@
             <h:selectOneMenu value="#{researcherSurveyDetail02.newquestioncomponenttype}" id="newquestioncomponenttype" required="true">
                 <f:selectItems value="#{componentTypes.typesaslinkedhashmap}"/>
             </h:selectOneMenu>
+            <f:verbatim><br/></f:verbatim>
+            <h:commandButton action="#{researcherSurveyDetail02.addQuestion}" value="Add Question">
+                <f:param name="isnewquestion" value="1" />
+            </h:commandButton>
         </h:panelGroup>
         <h:panelGroup>
-            <h:commandButton action="#{researcherSurveyDetail02.addQuestion}" value="Add Question">
-                <f:param name="isnewquestion" value="1" />    
-            </h:commandButton>
+
         </h:panelGroup>
         <h:panelGroup>
             <h:commandButton action="#{researcherSurveyDetail02.saveSurvey}" value="Next Step"></h:commandButton>

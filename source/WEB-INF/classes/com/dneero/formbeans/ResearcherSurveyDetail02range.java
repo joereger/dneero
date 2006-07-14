@@ -48,16 +48,7 @@ public class ResearcherSurveyDetail02range {
         }
     }
 
-//    public String beginView(){
-//        //logger.debug("beginView called:");
-//        String tmpQuestionid = (String) FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("questionid");
-//        if (questionid==0 && com.dneero.util.Num.isinteger(tmpQuestionid)){
-//            logger.debug("beginView called: found questionid in param="+tmpQuestionid);
-//            questionid = Integer.parseInt(tmpQuestionid);
-//            loadQuestion();
-//        }
-//        return "researchersurveydetail_02_textbox";
-//    }
+
 
     public void loadQuestion(){
         logger.debug("loadQuestion called questionid="+questionid);

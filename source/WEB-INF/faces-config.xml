@@ -202,12 +202,6 @@
     </managed-bean>
 
     <managed-bean>
-        <managed-bean-name>researcherSurveyDetail03a</managed-bean-name>
-        <managed-bean-class>com.dneero.formbeans.ResearcherSurveyDetail03a</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
-    </managed-bean>
-
-    <managed-bean>
         <managed-bean-name>researcherSurveyDetail04</managed-bean-name>
         <managed-bean-class>com.dneero.formbeans.ResearcherSurveyDetail04</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
@@ -389,10 +383,6 @@
             <to-view-id>/researcher/researchersurveydetail_03.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
-            <from-outcome>researchersurveydetail_03a</from-outcome>
-            <to-view-id>/researcher/researchersurveydetail_03a.xhtml</to-view-id>
-        </navigation-case>
-        <navigation-case>
             <from-outcome>researchersurveydetail_04</from-outcome>
             <to-view-id>/researcher/researchersurveydetail_04.xhtml</to-view-id>
         </navigation-case>
@@ -504,14 +494,6 @@
         <navigation-case>
             <from-outcome>success</from-outcome>
             <to-view-id>/researcher/researchersurveydetail_04.xhtml</to-view-id>
-        </navigation-case>
-    </navigation-rule>
-
-    <navigation-rule>
-        <from-view-id>/researcher/researchersurveydetail_03a.xhtml</from-view-id>
-        <navigation-case>
-            <from-outcome>success</from-outcome>
-            <to-view-id>/researcher/researchersurveydetail_03.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
 

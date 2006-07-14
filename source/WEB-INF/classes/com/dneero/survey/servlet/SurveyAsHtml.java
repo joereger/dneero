@@ -20,43 +20,21 @@ import java.util.Iterator;
 public class SurveyAsHtml {
 
 
-    public static String getHtml(Survey survey, User user, HttpServletRequest request){
+    public static String getHtml(Survey survey, User user){
         StringBuffer out = new StringBuffer();
         Logger logger = Logger.getLogger(SurveyAsHtml.class);
-
         if (survey!=null && user!=null){
-
-            String referer = request.getHeader("referer");
-            logger.debug("referer=" + referer);
-
-            //Find blogid
-            Blog blog=null;
-            if (user.getBlogger()!=null && referer!=null){
-                for (Iterator it = user.getBlogger().getBlogs().iterator(); it.hasNext(); ) {
-                    Blog blogTmp = (Blog)it.next();
-                    if (referer.indexOf(blogTmp.getUrl())>0){
-                        blog = blogTmp;
-                        break;
-                    }
-                }
-            }
-
-            //Record
-            RecordImpression.record(survey, user, blog, request);
-
-            //Output
             SurveyTemplateProcessor stp = new SurveyTemplateProcessor(survey, user.getBlogger());
             out.append("<b>dNeero Survey</b>");
             out.append("<br/>");
             out.append(Str.cleanForjavascript(stp.getSurveyForDisplay()));
             out.append("<br/>");
             out.append("<b>dNeero - blog for pay</b>");
-
-            return out.toString();
         } else {
-            return "This embedded survey link is not correctly formatted.";
+            out = new StringBuffer();
+            out.append("This embedded survey link is not correctly formatted.");
         }
-
+        return out.toString();
     }
 
 }

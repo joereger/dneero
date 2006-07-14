@@ -5,8 +5,10 @@ import com.dneero.util.Jsf;
 import com.dneero.util.GeneralException;
 import com.dneero.dao.Survey;
 import com.dneero.dao.Question;
+import com.dneero.dao.Blogger;
 import com.dneero.session.UserSession;
 import com.dneero.display.components.*;
+import com.dneero.display.SurveyTakerDisplay;
 
 import javax.faces.context.FacesContext;
 import javax.faces.application.FacesMessage;
@@ -21,6 +23,7 @@ public class ResearcherSurveyDetail02 {
 
     Logger logger = Logger.getLogger(this.getClass().getName());
     private int newquestioncomponenttype;
+    private String surveyForTakers;
 
 
     public ResearcherSurveyDetail02(){
@@ -28,21 +31,13 @@ public class ResearcherSurveyDetail02 {
         loadSurvey(Jsf.getUserSession().getCurrentSurveyid());
     }
 
-    public String beginView(){
-        //logger.debug("beginView called:");
-        String tmpSurveyid = (String) FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("surveyid");
-        if (com.dneero.util.Num.isinteger(tmpSurveyid)){
-            logger.debug("beginView called: found surveyid in param="+tmpSurveyid);
-            loadSurvey(Integer.parseInt(tmpSurveyid));
-        }
-        return "researchersurveydetail_02";
-    }
 
     public void loadSurvey(int surveyid){
         logger.debug("loadSurvey called");
         Survey survey = Survey.get(surveyid);
         if (survey!=null){
             logger.debug("Found survey in db: survey.getSurveyid()="+survey.getSurveyid()+" survey.getTitle()="+survey.getTitle());
+            surveyForTakers = SurveyTakerDisplay.getHtmlForSurveyTaking(survey, new Blogger());
         }
     }
 
@@ -72,6 +67,7 @@ public class ResearcherSurveyDetail02 {
 
         //Refresh
         survey.refresh();
+        loadSurvey(survey.getSurveyid());
 
         return "success";
     }
@@ -183,5 +179,11 @@ public class ResearcherSurveyDetail02 {
         this.newquestioncomponenttype = newquestioncomponenttype;
     }
 
+    public String getSurveyForTakers() {
+        return surveyForTakers;
+    }
 
+    public void setSurveyForTakers(String surveyForTakers) {
+        this.surveyForTakers = surveyForTakers;
+    }
 }

@@ -5,6 +5,7 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jstl/core"
       xmlns:t="http://myfaces.apache.org/tomahawk"
       xmlns:d="http://dneero.com/taglib"
       xmlns:af="http://xmlns.oracle.com/adf/faces">
@@ -23,14 +24,33 @@
     <!-- Start Top -->
 
     <t:panelTabbedPane id="panel" bgcolor="#ffffff">
-        <t:panelTab id="panel_a" label="Survey Takers">
-            <h:outputText value="What the survey taker sees."></h:outputText>
-        </t:panelTab>
-        <t:panelTab id="panel_b" label="Survey Readers">
-            <h:outputText value="What the survey reader sees."></h:outputText>
+        <t:panelTab id="panel_b" label="Survey on Blog Preview">
+            <h:graphicImage url="/images/clear.gif" width="550" height="1"><br/></h:graphicImage>
+            <f:verbatim>#{researcherSurveyDetail03.surveyForReaders}</f:verbatim>
         </t:panelTab>
         <t:panelTab id="panel_c" label="Advanced Formatting">
+            <h:graphicImage url="/images/clear.gif" width="550" height="1"><br/></h:graphicImage>
             <h:outputText value="Advanced formatting."></h:outputText>
+            <f:verbatim><br/><br/></f:verbatim>
+            <h:panelGrid columns="2" cellpadding="3" border="0">
+                <h:panelGroup>
+                    <h:inputTextarea value="#{researcherSurveyDetail03.template}" cols="35" rows="15"></h:inputTextarea>
+                    <f:verbatim><br/><br/></f:verbatim>
+                    <h:commandButton action="#{researcherSurveyDetail03.saveSurvey}" value="Save Template"></h:commandButton>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <!-- Begin Question Key -->
+                    <d:roundedCornerBox uniqueboxname="questionkey" bodycolor="e6e6e6" widthinpixels="200">
+                        <ui:repeat value="#{researcherSurveyQuestionList.questions}" var="question">
+                            <b><h:outputText value="&lt;$question_#{question.questionid}$>" styleClass="smallfont"></h:outputText></b>
+                            <br/>
+                            <h:outputText value="#{question.question}" styleClass="smallfont"></h:outputText>
+                            <br/><br/>
+                        </ui:repeat>
+                    </d:roundedCornerBox>
+                    <!-- End Question Key -->
+                </h:panelGroup>
+            </h:panelGrid>
         </t:panelTab>
     </t:panelTabbedPane>
 
@@ -50,7 +70,7 @@
         <h:panelGroup>
         </h:panelGroup>
         <h:panelGroup>
-            <h:commandButton action="#{researcherSurveyDetail03.saveSurvey}" value="Next Step"></h:commandButton>
+            <h:commandButton action="#{researcherSurveyDetail03.continueToNext}" value="Next Step"></h:commandButton>
         </h:panelGroup>
         <h:panelGroup>
         </h:panelGroup>

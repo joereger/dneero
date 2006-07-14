@@ -21,6 +21,7 @@ import com.dneero.dao.Response;
 import com.dneero.display.components.Component;
 import com.dneero.display.components.ComponentTypes;
 import com.dneero.display.components.ComponentException;
+import com.dneero.display.SurveyTakerDisplay;
 
 /**
  * User: Joe Reger Jr
@@ -163,17 +164,18 @@ public class SurveyTaker extends UIInput {
         }
 
         StringBuffer out = new StringBuffer();
-        Survey survey = Survey.get(Jsf.getUserSession().getCurrentSurveyid());
-        for (Iterator<Question> iterator = survey.getQuestions().iterator(); iterator.hasNext();) {
-            Question question = iterator.next();
-            logger.debug("found question.getQuestionid()="+question.getQuestionid());
-            Component component = ComponentTypes.getComponentByID(question.getComponenttype(), question, Jsf.getUserSession().getUser().getBlogger());
-            logger.debug("found component.getName()="+component.getName());
-            out.append(component.getHtmlForInput());
-            if (iterator.hasNext()){
-                out.append("<br/>");
-            }
-        }
+        out.append(SurveyTakerDisplay.getHtmlForSurveyTaking(Survey.get(Jsf.getUserSession().getCurrentSurveyid()), Jsf.getUserSession().getUser().getBlogger()));
+//        Survey survey = Survey.get(Jsf.getUserSession().getCurrentSurveyid());
+//        for (Iterator<Question> iterator = survey.getQuestions().iterator(); iterator.hasNext();) {
+//            Question question = iterator.next();
+//            logger.debug("found question.getQuestionid()="+question.getQuestionid());
+//            Component component = ComponentTypes.getComponentByID(question.getComponenttype(), question, Jsf.getUserSession().getUser().getBlogger());
+//            logger.debug("found component.getName()="+component.getName());
+//            out.append(component.getHtmlForInput());
+//            if (iterator.hasNext()){
+//                out.append("<br/>");
+//            }
+//        }
 
         ResponseWriter writer = context.getResponseWriter();
         writer.write(out.toString());

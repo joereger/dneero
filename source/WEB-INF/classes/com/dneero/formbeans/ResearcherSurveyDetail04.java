@@ -42,15 +42,7 @@ public class ResearcherSurveyDetail04 {
         loadSurvey(Jsf.getUserSession().getCurrentSurveyid());
     }
 
-//    public String beginView(){
-//        //logger.debug("beginView called:");
-//        String tmpSurveyid = (String) FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("surveyid");
-//        if (com.dneero.util.Num.isinteger(tmpSurveyid)){
-//            logger.debug("beginView called: found surveyid in param="+tmpSurveyid);
-//            loadSurvey(Integer.parseInt(tmpSurveyid));
-//        }
-//        return "researchersurveydetail_02";
-//    }
+
 
     public void loadSurvey(int surveyid){
         logger.debug("loadSurvey called");

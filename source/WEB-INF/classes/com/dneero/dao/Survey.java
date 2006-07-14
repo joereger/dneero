@@ -34,6 +34,7 @@ public class Survey extends BasePersistentClass implements java.io.Serializable,
      private Date startdate;
      private Date enddate;
      private String template;
+     //@todo find a way to order the questions in the hibernate Survey association
      private Set<Question> questions = new HashSet<Question>();
      private Surveycriteria surveycriteria;
      private Set<Response> responses = new HashSet<Response>();
