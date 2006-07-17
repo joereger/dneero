@@ -8,7 +8,7 @@
         <id name="impressionid" type="int">
             <column name="impressionid" />
             <generator class="native" />
-        </id>
+        </id>        
         <property name="surveyid" type="int">
             <column name="surveyid" not-null="true" />
         </property>

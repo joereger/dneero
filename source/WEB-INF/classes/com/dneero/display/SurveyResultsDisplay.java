@@ -3,8 +3,8 @@ package com.dneero.display;
 import com.dneero.dao.Survey;
 import com.dneero.dao.Blogger;
 import com.dneero.dao.Question;
-import com.dneero.display.components.Component;
-import com.dneero.display.components.ComponentTypes;
+import com.dneero.display.components.def.Component;
+import com.dneero.display.components.def.ComponentTypes;
 import org.apache.log4j.Logger;
 
 import java.util.Iterator;
@@ -24,7 +24,7 @@ public class SurveyResultsDisplay {
             logger.debug("found question.getQuestionid()="+question.getQuestionid());
             Component component = ComponentTypes.getComponentByID(question.getComponenttype(), question, new Blogger());
             logger.debug("found component.getName()="+component.getName());
-
+            out.append("<br><br>");
             out.append("<table width=100% cellpadding=0 cellspacing=0 border=0>");
             out.append("<tr>");
             out.append("<td valign=top bgcolor=#e6e6e6>");

@@ -1,7 +1,9 @@
-package com.dneero.display.components;
+package com.dneero.display.components.def;
 
 import com.dneero.dao.Blogger;
 import com.dneero.dao.Question;
+import com.dneero.display.components.def.Component;
+import com.dneero.display.components.*;
 
 import java.util.LinkedHashMap;
 
@@ -19,19 +21,19 @@ public class ComponentTypes {
     Logger logger = Logger.getLogger(this.getClass().getName());
 
     public static Component getComponentByID(int ID, Question question, Blogger blogger){
-        if (ID==Textbox.ID){
+        if (ID== Textbox.ID){
             return new Textbox(question, blogger);
         }
-        if (ID==Essay.ID){
+        if (ID== Essay.ID){
             return new Essay(question, blogger);
         }
-        if (ID==Dropdown.ID){
+        if (ID== Dropdown.ID){
             return new Dropdown(question, blogger);
         }
-        if (ID==Checkboxes.ID){
+        if (ID== Checkboxes.ID){
             return new Checkboxes(question, blogger);
         }
-        if (ID==Range.ID){
+        if (ID== Range.ID){
             return new Range(question, blogger);
         }
         return null;

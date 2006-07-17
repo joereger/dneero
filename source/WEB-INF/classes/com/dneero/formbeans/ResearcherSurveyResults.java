@@ -3,11 +3,13 @@ package com.dneero.formbeans;
 import org.apache.log4j.Logger;
 
 import java.util.Date;
+import java.util.Iterator;
 
 import com.dneero.util.Jsf;
 import com.dneero.util.GeneralException;
 import com.dneero.session.UserSession;
 import com.dneero.dao.Survey;
+import com.dneero.dao.Impression;
 
 import javax.faces.context.FacesContext;
 import javax.faces.application.FacesMessage;
@@ -48,7 +50,12 @@ public class ResearcherSurveyResults {
         Survey survey = Survey.get(surveyid);
         if (survey!=null){
             totalsurveyresponses = survey.getResponses().size();
-            totalsurveydisplays = survey.getImpressions().size();
+            totalsurveydisplays = 0;
+            for (Iterator<Impression> iterator = survey.getImpressions().iterator(); iterator.hasNext();) {
+                Impression impression = iterator.next();
+                totalsurveydisplays = totalsurveydisplays + impression.getTotalimpressions();
+            }
+
         }
     }
 

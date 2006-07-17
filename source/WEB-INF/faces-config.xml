@@ -125,7 +125,7 @@
 
     <managed-bean>
         <managed-bean-name>componentTypes</managed-bean-name>
-        <managed-bean-class>com.dneero.display.components.ComponentTypes</managed-bean-class>
+        <managed-bean-class>com.dneero.display.components.def.ComponentTypes</managed-bean-class>
         <managed-bean-scope>application</managed-bean-scope>
     </managed-bean>
 

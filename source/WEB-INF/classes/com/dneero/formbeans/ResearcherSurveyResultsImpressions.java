@@ -2,8 +2,13 @@ package com.dneero.formbeans;
 
 import org.apache.log4j.Logger;
 import com.dneero.dao.Survey;
+import com.dneero.dao.Impression;
+import com.dneero.dao.Blog;
 import com.dneero.util.Jsf;
-import com.dneero.display.SurveyResultsDisplay;
+
+import java.util.Iterator;
+import java.util.List;
+import java.util.ArrayList;
 
 /**
  * User: Joe Reger Jr
@@ -15,6 +20,7 @@ public class ResearcherSurveyResultsImpressions {
     Logger logger = Logger.getLogger(this.getClass().getName());
 
     private Survey survey;
+    private ArrayList<ResearcherSurveyResultsImpressionsObj> researcherSurveyResultsImpressionsObj;
 
 
     public ResearcherSurveyResultsImpressions(){
@@ -26,8 +32,23 @@ public class ResearcherSurveyResultsImpressions {
     public void loadSurvey(int surveyid){
         logger.debug("loadSurvey called");
         Survey survey = Survey.get(surveyid);
+        researcherSurveyResultsImpressionsObj = new ArrayList<ResearcherSurveyResultsImpressionsObj>();
         if (survey!=null){
-
+            logger.debug("survey.getImpressions().size()="+survey.getImpressions().size());
+            for (Iterator<Impression> iterator = survey.getImpressions().iterator(); iterator.hasNext();) {
+                Impression impression = iterator.next();
+                ResearcherSurveyResultsImpressionsObj robj = new ResearcherSurveyResultsImpressionsObj();
+                if (impression.getBlogid()>0){
+                    Blog blog = Blog.get(impression.getBlogid());
+                    if (blog!=null){
+                        robj.setBlogtitle(blog.getTitle());
+                        robj.setBlogurl(blog.getUrl());
+                    }
+                }
+                robj.setTotalimpressions(impression.getTotalimpressions());
+                researcherSurveyResultsImpressionsObj.add(robj);
+            }
+            logger.debug("done loading survey");
         }
     }
 
@@ -39,5 +60,11 @@ public class ResearcherSurveyResultsImpressions {
         this.survey = survey;
     }
 
-    
+    public ArrayList<ResearcherSurveyResultsImpressionsObj> getResearcherSurveyResultsImpressionsObj() {
+        return researcherSurveyResultsImpressionsObj;
+    }
+
+    public void setResearcherSurveyResultsImpressionsObj(ArrayList<ResearcherSurveyResultsImpressionsObj> researcherSurveyResultsImpressionsObj) {
+        this.researcherSurveyResultsImpressionsObj = researcherSurveyResultsImpressionsObj;
+    }
 }

@@ -20,6 +20,7 @@ public class Impression extends BasePersistentClass implements java.io.Serializa
      private int totalimpressions;
 
 
+
     //Validator
     public void validateRegerEntity() throws GeneralException {
 
@@ -91,5 +92,5 @@ public class Impression extends BasePersistentClass implements java.io.Serializa
         this.totalimpressions = totalimpressions;
     }
 
-
+ 
 }

@@ -6,12 +6,16 @@ import com.dneero.dao.Questionconfig;
 import com.dneero.dao.Questionresponse;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.util.GeneralException;
+import com.dneero.display.components.def.Component;
+import com.dneero.display.components.def.ComponentException;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Iterator;
 import java.util.List;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.text.NumberFormat;
+import java.text.DecimalFormat;
 
 import org.apache.log4j.Logger;
 
@@ -121,21 +125,34 @@ public class Dropdown implements Component {
 
     public String getHtmlForResult(){
         StringBuffer out = new StringBuffer();
-        out.append("<table width=100% cellpadding=0 cellspacing=0 border=0>");
+        out.append("<table width=100% cellpadding=3 cellspacing=0 border=0>");
 
         out.append("<tr>");
         out.append("<td valign=top bgcolor=#ffffff colspan=2>");
         out.append(" ");
         out.append("</td>");
         out.append("<td valign=top bgcolor=#e6e6e6 width=65>");
-        out.append("<b>Response Percent</b>");
+        out.append("<b class=smallfont>Response Percent</b>");
         out.append("</td>");
-        out.append("<td valign=top bgcolor=#e6e6e6 height=65>");
-        out.append("<b>Response Total</b>");
+        out.append("<td valign=top bgcolor=#e6e6e6 width=65>");
+        out.append("<b class=smallfont>Response Total</b>");
         out.append("</td>");
         out.append("</tr>");
 
+        String options = "";
+        for (Iterator<Questionconfig> iterator = question.getQuestionconfigs().iterator(); iterator.hasNext();) {
+            Questionconfig questionconfig = iterator.next();
+            if (questionconfig.getName().equals("options")){
+                options = questionconfig.getValue();
+            }
+        }
+        String[] optionsSplit = options.split("\\n");
         LinkedHashMap<String, Integer> answers = new LinkedHashMap();
+        for (int i = 0; i < optionsSplit.length; i++) {
+            String s = optionsSplit[i];
+            answers.put(s.trim(), 0);
+        }
+
         for (Iterator it = question.getQuestionresponses().iterator(); it.hasNext(); ) {
             Questionresponse questionresponse = (Questionresponse)it.next();
             if (questionresponse.getName().equals("response")){
@@ -154,14 +171,19 @@ public class Dropdown implements Component {
             String answer = (String)mapentry.getKey();
             int count = (Integer)mapentry.getValue();
 
-            int percentage = count/question.getQuestionresponses().size();
+            double percentage = (Double.parseDouble(String.valueOf(count))/Double.parseDouble(String.valueOf(question.getQuestionresponses().size())))*100;
+            NumberFormat formatter = DecimalFormat.getInstance();
+            formatter.setMaximumFractionDigits(0);
 
             out.append("<tr>");
-            out.append("<td valign=top bgcolor=#ffffff colspan=2>");
+            out.append("<td valign=top bgcolor=#ffffff width=130>");
             out.append(answer);
             out.append("</td>");
+            out.append("<td valign=top bgcolor=#ffffff width=300>");
+            out.append("<img src='/images/bar_dkgrey-blend.gif' width='"+percentage+"%' height='10' border=0>");
+            out.append("</td>");
             out.append("<td valign=top bgcolor=#e6e6e6>");
-            out.append(percentage);
+            out.append(String.valueOf(formatter.format(percentage)) + "%");
             out.append("</td>");
             out.append("<td valign=top bgcolor=#e6e6e6>");
             out.append(count);

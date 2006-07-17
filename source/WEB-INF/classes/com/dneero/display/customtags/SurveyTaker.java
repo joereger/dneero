@@ -14,13 +14,12 @@ import java.io.IOException;
 
 import com.dneero.util.Jsf;
 import com.dneero.util.GeneralException;
-import com.dneero.formbeans.ResearcherSurveyDetail02;
 import com.dneero.dao.Question;
 import com.dneero.dao.Survey;
 import com.dneero.dao.Response;
-import com.dneero.display.components.Component;
-import com.dneero.display.components.ComponentTypes;
-import com.dneero.display.components.ComponentException;
+import com.dneero.display.components.def.Component;
+import com.dneero.display.components.def.ComponentTypes;
+import com.dneero.display.components.def.ComponentException;
 import com.dneero.display.SurveyTakerDisplay;
 
 /**

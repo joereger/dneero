@@ -1,6 +1,4 @@
-package com.dneero.display.components;
-
-import com.dneero.dao.Blogger;
+package com.dneero.display.components.def;
 
 import javax.servlet.http.HttpServletRequest;
 

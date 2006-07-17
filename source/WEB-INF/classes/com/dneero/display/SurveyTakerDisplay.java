@@ -3,9 +3,8 @@ package com.dneero.display;
 import com.dneero.dao.Survey;
 import com.dneero.dao.Question;
 import com.dneero.dao.Blogger;
-import com.dneero.util.Jsf;
-import com.dneero.display.components.Component;
-import com.dneero.display.components.ComponentTypes;
+import com.dneero.display.components.def.Component;
+import com.dneero.display.components.def.ComponentTypes;
 
 import java.util.Iterator;
 

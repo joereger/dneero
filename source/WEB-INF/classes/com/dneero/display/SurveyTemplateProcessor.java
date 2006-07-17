@@ -4,8 +4,8 @@ import com.dneero.dao.Survey;
 import com.dneero.dao.Question;
 import com.dneero.dao.Blogger;
 import com.dneero.util.Str;
-import com.dneero.display.components.Component;
-import com.dneero.display.components.ComponentTypes;
+import com.dneero.display.components.def.Component;
+import com.dneero.display.components.def.ComponentTypes;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

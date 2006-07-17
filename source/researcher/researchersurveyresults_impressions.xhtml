@@ -15,24 +15,24 @@
 
 <h:form>
     
-    <af:table value="#{researcherSurveyResultsImpressions.survey.impressions}" bandingInterval="2" rows="50" banding="row" var="impression" rendered="#{!empty researcherSurveyResultsImpressions.survey.impressions}">
+    <af:table value="#{researcherSurveyResultsImpressions.researcherSurveyResultsImpressionsObj}" bandingInterval="2" rows="50" banding="row" var="imp">
       <af:column rendered="false">
         <f:facet name="header">
           <af:outputText value="Impressionid"/>
         </f:facet>
-        <af:outputText value="#{impression.impressionid}"/>
+        <af:outputText value="#{imp.blogtitle}"/>
       </af:column>
       <af:column>
         <f:facet name="header">
           <af:outputText value="Blog"/>
         </f:facet>
-        <af:outputText value="#{impression.blog}"/>
+        <af:outputText value="#{imp.blogurl}"/>
       </af:column>
       <af:column>
         <f:facet name="header">
           <af:outputText value="Impressions"/>
         </f:facet>
-        <af:outputText value="#{impression.totalimpressions}"/>
+        <af:outputText value="#{imp.totalimpressions}"/>
       </af:column>
     </af:table>
                       
