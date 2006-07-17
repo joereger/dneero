@@ -10,6 +10,8 @@ import com.dneero.util.GeneralException;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Iterator;
 import java.util.List;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 
@@ -100,6 +102,90 @@ public class Essay implements Component {
                 }
             }
         }
+    }
+
+
+
+    public String getHtmlForResult(){
+        StringBuffer out = new StringBuffer();
+        out.append("<table width=100% cellpadding=0 cellspacing=0 border=0>");
+
+        out.append("<tr>");
+        out.append("<td valign=top bgcolor=#ffffff colspan=2>");
+        out.append(" ");
+        out.append("</td>");
+        out.append("<td valign=top bgcolor=#e6e6e6 width=65>");
+        out.append("<b>Response Percent</b>");
+        out.append("</td>");
+        out.append("<td valign=top bgcolor=#e6e6e6 height=65>");
+        out.append("<b>Response Total</b>");
+        out.append("</td>");
+        out.append("</tr>");
+
+        LinkedHashMap<String, Integer> answers = new LinkedHashMap();
+        answers.put("Less than 100 characters", 0);
+        answers.put("Between 100 and 1000 characters", 0);
+        answers.put("Between 1000 and 2000 characters", 0);
+        answers.put("Between 2000 and 5000 characters", 0);
+        answers.put("More than 5000 characters", 0);
+        for (Iterator it = question.getQuestionresponses().iterator(); it.hasNext(); ) {
+            Questionresponse questionresponse = (Questionresponse)it.next();
+            if (questionresponse.getName().equals("response")){
+                String lengthInChars = "";
+                if (questionresponse.getValue().length()<100){
+                    lengthInChars = "Less than 100 characters";
+                } else if (questionresponse.getValue().length()>=100 && questionresponse.getValue().length()<1000){
+                    lengthInChars = "Between 100 and 1000 characters";
+                }  else if (questionresponse.getValue().length()>=1000 && questionresponse.getValue().length()<2000){
+                    lengthInChars = "Between 1000 and 2000 characters";
+                }  else if (questionresponse.getValue().length()>=2000 && questionresponse.getValue().length()<5000){
+                    lengthInChars = "Between 2000 and 5000 characters";
+                }  else if (questionresponse.getValue().length()>=5000){
+                    lengthInChars = "More than 5000 characters";
+                }
+
+                if (answers.containsKey(lengthInChars)){
+                    int currcount = (Integer)answers.get(lengthInChars);
+                    answers.put(lengthInChars, currcount+1);
+                } else {
+                    answers.put(lengthInChars, 1);
+                }
+            }
+        }
+
+        Iterator keyValuePairs = answers.entrySet().iterator();
+        for (int i = 0; i < answers.size(); i++){
+            Map.Entry mapentry = (Map.Entry) keyValuePairs.next();
+            String answer = (String)mapentry.getKey();
+            int count = (Integer)mapentry.getValue();
+
+            int percentage = count/question.getQuestionresponses().size();
+
+            out.append("<tr>");
+            out.append("<td valign=top bgcolor=#ffffff colspan=2>");
+            out.append(answer);
+            out.append("</td>");
+            out.append("<td valign=top bgcolor=#e6e6e6>");
+            out.append(percentage);
+            out.append("</td>");
+            out.append("<td valign=top bgcolor=#e6e6e6>");
+            out.append(count);
+            out.append("</td>");
+            out.append("</tr>");
+
+        }
+
+        out.append("<tr>");
+        out.append("<td valign=top align=right bgcolor=#ffffff colspan=3>");
+        out.append("<b>Total Respondents</b>");
+        out.append("</td>");
+        out.append("<td valign=top bgcolor=#e6e6e6>");
+        out.append(question.getQuestionresponses().size());
+        out.append("</td>");
+        out.append("</tr>");
+
+        out.append("</table>");
+        return out.toString();
     }
 
 

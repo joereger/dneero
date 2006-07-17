@@ -10,6 +10,8 @@ import com.dneero.util.GeneralException;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Iterator;
 import java.util.List;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 
@@ -197,6 +199,128 @@ public class Range implements Component {
                 }
             }
         }
+    }
+
+    public String getHtmlForResult(){
+        StringBuffer out = new StringBuffer();
+        out.append("<table width=100% cellpadding=0 cellspacing=0 border=0>");
+
+        out.append("<tr>");
+        out.append("<td valign=top bgcolor=#ffffff colspan=2>");
+        out.append(" ");
+        out.append("</td>");
+        out.append("<td valign=top bgcolor=#e6e6e6 width=65>");
+        out.append("<b>Response Percent</b>");
+        out.append("</td>");
+        out.append("<td valign=top bgcolor=#e6e6e6 height=65>");
+        out.append("<b>Response Total</b>");
+        out.append("</td>");
+        out.append("</tr>");
+
+
+
+        String mintitle = "Low";
+        double min = 1;
+        double step = 1;
+        double max = 5;
+        String maxtitle = "High";
+        for (Iterator<Questionconfig> iterator = question.getQuestionconfigs().iterator(); iterator.hasNext();) {
+            Questionconfig questionconfig = iterator.next();
+            if (questionconfig.getName().equals("mintitle")){
+                mintitle = questionconfig.getValue();
+            } else if (questionconfig.getName().equals("min")){
+                min = Double.parseDouble(questionconfig.getValue());
+            } else if (questionconfig.getName().equals("step")){
+                step = Double.parseDouble(questionconfig.getValue());
+            } else if (questionconfig.getName().equals("max")){
+                max = Double.parseDouble(questionconfig.getValue());
+            } else if (questionconfig.getName().equals("maxtitle")){
+                maxtitle = questionconfig.getValue();
+            }
+        }
+
+        LinkedHashMap<String, Integer> answers = new LinkedHashMap();
+        boolean createdExactlyMaxRadio = false;
+        for (double i = min; i<=max; i=i+step) {
+            if (i==max){
+                createdExactlyMaxRadio = true;
+            }
+            answers.put(String.valueOf(i), 0);
+        }
+        if (!createdExactlyMaxRadio){
+            answers.put(String.valueOf(max), 0);
+        }
+
+
+        for (Iterator it = question.getQuestionresponses().iterator(); it.hasNext(); ) {
+            Questionresponse questionresponse = (Questionresponse)it.next();
+            if (questionresponse.getName().equals("response")){
+                if (answers.containsKey(questionresponse.getValue())){
+                    int currcount = (Integer)answers.get(questionresponse.getValue());
+                    answers.put(questionresponse.getValue(), currcount+1);
+                } else {
+                    //answers.put(questionresponse.getValue(), 1);
+                }
+            }
+        }
+
+        out.append("<tr>");
+        out.append("<td valign=top bgcolor=#ffffff colspan=2>");
+        out.append(mintitle);
+        out.append("</td>");
+        out.append("<td valign=top bgcolor=#e6e6e6>");
+        out.append(" ");
+        out.append("</td>");
+        out.append("<td valign=top bgcolor=#e6e6e6>");
+        out.append(" ");
+        out.append("</td>");
+        out.append("</tr>");
+
+        Iterator keyValuePairs = answers.entrySet().iterator();
+        for (int i = 0; i < answers.size(); i++){
+            Map.Entry mapentry = (Map.Entry) keyValuePairs.next();
+            String answer = (String)mapentry.getKey();
+            int count = (Integer)mapentry.getValue();
+
+            int percentage = count/question.getQuestionresponses().size();
+
+            out.append("<tr>");
+            out.append("<td valign=top bgcolor=#ffffff colspan=2>");
+            out.append(answer);
+            out.append("</td>");
+            out.append("<td valign=top bgcolor=#e6e6e6>");
+            out.append(percentage);
+            out.append("</td>");
+            out.append("<td valign=top bgcolor=#e6e6e6>");
+            out.append(count);
+            out.append("</td>");
+            out.append("</tr>");
+
+        }
+
+        out.append("<tr>");
+        out.append("<td valign=top bgcolor=#ffffff colspan=2>");
+        out.append(maxtitle);
+        out.append("</td>");
+        out.append("<td valign=top bgcolor=#e6e6e6>");
+        out.append(" ");
+        out.append("</td>");
+        out.append("<td valign=top bgcolor=#e6e6e6>");
+        out.append(" ");
+        out.append("</td>");
+        out.append("</tr>");
+
+        out.append("<tr>");
+        out.append("<td valign=top align=right bgcolor=#ffffff colspan=3>");
+        out.append("<b>Total Respondents</b>");
+        out.append("</td>");
+        out.append("<td valign=top bgcolor=#e6e6e6>");
+        out.append(question.getQuestionresponses().size());
+        out.append("</td>");
+        out.append("</tr>");
+
+        out.append("</table>");
+        return out.toString();
     }
 
 }

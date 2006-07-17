@@ -9,6 +9,8 @@ import com.dneero.util.GeneralException;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 
@@ -99,6 +101,70 @@ public class Textbox implements Component {
                 }
             }
         }
+    }
+
+    public String getHtmlForResult(){
+        StringBuffer out = new StringBuffer();
+        out.append("<table width=100% cellpadding=0 cellspacing=0 border=0>");
+
+        out.append("<tr>");
+        out.append("<td valign=top bgcolor=#ffffff colspan=2>");
+        out.append(" ");
+        out.append("</td>");
+        out.append("<td valign=top bgcolor=#e6e6e6 width=65>");
+        out.append("<b>Response Percent</b>");
+        out.append("</td>");
+        out.append("<td valign=top bgcolor=#e6e6e6 height=65>");
+        out.append("<b>Response Total</b>");
+        out.append("</td>");
+        out.append("</tr>");
+
+        LinkedHashMap<String, Integer> answers = new LinkedHashMap();
+        for (Iterator it = question.getQuestionresponses().iterator(); it.hasNext(); ) {
+            Questionresponse questionresponse = (Questionresponse)it.next();
+            if (questionresponse.getName().equals("response")){
+                if (answers.containsKey(questionresponse.getValue())){
+                    int currcount = (Integer)answers.get(questionresponse.getValue());
+                    answers.put(questionresponse.getValue(), currcount+1);
+                } else {
+                    answers.put(questionresponse.getValue(), 1);
+                }
+            }
+        }
+
+        Iterator keyValuePairs = answers.entrySet().iterator();
+        for (int i = 0; i < answers.size(); i++){
+            Map.Entry mapentry = (Map.Entry) keyValuePairs.next();
+            String answer = (String)mapentry.getKey();
+            int count = (Integer)mapentry.getValue();
+
+            int percentage = count/question.getQuestionresponses().size();
+
+            out.append("<tr>");
+            out.append("<td valign=top bgcolor=#ffffff colspan=2>");
+            out.append(answer);
+            out.append("</td>");
+            out.append("<td valign=top bgcolor=#e6e6e6>");
+            out.append(percentage);
+            out.append("</td>");
+            out.append("<td valign=top bgcolor=#e6e6e6>");
+            out.append(count);
+            out.append("</td>");
+            out.append("</tr>");
+
+        }
+
+        out.append("<tr>");
+        out.append("<td valign=top align=right bgcolor=#ffffff colspan=3>");
+        out.append("<b>Total Respondents</b>");
+        out.append("</td>");
+        out.append("<td valign=top bgcolor=#e6e6e6>");
+        out.append(question.getQuestionresponses().size());
+        out.append("</td>");
+        out.append("</tr>");
+
+        out.append("</table>");
+        return out.toString();
     }
 
 }

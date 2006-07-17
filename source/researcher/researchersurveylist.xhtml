@@ -16,7 +16,7 @@
     <h:form>
 
         <af:table value="#{researcherSurveyList.surveys}" bandingInterval="2" rows="50" banding="row" var="survey" rendered="#{!empty researcherSurveyList.surveys}">
-          <af:column>
+          <af:column rendered="false">
             <f:facet name="header">
               <af:outputText value="Surveyid"/>
             </f:facet>
@@ -30,22 +30,19 @@
           </af:column>
           <af:column>
             <f:facet name="header">
-              <af:outputText value="Description"/>
+              <af:outputText value=" "/>
             </f:facet>
-            <af:outputText value="#{survey.description}"/>
-          </af:column>
-          <af:column>
-            <f:facet name="header">
-              <af:outputText value="Willing to Pay"/>
-            </f:facet>
-            <af:outputText value="#{survey.willingtopayperrespondent}"/>
+            <h:commandLink action="#{researcherSurveyDetail01.beginView}">
+                <h:outputText value="Edit" escape="false" />
+                <f:param name="surveyid" value="#{survey.surveyid}" />
+            </h:commandLink>
           </af:column>
           <af:column>
             <f:facet name="header">
               <af:outputText value=" "/>
             </f:facet>
-            <h:commandLink action="#{researcherSurveyDetail01.beginView}">
-                <h:outputText value="View" escape="false" />
+            <h:commandLink action="#{researcherSurveyResults.beginView}">
+                <h:outputText value="Results" escape="false" />
                 <f:param name="surveyid" value="#{survey.surveyid}" />
             </h:commandLink>
           </af:column>

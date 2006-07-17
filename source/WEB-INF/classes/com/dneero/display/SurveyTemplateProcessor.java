@@ -30,26 +30,6 @@ public class SurveyTemplateProcessor {
         this.blogger = blogger;
     }
 
-//    public String getSurveyForDisplay(){
-//        if (survey.getTemplate().length()>0){
-//            logger.debug("survey.getTemplate().length()>0 = true");
-//            return applyTemplate();
-//        } else {
-//            logger.debug("survey.getTemplate().length()>0 = false");
-//            StringBuffer out = new StringBuffer();
-//            for (Iterator<Question> iterator = survey.getQuestions().iterator(); iterator.hasNext();) {
-//                Question question = iterator.next();
-//                logger.debug("found question.getQuestionid()="+question.getQuestionid());
-//                Component component = ComponentTypes.getComponentByID(question.getComponenttype(), question, blogger);
-//                logger.debug("found component.getName()="+component.getName());
-//                out.append(component.getHtmlForDisplay());
-//                if (iterator.hasNext()){
-//                    out.append("<br/>");
-//                }
-//            }
-//            return out.toString();
-//        }
-//    }
 
     public String getSurveyForDisplay(){
         StringBuffer out = new StringBuffer();

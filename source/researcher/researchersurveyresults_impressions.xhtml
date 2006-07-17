@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:t="http://myfaces.apache.org/tomahawk"
+      xmlns:d="http://dneero.com/taglib"
+      xmlns:af="http://xmlns.oracle.com/adf/faces">
+
+<ui:composition template="/template/template-facelets.xhtml">
+    <ui:define name="body">
+    <d:authorization acl="researcher" redirectonfail="true"/>
+
+<h:form>
+    
+    <af:table value="#{researcherSurveyResultsImpressions.survey.impressions}" bandingInterval="2" rows="50" banding="row" var="impression" rendered="#{!empty researcherSurveyResultsImpressions.survey.impressions}">
+      <af:column rendered="false">
+        <f:facet name="header">
+          <af:outputText value="Impressionid"/>
+        </f:facet>
+        <af:outputText value="#{impression.impressionid}"/>
+      </af:column>
+      <af:column>
+        <f:facet name="header">
+          <af:outputText value="Blog"/>
+        </f:facet>
+        <af:outputText value="#{impression.blog}"/>
+      </af:column>
+      <af:column>
+        <f:facet name="header">
+          <af:outputText value="Impressions"/>
+        </f:facet>
+        <af:outputText value="#{impression.totalimpressions}"/>
+      </af:column>
+    </af:table>
+                      
+</h:form>
+
+</ui:define>
+
+
+</ui:composition>
+</html>

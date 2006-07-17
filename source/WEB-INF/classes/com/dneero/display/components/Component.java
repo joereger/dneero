@@ -16,6 +16,7 @@ public interface Component {
     public int getID();
     public String getHtmlForInput();
     public String getHtmlForDisplay();
+    public String getHtmlForResult();
     public void validateAnswer(HttpServletRequest request) throws ComponentException;
     public void processAnswer(HttpServletRequest request) throws ComponentException;
 

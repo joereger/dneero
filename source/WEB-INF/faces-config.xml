@@ -136,6 +136,30 @@
     </managed-bean>
 
     <managed-bean>
+        <managed-bean-name>researcherSurveyResults</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.ResearcherSurveyResults</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>researcherSurveyResultsQuestions</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.ResearcherSurveyResultsQuestions</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>researcherSurveyResultsImpressions</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.ResearcherSurveyResultsImpressions</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>researcherSurveyResultsQuestiondetail</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.ResearcherSurveyResultsQuestiondetail</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
         <managed-bean-name>bloggerBlogDetail</managed-bean-name>
         <managed-bean-class>com.dneero.formbeans.BloggerBlogDetail</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
@@ -393,6 +417,22 @@
         <navigation-case>
             <from-outcome>researchersurveydetail_06</from-outcome>
             <to-view-id>/researcher/researchersurveydetail_06.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>researchersurveyresults</from-outcome>
+            <to-view-id>/researcher/researchersurveyresults.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>researchersurveyresultsquestions</from-outcome>
+            <to-view-id>/researcher/researchersurveyresults_questions.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>researchersurveyresultsimpressions</from-outcome>
+            <to-view-id>/researcher/researchersurveyresults_impressions.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>researchersurveyresultsquestiondetail</from-outcome>
+            <to-view-id>/researcher/researchersurveyresults_questiondetail.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>researcherdetails</from-outcome>
