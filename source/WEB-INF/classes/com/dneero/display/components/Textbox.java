@@ -109,7 +109,7 @@ public class Textbox implements Component {
 
     public String getHtmlForResult(){
         StringBuffer out = new StringBuffer();
-        out.append("<table width=100% cellpadding=3 cellspacing=0 border=0>");
+        out.append("<table width=100% cellpadding=3 cellspacing=1 border=0>");
 
         out.append("<tr>");
         out.append("<td valign=top bgcolor=#ffffff colspan=2>");
@@ -165,7 +165,7 @@ public class Textbox implements Component {
 
         out.append("<tr>");
         out.append("<td valign=top align=right bgcolor=#ffffff colspan=3>");
-        out.append("<b>Total Respondents</b>");
+        out.append("<b>Total</b>");
         out.append("</td>");
         out.append("<td valign=top bgcolor=#e6e6e6>");
         out.append(question.getQuestionresponses().size());
