@@ -209,6 +209,11 @@
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
     <managed-bean>
+        <managed-bean-name>researcherSurveyDetail02matrix</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.ResearcherSurveyDetail02matrix</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
         <managed-bean-name>researcherSurveyDetail02essay</managed-bean-name>
         <managed-bean-class>com.dneero.formbeans.ResearcherSurveyDetail02essay</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
@@ -393,6 +398,10 @@
         <navigation-case>
             <from-outcome>researchersurveydetail_02_textbox</from-outcome>
             <to-view-id>/researcher/researchersurveydetail_02_textbox.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>researchersurveydetail_02_matrix</from-outcome>
+            <to-view-id>/researcher/researchersurveydetail_02_matrix.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>researchersurveydetail_02_essay</from-outcome>

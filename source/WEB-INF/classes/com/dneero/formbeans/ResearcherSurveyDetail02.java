@@ -82,20 +82,23 @@ public class ResearcherSurveyDetail02 {
             componenttype = Integer.parseInt(tmpComponenttype);
         }
 
-        if (componenttype== Textbox.ID){
+        if (componenttype==Textbox.ID){
             return "researchersurveydetail_02_textbox";
         }
-        if (componenttype== Essay.ID){
+        if (componenttype==Essay.ID){
             return "researchersurveydetail_02_essay";
         }
-        if (componenttype== Dropdown.ID){
+        if (componenttype==Dropdown.ID){
             return "researchersurveydetail_02_dropdown";
         }
-        if (componenttype== Checkboxes.ID){
+        if (componenttype==Checkboxes.ID){
             return "researchersurveydetail_02_checkboxes";
         }
-        if (componenttype== Range.ID){
+        if (componenttype==Range.ID){
             return "researchersurveydetail_02_range";
+        }
+        if (componenttype==Matrix.ID){
+            return "researchersurveydetail_02_matrix";
         }
 
         Jsf.setFacesMessage("Couldn't find componenttype="+componenttype);
@@ -120,6 +123,9 @@ public class ResearcherSurveyDetail02 {
         }
         if (newquestioncomponenttype== Range.ID){
             return "researchersurveydetail_02_range";
+        }
+        if (newquestioncomponenttype==Matrix.ID){
+            return "researchersurveydetail_02_matrix";
         }
 
         return "researchersurveydetail_02_textbox";
