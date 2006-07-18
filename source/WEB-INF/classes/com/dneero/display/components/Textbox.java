@@ -9,10 +9,7 @@ import com.dneero.display.components.def.Component;
 import com.dneero.display.components.def.ComponentException;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 import java.text.NumberFormat;
 import java.text.DecimalFormat;
 
@@ -123,6 +120,7 @@ public class Textbox implements Component {
         out.append("</td>");
         out.append("</tr>");
 
+        //Get answers
         LinkedHashMap<String, Integer> answers = new LinkedHashMap();
         for (Iterator it = question.getQuestionresponses().iterator(); it.hasNext(); ) {
             Questionresponse questionresponse = (Questionresponse)it.next();
@@ -136,6 +134,94 @@ public class Textbox implements Component {
             }
         }
 
+        
+
+
+        //Display
+        int maxtodisplay = 10;
+        if (answers.size()<maxtodisplay){
+            maxtodisplay = answers.size();
+        }
+        Iterator keyValuePairs = answers.entrySet().iterator();
+        for (int i = 0; i < maxtodisplay; i++){
+            Map.Entry mapentry = (Map.Entry) keyValuePairs.next();
+            String answer = (String)mapentry.getKey();
+            int count = (Integer)mapentry.getValue();
+
+            double percentage = (Double.parseDouble(String.valueOf(count))/Double.parseDouble(String.valueOf(question.getQuestionresponses().size())))*100;
+            NumberFormat formatter = DecimalFormat.getInstance();
+            formatter.setMaximumFractionDigits(0);
+
+            out.append("<tr>");
+            out.append("<td valign=top bgcolor=#ffffff width=130>");
+            out.append(answer);
+            out.append("</td>");
+            out.append("<td valign=top bgcolor=#ffffff width=300>");
+            out.append("<img src='/images/bar_dkgrey-blend.gif' width='"+percentage+"%' height='10' border=0>");
+            out.append("</td>");
+            out.append("<td valign=top bgcolor=#e6e6e6>");
+            out.append(String.valueOf(formatter.format(percentage)) + "%");
+            out.append("</td>");
+            out.append("<td valign=top bgcolor=#e6e6e6>");
+            out.append(count);
+            out.append("</td>");
+            out.append("</tr>");
+
+        }
+
+        out.append("<tr>");
+        out.append("<td valign=top align=right bgcolor=#ffffff colspan=3>");
+        out.append("<b>Total</b>");
+        out.append("</td>");
+        out.append("<td valign=top bgcolor=#e6e6e6>");
+        out.append(question.getQuestionresponses().size());
+        out.append("</td>");
+        out.append("</tr>");
+
+        out.append("<tr>");
+        out.append("<td valign=top align=right bgcolor=#ffffff colspan=4>");
+        out.append("<a href='researchersurveyresults_questiondetail.jsf?questionid="+question.getQuestionid()+"'><b>All Responses</b></a>");
+        out.append("</td>");
+        out.append("</tr>");
+
+        out.append("</table>");
+        return out.toString();
+    }
+
+    public String getHtmlForResultDetail(){
+        StringBuffer out = new StringBuffer();
+        out.append("<table width=100% cellpadding=3 cellspacing=1 border=0>");
+
+        out.append("<tr>");
+        out.append("<td valign=top bgcolor=#ffffff colspan=2>");
+        out.append(" ");
+        out.append("</td>");
+        out.append("<td valign=top bgcolor=#e6e6e6 width=65>");
+        out.append("<b class=smallfont>Response Percent</b>");
+        out.append("</td>");
+        out.append("<td valign=top bgcolor=#e6e6e6 width=65>");
+        out.append("<b class=smallfont>Response Total</b>");
+        out.append("</td>");
+        out.append("</tr>");
+
+        //Get answers
+        LinkedHashMap<String, Integer> answers = new LinkedHashMap();
+        for (Iterator it = question.getQuestionresponses().iterator(); it.hasNext(); ) {
+            Questionresponse questionresponse = (Questionresponse)it.next();
+            if (questionresponse.getName().equals("response")){
+                if (answers.containsKey(questionresponse.getValue())){
+                    int currcount = (Integer)answers.get(questionresponse.getValue());
+                    answers.put(questionresponse.getValue(), currcount+1);
+                } else {
+                    answers.put(questionresponse.getValue(), 1);
+                }
+            }
+        }
+
+
+
+
+        //Display
         Iterator keyValuePairs = answers.entrySet().iterator();
         for (int i = 0; i < answers.size(); i++){
             Map.Entry mapentry = (Map.Entry) keyValuePairs.next();

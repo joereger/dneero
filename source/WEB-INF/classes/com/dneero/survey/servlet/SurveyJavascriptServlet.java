@@ -41,24 +41,8 @@ public class SurveyJavascriptServlet extends HttpServlet {
             user = User.get(Integer.parseInt(request.getParameter("userid")));
         }
 
-        if (survey!=null && user!=null){
-            String referer = request.getHeader("referer");
-            logger.debug("referer=" + referer);
-
-            //Find blogid
-            Blog blog=null;
-            if (user.getBlogger()!=null && referer!=null){
-                for (Iterator it = user.getBlogger().getBlogs().iterator(); it.hasNext(); ) {
-                    Blog blogTmp = (Blog)it.next();
-                    if (referer.indexOf(blogTmp.getUrl())>0){
-                        blog = blogTmp;
-                        break;
-                    }
-                }
-            }
-
-            //Record
-            RecordImpression.record(survey, user, blog, request);
+        if (survey!=null){
+            RecordImpression.record(survey, request);
         }
 
         String output = SurveyAsHtml.getHtml(survey, user);

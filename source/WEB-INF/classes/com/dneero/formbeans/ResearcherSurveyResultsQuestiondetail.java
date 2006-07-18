@@ -2,8 +2,15 @@ package com.dneero.formbeans;
 
 import org.apache.log4j.Logger;
 import com.dneero.dao.Survey;
+import com.dneero.dao.Question;
+import com.dneero.dao.Blogger;
 import com.dneero.util.Jsf;
 import com.dneero.display.SurveyResultsDisplay;
+import com.dneero.display.components.def.Component;
+import com.dneero.display.components.def.ComponentTypes;
+import com.dneero.session.UserSession;
+
+import javax.faces.context.FacesContext;
 
 /**
  * User: Joe Reger Jr
@@ -19,15 +26,21 @@ public class ResearcherSurveyResultsQuestiondetail {
 
     public ResearcherSurveyResultsQuestiondetail(){
         logger.debug("Instanciating object.");
-        loadSurvey(Jsf.getUserSession().getCurrentSurveyid());
+        loadQuestion(Jsf.getUserSession().getCurrentSurveyid());
     }
 
 
-    public void loadSurvey(int surveyid){
+    public void loadQuestion(int surveyid){
         logger.debug("loadSurvey called");
         Survey survey = Survey.get(surveyid);
         if (survey!=null){
-            results = SurveyResultsDisplay.getHtmlForResults(survey);
+            String tmpQuestionid = (String) FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("questionid");
+            if (com.dneero.util.Num.isinteger(tmpQuestionid)){
+                logger.debug("beginView called: found tmpQuestionid in request param="+tmpQuestionid);
+                Question question = Question.get(Integer.parseInt(tmpQuestionid));
+                Component component = ComponentTypes.getComponentByID(question.getComponenttype(), question, new Blogger());
+                results = component.getHtmlForResultDetail();
+            }
         }
     }
 

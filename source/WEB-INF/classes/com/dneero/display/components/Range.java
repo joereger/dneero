@@ -336,4 +336,8 @@ public class Range implements Component {
         return out.toString();
     }
 
+    public String getHtmlForResultDetail(){
+        return getHtmlForResult();
+    }
+
 }

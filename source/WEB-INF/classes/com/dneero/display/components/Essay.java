@@ -192,7 +192,30 @@ public class Essay implements Component {
         out.append("</td>");
         out.append("</tr>");
 
+        out.append("<tr>");
+        out.append("<td valign=top align=right bgcolor=#ffffff colspan=4>");
+        out.append("<a href='researchersurveyresults_questiondetail.jsf?questionid="+question.getQuestionid()+"'><b>All Essay Responses</b></a>");
+        out.append("</td>");
+        out.append("</tr>");
+
         out.append("</table>");
+        return out.toString();
+    }
+
+    public String getHtmlForResultDetail(){
+        StringBuffer out = new StringBuffer();
+        int i = 0;
+        for (Iterator it = question.getQuestionresponses().iterator(); it.hasNext(); ) {
+            Questionresponse questionresponse = (Questionresponse)it.next();
+            if (questionresponse.getName().equals("response")){
+                i = i + 1;
+                out.append("<b>Response " + i + "</b>");
+                out.append("<br/>");
+                out.append(questionresponse.getValue());
+                out.append("<br/>");
+                out.append("<br/>");
+            }
+        }
         return out.toString();
     }
 

@@ -205,4 +205,8 @@ public class Dropdown implements Component {
         return out.toString();
     }
 
+    public String getHtmlForResultDetail(){
+        return getHtmlForResult();
+    }
+
 }
