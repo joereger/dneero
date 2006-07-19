@@ -15,6 +15,9 @@
         <property name="blogid" type="int">
             <column name="blogid" not-null="true" />
         </property>
+        <property name="referer" type="string">
+            <column name="referer" />
+        </property>
         <property name="totalimpressions" type="int">
             <column name="totalimpressions" not-null="true" />
         </property>

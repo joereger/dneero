@@ -46,6 +46,10 @@ public class SurveyJavascriptServlet extends HttpServlet {
         }
 
         String output = SurveyAsHtml.getHtml(survey, user);
+        //output = output.replaceAll("\\r\\n", "\"+\\\n\"");
+        //output = output.replaceAll("\\n\\r", "\"+\\\n\"");
+        output = output.replaceAll("\\n", "\"+\\\n\"");
+        output = output.replaceAll("\\r", "\"+\\\n\"");
         out.print("document.write(\""+output+"\");"+"\n");
 
     }

@@ -10,6 +10,7 @@ public class ResearcherSurveyResultsImpressionsObj {
     private String blogtitle;
     private String blogurl;
     private int totalimpressions;
+    private String referer;
 
     public String getBlogtitle() {
         return blogtitle;
@@ -35,4 +36,11 @@ public class ResearcherSurveyResultsImpressionsObj {
         this.totalimpressions = totalimpressions;
     }
 
+    public String getReferer() {
+        return referer;
+    }
+
+    public void setReferer(String referer) {
+        this.referer = referer;
+    }
 }

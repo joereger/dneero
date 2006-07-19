@@ -16,9 +16,15 @@
     <h:form>
 
         <af:table value="#{researcherSurveyList.surveys}" bandingInterval="2" rows="50" banding="row" var="survey" rendered="#{!empty researcherSurveyList.surveys}">
+          <af:column>
+            <f:facet name="header">
+              <af:outputText value=""/>
+            </f:facet>
+            <h:graphicImage url="/images/misc-green.png"></h:graphicImage>
+          </af:column>
           <af:column rendered="true">
             <f:facet name="header">
-              <af:outputText value="Surveyid"/>
+              <af:outputText value="Id"/>
             </f:facet>
             <af:outputText value="#{survey.surveyid}"/>
           </af:column>

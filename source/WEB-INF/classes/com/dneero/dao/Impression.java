@@ -17,6 +17,7 @@ public class Impression extends BasePersistentClass implements java.io.Serializa
      private int impressionid;
      private int surveyid;
      private int blogid;
+     private String referer;
      private int totalimpressions;
 
 
@@ -92,5 +93,11 @@ public class Impression extends BasePersistentClass implements java.io.Serializa
         this.totalimpressions = totalimpressions;
     }
 
- 
+    public String getReferer() {
+        return referer;
+    }
+
+    public void setReferer(String referer) {
+        this.referer = referer;
+    }
 }

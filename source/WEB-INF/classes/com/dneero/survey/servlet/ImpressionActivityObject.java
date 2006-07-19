@@ -10,6 +10,7 @@ public class ImpressionActivityObject {
     //These are the things we track on each impression
     private int surveyid;
     private int blogid;
+    private String referer;
 
     public int getSurveyid() {
         return surveyid;
@@ -27,4 +28,11 @@ public class ImpressionActivityObject {
         this.blogid = blogid;
     }
 
+    public String getReferer() {
+        return referer;
+    }
+
+    public void setReferer(String referer) {
+        this.referer = referer;
+    }
 }

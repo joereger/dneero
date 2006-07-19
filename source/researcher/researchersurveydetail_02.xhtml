@@ -28,7 +28,13 @@
             <af:table value="#{researcherSurveyQuestionList.questions}" bandingInterval="2" rows="50" banding="row" var="question" rendered="#{!empty researcherSurveyQuestionList.questions}">
               <af:column>
                 <f:facet name="header">
-                  <af:outputText value="Questionid"/>
+                  <af:outputText value=""/>
+                </f:facet>
+                <h:graphicImage url="/images/question.png"></h:graphicImage>
+              </af:column>
+              <af:column>
+                <f:facet name="header">
+                  <af:outputText value="Id"/>
                 </f:facet>
                 <af:outputText value="#{question.questionid}"/>
               </af:column>
@@ -53,6 +59,11 @@
                     <f:param name="questionid" value="#{question.questionid}" />
                     <f:param name="componenttype" value="#{question.componenttype}" />
                 </h:commandLink>
+              </af:column>
+              <af:column>
+                <f:facet name="header">
+                  <af:outputText value=" "/>
+                </f:facet>
                 <h:commandLink action="#{researcherSurveyDetail02.deleteQuestion}">
                     <h:outputText value="Del" escape="false" />
                     <f:param name="questionid" value="#{question.questionid}" />

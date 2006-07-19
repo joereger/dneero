@@ -46,6 +46,7 @@ public class ResearcherSurveyResultsImpressions {
                     }
                 }
                 robj.setTotalimpressions(impression.getTotalimpressions());
+                robj.setReferer(impression.getReferer());
                 researcherSurveyResultsImpressionsObj.add(robj);
             }
             logger.debug("done loading survey");

@@ -3,11 +3,14 @@ package com.dneero.survey.servlet;
 import com.dneero.dao.Survey;
 import com.dneero.dao.User;
 import com.dneero.dao.Blog;
+import com.dneero.dao.hibernate.HibernateUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Iterator;
+import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.hibernate.criterion.Restrictions;
 
 /**
  * User: Joe Reger Jr
@@ -20,6 +23,9 @@ public class RecordImpression {
         Logger logger = Logger.getLogger(RecordImpression.class);
 
         String referer = request.getHeader("referer");
+        if (referer==null){
+            referer="";
+        }
         logger.debug("referer=" + referer);
 
         //Find user
@@ -30,22 +36,29 @@ public class RecordImpression {
 
         //Find blogid
         Blog blog=null;
-        if (user.getBlogger()!=null && referer!=null){
+        if (user.getBlogger()!=null && referer!=null && !referer.equals("")){
+            logger.debug("user.getBlogger() not null");
             for (Iterator it = user.getBlogger().getBlogs().iterator(); it.hasNext(); ) {
                 Blog blogTmp = (Blog)it.next();
-                if (referer.indexOf(blogTmp.getUrl())>0){
+                logger.debug("blogTmp.getUrl()="+blogTmp.getUrl());
+                logger.debug("referer.indexOf(blogTmp.getUrl())="+referer.indexOf(blogTmp.getUrl()));
+                if (referer.indexOf(blogTmp.getUrl())>=0){
+                    logger.debug("setting blog=blogTmp");
                     blog = blogTmp;
-                    break;
                 }
             }
         }
 
+
         //Create an IAO
         ImpressionActivityObject iao = new ImpressionActivityObject();
         iao.setSurveyid(survey.getSurveyid());
+        iao.setReferer(referer);
         if (blog!=null){
+            logger.debug("iao: blog.getBlogid()="+blog.getBlogid());
             iao.setBlogid(blog.getBlogid());
         } else {
+            logger.debug("iao: blog is null");
             iao.setBlogid(0);
         }
 

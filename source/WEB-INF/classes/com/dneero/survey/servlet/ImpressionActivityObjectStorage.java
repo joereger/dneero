@@ -21,7 +21,7 @@ public class ImpressionActivityObjectStorage {
         Logger logger = Logger.getLogger(ImpressionActivityObjectStorage.class);
         Impression impression = null;
 
-        List<Impression> impressions = HibernateUtil.getSession().createQuery("from Impression where surveyid='"+iao.getSurveyid()+"' and blogid='"+iao.getBlogid()+"'").list();
+        List<Impression> impressions = HibernateUtil.getSession().createQuery("from Impression where surveyid='"+iao.getSurveyid()+"' and referer='"+iao.getReferer()+"'").list();
         if (impressions.size()>0){
             for (Iterator it = impressions.iterator(); it.hasNext(); ) {
                 impression = (Impression)it.next();
@@ -34,6 +34,8 @@ public class ImpressionActivityObjectStorage {
             impression.setBlogid(iao.getBlogid());
             impression.setTotalimpressions(1);
         }
+
+        impression.setReferer(iao.getReferer());
 
         try{
             impression.save();

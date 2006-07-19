@@ -22,7 +22,13 @@
     <af:table value="#{bloggerBlogsList.blogs}" bandingInterval="2" rows="15" banding="row" var="blog" rendered="#{!empty bloggerBlogsList.blogs}">
       <af:column>
         <f:facet name="header">
-          <af:outputText value="Blogid"/>
+          <af:outputText value=""/>
+        </f:facet>
+        <h:graphicImage url="/images/web.png"></h:graphicImage>
+      </af:column>
+      <af:column>
+        <f:facet name="header">
+          <af:outputText value="Id"/>
         </f:facet>
         <af:outputText value="#{blog.blogid}"/>
       </af:column>

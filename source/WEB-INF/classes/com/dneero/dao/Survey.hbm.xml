@@ -28,7 +28,7 @@
             <one-to-many class="com.dneero.dao.Response" not-found="ignore"></one-to-many>
         </set>
 
-        <set name="impressions" inverse="true" cascade="all-delete-orphan">
+        <set name="impressions" inverse="true" order-by="totalimpressions desc" cascade="all-delete-orphan">
             <cache usage="nonstrict-read-write"/>
             <key column="surveyid"></key>
             <one-to-many class="com.dneero.dao.Impression" not-found="ignore"></one-to-many>
