@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='utf-8'?>
+<quartz xmlns="http://www.opensymphony.com/quartz/JobSchedulingData"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.opensymphony.com/quartz/JobSchedulingData
+  http://www.opensymphony.com/quartz/xml/job_scheduling_data_1_5.xsd"
+  version="1.5">
+    <job>
+        <job-detail>
+          <name>surveyClose</name>
+          <group>surveyJobs</group>
+          <job-class>com.dneero.scheduledjobs.CloseSurveys</job-class>
+          <volatility>false</volatility>
+          <durability>false</durability>
+          <recover>false</recover>
+        </job-detail>
+        <trigger>
+          <!-- Sample cron triggers: http://www.opensymphony.com/quartz/wikidocs/TutorialLesson6.html -->
+          <cron>
+            <name>surveyCloseTrigger</name>
+            <group>surveyTriggers</group>
+            <job-name>surveyClose</job-name>
+            <job-group>surveyJobs</job-group>
+            <!-- every two minutes -->
+            <cron-expression>0 0/2 * * * ?</cron-expression>
+          </cron>
+        </trigger>
+    </job>
+</quartz>

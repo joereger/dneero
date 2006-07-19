@@ -189,6 +189,12 @@
         <url-pattern>/survey.js</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>quartz</servlet-name>
+        <servlet-class>org.quartz.ee.servlet.QuartzInitializerServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
