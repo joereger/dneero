@@ -28,6 +28,12 @@ public class RecordImpression {
         }
         logger.debug("referer=" + referer);
 
+        String ip = request.getRemoteAddr();
+        if (ip==null){
+            ip="";
+        }
+        logger.debug("ip=" + ip);
+
         //Find user
         User user = null;
         if (request.getParameter("userid")!=null && com.dneero.util.Num.isinteger(request.getParameter("userid"))){
@@ -54,6 +60,7 @@ public class RecordImpression {
         ImpressionActivityObject iao = new ImpressionActivityObject();
         iao.setSurveyid(survey.getSurveyid());
         iao.setReferer(referer);
+        iao.setIp(ip);
         if (blog!=null){
             logger.debug("iao: blog.getBlogid()="+blog.getBlogid());
             iao.setBlogid(blog.getBlogid());

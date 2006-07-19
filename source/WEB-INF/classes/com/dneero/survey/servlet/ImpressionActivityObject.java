@@ -11,6 +11,7 @@ public class ImpressionActivityObject {
     private int surveyid;
     private int blogid;
     private String referer;
+    private String ip;
 
     public int getSurveyid() {
         return surveyid;
@@ -34,5 +35,13 @@ public class ImpressionActivityObject {
 
     public void setReferer(String referer) {
         this.referer = referer;
+    }
+
+    public String getIp() {
+        return ip;
+    }
+
+    public void setIp(String ip) {
+        this.ip = ip;
     }
 }

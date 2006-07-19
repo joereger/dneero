@@ -2,11 +2,12 @@ package com.dneero.survey.servlet;
 
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.dao.Impression;
+import com.dneero.dao.Impressiondetail;
 import com.dneero.util.GeneralException;
-import com.dneero.util.Jsf;
 
 import java.util.List;
 import java.util.Iterator;
+import java.util.Date;
 
 import org.apache.log4j.Logger;
 
@@ -42,6 +43,20 @@ public class ImpressionActivityObjectStorage {
         } catch (GeneralException gex){
             logger.debug("saveAction failed: " + gex.getErrorsAsSingleString());
         }
+
+        Impressiondetail impressiondetail = new Impressiondetail();
+        impressiondetail.setImpressionid(impression.getImpressionid());
+        impressiondetail.setImpressiondate(new Date());
+        impressiondetail.setIp(iao.getIp());
+        
+        impression.getImpressiondetails().add(impressiondetail);
+
+        try{
+            impression.save();
+        } catch (GeneralException gex){
+            logger.debug("saveAction failed: " + gex.getErrorsAsSingleString());
+        }
+
     }
 
 }

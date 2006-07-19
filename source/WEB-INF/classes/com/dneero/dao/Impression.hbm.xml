@@ -8,7 +8,12 @@
         <id name="impressionid" type="int">
             <column name="impressionid" />
             <generator class="native" />
-        </id>        
+        </id>
+        <set name="impressiondetails" inverse="true" order-by="impressiondate desc" cascade="all-delete-orphan">
+            <cache usage="nonstrict-read-write"/>
+            <key column="impressionid"></key>
+            <one-to-many class="com.dneero.dao.Impressiondetail" not-found="ignore"></one-to-many>
+        </set>
         <property name="surveyid" type="int">
             <column name="surveyid" not-null="true" />
         </property>
