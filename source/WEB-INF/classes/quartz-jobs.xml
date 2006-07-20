@@ -4,11 +4,12 @@
   xsi:schemaLocation="http://www.opensymphony.com/quartz/JobSchedulingData
   http://www.opensymphony.com/quartz/xml/job_scheduling_data_1_5.xsd"
   version="1.5">
+
     <job>
         <job-detail>
-          <name>surveyClose</name>
+          <name>closeSurveysByDate</name>
           <group>surveyJobs</group>
-          <job-class>com.dneero.scheduledjobs.CloseSurveys</job-class>
+          <job-class>com.dneero.scheduledjobs.CloseSurveysByDate</job-class>
           <volatility>false</volatility>
           <durability>false</durability>
           <recover>false</recover>
@@ -16,13 +17,80 @@
         <trigger>
           <!-- Sample cron triggers: http://www.opensymphony.com/quartz/wikidocs/TutorialLesson6.html -->
           <cron>
-            <name>surveyCloseTrigger</name>
+            <name>closeSurveysByDateTrigger</name>
             <group>surveyTriggers</group>
-            <job-name>surveyClose</job-name>
+            <job-name>closeSurveysByDate</job-name>
             <job-group>surveyJobs</job-group>
             <!-- every two minutes -->
-            <cron-expression>0 0/2 * * * ?</cron-expression>
+            <cron-expression>0 0/1 * * * ?</cron-expression>
           </cron>
         </trigger>
     </job>
+
+    <job>
+        <job-detail>
+          <name>closeSurveysByNumRespondents</name>
+          <group>surveyJobs</group>
+          <job-class>com.dneero.scheduledjobs.CloseSurveysByNumRespondents</job-class>
+          <volatility>false</volatility>
+          <durability>false</durability>
+          <recover>false</recover>
+        </job-detail>
+        <trigger>
+          <!-- Sample cron triggers: http://www.opensymphony.com/quartz/wikidocs/TutorialLesson6.html -->
+          <cron>
+            <name>closeSurveysByNumRespondentsTrigger</name>
+            <group>surveyTriggers</group>
+            <job-name>closeSurveysByNumRespondents</job-name>
+            <job-group>surveyJobs</job-group>
+            <!-- every two minutes -->
+            <cron-expression>0 0/10 * * * ?</cron-expression>
+          </cron>
+        </trigger>
+    </job>
+
+    <job>
+        <job-detail>
+          <name>generateInvoicesForLongOpenSurveys</name>
+          <group>surveyJobs</group>
+          <job-class>com.dneero.scheduledjobs.GenerateInvoicesForLongOpenSurveys</job-class>
+          <volatility>false</volatility>
+          <durability>false</durability>
+          <recover>false</recover>
+        </job-detail>
+        <trigger>
+          <!-- Sample cron triggers: http://www.opensymphony.com/quartz/wikidocs/TutorialLesson6.html -->
+          <cron>
+            <name>generateInvoicesForLongOpenSurveysTrigger</name>
+            <group>surveyTriggers</group>
+            <job-name>generateInvoicesForLongOpenSurveys</job-name>
+            <job-group>surveyJobs</job-group>
+            <!-- every two minutes -->
+            <cron-expression>0 0/10 * * * ?</cron-expression>
+          </cron>
+        </trigger>
+    </job>
+
+    <job>
+        <job-detail>
+          <name>pendingToOpenSurveys</name>
+          <group>surveyJobs</group>
+          <job-class>com.dneero.scheduledjobs.PendingToOpenSurveys</job-class>
+          <volatility>false</volatility>
+          <durability>false</durability>
+          <recover>false</recover>
+        </job-detail>
+        <trigger>
+          <!-- Sample cron triggers: http://www.opensymphony.com/quartz/wikidocs/TutorialLesson6.html -->
+          <cron>
+            <name>pendingToOpenSurveysTrigger</name>
+            <group>surveyTriggers</group>
+            <job-name>pendingToOpenSurveys</job-name>
+            <job-group>surveyJobs</job-group>
+            <!-- every two minutes -->
+            <cron-expression>0 0/1 * * * ?</cron-expression>
+          </cron>
+        </trigger>
+    </job>
+
 </quartz>

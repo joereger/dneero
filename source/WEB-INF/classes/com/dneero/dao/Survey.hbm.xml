@@ -36,9 +36,18 @@
 
         <one-to-one name="surveycriteria" class="com.dneero.dao.Surveycriteria" property-ref="surveyid" cascade="all"/>
 
+        <set name="invoices" inverse="true" order-by="invoiceid asc" cascade="all-delete-orphan">
+            <cache usage="nonstrict-read-write"/>
+            <key column="surveyid"></key>
+            <one-to-many class="com.dneero.dao.Invoice" not-found="ignore"></one-to-many>
+        </set>
+
         <!--<one-to-one name="researcherbilling" class="com.dneero.dao.Researcherbilling" cascade="save-update"/>-->
         <property name="researcherid" type="int">
             <column name="researcherid" not-null="true" />
+        </property>
+        <property name="status" type="int">
+            <column name="status" not-null="true" />
         </property>
         <property name="title" type="string">
             <column name="title" not-null="true" />
@@ -70,5 +79,6 @@
         <property name="template" type="string">
             <column name="template" length="65535" />
         </property>
+
     </class>
 </hibernate-mapping>

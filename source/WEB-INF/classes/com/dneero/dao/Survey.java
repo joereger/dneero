@@ -19,9 +19,12 @@ import org.apache.log4j.Logger;
 
 public class Survey extends BasePersistentClass implements java.io.Serializable, RegerEntity {
 
+    public static int STATUS_DRAFT = 1;
+    public static int STATUS_WAITINGFORSTARTDATE = 2;
+    public static int STATUS_OPEN = 3;
+    public static int STATUS_CLOSED = 4;
 
-    // Fields    
-
+     // Fields
      private int surveyid;
      private int researcherid;
      private String title;
@@ -34,10 +37,12 @@ public class Survey extends BasePersistentClass implements java.io.Serializable,
      private Date startdate;
      private Date enddate;
      private String template;
+     private int status;
      private Set<Question> questions = new HashSet<Question>();
      private Surveycriteria surveycriteria;
      private Set<Response> responses = new HashSet<Response>();
      private Set<Impression> impressions = new HashSet<Impression>();
+     private Set<Invoice> invoices = new HashSet<Invoice>();
 
     //Validator
     public void validateRegerEntity() throws GeneralException {
@@ -222,5 +227,21 @@ public class Survey extends BasePersistentClass implements java.io.Serializable,
 
     public void setImpressions(Set<Impression> impressions) {
         this.impressions = impressions;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public Set<Invoice> getInvoices() {
+        return invoices;
+    }
+
+    public void setInvoices(Set<Invoice> invoices) {
+        this.invoices = invoices;
     }
 }

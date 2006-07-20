@@ -26,6 +26,7 @@ public class ResearcherSurveyResults {
     private Survey survey;
     private int totalsurveyresponses = 0;
     private int totalsurveydisplays = 0;
+    private int status = 0;
 
     public ResearcherSurveyResults(){
         logger.debug("Instanciating object.");
@@ -51,6 +52,7 @@ public class ResearcherSurveyResults {
         if (survey!=null){
             totalsurveyresponses = survey.getResponses().size();
             totalsurveydisplays = 0;
+            status = survey.getStatus();
             for (Iterator<Impression> iterator = survey.getImpressions().iterator(); iterator.hasNext();) {
                 Impression impression = iterator.next();
                 totalsurveydisplays = totalsurveydisplays + impression.getTotalimpressions();
@@ -83,4 +85,11 @@ public class ResearcherSurveyResults {
         this.totalsurveydisplays = totalsurveydisplays;
     }
 
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
 }

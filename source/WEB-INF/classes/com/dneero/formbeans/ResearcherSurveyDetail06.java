@@ -6,11 +6,13 @@ import javax.faces.context.FacesContext;
 import javax.faces.application.FacesMessage;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.Calendar;
 
 import com.dneero.dao.*;
 import com.dneero.util.Str;
 import com.dneero.util.Jsf;
 import com.dneero.util.GeneralException;
+import com.dneero.util.Time;
 import com.dneero.session.UserSession;
 
 /**
@@ -52,7 +54,11 @@ public class ResearcherSurveyDetail06 {
             survey = Survey.get(userSession.getCurrentSurveyid());
         }
 
-        //survey.setResearcherid(userSession.getUser().getResearcher().getResearcherid());
+        if (Time.getCalFromDate(survey.getStartdate()).before(Calendar.getInstance())){
+            survey.setStatus(Survey.STATUS_OPEN);
+        } else {
+            survey.setStatus(Survey.STATUS_WAITINGFORSTARTDATE);
+        }
 
 
         try{

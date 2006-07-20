@@ -161,6 +161,12 @@ public class Time {
         }
 		return myDateFormat.format(date.getTime());
 	}
+
+	public static Calendar getCalFromDate(Date date){
+        Calendar out = Calendar.getInstance();
+        out.setTime(date);
+        return out;
+    }
     
 	
 	/**
