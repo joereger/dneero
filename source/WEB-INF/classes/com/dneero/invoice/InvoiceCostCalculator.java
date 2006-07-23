@@ -20,7 +20,7 @@ public class InvoiceCostCalculator {
         double amtbase = 0;
         int responsesInInvoicePeriod = getResponsesInInvoicePeriod(invoice).size();
         logger.debug("responsesInInvoicePeriod="+responsesInInvoicePeriod);
-        int impressionsInInvoicePeriod = getImpressionDetailsInInvoicePeriod(invoice).size();
+        int impressionsInInvoicePeriod = getImpressionDetailsInInvoice(invoice).size();
         logger.debug("impressionsInInvoicePeriod="+impressionsInInvoicePeriod);
         Survey survey = Survey.get(invoice.getSurveyid());
         if (survey!=null && survey.getSurveyid()>0){
@@ -49,21 +49,28 @@ public class InvoiceCostCalculator {
         return responses;
     }
 
-    public static ArrayList<Impressiondetail> getImpressionDetailsInInvoicePeriod(Invoice invoice){
+    public static ArrayList<Impressiondetail> getImpressionDetailsInInvoice(Invoice invoice){
         Logger logger = Logger.getLogger(InvoiceCostCalculator.class);
         ArrayList<Impressiondetail> impressiondetails = new ArrayList<Impressiondetail>();
         Calendar invoiceStartDate = Time.getCalFromDate(invoice.getStartdate());
         Calendar invoiceEndDate = Time.getCalFromDate(invoice.getEnddate());
         Survey survey = Survey.get(invoice.getSurveyid());
         if (survey!=null && survey.getSurveyid()>0){
+            int counttotal = 0;
             for (Iterator<Impression> iterator = survey.getImpressions().iterator(); iterator.hasNext();) {
                 Impression impression = iterator.next();
+                int countperblog = 0;
                 for (Iterator<Impressiondetail> iterator2 = impression.getImpressiondetails().iterator(); iterator.hasNext();) {
                     Impressiondetail impressiondetail = iterator2.next();
-                    Calendar impressiondate = Time.getCalFromDate(impressiondetail.getImpressiondate());
-                    //If the impressiondate is between the invoice start and end
-                    if ( (impressiondate.after(invoiceStartDate)||impressiondate.equals(invoiceStartDate)) && (impressiondate.before(invoiceEndDate)||impressiondate.equals(invoiceEndDate))){
-                        impressiondetails.add(impressiondetail);
+                    counttotal = counttotal + 1;
+                    countperblog = countperblog + 1;
+                    //Limit the number of impressions per blog and total
+                    if (counttotal< survey.getMaxdisplaystotal() && countperblog<survey.getMaxdisplaysperblog()){
+                        Calendar impressiondate = Time.getCalFromDate(impressiondetail.getImpressiondate());
+                        //If the impressiondate is between the invoice start and end
+                        if ( (impressiondate.after(invoiceStartDate)||impressiondate.equals(invoiceStartDate)) && (impressiondate.before(invoiceEndDate)||impressiondate.equals(invoiceEndDate))){
+                            impressiondetails.add(impressiondetail);
+                        }
                     }
                 }
             }

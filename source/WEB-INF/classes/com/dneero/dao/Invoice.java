@@ -18,9 +18,10 @@ public class Invoice extends BasePersistentClass implements java.io.Serializable
 
     public static int STATUS_NOTPAID = 1;
     public static int STATUS_PARTIALLYPAID = 2;
-    public static int STATUS_PAID = 3;
-    public static int STATUS_PASTDUE = 4;
-    public static int STATUS_WAIVED = 5;
+    public static int STATUS_PASTDUE = 3;
+    public static int STATUS_WAIVED = 4;
+    public static int STATUS_PAID = 5;
+
 
     // Fields
      private int invoiceid;
