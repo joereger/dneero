@@ -35,6 +35,7 @@ public class Blogger extends BasePersistentClass implements java.io.Serializable
      private int politics;
      private Set<Blog> blogs = new HashSet<Blog>();
      private Set<Response> responses = new HashSet<Response>();
+     private Bloggerbilling bloggerbilling;
 
     //Validator
     public void validateRegerEntity() throws GeneralException {
@@ -196,5 +197,13 @@ public class Blogger extends BasePersistentClass implements java.io.Serializable
 
     public void setResponses(Set<Response> responses) {
         this.responses = responses;
+    }
+
+    public Bloggerbilling getBloggerbilling() {
+        return bloggerbilling;
+    }
+
+    public void setBloggerbilling(Bloggerbilling bloggerbilling) {
+        this.bloggerbilling = bloggerbilling;
     }
 }

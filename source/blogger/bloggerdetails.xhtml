@@ -140,6 +140,120 @@
                     <h:message for="politics" styleClass="RED"></h:message>
                 </h:panelGroup>
 
+            </h:panelGrid>
+
+
+            <h:panelGrid columns="3" cellpadding="3" border="0">
+
+                <h:panelGroup>
+                    <h:outputText value="Billing Name"></h:outputText>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:inputText value="#{bloggerDetails.billingname}" id="billingname" required="true">
+                        <f:validateLength minimum="3" maximum="255"></f:validateLength>
+                    </h:inputText>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:message for="billingname" styleClass="RED"></h:message>
+                </h:panelGroup>
+
+                <h:panelGroup>
+                    <h:outputText value="Billing Address1"></h:outputText>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:inputText value="#{bloggerDetails.billingaddress1}" id="billingaddress1" required="true">
+                        <f:validateLength minimum="3" maximum="255"></f:validateLength>
+                    </h:inputText>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:message for="billingaddress1" styleClass="RED"></h:message>
+                </h:panelGroup>
+
+                <h:panelGroup>
+                    <h:outputText value="Billing Address2"></h:outputText>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:inputText value="#{bloggerDetails.billingaddress2}" id="billingaddress2">
+                        <f:validateLength minimum="3" maximum="255"></f:validateLength>
+                    </h:inputText>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:message for="billingaddress2" styleClass="RED"></h:message>
+                </h:panelGroup>
+
+                <h:panelGroup>
+                    <h:outputText value="Billing City"></h:outputText>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:inputText value="#{bloggerDetails.billingcity}" id="billingcity" required="true">
+                        <f:validateLength minimum="3" maximum="255"></f:validateLength>
+                    </h:inputText>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:message for="billingcity" styleClass="RED"></h:message>
+                </h:panelGroup>
+
+                <h:panelGroup>
+                    <h:outputText value="Billing State"></h:outputText>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:inputText value="#{bloggerDetails.billingstate}" id="billingstate" required="true">
+                        <f:validateLength minimum="2" maximum="2"></f:validateLength>
+                    </h:inputText>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:message for="billingstate" styleClass="RED"></h:message>
+                </h:panelGroup>
+
+                <h:panelGroup>
+                    <h:outputText value="Billing Zip"></h:outputText>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:inputText value="#{bloggerDetails.billingzip}" id="billingzip" required="true">
+                        <f:validateLength minimum="5" maximum="20"></f:validateLength>
+                    </h:inputText>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:message for="billingzip" styleClass="RED"></h:message>
+                </h:panelGroup>
+
+
+
+                <h:panelGroup>
+                    <h:outputText value="Credit Card Number"></h:outputText>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:inputText value="#{bloggerDetails.ccnum}" id="ccnum" required="true">
+                        <t:validateCreditCard />
+                    </h:inputText>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:message for="ccnum" styleClass="RED"></h:message>
+                </h:panelGroup>
+
+                <h:panelGroup>
+                    <h:outputText value="Credit Card Exp Month"></h:outputText>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:inputText value="#{bloggerDetails.ccexpmonth}" id="ccexpmonth" required="true">
+                        <f:validateDoubleRange minimum="1" maximum="12"></f:validateDoubleRange>
+                    </h:inputText>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:message for="ccexpmonth" styleClass="RED"></h:message>
+                </h:panelGroup>
+
+                <h:panelGroup>
+                    <h:outputText value="Credit Card Exp Year"></h:outputText>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:inputText value="#{bloggerDetails.ccexpyear}" id="ccexpyear" required="true">
+                        <f:validateDoubleRange minimum="2006" maximum="2020"></f:validateDoubleRange>
+                    </h:inputText>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:message for="ccexpyear" styleClass="RED"></h:message>
+                </h:panelGroup>
 
 
                 <h:panelGroup>

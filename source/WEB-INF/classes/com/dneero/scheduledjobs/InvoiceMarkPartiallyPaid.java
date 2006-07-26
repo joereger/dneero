@@ -1,0 +1,67 @@
+package com.dneero.scheduledjobs;
+
+import org.quartz.Job;
+import org.quartz.JobExecutionContext;
+import org.quartz.JobExecutionException;
+import org.apache.log4j.Logger;
+import org.apache.commons.mail.HtmlEmail;
+import org.hibernate.criterion.Restrictions;
+
+import java.util.Calendar;
+import java.util.List;
+import java.util.Iterator;
+
+import com.dneero.util.Time;
+import com.dneero.util.GeneralException;
+import com.dneero.dao.*;
+import com.dneero.dao.hibernate.HibernateUtil;
+import com.dneero.email.EmailSendThread;
+import com.dneero.email.EmailSend;
+
+/**
+ * User: Joe Reger Jr
+ * Date: Jul 19, 2006
+ * Time: 2:22:28 PM
+ */
+public class InvoiceMarkPartiallyPaid implements Job {
+
+    Logger logger = Logger.getLogger(this.getClass().getName());
+
+    private int DAYSALLOWEDTOPAY = 10;
+
+    public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
+        logger.debug("execute() InvoiceMarkPartiallyPaid called");
+
+
+
+        Calendar cal = Time.xDaysAgoStart(Calendar.getInstance(), DAYSALLOWEDTOPAY);
+
+        List<Invoice> invoices = HibernateUtil.getSession().createCriteria(Invoice.class)
+                               .add( Restrictions.eq("status", Invoice.STATUS_NOTPAID))
+                               .list();
+
+        for (Iterator<Invoice> iterator = invoices.iterator(); iterator.hasNext();) {
+            Invoice invoice = iterator.next();
+
+            boolean ispartiallypaid = false;
+            for (Iterator<Invoicetransaction> iterator1 = invoice.getInvoicetransactions().iterator(); iterator1.hasNext();){
+                Invoicetransaction invoicetransaction = iterator1.next();
+                if (invoicetransaction.getIssuccessful()){
+                    ispartiallypaid = true;
+                }
+            }
+
+            if (ispartiallypaid){
+                invoice.setStatus(Invoice.STATUS_PARTIALLYPAID);
+
+                try{
+                    invoice.save();
+                } catch (GeneralException gex){
+                    logger.error(gex);
+                }
+            }
+        }
+
+    }
+
+}

@@ -3,23 +3,27 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated Apr 17, 2006 3:45:28 PM by Hibernate Tools 3.1.0.beta4 -->
 <hibernate-mapping>
-    <class name="com.dneero.dao.Revenue" table="revenue">
+    <class name="com.dneero.dao.Invoicetransaction" table="invoicetransaction">
         <cache usage="nonstrict-read-write"/>
-        <id name="revenueid" type="int">
-            <column name="revenueid" />
+        <id name="invoicetransactionid" type="int">
+            <column name="invoicetransactionid" />
             <generator class="native" />
         </id>
         <property name="invoiceid" type="int">
             <column name="invoiceid" not-null="true" />
         </property>
-        <property name="revenuedate" type="timestamp">
-            <column name="revenuedate" length="19" not-null="true" />
+        <property name="transactiondate" type="timestamp">
+            <column name="transactiondate" length="19" not-null="true" />
         </property>
         <property name="amt" type="double">
             <column name="amt" precision="22" scale="0" not-null="true" />
         </property>
-
-
+        <property name="issuccessful" type="boolean">
+            <column name="issuccessful" />
+        </property>
+        <property name="notes" type="string">
+            <column name="notes" length="65535" />
+        </property>
 
     </class>
 </hibernate-mapping>

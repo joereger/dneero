@@ -9,10 +9,10 @@
             <column name="invoiceid" />
             <generator class="native" />
         </id>
-        <set name="revenues" inverse="true" order-by="revenueid asc" cascade="all-delete-orphan">
+        <set name="invoicetransactions" inverse="true" order-by="invoicetransactionid ASC" cascade="all-delete-orphan">
             <cache usage="nonstrict-read-write"/>
             <key column="invoiceid"></key>
-            <one-to-many class="com.dneero.dao.Revenue" not-found="ignore"></one-to-many>
+            <one-to-many class="com.dneero.dao.Invoicetransaction" not-found="ignore"></one-to-many>
         </set>
         <property name="surveyid" type="int">
             <column name="surveyid" not-null="true" />

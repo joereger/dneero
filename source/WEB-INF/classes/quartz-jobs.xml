@@ -93,4 +93,136 @@
         </trigger>
     </job>
 
+    <job>
+        <job-detail>
+          <name>invoiceCollectViaCreditCard</name>
+          <group>surveyJobs</group>
+          <job-class>com.dneero.scheduledjobs.InvoiceCollectViaCreditCard</job-class>
+          <volatility>false</volatility>
+          <durability>false</durability>
+          <recover>false</recover>
+        </job-detail>
+        <trigger>
+          <!-- Sample cron triggers: http://www.opensymphony.com/quartz/wikidocs/TutorialLesson6.html -->
+          <cron>
+            <name>invoiceCollectViaCreditCardTrigger</name>
+            <group>surveyTriggers</group>
+            <job-name>invoiceCollectViaCreditCard</job-name>
+            <job-group>surveyJobs</job-group>
+            <!-- every two minutes -->
+            <cron-expression>0 0/60 * * * ?</cron-expression>
+          </cron>
+        </trigger>
+    </job>
+
+    <job>
+        <job-detail>
+          <name>invoiceMarkPastDue</name>
+          <group>surveyJobs</group>
+          <job-class>com.dneero.scheduledjobs.InvoiceMarkPastDue</job-class>
+          <volatility>false</volatility>
+          <durability>false</durability>
+          <recover>false</recover>
+        </job-detail>
+        <trigger>
+          <!-- Sample cron triggers: http://www.opensymphony.com/quartz/wikidocs/TutorialLesson6.html -->
+          <cron>
+            <name>invoiceMarkPastDueTrigger</name>
+            <group>surveyTriggers</group>
+            <job-name>invoiceMarkPastDue</job-name>
+            <job-group>surveyJobs</job-group>
+            <!-- every two minutes -->
+            <cron-expression>0 0/60 * * * ?</cron-expression>
+          </cron>
+        </trigger>
+    </job>
+
+    <job>
+        <job-detail>
+          <name>invoiceMarkPartiallyPaid</name>
+          <group>surveyJobs</group>
+          <job-class>com.dneero.scheduledjobs.InvoiceMarkPartiallyPaid</job-class>
+          <volatility>false</volatility>
+          <durability>false</durability>
+          <recover>false</recover>
+        </job-detail>
+        <trigger>
+          <!-- Sample cron triggers: http://www.opensymphony.com/quartz/wikidocs/TutorialLesson6.html -->
+          <cron>
+            <name>invoiceMarkPartiallyPaidTrigger</name>
+            <group>surveyTriggers</group>
+            <job-name>invoiceMarkPartiallyPaid</job-name>
+            <job-group>surveyJobs</job-group>
+            <!-- every two minutes -->
+            <cron-expression>0 0/90 * * * ?</cron-expression>
+          </cron>
+        </trigger>
+    </job>
+
+    <job>
+        <job-detail>
+          <name>sendEmailInvoicePastDue</name>
+          <group>surveyJobs</group>
+          <job-class>com.dneero.scheduledjobs.SendEmailInvoicePastDue</job-class>
+          <volatility>false</volatility>
+          <durability>false</durability>
+          <recover>false</recover>
+        </job-detail>
+        <trigger>
+          <!-- Sample cron triggers: http://www.opensymphony.com/quartz/wikidocs/TutorialLesson6.html -->
+          <cron>
+            <name>sendEmailInvoicePastDueTrigger</name>
+            <group>surveyTriggers</group>
+            <job-name>sendEmailInvoicePastDue</job-name>
+            <job-group>surveyJobs</job-group>
+            <!-- Fire at 12pm (noon) every day -->
+            <cron-expression>0 0 12 * * ?</cron-expression>
+          </cron>
+        </trigger>
+    </job>
+
+    <job>
+        <job-detail>
+          <name>paybloggerViaCreditCard</name>
+          <group>surveyJobs</group>
+          <job-class>com.dneero.scheduledjobs.PaybloggerViaCreditCard</job-class>
+          <volatility>false</volatility>
+          <durability>false</durability>
+          <recover>false</recover>
+        </job-detail>
+        <trigger>
+          <!-- Sample cron triggers: http://www.opensymphony.com/quartz/wikidocs/TutorialLesson6.html -->
+          <cron>
+            <name>paybloggerViaCreditCardTrigger</name>
+            <group>surveyTriggers</group>
+            <job-name>paybloggerViaCreditCard</job-name>
+            <job-group>surveyJobs</job-group>
+            <!-- every two minutes -->
+            <cron-expression>0 0/90 * * * ?</cron-expression>
+          </cron>
+        </trigger>
+    </job>
+
+    <job>
+        <job-detail>
+          <name>paybloggerPendingToOwed</name>
+          <group>surveyJobs</group>
+          <job-class>com.dneero.scheduledjobs.PaybloggerPendingToOwed</job-class>
+          <volatility>false</volatility>
+          <durability>false</durability>
+          <recover>false</recover>
+        </job-detail>
+        <trigger>
+          <!-- Sample cron triggers: http://www.opensymphony.com/quartz/wikidocs/TutorialLesson6.html -->
+          <cron>
+            <name>paybloggerPendingToOwedTrigger</name>
+            <group>surveyTriggers</group>
+            <job-name>paybloggerPendingToOwed</job-name>
+            <job-group>surveyJobs</job-group>
+            <!-- every two minutes -->
+            <cron-expression>0 0/15 * * * ?</cron-expression>
+          </cron>
+        </trigger>
+    </job>
+
 </quartz>
