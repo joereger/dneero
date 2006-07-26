@@ -99,6 +99,8 @@ public class BloggerDetails {
                 blogger.setPolitics(Integer.parseInt(politics));
             }
 
+            userSession.getUser().setBlogger(blogger);
+
             try{
                 blogger.save();
             } catch (GeneralException gex){
@@ -121,6 +123,7 @@ public class BloggerDetails {
                 Userrole role = new Userrole();
                 role.setUserid(userSession.getUser().getUserid());
                 role.setRoleid(Roles.BLOGGER);
+                userSession.getUser().getUserroles().add(role);
                 try{
                     role.save();
                 } catch (GeneralException gex){
@@ -129,6 +132,7 @@ public class BloggerDetails {
                     return null;
                 }
             }
+
 
             userSession.getUser().refresh();
 

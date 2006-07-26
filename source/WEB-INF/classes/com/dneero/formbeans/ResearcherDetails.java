@@ -78,6 +78,7 @@ public class ResearcherDetails {
 
             researcher.setUserid(userSession.getUser().getUserid());
 
+            userSession.getUser().setResearcher(researcher);
 
             try{
                 researcher.save();
@@ -101,6 +102,7 @@ public class ResearcherDetails {
                 Userrole role = new Userrole();
                 role.setUserid(userSession.getUser().getUserid());
                 role.setRoleid(Roles.RESEARCHER);
+                userSession.getUser().getUserroles().add(role);
                 try{
                     role.save();
                 } catch (GeneralException gex){
@@ -126,6 +128,9 @@ public class ResearcherDetails {
             researcherBilling.setCcnum(ccnum);
             researcherBilling.setCcexpmonth(ccexpmonth);
             researcherBilling.setCcexpyear(ccexpyear);
+
+            userSession.getUser().getResearcher().setResearcherbilling(researcherBilling);
+
             try{
                 researcherBilling.save();
             } catch (GeneralException gex){
@@ -134,7 +139,6 @@ public class ResearcherDetails {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage( FacesMessage.SEVERITY_INFO, message, message));
                 return null;
             }
-
 
 
             userSession.getUser().refresh();
