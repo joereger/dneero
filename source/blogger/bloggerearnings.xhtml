@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:t="http://myfaces.apache.org/tomahawk"
+      xmlns:af="http://xmlns.oracle.com/adf/faces"
+      xmlns:d="http://dneero.com/taglib">
+
+<ui:composition template="/template/template-facelets.xhtml">
+    <ui:define name="body">
+    <d:authorization acl="blogger" redirectonfail="true"/>
+
+<h:form>
+
+     <d:roundedCornerBox uniqueboxname="totalearningsalltime" bodycolor="00ff00" widthinpixels="450" >
+        <h:outputText value="Earnings All Time: #{bloggerEarnings.totalearningsalltime}" styleClass="largefont"></h:outputText>
+     </d:roundedCornerBox>
+
+      <af:table value="#{bloggerEarnings.bloggerearningslistitems}" bandingInterval="2" rows="15" banding="row" var="beli">
+      <af:column>
+        <f:facet name="header">
+          <af:outputText value="Date"/>
+        </f:facet>
+        <af:outputText value="#{beli.responsedate}"/>
+      </af:column>
+      <af:column>
+        <f:facet name="header">
+          <af:outputText value="Id"/>
+        </f:facet>
+        <af:outputText value="#{beli.responseid}"/>
+      </af:column>
+      <af:column>
+        <f:facet name="header">
+          <af:outputText value="Survey Title"/>
+        </f:facet>
+        <af:outputText value="#{beli.surveytitle}"/>
+      </af:column>
+      <af:column>
+        <f:facet name="header">
+          <af:outputText value="Earnings"/>
+        </f:facet>
+        <af:outputText value="#{beli.amountearned}"/>
+      </af:column>
+
+    </af:table>
+
+
+
+        </h:form>
+
+    </ui:define>
+</ui:composition>
+</html>
+
+

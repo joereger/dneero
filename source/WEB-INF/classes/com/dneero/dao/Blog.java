@@ -6,6 +6,8 @@ import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.util.GeneralException;
 
 import java.util.Date;
+import java.util.Set;
+import java.util.HashSet;
 
 import org.apache.log4j.Logger;
 
@@ -22,6 +24,7 @@ public class Blog extends BasePersistentClass implements java.io.Serializable, R
      private String url;
      private String title;
      private int blogfocus;
+     private Set<Impression> impressions = new HashSet<Impression>();
 
     //Validator
     public void validateRegerEntity() throws GeneralException {
@@ -102,5 +105,11 @@ public class Blog extends BasePersistentClass implements java.io.Serializable, R
         this.blogfocus = blogfocus;
     }
 
+    public Set<Impression> getImpressions() {
+        return impressions;
+    }
 
+    public void setImpressions(Set<Impression> impressions) {
+        this.impressions = impressions;
+    }
 }

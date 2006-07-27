@@ -20,6 +20,7 @@ public class Response extends BasePersistentClass implements java.io.Serializabl
      private int surveyid;
      private int bloggerid;
      private Date responsedate;
+     private Survey survey;
 
 
     //Validator
@@ -93,5 +94,11 @@ public class Response extends BasePersistentClass implements java.io.Serializabl
         this.responsedate = responsedate;
     }
 
+    public Survey getSurvey() {
+        return survey;
+    }
 
+    public void setSurvey(Survey survey) {
+        this.survey = survey;
+    }
 }

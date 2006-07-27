@@ -9,6 +9,7 @@
             <column name="responseid" />
             <generator class="native" />
         </id>
+        <many-to-one name="survey" column="surveyid" not-null="true" insert="false" update="false"/>
         <property name="surveyid" type="int">
             <column name="surveyid" not-null="true" />
         </property>

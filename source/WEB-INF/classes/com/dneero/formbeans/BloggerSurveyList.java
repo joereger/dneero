@@ -57,8 +57,6 @@ public class BloggerSurveyList extends SortableList {
         return true;
     }
 
-
-
     protected void sort(final String column, final boolean ascending) {
         //logger.debug("sort called");
         Comparator comparator = new Comparator() {
