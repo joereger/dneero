@@ -35,7 +35,7 @@ public class Invoice extends BasePersistentClass implements java.io.Serializable
      private double amtdiscount;
      private double amttotal;
      private Set<Invoicetransaction> invoicetransactions = new HashSet<Invoicetransaction>();
-
+     private Set<Payblogger> paybloggers = new HashSet<Payblogger>();
 
     //Validator
     public void validateRegerEntity() throws GeneralException {
@@ -156,5 +156,11 @@ public class Invoice extends BasePersistentClass implements java.io.Serializable
         this.invoicetransactions = invoicetransactions;
     }
 
+    public Set<Payblogger> getPaybloggers() {
+        return paybloggers;
+    }
 
+    public void setPaybloggers(Set<Payblogger> paybloggers) {
+        this.paybloggers = paybloggers;
+    }
 }

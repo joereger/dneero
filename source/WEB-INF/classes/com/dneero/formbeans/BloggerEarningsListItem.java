@@ -13,6 +13,8 @@ public class BloggerEarningsListItem {
     private String surveytitle;
     private Date responsedate;
     private double amountearned;
+    private int impressions;
+    private String details;
 
 
     public int getResponseid() {
@@ -47,6 +49,19 @@ public class BloggerEarningsListItem {
         this.amountearned = amountearned;
     }
 
+    public int getImpressions() {
+        return impressions;
+    }
 
+    public void setImpressions(int impressions) {
+        this.impressions = impressions;
+    }
 
+    public String getDetails() {
+        return details;
+    }
+
+    public void setDetails(String details) {
+        this.details = details;
+    }
 }

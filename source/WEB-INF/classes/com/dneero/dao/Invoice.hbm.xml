@@ -14,6 +14,11 @@
             <key column="invoiceid"></key>
             <one-to-many class="com.dneero.dao.Invoicetransaction" not-found="ignore"></one-to-many>
         </set>
+        <set name="paybloggers" inverse="true" order-by="paybloggerid ASC" cascade="all-delete-orphan">
+            <cache usage="nonstrict-read-write"/>
+            <key column="invoiceid"></key>
+            <one-to-many class="com.dneero.dao.Payblogger" not-found="ignore"></one-to-many>
+        </set>
         <property name="surveyid" type="int">
             <column name="surveyid" not-null="true" />
         </property>

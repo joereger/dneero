@@ -1,12 +1,13 @@
 package com.dneero.formbeans;
 
-import com.dneero.dao.Blogger;
-import com.dneero.dao.Response;
+import com.dneero.dao.*;
+import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.session.UserSession;
 import com.dneero.util.Jsf;
 import com.dneero.util.SortableList;
 import com.dneero.invoice.BloggerIncomeCalculator;
 import org.apache.log4j.Logger;
+import org.hibernate.criterion.Restrictions;
 
 import java.util.*;
 
@@ -20,6 +21,7 @@ public class BloggerEarnings extends SortableList {
     private double totalearningsalltime;
     private Blogger blogger;
     private ArrayList<BloggerEarningsListItem> bloggerearningslistitems;
+
 
     Logger logger = Logger.getLogger(this.getClass().getName());
 
@@ -37,11 +39,35 @@ public class BloggerEarnings extends SortableList {
                 beli.setResponsedate(response.getResponsedate());
                 beli.setSurveytitle(response.getSurvey().getTitle());
                 beli.setAmountearned(BloggerIncomeCalculator.getBloggerTotalPossibleIncomeForSurvey(blogger, response.getSurvey()));
+                beli.setImpressions(BloggerIncomeCalculator.getQualifyingImpressionsByABlogger(blogger, response.getSurvey()));
+                beli.setDetails(getDetailString(BloggerIncomeCalculator.getPaybloggersForResponse(response)));
                 bloggerearningslistitems.add(beli);
             }
 
         }
     }
+
+    private String getDetailString(ArrayList<Payblogger> paybloggers){
+        StringBuffer out = new StringBuffer();
+        for (Iterator<Payblogger> iterator = paybloggers.iterator(); iterator.hasNext();) {
+            Payblogger payblogger = iterator.next();
+            out.append("Payment Unit: $"+payblogger.getAmt());
+            for (Iterator<Paybloggertransaction> iterator1 = payblogger.getPaybloggertransactions().iterator(); iterator1.hasNext();){
+                Paybloggertransaction paybloggertransaction = iterator1.next();
+                out.append("<br/>");
+                if (paybloggertransaction.getIssuccessful()){
+                    out.append("&nbsp;&nbsp;&nbsp;Success: ");
+                } else {
+                    out.append("&nbsp;&nbsp;&nbsp;Fail: ");
+                }
+                out.append("$"+paybloggertransaction.getAmt() + " charged on " + paybloggertransaction.getTransactiondate());
+            }
+            out.append("<br/>");
+        }
+        return out.toString();
+    }
+
+
 
     protected boolean isDefaultAscending(String sortColumn) {
         return true;
@@ -95,6 +121,5 @@ public class BloggerEarnings extends SortableList {
     public void setTotalearningsalltime(double totalearningsalltime) {
         this.totalearningsalltime = totalearningsalltime;
     }
-
 
 }

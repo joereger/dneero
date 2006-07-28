@@ -287,6 +287,36 @@
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
 
+    <managed-bean>
+        <managed-bean-name>accountSupportIssuesList</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.AccountSupportIssuesList</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>accountNewSupportIssue</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.AccountNewSupportIssue</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>accountSupportIssueDetail</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.AccountSupportIssueDetail</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>sysadminSupportIssuesList</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.SysadminSupportIssuesList</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>sysadminSupportIssueDetail</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.SysadminSupportIssueDetail</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
 
 
     <navigation-rule>
@@ -466,6 +496,34 @@
         <navigation-case>
             <from-outcome>lostpasswordsent</from-outcome>
             <to-view-id>/lostpasswordsent.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>accountsupportissueslist</from-outcome>
+            <to-view-id>/account/accountsupportissueslist.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>accountsupportissuenewdone</from-outcome>
+            <to-view-id>/account/accountsupportissuenewdone.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>accountsupportissuenewnotedone</from-outcome>
+            <to-view-id>/account/accountsupportissuenewnotedone.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>accountsupportissuedetail</from-outcome>
+            <to-view-id>/account/accountsupportissuedetail.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>sysadminsupportissueslist</from-outcome>
+            <to-view-id>/sysadmin/sysadminsupportissueslist.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>sysadminsupportissuedetail</from-outcome>
+            <to-view-id>/sysadmin/sysadminsupportissuedetail.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>sysadminsupportissuenewnotedone</from-outcome>
+            <to-view-id>/sysadmin/sysadminsupportissuenewnotedone.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
 

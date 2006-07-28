@@ -52,4 +52,41 @@ public class BloggerIncomeCalculator {
         return getBloggerTotalPossibleIncomeForSurvey(blogger, null);
     }
 
+    public static ArrayList<Payblogger> getPaybloggersForResponse(Response response){
+        ArrayList<Payblogger> out = new ArrayList<Payblogger>();
+        for (Iterator<Invoice> iterator = response.getSurvey().getInvoices().iterator(); iterator.hasNext();) {
+            Invoice invoice = iterator.next();
+            for (Iterator<Payblogger> iterator1 = invoice.getPaybloggers().iterator(); iterator1.hasNext();) {
+                Payblogger payblogger = iterator1.next();
+                out.add(payblogger);
+            }
+        }
+        return out;
+    }
+
+    public static int getQualifyingImpressionsByABlogger(Blogger blogger, Survey survey){
+        int out = 0;
+        HibernateUtil.getSession().saveOrUpdate(blogger);
+        for (Iterator<Blog> iterator = blogger.getBlogs().iterator(); iterator.hasNext();) {
+            Blog blog = iterator.next();
+            List<Impression> impressions = new ArrayList<Impression>();
+            impressions = HibernateUtil.getSession().createCriteria(Impression.class)
+                       .add( Restrictions.eq("surveyid", survey.getSurveyid()))
+                       .add( Restrictions.eq("blogid", blog.getBlogid()))
+                       .list();
+
+            for (Iterator<Impression> iterator1 = impressions.iterator(); iterator1.hasNext();) {
+                Impression impression = iterator1.next();
+                Survey sv = Survey.get(impression.getSurveyid());
+                int impressionsthatqualify = impression.getTotalimpressions();
+                if (impressionsthatqualify > sv.getMaxdisplaysperblog()){
+                    impressionsthatqualify = sv.getMaxdisplaysperblog();
+                }
+                out = out + impressionsthatqualify;
+            }
+        }
+
+        return out;
+    }
+
 }

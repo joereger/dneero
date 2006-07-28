@@ -20,6 +20,8 @@
         <mapping resource="com/dneero/dao/Researcher.hbm.xml" />
 		<mapping resource="com/dneero/dao/Researcherbilling.hbm.xml" />
         <mapping resource="com/dneero/dao/Response.hbm.xml" />
+        <mapping resource="com/dneero/dao/Supportissue.hbm.xml" />
+        <mapping resource="com/dneero/dao/Supportissuecomm.hbm.xml" />
         <mapping resource="com/dneero/dao/Survey.hbm.xml" />
         <mapping resource="com/dneero/dao/Surveycriteria.hbm.xml" />
         <mapping resource="com/dneero/dao/Surveycriteriagender.hbm.xml" />

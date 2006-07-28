@@ -26,7 +26,7 @@
         </f:facet>
         <af:outputText value="#{beli.responsedate}"/>
       </af:column>
-      <af:column>
+      <af:column rendered="false">
         <f:facet name="header">
           <af:outputText value="Id"/>
         </f:facet>
@@ -40,9 +40,21 @@
       </af:column>
       <af:column>
         <f:facet name="header">
+          <af:outputText value="Impressions"/>
+        </f:facet>
+        <af:outputText value="#{beli.impressions}"/>
+      </af:column>
+      <af:column>
+        <f:facet name="header">
           <af:outputText value="Earnings"/>
         </f:facet>
         <af:outputText value="#{beli.amountearned}"/>
+      </af:column>
+      <af:column>
+        <f:facet name="header">
+          <af:outputText value=" "/>
+        </f:facet>
+        <af:outputText value="#{beli.details}" styleClass="tinyfont"/>
       </af:column>
 
     </af:table>

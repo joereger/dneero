@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:t="http://myfaces.apache.org/tomahawk"
+      xmlns:af="http://xmlns.oracle.com/adf/faces"
+      xmlns:d="http://dneero.com/taglib">
+
+<ui:composition template="/template/template-facelets.xhtml">
+    <ui:define name="body">
+    <d:authorization acl="systemadmin" redirectonfail="true"/>
+
+
+
+<h:form>
+
+
+
+    <af:table value="#{sysadminSupportIssuesList.supportissues}" bandingInterval="2" rows="15" banding="row" var="supportissue">
+      <af:column>
+        <f:facet name="header">
+          <af:outputText value="Id"/>
+        </f:facet>
+        <af:outputText value="#{supportissue.supportissueid}"/>
+      </af:column>
+      <af:column>
+        <f:facet name="header">
+          <af:outputText value="Date"/>
+        </f:facet>
+        <af:outputText value="#{supportissue.datetime}"/>
+      </af:column>
+      <af:column>
+        <f:facet name="header">
+          <af:outputText value=" "/>
+        </f:facet>
+        <h:commandLink action="#{sysadminSupportIssueDetail.beginView}">
+            <h:outputText value="#{supportissue.subject}" escape="false" />
+            <f:param name="supportissueid" value="#{supportissue.supportissueid}" />
+        </h:commandLink>
+      </af:column>
+      <af:column>
+        <f:facet name="header">
+          <af:outputText value="Status"/>
+        </f:facet>
+        <af:outputText value="Open" rendered="#{supportissue.status==0}"/>
+        <af:outputText value="Working" rendered="#{supportissue.status==1}"/>
+        <af:outputText value="Closed" rendered="#{supportissue.status==2}"/>
+      </af:column>
+
+    </af:table>
+
+
+</h:form>
+
+</ui:define>
+
+
+</ui:composition>
+</html>
+
+
+
