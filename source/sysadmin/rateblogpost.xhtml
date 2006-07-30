@@ -17,7 +17,7 @@
          <h:form rendered="#{rateBlogPost.haveposttoreview}">
             <h:messages />
             <h:inputHidden name="impressionid" value="#{rateBlogPost.impressionid}" />
-            <d:roundedCornerBox uniqueboxname="rateblogscale" bodycolor="ffcc00" widthinpixels="575">
+            <d:roundedCornerBox uniqueboxname="rateblogscale" bodycolor="ffcc00" widthinpixels="550">
 
                 <h:panelGrid columns="3" cellpadding="3" border="0">
                     <h:panelGroup>
@@ -42,7 +42,7 @@
                     </h:panelGroup>
                     <h:panelGroup>
                     </h:panelGroup>
-                    <h:panelGroup>
+                    <h:panelGroup style="text-align: center;">
                         <h:commandButton action="#{rateBlogPost.rateAction}" value="Rate Post"></h:commandButton>
                         <f:verbatim><br/></f:verbatim>
                         <h:outputText value="#{rateBlogPost.remainingtoreview} posts remaining" styleClass="tinyfont"></h:outputText>
