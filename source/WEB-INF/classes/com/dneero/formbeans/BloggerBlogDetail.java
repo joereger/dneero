@@ -60,6 +60,8 @@ public class BloggerBlogDetail {
         UserSession userSession = Jsf.getUserSession();
 
         Blog blog = new Blog();
+        blog.setQuality(0);
+        blog.setQuality90days(0);
         if(blogid>0){
             blog = Blog.get(blogid);
         }

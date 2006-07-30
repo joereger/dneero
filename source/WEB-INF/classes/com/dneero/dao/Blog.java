@@ -24,6 +24,8 @@ public class Blog extends BasePersistentClass implements java.io.Serializable, R
      private String url;
      private String title;
      private int blogfocus;
+     private double quality;
+     private double quality90days;
      private Set<Impression> impressions = new HashSet<Impression>();
 
     //Validator
@@ -111,5 +113,21 @@ public class Blog extends BasePersistentClass implements java.io.Serializable, R
 
     public void setImpressions(Set<Impression> impressions) {
         this.impressions = impressions;
+    }
+
+    public double getQuality() {
+        return quality;
+    }
+
+    public void setQuality(double quality) {
+        this.quality = quality;
+    }
+
+    public double getQuality90days() {
+        return quality90days;
+    }
+
+    public void setQuality90days(double quality90days) {
+        this.quality90days = quality90days;
     }
 }

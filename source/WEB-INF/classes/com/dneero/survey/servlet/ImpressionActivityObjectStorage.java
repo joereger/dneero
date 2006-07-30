@@ -31,12 +31,12 @@ public class ImpressionActivityObjectStorage {
             }
         } else {
             impression = new Impression();
+            impression.setFirstseendate(new Date());
             impression.setSurveyid(iao.getSurveyid());
             impression.setBlogid(iao.getBlogid());
             impression.setTotalimpressions(1);
+            impression.setReferer(iao.getReferer());
         }
-
-        impression.setReferer(iao.getReferer());
 
         try{
             impression.save();

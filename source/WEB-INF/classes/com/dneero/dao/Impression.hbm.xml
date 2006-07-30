@@ -26,6 +26,12 @@
         <property name="totalimpressions" type="int">
             <column name="totalimpressions" not-null="true" />
         </property>
+        <property name="quality" type="int">
+            <column name="quality" not-null="true" />
+        </property>
+        <property name="firstseendate" type="timestamp">
+            <column name="firstseendate" length="19" not-null="true" />
+        </property>
 
 
     </class>

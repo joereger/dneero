@@ -56,6 +56,12 @@
         <property name="politics" type="int">
             <column name="politics" not-null="true" />
         </property>
+        <property name="quality" type="double">
+            <column name="quality" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="quality90days" type="double">
+            <column name="quality90days" precision="22" scale="0" not-null="true" />
+        </property>
 
 
 

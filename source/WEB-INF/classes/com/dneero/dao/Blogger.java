@@ -33,6 +33,8 @@ public class Blogger extends BasePersistentClass implements java.io.Serializable
      private int city;
      private int profession;
      private int politics;
+     private double quality;
+     private double quality90days;
      private Set<Blog> blogs = new HashSet<Blog>();
      private Set<Response> responses = new HashSet<Response>();
      private Bloggerbilling bloggerbilling;
@@ -205,5 +207,21 @@ public class Blogger extends BasePersistentClass implements java.io.Serializable
 
     public void setBloggerbilling(Bloggerbilling bloggerbilling) {
         this.bloggerbilling = bloggerbilling;
+    }
+
+    public double getQuality() {
+        return quality;
+    }
+
+    public void setQuality(double quality) {
+        this.quality = quality;
+    }
+
+    public double getQuality90days() {
+        return quality90days;
+    }
+
+    public void setQuality90days(double quality90days) {
+        this.quality90days = quality90days;
     }
 }

@@ -317,6 +317,12 @@
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
 
+    <managed-bean>
+        <managed-bean-name>rateBlogPost</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.RateBlogPost</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
 
 
     <navigation-rule>
@@ -524,6 +530,10 @@
         <navigation-case>
             <from-outcome>sysadminsupportissuenewnotedone</from-outcome>
             <to-view-id>/sysadmin/sysadminsupportissuenewnotedone.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>rateblogpost</from-outcome>
+            <to-view-id>/sysadmin/rateblogpost.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
 

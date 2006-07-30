@@ -225,4 +225,26 @@
         </trigger>
     </job>
 
+    <job>
+        <job-detail>
+          <name>qualityAverager</name>
+          <group>surveyJobs</group>
+          <job-class>com.dneero.scheduledjobs.QualityAverager</job-class>
+          <volatility>false</volatility>
+          <durability>false</durability>
+          <recover>false</recover>
+        </job-detail>
+        <trigger>
+          <!-- Sample cron triggers: http://www.opensymphony.com/quartz/wikidocs/TutorialLesson6.html -->
+          <cron>
+            <name>qualityAveragerTrigger</name>
+            <group>surveyTriggers</group>
+            <job-name>qualityAverager</job-name>
+            <job-group>surveyJobs</job-group>
+            <!-- every two minutes -->
+            <cron-expression>0 0/1 * * * ?</cron-expression>
+          </cron>
+        </trigger>
+    </job>
+
 </quartz>

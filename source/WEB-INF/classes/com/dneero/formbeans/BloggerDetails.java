@@ -93,6 +93,8 @@ public class BloggerDetails {
             blogger =  userSession.getUser().getBlogger();
         } else {
             blogger = new Blogger();
+            blogger.setQuality(0);
+            blogger.setQuality90days(0);
             isnewblogger = true;
         }
 
