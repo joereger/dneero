@@ -39,7 +39,7 @@ public class QualityAverager implements Job {
             Blog blog = Blog.get(impression.getBlogid());
             Blogger blogger = Blogger.get(blog.getBloggerid());
             Calendar cal = Time.getCalFromDate(impression.getFirstseendate());
-            int daysold = DateDiff.dateDiff("day", cal, Calendar.getInstance());
+            int daysold = DateDiff.dateDiff("day", Calendar.getInstance(), cal);
             //@todo delete this debug line before going live
             logger.debug("daysold="+daysold+" cal=" + Time.dateformatfordb(cal) + " now="+Time.dateformatfordb(Calendar.getInstance()));
 
