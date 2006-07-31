@@ -43,9 +43,10 @@
             <h:outputText value="Survey Title"></h:outputText>
         </h:panelGroup>
         <h:panelGroup>
-            <h:inputText value="#{researcherSurveyDetail01.title}" id="title" required="true">
+            <h:inputText value="#{researcherSurveyDetail01.title}" id="title" required="true" rendered="#{researcherSurveyDetail01.status le 2}">
                 <f:validateLength minimum="3" maximum="255"></f:validateLength>
             </h:inputText>
+            <h:outputText value="#{researcherSurveyDetail01.title}" rendered="#{researcherSurveyDetail01.status ge 3}"></h:outputText>
         </h:panelGroup>
         <h:panelGroup>
             <h:message for="title" styleClass="RED"></h:message>
@@ -57,9 +58,10 @@
             <h:outputText value="Description"></h:outputText>
         </h:panelGroup>
         <h:panelGroup>
-            <h:inputTextarea value="#{researcherSurveyDetail01.description}" id="description" required="true">
+            <h:inputTextarea value="#{researcherSurveyDetail01.description}" id="description" required="true" rendered="#{researcherSurveyDetail01.status le 2}">
                 <f:validateLength minimum="3" maximum="50000"></f:validateLength>
             </h:inputTextarea>
+            <h:outputText value="#{researcherSurveyDetail01.description}" rendered="#{researcherSurveyDetail01.status ge 3}"></h:outputText>
         </h:panelGroup>
         <h:panelGroup>
             <h:message for="description" styleClass="RED"></h:message>
@@ -70,7 +72,8 @@
             <h:outputText value="Start Date"></h:outputText>
         </h:panelGroup>
         <h:panelGroup>
-            <t:inputDate value="#{researcherSurveyDetail01.startdate}"  type="both" popupCalendar="true" id="startdate" required="true"></t:inputDate>
+            <t:inputDate value="#{researcherSurveyDetail01.startdate}"  type="both" popupCalendar="true" id="startdate" required="true" rendered="#{researcherSurveyDetail01.status le 2}"></t:inputDate>
+            <h:outputText value="#{researcherSurveyDetail01.startdate}" rendered="#{researcherSurveyDetail01.status ge 3}"></h:outputText>
         </h:panelGroup>
         <h:panelGroup>
             <h:message for="startdate" styleClass="RED"></h:message>
@@ -81,7 +84,8 @@
             <h:outputText value="End Date"></h:outputText>
         </h:panelGroup>
         <h:panelGroup>
-            <t:inputDate value="#{researcherSurveyDetail01.enddate}" type="both" popupCalendar="true" id="enddate" required="true"></t:inputDate>
+            <t:inputDate value="#{researcherSurveyDetail01.enddate}" type="both" popupCalendar="true" id="enddate" required="true" rendered="#{researcherSurveyDetail01.status le 2}"></t:inputDate>
+            <h:outputText value="#{researcherSurveyDetail01.enddate}" rendered="#{researcherSurveyDetail01.status ge 3}"></h:outputText>
         </h:panelGroup>
         <h:panelGroup>
             <h:message for="enddate" styleClass="RED"></h:message>

@@ -24,6 +24,7 @@ public class ResearcherSurveyDetail01 {
     private String description;
     private Date startdate;
     private Date enddate;
+    private int status;
 
     Logger logger = Logger.getLogger(this.getClass().getName());
 
@@ -63,43 +64,46 @@ public class ResearcherSurveyDetail01 {
             description = survey.getDescription();
             startdate = survey.getStartdate();
             enddate = survey.getEnddate();
-
+            status = survey.getStatus();
         }
 
     }
 
     public String saveSurvey(){
         logger.debug("saveSurvey() called.");
+        if (status<=Survey.STATUS_WAITINGFORSTARTDATE){
 
-        UserSession userSession = Jsf.getUserSession();
+            UserSession userSession = Jsf.getUserSession();
 
-        Survey survey = new Survey();
-        if (userSession.getCurrentSurveyid()>0){
-            logger.debug("saveSurvey() called: going to get Survey.get(surveyid)="+userSession.getCurrentSurveyid());
-            survey = Survey.get(userSession.getCurrentSurveyid());
+            Survey survey = new Survey();
+            survey.setStatus(Survey.STATUS_DRAFT);
+            if (userSession.getCurrentSurveyid()>0){
+                logger.debug("saveSurvey() called: going to get Survey.get(surveyid)="+userSession.getCurrentSurveyid());
+                survey = Survey.get(userSession.getCurrentSurveyid());
+            }
+
+            survey.setResearcherid(userSession.getUser().getResearcher().getResearcherid());
+            survey.setTitle(title);
+            survey.setDescription(description);
+            survey.setStartdate(startdate);
+            survey.setEnddate(enddate);
+
+            try{
+                logger.debug("saveSurvey() about to save survey.getSurveyid()=" + survey.getSurveyid());
+                survey.save();
+                userSession.setCurrentSurveyid(survey.getSurveyid());
+                logger.debug("saveSurvey() done saving survey.getSurveyid()=" + survey.getSurveyid());
+            } catch (GeneralException gex){
+                logger.debug("saveSurvey() failed: " + gex.getErrorsAsSingleString());
+                String message = "saveSurvey() save failed: " + gex.getErrorsAsSingleString();
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage( FacesMessage.SEVERITY_INFO, message, message));
+                return null;
+            }
+
+            //Refresh
+            survey.refresh();
+
         }
-
-        survey.setResearcherid(userSession.getUser().getResearcher().getResearcherid());
-        survey.setTitle(title);
-        survey.setDescription(description);
-        survey.setStartdate(startdate);
-        survey.setEnddate(enddate);
-
-        try{
-            logger.debug("saveSurvey() about to save survey.getSurveyid()=" + survey.getSurveyid());
-            survey.save();
-            userSession.setCurrentSurveyid(survey.getSurveyid());
-            logger.debug("saveSurvey() done saving survey.getSurveyid()=" + survey.getSurveyid());
-        } catch (GeneralException gex){
-            logger.debug("saveSurvey() failed: " + gex.getErrorsAsSingleString());
-            String message = "saveSurvey() save failed: " + gex.getErrorsAsSingleString();
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage( FacesMessage.SEVERITY_INFO, message, message));
-            return null;
-        }
-
-        //Refresh
-        survey.refresh();
-
         return "success";
     }
 
@@ -135,4 +139,11 @@ public class ResearcherSurveyDetail01 {
         this.enddate = enddate;
     }
 
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
 }

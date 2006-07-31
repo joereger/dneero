@@ -35,8 +35,8 @@
             <h:panelGrid columns="2" cellpadding="3" border="0">
                 <h:panelGroup>
                     <h:inputTextarea value="#{researcherSurveyDetail03.template}" cols="35" rows="15"></h:inputTextarea>
-                    <f:verbatim><br/><br/></f:verbatim>
-                    <h:commandButton action="#{researcherSurveyDetail03.saveSurvey}" value="Save Template"></h:commandButton>
+                    <f:verbatim rendered="#{researcherSurveyDetail02.status le 2}"><br/><br/></f:verbatim>
+                    <h:commandButton action="#{researcherSurveyDetail03.saveSurvey}" value="Save Template" rendered="#{researcherSurveyDetail03.status le 2}"></h:commandButton>
                 </h:panelGroup>
                 <h:panelGroup>
                     <!-- Begin Question Key -->

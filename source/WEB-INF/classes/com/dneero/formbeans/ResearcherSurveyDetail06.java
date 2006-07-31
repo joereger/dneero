@@ -22,6 +22,7 @@ import com.dneero.session.UserSession;
  */
 public class ResearcherSurveyDetail06 {
 
+    private int status;
 
     Logger logger = Logger.getLogger(this.getClass().getName());
 
@@ -37,7 +38,7 @@ public class ResearcherSurveyDetail06 {
         Survey survey = Survey.get(surveyid);
         if (survey!=null){
             logger.debug("Found survey in db: survey.getSurveyid()="+survey.getSurveyid()+" survey.getTitle()="+survey.getTitle());
-
+            status = survey.getStatus();
 
         }
 
@@ -45,41 +46,56 @@ public class ResearcherSurveyDetail06 {
 
     public String saveSurvey(){
         logger.debug("saveSurvey() called.");
+        if (status<=Survey.STATUS_WAITINGFORSTARTDATE){
+            UserSession userSession = Jsf.getUserSession();
 
-        UserSession userSession = Jsf.getUserSession();
+            Survey survey = new Survey();
+            if (userSession.getCurrentSurveyid()>0){
+                logger.debug("saveSurvey() called: going to get Survey.get(surveyid)="+userSession.getCurrentSurveyid());
+                survey = Survey.get(userSession.getCurrentSurveyid());
+            }
 
-        Survey survey = new Survey();
-        if (userSession.getCurrentSurveyid()>0){
-            logger.debug("saveSurvey() called: going to get Survey.get(surveyid)="+userSession.getCurrentSurveyid());
-            survey = Survey.get(userSession.getCurrentSurveyid());
+            Calendar startdate = Time.getCalFromDate(survey.getStartdate());
+            Calendar now = Calendar.getInstance();
+            logger.debug("now="+Time.dateformatfordb(now));
+            logger.debug("startdate="+Time.dateformatfordb(startdate));
+            logger.debug("startdate.before(now)="+startdate.before(now));
+            logger.debug("startdate.after(now)="+startdate.after(now));
+
+
+
+            if (startdate.before(now)){
+                survey.setStatus(Survey.STATUS_OPEN);
+            } else {
+                survey.setStatus(Survey.STATUS_WAITINGFORSTARTDATE);
+            }
+
+
+            try{
+                logger.debug("saveSurvey() about to save survey.getSurveyid()=" + survey.getSurveyid());
+                survey.save();
+                logger.debug("saveSurvey() done saving survey.getSurveyid()=" + survey.getSurveyid());
+            } catch (GeneralException gex){
+                logger.debug("saveSurvey() failed: " + gex.getErrorsAsSingleString());
+                String message = "saveSurvey() save failed: " + gex.getErrorsAsSingleString();
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage( FacesMessage.SEVERITY_INFO, message, message));
+                return null;
+            }
+
+
+    
+            //Refresh
+            survey.refresh();
         }
-
-        if (Time.getCalFromDate(survey.getStartdate()).before(Calendar.getInstance())){
-            survey.setStatus(Survey.STATUS_OPEN);
-        } else {
-            survey.setStatus(Survey.STATUS_WAITINGFORSTARTDATE);
-        }
-
-
-        try{
-            logger.debug("saveSurvey() about to save survey.getSurveyid()=" + survey.getSurveyid());
-            survey.save();
-            logger.debug("saveSurvey() done saving survey.getSurveyid()=" + survey.getSurveyid());
-        } catch (GeneralException gex){
-            logger.debug("saveSurvey() failed: " + gex.getErrorsAsSingleString());
-            String message = "saveSurvey() save failed: " + gex.getErrorsAsSingleString();
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage( FacesMessage.SEVERITY_INFO, message, message));
-            return null;
-        }
-
-
-
-        //Refresh
-        survey.refresh();
-
 
         return "success";
     }
 
-   
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
 }

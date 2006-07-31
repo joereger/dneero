@@ -54,7 +54,7 @@
                 <f:facet name="header">
                   <af:outputText value=" "/>
                 </f:facet>
-                <h:commandLink action="#{researcherSurveyDetail02.beginEdit}">
+                <h:commandLink action="#{researcherSurveyDetail02.beginEdit}" rendered="#{researcherSurveyDetail02.status le 2}">
                     <h:outputText value="Edit" escape="false" />
                     <f:param name="questionid" value="#{question.questionid}" />
                     <f:param name="componenttype" value="#{question.componenttype}" />
@@ -64,7 +64,7 @@
                 <f:facet name="header">
                   <af:outputText value=" "/>
                 </f:facet>
-                <h:commandLink action="#{researcherSurveyDetail02.deleteQuestion}">
+                <h:commandLink action="#{researcherSurveyDetail02.deleteQuestion}" rendered="#{researcherSurveyDetail02.status le 2}">
                     <h:outputText value="Del" escape="false" />
                     <f:param name="questionid" value="#{question.questionid}" />
                 </h:commandLink>
@@ -94,11 +94,11 @@
 
 
         <h:panelGroup>
-            <h:selectOneMenu value="#{researcherSurveyDetail02.newquestioncomponenttype}" id="newquestioncomponenttype" required="true">
+            <h:selectOneMenu value="#{researcherSurveyDetail02.newquestioncomponenttype}" id="newquestioncomponenttype" required="true" rendered="#{researcherSurveyDetail02.status le 2}">
                 <f:selectItems value="#{componentTypes.typesaslinkedhashmap}"/>
             </h:selectOneMenu>
             <f:verbatim><br/></f:verbatim>
-            <h:commandButton action="#{researcherSurveyDetail02.addQuestion}" value="Add Question">
+            <h:commandButton action="#{researcherSurveyDetail02.addQuestion}" value="Add Question" rendered="#{researcherSurveyDetail02.status le 2}">
                 <f:param name="isnewquestion" value="1" />
             </h:commandButton>
         </h:panelGroup>

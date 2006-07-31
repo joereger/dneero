@@ -25,6 +25,7 @@ public class ResearcherSurveyDetail05 {
     private double willingtopaypercpm = 10;
     private int maxdisplaysperblog = 5000;
     private int maxdisplaystotal = 100000;
+    private int status;
 
 
 
@@ -47,6 +48,7 @@ public class ResearcherSurveyDetail05 {
             willingtopaypercpm = survey.getWillingtopaypercpm();
             maxdisplaysperblog = survey.getMaxdisplaysperblog();
             maxdisplaystotal = survey.getMaxdisplaystotal();
+            status = survey.getStatus();
 
         }
 
@@ -54,35 +56,35 @@ public class ResearcherSurveyDetail05 {
 
     public String saveSurvey(){
         logger.debug("saveSurvey() called.");
+        if (status<=Survey.STATUS_WAITINGFORSTARTDATE){
+            UserSession userSession = Jsf.getUserSession();
 
-        UserSession userSession = Jsf.getUserSession();
+            Survey survey = new Survey();
+            if (userSession.getCurrentSurveyid()>0){
+                logger.debug("saveSurvey() called: going to get Survey.get(surveyid)="+userSession.getCurrentSurveyid());
+                survey = Survey.get(userSession.getCurrentSurveyid());
+            }
 
-        Survey survey = new Survey();
-        if (userSession.getCurrentSurveyid()>0){
-            logger.debug("saveSurvey() called: going to get Survey.get(surveyid)="+userSession.getCurrentSurveyid());
-            survey = Survey.get(userSession.getCurrentSurveyid());
+            survey.setWillingtopayperrespondent(willingtopayperrespondent);
+            survey.setNumberofrespondentsrequested(numberofrespondentsrequested);
+            survey.setWillingtopaypercpm(willingtopaypercpm);
+            survey.setMaxdisplaysperblog(maxdisplaysperblog);
+            survey.setMaxdisplaystotal(maxdisplaystotal);
+
+            try{
+                logger.debug("saveSurvey() about to save survey.getSurveyid()=" + survey.getSurveyid());
+                survey.save();
+                logger.debug("saveSurvey() done saving survey.getSurveyid()=" + survey.getSurveyid());
+            } catch (GeneralException gex){
+                logger.debug("saveSurvey() failed: " + gex.getErrorsAsSingleString());
+                String message = "saveSurvey() save failed: " + gex.getErrorsAsSingleString();
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage( FacesMessage.SEVERITY_INFO, message, message));
+                return null;
+            }
+
+            //Refresh
+            survey.refresh();
         }
-
-        survey.setWillingtopayperrespondent(willingtopayperrespondent);
-        survey.setNumberofrespondentsrequested(numberofrespondentsrequested);
-        survey.setWillingtopaypercpm(willingtopaypercpm);
-        survey.setMaxdisplaysperblog(maxdisplaysperblog);
-        survey.setMaxdisplaystotal(maxdisplaystotal);
-
-        try{
-            logger.debug("saveSurvey() about to save survey.getSurveyid()=" + survey.getSurveyid());
-            survey.save();
-            logger.debug("saveSurvey() done saving survey.getSurveyid()=" + survey.getSurveyid());
-        } catch (GeneralException gex){
-            logger.debug("saveSurvey() failed: " + gex.getErrorsAsSingleString());
-            String message = "saveSurvey() save failed: " + gex.getErrorsAsSingleString();
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage( FacesMessage.SEVERITY_INFO, message, message));
-            return null;
-        }
-
-        //Refresh
-        survey.refresh();
-
         return "success";
     }
 
@@ -126,5 +128,13 @@ public class ResearcherSurveyDetail05 {
 
     public void setMaxdisplaystotal(int maxdisplaystotal) {
         this.maxdisplaystotal = maxdisplaystotal;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 }
