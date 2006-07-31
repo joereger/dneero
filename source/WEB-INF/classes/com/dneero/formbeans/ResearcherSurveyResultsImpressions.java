@@ -38,12 +38,9 @@ public class ResearcherSurveyResultsImpressions {
             for (Iterator<Impression> iterator = survey.getImpressions().iterator(); iterator.hasNext();) {
                 Impression impression = iterator.next();
                 ResearcherSurveyResultsImpressionsObj robj = new ResearcherSurveyResultsImpressionsObj();
-                if (impression.getBlogid()>0){
-                    Blog blog = Blog.get(impression.getBlogid());
-                    if (blog!=null){
-                        robj.setBlogtitle(blog.getTitle());
-                        robj.setBlogurl(blog.getUrl());
-                    }
+                if (impression.getBlog()!=null){
+                    robj.setBlogtitle(impression.getBlog().getTitle());
+                    robj.setBlogurl(impression.getBlog().getUrl());
                 }
                 robj.setTotalimpressions(impression.getTotalimpressions());
                 robj.setReferer(impression.getReferer());

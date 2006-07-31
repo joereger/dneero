@@ -17,9 +17,6 @@
         <property name="surveyid" type="int">
             <column name="surveyid" not-null="true" />
         </property>
-        <property name="blogid" type="int">
-            <column name="blogid" not-null="true" />
-        </property>
         <property name="referer" type="string">
             <column name="referer" />
         </property>
@@ -33,6 +30,11 @@
             <column name="firstseendate" length="19" not-null="true" />
         </property>
 
+        <!-- Get parent -->
+        <join table="joinblogimpression" inverse="true" optional="true">
+            <key column="impressionid"/>
+            <many-to-one name="blog" column="blogid" not-null="false"/>
+        </join>
 
     </class>
 </hibernate-mapping>

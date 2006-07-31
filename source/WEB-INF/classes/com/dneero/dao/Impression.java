@@ -20,12 +20,12 @@ public class Impression extends BasePersistentClass implements java.io.Serializa
     // Fields
      private int impressionid;
      private int surveyid;
-     private int blogid;
      private String referer;
      private int totalimpressions;
      private int quality;
      private Date firstseendate;
      private Set<Impressiondetail> impressiondetails = new HashSet<Impressiondetail>();
+     private Blog blog;
 
 
 
@@ -84,14 +84,6 @@ public class Impression extends BasePersistentClass implements java.io.Serializa
         this.surveyid = surveyid;
     }
 
-    public int getBlogid() {
-        return blogid;
-    }
-
-    public void setBlogid(int blogid) {
-        this.blogid = blogid;
-    }
-
     public int getTotalimpressions() {
         return totalimpressions;
     }
@@ -130,5 +122,13 @@ public class Impression extends BasePersistentClass implements java.io.Serializa
 
     public void setFirstseendate(Date firstseendate) {
         this.firstseendate = firstseendate;
+    }
+
+    public Blog getBlog() {
+        return blog;
+    }
+
+    public void setBlog(Blog blog) {
+        this.blog = blog;
     }
 }

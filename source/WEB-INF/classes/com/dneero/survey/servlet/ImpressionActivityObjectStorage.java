@@ -3,6 +3,7 @@ package com.dneero.survey.servlet;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.dao.Impression;
 import com.dneero.dao.Impressiondetail;
+import com.dneero.dao.Blog;
 import com.dneero.util.GeneralException;
 
 import java.util.List;
@@ -33,7 +34,6 @@ public class ImpressionActivityObjectStorage {
             impression = new Impression();
             impression.setFirstseendate(new Date());
             impression.setSurveyid(iao.getSurveyid());
-            impression.setBlogid(iao.getBlogid());
             impression.setTotalimpressions(1);
             impression.setReferer(iao.getReferer());
         }
@@ -55,6 +55,18 @@ public class ImpressionActivityObjectStorage {
             impression.save();
         } catch (GeneralException gex){
             logger.debug("saveAction failed: " + gex.getErrorsAsSingleString());
+        }
+
+        if (iao.getBlogid()>0){
+            Blog blog = Blog.get(iao.getBlogid());
+            if (blog!=null && blog.getBlogid()>0){
+                blog.getImpressions().add(impression);
+                try{
+                    blog.save();
+                } catch (GeneralException gex){
+                    logger.error(gex);
+                }
+            }
         }
 
     }

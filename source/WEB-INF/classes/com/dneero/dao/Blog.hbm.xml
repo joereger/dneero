@@ -9,10 +9,17 @@
             <column name="blogid" />
             <generator class="native" />
         </id>
+        <!--
         <set name="impressions" inverse="true" cascade="all-delete-orphan">
             <cache usage="nonstrict-read-write"/>
             <key column="blogid"></key>
             <one-to-many class="com.dneero.dao.Impression" not-found="ignore"></one-to-many>
+        </set>
+        -->
+        <set name="impressions" table="joinblogimpression" cascade="none">
+            <cache usage="nonstrict-read-write"/>
+            <key column="blogid"/>
+            <many-to-many column="impressionid" class="com.dneero.dao.Impression" unique="true" not-found="ignore"/>
         </set>
         <property name="bloggerid" type="int">
             <column name="bloggerid" not-null="true" />

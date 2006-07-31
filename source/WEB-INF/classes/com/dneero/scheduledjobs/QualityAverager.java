@@ -36,12 +36,22 @@ public class QualityAverager implements Job {
         List<Impression> impressions = HibernateUtil.getSession().createQuery("from Impression").list();
         for (Iterator<Impression> iterator = impressions.iterator(); iterator.hasNext();) {
             Impression impression = iterator.next();
-            Blog blog = Blog.get(impression.getBlogid());
-            Blogger blogger = Blogger.get(blog.getBloggerid());
+            Blog blog;
+            Blogger blogger;
+            logger.debug("impression.getImpressionid()="+impression.getImpressionid());
+            if (impression.getBlog()!=null){
+                logger.debug("blog found with impression.getBlog() - impression.getBlog().getBlogid()="+impression.getBlog().getBlogid());
+                blog = impression.getBlog();
+                blogger = Blogger.get(blog.getBloggerid());
+            } else {
+                logger.debug("blog not found with impression.getBlog()");
+                blog = new Blog();
+                blogger = new Blogger();
+            }
             Calendar cal = Time.getCalFromDate(impression.getFirstseendate());
             int daysold = DateDiff.dateDiff("day", Calendar.getInstance(), cal);
             //@todo delete this debug line before going live
-            logger.debug("daysold="+daysold+" cal=" + Time.dateformatfordb(cal) + " now="+Time.dateformatfordb(Calendar.getInstance()));
+            //logger.debug("daysold="+daysold+" cal=" + Time.dateformatfordb(cal) + " now="+Time.dateformatfordb(Calendar.getInstance()));
 
             //Blog quality
             if (1==1){
@@ -100,18 +110,32 @@ public class QualityAverager implements Job {
             }
         }
 
+        //Debug
+        logger.debug("blogQuality.size()="+blogQuality.size());
+        logger.debug("blogQuality90Days.size()="+blogQuality90Days.size());
+        logger.debug("bloggerQuality.size()="+bloggerQuality.size());
+        logger.debug("bloggerQuality90Days.size()="+bloggerQuality90Days.size());
+
         //Compute blogQuality
         if (true){
             Iterator keyValuePairs = blogQuality.entrySet().iterator();
             for (int i = 0; i < blogQuality.size(); i++){
                 Map.Entry mapentry = (Map.Entry) keyValuePairs.next();
                 int key = (Integer)mapentry.getKey();
-                HashMap value = (HashMap)mapentry.getValue();
-                Blog blog = Blog.get(key);
-                double avgquality = 0;
-                try{avgquality = (Integer)value.get("totalquality") / (Integer)value.get("totalimpressions"); } catch (Exception ex){ logger.error(ex);}
-                blog.setQuality(avgquality);
-                try{ blog.save(); } catch (Exception ex){ logger.error(ex); }
+                if (key>0){
+                    HashMap value = (HashMap)mapentry.getValue();
+                    Blog blog = Blog.get(key);
+                    logger.debug("blogid="+blog.getBlogid());
+                    double avgquality = 0;
+                    logger.debug("value.get(\"totalquality\")="+value.get("totalquality"));
+                    logger.debug("(Integer)value.get(\"totalquality\")="+(Integer)value.get("totalquality"));
+                    logger.debug("value.get(\"totalimpressions\")="+value.get("totalimpressions"));
+                    logger.debug("(Integer)value.get(\"totalimpressions\")="+(Integer)value.get("totalimpressions"));
+                    try{avgquality = (Integer)value.get("totalquality") / (Integer)value.get("totalimpressions"); } catch (Exception ex){ logger.error(ex);}
+                    logger.debug("blogid="+blog.getBlogid()+" avgquality="+avgquality);
+                    blog.setQuality(avgquality);
+                    try{ blog.save(); } catch (Exception ex){ logger.error(ex); }
+                }
             }
         }
 
@@ -121,12 +145,14 @@ public class QualityAverager implements Job {
             for (int i = 0; i < blogQuality90Days.size(); i++){
                 Map.Entry mapentry = (Map.Entry) keyValuePairs.next();
                 int key = (Integer)mapentry.getKey();
-                HashMap value = (HashMap)mapentry.getValue();
-                Blog blog = Blog.get(key);
-                double avgquality = 0;
-                try{avgquality = (Integer)value.get("totalquality") / (Integer)value.get("totalimpressions"); } catch (Exception ex){ logger.error(ex);}
-                blog.setQuality90days(avgquality);
-                try{ blog.save(); } catch (Exception ex){ logger.error(ex); }
+                if (key>0){
+                    HashMap value = (HashMap)mapentry.getValue();
+                    Blog blog = Blog.get(key);
+                    double avgquality = 0;
+                    try{avgquality = (Integer)value.get("totalquality") / (Integer)value.get("totalimpressions"); } catch (Exception ex){ logger.error(ex);}
+                    blog.setQuality90days(avgquality);
+                    try{ blog.save(); } catch (Exception ex){ logger.error(ex); }
+                }
             }
         }
 
@@ -136,12 +162,14 @@ public class QualityAverager implements Job {
             for (int i = 0; i < bloggerQuality.size(); i++){
                 Map.Entry mapentry = (Map.Entry) keyValuePairs.next();
                 int key = (Integer)mapentry.getKey();
-                HashMap value = (HashMap)mapentry.getValue();
-                Blogger blogger = Blogger.get(key);
-                double avgquality = 0;
-                try{avgquality = (Integer)value.get("totalquality") / (Integer)value.get("totalimpressions"); } catch (Exception ex){ logger.error(ex);}
-                blogger.setQuality(avgquality);
-                try{ blogger.save(); } catch (Exception ex){ logger.error(ex); }
+                if (key>0){
+                    HashMap value = (HashMap)mapentry.getValue();
+                    Blogger blogger = Blogger.get(key);
+                    double avgquality = 0;
+                    try{avgquality = (Integer)value.get("totalquality") / (Integer)value.get("totalimpressions"); } catch (Exception ex){ logger.error(ex);}
+                    blogger.setQuality(avgquality);
+                    try{ blogger.save(); } catch (Exception ex){ logger.error(ex); }
+                }
             }
         }
 
@@ -151,12 +179,14 @@ public class QualityAverager implements Job {
             for (int i = 0; i < bloggerQuality90Days.size(); i++){
                 Map.Entry mapentry = (Map.Entry) keyValuePairs.next();
                 int key = (Integer)mapentry.getKey();
-                HashMap value = (HashMap)mapentry.getValue();
-                Blogger blogger = Blogger.get(key);
-                double avgquality = 0;
-                try{avgquality = (Integer)value.get("totalquality") / (Integer)value.get("totalimpressions"); } catch (Exception ex){ logger.error(ex);}
-                blogger.setQuality90days(avgquality);
-                try{ blogger.save(); } catch (Exception ex){ logger.error(ex); }
+                if (key>0){
+                    HashMap value = (HashMap)mapentry.getValue();
+                    Blogger blogger = Blogger.get(key);
+                    double avgquality = 0;
+                    try{avgquality = (Integer)value.get("totalquality") / (Integer)value.get("totalimpressions"); } catch (Exception ex){ logger.error(ex);}
+                    blogger.setQuality90days(avgquality);
+                    try{ blogger.save(); } catch (Exception ex){ logger.error(ex); }
+                }
             }
         }
 
