@@ -2,6 +2,7 @@ package com.dneero.invoice;
 
 import com.dneero.dao.*;
 import com.dneero.dao.hibernate.HibernateUtil;
+import com.dneero.util.Util;
 
 import java.util.Iterator;
 import java.util.List;
@@ -23,14 +24,18 @@ public class BloggerIncomeCalculator {
             Blog blog = iterator.next();
             List<Impression> impressions = new ArrayList();
             if (survey!=null){
-                impressions = HibernateUtil.getSession().createCriteria(Impression.class)
-                           .add( Restrictions.eq("surveyid", survey.getSurveyid()))
-                           .add( Restrictions.eq("blogid", blog.getBlogid()))
-                           .list();
+                //@todo optimize this using a single hql query... iterating all impressions for a blogger is wasteful
+                List<Impression> imp = new ArrayList<Impression>();
+                for (Iterator<Impression> iterator1 = blog.getImpressions().iterator(); iterator1.hasNext();) {
+                    Impression impression = iterator1.next();
+                    if (impression.getSurveyid()==survey.getSurveyid()){
+                        imp.add(impression);
+                    }
+                }
+                impressions = imp;
+
             } else {
-                impressions = HibernateUtil.getSession().createCriteria(Impression.class)
-                           .add( Restrictions.eq("blogid", blog.getBlogid()))
-                           .list();
+                impressions = Util.setToArrayList(blog.getImpressions());
             }
 
             for (Iterator<Impression> iterator1 = impressions.iterator(); iterator1.hasNext();) {
@@ -70,10 +75,15 @@ public class BloggerIncomeCalculator {
         for (Iterator<Blog> iterator = blogger.getBlogs().iterator(); iterator.hasNext();) {
             Blog blog = iterator.next();
             List<Impression> impressions = new ArrayList<Impression>();
-            impressions = HibernateUtil.getSession().createCriteria(Impression.class)
-                       .add( Restrictions.eq("surveyid", survey.getSurveyid()))
-                       .add( Restrictions.eq("blogid", blog.getBlogid()))
-                       .list();
+            //@todo optimize this using a single hql query... iterating all impressions for a blogger is wasteful
+            List<Impression> imp = new ArrayList<Impression>();
+            for (Iterator<Impression> iterator1 = blog.getImpressions().iterator(); iterator1.hasNext();) {
+                Impression impression = iterator1.next();
+                if (impression.getSurveyid()==survey.getSurveyid()){
+                    imp.add(impression);
+                }
+            }
+            impressions = imp;
 
             for (Iterator<Impression> iterator1 = impressions.iterator(); iterator1.hasNext();) {
                 Impression impression = iterator1.next();

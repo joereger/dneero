@@ -49,10 +49,10 @@ public class ImpressionActivityObjectStorage {
         impressiondetail.setImpressiondate(new Date());
         impressiondetail.setIp(iao.getIp());
         
-        impression.getImpressiondetails().add(impressiondetail);
+        //impression.getImpressiondetails().add(impressiondetail);
 
         try{
-            impression.save();
+            impressiondetail.save();
         } catch (GeneralException gex){
             logger.debug("saveAction failed: " + gex.getErrorsAsSingleString());
         }

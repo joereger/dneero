@@ -66,6 +66,8 @@ public class FindSurveysForBlogger {
         crit.createCriteria("surveycriteriapolitics")
             .add(Restrictions.eq("politics", blogger.getPolitics()));
         //@todo add blog.blogfocus criteria
+        //@todo add blog quality
+        //@todo add blog quality 90 days
 
 
         //Run the query
