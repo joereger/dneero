@@ -17,15 +17,14 @@ import org.apache.log4j.Logger;
 
 public class Payblogger extends BasePersistentClass implements java.io.Serializable, RegerEntity {
 
-    public static int STATUS_PENDINGRESEARCHER = 1;
-    public static int STATUS_OWED = 2;
-    public static int STATUS_PAYERROR = 3;
-    public static int STATUS_PAID = 4;
+    public static int STATUS_OWED = 1;
+    public static int STATUS_PAYERROR = 2;
+    public static int STATUS_PAID = 3;
 
     // Fields
      private int paybloggerid;
      private int bloggerid;
-     private int invoiceid;
+     private Date date;
      private int status;
      private double amt;
      private Set<Paybloggertransaction> paybloggertransactions = new HashSet<Paybloggertransaction>();
@@ -84,13 +83,6 @@ public class Payblogger extends BasePersistentClass implements java.io.Serializa
         this.bloggerid = bloggerid;
     }
 
-    public int getInvoiceid() {
-        return invoiceid;
-    }
-
-    public void setInvoiceid(int invoiceid) {
-        this.invoiceid = invoiceid;
-    }
 
     public int getStatus() {
         return status;
@@ -116,4 +108,11 @@ public class Payblogger extends BasePersistentClass implements java.io.Serializa
         this.paybloggertransactions = paybloggertransactions;
     }
 
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
 }

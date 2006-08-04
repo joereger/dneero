@@ -6,6 +6,8 @@ import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.util.GeneralException;
 
 import java.util.Date;
+import java.util.Set;
+import java.util.HashSet;
 
 import org.apache.log4j.Logger;
 
@@ -63,6 +65,8 @@ public class Paybloggertransaction extends BasePersistentClass implements java.i
 
     // Property accessors
 
+
+
     public int getPaybloggertransactionid() {
         return paybloggertransactionid;
     }
@@ -111,5 +115,5 @@ public class Paybloggertransaction extends BasePersistentClass implements java.i
         this.notes = notes;
     }
 
-
+    
 }

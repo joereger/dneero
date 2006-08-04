@@ -205,28 +205,6 @@
 
     <job>
         <job-detail>
-          <name>paybloggerPendingToOwed</name>
-          <group>surveyJobs</group>
-          <job-class>com.dneero.scheduledjobs.PaybloggerPendingToOwed</job-class>
-          <volatility>false</volatility>
-          <durability>false</durability>
-          <recover>false</recover>
-        </job-detail>
-        <trigger>
-          <!-- Sample cron triggers: http://www.opensymphony.com/quartz/wikidocs/TutorialLesson6.html -->
-          <cron>
-            <name>paybloggerPendingToOwedTrigger</name>
-            <group>surveyTriggers</group>
-            <job-name>paybloggerPendingToOwed</job-name>
-            <job-group>surveyJobs</job-group>
-            <!-- every two minutes -->
-            <cron-expression>0 0/15 * * * ?</cron-expression>
-          </cron>
-        </trigger>
-    </job>
-
-    <job>
-        <job-detail>
           <name>qualityAverager</name>
           <group>surveyJobs</group>
           <job-class>com.dneero.scheduledjobs.QualityAverager</job-class>
@@ -240,6 +218,28 @@
             <name>qualityAveragerTrigger</name>
             <group>surveyTriggers</group>
             <job-name>qualityAverager</job-name>
+            <job-group>surveyJobs</job-group>
+            <!-- every two minutes -->
+            <cron-expression>0 0/60 * * * ?</cron-expression>
+          </cron>
+        </trigger>
+    </job>
+
+    <job>
+        <job-detail>
+          <name>createPaybloggers</name>
+          <group>surveyJobs</group>
+          <job-class>com.dneero.scheduledjobs.CreatePaybloggers</job-class>
+          <volatility>false</volatility>
+          <durability>false</durability>
+          <recover>false</recover>
+        </job-detail>
+        <trigger>
+          <!-- Sample cron triggers: http://www.opensymphony.com/quartz/wikidocs/TutorialLesson6.html -->
+          <cron>
+            <name>createPaybloggersTrigger</name>
+            <group>surveyTriggers</group>
+            <job-name>createPaybloggers</job-name>
             <job-group>surveyJobs</job-group>
             <!-- every two minutes -->
             <cron-expression>0 0/60 * * * ?</cron-expression>

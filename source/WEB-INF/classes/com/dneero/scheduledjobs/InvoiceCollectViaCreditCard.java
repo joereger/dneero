@@ -31,7 +31,6 @@ public class InvoiceCollectViaCreditCard implements Job {
         logger.debug("execute() InvoiceCollectViaCreditCard called");
 
         List<Invoice> invoices = HibernateUtil.getSession().createCriteria(Invoice.class)
-                               .add( Restrictions.ne("status", Invoice.STATUS_WAIVED))
                                .add( Restrictions.ne("status", Invoice.STATUS_PAID))
                                .list();
 
@@ -82,6 +81,15 @@ public class InvoiceCollectViaCreditCard implements Job {
                 it.save();
             } catch (GeneralException gex){
                 logger.error(gex);
+            }
+
+            if (successful){
+                invoice.setStatus(Invoice.STATUS_PAID);   
+                try{
+                    invoice.save();
+                } catch (GeneralException gex){
+                    logger.error(gex);
+                }
             }
 
 

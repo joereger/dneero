@@ -18,8 +18,17 @@ public class Impressiondetail extends BasePersistentClass implements java.io.Ser
     // Fields
      private int impressiondetailid;
      private int impressionid;
+     private int invoiceid;
+     private int bloggerid;
+     private int paybloggerid;
      private Date impressiondate;
      private String ip;
+     private int qualifiesforpaymentstatus;
+
+     public static int QUALIFIESFORPAYMENTSTATUS_PENDING = -1;
+     public static int QUALIFIESFORPAYMENTSTATUS_FALSE = 0;
+     public static int QUALIFIESFORPAYMENTSTATUS_TRUE = 1;
+
 
 
 
@@ -94,4 +103,35 @@ public class Impressiondetail extends BasePersistentClass implements java.io.Ser
         this.ip = ip;
     }
 
+    public int getInvoiceid() {
+        return invoiceid;
+    }
+
+    public void setInvoiceid(int invoiceid) {
+        this.invoiceid = invoiceid;
+    }
+
+    public int getPaybloggerid() {
+        return paybloggerid;
+    }
+
+    public void setPaybloggerid(int paybloggerid) {
+        this.paybloggerid = paybloggerid;
+    }
+
+    public int getBloggerid() {
+        return bloggerid;
+    }
+
+    public void setBloggerid(int bloggerid) {
+        this.bloggerid = bloggerid;
+    }
+
+    public int getQualifiesforpaymentstatus() {
+        return qualifiesforpaymentstatus;
+    }
+
+    public void setQualifiesforpaymentstatus(int qualifiesforpaymentstatus) {
+        this.qualifiesforpaymentstatus = qualifiesforpaymentstatus;
+    }
 }

@@ -1,11 +1,13 @@
 package com.dneero.survey.servlet;
 
+import java.io.Serializable;
+
 /**
  * User: Joe Reger Jr
  * Date: Jul 5, 2006
  * Time: 2:11:26 PM
  */
-public class ImpressionActivityObject {
+public class ImpressionActivityObject implements Serializable {
 
     //These are the things we track on each impression
     private int surveyid;

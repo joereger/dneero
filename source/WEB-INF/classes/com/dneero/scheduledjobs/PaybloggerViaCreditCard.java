@@ -14,6 +14,7 @@ import com.dneero.util.GeneralException;
 import java.util.List;
 import java.util.Iterator;
 import java.util.Date;
+import java.util.ArrayList;
 
 /**
  * User: Joe Reger Jr
@@ -27,87 +28,113 @@ public class PaybloggerViaCreditCard implements Job {
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
         logger.debug("execute() PaybloggerViaCreditCard called");
 
-        List<Payblogger> paybloggers = HibernateUtil.getSession().createCriteria(Payblogger.class)
+        //Get a list of bloggers who need to be paid
+        List<Payblogger> allpaybloggers = HibernateUtil.getSession().createCriteria(Payblogger.class)
                                .add( Restrictions.eq("status", Payblogger.STATUS_OWED))
                                .add( Restrictions.eq("status", Payblogger.STATUS_PAYERROR))
                                .list();
-
-        for (Iterator<Payblogger> iterator = paybloggers.iterator(); iterator.hasNext();) {
+        ArrayList<Integer> bloggerids = new ArrayList<Integer>();
+        for (Iterator<Payblogger> iterator = allpaybloggers.iterator(); iterator.hasNext();) {
             Payblogger payblogger = iterator.next();
+            bloggerids.add(payblogger.getBloggerid());
+        }
 
-            //Find any existing payments
-            double paidtodate = 0;
-            for (Iterator<Paybloggertransaction> iterator1 = payblogger.getPaybloggertransactions().iterator(); iterator1.hasNext();){
-                Paybloggertransaction paybloggertransaction = iterator1.next();
-                if (paybloggertransaction.getIssuccessful()){
-                    paidtodate = paidtodate + paybloggertransaction.getAmt();
-                }
-            }
-
-            //Calculate amount due now
-            double amtdue = payblogger.getAmt() - paidtodate;
-
-            //Get billing details
-            Blogger blogger = Blogger.get(payblogger.getBloggerid());
+        //Iterate the list of bloggers who need to be paid
+        for (Iterator it = bloggerids.iterator(); it.hasNext(); ) {
+            int bloggerid = (Integer)it.next();
+            Blogger blogger = Blogger.get(bloggerid);
             Bloggerbilling bloggerbilling = blogger.getBloggerbilling();
-            if (bloggerbilling!=null){
+            double amtduetotal = 0;
 
-                //Charge the card
-                boolean successful = false;
-                String notes = "";
+            //List this blogger's payblogger records that are unpaid
+            List<Payblogger> paybloggers = HibernateUtil.getSession().createCriteria(Payblogger.class)
+                               .add( Restrictions.eq("bloggerid", blogger.getBloggerid()))
+                               .add( Restrictions.eq("status", Payblogger.STATUS_OWED))
+                               .add( Restrictions.eq("status", Payblogger.STATUS_PAYERROR))
+                               .list();
+            for (Iterator<Payblogger> iterator = paybloggers.iterator(); iterator.hasNext();) {
+                Payblogger payblogger = iterator.next();
 
-                try{
-                    Verisign vs = new Verisign();
-                    notes = vs.chargeCard(amtdue, bloggerbilling.getCcnum(), bloggerbilling.getCcexpmonth(), bloggerbilling.getCcexpyear(), bloggerbilling.getBillingaddress1(), bloggerbilling.getBillingzip());
-                    //@todo i don't believe successful is always set correctly.  a bad ccnum will not throw VerisignError, right?
-                    successful = true;
-                } catch (VerisignException vex){
-                    logger.debug(vex.errorMessage);
+                //Find any existing payments
+                double paidtodate = 0;
+                for (Iterator<Paybloggertransaction> iterator1 = payblogger.getPaybloggertransactions().iterator(); iterator1.hasNext();){
+                    Paybloggertransaction paybloggertransaction = iterator1.next();
+                    if (paybloggertransaction.getIssuccessful()){
+                        paidtodate = paidtodate + paybloggertransaction.getAmt();
+                    }
                 }
 
-                //Record transaction
-                Paybloggertransaction it = new Paybloggertransaction();
-                it.setPaybloggerid(payblogger.getPaybloggerid());
-                it.setAmt(amtdue);
-                it.setIssuccessful(successful);
-                it.setTransactiondate(new Date());
-                it.setNotes(notes);
+                //Calculate amount due now for this one payment element
+                double amtdue = payblogger.getAmt() - paidtodate;
+                amtduetotal = amtduetotal + amtdue;
 
-                payblogger.getPaybloggertransactions().add(it);
+                if (bloggerbilling!=null){
 
-                try{
-                    it.save();
-                } catch (GeneralException gex){
-                    logger.error(gex);
-                }
+                    //Charge the card
+                    boolean successful = false;
+                    String notes = "";
 
-            } else {
-                //No billing info on file
-                payblogger.setStatus(Payblogger.STATUS_PAYERROR);
-                try{
-                    payblogger.save();
-                } catch (GeneralException gex){
-                    logger.error(gex);
-                }
+                    try{
+                        Verisign vs = new Verisign();
+                        notes = vs.chargeCard(amtduetotal, bloggerbilling.getCcnum(), bloggerbilling.getCcexpmonth(), bloggerbilling.getCcexpyear(), bloggerbilling.getBillingaddress1(), bloggerbilling.getBillingzip());
+                        //@todo i don't believe successful is always set correctly.  a bad ccnum will not throw VerisignError, right?
+                        successful = true;
+                    } catch (VerisignException vex){
+                        logger.debug(vex.errorMessage);
+                    }
 
-                Paybloggertransaction it = new Paybloggertransaction();
-                it.setPaybloggerid(payblogger.getPaybloggerid());
-                it.setAmt(amtdue);
-                it.setIssuccessful(false);
-                it.setTransactiondate(new Date());
-                it.setNotes("Blogger does not have billing information on file.");
+                    //Record transaction
+                    Paybloggertransaction pbt = new Paybloggertransaction();
+                    pbt.setPaybloggerid(payblogger.getPaybloggerid());
+                    pbt.setAmt(amtdue);
+                    pbt.setIssuccessful(successful);
+                    pbt.setTransactiondate(new Date());
+                    pbt.setNotes(notes);
 
-                payblogger.getPaybloggertransactions().add(it);
+                    payblogger.getPaybloggertransactions().add(pbt);
 
-                try{
-                    it.save();
-                } catch (GeneralException gex){
-                    logger.error(gex);
+                    try{
+                        pbt.save();
+                    } catch (GeneralException gex){
+                        logger.error(gex);
+                    }
+
+                } else {
+                    //No billing info on file
+                    payblogger.setStatus(Payblogger.STATUS_PAYERROR);
+                    try{
+                        payblogger.save();
+                    } catch (GeneralException gex){
+                        logger.error(gex);
+                    }
+
+                    Paybloggertransaction pbt = new Paybloggertransaction();
+                    pbt.setPaybloggerid(payblogger.getPaybloggerid());
+                    pbt.setAmt(amtdue);
+                    pbt.setIssuccessful(false);
+                    pbt.setTransactiondate(new Date());
+                    pbt.setNotes("Blogger does not have billing information on file.");
+
+                    payblogger.getPaybloggertransactions().add(pbt);
+
+                    try{
+                        pbt.save();
+                    } catch (GeneralException gex){
+                        logger.error(gex);
+                    }
                 }
             }
+
+
 
 
         }
+
+
+
+
+
+
 
     }
 

@@ -16,6 +16,12 @@
         <property name="bloggerid" type="int">
             <column name="bloggerid" not-null="true" />
         </property>
+        <property name="invoiceid" type="int">
+            <column name="invoiceid" not-null="false" />
+        </property>
+        <property name="paybloggerid" type="int">
+            <column name="paybloggerid" not-null="false" />
+        </property>
         <property name="responsedate" type="timestamp">
             <column name="responsedate" length="19" not-null="true" />
         </property>

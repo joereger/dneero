@@ -4,6 +4,7 @@ import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.dao.Impression;
 import com.dneero.dao.Impressiondetail;
 import com.dneero.dao.Blog;
+import com.dneero.dao.Blogger;
 import com.dneero.util.GeneralException;
 
 import java.util.List;
@@ -48,6 +49,8 @@ public class ImpressionActivityObjectStorage {
         impressiondetail.setImpressionid(impression.getImpressionid());
         impressiondetail.setImpressiondate(new Date());
         impressiondetail.setIp(iao.getIp());
+        impressiondetail.setQualifiesforpaymentstatus(Impressiondetail.QUALIFIESFORPAYMENTSTATUS_PENDING);
+        impressiondetail.setBloggerid(Blogger.get(Blog.get(iao.getBlogid()).getBloggerid()).getBloggerid());
         
         //impression.getImpressiondetails().add(impressiondetail);
 

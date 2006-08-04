@@ -3,25 +3,23 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated Apr 17, 2006 3:45:28 PM by Hibernate Tools 3.1.0.beta4 -->
 <hibernate-mapping>
-    <class name="com.dneero.dao.Payblogger" table="payblogger">
+    <class name="com.dneero.dao.Revshare" table="revshare">
         <cache usage="nonstrict-read-write"/>
-        <id name="paybloggerid" type="int">
-            <column name="paybloggerid" />
+        <id name="revshareid" type="int">
+            <column name="revshareid" />
             <generator class="native" />
         </id>
-        <set name="paybloggertransactions" table="Joinpaybloggerpaybloggertransaction">
-            <cache usage="nonstrict-read-write"/>
-            <key column="paybloggerid"/>
-            <many-to-many column="paybloggertransactionid" class="com.dneero.dao.Paybloggertransaction" not-found="ignore"/>
-        </set>
-        <property name="bloggerid" type="int">
-            <column name="bloggerid" not-null="true" />
+        <property name="sourcebloggerid" type="int">
+            <column name="sourcebloggerid" not-null="true" />
+        </property>
+        <property name="targetbloggerid" type="int">
+            <column name="targetbloggerid" not-null="true" />
+        </property>
+        <property name="paybloggerid" type="int">
+            <column name="paybloggerid" not-null="false" />
         </property>
         <property name="date" type="timestamp">
             <column name="date" length="19" not-null="true" />
-        </property>
-        <property name="status" type="int">
-            <column name="status" not-null="true" />
         </property>
         <property name="amt" type="double">
             <column name="amt" precision="22" scale="0" not-null="true" />

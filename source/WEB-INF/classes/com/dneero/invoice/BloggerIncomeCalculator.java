@@ -17,6 +17,10 @@ import org.hibernate.criterion.Restrictions;
  */
 public class BloggerIncomeCalculator {
 
+    public static double getBloggerTotalPossibleEarningsAllTime(Blogger blogger){
+        return getBloggerTotalPossibleIncomeForSurvey(blogger, null);
+    }
+
     public static double getBloggerTotalPossibleIncomeForSurvey(Blogger blogger, Survey survey){
         double out = 0;
         HibernateUtil.getSession().saveOrUpdate(blogger);
@@ -33,7 +37,6 @@ public class BloggerIncomeCalculator {
                     }
                 }
                 impressions = imp;
-
             } else {
                 impressions = Util.setToArrayList(blog.getImpressions());
             }
@@ -53,18 +56,26 @@ public class BloggerIncomeCalculator {
         return out;
     }
 
-    public static double getBloggerTotalPossibleEarningsAllTime(Blogger blogger){
-        return getBloggerTotalPossibleIncomeForSurvey(blogger, null);
+    public static double getAllEarningsPaidToBlogger(){
+        double amt = 0;
+        List<Payblogger> paybloggers = HibernateUtil.getSession().createCriteria(Payblogger.class)
+                                       .add( Restrictions.eq("status", Payblogger.STATUS_PAID))
+                                       .list();
+
+        for (Iterator<Payblogger> iterator = paybloggers.iterator(); iterator.hasNext();) {
+            Payblogger payblogger = iterator.next();
+            amt = amt + payblogger.getAmt();
+        }
+        return amt;
     }
+
+
 
     public static ArrayList<Payblogger> getPaybloggersForResponse(Response response){
         ArrayList<Payblogger> out = new ArrayList<Payblogger>();
-        for (Iterator<Invoice> iterator = response.getSurvey().getInvoices().iterator(); iterator.hasNext();) {
-            Invoice invoice = iterator.next();
-            for (Iterator<Payblogger> iterator1 = invoice.getPaybloggers().iterator(); iterator1.hasNext();) {
-                Payblogger payblogger = iterator1.next();
-                out.add(payblogger);
-            }
+        if(response.getPaybloggerid()>0){
+            Payblogger payblogger = Payblogger.get(response.getPaybloggerid());
+            out.add(payblogger);
         }
         return out;
     }

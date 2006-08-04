@@ -3,10 +3,9 @@ Survey                Invoice               Payblogger
 DRAFT
 WAITINGFORSTARTDATE
 OPEN   --|
-CLOSED ----->         NOTPAID  ------->     PENDINGRESEARCHER
+CLOSED ----->         NOTPAID
                       PARTIALLYPAID
                       PASTDUE
-                      WAIVED
-                      PAID     ------->     OWED
+                      PAID      ------->    OWED
                                             PAYERROR
                                             PAID

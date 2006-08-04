@@ -6,13 +6,16 @@ import org.quartz.JobExecutionException;
 import org.apache.log4j.Logger;
 import org.hibernate.criterion.Restrictions;
 import com.dneero.dao.Survey;
+import com.dneero.dao.Invoice;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.util.GeneralException;
+import com.dneero.util.Time;
 import com.dneero.invoice.InvoiceCreator;
 
 import java.util.List;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.Calendar;
 
 /**
  * User: Joe Reger Jr
@@ -40,8 +43,21 @@ public class CloseSurveysByDate implements Job {
                 logger.error(ex);
             }
 
-            //Create an invoice if necessary
-            InvoiceCreator.createInvoiceIfNecessary(survey);
+            //Figure out most recently invoiced date (or survey start date if no invoices exist yet)
+            Calendar startDate = Time.getCalFromDate(survey.getStartdate());
+            for (Iterator<Invoice> iterator1 = survey.getInvoices().iterator(); iterator1.hasNext();) {
+                Invoice invoice = iterator1.next();
+                Calendar tmp = Time.getCalFromDate(invoice.getEnddate());
+                if (tmp.after(startDate)){
+                    startDate = (Calendar)tmp.clone();
+                }
+            }
+
+            //Set the end date
+            Calendar endDate = Calendar.getInstance();
+
+            //Create an invoice
+            InvoiceCreator.createInvoice(survey, startDate, endDate);
 
         }
 

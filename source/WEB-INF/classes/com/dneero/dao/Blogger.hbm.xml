@@ -19,6 +19,11 @@
             <key column="bloggerid"></key>
             <one-to-many class="com.dneero.dao.Response" not-found="ignore"></one-to-many>
         </set>
+        <set name="paybloggers" inverse="true" cascade="save-update">
+            <cache usage="nonstrict-read-write"/>
+            <key column="bloggerid"></key>
+            <one-to-many class="com.dneero.dao.Payblogger" not-found="ignore"></one-to-many>
+        </set>
 
         <one-to-one name="bloggerbilling" class="com.dneero.dao.Bloggerbilling" property-ref="bloggerid" cascade="all"/>
 
