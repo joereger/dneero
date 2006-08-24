@@ -15,45 +15,30 @@
 
         <h:form>
 
-              <af:table value="#{bloggerEarnings.list}" bandingInterval="2" rows="15" banding="row" var="listitem">
+
+            <af:table value="#{bloggerEarningsSurvey.list}" bandingInterval="2" rows="15" banding="row" var="listitem">
               <af:column>
                 <f:facet name="header">
                   <af:outputText value="ID"/>
                 </f:facet>
-                <af:outputText value="#{listitem.surveyid}"/>
+                <af:outputText value="#{listitem.paybloggerid}"/>
               </af:column>
               <af:column rendered="false">
                 <f:facet name="header">
-                  <af:outputText value="Survey Title"/>
-                </f:facet>
-                <af:outputText value="#{listitem.surveytitle}"/>
-              </af:column>
-              <af:column>
-                <f:facet name="header">
                   <af:outputText value="Date"/>
                 </f:facet>
-                <af:outputText value="#{listitem.surveydate}"/>
+                <af:outputText value="#{listitem.paymentdate}"/>
               </af:column>
               <af:column>
                 <f:facet name="header">
-                  <af:outputText value="Impressions"/>
+                  <af:outputText value="Amount Related to this Survey"/>
                 </f:facet>
-                <af:outputText value="#{listitem.impressions}"/>
+                <af:outputText value="#{listitem.amtrelatedtosurvey}"/>
               </af:column>
-              <af:column>
-                <f:facet name="header">
-                  <af:outputText value="Response Earnings"/>
-                </f:facet>
-                <af:outputText value="#{listitem.amtforresponse}"/>
-              </af:column>
-              <af:column>
-                <f:facet name="header">
-                  <af:outputText value="Total Earnings"/>
-                </f:facet>
-                <af:outputText value="#{listitem.amttotal}"/>
-              </af:column>
-            </af:table>
 
+
+
+            </af:table>
 
 
         </h:form>

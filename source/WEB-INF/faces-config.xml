@@ -170,6 +170,36 @@
         <managed-bean-class>com.dneero.formbeans.BloggerEarnings</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
+    <managed-bean>
+        <managed-bean-name>bloggerEarningsSurvey</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.BloggerEarningsSurvey</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>bloggerEarningsRevshare</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.BloggerEarningsRevshare</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>bloggerEarningsPayment</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.BloggerEarningsPayment</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>bloggerEarningsPaymentListSurv</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.BloggerEarningsPaymentListSurv</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>bloggerEarningsPaymentListImp</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.BloggerEarningsPaymentListImp</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>bloggerEarningsPaymentListRev</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.BloggerEarningsPaymentListRev</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
 
     <managed-bean>
         <managed-bean-name>bloggerSurveyDetail</managed-bean-name>
@@ -378,6 +408,18 @@
         <navigation-case>
             <from-outcome>bloggerearnings</from-outcome>
             <to-view-id>/blogger/bloggerearnings.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>bloggerearningssurvey</from-outcome>
+            <to-view-id>/blogger/bloggerearningssurvey.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>bloggerearningsrevshare</from-outcome>
+            <to-view-id>/blogger/bloggerearningsrevshare.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>bloggerearningspayment</from-outcome>
+            <to-view-id>/blogger/bloggerearningspayment.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>bloggerhome</from-outcome>

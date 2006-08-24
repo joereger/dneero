@@ -15,45 +15,60 @@
 
         <h:form>
 
-              <af:table value="#{bloggerEarnings.list}" bandingInterval="2" rows="15" banding="row" var="listitem">
+              <af:table value="#{bloggerEarningsPaymentListSurv.list}" bandingInterval="2" rows="15" banding="row" var="listitem">
               <af:column>
                 <f:facet name="header">
-                  <af:outputText value="ID"/>
+                  <af:outputText value="Survey Name"/>
                 </f:facet>
-                <af:outputText value="#{listitem.surveyid}"/>
+                <af:outputText value="#{listitem.surveyname}"/>
               </af:column>
               <af:column rendered="false">
                 <f:facet name="header">
-                  <af:outputText value="Survey Title"/>
+                  <af:outputText value="Amount"/>
                 </f:facet>
-                <af:outputText value="#{listitem.surveytitle}"/>
+                <af:outputText value="#{listitem.amt}"/>
               </af:column>
+              </af:table>
+
+
+
+
+              <af:table value="#{bloggerEarningsPaymentListImp.list}" bandingInterval="2" rows="15" banding="row" var="listitem">
               <af:column>
                 <f:facet name="header">
-                  <af:outputText value="Date"/>
+                  <af:outputText value="Survey Name"/>
                 </f:facet>
-                <af:outputText value="#{listitem.surveydate}"/>
+                <af:outputText value="#{listitem.surveyname}"/>
               </af:column>
-              <af:column>
+              <af:column rendered="false">
                 <f:facet name="header">
-                  <af:outputText value="Impressions"/>
+                  <af:outputText value="Amount"/>
                 </f:facet>
                 <af:outputText value="#{listitem.impressions}"/>
               </af:column>
-              <af:column>
+              <af:column rendered="false">
                 <f:facet name="header">
-                  <af:outputText value="Response Earnings"/>
+                  <af:outputText value="Amount"/>
                 </f:facet>
-                <af:outputText value="#{listitem.amtforresponse}"/>
+                <af:outputText value="#{listitem.amt}"/>
               </af:column>
-              <af:column>
-                <f:facet name="header">
-                  <af:outputText value="Total Earnings"/>
-                </f:facet>
-                <af:outputText value="#{listitem.amttotal}"/>
-              </af:column>
-            </af:table>
+              </af:table>
 
+
+              <af:table value="#{bloggerEarningsPaymentListRev.list}" bandingInterval="2" rows="15" banding="row" var="listitem">
+              <af:column>
+                <f:facet name="header">
+                  <af:outputText value="Name"/>
+                </f:facet>
+                <af:outputText value="#{listitem.name}"/>
+              </af:column>
+              <af:column rendered="false">
+                <f:facet name="header">
+                  <af:outputText value="Amount"/>
+                </f:facet>
+                <af:outputText value="#{listitem.amt}"/>
+              </af:column>
+              </af:table>
 
 
         </h:form>

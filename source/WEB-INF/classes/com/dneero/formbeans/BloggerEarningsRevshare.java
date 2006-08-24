@@ -1,32 +1,36 @@
 package com.dneero.formbeans;
 
-import com.dneero.dao.*;
-import com.dneero.session.UserSession;
-import com.dneero.util.Jsf;
 import com.dneero.util.SortableList;
-import org.apache.log4j.Logger;
+import com.dneero.util.Jsf;
+import com.dneero.session.UserSession;
+import com.dneero.dao.Response;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Comparator;
+import java.util.Collections;
+
+import org.apache.log4j.Logger;
 
 /**
  * User: Joe Reger Jr
- * Date: Apr 21, 2006
- * Time: 10:38:03 AM
+ * Date: Aug 21, 2006
+ * Time: 7:12:35 PM
  */
-public class BloggerEarnings extends SortableList {
+public class BloggerEarningsRevshare extends SortableList {
 
-    private ArrayList<BloggerEarningsListSurveys> list;
+    private ArrayList<BloggerEarningsRevshareListRevshares> list;
 
     Logger logger = Logger.getLogger(this.getClass().getName());
 
-    public BloggerEarnings(){
-        super("title");
+    public BloggerEarningsRevshare(){
+        super("username");
         UserSession userSession = Jsf.getUserSession();
         if (userSession.getUser()!=null && userSession.getUser().getBlogger()!=null){
             list = new ArrayList();
             for (Iterator<Response> iterator = userSession.getUser().getBlogger().getResponses().iterator(); iterator.hasNext();) {
                 Response response = iterator.next();
-                BloggerEarningsListSurveys listitem = new BloggerEarningsListSurveys();
+                BloggerEarningsRevshareListRevshares listitem = new BloggerEarningsRevshareListRevshares();
                 //@todo populate listitem
                 list.add(listitem);
             }
@@ -42,13 +46,13 @@ public class BloggerEarnings extends SortableList {
         //logger.debug("sort called");
         Comparator comparator = new Comparator() {
             public int compare(Object o1, Object o2) {
-                BloggerEarningsListSurveys obj1 = (BloggerEarningsListSurveys)o1;
-                BloggerEarningsListSurveys obj2 = (BloggerEarningsListSurveys)o2;
+                BloggerEarningsRevshareListRevshares obj1 = (BloggerEarningsRevshareListRevshares)o1;
+                BloggerEarningsRevshareListRevshares obj2 = (BloggerEarningsRevshareListRevshares)o2;
                 if (column == null) {
                     return 0;
                 }
                 if (column.equals("title")) {
-                    return ascending ? obj1.getSurveytitle().compareTo(obj2.getSurveytitle()) : obj2.getSurveytitle().compareTo(obj1.getSurveytitle());
+                    return ascending ? obj1.getUsername().compareTo(obj2.getUsername()) : obj2.getUsername().compareTo(obj1.getUsername());
                 } else {
                     return 0;
                 }
@@ -63,14 +67,13 @@ public class BloggerEarnings extends SortableList {
         }
     }
 
-    public ArrayList<BloggerEarningsListSurveys> getList() {
+    public ArrayList<BloggerEarningsRevshareListRevshares> getList() {
         return list;
     }
 
-    public void setList(ArrayList<BloggerEarningsListSurveys> list) {
+    public void setList(ArrayList<BloggerEarningsRevshareListRevshares> list) {
         this.list = list;
     }
-
 
 
 }

@@ -1,32 +1,36 @@
 package com.dneero.formbeans;
 
-import com.dneero.dao.*;
+import org.apache.log4j.Logger;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Comparator;
+import java.util.Collections;
+
 import com.dneero.session.UserSession;
 import com.dneero.util.Jsf;
 import com.dneero.util.SortableList;
-import org.apache.log4j.Logger;
-
-import java.util.*;
+import com.dneero.dao.Response;
 
 /**
  * User: Joe Reger Jr
- * Date: Apr 21, 2006
- * Time: 10:38:03 AM
+ * Date: Aug 21, 2006
+ * Time: 7:12:22 PM
  */
-public class BloggerEarnings extends SortableList {
+public class BloggerEarningsSurvey extends SortableList {
 
-    private ArrayList<BloggerEarningsListSurveys> list;
+    private ArrayList<BloggerEarningsSurveyListPayments> list;
 
     Logger logger = Logger.getLogger(this.getClass().getName());
 
-    public BloggerEarnings(){
-        super("title");
+    public BloggerEarningsSurvey(){
+        super("paymentdate");
         UserSession userSession = Jsf.getUserSession();
         if (userSession.getUser()!=null && userSession.getUser().getBlogger()!=null){
             list = new ArrayList();
             for (Iterator<Response> iterator = userSession.getUser().getBlogger().getResponses().iterator(); iterator.hasNext();) {
                 Response response = iterator.next();
-                BloggerEarningsListSurveys listitem = new BloggerEarningsListSurveys();
+                BloggerEarningsSurveyListPayments listitem = new BloggerEarningsSurveyListPayments();
                 //@todo populate listitem
                 list.add(listitem);
             }
@@ -42,13 +46,13 @@ public class BloggerEarnings extends SortableList {
         //logger.debug("sort called");
         Comparator comparator = new Comparator() {
             public int compare(Object o1, Object o2) {
-                BloggerEarningsListSurveys obj1 = (BloggerEarningsListSurveys)o1;
-                BloggerEarningsListSurveys obj2 = (BloggerEarningsListSurveys)o2;
+                BloggerEarningsSurveyListPayments obj1 = (BloggerEarningsSurveyListPayments)o1;
+                BloggerEarningsSurveyListPayments obj2 = (BloggerEarningsSurveyListPayments)o2;
                 if (column == null) {
                     return 0;
                 }
-                if (column.equals("title")) {
-                    return ascending ? obj1.getSurveytitle().compareTo(obj2.getSurveytitle()) : obj2.getSurveytitle().compareTo(obj1.getSurveytitle());
+                if (column.equals("paymentdate")) {
+                    return ascending ? obj1.getPaymentdate().compareTo(obj2.getPaymentdate()) : obj2.getPaymentdate().compareTo(obj1.getPaymentdate());
                 } else {
                     return 0;
                 }
@@ -63,11 +67,11 @@ public class BloggerEarnings extends SortableList {
         }
     }
 
-    public ArrayList<BloggerEarningsListSurveys> getList() {
+    public ArrayList<BloggerEarningsSurveyListPayments> getList() {
         return list;
     }
 
-    public void setList(ArrayList<BloggerEarningsListSurveys> list) {
+    public void setList(ArrayList<BloggerEarningsSurveyListPayments> list) {
         this.list = list;
     }
 
