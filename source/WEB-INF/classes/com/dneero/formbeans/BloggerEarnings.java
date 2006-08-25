@@ -1,9 +1,11 @@
 package com.dneero.formbeans;
 
 import com.dneero.dao.*;
+import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.session.UserSession;
 import com.dneero.util.Jsf;
 import com.dneero.util.SortableList;
+import com.dneero.invoice.BloggerIncomeCalculator;
 import org.apache.log4j.Logger;
 
 import java.util.*;
@@ -24,10 +26,19 @@ public class BloggerEarnings extends SortableList {
         UserSession userSession = Jsf.getUserSession();
         if (userSession.getUser()!=null && userSession.getUser().getBlogger()!=null){
             list = new ArrayList();
+            HibernateUtil.getSession().saveOrUpdate(userSession.getUser().getBlogger());
             for (Iterator<Response> iterator = userSession.getUser().getBlogger().getResponses().iterator(); iterator.hasNext();) {
                 Response response = iterator.next();
+                Survey survey = Survey.get(response.getSurveyid());
                 BloggerEarningsListSurveys listitem = new BloggerEarningsListSurveys();
-                //@todo populate listitem
+                listitem.setAmtforresponse(survey.getWillingtopayperrespondent());
+                listitem.setAmttotal(BloggerIncomeCalculator.getBloggerTotalPossibleIncomeForSurvey(userSession.getUser().getBlogger(), survey));
+                listitem.setImpressions(BloggerIncomeCalculator.getAllImpressiondetailsForSurvey(userSession.getUser().getBlogger(), survey).size());
+                listitem.setImpressionsthatqualifyforpay(BloggerIncomeCalculator.getImpressionDetailsThatQualifyForPay(userSession.getUser().getBlogger(), survey).size());
+                listitem.setResponsedate(response.getResponsedate());
+                listitem.setResponseid(response.getResponseid());
+                listitem.setSurveyid(survey.getSurveyid());
+                listitem.setSurveytitle(survey.getTitle());
                 list.add(listitem);
             }
 

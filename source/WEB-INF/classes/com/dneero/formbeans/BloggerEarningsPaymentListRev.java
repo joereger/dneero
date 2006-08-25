@@ -3,7 +3,8 @@ package com.dneero.formbeans;
 import com.dneero.util.SortableList;
 import com.dneero.util.Jsf;
 import com.dneero.session.UserSession;
-import com.dneero.dao.Response;
+import com.dneero.dao.*;
+import com.dneero.invoice.BloggerIncomeCalculator;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -11,6 +12,8 @@ import java.util.Comparator;
 import java.util.Collections;
 
 import org.apache.log4j.Logger;
+
+import javax.faces.context.FacesContext;
 
 /**
  * User: Joe Reger Jr
@@ -25,15 +28,31 @@ public class BloggerEarningsPaymentListRev extends SortableList {
 
     public BloggerEarningsPaymentListRev(){
         super("name");
+
+        int paybloggerid = 0;
+        String tmpPaybloggerid = (String) FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("paybloggerid");
+        if (com.dneero.util.Num.isinteger(tmpPaybloggerid)){
+            logger.debug("beginView called: found tmpPaybloggerid in param="+tmpPaybloggerid);
+            paybloggerid = Integer.parseInt(tmpPaybloggerid);
+        } else {
+            logger.debug("beginView called: NOT found tmpPaybloggerid in param="+tmpPaybloggerid);
+        }
+
         UserSession userSession = Jsf.getUserSession();
-        if (userSession.getUser()!=null && userSession.getUser().getBlogger()!=null){
+        if (paybloggerid>0 && userSession.getUser()!=null && userSession.getUser().getBlogger()!=null){
+            Payblogger payblogger = Payblogger.get(paybloggerid);
+            ArrayList<Revshare> revshares = BloggerIncomeCalculator.getRevsharesForAPayblogger(payblogger);
             list = new ArrayList();
-            for (Iterator<Response> iterator = userSession.getUser().getBlogger().getResponses().iterator(); iterator.hasNext();) {
-                Response response = iterator.next();
+            for (Iterator<Revshare> iterator = revshares.iterator(); iterator.hasNext();) {
+                Revshare revshare = iterator.next();
+                Blogger sourceblogger = Blogger.get(revshare.getSourcebloggerid());
+                User sourceuser = User.get(sourceblogger.getUserid());
                 BloggerEarningsPaymentListRevshares listitem = new BloggerEarningsPaymentListRevshares();
-                //@todo populate listitem
+                listitem.setAmt(revshare.getAmt());
+                listitem.setName(sourceuser.getFirstname()+" "+sourceuser.getLastname());
                 list.add(listitem);
             }
+
 
         }
     }

@@ -32,13 +32,19 @@
                 <f:facet name="header">
                   <af:outputText value="Date"/>
                 </f:facet>
-                <af:outputText value="#{listitem.surveydate}"/>
+                <af:outputText value="#{listitem.responsedate}"/>
               </af:column>
               <af:column>
                 <f:facet name="header">
-                  <af:outputText value="Impressions"/>
+                  <af:outputText value="Total Impressions"/>
                 </f:facet>
                 <af:outputText value="#{listitem.impressions}"/>
+              </af:column>
+              <af:column>
+                <f:facet name="header">
+                  <af:outputText value="Impressions Qualifying for Pay"/>
+                </f:facet>
+                <af:outputText value="#{listitem.impressionsthatqualifyforpay}"/>
               </af:column>
               <af:column>
                 <f:facet name="header">
@@ -52,9 +58,17 @@
                 </f:facet>
                 <af:outputText value="#{listitem.amttotal}"/>
               </af:column>
-            </af:table>
 
-
+              <af:column>
+                <f:facet name="header">
+                  <af:outputText value=" "/>
+                </f:facet>
+                <h:commandLink action="#{bloggerEarningsSurvey.beginView}">
+                    <h:outputText value="View" escape="false" />
+                    <f:param name="responseid" value="#{listitem.responseid}" />
+                </h:commandLink>
+             </af:column>
+          </af:table>
 
         </h:form>
 

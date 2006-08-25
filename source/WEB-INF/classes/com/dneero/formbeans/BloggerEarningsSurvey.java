@@ -11,6 +11,11 @@ import com.dneero.session.UserSession;
 import com.dneero.util.Jsf;
 import com.dneero.util.SortableList;
 import com.dneero.dao.Response;
+import com.dneero.dao.Survey;
+import com.dneero.dao.Payblogger;
+import com.dneero.invoice.BloggerIncomeCalculator;
+
+import javax.faces.context.FacesContext;
 
 /**
  * User: Joe Reger Jr
@@ -25,17 +30,38 @@ public class BloggerEarningsSurvey extends SortableList {
 
     public BloggerEarningsSurvey(){
         super("paymentdate");
+
+    }
+
+    private void load(int responseid){
         UserSession userSession = Jsf.getUserSession();
         if (userSession.getUser()!=null && userSession.getUser().getBlogger()!=null){
+            Response response = Response.get(responseid);
+            Survey survey = Survey.get(response.getSurveyid());
+
+            ArrayList<Payblogger> paybloggers = BloggerIncomeCalculator.getPaybloggersForASurvey(userSession.getUser().getBlogger(), survey);
             list = new ArrayList();
-            for (Iterator<Response> iterator = userSession.getUser().getBlogger().getResponses().iterator(); iterator.hasNext();) {
-                Response response = iterator.next();
+            for (Iterator<Payblogger> iterator = paybloggers.iterator(); iterator.hasNext();) {
+                Payblogger payblogger = iterator.next();
                 BloggerEarningsSurveyListPayments listitem = new BloggerEarningsSurveyListPayments();
-                //@todo populate listitem
+                listitem.setAmt(payblogger.getAmt());
+                listitem.setPaybloggerid(payblogger.getPaybloggerid());
+                listitem.setPaymentdate(payblogger.getDate());
                 list.add(listitem);
             }
-
         }
+    }
+
+    public String beginView(){
+        logger.debug("beginView called");
+        String tmpResponseid = (String) FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("responseid");
+        if (com.dneero.util.Num.isinteger(tmpResponseid)){
+            logger.debug("beginView called: found tmpResponseid in param="+tmpResponseid);
+            load(Integer.parseInt(tmpResponseid));
+        } else {
+            logger.debug("beginView called: NOT found tmpResponseid in param="+tmpResponseid);
+        }
+        return "bloggerearningssurvey";
     }
 
     protected boolean isDefaultAscending(String sortColumn) {

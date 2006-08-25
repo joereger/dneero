@@ -3,14 +3,14 @@ package com.dneero.formbeans;
 import com.dneero.util.SortableList;
 import com.dneero.util.Jsf;
 import com.dneero.session.UserSession;
-import com.dneero.dao.Response;
+import com.dneero.dao.*;
+import com.dneero.invoice.BloggerIncomeCalculator;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Comparator;
-import java.util.Collections;
+import java.util.*;
 
 import org.apache.log4j.Logger;
+
+import javax.faces.context.FacesContext;
 
 /**
  * User: Joe Reger Jr
@@ -26,17 +26,32 @@ public class BloggerEarningsPaymentListSurv extends SortableList {
 
     public BloggerEarningsPaymentListSurv(){
         super("surveyname");
+
+        int paybloggerid = 0;
+        String tmpPaybloggerid = (String) FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("paybloggerid");
+        if (com.dneero.util.Num.isinteger(tmpPaybloggerid)){
+            logger.debug("beginView called: found tmpPaybloggerid in param="+tmpPaybloggerid);
+            paybloggerid = Integer.parseInt(tmpPaybloggerid);
+        } else {
+            logger.debug("beginView called: NOT found tmpPaybloggerid in param="+tmpPaybloggerid);
+        }
+
         UserSession userSession = Jsf.getUserSession();
-        if (userSession.getUser()!=null && userSession.getUser().getBlogger()!=null){
+        if (paybloggerid>0 && userSession.getUser()!=null && userSession.getUser().getBlogger()!=null){
+            Payblogger payblogger = Payblogger.get(paybloggerid);
+            ArrayList<Response> responses = BloggerIncomeCalculator.getResponsesForAPayblogger(payblogger);
             list = new ArrayList();
-            for (Iterator<Response> iterator = userSession.getUser().getBlogger().getResponses().iterator(); iterator.hasNext();) {
+            for (Iterator<Response> iterator = responses.iterator(); iterator.hasNext();) {
                 Response response = iterator.next();
+                Survey survey = Survey.get(response.getSurveyid());
                 BloggerEarningsPaymentListSurveys listitem = new BloggerEarningsPaymentListSurveys();
-                //@todo populate listitem
+                listitem.setAmt(survey.getWillingtopayperrespondent());
+                listitem.setSurveyname(survey.getTitle());
                 list.add(listitem);
             }
 
         }
+
     }
 
     protected boolean isDefaultAscending(String sortColumn) {

@@ -2,15 +2,15 @@ package com.dneero.formbeans;
 
 import org.apache.log4j.Logger;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Comparator;
-import java.util.Collections;
+import java.util.*;
 
 import com.dneero.session.UserSession;
 import com.dneero.util.Jsf;
 import com.dneero.util.SortableList;
-import com.dneero.dao.Response;
+import com.dneero.dao.*;
+import com.dneero.invoice.BloggerIncomeCalculator;
+
+import javax.faces.context.FacesContext;
 
 /**
  * User: Joe Reger Jr
@@ -25,13 +25,48 @@ public class BloggerEarningsPaymentListImp extends SortableList {
 
     public BloggerEarningsPaymentListImp(){
         super("surveyname");
+
+        int paybloggerid = 0;
+        String tmpPaybloggerid = (String) FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("paybloggerid");
+        if (com.dneero.util.Num.isinteger(tmpPaybloggerid)){
+            logger.debug("beginView called: found tmpPaybloggerid in param="+tmpPaybloggerid);
+            paybloggerid = Integer.parseInt(tmpPaybloggerid);
+        } else {
+            logger.debug("beginView called: NOT found tmpPaybloggerid in param="+tmpPaybloggerid);
+        }
+
         UserSession userSession = Jsf.getUserSession();
-        if (userSession.getUser()!=null && userSession.getUser().getBlogger()!=null){
+        if (paybloggerid>0 && userSession.getUser()!=null && userSession.getUser().getBlogger()!=null){
+
+
+            Payblogger payblogger = Payblogger.get(paybloggerid);
+            ArrayList<Impressiondetail> impressiondetails = BloggerIncomeCalculator.getImpressiondetailsForAPayblogger(payblogger);
+
+            //Create a counting map of <surveyid, impressioncount>
+            HashMap<Integer, Integer> surveyVsImpressions = new HashMap<Integer, Integer>();
+            for (Iterator<Impressiondetail> iterator = impressiondetails.iterator(); iterator.hasNext();) {
+                Impressiondetail impressiondetail = iterator.next();
+                int surveyid = Impression.get(impressiondetail.getImpressionid()).getSurveyid();
+                if (surveyVsImpressions.containsKey(surveyid)){
+                    surveyVsImpressions.put(surveyid, surveyVsImpressions.get(surveyid)+1);
+                } else {
+                    surveyVsImpressions.put(surveyid, 1);
+                }
+            }
+
+            //Iterare map to create output
             list = new ArrayList();
-            for (Iterator<Response> iterator = userSession.getUser().getBlogger().getResponses().iterator(); iterator.hasNext();) {
-                Response response = iterator.next();
+            Iterator keyValuePairs = surveyVsImpressions.entrySet().iterator();
+            for (int i = 0; i < surveyVsImpressions.size(); i++){
+                Map.Entry mapentry = (Map.Entry) keyValuePairs.next();
+                Integer key = (Integer)mapentry.getKey();
+                Integer value = (Integer)mapentry.getValue();
+                Survey survey = Survey.get(key);
+
                 BloggerEarningsPaymentListImpressions listitem = new BloggerEarningsPaymentListImpressions();
-                //@todo populate listitem
+                listitem.setAmt((value/1000) * survey.getWillingtopaypercpm());
+                listitem.setImpressions(value);
+                listitem.setSurveyname(survey.getTitle());
                 list.add(listitem);
             }
 

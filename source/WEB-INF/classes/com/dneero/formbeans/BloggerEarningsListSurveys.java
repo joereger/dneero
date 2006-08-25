@@ -10,9 +10,11 @@ import java.util.Date;
 public class BloggerEarningsListSurveys {
 
     private int surveyid;
+    private int responseid;
     private String surveytitle;
-    private Date surveydate;
+    private Date responsedate;
     private int impressions;
+    private int impressionsthatqualifyforpay;
     private double amtforresponse;
     private double amttotal;
 
@@ -32,12 +34,12 @@ public class BloggerEarningsListSurveys {
         this.surveytitle = surveytitle;
     }
 
-    public Date getSurveydate() {
-        return surveydate;
+    public Date getResponsedate() {
+        return responsedate;
     }
 
-    public void setSurveydate(Date surveydate) {
-        this.surveydate = surveydate;
+    public void setResponsedate(Date responsedate) {
+        this.responsedate = responsedate;
     }
 
     public int getImpressions() {
@@ -64,5 +66,19 @@ public class BloggerEarningsListSurveys {
         this.amttotal = amttotal;
     }
 
+    public int getImpressionsthatqualifyforpay() {
+        return impressionsthatqualifyforpay;
+    }
 
+    public void setImpressionsthatqualifyforpay(int impressionsthatqualifyforpay) {
+        this.impressionsthatqualifyforpay = impressionsthatqualifyforpay;
+    }
+
+    public int getResponseid() {
+        return responseid;
+    }
+
+    public void setResponseid(int responseid) {
+        this.responseid = responseid;
+    }
 }

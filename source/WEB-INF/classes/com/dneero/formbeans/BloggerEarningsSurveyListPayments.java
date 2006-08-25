@@ -12,7 +12,6 @@ public class BloggerEarningsSurveyListPayments {
     private int paybloggerid;
     private Date paymentdate;
     private double amt;
-    private double amtrelatedtosurvey;
 
     public int getPaybloggerid() {
         return paybloggerid;
@@ -38,12 +37,5 @@ public class BloggerEarningsSurveyListPayments {
         this.amt = amt;
     }
 
-    public double getAmtrelatedtosurvey() {
-        return amtrelatedtosurvey;
-    }
-
-    public void setAmtrelatedtosurvey(double amtrelatedtosurvey) {
-        this.amtrelatedtosurvey = amtrelatedtosurvey;
-    }
 
 }
