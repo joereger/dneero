@@ -25,7 +25,7 @@ public class Invoice extends BasePersistentClass implements java.io.Serializable
 
     // Fields
      private int invoiceid;
-     private int surveyid;
+     private int researcherid;
      private Date startdate;
      private Date enddate;
      private int status;
@@ -82,12 +82,12 @@ public class Invoice extends BasePersistentClass implements java.io.Serializable
         this.invoiceid = invoiceid;
     }
 
-    public int getSurveyid() {
-        return surveyid;
+    public int getResearcherid() {
+        return researcherid;
     }
 
-    public void setSurveyid(int surveyid) {
-        this.surveyid = surveyid;
+    public void setResearcherid(int researcherid) {
+        this.researcherid = researcherid;
     }
 
     public Date getStartdate() {

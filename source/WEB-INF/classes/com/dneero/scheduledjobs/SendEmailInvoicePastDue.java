@@ -44,8 +44,7 @@ public class SendEmailInvoicePastDue implements Job {
 
 
             //Send email telling researcher they are past due
-            Survey survey = Survey.get(invoice.getSurveyid());
-            Researcher researcher = Researcher.get(survey.getResearcherid());
+            Researcher researcher = Researcher.get(invoice.getResearcherid());
             User user = User.get(researcher.getUserid());
             user.getEmail();
 

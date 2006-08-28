@@ -8,12 +8,9 @@ import org.hibernate.criterion.Restrictions;
 import com.dneero.dao.*;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.util.GeneralException;
-import com.dneero.invoice.InvoiceCreator;
 import com.dneero.verisign.Verisign;
 import com.dneero.verisign.VerisignException;
 
-import javax.faces.context.FacesContext;
-import javax.faces.application.FacesMessage;
 import java.util.List;
 import java.util.Date;
 import java.util.Iterator;
@@ -50,8 +47,7 @@ public class InvoiceCollectViaCreditCard implements Job {
             double amtdue = invoice.getAmttotal() - paidtodate;
 
             //Get billing details
-            Survey survey = Survey.get(invoice.getSurveyid());
-            Researcher researcher = Researcher.get(survey.getResearcherid());
+            Researcher researcher = Researcher.get(invoice.getResearcherid());
             Researcherbilling rb = researcher.getResearcherbilling();
 
             //Charge the card

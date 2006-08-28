@@ -42,7 +42,7 @@ public class Survey extends BasePersistentClass implements java.io.Serializable,
      private Surveycriteria surveycriteria;
      private Set<Response> responses = new HashSet<Response>();
      private Set<Impression> impressions = new HashSet<Impression>();
-     private Set<Invoice> invoices = new HashSet<Invoice>();
+
 
     //Validator
     public void validateRegerEntity() throws GeneralException {
@@ -237,11 +237,5 @@ public class Survey extends BasePersistentClass implements java.io.Serializable,
         this.status = status;
     }
 
-    public Set<Invoice> getInvoices() {
-        return invoices;
-    }
-
-    public void setInvoices(Set<Invoice> invoices) {
-        this.invoices = invoices;
-    }
+    
 }

@@ -51,9 +51,9 @@
 
     <job>
         <job-detail>
-          <name>generateInvoicesForLongOpenSurveys</name>
+          <name>createInvoices</name>
           <group>surveyJobs</group>
-          <job-class>com.dneero.scheduledjobs.GenerateInvoicesForLongOpenSurveys</job-class>
+          <job-class>com.dneero.scheduledjobs.CreateInvoices</job-class>
           <volatility>false</volatility>
           <durability>false</durability>
           <recover>false</recover>
@@ -61,9 +61,9 @@
         <trigger>
           <!-- Sample cron triggers: http://www.opensymphony.com/quartz/wikidocs/TutorialLesson6.html -->
           <cron>
-            <name>generateInvoicesForLongOpenSurveysTrigger</name>
+            <name>createInvoicesTrigger</name>
             <group>surveyTriggers</group>
-            <job-name>generateInvoicesForLongOpenSurveys</job-name>
+            <job-name>createInvoices</job-name>
             <job-group>surveyJobs</job-group>
             <!-- every two minutes -->
             <cron-expression>0 0/15 * * * ?</cron-expression>

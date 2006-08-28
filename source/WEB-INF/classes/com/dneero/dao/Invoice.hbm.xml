@@ -14,8 +14,8 @@
             <key column="invoiceid"></key>
             <one-to-many class="com.dneero.dao.Invoicetransaction" not-found="ignore"></one-to-many>
         </set>
-        <property name="surveyid" type="int">
-            <column name="surveyid" not-null="true" />
+        <property name="researcherid" type="int">
+            <column name="researcherid" not-null="true" />
         </property>
         <property name="status" type="int">
             <column name="status" not-null="true" />
