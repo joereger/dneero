@@ -61,7 +61,21 @@ public class AuthorizationTaghandler extends UIComponentTag {
     }
 
 
+    public String getAcl() {
+        return acl;
+    }
 
+    public void setAcl(String acl) {
+        this.acl = acl;
+    }
+
+    public String getRedirectonfail() {
+        return redirectonfail;
+    }
+
+    public void setRedirectonfail(String redirectonfail) {
+        this.redirectonfail = redirectonfail;
+    }
 
 
 }

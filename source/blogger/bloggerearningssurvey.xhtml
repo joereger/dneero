@@ -7,38 +7,26 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:t="http://myfaces.apache.org/tomahawk"
       xmlns:af="http://xmlns.oracle.com/adf/faces"
-      xmlns:d="http://dneero.com/taglib">
+      xmlns:d="http://dneero.com/taglib"
+      xmlns:c="http://java.sun.com/jstl/core">
 
 <ui:composition template="/template/template-facelets.xhtml">
     <ui:define name="body">
     <d:authorization acl="blogger" redirectonfail="true"/>
 
         <h:form>
-
-
-            <af:table value="#{bloggerEarningsSurvey.list}" bandingInterval="2" rows="15" banding="row" var="listitem">
-              <af:column>
-                <f:facet name="header">
-                  <af:outputText value="ID"/>
-                </f:facet>
-                <af:outputText value="#{listitem.paybloggerid}"/>
-              </af:column>
-              <af:column rendered="false">
-                <f:facet name="header">
-                  <af:outputText value="Date"/>
-                </f:facet>
-                <af:outputText value="#{listitem.paymentdate}"/>
-              </af:column>
-              <af:column>
-                <f:facet name="header">
-                  <af:outputText value=" "/>
-                </f:facet>
-                <h:commandLink action="#{bloggerEarningsPayment.beginView}">
-                    <h:outputText value="View" escape="false" />
-                    <f:param name="paybloggerid" value="#{listitem.paybloggerid}" />
-                </h:commandLink>
-             </af:column>
-            </af:table>
+            <c:forEach var="listitem" items="#{bloggerEarningsSurvey.list}">
+                <d:roundedCornerBox uniqueboxname="bloggerearningssurvey-#{listitem.paybloggerid}" bodycolor="ffffff" widthinpixels="500">
+                    <h:outputText value="Payment On: #{listitem.paymentdate}"></h:outputText>
+                    <f:verbatim><br/></f:verbatim>
+                    <h:outputText value="Amount: #{itemlist.amt}"></h:outputText>
+                    <f:verbatim><br/></f:verbatim>
+                    <h:commandLink action="#{bloggerEarningsPayment.beginView}">
+                        <h:outputText value="View" escape="false" />
+                        <f:param name="paybloggerid" value="#{listitem.paybloggerid}" />
+                    </h:commandLink>
+                </d:roundedCornerBox>
+            </c:forEach>
 
 
         </h:form>

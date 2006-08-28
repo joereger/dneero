@@ -26,7 +26,7 @@ public class CreatePaybloggers implements Job {
     Logger logger = Logger.getLogger(this.getClass().getName());
 
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
-        logger.debug("execute() CloseSurveysByDate called");
+        logger.debug("execute() CreatePaybloggers called");
 
         List<Blogger> bloggers = HibernateUtil.getSession().createQuery("from Blogger").list();
 
@@ -50,7 +50,7 @@ public class CreatePaybloggers implements Job {
 
             //Revshares
             List<Revshare> revshares = HibernateUtil.getSession().createCriteria(Revshare.class)
-                                       .add( Restrictions.eq("bloggerid", blogger.getBloggerid()))
+                                       .add( Restrictions.eq("targetbloggerid", blogger.getBloggerid()))
                                        .add( Restrictions.le("paybloggerid", 0))
                                        .list();
 
