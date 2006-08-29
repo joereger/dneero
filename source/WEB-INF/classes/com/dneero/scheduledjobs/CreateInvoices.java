@@ -4,6 +4,7 @@ import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.apache.log4j.Logger;
+import org.hibernate.criterion.Restrictions;
 import com.dneero.dao.*;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.util.Time;
@@ -28,16 +29,24 @@ public class CreateInvoices implements Job {
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
         logger.debug("execute() CreateInvoices called");
 
-        //@todo check to see if another invoice exists overlapping the time period specified between startDate and endDate
-
         //Iterate all researchers
         List<Researcher> researchers = HibernateUtil.getSession().createQuery("from Researcher").list();
         for (Iterator<Researcher> iterator = researchers.iterator(); iterator.hasNext();) {
             Researcher researcher = iterator.next();
 
-            //@todo Determine startDate and endDate
-            Calendar startDate = XXX;
-            Calendar endDate = XXX;
+            //Determine startDate and endDate
+            Calendar startDate = Time.getCalFromDate(User.get(researcher.getUserid()).getCreatedate());
+            Calendar endDate = Calendar.getInstance();
+            for (Iterator<Invoice> iterator1 = researcher.getInvoices().iterator(); iterator1.hasNext();) {
+                Invoice invoice = iterator1.next();
+                Calendar tmp = Time.getCalFromDate(invoice.getEnddate());
+                if (tmp.after(startDate)){
+                    startDate = (Calendar)tmp.clone();
+                }
+            }
+
+            //@todo check to see if another invoice exists (for this researcher) overlapping the time period specified between startDate and endDate
+
             double amt = 0;
             if (true){
                 //Iterate Surveys
@@ -45,8 +54,11 @@ public class CreateInvoices implements Job {
                 for (Iterator<Survey> iterator2 = surveys.iterator(); iterator2.hasNext();) {
                     Survey survey = iterator2.next();
                     //Iterate Responses
-                    //@todo pull up responses with criteria query
-                    for (Iterator<Response> iterator3 = survey.getResponses().iterator(); iterator3.hasNext();) {
+                    List<Response> responses = HibernateUtil.getSession().createCriteria(Response.class)
+                                       .add( Restrictions.eq("surveyid", survey.getSurveyid()))
+                                       .add( Restrictions.between("responsedate", startDate, endDate))
+                                       .list();
+                    for (Iterator<Response> iterator3 = responses.iterator(); iterator3.hasNext();) {
                         Response response = iterator3.next();
                         Calendar responsedate = Time.getCalFromDate(response.getResponsedate());
                         //If the responsedate is between the invoice start and end
@@ -58,11 +70,14 @@ public class CreateInvoices implements Job {
                     }
                     //Iterate Impressions
                     int counttotal = 0;
-                    //@todo pull up impressions with criteria query
                     for (Iterator<Impression> iterator4 = survey.getImpressions().iterator(); iterator4.hasNext();) {
                         Impression impression = iterator4.next();
                         int countperblog = 0;
-                        for (Iterator<Impressiondetail> iterator5 = impression.getImpressiondetails().iterator(); iterator.hasNext();) {
+                        List<Impressiondetail> impressiondetails = HibernateUtil.getSession().createCriteria(Impressiondetail.class)
+                                       .add( Restrictions.eq("impressionid", impression.getImpressionid()))
+                                       .add( Restrictions.between("impressiondate", startDate, endDate))
+                                       .list();
+                        for (Iterator<Impressiondetail> iterator5 = impressiondetails.iterator(); iterator.hasNext();) {
                             Impressiondetail impressiondetail = iterator5.next();
                             counttotal = counttotal + 1;
                             countperblog = countperblog + 1;
@@ -114,8 +129,11 @@ public class CreateInvoices implements Job {
                 for (Iterator<Survey> iterator2 = surveys.iterator(); iterator2.hasNext();) {
                     Survey survey = iterator2.next();
                     //Iterate Responses
-                    //@todo pull up responses with criteria query
-                    for (Iterator<Response> iterator3 = survey.getResponses().iterator(); iterator3.hasNext();) {
+                    List<Response> responses = HibernateUtil.getSession().createCriteria(Response.class)
+                                       .add( Restrictions.eq("surveyid", survey.getSurveyid()))
+                                       .add( Restrictions.between("responsedate", startDate, endDate))
+                                       .list();
+                    for (Iterator<Response> iterator3 = responses.iterator(); iterator3.hasNext();) {
                         Response response = iterator3.next();
                         Calendar responsedate = Time.getCalFromDate(response.getResponsedate());
                         //If the responsedate is between the invoice start and end
@@ -126,11 +144,14 @@ public class CreateInvoices implements Job {
                     }
                     //Iterate Impressions
                     int counttotal = 0;
-                    //@todo pull up impressions with criteria query
                     for (Iterator<Impression> iterator4 = survey.getImpressions().iterator(); iterator4.hasNext();) {
                         Impression impression = iterator4.next();
                         int countperblog = 0;
-                        for (Iterator<Impressiondetail> iterator5 = impression.getImpressiondetails().iterator(); iterator.hasNext();) {
+                        List<Impressiondetail> impressiondetails = HibernateUtil.getSession().createCriteria(Impressiondetail.class)
+                                       .add( Restrictions.eq("impressionid", impression.getImpressionid()))
+                                       .add( Restrictions.between("impressiondate", startDate, endDate))
+                                       .list();
+                        for (Iterator<Impressiondetail> iterator5 = impressiondetails.iterator(); iterator.hasNext();) {
                             Impressiondetail impressiondetail = iterator5.next();
                             counttotal = counttotal + 1;
                             countperblog = countperblog + 1;

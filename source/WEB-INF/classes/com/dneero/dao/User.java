@@ -30,6 +30,7 @@ public class User extends BasePersistentClass implements java.io.Serializable, R
      private boolean isactivatedbyemail;
      private String emailactivationkey;
      private Date emailactivationlastsent;
+     private Date createdate;
 
      //Association
     private Set<Userrole> userroles = new HashSet<Userrole>();
@@ -166,5 +167,11 @@ public class User extends BasePersistentClass implements java.io.Serializable, R
         this.emailactivationlastsent = emailactivationlastsent;
     }
 
+    public Date getCreatedate() {
+        return createdate;
+    }
 
+    public void setCreatedate(Date createdate) {
+        this.createdate = createdate;
+    }
 }

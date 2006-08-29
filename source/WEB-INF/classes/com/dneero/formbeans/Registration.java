@@ -82,6 +82,7 @@ public class Registration {
         user.setIsactivatedbyemail(false);
         user.setEmailactivationkey(RandomString.randomAlphanumeric(5));
         user.setEmailactivationlastsent(new Date());
+        user.setCreatedate(new Date());
 
         try{
             user.save();
