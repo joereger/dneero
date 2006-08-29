@@ -33,7 +33,7 @@ public class CreateInvoices implements Job {
         List<Researcher> researchers = HibernateUtil.getSession().createQuery("from Researcher").list();
         for (Iterator<Researcher> iterator = researchers.iterator(); iterator.hasNext();) {
             Researcher researcher = iterator.next();
-
+            HibernateUtil.getSession().saveOrUpdate(researcher);
             //Determine startDate and endDate
             Calendar startDate = Time.getCalFromDate(User.get(researcher.getUserid()).getCreatedate());
             Calendar endDate = Calendar.getInstance();
@@ -56,7 +56,7 @@ public class CreateInvoices implements Job {
                     //Iterate Responses
                     List<Response> responses = HibernateUtil.getSession().createCriteria(Response.class)
                                        .add( Restrictions.eq("surveyid", survey.getSurveyid()))
-                                       .add( Restrictions.between("responsedate", startDate, endDate))
+                                       .add( Restrictions.between("responsedate", startDate.getTime(), endDate.getTime()))
                                        .list();
                     for (Iterator<Response> iterator3 = responses.iterator(); iterator3.hasNext();) {
                         Response response = iterator3.next();
@@ -75,7 +75,7 @@ public class CreateInvoices implements Job {
                         int countperblog = 0;
                         List<Impressiondetail> impressiondetails = HibernateUtil.getSession().createCriteria(Impressiondetail.class)
                                        .add( Restrictions.eq("impressionid", impression.getImpressionid()))
-                                       .add( Restrictions.between("impressiondate", startDate, endDate))
+                                       .add( Restrictions.between("impressiondate", startDate.getTime(), endDate.getTime()))
                                        .list();
                         for (Iterator<Impressiondetail> iterator5 = impressiondetails.iterator(); iterator.hasNext();) {
                             Impressiondetail impressiondetail = iterator5.next();
@@ -110,6 +110,7 @@ public class CreateInvoices implements Job {
                 invoice.setStatus(Invoice.STATUS_NOTPAID);
                 invoice.setStartdate(startDate.getTime());
                 invoice.setEnddate(endDate.getTime());
+                invoice.setResearcherid(researcher.getResearcherid());
                 double amtbase = amt;
                 double amtdneero = amtbase + (amtbase*.2);
                 double amtdiscount = 0;
@@ -131,7 +132,7 @@ public class CreateInvoices implements Job {
                     //Iterate Responses
                     List<Response> responses = HibernateUtil.getSession().createCriteria(Response.class)
                                        .add( Restrictions.eq("surveyid", survey.getSurveyid()))
-                                       .add( Restrictions.between("responsedate", startDate, endDate))
+                                       .add( Restrictions.between("responsedate", startDate.getTime(), endDate.getTime()))
                                        .list();
                     for (Iterator<Response> iterator3 = responses.iterator(); iterator3.hasNext();) {
                         Response response = iterator3.next();
@@ -149,7 +150,7 @@ public class CreateInvoices implements Job {
                         int countperblog = 0;
                         List<Impressiondetail> impressiondetails = HibernateUtil.getSession().createCriteria(Impressiondetail.class)
                                        .add( Restrictions.eq("impressionid", impression.getImpressionid()))
-                                       .add( Restrictions.between("impressiondate", startDate, endDate))
+                                       .add( Restrictions.between("impressiondate", startDate.getTime(), endDate.getTime()))
                                        .list();
                         for (Iterator<Impressiondetail> iterator5 = impressiondetails.iterator(); iterator.hasNext();) {
                             Impressiondetail impressiondetail = iterator5.next();

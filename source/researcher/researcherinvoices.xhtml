@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:t="http://myfaces.apache.org/tomahawk"
+      xmlns:d="http://dneero.com/taglib"
+      xmlns:c="http://java.sun.com/jstl/core">
+
+<ui:composition template="/template/template-facelets.xhtml">
+    <ui:define name="body">
+    <d:authorization acl="researcher" redirectonfail="true"/>
+
+
+    <h:form>
+
+        <c:forEach var="listitem" items="#{ResearcherInvoices.listitems}">
+            <d:roundedCornerBox uniqueboxname="researcherinvoice-#{listitem.invoice.invoiceid}" bodycolor="ffffff" widthinpixels="500">
+                <h:outputText value="#{listitem.invoice.startdate} - #{listitem.invoice.enddate}"></h:outputText>
+                <f:verbatim><br/></f:verbatim>
+                <h:outputText value="Amount: #{itemlist.invoice.amt}"></h:outputText>
+                <f:verbatim><br/></f:verbatim>
+                <h:commandLink action="#{ResearcherPayment.beginView}">
+                    <h:outputText value="Make Payment" escape="false" />
+                    <f:param name="invoiceid" value="#{listitem.invoice.invoiceid}" />
+                </h:commandLink>
+            </d:roundedCornerBox>
+        </c:forEach>
+
+
+    </h:form>
+
+</ui:define>
+
+
+</ui:composition>
+</html>
+
+
