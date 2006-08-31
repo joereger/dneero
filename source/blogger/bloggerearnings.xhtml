@@ -73,23 +73,9 @@
 
           
 
-          <af:table value="#{bloggerEarningsRevshare.list}" bandingInterval="2" rows="15" banding="row" var="listitem">
-              <af:column>
-                <f:facet name="header">
-                  <af:outputText value="Username"/>
-                </f:facet>
-                <af:outputText value="#{listitem.username}"/>
-              </af:column>
-              <af:column rendered="false">
-                <f:facet name="header">
-                  <af:outputText value="Amount"/>
-                </f:facet>
-                <af:outputText value="#{listitem.amt}"/>
-              </af:column>
-
-
-
-            </af:table>
+          <h:commandLink action="bloggerearningsrevshare">
+              <h:outputText value="Revenue Sharing" escape="false" />
+          </h:commandLink>
 
         </h:form>
 

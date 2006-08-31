@@ -80,6 +80,8 @@ public class Registration {
         user.setFirstname(firstname);
         user.setLastname(lastname);
         user.setIsactivatedbyemail(false);
+        user.setIsqualifiedforrevshare(false);
+        user.setReferredbyuserid(Jsf.getUserSession().getReferredbyOnlyUsedForSignup());
         user.setEmailactivationkey(RandomString.randomAlphanumeric(5));
         user.setEmailactivationlastsent(new Date());
         user.setCreatedate(new Date());

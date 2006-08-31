@@ -20,7 +20,12 @@
 
         <one-to-one name="researcher" class="com.dneero.dao.Researcher" property-ref="userid" cascade="all"/>
 
-
+        <property name="referredbyuserid" type="int">
+            <column name="referredbyuserid" not-null="true" />
+        </property>
+        <property name="isqualifiedforrevshare" type="boolean">
+            <column name="isqualifiedforrevshare" />
+        </property>
         <property name="email" type="string">
             <column name="email" not-null="true" />
         </property>

@@ -233,4 +233,6 @@ public class Blogger extends BasePersistentClass implements java.io.Serializable
     public void setPaybloggers(Set<Payblogger> paybloggers) {
         this.paybloggers = paybloggers;
     }
+
+   
 }

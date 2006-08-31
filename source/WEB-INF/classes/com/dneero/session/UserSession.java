@@ -17,6 +17,7 @@ public class UserSession {
     private boolean isloggedin = false;
     private int currentSurveyid;
     private boolean isAllowedToResetPasswordBecauseHasValidatedByEmail = false;
+    private int referredbyOnlyUsedForSignup = 0;
 
     public UserSession(){
         //Used for anonymous access
@@ -53,5 +54,13 @@ public class UserSession {
 
     public void setAllowedToResetPasswordBecauseHasValidatedByEmail(boolean allowedToResetPasswordBecauseHasValidatedByEmail) {
         isAllowedToResetPasswordBecauseHasValidatedByEmail = allowedToResetPasswordBecauseHasValidatedByEmail;
+    }
+
+    public int getReferredbyOnlyUsedForSignup() {
+        return referredbyOnlyUsedForSignup;
+    }
+
+    public void setReferredbyOnlyUsedForSignup(int referredbyOnlyUsedForSignup) {
+        this.referredbyOnlyUsedForSignup = referredbyOnlyUsedForSignup;
     }
 }

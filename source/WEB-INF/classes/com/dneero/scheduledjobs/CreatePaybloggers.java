@@ -52,6 +52,7 @@ public class CreatePaybloggers implements Job {
 
             //Calculate amt
             double amt = 0;
+            double revshareAmt = 0;
 
             for (Iterator<Response> iterator1 = responses.iterator(); iterator1.hasNext();) {
                 Response response = iterator1.next();
@@ -72,6 +73,7 @@ public class CreatePaybloggers implements Job {
             }
             for (Iterator<Revshare> iterator1 = revshares.iterator(); iterator1.hasNext();) {
                 Revshare revshare = iterator1.next();
+                revshareAmt = revshareAmt + revshare.getAmt();
                 amt = amt + revshare.getAmt();
             }
 
@@ -87,7 +89,44 @@ public class CreatePaybloggers implements Job {
                 logger.error(ex);
             }
 
-            //@todo where are revshares created?  how do i make sure they don't iterate up the chain... i.e. revshare shouldn't be paid on revshare payouts
+            //Create revshare
+            //Start with the user who's getting paid
+            User user = User.get(blogger.getUserid());
+            double amtRevsharebasedon = amt - revshareAmt;
+            for(int levelsup=1; levelsup<=5; levelsup++){
+                if (user.getReferredbyuserid()>0){
+                    //Switch one level up
+                    user = User.get(user.getReferredbyuserid());
+                    if (user.getBlogger()!=null && user.getBlogger().getBloggerid()>0){
+                        //Only pay if they're qualified for the revshare program
+                        if (user.getIsqualifiedforrevshare()){
+                            //Calculate percentage to share at this level
+                            double REVSHARETOPPERCENT = 5;
+                            double percenttoshare = REVSHARETOPPERCENT;
+                            for(int i=1; i<levelsup; i++){
+                                percenttoshare = percenttoshare/2;
+                            }
+                            //Calculate the revshare
+                            double amttoshare = amtRevsharebasedon * (percenttoshare/100);
+                            //Store the revshare in the database
+                            Revshare revshare = new Revshare();
+                            revshare.setSourcebloggerid(blogger.getBloggerid());
+                            revshare.setTargetbloggerid(user.getBlogger().getBloggerid());
+                            revshare.setAmt(amttoshare);
+                            revshare.setDate(new Date());
+                            revshare.setPaybloggerid(payblogger.getPaybloggerid());
+                            try{
+                                revshare.save();
+                            } catch (Exception ex){
+                                logger.error(ex);
+                            }
+                        }
+                    }
+                }
+            }
+
+
+
 
             //Mark all elements as tied to this payblogger
             for (Iterator<Response> iterator1 = responses.iterator(); iterator1.hasNext();) {
@@ -114,11 +153,6 @@ public class CreatePaybloggers implements Job {
 
 
         }
-
-
-
-
-
 
     }
 

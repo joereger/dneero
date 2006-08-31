@@ -23,6 +23,8 @@ public class User extends BasePersistentClass implements java.io.Serializable, R
     // Fields    
 
      private int userid;
+     private int referredbyuserid;
+     private boolean isqualifiedforrevshare;
      private String email;
      private String password;
      private String firstname;
@@ -109,6 +111,22 @@ public class User extends BasePersistentClass implements java.io.Serializable, R
     
     public void setUserid(int userid) {
         this.userid = userid;
+    }
+
+    public int getReferredbyuserid() {
+        return referredbyuserid;
+    }
+
+    public void setReferredbyuserid(int referredbyuserid) {
+        this.referredbyuserid = referredbyuserid;
+    }
+
+    public boolean getIsqualifiedforrevshare() {
+        return isqualifiedforrevshare;
+    }
+
+    public void setIsqualifiedforrevshare(boolean isqualifiedforrevshare) {
+        this.isqualifiedforrevshare = isqualifiedforrevshare;
     }
 
     public String getEmail() {

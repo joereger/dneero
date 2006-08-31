@@ -20,12 +20,28 @@
             <d:roundedCornerBox uniqueboxname="researcherinvoice-#{listitem.invoice.invoiceid}" bodycolor="ffffff" widthinpixels="500">
                 <h:outputText value="#{listitem.invoice.startdate} - #{listitem.invoice.enddate}"></h:outputText>
                 <f:verbatim><br/></f:verbatim>
-                <h:outputText value="Amount: #{itemlist.invoice.amt}"></h:outputText>
+                <h:outputText value="Amount: #{itemlist.invoice.amttotal}"></h:outputText>
                 <f:verbatim><br/></f:verbatim>
                 <h:commandLink action="#{ResearcherPayment.beginView}">
                     <h:outputText value="Make Payment" escape="false" />
                     <f:param name="invoiceid" value="#{listitem.invoice.invoiceid}" />
                 </h:commandLink>
+
+
+                <c:forEach var="trans" items="#{listitem.invoicetransactions}">
+                    <d:roundedCornerBox uniqueboxname="researcherinvoicetrans-#{trans.invoicetransactionid}" bodycolor="e6e6e6" widthinpixels="450">
+                        <h:outputText value="#{trans.transactiondate}"></h:outputText>
+                        <f:verbatim><br/></f:verbatim>
+                        <h:outputText value="Amount: #{trans.amt}"></h:outputText>
+                        <f:verbatim><br/></f:verbatim>
+                        <h:outputText value="Success?: #{trans.issuccessful}"></h:outputText>
+                        <f:verbatim><br/></f:verbatim>
+                        <h:outputText value="Notes: #{trans.notes}"></h:outputText>
+                    </d:roundedCornerBox>
+                </c:forEach>
+
+
+
             </d:roundedCornerBox>
         </c:forEach>
 
