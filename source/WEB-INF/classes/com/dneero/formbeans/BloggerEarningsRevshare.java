@@ -22,10 +22,12 @@ public class BloggerEarningsRevshare extends SortableList {
 
     private ArrayList<BloggerEarningsRevshareListRevshares> list;
 
+
     Logger logger = Logger.getLogger(this.getClass().getName());
 
     public BloggerEarningsRevshare(){
         super("username");
+
         UserSession userSession = Jsf.getUserSession();
         if (userSession.getUser()!=null && userSession.getUser().getBlogger()!=null){
 
@@ -80,5 +82,5 @@ public class BloggerEarningsRevshare extends SortableList {
         this.list = list;
     }
 
-
+   
 }

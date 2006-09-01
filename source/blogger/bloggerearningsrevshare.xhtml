@@ -13,8 +13,56 @@
     <ui:define name="body">
     <d:authorization acl="blogger" redirectonfail="true"/>
 
-        <h:form>
 
+        <h:form>
+            <h:panelGrid columns="3" cellpadding="3" border="0">
+
+                <h:panelGroup>
+                    <h:outputText value="Email"></h:outputText>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:inputText value="#{bloggerEarningsRevshareInvite.email}" id="email" required="true">
+                        <f:validateLength minimum="3" maximum="255"></f:validateLength>
+                    </h:inputText>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:message for="email" styleClass="RED"></h:message>
+                </h:panelGroup>
+
+
+                <h:panelGroup>
+                    <h:outputText value="Message"></h:outputText>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:inputTextarea value="#{bloggerEarningsRevshareInvite.message}" id="message" required="false">
+                    </h:inputTextarea>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:message for="message" styleClass="RED"></h:message>
+                </h:panelGroup>
+
+
+                <h:panelGroup>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:commandButton action="#{bloggerEarningsRevshareInvite.invite}" value="Invite"></h:commandButton>
+                </h:panelGroup>
+                <h:panelGroup>
+                </h:panelGroup>
+
+
+            </h:panelGrid>
+
+
+        </h:form>
+
+
+
+
+
+
+        <h:form>
+            <!--
             <af:table value="#{bloggerEarningsRevshare.list}" bandingInterval="2" rows="15" banding="row" var="listitem">
                   <af:column>
                     <f:facet name="header">
@@ -30,6 +78,7 @@
                   </af:column>
 
                 </af:table>
+               -->
 
 
                <t:tree2 id="serverTree" showRootNode="false" value="#{bloggerEarningsRevshareTreeHandler.treeModel}" var="node" varNodeToggler="t" preserveToggle="false" clientSideToggle="false">
@@ -42,11 +91,8 @@
                     </f:facet>
                </t:tree2>
 
-
-
-
-
         </h:form>
+
 
     </ui:define>
 </ui:composition>

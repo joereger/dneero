@@ -36,4 +36,8 @@ public class Jsf {
         return (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();
     }
 
+    public static String getRequestParam(String paramName){
+        return (String)FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get(paramName);
+    }
+
 }
