@@ -2,6 +2,7 @@ package com.dneero.formbeans;
 
 import com.dneero.util.SortableList;
 import com.dneero.util.Jsf;
+import com.dneero.util.Time;
 import com.dneero.session.UserSession;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.dao.Revshare;
@@ -27,19 +28,35 @@ public class BloggerEarningsRevshareTreeHandler  {
         UserSession userSession = Jsf.getUserSession();
 
         if (userSession.getUser()!=null){
-            BloggerEarningsRevshareTreeNode basenode = new BloggerEarningsRevshareTreeNode("person", userSession.getUser().getFirstname()+" "+userSession.getUser().getLastname(), "userid"+userSession.getUser().getUserid(), false);
-            basenode = addChildren(basenode, userSession.getUser());
+            BloggerEarningsRevshareTreeNode basenode = new BloggerEarningsRevshareTreeNode("person", userSession.getUser().getFirstname()+" "+userSession.getUser().getLastname(), "userid"+userSession.getUser().getUserid(), false, 0, 0);
+            basenode = addChildren(basenode, userSession.getUser(), userSession.getUser());
             return new TreeModelBase(basenode);
         }
         return new TreeModelBase(new TreeNodeBase());
     }
 
-    private BloggerEarningsRevshareTreeNode addChildren(BloggerEarningsRevshareTreeNode node, User user){
+    private BloggerEarningsRevshareTreeNode addChildren(BloggerEarningsRevshareTreeNode node, User user, User rootuser){
         List children = HibernateUtil.getSession().createQuery("FROM User where referredbyuserid='"+user.getUserid()+"'").list();
         for (Iterator iterator = children.iterator(); iterator.hasNext();) {
             User child = (User) iterator.next();
-            BloggerEarningsRevshareTreeNode newnode = new BloggerEarningsRevshareTreeNode("person", child.getFirstname()+" "+child.getLastname(), "userid"+child.getUserid(), false);
-            newnode = addChildren(newnode, child);
+            //Calculate earnings from this user
+            Date ninetydaysago = Time.xDaysAgoStart(Calendar.getInstance(), -90).getTime();
+            double amtEarnedFromThisBloggerAllTime = 0;
+            double amtEarnedFromThisBlogger90Days = 0;
+            if (child.getBlogger()!=null && child.getBlogger().getBloggerid()>0 && rootuser.getBlogger()!=null && rootuser.getBlogger().getBloggerid()>0){
+                List revshares = HibernateUtil.getSession().createQuery("FROM Revshare where sourcebloggerid='"+child.getBlogger().getBloggerid()+"' AND targetbloggerid='"+rootuser.getBlogger().getBloggerid()+"'").list();
+                for (Iterator iterator1 = revshares.iterator(); iterator1.hasNext();) {
+                    Revshare revshare =  (Revshare)iterator1.next();
+                    amtEarnedFromThisBloggerAllTime = amtEarnedFromThisBloggerAllTime + revshare.getAmt();
+                    if (revshare.getDate().after(ninetydaysago)){
+                        amtEarnedFromThisBlogger90Days = amtEarnedFromThisBlogger90Days + revshare.getAmt();
+                    }
+                }
+            }
+
+            //Create the node
+            BloggerEarningsRevshareTreeNode newnode = new BloggerEarningsRevshareTreeNode("person", child.getFirstname()+" "+child.getLastname(), "userid"+child.getUserid(), false, amtEarnedFromThisBloggerAllTime, amtEarnedFromThisBlogger90Days);
+            newnode = addChildren(newnode, child, rootuser);
             node.getChildren().add(newnode);
         }
         return node;

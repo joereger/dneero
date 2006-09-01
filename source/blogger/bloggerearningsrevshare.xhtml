@@ -32,16 +32,16 @@
                 </af:table>
 
 
-               <t:tree2 id="serverTree" value="#{bloggerEarningsRevshareTreeHandler.treeModel}" var="node" varNodeToggler="t" preserveToggle="false" clientSideToggle="false">
+               <t:tree2 id="serverTree" showRootNode="false" value="#{bloggerEarningsRevshareTreeHandler.treeModel}" var="node" varNodeToggler="t" preserveToggle="false" clientSideToggle="false">
                     <f:facet name="person">
                             <h:panelGroup>
                                     <t:graphicImage value="/images/yellow-folder-open.png" rendered="#{t.nodeExpanded}" border="0" />
                                     <t:graphicImage value="/images/yellow-folder-closed.png" rendered="#{!t.nodeExpanded}" border="0" />
-                                    <h:outputText value="#{node.description}" styleClass="nodeFolder" />
+                                    <h:outputText value="#{node.description} ($ #{node.amtEarnedFromThisBloggerAllTime})" styleClass="nodeFolder" />
                             </h:panelGroup>
                     </f:facet>
+               </t:tree2>
 
-            </t:tree2>
 
 
 
