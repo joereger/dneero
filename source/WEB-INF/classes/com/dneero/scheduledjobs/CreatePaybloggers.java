@@ -7,6 +7,7 @@ import org.apache.log4j.Logger;
 import org.hibernate.criterion.Restrictions;
 import com.dneero.dao.*;
 import com.dneero.dao.hibernate.HibernateUtil;
+import com.dneero.invoice.RevshareLevelPercentageCalculator;
 
 import java.util.List;
 import java.util.Date;
@@ -100,14 +101,8 @@ public class CreatePaybloggers implements Job {
                     if (user.getBlogger()!=null && user.getBlogger().getBloggerid()>0){
                         //Only pay if they're qualified for the revshare program
                         if (user.getIsqualifiedforrevshare()){
-                            //Calculate percentage to share at this level
-                            double REVSHARETOPPERCENT = 5;
-                            double percenttoshare = REVSHARETOPPERCENT;
-                            for(int i=1; i<levelsup; i++){
-                                percenttoshare = percenttoshare/2;
-                            }
                             //Calculate the revshare
-                            double amttoshare = amtRevsharebasedon * (percenttoshare/100);
+                            double amttoshare = RevshareLevelPercentageCalculator.getAmountToShare(amtRevsharebasedon, levelsup);
                             //Store the revshare in the database
                             Revshare revshare = new Revshare();
                             revshare.setSourcebloggerid(blogger.getBloggerid());

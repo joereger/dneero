@@ -27,9 +27,9 @@ public class BloggerEarningsRevshareInvite {
             HtmlEmail email = new HtmlEmail();
             email.addTo(this.email);
             email.setFrom(user.getEmail());
-            email.setSubject("dNeero Invitation from "+user.getFirstname()+" "+user.getLastname()+" - Make Money with your Blog!");
-            email.setHtmlMsg("<html><font face=arial size=+1 color=#00ff00>"+message+"</font></html>");
-            email.setTextMsg(message);
+            email.setSubject("dNeero Invitation from "+user.getFirstname()+" "+user.getLastname()+" - Make Money with your Blog!" );
+            email.setHtmlMsg("<html><font face=arial size=+1 color=#00ff00>"+message+"</font><a href='"+link+"'>Click Here</a></html>");
+            email.setTextMsg(message+" "+link);
             EmailSend.sendMail(email);
         } catch (Exception e){
             logger.error(e);

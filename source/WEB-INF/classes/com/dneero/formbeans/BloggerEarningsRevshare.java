@@ -8,6 +8,7 @@ import com.dneero.dao.Revshare;
 import com.dneero.dao.Blogger;
 import com.dneero.dao.User;
 import com.dneero.dao.hibernate.HibernateUtil;
+import com.dneero.invoice.RevshareLevelPercentageCalculator;
 
 import java.util.*;
 
@@ -22,6 +23,17 @@ public class BloggerEarningsRevshare extends SortableList {
 
     private ArrayList<BloggerEarningsRevshareListRevshares> list;
 
+    private double level1percent;
+    private double level1amt;
+    private double level2percent;
+    private double level2amt;
+    private double level3percent;
+    private double level3amt;
+    private double level4percent;
+    private double level4amt;
+    private double level5percent;
+    private double level5amt;
+
 
     Logger logger = Logger.getLogger(this.getClass().getName());
 
@@ -30,7 +42,6 @@ public class BloggerEarningsRevshare extends SortableList {
 
         UserSession userSession = Jsf.getUserSession();
         if (userSession.getUser()!=null && userSession.getUser().getBlogger()!=null){
-
             list = new ArrayList();
             List revshares = HibernateUtil.getSession().createQuery("FROM Revshare WHERE targetbloggerid='"+userSession.getUser().getBlogger().getBloggerid()+"'").list();
             for (Iterator iterator = revshares.iterator(); iterator.hasNext();) {
@@ -43,6 +54,19 @@ public class BloggerEarningsRevshare extends SortableList {
                 list.add(listitem);
             }
         }
+
+        //Create the params for the revshare chart
+        level1percent = RevshareLevelPercentageCalculator.getPercentToShare(1);
+        level1amt = RevshareLevelPercentageCalculator.getAmountToShare(500, 1);
+        level2percent = RevshareLevelPercentageCalculator.getPercentToShare(2);
+        level2amt = RevshareLevelPercentageCalculator.getAmountToShare(500, 2);
+        level3percent = RevshareLevelPercentageCalculator.getPercentToShare(3);
+        level3amt = RevshareLevelPercentageCalculator.getAmountToShare(500, 3);
+        level4percent = RevshareLevelPercentageCalculator.getPercentToShare(4);
+        level4amt = RevshareLevelPercentageCalculator.getAmountToShare(500, 4);
+        level5percent = RevshareLevelPercentageCalculator.getPercentToShare(5);
+        level5amt = RevshareLevelPercentageCalculator.getAmountToShare(500, 5);
+
     }
 
     protected boolean isDefaultAscending(String sortColumn) {
@@ -82,5 +106,83 @@ public class BloggerEarningsRevshare extends SortableList {
         this.list = list;
     }
 
-   
+    public double getLevel1percent() {
+        return level1percent;
+    }
+
+    public void setLevel1percent(double level1percent) {
+        this.level1percent = level1percent;
+    }
+
+    public double getLevel1amt() {
+        return level1amt;
+    }
+
+    public void setLevel1amt(double level1amt) {
+        this.level1amt = level1amt;
+    }
+
+    public double getLevel2percent() {
+        return level2percent;
+    }
+
+    public void setLevel2percent(double level2percent) {
+        this.level2percent = level2percent;
+    }
+
+    public double getLevel2amt() {
+        return level2amt;
+    }
+
+    public void setLevel2amt(double level2amt) {
+        this.level2amt = level2amt;
+    }
+
+    public double getLevel3percent() {
+        return level3percent;
+    }
+
+    public void setLevel3percent(double level3percent) {
+        this.level3percent = level3percent;
+    }
+
+    public double getLevel3amt() {
+        return level3amt;
+    }
+
+    public void setLevel3amt(double level3amt) {
+        this.level3amt = level3amt;
+    }
+
+    public double getLevel4percent() {
+        return level4percent;
+    }
+
+    public void setLevel4percent(double level4percent) {
+        this.level4percent = level4percent;
+    }
+
+    public double getLevel4amt() {
+        return level4amt;
+    }
+
+    public void setLevel4amt(double level4amt) {
+        this.level4amt = level4amt;
+    }
+
+    public double getLevel5percent() {
+        return level5percent;
+    }
+
+    public void setLevel5percent(double level5percent) {
+        this.level5percent = level5percent;
+    }
+
+    public double getLevel5amt() {
+        return level5amt;
+    }
+
+    public void setLevel5amt(double level5amt) {
+        this.level5amt = level5amt;
+    }
 }
