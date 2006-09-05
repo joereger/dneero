@@ -29,6 +29,7 @@ public class Survey extends BasePersistentClass implements java.io.Serializable,
      private int researcherid;
      private String title;
      private String description;
+     private String criteriaxml;
      private double willingtopayperrespondent;
      private int numberofrespondentsrequested;
      private double willingtopaypercpm;
@@ -131,6 +132,14 @@ public class Survey extends BasePersistentClass implements java.io.Serializable,
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getCriteriaxml() {
+        return criteriaxml;
+    }
+
+    public void setCriteriaxml(String criteriaxml) {
+        this.criteriaxml = criteriaxml;
     }
 
     public double getWillingtopayperrespondent() {

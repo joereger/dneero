@@ -49,6 +49,9 @@
         <property name="description" type="string">
             <column name="description" length="65535" />
         </property>
+        <property name="criteriaxml" type="string">
+            <column name="criteriaxml" length="65535" />
+        </property>
         <property name="willingtopayperrespondent" type="double">
             <column name="willingtopayperrespondent" precision="22" scale="0" not-null="true" />
         </property>

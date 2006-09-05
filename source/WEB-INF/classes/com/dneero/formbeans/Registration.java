@@ -16,8 +16,7 @@ import com.octo.captcha.service.CaptchaServiceException;
 
 import javax.faces.context.FacesContext;
 import javax.faces.application.FacesMessage;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * User: Joe Reger Jr
@@ -34,13 +33,15 @@ public class Registration {
     private String lastname;
     private String j_captcha_response;
 
+    //private String temp;
+
     //Other props
     private int userid;
 
     Logger logger = Logger.getLogger(this.getClass().getName());
 
     public Registration(){
-
+        //loadTemp();
     }
 
     public String registerAction(){
@@ -105,8 +106,24 @@ public class Registration {
         return "success";
     }
 
+//    private void loadTemp(){
+//        StringBuffer out = new StringBuffer();
+//        LinkedHashMap tmap = (LinkedHashMap)Jsf.getManagedBean("cities");
+//        Iterator keyValuePairs = tmap.entrySet().iterator();
+//        for (int i = 0; i < tmap.size(); i++){
+//            Map.Entry mapentry = (Map.Entry) keyValuePairs.next();
+//            String key = (String)mapentry.getKey();
+//            String value = (String)mapentry.getValue();
+//            out.append("<map-entry>"+"\n");
+//            out.append(" <key>"+key+"</key>"+"\n");
+//            out.append(" <value>"+key+"</value>"+"\n");
+//            out.append("</map-entry>"+"\n");
+//        }
+//        temp = out.toString();
+//    }
 
 
+    
 
     public String getEmail() {
         return email;
