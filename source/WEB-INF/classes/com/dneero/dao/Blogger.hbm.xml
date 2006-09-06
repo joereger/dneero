@@ -34,31 +34,31 @@
         <property name="birthdate" type="timestamp">
             <column name="birthdate" length="19" not-null="true" />
         </property>
-        <property name="gender" type="int">
+        <property name="gender" type="string">
             <column name="gender" not-null="true" />
         </property>
-        <property name="ethnicity" type="int">
+        <property name="ethnicity" type="string">
             <column name="ethnicity" not-null="true" />
         </property>
-        <property name="maritalstatus" type="int">
+        <property name="maritalstatus" type="string">
             <column name="maritalstatus" not-null="true" />
         </property>
-        <property name="incomerange" type="int">
+        <property name="incomerange" type="string">
             <column name="incomerange" not-null="true" />
         </property>
-        <property name="educationlevel" type="int">
+        <property name="educationlevel" type="string">
             <column name="educationlevel" not-null="true" />
         </property>
-        <property name="state" type="int">
+        <property name="state" type="string">
             <column name="state" not-null="true" />
         </property>
-        <property name="city" type="int">
+        <property name="city" type="string">
             <column name="city" not-null="true" />
         </property>
-        <property name="profession" type="int">
+        <property name="profession" type="string">
             <column name="profession" not-null="true" />
         </property>
-        <property name="politics" type="int">
+        <property name="politics" type="string">
             <column name="politics" not-null="true" />
         </property>
         <property name="quality" type="double">

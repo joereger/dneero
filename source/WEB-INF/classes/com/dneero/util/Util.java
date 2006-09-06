@@ -21,5 +21,17 @@ public class Util {
         return out;
     }
 
+    public static boolean arrayContains(String[] array, String value){
+        if (array!=null){
+            for (int i = 0; i < array.length; i++) {
+                String s = array[i];
+                if (s.equals(value)){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
 
 }

@@ -24,15 +24,15 @@ public class Blogger extends BasePersistentClass implements java.io.Serializable
      private int bloggerid;
      private int userid;
      private Date birthdate;
-     private int gender;
-     private int ethnicity;
-     private int maritalstatus;
-     private int incomerange;
-     private int educationlevel;
-     private int state;
-     private int city;
-     private int profession;
-     private int politics;
+     private String gender;
+     private String ethnicity;
+     private String maritalstatus;
+     private String incomerange;
+     private String educationlevel;
+     private String state;
+     private String city;
+     private String profession;
+     private String politics;
      private double quality;
      private double quality90days;
      private Set<Blog> blogs = new HashSet<Blog>();
@@ -73,16 +73,7 @@ public class Blogger extends BasePersistentClass implements java.io.Serializable
     }
 
     
-    /** full constructor */
-    public Blogger(int bloggerid, Date birthdate, int gender, int ethnicity, int maritalstatus, int incomerange, int educationlevel) {
-        this.bloggerid = bloggerid;
-        this.birthdate = birthdate;
-        this.gender = gender;
-        this.ethnicity = ethnicity;
-        this.maritalstatus = maritalstatus;
-        this.incomerange = incomerange;
-        this.educationlevel = educationlevel;
-    }
+
     
 
    
@@ -112,77 +103,75 @@ public class Blogger extends BasePersistentClass implements java.io.Serializable
         this.birthdate = birthdate;
     }
 
-    public int getGender() {
-        return this.gender;
+    public String getGender() {
+        return gender;
     }
-    
-    public void setGender(int gender) {
+
+    public void setGender(String gender) {
         this.gender = gender;
     }
 
-    public int getEthnicity() {
-        return this.ethnicity;
+    public String getEthnicity() {
+        return ethnicity;
     }
-    
-    public void setEthnicity(int ethnicity) {
+
+    public void setEthnicity(String ethnicity) {
         this.ethnicity = ethnicity;
     }
 
-    public int getMaritalstatus() {
-        return this.maritalstatus;
+    public String getMaritalstatus() {
+        return maritalstatus;
     }
-    
-    public void setMaritalstatus(int maritalstatus) {
+
+    public void setMaritalstatus(String maritalstatus) {
         this.maritalstatus = maritalstatus;
     }
 
-    public int getIncomerange() {
-        return this.incomerange;
+    public String getIncomerange() {
+        return incomerange;
     }
-    
-    public void setIncomerange(int incomerange) {
+
+    public void setIncomerange(String incomerange) {
         this.incomerange = incomerange;
     }
 
-    public int getEducationlevel() {
-        return this.educationlevel;
+    public String getEducationlevel() {
+        return educationlevel;
     }
-    
-    public void setEducationlevel(int educationlevel) {
+
+    public void setEducationlevel(String educationlevel) {
         this.educationlevel = educationlevel;
     }
 
-    public int getState() {
+    public String getState() {
         return state;
     }
 
-    public void setState(int state) {
+    public void setState(String state) {
         this.state = state;
     }
 
-    public int getCity() {
+    public String getCity() {
         return city;
     }
 
-    public void setCity(int city) {
+    public void setCity(String city) {
         this.city = city;
     }
 
-    public int getProfession() {
+    public String getProfession() {
         return profession;
     }
 
-    public void setProfession(int profession) {
+    public void setProfession(String profession) {
         this.profession = profession;
     }
 
-
-
-    public int getPolitics() {
+    public String getPolitics() {
         return politics;
     }
 
-    public void setPolitics(int politics) {
+    public void setPolitics(String politics) {
         this.politics = politics;
     }
 

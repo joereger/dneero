@@ -4,6 +4,7 @@ import com.dneero.dao.Blogger;
 import com.dneero.dao.Surveycriteria;
 import com.dneero.dao.Survey;
 import com.dneero.dao.hibernate.HibernateUtil;
+import com.dneero.util.Util;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -12,6 +13,9 @@ import java.util.Iterator;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 import org.apache.log4j.Logger;
+import org.jdom.Document;
+import org.jdom.Element;
+import org.jdom.input.SAXBuilder;
 
 /**
  * User: Joe Reger Jr
@@ -31,55 +35,98 @@ public class FindSurveysForBlogger {
         this.surveys = new ArrayList();
         this.blogger = blogger;
 
+
+
+        //The idea here is that I'm not doing an actual XML query.
+        //I'm just making sure that all of the terms are in the XML record itself.
+        //This reduces the set to a manageable number which I can then parse
+        //with jdom and do more granular and absolute checking.  It's
+        //not ideal and once MySQL's Xpath support goes live I should consider it.
+
         //Create the criteria
-        Criteria crit = HibernateUtil.getSession().createCriteria(Surveycriteria.class);
+        Criteria crit = HibernateUtil.getSession().createCriteria(Survey.class);
 
-        //Birthdate
-        //@todo convert birthdate to agemin and agemax
-        crit.add(Restrictions.between("agemin", 0, 100));
-        crit.add(Restrictions.between("agemax", 0, 100));
         //Gender
-        crit.createCriteria("surveycriteriagender")
-            .add(Restrictions.eq("gender", blogger.getGender()));
+        crit.add(Restrictions.like("criteriaxml", "%"+blogger.getGender()+"%"));
         //Ethnicity
-        crit.createCriteria("surveycriteriaethnicity")
-            .add(Restrictions.eq("ethnicity", blogger.getEthnicity()));
+        crit.add(Restrictions.like("criteriaxml", "%"+blogger.getEthnicity()+"%"));
         //Marital Status
-        crit.createCriteria("surveycriteriamaritalstatus")
-            .add(Restrictions.eq("maritalstatus", blogger.getMaritalstatus()));
+        crit.add(Restrictions.like("criteriaxml", "%"+blogger.getMaritalstatus()+"%"));
         //Income Range
-        crit.createCriteria("surveycriteriaincomerange")
-            .add(Restrictions.eq("incomerange", blogger.getIncomerange()));
+        crit.add(Restrictions.like("criteriaxml", "%"+blogger.getIncomerange()+"%"));
         //Education Level
-        crit.createCriteria("surveycriteriaeducationlevel")
-            .add(Restrictions.eq("educationlevel", blogger.getEducationlevel()));
+        crit.add(Restrictions.like("criteriaxml", "%"+blogger.getEducationlevel()+"%"));
         //State
-        crit.createCriteria("surveycriteriastate")
-            .add(Restrictions.eq("state", blogger.getState()));
+        crit.add(Restrictions.like("criteriaxml", "%"+blogger.getState()+"%"));
         //City
-        crit.createCriteria("surveycriteriacity")
-            .add(Restrictions.eq("city", blogger.getCity()));
+        crit.add(Restrictions.like("criteriaxml", "%"+blogger.getCity()+"%"));
         //Profession
-        crit.createCriteria("surveycriteriaprofession")
-            .add(Restrictions.eq("profession", blogger.getProfession()));
+        crit.add(Restrictions.like("criteriaxml", "%"+blogger.getProfession()+"%"));
         //Politics
-        crit.createCriteria("surveycriteriapolitics")
-            .add(Restrictions.eq("politics", blogger.getPolitics()));
-        //@todo add blog.blogfocus criteria
-        //@todo add blog quality
-        //@todo add blog quality 90 days
+        crit.add(Restrictions.like("criteriaxml", "%"+blogger.getPolitics()+"%"));
 
 
-        //Run the query
-        List<Surveycriteria> surveycriteria = crit.list();
-        logger.debug("surveycriteria.size()=" + surveycriteria.size());
-        //Iterate results
-        for (Iterator it = surveycriteria.iterator(); it.hasNext(); ) {
-            Surveycriteria oc = (Surveycriteria)it.next();
-            surveys.add(Survey.get(oc.getSurveyid()));
+
+
+
+        //Run the query and get the preliminary results
+        List<Survey> surveys = crit.list();
+        logger.debug("surveys.size()=" + surveys.size());
+        for (Iterator it = surveys.iterator(); it.hasNext(); ) {
+            Survey survey = (Survey)it.next();
+            boolean surveyfitsblogger = true;
+
+            SurveyCriteriaXML scXml = new SurveyCriteriaXML(survey.getCriteriaxml());
+
+            if (surveyfitsblogger && !Util.arrayContains(scXml.getGender(), blogger.getGender())){
+                surveyfitsblogger = false;
+            }
+            if (surveyfitsblogger && !Util.arrayContains(scXml.getEthnicity(), blogger.getEthnicity())){
+                surveyfitsblogger = false;
+            }
+            if (surveyfitsblogger && !Util.arrayContains(scXml.getMaritalstatus(), blogger.getMaritalstatus())){
+                surveyfitsblogger = false;
+            }
+            if (surveyfitsblogger && !Util.arrayContains(scXml.getIncome(), blogger.getIncomerange())){
+                surveyfitsblogger = false;
+            }
+            if (surveyfitsblogger && !Util.arrayContains(scXml.getEducationlevel(), blogger.getEducationlevel())){
+                surveyfitsblogger = false;
+            }
+            if (surveyfitsblogger && !Util.arrayContains(scXml.getState(), blogger.getState())){
+                surveyfitsblogger = false;
+            }
+            if (surveyfitsblogger && !Util.arrayContains(scXml.getCity(), blogger.getCity())){
+                surveyfitsblogger = false;
+            }
+            if (surveyfitsblogger && !Util.arrayContains(scXml.getProfession(), blogger.getProfession())){
+                surveyfitsblogger = false;
+            }
+            if (surveyfitsblogger && !Util.arrayContains(scXml.getPolitics(), blogger.getPolitics())){
+                surveyfitsblogger = false;
+            }
+
+            //Now check this blogger's blogs to see if they fulfill the criteria
+            //@todo add blog.blogfocus criteria
+            //@todo add blog quality
+            //@todo add blog quality 90 days
+
+            //Now check the age requirements
+            //@todo check agemin
+            //@todo check agemax
+
+            //If it hasn't been booted by now, keep it
+            if (surveyfitsblogger){
+                this.surveys.add(survey);
+            }
+
+
         }
 
     }
+
+
+
 
     public List getSurveys() {
         return surveys;

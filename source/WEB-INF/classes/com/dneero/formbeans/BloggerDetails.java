@@ -102,33 +102,15 @@ public class BloggerDetails {
 
             blogger.setUserid(userSession.getUser().getUserid());
             blogger.setBirthdate(birthdate);
-            if (com.dneero.util.Num.isinteger(educationlevel)){
-                blogger.setEducationlevel(Integer.parseInt(educationlevel));
-            }
-            if (com.dneero.util.Num.isinteger(ethnicity)){
-                blogger.setEthnicity(Integer.parseInt(ethnicity));
-            }
-            if (com.dneero.util.Num.isinteger(gender)){
-                blogger.setGender(Integer.parseInt(gender));
-            }
-            if (com.dneero.util.Num.isinteger(income)){
-                blogger.setIncomerange(Integer.parseInt(income));
-            }
-            if (com.dneero.util.Num.isinteger(maritalstatus)){
-                blogger.setMaritalstatus(Integer.parseInt(maritalstatus));
-            }
-            if (com.dneero.util.Num.isinteger(state)){
-                blogger.setState(Integer.parseInt(state));
-            }
-            if (com.dneero.util.Num.isinteger(city)){
-                blogger.setCity(Integer.parseInt(city));
-            }
-            if (com.dneero.util.Num.isinteger(profession)){
-                blogger.setProfession(Integer.parseInt(profession));
-            }
-            if (com.dneero.util.Num.isinteger(politics)){
-                blogger.setPolitics(Integer.parseInt(politics));
-            }
+            blogger.setEducationlevel(educationlevel);
+            blogger.setEthnicity(ethnicity);
+            blogger.setGender(gender);
+            blogger.setIncomerange(income);
+            blogger.setMaritalstatus(maritalstatus);
+            blogger.setState(state);
+            blogger.setCity(city);
+            blogger.setProfession(profession);
+            blogger.setPolitics(politics);
 
             userSession.getUser().setBlogger(blogger);
 
