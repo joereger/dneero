@@ -40,7 +40,6 @@ public class Survey extends BasePersistentClass implements java.io.Serializable,
      private String template;
      private int status;
      private Set<Question> questions = new HashSet<Question>();
-     private Surveycriteria surveycriteria;
      private Set<Response> responses = new HashSet<Response>();
      private Set<Impression> impressions = new HashSet<Impression>();
 
@@ -204,14 +203,6 @@ public class Survey extends BasePersistentClass implements java.io.Serializable,
 
     public void setMaxdisplaystotal(int maxdisplaystotal) {
         this.maxdisplaystotal = maxdisplaystotal;
-    }
-
-    public Surveycriteria getSurveycriteria() {
-        return surveycriteria;
-    }
-
-    public void setSurveycriteria(Surveycriteria surveycriteria) {
-        this.surveycriteria = surveycriteria;
     }
 
     public Set<Question> getQuestions() {

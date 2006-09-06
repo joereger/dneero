@@ -1,7 +1,6 @@
 package com.dneero.finders;
 
 import com.dneero.dao.Blogger;
-import com.dneero.dao.Surveycriteria;
 import com.dneero.dao.Survey;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.util.Util;

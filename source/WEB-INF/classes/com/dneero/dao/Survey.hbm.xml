@@ -9,13 +9,6 @@
             <column name="surveyid" />
             <generator class="native" />
         </id>
-        <!--
-        <set name="surveycriteria" inverse="true" cascade="all-delete-orphan">
-            <cache usage="nonstrict-read-write"/>
-            <key column="surveyid"></key>
-            <one-to-many class="com.dneero.dao.Surveycriteria" not-found="ignore"></one-to-many>
-        </set>
-        -->
         <set name="questions" inverse="true" order-by="questionid asc" cascade="all-delete-orphan">
             <cache usage="nonstrict-read-write"/>
             <key column="surveyid"></key>
@@ -33,8 +26,6 @@
             <key column="surveyid"></key>
             <one-to-many class="com.dneero.dao.Impression" not-found="ignore"></one-to-many>
         </set>
-
-        <one-to-one name="surveycriteria" class="com.dneero.dao.Surveycriteria" property-ref="surveyid" cascade="all"/>
 
         <!--<one-to-one name="researcherbilling" class="com.dneero.dao.Researcherbilling" cascade="save-update"/>-->
         <property name="researcherid" type="int">
