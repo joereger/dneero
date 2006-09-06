@@ -2,6 +2,7 @@ package com.dneero.finders;
 
 import com.dneero.dao.Blogger;
 import com.dneero.dao.Survey;
+import com.dneero.dao.Blog;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.util.Util;
 
@@ -32,6 +33,7 @@ public class FindSurveysForBlogger {
         logger.debug("start building criteria to FindSurveysForBlogger");
 
         this.surveys = new ArrayList();
+        HibernateUtil.getSession().saveOrUpdate(blogger);
         this.blogger = blogger;
 
 
@@ -106,9 +108,21 @@ public class FindSurveysForBlogger {
             }
 
             //Now check this blogger's blogs to see if they fulfill the criteria
-            //@todo add blog.blogfocus criteria
-            //@todo add blog quality
-            //@todo add blog quality 90 days
+
+            boolean atleastoneblogfulfills = false;
+            for (Iterator<Blog> iterator = blogger.getBlogs().iterator(); iterator.hasNext();) {
+                Blog blog = iterator.next();
+                if (Util.arrayContains(scXml.getBlogfocus(), blog.getBlogfocus())){
+                    if (blog.getQuality()>=scXml.getBlogquality()){
+                        if (blog.getQuality90days()>=scXml.getBlogquality90days()){
+                            atleastoneblogfulfills = true;
+                        }
+                    }
+                }
+            }
+            if (!atleastoneblogfulfills){
+                surveyfitsblogger = false;
+            }
 
             //Now check the age requirements
             //@todo check agemin

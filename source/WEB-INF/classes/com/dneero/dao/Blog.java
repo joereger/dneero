@@ -23,7 +23,7 @@ public class Blog extends BasePersistentClass implements java.io.Serializable, R
      private int bloggerid;
      private String url;
      private String title;
-     private int blogfocus;
+     private String blogfocus;
      private double quality;
      private double quality90days;
      private Set<Impression> impressions = new HashSet<Impression>();
@@ -99,11 +99,11 @@ public class Blog extends BasePersistentClass implements java.io.Serializable, R
         this.title = title;
     }
 
-    public int getBlogfocus() {
+    public String getBlogfocus() {
         return blogfocus;
     }
 
-    public void setBlogfocus(int blogfocus) {
+    public void setBlogfocus(String blogfocus) {
         this.blogfocus = blogfocus;
     }
 

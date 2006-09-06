@@ -28,6 +28,8 @@ public class SurveyCriteriaXML {
 
     private int agemin = 13;
     private int agemax = 100;
+    private int blogquality = 0;
+    private int blogquality90days = 0;
     private String[] gender;
     private String[] ethnicity;
     private String[] maritalstatus;
@@ -58,6 +60,12 @@ public class SurveyCriteriaXML {
         }
         if (Num.isinteger(loadValueOfStringFromXML("agemax"))){
             agemax = Integer.parseInt(loadValueOfStringFromXML("agemax"));
+        }
+        if (Num.isinteger(loadValueOfStringFromXML("blogquality"))){
+            blogquality = Integer.parseInt(loadValueOfStringFromXML("blogquality"));
+        }
+        if (Num.isinteger(loadValueOfStringFromXML("blogquality90days"))){
+            blogquality90days = Integer.parseInt(loadValueOfStringFromXML("blogquality90days"));
         }
         gender = loadValueOfArrayFromXML("gender");
         ethnicity = loadValueOfArrayFromXML("ethnicity");
@@ -90,6 +98,8 @@ public class SurveyCriteriaXML {
         nullDocCheck();
         setValueOfSimpleStringNode("agemin", String.valueOf(agemin));
         setValueOfSimpleStringNode("agemax", String.valueOf(agemax));
+        setValueOfSimpleStringNode("blogquality", String.valueOf(blogquality));
+        setValueOfSimpleStringNode("blogquality90days", String.valueOf(blogquality90days));
         setValueOfArrayNode("gender", gender);
         setValueOfArrayNode("ethnicity", ethnicity);
         setValueOfArrayNode("maritalstatus", maritalstatus);
@@ -268,4 +278,19 @@ public class SurveyCriteriaXML {
         this.politics = politics;
     }
 
+    public int getBlogquality() {
+        return blogquality;
+    }
+
+    public void setBlogquality(int blogquality) {
+        this.blogquality = blogquality;
+    }
+
+    public int getBlogquality90days() {
+        return blogquality90days;
+    }
+
+    public void setBlogquality90days(int blogquality90days) {
+        this.blogquality90days = blogquality90days;
+    }
 }

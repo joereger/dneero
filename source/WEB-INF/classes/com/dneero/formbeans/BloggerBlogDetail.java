@@ -26,7 +26,7 @@ public class BloggerBlogDetail {
     private int blogid;
     private String url;
     private String title;
-    private int blogfocus;
+    private String blogfocus;
 
 
     Logger logger = Logger.getLogger(this.getClass().getName());
@@ -126,11 +126,11 @@ public class BloggerBlogDetail {
         this.title = title;
     }
 
-    public int getBlogfocus() {
+    public String getBlogfocus() {
         return blogfocus;
     }
 
-    public void setBlogfocus(int blogfocus) {
+    public void setBlogfocus(String blogfocus) {
         this.blogfocus = blogfocus;
     }
 

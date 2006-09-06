@@ -30,6 +30,8 @@ public class ResearcherSurveyDetail04 {
     private int status;
     private int agemin = 13;
     private int agemax = 100;
+    private int blogquality = 0;
+    private int blogquality90days = 0;
     private String[] gender;
     private String[] ethnicity;
     private String[] maritalstatus;
@@ -67,12 +69,14 @@ public class ResearcherSurveyDetail04 {
         logger.debug("loadSurvey called");
         Survey survey = Survey.get(surveyid);
 
-        
+
 
         //Do it with XML
         SurveyCriteriaXML surveyCriteriaXML = new SurveyCriteriaXML(survey.getCriteriaxml());
         agemin = surveyCriteriaXML.getAgemin();
         agemax = surveyCriteriaXML.getAgemax();
+        blogquality = surveyCriteriaXML.getBlogquality();
+        blogquality90days = surveyCriteriaXML.getBlogquality90days();
         gender = surveyCriteriaXML.getGender();
         genderStr = arrayToString(gender, "<br>");
         ethnicity = surveyCriteriaXML.getEthnicity();
@@ -129,6 +133,8 @@ public class ResearcherSurveyDetail04 {
                 SurveyCriteriaXML surveyCriteriaXML = new SurveyCriteriaXML(survey.getCriteriaxml());
                 surveyCriteriaXML.setAgemin(agemin);
                 surveyCriteriaXML.setAgemax(agemax);
+                surveyCriteriaXML.setBlogquality(blogquality);
+                surveyCriteriaXML.setBlogquality90days(blogquality90days);
                 surveyCriteriaXML.setGender(gender);
                 surveyCriteriaXML.setEthnicity(ethnicity);
                 surveyCriteriaXML.setMaritalstatus(maritalstatus);
@@ -347,5 +353,21 @@ public class ResearcherSurveyDetail04 {
 
     public void setPoliticsStr(String politicsStr) {
         this.politicsStr = politicsStr;
+    }
+
+    public int getBlogquality() {
+        return blogquality;
+    }
+
+    public void setBlogquality(int blogquality) {
+        this.blogquality = blogquality;
+    }
+
+    public int getBlogquality90days() {
+        return blogquality90days;
+    }
+
+    public void setBlogquality90days(int blogquality90days) {
+        this.blogquality90days = blogquality90days;
     }
 }

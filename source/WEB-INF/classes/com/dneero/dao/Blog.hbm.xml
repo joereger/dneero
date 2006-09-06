@@ -30,7 +30,7 @@
         <property name="title" type="string">
             <column name="title" not-null="true" />
         </property>
-        <property name="blogfocus" type="int">
+        <property name="blogfocus" type="string">
             <column name="blogfocus" not-null="true" />
         </property>
         <property name="quality" type="double">
