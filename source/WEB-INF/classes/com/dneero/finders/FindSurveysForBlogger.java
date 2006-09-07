@@ -5,10 +5,12 @@ import com.dneero.dao.Survey;
 import com.dneero.dao.Blog;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.util.Util;
+import com.dneero.util.Time;
 
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Calendar;
 
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
@@ -107,26 +109,33 @@ public class FindSurveysForBlogger {
                 surveyfitsblogger = false;
             }
 
-            //Now check this blogger's blogs to see if they fulfill the criteria
-
-            boolean atleastoneblogfulfills = false;
-            for (Iterator<Blog> iterator = blogger.getBlogs().iterator(); iterator.hasNext();) {
-                Blog blog = iterator.next();
-                if (Util.arrayContains(scXml.getBlogfocus(), blog.getBlogfocus())){
-                    if (blog.getQuality()>=scXml.getBlogquality()){
-                        if (blog.getQuality90days()>=scXml.getBlogquality90days()){
-                            atleastoneblogfulfills = true;
-                        }
-                    }
-                }
+            //Now check the age requirements
+            if (blogger.getBirthdate().before(   Time.subtractYear(Calendar.getInstance(), scXml.getAgemax()).getTime()    )){
+                surveyfitsblogger = false;
             }
-            if (!atleastoneblogfulfills){
+            if (blogger.getBirthdate().after(   Time.subtractYear(Calendar.getInstance(), scXml.getAgemin()).getTime()    )){
                 surveyfitsblogger = false;
             }
 
-            //Now check the age requirements
-            //@todo check agemin
-            //@todo check agemax
+            //Now check this blogger's blogs to see if they fulfill the criteria
+            if (surveyfitsblogger){
+                boolean atleastoneblogfulfills = false;
+                for (Iterator<Blog> iterator = blogger.getBlogs().iterator(); iterator.hasNext();) {
+                    Blog blog = iterator.next();
+                    if (Util.arrayContains(scXml.getBlogfocus(), blog.getBlogfocus())){
+                        if (blog.getQuality()>=scXml.getBlogquality()){
+                            if (blog.getQuality90days()>=scXml.getBlogquality90days()){
+                                atleastoneblogfulfills = true;
+                            }
+                        }
+                    }
+                }
+                if (!atleastoneblogfulfills){
+                    surveyfitsblogger = false;
+                }
+            }
+
+
 
             //If it hasn't been booted by now, keep it
             if (surveyfitsblogger){

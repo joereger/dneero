@@ -110,7 +110,7 @@
             <job-name>invoiceCollectViaCreditCard</job-name>
             <job-group>surveyJobs</job-group>
             <!-- every two minutes -->
-            <cron-expression>0 0/60 * * * ?</cron-expression>
+            <cron-expression>0 0/360 * * * ?</cron-expression>
           </cron>
         </trigger>
     </job>

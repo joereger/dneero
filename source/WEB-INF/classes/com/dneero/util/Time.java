@@ -969,6 +969,12 @@ public class Time {
         return outCal;
     }
 
+    public static Calendar subtractYear(Calendar cal, int howmanytosubtract){
+        Calendar outCal = (Calendar) cal.clone();
+        outCal.add(Calendar.YEAR, -1*howmanytosubtract);
+        return outCal;
+    }
+
     public static String nowInGmtString(){
         return dateformatfordb(nowInUserTimezone("GMT"));
     }
