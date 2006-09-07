@@ -14,6 +14,7 @@ import com.dneero.util.Jsf;
 import com.dneero.util.GeneralException;
 import com.dneero.util.Time;
 import com.dneero.session.UserSession;
+import com.dneero.finders.FindBloggersForSurvey;
 
 /**
  * User: Joe Reger Jr
@@ -23,6 +24,7 @@ import com.dneero.session.UserSession;
 public class ResearcherSurveyDetail06 {
 
     private int status;
+    private int numberofbloggersqualifiedforthissurvey = 0;
 
     Logger logger = Logger.getLogger(this.getClass().getName());
 
@@ -39,7 +41,8 @@ public class ResearcherSurveyDetail06 {
         if (survey!=null){
             logger.debug("Found survey in db: survey.getSurveyid()="+survey.getSurveyid()+" survey.getTitle()="+survey.getTitle());
             status = survey.getStatus();
-
+            FindBloggersForSurvey fb = new FindBloggersForSurvey(survey);
+            numberofbloggersqualifiedforthissurvey = fb.getBloggers().size();
         }
 
     }
@@ -83,7 +86,7 @@ public class ResearcherSurveyDetail06 {
             }
 
 
-    
+
             //Refresh
             survey.refresh();
         }
@@ -97,5 +100,13 @@ public class ResearcherSurveyDetail06 {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public int getNumberofbloggersqualifiedforthissurvey() {
+        return numberofbloggersqualifiedforthissurvey;
+    }
+
+    public void setNumberofbloggersqualifiedforthissurvey(int numberofbloggersqualifiedforthissurvey) {
+        this.numberofbloggersqualifiedforthissurvey = numberofbloggersqualifiedforthissurvey;
     }
 }

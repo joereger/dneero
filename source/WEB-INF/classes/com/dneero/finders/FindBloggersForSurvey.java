@@ -3,6 +3,7 @@ package com.dneero.finders;
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.criterion.Property;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -37,28 +38,28 @@ public class FindBloggersForSurvey {
         Criteria crit = HibernateUtil.getSession().createCriteria(Blogger.class);
 
         //Gender
-        crit.add(Restrictions.eq("gender", scXml.getGender()));
+        crit.add( Property.forName("gender").in( scXml.getGender() ) );
         //Ethnicity
-        crit.add(Restrictions.eq("ethnicity", scXml.getEthnicity()));
+        crit.add( Property.forName("ethnicity").in( scXml.getEthnicity() ) );
         //Marital Status
-        crit.add(Restrictions.eq("maritalstatus", scXml.getMaritalstatus()));
+        crit.add( Property.forName("maritalstatus").in( scXml.getMaritalstatus() ) );
         //Income Range
-        crit.add(Restrictions.eq("incomerange", scXml.getIncome()));
+        crit.add( Property.forName("incomerange").in( scXml.getIncome() ) );
         //Education Level
-        crit.add(Restrictions.eq("educationlevel", scXml.getEducationlevel()));
+        crit.add( Property.forName("educationlevel").in( scXml.getEducationlevel() ) );
         //State
-        crit.add(Restrictions.eq("state", scXml.getState()));
+        crit.add( Property.forName("state").in( scXml.getState() ) );
         //City
-        crit.add(Restrictions.eq("city", scXml.getCity()));
+        crit.add( Property.forName("city").in( scXml.getCity() ) );
         //Profession
-        crit.add(Restrictions.eq("profession", scXml.getProfession()));
+        crit.add( Property.forName("profession").in( scXml.getProfession() ) );
         //Politics
-        crit.add(Restrictions.eq("politics", scXml.getPolitics()));
+        crit.add( Property.forName("politics").in( scXml.getPolitics() ) );
 
         //Quality
-        crit.add(Restrictions.ge("quality", scXml.getBlogquality()));
+        crit.add(Restrictions.ge("quality", Double.parseDouble(String.valueOf(scXml.getBlogquality()))));
         //Quality90days
-        crit.add(Restrictions.ge("quality90days", scXml.getBlogquality90days()));
+        crit.add(Restrictions.ge("quality90days", Double.parseDouble(String.valueOf(scXml.getBlogquality90days()))));
 
         //Birthdate
         crit.add(Restrictions.ge("birthdate", Time.subtractYear(Calendar.getInstance(), scXml.getAgemax()).getTime() ));

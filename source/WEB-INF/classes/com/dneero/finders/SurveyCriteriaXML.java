@@ -150,7 +150,6 @@ public class SurveyCriteriaXML {
             for (int i = 0; i < values.length; i++) {
                 String value = values[i];
                 Element val = new Element("value");
-                logger.debug(nodename + " new Element('value')="+value);
                 val.setContent(new Text(value));
                 el.addContent(val);
             }
