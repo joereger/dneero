@@ -27,22 +27,7 @@ public class LostPasswordSend {
             logger.error("registerAction failed: " + gex.getErrorsAsSingleString());
         }
 
-        //@todo make link dynamic for instance base address
-        String url = "http://dneero.com/lps?u="+user.getUserid()+"&k="+user.getEmailactivationkey();
-        //@todo better lost password email message
-        String message = url;
-
-        try{
-            HtmlEmail email = new HtmlEmail();
-            email.addTo(user.getEmail());
-            email.setFrom(EmailSendThread.DEFAULTFROM);
-            email.setSubject("dNeero Password Recovery Message");
-            email.setHtmlMsg("<html><font face=arial size=+1 color=#00ff00>"+message+"</font></html>");
-            email.setTextMsg(message);
-            EmailSend.sendMail(email);
-        } catch (Exception e){
-            logger.error(e);
-        }
+        EmailTemplateProcessor.sendMail("dNeero Password Recovery", "lostpassword", user);
 
     }
 

@@ -142,6 +142,12 @@
     </managed-bean>
 
     <managed-bean>
+        <managed-bean-name>researcherSurveyResultsCsv</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.ResearcherSurveyResultsCsv</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
         <managed-bean-name>researcherSurveyResultsQuestions</managed-bean-name>
         <managed-bean-class>com.dneero.formbeans.ResearcherSurveyResultsQuestions</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
@@ -524,6 +530,10 @@
         <navigation-case>
             <from-outcome>researchersurveyresults</from-outcome>
             <to-view-id>/researcher/researchersurveyresults.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>researchersurveyresultscsv</from-outcome>
+            <to-view-id>/researcher/researchersurveyresultscsv.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>researchersurveyresultsquestions</from-outcome>

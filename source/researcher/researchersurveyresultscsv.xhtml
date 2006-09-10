@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:t="http://myfaces.apache.org/tomahawk"
+      xmlns:d="http://dneero.com/taglib"
+      xmlns:af="http://xmlns.oracle.com/adf/faces">
+
+<ui:composition template="/template/template-facelets.xhtml">
+    <ui:define name="body">
+    <d:authorization acl="researcher" redirectonfail="true"/>
+
+<h:form>
+
+    <d:roundedCornerBox uniqueboxname="status" bodycolor="00ff00" widthinpixels="450" rendered="#{researcherSurveyResults.status==1}">
+        <h:outputText value="Status: Draft" styleClass="largefont"></h:outputText>
+    </d:roundedCornerBox>
+    <d:roundedCornerBox uniqueboxname="status" bodycolor="00ff00" widthinpixels="450" rendered="#{researcherSurveyResults.status==2}">
+        <h:outputText value="Status: Waiting for Start Date" styleClass="largefont"></h:outputText>
+    </d:roundedCornerBox>
+    <d:roundedCornerBox uniqueboxname="status" bodycolor="00ff00" widthinpixels="450" rendered="#{researcherSurveyResults.status==3}">
+        <h:outputText value="Status: Open" styleClass="largefont"></h:outputText>
+    </d:roundedCornerBox>
+    <d:roundedCornerBox uniqueboxname="status" bodycolor="00ff00" widthinpixels="450" rendered="#{researcherSurveyResults.status==4}">
+        <h:outputText value="Status: Closed" styleClass="largefont"></h:outputText>
+    </d:roundedCornerBox>
+
+    <h:panelGrid columns="2" cellpadding="3" border="0">
+
+        <h:panelGroup>
+            <d:roundedCornerBox uniqueboxname="researcheresultsresponses" bodycolor="00ff00" widthinpixels="200">
+                <h:outputText value="Total Survey Responses" styleClass="smallfont"></h:outputText>
+                <f:verbatim><br/></f:verbatim>
+                <h:outputText value="#{researcherSurveyResults.totalsurveyresponses}" styleClass="largefont"></h:outputText>
+                <f:verbatim><br/></f:verbatim>
+                <h:commandButton action="researchersurveyresultsquestions" value="View Question Responses"></h:commandButton>
+            </d:roundedCornerBox>
+        </h:panelGroup>
+        <h:panelGroup>
+            <d:roundedCornerBox uniqueboxname="researcheresultsimpressions" bodycolor="00ff00" widthinpixels="200">
+                <h:outputText value="Total Survey Impressions" styleClass="smallfont"></h:outputText>
+                <f:verbatim><br/></f:verbatim>
+                <h:outputText value="#{researcherSurveyResults.totalsurveydisplays}"  styleClass="largefont"></h:outputText>
+                <f:verbatim><br/></f:verbatim>
+                <h:commandButton action="researchersurveyresultsimpressions" value="View Impression Data"></h:commandButton>
+            </d:roundedCornerBox>
+        </h:panelGroup>
+
+
+    </h:panelGrid>
+</h:form>
+
+</ui:define>
+
+
+</ui:composition>
+</html>

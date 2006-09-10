@@ -18,5 +18,7 @@ public interface Component {
     public String getHtmlForResultDetail();
     public void validateAnswer(HttpServletRequest request) throws ComponentException;
     public void processAnswer(HttpServletRequest request) throws ComponentException;
+    public int columnsInCsvOutput();
+    public String[] getCsvForResult();
 
 }

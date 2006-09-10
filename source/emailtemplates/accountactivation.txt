@@ -1,0 +1,7 @@
+Hello!
+
+Please activate your account by visiting this page:
+
+http://dneero.com/eas?u=<$user.userid$>&k=<$user.emailactivationkey$>
+
+The dNeero Team

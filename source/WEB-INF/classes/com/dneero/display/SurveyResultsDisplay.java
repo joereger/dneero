@@ -39,7 +39,6 @@ public class SurveyResultsDisplay {
             out.append("</td>");
             out.append("</tr>");
             out.append("</table>");
-
         }
         return out.toString();
     }

@@ -20,6 +20,7 @@ import com.dneero.dao.User;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.email.EmailSendThread;
 import com.dneero.email.EmailSend;
+import com.dneero.email.EmailTemplateProcessor;
 
 /**
  * User: Joe Reger Jr
@@ -46,20 +47,7 @@ public class SendEmailInvoicePastDue implements Job {
             //Send email telling researcher they are past due
             Researcher researcher = Researcher.get(invoice.getResearcherid());
             User user = User.get(researcher.getUserid());
-            user.getEmail();
-
-            try{
-                HtmlEmail email = new HtmlEmail();
-                String message = "You have a dNeero invoice that is now past due.  Bloggers are waiting on your payment.  Please log in to your dNeero account and pay.  Thanks, The dNeero Team";
-                email.addTo(user.getEmail());
-                email.setFrom(EmailSendThread.DEFAULTFROM);
-                email.setSubject("dNeero Invoice Past Due Notification");
-                email.setHtmlMsg("<html><font face=arial size=+1 color=#00ff00>"+message+"</font></html>");
-                email.setTextMsg(message);
-                EmailSend.sendMail(email);
-            } catch (Exception e){
-                logger.error(e);
-            }
+            EmailTemplateProcessor.sendMail("dNeero Invoice Past Due Notification", "invoicepastdue", user);
 
 
         }
