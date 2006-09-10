@@ -247,4 +247,26 @@
         </trigger>
     </job>
 
+    <job>
+        <job-detail>
+          <name>notifyBloggersOfNewOffers</name>
+          <group>surveyJobs</group>
+          <job-class>com.dneero.scheduledjobs.NotifyBloggersOfNewOffers</job-class>
+          <volatility>false</volatility>
+          <durability>false</durability>
+          <recover>false</recover>
+        </job-detail>
+        <trigger>
+          <!-- Sample cron triggers: http://www.opensymphony.com/quartz/wikidocs/TutorialLesson6.html -->
+          <cron>
+            <name>notifyBloggersOfNewOffersTrigger</name>
+            <group>surveyTriggers</group>
+            <job-name>notifyBloggersOfNewOffers</job-name>
+            <job-group>surveyJobs</job-group>
+            <!-- Fire at 10am (noon) every day -->
+            <cron-expression>0 0 10 * * ?</cron-expression>
+          </cron>
+        </trigger>
+    </job>
+
 </quartz>

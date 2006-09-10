@@ -1,0 +1,7 @@
+You have new surveys that could allow you to earn $<$args.0$>!
+
+<$args.2$>
+
+Best,
+
+The dNeero Team

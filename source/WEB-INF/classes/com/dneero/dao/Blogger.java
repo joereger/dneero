@@ -35,6 +35,8 @@ public class Blogger extends BasePersistentClass implements java.io.Serializable
      private String politics;
      private double quality;
      private double quality90days;
+     private boolean notifyofnewsurveysbyemail;
+     private Date lastnewsurveynotificationsenton;
      private Set<Blog> blogs = new HashSet<Blog>();
      private Set<Response> responses = new HashSet<Response>();
      private Set<Payblogger> paybloggers = new HashSet<Payblogger>();
@@ -223,5 +225,20 @@ public class Blogger extends BasePersistentClass implements java.io.Serializable
         this.paybloggers = paybloggers;
     }
 
-   
+    public boolean getNotifyofnewsurveysbyemail() {
+        return notifyofnewsurveysbyemail;
+    }
+
+    public void setNotifyofnewsurveysbyemail(boolean notifyofnewsurveysbyemail) {
+        this.notifyofnewsurveysbyemail = notifyofnewsurveysbyemail;
+    }
+
+    public Date getLastnewsurveynotificationsenton() {
+        return lastnewsurveynotificationsenton;
+    }
+
+    public void setLastnewsurveynotificationsenton(Date lastnewsurveynotificationsenton) {
+        this.lastnewsurveynotificationsenton = lastnewsurveynotificationsenton;
+    }
+
 }

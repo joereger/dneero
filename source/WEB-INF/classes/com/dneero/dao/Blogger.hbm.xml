@@ -67,8 +67,12 @@
         <property name="quality90days" type="double">
             <column name="quality90days" precision="22" scale="0" not-null="true" />
         </property>
-
-
+        <property name="notifyofnewsurveysbyemail" type="boolean">
+            <column name="notifyofnewsurveysbyemail" />
+        </property>
+        <property name="lastnewsurveynotificationsenton" type="timestamp">
+            <column name="birthdate" length="19" not-null="true" />
+        </property>
 
     </class>
 </hibernate-mapping>

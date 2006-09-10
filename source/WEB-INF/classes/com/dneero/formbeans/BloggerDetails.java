@@ -26,6 +26,7 @@ public class BloggerDetails {
 
     //Form props
     private Date birthdate;
+    private int notifyofnewsurveysbyemail=1;
     private String gender;
     private String ethnicity;
     private String income;
@@ -58,6 +59,11 @@ public class BloggerDetails {
         if (userSession.getUser()!=null && userSession.getUser().getBlogger()!=null){
             Blogger blogger = userSession.getUser().getBlogger();
             birthdate = blogger.getBirthdate();
+            if (blogger.getNotifyofnewsurveysbyemail()){
+                notifyofnewsurveysbyemail = 1;
+            } else {
+                notifyofnewsurveysbyemail = 0;
+            }
             gender = String.valueOf(blogger.getGender());
             ethnicity = String.valueOf(blogger.getEthnicity());
             income = String.valueOf(blogger.getIncomerange());
@@ -95,6 +101,7 @@ public class BloggerDetails {
             blogger = new Blogger();
             blogger.setQuality(0);
             blogger.setQuality90days(0);
+            blogger.setLastnewsurveynotificationsenton(new Date());
             isnewblogger = true;
         }
 
@@ -111,6 +118,11 @@ public class BloggerDetails {
             blogger.setCity(city);
             blogger.setProfession(profession);
             blogger.setPolitics(politics);
+            if (notifyofnewsurveysbyemail==0){
+                blogger.setNotifyofnewsurveysbyemail(false);
+            } else {
+                blogger.setNotifyofnewsurveysbyemail(true);
+            }
 
             userSession.getUser().setBlogger(blogger);
 
@@ -367,5 +379,13 @@ public class BloggerDetails {
 
     public void setCcexpyear(int ccexpyear) {
         this.ccexpyear = ccexpyear;
+    }
+
+    public int getNotifyofnewsurveysbyemail() {
+        return notifyofnewsurveysbyemail;
+    }
+
+    public void setNotifyofnewsurveysbyemail(int notifyofnewsurveysbyemail) {
+        this.notifyofnewsurveysbyemail = notifyofnewsurveysbyemail;
     }
 }

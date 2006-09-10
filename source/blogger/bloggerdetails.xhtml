@@ -255,6 +255,19 @@
                     <h:message for="ccexpyear" styleClass="RED"></h:message>
                 </h:panelGroup>
 
+                <h:panelGroup>
+                    <h:outputText value="Notify Me of New Surveys by Email"></h:outputText>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:selectOneRadio value="#{bloggerDetails.notifyofnewsurveysbyemail}" id="notifyofnewsurveysbyemail" required="true">
+                        <f:selectItem itemName="Yes" itemValue="1"/>
+                        <f:selectItem itemName="No" itemValue="0"/>
+                    </h:selectOneRadio>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:message for="notifyofnewsurveysbyemail" styleClass="RED"></h:message>
+                </h:panelGroup>
+
 
                 <h:panelGroup>
                 </h:panelGroup>
