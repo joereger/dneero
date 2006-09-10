@@ -28,7 +28,7 @@ public class BloggerEarningsPaymentListSurv extends SortableList {
         super("surveyname");
 
         int paybloggerid = 0;
-        String tmpPaybloggerid = (String) FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("paybloggerid");
+        String tmpPaybloggerid = Jsf.getRequestParam("paybloggerid");
         if (com.dneero.util.Num.isinteger(tmpPaybloggerid)){
             logger.debug("beginView called: found tmpPaybloggerid in param="+tmpPaybloggerid);
             paybloggerid = Integer.parseInt(tmpPaybloggerid);

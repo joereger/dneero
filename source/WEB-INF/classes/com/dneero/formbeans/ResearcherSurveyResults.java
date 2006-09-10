@@ -35,7 +35,7 @@ public class ResearcherSurveyResults {
 
     public String beginView(){
         //logger.debug("beginView called:");
-        String tmpSurveyid = (String)FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("surveyid");
+        String tmpSurveyid = Jsf.getRequestParam("surveyid");
         if (com.dneero.util.Num.isinteger(tmpSurveyid)){
             logger.debug("beginView called: found surveyid in request param="+tmpSurveyid);
             UserSession userSession = Jsf.getUserSession();

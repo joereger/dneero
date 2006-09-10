@@ -78,7 +78,7 @@ public class ResearcherSurveyDetail02 {
         logger.debug("beginEdit() called");
 
         int componenttype = 0;
-        String tmpComponenttype = (String) FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("componenttype");
+        String tmpComponenttype = Jsf.getRequestParam("componenttype");
         if (com.dneero.util.Num.isinteger(tmpComponenttype)){
             logger.debug("beginEdit called: found componenttype in param="+tmpComponenttype);
             componenttype = Integer.parseInt(tmpComponenttype);
@@ -134,7 +134,7 @@ public class ResearcherSurveyDetail02 {
     }
 
     public String deleteQuestion(){
-        String tmpQuestionid = (String) FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("questionid");
+        String tmpQuestionid = Jsf.getRequestParam("questionid");
         int questionid = 0;
         if (com.dneero.util.Num.isinteger(tmpQuestionid)){
             logger.debug("deleteQuestion called: found questionid in param="+tmpQuestionid);

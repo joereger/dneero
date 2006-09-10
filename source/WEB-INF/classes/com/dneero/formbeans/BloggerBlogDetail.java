@@ -39,7 +39,7 @@ public class BloggerBlogDetail {
 
     public String beginView(){
         logger.debug("beginView called: blogid="+blogid);
-        String tmpBlogid = (String) FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("blogid");
+        String tmpBlogid = Jsf.getRequestParam("blogid");
         if (com.dneero.util.Num.isinteger(tmpBlogid)){
             logger.debug("beginView called: found blogid in param="+tmpBlogid);
             Blog blog = Blog.get(Integer.parseInt(tmpBlogid));

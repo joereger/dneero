@@ -30,7 +30,7 @@ public class BloggerSurveyTake {
 
 //    public String beginView(){
 //        logger.debug("beginView called: survey.surveyid="+survey.getSurveyid());
-//        String tmpSurveyid = (String) FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("surveyid");
+//        String tmpSurveyid = Jsf.getRequestParam("surveyid");
 //        if (com.dneero.util.Num.isinteger(tmpSurveyid)){
 //            logger.debug("beginView called: found surveyid in param="+tmpSurveyid);
 //            survey = Survey.get(Integer.parseInt(tmpSurveyid));

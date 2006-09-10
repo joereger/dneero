@@ -34,7 +34,7 @@ public class ResearcherSurveyResultsQuestiondetail {
         logger.debug("loadSurvey called");
         Survey survey = Survey.get(surveyid);
         if (survey!=null){
-            String tmpQuestionid = (String) FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("questionid");
+            String tmpQuestionid = Jsf.getRequestParam("questionid");
             if (com.dneero.util.Num.isinteger(tmpQuestionid)){
                 logger.debug("beginView called: found tmpQuestionid in request param="+tmpQuestionid);
                 Question question = Question.get(Integer.parseInt(tmpQuestionid));

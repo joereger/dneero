@@ -36,7 +36,7 @@ public class AccountSupportIssueDetail {
 
     public String beginView(){
         logger.debug("beginView called: supportissueid="+supportissueid);
-        String tmpSupportissueid = (String) FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("supportissueid");
+        String tmpSupportissueid = Jsf.getRequestParam("supportissueid");
         if (com.dneero.util.Num.isinteger(tmpSupportissueid)){
             logger.debug("beginView called: found supportissueid in param="+tmpSupportissueid);
             Supportissue supportissue = Supportissue.get(Integer.parseInt(tmpSupportissueid));

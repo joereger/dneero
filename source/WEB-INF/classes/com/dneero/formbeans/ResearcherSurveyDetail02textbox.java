@@ -34,8 +34,8 @@ public class ResearcherSurveyDetail02textbox {
 
     public ResearcherSurveyDetail02textbox(){
         logger.debug("Instanciating object");
-        String tmpQuestionid = (String) FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("questionid");
-        String tmpIsnewquestion = (String) FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("isnewquestion");
+        String tmpQuestionid = Jsf.getRequestParam("questionid");
+        String tmpIsnewquestion = Jsf.getRequestParam("isnewquestion");
         if (questionid==0 && com.dneero.util.Num.isinteger(tmpQuestionid) && (tmpIsnewquestion==null || !tmpIsnewquestion.equals("1"))){
             logger.debug("constructor: found questionid in param="+tmpQuestionid);
             questionid = Integer.parseInt(tmpQuestionid);

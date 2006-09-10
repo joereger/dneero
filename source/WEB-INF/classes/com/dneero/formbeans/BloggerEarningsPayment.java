@@ -5,6 +5,7 @@ import org.apache.log4j.Logger;
 import javax.faces.context.FacesContext;
 
 import com.dneero.dao.Payblogger;
+import com.dneero.util.Jsf;
 
 import java.util.Date;
 
@@ -26,7 +27,7 @@ public class BloggerEarningsPayment {
 
     public String beginView(){
         logger.debug("beginView called");
-        String tmpPaybloggerid = (String) FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("paybloggerid");
+        String tmpPaybloggerid = Jsf.getRequestParam("paybloggerid");
         if (com.dneero.util.Num.isinteger(tmpPaybloggerid)){
             logger.debug("beginView called: found tmpPaybloggerid in param="+tmpPaybloggerid);
             Payblogger payblogger = Payblogger.get(Integer.parseInt(tmpPaybloggerid));

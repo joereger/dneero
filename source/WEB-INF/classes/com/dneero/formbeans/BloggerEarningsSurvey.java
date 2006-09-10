@@ -54,7 +54,7 @@ public class BloggerEarningsSurvey extends SortableList {
 
     public String beginView(){
         logger.debug("beginView called");
-        String tmpResponseid = (String) FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("responseid");
+        String tmpResponseid = Jsf.getRequestParam("responseid");
         if (com.dneero.util.Num.isinteger(tmpResponseid)){
             logger.debug("beginView called: found tmpResponseid in param="+tmpResponseid);
             load(Integer.parseInt(tmpResponseid));
