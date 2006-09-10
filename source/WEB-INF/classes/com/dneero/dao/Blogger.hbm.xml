@@ -71,7 +71,7 @@
             <column name="notifyofnewsurveysbyemail" />
         </property>
         <property name="lastnewsurveynotificationsenton" type="timestamp">
-            <column name="birthdate" length="19" not-null="true" />
+            <column name="lastnewsurveynotificationsenton" length="19" not-null="true" />
         </property>
 
     </class>

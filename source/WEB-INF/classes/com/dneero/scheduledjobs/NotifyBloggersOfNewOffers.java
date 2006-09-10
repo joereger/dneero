@@ -32,25 +32,21 @@ public class NotifyBloggersOfNewOffers implements Job {
 
         for (Iterator<Blogger> iterator = bloggers.iterator(); iterator.hasNext();) {
             Blogger blogger = iterator.next();
-
-            //@todo finish writing NotifyBloggersOfNewOffers class
-
             if (blogger.getNotifyofnewsurveysbyemail()){
-
                 FindSurveysForBlogger finder = new FindSurveysForBlogger(blogger);
                 List allSurveys = finder.getSurveys();
                 ArrayList<Survey> newSurveys = new ArrayList<Survey>();
-
                 //See if any of the surveys are new since the last time the blogger was sent email
                 for (Iterator iterator1 = allSurveys.iterator(); iterator1.hasNext();) {
                     Survey survey = (Survey) iterator1.next();
                     if (survey.getStartdate().after(blogger.getLastnewsurveynotificationsenton())){
-                        if (survey.getStatus()==Survey.STATUS_OPEN){
-                            newSurveys.add(survey);
+                        if (survey.getStartdate().before(new Date())){
+                            if (survey.getStatus()==Survey.STATUS_OPEN){
+                                newSurveys.add(survey);
+                            }
                         }
                     }
                 }
-
                 //If we have any new ones
                 if (newSurveys.size()>0){
                     //Vars to hold our strings in the email
@@ -64,8 +60,6 @@ public class NotifyBloggersOfNewOffers implements Job {
                         listofsurveysHtml.append("<br>" + survey.getTitle() + " - " + survey.getWillingtopayperrespondent());
                         listofsurveysHtml.append("\n" + survey.getTitle() + " - " + survey.getWillingtopayperrespondent());
                     }
-
-
                     //Create the args array to hold the dynamic stuff
                     String[] args = new String[10];
                     args[0] = String.valueOf(possibleearnings);
@@ -73,14 +67,10 @@ public class NotifyBloggersOfNewOffers implements Job {
                     args[2] = listofsurveysTxt.toString();
                     //Send the email
                     User user = User.get(blogger.getUserid());
-                    EmailTemplateProcessor.sendMail("dNeero New Surveys for "+user.getFirstname(), "bloggernotifyofnewsurveys", user, args);
-
+                    EmailTemplateProcessor.sendMail("New dNeero Surveys for "+user.getFirstname(), "bloggernotifyofnewsurveys", user, args);
                 }
-
             }
-
         }
-
     }
 
 }

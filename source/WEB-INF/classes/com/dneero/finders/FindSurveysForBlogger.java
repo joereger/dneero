@@ -48,6 +48,8 @@ public class FindSurveysForBlogger {
 
         //Create the criteria
         Criteria crit = HibernateUtil.getSession().createCriteria(Survey.class);
+        //Status
+        crit.add(Restrictions.eq("status", Survey.STATUS_OPEN));
 
         //Gender
         crit.add(Restrictions.like("criteriaxml", "%"+blogger.getGender()+"%"));
