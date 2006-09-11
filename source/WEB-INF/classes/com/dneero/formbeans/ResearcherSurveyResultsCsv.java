@@ -44,11 +44,12 @@ public class ResearcherSurveyResultsCsv {
                 Component component = ComponentTypes.getComponentByID(question.getComponenttype(), question, new Blogger());
                 out.append(component.getName());
                 out.append(",");
-                for (int i = 0; i < component.getCsvForResult().length; i++) {
-                    String s = component.getCsvForResult()[i];
-                    out.append(s);
-                    out.append(",");
-                }
+                //@todo ResearcherSurveyResultsCsv.java output the csv from each component, edit interface, etc
+//                for (int i = 0; i < component.getCsvForResult().length; i++) {
+//                    String s = component.getCsvForResult()[i];
+//                    out.append(s);
+//                    out.append(",");
+//                }
                 out.append("\n");
 
 

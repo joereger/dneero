@@ -43,11 +43,12 @@ public class BloggerBlogDetail {
         if (com.dneero.util.Num.isinteger(tmpBlogid)){
             logger.debug("beginView called: found blogid in param="+tmpBlogid);
             Blog blog = Blog.get(Integer.parseInt(tmpBlogid));
-
-            blogid = blog.getBlogid();
-            url = blog.getUrl();
-            title = blog.getTitle();
-            blogfocus = blog.getBlogfocus();
+            if (blog.canEdit(Jsf.getUserSession().getUser())){
+                blogid = blog.getBlogid();
+                url = blog.getUrl();
+                title = blog.getTitle();
+                blogfocus = blog.getBlogfocus();
+            }
 
         } else {
             logger.debug("beginView called: NOT found blogid in param="+tmpBlogid);
@@ -66,36 +67,39 @@ public class BloggerBlogDetail {
             blog = Blog.get(blogid);
         }
 
-        //@todo url validation
-//        UrlValidator urlValidator = new UrlValidator(new String[]{"http", "https"});
-//        if (!urlValidator.isValid(url)){
-//            Jsf.setFacesMessage("Url "+url+" is not valid.  Example: http://www.yourblog.com");
-//            return null;
-//        }
+        if (blog.canEdit(Jsf.getUserSession().getUser())){
 
-        //url must be unique
-        List blogs = HibernateUtil.getSession().createQuery("from Blog where url='"+url+"' and blogid<>'"+blogid+"'").list();
-        if (blogs.size()>0){
-            //@todo way for user to report that somebody else is using their blog url
-            Jsf.setFacesMessage("Url "+url+" is already claimed by somebody else.");
-            return null;
+            //@todo url validation
+    //        UrlValidator urlValidator = new UrlValidator(new String[]{"http", "https"});
+    //        if (!urlValidator.isValid(url)){
+    //            Jsf.setFacesMessage("Url "+url+" is not valid.  Example: http://www.yourblog.com");
+    //            return null;
+    //        }
+
+            //url must be unique
+            List blogs = HibernateUtil.getSession().createQuery("from Blog where url='"+url+"' and blogid<>'"+blogid+"'").list();
+            if (blogs.size()>0){
+                //@todo way for user to report that somebody else is using their blog url
+                Jsf.setFacesMessage("Url "+url+" is already claimed by somebody else.");
+                return null;
+            }
+
+            blog.setUrl(url);
+            blog.setTitle(title);
+            blog.setBlogfocus(blogfocus);
+            blog.setBloggerid(userSession.getUser().getBlogger().getBloggerid());
+
+            try{
+                blog.save();
+                blogid = blog.getBlogid();
+            } catch (GeneralException gex){
+                Jsf.setFacesMessage("Error saving record: "+gex.getErrorsAsSingleString());
+                logger.debug("saveAction failed: " + gex.getErrorsAsSingleString());
+                return null;
+            }
+
+            userSession.getUser().refresh();
         }
-
-        blog.setUrl(url);
-        blog.setTitle(title);
-        blog.setBlogfocus(blogfocus);
-        blog.setBloggerid(userSession.getUser().getBlogger().getBloggerid());
-
-        try{
-            blog.save();
-            blogid = blog.getBlogid();
-        } catch (GeneralException gex){
-            Jsf.setFacesMessage("Error saving record: "+gex.getErrorsAsSingleString());
-            logger.debug("saveAction failed: " + gex.getErrorsAsSingleString());
-            return null;
-        }
-
-        userSession.getUser().refresh();
 
         return "bloggerblogslist";
 
