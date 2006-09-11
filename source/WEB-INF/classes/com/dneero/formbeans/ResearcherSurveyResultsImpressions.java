@@ -35,16 +35,18 @@ public class ResearcherSurveyResultsImpressions {
         researcherSurveyResultsImpressionsObj = new ArrayList<ResearcherSurveyResultsImpressionsObj>();
         if (survey!=null){
             logger.debug("survey.getImpressions().size()="+survey.getImpressions().size());
-            for (Iterator<Impression> iterator = survey.getImpressions().iterator(); iterator.hasNext();) {
-                Impression impression = iterator.next();
-                ResearcherSurveyResultsImpressionsObj robj = new ResearcherSurveyResultsImpressionsObj();
-                if (impression.getBlog()!=null){
-                    robj.setBlogtitle(impression.getBlog().getTitle());
-                    robj.setBlogurl(impression.getBlog().getUrl());
+            if (survey.canEdit(Jsf.getUserSession().getUser())){
+                for (Iterator<Impression> iterator = survey.getImpressions().iterator(); iterator.hasNext();) {
+                    Impression impression = iterator.next();
+                    ResearcherSurveyResultsImpressionsObj robj = new ResearcherSurveyResultsImpressionsObj();
+                    if (impression.getBlog()!=null){
+                        robj.setBlogtitle(impression.getBlog().getTitle());
+                        robj.setBlogurl(impression.getBlog().getUrl());
+                    }
+                    robj.setTotalimpressions(impression.getTotalimpressions());
+                    robj.setReferer(impression.getReferer());
+                    researcherSurveyResultsImpressionsObj.add(robj);
                 }
-                robj.setTotalimpressions(impression.getTotalimpressions());
-                robj.setReferer(impression.getReferer());
-                researcherSurveyResultsImpressionsObj.add(robj);
             }
             logger.debug("done loading survey");
         }

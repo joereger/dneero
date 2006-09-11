@@ -44,13 +44,15 @@ public class SysadminSupportIssueDetail {
         if (com.dneero.util.Num.isinteger(tmpSupportissueid)){
             logger.debug("beginView called: found supportissueid in param="+tmpSupportissueid);
             Supportissue supportissue = Supportissue.get(Integer.parseInt(tmpSupportissueid));
-            this.supportissue = supportissue;
-            this.supportissueid = supportissue.getSupportissueid();
-            this.status = supportissue.getStatus();
-            supportissuecomms = new ArrayList<Supportissuecomm>();
-            for (Iterator<Supportissuecomm> iterator = supportissue.getSupportissuecomms().iterator(); iterator.hasNext();){
-                Supportissuecomm supportissuecomm = iterator.next();
-                supportissuecomms.add(supportissuecomm);
+            if (supportissue.canEdit(Jsf.getUserSession().getUser())){
+                this.supportissue = supportissue;
+                this.supportissueid = supportissue.getSupportissueid();
+                this.status = supportissue.getStatus();
+                supportissuecomms = new ArrayList<Supportissuecomm>();
+                for (Iterator<Supportissuecomm> iterator = supportissue.getSupportissuecomms().iterator(); iterator.hasNext();){
+                    Supportissuecomm supportissuecomm = iterator.next();
+                    supportissuecomms.add(supportissuecomm);
+                }
             }
 
         } else {

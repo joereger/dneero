@@ -41,19 +41,19 @@ public class BloggerEarningsPaymentListRev extends SortableList {
         UserSession userSession = Jsf.getUserSession();
         if (paybloggerid>0 && userSession.getUser()!=null && userSession.getUser().getBlogger()!=null){
             Payblogger payblogger = Payblogger.get(paybloggerid);
-            ArrayList<Revshare> revshares = BloggerIncomeCalculator.getRevsharesForAPayblogger(payblogger);
-            list = new ArrayList();
-            for (Iterator<Revshare> iterator = revshares.iterator(); iterator.hasNext();) {
-                Revshare revshare = iterator.next();
-                Blogger sourceblogger = Blogger.get(revshare.getSourcebloggerid());
-                User sourceuser = User.get(sourceblogger.getUserid());
-                BloggerEarningsPaymentListRevshares listitem = new BloggerEarningsPaymentListRevshares();
-                listitem.setAmt(revshare.getAmt());
-                listitem.setName(sourceuser.getFirstname()+" "+sourceuser.getLastname());
-                list.add(listitem);
+            if (payblogger.canRead(Jsf.getUserSession().getUser())){
+                ArrayList<Revshare> revshares = BloggerIncomeCalculator.getRevsharesForAPayblogger(payblogger);
+                list = new ArrayList();
+                for (Iterator<Revshare> iterator = revshares.iterator(); iterator.hasNext();) {
+                    Revshare revshare = iterator.next();
+                    Blogger sourceblogger = Blogger.get(revshare.getSourcebloggerid());
+                    User sourceuser = User.get(sourceblogger.getUserid());
+                    BloggerEarningsPaymentListRevshares listitem = new BloggerEarningsPaymentListRevshares();
+                    listitem.setAmt(revshare.getAmt());
+                    listitem.setName(sourceuser.getFirstname()+" "+sourceuser.getLastname());
+                    list.add(listitem);
+                }
             }
-
-
         }
     }
 

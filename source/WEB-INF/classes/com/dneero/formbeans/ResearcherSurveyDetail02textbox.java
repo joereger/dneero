@@ -49,10 +49,12 @@ public class ResearcherSurveyDetail02textbox {
         Question question = Question.get(questionid);
         if (question!=null){
             logger.debug("Found question in db: question.getQuestionid()="+question.getQuestionid()+" question.getQuestion()="+question.getQuestion());
-            this.questionid = question.getQuestionid();
-            this.question = question.getQuestion();
-            this.isrequired = question.getIsrequired();
-            this.componenttype = question.getComponenttype();
+            if (question.canEdit(Jsf.getUserSession().getUser())){
+                this.questionid = question.getQuestionid();
+                this.question = question.getQuestion();
+                this.isrequired = question.getIsrequired();
+                this.componenttype = question.getComponenttype();
+            }
         }
     }
 
@@ -66,40 +68,41 @@ public class ResearcherSurveyDetail02textbox {
             logger.debug("saveSurvey() called: going to get Survey.get(surveyid)="+userSession.getCurrentSurveyid());
             survey = Survey.get(userSession.getCurrentSurveyid());
         }
-
-        Question question = new Question();
-        if (questionid>0){
-            question = Question.get(questionid);
-            logger.debug("questionid = "+questionid);
-        }
-
-        question.setSurveyid(survey.getSurveyid());
-        question.setQuestion(this.question);
-        question.setIsrequired(isrequired);
-        question.setComponenttype(Textbox.ID);
-
-        for (Iterator<Question> iterator = survey.getQuestions().iterator(); iterator.hasNext();) {
-            Question question1 = iterator.next();
-            if (question1.getQuestionid()==questionid){
-                iterator.remove();
+        if (survey.canEdit(Jsf.getUserSession().getUser())){
+            Question question = new Question();
+            if (questionid>0){
+                question = Question.get(questionid);
+                logger.debug("questionid = "+questionid);
             }
+
+            question.setSurveyid(survey.getSurveyid());
+            question.setQuestion(this.question);
+            question.setIsrequired(isrequired);
+            question.setComponenttype(Textbox.ID);
+
+            for (Iterator<Question> iterator = survey.getQuestions().iterator(); iterator.hasNext();) {
+                Question question1 = iterator.next();
+                if (question1.getQuestionid()==questionid){
+                    iterator.remove();
+                }
+            }
+
+            survey.getQuestions().add(question);
+
+            try{
+                logger.debug("saveSurvey() about to save survey.getSurveyid()=" + survey.getSurveyid());
+                survey.save();
+                logger.debug("saveSurvey() done saving survey.getSurveyid()=" + survey.getSurveyid());
+            } catch (GeneralException gex){
+                logger.debug("saveSurvey() failed: " + gex.getErrorsAsSingleString());
+                String message = "saveSurvey() save failed: " + gex.getErrorsAsSingleString();
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage( FacesMessage.SEVERITY_INFO, message, message));
+                return null;
+            }
+
+            //Refresh
+            survey.refresh();
         }
-
-        survey.getQuestions().add(question);
-
-        try{
-            logger.debug("saveSurvey() about to save survey.getSurveyid()=" + survey.getSurveyid());
-            survey.save();
-            logger.debug("saveSurvey() done saving survey.getSurveyid()=" + survey.getSurveyid());
-        } catch (GeneralException gex){
-            logger.debug("saveSurvey() failed: " + gex.getErrorsAsSingleString());
-            String message = "saveSurvey() save failed: " + gex.getErrorsAsSingleString();
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage( FacesMessage.SEVERITY_INFO, message, message));
-            return null;
-        }
-
-        //Refresh
-        survey.refresh();
 
         return "researchersurveydetail_02";
     }

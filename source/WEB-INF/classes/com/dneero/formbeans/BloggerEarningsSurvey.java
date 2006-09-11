@@ -38,16 +38,17 @@ public class BloggerEarningsSurvey extends SortableList {
         if (userSession.getUser()!=null && userSession.getUser().getBlogger()!=null){
             Response response = Response.get(responseid);
             Survey survey = Survey.get(response.getSurveyid());
-
-            ArrayList<Payblogger> paybloggers = BloggerIncomeCalculator.getPaybloggersForASurvey(userSession.getUser().getBlogger(), survey);
-            list = new ArrayList();
-            for (Iterator<Payblogger> iterator = paybloggers.iterator(); iterator.hasNext();) {
-                Payblogger payblogger = iterator.next();
-                BloggerEarningsSurveyListPayments listitem = new BloggerEarningsSurveyListPayments();
-                listitem.setAmt(payblogger.getAmt());
-                listitem.setPaybloggerid(payblogger.getPaybloggerid());
-                listitem.setPaymentdate(payblogger.getDate());
-                list.add(listitem);
+            if (response.canRead(Jsf.getUserSession().getUser())){
+                ArrayList<Payblogger> paybloggers = BloggerIncomeCalculator.getPaybloggersForASurvey(userSession.getUser().getBlogger(), survey);
+                list = new ArrayList();
+                for (Iterator<Payblogger> iterator = paybloggers.iterator(); iterator.hasNext();) {
+                    Payblogger payblogger = iterator.next();
+                    BloggerEarningsSurveyListPayments listitem = new BloggerEarningsSurveyListPayments();
+                    listitem.setAmt(payblogger.getAmt());
+                    listitem.setPaybloggerid(payblogger.getPaybloggerid());
+                    listitem.setPaymentdate(payblogger.getDate());
+                    list.add(listitem);
+                }
             }
         }
     }

@@ -50,14 +50,15 @@ public class ResearcherSurveyResults {
         logger.debug("loadSurvey called");
         Survey survey = Survey.get(surveyid);
         if (survey!=null){
-            totalsurveyresponses = survey.getResponses().size();
-            totalsurveydisplays = 0;
-            status = survey.getStatus();
-            for (Iterator<Impression> iterator = survey.getImpressions().iterator(); iterator.hasNext();) {
-                Impression impression = iterator.next();
-                totalsurveydisplays = totalsurveydisplays + impression.getTotalimpressions();
+            if (survey.canEdit(Jsf.getUserSession().getUser())){
+                totalsurveyresponses = survey.getResponses().size();
+                totalsurveydisplays = 0;
+                status = survey.getStatus();
+                for (Iterator<Impression> iterator = survey.getImpressions().iterator(); iterator.hasNext();) {
+                    Impression impression = iterator.next();
+                    totalsurveydisplays = totalsurveydisplays + impression.getTotalimpressions();
+                }
             }
-
         }
     }
 

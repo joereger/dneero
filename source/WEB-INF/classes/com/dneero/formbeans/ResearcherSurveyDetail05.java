@@ -42,13 +42,14 @@ public class ResearcherSurveyDetail05 {
         Survey survey = Survey.get(surveyid);
         if (survey!=null){
             logger.debug("Found survey in db: survey.getSurveyid()="+survey.getSurveyid()+" survey.getTitle()="+survey.getTitle());
-
-            willingtopayperrespondent = survey.getWillingtopayperrespondent();
-            numberofrespondentsrequested = survey.getNumberofrespondentsrequested();
-            willingtopaypercpm = survey.getWillingtopaypercpm();
-            maxdisplaysperblog = survey.getMaxdisplaysperblog();
-            maxdisplaystotal = survey.getMaxdisplaystotal();
-            status = survey.getStatus();
+            if (survey.canEdit(Jsf.getUserSession().getUser())){
+                willingtopayperrespondent = survey.getWillingtopayperrespondent();
+                numberofrespondentsrequested = survey.getNumberofrespondentsrequested();
+                willingtopaypercpm = survey.getWillingtopaypercpm();
+                maxdisplaysperblog = survey.getMaxdisplaysperblog();
+                maxdisplaystotal = survey.getMaxdisplaystotal();
+                status = survey.getStatus();
+            }
 
         }
 
@@ -65,25 +66,29 @@ public class ResearcherSurveyDetail05 {
                 survey = Survey.get(userSession.getCurrentSurveyid());
             }
 
-            survey.setWillingtopayperrespondent(willingtopayperrespondent);
-            survey.setNumberofrespondentsrequested(numberofrespondentsrequested);
-            survey.setWillingtopaypercpm(willingtopaypercpm);
-            survey.setMaxdisplaysperblog(maxdisplaysperblog);
-            survey.setMaxdisplaystotal(maxdisplaystotal);
+            if (survey.canEdit(Jsf.getUserSession().getUser())){
 
-            try{
-                logger.debug("saveSurvey() about to save survey.getSurveyid()=" + survey.getSurveyid());
-                survey.save();
-                logger.debug("saveSurvey() done saving survey.getSurveyid()=" + survey.getSurveyid());
-            } catch (GeneralException gex){
-                logger.debug("saveSurvey() failed: " + gex.getErrorsAsSingleString());
-                String message = "saveSurvey() save failed: " + gex.getErrorsAsSingleString();
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage( FacesMessage.SEVERITY_INFO, message, message));
-                return null;
+                survey.setWillingtopayperrespondent(willingtopayperrespondent);
+                survey.setNumberofrespondentsrequested(numberofrespondentsrequested);
+                survey.setWillingtopaypercpm(willingtopaypercpm);
+                survey.setMaxdisplaysperblog(maxdisplaysperblog);
+                survey.setMaxdisplaystotal(maxdisplaystotal);
+
+                try{
+                    logger.debug("saveSurvey() about to save survey.getSurveyid()=" + survey.getSurveyid());
+                    survey.save();
+                    logger.debug("saveSurvey() done saving survey.getSurveyid()=" + survey.getSurveyid());
+                } catch (GeneralException gex){
+                    logger.debug("saveSurvey() failed: " + gex.getErrorsAsSingleString());
+                    String message = "saveSurvey() save failed: " + gex.getErrorsAsSingleString();
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage( FacesMessage.SEVERITY_INFO, message, message));
+                    return null;
+                }
+
+                //Refresh
+                survey.refresh();
+                
             }
-
-            //Refresh
-            survey.refresh();
         }
         return "success";
     }

@@ -31,9 +31,10 @@ public class BloggerEarningsPayment {
         if (com.dneero.util.Num.isinteger(tmpPaybloggerid)){
             logger.debug("beginView called: found tmpPaybloggerid in param="+tmpPaybloggerid);
             Payblogger payblogger = Payblogger.get(Integer.parseInt(tmpPaybloggerid));
-            paybloggerid = payblogger.getPaybloggerid();
-            date = payblogger.getDate();
-
+            if (payblogger.canRead(Jsf.getUserSession().getUser())){
+                paybloggerid = payblogger.getPaybloggerid();
+                date = payblogger.getDate();
+            }
         } else {
             logger.debug("beginView called: NOT found tmpPaybloggerid in param="+tmpPaybloggerid);
         }

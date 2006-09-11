@@ -37,39 +37,39 @@ public class BloggerEarningsPaymentListImp extends SortableList {
 
         UserSession userSession = Jsf.getUserSession();
         if (paybloggerid>0 && userSession.getUser()!=null && userSession.getUser().getBlogger()!=null){
-
-
             Payblogger payblogger = Payblogger.get(paybloggerid);
-            ArrayList<Impressiondetail> impressiondetails = BloggerIncomeCalculator.getImpressiondetailsForAPayblogger(payblogger);
+            if (payblogger.canRead(Jsf.getUserSession().getUser())){
 
-            //Create a counting map of <surveyid, impressioncount>
-            HashMap<Integer, Integer> surveyVsImpressions = new HashMap<Integer, Integer>();
-            for (Iterator<Impressiondetail> iterator = impressiondetails.iterator(); iterator.hasNext();) {
-                Impressiondetail impressiondetail = iterator.next();
-                int surveyid = Impression.get(impressiondetail.getImpressionid()).getSurveyid();
-                if (surveyVsImpressions.containsKey(surveyid)){
-                    surveyVsImpressions.put(surveyid, surveyVsImpressions.get(surveyid)+1);
-                } else {
-                    surveyVsImpressions.put(surveyid, 1);
+                ArrayList<Impressiondetail> impressiondetails = BloggerIncomeCalculator.getImpressiondetailsForAPayblogger(payblogger);
+
+                //Create a counting map of <surveyid, impressioncount>
+                HashMap<Integer, Integer> surveyVsImpressions = new HashMap<Integer, Integer>();
+                for (Iterator<Impressiondetail> iterator = impressiondetails.iterator(); iterator.hasNext();) {
+                    Impressiondetail impressiondetail = iterator.next();
+                    int surveyid = Impression.get(impressiondetail.getImpressionid()).getSurveyid();
+                    if (surveyVsImpressions.containsKey(surveyid)){
+                        surveyVsImpressions.put(surveyid, surveyVsImpressions.get(surveyid)+1);
+                    } else {
+                        surveyVsImpressions.put(surveyid, 1);
+                    }
+                }
+
+                //Iterare map to create output
+                list = new ArrayList();
+                Iterator keyValuePairs = surveyVsImpressions.entrySet().iterator();
+                for (int i = 0; i < surveyVsImpressions.size(); i++){
+                    Map.Entry mapentry = (Map.Entry) keyValuePairs.next();
+                    Integer key = (Integer)mapentry.getKey();
+                    Integer value = (Integer)mapentry.getValue();
+                    Survey survey = Survey.get(key);
+
+                    BloggerEarningsPaymentListImpressions listitem = new BloggerEarningsPaymentListImpressions();
+                    listitem.setAmt((value/1000) * survey.getWillingtopaypercpm());
+                    listitem.setImpressions(value);
+                    listitem.setSurveyname(survey.getTitle());
+                    list.add(listitem);
                 }
             }
-
-            //Iterare map to create output
-            list = new ArrayList();
-            Iterator keyValuePairs = surveyVsImpressions.entrySet().iterator();
-            for (int i = 0; i < surveyVsImpressions.size(); i++){
-                Map.Entry mapentry = (Map.Entry) keyValuePairs.next();
-                Integer key = (Integer)mapentry.getKey();
-                Integer value = (Integer)mapentry.getValue();
-                Survey survey = Survey.get(key);
-
-                BloggerEarningsPaymentListImpressions listitem = new BloggerEarningsPaymentListImpressions();
-                listitem.setAmt((value/1000) * survey.getWillingtopaypercpm());
-                listitem.setImpressions(value);
-                listitem.setSurveyname(survey.getTitle());
-                list.add(listitem);
-            }
-
         }
     }
 

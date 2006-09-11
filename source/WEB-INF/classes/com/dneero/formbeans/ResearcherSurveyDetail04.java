@@ -69,34 +69,34 @@ public class ResearcherSurveyDetail04 {
         logger.debug("loadSurvey called");
         Survey survey = Survey.get(surveyid);
 
-
-
-        //Do it with XML
-        SurveyCriteriaXML surveyCriteriaXML = new SurveyCriteriaXML(survey.getCriteriaxml());
-        agemin = surveyCriteriaXML.getAgemin();
-        agemax = surveyCriteriaXML.getAgemax();
-        blogquality = surveyCriteriaXML.getBlogquality();
-        blogquality90days = surveyCriteriaXML.getBlogquality90days();
-        gender = surveyCriteriaXML.getGender();
-        genderStr = arrayToString(gender, "<br>");
-        ethnicity = surveyCriteriaXML.getEthnicity();
-        ethnicityStr = arrayToString(ethnicity, "<br>");
-        maritalstatus = surveyCriteriaXML.getMaritalstatus();
-        maritalstatusStr = arrayToString(maritalstatus, "<br>");
-        income = surveyCriteriaXML.getIncome();
-        incomeStr = arrayToString(income, "<br>");
-        educationlevel = surveyCriteriaXML.getEducationlevel();
-        educationlevelStr = arrayToString(educationlevel, "<br>");
-        state = surveyCriteriaXML.getState();
-        stateStr = arrayToString(state, ", ");
-        city = surveyCriteriaXML.getCity();
-        cityStr = arrayToString(city, ", ");
-        profession = surveyCriteriaXML.getProfession();
-        professionStr = arrayToString(profession, "<br>");
-        politics = surveyCriteriaXML.getPolitics();
-        politicsStr = arrayToString(politics, "<br>");
-        blogfocus = surveyCriteriaXML.getBlogfocus();
-        blogfocusStr = arrayToString(blogfocus, ", ");
+        if (survey.canEdit(Jsf.getUserSession().getUser())){
+            //Do it with XML
+            SurveyCriteriaXML surveyCriteriaXML = new SurveyCriteriaXML(survey.getCriteriaxml());
+            agemin = surveyCriteriaXML.getAgemin();
+            agemax = surveyCriteriaXML.getAgemax();
+            blogquality = surveyCriteriaXML.getBlogquality();
+            blogquality90days = surveyCriteriaXML.getBlogquality90days();
+            gender = surveyCriteriaXML.getGender();
+            genderStr = arrayToString(gender, "<br>");
+            ethnicity = surveyCriteriaXML.getEthnicity();
+            ethnicityStr = arrayToString(ethnicity, "<br>");
+            maritalstatus = surveyCriteriaXML.getMaritalstatus();
+            maritalstatusStr = arrayToString(maritalstatus, "<br>");
+            income = surveyCriteriaXML.getIncome();
+            incomeStr = arrayToString(income, "<br>");
+            educationlevel = surveyCriteriaXML.getEducationlevel();
+            educationlevelStr = arrayToString(educationlevel, "<br>");
+            state = surveyCriteriaXML.getState();
+            stateStr = arrayToString(state, ", ");
+            city = surveyCriteriaXML.getCity();
+            cityStr = arrayToString(city, ", ");
+            profession = surveyCriteriaXML.getProfession();
+            professionStr = arrayToString(profession, "<br>");
+            politics = surveyCriteriaXML.getPolitics();
+            politicsStr = arrayToString(politics, "<br>");
+            blogfocus = surveyCriteriaXML.getBlogfocus();
+            blogfocusStr = arrayToString(blogfocus, ", ");
+        }
 
     }
 
@@ -127,42 +127,44 @@ public class ResearcherSurveyDetail04 {
                 survey = Survey.get(userSession.getCurrentSurveyid());
             }
 
+            if (survey.canEdit(Jsf.getUserSession().getUser())){
 
-            //Do it with XML
-            if (true){
-                SurveyCriteriaXML surveyCriteriaXML = new SurveyCriteriaXML(survey.getCriteriaxml());
-                surveyCriteriaXML.setAgemin(agemin);
-                surveyCriteriaXML.setAgemax(agemax);
-                surveyCriteriaXML.setBlogquality(blogquality);
-                surveyCriteriaXML.setBlogquality90days(blogquality90days);
-                surveyCriteriaXML.setGender(gender);
-                surveyCriteriaXML.setEthnicity(ethnicity);
-                surveyCriteriaXML.setMaritalstatus(maritalstatus);
-                surveyCriteriaXML.setIncome(income);
-                surveyCriteriaXML.setEducationlevel(educationlevel);
-                surveyCriteriaXML.setState(state);
-                surveyCriteriaXML.setCity(city);
-                surveyCriteriaXML.setProfession(profession);
-                surveyCriteriaXML.setBlogfocus(blogfocus);
-                surveyCriteriaXML.setPolitics(politics);
+                //Do it with XML
+                if (true){
+                    SurveyCriteriaXML surveyCriteriaXML = new SurveyCriteriaXML(survey.getCriteriaxml());
+                    surveyCriteriaXML.setAgemin(agemin);
+                    surveyCriteriaXML.setAgemax(agemax);
+                    surveyCriteriaXML.setBlogquality(blogquality);
+                    surveyCriteriaXML.setBlogquality90days(blogquality90days);
+                    surveyCriteriaXML.setGender(gender);
+                    surveyCriteriaXML.setEthnicity(ethnicity);
+                    surveyCriteriaXML.setMaritalstatus(maritalstatus);
+                    surveyCriteriaXML.setIncome(income);
+                    surveyCriteriaXML.setEducationlevel(educationlevel);
+                    surveyCriteriaXML.setState(state);
+                    surveyCriteriaXML.setCity(city);
+                    surveyCriteriaXML.setProfession(profession);
+                    surveyCriteriaXML.setBlogfocus(blogfocus);
+                    surveyCriteriaXML.setPolitics(politics);
 
-                survey.setCriteriaxml(surveyCriteriaXML.getSurveyCriteriaAsString());
+                    survey.setCriteriaxml(surveyCriteriaXML.getSurveyCriteriaAsString());
+                }
+
+               //Final save
+                try{
+                    logger.debug("saveSurvey() about to save (for 2nd time) survey.getSurveyid()=" + survey.getSurveyid());
+                    survey.save();
+                    logger.debug("saveSurvey() done saving (for 2nd time) survey.getSurveyid()=" + survey.getSurveyid());
+                } catch (GeneralException gex){
+                    logger.debug("saveSurvey() failed: " + gex.getErrorsAsSingleString());
+                    String message = "saveSurvey() save failed: " + gex.getErrorsAsSingleString();
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage( FacesMessage.SEVERITY_INFO, message, message));
+                    return null;
+                }
+
+                //Refresh
+                survey.refresh();
             }
-
-           //Final save
-            try{
-                logger.debug("saveSurvey() about to save (for 2nd time) survey.getSurveyid()=" + survey.getSurveyid());
-                survey.save();
-                logger.debug("saveSurvey() done saving (for 2nd time) survey.getSurveyid()=" + survey.getSurveyid());
-            } catch (GeneralException gex){
-                logger.debug("saveSurvey() failed: " + gex.getErrorsAsSingleString());
-                String message = "saveSurvey() save failed: " + gex.getErrorsAsSingleString();
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage( FacesMessage.SEVERITY_INFO, message, message));
-                return null;
-            }
-
-            //Refresh
-            survey.refresh();
 
         }
 

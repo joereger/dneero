@@ -38,8 +38,10 @@ public class ResearcherSurveyDetail02 {
         Survey survey = Survey.get(surveyid);
         if (survey!=null){
             logger.debug("Found survey in db: survey.getSurveyid()="+survey.getSurveyid()+" survey.getTitle()="+survey.getTitle());
-            surveyForTakers = SurveyTakerDisplay.getHtmlForSurveyTaking(survey, new Blogger());
-            status = survey.getStatus();
+            if (survey.canEdit(Jsf.getUserSession().getUser())){
+                surveyForTakers = SurveyTakerDisplay.getHtmlForSurveyTaking(survey, new Blogger());
+                status = survey.getStatus();
+            }
         }
     }
 
@@ -53,23 +55,24 @@ public class ResearcherSurveyDetail02 {
                 logger.debug("saveSurvey() called: going to get Survey.get(surveyid)="+userSession.getCurrentSurveyid());
                 survey = Survey.get(userSession.getCurrentSurveyid());
             }
+            if (survey.canEdit(Jsf.getUserSession().getUser())){
+                //survey.setResearcherid(userSession.getUser().getResearcher().getResearcherid());
 
-            //survey.setResearcherid(userSession.getUser().getResearcher().getResearcherid());
+                try{
+                    logger.debug("saveSurvey() about to save survey.getSurveyid()=" + survey.getSurveyid());
+                    survey.save();
+                    logger.debug("saveSurvey() done saving survey.getSurveyid()=" + survey.getSurveyid());
+                } catch (GeneralException gex){
+                    logger.debug("saveSurvey() failed: " + gex.getErrorsAsSingleString());
+                    String message = "saveSurvey() save failed: " + gex.getErrorsAsSingleString();
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage( FacesMessage.SEVERITY_INFO, message, message));
+                    return null;
+                }
 
-            try{
-                logger.debug("saveSurvey() about to save survey.getSurveyid()=" + survey.getSurveyid());
-                survey.save();
-                logger.debug("saveSurvey() done saving survey.getSurveyid()=" + survey.getSurveyid());
-            } catch (GeneralException gex){
-                logger.debug("saveSurvey() failed: " + gex.getErrorsAsSingleString());
-                String message = "saveSurvey() save failed: " + gex.getErrorsAsSingleString();
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage( FacesMessage.SEVERITY_INFO, message, message));
-                return null;
+                //Refresh
+                survey.refresh();
+                loadSurvey(survey.getSurveyid());
             }
-
-            //Refresh
-            survey.refresh();
-            loadSurvey(survey.getSurveyid());
         }
         return "success";
     }

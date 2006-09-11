@@ -34,12 +34,14 @@ public class ResearcherSurveyResultsQuestiondetail {
         logger.debug("loadSurvey called");
         Survey survey = Survey.get(surveyid);
         if (survey!=null){
-            String tmpQuestionid = Jsf.getRequestParam("questionid");
-            if (com.dneero.util.Num.isinteger(tmpQuestionid)){
-                logger.debug("beginView called: found tmpQuestionid in request param="+tmpQuestionid);
-                Question question = Question.get(Integer.parseInt(tmpQuestionid));
-                Component component = ComponentTypes.getComponentByID(question.getComponenttype(), question, new Blogger());
-                results = component.getHtmlForResultDetail();
+            if (survey.canEdit(Jsf.getUserSession().getUser())){
+                String tmpQuestionid = Jsf.getRequestParam("questionid");
+                if (com.dneero.util.Num.isinteger(tmpQuestionid)){
+                    logger.debug("beginView called: found tmpQuestionid in request param="+tmpQuestionid);
+                    Question question = Question.get(Integer.parseInt(tmpQuestionid));
+                    Component component = ComponentTypes.getComponentByID(question.getComponenttype(), question, new Blogger());
+                    results = component.getHtmlForResultDetail();
+                }
             }
         }
     }

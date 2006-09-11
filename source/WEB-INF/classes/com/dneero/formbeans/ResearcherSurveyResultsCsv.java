@@ -36,25 +36,26 @@ public class ResearcherSurveyResultsCsv {
         logger.debug("loadSurvey called");
         Survey survey = Survey.get(surveyid);
         if (survey!=null){
-            results = "";
-            StringBuffer out = new StringBuffer();
-            for (Iterator<Question> iterator = survey.getQuestions().iterator(); iterator.hasNext();) {
-                Question question = iterator.next();
-                logger.debug("found question.getQuestionid()="+question.getQuestionid());
-                Component component = ComponentTypes.getComponentByID(question.getComponenttype(), question, new Blogger());
-                out.append(component.getName());
-                out.append(",");
-                //@todo ResearcherSurveyResultsCsv.java output the csv from each component, edit interface, etc
-//                for (int i = 0; i < component.getCsvForResult().length; i++) {
-//                    String s = component.getCsvForResult()[i];
-//                    out.append(s);
-//                    out.append(",");
-//                }
-                out.append("\n");
+            if (survey.canEdit(Jsf.getUserSession().getUser())){
+                results = "";
+                StringBuffer out = new StringBuffer();
+                for (Iterator<Question> iterator = survey.getQuestions().iterator(); iterator.hasNext();) {
+                    Question question = iterator.next();
+                    logger.debug("found question.getQuestionid()="+question.getQuestionid());
+                    Component component = ComponentTypes.getComponentByID(question.getComponenttype(), question, new Blogger());
+                    out.append(component.getName());
+                    out.append(",");
+                    //@todo ResearcherSurveyResultsCsv.java output the csv from each component, edit interface, etc
+    //                for (int i = 0; i < component.getCsvForResult().length; i++) {
+    //                    String s = component.getCsvForResult()[i];
+    //                    out.append(s);
+    //                    out.append(",");
+    //                }
+                    out.append("\n");
 
 
+                }
             }
-
         }
     }
 
