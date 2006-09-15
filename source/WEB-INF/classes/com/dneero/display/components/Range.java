@@ -340,4 +340,32 @@ public class Range implements Component {
         return getHtmlForResult();
     }
 
+    public int columnsInCsvOutput() {
+        return 1;
+    }
+
+    public String[] getCsvForResult() {
+        String[] out = new String[0];
+        if (blogger!=null){
+            List<Questionresponse> responses = HibernateUtil.getSession().createQuery("from Questionresponse where questionid='"+question.getQuestionid()+"' and bloggerid='"+blogger.getBloggerid()+"'").list();
+            out = new String[responses.size()];
+            int i = 0;
+            for (Iterator<Questionresponse> iterator = responses.iterator(); iterator.hasNext();) {
+                Questionresponse questionresponse = iterator.next();
+                out[i]=questionresponse.getValue();
+                i=i+1;
+            }
+        }
+        //return out;
+        //For early simplicity I'm just going to concatenate these with a semicolon to take up one cell
+        StringBuffer tmp = new StringBuffer();
+        for (int i = 0; i < out.length; i++) {
+            String s = out[i];
+            tmp.append(s + ";");
+        }
+        String[] tmpOut = new String[1];
+        tmpOut[0]=tmp.toString();
+        return tmpOut;
+    }
+
 }

@@ -15,46 +15,13 @@
 
 <h:form>
 
-    <d:roundedCornerBox uniqueboxname="status" bodycolor="00ff00" widthinpixels="450" rendered="#{researcherSurveyResults.status==1}">
-        <h:outputText value="Status: Draft" styleClass="largefont"></h:outputText>
-    </d:roundedCornerBox>
-    <d:roundedCornerBox uniqueboxname="status" bodycolor="00ff00" widthinpixels="450" rendered="#{researcherSurveyResults.status==2}">
-        <h:outputText value="Status: Waiting for Start Date" styleClass="largefont"></h:outputText>
-    </d:roundedCornerBox>
-    <d:roundedCornerBox uniqueboxname="status" bodycolor="00ff00" widthinpixels="450" rendered="#{researcherSurveyResults.status==3}">
-        <h:outputText value="Status: Open" styleClass="largefont"></h:outputText>
-    </d:roundedCornerBox>
-    <d:roundedCornerBox uniqueboxname="status" bodycolor="00ff00" widthinpixels="450" rendered="#{researcherSurveyResults.status==4}">
-        <h:outputText value="Status: Closed" styleClass="largefont"></h:outputText>
-    </d:roundedCornerBox>
+    <f:verbatim>#{researcherSurveyResultsCsv.results}</f:verbatim>
 
-    <h:panelGrid columns="2" cellpadding="3" border="0">
-
-        <h:panelGroup>
-            <d:roundedCornerBox uniqueboxname="researcheresultsresponses" bodycolor="00ff00" widthinpixels="200">
-                <h:outputText value="Total Survey Responses" styleClass="smallfont"></h:outputText>
-                <f:verbatim><br/></f:verbatim>
-                <h:outputText value="#{researcherSurveyResults.totalsurveyresponses}" styleClass="largefont"></h:outputText>
-                <f:verbatim><br/></f:verbatim>
-                <h:commandButton action="researchersurveyresultsquestions" value="View Question Responses"></h:commandButton>
-            </d:roundedCornerBox>
-        </h:panelGroup>
-        <h:panelGroup>
-            <d:roundedCornerBox uniqueboxname="researcheresultsimpressions" bodycolor="00ff00" widthinpixels="200">
-                <h:outputText value="Total Survey Impressions" styleClass="smallfont"></h:outputText>
-                <f:verbatim><br/></f:verbatim>
-                <h:outputText value="#{researcherSurveyResults.totalsurveydisplays}"  styleClass="largefont"></h:outputText>
-                <f:verbatim><br/></f:verbatim>
-                <h:commandButton action="researchersurveyresultsimpressions" value="View Impression Data"></h:commandButton>
-            </d:roundedCornerBox>
-        </h:panelGroup>
-
-
-    </h:panelGrid>
 </h:form>
 
 </ui:define>
 
 
 </ui:composition>
+
 </html>

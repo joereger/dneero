@@ -33,5 +33,30 @@ public class Util {
         return false;
     }
 
+    public static String[] appendToEndOfStringArray(String[] in, String[] append){
+        int outlength = 0;
+        if (in!=null){
+            outlength = outlength + in.length;
+        }
+        if (append!=null){
+            outlength = outlength + append.length;
+        }
+        String[] out = new String[outlength];
+        int outindex = 0;
+        if (in!=null){
+            for (int i = 0; i < in.length; i++) {
+                out[outindex]=in[i];
+                outindex = outindex + 1;
+            }
+        }
+        if (append!=null){
+            for (int i = 0; i < append.length; i++) {
+                out[outindex]=append[i];
+                outindex = outindex + 1;
+            }
+        }
+        return out;
+    }
+
 
 }
