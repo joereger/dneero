@@ -65,8 +65,8 @@
             <group>surveyTriggers</group>
             <job-name>createInvoices</job-name>
             <job-group>surveyJobs</job-group>
-            <!-- every two minutes -->
-            <cron-expression>0 0/15 * * * ?</cron-expression>
+            <!-- 12pm on the 1st of the month -->
+            <cron-expression>0 0 12 1 * ?</cron-expression>
           </cron>
         </trigger>
     </job>
@@ -109,8 +109,8 @@
             <group>surveyTriggers</group>
             <job-name>invoiceCollectViaCreditCard</job-name>
             <job-group>surveyJobs</job-group>
-            <!-- every two minutes -->
-            <cron-expression>0 0/360 * * * ?</cron-expression>
+            <!-- 12pm on the 2nd of the month -->
+            <cron-expression>0 0 12 2 * ?</cron-expression>
           </cron>
         </trigger>
     </job>
@@ -197,8 +197,8 @@
             <group>surveyTriggers</group>
             <job-name>paybloggerViaCreditCard</job-name>
             <job-group>surveyJobs</job-group>
-            <!-- every two minutes -->
-            <cron-expression>0 0/90 * * * ?</cron-expression>
+            <!-- 12pm on the 16th of the month -->
+            <cron-expression>0 0 12 16 * ?</cron-expression>
           </cron>
         </trigger>
     </job>
@@ -219,8 +219,8 @@
             <group>surveyTriggers</group>
             <job-name>qualityAverager</job-name>
             <job-group>surveyJobs</job-group>
-            <!-- every two minutes -->
-            <cron-expression>0 0/60 * * * ?</cron-expression>
+            <!-- Fire at 3am (noon) every day -->
+            <cron-expression>0 0 3 * * ?</cron-expression>
           </cron>
         </trigger>
     </job>
@@ -241,8 +241,8 @@
             <group>surveyTriggers</group>
             <job-name>createPaybloggers</job-name>
             <job-group>surveyJobs</job-group>
-            <!-- every two minutes -->
-            <cron-expression>0 0/60 * * * ?</cron-expression>
+            <!-- 12pm on the 15th of the month -->
+            <cron-expression>0 0 12 15 * ?</cron-expression>
           </cron>
         </trigger>
     </job>

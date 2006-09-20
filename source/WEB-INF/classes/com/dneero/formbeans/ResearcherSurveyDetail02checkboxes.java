@@ -155,7 +155,7 @@ public class ResearcherSurveyDetail02checkboxes {
         this.question = question;
     }
 
-    public boolean isIsrequired() {
+    public boolean getIsrequired() {
         return isrequired;
     }
 

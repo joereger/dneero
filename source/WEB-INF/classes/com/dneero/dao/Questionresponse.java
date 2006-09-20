@@ -17,6 +17,7 @@ public class Questionresponse extends BasePersistentClass implements java.io.Ser
     // Fields
      private int questionresponseid;
      private int questionid;
+     private int responseid;
      private int bloggerid;
      private String name;
      private String value;
@@ -108,5 +109,11 @@ public class Questionresponse extends BasePersistentClass implements java.io.Ser
         this.value = value;
     }
 
+    public int getResponseid() {
+        return responseid;
+    }
 
+    public void setResponseid(int responseid) {
+        this.responseid = responseid;
+    }
 }

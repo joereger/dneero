@@ -1,5 +1,7 @@
 package com.dneero.display.components.def;
 
+import com.dneero.dao.Response;
+
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -13,11 +15,11 @@ public interface Component {
     public String getName();
     public int getID();
     public String getHtmlForInput();
-    public String getHtmlForDisplay();
+    public String getHtmlForDisplay(Response response);
     public String getHtmlForResult();
     public String getHtmlForResultDetail();
     public void validateAnswer(HttpServletRequest request) throws ComponentException;
-    public void processAnswer(HttpServletRequest request) throws ComponentException;
+    public void processAnswer(HttpServletRequest request, Response response) throws ComponentException;
     public int columnsInCsvOutput();
     public String[] getCsvForResult();
 

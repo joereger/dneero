@@ -3,6 +3,7 @@ package com.dneero.display;
 import com.dneero.dao.Survey;
 import com.dneero.dao.Question;
 import com.dneero.dao.Blogger;
+import com.dneero.dao.Response;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.util.Str;
 import com.dneero.display.components.def.Component;
@@ -11,6 +12,7 @@ import com.dneero.display.components.def.ComponentTypes;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.Iterator;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 
@@ -23,12 +25,26 @@ public class SurveyTemplateProcessor {
 
     private Survey survey;
     private Blogger blogger;
+    private Response response;
 
     Logger logger = Logger.getLogger(this.getClass().getName());
 
     public SurveyTemplateProcessor(Survey survey, Blogger blogger){
         this.survey = survey;
         this.blogger = blogger;
+        if (survey!=null && blogger!=null){
+            List results = HibernateUtil.getSession().createQuery("from Response where bloggerid='"+blogger.getBloggerid()+"' and surveyid='"+survey.getSurveyid()+"'").list();
+            for (Iterator iterator = results.iterator(); iterator.hasNext();) {
+                Response resp = (Response) iterator.next();
+                if (response==null){
+                    response = resp;
+                }
+                //Choose the most recent response by this blogger... there should generally only be one
+                if (response.getResponsedate().before(resp.getResponsedate())){
+                    response = resp;
+                }
+            }
+        }
     }
 
 
@@ -49,7 +65,7 @@ public class SurveyTemplateProcessor {
             ComponentTypes ct = new ComponentTypes();
             Component component = ct.getByTagSyntax(m.group(), blogger);
             if (component!=null){
-                m.appendReplacement(out, Str.cleanForAppendreplacement(component.getHtmlForDisplay()));
+                m.appendReplacement(out, Str.cleanForAppendreplacement(component.getHtmlForDisplay(response)));
             }
         }
         try{
@@ -75,13 +91,14 @@ public class SurveyTemplateProcessor {
 
     public static String appendExtraQuestionsIfNecessary(Survey survey, String currentTemplate){
         StringBuffer out = new StringBuffer();
+        Logger logger = Logger.getLogger(SurveyTemplateProcessor.class);
         if (currentTemplate!=null){
             out.append(currentTemplate);
         }
         for (Iterator<Question> iterator = survey.getQuestions().iterator(); iterator.hasNext();) {
             Question question = iterator.next();
             String qtag = "<$question_"+question.getQuestionid()+"$>";
-            if (currentTemplate==null || currentTemplate.indexOf(qtag)<=0){
+            if (currentTemplate==null || currentTemplate.indexOf(qtag)<0){
                 if (out.length()>0){
                     out.append("<br/>"+"\n");
                 }

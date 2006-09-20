@@ -67,7 +67,7 @@ public class BloggerBlogDetail {
             blog = Blog.get(blogid);
         }
 
-        if (blog.canEdit(Jsf.getUserSession().getUser())){
+        if (blogid==0 || blog.canEdit(Jsf.getUserSession().getUser())){
 
             //@todo url validation
     //        UrlValidator urlValidator = new UrlValidator(new String[]{"http", "https"});

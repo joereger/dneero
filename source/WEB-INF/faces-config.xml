@@ -370,6 +370,18 @@
     </managed-bean>
 
     <managed-bean>
+        <managed-bean-name>sysadminUnitTest</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.SysadminUnitTest</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>sysadminManuallyRunScheduledTask</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.SysadminManuallyRunScheduledTask</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
         <managed-bean-name>rateBlogPost</managed-bean-name>
         <managed-bean-class>com.dneero.formbeans.RateBlogPost</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
@@ -602,6 +614,14 @@
         <navigation-case>
             <from-outcome>sysadminsupportissuenewnotedone</from-outcome>
             <to-view-id>/sysadmin/sysadminsupportissuenewnotedone.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>sysadminunittest</from-outcome>
+            <to-view-id>/sysadmin/unittest.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>sysadminmanuallyrunscheduledtask</from-outcome>
+            <to-view-id>/sysadmin/manuallyrunscheduledtask.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>rateblogpost</from-outcome>

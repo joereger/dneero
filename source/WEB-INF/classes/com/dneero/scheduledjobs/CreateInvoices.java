@@ -37,13 +37,16 @@ public class CreateInvoices implements Job {
             //Determine startDate and endDate
             Calendar startDate = Time.getCalFromDate(User.get(researcher.getUserid()).getCreatedate());
             Calendar endDate = Calendar.getInstance();
+            logger.debug("Begin: startDate: "+Time.dateformatfordb(startDate)+ " endDate: "+Time.dateformatfordb(endDate));
             for (Iterator<Invoice> iterator1 = researcher.getInvoices().iterator(); iterator1.hasNext();) {
                 Invoice invoice = iterator1.next();
                 Calendar tmp = Time.getCalFromDate(invoice.getEnddate());
+                logger.debug("tmp: " + Time.dateformatfordb(tmp) + " startDate: " + Time.dateformatfordb(startDate));
                 if (tmp.after(startDate)){
                     startDate = (Calendar)tmp.clone();
                 }
             }
+            logger.debug("End: startDate: "+Time.dateformatfordb(startDate)+ " endDate: "+Time.dateformatfordb(endDate));
 
             //@todo check to see if another invoice exists (for this researcher) overlapping the time period specified between startDate and endDate
 
@@ -75,30 +78,34 @@ public class CreateInvoices implements Job {
                         int countperblog = 0;
                         List<Impressiondetail> impressiondetails = HibernateUtil.getSession().createCriteria(Impressiondetail.class)
                                        .add( Restrictions.eq("impressionid", impression.getImpressionid()))
-                                       .add( Restrictions.between("impressiondate", startDate.getTime(), endDate.getTime()))
+                                       .add( Restrictions.ge("impressiondate", startDate.getTime()))
+                                       .add( Restrictions.le("impressiondate", endDate.getTime()))
                                        .list();
-                        for (Iterator<Impressiondetail> iterator5 = impressiondetails.iterator(); iterator.hasNext();) {
+                        logger.debug("impressiondetails.size()=" + impressiondetails.size());
+                        for (Iterator<Impressiondetail> iterator5 = impressiondetails.iterator(); iterator5.hasNext();) {
                             Impressiondetail impressiondetail = iterator5.next();
-                            counttotal = counttotal + 1;
-                            countperblog = countperblog + 1;
                             //If the impressiondate is between the invoice start and end
                             Calendar impressiondate = Time.getCalFromDate(impressiondetail.getImpressiondate());
+                            logger.debug("impressiondate: "+Time.dateformatfordb(impressiondate) + " startDate: "+ Time.dateformatfordb(startDate) + " endDate: "+Time.dateformatfordb(endDate));
                             if ( (impressiondate.after(startDate)||impressiondate.equals(startDate)) && (impressiondate.before(endDate)||impressiondate.equals(endDate))){
+                                logger.debug("passed if/then for impressiondetailid: "+impressiondetail.getImpressiondetailid());
                                 //Limit the number of impressions per blog and total
                                 //@todo possibly move the determination of qualifiesforpaymentstatus to iao storage methods
-                                if (counttotal< survey.getMaxdisplaystotal() && countperblog<survey.getMaxdisplaysperblog()){
-                                    //impressiondetail.setInvoiceid(invoice.getInvoiceid());
-                                    //impressiondetail.setQualifiesforpaymentstatus(Impressiondetail.QUALIFIESFORPAYMENTSTATUS_TRUE);
-                                    //try{ impressiondetail.save(); } catch (Exception ex){logger.error(ex);}
+                                if (counttotal<survey.getMaxdisplaystotal() && countperblog<survey.getMaxdisplaysperblog()){
+                                    counttotal = counttotal + 1;
+                                    countperblog = countperblog + 1;
+                                    impressiondetail.setQualifiesforpaymentstatus(Impressiondetail.QUALIFIESFORPAYMENTSTATUS_TRUE);
+                                    try{ impressiondetail.save(); } catch (Exception ex){logger.error(ex);}
                                 } else {
-                                    //impressiondetail.setInvoiceid(invoice.getInvoiceid());
-                                    //impressiondetail.setQualifiesforpaymentstatus(Impressiondetail.QUALIFIESFORPAYMENTSTATUS_FALSE);
-                                    //try{ impressiondetail.save(); } catch (Exception ex){logger.error(ex);}
+                                    impressiondetail.setQualifiesforpaymentstatus(Impressiondetail.QUALIFIESFORPAYMENTSTATUS_FALSE);
+                                    try{ impressiondetail.save(); } catch (Exception ex){logger.error(ex);}
                                 }
                             }
                         }
                     }
-                    amt = amt + (Double.parseDouble(String.valueOf(counttotal))/1000) * survey.getWillingtopaypercpm();
+                    double amtForTheseImpressions = (Double.parseDouble(String.valueOf(counttotal))/1000) * survey.getWillingtopaypercpm();
+                    logger.debug("amtForTheseImpressions=" + amtForTheseImpressions);
+                    amt = amt + amtForTheseImpressions;
                 }
             }
 
@@ -150,9 +157,10 @@ public class CreateInvoices implements Job {
                         int countperblog = 0;
                         List<Impressiondetail> impressiondetails = HibernateUtil.getSession().createCriteria(Impressiondetail.class)
                                        .add( Restrictions.eq("impressionid", impression.getImpressionid()))
-                                       .add( Restrictions.between("impressiondate", startDate.getTime(), endDate.getTime()))
+                                       .add( Restrictions.ge("impressiondate", startDate.getTime()))
+                                       .add( Restrictions.le("impressiondate", endDate.getTime()))
                                        .list();
-                        for (Iterator<Impressiondetail> iterator5 = impressiondetails.iterator(); iterator.hasNext();) {
+                        for (Iterator<Impressiondetail> iterator5 = impressiondetails.iterator(); iterator5.hasNext();) {
                             Impressiondetail impressiondetail = iterator5.next();
                             counttotal = counttotal + 1;
                             countperblog = countperblog + 1;

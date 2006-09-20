@@ -29,10 +29,11 @@ public class PaybloggerViaCreditCard implements Job {
         logger.debug("execute() PaybloggerViaCreditCard called");
 
         //Get a list of bloggers who need to be paid
-        List<Payblogger> allpaybloggers = HibernateUtil.getSession().createCriteria(Payblogger.class)
-                               .add( Restrictions.eq("status", Payblogger.STATUS_OWED))
-                               .add( Restrictions.eq("status", Payblogger.STATUS_PAYERROR))
-                               .list();
+//        List<Payblogger> allpaybloggers = HibernateUtil.getSession().createCriteria(Payblogger.class)
+//                               .add( Restrictions.eq("status", Payblogger.STATUS_OWED))
+//                               .add( Restrictions.eq("status", Payblogger.STATUS_PAYERROR))
+//                               .list();
+        List allpaybloggers = HibernateUtil.getSession().createQuery("from Payblogger where status='"+Payblogger.STATUS_OWED+"' OR status='"+Payblogger.STATUS_PAYERROR+"'").list();
         ArrayList<Integer> bloggerids = new ArrayList<Integer>();
         for (Iterator<Payblogger> iterator = allpaybloggers.iterator(); iterator.hasNext();) {
             Payblogger payblogger = iterator.next();
@@ -47,11 +48,12 @@ public class PaybloggerViaCreditCard implements Job {
             double amtduetotal = 0;
 
             //List this blogger's payblogger records that are unpaid
-            List<Payblogger> paybloggers = HibernateUtil.getSession().createCriteria(Payblogger.class)
-                               .add( Restrictions.eq("bloggerid", blogger.getBloggerid()))
-                               .add( Restrictions.eq("status", Payblogger.STATUS_OWED))
-                               .add( Restrictions.eq("status", Payblogger.STATUS_PAYERROR))
-                               .list();
+//            List<Payblogger> paybloggers = HibernateUtil.getSession().createCriteria(Payblogger.class)
+//                               .add( Restrictions.eq("bloggerid", blogger.getBloggerid()))
+//                               .add( Restrictions.eq("status", Payblogger.STATUS_OWED))
+//                               .add( Restrictions.eq("status", Payblogger.STATUS_PAYERROR))
+//                               .list();
+            List paybloggers = HibernateUtil.getSession().createQuery("from Payblogger where bloggerid='"+blogger.getBloggerid()+"' and (status='"+Payblogger.STATUS_OWED+"' OR status='"+Payblogger.STATUS_PAYERROR+"')").list();
             for (Iterator<Payblogger> iterator = paybloggers.iterator(); iterator.hasNext();) {
                 Payblogger payblogger = iterator.next();
 

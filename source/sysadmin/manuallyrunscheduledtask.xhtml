@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:t="http://myfaces.apache.org/tomahawk"
+      xmlns:d="http://dneero.com/taglib">
+
+<ui:composition template="/template/template-facelets.xhtml">
+    <ui:define name="body">
+        <d:authorization acl="systemadmin" redirectonfail="true"/>
+
+         <h:form rendered="#{rateBlogPost.haveposttoreview}">
+
+            <h:panelGrid columns="3" cellpadding="3" border="0">
+                <h:panelGroup>
+                    <h:commandButton action="#{sysadminManuallyRunScheduledTask.runCloseSurveysByDate}" value="CloseSurveysByDate"></h:commandButton>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:commandButton action="#{sysadminManuallyRunScheduledTask.runCloseSurveysByNumRespondents}" value="CloseSurveysByNumRespondents"></h:commandButton>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:commandButton action="#{sysadminManuallyRunScheduledTask.runCreateInvoices}" value="CreateInvoices"></h:commandButton>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:commandButton action="#{sysadminManuallyRunScheduledTask.runCreatePaybloggers}" value="CreatePaybloggers"></h:commandButton>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:commandButton action="#{sysadminManuallyRunScheduledTask.runInvoiceCollectViaCreditCard}" value="InvoiceCollectViaCreditCard"></h:commandButton>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:commandButton action="#{sysadminManuallyRunScheduledTask.runInvoiceMarkPartiallyPaid}" value="InvoiceMarkPartiallyPaid"></h:commandButton>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:commandButton action="#{sysadminManuallyRunScheduledTask.runInvoiceMarkPastDue}" value="InvoiceMarkPastDue"></h:commandButton>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:commandButton action="#{sysadminManuallyRunScheduledTask.runNotifyBloggersOfNewOffers}" value="NotifyBloggersOfNewOffers"></h:commandButton>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:commandButton action="#{sysadminManuallyRunScheduledTask.runPaybloggerViaCreditCard}" value="PaybloggerViaCreditCard"></h:commandButton>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:commandButton action="#{sysadminManuallyRunScheduledTask.runPendingToOpenSurveys}" value="PendingToOpenSurveys"></h:commandButton>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:commandButton action="#{sysadminManuallyRunScheduledTask.runQualityAverager}" value="QualityAverager"></h:commandButton>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:commandButton action="#{sysadminManuallyRunScheduledTask.runSendEmailInvoicePastDue}" value="SendEmailInvoicePastDue"></h:commandButton>
+                </h:panelGroup>
+
+            </h:panelGrid>
+
+         </h:form>
+
+    </ui:define>
+
+
+</ui:composition>
+</html>

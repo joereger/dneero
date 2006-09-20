@@ -1,9 +1,6 @@
 package com.dneero.display.components;
 
-import com.dneero.dao.Question;
-import com.dneero.dao.Blogger;
-import com.dneero.dao.Questionconfig;
-import com.dneero.dao.Questionresponse;
+import com.dneero.dao.*;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.util.GeneralException;
 import com.dneero.display.components.def.Component;
@@ -71,13 +68,13 @@ public class Dropdown implements Component {
         return out.toString();
     }
 
-    public String getHtmlForDisplay() {
+    public String getHtmlForDisplay(Response response) {
         StringBuffer out = new StringBuffer();
         out.append(question.getQuestion());
         out.append("<br/>");
 
-        if (blogger!=null){
-            List<Questionresponse> responses = HibernateUtil.getSession().createQuery("from Questionresponse where questionid='"+question.getQuestionid()+"' and bloggerid='"+blogger.getBloggerid()+"'").list();
+        if (blogger!=null && response!=null){
+            List<Questionresponse> responses = HibernateUtil.getSession().createQuery("from Questionresponse where questionid='"+question.getQuestionid()+"' and bloggerid='"+blogger.getBloggerid()+"' and responseid='"+response.getResponseid()+"'").list();
             for (Iterator<Questionresponse> iterator = responses.iterator(); iterator.hasNext();) {
                 Questionresponse questionresponse = iterator.next();
                 out.append(questionresponse.getValue());
@@ -93,10 +90,15 @@ public class Dropdown implements Component {
     }
 
     public void validateAnswer(HttpServletRequest request) throws ComponentException {
-
+        if (question.getIsrequired()){
+            String[] requestParams = request.getParameterValues("dneero_questionid_"+question.getQuestionid());
+            if (requestParams==null){
+                throw new ComponentException(question.getQuestion()+" is required.");
+            }
+        }
     }
 
-    public void processAnswer(HttpServletRequest request) throws ComponentException {
+    public void processAnswer(HttpServletRequest request, Response response) throws ComponentException {
         String[] requestParams = request.getParameterValues("dneero_questionid_"+question.getQuestionid());
         if (requestParams!=null){
             boolean addedAResponse = false;
@@ -107,6 +109,7 @@ public class Dropdown implements Component {
                 questionresponse.setBloggerid(blogger.getBloggerid());
                 questionresponse.setName("response");
                 questionresponse.setValue(requestParam);
+                questionresponse.setResponseid(response.getResponseid());
 
                 question.getQuestionresponses().add(questionresponse);
                 addedAResponse = true;

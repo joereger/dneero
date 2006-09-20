@@ -45,6 +45,7 @@ public class InvoiceCollectViaCreditCard implements Job {
 
             //Calculate amount due now
             double amtdue = invoice.getAmttotal() - paidtodate;
+            logger.debug("paidtodate="+paidtodate+" invoice.getAmttotal()="+invoice.getAmttotal()+" amtdue="+amtdue);
 
             //Get billing details
             Researcher researcher = Researcher.get(invoice.getResearcherid());
@@ -54,40 +55,41 @@ public class InvoiceCollectViaCreditCard implements Job {
             boolean successful = false;
             String notes = "";
 
-            try{
-                Verisign vs = new Verisign();
-                notes = vs.chargeCard(amtdue, rb.getCcnum(), rb.getCcexpmonth(), rb.getCcexpyear(), rb.getBillingaddress1(), rb.getBillingzip());
-                //@todo i don't believe successful is always set correctly.  a bad ccnum will not throw VerisignError, right?
-                successful = true;
-            } catch (VerisignException vex){
-                logger.debug(vex.errorMessage);
-            }
-
-            //Record transaction
-            Invoicetransaction it = new Invoicetransaction();
-            it.setInvoiceid(invoice.getInvoiceid());
-            it.setAmt(amtdue);
-            it.setIssuccessful(successful);
-            it.setTransactiondate(new Date());
-            it.setNotes(notes);
-
-            invoice.getInvoicetransactions().add(it);
-
-            try{
-                it.save();
-            } catch (GeneralException gex){
-                logger.error(gex);
-            }
-
-            if (successful){
-                invoice.setStatus(Invoice.STATUS_PAID);   
+            if (amtdue>0){
                 try{
-                    invoice.save();
+                    Verisign vs = new Verisign();
+                    notes = vs.chargeCard(amtdue, rb.getCcnum(), rb.getCcexpmonth(), rb.getCcexpyear(), rb.getBillingaddress1(), rb.getBillingzip());
+                    //@todo i don't believe successful is always set correctly.  a bad ccnum will not throw VerisignError, right?
+                    successful = true;
+                } catch (VerisignException vex){
+                    logger.debug(vex.errorMessage);
+                    vex.printStackTrace();
+                }
+
+                //Record transaction
+                Invoicetransaction it = new Invoicetransaction();
+                it.setInvoiceid(invoice.getInvoiceid());
+                it.setAmt(amtdue);
+                it.setIssuccessful(successful);
+                it.setTransactiondate(new Date());
+                it.setNotes(notes);
+
+                invoice.getInvoicetransactions().add(it);
+
+                try{
+                    it.save();
                 } catch (GeneralException gex){
                     logger.error(gex);
                 }
-            }
 
+                if (successful){
+                    invoice.setStatus(Invoice.STATUS_PAID);
+                    try{invoice.save();} catch (GeneralException gex){logger.error(gex);}
+                }
+            } else {
+                invoice.setStatus(Invoice.STATUS_PAID);
+                try{invoice.save();} catch (GeneralException gex){logger.error(gex);}
+            }
 
         }
 

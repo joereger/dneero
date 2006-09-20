@@ -1,9 +1,6 @@
 package com.dneero.display.components;
 
-import com.dneero.dao.Question;
-import com.dneero.dao.Blogger;
-import com.dneero.dao.Questionconfig;
-import com.dneero.dao.Questionresponse;
+import com.dneero.dao.*;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.util.GeneralException;
 import com.dneero.display.components.def.Component;
@@ -105,18 +102,17 @@ public class Range implements Component {
         return out.toString();
     }
 
-    public String getHtmlForDisplay() {
+    public String getHtmlForDisplay(Response response) {
         StringBuffer out = new StringBuffer();
         out.append(question.getQuestion());
         out.append("<br/>");
 
-        if (blogger!=null){
-
-            double response = 0;
-            List<Questionresponse> responses = HibernateUtil.getSession().createQuery("from Questionresponse where questionid='"+question.getQuestionid()+"' and bloggerid='"+blogger.getBloggerid()+"'").list();
+        if (blogger!=null && response!=null){
+            List<Questionresponse> responses = HibernateUtil.getSession().createQuery("from Questionresponse where questionid='"+question.getQuestionid()+"' and bloggerid='"+blogger.getBloggerid()+"' and responseid='"+response.getResponseid()+"'").list();
+            double responseValue = 0;
             for (Iterator<Questionresponse> iterator = responses.iterator(); iterator.hasNext();) {
                 Questionresponse questionresponse = iterator.next();
-                response = Double.parseDouble(questionresponse.getValue());
+                responseValue = Double.parseDouble(questionresponse.getValue());
             }
 
             String mintitle = "Low";
@@ -150,7 +146,7 @@ public class Range implements Component {
                     createdExactlyMaxRadio = true;
                 }
                 out.append("<td valign=top>");
-                if (response==i){
+                if (responseValue ==i){
                     out.append("<b>"+i+"</b>");
                 } else {
                     out.append(i);
@@ -159,7 +155,7 @@ public class Range implements Component {
             }
             if (!createdExactlyMaxRadio){
                 out.append("<td valign=top>");
-                if (response==max){
+                if (responseValue ==max){
                     out.append("<b>"+max+"</b>");
                 } else {
                     out.append(max);
@@ -179,10 +175,15 @@ public class Range implements Component {
     }
 
     public void validateAnswer(HttpServletRequest request) throws ComponentException {
-
+        if (question.getIsrequired()){
+            String[] requestParams = request.getParameterValues("dneero_questionid_"+question.getQuestionid());
+            if (requestParams==null){
+                throw new ComponentException(question.getQuestion()+" is required.");
+            }
+        }
     }
 
-    public void processAnswer(HttpServletRequest request) throws ComponentException {
+    public void processAnswer(HttpServletRequest request, Response response) throws ComponentException {
         String[] requestParams = request.getParameterValues("dneero_questionid_"+question.getQuestionid());
         if (requestParams!=null){
             boolean addedAResponse = false;
@@ -193,6 +194,7 @@ public class Range implements Component {
                 questionresponse.setBloggerid(blogger.getBloggerid());
                 questionresponse.setName("response");
                 questionresponse.setValue(requestParam);
+                questionresponse.setResponseid(response.getResponseid());
 
                 question.getQuestionresponses().add(questionresponse);
                 addedAResponse = true;

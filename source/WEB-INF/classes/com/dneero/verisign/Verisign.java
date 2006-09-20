@@ -58,7 +58,8 @@ public class Verisign {
             NumberFormat formatter = DecimalFormat.getInstance();
             formatter.setMinimumFractionDigits(2);
             formatter.setMaximumFractionDigits(2);
-            String amtStr = formatter.format(String.valueOf(amt));
+            logger.debug("amt="+amt);
+            String amtStr = formatter.format(amt);
 
             //Set the variables
             //@todo handle charge/sale plus/minus on amt and trxtype
@@ -74,6 +75,7 @@ public class Verisign {
 
         } catch (Exception e){
             logger.error(e);
+            e.printStackTrace();
             VerisignException ex = new VerisignException();
             ex.errorMessage = e.getMessage();
             ex.sentString = buildSubmitString();
@@ -87,6 +89,7 @@ public class Verisign {
         try{
             out.append(transaction());
         } catch (VerisignException vex){
+            logger.debug(vex);
             throw vex;
         } catch (Exception e){
             logger.error(e);

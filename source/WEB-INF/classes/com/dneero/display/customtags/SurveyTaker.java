@@ -92,9 +92,9 @@ public class SurveyTaker extends UIInput {
         for (int i = 0; i < requestMap.size(); i++){
             Map.Entry mapentry = (Map.Entry) keyValuePairs.next();
             String key = (String)mapentry.getKey();
-            String value = (String)mapentry.getValue();
-            logger.debug("key=" + key + " value=" + value);
-            this.value.put(key, value);
+            String val = (String)mapentry.getValue();
+            logger.debug("key=" + key + " val=" + val);
+            value.put(key, val);
         }
         setValue(value);
         //setSubmittedValue(value);
@@ -117,32 +117,28 @@ public class SurveyTaker extends UIInput {
         if (allCex.getErrors().length>0){
             Jsf.setFacesMessage(allCex.getErrorsAsSingleString());
         } else {
-            //Processing
-            for (Iterator<Question> iterator = survey.getQuestions().iterator(); iterator.hasNext();) {
-                Question question = iterator.next();
-                logger.debug("found question.getQuestionid()="+question.getQuestionid());
-                Component component = ComponentTypes.getComponentByID(question.getComponenttype(), question, Jsf.getUserSession().getUser().getBlogger());
-                logger.debug("found component.getName()="+component.getName());
-                try{
-                    component.processAnswer((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest());
-                } catch (ComponentException cex){
-                    allCex.addErrorsFromAnotherGeneralException(cex);
-                }
-            }
+
+            //Create the response
             Response response = new Response();
             response.setBloggerid(Jsf.getUserSession().getUser().getBlogger().getBloggerid());
             response.setResponsedate(new Date());
             response.setSurveyid(survey.getSurveyid());
-
             survey.getResponses().add(response);
-
-            try{
-                logger.debug("processAnswer() about to save response.getResponseid()=" + response.getResponseid());
-                survey.save();
-                logger.debug("processAnswer() done saving response.getResponseid()=" + response.getResponseid());
-            } catch (GeneralException gex){
+            try{survey.save();} catch (GeneralException gex){
                 logger.debug("processAnswer() failed: " + gex.getErrorsAsSingleString());
             }
+
+            //Processing each question
+            for (Iterator<Question> iterator = survey.getQuestions().iterator(); iterator.hasNext();) {
+                Question question = iterator.next();
+                Component component = ComponentTypes.getComponentByID(question.getComponenttype(), question, Jsf.getUserSession().getUser().getBlogger());
+                try{
+                    component.processAnswer((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest(), response);
+                } catch (ComponentException cex){
+                    allCex.addErrorsFromAnotherGeneralException(cex);
+                }
+            }
+
         }
     }
 
