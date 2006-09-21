@@ -5,6 +5,7 @@ import com.dneero.dao.Userrole;
 import org.apache.log4j.Logger;
 
 import javax.faces.context.FacesContext;
+import java.util.Iterator;
 
 /**
  * User: Joe Reger Jr
@@ -18,6 +19,7 @@ public class UserSession {
     private int currentSurveyid;
     private boolean isAllowedToResetPasswordBecauseHasValidatedByEmail = false;
     private int referredbyOnlyUsedForSignup = 0;
+    private boolean isSysadmin = false;
 
     public UserSession(){
         //Used for anonymous access
@@ -30,6 +32,13 @@ public class UserSession {
 
     public void setUser(User user) {
         this.user = user;
+        isSysadmin = false;
+        for (Iterator<Userrole> iterator = user.getUserroles().iterator(); iterator.hasNext();) {
+            Userrole userrole = iterator.next();
+            if (userrole.getRoleid()==Roles.SYSTEMADMIN){
+                isSysadmin = true;
+            }
+        }
     }
 
     public boolean getIsloggedin() {
@@ -62,5 +71,13 @@ public class UserSession {
 
     public void setReferredbyOnlyUsedForSignup(int referredbyOnlyUsedForSignup) {
         this.referredbyOnlyUsedForSignup = referredbyOnlyUsedForSignup;
+    }
+
+    public boolean getIsSysadmin() {
+        return isSysadmin;
+    }
+
+    public void setSysadmin(boolean sysadmin) {
+        isSysadmin = sysadmin;
     }
 }
