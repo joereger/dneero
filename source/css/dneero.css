@@ -18,12 +18,13 @@ body {
 
 .mediumfont {
     font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-weight: bold;
     font-size: 16px;
 }
 
 .largefont {
-    font-family: Verdana, Arial, Helvetica, sans-serif;
-    font-size: 24px;
+    font-family: Impact, Verdana, Arial, Helvetica, sans-serif;
+    font-size: 34px;
 }
 
 a, a:link, a:visited, a:active {
