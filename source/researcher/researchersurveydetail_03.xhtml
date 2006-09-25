@@ -37,7 +37,7 @@
                 <h:panelGroup>
                     <h:inputTextarea value="#{researcherSurveyDetail03.template}" cols="35" rows="15"></h:inputTextarea>
                     <f:verbatim rendered="#{researcherSurveyDetail02.status le 2}"><br/><br/></f:verbatim>
-                    <h:commandButton action="#{researcherSurveyDetail03.saveSurvey}" value="Save Template" rendered="#{researcherSurveyDetail03.status le 2}"></h:commandButton>
+                    <h:commandButton action="#{researcherSurveyDetail03.saveSurvey}" value="Save Template" rendered="#{researcherSurveyDetail03.status le 2}" styleClass="formsubmitbutton"></h:commandButton>
                 </h:panelGroup>
                 <h:panelGroup>
                     <!-- Begin Question Key -->
@@ -58,7 +58,7 @@
 
 
     <f:verbatim><br/><br/></f:verbatim>
-    <div class="surveyeditbuttonbox"><div class="surveyeditpreviousbutton"><h:commandButton action="researchersurveydetail_02" value="Previous Step"/></div><div class="surveyeditnextbutton"><h:commandButton action="#{researcherSurveyDetail03.continueToNext}" value="Next Step"/></div></div>
+    <div class="surveyeditbuttonbox"><div class="surveyeditpreviousbutton"><h:commandButton action="researchersurveydetail_02" value="Previous Step" styleClass="formsubmitbutton"/></div><div class="surveyeditnextbutton"><h:commandButton action="#{researcherSurveyDetail03.continueToNext}" value="Next Step" styleClass="formsubmitbutton"/></div></div>
 
 
 

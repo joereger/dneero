@@ -72,7 +72,7 @@
             <h:selectOneMenu value="#{researcherSurveyDetail02.newquestioncomponenttype}" id="newquestioncomponenttype" required="true" rendered="#{researcherSurveyDetail02.status le 2}">
                 <f:selectItems value="#{componentTypes.typesaslinkedhashmap}"/>
             </h:selectOneMenu>
-            <h:commandButton action="#{researcherSurveyDetail02.addQuestion}" value="Add Question" rendered="#{researcherSurveyDetail02.status le 2}">
+            <h:commandButton action="#{researcherSurveyDetail02.addQuestion}" value="Add Question" styleClass="formsubmitbutton" rendered="#{researcherSurveyDetail02.status le 2}">
                 <f:param name="isnewquestion" value="1" />
             </h:commandButton>
         </t:panelTab>
@@ -86,7 +86,7 @@
     <!-- End Top -->
 
     <f:verbatim><br/><br/></f:verbatim>
-    <div class="surveyeditbuttonbox"><div class="surveyeditpreviousbutton"><h:commandButton action="researchersurveydetail_01" value="Previous Step"/></div><div class="surveyeditnextbutton"><h:commandButton action="#{researcherSurveyDetail02.saveSurvey}" value="Next Step"/></div></div>
+    <div class="surveyeditbuttonbox"><div class="surveyeditpreviousbutton"><h:commandButton action="researchersurveydetail_01" value="Previous Step" styleClass="formsubmitbutton"/></div><div class="surveyeditnextbutton"><h:commandButton action="#{researcherSurveyDetail02.saveSurvey}" value="Next Step" styleClass="formsubmitbutton"/></div></div>
 
 </h:form>
 
