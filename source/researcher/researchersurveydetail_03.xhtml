@@ -55,29 +55,11 @@
         </t:panelTab>
     </t:panelTabbedPane>
 
-    <h:panelGrid columns="3" cellpadding="3" border="0">
-
-        <h:panelGroup>
-            <h:outputText value="Survey Id"></h:outputText>
-        </h:panelGroup>
-        <h:panelGroup>
-            <h:outputText value="#{userSession.currentSurveyid}"></h:outputText>
-        </h:panelGroup>
-        <h:panelGroup>
-        </h:panelGroup>
 
 
+    <f:verbatim><br/><br/></f:verbatim>
+    <div class="surveyeditbuttonbox"><div class="surveyeditpreviousbutton"><h:commandButton action="researchersurveydetail_02" value="Previous Step"/></div><div class="surveyeditnextbutton"><h:commandButton action="#{researcherSurveyDetail03.continueToNext}" value="Next Step"/></div></div>
 
-        <h:panelGroup>
-        </h:panelGroup>
-        <h:panelGroup>
-            <h:commandButton action="#{researcherSurveyDetail03.continueToNext}" value="Next Step"></h:commandButton>
-        </h:panelGroup>
-        <h:panelGroup>
-        </h:panelGroup>
-
-
-    </h:panelGrid>
 
 
 

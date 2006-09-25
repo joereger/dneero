@@ -4,6 +4,7 @@ import com.dneero.dao.*;
 import com.dneero.util.GeneralException;
 import com.dneero.util.Jsf;
 import com.dneero.util.Str;
+import com.dneero.util.Time;
 import com.dneero.session.UserSession;
 import org.apache.log4j.Logger;
 
@@ -37,8 +38,8 @@ public class ResearcherSurveyDetail01 {
         Jsf.getUserSession().setCurrentSurveyid(0);
         title = "";
         description = "";
-        startdate = new Date();
-        enddate = new Date();
+        startdate = Calendar.getInstance().getTime();
+        enddate = Time.AddOneMonth(Calendar.getInstance()).getTime();
         return "researchersurveydetail_01";
     }
 
@@ -55,11 +56,12 @@ public class ResearcherSurveyDetail01 {
     }
 
     public void loadSurvey(int surveyid){
-        logger.debug("loadSurvey called");
+        logger.debug("loadSurvey called for surveyid="+surveyid);
         Survey survey = Survey.get(surveyid);
         if (survey!=null){
             logger.debug("Found survey in db: survey.getSurveyid()="+survey.getSurveyid()+" survey.getTitle()="+survey.getTitle());
             if (survey.canEdit(Jsf.getUserSession().getUser())){
+                logger.debug("survey.canEdit(Jsf.getUserSession().getUser())="+survey.canEdit(Jsf.getUserSession().getUser()));
                 title = survey.getTitle();
                 description = survey.getDescription();
                 startdate = survey.getStartdate();
@@ -84,7 +86,21 @@ public class ResearcherSurveyDetail01 {
                 survey = Survey.get(userSession.getCurrentSurveyid());
             }
 
-            if (survey.canEdit(Jsf.getUserSession().getUser())){
+            //Validation
+            boolean isValidData = true;
+            Calendar beforeMinusDay = Time.xDaysAgoStart(Calendar.getInstance(), 0);
+            if (startdate.before(beforeMinusDay.getTime())){
+                isValidData = false;
+                Jsf.setFacesMessage("surveyedit:startdate", "The Start Date must be today or after today.");
+                logger.debug("valdation error - startdate is in past.");
+            }
+            if (startdate.after(enddate)){
+                isValidData = false;
+                Jsf.setFacesMessage("surveyedit:enddate", "The End Date must be after the Start Date.");
+                logger.debug("valdation error - startdate is after end date.");
+            }
+
+            if (isValidData && survey.canEdit(Jsf.getUserSession().getUser())){
 
                 survey.setResearcherid(userSession.getUser().getResearcher().getResearcherid());
                 survey.setTitle(title);
@@ -106,9 +122,12 @@ public class ResearcherSurveyDetail01 {
 
                 //Refresh
                 survey.refresh();
+            } else {
+                return null;
             }
 
         }
+
         return "success";
     }
 

@@ -17,8 +17,6 @@
 <h:form>
 
     <h:inputHidden name="surveyid" value="#{userSession.currentSurveyid}" />
-
-
     <h:graphicImage url="/images/process-train-survey-02.gif" style="display: block; margin-left: auto; margin-right: auto;"></h:graphicImage>
     <f:verbatim><br/><br/></f:verbatim>
 
@@ -71,6 +69,12 @@
                 </h:commandLink>
               </af:column>
             </af:table>
+            <h:selectOneMenu value="#{researcherSurveyDetail02.newquestioncomponenttype}" id="newquestioncomponenttype" required="true" rendered="#{researcherSurveyDetail02.status le 2}">
+                <f:selectItems value="#{componentTypes.typesaslinkedhashmap}"/>
+            </h:selectOneMenu>
+            <h:commandButton action="#{researcherSurveyDetail02.addQuestion}" value="Add Question" rendered="#{researcherSurveyDetail02.status le 2}">
+                <f:param name="isnewquestion" value="1" />
+            </h:commandButton>
         </t:panelTab>
         <t:panelTab id="panel_b" label="Preview the Survey">
             <h:graphicImage url="/images/clear.gif" width="550" height="1"><br/></h:graphicImage>
@@ -79,43 +83,10 @@
     </t:panelTabbedPane>
 
 
-
-
-    <h:panelGrid columns="3" cellpadding="3" border="0">
-
-        <h:panelGroup>
-            <h:outputText value="Survey Id"></h:outputText>
-        </h:panelGroup>
-        <h:panelGroup>
-            <h:outputText value="#{userSession.currentSurveyid}"></h:outputText>
-        </h:panelGroup>
-        <h:panelGroup>
-        </h:panelGroup>
-
-
-
-        <h:panelGroup>
-            <h:selectOneMenu value="#{researcherSurveyDetail02.newquestioncomponenttype}" id="newquestioncomponenttype" required="true" rendered="#{researcherSurveyDetail02.status le 2}">
-                <f:selectItems value="#{componentTypes.typesaslinkedhashmap}"/>
-            </h:selectOneMenu>
-            <f:verbatim><br/></f:verbatim>
-            <h:commandButton action="#{researcherSurveyDetail02.addQuestion}" value="Add Question" rendered="#{researcherSurveyDetail02.status le 2}">
-                <f:param name="isnewquestion" value="1" />
-            </h:commandButton>
-        </h:panelGroup>
-        <h:panelGroup>
-
-        </h:panelGroup>
-        <h:panelGroup>
-            <h:commandButton action="#{researcherSurveyDetail02.saveSurvey}" value="Next Step"></h:commandButton>
-        </h:panelGroup>
-
-
-    </h:panelGrid>
-
     <!-- End Top -->
 
-
+    <f:verbatim><br/><br/></f:verbatim>
+    <div class="surveyeditbuttonbox"><div class="surveyeditpreviousbutton"><h:commandButton action="researchersurveydetail_01" value="Previous Step"/></div><div class="surveyeditnextbutton"><h:commandButton action="#{researcherSurveyDetail02.saveSurvey}" value="Next Step"/></div></div>
 
 </h:form>
 

@@ -114,3 +114,17 @@ input, textarea, select{
    border-bottom-color:#e6e6e6;
 }
 
+.surveyeditbuttonbox{
+    width: 100%;
+}
+
+.surveyeditnextbutton {
+    text-align: right;
+}
+
+.surveyeditpreviousbutton {
+    width: 50%;
+    float: left;
+    text-align: left;
+}
+

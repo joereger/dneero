@@ -24,16 +24,7 @@
     <h:panelGrid columns="3" cellpadding="3" border="0">
 
         <h:panelGroup>
-            <h:outputText value="Survey Id"></h:outputText>
-        </h:panelGroup>
-        <h:panelGroup>
-            <h:outputText value="#{userSession.currentSurveyid}"></h:outputText>
-        </h:panelGroup>
-        <h:panelGroup>
-        </h:panelGroup>
-
-        <h:panelGroup>
-            <h:outputText value="Age"></h:outputText>
+            <h:outputText value="Age Range"></h:outputText>
         </h:panelGroup>
         <h:panelGroup>
             <h:inputText value="#{researcherSurveyDetail04.agemin}" id="agemin" required="true" rendered="#{researcherSurveyDetail04.status le 2}">
@@ -193,7 +184,7 @@
             <h:outputText value="Blog Quality of At Least"></h:outputText>
         </h:panelGroup>
         <h:panelGroup>
-            <h:selectOneListbox value="#{researcherSurveyDetail04.blogquality}" size="5" id="blogquality" layout="pageDirection" required="true" rendered="#{researcherSurveyDetail04.status le 2}">
+            <h:selectOneListbox value="#{researcherSurveyDetail04.blogquality}" size="1" id="blogquality" layout="pageDirection" required="true" rendered="#{researcherSurveyDetail04.status le 2}">
                 <f:selectItem itemValue="0"/>
                 <f:selectItem itemValue="1"/>
                 <f:selectItem itemValue="2"/>
@@ -216,7 +207,7 @@
             <h:outputText value="Blog Quality Over Last 90 Days of At Least"></h:outputText>
         </h:panelGroup>
         <h:panelGroup>
-            <h:selectOneListbox value="#{researcherSurveyDetail04.blogquality90days}" size="5" id="blogquality90days" layout="pageDirection" required="true" rendered="#{researcherSurveyDetail04.status le 2}">
+            <h:selectOneListbox value="#{researcherSurveyDetail04.blogquality90days}" size="1" id="blogquality90days" layout="pageDirection" required="true" rendered="#{researcherSurveyDetail04.status le 2}">
                 <f:selectItem itemValue="0"/>
                 <f:selectItem itemValue="1"/>
                 <f:selectItem itemValue="2"/>
@@ -236,16 +227,11 @@
         </h:panelGroup>
 
 
-
-        <h:panelGroup>
-        </h:panelGroup>
-        <h:panelGroup>
-            <h:commandButton action="#{researcherSurveyDetail04.saveSurvey}" value="Next Step"></h:commandButton>
-        </h:panelGroup>
-        <h:panelGroup>
-        </h:panelGroup>
-
     </h:panelGrid>
+
+    <f:verbatim><br/><br/></f:verbatim>
+    <div class="surveyeditbuttonbox"><div class="surveyeditpreviousbutton"><h:commandButton action="researchersurveydetail_03" value="Previous Step"/></div><div class="surveyeditnextbutton"><h:commandButton action="#{researcherSurveyDetail04.saveSurvey}" value="Next Step"/></div></div>
+
 </h:form>
 
 </ui:define>

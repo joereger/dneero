@@ -14,37 +14,21 @@
     <ui:define name="body">
     <d:authorization acl="researcher" redirectonfail="true"/>
 
-<h:form>
-    <h:messages />
-    <h:inputHidden name="surveyid" value="#{userSession.currentSurveyid}" />
-
-    <!--
-    <af:processTrain  value="#{surveyDetailProcessTrain}" var="surveyNode">
-        <f:facet name="nodeStamp">
-            <af:commandMenuItem text="#{surveyNode.label}" action="#{surveyNode.getOutcome}" readOnly="true"/>
-        </f:facet>
-    </af:processTrain>
-    -->
+<h:form id="surveyedit">
+    <h:inputHidden name="surveyid" value="#{userSession.currentSurveyid}"/>
     <h:graphicImage url="/images/process-train-survey-01.gif" style="display: block; margin-left: auto; margin-right: auto;"></h:graphicImage>
-    <f:verbatim><br/><br/></f:verbatim>
+    <f:verbatim><br/></f:verbatim>
+    <font class="smallfont">On this page you set the very general parameters for the survey like title and date period.  Choose a title that'll get people interested and make them check it out.</font>
+    <f:verbatim><br/></f:verbatim>
+    <f:verbatim><br/></f:verbatim>
 
     <h:panelGrid columns="3" cellpadding="3" border="0">
-
-
-        <h:panelGroup>
-            <h:outputText value="Survey Id"></h:outputText>
-        </h:panelGroup>
-        <h:panelGroup>
-            <h:outputText value="#{userSession.currentSurveyid}"></h:outputText>
-        </h:panelGroup>
-        <h:panelGroup>
-        </h:panelGroup>
 
         <h:panelGroup>
             <h:outputText value="Survey Title"></h:outputText>
         </h:panelGroup>
         <h:panelGroup>
-            <h:inputText value="#{researcherSurveyDetail01.title}" id="title" required="true" rendered="#{researcherSurveyDetail01.status le 2}">
+            <h:inputText value="#{researcherSurveyDetail01.title}" size="50" id="title" required="true" rendered="#{researcherSurveyDetail01.status le 2}">
                 <f:validateLength minimum="3" maximum="255"></f:validateLength>
             </h:inputText>
             <h:outputText value="#{researcherSurveyDetail01.title}" rendered="#{researcherSurveyDetail01.status ge 3}"></h:outputText>
@@ -95,15 +79,11 @@
 
  
 
-        <h:panelGroup>
-        </h:panelGroup>
-        <h:panelGroup>
-            <h:commandButton action="#{researcherSurveyDetail01.saveSurvey}" value="Next Step"></h:commandButton>
-        </h:panelGroup>
-        <h:panelGroup>
-        </h:panelGroup>
 
     </h:panelGrid>
+
+    <div class="surveyeditbuttonbox"><div class="surveyeditpreviousbutton"></div><div class="surveyeditnextbutton"><h:commandButton action="#{researcherSurveyDetail01.saveSurvey}" value="Next Step"></h:commandButton></div></div>
+
 </h:form>
 
 </ui:define>
