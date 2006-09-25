@@ -25,7 +25,7 @@
     <h:panelGrid columns="3" cellpadding="3" border="0">
 
         <h:panelGroup>
-            <h:outputText value="Survey Title"></h:outputText>
+            <h:outputText value="Survey Title" styleClass="formfieldnamefont"></h:outputText>
         </h:panelGroup>
         <h:panelGroup>
             <h:inputText value="#{researcherSurveyDetail01.title}" size="50" id="title" required="true" rendered="#{researcherSurveyDetail01.status le 2}">
@@ -40,7 +40,7 @@
 
 
         <h:panelGroup>
-            <h:outputText value="Description"></h:outputText>
+            <h:outputText value="Description" styleClass="formfieldnamefont"></h:outputText>
         </h:panelGroup>
         <h:panelGroup>
             <h:inputTextarea value="#{researcherSurveyDetail01.description}" id="description" cols="45" required="true" rendered="#{researcherSurveyDetail01.status le 2}">
@@ -54,7 +54,7 @@
 
 
         <h:panelGroup>
-            <h:outputText value="Start Date"></h:outputText>
+            <h:outputText value="Start Date" styleClass="formfieldnamefont"></h:outputText>
         </h:panelGroup>
         <h:panelGroup>
             <t:inputDate value="#{researcherSurveyDetail01.startdate}"  type="both" popupCalendar="true" id="startdate" required="true" rendered="#{researcherSurveyDetail01.status le 2}"></t:inputDate>
@@ -66,7 +66,7 @@
 
 
         <h:panelGroup>
-            <h:outputText value="End Date"></h:outputText>
+            <h:outputText value="End Date" styleClass="formfieldnamefont"></h:outputText>
         </h:panelGroup>
         <h:panelGroup>
             <t:inputDate value="#{researcherSurveyDetail01.enddate}" type="both" popupCalendar="true" id="enddate" required="true" rendered="#{researcherSurveyDetail01.status le 2}"></t:inputDate>
