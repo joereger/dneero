@@ -1,9 +1,6 @@
 package com.dneero.util;
 
-import java.util.List;
-import java.util.Set;
-import java.util.Iterator;
-import java.util.ArrayList;
+import java.util.*;
 
 /**
  * User: Joe Reger Jr
@@ -20,6 +17,8 @@ public class Util {
         }
         return out;
     }
+
+
 
     public static boolean arrayContains(String[] array, String value){
         if (array!=null){

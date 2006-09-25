@@ -97,7 +97,7 @@
         <job-detail>
           <name>invoiceCollectViaCreditCard</name>
           <group>surveyJobs</group>
-          <job-class>com.dneero.scheduledjobs.InvoiceCollectViaCreditCard</job-class>
+          <job-class>com.dneero.scheduledjobs.InvoiceCollectPayment</job-class>
           <volatility>false</volatility>
           <durability>false</durability>
           <recover>false</recover>
@@ -185,7 +185,7 @@
         <job-detail>
           <name>paybloggerViaCreditCard</name>
           <group>surveyJobs</group>
-          <job-class>com.dneero.scheduledjobs.PaybloggerViaCreditCard</job-class>
+          <job-class>com.dneero.scheduledjobs.PaybloggerSendMoney</job-class>
           <volatility>false</volatility>
           <durability>false</durability>
           <recover>false</recover>

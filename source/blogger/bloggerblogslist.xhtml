@@ -10,22 +10,19 @@
       xmlns:d="http://dneero.com/taglib">
 
 <ui:composition template="/template/template-facelets.xhtml">
+    <ui:define name="title">Blogs</ui:define>
     <ui:define name="body">
     <d:authorization acl="blogger" redirectonfail="true"/>
 
+    <font class="smallfont">By claiming a blog you tell us that you may be using this blog to post surveys to.</font>
+    <br/><br/>
 
 
 <h:form>
 
 
-
+    <af:outputText value="You have not claimed any blogs." rendered="#{empty bloggerBlogsList.blogs}"/>
     <af:table value="#{bloggerBlogsList.blogs}" bandingInterval="2" rows="15" banding="row" var="blog" rendered="#{!empty bloggerBlogsList.blogs}">
-      <af:column>
-        <f:facet name="header">
-          <af:outputText value=""/>
-        </f:facet>
-        <h:graphicImage url="/images/web.png"></h:graphicImage>
-      </af:column>
       <af:column>
         <f:facet name="header">
           <af:outputText value="Id"/>
@@ -54,7 +51,7 @@
         </h:commandLink>
       </af:column>
     </af:table>
-
+    <br/><br/>
     <h:commandButton action="bloggerblogdetail" value="Add a Blog"></h:commandButton>
 
 

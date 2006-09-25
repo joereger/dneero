@@ -10,6 +10,7 @@
       xmlns:af="http://xmlns.oracle.com/adf/faces">
 
 <ui:composition template="/template/template-facelets.xhtml">
+    <ui:define name="title">Survey</ui:define>
     <ui:define name="body">
     <d:authorization acl="researcher" redirectonfail="true"/>
 
@@ -43,9 +44,10 @@
         <h:panelGroup>
         </h:panelGroup>
         <h:panelGroup>
-            <h:commandButton action="#{researcherSurveyDetail06.saveSurvey}" value="Finish"></h:commandButton>
+            <h:commandButton action="#{researcherSurveyDetail06.saveSurvey}" value="Save and Finish"></h:commandButton>
         </h:panelGroup>
         <h:panelGroup>
+            <h:commandButton action="#{researcherSurveyDetail06.saveSurveyAsDraft}" value="Save as Draft"></h:commandButton>
         </h:panelGroup>
 
     </h:panelGrid>

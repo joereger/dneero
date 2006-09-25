@@ -10,123 +10,149 @@
       xmlns:d="http://dneero.com/taglib">
 
 <ui:composition template="/template/template-facelets.xhtml">
+    <ui:define name="title">Revenue Sharing</ui:define>
     <ui:define name="body">
     <d:authorization acl="blogger" redirectonfail="true"/>
 
+        <table cellpadding="0" cellspacing="0" border="0">
+            <tr><td valign="top">
+            <d:roundedCornerBox uniqueboxname="inviteform" bodycolor="ffffff" widthinpixels="250">
+               <font class="mediumfont">Earn Money on your Friends</font>
+               <br/>
+               <font class="smallfont">We'll pay you a piece of our earnings for all friends that you invite to the system using this form.  Simply fill in your friends' email address, add a short optional message and when they accept the invitation you'll see them listed to the right... and then you'll be making even more money!</font>
+               <br/>
+               <br/>
+                <h:form>
+                    <h:panelGrid columns="3" cellpadding="3" border="0">
 
-        <h:form>
-            <h:panelGrid columns="3" cellpadding="3" border="0">
-
-                <h:panelGroup>
-                    <h:outputText value="Email"></h:outputText>
-                </h:panelGroup>
-                <h:panelGroup>
-                    <h:inputText value="#{bloggerEarningsRevshareInvite.email}" id="email" required="true">
-                        <f:validateLength minimum="3" maximum="255"></f:validateLength>
-                    </h:inputText>
-                </h:panelGroup>
-                <h:panelGroup>
-                    <h:message for="email" styleClass="RED"></h:message>
-                </h:panelGroup>
-
-
-                <h:panelGroup>
-                    <h:outputText value="Message"></h:outputText>
-                </h:panelGroup>
-                <h:panelGroup>
-                    <h:inputTextarea value="#{bloggerEarningsRevshareInvite.message}" id="message" required="false">
-                    </h:inputTextarea>
-                </h:panelGroup>
-                <h:panelGroup>
-                    <h:message for="message" styleClass="RED"></h:message>
-                </h:panelGroup>
+                        <h:panelGroup>
+                            <h:outputText value="Friend's Email"></h:outputText>
+                        </h:panelGroup>
+                        <h:panelGroup>
+                            <h:inputText value="#{bloggerEarningsRevshareInvite.email}" id="email" required="true">
+                                <f:validateLength minimum="3" maximum="255"></f:validateLength>
+                            </h:inputText>
+                        </h:panelGroup>
+                        <h:panelGroup>
+                            <h:message for="email" styleClass="RED"></h:message>
+                        </h:panelGroup>
 
 
-                <h:panelGroup>
-                </h:panelGroup>
-                <h:panelGroup>
-                    <h:commandButton action="#{bloggerEarningsRevshareInvite.invite}" value="Invite"></h:commandButton>
-                </h:panelGroup>
-                <h:panelGroup>
-                </h:panelGroup>
+                        <h:panelGroup>
+                            <h:outputText value="Message"></h:outputText>
+                        </h:panelGroup>
+                        <h:panelGroup>
+                            <h:inputTextarea value="#{bloggerEarningsRevshareInvite.message}" id="message" required="false" cols="15">
+                            </h:inputTextarea>
+                        </h:panelGroup>
+                        <h:panelGroup>
+                            <h:message for="message" styleClass="RED"></h:message>
+                        </h:panelGroup>
 
 
-            </h:panelGrid>
+                        <h:panelGroup>
+                        </h:panelGroup>
+                        <h:panelGroup>
+                            <h:commandButton action="#{bloggerEarningsRevshareInvite.invite}" value="Invite a Friend"></h:commandButton>
+                        </h:panelGroup>
+                        <h:panelGroup>
+                        </h:panelGroup>
+
+                    </h:panelGrid>
+
+                </h:form>
+            </d:roundedCornerBox>
+
+           </td>
+           <td valign="top">
+                <d:roundedCornerBox uniqueboxname="revsharetree" bodycolor="ffffff" widthinpixels="250">
+                    <font class="mediumfont">Friends</font>
+                    <br/>
+                    <font class="smallfont">Listed below are the friends that you've invited (and those that they've invited) to make money using their blog:</font>
+                    <br/>
+                    <h:form>
+                       <t:tree2 id="serverTree" showRootNode="false" value="#{bloggerEarningsRevshareTreeHandler.treeModel}" var="node" varNodeToggler="t" preserveToggle="false" clientSideToggle="false">
+                            <f:facet name="person">
+                                    <h:panelGroup>
+                                            <t:graphicImage value="/images/yellow-folder-open.png" rendered="#{t.nodeExpanded}" border="0" />
+                                            <t:graphicImage value="/images/yellow-folder-closed.png" rendered="#{!t.nodeExpanded}" border="0" />
+                                            <h:outputText value="#{node.description} ($ #{node.amtEarnedFromThisBloggerAllTime})" styleClass="nodeFolder" />
+                                    </h:panelGroup>
+                            </f:facet>
+                       </t:tree2>
+                    </h:form>
+                </d:roundedCornerBox>
+
+                <d:roundedCornerBox uniqueboxname="percentchart" bodycolor="ffffcc" widthinpixels="250">
+                <font class="mediumfont">Earn on Your Friend's Friends</font>
+                    <br/>
+                    <font class="smallfont">You share in the revenue even if your friends do the inviting!  Of course, each level away from you that percentage will be smaller... but those little bits can add up!</font>
+                    <br/>
+                <h:form>
+
+                    <h:panelGrid columns="2" cellpadding="3" border="0">
+
+                        <h:panelGroup><h:outputText value=" "></h:outputText></h:panelGroup>
+                        <h:panelGroup><h:outputText value="You Earn" styleClass="mediumfont"></h:outputText></h:panelGroup>
+
+                        <h:panelGroup><h:outputText value="1st Level" styleClass="mediumfont"></h:outputText></h:panelGroup>
+                        <h:panelGroup><h:outputText value="#{bloggerEarningsRevshare.level1percent} %"></h:outputText></h:panelGroup>
+
+                        <h:panelGroup><h:outputText value="2nd Level" styleClass="mediumfont"></h:outputText></h:panelGroup>
+                        <h:panelGroup><h:outputText value="#{bloggerEarningsRevshare.level2percent} %"></h:outputText></h:panelGroup>
+
+                        <h:panelGroup><h:outputText value="3rd Level" styleClass="mediumfont"></h:outputText></h:panelGroup>
+                        <h:panelGroup><h:outputText value="#{bloggerEarningsRevshare.level3percent} %"></h:outputText></h:panelGroup>
+
+                        <h:panelGroup><h:outputText value="4th Level" styleClass="mediumfont"></h:outputText></h:panelGroup>
+                        <h:panelGroup><h:outputText value="#{bloggerEarningsRevshare.level4percent} %"></h:outputText></h:panelGroup>
+
+                        <h:panelGroup><h:outputText value="5th Level" styleClass="mediumfont"></h:outputText></h:panelGroup>
+                        <h:panelGroup><h:outputText value="#{bloggerEarningsRevshare.level5percent} %"></h:outputText></h:panelGroup>
+
+                     </h:panelGrid>
+
+                 </h:form>
+                 </d:roundedCornerBox>
+
+            </td></tr>
+        </table>
 
 
-        </h:form>
 
-
-
-
-
-
-        <h:form>
-            <!--
-            <af:table value="#{bloggerEarningsRevshare.list}" bandingInterval="2" rows="15" banding="row" var="listitem">
-                  <af:column>
-                    <f:facet name="header">
-                      <af:outputText value="Username"/>
-                    </f:facet>
-                    <af:outputText value="#{listitem.username}"/>
-                  </af:column>
-                  <af:column rendered="false">
-                    <f:facet name="header">
-                      <af:outputText value="Amount"/>
-                    </f:facet>
-                    <af:outputText value="#{listitem.amt}"/>
-                  </af:column>
-
-                </af:table>
-               -->
-
-
-               <t:tree2 id="serverTree" showRootNode="false" value="#{bloggerEarningsRevshareTreeHandler.treeModel}" var="node" varNodeToggler="t" preserveToggle="false" clientSideToggle="false">
-                    <f:facet name="person">
-                            <h:panelGroup>
-                                    <t:graphicImage value="/images/yellow-folder-open.png" rendered="#{t.nodeExpanded}" border="0" />
-                                    <t:graphicImage value="/images/yellow-folder-closed.png" rendered="#{!t.nodeExpanded}" border="0" />
-                                    <h:outputText value="#{node.description} ($ #{node.amtEarnedFromThisBloggerAllTime})" styleClass="nodeFolder" />
-                            </h:panelGroup>
-                    </f:facet>
-               </t:tree2>
-
-        </h:form>
-
-
-
-
-        <h:form>
-
-            <h:panelGrid columns="3" cellpadding="3" border="0">
-
-                <h:panelGroup><h:outputText value=" "></h:outputText></h:panelGroup>
-                <h:panelGroup><h:outputText value="Percent Share"></h:outputText></h:panelGroup>
-                <h:panelGroup><h:outputText value="Sample: Earnings on $500"></h:outputText></h:panelGroup>
-
-                <h:panelGroup><h:outputText value="1st Level"></h:outputText></h:panelGroup>
-                <h:panelGroup><h:outputText value="#{bloggerEarningsRevshare.level1percent} %"></h:outputText></h:panelGroup>
-                <h:panelGroup><h:outputText value="$ #{bloggerEarningsRevshare.level1amt}"></h:outputText></h:panelGroup>
-
-                <h:panelGroup><h:outputText value="2nd Level"></h:outputText></h:panelGroup>
-                <h:panelGroup><h:outputText value="#{bloggerEarningsRevshare.level2percent} %"></h:outputText></h:panelGroup>
-                <h:panelGroup><h:outputText value="$ #{bloggerEarningsRevshare.level2amt}"></h:outputText></h:panelGroup>
-
-                <h:panelGroup><h:outputText value="3rd Level"></h:outputText></h:panelGroup>
-                <h:panelGroup><h:outputText value="#{bloggerEarningsRevshare.level3percent} %"></h:outputText></h:panelGroup>
-                <h:panelGroup><h:outputText value="$ #{bloggerEarningsRevshare.level3amt}"></h:outputText></h:panelGroup>
-
-                <h:panelGroup><h:outputText value="4th Level"></h:outputText></h:panelGroup>
-                <h:panelGroup><h:outputText value="#{bloggerEarningsRevshare.level4percent} %"></h:outputText></h:panelGroup>
-                <h:panelGroup><h:outputText value="$ #{bloggerEarningsRevshare.level4amt}"></h:outputText></h:panelGroup>
-
-                <h:panelGroup><h:outputText value="5th Level"></h:outputText></h:panelGroup>
-                <h:panelGroup><h:outputText value="#{bloggerEarningsRevshare.level5percent} %"></h:outputText></h:panelGroup>
-                <h:panelGroup><h:outputText value="$ #{bloggerEarningsRevshare.level5amt}"></h:outputText></h:panelGroup>
-
-             </h:panelGrid>
-
-         </h:form>
+         <!--<d:roundedCornerBox uniqueboxname="percentchart" bodycolor="ffffff" widthinpixels="250">-->
+        <!--<h:form>-->
+<!---->
+            <!--<h:panelGrid columns="3" cellpadding="3" border="0">-->
+<!---->
+                <!--<h:panelGroup><h:outputText value=" "></h:outputText></h:panelGroup>-->
+                <!--<h:panelGroup><h:outputText value="Percent Share"></h:outputText></h:panelGroup>-->
+                <!--<h:panelGroup><h:outputText value="Sample: Earnings on $500"></h:outputText></h:panelGroup>-->
+<!---->
+                <!--<h:panelGroup><h:outputText value="1st Level"></h:outputText></h:panelGroup>-->
+                <!--<h:panelGroup><h:outputText value="#{bloggerEarningsRevshare.level1percent} %"></h:outputText></h:panelGroup>-->
+                <!--<h:panelGroup><h:outputText value="$ #{bloggerEarningsRevshare.level1amt}"></h:outputText></h:panelGroup>-->
+<!---->
+                <!--<h:panelGroup><h:outputText value="2nd Level"></h:outputText></h:panelGroup>-->
+                <!--<h:panelGroup><h:outputText value="#{bloggerEarningsRevshare.level2percent} %"></h:outputText></h:panelGroup>-->
+                <!--<h:panelGroup><h:outputText value="$ #{bloggerEarningsRevshare.level2amt}"></h:outputText></h:panelGroup>-->
+<!---->
+                <!--<h:panelGroup><h:outputText value="3rd Level"></h:outputText></h:panelGroup>-->
+                <!--<h:panelGroup><h:outputText value="#{bloggerEarningsRevshare.level3percent} %"></h:outputText></h:panelGroup>-->
+                <!--<h:panelGroup><h:outputText value="$ #{bloggerEarningsRevshare.level3amt}"></h:outputText></h:panelGroup>-->
+<!---->
+                <!--<h:panelGroup><h:outputText value="4th Level"></h:outputText></h:panelGroup>-->
+                <!--<h:panelGroup><h:outputText value="#{bloggerEarningsRevshare.level4percent} %"></h:outputText></h:panelGroup>-->
+                <!--<h:panelGroup><h:outputText value="$ #{bloggerEarningsRevshare.level4amt}"></h:outputText></h:panelGroup>-->
+<!---->
+                <!--<h:panelGroup><h:outputText value="5th Level"></h:outputText></h:panelGroup>-->
+                <!--<h:panelGroup><h:outputText value="#{bloggerEarningsRevshare.level5percent} %"></h:outputText></h:panelGroup>-->
+                <!--<h:panelGroup><h:outputText value="$ #{bloggerEarningsRevshare.level5amt}"></h:outputText></h:panelGroup>-->
+<!---->
+             <!--</h:panelGrid>-->
+<!---->
+         <!--</h:form>-->
+         <!--</d:roundedCornerBox>-->
 
 
     </ui:define>

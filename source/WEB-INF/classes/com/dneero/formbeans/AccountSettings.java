@@ -19,6 +19,7 @@ public class AccountSettings {
     private String email;
     private String firstname;
     private String lastname;
+    private String paypaladdress;
 
     //Other props
     private int userid;
@@ -32,6 +33,7 @@ public class AccountSettings {
             email = user.getEmail();
             firstname = user.getFirstname();
             lastname = user.getLastname();
+            paypaladdress = user.getPaypaladdress();
         }
     }
 
@@ -47,6 +49,7 @@ public class AccountSettings {
             user.setEmail(email);
             user.setFirstname(firstname);
             user.setLastname(lastname);
+            user.setPaypaladdress(paypaladdress);
             try{
                 user.save();
                 userid = user.getUserid();
@@ -98,5 +101,12 @@ public class AccountSettings {
         this.userid = userid;
     }
 
+    public String getPaypaladdress() {
+        return paypaladdress;
+    }
+
+    public void setPaypaladdress(String paypaladdress) {
+        this.paypaladdress = paypaladdress;
+    }
 
 }

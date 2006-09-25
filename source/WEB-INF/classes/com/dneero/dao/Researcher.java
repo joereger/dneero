@@ -25,7 +25,6 @@ public class Researcher extends BasePersistentClass implements java.io.Serializa
      private int researcherid;
      private int userid;
 
-     private Researcherbilling researcherbilling;
      private Set<Invoice> invoices = new HashSet<Invoice>();
 
     //Validator
@@ -99,13 +98,6 @@ public class Researcher extends BasePersistentClass implements java.io.Serializa
         this.userid = userid;
     }
 
-    public Researcherbilling getResearcherbilling() {
-        return researcherbilling;
-    }
-
-    public void setResearcherbilling(Researcherbilling researcherbilling) {
-        this.researcherbilling = researcherbilling;
-    }
 
     public Set<Invoice> getInvoices() {
         return invoices;

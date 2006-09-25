@@ -25,9 +25,6 @@
             <one-to-many class="com.dneero.dao.Payblogger" not-found="ignore"></one-to-many>
         </set>
 
-        <one-to-one name="bloggerbilling" class="com.dneero.dao.Bloggerbilling" property-ref="bloggerid" cascade="all"/>
-
-
         <property name="userid" type="int">
             <column name="userid" not-null="true" />
         </property>

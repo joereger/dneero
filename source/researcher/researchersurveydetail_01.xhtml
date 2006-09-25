@@ -10,6 +10,7 @@
       xmlns:af="http://xmlns.oracle.com/adf/faces">
 
 <ui:composition template="/template/template-facelets.xhtml">
+    <ui:define name="title">Survey</ui:define>
     <ui:define name="body">
     <d:authorization acl="researcher" redirectonfail="true"/>
 
@@ -58,7 +59,7 @@
             <h:outputText value="Description"></h:outputText>
         </h:panelGroup>
         <h:panelGroup>
-            <h:inputTextarea value="#{researcherSurveyDetail01.description}" id="description" required="true" rendered="#{researcherSurveyDetail01.status le 2}">
+            <h:inputTextarea value="#{researcherSurveyDetail01.description}" id="description" cols="45" required="true" rendered="#{researcherSurveyDetail01.status le 2}">
                 <f:validateLength minimum="3" maximum="50000"></f:validateLength>
             </h:inputTextarea>
             <h:outputText value="#{researcherSurveyDetail01.description}" rendered="#{researcherSurveyDetail01.status ge 3}"></h:outputText>

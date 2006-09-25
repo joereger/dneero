@@ -30,6 +30,7 @@ public class User extends BasePersistentClass implements java.io.Serializable, R
      private String password;
      private String firstname;
      private String lastname;
+     private String paypaladdress;
      private boolean isactivatedbyemail;
      private String emailactivationkey;
      private Date emailactivationlastsent;
@@ -203,5 +204,13 @@ public class User extends BasePersistentClass implements java.io.Serializable, R
 
     public void setCreatedate(Date createdate) {
         this.createdate = createdate;
+    }
+
+    public String getPaypaladdress() {
+        return paypaladdress;
+    }
+
+    public void setPaypaladdress(String paypaladdress) {
+        this.paypaladdress = paypaladdress;
     }
 }

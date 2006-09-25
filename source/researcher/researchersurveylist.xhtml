@@ -10,18 +10,13 @@
       xmlns:d="http://dneero.com/taglib">
 
 <ui:composition template="/template/template-facelets.xhtml">
+    <ui:define name="title">Your Surveys</ui:define>
     <ui:define name="body">
     <d:authorization acl="researcher" redirectonfail="true"/>
 
     <h:form>
 
-        <af:table value="#{researcherSurveyList.surveys}" bandingInterval="2" rows="50" banding="row" var="survey" rendered="#{!empty researcherSurveyList.surveys}">
-          <af:column>
-            <f:facet name="header">
-              <af:outputText value=""/>
-            </f:facet>
-            <h:graphicImage url="/images/misc-green.png"></h:graphicImage>
-          </af:column>
+        <af:table value="#{researcherSurveyList.surveys}" rows="50" bandingInterval="2" banding="row" var="survey" rendered="#{!empty researcherSurveyList.surveys}">
           <af:column rendered="true">
             <f:facet name="header">
               <af:outputText value="Id"/>
@@ -45,11 +40,11 @@
           </af:column>
           <af:column>
             <f:facet name="header">
-              <af:outputText value=" "/>
+              <af:outputText value="Actions"/>
             </f:facet>
             <h:commandLink action="#{researcherSurveyDetail01.beginView}">
                 <h:outputText value="Edit" escape="false" rendered="#{survey.status le 2}"/>
-                <h:outputText value="Review" escape="false" rendered="#{survey.status ge 3}"/>
+                <h:outputText value="Edit" escape="false" rendered="#{survey.status ge 3}"/>
                 <f:param name="surveyid" value="#{survey.surveyid}" />
             </h:commandLink>
           </af:column>
@@ -63,8 +58,8 @@
             </h:commandLink>
           </af:column>
         </af:table>
-
-        <h:commandButton action="#{researcherSurveyDetail01.beginViewNewSurvey}" value="New Survey"></h:commandButton>
+        <br/><br/>
+        <h:commandButton action="#{researcherSurveyDetail01.beginViewNewSurvey}" value="Create a New Survey"></h:commandButton>
 
     </h:form>
 

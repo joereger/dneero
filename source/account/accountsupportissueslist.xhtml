@@ -10,13 +10,13 @@
       xmlns:d="http://dneero.com/taglib">
 
 <ui:composition template="/template/template-facelets.xhtml">
+    <ui:define name="title">Support Issues</ui:define>
     <ui:define name="body">
     <d:authorization acl="account" redirectonfail="true"/>
 
 
     <h:form>
-
-            <af:table value="#{accountSupportIssuesList.supportissues}" bandingInterval="2" rows="15" banding="row" var="supportissue">
+            <af:table value="#{accountSupportIssuesList.supportissues}" bandingInterval="2" rows="15" banding="row" var="supportissue" rendered="#{!empty accountSupportIssuesList.supportissues}">
               <af:column>
                 <f:facet name="header">
                   <af:outputText value="Id"/>
@@ -49,11 +49,14 @@
 
 
             </af:table>
-
         </h:form>
         <h:form>
 
-            <d:roundedCornerBox uniqueboxname="newsupportissue" bodycolor="00ff00" widthinpixels="500">
+            <d:roundedCornerBox uniqueboxname="newsupportissue" bodycolor="ffffff" widthinpixels="500">
+            <font class="mediumfont">Create a New Support Issue</font>
+            <br/>
+            <font class="smallfont">Use this form to ask us anything at all about your account.  Report bugs.  Tell us where you're confused.  Tell us what could be better.  All communications will be archived and tracked for you here in the support section.</font>
+            <br/>
             <h:messages />
             <h:panelGrid columns="3" cellpadding="3" border="0">
 
@@ -71,10 +74,10 @@
 
 
                 <h:panelGroup>
-                    <h:outputText value="Issue"></h:outputText>
+                    <h:outputText value="Issue Description"></h:outputText>
                 </h:panelGroup>
                 <h:panelGroup>
-                    <h:inputTextarea value="#{accountNewSupportIssue.notes}" id="notes" required="true">
+                    <h:inputTextarea value="#{accountNewSupportIssue.notes}" id="notes" required="true" cols="45" rows="10">
                     <f:validateLength minimum="3" maximum="50000"></f:validateLength>
                 </h:inputTextarea>
                 </h:panelGroup>

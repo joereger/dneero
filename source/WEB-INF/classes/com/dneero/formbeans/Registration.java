@@ -32,6 +32,7 @@ public class Registration {
     private String firstname;
     private String lastname;
     private String j_captcha_response;
+    private String paypaladdress;
 
     //private String temp;
 
@@ -86,6 +87,7 @@ public class Registration {
         user.setEmailactivationkey(RandomString.randomAlphanumeric(5));
         user.setEmailactivationlastsent(new Date());
         user.setCreatedate(new Date());
+        user.setPaypaladdress(paypaladdress);
 
         try{
             user.save();
@@ -179,5 +181,13 @@ public class Registration {
 
     public void setJ_captcha_response(String j_captcha_response) {
         this.j_captcha_response = j_captcha_response;
+    }
+
+    public String getPaypaladdress() {
+        return paypaladdress;
+    }
+
+    public void setPaypaladdress(String paypaladdress) {
+        this.paypaladdress = paypaladdress;
     }
 }

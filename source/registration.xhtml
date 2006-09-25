@@ -8,6 +8,7 @@
       xmlns:t="http://myfaces.apache.org/tomahawk">
 
 <ui:composition template="/template/template-facelets.xhtml">
+    <ui:define name="title">Sign Up</ui:define>
     <ui:define name="body">
 
         <h:form id="registrationForm">
@@ -76,6 +77,19 @@
                 </h:panelGroup>
                 <h:panelGroup>
                     <h:message for="passwordverify" styleClass="RED"></h:message>
+                </h:panelGroup>
+
+                <h:panelGroup>
+                    <h:outputText value="Paypal Address"></h:outputText>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:inputText value="#{registration.paypaladdress}" id="paypaladdress" required="false">
+                        <f:validateLength minimum="3" maximum="255"></f:validateLength>
+                        <t:validateEmail></t:validateEmail>
+                    </h:inputText>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:message for="paypaladdress" styleClass="RED"></h:message>
                 </h:panelGroup>
 
 

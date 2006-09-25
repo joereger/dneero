@@ -10,6 +10,7 @@
       xmlns:c="http://java.sun.com/jstl/core">
 
 <ui:composition template="/template/template-facelets.xhtml">
+    <ui:define name="title">Support: Issue Detail</ui:define>
     <ui:define name="body">
     <d:authorization acl="account" redirectonfail="true"/>
 
@@ -30,7 +31,7 @@
                     <f:verbatim><br/></f:verbatim>
                     <h:outputText value="From: dNeero Admin" rendered="#{supportissuecomm.isfromdneeroadmin}"></h:outputText>
                     <h:outputText value="From: You" rendered="#{!supportissuecomm.isfromdneeroadmin}"></h:outputText>
-                    <f:verbatim><br/></f:verbatim>
+                    <f:verbatim><br/><br/></f:verbatim>
                     <h:outputText value="#{supportissuecomm.notes}"></h:outputText>
                 </d:roundedCornerBox>
             </c:forEach>
@@ -56,7 +57,7 @@
                 <h:panelGroup>
                 </h:panelGroup>
                 <h:panelGroup>
-                    <h:commandButton action="#{accountSupportIssueDetail.newNote}" value="Add a Comment"></h:commandButton>
+                    <h:commandButton action="#{accountSupportIssueDetail.newNote}" value="Add a Comment to this Issue"></h:commandButton>
                 </h:panelGroup>
                 <h:panelGroup>
                 </h:panelGroup>

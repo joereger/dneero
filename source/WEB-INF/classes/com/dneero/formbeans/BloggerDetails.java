@@ -9,13 +9,9 @@ import com.dneero.util.Jsf;
 import com.dneero.util.GeneralException;
 import com.dneero.dao.Blogger;
 import com.dneero.dao.Userrole;
-import com.dneero.dao.Bloggerbilling;
-import com.dneero.dao.Researcherbilling;
 import com.dneero.session.UserSession;
 import com.dneero.session.Roles;
 
-import javax.faces.context.FacesContext;
-import javax.faces.application.FacesMessage;
 
 /**
  * User: Joe Reger Jr
@@ -38,16 +34,7 @@ public class BloggerDetails {
     private String blogfocus;
     private String politics;
 
-    private String billingname;
-    private String billingaddress1;
-    private String billingaddress2;
-    private String billingcity;
-    private String billingstate;
-    private String billingzip;
-    private int billingpaymentmethod;
-    private String ccnum;
-    private int ccexpmonth;
-    private int ccexpyear;
+
 
     //Other props
     private int userid;
@@ -73,19 +60,7 @@ public class BloggerDetails {
             city = String.valueOf(blogger.getCity());
             profession = String.valueOf(blogger.getProfession());
             politics = String.valueOf(blogger.getPolitics());
-            if (userSession.getUser().getBlogger().getBloggerbilling()!=null){
-                Bloggerbilling bloggerbilling = userSession.getUser().getBlogger().getBloggerbilling();
-                billingname = bloggerbilling.getBillingname();
-                billingaddress1 = bloggerbilling.getBillingaddress1();
-                billingaddress2 = bloggerbilling.getBillingaddress2();
-                billingcity = bloggerbilling.getBillingcity();
-                billingstate = bloggerbilling.getBillingstate();
-                billingzip = bloggerbilling.getBillingzip();
-                billingpaymentmethod = bloggerbilling.getBillingpaymentmethod();
-                ccnum = bloggerbilling.getCcnum();
-                ccexpmonth = bloggerbilling.getCcexpmonth();
-                ccexpyear = bloggerbilling.getCcexpyear();
-            }
+
         }
     }
 
@@ -158,33 +133,6 @@ public class BloggerDetails {
                 }
             }
 
-            Bloggerbilling bloggerbilling = userSession.getUser().getBlogger().getBloggerbilling();
-            if (bloggerbilling ==null){
-                bloggerbilling = new Bloggerbilling();
-            }
-
-            bloggerbilling.setBloggerid(userSession.getUser().getBlogger().getBloggerid());
-            bloggerbilling.setBillingname(billingname);
-            bloggerbilling.setBillingaddress1(billingaddress1);
-            bloggerbilling.setBillingaddress2(billingaddress2);
-            bloggerbilling.setBillingcity(billingcity);
-            bloggerbilling.setBillingstate(billingstate);
-            bloggerbilling.setBillingzip(billingzip);
-            bloggerbilling.setBillingpaymentmethod(billingpaymentmethod);
-            bloggerbilling.setCcnum(ccnum);
-            bloggerbilling.setCcexpmonth(ccexpmonth);
-            bloggerbilling.setCcexpyear(ccexpyear);
-
-            userSession.getUser().getBlogger().setBloggerbilling(bloggerbilling);
-
-            try{
-                bloggerbilling.save();
-            } catch (GeneralException gex){
-                logger.debug("Save blogger billing failed: " + gex.getErrorsAsSingleString());
-                String message = "Blogger Details save failed: " + gex.getErrorsAsSingleString();
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage( FacesMessage.SEVERITY_INFO, message, message));
-                return null;
-            }
 
 
             userSession.getUser().refresh();
@@ -301,85 +249,7 @@ public class BloggerDetails {
         this.politics = politics;
     }
 
-    public String getBillingname() {
-        return billingname;
-    }
 
-    public void setBillingname(String billingname) {
-        this.billingname = billingname;
-    }
-
-    public String getBillingaddress1() {
-        return billingaddress1;
-    }
-
-    public void setBillingaddress1(String billingaddress1) {
-        this.billingaddress1 = billingaddress1;
-    }
-
-    public String getBillingaddress2() {
-        return billingaddress2;
-    }
-
-    public void setBillingaddress2(String billingaddress2) {
-        this.billingaddress2 = billingaddress2;
-    }
-
-    public String getBillingcity() {
-        return billingcity;
-    }
-
-    public void setBillingcity(String billingcity) {
-        this.billingcity = billingcity;
-    }
-
-    public String getBillingstate() {
-        return billingstate;
-    }
-
-    public void setBillingstate(String billingstate) {
-        this.billingstate = billingstate;
-    }
-
-    public String getBillingzip() {
-        return billingzip;
-    }
-
-    public void setBillingzip(String billingzip) {
-        this.billingzip = billingzip;
-    }
-
-    public int getBillingpaymentmethod() {
-        return billingpaymentmethod;
-    }
-
-    public void setBillingpaymentmethod(int billingpaymentmethod) {
-        this.billingpaymentmethod = billingpaymentmethod;
-    }
-
-    public String getCcnum() {
-        return ccnum;
-    }
-
-    public void setCcnum(String ccnum) {
-        this.ccnum = ccnum;
-    }
-
-    public int getCcexpmonth() {
-        return ccexpmonth;
-    }
-
-    public void setCcexpmonth(int ccexpmonth) {
-        this.ccexpmonth = ccexpmonth;
-    }
-
-    public int getCcexpyear() {
-        return ccexpyear;
-    }
-
-    public void setCcexpyear(int ccexpyear) {
-        this.ccexpyear = ccexpyear;
-    }
 
     public int getNotifyofnewsurveysbyemail() {
         return notifyofnewsurveysbyemail;

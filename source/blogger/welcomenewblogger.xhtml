@@ -9,10 +9,11 @@
       xmlns:d="http://dneero.com/taglib">
 
 <ui:composition template="/template/template-facelets.xhtml">
+    <ui:define name="title">Welcome New Blogger!</ui:define>
     <ui:define name="body">
         <d:authorization acl="blogger" redirectonfail="true"/>
 
-        Welcome, new Blogger!  Let's get started!
+        Let's get started!
 
     </ui:define>
 </ui:composition>

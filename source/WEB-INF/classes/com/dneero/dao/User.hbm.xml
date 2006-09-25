@@ -38,6 +38,9 @@
         <property name="lastname" type="string">
             <column name="lastname" not-null="true" />
         </property>
+        <property name="paypaladdress" type="string">
+            <column name="paypaladdress" not-null="true" />
+        </property>
         <property name="isactivatedbyemail" type="boolean">
             <column name="isactivatedbyemail" />
         </property>

@@ -4,12 +4,12 @@ import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.apache.log4j.Logger;
-import org.hibernate.criterion.Restrictions;
 import com.dneero.dao.*;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.verisign.Verisign;
 import com.dneero.verisign.VerisignException;
 import com.dneero.util.GeneralException;
+import com.dneero.paypal.Pay;
 
 import java.util.List;
 import java.util.Iterator;
@@ -21,12 +21,12 @@ import java.util.ArrayList;
  * Date: Jul 19, 2006
  * Time: 2:22:28 PM
  */
-public class PaybloggerViaCreditCard implements Job {
+public class PaybloggerSendMoney implements Job {
 
     Logger logger = Logger.getLogger(this.getClass().getName());
 
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
-        logger.debug("execute() PaybloggerViaCreditCard called");
+        logger.debug("execute() PaybloggerSendMoney called");
 
         //Get a list of bloggers who need to be paid
 //        List<Payblogger> allpaybloggers = HibernateUtil.getSession().createCriteria(Payblogger.class)
@@ -44,7 +44,6 @@ public class PaybloggerViaCreditCard implements Job {
         for (Iterator it = bloggerids.iterator(); it.hasNext(); ) {
             int bloggerid = (Integer)it.next();
             Blogger blogger = Blogger.get(bloggerid);
-            Bloggerbilling bloggerbilling = blogger.getBloggerbilling();
             double amtduetotal = 0;
 
             //List this blogger's payblogger records that are unpaid
@@ -69,26 +68,26 @@ public class PaybloggerViaCreditCard implements Job {
                 //Calculate amount due now for this one payment element
                 double amtdue = payblogger.getAmt() - paidtodate;
                 amtduetotal = amtduetotal + amtdue;
-
-                if (bloggerbilling!=null){
+                //@todo if we have a paypal address
+                if (User.get(blogger.getUserid()).getFirstname().equals("SHOULDBELOOKINGFORPAYPALINFO")){
 
                     //Charge the card
                     boolean successful = false;
                     String notes = "";
 
                     try{
-                        Verisign vs = new Verisign();
-                        notes = vs.chargeCard(amtduetotal, bloggerbilling.getCcnum(), bloggerbilling.getCcexpmonth(), bloggerbilling.getCcexpyear(), bloggerbilling.getBillingaddress1(), bloggerbilling.getBillingzip());
+                        Pay.pay(User.get(Blogger.get(payblogger.getBloggerid()).getUserid()).getPaypaladdress(), amtduetotal);
                         //@todo i don't believe successful is always set correctly.  a bad ccnum will not throw VerisignError, right?
                         successful = true;
-                    } catch (VerisignException vex){
-                        logger.debug(vex.errorMessage);
+                    } catch (Exception vex){
+                        logger.error(vex);
                     }
 
                     //Record transaction
                     Paybloggertransaction pbt = new Paybloggertransaction();
                     pbt.setPaybloggerid(payblogger.getPaybloggerid());
                     pbt.setAmt(amtdue);
+                    //@todo with paypal need to call later on for success
                     pbt.setIssuccessful(successful);
                     pbt.setTransactiondate(new Date());
                     pbt.setNotes(notes);

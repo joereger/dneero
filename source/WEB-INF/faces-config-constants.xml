@@ -74,11 +74,11 @@
         <map-entries>
             <map-entry>
                 <key>Male</key>
-                <value>0</value>
+                <value>Male</value>
             </map-entry>
             <map-entry>
                 <key>Female</key>
-                <value>1</value>
+                <value>Female</value>
             </map-entry>
         </map-entries>
     </managed-bean>

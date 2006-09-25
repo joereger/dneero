@@ -125,4 +125,6 @@ public class Payblogger extends BasePersistentClass implements java.io.Serializa
     public void setDate(Date date) {
         this.date = date;
     }
+
+
 }

@@ -9,7 +9,6 @@
             <column name="researcherid" />
             <generator class="native" />
         </id>
-        <one-to-one name="researcherbilling" class="com.dneero.dao.Researcherbilling" property-ref="researcherid" cascade="all"/>
         <set name="invoices" inverse="true" order-by="invoiceid asc" cascade="all-delete-orphan">
             <cache usage="nonstrict-read-write"/>
             <key column="researcherid"></key>

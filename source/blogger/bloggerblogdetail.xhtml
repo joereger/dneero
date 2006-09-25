@@ -9,6 +9,7 @@
       xmlns:d="http://dneero.com/taglib">
 
 <ui:composition template="/template/template-facelets.xhtml">
+    <ui:define name="title">Blog</ui:define>
     <ui:define name="body">
     <d:authorization acl="blogger" redirectonfail="true"/>
 
@@ -34,6 +35,8 @@
             <h:inputText value="#{bloggerBlogDetail.url}" id="url" required="true">
                 <f:validateLength minimum="3" maximum="255"></f:validateLength>
             </h:inputText>
+            <br/>
+            <font class="tinyfont">example: http://www.myblog.com</font>
         </h:panelGroup>
         <h:panelGroup>
             <h:message for="url" styleClass="RED"></h:message>
@@ -67,7 +70,8 @@
         <h:panelGroup>
         </h:panelGroup>
         <h:panelGroup>
-            <h:commandButton action="#{bloggerBlogDetail.saveAction}" value="Save"></h:commandButton>
+            <br/><br/>
+            <h:commandButton action="#{bloggerBlogDetail.saveAction}" value="Save Blog Details"></h:commandButton>
         </h:panelGroup>
         <h:panelGroup>
         </h:panelGroup>

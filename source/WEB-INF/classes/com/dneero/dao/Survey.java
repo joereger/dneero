@@ -31,11 +31,11 @@ public class Survey extends BasePersistentClass implements java.io.Serializable,
      private String title;
      private String description;
      private String criteriaxml;
-     private double willingtopayperrespondent;
-     private int numberofrespondentsrequested;
-     private double willingtopaypercpm;
-     private int maxdisplaysperblog;
-     private int maxdisplaystotal;
+     private double willingtopayperrespondent = 5;
+     private int numberofrespondentsrequested  = 10000;
+     private double willingtopaypercpm = 25;
+     private int maxdisplaysperblog = 5000;
+     private int maxdisplaystotal = 1000000;
      private Date startdate;
      private Date enddate;
      private String template;

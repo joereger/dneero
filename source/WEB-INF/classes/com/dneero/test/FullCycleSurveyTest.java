@@ -9,12 +9,10 @@ import com.dneero.formbeans.*;
 import com.dneero.util.*;
 import com.dneero.display.components.def.Component;
 import com.dneero.display.components.def.ComponentTypes;
-import com.dneero.display.customtags.SurveyTaker;
 import com.dneero.survey.servlet.ImpressionActivityObject;
 import com.dneero.survey.servlet.ImpressionActivityObjectStorage;
 import com.dneero.scheduledjobs.*;
 
-import javax.faces.context.FacesContext;
 import java.util.*;
 
 /**
@@ -231,7 +229,7 @@ public class FullCycleSurveyTest {
 
 
     private void payInvoice() throws Exception {
-        InvoiceCollectViaCreditCard icvcc = new InvoiceCollectViaCreditCard();
+        InvoiceCollectPayment icvcc = new InvoiceCollectPayment();
         icvcc.execute(null);
     }
 
@@ -255,7 +253,7 @@ public class FullCycleSurveyTest {
         CreatePaybloggers cpb = new CreatePaybloggers();
         cpb.execute(null);
         //Pay the bloggers
-        PaybloggerViaCreditCard pvc = new PaybloggerViaCreditCard();
+        PaybloggerSendMoney pvc = new PaybloggerSendMoney();
         pvc.execute(null);
     }
 

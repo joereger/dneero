@@ -10,45 +10,34 @@
       xmlns:c="http://java.sun.com/jstl/core">
 
 <ui:composition template="/template/template-facelets.xhtml">
+    <ui:define name="title">Invoices</ui:define>
     <ui:define name="body">
-    <d:authorization acl="researcher" redirectonfail="true"/>
+        <d:authorization acl="researcher" redirectonfail="true"/>
+
+        <h:form>
+
+            <c:forEach var="listitem" items="#{ResearcherInvoices.listitems}">
+                <d:roundedCornerBox uniqueboxname="researcherinvoice-#{listitem.invoice.invoiceid}" bodycolor="ffffff" widthinpixels="500">
+                    <h:outputText value="Invoice ID: #{listitem.invoice.invoiceid}" styleClass="mediumfont"></h:outputText>
+                    <f:verbatim><br/></f:verbatim>
+                    <h:outputText value="Start Date: #{listitem.invoice.startdate}"></h:outputText>
+                    <f:verbatim><br/></f:verbatim>
+                    <h:outputText value="End Date: #{listitem.invoice.enddate}"></h:outputText>
+                    <f:verbatim><br/></f:verbatim>
+                    <h:outputText value="Amount USD: #{listitem.invoice.amttotal}"></h:outputText>
+                    <f:verbatim><br/></f:verbatim>
+                    <h:outputText value="Status: "></h:outputText>
+                    <h:outputText value="Not Paid" rendered="#{listitem.invoice.status==1}"></h:outputText>
+                    <h:outputText value="Partially Paid" rendered="#{listitem.invoice.status==2}"></h:outputText>
+                    <h:outputText value="Past Due" rendered="#{listitem.invoice.status==3}"></h:outputText>
+                    <h:outputText value="Paid" rendered="#{listitem.invoice.status==4}"></h:outputText>
+                </d:roundedCornerBox>
+            </c:forEach>
 
 
-    <h:form>
+        </h:form>
 
-        <c:forEach var="listitem" items="#{ResearcherInvoices.listitems}">
-            <d:roundedCornerBox uniqueboxname="researcherinvoice-#{listitem.invoice.invoiceid}" bodycolor="ffffff" widthinpixels="500">
-                <h:outputText value="#{listitem.invoice.startdate} - #{listitem.invoice.enddate}"></h:outputText>
-                <f:verbatim><br/></f:verbatim>
-                <h:outputText value="Amount: #{itemlist.invoice.amttotal}"></h:outputText>
-                <f:verbatim><br/></f:verbatim>
-                <h:commandLink action="#{ResearcherPayment.beginView}">
-                    <h:outputText value="Make Payment" escape="false" />
-                    <f:param name="invoiceid" value="#{listitem.invoice.invoiceid}" />
-                </h:commandLink>
-
-
-                <c:forEach var="trans" items="#{listitem.invoicetransactions}">
-                    <d:roundedCornerBox uniqueboxname="researcherinvoicetrans-#{trans.invoicetransactionid}" bodycolor="e6e6e6" widthinpixels="450">
-                        <h:outputText value="#{trans.transactiondate}"></h:outputText>
-                        <f:verbatim><br/></f:verbatim>
-                        <h:outputText value="Amount: #{trans.amt}"></h:outputText>
-                        <f:verbatim><br/></f:verbatim>
-                        <h:outputText value="Success?: #{trans.issuccessful}"></h:outputText>
-                        <f:verbatim><br/></f:verbatim>
-                        <h:outputText value="Notes: #{trans.notes}"></h:outputText>
-                    </d:roundedCornerBox>
-                </c:forEach>
-
-
-
-            </d:roundedCornerBox>
-        </c:forEach>
-
-
-    </h:form>
-
-</ui:define>
+    </ui:define>
 
 
 </ui:composition>

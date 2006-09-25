@@ -38,7 +38,7 @@ public class SysadminManuallyRunScheduledTask {
     }
 
     public String runInvoiceCollectViaCreditCard(){
-        try{InvoiceCollectViaCreditCard task = new InvoiceCollectViaCreditCard();
+        try{InvoiceCollectPayment task = new InvoiceCollectPayment();
             task.execute(null);} catch (Exception ex){logger.error(ex);}
         return "sysadminmanuallyrunscheduledtask";
     }
@@ -62,7 +62,7 @@ public class SysadminManuallyRunScheduledTask {
     }
 
     public String runPaybloggerViaCreditCard(){
-        try{PaybloggerViaCreditCard task = new PaybloggerViaCreditCard();
+        try{PaybloggerSendMoney task = new PaybloggerSendMoney();
             task.execute(null);} catch (Exception ex){logger.error(ex);}
         return "sysadminmanuallyrunscheduledtask";
     }

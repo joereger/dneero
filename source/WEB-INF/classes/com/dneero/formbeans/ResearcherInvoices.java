@@ -27,7 +27,6 @@ public class ResearcherInvoices {
                 Invoice invoice = iterator.next();
                 ResearcherInvoicesListItem researcherInvoicesListItem = new ResearcherInvoicesListItem();
                 researcherInvoicesListItem.setInvoice(invoice);
-                researcherInvoicesListItem.setInvoicetransactions((ArrayList)com.dneero.util.Util.setToArrayList(invoice.getInvoicetransactions()));
                 listitems.add(researcherInvoicesListItem);
             }
         }

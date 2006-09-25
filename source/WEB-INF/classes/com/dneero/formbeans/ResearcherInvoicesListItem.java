@@ -13,8 +13,7 @@ import java.util.ArrayList;
 public class ResearcherInvoicesListItem {
 
     private Invoice invoice;
-    private ArrayList<Invoicetransaction> invoicetransactions;
-
+  
     public Invoice getInvoice() {
         return invoice;
     }
@@ -23,13 +22,7 @@ public class ResearcherInvoicesListItem {
         this.invoice = invoice;
     }
 
-    public ArrayList<Invoicetransaction> getInvoicetransactions() {
-        return invoicetransactions;
-    }
 
-    public void setInvoicetransactions(ArrayList<Invoicetransaction> invoicetransactions) {
-        this.invoicetransactions = invoicetransactions;
-    }
 
 
 }

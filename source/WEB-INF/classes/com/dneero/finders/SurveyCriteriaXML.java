@@ -11,10 +11,10 @@ import org.apache.log4j.Logger;
 
 import java.io.OutputStream;
 import java.io.ByteArrayOutputStream;
-import java.util.List;
-import java.util.Iterator;
+import java.util.*;
 
 import com.dneero.util.Num;
+import com.dneero.util.Jsf;
 
 /**
  * User: Joe Reger Jr
@@ -46,6 +46,8 @@ public class SurveyCriteriaXML {
     Logger logger = Logger.getLogger(this.getClass().getName());
 
     public SurveyCriteriaXML(String criteriaxml){
+        preSelectAll();
+
         if (criteriaxml!=null && !criteriaxml.equals("")){
             SAXBuilder builder = new SAXBuilder();
             try{
@@ -67,16 +69,71 @@ public class SurveyCriteriaXML {
         if (Num.isinteger(loadValueOfStringFromXML("blogquality90days"))){
             blogquality90days = Integer.parseInt(loadValueOfStringFromXML("blogquality90days"));
         }
-        gender = loadValueOfArrayFromXML("gender");
-        ethnicity = loadValueOfArrayFromXML("ethnicity");
-        maritalstatus = loadValueOfArrayFromXML("maritalstatus");
-        income = loadValueOfArrayFromXML("income");
-        educationlevel = loadValueOfArrayFromXML("educationlevel");
-        state = loadValueOfArrayFromXML("state");
-        city = loadValueOfArrayFromXML("city");
-        profession = loadValueOfArrayFromXML("profession");
-        blogfocus = loadValueOfArrayFromXML("blogfocus");
-        politics = loadValueOfArrayFromXML("politics");
+        String[] tmpArray;
+        tmpArray = loadValueOfArrayFromXML("gender");
+        if (tmpArray!=null){ gender = tmpArray; }
+        tmpArray = loadValueOfArrayFromXML("ethnicity");
+        if (tmpArray!=null){ ethnicity = tmpArray; }
+        tmpArray = loadValueOfArrayFromXML("maritalstatus");
+        if (tmpArray!=null){ maritalstatus = tmpArray; }
+        tmpArray = loadValueOfArrayFromXML("income");
+        if (tmpArray!=null){ income = tmpArray; }
+        tmpArray = loadValueOfArrayFromXML("educationlevel");
+        if (tmpArray!=null){ educationlevel = tmpArray; }
+        tmpArray = loadValueOfArrayFromXML("state");
+        if (tmpArray!=null){ state = tmpArray; }
+        tmpArray = loadValueOfArrayFromXML("city");
+        if (tmpArray!=null){ city = tmpArray; }
+        tmpArray = loadValueOfArrayFromXML("profession");
+        if (tmpArray!=null){ profession = tmpArray; }
+        tmpArray = loadValueOfArrayFromXML("blogfocus");
+        if (tmpArray!=null){ blogfocus = tmpArray; }
+        tmpArray = loadValueOfArrayFromXML("politics");
+        if (tmpArray!=null){ politics = tmpArray; }
+        
+    }
+
+    private void preSelectAll(){
+        gender = convertToArray((TreeMap) Jsf.getManagedBean("genders"));
+        ethnicity = convertToArray((LinkedHashMap)Jsf.getManagedBean("ethnicities"));
+        maritalstatus = convertToArray((LinkedHashMap)Jsf.getManagedBean("maritalstatuses"));
+        income = convertToArray((LinkedHashMap)Jsf.getManagedBean("incomes"));
+        educationlevel = convertToArray((LinkedHashMap)Jsf.getManagedBean("educationlevels"));
+        state = convertToArray((LinkedHashMap)Jsf.getManagedBean("states"));
+        city = convertToArray((LinkedHashMap)Jsf.getManagedBean("cities"));
+        profession = convertToArray((TreeMap)Jsf.getManagedBean("professions"));
+        blogfocus = convertToArray((TreeMap)Jsf.getManagedBean("blogfocuses"));
+        politics = convertToArray((LinkedHashMap)Jsf.getManagedBean("politics"));
+    }
+
+    private String[] convertToArray(TreeMap tmap){
+        String[] out = new String[0];
+        if (tmap!=null){
+            out = new String[tmap.size()];
+            Iterator keyValuePairs = tmap.entrySet().iterator();
+            for (int i = 0; i < tmap.size(); i++){
+                Map.Entry mapentry = (Map.Entry) keyValuePairs.next();
+                Object key = mapentry.getKey();
+                String value = (String)mapentry.getValue();
+                out[i] = value;
+            }
+        }
+        return out;
+    }
+
+    private String[] convertToArray(LinkedHashMap tmap){
+        String[] out = new String[0];
+        if (tmap!=null){
+            out = new String[tmap.size()];
+            Iterator keyValuePairs = tmap.entrySet().iterator();
+            for (int i = 0; i < tmap.size(); i++){
+                Map.Entry mapentry = (Map.Entry) keyValuePairs.next();
+                Object key = mapentry.getKey();
+                String value = (String)mapentry.getValue();
+                out[i] = value;
+            }
+        }
+        return out;
     }
 
     private void nullDocCheck(){
@@ -177,7 +234,7 @@ public class SurveyCriteriaXML {
                 return out;
             }
         }
-        return new String[0];
+        return null;
     }
 
     public int getAgemin() {

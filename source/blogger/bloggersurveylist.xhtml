@@ -10,6 +10,7 @@
       xmlns:d="http://dneero.com/taglib">
 
 <ui:composition template="/template/template-facelets.xhtml">
+    <ui:define name="title">Survey</ui:define>
     <ui:define name="body">
     <d:authorization acl="blogger" redirectonfail="true"/>
 
@@ -18,8 +19,8 @@
 <h:form>
 
 
-
-    <af:table value="#{bloggerSurveyList.surveys}" bandingInterval="2" rows="15" banding="row" var="survey">
+    <af:outputText value="There are currently no surveys that fit your profile.  Please check back soon as we're always adding new ones!" styleClass="mediumfont" rendered="#{empty bloggerSurveyList.surveys}"/>
+    <af:table value="#{bloggerSurveyList.surveys}" bandingInterval="2" rows="15" banding="row" var="survey" rendered="#{!empty bloggerSurveyList.surveys}">
       <af:column>
         <f:facet name="header">
           <af:outputText value=""/>
