@@ -16,7 +16,7 @@
 
 
                 <h:panelGroup>
-                    <h:outputText value="First Name"></h:outputText>
+                    <h:outputText value="First Name" styleClass="formfieldnamefont"></h:outputText>
                 </h:panelGroup>
                 <h:panelGroup>
                     <h:inputText value="#{registration.firstname}" id="firstname" required="true">
@@ -28,7 +28,7 @@
                 </h:panelGroup>
 
                 <h:panelGroup>
-                    <h:outputText value="Last Name"></h:outputText>
+                    <h:outputText value="Last Name" styleClass="formfieldnamefont"></h:outputText>
                 </h:panelGroup>
                 <h:panelGroup>
                     <h:inputText value="#{registration.lastname}" id="lastname" required="true">
@@ -41,7 +41,7 @@
 
 
                 <h:panelGroup>
-                    <h:outputText value="Email"></h:outputText>
+                    <h:outputText value="Email" styleClass="formfieldnamefont"></h:outputText>
                 </h:panelGroup>
                 <h:panelGroup>
                     <h:inputText value="#{registration.email}" id="email" required="true">
@@ -55,7 +55,7 @@
 
 
                 <h:panelGroup>
-                    <h:outputText value="Password"></h:outputText>
+                    <h:outputText value="Password" styleClass="formfieldnamefont"></h:outputText>
                 </h:panelGroup>
                 <h:panelGroup>
                     <h:inputSecret value="#{registration.password}" id="password" required="true">
@@ -68,7 +68,7 @@
 
 
                 <h:panelGroup>
-                    <h:outputText value="Verify Password"></h:outputText>
+                    <h:outputText value="Verify Password" styleClass="formfieldnamefont"></h:outputText>
                 </h:panelGroup>
                 <h:panelGroup>
                     <h:inputSecret value="#{registration.passwordverify}" id="passwordverify" required="true">
@@ -80,7 +80,7 @@
                 </h:panelGroup>
 
                 <h:panelGroup>
-                    <h:outputText value="Paypal Address"></h:outputText>
+                    <h:outputText value="Paypal Address" styleClass="formfieldnamefont"></h:outputText>
                 </h:panelGroup>
                 <h:panelGroup>
                     <h:inputText value="#{registration.paypaladdress}" id="paypaladdress" required="false">
@@ -94,7 +94,7 @@
 
 
                 <h:panelGroup>
-                    <h:outputText value="Prove You're a Human"></h:outputText>
+                    <h:outputText value="Prove You're a Human" styleClass="formfieldnamefont"></h:outputText>
                 </h:panelGroup>
                 <h:panelGroup>
                     <h:graphicImage url="/jcaptcha"></h:graphicImage>
@@ -109,9 +109,10 @@
 
 
                 <h:panelGroup>
-                    <h:commandButton action="#{registration.registerAction}" value="Sign Up" styleClass="formsubmitbutton"></h:commandButton>
                 </h:panelGroup>
                 <h:panelGroup>
+                    <br/><br/>
+                    <h:commandButton action="#{registration.registerAction}" value="Sign Up" styleClass="formsubmitbutton"></h:commandButton>
                 </h:panelGroup>
                 <h:panelGroup>
                 </h:panelGroup>

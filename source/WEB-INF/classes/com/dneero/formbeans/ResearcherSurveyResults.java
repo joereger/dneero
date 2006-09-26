@@ -51,6 +51,7 @@ public class ResearcherSurveyResults {
         Survey survey = Survey.get(surveyid);
         if (survey!=null){
             if (survey.canEdit(Jsf.getUserSession().getUser())){
+                this.survey=survey;
                 totalsurveyresponses = survey.getResponses().size();
                 totalsurveydisplays = 0;
                 status = survey.getStatus();
