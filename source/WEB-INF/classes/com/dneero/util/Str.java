@@ -136,4 +136,17 @@ public class Str {
         }
     }
 
+    public static String formatNoDecimals(double in){
+        Logger logger = Logger.getLogger(Str.class);
+        try{
+            NumberFormat formatter = DecimalFormat.getInstance();
+            formatter.setMinimumFractionDigits(0);
+            formatter.setMaximumFractionDigits(0);
+            return formatter.format(in);
+        } catch (Exception ex){
+            logger.error(ex);
+            return "";
+        }
+    }
+
 }

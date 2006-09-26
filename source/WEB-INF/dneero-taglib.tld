@@ -63,6 +63,43 @@
     </attribute>
 </tag>
 
+<tag>
+    <name>percentCompleteBar</name>
+    <tag-class>com.dneero.ui.PercentCompleteBar</tag-class>
+    <attribute>
+        <name>binding</name>
+        <description>A value binding that points to a bean property</description>
+    </attribute>
+    <attribute>
+        <name>id</name>
+        <description>The client id of this component</description>
+    </attribute>
+    <attribute>
+        <name>rendered</name>
+        <description>Is this component rendered?</description>
+    </attribute>
+    <attribute>
+        <name>currentvalue</name>
+        <description>An attribute</description>
+    </attribute>
+    <attribute>
+        <name>maxvalue</name>
+        <description>An attribute</description>
+    </attribute>
+    <attribute>
+        <name>mintitle</name>
+        <description>An attribute</description>
+    </attribute>
+    <attribute>
+        <name>maxtitle</name>
+        <description>An attribute</description>
+    </attribute>
+    <attribute>
+        <name>widthinpixels</name>
+        <description>An attribute</description>
+    </attribute>
+</tag>
+
 
 
 <tag>

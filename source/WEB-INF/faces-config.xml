@@ -42,6 +42,11 @@
     </component>
 
     <component>
+        <component-type>com.dneero.ui.PercentCompleteBar</component-type>
+        <component-class>com.dneero.ui.PercentCompleteBar</component-class>
+    </component>
+
+    <component>
         <component-type>com.dneero.session.Authorization</component-type>
         <component-class>com.dneero.session.Authorization</component-class>
     </component>
