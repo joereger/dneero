@@ -36,6 +36,7 @@ public class ResearcherSurveyDetail06 {
     private boolean warningnumberofbloggerslessthanrequested = false;
     private boolean warningnumberrequestedratiotoobig = false;
     private boolean warningtoomanyquestions = false;
+    private boolean warningnoquestions = false;
 
 
 
@@ -112,6 +113,11 @@ public class ResearcherSurveyDetail06 {
                 //Warning: too many questions
                 if (numberofquestions>20){
                     warningtoomanyquestions = true;
+                }
+
+                //Warning: no questions
+                if (numberofquestions<=0){
+                    warningnoquestions = true;   
                 }
 
             }
@@ -320,5 +326,13 @@ public class ResearcherSurveyDetail06 {
 
     public void setMaximpressionpayments(String maximpressionpayments) {
         this.maximpressionpayments = maximpressionpayments;
+    }
+
+    public boolean isWarningnoquestions() {
+        return warningnoquestions;
+    }
+
+    public void setWarningnoquestions(boolean warningnoquestions) {
+        this.warningnoquestions = warningnoquestions;
     }
 }
