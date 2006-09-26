@@ -111,7 +111,7 @@ public class ResearcherSurveyDetail04 {
     public void loadSurvey(int surveyid){
         logger.debug("loadSurvey called");
         Survey survey = Survey.get(surveyid);
-
+        status = survey.getStatus();
         if (Jsf.getUserSession().getUser()!=null && survey.canEdit(Jsf.getUserSession().getUser())){
             //Do it with XML
             SurveyCriteriaXML surveyCriteriaXML = new SurveyCriteriaXML(survey.getCriteriaxml());
