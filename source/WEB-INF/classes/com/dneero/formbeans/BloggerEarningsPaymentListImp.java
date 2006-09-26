@@ -64,7 +64,7 @@ public class BloggerEarningsPaymentListImp extends SortableList {
                     Survey survey = Survey.get(key);
 
                     BloggerEarningsPaymentListImpressions listitem = new BloggerEarningsPaymentListImpressions();
-                    listitem.setAmt((value/1000) * survey.getWillingtopaypercpm());
+                    listitem.setAmt((value * survey.getWillingtopaypercpm())/1000);
                     listitem.setImpressions(value);
                     listitem.setSurveyname(survey.getTitle());
                     list.add(listitem);

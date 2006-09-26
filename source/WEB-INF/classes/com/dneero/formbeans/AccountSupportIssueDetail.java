@@ -40,7 +40,7 @@ public class AccountSupportIssueDetail {
         if (com.dneero.util.Num.isinteger(tmpSupportissueid)){
             logger.debug("beginView called: found supportissueid in param="+tmpSupportissueid);
             Supportissue supportissue = Supportissue.get(Integer.parseInt(tmpSupportissueid));
-            if (supportissue.canEdit(Jsf.getUserSession().getUser())){
+            if (Jsf.getUserSession().getUser()!=null && supportissue.canEdit(Jsf.getUserSession().getUser())){
                 this.supportissue = supportissue;
                 this.supportissueid = supportissue.getSupportissueid();
                 supportissuecomms = new ArrayList<Supportissuecomm>();

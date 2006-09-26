@@ -20,7 +20,21 @@
     <h:inputHidden name="surveyid" value="#{userSession.currentSurveyid}" />
 
     <h:graphicImage url="/images/process-train-survey-03.gif" style="display: block; margin-left: auto; margin-right: auto;"></h:graphicImage>
-    <f:verbatim><br/><br/></f:verbatim>
+    <f:verbatim><br/></f:verbatim>
+
+    <center><div style="width: 450px; text-align: left;"><font class="smallfont">
+    In this step you can optionally change the formatting of the survey as it appears on a person's blog.  Click the Advanced Formatting tab to get started.  This requires some basic HTML skills and is very powerful:
+    <ul>
+    <li>Add a link to your company homepage</li>
+    <li>Embed an image or video of your product in use</li>
+    <li>Change the order of questions</li>
+    <li>Describe your motivations behind the survey</li>
+    </ul>
+    Advanced Formatting is powerful.  Please keep in mind that you are dealing with space on a person's blog.  Being more outrageous may require you to pay a higher per-display amount to get bloggers to post it.  Be careful and respectful.
+    </font></div></center>
+
+    <f:verbatim><br/></f:verbatim>
+    <f:verbatim><br/></f:verbatim>
 
     <!-- Start Top -->
 
@@ -31,13 +45,13 @@
         </t:panelTab>
         <t:panelTab id="panel_c" label="Advanced Formatting">
             <h:graphicImage url="/images/clear.gif" width="550" height="1"><br/></h:graphicImage>
-            <h:outputText value="Advanced formatting."></h:outputText>
+            <font class="smallfont">Add any HTML formatting to the box below.  You must click Save Advanced Formatting to see your changes.  A list of question tags can be found to the right of the screen. Use these tags to add questions to the survey.  Each question tag will be replaced with the respondent's actual answer when it's displayed on their blog. </font>
             <f:verbatim><br/><br/></f:verbatim>
             <h:panelGrid columns="2" cellpadding="3" border="0">
                 <h:panelGroup>
-                    <h:inputTextarea value="#{researcherSurveyDetail03.template}" cols="35" rows="15"></h:inputTextarea>
+                    <h:inputTextarea value="#{researcherSurveyDetail03.template}" cols="45" rows="15"></h:inputTextarea>
                     <f:verbatim rendered="#{researcherSurveyDetail02.status le 2}"><br/><br/></f:verbatim>
-                    <h:commandButton action="#{researcherSurveyDetail03.saveSurvey}" value="Save Template" rendered="#{researcherSurveyDetail03.status le 2}" styleClass="formsubmitbutton"></h:commandButton>
+                    <h:commandButton action="#{researcherSurveyDetail03.saveSurvey}" value="Save Advanced Formatting" rendered="#{researcherSurveyDetail03.status le 2}" styleClass="formsubmitbutton"></h:commandButton>
                 </h:panelGroup>
                 <h:panelGroup>
                     <!-- Begin Question Key -->

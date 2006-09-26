@@ -103,7 +103,7 @@ public class CreateInvoices implements Job {
                             }
                         }
                     }
-                    double amtForTheseImpressions = (Double.parseDouble(String.valueOf(counttotal))/1000) * survey.getWillingtopaypercpm();
+                    double amtForTheseImpressions = (Double.parseDouble(String.valueOf(counttotal)) * survey.getWillingtopaypercpm())/1000;
                     logger.debug("amtForTheseImpressions=" + amtForTheseImpressions);
                     amt = amt + amtForTheseImpressions;
                 }

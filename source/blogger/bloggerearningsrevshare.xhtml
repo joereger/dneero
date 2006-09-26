@@ -22,8 +22,10 @@
                <font class="smallfont">We'll pay you a piece of our earnings for all friends that you invite to the system using this form.  Simply fill in your friends' email address, add a short optional message and when they accept the invitation you'll see them listed to the right... and then you'll be making even more money!</font>
                <br/>
                <br/>
-                <h:form>
-                    <h:panelGrid columns="3" cellpadding="3" border="0">
+                <h:form id="inviteform">
+                    <h:message for="email" styleClass="RED"></h:message>
+                    <h:message for="message" styleClass="RED"></h:message>
+                    <h:panelGrid columns="2" cellpadding="3" border="0">
 
                         <h:panelGroup>
                             <h:outputText value="Friend's Email" styleClass="formfieldnamefont"></h:outputText>
@@ -32,9 +34,6 @@
                             <h:inputText value="#{bloggerEarningsRevshareInvite.email}" id="email" required="true">
                                 <f:validateLength minimum="3" maximum="255"></f:validateLength>
                             </h:inputText>
-                        </h:panelGroup>
-                        <h:panelGroup>
-                            <h:message for="email" styleClass="RED"></h:message>
                         </h:panelGroup>
 
 
@@ -45,9 +44,6 @@
                             <h:inputTextarea value="#{bloggerEarningsRevshareInvite.message}" id="message" required="false" cols="15">
                             </h:inputTextarea>
                         </h:panelGroup>
-                        <h:panelGroup>
-                            <h:message for="message" styleClass="RED"></h:message>
-                        </h:panelGroup>
 
 
                         <h:panelGroup>
@@ -55,8 +51,7 @@
                         <h:panelGroup>
                             <h:commandButton action="#{bloggerEarningsRevshareInvite.invite}" value="Invite a Friend" styleClass="formsubmitbutton"></h:commandButton>
                         </h:panelGroup>
-                        <h:panelGroup>
-                        </h:panelGroup>
+
 
                     </h:panelGrid>
 

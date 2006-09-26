@@ -15,14 +15,34 @@
     <d:authorization acl="researcher" redirectonfail="true"/>
 
 <h:form>
-    <h:messages />
     <h:inputHidden name="surveyid" value="#{userSession.currentSurveyid}" />
 
     <h:graphicImage url="/images/process-train-survey-05.gif" style="display: block; margin-left: auto; margin-right: auto;"></h:graphicImage>
-    <f:verbatim><br/><br/></f:verbatim>
+    <f:verbatim><br/></f:verbatim>
+
+    <center><div style="width: 450px; text-align: left;"><font class="smallfont">
+    In this step you'll choose how much you're willing to pay bloggers. You'll want to craft an incentive that generates the response you're looking for.
+    <br/><br/>
+    Example 1: You have a new product to announce to the blogosphere.  You need to find new bloggers to talk about your product and you then need them to post the survey to their blogs to tell their friends and families.  Your pricing should be a good balance of Survey Taking Incentive and Blog Display Incentive.
+    <br/><br/>
+    Example 2: You want to see what bloggers think about a new concept.  Being more concerned about the research side of the equation, you may pay a lot for survey respondents and almost nothing for them to post the survey to their blogs.
+    <br/><br/>
+    The possibilities are endless... give it some thought and create a great incentive.  The better the incentive the more activity you'll generate.
+    </font></div></center>
+
+    <f:verbatim><br/></f:verbatim>
+    <f:verbatim><br/></f:verbatim>
 
     <h:panelGrid columns="3" cellpadding="3" border="0">
 
+
+        <h:panelGroup>
+            <h:outputText value="Survey Taking Incentive" styleClass="mediumfont"></h:outputText>
+        </h:panelGroup>
+        <h:panelGroup>
+        </h:panelGroup>
+        <h:panelGroup>
+        </h:panelGroup>
 
 
         <h:panelGroup>
@@ -55,6 +75,17 @@
         <h:panelGroup>
             <h:message for="numberofrespondentsrequested" styleClass="RED"></h:message>
         </h:panelGroup>
+
+
+        <h:panelGroup>
+            <br/><br/>
+            <h:outputText value="Blog Posting Incentive" styleClass="mediumfont"></h:outputText>
+        </h:panelGroup>
+        <h:panelGroup>
+        </h:panelGroup>
+        <h:panelGroup>
+        </h:panelGroup>
+
 
         <h:panelGroup>
             <h:outputText value="Willing to Pay Per Thousand Survey Displays on a Blog (CPM)" styleClass="formfieldnamefont"></h:outputText>

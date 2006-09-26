@@ -18,7 +18,14 @@
 
     <h:inputHidden name="surveyid" value="#{userSession.currentSurveyid}" />
     <h:graphicImage url="/images/process-train-survey-02.gif" style="display: block; margin-left: auto; margin-right: auto;"></h:graphicImage>
-    <f:verbatim><br/><br/></f:verbatim>
+    <f:verbatim><br/></f:verbatim>
+
+    <center><div style="width: 450px; text-align: left;"><font class="smallfont">
+    Add questions to your survey on this page.  Choose from the Question Type dropdown box and then click Add Question.  You'll quickly build a list of questions.  Click Preview the Survey to see what these questions look like to somebody taking the survey.  When you're done, click Next Step.
+    </font></div></center>
+
+    <f:verbatim><br/></f:verbatim>
+    <f:verbatim><br/></f:verbatim>
 
     <!-- Start Top -->
     <t:panelTabbedPane id="panel" bgcolor="#ffffff">
@@ -69,6 +76,7 @@
                 </h:commandLink>
               </af:column>
             </af:table>
+            <font class="tinyfont">Question Type:</font><br/>
             <h:selectOneMenu value="#{researcherSurveyDetail02.newquestioncomponenttype}" id="newquestioncomponenttype" required="true" rendered="#{researcherSurveyDetail02.status le 2}">
                 <f:selectItems value="#{componentTypes.typesaslinkedhashmap}"/>
             </h:selectOneMenu>

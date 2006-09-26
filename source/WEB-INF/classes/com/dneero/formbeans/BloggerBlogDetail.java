@@ -43,7 +43,7 @@ public class BloggerBlogDetail {
         if (com.dneero.util.Num.isinteger(tmpBlogid)){
             logger.debug("beginView called: found blogid in param="+tmpBlogid);
             Blog blog = Blog.get(Integer.parseInt(tmpBlogid));
-            if (blog.canEdit(Jsf.getUserSession().getUser())){
+            if (Jsf.getUserSession().getUser()!=null && blog.canEdit(Jsf.getUserSession().getUser())){
                 blogid = blog.getBlogid();
                 url = blog.getUrl();
                 title = blog.getTitle();

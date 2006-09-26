@@ -20,7 +20,14 @@
     <h:inputHidden name="questionid" value="#{researcherSurveyDetail02textbox.questionid}" />
 
     <h:graphicImage url="/images/process-train-survey-02.gif" style="display: block; margin-left: auto; margin-right: auto;"></h:graphicImage>
-    <f:verbatim><br/><br/></f:verbatim>
+    <f:verbatim><br/></f:verbatim>
+
+    <center><div style="width: 450px; text-align: left;"><font class="smallfont">
+    In a Matrix question type respondents are given a grid of possible answers.   To create this grid enter options for the Rows and the Columns and decide whether respondents can choose many answers per row.
+    </font></div></center>
+
+    <f:verbatim><br/></f:verbatim>
+    <f:verbatim><br/></f:verbatim>
 
 
 
@@ -76,6 +83,7 @@
             <h:outputText value="Rows" styleClass="formfieldnamefont"></h:outputText>
         </h:panelGroup>
         <h:panelGroup>
+            <font class="tinyfont">One option per line.</font><br/>
             <h:inputTextarea value="#{researcherSurveyDetail02matrix.rows}" id="rows" required="true" cols="25" rows="10">
             </h:inputTextarea>
         </h:panelGroup>
@@ -84,9 +92,10 @@
         </h:panelGroup>
 
         <h:panelGroup>
-            <h:outputText value="Cols" styleClass="formfieldnamefont"></h:outputText>
+            <h:outputText value="Columns" styleClass="formfieldnamefont"></h:outputText>
         </h:panelGroup>
         <h:panelGroup>
+            <font class="tinyfont">One option per line.</font><br/>
             <h:inputTextarea value="#{researcherSurveyDetail02matrix.cols}" id="cols" required="true" cols="25" rows="10">
             </h:inputTextarea>
         </h:panelGroup>
@@ -98,6 +107,7 @@
         </h:panelGroup>
         <h:panelGroup>
             <h:commandButton action="#{researcherSurveyDetail02matrix.saveQuestion}" value="Save Question and Continue" styleClass="formsubmitbutton"></h:commandButton>
+            <br/><br/><h:commandLink value="Nevermind, Take me Back" styleClass="tinyfont" action="researchersurveydetail_02" immediate="true"/>
         </h:panelGroup>
         <h:panelGroup>
         </h:panelGroup>

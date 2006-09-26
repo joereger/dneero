@@ -76,7 +76,7 @@ public class ResearcherSurveyDetail02checkboxes {
             survey = Survey.get(userSession.getCurrentSurveyid());
         }
 
-        if (survey.canEdit(Jsf.getUserSession().getUser())){
+        if (Jsf.getUserSession().getUser()!=null && survey.canEdit(Jsf.getUserSession().getUser())){
 
             Question question = new Question();
             if (questionid>0){

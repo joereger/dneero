@@ -35,7 +35,7 @@ public class ResearcherSurveyResultsImpressions {
         researcherSurveyResultsImpressionsObj = new ArrayList<ResearcherSurveyResultsImpressionsObj>();
         if (survey!=null){
             logger.debug("survey.getImpressions().size()="+survey.getImpressions().size());
-            if (survey.canEdit(Jsf.getUserSession().getUser())){
+            if (Jsf.getUserSession().getUser()!=null && survey.canEdit(Jsf.getUserSession().getUser())){
                 for (Iterator<Impression> iterator = survey.getImpressions().iterator(); iterator.hasNext();) {
                     Impression impression = iterator.next();
                     ResearcherSurveyResultsImpressionsObj robj = new ResearcherSurveyResultsImpressionsObj();

@@ -25,7 +25,7 @@
 
 
         <h:panelGroup>
-            <h:outputText value="Bloggers Fulfilling Requirements"></h:outputText>
+            <h:outputText value="Bloggers In System Fulfilling Requirements" styleClass="formfieldnamefont"></h:outputText>
         </h:panelGroup>
         <h:panelGroup>
             <h:outputText value="#{researcherSurveyDetail06.numberofbloggersqualifiedforthissurvey}"></h:outputText>
@@ -33,8 +33,120 @@
         <h:panelGroup>
         </h:panelGroup>
 
+        <h:panelGroup>
+            <h:outputText value="Number of Questions in Survey" styleClass="formfieldnamefont"></h:outputText>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:outputText value="#{researcherSurveyDetail06.numberofquestions}"></h:outputText>
+        </h:panelGroup>
+        <h:panelGroup>
+        </h:panelGroup>
+
+        <h:panelGroup>
+            <h:outputText value="Survey Start Date/Time" styleClass="formfieldnamefont"></h:outputText>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:outputText value="#{researcherSurveyDetail06.startdate}"></h:outputText>
+        </h:panelGroup>
+        <h:panelGroup>
+        </h:panelGroup>
+
+        <h:panelGroup>
+            <h:outputText value="Survey End Date/Time" styleClass="formfieldnamefont"></h:outputText>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:outputText value="#{researcherSurveyDetail06.enddate}"></h:outputText>
+        </h:panelGroup>
+        <h:panelGroup>
+        </h:panelGroup>
+
+        <h:panelGroup>
+            <h:outputText value="Average Blogger Will Be Paid (Estimate)" styleClass="formfieldnamefont"></h:outputText>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:outputText value="#{researcherSurveyDetail06.averagebloggerwillbepaid}"></h:outputText>
+        </h:panelGroup>
+        <h:panelGroup>
+        </h:panelGroup>
+
+        <h:panelGroup>
+            <h:outputText value="Max Possible Payment for Survey Responses" styleClass="formfieldnamefont"></h:outputText>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:outputText value="#{researcherSurveyDetail06.maxrespondentpayments}"></h:outputText>
+        </h:panelGroup>
+        <h:panelGroup>
+        </h:panelGroup>
+
+        <h:panelGroup>
+            <h:outputText value="Max Possible Payment for Survey Displays on Blogs" styleClass="formfieldnamefont"></h:outputText>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:outputText value="#{researcherSurveyDetail06.maximpressionpayments}"></h:outputText>
+        </h:panelGroup>
+        <h:panelGroup>
+        </h:panelGroup>
+
+        <h:panelGroup>
+            <h:outputText value="Max dNeero Fee" styleClass="formfieldnamefont"></h:outputText>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:outputText value="#{researcherSurveyDetail06.dneerofee}"></h:outputText>
+        </h:panelGroup>
+        <h:panelGroup>
+        </h:panelGroup>
+
+        <h:panelGroup>
+            <h:outputText value="Max Possible Spend" styleClass="formfieldnamefont"></h:outputText>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:outputText value="#{researcherSurveyDetail06.maxpossiblespend}"></h:outputText>
+        </h:panelGroup>
+        <h:panelGroup>
+        </h:panelGroup>
+
+
 
     </h:panelGrid>
+
+
+    <d:roundedCornerBox uniqueboxname="warningnumberofbloggerslessthanrequested" bodycolor="ffffcc" widthinpixels="450" rendered="#{researcherSurveyDetail06.warningnumberofbloggerslessthanrequested}">
+        <h:graphicImage url="/images/alert.png"></h:graphicImage>
+        <font class="smallfont">
+        Warning: You've requested a number of survey respondents that is larger than the current number of bloggers in the system that fulfill your targeting criteria.  This may or may not be a problem.  Surveys often attract new bloggers to the system... you are in no way limited to the bloggers already signed-up.
+        <br/><h:commandLink value="Possible Remedy: Relax the Targeting Criteria" styleClass="smallfont" action="researchersurveydetail_04" immediate="true"/>
+        <br/><h:commandLink value="Idea: Increase Your Incentive to Attract New Bloggers" styleClass="smallfont" action="researchersurveydetail_05" immediate="true"/>
+        </font>
+    </d:roundedCornerBox>
+
+    <d:roundedCornerBox uniqueboxname="warningnumberrequestedratiotoobig" bodycolor="ffffcc" widthinpixels="450" rendered="#{researcherSurveyDetail06.warningnumberrequestedratiotoobig and !researcherSurveyDetail06.warningnumberofbloggerslessthanrequested}">
+        <h:graphicImage url="/images/alert.png"></h:graphicImage>
+        <font class="smallfont">
+        Warning: The ratio of the number of respondents you've requested to the number of bloggers that qualify for your criteria is a little high meaning that it may be difficult to attract enough respondents. This may or may not be a problem.  Surveys often attract new bloggers to the system... you are in no way limited to the bloggers already signed-up.
+        <br/><h:commandLink value="Possible Remedy: Relax the Targeting Criteria" styleClass="smallfont" action="researchersurveydetail_04" immediate="true"/>
+        <br/><h:commandLink value="Idea: Increase Your Incentive to Attract New Bloggers" styleClass="smallfont" action="researchersurveydetail_05" immediate="true"/>
+        </font>
+    </d:roundedCornerBox>
+
+    <d:roundedCornerBox uniqueboxname="warningtoomanyquestions" bodycolor="ffffcc" widthinpixels="450" rendered="#{researcherSurveyDetail06.warningtoomanyquestions}">
+        <h:graphicImage url="/images/alert.png"></h:graphicImage>
+        <font class="smallfont">
+        Warning: You seem to have a large number of questions in your survey.  There is nothing wrong with this.  But large surveys and blogs may not be the best fit.  First, bloggers are a quick bunch, always having a lot to do. Second, you're asking them to post the survey to their blogs... large surveys may take over a blog at which point the blogger will take the survey down.  This may not be a problem for you, but we did want you to know about the possible issue.
+        <br/><h:commandLink value="Possible Remedy: Adjust the Questions of Your Survey" styleClass="smallfont" action="researchersurveydetail_02" immediate="true"/>
+        </font>
+    </d:roundedCornerBox>
+
+
+    <d:roundedCornerBox uniqueboxname="warningtimeperiodtooshort" bodycolor="ffffcc" widthinpixels="450" rendered="#{researcherSurveyDetail06.warningtimeperiodtooshort}">
+        <h:graphicImage url="/images/alert.png"></h:graphicImage>
+        <font class="smallfont">
+        Warning: The survey time period is rather short.  You may have very good reasons for doing so but we did want to note that surveys take some time to be publicized, signed up for, posted, etc.  30 days is a good safe period of time for a survey.
+        <br/><h:commandLink value="Possible Remedy: Adjust the Start and End Dates" styleClass="smallfont" action="researchersurveydetail_01" immediate="true"/>
+        </font>
+    </d:roundedCornerBox>
+
+    <f:verbatim><br/><br/></f:verbatim>
+    <font class="mediumfont">I understand that by saving and launching this survey I am committing to spending up to #{researcherSurveyDetail06.maxpossiblespend}.  This money will be billed monthly as activity on the survey progresses.</font>
 
 
     <f:verbatim><br/><br/></f:verbatim>

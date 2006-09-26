@@ -50,7 +50,7 @@ public class ResearcherSurveyResults {
         logger.debug("loadSurvey called");
         Survey survey = Survey.get(surveyid);
         if (survey!=null){
-            if (survey.canEdit(Jsf.getUserSession().getUser())){
+            if (Jsf.getUserSession().getUser()!=null && survey.canEdit(Jsf.getUserSession().getUser())){
                 this.survey=survey;
                 totalsurveyresponses = survey.getResponses().size();
                 totalsurveydisplays = 0;

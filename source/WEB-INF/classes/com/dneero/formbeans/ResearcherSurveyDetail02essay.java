@@ -65,7 +65,7 @@ public class ResearcherSurveyDetail02essay {
             logger.debug("saveSurvey() called: going to get Survey.get(surveyid)="+userSession.getCurrentSurveyid());
             survey = Survey.get(userSession.getCurrentSurveyid());
         }
-        if (survey.canEdit(Jsf.getUserSession().getUser())){
+        if (Jsf.getUserSession().getUser()!=null && survey.canEdit(Jsf.getUserSession().getUser())){
             Question question = new Question();
             if (questionid>0){
                 question = Question.get(questionid);

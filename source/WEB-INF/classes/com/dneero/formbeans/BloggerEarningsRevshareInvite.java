@@ -2,11 +2,14 @@ package com.dneero.formbeans;
 
 import com.dneero.util.Jsf;
 import com.dneero.dao.User;
+import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.email.EmailSendThread;
 import com.dneero.email.EmailSend;
 import com.dneero.email.EmailTemplateProcessor;
 import org.apache.commons.mail.HtmlEmail;
 import org.apache.log4j.Logger;
+
+import java.util.List;
 
 /**
  * User: Joe Reger Jr
@@ -22,8 +25,14 @@ public class BloggerEarningsRevshareInvite {
 
     public String invite(){
         User user = Jsf.getUserSession().getUser();
-        EmailTemplateProcessor.sendMail("dNeero Invitation from "+user.getFirstname()+" "+user.getLastname()+" - Make Money with your Blog!", "inviteblogger", user, null, this.email, user.getEmail());
-        return "bloggerearningsrevshare";
+        List existingusers = HibernateUtil.getSession().createQuery("from User where email='"+email+"'").list();
+        if (existingusers.size()<=0){
+            EmailTemplateProcessor.sendMail("dNeero Invitation from "+user.getFirstname()+" "+user.getLastname()+" - Make Money with your Blog!", "inviteblogger", user, null, this.email, user.getEmail());
+            return "bloggerearningsrevshare";
+        } else {
+            Jsf.setFacesMessage("inviteform:email", "A user with that email already exists.");
+            return null;
+        }
     }
 
     public String getEmail() {

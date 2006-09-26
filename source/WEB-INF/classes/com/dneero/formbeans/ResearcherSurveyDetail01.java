@@ -60,7 +60,7 @@ public class ResearcherSurveyDetail01 {
         Survey survey = Survey.get(surveyid);
         if (survey!=null){
             logger.debug("Found survey in db: survey.getSurveyid()="+survey.getSurveyid()+" survey.getTitle()="+survey.getTitle());
-            if (survey.canEdit(Jsf.getUserSession().getUser())){
+            if (Jsf.getUserSession().getUser()!=null && survey.canEdit(Jsf.getUserSession().getUser())){
                 logger.debug("survey.canEdit(Jsf.getUserSession().getUser())="+survey.canEdit(Jsf.getUserSession().getUser()));
                 title = survey.getTitle();
                 description = survey.getDescription();
@@ -100,7 +100,7 @@ public class ResearcherSurveyDetail01 {
                 logger.debug("valdation error - startdate is after end date.");
             }
 
-            if (isValidData && survey.canEdit(Jsf.getUserSession().getUser())){
+            if (isValidData && Jsf.getUserSession().getUser()!=null && survey.canEdit(Jsf.getUserSession().getUser())){
 
                 survey.setResearcherid(userSession.getUser().getResearcher().getResearcherid());
                 survey.setTitle(title);

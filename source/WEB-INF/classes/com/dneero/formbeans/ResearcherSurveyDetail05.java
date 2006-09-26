@@ -42,7 +42,7 @@ public class ResearcherSurveyDetail05 {
         Survey survey = Survey.get(surveyid);
         if (survey!=null){
             logger.debug("Found survey in db: survey.getSurveyid()="+survey.getSurveyid()+" survey.getTitle()="+survey.getTitle());
-            if (survey.canEdit(Jsf.getUserSession().getUser())){
+            if (Jsf.getUserSession().getUser()!=null && survey.canEdit(Jsf.getUserSession().getUser())){
                 willingtopayperrespondent = survey.getWillingtopayperrespondent();
                 numberofrespondentsrequested = survey.getNumberofrespondentsrequested();
                 willingtopaypercpm = survey.getWillingtopaypercpm();
@@ -66,7 +66,7 @@ public class ResearcherSurveyDetail05 {
                 survey = Survey.get(userSession.getCurrentSurveyid());
             }
 
-            if (survey.canEdit(Jsf.getUserSession().getUser())){
+            if (Jsf.getUserSession().getUser()!=null && survey.canEdit(Jsf.getUserSession().getUser())){
 
                 survey.setWillingtopayperrespondent(willingtopayperrespondent);
                 survey.setNumberofrespondentsrequested(numberofrespondentsrequested);

@@ -112,7 +112,7 @@ public class ResearcherSurveyDetail04 {
         logger.debug("loadSurvey called");
         Survey survey = Survey.get(surveyid);
 
-        if (survey.canEdit(Jsf.getUserSession().getUser())){
+        if (Jsf.getUserSession().getUser()!=null && survey.canEdit(Jsf.getUserSession().getUser())){
             //Do it with XML
             SurveyCriteriaXML surveyCriteriaXML = new SurveyCriteriaXML(survey.getCriteriaxml());
             agemin = surveyCriteriaXML.getAgemin();
@@ -170,7 +170,7 @@ public class ResearcherSurveyDetail04 {
                 survey = Survey.get(userSession.getCurrentSurveyid());
             }
 
-            if (survey.canEdit(Jsf.getUserSession().getUser())){
+            if (Jsf.getUserSession().getUser()!=null && survey.canEdit(Jsf.getUserSession().getUser())){
 
                 //Do it with XML
                 if (true){

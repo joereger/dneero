@@ -34,7 +34,7 @@ public class ResearcherSurveyResultsQuestiondetail {
         logger.debug("loadSurvey called");
         Survey survey = Survey.get(surveyid);
         if (survey!=null){
-            if (survey.canEdit(Jsf.getUserSession().getUser())){
+            if (Jsf.getUserSession().getUser()!=null && survey.canEdit(Jsf.getUserSession().getUser())){
                 String tmpQuestionid = Jsf.getRequestParam("questionid");
                 if (com.dneero.util.Num.isinteger(tmpQuestionid)){
                     logger.debug("beginView called: found tmpQuestionid in request param="+tmpQuestionid);

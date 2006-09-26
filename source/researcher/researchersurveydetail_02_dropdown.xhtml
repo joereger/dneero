@@ -20,7 +20,14 @@
     <h:inputHidden name="questionid" value="#{researcherSurveyDetail02dropdown.questionid}" />
 
     <h:graphicImage url="/images/process-train-survey-02.gif" style="display: block; margin-left: auto; margin-right: auto;"></h:graphicImage>
-    <f:verbatim><br/><br/></f:verbatim>
+    <f:verbatim><br/></f:verbatim>
+
+    <center><div style="width: 450px; text-align: left;"><font class="smallfont">
+    Type a question in the Question box.  Next, give respondents options to choose from.  Because this is a Dropdown question type, they'll only be able to choose one option as part of their answer.
+    </font></div></center>
+
+    <f:verbatim><br/></f:verbatim>
+    <f:verbatim><br/></f:verbatim>
 
 
 
@@ -67,6 +74,7 @@
             <h:outputText value="Options" styleClass="formfieldnamefont"></h:outputText>
         </h:panelGroup>
         <h:panelGroup>
+            <font class="tinyfont">One option per line.</font><br/>
             <h:inputTextarea value="#{researcherSurveyDetail02dropdown.options}" id="options" required="true" cols="25" rows="10">
             </h:inputTextarea>
         </h:panelGroup>
@@ -79,6 +87,7 @@
         </h:panelGroup>
         <h:panelGroup>
             <h:commandButton action="#{researcherSurveyDetail02dropdown.saveQuestion}" value="Save Question and Continue" styleClass="formsubmitbutton"></h:commandButton>
+            <br/><br/><h:commandLink value="Nevermind, Take me Back" styleClass="tinyfont" action="researchersurveydetail_02" immediate="true"/>
         </h:panelGroup>
         <h:panelGroup>
         </h:panelGroup>

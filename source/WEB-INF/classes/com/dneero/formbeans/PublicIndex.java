@@ -59,7 +59,7 @@ public class PublicIndex {
             double dollars = 0;
             for (Iterator iterator = results.iterator(); iterator.hasNext();) {
                 Survey survey = (Survey) iterator.next();
-                dollars = dollars + (survey.getWillingtopayperrespondent() * survey.getNumberofrespondentsrequested()) + (survey.getWillingtopaypercpm() * (survey.getMaxdisplaystotal()/1000));
+                dollars = dollars + (survey.getWillingtopayperrespondent() * survey.getNumberofrespondentsrequested()) + ((survey.getWillingtopaypercpm() * survey.getMaxdisplaystotal())/1000);
             }
             NumberFormat formatter = DecimalFormat.getInstance();
             formatter.setMinimumFractionDigits(2);

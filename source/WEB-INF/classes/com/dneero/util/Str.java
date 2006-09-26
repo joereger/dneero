@@ -1,7 +1,11 @@
 package com.dneero.util;
 
+import org.apache.log4j.Logger;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.text.NumberFormat;
+import java.text.DecimalFormat;
 
 /**
  * User: Joe Reger Jr
@@ -117,6 +121,19 @@ public class Str {
         }
 
         return out;
+    }
+
+    public static String formatForMoney(double in){
+        Logger logger = Logger.getLogger(Str.class);
+        try{
+            NumberFormat formatter = DecimalFormat.getInstance();
+            formatter.setMinimumFractionDigits(2);
+            formatter.setMaximumFractionDigits(2);
+            return formatter.format(in);
+        } catch (Exception ex){
+            logger.error(ex);
+            return "";
+        }
     }
 
 }
