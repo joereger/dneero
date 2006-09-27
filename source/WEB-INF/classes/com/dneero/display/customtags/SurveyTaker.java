@@ -111,6 +111,7 @@ public class SurveyTaker extends UIInput {
             try{
                 component.validateAnswer((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest());
             } catch (ComponentException cex){
+                logger.debug(cex);
                 allCex.addErrorsFromAnotherGeneralException(cex);
             }
         }
@@ -159,8 +160,10 @@ public class SurveyTaker extends UIInput {
         }
 
         StringBuffer out = new StringBuffer();
-        out.append(SurveyTakerDisplay.getHtmlForSurveyTaking(Survey.get(Jsf.getUserSession().getCurrentSurveyid()), Jsf.getUserSession().getUser().getBlogger()));
-//        Survey survey = Survey.get(Jsf.getUserSession().getCurrentSurveyid());
+        if (Jsf.getUserSession().getUser()!=null){
+            out.append(SurveyTakerDisplay.getHtmlForSurveyTaking(Survey.get(Jsf.getUserSession().getCurrentSurveyid()), Jsf.getUserSession().getUser().getBlogger()));
+        }
+//   Survey survey = Survey.get(Jsf.getUserSession().getCurrentSurveyid());
 //        for (Iterator<Question> iterator = survey.getQuestions().iterator(); iterator.hasNext();) {
 //            Question question = iterator.next();
 //            logger.debug("found question.getQuestionid()="+question.getQuestionid());

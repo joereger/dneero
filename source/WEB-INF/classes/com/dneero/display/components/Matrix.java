@@ -5,6 +5,8 @@ import com.dneero.display.components.def.ComponentException;
 import com.dneero.dao.*;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.util.GeneralException;
+import com.dneero.util.Str;
+import com.dneero.util.Util;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
@@ -96,9 +98,9 @@ public class Matrix implements Component {
                 String col = cols[j].trim();
                 out.append("<td valign=top>");
                 if (respondentcanselectmany){
-                    out.append("<input type=checkbox name=\"dneero_questionid_"+question.getQuestionid()+"\" value=\""+com.dneero.util.Str.cleanForHtml(row+DELIM+col)+"\">");
+                    out.append("<input type=checkbox name=\"dneero_questionid_"+question.getQuestionid()+"_row_"+Str.cleanForHtml(row)+"\" value=\""+com.dneero.util.Str.cleanForHtml(row+DELIM+col)+"\">");
                 } else {
-                    out.append("<input type=radio name=\"dneero_questionid_"+question.getQuestionid()+"\" value=\""+com.dneero.util.Str.cleanForHtml(row+DELIM+col)+"\">");
+                    out.append("<input type=radio name=\"dneero_questionid_"+question.getQuestionid()+"_row_"+Str.cleanForHtml(row)+"\" value=\""+com.dneero.util.Str.cleanForHtml(row+DELIM+col)+"\">");
                 }
                 out.append("</td>");
             }
@@ -198,15 +200,33 @@ public class Matrix implements Component {
 
     public void validateAnswer(HttpServletRequest request) throws ComponentException {
         if (question.getIsrequired()){
-            String[] requestParams = request.getParameterValues("dneero_questionid_"+question.getQuestionid());
-            if (requestParams==null){
-                throw new ComponentException(question.getQuestion()+" is required.");
+            Iterator keyValuePairs = request.getParameterMap().entrySet().iterator();
+            for (int i = 0; i < request.getParameterMap().size(); i++){
+                Map.Entry mapentry = (Map.Entry) keyValuePairs.next();
+                String name = (String)mapentry.getKey();
+                String[] value = (String[])mapentry.getValue();
+                if (name.indexOf("dneero_questionid_"+question.getQuestionid())>-1){
+                    return;
+                }
             }
+            throw new ComponentException(question.getQuestion()+" is required.");
         }
     }
 
+
+
     public void processAnswer(HttpServletRequest request, Response response) throws ComponentException {
-        String[] requestParams = request.getParameterValues("dneero_questionid_"+question.getQuestionid());
+        logger.debug("made it to processAnswer");
+        String[] requestParams = new String[0];
+        Iterator keyValuePairs = request.getParameterMap().entrySet().iterator();
+        for (int i = 0; i < request.getParameterMap().size(); i++){
+            Map.Entry mapentry = (Map.Entry) keyValuePairs.next();
+            String name = (String)mapentry.getKey();
+            String[] value = (String[])mapentry.getValue();
+            if (name.indexOf("dneero_questionid_"+question.getQuestionid())>-1){
+                requestParams = Util.appendToEndOfStringArray(requestParams, request.getParameterValues(name));
+            }
+        }
         if (requestParams!=null){
             boolean addedAResponse = false;
             for (int i = 0; i < requestParams.length; i++) {

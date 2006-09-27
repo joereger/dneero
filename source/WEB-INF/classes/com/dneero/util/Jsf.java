@@ -16,8 +16,11 @@ import org.apache.log4j.Logger;
 public class Jsf {
 
     public static Object getManagedBean(String beanName){
-        Object out = FacesContext.getCurrentInstance().getApplication().getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(), beanName);
-        return out;
+        if (FacesContext.getCurrentInstance()!=null){
+            Object out = FacesContext.getCurrentInstance().getApplication().getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(), beanName);
+            return out;
+        }
+        return null;
     }
 
     public static void setFacesMessage(String message){
