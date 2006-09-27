@@ -29,7 +29,7 @@ public class PercentCompleteBar extends UIComponentBase {
         ResponseWriter writer = context.getResponseWriter();
 
         String currentvalue = (String)getAttributes().get("currentvalue");
-        String maximumvalue = (String)getAttributes().get("maximumvalue");
+        String maximumvalue = String.valueOf(getAttributes().get("maximumvalue"));
         String mintitle = (String)getAttributes().get("mintitle");
         String maxtitle = (String)getAttributes().get("maxtitle");
         String widthinpixels = (String)getAttributes().get("widthinpixels");
@@ -37,7 +37,7 @@ public class PercentCompleteBar extends UIComponentBase {
         if (currentvalue==null){
             currentvalue = "0";
         }
-        if (maximumvalue==null){
+        if (maximumvalue==null || maximumvalue.equals("null")){
             maximumvalue = "100";
         }
         if (mintitle==null){

@@ -19,68 +19,120 @@
     <h:graphicImage url="/images/process-train-blogger-01.gif" style="display: block; margin-left: auto; margin-right: auto;"></h:graphicImage>
     <f:verbatim><br/><br/></f:verbatim>
 
-    <h:panelGrid columns="2" cellpadding="3" border="0">
-
-        <h:panelGroup>
-            <h:outputText value="Surveyid"/>
-        </h:panelGroup>
-        <h:panelGroup>
-            <h:outputText value="#{bloggerSurveyDetail.survey.surveyid}"/>
-        </h:panelGroup>
-
-        <h:panelGroup>
-            <h:outputText value="Title"/>
-        </h:panelGroup>
-        <h:panelGroup>
-            <h:outputText value="#{bloggerSurveyDetail.survey.title}"/>
-        </h:panelGroup>
-
-        <h:panelGroup>
-            <h:outputText value="Description"/>
-        </h:panelGroup>
-        <h:panelGroup>
-            <h:outputText value="#{bloggerSurveyDetail.survey.description}"/>
-        </h:panelGroup>
 
 
-
-        <h:panelGroup>
-            <h:outputText value="Willing to Pay Respondent"/>
-        </h:panelGroup>
-        <h:panelGroup>
-            <h:outputText value="#{bloggerSurveyDetail.survey.willingtopayperrespondent}"/>
-        </h:panelGroup>
-
-        <h:panelGroup>
-            <h:outputText value="Number of Respondents Requested"/>
-        </h:panelGroup>
-        <h:panelGroup>
-            <h:outputText value="#{bloggerSurveyDetail.survey.numberofrespondentsrequested}"/>
-        </h:panelGroup>
-
-        <h:panelGroup>
-            <h:outputText value="Start Date"/>
-        </h:panelGroup>
-        <h:panelGroup>
-            <h:outputText value="#{bloggerSurveyDetail.survey.startdate}"/>
-        </h:panelGroup>
-
-        <h:panelGroup>
-            <h:outputText value="End Date"/>
-        </h:panelGroup>
-        <h:panelGroup>
-            <h:outputText value="#{bloggerSurveyDetail.survey.enddate}"/>
-        </h:panelGroup>
-
-        <h:panelGroup>
-            <h:outputText value="Copy and Paste Into Blog Post"/>
-        </h:panelGroup>
-        <h:panelGroup>
-            <h:commandButton action="bloggersurveytake" value="Ok, I'll Take the Survey" styleClass="formsubmitbutton"></h:commandButton>
-        </h:panelGroup>
+    <t:panelTabbedPane id="panel" bgcolor="#ffffff">
+        <t:panelTab id="panel_b" label="Summary">
+            <h:graphicImage url="/images/clear.gif" width="550" height="1"><br/></h:graphicImage>
 
 
-     </h:panelGrid>
+            <table width="100%" cellpadding="5">
+                <tr>
+                    <td valign="top">
+                        <font class="largefont">#{bloggerSurveyDetail.survey.title}</font>
+                        <br/>
+                        <font class="medium">#{bloggerSurveyDetail.survey.description}</font>
+                        <br/>
+                        <font class="tinyfont">Survey ID: #{bloggerSurveyDetail.survey.surveyid}</font>
+                        <br/><br/>
+                        <h:commandButton action="bloggersurveytake" value="Ok, I'll Take the Survey" styleClass="formsubmitbutton"></h:commandButton>
+                    </td>
+                    <td valign="top" align="right">
+                        <d:roundedCornerBox uniqueboxname="youcouldearn" bodycolor="00ff00" widthinpixels="200">
+                            <h:outputText value="Earn Up To" styleClass="smallfont"/>
+                            <br/>
+                            <h:outputText value="#{bloggerSurveyDetail.surveyEnhancer.maxearning}" styleClass="largefont"/>
+                            <br/>
+                            <h:outputText value="(#{bloggerSurveyDetail.surveyEnhancer.minearning} - #{bloggerSurveyDetail.surveyEnhancer.maxearning})" styleClass="smallfont"/>
+                            <br/><br/>
+                            <font class="mediumfont" color="#ffffff">#{bloggerSurveyDetail.surveyEnhancer.daysuntilend}</font>
+                        </d:roundedCornerBox>
+                    </td>
+                </tr>
+            </table>
+
+
+
+
+
+            <h:panelGrid columns="2" cellpadding="3" border="0">
+
+
+                <h:panelGroup>
+                    <h:outputText value=""/>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:outputText value="" styleClass="mediumfont"/>
+                </h:panelGroup>
+
+
+                <h:panelGroup>
+                    <h:outputText value="Start Date" styleClass="formfieldnamefont"/>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:outputText value="#{bloggerSurveyDetail.surveyEnhancer.startdate}"/>
+                </h:panelGroup>
+
+                <h:panelGroup>
+                    <h:outputText value="End Date" styleClass="formfieldnamefont"/>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:outputText value="#{bloggerSurveyDetail.surveyEnhancer.enddate}"/>
+                </h:panelGroup>
+
+
+
+
+
+                <h:panelGroup>
+                    <h:outputText value="Pay for Responding to Survey" styleClass="formfieldnamefont"/>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:outputText value="#{bloggerSurveyDetail.surveyEnhancer.willingtopayforresponse}"/>
+                </h:panelGroup>
+
+                <h:panelGroup>
+                    <h:outputText value="Pay for 1000 Hits on Your Blog" styleClass="formfieldnamefont"/>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:outputText value="#{bloggerSurveyDetail.surveyEnhancer.willingtopayforcpm}"/>
+                </h:panelGroup>
+
+
+                <h:panelGroup>
+                    <h:outputText value="Number of Respondents To Date" styleClass="formfieldnamefont"/>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <d:percentCompleteBar currentvalue="#{bloggerSurveyDetail.surveyEnhancer.responsesalreadygotten}" maximumvalue="#{bloggerSurveyDetail.survey.numberofrespondentsrequested}" mintitle="" maxtitle="" widthinpixels="250"></d:percentCompleteBar>
+                    <h:outputText value="#{bloggerSurveyDetail.surveyEnhancer.responsesalreadygotten} people have taken this survey.  #{bloggerSurveyDetail.survey.numberofrespondentsrequested} will be paid for." styleClass="smallfont"/>
+                    <br/><br/>
+                </h:panelGroup>
+
+
+                <h:panelGroup>
+                    <h:outputText value="Number of Blog Displays To Date" styleClass="formfieldnamefont"/>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <d:percentCompleteBar currentvalue="#{bloggerSurveyDetail.surveyEnhancer.impressionsalreadygotten}" maximumvalue="#{bloggerSurveyDetail.survey.maxdisplaystotal}" mintitle="" maxtitle="" widthinpixels="250"></d:percentCompleteBar>
+                    <h:outputText value="#{bloggerSurveyDetail.surveyEnhancer.impressionsalreadygotten} blog displays have happened.  #{bloggerSurveyDetail.survey.maxdisplaystotal} will be paid for." styleClass="smallfont"/>
+                    <br/><br/>
+                </h:panelGroup>
+
+
+
+             </h:panelGrid>
+
+        </t:panelTab>
+        <t:panelTab id="panel_c" label="Question Preview">
+            <h:graphicImage url="/images/clear.gif" width="550" height="1"><br/></h:graphicImage>
+            <h:outputText value="Please don't fill out this survey... this screen is just a preview of the questions." styleClass="mediumfont"/>
+            <br/><br/>
+            <f:verbatim>#{bloggerSurveyDetail.surveyForTakers}</f:verbatim>
+        </t:panelTab>
+    </t:panelTabbedPane>
+
+
+
 
 </h:form>
 

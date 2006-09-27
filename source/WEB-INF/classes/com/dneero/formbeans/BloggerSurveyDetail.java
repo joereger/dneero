@@ -3,10 +3,13 @@ package com.dneero.formbeans;
 import org.apache.log4j.Logger;
 import com.dneero.dao.User;
 import com.dneero.dao.Survey;
-import com.dneero.util.GeneralException;
-import com.dneero.util.Jsf;
+import com.dneero.dao.Blogger;
+import com.dneero.util.*;
+import com.dneero.ui.SurveyEnhancer;
+import com.dneero.display.SurveyTakerDisplay;
 
 import javax.faces.context.FacesContext;
+import java.util.Calendar;
 
 /**
  * User: Joe Reger Jr
@@ -16,6 +19,9 @@ import javax.faces.context.FacesContext;
 public class BloggerSurveyDetail {
 
     private Survey survey;
+    private SurveyEnhancer surveyEnhancer;
+    private String surveyForTakers;
+
 
     Logger logger = Logger.getLogger(this.getClass().getName());
 
@@ -32,6 +38,8 @@ public class BloggerSurveyDetail {
             logger.debug("beginView called: found surveyid in param="+tmpSurveyid);
             Jsf.getUserSession().setCurrentSurveyid(Integer.parseInt(tmpSurveyid));
             survey = Survey.get(Integer.parseInt(tmpSurveyid));
+            surveyEnhancer = new SurveyEnhancer(survey);
+            surveyForTakers = SurveyTakerDisplay.getHtmlForSurveyTaking(survey, new Blogger());
         } else {
             logger.debug("beginView called: NOT found surveyid in param="+tmpSurveyid);
         }
@@ -46,4 +54,19 @@ public class BloggerSurveyDetail {
         this.survey = survey;
     }
 
+    public SurveyEnhancer getSurveyEnhancer() {
+        return surveyEnhancer;
+    }
+
+    public void setSurveyEnhancer(SurveyEnhancer surveyEnhancer) {
+        this.surveyEnhancer = surveyEnhancer;
+    }
+
+    public String getSurveyForTakers() {
+        return surveyForTakers;
+    }
+
+    public void setSurveyForTakers(String surveyForTakers) {
+        this.surveyForTakers = surveyForTakers;
+    }
 }

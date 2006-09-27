@@ -23,12 +23,6 @@
     <af:table value="#{bloggerSurveyList.surveys}" bandingInterval="2" rows="15" banding="row" var="survey" rendered="#{!empty bloggerSurveyList.surveys}">
       <af:column>
         <f:facet name="header">
-          <af:outputText value=""/>
-        </f:facet>
-        <h:graphicImage url="/images/misc-green.png"></h:graphicImage>
-      </af:column>
-      <af:column>
-        <f:facet name="header">
           <af:outputText value="Id"/>
         </f:facet>
         <af:outputText value="#{survey.surveyid}"/>
@@ -41,13 +35,13 @@
       </af:column>
       <af:column>
         <f:facet name="header">
-          <af:outputText value="Description"/>
+          <af:outputText value="Earn Up To"/>
         </f:facet>
-        <af:outputText value="#{survey.description}"/>
+        <af:outputText value="#{survey.willingtopayperrespondent}"/>
       </af:column>
       <af:column>
         <f:facet name="header">
-          <af:outputText value="Willing to Pay"/>
+          <af:outputText value="Timing"/>
         </f:facet>
         <af:outputText value="#{survey.willingtopayperrespondent}"/>
       </af:column>
