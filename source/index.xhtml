@@ -9,7 +9,7 @@
       xmlns:d="http://dneero.com/taglib">
 
 <ui:composition template="/template/template-facelets.xhtml">
-    <ui:define name="title">Paid Surveys Embedded in Blogs</ui:define>
+    <ui:define name="title"><center>Paid Surveys Embedded in Blogs</center></ui:define>
     <ui:define name="body">
 
 
@@ -26,22 +26,30 @@
                 <center>
                 <font class="largefont" style="color: #ffffff;">Pay for Blog</font>
                 <br/><br/>
-                Advertisers and market researchers create surveys and pay bloggers to fill them out and post them to their blogs.
+                <b>Advertisers and market researchers</b> create surveys and pay bloggers to fill them out and post them to their blogs.
+                <br/><br/>
+                Mix your marketing and your market research and you're doing both at 2.0 speed.
                 </center>
                 </d:roundedCornerBox>
 
-                <d:roundedCornerBox uniqueboxname="indexleft2" bodycolor="e6e6e6" widthinpixels="225">
-                <h:outputText value="#{publicIndex.dollarswaiting} dollars waiting to be earned!"></h:outputText>
+                <d:roundedCornerBox uniqueboxname="indexright2" bodycolor="e6e6e6" widthinpixels="250">
+                <font class="largefont">#{publicIndex.bloggersRegistered}</font>
+                <font class="mediumfont">bloggers registered</font>
+                <br/><br/>
+                <font class="largefont">#{publicIndex.surveysServed30Days}</font>
+                <font class="mediumfont">survey results displayed in blogs over last 30 days</font>
                 </d:roundedCornerBox>
 
-                <d:roundedCornerBox uniqueboxname="indexleft2" bodycolor="e6e6e6" widthinpixels="225">
-                <ul>
-                <li>Engage bloggers on their own turf for more accurate market data (ethnographic research)</li>
-                <li>Generate product awareness while you collect data (market research meets marketing)</li>
-                <li>Low risk: define max budget and only pay for respondents and impressions that actually happen</li>
-                <li>Quick and easy: set up a campaign online in minutes</li>
-                <li>Customize the look of the survey to include logos, product pictures, clickable links, etc.</li>
-                </ul>
+                <d:roundedCornerBox uniqueboxname="indexleft2" bodycolor="e6e6e6" widthinpixels="250">
+                Engage bloggers on their own turf for more accurate market data (<b>ethnographic research</b>)
+                <br/><br/>
+                Generate product awareness while you collect data (<b>market research meets marketing</b>)
+                <br/><br/>
+                Low risk: define max budget and <b>only pay for respondents and impressions that actually happen</b>
+                <br/><br/>
+                Quick and easy: <b>set up a campaign online in minutes</b>
+                <br/><br/>
+                Customize the look of the survey to <b>include logos, product pictures, clickable links</b>, etc... survey taking meets guerilla marketing
                 </d:roundedCornerBox>
 
             </td>
@@ -50,24 +58,30 @@
                 <center>
                 <font class="largefont" style="color: #ffffff;">Blog for Pay</font>
                 <br/><br/>
-                Bloggers make money blogging what they're passionate about.
+                <b>Bloggers</b> find surveys they're interested in and post their answers to their blog, smiling all the way to the bank.
+                <br/><br/>
+                This stimulates conversation with their friends and family, who can then fill out the survey themselves.
                 </center>
                 </d:roundedCornerBox>
 
-                <d:roundedCornerBox uniqueboxname="indexright2" bodycolor="e6e6e6" widthinpixels="225">
-                <h:outputText value="#{publicIndex.bloggersRegistered} registered bloggers." escape="false"></h:outputText>
-                <f:verbatim><br/><br/></f:verbatim>
-                <h:outputText value="#{publicIndex.surveysServed30Days} survey impressions in last 30 days." escape="false"></h:outputText>
+
+
+                <d:roundedCornerBox uniqueboxname="indexleft2" bodycolor="e6e6e6" widthinpixels="250">
+                <font class="largefont">#{publicIndex.dollarswaiting}</font>
+                <br/>
+                <font class="mediumfont">waiting to be earned by bloggers!</font>
                 </d:roundedCornerBox>
 
-                <d:roundedCornerBox uniqueboxname="indexleft2" bodycolor="e6e6e6" widthinpixels="225">
-                <ul>
-                <li>Make money with your blog</li>
-                <li>Works with any blogging system</li>
-                <li>You control which surveys to fill out and what data to share (we recommend you stay with what you know and are passionate about)</li>
-                <li>You're pay is a combination of the flat fee per survey and the number of impressions that you generate for it... more traffic equals more dollars</li>
-                <li>Quick and easy: posting a survey is a single copy-and-paste operation</li>
-                </ul>
+                <d:roundedCornerBox uniqueboxname="indexleft2" bodycolor="e6e6e6" widthinpixels="250">
+                <b>Make money with your blog</b>
+                <br/><br/>
+                <b>Works with any blogging system</b>
+                <br/><br/>
+                <b>You control which surveys to fill out</b> and what data to share (we recommend you stay with what you know and are passionate about)
+                <br/><br/>
+                You're pay is a combination of the flat fee per survey and the number of impressions that you generate for it... <b>more traffic to your blog equals more dollars</b>
+                <br/><br/>
+                <b>Quick and easy</b>: posting a survey is a single copy-and-paste operation
                 </d:roundedCornerBox>
             </td>
         </tr>

@@ -4,6 +4,7 @@ import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.dao.Survey;
 import com.dneero.dao.Impressiondetail;
 import com.dneero.util.Time;
+import com.dneero.util.Str;
 
 import java.util.List;
 import java.util.Iterator;
@@ -61,10 +62,7 @@ public class PublicIndex {
                 Survey survey = (Survey) iterator.next();
                 dollars = dollars + (survey.getWillingtopayperrespondent() * survey.getNumberofrespondentsrequested()) + ((survey.getWillingtopaypercpm() * survey.getMaxdisplaystotal())/1000);
             }
-            NumberFormat formatter = DecimalFormat.getInstance();
-            formatter.setMinimumFractionDigits(2);
-            formatter.setMaximumFractionDigits(2);
-            dollarswaiting = formatter.format(dollars);
+            dollarswaiting = "$"+Str.formatForMoney(dollars);
         }
 
         if (bloggersRegistered==null){
