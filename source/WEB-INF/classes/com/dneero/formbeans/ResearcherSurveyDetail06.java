@@ -91,7 +91,7 @@ public class ResearcherSurveyDetail06 {
                 averagebloggerwillbepaid = "$"+Str.formatForMoney(avgbloggerpaid);
 
                 //Warning: time period too short
-                if (DateDiff.dateDiff("day", Time.getCalFromDate(survey.getStartdate()), Time.getCalFromDate(survey.getEnddate()))<7){
+                if (DateDiff.dateDiff("day", Time.getCalFromDate(survey.getEnddate()), Time.getCalFromDate(survey.getStartdate()))<7){
                     warningtimeperiodtooshort = true;
                 }
 
