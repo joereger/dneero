@@ -4,6 +4,8 @@ import com.dneero.util.Jsf;
 import com.dneero.util.Util;
 import com.dneero.util.Num;
 import com.dneero.session.UserSession;
+import com.dneero.dao.User;
+import org.apache.log4j.Logger;
 
 /**
  * User: Joe Reger Jr
@@ -12,12 +14,31 @@ import com.dneero.session.UserSession;
  */
 public class InviteLandingPage {
 
+    private String referredby;
+    Logger logger = Logger.getLogger(this.getClass().getName());
+
     public InviteLandingPage(){
-        //Set the UserSession var to hold the referral
+        logger.debug("instanciated");
+        logger.debug("Jsf.getRequestParam(\"referredby\")="+Jsf.getRequestParam("referredby"));
         if (Num.isinteger(Jsf.getRequestParam("referredby"))){
-            Jsf.getUserSession().setReferredbyOnlyUsedForSignup(Integer.parseInt(Jsf.getRequestParam("referredby")));
+            User user = User.get(Integer.parseInt(Jsf.getRequestParam("referredby")));
+            if (user!=null && user.getUserid()>0){
+                Jsf.getUserSession().setReferredbyOnlyUsedForSignup(Integer.parseInt(Jsf.getRequestParam("referredby")));
+                referredby = user.getFirstname() + " " + user.getLastname();
+            } else {
+                Jsf.getUserSession().setReferredbyOnlyUsedForSignup(0);
+            }
+
         }
 
+    }
+
+    public String getReferredby() {
+        return referredby;
+    }
+
+    public void setReferredby(String referredby) {
+        this.referredby = referredby;
     }
 
 

@@ -312,6 +312,12 @@
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
 
+    <managed-bean>
+        <managed-bean-name>inviteLandingPage</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.InviteLandingPage</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
 
     <managed-bean>
         <managed-bean-name>researcherSurveyList</managed-bean-name>

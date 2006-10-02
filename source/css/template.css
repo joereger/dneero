@@ -9,9 +9,9 @@ body {
 #level1 {
 }
 #level2 {
-    margin-left:160px;
+    margin-left:185px;
     padding:15px;
-    width: 575px;
+    width: 550px;
     background: #ffffff;
 }
 #topBar {
@@ -20,6 +20,6 @@ body {
 #lftBar {
     background:#ffffff;
     position:absolute;
-    width:150px;
+    width:175px;
     top:125px;
 }
