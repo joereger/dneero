@@ -5,6 +5,7 @@ import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.session.UserSession;
 import com.dneero.util.Jsf;
 import com.dneero.util.SortableList;
+import com.dneero.util.Str;
 import com.dneero.invoice.BloggerIncomeCalculator;
 import org.apache.log4j.Logger;
 
@@ -31,8 +32,8 @@ public class BloggerEarnings extends SortableList {
                 Response response = iterator.next();
                 Survey survey = Survey.get(response.getSurveyid());
                 BloggerEarningsListSurveys listitem = new BloggerEarningsListSurveys();
-                listitem.setAmtforresponse(survey.getWillingtopayperrespondent());
-                listitem.setAmttotal(BloggerIncomeCalculator.getBloggerTotalPossibleIncomeForSurvey(userSession.getUser().getBlogger(), survey));
+                listitem.setAmtforresponse("$"+Str.formatForMoney(survey.getWillingtopayperrespondent()));
+                listitem.setAmttotal("$"+Str.formatForMoney(BloggerIncomeCalculator.getBloggerTotalPossibleIncomeForSurvey(userSession.getUser().getBlogger(), survey)));
                 listitem.setImpressions(BloggerIncomeCalculator.getAllImpressiondetailsForSurvey(userSession.getUser().getBlogger(), survey).size());
                 listitem.setImpressionsthatqualifyforpay(BloggerIncomeCalculator.getImpressionDetailsThatQualifyForPay(userSession.getUser().getBlogger(), survey).size());
                 listitem.setResponsedate(response.getResponsedate());

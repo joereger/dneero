@@ -17,35 +17,23 @@
         <h:form>
 
               <af:table value="#{bloggerEarnings.list}" bandingInterval="2" rows="15" banding="row" var="listitem">
-              <af:column>
+              <af:column rendered="false">
                 <f:facet name="header">
                   <af:outputText value="ID"/>
                 </f:facet>
                 <af:outputText value="#{listitem.surveyid}"/>
               </af:column>
-              <af:column rendered="false">
+              <af:column rendered="true">
                 <f:facet name="header">
                   <af:outputText value="Survey Title"/>
                 </f:facet>
-                <af:outputText value="#{listitem.surveytitle}"/>
+                <af:outputText value="#{listitem.surveytitle}"  styleClass="mediumfont"/>
               </af:column>
               <af:column>
                 <f:facet name="header">
                   <af:outputText value="Date"/>
                 </f:facet>
-                <af:outputText value="#{listitem.responsedate}"/>
-              </af:column>
-              <af:column>
-                <f:facet name="header">
-                  <af:outputText value="Total Impressions"/>
-                </f:facet>
-                <af:outputText value="#{listitem.impressions}"/>
-              </af:column>
-              <af:column>
-                <f:facet name="header">
-                  <af:outputText value="Impressions Qualifying for Pay"/>
-                </f:facet>
-                <af:outputText value="#{listitem.impressionsthatqualifyforpay}"/>
+                <af:outputText value="#{listitem.responsedate}" styleClass="smallfont"/>
               </af:column>
               <af:column>
                 <f:facet name="header">
@@ -53,11 +41,23 @@
                 </f:facet>
                 <af:outputText value="#{listitem.amtforresponse}"/>
               </af:column>
+              <af:column rendered="false">
+                <f:facet name="header">
+                  <af:outputText value="Total Impressions"/>
+                </f:facet>
+                <af:outputText value="#{listitem.impressions}"/>
+              </af:column>
+              <af:column>
+                <f:facet name="header">
+                  <af:outputText value="Impressions"/>
+                </f:facet>
+                <af:outputText value="#{listitem.impressionsthatqualifyforpay}"/>
+              </af:column>
               <af:column>
                 <f:facet name="header">
                   <af:outputText value="Total Earnings"/>
                 </f:facet>
-                <af:outputText value="#{listitem.amttotal}"/>
+                <af:outputText value="#{listitem.amttotal}" styleClass="mediumfont"/>
               </af:column>
 
               <af:column>
@@ -65,7 +65,7 @@
                   <af:outputText value=" "/>
                 </f:facet>
                 <h:commandLink action="#{bloggerEarningsSurvey.beginView}">
-                    <h:outputText value="View" escape="false" />
+                    <h:outputText value="Payment Details" escape="false" />
                     <f:param name="responseid" value="#{listitem.responseid}" />
                 </h:commandLink>
              </af:column>

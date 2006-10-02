@@ -11,7 +11,7 @@ public class BloggerEarningsSurveyListPayments {
 
     private int paybloggerid;
     private Date paymentdate;
-    private double amt;
+    private String amt;
 
     public int getPaybloggerid() {
         return paybloggerid;
@@ -29,11 +29,11 @@ public class BloggerEarningsSurveyListPayments {
         this.paymentdate = paymentdate;
     }
 
-    public double getAmt() {
+    public String getAmt() {
         return amt;
     }
 
-    public void setAmt(double amt) {
+    public void setAmt(String amt) {
         this.amt = amt;
     }
 

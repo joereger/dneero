@@ -11,26 +11,34 @@
       xmlns:c="http://java.sun.com/jstl/core">
 
 <ui:composition template="/template/template-facelets.xhtml">
-    <ui:define name="title">Earnings</ui:define>
+    <ui:define name="title">Earnings: #{bloggerEarningsSurvey.survey.title}</ui:define>
     <ui:define name="body">
     <d:authorization acl="blogger" redirectonfail="true"/>
 
+    <br/><br/>
+    <font class="smallfont">Payment for a single survey response (and its displays on your blog) can be spread out across multiple payments.  Listed here are those payments that include some payment for the survey you chose.</font>
+    <br/><br/>
+
         <h:form>
-            <c:forEach var="listitem" items="#{bloggerEarningsSurvey.list}">
+            <c:forEach var="listitem" items="#{bloggerEarningsSurvey.list}" rendered="#{!empty bloggerEarningsSurvey.list}">
                 <d:roundedCornerBox uniqueboxname="bloggerearningssurvey-#{listitem.paybloggerid}" bodycolor="ffffff" widthinpixels="500">
-                    <h:outputText value="Payment On: #{listitem.paymentdate}"></h:outputText>
+                    <h:outputText value="Included in Payment On: #{listitem.paymentdate}"></h:outputText>
                     <f:verbatim><br/></f:verbatim>
-                    <h:outputText value="Amount: #{itemlist.amt}"></h:outputText>
+                    <h:outputText value="Amount: #{listitem.amt}"></h:outputText>
                     <f:verbatim><br/></f:verbatim>
                     <h:commandLink action="#{bloggerEarningsPayment.beginView}">
-                        <h:outputText value="View" escape="false" />
+                        <h:outputText value="View Payment Details" escape="false" />
                         <f:param name="paybloggerid" value="#{listitem.paybloggerid}" />
                     </h:commandLink>
                 </d:roundedCornerBox>
             </c:forEach>
-
-
         </h:form>
+
+        <d:roundedCornerBox uniqueboxname="bloggerearningssurvey-#{listitem.paybloggerid}" bodycolor="ffffff" widthinpixels="500" rendered="#{empty bloggerEarningsSurvey.list}">
+            <font class="mediumfont">No payment date has yet been set for this survey response.</font>
+            <br/><br/>
+            <font class="smallfont">Pay dates are created once a month. When they are next created you'll be able to find your scheduled payment here.  Sometimes when a survey creator doesn't pay their bill on time your payment is delayed.</font>
+        </d:roundedCornerBox>
 
     </ui:define>
 </ui:composition>

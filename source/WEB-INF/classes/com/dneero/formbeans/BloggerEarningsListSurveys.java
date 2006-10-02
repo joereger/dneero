@@ -15,8 +15,8 @@ public class BloggerEarningsListSurveys {
     private Date responsedate;
     private int impressions;
     private int impressionsthatqualifyforpay;
-    private double amtforresponse;
-    private double amttotal;
+    private String amtforresponse;
+    private String amttotal;
 
     public int getSurveyid() {
         return surveyid;
@@ -50,19 +50,19 @@ public class BloggerEarningsListSurveys {
         this.impressions = impressions;
     }
 
-    public double getAmtforresponse() {
+    public String getAmtforresponse() {
         return amtforresponse;
     }
 
-    public void setAmtforresponse(double amtforresponse) {
+    public void setAmtforresponse(String amtforresponse) {
         this.amtforresponse = amtforresponse;
     }
 
-    public double getAmttotal() {
+    public String getAmttotal() {
         return amttotal;
     }
 
-    public void setAmttotal(double amttotal) {
+    public void setAmttotal(String amttotal) {
         this.amttotal = amttotal;
     }
 

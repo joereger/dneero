@@ -10,6 +10,7 @@ import java.util.Collections;
 import com.dneero.session.UserSession;
 import com.dneero.util.Jsf;
 import com.dneero.util.SortableList;
+import com.dneero.util.Str;
 import com.dneero.dao.Response;
 import com.dneero.dao.Survey;
 import com.dneero.dao.Payblogger;
@@ -25,6 +26,7 @@ import javax.faces.context.FacesContext;
 public class BloggerEarningsSurvey extends SortableList {
 
     private ArrayList<BloggerEarningsSurveyListPayments> list;
+    private Survey survey;
 
     Logger logger = Logger.getLogger(this.getClass().getName());
 
@@ -38,13 +40,14 @@ public class BloggerEarningsSurvey extends SortableList {
         if (userSession.getUser()!=null && userSession.getUser().getBlogger()!=null){
             Response response = Response.get(responseid);
             Survey survey = Survey.get(response.getSurveyid());
+            this.survey = survey;
             if (response.canRead(Jsf.getUserSession().getUser())){
                 ArrayList<Payblogger> paybloggers = BloggerIncomeCalculator.getPaybloggersForASurvey(userSession.getUser().getBlogger(), survey);
                 list = new ArrayList();
                 for (Iterator<Payblogger> iterator = paybloggers.iterator(); iterator.hasNext();) {
                     Payblogger payblogger = iterator.next();
                     BloggerEarningsSurveyListPayments listitem = new BloggerEarningsSurveyListPayments();
-                    listitem.setAmt(payblogger.getAmt());
+                    listitem.setAmt("$"+Str.formatForMoney(payblogger.getAmt()));
                     listitem.setPaybloggerid(payblogger.getPaybloggerid());
                     listitem.setPaymentdate(payblogger.getDate());
                     list.add(listitem);
@@ -102,6 +105,12 @@ public class BloggerEarningsSurvey extends SortableList {
         this.list = list;
     }
 
+    public Survey getSurvey() {
+        return survey;
+    }
 
+    public void setSurvey(Survey survey) {
+        this.survey = survey;
+    }
 
 }
