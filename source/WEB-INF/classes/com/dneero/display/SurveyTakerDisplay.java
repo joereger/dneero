@@ -27,7 +27,7 @@ public class SurveyTakerDisplay {
             logger.debug("found component.getName()="+component.getName());
             out.append(component.getHtmlForInput());
             if (iterator.hasNext()){
-                out.append("<br/>");
+                out.append("<br/><br/>");
             }
         }
         return out.toString();

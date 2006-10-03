@@ -16,14 +16,17 @@
 
 <h:form>
 
-    <h:graphicImage url="/images/process-train-blogger-01.gif" style="display: block; margin-left: auto; margin-right: auto;"></h:graphicImage>
+    <h:graphicImage url="/images/process-train-blogger-01.gif" style="display: block; margin-left: auto; margin-right: auto;" rendered="#{!bloggerSurveyDetail.bloggerhasalreadytakensurvey}"></h:graphicImage>
+    <h:outputText value="You've already taken this survey." styleClass="mediumfont" rendered="#{bloggerSurveyDetail.bloggerhasalreadytakensurvey}"/>
     <f:verbatim><br/><br/></f:verbatim>
+
+
 
 
 
     <t:panelTabbedPane id="panel" bgcolor="#ffffff">
         <t:panelTab id="panel_b" label="Summary">
-            <h:graphicImage url="/images/clear.gif" width="550" height="1"><br/></h:graphicImage>
+            <h:graphicImage url="/images/clear.gif" width="550" height="1"/><br/>
 
 
             <table width="100%" cellpadding="5">
@@ -35,7 +38,7 @@
                         <br/>
                         <font class="tinyfont">Survey ID: #{bloggerSurveyDetail.survey.surveyid}</font>
                         <br/><br/>
-                        <h:commandButton action="bloggersurveytake" value="Ok, I'll Take the Survey" styleClass="formsubmitbutton"></h:commandButton>
+                        <h:commandButton action="bloggersurveytake" value="Ok, I'll Take the Survey" styleClass="formsubmitbutton" rendered="#{!bloggerSurveyDetail.bloggerhasalreadytakensurvey}"></h:commandButton>
                     </td>
                     <td valign="top" align="right">
                         <d:roundedCornerBox uniqueboxname="youcouldearn" bodycolor="00ff00" widthinpixels="200">
@@ -123,11 +126,23 @@
              </h:panelGrid>
 
         </t:panelTab>
-        <t:panelTab id="panel_c" label="Question Preview">
-            <h:graphicImage url="/images/clear.gif" width="550" height="1"><br/></h:graphicImage>
+        <t:panelTab id="panel_c" label="Question Preview" rendered="#{!bloggerSurveyDetail.bloggerhasalreadytakensurvey}">
+            <h:graphicImage url="/images/clear.gif" width="550" height="1"/><br/>
             <h:outputText value="Please don't fill out this survey... this screen is just a preview of the questions." styleClass="mediumfont"/>
             <br/><br/>
             <f:verbatim>#{bloggerSurveyDetail.surveyForTakers}</f:verbatim>
+        </t:panelTab>
+        <t:panelTab id="panel_d" label="Your Answers" rendered="#{bloggerSurveyDetail.bloggerhasalreadytakensurvey}">
+            <h:graphicImage url="/images/clear.gif" width="550" height="1"/><br/>
+            <h:outputText value="These are the answers that you provided." styleClass="mediumfont"/>
+            <br/><br/>
+            <f:verbatim>#{bloggerSurveyDetail.surveyAnswersForThisBlogger}</f:verbatim>
+        </t:panelTab>
+        <t:panelTab id="panel_e" label="Post to your Blog" rendered="#{bloggerSurveyDetail.bloggerhasalreadytakensurvey}">
+            <h:graphicImage url="/images/clear.gif" width="550" height="1"/><br/>
+            <h:outputText value="Copy and paste the following into your blog to make even more money!" styleClass="mediumfont"/>
+            <br/><br/>
+            <h:outputText>&lt;script src="http://dneero.com/survey.js?surveyid=#{bloggerSurveyDetail.survey.surveyid}&amp;userid=#{userSession.user.userid}"&gt;&lt;/script&gt;</h:outputText>
         </t:panelTab>
     </t:panelTabbedPane>
 

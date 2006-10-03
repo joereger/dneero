@@ -20,38 +20,44 @@
 
 
     <af:outputText value="There are currently no surveys that fit your profile.  Please check back soon as we're always adding new ones!" styleClass="mediumfont" rendered="#{empty bloggerSurveyList.surveys}"/>
-    <af:table value="#{bloggerSurveyList.surveys}" bandingInterval="2" rows="15" banding="row" var="survey" rendered="#{!empty bloggerSurveyList.surveys}">
-      <af:column>
+    <af:table value="#{bloggerSurveyList.surveys}" bandingInterval="2" rows="15" banding="row" var="srvy" rendered="#{!empty bloggerSurveyList.surveys}">
+      <af:column rendered="false">
         <f:facet name="header">
           <af:outputText value="Id"/>
         </f:facet>
-        <af:outputText value="#{survey.surveyid}"/>
+        <af:outputText value="#{srvy.surveyid}"/>
       </af:column>
       <af:column>
         <f:facet name="header">
           <af:outputText value="Title"/>
         </f:facet>
-        <af:outputText value="#{survey.title}"/>
+        <af:outputText value="#{srvy.title}" styleClass="mediumfont"/>
       </af:column>
       <af:column>
         <f:facet name="header">
-          <af:outputText value="Earn Up To"/>
+          <af:outputText value="Questions"/>
         </f:facet>
-        <af:outputText value="#{survey.willingtopayperrespondent}"/>
+        <af:outputText value="#{srvy.numberofquestions}"/>
       </af:column>
       <af:column>
         <f:facet name="header">
           <af:outputText value="Timing"/>
         </f:facet>
-        <af:outputText value="#{survey.willingtopayperrespondent}"/>
+        <af:outputText value="#{srvy.daysuntilend}"/>
+      </af:column>
+      <af:column>
+        <f:facet name="header">
+          <af:outputText value="Earn Up To"/>
+        </f:facet>
+        <af:outputText value="#{srvy.maxearning}" styleClass="mediumfont"/>
       </af:column>
       <af:column>
         <f:facet name="header">
           <af:outputText value=" "/>
         </f:facet>
         <h:commandLink action="#{bloggerSurveyDetail.beginView}">
-            <h:outputText value="View" escape="false" />
-            <f:param name="surveyid" value="#{survey.surveyid}" />
+            <h:outputText value="View" escape="false" styleClass="mediumfont"/>
+            <f:param name="surveyid" value="#{srvy.surveyid}" />
         </h:commandLink>
       </af:column>
     </af:table>

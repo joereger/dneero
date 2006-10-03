@@ -48,7 +48,7 @@ public class Essay implements Component {
 
     public String getHtmlForInput() {
         StringBuffer out = new StringBuffer();
-        out.append(question.getQuestion());
+        out.append("<font class=\"formfieldnamefont\">"+question.getQuestion()+"</font>");
         out.append("<br/>");
 
         out.append("<textarea cols=\"25\" rows=\"5\" name=\"dneero_questionid_"+question.getQuestionid()+"\"></textarea>");

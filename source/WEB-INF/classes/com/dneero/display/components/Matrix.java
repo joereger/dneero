@@ -45,7 +45,7 @@ public class Matrix implements Component {
 
     public String getHtmlForInput() {
         StringBuffer out = new StringBuffer();
-        out.append(question.getQuestion());
+        out.append("<font class=\"formfieldnamefont\">"+question.getQuestion()+"</font>");
         out.append("<br/>");
 
         //Get config params

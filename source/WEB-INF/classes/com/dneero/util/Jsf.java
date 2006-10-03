@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 
+import java.io.IOException;
+
 /**
  * User: Joe Reger Jr
  * Date: Jun 21, 2006
@@ -37,6 +39,10 @@ public class Jsf {
 
     public static HttpServletRequest getHttpServletRequest(){
         return (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();
+    }
+
+    public static void redirectResponse(String url) throws IOException {
+        FacesContext.getCurrentInstance().getExternalContext().redirect(url);
     }
 
     public static String getRequestParam(String paramName){

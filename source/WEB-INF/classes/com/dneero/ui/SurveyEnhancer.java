@@ -56,7 +56,11 @@ public class SurveyEnhancer {
             double maxearningNum = survey.getWillingtopayperrespondent()  +   ( (survey.getWillingtopaypercpm()*survey.getMaxdisplaysperblog())/1000 );
             maxearning = "$"+Str.formatForMoney(maxearningNum);
 
-            numberofquestions = String.valueOf(survey.getQuestions().size());
+            if (survey.getQuestions()!=null){
+                numberofquestions = String.valueOf(survey.getQuestions().size());
+            } else {
+                numberofquestions = "0";
+            }
 
         }
 

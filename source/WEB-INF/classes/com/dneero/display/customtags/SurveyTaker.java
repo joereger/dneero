@@ -14,13 +14,12 @@ import java.io.IOException;
 
 import com.dneero.util.Jsf;
 import com.dneero.util.GeneralException;
-import com.dneero.dao.Question;
-import com.dneero.dao.Survey;
-import com.dneero.dao.Response;
+import com.dneero.dao.*;
 import com.dneero.display.components.def.Component;
 import com.dneero.display.components.def.ComponentTypes;
 import com.dneero.display.components.def.ComponentException;
 import com.dneero.display.SurveyTakerDisplay;
+import com.dneero.survey.servlet.SurveyAsHtml;
 
 /**
  * User: Joe Reger Jr
@@ -99,10 +98,20 @@ public class SurveyTaker extends UIInput {
         setValue(value);
         //setSubmittedValue(value);
 
-
         //Validation
         Survey survey = Survey.get(Jsf.getUserSession().getCurrentSurveyid());
         ComponentException allCex = new ComponentException();
+
+        //Make sure blogger hasn't taken already
+        Blogger blogger = Jsf.getUserSession().getUser().getBlogger();
+        for (Iterator<Response> iterator = blogger.getResponses().iterator(); iterator.hasNext();) {
+            Response response = iterator.next();
+            if (response.getSurveyid()==survey.getSurveyid()){
+                allCex.addValidationError("You have already taken this survey before.  Each survey can only be answered once.");
+            }
+        }
+
+        //Make sure each component is validated
         for (Iterator<Question> iterator = survey.getQuestions().iterator(); iterator.hasNext();) {
             Question question = iterator.next();
             logger.debug("found question.getQuestionid()="+question.getQuestionid());
@@ -139,6 +148,9 @@ public class SurveyTaker extends UIInput {
                     allCex.addErrorsFromAnotherGeneralException(cex);
                 }
             }
+
+            //Refresh blogger
+            try{Jsf.getUserSession().getUser().getBlogger().save();} catch (Exception ex){logger.error(ex);};
 
         }
     }

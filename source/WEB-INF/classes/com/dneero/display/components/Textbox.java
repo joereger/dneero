@@ -45,7 +45,7 @@ public class Textbox implements Component {
 
     public String getHtmlForInput() {
         StringBuffer out = new StringBuffer();
-        out.append(question.getQuestion());
+        out.append("<font class=\"formfieldnamefont\">"+question.getQuestion()+"</font>");
         out.append("<br/>");
 
         out.append("<input type=text size=\"20\" maxlength=\"255\" name=\"dneero_questionid_"+question.getQuestionid()+"\">");

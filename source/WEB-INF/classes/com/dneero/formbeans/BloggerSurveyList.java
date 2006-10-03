@@ -1,7 +1,6 @@
 package com.dneero.formbeans;
 
-import com.dneero.util.SortableList;
-import com.dneero.util.Jsf;
+import com.dneero.util.*;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.dao.Survey;
 import com.dneero.dao.Blogger;
@@ -19,8 +18,8 @@ import org.apache.log4j.Logger;
  */
 public class BloggerSurveyList extends SortableList {
 
-    private Logger logger = Logger.getLogger(UserList.class);
-    private List surveys;
+    private Logger logger = Logger.getLogger(BloggerSurveyList.class);
+    private ArrayList<BloggerSurveyListItem> surveys;
 
     public BloggerSurveyList() {
         super("title");
@@ -36,19 +35,51 @@ public class BloggerSurveyList extends SortableList {
             logger.debug("userSession, user and blogger not null");
             logger.debug("into loop for userSession.getUser().getBlogger().getBloggerid()="+userSession.getUser().getBlogger().getBloggerid());
             FindSurveysForBlogger finder = new FindSurveysForBlogger(userSession.getUser().getBlogger());
-            surveys = finder.getSurveys();
+            surveys = new ArrayList<BloggerSurveyListItem>();
+            for (Iterator iterator = finder.getSurveys().iterator(); iterator.hasNext();) {
+                Survey survey = (Survey) iterator.next();
+                BloggerSurveyListItem bsli = new BloggerSurveyListItem();
+
+                bsli.setSurveyid(survey.getSurveyid());
+
+                bsli.setTitle(survey.getTitle());
+
+                if (survey.getQuestions()!=null){
+                    bsli.setNumberofquestions(String.valueOf(survey.getQuestions().size()));
+                } else {
+                    bsli.setNumberofquestions("0");
+                }
+
+                double maxearningNum = survey.getWillingtopayperrespondent()  +   ( (survey.getWillingtopaypercpm()*survey.getMaxdisplaysperblog())/1000 );
+                bsli.setMaxearning("$"+ Str.formatForMoney(maxearningNum));
+
+                int daysleft = DateDiff.dateDiff("day", Time.getCalFromDate(survey.getEnddate()), Calendar.getInstance());
+                if (daysleft==0){
+                    bsli.setDaysuntilend("Ends today!");
+                } else if (daysleft==1){
+                    bsli.setDaysuntilend("One day left!");
+                } else {
+                    bsli.setDaysuntilend(daysleft + " days left!");
+                }
+
+                surveys.add(bsli);
+            }
+
+
+
+
         }
 
 
     }
 
-    public List getSurveys() {
+    public ArrayList<BloggerSurveyListItem> getSurveys() {
         //logger.debug("getSurveys");
         sort(getSort(), isAscending());
         return surveys;
     }
 
-    public void setSurveys(List surveys) {
+    public void setSurveys(ArrayList<BloggerSurveyListItem> surveys) {
         //logger.debug("setSurveys");
         this.surveys = surveys;
     }
@@ -61,8 +92,8 @@ public class BloggerSurveyList extends SortableList {
         //logger.debug("sort called");
         Comparator comparator = new Comparator() {
             public int compare(Object o1, Object o2) {
-                Survey survey1 = (Survey)o1;
-                Survey survey2 = (Survey)o2;
+                BloggerSurveyListItem survey1 = (BloggerSurveyListItem)o1;
+                BloggerSurveyListItem survey2 = (BloggerSurveyListItem)o2;
                 if (column == null) {
                     return 0;
                 }
