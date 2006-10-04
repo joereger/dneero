@@ -12,9 +12,11 @@
     <ui:define name="title">Welcome New Researcher!</ui:define>
     <ui:define name="body">
         <d:authorization acl="researcher" redirectonfail="true"/>
-
-        Let's get started.
-
+        <h:form>
+            <font class="mediumfont">Your researcher profile is created and ready to roll.  In the future you'll be able to skip this step.</font>
+            <br/><br/>
+            <h:commandLink value="Click Here to Continue" action="accountmain" style="padding-left: 10px; color: #009900;" styleClass="mediumfont"/>
+        </h:form>
     </ui:define>
 
 

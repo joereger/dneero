@@ -421,6 +421,18 @@
             <to-view-id>/login.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
+            <from-outcome>bloggerfaq</from-outcome>
+            <to-view-id>/bloggerfaq.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>researcherfaq</from-outcome>
+            <to-view-id>/researcherfaq.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>accountmain</from-outcome>
+            <to-view-id>/account/accountmain.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
             <from-outcome>accountsettings</from-outcome>
             <to-view-id>/account/accountsettings.xhtml</to-view-id>
         </navigation-case>
@@ -503,6 +515,10 @@
         <navigation-case>
             <from-outcome>bloggersurveyposttoblog</from-outcome>
             <to-view-id>/blogger/bloggersurveyposttoblog.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>bloggerwelcomenewblogger</from-outcome>
+            <to-view-id>/blogger/welcomenewblogger.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>researchersurveylist</from-outcome>
@@ -650,7 +666,7 @@
         <from-view-id>/login.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>success</from-outcome>
-            <to-view-id>/blogger/index.xhtml</to-view-id>
+            <to-view-id>/account/accountmain.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>failure</from-outcome>
@@ -682,7 +698,7 @@
         </navigation-case>
         <navigation-case>
             <from-outcome>success_newblogger</from-outcome>
-            <to-view-id>/blogger/welcomenewblogger.xhtml</to-view-id>
+            <to-view-id>/blogger/bloggerblogdetail.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
 

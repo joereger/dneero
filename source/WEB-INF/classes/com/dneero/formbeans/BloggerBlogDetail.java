@@ -60,6 +60,7 @@ public class BloggerBlogDetail {
 
         UserSession userSession = Jsf.getUserSession();
 
+
         Blog blog = new Blog();
         blog.setQuality(0);
         blog.setQuality90days(0);
@@ -100,6 +101,12 @@ public class BloggerBlogDetail {
 
             userSession.getUser().refresh();
         }
+
+        //#{userSession.isloggedin and (userSession.user.blogger ne null) and (empty usersession.user.blogger.blogs)}
+        if (Jsf.getUserSession().getUser().getBlogger().getBlogs().size()==1){
+            return "bloggerwelcomenewblogger";
+        }
+
 
         return "bloggerblogslist";
 

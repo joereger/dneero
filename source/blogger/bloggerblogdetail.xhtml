@@ -14,6 +14,13 @@
     <d:authorization acl="blogger" redirectonfail="true"/>
 
 
+    <d:roundedCornerBox uniqueboxname="newblogger" bodycolor="00ff00" widthinpixels="550" rendered="#{userSession.isloggedin and (userSession.user.blogger ne null) and (empty usersession.user.blogger.blogs)}">
+    <font class="mediumfont">New Blogger Step 2: Blog Claim</font>
+    <br/>
+    <font class="smallfont">You need to claim at least one blog so that we know where to look for your survey posts.</font>
+    </d:roundedCornerBox>
+
+
 <h:form>
     <h:messages />
     <h:inputHidden name="blogid" value="#{bloggerBlogDetail.blogid}" />

@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:t="http://myfaces.apache.org/tomahawk"
+      xmlns:d="http://dneero.com/taglib">
+
+<ui:composition template="/template/template-facelets.xhtml">
+    <ui:define name="title">What would you like to do today?</ui:define>
+    <ui:define name="body">
+    <d:authorization acl="account" redirectonfail="true"/>
+
+
+    <h:form>
+
+
+        <table cellpadding="0" cellspacing="0" border="0" width="100%">
+
+        <tr>
+            <td width="50%" align="left" valign="top">
+
+                <d:roundedCornerBox uniqueboxname="indexleft" bodycolor="00ff00" widthinpixels="250">
+                    <h:commandLink action="researcherhome" rendered="#{userSession.isloggedin and (userSession.user.researcher ne null)}"><font class="largefont">Pay for Blog</font></h:commandLink>
+                    <f:verbatim rendered="#{userSession.isloggedin and (userSession.user.researcher eq null)}"><font class="largefont">Pay for Blog</font></f:verbatim>
+                </d:roundedCornerBox>
+                <d:roundedCornerBox uniqueboxname="indexleft2" bodycolor="ffffff" widthinpixels="250" rendered="#{userSession.isloggedin and (userSession.user.researcher ne null)}">
+                    <br/><h:commandLink value="Start a New Survey" action="#{researcherSurveyDetail01.beginViewNewSurvey}" styleClass="smallfont" style="padding-left: 25px;" rendered="#{userSession.isloggedin and (userSession.user.researcher ne null)}"/>
+                    <br/><h:commandLink value="Researcher Profile" action="researcherdetails" styleClass="smallfont" style="padding-left: 25px;" rendered="#{userSession.isloggedin and (userSession.user.researcher ne null)}"/>
+                    <br/><h:commandLink value="Surveys" action="researchersurveylist" styleClass="smallfont" style="padding-left: 25px;" rendered="#{userSession.isloggedin and (userSession.user.researcher ne null)}"/>
+                    <br/><h:commandLink value="Invoices" action="researcherinvoices" styleClass="smallfont" style="padding-left: 25px;" rendered="#{userSession.isloggedin and (userSession.user.researcher ne null)}"/>
+                    <br/><br/>
+                </d:roundedCornerBox>
+                <d:roundedCornerBox uniqueboxname="researcherconfigneeded" bodycolor="ffffcc" widthinpixels="250" rendered="#{userSession.isloggedin and (userSession.user.researcher eq null)}">
+                    <center>
+                    <img src="/images/alert.png" border="0"/>
+                    <h:commandLink action="researcherdetails"><font class="mediumfont">Get Started</font></h:commandLink>
+                    <br/>
+                    <font class="smallfont">Before you can pay for blog we need to collect a few pieces of information about you.  This will only take a minute or two.</font>
+                    </center>
+                </d:roundedCornerBox>
+
+            </td>
+            <td width="50%" align="left" valign="top">
+                <d:roundedCornerBox uniqueboxname="indexright" bodycolor="00ff00" widthinpixels="250">
+                    <h:commandLink action="bloggerhome" rendered="#{userSession.isloggedin and (userSession.user.blogger ne null)}"><font class="largefont">Blog for Pay</font></h:commandLink>
+                    <f:verbatim rendered="#{userSession.isloggedin and (userSession.user.blogger eq null)}"><font class="largefont">Blog for Pay</font></f:verbatim>
+                </d:roundedCornerBox>
+                <d:roundedCornerBox uniqueboxname="indexright2" bodycolor="ffffff" widthinpixels="250" rendered="#{userSession.isloggedin and (userSession.user.blogger ne null)}">
+                    <br/><h:commandLink value="Find Surveys to Take" action="bloggersurveylist" styleClass="smallfont" style="padding-left: 25px;" rendered="#{userSession.isloggedin and (userSession.user.blogger ne null)}"/>
+                    <br/><h:commandLink value="Blogger Profile" action="bloggerdetails" styleClass="smallfont" style="padding-left: 25px;" rendered="#{userSession.isloggedin and (userSession.user.blogger ne null)}"/>
+                    <br/><h:commandLink value="Blogs" action="bloggerblogslist" styleClass="smallfont" style="padding-left: 25px;" rendered="#{userSession.isloggedin and (userSession.user.blogger ne null)}"/>
+                    <br/><h:commandLink value="Earnings" action="bloggerearnings" styleClass="smallfont" style="padding-left: 25px;" rendered="#{userSession.isloggedin and (userSession.user.blogger ne null)}"/>
+                    <br/><h:commandLink value="Revshare" action="bloggerearningsrevshare" styleClass="smallfont" style="padding-left: 25px;" rendered="#{userSession.isloggedin and (userSession.user.blogger ne null)}"/>
+                    <br/><br/>
+                </d:roundedCornerBox>
+                <d:roundedCornerBox uniqueboxname="bloggerconfigneeded" bodycolor="ffffcc" widthinpixels="250" rendered="#{userSession.isloggedin and (userSession.user.blogger eq null)}">
+                    <center>
+                    <img src="/images/alert.png" border="0"/>
+                    <h:commandLink action="bloggerdetails"><font class="mediumfont">Get Started</font></h:commandLink>
+                    <br/>
+                    <font class="smallfont">Before you can blog for pay we need to collect a few pieces of information about you and your blog.  This will only take a minute or two.</font>
+                    </center>
+                </d:roundedCornerBox>
+
+            </td>
+        </tr>
+    </table>
+
+
+
+    </h:form>
+
+</ui:define>
+
+
+</ui:composition>
+</html>
+
+

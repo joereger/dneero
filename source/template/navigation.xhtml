@@ -16,9 +16,14 @@
                 <h:commandLink value="Home" action="home" style="padding-left: 10px; color: #009900;" styleClass="mediumfont"/>
                 <h:commandLink value=" Sign Up" action="registration" style="padding-left: 25px;" styleClass="smallfont" rendered="#{!userSession.isloggedin}"/>
                 <h:commandLink value=" Log In" action="login" style="padding-left: 25px;" styleClass="smallfont" rendered="#{!userSession.isloggedin}"/>
+                <h:commandLink value=" Blogger FAQ" action="bloggerfaq" style="padding-left: 25px;" styleClass="smallfont"/>
+                <h:commandLink value=" Researcher FAQ" action="researcherfaq" style="padding-left: 25px;" styleClass="smallfont"/>
+
+                <f:verbatim rendered="#{userSession.isloggedin}"><br/></f:verbatim>
+                <h:commandLink value="Your Account" action="accountmain" style="padding-left: 10px; color: #009900;" styleClass="mediumfont" rendered="#{userSession.isloggedin}"/>
                 <h:commandLink value=" Account Settings" action="accountsettings" style="padding-left: 25px;" styleClass="smallfont" rendered="#{userSession.isloggedin}"/>
                 <h:commandLink value=" Change Password" action="changepassword" style="padding-left: 25px;" styleClass="smallfont" rendered="#{userSession.isloggedin}"/>
-                <h:commandLink value=" Support" action="accountsupportissueslist" style="padding-left: 25px;" styleClass="smallfont" rendered="#{userSession.isloggedin}"/>
+                <h:commandLink value=" Help/Support" action="accountsupportissueslist" style="padding-left: 25px;" styleClass="smallfont" rendered="#{userSession.isloggedin}"/>
 
                 <f:verbatim rendered="#{userSession.isloggedin and (userSession.user.blogger ne null)}"><br/></f:verbatim>
                 <h:commandLink value="Blog for Pay" action="bloggerhome" style="padding-left: 10px; color: #009900;" styleClass="mediumfont" rendered="#{userSession.isloggedin and (userSession.user.blogger ne null)}"/>
