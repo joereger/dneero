@@ -29,7 +29,7 @@ public class DbConfig {
     private static boolean haveValidConfig = false;
     private static boolean haveNewConfigToTest = false;
     private static boolean haveAttemptedToLoadDefaultPropsFile = false;
-    private static String dbPropsInternalFilename = WebAppRootDir.getWebAppRootPath() + "conf/db.props";
+    private static String dbPropsInternalFilename = WebAppRootDir.getWebAppRootPath() + "db.props";
     private static String dbPropsExternalFilename = "dneero-"+WebAppRootDir.getUniqueContextId()+"-dbconfig.txt";
 
     public static void load(){
@@ -79,7 +79,7 @@ public class DbConfig {
 
     public static void loadPropsFile(Properties properties){
         try{
-            dbConnectionUrl = properties.getProperty("dbConnectionUrl", "jdbc:mysql://localhost:3306/regerdatabase?autoReconnect=true");
+            dbConnectionUrl = properties.getProperty("dbConnectionUrl", "jdbc:mysql://localhost:3306/dneero?autoReconnect=true");
             dbUsername = properties.getProperty("dbUsername", "username");
             DesEncrypter encrypter2 = new DesEncrypter(passPhrase);
             dbPassword = encrypter2.decrypt(properties.getProperty("dbPassword", "password"));
