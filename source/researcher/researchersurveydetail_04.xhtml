@@ -184,50 +184,52 @@
         <h:panelGroup>
         </h:panelGroup>
 
-        <h:panelGroup>
-            <h:outputText value="Blog Quality of At Least" styleClass="formfieldnamefont"></h:outputText>
-            <br/>
-            <h:message for="blogquality" styleClass="RED"></h:message>
-        </h:panelGroup>
-        <h:panelGroup>
-            <h:selectOneListbox value="#{researcherSurveyDetail04.blogquality}" size="1" id="blogquality" layout="pageDirection" required="true" rendered="#{researcherSurveyDetail04.status le 2}">
-                <f:selectItem itemValue="0"/>
-                <f:selectItem itemValue="1"/>
-                <f:selectItem itemValue="2"/>
-                <f:selectItem itemValue="3"/>
-                <f:selectItem itemValue="4"/>
-                <f:selectItem itemValue="5"/>
-                <f:selectItem itemValue="6"/>
-                <f:selectItem itemValue="7"/>
-                <f:selectItem itemValue="8"/>
-                <f:selectItem itemValue="9"/>
-                <f:selectItem itemValue="10"/>
-            </h:selectOneListbox>
-            <h:outputText value="#{researcherSurveyDetail04.blogquality}" rendered="#{researcherSurveyDetail04.status ge 3}" escape="false"></h:outputText>
-        </h:panelGroup>
 
-
-        <h:panelGroup>
-            <h:outputText value="Blog Quality Over Last 90 Days of At Least" styleClass="formfieldnamefont"></h:outputText>
-            <br/>
-            <h:message for="blogquality90days" styleClass="RED"></h:message>
-        </h:panelGroup>
-        <h:panelGroup>
-            <h:selectOneListbox value="#{researcherSurveyDetail04.blogquality90days}" size="1" id="blogquality90days" layout="pageDirection" required="true" rendered="#{researcherSurveyDetail04.status le 2}">
-                <f:selectItem itemValue="0"/>
-                <f:selectItem itemValue="1"/>
-                <f:selectItem itemValue="2"/>
-                <f:selectItem itemValue="3"/>
-                <f:selectItem itemValue="4"/>
-                <f:selectItem itemValue="5"/>
-                <f:selectItem itemValue="6"/>
-                <f:selectItem itemValue="7"/>
-                <f:selectItem itemValue="8"/>
-                <f:selectItem itemValue="9"/>
-                <f:selectItem itemValue="10"/>
-            </h:selectOneListbox>
-            <h:outputText value="#{researcherSurveyDetail04.blogquality90days}" rendered="#{researcherSurveyDetail04.status ge 3}" escape="false"></h:outputText>
-        </h:panelGroup>
+        <!--//@todo Uncomment blog quality once we have enough blogs with a rated quality-->
+        <!--<h:panelGroup>-->
+            <!--<h:outputText value="Blog Quality of At Least" styleClass="formfieldnamefont"></h:outputText>-->
+            <!--<br/>-->
+            <!--<h:message for="blogquality" styleClass="RED"></h:message>-->
+        <!--</h:panelGroup>-->
+        <!--<h:panelGroup>-->
+            <!--<h:selectOneListbox value="#{researcherSurveyDetail04.blogquality}" size="1" id="blogquality" layout="pageDirection" required="true" rendered="#{researcherSurveyDetail04.status le 2}">-->
+                <!--<f:selectItem itemValue="0"/>-->
+                <!--<f:selectItem itemValue="1"/>-->
+                <!--<f:selectItem itemValue="2"/>-->
+                <!--<f:selectItem itemValue="3"/>-->
+                <!--<f:selectItem itemValue="4"/>-->
+                <!--<f:selectItem itemValue="5"/>-->
+                <!--<f:selectItem itemValue="6"/>-->
+                <!--<f:selectItem itemValue="7"/>-->
+                <!--<f:selectItem itemValue="8"/>-->
+                <!--<f:selectItem itemValue="9"/>-->
+                <!--<f:selectItem itemValue="10"/>-->
+            <!--</h:selectOneListbox>-->
+            <!--<h:outputText value="#{researcherSurveyDetail04.blogquality}" rendered="#{researcherSurveyDetail04.status ge 3}" escape="false"></h:outputText>-->
+        <!--</h:panelGroup>-->
+<!---->
+<!---->
+        <!--<h:panelGroup>-->
+            <!--<h:outputText value="Blog Quality Over Last 90 Days of At Least" styleClass="formfieldnamefont"></h:outputText>-->
+            <!--<br/>-->
+            <!--<h:message for="blogquality90days" styleClass="RED"></h:message>-->
+        <!--</h:panelGroup>-->
+        <!--<h:panelGroup>-->
+            <!--<h:selectOneListbox value="#{researcherSurveyDetail04.blogquality90days}" size="1" id="blogquality90days" layout="pageDirection" required="true" rendered="#{researcherSurveyDetail04.status le 2}">-->
+                <!--<f:selectItem itemValue="0"/>-->
+                <!--<f:selectItem itemValue="1"/>-->
+                <!--<f:selectItem itemValue="2"/>-->
+                <!--<f:selectItem itemValue="3"/>-->
+                <!--<f:selectItem itemValue="4"/>-->
+                <!--<f:selectItem itemValue="5"/>-->
+                <!--<f:selectItem itemValue="6"/>-->
+                <!--<f:selectItem itemValue="7"/>-->
+                <!--<f:selectItem itemValue="8"/>-->
+                <!--<f:selectItem itemValue="9"/>-->
+                <!--<f:selectItem itemValue="10"/>-->
+            <!--</h:selectOneListbox>-->
+            <!--<h:outputText value="#{researcherSurveyDetail04.blogquality90days}" rendered="#{researcherSurveyDetail04.status ge 3}" escape="false"></h:outputText>-->
+        <!--</h:panelGroup>-->
 
 
     </h:panelGrid>
