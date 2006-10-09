@@ -69,7 +69,7 @@ public class PaybloggerSendMoney implements Job {
                 double amtdue = payblogger.getAmt() - paidtodate;
                 amtduetotal = amtduetotal + amtdue;
                 //@todo if we have a paypal address
-                if (User.get(blogger.getUserid()).getFirstname().equals("SHOULDBELOOKINGFORPAYPALINFO")){
+                if (!User.get(blogger.getUserid()).getPaypaladdress().equals("")){
 
                     //Charge the card
                     boolean successful = false;
