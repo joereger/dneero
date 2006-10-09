@@ -186,7 +186,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>SurveyJavascriptServlet</servlet-name>
-        <url-pattern>/survey.js</url-pattern>
+        <url-pattern>/s</url-pattern>
     </servlet-mapping>
 
     <servlet>

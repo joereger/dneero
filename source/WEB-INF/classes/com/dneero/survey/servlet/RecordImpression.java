@@ -36,13 +36,13 @@ public class RecordImpression {
 
         //Find user
         User user = null;
-        if (request.getParameter("userid")!=null && com.dneero.util.Num.isinteger(request.getParameter("userid"))){
-            user = User.get(Integer.parseInt(request.getParameter("userid")));
+        if (request.getParameter("u")!=null && com.dneero.util.Num.isinteger(request.getParameter("u"))){
+            user = User.get(Integer.parseInt(request.getParameter("u")));
         }
 
         //Find blogid
         Blog blog=null;
-        if (user.getBlogger()!=null && referer!=null && !referer.equals("")){
+        if (user!=null && user.getBlogger()!=null && referer!=null && !referer.equals("")){
             logger.debug("user.getBlogger() not null");
             for (Iterator it = user.getBlogger().getBlogs().iterator(); it.hasNext(); ) {
                 Blog blogTmp = (Blog)it.next();

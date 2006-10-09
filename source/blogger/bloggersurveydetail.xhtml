@@ -17,11 +17,12 @@
 <h:form>
 
     <h:graphicImage url="/images/process-train-blogger-01.gif" style="display: block; margin-left: auto; margin-right: auto;" rendered="#{!bloggerSurveyDetail.bloggerhasalreadytakensurvey}"></h:graphicImage>
+    <f:verbatim rendered="#{!bloggerSurveyDetail.bloggerhasalreadytakensurvey}"><br/><br/></f:verbatim>
+
+    <d:roundedCornerBox uniqueboxname="alreadytaken" bodycolor="00ff00" widthinpixels="500" rendered="#{bloggerSurveyDetail.bloggerhasalreadytakensurvey}">
     <h:outputText value="You've already taken this survey." styleClass="mediumfont" rendered="#{bloggerSurveyDetail.bloggerhasalreadytakensurvey}"/>
-    <f:verbatim><br/><br/></f:verbatim>
-
-
-
+    </d:roundedCornerBox>
+    <f:verbatim rendered="#{bloggerSurveyDetail.bloggerhasalreadytakensurvey}"><br/><br/></f:verbatim>
 
 
     <t:panelTabbedPane id="panel" bgcolor="#ffffff">
@@ -142,7 +143,9 @@
             <h:graphicImage url="/images/clear.gif" width="550" height="1"/><br/>
             <h:outputText value="Copy and paste the following into your blog to make even more money!" styleClass="mediumfont"/>
             <br/><br/>
-            <h:outputText>&lt;script src="http://dneero.com/survey.js?surveyid=#{bloggerSurveyDetail.survey.surveyid}&amp;userid=#{userSession.user.userid}"&gt;&lt;/script&gt;</h:outputText>
+            <d:roundedCornerBox uniqueboxname="posttoblog" bodycolor="ffffff" widthinpixels="500">
+            <font class="smallfont">&lt;script src="http://dneero.com/s?s=#{bloggerSurveyDetail.survey.surveyid}&amp;u=#{userSession.user.userid}"&gt;&lt;/script&gt;</font>
+            </d:roundedCornerBox>
         </t:panelTab>
     </t:panelTabbedPane>
 

@@ -32,13 +32,13 @@ public class SurveyJavascriptServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
 
         Survey survey = null;
-        if (request.getParameter("surveyid")!=null && com.dneero.util.Num.isinteger(request.getParameter("surveyid"))){
-            survey = Survey.get(Integer.parseInt(request.getParameter("surveyid")));
+        if (request.getParameter("s")!=null && com.dneero.util.Num.isinteger(request.getParameter("s"))){
+            survey = Survey.get(Integer.parseInt(request.getParameter("s")));
         }
 
         User user = null;
-        if (request.getParameter("userid")!=null && com.dneero.util.Num.isinteger(request.getParameter("userid"))){
-            user = User.get(Integer.parseInt(request.getParameter("userid")));
+        if (request.getParameter("u")!=null && com.dneero.util.Num.isinteger(request.getParameter("u"))){
+            user = User.get(Integer.parseInt(request.getParameter("u")));
         }
 
         if (survey!=null){
@@ -46,8 +46,6 @@ public class SurveyJavascriptServlet extends HttpServlet {
         }
 
         String output = SurveyAsHtml.getHtml(survey, user);
-        //output = output.replaceAll("\\r\\n", "\"+\\\n\"");
-        //output = output.replaceAll("\\n\\r", "\"+\\\n\"");
         output = output.replaceAll("\\n", "\"+\\\n\"");
         output = output.replaceAll("\\r", "\"+\\\n\"");
         out.print("document.write(\""+output+"\");"+"\n");

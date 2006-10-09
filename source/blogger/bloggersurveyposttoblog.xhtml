@@ -19,48 +19,31 @@
     <h:graphicImage url="/images/process-train-blogger-03.gif" style="display: block; margin-left: auto; margin-right: auto;"></h:graphicImage>
     <f:verbatim><br/><br/></f:verbatim>
 
-    <h:panelGrid columns="3" cellpadding="3" border="0">
+    <font class="mediumfont">#{bloggerSurveyPosttoblog.survey.title}</font>
+    <br/><br/>
 
-        <h:panelGroup>
-            <h:outputText value="Surveyid"/>
-        </h:panelGroup>
-        <h:panelGroup>
-            <h:outputText value="#{bloggerSurveyTake.survey.surveyid}"/>
-        </h:panelGroup>
-        <h:panelGroup>
-        </h:panelGroup>
-
-        <h:panelGroup>
-            <h:outputText value="Title"/>
-        </h:panelGroup>
-        <h:panelGroup>
-            <h:outputText value="#{bloggerSurveyTake.survey.title}"/>
-        </h:panelGroup>
-        <h:panelGroup>
-        </h:panelGroup>
-
-        <h:panelGroup>
-            <h:outputText value=" "/>
-        </h:panelGroup>
-        <h:panelGroup>
-            <h:outputText value="Survey taking completed.  Post it to your blog now.  You've made $x... you can make $y more."/>
-        </h:panelGroup>
-        <h:panelGroup>
-        </h:panelGroup>
-
-        <h:panelGroup>
-            <h:outputText value="Post to your blog."/>
-        </h:panelGroup>
-        <h:panelGroup>
-            <h:outputText>&lt;script src="http://dneero.com/survey.js?surveyid=#{bloggerSurveyTake.survey.surveyid}&amp;userid=#{userSession.user.userid}"&gt;&lt;/script&gt;</h:outputText>
-        </h:panelGroup>
-        <h:panelGroup>
-        </h:panelGroup>
+    <d:roundedCornerBox uniqueboxname="youcouldearn" bodycolor="00ff00" widthinpixels="500">
+        <h:outputText value="You just earned:" styleClass="smallfont"/>
+        <br/>
+        <h:outputText value="#{bloggerSurveyPosttoblog.earnedalready}" styleClass="largefont"/>
+        <br/>
+        <h:outputText value="By posting to your blog you can earn another:" styleClass="smallfont"/>
+        <br/>
+        <h:outputText value="#{bloggerSurveyPosttoblog.canearn}" styleClass="mediumfont"/>
+    </d:roundedCornerBox>
 
 
 
+    <font class="mediumfont">Here's how to do it:</font>
+    <br/>
+    <font class="smallfont">Copy and paste the html below into a blog post and publish it... that's all!</font>
+    <br/>
+    <d:roundedCornerBox uniqueboxname="posttoblog" bodycolor="ffffff" widthinpixels="500">
+        <font class="smallfont">&lt;script src="http://dneero.com/s?s=#{bloggerSurveyPosttoblog.survey.surveyid}&amp;u=#{userSession.user.userid}"&gt;&lt;/script&gt;</font>
+    </d:roundedCornerBox>
 
-     </h:panelGrid>
+
+
 
 
      

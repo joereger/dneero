@@ -2,6 +2,7 @@ package com.dneero.formbeans;
 
 import com.dneero.dao.Survey;
 import com.dneero.util.Jsf;
+import com.dneero.util.Str;
 
 import java.util.HashMap;
 
@@ -18,6 +19,8 @@ public class BloggerSurveyPosttoblog {
 
     private Survey survey;
     private HashMap valueMap;
+    private String earnedalready="$0.00";
+    private String canearn = "$0.00";
 
     Logger logger = Logger.getLogger(this.getClass().getName());
 
@@ -26,6 +29,12 @@ public class BloggerSurveyPosttoblog {
         survey = new Survey();
         if (Jsf.getUserSession().getCurrentSurveyid()>0){
             survey = Survey.get(Jsf.getUserSession().getCurrentSurveyid());
+
+            earnedalready = "$"+Str.formatForMoney(survey.getWillingtopayperrespondent());
+
+            double maxearningNum = survey.getWillingtopayperrespondent()  +   ( (survey.getWillingtopaypercpm()*survey.getMaxdisplaysperblog())/1000 );
+            canearn = "$"+Str.formatForMoney(maxearningNum - survey.getWillingtopayperrespondent());
+            
         }
     }
 
@@ -61,5 +70,21 @@ public class BloggerSurveyPosttoblog {
 
     public void setValueMap(HashMap valueMap) {
         this.valueMap = valueMap;
+    }
+
+    public String getEarnedalready() {
+        return earnedalready;
+    }
+
+    public void setEarnedalready(String earnedalready) {
+        this.earnedalready = earnedalready;
+    }
+
+    public String getCanearn() {
+        return canearn;
+    }
+
+    public void setCanearn(String canearn) {
+        this.canearn = canearn;
     }
 }
