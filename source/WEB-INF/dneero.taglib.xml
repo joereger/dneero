@@ -21,6 +21,13 @@
     </tag>
 
     <tag>
+        <tag-name>greenRoundedButton</tag-name>
+        <component>
+            <component-type>com.dneero.ui.GreenRoundedButton</component-type>
+        </component>
+    </tag>
+
+    <tag>
         <tag-name>authorization</tag-name>
         <component>
             <component-type>com.dneero.session.Authorization</component-type>

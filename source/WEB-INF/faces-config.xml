@@ -47,6 +47,11 @@
     </component>
 
     <component>
+        <component-type>com.dneero.ui.GreenRoundedButton</component-type>
+        <component-class>com.dneero.ui.GreenRoundedButton</component-class>
+    </component>
+
+    <component>
         <component-type>com.dneero.session.Authorization</component-type>
         <component-class>com.dneero.session.Authorization</component-class>
     </component>
