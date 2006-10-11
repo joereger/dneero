@@ -4,20 +4,14 @@ import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.apache.log4j.Logger;
-import org.apache.commons.mail.HtmlEmail;
 import org.hibernate.criterion.Restrictions;
 import com.dneero.dao.*;
 import com.dneero.dao.hibernate.HibernateUtil;
-import com.dneero.verisign.Verisign;
-import com.dneero.verisign.VerisignException;
 import com.dneero.util.GeneralException;
 import com.dneero.util.Time;
-import com.dneero.email.EmailSend;
-import com.dneero.email.EmailSendThread;
 
 import java.util.List;
 import java.util.Iterator;
-import java.util.Date;
 import java.util.Calendar;
 
 /**

@@ -93,27 +93,7 @@
         </trigger>
     </job>
 
-    <job>
-        <job-detail>
-          <name>invoiceCollectViaCreditCard</name>
-          <group>surveyJobs</group>
-          <job-class>com.dneero.scheduledjobs.InvoiceCollectPayment</job-class>
-          <volatility>false</volatility>
-          <durability>false</durability>
-          <recover>false</recover>
-        </job-detail>
-        <trigger>
-          <!-- Sample cron triggers: http://www.opensymphony.com/quartz/wikidocs/TutorialLesson6.html -->
-          <cron>
-            <name>invoiceCollectViaCreditCardTrigger</name>
-            <group>surveyTriggers</group>
-            <job-name>invoiceCollectViaCreditCard</job-name>
-            <job-group>surveyJobs</job-group>
-            <!-- 12pm on the 2nd of the month -->
-            <cron-expression>0 0 12 2 * ?</cron-expression>
-          </cron>
-        </trigger>
-    </job>
+
 
     <job>
         <job-detail>
@@ -181,11 +161,12 @@
         </trigger>
     </job>
 
+
     <job>
         <job-detail>
-          <name>paybloggerViaCreditCard</name>
+          <name>moveMoneyAround</name>
           <group>surveyJobs</group>
-          <job-class>com.dneero.scheduledjobs.PaybloggerSendMoney</job-class>
+          <job-class>com.dneero.scheduledjobs.MoveMoneyAround</job-class>
           <volatility>false</volatility>
           <durability>false</durability>
           <recover>false</recover>
@@ -193,15 +174,17 @@
         <trigger>
           <!-- Sample cron triggers: http://www.opensymphony.com/quartz/wikidocs/TutorialLesson6.html -->
           <cron>
-            <name>paybloggerViaCreditCardTrigger</name>
+            <name>moveMoneyAroundTrigger</name>
             <group>surveyTriggers</group>
-            <job-name>paybloggerViaCreditCard</job-name>
+            <job-name>moveMoneyAround</job-name>
             <job-group>surveyJobs</job-group>
-            <!-- 12pm on the 16th of the month -->
-            <cron-expression>0 0 12 16 * ?</cron-expression>
+            <!-- Fire at 12pm (noon) every day -->
+            <cron-expression>0 0 12 * * ?</cron-expression>
           </cron>
         </trigger>
     </job>
+
+
 
     <job>
         <job-detail>

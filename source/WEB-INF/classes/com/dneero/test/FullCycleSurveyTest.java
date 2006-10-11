@@ -229,8 +229,7 @@ public class FullCycleSurveyTest {
 
 
     private void payInvoice() throws Exception {
-        InvoiceCollectPayment icvcc = new InvoiceCollectPayment();
-        icvcc.execute(null);
+
     }
 
     private void checkEarningsAsBlogger(Survey survey) throws Exception {
@@ -252,9 +251,7 @@ public class FullCycleSurveyTest {
         //Create the Paybloggers
         CreatePaybloggers cpb = new CreatePaybloggers();
         cpb.execute(null);
-        //Pay the bloggers
-        PaybloggerSendMoney pvc = new PaybloggerSendMoney();
-        pvc.execute(null);
+        
     }
 
     private void checkMarkedPaid() throws Exception {

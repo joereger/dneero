@@ -12,6 +12,7 @@ import com.dneero.util.jcaptcha.CaptchaServiceSingleton;
 import com.dneero.session.UserSession;
 import com.dneero.session.Roles;
 import com.dneero.email.EmailActivationSend;
+import com.dneero.money.PaymentMethod;
 import com.octo.captcha.service.CaptchaServiceException;
 
 import javax.faces.context.FacesContext;
@@ -87,8 +88,9 @@ public class Registration {
         user.setEmailactivationkey(RandomString.randomAlphanumeric(5));
         user.setEmailactivationlastsent(new Date());
         user.setCreatedate(new Date());
-        user.setPaypaladdress(paypaladdress);
-
+        user.setPaymethodpaypaladdress(paypaladdress);
+        user.setPaymethod(PaymentMethod.PAYMENTMETHODPAYPAL);
+        user.setChargemethod(PaymentMethod.PAYMENTMETHODCREDITCARD);
         try{
             user.save();
             userid = user.getUserid();

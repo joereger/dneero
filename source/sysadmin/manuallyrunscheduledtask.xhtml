@@ -29,9 +29,6 @@
                     <h:commandButton action="#{sysadminManuallyRunScheduledTask.runCreatePaybloggers}" value="CreatePaybloggers" styleClass="formsubmitbutton"></h:commandButton>
                 </h:panelGroup>
                 <h:panelGroup>
-                    <h:commandButton action="#{sysadminManuallyRunScheduledTask.runInvoiceCollectViaCreditCard}" value="InvoiceCollectViaCreditCard" styleClass="formsubmitbutton"></h:commandButton>
-                </h:panelGroup>
-                <h:panelGroup>
                     <h:commandButton action="#{sysadminManuallyRunScheduledTask.runInvoiceMarkPartiallyPaid}" value="InvoiceMarkPartiallyPaid" styleClass="formsubmitbutton"></h:commandButton>
                 </h:panelGroup>
                 <h:panelGroup>
@@ -39,9 +36,6 @@
                 </h:panelGroup>
                 <h:panelGroup>
                     <h:commandButton action="#{sysadminManuallyRunScheduledTask.runNotifyBloggersOfNewOffers}" value="NotifyBloggersOfNewOffers" styleClass="formsubmitbutton"></h:commandButton>
-                </h:panelGroup>
-                <h:panelGroup>
-                    <h:commandButton action="#{sysadminManuallyRunScheduledTask.runPaybloggerViaCreditCard}" value="PaybloggerViaCreditCard" styleClass="formsubmitbutton"></h:commandButton>
                 </h:panelGroup>
                 <h:panelGroup>
                     <h:commandButton action="#{sysadminManuallyRunScheduledTask.runPendingToOpenSurveys}" value="PendingToOpenSurveys" styleClass="formsubmitbutton"></h:commandButton>
@@ -52,7 +46,9 @@
                 <h:panelGroup>
                     <h:commandButton action="#{sysadminManuallyRunScheduledTask.runSendEmailInvoicePastDue}" value="SendEmailInvoicePastDue" styleClass="formsubmitbutton"></h:commandButton>
                 </h:panelGroup>
-
+                <h:panelGroup>
+                    <h:commandButton action="#{sysadminManuallyRunScheduledTask.runMoveMoneyAround}" value="MoveMoneyAround" styleClass="formsubmitbutton"></h:commandButton>
+                </h:panelGroup>
             </h:panelGrid>
 
          </h:form>

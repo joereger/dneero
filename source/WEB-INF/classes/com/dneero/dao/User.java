@@ -30,11 +30,19 @@ public class User extends BasePersistentClass implements java.io.Serializable, R
      private String password;
      private String firstname;
      private String lastname;
-     private String paypaladdress;
      private boolean isactivatedbyemail;
      private String emailactivationkey;
      private Date emailactivationlastsent;
      private Date createdate;
+     private int paymethod;
+     private String paymethodpaypaladdress;
+     private String paymethodccnum;
+     private String paymethodccexpmo;
+     private String paymethodccexpyear;
+     private int chargemethod;
+     private String chargemethodccnum;
+     private String chargemethodccexpmo;
+     private String chargemethodccexpyear;
 
      //Association
     private Set<Userrole> userroles = new HashSet<Userrole>();
@@ -206,11 +214,76 @@ public class User extends BasePersistentClass implements java.io.Serializable, R
         this.createdate = createdate;
     }
 
-    public String getPaypaladdress() {
-        return paypaladdress;
+
+    public int getPaymethod() {
+        return paymethod;
     }
 
-    public void setPaypaladdress(String paypaladdress) {
-        this.paypaladdress = paypaladdress;
+    public void setPaymethod(int paymethod) {
+        this.paymethod = paymethod;
+    }
+
+    public String getPaymethodpaypaladdress() {
+        return paymethodpaypaladdress;
+    }
+
+    public void setPaymethodpaypaladdress(String paymethodpaypaladdress) {
+        this.paymethodpaypaladdress = paymethodpaypaladdress;
+    }
+
+    public String getPaymethodccnum() {
+        return paymethodccnum;
+    }
+
+    public void setPaymethodccnum(String paymethodccnum) {
+        this.paymethodccnum = paymethodccnum;
+    }
+
+    public String getPaymethodccexpmo() {
+        return paymethodccexpmo;
+    }
+
+    public void setPaymethodccexpmo(String paymethodccexpmo) {
+        this.paymethodccexpmo = paymethodccexpmo;
+    }
+
+    public String getPaymethodccexpyear() {
+        return paymethodccexpyear;
+    }
+
+    public void setPaymethodccexpyear(String paymethodccexpyear) {
+        this.paymethodccexpyear = paymethodccexpyear;
+    }
+
+    public int getChargemethod() {
+        return chargemethod;
+    }
+
+    public void setChargemethod(int chargemethod) {
+        this.chargemethod = chargemethod;
+    }
+
+    public String getChargemethodccnum() {
+        return chargemethodccnum;
+    }
+
+    public void setChargemethodccnum(String chargemethodccnum) {
+        this.chargemethodccnum = chargemethodccnum;
+    }
+
+    public String getChargemethodccexpmo() {
+        return chargemethodccexpmo;
+    }
+
+    public void setChargemethodccexpmo(String chargemethodccexpmo) {
+        this.chargemethodccexpmo = chargemethodccexpmo;
+    }
+
+    public String getChargemethodccexpyear() {
+        return chargemethodccexpyear;
+    }
+
+    public void setChargemethodccexpyear(String chargemethodccexpyear) {
+        this.chargemethodccexpyear = chargemethodccexpyear;
     }
 }

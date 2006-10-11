@@ -33,7 +33,7 @@ public class AccountSettings {
             email = user.getEmail();
             firstname = user.getFirstname();
             lastname = user.getLastname();
-            paypaladdress = user.getPaypaladdress();
+            paypaladdress = user.getPaymethodpaypaladdress();
         }
     }
 
@@ -49,7 +49,7 @@ public class AccountSettings {
             user.setEmail(email);
             user.setFirstname(firstname);
             user.setLastname(lastname);
-            user.setPaypaladdress(paypaladdress);
+            user.setPaymethodpaypaladdress(paypaladdress);
             try{
                 user.save();
                 userid = user.getUserid();

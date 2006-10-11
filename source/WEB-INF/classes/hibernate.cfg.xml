@@ -5,6 +5,8 @@
 <hibernate-configuration>
     <session-factory>
 
+        <mapping resource="com/dneero/dao/Balance.hbm.xml" />
+        <mapping resource="com/dneero/dao/Balancetransaction.hbm.xml" />
         <mapping resource="com/dneero/dao/Blogger.hbm.xml" />
         <mapping resource="com/dneero/dao/Blog.hbm.xml" />
         <mapping resource="com/dneero/dao/Impression.hbm.xml" />

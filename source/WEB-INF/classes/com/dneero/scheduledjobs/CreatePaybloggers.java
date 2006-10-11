@@ -8,6 +8,7 @@ import org.hibernate.criterion.Restrictions;
 import com.dneero.dao.*;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.invoice.RevshareLevelPercentageCalculator;
+import com.dneero.money.MoveMoneyInAccountBalance;
 
 import java.util.List;
 import java.util.Date;
@@ -95,6 +96,9 @@ public class CreatePaybloggers implements Job {
                 } catch (Exception ex){
                     logger.error(ex);
                 }
+
+                //Update the account balance
+                MoveMoneyInAccountBalance.pay(User.get(blogger.getUserid()), payblogger.getAmt(), "Payment for survey responses and blog impressions.");
 
                 //Create revshare
                 //Start with the user who's getting paid

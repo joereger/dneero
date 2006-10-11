@@ -1,8 +1,8 @@
 package com.dneero.formbeans;
 
-import com.dneero.paypal.Charge;
-import com.dneero.paypal.Pay;
+import com.dneero.money.paypal.Pay;
 import com.dneero.util.Jsf;
+import org.apache.log4j.Logger;
 
 /**
  * User: Joe Reger Jr
@@ -13,11 +13,15 @@ public class SysadminPaypalManual {
 
     private String paypaladdress = "joe@reger.com";
     private double amt = 12.99;
+    Logger logger = Logger.getLogger(this.getClass().getName());
 
     public String dopaypal(){
-
-        Pay.pay(paypaladdress, amt);
-        Jsf.setFacesMessage("Pay complete.");
+        try{
+            Pay.pay(paypaladdress, amt);
+            Jsf.setFacesMessage("Pay complete.");
+        } catch (Exception ex){
+            logger.error(ex);
+        }
 
         return "success";
     }

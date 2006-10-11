@@ -9,6 +9,7 @@ import com.dneero.dao.*;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.util.Time;
 import com.dneero.util.GeneralException;
+import com.dneero.money.MoveMoneyInAccountBalance;
 
 import java.util.Iterator;
 import java.util.Calendar;
@@ -131,6 +132,10 @@ public class CreateInvoices implements Job {
                 } catch (GeneralException gex){
                     logger.error(gex);
                 }
+
+                //Update the account balance
+                MoveMoneyInAccountBalance.charge(User.get(researcher.getUserid()), invoice.getAmttotal(), "Invoice for period: "+Time.dateformatcompact(Time.getCalFromDate(invoice.getStartdate()))+" to "+Time.dateformatcompact(Time.getCalFromDate(invoice.getEnddate())));
+
 
                 //Iterate Surveys
                 List<Survey> surveys = HibernateUtil.getSession().createQuery("from Survey where researcherid='"+researcher.getResearcherid()+"'").list();
