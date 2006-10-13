@@ -31,18 +31,22 @@ public class SendEmailInvoicePastDue implements Job {
 
     Logger logger = Logger.getLogger(this.getClass().getName());
 
+    private int DAYSALLOWEDTOPAY = 10;
+
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
         logger.debug("execute() SendEmailInvoicePastDue called");
 
 
+        Calendar cal = Time.xDaysAgoStart(Calendar.getInstance(), DAYSALLOWEDTOPAY);
 
         List<Invoice> invoices = HibernateUtil.getSession().createCriteria(Invoice.class)
-                               .add( Restrictions.eq("status", Invoice.STATUS_PASTDUE))
+                               .add( Restrictions.eq("status", Invoice.STATUS_NOTPAID))
+                               .add( Restrictions.eq("status", Invoice.STATUS_PARTIALLYPAID))
+                               .add( Restrictions.lt("enddate", cal.getTime()))
                                .list();
 
         for (Iterator<Invoice> iterator = invoices.iterator(); iterator.hasNext();) {
             Invoice invoice = iterator.next();
-
 
             //Send email telling researcher they are past due
             Researcher researcher = Researcher.get(invoice.getResearcherid());
@@ -50,7 +54,15 @@ public class SendEmailInvoicePastDue implements Job {
             EmailTemplateProcessor.sendMail("dNeero Invoice Past Due Notification", "invoicepastdue", user);
 
 
+
         }
+
+
+
+
+
+
+
 
     }
 

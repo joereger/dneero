@@ -87,9 +87,6 @@ public class MoveMoneyInRealWorld {
         balancetransaction.setNotes(pm.getNotes());
         balancetransaction.setUserid(user.getUserid());
         try{balancetransaction.save();}catch (Exception ex){logger.error(ex);}
-
-
-
     }
 
 

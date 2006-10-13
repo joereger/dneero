@@ -39,17 +39,8 @@ public class SysadminManuallyRunScheduledTask {
 
 
 
-    public String runInvoiceMarkPartiallyPaid(){
-        try{InvoiceMarkPartiallyPaid task = new InvoiceMarkPartiallyPaid();
-            task.execute(null);} catch (Exception ex){logger.error(ex);}
-        return "sysadminmanuallyrunscheduledtask";
-    }
+    
 
-    public String runInvoiceMarkPastDue(){
-        try{InvoiceMarkPastDue task = new InvoiceMarkPastDue();
-            task.execute(null);} catch (Exception ex){logger.error(ex);}
-        return "sysadminmanuallyrunscheduledtask";
-    }
 
     public String runNotifyBloggersOfNewOffers(){
         try{NotifyBloggersOfNewOffers task = new NotifyBloggersOfNewOffers();
@@ -78,6 +69,12 @@ public class SysadminManuallyRunScheduledTask {
     
     public String runMoveMoneyAround(){
         try{MoveMoneyAround task = new MoveMoneyAround();
+            task.execute(null);} catch (Exception ex){logger.error(ex);}
+        return "sysadminmanuallyrunscheduledtask";
+    }
+
+    public String runInvoiceUpdatePaidStatus(){
+        try{InvoiceUpdatePaidStatus task = new InvoiceUpdatePaidStatus();
             task.execute(null);} catch (Exception ex){logger.error(ex);}
         return "sysadminmanuallyrunscheduledtask";
     }

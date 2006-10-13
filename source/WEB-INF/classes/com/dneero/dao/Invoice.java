@@ -20,8 +20,7 @@ public class Invoice extends BasePersistentClass implements java.io.Serializable
 
     public static int STATUS_NOTPAID = 1;
     public static int STATUS_PARTIALLYPAID = 2;
-    public static int STATUS_PASTDUE = 3;
-    public static int STATUS_PAID = 4;
+    public static int STATUS_PAID = 3;
 
 
     // Fields
@@ -34,7 +33,7 @@ public class Invoice extends BasePersistentClass implements java.io.Serializable
      private double amtdneero;
      private double amtdiscount;
      private double amttotal;
-     private Set<Invoicetransaction> invoicetransactions = new HashSet<Invoicetransaction>();
+     private double amtpaidtodate;
 
     //Validator
     public void validateRegerEntity() throws GeneralException {
@@ -156,13 +155,12 @@ public class Invoice extends BasePersistentClass implements java.io.Serializable
         this.amttotal = amttotal;
     }
 
-    public Set<Invoicetransaction> getInvoicetransactions() {
-        return invoicetransactions;
+
+    public double getAmtpaidtodate() {
+        return amtpaidtodate;
     }
 
-    public void setInvoicetransactions(Set<Invoicetransaction> invoicetransactions) {
-        this.invoicetransactions = invoicetransactions;
+    public void setAmtpaidtodate(double amtpaidtodate) {
+        this.amtpaidtodate = amtpaidtodate;
     }
-
-
 }

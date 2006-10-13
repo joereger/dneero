@@ -95,49 +95,9 @@
 
 
 
-    <job>
-        <job-detail>
-          <name>invoiceMarkPastDue</name>
-          <group>surveyJobs</group>
-          <job-class>com.dneero.scheduledjobs.InvoiceMarkPastDue</job-class>
-          <volatility>false</volatility>
-          <durability>false</durability>
-          <recover>false</recover>
-        </job-detail>
-        <trigger>
-          <!-- Sample cron triggers: http://www.opensymphony.com/quartz/wikidocs/TutorialLesson6.html -->
-          <cron>
-            <name>invoiceMarkPastDueTrigger</name>
-            <group>surveyTriggers</group>
-            <job-name>invoiceMarkPastDue</job-name>
-            <job-group>surveyJobs</job-group>
-            <!-- every two minutes -->
-            <cron-expression>0 0/60 * * * ?</cron-expression>
-          </cron>
-        </trigger>
-    </job>
 
-    <job>
-        <job-detail>
-          <name>invoiceMarkPartiallyPaid</name>
-          <group>surveyJobs</group>
-          <job-class>com.dneero.scheduledjobs.InvoiceMarkPartiallyPaid</job-class>
-          <volatility>false</volatility>
-          <durability>false</durability>
-          <recover>false</recover>
-        </job-detail>
-        <trigger>
-          <!-- Sample cron triggers: http://www.opensymphony.com/quartz/wikidocs/TutorialLesson6.html -->
-          <cron>
-            <name>invoiceMarkPartiallyPaidTrigger</name>
-            <group>surveyTriggers</group>
-            <job-name>invoiceMarkPartiallyPaid</job-name>
-            <job-group>surveyJobs</job-group>
-            <!-- every two minutes -->
-            <cron-expression>0 0/90 * * * ?</cron-expression>
-          </cron>
-        </trigger>
-    </job>
+
+
 
     <job>
         <job-detail>
@@ -180,6 +140,28 @@
             <job-group>surveyJobs</job-group>
             <!-- Fire at 12pm (noon) every day -->
             <cron-expression>0 0 12 * * ?</cron-expression>
+          </cron>
+        </trigger>
+    </job>
+
+    <job>
+        <job-detail>
+          <name>invoiceUpdatePaidStatus</name>
+          <group>surveyJobs</group>
+          <job-class>com.dneero.scheduledjobs.InvoiceUpdatePaidStatus</job-class>
+          <volatility>false</volatility>
+          <durability>false</durability>
+          <recover>false</recover>
+        </job-detail>
+        <trigger>
+          <!-- Sample cron triggers: http://www.opensymphony.com/quartz/wikidocs/TutorialLesson6.html -->
+          <cron>
+            <name>invoiceUpdatePaidStatusTrigger</name>
+            <group>surveyTriggers</group>
+            <job-name>invoiceUpdatePaidStatus</job-name>
+            <job-group>surveyJobs</job-group>
+            <!-- Fire at 12pm (noon) every day -->
+            <cron-expression>0 0 15 * * ?</cron-expression>
           </cron>
         </trigger>
     </job>

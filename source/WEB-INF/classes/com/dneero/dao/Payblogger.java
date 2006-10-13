@@ -19,8 +19,7 @@ import org.apache.log4j.Logger;
 public class Payblogger extends BasePersistentClass implements java.io.Serializable, RegerEntity, AuthControlled {
 
     public static int STATUS_OWED = 1;
-    public static int STATUS_PAYERROR = 2;
-    public static int STATUS_PAID = 3;
+    public static int STATUS_PAID = 2;
 
     // Fields
      private int paybloggerid;
@@ -28,7 +27,6 @@ public class Payblogger extends BasePersistentClass implements java.io.Serializa
      private Date date;
      private int status;
      private double amt;
-     private Set<Paybloggertransaction> paybloggertransactions = new HashSet<Paybloggertransaction>();
 
     //Validator
     public void validateRegerEntity() throws GeneralException {
@@ -110,13 +108,7 @@ public class Payblogger extends BasePersistentClass implements java.io.Serializa
         this.amt = amt;
     }
 
-    public Set<Paybloggertransaction> getPaybloggertransactions() {
-        return paybloggertransactions;
-    }
-
-    public void setPaybloggertransactions(Set<Paybloggertransaction> paybloggertransactions) {
-        this.paybloggertransactions = paybloggertransactions;
-    }
+  
 
     public Date getDate() {
         return date;

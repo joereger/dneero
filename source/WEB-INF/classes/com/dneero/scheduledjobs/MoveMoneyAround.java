@@ -29,8 +29,6 @@ public class MoveMoneyAround implements Job {
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
         logger.debug("execute() MoveMoneyAround called");
 
-
-
         List users = HibernateUtil.getSession().createQuery("from User").list();
         for (Iterator iterator = users.iterator(); iterator.hasNext();) {
             User user = (User) iterator.next();
@@ -41,6 +39,7 @@ public class MoveMoneyAround implements Job {
             } else if (currentbalance<0){
                 //Need to collect from somebody
                 MoveMoneyInRealWorld.charge(user, (-1)*currentbalance);
+                //@todo Invoice paid status needs to be updated here
             }
         }
 

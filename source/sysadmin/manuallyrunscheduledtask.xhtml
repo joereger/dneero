@@ -29,12 +29,6 @@
                     <h:commandButton action="#{sysadminManuallyRunScheduledTask.runCreatePaybloggers}" value="CreatePaybloggers" styleClass="formsubmitbutton"></h:commandButton>
                 </h:panelGroup>
                 <h:panelGroup>
-                    <h:commandButton action="#{sysadminManuallyRunScheduledTask.runInvoiceMarkPartiallyPaid}" value="InvoiceMarkPartiallyPaid" styleClass="formsubmitbutton"></h:commandButton>
-                </h:panelGroup>
-                <h:panelGroup>
-                    <h:commandButton action="#{sysadminManuallyRunScheduledTask.runInvoiceMarkPastDue}" value="InvoiceMarkPastDue" styleClass="formsubmitbutton"></h:commandButton>
-                </h:panelGroup>
-                <h:panelGroup>
                     <h:commandButton action="#{sysadminManuallyRunScheduledTask.runNotifyBloggersOfNewOffers}" value="NotifyBloggersOfNewOffers" styleClass="formsubmitbutton"></h:commandButton>
                 </h:panelGroup>
                 <h:panelGroup>
@@ -48,6 +42,9 @@
                 </h:panelGroup>
                 <h:panelGroup>
                     <h:commandButton action="#{sysadminManuallyRunScheduledTask.runMoveMoneyAround}" value="MoveMoneyAround" styleClass="formsubmitbutton"></h:commandButton>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:commandButton action="#{sysadminManuallyRunScheduledTask.runInvoiceUpdatePaidStatus}" value="InvoiceUpdatePaidStatus" styleClass="formsubmitbutton"></h:commandButton>
                 </h:panelGroup>
             </h:panelGrid>
 

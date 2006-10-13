@@ -9,11 +9,6 @@
             <column name="invoiceid" />
             <generator class="native" />
         </id>
-        <set name="invoicetransactions" inverse="true" order-by="invoicetransactionid ASC" cascade="all-delete-orphan">
-            <cache usage="nonstrict-read-write"/>
-            <key column="invoiceid"></key>
-            <one-to-many class="com.dneero.dao.Invoicetransaction" not-found="ignore"></one-to-many>
-        </set>
         <property name="researcherid" type="int">
             <column name="researcherid" not-null="true" />
         </property>
@@ -38,7 +33,9 @@
         <property name="amttotal" type="double">
             <column name="amttotal" precision="22" scale="0" not-null="true" />
         </property>
-
+        <property name="amtpaidtodate" type="double">
+            <column name="amtpaidtodate" precision="22" scale="0" not-null="true" />
+        </property>
 
     </class>
 </hibernate-mapping>

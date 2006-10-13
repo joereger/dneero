@@ -1,9 +1,6 @@
 package com.dneero.formbeans;
 
 import com.dneero.dao.Invoice;
-import com.dneero.dao.Invoicetransaction;
-
-import java.util.ArrayList;
 
 /**
  * User: Joe Reger Jr

@@ -9,11 +9,6 @@
             <column name="paybloggerid" />
             <generator class="native" />
         </id>
-        <set name="paybloggertransactions" table="Joinpaybloggerpaybloggertransaction">
-            <cache usage="nonstrict-read-write"/>
-            <key column="paybloggerid"/>
-            <many-to-many column="paybloggertransactionid" class="com.dneero.dao.Paybloggertransaction" not-found="ignore"/>
-        </set>
         <property name="bloggerid" type="int">
             <column name="bloggerid" not-null="true" />
         </property>

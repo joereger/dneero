@@ -127,6 +127,7 @@ public class CreateInvoices implements Job {
                 invoice.setAmtdneero(amtdneero);
                 invoice.setAmtdiscount(amtdiscount);
                 invoice.setAmttotal(amttotal);
+                invoice.setAmtpaidtodate(0);
                 try{
                     invoice.save();
                 } catch (GeneralException gex){
