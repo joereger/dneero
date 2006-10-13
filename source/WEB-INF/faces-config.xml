@@ -380,6 +380,18 @@
     </managed-bean>
 
     <managed-bean>
+        <managed-bean-name>accountBalance</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.AccountBalance</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>accountBalancetransaction</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.AccountBalancetransaction</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
         <managed-bean-name>sysadminSupportIssuesList</managed-bean-name>
         <managed-bean-class>com.dneero.formbeans.SysadminSupportIssuesList</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
@@ -442,6 +454,14 @@
         <navigation-case>
             <from-outcome>accountmain</from-outcome>
             <to-view-id>/account/accountmain.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>accountbalance</from-outcome>
+            <to-view-id>/account/accountbalance.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>accounttransactions</from-outcome>
+            <to-view-id>/account/accounttransactions.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>accountsettings</from-outcome>

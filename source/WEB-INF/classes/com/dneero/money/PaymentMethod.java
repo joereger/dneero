@@ -18,6 +18,5 @@ public interface PaymentMethod {
     public void charge(User user, double amt);
     public boolean issuccessful();
     public String getNotes();
-   
-
+  
 }

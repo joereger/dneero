@@ -34,7 +34,7 @@
         <description>Width in percent</description>
     </attribute>
     <attribute>
-        <name>widthinpercent</name>
+        <name>widthinpixels</name>
         <description>Width in pixels</description>
     </attribute>
     <attribute>

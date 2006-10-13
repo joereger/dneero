@@ -286,4 +286,6 @@ public class User extends BasePersistentClass implements java.io.Serializable, R
     public void setChargemethodccexpyear(String chargemethodccexpyear) {
         this.chargemethodccexpyear = chargemethodccexpyear;
     }
+
+    
 }

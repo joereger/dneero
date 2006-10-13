@@ -23,8 +23,7 @@
     <font class="smallfont">Your blogger profile describes you and allows us to present you with surveys that fit your interests.</font>
     <br/><br/>
 
-    <h:form>
-            <h:messages />
+    <h:form id="bloggerdetails">
             <h:panelGrid columns="3" cellpadding="3" border="0">
 
                 <h:panelGroup>
@@ -151,19 +150,64 @@
                 </h:panelGroup>
 
 
-                <h:panelGroup>
-                </h:panelGroup>
-                <h:panelGroup>
-                    <br/><br/>
-                    <h:commandButton action="#{bloggerDetails.saveAction}" value="Save Blogger Profile" styleClass="formsubmitbutton"></h:commandButton>
-                </h:panelGroup>
-                <h:panelGroup>
-                </h:panelGroup>
-
             </h:panelGrid>
 
+       <d:roundedCornerBox uniqueboxname="paymethod" bodycolor="ffffff" widthinpixels="500">
+           <table cellpadding="0" cellspacing="0" border="0">
+               <tr>
+                   <td valign="top">
+                       <font class="formfieldnamefont">Pay me via: </font>
+                   </td>
+                   <td valign="top">
+                        <h:selectOneRadio value="#{bloggerDetails.paymethod}" id="paymethod" required="true">
+                            <f:selectItems value="#{bloggerDetails.paymethods}"/>
+                        </h:selectOneRadio>
+                        <h:message for="paymethod" styleClass="RED"></h:message>
+                   </td>
+               </tr>
+           </table>
+           <table cellpadding="0" cellspacing="0" border="0">
+               <tr>
+                   <td valign="top" align="left">
+                        <d:roundedCornerBox uniqueboxname="paymethodpaypal" bodycolor="ffffff" widthinpixels="200">
+                            <font class="tinyfont">PayPal Address (optional)</font>
+                            <br/>
+                            <h:inputText value="#{bloggerDetails.paymethodpaypaladdress}" id="paymethodpaypaladdress"></h:inputText>
+                            <h:message for="paymethodpaypaladdress" styleClass="RED"></h:message>
+                        </d:roundedCornerBox>
+                   </td>
+                   <td valign="top" align="left">
+                        <d:roundedCornerBox uniqueboxname="paymethodcc" bodycolor="ffffff" widthinpixels="200">
+                                    <h:outputText value="Credit Card Number (optional)" styleClass="tinyfont"></h:outputText>
+                                    <br/>
+                                    <h:inputText value="#{bloggerDetails.paymethodccnum}" id="paymethodccnum">
+                                        <t:validateCreditCard />
+                                    </h:inputText>
+                                    <h:message for="paymethodccnum" styleClass="RED"></h:message>
 
+                                    <br/>
+                                    <h:outputText value="Exp Month (optional)" styleClass="tinyfont"></h:outputText>
+                                    <br/>
+                                    <h:inputText value="#{bloggerDetails.paymethodccexpmo}" id="paymethodccexpmo" size="2">
+                                        <f:validateDoubleRange minimum="1" maximum="12"></f:validateDoubleRange>
+                                    </h:inputText>
+                                    <h:message for="paymethodccexpmo" styleClass="RED"></h:message>
 
+                                    <br/>
+                                    <h:outputText value="Exp Year (optional)" styleClass="tinyfont"></h:outputText>
+                                    <br/>
+                                    <h:inputText value="#{bloggerDetails.paymethodccexpyear}" id="paymethodccexpyear" size="4">
+                                        <f:validateDoubleRange minimum="2006" maximum="2020"></f:validateDoubleRange>
+                                    </h:inputText>
+                                    <h:message for="paymethodccexpyear" styleClass="RED"></h:message>
+                        </d:roundedCornerBox>
+                   </td>
+               </tr>
+           </table>
+       </d:roundedCornerBox>
+
+       <br/><br/>
+                    <h:commandButton action="#{bloggerDetails.saveAction}" value="Save Blogger Profile" styleClass="formsubmitbutton"></h:commandButton>
 
 
 

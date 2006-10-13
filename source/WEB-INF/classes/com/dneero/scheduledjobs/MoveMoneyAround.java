@@ -39,10 +39,14 @@ public class MoveMoneyAround implements Job {
             } else if (currentbalance<0){
                 //Need to collect from somebody
                 MoveMoneyInRealWorld.charge(user, (-1)*currentbalance);
-                //@todo Invoice paid status needs to be updated here
+
             }
         }
 
+
+        //Invoice paid status needs to be updated here
+        try{InvoiceUpdatePaidStatus task = new InvoiceUpdatePaidStatus();
+        task.execute(null);} catch (Exception ex){logger.error(ex);}
 
     }
 

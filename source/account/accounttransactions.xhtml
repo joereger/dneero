@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:t="http://myfaces.apache.org/tomahawk"
+      xmlns:af="http://xmlns.oracle.com/adf/faces"
+      xmlns:d="http://dneero.com/taglib">
+
+<ui:composition template="/template/template-facelets.xhtml">
+    <ui:define name="title">Account Transactions<br/><br/></ui:define>
+    <ui:define name="body">
+    <d:authorization acl="account" redirectonfail="true"/>
+
+
+    <h:form>
+            
+
+        <af:outputText value="There are not yet any financial transactions on your account." rendered="#{empty accountBalancetransaction.balances}"/>
+        <af:table value="#{accountBalancetransaction.balances}" bandingInterval="2" rows="25" banding="row" var="balance" rendered="#{!empty accountBalancetransaction.balances}">
+          <af:column>
+            <f:facet name="header">
+              <af:outputText value="Id"/>
+            </f:facet>
+            <af:outputText value="#{balance.balancetransactionid}"/>
+          </af:column>
+          <af:column>
+            <f:facet name="header">
+              <af:outputText value="Successful?"/>
+            </f:facet>
+            <af:outputText value="Yes" rendered="#{balance.issuccessful}"/>
+            <af:outputText value="No" rendered="#{!balance.issuccessful}"/>
+          </af:column>
+          <af:column>
+            <f:facet name="header">
+              <af:outputText value="Description"/>
+            </f:facet>
+            <af:outputText value="#{balance.description}"/>
+          </af:column>
+          <af:column>
+            <f:facet name="header">
+              <af:outputText value="Notes"/>
+            </f:facet>
+            <af:outputText value="#{balance.notes}"/>
+          </af:column>
+          <af:column>
+            <f:facet name="header">
+              <af:outputText value="Amount"/>
+            </f:facet>
+            <af:outputText value="#{balance.amt}"/>
+          </af:column>
+        </af:table>
+
+
+    </h:form>
+
+</ui:define>
+
+
+</ui:composition>
+</html>
+
+

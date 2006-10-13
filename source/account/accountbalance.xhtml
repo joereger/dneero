@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:t="http://myfaces.apache.org/tomahawk"
+      xmlns:af="http://xmlns.oracle.com/adf/faces"
+      xmlns:d="http://dneero.com/taglib">
+
+<ui:composition template="/template/template-facelets.xhtml">
+    <ui:define name="title">Account Balance<br/><br/></ui:define>
+    <ui:define name="body">
+    <d:authorization acl="account" redirectonfail="true"/>
+
+
+    <h:form>
+
+
+        <af:outputText value="There are not yet any financial transactions on your account.  Go fill out some surveys!  Or create some!  Blogger earnings do not appear here until researchers have paid us." rendered="#{empty accountBalance.balances}"/>
+        <af:table value="#{accountBalance.balances}" bandingInterval="2" rows="25" banding="row" var="balance" rendered="#{!empty accountBalance.balances}">
+          <af:column>
+            <f:facet name="header">
+              <af:outputText value="Id"/>
+            </f:facet>
+            <af:outputText value="#{balance.balanceid}"/>
+          </af:column>
+          <af:column>
+            <f:facet name="header">
+              <af:outputText value="Description"/>
+            </f:facet>
+            <af:outputText value="#{balance.description}"/>
+          </af:column>
+          <af:column>
+            <f:facet name="header">
+              <af:outputText value="Amount"/>
+            </f:facet>
+            <af:outputText value="#{balance.amt}"/>
+          </af:column>
+          <af:column>
+            <f:facet name="header">
+              <af:outputText value="Balance"/>
+            </f:facet>
+            <af:outputText value="#{balance.currentbalance}"/>
+          </af:column>
+        </af:table>
+
+
+        <br/><br/>
+        <h:commandLink value="View Detailed Financial Transactions" action="accounttransactions" style="padding-left: 25px;" styleClass="smallfont" rendered="#{!empty accountBalancetransaction.balances}"/>
+
+
+    </h:form>
+
+</ui:define>
+
+
+</ui:composition>
+</html>
+
+

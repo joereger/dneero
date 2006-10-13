@@ -23,6 +23,7 @@
                 <h:commandLink value="Your Account" action="accountmain" style="padding-left: 10px; color: #009900;" styleClass="mediumfont" rendered="#{userSession.isloggedin}"/>
                 <h:commandLink value=" Account Settings" action="accountsettings" style="padding-left: 25px;" styleClass="smallfont" rendered="#{userSession.isloggedin}"/>
                 <h:commandLink value=" Change Password" action="changepassword" style="padding-left: 25px;" styleClass="smallfont" rendered="#{userSession.isloggedin}"/>
+                <h:commandLink value=" Balance" action="accountbalance" style="padding-left: 25px;" styleClass="smallfont" rendered="#{userSession.isloggedin}"/>
                 <h:commandLink value=" Help/Support" action="accountsupportissueslist" style="padding-left: 25px;" styleClass="smallfont" rendered="#{userSession.isloggedin}"/>
 
                 <f:verbatim rendered="#{userSession.isloggedin and (userSession.user.blogger ne null)}"><br/></f:verbatim>

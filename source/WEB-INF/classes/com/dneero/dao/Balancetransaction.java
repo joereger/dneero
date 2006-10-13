@@ -99,7 +99,7 @@ public class Balancetransaction extends BasePersistentClass implements java.io.S
         this.date = date;
     }
 
-    public boolean isIssuccessful() {
+    public boolean getIssuccessful() {
         return issuccessful;
     }
 

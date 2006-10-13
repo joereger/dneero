@@ -20,14 +20,75 @@
     </d:roundedCornerBox>
 
 
-    <h:form>
-            <h:messages />
+    <h:form id="researcherdetails">
 
-            <h:outputText value="Researcher Profile coming soon... company name, advertiser vs. mkt rsch, etc."></h:outputText>
+
+
+           <d:roundedCornerBox uniqueboxname="chargemethod" bodycolor="ffffff" widthinpixels="500">
+           <table cellpadding="0" cellspacing="0" border="0">
+               <tr>
+                   <td valign="top">
+                       <font class="formfieldnamefont">Charge me via: </font>
+                   </td>
+                   <td valign="top">
+                        <h:selectOneRadio value="#{researcherDetails.chargemethod}" id="chargemethod" required="true">
+                            <f:selectItems value="#{researcherDetails.chargemethods}"/>
+                        </h:selectOneRadio>
+                        <h:message for="chargemethod" styleClass="RED"></h:message>
+                   </td>
+               </tr>
+           </table>
+           <table cellpadding="0" cellspacing="0" border="0">
+               <tr>
+                   <td valign="top" align="left">
+                        <d:roundedCornerBox uniqueboxname="chargemethodinvoice" bodycolor="ffffff" widthinpixels="200">
+                            <font class="tinyfont">Address</font>
+                            <br/>
+
+                        </d:roundedCornerBox>
+                   </td>
+                   <td valign="top" align="left">
+                        <d:roundedCornerBox uniqueboxname="chargemethodcc" bodycolor="ffffff" widthinpixels="200">
+                                    <h:outputText value="Credit Card Number (optional)" styleClass="tinyfont"></h:outputText>
+                                    <br/>
+                                    <h:inputText value="#{researcherDetails.chargemethodccnum}" id="chargemethodccnum">
+                                        <t:validateCreditCard />
+                                    </h:inputText>
+                                    <h:message for="chargemethodccnum" styleClass="RED"></h:message>
+
+                                    <br/>
+                                    <h:outputText value="Exp Month (optional)" styleClass="tinyfont"></h:outputText>
+                                    <br/>
+                                    <h:inputText value="#{researcherDetails.chargemethodccexpmo}" id="chargemethodccexpmo" size="2">
+                                        <f:validateDoubleRange minimum="1" maximum="12"></f:validateDoubleRange>
+                                    </h:inputText>
+                                    <h:message for="chargemethodccexpmo" styleClass="RED"></h:message>
+
+                                    <br/>
+                                    <h:outputText value="Exp Year (optional)" styleClass="tinyfont"></h:outputText>
+                                    <br/>
+                                    <h:inputText value="#{researcherDetails.chargemethodccexpyear}" id="chargemethodccexpyear" size="4">
+                                        <f:validateDoubleRange minimum="2006" maximum="2020"></f:validateDoubleRange>
+                                    </h:inputText>
+                                    <h:message for="chargemethodccexpyear" styleClass="RED"></h:message>
+                        </d:roundedCornerBox>
+                   </td>
+               </tr>
+           </table>
+       </d:roundedCornerBox>
+
+
+
+
+
+
+
+
+
+
 
             <h:panelGrid columns="3" cellpadding="3" border="0">
 
-               
 
                 <h:panelGroup>
                     <h:commandButton action="#{researcherDetails.saveAction}" title="Save Researcher Profile" styleClass="formsubmitbutton"></h:commandButton>
