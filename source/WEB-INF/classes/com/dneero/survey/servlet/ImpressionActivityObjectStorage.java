@@ -29,7 +29,6 @@ public class ImpressionActivityObjectStorage {
             for (Iterator it = impressions.iterator(); it.hasNext(); ) {
                 impression = (Impression)it.next();
                 impression.setTotalimpressions(impression.getTotalimpressions()+1);
-                break;
             }
         } else {
             impression = new Impression();

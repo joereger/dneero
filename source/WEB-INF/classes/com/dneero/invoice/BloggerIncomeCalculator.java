@@ -7,6 +7,7 @@ import com.dneero.util.Util;
 import java.util.*;
 
 import org.hibernate.criterion.Restrictions;
+import org.apache.log4j.Logger;
 
 /**
  * User: Joe Reger Jr
@@ -20,13 +21,17 @@ public class BloggerIncomeCalculator {
     }
 
     public static double getBloggerTotalPossibleIncomeForSurvey(Blogger blogger, Survey survey){
+        Logger logger = Logger.getLogger(BloggerIncomeCalculator.class);
         double out = 0;
+        if (survey!=null){
+            out = out + survey.getWillingtopayperrespondent();
+        }
         HibernateUtil.getSession().saveOrUpdate(blogger);
         for (Iterator<Blog> iterator = blogger.getBlogs().iterator(); iterator.hasNext();) {
             Blog blog = iterator.next();
             List<Impression> impressions = new ArrayList();
             if (survey!=null){
-                //@todo optimize this using a single hql query... iterating all impressions for a blogger is wasteful
+                //@todo optimize this using a single hql query... iterating all impressions for a blogger is wasteful... use joinblogimpression table
                 List<Impression> imp = new ArrayList<Impression>();
                 for (Iterator<Impression> iterator1 = blog.getImpressions().iterator(); iterator1.hasNext();) {
                     Impression impression = iterator1.next();
@@ -46,11 +51,12 @@ public class BloggerIncomeCalculator {
                 if (impressionsthatqualify > sv.getMaxdisplaysperblog()){
                     impressionsthatqualify = sv.getMaxdisplaysperblog();
                 }
-                double earnedonthisimpression = sv.getWillingtopayperrespondent()+(sv.getWillingtopaypercpm()/1000);
+                double earnedonthisimpression = sv.getWillingtopaypercpm()/1000;
                 out = out + earnedonthisimpression;
+                logger.debug("earnedonthisimpression="+earnedonthisimpression+" out="+out);
             }
         }
-
+        logger.debug("returning out="+out);
         return out;
     }
 

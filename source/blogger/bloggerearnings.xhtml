@@ -13,6 +13,10 @@
     <ui:define name="title">Earnings<br/><br/></ui:define>
     <ui:define name="body">
     <d:authorization acl="blogger" redirectonfail="true"/>
+    
+
+    <font class="smallfont">This list of earnings is not final.  Payment of any earnings will be made once the researcher who setup the survey pays dNeero.  Final payment notification can be found on <a href="/account/accountbalance.jsf">Your Account Balance</a> page.</font>
+    <br/><br/>
 
         <h:form>
 
@@ -51,7 +55,7 @@
                 <f:facet name="header">
                   <af:outputText value="Impressions"/>
                 </f:facet>
-                <af:outputText value="#{listitem.impressionsthatqualifyforpay}"/>
+                <af:outputText value="#{listitem.impressions}"/>
               </af:column>
               <af:column>
                 <f:facet name="header">
