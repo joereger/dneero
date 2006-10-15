@@ -49,28 +49,77 @@
                    </td>
                    <td valign="top" align="left">
                         <d:roundedCornerBox uniqueboxname="chargemethodcc" bodycolor="ffffff" widthinpixels="200">
+                        
+                                    <h:selectOneRadio value="#{researcherDetails.cctype}" id="cctype" required="true">
+                                        <f:selectItems value="#{researcherDetails.creditcardtypes}"/>
+                                    </h:selectOneRadio>
+
+                                    <br/>
+                                    <h:outputText value="First Name (as on credit card)" styleClass="tinyfont"></h:outputText>
+                                    <br/>
+                                    <h:inputText value="#{researcherDetails.firstname}" id="firstname"></h:inputText>
+                                    <h:message for="firstname" styleClass="RED"></h:message>
+
+                                    <br/>
+                                    <h:outputText value="Last Name (as on credit card)" styleClass="tinyfont"></h:outputText>
+                                    <br/>
+                                    <h:inputText value="#{researcherDetails.lastname}" id="lastname"></h:inputText>
+                                    <h:message for="lastname" styleClass="RED"></h:message>
+
+                                    <br/>
+                                    <h:outputText value="Street Address" styleClass="tinyfont"></h:outputText>
+                                    <br/>
+                                    <h:inputText value="#{researcherDetails.street}" id="street"></h:inputText>
+                                    <h:message for="street" styleClass="RED"></h:message>
+
+                                    <br/>
+                                    <h:outputText value="City" styleClass="tinyfont"></h:outputText>
+                                    <br/>
+                                    <h:inputText value="#{researcherDetails.cccity}" id="cccity"></h:inputText>
+                                    <h:message for="cccity" styleClass="RED"></h:message>
+
+                                    <br/>
+                                    <h:outputText value="State/Province" styleClass="tinyfont"></h:outputText>
+                                    <br/>
+                                    <h:inputText value="#{researcherDetails.ccstate}" id="ccstate"></h:inputText>
+                                    <h:message for="ccstate" styleClass="RED"></h:message>
+
+                                    <br/>
+                                    <h:outputText value="Zip/Postal Code" styleClass="tinyfont"></h:outputText>
+                                    <br/>
+                                    <h:inputText value="#{researcherDetails.postalcode}" id="postalcode"></h:inputText>
+                                    <h:message for="postalcode" styleClass="RED"></h:message>
+
+                                    <br/>
                                     <h:outputText value="Credit Card Number (optional)" styleClass="tinyfont"></h:outputText>
                                     <br/>
-                                    <h:inputText value="#{researcherDetails.chargemethodccnum}" id="chargemethodccnum">
+                                    <h:inputText value="#{researcherDetails.ccnum}" id="ccnum">
                                         <t:validateCreditCard />
                                     </h:inputText>
-                                    <h:message for="chargemethodccnum" styleClass="RED"></h:message>
+                                    <h:message for="ccnum" styleClass="RED"></h:message>
 
                                     <br/>
                                     <h:outputText value="Exp Month (optional)" styleClass="tinyfont"></h:outputText>
                                     <br/>
-                                    <h:inputText value="#{researcherDetails.chargemethodccexpmo}" id="chargemethodccexpmo" size="2">
+                                    <h:inputText value="#{researcherDetails.ccexpmo}" id="ccexpmo" size="2">
                                         <f:validateDoubleRange minimum="1" maximum="12"></f:validateDoubleRange>
                                     </h:inputText>
-                                    <h:message for="chargemethodccexpmo" styleClass="RED"></h:message>
+                                    <h:message for="ccexpmo" styleClass="RED"></h:message>
 
                                     <br/>
                                     <h:outputText value="Exp Year (optional)" styleClass="tinyfont"></h:outputText>
                                     <br/>
-                                    <h:inputText value="#{researcherDetails.chargemethodccexpyear}" id="chargemethodccexpyear" size="4">
+                                    <h:inputText value="#{researcherDetails.ccexpyear}" id="ccexpyear" size="4">
                                         <f:validateDoubleRange minimum="2006" maximum="2020"></f:validateDoubleRange>
                                     </h:inputText>
-                                    <h:message for="chargemethodccexpyear" styleClass="RED"></h:message>
+                                    <h:message for="ccexpyear" styleClass="RED"></h:message>
+
+
+                                    <br/>
+                                    <h:outputText value="CVV2 (number on back)" styleClass="tinyfont"></h:outputText>
+                                    <br/>
+                                    <h:inputText value="#{researcherDetails.cvv2}" id="cvv2"></h:inputText>
+                                    <h:message for="cvv2" styleClass="RED"></h:message>
                         </d:roundedCornerBox>
                    </td>
                </tr>

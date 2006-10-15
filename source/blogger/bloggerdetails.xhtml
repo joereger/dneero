@@ -178,28 +178,78 @@
                    </td>
                    <td valign="top" align="left">
                         <d:roundedCornerBox uniqueboxname="paymethodcc" bodycolor="ffffff" widthinpixels="200">
+
+                                    <h:selectOneRadio value="#{bloggerDetails.cctype}" id="cctype" required="true">
+                                        <f:selectItems value="#{bloggerDetails.creditcardtypes}"/>
+                                    </h:selectOneRadio>
+
+                                    <br/>
+                                    <h:outputText value="First Name (as on credit card)" styleClass="tinyfont"></h:outputText>
+                                    <br/>
+                                    <h:inputText value="#{bloggerDetails.firstname}" id="firstname"></h:inputText>
+                                    <h:message for="firstname" styleClass="RED"></h:message>
+
+                                    <br/>
+                                    <h:outputText value="Last Name (as on credit card)" styleClass="tinyfont"></h:outputText>
+                                    <br/>
+                                    <h:inputText value="#{bloggerDetails.lastname}" id="lastname"></h:inputText>
+                                    <h:message for="lastname" styleClass="RED"></h:message>
+
+                                    <br/>
+                                    <h:outputText value="Street Address" styleClass="tinyfont"></h:outputText>
+                                    <br/>
+                                    <h:inputText value="#{bloggerDetails.street}" id="street"></h:inputText>
+                                    <h:message for="street" styleClass="RED"></h:message>
+
+                                    <br/>
+                                    <h:outputText value="City" styleClass="tinyfont"></h:outputText>
+                                    <br/>
+                                    <h:inputText value="#{bloggerDetails.cccity}" id="cccity"></h:inputText>
+                                    <h:message for="cccity" styleClass="RED"></h:message>
+
+                                    <br/>
+                                    <h:outputText value="State/Province" styleClass="tinyfont"></h:outputText>
+                                    <br/>
+                                    <h:inputText value="#{bloggerDetails.ccstate}" id="ccstate"></h:inputText>
+                                    <h:message for="ccstate" styleClass="RED"></h:message>
+
+                                    <br/>
+                                    <h:outputText value="Zip/Postal Code" styleClass="tinyfont"></h:outputText>
+                                    <br/>
+                                    <h:inputText value="#{bloggerDetails.postalcode}" id="postalcode"></h:inputText>
+                                    <h:message for="postalcode" styleClass="RED"></h:message>
+
+                                    <br/>
                                     <h:outputText value="Credit Card Number (optional)" styleClass="tinyfont"></h:outputText>
                                     <br/>
-                                    <h:inputText value="#{bloggerDetails.paymethodccnum}" id="paymethodccnum">
+                                    <h:inputText value="#{bloggerDetails.ccnum}" id="ccnum">
                                         <t:validateCreditCard />
                                     </h:inputText>
-                                    <h:message for="paymethodccnum" styleClass="RED"></h:message>
+                                    <h:message for="ccnum" styleClass="RED"></h:message>
 
                                     <br/>
                                     <h:outputText value="Exp Month (optional)" styleClass="tinyfont"></h:outputText>
                                     <br/>
-                                    <h:inputText value="#{bloggerDetails.paymethodccexpmo}" id="paymethodccexpmo" size="2">
+                                    <h:inputText value="#{bloggerDetails.ccexpmo}" id="ccexpmo" size="2">
                                         <f:validateDoubleRange minimum="1" maximum="12"></f:validateDoubleRange>
                                     </h:inputText>
-                                    <h:message for="paymethodccexpmo" styleClass="RED"></h:message>
+                                    <h:message for="ccexpmo" styleClass="RED"></h:message>
 
                                     <br/>
                                     <h:outputText value="Exp Year (optional)" styleClass="tinyfont"></h:outputText>
                                     <br/>
-                                    <h:inputText value="#{bloggerDetails.paymethodccexpyear}" id="paymethodccexpyear" size="4">
+                                    <h:inputText value="#{bloggerDetails.ccexpyear}" id="ccexpyear" size="4">
                                         <f:validateDoubleRange minimum="2006" maximum="2020"></f:validateDoubleRange>
                                     </h:inputText>
-                                    <h:message for="paymethodccexpyear" styleClass="RED"></h:message>
+                                    <h:message for="ccexpyear" styleClass="RED"></h:message>
+
+
+                                    <br/>
+                                    <h:outputText value="CVV2 (number on back)" styleClass="tinyfont"></h:outputText>
+                                    <br/>
+                                    <h:inputText value="#{bloggerDetails.cvv2}" id="cvv2"></h:inputText>
+                                    <h:message for="cvv2" styleClass="RED"></h:message>
+
                         </d:roundedCornerBox>
                    </td>
                </tr>

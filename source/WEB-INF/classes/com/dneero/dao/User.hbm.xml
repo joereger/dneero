@@ -53,29 +53,18 @@
         <property name="paymethod" type="int">
             <column name="paymethod" not-null="true" />
         </property>
+        <property name="paymethodcreditcardid" type="int">
+            <column name="paymethodcreditcardid" not-null="true" />
+        </property>
         <property name="paymethodpaypaladdress" type="string">
             <column name="paymethodpaypaladdress"/>
-        </property>
-        <property name="paymethodccnum" type="string">
-            <column name="paymethodccnum"/>
-        </property>
-        <property name="paymethodccexpmo" type="string">
-            <column name="paymethodccexpmo"/>
-        </property>
-        <property name="paymethodccexpyear" type="string">
-            <column name="paymethodccexpyear"/>
         </property>
         <property name="chargemethod" type="int">
             <column name="chargemethod" not-null="true" />
         </property>
-        <property name="chargemethodccnum" type="string">
-            <column name="chargemethodccnum"/>
+        <property name="chargemethodcreditcardid" type="int">
+            <column name="chargemethodcreditcardid" not-null="true" />
         </property>
-        <property name="chargemethodccexpmo" type="string">
-            <column name="chargemethodccexpmo"/>
-        </property>
-        <property name="chargemethodccexpyear" type="string">
-            <column name="chargemethodccexpyear"/>
-        </property>
+
     </class>
 </hibernate-mapping>

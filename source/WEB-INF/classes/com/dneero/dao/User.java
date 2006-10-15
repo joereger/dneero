@@ -35,14 +35,10 @@ public class User extends BasePersistentClass implements java.io.Serializable, R
      private Date emailactivationlastsent;
      private Date createdate;
      private int paymethod;
+     private int paymethodcreditcardid;
      private String paymethodpaypaladdress;
-     private String paymethodccnum;
-     private String paymethodccexpmo;
-     private String paymethodccexpyear;
      private int chargemethod;
-     private String chargemethodccnum;
-     private String chargemethodccexpmo;
-     private String chargemethodccexpyear;
+     private int chargemethodcreditcardid;
 
      //Association
     private Set<Userrole> userroles = new HashSet<Userrole>();
@@ -231,29 +227,7 @@ public class User extends BasePersistentClass implements java.io.Serializable, R
         this.paymethodpaypaladdress = paymethodpaypaladdress;
     }
 
-    public String getPaymethodccnum() {
-        return paymethodccnum;
-    }
 
-    public void setPaymethodccnum(String paymethodccnum) {
-        this.paymethodccnum = paymethodccnum;
-    }
-
-    public String getPaymethodccexpmo() {
-        return paymethodccexpmo;
-    }
-
-    public void setPaymethodccexpmo(String paymethodccexpmo) {
-        this.paymethodccexpmo = paymethodccexpmo;
-    }
-
-    public String getPaymethodccexpyear() {
-        return paymethodccexpyear;
-    }
-
-    public void setPaymethodccexpyear(String paymethodccexpyear) {
-        this.paymethodccexpyear = paymethodccexpyear;
-    }
 
     public int getChargemethod() {
         return chargemethod;
@@ -263,29 +237,20 @@ public class User extends BasePersistentClass implements java.io.Serializable, R
         this.chargemethod = chargemethod;
     }
 
-    public String getChargemethodccnum() {
-        return chargemethodccnum;
+
+    public int getPaymethodcreditcardid() {
+        return paymethodcreditcardid;
     }
 
-    public void setChargemethodccnum(String chargemethodccnum) {
-        this.chargemethodccnum = chargemethodccnum;
+    public void setPaymethodcreditcardid(int paymethodcreditcardid) {
+        this.paymethodcreditcardid = paymethodcreditcardid;
     }
 
-    public String getChargemethodccexpmo() {
-        return chargemethodccexpmo;
+    public int getChargemethodcreditcardid() {
+        return chargemethodcreditcardid;
     }
 
-    public void setChargemethodccexpmo(String chargemethodccexpmo) {
-        this.chargemethodccexpmo = chargemethodccexpmo;
+    public void setChargemethodcreditcardid(int chargemethodcreditcardid) {
+        this.chargemethodcreditcardid = chargemethodcreditcardid;
     }
-
-    public String getChargemethodccexpyear() {
-        return chargemethodccexpyear;
-    }
-
-    public void setChargemethodccexpyear(String chargemethodccexpyear) {
-        this.chargemethodccexpyear = chargemethodccexpyear;
-    }
-
-    
 }
