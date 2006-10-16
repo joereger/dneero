@@ -20,6 +20,8 @@ public class Creditcard extends BasePersistentClass implements java.io.Serializa
 
     public static int CREDITCARDTYPE_MASTERCARD=1;
     public static int CREDITCARDTYPE_VISA=2;
+    public static int CREDITCARDTYPE_AMEX=3;
+    public static int CREDITCARDTYPE_DISCOVER=4;
 
     // Fields
 

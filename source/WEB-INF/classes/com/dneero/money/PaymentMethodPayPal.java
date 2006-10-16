@@ -1,8 +1,7 @@
 package com.dneero.money;
 
 import com.dneero.dao.User;
-import com.dneero.money.paypal.Pay;
-import com.dneero.money.paypal.Charge;
+import com.dneero.money.paypal.PayPaypalAddress;
 import org.apache.log4j.Logger;
 
 /**
@@ -24,7 +23,7 @@ public class PaymentMethodPayPal implements PaymentMethod {
 
     public void pay(User user, double amt) {
         try{
-            Pay.pay(user.getPaymethodpaypaladdress(), amt);
+            PayPaypalAddress.pay(user.getPaymethodpaypaladdress(), amt);
             issuccessful = true;
         } catch (Exception ex){
             logger.error(ex);

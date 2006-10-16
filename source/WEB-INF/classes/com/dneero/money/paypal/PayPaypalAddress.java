@@ -10,10 +10,10 @@ import org.apache.log4j.Logger;
  * Date: Sep 25, 2006
  * Time: 9:52:40 AM
  */
-public class Pay {
+public class PayPaypalAddress {
 
     public static void pay(String paypalAddress, double amt) throws Exception{
-        Logger logger = Logger.getLogger(Charge.class);
+        Logger logger = Logger.getLogger(PayPaypalAddress.class);
         CallerFactory callerFactory = new CallerFactory();
         CallerServices caller = callerFactory.getCaller();
 

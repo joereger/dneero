@@ -7,11 +7,11 @@ import org.apache.log4j.Logger;
  * Date: Sep 25, 2006
  * Time: 10:04:44 AM
  */
-public class Charge {
+public class ChargePaypalAddress {
 
     public static void charge(String paypalAddress, double amt) throws Exception {
 
-        Logger logger = Logger.getLogger(Charge.class);
+        Logger logger = Logger.getLogger(ChargePaypalAddress.class);
         logger.error("PayPal can't be used to charge");
 
 

@@ -2,7 +2,6 @@ package com.dneero.money;
 
 import org.apache.log4j.Logger;
 import com.dneero.dao.User;
-import com.dneero.money.paypal.Pay;
 
 /**
  * User: Joe Reger Jr
