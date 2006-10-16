@@ -225,6 +225,7 @@ public class BloggerDetails {
                 cc.setMerchantsessionid("12345");
                 cc.setPostalcode(postalcode);
                 cc.setState(ccstate);
+                cc.setStreet(street);
                 cc.setUserid(userSession.getUser().getUserid());
                 try{
                     cc.save();
