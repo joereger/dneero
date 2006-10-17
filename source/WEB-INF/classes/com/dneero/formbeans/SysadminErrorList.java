@@ -2,14 +2,12 @@ package com.dneero.formbeans;
 
 import com.dneero.util.SortableList;
 import com.dneero.dao.hibernate.HibernateUtil;
-import com.dneero.dao.User;
 import com.dneero.dao.Error;
 
-import java.util.List;
-import java.util.Comparator;
-import java.util.Collections;
+import java.util.*;
 
 import org.apache.log4j.Logger;
+import org.apache.log4j.Level;
 
 /**
  * User: Joe Reger Jr
@@ -20,12 +18,44 @@ public class SysadminErrorList extends SortableList {
 
     Logger logger = Logger.getLogger(this.getClass().getName());
     private List errors;
+    private int minleveltoshow=0;
 
     public SysadminErrorList() {
         //Default sort column
         super("errorid");
+        load();
+    }
+
+    public String load(){
         //Go get the users from the database
-        errors = HibernateUtil.getSession().createQuery("from Error").list();
+        logger.debug("load() called. minleveltoshow="+minleveltoshow);
+        errors = HibernateUtil.getSession().createQuery("from Error where level>='"+minleveltoshow+"'").list();
+        return "";        
+    }
+
+    public String markallold(){
+        List ers = HibernateUtil.getSession().createQuery("from Error where status<>'"+Error.STATUS_OLD+"'").list();
+        for (Iterator iterator = ers.iterator(); iterator.hasNext();) {
+            Error error = (Error) iterator.next();
+            error.setStatus(Error.STATUS_OLD);
+            try{error.save();}catch(Exception ex){logger.error(ex);}
+        }
+        return "sysadminerrorlist";
+    }
+    public String deleteall(){
+        List ers = HibernateUtil.getSession().createQuery("from Error").list();
+        for (Iterator iterator = ers.iterator(); iterator.hasNext();) {
+            Error error = (Error) iterator.next();
+            try{error.delete();}catch(Exception ex){logger.error(ex);}
+        }
+        errors = new ArrayList();
+        return "sysadminerrorlist";        
+    }
+
+    public String onlyerrors(){
+        minleveltoshow = Level.ERROR_INT;
+        load();
+        return "";
     }
 
     public List getErrors() {
@@ -74,7 +104,24 @@ public class SysadminErrorList extends SortableList {
         }
     }
 
+    public LinkedHashMap getLevels(){
+        LinkedHashMap out = new LinkedHashMap();
+        out.put("Show All", 0);
+        out.put("Debug or Higher", Level.DEBUG_INT);
+        out.put("Warn or Higher", Level.WARN_INT);
+        out.put("Info or Higher", Level.INFO_INT);
+        out.put("Error or Higher", Level.ERROR_INT);
+        out.put("Fatal Only", Level.FATAL_INT);
+        return out;
+    }
 
 
+    public int getMinleveltoshow() {
+        return minleveltoshow;
+    }
 
+    public void setMinleveltoshow(int minleveltoshow) {
+        logger.debug("setMinleveltoshow() called. minleveltoshow="+minleveltoshow);
+        this.minleveltoshow = minleveltoshow;
+    }
 }

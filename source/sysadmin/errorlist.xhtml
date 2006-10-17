@@ -17,6 +17,18 @@
     <d:authorization acl="systemadmin" redirectonfail="true"/>
 
     <h:form>
+
+        <h:selectOneMenu value="#{sysadminErrorList.minleveltoshow}" id="minleveltoshow" required="false">
+            <f:selectItems value="#{sysadminErrorList.levels}"/>
+        </h:selectOneMenu>
+
+        <h:commandButton action="#{sysadminErrorList.load}"  value="Refresh" styleClass="formsubmitbutton"></h:commandButton>
+        <h:commandButton action="#{sysadminErrorList.markallold}"  value="Mark All Old" styleClass="formsubmitbutton"></h:commandButton>
+        <h:commandButton action="#{sysadminErrorList.deleteall}"  value="Delete All" styleClass="formsubmitbutton"></h:commandButton>
+        <h:commandButton action="#{sysadminErrorList.onlyerrors}"  value="Only Errors" styleClass="formsubmitbutton"></h:commandButton>
+
+        <br/><br/>
+
         <af:table value="#{sysadminErrorList.errors}" bandingInterval="2" rows="15" banding="row" var="error">
           <af:column sortProperty="errorid" sortable="true">
             <f:facet name="header">
@@ -28,13 +40,12 @@
             <f:facet name="header">
               <af:outputText value="Date" styleClass="smallfont"/>
             </f:facet>
-            <af:outputText value="#{error.date}" styleClass="tinyfont"/>
+            <af:outputText value="#{error.date}" styleClass="tinyfont"><f:convertDateTime type="both" dateStyle="short" timeStyle="medium"/></af:outputText>
           </af:column>
           <af:column sortProperty="status" sortable="true">
             <f:facet name="header">
               <af:outputText value="Status" styleClass="smallfont"/>
             </f:facet>
-            <h:graphicImage url="/images/alert.png" rendered="#{error.status eq 1}"></h:graphicImage>
             <af:outputText value="New" styleClass="tinyfont" rendered="#{error.status eq 1}"/>
             <af:outputText value="Old" styleClass="tinyfont" rendered="#{error.status eq 0}"/>
           </af:column>

@@ -24,34 +24,8 @@ public class CustomHtmlLayout extends HTMLLayout {
         }
         sbuf.append("<table>");
 
-
-//        sbuf.append("<td>");
-//        sbuf.append(event.timeStamp - event.getStartTime());
-//        sbuf.append("</td>" + Layout.LINE_SEP);
-//
-
-
-//        sbuf.append("<td title=\"" + event.getThreadName() + " thread\">");
-//        sbuf.append(Transform.escapeTags(event.getThreadName()));
-//        sbuf.append("</td>" + Layout.LINE_SEP);
-//
-//        sbuf.append("<td title=\"Level\">");
-//        if (event.getLevel().equals(Level.DEBUG)) {
-//          sbuf.append("<font color=\"#339933\">");
-//          sbuf.append(event.getLevel());
-//          sbuf.append("</font>");
-//        }
-//        else if(event.getLevel().isGreaterOrEqual(Level.WARN)) {
-//          sbuf.append("<font color=\"#993300\"><strong>");
-//          sbuf.append(event.getLevel());
-//          sbuf.append("</strong></font>");
-//        } else {
-//          sbuf.append(event.getLevel());
-//        }
-//        sbuf.append("</td>" + Layout.LINE_SEP);
-
         sbuf.append(Layout.LINE_SEP + "<tr>" + Layout.LINE_SEP);
-        sbuf.append("<td class=\"tinyfont\">");
+        sbuf.append("<td class=\"smallfont\">");
         sbuf.append(Transform.escapeTags(event.getLoggerName()));
         sbuf.append("</td>" + Layout.LINE_SEP);
         sbuf.append(Layout.LINE_SEP + "</tr>" + Layout.LINE_SEP);
