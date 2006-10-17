@@ -22,15 +22,14 @@
         <tr>
             <td width="50%" align="left" valign="top">
 
-                <d:roundedCornerBox uniqueboxname="indexleft" bodycolor="00ff00" widthinpixels="250">
-                    <h:commandLink action="researcherhome" rendered="#{userSession.isloggedin and (userSession.user.researcher ne null)}"><font class="largefont">Pay for Blog</font></h:commandLink>
-                    <f:verbatim rendered="#{userSession.isloggedin and (userSession.user.researcher eq null)}"><font class="largefont">Pay for Blog</font></f:verbatim>
+                <d:roundedCornerBox uniqueboxname="indexleft" bodycolor="ffffff" widthinpixels="250">
+                    <font class="largefont">Pay for Blog</font>
                 </d:roundedCornerBox>
                 <d:roundedCornerBox uniqueboxname="indexleft2" bodycolor="ffffff" widthinpixels="250" rendered="#{userSession.isloggedin and (userSession.user.researcher ne null)}">
                     <br/><h:commandLink value="Start a New Survey" action="#{researcherSurveyDetail01.beginViewNewSurvey}" styleClass="smallfont" style="padding-left: 25px;" rendered="#{userSession.isloggedin and (userSession.user.researcher ne null)}"/>
-                    <br/><h:commandLink value="Researcher Profile" action="researcherdetails" styleClass="smallfont" style="padding-left: 25px;" rendered="#{userSession.isloggedin and (userSession.user.researcher ne null)}"/>
-                    <br/><h:commandLink value="Surveys" action="researchersurveylist" styleClass="smallfont" style="padding-left: 25px;" rendered="#{userSession.isloggedin and (userSession.user.researcher ne null)}"/>
-                    <br/><h:commandLink value="Invoices" action="researcherinvoices" styleClass="smallfont" style="padding-left: 25px;" rendered="#{userSession.isloggedin and (userSession.user.researcher ne null)}"/>
+                    <br/><h:commandLink value="Update My Researcher Profile" action="researcherdetails" styleClass="smallfont" style="padding-left: 25px;" rendered="#{userSession.isloggedin and (userSession.user.researcher ne null)}"/>
+                    <br/><h:commandLink value="See My Surveys" action="researchersurveylist" styleClass="smallfont" style="padding-left: 25px;" rendered="#{userSession.isloggedin and (userSession.user.researcher ne null)}"/>
+                    <br/><h:commandLink value="See My Invoices" action="researcherinvoices" styleClass="smallfont" style="padding-left: 25px;" rendered="#{userSession.isloggedin and (userSession.user.researcher ne null)}"/>
                     <br/><br/>
                 </d:roundedCornerBox>
                 <d:roundedCornerBox uniqueboxname="researcherconfigneeded" bodycolor="ffffcc" widthinpixels="250" rendered="#{userSession.isloggedin and (userSession.user.researcher eq null)}">
@@ -44,16 +43,15 @@
 
             </td>
             <td width="50%" align="left" valign="top">
-                <d:roundedCornerBox uniqueboxname="indexright" bodycolor="00ff00" widthinpixels="250">
-                    <h:commandLink action="bloggerhome" rendered="#{userSession.isloggedin and (userSession.user.blogger ne null)}"><font class="largefont">Blog for Pay</font></h:commandLink>
-                    <f:verbatim rendered="#{userSession.isloggedin and (userSession.user.blogger eq null)}"><font class="largefont">Blog for Pay</font></f:verbatim>
+                <d:roundedCornerBox uniqueboxname="indexright" bodycolor="ffffff" widthinpixels="250">
+                    <font class="largefont">Blog for Pay</font>
                 </d:roundedCornerBox>
                 <d:roundedCornerBox uniqueboxname="indexright2" bodycolor="ffffff" widthinpixels="250" rendered="#{userSession.isloggedin and (userSession.user.blogger ne null)}">
                     <br/><h:commandLink value="Find Surveys to Take" action="bloggersurveylist" styleClass="smallfont" style="padding-left: 25px;" rendered="#{userSession.isloggedin and (userSession.user.blogger ne null)}"/>
-                    <br/><h:commandLink value="Blogger Profile" action="bloggerdetails" styleClass="smallfont" style="padding-left: 25px;" rendered="#{userSession.isloggedin and (userSession.user.blogger ne null)}"/>
-                    <br/><h:commandLink value="Blogs" action="bloggerblogslist" styleClass="smallfont" style="padding-left: 25px;" rendered="#{userSession.isloggedin and (userSession.user.blogger ne null)}"/>
-                    <br/><h:commandLink value="Earnings" action="bloggerearnings" styleClass="smallfont" style="padding-left: 25px;" rendered="#{userSession.isloggedin and (userSession.user.blogger ne null)}"/>
-                    <br/><h:commandLink value="Revshare" action="bloggerearningsrevshare" styleClass="smallfont" style="padding-left: 25px;" rendered="#{userSession.isloggedin and (userSession.user.blogger ne null)}"/>
+                    <br/><h:commandLink value="Update My Blogger Profile" action="bloggerdetails" styleClass="smallfont" style="padding-left: 25px;" rendered="#{userSession.isloggedin and (userSession.user.blogger ne null)}"/>
+                    <br/><h:commandLink value="Add/Edit My Blogs" action="bloggerblogslist" styleClass="smallfont" style="padding-left: 25px;" rendered="#{userSession.isloggedin and (userSession.user.blogger ne null)}"/>
+                    <br/><h:commandLink value="See My Earnings" action="bloggerearnings" styleClass="smallfont" style="padding-left: 25px;" rendered="#{userSession.isloggedin and (userSession.user.blogger ne null)}"/>
+                    <br/><h:commandLink value="Earn Money Inviting Friends" action="bloggerearningsrevshare" styleClass="smallfont" style="padding-left: 25px;" rendered="#{userSession.isloggedin and (userSession.user.blogger ne null)}"/>
                     <br/><br/>
                 </d:roundedCornerBox>
                 <d:roundedCornerBox uniqueboxname="bloggerconfigneeded" bodycolor="ffffcc" widthinpixels="250" rendered="#{userSession.isloggedin and (userSession.user.blogger eq null)}">

@@ -25,6 +25,7 @@ public class HibernateUtil {
     private static SessionFactory sessionFactory;
     private static final ThreadLocal session = new ThreadLocal();
 
+
     static {
         Logger logger = Logger.getLogger(HibernateUtil.class);
         if (DbConfig.haveValidConfig()){
@@ -86,7 +87,6 @@ public class HibernateUtil {
                 }
                 // Create the SessionFactory
                 sessionFactory = conf.buildSessionFactory();
-
                 logger.info("HibernateUtil Session Initialized. Let's rock some data abstration!");
                 logger.info("HibernateUtil: username:"+DbConfig.getDbUsername());
             } catch (Throwable ex) {
@@ -95,6 +95,7 @@ public class HibernateUtil {
             }
         }
     }
+
 
 
 

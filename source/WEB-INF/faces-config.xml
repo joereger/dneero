@@ -410,6 +410,12 @@
     </managed-bean>
 
     <managed-bean>
+        <managed-bean-name>sysadminErrorList</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.SysadminErrorList</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
         <managed-bean-name>sysadminManuallyRunScheduledTask</managed-bean-name>
         <managed-bean-class>com.dneero.formbeans.SysadminManuallyRunScheduledTask</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
@@ -484,6 +490,10 @@
         <navigation-case>
             <from-outcome>sysadminsurveylist</from-outcome>
             <to-view-id>/sysadmin/sysadminsurveylist.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>sysadminerrorlist</from-outcome>
+            <to-view-id>/sysadmin/errorlist.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>researcherhome</from-outcome>

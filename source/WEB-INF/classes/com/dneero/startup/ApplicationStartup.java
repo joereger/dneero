@@ -24,22 +24,29 @@ import org.quartz.ee.servlet.QuartzInitializerServlet;
 public class ApplicationStartup extends HttpServlet {
 
     //@todo implement ApplicationStartup as a ServletContextListener for better app server portability
+    private static boolean isappstarted = false;
 
     Logger logger = Logger.getLogger(this.getClass().getName());
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-            //Must be here so that Tomcat considers this to be a servlet and will load it at Tomcat startup
-        }
+        //Must be here so that Tomcat considers this to be a servlet and will load it at Tomcat startup
+    }
 
-        public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-            //Must be here so that Tomcat considers this to be a servlet and will load it at Tomcat startup
-        }
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //Must be here so that Tomcat considers this to be a servlet and will load it at Tomcat startup
+    }
 
-        public void init(ServletConfig config){
-            //Configure some dir stuff
-            WebAppRootDir ward = new WebAppRootDir(config);
-            HibernateUtil.getSession();
-            logger.info("dNeero Application started!  Let's make some dinero!  WebAppRootDir = " + WebAppRootDir.getWebAppRootPath());
-        }
+    public void init(ServletConfig config){
+        //Configure some dir stuff
+        WebAppRootDir ward = new WebAppRootDir(config);
+        HibernateUtil.getSession();
+        isappstarted = true;
+        logger.info("WebAppRootDir = " + WebAppRootDir.getWebAppRootPath());
+        logger.info("dNeero Application started!  Let's make some dinero!");
+    }
 
+
+    public static boolean getIsappstarted() {
+        return isappstarted;
+    }
 }

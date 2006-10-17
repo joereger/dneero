@@ -22,14 +22,14 @@ public class Db {
 
     public static void setupDataSource(){
         configCount = configCount + 1;
-        System.out.println("Reger.com alias="+alias+": Start proxool configuration configCount="+configCount);
+        System.out.println("dNeero:"+alias+": Start proxool configuration configCount="+configCount);
         try{
 
             try{
-                System.out.println("Reger.com alias="+alias+": Shutting down all pools.");
+                System.out.println("dNeero:"+alias+": Shutting down all pools.");
                 ProxoolFacade.shutdown(0);
             } catch (Exception e){
-                System.out.println("Reger.com alias="+alias+": Error shutting down pool.");
+                System.out.println("dNeero:"+alias+": Error shutting down pool.");
                 e.printStackTrace();
             }
 
@@ -47,14 +47,14 @@ public class Db {
 
             //Set the driver flag first
             driverHasBeenConfigured = true;
-            System.out.println("Reger.com alias="+alias+": Ds setup appears successful.");
-            System.out.println("Reger.com alias="+alias+": Ds url="+url);
+            System.out.println("dNeero:"+alias+": Ds setup appears successful.");
+            System.out.println("dNeero:"+alias+": Ds url="+url);
 
         } catch (Exception e){
-                System.out.println("Reger.com alias="+alias+": Error configuring proxool connection.");
+                System.out.println("dNeero:"+alias+": Error configuring proxool connection.");
                 e.printStackTrace();
         }
-        System.out.println("Reger.com alias="+alias+": End ds setup.");
+        System.out.println("dNeero:"+alias+": End ds setup.");
     }
 
   /**
@@ -63,21 +63,21 @@ public class Db {
   public static Connection getConnection(){
         try{
             if (!driverHasBeenConfigured || DbConfig.haveNewConfigToTest()){
-                System.out.println("Reger.com alias="+alias+": proxool driverHasBeenConfigured is false or we have a new dbconfig to test.");
+                System.out.println("dNeero:"+alias+": proxool driverHasBeenConfigured is false or we have a new dbconfig to test.");
                 setupDataSource();
             }
             try{
                 //Return the connection
                 return DriverManager.getConnection("proxool."+alias);
             } catch (Exception e){
-                System.out.println("Reger.com alias="+alias+": Error getting connection from the dataSource ds.");
+                System.out.println("dNeero:"+alias+": Error getting connection from the dataSource ds.");
                 e.printStackTrace();
             }
         } catch (Exception e){
-            System.out.println("Reger.com alias="+alias+": Error setting up.");
+            System.out.println("dNeero:"+alias+": Error setting up.");
             e.printStackTrace();
         }
-        System.out.println("Reger.com alias="+alias+": Returning null connection.");
+        System.out.println("dNeero:"+alias+": Returning null connection.");
         return null;
 
   }

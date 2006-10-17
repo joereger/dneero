@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:t="http://myfaces.apache.org/tomahawk"
+      xmlns:af="http://xmlns.oracle.com/adf/faces"
+      xmlns:d="http://dneero.com/taglib">
+
+
+
+<ui:composition template="/template/template-facelets.xhtml">
+    <ui:define name="title">Error and Debug Log<br/><br/></ui:define>
+    <ui:define name="body">
+    <d:authorization acl="systemadmin" redirectonfail="true"/>
+
+    <h:form>
+        <af:table value="#{sysadminErrorList.errors}" bandingInterval="2" rows="15" banding="row" var="error">
+          <af:column sortProperty="errorid" sortable="true">
+            <f:facet name="header">
+              <af:outputText value="Id" styleClass="smallfont"/>
+            </f:facet>
+            <af:outputText value="#{error.errorid}" styleClass="tinyfont"/>
+          </af:column>
+          <af:column>
+            <f:facet name="header">
+              <af:outputText value="Date" styleClass="smallfont"/>
+            </f:facet>
+            <af:outputText value="#{error.date}" styleClass="tinyfont"/>
+          </af:column>
+          <af:column sortProperty="status" sortable="true">
+            <f:facet name="header">
+              <af:outputText value="Status" styleClass="smallfont"/>
+            </f:facet>
+            <af:outputText value="#{error.status}" styleClass="tinyfont"/>
+          </af:column>
+          <af:column sortProperty="level" sortable="true">
+            <f:facet name="header">
+              <af:outputText value="Level" styleClass="smallfont"/>
+            </f:facet>
+            <af:outputText value="#{error.level}" styleClass="tinyfont"/>
+          </af:column>
+          <af:column>
+            <f:facet name="header">
+              <af:outputText value="Error" styleClass="smallfont"/>
+            </f:facet>
+            <af:outputText value="#{error.error}" styleClass="smallfont"/>
+          </af:column>
+
+        </af:table>
+    </h:form>
+
+
+
+</ui:define>
+
+
+</ui:composition>
+</html>
+
+
+

@@ -27,7 +27,7 @@
                 <h:commandLink value=" Help/Support" action="accountsupportissueslist" style="padding-left: 25px;" styleClass="smallfont" rendered="#{userSession.isloggedin}"/>
 
                 <f:verbatim rendered="#{userSession.isloggedin and (userSession.user.blogger ne null)}"><br/></f:verbatim>
-                <h:commandLink value="Blog for Pay" action="bloggerhome" style="padding-left: 10px; color: #009900;" styleClass="mediumfont" rendered="#{userSession.isloggedin and (userSession.user.blogger ne null)}"/>
+                <h:outputText value="Blog for Pay" action="bloggerhome" style="padding-left: 10px; color: #009900;" styleClass="mediumfont" rendered="#{userSession.isloggedin and (userSession.user.blogger ne null)}"/>
                 <h:commandLink value="  Blogger Profile" action="bloggerdetails" styleClass="smallfont" style="padding-left: 25px;" rendered="#{userSession.isloggedin and (userSession.user.blogger ne null)}"/>
                 <h:commandLink value="  Blogs" action="bloggerblogslist" styleClass="smallfont" style="padding-left: 25px;" rendered="#{userSession.isloggedin and (userSession.user.blogger ne null)}"/>
                 <h:commandLink value="  Surveys" action="bloggersurveylist" styleClass="smallfont" style="padding-left: 25px;" rendered="#{userSession.isloggedin and (userSession.user.blogger ne null)}"/>
@@ -35,13 +35,14 @@
                 <h:commandLink value="  Revshare" action="bloggerearningsrevshare" styleClass="smallfont" style="padding-left: 25px;" rendered="#{userSession.isloggedin and (userSession.user.blogger ne null)}"/>
 
                 <f:verbatim rendered="#{userSession.isloggedin and (userSession.user.researcher ne null)}"><br/></f:verbatim>
-                <h:commandLink value="Pay for Blog" action="researcherhome" style="padding-left: 10px; color: #009900;" styleClass="mediumfont" rendered="#{userSession.isloggedin and (userSession.user.researcher ne null)}"/>
+                <h:outputText value="Pay for Blog" action="researcherhome" style="padding-left: 10px; color: #009900;" styleClass="mediumfont" rendered="#{userSession.isloggedin and (userSession.user.researcher ne null)}"/>
                 <h:commandLink value="  Researcher Profile" action="researcherdetails" styleClass="smallfont" style="padding-left: 25px;" rendered="#{userSession.isloggedin and (userSession.user.researcher ne null)}"/>
                 <h:commandLink value="  Surveys" action="researchersurveylist" styleClass="smallfont" style="padding-left: 25px;" rendered="#{userSession.isloggedin and (userSession.user.researcher ne null)}"/>
                 <h:commandLink value="  Invoices" action="researcherinvoices" styleClass="smallfont" style="padding-left: 25px;" rendered="#{userSession.isloggedin and (userSession.user.researcher ne null)}"/>
 
                 <f:verbatim rendered="#{userSession.isloggedin and userSession.isSysadmin}"><br/></f:verbatim>
-                <h:commandLink value="Sysadmins" action="sysadminhome" style="padding-left: 10px; color: #009900;" styleClass="mediumfont" rendered="#{userSession.isloggedin and userSession.isSysadmin}"/>
+                <h:outputText value="Sysadmins" action="sysadminhome" style="padding-left: 10px; color: #009900;" styleClass="mediumfont" rendered="#{userSession.isloggedin and userSession.isSysadmin}"/>
+                <h:commandLink value="  Errors" action="sysadminerrorlist" styleClass="smallfont" style="padding-left: 25px;" rendered="#{userSession.isloggedin and userSession.isSysadmin}"/>
                 <h:commandLink value="  Users" action="userlist" styleClass="smallfont" style="padding-left: 25px;" rendered="#{userSession.isloggedin and userSession.isSysadmin}"/>
                 <h:commandLink value="  Surveys" action="sysadminsurveylist" styleClass="smallfont" style="padding-left: 25px;" rendered="#{userSession.isloggedin and userSession.isSysadmin}"/>
                 <h:commandLink value="  Support Issues" action="sysadminsupportissueslist" styleClass="smallfont" style="padding-left: 25px;" rendered="#{userSession.isloggedin and userSession.isSysadmin}"/>

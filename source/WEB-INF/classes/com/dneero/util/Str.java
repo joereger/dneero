@@ -37,6 +37,16 @@ public class Str {
         return "";
     }
 
+    public static String cleanForSQL(String instring){
+        if (instring!=null && !instring.equals("")) {
+            instring=instring.replaceAll("'", "''");
+            instring=instring.replaceAll("\\\\", "\\\\\\\\");
+            return instring;
+        } else {
+            return "";
+        }
+    }
+
 
     public static String cleanForjavascript(String instring){
         if (instring!=null){
