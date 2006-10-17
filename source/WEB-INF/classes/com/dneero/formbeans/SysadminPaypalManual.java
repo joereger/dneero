@@ -1,6 +1,5 @@
 package com.dneero.formbeans;
 
-import com.dneero.money.paypal.PayPaypalAddress;
 import com.dneero.util.Jsf;
 import org.apache.log4j.Logger;
 
@@ -17,7 +16,7 @@ public class SysadminPaypalManual {
 
     public String dopaypal(){
         try{
-            PayPaypalAddress.pay(paypaladdress, amt);
+            //@hook up to another pay method or delete this test harness
             Jsf.setFacesMessage("Pay complete.");
         } catch (Exception ex){
             logger.error(ex);

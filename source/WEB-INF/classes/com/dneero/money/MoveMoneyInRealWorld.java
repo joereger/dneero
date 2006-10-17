@@ -29,26 +29,36 @@ public class MoveMoneyInRealWorld {
             desc = "Payment to PayPal account.";
         }
 
-        pm.pay(user, amt);
+        //Only operate if it's not a manual payment method
+        if (!(pm instanceof PaymentMethodManual)){
 
-        if (pm.issuccessful()){
-            Balance balance = new Balance();
-            balance.setAmt((-1)*amt);
-            balance.setDate(new Date());
-            balance.setDescription(desc);
-            balance.setCurrentbalance(CurrentBalanceCalculator.getCurrentBalance(user) - amt);
-            balance.setUserid(user.getUserid());
-            try{balance.save();}catch (Exception ex){logger.error(ex);}
+            pm.pay(user, amt);
+
+            if (pm.getIssuccessful()){
+                Balance balance = new Balance();
+                balance.setAmt((-1)*amt);
+                balance.setDate(new Date());
+                balance.setDescription(desc);
+                balance.setCurrentbalance(CurrentBalanceCalculator.getCurrentBalance(user) - amt);
+                balance.setUserid(user.getUserid());
+                try{balance.save();}catch (Exception ex){logger.error(ex);}
+            }
+
+            Balancetransaction balancetransaction = new Balancetransaction();
+            balancetransaction.setAmt((-1)*amt);
+            balancetransaction.setDate(new Date());
+            balancetransaction.setDescription(desc);
+            balancetransaction.setIssuccessful(pm.getIssuccessful());
+            balancetransaction.setNotes(pm.getNotes());
+            balancetransaction.setUserid(user.getUserid());
+            balancetransaction.setCorrelationid(pm.getCorrelationid());
+            balancetransaction.setTransactionid(pm.getTransactionid());
+            try{balancetransaction.save();}catch (Exception ex){logger.error(ex);}
+
+        } else {
+            logger.error("Can't pay manually. userid="+user.getUserid()+" amt="+amt);
+            return;
         }
-
-        Balancetransaction balancetransaction = new Balancetransaction();
-        balancetransaction.setAmt((-1)*amt);
-        balancetransaction.setDate(new Date());
-        balancetransaction.setDescription(desc);
-        balancetransaction.setIssuccessful(pm.issuccessful());
-        balancetransaction.setNotes(pm.getNotes());
-        balancetransaction.setUserid(user.getUserid());
-        try{balancetransaction.save();}catch (Exception ex){logger.error(ex);}
 
 
 
@@ -67,26 +77,31 @@ public class MoveMoneyInRealWorld {
             desc = "Charge to PayPal account.";
         }
 
-        pm.charge(user, amt);
+        //Only operate if it's not a manual payment method
+        if (!(pm instanceof PaymentMethodManual)){
+            pm.charge(user, amt);
 
-        if (pm.issuccessful()){
-            Balance balance = new Balance();
-            balance.setAmt(amt);
-            balance.setDate(new Date());
-            balance.setDescription(desc);
-            balance.setCurrentbalance(CurrentBalanceCalculator.getCurrentBalance(user) + amt);
-            balance.setUserid(user.getUserid());
-            try{balance.save();}catch (Exception ex){logger.error(ex);}
+            if (pm.getIssuccessful()){
+                Balance balance = new Balance();
+                balance.setAmt(amt);
+                balance.setDate(new Date());
+                balance.setDescription(desc);
+                balance.setCurrentbalance(CurrentBalanceCalculator.getCurrentBalance(user) + amt);
+                balance.setUserid(user.getUserid());
+                try{balance.save();}catch (Exception ex){logger.error(ex);}
+            }
+
+            Balancetransaction balancetransaction = new Balancetransaction();
+            balancetransaction.setAmt(amt);
+            balancetransaction.setDate(new Date());
+            balancetransaction.setDescription(desc);
+            balancetransaction.setIssuccessful(pm.getIssuccessful());
+            balancetransaction.setNotes(pm.getNotes());
+            balancetransaction.setUserid(user.getUserid());
+            balancetransaction.setCorrelationid(pm.getCorrelationid());
+            balancetransaction.setTransactionid(pm.getTransactionid());
+            try{balancetransaction.save();}catch (Exception ex){logger.error(ex);}
         }
-
-        Balancetransaction balancetransaction = new Balancetransaction();
-        balancetransaction.setAmt(amt);
-        balancetransaction.setDate(new Date());
-        balancetransaction.setDescription(desc);
-        balancetransaction.setIssuccessful(pm.issuccessful());
-        balancetransaction.setNotes(pm.getNotes());
-        balancetransaction.setUserid(user.getUserid());
-        try{balancetransaction.save();}catch (Exception ex){logger.error(ex);}
     }
 
 

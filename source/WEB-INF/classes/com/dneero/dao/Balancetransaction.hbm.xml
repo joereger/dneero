@@ -27,7 +27,12 @@
         <property name="notes" type="string">
             <column name="notes" not-null="true" />
         </property>
-
+        <property name="transactionid" type="string">
+            <column name="transactionid" not-null="true" />
+        </property>
+        <property name="correlationid" type="string">
+            <column name="correlationid" not-null="true" />
+        </property>
 
     </class>
 </hibernate-mapping>

@@ -25,6 +25,8 @@ public class Balancetransaction extends BasePersistentClass implements java.io.S
      private double amt;
      private String description;
      private String notes;
+     private String transactionid;
+     private String correlationid;
 
     //Validator
     public void validateRegerEntity() throws GeneralException {
@@ -129,5 +131,22 @@ public class Balancetransaction extends BasePersistentClass implements java.io.S
 
     public void setNotes(String notes) {
         this.notes = notes;
+    }
+
+
+    public String getTransactionid() {
+        return transactionid;
+    }
+
+    public void setTransactionid(String transactionid) {
+        this.transactionid = transactionid;
+    }
+
+    public String getCorrelationid() {
+        return correlationid;
+    }
+
+    public void setCorrelationid(String correlationid) {
+        this.correlationid = correlationid;
     }
 }

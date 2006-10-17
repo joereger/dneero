@@ -404,12 +404,6 @@
     </managed-bean>
 
     <managed-bean>
-        <managed-bean-name>sysadminUnitTest</managed-bean-name>
-        <managed-bean-class>com.dneero.formbeans.SysadminUnitTest</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
-    </managed-bean>
-
-    <managed-bean>
         <managed-bean-name>sysadminPaypalManual</managed-bean-name>
         <managed-bean-class>com.dneero.formbeans.SysadminPaypalManual</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
@@ -682,10 +676,6 @@
         <navigation-case>
             <from-outcome>sysadminpaypalmanual</from-outcome>
             <to-view-id>/sysadmin/paypalmanual.xhtml</to-view-id>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>sysadminunittest</from-outcome>
-            <to-view-id>/sysadmin/unittest.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>sysadminmanuallyrunscheduledtask</from-outcome>

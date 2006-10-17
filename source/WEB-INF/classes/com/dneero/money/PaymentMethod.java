@@ -13,10 +13,11 @@ public interface PaymentMethod {
     public static int PAYMENTMETHODMANUAL = 2;
     public static int PAYMENTMETHODPAYPAL = 3;
 
-    public boolean userAcceptableForThisPayMethod(User user);
     public void pay(User user, double amt);
     public void charge(User user, double amt);
-    public boolean issuccessful();
+    public boolean getIssuccessful();
     public String getNotes();
+    public String getCorrelationid();
+    public String getTransactionid();
   
 }

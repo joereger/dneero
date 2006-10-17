@@ -217,6 +217,8 @@ public class ResearcherDetails {
         LinkedHashMap out = new LinkedHashMap();
         out.put("Visa", Creditcard.CREDITCARDTYPE_VISA);
         out.put("Master Card", Creditcard.CREDITCARDTYPE_MASTERCARD);
+        out.put("American Express", Creditcard.CREDITCARDTYPE_AMEX);
+        out.put("Discover", Creditcard.CREDITCARDTYPE_DISCOVER);
         return out;
     }
 
