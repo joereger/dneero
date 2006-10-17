@@ -38,7 +38,7 @@ public class Log4jCustomAppender extends AppenderSkeleton {
         }
         //Get main message
         errorMessage.append(this.layout.format(event));
-        org.apache.log4j.HTMLLayout htmlLayout = new org.apache.log4j.HTMLLayout();
+        CustomHtmlLayout htmlLayout = new CustomHtmlLayout();
         errorMessageAsHtml.append(htmlLayout.format(event));
         //If layout doesn't handle throwables
         if( layout.ignoresThrowable() ){
@@ -57,7 +57,7 @@ public class Log4jCustomAppender extends AppenderSkeleton {
             error.setDate(new Date());
             error.setLevel(event.getLevel().toInt());
             error.setStatus(com.dneero.dao.Error.STATUS_NEW);
-            error.setError("<table>"+errorMessageAsHtml.toString()+"</table>");
+            error.setError(errorMessageAsHtml.toString());
             try{error.save();}catch(Exception ex){ex.printStackTrace();}
         }
 

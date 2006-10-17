@@ -16,8 +16,8 @@ import org.apache.log4j.Logger;
 
 public class Error extends BasePersistentClass implements java.io.Serializable, RegerEntity, AuthControlled {
 
-     public static int STATUS_NEW;
-     public static int STATUS_OLD;
+     public static int STATUS_NEW = 1;
+     public static int STATUS_OLD = 0;
 
     // Fields
      private int errorid;
