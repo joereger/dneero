@@ -31,12 +31,15 @@ public class Log4jCustomAppender extends AppenderSkeleton {
 
     public synchronized void append( LoggingEvent event ){
         StringBuffer errorMessage = new StringBuffer();
+        StringBuffer errorMessageAsHtml = new StringBuffer();
         if( this.layout == null ){
             errorHandler.error("No layout for appender " + name , null, ErrorCode.MISSING_LAYOUT );
             return;
         }
         //Get main message
         errorMessage.append(this.layout.format(event));
+        org.apache.log4j.HTMLLayout htmlLayout = new org.apache.log4j.HTMLLayout();
+        errorMessageAsHtml.append(htmlLayout.format(event));
         //If layout doesn't handle throwables
         if( layout.ignoresThrowable() ){
             String[] messages = event.getThrowableStrRep();
@@ -54,7 +57,7 @@ public class Log4jCustomAppender extends AppenderSkeleton {
             error.setDate(new Date());
             error.setLevel(event.getLevel().toInt());
             error.setStatus(com.dneero.dao.Error.STATUS_NEW);
-            error.setError(errorMessage.toString());
+            error.setError("<table>"+errorMessageAsHtml.toString()+"</table>");
             try{error.save();}catch(Exception ex){ex.printStackTrace();}
         }
 

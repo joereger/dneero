@@ -18,7 +18,7 @@
         <property name="status" type="int">
             <column name="status" not-null="true" />
         </property>
-        <property name="error" type="string">
+        <property name="error" type="text" length="2147483647">
             <column name="error" not-null="true" />
         </property>
 
