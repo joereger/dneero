@@ -28,25 +28,29 @@ public class MoveMoneyAround implements Job {
 
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
         logger.debug("execute() MoveMoneyAround called");
+        try{
+            List users = HibernateUtil.getSession().createQuery("from User").list();
+            for (Iterator iterator = users.iterator(); iterator.hasNext();) {
+                User user = (User) iterator.next();
+                double currentbalance = CurrentBalanceCalculator.getCurrentBalance(user);
+                if (currentbalance>0){
+                    //Need to pay somebody
+                    MoveMoneyInRealWorld.pay(user, currentbalance);
+                } else if (currentbalance<0){
+                    //Need to collect from somebody
+                    MoveMoneyInRealWorld.charge(user, (-1)*currentbalance);
 
-        List users = HibernateUtil.getSession().createQuery("from User").list();
-        for (Iterator iterator = users.iterator(); iterator.hasNext();) {
-            User user = (User) iterator.next();
-            double currentbalance = CurrentBalanceCalculator.getCurrentBalance(user);
-            if (currentbalance>0){
-                //Need to pay somebody
-                MoveMoneyInRealWorld.pay(user, currentbalance);
-            } else if (currentbalance<0){
-                //Need to collect from somebody
-                MoveMoneyInRealWorld.charge(user, (-1)*currentbalance);
-
+                }
             }
+        } catch (Exception ex){
+            logger.debug("Error in top block.");
+            logger.error(ex);
         }
 
 
         //Invoice paid status needs to be updated here
         try{InvoiceUpdatePaidStatus task = new InvoiceUpdatePaidStatus();
-        task.execute(null);} catch (Exception ex){logger.error(ex);}
+        task.execute(null);} catch (Exception ex){logger.debug("Error in bottom block.");logger.error(ex);}
 
     }
 
