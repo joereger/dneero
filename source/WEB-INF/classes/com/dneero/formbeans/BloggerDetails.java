@@ -264,7 +264,7 @@ public class BloggerDetails {
             if (isnewblogger){
                 return "success_newblogger";
             } else {
-                return "bloggerdetails";
+                return "accountmain";
             }
         } else {
             Jsf.setFacesMessage("UserSession.getUser() is null.  Please log in.");

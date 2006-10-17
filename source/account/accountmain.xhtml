@@ -22,9 +22,9 @@
         <tr>
             <td width="50%" align="left" valign="top">
 
-                <d:roundedCornerBox uniqueboxname="indexleft" bodycolor="ffffff" widthinpixels="250">
-                    <font class="largefont">Pay for Blog</font>
-                </d:roundedCornerBox>
+
+                <font class="largefont">Pay for Blog</font>
+                <br/>
                 <d:roundedCornerBox uniqueboxname="indexleft2" bodycolor="ffffff" widthinpixels="250" rendered="#{userSession.isloggedin and (userSession.user.researcher ne null)}">
                     <br/><h:commandLink value="Start a New Survey" action="#{researcherSurveyDetail01.beginViewNewSurvey}" styleClass="smallfont" style="padding-left: 25px;" rendered="#{userSession.isloggedin and (userSession.user.researcher ne null)}"/>
                     <br/><h:commandLink value="Update My Researcher Profile" action="researcherdetails" styleClass="smallfont" style="padding-left: 25px;" rendered="#{userSession.isloggedin and (userSession.user.researcher ne null)}"/>
@@ -43,9 +43,8 @@
 
             </td>
             <td width="50%" align="left" valign="top">
-                <d:roundedCornerBox uniqueboxname="indexright" bodycolor="ffffff" widthinpixels="250">
-                    <font class="largefont">Blog for Pay</font>
-                </d:roundedCornerBox>
+                <font class="largefont">Blog for Pay</font>
+                <br/>
                 <d:roundedCornerBox uniqueboxname="indexright2" bodycolor="ffffff" widthinpixels="250" rendered="#{userSession.isloggedin and (userSession.user.blogger ne null)}">
                     <br/><h:commandLink value="Find Surveys to Take" action="bloggersurveylist" styleClass="smallfont" style="padding-left: 25px;" rendered="#{userSession.isloggedin and (userSession.user.blogger ne null)}"/>
                     <br/><h:commandLink value="Update My Blogger Profile" action="bloggerdetails" styleClass="smallfont" style="padding-left: 25px;" rendered="#{userSession.isloggedin and (userSession.user.blogger ne null)}"/>
