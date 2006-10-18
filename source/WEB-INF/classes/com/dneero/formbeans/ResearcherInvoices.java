@@ -20,14 +20,16 @@ public class ResearcherInvoices {
 
     public ResearcherInvoices(){
         listitems = new ArrayList<ResearcherInvoicesListItem>();
-        Researcher researcher = Jsf.getUserSession().getUser().getResearcher();
-        if (researcher!=null){
-            HibernateUtil.getSession().saveOrUpdate(researcher);
-            for (Iterator<Invoice> iterator = researcher.getInvoices().iterator(); iterator.hasNext();) {
-                Invoice invoice = iterator.next();
-                ResearcherInvoicesListItem researcherInvoicesListItem = new ResearcherInvoicesListItem();
-                researcherInvoicesListItem.setInvoice(invoice);
-                listitems.add(researcherInvoicesListItem);
+        if (Jsf.getUserSession().getUser()!=null){
+            Researcher researcher = Jsf.getUserSession().getUser().getResearcher();
+            if (researcher!=null){
+                HibernateUtil.getSession().saveOrUpdate(researcher);
+                for (Iterator<Invoice> iterator = researcher.getInvoices().iterator(); iterator.hasNext();) {
+                    Invoice invoice = iterator.next();
+                    ResearcherInvoicesListItem researcherInvoicesListItem = new ResearcherInvoicesListItem();
+                    researcherInvoicesListItem.setInvoice(invoice);
+                    listitems.add(researcherInvoicesListItem);
+                }
             }
         }
     }

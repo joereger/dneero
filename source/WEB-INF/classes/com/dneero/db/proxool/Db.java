@@ -313,12 +313,14 @@ public class Db {
   }
 
 
-
+  public static int RunSQLInsert(String sql){
+    return RunSQLInsert(sql, true);
+  }
 
 
 
   //Run Insert SQL, return the unique autonumber of the row inserted
-  public static int RunSQLInsert(String sql){
+  public static int RunSQLInsert(String sql, boolean loggingison){
       Logger logger = Logger.getLogger("com.dneero.db.proxool.Db");
       int count=0;
     int myidentity=0;
@@ -338,12 +340,12 @@ public class Db {
                 }
                 if(tmpRst!=null) tmpRst.close();
             } else {
-                logger.error("conn==null. sql=" + sql);
+                if (loggingison){logger.error("conn==null. sql=" + sql);}
             }
 
 
     }catch(Exception e) {
-      logger.error("Error in Db code", e);
+      if (loggingison){logger.error("Error in Db code", e);}
       return 0;
     } finally {
         try {

@@ -46,12 +46,15 @@ public class Db {
         return 0;
     }
   }
-  
+
+  public static int RunSQLInsert(String sql){
+    return RunSQLInsert(sql, true);    
+  }
 
   //Run Insert SQL, return the unique autonumber of the row inserted
-  public static int RunSQLInsert(String sql){
+  public static int RunSQLInsert(String sql, boolean isloggingon){
     if (DbConfig.haveValidConfig() || DbConfig.haveNewConfigToTest()){
-      return com.dneero.db.proxool.Db.RunSQLInsert(sql);
+       return com.dneero.db.proxool.Db.RunSQLInsert(sql, isloggingon);
     } else {
         return 0;
     }

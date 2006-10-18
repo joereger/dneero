@@ -52,26 +52,26 @@ public class Log4jCustomAppender extends AppenderSkeleton {
         }
         //Write error message to the DB
 //        System.out.println("CUSTOMAPPENDER: "+errorMessage.toString());
-        if (ApplicationStartup.getIsappstarted()){
-            com.dneero.dao.Error error = new com.dneero.dao.Error();
-            error.setDate(new Date());
-            error.setLevel(event.getLevel().toInt());
-            error.setStatus(com.dneero.dao.Error.STATUS_NEW);
-            error.setError(errorMessageAsHtml.toString());
-            try{error.save();}catch(Exception ex){ex.printStackTrace();}
-        }
-
-//        try{
-//            //-----------------------------------
-//            //-----------------------------------
-//            int identity = Db.RunSQLInsert("INSERT INTO error(error, level, status, date) VALUES('"+Str.cleanForSQL(errorMessage.toString())+"', '"+event.getLevel().toInt()+"', '"+com.dneero.dao.Error.STATUS_NEW+"', '"+ Time.dateformatfordb(Calendar.getInstance())+"')");
-//            //-----------------------------------
-//            //-----------------------------------
-//        } catch (Exception ex){
-//            ex.printStackTrace();
+//        if (ApplicationStartup.getIsappstarted()){
+//            com.dneero.dao.Error error = new com.dneero.dao.Error();
+//            error.setDate(new Date());
+//            error.setLevel(event.getLevel().toInt());
+//            error.setStatus(com.dneero.dao.Error.STATUS_NEW);
+//            error.setError(errorMessageAsHtml.toString());
+//            try{error.save();}catch(Exception ex){ex.printStackTrace();}
 //        }
 
-
+        if (ApplicationStartup.getIsappstarted()){
+            try{
+                //-----------------------------------
+                //-----------------------------------
+                int identity = Db.RunSQLInsert("INSERT INTO error(error, level, status, date) VALUES('"+Str.cleanForSQL(errorMessageAsHtml.toString())+"', '"+event.getLevel().toInt()+"', '"+com.dneero.dao.Error.STATUS_NEW+"', '"+ Time.dateformatfordb(Calendar.getInstance())+"')", false);
+                //-----------------------------------
+                //-----------------------------------
+            } catch (Exception ex){
+                ex.printStackTrace();
+            }
+        }
 
         //XMPP (Instant Messages)
         //@todo spin this XMPP send off in a thread... abstract all XMPP stuff to thread class
