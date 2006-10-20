@@ -58,6 +58,15 @@ public class Str {
         return "";
     }
 
+    public static String cleanForjavascriptAndReplaceDoubleQuoteWithSingle(String instring){
+        if (instring!=null){
+            instring=instring.replaceAll("\"", "\\\\'");
+            instring=instring.replaceAll("'", "\\'");
+            return instring;
+        }
+        return "";
+    }
+
 
 
     public static String truncateString(String instring, int maxlength){

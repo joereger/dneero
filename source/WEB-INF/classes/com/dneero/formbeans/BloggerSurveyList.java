@@ -4,6 +4,7 @@ import com.dneero.util.*;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.dao.Survey;
 import com.dneero.dao.Blogger;
+import com.dneero.dao.Response;
 import com.dneero.session.UserSession;
 import com.dneero.finders.FindSurveysForBlogger;
 
@@ -38,11 +39,17 @@ public class BloggerSurveyList extends SortableList {
             surveys = new ArrayList<BloggerSurveyListItem>();
             for (Iterator iterator = finder.getSurveys().iterator(); iterator.hasNext();) {
                 Survey survey = (Survey) iterator.next();
+                boolean bloggerhasalreadytakensurvey = false;
+                for (Iterator<Response> iterator2 = userSession.getUser().getBlogger().getResponses().iterator(); iterator2.hasNext();) {
+                    Response response = iterator2.next();
+                    if (response.getSurveyid()==survey.getSurveyid()){
+                        bloggerhasalreadytakensurvey = true;
+                    }
+                }
                 BloggerSurveyListItem bsli = new BloggerSurveyListItem();
-
                 bsli.setSurveyid(survey.getSurveyid());
-
                 bsli.setTitle(survey.getTitle());
+                bsli.setBloggerhasalreadytakensurvey(bloggerhasalreadytakensurvey);
 
                 if (survey.getQuestions()!=null){
                     bsli.setNumberofquestions(String.valueOf(survey.getQuestions().size()));
@@ -63,6 +70,7 @@ public class BloggerSurveyList extends SortableList {
                 }
 
                 surveys.add(bsli);
+
             }
 
 

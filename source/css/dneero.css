@@ -152,3 +152,10 @@ input, textarea, select{
    border-bottom-color:#666666;
 }
 
+.RED{
+   color:#f00;
+   font-family:'trebuchet ms',helvetica,sans-serif;
+   font-weight:bold;
+   font-size: 14px;    
+}
+

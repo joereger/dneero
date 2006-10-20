@@ -342,6 +342,18 @@
         <managed-bean-scope>application</managed-bean-scope>
     </managed-bean>
 
+    <managed-bean>
+        <managed-bean-name>publicSurveyList</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.PublicSurveyList</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>publicSurveyDetail</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.PublicSurveyDetail</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
 
     <managed-bean>
         <managed-bean-name>emailActivationResend</managed-bean-name>
@@ -438,6 +450,14 @@
         <navigation-case>
             <from-outcome>registration</from-outcome>
             <to-view-id>/registration.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>publicsurveylist</from-outcome>
+            <to-view-id>/publicsurveylist.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>publicsurveydetail</from-outcome>
+            <to-view-id>/publicsurveydetail.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>login</from-outcome>

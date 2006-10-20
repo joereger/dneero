@@ -1,17 +1,13 @@
 package com.dneero.formbeans;
 
-import org.apache.log4j.Logger;
-import com.dneero.dao.User;
 import com.dneero.dao.Survey;
 import com.dneero.dao.Blogger;
 import com.dneero.dao.Response;
-import com.dneero.util.*;
 import com.dneero.ui.SurveyEnhancer;
+import com.dneero.util.Jsf;
 import com.dneero.display.SurveyTakerDisplay;
-import com.dneero.survey.servlet.SurveyAsHtml;
+import org.apache.log4j.Logger;
 
-import javax.faces.context.FacesContext;
-import java.util.Calendar;
 import java.util.Iterator;
 
 /**
@@ -19,7 +15,7 @@ import java.util.Iterator;
  * Date: Apr 21, 2006
  * Time: 10:38:03 AM
  */
-public class BloggerSurveyDetail {
+public class PublicSurveyDetail {
 
     private Survey survey;
     private SurveyEnhancer surveyEnhancer;
@@ -31,8 +27,8 @@ public class BloggerSurveyDetail {
 
     Logger logger = Logger.getLogger(this.getClass().getName());
 
-    public BloggerSurveyDetail(){
-        logger.debug("BloggerSurveyDetail instanciated.");
+    public PublicSurveyDetail(){
+        logger.debug("PublicSurveyDetail instanciated.");
         survey = new Survey();
     }
 
@@ -44,18 +40,20 @@ public class BloggerSurveyDetail {
             logger.debug("beginView called: found surveyid in param="+tmpSurveyid);
             Jsf.getUserSession().setCurrentSurveyid(Integer.parseInt(tmpSurveyid));
             survey = Survey.get(Integer.parseInt(tmpSurveyid));
-
-            Blogger blogger = Jsf.getUserSession().getUser().getBlogger();
             bloggerhasalreadytakensurvey = false;
-            for (Iterator<Response> iterator = blogger.getResponses().iterator(); iterator.hasNext();) {
-                Response response = iterator.next();
-                if (response.getSurveyid()==survey.getSurveyid()){
-                    bloggerhasalreadytakensurvey = true;
+            int userid = 0;
+            if (Jsf.getUserSession().getUser()!=null && Jsf.getUserSession().getUser().getBlogger()!=null){
+                userid = Jsf.getUserSession().getUser().getUserid();
+                Blogger blogger = Jsf.getUserSession().getUser().getBlogger();
+                for (Iterator<Response> iterator = blogger.getResponses().iterator(); iterator.hasNext();) {
+                    Response response = iterator.next();
+                    if (response.getSurveyid()==survey.getSurveyid()){
+                        bloggerhasalreadytakensurvey = true;
+                    }
                 }
             }
-            String url = "<script src=\"/s?s="+survey.getSurveyid()+"&u="+Jsf.getUserSession().getUser().getUserid()+"&ispreview=1\"></script>";
+            String url = "<script src=\"/s?s="+survey.getSurveyid()+"&u="+userid+"&ispreview=1\"></script>";
             if (bloggerhasalreadytakensurvey){
-                //surveyAnswersForThisBlogger = SurveyAsHtml.getHtml(survey, User.get(blogger.getUserid()));
                 surveyAnswersForThisBlogger = url;
             } else {
                 surveyOnBlogPreview = url;
@@ -65,7 +63,7 @@ public class BloggerSurveyDetail {
         } else {
             logger.debug("beginView called: NOT found surveyid in param="+tmpSurveyid);
         }
-        return "bloggersurveydetail";
+        return "publicsurveydetail";
     }
 
     public Survey getSurvey() {

@@ -14,6 +14,7 @@
         <d:roundedCornerBox uniqueboxname="leftNavBox" bodycolor="ffffcc" widthinpixels="180">
             <h:panelGrid columns="1" >
                 <h:commandLink value="Home" action="home" style="padding-left: 10px; color: #009900;" styleClass="mediumfont"/>
+                <h:commandLink value=" Surveys" action="publicsurveylist" style="padding-left: 25px;" styleClass="smallfont" rendered="#{!userSession.isloggedin}"/>
                 <h:commandLink value=" Sign Up" action="registration" style="padding-left: 25px;" styleClass="smallfont" rendered="#{!userSession.isloggedin}"/>
                 <h:commandLink value=" Log In" action="login" style="padding-left: 25px;" styleClass="smallfont" rendered="#{!userSession.isloggedin}"/>
                 <h:commandLink value=" Blogger FAQ" action="bloggerfaq" style="padding-left: 25px;" styleClass="smallfont"/>

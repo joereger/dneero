@@ -12,27 +12,19 @@
 <ui:composition template="/template/template-facelets.xhtml">
     <ui:define name="title">Survey<br/><br/></ui:define>
     <ui:define name="body">
-    <d:authorization acl="blogger" redirectonfail="true"/>
 
 
 
 <h:form>
 
 
-    <af:outputText value="There are currently no surveys that fit your profile.  Please check back soon as we're always adding new ones!" styleClass="mediumfont" rendered="#{empty bloggerSurveyList.surveys}"/>
-    <af:table value="#{bloggerSurveyList.surveys}" bandingInterval="2" rows="15" banding="row" var="srvy" rendered="#{!empty bloggerSurveyList.surveys}">
+    <af:outputText value="There are currently no surveys listed.  Please check back soon as we're always adding new ones!" styleClass="mediumfont" rendered="#{empty publicSurveyList.surveys}"/>
+    <af:table value="#{publicSurveyList.surveys}" bandingInterval="2" rows="15" banding="row" var="srvy" rendered="#{!empty publicSurveyList.surveys}">
       <af:column rendered="false">
         <f:facet name="header">
           <af:outputText value="Id"/>
         </f:facet>
         <af:outputText value="#{srvy.surveyid}"/>
-      </af:column>
-      <af:column>
-        <f:facet name="header">
-          <af:outputText value=""/>
-        </f:facet>
-        <af:outputText value="Completed" styleClass="tinyfont" rendered="#{srvy.bloggerhasalreadytakensurvey}"/>
-        <af:outputText value="New" styleClass="tinyfont" rendered="#{!srvy.bloggerhasalreadytakensurvey}"/>
       </af:column>
       <af:column>
         <f:facet name="header">
@@ -62,7 +54,7 @@
         <f:facet name="header">
           <af:outputText value=" "/>
         </f:facet>
-        <h:commandLink action="#{bloggerSurveyDetail.beginView}">
+        <h:commandLink action="#{publicSurveyDetail.beginView}">
             <h:outputText value="View" escape="false" styleClass="mediumfont"/>
             <f:param name="surveyid" value="#{srvy.surveyid}" />
         </h:commandLink>

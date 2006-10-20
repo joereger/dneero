@@ -27,7 +27,7 @@ public class SurveyAsHtml {
             SurveyTemplateProcessor stp = new SurveyTemplateProcessor(survey, user.getBlogger());
             out.append("<b>dNeero Survey</b>");
             out.append("<br/>");
-            out.append(Str.cleanForjavascript(stp.getSurveyForDisplay()));
+            out.append(Str.cleanForjavascriptAndReplaceDoubleQuoteWithSingle(stp.getSurveyForDisplay()));
             out.append("<br/>");
             out.append("<b>dNeero - blog for pay</b>");
         } else {

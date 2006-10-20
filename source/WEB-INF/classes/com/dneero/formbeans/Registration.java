@@ -105,9 +105,9 @@ public class Registration {
         EmailActivationSend.sendActivationEmail(user);
 
         //Log the user in
-        UserSession userSession = Jsf.getUserSession();
-        userSession.setUser(user);
-        userSession.setIsloggedin(true);
+//        UserSession userSession = Jsf.getUserSession();
+//        userSession.setUser(user);
+//        userSession.setIsloggedin(true);
 
         return "success";
     }

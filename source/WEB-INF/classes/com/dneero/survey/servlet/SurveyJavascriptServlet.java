@@ -41,7 +41,14 @@ public class SurveyJavascriptServlet extends HttpServlet {
             user = User.get(Integer.parseInt(request.getParameter("u")));
         }
 
-        if (survey!=null){
+        boolean ispreview = false;
+        if (request.getParameter("ispreview")!=null && com.dneero.util.Num.isinteger(request.getParameter("ispreview"))){
+            if (request.getParameter("ispreview").equals("1")){
+                ispreview = true;
+            }
+        }
+
+        if (survey!=null && !ispreview){
             RecordImpression.record(survey, request);
         }
 

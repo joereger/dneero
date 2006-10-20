@@ -12,6 +12,7 @@ public class BloggerSurveyListItem {
     private String maxearning;
     private String daysuntilend;
     private String numberofquestions;
+    private boolean bloggerhasalreadytakensurvey = false;
 
     public int getSurveyid() {
         return surveyid;
@@ -54,4 +55,11 @@ public class BloggerSurveyListItem {
     }
 
 
+    public boolean isBloggerhasalreadytakensurvey() {
+        return bloggerhasalreadytakensurvey;
+    }
+
+    public void setBloggerhasalreadytakensurvey(boolean bloggerhasalreadytakensurvey) {
+        this.bloggerhasalreadytakensurvey = bloggerhasalreadytakensurvey;
+    }
 }
