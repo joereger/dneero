@@ -44,6 +44,7 @@ public class ResearcherSurveyDetail02matrix {
             questionid = Integer.parseInt(tmpQuestionid);
             loadQuestion();
         }
+        
     }
 
 
