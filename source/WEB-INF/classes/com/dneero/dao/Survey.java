@@ -21,9 +21,11 @@ import org.apache.log4j.Logger;
 public class Survey extends BasePersistentClass implements java.io.Serializable, RegerEntity, AuthControlled {
 
     public static int STATUS_DRAFT = 1;
-    public static int STATUS_WAITINGFORSTARTDATE = 2;
-    public static int STATUS_OPEN = 3;
-    public static int STATUS_CLOSED = 4;
+    public static int STATUS_WAITINGFORFUNDS = 2;
+    public static int STATUS_WAITINGFORSTARTDATE = 3;
+    public static int STATUS_OPEN = 4;
+    public static int STATUS_CLOSED = 5;
+
 
      // Fields
      private int surveyid;

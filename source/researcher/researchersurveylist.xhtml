@@ -34,9 +34,10 @@
               <af:outputText value="Status"/>
             </f:facet>
             <af:outputText value="Draft" rendered="#{survey.status==1}"/>
-            <af:outputText value="Waiting for Start Date" rendered="#{survey.status==2}"/>
-            <af:outputText value="Open" rendered="#{survey.status==3}"/>
-            <af:outputText value="Closed" rendered="#{survey.status==4}"/>
+            <af:outputText value="Waiting for Funds" rendered="#{survey.status==2}"/>
+            <af:outputText value="Waiting for Start Date" rendered="#{survey.status==3}"/>
+            <af:outputText value="Open" rendered="#{survey.status==4}"/>
+            <af:outputText value="Closed" rendered="#{survey.status==5}"/>
           </af:column>
           <af:column>
             <f:facet name="header">

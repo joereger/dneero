@@ -170,7 +170,7 @@
                <tr>
                    <td valign="top" align="left">
                         <d:roundedCornerBox uniqueboxname="paymethodpaypal" bodycolor="ffffff" widthinpixels="200">
-                            <font class="tinyfont">PayPal Address (optional)</font>
+                            <font class="smallfont">PayPal Address (optional)</font>
                             <br/>
                             <h:inputText value="#{bloggerDetails.paymethodpaypaladdress}" id="paymethodpaypaladdress"></h:inputText>
                             <h:message for="paymethodpaypaladdress" styleClass="RED"></h:message>
@@ -178,11 +178,9 @@
                    </td>
                    <td valign="top" align="left">
                         <d:roundedCornerBox uniqueboxname="paymethodcc" bodycolor="ffffff" widthinpixels="200">
-
-                                    <h:selectOneListbox value="#{bloggerDetails.cctype}" id="cctype" required="true">
-                                        <f:selectItems value="#{bloggerDetails.creditcardtypes}"/>
-                                    </h:selectOneListbox>
-
+                                    <font class="smallfont">Credit Card Info (optional)</font>
+                                    <br/>
+                                    
                                     <br/>
                                     <h:outputText value="First Name (as on credit card)" styleClass="tinyfont"></h:outputText>
                                     <br/>
@@ -218,6 +216,13 @@
                                     <br/>
                                     <h:inputText value="#{bloggerDetails.postalcode}" id="postalcode"></h:inputText>
                                     <h:message for="postalcode" styleClass="RED"></h:message>
+
+                                    <br/>
+                                    <h:outputText value="Credit Card Type (optional)" styleClass="tinyfont"></h:outputText>
+                                    <br/>
+                                    <h:selectOneMenu value="#{bloggerDetails.cctype}" id="cctype" required="true">
+                                        <f:selectItems value="#{bloggerDetails.creditcardtypes}"/>
+                                    </h:selectOneMenu>
 
                                     <br/>
                                     <h:outputText value="Credit Card Number (optional)" styleClass="tinyfont"></h:outputText>

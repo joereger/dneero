@@ -153,6 +153,30 @@
         </font>
     </d:roundedCornerBox>
 
+    <d:roundedCornerBox uniqueboxname="warningtimeperiodtooshort" bodycolor="ffffcc" widthinpixels="550" rendered="#{researcherSurveyDetail06.warningtimeperiodtooshort}">
+        <h:graphicImage url="/images/alert.png"></h:graphicImage>
+        <font class="smallfont">
+        Warning: The survey time period is rather short.  You may have very good reasons for doing so but we did want to note that surveys take some time to be publicized, signed up for, posted, etc.  30 days is a good safe period of time for a survey.
+        <br/><h:commandLink value="Possible Remedy: Adjust the Start and End Dates" styleClass="smallfont" action="researchersurveydetail_01" immediate="true"/>
+        </font>
+    </d:roundedCornerBox>
+
+    <d:roundedCornerBox uniqueboxname="warninghaveenoughbillinginfo" bodycolor="ffffcc" widthinpixels="550" rendered="#{researcherSurveyDetail06.warninghaveenoughbillinginfo}">
+        <h:graphicImage url="/images/alert.png"></h:graphicImage>
+        <font class="smallfont">
+        Warning: Your account does not have proper billing information attached to it.  This survey will be held in draft mode until billing information is added to the Researcher Profile.
+        </font>
+    </d:roundedCornerBox>
+
+    <d:roundedCornerBox uniqueboxname="warningenoughfundsavailable" bodycolor="ffffcc" widthinpixels="550" rendered="#{researcherSurveyDetail06.warningenoughfundsavailable}">
+        <h:graphicImage url="/images/alert.png"></h:graphicImage>
+        <font class="smallfont">
+        Warning: This account does not have enough funds available for this survey.  This survey will be held in draft mode until your balance is increased.  We will automatically charge credit cards to do so if you have chosen credit cards as your payment method.
+        </font>
+    </d:roundedCornerBox>
+
+
+
     <f:verbatim><br/><br/></f:verbatim>
     <font class="mediumfont">I understand that by saving and launching this survey I am committing to spending up to #{researcherSurveyDetail06.maxpossiblespend} although actual charges will be based only on activity.  This money will be billed monthly as activity on the survey progresses.</font>
 

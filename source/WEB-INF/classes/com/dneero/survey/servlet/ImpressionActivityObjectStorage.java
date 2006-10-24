@@ -52,13 +52,13 @@ public class ImpressionActivityObjectStorage {
         impressiondetail.setBloggerid(Blogger.get(Blog.get(iao.getBlogid()).getBloggerid()).getBloggerid());
         
         //impression.getImpressiondetails().add(impressiondetail);
-
         try{
             impressiondetail.save();
         } catch (GeneralException gex){
             logger.debug("saveAction failed: " + gex.getErrorsAsSingleString());
         }
 
+        //@todo good for testing but is this necessary in the real world?
         if (iao.getBlogid()>0){
             Blog blog = Blog.get(iao.getBlogid());
             if (blog!=null && blog.getBlogid()>0){

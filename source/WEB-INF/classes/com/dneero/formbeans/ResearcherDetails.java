@@ -103,13 +103,6 @@ public class ResearcherDetails {
             }
             //End validation
 
-
-
-
-
-
-
-
             researcher.setUserid(userSession.getUser().getUserid());
             userSession.getUser().setResearcher(researcher);
 

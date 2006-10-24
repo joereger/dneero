@@ -21,7 +21,29 @@
             <group>surveyTriggers</group>
             <job-name>closeSurveysByDate</job-name>
             <job-group>surveyJobs</job-group>
-            <!-- every two minutes -->
+            <!-- every x minutes -->
+            <cron-expression>0 0/60 * * * ?</cron-expression>
+          </cron>
+        </trigger>
+    </job>
+
+    <job>
+        <job-detail>
+          <name>closeSurveysByFundsAvailability</name>
+          <group>surveyJobs</group>
+          <job-class>com.dneero.scheduledjobs.CloseSurveysByFundsAvailability</job-class>
+          <volatility>false</volatility>
+          <durability>false</durability>
+          <recover>false</recover>
+        </job-detail>
+        <trigger>
+          <!-- Sample cron triggers: http://www.opensymphony.com/quartz/wikidocs/TutorialLesson6.html -->
+          <cron>
+            <name>closeSurveysByFundsAvailabilityTrigger</name>
+            <group>surveyTriggers</group>
+            <job-name>closeSurveysByFundsAvailability</job-name>
+            <job-group>surveyJobs</job-group>
+            <!-- every x minutes -->
             <cron-expression>0 0/60 * * * ?</cron-expression>
           </cron>
         </trigger>

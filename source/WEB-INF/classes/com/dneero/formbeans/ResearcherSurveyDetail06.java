@@ -12,6 +12,8 @@ import com.dneero.dao.*;
 import com.dneero.util.*;
 import com.dneero.session.UserSession;
 import com.dneero.finders.FindBloggersForSurvey;
+import com.dneero.money.PaymentMethod;
+import com.dneero.money.CurrentBalanceCalculator;
 
 /**
  * User: Joe Reger Jr
@@ -37,6 +39,16 @@ public class ResearcherSurveyDetail06 {
     private boolean warningnumberrequestedratiotoobig = false;
     private boolean warningtoomanyquestions = false;
     private boolean warningnoquestions = false;
+    private boolean warninghaveenoughbillinginfo = false;
+    private boolean warningenoughfundsavailable = false;
+
+
+    private double maxresppay = 0;
+    private double maximppay = 0;
+    private double maxspend = 0;
+    private double dfee = 0;
+    private double maxpossiblespnd = 0;
+
 
 
 
@@ -64,20 +76,21 @@ public class ResearcherSurveyDetail06 {
                 startdate = Time.dateformatcompactwithtime(Time.getCalFromDate(survey.getStartdate()));
                 enddate = Time.dateformatcompactwithtime(Time.getCalFromDate(survey.getEnddate()));
 
-                double maxresppay = (survey.getWillingtopayperrespondent() * survey.getNumberofrespondentsrequested());
+                maxresppay = (survey.getWillingtopayperrespondent() * survey.getNumberofrespondentsrequested());
                 maxrespondentpayments = "$"+Str.formatForMoney(maxresppay);
 
-                double maximppay = ((survey.getWillingtopaypercpm()*survey.getMaxdisplaystotal())/1000);
+                maximppay = ((survey.getWillingtopaypercpm()*survey.getMaxdisplaystotal())/1000);
                 maximpressionpayments = "$"+Str.formatForMoney(maximppay);
 
 
-                double maxspend =maxresppay + maximppay;
+                maxspend =maxresppay + maximppay;
                 maxincentive = "$"+Str.formatForMoney(maxspend);
 
-                double dfee = maxspend * .2;
+                dfee = maxspend * .2;
                 dneerofee = "$"+Str.formatForMoney(dfee);
 
-                maxpossiblespend = "$"+Str.formatForMoney(maxspend + dfee);
+                maxpossiblespnd = maxspend + dfee;
+                maxpossiblespend = "$"+Str.formatForMoney(maxpossiblespnd);
 
                 numberofquestions = survey.getQuestions().size();
 
@@ -120,6 +133,28 @@ public class ResearcherSurveyDetail06 {
                     warningnoquestions = true;   
                 }
 
+                //Warning: Enough billing info?
+                if (Jsf.getUserSession().getUser().getChargemethod()== PaymentMethod.PAYMENTMETHODCREDITCARD){
+                    if (Jsf.getUserSession().getUser().getChargemethodcreditcardid()>0){
+                        warninghaveenoughbillinginfo = false;
+                    } else {
+                        warninghaveenoughbillinginfo = true;
+                    }
+                } else if (Jsf.getUserSession().getUser().getChargemethod()== PaymentMethod.PAYMENTMETHODMANUAL){
+                    warninghaveenoughbillinginfo = false;
+                } else if (Jsf.getUserSession().getUser().getChargemethod()== PaymentMethod.PAYMENTMETHODPAYPAL){
+                    logger.error("Paypal chosen as chargemethod (which is not allowed) for userid="+Jsf.getUserSession().getUser().getUserid());
+                    warninghaveenoughbillinginfo = true;
+                } else {
+                    logger.error("No valid chargemethod chosen for userid="+Jsf.getUserSession().getUser().getUserid());
+                    warninghaveenoughbillinginfo = true;
+                }
+
+                //Warning: Funds availability
+                double currentbalance = CurrentBalanceCalculator.getCurrentBalance(Jsf.getUserSession().getUser());
+                if (currentbalance< (.5 * (maxspend + dfee))){
+                    warningenoughfundsavailable = true;
+                }
             }
         }
 
@@ -145,11 +180,15 @@ public class ResearcherSurveyDetail06 {
                 logger.debug("startdate.after(now)="+startdate.after(now));
 
 
-
-                if (startdate.before(now)){
-                    survey.setStatus(Survey.STATUS_OPEN);
+                double currentbalance = CurrentBalanceCalculator.getCurrentBalance(Jsf.getUserSession().getUser());
+                if (currentbalance< (.5 * (maxpossiblespnd))){
+                    survey.setStatus(Survey.STATUS_WAITINGFORFUNDS);
                 } else {
-                    survey.setStatus(Survey.STATUS_WAITINGFORSTARTDATE);
+                    if (startdate.before(now)){
+                        survey.setStatus(Survey.STATUS_OPEN);
+                    } else {
+                        survey.setStatus(Survey.STATUS_WAITINGFORSTARTDATE);
+                    }
                 }
 
 
@@ -264,7 +303,7 @@ public class ResearcherSurveyDetail06 {
         this.averagebloggerwillbepaid = averagebloggerwillbepaid;
     }
 
-    public boolean isWarningtimeperiodtooshort() {
+    public boolean getWarningtimeperiodtooshort() {
         return warningtimeperiodtooshort;
     }
 
@@ -272,7 +311,7 @@ public class ResearcherSurveyDetail06 {
         this.warningtimeperiodtooshort = warningtimeperiodtooshort;
     }
 
-    public boolean isWarningnumberofbloggerslessthanrequested() {
+    public boolean getWarningnumberofbloggerslessthanrequested() {
         return warningnumberofbloggerslessthanrequested;
     }
 
@@ -280,7 +319,7 @@ public class ResearcherSurveyDetail06 {
         this.warningnumberofbloggerslessthanrequested = warningnumberofbloggerslessthanrequested;
     }
 
-    public boolean isWarningnumberrequestedratiotoobig() {
+    public boolean getWarningnumberrequestedratiotoobig() {
         return warningnumberrequestedratiotoobig;
     }
 
@@ -288,7 +327,7 @@ public class ResearcherSurveyDetail06 {
         this.warningnumberrequestedratiotoobig = warningnumberrequestedratiotoobig;
     }
 
-    public boolean isWarningtoomanyquestions() {
+    public boolean getWarningtoomanyquestions() {
         return warningtoomanyquestions;
     }
 
@@ -328,11 +367,28 @@ public class ResearcherSurveyDetail06 {
         this.maximpressionpayments = maximpressionpayments;
     }
 
-    public boolean isWarningnoquestions() {
+    public boolean getWarningnoquestions() {
         return warningnoquestions;
     }
 
     public void setWarningnoquestions(boolean warningnoquestions) {
         this.warningnoquestions = warningnoquestions;
+    }
+
+
+    public boolean getWarninghaveenoughbillinginfo() {
+        return warninghaveenoughbillinginfo;
+    }
+
+    public void setWarninghaveenoughbillinginfo(boolean warninghaveenoughbillinginfo) {
+        this.warninghaveenoughbillinginfo = warninghaveenoughbillinginfo;
+    }
+
+    public boolean getWarningenoughfundsavailable() {
+        return warningenoughfundsavailable;
+    }
+
+    public void setWarningenoughfundsavailable(boolean warningenoughfundsavailable) {
+        this.warningenoughfundsavailable = warningenoughfundsavailable;
     }
 }

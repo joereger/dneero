@@ -49,10 +49,6 @@
                    </td>
                    <td valign="top" align="left">
                         <d:roundedCornerBox uniqueboxname="chargemethodcc" bodycolor="ffffff" widthinpixels="200">
-                        
-                                    <h:selectOneListbox value="#{researcherDetails.cctype}" id="cctype" required="true">
-                                        <f:selectItems value="#{researcherDetails.creditcardtypes}"/>
-                                    </h:selectOneListbox>
 
                                     <br/>
                                     <h:outputText value="First Name (as on credit card)" styleClass="tinyfont"></h:outputText>
@@ -89,6 +85,13 @@
                                     <br/>
                                     <h:inputText value="#{researcherDetails.postalcode}" id="postalcode"></h:inputText>
                                     <h:message for="postalcode" styleClass="RED"></h:message>
+
+                                    <br/>
+                                    <h:outputText value="Credit Card Type (optional)" styleClass="tinyfont"></h:outputText>
+                                    <br/>
+                                    <h:selectOneMenu value="#{researcherDetails.cctype}" id="cctype" required="true">
+                                        <f:selectItems value="#{researcherDetails.creditcardtypes}"/>
+                                    </h:selectOneMenu>
 
                                     <br/>
                                     <h:outputText value="Credit Card Number (optional)" styleClass="tinyfont"></h:outputText>
