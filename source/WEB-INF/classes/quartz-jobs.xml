@@ -51,6 +51,50 @@
 
     <job>
         <job-detail>
+          <name>collectIncrementalSurveyFees</name>
+          <group>surveyJobs</group>
+          <job-class>com.dneero.scheduledjobs.CollectIncrementalSurveyFees</job-class>
+          <volatility>false</volatility>
+          <durability>false</durability>
+          <recover>false</recover>
+        </job-detail>
+        <trigger>
+          <!-- Sample cron triggers: http://www.opensymphony.com/quartz/wikidocs/TutorialLesson6.html -->
+          <cron>
+            <name>collectIncrementalSurveyFeesTrigger</name>
+            <group>surveyTriggers</group>
+            <job-name>collectIncrementalSurveyFees</job-name>
+            <job-group>surveyJobs</job-group>
+            <!-- every x minutes -->
+            <cron-expression>0 0/60 * * * ?</cron-expression>
+          </cron>
+        </trigger>
+    </job>
+
+    <job>
+        <job-detail>
+          <name>reopenSurveysByFundsAvailability</name>
+          <group>surveyJobs</group>
+          <job-class>com.dneero.scheduledjobs.ReopenSurveysByFundsAvailability</job-class>
+          <volatility>false</volatility>
+          <durability>false</durability>
+          <recover>false</recover>
+        </job-detail>
+        <trigger>
+          <!-- Sample cron triggers: http://www.opensymphony.com/quartz/wikidocs/TutorialLesson6.html -->
+          <cron>
+            <name>reopenSurveysByFundsAvailabilityTrigger</name>
+            <group>surveyTriggers</group>
+            <job-name>reopenSurveysByFundsAvailability</job-name>
+            <job-group>surveyJobs</job-group>
+            <!-- every x minutes -->
+            <cron-expression>0 0/10 * * * ?</cron-expression>
+          </cron>
+        </trigger>
+    </job>
+
+    <job>
+        <job-detail>
           <name>closeSurveysByNumRespondents</name>
           <group>surveyJobs</group>
           <job-class>com.dneero.scheduledjobs.CloseSurveysByNumRespondents</job-class>
@@ -88,7 +132,7 @@
             <job-name>createInvoices</job-name>
             <job-group>surveyJobs</job-group>
             <!-- 12pm on the 1st of the month -->
-            <cron-expression>0 0 12 1 * ?</cron-expression>
+            <cron-expression>0 0 0/6 * * ?</cron-expression>
           </cron>
         </trigger>
     </job>

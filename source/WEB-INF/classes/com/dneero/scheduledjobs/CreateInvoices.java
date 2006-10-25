@@ -135,7 +135,7 @@ public class CreateInvoices implements Job {
                 }
 
                 //Update the account balance
-                MoveMoneyInAccountBalance.charge(User.get(researcher.getUserid()), invoice.getAmttotal(), "Invoice for period: "+Time.dateformatcompact(Time.getCalFromDate(invoice.getStartdate()))+" to "+Time.dateformatcompact(Time.getCalFromDate(invoice.getEnddate())));
+                MoveMoneyInAccountBalance.charge(User.get(researcher.getUserid()), invoice.getAmttotal(), "Invoice for: "+Time.dateformatfordb(Time.getCalFromDate(invoice.getStartdate()))+" to "+Time.dateformatfordb(Time.getCalFromDate(invoice.getEnddate())));
 
 
                 //Iterate Surveys

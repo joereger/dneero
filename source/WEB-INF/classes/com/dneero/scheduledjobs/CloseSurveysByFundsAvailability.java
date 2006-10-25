@@ -35,39 +35,10 @@ public class CloseSurveysByFundsAvailability implements Job {
             Survey survey = iterator.next();
             Researcher researcher = Researcher.get(survey.getResearcherid());
             User user = User.get(researcher.getUserid());
-            double maxresppay = (survey.getWillingtopayperrespondent() * survey.getNumberofrespondentsrequested());
-            double maximppay = ((survey.getWillingtopaypercpm()*survey.getMaxdisplaystotal())/1000);
-            double maxspend =maxresppay + maximppay;
-            double dfee = maxspend * .2;
-            double maxpossiblespnd = maxspend + dfee;
+
             double currentbalance = CurrentBalanceCalculator.getCurrentBalance(user);
-            int responsesalready = survey.getResponses().size();
-            double spentonresponsesalready = survey.getWillingtopayperrespondent() * responsesalready;
-            int impressionsalready = 0;
-            for (Iterator<Impression> iterator1 = survey.getImpressions().iterator(); iterator1.hasNext();) {
-                Impression impression = iterator1.next();
-                impressionsalready = impressionsalready + impression.getTotalimpressions();
-            }
-            double amtspentnimpressions = (Double.parseDouble(String.valueOf(impressionsalready)) * survey.getWillingtopaypercpm())/1000;
-            double totalspentalready = spentonresponsesalready + amtspentnimpressions;
-            double remainingpossiblespend = maxpossiblespnd - totalspentalready;
 
-            boolean needToPutSurveyOnHold = false;
-
-            if (currentbalance==0){
-                needToPutSurveyOnHold = true;
-            }
-            if (remainingpossiblespend > 50){
-                if (currentbalance<(remainingpossiblespend/2)){
-                    needToPutSurveyOnHold = true;
-                }
-            } else if (remainingpossiblespend>0) {
-                needToPutSurveyOnHold = true;
-            }
-            
-
-            //Do the status switch
-            if (needToPutSurveyOnHold){
+            if (currentbalance<=0){
                 survey.setStatus(Survey.STATUS_WAITINGFORFUNDS);
                 try{
                     survey.save();
@@ -75,10 +46,6 @@ public class CloseSurveysByFundsAvailability implements Job {
                     logger.error(ex);
                 }
             }
-
-            //@todo send insufficient funds email
-
-
 
         }
 

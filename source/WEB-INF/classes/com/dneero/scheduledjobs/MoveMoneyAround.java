@@ -34,12 +34,21 @@ public class MoveMoneyAround implements Job {
                 User user = (User) iterator.next();
                 double currentbalance = CurrentBalanceCalculator.getCurrentBalance(user);
                 if (currentbalance>0){
-                    //Need to pay somebody
-                    MoveMoneyInRealWorld.pay(user, currentbalance);
+                    //Need to pay somebody as long as they don't have any open or pending surveys
+                    if (user.getResearcher()!=null){
+                        List<Survey> surveys = HibernateUtil.getSession().createCriteria(Survey.class)
+                               .add( Restrictions.eq("researcherid", user.getResearcher().getResearcherid()))
+                               .add( Restrictions.eq("status", Survey.STATUS_OPEN))
+                               .add( Restrictions.eq("status", Survey.STATUS_WAITINGFORFUNDS))
+                               .add( Restrictions.eq("status", Survey.STATUS_WAITINGFORSTARTDATE))
+                               .list();
+                       if (surveys.size()==0){
+                            MoveMoneyInRealWorld.pay(user, currentbalance);   
+                       }
+                    }
                 } else if (currentbalance<0){
                     //Need to collect from somebody
                     MoveMoneyInRealWorld.charge(user, (-1)*currentbalance);
-
                 }
             }
         } catch (Exception ex){
