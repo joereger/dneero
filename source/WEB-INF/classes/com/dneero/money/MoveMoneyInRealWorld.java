@@ -68,7 +68,7 @@ public class MoveMoneyInRealWorld {
         Logger logger = Logger.getLogger(MoveMoneyInRealWorld.class);
 
         PaymentMethod pm = new PaymentMethodManual();
-        String desc = "Charge via manual means.";
+        String desc = "Charge.";
         if (user.getChargemethod()==PaymentMethod.PAYMENTMETHODCREDITCARD){
             pm = new PaymentMethodCreditCard();
             desc = "Charge to credit card.";

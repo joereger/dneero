@@ -12,9 +12,6 @@
         <property name="researcherid" type="int">
             <column name="researcherid" not-null="true" />
         </property>
-        <property name="status" type="int">
-            <column name="status" not-null="true" />
-        </property>
         <property name="startdate" type="timestamp">
             <column name="startdate" length="19" not-null="true" />
         </property>
@@ -27,14 +24,8 @@
         <property name="amtdneero" type="double">
             <column name="amtdneero" precision="22" scale="0" not-null="true" />
         </property>
-        <property name="amtdiscount" type="double">
-            <column name="amtdiscount" precision="22" scale="0" not-null="true" />
-        </property>
         <property name="amttotal" type="double">
             <column name="amttotal" precision="22" scale="0" not-null="true" />
-        </property>
-        <property name="amtpaidtodate" type="double">
-            <column name="amtpaidtodate" precision="22" scale="0" not-null="true" />
         </property>
 
     </class>

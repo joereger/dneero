@@ -18,22 +18,15 @@ import java.util.HashSet;
 public class Invoice extends BasePersistentClass implements java.io.Serializable, RegerEntity, AuthControlled {
 
 
-    public static int STATUS_NOTPAID = 1;
-    public static int STATUS_PARTIALLYPAID = 2;
-    public static int STATUS_PAID = 3;
-
 
     // Fields
      private int invoiceid;
      private int researcherid;
      private Date startdate;
      private Date enddate;
-     private int status;
      private double amtbase;
      private double amtdneero;
-     private double amtdiscount;
      private double amttotal;
-     private double amtpaidtodate;
 
     //Validator
     public void validateRegerEntity() throws GeneralException {
@@ -115,14 +108,6 @@ public class Invoice extends BasePersistentClass implements java.io.Serializable
         this.enddate = enddate;
     }
 
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
-    }
-
     public double getAmtbase() {
         return amtbase;
     }
@@ -139,13 +124,6 @@ public class Invoice extends BasePersistentClass implements java.io.Serializable
         this.amtdneero = amtdneero;
     }
 
-    public double getAmtdiscount() {
-        return amtdiscount;
-    }
-
-    public void setAmtdiscount(double amtdiscount) {
-        this.amtdiscount = amtdiscount;
-    }
 
     public double getAmttotal() {
         return amttotal;
@@ -156,11 +134,4 @@ public class Invoice extends BasePersistentClass implements java.io.Serializable
     }
 
 
-    public double getAmtpaidtodate() {
-        return amtpaidtodate;
-    }
-
-    public void setAmtpaidtodate(double amtpaidtodate) {
-        this.amtpaidtodate = amtpaidtodate;
-    }
 }

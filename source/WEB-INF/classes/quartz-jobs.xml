@@ -66,7 +66,7 @@
             <job-name>collectIncrementalSurveyFees</job-name>
             <job-group>surveyJobs</job-group>
             <!-- every x minutes -->
-            <cron-expression>0 0/60 * * * ?</cron-expression>
+            <cron-expression>0 0/5 * * * ?</cron-expression>
           </cron>
         </trigger>
     </job>
@@ -161,15 +161,11 @@
 
 
 
-
-
-
-
     <job>
         <job-detail>
-          <name>sendEmailInvoicePastDue</name>
+          <name>sendEmailBalancePastDue</name>
           <group>surveyJobs</group>
-          <job-class>com.dneero.scheduledjobs.SendEmailInvoicePastDue</job-class>
+          <job-class>com.dneero.scheduledjobs.SendEmailBalancePastDue</job-class>
           <volatility>false</volatility>
           <durability>false</durability>
           <recover>false</recover>
@@ -177,9 +173,9 @@
         <trigger>
           <!-- Sample cron triggers: http://www.opensymphony.com/quartz/wikidocs/TutorialLesson6.html -->
           <cron>
-            <name>sendEmailInvoicePastDueTrigger</name>
+            <name>sendEmailBalancePastDueTrigger</name>
             <group>surveyTriggers</group>
-            <job-name>sendEmailInvoicePastDue</job-name>
+            <job-name>sendEmailBalancePastDue</job-name>
             <job-group>surveyJobs</job-group>
             <!-- Fire at 12pm (noon) every day -->
             <cron-expression>0 0 12 * * ?</cron-expression>
@@ -209,30 +205,6 @@
           </cron>
         </trigger>
     </job>
-
-    <job>
-        <job-detail>
-          <name>invoiceUpdatePaidStatus</name>
-          <group>surveyJobs</group>
-          <job-class>com.dneero.scheduledjobs.InvoiceUpdatePaidStatus</job-class>
-          <volatility>false</volatility>
-          <durability>false</durability>
-          <recover>false</recover>
-        </job-detail>
-        <trigger>
-          <!-- Sample cron triggers: http://www.opensymphony.com/quartz/wikidocs/TutorialLesson6.html -->
-          <cron>
-            <name>invoiceUpdatePaidStatusTrigger</name>
-            <group>surveyTriggers</group>
-            <job-name>invoiceUpdatePaidStatus</job-name>
-            <job-group>surveyJobs</job-group>
-            <!-- Fire at 12pm (noon) every day -->
-            <cron-expression>0 0 15 * * ?</cron-expression>
-          </cron>
-        </trigger>
-    </job>
-
-
 
     <job>
         <job-detail>

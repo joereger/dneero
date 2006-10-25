@@ -25,12 +25,6 @@
                     <h:outputText value="End Date: #{listitem.invoice.enddate}"></h:outputText>
                     <f:verbatim><br/></f:verbatim>
                     <h:outputText value="Amount USD: #{listitem.invoice.amttotal}"></h:outputText>
-                    <f:verbatim><br/></f:verbatim>
-                    <h:outputText value="Status: "></h:outputText>
-                    <h:outputText value="Not Paid" rendered="#{listitem.invoice.status==1}"></h:outputText>
-                    <h:outputText value="Partially Paid" rendered="#{listitem.invoice.status==2}"></h:outputText>
-                    <h:outputText value="Past Due" rendered="#{listitem.invoice.status==3}"></h:outputText>
-                    <h:outputText value="Paid" rendered="#{listitem.invoice.status==4}"></h:outputText>
                 </d:roundedCornerBox>
             </c:forEach>
 

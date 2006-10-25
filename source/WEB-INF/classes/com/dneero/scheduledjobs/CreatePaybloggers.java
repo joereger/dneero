@@ -63,20 +63,14 @@ public class CreatePaybloggers implements Job {
 
             for (Iterator<Response> iterator1 = responses.iterator(); iterator1.hasNext();) {
                 Response response = iterator1.next();
-                Invoice invoice = Invoice.get(response.getInvoiceid());
-                if (invoice.getStatus()==Invoice.STATUS_PAID){
-                    Survey survey = Survey.get(response.getSurveyid());
-                    amt = amt + survey.getWillingtopayperrespondent();
-                }
+                Survey survey = Survey.get(response.getSurveyid());
+                amt = amt + survey.getWillingtopayperrespondent();
             }
             for (Iterator<Impressiondetail> iterator1 = impressiondetails.iterator(); iterator1.hasNext();) {
                 Impressiondetail impressiondetail = iterator1.next();
-                Invoice invoice = Invoice.get(impressiondetail.getInvoiceid());
-                if (invoice.getStatus()==Invoice.STATUS_PAID){
-                    Impression impression = Impression.get(impressiondetail.getImpressionid());
-                    Survey survey = Survey.get(impression.getSurveyid());
-                    amt = amt + (survey.getWillingtopaypercpm()/1000);
-                }
+                Impression impression = Impression.get(impressiondetail.getImpressionid());
+                Survey survey = Survey.get(impression.getSurveyid());
+                amt = amt + (survey.getWillingtopaypercpm()/1000);
             }
             for (Iterator<Revshare> iterator1 = revshares.iterator(); iterator1.hasNext();) {
                 Revshare revshare = iterator1.next();
@@ -133,19 +127,13 @@ public class CreatePaybloggers implements Job {
                 //Mark all elements as tied to this payblogger
                 for (Iterator<Response> iterator1 = responses.iterator(); iterator1.hasNext();) {
                     Response response = iterator1.next();
-                    Invoice invoice = Invoice.get(response.getInvoiceid());
-                    if (invoice.getStatus()==Invoice.STATUS_PAID){
-                        response.setPaybloggerid(payblogger.getPaybloggerid());
-                        try{ response.save(); } catch (Exception ex){logger.error(ex);}
-                    }
+                    response.setPaybloggerid(payblogger.getPaybloggerid());
+                    try{ response.save(); } catch (Exception ex){logger.error(ex);}
                 }
                 for (Iterator<Impressiondetail> iterator1 = impressiondetails.iterator(); iterator1.hasNext();) {
                     Impressiondetail impressiondetail = iterator1.next();
-                    Invoice invoice = Invoice.get(impressiondetail.getInvoiceid());
-                    if (invoice.getStatus()==Invoice.STATUS_PAID){
-                        impressiondetail.setPaybloggerid(payblogger.getPaybloggerid());
-                        try{ impressiondetail.save(); } catch (Exception ex){logger.error(ex);}
-                    }
+                    impressiondetail.setPaybloggerid(payblogger.getPaybloggerid());
+                    try{ impressiondetail.save(); } catch (Exception ex){logger.error(ex);}
                 }
                 for (Iterator<Revshare> iterator1 = revshares.iterator(); iterator1.hasNext();) {
                     Revshare revshare = iterator1.next();

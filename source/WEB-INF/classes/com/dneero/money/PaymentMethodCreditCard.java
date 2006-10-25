@@ -90,7 +90,9 @@ public class PaymentMethodCreditCard extends PaymentMethodBase implements Paymen
                     logger.debug("Transaction ID: " + response.getTransactionID());
                     logger.debug("CVV2: " + response.getCVV2Code());
                     logger.debug("AVS: " + response.getAVSCode());
-                    logger.debug("Gross Amount: " + response.getAmount().getCurrencyID()+ " " + response.getAmount().get_value());
+                    if (response.getAmount()!=null){
+                        logger.debug("Gross Amount: " + response.getAmount().getCurrencyID()+ " " + response.getAmount().get_value());
+                    }
                     correlationid = response.getCorrelationID();
                     transactionid = response.getTransactionID();
                     ErrorType[] errors = response.getErrors();
@@ -115,10 +117,12 @@ public class PaymentMethodCreditCard extends PaymentMethodBase implements Paymen
                         issuccessful = true;
                     }
                 } catch (PayPalException ppex){
+                    ppex.printStackTrace();
                     logger.error(ppex);
                     notes = "An internal server error occurred at "+ Time.dateformatcompactwithtime(Calendar.getInstance())+".  No money was exchanged.";
                     issuccessful = false;
                 } catch (Exception ex){
+                    ex.printStackTrace();
                     logger.error(ex);
                     notes = "An internal server error occurred at "+ Time.dateformatcompactwithtime(Calendar.getInstance())+".  No money was exchanged.";
                     issuccessful = false;
@@ -128,6 +132,7 @@ public class PaymentMethodCreditCard extends PaymentMethodBase implements Paymen
                 issuccessful = false;
             }
         } catch (Exception ex){
+            ex.printStackTrace();
             logger.error(ex);
             notes = "An internal server error occurred at "+ Time.dateformatcompactwithtime(Calendar.getInstance())+".  No money was exchanged.";
             issuccessful = false;

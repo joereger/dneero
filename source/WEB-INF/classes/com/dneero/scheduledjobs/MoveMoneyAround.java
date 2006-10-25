@@ -36,12 +36,21 @@ public class MoveMoneyAround implements Job {
                 if (currentbalance>0){
                     //Need to pay somebody as long as they don't have any open or pending surveys
                     if (user.getResearcher()!=null){
-                        List<Survey> surveys = HibernateUtil.getSession().createCriteria(Survey.class)
-                               .add( Restrictions.eq("researcherid", user.getResearcher().getResearcherid()))
-                               .add( Restrictions.eq("status", Survey.STATUS_OPEN))
-                               .add( Restrictions.eq("status", Survey.STATUS_WAITINGFORFUNDS))
-                               .add( Restrictions.eq("status", Survey.STATUS_WAITINGFORSTARTDATE))
-                               .list();
+//                        List<Survey> surveys = HibernateUtil.getSession().createCriteria(Survey.class)
+//                               .add( Restrictions.eq("researcherid", user.getResearcher().getResearcherid()))
+//                               .add( Restrictions.eq("status", Survey.STATUS_OPEN))
+//                               .add( Restrictions.eq("status", Survey.STATUS_WAITINGFORFUNDS))
+//                               .add( Restrictions.eq("status", Survey.STATUS_WAITINGFORSTARTDATE))
+//                               .list();
+
+   
+
+                       List surveys = HibernateUtil.getSession().createQuery("from Survey where researcherid='"+user.getResearcher().getResearcherid()+"' "+
+                                                                              " and ("+
+                                                                              "status='"+Survey.STATUS_OPEN+"'"+
+                                                                              "or status='"+Survey.STATUS_WAITINGFORFUNDS+"'"+
+                                                                              "or status='"+Survey.STATUS_WAITINGFORSTARTDATE+"'"+
+                                                                              ")").list();
                        if (surveys.size()==0){
                             MoveMoneyInRealWorld.pay(user, currentbalance);   
                        }
@@ -56,10 +65,6 @@ public class MoveMoneyAround implements Job {
             logger.error(ex);
         }
 
-
-        //Invoice paid status needs to be updated here
-        try{InvoiceUpdatePaidStatus task = new InvoiceUpdatePaidStatus();
-        task.execute(null);} catch (Exception ex){logger.debug("Error in bottom block.");logger.error(ex);}
 
     }
 

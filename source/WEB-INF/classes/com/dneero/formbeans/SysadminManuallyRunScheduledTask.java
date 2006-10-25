@@ -62,7 +62,8 @@ public class SysadminManuallyRunScheduledTask {
     }
 
     public String runSendEmailInvoicePastDue(){
-        try{SendEmailInvoicePastDue task = new SendEmailInvoicePastDue();
+        try{
+            SendEmailBalancePastDue task = new SendEmailBalancePastDue();
             task.execute(null);} catch (Exception ex){logger.error(ex);}
         return "sysadminmanuallyrunscheduledtask";
     }
@@ -73,11 +74,24 @@ public class SysadminManuallyRunScheduledTask {
         return "sysadminmanuallyrunscheduledtask";
     }
 
-    public String runInvoiceUpdatePaidStatus(){
-        try{InvoiceUpdatePaidStatus task = new InvoiceUpdatePaidStatus();
+    public String runCollectIncrementalSurveyFees(){
+        try{CollectIncrementalSurveyFees task = new CollectIncrementalSurveyFees();
             task.execute(null);} catch (Exception ex){logger.error(ex);}
         return "sysadminmanuallyrunscheduledtask";
     }
+
+    public String runCloseSurveysByFundsAvailability(){
+        try{CloseSurveysByFundsAvailability task = new CloseSurveysByFundsAvailability();
+            task.execute(null);} catch (Exception ex){logger.error(ex);}
+        return "sysadminmanuallyrunscheduledtask";
+    }
+
+    public String runReopenSurveysByFundsAvailability(){
+        try{ReopenSurveysByFundsAvailability task = new ReopenSurveysByFundsAvailability();
+            task.execute(null);} catch (Exception ex){logger.error(ex);}
+        return "sysadminmanuallyrunscheduledtask";
+    }
+
 
 
 }

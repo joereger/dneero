@@ -115,19 +115,15 @@ public class CreateInvoices implements Job {
                 //Create the invoice
                 logger.debug("An invoice will be created");
                 Invoice invoice = new Invoice();
-                invoice.setStatus(Invoice.STATUS_NOTPAID);
                 invoice.setStartdate(startDate.getTime());
                 invoice.setEnddate(endDate.getTime());
                 invoice.setResearcherid(researcher.getResearcherid());
                 double amtbase = amt;
                 double amtdneero = amtbase + (amtbase*.2);
-                double amtdiscount = 0;
-                double amttotal = (amtbase + amtdneero) - amtdiscount;
+                double amttotal = amtbase + amtdneero;
                 invoice.setAmtbase(amtbase);
                 invoice.setAmtdneero(amtdneero);
-                invoice.setAmtdiscount(amtdiscount);
                 invoice.setAmttotal(amttotal);
-                invoice.setAmtpaidtodate(0);
                 try{
                     invoice.save();
                 } catch (GeneralException gex){
@@ -136,7 +132,6 @@ public class CreateInvoices implements Job {
 
                 //Update the account balance
                 MoveMoneyInAccountBalance.charge(User.get(researcher.getUserid()), invoice.getAmttotal(), "Invoice for: "+Time.dateformatfordb(Time.getCalFromDate(invoice.getStartdate()))+" to "+Time.dateformatfordb(Time.getCalFromDate(invoice.getEnddate())));
-
 
                 //Iterate Surveys
                 List<Survey> surveys = HibernateUtil.getSession().createQuery("from Survey where researcherid='"+researcher.getResearcherid()+"'").list();

@@ -31,15 +31,22 @@ public class CollectIncrementalSurveyFees implements Job {
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
         logger.debug("execute() CollectIncrementalSurveyFees called");
 
-        List<Survey> surveys = HibernateUtil.getSession().createCriteria(Survey.class)
-                               .add( Restrictions.eq("status", Survey.STATUS_OPEN))
-                               .add( Restrictions.eq("status", Survey.STATUS_WAITINGFORFUNDS))
-                               .list();
+//        List<Survey> surveys = HibernateUtil.getSession().createCriteria(Survey.class)
+//                               .add( Restrictions.eq("status", Survey.STATUS_OPEN))
+//                               .list();
+
+        List surveys = HibernateUtil.getSession().createQuery("from Survey where "+
+                                                              "("+
+                                                              "status='"+Survey.STATUS_OPEN+"'"+
+                                                              "or status='"+Survey.STATUS_WAITINGFORFUNDS+"'"+
+                                                              "or status='"+Survey.STATUS_WAITINGFORSTARTDATE+"'"+
+                                                              ")").list();
 
         for (Iterator<Survey> iterator = surveys.iterator(); iterator.hasNext();) {
             Survey survey = iterator.next();
             Researcher researcher = Researcher.get(survey.getResearcherid());
             User user = User.get(researcher.getUserid());
+            logger.debug("Analyzing surveyid="+survey.getSurveyid());
             double maxresppay = (survey.getWillingtopayperrespondent() * survey.getNumberofrespondentsrequested());
             double maximppay = ((survey.getWillingtopaypercpm()*survey.getMaxdisplaystotal())/1000);
             double maxspend =maxresppay + maximppay;
@@ -82,9 +89,12 @@ public class CollectIncrementalSurveyFees implements Job {
                     amttocharge = amttocharge + ((-1)*currentbalance);
                 }
                 //Move the money
+                logger.debug("amttocharge:"+amttocharge+" to userid="+user.getUserid());
                 if (amttocharge>0){
                     MoveMoneyInRealWorld.charge(user, amttocharge);
                 }
+            } else {
+                logger.debug("no need to charge surveyid:"+survey.getSurveyid()+" to userid="+user.getUserid());
             }
 
 
