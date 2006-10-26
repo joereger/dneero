@@ -4,9 +4,8 @@ import org.apache.log4j.Logger;
 
 import javax.faces.context.FacesContext;
 import javax.faces.application.FacesMessage;
-import java.util.Date;
-import java.util.Iterator;
 import java.util.Calendar;
+import java.util.LinkedHashMap;
 
 import com.dneero.dao.*;
 import com.dneero.util.*;
@@ -14,6 +13,8 @@ import com.dneero.session.UserSession;
 import com.dneero.finders.FindBloggersForSurvey;
 import com.dneero.money.PaymentMethod;
 import com.dneero.money.CurrentBalanceCalculator;
+import com.dneero.money.MoveMoneyInRealWorld;
+import com.dneero.scheduledjobs.CollectIncrementalSurveyFees;
 
 /**
  * User: Joe Reger Jr
@@ -39,8 +40,7 @@ public class ResearcherSurveyDetail06 {
     private boolean warningnumberrequestedratiotoobig = false;
     private boolean warningtoomanyquestions = false;
     private boolean warningnoquestions = false;
-    private boolean warninghaveenoughbillinginfo = false;
-    private boolean warningenoughfundsavailable = false;
+    private boolean warningdonthaveccinfo = false;
 
 
     private double maxresppay = 0;
@@ -48,6 +48,22 @@ public class ResearcherSurveyDetail06 {
     private double maxspend = 0;
     private double dfee = 0;
     private double maxpossiblespnd = 0;
+
+
+    private String ccnumfordisplayonscreen;
+    private String ccnum;
+    private int cctype;
+    private String cvv2;
+    private int ccexpmo;
+    private int ccexpyear;
+    private String postalcode;
+    private String ccstate;
+    private String street;
+    private String cccity;
+    private String firstname;
+    private String lastname;
+    private String ipaddress;
+    private String merchantsessionid;
 
 
 
@@ -136,25 +152,43 @@ public class ResearcherSurveyDetail06 {
                 //Warning: Enough billing info?
                 if (Jsf.getUserSession().getUser().getChargemethod()== PaymentMethod.PAYMENTMETHODCREDITCARD){
                     if (Jsf.getUserSession().getUser().getChargemethodcreditcardid()>0){
-                        warninghaveenoughbillinginfo = false;
+                        warningdonthaveccinfo = false;
+                        Creditcard cc = Creditcard.get(Jsf.getUserSession().getUser().getChargemethodcreditcardid());
+                        ccnum = cc.getCcnum();
+                        String ccnumStr = String.valueOf(cc.getCcnum());
+                        String lastFour = ccnumStr.substring(ccnumStr.length()-4, ccnumStr.length());
+                        ccnumfordisplayonscreen = "************" + lastFour;
+                        cctype = cc.getCctype();
+                        cvv2 = cc.getCvv2();
+                        ccexpmo = cc.getCcexpmo();
+                        ccexpyear = cc.getCcexpyear();
+                        postalcode = cc.getPostalcode();
+                        ccstate = cc.getState();
+                        street = cc.getStreet();
+                        cccity = cc.getCity();
+                        firstname = cc.getFirstname();
+                        lastname = cc.getLastname();
+                        ipaddress = cc.getIpaddress();
+                        merchantsessionid = cc.getMerchantsessionid();
                     } else {
-                        warninghaveenoughbillinginfo = true;
+                        warningdonthaveccinfo = true;
                     }
                 } else if (Jsf.getUserSession().getUser().getChargemethod()== PaymentMethod.PAYMENTMETHODMANUAL){
-                    warninghaveenoughbillinginfo = false;
+                    warningdonthaveccinfo = false;
                 } else if (Jsf.getUserSession().getUser().getChargemethod()== PaymentMethod.PAYMENTMETHODPAYPAL){
                     logger.error("Paypal chosen as chargemethod (which is not allowed) for userid="+Jsf.getUserSession().getUser().getUserid());
-                    warninghaveenoughbillinginfo = true;
+                    warningdonthaveccinfo = true;
                 } else {
                     logger.error("No valid chargemethod chosen for userid="+Jsf.getUserSession().getUser().getUserid());
-                    warninghaveenoughbillinginfo = true;
+                    warningdonthaveccinfo = true;
                 }
 
-                //Warning: Funds availability
-                double currentbalance = CurrentBalanceCalculator.getCurrentBalance(Jsf.getUserSession().getUser());
-                if (currentbalance< (.5 * (maxspend + dfee))){
-                    warningenoughfundsavailable = true;
-                }
+
+
+
+
+
+
             }
         }
 
@@ -180,16 +214,13 @@ public class ResearcherSurveyDetail06 {
                 logger.debug("startdate.after(now)="+startdate.after(now));
 
 
-                double currentbalance = CurrentBalanceCalculator.getCurrentBalance(Jsf.getUserSession().getUser());
-                if (currentbalance< (.5 * (maxpossiblespnd))){
-                    survey.setStatus(Survey.STATUS_WAITINGFORFUNDS);
+
+                if (startdate.before(now)){
+                    survey.setStatus(Survey.STATUS_OPEN);
                 } else {
-                    if (startdate.before(now)){
-                        survey.setStatus(Survey.STATUS_OPEN);
-                    } else {
-                        survey.setStatus(Survey.STATUS_WAITINGFORSTARTDATE);
-                    }
+                    survey.setStatus(Survey.STATUS_WAITINGFORSTARTDATE);
                 }
+
 
 
                 try{
@@ -207,6 +238,10 @@ public class ResearcherSurveyDetail06 {
 
                 //Refresh
                 survey.refresh();
+
+                //Charge the card the initial 20% or whatever
+                double amttocharge =  maxpossiblespnd  * (CollectIncrementalSurveyFees.INCREMENTALPERCENTTOCHARGE);
+                MoveMoneyInRealWorld.charge(Jsf.getUserSession().getUser(), amttocharge);
             }
         }
 
@@ -238,6 +273,53 @@ public class ResearcherSurveyDetail06 {
         }
         return "success";
     }
+
+
+    public LinkedHashMap getCreditcardtypes(){
+        LinkedHashMap out = new LinkedHashMap();
+        out.put("Visa", Creditcard.CREDITCARDTYPE_VISA);
+        out.put("Master Card", Creditcard.CREDITCARDTYPE_MASTERCARD);
+        out.put("American Express", Creditcard.CREDITCARDTYPE_AMEX);
+        out.put("Discover", Creditcard.CREDITCARDTYPE_DISCOVER);
+        return out;
+    }
+
+    public LinkedHashMap getMonthsForCreditcard(){
+        LinkedHashMap out = new LinkedHashMap();
+        out.put("Jan(01)", 1);
+        out.put("Feb(02)", 2);
+        out.put("Mar(03)", 3);
+        out.put("Apr(04)", 4);
+        out.put("May(05)", 5);
+        out.put("Jun(06)", 6);
+        out.put("Jul(07)", 7);
+        out.put("Aug(08)", 8);
+        out.put("Sep(09)", 9);
+        out.put("Oct(10)", 10);
+        out.put("Nov(11)", 11);
+        out.put("Dec(12)", 12);
+        return out;
+    }
+
+    public LinkedHashMap getYearsForCreditcard(){
+        LinkedHashMap out = new LinkedHashMap();
+        out.put("2006", 2006);
+        out.put("2007", 2007);
+        out.put("2008", 2008);
+        out.put("2009", 2009);
+        out.put("2010", 2010);
+        out.put("2011", 2011);
+        out.put("2012", 2012);
+        out.put("2013", 2013);
+        out.put("2014", 2014);
+        out.put("2015", 2015);
+        out.put("2016", 2016);
+        out.put("2017", 2017);
+        return out;
+    }
+
+
+
 
     public int getStatus() {
         return status;
@@ -376,19 +458,167 @@ public class ResearcherSurveyDetail06 {
     }
 
 
-    public boolean getWarninghaveenoughbillinginfo() {
-        return warninghaveenoughbillinginfo;
+    public boolean getWarningdonthaveccinfo() {
+        return warningdonthaveccinfo;
     }
 
-    public void setWarninghaveenoughbillinginfo(boolean warninghaveenoughbillinginfo) {
-        this.warninghaveenoughbillinginfo = warninghaveenoughbillinginfo;
+    public void setWarningdonthaveccinfo(boolean warningdonthaveccinfo) {
+        this.warningdonthaveccinfo = warningdonthaveccinfo;
     }
 
-    public boolean getWarningenoughfundsavailable() {
-        return warningenoughfundsavailable;
+
+
+
+    public double getMaxresppay() {
+        return maxresppay;
     }
 
-    public void setWarningenoughfundsavailable(boolean warningenoughfundsavailable) {
-        this.warningenoughfundsavailable = warningenoughfundsavailable;
+    public void setMaxresppay(double maxresppay) {
+        this.maxresppay = maxresppay;
+    }
+
+    public double getMaximppay() {
+        return maximppay;
+    }
+
+    public void setMaximppay(double maximppay) {
+        this.maximppay = maximppay;
+    }
+
+    public double getMaxspend() {
+        return maxspend;
+    }
+
+    public void setMaxspend(double maxspend) {
+        this.maxspend = maxspend;
+    }
+
+    public double getDfee() {
+        return dfee;
+    }
+
+    public void setDfee(double dfee) {
+        this.dfee = dfee;
+    }
+
+    public double getMaxpossiblespnd() {
+        return maxpossiblespnd;
+    }
+
+    public void setMaxpossiblespnd(double maxpossiblespnd) {
+        this.maxpossiblespnd = maxpossiblespnd;
+    }
+
+    public String getCcnum() {
+        return ccnum;
+    }
+
+    public void setCcnum(String ccnum) {
+        this.ccnum = ccnum;
+    }
+
+    public int getCctype() {
+        return cctype;
+    }
+
+    public void setCctype(int cctype) {
+        this.cctype = cctype;
+    }
+
+    public String getCvv2() {
+        return cvv2;
+    }
+
+    public void setCvv2(String cvv2) {
+        this.cvv2 = cvv2;
+    }
+
+    public int getCcexpmo() {
+        return ccexpmo;
+    }
+
+    public void setCcexpmo(int ccexpmo) {
+        this.ccexpmo = ccexpmo;
+    }
+
+    public int getCcexpyear() {
+        return ccexpyear;
+    }
+
+    public void setCcexpyear(int ccexpyear) {
+        this.ccexpyear = ccexpyear;
+    }
+
+    public String getPostalcode() {
+        return postalcode;
+    }
+
+    public void setPostalcode(String postalcode) {
+        this.postalcode = postalcode;
+    }
+
+    public String getCcstate() {
+        return ccstate;
+    }
+
+    public void setCcstate(String ccstate) {
+        this.ccstate = ccstate;
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public String getCccity() {
+        return cccity;
+    }
+
+    public void setCccity(String cccity) {
+        this.cccity = cccity;
+    }
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public String getIpaddress() {
+        return ipaddress;
+    }
+
+    public void setIpaddress(String ipaddress) {
+        this.ipaddress = ipaddress;
+    }
+
+    public String getMerchantsessionid() {
+        return merchantsessionid;
+    }
+
+    public void setMerchantsessionid(String merchantsessionid) {
+        this.merchantsessionid = merchantsessionid;
+    }
+
+
+    public String getCcnumfordisplayonscreen() {
+        return ccnumfordisplayonscreen;
+    }
+
+    public void setCcnumfordisplayonscreen(String ccnumfordisplayonscreen) {
+        this.ccnumfordisplayonscreen = ccnumfordisplayonscreen;
     }
 }

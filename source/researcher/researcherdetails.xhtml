@@ -25,104 +25,120 @@
 
 
            <d:roundedCornerBox uniqueboxname="chargemethod" bodycolor="ffffff" widthinpixels="500">
+           
            <table cellpadding="0" cellspacing="0" border="0">
                <tr>
-                   <td valign="top">
-                       <font class="formfieldnamefont">Charge me via: </font>
-                   </td>
-                   <td valign="top">
-                        <h:selectOneRadio value="#{researcherDetails.chargemethod}" id="chargemethod" required="true">
-                            <f:selectItems value="#{researcherDetails.chargemethods}"/>
-                        </h:selectOneRadio>
-                        <h:message for="chargemethod" styleClass="RED"></h:message>
-                   </td>
-               </tr>
-           </table>
-           <table cellpadding="0" cellspacing="0" border="0">
-               <tr>
+
                    <td valign="top" align="left">
-                        <d:roundedCornerBox uniqueboxname="chargemethodinvoice" bodycolor="ffffff" widthinpixels="200">
-                            <font class="tinyfont">Address</font>
+                        <d:roundedCornerBox uniqueboxname="chargemethodcc" bodycolor="ffffff" widthinpixels="450">
+                            <font class="mediumfont" style="color: #cccccc;">Credit Card Info (optional)</font>
                             <br/>
 
-                        </d:roundedCornerBox>
-                   </td>
-                   <td valign="top" align="left">
-                        <d:roundedCornerBox uniqueboxname="chargemethodcc" bodycolor="ffffff" widthinpixels="200">
+                            <table cellpadding="3" cellspacing="0" border="0">
 
+                            <tr>
+                               <td valign="top" align="left">
+                                    <h:outputText value="Name" styleClass="formfieldnamefont"></h:outputText>
                                     <br/>
-                                    <h:outputText value="First Name (as on credit card)" styleClass="tinyfont"></h:outputText>
-                                    <br/>
-                                    <h:inputText value="#{researcherDetails.firstname}" id="firstname"></h:inputText>
+                                    <h:outputText value="(first then last)" styleClass="tinyfont"></h:outputText>
+                               </td>
+                               <td valign="top" align="left">
+                                    <h:inputText value="#{researcherDetails.firstname}" id="firstname"  size="15"></h:inputText>
+                                    <h:outputText value=" " styleClass="formfieldnamefont"></h:outputText>
+                                    <h:inputText value="#{researcherDetails.lastname}" id="lastname" size="15"></h:inputText>
                                     <h:message for="firstname" styleClass="RED"></h:message>
-
-                                    <br/>
-                                    <h:outputText value="Last Name (as on credit card)" styleClass="tinyfont"></h:outputText>
-                                    <br/>
-                                    <h:inputText value="#{researcherDetails.lastname}" id="lastname"></h:inputText>
                                     <h:message for="lastname" styleClass="RED"></h:message>
+                               </td>
+                            </tr>
 
-                                    <br/>
-                                    <h:outputText value="Street Address" styleClass="tinyfont"></h:outputText>
-                                    <br/>
-                                    <h:inputText value="#{researcherDetails.street}" id="street"></h:inputText>
+                            <tr>
+                               <td valign="top" align="left">
+                                    <h:outputText value="Street Address" styleClass="formfieldnamefont"></h:outputText>
+                               </td>
+                               <td valign="top" align="left">
+                                    <h:inputText value="#{researcherDetails.street}" id="street" size="30"></h:inputText>
                                     <h:message for="street" styleClass="RED"></h:message>
+                               </td>
+                            </tr>
 
-                                    <br/>
-                                    <h:outputText value="City" styleClass="tinyfont"></h:outputText>
-                                    <br/>
-                                    <h:inputText value="#{researcherDetails.cccity}" id="cccity"></h:inputText>
+
+                            <tr>
+                               <td valign="top" align="left">
+                                    <h:outputText value="City, State, Zip" styleClass="formfieldnamefont"></h:outputText>
+                               </td>
+                               <td valign="top" align="left">
+                                    <h:inputText value="#{researcherDetails.cccity}" id="cccity" size="20"></h:inputText>
+                                    <h:outputText value=" " styleClass="formfieldnamefont"></h:outputText>
+                                    <h:inputText value="#{researcherDetails.ccstate}" id="ccstate"  size="2"></h:inputText>
+                                    <h:outputText value=" " styleClass="formfieldnamefont"></h:outputText>
+                                    <h:inputText value="#{researcherDetails.postalcode}" id="postalcode" size="6"></h:inputText>
                                     <h:message for="cccity" styleClass="RED"></h:message>
-
-                                    <br/>
-                                    <h:outputText value="State/Province" styleClass="tinyfont"></h:outputText>
-                                    <br/>
-                                    <h:inputText value="#{researcherDetails.ccstate}" id="ccstate"></h:inputText>
                                     <h:message for="ccstate" styleClass="RED"></h:message>
-
-                                    <br/>
-                                    <h:outputText value="Zip/Postal Code" styleClass="tinyfont"></h:outputText>
-                                    <br/>
-                                    <h:inputText value="#{researcherDetails.postalcode}" id="postalcode"></h:inputText>
                                     <h:message for="postalcode" styleClass="RED"></h:message>
+                               </td>
+                            </tr>
 
-                                    <br/>
-                                    <h:outputText value="Credit Card Type (optional)" styleClass="tinyfont"></h:outputText>
-                                    <br/>
+
+                            <tr>
+                               <td valign="top" align="left">
+                                    <h:outputText value="Credit Card Type" styleClass="formfieldnamefont"></h:outputText>
+                               </td>
+                               <td valign="top" align="left">
                                     <h:selectOneMenu value="#{researcherDetails.cctype}" id="cctype" required="true">
                                         <f:selectItems value="#{researcherDetails.creditcardtypes}"/>
                                     </h:selectOneMenu>
+                                    <h:message for="cctype" styleClass="RED"></h:message>
+                               </td>
+                            </tr>
 
-                                    <br/>
-                                    <h:outputText value="Credit Card Number (optional)" styleClass="tinyfont"></h:outputText>
-                                    <br/>
-                                    <h:inputText value="#{researcherDetails.ccnum}" id="ccnum">
+                            <tr>
+                               <td valign="top" align="left">
+                                    <h:outputText value="Credit Card Number" styleClass="formfieldnamefont"></h:outputText>
+                               </td>
+                               <td valign="top" align="left">
+                                    <h:inputText value="#{researcherDetails.ccnum}" id="ccnum"  size="18">
                                         <t:validateCreditCard />
                                     </h:inputText>
                                     <h:message for="ccnum" styleClass="RED"></h:message>
+                               </td>
+                            </tr>
 
-                                    <br/>
-                                    <h:outputText value="Exp Month (optional)" styleClass="tinyfont"></h:outputText>
-                                    <br/>
-                                    <h:inputText value="#{researcherDetails.ccexpmo}" id="ccexpmo" size="2">
-                                        <f:validateDoubleRange minimum="1" maximum="12"></f:validateDoubleRange>
-                                    </h:inputText>
+
+                            <tr>
+                               <td valign="top" align="left">
+                                    <h:outputText value="Expiration Date" styleClass="formfieldnamefont"></h:outputText>
+                               </td>
+                               <td valign="top" align="left">
+                                    <h:selectOneMenu value="#{researcherDetails.ccexpmo}" id="ccexpmo" required="true">
+                                        <f:selectItems value="#{researcherDetails.monthsForCreditcard}"/>
+                                    </h:selectOneMenu>
+                                    /
+                                    <h:selectOneMenu value="#{researcherDetails.ccexpyear}" id="ccexpyear" required="true">
+                                        <f:selectItems value="#{researcherDetails.yearsForCreditcard}"/>
+                                    </h:selectOneMenu>
                                     <h:message for="ccexpmo" styleClass="RED"></h:message>
-
-                                    <br/>
-                                    <h:outputText value="Exp Year (optional)" styleClass="tinyfont"></h:outputText>
-                                    <br/>
-                                    <h:inputText value="#{researcherDetails.ccexpyear}" id="ccexpyear" size="4">
-                                        <f:validateDoubleRange minimum="2006" maximum="2020"></f:validateDoubleRange>
-                                    </h:inputText>
                                     <h:message for="ccexpyear" styleClass="RED"></h:message>
+                               </td>
+                            </tr>
 
 
+
+                            <tr>
+                               <td valign="top" align="left">
+                                    <h:outputText value="CVV2" styleClass="formfieldnamefont"></h:outputText>
                                     <br/>
-                                    <h:outputText value="CVV2 (number on back)" styleClass="tinyfont"></h:outputText>
-                                    <br/>
-                                    <h:inputText value="#{researcherDetails.cvv2}" id="cvv2"></h:inputText>
+                                    <h:outputText value="(three digit number on back of card)" styleClass="tinyfont"></h:outputText>
+                               </td>
+                               <td valign="top" align="left">
+                                    <h:inputText value="#{researcherDetails.cvv2}" id="cvv2" size="3"></h:inputText>
                                     <h:message for="cvv2" styleClass="RED"></h:message>
+                               </td>
+                            </tr>
+
+                            </table>
+
+
+
                         </d:roundedCornerBox>
                    </td>
                </tr>

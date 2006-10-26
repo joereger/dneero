@@ -24,7 +24,6 @@ import javax.faces.application.FacesMessage;
  */
 public class ResearcherDetails {
 
-    private int chargemethod;
     private String ccnum;
     private int cctype;
     private String cvv2;
@@ -51,8 +50,6 @@ public class ResearcherDetails {
         UserSession userSession = Jsf.getUserSession();
         if (userSession.getUser()!=null && userSession.getUser().getBlogger()!=null){
             Researcher researcher = userSession.getUser().getResearcher();
-
-            chargemethod = userSession.getUser().getChargemethod();
 
             if(userSession.getUser().getChargemethodcreditcardid()>0){
                 Creditcard cc = Creditcard.get(userSession.getUser().getChargemethodcreditcardid());
@@ -94,12 +91,10 @@ public class ResearcherDetails {
 
 
             //Start validation
-            if (chargemethod==PaymentMethod.PAYMENTMETHODCREDITCARD){
-                //@todo better validation
-                if (ccnum.equals("")){
-                    Jsf.setFacesMessage("researcherdetails:ccnum", "You've chosen to be paid via credit card so you must provide a credit card number.");
-                    return "";
-                }
+            //@todo better validation
+            if (ccnum.equals("")){
+                Jsf.setFacesMessage("researcherdetails:ccnum", "You've chosen to be paid via credit card so you must provide a credit card number.");
+                return "";
             }
             //End validation
 
@@ -141,40 +136,37 @@ public class ResearcherDetails {
 
 
             Creditcard cc = new Creditcard();
-            if(chargemethod==PaymentMethod.PAYMENTMETHODCREDITCARD){
-                if(userSession.getUser().getPaymethodcreditcardid()>0){
-                    cc = Creditcard.get(userSession.getUser().getPaymethodcreditcardid());
-                }
-                cc.setCcexpmo(ccexpmo);
-                cc.setCcexpyear(ccexpyear);
-                cc.setCcnum(ccnum);
-                cc.setCctype(cctype);
-                cc.setCity(cccity);
-                cc.setCvv2(cvv2);
-                cc.setFirstname(firstname);
-                //@todo set IP Address for paypal
-                cc.setIpaddress("192.168.1.1");
-                cc.setLastname(lastname);
-                //@todo set merchant sessionid for paypal
-                cc.setMerchantsessionid("12345");
-                cc.setPostalcode(postalcode);
-                cc.setState(ccstate);
-                cc.setStreet(street);
-                cc.setUserid(userSession.getUser().getUserid());
-                try{
-                    cc.save();
-                } catch (GeneralException gex){
-                    Jsf.setFacesMessage("Error saving record: "+gex.getErrorsAsSingleString());
-                    logger.debug("saveAction failed: " + gex.getErrorsAsSingleString());
-                    return null;
-                }
+            if(userSession.getUser().getPaymethodcreditcardid()>0){
+                cc = Creditcard.get(userSession.getUser().getPaymethodcreditcardid());
+            }
+            cc.setCcexpmo(ccexpmo);
+            cc.setCcexpyear(ccexpyear);
+            cc.setCcnum(ccnum);
+            cc.setCctype(cctype);
+            cc.setCity(cccity);
+            cc.setCvv2(cvv2);
+            cc.setFirstname(firstname);
+            //@todo set IP Address for paypal
+            cc.setIpaddress("192.168.1.1");
+            cc.setLastname(lastname);
+            //@todo set merchant sessionid for paypal
+            cc.setMerchantsessionid("12345");
+            cc.setPostalcode(postalcode);
+            cc.setState(ccstate);
+            cc.setStreet(street);
+            cc.setUserid(userSession.getUser().getUserid());
+            try{
+                cc.save();
+            } catch (GeneralException gex){
+                Jsf.setFacesMessage("Error saving record: "+gex.getErrorsAsSingleString());
+                logger.debug("saveAction failed: " + gex.getErrorsAsSingleString());
+                return null;
             }
 
 
-            userSession.getUser().setChargemethod(chargemethod);
-            if(chargemethod==PaymentMethod.PAYMENTMETHODCREDITCARD){
-                userSession.getUser().setChargemethodcreditcardid(cc.getCreditcardid());
-            }
+
+            userSession.getUser().setChargemethod(PaymentMethod.PAYMENTMETHODCREDITCARD);
+            userSession.getUser().setChargemethodcreditcardid(cc.getCreditcardid());
 
             try{
                 userSession.getUser().save();
@@ -199,12 +191,6 @@ public class ResearcherDetails {
         }
     }
 
-    public LinkedHashMap getChargemethods(){
-        LinkedHashMap out = new LinkedHashMap();
-        out.put("Invoice Me", PaymentMethod.PAYMENTMETHODMANUAL);
-        out.put("Credit Card", PaymentMethod.PAYMENTMETHODCREDITCARD);
-        return out;
-    }
 
     public LinkedHashMap getCreditcardtypes(){
         LinkedHashMap out = new LinkedHashMap();
@@ -215,18 +201,45 @@ public class ResearcherDetails {
         return out;
     }
 
+    public LinkedHashMap getMonthsForCreditcard(){
+        LinkedHashMap out = new LinkedHashMap();
+        out.put("Jan(01)", 1);
+        out.put("Feb(02)", 2);
+        out.put("Mar(03)", 3);
+        out.put("Apr(04)", 4);
+        out.put("May(05)", 5);
+        out.put("Jun(06)", 6);
+        out.put("Jul(07)", 7);
+        out.put("Aug(08)", 8);
+        out.put("Sep(09)", 9);
+        out.put("Oct(10)", 10);
+        out.put("Nov(11)", 11);
+        out.put("Dec(12)", 12);
+        return out;
+    }
+
+    public LinkedHashMap getYearsForCreditcard(){
+        LinkedHashMap out = new LinkedHashMap();
+        out.put("2006", 2006);
+        out.put("2007", 2007);
+        out.put("2008", 2008);
+        out.put("2009", 2009);
+        out.put("2010", 2010);
+        out.put("2011", 2011);
+        out.put("2012", 2012);
+        out.put("2013", 2013);
+        out.put("2014", 2014);
+        out.put("2015", 2015);
+        out.put("2016", 2016);
+        out.put("2017", 2017);
+        return out;
+    }
+
     public void setChargemethods(){
 
     }
 
 
-    public int getChargemethod() {
-        return chargemethod;
-    }
-
-    public void setChargemethod(int chargemethod) {
-        this.chargemethod = chargemethod;
-    }
 
 
     public String getCcnum() {
