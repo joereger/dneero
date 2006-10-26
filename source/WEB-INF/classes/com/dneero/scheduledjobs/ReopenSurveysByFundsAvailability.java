@@ -30,7 +30,7 @@ public class ReopenSurveysByFundsAvailability implements Job {
         logger.debug("execute() ReopenSurveysByFundsAvailability called");
 
         List<Survey> surveys = HibernateUtil.getSession().createCriteria(Survey.class)
-                               .add( Restrictions.eq("status", Survey.STATUS_OPEN))
+                               .add( Restrictions.eq("status", Survey.STATUS_WAITINGFORFUNDS))
                                .list();
 
         for (Iterator<Survey> iterator = surveys.iterator(); iterator.hasNext();) {

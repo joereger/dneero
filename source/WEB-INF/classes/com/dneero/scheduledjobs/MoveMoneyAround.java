@@ -43,8 +43,6 @@ public class MoveMoneyAround implements Job {
 //                               .add( Restrictions.eq("status", Survey.STATUS_WAITINGFORSTARTDATE))
 //                               .list();
 
-   
-
                        List surveys = HibernateUtil.getSession().createQuery("from Survey where researcherid='"+user.getResearcher().getResearcherid()+"' "+
                                                                               " and ("+
                                                                               "status='"+Survey.STATUS_OPEN+"'"+

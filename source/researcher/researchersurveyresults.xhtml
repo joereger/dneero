@@ -24,12 +24,15 @@
         <h:outputText value="Status: Draft" styleClass="mediumfont"></h:outputText>
     </d:roundedCornerBox>
     <d:roundedCornerBox uniqueboxname="status" bodycolor="ffffff" widthinpixels="450" rendered="#{researcherSurveyResults.status==2}">
+        <h:outputText value="Status: Waiting for Funds" styleClass="mediumfont"></h:outputText>
+    </d:roundedCornerBox>
+    <d:roundedCornerBox uniqueboxname="status" bodycolor="ffffff" widthinpixels="450" rendered="#{researcherSurveyResults.status==3}">
         <h:outputText value="Status: Waiting for Start Date" styleClass="mediumfont"></h:outputText>
     </d:roundedCornerBox>
-    <d:roundedCornerBox uniqueboxname="status" bodycolor="00ff00" widthinpixels="450" rendered="#{researcherSurveyResults.status==3}">
+    <d:roundedCornerBox uniqueboxname="status" bodycolor="00ff00" widthinpixels="450" rendered="#{researcherSurveyResults.status==4}">
         <h:outputText value="Status: Open" styleClass="mediumfont"></h:outputText>
     </d:roundedCornerBox>
-    <d:roundedCornerBox uniqueboxname="status" bodycolor="ff0000" widthinpixels="450" rendered="#{researcherSurveyResults.status==4}">
+    <d:roundedCornerBox uniqueboxname="status" bodycolor="ff0000" widthinpixels="450" rendered="#{researcherSurveyResults.status==5}">
         <h:outputText value="Status: Closed" styleClass="mediumfont" style="color: #ffffff;"></h:outputText>
     </d:roundedCornerBox>
 

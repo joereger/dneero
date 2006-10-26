@@ -93,6 +93,7 @@ public class CollectIncrementalSurveyFees implements Job {
                 logger.debug("amttocharge:"+amttocharge+" to userid="+user.getUserid());
                 if (amttocharge>0){
                     MoveMoneyInRealWorld.charge(user, amttocharge);
+                    //@todo email that card has been charged by incremental
                 }
             } else {
                 logger.debug("no need to charge surveyid:"+survey.getSurveyid()+" to userid="+user.getUserid());

@@ -24,32 +24,38 @@
             <f:facet name="header">
               <af:outputText value="Id"/>
             </f:facet>
-            <af:outputText value="#{balance.balancetransactionid}"/>
+            <af:outputText value="#{balance.balancetransactionid}" styleClass="tinyfont"/>
           </af:column>
           <af:column>
             <f:facet name="header">
-              <af:outputText value="Successful?"/>
+              <af:outputText value="Date"/>
             </f:facet>
-            <af:outputText value="Yes" rendered="#{balance.issuccessful}"/>
-            <af:outputText value="No" rendered="#{!balance.issuccessful}"/>
+            <af:outputText value="Yes" rendered="#{balance.date}" styleClass="tinyfont"/>
+          </af:column>
+          <af:column>
+            <f:facet name="header">
+              <af:outputText value=""/>
+            </f:facet>
+            <af:outputText value="Success" rendered="#{balance.issuccessful}" styleClass="tinyfont"/>
+            <af:outputText value="Fail" rendered="#{!balance.issuccessful}" styleClass="tinyfont"/>
           </af:column>
           <af:column>
             <f:facet name="header">
               <af:outputText value="Description"/>
             </f:facet>
-            <af:outputText value="#{balance.description}"/>
+            <af:outputText value="#{balance.description}"  styleClass="tinyfont"/>
           </af:column>
           <af:column>
             <f:facet name="header">
               <af:outputText value="Notes"/>
             </f:facet>
-            <af:outputText value="#{balance.notes}"/>
+            <af:outputText value="#{balance.notes}" styleClass="tinyfont"/>
           </af:column>
           <af:column>
             <f:facet name="header">
               <af:outputText value="Amount"/>
             </f:facet>
-            <af:outputText value="#{balance.amt}"/>
+            <af:outputText value="#{balance.amt}" styleClass="tinyfont"/>
           </af:column>
         </af:table>
 
