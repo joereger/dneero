@@ -15,6 +15,8 @@ import org.apache.log4j.Logger;
  */
 public class MoveMoneyInRealWorld {
 
+    public static double GLOBALMAXCHARGEPERTRANSACTION = 10000;
+
 
     public static void pay(User user, double amt){
         Logger logger = Logger.getLogger(MoveMoneyInRealWorld.class);
@@ -31,12 +33,19 @@ public class MoveMoneyInRealWorld {
 
         //Only operate if it's not a manual payment method
         if (!(pm instanceof PaymentMethodManual)){
-
-            pm.pay(user, amt);
+            //See if this needs to be broken into multiple transactions
+            double amttocharge = amt;
+            double amtremainder = 0;
+            if (amt>GLOBALMAXCHARGEPERTRANSACTION){
+                amttocharge = GLOBALMAXCHARGEPERTRANSACTION;
+                amtremainder = amt - GLOBALMAXCHARGEPERTRANSACTION;
+            }
+            //Do the transaction
+            pm.pay(user, amttocharge);
 
             if (pm.getIssuccessful()){
                 Balance balance = new Balance();
-                balance.setAmt((-1)*amt);
+                balance.setAmt((-1)*amttocharge);
                 balance.setDate(new Date());
                 balance.setDescription(desc);
                 balance.setCurrentbalance(CurrentBalanceCalculator.getCurrentBalance(user) - amt);
@@ -45,7 +54,7 @@ public class MoveMoneyInRealWorld {
             }
 
             Balancetransaction balancetransaction = new Balancetransaction();
-            balancetransaction.setAmt((-1)*amt);
+            balancetransaction.setAmt((-1)*amttocharge);
             balancetransaction.setDate(new Date());
             balancetransaction.setDescription(desc);
             balancetransaction.setIssuccessful(pm.getIssuccessful());
@@ -54,6 +63,11 @@ public class MoveMoneyInRealWorld {
             balancetransaction.setCorrelationid(pm.getCorrelationid());
             balancetransaction.setTransactionid(pm.getTransactionid());
             try{balancetransaction.save();}catch (Exception ex){logger.error(ex);}
+
+            //Now handle the remainder
+            if (amtremainder!=0){
+                pay(user, amtremainder);
+            }
 
         } else {
             logger.error("Can't pay manually. userid="+user.getUserid()+" amt="+amt);
@@ -79,11 +93,20 @@ public class MoveMoneyInRealWorld {
 
         //Only operate if it's not a manual payment method
         if (!(pm instanceof PaymentMethodManual)){
-            pm.charge(user, amt);
+            //See if this needs to be broken into multiple transactions
+            double amttocharge = amt;
+            double amtremainder = 0;
+            if (amt>GLOBALMAXCHARGEPERTRANSACTION){
+                amttocharge = GLOBALMAXCHARGEPERTRANSACTION;
+                amtremainder = amt - GLOBALMAXCHARGEPERTRANSACTION;
+            }
+
+            //Do the transaction
+            pm.charge(user, amttocharge);
 
             if (pm.getIssuccessful()){
                 Balance balance = new Balance();
-                balance.setAmt(amt);
+                balance.setAmt(amttocharge);
                 balance.setDate(new Date());
                 balance.setDescription(desc);
                 balance.setCurrentbalance(CurrentBalanceCalculator.getCurrentBalance(user) + amt);
@@ -92,7 +115,7 @@ public class MoveMoneyInRealWorld {
             }
 
             Balancetransaction balancetransaction = new Balancetransaction();
-            balancetransaction.setAmt(amt);
+            balancetransaction.setAmt(amttocharge);
             balancetransaction.setDate(new Date());
             balancetransaction.setDescription(desc);
             balancetransaction.setIssuccessful(pm.getIssuccessful());
@@ -114,6 +137,11 @@ public class MoveMoneyInRealWorld {
             }
 
             try{balancetransaction.save();}catch (Exception ex){logger.error(ex);}
+
+            //Now charge the remainder
+            if (amtremainder!=0){
+                charge(user, amtremainder);
+            }
         }
     }
 

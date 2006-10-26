@@ -19,6 +19,8 @@ import java.util.Calendar;
 public class PaymentMethodCreditCard extends PaymentMethodBase implements PaymentMethod {
    Logger logger = Logger.getLogger(this.getClass().getName());
 
+
+
     public void pay(User user, double amt) {
         charge(user, (-1)*amt);
     }
@@ -141,6 +143,9 @@ public class PaymentMethodCreditCard extends PaymentMethodBase implements Paymen
             issuccessful = false;
         }
         logger.debug("---------- Credit Card Processing End ----------");
+
+
+
     }
 
 
