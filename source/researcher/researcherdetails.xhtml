@@ -23,147 +23,48 @@
     <h:form id="researcherdetails">
 
 
-
-           <d:roundedCornerBox uniqueboxname="chargemethod" bodycolor="ffffff" widthinpixels="500">
-           
-           <table cellpadding="0" cellspacing="0" border="0">
-               <tr>
-
-                   <td valign="top" align="left">
-                        <d:roundedCornerBox uniqueboxname="chargemethodcc" bodycolor="ffffff" widthinpixels="450">
-                            <font class="mediumfont" style="color: #cccccc;">Credit Card Info (optional)</font>
-                            <br/>
-
-                            <table cellpadding="3" cellspacing="0" border="0">
-
-                            <tr>
-                               <td valign="top" align="left">
-                                    <h:outputText value="Name" styleClass="formfieldnamefont"></h:outputText>
-                                    <br/>
-                                    <h:outputText value="(first then last)" styleClass="tinyfont"></h:outputText>
-                               </td>
-                               <td valign="top" align="left">
-                                    <h:inputText value="#{researcherDetails.firstname}" id="firstname"  size="15"></h:inputText>
-                                    <h:outputText value=" " styleClass="formfieldnamefont"></h:outputText>
-                                    <h:inputText value="#{researcherDetails.lastname}" id="lastname" size="15"></h:inputText>
-                                    <h:message for="firstname" styleClass="RED"></h:message>
-                                    <h:message for="lastname" styleClass="RED"></h:message>
-                               </td>
-                            </tr>
-
-                            <tr>
-                               <td valign="top" align="left">
-                                    <h:outputText value="Street Address" styleClass="formfieldnamefont"></h:outputText>
-                               </td>
-                               <td valign="top" align="left">
-                                    <h:inputText value="#{researcherDetails.street}" id="street" size="30"></h:inputText>
-                                    <h:message for="street" styleClass="RED"></h:message>
-                               </td>
-                            </tr>
-
-
-                            <tr>
-                               <td valign="top" align="left">
-                                    <h:outputText value="City, State, Zip" styleClass="formfieldnamefont"></h:outputText>
-                               </td>
-                               <td valign="top" align="left">
-                                    <h:inputText value="#{researcherDetails.cccity}" id="cccity" size="20"></h:inputText>
-                                    <h:outputText value=" " styleClass="formfieldnamefont"></h:outputText>
-                                    <h:inputText value="#{researcherDetails.ccstate}" id="ccstate"  size="2"></h:inputText>
-                                    <h:outputText value=" " styleClass="formfieldnamefont"></h:outputText>
-                                    <h:inputText value="#{researcherDetails.postalcode}" id="postalcode" size="6"></h:inputText>
-                                    <h:message for="cccity" styleClass="RED"></h:message>
-                                    <h:message for="ccstate" styleClass="RED"></h:message>
-                                    <h:message for="postalcode" styleClass="RED"></h:message>
-                               </td>
-                            </tr>
-
-
-                            <tr>
-                               <td valign="top" align="left">
-                                    <h:outputText value="Credit Card Type" styleClass="formfieldnamefont"></h:outputText>
-                               </td>
-                               <td valign="top" align="left">
-                                    <h:selectOneMenu value="#{researcherDetails.cctype}" id="cctype" required="true">
-                                        <f:selectItems value="#{researcherDetails.creditcardtypes}"/>
-                                    </h:selectOneMenu>
-                                    <h:message for="cctype" styleClass="RED"></h:message>
-                               </td>
-                            </tr>
-
-                            <tr>
-                               <td valign="top" align="left">
-                                    <h:outputText value="Credit Card Number" styleClass="formfieldnamefont"></h:outputText>
-                               </td>
-                               <td valign="top" align="left">
-                                    <h:inputText value="#{researcherDetails.ccnum}" id="ccnum"  size="18">
-                                        <t:validateCreditCard />
-                                    </h:inputText>
-                                    <h:message for="ccnum" styleClass="RED"></h:message>
-                               </td>
-                            </tr>
-
-
-                            <tr>
-                               <td valign="top" align="left">
-                                    <h:outputText value="Expiration Date" styleClass="formfieldnamefont"></h:outputText>
-                               </td>
-                               <td valign="top" align="left">
-                                    <h:selectOneMenu value="#{researcherDetails.ccexpmo}" id="ccexpmo" required="true">
-                                        <f:selectItems value="#{researcherDetails.monthsForCreditcard}"/>
-                                    </h:selectOneMenu>
-                                    /
-                                    <h:selectOneMenu value="#{researcherDetails.ccexpyear}" id="ccexpyear" required="true">
-                                        <f:selectItems value="#{researcherDetails.yearsForCreditcard}"/>
-                                    </h:selectOneMenu>
-                                    <h:message for="ccexpmo" styleClass="RED"></h:message>
-                                    <h:message for="ccexpyear" styleClass="RED"></h:message>
-                               </td>
-                            </tr>
-
-
-
-                            <tr>
-                               <td valign="top" align="left">
-                                    <h:outputText value="CVV2" styleClass="formfieldnamefont"></h:outputText>
-                                    <br/>
-                                    <h:outputText value="(three digit number on back of card)" styleClass="tinyfont"></h:outputText>
-                               </td>
-                               <td valign="top" align="left">
-                                    <h:inputText value="#{researcherDetails.cvv2}" id="cvv2" size="3"></h:inputText>
-                                    <h:message for="cvv2" styleClass="RED"></h:message>
-                               </td>
-                            </tr>
-
-                            </table>
-
-
-
-                        </d:roundedCornerBox>
-                   </td>
-               </tr>
-           </table>
-       </d:roundedCornerBox>
-
-
-
-
-
-
-
-
-
-
-
             <h:panelGrid columns="3" cellpadding="3" border="0">
 
 
                 <h:panelGroup>
-                    <h:commandButton action="#{researcherDetails.saveAction}" title="Save Researcher Profile" styleClass="formsubmitbutton"></h:commandButton>
+                    <h:outputText value="Company Name" styleClass="formfieldnamefont"></h:outputText>
                 </h:panelGroup>
+                <h:panelGroup>
+                    <h:inputText value="#{researcherDetails.companyname}" id="companyname"></h:inputText>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:message for="companyname" styleClass="RED"></h:message>
+                </h:panelGroup>
+
+
+                <h:panelGroup>
+                    <h:outputText value="Company Type" styleClass="formfieldnamefont"></h:outputText>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:selectOneMenu value="#{researcherDetails.companytype}" id="companytype" required="true">
+                        <f:selectItems value="#{researcherDetails.companytypes}"/>
+                    </h:selectOneMenu>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:message for="companytype" styleClass="RED"></h:message>
+                </h:panelGroup>
+
+                <h:panelGroup>
+                    <h:outputText value="Phone" styleClass="formfieldnamefont"></h:outputText>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:inputText value="#{researcherDetails.phone}" id="phone" required="true"></h:inputText>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:message for="phone" styleClass="RED"></h:message>
+                </h:panelGroup>
+
                 <h:panelGroup>
                 </h:panelGroup>
                 <h:panelGroup>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:commandButton action="#{researcherDetails.saveAction}" value="Save Researcher Profile" styleClass="formsubmitbutton"></h:commandButton>
                 </h:panelGroup>
 
             </h:panelGrid>

@@ -24,9 +24,13 @@ public class PaymentMethodCreditCard extends PaymentMethodBase implements Paymen
     }
 
     public void charge(User user, double amt) {
+        logger.debug("---------- Credit Card Processing Start ----------");
         try{
-            if (user.getPaymethodcreditcardid()>0){
-                Creditcard cc = Creditcard.get(user.getPaymethodcreditcardid());
+            if (user.getChargemethodcreditcardid()>0){
+                Creditcard cc = Creditcard.get(user.getChargemethodcreditcardid());
+                logger.debug("cc.getCreditcardid()="+cc.getCreditcardid());
+                logger.debug("cc.getCcnum()="+cc.getCcnum());
+                logger.debug("cc.getCctype()="+cc.getCctype());
 
                 DoDirectPaymentRequestType request = new DoDirectPaymentRequestType();
                 DoDirectPaymentRequestDetailsType details = new DoDirectPaymentRequestDetailsType();
@@ -42,7 +46,6 @@ public class PaymentMethodCreditCard extends PaymentMethodBase implements Paymen
                 } else if (cc.getCctype()==Creditcard.CREDITCARDTYPE_DISCOVER){
                     creditCard.setCreditCardType(CreditCardTypeType.Discover);
                 }
-
                 creditCard.setCVV2(cc.getCvv2());
                 creditCard.setExpMonth(cc.getCcexpmo());
                 creditCard.setExpYear(cc.getCcexpyear());
@@ -84,9 +87,8 @@ public class PaymentMethodCreditCard extends PaymentMethodBase implements Paymen
                 CallerFactory cf = new CallerFactory();
 
                 try{
-                    DoDirectPaymentResponseType response = (DoDirectPaymentResponseType) cf.getCaller().call("DoDirectPayment", request);
+                    DoDirectPaymentResponseType response = (DoDirectPaymentResponseType) cf.getCaller().call("doDirectPayment", request);
                     logger.debug("Operation Ack: " + response.getAck());
-                    logger.debug("---------- Results ----------");
                     logger.debug("Transaction ID: " + response.getTransactionID());
                     logger.debug("CVV2: " + response.getCVV2Code());
                     logger.debug("AVS: " + response.getAVSCode());
@@ -116,6 +118,7 @@ public class PaymentMethodCreditCard extends PaymentMethodBase implements Paymen
                     } else {
                         issuccessful = true;
                     }
+
                 } catch (PayPalException ppex){
                     ppex.printStackTrace();
                     logger.error(ppex);
@@ -137,6 +140,7 @@ public class PaymentMethodCreditCard extends PaymentMethodBase implements Paymen
             notes = "An internal server error occurred at "+ Time.dateformatcompactwithtime(Calendar.getInstance())+".  No money was exchanged.";
             issuccessful = false;
         }
+        logger.debug("---------- Credit Card Processing End ----------");
     }
 
 

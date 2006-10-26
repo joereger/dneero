@@ -122,6 +122,12 @@
     </managed-bean>
 
     <managed-bean>
+        <managed-bean-name>researcherBilling</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.ResearcherBilling</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
         <managed-bean-name>sysadminSurveyList</managed-bean-name>
         <managed-bean-class>com.dneero.formbeans.SystemadminSurveyList</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
@@ -650,6 +656,10 @@
         <navigation-case>
             <from-outcome>researcherdetails</from-outcome>
             <to-view-id>/researcher/researcherdetails.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>researcherbilling</from-outcome>
+            <to-view-id>/researcher/researcherbilling.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>researcherinvoices</from-outcome>

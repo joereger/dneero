@@ -38,6 +38,7 @@
                 <f:verbatim rendered="#{userSession.isloggedin and (userSession.user.researcher ne null)}"><br/></f:verbatim>
                 <h:outputText value="Pay for Blog" action="researcherhome" style="padding-left: 10px; color: #009900;" styleClass="mediumfont" rendered="#{userSession.isloggedin and (userSession.user.researcher ne null)}"/>
                 <h:commandLink value="  Researcher Profile" action="researcherdetails" styleClass="smallfont" style="padding-left: 25px;" rendered="#{userSession.isloggedin and (userSession.user.researcher ne null)}"/>
+                <h:commandLink value="  Billing Info" action="researcherbilling" styleClass="smallfont" style="padding-left: 25px;" rendered="#{userSession.isloggedin and (userSession.user.researcher ne null)}"/>
                 <h:commandLink value="  Surveys" action="researchersurveylist" styleClass="smallfont" style="padding-left: 25px;" rendered="#{userSession.isloggedin and (userSession.user.researcher ne null)}"/>
                 <h:commandLink value="  Invoices" action="researcherinvoices" styleClass="smallfont" style="padding-left: 25px;" rendered="#{userSession.isloggedin and (userSession.user.researcher ne null)}"/>
 

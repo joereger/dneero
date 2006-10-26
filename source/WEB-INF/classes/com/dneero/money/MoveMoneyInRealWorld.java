@@ -96,10 +96,23 @@ public class MoveMoneyInRealWorld {
             balancetransaction.setDate(new Date());
             balancetransaction.setDescription(desc);
             balancetransaction.setIssuccessful(pm.getIssuccessful());
-            balancetransaction.setNotes(pm.getNotes());
+            if (pm.getNotes()!=null){
+                balancetransaction.setNotes(pm.getNotes());
+            } else {
+                balancetransaction.setNotes("");
+            }
             balancetransaction.setUserid(user.getUserid());
-            balancetransaction.setCorrelationid(pm.getCorrelationid());
-            balancetransaction.setTransactionid(pm.getTransactionid());
+            if (pm.getCorrelationid()!=null){
+                balancetransaction.setCorrelationid(pm.getCorrelationid());
+            } else {
+                balancetransaction.setCorrelationid("");
+            }
+            if (pm.getTransactionid()!=null){
+                balancetransaction.setTransactionid(pm.getTransactionid());
+            } else {
+                balancetransaction.setTransactionid("");
+            }
+
             try{balancetransaction.save();}catch (Exception ex){logger.error(ex);}
         }
     }

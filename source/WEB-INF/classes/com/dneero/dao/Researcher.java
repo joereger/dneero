@@ -24,6 +24,9 @@ public class Researcher extends BasePersistentClass implements java.io.Serializa
 
      private int researcherid;
      private int userid;
+     private String companyname;
+     private String companytype;
+     private String phone;
 
      private Set<Invoice> invoices = new HashSet<Invoice>();
 
@@ -105,5 +108,30 @@ public class Researcher extends BasePersistentClass implements java.io.Serializa
 
     public void setInvoices(Set<Invoice> invoices) {
         this.invoices = invoices;
+    }
+
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getCompanytype() {
+        return companytype;
+    }
+
+    public void setCompanytype(String companytype) {
+        this.companytype = companytype;
+    }
+
+    public String getCompanyname() {
+        return companyname;
+    }
+
+    public void setCompanyname(String companyname) {
+        this.companyname = companyname;
     }
 }

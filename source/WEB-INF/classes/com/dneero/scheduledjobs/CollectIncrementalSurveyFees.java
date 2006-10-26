@@ -44,6 +44,7 @@ public class CollectIncrementalSurveyFees implements Job {
 
         for (Iterator<Survey> iterator = surveys.iterator(); iterator.hasNext();) {
             Survey survey = iterator.next();
+            HibernateUtil.getSession().refresh(survey);
             Researcher researcher = Researcher.get(survey.getResearcherid());
             User user = User.get(researcher.getUserid());
             logger.debug("Analyzing surveyid="+survey.getSurveyid());

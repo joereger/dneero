@@ -17,5 +17,14 @@
         <property name="userid" type="int">
             <column name="userid" not-null="true" />
         </property>
+        <property name="companyname" type="string">
+            <column name="companyname" length="255" />
+        </property>
+        <property name="companytype" type="string">
+            <column name="companytype" length="255" />
+        </property>
+        <property name="phone" type="string">
+            <column name="phone" length="255" />
+        </property>
     </class>
 </hibernate-mapping>
