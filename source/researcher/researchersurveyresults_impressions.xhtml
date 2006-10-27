@@ -28,6 +28,7 @@
           <af:outputText value="Blog"/>
         </f:facet>
         <a href="#{imp.blogurl}"><af:outputText value="#{imp.blogurl}"/></a>
+        <af:outputText value="No Referer" rendered="#{empty imp.referer}"/>
       </af:column>
       <af:column>
         <f:facet name="header">

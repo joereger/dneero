@@ -30,10 +30,10 @@
                 <f:verbatim rendered="#{userSession.isloggedin and (userSession.user.blogger ne null)}"><br/></f:verbatim>
                 <h:outputText value="Blog for Pay" action="bloggerhome" style="padding-left: 10px; color: #009900;" styleClass="mediumfont" rendered="#{userSession.isloggedin and (userSession.user.blogger ne null)}"/>
                 <h:commandLink value="  Blogger Profile" action="bloggerdetails" styleClass="smallfont" style="padding-left: 25px;" rendered="#{userSession.isloggedin and (userSession.user.blogger ne null)}"/>
-                <h:commandLink value="  Blogs" action="bloggerblogslist" styleClass="smallfont" style="padding-left: 25px;" rendered="#{userSession.isloggedin and (userSession.user.blogger ne null)}"/>
+                <h:commandLink value="  Your Blogs" action="bloggerblogslist" styleClass="smallfont" style="padding-left: 25px;" rendered="#{userSession.isloggedin and (userSession.user.blogger ne null)}"/>
                 <h:commandLink value="  New Surveys" action="bloggersurveylist" styleClass="smallfont" style="padding-left: 25px;" rendered="#{userSession.isloggedin and (userSession.user.blogger ne null)}"/>
                 <h:commandLink value="  Completed Surveys" action="bloggercompletedsurveys" styleClass="smallfont" style="padding-left: 25px;" rendered="#{userSession.isloggedin and (userSession.user.blogger ne null)}"/>
-                <h:commandLink value="  Revshare" action="bloggerearningsrevshare" styleClass="smallfont" style="padding-left: 25px;" rendered="#{userSession.isloggedin and (userSession.user.blogger ne null)}"/>
+                <h:commandLink value="  Revenue Share" action="bloggerearningsrevshare" styleClass="smallfont" style="padding-left: 25px;" rendered="#{userSession.isloggedin and (userSession.user.blogger ne null)}"/>
 
                 <f:verbatim rendered="#{userSession.isloggedin and (userSession.user.researcher ne null)}"><br/></f:verbatim>
                 <h:outputText value="Pay for Blog" action="researcherhome" style="padding-left: 10px; color: #009900;" styleClass="mediumfont" rendered="#{userSession.isloggedin and (userSession.user.researcher ne null)}"/>
