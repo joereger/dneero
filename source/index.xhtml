@@ -30,7 +30,7 @@
             <td width="50%" align="left" valign="top">
                 <div style="margin: 15px;">
                     <d:greenRoundedButton><h:commandLink value="Researchers Learn More" action="researcherfaq" style="padding-left: 15px; color: #ffffff; font-weight: bold;" styleClass="smallfont"/></d:greenRoundedButton>
-                    <d:greenRoundedButton><h:commandLink value="Get Started Now" action="registration" style="padding-left: 15px; color: #ffffff; font-weight: bold;" styleClass="smallfont"/></d:greenRoundedButton>
+                    <d:greenRoundedButton rendered="#{!userSession.isloggedin}"><h:commandLink value="Get Started Now" action="registration" style="padding-left: 15px; color: #ffffff; font-weight: bold;" styleClass="smallfont"/></d:greenRoundedButton>
                 </div>
 
                 <d:roundedCornerBox uniqueboxname="indexleft1" bodycolor="ffffff" widthinpixels="240">
@@ -62,7 +62,7 @@
             <td width="50%" align="left" valign="top">
                 <div style="margin: 15px;">
                     <d:greenRoundedButton><h:commandLink value="Bloggers Learn More" action="bloggerfaq" style="padding-left: 15px; color: #ffffff; font-weight: bold;" styleClass="smallfont"/></d:greenRoundedButton>
-                    <d:greenRoundedButton><h:commandLink value="Get Started Now" action="registration" style="padding-left: 15px; color: #ffffff; font-weight: bold;" styleClass="smallfont"/></d:greenRoundedButton>
+                    <d:greenRoundedButton rendered="#{!userSession.isloggedin}"><h:commandLink value="Get Started Now" action="registration" style="padding-left: 15px; color: #ffffff; font-weight: bold;" styleClass="smallfont"/></d:greenRoundedButton>
                 </div>
 
 
@@ -85,6 +85,8 @@
                 Your pay is a combination of the flat fee per survey and the number of impressions that you generate for it... <b>more traffic to your blog equals more dollars</b>
                 <br/><br/>
                 <b>Quick and easy</b>: posting a survey is a single copy-and-paste operation
+                <br/><br/>
+                <b>Make money recruiting friends</b>: for one year after you recruit somebody to the system you get a percentage of their earnings and all earnings of people that they recruit
 
                 </div>
                 <!--</d:roundedCornerBox>-->

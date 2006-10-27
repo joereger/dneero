@@ -79,28 +79,19 @@
                     <h:message for="passwordverify" styleClass="RED"></h:message>
                 </h:panelGroup>
 
-                <h:panelGroup>
-                    <h:outputText value="Paypal Address" styleClass="formfieldnamefont"></h:outputText>
-                </h:panelGroup>
-                <h:panelGroup>
-                    <h:inputText value="#{registration.paypaladdress}" id="paypaladdress" required="false">
-                        <f:validateLength minimum="3" maximum="255"></f:validateLength>
-                        <t:validateEmail></t:validateEmail>
-                    </h:inputText>
-                </h:panelGroup>
-                <h:panelGroup>
-                    <h:message for="paypaladdress" styleClass="RED"></h:message>
-                </h:panelGroup>
 
 
                 <h:panelGroup>
                     <h:outputText value="Prove You're a Human" styleClass="formfieldnamefont"></h:outputText>
                 </h:panelGroup>
                 <h:panelGroup>
+                    <div style="border: 1px solid #ccc; padding: 3px;">
+                    <h:inputText value="#{registration.j_captcha_response}" id="j_captcha_response" required="true"/>
+                    <br/>
+                    <font class="tinyfont">(type the squiggly letters that appear below)</font>
+                    <br/>
                     <h:graphicImage url="/jcaptcha"></h:graphicImage>
-                    <f:verbatim><br/></f:verbatim>
-                    <h:inputText value="#{registration.j_captcha_response}" id="j_captcha_response" required="true">
-                    </h:inputText>
+                    </div>
                 </h:panelGroup>
                 <h:panelGroup>
                     <h:message for="j_captcha_response" styleClass="RED"></h:message>

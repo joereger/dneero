@@ -44,6 +44,24 @@
             </f:facet>
             <af:outputText value="#{balance.currentbalance}"/>
           </af:column>
+          <af:column>
+            <f:facet name="header">
+              <af:outputText value=""/>
+            </f:facet>
+            <h:commandLink action="#{bloggerEarningsPayment.beginView}" rendered="#{balance.optionalpaybloggerid>0}">
+                <h:outputText value="Details" escape="false" />
+                <f:param name="paybloggerid" value="#{balance.optionalpaybloggerid}" />
+            </h:commandLink>
+            <h:commandLink action="researcherinvoices" rendered="#{balance.optionalinvoiceid>0}">
+                <h:outputText value="Details" escape="false" />
+                <f:param name="invoiceid" value="#{balance.optionalinvoiceid}" />
+            </h:commandLink>
+          </af:column>
+
+
+
+
+
         </af:table>
 
 

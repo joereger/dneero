@@ -1,6 +1,5 @@
 package com.dneero.formbeans;
 
-import java.util.Date;
 
 /**
  * User: Joe Reger Jr
@@ -15,6 +14,8 @@ public class AccountBalanceListItem {
      private String amt;
      private String currentbalance;
      private String description;
+     private int optionalpaybloggerid;
+     private int optionalinvoiceid;
 
 
     public int getBalanceid() {
@@ -64,5 +65,22 @@ public class AccountBalanceListItem {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+
+    public int getOptionalpaybloggerid() {
+        return optionalpaybloggerid;
+    }
+
+    public void setOptionalpaybloggerid(int optionalpaybloggerid) {
+        this.optionalpaybloggerid = optionalpaybloggerid;
+    }
+
+    public int getOptionalinvoiceid() {
+        return optionalinvoiceid;
+    }
+
+    public void setOptionalinvoiceid(int optionalinvoiceid) {
+        this.optionalinvoiceid = optionalinvoiceid;
     }
 }

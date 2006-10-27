@@ -56,7 +56,7 @@ public class PublicIndex {
 
     private void load(){
         if (dollarswaiting==null){
-            List results = HibernateUtil.getSession().createQuery("from Survey where status='"+ Survey.STATUS_OPEN+"'").list();
+            List results = HibernateUtil.getSession().createQuery("from Survey where status='"+ Survey.STATUS_OPEN +"'").list();
             double dollars = 0;
             for (Iterator iterator = results.iterator(); iterator.hasNext();) {
                 Survey survey = (Survey) iterator.next();

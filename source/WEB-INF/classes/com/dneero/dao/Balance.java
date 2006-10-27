@@ -26,6 +26,8 @@ public class Balance extends BasePersistentClass implements java.io.Serializable
      private double amt;
      private double currentbalance;
      private String description;
+     private int optionalpaybloggerid;
+     private int optionalinvoiceid;
 
 
     //Validator
@@ -123,5 +125,22 @@ public class Balance extends BasePersistentClass implements java.io.Serializable
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+
+    public int getOptionalpaybloggerid() {
+        return optionalpaybloggerid;
+    }
+
+    public void setOptionalpaybloggerid(int optionalpaybloggerid) {
+        this.optionalpaybloggerid = optionalpaybloggerid;
+    }
+
+    public int getOptionalinvoiceid() {
+        return optionalinvoiceid;
+    }
+
+    public void setOptionalinvoiceid(int optionalinvoiceid) {
+        this.optionalinvoiceid = optionalinvoiceid;
     }
 }

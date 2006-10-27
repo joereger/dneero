@@ -131,7 +131,7 @@ public class CreateInvoices implements Job {
                 }
 
                 //Update the account balance
-                MoveMoneyInAccountBalance.charge(User.get(researcher.getUserid()), invoice.getAmttotal(), "Invoice for: "+Time.dateformatfordb(Time.getCalFromDate(invoice.getStartdate()))+" to "+Time.dateformatfordb(Time.getCalFromDate(invoice.getEnddate())));
+                MoveMoneyInAccountBalance.charge(User.get(researcher.getUserid()), invoice.getAmttotal(), "Invoice for: "+Time.dateformatfordb(Time.getCalFromDate(invoice.getStartdate()))+" to "+Time.dateformatfordb(Time.getCalFromDate(invoice.getEnddate())), 0, invoice.getInvoiceid());
 
                 //Iterate Surveys
                 List<Survey> surveys = HibernateUtil.getSession().createQuery("from Survey where researcherid='"+researcher.getResearcherid()+"'").list();

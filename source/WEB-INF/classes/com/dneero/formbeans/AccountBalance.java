@@ -43,6 +43,8 @@ public class AccountBalance extends SortableList {
                 abli.setDate(Time.dateformatcompactwithtime(Time.getCalFromDate(balance.getDate())));
                 abli.setDescription(balance.getDescription());
                 abli.setUserid(balance.getUserid());
+                abli.setOptionalpaybloggerid(balance.getOptionalpaybloggerid());
+                abli.setOptionalinvoiceid(balance.getOptionalinvoiceid());
                 balances.add(abli);
             }
 

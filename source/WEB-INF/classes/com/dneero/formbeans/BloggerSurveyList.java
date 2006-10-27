@@ -68,8 +68,10 @@ public class BloggerSurveyList extends SortableList {
                 } else {
                     bsli.setDaysuntilend(daysleft + " days left!");
                 }
-
-                surveys.add(bsli);
+                //Only surveys blogger hasn't taken
+                if(!bloggerhasalreadytakensurvey){
+                    surveys.add(bsli);
+                }
 
             }
 

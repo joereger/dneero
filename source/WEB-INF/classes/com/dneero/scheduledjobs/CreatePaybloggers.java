@@ -92,7 +92,7 @@ public class CreatePaybloggers implements Job {
                 }
 
                 //Update the account balance
-                MoveMoneyInAccountBalance.pay(User.get(blogger.getUserid()), payblogger.getAmt(), "Payment for survey responses and blog impressions.");
+                MoveMoneyInAccountBalance.pay(User.get(blogger.getUserid()), payblogger.getAmt(), "Payment for survey responses and blog impressions.", payblogger.getPaybloggerid(), 0);
 
                 //Create revshare
                 //Start with the user who's getting paid

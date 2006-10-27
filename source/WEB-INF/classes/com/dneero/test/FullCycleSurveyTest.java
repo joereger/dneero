@@ -235,8 +235,8 @@ public class FullCycleSurveyTest {
     private void checkEarningsAsBlogger(Survey survey) throws Exception {
         //Should see that the money is coming my way
         boolean haveFoundEarningsForSurveyInTest = false;
-        BloggerEarnings bloggerEarnings = (BloggerEarnings)Jsf.getManagedBean("bloggerEarnings");
-        for (Iterator<BloggerEarningsListSurveys> iterator = bloggerEarnings.getList().iterator(); iterator.hasNext();){
+        BloggerCompletedsurveys bloggerCompletedsurveys = (BloggerCompletedsurveys)Jsf.getManagedBean("bloggerCompletedsurveys");
+        for (Iterator<BloggerEarningsListSurveys> iterator = bloggerCompletedsurveys.getList().iterator(); iterator.hasNext();){
             BloggerEarningsListSurveys bloggerEarningsListSurveys = iterator.next();
             if (bloggerEarningsListSurveys.getSurveyid()==survey.getSurveyid()){
                 haveFoundEarningsForSurveyInTest = true;

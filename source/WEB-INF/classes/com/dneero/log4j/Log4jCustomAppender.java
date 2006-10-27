@@ -62,14 +62,16 @@ public class Log4jCustomAppender extends AppenderSkeleton {
 //        }
 
         if (ApplicationStartup.getIsappstarted()){
-            try{
-                //-----------------------------------
-                //-----------------------------------
-                int identity = Db.RunSQLInsert("INSERT INTO error(error, level, status, date) VALUES('"+Str.cleanForSQL(errorMessageAsHtml.toString())+"', '"+event.getLevel().toInt()+"', '"+com.dneero.dao.Error.STATUS_NEW+"', '"+ Time.dateformatfordb(Calendar.getInstance())+"')", false);
-                //-----------------------------------
-                //-----------------------------------
-            } catch (Exception ex){
-                ex.printStackTrace();
+            if (event.getLevel()==Level.ERROR || event.getLevel()==Level.FATAL){
+                try{
+                    //-----------------------------------
+                    //-----------------------------------
+                    int identity = Db.RunSQLInsert("INSERT INTO error(error, level, status, date) VALUES('"+Str.cleanForSQL(errorMessageAsHtml.toString())+"', '"+event.getLevel().toInt()+"', '"+com.dneero.dao.Error.STATUS_NEW+"', '"+ Time.dateformatfordb(Calendar.getInstance())+"')", false);
+                    //-----------------------------------
+                    //-----------------------------------
+                } catch (Exception ex){
+                    ex.printStackTrace();
+                }
             }
         }
 

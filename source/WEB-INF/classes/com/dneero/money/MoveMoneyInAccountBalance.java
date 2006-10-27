@@ -14,8 +14,11 @@ import java.util.Date;
  */
 public class MoveMoneyInAccountBalance {
 
-
     public static void pay(User user, double amt, String desc){
+        pay(user, amt, desc, 0, 0);
+    }
+
+    public static void pay(User user, double amt, String desc, int optionalPaybloggerid, int optionalInvoiceid){
         Logger logger = Logger.getLogger(MoveMoneyInAccountBalance.class);
 
         Balance balance = new Balance();
@@ -24,10 +27,16 @@ public class MoveMoneyInAccountBalance {
         balance.setDescription(desc);
         balance.setCurrentbalance(CurrentBalanceCalculator.getCurrentBalance(user) + amt);
         balance.setUserid(user.getUserid());
+        balance.setOptionalpaybloggerid(optionalPaybloggerid);
+        balance.setOptionalinvoiceid(optionalInvoiceid);
         try{balance.save();}catch (Exception ex){logger.error(ex);}
     }
 
     public static void charge(User user, double amt, String desc){
+        charge(user, amt, desc, 0, 0);
+    }
+
+    public static void charge(User user, double amt, String desc, int optionalPaybloggerid, int optionalInvoiceid){
         Logger logger = Logger.getLogger(MoveMoneyInAccountBalance.class);
 
         Balance balance = new Balance();
@@ -36,6 +45,8 @@ public class MoveMoneyInAccountBalance {
         balance.setDescription(desc);
         balance.setCurrentbalance(CurrentBalanceCalculator.getCurrentBalance(user) - amt);
         balance.setUserid(user.getUserid());
+        balance.setOptionalpaybloggerid(optionalPaybloggerid);
+        balance.setOptionalinvoiceid(optionalInvoiceid);
         try{balance.save();}catch (Exception ex){logger.error(ex);}       
     }
 

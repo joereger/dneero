@@ -188,8 +188,8 @@
     </managed-bean>
 
     <managed-bean>
-        <managed-bean-name>bloggerEarnings</managed-bean-name>
-        <managed-bean-class>com.dneero.formbeans.BloggerEarnings</managed-bean-class>
+        <managed-bean-name>bloggerCompletedsurveys</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.BloggerCompletedsurveys</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
     <managed-bean>
@@ -530,8 +530,8 @@
             <to-view-id>/researcher/researchersurveydetail_01.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
-            <from-outcome>bloggerearnings</from-outcome>
-            <to-view-id>/blogger/bloggerearnings.xhtml</to-view-id>
+            <from-outcome>bloggercompletedsurveys</from-outcome>
+            <to-view-id>/blogger/bloggercompletedsurveys.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>bloggerearningssurvey</from-outcome>

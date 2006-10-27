@@ -153,7 +153,7 @@
             <group>surveyTriggers</group>
             <job-name>pendingToOpenSurveys</job-name>
             <job-group>surveyJobs</job-group>
-            <!-- every two minutes -->
+            <!-- every XX minutes -->
             <cron-expression>0 0/15 * * * ?</cron-expression>
           </cron>
         </trigger>
@@ -245,7 +245,9 @@
             <job-name>createPaybloggers</job-name>
             <job-group>surveyJobs</job-group>
             <!-- 12pm on the 15th of the month -->
-            <cron-expression>0 0 12 15 * ?</cron-expression>
+            <!--<cron-expression>0 0 12 15 * ?</cron-expression>-->
+            <!-- every XX minutes -->
+            <cron-expression>0 0/15 * * * ?</cron-expression>
           </cron>
         </trigger>
     </job>

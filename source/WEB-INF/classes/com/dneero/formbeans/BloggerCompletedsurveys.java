@@ -16,13 +16,13 @@ import java.util.*;
  * Date: Apr 21, 2006
  * Time: 10:38:03 AM
  */
-public class BloggerEarnings extends SortableList {
+public class BloggerCompletedsurveys extends SortableList {
 
     private ArrayList<BloggerEarningsListSurveys> list;
 
     Logger logger = Logger.getLogger(this.getClass().getName());
 
-    public BloggerEarnings(){
+    public BloggerCompletedsurveys(){
         super("title");
         UserSession userSession = Jsf.getUserSession();
         if (userSession.getUser()!=null && userSession.getUser().getBlogger()!=null){
