@@ -11,7 +11,7 @@ public class AccountBalancetransactionListItem {
 
      private int balancetransactionid;
      private int userid;
-     private String date;
+     private Date date;
      private boolean issuccessful;
      private String amt;
      private String description;
@@ -34,11 +34,12 @@ public class AccountBalancetransactionListItem {
         this.userid = userid;
     }
 
-    public String getDate() {
+
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 

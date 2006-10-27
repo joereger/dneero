@@ -40,7 +40,7 @@ public class AccountBalance extends SortableList {
                 abli.setAmt("$"+ Str.formatForMoney(balance.getAmt()));
                 abli.setBalanceid(balance.getBalanceid());
                 abli.setCurrentbalance("$"+ Str.formatForMoney(balance.getCurrentbalance()));
-                abli.setDate(Time.dateformatcompactwithtime(Time.getCalFromDate(balance.getDate())));
+                abli.setDate(balance.getDate());
                 abli.setDescription(balance.getDescription());
                 abli.setUserid(balance.getUserid());
                 abli.setOptionalpaybloggerid(balance.getOptionalpaybloggerid());

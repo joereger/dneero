@@ -1,6 +1,7 @@
 package com.dneero.formbeans;
 
 import com.dneero.util.Jsf;
+import com.dneero.util.Str;
 import com.dneero.dao.Researcher;
 import com.dneero.dao.Invoice;
 import com.dneero.dao.hibernate.HibernateUtil;
@@ -21,14 +22,18 @@ public class ResearcherInvoices {
     public ResearcherInvoices(){
         listitems = new ArrayList<ResearcherInvoicesListItem>();
         if (Jsf.getUserSession().getUser()!=null){
-            Researcher researcher = Jsf.getUserSession().getUser().getResearcher();
-            if (researcher!=null){
-                HibernateUtil.getSession().saveOrUpdate(researcher);
-                for (Iterator<Invoice> iterator = researcher.getInvoices().iterator(); iterator.hasNext();) {
-                    Invoice invoice = iterator.next();
-                    ResearcherInvoicesListItem researcherInvoicesListItem = new ResearcherInvoicesListItem();
-                    researcherInvoicesListItem.setInvoice(invoice);
-                    listitems.add(researcherInvoicesListItem);
+            if (Jsf.getUserSession().getUser().getResearcher()!=null){
+                List invoices = HibernateUtil.getSession().createQuery("from Invoice where researcherid='"+Jsf.getUserSession().getUser().getResearcher().getResearcherid()+"' order by invoiceid desc").list();
+                for (Iterator iterator = invoices.iterator(); iterator.hasNext();) {
+                    Invoice invoice = (Invoice) iterator.next();
+                    ResearcherInvoicesListItem item = new ResearcherInvoicesListItem();
+                    item.setInvoiceid(invoice.getInvoiceid());
+                    item.setStartdate(invoice.getStartdate());
+                    item.setEnddate(invoice.getEnddate());
+                    item.setAmtbase("$"+ Str.formatForMoney(invoice.getAmtbase()));
+                    item.setAmtdneero("$"+ Str.formatForMoney(invoice.getAmtdneero()));
+                    item.setAmttotal("$"+ Str.formatForMoney(invoice.getAmttotal()));
+                    listitems.add(item);
                 }
             }
         }

@@ -1,5 +1,7 @@
 package com.dneero.formbeans;
 
+import java.util.Date;
+
 
 /**
  * User: Joe Reger Jr
@@ -10,7 +12,7 @@ public class AccountBalanceListItem {
 
      private int balanceid;
      private int userid;
-     private String date;
+     private Date date;
      private String amt;
      private String currentbalance;
      private String description;
@@ -35,11 +37,11 @@ public class AccountBalanceListItem {
     }
 
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 

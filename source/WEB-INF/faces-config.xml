@@ -311,8 +311,14 @@
     </managed-bean>
 
     <managed-bean>
-        <managed-bean-name>ResearcherInvoices</managed-bean-name>
+        <managed-bean-name>researcherInvoices</managed-bean-name>
         <managed-bean-class>com.dneero.formbeans.ResearcherInvoices</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>researcherInvoiceDetail</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.ResearcherInvoiceDetail</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
 
@@ -664,6 +670,10 @@
         <navigation-case>
             <from-outcome>researcherinvoices</from-outcome>
             <to-view-id>/researcher/researcherinvoices.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>researcherinvoicedetail</from-outcome>
+            <to-view-id>/researcher/researcherinvoicedetail.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>emailactivationresend</from-outcome>

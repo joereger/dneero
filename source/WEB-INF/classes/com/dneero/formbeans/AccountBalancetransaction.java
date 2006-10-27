@@ -39,7 +39,7 @@ public class AccountBalancetransaction extends SortableList {
                 AccountBalancetransactionListItem abli = new AccountBalancetransactionListItem();
                 abli.setAmt("$"+ Str.formatForMoney(balance.getAmt()));
                 abli.setBalancetransactionid(balance.getBalancetransactionid());
-                abli.setDate(Time.dateformatcompactwithtime(Time.getCalFromDate(balance.getDate())));
+                abli.setDate(balance.getDate());
                 abli.setDescription(balance.getDescription());
                 abli.setNotes(balance.getNotes());
                 abli.setUserid(balance.getUserid());
