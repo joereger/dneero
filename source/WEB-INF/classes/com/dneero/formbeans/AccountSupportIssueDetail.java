@@ -7,10 +7,12 @@ import javax.faces.context.FacesContext;
 import com.dneero.dao.Blog;
 import com.dneero.dao.Supportissue;
 import com.dneero.dao.Supportissuecomm;
+import com.dneero.dao.User;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.session.UserSession;
 import com.dneero.util.Jsf;
 import com.dneero.util.GeneralException;
+import com.dneero.xmpp.SendXMPPMessage;
 
 import java.util.*;
 
@@ -79,6 +81,11 @@ public class AccountSupportIssueDetail {
             logger.debug("saveAction failed: " + gex.getErrorsAsSingleString());
             return null;
         }
+
+        //Notify sales group
+        Supportissue si = Supportissue.get(supportissueid);
+        SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_CUSTOMERSUPPORT, "New dNeero Customer Support Comment: "+si.getSubject()+" (supportissueid="+supportissueid+") ("+Jsf.getUserSession().getUser().getEmail()+") "+notes);
+        xmpp.send();
 
         return "accountsupportissuenewnotedone";
     }

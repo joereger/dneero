@@ -4,6 +4,7 @@ import com.dneero.dao.Supportissue;
 import com.dneero.dao.Supportissuecomm;
 import com.dneero.util.Jsf;
 import com.dneero.util.GeneralException;
+import com.dneero.xmpp.SendXMPPMessage;
 
 import java.util.Date;
 
@@ -49,6 +50,11 @@ public class AccountNewSupportIssue {
             logger.debug("newIssue failed: " + gex.getErrorsAsSingleString());
             return null;
         }
+
+        //Notify customer care group
+        SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_CUSTOMERSUPPORT, "New dNeero Customer Support Issue: "+supportissue.getSubject()+" (supportissueid="+supportissue.getSupportissueid()+") ("+Jsf.getUserSession().getUser().getEmail()+") "+notes);
+        xmpp.send();
+
         return "accountsupportissuenewdone";
     }
 

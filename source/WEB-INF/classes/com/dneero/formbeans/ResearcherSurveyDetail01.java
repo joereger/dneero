@@ -82,9 +82,11 @@ public class ResearcherSurveyDetail01 {
             Survey survey = new Survey();
             survey.setResearcherid(userSession.getUser().getResearcher().getResearcherid());
             survey.setStatus(Survey.STATUS_DRAFT);
+            boolean isnewsurvey = true;
             if (userSession.getCurrentSurveyid()>0){
                 logger.debug("saveSurvey() called: going to get Survey.get(surveyid)="+userSession.getCurrentSurveyid());
                 survey = Survey.get(userSession.getCurrentSurveyid());
+                isnewsurvey = false;
             }
 
             //Validation
@@ -121,7 +123,7 @@ public class ResearcherSurveyDetail01 {
                     return null;
                 }
 
-                if (userSession.getCurrentSurveyid()<=0){
+                if (isnewsurvey){
                     //Notify sales group
                     SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_SALES, "New dNeero Survey Started: "+ survey.getTitle()+" (surveyid="+survey.getSurveyid()+")");
                     xmpp.send();
