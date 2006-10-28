@@ -2,6 +2,7 @@ package com.dneero.formbeans;
 
 import com.dneero.dao.Survey;
 import com.dneero.util.Jsf;
+import com.dneero.xmpp.SendXMPPMessage;
 import org.apache.log4j.Logger;
 
 import javax.faces.context.FacesContext;
@@ -42,6 +43,11 @@ public class BloggerSurveyTake {
 
     public String takeSurvey(){
         logger.debug("takeSurvey() called");
+        if (Jsf.getUserSession().getUser()!=null){
+            //Notify debug group
+            SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_DEBUG, "dNeero Survey Taken: "+ survey.getTitle()+" (surveyid="+survey.getSurveyid()+") by "+Jsf.getUserSession().getUser().getFirstname()+" "+Jsf.getUserSession().getUser().getLastname()+" ("+Jsf.getUserSession().getUser().getEmail()+")");
+            xmpp.send();
+        }
         return "bloggersurveyposttoblog";
     }
 

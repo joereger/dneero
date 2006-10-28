@@ -6,6 +6,7 @@ import com.dneero.util.Jsf;
 import com.dneero.util.Str;
 import com.dneero.util.Time;
 import com.dneero.session.UserSession;
+import com.dneero.xmpp.SendXMPPMessage;
 import org.apache.log4j.Logger;
 
 import javax.faces.context.FacesContext;
@@ -118,6 +119,12 @@ public class ResearcherSurveyDetail01 {
                     String message = "saveSurvey() save failed: " + gex.getErrorsAsSingleString();
                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage( FacesMessage.SEVERITY_INFO, message, message));
                     return null;
+                }
+
+                if (userSession.getCurrentSurveyid()<=0){
+                    //Notify sales group
+                    SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_SALES, "New dNeero Survey Started: "+ survey.getTitle()+" (surveyid="+survey.getSurveyid()+")");
+                    xmpp.send();
                 }
 
                 //Refresh
