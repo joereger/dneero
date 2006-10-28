@@ -16,7 +16,7 @@
         <d:authorization acl="researcher" redirectonfail="true"/>
 
         <h:form>
-            <h:inputHidden value="#{researcherInvoiceDetail.invoiceid}" />
+            <t:saveState id="save" value="#{researcherInvoiceDetail}"/>
 
           <br/><br/>
           <font class="mediumfont">Survey Responses (#{researcherInvoiceDetail.numberofresponses})</font>
