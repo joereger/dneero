@@ -48,7 +48,7 @@ public class MoveMoneyInRealWorld {
                 balance.setAmt((-1)*amttocharge);
                 balance.setDate(new Date());
                 balance.setDescription(desc);
-                balance.setCurrentbalance(CurrentBalanceCalculator.getCurrentBalance(user) - amt);
+                balance.setCurrentbalance(CurrentBalanceCalculator.getCurrentBalance(user) - amttocharge);
                 balance.setUserid(user.getUserid());
                 try{balance.save();}catch (Exception ex){logger.error(ex);}
             }
@@ -109,7 +109,7 @@ public class MoveMoneyInRealWorld {
                 balance.setAmt(amttocharge);
                 balance.setDate(new Date());
                 balance.setDescription(desc);
-                balance.setCurrentbalance(CurrentBalanceCalculator.getCurrentBalance(user) + amt);
+                balance.setCurrentbalance(CurrentBalanceCalculator.getCurrentBalance(user) + amttocharge);
                 balance.setUserid(user.getUserid());
                 try{balance.save();}catch (Exception ex){logger.error(ex);}
             }

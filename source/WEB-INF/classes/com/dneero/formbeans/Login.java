@@ -12,6 +12,7 @@ import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.util.GeneralException;
 import com.dneero.util.Jsf;
 import com.dneero.session.UserSession;
+import com.dneero.xmpp.SendXMPPMessage;
 
 import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
@@ -47,6 +48,10 @@ public class Login {
             UserSession userSession = new UserSession();
             userSession.setUser(user);
             userSession.setIsloggedin(true);
+
+            //Notify customer care group
+            SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_DEBUG, "dNeero User Login: "+ user.getFirstname() + " " + user.getLastname() + " ("+user.getEmail()+")");
+            xmpp.send();
 
             FacesContext ctx = FacesContext.getCurrentInstance();
             ValueBinding binding = ctx.getApplication().createValueBinding("#{userSession}");

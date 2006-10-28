@@ -213,15 +213,15 @@ public class ResearcherSurveyDetail06 {
                 logger.debug("startdate.before(now)="+startdate.before(now));
                 logger.debug("startdate.after(now)="+startdate.after(now));
 
-
+                //Charge the card the initial 20% or whatever
+                double amttocharge =  maxpossiblespnd  * (CollectIncrementalSurveyFees.INCREMENTALPERCENTTOCHARGE/100);
+                MoveMoneyInRealWorld.charge(Jsf.getUserSession().getUser(), amttocharge);
 
                 if (startdate.before(now)){
                     survey.setStatus(Survey.STATUS_OPEN);
                 } else {
                     survey.setStatus(Survey.STATUS_WAITINGFORSTARTDATE);
                 }
-
-
 
                 try{
                     logger.debug("saveSurvey() about to save survey.getSurveyid()=" + survey.getSurveyid());
@@ -235,13 +235,10 @@ public class ResearcherSurveyDetail06 {
                 }
 
 
-
                 //Refresh
                 survey.refresh();
 
-                //Charge the card the initial 20% or whatever
-                double amttocharge =  maxpossiblespnd  * (CollectIncrementalSurveyFees.INCREMENTALPERCENTTOCHARGE);
-                MoveMoneyInRealWorld.charge(Jsf.getUserSession().getUser(), amttocharge);
+
             }
         }
 

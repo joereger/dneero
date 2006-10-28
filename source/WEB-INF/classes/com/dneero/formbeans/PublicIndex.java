@@ -5,6 +5,8 @@ import com.dneero.dao.Survey;
 import com.dneero.dao.Impressiondetail;
 import com.dneero.util.Time;
 import com.dneero.util.Str;
+import com.dneero.threadpool.ThreadPool;
+import com.dneero.xmpp.SendXMPPMessage;
 
 import java.util.List;
 import java.util.Iterator;
@@ -14,6 +16,7 @@ import java.text.NumberFormat;
 import java.text.DecimalFormat;
 
 import org.hibernate.criterion.Restrictions;
+import org.apache.log4j.Level;
 
 /**
  * User: Joe Reger Jr
@@ -27,6 +30,7 @@ public class PublicIndex {
     private String surveysServed30Days;
 
     public PublicIndex(){
+        //Load the homepage values
         load();
     }
 

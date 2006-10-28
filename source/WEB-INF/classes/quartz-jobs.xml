@@ -66,7 +66,7 @@
             <job-name>collectIncrementalSurveyFees</job-name>
             <job-group>surveyJobs</job-group>
             <!-- every x minutes -->
-            <cron-expression>0 0/5 * * * ?</cron-expression>
+            <cron-expression>0 0/30 * * * ?</cron-expression>
           </cron>
         </trigger>
     </job>

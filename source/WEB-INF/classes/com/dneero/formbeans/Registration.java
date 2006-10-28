@@ -13,6 +13,7 @@ import com.dneero.session.UserSession;
 import com.dneero.session.Roles;
 import com.dneero.email.EmailActivationSend;
 import com.dneero.money.PaymentMethod;
+import com.dneero.xmpp.SendXMPPMessage;
 import com.octo.captcha.service.CaptchaServiceException;
 
 import javax.faces.context.FacesContext;
@@ -102,6 +103,10 @@ public class Registration {
 
         //Send the activation email
         EmailActivationSend.sendActivationEmail(user);
+
+        //Notify customer care group
+        SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_CUSTOMERSUPPORT, "New dNeero User: "+ user.getFirstname() + " " + user.getLastname() + "("+user.getEmail()+")");
+        xmpp.send();
 
         //Log the user in
 //        UserSession userSession = Jsf.getUserSession();

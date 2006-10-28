@@ -17,6 +17,8 @@ import com.dneero.util.Str;
 import com.dneero.util.Time;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.startup.ApplicationStartup;
+import com.dneero.threadpool.ThreadPool;
+import com.dneero.xmpp.SendXMPPMessage;
 
 /**
  * User: Joe Reger Jr
@@ -76,16 +78,10 @@ public class Log4jCustomAppender extends AppenderSkeleton {
         }
 
         //XMPP (Instant Messages)
-        //@todo spin this XMPP send off in a thread... abstract all XMPP stuff to thread class
-//        if (event.getLevel()==Level.ERROR || event.getLevel()==Level.FATAL){
-//            try{
-//                XMPPConnection con = new XMPPConnection("jabber.org");
-//                con.login("dneeroserver", "dneerorules");
-//                con.createChat("joereger@jabber.org").sendMessage(errorMessage.toString());
-//            } catch (XMPPException xmppex){
-//                System.out.println("Couldn't send XMPP. "+xmppex.getMessage());
-//            }
-//        }
+        if (event.getLevel()==Level.ERROR || event.getLevel()==Level.FATAL){
+            SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_SYSADMINS, errorMessage.toString());
+            xmpp.send();
+        }
 
     }
     
