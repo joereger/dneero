@@ -1,7 +1,5 @@
 package com.dneero.money;
 
-import com.dneero.dao.User;
-
 /**
  * User: Joe Reger Jr
  * Date: Oct 11, 2006
@@ -13,8 +11,7 @@ public interface PaymentMethod {
     public static int PAYMENTMETHODMANUAL = 2;
     public static int PAYMENTMETHODPAYPAL = 3;
 
-    public void pay(User user, double amt);
-    public void charge(User user, double amt);
+    public void giveUserThisAmt();
     public boolean getIssuccessful();
     public String getNotes();
     public String getCorrelationid();

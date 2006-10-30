@@ -60,7 +60,6 @@ public class Verisign {
             String amtStr = formatter.format(amt);
 
             //Set the variables
-            //@todo handle charge/sale plus/minus on amt and trxtype
             props = new Hashtable();
             props.put("AMT", String.valueOf(amtStr));
             props.put("ACCT", String.valueOf(acct));

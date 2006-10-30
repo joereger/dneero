@@ -27,9 +27,15 @@ public class CloseSurveysByFundsAvailability implements Job {
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
         logger.debug("execute() CloseSurveysByFundsAvailability called");
 
-        List<Survey> surveys = HibernateUtil.getSession().createCriteria(Survey.class)
-                               .add( Restrictions.eq("status", Survey.STATUS_OPEN))
-                               .list();
+//        List<Survey> surveys = HibernateUtil.getSession().createCriteria(Survey.class)
+//                               .add( Restrictions.eq("status", Survey.STATUS_OPEN))
+//                               .list();
+
+        List surveys = HibernateUtil.getSession().createQuery("from Survey where "+
+                                                              "("+
+                                                              "status='"+Survey.STATUS_OPEN+"'"+
+                                                              "or status='"+Survey.STATUS_WAITINGFORSTARTDATE+"'"+
+                                                              ")").list();
 
         for (Iterator<Survey> iterator = surveys.iterator(); iterator.hasNext();) {
             Survey survey = iterator.next();

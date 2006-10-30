@@ -11,14 +11,16 @@ import com.dneero.dao.User;
 public class PaymentMethodManual extends PaymentMethodBase implements PaymentMethod {
     Logger logger = Logger.getLogger(this.getClass().getName());
 
-    public void pay(User user, double amt) {
+
+    public PaymentMethodManual(User user, double amt){
+        super(user, amt);
+    }
+
+    public void giveUserThisAmt() {
         notes = "Manual payment.";
         issuccessful = true;
     }
 
-    public void charge(User user, double amt) {
-        notes = "Manual charge.";
-        issuccessful = true;
-    }
+
 
 }

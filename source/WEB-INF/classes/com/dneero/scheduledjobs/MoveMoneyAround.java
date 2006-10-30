@@ -4,16 +4,14 @@ import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.apache.log4j.Logger;
-import org.hibernate.criterion.Restrictions;
 import com.dneero.dao.Survey;
 import com.dneero.dao.User;
 import com.dneero.dao.hibernate.HibernateUtil;
-import com.dneero.util.GeneralException;
 import com.dneero.money.CurrentBalanceCalculator;
 import com.dneero.money.MoveMoneyInRealWorld;
+import com.dneero.util.Jsf;
 
 import java.util.List;
-import java.util.Date;
 import java.util.Iterator;
 
 /**
@@ -50,12 +48,15 @@ public class MoveMoneyAround implements Job {
                                                                               "or status='"+Survey.STATUS_WAITINGFORSTARTDATE+"'"+
                                                                               ")").list();
                        if (surveys.size()==0){
-                            MoveMoneyInRealWorld.pay(user, currentbalance);   
+                            //Need to pay somebody
+                            MoveMoneyInRealWorld mmirw = new MoveMoneyInRealWorld(user, currentbalance);
+                            mmirw.move();
                        }
                     }
                 } else if (currentbalance<0){
                     //Need to collect from somebody
-                    MoveMoneyInRealWorld.charge(user, (-1)*currentbalance);
+                    MoveMoneyInRealWorld mmirw = new MoveMoneyInRealWorld(user, currentbalance);
+                    mmirw.move();
                 }
             }
         } catch (Exception ex){

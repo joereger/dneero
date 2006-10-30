@@ -18,6 +18,10 @@ public class SendXMPPMessage implements Runnable {
     private String message = "";
     private int grouptosendto = 0;
 
+    private static ThreadPool tp;
+
+    //Add and remove people from these notification groups.
+    //They will need to have an account on jabber.org
     public static int GROUP_SYSADMINS = 1;
     private String[] groupSYSADMINS = {"joereger@jabber.org"};
 
@@ -81,7 +85,9 @@ public class SendXMPPMessage implements Runnable {
 
 
     public void send(){
-        ThreadPool tp = new ThreadPool(1);
+        if (tp==null){
+            tp = new ThreadPool(15);
+        }
         tp.assign(this);
     }
 

@@ -12,7 +12,6 @@ import com.dneero.util.*;
 import com.dneero.session.UserSession;
 import com.dneero.finders.FindBloggersForSurvey;
 import com.dneero.money.PaymentMethod;
-import com.dneero.money.CurrentBalanceCalculator;
 import com.dneero.money.MoveMoneyInRealWorld;
 import com.dneero.scheduledjobs.CollectIncrementalSurveyFees;
 
@@ -215,7 +214,8 @@ public class ResearcherSurveyDetail06 {
 
                 //Charge the card the initial 20% or whatever
                 double amttocharge =  maxpossiblespnd  * (CollectIncrementalSurveyFees.INCREMENTALPERCENTTOCHARGE/100);
-                MoveMoneyInRealWorld.charge(Jsf.getUserSession().getUser(), amttocharge);
+                MoveMoneyInRealWorld mmirw = new MoveMoneyInRealWorld(Jsf.getUserSession().getUser(), (-1)*amttocharge);
+                mmirw.move();
 
                 if (startdate.before(now)){
                     survey.setStatus(Survey.STATUS_OPEN);

@@ -33,6 +33,8 @@
         <property name="correlationid" type="string">
             <column name="correlationid" not-null="true" />
         </property>
-
+        <property name="paymentmethod" type="int">
+            <column name="paymentmethod" not-null="true" />
+        </property>
     </class>
 </hibernate-mapping>

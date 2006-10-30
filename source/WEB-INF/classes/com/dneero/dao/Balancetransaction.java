@@ -27,6 +27,7 @@ public class Balancetransaction extends BasePersistentClass implements java.io.S
      private String notes;
      private String transactionid;
      private String correlationid;
+     private int paymentmethod;
 
     //Validator
     public void validateRegerEntity() throws GeneralException {
@@ -148,5 +149,13 @@ public class Balancetransaction extends BasePersistentClass implements java.io.S
 
     public void setCorrelationid(String correlationid) {
         this.correlationid = correlationid;
+    }
+
+    public int getPaymentmethod() {
+        return paymentmethod;
+    }
+
+    public void setPaymentmethod(int paymentmethod) {
+        this.paymentmethod = paymentmethod;
     }
 }

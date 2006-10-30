@@ -1,5 +1,7 @@
 package com.dneero.money;
 
+import com.dneero.dao.User;
+
 /**
  * User: Joe Reger Jr
  * Date: Oct 17, 2006
@@ -11,7 +13,13 @@ public class PaymentMethodBase {
     public String notes = "";
     public String transactionid = "";
     public String correlationid = "";
+    public User user;
+    public double amt;
 
+    public PaymentMethodBase(User user, double amt){
+        this.user = user;
+        this.amt = amt;
+    }
 
     public boolean getIssuccessful() {
         return issuccessful;

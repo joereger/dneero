@@ -11,7 +11,6 @@ import com.dneero.dao.User;
 import com.dneero.dao.Impression;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.money.CurrentBalanceCalculator;
-import com.dneero.money.MoveMoneyInRealWorld;
 import com.dneero.util.GeneralException;
 
 import java.util.List;

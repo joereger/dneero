@@ -20,7 +20,7 @@ public class TestRunner {
         StringBuffer out = new StringBuffer();
         out.append("Test run on: "+ Time.dateformatcompactwithtime(Calendar.getInstance())+"<br/>");
         //List of tests to be run
-        out.append(printFailures(runSingleTest(FullCycleSurveyTest.class)));
+        out.append(printFailures(runSingleTest(TestTest.class)));
         return out.toString();
     }
 

@@ -19,13 +19,18 @@ import java.util.Calendar;
 public class PaymentMethodCreditCard extends PaymentMethodBase implements PaymentMethod {
    Logger logger = Logger.getLogger(this.getClass().getName());
 
+   public PaymentMethodCreditCard(User user, double amt){
+        super(user, amt);
+   }
 
+    public void giveUserThisAmt() {
+    
+        if (amt>=0){
+            //@todo eventually I can just look up user's past transactions that were successful and do refunds
+            logger.error("Credit card can not pay people money (positive amt sent to giveUserThisAmt()) userid="+user.getUserid()+" amt="+amt);
+            return;
+        }
 
-    public void pay(User user, double amt) {
-        charge(user, (-1)*amt);
-    }
-
-    public void charge(User user, double amt) {
         logger.debug("---------- Credit Card Processing Start ----------");
         try{
             if (user.getChargemethodcreditcardid()>0){
@@ -80,7 +85,7 @@ public class PaymentMethodCreditCard extends PaymentMethodBase implements Paymen
 
                 BasicAmountType orderTotal = new BasicAmountType();
                 orderTotal.setCurrencyID(CurrencyCodeType.USD);
-                orderTotal.set_value(Str.formatForMoney(amt));
+                orderTotal.set_value(Str.formatForMoney((-1)*amt));
                 payment.setOrderTotal(orderTotal);
 
                 details.setPaymentDetails(payment);

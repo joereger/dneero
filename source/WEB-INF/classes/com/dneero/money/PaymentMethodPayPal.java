@@ -19,7 +19,19 @@ import java.util.Calendar;
 public class PaymentMethodPayPal extends PaymentMethodBase implements PaymentMethod  {
    Logger logger = Logger.getLogger(this.getClass().getName());
 
-    public void pay(User user, double amt) {
+
+    public PaymentMethodPayPal(User user, double amt){
+        super(user, amt);
+    }
+
+
+    public void giveUserThisAmt() {
+
+        if (amt<=0){
+            logger.error("PayPal can not charge people money (negative amt sent to giveUserThisAmt()) userid="+user.getUserid()+" amt="+amt);
+            return;
+        }
+
         try{
             CallerFactory callerFactory = new CallerFactory();
             CallerServices caller = callerFactory.getCaller();
@@ -82,11 +94,7 @@ public class PaymentMethodPayPal extends PaymentMethodBase implements PaymentMet
         }
     }
 
-    public void charge(User user, double amt) {
-        logger.error("Can't charge via PayPal... yet. userid="+user.getUserid()+" amt="+amt);
-        notes = "Can't charge money to a PayPal account.";
-        issuccessful = false;
-    }
+
 
 
 }

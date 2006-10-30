@@ -4,7 +4,6 @@ import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.apache.log4j.Logger;
-import org.hibernate.criterion.Restrictions;
 import com.dneero.dao.Survey;
 import com.dneero.dao.Researcher;
 import com.dneero.dao.User;
@@ -12,6 +11,7 @@ import com.dneero.dao.Impression;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.money.CurrentBalanceCalculator;
 import com.dneero.money.MoveMoneyInRealWorld;
+import com.dneero.util.Jsf;
 
 import java.util.List;
 import java.util.Iterator;
@@ -92,7 +92,8 @@ public class CollectIncrementalSurveyFees implements Job {
                 //Move the money
                 logger.debug("amttocharge:"+amttocharge+" to userid="+user.getUserid());
                 if (amttocharge>0){
-                    MoveMoneyInRealWorld.charge(user, amttocharge);
+                    MoveMoneyInRealWorld mmirw = new MoveMoneyInRealWorld(user, (-1)*amttocharge);
+                    mmirw.move();
                     //@todo email that card has been charged by incremental
                 }
             } else {
