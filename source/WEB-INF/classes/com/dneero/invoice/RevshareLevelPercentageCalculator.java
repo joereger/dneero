@@ -9,7 +9,7 @@ import org.apache.log4j.Logger;
  */
 public class RevshareLevelPercentageCalculator {
 
-    public static double REVSHARETOPPERCENT = 5;
+    public static double REVSHARETOPPERCENT = 3;
 
     public static double getPercentToShare(int level){
         Logger logger = Logger.getLogger(RevshareLevelPercentageCalculator.class);

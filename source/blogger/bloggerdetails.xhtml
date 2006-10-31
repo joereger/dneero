@@ -98,17 +98,7 @@
                     <h:message for="educationlevel" styleClass="RED"></h:message>
                 </h:panelGroup>
 
-                <h:panelGroup>
-                    <h:outputText value="State" styleClass="formfieldnamefont"></h:outputText>
-                </h:panelGroup>
-                <h:panelGroup>
-                    <h:selectOneMenu value="#{bloggerDetails.state}" id="state" layout="pageDirection" required="true">
-                        <f:selectItems value="#{states}"/>
-                    </h:selectOneMenu>
-                </h:panelGroup>
-                <h:panelGroup>
-                    <h:message for="state" styleClass="RED"></h:message>
-                </h:panelGroup>
+
 
                 <h:panelGroup>
                     <h:outputText value="City" styleClass="formfieldnamefont"></h:outputText>
@@ -120,6 +110,19 @@
                 </h:panelGroup>
                 <h:panelGroup>
                     <h:message for="city" styleClass="RED"></h:message>
+                </h:panelGroup>
+
+
+                <h:panelGroup>
+                    <h:outputText value="State" styleClass="formfieldnamefont"></h:outputText>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:selectOneMenu value="#{bloggerDetails.state}" id="state" layout="pageDirection" required="true">
+                        <f:selectItems value="#{states}"/>
+                    </h:selectOneMenu>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:message for="state" styleClass="RED"></h:message>
                 </h:panelGroup>
 
 

@@ -19,7 +19,7 @@
 <h:form>
 
 
-    <af:outputText value="There are currently no surveys that fit your profile.  Please check back soon as we're always adding new ones!" styleClass="mediumfont" rendered="#{empty bloggerSurveyList.surveys}"/>
+    <af:outputText value="There are currently no surveys that fit your profile.  Please check back soon as we're always adding new surveys!" styleClass="mediumfont" rendered="#{empty bloggerSurveyList.surveys}"/>
     <af:table value="#{bloggerSurveyList.surveys}" bandingInterval="2" rows="15" banding="row" var="srvy" rendered="#{!empty bloggerSurveyList.surveys}">
       <af:column rendered="false">
         <f:facet name="header">

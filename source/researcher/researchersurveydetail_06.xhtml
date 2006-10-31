@@ -60,14 +60,6 @@
         <h:panelGroup>
         </h:panelGroup>
 
-        <h:panelGroup>
-            <h:outputText value="Average Blogger Will Be Paid (Estimate)" styleClass="formfieldnamefont"></h:outputText>
-        </h:panelGroup>
-        <h:panelGroup>
-            <h:outputText value="#{researcherSurveyDetail06.averagebloggerwillbepaid}"></h:outputText>
-        </h:panelGroup>
-        <h:panelGroup>
-        </h:panelGroup>
 
         <h:panelGroup>
             <h:outputText value="Max Possible Payment for Survey Responses" styleClass="formfieldnamefont"></h:outputText>
@@ -289,11 +281,11 @@
 
 
     <f:verbatim><br/><br/></f:verbatim>
-    <font class="mediumfont">I understand that by saving and launching this survey I am committing to spending up to #{researcherSurveyDetail06.maxpossiblespend} although actual charges will be based only on activity.  I understand that 20% will be charged now and additional 20% charges will be made whenever my account balance dips below 10% of the maximum possible spend of this survey.</font>
+    <font class="mediumfont">I understand that by launching this survey I am committing to spending up to #{researcherSurveyDetail06.maxpossiblespend}, although actual charges will be based only on activity (survey responses and the display of surveys on blogs.)  I understand that 20% will be charged now. Additional charges will be made in 20% increments whenever my account balance falls below 10% of the sum of Max Possible Spend for all open surveys.  If your balance falls below 5% of the sum of Max Possible Spend values for all open surveys, then all surveys will be put on hold until your balance is increased.</font>
 
 
     <f:verbatim><br/><br/></f:verbatim>
-    <div class="surveyeditbuttonbox"><div class="surveyeditpreviousbutton"><h:commandButton action="researchersurveydetail_05" value="Previous Step" styleClass="formsubmitbutton"/></div><div class="surveyeditnextbutton"><h:commandButton action="#{researcherSurveyDetail06.saveSurvey}" value="Save and Finish" styleClass="formsubmitbutton" rendered="#{researcherSurveyDetail06.status le 2}"/><h:commandButton action="#{researcherSurveyDetail06.saveSurveyAsDraft}" value="Save as Draft" styleClass="formsubmitbutton" rendered="#{researcherSurveyDetail06.status le 2}"/></div></div>
+    <div class="surveyeditbuttonbox"><div class="surveyeditpreviousbutton"><h:commandButton action="researchersurveydetail_05" value="Previous Step" styleClass="formsubmitbutton"/></div><div class="surveyeditnextbutton"><h:commandButton action="#{researcherSurveyDetail06.saveSurveyAsDraft}" value="Save as Draft" styleClass="formsubmitbutton" rendered="#{researcherSurveyDetail06.status le 2}"/><h:commandButton action="#{researcherSurveyDetail06.saveSurvey}" value="Save and Launch" styleClass="formsubmitbutton" rendered="#{researcherSurveyDetail06.status le 2}"/></div></div>
 
 
 

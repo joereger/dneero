@@ -183,11 +183,6 @@ public class ResearcherSurveyDetail06 {
                 }
 
 
-
-
-
-
-
             }
         }
 
@@ -211,6 +206,8 @@ public class ResearcherSurveyDetail06 {
                 logger.debug("startdate="+Time.dateformatfordb(startdate));
                 logger.debug("startdate.before(now)="+startdate.before(now));
                 logger.debug("startdate.after(now)="+startdate.after(now));
+
+                //@todo Save credit card info and set creditcardid for user charge method
 
                 //Charge the card the initial 20% or whatever
                 double amttocharge =  maxpossiblespnd  * (CollectIncrementalSurveyFees.INCREMENTALPERCENTTOCHARGE/100);
