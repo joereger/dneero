@@ -3,6 +3,7 @@ package com.dneero.xmpp;
 import org.jivesoftware.smack.XMPPConnection;
 import org.jivesoftware.smack.XMPPException;
 import com.dneero.threadpool.ThreadPool;
+import com.dneero.systemprops.SystemProperty;
 
 /**
  * User: Joe Reger Jr
@@ -72,12 +73,14 @@ public class SendXMPPMessage implements Runnable {
         for (int i = 0; i < recipients.length; i++) {
             String recipient = recipients[i];
             if (!recipient.equals("")){
-                try{
-                    XMPPConnection con = new XMPPConnection(jabberserver);
-                    con.login(senderusername, senderpassword);
-                    con.createChat(recipient).sendMessage(message);
-                } catch (XMPPException xmppex){
-                    System.out.println("Couldn't send XMPP to "+recipient+": "+xmppex.getMessage());
+                if (SystemProperty.getProp(SystemProperty.PROP_SENDXMPP).equals("1")){
+                    try{
+                        XMPPConnection con = new XMPPConnection(jabberserver);
+                        con.login(senderusername, senderpassword);
+                        con.createChat(recipient).sendMessage(message);
+                    } catch (XMPPException xmppex){
+                        System.out.println("Couldn't send XMPP to "+recipient+": "+xmppex.getMessage());
+                    }
                 }
             }
         }

@@ -24,6 +24,7 @@
         <mapping resource="com/dneero/dao/Supportissue.hbm.xml" />
         <mapping resource="com/dneero/dao/Supportissuecomm.hbm.xml" />
         <mapping resource="com/dneero/dao/Survey.hbm.xml" />
+        <mapping resource="com/dneero/dao/Systemprop.hbm.xml" />
         <mapping resource="com/dneero/dao/User.hbm.xml" />
         <mapping resource="com/dneero/dao/Userrole.hbm.xml" />
 

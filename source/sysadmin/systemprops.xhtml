@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:t="http://myfaces.apache.org/tomahawk"
+      xmlns:d="http://dneero.com/taglib">
+
+<ui:composition template="/template/template-facelets.xhtml">
+    <ui:define name="title">SystemProps... Be Careful... You Can Break a Lot of Stuff Here<br/><br/></ui:define>
+    <ui:define name="body">
+        <d:authorization acl="systemadmin" redirectonfail="true"/>
+
+         <h:form>
+
+
+            <h:messages />
+            <h:panelGrid columns="3" cellpadding="3" border="0">
+
+                <h:panelGroup>
+                    <h:outputText value="Base Url" styleClass="formfieldnamefont"></h:outputText>
+                    <br/>
+                    <font class="tinyfont">The base url that this instance is installed at.  Include the trailing slash.  Ex: http://dneero.com/</font>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:inputText value="#{sysadminSystemProps.baseurl}" id="baseurl" required="true">
+                        <f:validateLength maximum="255"></f:validateLength>
+                    </h:inputText>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:message for="baseurl" styleClass="RED"></h:message>
+                </h:panelGroup>
+
+                <h:panelGroup>
+                    <h:outputText value="SendXMPP" styleClass="formfieldnamefont"></h:outputText>
+                    <br/>
+                    <font class="tinyfont">0 or 1.  Whether or not to send XMPP notifications from this installation.</font>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:inputText value="#{sysadminSystemProps.sendxmpp}" id="sendxmpp" required="true">
+                        <f:validateLength maximum="255"></f:validateLength>
+                    </h:inputText>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:message for="sendxmpp" styleClass="RED"></h:message>
+                </h:panelGroup>
+
+
+
+                <h:panelGroup>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <br/><br/>
+                    <h:commandButton action="#{sysadminSystemProps.saveProps}" value="Save System Props" styleClass="formsubmitbutton"></h:commandButton>
+                </h:panelGroup>
+                <h:panelGroup>
+                </h:panelGroup>
+
+            </h:panelGrid>
+
+         </h:form>
+
+    </ui:define>
+
+
+</ui:composition>
+</html>

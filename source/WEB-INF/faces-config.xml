@@ -440,6 +440,12 @@
     </managed-bean>
 
     <managed-bean>
+        <managed-bean-name>sysadminSystemProps</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.SysadminSystemProps</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
         <managed-bean-name>sysadminErrorList</managed-bean-name>
         <managed-bean-class>com.dneero.formbeans.SysadminErrorList</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
@@ -528,6 +534,10 @@
         <navigation-case>
             <from-outcome>sysadminhome</from-outcome>
             <to-view-id>/sysadmin/index.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>sysadminsystemprops</from-outcome>
+            <to-view-id>/sysadmin/systemprops.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>sysadminsurveylist</from-outcome>
