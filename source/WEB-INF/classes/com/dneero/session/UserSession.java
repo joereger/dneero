@@ -20,6 +20,7 @@ public class UserSession {
     private boolean isAllowedToResetPasswordBecauseHasValidatedByEmail = false;
     private int referredbyOnlyUsedForSignup = 0;
     private boolean isSysadmin = false;
+    private boolean isLoggedInToBeta = false;
 
     public UserSession(){
         //Used for anonymous access
@@ -79,5 +80,14 @@ public class UserSession {
 
     public void setSysadmin(boolean sysadmin) {
         isSysadmin = sysadmin;
+    }
+
+
+    public boolean getIsLoggedInToBeta() {
+        return isLoggedInToBeta;
+    }
+
+    public void setIsLoggedInToBeta(boolean isLoggedInToBeta) {
+        this.isLoggedInToBeta = isLoggedInToBeta;
     }
 }

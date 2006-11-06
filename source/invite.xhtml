@@ -11,17 +11,15 @@
 <ui:composition template="/template/template-facelets.xhtml">
     <ui:define name="title">Welcome!<br/><br/></ui:define>
     <ui:define name="body">
+    <d:authorization acl="public" redirectonfail="true"/>
 
 
-<h:form>
-    <h:outputText styleClass="largefont" value="#{inviteLandingPage.referredby} has invited you to make money with your blog!" rendered="#{!empty inviteLandingPage.referredby}"></h:outputText>
-    <h:outputText styleClass="largefont" value="You've been invited to make money with your blog!" rendered="#{empty inviteLandingPage.referredby}"></h:outputText>
-    <br/>
-    <h:commandLink action="registration" value="Click here to Sign Up!" styleClass="mediumfont"></h:commandLink>
-  
-
-
-</h:form>
+        <h:form>
+            <h:outputText styleClass="largefont" value="#{inviteLandingPage.referredby} has invited you to make money with your blog!" rendered="#{!empty inviteLandingPage.referredby}"></h:outputText>
+            <h:outputText styleClass="largefont" value="You've been invited to make money with your blog!" rendered="#{empty inviteLandingPage.referredby}"></h:outputText>
+            <br/>
+            <h:commandLink action="registration" value="Click here to Sign Up!" styleClass="mediumfont"></h:commandLink>
+        </h:form>
 
 
 </ui:define>

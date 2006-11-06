@@ -330,6 +330,12 @@
     </managed-bean>
 
     <managed-bean>
+        <managed-bean-name>loginToBeta</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.LoginToBeta</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
         <managed-bean-name>inviteLandingPage</managed-bean-name>
         <managed-bean-class>com.dneero.formbeans.InviteLandingPage</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
@@ -474,6 +480,10 @@
         <navigation-case>
             <from-outcome>login</from-outcome>
             <to-view-id>/login.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>logintobeta</from-outcome>
+            <to-view-id>/logintobeta.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>bloggerfaq</from-outcome>

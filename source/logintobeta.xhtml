@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:t="http://myfaces.apache.org/tomahawk"
+      xmlns:d="http://dneero.com/taglib">
+
+
+    <h:form id="login">
+
+        <center>
+
+        <img src="/images/dneero-site-placeholder.jpg"/>
+        <br/>
+
+
+
+        <h:panelGrid columns="3" cellpadding="3" border="0">
+
+
+            <h:panelGroup>
+                <font face="arial" size="-1"><b>Beta Password: </b></font>
+            </h:panelGroup>
+            <h:panelGroup>
+                <h:inputSecret value="#{loginToBeta.betapassword}" id="betapassword" required="true">
+                    <f:validateLength minimum="3" maximum="255"></f:validateLength>
+                </h:inputSecret>
+                <br/>
+                <h:message for="betapassword" styleClass="RED"></h:message>
+            </h:panelGroup>
+            <h:panelGroup>
+                <h:commandButton action="#{loginToBeta.login}" value="Let's Go!" styleClass="formsubmitbutton"/>
+            </h:panelGroup>
+
+
+        </h:panelGrid>
+
+        </center>
+
+        
+    </h:form>
+
+</html>

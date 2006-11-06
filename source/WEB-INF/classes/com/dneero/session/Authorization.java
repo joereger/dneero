@@ -41,12 +41,23 @@ public class Authorization extends UIComponentBase {
             redirectonfail = "true";
         }
 
+        //@todo Remove beta login check before going live... duh
+        if (!Jsf.getUserSession().getIsLoggedInToBeta()){
+            context.getExternalContext().redirect("/logintobeta.jsf");
+            return;
+        } else {
+            if (acl!=null && acl.equals("publiclogin")){
+                return;
+            }
+        }
+
+
         if (Jsf.getUserSession().getUser()!=null && !Jsf.getUserSession().getUser().getIsactivatedbyemail()){
             context.getExternalContext().redirect("/emailactivationwaiting.jsf");
             return;
         }
 
-        if (!acl.equals("") && !isAuthorized(context, acl)){
+        if (!isAuthorized(context, acl)){
             if (redirectonfail.equals("true")){
                 UserSession userSession = Jsf.getUserSession();
                 if (userSession!=null && userSession.getUser()!=null && userSession.getIsloggedin()){
@@ -72,12 +83,18 @@ public class Authorization extends UIComponentBase {
                     child.setRendered(false);
                 }
             }
+        } else {
+            logger.error("A page is calling Authorization.java without an acl set.");
         }
     }
 
     private boolean isAuthorized(FacesContext context, String acl)  throws IOException {
 
         UserSession userSession = Jsf.getUserSession();
+
+        if (acl!=null && acl.equals("public")){
+            return true;
+        }
 
         if (userSession.getUser()!=null){
 

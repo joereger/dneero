@@ -31,8 +31,7 @@ public class Login {
     Logger logger = Logger.getLogger(this.getClass().getName());
 
     public Login(){
-        logger.debug("Instanciating a NewSurvey object.");
-        //survey = new Survey();
+        logger.debug("Instanciating a Login object.");
     }
 
     public String login(){
@@ -48,6 +47,8 @@ public class Login {
             UserSession userSession = new UserSession();
             userSession.setUser(user);
             userSession.setIsloggedin(true);
+            //@todo Remove beta password set on login before going live... duh
+            userSession.setIsLoggedInToBeta(Jsf.getUserSession().getIsLoggedInToBeta());
 
             //Notify customer care group
             SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_DEBUG, "dNeero User Login: "+ user.getFirstname() + " " + user.getLastname() + " ("+user.getEmail()+")");

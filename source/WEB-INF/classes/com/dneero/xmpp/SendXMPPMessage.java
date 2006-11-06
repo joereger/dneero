@@ -23,16 +23,16 @@ public class SendXMPPMessage implements Runnable {
     //Add and remove people from these notification groups.
     //They will need to have an account on jabber.org
     public static int GROUP_SYSADMINS = 1;
-    private String[] groupSYSADMINS = {"joereger@jabber.org"};
+    private String[] groupSYSADMINS = {"joereger@jabber.org", "frogfire@jabber.com"};
 
     public static int GROUP_SALES = 2;
-    private String[] groupSALES = {"joereger@jabber.org"};
+    private String[] groupSALES = {"joereger@jabber.org", "frogfire@jabber.com"};
 
     public static int GROUP_CUSTOMERSUPPORT = 3;
-    private String[] groupCUSTOMERSUPPORT = {"joereger@jabber.org"};
+    private String[] groupCUSTOMERSUPPORT = {"joereger@jabber.org", "frogfire@jabber.com"};
 
     public static int GROUP_DEBUG = 4;
-    private String[] groupDEBUG = {"joereger@jabber.org"};
+    private String[] groupDEBUG = {"joereger@jabber.org", "frogfire@jabber.com"};
 
     public SendXMPPMessage(int grouptosendto, String message){
         this.grouptosendto = grouptosendto;

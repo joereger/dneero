@@ -5,11 +5,13 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:t="http://myfaces.apache.org/tomahawk">
+      xmlns:t="http://myfaces.apache.org/tomahawk"
+      xmlns:d="http://dneero.com/taglib">
 
 <ui:composition template="/template/template-facelets.xhtml">
     <ui:define name="title">Sign Up<br/><br/></ui:define>
     <ui:define name="body">
+    <d:authorization acl="public" redirectonfail="true"/>
 
         <h:form id="registrationForm">
             <h:panelGrid columns="3" cellpadding="3" border="0">
