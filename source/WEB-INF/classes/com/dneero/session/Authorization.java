@@ -83,8 +83,6 @@ public class Authorization extends UIComponentBase {
                     child.setRendered(false);
                 }
             }
-        } else {
-            logger.error("A page is calling Authorization.java without an acl set.");
         }
     }
 

@@ -15,16 +15,19 @@ public class SysadminSystemProps {
 
     public String baseurl;
     public String sendxmpp;
+    public String smtpoutboundserver;
 
     public SysadminSystemProps(){
         baseurl = SystemProperty.getProp(SystemProperty.PROP_BASEURL);
         sendxmpp = SystemProperty.getProp(SystemProperty.PROP_SENDXMPP);
+        smtpoutboundserver = SystemProperty.getProp(SystemProperty.PROP_SMTPOUTBOUNDSERVER);
     }
 
     public String saveProps(){
         try{
             SystemProperty.setProp(SystemProperty.PROP_BASEURL, baseurl);
             SystemProperty.setProp(SystemProperty.PROP_SENDXMPP, sendxmpp);
+            SystemProperty.setProp(SystemProperty.PROP_SMTPOUTBOUNDSERVER, smtpoutboundserver);
             Jsf.setFacesMessage("Save complete.");
         } catch (Exception ex){
             logger.error(ex);
@@ -48,5 +51,14 @@ public class SysadminSystemProps {
 
     public void setSendxmpp(String sendxmpp) {
         this.sendxmpp = sendxmpp;
+    }
+
+
+    public String getSmtpoutboundserver() {
+        return smtpoutboundserver;
+    }
+
+    public void setSmtpoutboundserver(String smtpoutboundserver) {
+        this.smtpoutboundserver = smtpoutboundserver;
     }
 }

@@ -17,10 +17,15 @@ public class SystemProperty {
     private static HashMap<String, String> props;
     private static HashMap<String, String> descriptions;
 
-    //Add new props here... and don't forget to edit the props jsf screen
+    //Things to do to add a prop:
+    //1) Add a public static var here
+    //2) Put the values into props and descriptions
+    //3) Edit /sysadmin/systemprops.xhtml to include input for the prop
+    //4) Edit /formbeans/SysadminSystemProps.java to include saving of the prop
 
     public static String PROP_BASEURL = "PROP_BASEURL";
     public static String PROP_SENDXMPP = "PROP_SENDXMPP";
+    public static String PROP_SMTPOUTBOUNDSERVER = "PROP_SMTPOUTBOUNDSERVER";
 
     private static void loadAllPropsAndDefaultValues(){
         if (props==null){
@@ -34,7 +39,12 @@ public class SystemProperty {
 
         props.put(PROP_SENDXMPP, "0");
         descriptions.put(PROP_SENDXMPP, "0 or 1.  Whether or not to send XMPP notifications from this installation.");        
+
+        props.put(PROP_SMTPOUTBOUNDSERVER, "localhost");
+        descriptions.put(PROP_SMTPOUTBOUNDSERVER, "Smtp server name or ip address to use to send email.  Default is 'localhost'");        
+
     }
+
 
 
     //Edits below this line not needed to add a prop
@@ -111,6 +121,11 @@ public class SystemProperty {
     }
 
 
+    public static HashMap<String, String> getProps() {
+        return props;
+    }
 
-
+    public static void setProps(HashMap<String, String> props) {
+        SystemProperty.props = props;
+    }
 }

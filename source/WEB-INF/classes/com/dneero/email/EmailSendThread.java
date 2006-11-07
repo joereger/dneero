@@ -11,15 +11,14 @@ import javax.mail.internet.MimeMultipart;
 import javax.activation.DataHandler;
 import java.util.Enumeration;
 
+import com.dneero.systemprops.SystemProperty;
+
 /**
  * Sends automates email subscription emails
  */
 public class EmailSendThread extends Thread {
 
     public HtmlEmail htmlEmail;
-
-    //@todo configurable outbound smtp host
-    public static String SMTPSERVER = "localhost";
     public static String DEFAULTFROM = "info@dneero.com";
 
     Logger logger = Logger.getLogger(this.getClass().getName());
@@ -36,7 +35,7 @@ public class EmailSendThread extends Thread {
     public void run() {
         try{
             logger.debug("Start sending htmlEmail subject:"+htmlEmail.getSubject());
-            htmlEmail.setHostName(SMTPSERVER);
+            htmlEmail.setHostName(SystemProperty.getProp(SystemProperty.PROP_SMTPOUTBOUNDSERVER));
             htmlEmail.send();
             logger.debug("End sending htmlEmail subject:"+htmlEmail.getSubject());
         } catch (Exception e){

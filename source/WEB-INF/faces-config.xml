@@ -67,6 +67,12 @@
     </component>
 
     <managed-bean>
+      <managed-bean-name>systemProperty</managed-bean-name>
+      <managed-bean-class>com.dneero.systemprops.SystemProperty</managed-bean-class>
+      <managed-bean-scope>application</managed-bean-scope>
+     </managed-bean>
+
+    <managed-bean>
         <managed-bean-name>registration</managed-bean-name>
         <managed-bean-class>com.dneero.formbeans.Registration</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
@@ -440,7 +446,7 @@
     </managed-bean>
 
     <managed-bean>
-        <managed-bean-name>sysadminSystemProps</managed-bean-name>
+        <managed-bean-name>systemProps</managed-bean-name>
         <managed-bean-class>com.dneero.formbeans.SysadminSystemProps</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>

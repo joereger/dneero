@@ -2,6 +2,7 @@ package com.dneero.email;
 
 import com.dneero.dao.User;
 import com.dneero.util.*;
+import com.dneero.systemprops.SystemProperty;
 
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
@@ -83,7 +84,10 @@ public class EmailTemplateProcessor {
             return user.getPassword();
         } else if (tag.equals("<$user.userid$>")){
             return String.valueOf(user.getUserid());
+        } else if (tag.equals("<$systemProps.baseurl$>")){
+            return SystemProperty.getProp(SystemProperty.PROP_BASEURL);
         }
+
 
         //<$args.1$> <$args.2$> <$args.3$>
         if (tag.indexOf("args")>-1){

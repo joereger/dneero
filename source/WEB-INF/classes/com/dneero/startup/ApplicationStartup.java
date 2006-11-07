@@ -1,8 +1,10 @@
 package com.dneero.startup;
 
 import com.dneero.util.WebAppRootDir;
+import com.dneero.util.Jsf;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.xmpp.SendXMPPMessage;
+import com.dneero.systemprops.SystemProperty;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -40,8 +42,10 @@ public class ApplicationStartup extends HttpServlet {
     public void init(ServletConfig config){
         //Configure some dir stuff
         WebAppRootDir ward = new WebAppRootDir(config);
+        //Set up hibernate
         HibernateUtil.getSession();
         isappstarted = true;
+        //Report
         logger.info("WebAppRootDir = " + WebAppRootDir.getWebAppRootPath());
         logger.info("dNeero Application started!  Let's make some dinero!");
         SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_SYSADMINS, "dNeero Application started!");

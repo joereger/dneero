@@ -54,9 +54,13 @@ public class Login {
             SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_DEBUG, "dNeero User Login: "+ user.getFirstname() + " " + user.getLastname() + " ("+user.getEmail()+")");
             xmpp.send();
 
-            FacesContext ctx = FacesContext.getCurrentInstance();
-            ValueBinding binding = ctx.getApplication().createValueBinding("#{userSession}");
-            binding.setValue(ctx, userSession);
+            Jsf.bindObjectToExpressionLanguage("#{userSession}", userSession);
+
+//            FacesContext ctx = FacesContext.getCurrentInstance();
+//            ValueBinding binding = ctx.getApplication().createValueBinding("#{userSession}");
+//            binding.setValue(ctx, userSession);
+
+
 
             return "success";
         }

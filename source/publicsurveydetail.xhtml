@@ -150,7 +150,7 @@
             <h:outputText value="Copy and paste the following into your blog to make even more money!" styleClass="mediumfont"/>
             <br/><br/>
             <d:roundedCornerBox uniqueboxname="posttoblog" bodycolor="ffffff" widthinpixels="500">
-            <font class="smallfont">&lt;script src="http://dneero.com/s?s=#{publicSurveyDetail.survey.surveyid}&amp;u=#{userSession.user.userid}"&gt;&lt;/script&gt;</font>
+            <font class="smallfont">&lt;script src="${systemProps.baseurl}s?s=#{publicSurveyDetail.survey.surveyid}&amp;u=#{userSession.user.userid}"&gt;&lt;/script&gt;</font>
             </d:roundedCornerBox>
         </t:panelTab>
     </t:panelTabbedPane>

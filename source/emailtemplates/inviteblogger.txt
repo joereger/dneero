@@ -1,6 +1,6 @@
 <$user.firstname$> <$user.lastname$> has invited to earn money with your blog by using dNeero.
 
-http://dneero.com/invite.jsf?referredby=<$user.userid$>
+<$systemProps.baseurl$>invite.jsf?referredby=<$user.userid$>
 
 Best,
 

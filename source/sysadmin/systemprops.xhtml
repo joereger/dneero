@@ -25,7 +25,7 @@
                     <font class="tinyfont">The base url that this instance is installed at.  Include the trailing slash.  Ex: http://dneero.com/</font>
                 </h:panelGroup>
                 <h:panelGroup>
-                    <h:inputText value="#{sysadminSystemProps.baseurl}" id="baseurl" required="true">
+                    <h:inputText value="#{systemProps.baseurl}" id="baseurl" required="true">
                         <f:validateLength maximum="255"></f:validateLength>
                     </h:inputText>
                 </h:panelGroup>
@@ -39,7 +39,7 @@
                     <font class="tinyfont">0 or 1.  Whether or not to send XMPP notifications from this installation.</font>
                 </h:panelGroup>
                 <h:panelGroup>
-                    <h:inputText value="#{sysadminSystemProps.sendxmpp}" id="sendxmpp" required="true">
+                    <h:inputText value="#{systemProps.sendxmpp}" id="sendxmpp" required="true">
                         <f:validateLength maximum="255"></f:validateLength>
                     </h:inputText>
                 </h:panelGroup>
@@ -48,12 +48,27 @@
                 </h:panelGroup>
 
 
+                <h:panelGroup>
+                    <h:outputText value="SmtpOutboundServer" styleClass="formfieldnamefont"></h:outputText>
+                    <br/>
+                    <font class="tinyfont">Smtp server name or ip address to use to send email.  Default is 'localhost'</font>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:inputText value="#{systemProps.smtpoutboundserver}" id="smtpoutboundserver" required="true">
+                        <f:validateLength maximum="255"></f:validateLength>
+                    </h:inputText>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:message for="smtpoutboundserver" styleClass="RED"></h:message>
+                </h:panelGroup>
+
+
 
                 <h:panelGroup>
                 </h:panelGroup>
                 <h:panelGroup>
                     <br/><br/>
-                    <h:commandButton action="#{sysadminSystemProps.saveProps}" value="Save System Props" styleClass="formsubmitbutton"></h:commandButton>
+                    <h:commandButton action="#{systemProps.saveProps}" value="Save System Props" styleClass="formsubmitbutton"></h:commandButton>
                 </h:panelGroup>
                 <h:panelGroup>
                 </h:panelGroup>

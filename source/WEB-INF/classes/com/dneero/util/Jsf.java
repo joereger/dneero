@@ -4,6 +4,7 @@ import com.dneero.session.UserSession;
 
 import javax.faces.context.FacesContext;
 import javax.faces.application.FacesMessage;
+import javax.faces.el.ValueBinding;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
@@ -23,6 +24,12 @@ public class Jsf {
             return out;
         }
         return null;
+    }
+
+    public static void bindObjectToExpressionLanguage(String elNameBoundTo, Object obj){
+        FacesContext ctx = FacesContext.getCurrentInstance();
+        ValueBinding binding = ctx.getApplication().createValueBinding(elNameBoundTo);
+        binding.setValue(ctx, obj);
     }
 
     public static void setFacesMessage(String message){
