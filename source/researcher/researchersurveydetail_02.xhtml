@@ -31,7 +31,7 @@
     <!-- Start Top -->
     <t:panelTabbedPane id="panel" bgcolor="#ffffff">
         <t:panelTab id="panel_a" label="Questions">
-            <h:graphicImage url="/images/clear.gif" width="550" height="1"/><br/>
+            <h:graphicImage url="/images/clear.gif" width="750" height="1"/><br/>
             <af:table value="#{researcherSurveyQuestionList.questions}" bandingInterval="2" rows="50" banding="row" var="question" rendered="#{!empty researcherSurveyQuestionList.questions}">
               <af:column>
                 <f:facet name="header">
@@ -86,7 +86,7 @@
             </h:commandButton>
         </t:panelTab>
         <t:panelTab id="panel_b" label="Preview the Survey">
-            <h:graphicImage url="/images/clear.gif" width="550" height="1"/><br/>
+            <h:graphicImage url="/images/clear.gif" width="750" height="1"/><br/>
             <f:verbatim>#{researcherSurveyDetail02.surveyForTakers}</f:verbatim>
         </t:panelTab>
     </t:panelTabbedPane>
