@@ -1,10 +1,4 @@
-body {
-    font-family: Verdana, Arial, Helvetica, sans-serif;
-    font-size: 12px;
-    font-weight: normal;
-    color: #000000;
-    background-color: #ffffff;
-}
+
 
 .tinyfont {
     font-family: Verdana, Arial, Helvetica, sans-serif;
@@ -158,4 +152,6 @@ input, textarea, select{
    font-weight:bold;
    font-size: 14px;    
 }
+
+
 

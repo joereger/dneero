@@ -14,6 +14,7 @@ import java.util.List;
 
 import com.dneero.dao.Userrole;
 import com.dneero.util.Jsf;
+import com.dneero.systemprops.SystemProperty;
 
 /**
  * User: Joe Reger Jr
@@ -41,8 +42,7 @@ public class Authorization extends UIComponentBase {
             redirectonfail = "true";
         }
 
-        //@todo Remove beta login check before going live... duh
-        if (!Jsf.getUserSession().getIsLoggedInToBeta()){
+        if (SystemProperty.getProp(SystemProperty.PROP_ISEVERYTHINGPASSWORDPROTECTED).equals("1") && !Jsf.getUserSession().getIsLoggedInToBeta()){
             context.getExternalContext().redirect("/logintobeta.jsf");
             return;
         } else {

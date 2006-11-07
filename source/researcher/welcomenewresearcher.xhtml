@@ -10,6 +10,7 @@
 
 <ui:composition template="/template/template-facelets.xhtml">
     <ui:define name="title">Welcome New Researcher!</ui:define>
+    <ui:param name="navtab" value="researchers"/>
     <ui:define name="body">
         <d:authorization acl="researcher" redirectonfail="true"/>
         <h:form>

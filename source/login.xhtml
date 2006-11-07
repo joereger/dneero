@@ -10,6 +10,7 @@
 
 <ui:composition template="/template/template-facelets.xhtml">
     <ui:define name="title">Log In<br/><br/></ui:define>
+    <ui:param name="navtab" value="home"/>
     <ui:define name="body">
     <d:authorization acl="publiclogin" redirectonfail="true"/>
         <h:form>

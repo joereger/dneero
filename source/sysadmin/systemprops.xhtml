@@ -10,6 +10,7 @@
 
 <ui:composition template="/template/template-facelets.xhtml">
     <ui:define name="title">SystemProps... Be Careful... You Can Break a Lot of Stuff Here<br/><br/></ui:define>
+    <ui:param name="navtab" value="sysadmin"/>
     <ui:define name="body">
         <d:authorization acl="systemadmin" redirectonfail="true"/>
 
@@ -60,6 +61,21 @@
                 </h:panelGroup>
                 <h:panelGroup>
                     <h:message for="smtpoutboundserver" styleClass="RED"></h:message>
+                </h:panelGroup>
+
+
+                <h:panelGroup>
+                    <h:outputText value="IsEverythingPasswordProtected" styleClass="formfieldnamefont"></h:outputText>
+                    <br/>
+                    <font class="tinyfont">0 or 1. Whether or not a password is required to see anything.  Used for beta capability.</font>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:inputText value="#{systemProps.iseverythingpasswordprotected}" id="iseverythingpasswordprotected" required="true">
+                        <f:validateLength maximum="255"></f:validateLength>
+                    </h:inputText>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:message for="iseverythingpasswordprotected" styleClass="RED"></h:message>
                 </h:panelGroup>
 
 

@@ -12,6 +12,7 @@
 
 <ui:composition template="/template/template-facelets.xhtml">
     <ui:define name="title">Earnings: #{bloggerEarningsSurvey.survey.title}<br/><br/></ui:define>
+    <ui:param name="navtab" value="bloggers"/>
     <ui:define name="body">
     <d:authorization acl="blogger" redirectonfail="true"/>
 

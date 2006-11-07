@@ -47,7 +47,6 @@ public class Login {
             UserSession userSession = new UserSession();
             userSession.setUser(user);
             userSession.setIsloggedin(true);
-            //@todo Remove beta password set on login before going live... duh
             userSession.setIsLoggedInToBeta(Jsf.getUserSession().getIsLoggedInToBeta());
 
             //Notify customer care group

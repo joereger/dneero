@@ -15,34 +15,26 @@ import org.apache.log4j.Logger;
 public class SystemProperty {
 
     private static HashMap<String, String> props;
-    private static HashMap<String, String> descriptions;
 
     //Things to do to add a prop:
     //1) Add a public static var here
-    //2) Put the values into props and descriptions
+    //2) Put the values into props
     //3) Edit /sysadmin/systemprops.xhtml to include input for the prop
     //4) Edit /formbeans/SysadminSystemProps.java to include saving of the prop
 
     public static String PROP_BASEURL = "PROP_BASEURL";
     public static String PROP_SENDXMPP = "PROP_SENDXMPP";
     public static String PROP_SMTPOUTBOUNDSERVER = "PROP_SMTPOUTBOUNDSERVER";
+    public static String PROP_ISEVERYTHINGPASSWORDPROTECTED = "PROP_ISEVERYTHINGPASSWORDPROTECTED";
 
     private static void loadAllPropsAndDefaultValues(){
         if (props==null){
             props = new HashMap<String, String>();
         }
-        if (descriptions==null){
-            descriptions = new HashMap<String, String>();
-        }
         props.put(PROP_BASEURL,"http://dneero.com/");
-        descriptions.put(PROP_BASEURL,"The base url that this instance is installed at.  Include the trailing slash.  Ex: http://dneero.com/");
-
         props.put(PROP_SENDXMPP, "0");
-        descriptions.put(PROP_SENDXMPP, "0 or 1.  Whether or not to send XMPP notifications from this installation.");        
-
         props.put(PROP_SMTPOUTBOUNDSERVER, "localhost");
-        descriptions.put(PROP_SMTPOUTBOUNDSERVER, "Smtp server name or ip address to use to send email.  Default is 'localhost'");        
-
+        props.put(PROP_ISEVERYTHINGPASSWORDPROTECTED, "0");
     }
 
 
@@ -82,12 +74,7 @@ public class SystemProperty {
         refreshAllProps();
     }
 
-    public static String getDescription(String name){
-        if (descriptions.containsKey(name)){
-            return descriptions.get(name);
-        }
-        return "";
-    }
+
 
     public static ArrayList<String> getAllPropertyNames(){
         ArrayList<String> out = new ArrayList<String>();
