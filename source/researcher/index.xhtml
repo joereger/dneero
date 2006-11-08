@@ -15,6 +15,8 @@
     <ui:define name="body">
     <d:authorization acl="public" redirectonfail="true"/>
 
+    <h:form>
+
     <c:if test="${!userSession.isloggedin}">
         <div style="margin: 15px;">
         Engage bloggers on their own turf for more accurate market data (<b>ethnographic research</b> - bloggers post to their blogs so you'll hear what they tell their peers about your product... not what they'll tell a researcher)
@@ -29,6 +31,12 @@
         <br/><br/>
         Customize the look of the survey to <b>include logos, product pictures, clickable links</b>, etc... survey taking meets guerilla marketing
         </div>
+
+        <br/>
+
+        <div style="width: 200px;"><d:greenRoundedButton pathtoapproot="../"><h:commandLink value="Read the Researcher FAQ" action="researcherfaq" styleClass="subnavfont" style="color: #ffffff;"/></d:greenRoundedButton></div>
+        <div style="width: 200px;"><d:greenRoundedButton pathtoapproot="../" rendered="#{!userSession.isloggedin}"><h:commandLink value="Sign Up Now" action="registration" styleClass="subnavfont" style="color: #ffffff;"/></d:greenRoundedButton></div>
+
     </c:if>
 
     <c:if test="userSession.isloggedin and (userSession.user.researcher eq null)">
@@ -47,6 +55,8 @@
         <br/><h:commandLink value="See My Invoices" action="researcherinvoices" styleClass="smallfont" style="padding-left: 25px;" rendered="#{userSession.isloggedin and (userSession.user.researcher ne null)}"/>
         <br/><br/>
     </c:if>
+
+    </h:form>
 
     </ui:define>
 

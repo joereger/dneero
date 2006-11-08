@@ -15,6 +15,7 @@
     <ui:define name="body">
     <d:authorization acl="public" redirectonfail="true"/>
 
+    <h:form>
 
     <c:if test="${!userSession.isloggedin}">
         <div style="margin: 15px;">
@@ -32,6 +33,12 @@
         <br/><br/>
         <b>Make money recruiting friends</b>: for one year after you recruit somebody to the system you get a percentage of their earnings and all earnings of people that they recruit
         </div>
+
+        <br/>
+
+        <div style="width: 200px;"><d:greenRoundedButton pathtoapproot="../"><h:commandLink value="Read the Blogger FAQ" action="bloggerfaq" styleClass="subnavfont" style="color: #ffffff;"/></d:greenRoundedButton></div>
+        <div style="width: 200px;"><d:greenRoundedButton pathtoapproot="../" rendered="#{!userSession.isloggedin}"><h:commandLink value="Sign Up Now" action="registration" styleClass="subnavfont" style="color: #ffffff;"/></d:greenRoundedButton></div>
+
     </c:if>
 
     <c:if test="userSession.isloggedin and (userSession.user.blogger eq null)">
@@ -53,7 +60,7 @@
     </c:if>
 
 
-
+    </h:form>
 
 
 

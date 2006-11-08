@@ -10,6 +10,12 @@
     font-size: 10px;
 }
 
+.subnavfont {
+    font-family: Tahoma, Geneva, sans-serif;
+    font-size: 10px;
+    font-weight: bolder;
+}
+
 .formfieldnamefont {
     font-family: Verdana, Arial, Helvetica, sans-serif;
     font-weight: bolder;
