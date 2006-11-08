@@ -13,9 +13,17 @@
 
             <table width="786" cellspacing="0" border="0" cellpadding="0">
                 <tr>
-                    <td valign="top" colspan="5">
+                    <td valign="top" colspan="2">
                         <img src="/images/clear.gif" width="10" height="1" align="left"/>
                         <img src="/images/dneero-logo.gif" width="200" height="94"/>
+                    </td>
+                    <td valign="top" style="text-align: right;" colspan="3">
+                        <c:if test="#{!userSession.isloggedin}">
+                            <div style="padding: 10px;"><font class="smallfont">Already have an account?&nbsp;&nbsp; <h:commandLink value="Log In" action="login" styleClass="smallfont"/></font></div>
+                        </c:if>
+                        <c:if test="#{userSession.isloggedin}">
+                            <div style="padding: 10px;"><font class="smallfont" style="margin: 10px;">Hi, ${userSession.user.firstname} ${userSession.user.lastname}!&nbsp;&nbsp; <h:commandLink value="Log Out" action="#{login.logout}" styleClass="smallfont"/></font></div>
+                        </c:if>
                     </td>
                 </tr>
                 <tr>
