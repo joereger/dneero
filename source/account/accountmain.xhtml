@@ -24,7 +24,7 @@
             <td width="50%" align="left" valign="top">
 
 
-                <font class="largefont">Pay for Blog</font>
+                <font class="largefont">For Researchers</font>
                 <br/>
                 <d:roundedCornerBox uniqueboxname="indexleft2" bodycolor="ffffff" widthinpixels="250" rendered="#{userSession.isloggedin and (userSession.user.researcher ne null)}">
                     <br/><h:commandLink value="Start a New Survey" action="#{researcherSurveyDetail01.beginViewNewSurvey}" styleClass="smallfont" style="padding-left: 25px;" rendered="#{userSession.isloggedin and (userSession.user.researcher ne null)}"/>
@@ -44,7 +44,7 @@
 
             </td>
             <td width="50%" align="left" valign="top">
-                <font class="largefont">Blog for Pay</font>
+                <font class="largefont">For Bloggers</font>
                 <br/>
                 <d:roundedCornerBox uniqueboxname="indexright2" bodycolor="ffffff" widthinpixels="250" rendered="#{userSession.isloggedin and (userSession.user.blogger ne null)}">
                     <br/><h:commandLink value="Find Surveys to Take" action="bloggersurveylist" styleClass="smallfont" style="padding-left: 25px;" rendered="#{userSession.isloggedin and (userSession.user.blogger ne null)}"/>

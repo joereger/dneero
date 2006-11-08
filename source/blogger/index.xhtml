@@ -6,15 +6,56 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:t="http://myfaces.apache.org/tomahawk"
-      xmlns:d="http://dneero.com/taglib">
+      xmlns:d="http://dneero.com/taglib"
+      xmlns:c="http://java.sun.com/jstl/core">
 
 <ui:composition template="/template/template-facelets.xhtml">
-    <ui:define name="title">Blogger Home<br/><br/></ui:define>
+    <ui:define name="title">For Bloggers<br/><br/></ui:define>
     <ui:param name="navtab" value="bloggers"/>
     <ui:define name="body">
-    <d:authorization acl="blogger" redirectonfail="true"/>
+    <d:authorization acl="public" redirectonfail="true"/>
 
-        Blogger Home.
+
+    <c:if test="${!userSession.isloggedin}">
+        <div style="margin: 15px;">
+        <b>Make money with your blog</b>
+        <br/><br/>
+        <b>Post positive or negative reviews... your blog is your own and we want unbiased, unbridled honesty</b>
+        <br/><br/>
+        <b>Works with any blogging system</b>
+        <br/><br/>
+        <b>You control which surveys to fill out</b> and what data to share (we recommend you stay with what you know and are passionate about)
+        <br/><br/>
+        Your pay is a combination of the flat fee per survey and the number of impressions that you generate for it... <b>more traffic to your blog equals more dollars</b>
+        <br/><br/>
+        <b>Quick and easy</b>: posting a survey is a single copy-and-paste operation
+        <br/><br/>
+        <b>Make money recruiting friends</b>: for one year after you recruit somebody to the system you get a percentage of their earnings and all earnings of people that they recruit
+        </div>
+    </c:if>
+
+    <c:if test="userSession.isloggedin and (userSession.user.blogger eq null)">
+        <center>
+        <img src="/images/alert.png" border="0"/>
+        <h:commandLink action="bloggerdetails"><font class="mediumfont">Get Started</font></h:commandLink>
+        <br/>
+        <font class="smallfont">Before you can make money blogging we need to collect a few pieces of information about you and your blog.  This will only take a minute or two.</font>
+        </center>
+    </c:if>
+
+    <c:if test="${userSession.isloggedin and (userSession.user.blogger ne null)}">
+        <br/><h:commandLink value="Find Surveys to Take" action="bloggersurveylist" styleClass="smallfont" style="padding-left: 25px;" rendered="#{userSession.isloggedin and (userSession.user.blogger ne null)}"/>
+        <br/><h:commandLink value="Update My Blogger Profile" action="bloggerdetails" styleClass="smallfont" style="padding-left: 25px;" rendered="#{userSession.isloggedin and (userSession.user.blogger ne null)}"/>
+        <br/><h:commandLink value="Add/Edit My Blogs" action="bloggerblogslist" styleClass="smallfont" style="padding-left: 25px;" rendered="#{userSession.isloggedin and (userSession.user.blogger ne null)}"/>
+        <br/><h:commandLink value="See My Earnings" action="bloggerearnings" styleClass="smallfont" style="padding-left: 25px;" rendered="#{userSession.isloggedin and (userSession.user.blogger ne null)}"/>
+        <br/><h:commandLink value="Earn Money Inviting Friends" action="bloggerearningsrevshare" styleClass="smallfont" style="padding-left: 25px;" rendered="#{userSession.isloggedin and (userSession.user.blogger ne null)}"/>
+        <br/><br/>
+    </c:if>
+
+
+
+
+
 
     </ui:define>
 </ui:composition>

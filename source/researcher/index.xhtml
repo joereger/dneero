@@ -6,15 +6,47 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:t="http://myfaces.apache.org/tomahawk"
-      xmlns:d="http://dneero.com/taglib">
+      xmlns:d="http://dneero.com/taglib"
+      xmlns:c="http://java.sun.com/jstl/core">
 
 <ui:composition template="/template/template-facelets.xhtml">
-    <ui:define name="title">Researcher Home</ui:define>
+    <ui:define name="title">For Researchers and Marketers<br/><br/></ui:define>
     <ui:param name="navtab" value="researchers"/>
     <ui:define name="body">
-        <d:authorization acl="researcher" redirectonfail="true"/>
+    <d:authorization acl="public" redirectonfail="true"/>
 
-    Let's get started.
+    <c:if test="${!userSession.isloggedin}">
+        <div style="margin: 15px;">
+        Engage bloggers on their own turf for more accurate market data (<b>ethnographic research</b> - bloggers post to their blogs so you'll hear what they tell their peers about your product... not what they'll tell a researcher)
+        <br/><br/>
+        Generate product awareness while you collect data (<b>market research meets marketing</b>)
+        <br/><br/>
+        Low risk, pay as you go: define max budget and <b>only pay for respondents and impressions that actually happen</b>
+        <br/><br/>
+        Quick and easy: <b>set up a campaign online in minutes</b>
+        <br/><br/>
+        <b>Full disclosure</b> that the blogger has been paid avoids sticky wickets, misrepresentation and other snafus
+        <br/><br/>
+        Customize the look of the survey to <b>include logos, product pictures, clickable links</b>, etc... survey taking meets guerilla marketing
+        </div>
+    </c:if>
+
+    <c:if test="userSession.isloggedin and (userSession.user.researcher eq null)">
+        <center>
+        <img src="/images/alert.png" border="0"/>
+        <h:commandLink action="researcherdetails"><font class="mediumfont">Get Started</font></h:commandLink>
+        <br/>
+        <font class="smallfont">Before you can do blogosphere research we need to collect a few pieces of information about you as a researcher.  This will only take a minute or two.</font>
+        </center>
+    </c:if>
+
+    <c:if test="${userSession.isloggedin and (userSession.user.researcher ne null)}">
+        <br/><h:commandLink value="Start a New Survey" action="#{researcherSurveyDetail01.beginViewNewSurvey}" styleClass="smallfont" style="padding-left: 25px;" rendered="#{userSession.isloggedin and (userSession.user.researcher ne null)}"/>
+        <br/><h:commandLink value="Update My Researcher Profile" action="researcherdetails" styleClass="smallfont" style="padding-left: 25px;" rendered="#{userSession.isloggedin and (userSession.user.researcher ne null)}"/>
+        <br/><h:commandLink value="See My Surveys" action="researchersurveylist" styleClass="smallfont" style="padding-left: 25px;" rendered="#{userSession.isloggedin and (userSession.user.researcher ne null)}"/>
+        <br/><h:commandLink value="See My Invoices" action="researcherinvoices" styleClass="smallfont" style="padding-left: 25px;" rendered="#{userSession.isloggedin and (userSession.user.researcher ne null)}"/>
+        <br/><br/>
+    </c:if>
 
     </ui:define>
 
