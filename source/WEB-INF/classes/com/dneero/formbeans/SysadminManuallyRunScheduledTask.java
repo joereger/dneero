@@ -74,16 +74,16 @@ public class SysadminManuallyRunScheduledTask {
         return "sysadminmanuallyrunscheduledtask";
     }
 
-    
-
-    public String runCloseSurveysByFundsAvailability(){
-        try{
-            ResearcherRemainingBalanceOperations task = new ResearcherRemainingBalanceOperations();
-            task.execute(null);} catch (Exception ex){logger.error(ex);}
-        return "sysadminmanuallyrunscheduledtask";
-    }
 
 
+
+
+    public String runResearcherRemainingBalanceOperations(){
+            try{
+                ResearcherRemainingBalanceOperations task = new ResearcherRemainingBalanceOperations();
+                task.execute(null);} catch (Exception ex){logger.error(ex);}
+            return "sysadminmanuallyrunscheduledtask";
+        }
 
 
 

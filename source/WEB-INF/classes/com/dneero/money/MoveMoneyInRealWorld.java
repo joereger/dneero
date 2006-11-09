@@ -93,7 +93,7 @@ public class MoveMoneyInRealWorld implements Runnable {
         //Only affect the account balance if the real-world transaction was successful
         if (pm.getIssuccessful()){
             Balance balance = new Balance();
-            balance.setAmt(amttogiveuser);
+            balance.setAmt((-1)*amttogiveuser);
             balance.setDate(new Date());
             balance.setDescription(desc);
             balance.setCurrentbalance(CurrentBalanceCalculator.getCurrentBalance(user) - amttogiveuser);
