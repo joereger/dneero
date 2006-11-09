@@ -9,67 +9,77 @@
       xmlns:d="http://dneero.com/taglib">
 
 <ui:composition template="/template/template-facelets.xhtml">
-    <ui:define name="title">What would you like to do today?<br/><br/></ui:define>
+    <ui:define name="title">Your Account<br/><br/></ui:define>
     <ui:param name="navtab" value="youraccount"/>
     <ui:define name="body">
     <d:authorization acl="account" redirectonfail="true"/>
 
 
-    <h:form>
 
 
-        <table cellpadding="0" cellspacing="0" border="0" width="100%">
-
+        <table cellpadding="20" cellspacing="0" border="0" width="100%">
         <tr>
-            <td width="50%" align="left" valign="top">
-
-
-                <font class="largefont">For Researchers</font>
-                <br/>
-                <d:roundedCornerBox uniqueboxname="indexleft2" bodycolor="ffffff" widthinpixels="250" rendered="#{userSession.isloggedin and (userSession.user.researcher ne null)}">
-                    <br/><h:commandLink value="Start a New Survey" action="#{researcherSurveyDetail01.beginViewNewSurvey}" styleClass="smallfont" style="padding-left: 25px;" rendered="#{userSession.isloggedin and (userSession.user.researcher ne null)}"/>
-                    <br/><h:commandLink value="Update My Researcher Profile" action="researcherdetails" styleClass="smallfont" style="padding-left: 25px;" rendered="#{userSession.isloggedin and (userSession.user.researcher ne null)}"/>
-                    <br/><h:commandLink value="See My Surveys" action="researchersurveylist" styleClass="smallfont" style="padding-left: 25px;" rendered="#{userSession.isloggedin and (userSession.user.researcher ne null)}"/>
-                    <br/><h:commandLink value="See My Invoices" action="researcherinvoices" styleClass="smallfont" style="padding-left: 25px;" rendered="#{userSession.isloggedin and (userSession.user.researcher ne null)}"/>
-                    <br/><br/>
-                </d:roundedCornerBox>
-                <d:roundedCornerBox uniqueboxname="researcherconfigneeded" bodycolor="ffffcc" widthinpixels="250" rendered="#{userSession.isloggedin and (userSession.user.researcher eq null)}">
-                    <center>
-                    <img src="/images/alert.png" border="0"/>
-                    <h:commandLink action="researcherdetails"><font class="mediumfont">Get Started</font></h:commandLink>
-                    <br/>
-                    <font class="smallfont">Before you can pay for blog we need to collect a few pieces of information about you.  This will only take a minute or two.</font>
-                    </center>
-                </d:roundedCornerBox>
-
+            <td width="33%" align="left" valign="top">
+                <h:form>
+                    <div><d:greenRoundedButton pathtoapproot="../"><h:commandLink value="Blogger" action="bloggerhome" styleClass="mediumfont" style="color: #ffffff;"/></d:greenRoundedButton></div>
+                    <div style="padding: 10px;">
+                        <font class="smallfont">You're a blogger or publisher interested in taking surveys, posting your answers to your blog and making money.</font>
+                        <br/>
+                        <h:commandLink value="Continue as a Blogger" action="bloggerhome" styleClass="subnavfont" style="color: #0000ff;"/>
+                    </div>
+                </h:form>
             </td>
-            <td width="50%" align="left" valign="top">
-                <font class="largefont">For Bloggers</font>
-                <br/>
-                <d:roundedCornerBox uniqueboxname="indexright2" bodycolor="ffffff" widthinpixels="250" rendered="#{userSession.isloggedin and (userSession.user.blogger ne null)}">
-                    <br/><h:commandLink value="Find Surveys to Take" action="bloggersurveylist" styleClass="smallfont" style="padding-left: 25px;" rendered="#{userSession.isloggedin and (userSession.user.blogger ne null)}"/>
-                    <br/><h:commandLink value="Update My Blogger Profile" action="bloggerdetails" styleClass="smallfont" style="padding-left: 25px;" rendered="#{userSession.isloggedin and (userSession.user.blogger ne null)}"/>
-                    <br/><h:commandLink value="Add/Edit My Blogs" action="bloggerblogslist" styleClass="smallfont" style="padding-left: 25px;" rendered="#{userSession.isloggedin and (userSession.user.blogger ne null)}"/>
-                    <br/><h:commandLink value="See My Earnings" action="bloggerearnings" styleClass="smallfont" style="padding-left: 25px;" rendered="#{userSession.isloggedin and (userSession.user.blogger ne null)}"/>
-                    <br/><h:commandLink value="Earn Money Inviting Friends" action="bloggerearningsrevshare" styleClass="smallfont" style="padding-left: 25px;" rendered="#{userSession.isloggedin and (userSession.user.blogger ne null)}"/>
-                    <br/><br/>
-                </d:roundedCornerBox>
-                <d:roundedCornerBox uniqueboxname="bloggerconfigneeded" bodycolor="ffffcc" widthinpixels="250" rendered="#{userSession.isloggedin and (userSession.user.blogger eq null)}">
-                    <center>
-                    <img src="/images/alert.png" border="0"/>
-                    <h:commandLink action="bloggerdetails"><font class="mediumfont">Get Started</font></h:commandLink>
-                    <br/>
-                    <font class="smallfont">Before you can blog for pay we need to collect a few pieces of information about you and your blog.  This will only take a minute or two.</font>
-                    </center>
-                </d:roundedCornerBox>
+            <td width="33%" align="left" valign="top">
+                <h:form>
+                    <div><d:greenRoundedButton pathtoapproot="../"><h:commandLink value="Researcher" action="researcherhome" styleClass="mediumfont" style="color: #ffffff;"/></d:greenRoundedButton></div>
+                    <div style="padding: 10px;">
+                        <font class="smallfont">You're a researcher interested in creating surveys, finding bloggers to respond to them and generating buzz for your product or service.</font>
+                        <br/>
+                        <h:commandLink value="Continue as a Researcher" action="researcherhome" styleClass="subnavfont" style="color: #0000ff;"/>
+                    </div>
+                </h:form>
+            </td>
+            <td width="33%" align="left" valign="top">
+                <h:form>
 
+
+                <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/arrow_r_32.gif" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/> 
+                    <h:commandLink value="Account Settings" action="accountsettings" styleClass="mediumfont" style="color: #999999;"/>
+                </td></tr>
+                <tr><td valign="top"></td><td valign="top">
+                    <font class="tinyfont">Change the name and/or email on your account.</font>
+                </td></tr></table>
+
+                <br/><br/>
+                <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/arrow_r_32.gif" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
+                    <h:commandLink value="Change Your Password" action="changepassword" styleClass="mediumfont" style="color: #999999;"/>
+                </td></tr>
+                <tr><td valign="top"></td><td valign="top">
+                    <font class="tinyfont">Change the password that you use to log in to your account.</font>
+                </td></tr></table>
+
+                <br/><br/>
+                <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/arrow_r_32.gif" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
+                    <h:commandLink value="Balance History" action="accountbalance" styleClass="mediumfont" style="color: #999999;"/>
+                </td></tr>
+                <tr><td valign="top"></td><td valign="top">
+                    <font class="tinyfont">See the earnings and charges made to your account.  View financial transactions including failed attempts to charge credit cards or pay you.  Payment processes update at staggered intervals so the latest survey that you took may not appear here for a day or so.</font>
+                </td></tr></table>
+
+                <br/><br/>
+                <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/arrow_r_32.gif" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
+                    <h:commandLink value="Help/Support" action="accountsupportissueslist" styleClass="mediumfont" style="color: #999999;"/>
+                </td></tr>
+                <tr><td valign="top"></td><td valign="top">
+                    <font class="tinyfont">Use the built-in issue and question tracking system to get help with your account.  Ask us anything and view our responses quickly and easily.</font>
+                </td></tr></table>
+
+
+                </h:form>
             </td>
         </tr>
     </table>
 
-
-
-    </h:form>
 
 </ui:define>
 

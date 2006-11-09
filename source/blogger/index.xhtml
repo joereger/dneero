@@ -51,12 +51,54 @@
     </c:if>
 
     <c:if test="${userSession.isloggedin and (userSession.user.blogger ne null)}">
-        <br/><h:commandLink value="Find Surveys to Take" action="bloggersurveylist" styleClass="smallfont" style="padding-left: 25px;" rendered="#{userSession.isloggedin and (userSession.user.blogger ne null)}"/>
-        <br/><h:commandLink value="Update My Blogger Profile" action="bloggerdetails" styleClass="smallfont" style="padding-left: 25px;" rendered="#{userSession.isloggedin and (userSession.user.blogger ne null)}"/>
-        <br/><h:commandLink value="Add/Edit My Blogs" action="bloggerblogslist" styleClass="smallfont" style="padding-left: 25px;" rendered="#{userSession.isloggedin and (userSession.user.blogger ne null)}"/>
-        <br/><h:commandLink value="See My Earnings" action="bloggerearnings" styleClass="smallfont" style="padding-left: 25px;" rendered="#{userSession.isloggedin and (userSession.user.blogger ne null)}"/>
-        <br/><h:commandLink value="Earn Money Inviting Friends" action="bloggerearningsrevshare" styleClass="smallfont" style="padding-left: 25px;" rendered="#{userSession.isloggedin and (userSession.user.blogger ne null)}"/>
+
+        <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/arrow_r_32.gif" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
+            <h:commandLink value="Find Surveys to Take" action="bloggersurveylist" styleClass="mediumfont" style="color: #999999;"/>
+        </td></tr>
+        <tr><td valign="top"></td><td valign="top">
+            <font class="tinyfont">Check back often to see new surveys that you qualify for.</font>
+        </td></tr></table>
+
         <br/><br/>
+        <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/arrow_r_32.gif" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
+            <h:commandLink value="Update My Blogger Profile" action="bloggerdetails" styleClass="mediumfont" style="color: #999999;"/>
+        </td></tr>
+        <tr><td valign="top"></td><td valign="top">
+            <font class="tinyfont">Your profile helps us find surveys that fit your interests.  Keep it up to date.</font>
+        </td></tr></table>
+
+        <br/><br/>
+        <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/arrow_r_32.gif" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
+            <h:commandLink value="Add/Edit My Blogs" action="bloggerblogslist" styleClass="mediumfont" style="color: #999999;"/>
+        </td></tr>
+        <tr><td valign="top"></td><td valign="top">
+            <font class="tinyfont">We need to know which blogs are yours so that we can pay you for survey displays on that blog.  Make sure that any blog you post a survey to is listed here.</font>
+        </td></tr></table>
+
+        <br/><br/>
+        <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/arrow_r_32.gif" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
+            <h:commandLink value="Earnings from Completed Surveys" action="bloggercompletedsurveys" styleClass="mediumfont" style="color: #999999;"/>
+        </td></tr>
+        <tr><td valign="top"></td><td valign="top">
+            <font class="tinyfont">See how much you've earned.</font>
+        </td></tr></table>
+
+        <br/><br/>
+        <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/arrow_r_32.gif" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
+            <h:commandLink value="Earn Money Inviting Friends" action="bloggerearningsrevshare" styleClass="mediumfont" style="color: #999999;"/>
+        </td></tr>
+        <tr><td valign="top"></td><td valign="top">
+            <font class="tinyfont">Invite friends and earn money when they take surveys!</font>
+        </td></tr></table>
+
+        <br/><br/>
+        <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/arrow_r_32.gif" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
+            <h:commandLink value="Blogger Frequently Asked Questions" action="bloggerfaq" styleClass="mediumfont" style="color: #999999;"/>
+        </td></tr>
+        <tr><td valign="top"></td><td valign="top">
+            <font class="tinyfont">Get your answers here!</font>
+        </td></tr></table>
+
     </c:if>
 
 

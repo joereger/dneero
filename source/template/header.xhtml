@@ -89,8 +89,8 @@
                         </c:if>
                         <c:if test="${navtab=='youraccount'}">
                             <h:commandLink value="Account Settings" action="accountsettings" style="padding-left: 15px;" styleClass="subnavfont" rendered="#{userSession.isloggedin}"/>
-                            <h:commandLink value="Change Password" action="changepassword" style="padding-left: 15px;" styleClass="subnavfont" rendered="#{userSession.isloggedin}"/>
-                            <h:commandLink value="Balance" action="accountbalance" style="padding-left: 15px;" styleClass="subnavfont" rendered="#{userSession.isloggedin}"/>
+                            <h:commandLink value="Change Your Password" action="changepassword" style="padding-left: 15px;" styleClass="subnavfont" rendered="#{userSession.isloggedin}"/>
+                            <h:commandLink value="Balance History" action="accountbalance" style="padding-left: 15px;" styleClass="subnavfont" rendered="#{userSession.isloggedin}"/>
                             <h:commandLink value="Help/Support" action="accountsupportissueslist" style="padding-left: 15px;" styleClass="subnavfont" rendered="#{userSession.isloggedin}"/>
                         </c:if>
                         <c:if test="${navtab=='sysadmin'}">
