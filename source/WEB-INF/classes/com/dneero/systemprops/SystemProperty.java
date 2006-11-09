@@ -26,6 +26,10 @@ public class SystemProperty {
     public static String PROP_SENDXMPP = "PROP_SENDXMPP";
     public static String PROP_SMTPOUTBOUNDSERVER = "PROP_SMTPOUTBOUNDSERVER";
     public static String PROP_ISEVERYTHINGPASSWORDPROTECTED = "PROP_ISEVERYTHINGPASSWORDPROTECTED";
+    public static String PROP_PAYPALAPIUSERNAME = "PROP_PAYPALAPIUSERNAME";
+    public static String PROP_PAYPALAPIPASSWORD = "PROP_PAYPALAPIPASSWORD";
+    public static String PROP_PAYPALSIGNATURE = "PROP_PAYPALSIGNATURE";
+    public static String PROP_PAYPALENVIRONMENT = "PROP_PAYPALENVIRONMENT";
 
     private static void loadAllPropsAndDefaultValues(){
         if (props==null){
@@ -35,6 +39,10 @@ public class SystemProperty {
         props.put(PROP_SENDXMPP, "0");
         props.put(PROP_SMTPOUTBOUNDSERVER, "localhost");
         props.put(PROP_ISEVERYTHINGPASSWORDPROTECTED, "0");
+        props.put(PROP_PAYPALAPIUSERNAME, "joe_api1.joereger.com");
+        props.put(PROP_PAYPALAPIPASSWORD, "HSUYQXF6UN9ULK9E");
+        props.put(PROP_PAYPALSIGNATURE, "AHK9lF0bFy62J27iS5lTA66dSQIVAUXbkCx4hysQRrfGIE9etQ9lIqlj");
+        props.put(PROP_PAYPALENVIRONMENT, "sandbox");
     }
 
 
@@ -57,19 +65,23 @@ public class SystemProperty {
     public static void setProp(String name, String value){
         Logger logger = Logger.getLogger(SystemProperty.class);
         //Update an existing prop from the database with the same name
+        boolean wasabletoupdate = false;
         List dbprops = HibernateUtil.getSession().createQuery("from Systemprop").list();
         for (Iterator iterator = dbprops.iterator(); iterator.hasNext();) {
             Systemprop systemprop = (Systemprop) iterator.next();
             if (systemprop.getName().equals(name)){
+                wasabletoupdate = true;
                 systemprop.setValue(value);
                 try{systemprop.save();}catch(Exception ex){logger.error(ex);}
             }
         }
-        //None exists in the database so create one
-        Systemprop systemprop = new Systemprop();
-        systemprop.setName(name);
-        systemprop.setValue(value);
-        try{systemprop.save();}catch(Exception ex){logger.error(ex);}
+        if (!wasabletoupdate){
+            //None exists in the database so create one
+            Systemprop systemprop = new Systemprop();
+            systemprop.setName(name);
+            systemprop.setValue(value);
+            try{systemprop.save();}catch(Exception ex){logger.error(ex);}
+        }
         //Now refresh
         refreshAllProps();
     }

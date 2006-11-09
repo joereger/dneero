@@ -77,6 +77,62 @@
                 <h:panelGroup>
                     <h:message for="iseverythingpasswordprotected" styleClass="RED"></h:message>
                 </h:panelGroup>
+                
+                <h:panelGroup>
+                    <h:outputText value="PayPalApiUsername" styleClass="formfieldnamefont"></h:outputText>
+                    <br/>
+                    <font class="tinyfont">PayPal API username.</font>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:inputText value="#{systemProps.paypalapiusername}" id="paypalapiusername" required="true">
+                        <f:validateLength maximum="255"></f:validateLength>
+                    </h:inputText>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:message for="paypalapiusername" styleClass="RED"></h:message>
+                </h:panelGroup>
+
+                <h:panelGroup>
+                    <h:outputText value="PayPalApiPassword" styleClass="formfieldnamefont"></h:outputText>
+                    <br/>
+                    <font class="tinyfont">PayPal API password.</font>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:inputText value="#{systemProps.paypalapipassword}" id="paypalapipassword" required="true">
+                        <f:validateLength maximum="255"></f:validateLength>
+                    </h:inputText>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:message for="paypalapipassword" styleClass="RED"></h:message>
+                </h:panelGroup>
+
+                <h:panelGroup>
+                    <h:outputText value="PayPalSignature" styleClass="formfieldnamefont"></h:outputText>
+                    <br/>
+                    <font class="tinyfont">PayPal signature.</font>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:inputText value="#{systemProps.paypalsignature}" id="paypalsignature" required="true">
+                        <f:validateLength maximum="255"></f:validateLength>
+                    </h:inputText>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:message for="paypalsignature" styleClass="RED"></h:message>
+                </h:panelGroup>
+
+                <h:panelGroup>
+                    <h:outputText value="PayPalEnvironment" styleClass="formfieldnamefont"></h:outputText>
+                    <br/>
+                    <font class="tinyfont">PayPal environment.  I.e. 'sandbox' or 'live'</font>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:inputText value="#{systemProps.paypalenvironment}" id="paypalenvironment" required="true">
+                        <f:validateLength maximum="255"></f:validateLength>
+                    </h:inputText>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:message for="paypalenvironment" styleClass="RED"></h:message>
+                </h:panelGroup>
 
 
 

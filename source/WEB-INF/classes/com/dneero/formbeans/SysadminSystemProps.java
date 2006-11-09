@@ -17,12 +17,20 @@ public class SysadminSystemProps {
     public String sendxmpp;
     public String smtpoutboundserver;
     public String iseverythingpasswordprotected;
+    public String paypalapiusername;
+    public String paypalapipassword;
+    public String paypalsignature;
+    public String paypalenvironment;
 
     public SysadminSystemProps(){
         baseurl = SystemProperty.getProp(SystemProperty.PROP_BASEURL);
         sendxmpp = SystemProperty.getProp(SystemProperty.PROP_SENDXMPP);
         smtpoutboundserver = SystemProperty.getProp(SystemProperty.PROP_SMTPOUTBOUNDSERVER);
         iseverythingpasswordprotected = SystemProperty.getProp(SystemProperty.PROP_ISEVERYTHINGPASSWORDPROTECTED);
+        paypalapiusername = SystemProperty.getProp(SystemProperty.PROP_PAYPALAPIUSERNAME);
+        paypalapipassword = SystemProperty.getProp(SystemProperty.PROP_PAYPALAPIPASSWORD);
+        paypalsignature = SystemProperty.getProp(SystemProperty.PROP_PAYPALSIGNATURE);
+        paypalenvironment = SystemProperty.getProp(SystemProperty.PROP_PAYPALENVIRONMENT);
     }
 
     public String saveProps(){
@@ -31,6 +39,10 @@ public class SysadminSystemProps {
             SystemProperty.setProp(SystemProperty.PROP_SENDXMPP, sendxmpp);
             SystemProperty.setProp(SystemProperty.PROP_SMTPOUTBOUNDSERVER, smtpoutboundserver);
             SystemProperty.setProp(SystemProperty.PROP_ISEVERYTHINGPASSWORDPROTECTED, iseverythingpasswordprotected);
+            SystemProperty.setProp(SystemProperty.PROP_PAYPALAPIUSERNAME, paypalapiusername);
+            SystemProperty.setProp(SystemProperty.PROP_PAYPALAPIPASSWORD, paypalapipassword);
+            SystemProperty.setProp(SystemProperty.PROP_PAYPALSIGNATURE, paypalsignature);
+            SystemProperty.setProp(SystemProperty.PROP_PAYPALENVIRONMENT, paypalenvironment);
             Jsf.setFacesMessage("Save complete.");
         } catch (Exception ex){
             logger.error(ex);
@@ -72,5 +84,38 @@ public class SysadminSystemProps {
 
     public void setIseverythingpasswordprotected(String iseverythingpasswordprotected) {
         this.iseverythingpasswordprotected = iseverythingpasswordprotected;
+    }
+
+
+    public String getPaypalapiusername() {
+        return paypalapiusername;
+    }
+
+    public void setPaypalapiusername(String paypalapiusername) {
+        this.paypalapiusername = paypalapiusername;
+    }
+
+    public String getPaypalapipassword() {
+        return paypalapipassword;
+    }
+
+    public void setPaypalapipassword(String paypalapipassword) {
+        this.paypalapipassword = paypalapipassword;
+    }
+
+    public String getPaypalsignature() {
+        return paypalsignature;
+    }
+
+    public void setPaypalsignature(String paypalsignature) {
+        this.paypalsignature = paypalsignature;
+    }
+
+    public String getPaypalenvironment() {
+        return paypalenvironment;
+    }
+
+    public void setPaypalenvironment(String paypalenvironment) {
+        this.paypalenvironment = paypalenvironment;
     }
 }

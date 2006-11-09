@@ -3,6 +3,7 @@ package com.dneero.money.paypal;
 import com.paypal.sdk.services.CallerServices;
 import com.paypal.sdk.profiles.ProfileFactory;
 import com.paypal.sdk.profiles.APIProfile;
+import com.dneero.systemprops.SystemProperty;
 import org.apache.log4j.Logger;
 
 /**
@@ -23,10 +24,10 @@ public class CallerFactory {
         caller = new CallerServices();
         try{
             APIProfile profile = ProfileFactory.createSignatureAPIProfile();
-            profile.setAPIUsername("joe_api1.joereger.com");
-            profile.setAPIPassword("HSUYQXF6UN9ULK9E");
-            profile.setSignature("AHK9lF0bFy62J27iS5lTA66dSQIVAUXbkCx4hysQRrfGIE9etQ9lIqlj");
-            profile.setEnvironment("sandbox");
+            profile.setAPIUsername(SystemProperty.getProp(SystemProperty.PROP_PAYPALAPIUSERNAME));
+            profile.setAPIPassword(SystemProperty.getProp(SystemProperty.PROP_PAYPALAPIPASSWORD));
+            profile.setSignature(SystemProperty.getProp(SystemProperty.PROP_PAYPALSIGNATURE));
+            profile.setEnvironment(SystemProperty.getProp(SystemProperty.PROP_PAYPALENVIRONMENT));
             caller.setAPIProfile(profile);
         } catch (Exception ex){
             logger.error(ex);

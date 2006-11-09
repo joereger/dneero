@@ -13,7 +13,7 @@ import com.dneero.session.UserSession;
 import com.dneero.finders.FindBloggersForSurvey;
 import com.dneero.money.PaymentMethod;
 import com.dneero.money.MoveMoneyInRealWorld;
-import com.dneero.scheduledjobs.CollectIncrementalSurveyFees;
+import com.dneero.scheduledjobs.ResearcherRemainingBalanceOperations;
 
 /**
  * User: Joe Reger Jr
@@ -210,7 +210,7 @@ public class ResearcherSurveyDetail06 {
                 //@todo Save credit card info and set creditcardid for user charge method
 
                 //Charge the card the initial 20% or whatever
-                double amttocharge =  maxpossiblespnd  * (CollectIncrementalSurveyFees.INCREMENTALPERCENTTOCHARGE/100);
+                double amttocharge =  maxpossiblespnd  * (ResearcherRemainingBalanceOperations.INCREMENTALPERCENTTOCHARGE/100);
                 MoveMoneyInRealWorld mmirw = new MoveMoneyInRealWorld(Jsf.getUserSession().getUser(), (-1)*amttocharge);
                 mmirw.move();
 
