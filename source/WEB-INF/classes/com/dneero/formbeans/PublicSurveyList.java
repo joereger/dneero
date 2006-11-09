@@ -28,6 +28,11 @@ public class PublicSurveyList extends SortableList {
         //Go get the surveys from the database
         //surveys = HibernateUtil.getSession().createQuery("from Survey").list();
 
+        //Can't get to this list if you're logged in because this list isn't specific to you
+        if (Jsf.getUserSession().getIsloggedin()){
+            try{Jsf.redirectResponse("/index.jsf"); return;} catch (Exception ex){logger.error(ex);};
+        }
+
 
         surveys = new ArrayList<BloggerSurveyListItem>();
         List results = HibernateUtil.getSession().createQuery("from Survey where status='"+Survey.STATUS_OPEN+"' order by willingtopayperrespondent desc").list();

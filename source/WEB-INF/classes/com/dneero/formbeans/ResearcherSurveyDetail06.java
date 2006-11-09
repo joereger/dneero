@@ -101,7 +101,7 @@ public class ResearcherSurveyDetail06 {
                 maxspend =maxresppay + maximppay;
                 maxincentive = "$"+Str.formatForMoney(maxspend);
 
-                dfee = maxspend * .2;
+                dfee = maxspend * .25;
                 dneerofee = "$"+Str.formatForMoney(dfee);
 
                 maxpossiblespnd = maxspend + dfee;

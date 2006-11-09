@@ -6,7 +6,8 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:t="http://myfaces.apache.org/tomahawk"
-      xmlns:d="http://dneero.com/taglib">
+      xmlns:d="http://dneero.com/taglib"
+      xmlns:c="http://java.sun.com/jstl/core">
 
 <ui:composition template="/template/template-facelets.xhtml">
     <ui:define name="title"></ui:define>
@@ -34,12 +35,13 @@
 
        <tr>
             <td align="left" valign="top">
-                <br/><br/>
-                <a href='/publicsurveylist.jsf'>
-                    <img src="/images/surveys-hp.gif" alt="" border="0"/>
-                </a>
-                <div style="text-align: left;">
-                <blockquote>
+                <c:if test="#{!userSession.isloggedin}">
+                    <br/><br/>
+                    <a href='/publicsurveylist.jsf'>
+                        <img src="/images/surveys-hp.gif" alt="" border="0"/>
+                    </a>
+                </c:if>
+                <div style="padding: 15px;">
                 <font class="smallfont">
                     <img src="/images/redbutton-disclosure.gif" align="left"/> All blog posts must disclose the fact that the blogger was paid to take the survey.  This ensures that the balance of trust in the blogosphere remains controlled by bloggers and their readers.  dNeero is dedicated to a free, excited and motivated blogosphere.  We want to bring researchers and marketers to the party and we want them to thrive, but we need to make sure they don't burn the couch before they go.
                     <br/><br clear="all"/>
@@ -47,12 +49,11 @@
                     <br/><br clear="all"/>
                     <img src="/images/redbutton-twoway.gif" align="left"/> Unlike other pay-for-blog schemes dNeero is a two-way process.  We'll stop short of claiming full Cluetrain credentials.  But the fact is that a researcher generates exposure and collects information from a market at the same time.  This is a first step to lowering the walls between the marketing department and the market research department.  dNeero believes that in the digital age outbound messaging and inbound communication should be united.  We didn't make this stuff up... go read Cluetrain.
                 </font>
-                </blockquote>
                 </div>
             </td>
             <td align="left" valign="top">
                 <br/><br/>
-                <blockquote>
+                <div style="padding: 15px;">
                 <font class="largefont">#{publicIndex.dollarswaiting}</font>
                 <br/>
                 <font class="mediumfont">waiting to be earned by bloggers!</font>
@@ -64,7 +65,7 @@
                 <font class="largefont">#{publicIndex.surveysServed30Days}</font>
                 <br/>
                 <font class="mediumfont">survey results displayed in blogs over last 30 days</font>
-                </blockquote>
+                </div>
             </td>
         </tr>
 

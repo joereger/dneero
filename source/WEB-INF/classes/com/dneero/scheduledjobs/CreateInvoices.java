@@ -119,7 +119,7 @@ public class CreateInvoices implements Job {
                 invoice.setEnddate(endDate.getTime());
                 invoice.setResearcherid(researcher.getResearcherid());
                 double amtbase = amt;
-                double amtdneero = amtbase + (amtbase*.2);
+                double amtdneero = amtbase + (amtbase*.25);
                 double amttotal = amtbase + amtdneero;
                 invoice.setAmtbase(amtbase);
                 invoice.setAmtdneero(amtdneero);

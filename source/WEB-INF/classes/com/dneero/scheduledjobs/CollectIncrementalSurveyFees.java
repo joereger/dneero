@@ -51,7 +51,7 @@ public class CollectIncrementalSurveyFees implements Job {
             double maxresppay = (survey.getWillingtopayperrespondent() * survey.getNumberofrespondentsrequested());
             double maximppay = ((survey.getWillingtopaypercpm()*survey.getMaxdisplaystotal())/1000);
             double maxspend =maxresppay + maximppay;
-            double dfee = maxspend * .2;
+            double dfee = maxspend * .25;
             double maxpossiblespnd = maxspend + dfee;
             int responsesalready = survey.getResponses().size();
             double spentonresponsesalready = survey.getWillingtopayperrespondent() * responsesalready;
