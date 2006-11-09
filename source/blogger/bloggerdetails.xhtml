@@ -55,7 +55,7 @@
                     <h:outputText value="Ethnicity" styleClass="formfieldnamefont"></h:outputText>
                 </h:panelGroup>
                 <h:panelGroup>
-                    <h:selectOneMenu value="#{bloggerDetails.ethnicity}" id="ethnicity" layout="pageDirection" required="true">
+                    <h:selectOneMenu value="#{bloggerDetails.ethnicity}" id="ethnicity" required="true">
                         <f:selectItems value="#{ethnicities}"/>
                     </h:selectOneMenu>
                 </h:panelGroup>
@@ -79,7 +79,7 @@
                     <h:outputText value="Income" styleClass="formfieldnamefont"></h:outputText>
                 </h:panelGroup>
                 <h:panelGroup>
-                    <h:selectOneMenu value="#{bloggerDetails.income}" id="income" layout="pageDirection" required="true">
+                    <h:selectOneMenu value="#{bloggerDetails.income}" id="income" required="true">
                         <f:selectItems value="#{incomes}"/>
                     </h:selectOneMenu>
                 </h:panelGroup>
@@ -91,7 +91,7 @@
                     <h:outputText value="Education" styleClass="formfieldnamefont"></h:outputText>
                 </h:panelGroup>
                 <h:panelGroup>
-                    <h:selectOneMenu value="#{bloggerDetails.educationlevel}" id="educationlevel" layout="pageDirection" required="true">
+                    <h:selectOneMenu value="#{bloggerDetails.educationlevel}" id="educationlevel" required="true">
                         <f:selectItems value="#{educationlevels}"/>
                     </h:selectOneMenu>
                 </h:panelGroup>
@@ -105,7 +105,7 @@
                     <h:outputText value="City" styleClass="formfieldnamefont"></h:outputText>
                 </h:panelGroup>
                 <h:panelGroup>
-                    <h:selectOneMenu value="#{bloggerDetails.city}" id="city" layout="pageDirection" required="true">
+                    <h:selectOneMenu value="#{bloggerDetails.city}" id="city" required="true">
                         <f:selectItems value="#{cities}"/>
                     </h:selectOneMenu>
                 </h:panelGroup>
@@ -118,7 +118,7 @@
                     <h:outputText value="State" styleClass="formfieldnamefont"></h:outputText>
                 </h:panelGroup>
                 <h:panelGroup>
-                    <h:selectOneMenu value="#{bloggerDetails.state}" id="state" layout="pageDirection" required="true">
+                    <h:selectOneMenu value="#{bloggerDetails.state}" id="state" required="true">
                         <f:selectItems value="#{states}"/>
                     </h:selectOneMenu>
                 </h:panelGroup>
@@ -131,7 +131,7 @@
                     <h:outputText value="Profession" styleClass="formfieldnamefont"></h:outputText>
                 </h:panelGroup>
                 <h:panelGroup>
-                    <h:selectOneMenu value="#{bloggerDetails.profession}" id="profession" layout="pageDirection" required="true">
+                    <h:selectOneMenu value="#{bloggerDetails.profession}" id="profession" required="true">
                         <f:selectItems value="#{professions}"/>
                     </h:selectOneMenu>
                 </h:panelGroup>
@@ -145,7 +145,7 @@
                     <h:outputText value="Politics" styleClass="formfieldnamefont"></h:outputText>
                 </h:panelGroup>
                 <h:panelGroup>
-                    <h:selectOneMenu value="#{bloggerDetails.politics}" id="politics" layout="pageDirection" required="true">
+                    <h:selectOneMenu value="#{bloggerDetails.politics}" id="politics" required="true">
                         <f:selectItems value="#{politics}"/>
                     </h:selectOneMenu>
                 </h:panelGroup>
@@ -153,164 +153,29 @@
                     <h:message for="politics" styleClass="RED"></h:message>
                 </h:panelGroup>
 
+                <h:panelGroup>
+                    <h:outputText value="PayPal Address" styleClass="formfieldnamefont"></h:outputText>
+                    <br/>
+                    <font class="tinyfont">So we can pay you.<br/>Don't have a PayPal account? <br/>Setup is quick, easy and secure.<br/>Click <a href='http://www.paypal.com' target='paypal' class="tinyfont"><font class="tinyfont">here</font></a>.</font>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:inputText value="#{bloggerDetails.paymethodpaypaladdress}" id="paymethodpaypaladdress" size="35"></h:inputText>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:message for="paymethodpaypaladdress" styleClass="RED"></h:message>
+                </h:panelGroup>
+
+                <h:panelGroup>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:commandButton action="#{bloggerDetails.saveAction}" value="Save Blogger Profile" styleClass="formsubmitbutton"></h:commandButton>
+                </h:panelGroup>
+                <h:panelGroup>
+                </h:panelGroup>
+
 
             </h:panelGrid>
 
-       <d:roundedCornerBox uniqueboxname="paymethod" bodycolor="ffffff" widthinpixels="500">
-           <table cellpadding="0" cellspacing="0" border="0">
-               <tr>
-                   <td valign="top">
-                       <font class="formfieldnamefont">Pay me via: </font>
-                   </td>
-                   <td valign="top">
-                        <h:selectOneRadio value="#{bloggerDetails.paymethod}" id="paymethod" required="true">
-                            <f:selectItems value="#{bloggerDetails.paymethods}"/>
-                        </h:selectOneRadio>
-                        <h:message for="paymethod" styleClass="RED"></h:message>
-                   </td>
-               </tr>
-           </table>
-           <table cellpadding="0" cellspacing="0" border="0">
-               <tr>
-                   <td valign="top" align="left">
-                        <d:roundedCornerBox uniqueboxname="paymethodpaypal" bodycolor="ffffff" widthinpixels="450">
-                            <font class="mediumfont" style="color: #cccccc;">PayPal Info (optional)</font>
-                            <br/>
-
-                            <table cellpadding="3" cellspacing="0" border="0">
-
-                                    <tr>
-                                       <td valign="top" align="left">
-                                            <h:outputText value="PayPal Address" styleClass="formfieldnamefont"></h:outputText>
-                                       </td>
-                                       <td valign="top" align="left">
-                                            <h:inputText value="#{bloggerDetails.paymethodpaypaladdress}" id="paymethodpaypaladdress"></h:inputText>
-                                            <h:message for="paymethodpaypaladdress" styleClass="RED"></h:message>
-                                       </td>
-                                    </tr>
-
-                            </table>
-
-                        </d:roundedCornerBox>
-                   </td>
-               </tr>
-               <tr>
-                   <td valign="top" align="left">
-                        <d:roundedCornerBox uniqueboxname="paymethodcc" bodycolor="ffffff" widthinpixels="450">
-                                    <font class="mediumfont" style="color: #cccccc;">Credit Card Info (optional)</font>
-                                    <br/>
-
-                                    <table cellpadding="3" cellspacing="0" border="0">
-
-                                    <tr>
-                                       <td valign="top" align="left">
-                                            <h:outputText value="Name" styleClass="formfieldnamefont"></h:outputText>
-                                            <br/>
-                                            <h:outputText value="(first then last)" styleClass="tinyfont"></h:outputText>
-                                       </td>
-                                       <td valign="top" align="left">
-                                            <h:inputText value="#{bloggerDetails.firstname}" id="firstname"  size="15"></h:inputText>
-                                            <h:outputText value=" " styleClass="formfieldnamefont"></h:outputText>
-                                            <h:inputText value="#{bloggerDetails.lastname}" id="lastname" size="15"></h:inputText>
-                                            <h:message for="firstname" styleClass="RED"></h:message>
-                                            <h:message for="lastname" styleClass="RED"></h:message>
-                                       </td>
-                                    </tr>
-
-                                    <tr>
-                                       <td valign="top" align="left">
-                                            <h:outputText value="Street Address" styleClass="formfieldnamefont"></h:outputText>
-                                       </td>
-                                       <td valign="top" align="left">
-                                            <h:inputText value="#{bloggerDetails.street}" id="street" size="30"></h:inputText>
-                                            <h:message for="street" styleClass="RED"></h:message>
-                                       </td>
-                                    </tr>
-
-
-                                    <tr>
-                                       <td valign="top" align="left">
-                                            <h:outputText value="City, State, Zip" styleClass="formfieldnamefont"></h:outputText>
-                                       </td>
-                                       <td valign="top" align="left">
-                                            <h:inputText value="#{bloggerDetails.cccity}" id="cccity" size="20"></h:inputText>
-                                            <h:outputText value=" " styleClass="formfieldnamefont"></h:outputText>
-                                            <h:inputText value="#{bloggerDetails.ccstate}" id="ccstate"  size="2"></h:inputText>
-                                            <h:outputText value=" " styleClass="formfieldnamefont"></h:outputText>
-                                            <h:inputText value="#{bloggerDetails.postalcode}" id="postalcode" size="6"></h:inputText>
-                                            <h:message for="cccity" styleClass="RED"></h:message>
-                                            <h:message for="ccstate" styleClass="RED"></h:message>
-                                            <h:message for="postalcode" styleClass="RED"></h:message>
-                                       </td>
-                                    </tr>
-
-
-                                    <tr>
-                                       <td valign="top" align="left">
-                                            <h:outputText value="Credit Card Type" styleClass="formfieldnamefont"></h:outputText>
-                                       </td>
-                                       <td valign="top" align="left">
-                                            <h:selectOneMenu value="#{bloggerDetails.cctype}" id="cctype" required="true">
-                                                <f:selectItems value="#{bloggerDetails.creditcardtypes}"/>
-                                            </h:selectOneMenu>
-                                            <h:message for="cctype" styleClass="RED"></h:message>
-                                       </td>
-                                    </tr>         
-
-                                    <tr>
-                                       <td valign="top" align="left">
-                                            <h:outputText value="Credit Card Number" styleClass="formfieldnamefont"></h:outputText>
-                                       </td>
-                                       <td valign="top" align="left">
-                                            <h:inputText value="#{bloggerDetails.ccnum}" id="ccnum"  size="18">
-                                                <t:validateCreditCard />
-                                            </h:inputText>
-                                            <h:message for="ccnum" styleClass="RED"></h:message>
-                                       </td>
-                                    </tr>
-
-
-                                    <tr>
-                                       <td valign="top" align="left">
-                                            <h:outputText value="Expiration Date" styleClass="formfieldnamefont"></h:outputText>
-                                       </td>
-                                       <td valign="top" align="left">
-                                            <h:selectOneMenu value="#{bloggerDetails.ccexpmo}" id="ccexpmo" required="true">
-                                                <f:selectItems value="#{bloggerDetails.monthsForCreditcard}"/>
-                                            </h:selectOneMenu>
-                                            /
-                                            <h:selectOneMenu value="#{bloggerDetails.ccexpyear}" id="ccexpyear" required="true">
-                                                <f:selectItems value="#{bloggerDetails.yearsForCreditcard}"/>
-                                            </h:selectOneMenu>
-                                            <h:message for="ccexpmo" styleClass="RED"></h:message>
-                                            <h:message for="ccexpyear" styleClass="RED"></h:message>
-                                       </td>
-                                    </tr>
-
-
-
-                                    <tr>
-                                       <td valign="top" align="left">
-                                            <h:outputText value="CVV2" styleClass="formfieldnamefont"></h:outputText>
-                                            <br/>
-                                            <h:outputText value="(three digit number on back of card)" styleClass="tinyfont"></h:outputText>
-                                       </td>
-                                       <td valign="top" align="left">
-                                            <h:inputText value="#{bloggerDetails.cvv2}" id="cvv2" size="3"></h:inputText>
-                                            <h:message for="cvv2" styleClass="RED"></h:message>
-                                       </td>
-                                    </tr>
-
-                                    </table>
-
-                        </d:roundedCornerBox>
-                   </td>
-               </tr>
-           </table>
-       </d:roundedCornerBox>
-
-       <br/><br/>
-       <h:commandButton action="#{bloggerDetails.saveAction}" value="Save Blogger Profile" styleClass="formsubmitbutton"></h:commandButton>
 
 
 

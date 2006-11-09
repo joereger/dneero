@@ -20,10 +20,10 @@ import com.dneero.session.UserSession;
  */
 public class ResearcherSurveyDetail05 {
 
-    private double willingtopayperrespondent = 1;
+    private double willingtopayperrespondent = 2.5;
     private int numberofrespondentsrequested = 1000;
     private double willingtopaypercpm = 10;
-    private int maxdisplaysperblog = 5000;
+    private int maxdisplaysperblog = 500;
     private int maxdisplaystotal = 100000;
     private int status;
 

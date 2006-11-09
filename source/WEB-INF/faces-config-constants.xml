@@ -533,10 +533,6 @@
         <managed-bean-scope>application</managed-bean-scope>
         <map-entries>
             <map-entry>
-                <key>Not Specified</key>
-                <value>Not Specified</value>
-            </map-entry>
-            <map-entry>
                 <key>Apathetic</key>
                 <value>Apathetic</value>
             </map-entry>
@@ -573,8 +569,8 @@
         <managed-bean-scope>application</managed-bean-scope>
         <map-entries>
             <map-entry>
-             <key>Not Specified</key>
-             <value>Not Specified</value>
+             <key>Non-US</key>
+             <value>Non-US</value>
             </map-entry>
             <map-entry>
              <key>AL</key>
@@ -818,8 +814,8 @@
         <managed-bean-scope>application</managed-bean-scope>
         <map-entries>
             <map-entry>
-             <key>Not Specified</key>
-             <value>Not Specified</value>
+             <key>Non-US</key>
+             <value>Non-US</value>
             </map-entry>
             <map-entry>
              <key>Abilene</key>
