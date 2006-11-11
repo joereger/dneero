@@ -119,7 +119,7 @@ public class ResearcherDetails {
             if (isnewresearcher){
                 return "success_newresearcher";
             } else {
-                return "accountmain";
+                return "researcherhome";
             }
         } else {
             Jsf.setFacesMessage("UserSession.getUser() is null.  Please log in.");

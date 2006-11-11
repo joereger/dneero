@@ -28,7 +28,7 @@
 
     <t:panelTabbedPane id="panel" bgcolor="#ffffff">
         <t:panelTab id="panel_b" label="Summary">
-            <h:graphicImage url="/images/clear.gif" width="750" height="1"/><br/>
+            <h:graphicImage url="/images/clear.gif" width="700" height="1"/><br/>
 
 
             <table width="100%" cellpadding="5">
@@ -129,25 +129,25 @@
 
         </t:panelTab>
         <t:panelTab id="panel_c" label="Question Preview" rendered="#{!publicSurveyDetail.bloggerhasalreadytakensurvey}">
-            <h:graphicImage url="/images/clear.gif" width="750" height="1"/><br/>
+            <h:graphicImage url="/images/clear.gif" width="700" height="1"/><br/>
             <h:outputText value="Please don't fill out this survey... this screen is just a preview of the questions." styleClass="mediumfont"/>
             <br/><br/>
             <f:verbatim>#{publicSurveyDetail.surveyForTakers}</f:verbatim>
         </t:panelTab>
         <t:panelTab id="panel_d" label="On-Blog Preview" rendered="#{!publicSurveyDetail.bloggerhasalreadytakensurvey}">
-            <h:graphicImage url="/images/clear.gif" width="750" height="1"/><br/>
+            <h:graphicImage url="/images/clear.gif" width="700" height="1"/><br/>
             <h:outputText value="This is how the survey will look on your blog... with your answers, of course." styleClass="mediumfont"/>
             <br/><br/>
             <f:verbatim>#{publicSurveyDetail.surveyOnBlogPreview}</f:verbatim>
         </t:panelTab>
         <t:panelTab id="panel_e" label="Your Answers" rendered="#{publicSurveyDetail.bloggerhasalreadytakensurvey}">
-            <h:graphicImage url="/images/clear.gif" width="750" height="1"/><br/>
+            <h:graphicImage url="/images/clear.gif" width="700" height="1"/><br/>
             <h:outputText value="These are the answers that you provided." styleClass="mediumfont"/>
             <br/><br/>
             <f:verbatim>#{publicSurveyDetail.surveyAnswersForThisBlogger}</f:verbatim>
         </t:panelTab>
         <t:panelTab id="panel_f" label="Post to your Blog" rendered="#{publicSurveyDetail.bloggerhasalreadytakensurvey}">
-            <h:graphicImage url="/images/clear.gif" width="750" height="1"/><br/>
+            <h:graphicImage url="/images/clear.gif" width="700" height="1"/><br/>
             <h:outputText value="Copy and paste the following into your blog to make even more money!" styleClass="mediumfont"/>
             <br/><br/>
             <d:roundedCornerBox uniqueboxname="posttoblog" bodycolor="ffffff" widthinpixels="500">

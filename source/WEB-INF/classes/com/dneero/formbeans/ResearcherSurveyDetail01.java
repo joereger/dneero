@@ -32,10 +32,12 @@ public class ResearcherSurveyDetail01 {
 
     public ResearcherSurveyDetail01(){
         logger.debug("Instanciating object.");
+        logger.debug(" ");
         loadSurvey(Jsf.getUserSession().getCurrentSurveyid());
     }
 
     public String beginViewNewSurvey(){
+        logger.debug("beginViewNewSurvey() called:");
         Jsf.getUserSession().setCurrentSurveyid(0);
         title = "";
         description = "";
@@ -45,7 +47,7 @@ public class ResearcherSurveyDetail01 {
     }
 
     public String beginView(){
-        //logger.debug("beginView called:");
+        logger.debug("beginView() called:");
         String tmpSurveyid = Jsf.getRequestParam("surveyid");
         if (com.dneero.util.Num.isinteger(tmpSurveyid)){
             logger.debug("beginView called: found surveyid in request param="+tmpSurveyid);
@@ -70,11 +72,17 @@ public class ResearcherSurveyDetail01 {
                 status = survey.getStatus();
             }
         }
-
     }
 
     public String saveSurvey(){
         logger.debug("saveSurvey() called.");
+        logger.debug("status="+status);
+        if (startdate==null){
+            logger.debug("startdate is null");
+        } else {
+            logger.debug("startdate="+Time.dateformatcompactwithtime(Time.getCalFromDate(startdate)));
+        }
+        logger.debug("title="+title);
         if (status<=Survey.STATUS_WAITINGFORSTARTDATE){
 
             UserSession userSession = Jsf.getUserSession();
@@ -141,6 +149,7 @@ public class ResearcherSurveyDetail01 {
     }
 
     public String getTitle() {
+        logger.debug("setTitle() called:"+title);
         return title;
     }
 
@@ -161,6 +170,7 @@ public class ResearcherSurveyDetail01 {
     }
 
     public void setStartdate(Date startdate) {
+        logger.debug("setStartdate() called: "+Time.dateformatcompactwithtime(Time.getCalFromDate(startdate)));
         this.startdate = startdate;
     }
 

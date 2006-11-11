@@ -13,6 +13,8 @@ import com.dneero.session.UserSession;
 import com.dneero.finders.FindBloggersForSurvey;
 import com.dneero.money.PaymentMethod;
 import com.dneero.money.MoveMoneyInRealWorld;
+import com.dneero.money.MoveMoneyInAccountBalance;
+import com.dneero.money.SurveyMoneyStatus;
 import com.dneero.scheduledjobs.ResearcherRemainingBalanceOperations;
 
 /**
@@ -21,6 +23,9 @@ import com.dneero.scheduledjobs.ResearcherRemainingBalanceOperations;
  * Time: 9:54:08 AM
  */
 public class ResearcherSurveyDetail06 {
+
+
+
 
     private int status;
     private int numberofbloggersqualifiedforthissurvey = 0;
@@ -42,11 +47,11 @@ public class ResearcherSurveyDetail06 {
     private boolean warningdonthaveccinfo = false;
 
 
-    private double maxresppay = 0;
-    private double maximppay = 0;
-    private double maxspend = 0;
-    private double dfee = 0;
-    private double maxpossiblespnd = 0;
+//    private double maxresppay = 0;
+//    private double maximppay = 0;
+//    private double maxspend = 0;
+//    private double dfee = 0;
+//    private double maxpossiblespnd = 0;
 
 
     private String ccnumfordisplayonscreen;
@@ -91,21 +96,23 @@ public class ResearcherSurveyDetail06 {
                 startdate = Time.dateformatcompactwithtime(Time.getCalFromDate(survey.getStartdate()));
                 enddate = Time.dateformatcompactwithtime(Time.getCalFromDate(survey.getEnddate()));
 
-                maxresppay = (survey.getWillingtopayperrespondent() * survey.getNumberofrespondentsrequested());
-                maxrespondentpayments = "$"+Str.formatForMoney(maxresppay);
+                SurveyMoneyStatus sms = new SurveyMoneyStatus(survey);
 
-                maximppay = ((survey.getWillingtopaypercpm()*survey.getMaxdisplaystotal())/1000);
-                maximpressionpayments = "$"+Str.formatForMoney(maximppay);
+                //maxresppay = (survey.getWillingtopayperrespondent() * survey.getNumberofrespondentsrequested());
+                maxrespondentpayments = "$"+Str.formatForMoney(sms.getMaxPossiblePayoutForResponses());
+
+                //maximppay = ((survey.getWillingtopaypercpm()*survey.getMaxdisplaystotal())/1000);
+                maximpressionpayments = "$"+Str.formatForMoney(sms.getMaxPossiblePayoutForImpressions());
 
 
-                maxspend =maxresppay + maximppay;
-                maxincentive = "$"+Str.formatForMoney(maxspend);
+                //maxspend =maxresppay + maximppay;
+                maxincentive = "$"+Str.formatForMoney(sms.getMaxPossiblePayoutForResponses() + sms.getMaxPossiblePayoutForImpressions());
 
-                dfee = maxspend * .25;
-                dneerofee = "$"+Str.formatForMoney(dfee);
+                //dfee = maxspend * .25;
+                dneerofee = "$"+Str.formatForMoney(sms.getMaxPossibledNeeroFee());
 
-                maxpossiblespnd = maxspend + dfee;
-                maxpossiblespend = "$"+Str.formatForMoney(maxpossiblespnd);
+                //maxpossiblespnd = maxspend + dfee + PERSURVEYCREATIONFEE;
+                maxpossiblespend = "$"+Str.formatForMoney(sms.getMaxPossibleSpend());
 
                 numberofquestions = survey.getQuestions().size();
 
@@ -202,20 +209,67 @@ public class ResearcherSurveyDetail06 {
             if (Jsf.getUserSession().getUser()!=null && survey.canEdit(Jsf.getUserSession().getUser())){
                 Calendar startdate = Time.getCalFromDate(survey.getStartdate());
                 Calendar now = Calendar.getInstance();
+                SurveyMoneyStatus sms = new SurveyMoneyStatus(survey);
                 logger.debug("now="+Time.dateformatfordb(now));
                 logger.debug("startdate="+Time.dateformatfordb(startdate));
                 logger.debug("startdate.before(now)="+startdate.before(now));
                 logger.debug("startdate.after(now)="+startdate.after(now));
 
-                //@todo Save credit card info and set creditcardid for user charge method
+                //Save credit card info and set creditcardid for user charge method
+                Creditcard cc = new Creditcard();
+                if(userSession.getUser().getChargemethodcreditcardid()>0){
+                    cc = Creditcard.get(userSession.getUser().getChargemethodcreditcardid());
+                }
+                cc.setCcexpmo(ccexpmo);
+                cc.setCcexpyear(ccexpyear);
+                cc.setCcnum(ccnum);
+                cc.setCctype(cctype);
+                cc.setCity(cccity);
+                cc.setCvv2(cvv2);
+                cc.setFirstname(firstname);
+                cc.setIpaddress(Jsf.getRemoteAddr());
+                cc.setLastname(lastname);
+                cc.setMerchantsessionid(Jsf.getSessionID());
+                cc.setPostalcode(postalcode);
+                cc.setState(ccstate);
+                cc.setStreet(street);
+                cc.setUserid(userSession.getUser().getUserid());
+                try{
+                    cc.save();
+                } catch (GeneralException gex){
+                    Jsf.setFacesMessage("Error saving record: "+gex.getErrorsAsSingleString());
+                    logger.debug("saveAction failed: " + gex.getErrorsAsSingleString());
+                    return null;
+                }
+
+                //userSession.getUser().setChargemethod(PaymentMethod.PAYMENTMETHODCREDITCARD);
+                //userSession.getUser().setChargemethodcreditcardid(cc.getCreditcardid());
+
+                User user = User.get(userSession.getUser().getUserid());
+                user.setChargemethod(PaymentMethod.PAYMENTMETHODCREDITCARD);
+                user.setChargemethodcreditcardid(cc.getCreditcardid());
+
+                try{
+                    //userSession.getUser().save();
+                    user.save();
+                } catch (GeneralException gex){
+                    Jsf.setFacesMessage("Error saving record: "+gex.getErrorsAsSingleString());
+                    logger.debug("saveAction failed: " + gex.getErrorsAsSingleString());
+                    return null;
+                }
+                userSession.getUser().refresh();
+
+                //Charge the per-survey creation fee
+                MoveMoneyInAccountBalance.charge(userSession.getUser(), SurveyMoneyStatus.PERSURVEYCREATIONFEE, "Survey creation fee for '"+survey.getTitle()+"'");            
 
                 //Charge the card the initial 20% or whatever
-                double amttocharge =  maxpossiblespnd  * (ResearcherRemainingBalanceOperations.INCREMENTALPERCENTTOCHARGE/100);
+                double amttocharge =  sms.getMaxPossibleSpend()  * (ResearcherRemainingBalanceOperations.INCREMENTALPERCENTTOCHARGE/100);
                 MoveMoneyInRealWorld mmirw = new MoveMoneyInRealWorld(Jsf.getUserSession().getUser(), (-1)*amttocharge);
                 mmirw.move();
 
                 if (startdate.before(now)){
                     survey.setStatus(Survey.STATUS_OPEN);
+
                 } else {
                     survey.setStatus(Survey.STATUS_WAITINGFORSTARTDATE);
                 }
@@ -463,45 +517,7 @@ public class ResearcherSurveyDetail06 {
 
 
 
-    public double getMaxresppay() {
-        return maxresppay;
-    }
 
-    public void setMaxresppay(double maxresppay) {
-        this.maxresppay = maxresppay;
-    }
-
-    public double getMaximppay() {
-        return maximppay;
-    }
-
-    public void setMaximppay(double maximppay) {
-        this.maximppay = maximppay;
-    }
-
-    public double getMaxspend() {
-        return maxspend;
-    }
-
-    public void setMaxspend(double maxspend) {
-        this.maxspend = maxspend;
-    }
-
-    public double getDfee() {
-        return dfee;
-    }
-
-    public void setDfee(double dfee) {
-        this.dfee = dfee;
-    }
-
-    public double getMaxpossiblespnd() {
-        return maxpossiblespnd;
-    }
-
-    public void setMaxpossiblespnd(double maxpossiblespnd) {
-        this.maxpossiblespnd = maxpossiblespnd;
-    }
 
     public String getCcnum() {
         return ccnum;
@@ -615,4 +631,7 @@ public class ResearcherSurveyDetail06 {
     public void setCcnumfordisplayonscreen(String ccnumfordisplayonscreen) {
         this.ccnumfordisplayonscreen = ccnumfordisplayonscreen;
     }
+
+
+  
 }

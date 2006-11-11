@@ -49,6 +49,14 @@ public class User extends BasePersistentClass implements java.io.Serializable, R
         this.userroles = userroles;
     }
 
+    private Set<Usereula> usereulas = new HashSet<Usereula>();
+    public Set<Usereula> getUsereulas() {
+        return usereulas;
+    }
+    public void setUsereulas(Set<Usereula> usereulas) {
+        this.usereulas = usereulas;
+    }
+
     private Blogger blogger;
     public Blogger getBlogger() {
         return blogger;

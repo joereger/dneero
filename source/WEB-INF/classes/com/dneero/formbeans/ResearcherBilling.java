@@ -100,11 +100,9 @@ public class ResearcherBilling {
             cc.setCity(cccity);
             cc.setCvv2(cvv2);
             cc.setFirstname(firstname);
-            //@todo set IP Address for paypal
-            cc.setIpaddress("192.168.1.1");
+            cc.setIpaddress(Jsf.getRemoteAddr());
             cc.setLastname(lastname);
-            //@todo set merchant sessionid for paypal
-            cc.setMerchantsessionid("12345");
+            cc.setMerchantsessionid(Jsf.getSessionID());
             cc.setPostalcode(postalcode);
             cc.setState(ccstate);
             cc.setStreet(street);

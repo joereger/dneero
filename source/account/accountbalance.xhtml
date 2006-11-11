@@ -59,10 +59,10 @@
                 <h:outputText value="Details" escape="false" />
                 <f:param name="paybloggerid" value="#{balance.optionalpaybloggerid}" />
             </h:commandLink>
-            <h:commandLink action="researcherinvoices" rendered="#{balance.optionalinvoiceid>0}">
-                <h:outputText value="Details" escape="false" />
-                <f:param name="invoiceid" value="#{balance.optionalinvoiceid}" />
-            </h:commandLink>
+            <h:commandLink action="#{researcherInvoiceDetail.beginView}" rendered="#{balance.optionalinvoiceid>0}">
+                    <h:outputText value="Details" escape="false" />
+                    <f:param name="invoiceid" value="#{balance.optionalinvoiceid}" />
+                </h:commandLink>
           </af:column>
 
 

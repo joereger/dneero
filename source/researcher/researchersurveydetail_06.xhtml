@@ -22,6 +22,8 @@
     <h:graphicImage url="/images/process-train-survey-06.gif" style="display: block; margin-left: auto; margin-right: auto;"></h:graphicImage>
     <f:verbatim><br/><br/></f:verbatim>
 
+
+    <div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;">
     <h:panelGrid columns="3" cellpadding="3" border="0">
 
 
@@ -81,6 +83,15 @@
         </h:panelGroup>
 
         <h:panelGroup>
+            <h:outputText value="Survey Creation Fee" styleClass="formfieldnamefont"></h:outputText>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:outputText value="$5.00"></h:outputText>
+        </h:panelGroup>
+        <h:panelGroup>
+        </h:panelGroup>
+
+        <h:panelGroup>
             <h:outputText value="Max dNeero Fee" styleClass="formfieldnamefont"></h:outputText>
         </h:panelGroup>
         <h:panelGroup>
@@ -101,9 +112,9 @@
 
 
     </h:panelGrid>
+    </div>
 
-
-    <d:roundedCornerBox uniqueboxname="warningnumberofbloggerslessthanrequested" bodycolor="ffffcc" widthinpixels="750" rendered="#{researcherSurveyDetail06.warningnumberofbloggerslessthanrequested}">
+    <d:roundedCornerBox uniqueboxname="warningnumberofbloggerslessthanrequested" bodycolor="ffcc00" widthinpixels="700" rendered="#{researcherSurveyDetail06.warningnumberofbloggerslessthanrequested}">
         <h:graphicImage url="/images/alert.png"></h:graphicImage>
         <font class="smallfont">
         Warning: You've requested a number of survey respondents that is larger than the current number of bloggers in the system that fulfill your targeting criteria.  This may or may not be a problem.  Surveys often attract new bloggers to the system... you are in no way limited to the bloggers already signed-up.
@@ -112,7 +123,7 @@
         </font>
     </d:roundedCornerBox>
 
-    <d:roundedCornerBox uniqueboxname="warningnumberrequestedratiotoobig" bodycolor="ffffcc" widthinpixels="750" rendered="#{researcherSurveyDetail06.warningnumberrequestedratiotoobig and !researcherSurveyDetail06.warningnumberofbloggerslessthanrequested}">
+    <d:roundedCornerBox uniqueboxname="warningnumberrequestedratiotoobig" bodycolor="ffcc00" widthinpixels="700" rendered="#{researcherSurveyDetail06.warningnumberrequestedratiotoobig and !researcherSurveyDetail06.warningnumberofbloggerslessthanrequested}">
         <h:graphicImage url="/images/alert.png"></h:graphicImage>
         <font class="smallfont">
         Warning: The ratio of the number of respondents you've requested to the number of bloggers that qualify for your criteria is a little high meaning that it may be difficult to attract enough respondents. This may or may not be a problem.  Surveys often attract new bloggers to the system... you are in no way limited to the bloggers already signed-up.
@@ -121,7 +132,7 @@
         </font>
     </d:roundedCornerBox>
 
-    <d:roundedCornerBox uniqueboxname="warningtoomanyquestions" bodycolor="ffffcc" widthinpixels="750" rendered="#{researcherSurveyDetail06.warningtoomanyquestions}">
+    <d:roundedCornerBox uniqueboxname="warningtoomanyquestions" bodycolor="ffcc00" widthinpixels="700" rendered="#{researcherSurveyDetail06.warningtoomanyquestions}">
         <h:graphicImage url="/images/alert.png"></h:graphicImage>
         <font class="smallfont">
         Warning: You seem to have a large number of questions in your survey.  There is nothing wrong with this.  But large surveys and blogs may not be the best fit.  First, bloggers are a quick bunch, always having a lot to do. Second, you're asking them to post the survey to their blogs... large surveys may take over a blog at which point the blogger will take the survey down.  This may not be a problem for you, but we did want you to know about the possible issue.
@@ -129,7 +140,7 @@
         </font>
     </d:roundedCornerBox>
 
-    <d:roundedCornerBox uniqueboxname="warningnoquestions" bodycolor="ffffcc" widthinpixels="750" rendered="#{researcherSurveyDetail06.warningnoquestions}">
+    <d:roundedCornerBox uniqueboxname="warningnoquestions" bodycolor="ffcc00" widthinpixels="700" rendered="#{researcherSurveyDetail06.warningnoquestions}">
         <h:graphicImage url="/images/alert.png"></h:graphicImage>
         <font class="smallfont">
         Warning: This survey has no questions.  You may be trying to use the system as an advertising placement tool (which is fine) but we thought that you may have accidentally skipped the question page.
@@ -138,7 +149,7 @@
     </d:roundedCornerBox>
 
 
-    <d:roundedCornerBox uniqueboxname="warningtimeperiodtooshort" bodycolor="ffffcc" widthinpixels="750" rendered="#{researcherSurveyDetail06.warningtimeperiodtooshort}">
+    <d:roundedCornerBox uniqueboxname="warningtimeperiodtooshort" bodycolor="ffcc00" widthinpixels="700" rendered="#{researcherSurveyDetail06.warningtimeperiodtooshort}">
         <h:graphicImage url="/images/alert.png"></h:graphicImage>
         <font class="smallfont">
         Warning: The survey time period is rather short.  You may have very good reasons for doing so but we did want to note that surveys take some time to be publicized, signed up for, posted, etc.  30 days is a good safe period of time for a survey.
@@ -146,7 +157,7 @@
         </font>
     </d:roundedCornerBox>
 
-    <d:roundedCornerBox uniqueboxname="warningtimeperiodtooshort" bodycolor="ffffcc" widthinpixels="750" rendered="#{researcherSurveyDetail06.warningtimeperiodtooshort}">
+    <d:roundedCornerBox uniqueboxname="warningtimeperiodtooshort" bodycolor="ffcc00" widthinpixels="700" rendered="#{researcherSurveyDetail06.warningtimeperiodtooshort}">
         <h:graphicImage url="/images/alert.png"></h:graphicImage>
         <font class="smallfont">
         Warning: The survey time period is rather short.  You may have very good reasons for doing so but we did want to note that surveys take some time to be publicized, signed up for, posted, etc.  30 days is a good safe period of time for a survey.
@@ -157,7 +168,7 @@
 
 
 
-        <d:roundedCornerBox uniqueboxname="chargemethodcc" bodycolor="ffffff" widthinpixels="750" rendered="#{researcherSurveyDetail06.warningdonthaveccinfo}">
+        <d:roundedCornerBox uniqueboxname="chargemethodcc" bodycolor="ffffff" widthinpixels="700" rendered="#{researcherSurveyDetail06.warningdonthaveccinfo}">
             <font class="mediumfont" style="color: #cccccc;">Credit Card Info</font>
             <br/>
 
@@ -286,7 +297,7 @@
 
 
     <f:verbatim><br/><br/></f:verbatim>
-    <div class="surveyeditbuttonbox"><div class="surveyeditpreviousbutton"><h:commandButton action="researchersurveydetail_05" value="Previous Step" styleClass="formsubmitbutton"/></div><div class="surveyeditnextbutton"><h:commandButton action="#{researcherSurveyDetail06.saveSurveyAsDraft}" value="Save as Draft" styleClass="formsubmitbutton" rendered="#{researcherSurveyDetail06.status le 2}"/><h:commandButton action="#{researcherSurveyDetail06.saveSurvey}" value="Save and Launch" styleClass="formsubmitbutton" rendered="#{researcherSurveyDetail06.status le 2}"/></div></div>
+    <div class="surveyeditbuttonbox"><div class="surveyeditpreviousbutton"><h:commandButton action="researchersurveydetail_05" value="Previous Step" styleClass="formsubmitbutton"/></div><div class="surveyeditnextbutton"><h:commandButton action="#{researcherSurveyDetail06.saveSurveyAsDraft}" value="Save as Draft" styleClass="formsubmitbutton" rendered="#{researcherSurveyDetail06.status eq 1}"/><h:commandButton action="#{researcherSurveyDetail06.saveSurvey}" value="Save and Launch" styleClass="formsubmitbutton" rendered="#{researcherSurveyDetail06.status eq 1}"/></div></div>
 
 
 

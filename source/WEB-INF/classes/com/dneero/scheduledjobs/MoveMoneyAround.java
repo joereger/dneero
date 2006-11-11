@@ -32,27 +32,31 @@ public class MoveMoneyAround implements Job {
                 User user = (User) iterator.next();
                 double currentbalance = CurrentBalanceCalculator.getCurrentBalance(user);
                 if (currentbalance>0){
-                    //Need to pay somebody as long as they don't have any open or pending surveys
+                    boolean dopay = true;
+                    //Don't pay researchers if they have any open surveys
                     if (user.getResearcher()!=null){
-//                        List<Survey> surveys = HibernateUtil.getSession().createCriteria(Survey.class)
-//                               .add( Restrictions.eq("researcherid", user.getResearcher().getResearcherid()))
-//                               .add( Restrictions.eq("status", Survey.STATUS_OPEN))
-//                               .add( Restrictions.eq("status", Survey.STATUS_WAITINGFORFUNDS))
-//                               .add( Restrictions.eq("status", Survey.STATUS_WAITINGFORSTARTDATE))
-//                               .list();
-
                        List surveys = HibernateUtil.getSession().createQuery("from Survey where researcherid='"+user.getResearcher().getResearcherid()+"' "+
                                                                               " and ("+
                                                                               "status='"+Survey.STATUS_OPEN+"'"+
                                                                               "or status='"+Survey.STATUS_WAITINGFORFUNDS+"'"+
                                                                               "or status='"+Survey.STATUS_WAITINGFORSTARTDATE+"'"+
+                                                                              "or status='"+Survey.STATUS_DRAFT+"'"+
                                                                               ")").list();
-                       if (surveys.size()==0){
-                            //Need to pay somebody
-                            MoveMoneyInRealWorld mmirw = new MoveMoneyInRealWorld(user, currentbalance);
-                            mmirw.move();
-                       }
+                        if (surveys.size()==0){
+                            dopay=false;
+                        }
                     }
+                    //Don't pay anything less than $25
+                    if (currentbalance<25){
+                        dopay=false;
+                    }
+
+                    //Go pay
+                    if (dopay){
+                        MoveMoneyInRealWorld mmirw = new MoveMoneyInRealWorld(user, currentbalance);
+                        mmirw.move();
+                    }
+
                 } else if (currentbalance<0){
                     //Need to collect from somebody
                     MoveMoneyInRealWorld mmirw = new MoveMoneyInRealWorld(user, currentbalance);

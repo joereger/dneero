@@ -26,6 +26,16 @@ public class Jsf {
         return null;
     }
 
+    public static String getRemoteAddr(){
+        HttpServletRequest request = (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        return request.getRemoteAddr();
+    }
+
+    public static String getSessionID(){
+        HttpServletRequest request = (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        return request.getSession().getId();
+    }
+
     public static void bindObjectToExpressionLanguage(String elNameBoundTo, Object obj){
         FacesContext ctx = FacesContext.getCurrentInstance();
         ValueBinding binding = ctx.getApplication().createValueBinding(elNameBoundTo);

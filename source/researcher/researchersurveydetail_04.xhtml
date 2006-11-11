@@ -22,7 +22,7 @@
     <h:graphicImage url="/images/process-train-survey-04.gif" style="display: block; margin-left: auto; margin-right: auto;"></h:graphicImage>
     <f:verbatim><br/></f:verbatim>
 
-    <center><div style="width: 450px; text-align: left;"><font class="smallfont">
+    <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
     Target your survey to the correct demographic.   Be careful not to cast too narrow a net.  In the final step we'll tell you how many bloggers fulfill your criteria and you'll have the opportunity to widen the search.
     </font></div></center>
 
@@ -39,15 +39,15 @@
             <h:message for="agemax" styleClass="RED"></h:message>
         </h:panelGroup>
         <h:panelGroup>
-            <h:inputText value="#{researcherSurveyDetail04.agemin}" id="agemin" size="3" required="true" rendered="#{researcherSurveyDetail04.status le 2}">
+            <h:inputText value="#{researcherSurveyDetail04.agemin}" id="agemin" size="3" required="true" rendered="#{researcherSurveyDetail04.status eq 1}">
                 <f:validateDoubleRange minimum="1" maximum="120"></f:validateDoubleRange>
             </h:inputText>
-            <h:outputText value="#{researcherSurveyDetail04.agemin}" rendered="#{researcherSurveyDetail04.status ge 3}"></h:outputText>
+            <h:outputText value="#{researcherSurveyDetail04.agemin}" rendered="#{researcherSurveyDetail04.status ne 1}"></h:outputText>
             <h:outputText value=" - "></h:outputText>
-            <h:inputText value="#{researcherSurveyDetail04.agemax}" id="agemax" size="3" required="true" rendered="#{researcherSurveyDetail04.status le 2}">
+            <h:inputText value="#{researcherSurveyDetail04.agemax}" id="agemax" size="3" required="true" rendered="#{researcherSurveyDetail04.status eq 1}">
                 <f:validateDoubleRange minimum="1" maximum="120"></f:validateDoubleRange>
             </h:inputText>
-            <h:outputText value="#{researcherSurveyDetail04.agemax}" rendered="#{researcherSurveyDetail04.status ge 3}"></h:outputText>
+            <h:outputText value="#{researcherSurveyDetail04.agemax}" rendered="#{researcherSurveyDetail04.status ne 1}"></h:outputText>
         </h:panelGroup>
 
 
@@ -59,10 +59,10 @@
             <h:message for="gender" styleClass="RED"></h:message>
         </h:panelGroup>
         <h:panelGroup>
-            <h:selectManyCheckbox value="#{researcherSurveyDetail04.gender}" id="gender" required="true" rendered="#{researcherSurveyDetail04.status le 2}">
+            <h:selectManyCheckbox value="#{researcherSurveyDetail04.gender}" id="gender" required="true" rendered="#{researcherSurveyDetail04.status eq 1}">
                 <f:selectItems value="#{genders}"/>
             </h:selectManyCheckbox>
-            <h:outputText value="#{researcherSurveyDetail04.genderStr}" rendered="#{researcherSurveyDetail04.status ge 3}" escape="false"></h:outputText>
+            <h:outputText value="#{researcherSurveyDetail04.genderStr}" rendered="#{researcherSurveyDetail04.status ne 1}" escape="false"></h:outputText>
         </h:panelGroup>
 
 
@@ -72,10 +72,10 @@
             <h:message for="ethnicity" styleClass="RED"></h:message>
         </h:panelGroup>
         <h:panelGroup>
-            <h:selectManyListbox value="#{researcherSurveyDetail04.ethnicity}" id="ethnicity" size="6" layout="pageDirection" required="true" rendered="#{researcherSurveyDetail04.status le 2}">
+            <h:selectManyListbox value="#{researcherSurveyDetail04.ethnicity}" id="ethnicity" size="6" layout="pageDirection" required="true" rendered="#{researcherSurveyDetail04.status eq 1}">
                 <f:selectItems value="#{ethnicities}"/>
             </h:selectManyListbox>
-            <h:outputText value="#{researcherSurveyDetail04.ethnicityStr}" rendered="#{researcherSurveyDetail04.status ge 3}" escape="false"></h:outputText>
+            <h:outputText value="#{researcherSurveyDetail04.ethnicityStr}" rendered="#{researcherSurveyDetail04.status ne 1}" escape="false"></h:outputText>
         </h:panelGroup>
 
 
@@ -85,10 +85,10 @@
             <h:message for="maritalstatus" styleClass="RED"></h:message>
         </h:panelGroup>
         <h:panelGroup>
-            <h:selectManyCheckbox value="#{researcherSurveyDetail04.maritalstatus}" id="maritalstatus" required="true" rendered="#{researcherSurveyDetail04.status le 2}">
+            <h:selectManyCheckbox value="#{researcherSurveyDetail04.maritalstatus}" id="maritalstatus" required="true" rendered="#{researcherSurveyDetail04.status eq 1}">
                 <f:selectItems value="#{maritalstatuses}"/>
             </h:selectManyCheckbox>
-            <h:outputText value="#{researcherSurveyDetail04.maritalstatusStr}" rendered="#{researcherSurveyDetail04.status ge 3}" escape="false"></h:outputText>
+            <h:outputText value="#{researcherSurveyDetail04.maritalstatusStr}" rendered="#{researcherSurveyDetail04.status ne 1}" escape="false"></h:outputText>
         </h:panelGroup>
 
         <h:panelGroup>
@@ -97,10 +97,10 @@
             <h:message for="income" styleClass="RED"></h:message>
         </h:panelGroup>
         <h:panelGroup>
-            <h:selectManyListbox value="#{researcherSurveyDetail04.income}" size="5" id="income" layout="pageDirection" required="true" rendered="#{researcherSurveyDetail04.status le 2}">
+            <h:selectManyListbox value="#{researcherSurveyDetail04.income}" size="5" id="income" layout="pageDirection" required="true" rendered="#{researcherSurveyDetail04.status eq 1}">
                 <f:selectItems value="#{incomes}"/>
             </h:selectManyListbox>
-            <h:outputText value="#{researcherSurveyDetail04.incomeStr}" rendered="#{researcherSurveyDetail04.status ge 3}" escape="false"></h:outputText>
+            <h:outputText value="#{researcherSurveyDetail04.incomeStr}" rendered="#{researcherSurveyDetail04.status ne 1}" escape="false"></h:outputText>
         </h:panelGroup>
 
         <h:panelGroup>
@@ -109,10 +109,10 @@
             <h:message for="educationlevel" styleClass="RED"></h:message>
         </h:panelGroup>
         <h:panelGroup>
-            <h:selectManyCheckbox value="#{researcherSurveyDetail04.educationlevel}" id="educationlevel" layout="pageDirection" required="true" rendered="#{researcherSurveyDetail04.status le 2}">
+            <h:selectManyCheckbox value="#{researcherSurveyDetail04.educationlevel}" id="educationlevel" layout="pageDirection" required="true" rendered="#{researcherSurveyDetail04.status eq 1}">
                 <f:selectItems value="#{educationlevels}"/>
             </h:selectManyCheckbox>
-            <h:outputText value="#{researcherSurveyDetail04.educationlevelStr}" rendered="#{researcherSurveyDetail04.status ge 3}" escape="false"></h:outputText>
+            <h:outputText value="#{researcherSurveyDetail04.educationlevelStr}" rendered="#{researcherSurveyDetail04.status ne 1}" escape="false"></h:outputText>
         </h:panelGroup>
 
 
@@ -123,10 +123,10 @@
             <h:message for="state" styleClass="RED"></h:message>
         </h:panelGroup>
         <h:panelGroup>
-            <h:selectManyListbox value="#{researcherSurveyDetail04.state}" size="5" id="state" layout="pageDirection" required="true" rendered="#{researcherSurveyDetail04.status le 2}">
+            <h:selectManyListbox value="#{researcherSurveyDetail04.state}" size="5" id="state" layout="pageDirection" required="true" rendered="#{researcherSurveyDetail04.status eq 1}">
                 <f:selectItems value="#{states}"/>
             </h:selectManyListbox>
-            <h:outputText value="#{researcherSurveyDetail04.stateStr}" rendered="#{researcherSurveyDetail04.status ge 3}" escape="false"></h:outputText>
+            <h:outputText value="#{researcherSurveyDetail04.stateStr}" rendered="#{researcherSurveyDetail04.status ne 1}" escape="false"></h:outputText>
         </h:panelGroup>
 
         <h:panelGroup>
@@ -135,10 +135,10 @@
             <h:message for="city" styleClass="RED"></h:message>
         </h:panelGroup>
         <h:panelGroup>
-            <h:selectManyListbox value="#{researcherSurveyDetail04.city}" size="5" id="city" layout="pageDirection" required="true" rendered="#{researcherSurveyDetail04.status le 2}">
+            <h:selectManyListbox value="#{researcherSurveyDetail04.city}" size="5" id="city" layout="pageDirection" required="true" rendered="#{researcherSurveyDetail04.status eq 1}">
                 <f:selectItems value="#{cities}"/>
             </h:selectManyListbox>
-            <h:outputText value="#{researcherSurveyDetail04.cityStr}" rendered="#{researcherSurveyDetail04.status ge 3}" escape="false"></h:outputText>
+            <h:outputText value="#{researcherSurveyDetail04.cityStr}" rendered="#{researcherSurveyDetail04.status ne 1}" escape="false"></h:outputText>
         </h:panelGroup>
 
 
@@ -148,10 +148,10 @@
             <h:message for="profession" styleClass="RED"></h:message>
         </h:panelGroup>
         <h:panelGroup>
-            <h:selectManyListbox value="#{researcherSurveyDetail04.profession}" size="5" id="profession" layout="pageDirection" required="true" rendered="#{researcherSurveyDetail04.status le 2}">
+            <h:selectManyListbox value="#{researcherSurveyDetail04.profession}" size="5" id="profession" layout="pageDirection" required="true" rendered="#{researcherSurveyDetail04.status eq 1}">
                 <f:selectItems value="#{professions}"/>
             </h:selectManyListbox>
-            <h:outputText value="#{researcherSurveyDetail04.professionStr}" rendered="#{researcherSurveyDetail04.status ge 3}" escape="false"></h:outputText>
+            <h:outputText value="#{researcherSurveyDetail04.professionStr}" rendered="#{researcherSurveyDetail04.status ne 1}" escape="false"></h:outputText>
         </h:panelGroup>
 
 
@@ -161,10 +161,10 @@
             <h:message for="blogfocus" styleClass="RED"></h:message>
         </h:panelGroup>
         <h:panelGroup>
-            <h:selectManyListbox value="#{researcherSurveyDetail04.blogfocus}" size="5" id="blogfocus" layout="pageDirection" required="true" rendered="#{researcherSurveyDetail04.status le 2}">
+            <h:selectManyListbox value="#{researcherSurveyDetail04.blogfocus}" size="5" id="blogfocus" layout="pageDirection" required="true" rendered="#{researcherSurveyDetail04.status eq 1}">
                 <f:selectItems value="#{blogfocuses}"/>
             </h:selectManyListbox>
-            <h:outputText value="#{researcherSurveyDetail04.blogfocusStr}" rendered="#{researcherSurveyDetail04.status ge 3}" escape="false"></h:outputText>
+            <h:outputText value="#{researcherSurveyDetail04.blogfocusStr}" rendered="#{researcherSurveyDetail04.status ne 1}" escape="false"></h:outputText>
         </h:panelGroup>
 
 
@@ -174,10 +174,10 @@
             <h:message for="politics" styleClass="RED"></h:message>
         </h:panelGroup>
         <h:panelGroup>
-            <h:selectManyListbox value="#{researcherSurveyDetail04.politics}" size="5" id="politics" layout="pageDirection" required="true" rendered="#{researcherSurveyDetail04.status le 2}">
+            <h:selectManyListbox value="#{researcherSurveyDetail04.politics}" size="5" id="politics" layout="pageDirection" required="true" rendered="#{researcherSurveyDetail04.status eq 1}">
                 <f:selectItems value="#{politics}"/>
             </h:selectManyListbox>
-            <h:outputText value="#{researcherSurveyDetail04.politicsStr}" rendered="#{researcherSurveyDetail04.status ge 3}" escape="false"></h:outputText>
+            <h:outputText value="#{researcherSurveyDetail04.politicsStr}" rendered="#{researcherSurveyDetail04.status ne 1}" escape="false"></h:outputText>
         </h:panelGroup>
 
         <h:panelGroup>
@@ -193,7 +193,7 @@
             <!--<h:message for="blogquality" styleClass="RED"></h:message>-->
         <!--</h:panelGroup>-->
         <!--<h:panelGroup>-->
-            <!--<h:selectOneListbox value="#{researcherSurveyDetail04.blogquality}" size="1" id="blogquality" layout="pageDirection" required="true" rendered="#{researcherSurveyDetail04.status le 2}">-->
+            <!--<h:selectOneListbox value="#{researcherSurveyDetail04.blogquality}" size="1" id="blogquality" layout="pageDirection" required="true" rendered="#{researcherSurveyDetail04.status eq 1}">-->
                 <!--<f:selectItem itemValue="0"/>-->
                 <!--<f:selectItem itemValue="1"/>-->
                 <!--<f:selectItem itemValue="2"/>-->
@@ -206,7 +206,7 @@
                 <!--<f:selectItem itemValue="9"/>-->
                 <!--<f:selectItem itemValue="10"/>-->
             <!--</h:selectOneListbox>-->
-            <!--<h:outputText value="#{researcherSurveyDetail04.blogquality}" rendered="#{researcherSurveyDetail04.status ge 3}" escape="false"></h:outputText>-->
+            <!--<h:outputText value="#{researcherSurveyDetail04.blogquality}" rendered="#{researcherSurveyDetail04.status ne 1}" escape="false"></h:outputText>-->
         <!--</h:panelGroup>-->
 <!---->
 <!---->
@@ -216,7 +216,7 @@
             <!--<h:message for="blogquality90days" styleClass="RED"></h:message>-->
         <!--</h:panelGroup>-->
         <!--<h:panelGroup>-->
-            <!--<h:selectOneListbox value="#{researcherSurveyDetail04.blogquality90days}" size="1" id="blogquality90days" layout="pageDirection" required="true" rendered="#{researcherSurveyDetail04.status le 2}">-->
+            <!--<h:selectOneListbox value="#{researcherSurveyDetail04.blogquality90days}" size="1" id="blogquality90days" layout="pageDirection" required="true" rendered="#{researcherSurveyDetail04.status eq 1}">-->
                 <!--<f:selectItem itemValue="0"/>-->
                 <!--<f:selectItem itemValue="1"/>-->
                 <!--<f:selectItem itemValue="2"/>-->
@@ -229,7 +229,7 @@
                 <!--<f:selectItem itemValue="9"/>-->
                 <!--<f:selectItem itemValue="10"/>-->
             <!--</h:selectOneListbox>-->
-            <!--<h:outputText value="#{researcherSurveyDetail04.blogquality90days}" rendered="#{researcherSurveyDetail04.status ge 3}" escape="false"></h:outputText>-->
+            <!--<h:outputText value="#{researcherSurveyDetail04.blogquality90days}" rendered="#{researcherSurveyDetail04.status ne 1}" escape="false"></h:outputText>-->
         <!--</h:panelGroup>-->
 
 

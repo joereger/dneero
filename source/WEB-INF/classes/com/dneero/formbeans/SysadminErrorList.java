@@ -34,20 +34,12 @@ public class SysadminErrorList extends SortableList {
     }
 
     public String markallold(){
-        List ers = HibernateUtil.getSession().createQuery("from Error where status<>'"+Error.STATUS_OLD+"'").list();
-        for (Iterator iterator = ers.iterator(); iterator.hasNext();) {
-            Error error = (Error) iterator.next();
-            error.setStatus(Error.STATUS_OLD);
-            try{error.save();}catch(Exception ex){logger.error(ex);}
-        }
+        int ers = HibernateUtil.getSession().createQuery("update Error set status= :statusold").setString("statusold", String.valueOf(Error.STATUS_OLD)).executeUpdate();
+        load();
         return "sysadminerrorlist";
     }
     public String deleteall(){
-        List ers = HibernateUtil.getSession().createQuery("from Error").list();
-        for (Iterator iterator = ers.iterator(); iterator.hasNext();) {
-            Error error = (Error) iterator.next();
-            try{error.delete();}catch(Exception ex){logger.error(ex);}
-        }
+        int ers = HibernateUtil.getSession().createQuery("delete from Error").executeUpdate();
         errors = new ArrayList();
         return "sysadminerrorlist";        
     }

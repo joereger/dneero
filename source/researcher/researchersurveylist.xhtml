@@ -45,8 +45,12 @@
               <af:outputText value="Actions"/>
             </f:facet>
             <h:commandLink action="#{researcherSurveyDetail01.beginView}">
-                <h:outputText value="Edit" escape="false" rendered="#{survey.status le 2}"/>
-                <h:outputText value="Review" escape="false" rendered="#{survey.status ge 3}"/>
+                <h:outputText value="Edit" escape="false" rendered="#{survey.status eq 1}"/>
+                <h:outputText value="Review" escape="false" rendered="#{survey.status ne 1}"/>
+                <f:param name="surveyid" value="#{survey.surveyid}" />
+            </h:commandLink>
+            <h:commandLink action="#{researcherSurveyDelete.beginView}" rendered="#{survey.status eq 1}">
+                <h:outputText value=" Delete" escape="false"/>
                 <f:param name="surveyid" value="#{survey.surveyid}" />
             </h:commandLink>
           </af:column>
@@ -54,7 +58,7 @@
             <f:facet name="header">
               <af:outputText value=" "/>
             </f:facet>
-            <h:commandLink action="#{researcherSurveyResults.beginView}" rendered="#{survey.status ge 3}">
+            <h:commandLink action="#{researcherSurveyResults.beginView}" rendered="#{survey.status ne 1}">
                 <h:outputText value="Results" escape="false" />
                 <f:param name="surveyid" value="#{survey.surveyid}" />
             </h:commandLink>

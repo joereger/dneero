@@ -1,9 +1,7 @@
 package com.dneero.formbeans;
 
 import org.apache.log4j.Logger;
-import com.dneero.dao.User;
-import com.dneero.dao.Blogger;
-import com.dneero.dao.Userrole;
+import com.dneero.dao.*;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.util.GeneralException;
 import com.dneero.util.Jsf;
@@ -14,6 +12,7 @@ import com.dneero.session.Roles;
 import com.dneero.email.EmailActivationSend;
 import com.dneero.money.PaymentMethod;
 import com.dneero.xmpp.SendXMPPMessage;
+import com.dneero.eula.EulaHelper;
 import com.octo.captcha.service.CaptchaServiceException;
 
 import javax.faces.context.FacesContext;
@@ -34,6 +33,7 @@ public class Registration {
     private String firstname;
     private String lastname;
     private String j_captcha_response;
+    private String eula;
 
     //private String temp;
 
@@ -43,7 +43,7 @@ public class Registration {
     Logger logger = Logger.getLogger(this.getClass().getName());
 
     public Registration(){
-        //loadTemp();
+        eula = EulaHelper.getMostRecentEula().getEula();
     }
 
     public String registerAction(){
@@ -51,8 +51,17 @@ public class Registration {
 
         //Validation
         boolean haveErrors = false;
+
         if (!password.equals(passwordverify)){
             Jsf.setFacesMessage("registrationForm:password", "Password and Verify Password must match.");
+            haveErrors = true;
+        }
+
+        if (!eula.equals(EulaHelper.getMostRecentEula().getEula())){
+            logger.debug("eula="+eula);
+            logger.debug("EulaHelper.getMostRecentEula().getEula()="+EulaHelper.getMostRecentEula().getEula());
+            Jsf.setFacesMessage("registrationForm:eula", "The end user license can't be edited.");
+            eula = EulaHelper.getMostRecentEula().getEula();
             haveErrors = true;
         }
 
@@ -101,12 +110,30 @@ public class Registration {
             return null;
         }
 
+
+
+        Usereula usereula = new Usereula();
+        usereula.setDate(new Date());
+        usereula.setEulaid(EulaHelper.getMostRecentEula().getEulaid());
+        usereula.setUserid(user.getUserid());
+        usereula.setIp(Jsf.getRemoteAddr());
+        try{
+            usereula.save();
+        } catch (GeneralException gex){
+            logger.debug("registerAction failed: " + gex.getErrorsAsSingleString());
+            return null;
+        }
+        user.getUsereulas().add(usereula);
+
         //Send the activation email
         EmailActivationSend.sendActivationEmail(user);
 
         //Notify customer care group
         SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_CUSTOMERSUPPORT, "New dNeero User: "+ user.getFirstname() + " " + user.getLastname() + "("+user.getEmail()+")");
         xmpp.send();
+
+
+
 
         //Log the user in
 //        UserSession userSession = Jsf.getUserSession();
@@ -115,22 +142,6 @@ public class Registration {
 
         return "success";
     }
-
-//    private void loadTemp(){
-//        StringBuffer out = new StringBuffer();
-//        LinkedHashMap tmap = (LinkedHashMap)Jsf.getManagedBean("cities");
-//        Iterator keyValuePairs = tmap.entrySet().iterator();
-//        for (int i = 0; i < tmap.size(); i++){
-//            Map.Entry mapentry = (Map.Entry) keyValuePairs.next();
-//            String key = (String)mapentry.getKey();
-//            String value = (String)mapentry.getValue();
-//            out.append("<map-entry>"+"\n");
-//            out.append(" <key>"+key+"</key>"+"\n");
-//            out.append(" <value>"+key+"</value>"+"\n");
-//            out.append("</map-entry>"+"\n");
-//        }
-//        temp = out.toString();
-//    }
 
 
     
@@ -192,4 +203,11 @@ public class Registration {
     }
 
 
+    public String getEula() {
+        return eula;
+    }
+
+    public void setEula(String eula) {
+        this.eula = eula;
+    }
 }

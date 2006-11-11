@@ -9,14 +9,14 @@
       xmlns:d="http://dneero.com/taglib">
 
 <ui:composition template="/template/template-facelets.xhtml">
-    <ui:define name="title">Welcome New Researcher!</ui:define>
+    <ui:define name="title">One-Time Researcher Configuration Complete!</ui:define>
     <ui:param name="navtab" value="researchers"/>
     <ui:define name="body">
         <d:authorization acl="researcher" redirectonfail="true"/>
         <h:form>
-            <font class="mediumfont">Your researcher profile is created and ready to roll.  In the future you'll be able to skip this step.</font>
+            <font class="smallfont">Your researcher profile is created and ready to roll.  In the future you'll be able to skip this step.</font>
             <br/><br/>
-            <h:commandLink value="Click Here to Continue" action="accountmain" style="padding-left: 10px; color: #009900;" styleClass="mediumfont"/>
+            <h:commandLink value="Click Here to Continue" action="researcherhome" style="color: #0000ff;" styleClass="mediumfont"/>
         </h:form>
     </ui:define>
 

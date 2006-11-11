@@ -29,15 +29,15 @@ public class ResearcherSurveyList extends SortableList {
         //surveys = HibernateUtil.getSession().createQuery("from Survey").list();
 
         UserSession userSession = Jsf.getUserSession();
+        Jsf.getUserSession().setCurrentSurveyid(0);
 
         if (userSession!=null && userSession.getUser()!=null && userSession.getUser().getResearcher()!=null){
             logger.debug("userSession, user and researcher not null");
             logger.debug("into loop for userSession.getUser().getResearcher().getResearcherid()="+userSession.getUser().getResearcher().getResearcherid());
-            surveys = HibernateUtil.getSession().createQuery("from Survey where researcherid='"+userSession.getUser().getResearcher().getResearcherid()+"'").list();
+            surveys = HibernateUtil.getSession().createQuery("from Survey where researcherid='"+userSession.getUser().getResearcher().getResearcherid()+"' order by surveyid asc").list();
         }
-
-
     }
+
 
     public List getSurveys() {
         logger.debug("getSurveys");

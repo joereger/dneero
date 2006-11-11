@@ -13,6 +13,7 @@ import com.dneero.util.GeneralException;
 import com.dneero.util.Jsf;
 import com.dneero.session.UserSession;
 import com.dneero.xmpp.SendXMPPMessage;
+import com.dneero.eula.EulaHelper;
 
 import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
@@ -60,11 +61,16 @@ public class Login {
 //            binding.setValue(ctx, userSession);
 
 
+            //Now check the eula
+            if (!EulaHelper.isUserUsingMostRecentEula(userSession.getUser())){
+                return "loginagreeneweula";    
+            }
 
-            return "success";
+
+            return "accountmain";
         }
 
-        return "failure";
+        return null;
     }
 
     public String logout(){

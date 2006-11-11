@@ -76,64 +76,90 @@ public class FindSurveysForBlogger {
 
         //Run the query and get the preliminary results
         List<Survey> surveys = crit.list();
-        logger.debug("surveys.size()=" + surveys.size());
+        logger.debug("initial list from db: surveys.size()=" + surveys.size());
         for (Iterator it = surveys.iterator(); it.hasNext(); ) {
             Survey survey = (Survey)it.next();
+            logger.debug("Seeing if surveyid="+survey.getSurveyid()+" works for this blogger.");
             boolean surveyfitsblogger = true;
 
             SurveyCriteriaXML scXml = new SurveyCriteriaXML(survey.getCriteriaxml());
 
             if (surveyfitsblogger && !Util.arrayContains(scXml.getGender(), blogger.getGender())){
                 surveyfitsblogger = false;
+                logger.debug("survey not included because of gender.");
             }
             if (surveyfitsblogger && !Util.arrayContains(scXml.getEthnicity(), blogger.getEthnicity())){
                 surveyfitsblogger = false;
+                logger.debug("survey not included because of ethnicity.");
             }
             if (surveyfitsblogger && !Util.arrayContains(scXml.getMaritalstatus(), blogger.getMaritalstatus())){
                 surveyfitsblogger = false;
+                logger.debug("survey not included because of maritalstatus.");
             }
             if (surveyfitsblogger && !Util.arrayContains(scXml.getIncome(), blogger.getIncomerange())){
                 surveyfitsblogger = false;
+                logger.debug("survey not included because of incomerange.");
             }
             if (surveyfitsblogger && !Util.arrayContains(scXml.getEducationlevel(), blogger.getEducationlevel())){
                 surveyfitsblogger = false;
+                logger.debug("survey not included because of educationlevel.");
             }
             if (surveyfitsblogger && !Util.arrayContains(scXml.getState(), blogger.getState())){
                 surveyfitsblogger = false;
+                logger.debug("survey not included because of state.");
             }
             if (surveyfitsblogger && !Util.arrayContains(scXml.getCity(), blogger.getCity())){
                 surveyfitsblogger = false;
+                logger.debug("survey not included because of city.");
             }
             if (surveyfitsblogger && !Util.arrayContains(scXml.getProfession(), blogger.getProfession())){
                 surveyfitsblogger = false;
+                logger.debug("survey not included because of profession.");
             }
             if (surveyfitsblogger && !Util.arrayContains(scXml.getPolitics(), blogger.getPolitics())){
                 surveyfitsblogger = false;
+                logger.debug("survey not included because of politics.");
             }
 
             //Now check the age requirements
             if (blogger.getBirthdate().before(   Time.subtractYear(Calendar.getInstance(), scXml.getAgemax()).getTime()    )){
                 surveyfitsblogger = false;
+                logger.debug("survey not included because birthdate is before.");
             }
             if (blogger.getBirthdate().after(   Time.subtractYear(Calendar.getInstance(), scXml.getAgemin()).getTime()    )){
                 surveyfitsblogger = false;
+                logger.debug("survey not included because birthdate is after.");
             }
 
             //Now check this blogger's blogs to see if they fulfill the criteria
             if (surveyfitsblogger){
-                boolean atleastoneblogfulfills = false;
-                for (Iterator<Blog> iterator = blogger.getBlogs().iterator(); iterator.hasNext();) {
-                    Blog blog = iterator.next();
-                    if (Util.arrayContains(scXml.getBlogfocus(), blog.getBlogfocus())){
-                        if (blog.getQuality()>=scXml.getBlogquality()){
-                            if (blog.getQuality90days()>=scXml.getBlogquality90days()){
-                                atleastoneblogfulfills = true;
+                logger.debug("so far the survey fits so we're going to check blogfocus and quality.");
+                logger.debug("blogger.getBlogs().size()="+blogger.getBlogs().size());
+                if (blogger.getBlogs().size()>0){
+                    boolean atleastoneblogfulfills = false;
+                    for (Iterator<Blog> iterator = blogger.getBlogs().iterator(); iterator.hasNext();) {
+                        Blog blog = iterator.next();
+                        logger.debug("considering blogid="+blog.getBlogid());
+                        if (Util.arrayContains(scXml.getBlogfocus(), blog.getBlogfocus())){
+                            logger.debug("passes blogfocus");
+                            if (blog.getQuality()>=scXml.getBlogquality()){
+                                if (blog.getQuality90days()>=scXml.getBlogquality90days()){
+                                    atleastoneblogfulfills = true;
+                                } else {
+                                    logger.debug("fails blog quality 90 days");
+                                }
+                            } else {
+                                logger.debug("fails blog quality all time");
                             }
+                        } else {
+                            logger.debug("survey not included because of blogfocus");
                         }
                     }
-                }
-                if (!atleastoneblogfulfills){
-                    surveyfitsblogger = false;
+                    if (!atleastoneblogfulfills){
+                        surveyfitsblogger = false;
+                    }
+                } else {
+                    logger.debug("no blogs found for bloggerid="+blogger.getBloggerid());
                 }
             }
 

@@ -15,15 +15,15 @@
     <d:authorization acl="blogger" redirectonfail="true"/>
 
 
-    <d:roundedCornerBox uniqueboxname="newblogger" bodycolor="00ff00" widthinpixels="750" rendered="#{userSession.isloggedin and (userSession.user.blogger ne null) and (empty userSession.user.blogger.blogs)}">
-    <font class="mediumfont">New Blogger Step 2: Blog Claim</font>
+    <d:roundedCornerBox uniqueboxname="newblogger" bodycolor="00ff00" widthinpixels="700" rendered="#{userSession.isloggedin and (userSession.user.blogger ne null) and (empty userSession.user.blogger.blogs)}">
+    <font class="mediumfont">One-time Blogger Configuration Step 2: Blog Claim</font>
     <br/>
     <font class="smallfont">You need to claim at least one blog so that we know where to look for your survey posts.</font>
     </d:roundedCornerBox>
 
 
 <h:form>
-    <h:messages />
+    <h:messages styleClass="RED"/>
     <h:inputHidden name="blogid" value="#{bloggerBlogDetail.blogid}" />
     <h:panelGrid columns="3" cellpadding="3" border="0">
 
@@ -33,7 +33,7 @@
             <h:outputText value="Url" styleClass="formfieldnamefont"></h:outputText>
         </h:panelGroup>
         <h:panelGroup>
-            <h:inputText value="#{bloggerBlogDetail.url}" id="url" required="true">
+            <h:inputText value="#{bloggerBlogDetail.url}" id="url" required="true" size="45">
                 <f:validateLength minimum="3" maximum="255"></f:validateLength>
             </h:inputText>
             <br/>
@@ -47,7 +47,7 @@
             <h:outputText value="Blog Title" styleClass="formfieldnamefont"></h:outputText>
         </h:panelGroup>
         <h:panelGroup>
-            <h:inputText value="#{bloggerBlogDetail.title}" id="title" required="true">
+            <h:inputText value="#{bloggerBlogDetail.title}" id="title" required="true" size="45">
                 <f:validateLength minimum="3" maximum="255"></f:validateLength>
             </h:inputText>
         </h:panelGroup>

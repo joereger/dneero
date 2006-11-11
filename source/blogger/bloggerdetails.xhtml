@@ -15,8 +15,8 @@
     <d:authorization acl="account" redirectonfail="true"/>
 
 
-    <d:roundedCornerBox uniqueboxname="bloggerprofilenewblogger" bodycolor="00ff00" widthinpixels="750" rendered="#{userSession.isloggedin and (userSession.user.blogger eq null)}">
-    <font class="mediumfont">New Blogger Step 1: Profile Setup</font>
+    <d:roundedCornerBox uniqueboxname="bloggerprofilenewblogger" bodycolor="00ff00" widthinpixels="700" rendered="#{userSession.isloggedin and (userSession.user.blogger eq null)}">
+    <font class="mediumfont">One-time Blogger Configuration Step 1: Profile Setup</font>
     <br/>
     <font class="smallfont">We must take your profile so that we can find offers that fit you.  This is a one-time step.  You can edit your answers later on.</font>
     </d:roundedCornerBox>
@@ -154,7 +154,7 @@
                 </h:panelGroup>
 
                 <h:panelGroup>
-                    <h:outputText value="PayPal Address" styleClass="formfieldnamefont"></h:outputText>
+                    <h:outputText value="PayPal Address (Optional)" styleClass="formfieldnamefont"></h:outputText>
                     <br/>
                     <font class="tinyfont">So we can pay you.<br/>Don't have a PayPal account? <br/>Setup is quick, easy and secure.<br/>Click <a href='http://www.paypal.com' target='paypal' class="tinyfont"><font class="tinyfont">here</font></a>.</font>
                 </h:panelGroup>

@@ -21,7 +21,7 @@
     <h:graphicImage url="/images/process-train-survey-05.gif" style="display: block; margin-left: auto; margin-right: auto;"></h:graphicImage>
     <f:verbatim><br/></f:verbatim>
 
-    <center><div style="width: 450px; text-align: left;"><font class="smallfont">
+    <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
     In this step you'll choose how much you're willing to pay bloggers. You'll want to craft an incentive that generates the response you're looking for.
     <br/><br/>
     Example 1: You have a new product to announce to the blogosphere.  You need to find new bloggers to talk about your product and you then need them to post the survey to their blogs to tell their friends and families.  Your pricing should be a good balance of Survey Taking Incentive and Blog Display Incentive.
@@ -52,10 +52,10 @@
             <font class="smallfont">Amount to pay to a person who fulfills the targeting criteria and successfully fills out the survey.  Paying more will attract more people.  A good starting point is $5.</font>
         </h:panelGroup>
         <h:panelGroup>
-            <h:inputText value="#{researcherSurveyDetail05.willingtopayperrespondent}" id="willingtopayperrespondent" required="true" rendered="#{researcherSurveyDetail05.status le 2}">
+            <h:inputText value="#{researcherSurveyDetail05.willingtopayperrespondent}" id="willingtopayperrespondent" required="true" rendered="#{researcherSurveyDetail05.status eq 1}">
                 <f:validateDoubleRange minimum=".25" maximum="10000"></f:validateDoubleRange>
             </h:inputText>
-            <h:outputText value="#{researcherSurveyDetail05.willingtopayperrespondent}" rendered="#{researcherSurveyDetail05.status ge 3}"></h:outputText>
+            <h:outputText value="#{researcherSurveyDetail05.willingtopayperrespondent}" rendered="#{researcherSurveyDetail05.status ne 1}"></h:outputText>
         </h:panelGroup>
         <h:panelGroup>
             <h:message for="willingtopayperrespondent" styleClass="RED"></h:message>
@@ -68,10 +68,10 @@
             <font class="smallfont">The number of people that you would like to have fill out the survey and post to their blogs.  Once this number is reached no more people can take the survey.</font>
         </h:panelGroup>
         <h:panelGroup>
-            <h:inputText value="#{researcherSurveyDetail05.numberofrespondentsrequested}" id="numberofrespondentsrequested" required="true" rendered="#{researcherSurveyDetail05.status le 2}">
+            <h:inputText value="#{researcherSurveyDetail05.numberofrespondentsrequested}" id="numberofrespondentsrequested" required="true" rendered="#{researcherSurveyDetail05.status eq 1}">
                 <f:validateDoubleRange minimum="100" maximum="10000000"></f:validateDoubleRange>
             </h:inputText>
-            <h:outputText value="#{researcherSurveyDetail05.numberofrespondentsrequested}" rendered="#{researcherSurveyDetail05.status ge 3}"></h:outputText>
+            <h:outputText value="#{researcherSurveyDetail05.numberofrespondentsrequested}" rendered="#{researcherSurveyDetail05.status ne 1}"></h:outputText>
         </h:panelGroup>
         <h:panelGroup>
             <h:message for="numberofrespondentsrequested" styleClass="RED"></h:message>
@@ -94,10 +94,10 @@
             <font class="smallfont">Once surveys are taken they are posted to a person's blog.  With this value you determine what you're willing to pay for 1000 displays (CPM) of your survey.  This value must be at least $.01 to cover bandwidth costs and can go as high as $1000 (equivalent to $1 per display).  The more you pay the more you attract bloggers who will display your survey prominently on their blog.</font>
         </h:panelGroup>
         <h:panelGroup>
-            <h:inputText value="#{researcherSurveyDetail05.willingtopaypercpm}" id="willingtopaypercpm" required="true" rendered="#{researcherSurveyDetail05.status le 2}">
+            <h:inputText value="#{researcherSurveyDetail05.willingtopaypercpm}" id="willingtopaypercpm" required="true" rendered="#{researcherSurveyDetail05.status eq 1}">
                 <f:validateDoubleRange minimum=".01" maximum="1000"></f:validateDoubleRange>
             </h:inputText>
-            <h:outputText value="#{researcherSurveyDetail05.willingtopaypercpm}" rendered="#{researcherSurveyDetail05.status ge 3}"></h:outputText>
+            <h:outputText value="#{researcherSurveyDetail05.willingtopaypercpm}" rendered="#{researcherSurveyDetail05.status ne 1}"></h:outputText>
         </h:panelGroup>
         <h:panelGroup>
             <h:message for="willingtopaypercpm" styleClass="RED"></h:message>
@@ -110,10 +110,10 @@
             <font class="smallfont">You may want to cap the maximum number of displays that a blogger can get paid for.  Your survey will continue to be displayed if the blog is visited over this number of times but you won't be charged for it.  It is tempting to set this number low, but be cautious... bloggers will quickly realize that they don't stand to make money by displaying your survey... so they won't.</font>
         </h:panelGroup>
         <h:panelGroup>
-            <h:inputText value="#{researcherSurveyDetail05.maxdisplaysperblog}" id="maxdisplaysperblog" required="true" rendered="#{researcherSurveyDetail05.status le 2}">
+            <h:inputText value="#{researcherSurveyDetail05.maxdisplaysperblog}" id="maxdisplaysperblog" required="true" rendered="#{researcherSurveyDetail05.status eq 1}">
                 <f:validateDoubleRange minimum="1000" maximum="10000000"></f:validateDoubleRange>
             </h:inputText>
-            <h:outputText value="#{researcherSurveyDetail05.maxdisplaysperblog}" rendered="#{researcherSurveyDetail05.status ge 3}"></h:outputText>
+            <h:outputText value="#{researcherSurveyDetail05.maxdisplaysperblog}" rendered="#{researcherSurveyDetail05.status ne 1}"></h:outputText>
         </h:panelGroup>
         <h:panelGroup>
             <h:message for="maxdisplaysperblog" styleClass="RED"></h:message>
@@ -125,10 +125,10 @@
             <font class="smallfont">This is a safety check that allows you to cap the total number of displays that you're willing to pay for.  Note that this value is not simply the number of respondents requested multiplied by the max surveys per blog... many bloggers have multiple blogs and can get paid on each one separately.</font>
         </h:panelGroup>
         <h:panelGroup>
-            <h:inputText value="#{researcherSurveyDetail05.maxdisplaystotal}" id="maxdisplaystotal" required="true" rendered="#{researcherSurveyDetail05.status le 2}">
+            <h:inputText value="#{researcherSurveyDetail05.maxdisplaystotal}" id="maxdisplaystotal" required="true" rendered="#{researcherSurveyDetail05.status eq 1}">
                 <f:validateDoubleRange minimum="100" maximum="10000000"></f:validateDoubleRange>
             </h:inputText>
-            <h:outputText value="#{researcherSurveyDetail05.maxdisplaystotal}" rendered="#{researcherSurveyDetail05.status ge 3}"></h:outputText>
+            <h:outputText value="#{researcherSurveyDetail05.maxdisplaystotal}" rendered="#{researcherSurveyDetail05.status ne 1}"></h:outputText>
         </h:panelGroup>
         <h:panelGroup>
             <h:message for="maxdisplaystotal" styleClass="RED"></h:message>

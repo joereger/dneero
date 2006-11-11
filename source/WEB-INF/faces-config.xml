@@ -140,14 +140,20 @@
     </managed-bean>
 
     <managed-bean>
-        <managed-bean-name>sysadminSurveyList</managed-bean-name>
-        <managed-bean-class>com.dneero.formbeans.SystemadminSurveyList</managed-bean-class>
+        <managed-bean-name>researcherSurveyDelete</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.ResearcherSurveyDelete</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
 
     <managed-bean>
         <managed-bean-name>researcherSurveyQuestionList</managed-bean-name>
         <managed-bean-class>com.dneero.formbeans.ResearcherSurveyQuestionList</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>sysadminSurveyList</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.SystemadminSurveyList</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
 
@@ -342,6 +348,12 @@
     </managed-bean>
 
     <managed-bean>
+        <managed-bean-name>loginAgreeNewEula</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.LoginAgreeNewEula</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
         <managed-bean-name>loginToBeta</managed-bean-name>
         <managed-bean-class>com.dneero.formbeans.LoginToBeta</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
@@ -452,6 +464,12 @@
     </managed-bean>
 
     <managed-bean>
+        <managed-bean-name>sysadminEditEula</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.SysadminEditEula</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
         <managed-bean-name>systemProps</managed-bean-name>
         <managed-bean-class>com.dneero.formbeans.SysadminSystemProps</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
@@ -500,6 +518,10 @@
             <to-view-id>/login.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
+            <from-outcome>loginagreeneweula</from-outcome>
+            <to-view-id>/loginagreeneweula.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
             <from-outcome>logintobeta</from-outcome>
             <to-view-id>/logintobeta.xhtml</to-view-id>
         </navigation-case>
@@ -510,6 +532,10 @@
         <navigation-case>
             <from-outcome>researcherfaq</from-outcome>
             <to-view-id>/researcher/researcherfaq.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>researchersurveydelete</from-outcome>
+            <to-view-id>/researcher/researchersurveydelete.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>accountmain</from-outcome>
@@ -764,22 +790,15 @@
             <to-view-id>/sysadmin/manuallyrunscheduledtask.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
+            <from-outcome>sysadminediteula</from-outcome>
+            <to-view-id>/sysadmin/editeula.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
             <from-outcome>rateblogpost</from-outcome>
             <to-view-id>/sysadmin/rateblogpost.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
 
-    <navigation-rule>
-        <from-view-id>/login.xhtml</from-view-id>
-        <navigation-case>
-            <from-outcome>success</from-outcome>
-            <to-view-id>/account/accountmain.xhtml</to-view-id>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>failure</from-outcome>
-            <to-view-id>/login.xhtml</to-view-id>
-        </navigation-case>
-    </navigation-rule>
 
     <navigation-rule>
 		<from-view-id>/blogger/bloggersurveylist.xhtml</from-view-id>
