@@ -39,7 +39,10 @@
         <f:facet name="header">
           <af:outputText value="Title"/>
         </f:facet>
-        <af:outputText value="#{srvy.title}" styleClass="mediumfont"/>
+        <h:commandLink action="#{bloggerSurveyDetail.beginView}">
+            <h:outputText value="#{srvy.title}" escape="false" styleClass="mediumfont" style="color: #0000ff;"/>
+            <f:param name="surveyid" value="#{srvy.surveyid}" />
+        </h:commandLink>
       </af:column>
       <af:column>
         <f:facet name="header">
@@ -59,9 +62,9 @@
         </f:facet>
         <af:outputText value="#{srvy.maxearning}" styleClass="mediumfont"/>
       </af:column>
-      <af:column>
+      <af:column rendered="false">
         <f:facet name="header">
-          <af:outputText value=" "/>
+          <af:outputText value="-" inlineStyle="color: #ffffff;"/>
         </f:facet>
         <h:commandLink action="#{bloggerSurveyDetail.beginView}">
             <h:outputText value="View" escape="false" styleClass="mediumfont"/>

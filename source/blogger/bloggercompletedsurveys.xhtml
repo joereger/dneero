@@ -28,7 +28,10 @@
                 <f:facet name="header">
                   <af:outputText value="Survey Title"/>
                 </f:facet>
-                <af:outputText value="#{listitem.surveytitle}"  styleClass="mediumfont"/>
+                <h:commandLink action="#{bloggerSurveyDetail.beginView}">
+                    <h:outputText value="#{listitem.surveytitle}" escape="false" styleClass="mediumfont" style="color: #0000ff;"/>
+                    <f:param name="surveyid" value="#{listitem.surveyid}" />
+                </h:commandLink>
               </af:column>
               <af:column>
                 <f:facet name="header">
@@ -62,16 +65,16 @@
               </af:column>
               <af:column>
                 <f:facet name="header">
-                  <af:outputText value=" "/>
+                  <af:outputText value="-" inlineStyle="color: #ffffff;"/>
                 </f:facet>
                 <h:commandLink action="#{bloggerEarningsSurvey.beginView}">
-                    <h:outputText value="Payment Details" escape="false" />
+                    <h:outputText value="Payment Details" escape="false"/>
                     <f:param name="responseid" value="#{listitem.responseid}" />
                 </h:commandLink>
              </af:column>
-             <af:column>
+             <af:column rendered="false">
                 <f:facet name="header">
-                  <af:outputText value=" "/>
+                  <af:outputText value="-" inlineStyle="color: #ffffff;"/>
                 </f:facet>
                 <h:commandLink action="#{bloggerSurveyDetail.beginView}">
                     <h:outputText value="View" escape="false" styleClass="mediumfont"/>

@@ -16,7 +16,7 @@
     <d:authorization acl="blogger" redirectonfail="true"/>
 
 
-    <font class="smallfont">By claiming a blog you tell us that you may be using this blog to post surveys to.</font>
+    <font class="smallfont">By claiming a blog you tell us that you may be using this blog to post surveys to.  If you don't claim a blog then we can't credit you with survey traffic generated on that blog.  You must claim any blog that you post surveys to.</font>
     <br/><br/>
 
 
@@ -25,7 +25,7 @@
 
     <af:outputText value="You have not claimed any blogs." rendered="#{empty bloggerBlogsList.blogs}"/>
     <af:table value="#{bloggerBlogsList.blogs}" bandingInterval="2" rows="15" banding="row" var="blog" rendered="#{!empty bloggerBlogsList.blogs}">
-      <af:column>
+      <af:column rendered="false">
         <f:facet name="header">
           <af:outputText value="Id"/>
         </f:facet>
@@ -45,7 +45,7 @@
       </af:column>
       <af:column>
         <f:facet name="header">
-          <af:outputText value=" "/>
+          <af:outputText value="-" inlineStyle="color: #ffffff;"/>
         </f:facet>
         <h:commandLink action="#{bloggerBlogDetail.beginView}">
             <h:outputText value="Edit" escape="false" />
