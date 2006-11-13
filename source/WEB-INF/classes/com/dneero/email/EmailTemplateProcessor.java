@@ -27,6 +27,8 @@ public class EmailTemplateProcessor {
 
     public static void sendMail(String subject, String emailTemplateFilenameWithoutExtension, User userTo, String[] args, String toaddress, String fromaddress){
         Logger logger = Logger.getLogger(EmailTemplateProcessor.class);
+        String htmlEmailHeader = Io.textFileRead(WebAppRootDir.getWebAppRootPath() + "emailtemplates" + java.io.File.separator + "emailheader.html").toString();
+        String htmlEmailFooter = Io.textFileRead(WebAppRootDir.getWebAppRootPath() + "emailtemplates" + java.io.File.separator + "emailfooter.html").toString();
         String htmlTemplate = Io.textFileRead(WebAppRootDir.getWebAppRootPath() + "emailtemplates" + java.io.File.separator + emailTemplateFilenameWithoutExtension + ".html").toString();
         String txtTemplate = Io.textFileRead(WebAppRootDir.getWebAppRootPath() + "emailtemplates" + java.io.File.separator + emailTemplateFilenameWithoutExtension + ".txt").toString();
         String htmlMessage = processTemplate(htmlTemplate, userTo, args);
@@ -47,7 +49,7 @@ public class EmailTemplateProcessor {
                 email.setFrom(EmailSendThread.DEFAULTFROM);
             }
             email.setSubject(subject);
-            email.setHtmlMsg(htmlMessage);
+            email.setHtmlMsg(htmlEmailHeader + htmlMessage + htmlEmailFooter);
             email.setTextMsg(txtMessage);
             EmailSend.sendMail(email);
         } catch (Exception e){
