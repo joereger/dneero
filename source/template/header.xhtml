@@ -75,7 +75,7 @@
                         <c:if test="${navtab=='bloggers'}">
                             <h:commandLink value="Blogger Profile" action="bloggerdetails" styleClass="subnavfont" style="padding-left: 15px;" rendered="#{userSession.isloggedin and (userSession.user.blogger ne null)}"/>
                             <h:commandLink value="Your Blogs" action="bloggerblogslist" styleClass="subnavfont" style="padding-left: 15px;" rendered="#{userSession.isloggedin and (userSession.user.blogger ne null)}"/>
-                            <h:commandLink value="Surveys You Qualify For" action="bloggersurveylist" styleClass="subnavfont" style="padding-left: 15px;" rendered="#{userSession.isloggedin and (userSession.user.blogger ne null)}"/>
+                            <h:commandLink value="New Survey Opportunities" action="bloggersurveylist" styleClass="subnavfont" style="padding-left: 15px;" rendered="#{userSession.isloggedin and (userSession.user.blogger ne null)}"/>
                             <h:commandLink value="Completed Surveys" action="bloggercompletedsurveys" styleClass="subnavfont" style="padding-left: 15px;" rendered="#{userSession.isloggedin and (userSession.user.blogger ne null)}"/>
                             <h:commandLink value="Revenue Share" action="bloggerearningsrevshare" styleClass="subnavfont" style="padding-left: 15px;" rendered="#{userSession.isloggedin and (userSession.user.blogger ne null)}"/>
                             <h:commandLink value="Blogger FAQ" action="bloggerfaq" style="padding-left: 15px;" styleClass="subnavfont"/>
