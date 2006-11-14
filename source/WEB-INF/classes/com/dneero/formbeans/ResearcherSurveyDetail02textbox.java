@@ -29,6 +29,7 @@ public class ResearcherSurveyDetail02textbox {
     private String question;
     private boolean isrequired=true;
     private int componenttype;
+    private String title;
 
 
 
@@ -55,6 +56,12 @@ public class ResearcherSurveyDetail02textbox {
                 this.isrequired = question.getIsrequired();
                 this.componenttype = question.getComponenttype();
             }
+        }
+        Survey survey = new Survey();
+        if (Jsf.getUserSession().getCurrentSurveyid()>0){
+            logger.debug("saveSurvey() called: going to get Survey.get(surveyid)="+Jsf.getUserSession().getCurrentSurveyid());
+            survey = Survey.get(Jsf.getUserSession().getCurrentSurveyid());
+            title = survey.getTitle();
         }
     }
 
@@ -141,4 +148,11 @@ public class ResearcherSurveyDetail02textbox {
     }
 
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
 }

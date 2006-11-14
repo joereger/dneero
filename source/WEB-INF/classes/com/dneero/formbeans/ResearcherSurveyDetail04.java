@@ -27,6 +27,8 @@ import com.dneero.finders.SurveyCriteriaXML;
  */
 public class ResearcherSurveyDetail04 {
 
+    private String title;
+
     private int status;
     private int agemin = 13;
     private int agemax = 100;
@@ -111,36 +113,38 @@ public class ResearcherSurveyDetail04 {
     public void loadSurvey(int surveyid){
         logger.debug("loadSurvey called");
         Survey survey = Survey.get(surveyid);
-        status = survey.getStatus();
-        if (Jsf.getUserSession().getUser()!=null && survey.canEdit(Jsf.getUserSession().getUser())){
-            //Do it with XML
-            SurveyCriteriaXML surveyCriteriaXML = new SurveyCriteriaXML(survey.getCriteriaxml());
-            agemin = surveyCriteriaXML.getAgemin();
-            agemax = surveyCriteriaXML.getAgemax();
-            blogquality = surveyCriteriaXML.getBlogquality();
-            blogquality90days = surveyCriteriaXML.getBlogquality90days();
-            gender = surveyCriteriaXML.getGender();
-            genderStr = arrayToString(gender, "<br>");
-            ethnicity = surveyCriteriaXML.getEthnicity();
-            ethnicityStr = arrayToString(ethnicity, "<br>");
-            maritalstatus = surveyCriteriaXML.getMaritalstatus();
-            maritalstatusStr = arrayToString(maritalstatus, "<br>");
-            income = surveyCriteriaXML.getIncome();
-            incomeStr = arrayToString(income, "<br>");
-            educationlevel = surveyCriteriaXML.getEducationlevel();
-            educationlevelStr = arrayToString(educationlevel, "<br>");
-            state = surveyCriteriaXML.getState();
-            stateStr = arrayToString(state, ", ");
-            city = surveyCriteriaXML.getCity();
-            cityStr = arrayToString(city, ", ");
-            profession = surveyCriteriaXML.getProfession();
-            professionStr = arrayToString(profession, "<br>");
-            politics = surveyCriteriaXML.getPolitics();
-            politicsStr = arrayToString(politics, "<br>");
-            blogfocus = surveyCriteriaXML.getBlogfocus();
-            blogfocusStr = arrayToString(blogfocus, ", ");
+        if (survey!=null){
+            title = survey.getTitle();
+            status = survey.getStatus();
+            if (Jsf.getUserSession().getUser()!=null && survey.canEdit(Jsf.getUserSession().getUser())){
+                //Do it with XML
+                SurveyCriteriaXML surveyCriteriaXML = new SurveyCriteriaXML(survey.getCriteriaxml());
+                agemin = surveyCriteriaXML.getAgemin();
+                agemax = surveyCriteriaXML.getAgemax();
+                blogquality = surveyCriteriaXML.getBlogquality();
+                blogquality90days = surveyCriteriaXML.getBlogquality90days();
+                gender = surveyCriteriaXML.getGender();
+                genderStr = arrayToString(gender, "<br>");
+                ethnicity = surveyCriteriaXML.getEthnicity();
+                ethnicityStr = arrayToString(ethnicity, "<br>");
+                maritalstatus = surveyCriteriaXML.getMaritalstatus();
+                maritalstatusStr = arrayToString(maritalstatus, "<br>");
+                income = surveyCriteriaXML.getIncome();
+                incomeStr = arrayToString(income, "<br>");
+                educationlevel = surveyCriteriaXML.getEducationlevel();
+                educationlevelStr = arrayToString(educationlevel, "<br>");
+                state = surveyCriteriaXML.getState();
+                stateStr = arrayToString(state, ", ");
+                city = surveyCriteriaXML.getCity();
+                cityStr = arrayToString(city, ", ");
+                profession = surveyCriteriaXML.getProfession();
+                professionStr = arrayToString(profession, "<br>");
+                politics = surveyCriteriaXML.getPolitics();
+                politicsStr = arrayToString(politics, "<br>");
+                blogfocus = surveyCriteriaXML.getBlogfocus();
+                blogfocusStr = arrayToString(blogfocus, ", ");
+            }
         }
-
     }
 
     private String arrayToString(String[] array, String delimiter){
@@ -414,5 +418,13 @@ public class ResearcherSurveyDetail04 {
 
     public void setBlogquality90days(int blogquality90days) {
         this.blogquality90days = blogquality90days;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 }

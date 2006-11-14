@@ -10,7 +10,11 @@
       xmlns:af="http://xmlns.oracle.com/adf/faces">
 
 <ui:composition template="/template/template-facelets.xhtml">
-    <ui:define name="title">Survey</ui:define>
+    <ui:define name="title">
+        <img src="/images/process-train-survey-02.gif" align="right" width="350" height="73"></img>
+        <h:outputText value="${researcherSurveyDetail02.title}" styleClass="pagetitlefont" rendered="${researcherSurveyDetail02.title ne ''}"/>
+        <br clear="all"/>
+    </ui:define>
     <ui:param name="navtab" value="researchers"/>
     <ui:define name="body">
     <d:authorization acl="researcher" redirectonfail="true"/>
@@ -18,11 +22,11 @@
 <h:form>
 
     <h:inputHidden name="surveyid" value="#{userSession.currentSurveyid}" />
-    <h:graphicImage url="/images/process-train-survey-02.gif" style="display: block; margin-left: auto; margin-right: auto;"></h:graphicImage>
-    <f:verbatim><br/></f:verbatim>
 
     <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
+    <img src="/images/lightbulb_on.png" align="left"/>
     Add questions to your survey on this page.  Choose from the Question Type dropdown box and then click Add Question.  You'll quickly build a list of questions.  Click Preview the Survey to see what these questions look like to somebody taking the survey.  When you're done, click Next Step.
+    <br/><br/>
     </font></div></center>
 
     <f:verbatim><br/></f:verbatim>
@@ -77,7 +81,8 @@
                 </h:commandLink>
               </af:column>
             </af:table>
-            <font class="tinyfont">Question Type:</font><br/>
+            <af:outputText value="Question Type:" styleClass="tinyfont" rendered="#{researcherSurveyDetail02.status eq 1}"/>
+            <br/>
             <h:selectOneMenu value="#{researcherSurveyDetail02.newquestioncomponenttype}" id="newquestioncomponenttype" required="true" rendered="#{researcherSurveyDetail02.status eq 1}">
                 <f:selectItems value="#{componentTypes.typesaslinkedhashmap}"/>
             </h:selectOneMenu>

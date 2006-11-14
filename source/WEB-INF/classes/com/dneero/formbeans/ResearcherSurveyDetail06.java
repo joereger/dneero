@@ -25,7 +25,7 @@ import com.dneero.scheduledjobs.ResearcherRemainingBalanceOperations;
 public class ResearcherSurveyDetail06 {
 
 
-
+    private String title;
 
     private int status;
     private int numberofbloggersqualifiedforthissurvey = 0;
@@ -86,6 +86,7 @@ public class ResearcherSurveyDetail06 {
         Survey survey = Survey.get(surveyid);
         if (survey!=null){
             logger.debug("Found survey in db: survey.getSurveyid()="+survey.getSurveyid()+" survey.getTitle()="+survey.getTitle());
+            title = survey.getTitle();
             if (Jsf.getUserSession().getUser()!=null && survey.canEdit(Jsf.getUserSession().getUser())){
                 status = survey.getStatus();
                 FindBloggersForSurvey fb = new FindBloggersForSurvey(survey);
@@ -633,5 +634,11 @@ public class ResearcherSurveyDetail06 {
     }
 
 
-  
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
 }

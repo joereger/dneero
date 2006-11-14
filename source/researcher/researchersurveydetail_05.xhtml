@@ -10,7 +10,11 @@
       xmlns:af="http://xmlns.oracle.com/adf/faces">
 
 <ui:composition template="/template/template-facelets.xhtml">
-    <ui:define name="title">Survey</ui:define>
+    <ui:define name="title">
+        <img src="/images/process-train-survey-05.gif" align="right" width="350" height="73"></img>
+        <h:outputText value="${researcherSurveyDetail05.title}" styleClass="pagetitlefont" rendered="${researcherSurveyDetail05.title ne ''}"/>
+        <br clear="all"/>
+    </ui:define>
     <ui:param name="navtab" value="researchers"/>
     <ui:define name="body">
     <d:authorization acl="researcher" redirectonfail="true"/>
@@ -18,10 +22,8 @@
 <h:form>
     <h:inputHidden name="surveyid" value="#{userSession.currentSurveyid}" />
 
-    <h:graphicImage url="/images/process-train-survey-05.gif" style="display: block; margin-left: auto; margin-right: auto;"></h:graphicImage>
-    <f:verbatim><br/></f:verbatim>
-
     <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
+    <img src="/images/lightbulb_on.png" align="left"/> 
     In this step you'll choose how much you're willing to pay bloggers. You'll want to craft an incentive that generates the response you're looking for.
     <br/><br/>
     Example 1: You have a new product to announce to the blogosphere.  You need to find new bloggers to talk about your product and you then need them to post the survey to their blogs to tell their friends and families.  Your pricing should be a good balance of Survey Taking Incentive and Blog Display Incentive.

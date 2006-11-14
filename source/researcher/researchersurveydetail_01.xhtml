@@ -10,18 +10,22 @@
       xmlns:af="http://xmlns.oracle.com/adf/faces">
 
 <ui:composition template="/template/template-facelets.xhtml">
-    <ui:define name="title">Survey</ui:define>
+    <ui:define name="title">
+        <img src="/images/process-train-survey-01.gif" align="right" width="350" height="73"></img>
+        <h:outputText value="New Survey" styleClass="pagetitlefont" rendered="${researcherSurveyDetail01.title eq ''}"/>
+        <h:outputText value="${researcherSurveyDetail01.title}" styleClass="pagetitlefont" rendered="${researcherSurveyDetail01.title ne ''}"/>
+        <br clear="all"/>
+    </ui:define>
     <ui:param name="navtab" value="researchers"/>
     <ui:define name="body">
     <d:authorization acl="researcher" redirectonfail="true"/>
 
 <h:form id="surveyedit">
     <h:inputHidden name="surveyid" value="#{userSession.currentSurveyid}"/>
-    <h:graphicImage url="/images/process-train-survey-01.gif" style="display: block; margin-left: auto; margin-right: auto;"></h:graphicImage>
-    <f:verbatim><br/></f:verbatim>
 
     <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
-    On this page you set the very general parameters for the survey like title and date period.  Choose a title that'll get people interested and make them check it out.
+    <img src="/images/lightbulb_on.png" align="left"/> 
+    On this page you set the very general parameters for the survey.  Choose a title that'll get people interested.  Give enough information in the description for them to understand what you're trying to understand.  Your start date must be today or in the future.  You want to keep the survey open long enough to attract bloggers and have them fill out the survey... a month is a good starting point.
     </font></div></center>
 
     <f:verbatim><br/></f:verbatim>

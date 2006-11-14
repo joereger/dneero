@@ -25,6 +25,7 @@ public class ResearcherSurveyDetail02 {
     private int newquestioncomponenttype;
     private String surveyForTakers;
     private int status;
+    private String title;
 
 
     public ResearcherSurveyDetail02(){
@@ -38,6 +39,7 @@ public class ResearcherSurveyDetail02 {
         Survey survey = Survey.get(surveyid);
         if (survey!=null){
             logger.debug("Found survey in db: survey.getSurveyid()="+survey.getSurveyid()+" survey.getTitle()="+survey.getTitle());
+            title = survey.getTitle();
             if (Jsf.getUserSession().getUser()!=null && survey.canEdit(Jsf.getUserSession().getUser())){
                 surveyForTakers = SurveyTakerDisplay.getHtmlForSurveyTaking(survey, new Blogger());
                 status = survey.getStatus();
@@ -207,5 +209,14 @@ public class ResearcherSurveyDetail02 {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 }

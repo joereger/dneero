@@ -29,6 +29,7 @@ public class ResearcherSurveyDetail02checkboxes {
     private boolean isrequired=true;
     private int componenttype;
     private String options = "";
+    private String title;
 
 
 
@@ -62,6 +63,12 @@ public class ResearcherSurveyDetail02checkboxes {
                     }
                 }
             }
+        }
+        Survey survey = new Survey();
+        if (Jsf.getUserSession().getCurrentSurveyid()>0){
+            logger.debug("saveSurvey() called: going to get Survey.get(surveyid)="+Jsf.getUserSession().getCurrentSurveyid());
+            survey = Survey.get(Jsf.getUserSession().getCurrentSurveyid());
+            title = survey.getTitle();
         }
     }
 
@@ -177,5 +184,14 @@ public class ResearcherSurveyDetail02checkboxes {
 
     public void setOptions(String options) {
         this.options = options;
+    }
+
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 }

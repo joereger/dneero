@@ -54,7 +54,7 @@ public class Log4jCustomAppender extends AppenderSkeleton {
         }
         //Write error message to the DB
 //        System.out.println("CUSTOMAPPENDER: "+errorMessage.toString());
-//        if (ApplicationStartup.getIsappstarted()){
+//        if (ApplicationStartup.getIshibernateinitialized()){
 //            com.dneero.dao.Error error = new com.dneero.dao.Error();
 //            error.setDate(new Date());
 //            error.setLevel(event.getLevel().toInt());
@@ -63,7 +63,7 @@ public class Log4jCustomAppender extends AppenderSkeleton {
 //            try{error.save();}catch(Exception ex){ex.printStackTrace();}
 //        }
 
-        if (ApplicationStartup.getIsappstarted()){
+        if (ApplicationStartup.getIshibernateinitialized()){
             if (event.getLevel()==Level.ERROR || event.getLevel()==Level.FATAL){
                 try{
                     //-----------------------------------

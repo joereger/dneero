@@ -20,6 +20,8 @@ import com.dneero.session.UserSession;
  */
 public class ResearcherSurveyDetail05 {
 
+    private String title;
+
     private double willingtopayperrespondent = 2.5;
     private int numberofrespondentsrequested = 1000;
     private double willingtopaypercpm = 10;
@@ -42,6 +44,7 @@ public class ResearcherSurveyDetail05 {
         Survey survey = Survey.get(surveyid);
         if (survey!=null){
             logger.debug("Found survey in db: survey.getSurveyid()="+survey.getSurveyid()+" survey.getTitle()="+survey.getTitle());
+            title = survey.getTitle();
             if (Jsf.getUserSession().getUser()!=null && survey.canEdit(Jsf.getUserSession().getUser())){
                 willingtopayperrespondent = survey.getWillingtopayperrespondent();
                 numberofrespondentsrequested = survey.getNumberofrespondentsrequested();
@@ -141,5 +144,13 @@ public class ResearcherSurveyDetail05 {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 }

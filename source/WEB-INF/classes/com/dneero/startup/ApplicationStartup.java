@@ -27,7 +27,8 @@ import org.quartz.ee.servlet.QuartzInitializerServlet;
 public class ApplicationStartup extends HttpServlet {
 
     //@todo implement ApplicationStartup as a ServletContextListener for better app server portability
-    private static boolean isappstarted = false;
+    private static boolean ishibernateinitialized = false;
+    private static boolean iswabapprooddirdiscovered = false;
 
     Logger logger = Logger.getLogger(this.getClass().getName());
 
@@ -42,9 +43,10 @@ public class ApplicationStartup extends HttpServlet {
     public void init(ServletConfig config){
         //Configure some dir stuff
         WebAppRootDir ward = new WebAppRootDir(config);
+        iswabapprooddirdiscovered = true;
         //Set up hibernate
         HibernateUtil.getSession();
-        isappstarted = true;
+        ishibernateinitialized = true;
         //Report
         logger.info("WebAppRootDir = " + WebAppRootDir.getWebAppRootPath());
         logger.info("dNeero Application started!  Let's make some dinero!");
@@ -52,8 +54,11 @@ public class ApplicationStartup extends HttpServlet {
         xmpp.send();
     }
 
+    public static boolean getIswabapprooddirdiscovered() {
+        return iswabapprooddirdiscovered;
+    }
 
-    public static boolean getIsappstarted() {
-        return isappstarted;
+    public static boolean getIshibernateinitialized() {
+        return ishibernateinitialized;
     }
 }

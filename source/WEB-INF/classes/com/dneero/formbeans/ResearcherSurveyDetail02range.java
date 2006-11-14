@@ -24,6 +24,8 @@ public class ResearcherSurveyDetail02range {
 
     Logger logger = Logger.getLogger(this.getClass().getName());
 
+    private String title;
+
     private int questionid = 0;
     private String question;
     private boolean isrequired=true;
@@ -76,6 +78,12 @@ public class ResearcherSurveyDetail02range {
                     }
                 }
             }
+        }
+        Survey survey = new Survey();
+        if (Jsf.getUserSession().getCurrentSurveyid()>0){
+            logger.debug("saveSurvey() called: going to get Survey.get(surveyid)="+Jsf.getUserSession().getCurrentSurveyid());
+            survey = Survey.get(Jsf.getUserSession().getCurrentSurveyid());
+            title = survey.getTitle();
         }
     }
 
@@ -247,5 +255,13 @@ public class ResearcherSurveyDetail02range {
 
     public void setMaxtitle(String maxtitle) {
         this.maxtitle = maxtitle;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 }

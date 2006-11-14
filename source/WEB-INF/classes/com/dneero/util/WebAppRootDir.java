@@ -1,7 +1,5 @@
 package com.dneero.util;
 
-import org.apache.log4j.Logger;
-
 import javax.servlet.ServletConfig;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;

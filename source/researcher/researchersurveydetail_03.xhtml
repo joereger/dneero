@@ -11,7 +11,11 @@
       xmlns:af="http://xmlns.oracle.com/adf/faces">
 
 <ui:composition template="/template/template-facelets.xhtml">
-    <ui:define name="title">Survey</ui:define>
+    <ui:define name="title">
+        <img src="/images/process-train-survey-03.gif" align="right" width="350" height="73"></img>
+        <h:outputText value="${researcherSurveyDetail03.title}" styleClass="pagetitlefont" rendered="${researcherSurveyDetail03.title ne ''}"/>
+        <br clear="all"/>
+    </ui:define>
     <ui:param name="navtab" value="researchers"/>
     <ui:define name="body">
     <d:authorization acl="researcher" redirectonfail="true"/>
@@ -20,10 +24,8 @@
 
     <h:inputHidden name="surveyid" value="#{userSession.currentSurveyid}" />
 
-    <h:graphicImage url="/images/process-train-survey-03.gif" style="display: block; margin-left: auto; margin-right: auto;"></h:graphicImage>
-    <f:verbatim><br/></f:verbatim>
-
     <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
+    <img src="/images/lightbulb_on.png" align="left"/> 
     In this step you can optionally change the formatting of the survey as it appears on a person's blog.  Click the Advanced Formatting tab to get started.  This requires some basic HTML skills and is very powerful:
     <ul>
     <li>Add a link to your company homepage</li>
