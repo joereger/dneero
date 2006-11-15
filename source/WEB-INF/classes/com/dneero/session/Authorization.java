@@ -3,13 +3,10 @@ package com.dneero.session;
 import org.apache.log4j.Logger;
 
 import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
 import javax.faces.component.UIComponentBase;
 import javax.faces.component.UIComponent;
-import javax.faces.el.ValueBinding;
 import java.io.IOException;
 import java.util.Iterator;
-import java.util.ArrayList;
 import java.util.List;
 
 import com.dneero.dao.Userrole;
@@ -99,7 +96,7 @@ public class Authorization extends UIComponentBase {
             if (acl!=null && acl.equals("blogger")){
                 for (Iterator<Userrole> iterator = userSession.getUser().getUserroles().iterator(); iterator.hasNext();) {
                     Userrole userrole = iterator.next();
-                    if (userrole.getRoleid()==Roles.BLOGGER){
+                    if (userrole.getRoleid()== Userrole.BLOGGER){
                         logger.debug("Blogger authorized.");
                         return true;
                     }
@@ -110,7 +107,7 @@ public class Authorization extends UIComponentBase {
             if (acl!=null && acl.equals("researcher")){
                 for (Iterator<Userrole> iterator = userSession.getUser().getUserroles().iterator(); iterator.hasNext();) {
                     Userrole userrole = iterator.next();
-                    if (userrole.getRoleid()==Roles.RESEARCHER){
+                    if (userrole.getRoleid()== Userrole.RESEARCHER){
                         logger.debug("Researcher authorized.");
                         return true;
                     }
@@ -121,7 +118,7 @@ public class Authorization extends UIComponentBase {
             if (acl!=null && acl.equals("systemadmin")){
                 for (Iterator<Userrole> iterator = userSession.getUser().getUserroles().iterator(); iterator.hasNext();) {
                     Userrole userrole = iterator.next();
-                    if (userrole.getRoleid()==Roles.SYSTEMADMIN){
+                    if (userrole.getRoleid()== Userrole.SYSTEMADMIN){
                         logger.debug("Systemadmin authorized.");
                         return true;
                     }

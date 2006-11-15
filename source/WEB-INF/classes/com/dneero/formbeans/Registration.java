@@ -8,7 +8,6 @@ import com.dneero.util.Jsf;
 import com.dneero.util.RandomString;
 import com.dneero.util.jcaptcha.CaptchaServiceSingleton;
 import com.dneero.session.UserSession;
-import com.dneero.session.Roles;
 import com.dneero.email.EmailActivationSend;
 import com.dneero.money.PaymentMethod;
 import com.dneero.xmpp.SendXMPPMessage;

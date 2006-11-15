@@ -2,20 +2,13 @@ package com.dneero.formbeans;
 
 import org.apache.log4j.Logger;
 
-import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 
 import com.dneero.session.UserSession;
-import com.dneero.session.Roles;
 import com.dneero.util.Jsf;
 import com.dneero.util.GeneralException;
-import com.dneero.util.Num;
 import com.dneero.dao.*;
-import com.dneero.money.PaymentMethod;
-
-import javax.faces.context.FacesContext;
-import javax.faces.application.FacesMessage;
 
 /**
  * User: Joe Reger Jr
@@ -83,7 +76,7 @@ public class ResearcherDetails {
             if (userSession.getUser()!=null && userSession.getUser().getUserroles()!=null){
                 for (Iterator iterator = userSession.getUser().getUserroles().iterator(); iterator.hasNext();) {
                     Userrole role =  (Userrole)iterator.next();
-                    if (role.getRoleid()== Roles.RESEARCHER){
+                    if (role.getRoleid()== Userrole.RESEARCHER){
                         hasroleassigned = true;
                     }
                 }
@@ -91,7 +84,7 @@ public class ResearcherDetails {
             if (!hasroleassigned && userSession.getUser()!=null){
                 Userrole role = new Userrole();
                 role.setUserid(userSession.getUser().getUserid());
-                role.setRoleid(Roles.RESEARCHER);
+                role.setRoleid(Userrole.RESEARCHER);
                 userSession.getUser().getUserroles().add(role);
                 try{
                     role.save();

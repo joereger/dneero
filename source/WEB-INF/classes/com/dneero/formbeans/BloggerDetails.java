@@ -4,17 +4,12 @@ import org.apache.log4j.Logger;
 
 import java.util.Date;
 import java.util.Iterator;
-import java.util.LinkedHashMap;
 
 import com.dneero.util.Jsf;
 import com.dneero.util.GeneralException;
-import com.dneero.util.Num;
 import com.dneero.dao.Blogger;
 import com.dneero.dao.Userrole;
-import com.dneero.dao.User;
-import com.dneero.dao.Creditcard;
 import com.dneero.session.UserSession;
-import com.dneero.session.Roles;
 import com.dneero.money.PaymentMethod;
 
 
@@ -128,7 +123,7 @@ public class BloggerDetails {
             if (userSession.getUser()!=null && userSession.getUser().getUserroles()!=null){
                 for (Iterator iterator = userSession.getUser().getUserroles().iterator(); iterator.hasNext();) {
                     Userrole role =  (Userrole)iterator.next();
-                    if (role.getRoleid()== Roles.BLOGGER){
+                    if (role.getRoleid()== Userrole.BLOGGER){
                         hasroleassigned = true;
                     }
                 }
@@ -136,7 +131,7 @@ public class BloggerDetails {
             if (!hasroleassigned && userSession.getUser()!=null){
                 Userrole role = new Userrole();
                 role.setUserid(userSession.getUser().getUserid());
-                role.setRoleid(Roles.BLOGGER);
+                role.setRoleid(Userrole.BLOGGER);
                 userSession.getUser().getUserroles().add(role);
                 try{
                     role.save();

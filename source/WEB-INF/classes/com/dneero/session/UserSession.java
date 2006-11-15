@@ -4,7 +4,6 @@ import com.dneero.dao.User;
 import com.dneero.dao.Userrole;
 import org.apache.log4j.Logger;
 
-import javax.faces.context.FacesContext;
 import java.util.Iterator;
 
 /**
@@ -36,7 +35,7 @@ public class UserSession {
         isSysadmin = false;
         for (Iterator<Userrole> iterator = user.getUserroles().iterator(); iterator.hasNext();) {
             Userrole userrole = iterator.next();
-            if (userrole.getRoleid()==Roles.SYSTEMADMIN){
+            if (userrole.getRoleid()== Userrole.SYSTEMADMIN){
                 isSysadmin = true;
             }
         }

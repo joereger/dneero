@@ -4,7 +4,6 @@ import com.dneero.dao.hibernate.BasePersistentClass;
 import com.dneero.dao.hibernate.RegerEntity;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.session.AuthControlled;
-import com.dneero.session.Roles;
 import com.dneero.util.GeneralException;
 import org.apache.log4j.Logger;
 
@@ -58,7 +57,7 @@ public class Systemprop extends BasePersistentClass implements java.io.Serializa
     public boolean canRead(User user){
         for (Iterator<Userrole> iterator = user.getUserroles().iterator(); iterator.hasNext();) {
             Userrole userrole = iterator.next();
-            if (userrole.getRoleid()== Roles.SYSTEMADMIN){
+            if (userrole.getRoleid()== Userrole.SYSTEMADMIN){
                 return true;
             }
         }

@@ -2,7 +2,6 @@ package com.dneero.formbeans;
 
 import org.apache.log4j.Logger;
 import com.dneero.session.UserSession;
-import com.dneero.session.Roles;
 import com.dneero.util.Jsf;
 import com.dneero.util.GeneralException;
 import com.dneero.dao.Researcher;

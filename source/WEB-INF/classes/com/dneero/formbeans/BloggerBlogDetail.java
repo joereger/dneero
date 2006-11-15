@@ -6,7 +6,6 @@ import com.dneero.dao.Blogger;
 import com.dneero.dao.Userrole;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.session.UserSession;
-import com.dneero.session.Roles;
 import com.dneero.util.Jsf;
 import com.dneero.util.GeneralException;
 import org.apache.log4j.Logger;
