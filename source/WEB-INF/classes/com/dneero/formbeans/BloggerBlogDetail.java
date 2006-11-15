@@ -32,26 +32,31 @@ public class BloggerBlogDetail {
 
     public BloggerBlogDetail(){
         logger.debug("BloggerBlogDetail instanciated.");
-
+        HibernateUtil.getSession().saveOrUpdate(Jsf.getUserSession().getUser().getBlogger());
     }
 
 
     public String beginView(){
-        logger.debug("beginView called: blogid="+blogid);
+        logger.debug("Start of beginView: blogid="+blogid);
         String tmpBlogid = Jsf.getRequestParam("blogid");
         if (com.dneero.util.Num.isinteger(tmpBlogid)){
             logger.debug("beginView called: found blogid in param="+tmpBlogid);
-            Blog blog = Blog.get(Integer.parseInt(tmpBlogid));
-            if (Jsf.getUserSession().getUser()!=null && blog.canEdit(Jsf.getUserSession().getUser())){
-                blogid = blog.getBlogid();
-                url = blog.getUrl();
-                title = blog.getTitle();
-                blogfocus = blog.getBlogfocus();
+            try{
+                Blog blog = Blog.get(Integer.parseInt(tmpBlogid));
+                if (Jsf.getUserSession().getUser()!=null && blog.canEdit(Jsf.getUserSession().getUser())){
+                    blogid = blog.getBlogid();
+                    url = blog.getUrl();
+                    title = blog.getTitle();
+                    blogfocus = blog.getBlogfocus();
+                }
+            } catch (Exception ex){
+                logger.debug("Error in beginView()");
+                logger.error(ex);
             }
-
         } else {
             logger.debug("beginView called: NOT found blogid in param="+tmpBlogid);
         }
+        logger.debug("End of beginView: blogid="+blogid);
         return "bloggerblogdetail";
     }
 
@@ -97,7 +102,7 @@ public class BloggerBlogDetail {
                 return null;
             }
 
-            userSession.getUser().refresh();
+            userSession.getUser().getBlogger().refresh();
         }
 
         //#{userSession.isloggedin and (userSession.user.blogger ne null) and (empty usersession.user.blogger.blogs)}

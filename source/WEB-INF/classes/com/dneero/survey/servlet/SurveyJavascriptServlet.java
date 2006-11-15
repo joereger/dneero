@@ -49,7 +49,7 @@ public class SurveyJavascriptServlet extends HttpServlet {
         }
 
         if (survey!=null && !ispreview){
-            RecordImpression.record(survey, request);
+            RecordImpression.record(request);
         }
 
         String output = SurveyAsHtml.getHtml(survey, user);

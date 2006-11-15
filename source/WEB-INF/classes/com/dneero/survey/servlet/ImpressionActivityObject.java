@@ -11,7 +11,7 @@ public class ImpressionActivityObject implements Serializable {
 
     //These are the things we track on each impression
     private int surveyid;
-    private int blogid;
+    private int userid;
     private String referer;
     private String ip;
 
@@ -23,12 +23,13 @@ public class ImpressionActivityObject implements Serializable {
         this.surveyid = surveyid;
     }
 
-    public int getBlogid() {
-        return blogid;
+
+    public int getUserid() {
+        return userid;
     }
 
-    public void setBlogid(int blogid) {
-        this.blogid = blogid;
+    public void setUserid(int userid) {
+        this.userid = userid;
     }
 
     public String getReferer() {

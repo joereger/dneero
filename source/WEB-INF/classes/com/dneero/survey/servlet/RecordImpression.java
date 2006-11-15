@@ -19,55 +19,43 @@ import org.hibernate.criterion.Restrictions;
  */
 public class RecordImpression {
 
-    public static void record(Survey survey, HttpServletRequest request){
+    public static void record(HttpServletRequest request){
         Logger logger = Logger.getLogger(RecordImpression.class);
 
+        //Find referer
         String referer = request.getHeader("referer");
         if (referer==null){
             referer="";
         }
         logger.debug("referer=" + referer);
 
+        //Find ip address
         String ip = request.getRemoteAddr();
         if (ip==null){
             ip="";
         }
         logger.debug("ip=" + ip);
 
-        //Find user
-        User user = null;
+        //Find userid
+        int userid = 0;
         if (request.getParameter("u")!=null && com.dneero.util.Num.isinteger(request.getParameter("u"))){
-            user = User.get(Integer.parseInt(request.getParameter("u")));
+            userid = Integer.parseInt(request.getParameter("u"));
         }
+        logger.debug("userid=" + userid);
 
-        //Find blogid
-        Blog blog=null;
-        if (user!=null && user.getBlogger()!=null && referer!=null && !referer.equals("")){
-            logger.debug("user.getBlogger() not null");
-            for (Iterator it = user.getBlogger().getBlogs().iterator(); it.hasNext(); ) {
-                Blog blogTmp = (Blog)it.next();
-                logger.debug("blogTmp.getUrl()="+blogTmp.getUrl());
-                logger.debug("referer.indexOf(blogTmp.getUrl())="+referer.indexOf(blogTmp.getUrl()));
-                if (referer.indexOf(blogTmp.getUrl())>=0){
-                    logger.debug("setting blog=blogTmp");
-                    blog = blogTmp;
-                }
-            }
+        //Find surveyid
+        int surveyid = 0;
+        if (request.getParameter("s")!=null && com.dneero.util.Num.isinteger(request.getParameter("s"))){
+            surveyid = Integer.parseInt(request.getParameter("s"));
         }
-
+        logger.debug("surveyid=" + surveyid);
 
         //Create an IAO
         ImpressionActivityObject iao = new ImpressionActivityObject();
-        iao.setSurveyid(survey.getSurveyid());
+        iao.setSurveyid(surveyid);
         iao.setReferer(referer);
         iao.setIp(ip);
-        if (blog!=null){
-            logger.debug("iao: blog.getBlogid()="+blog.getBlogid());
-            iao.setBlogid(blog.getBlogid());
-        } else {
-            logger.debug("iao: blog is null");
-            iao.setBlogid(0);
-        }
+        iao.setUserid(userid);
 
         //Write iao to db
         //@todo cache impression activity for performance gain

@@ -51,39 +51,42 @@ public class CreateImpressionchargegroups implements Job {
                                                .list();
                     logger.debug(impressiondetails.size() + " Impressiondetails found.");
 
-
-                    //Calculate amt
-                    double amt = 0;
-
-                    for (Iterator<Impressiondetail> iterator3 = impressiondetails.iterator(); iterator3.hasNext();) {
-                        Impressiondetail impressiondetail = iterator3.next();
-                        if (impressiondetail.getQualifiesforpaymentstatus()==Impressiondetail.QUALIFIESFORPAYMENTSTATUS_TRUE){
-                            //@todo should be counting max/blog and max/survey, etc... where is this enforced?  is qualifiesforpaymentstatus guaranteed to be set by the time this runs?
-                            amt = amt + (survey.getWillingtopaypercpm()/1000);
+                    //If we've found any impressions
+                    if (impressiondetails.size()>0){
+                        //Calculate amt
+                        double amt = 0;
+                        for (Iterator<Impressiondetail> iterator3 = impressiondetails.iterator(); iterator3.hasNext();) {
+                            Impressiondetail impressiondetail = iterator3.next();
+                            if (impressiondetail.getQualifiesforpaymentstatus()==Impressiondetail.QUALIFIESFORPAYMENTSTATUS_TRUE){
+                                //@todo should be counting max/blog and max/survey, etc... where is this enforced?  is qualifiesforpaymentstatus guaranteed to be set by the time this runs?
+                                amt = amt + (survey.getWillingtopaypercpm()/1000);
+                            }
                         }
-                    }
 
-                    if (amt>0){
                         //Create impressionchargegroup
                         Impressionchargegroup impressionchargegroup = new Impressionchargegroup();
                         impressionchargegroup.setResearcherid(researcher.getResearcherid());
                         impressionchargegroup.setDate(new Date());
                         impressionchargegroup.setAmt(amt);
                         try{ impressionchargegroup.save(); } catch (Exception ex){logger.error(ex);}
-
-                        //Apply the dNeero markup
-                        double amttocharge = amt + (amt*(SurveyMoneyStatus.DNEEROMARKUPPERCENT/100));
-
-                        //Update the account balance for the researcher
-                        MoveMoneyInAccountBalance.pay(User.get(researcher.getUserid()), amttocharge, "Charge for blog impressions on survey '"+survey.getTitle()+"'", 0, impressionchargegroup.getImpressionchargegroupid());
-
+                        
                         //Mark all elements as tied to this impressionchargegroup
                         for (Iterator<Impressiondetail> iterator4 = impressiondetails.iterator(); iterator4.hasNext();) {
                             Impressiondetail impressiondetail = iterator4.next();
                             impressiondetail.setImpressionchargegroupid(impressionchargegroup.getImpressionchargegroupid());
                             try{ impressiondetail.save(); } catch (Exception ex){logger.error(ex);}
                         }
+
+                        //If there's any amt to charge, charge it
+                        if (amt>0){
+                            //Apply the dNeero markup
+                            double amttocharge = amt + (amt*(SurveyMoneyStatus.DNEEROMARKUPPERCENT/100));
+
+                            //Update the account balance for the researcher
+                            MoveMoneyInAccountBalance.pay(User.get(researcher.getUserid()), amttocharge, "Charge for blog impressions on survey '"+survey.getTitle()+"'", 0, impressionchargegroup.getImpressionchargegroupid());
+                        }
                     }
+
 
                 }
 

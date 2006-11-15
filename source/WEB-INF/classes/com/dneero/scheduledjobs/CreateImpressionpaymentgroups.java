@@ -31,7 +31,8 @@ public class CreateImpressionpaymentgroups implements Job {
             Blogger blogger = iterator.next();
             logger.debug("Begin bloggerid="+blogger.getBloggerid());
 
-            //@todo add one layer of iteration... by survey
+
+            
 
             //Impressiondetails
             List<Impressiondetail> impressiondetails = HibernateUtil.getSession().createCriteria(Impressiondetail.class)
@@ -40,34 +41,48 @@ public class CreateImpressionpaymentgroups implements Job {
                                        .list();
             logger.debug(impressiondetails.size() + " Impressiondetails found.");
 
+            //If we've found any impressions
+            if (impressiondetails.size()>0){
 
-            //Calculate amt
-            double amt = 0;
+                //Calculate amt
+                double amt = 0;
+                for (Iterator<Impressiondetail> iterator1 = impressiondetails.iterator(); iterator1.hasNext();) {
+                    Impressiondetail impressiondetail = iterator1.next();
+                    Impression impression = Impression.get(impressiondetail.getImpressionid());
+                    Survey survey = Survey.get(impression.getSurveyid());
+                    amt = amt + (survey.getWillingtopaypercpm()/1000);
+                }
 
-            for (Iterator<Impressiondetail> iterator1 = impressiondetails.iterator(); iterator1.hasNext();) {
-                Impressiondetail impressiondetail = iterator1.next();
-                Impression impression = Impression.get(impressiondetail.getImpressionid());
-                Survey survey = Survey.get(impression.getSurveyid());
-                amt = amt + (survey.getWillingtopaypercpm()/1000);
-            }
-
-            if (amt>0){
                 //Create impressionpaymentgroup
                 Impressionpaymentgroup impressionpaymentgroup = new Impressionpaymentgroup();
                 impressionpaymentgroup.setBloggerid(blogger.getBloggerid());
                 impressionpaymentgroup.setDate(new Date());
                 impressionpaymentgroup.setAmt(amt);
-                try{
-                    impressionpaymentgroup.save();
-                } catch (Exception ex){
-                    logger.error(ex);
+                try{impressionpaymentgroup.save();} catch (Exception ex){logger.error(ex);}
+
+                //Mark all elements as tied to this impressionpaymentgroup
+                for (Iterator<Impressiondetail> iterator1 = impressiondetails.iterator(); iterator1.hasNext();) {
+                    Impressiondetail impressiondetail = iterator1.next();
+                    impressiondetail.setImpressionpaymentgroupid(impressionpaymentgroup.getImpressionpaymentgroupid());
+                    try{ impressiondetail.save(); } catch (Exception ex){logger.error(ex);}
                 }
 
-                //Update the account balance for the blogger
-                MoveMoneyInAccountBalance.pay(User.get(blogger.getUserid()), impressionpaymentgroup.getAmt(), "Pay for blog impressions", impressionpaymentgroup.getImpressionpaymentgroupid(), 0);
+                //If there's an amount to be paid, pay it
+                if (amt>0){
+                    //Update the account balance for the blogger
+                    MoveMoneyInAccountBalance.pay(User.get(blogger.getUserid()), impressionpaymentgroup.getAmt(), "Pay for blog impressions", impressionpaymentgroup.getImpressionpaymentgroupid(), 0);
+                }
 
-                //Create revshare
-                //Start with the user who's getting paid
+            }
+
+        }
+
+    }
+
+}
+
+//Create revshare
+//Start with the user who's getting paid
 //                User user = User.get(blogger.getUserid());
 //                double amtRevsharebasedon = amt - revshareAmt;
 //                for(int levelsup=1; levelsup<=5; levelsup++){
@@ -95,19 +110,3 @@ public class CreateImpressionpaymentgroups implements Job {
 //                        }
 //                    }
 //                }
-
-                //Mark all elements as tied to this impressionpaymentgroup
-                for (Iterator<Impressiondetail> iterator1 = impressiondetails.iterator(); iterator1.hasNext();) {
-                    Impressiondetail impressiondetail = iterator1.next();
-                    impressiondetail.setImpressionpaymentgroupid(impressionpaymentgroup.getImpressionpaymentgroupid());
-                    try{ impressiondetail.save(); } catch (Exception ex){logger.error(ex);}
-                }
-
-
-            }
-
-        }
-
-    }
-
-}

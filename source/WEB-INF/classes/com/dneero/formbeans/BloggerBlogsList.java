@@ -4,8 +4,10 @@ import com.dneero.util.SortableList;
 import com.dneero.util.Jsf;
 import com.dneero.session.UserSession;
 import com.dneero.dao.Blog;
+import com.dneero.dao.Impressiondetail;
 import com.dneero.dao.hibernate.HibernateUtil;
 import org.apache.log4j.Logger;
+import org.hibernate.criterion.Restrictions;
 
 import java.util.List;
 import java.util.Comparator;
@@ -24,12 +26,15 @@ public class BloggerBlogsList extends SortableList {
     public BloggerBlogsList() {
         super("title");
         logger.debug("instanciating BloggerBlogsList");
+        HibernateUtil.getSession().saveOrUpdate(Jsf.getUserSession().getUser().getBlogger());
         load();
-
     }
 
     private void load(){
+        logger.debug("Start load()");
+
         UserSession userSession = Jsf.getUserSession();
+        userSession.getUser().refresh();
         if (userSession==null){
             logger.debug("userSession is null");
         }
@@ -42,16 +47,33 @@ public class BloggerBlogsList extends SortableList {
         if (userSession!=null && userSession.getUser()!=null && userSession.getUser().getBlogger()!=null){
             logger.debug("userSession, user and blogger not null");
             logger.debug("into loop for userSession.getUser().getBlogger().getBloggerid()="+userSession.getUser().getBlogger().getBloggerid());
-            blogs = HibernateUtil.getSession().createQuery("from Blog where bloggerid="+userSession.getUser().getBlogger().getBloggerid()).list();
+            try{
+
+                List<Blog> blogss = HibernateUtil.getSession().createCriteria(Blog.class)
+                                               .add( Restrictions.eq("bloggerid", userSession.getUser().getBlogger().getBloggerid()))
+                                               .list();
+                blogs = blogss;
+                //blogs = HibernateUtil.getSession().createQuery("from Blog where bloggerid="+userSession.getUser().getBlogger().getBloggerid()).list();
+
+            } catch (Exception ex){
+                logger.debug("Error in load()");
+                logger.error(ex);
+            }
         }
+        logger.debug("End load()");
     }
 
     public List getBlogs() {
-        //logger.debug("getBlogs");
+        logger.debug("getBlogs()");
         if (blogs==null){
             load();
         }
         sort(getSort(), isAscending());
+        if (blogs!=null){
+            logger.debug("returning blogs.size()="+blogs.size());
+        } else {
+            logger.debug("returning blogs=null");
+        }
         return blogs;
     }
 

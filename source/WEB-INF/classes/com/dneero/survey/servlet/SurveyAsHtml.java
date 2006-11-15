@@ -25,11 +25,11 @@ public class SurveyAsHtml {
         Logger logger = Logger.getLogger(SurveyAsHtml.class);
         if (survey!=null && user!=null){
             SurveyTemplateProcessor stp = new SurveyTemplateProcessor(survey, user.getBlogger());
-            out.append("<b>dNeero Survey</b>");
+            out.append("<b>Survey</b>");
             out.append("<br/>");
             out.append(Str.cleanForjavascriptAndReplaceDoubleQuoteWithSingle(stp.getSurveyForDisplay()));
             out.append("<br/>");
-            out.append("<b>dNeero - blog for pay</b>");
+            out.append("<b>this survey was paid for by dNeero</b>");
         } else {
             out = new StringBuffer();
             out.append("This embedded survey link is not correctly formatted.");

@@ -65,7 +65,7 @@ public class BloggerIncomeCalculator {
 
     public static ArrayList<Impressiondetail> getImpressionDetailsThatQualifyForPay(Blog blog, Survey survey){
         Logger logger = Logger.getLogger(BloggerIncomeCalculator.class);
-        logger.debug("getImpressionDetailsThatQualifyForPay called");
+        logger.debug("getImpressionDetailsThatQualifyForPay called for blogid="+blog.getBlogid());
         ArrayList<Impressiondetail> out = new ArrayList<Impressiondetail>();
         List<Impression> impressions = new ArrayList();
         if (survey!=null){
@@ -84,6 +84,7 @@ public class BloggerIncomeCalculator {
             logger.debug("survey is null");
             impressions = Util.setToArrayList(blog.getImpressions());
         }
+        logger.debug("found "+impressions.size()+" impressions");
 
         for (Iterator<Impression> iterator1 = impressions.iterator(); iterator1.hasNext();) {
             Impression impression = iterator1.next();
@@ -106,6 +107,8 @@ public class BloggerIncomeCalculator {
     }
 
     public static ArrayList<Impression> getAllImpressionsForSurvey(Blogger blogger, Survey survey){
+        Logger logger = Logger.getLogger(BloggerIncomeCalculator.class);
+        logger.debug("getAllImpressionsForSurvey called for bloggerid="+blogger.getBloggerid());
         HibernateUtil.getSession().saveOrUpdate(blogger);
         ArrayList<Impression> out = new ArrayList();
         for (Iterator<Blog> iterator = blogger.getBlogs().iterator(); iterator.hasNext();) {
@@ -124,6 +127,7 @@ public class BloggerIncomeCalculator {
             } else {
                 impressions = Util.setToArrayList(blog.getImpressions());
             }
+            logger.debug("found "+impressions.size()+" impressions");
             out.addAll(impressions);
         }
         return out;
