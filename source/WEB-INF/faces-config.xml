@@ -235,21 +235,13 @@
         <managed-bean-class>com.dneero.formbeans.BloggerEarningsPayment</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
-    <managed-bean>
-        <managed-bean-name>bloggerEarningsPaymentListSurv</managed-bean-name>
-        <managed-bean-class>com.dneero.formbeans.BloggerEarningsPaymentListSurv</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
-    </managed-bean>
+
     <managed-bean>
         <managed-bean-name>bloggerEarningsPaymentListImp</managed-bean-name>
         <managed-bean-class>com.dneero.formbeans.BloggerEarningsPaymentListImp</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
-    <managed-bean>
-        <managed-bean-name>bloggerEarningsPaymentListRev</managed-bean-name>
-        <managed-bean-class>com.dneero.formbeans.BloggerEarningsPaymentListRev</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
-    </managed-bean>
+
 
     <managed-bean>
         <managed-bean-name>bloggerSurveyDetail</managed-bean-name>

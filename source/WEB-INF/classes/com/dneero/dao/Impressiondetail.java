@@ -21,7 +21,7 @@ public class Impressiondetail extends BasePersistentClass implements java.io.Ser
      private int impressionid;
      private int invoiceid;
      private int bloggerid;
-     private int paybloggerid;
+     private int impressionpaymentgroupid;
      private Date impressiondate;
      private String ip;
      private int qualifiesforpaymentstatus;
@@ -119,12 +119,12 @@ public class Impressiondetail extends BasePersistentClass implements java.io.Ser
         this.invoiceid = invoiceid;
     }
 
-    public int getPaybloggerid() {
-        return paybloggerid;
+    public int getImpressionpaymentgroupid() {
+        return impressionpaymentgroupid;
     }
 
-    public void setPaybloggerid(int paybloggerid) {
-        this.paybloggerid = paybloggerid;
+    public void setImpressionpaymentgroupid(int impressionpaymentgroupid) {
+        this.impressionpaymentgroupid = impressionpaymentgroupid;
     }
 
     public int getBloggerid() {

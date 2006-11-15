@@ -15,7 +15,7 @@
         <mapping resource="com/dneero/dao/Impression.hbm.xml" />
         <mapping resource="com/dneero/dao/Impressiondetail.hbm.xml" />
         <mapping resource="com/dneero/dao/Invoice.hbm.xml" />
-        <mapping resource="com/dneero/dao/Payblogger.hbm.xml" />
+        <mapping resource="com/dneero/dao/Impressionpaymentgroup.hbm.xml" />
         <mapping resource="com/dneero/dao/Question.hbm.xml" />
         <mapping resource="com/dneero/dao/Questionconfig.hbm.xml" />
         <mapping resource="com/dneero/dao/Questionresponse.hbm.xml" />

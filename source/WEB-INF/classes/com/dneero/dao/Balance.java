@@ -6,8 +6,6 @@ import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.session.AuthControlled;
 import com.dneero.util.GeneralException;
 
-import java.util.Set;
-import java.util.HashSet;
 import java.util.Date;
 
 import org.apache.log4j.Logger;
@@ -26,7 +24,7 @@ public class Balance extends BasePersistentClass implements java.io.Serializable
      private double amt;
      private double currentbalance;
      private String description;
-     private int optionalpaybloggerid;
+     private int optionalimpressionpaymentgroupid;
      private int optionalinvoiceid;
 
 
@@ -128,12 +126,12 @@ public class Balance extends BasePersistentClass implements java.io.Serializable
     }
 
 
-    public int getOptionalpaybloggerid() {
-        return optionalpaybloggerid;
+    public int getOptionalimpressionpaymentgroupid() {
+        return optionalimpressionpaymentgroupid;
     }
 
-    public void setOptionalpaybloggerid(int optionalpaybloggerid) {
-        this.optionalpaybloggerid = optionalpaybloggerid;
+    public void setOptionalimpressionpaymentgroupid(int optionalimpressionpaymentgroupid) {
+        this.optionalimpressionpaymentgroupid = optionalimpressionpaymentgroupid;
     }
 
     public int getOptionalinvoiceid() {

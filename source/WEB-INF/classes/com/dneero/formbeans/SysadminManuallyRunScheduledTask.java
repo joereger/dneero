@@ -31,8 +31,9 @@ public class SysadminManuallyRunScheduledTask {
         return "sysadminmanuallyrunscheduledtask";
     }
 
-    public String runCreatePaybloggers(){
-        try{CreatePaybloggers task = new CreatePaybloggers();
+    public String runCreateImpressionpaymentgroups(){
+        try{
+            CreateImpressionpaymentgroups task = new CreateImpressionpaymentgroups();
             task.execute(null);} catch (Exception ex){logger.error(ex);}
         return "sysadminmanuallyrunscheduledtask";
     }

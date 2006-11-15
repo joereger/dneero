@@ -3,10 +3,8 @@ package com.dneero.formbeans;
 import com.dneero.util.SortableList;
 import com.dneero.util.Jsf;
 import com.dneero.util.Str;
-import com.dneero.util.Time;
 import com.dneero.session.UserSession;
 import com.dneero.dao.hibernate.HibernateUtil;
-import com.dneero.dao.Blog;
 import com.dneero.dao.Balance;
 import org.apache.log4j.Logger;
 
@@ -43,7 +41,7 @@ public class AccountBalance extends SortableList {
                 abli.setDate(balance.getDate());
                 abli.setDescription(balance.getDescription());
                 abli.setUserid(balance.getUserid());
-                abli.setOptionalpaybloggerid(balance.getOptionalpaybloggerid());
+                abli.setOptionalimpressionpaymentgroupid(balance.getOptionalimpressionpaymentgroupid());
                 abli.setOptionalinvoiceid(balance.getOptionalinvoiceid());
                 balances.add(abli);
             }

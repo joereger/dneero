@@ -19,10 +19,10 @@
             <key column="bloggerid"></key>
             <one-to-many class="com.dneero.dao.Response" not-found="ignore"></one-to-many>
         </set>
-        <set name="paybloggers" inverse="true" cascade="save-update">
+        <set name="impressionpaymentgroups" inverse="true" cascade="save-update">
             <cache usage="nonstrict-read-write"/>
             <key column="bloggerid"></key>
-            <one-to-many class="com.dneero.dao.Payblogger" not-found="ignore"></one-to-many>
+            <one-to-many class="com.dneero.dao.Impressionpaymentgroup" not-found="ignore"></one-to-many>
         </set>
 
         <property name="userid" type="int">

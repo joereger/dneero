@@ -9,16 +9,16 @@ import java.util.Date;
  */
 public class BloggerEarningsSurveyListPayments {
 
-    private int paybloggerid;
+    private int impressionpaymentgroupid;
     private Date paymentdate;
     private String amt;
 
-    public int getPaybloggerid() {
-        return paybloggerid;
+    public int getImpressionpaymentgroupid() {
+        return impressionpaymentgroupid;
     }
 
-    public void setPaybloggerid(int paybloggerid) {
-        this.paybloggerid = paybloggerid;
+    public void setImpressionpaymentgroupid(int impressionpaymentgroupid) {
+        this.impressionpaymentgroupid = impressionpaymentgroupid;
     }
 
     public Date getPaymentdate() {

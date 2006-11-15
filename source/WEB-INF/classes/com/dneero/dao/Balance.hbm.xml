@@ -24,8 +24,8 @@
         <property name="description" type="string">
             <column name="description" not-null="true" />
         </property>
-        <property name="optionalpaybloggerid" type="int">
-            <column name="optionalpaybloggerid" not-null="false" />
+        <property name="optionalimpressionpaymentgroupid" type="int">
+            <column name="optionalimpressionpaymentgroupid" not-null="false" />
         </property>
         <property name="optionalinvoiceid" type="int">
             <column name="optionalinvoiceid" not-null="false" />

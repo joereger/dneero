@@ -6,7 +6,6 @@ import com.dneero.util.Util;
 
 import java.util.*;
 
-import org.hibernate.criterion.Restrictions;
 import org.apache.log4j.Logger;
 
 /**
@@ -140,65 +139,43 @@ public class BloggerIncomeCalculator {
 
     public static double getAllEarningsPaidToBlogger(){
         double amt = 0;
-        List<Payblogger> paybloggers = HibernateUtil.getSession().createCriteria(Payblogger.class)
-                                       .add( Restrictions.eq("status", Payblogger.STATUS_PAID))
-                                       .list();
+        //@todo this needs to sum response, impressionpaymentgroup and maybe revshare
 
-        for (Iterator<Payblogger> iterator = paybloggers.iterator(); iterator.hasNext();) {
-            Payblogger payblogger = iterator.next();
-            amt = amt + payblogger.getAmt();
-        }
         return amt;
     }
 
 
 
-    public static ArrayList<Payblogger> getPaybloggersForASurvey(Blogger blogger, Survey survey){
-        //Hashmap used so I can simply put a bunch of duplicate Paybloggers in and not worry about dupes
-        HashMap<Integer, Payblogger> allpaybloggers = new HashMap<Integer, Payblogger>();
-        for (Iterator<Response> iterator = blogger.getResponses().iterator(); iterator.hasNext();) {
-            Response response = iterator.next();
-            if (response.getSurveyid()==survey.getSurveyid()){
-                //See if the response itself has been paid
-                if (response.getPaybloggerid()>0){
-                    allpaybloggers.put(response.getPaybloggerid(), Payblogger.get(response.getPaybloggerid()));
-                }
-                //Now find impressions for this response/survey
-                ArrayList<Impressiondetail> impressiondetails = getAllImpressiondetailsForSurvey(blogger, survey);
-                for (Iterator<Impressiondetail> iterator1 = impressiondetails.iterator(); iterator1.hasNext();) {
-                    Impressiondetail impressiondetail = iterator1.next();
-                    if (impressiondetail.getPaybloggerid()>0){
-                        allpaybloggers.put(impressiondetail.getPaybloggerid(), Payblogger.get(impressiondetail.getPaybloggerid()));
-                    }
-                }
+    public static ArrayList<Impressionpaymentgroup> getImpressionpaymentgroupsForASurvey(Blogger blogger, Survey survey){
+        //Hashmap used so I can simply put a bunch of duplicate Impressionpaymentgroups in and not worry about dupes
+        HashMap<Integer, Impressionpaymentgroup> allimpressionpaymentgroups = new HashMap<Integer, Impressionpaymentgroup>();
+
+        //Get impressiondetails for this survey
+        ArrayList<Impressiondetail> impressiondetails = getAllImpressiondetailsForSurvey(blogger, survey);
+        for (Iterator<Impressiondetail> iterator1 = impressiondetails.iterator(); iterator1.hasNext();) {
+            Impressiondetail impressiondetail = iterator1.next();
+            if (impressiondetail.getImpressionpaymentgroupid()>0){
+                allimpressionpaymentgroups.put(impressiondetail.getImpressionpaymentgroupid(), Impressionpaymentgroup.get(impressiondetail.getImpressionpaymentgroupid()));
             }
         }
+
         //Convert HashMap to ArrayList
-        ArrayList<Payblogger> out = new ArrayList<Payblogger>();
-        Iterator keyValuePairs = allpaybloggers.entrySet().iterator();
-        for (int i = 0; i < allpaybloggers.size(); i++){
+        ArrayList<Impressionpaymentgroup> out = new ArrayList<Impressionpaymentgroup>();
+        Iterator keyValuePairs = allimpressionpaymentgroups.entrySet().iterator();
+        for (int i = 0; i < allimpressionpaymentgroups.size(); i++){
             Map.Entry mapentry = (Map.Entry) keyValuePairs.next();
             Integer key = (Integer)mapentry.getKey();
-            Payblogger value = (Payblogger)mapentry.getValue();
+            Impressionpaymentgroup value = (Impressionpaymentgroup)mapentry.getValue();
             out.add(value);
         }
         return out;
     }
 
-    public static ArrayList<Response> getResponsesForAPayblogger(Payblogger payblogger){
-        List responses = HibernateUtil.getSession().createQuery("FROM Response WHERE paybloggerid='"+payblogger.getPaybloggerid()+"'").list();
-        return (ArrayList)responses;
-    }
-
-    public static ArrayList<Impressiondetail> getImpressiondetailsForAPayblogger(Payblogger payblogger){
-        List impressiondetails = HibernateUtil.getSession().createQuery("FROM Impressiondetail WHERE paybloggerid='"+payblogger.getPaybloggerid()+"'").list();
+    public static ArrayList<Impressiondetail> getImpressiondetailsForAnImpressionpaymentgroupid(Impressionpaymentgroup impressionpaymentgroup){
+        List impressiondetails = HibernateUtil.getSession().createQuery("FROM Impressiondetail WHERE impressionpaymentgroupid='"+ impressionpaymentgroup.getImpressionpaymentgroupid()+"'").list();
         return (ArrayList)impressiondetails;
     }
 
-    public static ArrayList<Revshare> getRevsharesForAPayblogger(Payblogger payblogger){
-        List revshares = HibernateUtil.getSession().createQuery("FROM Revshare WHERE paybloggerid='"+payblogger.getPaybloggerid()+"'").list();
-        return (ArrayList)revshares;
-    }
 
 
 

@@ -2,7 +2,6 @@ package com.dneero.money;
 
 import com.dneero.dao.User;
 import com.dneero.dao.Balance;
-import com.dneero.dao.Balancetransaction;
 import org.apache.log4j.Logger;
 
 import java.util.Date;
@@ -18,7 +17,7 @@ public class MoveMoneyInAccountBalance {
         pay(user, amt, desc, 0, 0);
     }
 
-    public static void pay(User user, double amt, String desc, int optionalPaybloggerid, int optionalInvoiceid){
+    public static void pay(User user, double amt, String desc, int optionalImpressionpaymentgroupid, int optionalInvoiceid){
         Logger logger = Logger.getLogger(MoveMoneyInAccountBalance.class);
 
         Balance balance = new Balance();
@@ -27,7 +26,7 @@ public class MoveMoneyInAccountBalance {
         balance.setDescription(desc);
         balance.setCurrentbalance(CurrentBalanceCalculator.getCurrentBalance(user) + amt);
         balance.setUserid(user.getUserid());
-        balance.setOptionalpaybloggerid(optionalPaybloggerid);
+        balance.setOptionalimpressionpaymentgroupid(optionalImpressionpaymentgroupid);
         balance.setOptionalinvoiceid(optionalInvoiceid);
         try{balance.save();}catch (Exception ex){logger.error(ex);}
     }
@@ -36,7 +35,7 @@ public class MoveMoneyInAccountBalance {
         charge(user, amt, desc, 0, 0);
     }
 
-    public static void charge(User user, double amt, String desc, int optionalPaybloggerid, int optionalInvoiceid){
+    public static void charge(User user, double amt, String desc, int optionalimpressionpaymentgroupid, int optionalInvoiceid){
         Logger logger = Logger.getLogger(MoveMoneyInAccountBalance.class);
 
         Balance balance = new Balance();
@@ -45,7 +44,7 @@ public class MoveMoneyInAccountBalance {
         balance.setDescription(desc);
         balance.setCurrentbalance(CurrentBalanceCalculator.getCurrentBalance(user) - amt);
         balance.setUserid(user.getUserid());
-        balance.setOptionalpaybloggerid(optionalPaybloggerid);
+        balance.setOptionalimpressionpaymentgroupid(optionalimpressionpaymentgroupid);
         balance.setOptionalinvoiceid(optionalInvoiceid);
         try{balance.save();}catch (Exception ex){logger.error(ex);}       
     }

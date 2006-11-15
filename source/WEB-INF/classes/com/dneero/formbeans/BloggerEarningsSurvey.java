@@ -13,10 +13,8 @@ import com.dneero.util.SortableList;
 import com.dneero.util.Str;
 import com.dneero.dao.Response;
 import com.dneero.dao.Survey;
-import com.dneero.dao.Payblogger;
+import com.dneero.dao.Impressionpaymentgroup;
 import com.dneero.invoice.BloggerIncomeCalculator;
-
-import javax.faces.context.FacesContext;
 
 /**
  * User: Joe Reger Jr
@@ -42,14 +40,14 @@ public class BloggerEarningsSurvey extends SortableList {
             Survey survey = Survey.get(response.getSurveyid());
             this.survey = survey;
             if (response.canRead(Jsf.getUserSession().getUser())){
-                ArrayList<Payblogger> paybloggers = BloggerIncomeCalculator.getPaybloggersForASurvey(userSession.getUser().getBlogger(), survey);
+                ArrayList<Impressionpaymentgroup> impressionpaymentgroups = BloggerIncomeCalculator.getImpressionpaymentgroupsForASurvey(userSession.getUser().getBlogger(), survey);
                 list = new ArrayList();
-                for (Iterator<Payblogger> iterator = paybloggers.iterator(); iterator.hasNext();) {
-                    Payblogger payblogger = iterator.next();
+                for (Iterator<Impressionpaymentgroup> iterator = impressionpaymentgroups.iterator(); iterator.hasNext();) {
+                    Impressionpaymentgroup impressionpaymentgroup = iterator.next();
                     BloggerEarningsSurveyListPayments listitem = new BloggerEarningsSurveyListPayments();
-                    listitem.setAmt("$"+Str.formatForMoney(payblogger.getAmt()));
-                    listitem.setPaybloggerid(payblogger.getPaybloggerid());
-                    listitem.setPaymentdate(payblogger.getDate());
+                    listitem.setAmt("$"+Str.formatForMoney(impressionpaymentgroup.getAmt()));
+                    listitem.setImpressionpaymentgroupid(impressionpaymentgroup.getImpressionpaymentgroupid());
+                    listitem.setPaymentdate(impressionpaymentgroup.getDate());
                     list.add(listitem);
                 }
             }

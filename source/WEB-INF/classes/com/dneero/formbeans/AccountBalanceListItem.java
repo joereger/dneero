@@ -16,7 +16,7 @@ public class AccountBalanceListItem {
      private String amt;
      private String currentbalance;
      private String description;
-     private int optionalpaybloggerid;
+     private int optionalimpressionpaymentgroupid;
      private int optionalinvoiceid;
 
 
@@ -70,12 +70,12 @@ public class AccountBalanceListItem {
     }
 
 
-    public int getOptionalpaybloggerid() {
-        return optionalpaybloggerid;
+    public int getOptionalimpressionpaymentgroupid() {
+        return optionalimpressionpaymentgroupid;
     }
 
-    public void setOptionalpaybloggerid(int optionalpaybloggerid) {
-        this.optionalpaybloggerid = optionalpaybloggerid;
+    public void setOptionalimpressionpaymentgroupid(int optionalimpressionpaymentgroupid) {
+        this.optionalimpressionpaymentgroupid = optionalimpressionpaymentgroupid;
     }
 
     public int getOptionalinvoiceid() {

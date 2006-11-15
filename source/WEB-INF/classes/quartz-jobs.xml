@@ -180,7 +180,7 @@
             <group>surveyTriggers</group>
             <job-name>qualityAverager</job-name>
             <job-group>surveyJobs</job-group>
-            <!-- Fire at 3am (noon) every day -->
+            <!-- Fire at 3am every day -->
             <cron-expression>0 0 3 * * ?</cron-expression>
           </cron>
         </trigger>
@@ -188,9 +188,9 @@
 
     <job>
         <job-detail>
-          <name>createPaybloggers</name>
+          <name>createImpressionpaymentgroups</name>
           <group>surveyJobs</group>
-          <job-class>com.dneero.scheduledjobs.CreatePaybloggers</job-class>
+          <job-class>com.dneero.scheduledjobs.CreateImpressionpaymentgroups</job-class>
           <volatility>false</volatility>
           <durability>false</durability>
           <recover>false</recover>
@@ -198,14 +198,14 @@
         <trigger>
           <!-- Sample cron triggers: http://www.opensymphony.com/quartz/wikidocs/TutorialLesson6.html -->
           <cron>
-            <name>createPaybloggersTrigger</name>
+            <name>createImpressionpaymentgroupsTrigger</name>
             <group>surveyTriggers</group>
-            <job-name>createPaybloggers</job-name>
+            <job-name>createImpressionpaymentgroups</job-name>
             <job-group>surveyJobs</job-group>
             <!-- 12pm on the 15th of the month -->
             <!--<cron-expression>0 0 12 15 * ?</cron-expression>-->
-            <!-- every XX minutes -->
-            <cron-expression>0 0/15 * * * ?</cron-expression>
+            <!-- Fire at 1am every day -->
+            <cron-expression>0 0 1 * * ?</cron-expression>
           </cron>
         </trigger>
     </job>

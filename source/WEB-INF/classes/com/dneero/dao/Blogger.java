@@ -40,7 +40,7 @@ public class Blogger extends BasePersistentClass implements java.io.Serializable
      private Date lastnewsurveynotificationsenton;
      private Set<Blog> blogs = new HashSet<Blog>();
      private Set<Response> responses = new HashSet<Response>();
-     private Set<Payblogger> paybloggers = new HashSet<Payblogger>();
+     private Set<Impressionpaymentgroup> impressionpaymentgroups = new HashSet<Impressionpaymentgroup>();
 
 
     //Validator
@@ -221,12 +221,13 @@ public class Blogger extends BasePersistentClass implements java.io.Serializable
         this.quality90days = quality90days;
     }
 
-    public Set<Payblogger> getPaybloggers() {
-        return paybloggers;
+
+    public Set<Impressionpaymentgroup> getImpressionpaymentgroups() {
+        return impressionpaymentgroups;
     }
 
-    public void setPaybloggers(Set<Payblogger> paybloggers) {
-        this.paybloggers = paybloggers;
+    public void setImpressionpaymentgroups(Set<Impressionpaymentgroup> impressionpaymentgroups) {
+        this.impressionpaymentgroups = impressionpaymentgroups;
     }
 
     public boolean getNotifyofnewsurveysbyemail() {

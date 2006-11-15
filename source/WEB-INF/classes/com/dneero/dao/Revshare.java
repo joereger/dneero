@@ -23,7 +23,6 @@ public class Revshare extends BasePersistentClass implements java.io.Serializabl
      private int targetbloggerid;
      private double amt;
      private Date date;
-     private int paybloggerid;
 
 
     //Validator
@@ -114,11 +113,4 @@ public class Revshare extends BasePersistentClass implements java.io.Serializabl
         this.date = date;
     }
 
-    public int getPaybloggerid() {
-        return paybloggerid;
-    }
-
-    public void setPaybloggerid(int paybloggerid) {
-        this.paybloggerid = paybloggerid;
-    }
 }

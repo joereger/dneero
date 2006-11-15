@@ -10,8 +10,6 @@ import com.dneero.util.SortableList;
 import com.dneero.dao.*;
 import com.dneero.invoice.BloggerIncomeCalculator;
 
-import javax.faces.context.FacesContext;
-
 /**
  * User: Joe Reger Jr
  * Date: Aug 24, 2006
@@ -26,21 +24,21 @@ public class BloggerEarningsPaymentListImp extends SortableList {
     public BloggerEarningsPaymentListImp(){
         super("surveyname");
 
-        int paybloggerid = 0;
-        String tmpPaybloggerid = Jsf.getRequestParam("paybloggerid");
-        if (com.dneero.util.Num.isinteger(tmpPaybloggerid)){
-            logger.debug("beginView called: found tmpPaybloggerid in param="+tmpPaybloggerid);
-            paybloggerid = Integer.parseInt(tmpPaybloggerid);
+        int impressionpaymentgroupid = 0;
+        String tmpImpressionpaymentgroupid = Jsf.getRequestParam("impressionpaymentgroupid");
+        if (com.dneero.util.Num.isinteger(tmpImpressionpaymentgroupid)){
+            logger.debug("beginView called: found tmpImpressionpaymentgroupid in param="+tmpImpressionpaymentgroupid);
+            impressionpaymentgroupid = Integer.parseInt(tmpImpressionpaymentgroupid);
         } else {
-            logger.debug("beginView called: NOT found tmpPaybloggerid in param="+tmpPaybloggerid);
+            logger.debug("beginView called: NOT found tmpImpressionpaymentgroupid in param="+tmpImpressionpaymentgroupid);
         }
 
         UserSession userSession = Jsf.getUserSession();
-        if (paybloggerid>0 && userSession.getUser()!=null && userSession.getUser().getBlogger()!=null){
-            Payblogger payblogger = Payblogger.get(paybloggerid);
-            if (payblogger.canRead(Jsf.getUserSession().getUser())){
+        if (impressionpaymentgroupid >0 && userSession.getUser()!=null && userSession.getUser().getBlogger()!=null){
+            Impressionpaymentgroup impressionpaymentgroup = Impressionpaymentgroup.get(impressionpaymentgroupid);
+            if (impressionpaymentgroup.canRead(Jsf.getUserSession().getUser())){
 
-                ArrayList<Impressiondetail> impressiondetails = BloggerIncomeCalculator.getImpressiondetailsForAPayblogger(payblogger);
+                ArrayList<Impressiondetail> impressiondetails = BloggerIncomeCalculator.getImpressiondetailsForAnImpressionpaymentgroupid(impressionpaymentgroup);
 
                 //Create a counting map of <surveyid, impressioncount>
                 HashMap<Integer, Integer> surveyVsImpressions = new HashMap<Integer, Integer>();

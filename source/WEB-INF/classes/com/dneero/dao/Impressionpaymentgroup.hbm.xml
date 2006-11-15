@@ -3,10 +3,10 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated Apr 17, 2006 3:45:28 PM by Hibernate Tools 3.1.0.beta4 -->
 <hibernate-mapping>
-    <class name="com.dneero.dao.Payblogger" table="payblogger">
+    <class name="com.dneero.dao.Impressionpaymentgroup" table="impressionpaymentgroup">
         <cache usage="nonstrict-read-write"/>
-        <id name="paybloggerid" type="int">
-            <column name="paybloggerid" />
+        <id name="impressionpaymentgroupid" type="int">
+            <column name="impressionpaymentgroupid" />
             <generator class="native" />
         </id>
         <property name="bloggerid" type="int">
@@ -14,9 +14,6 @@
         </property>
         <property name="date" type="timestamp">
             <column name="date" length="19" not-null="true" />
-        </property>
-        <property name="status" type="int">
-            <column name="status" not-null="true" />
         </property>
         <property name="amt" type="double">
             <column name="amt" precision="22" scale="0" not-null="true" />

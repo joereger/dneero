@@ -2,9 +2,7 @@ package com.dneero.formbeans;
 
 import org.apache.log4j.Logger;
 
-import javax.faces.context.FacesContext;
-
-import com.dneero.dao.Payblogger;
+import com.dneero.dao.Impressionpaymentgroup;
 import com.dneero.util.Jsf;
 
 import java.util.Date;
@@ -19,7 +17,7 @@ public class BloggerEarningsPayment {
     Logger logger = Logger.getLogger(this.getClass().getName());
 
     private Date date;
-    private int paybloggerid;
+    private int impressionpaymentgroupid;
 
     public BloggerEarningsPayment(){
         logger.debug("Instanciated");
@@ -27,16 +25,16 @@ public class BloggerEarningsPayment {
 
     public String beginView(){
         logger.debug("beginView called");
-        String tmpPaybloggerid = Jsf.getRequestParam("paybloggerid");
-        if (com.dneero.util.Num.isinteger(tmpPaybloggerid)){
-            logger.debug("beginView called: found tmpPaybloggerid in param="+tmpPaybloggerid);
-            Payblogger payblogger = Payblogger.get(Integer.parseInt(tmpPaybloggerid));
-            if (payblogger.canRead(Jsf.getUserSession().getUser())){
-                paybloggerid = payblogger.getPaybloggerid();
-                date = payblogger.getDate();
+        String tmpImpressionpaymentgroupid = Jsf.getRequestParam("impressionpaymentgroupid");
+        if (com.dneero.util.Num.isinteger(tmpImpressionpaymentgroupid)){
+            logger.debug("beginView called: found tmpImpressionpaymentgroupid in param="+tmpImpressionpaymentgroupid);
+            Impressionpaymentgroup impressionpaymentgroup = Impressionpaymentgroup.get(Integer.parseInt(tmpImpressionpaymentgroupid));
+            if (impressionpaymentgroup.canRead(Jsf.getUserSession().getUser())){
+                impressionpaymentgroupid = impressionpaymentgroup.getImpressionpaymentgroupid();
+                date = impressionpaymentgroup.getDate();
             }
         } else {
-            logger.debug("beginView called: NOT found tmpPaybloggerid in param="+tmpPaybloggerid);
+            logger.debug("beginView called: NOT found tmpImpressionpaymentgroupid in param="+tmpImpressionpaymentgroupid);
         }
         return "bloggerearningspayment";
     }
@@ -49,12 +47,12 @@ public class BloggerEarningsPayment {
         this.date = date;
     }
 
-    public int getPaybloggerid() {
-        return paybloggerid;
+    public int getImpressionpaymentgroupid() {
+        return impressionpaymentgroupid;
     }
 
-    public void setPaybloggerid(int paybloggerid) {
-        this.paybloggerid = paybloggerid;
+    public void setImpressionpaymentgroupid(int impressionpaymentgroupid) {
+        this.impressionpaymentgroupid = impressionpaymentgroupid;
     }
 
 

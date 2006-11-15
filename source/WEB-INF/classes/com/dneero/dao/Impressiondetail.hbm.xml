@@ -18,8 +18,8 @@
         <property name="invoiceid" type="int">
             <column name="invoiceid" not-null="false" />
         </property>
-        <property name="paybloggerid" type="int">
-            <column name="paybloggerid" not-null="false" />
+        <property name="impressionpaymentgroupid" type="int">
+            <column name="impressionpaymentgroupid" not-null="false" />
         </property>
         <property name="impressiondate" type="timestamp">
             <column name="impressiondate" length="19" not-null="true" />

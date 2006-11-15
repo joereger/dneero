@@ -23,7 +23,6 @@ public class Response extends BasePersistentClass implements java.io.Serializabl
      private Date responsedate;
      private Survey survey;
      private int invoiceid;
-     private int paybloggerid;
 
 
     //Validator
@@ -123,11 +122,5 @@ public class Response extends BasePersistentClass implements java.io.Serializabl
         this.invoiceid = invoiceid;
     }
 
-    public int getPaybloggerid() {
-        return paybloggerid;
-    }
 
-    public void setPaybloggerid(int paybloggerid) {
-        this.paybloggerid = paybloggerid;
-    }
 }
