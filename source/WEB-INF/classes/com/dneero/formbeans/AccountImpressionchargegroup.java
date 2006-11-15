@@ -2,10 +2,7 @@ package com.dneero.formbeans;
 
 import com.dneero.util.SortableList;
 import com.dneero.util.Jsf;
-import com.dneero.dao.Survey;
-import com.dneero.dao.Impression;
-import com.dneero.dao.Impressionpaymentgroup;
-import com.dneero.dao.Impressiondetail;
+import com.dneero.dao.*;
 import com.dneero.dao.hibernate.HibernateUtil;
 
 import java.util.*;
@@ -18,25 +15,25 @@ import org.hibernate.criterion.Restrictions;
  * Date: Apr 21, 2006
  * Time: 10:38:03 AM
  */
-public class AccountImpressionpaymentgroup extends SortableList {
+public class AccountImpressionchargegroup extends SortableList {
 
-    private ArrayList<AccountImpressionpaymentgroupListItem> list;
+    private ArrayList<AccountImpressionchargegroupListItem> list;
 
 
     Logger logger = Logger.getLogger(this.getClass().getName());
 
-    public AccountImpressionpaymentgroup(){
+    public AccountImpressionchargegroup(){
         super("impressiondetailid");
 
     }
 
-    private void load(int impressionpaymentgroupid){
-        Impressionpaymentgroup impressionpaymentgroup = Impressionpaymentgroup.get(impressionpaymentgroupid);
-        if (impressionpaymentgroup!=null && Jsf.getUserSession().getUser()!=null && impressionpaymentgroup.canRead(Jsf.getUserSession().getUser())){
+    private void load(int impressionchargegroupid){
+        Impressionchargegroup impressionchargegroup = Impressionchargegroup.get(impressionchargegroupid);
+        if (impressionchargegroup!=null && Jsf.getUserSession().getUser()!=null && impressionchargegroup.canRead(Jsf.getUserSession().getUser())){
 
             list = new ArrayList();
             List<Impressiondetail> impressiondetails = HibernateUtil.getSession().createCriteria(Impressiondetail.class)
-                               .add(Restrictions.eq("impressionpaymentgroupid", impressionpaymentgroup.getImpressionpaymentgroupid()))
+                               .add(Restrictions.eq("impressionchargegroupid", impressionchargegroup.getImpressionchargegroupid()))
                                .list();
 
 
@@ -45,7 +42,7 @@ public class AccountImpressionpaymentgroup extends SortableList {
                 Impressiondetail impressiondetail = iterator.next();
                 Impression impression = Impression.get(impressiondetail.getImpressionid());
                 Survey survey = Survey.get(impression.getSurveyid());
-                AccountImpressionpaymentgroupListItem listitem = new AccountImpressionpaymentgroupListItem();
+                AccountImpressionchargegroupListItem listitem = new AccountImpressionchargegroupListItem();
                 listitem.setImpressiondate(impressiondetail.getImpressiondate());
                 listitem.setImpressiondetailid(impressiondetail.getImpressiondetailid());
                 listitem.setIp(impressiondetail.getIp());
@@ -59,12 +56,12 @@ public class AccountImpressionpaymentgroup extends SortableList {
 
     public String beginView(){
         //logger.debug("beginView called:");
-        String tmpImpressionpaymentgroupid = Jsf.getRequestParam("impressionpaymentgroupid");
-        if (com.dneero.util.Num.isinteger(tmpImpressionpaymentgroupid)){
-            logger.debug("beginView called: found impressionpaymentgroupid in request param="+tmpImpressionpaymentgroupid);
-            load(Integer.parseInt(tmpImpressionpaymentgroupid));
+        String tmpImpressionchargegroupid = Jsf.getRequestParam("impressionchargegroupid");
+        if (com.dneero.util.Num.isinteger(tmpImpressionchargegroupid)){
+            logger.debug("beginView called: found impressionchargegroupid in request param="+tmpImpressionchargegroupid);
+            load(Integer.parseInt(tmpImpressionchargegroupid));
         }
-        return "accountimpressionpaymentgroup";
+        return "accountimpressionchargegroup";
     }
 
     protected boolean isDefaultAscending(String sortColumn) {
@@ -75,8 +72,8 @@ public class AccountImpressionpaymentgroup extends SortableList {
         //logger.debug("sort called");
         Comparator comparator = new Comparator() {
             public int compare(Object o1, Object o2) {
-                AccountImpressionpaymentgroupListItem obj1 = (AccountImpressionpaymentgroupListItem)o1;
-                AccountImpressionpaymentgroupListItem obj2 = (AccountImpressionpaymentgroupListItem)o2;
+                AccountImpressionchargegroupListItem obj1 = (AccountImpressionchargegroupListItem)o1;
+                AccountImpressionchargegroupListItem obj2 = (AccountImpressionchargegroupListItem)o2;
                 if (column == null) {
                     return 0;
                 }
@@ -96,14 +93,14 @@ public class AccountImpressionpaymentgroup extends SortableList {
         }
     }
 
-    public ArrayList<AccountImpressionpaymentgroupListItem> getList() {
+    public ArrayList<AccountImpressionchargegroupListItem> getList() {
         return list;
     }
 
-    public void setList(ArrayList<AccountImpressionpaymentgroupListItem> list) {
+    public void setList(ArrayList<AccountImpressionchargegroupListItem> list) {
         this.list = list;
     }
 
 
- 
+
 }

@@ -13,6 +13,7 @@ import java.util.Iterator;
 public class SurveyMoneyStatus {
 
     public static double PERSURVEYCREATIONFEE = 5.00;
+    public static double DNEEROMARKUPPERCENT = 25;
 
     private double maxPossiblePayoutForResponses = 0;
     private double maxPossiblePayoutForImpressions = 0;
@@ -31,7 +32,7 @@ public class SurveyMoneyStatus {
         maxPossiblePayoutForResponses = (survey.getWillingtopayperrespondent() * survey.getNumberofrespondentsrequested());
         maxPossiblePayoutForImpressions = ((survey.getWillingtopaypercpm()*survey.getMaxdisplaystotal())/1000);
         maxPossiblePayoutToUsers = maxPossiblePayoutForResponses + maxPossiblePayoutForImpressions;
-        maxPossibledNeeroFee = maxPossiblePayoutToUsers * .25;
+        maxPossibledNeeroFee = maxPossiblePayoutToUsers * (DNEEROMARKUPPERCENT/100);
         maxPossibleSpend = maxPossiblePayoutToUsers + maxPossibledNeeroFee + PERSURVEYCREATIONFEE;
         responsesToDate = survey.getResponses().size();
         spentOnResponsesToDate = survey.getWillingtopayperrespondent() * responsesToDate;

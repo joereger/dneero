@@ -31,7 +31,7 @@ public class CreateImpressionpaymentgroups implements Job {
             Blogger blogger = iterator.next();
             logger.debug("Begin bloggerid="+blogger.getBloggerid());
 
-
+            //@todo add one layer of iteration... by survey
 
             //Impressiondetails
             List<Impressiondetail> impressiondetails = HibernateUtil.getSession().createCriteria(Impressiondetail.class)

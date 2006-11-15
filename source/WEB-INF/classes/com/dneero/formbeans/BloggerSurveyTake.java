@@ -6,6 +6,7 @@ import com.dneero.dao.User;
 import com.dneero.util.Jsf;
 import com.dneero.xmpp.SendXMPPMessage;
 import com.dneero.money.MoveMoneyInAccountBalance;
+import com.dneero.money.SurveyMoneyStatus;
 import org.apache.log4j.Logger;
 
 import javax.faces.context.FacesContext;
@@ -47,12 +48,11 @@ public class BloggerSurveyTake {
     public String takeSurvey(){
         logger.debug("takeSurvey() called");
         if (Jsf.getUserSession().getUser()!=null){
-
             //@todo make sure user can't take survey twice or else we'll pay them twice
             //Affect balance for blogger
             MoveMoneyInAccountBalance.pay(Jsf.getUserSession().getUser(), survey.getWillingtopayperrespondent(), "Pay for taking survey: '"+survey.getTitle()+"'");
             //Affect balance for researcher
-            MoveMoneyInAccountBalance.charge(User.get(Researcher.get(survey.getResearcherid()).getUserid()), survey.getWillingtopayperrespondent(), "User "+Jsf.getUserSession().getUser().getFirstname()+" "+Jsf.getUserSession().getUser().getLastname()+" responds to survey '"+survey.getTitle()+"'");
+            MoveMoneyInAccountBalance.charge(User.get(Researcher.get(survey.getResearcherid()).getUserid()), (survey.getWillingtopayperrespondent()+(survey.getWillingtopayperrespondent()*(SurveyMoneyStatus.DNEEROMARKUPPERCENT/100))), "User "+Jsf.getUserSession().getUser().getFirstname()+" "+Jsf.getUserSession().getUser().getLastname()+" responds to survey '"+survey.getTitle()+"'");
             //Notify debug group
             SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_DEBUG, "dNeero Survey Taken: "+ survey.getTitle()+" (surveyid="+survey.getSurveyid()+") by "+Jsf.getUserSession().getUser().getFirstname()+" "+Jsf.getUserSession().getUser().getLastname()+" ("+Jsf.getUserSession().getUser().getEmail()+")");
             xmpp.send();

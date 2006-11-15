@@ -97,6 +97,12 @@
     </managed-bean>
 
     <managed-bean>
+        <managed-bean-name>accountImpressionchargegroup</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.AccountImpressionchargegroup</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
         <managed-bean-name>changePassword</managed-bean-name>
         <managed-bean-class>com.dneero.formbeans.ChangePassword</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
@@ -751,6 +757,10 @@
         <navigation-case>
             <from-outcome>accountimpressionpaymentgroup</from-outcome>
             <to-view-id>/account/impressionpaymentgroup.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>accountimpressionchargegroup</from-outcome>
+            <to-view-id>/account/impressionchargegroup.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>accountsupportissuedetail</from-outcome>
