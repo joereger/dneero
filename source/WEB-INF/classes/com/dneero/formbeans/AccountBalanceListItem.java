@@ -17,7 +17,7 @@ public class AccountBalanceListItem {
      private String currentbalance;
      private String description;
      private int optionalimpressionpaymentgroupid;
-     private int optionalinvoiceid;
+     private int optionalimpressionchargegroupid;
 
 
     public int getBalanceid() {
@@ -78,11 +78,12 @@ public class AccountBalanceListItem {
         this.optionalimpressionpaymentgroupid = optionalimpressionpaymentgroupid;
     }
 
-    public int getOptionalinvoiceid() {
-        return optionalinvoiceid;
+
+    public int getOptionalimpressionchargegroupid() {
+        return optionalimpressionchargegroupid;
     }
 
-    public void setOptionalinvoiceid(int optionalinvoiceid) {
-        this.optionalinvoiceid = optionalinvoiceid;
+    public void setOptionalimpressionchargegroupid(int optionalimpressionchargegroupid) {
+        this.optionalimpressionchargegroupid = optionalimpressionchargegroupid;
     }
 }

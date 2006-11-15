@@ -42,7 +42,7 @@ public class AccountBalance extends SortableList {
                 abli.setDescription(balance.getDescription());
                 abli.setUserid(balance.getUserid());
                 abli.setOptionalimpressionpaymentgroupid(balance.getOptionalimpressionpaymentgroupid());
-                abli.setOptionalinvoiceid(balance.getOptionalinvoiceid());
+                abli.setOptionalimpressionchargegroupid(balance.getOptionalimpressionchargegroupid());
                 balances.add(abli);
             }
 

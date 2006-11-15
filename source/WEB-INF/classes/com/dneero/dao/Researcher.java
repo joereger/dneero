@@ -28,8 +28,6 @@ public class Researcher extends BasePersistentClass implements java.io.Serializa
      private String companytype;
      private String phone;
 
-     private Set<Invoice> invoices = new HashSet<Invoice>();
-
     //Validator
     public void validateRegerEntity() throws GeneralException {
 
@@ -101,14 +99,6 @@ public class Researcher extends BasePersistentClass implements java.io.Serializa
         this.userid = userid;
     }
 
-
-    public Set<Invoice> getInvoices() {
-        return invoices;
-    }
-
-    public void setInvoices(Set<Invoice> invoices) {
-        this.invoices = invoices;
-    }
 
 
     public String getPhone() {

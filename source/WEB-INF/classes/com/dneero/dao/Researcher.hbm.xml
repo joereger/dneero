@@ -9,11 +9,6 @@
             <column name="researcherid" />
             <generator class="native" />
         </id>
-        <set name="invoices" inverse="true" order-by="invoiceid asc" cascade="all-delete-orphan">
-            <cache usage="nonstrict-read-write"/>
-            <key column="researcherid"></key>
-            <one-to-many class="com.dneero.dao.Invoice" not-found="ignore"></one-to-many>
-        </set>
         <property name="userid" type="int">
             <column name="userid" not-null="true" />
         </property>

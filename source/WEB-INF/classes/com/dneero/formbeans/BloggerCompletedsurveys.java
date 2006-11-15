@@ -6,7 +6,7 @@ import com.dneero.session.UserSession;
 import com.dneero.util.Jsf;
 import com.dneero.util.SortableList;
 import com.dneero.util.Str;
-import com.dneero.invoice.BloggerIncomeCalculator;
+import com.dneero.money.BloggerIncomeCalculator;
 import org.apache.log4j.Logger;
 
 import java.util.*;

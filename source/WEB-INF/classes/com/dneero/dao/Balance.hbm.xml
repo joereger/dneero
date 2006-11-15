@@ -27,8 +27,8 @@
         <property name="optionalimpressionpaymentgroupid" type="int">
             <column name="optionalimpressionpaymentgroupid" not-null="false" />
         </property>
-        <property name="optionalinvoiceid" type="int">
-            <column name="optionalinvoiceid" not-null="false" />
+        <property name="optionalimpressionchargegroupid" type="int">
+            <column name="optionalimpressionchargegroupid" not-null="false" />
         </property>
 
     </class>

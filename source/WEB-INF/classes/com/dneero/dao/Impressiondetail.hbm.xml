@@ -15,8 +15,8 @@
         <property name="bloggerid" type="int">
             <column name="bloggerid" not-null="true" />
         </property>
-        <property name="invoiceid" type="int">
-            <column name="invoiceid" not-null="false" />
+        <property name="impressionchargegroupid" type="int">
+            <column name="impressionchargegroupid" not-null="false" />
         </property>
         <property name="impressionpaymentgroupid" type="int">
             <column name="impressionpaymentgroupid" not-null="false" />

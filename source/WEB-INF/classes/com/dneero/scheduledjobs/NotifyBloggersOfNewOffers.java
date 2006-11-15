@@ -4,10 +4,8 @@ import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.apache.log4j.Logger;
-import org.hibernate.criterion.Restrictions;
 import com.dneero.dao.*;
 import com.dneero.dao.hibernate.HibernateUtil;
-import com.dneero.invoice.RevshareLevelPercentageCalculator;
 import com.dneero.finders.FindSurveysForBlogger;
 import com.dneero.email.EmailTemplateProcessor;
 

@@ -14,7 +14,7 @@ import com.dneero.util.Str;
 import com.dneero.dao.Response;
 import com.dneero.dao.Survey;
 import com.dneero.dao.Impressionpaymentgroup;
-import com.dneero.invoice.BloggerIncomeCalculator;
+import com.dneero.money.BloggerIncomeCalculator;
 
 /**
  * User: Joe Reger Jr

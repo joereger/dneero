@@ -17,7 +17,7 @@ public class MoveMoneyInAccountBalance {
         pay(user, amt, desc, 0, 0);
     }
 
-    public static void pay(User user, double amt, String desc, int optionalImpressionpaymentgroupid, int optionalInvoiceid){
+    public static void pay(User user, double amt, String desc, int optionalimpressionpaymentgroupid, int optionalimpressionchargegroupid){
         Logger logger = Logger.getLogger(MoveMoneyInAccountBalance.class);
 
         Balance balance = new Balance();
@@ -26,8 +26,8 @@ public class MoveMoneyInAccountBalance {
         balance.setDescription(desc);
         balance.setCurrentbalance(CurrentBalanceCalculator.getCurrentBalance(user) + amt);
         balance.setUserid(user.getUserid());
-        balance.setOptionalimpressionpaymentgroupid(optionalImpressionpaymentgroupid);
-        balance.setOptionalinvoiceid(optionalInvoiceid);
+        balance.setOptionalimpressionpaymentgroupid(optionalimpressionpaymentgroupid);
+        balance.setOptionalimpressionchargegroupid(optionalimpressionchargegroupid);
         try{balance.save();}catch (Exception ex){logger.error(ex);}
     }
 
@@ -35,7 +35,7 @@ public class MoveMoneyInAccountBalance {
         charge(user, amt, desc, 0, 0);
     }
 
-    public static void charge(User user, double amt, String desc, int optionalimpressionpaymentgroupid, int optionalInvoiceid){
+    public static void charge(User user, double amt, String desc, int optionalimpressionpaymentgroupid, int optionalimpressionchargegroupid){
         Logger logger = Logger.getLogger(MoveMoneyInAccountBalance.class);
 
         Balance balance = new Balance();
@@ -45,7 +45,7 @@ public class MoveMoneyInAccountBalance {
         balance.setCurrentbalance(CurrentBalanceCalculator.getCurrentBalance(user) - amt);
         balance.setUserid(user.getUserid());
         balance.setOptionalimpressionpaymentgroupid(optionalimpressionpaymentgroupid);
-        balance.setOptionalinvoiceid(optionalInvoiceid);
+        balance.setOptionalimpressionpaymentgroupid(optionalimpressionchargegroupid);
         try{balance.save();}catch (Exception ex){logger.error(ex);}       
     }
 

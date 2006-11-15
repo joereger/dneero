@@ -25,11 +25,7 @@ public class SysadminManuallyRunScheduledTask {
         return "sysadminmanuallyrunscheduledtask";
     }
 
-    public String runCreateInvoices(){
-        try{CreateInvoices task = new CreateInvoices();
-            task.execute(null);} catch (Exception ex){logger.error(ex);}
-        return "sysadminmanuallyrunscheduledtask";
-    }
+
 
     public String runCreateImpressionpaymentgroups(){
         try{
@@ -62,12 +58,7 @@ public class SysadminManuallyRunScheduledTask {
         return "sysadminmanuallyrunscheduledtask";
     }
 
-    public String runSendEmailInvoicePastDue(){
-        try{
-            SendEmailBalancePastDue task = new SendEmailBalancePastDue();
-            task.execute(null);} catch (Exception ex){logger.error(ex);}
-        return "sysadminmanuallyrunscheduledtask";
-    }
+    
     
     public String runMoveMoneyAround(){
         try{MoveMoneyAround task = new MoveMoneyAround();

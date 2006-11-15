@@ -2,19 +2,13 @@ package com.dneero.formbeans;
 
 import com.dneero.util.SortableList;
 import com.dneero.util.Jsf;
-import com.dneero.util.Str;
-import com.dneero.session.UserSession;
-import com.dneero.dao.hibernate.HibernateUtil;
-import com.dneero.dao.Response;
 import com.dneero.dao.Survey;
 import com.dneero.dao.Impressiondetail;
 import com.dneero.dao.Impression;
-import com.dneero.invoice.BloggerIncomeCalculator;
 
 import java.util.*;
 
 import org.apache.log4j.Logger;
-import org.hibernate.criterion.Restrictions;
 
 /**
  * User: Joe Reger Jr

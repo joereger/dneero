@@ -19,7 +19,7 @@ public class Impressiondetail extends BasePersistentClass implements java.io.Ser
     // Fields
      private int impressiondetailid;
      private int impressionid;
-     private int invoiceid;
+     private int impressionchargegroupid;
      private int bloggerid;
      private int impressionpaymentgroupid;
      private Date impressiondate;
@@ -111,12 +111,13 @@ public class Impressiondetail extends BasePersistentClass implements java.io.Ser
         this.ip = ip;
     }
 
-    public int getInvoiceid() {
-        return invoiceid;
+
+    public int getImpressionchargegroupid() {
+        return impressionchargegroupid;
     }
 
-    public void setInvoiceid(int invoiceid) {
-        this.invoiceid = invoiceid;
+    public void setImpressionchargegroupid(int impressionchargegroupid) {
+        this.impressionchargegroupid = impressionchargegroupid;
     }
 
     public int getImpressionpaymentgroupid() {

@@ -3,12 +3,11 @@ package com.dneero.formbeans;
 import com.dneero.util.SortableList;
 import com.dneero.util.Jsf;
 import com.dneero.session.UserSession;
-import com.dneero.dao.Response;
 import com.dneero.dao.Revshare;
 import com.dneero.dao.Blogger;
 import com.dneero.dao.User;
 import com.dneero.dao.hibernate.HibernateUtil;
-import com.dneero.invoice.RevshareLevelPercentageCalculator;
+import com.dneero.money.RevshareLevelPercentageCalculator;
 
 import java.util.*;
 

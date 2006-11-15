@@ -25,7 +25,7 @@ public class Balance extends BasePersistentClass implements java.io.Serializable
      private double currentbalance;
      private String description;
      private int optionalimpressionpaymentgroupid;
-     private int optionalinvoiceid;
+     private int optionalimpressionchargegroupid;
 
 
     //Validator
@@ -134,11 +134,12 @@ public class Balance extends BasePersistentClass implements java.io.Serializable
         this.optionalimpressionpaymentgroupid = optionalimpressionpaymentgroupid;
     }
 
-    public int getOptionalinvoiceid() {
-        return optionalinvoiceid;
+
+    public int getOptionalimpressionchargegroupid() {
+        return optionalimpressionchargegroupid;
     }
 
-    public void setOptionalinvoiceid(int optionalinvoiceid) {
-        this.optionalinvoiceid = optionalinvoiceid;
+    public void setOptionalimpressionchargegroupid(int optionalimpressionchargegroupid) {
+        this.optionalimpressionchargegroupid = optionalimpressionchargegroupid;
     }
 }

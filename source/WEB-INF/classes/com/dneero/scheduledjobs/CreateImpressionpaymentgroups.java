@@ -36,9 +36,7 @@ public class CreateImpressionpaymentgroups implements Job {
             //Impressiondetails
             List<Impressiondetail> impressiondetails = HibernateUtil.getSession().createCriteria(Impressiondetail.class)
                                        .add( Restrictions.eq("bloggerid", blogger.getBloggerid()))
-                                       .add( Restrictions.gt("invoiceid", 0))
                                        .add( Restrictions.le("impressionpaymentgroupid", 0))
-                                       .add( Restrictions.eq("qualifiesforpaymentstatus", Impressiondetail.QUALIFIESFORPAYMENTSTATUS_TRUE))
                                        .list();
             logger.debug(impressiondetails.size() + " Impressiondetails found.");
 
@@ -65,8 +63,8 @@ public class CreateImpressionpaymentgroups implements Job {
                     logger.error(ex);
                 }
 
-                //Update the account balance
-                MoveMoneyInAccountBalance.pay(User.get(blogger.getUserid()), impressionpaymentgroup.getAmt(), "Payment for survey responses and blog impressions.", impressionpaymentgroup.getImpressionpaymentgroupid(), 0);
+                //Update the account balance for the blogger
+                MoveMoneyInAccountBalance.pay(User.get(blogger.getUserid()), impressionpaymentgroup.getAmt(), "Pay for blog impressions", impressionpaymentgroup.getImpressionpaymentgroupid(), 0);
 
                 //Create revshare
                 //Start with the user who's getting paid
