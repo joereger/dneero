@@ -18,7 +18,7 @@ import java.util.*;
  */
 public class BloggerCompletedsurveys extends SortableList {
 
-    private ArrayList<BloggerEarningsListSurveys> list;
+    private ArrayList<BloggerCompletedsurveysListitem> list;
 
     Logger logger = Logger.getLogger(this.getClass().getName());
 
@@ -31,9 +31,9 @@ public class BloggerCompletedsurveys extends SortableList {
             for (Iterator<Response> iterator = userSession.getUser().getBlogger().getResponses().iterator(); iterator.hasNext();) {
                 Response response = iterator.next();
                 Survey survey = Survey.get(response.getSurveyid());
-                BloggerEarningsListSurveys listitem = new BloggerEarningsListSurveys();
+                BloggerCompletedsurveysListitem listitem = new BloggerCompletedsurveysListitem();
                 listitem.setAmtforresponse("$"+Str.formatForMoney(survey.getWillingtopayperrespondent()));
-                listitem.setAmttotal("$"+Str.formatForMoney(BloggerIncomeCalculator.getBloggerTotalPossibleIncomeForSurvey(userSession.getUser().getBlogger(), survey)));
+                listitem.setAmttotal("$"+Str.formatForMoney(survey.getWillingtopayperrespondent() + BloggerIncomeCalculator.getImpressionIncomeForSurvey(userSession.getUser().getBlogger(), survey)));
                 listitem.setImpressions(BloggerIncomeCalculator.getAllImpressiondetailsForSurvey(userSession.getUser().getBlogger(), survey).size());
                 listitem.setImpressionsthatqualifyforpay(BloggerIncomeCalculator.getImpressionDetailsThatQualifyForPay(userSession.getUser().getBlogger(), survey).size());
                 listitem.setResponsedate(response.getResponsedate());
@@ -54,8 +54,8 @@ public class BloggerCompletedsurveys extends SortableList {
         //logger.debug("sort called");
         Comparator comparator = new Comparator() {
             public int compare(Object o1, Object o2) {
-                BloggerEarningsListSurveys obj1 = (BloggerEarningsListSurveys)o1;
-                BloggerEarningsListSurveys obj2 = (BloggerEarningsListSurveys)o2;
+                BloggerCompletedsurveysListitem obj1 = (BloggerCompletedsurveysListitem)o1;
+                BloggerCompletedsurveysListitem obj2 = (BloggerCompletedsurveysListitem)o2;
                 if (column == null) {
                     return 0;
                 }
@@ -75,11 +75,11 @@ public class BloggerCompletedsurveys extends SortableList {
         }
     }
 
-    public ArrayList<BloggerEarningsListSurveys> getList() {
+    public ArrayList<BloggerCompletedsurveysListitem> getList() {
         return list;
     }
 
-    public void setList(ArrayList<BloggerEarningsListSurveys> list) {
+    public void setList(ArrayList<BloggerCompletedsurveysListitem> list) {
         this.list = list;
     }
 

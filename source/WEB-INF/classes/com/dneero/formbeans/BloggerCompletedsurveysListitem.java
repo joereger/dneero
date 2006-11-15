@@ -7,7 +7,7 @@ import java.util.Date;
  * Date: Jul 27, 2006
  * Time: 8:00:34 AM
  */
-public class BloggerEarningsListSurveys {
+public class BloggerCompletedsurveysListitem {
 
     private int surveyid;
     private int responseid;

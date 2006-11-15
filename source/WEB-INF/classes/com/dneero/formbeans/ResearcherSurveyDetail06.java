@@ -258,7 +258,7 @@ public class ResearcherSurveyDetail06 {
                     logger.debug("saveAction failed: " + gex.getErrorsAsSingleString());
                     return null;
                 }
-                userSession.getUser().refresh();
+                userSession.setUser(user);
 
                 //Charge the per-survey creation fee
                 MoveMoneyInAccountBalance.charge(userSession.getUser(), SurveyMoneyStatus.PERSURVEYCREATIONFEE, "Survey creation fee for '"+survey.getTitle()+"'");            

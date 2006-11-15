@@ -205,7 +205,9 @@
             <!-- 12pm on the 15th of the month -->
             <!--<cron-expression>0 0 12 15 * ?</cron-expression>-->
             <!-- Fire at 1am every day -->
-            <cron-expression>0 0 1 * * ?</cron-expression>
+            <!--<cron-expression>0 0 1 * * ?</cron-expression>-->
+            <!-- every 15 minutes -->
+            <cron-expression>0 0/15 * * * ?</cron-expression>
           </cron>
         </trigger>
     </job>

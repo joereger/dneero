@@ -10,10 +10,18 @@
       xmlns:d="http://dneero.com/taglib">
 
 <ui:composition template="/template/template-facelets.xhtml">
-    <ui:define name="title">Completed Surveys<br/><br/></ui:define>
+    <ui:define name="title">Earnings from Completed Surveys<br/><br/></ui:define>
     <ui:param name="navtab" value="bloggers"/>
     <ui:define name="body">
     <d:authorization acl="blogger" redirectonfail="true"/>
+
+
+    <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
+    <img src="/images/lightbulb_on.png" align="left"/>
+    Note: Earnings calculations are not final.   Final payment notification and calculation can be found on <a href="/account/accountbalance.jsf"><font class="smallfont">Your Account Balance</font></a> page.
+    <br/><br/><br/>
+    </font></div></center>
+    <br/>
 
         <h:form>
 
@@ -55,7 +63,10 @@
                 <f:facet name="header">
                   <af:outputText value="Blog Displays"/>
                 </f:facet>
-                <af:outputText value="#{listitem.impressions}"/>
+                <h:commandLink action="#{bloggerImpressions.beginView}">
+                    <h:outputText value="#{listitem.impressions}" escape="false"/>
+                    <f:param name="surveyid" value="#{listitem.surveyid}" />
+                </h:commandLink>
               </af:column>
               <af:column>
                 <f:facet name="header">
@@ -63,30 +74,11 @@
                 </f:facet>
                 <af:outputText value="#{listitem.amttotal}" styleClass="mediumfont"/>
               </af:column>
-              <af:column>
-                <f:facet name="header">
-                  <af:outputText value="-" inlineStyle="color: #ffffff;"/>
-                </f:facet>
-                <h:commandLink action="#{bloggerEarningsSurvey.beginView}">
-                    <h:outputText value="Payment Details" escape="false"/>
-                    <f:param name="responseid" value="#{listitem.responseid}" />
-                </h:commandLink>
-             </af:column>
-             <af:column rendered="false">
-                <f:facet name="header">
-                  <af:outputText value="-" inlineStyle="color: #ffffff;"/>
-                </f:facet>
-                <h:commandLink action="#{bloggerSurveyDetail.beginView}">
-                    <h:outputText value="View" escape="false" styleClass="mediumfont"/>
-                    <f:param name="surveyid" value="#{listitem.surveyid}" />
-                </h:commandLink>
-              </af:column>
+
           </af:table>
 
         </h:form>
 
-        <br/><br/>
-        <font class="smallfont">This earnings calculation is not final.   Final payment notification and calculation can be found on <a href="/account/accountbalance.jsf">Your Account Balance</a> page.</font>
 
 
     </ui:define>

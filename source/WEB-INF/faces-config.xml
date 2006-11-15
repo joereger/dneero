@@ -91,6 +91,12 @@
     </managed-bean>
 
     <managed-bean>
+        <managed-bean-name>accountImpressionpaymentgroup</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.AccountImpressionpaymentgroup</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
         <managed-bean-name>changePassword</managed-bean-name>
         <managed-bean-class>com.dneero.formbeans.ChangePassword</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
@@ -124,6 +130,18 @@
     <managed-bean>
         <managed-bean-name>bloggerDetails</managed-bean-name>
         <managed-bean-class>com.dneero.formbeans.BloggerDetails</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>bloggerImpressions</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.BloggerImpressions</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>bloggerImpressionDetails</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.BloggerImpressionDetails</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
 
@@ -230,17 +248,8 @@
         <managed-bean-class>com.dneero.formbeans.BloggerEarningsRevshareInvite</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
-    <managed-bean>
-        <managed-bean-name>bloggerEarningsPayment</managed-bean-name>
-        <managed-bean-class>com.dneero.formbeans.BloggerEarningsPayment</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
-    </managed-bean>
 
-    <managed-bean>
-        <managed-bean-name>bloggerEarningsPaymentListImp</managed-bean-name>
-        <managed-bean-class>com.dneero.formbeans.BloggerEarningsPaymentListImp</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
-    </managed-bean>
+
 
 
     <managed-bean>
@@ -590,16 +599,16 @@
             <to-view-id>/blogger/bloggercompletedsurveys.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
-            <from-outcome>bloggerearningssurvey</from-outcome>
-            <to-view-id>/blogger/bloggerearningssurvey.xhtml</to-view-id>
-        </navigation-case>
-        <navigation-case>
             <from-outcome>bloggerearningsrevshare</from-outcome>
             <to-view-id>/blogger/bloggerearningsrevshare.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
-            <from-outcome>bloggerearningspayment</from-outcome>
-            <to-view-id>/blogger/bloggerearningspayment.xhtml</to-view-id>
+            <from-outcome>bloggerimpressions</from-outcome>
+            <to-view-id>/blogger/impressions.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>bloggerimpressiondetails</from-outcome>
+            <to-view-id>/blogger/impressiondetails.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>bloggerhome</from-outcome>
@@ -756,6 +765,10 @@
         <navigation-case>
             <from-outcome>accountsupportissuenewnotedone</from-outcome>
             <to-view-id>/account/accountsupportissuenewnotedone.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>accountimpressionpaymentgroup</from-outcome>
+            <to-view-id>/account/impressionpaymentgroup.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>accountsupportissuedetail</from-outcome>

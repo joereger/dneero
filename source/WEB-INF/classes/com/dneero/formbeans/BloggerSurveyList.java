@@ -74,10 +74,6 @@ public class BloggerSurveyList extends SortableList {
                 }
 
             }
-
-
-
-
         }
 
 

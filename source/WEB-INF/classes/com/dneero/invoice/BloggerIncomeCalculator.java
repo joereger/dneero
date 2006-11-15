@@ -15,16 +15,9 @@ import org.apache.log4j.Logger;
  */
 public class BloggerIncomeCalculator {
 
-    public static double getBloggerTotalPossibleEarningsAllTime(Blogger blogger){
-        return getBloggerTotalPossibleIncomeForSurvey(blogger, null);
-    }
-
-    public static double getBloggerTotalPossibleIncomeForSurvey(Blogger blogger, Survey survey){
+    public static double getImpressionIncomeForSurvey(Blogger blogger, Survey survey){
         Logger logger = Logger.getLogger(BloggerIncomeCalculator.class);
         double out = 0;
-        if (survey!=null){
-            out = out + survey.getWillingtopayperrespondent();
-        }
         HibernateUtil.getSession().saveOrUpdate(blogger);
         for (Iterator<Blog> iterator = blogger.getBlogs().iterator(); iterator.hasNext();) {
             Blog blog = iterator.next();
@@ -94,7 +87,8 @@ public class BloggerIncomeCalculator {
             for (Iterator<Impressiondetail> iterator2 = impression.getImpressiondetails().iterator(); iterator2.hasNext();){
                 Impressiondetail impressiondetail = iterator2.next();
                 numberofimpressionsforthisblog = numberofimpressionsforthisblog + 1;
-                //@todo how am i limiting the total overall responses per survey that the client sets?
+                //@todo how am i limiting the total overall responses per survey that the researcher sets?
+                //@todo how am i only returning those that qualify for pay?  i don't see that here.
                 if (numberofimpressionsforthisblog <= sv.getMaxdisplaysperblog()){
                     out.add(impressiondetail);
                 }
@@ -136,14 +130,6 @@ public class BloggerIncomeCalculator {
         }
         return out;
     }
-
-    public static double getAllEarningsPaidToBlogger(){
-        double amt = 0;
-        //@todo this needs to sum response, impressionpaymentgroup and maybe revshare
-
-        return amt;
-    }
-
 
 
     public static ArrayList<Impressionpaymentgroup> getImpressionpaymentgroupsForASurvey(Blogger blogger, Survey survey){

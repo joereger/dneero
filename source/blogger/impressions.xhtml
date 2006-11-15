@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:t="http://myfaces.apache.org/tomahawk"
+      xmlns:af="http://xmlns.oracle.com/adf/faces"
+      xmlns:d="http://dneero.com/taglib">
+
+<ui:composition template="/template/template-facelets.xhtml">
+    <ui:define name="title">Impressions for Survey: ${bloggerImpressions.surveytitle}<br/><br/></ui:define>
+    <ui:param name="navtab" value="bloggers"/>
+    <ui:define name="body">
+    <d:authorization acl="blogger" redirectonfail="true"/>
+    
+    
+    <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
+    <img src="/images/lightbulb_on.png" align="left"/> 
+    This page lists blog displays/impressions of a survey.  Note that in the calculation of earnings some impressions may not be included because the researcher can set a maximum number of paid blog displays per blog.
+    <br/><br/><br/>
+    </font></div></center>
+
+        <h:form>
+
+              <af:table value="#{bloggerImpressions.list}" bandingInterval="2" rows="25" banding="row" var="listitem">
+
+
+              <af:column>
+                <f:facet name="header">
+                  <af:outputText value="Url"/>
+                </f:facet>
+                <af:outputText value="#{listitem.referer}" styleClass="smallfont"/>
+              </af:column>
+              <af:column rendered="true">
+                <f:facet name="header">
+                  <af:outputText value="Impressions"/>
+                </f:facet>
+                <h:commandLink action="#{bloggerImpressiondetails.beginView}">
+                    <h:outputText value="#{listitem.totalimpressions}" escape="false" styleClass="smallfont" style="color: #0000ff;"/>
+                    <f:param name="impressionid" value="#{listitem.impressionid}" />
+                </h:commandLink>
+              </af:column>
+              <af:column>
+                <f:facet name="header">
+                  <af:outputText value="Quality Rating"/>
+                </f:facet>
+                <af:outputText value="#{listitem.quality}"/>
+              </af:column>
+
+          </af:table>
+
+        </h:form>
+
+
+
+    </ui:define>
+</ui:composition>
+</html>
+
+

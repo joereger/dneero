@@ -56,7 +56,7 @@
             <f:facet name="header">
               <af:outputText value=""/>
             </f:facet>
-            <h:commandLink action="#{bloggerEarningsPayment.beginView}" rendered="#{balance.optionalimpressionpaymentgroupid>0}">
+            <h:commandLink action="#{accountImpressionpaymentgroup.beginView}" rendered="#{balance.optionalimpressionpaymentgroupid>0}">
                 <h:outputText value="Details" escape="false" />
                 <f:param name="impressionpaymentgroupid" value="#{balance.optionalimpressionpaymentgroupid}" />
             </h:commandLink>
