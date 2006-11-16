@@ -17,7 +17,7 @@ import java.util.*;
  */
 public class ResearcherSurveyQuestionList extends SortableList {
 
-    private Logger logger = Logger.getLogger(UserList.class);
+    Logger logger = Logger.getLogger(this.getClass().getName());
     private ArrayList questions = new ArrayList();
 
     public ResearcherSurveyQuestionList() {

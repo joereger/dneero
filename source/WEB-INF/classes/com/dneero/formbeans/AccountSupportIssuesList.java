@@ -16,7 +16,7 @@ import java.util.*;
  */
 public class AccountSupportIssuesList extends SortableList {
 
-    private Logger logger = Logger.getLogger(UserList.class);
+    Logger logger = Logger.getLogger(this.getClass().getName());
     private List<Supportissue> supportissues;
 
 

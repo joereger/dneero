@@ -3,26 +3,48 @@ package com.dneero.formbeans;
 import com.dneero.util.SortableList;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.dao.User;
+import com.dneero.dao.Survey;
 
 import java.util.List;
 import java.util.Comparator;
 import java.util.Collections;
+
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Restrictions;
+import org.apache.log4j.Logger;
 
 /**
  * User: Joe Reger Jr
  * Date: Jun 8, 2006
  * Time: 10:16:03 AM
  */
-public class UserList extends SortableList {
+public class SysadminUserList extends SortableList {
 
-    //private Logger logger = Logger.getLogger(UserList.class);
+    Logger logger = Logger.getLogger(this.getClass().getName());
     private List users;
+    private String searchfirstname="";
+    private String searchlastname="";
+    private String searchemail="";
 
-    public UserList() {
+    public SysadminUserList() {
         //Default sort column
         super("userid");
-        //Go get the users from the database
-        users = HibernateUtil.getSession().createQuery("from User").list();
+
+
+        Criteria crit = HibernateUtil.getSession().createCriteria(User.class);
+        crit.add(Restrictions.gt("userid", 0));
+        if (searchfirstname!=null && !searchfirstname.equals("")){
+            crit.add(Restrictions.like("firstname", "%"+searchfirstname+"%"));
+        }
+        if (searchlastname!=null && !searchlastname.equals("")){
+            crit.add(Restrictions.like("lastname", "%"+searchlastname+"%"));
+        }
+        if (searchemail!=null && !searchemail.equals("")){
+            crit.add(Restrictions.like("email", "%"+searchemail+"%"));
+        }
+        users = crit.list();
+
+
     }
 
     public List getUsers() {

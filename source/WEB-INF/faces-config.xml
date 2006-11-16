@@ -110,8 +110,8 @@
 
 
     <managed-bean>
-        <managed-bean-name>userList</managed-bean-name>
-        <managed-bean-class>com.dneero.formbeans.UserList</managed-bean-class>
+        <managed-bean-name>sysdminUserList</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.SysadminUserList</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
 

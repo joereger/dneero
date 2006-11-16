@@ -17,7 +17,7 @@ import java.util.*;
  */
 public class SystemadminSurveyList extends SortableList {
 
-    private Logger logger = Logger.getLogger(UserList.class);
+    Logger logger = Logger.getLogger(this.getClass().getName());
     private List surveys;
 
     public SystemadminSurveyList() {
