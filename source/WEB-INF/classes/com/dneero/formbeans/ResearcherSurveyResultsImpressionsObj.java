@@ -9,7 +9,7 @@ public class ResearcherSurveyResultsImpressionsObj {
 
     private String blogtitle;
     private String blogurl;
-    private int totalimpressions;
+    private int impressionsqualifyingforpayment;
     private String referer;
 
     public String getBlogtitle() {
@@ -28,12 +28,12 @@ public class ResearcherSurveyResultsImpressionsObj {
         this.blogurl = blogurl;
     }
 
-    public int getTotalimpressions() {
-        return totalimpressions;
+    public int getImpressionsqualifyingforpayment() {
+        return impressionsqualifyingforpayment;
     }
 
-    public void setTotalimpressions(int totalimpressions) {
-        this.totalimpressions = totalimpressions;
+    public void setImpressionsqualifyingforpayment(int impressionsqualifyingforpayment) {
+        this.impressionsqualifyingforpayment = impressionsqualifyingforpayment;
     }
 
     public String getReferer() {

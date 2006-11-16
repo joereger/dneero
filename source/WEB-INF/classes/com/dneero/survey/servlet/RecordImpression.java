@@ -8,6 +8,7 @@ import com.dneero.dao.hibernate.HibernateUtil;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Date;
 
 import org.apache.log4j.Logger;
 import org.hibernate.criterion.Restrictions;
@@ -56,6 +57,7 @@ public class RecordImpression {
         iao.setReferer(referer);
         iao.setIp(ip);
         iao.setUserid(userid);
+        iao.setDate(new Date());
 
         //Write iao to db
         //@todo cache impression activity for performance gain

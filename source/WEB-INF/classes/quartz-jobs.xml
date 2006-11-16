@@ -49,6 +49,30 @@
         </trigger>
     </job>
 
+    <job>
+        <job-detail>
+          <name>refreshImpressionsqualifyingforpaymentCount</name>
+          <group>surveyJobs</group>
+          <job-class>com.dneero.scheduledjobs.RefreshImpressionsqualifyingforpaymentCount</job-class>
+          <volatility>false</volatility>
+          <durability>false</durability>
+          <recover>false</recover>
+        </job-detail>
+        <trigger>
+          <!-- Sample cron triggers: http://www.opensymphony.com/quartz/wikidocs/TutorialLesson6.html -->
+          <cron>
+            <name>refreshImpressionsqualifyingforpaymentCountTrigger</name>
+            <group>surveyTriggers</group>
+            <job-name>refreshImpressionsqualifyingforpaymentCount</job-name>
+            <job-group>surveyJobs</job-group>
+            <!-- every x minutes -->
+            <cron-expression>0 0/15 * * * ?</cron-expression>
+          </cron>
+        </trigger>
+    </job>
+
+
+
 
 
     <job>

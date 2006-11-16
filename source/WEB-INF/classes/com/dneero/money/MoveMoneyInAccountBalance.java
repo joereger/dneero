@@ -45,7 +45,7 @@ public class MoveMoneyInAccountBalance {
         balance.setCurrentbalance(CurrentBalanceCalculator.getCurrentBalance(user) - amt);
         balance.setUserid(user.getUserid());
         balance.setOptionalimpressionpaymentgroupid(optionalimpressionpaymentgroupid);
-        balance.setOptionalimpressionpaymentgroupid(optionalimpressionchargegroupid);
+        balance.setOptionalimpressionchargegroupid(optionalimpressionchargegroupid);
         try{balance.save();}catch (Exception ex){logger.error(ex);}       
     }
 

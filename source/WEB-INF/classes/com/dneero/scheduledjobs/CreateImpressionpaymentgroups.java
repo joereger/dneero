@@ -23,7 +23,7 @@ public class CreateImpressionpaymentgroups implements Job {
     Logger logger = Logger.getLogger(this.getClass().getName());
 
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
-        logger.debug("execute() CreateImpressionpaymentgroups called");
+        logger.debug("execute() CreateImpressionpaymentgroups called +++++++++++++++++++++");
 
         List<Blogger> bloggers = HibernateUtil.getSession().createQuery("from Blogger").list();
 
@@ -31,10 +31,7 @@ public class CreateImpressionpaymentgroups implements Job {
             Blogger blogger = iterator.next();
             logger.debug("Begin bloggerid="+blogger.getBloggerid());
 
-
-            
-
-            //Impressiondetails
+            //Impressiondetails, all of them, even those that we aren't going to pay on
             List<Impressiondetail> impressiondetails = HibernateUtil.getSession().createCriteria(Impressiondetail.class)
                                        .add( Restrictions.eq("bloggerid", blogger.getBloggerid()))
                                        .add( Restrictions.le("impressionpaymentgroupid", 0))
@@ -44,13 +41,15 @@ public class CreateImpressionpaymentgroups implements Job {
             //If we've found any impressions
             if (impressiondetails.size()>0){
 
-                //Calculate amt
+                //Calculate amt, only for those that are marked for pay
                 double amt = 0;
                 for (Iterator<Impressiondetail> iterator1 = impressiondetails.iterator(); iterator1.hasNext();) {
                     Impressiondetail impressiondetail = iterator1.next();
-                    Impression impression = Impression.get(impressiondetail.getImpressionid());
-                    Survey survey = Survey.get(impression.getSurveyid());
-                    amt = amt + (survey.getWillingtopaypercpm()/1000);
+                    if (impressiondetail.getQualifiesforpaymentstatus()==Impressiondetail.QUALIFIESFORPAYMENTSTATUS_TRUE){
+                        Impression impression = Impression.get(impressiondetail.getImpressionid());
+                        Survey survey = Survey.get(impression.getSurveyid());
+                        amt = amt + (survey.getWillingtopaypercpm()/1000);
+                    }
                 }
 
                 //Create impressionpaymentgroup

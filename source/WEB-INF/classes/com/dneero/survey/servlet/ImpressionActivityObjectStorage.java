@@ -6,7 +6,6 @@ import com.dneero.util.GeneralException;
 
 import java.util.List;
 import java.util.Iterator;
-import java.util.Date;
 
 import org.apache.log4j.Logger;
 
@@ -28,6 +27,7 @@ public class ImpressionActivityObjectStorage {
 
         //Find blogid
         Blog blog=null;
+        int blogimpressionsthatqualifyforpayment = 0;
         if (iao.getReferer()!=null && !iao.getReferer().equals("")){
             if (user!=null && user.getBlogger()!=null){
                 for (Iterator it = user.getBlogger().getBlogs().iterator(); it.hasNext(); ) {
@@ -37,6 +37,11 @@ public class ImpressionActivityObjectStorage {
                     if (iao.getReferer().indexOf(tmpBlog.getUrl())>=0){
                         logger.debug("found the blogid for this impression: blogid="+ tmpBlog.getBlogid());
                         blog = tmpBlog;
+                        for (Iterator it2 = blog.getImpressions().iterator(); it2.hasNext(); ) {
+                            Impression impression = (Impression)it2.next();
+                            //Add the impressions that already exist... note that i'm only looking at the impressionsqualifyingforpayment var so that var must be kept up-to-date
+                            blogimpressionsthatqualifyforpayment = blogimpressionsthatqualifyforpayment + impression.getImpressionsqualifyingforpayment();
+                        }
                     }
                 }
             } else {
@@ -53,19 +58,54 @@ public class ImpressionActivityObjectStorage {
             bloggerid = blog.getBloggerid();
         }
 
+        //Find the survey
+        Survey survey = null;
+        int surveyimpressionsthatqualifyforpayment = 0;
+        if (iao.getSurveyid()>0){
+            survey = Survey.get(iao.getSurveyid());
+            if (survey!=null && survey.getSurveyid()>0){
+                surveyimpressionsthatqualifyforpayment = (Integer)HibernateUtil.getSession().createQuery("select sum(impressionsqualifyingforpayment) from Impression where surveyid='"+survey.getSurveyid()+"'").uniqueResult();
+            } else {
+                //Error, survey not found, don't record
+                logger.debug("Surveyid="+iao.getSurveyid()+" not found so aborting impression save.");
+                return;
+            }
+        }
+
+        //See if this impressiondetail qualifies for payment
+        int qualifiesforpaymentstatus = Impressiondetail.QUALIFIESFORPAYMENTSTATUS_TRUE;
+        String qualifiesforpaymentstatusreason = "";
+        if (surveyimpressionsthatqualifyforpayment>survey.getMaxdisplaystotal()){
+            qualifiesforpaymentstatus = Impressiondetail.QUALIFIESFORPAYMENTSTATUS_FALSE;
+            qualifiesforpaymentstatusreason = "The survey already reached its maximum number of survey displays across all blogs.";
+        }
+        if (blogimpressionsthatqualifyforpayment+1>survey.getMaxdisplaysperblog()){
+            qualifiesforpaymentstatus = Impressiondetail.QUALIFIESFORPAYMENTSTATUS_FALSE;
+            qualifiesforpaymentstatusreason = "This blog has already displayed the survey the maximum number of times for a blog.";
+        }
+
+
         //See if there's an existing impression to append this to, if not create one
         Impression impression = null;
         List<Impression> impressions = HibernateUtil.getSession().createQuery("from Impression where surveyid='"+iao.getSurveyid()+"' and referer='"+iao.getReferer()+"'").list();
         if (impressions.size()>0){
             for (Iterator it = impressions.iterator(); it.hasNext(); ) {
                 impression = (Impression)it.next();
-                impression.setTotalimpressions(impression.getTotalimpressions()+1);
+                //Only increment if this qualifies
+                if (qualifiesforpaymentstatus==Impressiondetail.QUALIFIESFORPAYMENTSTATUS_TRUE){
+                    impression.setImpressionsqualifyingforpayment(impression.getImpressionsqualifyingforpayment()+1);
+                }
             }
         } else {
             impression = new Impression();
-            impression.setFirstseendate(new Date());
+            impression.setFirstseendate(iao.getDate());
             impression.setSurveyid(iao.getSurveyid());
-            impression.setTotalimpressions(1);
+            //Only increment if this qualifies
+            if (qualifiesforpaymentstatus==Impressiondetail.QUALIFIESFORPAYMENTSTATUS_TRUE){
+                impression.setImpressionsqualifyingforpayment(1);
+            } else {
+                impression.setImpressionsqualifyingforpayment(0);
+            }
             impression.setReferer(iao.getReferer());
         }
         try{impression.save();} catch (GeneralException gex){logger.error(gex);}
@@ -73,10 +113,11 @@ public class ImpressionActivityObjectStorage {
         //Record the impressiondetail
         Impressiondetail impressiondetail = new Impressiondetail();
         impressiondetail.setImpressionid(impression.getImpressionid());
-        impressiondetail.setImpressiondate(new Date());
+        impressiondetail.setImpressiondate(iao.getDate());
         impressiondetail.setIp(iao.getIp());
-        impressiondetail.setQualifiesforpaymentstatus(Impressiondetail.QUALIFIESFORPAYMENTSTATUS_PENDING);
+        impressiondetail.setQualifiesforpaymentstatus(qualifiesforpaymentstatus);
         impressiondetail.setBloggerid(bloggerid);
+        impressiondetail.setQualifiesforpaymentstatusreason(qualifiesforpaymentstatusreason);
         
         //impression.getImpressiondetails().add(impressiondetail);
         try{impressiondetail.save();} catch (GeneralException gex){logger.error(gex);}

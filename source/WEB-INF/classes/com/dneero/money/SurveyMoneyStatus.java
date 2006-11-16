@@ -39,7 +39,7 @@ public class SurveyMoneyStatus {
         impressionsToDate = 0;
         for (Iterator<Impression> iterator2 = survey.getImpressions().iterator(); iterator2.hasNext();) {
             Impression impression = iterator2.next();
-            impressionsToDate = impressionsToDate + impression.getTotalimpressions();
+            impressionsToDate = impressionsToDate + impression.getImpressionsqualifyingforpayment();
         }
         spentOnImpressionsToDate = (Double.parseDouble(String.valueOf(impressionsToDate)) * survey.getWillingtopaypercpm())/1000;
         spentToDate = spentOnResponsesToDate + spentOnImpressionsToDate;

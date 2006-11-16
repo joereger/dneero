@@ -31,11 +31,13 @@ public class BloggerCompletedsurveys extends SortableList {
             for (Iterator<Response> iterator = userSession.getUser().getBlogger().getResponses().iterator(); iterator.hasNext();) {
                 Response response = iterator.next();
                 Survey survey = Survey.get(response.getSurveyid());
+                int allimpressions = BloggerIncomeCalculator.getAllImpressiondetailsForSurvey(userSession.getUser().getBlogger(), survey).size();
+                int allimpressionsqualifyingforpay = BloggerIncomeCalculator.getAllImpressiondetailsForSurveyThatQualifyForPay(userSession.getUser().getBlogger(), survey).size();
                 BloggerCompletedsurveysListitem listitem = new BloggerCompletedsurveysListitem();
                 listitem.setAmtforresponse("$"+Str.formatForMoney(survey.getWillingtopayperrespondent()));
-                listitem.setAmttotal("$"+Str.formatForMoney(survey.getWillingtopayperrespondent() + BloggerIncomeCalculator.getImpressionIncomeForSurvey(userSession.getUser().getBlogger(), survey)));
-                listitem.setImpressions(BloggerIncomeCalculator.getAllImpressiondetailsForSurvey(userSession.getUser().getBlogger(), survey).size());
-                listitem.setImpressionsthatqualifyforpay(BloggerIncomeCalculator.getImpressionDetailsThatQualifyForPay(userSession.getUser().getBlogger(), survey).size());
+                listitem.setAmttotal("$"+Str.formatForMoney(survey.getWillingtopayperrespondent() + ((allimpressionsqualifyingforpay*survey.getWillingtopaypercpm()/1000))));
+                listitem.setImpressions(allimpressions);
+                listitem.setImpressionsthatqualifyforpay(allimpressionsqualifyingforpay);
                 listitem.setResponsedate(response.getResponsedate());
                 listitem.setResponseid(response.getResponseid());
                 listitem.setSurveyid(survey.getSurveyid());

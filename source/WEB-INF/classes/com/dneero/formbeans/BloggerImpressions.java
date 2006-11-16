@@ -3,14 +3,12 @@ package com.dneero.formbeans;
 import com.dneero.util.SortableList;
 import com.dneero.util.Jsf;
 import com.dneero.dao.Impression;
-import com.dneero.dao.Impressiondetail;
 import com.dneero.dao.Survey;
-import com.dneero.dao.hibernate.HibernateUtil;
+import com.dneero.money.BloggerIncomeCalculator;
 
 import java.util.*;
 
 import org.apache.log4j.Logger;
-import org.hibernate.criterion.Restrictions;
 
 /**
  * User: Joe Reger Jr
@@ -25,7 +23,7 @@ public class BloggerImpressions extends SortableList {
     Logger logger = Logger.getLogger(this.getClass().getName());
 
     public BloggerImpressions(){
-        super("totalimpressions");
+        super("impressionsqualifyingforpayment");
 
     }
 
@@ -36,29 +34,31 @@ public class BloggerImpressions extends SortableList {
             list = new ArrayList();
 
 
-            List<Impression> impressions = HibernateUtil.getSession().createCriteria(Impression.class)
-                               .add(Restrictions.eq("surveyid", survey.getSurveyid()))
-                               .createCriteria("impressiondetails")
-                                    .add(Restrictions.eq("bloggerid", Jsf.getUserSession().getUser().getBlogger().getBloggerid()))
-                               .list();
-                               
+//                List<Impression> impressions = HibernateUtil.getSession().createCriteria(Impression.class)
+//                                   .add(Restrictions.eq("surveyid", survey.getSurveyid()))
+//                                   .createCriteria("impressiondetails")
+//                                        .add(Restrictions.eq("bloggerid", Jsf.getUserSession().getUser().getBlogger().getBloggerid()))
+//                                   .list();
+//
+
+                List<Impression> impressions = BloggerIncomeCalculator.getAllImpressionsForSurvey(Jsf.getUserSession().getUser().getBlogger(), survey);
+                for (Iterator<Impression> iterator1 = impressions.iterator(); iterator1.hasNext();) {
+                    Impression impression = iterator1.next();
+                    BloggerImpressionsListItem listitem = new BloggerImpressionsListItem();
+                    listitem.setImpressionid(impression.getImpressionid());
+                    listitem.setQuality(impression.getQuality());
+                    listitem.setReferer(impression.getReferer());
+                    listitem.setImpressionsqualifyingforpayment(impression.getImpressiondetails().size());
+                    list.add(listitem);
+                }
 
 
-            for (Iterator<Impression> iterator = impressions.iterator(); iterator.hasNext();) {
-                Impression impression = iterator.next();
-                BloggerImpressionsListItem listitem = new BloggerImpressionsListItem();
-                listitem.setImpressionid(impression.getImpressionid());
-                listitem.setQuality(impression.getQuality());
-                listitem.setReferer(impression.getReferer());
-                listitem.setTotalimpressions(impression.getTotalimpressions());
-                list.add(listitem);
-            }
 
         }
     }
 
     public String beginView(){
-        //logger.debug("beginView called:");
+        logger.debug("beginView called:");
         String tmpSurveyid = Jsf.getRequestParam("surveyid");
         if (com.dneero.util.Num.isinteger(tmpSurveyid)){
             logger.debug("beginView called: found surveyid in request param="+tmpSurveyid);
@@ -80,8 +80,8 @@ public class BloggerImpressions extends SortableList {
                 if (column == null) {
                     return 0;
                 }
-                if (column.equals("totalimpressions")) {
-                    return ascending ? obj1.getTotalimpressions()-obj2.getTotalimpressions() : obj2.getTotalimpressions()-obj1.getTotalimpressions() ;
+                if (column.equals("impressionsqualifyingforpayment")) {
+                    return ascending ? obj1.getImpressionsqualifyingforpayment()-obj2.getImpressionsqualifyingforpayment() : obj2.getImpressionsqualifyingforpayment()-obj1.getImpressionsqualifyingforpayment() ;
                 } else {
                     return 0;
                 }

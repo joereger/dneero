@@ -24,7 +24,7 @@ public class CreateImpressionchargegroups implements Job {
     Logger logger = Logger.getLogger(this.getClass().getName());
 
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
-        logger.debug("execute() CreateImpressionchargegroups called");
+        logger.debug("execute() CreateImpressionchargegroups called +++++++++++++++++++++");
 
         List<Researcher> researchers = HibernateUtil.getSession().createQuery("from Researcher").list();
 
@@ -53,12 +53,11 @@ public class CreateImpressionchargegroups implements Job {
 
                     //If we've found any impressions
                     if (impressiondetails.size()>0){
-                        //Calculate amt
+                        //Calculate amt, but only for those that qualify for payment
                         double amt = 0;
                         for (Iterator<Impressiondetail> iterator3 = impressiondetails.iterator(); iterator3.hasNext();) {
                             Impressiondetail impressiondetail = iterator3.next();
                             if (impressiondetail.getQualifiesforpaymentstatus()==Impressiondetail.QUALIFIESFORPAYMENTSTATUS_TRUE){
-                                //@todo should be counting max/blog and max/survey, etc... where is this enforced?  is qualifiesforpaymentstatus guaranteed to be set by the time this runs?
                                 amt = amt + (survey.getWillingtopaypercpm()/1000);
                             }
                         }
@@ -83,7 +82,7 @@ public class CreateImpressionchargegroups implements Job {
                             double amttocharge = amt + (amt*(SurveyMoneyStatus.DNEEROMARKUPPERCENT/100));
 
                             //Update the account balance for the researcher
-                            MoveMoneyInAccountBalance.pay(User.get(researcher.getUserid()), amttocharge, "Charge for blog impressions on survey '"+survey.getTitle()+"'", 0, impressionchargegroup.getImpressionchargegroupid());
+                            MoveMoneyInAccountBalance.charge(User.get(researcher.getUserid()), amttocharge, "Charge for blog impressions on survey '"+survey.getTitle()+"'", 0, impressionchargegroup.getImpressionchargegroupid());
                         }
                     }
 

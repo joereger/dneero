@@ -34,7 +34,21 @@ public class SysadminManuallyRunScheduledTask {
         return "sysadminmanuallyrunscheduledtask";
     }
 
+    public String runCreateImpressionchargegroups(){
+        try{
+            CreateImpressionchargegroups task = new CreateImpressionchargegroups();
+            task.execute(null);} catch (Exception ex){logger.error(ex);}
+        return "sysadminmanuallyrunscheduledtask";
+    }
 
+    public String runRefreshImpressionsqualifyingforpaymentCount(){
+        try{
+            RefreshImpressionsqualifyingforpaymentCount task = new RefreshImpressionsqualifyingforpaymentCount();
+            task.execute(null);} catch (Exception ex){logger.error(ex);}
+        return "sysadminmanuallyrunscheduledtask";
+    }
+
+  
 
     
 
@@ -71,11 +85,11 @@ public class SysadminManuallyRunScheduledTask {
 
 
     public String runResearcherRemainingBalanceOperations(){
-            try{
-                ResearcherRemainingBalanceOperations task = new ResearcherRemainingBalanceOperations();
-                task.execute(null);} catch (Exception ex){logger.error(ex);}
-            return "sysadminmanuallyrunscheduledtask";
-        }
+        try{
+            ResearcherRemainingBalanceOperations task = new ResearcherRemainingBalanceOperations();
+            task.execute(null);} catch (Exception ex){logger.error(ex);}
+        return "sysadminmanuallyrunscheduledtask";
+    }
 
 
 

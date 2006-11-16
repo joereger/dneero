@@ -25,10 +25,11 @@ public class BloggerImpressionDetails extends SortableList {
 
     public BloggerImpressionDetails(){
         super("date");
-
+        logger.debug("instanciated");
     }
 
     private void load(int impressionid){
+        logger.debug("load() called with impressionid="+impressionid);
         Impression impression = Impression.get(impressionid);
         Survey survey = Survey.get(impression.getSurveyid());
         if (impression!=null && survey!=null && Jsf.getUserSession().getUser()!=null && impression.canRead(Jsf.getUserSession().getUser())){
@@ -49,11 +50,14 @@ public class BloggerImpressionDetails extends SortableList {
     }
 
     public String beginView(){
-        //logger.debug("beginView called:");
+        //@todo connect BloggerImpressionDetails to BloggerImpressions... tried but the jsf link fails for some reason
+        logger.debug("beginView() called");
         String tmpImpressionid = Jsf.getRequestParam("impressionid");
         if (com.dneero.util.Num.isinteger(tmpImpressionid)){
-            logger.debug("beginView called: found impressionid in request param="+tmpImpressionid);
+            logger.debug("found impressionid in request param="+tmpImpressionid);
             load(Integer.parseInt(tmpImpressionid));
+        } else {
+            logger.debug("no impressionid found");    
         }
         return "bloggerimpressiondetails";
     }

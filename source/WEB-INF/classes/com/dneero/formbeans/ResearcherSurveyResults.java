@@ -2,17 +2,12 @@ package com.dneero.formbeans;
 
 import org.apache.log4j.Logger;
 
-import java.util.Date;
 import java.util.Iterator;
 
 import com.dneero.util.Jsf;
-import com.dneero.util.GeneralException;
 import com.dneero.session.UserSession;
 import com.dneero.dao.Survey;
 import com.dneero.dao.Impression;
-
-import javax.faces.context.FacesContext;
-import javax.faces.application.FacesMessage;
 
 /**
  * User: Joe Reger Jr
@@ -57,7 +52,7 @@ public class ResearcherSurveyResults {
                 status = survey.getStatus();
                 for (Iterator<Impression> iterator = survey.getImpressions().iterator(); iterator.hasNext();) {
                     Impression impression = iterator.next();
-                    totalsurveydisplays = totalsurveydisplays + impression.getTotalimpressions();
+                    totalsurveydisplays = totalsurveydisplays + impression.getImpressionsqualifyingforpayment();
                 }
             }
         }

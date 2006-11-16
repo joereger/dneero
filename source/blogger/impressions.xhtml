@@ -10,7 +10,7 @@
       xmlns:d="http://dneero.com/taglib">
 
 <ui:composition template="/template/template-facelets.xhtml">
-    <ui:define name="title">Impressions for Survey: ${bloggerImpressions.surveytitle}<br/><br/></ui:define>
+    <ui:define name="title">Impressions for: ${bloggerImpressions.surveytitle}<br/><br/></ui:define>
     <ui:param name="navtab" value="bloggers"/>
     <ui:define name="body">
     <d:authorization acl="blogger" redirectonfail="true"/>
@@ -37,8 +37,9 @@
                 <f:facet name="header">
                   <af:outputText value="Impressions"/>
                 </f:facet>
-                <h:commandLink action="#{bloggerImpressiondetails.beginView}">
-                    <h:outputText value="#{listitem.totalimpressions}" escape="false" styleClass="smallfont" style="color: #0000ff;"/>
+                <h:outputText value="#{listitem.impressionsqualifyingforpayment}" escape="false" styleClass="smallfont"/>
+                <h:commandLink action="#{bloggerImpressionDetails.beginView}" rendered="false">
+                    <h:outputText value="#{listitem.impressionsqualifyingforpayment}" escape="false" styleClass="smallfont" style="color: #0000ff;"/>
                     <f:param name="impressionid" value="#{listitem.impressionid}" />
                 </h:commandLink>
               </af:column>

@@ -1,6 +1,7 @@
 package com.dneero.survey.servlet;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * User: Joe Reger Jr
@@ -14,6 +15,7 @@ public class ImpressionActivityObject implements Serializable {
     private int userid;
     private String referer;
     private String ip;
+    private Date date;
 
     public int getSurveyid() {
         return surveyid;
@@ -46,5 +48,14 @@ public class ImpressionActivityObject implements Serializable {
 
     public void setIp(String ip) {
         this.ip = ip;
+    }
+
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 }

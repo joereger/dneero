@@ -15,96 +15,61 @@ import org.apache.log4j.Logger;
  */
 public class BloggerIncomeCalculator {
 
-    public static double getImpressionIncomeForSurvey(Blogger blogger, Survey survey){
-        Logger logger = Logger.getLogger(BloggerIncomeCalculator.class);
-        double out = 0;
-        HibernateUtil.getSession().saveOrUpdate(blogger);
-        for (Iterator<Blog> iterator = blogger.getBlogs().iterator(); iterator.hasNext();) {
-            Blog blog = iterator.next();
-            List<Impression> impressions = new ArrayList();
-            if (survey!=null){
-                //@todo optimize this using a single hql query... iterating all impressions for a blogger is wasteful... use joinblogimpression table
-                List<Impression> imp = new ArrayList<Impression>();
-                for (Iterator<Impression> iterator1 = blog.getImpressions().iterator(); iterator1.hasNext();) {
-                    Impression impression = iterator1.next();
-                    if (impression.getSurveyid()==survey.getSurveyid()){
-                        imp.add(impression);
-                    }
-                }
-                impressions = imp;
-            } else {
-                impressions = Util.setToArrayList(blog.getImpressions());
-            }
+    
 
-            for (Iterator<Impression> iterator1 = impressions.iterator(); iterator1.hasNext();) {
-                Impression impression = iterator1.next();
-                Survey sv = Survey.get(impression.getSurveyid());
-                int impressionsthatqualify = impression.getTotalimpressions();
-                if (impressionsthatqualify > sv.getMaxdisplaysperblog()){
-                    impressionsthatqualify = sv.getMaxdisplaysperblog();
-                }
-                double earnedonthisimpression = sv.getWillingtopaypercpm()/1000;
-                out = out + earnedonthisimpression;
-                logger.debug("earnedonthisimpression="+earnedonthisimpression+" out="+out);
-            }
-        }
-        logger.debug("returning out="+out);
-        return out;
-    }
-
-    public static ArrayList<Impressiondetail> getImpressionDetailsThatQualifyForPay(Blogger blogger, Survey survey){
-        HibernateUtil.getSession().saveOrUpdate(blogger);
-        ArrayList<Impressiondetail> out = new ArrayList<Impressiondetail>();
-        for (Iterator<Blog> iterator = blogger.getBlogs().iterator(); iterator.hasNext();) {
-            Blog blog = iterator.next();
-            out.addAll(getImpressionDetailsThatQualifyForPay(blog, survey));
-        }
-        return out;
-    }
-
-
-    public static ArrayList<Impressiondetail> getImpressionDetailsThatQualifyForPay(Blog blog, Survey survey){
-        Logger logger = Logger.getLogger(BloggerIncomeCalculator.class);
-        logger.debug("getImpressionDetailsThatQualifyForPay called for blogid="+blog.getBlogid());
-        ArrayList<Impressiondetail> out = new ArrayList<Impressiondetail>();
-        List<Impression> impressions = new ArrayList();
-        if (survey!=null){
-            logger.debug("survey!=null surveyid="+survey.getSurveyid());
-            //@todo optimize this using a single hql query... iterating all impressions for a blogger is wasteful
-            List<Impression> imp = new ArrayList<Impression>();
-            for (Iterator<Impression> iterator1 = blog.getImpressions().iterator(); iterator1.hasNext();) {
-                Impression impression = iterator1.next();
-                logger.debug("found an impressionid="+impression.getImpressionid());
-                if (impression.getSurveyid()==survey.getSurveyid()){
-                    imp.add(impression);
-                }
-            }
-            impressions = imp;
-        } else {
-            logger.debug("survey is null");
-            impressions = Util.setToArrayList(blog.getImpressions());
-        }
-        logger.debug("found "+impressions.size()+" impressions");
-
-        for (Iterator<Impression> iterator1 = impressions.iterator(); iterator1.hasNext();) {
-            Impression impression = iterator1.next();
-            logger.debug("processing impressionid="+impression.getImpressionid());
-            Survey sv = Survey.get(impression.getSurveyid());
-            int numberofimpressionsforthisblog = 0;
-            for (Iterator<Impressiondetail> iterator2 = impression.getImpressiondetails().iterator(); iterator2.hasNext();){
-                Impressiondetail impressiondetail = iterator2.next();
-                logger.debug("found an impressiondetailid="+impressiondetail.getImpressiondetailid());
-                if (impressiondetail.getQualifiesforpaymentstatus()==Impressiondetail.QUALIFIESFORPAYMENTSTATUS_TRUE || impressiondetail.getQualifiesforpaymentstatus()==Impressiondetail.QUALIFIESFORPAYMENTSTATUS_PENDING){
-                    numberofimpressionsforthisblog = numberofimpressionsforthisblog + 1;
-                    //@todo how am i limiting the total overall responses per survey that the researcher sets?
-                    if (numberofimpressionsforthisblog <= sv.getMaxdisplaysperblog()){
-                        out.add(impressiondetail);
-                    }
-                }
-            }
-        }
-        return out;
-    }
+//    public static ArrayList<Impressiondetail> getImpressionDetailsThatQualifyForPay(Blogger blogger, Survey survey){
+//        HibernateUtil.getSession().saveOrUpdate(blogger);
+//        ArrayList<Impressiondetail> out = new ArrayList<Impressiondetail>();
+//        for (Iterator<Blog> iterator = blogger.getBlogs().iterator(); iterator.hasNext();) {
+//            Blog blog = iterator.next();
+//            out.addAll(getImpressionDetailsThatQualifyForPay(blog, survey));
+//        }
+//        return out;
+//    }
+//
+//
+//    public static ArrayList<Impressiondetail> getImpressionDetailsThatQualifyForPay(Blog blog, Survey survey){
+//        Logger logger = Logger.getLogger(BloggerIncomeCalculator.class);
+//        logger.debug("getImpressionDetailsThatQualifyForPay called for blogid="+blog.getBlogid());
+//        ArrayList<Impressiondetail> out = new ArrayList<Impressiondetail>();
+//        List<Impression> impressions = new ArrayList();
+//        if (survey!=null){
+//            logger.debug("survey!=null surveyid="+survey.getSurveyid());
+//            //@todo optimize this using a single hql query... iterating all impressions for a blogger is wasteful
+//            List<Impression> imp = new ArrayList<Impression>();
+//            for (Iterator<Impression> iterator1 = blog.getImpressions().iterator(); iterator1.hasNext();) {
+//                Impression impression = iterator1.next();
+//                logger.debug("found an impressionid="+impression.getImpressionid());
+//                if (impression.getSurveyid()==survey.getSurveyid()){
+//                    imp.add(impression);
+//                }
+//            }
+//            impressions = imp;
+//        } else {
+//            logger.debug("survey is null");
+//            impressions = Util.setToArrayList(blog.getImpressions());
+//        }
+//        logger.debug("found "+impressions.size()+" impressions");
+//
+//        for (Iterator<Impression> iterator1 = impressions.iterator(); iterator1.hasNext();) {
+//            Impression impression = iterator1.next();
+//            logger.debug("processing impressionid="+impression.getImpressionid());
+//            Survey sv = Survey.get(impression.getSurveyid());
+//            int numberofimpressionsforthisblog = 0;
+//            for (Iterator<Impressiondetail> iterator2 = impression.getImpressiondetails().iterator(); iterator2.hasNext();){
+//                Impressiondetail impressiondetail = iterator2.next();
+//                logger.debug("found an impressiondetailid="+impressiondetail.getImpressiondetailid());
+//                if (impressiondetail.getQualifiesforpaymentstatus()==Impressiondetail.QUALIFIESFORPAYMENTSTATUS_TRUE || impressiondetail.getQualifiesforpaymentstatus()==Impressiondetail.QUALIFIESFORPAYMENTSTATUS_PENDING){
+//                    numberofimpressionsforthisblog = numberofimpressionsforthisblog + 1;
+//                    //@todo how am i limiting the total overall responses per survey that the researcher sets?
+//                    if (numberofimpressionsforthisblog <= sv.getMaxdisplaysperblog()){
+//                        out.add(impressiondetail);
+//                    }
+//                }
+//            }
+//        }
+//        return out;
+//    }
 
     public static ArrayList<Impression> getAllImpressionsForSurvey(Blogger blogger, Survey survey){
         Logger logger = Logger.getLogger(BloggerIncomeCalculator.class);
@@ -129,6 +94,21 @@ public class BloggerIncomeCalculator {
             }
             logger.debug("found "+impressions.size()+" impressions");
             out.addAll(impressions);
+        }
+        return out;
+    }
+
+    public static ArrayList<Impressiondetail> getAllImpressiondetailsForSurveyThatQualifyForPay(Blogger blogger, Survey survey){
+        ArrayList<Impressiondetail> out = new ArrayList<Impressiondetail>();
+        ArrayList<Impression> impressions = getAllImpressionsForSurvey(blogger, survey);
+        for (Iterator<Impression> iterator = impressions.iterator(); iterator.hasNext();) {
+            Impression impression = iterator.next();
+            for (Iterator<Impressiondetail> iterator2 = impression.getImpressiondetails().iterator(); iterator2.hasNext();) {
+                Impressiondetail impressiondetail = iterator2.next();
+                if (impressiondetail.getQualifiesforpaymentstatus()==Impressiondetail.QUALIFIESFORPAYMENTSTATUS_TRUE){
+                    out.add(impressiondetail);
+                }
+            }
         }
         return out;
     }

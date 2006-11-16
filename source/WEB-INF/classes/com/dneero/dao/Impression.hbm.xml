@@ -20,8 +20,8 @@
         <property name="referer" type="string">
             <column name="referer" />
         </property>
-        <property name="totalimpressions" type="int">
-            <column name="totalimpressions" not-null="true" />
+        <property name="impressionsqualifyingforpayment" type="int">
+            <column name="impressionsqualifyingforpayment" not-null="true" />
         </property>
         <property name="quality" type="int">
             <column name="quality" not-null="true" />

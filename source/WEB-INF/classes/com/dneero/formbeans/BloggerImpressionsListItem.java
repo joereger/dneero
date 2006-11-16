@@ -1,7 +1,5 @@
 package com.dneero.formbeans;
 
-import java.util.Date;
-
 /**
  * User: Joe Reger Jr
  * Date: Jul 27, 2006
@@ -12,7 +10,7 @@ public class BloggerImpressionsListItem {
 
     private int impressionid;
     private String referer;
-    private int totalimpressions;
+    private int impressionsqualifyingforpayment;
     private int quality;
 
 
@@ -33,12 +31,12 @@ public class BloggerImpressionsListItem {
         this.referer = referer;
     }
 
-    public int getTotalimpressions() {
-        return totalimpressions;
+    public int getImpressionsqualifyingforpayment() {
+        return impressionsqualifyingforpayment;
     }
 
-    public void setTotalimpressions(int totalimpressions) {
-        this.totalimpressions = totalimpressions;
+    public void setImpressionsqualifyingforpayment(int impressionsqualifyingforpayment) {
+        this.impressionsqualifyingforpayment = impressionsqualifyingforpayment;
     }
 
     public int getQuality() {

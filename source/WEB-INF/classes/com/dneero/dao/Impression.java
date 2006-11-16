@@ -22,7 +22,7 @@ public class Impression extends BasePersistentClass implements java.io.Serializa
      private int impressionid;
      private int surveyid;
      private String referer;
-     private int totalimpressions;
+     private int impressionsqualifyingforpayment;
      private int quality;
      private Date firstseendate;
      private Set<Impressiondetail> impressiondetails = new HashSet<Impressiondetail>();
@@ -102,12 +102,12 @@ public class Impression extends BasePersistentClass implements java.io.Serializa
         this.surveyid = surveyid;
     }
 
-    public int getTotalimpressions() {
-        return totalimpressions;
+    public int getImpressionsqualifyingforpayment() {
+        return impressionsqualifyingforpayment;
     }
 
-    public void setTotalimpressions(int totalimpressions) {
-        this.totalimpressions = totalimpressions;
+    public void setImpressionsqualifyingforpayment(int impressionsqualifyingforpayment) {
+        this.impressionsqualifyingforpayment = impressionsqualifyingforpayment;
     }
 
     public String getReferer() {

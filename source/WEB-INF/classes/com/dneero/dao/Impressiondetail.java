@@ -25,6 +25,7 @@ public class Impressiondetail extends BasePersistentClass implements java.io.Ser
      private Date impressiondate;
      private String ip;
      private int qualifiesforpaymentstatus;
+     private String qualifiesforpaymentstatusreason;
 
      public static int QUALIFIESFORPAYMENTSTATUS_PENDING = -1;
      public static int QUALIFIESFORPAYMENTSTATUS_FALSE = 0;
@@ -142,5 +143,14 @@ public class Impressiondetail extends BasePersistentClass implements java.io.Ser
 
     public void setQualifiesforpaymentstatus(int qualifiesforpaymentstatus) {
         this.qualifiesforpaymentstatus = qualifiesforpaymentstatus;
+    }
+
+
+    public String getQualifiesforpaymentstatusreason() {
+        return qualifiesforpaymentstatusreason;
+    }
+
+    public void setQualifiesforpaymentstatusreason(String qualifiesforpaymentstatusreason) {
+        this.qualifiesforpaymentstatusreason = qualifiesforpaymentstatusreason;
     }
 }

@@ -3,11 +3,9 @@ package com.dneero.formbeans;
 import org.apache.log4j.Logger;
 import com.dneero.dao.Survey;
 import com.dneero.dao.Impression;
-import com.dneero.dao.Blog;
 import com.dneero.util.Jsf;
 
 import java.util.Iterator;
-import java.util.List;
 import java.util.ArrayList;
 
 /**
@@ -43,7 +41,7 @@ public class ResearcherSurveyResultsImpressions {
                         robj.setBlogtitle(impression.getBlog().getTitle());
                         robj.setBlogurl(impression.getBlog().getUrl());
                     }
-                    robj.setTotalimpressions(impression.getTotalimpressions());
+                    robj.setImpressionsqualifyingforpayment(impression.getImpressionsqualifyingforpayment());
                     robj.setReferer(impression.getReferer());
                     researcherSurveyResultsImpressionsObj.add(robj);
                 }

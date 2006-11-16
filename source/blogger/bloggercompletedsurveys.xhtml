@@ -51,28 +51,28 @@
                 <f:facet name="header">
                   <af:outputText value="Response Earnings"/>
                 </f:facet>
-                <af:outputText value="#{listitem.amtforresponse}"/>
+                <af:outputText value="#{listitem.amtforresponse}" styleClass="smallfont"/>
               </af:column>
               <af:column rendered="false">
                 <f:facet name="header">
                   <af:outputText value="Total Impressions"/>
                 </f:facet>
-                <af:outputText value="#{listitem.impressions}"/>
+                <af:outputText value="#{listitem.impressions}" styleClass="smallfont"/>
               </af:column>
               <af:column>
                 <f:facet name="header">
                   <af:outputText value="Blog Displays"/>
                 </f:facet>
                 <h:commandLink action="#{bloggerImpressions.beginView}">
-                    <h:outputText value="#{listitem.impressions}" escape="false"/>
+                    <h:outputText value="#{listitem.impressions}" styleClass="smallfont" escape="false"/>
                     <f:param name="surveyid" value="#{listitem.surveyid}" />
                 </h:commandLink>
               </af:column>
               <af:column>
                 <f:facet name="header">
-                  <af:outputText value="Total Earnings"/>
+                  <af:outputText value="Estimated Earnings"/>
                 </f:facet>
-                <af:outputText value="#{listitem.amttotal}" styleClass="mediumfont"/>
+                <af:outputText value="#{listitem.amttotal}" styleClass="smallfont" inlineStyle="font-weight: bold;"/>
               </af:column>
 
           </af:table>

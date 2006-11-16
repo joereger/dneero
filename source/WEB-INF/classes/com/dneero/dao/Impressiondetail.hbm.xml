@@ -30,8 +30,9 @@
         <property name="qualifiesforpaymentstatus" type="int">
             <column name="qualifiesforpaymentstatus" not-null="false" />
         </property>
-
-
-
+        <property name="qualifiesforpaymentstatusreason" type="string">
+            <column name="qualifiesforpaymentstatusreason" not-null="false"/>
+        </property>
+        
     </class>
 </hibernate-mapping>
