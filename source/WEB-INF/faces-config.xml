@@ -110,8 +110,14 @@
 
 
     <managed-bean>
-        <managed-bean-name>sysdminUserList</managed-bean-name>
+        <managed-bean-name>sysadminUserList</managed-bean-name>
         <managed-bean-class>com.dneero.formbeans.SysadminUserList</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>sysadminUserDetail</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.SysadminUserDetail</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
 
@@ -569,6 +575,10 @@
         <navigation-case>
             <from-outcome>userlist</from-outcome>
             <to-view-id>/sysadmin/userlist.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>sysadminuserdetail</from-outcome>
+            <to-view-id>/sysadmin/userdetail.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>sysadminhome</from-outcome>

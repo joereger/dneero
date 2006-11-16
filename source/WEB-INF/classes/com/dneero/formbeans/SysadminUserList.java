@@ -1,6 +1,7 @@
 package com.dneero.formbeans;
 
 import com.dneero.util.SortableList;
+import com.dneero.util.Num;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.dao.User;
 import com.dneero.dao.Survey;
@@ -22,17 +23,27 @@ public class SysadminUserList extends SortableList {
 
     Logger logger = Logger.getLogger(this.getClass().getName());
     private List users;
+    private String searchuserid="";
     private String searchfirstname="";
     private String searchlastname="";
     private String searchemail="";
 
     public SysadminUserList() {
-        //Default sort column
         super("userid");
+        logger.debug("instanciated");
+        load();
+    }
 
-
+    private void load(){
+        logger.debug("load()");
+        logger.debug("searchfirstname="+searchfirstname);
+        logger.debug("searchlastname="+searchlastname);
+        logger.debug("searchemail="+searchemail);
         Criteria crit = HibernateUtil.getSession().createCriteria(User.class);
         crit.add(Restrictions.gt("userid", 0));
+        if (searchuserid!=null && !searchuserid.equals("") && Num.isinteger(searchuserid)){
+            crit.add(Restrictions.eq("userid", searchuserid));
+        }
         if (searchfirstname!=null && !searchfirstname.equals("")){
             crit.add(Restrictions.like("firstname", "%"+searchfirstname+"%"));
         }
@@ -43,8 +54,11 @@ public class SysadminUserList extends SortableList {
             crit.add(Restrictions.like("email", "%"+searchemail+"%"));
         }
         users = crit.list();
-
-
+    }
+    
+    public String search(){
+        load();
+        return "userlist";
     }
 
     public List getUsers() {
@@ -93,6 +107,35 @@ public class SysadminUserList extends SortableList {
     }
 
 
+    public String getSearchfirstname() {
+        return searchfirstname;
+    }
 
+    public void setSearchfirstname(String searchfirstname) {
+        this.searchfirstname = searchfirstname;
+    }
 
+    public String getSearchlastname() {
+        return searchlastname;
+    }
+
+    public void setSearchlastname(String searchlastname) {
+        this.searchlastname = searchlastname;
+    }
+
+    public String getSearchemail() {
+        return searchemail;
+    }
+
+    public void setSearchemail(String searchemail) {
+        this.searchemail = searchemail;
+    }
+
+    public String getSearchuserid() {
+        return searchuserid;
+    }
+
+    public void setSearchuserid(String searchuserid) {
+        this.searchuserid = searchuserid;
+    }
 }
