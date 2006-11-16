@@ -18,12 +18,17 @@ public class AccountMain {
     }
 
     private void load(){
-        currentbalance = "$"+Str.formatForMoney(CurrentBalanceCalculator.getCurrentBalance(Jsf.getUserSession().getUser()));
+        if(Jsf.getUserSession().getUser()!=null){
+            currentbalance = "$"+Str.formatForMoney(CurrentBalanceCalculator.getCurrentBalance(Jsf.getUserSession().getUser()));
+        }
     }
 
-    
 
+    public String getCurrentbalance() {
+        return currentbalance;
+    }
 
-
-
+    public void setCurrentbalance(String currentbalance) {
+        this.currentbalance = currentbalance;
+    }
 }

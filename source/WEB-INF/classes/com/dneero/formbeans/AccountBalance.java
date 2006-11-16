@@ -6,6 +6,7 @@ import com.dneero.util.Str;
 import com.dneero.session.UserSession;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.dao.Balance;
+import com.dneero.money.CurrentBalanceCalculator;
 import org.apache.log4j.Logger;
 
 import java.util.*;
@@ -19,6 +20,7 @@ public class AccountBalance extends SortableList {
 
     Logger logger = Logger.getLogger(this.getClass().getName());
     private List balances;
+    private String currentbalance = "$0.00";
 
     public AccountBalance() {
         super("id");
@@ -30,6 +32,7 @@ public class AccountBalance extends SortableList {
     private void load(){
         UserSession userSession = Jsf.getUserSession();
         if (userSession!=null && userSession.getUser()!=null && userSession.getUser().getBlogger()!=null){
+            currentbalance = "$"+Str.formatForMoney(CurrentBalanceCalculator.getCurrentBalance(Jsf.getUserSession().getUser()));
             List bals = HibernateUtil.getSession().createQuery("from Balance where userid='"+userSession.getUser().getUserid()+"' order by balanceid desc").list();
             balances = new ArrayList<AccountBalanceListItem>();
             for (Iterator iterator = bals.iterator(); iterator.hasNext();) {
@@ -89,5 +92,14 @@ public class AccountBalance extends SortableList {
 
     public void setBalances(List balances) {
         this.balances = balances;
+    }
+
+
+    public String getCurrentbalance() {
+        return currentbalance;
+    }
+
+    public void setCurrentbalance(String currentbalance) {
+        this.currentbalance = currentbalance;
     }
 }

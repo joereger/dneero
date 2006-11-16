@@ -150,6 +150,7 @@ input, textarea, select{
    border-left-color:#666666;
    border-right-color:#666666;
    border-bottom-color:#666666;
+   margin: 2px;
 }
 
 .RED{

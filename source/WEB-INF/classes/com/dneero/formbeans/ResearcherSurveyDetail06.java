@@ -196,6 +196,14 @@ public class ResearcherSurveyDetail06 {
 
     }
 
+    public String saveSurveyAsDraft(){
+        return "researchersurveylist";
+    }
+
+    public String previousStep(){
+        return "researchersurveydetail_05";
+    }
+
     public String saveSurvey(){
         logger.debug("saveSurvey() called.");
         if (status<=Survey.STATUS_WAITINGFORSTARTDATE){
@@ -297,31 +305,7 @@ public class ResearcherSurveyDetail06 {
         return "success";
     }
 
-    public String saveSurveyAsDraft(){
-        logger.debug("saveSurvey() called.");
-        UserSession userSession = Jsf.getUserSession();
 
-        Survey survey = new Survey();
-        if (userSession.getCurrentSurveyid()>0){
-            logger.debug("saveSurvey() called: going to get Survey.get(surveyid)="+userSession.getCurrentSurveyid());
-            survey = Survey.get(userSession.getCurrentSurveyid());
-        }
-
-        if (Jsf.getUserSession().getUser()!=null && survey.canEdit(Jsf.getUserSession().getUser())){
-            survey.setStatus(Survey.STATUS_DRAFT);
-            try{survey.save();} catch (GeneralException gex){
-                logger.debug("saveSurvey() failed: " + gex.getErrorsAsSingleString());
-                String message = "saveSurvey() save failed: " + gex.getErrorsAsSingleString();
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage( FacesMessage.SEVERITY_INFO, message, message));
-                return null;
-            }
-
-
-            //Refresh
-            survey.refresh();
-        }
-        return "success";
-    }
 
 
     public LinkedHashMap getCreditcardtypes(){

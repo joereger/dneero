@@ -69,7 +69,7 @@ public class CreateImpressionpaymentgroups implements Job {
                 //If there's an amount to be paid, pay it
                 if (amt>0){
                     //Update the account balance for the blogger
-                    MoveMoneyInAccountBalance.pay(User.get(blogger.getUserid()), impressionpaymentgroup.getAmt(), "Pay for blog impressions", impressionpaymentgroup.getImpressionpaymentgroupid(), 0);
+                    MoveMoneyInAccountBalance.pay(User.get(blogger.getUserid()), impressionpaymentgroup.getAmt(), "Pay for blog impressions", true, impressionpaymentgroup.getImpressionpaymentgroupid(), 0);
                 }
 
             }
@@ -79,33 +79,3 @@ public class CreateImpressionpaymentgroups implements Job {
     }
 
 }
-
-//Create revshare
-//Start with the user who's getting paid
-//                User user = User.get(blogger.getUserid());
-//                double amtRevsharebasedon = amt - revshareAmt;
-//                for(int levelsup=1; levelsup<=5; levelsup++){
-//                    if (user.getReferredbyuserid()>0){
-//                        //Switch one level up
-//                        user = User.get(user.getReferredbyuserid());
-//                        if (user.getBlogger()!=null && user.getBlogger().getBloggerid()>0){
-//                            //Only pay if they're qualified for the revshare program
-//                            if (user.getIsqualifiedforrevshare()){
-//                                //Calculate the revshare
-//                                double amttoshare = RevshareLevelPercentageCalculator.getAmountToShare(amtRevsharebasedon, levelsup);
-//                                //Store the revshare in the database
-//                                Revshare revshare = new Revshare();
-//                                revshare.setSourcebloggerid(blogger.getBloggerid());
-//                                revshare.setTargetbloggerid(user.getBlogger().getBloggerid());
-//                                revshare.setAmt(amttoshare);
-//                                revshare.setDate(new Date());
-//                                revshare.setImpressionpaymentgroupid(impressionpaymentgroup.getImpressionpaymentgroupid());
-//                                try{
-//                                    revshare.save();
-//                                } catch (Exception ex){
-//                                    logger.error(ex);
-//                                }
-//                            }
-//                        }
-//                    }
-//                }

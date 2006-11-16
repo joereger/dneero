@@ -239,7 +239,7 @@
     </h:panelGrid>
 
     <f:verbatim><br/><br/></f:verbatim>
-    <div class="surveyeditbuttonbox"><div class="surveyeditpreviousbutton"><h:commandButton action="researchersurveydetail_03" value="Previous Step" styleClass="formsubmitbutton"/></div><div class="surveyeditnextbutton"><h:commandButton action="#{researcherSurveyDetail04.saveSurvey}" value="Next Step" styleClass="formsubmitbutton"/></div></div>
+    <div class="surveyeditbuttonbox"><div class="surveyeditpreviousbutton"><h:commandButton action="#{researcherSurveyDetail04.previousStep}" value="Previous Step" styleClass="formsubmitbutton"/></div><div class="surveyeditnextbutton"><h:commandButton action="#{researcherSurveyDetail04.saveSurveyAsDraft}" value="Save as Draft" styleClass="formsubmitbutton" rendered="#{researcherSurveyDetail04.status eq 1}"/><h:commandButton action="#{researcherSurveyDetail04.saveSurvey}" value="Next Step" styleClass="formsubmitbutton"/></div></div>
 
 </h:form>
 

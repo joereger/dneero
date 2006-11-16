@@ -10,13 +10,12 @@
       xmlns:d="http://dneero.com/taglib">
 
 <ui:composition template="/template/template-facelets.xhtml">
-    <ui:define name="title">Account Balance<br/><br/></ui:define>
+    <ui:define name="title">Account Balance: #{accountBalance.currentbalance}<br/><br/></ui:define>
     <ui:param name="navtab" value="youraccount"/>
     <ui:define name="body">
     <d:authorization acl="account" redirectonfail="true"/>
 
-    <div class="rounded" style="background: #BFFFBF; padding: 20px;"><font class="smallfont">Payment processes update at staggered intervals so the latest activity may not appear here for a couple days.</font></div>
-    <br/><br/>
+    
     <h:form>
 
 

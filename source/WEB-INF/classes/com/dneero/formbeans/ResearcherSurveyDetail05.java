@@ -58,6 +58,24 @@ public class ResearcherSurveyDetail05 {
 
     }
 
+    public String saveSurveyAsDraft(){
+        String save = saveSurvey();
+        if (save!=null && save.equals("success")){
+            return "researchersurveylist";
+        } else {
+            return save;
+        }
+    }
+
+    public String previousStep(){
+        String save = saveSurvey();
+        if (save!=null && save.equals("success")){
+            return "researchersurveydetail_04";
+        } else {
+            return save;
+        }
+    }
+
     public String saveSurvey(){
         logger.debug("saveSurvey() called.");
         if (status<=Survey.STATUS_WAITINGFORSTARTDATE){

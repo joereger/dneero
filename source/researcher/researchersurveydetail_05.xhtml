@@ -140,7 +140,7 @@
     </h:panelGrid>
 
     <f:verbatim><br/><br/></f:verbatim>
-    <div class="surveyeditbuttonbox"><div class="surveyeditpreviousbutton"><h:commandButton action="researchersurveydetail_04" value="Previous Step" styleClass="formsubmitbutton"/></div><div class="surveyeditnextbutton"><h:commandButton action="#{researcherSurveyDetail05.saveSurvey}" value="Next Step" styleClass="formsubmitbutton"/></div></div>
+    <div class="surveyeditbuttonbox"><div class="surveyeditpreviousbutton"><h:commandButton action="#{researcherSurveyDetail05.previousStep}" value="Previous Step" styleClass="formsubmitbutton"/></div><div class="surveyeditnextbutton"><h:commandButton action="#{researcherSurveyDetail05.saveSurveyAsDraft}" value="Save as Draft" styleClass="formsubmitbutton" rendered="#{researcherSurveyDetail05.status eq 1}"/><h:commandButton action="#{researcherSurveyDetail05.saveSurvey}" value="Next Step" styleClass="formsubmitbutton"/></div></div>
 
 
 </h:form>

@@ -75,7 +75,7 @@
 
 
     <f:verbatim><br/><br/></f:verbatim>
-    <div class="surveyeditbuttonbox"><div class="surveyeditpreviousbutton"><h:commandButton action="researchersurveydetail_02" value="Previous Step" styleClass="formsubmitbutton"/></div><div class="surveyeditnextbutton"><h:commandButton action="#{researcherSurveyDetail03.continueToNext}" value="Next Step" styleClass="formsubmitbutton"/></div></div>
+    <div class="surveyeditbuttonbox"><div class="surveyeditpreviousbutton"><h:commandButton action="#{researcherSurveyDetail03.previousStep}" value="Previous Step" styleClass="formsubmitbutton"/></div><div class="surveyeditnextbutton"><h:commandButton action="#{researcherSurveyDetail03.saveSurveyAsDraft}" value="Save as Draft" styleClass="formsubmitbutton" rendered="#{researcherSurveyDetail03.status eq 1}"/><h:commandButton action="#{researcherSurveyDetail03.continueToNext}" value="Next Step" styleClass="formsubmitbutton"/></div></div>
 
 
 

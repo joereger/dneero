@@ -74,6 +74,15 @@ public class ResearcherSurveyDetail01 {
         }
     }
 
+    public String saveSurveyAsDraft(){
+        String save = saveSurvey();
+        if (save!=null && save.equals("success")){
+            return "researchersurveylist";
+        } else {
+            return save;
+        }
+    }
+
     public String saveSurvey(){
         logger.debug("saveSurvey() called.");
         logger.debug("status="+status);
