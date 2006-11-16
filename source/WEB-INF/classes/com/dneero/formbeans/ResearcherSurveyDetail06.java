@@ -278,7 +278,6 @@ public class ResearcherSurveyDetail06 {
 
                 if (startdate.before(now)){
                     survey.setStatus(Survey.STATUS_OPEN);
-
                 } else {
                     survey.setStatus(Survey.STATUS_WAITINGFORSTARTDATE);
                 }
@@ -294,7 +293,6 @@ public class ResearcherSurveyDetail06 {
                     return null;
                 }
 
-
                 //Refresh
                 survey.refresh();
 
@@ -302,7 +300,7 @@ public class ResearcherSurveyDetail06 {
             }
         }
 
-        return "success";
+        return "researchersurveydetail_postlaunch";
     }
 
 

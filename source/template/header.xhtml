@@ -81,7 +81,7 @@
                             <h:commandLink value="Blogger FAQ" action="bloggerfaq" style="padding-left: 15px;" styleClass="subnavfont"/>
                         </c:if>
                         <c:if test="${navtab=='researchers'}">
-                            <h:commandLink value="Surveys" action="researchersurveylist" styleClass="subnavfont" style="padding-left: 15px;" rendered="#{userSession.isloggedin and (userSession.user.researcher ne null)}"/>
+                            <h:commandLink value="My Surveys" action="researchersurveylist" styleClass="subnavfont" style="padding-left: 15px;" rendered="#{userSession.isloggedin and (userSession.user.researcher ne null)}"/>
                             <h:commandLink value="Researcher Profile" action="researcherdetails" styleClass="subnavfont" style="padding-left: 15px;" rendered="#{userSession.isloggedin and (userSession.user.researcher ne null)}"/>
                             <h:commandLink value="Billing Info" action="researcherbilling" styleClass="subnavfont" style="padding-left: 15px;" rendered="#{userSession.isloggedin and (userSession.user.researcher ne null)}"/>
                             <h:commandLink value="Researcher FAQ" action="researcherfaq" style="padding-left: 15px;" styleClass="subnavfont"/>

@@ -4,9 +4,11 @@ import org.apache.log4j.Logger;
 
 import java.util.Date;
 import java.util.Iterator;
+import java.util.Calendar;
 
 import com.dneero.util.Jsf;
 import com.dneero.util.GeneralException;
+import com.dneero.util.Time;
 import com.dneero.dao.Blogger;
 import com.dneero.dao.Userrole;
 import com.dneero.session.UserSession;
@@ -86,6 +88,16 @@ public class BloggerDetails {
 
         if (userSession.getUser()!=null){
 
+
+            //Validation of answers
+            Calendar birthdateCal = Time.getCalFromDate(birthdate);
+            if (birthdateCal.after(Time.subtractYear(Calendar.getInstance(), 13))){
+                Jsf.setFacesMessage("bloggerdetails:birthdate", "You must be at least 13 years of age to use this system.");
+                return null;
+            }
+            //End validation
+
+
             blogger.setUserid(userSession.getUser().getUserid());
             blogger.setBirthdate(birthdate);
             blogger.setEducationlevel(educationlevel);
@@ -156,10 +168,6 @@ public class BloggerDetails {
                 logger.debug("saveAction failed: " + gex.getErrorsAsSingleString());
                 return null;
             }
-
-
-
-
 
             userSession.getUser().refresh();
 

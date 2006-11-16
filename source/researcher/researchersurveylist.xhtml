@@ -18,7 +18,7 @@
     <h:form>
 
         <af:table value="#{researcherSurveyList.surveys}" rows="50" bandingInterval="2" banding="row" var="survey" rendered="#{!empty researcherSurveyList.surveys}">
-          <af:column rendered="true">
+          <af:column rendered="false">
             <f:facet name="header">
               <af:outputText value="Id"/>
             </f:facet>
@@ -28,31 +28,20 @@
             <f:facet name="header">
               <af:outputText value="Title"/>
             </f:facet>
-            <af:outputText value="#{survey.title}" styleClass="mediumfont"/>
+            <h:commandLink action="#{researcherSurveyDetail01.beginView}">
+                <af:outputText value="#{survey.title}" styleClass="mediumfont" inlineStyle="color: #0000ff;"/>
+                <f:param name="surveyid" value="#{survey.surveyid}" />
+            </h:commandLink>
           </af:column>
           <af:column>
             <f:facet name="header">
               <af:outputText value="Status"/>
             </f:facet>
             <af:outputText value="Draft" rendered="#{survey.status==1}"/>
-            <af:outputText value="Waiting for Funds" rendered="#{survey.status==2}"/>
-            <af:outputText value="Waiting for Start Date" rendered="#{survey.status==3}"/>
-            <af:outputText value="Open" rendered="#{survey.status==4}"/>
+            <af:outputText value="Live, Waiting for Funds" rendered="#{survey.status==2}"/>
+            <af:outputText value="Live, Waiting for Start Date" rendered="#{survey.status==3}"/>
+            <af:outputText value="Live" rendered="#{survey.status==4}"/>
             <af:outputText value="Closed" rendered="#{survey.status==5}"/>
-          </af:column>
-          <af:column>
-            <f:facet name="header">
-              <af:outputText value="Actions"/>
-            </f:facet>
-            <h:commandLink action="#{researcherSurveyDetail01.beginView}">
-                <h:outputText value="Edit" escape="false" rendered="#{survey.status eq 1}"/>
-                <h:outputText value="Review" escape="false" rendered="#{survey.status ne 1}"/>
-                <f:param name="surveyid" value="#{survey.surveyid}" />
-            </h:commandLink>
-            <h:commandLink action="#{researcherSurveyDelete.beginView}" rendered="#{survey.status eq 1}">
-                <h:outputText value=" Delete" escape="false"/>
-                <f:param name="surveyid" value="#{survey.surveyid}" />
-            </h:commandLink>
           </af:column>
           <af:column>
             <f:facet name="header">
@@ -60,6 +49,15 @@
             </f:facet>
             <h:commandLink action="#{researcherSurveyResults.beginView}" rendered="#{survey.status ne 1}">
                 <h:outputText value="Results" escape="false" />
+                <f:param name="surveyid" value="#{survey.surveyid}" />
+            </h:commandLink>
+          </af:column>
+          <af:column>
+            <f:facet name="header">
+              <af:outputText value="-" inlineStyle="color: #ffffff;"/>
+            </f:facet>
+            <h:commandLink action="#{researcherSurveyDelete.beginView}" rendered="#{survey.status eq 1}">
+                <h:outputText value=" Delete" escape="false"/>
                 <f:param name="surveyid" value="#{survey.surveyid}" />
             </h:commandLink>
           </af:column>
