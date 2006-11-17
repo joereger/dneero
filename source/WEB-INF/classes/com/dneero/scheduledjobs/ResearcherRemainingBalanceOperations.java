@@ -34,9 +34,17 @@ public class ResearcherRemainingBalanceOperations implements Job {
         List researchers = HibernateUtil.getSession().createQuery("from Researcher").list();
         for (Iterator iterator = researchers.iterator(); iterator.hasNext();) {
             Researcher researcher = (Researcher) iterator.next();
+            processResearcher(researcher);
+        }
+
+    }
+
+    public static void processResearcher(Researcher researcher){
+        Logger logger = Logger.getLogger(ResearcherRemainingBalanceOperations.class);
+        if (researcher!=null){
             User user = User.get(researcher.getUserid());
             //Collect data on this researcher
-            List surveys = HibernateUtil.getSession().createQuery("from Survey where researcherid='"+researcher.getResearcherid()+"'").list();
+            List surveys = HibernateUtil.getSession().createQuery("from Survey where researcherid='"+researcher.getResearcherid()+"' and status<>'"+Survey.STATUS_DRAFT+"'").list();
             double currentbalance = CurrentBalanceCalculator.getCurrentBalance(user);
             double totalremainingpossiblespendforallsurveys = 0;
             double totalmaxpossiblespendforallsurveys = 0;
@@ -94,9 +102,7 @@ public class ResearcherRemainingBalanceOperations implements Job {
                     try{survey.save();} catch (GeneralException ex){logger.error(ex);}
                 }
             }
-
         }
-
     }
 
 }

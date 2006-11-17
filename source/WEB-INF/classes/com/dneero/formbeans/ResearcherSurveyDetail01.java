@@ -92,7 +92,7 @@ public class ResearcherSurveyDetail01 {
             logger.debug("startdate="+Time.dateformatcompactwithtime(Time.getCalFromDate(startdate)));
         }
         logger.debug("title="+title);
-        if (status<=Survey.STATUS_WAITINGFORSTARTDATE){
+        if (status<=Survey.STATUS_DRAFT){
 
             UserSession userSession = Jsf.getUserSession();
 

@@ -11,11 +11,9 @@ import com.dneero.dao.*;
 import com.dneero.util.*;
 import com.dneero.session.UserSession;
 import com.dneero.finders.FindBloggersForSurvey;
-import com.dneero.money.PaymentMethod;
-import com.dneero.money.MoveMoneyInRealWorld;
-import com.dneero.money.MoveMoneyInAccountBalance;
-import com.dneero.money.SurveyMoneyStatus;
+import com.dneero.money.*;
 import com.dneero.scheduledjobs.ResearcherRemainingBalanceOperations;
+import com.dneero.threadpool.ThreadPool;
 
 /**
  * User: Joe Reger Jr
@@ -38,20 +36,12 @@ public class ResearcherSurveyDetail06 {
     private String dneerofee = "0";
     private String maxpossiblespend = "0";
     private int numberofquestions = 0;
-    private String averagebloggerwillbepaid = "0";
     private boolean warningtimeperiodtooshort = false;
     private boolean warningnumberofbloggerslessthanrequested = false;
     private boolean warningnumberrequestedratiotoobig = false;
     private boolean warningtoomanyquestions = false;
     private boolean warningnoquestions = false;
     private boolean warningdonthaveccinfo = false;
-
-
-//    private double maxresppay = 0;
-//    private double maximppay = 0;
-//    private double maxspend = 0;
-//    private double dfee = 0;
-//    private double maxpossiblespnd = 0;
 
 
     private String ccnumfordisplayonscreen;
@@ -88,43 +78,27 @@ public class ResearcherSurveyDetail06 {
             logger.debug("Found survey in db: survey.getSurveyid()="+survey.getSurveyid()+" survey.getTitle()="+survey.getTitle());
             title = survey.getTitle();
             if (Jsf.getUserSession().getUser()!=null && survey.canEdit(Jsf.getUserSession().getUser())){
+                //Basic survey props
                 status = survey.getStatus();
+                daysinsurveyperiod = DateDiff.dateDiff("day", Time.getCalFromDate(survey.getStartdate()), Time.getCalFromDate(survey.getEnddate()));
+                startdate = Time.dateformatcompactwithtime(Time.getCalFromDate(survey.getStartdate()));
+                enddate = Time.dateformatcompactwithtime(Time.getCalFromDate(survey.getEnddate()));
+                numberofquestions = survey.getQuestions().size();
+
+                //Find bloggers qualified for this survey
                 FindBloggersForSurvey fb = new FindBloggersForSurvey(survey);
                 numberofbloggersqualifiedforthissurvey = fb.getBloggers().size();
 
-                daysinsurveyperiod = DateDiff.dateDiff("day", Time.getCalFromDate(survey.getStartdate()), Time.getCalFromDate(survey.getEnddate()));
-
-                startdate = Time.dateformatcompactwithtime(Time.getCalFromDate(survey.getStartdate()));
-                enddate = Time.dateformatcompactwithtime(Time.getCalFromDate(survey.getEnddate()));
-
+                //Calculate the financials of the survey
                 SurveyMoneyStatus sms = new SurveyMoneyStatus(survey);
-
-                //maxresppay = (survey.getWillingtopayperrespondent() * survey.getNumberofrespondentsrequested());
                 maxrespondentpayments = "$"+Str.formatForMoney(sms.getMaxPossiblePayoutForResponses());
-
-                //maximppay = ((survey.getWillingtopaypercpm()*survey.getMaxdisplaystotal())/1000);
                 maximpressionpayments = "$"+Str.formatForMoney(sms.getMaxPossiblePayoutForImpressions());
-
-
-                //maxspend =maxresppay + maximppay;
                 maxincentive = "$"+Str.formatForMoney(sms.getMaxPossiblePayoutForResponses() + sms.getMaxPossiblePayoutForImpressions());
-
-                //dfee = maxspend * .25;
                 dneerofee = "$"+Str.formatForMoney(sms.getMaxPossibledNeeroFee());
-
-                //maxpossiblespnd = maxspend + dfee + PERSURVEYCREATIONFEE;
                 maxpossiblespend = "$"+Str.formatForMoney(sms.getMaxPossibleSpend());
 
-                numberofquestions = survey.getQuestions().size();
-
-                int avgbloggerimpressions = 250;
-                if (avgbloggerimpressions>survey.getMaxdisplaysperblog()){
-                    avgbloggerimpressions = survey.getMaxdisplaysperblog();
-                }
-                double avgbloggerpaid =
-                (survey.getWillingtopayperrespondent())
-                + ((survey.getWillingtopaypercpm()*avgbloggerimpressions)/1000);
-                averagebloggerwillbepaid = "$"+Str.formatForMoney(avgbloggerpaid);
+                //The user's current account balance
+                double currentbalance = CurrentBalanceCalculator.getCurrentBalance(Jsf.getUserSession().getUser());
 
                 //Warning: time period too short
                 if (DateDiff.dateDiff("day", Time.getCalFromDate(survey.getEnddate()), Time.getCalFromDate(survey.getStartdate()))<7){
@@ -156,41 +130,41 @@ public class ResearcherSurveyDetail06 {
                     warningnoquestions = true;   
                 }
 
-                //Warning: Enough billing info?
-                if (Jsf.getUserSession().getUser().getChargemethod()== PaymentMethod.PAYMENTMETHODCREDITCARD){
-                    if (Jsf.getUserSession().getUser().getChargemethodcreditcardid()>0){
+                //Only worry about the credit carc stuff if there's not enough in the account currently
+                if(currentbalance<(sms.getMaxPossibleSpend()*(ResearcherRemainingBalanceOperations.INCREMENTALPERCENTTOCHARGE/100))){
+                    if (Jsf.getUserSession().getUser().getChargemethod()== PaymentMethod.PAYMENTMETHODCREDITCARD){
+                        if (Jsf.getUserSession().getUser().getChargemethodcreditcardid()>0){
+                            warningdonthaveccinfo = false;
+                            Creditcard cc = Creditcard.get(Jsf.getUserSession().getUser().getChargemethodcreditcardid());
+                            ccnum = cc.getCcnum();
+                            String ccnumStr = String.valueOf(cc.getCcnum());
+                            String lastFour = ccnumStr.substring(ccnumStr.length()-4, ccnumStr.length());
+                            ccnumfordisplayonscreen = "************" + lastFour;
+                            cctype = cc.getCctype();
+                            cvv2 = cc.getCvv2();
+                            ccexpmo = cc.getCcexpmo();
+                            ccexpyear = cc.getCcexpyear();
+                            postalcode = cc.getPostalcode();
+                            ccstate = cc.getState();
+                            street = cc.getStreet();
+                            cccity = cc.getCity();
+                            firstname = cc.getFirstname();
+                            lastname = cc.getLastname();
+                            ipaddress = cc.getIpaddress();
+                            merchantsessionid = cc.getMerchantsessionid();
+                        } else {
+                            warningdonthaveccinfo = true;
+                        }
+                    } else if (Jsf.getUserSession().getUser().getChargemethod()== PaymentMethod.PAYMENTMETHODMANUAL){
                         warningdonthaveccinfo = false;
-                        Creditcard cc = Creditcard.get(Jsf.getUserSession().getUser().getChargemethodcreditcardid());
-                        ccnum = cc.getCcnum();
-                        String ccnumStr = String.valueOf(cc.getCcnum());
-                        String lastFour = ccnumStr.substring(ccnumStr.length()-4, ccnumStr.length());
-                        ccnumfordisplayonscreen = "************" + lastFour;
-                        cctype = cc.getCctype();
-                        cvv2 = cc.getCvv2();
-                        ccexpmo = cc.getCcexpmo();
-                        ccexpyear = cc.getCcexpyear();
-                        postalcode = cc.getPostalcode();
-                        ccstate = cc.getState();
-                        street = cc.getStreet();
-                        cccity = cc.getCity();
-                        firstname = cc.getFirstname();
-                        lastname = cc.getLastname();
-                        ipaddress = cc.getIpaddress();
-                        merchantsessionid = cc.getMerchantsessionid();
+                    } else if (Jsf.getUserSession().getUser().getChargemethod()== PaymentMethod.PAYMENTMETHODPAYPAL){
+                        logger.error("Paypal chosen as chargemethod (which is not allowed) for userid="+Jsf.getUserSession().getUser().getUserid());
+                        warningdonthaveccinfo = true;
                     } else {
+                        logger.error("No valid chargemethod chosen for userid="+Jsf.getUserSession().getUser().getUserid());
                         warningdonthaveccinfo = true;
                     }
-                } else if (Jsf.getUserSession().getUser().getChargemethod()== PaymentMethod.PAYMENTMETHODMANUAL){
-                    warningdonthaveccinfo = false;
-                } else if (Jsf.getUserSession().getUser().getChargemethod()== PaymentMethod.PAYMENTMETHODPAYPAL){
-                    logger.error("Paypal chosen as chargemethod (which is not allowed) for userid="+Jsf.getUserSession().getUser().getUserid());
-                    warningdonthaveccinfo = true;
-                } else {
-                    logger.error("No valid chargemethod chosen for userid="+Jsf.getUserSession().getUser().getUserid());
-                    warningdonthaveccinfo = true;
                 }
-
-
             }
         }
 
@@ -206,7 +180,7 @@ public class ResearcherSurveyDetail06 {
 
     public String saveSurvey(){
         logger.debug("saveSurvey() called.");
-        if (status<=Survey.STATUS_WAITINGFORSTARTDATE){
+        if (status<=Survey.STATUS_DRAFT){
             UserSession userSession = Jsf.getUserSession();
 
             Survey survey = new Survey();
@@ -214,6 +188,7 @@ public class ResearcherSurveyDetail06 {
                 logger.debug("saveSurvey() called: going to get Survey.get(surveyid)="+userSession.getCurrentSurveyid());
                 survey = Survey.get(userSession.getCurrentSurveyid());
             }
+
 
             if (Jsf.getUserSession().getUser()!=null && survey.canEdit(Jsf.getUserSession().getUser())){
                 Calendar startdate = Time.getCalFromDate(survey.getStartdate());
@@ -224,58 +199,63 @@ public class ResearcherSurveyDetail06 {
                 logger.debug("startdate.before(now)="+startdate.before(now));
                 logger.debug("startdate.after(now)="+startdate.after(now));
 
-                //Save credit card info and set creditcardid for user charge method
-                Creditcard cc = new Creditcard();
-                if(userSession.getUser().getChargemethodcreditcardid()>0){
-                    cc = Creditcard.get(userSession.getUser().getChargemethodcreditcardid());
-                }
-                cc.setCcexpmo(ccexpmo);
-                cc.setCcexpyear(ccexpyear);
-                cc.setCcnum(ccnum);
-                cc.setCctype(cctype);
-                cc.setCity(cccity);
-                cc.setCvv2(cvv2);
-                cc.setFirstname(firstname);
-                cc.setIpaddress(Jsf.getRemoteAddr());
-                cc.setLastname(lastname);
-                cc.setMerchantsessionid(Jsf.getSessionID());
-                cc.setPostalcode(postalcode);
-                cc.setState(ccstate);
-                cc.setStreet(street);
-                cc.setUserid(userSession.getUser().getUserid());
-                try{
-                    cc.save();
-                } catch (GeneralException gex){
-                    Jsf.setFacesMessage("Error saving record: "+gex.getErrorsAsSingleString());
-                    logger.debug("saveAction failed: " + gex.getErrorsAsSingleString());
-                    return null;
-                }
+                double currentbalance = CurrentBalanceCalculator.getCurrentBalance(Jsf.getUserSession().getUser());
 
-                //userSession.getUser().setChargemethod(PaymentMethod.PAYMENTMETHODCREDITCARD);
-                //userSession.getUser().setChargemethodcreditcardid(cc.getCreditcardid());
+                //Only worry about the credit carc stuff if there's not enough in the account currently
+                if(currentbalance<(sms.getMaxPossibleSpend()*(ResearcherRemainingBalanceOperations.INCREMENTALPERCENTTOCHARGE/100))){
+                    //Save credit card info and set creditcardid for user charge method
+                    Creditcard cc = new Creditcard();
+                    if(userSession.getUser().getChargemethodcreditcardid()>0){
+                        cc = Creditcard.get(userSession.getUser().getChargemethodcreditcardid());
+                    }
+                    cc.setCcexpmo(ccexpmo);
+                    cc.setCcexpyear(ccexpyear);
+                    cc.setCcnum(ccnum);
+                    cc.setCctype(cctype);
+                    cc.setCity(cccity);
+                    cc.setCvv2(cvv2);
+                    cc.setFirstname(firstname);
+                    cc.setIpaddress(Jsf.getRemoteAddr());
+                    cc.setLastname(lastname);
+                    cc.setMerchantsessionid(Jsf.getSessionID());
+                    cc.setPostalcode(postalcode);
+                    cc.setState(ccstate);
+                    cc.setStreet(street);
+                    cc.setUserid(userSession.getUser().getUserid());
+                    try{
+                        cc.save();
+                    } catch (GeneralException gex){
+                        Jsf.setFacesMessage("Error saving record: "+gex.getErrorsAsSingleString());
+                        logger.debug("saveAction failed: " + gex.getErrorsAsSingleString());
+                        return null;
+                    }
 
-                User user = User.get(userSession.getUser().getUserid());
-                user.setChargemethod(PaymentMethod.PAYMENTMETHODCREDITCARD);
-                user.setChargemethodcreditcardid(cc.getCreditcardid());
+                    User user = User.get(userSession.getUser().getUserid());
+                    user.setChargemethod(PaymentMethod.PAYMENTMETHODCREDITCARD);
+                    user.setChargemethodcreditcardid(cc.getCreditcardid());
 
-                try{
-                    //userSession.getUser().save();
-                    user.save();
-                } catch (GeneralException gex){
-                    Jsf.setFacesMessage("Error saving record: "+gex.getErrorsAsSingleString());
-                    logger.debug("saveAction failed: " + gex.getErrorsAsSingleString());
-                    return null;
+                    try{
+                        //userSession.getUser().save();
+                        user.save();
+                    } catch (GeneralException gex){
+                        Jsf.setFacesMessage("Error saving record: "+gex.getErrorsAsSingleString());
+                        logger.debug("saveAction failed: " + gex.getErrorsAsSingleString());
+                        return null;
+                    }
+                    userSession.setUser(user);
                 }
-                userSession.setUser(user);
 
                 //Charge the per-survey creation fee
                 MoveMoneyInAccountBalance.charge(userSession.getUser(), SurveyMoneyStatus.PERSURVEYCREATIONFEE, "Survey creation fee for '"+survey.getTitle()+"'");            
 
-                //Charge the card the initial 20% or whatever
-                double amttocharge =  sms.getMaxPossibleSpend()  * (ResearcherRemainingBalanceOperations.INCREMENTALPERCENTTOCHARGE/100);
-                MoveMoneyInRealWorld mmirw = new MoveMoneyInRealWorld(Jsf.getUserSession().getUser(), (-1)*amttocharge);
-                mmirw.move();
+                //Make sure user has enough in their account by running the remaining balance algorithm for just this researcher
+                if (Jsf.getUserSession().getUser()!=null){
+                    //Run in its own thread so that the user's screen progresses
+                    ResearcherSurveyDetail06BalancecheckThread thr = new ResearcherSurveyDetail06BalancecheckThread(Jsf.getUserSession().getUser().getResearcher());
+                    thr.startThread();
+                }
 
+                //Manage the status as it relates to the startdate
                 if (startdate.before(now)){
                     survey.setStatus(Survey.STATUS_OPEN);
                 } else {
@@ -295,8 +275,6 @@ public class ResearcherSurveyDetail06 {
 
                 //Refresh
                 survey.refresh();
-
-
             }
         }
 
@@ -406,14 +384,6 @@ public class ResearcherSurveyDetail06 {
 
     public void setNumberofquestions(int numberofquestions) {
         this.numberofquestions = numberofquestions;
-    }
-
-    public String getAveragebloggerwillbepaid() {
-        return averagebloggerwillbepaid;
-    }
-
-    public void setAveragebloggerwillbepaid(String averagebloggerwillbepaid) {
-        this.averagebloggerwillbepaid = averagebloggerwillbepaid;
     }
 
     public boolean getWarningtimeperiodtooshort() {

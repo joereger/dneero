@@ -74,7 +74,7 @@ public class ResearcherSurveyDetail03 {
 
     public String saveSurvey(){
         logger.debug("saveSurvey() called.");
-        if (status<=Survey.STATUS_WAITINGFORSTARTDATE){
+        if (status<=Survey.STATUS_DRAFT){
             UserSession userSession = Jsf.getUserSession();
 
             Survey survey = new Survey();

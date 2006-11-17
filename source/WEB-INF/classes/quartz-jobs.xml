@@ -68,7 +68,7 @@
             <job-name>researcherRemainingBalanceOperations</job-name>
             <job-group>surveyJobs</job-group>
             <!-- every x minutes -->
-            <cron-expression>0 0/60 * * * ?</cron-expression>
+            <cron-expression>0 0/5 * * * ?</cron-expression>
           </cron>
         </trigger>
     </job>
