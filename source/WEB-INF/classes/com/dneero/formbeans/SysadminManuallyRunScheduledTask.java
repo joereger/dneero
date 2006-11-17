@@ -82,6 +82,12 @@ public class SysadminManuallyRunScheduledTask {
 
 
 
+    public String runDeleteOldPersistentlogins(){
+        try{DeleteOldPersistentlogins task = new DeleteOldPersistentlogins();
+            task.execute(null);} catch (Exception ex){logger.error(ex);}
+        return "sysadminmanuallyrunscheduledtask";
+    }
+
 
 
     public String runResearcherRemainingBalanceOperations(){

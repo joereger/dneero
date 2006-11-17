@@ -12,12 +12,14 @@ import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.util.GeneralException;
 import com.dneero.util.Jsf;
 import com.dneero.session.UserSession;
+import com.dneero.session.PersistentLogin;
 import com.dneero.xmpp.SendXMPPMessage;
 import com.dneero.eula.EulaHelper;
 
 import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Cookie;
 
 /**
  * User: Joe Reger Jr
@@ -28,6 +30,7 @@ public class Login {
 
     private String email;
     private String password;
+    private boolean keepmeloggedin = true;
 
     Logger logger = Logger.getLogger(this.getClass().getName());
 
@@ -37,7 +40,7 @@ public class Login {
 
     public String login(){
         logger.debug("login() called.");
-
+        logger.debug("keepmeloggedin="+keepmeloggedin);
         List users = HibernateUtil.getSession().createQuery("FROM User as user WHERE user.email='"+email+"' AND user.password='"+password+"'").setMaxResults(1).list();
         if (users.size()==0){
             Jsf.setFacesMessage("Email/password incorrect.");
@@ -50,23 +53,26 @@ public class Login {
             userSession.setIsloggedin(true);
             userSession.setIsLoggedInToBeta(Jsf.getUserSession().getIsLoggedInToBeta());
 
+            //Set persistent login cookie, if necessary
+            if (keepmeloggedin){
+                //Get all possible cookies to set
+                Cookie[] cookies = PersistentLogin.getPersistentCookies(user.getUserid(), Jsf.getHttpServletRequest());
+                //Add a cookies to the response
+                for (int j = 0; j < cookies.length; j++) {
+                    Jsf.getHttpServletResponse().addCookie(cookies[j]);
+                }
+            }
+
             //Notify customer care group
             SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_DEBUG, "dNeero User Login: "+ user.getFirstname() + " " + user.getLastname() + " ("+user.getEmail()+")");
             xmpp.send();
 
             Jsf.bindObjectToExpressionLanguage("#{userSession}", userSession);
 
-//            FacesContext ctx = FacesContext.getCurrentInstance();
-//            ValueBinding binding = ctx.getApplication().createValueBinding("#{userSession}");
-//            binding.setValue(ctx, userSession);
-
-
             //Now check the eula
             if (!EulaHelper.isUserUsingMostRecentEula(userSession.getUser())){
                 return "loginagreeneweula";    
             }
-
-
             return "accountmain";
         }
 
@@ -78,6 +84,8 @@ public class Login {
         FacesContext ctx = FacesContext.getCurrentInstance();
         ValueBinding binding = ctx.getApplication().createValueBinding("#{userSession}");
         binding.setValue(ctx, userSession);
+        //Persistent Logout
+        Jsf.getHttpServletResponse().addCookie(PersistentLogin.createCookieToClearPersistentLogin(Jsf.getHttpServletRequest()));
         return "logout_success";
     }
 
@@ -98,4 +106,11 @@ public class Login {
     }
 
 
+    public boolean getKeepmeloggedin() {
+        return keepmeloggedin;
+    }
+
+    public void setKeepmeloggedin(boolean keepmeloggedin) {
+        this.keepmeloggedin = keepmeloggedin;
+    }
 }

@@ -1,5 +1,6 @@
 package com.dneero.util;
 
+import javax.servlet.http.Cookie;
 import java.util.*;
 
 /**
@@ -55,6 +56,30 @@ public class Util {
             }
         }
         return out;
+    }
+
+
+    public static String truncateString(String instring, int maxlength){
+        String outstring="";
+        try{
+            outstring = instring.substring(0,maxlength-1);
+        } catch (Exception e) {
+            outstring = instring;
+        }
+        return outstring;
+    }
+
+    public static Cookie[] addToCookieArray(Cookie[] src, Cookie str){
+        if (src==null){
+            src=new Cookie[0];
+        }
+
+        Cookie[] outArr = new Cookie[src.length+1];
+        for(int i=0; i < src.length; i++) {
+            outArr[i]=src[i];
+        }
+        outArr[src.length]=str;
+        return outArr;
     }
 
 

@@ -6,6 +6,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.application.FacesMessage;
 import javax.faces.el.ValueBinding;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
@@ -56,6 +57,10 @@ public class Jsf {
 
     public static HttpServletRequest getHttpServletRequest(){
         return (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();
+    }
+
+    public static HttpServletResponse getHttpServletResponse(){
+        return (HttpServletResponse)FacesContext.getCurrentInstance().getExternalContext().getResponse();
     }
 
     public static void redirectResponse(String url) throws IOException {

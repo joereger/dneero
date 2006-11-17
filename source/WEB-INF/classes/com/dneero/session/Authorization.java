@@ -5,13 +5,17 @@ import org.apache.log4j.Logger;
 import javax.faces.context.FacesContext;
 import javax.faces.component.UIComponentBase;
 import javax.faces.component.UIComponent;
+import javax.servlet.http.Cookie;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 
 import com.dneero.dao.Userrole;
+import com.dneero.dao.User;
 import com.dneero.util.Jsf;
 import com.dneero.systemprops.SystemProperty;
+import com.dneero.eula.EulaHelper;
+import com.dneero.xmpp.SendXMPPMessage;
 
 /**
  * User: Joe Reger Jr
@@ -28,6 +32,46 @@ public class Authorization extends UIComponentBase {
 
     public void encodeBegin(FacesContext context) throws IOException {
         logger.debug("encodeBegin called");
+
+        //Persistent login start
+        boolean wasAutoLoggedIn = false;
+        if (!Jsf.getUserSession().getIsloggedin()){
+            //See if the incoming request has a persistent login cookie
+            Cookie[] cookies = Jsf.getHttpServletRequest().getCookies();
+            logger.debug("looking for cookies");
+            if (cookies!=null && cookies.length>0){
+                logger.debug("cookies found.");
+                for (int i = 0; i < cookies.length; i++) {
+                    if (cookies[i].getName().equals(PersistentLogin.cookieName)){
+                        logger.debug("persistent cookie found.");
+                        int useridFromCookie = PersistentLogin.checkPersistentLogin(cookies[i]);
+                        if (useridFromCookie>-1){
+                            logger.debug("setting userid="+useridFromCookie);
+                            User user = User.get(useridFromCookie);
+                            if (user!=null && user.getUserid()>0){
+                                UserSession newUserSession = new UserSession();
+                                newUserSession.setUser(user);
+                                newUserSession.setIsloggedin(true);
+                                newUserSession.setIsLoggedInToBeta(Jsf.getUserSession().getIsLoggedInToBeta());
+                                Jsf.bindObjectToExpressionLanguage("#{userSession}", newUserSession);
+                                wasAutoLoggedIn = true;
+                                //Notify customer care group
+                                SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_DEBUG, "dNeero User Login: "+ user.getFirstname() + " " + user.getLastname() + " ("+user.getEmail()+")");
+                                xmpp.send();
+                                //Now check the eula
+                                if (!EulaHelper.isUserUsingMostRecentEula(user)){
+                                    context.getExternalContext().redirect("/loginagreeneweula.jsf");
+                                    return;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        //Persistent login end
+
+
 
         String acl = (String)getAttributes().get("acl");
         String redirectonfail = (String)getAttributes().get("redirectonfail");
@@ -69,6 +113,7 @@ public class Authorization extends UIComponentBase {
                     context.getExternalContext().redirect("/notauthorized.jsf");
                     return;
                 } else {
+
                     context.getExternalContext().redirect("/login.jsf");
                     return;
                 }

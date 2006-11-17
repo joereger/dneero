@@ -27,6 +27,30 @@
         </trigger>
     </job>
 
+
+
+    <job>
+        <job-detail>
+          <name>deleteOldPersistentlogins</name>
+          <group>surveyJobs</group>
+          <job-class>com.dneero.scheduledjobs.DeleteOldPersistentlogins</job-class>
+          <volatility>false</volatility>
+          <durability>false</durability>
+          <recover>false</recover>
+        </job-detail>
+        <trigger>
+          <!-- Sample cron triggers: http://www.opensymphony.com/quartz/wikidocs/TutorialLesson6.html -->
+          <cron>
+            <name>deleteOldPersistentloginsTrigger</name>
+            <group>surveyTriggers</group>
+            <job-name>deleteOldPersistentlogins</job-name>
+            <job-group>surveyJobs</job-group>
+            <!-- Fire at 3am every day -->
+            <cron-expression>0 0 3 * * ?</cron-expression>
+          </cron>
+        </trigger>
+    </job>
+
     <job>
         <job-detail>
           <name>researcherRemainingBalanceOperations</name>
