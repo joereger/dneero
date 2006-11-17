@@ -1,12 +1,15 @@
 package com.dneero.formbeans;
 
 import org.apache.log4j.Logger;
+import org.hibernate.criterion.Restrictions;
 import com.dneero.dao.Survey;
 import com.dneero.dao.Impression;
+import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.util.Jsf;
 
 import java.util.Iterator;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * User: Joe Reger Jr
@@ -34,8 +37,12 @@ public class ResearcherSurveyResultsImpressions {
         if (survey!=null){
             logger.debug("survey.getImpressions().size()="+survey.getImpressions().size());
             if (Jsf.getUserSession().getUser()!=null && survey.canEdit(Jsf.getUserSession().getUser())){
-                for (Iterator<Impression> iterator = survey.getImpressions().iterator(); iterator.hasNext();) {
-                    Impression impression = iterator.next();
+
+                List<Impression> impressions = HibernateUtil.getSession().createCriteria(Impression.class)
+                                   .add( Restrictions.eq("surveyid", survey.getSurveyid()))
+                                   .list();
+                for (Iterator<Impression> iterator1 = impressions.iterator(); iterator1.hasNext();) {
+                    Impression impression = iterator1.next();
                     ResearcherSurveyResultsImpressionsObj robj = new ResearcherSurveyResultsImpressionsObj();
                     if (impression.getBlog()!=null){
                         robj.setBlogtitle(impression.getBlog().getTitle());

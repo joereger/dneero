@@ -1,13 +1,16 @@
 package com.dneero.formbeans;
 
 import org.apache.log4j.Logger;
+import org.hibernate.criterion.Restrictions;
 
 import java.util.Iterator;
+import java.util.List;
 
 import com.dneero.util.Jsf;
 import com.dneero.session.UserSession;
 import com.dneero.dao.Survey;
 import com.dneero.dao.Impression;
+import com.dneero.dao.hibernate.HibernateUtil;
 
 /**
  * User: Joe Reger Jr
@@ -50,8 +53,11 @@ public class ResearcherSurveyResults {
                 totalsurveyresponses = survey.getResponses().size();
                 totalsurveydisplays = 0;
                 status = survey.getStatus();
-                for (Iterator<Impression> iterator = survey.getImpressions().iterator(); iterator.hasNext();) {
-                    Impression impression = iterator.next();
+                List<Impression> impressions = HibernateUtil.getSession().createCriteria(Impression.class)
+                                   .add( Restrictions.eq("surveyid", survey.getSurveyid()))
+                                   .list();
+                for (Iterator<Impression> iterator1 = impressions.iterator(); iterator1.hasNext();) {
+                    Impression impression = iterator1.next();
                     totalsurveydisplays = totalsurveydisplays + impression.getImpressionsqualifyingforpayment();
                 }
             }
