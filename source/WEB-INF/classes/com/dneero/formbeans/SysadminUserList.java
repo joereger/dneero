@@ -40,9 +40,10 @@ public class SysadminUserList extends SortableList {
         logger.debug("searchlastname="+searchlastname);
         logger.debug("searchemail="+searchemail);
         Criteria crit = HibernateUtil.getSession().createCriteria(User.class);
-        crit.add(Restrictions.gt("userid", 0));
         if (searchuserid!=null && !searchuserid.equals("") && Num.isinteger(searchuserid)){
-            crit.add(Restrictions.eq("userid", searchuserid));
+            crit.add(Restrictions.eq("userid", Integer.parseInt(searchuserid)));
+        } else {
+            crit.add(Restrictions.gt("userid", 0));
         }
         if (searchfirstname!=null && !searchfirstname.equals("")){
             crit.add(Restrictions.like("firstname", "%"+searchfirstname+"%"));

@@ -3,10 +3,12 @@ package com.dneero.formbeans;
 import com.dneero.util.SortableList;
 import com.dneero.util.Jsf;
 import com.dneero.util.GeneralException;
+import com.dneero.util.Str;
 import com.dneero.dao.*;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.email.EmailActivationSend;
 import com.dneero.email.LostPasswordSend;
+import com.dneero.money.MoveMoneyInAccountBalance;
 
 import java.util.*;
 
@@ -27,6 +29,8 @@ public class SysadminUserDetail  {
     private String email;
     private boolean issysadmin = false;
     private String activitypin;
+    private double amt;
+    private String reason;
 
 
     public SysadminUserDetail(){
@@ -99,19 +103,32 @@ public class SysadminUserDetail  {
     }
 
     public String togglesysadminprivs(){
+        logger.debug("togglesysadminprivs()");
         if (activitypin.equals("yes, i want to do this")){
             activitypin = "";
             User user = User.get(userid);
             if (user!=null && user.getUserid()>0){
+                issysadmin = false;
+                for (Iterator<Userrole> iterator = user.getUserroles().iterator(); iterator.hasNext();) {
+                    Userrole userrole = iterator.next();
+                    if (userrole.getRoleid()== Userrole.SYSTEMADMIN){
+                        issysadmin = true;
+                    }
+                }
                 if (issysadmin){
+                    logger.debug("is a sysadmin");
                     //@todo revoke sysadmin privs doesn't work
+                    //int userroleidtodelete=0;
                     for (Iterator<Userrole> iterator = user.getUserroles().iterator(); iterator.hasNext();) {
                         Userrole userrole = iterator.next();
+                        logger.debug("found roleid="+userrole.getRoleid());
                         if (userrole.getRoleid()==Userrole.SYSTEMADMIN){
+                            logger.debug("removing it from iterator");
                             iterator.remove();
                         }
                     }
                     try{user.save();} catch (Exception ex){logger.error(ex);}
+                    issysadmin = false;
                     Jsf.setFacesMessage("User is no longer a sysadmin");
                 } else {
                     Userrole role = new Userrole();
@@ -119,6 +136,7 @@ public class SysadminUserDetail  {
                     role.setRoleid(Userrole.SYSTEMADMIN);
                     user.getUserroles().add(role);
                     try{role.save();} catch (Exception ex){logger.error(ex);}
+                    issysadmin = true;
                     Jsf.setFacesMessage("User is now a sysadmin");
                 }
                 load(user.getUserid());
@@ -126,6 +144,24 @@ public class SysadminUserDetail  {
         } else {
             Jsf.setFacesMessage("Activity Pin Not correct.");
         }
+        return "sysadminuserdetail";
+    }
+
+    public String giveusermoney(){
+        User user = User.get(userid);
+        if (user!=null && user.getUserid()>0){
+            MoveMoneyInAccountBalance.pay(user, amt, "Manual transaction: "+reason, false);
+        }
+        Jsf.setFacesMessage("$"+ Str.formatForMoney(amt)+" given to user account balance");
+        return "sysadminuserdetail";
+    }
+
+    public String takeusermoney(){
+        User user = User.get(userid);
+        if (user!=null && user.getUserid()>0){
+            MoveMoneyInAccountBalance.charge(user, amt, "Manual transaction: "+reason);
+        }
+        Jsf.setFacesMessage("$"+ Str.formatForMoney(amt)+" taken from user account balance");
         return "sysadminuserdetail";
     }
 
@@ -178,5 +214,21 @@ public class SysadminUserDetail  {
 
     public void setIssysadmin(boolean issysadmin) {
         this.issysadmin = issysadmin;
+    }
+
+    public String getReason() {
+        return reason;
+    }
+
+    public void setReason(String reason) {
+        this.reason = reason;
+    }
+
+    public double getAmt() {
+        return amt;
+    }
+
+    public void setAmt(double amt) {
+        this.amt = amt;
     }
 }

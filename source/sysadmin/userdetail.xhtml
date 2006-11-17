@@ -16,66 +16,116 @@
     <ui:param name="navtab" value="sysadmin"/>
     <ui:define name="body">
     <d:authorization acl="systemadmin" redirectonfail="true"/>
+    <h:messages styleClass="RED"/>
 
     <h:form>
         <h:inputHidden value="#{sysadminUserDetail.userid}" />
-        <h:messages/>
 
-        <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
-            <table cellpadding="0" cellspacing="0" border="0">
+        <table cellpadding="0" cellspacing="0" border="0">
                 <tr>
-                    <td valign="top">
-                        <font class="tinyfont">First Name</font>
-                    </td>
-                    <td valign="top">
-                        <h:inputText value="#{sysadminUserDetail.firstname}" id="firstname" size="30" required="true"></h:inputText>
-                    </td>
-                </tr>
-                <tr>
-                    <td valign="top">
-                        <font class="tinyfont">Last Name</font>
-                    </td>
-                    <td valign="top">
-                        <h:inputText value="#{sysadminUserDetail.lastname}" id="lastname" size="30" required="true"></h:inputText>
-                    </td>
-                </tr>
-                <tr>
-                    <td valign="top">
-                        <font class="tinyfont">Email</font>
-                    </td>
-                    <td valign="top">
-                        <h:inputText value="#{sysadminUserDetail.email}" id="email" size="30" required="true"></h:inputText>
-                    </td>
-                </tr>
-                <tr>
-                    <td valign="top">
+                    <td valign="top" width="50%">
 
+
+                        <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
+                            <table cellpadding="0" cellspacing="0" border="0">
+                                <tr>
+                                    <td valign="top">
+                                        <font class="formfieldnamefont">First Name</font>
+                                    </td>
+                                    <td valign="top">
+                                        <h:inputText value="#{sysadminUserDetail.firstname}" id="firstname" size="30" required="true"></h:inputText>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td valign="top">
+                                        <font class="formfieldnamefont">Last Name</font>
+                                    </td>
+                                    <td valign="top">
+                                        <h:inputText value="#{sysadminUserDetail.lastname}" id="lastname" size="30" required="true"></h:inputText>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td valign="top">
+                                        <font class="formfieldnamefont">Email</font>
+                                    </td>
+                                    <td valign="top">
+                                        <h:inputText value="#{sysadminUserDetail.email}" id="email" size="30" required="true"></h:inputText>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td valign="top">
+
+                                    </td>
+                                    <td valign="top">
+                                        <h:commandButton action="#{sysadminUserDetail.save}"  value="Save User Details" styleClass="formsubmitbutton"></h:commandButton>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
+                            <h:commandButton action="#{sysadminUserDetail.sendresetpasswordemail}"  value="Send Password Reset Email" styleClass="formsubmitbutton"></h:commandButton>
+                        </div>
+                        <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
+                            <h:commandButton action="#{sysadminUserDetail.reactivatebyemail}"  value="Force Re-Activation By Email" styleClass="formsubmitbutton"></h:commandButton>
+                        </div>
+                        <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
+                            <h:outputText value="User is a Sysadmin" rendered="#{sysadminUserDetail.issysadmin}" styleClass="mediumfont"></h:outputText>
+                            <h:outputText value="User is not a Sysadmin" rendered="#{!sysadminUserDetail.issysadmin}" styleClass="mediumfont"></h:outputText>
+                            <br/>
+                            <h:commandButton action="#{sysadminUserDetail.togglesysadminprivs}"  value="Toggle Sysadmin Privileges" styleClass="formsubmitbutton"></h:commandButton>
+                            <h:inputText value="#{sysadminUserDetail.activitypin}" id="activitypin" size="10"></h:inputText>
+                            <br/>
+                            <font class="tinyfont">You must type "yes, i want to do this" in the box to make this happen</font>
+                        </div>
                     </td>
-                    <td valign="top">
-                        <h:commandButton action="#{sysadminUserDetail.save}"  value="Save" styleClass="formsubmitbutton"></h:commandButton>
+                 
+                    <td valign="top" width="50%">
+
+                        <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
+                            <af:subform id="giveusermoney">
+                                <h:inputHidden value="#{sysadminUserDetail.userid}" />
+                                <font class="mediumfont">Give User Money</font>
+                                <br/>
+                                <font class="formfieldnamefont">Amount to give:</font>
+                                <br/>
+                                <h:inputText value="#{sysadminUserDetail.amt}" id="amt" size="30" required="true"><f:validateDoubleRange minimum=".01" maximum="100000"></f:validateDoubleRange></h:inputText>
+                                <br/>
+                                <font class="formfieldnamefont">Detailed Reason:</font>
+                                <br/>
+                                <font class="tinyfont">(user will see reason)</font>
+                                <br/>
+                                <h:inputText value="#{sysadminUserDetail.reason}" id="reason" size="30" required="true"></h:inputText>
+                                <br/>
+                                <h:commandButton action="#{sysadminUserDetail.giveusermoney}"  value="Give User this Money" styleClass="formsubmitbutton"></h:commandButton>
+                            </af:subform>
+                        </div>
+                        <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
+                            <af:subform id="takeawayusermoney">
+                                <h:inputHidden value="#{sysadminUserDetail.userid}" />
+                                <font class="mediumfont">Take Money from User</font>
+                                <br/>
+                                <font class="formfieldnamefont">Amount to take:</font>
+                                <br/>
+                                <h:inputText value="#{sysadminUserDetail.amt}" id="amt" size="30" required="true"><f:validateDoubleRange minimum=".01" maximum="100000"></f:validateDoubleRange></h:inputText>
+                                <br/>
+                                <font class="formfieldnamefont">Detailed Reason:</font>
+                                <br/>
+                                <font class="tinyfont">(user will see reason)</font>
+                                <br/>
+                                <h:inputText value="#{sysadminUserDetail.reason}" id="reason" size="30" required="true"></h:inputText>
+                                <br/>
+                                <h:commandButton action="#{sysadminUserDetail.takeusermoney}"  value="Take User Money" styleClass="formsubmitbutton"></h:commandButton>
+                            </af:subform>
+                        </div>
+
+
                     </td>
                 </tr>
             </table>
-        </div>
-        <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
-            <h:commandButton action="#{sysadminUserDetail.sendresetpasswordemail}"  value="Send Password Reset Email" styleClass="formsubmitbutton"></h:commandButton>
-        </div>
-        <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
-            <h:commandButton action="#{sysadminUserDetail.reactivatebyemail}"  value="Force Account Re-Activation By Email" styleClass="formsubmitbutton"></h:commandButton>
-        </div>
-        <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
-            <h:commandButton action="#{sysadminUserDetail.togglesysadminprivs}"  value="Grant Sysadmin Privileges" styleClass="formsubmitbutton" rendered="#{!sysadminUserDetail.issysadmin}"></h:commandButton>
-            <h:commandButton action="#{sysadminUserDetail.togglesysadminprivs}"  value="Revoke Sysadmin Privileges" styleClass="formsubmitbutton" rendered="#{sysadminUserDetail.issysadmin}"></h:commandButton>
-            <h:inputText value="#{sysadminUserDetail.activitypin}" id="activitypin" size="10"></h:inputText>
-            <br/>
-            <font class="tinyfont">You must type "yes, i want to do this" in the box to make this happen</font>
-        </div>
-
-
-
+        </h:form>
 
         
-    </h:form>
+
 
 
 
