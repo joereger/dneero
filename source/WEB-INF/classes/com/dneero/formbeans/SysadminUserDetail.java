@@ -1,8 +1,6 @@
 package com.dneero.formbeans;
 
-import com.dneero.util.SortableList;
 import com.dneero.util.Jsf;
-import com.dneero.util.GeneralException;
 import com.dneero.util.Str;
 import com.dneero.dao.*;
 import com.dneero.dao.hibernate.HibernateUtil;
@@ -13,7 +11,6 @@ import com.dneero.money.MoveMoneyInAccountBalance;
 import java.util.*;
 
 import org.apache.log4j.Logger;
-import org.hibernate.criterion.Restrictions;
 
 /**
  * User: Joe Reger Jr
@@ -31,6 +28,8 @@ public class SysadminUserDetail  {
     private String activitypin;
     private double amt;
     private String reason;
+    private List balances;
+    private List transactions;
 
 
     public SysadminUserDetail(){
@@ -64,6 +63,41 @@ public class SysadminUserDetail  {
                     issysadmin = true;
                 }
             }
+
+            //Load balance info
+            List bals = HibernateUtil.getSession().createQuery("from Balance where userid='"+userid+"' order by balanceid desc").list();
+            balances = new ArrayList<AccountBalanceListItem>();
+            for (Iterator iterator = bals.iterator(); iterator.hasNext();) {
+                Balance balance = (Balance) iterator.next();
+                AccountBalanceListItem abli = new AccountBalanceListItem();
+                abli.setAmt("$"+ Str.formatForMoney(balance.getAmt()));
+                abli.setBalanceid(balance.getBalanceid());
+                abli.setCurrentbalance("$"+ Str.formatForMoney(balance.getCurrentbalance()));
+                abli.setDate(balance.getDate());
+                abli.setDescription(balance.getDescription());
+                abli.setUserid(balance.getUserid());
+                abli.setOptionalimpressionpaymentgroupid(balance.getOptionalimpressionpaymentgroupid());
+                abli.setOptionalimpressionchargegroupid(balance.getOptionalimpressionchargegroupid());
+                balances.add(abli);
+            }
+
+            //Load transaction info
+            List trans = HibernateUtil.getSession().createQuery("from Balancetransaction where userid='"+userid+"' order by balancetransactionid desc").list();
+            transactions = new ArrayList<AccountBalancetransactionListItem>();
+            for (Iterator iterator = trans.iterator(); iterator.hasNext();) {
+                Balancetransaction transaction = (Balancetransaction) iterator.next();
+                AccountBalancetransactionListItem abli = new AccountBalancetransactionListItem();
+                abli.setAmt("$"+ Str.formatForMoney(transaction.getAmt()));
+                abli.setBalancetransactionid(transaction.getBalancetransactionid());
+                abli.setDate(transaction.getDate());
+                abli.setDescription(transaction.getDescription());
+                abli.setNotes(transaction.getNotes());
+                abli.setUserid(transaction.getUserid());
+                abli.setIssuccessful(transaction.getIssuccessful());
+                transactions.add(abli);
+            }
+
+
         }
     }
 
@@ -152,6 +186,7 @@ public class SysadminUserDetail  {
         if (user!=null && user.getUserid()>0){
             MoveMoneyInAccountBalance.pay(user, amt, "Manual transaction: "+reason, false);
         }
+        load(user.getUserid());
         Jsf.setFacesMessage("$"+ Str.formatForMoney(amt)+" given to user account balance");
         return "sysadminuserdetail";
     }
@@ -161,6 +196,7 @@ public class SysadminUserDetail  {
         if (user!=null && user.getUserid()>0){
             MoveMoneyInAccountBalance.charge(user, amt, "Manual transaction: "+reason);
         }
+        load(user.getUserid());
         Jsf.setFacesMessage("$"+ Str.formatForMoney(amt)+" taken from user account balance");
         return "sysadminuserdetail";
     }
@@ -230,5 +266,22 @@ public class SysadminUserDetail  {
 
     public void setAmt(double amt) {
         this.amt = amt;
+    }
+
+
+    public List getBalances() {
+        return balances;
+    }
+
+    public void setBalances(List balances) {
+        this.balances = balances;
+    }
+
+    public List getTransactions() {
+        return transactions;
+    }
+
+    public void setTransactions(List transactions) {
+        this.transactions = transactions;
     }
 }

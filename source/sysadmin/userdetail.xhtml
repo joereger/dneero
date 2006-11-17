@@ -96,7 +96,7 @@
                                 <br/>
                                 <h:inputText value="#{sysadminUserDetail.reason}" id="reason" size="30" required="true"></h:inputText>
                                 <br/>
-                                <h:commandButton action="#{sysadminUserDetail.giveusermoney}"  value="Give User this Money" styleClass="formsubmitbutton"></h:commandButton>
+                                <h:commandButton action="#{sysadminUserDetail.giveusermoney}"  value="Give User Money" styleClass="formsubmitbutton"></h:commandButton>
                             </af:subform>
                         </div>
                         <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
@@ -124,8 +124,97 @@
             </table>
         </h:form>
 
-        
 
+
+        <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
+        <font class="mediumfont">Account Balance (Internal Account Money Movement)</font>
+        <h:form>
+            <t:saveState id="save" value="#{sysadminUserDetail}"/>
+            <h:inputHidden value="#{sysadminUserDetail.userid}" />
+            <af:outputText value="There are not yet any financial transactions on this account." rendered="#{empty sysadminUserDetail.balances}"/>
+            <af:table value="#{sysadminUserDetail.balances}" bandingInterval="2" rows="10" banding="row" var="balance" rendered="#{!empty sysadminUserDetail.balances}">
+              <af:column>
+                <f:facet name="header">
+                  <af:outputText value="Id"/>
+                </f:facet>
+                <af:outputText value="#{balance.balanceid}" styleClass="tinyfont"/>
+              </af:column>
+              <af:column>
+                <f:facet name="header">
+                  <af:outputText value="Date"/>
+                </f:facet>
+                  <af:outputText value="#{balance.date}" styleClass="tinyfont"><f:convertDateTime type="both" dateStyle="short" timeStyle="medium"/></af:outputText>
+              </af:column>
+              <af:column>
+                <f:facet name="header">
+                  <af:outputText value="Description"/>
+                </f:facet>
+                <af:outputText value="#{balance.description}" styleClass="smallfont"/>
+              </af:column>
+              <af:column>
+                <f:facet name="header">
+                  <af:outputText value="Amount"/>
+                </f:facet>
+                <af:outputText value="#{balance.amt}" styleClass="tinyfont"/>
+              </af:column>
+              <af:column>
+                <f:facet name="header">
+                  <af:outputText value="Balance"/>
+                </f:facet>
+                <af:outputText value="#{balance.currentbalance}" styleClass="tinyfont" inlineStyle="font-weight: bold;"/>
+              </af:column>
+            </af:table>
+        </h:form>
+        </div>
+
+
+        <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
+        <font class="mediumfont">Account Transactions (Real World Money Movement)</font>
+        <h:form>
+            <t:saveState id="save" value="#{sysadminUserDetail}"/>
+            <h:inputHidden value="#{sysadminUserDetail.userid}" />
+            <af:outputText value="There are not yet any financial transactions on this account." rendered="#{empty sysadminUserDetail.transactions}"/>
+            <af:table value="#{sysadminUserDetail.transactions}" bandingInterval="2" rows="10" banding="row" var="balance" rendered="#{!empty sysadminUserDetail.transactions}">
+              <af:column>
+                <f:facet name="header">
+                  <af:outputText value="Id"/>
+                </f:facet>
+                <af:outputText value="#{balance.balancetransactionid}" styleClass="tinyfont"/>
+              </af:column>
+              <af:column>
+                <f:facet name="header">
+                  <af:outputText value="Date"/>
+                </f:facet>
+                <af:outputText value="#{balance.date}" styleClass="tinyfont"><f:convertDateTime type="both" dateStyle="short" timeStyle="medium"/></af:outputText>
+              </af:column>
+              <af:column>
+                <f:facet name="header">
+                  <af:outputText value=""/>
+                </f:facet>
+                <af:outputText value="Success" rendered="#{balance.issuccessful}" styleClass="tinyfont"/>
+                <af:outputText value="Fail" rendered="#{!balance.issuccessful}" styleClass="tinyfont"/>
+              </af:column>
+              <af:column>
+                <f:facet name="header">
+                  <af:outputText value="Description"/>
+                </f:facet>
+                <af:outputText value="#{balance.description}"  styleClass="tinyfont"/>
+              </af:column>
+              <af:column>
+                <f:facet name="header">
+                  <af:outputText value="Notes"/>
+                </f:facet>
+                <af:outputText value="#{balance.notes}" styleClass="tinyfont"/>
+              </af:column>
+              <af:column>
+                <f:facet name="header">
+                  <af:outputText value="Amount"/>
+                </f:facet>
+                <af:outputText value="#{balance.amt}" styleClass="tinyfont"/>
+              </af:column>
+            </af:table>
+        </h:form>
+        </div>
 
 
 
