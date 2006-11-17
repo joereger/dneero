@@ -13,6 +13,14 @@
     <ui:param name="navtab" value="home"/>
     <ui:define name="body">
     <d:authorization acl="account" redirectonfail="true"/>
+
+
+    <t:div rendered="#{param.msg eq 'autologin'}">
+        <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
+            <font class="mediumfont">Your previous session timed out so you've been logged-in automatically!</font>
+        </div>
+   </t:div>
+
         <h:form id="eulaform">
             <h:messages styleClass="RED"/>
             <h:panelGrid columns="1" cellpadding="3" border="0">

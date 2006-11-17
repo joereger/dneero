@@ -65,7 +65,7 @@ public class Authorization extends UIComponentBase {
                                 //Now check the eula
                                 if (!EulaHelper.isUserUsingMostRecentEula(user)){
                                     System.out.println("redirecting to force eula accept");
-                                    context.getExternalContext().redirect("/loginagreeneweula.jsf");
+                                    context.getExternalContext().redirect("/loginagreeneweula.jsf?msg=autologin");
                                     return;
                                 }
                                 System.out.println("through eula check");
@@ -81,7 +81,7 @@ public class Authorization extends UIComponentBase {
 //                                        System.out.println("request.getRequestURI()="+request.getRequestURI());
 //                                        RequestDispatcher dispatcher = request.getRequestDispatcher(request.getRequestURI());
 //                                        dispatcher.forward(request,response);
-                                        context.getExternalContext().redirect("/account/accountmain.jsf");
+                                        context.getExternalContext().redirect("/account/accountmain.jsf?msg=autologin");
                                         return;
                                     } catch (Exception ex){
                                         logger.error(ex);
