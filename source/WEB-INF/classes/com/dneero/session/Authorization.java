@@ -3,9 +3,13 @@ package com.dneero.session;
 import org.apache.log4j.Logger;
 
 import javax.faces.context.FacesContext;
+import javax.faces.context.ExternalContext;
 import javax.faces.component.UIComponentBase;
 import javax.faces.component.UIComponent;
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
@@ -60,8 +64,31 @@ public class Authorization extends UIComponentBase {
                                 xmpp.send();
                                 //Now check the eula
                                 if (!EulaHelper.isUserUsingMostRecentEula(user)){
+                                    System.out.println("redirecting to force eula accept");
                                     context.getExternalContext().redirect("/loginagreeneweula.jsf");
                                     return;
+                                }
+                                System.out.println("through eula check");
+                                //Now dispatch request to the same page so that header is changed to reflect logged-in status
+                                if (wasAutoLoggedIn){
+                                    try{
+                                        System.out.println("about to redir");
+//                                        ExternalContext ectx = FacesContext.getCurrentInstance().getExternalContext();
+//                                        HttpServletRequest request = (HttpServletRequest)ectx.getRequest();
+//                                        HttpServletResponse response = (HttpServletResponse)ectx.getResponse();
+//                                        response.reset();
+//                                        response.resetBuffer();
+//                                        System.out.println("request.getRequestURI()="+request.getRequestURI());
+//                                        RequestDispatcher dispatcher = request.getRequestDispatcher(request.getRequestURI());
+//                                        dispatcher.forward(request,response);
+                                        context.getExternalContext().redirect("/account/accountmain.jsf");
+                                        return;
+                                    } catch (Exception ex){
+                                        logger.error(ex);
+                                        ex.printStackTrace();
+                                        context.getExternalContext().redirect("/index.jsf");
+                                        return;
+                                    }
                                 }
                             }
                         }
