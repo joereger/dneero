@@ -93,15 +93,14 @@
                             <h:commandLink value="Help/Support" action="accountsupportissueslist" style="padding-left: 15px;" styleClass="subnavfont" rendered="#{userSession.isloggedin}"/>
                         </c:if>
                         <c:if test="${navtab=='sysadmin'}">
-                            <h:commandLink value="  Errors" action="sysadminerrorlist" styleClass="subnavfont" style="padding-left: 15px;" rendered="#{userSession.isloggedin and userSession.isSysadmin}"/>
-                            <h:commandLink value="  Users" action="userlist" styleClass="subnavfont" style="padding-left: 15px;" rendered="#{userSession.isloggedin and userSession.isSysadmin}"/>
-                            <h:commandLink value="  Surveys" action="sysadminsurveylist" styleClass="subnavfont" style="padding-left: 15px;" rendered="#{userSession.isloggedin and userSession.isSysadmin}"/>
-                            <h:commandLink value="  Edit EULA" action="sysadminediteula" styleClass="subnavfont" style="padding-left: 15px;" rendered="#{userSession.isloggedin and userSession.isSysadmin}"/>
-                            <h:commandLink value="  Support Issues" action="sysadminsupportissueslist" styleClass="subnavfont" style="padding-left: 15px;" rendered="#{userSession.isloggedin and userSession.isSysadmin}"/>
-                            <h:commandLink value="  Rate Blog Posts" action="rateblogpost" styleClass="subnavfont" style="padding-left: 15px;" rendered="#{userSession.isloggedin and userSession.isSysadmin}"/>
-                            <h:commandLink value="  Run Scheduled" action="sysadminmanuallyrunscheduledtask" styleClass="subnavfont" style="padding-left: 15px;" rendered="#{userSession.isloggedin and userSession.isSysadmin}"/>
-                            <h:commandLink value="  Paypal Manual" action="sysadminpaypalmanual" styleClass="subnavfont" style="padding-left: 15px;" rendered="#{userSession.isloggedin and userSession.isSysadmin}"/>
-                            <h:commandLink value="  System Props" action="sysadminsystemprops" styleClass="subnavfont" style="padding-left: 15px;" rendered="#{userSession.isloggedin and userSession.isSysadmin}"/>
+                            <h:commandLink value="System Log" action="sysadminerrorlist" styleClass="subnavfont" style="padding-left: 15px;" rendered="#{userSession.isloggedin and userSession.isSysadmin}"/>
+                            <h:commandLink value="Users" action="userlist" styleClass="subnavfont" style="padding-left: 15px;" rendered="#{userSession.isloggedin and userSession.isSysadmin}"/>
+                            <h:commandLink value="Surveys" action="sysadminsurveylist" styleClass="subnavfont" style="padding-left: 15px;" rendered="#{userSession.isloggedin and userSession.isSysadmin}"/>
+                            <h:commandLink value="Edit EULA" action="sysadminediteula" styleClass="subnavfont" style="padding-left: 15px;" rendered="#{userSession.isloggedin and userSession.isSysadmin}"/>
+                            <h:commandLink value="Support Issues" action="sysadminsupportissueslist" styleClass="subnavfont" style="padding-left: 15px;" rendered="#{userSession.isloggedin and userSession.isSysadmin}"/>
+                            <h:commandLink value="Rate Blog Posts" action="rateblogpost" styleClass="subnavfont" style="padding-left: 15px;" rendered="#{userSession.isloggedin and userSession.isSysadmin}"/>
+                            <h:commandLink value="Run Scheduled Tasks" action="sysadminmanuallyrunscheduledtask" styleClass="subnavfont" style="padding-left: 15px;" rendered="#{userSession.isloggedin and userSession.isSysadmin}"/>
+                            <h:commandLink value="System Props" action="sysadminsystemprops" styleClass="subnavfont" style="padding-left: 15px;" rendered="#{userSession.isloggedin and userSession.isSysadmin}"/>
                         </c:if>
                     </td>
                 </tr>

@@ -464,11 +464,7 @@
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
 
-    <managed-bean>
-        <managed-bean-name>sysadminPaypalManual</managed-bean-name>
-        <managed-bean-class>com.dneero.formbeans.SysadminPaypalManual</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
-    </managed-bean>
+
 
     <managed-bean>
         <managed-bean-name>sysadminEditEula</managed-bean-name>
@@ -795,10 +791,6 @@
         <navigation-case>
             <from-outcome>sysadminsupportissuenewnotedone</from-outcome>
             <to-view-id>/sysadmin/sysadminsupportissuenewnotedone.xhtml</to-view-id>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>sysadminpaypalmanual</from-outcome>
-            <to-view-id>/sysadmin/paypalmanual.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>sysadminmanuallyrunscheduledtask</from-outcome>
