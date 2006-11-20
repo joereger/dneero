@@ -2,22 +2,21 @@ package com.dneero.formbeans;
 
 import org.apache.log4j.Logger;
 import org.hibernate.criterion.Restrictions;
-
-import java.util.Iterator;
-import java.util.List;
-
-import com.dneero.util.Jsf;
-import com.dneero.session.UserSession;
 import com.dneero.dao.Survey;
 import com.dneero.dao.Impression;
 import com.dneero.dao.hibernate.HibernateUtil;
+import com.dneero.util.Jsf;
+import com.dneero.session.UserSession;
+
+import java.util.List;
+import java.util.Iterator;
 
 /**
  * User: Joe Reger Jr
- * Date: Jun 15, 2006
- * Time: 9:54:08 AM
+ * Date: Nov 18, 2006
+ * Time: 9:06:06 AM
  */
-public class ResearcherSurveyResults {
+public class ResearcherResults {
 
     Logger logger = Logger.getLogger(this.getClass().getName());
 
@@ -26,7 +25,7 @@ public class ResearcherSurveyResults {
     private int totalsurveydisplays = 0;
     private int status = 0;
 
-    public ResearcherSurveyResults(){
+    public ResearcherResults(){
         logger.debug("Instanciating object.");
         loadSurvey(Jsf.getUserSession().getCurrentSurveyid());
     }
@@ -40,7 +39,7 @@ public class ResearcherSurveyResults {
             userSession.setCurrentSurveyid(Integer.parseInt(tmpSurveyid));
             loadSurvey(Integer.parseInt(tmpSurveyid));
         }
-        return "researchersurveyresults";
+        return "researcherresults";
     }
 
 
@@ -95,4 +94,6 @@ public class ResearcherSurveyResults {
     public void setStatus(int status) {
         this.status = status;
     }
+
+
 }

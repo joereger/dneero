@@ -25,8 +25,6 @@
         <h:form>
 
               <af:table value="#{bloggerImpressions.list}" bandingInterval="2" rows="25" banding="row" var="listitem">
-
-
               <af:column>
                 <f:facet name="header">
                   <af:outputText value="Url"/>
@@ -37,11 +35,11 @@
                 <f:facet name="header">
                   <af:outputText value="Impressions"/>
                 </f:facet>
-                <h:outputText value="#{listitem.impressionsqualifyingforpayment}" escape="false" styleClass="smallfont"/>
-                <h:commandLink action="#{bloggerImpressionDetails.beginView}" rendered="false">
-                    <h:outputText value="#{listitem.impressionsqualifyingforpayment}" escape="false" styleClass="smallfont" style="color: #0000ff;"/>
+                <af:outputText value="#{listitem.impressionsqualifyingforpayment}" escape="true" styleClass="smallfont" rendered="false"/>
+                <af:commandLink action="#{bloggerImpressionDetails.beginView}" rendered="false">
+                    <af:outputText value="#{listitem.impressionsqualifyingforpayment}" escape="false" styleClass="smallfont" inlineStyle="color: #0000ff;"/>
                     <f:param name="impressionid" value="#{listitem.impressionid}" />
-                </h:commandLink>
+                </af:commandLink>
               </af:column>
               <af:column>
                 <f:facet name="header">
@@ -49,7 +47,6 @@
                 </f:facet>
                 <af:outputText value="#{listitem.quality}"/>
               </af:column>
-
           </af:table>
 
         </h:form>

@@ -16,13 +16,13 @@ import java.util.Iterator;
  */
 public class SurveyResultsDisplay {
 
-    public static String getHtmlForResults(Survey survey){
+    public static String getHtmlForResults(Survey survey, Blogger blogger){
         StringBuffer out = new StringBuffer();
         Logger logger = Logger.getLogger(SurveyResultsDisplay.class);
         for (Iterator<Question> iterator = survey.getQuestions().iterator(); iterator.hasNext();) {
             Question question = iterator.next();
             logger.debug("found question.getQuestionid()="+question.getQuestionid());
-            Component component = ComponentTypes.getComponentByID(question.getComponenttype(), question, new Blogger());
+            Component component = ComponentTypes.getComponentByID(question.getComponenttype(), question, blogger);
             logger.debug("found component.getName()="+component.getName());
             out.append("<br><br>");
             out.append("<table width=100% cellpadding=0 cellspacing=0 border=0>");

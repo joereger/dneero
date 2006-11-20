@@ -47,7 +47,7 @@
             <f:facet name="header">
               <af:outputText value="-" inlineStyle="color: #ffffff;"/>
             </f:facet>
-            <h:commandLink action="#{researcherSurveyResults.beginView}" rendered="#{survey.status ne 1}">
+            <h:commandLink action="#{researcherResults.beginView}" rendered="#{survey.status ne 1}">
                 <h:outputText value="Results" escape="false" />
                 <f:param name="surveyid" value="#{survey.surveyid}" />
             </h:commandLink>

@@ -19,6 +19,18 @@ public class Num {
         }
     }
 
+    public static boolean isdouble(String str){
+        if (str==null){
+            return false;
+        }
+        try{
+            Double.parseDouble(str);
+            return true;
+        }catch(Exception e){
+            return false;
+        }
+    }
+
     public static long absoluteValue(long num){
         if (num < 0) {
            return -1*num;

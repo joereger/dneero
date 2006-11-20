@@ -22,6 +22,9 @@ public class ComponentTypes {
     Logger logger = Logger.getLogger(this.getClass().getName());
 
     public static Component getComponentByID(int ID, Question question, Blogger blogger){
+        if (blogger==null){
+            blogger = new Blogger();
+        }
         if (ID== Textbox.ID){
             return new Textbox(question, blogger);
         }

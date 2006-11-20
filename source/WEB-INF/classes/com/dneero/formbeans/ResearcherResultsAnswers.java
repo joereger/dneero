@@ -2,26 +2,25 @@ package com.dneero.formbeans;
 
 import org.apache.log4j.Logger;
 import com.dneero.dao.Survey;
+import com.dneero.dao.Blogger;
 import com.dneero.util.Jsf;
-import com.dneero.session.UserSession;
 import com.dneero.display.SurveyResultsDisplay;
-
-import javax.faces.context.FacesContext;
 
 /**
  * User: Joe Reger Jr
- * Date: Jun 15, 2006
- * Time: 9:54:08 AM
+ * Date: Nov 18, 2006
+ * Time: 9:06:06 AM
  */
-public class ResearcherSurveyResultsQuestions {
+public class ResearcherResultsAnswers {
+
 
     Logger logger = Logger.getLogger(this.getClass().getName());
 
     private Survey survey;
     private String results;
 
-    public ResearcherSurveyResultsQuestions(){
-        logger.debug("Instanciating object.");
+    public ResearcherResultsAnswers(){
+        logger.debug("Instanciating");
         loadSurvey(Jsf.getUserSession().getCurrentSurveyid());
     }
 
@@ -30,7 +29,7 @@ public class ResearcherSurveyResultsQuestions {
         logger.debug("loadSurvey called");
         Survey survey = Survey.get(surveyid);
         if (survey!=null){
-            results = SurveyResultsDisplay.getHtmlForResults(survey);
+            results = SurveyResultsDisplay.getHtmlForResults(survey, null);
         }
     }
 
@@ -49,4 +48,6 @@ public class ResearcherSurveyResultsQuestions {
     public void setResults(String results) {
         this.results = results;
     }
+
+
 }

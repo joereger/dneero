@@ -5,12 +5,13 @@ package com.dneero.formbeans;
  * Date: Jul 17, 2006
  * Time: 3:19:07 PM
  */
-public class ResearcherSurveyResultsImpressionsObj {
+public class ResearcherResultsImpressionsListitem {
 
     private String blogtitle;
     private String blogurl;
     private int impressionsqualifyingforpayment;
     private String referer;
+    private int impressionid;
 
     public String getBlogtitle() {
         return blogtitle;
@@ -42,5 +43,14 @@ public class ResearcherSurveyResultsImpressionsObj {
 
     public void setReferer(String referer) {
         this.referer = referer;
+    }
+
+
+    public int getImpressionid() {
+        return impressionid;
+    }
+
+    public void setImpressionid(int impressionid) {
+        this.impressionid = impressionid;
     }
 }

@@ -2,36 +2,30 @@ package com.dneero.formbeans;
 
 import org.apache.log4j.Logger;
 import com.dneero.dao.*;
-import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.util.Jsf;
 import com.dneero.util.Time;
 import com.dneero.util.Util;
-import com.dneero.session.UserSession;
-import com.dneero.display.SurveyResultsDisplay;
 import com.dneero.display.components.def.Component;
 import com.dneero.display.components.def.ComponentTypes;
 
-import javax.faces.context.FacesContext;
 import java.util.Iterator;
-import java.util.List;
-import java.io.FileWriter;
 import java.io.StringWriter;
 
 import au.com.bytecode.opencsv.CSVWriter;
 
 /**
  * User: Joe Reger Jr
- * Date: Jun 15, 2006
- * Time: 9:54:08 AM
+ * Date: Nov 18, 2006
+ * Time: 9:06:22 AM
  */
-public class ResearcherSurveyResultsCsv {
+public class ResearcherResultsAnswersCsv {
 
     Logger logger = Logger.getLogger(this.getClass().getName());
 
     private Survey survey;
     private String results;
 
-    public ResearcherSurveyResultsCsv(){
+    public ResearcherResultsAnswersCsv(){
         logger.debug("Instanciating object.");
         loadSurvey(Jsf.getUserSession().getCurrentSurveyid());
     }
@@ -50,7 +44,7 @@ public class ResearcherSurveyResultsCsv {
                     //Choose how many cols this will have... later on this will get more complex and i'll have to call each component to get the sizing
                     String[] row = new String[survey.getQuestions().size() + 2];
                     //Start out with the basic info for each response
-                    row[0]=User.get(Blogger.get(response.getBloggerid()).getUserid()).getFirstname() + " " + User.get(Blogger.get(response.getBloggerid()).getUserid()).getFirstname();
+                    row[0]= User.get(Blogger.get(response.getBloggerid()).getUserid()).getFirstname() + " " + User.get(Blogger.get(response.getBloggerid()).getUserid()).getFirstname();
                     row[1]= Time.dateformatcompactwithtime(Time.getCalFromDate(response.getResponsedate()));
                     for (Iterator<Question> iterator1 = survey.getQuestions().iterator(); iterator1.hasNext();) {
                         Question question = iterator1.next();
@@ -93,4 +87,5 @@ public class ResearcherSurveyResultsCsv {
     public void setResults(String results) {
         this.results = results;
     }
+
 }

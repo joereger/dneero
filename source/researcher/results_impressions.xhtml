@@ -16,35 +16,33 @@
     <d:authorization acl="researcher" redirectonfail="true"/>
 
 <h:form>
-    
-    <af:table value="#{researcherSurveyResultsImpressions.researcherSurveyResultsImpressionsObj}" bandingInterval="2" rows="50" banding="row" var="imp">
-      <af:column rendered="false">
-        <f:facet name="header">
-          <af:outputText value="Impressionid"/>
-        </f:facet>
-        <af:outputText value="#{imp.blogtitle}"/>
-      </af:column>
+
+    <af:table value="#{researcherResultsImpressions.researcherResultsImpressionsListitems}" bandingInterval="2" rows="50" banding="row" var="imp">
       <af:column>
         <f:facet name="header">
           <af:outputText value="Blog"/>
         </f:facet>
-        <a href="#{imp.blogurl}"><af:outputText value="#{imp.blogurl}"/></a>
-        <af:outputText value="No Referer" rendered="#{empty imp.referer}"/>
+        <af:goLink targetFrame="referer" text="#{imp.blogurl}" destination="#{imp.blogurl}" styleClass="smallfont"></af:goLink>
+        <af:outputText value="None" rendered="#{empty imp.blogurl}"/>
       </af:column>
       <af:column>
         <f:facet name="header">
           <af:outputText value="Specific Page"/>
         </f:facet>
-        <a href="#{imp.referer}"><af:outputText value="#{imp.referer}"/></a>
+        <af:goLink targetFrame="referer" text="#{imp.referer}" destination="#{imp.referer}" styleClass="smallfont"></af:goLink>
+        <af:outputText value="None" rendered="#{empty imp.referer}"/>
       </af:column>
       <af:column>
         <f:facet name="header">
           <af:outputText value="Impressions"/>
         </f:facet>
-        <af:outputText value="#{imp.impressionsqualifyingforpayment}"/>
+        <af:commandLink action="#{researcherResultsImpressionsDetails.beginView}">
+            <af:outputText value="#{imp.impressionsqualifyingforpayment}" styleClass="smallfont" inlineStyle="color: #0000ff;"/>
+            <f:param name="impressionid" value="#{imp.impressionid}" />
+        </af:commandLink>
       </af:column>
     </af:table>
-                      
+    
 </h:form>
 
 </ui:define>

@@ -201,7 +201,7 @@ public class Essay implements Component {
 
         out.append("<tr>");
         out.append("<td valign=top align=right bgcolor=#ffffff colspan=4>");
-        out.append("<a href='researchersurveyresults_questiondetail.jsf?questionid="+question.getQuestionid()+"'><b>All Essay Responses</b></a>");
+        out.append("<a href='results_answers_details.jsf?questionid="+question.getQuestionid()+"'><b>All Essay Responses</b></a>");
         out.append("</td>");
         out.append("</tr>");
 

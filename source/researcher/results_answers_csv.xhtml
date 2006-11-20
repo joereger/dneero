@@ -10,15 +10,15 @@
       xmlns:af="http://xmlns.oracle.com/adf/faces">
 
 <ui:composition template="/template/template-facelets.xhtml">
-    <ui:define name="title">Survey Results: Question Detail</ui:define>
+    <ui:define name="title">Survey Results: Answers CSV</ui:define>
     <ui:param name="navtab" value="researchers"/>
     <ui:define name="body">
     <d:authorization acl="researcher" redirectonfail="true"/>
 
 <h:form>
+
+    <f:verbatim>#{researcherResultsAnswersCsv.results}</f:verbatim>
     
-    <f:verbatim>#{researcherSurveyResultsQuestiondetail.results}</f:verbatim>
-                      
 </h:form>
 
 </ui:define>

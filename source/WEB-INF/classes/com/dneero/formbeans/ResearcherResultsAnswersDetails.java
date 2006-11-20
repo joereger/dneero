@@ -5,26 +5,22 @@ import com.dneero.dao.Survey;
 import com.dneero.dao.Question;
 import com.dneero.dao.Blogger;
 import com.dneero.util.Jsf;
-import com.dneero.display.SurveyResultsDisplay;
 import com.dneero.display.components.def.Component;
 import com.dneero.display.components.def.ComponentTypes;
-import com.dneero.session.UserSession;
-
-import javax.faces.context.FacesContext;
 
 /**
  * User: Joe Reger Jr
- * Date: Jun 15, 2006
- * Time: 9:54:08 AM
+ * Date: Nov 18, 2006
+ * Time: 9:06:06 AM
  */
-public class ResearcherSurveyResultsQuestiondetail {
+public class ResearcherResultsAnswersDetails {
 
     Logger logger = Logger.getLogger(this.getClass().getName());
 
     private Survey survey;
     private String results;
 
-    public ResearcherSurveyResultsQuestiondetail(){
+    public ResearcherResultsAnswersDetails(){
         logger.debug("Instanciating object.");
         loadQuestion(Jsf.getUserSession().getCurrentSurveyid());
     }
@@ -61,4 +57,6 @@ public class ResearcherSurveyResultsQuestiondetail {
     public void setResults(String results) {
         this.results = results;
     }
+
+
 }

@@ -7,24 +7,24 @@ import com.dneero.dao.Impression;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.util.Jsf;
 
-import java.util.Iterator;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Iterator;
 
 /**
  * User: Joe Reger Jr
- * Date: Jun 15, 2006
- * Time: 9:54:08 AM
+ * Date: Nov 18, 2006
+ * Time: 9:07:40 AM
  */
-public class ResearcherSurveyResultsImpressions {
+public class ResearcherResultsImpressions {
 
     Logger logger = Logger.getLogger(this.getClass().getName());
 
     private Survey survey;
-    private ArrayList<ResearcherSurveyResultsImpressionsObj> researcherSurveyResultsImpressionsObj;
+    private ArrayList<ResearcherResultsImpressionsListitem> researcherResultsImpressionsListitems;
 
 
-    public ResearcherSurveyResultsImpressions(){
+    public ResearcherResultsImpressions(){
         logger.debug("Instanciating object.");
         loadSurvey(Jsf.getUserSession().getCurrentSurveyid());
     }
@@ -33,7 +33,7 @@ public class ResearcherSurveyResultsImpressions {
     public void loadSurvey(int surveyid){
         logger.debug("loadSurvey called");
         Survey survey = Survey.get(surveyid);
-        researcherSurveyResultsImpressionsObj = new ArrayList<ResearcherSurveyResultsImpressionsObj>();
+        researcherResultsImpressionsListitems = new ArrayList<ResearcherResultsImpressionsListitem>();
         if (survey!=null){
             logger.debug("survey.getImpressions().size()="+survey.getImpressions().size());
             if (Jsf.getUserSession().getUser()!=null && survey.canEdit(Jsf.getUserSession().getUser())){
@@ -43,14 +43,15 @@ public class ResearcherSurveyResultsImpressions {
                                    .list();
                 for (Iterator<Impression> iterator1 = impressions.iterator(); iterator1.hasNext();) {
                     Impression impression = iterator1.next();
-                    ResearcherSurveyResultsImpressionsObj robj = new ResearcherSurveyResultsImpressionsObj();
+                    ResearcherResultsImpressionsListitem robj = new ResearcherResultsImpressionsListitem();
                     if (impression.getBlog()!=null){
                         robj.setBlogtitle(impression.getBlog().getTitle());
                         robj.setBlogurl(impression.getBlog().getUrl());
+                        robj.setImpressionid(impression.getImpressionid());
                     }
                     robj.setImpressionsqualifyingforpayment(impression.getImpressionsqualifyingforpayment());
                     robj.setReferer(impression.getReferer());
-                    researcherSurveyResultsImpressionsObj.add(robj);
+                    researcherResultsImpressionsListitems.add(robj);
                 }
             }
             logger.debug("done loading survey");
@@ -65,11 +66,12 @@ public class ResearcherSurveyResultsImpressions {
         this.survey = survey;
     }
 
-    public ArrayList<ResearcherSurveyResultsImpressionsObj> getResearcherSurveyResultsImpressionsObj() {
-        return researcherSurveyResultsImpressionsObj;
+
+    public ArrayList<ResearcherResultsImpressionsListitem> getResearcherResultsImpressionsListitems() {
+        return researcherResultsImpressionsListitems;
     }
 
-    public void setResearcherSurveyResultsImpressionsObj(ArrayList<ResearcherSurveyResultsImpressionsObj> researcherSurveyResultsImpressionsObj) {
-        this.researcherSurveyResultsImpressionsObj = researcherSurveyResultsImpressionsObj;
+    public void setResearcherResultsImpressionsListitems(ArrayList<ResearcherResultsImpressionsListitem> researcherResultsImpressionsListitems) {
+        this.researcherResultsImpressionsListitems = researcherResultsImpressionsListitems;
     }
 }

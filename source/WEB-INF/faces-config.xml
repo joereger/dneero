@@ -32,6 +32,11 @@
         <validator-class>org.apache.myfaces.custom.creditcardvalidator.CreditCardValidator</validator-class>
     </validator>
 
+    <converter>
+      <converter-id>DisplayAsMoneyConverter</converter-id>
+      <converter-class>com.dneero.util.DisplayAsMoneyConverter</converter-class>
+    </converter>
+
 
 
 
@@ -199,33 +204,71 @@
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
 
+
     <managed-bean>
-        <managed-bean-name>researcherSurveyResults</managed-bean-name>
-        <managed-bean-class>com.dneero.formbeans.ResearcherSurveyResults</managed-bean-class>
+        <managed-bean-name>researcherResults</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.ResearcherResults</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
 
     <managed-bean>
-        <managed-bean-name>researcherSurveyResultsCsv</managed-bean-name>
-        <managed-bean-class>com.dneero.formbeans.ResearcherSurveyResultsCsv</managed-bean-class>
+        <managed-bean-name>researcherResultsAnswers</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.ResearcherResultsAnswers</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
 
     <managed-bean>
-        <managed-bean-name>researcherSurveyResultsQuestions</managed-bean-name>
-        <managed-bean-class>com.dneero.formbeans.ResearcherSurveyResultsQuestions</managed-bean-class>
+        <managed-bean-name>researcherResultsAnswersDetails</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.ResearcherResultsAnswersDetails</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
 
     <managed-bean>
-        <managed-bean-name>researcherSurveyResultsImpressions</managed-bean-name>
-        <managed-bean-class>com.dneero.formbeans.ResearcherSurveyResultsImpressions</managed-bean-class>
+        <managed-bean-name>researcherResultsAnswersCsv</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.ResearcherResultsAnswersCsv</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
 
     <managed-bean>
-        <managed-bean-name>researcherSurveyResultsQuestiondetail</managed-bean-name>
-        <managed-bean-class>com.dneero.formbeans.ResearcherSurveyResultsQuestiondetail</managed-bean-class>
+        <managed-bean-name>researcherResultsRespondents</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.ResearcherResultsRespondents</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>researcherResultsRespondentsAnswers</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.ResearcherResultsRespondentsAnswers</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>researcherResultsRespondentsProfile</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.ResearcherResultsRespondentsProfile</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>researcherResultsRespondentsImpressions</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.ResearcherResultsRespondentsImpressions</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>researcherResultsImpressions</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.ResearcherResultsImpressions</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>researcherResultsImpressionsDetails</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.ResearcherResultsImpressionsDetails</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+
+    <managed-bean>
+        <managed-bean-name>researcherResultsFinancial</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.ResearcherResultsFinancial</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
 
@@ -709,25 +752,51 @@
             <to-view-id>/researcher/researchersurveydetail_postlaunch.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
-            <from-outcome>researchersurveyresults</from-outcome>
-            <to-view-id>/researcher/researchersurveyresults.xhtml</to-view-id>
+            <from-outcome>researcherresults</from-outcome>
+            <to-view-id>/researcher/results.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
-            <from-outcome>researchersurveyresultscsv</from-outcome>
-            <to-view-id>/researcher/researchersurveyresultscsv.xhtml</to-view-id>
+            <from-outcome>researcherresultsanswers</from-outcome>
+            <to-view-id>/researcher/results_answers.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
-            <from-outcome>researchersurveyresultsquestions</from-outcome>
-            <to-view-id>/researcher/researchersurveyresults_questions.xhtml</to-view-id>
+            <from-outcome>researcherresultsanswersdetails</from-outcome>
+            <to-view-id>/researcher/results_answers_details.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
-            <from-outcome>researchersurveyresultsimpressions</from-outcome>
-            <to-view-id>/researcher/researchersurveyresults_impressions.xhtml</to-view-id>
+            <from-outcome>researcherresultsanswerscsv</from-outcome>
+            <to-view-id>/researcher/results_answers_csv.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
-            <from-outcome>researchersurveyresultsquestiondetail</from-outcome>
-            <to-view-id>/researcher/researchersurveyresults_questiondetail.xhtml</to-view-id>
+            <from-outcome>researcherresultsrespondents</from-outcome>
+            <to-view-id>/researcher/results_respondents.xhtml</to-view-id>
         </navigation-case>
+        <navigation-case>
+            <from-outcome>researcherresultsrespondentsanswers</from-outcome>
+            <to-view-id>/researcher/results_respondents_answers.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>researcherresultsrespondentsprofile</from-outcome>
+            <to-view-id>/researcher/results_respondents_profile.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>researcherresultsrespondentsimpressions</from-outcome>
+            <to-view-id>/researcher/results_respondents_impressions.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>researcherresultsimpressions</from-outcome>
+            <to-view-id>/researcher/results_impressions.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>researcherresultsimpressionsdetails</from-outcome>
+            <to-view-id>/researcher/results_impressions_details.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>researcherresultsfinancial</from-outcome>
+            <to-view-id>/researcher/results_financial.xhtml</to-view-id>
+        </navigation-case>
+
+
         <navigation-case>
             <from-outcome>researcherdetails</from-outcome>
             <to-view-id>/researcher/researcherdetails.xhtml</to-view-id>
