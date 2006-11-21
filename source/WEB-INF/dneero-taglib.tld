@@ -83,7 +83,7 @@
         <description>An attribute</description>
     </attribute>
     <attribute>
-        <name>maxvalue</name>
+        <name>maximumvalue</name>
         <description>An attribute</description>
     </attribute>
     <attribute>

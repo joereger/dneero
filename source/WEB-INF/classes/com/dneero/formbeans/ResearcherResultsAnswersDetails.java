@@ -28,7 +28,7 @@ public class ResearcherResultsAnswersDetails {
 
     public void loadQuestion(int surveyid){
         logger.debug("loadSurvey called");
-        Survey survey = Survey.get(surveyid);
+        survey = Survey.get(surveyid);
         if (survey!=null){
             if (Jsf.getUserSession().getUser()!=null && survey.canEdit(Jsf.getUserSession().getUser())){
                 String tmpQuestionid = Jsf.getRequestParam("questionid");

@@ -10,12 +10,23 @@
       xmlns:af="http://xmlns.oracle.com/adf/faces">
 
 <ui:composition template="/template/template-facelets.xhtml">
-    <ui:define name="title">Survey Results: Respondents: Answers</ui:define>
+    <ui:define name="title">Survey Results<br/><br/></ui:define>
     <ui:param name="navtab" value="researchers"/>
     <ui:define name="body">
     <d:authorization acl="researcher" redirectonfail="true"/>
 
 <h:form>
+
+    <div class="rounded" style="background: #e6e6e6; text-align: center; padding: 15px;">
+        <font class="largefont">#{researcherResults.survey.title}</font>
+        <br/>
+        <h:commandLink value="Results Main" action="researcherresults" styleClass="subnavfont" style="padding-left: 15px;"/>
+        <h:commandLink value="Response Report" action="researcherresultsanswers" styleClass="subnavfont" style="padding-left: 15px;"/>
+        <h:commandLink value="Impressions" action="researcherresultsimpressions" styleClass="subnavfont" style="padding-left: 15px;"/>
+        <h:commandLink value="Respondents" action="researcherresultsrespondents" styleClass="subnavfont" style="padding-left: 15px;"/>
+        <h:commandLink value="Financial Status" action="researcherresultsfinancial" styleClass="subnavfont" style="padding-left: 15px;"/>
+    </div>
+    <br/><br/>
 
 
 <f:verbatim escape="false">#{researcherResultsRespondentsAnswers.resultsashtml}</f:verbatim>

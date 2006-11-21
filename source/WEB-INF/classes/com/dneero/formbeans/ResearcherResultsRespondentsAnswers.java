@@ -27,9 +27,8 @@ public class ResearcherResultsRespondentsAnswers {
     }
 
     public String beginView(){
-        Survey survey = Survey.get(Jsf.getUserSession().getCurrentSurveyid());
+        survey = Survey.get(Jsf.getUserSession().getCurrentSurveyid());
         if (survey!=null && survey.getSurveyid()>0){
-            this.survey = survey;
             String tmpBloggerid = Jsf.getRequestParam("bloggerid");
             if (com.dneero.util.Num.isinteger(tmpBloggerid)){
                 blogger = Blogger.get(Integer.parseInt(tmpBloggerid));

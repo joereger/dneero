@@ -29,10 +29,9 @@ public class ResearcherResultsRespondents extends SortableList {
     }
 
     private void load(){
-        Survey survey = Survey.get(Jsf.getUserSession().getCurrentSurveyid());
+        survey = Survey.get(Jsf.getUserSession().getCurrentSurveyid());
         list = new ArrayList<ResearcherResultsRespondentsListitem>();
         if (survey!=null && survey.getSurveyid()>0){
-            this.survey = survey;
             for (Iterator<Response> iterator = survey.getResponses().iterator(); iterator.hasNext();) {
                 Response response = iterator.next();
                 Blogger blogger = Blogger.get(response.getBloggerid());

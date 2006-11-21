@@ -32,7 +32,7 @@ public class ResearcherResultsImpressions {
 
     public void loadSurvey(int surveyid){
         logger.debug("loadSurvey called");
-        Survey survey = Survey.get(surveyid);
+        survey = Survey.get(surveyid);
         researcherResultsImpressionsListitems = new ArrayList<ResearcherResultsImpressionsListitem>();
         if (survey!=null){
             logger.debug("survey.getImpressions().size()="+survey.getImpressions().size());

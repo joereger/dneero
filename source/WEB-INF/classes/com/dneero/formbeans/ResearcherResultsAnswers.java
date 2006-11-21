@@ -27,7 +27,7 @@ public class ResearcherResultsAnswers {
 
     public void loadSurvey(int surveyid){
         logger.debug("loadSurvey called");
-        Survey survey = Survey.get(surveyid);
+        survey = Survey.get(surveyid);
         if (survey!=null){
             results = SurveyResultsDisplay.getHtmlForResults(survey, null);
         }

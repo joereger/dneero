@@ -10,61 +10,132 @@
       xmlns:af="http://xmlns.oracle.com/adf/faces">
 
 <ui:composition template="/template/template-facelets.xhtml">
-    <ui:define name="title">Survey Results</ui:define>
+    <ui:define name="title">Survey Results<br/><br/></ui:define>
     <ui:param name="navtab" value="researchers"/>
     <ui:define name="body">
     <d:authorization acl="researcher" redirectonfail="true"/>
 
 <h:form>
 
-    <d:roundedCornerBox uniqueboxname="surveytitle" bodycolor="e6e6e6" widthinpixels="700">
+    <div class="rounded" style="background: #e6e6e6; text-align: center; padding: 15px;">
         <font class="largefont">#{researcherResults.survey.title}</font>
-    </d:roundedCornerBox>
-
-    <d:roundedCornerBox uniqueboxname="status" bodycolor="ffffff" widthinpixels="700" rendered="#{researcherResults.status==1}">
-        <h:outputText value="Status: Draft" styleClass="mediumfont"></h:outputText>
-    </d:roundedCornerBox>
-    <d:roundedCornerBox uniqueboxname="status" bodycolor="ffffff" widthinpixels="700" rendered="#{researcherResults.status==2}">
-        <h:outputText value="Status: Waiting for Funds" styleClass="mediumfont"></h:outputText>
-    </d:roundedCornerBox>
-    <d:roundedCornerBox uniqueboxname="status" bodycolor="ffffff" widthinpixels="700" rendered="#{researcherResults.status==3}">
-        <h:outputText value="Status: Waiting for Start Date" styleClass="mediumfont"></h:outputText>
-    </d:roundedCornerBox>
-    <d:roundedCornerBox uniqueboxname="status" bodycolor="00ff00" widthinpixels="700" rendered="#{researcherResults.status==4}">
-        <h:outputText value="Status: Open" styleClass="mediumfont"></h:outputText>
-    </d:roundedCornerBox>
-    <d:roundedCornerBox uniqueboxname="status" bodycolor="ff0000" widthinpixels="700" rendered="#{researcherResults.status==5}">
-        <h:outputText value="Status: Closed" styleClass="mediumfont" style="color: #ffffff;"></h:outputText>
-    </d:roundedCornerBox>
-
-    <h:panelGrid columns="2" cellpadding="3" border="0">
-
-        <h:panelGroup>
-            <d:roundedCornerBox uniqueboxname="researcheresultsresponses" bodycolor="00cc00" widthinpixels="325">
-                <h:outputText value="Total Survey Responses" styleClass="smallfont"></h:outputText>
-                <f:verbatim><br/></f:verbatim>
-                <h:outputText value="#{researcherResults.totalsurveyresponses}" styleClass="largefont"></h:outputText>
-                <f:verbatim><br/></f:verbatim>
-                <h:commandButton action="researcherresultsanswers" value="View Responses" styleClass="formsubmitbutton"></h:commandButton>
-            </d:roundedCornerBox>
-        </h:panelGroup>
-        <h:panelGroup>
-            <d:roundedCornerBox uniqueboxname="researcheresultsimpressions" bodycolor="00cc00" widthinpixels="325">
-                <h:outputText value="Total Survey Impressions" styleClass="smallfont"></h:outputText>
-                <f:verbatim><br/></f:verbatim>
-                <h:outputText value="#{researcherResults.totalsurveydisplays}"  styleClass="largefont"></h:outputText>
-                <f:verbatim><br/></f:verbatim>
-                <h:commandButton action="researcherresultsimpressions" value="View Impressions" styleClass="formsubmitbutton"></h:commandButton>
-            </d:roundedCornerBox>
-        </h:panelGroup>
-
-
-    </h:panelGrid>
+        <br/>
+        <h:commandLink value="Results Main" action="researcherresults" styleClass="subnavfont" style="padding-left: 15px;"/>
+        <h:commandLink value="Response Report" action="researcherresultsanswers" styleClass="subnavfont" style="padding-left: 15px;"/>
+        <h:commandLink value="Impressions" action="researcherresultsimpressions" styleClass="subnavfont" style="padding-left: 15px;"/>
+        <h:commandLink value="Respondents" action="researcherresultsrespondents" styleClass="subnavfont" style="padding-left: 15px;"/>
+        <h:commandLink value="Financial Status" action="researcherresultsfinancial" styleClass="subnavfont" style="padding-left: 15px;"/>
+    </div>
 
 
 
-    <h:commandButton action="researcherresultsfinancial" value="Financial Status" styleClass="formsubmitbutton"></h:commandButton>
-    <h:commandButton action="researcherresultsrespondents" value="Respondents" styleClass="formsubmitbutton"></h:commandButton>
+
+
+
+
+
+
+    <table cellpadding="3" cellspacing="0" border="0" width="100%">
+        <tr>
+            <td colspan="2" valign="top">
+                <div class="rounded" style="background: #e6e6e6; text-align: center; padding: 20px;">
+                    <h:outputText value="Survey Status: Draft" styleClass="mediumfont" rendered="#{researcherResults.status==1}"></h:outputText>
+                    <h:outputText value="Survey Status: Waiting for Funds" styleClass="mediumfont" rendered="#{researcherResults.status==2}"></h:outputText>
+                    <h:outputText value="Survey Status: Waiting for Start Date" styleClass="mediumfont" rendered="#{researcherResults.status==3}"></h:outputText>
+                    <h:outputText value="Survey Status: Open" styleClass="mediumfont" rendered="#{researcherResults.status==4}"></h:outputText>
+                    <h:outputText value="Survey Status: Closed" styleClass="mediumfont" rendered="#{researcherResults.status==5}"></h:outputText>
+                </div>
+                <br/>
+            </td>
+        </tr>
+        <tr>
+            <td width="50%" valign="top">
+                <div class="rounded" style="background: #88c99d; text-align: right; padding: 20px;">
+                    <font class="smallfont">Total Survey Responses</font>
+                    <br/>
+                    <font class="largefont">#{researcherResults.totalsurveyresponses}</font>
+                    <br/>
+                    <h:commandButton action="researcherresultsanswers" value="Response Report" styleClass="formsubmitbutton"></h:commandButton>
+                </div>   
+            </td>
+            <td width="50%" valign="top">
+                <div class="rounded" style="background: #00ff00; text-align: left; padding: 20px;">
+                    <font class="smallfont">Total Survey Impressions on Blogs</font>
+                    <br/>
+                    <font class="largefont">#{researcherResults.totalsurveydisplays}</font>
+                    <br/>
+                    <h:commandButton action="researcherresultsimpressions" value="View Impressions" styleClass="formsubmitbutton"></h:commandButton>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td width="50%" valign="top">
+                <div class="rounded" style="background: #00ff00; text-align: right; padding: 20px;">
+                    <h:commandButton action="researcherresultsrespondents" value="See Respondents" styleClass="formsubmitbutton"></h:commandButton>
+                    <br/>
+                    <font class="largefont">#{researcherResults.totalsurveyresponses}</font>
+                    <br/>
+                    <font class="smallfont">People Have Taken the Survey</font>
+                </div>
+            </td>
+            <td width="50%" valign="top">
+                <div class="rounded" style="background: #88c99d; text-align: left; padding: 20px;">
+                    <h:commandButton action="researcherresultsfinancial" value="Financial Status" styleClass="formsubmitbutton"></h:commandButton>
+                    <br/>
+                    <font class="largefont">$<h:outputText value="#{researcherResults.spenttodate}" styleClass="largefont"><f:converter converterId="DisplayAsMoneyConverter"/></h:outputText></font>
+                    <br/>
+                    <font class="smallfont">Has Been Spent to Date</font>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" valign="top">
+                <br/>
+                <div class="rounded" style="background: #e6e6e6; text-align: center; padding: 20px;">
+                    <font class="mediumfont" style="color: #333333;">Survey Responses</font>
+                    <d:percentCompleteBar currentvalue="#{researcherResults.totalsurveyresponses}" maximumvalue="#{researcherResults.maxsurveyresponses}" mintitle="" maxtitle="" widthinpixels="650"/>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" valign="top">
+                <br/>
+                <div class="rounded" style="background: #e6e6e6; text-align: center; padding: 20px;">
+                    <font class="mediumfont" style="color: #333333;">Survey Impressions on Blogs</font>
+                    <d:percentCompleteBar currentvalue="#{researcherResults.totalsurveydisplays}" maximumvalue="#{researcherResults.maxsurveydisplays}" mintitle="" maxtitle="" widthinpixels="650"/>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" valign="top">
+                <br/>
+                <div class="rounded" style="background: #e6e6e6; text-align: center; padding: 20px;">
+                    <font class="mediumfont" style="color: #333333;">Possible Spend</font>
+                    <d:percentCompleteBar currentvalue="#{researcherResults.spenttodate}" maximumvalue="#{researcherResults.maxpossiblespend}" mintitle="" maxtitle="" widthinpixels="650"/>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+
+
+
+
+    <br/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 </h:form>
 

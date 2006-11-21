@@ -33,7 +33,7 @@ public class ResearcherResultsAnswersCsv {
 
     public void loadSurvey(int surveyid){
         logger.debug("loadSurvey called");
-        Survey survey = Survey.get(surveyid);
+        survey = Survey.get(surveyid);
         if (survey!=null){
             if (Jsf.getUserSession().getUser()!=null && survey.canEdit(Jsf.getUserSession().getUser())){
                 results = "";
