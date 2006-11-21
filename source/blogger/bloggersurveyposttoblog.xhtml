@@ -9,7 +9,11 @@
       xmlns:d="http://dneero.com/taglib">
 
 <ui:composition template="/template/template-facelets.xhtml">
-    <ui:define name="title">Survey</ui:define>
+    <ui:define name="title">
+        <img src="/images/process-train-blogger-03.gif" align="right" width="171" height="73"></img>
+        <h:outputText value="Survey: ${bloggerSurveyPosttoblog.survey.title}" styleClass="pagetitlefont"/>
+        <br clear="all"/>
+    </ui:define>
     <ui:param name="navtab" value="bloggers"/>
     <ui:define name="body">
     <d:authorization acl="blogger" redirectonfail="true"/>
@@ -17,11 +21,13 @@
 
 <h:form>
 
-    <h:graphicImage url="/images/process-train-blogger-03.gif" style="display: block; margin-left: auto; margin-right: auto;"></h:graphicImage>
-    <f:verbatim><br/><br/></f:verbatim>
-
-    <font class="mediumfont">#{bloggerSurveyPosttoblog.survey.title}</font>
-    <br/><br/>
+    <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
+    <img src="/images/lightbulb_on.png" align="left"/>
+    Now that you've filled out the survey you can make even more money by posting it to your blog with a simple copy-and-paste operation.
+    <br/><br/><br/>
+    </font></div></center>
+    <br/>
+    <br/>
 
     <d:roundedCornerBox uniqueboxname="youcouldearn" bodycolor="00ff00" widthinpixels="500">
         <h:outputText value="You just earned:" styleClass="smallfont"/>

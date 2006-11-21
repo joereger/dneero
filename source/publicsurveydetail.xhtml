@@ -130,26 +130,46 @@
         </t:panelTab>
         <t:panelTab id="panel_c" label="Question Preview" rendered="#{!publicSurveyDetail.bloggerhasalreadytakensurvey}">
             <h:graphicImage url="/images/clear.gif" width="700" height="1"/><br/>
-            <h:outputText value="Please don't fill out this survey... this screen is just a preview of the questions." styleClass="mediumfont"/>
-            <br/><br/>
+            <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
+            <img src="/images/lightbulb_on.png" align="left"/>
+            You don't take the survey here... this is just a preview of the questions to give you a sense of what you're getting into.  To take the survey, click the 'Summary' tab and then click the 'Ok, I'll Take the Survey' button.
+            <br/><br/><br/>
+            </font></div></center>
+            <br/>
+            <br/>
             <f:verbatim>#{publicSurveyDetail.surveyForTakers}</f:verbatim>
         </t:panelTab>
         <t:panelTab id="panel_d" label="On-Blog Preview" rendered="#{!publicSurveyDetail.bloggerhasalreadytakensurvey}">
             <h:graphicImage url="/images/clear.gif" width="700" height="1"/><br/>
-            <h:outputText value="This is how the survey will look on your blog... with your answers, of course." styleClass="mediumfont"/>
-            <br/><br/>
+            <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
+            <img src="/images/lightbulb_on.png" align="left"/>
+            This is how the survey will look on your blog... we'll put your answers in there automatically, of course.  Use this screen to get a sense of how the survey will interact and flow with your blog.
+            <br/><br/><br/>
+            </font></div></center>
+            <br/>
+            <br/>
             <f:verbatim>#{publicSurveyDetail.surveyOnBlogPreview}</f:verbatim>
         </t:panelTab>
         <t:panelTab id="panel_e" label="Your Answers" rendered="#{publicSurveyDetail.bloggerhasalreadytakensurvey}">
             <h:graphicImage url="/images/clear.gif" width="700" height="1"/><br/>
-            <h:outputText value="These are the answers that you provided." styleClass="mediumfont"/>
-            <br/><br/>
+            <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
+            <img src="/images/lightbulb_on.png" align="left"/>
+            These are the answers that you provided.
+            <br/><br/><br/>
+            </font></div></center>
+            <br/>
+            <br/>
             <f:verbatim>#{publicSurveyDetail.surveyAnswersForThisBlogger}</f:verbatim>
         </t:panelTab>
         <t:panelTab id="panel_f" label="Post to your Blog" rendered="#{publicSurveyDetail.bloggerhasalreadytakensurvey}">
             <h:graphicImage url="/images/clear.gif" width="700" height="1"/><br/>
-            <h:outputText value="Copy and paste the following into your blog to make even more money!" styleClass="mediumfont"/>
-            <br/><br/>
+            <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
+            <img src="/images/lightbulb_on.png" align="left"/>
+            Now that you've filled out the survey you can make even more money by posting it to your blog with a simple copy-and-paste operation.
+            <br/><br/><br/>
+            </font></div></center>
+            <br/>
+            <br/>
             <d:roundedCornerBox uniqueboxname="posttoblog" bodycolor="ffffff" widthinpixels="500">
             <font class="smallfont">&lt;script src="${systemProps.baseurl}s?s=#{publicSurveyDetail.survey.surveyid}&amp;u=#{userSession.user.userid}"&gt;&lt;/script&gt;</font>
             </d:roundedCornerBox>

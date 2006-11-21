@@ -9,7 +9,11 @@
       xmlns:d="http://dneero.com/taglib">
 
 <ui:composition template="/template/template-facelets.xhtml">
-    <ui:define name="title">Survey</ui:define>
+    <ui:define name="title">
+        <img src="/images/process-train-blogger-02.gif" align="right" width="171" height="73"></img>
+        <h:outputText value="Survey: ${bloggerSurveyTake.survey.title}" styleClass="pagetitlefont"/>
+        <br clear="all"/>
+    </ui:define>
     <ui:param name="navtab" value="bloggers"/>
     <ui:define name="body">
     <d:authorization acl="blogger" redirectonfail="true"/>
@@ -17,11 +21,16 @@
 
 <h:form>
 
-    <h:graphicImage url="/images/process-train-blogger-02.gif"  style="display: block; margin-left: auto; margin-right: auto;"></h:graphicImage>
-    <f:verbatim><br/><br/></f:verbatim>
+    <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
+    <img src="/images/lightbulb_on.png" align="left"/>
+    Read the questions and provide your answers below.
+    <br/><br/><br/>
+    </font></div></center>
+    <br/>
+    <br/>
 
 
-    <h:outputText value="#{bloggerSurveyTake.survey.title}" styleClass="mediumfont"/>
+    <h:outputText value="Take the Survey" styleClass="mediumfont"/>
     <br/>
     <h:outputText value="#{bloggerSurveyTake.survey.description}" styleClass="smallfont"/>
     <f:verbatim><br/><br/></f:verbatim>
