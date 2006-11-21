@@ -55,8 +55,13 @@ public class Textbox implements Component {
 
     public String getHtmlForDisplay(Response response) {
         StringBuffer out = new StringBuffer();
+        out.append("<font style=\"font-family: Arial Black, Arial Black, Gadget, sans-serif; font-size: 12px;\">");
+        out.append("<b>");
         out.append(question.getQuestion());
+        out.append("</b>");
+        out.append("</font>");
         out.append("<br/>");
+        out.append("<font style=\"font-family: Arial, Arial, Helvetica, sans-serif; font-size: 12px;\">");
 
         if (blogger!=null && response!=null){
             List<Questionresponse> responses = HibernateUtil.getSession().createQuery("from Questionresponse where questionid='"+question.getQuestionid()+"' and bloggerid='"+blogger.getBloggerid()+"' and responseid='"+response.getResponseid()+"'").list();
@@ -70,7 +75,7 @@ public class Textbox implements Component {
         } else {
             out.append("Not answered.");
         }
-
+        out.append("</font>");
         return out.toString();
     }
 

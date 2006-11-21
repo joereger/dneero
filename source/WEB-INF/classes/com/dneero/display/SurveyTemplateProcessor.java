@@ -65,7 +65,7 @@ public class SurveyTemplateProcessor {
             ComponentTypes ct = new ComponentTypes();
             Component component = ct.getByTagSyntax(m.group(), blogger);
             if (component!=null){
-                m.appendReplacement(out, Str.cleanForAppendreplacement(component.getHtmlForDisplay(response)));
+                m.appendReplacement(out, Str.cleanForAppendreplacement(component.getHtmlForDisplay(response) + "<br>"));
             }
         }
         try{
