@@ -26,7 +26,7 @@
   <property file="build.number"/>
 
   <!-- Set internal script properties -->
-  <property name="tomcat.app.name" value="RegerCom"/>
+  <property name="tomcat.app.name" value="dNeero"/>
   <property name="builddir" value="${builds.directory}"/>
   <property name="lastbuild" value="${builddir}/lastbuild/${tomcat.app.name}"/>
   <property name="wardir" value="${builddir}/WARs/${tomcat.app.name}"/>
