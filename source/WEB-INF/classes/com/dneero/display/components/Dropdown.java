@@ -5,8 +5,8 @@ import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.util.GeneralException;
 import com.dneero.display.components.def.Component;
 import com.dneero.display.components.def.ComponentException;
+import com.dneero.display.SurveyResponseParser;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.Iterator;
 import java.util.List;
 import java.util.LinkedHashMap;
@@ -57,7 +57,7 @@ public class Dropdown implements Component {
         }
         String[] optionsSplit = options.split("\\n");
 
-        out.append("<select name=\"dneero_questionid_"+question.getQuestionid()+"\">");
+        out.append("<select name=\""+ SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"questionid_"+question.getQuestionid()+"\">");
         for (int i = 0; i < optionsSplit.length; i++) {
             String s = optionsSplit[i];
             out.append("<option value=\""+com.dneero.util.Str.cleanForHtml(s)+"\">" + s + "</option>");
@@ -94,18 +94,18 @@ public class Dropdown implements Component {
         return out.toString();
     }
 
-    public void validateAnswer(HttpServletRequest request) throws ComponentException {
+    public void validateAnswer(SurveyResponseParser srp) throws ComponentException {
         if (question.getIsrequired()){
-            String[] requestParams = request.getParameterValues("dneero_questionid_"+question.getQuestionid());
-            if (requestParams==null){
+            String[] requestParams = srp.getParamsForQuestion(question.getQuestionid());
+            if (requestParams==null || requestParams.length<1){
                 throw new ComponentException(question.getQuestion()+" is required.");
             }
         }
     }
 
-    public void processAnswer(HttpServletRequest request, Response response) throws ComponentException {
-        String[] requestParams = request.getParameterValues("dneero_questionid_"+question.getQuestionid());
-        if (requestParams!=null){
+    public void processAnswer(SurveyResponseParser srp, Response response) throws ComponentException {
+        String[] requestParams = srp.getParamsForQuestion(question.getQuestionid());
+        if (requestParams!=null && requestParams.length>0){
             boolean addedAResponse = false;
             for (int i = 0; i < requestParams.length; i++) {
                 String requestParam = requestParams[i];

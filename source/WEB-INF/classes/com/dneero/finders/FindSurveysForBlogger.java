@@ -175,7 +175,19 @@ public class FindSurveysForBlogger {
 
     }
 
-
+    public static boolean isBloggerQualifiedToTakeSurvey(Blogger blogger, Survey survey){
+        if (blogger==null){
+            return false;    
+        }
+        FindSurveysForBlogger fsfb = new FindSurveysForBlogger(blogger);
+        for (Iterator iterator = fsfb.getSurveys().iterator(); iterator.hasNext();) {
+            Survey tmpSurvey = (Survey) iterator.next();
+            if (tmpSurvey.getSurveyid()==survey.getSurveyid()){
+                return true;
+            }
+        }
+        return false;   
+    }
 
 
     public List getSurveys() {

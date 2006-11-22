@@ -8,8 +8,8 @@ import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.util.GeneralException;
 import com.dneero.display.components.def.Component;
 import com.dneero.display.components.def.ComponentException;
+import com.dneero.display.SurveyResponseParser;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.Iterator;
 import java.util.List;
 import java.util.LinkedHashMap;
@@ -51,7 +51,7 @@ public class Essay implements Component {
         out.append("<font class=\"formfieldnamefont\">"+question.getQuestion()+"</font>");
         out.append("<br/>");
 
-        out.append("<textarea cols=\"25\" rows=\"5\" name=\"dneero_questionid_"+question.getQuestionid()+"\"></textarea>");
+        out.append("<textarea cols=\"25\" rows=\"5\" name=\""+ SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"questionid_"+question.getQuestionid()+"\"></textarea>");
 
         return out.toString();
     }
@@ -82,18 +82,18 @@ public class Essay implements Component {
         return out.toString();
     }
 
-    public void validateAnswer(HttpServletRequest request) throws ComponentException {
+    public void validateAnswer(SurveyResponseParser srp) throws ComponentException {
         if (question.getIsrequired()){
-            String[] requestParams = request.getParameterValues("dneero_questionid_"+question.getQuestionid());
-            if (requestParams==null){
+            String[] requestParams = srp.getParamsForQuestion(question.getQuestionid());
+            if (requestParams==null || requestParams.length<1){
                 throw new ComponentException(question.getQuestion()+" is required.");
             }
         }
     }
 
-    public void processAnswer(HttpServletRequest request, Response response) throws ComponentException {
-        String[] requestParams = request.getParameterValues("dneero_questionid_"+question.getQuestionid());
-        if (requestParams!=null){
+    public void processAnswer(SurveyResponseParser srp, Response response) throws ComponentException {
+        String[] requestParams = srp.getParamsForQuestion(question.getQuestionid());
+        if (requestParams!=null && requestParams.length>0){
             boolean addedAResponse = false;
             for (int i = 0; i < requestParams.length; i++) {
                 String requestParam = requestParams[i];

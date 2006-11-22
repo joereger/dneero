@@ -5,6 +5,7 @@ import com.dneero.dao.Userrole;
 import org.apache.log4j.Logger;
 
 import java.util.Iterator;
+import java.util.HashMap;
 
 /**
  * User: Joe Reger Jr
@@ -20,6 +21,8 @@ public class UserSession {
     private int referredbyOnlyUsedForSignup = 0;
     private boolean isSysadmin = false;
     private boolean isLoggedInToBeta = false;
+    private int pendingSurveyResponseSurveyid = 0;
+    private String pendingSurveyResponseAsString = "";
 
     public UserSession(){
         //Used for anonymous access
@@ -81,12 +84,27 @@ public class UserSession {
         isSysadmin = sysadmin;
     }
 
-
     public boolean getIsLoggedInToBeta() {
         return isLoggedInToBeta;
     }
 
     public void setIsLoggedInToBeta(boolean isLoggedInToBeta) {
         this.isLoggedInToBeta = isLoggedInToBeta;
+    }
+
+    public int getPendingSurveyResponseSurveyid() {
+        return pendingSurveyResponseSurveyid;
+    }
+
+    public void setPendingSurveyResponseSurveyid(int pendingSurveyResponseSurveyid) {
+        this.pendingSurveyResponseSurveyid = pendingSurveyResponseSurveyid;
+    }
+
+    public String getPendingSurveyResponseAsString() {
+        return pendingSurveyResponseAsString;
+    }
+
+    public void setPendingSurveyResponseAsString(String pendingSurveyResponseAsString) {
+        this.pendingSurveyResponseAsString = pendingSurveyResponseAsString;
     }
 }

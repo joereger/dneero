@@ -19,6 +19,19 @@ public class Util {
         return out;
     }
 
+    public static String[] addToStringArray(String[] src, String str){
+        if (src==null){
+            src=new String[0];
+        }
+
+        String[] outArr = new String[src.length+1];
+        for(int i=0; i < src.length; i++) {
+            outArr[i]=src[i];
+        }
+        outArr[src.length]=str;
+        return outArr;
+    }
+
 
 
     public static boolean arrayContains(String[] array, String value){

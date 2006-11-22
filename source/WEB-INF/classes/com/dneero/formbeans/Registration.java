@@ -109,8 +109,7 @@ public class Registration {
             return null;
         }
 
-
-
+        //Eula version check
         Usereula usereula = new Usereula();
         usereula.setDate(new Date());
         usereula.setEulaid(EulaHelper.getMostRecentEula().getEulaid());
@@ -124,15 +123,23 @@ public class Registration {
         }
         user.getUsereulas().add(usereula);
 
+        //Pending survey save
+        if (Jsf.getUserSession().getPendingSurveyResponseSurveyid()>0){
+            if (!Jsf.getUserSession().getPendingSurveyResponseAsString().equals("")){
+                Responsepending responsepending = new Responsepending();
+                responsepending.setUserid(user.getUserid());
+                responsepending.setResponseasstring(Jsf.getUserSession().getPendingSurveyResponseAsString());
+                responsepending.setSurveyid(Jsf.getUserSession().getPendingSurveyResponseSurveyid());
+                try{responsepending.save();}catch (Exception ex){logger.error(ex);}
+            }
+        }
+
         //Send the activation email
         EmailActivationSend.sendActivationEmail(user);
 
         //Notify customer care group
         SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_CUSTOMERSUPPORT, "New dNeero User: "+ user.getFirstname() + " " + user.getLastname() + "("+user.getEmail()+")");
         xmpp.send();
-
-
-
 
         //Log the user in
 //        UserSession userSession = Jsf.getUserSession();

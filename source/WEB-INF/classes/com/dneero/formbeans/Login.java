@@ -8,6 +8,7 @@ import java.util.Iterator;
 
 import com.dneero.dao.Survey;
 import com.dneero.dao.User;
+import com.dneero.dao.Responsepending;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.util.GeneralException;
 import com.dneero.util.Jsf;
@@ -60,6 +61,17 @@ public class Login {
                 //Add a cookies to the response
                 for (int j = 0; j < cookies.length; j++) {
                     Jsf.getHttpServletResponse().addCookie(cookies[j]);
+                }
+            }
+
+            //Pending survey save
+            if (Jsf.getUserSession().getPendingSurveyResponseSurveyid()>0){
+                if (!Jsf.getUserSession().getPendingSurveyResponseAsString().equals("")){
+                    Responsepending responsepending = new Responsepending();
+                    responsepending.setUserid(user.getUserid());
+                    responsepending.setResponseasstring(Jsf.getUserSession().getPendingSurveyResponseAsString());
+                    responsepending.setSurveyid(Jsf.getUserSession().getPendingSurveyResponseSurveyid());
+                    try{responsepending.save();}catch (Exception ex){logger.error(ex);}
                 }
             }
 

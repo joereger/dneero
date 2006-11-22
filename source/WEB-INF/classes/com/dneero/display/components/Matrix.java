@@ -2,6 +2,7 @@ package com.dneero.display.components;
 
 import com.dneero.display.components.def.Component;
 import com.dneero.display.components.def.ComponentException;
+import com.dneero.display.SurveyResponseParser;
 import com.dneero.dao.*;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.util.GeneralException;
@@ -9,7 +10,6 @@ import com.dneero.util.Str;
 import com.dneero.util.Util;
 import org.apache.log4j.Logger;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 import java.text.NumberFormat;
 import java.text.DecimalFormat;
@@ -98,9 +98,9 @@ public class Matrix implements Component {
                 String col = cols[j].trim();
                 out.append("<td valign=top>");
                 if (respondentcanselectmany){
-                    out.append("<input type=checkbox name=\"dneero_questionid_"+question.getQuestionid()+"_row_"+Str.cleanForHtml(row)+"\" value=\""+com.dneero.util.Str.cleanForHtml(row+DELIM+col)+"\">");
+                    out.append("<input type=checkbox name=\""+ SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"questionid_"+question.getQuestionid()+"_row_"+Str.cleanForHtml(row)+"\" value=\""+com.dneero.util.Str.cleanForHtml(row+DELIM+col)+"\">");
                 } else {
-                    out.append("<input type=radio name=\"dneero_questionid_"+question.getQuestionid()+"_row_"+Str.cleanForHtml(row)+"\" value=\""+com.dneero.util.Str.cleanForHtml(row+DELIM+col)+"\">");
+                    out.append("<input type=radio name=\""+ SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"questionid_"+question.getQuestionid()+"_row_"+Str.cleanForHtml(row)+"\" value=\""+com.dneero.util.Str.cleanForHtml(row+DELIM+col)+"\">");
                 }
                 out.append("</td>");
             }
@@ -203,36 +203,21 @@ public class Matrix implements Component {
         return out.toString();
     }
 
-    public void validateAnswer(HttpServletRequest request) throws ComponentException {
+    public void validateAnswer(SurveyResponseParser srp) throws ComponentException {
         if (question.getIsrequired()){
-            Iterator keyValuePairs = request.getParameterMap().entrySet().iterator();
-            for (int i = 0; i < request.getParameterMap().size(); i++){
-                Map.Entry mapentry = (Map.Entry) keyValuePairs.next();
-                String name = (String)mapentry.getKey();
-                String[] value = (String[])mapentry.getValue();
-                if (name.indexOf("dneero_questionid_"+question.getQuestionid())>-1){
-                    return;
-                }
+            String[] requestParams = srp.getParamsForQuestion(question.getQuestionid());
+            if (requestParams==null || requestParams.length<1){
+                throw new ComponentException(question.getQuestion()+" is required.");
             }
-            throw new ComponentException(question.getQuestion()+" is required.");
         }
     }
 
 
 
-    public void processAnswer(HttpServletRequest request, Response response) throws ComponentException {
+    public void processAnswer(SurveyResponseParser srp, Response response) throws ComponentException {
         logger.debug("made it to processAnswer");
-        String[] requestParams = new String[0];
-        Iterator keyValuePairs = request.getParameterMap().entrySet().iterator();
-        for (int i = 0; i < request.getParameterMap().size(); i++){
-            Map.Entry mapentry = (Map.Entry) keyValuePairs.next();
-            String name = (String)mapentry.getKey();
-            String[] value = (String[])mapentry.getValue();
-            if (name.indexOf("dneero_questionid_"+question.getQuestionid())>-1){
-                requestParams = Util.appendToEndOfStringArray(requestParams, request.getParameterValues(name));
-            }
-        }
-        if (requestParams!=null){
+        String[] requestParams = srp.getParamsForQuestion(question.getQuestionid());
+        if (requestParams!=null && requestParams.length>0){
             boolean addedAResponse = false;
             for (int i = 0; i < requestParams.length; i++) {
                 String requestParam = requestParams[i];

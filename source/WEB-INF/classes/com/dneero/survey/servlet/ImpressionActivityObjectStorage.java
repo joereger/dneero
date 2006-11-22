@@ -3,6 +3,7 @@ package com.dneero.survey.servlet;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.dao.*;
 import com.dneero.util.GeneralException;
+import com.dneero.util.Num;
 
 import java.util.List;
 import java.util.Iterator;
@@ -64,7 +65,10 @@ public class ImpressionActivityObjectStorage {
         if (iao.getSurveyid()>0){
             survey = Survey.get(iao.getSurveyid());
             if (survey!=null && survey.getSurveyid()>0){
-                surveyimpressionsthatqualifyforpayment = (Integer)HibernateUtil.getSession().createQuery("select sum(impressionsqualifyingforpayment) from Impression where surveyid='"+survey.getSurveyid()+"'").uniqueResult();
+                Object obj = HibernateUtil.getSession().createQuery("select sum(impressionsqualifyingforpayment) from Impression where surveyid='"+survey.getSurveyid()+"'").uniqueResult();
+                if (obj!=null && Num.isinteger(String.valueOf(obj))){
+                    surveyimpressionsthatqualifyforpayment = (Integer)obj;
+                }
             } else {
                 //Error, survey not found, don't record
                 logger.debug("Surveyid="+iao.getSurveyid()+" not found so aborting impression save.");

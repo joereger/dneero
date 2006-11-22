@@ -1,6 +1,7 @@
 package com.dneero.display.components.def;
 
 import com.dneero.dao.Response;
+import com.dneero.display.SurveyResponseParser;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -18,8 +19,8 @@ public interface Component {
     public String getHtmlForDisplay(Response response);
     public String getHtmlForResult();
     public String getHtmlForResultDetail();
-    public void validateAnswer(HttpServletRequest request) throws ComponentException;
-    public void processAnswer(HttpServletRequest request, Response response) throws ComponentException;
+    public void validateAnswer(SurveyResponseParser srp) throws ComponentException;
+    public void processAnswer(SurveyResponseParser srp, Response response) throws ComponentException;
     public int columnsInCsvOutput();
     public String[] getCsvForResult();
 

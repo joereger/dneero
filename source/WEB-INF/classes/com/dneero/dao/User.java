@@ -73,6 +73,14 @@ public class User extends BasePersistentClass implements java.io.Serializable, R
         this.researcher = researcher;
     }
 
+    private Set<Responsepending> responsependings = new HashSet<Responsepending>();
+    public Set<Responsepending> getResponsependings() {
+        return responsependings;
+    }
+    public void setResponsependings(Set<Responsepending> responsependings) {
+        this.responsependings = responsependings;
+    }
+
     //Validator
     public void validateRegerEntity() throws GeneralException {
 

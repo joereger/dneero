@@ -30,7 +30,7 @@
     <br/>
 
 
-    <h:outputText value="Take the Survey" styleClass="mediumfont"/>
+    <h:outputText value="Take the Survey: #{bloggerSurveyTake.survey.title}" styleClass="mediumfont"/>
     <br/>
     <h:outputText value="#{bloggerSurveyTake.survey.description}" styleClass="smallfont"/>
     <f:verbatim><br/><br/></f:verbatim>
@@ -39,7 +39,7 @@
      <h:panelGrid columns="1" cellpadding="3" border="0">
 
         <h:panelGroup>
-            <d:surveyTaker id="surveytaker"/>
+            <f:verbatim escape="false">#{bloggerSurveyTake.html}</f:verbatim>
         </h:panelGroup>
 
      </h:panelGrid>

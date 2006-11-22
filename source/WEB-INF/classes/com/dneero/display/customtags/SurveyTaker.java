@@ -19,7 +19,10 @@ import com.dneero.display.components.def.Component;
 import com.dneero.display.components.def.ComponentTypes;
 import com.dneero.display.components.def.ComponentException;
 import com.dneero.display.SurveyTakerDisplay;
+import com.dneero.display.SurveyResponseParser;
 import com.dneero.survey.servlet.SurveyAsHtml;
+import com.dneero.finders.FindSurveysForBlogger;
+import com.dneero.formbeans.BloggerSurveyTake;
 
 /**
  * User: Joe Reger Jr
@@ -27,6 +30,31 @@ import com.dneero.survey.servlet.SurveyAsHtml;
  * Time: 9:51:56 AM
  */
 public class SurveyTaker extends UIInput {
+
+
+
+
+
+
+
+    //THIS TAG IS NO LONGER IN USE... IT IS JUST A GOOD EXAMPLE OF A CUSTOM COMPONENT
+    //ACTUALLY, IT'S LIKELY A POOR EXAMPLE
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     Logger logger = Logger.getLogger(this.getClass().getName());
 
@@ -111,6 +139,11 @@ public class SurveyTaker extends UIInput {
             }
         }
 
+        //Make sure blogger is qualified to take
+        if (!FindSurveysForBlogger.isBloggerQualifiedToTakeSurvey(blogger, survey)){
+            allCex.addValidationError("Sorry, you're not qualified to take this survey.");
+        }
+
         //Make sure each component is validated
         for (Iterator<Question> iterator = survey.getQuestions().iterator(); iterator.hasNext();) {
             Question question = iterator.next();
@@ -118,7 +151,8 @@ public class SurveyTaker extends UIInput {
             Component component = ComponentTypes.getComponentByID(question.getComponenttype(), question, Jsf.getUserSession().getUser().getBlogger());
             logger.debug("found component.getName()="+component.getName());
             try{
-                component.validateAnswer((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest());
+                SurveyResponseParser srp = new SurveyResponseParser((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest());
+                component.validateAnswer(srp);
             } catch (ComponentException cex){
                 logger.debug(cex);
                 allCex.addErrorsFromAnotherGeneralException(cex);
@@ -127,33 +161,20 @@ public class SurveyTaker extends UIInput {
         if (allCex.getErrors().length>0){
             Jsf.setFacesMessage(allCex.getErrorsAsSingleString());
         } else {
-
-            //Create the response
-            Response response = new Response();
-            response.setBloggerid(Jsf.getUserSession().getUser().getBlogger().getBloggerid());
-            response.setResponsedate(new Date());
-            response.setSurveyid(survey.getSurveyid());
-            survey.getResponses().add(response);
-            try{survey.save();} catch (GeneralException gex){
-                logger.debug("processAnswer() failed: " + gex.getErrorsAsSingleString());
+            SurveyResponseParser srp = new SurveyResponseParser((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest());
+            if (!Jsf.getUserSession().getIsloggedin()){
+                //Not logged-in... store this response in memory for now
+                Jsf.getUserSession().setPendingSurveyResponseSurveyid(survey.getSurveyid());
+                Jsf.getUserSession().setPendingSurveyResponseAsString(srp.getAsString());
+                logger.debug("Storing survey response in memory: surveyid="+survey.getSurveyid()+" : srp.getAsString()="+srp.getAsString());
+            } else {
+                //Create Response
+                try{BloggerSurveyTake.createResponse(survey, srp, Jsf.getUserSession().getUser().getBlogger());} catch (ComponentException cex){logger.debug(cex);allCex.addErrorsFromAnotherGeneralException(cex);}
             }
-
-            //Processing each question
-            for (Iterator<Question> iterator = survey.getQuestions().iterator(); iterator.hasNext();) {
-                Question question = iterator.next();
-                Component component = ComponentTypes.getComponentByID(question.getComponenttype(), question, Jsf.getUserSession().getUser().getBlogger());
-                try{
-                    component.processAnswer((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest(), response);
-                } catch (ComponentException cex){
-                    allCex.addErrorsFromAnotherGeneralException(cex);
-                }
-            }
-
-            //Refresh blogger
-            try{Jsf.getUserSession().getUser().getBlogger().save();} catch (Exception ex){logger.error(ex);};
-
         }
     }
+
+
 
     public void encodeEnd(FacesContext context) throws IOException {
         logger.debug("encodeEnd called getClientId(context)=" + getClientId(context));
@@ -175,17 +196,6 @@ public class SurveyTaker extends UIInput {
         if (Jsf.getUserSession().getUser()!=null){
             out.append(SurveyTakerDisplay.getHtmlForSurveyTaking(Survey.get(Jsf.getUserSession().getCurrentSurveyid()), Jsf.getUserSession().getUser().getBlogger()));
         }
-//   Survey survey = Survey.get(Jsf.getUserSession().getCurrentSurveyid());
-//        for (Iterator<Question> iterator = survey.getQuestions().iterator(); iterator.hasNext();) {
-//            Question question = iterator.next();
-//            logger.debug("found question.getQuestionid()="+question.getQuestionid());
-//            Component component = ComponentTypes.getComponentByID(question.getComponenttype(), question, Jsf.getUserSession().getUser().getBlogger());
-//            logger.debug("found component.getName()="+component.getName());
-//            out.append(component.getHtmlForInput());
-//            if (iterator.hasNext()){
-//                out.append("<br/>");
-//            }
-//        }
 
         ResponseWriter writer = context.getResponseWriter();
         writer.write(out.toString());
