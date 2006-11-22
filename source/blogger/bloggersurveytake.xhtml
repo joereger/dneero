@@ -21,6 +21,8 @@
 
 <h:form>
 
+    <h:messages styleClass="RED"/>
+
     <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
     <img src="/images/lightbulb_on.png" align="left"/>
     Read the questions and provide your answers below.
@@ -36,22 +38,11 @@
     <f:verbatim><br/><br/></f:verbatim>
 
 
-     <h:panelGrid columns="1" cellpadding="3" border="0">
 
-        <h:panelGroup>
-            <f:verbatim escape="false">#{bloggerSurveyTake.html}</f:verbatim>
-        </h:panelGroup>
+    <f:verbatim escape="false">#{bloggerSurveyTake.html}</f:verbatim>
+    <br/><br/>
+    <h:commandButton action="#{bloggerSurveyTake.takeSurvey}" value="Complete the Survey" styleClass="formsubmitbutton"></h:commandButton>
 
-     </h:panelGrid>
-
-     <h:panelGrid columns="1" cellpadding="3" border="0">
-
-        <h:panelGroup>
-            <h:commandButton action="#{bloggerSurveyTake.takeSurvey}" value="Complete the Survey" styleClass="formsubmitbutton">
-            </h:commandButton>
-        </h:panelGroup>
-
-     </h:panelGrid>
 
 
 </h:form>

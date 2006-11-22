@@ -28,7 +28,6 @@ import java.util.Date;
 public class BloggerSurveyTake {
 
     private Survey survey;
-    private HashMap valueMap;
     private String html;
 
     Logger logger = Logger.getLogger(this.getClass().getName());
@@ -145,14 +144,7 @@ public class BloggerSurveyTake {
         this.survey = survey;
     }
 
-    public HashMap getValueMap() {
-        return valueMap;
-    }
-
-    public void setValueMap(HashMap valueMap) {
-        this.valueMap = valueMap;
-    }
-
+  
 
     public String getHtml() {
         return html;

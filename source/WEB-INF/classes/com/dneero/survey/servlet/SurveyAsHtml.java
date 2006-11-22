@@ -44,7 +44,7 @@ public class SurveyAsHtml {
                     "&nbsp;\n"+
                     "\t\t</td>\n" +
                     "\t\t<td valign=\"bottom\" align=\"right\" bgcolor=\"#dadada\">\n" +
-                    "\t\t\t<a href='"+baseurl+"'><img src=\""+baseurl+"images/surveyinblog/dneero-survey-questionmark.gif\" border=\"0\"></a>\n" +
+                    "\t\t\t<a href='"+baseurl+"surveytake.jsf?surveyid="+survey.getSurveyid()+"'><img src=\""+baseurl+"images/surveyinblog/dneero-survey-questionmark.gif\" border=\"0\"></a>\n" +
                     "\t\t</td>\n" +
                     "\t\t<td valign=\"bottom\" align=\"right\" bgcolor=\"#dadada\" width=\"7\">\n" +
                     "\t\t\t<img src=\""+baseurl+"images/surveyinblog/dneero-survey-dots.gif\" border=\"0\">\n" +

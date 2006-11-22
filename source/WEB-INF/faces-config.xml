@@ -113,6 +113,18 @@
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
 
+    <managed-bean>
+        <managed-bean-name>publicSurveyTake</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.PublicSurveyTake</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>publicSurveyTakeFinished</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.PublicSurveyTakeFinished</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
 
     <managed-bean>
         <managed-bean-name>sysadminUserList</managed-bean-name>
@@ -554,6 +566,14 @@
         <navigation-case>
             <from-outcome>publicsurveylist</from-outcome>
             <to-view-id>/publicsurveylist.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>publicsurveytake</from-outcome>
+            <to-view-id>/surveytake.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>publicsurveytakefinished</from-outcome>
+            <to-view-id>/surveytakefinished.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>publicsurveydetail</from-outcome>
