@@ -66,6 +66,15 @@ public class PublicSurveyDetail {
         return "publicsurveydetail";
     }
 
+    public String beginTakeSurvey(){
+        try{
+            Jsf.redirectResponse("surveytake.jsf?surveyid="+Jsf.getUserSession().getCurrentSurveyid());
+        } catch (Exception ex){
+            logger.error(ex);
+        }
+        return null;
+    }
+
     public Survey getSurvey() {
         return survey;
     }

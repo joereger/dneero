@@ -38,7 +38,10 @@ public class PublicSurveyTake {
         logger.debug("PublicSurveyTake instanciated.");
         survey = new Survey();
         if (Num.isinteger(Jsf.getRequestParam("surveyid"))){
-            survey = Survey.get(Integer.parseInt(Jsf.getRequestParam("surveyid")));
+            Jsf.getUserSession().setCurrentSurveyid(Integer.parseInt(Jsf.getRequestParam("surveyid")));
+        }
+        if(Jsf.getUserSession().getCurrentSurveyid()>0){
+            survey = Survey.get(Jsf.getUserSession().getCurrentSurveyid());
             html = SurveyTakerDisplay.getHtmlForSurveyTaking(survey, new Blogger());
         }
     }
@@ -48,7 +51,7 @@ public class PublicSurveyTake {
         logger.debug("takeSurvey() called");
         try{
             SurveyResponseParser srp = new SurveyResponseParser((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest());
-            createResponse(survey, srp, Jsf.getUserSession().getUser().getBlogger());
+            createResponse(survey, srp, null);
         } catch (ComponentException cex){
             Jsf.setFacesMessage(cex.getErrorsAsSingleString());
             return "publicsurveytake";

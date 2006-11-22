@@ -40,7 +40,7 @@
                         <br/>
                         <font class="tinyfont">Survey ID: #{publicSurveyDetail.survey.surveyid}</font>
                         <br/><br/>
-                        <h:commandButton action="registration" value="I'm Interested, Sign Me Up" styleClass="formsubmitbutton" rendered="#{!userSession.isloggedin}"></h:commandButton>
+                        <h:commandButton action="#{publicSurveyDetail.beginTakeSurvey}" value="Ok, I'll Take the Survey" styleClass="formsubmitbutton"></h:commandButton>
                     </td>
                     <td valign="top" align="right">
                         <d:roundedCornerBox uniqueboxname="youcouldearn" bodycolor="00ff00" widthinpixels="200">

@@ -21,9 +21,14 @@
        </t:div>
 
        <t:div rendered="#{accountMain.userhasresponsependings}">
-            <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
-                <font class="mediumfont">You have a pending survey response.  Click <h:commandLink value="here" action="bloggerhome" styleClass="mediumfont" style="color: #0000ff;"/> to continue.</font>
+            <h:form>
+            <div class="rounded" style="padding: 15px; margin: 5px; background: #00ff00;">
+                <font class="mediumfont">You have a pending survey response.
+                <br/>
+                <h:commandLink value="Continue Here" action="bloggerhome" styleClass="mediumfont" style="color: #0000ff;"/>
+                </font>
             </div>
+            </h:form>
        </t:div>
 
 

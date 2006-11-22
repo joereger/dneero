@@ -27,14 +27,15 @@ public class AccountMain {
     private void load(){
         if(Jsf.getUserSession().getUser()!=null){
             currentbalance = "$"+Str.formatForMoney(CurrentBalanceCalculator.getCurrentBalance(Jsf.getUserSession().getUser()));
+            List<Responsepending> responsependings = HibernateUtil.getSession().createCriteria(Responsepending.class)
+                                   .add(Restrictions.eq("userid", Jsf.getUserSession().getUser().getUserid()))
+                                   .setCacheable(true)
+                                   .list();
+            if (responsependings.size()>0){
+                userhasresponsependings = true;
+            }
         }
-        List<Responsepending> responsependings = HibernateUtil.getSession().createCriteria(Responsepending.class)
-                               .add(Restrictions.eq("userid", Jsf.getUserSession().getUser().getUserid()))
-                               .setCacheable(true)
-                               .list();
-        if (responsependings.size()>0){
-            userhasresponsependings = true;
-        }
+
     }
 
 

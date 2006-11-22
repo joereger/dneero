@@ -1,6 +1,7 @@
 package com.dneero.formbeans;
 
 import com.dneero.dao.*;
+import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.util.Jsf;
 import com.dneero.util.GeneralException;
 import com.dneero.xmpp.SendXMPPMessage;
@@ -13,12 +14,14 @@ import com.dneero.display.components.def.Component;
 import com.dneero.display.components.def.ComponentTypes;
 import com.dneero.finders.FindSurveysForBlogger;
 import org.apache.log4j.Logger;
+import org.hibernate.criterion.Restrictions;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.faces.context.FacesContext;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Date;
+import java.util.List;
 
 /**
  * User: Joe Reger Jr
@@ -59,7 +62,11 @@ public class BloggerSurveyTake {
         Logger logger = Logger.getLogger(BloggerSurveyTake.class);
         ComponentException allCex = new ComponentException();
         //Make sure blogger hasn't taken already
-        for (Iterator<Response> iterator = blogger.getResponses().iterator(); iterator.hasNext();) {
+        List<Response> responses = HibernateUtil.getSession().createCriteria(Response.class)
+                                           .add(Restrictions.eq("bloggerid", blogger.getBloggerid()))
+                                           .setCacheable(true)
+                                           .list();
+        for (Iterator<Response> iterator = responses.iterator(); iterator.hasNext();) {
             Response response = iterator.next();
             if (response.getSurveyid()==survey.getSurveyid()){
                 allCex.addValidationError("You have already taken this survey before.  Each survey can only be answered once.");

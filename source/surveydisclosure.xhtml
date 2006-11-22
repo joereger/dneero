@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:t="http://myfaces.apache.org/tomahawk"
+      xmlns:d="http://dneero.com/taglib">
+
+<ui:composition template="/template/template-facelets.xhtml">
+    <ui:define name="title">Paid Survey Disclosure<br/><br/></ui:define>
+    <ui:param name="navtab" value="home"/>
+    <ui:define name="body">
+    <d:authorization acl="public" redirectonfail="true"/>
+
+
+<h:form>
+    <h:messages styleClass="RED"/>
+
+    <h:outputText value="#{publicSurveyDisclosure.survey.title}" styleClass="mediumfont"/>
+    <br/>
+    <h:outputText value="#{publicSurveyDisclosure.survey.description}" styleClass="smallfont"/>
+    <br/><br/>
+
+    <font class="smallfont">This survey was paid for by dNeero.com.  The blogger was not encouraged to post any particular opinion, simply to tell the truth.</font>
+
+    <br/><br/>
+    <h:commandButton action="publicsurveyanswers" value="See How Other People Answered" styleClass="formsubmitbutton"></h:commandButton>
+    <br/>
+    <h:commandButton action="publicsurveytake" value="How Would You Answer?  We'll Pay For Your Opinion!" styleClass="formsubmitbutton"></h:commandButton>
+
+
+
+</h:form>
+
+</ui:define>
+
+
+</ui:composition>
+</html>
+
+

@@ -84,7 +84,7 @@ public class Registration {
             return null;
         }
 
-
+        //Create the user
         User user = new User();
         user.setEmail(email);
         user.setPassword(password);
@@ -131,6 +131,8 @@ public class Registration {
                 responsepending.setResponseasstring(Jsf.getUserSession().getPendingSurveyResponseAsString());
                 responsepending.setSurveyid(Jsf.getUserSession().getPendingSurveyResponseSurveyid());
                 try{responsepending.save();}catch (Exception ex){logger.error(ex);}
+                Jsf.getUserSession().setPendingSurveyResponseSurveyid(0);
+                Jsf.getUserSession().setPendingSurveyResponseAsString("");
             }
         }
 
@@ -140,11 +142,6 @@ public class Registration {
         //Notify customer care group
         SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_CUSTOMERSUPPORT, "New dNeero User: "+ user.getFirstname() + " " + user.getLastname() + "("+user.getEmail()+")");
         xmpp.send();
-
-        //Log the user in
-//        UserSession userSession = Jsf.getUserSession();
-//        userSession.setUser(user);
-//        userSession.setIsloggedin(true);
 
         return "success";
     }

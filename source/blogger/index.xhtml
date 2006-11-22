@@ -52,7 +52,7 @@
             <font class="smallfont">Before you can make money blogging we need to collect a few pieces of information about you and your blog.  This will only take a minute or two and you won't have to do it again on future visits.  You'll be filling out surveys, posting them to your blog and making money in no time!</font><br/><br/>
         </div>
         <t:div rendered="#{bloggerIndex.userhasresponsependings}">
-            <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
+            <div class="rounded" style="padding: 15px; margin: 5px; background: #00ff00;">
                 <img src="/images/alert.png" border="0" align="left"/>
                 <font class="mediumfont">You have a pending survey response.  You must complete the Quick One-time Blogger Configuration to continue.</font>
                 <br/><br/>
@@ -63,12 +63,11 @@
     <c:if test="${userSession.isloggedin and (userSession.user.blogger ne null)}">
 
         <t:div rendered="#{bloggerIndex.responsependingmsg ne ''}">
-            <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
+            <div class="rounded" style="padding: 15px; margin: 5px; background: #00ff00;">
                 <img src="/images/alert.png" border="0" align="left"/>
                 <font class="mediumfont"><f:verbatim escape="false">#{bloggerIndex.responsependingmsg}</f:verbatim></font>
-                <br/><br/>
-                <h:commandLink value="View Your Earnings and Learn How to Post to Your Blog" action="bloggercompletedsurveys" styleClass="mediumfont" style="color: #0000ff;"/>
             </div>
+            <br/><br/>
         </t:div>
 
         <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>

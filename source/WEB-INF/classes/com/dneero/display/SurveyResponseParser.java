@@ -63,19 +63,27 @@ public class SurveyResponseParser {
                 logger.debug(e.getKey() + ": " + e.getValue());
                 String name = (String)e.getKey();
                 String[] values = (String[])e.getValue();
+                logger.debug("name="+name+"+++++++++++");
                 for (int j = 0; j < values.length; j++) {
+                    logger.debug("j="+j);
+                    logger.debug("values["+j+"]="+values[j]);
                     try{
-                        if (j>0){
-                            qs.append("&");
-                        }
                         qs.append(java.net.URLEncoder.encode(name, "UTF-8")+"="+java.net.URLEncoder.encode(values[j], "UTF-8"));
+                        qs.append("&");
                     } catch (Exception ex){
                         logger.error(ex);
                     }
                 }
             }
         }
-        return qs.toString();
+        String out = qs.toString();
+        if (out.length()>=2){
+            if (out.substring(out.length()-1, out.length()).equals("&")){
+                out = out.substring(0, out.length()-1);
+            }
+        }
+        logger.debug("out="+out);
+        return out;
     }
 
 

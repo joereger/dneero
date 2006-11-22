@@ -118,6 +118,21 @@
         <managed-bean-class>com.dneero.formbeans.PublicSurveyTake</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
+    <managed-bean>
+        <managed-bean-name>publicSurveyAnswers</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.PublicSurveyAnswers</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>publicResultsAnswersDetails</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.PublicResultsAnswersDetails</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>publicSurveyDisclosure</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.PublicSurveyDisclosure</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
 
     <managed-bean>
         <managed-bean-name>publicSurveyTakeFinished</managed-bean-name>
@@ -576,6 +591,18 @@
         <navigation-case>
             <from-outcome>publicsurveytake</from-outcome>
             <to-view-id>/surveytake.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>publicresultsanswersdetails</from-outcome>
+            <to-view-id>/results_answers_details.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>publicsurveyanswers</from-outcome>
+            <to-view-id>/surveyanswers.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>publicsurveydisclosure</from-outcome>
+            <to-view-id>/surveydisclosure.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>publicsurveytakefinished</from-outcome>

@@ -72,6 +72,8 @@ public class Login {
                     responsepending.setResponseasstring(Jsf.getUserSession().getPendingSurveyResponseAsString());
                     responsepending.setSurveyid(Jsf.getUserSession().getPendingSurveyResponseSurveyid());
                     try{responsepending.save();}catch (Exception ex){logger.error(ex);}
+                    Jsf.getUserSession().setPendingSurveyResponseSurveyid(0);
+                    Jsf.getUserSession().setPendingSurveyResponseAsString("");
                 }
             }
 
