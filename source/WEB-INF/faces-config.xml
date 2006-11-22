@@ -285,6 +285,12 @@
     </managed-bean>
 
     <managed-bean>
+        <managed-bean-name>bloggerIndex</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.BloggerIndex</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
         <managed-bean-name>bloggerBlogDetail</managed-bean-name>
         <managed-bean-class>com.dneero.formbeans.BloggerBlogDetail</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>

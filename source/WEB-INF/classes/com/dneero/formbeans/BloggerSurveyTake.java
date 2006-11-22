@@ -67,7 +67,7 @@ public class BloggerSurveyTake {
         }
         //Make sure blogger is qualified to take
         if (!FindSurveysForBlogger.isBloggerQualifiedToTakeSurvey(blogger, survey)){
-            allCex.addValidationError("Sorry, you're not qualified to take this survey.");
+            allCex.addValidationError("Sorry, you're not qualified to take this survey.  Your qualification is determined by your Blogger Profile.  Researchers determine their intended audience when they create a survey.");
         }
         //Make sure each component is validated
         for (Iterator<Question> iterator = survey.getQuestions().iterator(); iterator.hasNext();) {

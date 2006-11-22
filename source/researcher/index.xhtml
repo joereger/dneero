@@ -40,10 +40,13 @@
     </c:if>
 
     <c:if test="${userSession.isloggedin and (userSession.user.researcher eq null)}">
-        <img src="/images/alert.png" border="0"/>
-        <h:commandLink action="researcherdetails"><font class="mediumfont">Quick One-time Researcher Configuration Required</font></h:commandLink>
-        <br/>
-        <font class="smallfont">Before you can do blogosphere research we need to collect a few pieces of information about you as a researcher.  This will only take a minute or two.</font>
+        <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
+            <img src="/images/alert.png" border="0" align="left"/>
+            <h:commandLink action="researcherdetails"><font class="mediumfont">Quick One-time Researcher Configuration Required</font></h:commandLink>
+            <br/>
+            <font class="smallfont">Before you can do blogosphere research we need to collect a few pieces of information about you as a researcher.  This will only take a minute or two.</font>
+            <br/><br/>
+        </div>
     </c:if>
 
     <c:if test="${userSession.isloggedin and (userSession.user.researcher ne null)}">
