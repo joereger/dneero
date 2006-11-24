@@ -161,5 +161,10 @@ input, textarea, select{
    background: #f3f668;   
 }
 
+.rounded {
+    padding: 20px;
+    background: #BFFFBF;
+}
+
 
 

@@ -9,27 +9,51 @@
       xmlns:d="http://dneero.com/taglib">
 
 <ui:composition template="/template/template-facelets.xhtml">
-    <ui:define name="title">Paid Survey Disclosure<br/><br/></ui:define>
+    <ui:define name="title">Paid Survey Disclosure<br/></ui:define>
     <ui:param name="navtab" value="home"/>
     <ui:define name="body">
-    <d:authorization acl="public" redirectonfail="true"/>
+    <d:authorization acl="public" redirectonfail="false"/>
 
 
 <h:form>
     <h:messages styleClass="RED"/>
 
-    <h:outputText value="#{publicSurveyDisclosure.survey.title}" styleClass="mediumfont"/>
-    <br/>
-    <h:outputText value="#{publicSurveyDisclosure.survey.description}" styleClass="smallfont"/>
-    <br/><br/>
 
-    <font class="smallfont">This survey was paid for by dNeero.com.  The blogger was not encouraged to post any particular opinion, simply to tell the truth.</font>
 
-    <br/><br/>
-    <h:commandButton action="publicsurveyanswers" value="See How Other People Answered" styleClass="formsubmitbutton"></h:commandButton>
-    <br/>
-    <h:commandButton action="publicsurveytake" value="How Would You Answer?  We'll Pay For Your Opinion!" styleClass="formsubmitbutton"></h:commandButton>
+    <table width="100%" cellpadding="5">
+        <tr>
+            <td valign="top" width="65%">
+                <font class="mediumfont" style="color: #00ff00">#{publicSurveyDisclosure.survey.title}</font>
+                <br/>
+                <font class="smallfont">#{publicSurveyDisclosure.survey.description}</font>
+                <br/><br/>
+                <font class="mediumfont">This survey was paid for by dNeero.com.  The blogger was not encouraged to post any particular opinion, simply to tell the truth. The blogger was paid first for taking the survey and second based on the amount of traffic to his or her blog.  A link to this disclosure statement must be posted with each dNeero survey to protect the integrity of the blogosphere.</font>
+            </td>
+            <td valign="top" align="left">
+                <div class="rounded" style="background: #00ff00; text-align: center;">
+                    <div class="rounded" style="background: #ffffff; text-align: center;">
+                        <h:outputText value="Take this survey and earn" styleClass="mediumfont"/>
+                        <br/>
+                        <h:outputText value="#{publicSurveyDisclosure.surveyEnhancer.minearning}" styleClass="largefont" style="font-size: 60px; color: #666666;"/>
+                        <br/>
+                        <h:outputText value="instantly or up to #{publicSurveyDisclosure.surveyEnhancer.maxearning} when you post it to your blog!" styleClass="mediumfont"/>
+                    </div>
+                    <br/>
+                    <h:commandButton action="publicsurveytake" value="Take this Survey" styleClass="formsubmitbutton"></h:commandButton>
+                    <br/>
+                    <h:commandButton action="publicsurveyanswers" value="See the Results" styleClass="formsubmitbutton"></h:commandButton>
+                    <font class="smallfont">
 
+
+
+
+                    </font>
+
+
+                </div>
+            </td>
+        </tr>
+    </table>
 
 
 </h:form>

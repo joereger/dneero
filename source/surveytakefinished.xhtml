@@ -6,22 +6,56 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:t="http://myfaces.apache.org/tomahawk"
-      xmlns:d="http://dneero.com/taglib">
+      xmlns:d="http://dneero.com/taglib"
+      xmlns:c="http://java.sun.com/jstl/core">
 
 <ui:composition template="/template/template-facelets.xhtml">
-    <ui:define name="title">Take Survey Completed<br/><br/></ui:define>
+    <ui:define name="title">Success!<br/><br/></ui:define>
     <ui:param name="navtab" value="home"/>
     <ui:define name="body">
-    <d:authorization acl="public" redirectonfail="true"/>
+    <d:authorization acl="public" redirectonfail="false"/>
 
 
 <h:form>
 
-    Thanks!  We've temporarily saved your survey but you won't be paid until you log in or sign up.
 
-    <h:commandLink value="Sign Up" action="registration" style="padding-left: 15px;" styleClass="subnavfont"/>
-    <br/>
-    <h:commandLink value="Log In" action="login" style="padding-left: 15px;" styleClass="subnavfont"/>
+
+
+
+    <table width="100%" cellpadding="15">
+        <tr>
+            <td valign="top" colspan="2">
+                <font class="mediumfont">We've temporarily saved your survey but we can't pay you until you log in or sign up.  We won't use your survey response if you don't.</font>
+            </td>
+        </tr>
+
+        <c:if test="#{!userSession.isloggedin}">
+            <tr>
+                <td valign="top" width="50%">
+                    <div class="rounded" style="background: #00ff00; text-align: center;">
+                        <h:commandLink value="Sign Up" action="registration" style="padding-left: 15px;" styleClass="mediumfont"/>
+                    </div>
+                </td>
+                <td valign="top" align="left">
+                    <div class="rounded" style="background: #00ff00; text-align: center;">
+                        <h:commandLink value="Log In" action="login" style="padding-left: 15px;" styleClass="mediumfont"/>
+                    </div>
+                </td>
+            </tr>
+        </c:if>
+        <c:if test="#{userSession.isloggedin}">
+            <tr>
+                <td valign="top" width="50%">
+                    <div class="rounded" style="background: #00ff00; text-align: center;">
+                        <h:commandLink value="Continue" action="accountmain" style="padding-left: 15px;" styleClass="mediumfont"/>
+                    </div>
+                </td>
+                <td valign="top" align="left">
+
+                </td>
+            </tr>
+        </c:if>
+    </table>
 
 
 

@@ -37,6 +37,9 @@ public class Authorization extends UIComponentBase {
     public void encodeBegin(FacesContext context) throws IOException {
         logger.debug("encodeBegin called");
 
+        String acl = (String)getAttributes().get("acl");
+        String redirectonfail = (String)getAttributes().get("redirectonfail");
+
         //Persistent login start
         boolean wasAutoLoggedIn = false;
         if (!Jsf.getUserSession().getIsloggedin()){
@@ -81,8 +84,11 @@ public class Authorization extends UIComponentBase {
 //                                        System.out.println("request.getRequestURI()="+request.getRequestURI());
 //                                        RequestDispatcher dispatcher = request.getRequestDispatcher(request.getRequestURI());
 //                                        dispatcher.forward(request,response);
-                                        context.getExternalContext().redirect("/account/accountmain.jsf?msg=autologin");
-                                        return;
+                                        if (redirectonfail.equals("true")){
+                                            context.getExternalContext().redirect("/account/accountmain.jsf?msg=autologin");
+                                            return;
+                                        }
+
                                     } catch (Exception ex){
                                         logger.error(ex);
                                         ex.printStackTrace();
@@ -100,8 +106,7 @@ public class Authorization extends UIComponentBase {
 
 
 
-        String acl = (String)getAttributes().get("acl");
-        String redirectonfail = (String)getAttributes().get("redirectonfail");
+
 
         if (acl==null){
             acl = "";

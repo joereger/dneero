@@ -11,6 +11,7 @@ import com.dneero.display.SurveyResultsDisplay;
 import com.dneero.display.components.def.ComponentException;
 import com.dneero.display.components.def.Component;
 import com.dneero.display.components.def.ComponentTypes;
+import com.dneero.ui.SurveyEnhancer;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,6 +27,7 @@ public class PublicSurveyAnswers {
 
     private Survey survey;
     private String html;
+    private SurveyEnhancer surveyEnhancer;
 
     Logger logger = Logger.getLogger(this.getClass().getName());
 
@@ -37,6 +39,7 @@ public class PublicSurveyAnswers {
         }
         if(Jsf.getUserSession().getCurrentSurveyid()>0){
             survey = Survey.get(Jsf.getUserSession().getCurrentSurveyid());
+            surveyEnhancer = new SurveyEnhancer(survey);
             html = SurveyResultsDisplay.getHtmlForResults(survey, null);
         }
     }
@@ -50,7 +53,13 @@ public class PublicSurveyAnswers {
     }
 
 
+    public SurveyEnhancer getSurveyEnhancer() {
+        return surveyEnhancer;
+    }
 
+    public void setSurveyEnhancer(SurveyEnhancer surveyEnhancer) {
+        this.surveyEnhancer = surveyEnhancer;
+    }
 
     public String getHtml() {
         return html;

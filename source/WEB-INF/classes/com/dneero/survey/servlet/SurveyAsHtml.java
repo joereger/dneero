@@ -40,25 +40,25 @@ public class SurveyAsHtml {
                     "\t\t</td>\n" +
                     "\t</tr>\n" +
                     "\t<tr>\t\n" +
-                    "\t\t<td valign=\"bottom\" align=\"right\" bgcolor=\"#dadada\" width=\"50%\">\n" +
+                    "\t\t<td valign=\"bottom\" align=\"right\" bgcolor=\"#ffffff\" width=\"50%\">\n" +
                     "&nbsp;\n"+
                     "\t\t</td>\n" +
-                    "\t\t<td valign=\"bottom\" align=\"right\" bgcolor=\"#dadada\">\n" +
+                    "\t\t<td valign=\"bottom\" align=\"right\" bgcolor=\"#ffffff\">\n" +
                     "\t\t\t<a href='"+baseurl+"surveytake.jsf?surveyid="+survey.getSurveyid()+"'><img src=\""+baseurl+"images/surveyinblog/dneero-survey-questionmark.gif\" border=\"0\"></a>\n" +
                     "\t\t</td>\n" +
-                    "\t\t<td valign=\"bottom\" align=\"right\" bgcolor=\"#dadada\" width=\"7\">\n" +
+                    "\t\t<td valign=\"bottom\" align=\"right\" bgcolor=\"#ffffff\" width=\"7\">\n" +
                     "\t\t\t<img src=\""+baseurl+"images/surveyinblog/dneero-survey-dots.gif\" border=\"0\">\n" +
                     "\t\t</td>\n" +
-                    "\t\t<td valign=\"bottom\" align=\"right\" bgcolor=\"#dadada\">\n" +
+                    "\t\t<td valign=\"bottom\" align=\"right\" bgcolor=\"#ffffff\">\n" +
                     "\t\t\t<a href='"+baseurl+"surveyanswers.jsf?surveyid="+survey.getSurveyid()+"'><img src=\""+baseurl+"images/surveyinblog/dneero-survey-people.gif\" border=\"0\"></a>\n" +
                     "\t\t</td>\n" +
-                    "\t\t<td valign=\"bottom\" align=\"right\" bgcolor=\"#dadada\" width=\"7\">\n" +
+                    "\t\t<td valign=\"bottom\" align=\"right\" bgcolor=\"#ffffff\" width=\"7\">\n" +
                     "\t\t\t<img src=\""+baseurl+"images/surveyinblog/dneero-survey-dots.gif\" border=\"0\">\n" +
                     "\t\t</td>\n" +
-                    "\t\t<td valign=\"bottom\" align=\"right\" bgcolor=\"#dadada\">\n" +
+                    "\t\t<td valign=\"bottom\" align=\"right\" bgcolor=\"#ffffff\">\n" +
                     "\t\t\t<a href='"+baseurl+"surveydisclosure.jsf?surveyid="+survey.getSurveyid()+"'><img src=\""+baseurl+"images/surveyinblog/dneero-survey-logo.gif\" border=\"0\"></a>\n" +
                     "\t\t</td>\n" +
-                    "\t\t<td valign=\"bottom\" align=\"right\" bgcolor=\"#dadada\" width=\"50%\">\n" +
+                    "\t\t<td valign=\"bottom\" align=\"right\" bgcolor=\"#ffffff\" width=\"50%\">\n" +
                     "&nbsp;\n"+
                     "\t\t</td>\n" +
                     "\t</tr>\n" +

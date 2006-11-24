@@ -12,6 +12,7 @@ import com.dneero.finders.FindSurveysForBlogger;
 import com.dneero.money.MoveMoneyInAccountBalance;
 import com.dneero.money.SurveyMoneyStatus;
 import com.dneero.xmpp.SendXMPPMessage;
+import com.dneero.ui.SurveyEnhancer;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -31,6 +32,7 @@ public class PublicSurveyTake {
 
     private Survey survey;
     private String html;
+    private SurveyEnhancer surveyEnhancer;
 
     Logger logger = Logger.getLogger(this.getClass().getName());
 
@@ -42,6 +44,7 @@ public class PublicSurveyTake {
         }
         if(Jsf.getUserSession().getCurrentSurveyid()>0){
             survey = Survey.get(Jsf.getUserSession().getCurrentSurveyid());
+            surveyEnhancer = new SurveyEnhancer(survey);
             html = SurveyTakerDisplay.getHtmlForSurveyTaking(survey, new Blogger());
         }
     }
@@ -101,7 +104,13 @@ public class PublicSurveyTake {
     }
 
 
+    public SurveyEnhancer getSurveyEnhancer() {
+        return surveyEnhancer;
+    }
 
+    public void setSurveyEnhancer(SurveyEnhancer surveyEnhancer) {
+        this.surveyEnhancer = surveyEnhancer;
+    }
 
     public String getHtml() {
         return html;
