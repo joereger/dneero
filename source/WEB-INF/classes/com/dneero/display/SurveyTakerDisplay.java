@@ -18,19 +18,9 @@ import org.apache.log4j.Logger;
 public class SurveyTakerDisplay {
 
     public static String getHtmlForSurveyTaking(Survey survey, Blogger blogger){
-        StringBuffer out = new StringBuffer();
         Logger logger = Logger.getLogger(SurveyTakerDisplay.class);
-        for (Iterator<Question> iterator = survey.getQuestions().iterator(); iterator.hasNext();) {
-            Question question = iterator.next();
-            logger.debug("found question.getQuestionid()="+question.getQuestionid());
-            Component component = ComponentTypes.getComponentByID(question.getComponenttype(), question, blogger);
-            logger.debug("found component.getName()="+component.getName());
-            out.append(component.getHtmlForInput());
-            if (iterator.hasNext()){
-                out.append("<br/><br/>");
-            }
-        }
-        return out.toString();
+        SurveyTemplateProcessor stp = new SurveyTemplateProcessor(survey, blogger);
+        return stp.getSurveyForTaking();
     }
 
 
