@@ -40,7 +40,7 @@ public class BloggerSurveyTake {
         survey = new Survey();
         if (Jsf.getUserSession().getCurrentSurveyid()>0){
             survey = Survey.get(Jsf.getUserSession().getCurrentSurveyid());
-            html = SurveyTakerDisplay.getHtmlForSurveyTaking(Survey.get(Jsf.getUserSession().getCurrentSurveyid()), Jsf.getUserSession().getUser().getBlogger());
+            html = SurveyTakerDisplay.getHtmlForSurveyTaking(Survey.get(Jsf.getUserSession().getCurrentSurveyid()), Blogger.get(Jsf.getUserSession().getUser().getBloggerid()));
         }
     }
 
@@ -49,7 +49,7 @@ public class BloggerSurveyTake {
         logger.debug("takeSurvey() called");
         try{
             SurveyResponseParser srp = new SurveyResponseParser((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest());
-            createResponse(survey, srp, Jsf.getUserSession().getUser().getBlogger());
+            createResponse(survey, srp, Blogger.get(Jsf.getUserSession().getUser().getBloggerid()));
         } catch (ComponentException cex){
             Jsf.setFacesMessage(cex.getErrorsAsSingleString());
             return "bloggersurveytake";

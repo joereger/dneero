@@ -134,11 +134,11 @@ public class Authorization extends UIComponentBase {
             if (redirectonfail.equals("true")){
                 UserSession userSession = Jsf.getUserSession();
                 if (userSession!=null && userSession.getUser()!=null && userSession.getIsloggedin()){
-                    if(acl.equals("blogger") && userSession.getUser().getBlogger()==null){
+                    if(acl.equals("blogger") && userSession.getUser().getBloggerid()==0){
                         context.getExternalContext().redirect("/blogger/bloggerdetails.jsf");
                         return;
                     }
-                    if(acl.equals("researcher") && userSession.getUser().getResearcher()==null){
+                    if(acl.equals("researcher") && userSession.getUser().getResearcherid()==0){
                         context.getExternalContext().redirect("/researcher/researcherdetails.jsf");
                         return;
                     }

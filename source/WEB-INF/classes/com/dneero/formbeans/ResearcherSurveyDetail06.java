@@ -251,7 +251,7 @@ public class ResearcherSurveyDetail06 {
                 //Make sure user has enough in their account by running the remaining balance algorithm for just this researcher
                 if (Jsf.getUserSession().getUser()!=null){
                     //Run in its own thread so that the user's screen progresses
-                    ResearcherSurveyDetail06BalancecheckThread thr = new ResearcherSurveyDetail06BalancecheckThread(Jsf.getUserSession().getUser().getResearcher());
+                    ResearcherSurveyDetail06BalancecheckThread thr = new ResearcherSurveyDetail06BalancecheckThread(Researcher.get(Jsf.getUserSession().getUser().getResearcherid()));
                     thr.startThread();
                 }
 

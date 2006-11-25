@@ -4,6 +4,7 @@ import com.dneero.util.SortableList;
 import com.dneero.util.Jsf;
 import com.dneero.dao.Impression;
 import com.dneero.dao.Survey;
+import com.dneero.dao.Blogger;
 import com.dneero.money.BloggerIncomeCalculator;
 
 import java.util.*;
@@ -37,11 +38,11 @@ public class BloggerImpressions extends SortableList {
 //                List<Impression> impressions = HibernateUtil.getSession().createCriteria(Impression.class)
 //                                   .add(Restrictions.eq("surveyid", survey.getSurveyid()))
 //                                   .createCriteria("impressiondetails")
-//                                        .add(Restrictions.eq("bloggerid", Jsf.getUserSession().getUser().getBlogger().getBloggerid()))
+//                                        .add(Restrictions.eq("bloggerid", Jsf.getUserSession().getUser().getBloggerid()))
 //                                   .list();
 //
 
-                List<Impression> impressions = BloggerIncomeCalculator.getAllImpressionsForSurvey(Jsf.getUserSession().getUser().getBlogger(), survey);
+                List<Impression> impressions = BloggerIncomeCalculator.getAllImpressionsForSurvey(Blogger.get(Jsf.getUserSession().getUser().getBloggerid()), survey);
                 for (Iterator<Impression> iterator1 = impressions.iterator(); iterator1.hasNext();) {
                     Impression impression = iterator1.next();
                     BloggerImpressionsListItem listitem = new BloggerImpressionsListItem();

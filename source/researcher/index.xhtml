@@ -39,7 +39,7 @@
 
     </c:if>
 
-    <c:if test="${userSession.isloggedin and (userSession.user.researcher eq null)}">
+    <c:if test="${userSession.isloggedin and (userSession.user.researcherid eq 0)}">
         <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
             <img src="/images/alert.png" border="0" align="left"/>
             <h:commandLink action="researcherdetails"><font class="mediumfont">Quick One-time Researcher Configuration Required</font></h:commandLink>
@@ -49,7 +49,7 @@
         </div>
     </c:if>
 
-    <c:if test="${userSession.isloggedin and (userSession.user.researcher ne null)}">
+    <c:if test="${userSession.isloggedin and (userSession.user.researcherid gt 0)}">
         
 
         <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>

@@ -43,8 +43,8 @@ public class ResearcherBilling {
     public void load(){
         logger.debug("load called");
         UserSession userSession = Jsf.getUserSession();
-        if (userSession.getUser()!=null && userSession.getUser().getResearcher()!=null){
-            Researcher researcher = userSession.getUser().getResearcher();
+        if (userSession.getUser()!=null && userSession.getUser().getResearcherid()>0){
+            Researcher researcher = Researcher.get(userSession.getUser().getResearcherid());
 
             if(userSession.getUser().getChargemethodcreditcardid()>0){
                 Creditcard cc = Creditcard.get(userSession.getUser().getChargemethodcreditcardid());
@@ -75,7 +75,7 @@ public class ResearcherBilling {
 
 
 
-        if (userSession.getUser().getResearcher()!=null){
+        if (userSession.getUser().getResearcherid()>0){
 
 
             //Start validation

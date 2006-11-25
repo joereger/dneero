@@ -32,15 +32,15 @@ public class BloggerSurveyList extends SortableList {
 
         UserSession userSession = Jsf.getUserSession();
 
-        if (userSession!=null && userSession.getUser()!=null && userSession.getUser().getBlogger()!=null){
+        if (userSession!=null && userSession.getUser()!=null && userSession.getUser().getBloggerid()>0){
             logger.debug("userSession, user and blogger not null");
-            logger.debug("into loop for userSession.getUser().getBlogger().getBloggerid()="+userSession.getUser().getBlogger().getBloggerid());
-            FindSurveysForBlogger finder = new FindSurveysForBlogger(userSession.getUser().getBlogger());
+            logger.debug("into loop for Blogger.get(userSession.getUser().getBloggerid())="+Blogger.get(userSession.getUser().getBloggerid()));
+            FindSurveysForBlogger finder = new FindSurveysForBlogger(Blogger.get(userSession.getUser().getBloggerid()));
             surveys = new ArrayList<BloggerSurveyListItem>();
             for (Iterator iterator = finder.getSurveys().iterator(); iterator.hasNext();) {
                 Survey survey = (Survey) iterator.next();
                 boolean bloggerhasalreadytakensurvey = false;
-                for (Iterator<Response> iterator2 = userSession.getUser().getBlogger().getResponses().iterator(); iterator2.hasNext();) {
+                for (Iterator<Response> iterator2 = Blogger.get(userSession.getUser().getBloggerid()).getResponses().iterator(); iterator2.hasNext();) {
                     Response response = iterator2.next();
                     if (response.getSurveyid()==survey.getSurveyid()){
                         bloggerhasalreadytakensurvey = true;

@@ -3,6 +3,7 @@ package com.dneero.survey.servlet;
 import com.dneero.dao.Survey;
 import com.dneero.dao.User;
 import com.dneero.dao.Blog;
+import com.dneero.dao.Blogger;
 import com.dneero.display.SurveyTemplateProcessor;
 import com.dneero.util.Str;
 import com.dneero.systemprops.SystemProperty;
@@ -25,7 +26,7 @@ public class SurveyAsHtml {
         StringBuffer out = new StringBuffer();
         Logger logger = Logger.getLogger(SurveyAsHtml.class);
         if (survey!=null && user!=null){
-            SurveyTemplateProcessor stp = new SurveyTemplateProcessor(survey, user.getBlogger());
+            SurveyTemplateProcessor stp = new SurveyTemplateProcessor(survey, Blogger.get(user.getBloggerid()));
             out.append(stp.getSurveyForDisplay());
         } else {
             out = new StringBuffer();

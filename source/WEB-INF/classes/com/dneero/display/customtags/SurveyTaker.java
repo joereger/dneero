@@ -131,7 +131,7 @@ public class SurveyTaker extends UIInput {
         ComponentException allCex = new ComponentException();
 
         //Make sure blogger hasn't taken already
-        Blogger blogger = Jsf.getUserSession().getUser().getBlogger();
+        Blogger blogger = Blogger.get(Jsf.getUserSession().getUser().getBloggerid());
         for (Iterator<Response> iterator = blogger.getResponses().iterator(); iterator.hasNext();) {
             Response response = iterator.next();
             if (response.getSurveyid()==survey.getSurveyid()){
@@ -148,7 +148,7 @@ public class SurveyTaker extends UIInput {
         for (Iterator<Question> iterator = survey.getQuestions().iterator(); iterator.hasNext();) {
             Question question = iterator.next();
             logger.debug("found question.getQuestionid()="+question.getQuestionid());
-            Component component = ComponentTypes.getComponentByID(question.getComponenttype(), question, Jsf.getUserSession().getUser().getBlogger());
+            Component component = ComponentTypes.getComponentByID(question.getComponenttype(), question, Blogger.get(Jsf.getUserSession().getUser().getBloggerid()));
             logger.debug("found component.getName()="+component.getName());
             try{
                 SurveyResponseParser srp = new SurveyResponseParser((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest());
@@ -169,7 +169,7 @@ public class SurveyTaker extends UIInput {
                 logger.debug("Storing survey response in memory: surveyid="+survey.getSurveyid()+" : srp.getAsString()="+srp.getAsString());
             } else {
                 //Create Response
-                try{BloggerSurveyTake.createResponse(survey, srp, Jsf.getUserSession().getUser().getBlogger());} catch (ComponentException cex){logger.debug(cex);allCex.addErrorsFromAnotherGeneralException(cex);}
+                try{BloggerSurveyTake.createResponse(survey, srp, Blogger.get(Jsf.getUserSession().getUser().getBloggerid()));} catch (ComponentException cex){logger.debug(cex);allCex.addErrorsFromAnotherGeneralException(cex);}
             }
         }
     }
@@ -194,7 +194,7 @@ public class SurveyTaker extends UIInput {
 
         StringBuffer out = new StringBuffer();
         if (Jsf.getUserSession().getUser()!=null){
-            out.append(SurveyTakerDisplay.getHtmlForSurveyTaking(Survey.get(Jsf.getUserSession().getCurrentSurveyid()), Jsf.getUserSession().getUser().getBlogger()));
+            out.append(SurveyTakerDisplay.getHtmlForSurveyTaking(Survey.get(Jsf.getUserSession().getCurrentSurveyid()), Blogger.get(Jsf.getUserSession().getUser().getBloggerid())));
         }
 
         ResponseWriter writer = context.getResponseWriter();

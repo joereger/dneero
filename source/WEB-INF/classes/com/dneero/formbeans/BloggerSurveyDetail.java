@@ -45,7 +45,7 @@ public class BloggerSurveyDetail {
             Jsf.getUserSession().setCurrentSurveyid(Integer.parseInt(tmpSurveyid));
             survey = Survey.get(Integer.parseInt(tmpSurveyid));
 
-            Blogger blogger = Jsf.getUserSession().getUser().getBlogger();
+            Blogger blogger = Blogger.get(Jsf.getUserSession().getUser().getBloggerid());
             bloggerhasalreadytakensurvey = false;
             for (Iterator<Response> iterator = blogger.getResponses().iterator(); iterator.hasNext();) {
                 Response response = iterator.next();

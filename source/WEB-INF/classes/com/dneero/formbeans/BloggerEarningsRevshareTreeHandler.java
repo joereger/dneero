@@ -43,8 +43,8 @@ public class BloggerEarningsRevshareTreeHandler  {
             Date ninetydaysago = Time.xDaysAgoStart(Calendar.getInstance(), -90).getTime();
             double amtEarnedFromThisBloggerAllTime = 0;
             double amtEarnedFromThisBlogger90Days = 0;
-            if (child.getBlogger()!=null && child.getBlogger().getBloggerid()>0 && rootuser.getBlogger()!=null && rootuser.getBlogger().getBloggerid()>0){
-                List revshares = HibernateUtil.getSession().createQuery("FROM Revshare where sourcebloggerid='"+child.getBlogger().getBloggerid()+"' AND targetbloggerid='"+rootuser.getBlogger().getBloggerid()+"'").list();
+            if (child.getBloggerid()>0 && Blogger.get(child.getBloggerid()).getBloggerid()>0 && rootuser.getBloggerid()>0 && Blogger.get(rootuser.getBloggerid()).getBloggerid()>0){
+                List revshares = HibernateUtil.getSession().createQuery("FROM Revshare where sourcebloggerid='"+child.getBloggerid()+"' AND targetbloggerid='"+rootuser.getBloggerid()+"'").list();
                 for (Iterator iterator1 = revshares.iterator(); iterator1.hasNext();) {
                     Revshare revshare =  (Revshare)iterator1.next();
                     amtEarnedFromThisBloggerAllTime = amtEarnedFromThisBloggerAllTime + revshare.getAmt();

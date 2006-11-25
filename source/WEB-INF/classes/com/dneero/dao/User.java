@@ -21,9 +21,9 @@ import java.util.Date;
 public class User extends BasePersistentClass implements java.io.Serializable, RegerEntity, AuthControlled {
 
 
-    // Fields    
-
      private int userid;
+     private int bloggerid;
+     private int researcherid;
      private int referredbyuserid;
      private boolean isqualifiedforrevshare;
      private String email;
@@ -55,22 +55,6 @@ public class User extends BasePersistentClass implements java.io.Serializable, R
     }
     public void setUsereulas(Set<Usereula> usereulas) {
         this.usereulas = usereulas;
-    }
-
-    private Blogger blogger;
-    public Blogger getBlogger() {
-        return blogger;
-    }
-    public void setBlogger(Blogger blogger) {
-        this.blogger = blogger;
-    }
-    
-    private Researcher researcher;
-    public Researcher getResearcher() {
-        return researcher;
-    }
-    public void setResearcher(Researcher researcher) {
-        this.researcher = researcher;
     }
 
     private Set<Responsepending> responsependings = new HashSet<Responsepending>();
@@ -244,6 +228,21 @@ public class User extends BasePersistentClass implements java.io.Serializable, R
     }
 
 
+    public int getBloggerid() {
+        return bloggerid;
+    }
+
+    public void setBloggerid(int bloggerid) {
+        this.bloggerid = bloggerid;
+    }
+
+    public int getResearcherid() {
+        return researcherid;
+    }
+
+    public void setResearcherid(int researcherid) {
+        this.researcherid = researcherid;
+    }
 
     public int getChargemethod() {
         return chargemethod;

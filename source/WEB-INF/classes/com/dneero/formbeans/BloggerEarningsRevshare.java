@@ -40,9 +40,9 @@ public class BloggerEarningsRevshare extends SortableList {
         super("username");
 
         UserSession userSession = Jsf.getUserSession();
-        if (userSession.getUser()!=null && userSession.getUser().getBlogger()!=null){
+        if (userSession.getUser()!=null && userSession.getUser().getBloggerid()>0){
             list = new ArrayList();
-            List revshares = HibernateUtil.getSession().createQuery("FROM Revshare WHERE targetbloggerid='"+userSession.getUser().getBlogger().getBloggerid()+"'").list();
+            List revshares = HibernateUtil.getSession().createQuery("FROM Revshare WHERE targetbloggerid='"+userSession.getUser().getBloggerid()+"'").list();
             for (Iterator iterator = revshares.iterator(); iterator.hasNext();) {
                 Revshare revshare = (Revshare) iterator.next();
                 Blogger sourceblogger = Blogger.get(revshare.getSourcebloggerid());

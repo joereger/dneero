@@ -26,7 +26,6 @@ public class BloggerBlogsList extends SortableList {
     public BloggerBlogsList() {
         super("title");
         logger.debug("instanciating BloggerBlogsList");
-        HibernateUtil.getSession().saveOrUpdate(Jsf.getUserSession().getUser().getBlogger());
         load();
     }
 
@@ -41,19 +40,19 @@ public class BloggerBlogsList extends SortableList {
         if (userSession!=null && userSession.getUser()==null){
             logger.debug("userSession.getUser() is null");
         }
-        if (userSession!=null && userSession.getUser()!=null && userSession.getUser().getBlogger()==null){
-            logger.debug("userSession.getUser().getBlogger() is null");    
+        if (userSession!=null && userSession.getUser()!=null && userSession.getUser().getBloggerid()==0){
+            logger.debug("userSession.getUser().getBloggerid() is 0");
         }
-        if (userSession!=null && userSession.getUser()!=null && userSession.getUser().getBlogger()!=null){
-            logger.debug("userSession, user and blogger not null");
-            logger.debug("into loop for userSession.getUser().getBlogger().getBloggerid()="+userSession.getUser().getBlogger().getBloggerid());
+        if (userSession!=null && userSession.getUser()!=null && userSession.getUser().getBloggerid()>0){
+            logger.debug("userSession, user and bloggerid not 0");
+            logger.debug("into loop for userSession.getUser().getBloggerid()="+userSession.getUser().getBloggerid());
             try{
 
                 List<Blog> blogss = HibernateUtil.getSession().createCriteria(Blog.class)
-                                               .add( Restrictions.eq("bloggerid", userSession.getUser().getBlogger().getBloggerid()))
+                                               .add( Restrictions.eq("bloggerid", userSession.getUser().getBloggerid()))
                                                .list();
                 blogs = blogss;
-                //blogs = HibernateUtil.getSession().createQuery("from Blog where bloggerid="+userSession.getUser().getBlogger().getBloggerid()).list();
+                //blogs = HibernateUtil.getSession().createQuery("from Blog where bloggerid="+userSession.getUser().getBloggerid()).list();
 
             } catch (Exception ex){
                 logger.debug("Error in load()");

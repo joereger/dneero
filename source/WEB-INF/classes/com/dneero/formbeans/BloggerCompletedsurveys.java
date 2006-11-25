@@ -25,14 +25,14 @@ public class BloggerCompletedsurveys extends SortableList {
     public BloggerCompletedsurveys(){
         super("title");
         UserSession userSession = Jsf.getUserSession();
-        if (userSession.getUser()!=null && userSession.getUser().getBlogger()!=null){
+        if (userSession.getUser()!=null && userSession.getUser().getBloggerid()>0){
             list = new ArrayList();
-            HibernateUtil.getSession().saveOrUpdate(userSession.getUser().getBlogger());
-            for (Iterator<Response> iterator = userSession.getUser().getBlogger().getResponses().iterator(); iterator.hasNext();) {
+            //HibernateUtil.getSession().saveOrUpdate(Blogger.get(userSession.getUser().getBloggerid()));
+            for (Iterator<Response> iterator = Blogger.get(userSession.getUser().getBloggerid()).getResponses().iterator(); iterator.hasNext();) {
                 Response response = iterator.next();
                 Survey survey = Survey.get(response.getSurveyid());
-                int allimpressions = BloggerIncomeCalculator.getAllImpressiondetailsForSurvey(userSession.getUser().getBlogger(), survey).size();
-                int allimpressionsqualifyingforpay = BloggerIncomeCalculator.getAllImpressiondetailsForSurveyThatQualifyForPay(userSession.getUser().getBlogger(), survey).size();
+                int allimpressions = BloggerIncomeCalculator.getAllImpressiondetailsForSurvey(Blogger.get(userSession.getUser().getBloggerid()), survey).size();
+                int allimpressionsqualifyingforpay = BloggerIncomeCalculator.getAllImpressiondetailsForSurveyThatQualifyForPay(Blogger.get(userSession.getUser().getBloggerid()), survey).size();
                 BloggerCompletedsurveysListitem listitem = new BloggerCompletedsurveysListitem();
                 listitem.setAmtforresponse("$"+Str.formatForMoney(survey.getWillingtopayperrespondent()));
                 listitem.setAmttotal("$"+Str.formatForMoney(survey.getWillingtopayperrespondent() + ((allimpressionsqualifyingforpay*survey.getWillingtopaypercpm()/1000))));

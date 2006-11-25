@@ -35,11 +35,11 @@ public class BloggerIndex {
             Responsepending responsepending = iterator.next();
             userhasresponsependings = true;
             //If we have a blogger at this point, commit the pending response
-            if (Jsf.getUserSession().getUser().getBlogger()!=null){
+            if (Jsf.getUserSession().getUser().getBloggerid()>0){
                 Survey survey = Survey.get(responsepending.getSurveyid());
                 try{
                     SurveyResponseParser srp = new SurveyResponseParser(responsepending.getResponseasstring());
-                    BloggerSurveyTake.createResponse(survey,  srp, Jsf.getUserSession().getUser().getBlogger());
+                    BloggerSurveyTake.createResponse(survey,  srp, Blogger.get(Jsf.getUserSession().getUser().getBloggerid()));
                     responsependingmsg = responsependingmsg + "You just earned $"+ Str.formatForMoney(survey.getWillingtopayperrespondent())+"! We have successfully committed your response to '"+survey.getTitle()+"'!  But don't forget to post this survey to your blog.  To do so, click Earnings and choose this survey.  On that page you'll find a 'Post To Blog' tab that explains how to do so." + "<br/><br/>";
                 } catch (ComponentException cex){
                     responsependingmsg = responsependingmsg + "There was an error committing your response to the survey '"+survey.getTitle()+": " + cex.getErrorsAsSingleString() + "<br/><br/>";

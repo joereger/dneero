@@ -14,6 +14,7 @@ import com.dneero.util.Str;
 import com.dneero.dao.Response;
 import com.dneero.dao.Survey;
 import com.dneero.dao.Impressionpaymentgroup;
+import com.dneero.dao.Blogger;
 import com.dneero.money.BloggerIncomeCalculator;
 
 /**
@@ -35,12 +36,12 @@ public class BloggerEarningsSurvey extends SortableList {
 
     private void load(int responseid){
         UserSession userSession = Jsf.getUserSession();
-        if (userSession.getUser()!=null && userSession.getUser().getBlogger()!=null){
+        if (userSession.getUser()!=null && userSession.getUser().getBloggerid()>0){
             Response response = Response.get(responseid);
             Survey survey = Survey.get(response.getSurveyid());
             this.survey = survey;
             if (response.canRead(Jsf.getUserSession().getUser())){
-                ArrayList<Impressionpaymentgroup> impressionpaymentgroups = BloggerIncomeCalculator.getImpressionpaymentgroupsForASurvey(userSession.getUser().getBlogger(), survey);
+                ArrayList<Impressionpaymentgroup> impressionpaymentgroups = BloggerIncomeCalculator.getImpressionpaymentgroupsForASurvey(Blogger.get(userSession.getUser().getBloggerid()), survey);
                 list = new ArrayList();
                 for (Iterator<Impressionpaymentgroup> iterator = impressionpaymentgroups.iterator(); iterator.hasNext();) {
                     Impressionpaymentgroup impressionpaymentgroup = iterator.next();

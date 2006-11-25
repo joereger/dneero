@@ -32,7 +32,7 @@ public class BloggerBlogDetail {
 
     public BloggerBlogDetail(){
         logger.debug("BloggerBlogDetail instanciated.");
-        HibernateUtil.getSession().saveOrUpdate(Jsf.getUserSession().getUser().getBlogger());
+
     }
 
 
@@ -91,7 +91,7 @@ public class BloggerBlogDetail {
             blog.setUrl(url);
             blog.setTitle(title);
             blog.setBlogfocus(blogfocus);
-            blog.setBloggerid(userSession.getUser().getBlogger().getBloggerid());
+            blog.setBloggerid(userSession.getUser().getBloggerid());
 
             try{
                 blog.save();
@@ -102,11 +102,10 @@ public class BloggerBlogDetail {
                 return null;
             }
 
-            userSession.getUser().getBlogger().refresh();
+            Blogger.get(userSession.getUser().getBloggerid()).refresh();
         }
 
-        //#{userSession.isloggedin and (userSession.user.blogger ne null) and (empty usersession.user.blogger.blogs)}
-        List userblogs = HibernateUtil.getSession().createQuery("from Blog where bloggerid='"+Jsf.getUserSession().getUser().getBlogger().getBloggerid()+"'").list();
+        List userblogs = HibernateUtil.getSession().createQuery("from Blog where bloggerid='"+Jsf.getUserSession().getUser().getBloggerid()+"'").list();
         if (userblogs.size()==1){
             return "bloggerwelcomenewblogger";
         }

@@ -30,8 +30,8 @@ public class ImpressionActivityObjectStorage {
         Blog blog=null;
         int blogimpressionsthatqualifyforpayment = 0;
         if (iao.getReferer()!=null && !iao.getReferer().equals("")){
-            if (user!=null && user.getBlogger()!=null){
-                for (Iterator it = user.getBlogger().getBlogs().iterator(); it.hasNext(); ) {
+            if (user!=null && user.getBloggerid()>0){
+                for (Iterator it = Blogger.get(user.getBloggerid()).getBlogs().iterator(); it.hasNext(); ) {
                     Blog tmpBlog = (Blog)it.next();
                     logger.debug("tmpBlog.getUrl()="+ tmpBlog.getUrl());
                     logger.debug("referer.indexOf(tmpBlog.getUrl())="+iao.getReferer().indexOf(tmpBlog.getUrl()));

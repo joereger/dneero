@@ -97,7 +97,7 @@ public class ResearcherSurveyDetail01 {
             UserSession userSession = Jsf.getUserSession();
 
             Survey survey = new Survey();
-            survey.setResearcherid(userSession.getUser().getResearcher().getResearcherid());
+            survey.setResearcherid(userSession.getUser().getResearcherid());
             survey.setStatus(Survey.STATUS_DRAFT);
             boolean isnewsurvey = true;
             if (userSession.getCurrentSurveyid()>0){
@@ -122,7 +122,7 @@ public class ResearcherSurveyDetail01 {
 
             if (isValidData && Jsf.getUserSession().getUser()!=null && survey.canEdit(Jsf.getUserSession().getUser())){
 
-                survey.setResearcherid(userSession.getUser().getResearcher().getResearcherid());
+                survey.setResearcherid(userSession.getUser().getResearcherid());
                 survey.setTitle(title);
                 survey.setDescription(description);
                 survey.setStartdate(startdate);

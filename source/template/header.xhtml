@@ -73,17 +73,17 @@
                             <h:commandLink value="Log In" action="login" style="padding-left: 15px;" styleClass="subnavfont" rendered="#{!userSession.isloggedin}"/>
                         </c:if>
                         <c:if test="${navtab=='bloggers'}">
-                            <h:commandLink value="New Survey Opportunities" action="bloggersurveylist" styleClass="subnavfont" style="padding-left: 15px;" rendered="#{userSession.isloggedin and (userSession.user.blogger ne null)}"/>
-                            <h:commandLink value="Earnings from Completed Surveys" action="bloggercompletedsurveys" styleClass="subnavfont" style="padding-left: 15px;" rendered="#{userSession.isloggedin and (userSession.user.blogger ne null)}"/>
-                            <h:commandLink value="Blogger Profile" action="bloggerdetails" styleClass="subnavfont" style="padding-left: 15px;" rendered="#{userSession.isloggedin and (userSession.user.blogger ne null)}"/>
-                            <h:commandLink value="Your Blogs" action="bloggerblogslist" styleClass="subnavfont" style="padding-left: 15px;" rendered="#{userSession.isloggedin and (userSession.user.blogger ne null)}"/>
-                            <h:commandLink value="Revenue Share" action="bloggerearningsrevshare" styleClass="subnavfont" style="padding-left: 15px;" rendered="#{userSession.isloggedin and (userSession.user.blogger ne null)}"/>
+                            <h:commandLink value="New Survey Opportunities" action="bloggersurveylist" styleClass="subnavfont" style="padding-left: 15px;" rendered="#{userSession.isloggedin and (userSession.user.bloggerid gt 0)}"/>
+                            <h:commandLink value="Earnings from Completed Surveys" action="bloggercompletedsurveys" styleClass="subnavfont" style="padding-left: 15px;" rendered="#{userSession.isloggedin and (userSession.user.bloggerid gt 0)}"/>
+                            <h:commandLink value="Blogger Profile" action="bloggerdetails" styleClass="subnavfont" style="padding-left: 15px;" rendered="#{userSession.isloggedin and (userSession.user.bloggerid gt 0)}"/>
+                            <h:commandLink value="Your Blogs" action="bloggerblogslist" styleClass="subnavfont" style="padding-left: 15px;" rendered="#{userSession.isloggedin and (userSession.user.bloggerid gt 0)}"/>
+                            <h:commandLink value="Revenue Share" action="bloggerearningsrevshare" styleClass="subnavfont" style="padding-left: 15px;" rendered="#{userSession.isloggedin and (userSession.user.bloggerid gt 0)}"/>
                             <h:commandLink value="Blogger FAQ" action="bloggerfaq" style="padding-left: 15px;" styleClass="subnavfont"/>
                         </c:if>
                         <c:if test="${navtab=='researchers'}">
-                            <h:commandLink value="My Surveys and Results" action="researchersurveylist" styleClass="subnavfont" style="padding-left: 15px;" rendered="#{userSession.isloggedin and (userSession.user.researcher ne null)}"/>
-                            <h:commandLink value="Researcher Profile" action="researcherdetails" styleClass="subnavfont" style="padding-left: 15px;" rendered="#{userSession.isloggedin and (userSession.user.researcher ne null)}"/>
-                            <h:commandLink value="Billing Info" action="researcherbilling" styleClass="subnavfont" style="padding-left: 15px;" rendered="#{userSession.isloggedin and (userSession.user.researcher ne null)}"/>
+                            <h:commandLink value="My Surveys and Results" action="researchersurveylist" styleClass="subnavfont" style="padding-left: 15px;" rendered="#{userSession.isloggedin and (userSession.user.researcherid gt 0)}"/>
+                            <h:commandLink value="Researcher Profile" action="researcherdetails" styleClass="subnavfont" style="padding-left: 15px;" rendered="#{userSession.isloggedin and (userSession.user.researcherid gt 0)}"/>
+                            <h:commandLink value="Billing Info" action="researcherbilling" styleClass="subnavfont" style="padding-left: 15px;" rendered="#{userSession.isloggedin and (userSession.user.researcherid gt 0)}"/>
                             <h:commandLink value="Researcher FAQ" action="researcherfaq" style="padding-left: 15px;" styleClass="subnavfont"/>
                         </c:if>
                         <c:if test="${navtab=='youraccount'}">

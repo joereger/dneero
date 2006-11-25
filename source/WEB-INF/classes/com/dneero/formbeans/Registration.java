@@ -101,6 +101,8 @@ public class Registration {
         user.setChargemethod(PaymentMethod.PAYMENTMETHODCREDITCARD);
         user.setPaymethodcreditcardid(0);
         user.setChargemethodcreditcardid(0);
+        user.setBloggerid(0);
+        user.setResearcherid(0);
         try{
             user.save();
             userid = user.getUserid();

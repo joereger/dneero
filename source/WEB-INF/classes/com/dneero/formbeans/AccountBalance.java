@@ -31,7 +31,7 @@ public class AccountBalance extends SortableList {
 
     private void load(){
         UserSession userSession = Jsf.getUserSession();
-        if (userSession!=null && userSession.getUser()!=null && userSession.getUser().getBlogger()!=null){
+        if (userSession!=null && userSession.getUser()!=null && userSession.getUser().getBloggerid()>0){
             currentbalance = "$"+Str.formatForMoney(CurrentBalanceCalculator.getCurrentBalance(Jsf.getUserSession().getUser()));
             List bals = HibernateUtil.getSession().createQuery("from Balance where userid='"+userSession.getUser().getUserid()+"' order by balanceid desc").list();
             balances = new ArrayList<AccountBalanceListItem>();

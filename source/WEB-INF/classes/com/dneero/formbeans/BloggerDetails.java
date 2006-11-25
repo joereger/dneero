@@ -47,8 +47,8 @@ public class BloggerDetails {
 
     public BloggerDetails(){
         UserSession userSession = Jsf.getUserSession();
-        if (userSession.getUser()!=null && userSession.getUser().getBlogger()!=null){
-            Blogger blogger = userSession.getUser().getBlogger();
+        if (userSession.getUser()!=null && userSession.getUser().getBloggerid()>0){
+            Blogger blogger = Blogger.get(userSession.getUser().getBloggerid());
             birthdate = blogger.getBirthdate();
             if (blogger.getNotifyofnewsurveysbyemail()){
                 notifyofnewsurveysbyemail = 1;
@@ -76,8 +76,8 @@ public class BloggerDetails {
 
         Blogger blogger;
         boolean isnewblogger = false;
-        if (userSession.getUser()!=null && userSession.getUser().getBlogger()!=null){
-            blogger =  userSession.getUser().getBlogger();
+        if (userSession.getUser()!=null && userSession.getUser().getBloggerid()>0){
+            blogger =  Blogger.get(userSession.getUser().getBloggerid());
         } else {
             blogger = new Blogger();
             blogger.setQuality(0);
@@ -115,9 +115,6 @@ public class BloggerDetails {
                 blogger.setNotifyofnewsurveysbyemail(true);
             }
 
-            if (userSession.getUser().getBlogger()==null){
-                userSession.getUser().setBlogger(blogger);
-            }
 
             try{
                 blogger.save();
@@ -127,7 +124,10 @@ public class BloggerDetails {
                 return null;
             }
 
-           
+            if (isnewblogger){
+                userSession.getUser().setBloggerid(blogger.getBloggerid());
+                try{userSession.getUser().save();}catch(Exception ex){logger.error(ex);}
+            }
 
 
 

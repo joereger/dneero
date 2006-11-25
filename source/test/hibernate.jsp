@@ -10,29 +10,27 @@
     org.apache.log4j.Logger logger = org.apache.log4j.Logger.getLogger(this.getClass().getName());
 
     User user = User.get(1);
-    if (user.getBlogger() == null) {
-        user.setBlogger(new Blogger());
-    }
+    Blogger blogger = Blogger.get(user.getBloggerid());
 
     out.print("<br><br>-------------Initial Load");
     out.print("<br>user.getUserid()=" + user.getUserid());
-    out.print("<br>user.getBlogger().getBloggerid()=" + user.getBlogger().getBloggerid());
+    out.print("<br>blogger.getBloggerid()=" + blogger.getBloggerid());
     out.print("<br>user.user.getUserroles().size()=" + user.getUserroles().size());
     for (Iterator<Userrole> iterator = user.getUserroles().iterator(); iterator.hasNext();) {
         Userrole userrole = iterator.next();
         out.print("<br> userrole.getRoleid()=" + userrole.getUserroleid() + " - (" + userrole.getUserid() + "," + userrole.getRoleid() + ")");
     }
 
-    user.getBlogger().setBirthdate(new Date());
-    user.getBlogger().setGender(1);
-    user.getBlogger().setCity(1);
-    user.getBlogger().setEducationlevel(1);
-    user.getBlogger().setEthnicity(1);
-    user.getBlogger().setIncomerange(1);
-    user.getBlogger().setMaritalstatus(1);
-    user.getBlogger().setPolitics(1);
-    user.getBlogger().setProfession(1);
-    user.getBlogger().setState(1);
+    blogger.setBirthdate(new Date());
+    blogger.setGender("1");
+    blogger.setCity("1");
+    blogger.setEducationlevel("1");
+    blogger.setEthnicity("1");
+    blogger.setIncomerange("1");
+    blogger.setMaritalstatus("1");
+    blogger.setPolitics("1");
+    blogger.setProfession("1");
+    blogger.setState("1");
 
     boolean hasroleassigned = false;
     if (user != null && user.getUserroles() != null) {
@@ -59,7 +57,7 @@
 
     out.print("<br><br>-------------After Save");
     out.print("<br>user.getUserid()=" + user.getUserid());
-    out.print("<br>user.getBlogger().getBloggerid()=" + user.getBlogger().getBloggerid());
+    out.print("<br>blogger.getBloggerid()=" + blogger.getBloggerid());
     out.print("<br>user.user.getUserroles().size()=" + user.getUserroles().size());
     for (Iterator<Userrole> iterator = user.getUserroles().iterator(); iterator.hasNext();) {
         Userrole userrole = iterator.next();
@@ -71,7 +69,7 @@
 
     out.print("<br><br>-------------After Refresh");
     out.print("<br>user.getUserid()=" + user.getUserid());
-    out.print("<br>user.getBlogger().getBloggerid()=" + user.getBlogger().getBloggerid());
+    out.print("<br>blogger.getBloggerid()=" + blogger.getBloggerid());
     out.print("<br>user.user.getUserroles().size()=" + user.getUserroles().size());
     for (Iterator<Userrole> iterator = user.getUserroles().iterator(); iterator.hasNext();) {
         Userrole userrole = iterator.next();

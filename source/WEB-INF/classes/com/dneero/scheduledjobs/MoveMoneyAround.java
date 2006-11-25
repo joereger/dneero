@@ -34,8 +34,8 @@ public class MoveMoneyAround implements Job {
                 if (currentbalance>0){
                     boolean dopay = true;
                     //Don't pay researchers if they have any open surveys
-                    if (user.getResearcher()!=null){
-                       List surveys = HibernateUtil.getSession().createQuery("from Survey where researcherid='"+user.getResearcher().getResearcherid()+"' "+
+                    if (user.getResearcherid()>0){
+                       List surveys = HibernateUtil.getSession().createQuery("from Survey where researcherid='"+user.getResearcherid()+"' "+
                                                                               " and ("+
                                                                               "status='"+Survey.STATUS_OPEN+"'"+
                                                                               "or status='"+Survey.STATUS_WAITINGFORFUNDS+"'"+

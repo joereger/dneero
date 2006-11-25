@@ -31,8 +31,8 @@ public class ResearcherDetails {
     public void load(){
         logger.debug("load called");
         UserSession userSession = Jsf.getUserSession();
-        if (userSession.getUser()!=null && userSession.getUser().getResearcher()!=null){
-            Researcher researcher = userSession.getUser().getResearcher();
+        if (userSession.getUser()!=null && userSession.getUser().getResearcherid()>0){
+            Researcher researcher = Researcher.get(userSession.getUser().getResearcherid());
             companyname = researcher.getCompanyname();
             companytype = researcher.getCompanytype();
             phone = researcher.getPhone();
@@ -47,8 +47,8 @@ public class ResearcherDetails {
 
         Researcher researcher;
         boolean isnewresearcher = false;
-        if (userSession.getUser()!=null && userSession.getUser().getResearcher()!=null){
-            researcher =  userSession.getUser().getResearcher();
+        if (userSession.getUser()!=null && userSession.getUser().getResearcherid()>0){
+            researcher =  Researcher.get(userSession.getUser().getResearcherid());
         } else {
             researcher = new Researcher();
             isnewresearcher = true;
@@ -61,7 +61,6 @@ public class ResearcherDetails {
             researcher.setCompanyname(companyname);
             researcher.setCompanytype(companytype);
             researcher.setPhone(phone);
-            userSession.getUser().setResearcher(researcher);
 
             try{
                 researcher.save();
@@ -71,6 +70,10 @@ public class ResearcherDetails {
                 return null;
             }
 
+            if (isnewresearcher){
+                userSession.getUser().setResearcherid(researcher.getResearcherid());
+                try{userSession.getUser().save();}catch(Exception ex){logger.error(ex);}
+            }
 
             boolean hasroleassigned = false;
             if (userSession.getUser()!=null && userSession.getUser().getUserroles()!=null){

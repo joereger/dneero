@@ -79,7 +79,7 @@ public class ResearcherSurveyDetail02 {
 
 
             if (Jsf.getUserSession().getUser()!=null && survey.canEdit(Jsf.getUserSession().getUser())){
-                //survey.setResearcherid(userSession.getUser().getResearcher().getResearcherid());
+                //survey.setResearcherid(userSession.getUser().getResearcherid());
 
                 try{
                     logger.debug("saveSurvey() about to save survey.getSurveyid()=" + survey.getSurveyid());
@@ -176,7 +176,7 @@ public class ResearcherSurveyDetail02 {
             survey = Survey.get(userSession.getCurrentSurveyid());
         }
 
-        //survey.setResearcherid(userSession.getUser().getResearcher().getResearcherid());
+        //survey.setResearcherid(userSession.getUser().getResearcherid());
         for (Iterator<Question> iterator = survey.getQuestions().iterator(); iterator.hasNext();) {
             Question question1 = iterator.next();
             if (question1.getQuestionid()==questionid){

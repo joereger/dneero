@@ -31,10 +31,10 @@ public class ResearcherSurveyList extends SortableList {
         UserSession userSession = Jsf.getUserSession();
         Jsf.getUserSession().setCurrentSurveyid(0);
 
-        if (userSession!=null && userSession.getUser()!=null && userSession.getUser().getResearcher()!=null){
+        if (userSession!=null && userSession.getUser()!=null && userSession.getUser().getResearcherid()>0){
             logger.debug("userSession, user and researcher not null");
-            logger.debug("into loop for userSession.getUser().getResearcher().getResearcherid()="+userSession.getUser().getResearcher().getResearcherid());
-            surveys = HibernateUtil.getSession().createQuery("from Survey where researcherid='"+userSession.getUser().getResearcher().getResearcherid()+"' order by surveyid asc").list();
+            logger.debug("into loop for userSession.getUser().getResearcher().getResearcherid()="+userSession.getUser().getResearcherid());
+            surveys = HibernateUtil.getSession().createQuery("from Survey where researcherid='"+userSession.getUser().getResearcherid()+"' order by surveyid asc").list();
         }
     }
 

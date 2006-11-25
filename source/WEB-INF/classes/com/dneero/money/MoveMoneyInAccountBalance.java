@@ -36,15 +36,15 @@ public class MoveMoneyInAccountBalance {
             //Start with the userToPayRevshareTo who's getting paid
             User userToPayRevshareTo = user;
             int sourceBloggerid = 0;
-            if (user!=null && user.getBlogger()!=null){
-                sourceBloggerid = user.getBlogger().getBloggerid();
+            if (user!=null && user.getBloggerid()>0){
+                sourceBloggerid = user.getBloggerid();
             }
             double amtRevsharebasedon = amt;
             for(int levelsup=1; levelsup<=5; levelsup++){
                 if (userToPayRevshareTo.getReferredbyuserid()>0){
                     //Switch one level up
                     userToPayRevshareTo = User.get(userToPayRevshareTo.getReferredbyuserid());
-                    if (userToPayRevshareTo.getBlogger()!=null && userToPayRevshareTo.getBlogger().getBloggerid()>0){
+                    if (userToPayRevshareTo.getBloggerid()>0){
                         //Only pay if they're qualified for the revshare program
                         if (userToPayRevshareTo.getIsqualifiedforrevshare()){
                             //Calculate the revshare
@@ -52,7 +52,7 @@ public class MoveMoneyInAccountBalance {
                             //Store the revshare in the database
                             Revshare revshare = new Revshare();
                             revshare.setSourcebloggerid(sourceBloggerid);
-                            revshare.setTargetbloggerid(userToPayRevshareTo.getBlogger().getBloggerid());
+                            revshare.setTargetbloggerid(userToPayRevshareTo.getBloggerid());
                             revshare.setAmt(amttoshare);
                             revshare.setDate(new Date());
                             try{revshare.save();} catch (Exception ex){logger.error(ex);}

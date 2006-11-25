@@ -14,7 +14,11 @@ import java.util.HashMap;
  */
 public class UserSession {
     Logger logger = Logger.getLogger(this.getClass().getName());
-    private com.dneero.dao.User user;
+
+    //Note: Only use primitives to simplify clustering.
+    //Example: userid as int and then getUser() calls on the clustered/cached hibernate layer.
+
+    private int userid;
     private boolean isloggedin = false;
     private int currentSurveyid;
     private boolean isAllowedToResetPasswordBecauseHasValidatedByEmail = false;
@@ -30,11 +34,17 @@ public class UserSession {
     }
 
     public User getUser() {
-        return user;
+        if (userid>0){
+            return User.get(userid);
+        } else {
+            return null;
+        }
+        //return user;
     }
 
     public void setUser(User user) {
-        this.user = user;
+        //this.user = user;
+        userid = user.getUserid();
         isSysadmin = false;
         for (Iterator<Userrole> iterator = user.getUserroles().iterator(); iterator.hasNext();) {
             Userrole userrole = iterator.next();

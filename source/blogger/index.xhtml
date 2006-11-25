@@ -44,7 +44,7 @@
 
     </c:if>
 
-    <c:if test="${userSession.isloggedin and (userSession.user.blogger eq null)}">
+    <c:if test="${userSession.isloggedin and (userSession.user.bloggerid eq 0)}">
         <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
             <img src="/images/alert.png" border="0" align="left"/>
             <h:commandLink action="bloggerdetails"><font class="mediumfont">Quick One-time Blogger Configuration Required</font></h:commandLink>
@@ -60,7 +60,7 @@
         </t:div>
     </c:if>
 
-    <c:if test="${userSession.isloggedin and (userSession.user.blogger ne null)}">
+    <c:if test="${userSession.isloggedin and (userSession.user.bloggerid gt 0)}">
 
         <t:div rendered="#{bloggerIndex.responsependingmsg ne ''}">
             <div class="rounded" style="padding: 15px; margin: 5px; background: #00ff00;">
