@@ -23,6 +23,11 @@ public class WebAppRootDir {
         root = config.getServletContext().getRealPath("/");
     }
 
+    public WebAppRootDir(javax.servlet.ServletContext context){
+        setUniqueContextId(context);
+        root = context.getRealPath("/");    
+    }
+
     private static void setUniqueContextId(javax.servlet.ServletContext context){
         System.out.println("---------------");
         System.out.println("Looking for uniqueContextId.");

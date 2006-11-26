@@ -63,7 +63,7 @@ public class Log4jCustomAppender extends AppenderSkeleton {
 //            try{error.save();}catch(Exception ex){ex.printStackTrace();}
 //        }
 
-        if (ApplicationStartup.getIshibernateinitialized()){
+        if (ApplicationStartup.getIsappstarted()){
             if (event.getLevel()==Level.ERROR || event.getLevel()==Level.FATAL){
                 try{
                     //-----------------------------------

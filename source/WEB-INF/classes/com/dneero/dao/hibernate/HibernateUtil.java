@@ -141,6 +141,11 @@ public class HibernateUtil {
         }
     }
 
+    public static void killSessionFactory(){
+        sessionFactory.close();
+        sessionFactory = null;
+    }
+
 
     public static Serializable getIdentifier(Object obj){
         return getSession().getIdentifier(obj);

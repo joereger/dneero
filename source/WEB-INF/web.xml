@@ -75,14 +75,12 @@
         <url-pattern>/faces/myFacesExtensionResource/*</url-pattern>
     </filter-mapping>
 
-    <servlet>
-      <servlet-name>ApplicationStartup</servlet-name>
-      <servlet-class>com.dneero.startup.ApplicationStartup</servlet-class>
-      <load-on-startup>1</load-on-startup>
-   </servlet>
-
     <listener>
       <listener-class>org.apache.myfaces.webapp.StartupServletContextListener</listener-class>
+    </listener>
+
+    <listener>
+      <listener-class>com.dneero.startup.ApplicationStartup</listener-class>
     </listener>
 
     <servlet>
