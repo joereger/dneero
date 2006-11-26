@@ -6,14 +6,14 @@ import org.apache.log4j.Logger;
 
 import java.util.Iterator;
 import java.util.HashMap;
+import java.io.Serializable;
 
 /**
  * User: Joe Reger Jr
  * Date: May 31, 2006
  * Time: 12:51:06 PM
  */
-public class UserSession {
-    Logger logger = Logger.getLogger(this.getClass().getName());
+public class UserSession implements Serializable {
 
     //Note: Only use primitives to simplify clustering.
     //Example: userid as int and then getUser() calls on the clustered/cached hibernate layer.
@@ -29,8 +29,7 @@ public class UserSession {
     private String pendingSurveyResponseAsString = "";
 
     public UserSession(){
-        //Used for anonymous access
-        logger.debug("New UserSession created.");
+
     }
 
     public User getUser() {

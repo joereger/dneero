@@ -4,25 +4,25 @@
 <!-- Generated Apr 17, 2006 3:45:28 PM by Hibernate Tools 3.1.0.beta4 -->
 <hibernate-mapping>
     <class name="com.dneero.dao.Survey" table="survey">
-        <cache usage="nonstrict-read-write"/>
+        <cache usage="transactional"/>
         <id name="surveyid" type="int">
             <column name="surveyid" />
             <generator class="native" />
         </id>
         <set name="questions" inverse="true" order-by="questionid asc" cascade="all-delete-orphan">
-            <cache usage="nonstrict-read-write"/>
+            <cache usage="transactional"/>
             <key column="surveyid"></key>
             <one-to-many class="com.dneero.dao.Question" not-found="ignore"></one-to-many>
         </set>
 
         <set name="responses" inverse="true" cascade="all-delete-orphan">
-            <cache usage="nonstrict-read-write"/>
+            <cache usage="transactional"/>
             <key column="surveyid"></key>
             <one-to-many class="com.dneero.dao.Response" not-found="ignore"></one-to-many>
         </set>
 
         <set name="impressions" inverse="true" order-by="impressionid asc" cascade="all-delete-orphan">
-            <cache usage="nonstrict-read-write"/>
+            <cache usage="transactional"/>
             <key column="surveyid"></key>
             <one-to-many class="com.dneero.dao.Impression" not-found="ignore"></one-to-many>
         </set>

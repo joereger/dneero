@@ -4,23 +4,23 @@
 <!-- Generated Apr 17, 2006 3:45:28 PM by Hibernate Tools 3.1.0.beta4 -->
 <hibernate-mapping>
     <class name="com.dneero.dao.Blogger" table="blogger">
-        <cache usage="nonstrict-read-write"/>
+        <cache usage="transactional"/>
         <id name="bloggerid" type="int">
             <column name="bloggerid" />
             <generator class="native" />
         </id>
         <set name="blogs" inverse="true" cascade="all-delete-orphan">
-            <cache usage="nonstrict-read-write"/>
+            <cache usage="transactional"/>
             <key column="bloggerid"></key>
             <one-to-many class="com.dneero.dao.Blog" not-found="ignore"></one-to-many>
         </set>
         <set name="responses" inverse="true" cascade="save-update">
-            <cache usage="nonstrict-read-write"/>
+            <cache usage="transactional"/>
             <key column="bloggerid"></key>
             <one-to-many class="com.dneero.dao.Response" not-found="ignore"></one-to-many>
         </set>
         <set name="impressionpaymentgroups" inverse="true" cascade="save-update">
-            <cache usage="nonstrict-read-write"/>
+            <cache usage="transactional"/>
             <key column="bloggerid"></key>
             <one-to-many class="com.dneero.dao.Impressionpaymentgroup" not-found="ignore"></one-to-many>
         </set>

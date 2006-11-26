@@ -15,6 +15,7 @@ import org.apache.log4j.Logger;
 public class SystemProperty {
 
     private static HashMap<String, String> props;
+    private static boolean propsloadedfromdb = false;
 
     //Things to do to add a prop:
     //1) Add a public static var here
@@ -51,14 +52,14 @@ public class SystemProperty {
 
 
     public static String getProp(String nameOfPropToGet){
-        if (props==null){
+        if (props==null || !propsloadedfromdb){
             refreshAllProps();
         }
         if (props.containsKey(nameOfPropToGet)){
             return props.get(nameOfPropToGet);
         }
-        Logger logger = Logger.getLogger(SystemProperty.class);
-        logger.error("SystemProperty.getProp() called for "+nameOfPropToGet+" but no value was available.");
+        //Logger logger = Logger.getLogger(SystemProperty.class);
+        //logger.info("SystemProperty.getProp() called for "+nameOfPropToGet+" but no value was available.");
         return "";
     }
 
@@ -109,13 +110,19 @@ public class SystemProperty {
 
 
     private static void loadPropsFromDb(){
-        if (props==null){
+        Logger logger = Logger.getLogger(SystemProperty.class);
+        if (props==null || !propsloadedfromdb){
             props = new HashMap<String, String>();
         }
-        List results = HibernateUtil.getSession().createQuery("from Systemprop").list();
-        for (Iterator iterator = results.iterator(); iterator.hasNext();) {
-            Systemprop systemprop = (Systemprop) iterator.next();
-            props.put(systemprop.getName(), systemprop.getValue());
+        try{
+            List results = HibernateUtil.getSession().createQuery("from Systemprop").list();
+            for (Iterator iterator = results.iterator(); iterator.hasNext();) {
+                Systemprop systemprop = (Systemprop) iterator.next();
+                props.put(systemprop.getName(), systemprop.getValue());
+            }
+            propsloadedfromdb = true;
+        } catch (Exception ex){
+            //logger.error(ex);
         }
     }
 

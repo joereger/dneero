@@ -4,13 +4,13 @@
 <!-- Generated Apr 17, 2006 3:45:28 PM by Hibernate Tools 3.1.0.beta4 -->
 <hibernate-mapping>
     <class name="com.dneero.dao.Impression" table="impression">
-        <cache usage="nonstrict-read-write"/>
+        <cache usage="transactional"/>
         <id name="impressionid" type="int">
             <column name="impressionid" />
             <generator class="native" />
         </id>
         <set name="impressiondetails" inverse="true" order-by="impressiondetailid asc" cascade="all-delete-orphan">
-            <cache usage="nonstrict-read-write"/>
+            <cache usage="transactional"/>
             <key column="impressionid"></key>
             <one-to-many class="com.dneero.dao.Impressiondetail" not-found="ignore"></one-to-many>
         </set>

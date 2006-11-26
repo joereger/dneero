@@ -25,6 +25,7 @@ public class HibernateUtil {
 
     private static SessionFactory sessionFactory;
     private static final ThreadLocal session = new ThreadLocal();
+    private static boolean isinitializingsessionrightnow = false;
 
 
 
@@ -74,10 +75,11 @@ public class HibernateUtil {
                     //Second level cache
                     conf.setProperty("hibernate.cache.use_second_level_cache", "true");
                     //@todo if on jboss use cache.provider_class=org.jboss.ejb3.entity.TreeCacheProviderHook - see http://docs.jboss.com/jbossas/guides/clusteringguide/r2/en/html_single/#clustering-intro 1.4.2.2
-                    conf.setProperty("hibernate.cache.provider_class", "org.hibernate.cache.OSCacheProvider");
+                    //conf.setProperty("hibernate.cache.provider_class", "org.hibernate.cache.OSCacheProvider");
+                    conf.setProperty("hibernate.cache.provider_class", "org.hibernate.cache.TreeCacheProvider");
                     conf.setProperty("hibernate.cache.use_structured_entries", "true");
                     conf.setProperty("hibernate.cache.use_query_cache", "true");
-                    conf.setProperty("hibernate.cache.usage", "nonstrict-read-write");
+                    conf.setProperty("hibernate.cache.usage", "transactional");
 
                     //Session context mgr
                     //conf.setProperty("hibernate.current_session_context_class", "thread");
@@ -105,8 +107,15 @@ public class HibernateUtil {
 
 
     public static Session getSession() throws HibernateException {
+        Logger logger = Logger.getLogger(HibernateUtil.class);
         if (sessionFactory==null){
-            initializeSession();
+            if (!isinitializingsessionrightnow){
+                isinitializingsessionrightnow  = true;
+                try{initializeSession();}catch(Exception ex){logger.error(ex);}
+                isinitializingsessionrightnow = false;
+            } else {
+                return null;
+            }
         }
         if (sessionFactory!=null){
                 Session s = (Session) HibernateUtil.session.get();

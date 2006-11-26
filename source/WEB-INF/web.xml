@@ -217,4 +217,6 @@
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
 
+    <distributable/>
+
 </web-app>
