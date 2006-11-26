@@ -243,7 +243,7 @@ public class Matrix implements Component {
         }
     }
 
-    public String getHtmlForResult(){
+    public String getHtmlForResult(List<Questionresponse> questionresponses){
         StringBuffer out = new StringBuffer();
         out.append("<table width=100% cellpadding=3 cellspacing=1 border=0>");
 
@@ -278,7 +278,7 @@ public class Matrix implements Component {
         LinkedHashMap<String, Integer> answers = new LinkedHashMap();
         LinkedHashMap<String, Integer> answerCountByRow = new LinkedHashMap();
         LinkedHashMap<String, Integer> answerCountByCol = new LinkedHashMap();
-        for (Iterator it = question.getQuestionresponses().iterator(); it.hasNext(); ) {
+        for (Iterator it = questionresponses.iterator(); it.hasNext(); ) {
             Questionresponse questionresponse = (Questionresponse)it.next();
             if (questionresponse.getName().equals("response")){
                 //Answer
@@ -407,8 +407,8 @@ public class Matrix implements Component {
         return out.toString();
     }
 
-    public String getHtmlForResultDetail(){
-        return getHtmlForResult();
+    public String getHtmlForResultDetail(List<Questionresponse> questionresponses){
+        return getHtmlForResult(questionresponses);
     }
 
     public int columnsInCsvOutput() {

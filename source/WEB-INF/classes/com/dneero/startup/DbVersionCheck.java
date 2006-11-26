@@ -30,7 +30,7 @@ public class DbVersionCheck {
                     UpgradeDatabaseOneVersion upg = (UpgradeDatabaseOneVersion)(Class.forName("com.dneero.startup.dbversion.Version"+maxVer).newInstance());
                 } catch (ClassNotFoundException ex){
                     //If class isn't found, break, but be sure to decrement the maxVer
-                    logger.debug("No class found: Class.forName(\"com.dneero.startup.dbversion.Version"+maxVer+")");
+                    //logger.debug("No class found: Class.forName(\"com.dneero.startup.dbversion.Version"+maxVer+")");
                     maxVer = maxVer - 1;
                     break;
                 } catch (Throwable e){

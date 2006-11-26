@@ -1,9 +1,11 @@
 package com.dneero.display.components.def;
 
 import com.dneero.dao.Response;
+import com.dneero.dao.Questionresponse;
 import com.dneero.display.SurveyResponseParser;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * User: Joe Reger Jr
@@ -17,8 +19,8 @@ public interface Component {
     public int getID();
     public String getHtmlForInput();
     public String getHtmlForDisplay(Response response);
-    public String getHtmlForResult();
-    public String getHtmlForResultDetail();
+    public String getHtmlForResult(List<Questionresponse> questionresponses);
+    public String getHtmlForResultDetail(List<Questionresponse> questionresponses);
     public void validateAnswer(SurveyResponseParser srp) throws ComponentException;
     public void processAnswer(SurveyResponseParser srp, Response response) throws ComponentException;
     public int columnsInCsvOutput();

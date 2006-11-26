@@ -169,7 +169,7 @@ public class SurveyTaker extends UIInput {
                 logger.debug("Storing survey response in memory: surveyid="+survey.getSurveyid()+" : srp.getAsString()="+srp.getAsString());
             } else {
                 //Create Response
-                try{BloggerSurveyTake.createResponse(survey, srp, Blogger.get(Jsf.getUserSession().getUser().getBloggerid()));} catch (ComponentException cex){logger.debug(cex);allCex.addErrorsFromAnotherGeneralException(cex);}
+                try{BloggerSurveyTake.createResponse(survey, srp, Blogger.get(Jsf.getUserSession().getUser().getBloggerid()), 0);} catch (ComponentException cex){logger.debug(cex);allCex.addErrorsFromAnotherGeneralException(cex);}
             }
         }
     }

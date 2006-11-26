@@ -13,6 +13,7 @@ import com.dneero.money.MoveMoneyInAccountBalance;
 import com.dneero.money.SurveyMoneyStatus;
 import com.dneero.xmpp.SendXMPPMessage;
 import com.dneero.ui.SurveyEnhancer;
+import com.dneero.survey.servlet.ImpressionActivityObjectStorage;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -47,6 +48,12 @@ public class PublicSurveyTake {
             surveyEnhancer = new SurveyEnhancer(survey);
             html = SurveyTakerDisplay.getHtmlForSurveyTaking(survey, new Blogger());
         }
+        //Establish pendingSurveyReferredbyblogid by looking at referer, store that in the session and use it later
+        Blog referredByBlog = ImpressionActivityObjectStorage.findBlogFromReferer(Jsf.getHttpServletRequest().getHeader("referer"));
+        if (referredByBlog!=null){
+            Jsf.getUserSession().setPendingSurveyReferredbyblogid(referredByBlog.getBlogid());
+        }
+
     }
 
 
@@ -97,12 +104,15 @@ public class PublicSurveyTake {
                 //If the person is logged-in, save the survey for them
                 if (Jsf.getUserSession().getIsloggedin() && Jsf.getUserSession().getUser()!=null){
                     //Pending survey save
+                    //Note: this code also on Login and Registration
                     Responsepending responsepending = new Responsepending();
                     responsepending.setUserid(Jsf.getUserSession().getUser().getUserid());
                     responsepending.setResponseasstring(Jsf.getUserSession().getPendingSurveyResponseAsString());
+                    responsepending.setReferredbyblogid(Jsf.getUserSession().getPendingSurveyReferredbyblogid());
                     responsepending.setSurveyid(Jsf.getUserSession().getPendingSurveyResponseSurveyid());
                     try{responsepending.save();}catch (Exception ex){logger.error(ex);}
                     Jsf.getUserSession().setPendingSurveyResponseSurveyid(0);
+                    Jsf.getUserSession().setPendingSurveyReferredbyblogid(0);
                     Jsf.getUserSession().setPendingSurveyResponseAsString("");
                 }
             }

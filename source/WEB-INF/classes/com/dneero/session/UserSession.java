@@ -27,6 +27,7 @@ public class UserSession implements Serializable {
     private boolean isLoggedInToBeta = false;
     private int pendingSurveyResponseSurveyid = 0;
     private String pendingSurveyResponseAsString = "";
+    private int pendingSurveyReferredbyblogid = 0;
 
     public UserSession(){
 
@@ -115,5 +116,14 @@ public class UserSession implements Serializable {
 
     public void setPendingSurveyResponseAsString(String pendingSurveyResponseAsString) {
         this.pendingSurveyResponseAsString = pendingSurveyResponseAsString;
+    }
+
+
+    public int getPendingSurveyReferredbyblogid() {
+        return pendingSurveyReferredbyblogid;
+    }
+
+    public void setPendingSurveyReferredbyblogid(int pendingSurveyReferredbyblogid) {
+        this.pendingSurveyReferredbyblogid = pendingSurveyReferredbyblogid;
     }
 }

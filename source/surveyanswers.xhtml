@@ -28,7 +28,18 @@
                 <br/>
                 <font class="smallfont">#{publicSurveyAnswers.survey.description}</font>
                 <br/><br/>
-                <f:verbatim escape="false">#{publicSurveyAnswers.html}</f:verbatim>
+
+                <t:panelTabbedPane id="panel" bgcolor="#ffffff">
+                    <t:panelTab id="panel_a" label="People from this Blog">
+                        <h:graphicImage url="/images/clear.gif" width="400" height="1"/><br/>
+                        <f:verbatim escape="false">#{publicSurveyAnswers.htmlreferredbyblogid}</f:verbatim>
+                    </t:panelTab>
+                    <t:panelTab id="panel_b" label="All People Who Answered">
+                        <h:graphicImage url="/images/clear.gif" width="400" height="1"/><br/>
+                        <f:verbatim escape="false">#{publicSurveyAnswers.html}</f:verbatim>
+                    </t:panelTab>
+                </t:panelTabbedPane>
+
                 <br/><br/>
                 <h:commandButton action="publicsurveytake" value="How Would You Answer?  We'll Pay For Your Opinion!" styleClass="formsubmitbutton"></h:commandButton>
             </td>

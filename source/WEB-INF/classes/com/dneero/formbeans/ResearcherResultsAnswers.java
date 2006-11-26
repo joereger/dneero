@@ -29,7 +29,7 @@ public class ResearcherResultsAnswers {
         logger.debug("loadSurvey called");
         survey = Survey.get(surveyid);
         if (survey!=null){
-            results = SurveyResultsDisplay.getHtmlForResults(survey, null);
+            results = SurveyResultsDisplay.getHtmlForResults(survey, null, 0);
         }
     }
 

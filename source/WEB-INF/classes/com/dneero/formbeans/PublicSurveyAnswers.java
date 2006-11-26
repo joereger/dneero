@@ -3,6 +3,7 @@ package com.dneero.formbeans;
 import com.dneero.dao.Survey;
 import com.dneero.dao.Blogger;
 import com.dneero.dao.Question;
+import com.dneero.dao.Blog;
 import com.dneero.util.Num;
 import com.dneero.util.Jsf;
 import com.dneero.display.SurveyTakerDisplay;
@@ -12,6 +13,7 @@ import com.dneero.display.components.def.ComponentException;
 import com.dneero.display.components.def.Component;
 import com.dneero.display.components.def.ComponentTypes;
 import com.dneero.ui.SurveyEnhancer;
+import com.dneero.survey.servlet.ImpressionActivityObjectStorage;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,6 +29,7 @@ public class PublicSurveyAnswers {
 
     private Survey survey;
     private String html;
+    private String htmlreferredbyblogid;
     private SurveyEnhancer surveyEnhancer;
 
     Logger logger = Logger.getLogger(this.getClass().getName());
@@ -37,11 +40,22 @@ public class PublicSurveyAnswers {
         if (Num.isinteger(Jsf.getRequestParam("surveyid"))){
             Jsf.getUserSession().setCurrentSurveyid(Integer.parseInt(Jsf.getRequestParam("surveyid")));
         }
+        //Establish pendingSurveyReferredbyblogid by looking at referer, store that in the session and use it later
+        Blog referredByBlog = ImpressionActivityObjectStorage.findBlogFromReferer(Jsf.getHttpServletRequest().getHeader("referer"));
+        if (referredByBlog!=null){
+            Jsf.getUserSession().setPendingSurveyReferredbyblogid(referredByBlog.getBlogid());
+        }
         if(Jsf.getUserSession().getCurrentSurveyid()>0){
             survey = Survey.get(Jsf.getUserSession().getCurrentSurveyid());
             surveyEnhancer = new SurveyEnhancer(survey);
-            html = SurveyResultsDisplay.getHtmlForResults(survey, null);
+            html = SurveyResultsDisplay.getHtmlForResults(survey, null, 0);
+            if (Jsf.getUserSession().getPendingSurveyReferredbyblogid()>0){
+                htmlreferredbyblogid = SurveyResultsDisplay.getHtmlForResults(survey, null, Jsf.getUserSession().getPendingSurveyReferredbyblogid());
+            } else {
+                htmlreferredbyblogid = "<font class='mediumfont'>Nobody from this blog has answered... yet.  You could be the first!</font>";
+            }
         }
+
     }
 
     public Survey getSurvey() {
@@ -67,5 +81,14 @@ public class PublicSurveyAnswers {
 
     public void setHtml(String html) {
         this.html = html;
+    }
+
+
+    public String getHtmlreferredbyblogid() {
+        return htmlreferredbyblogid;
+    }
+
+    public void setHtmlreferredbyblogid(String htmlreferredbyblogid) {
+        this.htmlreferredbyblogid = htmlreferredbyblogid;
     }
 }

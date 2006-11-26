@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Iterator;
 
 import org.apache.log4j.Logger;
+import org.hibernate.criterion.Restrictions;
 
 /**
  * User: Joe Reger Jr
@@ -26,32 +27,14 @@ public class ImpressionActivityObjectStorage {
             user = User.get(iao.getUserid());
         }
 
-        //Find blogid
+        //Find blog as indicated by referer
         Blog blog=null;
-        int blogimpressionsthatqualifyforpayment = 0;
         if (iao.getReferer()!=null && !iao.getReferer().equals("")){
-            if (user!=null && user.getBloggerid()>0){
-                for (Iterator it = Blogger.get(user.getBloggerid()).getBlogs().iterator(); it.hasNext(); ) {
-                    Blog tmpBlog = (Blog)it.next();
-                    logger.debug("tmpBlog.getUrl()="+ tmpBlog.getUrl());
-                    logger.debug("referer.indexOf(tmpBlog.getUrl())="+iao.getReferer().indexOf(tmpBlog.getUrl()));
-                    if (iao.getReferer().indexOf(tmpBlog.getUrl())>=0){
-                        logger.debug("found the blogid for this impression: blogid="+ tmpBlog.getBlogid());
-                        blog = tmpBlog;
-                        for (Iterator it2 = blog.getImpressions().iterator(); it2.hasNext(); ) {
-                            Impression impression = (Impression)it2.next();
-                            //Add the impressions that already exist... note that i'm only looking at the impressionsqualifyingforpayment var so that var must be kept up-to-date
-                            blogimpressionsthatqualifyforpayment = blogimpressionsthatqualifyforpayment + impression.getImpressionsqualifyingforpayment();
-                        }
-                    }
-                }
-            } else {
-                //The user is null, no userid was passed on url line
-                //@todo at this point i could pull up *all* blogs for *all* users and see if I can find anything... expensive though
-            }
+            blog = findBlogFromReferer(iao.getReferer(), user);
         } else {
             //The referer is blank
         }
+
 
         //Find bloggerid
         int bloggerid = 0;
@@ -75,6 +58,9 @@ public class ImpressionActivityObjectStorage {
                 return;
             }
         }
+
+        //Find number of impressions on this blog qualify for payment
+        int blogimpressionsthatqualifyforpayment = getImpressionsThatQualifyForPayment(blog, survey);
 
         //See if this impressiondetail qualifies for payment
         int qualifiesforpaymentstatus = Impressiondetail.QUALIFIESFORPAYMENTSTATUS_TRUE;
@@ -132,6 +118,55 @@ public class ImpressionActivityObjectStorage {
             try{blog.save();} catch (GeneralException gex){logger.error(gex);}
         }
 
+    }
+
+    public static Blog findBlogFromReferer(String referer){
+        return findBlogFromReferer(referer, null);
+    }
+
+    public static Blog findBlogFromReferer(String referer, User user){
+        Logger logger = Logger.getLogger(ImpressionActivityObjectStorage.class);
+        if (referer!=null && !referer.equals("")){
+            if (user!=null && user.getBloggerid()>0){
+                for (Iterator it = Blogger.get(user.getBloggerid()).getBlogs().iterator(); it.hasNext(); ) {
+                    Blog blog = (Blog)it.next();
+                    logger.debug("blog.getUrl()="+ blog.getUrl());
+                    logger.debug("referer.indexOf(blog.getUrl())="+referer.indexOf(blog.getUrl()));
+                    if (referer.indexOf(blog.getUrl())>=0){
+                        logger.debug("found the blogid for this impression: blogid="+ blog.getBlogid());
+                        return blog;
+                    }
+                }
+            } else {
+                //The user is null, no userid was passed on url line
+                List<Blog> blogs = HibernateUtil.getSession().createCriteria(Blog.class)
+                                                   .add(Restrictions.like("url", "%"+referer+"%"))
+                                                   .setCacheable(true)
+                                                   .list();
+                for (Iterator<Blog> iterator = blogs.iterator(); iterator.hasNext();) {
+                    Blog blog = iterator.next();
+                    logger.debug("blog.getUrl()="+ blog.getUrl());
+                    logger.debug("referer.indexOf(blog.getUrl())="+referer.indexOf(blog.getUrl()));
+                    if (referer.indexOf(blog.getUrl())>=0){
+                        logger.debug("found the blogid for this impression: blogid="+ blog.getBlogid());
+                        return blog;
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    public static int getImpressionsThatQualifyForPayment(Blog blog, Survey survey){
+        int blogimpressionsthatqualifyforpayment = 0;
+        for (Iterator it2 = blog.getImpressions().iterator(); it2.hasNext(); ) {
+            Impression impression = (Impression)it2.next();
+            //Add the impressions that already exist... note that i'm only looking at the impressionsqualifyingforpayment var so that var must be kept up-to-date
+            if (survey.getSurveyid()==impression.getSurveyid()){
+                blogimpressionsthatqualifyforpayment = blogimpressionsthatqualifyforpayment + impression.getImpressionsqualifyingforpayment();
+            }
+        }
+        return blogimpressionsthatqualifyforpayment;
     }
 
 }

@@ -132,7 +132,7 @@ public class Checkboxes implements Component {
         }
     }
 
-    public String getHtmlForResult(){
+    public String getHtmlForResult(List<Questionresponse> questionresponses){
         StringBuffer out = new StringBuffer();
         out.append("<table width=100% cellpadding=3 cellspacing=1 border=0>");
 
@@ -162,7 +162,7 @@ public class Checkboxes implements Component {
             answers.put(s.trim(), 0);
         }
 
-        for (Iterator it = question.getQuestionresponses().iterator(); it.hasNext(); ) {
+        for (Iterator it = questionresponses.iterator(); it.hasNext(); ) {
             Questionresponse questionresponse = (Questionresponse)it.next();
             if (questionresponse.getName().equals("response")){
                 if (answers.containsKey(questionresponse.getValue())){
@@ -180,7 +180,7 @@ public class Checkboxes implements Component {
             String answer = (String)mapentry.getKey();
             int count = (Integer)mapentry.getValue();
 
-            double percentage = (Double.parseDouble(String.valueOf(count))/Double.parseDouble(String.valueOf(question.getQuestionresponses().size())))*100;
+            double percentage = (Double.parseDouble(String.valueOf(count))/Double.parseDouble(String.valueOf(questionresponses.size())))*100;
             NumberFormat formatter = DecimalFormat.getInstance();
             formatter.setMaximumFractionDigits(0);
 
@@ -206,7 +206,7 @@ public class Checkboxes implements Component {
         out.append("<b>Total</b>");
         out.append("</td>");
         out.append("<td valign=top bgcolor=#e6e6e6>");
-        out.append(question.getQuestionresponses().size());
+        out.append(questionresponses.size());
         out.append("</td>");
         out.append("</tr>");
 
@@ -214,8 +214,8 @@ public class Checkboxes implements Component {
         return out.toString();
     }
 
-    public String getHtmlForResultDetail(){
-        return getHtmlForResult();    
+    public String getHtmlForResultDetail(List<Questionresponse> questionresponses){
+        return getHtmlForResult(questionresponses);
     }
 
     public int columnsInCsvOutput() {

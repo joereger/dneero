@@ -49,7 +49,7 @@ public class BloggerSurveyTake {
         logger.debug("takeSurvey() called");
         try{
             SurveyResponseParser srp = new SurveyResponseParser((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest());
-            createResponse(survey, srp, Blogger.get(Jsf.getUserSession().getUser().getBloggerid()));
+            createResponse(survey, srp, Blogger.get(Jsf.getUserSession().getUser().getBloggerid()), 0);
         } catch (ComponentException cex){
             Jsf.setFacesMessage(cex.getErrorsAsSingleString());
             return "bloggersurveytake";
@@ -57,8 +57,8 @@ public class BloggerSurveyTake {
         return "bloggersurveyposttoblog";
     }
 
-
-    public static void createResponse(Survey survey, SurveyResponseParser srp, Blogger blogger) throws ComponentException{
+    //This method can be called by this class or by BloggerIndex to store a pending survey
+    public static void createResponse(Survey survey, SurveyResponseParser srp, Blogger blogger, int referredbyblogid) throws ComponentException{
         Logger logger = Logger.getLogger(BloggerSurveyTake.class);
         ComponentException allCex = new ComponentException();
         //Make sure blogger hasn't taken already
@@ -104,6 +104,7 @@ public class BloggerSurveyTake {
                     response.setBloggerid(blogger.getBloggerid());
                     response.setResponsedate(new Date());
                     response.setSurveyid(survey.getSurveyid());
+                    response.setReferredbyblogid(referredbyblogid);
                     survey.getResponses().add(response);
                     try{
                         survey.save();

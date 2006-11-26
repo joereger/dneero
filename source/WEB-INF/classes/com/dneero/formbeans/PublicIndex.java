@@ -62,9 +62,11 @@ public class PublicIndex {
         if (dollarswaiting==null){
             List results = HibernateUtil.getSession().createQuery("from Survey where status='"+ Survey.STATUS_OPEN +"'").list();
             double dollars = 0;
-            for (Iterator iterator = results.iterator(); iterator.hasNext();) {
-                Survey survey = (Survey) iterator.next();
-                dollars = dollars + (survey.getWillingtopayperrespondent() * survey.getNumberofrespondentsrequested()) + ((survey.getWillingtopaypercpm() * survey.getMaxdisplaystotal())/1000);
+            if (results!=null){
+                for (Iterator iterator = results.iterator(); iterator.hasNext();) {
+                    Survey survey = (Survey) iterator.next();
+                    dollars = dollars + (survey.getWillingtopayperrespondent() * survey.getNumberofrespondentsrequested()) + ((survey.getWillingtopaypercpm() * survey.getMaxdisplaystotal())/1000);
+                }
             }
             dollarswaiting = "$"+Str.formatForMoney(dollars);
         }

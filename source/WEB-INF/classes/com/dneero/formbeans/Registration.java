@@ -126,14 +126,17 @@ public class Registration {
         user.getUsereulas().add(usereula);
 
         //Pending survey save
+        //Note: this code also on Login and PublicSurveyTake
         if (Jsf.getUserSession().getPendingSurveyResponseSurveyid()>0){
             if (!Jsf.getUserSession().getPendingSurveyResponseAsString().equals("")){
                 Responsepending responsepending = new Responsepending();
                 responsepending.setUserid(user.getUserid());
+                responsepending.setReferredbyblogid(Jsf.getUserSession().getPendingSurveyReferredbyblogid());
                 responsepending.setResponseasstring(Jsf.getUserSession().getPendingSurveyResponseAsString());
                 responsepending.setSurveyid(Jsf.getUserSession().getPendingSurveyResponseSurveyid());
                 try{responsepending.save();}catch (Exception ex){logger.error(ex);}
                 Jsf.getUserSession().setPendingSurveyResponseSurveyid(0);
+                Jsf.getUserSession().setPendingSurveyReferredbyblogid(0);
                 Jsf.getUserSession().setPendingSurveyResponseAsString("");
             }
         }
