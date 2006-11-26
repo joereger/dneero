@@ -73,7 +73,7 @@ public class SurveyTemplateProcessor {
         } catch (Exception e){
             //Do nothing... just null pointer
         }
-        return wrapInStandardSurveyWrapper(out.toString());
+        return wrapInStandardSurveyWrapper(out.toString(), false);
     }
 
 
@@ -102,10 +102,10 @@ public class SurveyTemplateProcessor {
         } catch (Exception e){
             //Do nothing... just null pointer
         }
-        return wrapInStandardSurveyWrapper(out.toString());
+        return wrapInStandardSurveyWrapper(out.toString(), true);
     }
 
-    public String wrapInStandardSurveyWrapper(String in){
+    public String wrapInStandardSurveyWrapper(String in, boolean includeFooter){
         StringBuffer out = new StringBuffer();
         String baseurl = SystemProperty.getProp(SystemProperty.PROP_BASEURL);
         out.append("<!-- Start dNeero Survey -->\n" +
@@ -117,8 +117,9 @@ public class SurveyTemplateProcessor {
                     "\n" +
                     "\t\t\t<!-- End Survey Questions -->\n" +
                     "\t\t</td>\n" +
-                    "\t</tr>\n" +
-                    "\t<tr>\t\n" +
+                    "\t</tr>\n");
+         if(includeFooter){
+            out.append("\t<tr>\t\n" +
                     "\t\t<td valign=\"bottom\" align=\"right\" bgcolor=\"#ffffff\" width=\"50%\">\n" +
                     "&nbsp;\n"+
                     "\t\t</td>\n" +
@@ -140,8 +141,10 @@ public class SurveyTemplateProcessor {
                     "\t\t<td valign=\"bottom\" align=\"right\" bgcolor=\"#ffffff\" width=\"50%\">\n" +
                     "&nbsp;\n"+
                     "\t\t</td>\n" +
-                    "\t</tr>\n" +
-                    "</table>\n" +
+                    "\t</tr>\n");
+         }
+
+         out.append("</table>\n" +
                     "<!-- End dNeero Survey -->");
         return out.toString();
     }

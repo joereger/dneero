@@ -60,6 +60,10 @@ public class Authorization extends UIComponentBase {
                                 newUserSession.setUser(user);
                                 newUserSession.setIsloggedin(true);
                                 newUserSession.setIsLoggedInToBeta(Jsf.getUserSession().getIsLoggedInToBeta());
+                                newUserSession.setPendingSurveyReferredbyblogid(Jsf.getUserSession().getPendingSurveyReferredbyblogid());
+                                newUserSession.setPendingSurveyResponseAsString(Jsf.getUserSession().getPendingSurveyResponseAsString());
+                                newUserSession.setPendingSurveyResponseSurveyid(Jsf.getUserSession().getPendingSurveyResponseSurveyid());
+                                newUserSession.setCurrentSurveyid(Jsf.getUserSession().getCurrentSurveyid());
                                 Jsf.bindObjectToExpressionLanguage("#{userSession}", newUserSession);
                                 wasAutoLoggedIn = true;
                                 //Notify customer care group
