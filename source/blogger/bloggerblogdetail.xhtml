@@ -15,7 +15,7 @@
     <d:authorization acl="blogger" redirectonfail="true"/>
 
 
-    <d:roundedCornerBox uniqueboxname="newblogger" bodycolor="00ff00" widthinpixels="700" rendered="#{userSession.isloggedin and (userSession.user.bloggerid gt 0)}">
+    <d:roundedCornerBox uniqueboxname="newblogger" bodycolor="00ff00" widthinpixels="700" rendered="#{bloggerBlogDetail.isonetimeconfig}">
     <font class="mediumfont">One-time Blogger Configuration Step 2: Blog Claim</font>
     <br/>
     <font class="smallfont">You need to claim at least one blog so that we know where to look for your survey posts.</font>

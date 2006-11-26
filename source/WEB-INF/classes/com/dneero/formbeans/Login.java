@@ -87,7 +87,7 @@ public class Login {
             if (!EulaHelper.isUserUsingMostRecentEula(userSession.getUser())){
                 return "loginagreeneweula";    
             }
-            return "accountmain";
+            return "accountindex";
         }
 
         return null;

@@ -85,7 +85,7 @@ public class Authorization extends UIComponentBase {
 //                                        RequestDispatcher dispatcher = request.getRequestDispatcher(request.getRequestURI());
 //                                        dispatcher.forward(request,response);
                                         if (redirectonfail.equals("true")){
-                                            context.getExternalContext().redirect("/account/accountmain.jsf?msg=autologin");
+                                            context.getExternalContext().redirect("/account/index.jsf?msg=autologin");
                                             return;
                                         }
 

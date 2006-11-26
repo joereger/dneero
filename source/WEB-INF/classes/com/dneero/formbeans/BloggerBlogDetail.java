@@ -26,6 +26,7 @@ public class BloggerBlogDetail {
     private String url;
     private String title;
     private String blogfocus;
+    private boolean isonetimeconfig = false;
 
 
     Logger logger = Logger.getLogger(this.getClass().getName());
@@ -55,7 +56,15 @@ public class BloggerBlogDetail {
             }
         } else {
             logger.debug("beginView called: NOT found blogid in param="+tmpBlogid);
+            //Determine whether or not this is a one-time config
+            List blogs = HibernateUtil.getSession().createQuery("from Blog where bloggerid='"+Jsf.getUserSession().getUser().getBloggerid()+"'").list();
+            logger.debug("blogs.size()="+blogs.size()+" for Jsf.getUserSession().getUser().getBloggerid()="+Jsf.getUserSession().getUser().getBloggerid());
+            if (blogs.size()==0){
+                isonetimeconfig = true;
+            }
+
         }
+
         logger.debug("End of beginView: blogid="+blogid);
         return "bloggerblogdetail";
     }
@@ -147,4 +156,12 @@ public class BloggerBlogDetail {
         this.blogfocus = blogfocus;
     }
 
+
+    public boolean getIsonetimeconfig() {
+        return isonetimeconfig;
+    }
+
+    public void setIsonetimeconfig(boolean isonetimeconfig) {
+        this.isonetimeconfig = isonetimeconfig;
+    }
 }

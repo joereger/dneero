@@ -49,7 +49,7 @@ public class LoginAgreeNewEula {
         }
         
 
-        return "accountmain";
+        return "accountindex";
 
 
 

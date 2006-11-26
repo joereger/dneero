@@ -59,8 +59,8 @@
                         </a>
                     </td>
                     <td valign="top" background="/images/navtabs/mainbar_bg.gif">
-                        <c:if test="${navtab!='youraccount' and userSession.isloggedin}"><a href="/account/accountmain.jsf"><img src="/images/navtabs/youraccount_off.gif" width="138" height="70" border="0"/></a></c:if>
-                        <c:if test="${navtab=='youraccount' and userSession.isloggedin}"><a href="/account/accountmain.jsf"><img src="/images/navtabs/youraccount_on.gif" width="138" height="70" border="0"/></a></c:if>
+                        <c:if test="${navtab!='youraccount' and userSession.isloggedin}"><a href="/account/index.jsf"><img src="/images/navtabs/youraccount_off.gif" width="138" height="70" border="0"/></a></c:if>
+                        <c:if test="${navtab=='youraccount' and userSession.isloggedin}"><a href="/account/index.jsf"><img src="/images/navtabs/youraccount_on.gif" width="138" height="70" border="0"/></a></c:if>
                         <c:if test="${navtab!='youraccount' and !userSession.isloggedin}"><a href="/registration.jsf"><img src="/images/navtabs/youraccount_off.gif" width="138" height="70" border="0"/></a></c:if>
                         <c:if test="${navtab=='youraccount' and !userSession.isloggedin}"><a href="/registration.jsf"><img src="/images/navtabs/youraccount_on.gif" width="138" height="70" border="0"/></a></c:if>
                     </td>

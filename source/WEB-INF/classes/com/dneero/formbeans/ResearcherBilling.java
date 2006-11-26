@@ -132,7 +132,7 @@ public class ResearcherBilling {
             userSession.getUser().refresh();
 
 
-            return "accountmain";
+            return "researcherhome";
 
         } else {
             Jsf.setFacesMessage("UserSession.getUser() is null.  Please log in.");

@@ -59,6 +59,13 @@ public class PublicSurveyTake {
             Jsf.setFacesMessage(cex.getErrorsAsSingleString());
             return "publicsurveytake";
         }
+        if (Jsf.getUserSession().getIsloggedin()){
+            if (Jsf.getUserSession().getUser().getBloggerid()>0){
+                return "bloggerhome";
+            } else {
+                return "accountindex";
+            }
+        }
         return "publicsurveytakefinished";
     }
 
@@ -82,11 +89,22 @@ public class PublicSurveyTake {
         }
         //If we are validated
         if (allCex.getErrors().length<=0){
-            if (Jsf.getUserSession()!=null && !Jsf.getUserSession().getIsloggedin()){
-                //Not logged-in... store this response in memory for now
+            if (Jsf.getUserSession()!=null){
+                //Store this response in memory for now
                 Jsf.getUserSession().setPendingSurveyResponseSurveyid(survey.getSurveyid());
                 Jsf.getUserSession().setPendingSurveyResponseAsString(srp.getAsString());
                 logger.debug("Storing survey response in memory: surveyid="+survey.getSurveyid()+" : srp.getAsString()="+srp.getAsString());
+                //If the person is logged-in, save the survey for them
+                if (Jsf.getUserSession().getIsloggedin() && Jsf.getUserSession().getUser()!=null){
+                    //Pending survey save
+                    Responsepending responsepending = new Responsepending();
+                    responsepending.setUserid(Jsf.getUserSession().getUser().getUserid());
+                    responsepending.setResponseasstring(Jsf.getUserSession().getPendingSurveyResponseAsString());
+                    responsepending.setSurveyid(Jsf.getUserSession().getPendingSurveyResponseSurveyid());
+                    try{responsepending.save();}catch (Exception ex){logger.error(ex);}
+                    Jsf.getUserSession().setPendingSurveyResponseSurveyid(0);
+                    Jsf.getUserSession().setPendingSurveyResponseAsString("");
+                }
             }
         }
         //Throw if necessary

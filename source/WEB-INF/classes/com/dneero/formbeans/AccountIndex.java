@@ -15,12 +15,12 @@ import org.hibernate.criterion.Restrictions;
  * Date: Nov 9, 2006
  * Time: 11:18:03 AM
  */
-public class AccountMain {
+public class AccountIndex {
 
     private String currentbalance = "$0.00";
     private boolean userhasresponsependings = false;
 
-    public AccountMain(){
+    public AccountIndex(){
         load();
     }
 

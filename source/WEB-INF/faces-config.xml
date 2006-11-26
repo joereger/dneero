@@ -90,8 +90,8 @@
     </managed-bean>
 
     <managed-bean>
-        <managed-bean-name>accountMain</managed-bean-name>
-        <managed-bean-class>com.dneero.formbeans.AccountMain</managed-bean-class>
+        <managed-bean-name>accountIndex</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.AccountIndex</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
 
@@ -637,8 +637,8 @@
             <to-view-id>/researcher/researchersurveydelete.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
-            <from-outcome>accountmain</from-outcome>
-            <to-view-id>/account/accountmain.xhtml</to-view-id>
+            <from-outcome>accountindex</from-outcome>
+            <to-view-id>/account/index.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>accountbalance</from-outcome>
