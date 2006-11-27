@@ -35,7 +35,7 @@ public class LoginToBeta {
             return null;
         }
         Jsf.getUserSession().setIsLoggedInToBeta(true);
-        return "home";
+        return "logintobetacomplete";
 
     }
 
