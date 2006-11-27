@@ -47,7 +47,7 @@ public class LoginAgreeNewEula {
             Jsf.setFacesMessage("eulaform:eula", "Error... please try again.");
             return null;
         }
-        
+        Jsf.getUserSession().setIseulaok(true);
 
         return "accountindex";
 

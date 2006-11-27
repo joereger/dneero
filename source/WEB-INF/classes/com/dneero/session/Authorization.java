@@ -64,18 +64,23 @@ public class Authorization extends UIComponentBase {
                                 newUserSession.setPendingSurveyResponseAsString(Jsf.getUserSession().getPendingSurveyResponseAsString());
                                 newUserSession.setPendingSurveyResponseSurveyid(Jsf.getUserSession().getPendingSurveyResponseSurveyid());
                                 newUserSession.setCurrentSurveyid(Jsf.getUserSession().getCurrentSurveyid());
+                                //Check the eula
+                                if (!EulaHelper.isUserUsingMostRecentEula(user)){
+                                    newUserSession.setIseulaok(false);
+                                } else {
+                                    newUserSession.setIseulaok(true);
+                                }
                                 Jsf.bindObjectToExpressionLanguage("#{userSession}", newUserSession);
                                 wasAutoLoggedIn = true;
                                 //Notify customer care group
                                 SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_DEBUG, "dNeero User Login: "+ user.getFirstname() + " " + user.getLastname() + " ("+user.getEmail()+")");
                                 xmpp.send();
-                                //Now check the eula
-                                if (!EulaHelper.isUserUsingMostRecentEula(user)){
-                                    System.out.println("redirecting to force eula accept");
-                                    context.getExternalContext().redirect("/loginagreeneweula.jsf?msg=autologin");
-                                    return;
-                                }
-                                System.out.println("through eula check");
+//                                //Now check the eula
+//                                if (!Jsf.getUserSession().getIseulaok()){
+//                                    System.out.println("redirecting to force eula accept");
+//                                    context.getExternalContext().redirect("/loginagreeneweula.jsf?msg=autologin");
+//                                    return;
+//                                }
                                 //Now dispatch request to the same page so that header is changed to reflect logged-in status
                                 if (wasAutoLoggedIn){
                                     try{
@@ -109,7 +114,12 @@ public class Authorization extends UIComponentBase {
         //Persistent login end
 
 
-
+        //Now check the eula
+        if (redirectonfail.equals("true") && Jsf.getUserSession().getIsloggedin() && !Jsf.getUserSession().getIseulaok()){
+            System.out.println("redirecting to force eula accept");
+            context.getExternalContext().redirect("/loginagreeneweula.jsf");
+            return;
+        }
 
 
         if (acl==null){

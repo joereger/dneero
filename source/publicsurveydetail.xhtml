@@ -9,7 +9,11 @@
       xmlns:d="http://dneero.com/taglib">
 
 <ui:composition template="/template/template-facelets.xhtml">
-    <ui:define name="title">Survey<br/><br/></ui:define>
+    <ui:define name="title">
+        <img src="/images/process-train-blogger-01.gif" align="right" width="171" height="73"></img>
+        <h:outputText value="Survey: #{publicSurveyDetail.survey.title}" styleClass="pagetitlefont"/>
+        <br clear="all"/>
+    </ui:define>
     <ui:param name="navtab" value="home"/>
     <ui:define name="body">
     <d:authorization acl="public" redirectonfail="true"/>
@@ -17,13 +21,17 @@
 
 <h:form>
 
-    <h:graphicImage url="/images/process-train-blogger-01.gif" style="display: block; margin-left: auto; margin-right: auto;" rendered="#{!bloggerSurveyDetail.bloggerhasalreadytakensurvey}"></h:graphicImage>
-    <f:verbatim rendered="#{!publicSurveyDetail.bloggerhasalreadytakensurvey}"><br/><br/></f:verbatim>
+    <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
+    <img src="/images/lightbulb_on.png" align="left"/>
+    On this screen you view the details of the survey opportunity.  See the questions in the 'Question Preview' tab and see how this survey will look on your blog in the 'On-Blog Preview' tab.
+    <br/><br/>
+    <h:commandButton action="#{publicSurveyDetail.beginTakeSurvey}" value="Ok, I'll Take the Survey" styleClass="formsubmitbutton"></h:commandButton>
+    </font></div></center>
+    <br/>
 
     <d:roundedCornerBox uniqueboxname="alreadytaken" bodycolor="00ff00" widthinpixels="500" rendered="#{publicSurveyDetail.bloggerhasalreadytakensurvey}">
     <h:outputText value="You've already taken this survey." styleClass="mediumfont" rendered="#{publicSurveyDetail.bloggerhasalreadytakensurvey}"/>
     </d:roundedCornerBox>
-    <f:verbatim rendered="#{publicSurveyDetail.bloggerhasalreadytakensurvey}"><br/><br/></f:verbatim>
 
 
     <t:panelTabbedPane id="panel" bgcolor="#ffffff">
@@ -39,8 +47,7 @@
                         <font class="medium">#{publicSurveyDetail.survey.description}</font>
                         <br/>
                         <font class="tinyfont">Survey ID: #{publicSurveyDetail.survey.surveyid}</font>
-                        <br/><br/>
-                        <h:commandButton action="#{publicSurveyDetail.beginTakeSurvey}" value="Ok, I'll Take the Survey" styleClass="formsubmitbutton"></h:commandButton>
+
                     </td>
                     <td valign="top" align="right">
                         <d:roundedCornerBox uniqueboxname="youcouldearn" bodycolor="00ff00" widthinpixels="200">

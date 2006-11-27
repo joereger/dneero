@@ -24,8 +24,9 @@
 
     <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
     <img src="/images/lightbulb_on.png" align="left"/>
-    On this screen you view the details of the survey opportunity.  See the questions in the 'Question Preview' tab and see how this survey will look on your blog in the 'On-Blog Preview' tab.  Click 'Ok, I'll Take the Survey' when you're ready to go!
+    On this screen you view the details of the survey opportunity.  See the questions in the 'Question Preview' tab and see how this survey will look on your blog in the 'On-Blog Preview' tab. 
     <br/><br/>
+    <h:commandButton action="bloggersurveytake" value="Ok, I'll Take the Survey" styleClass="formsubmitbutton" rendered="#{!bloggerSurveyDetail.bloggerhasalreadytakensurvey}"></h:commandButton>
     </font></div></center>
     <br/>
 
@@ -47,8 +48,6 @@
                         <font class="medium">#{bloggerSurveyDetail.survey.description}</font>
                         <br/>
                         <font class="tinyfont">Survey ID: #{bloggerSurveyDetail.survey.surveyid}</font>
-                        <br/><br/>
-                        <h:commandButton action="bloggersurveytake" value="Ok, I'll Take the Survey" styleClass="formsubmitbutton" rendered="#{!bloggerSurveyDetail.bloggerhasalreadytakensurvey}"></h:commandButton>
                     </td>
                     <td valign="top" align="right">
                         <d:roundedCornerBox uniqueboxname="youcouldearn" bodycolor="00ff00" widthinpixels="200">

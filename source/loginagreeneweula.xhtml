@@ -12,7 +12,7 @@
     <ui:define name="title">End User License Agreement<br/><br/></ui:define>
     <ui:param name="navtab" value="home"/>
     <ui:define name="body">
-    <d:authorization acl="account" redirectonfail="true"/>
+    <d:authorization acl="account" redirectonfail="false"/>
 
 
     <t:div rendered="#{param.msg eq 'autologin'}">

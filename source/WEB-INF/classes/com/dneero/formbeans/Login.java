@@ -54,6 +54,13 @@ public class Login {
             userSession.setIsloggedin(true);
             userSession.setIsLoggedInToBeta(Jsf.getUserSession().getIsLoggedInToBeta());
 
+            //Check the eula
+            if (!EulaHelper.isUserUsingMostRecentEula(user)){
+                userSession.setIseulaok(false);
+            } else {
+                userSession.setIseulaok(true);
+            }
+
             //Set persistent login cookie, if necessary
             if (keepmeloggedin){
                 //Get all possible cookies to set
@@ -87,7 +94,7 @@ public class Login {
             Jsf.bindObjectToExpressionLanguage("#{userSession}", userSession);
 
             //Now check the eula
-            if (!EulaHelper.isUserUsingMostRecentEula(userSession.getUser())){
+            if (!Jsf.getUserSession().getIseulaok()){
                 return "loginagreeneweula";    
             }
             return "accountindex";

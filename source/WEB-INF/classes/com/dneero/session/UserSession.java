@@ -28,6 +28,7 @@ public class UserSession implements Serializable {
     private int pendingSurveyResponseSurveyid = 0;
     private String pendingSurveyResponseAsString = "";
     private int pendingSurveyReferredbyblogid = 0;
+    private boolean iseulaok = true;
 
     public UserSession(){
 
@@ -125,5 +126,14 @@ public class UserSession implements Serializable {
 
     public void setPendingSurveyReferredbyblogid(int pendingSurveyReferredbyblogid) {
         this.pendingSurveyReferredbyblogid = pendingSurveyReferredbyblogid;
+    }
+
+
+    public boolean getIseulaok() {
+        return iseulaok;
+    }
+
+    public void setIseulaok(boolean iseulaok) {
+        this.iseulaok = iseulaok;
     }
 }
