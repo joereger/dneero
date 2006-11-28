@@ -73,7 +73,7 @@ public class DbVersionCheck {
                 } catch (ClassNotFoundException ex){
                     //Class isn't found, report it and exit
                     //logger.error(ex);
-                    ex.printStackTrace();
+                    //ex.printStackTrace();
                     keepWorking = false;
                     //RequiredDatabaseVersion.setError(RequiredDatabaseVersion.getError() + ErrorDissect.dissect(ex));
                     //logger.debug("Error: Upgrade database to version " + (currentDatabaseVersion+1) + ".  Class not found.");

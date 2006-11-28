@@ -130,7 +130,6 @@
         <font class="mediumfont">Account Balance (Internal Account Money Movement)</font>
         <h:form>
             <t:saveState id="save" value="#{sysadminUserDetail}"/>
-            <h:inputHidden value="#{sysadminUserDetail.userid}" />
             <af:outputText value="There are not yet any financial transactions on this account." rendered="#{empty sysadminUserDetail.balances}"/>
             <af:table value="#{sysadminUserDetail.balances}" bandingInterval="2" rows="10" banding="row" var="balance" rendered="#{!empty sysadminUserDetail.balances}">
               <af:column>
@@ -172,7 +171,6 @@
         <font class="mediumfont">Account Transactions (Real World Money Movement)</font>
         <h:form>
             <t:saveState id="save" value="#{sysadminUserDetail}"/>
-            <h:inputHidden value="#{sysadminUserDetail.userid}" />
             <af:outputText value="There are not yet any financial transactions on this account." rendered="#{empty sysadminUserDetail.transactions}"/>
             <af:table value="#{sysadminUserDetail.transactions}" bandingInterval="2" rows="10" banding="row" var="balance" rendered="#{!empty sysadminUserDetail.transactions}">
               <af:column>

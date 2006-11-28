@@ -33,7 +33,7 @@ public class RateBlogPost {
             Impression impression = impressions.get(0);
             impressionid = impression.getImpressionid();
             quality = 0;
-            iframestr = "<iframe frameborder=\"0\" marginheight=\"0\" marginwidth=\"0\" scrolling=\"auto\" src=\""+impression.getReferer()+"\" style=\"width:575px;height:400px;\"></iframe>";
+            iframestr = "<iframe frameborder=\"0\" marginheight=\"0\" marginwidth=\"0\" scrolling=\"auto\" src=\""+impression.getReferer()+"\" style=\"width:725px;height:400px;\"></iframe>";
             haveposttoreview = true;
         } else {
             impressionid = 0;

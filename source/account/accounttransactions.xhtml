@@ -17,7 +17,7 @@
 
 
     <h:form>
-            
+        <t:saveState id="save" value="#{accountBalancetransaction}"/>    
 
         <af:outputText value="There are not yet any financial transactions on your account." rendered="#{empty accountBalancetransaction.balances}"/>
         <af:table value="#{accountBalancetransaction.balances}" bandingInterval="2" rows="25" banding="row" var="balance" rendered="#{!empty accountBalancetransaction.balances}">

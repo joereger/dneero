@@ -21,7 +21,7 @@
 
 
 <h:form>
-
+    <t:saveState id="save" value="#{bloggerBlogsList}"/>
 
     <af:outputText value="You have not claimed any blogs." rendered="#{empty bloggerBlogsList.blogs}"/>
     <af:table value="#{bloggerBlogsList.blogs}" bandingInterval="2" rows="15" banding="row" var="blog" rendered="#{!empty bloggerBlogsList.blogs}">

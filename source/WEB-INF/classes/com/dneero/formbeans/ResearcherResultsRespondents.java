@@ -20,7 +20,7 @@ public class ResearcherResultsRespondents extends SortableList {
 
     Logger logger = Logger.getLogger(this.getClass().getName());
     private Survey survey;
-    private List list;
+    private List<ResearcherResultsRespondentsListitem> list;
 
     public ResearcherResultsRespondents(){
         super("responsedate");
@@ -56,8 +56,8 @@ public class ResearcherResultsRespondents extends SortableList {
         logger.debug("sort called");
         Comparator comparator = new Comparator() {
             public int compare(Object o1, Object o2) {
-                Response obj1 = (Response)o1;
-                Response obj2 = (Response)o2;
+                ResearcherResultsRespondentsListitem obj1 = (ResearcherResultsRespondentsListitem)o1;
+                ResearcherResultsRespondentsListitem obj2 = (ResearcherResultsRespondentsListitem)o2;
                 if (column == null) {
                     return 0;
                 }

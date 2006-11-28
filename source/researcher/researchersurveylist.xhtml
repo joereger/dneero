@@ -16,7 +16,7 @@
     <d:authorization acl="researcher" redirectonfail="true"/>
 
     <h:form>
-
+        <t:saveState id="save" value="#{researcherSurveyList}"/>
         <af:table value="#{researcherSurveyList.surveys}" rows="50" bandingInterval="2" banding="row" var="survey" rendered="#{!empty researcherSurveyList.surveys}">
           <af:column rendered="false">
             <f:facet name="header">

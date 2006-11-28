@@ -19,7 +19,7 @@
 
 <h:form>
 
-
+    <t:saveState id="save" value="#{publicSurveyList}"/>
     <af:outputText value="There are currently no surveys listed.  Please check back soon as we're always adding new ones!" styleClass="mediumfont" rendered="#{empty publicSurveyList.surveys}"/>
     <af:table value="#{publicSurveyList.surveys}" bandingInterval="2" rows="15" banding="row" var="srvy" rendered="#{!empty publicSurveyList.surveys}">
       <af:column rendered="false">

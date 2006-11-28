@@ -9,7 +9,7 @@
       xmlns:d="http://dneero.com/taglib">
 
 <ui:composition template="/template/template-facelets.xhtml">
-    <ui:define name="title">Rate Blog Post<br/><br/></ui:define>
+    <ui:define name="title">Rate Blog Post</ui:define>
     <ui:param name="navtab" value="sysadmin"/>
     <ui:define name="body">
         <d:authorization acl="systemadmin" redirectonfail="true"/>
@@ -19,11 +19,11 @@
          <h:form rendered="#{rateBlogPost.haveposttoreview}">
             <h:messages />
             <h:inputHidden name="impressionid" value="#{rateBlogPost.impressionid}" />
-            <d:roundedCornerBox uniqueboxname="rateblogscale" bodycolor="ffcc00" widthinpixels="700">
+            <d:roundedCornerBox uniqueboxname="rateblogscale" bodycolor="ffcc00" widthinpixels="725">
 
                 <h:panelGrid columns="3" cellpadding="3" border="0">
                     <h:panelGroup>
-                        <h:outputText value="Low Quality" styleClass="largefont"></h:outputText>
+                        <h:outputText value="Bad" styleClass="largefont"></h:outputText>
                     </h:panelGroup>
                     <h:panelGroup>
                         <h:selectOneRadio value="#{rateBlogPost.quality}" id="quality" required="true" layout="lineDirection">
@@ -40,7 +40,7 @@
                         </h:selectOneRadio>
                     </h:panelGroup>
                     <h:panelGroup>
-                        <h:outputText value="High Quality" styleClass="largefont"></h:outputText>
+                        <h:outputText value="Good" styleClass="largefont"></h:outputText>
                     </h:panelGroup>
                     <h:panelGroup>
                     </h:panelGroup>
