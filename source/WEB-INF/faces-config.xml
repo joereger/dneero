@@ -148,6 +148,12 @@
     </managed-bean>
 
     <managed-bean>
+        <managed-bean-name>sysadminHibernateCache</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.SysadminHibernateCache</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
         <managed-bean-name>sysadminUserDetail</managed-bean-name>
         <managed-bean-class>com.dneero.formbeans.SysadminUserDetail</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
@@ -691,6 +697,10 @@
         <navigation-case>
             <from-outcome>sysadminerrorlist</from-outcome>
             <to-view-id>/sysadmin/errorlist.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>sysadminhibernatecache</from-outcome>
+            <to-view-id>/sysadmin/hibernatecache.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>researcherhome</from-outcome>

@@ -1,5 +1,10 @@
 
 
+a, a:link, a:visited, a:active {
+    color: #0000ff;
+    background-color: inherit;
+}
+
 .tinyfont {
     font-family: Verdana, Arial, Helvetica, sans-serif;
     font-size: 8px;
@@ -10,10 +15,11 @@
     font-size: 10px;
 }
 
-.subnavfont {
+.subnavfont, .subnavfont a, .subnavfont a:link, .subnavfont a:visited, .subnavfont a:active {
     font-family: Tahoma, Geneva, sans-serif;
     font-size: 10px;
     font-weight: bolder;
+    color: #000000;
 }
 
 .formfieldnamefont {
@@ -40,12 +46,9 @@
     font-size: 34px;
 }
 
-a, a:link, a:visited, a:active {
-    color: #000000;
-    background-color: inherit;
-}
 
-td {
+
+td, th {
     vertical-align: top;
 }
 
@@ -86,13 +89,25 @@ hr {
 }
 
 .af_column_header-text {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 10px;
     text-align: left;
     border-style: solid;
     border-color: #000000;
     border-width: 0px 0px 1px 0px;
-    font-size: 14px;
     font-weight: bold;
-    color: #cccccc;
+    color: #666666;
+}
+
+.af_column_sortable-header-text {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 10px;
+    text-align: left;
+    border-style: solid;
+    border-color: #000000;
+    border-width: 0px 0px 1px 0px;
+    font-weight: bold;
+    color: #0000ff;
 }
 
 .af_column_cell-text, .af_column_cell-text-band {
@@ -105,6 +120,10 @@ hr {
     vertical-align: top;
     padding-top: 5px;
     padding-bottom: 5px;
+}
+
+.af_column_sortable-header-text a{
+    color: #0000ff;   
 }
 
 

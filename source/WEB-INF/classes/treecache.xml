@@ -29,7 +29,6 @@
         <!--
         <attribute name="TransactionManagerLookupClass">org.jboss.cache.DummyTransactionManagerLookup</attribute>
         -->
-        <attribute name="TransactionManagerLookupClass">org.jboss.cache.DummyTransactionManagerLookup</attribute>
         <!--
             Isolation level : SERIALIZABLE
                               REPEATABLE_READ (default)
@@ -129,6 +128,23 @@
                   <attribute name="maxNodes">50000</attribute>
                   <attribute name="timeToLiveSeconds">0</attribute>
               </region>
+              <region name="/com/dneero/dao/Impressiondetail">
+                  <attribute name="maxNodes">20000</attribute>
+                  <attribute name="timeToLiveSeconds">0</attribute>
+              </region>
+              <region name="/com/dneero/dao/Impression">
+                  <attribute name="maxNodes">5000</attribute>
+                  <attribute name="timeToLiveSeconds">0</attribute>
+              </region>
+              <region name="/com/dneero/dao/Balance">
+                  <attribute name="maxNodes">5000</attribute>
+                  <attribute name="timeToLiveSeconds">0</attribute>
+              </region>
+              <region name="/com/dneero/dao/Error">
+                  <attribute name="maxNodes">500</attribute>
+                  <attribute name="timeToLiveSeconds">0</attribute>
+              </region>
+
            </config>
         </attribute>
 
