@@ -1,0 +1,1 @@
+java -cp jgroups-2.2.8.jar org.jgroups.tests.McastReceiverTest -mcast_addr 228.0.0.4 -port 45564

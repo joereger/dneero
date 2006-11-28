@@ -15,6 +15,11 @@ a, a:link, a:visited, a:active {
     font-size: 10px;
 }
 
+.normalfont {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 12px;
+}
+
 .subnavfont, .subnavfont a, .subnavfont a:link, .subnavfont a:visited, .subnavfont a:active {
     font-family: Tahoma, Geneva, sans-serif;
     font-size: 10px;
