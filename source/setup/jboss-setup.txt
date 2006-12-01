@@ -1,0 +1,5 @@
+1) Download Jboss 4.0.5 AS, run the JEMS web installer
+
+2) Choose the ALL profile
+
+3) Uninstall the root app by renaming ROOT.war dir to welcome.war in C:\Superfly\jboss-4.0.5.GA\server\default\deploy\jbossweb-tomcat55.sar
