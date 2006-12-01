@@ -8,6 +8,7 @@ import org.hibernate.criterion.Restrictions;
 import com.dneero.dao.Survey;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.util.GeneralException;
+import com.dneero.systemprops.InstanceProperties;
 
 import java.util.List;
 import java.util.Date;
@@ -23,23 +24,24 @@ public class CloseSurveysByDate implements Job {
     Logger logger = Logger.getLogger(this.getClass().getName());
 
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
-        logger.debug("execute() CloseSurveysByDate called");
+        if (InstanceProperties.getRunScheduledTasksOnThisInstance()){
+            logger.debug("execute() CloseSurveysByDate called");
 
-        List<Survey> surveys = HibernateUtil.getSession().createCriteria(Survey.class)
-                               .add( Restrictions.lt("enddate", new Date()))
-                               .add( Restrictions.eq("status", Survey.STATUS_OPEN))
-                               .list();
+            List<Survey> surveys = HibernateUtil.getSession().createCriteria(Survey.class)
+                                   .add( Restrictions.lt("enddate", new Date()))
+                                   .add( Restrictions.eq("status", Survey.STATUS_OPEN))
+                                   .list();
 
-        for (Iterator<Survey> iterator = surveys.iterator(); iterator.hasNext();) {
-            Survey survey = iterator.next();
-            survey.setStatus(Survey.STATUS_CLOSED);
-            try{
-                survey.save();
-            } catch (GeneralException ex){
-                logger.error(ex);
+            for (Iterator<Survey> iterator = surveys.iterator(); iterator.hasNext();) {
+                Survey survey = iterator.next();
+                survey.setStatus(Survey.STATUS_CLOSED);
+                try{
+                    survey.save();
+                } catch (GeneralException ex){
+                    logger.error(ex);
+                }
             }
         }
-
     }
 
 }

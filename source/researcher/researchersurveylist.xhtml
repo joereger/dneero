@@ -44,12 +44,12 @@
             <f:facet name="header">
               <af:outputText value="-" inlineStyle="color: #ffffff;"/>
             </f:facet>
-            <h:commandLink action="#{researcherSurveyDetail01.beginView}" rendered="#{survey.status eq 1}" style="text-decoration: none;">
-                <af:outputText value="Edit" styleClass="normalfont" inlineStyle="color: #0000ff;"/>
+            <h:commandLink action="#{researcherSurveyDetail01.beginView}" rendered="#{survey.status eq 1}">
+                <h:outputText value="Edit" styleClass="normalfont" escape="false" />
                 <f:param name="surveyid" value="#{survey.surveyid}" />
             </h:commandLink>
             <h:commandLink action="#{researcherSurveyDetail01.beginView}" rendered="#{survey.status ne 1}">
-                <af:outputText value="Review" styleClass="normalfont" inlineStyle="color: #0000ff;"/>
+                <h:outputText value="Review" styleClass="normalfont" escape="false" />
                 <f:param name="surveyid" value="#{survey.surveyid}" />
             </h:commandLink>
           </af:column>

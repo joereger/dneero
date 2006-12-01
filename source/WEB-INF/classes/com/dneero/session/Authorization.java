@@ -18,6 +18,7 @@ import com.dneero.dao.Userrole;
 import com.dneero.dao.User;
 import com.dneero.util.Jsf;
 import com.dneero.systemprops.SystemProperty;
+import com.dneero.systemprops.BaseUrl;
 import com.dneero.eula.EulaHelper;
 import com.dneero.xmpp.SendXMPPMessage;
 
@@ -75,29 +76,24 @@ public class Authorization extends UIComponentBase {
                                 //Notify customer care group
                                 SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_DEBUG, "dNeero User Login: "+ user.getFirstname() + " " + user.getLastname() + " ("+user.getEmail()+")");
                                 xmpp.send();
-//                                //Now check the eula
-//                                if (!Jsf.getUserSession().getIseulaok()){
-//                                    System.out.println("redirecting to force eula accept");
-//                                    context.getExternalContext().redirect("/loginagreeneweula.jsf?msg=autologin");
-//                                    return;
-//                                }
                                 //Now dispatch request to the same page so that header is changed to reflect logged-in status
                                 if (wasAutoLoggedIn){
                                     try{
-                                        System.out.println("about to redir");
-//                                        ExternalContext ectx = FacesContext.getCurrentInstance().getExternalContext();
-//                                        HttpServletRequest request = (HttpServletRequest)ectx.getRequest();
-//                                        HttpServletResponse response = (HttpServletResponse)ectx.getResponse();
-//                                        response.reset();
-//                                        response.resetBuffer();
-//                                        System.out.println("request.getRequestURI()="+request.getRequestURI());
-//                                        RequestDispatcher dispatcher = request.getRequestDispatcher(request.getRequestURI());
-//                                        dispatcher.forward(request,response);
                                         if (redirectonfail.equals("true")){
-                                            context.getExternalContext().redirect("/account/index.jsf?msg=autologin");
-                                            return;
+                                            if (SystemProperty.getProp(SystemProperty.PROP_ISSSLON).equals("1")){
+                                                try{
+                                                    context.getExternalContext().redirect(BaseUrl.get(true)+"account/index.jsf?msg=autologin");
+                                                    return;
+                                                } catch (Exception ex){
+                                                    logger.error(ex);
+                                                    context.getExternalContext().redirect("/account/index.jsf?msg=autologin");
+                                                    return;
+                                                }
+                                            } else {
+                                                context.getExternalContext().redirect("/account/index.jsf?msg=autologin");
+                                                return;
+                                            }
                                         }
-
                                     } catch (Exception ex){
                                         logger.error(ex);
                                         ex.printStackTrace();

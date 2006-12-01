@@ -2,6 +2,6 @@ Hello!
 
 Please activate your account by visiting this page:
 
-<$systemProps.baseurl$>eas?u=<$user.userid$>&k=<$user.emailactivationkey$>
+<$baseUrl.includinghttp$>eas?u=<$user.userid$>&k=<$user.emailactivationkey$>
 
 The dNeero Team

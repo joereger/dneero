@@ -3,6 +3,8 @@ package com.dneero.email;
 import com.dneero.dao.User;
 import com.dneero.util.*;
 import com.dneero.systemprops.SystemProperty;
+import com.dneero.systemprops.WebAppRootDir;
+import com.dneero.systemprops.BaseUrl;
 
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
@@ -86,8 +88,8 @@ public class EmailTemplateProcessor {
             return user.getPassword();
         } else if (tag.equals("<$user.userid$>")){
             return String.valueOf(user.getUserid());
-        } else if (tag.equals("<$systemProps.baseurl$>")){
-            return SystemProperty.getProp(SystemProperty.PROP_BASEURL);
+        } else if (tag.equals("<$baseUrl.includinghttp$>")){
+            return BaseUrl.get(false);
         }
 
 
@@ -120,7 +122,7 @@ public class EmailTemplateProcessor {
                 if (m.group(1)!=null){
                     openquote = m.group(1);
                 }
-                String replacement = "img src="+openquote+ServerRootUrl.getServerRootUrl()+"emailtemplates/images";
+                String replacement = "img src="+openquote+BaseUrl.get(false)+"emailtemplates/images";
                 logger.debug("replacement ="+replacement);
                 m.appendReplacement(out, Str.cleanForAppendreplacement(replacement));
             }
@@ -132,11 +134,6 @@ public class EmailTemplateProcessor {
         }
 
 
-
-//        template = template.replaceAll("img src='images", "img src='"+ServerRootUrl.getServerRootUrl()+"emailtemplates/images");
-//        template = template.replaceAll("IMG SRC='images", "img src='"+ServerRootUrl.getServerRootUrl()+"emailtemplates/images");
-//        template = template.replaceAll("img src=\"images", "img src='"+ServerRootUrl.getServerRootUrl()+"emailtemplates/images");
-//        template = template.replaceAll("IMG SRC=\"images", "img src='"+ServerRootUrl.getServerRootUrl()+"emailtemplates/images");
     }
 
 

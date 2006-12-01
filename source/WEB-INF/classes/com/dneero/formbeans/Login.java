@@ -16,6 +16,8 @@ import com.dneero.session.UserSession;
 import com.dneero.session.PersistentLogin;
 import com.dneero.xmpp.SendXMPPMessage;
 import com.dneero.eula.EulaHelper;
+import com.dneero.systemprops.SystemProperty;
+import com.dneero.systemprops.BaseUrl;
 
 import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
@@ -93,11 +95,19 @@ public class Login {
 
             Jsf.bindObjectToExpressionLanguage("#{userSession}", userSession);
 
-            //Now check the eula
-            if (!Jsf.getUserSession().getIseulaok()){
-                return "loginagreeneweula";    
+            //Redir if https is on
+            if (SystemProperty.getProp(SystemProperty.PROP_ISSSLON).equals("1")){
+                try{
+                    logger.debug("redirecting to https - "+BaseUrl.get(true)+"account/index.jsf");
+                    Jsf.redirectResponse(BaseUrl.get(true)+"account/index.jsf");
+                    return null;
+                } catch (Exception ex){
+                    logger.error(ex);
+                    return "accountindex";
+                }
+            } else {
+                return "accountindex";
             }
-            return "accountindex";
         }
 
         return null;

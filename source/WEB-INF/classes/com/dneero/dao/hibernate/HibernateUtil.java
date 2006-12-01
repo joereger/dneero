@@ -12,9 +12,8 @@ import java.io.File;
 import java.io.Serializable;
 
 
-import com.dneero.db.DbConfig;
-import com.dneero.util.GeneralException;
-import com.dneero.util.WebAppRootDir;
+import com.dneero.systemprops.InstanceProperties;
+import com.dneero.systemprops.WebAppRootDir;
 import com.dneero.dao.hibernate.eventlisteners.RegerPostLoadEventListener;
 import com.dneero.dao.hibernate.eventlisteners.RegerPreInsertEventListener;
 import com.dneero.dao.hibernate.eventlisteners.RegerPreDeleteEventListener;
@@ -32,7 +31,7 @@ public class HibernateUtil {
     private static void initializeSession(){
         Logger logger = Logger.getLogger(HibernateUtil.class);
         if (ApplicationStartup.getIswabapprooddirdiscovered()){
-            if (DbConfig.haveValidConfig()){
+            if (InstanceProperties.haveValidConfig()){
                 try {
                     //Create a configuration object
                     Configuration conf = new Configuration();
@@ -43,10 +42,10 @@ public class HibernateUtil {
                     //conf.addAnnotatedClass(Banner.class);
                     //Set up database connection
                     conf.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
-                    conf.setProperty("hibernate.connection.username", DbConfig.getDbUsername());
-                    conf.setProperty("hibernate.connection.url", DbConfig.getDbConnectionUrl());
-                    conf.setProperty("hibernate.connection.password", DbConfig.getDbPassword());
-                    conf.setProperty("hibernate.connection.driver_class", DbConfig.getDbDriverName());
+                    conf.setProperty("hibernate.connection.username", InstanceProperties.getDbUsername());
+                    conf.setProperty("hibernate.connection.url", InstanceProperties.getDbConnectionUrl());
+                    conf.setProperty("hibernate.connection.password", InstanceProperties.getDbPassword());
+                    conf.setProperty("hibernate.connection.driver_class", InstanceProperties.getDbDriverName());
 
                     //Misc
                     //conf.setProperty("hibernate.current_session_context_class", "thread");
@@ -67,9 +66,9 @@ public class HibernateUtil {
                     //conf.setInterceptor(new HibernateInterceptor());
 
                     //Connection pool
-                    conf.setProperty("hibernate.c3p0.min_size", String.valueOf(DbConfig.getDbMinIdle()));
-                    conf.setProperty("hibernate.c3p0.max_size", String.valueOf(DbConfig.getDbMaxActive()));
-                    conf.setProperty("hibernate.c3p0.timeout", String.valueOf(DbConfig.getDbMaxWait()));
+                    conf.setProperty("hibernate.c3p0.min_size", String.valueOf(InstanceProperties.getDbMinIdle()));
+                    conf.setProperty("hibernate.c3p0.max_size", String.valueOf(InstanceProperties.getDbMaxActive()));
+                    conf.setProperty("hibernate.c3p0.timeout", String.valueOf(InstanceProperties.getDbMaxWait()));
                     conf.setProperty("hibernate.c3p0.max_statements", "50");
 
                     //Second level cache
@@ -94,7 +93,7 @@ public class HibernateUtil {
                     // Create the SessionFactory
                     sessionFactory = conf.buildSessionFactory();
                     logger.info("HibernateUtil Session Initialized. Let's rock some data abstration!");
-                    logger.info("HibernateUtil: username:"+DbConfig.getDbUsername());
+                    logger.info("HibernateUtil: username:"+ InstanceProperties.getDbUsername());
                 } catch (Throwable ex) {
                     logger.error("Initial Hibernate SessionFactory creation failed.", ex);
                     throw new ExceptionInInitializerError(ex);

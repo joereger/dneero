@@ -1,7 +1,7 @@
 package com.dneero.cache.providers.jboss;
 
 import com.dneero.cache.providers.CacheProvider;
-import com.dneero.util.WebAppRootDir;
+import com.dneero.systemprops.WebAppRootDir;
 import org.jboss.cache.aop.TreeCacheAop;
 import org.jboss.cache.PropertyConfigurator;
 import org.jboss.cache.CacheException;

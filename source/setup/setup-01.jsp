@@ -1,58 +1,69 @@
-<%@ page import="com.dneero.db.DbConfig"%>
+<%@ page import="com.dneero.systemprops.InstanceProperties"%>
+<%@ page import="com.dneero.util.GeneralException" %>
 <%
-//Only do this page if we have an invalid database connection.
+    //Only do this page if we have an invalid database connection.
 //Otherwise, anybody's going to be able to reset the database
 //configuration whenever they want. Which isn't cool.
-if (DbConfig.haveValidConfig()){
-    response.sendRedirect("setup-02.jsp");
-    return;
-}
+    if (InstanceProperties.haveValidConfig()) {
+        response.sendRedirect("setup-02.jsp");
+        return;
+    }
 %>
 <%
-//Save the properties, test them
-String errortext = "";
-if (request.getParameter("action")!=null && request.getParameter("action").equals("save")){
-    if (!DbConfig.haveNewConfigToTest()){
-        if (request.getParameter("dbserver")!=null && request.getParameter("dbport")!=null && request.getParameter("dbname")!=null){
-            String dbConnUrl = "jdbc:mysql://"+request.getParameter("dbserver")+":"+request.getParameter("dbport")+"/"+request.getParameter("dbname")+"?autoReconnect=true";
-            DbConfig.setDbConnectionUrl(dbConnUrl);
-        }
-        if (request.getParameter("dbusername")!=null){
-            DbConfig.setDbUsername(request.getParameter("dbusername"));
-        }
-        if (request.getParameter("dbpassword")!=null){
-            DbConfig.setDbPassword(request.getParameter("dbpassword"));
-        }
-        if (request.getParameter("dbmaxactive")!=null){
-            DbConfig.setDbMaxActive(request.getParameter("dbmaxactive"));
-        } else {
-            DbConfig.setDbMaxActive("100");
-        }
-        if (request.getParameter("dbmaxidle")!=null){
-            DbConfig.setDbMaxIdle(request.getParameter("dbmaxidle"));
-        } else {
-            DbConfig.setDbMaxIdle("20");
-        }
-        if (request.getParameter("dbminidle")!=null){
-            DbConfig.setDbMinIdle(request.getParameter("dbminidle"));
-        } else {
-            DbConfig.setDbMinIdle("10");
-        }
-        if (request.getParameter("dbmaxwait")!=null){
-            DbConfig.setDbMaxWait(request.getParameter("dbmaxwait"));
-        } else {
-            DbConfig.setDbMaxWait("10000");
-        }
-        //Save if it passes the connection test
-        DbConfig.save();
-        if (DbConfig.haveValidConfig()){
-            response.sendRedirect("setup-02.jsp");
-            return;
-        } else {
-            errortext = "There was an error.  This may mean that the application couldn't connect to the database.  This may also mean that the application did connect to the database but that the account it used didn't have enough permissions to run the application properly.";
+    //Save the properties, test them
+    String errortext = "";
+    if (request.getParameter("action") != null && request.getParameter("action").equals("save")) {
+        if (!InstanceProperties.haveNewConfigToTest()) {
+            if (request.getParameter("dbserver") != null && request.getParameter("dbport") != null && request.getParameter("dbname") != null) {
+                String dbConnUrl = "jdbc:mysql://" + request.getParameter("dbserver") + ":" + request.getParameter("dbport") + "/" + request.getParameter("dbname") + "?autoReconnect=true";
+                InstanceProperties.setDbConnectionUrl(dbConnUrl);
+            }
+            if (request.getParameter("dbusername") != null) {
+                InstanceProperties.setDbUsername(request.getParameter("dbusername"));
+            }
+            if (request.getParameter("dbpassword") != null) {
+                InstanceProperties.setDbPassword(request.getParameter("dbpassword"));
+            }
+            if (request.getParameter("dbmaxactive") != null) {
+                InstanceProperties.setDbMaxActive(request.getParameter("dbmaxactive"));
+            } else {
+                InstanceProperties.setDbMaxActive("100");
+            }
+            if (request.getParameter("dbmaxidle") != null) {
+                InstanceProperties.setDbMaxIdle(request.getParameter("dbmaxidle"));
+            } else {
+                InstanceProperties.setDbMaxIdle("20");
+            }
+            if (request.getParameter("dbminidle") != null) {
+                InstanceProperties.setDbMinIdle(request.getParameter("dbminidle"));
+            } else {
+                InstanceProperties.setDbMinIdle("10");
+            }
+            if (request.getParameter("dbmaxwait") != null) {
+                InstanceProperties.setDbMaxWait(request.getParameter("dbmaxwait"));
+            } else {
+                InstanceProperties.setDbMaxWait("10000");
+            }
+            if (request.getParameter("runscheduledtasksonthisinstance") != null && request.getParameter("runscheduledtasksonthisinstance").equals("1")) {
+                InstanceProperties.setRunScheduledTasksOnThisInstance(true);
+            } else {
+                InstanceProperties.setRunScheduledTasksOnThisInstance(false);
+            }
+            //Save if it passes the connection test
+            try {
+                InstanceProperties.save();
+                if (InstanceProperties.haveValidConfig()) {
+                    response.sendRedirect("setup-02.jsp");
+                    return;
+                } else {
+                    errortext = "There was an error.  This may mean that the application couldn't connect to the database.  This may also mean that the application did connect to the database but that the account it used didn't have enough permissions to run the application properly.";
+                }
+            } catch (GeneralException gex) {
+                errortext = "There was an error.  This may mean that the application couldn't connect to the database.  This may also mean that the application did connect to the database but that the account it used didn't have enough permissions to run the application properly." + gex.getErrorsAsSingleString();
+            }
+
         }
     }
-}
 %>
 
 
@@ -72,7 +83,7 @@ if (!errortext.equals("")){
 %>
 
     <%
-    if (!DbConfig.haveNewConfigToTest()){
+        if (!InstanceProperties.haveNewConfigToTest()) {
     %>
 
         <center>
@@ -89,6 +100,7 @@ if (!errortext.equals("")){
         </font>
         </td>
         </tr>
+
         <tr>
         <td valign=top align=left>
         <font face=arial size=-1>
@@ -186,6 +198,28 @@ if (!errortext.equals("")){
         <td valign=top align=left>
         <font face=arial size=-1>
         The password for the user specified above.
+        </font>
+        </td>
+        </tr>
+        <!-- End Prop -->
+
+        <!-- Begin Prop -->
+        <tr>
+        <td valign=top align=left colspan=2>
+        <font face=arial size=+2 color=#cccccc>
+        Run Scheduled Tasks on this Instance?
+        </font>
+        </td>
+        </tr>
+        <tr>
+        <td valign=top align=left>
+        <font face=arial size=-1>
+        <input type=text name=runscheduledtasksonthisinstance value="0" size=45 maxlength=255>
+        </font>
+        </td>
+        <td valign=top align=left>
+        <font face=arial size=-1>
+        Whether or not scheduled tasks will be run on this instance.  If in production, chances are there's already an instance responsible for running them.  If in development, set this to '1'
         </font>
         </td>
         </tr>

@@ -4,6 +4,7 @@ import org.apache.log4j.Logger;
 
 import java.sql.*;
 
+import com.dneero.systemprops.InstanceProperties;
 
 //When it's time to cluster:
 //http://c-jdbc.objectweb.org/
@@ -24,7 +25,7 @@ public class Db {
   * Run SQL, return a String Array
   */
   public static String[][] RunSQL(String sql, int recordstoreturn) {
-    if (DbConfig.haveValidConfig() || DbConfig.haveNewConfigToTest()){
+    if (InstanceProperties.haveValidConfig() || InstanceProperties.haveNewConfigToTest()){
         return com.dneero.db.proxool.Db.RunSQL(sql, recordstoreturn);
     } else {
         return new String[0][];
@@ -40,7 +41,7 @@ public class Db {
 
   //Run Update SQL, return the number of rows affected
   public static int RunSQLUpdate(String sql){
-    if (DbConfig.haveValidConfig() || DbConfig.haveNewConfigToTest()){
+    if (InstanceProperties.haveValidConfig() || InstanceProperties.haveNewConfigToTest()){
        return com.dneero.db.proxool.Db.RunSQLUpdate(sql);
     } else {
         return 0;
@@ -53,7 +54,7 @@ public class Db {
 
   //Run Insert SQL, return the unique autonumber of the row inserted
   public static int RunSQLInsert(String sql, boolean isloggingon){
-    if (DbConfig.haveValidConfig() || DbConfig.haveNewConfigToTest()){
+    if (InstanceProperties.haveValidConfig() || InstanceProperties.haveNewConfigToTest()){
        return com.dneero.db.proxool.Db.RunSQLInsert(sql, isloggingon);
     } else {
         return 0;

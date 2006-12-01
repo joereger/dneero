@@ -3,6 +3,7 @@ package com.dneero.formbeans;
 import org.apache.log4j.Logger;
 import com.dneero.util.Jsf;
 import com.dneero.systemprops.SystemProperty;
+import com.dneero.systemprops.BaseUrl;
 
 /**
  * User: Joe Reger Jr
@@ -21,6 +22,7 @@ public class SysadminSystemProps {
     public String paypalapipassword;
     public String paypalsignature;
     public String paypalenvironment;
+    public String issslon;
 
     public SysadminSystemProps(){
         baseurl = SystemProperty.getProp(SystemProperty.PROP_BASEURL);
@@ -31,6 +33,7 @@ public class SysadminSystemProps {
         paypalapipassword = SystemProperty.getProp(SystemProperty.PROP_PAYPALAPIPASSWORD);
         paypalsignature = SystemProperty.getProp(SystemProperty.PROP_PAYPALSIGNATURE);
         paypalenvironment = SystemProperty.getProp(SystemProperty.PROP_PAYPALENVIRONMENT);
+        issslon = SystemProperty.getProp(SystemProperty.PROP_ISSSLON);
     }
 
     public String saveProps(){
@@ -43,6 +46,8 @@ public class SysadminSystemProps {
             SystemProperty.setProp(SystemProperty.PROP_PAYPALAPIPASSWORD, paypalapipassword);
             SystemProperty.setProp(SystemProperty.PROP_PAYPALSIGNATURE, paypalsignature);
             SystemProperty.setProp(SystemProperty.PROP_PAYPALENVIRONMENT, paypalenvironment);
+            SystemProperty.setProp(SystemProperty.PROP_ISSSLON, issslon);
+            BaseUrl.refresh();
             Jsf.setFacesMessage("Save complete.");
         } catch (Exception ex){
             logger.error(ex);
@@ -117,5 +122,13 @@ public class SysadminSystemProps {
 
     public void setPaypalenvironment(String paypalenvironment) {
         this.paypalenvironment = paypalenvironment;
+    }
+
+    public String getIssslon() {
+        return issslon;
+    }
+
+    public void setIssslon(String issslon) {
+        this.issslon = issslon;
     }
 }

@@ -9,7 +9,7 @@
       xmlns:d="http://dneero.com/taglib">
 
 <ui:composition template="/template/template-facelets.xhtml">
-    <ui:define name="title">SystemProps... Be Careful... You Can Break a Lot of Stuff Here<br/><br/></ui:define>
+    <ui:define name="title">InstanceProps... Be Careful... You Can Break a Lot of Stuff Here... These apply to this machine alone and are saved to a config file.<br/><br/></ui:define>
     <ui:param name="navtab" value="sysadmin"/>
     <ui:define name="body">
         <d:authorization acl="systemadmin" redirectonfail="true"/>
@@ -21,131 +21,131 @@
             <h:panelGrid columns="3" cellpadding="3" border="0">
 
                 <h:panelGroup>
-                    <h:outputText value="Base Url" styleClass="formfieldnamefont"></h:outputText>
+                    <h:outputText value="dbConnectionUrl" styleClass="formfieldnamefont"></h:outputText>
                     <br/>
-                    <font class="tinyfont">The base url that this instance is installed at.  No http:// and no trailing slash!  Ex: www.dneero.com</font>
+                    <font class="tinyfont"></font>
                 </h:panelGroup>
                 <h:panelGroup>
-                    <h:inputText value="#{systemProps.baseurl}" id="baseurl" required="true">
+                    <h:inputText value="#{sysadminInstanceProps.dbConnectionUrl}" id="dbConnectionUrl" required="true">
                         <f:validateLength maximum="255"></f:validateLength>
                     </h:inputText>
                 </h:panelGroup>
                 <h:panelGroup>
-                    <h:message for="baseurl" styleClass="RED"></h:message>
+                    <h:message for="dbConnectionUrl" styleClass="RED"></h:message>
                 </h:panelGroup>
 
                 <h:panelGroup>
-                    <h:outputText value="SendXMPP" styleClass="formfieldnamefont"></h:outputText>
+                    <h:outputText value="dbUsername" styleClass="formfieldnamefont"></h:outputText>
                     <br/>
-                    <font class="tinyfont">0 or 1.  Whether or not to send XMPP notifications from this installation.</font>
+                    <font class="tinyfont"></font>
                 </h:panelGroup>
                 <h:panelGroup>
-                    <h:inputText value="#{systemProps.sendxmpp}" id="sendxmpp" required="true">
+                    <h:inputText value="#{sysadminInstanceProps.dbUsername}" id="dbUsername" required="true">
                         <f:validateLength maximum="255"></f:validateLength>
                     </h:inputText>
                 </h:panelGroup>
                 <h:panelGroup>
-                    <h:message for="sendxmpp" styleClass="RED"></h:message>
+                    <h:message for="dbUsername" styleClass="RED"></h:message>
                 </h:panelGroup>
 
 
                 <h:panelGroup>
-                    <h:outputText value="SmtpOutboundServer" styleClass="formfieldnamefont"></h:outputText>
+                    <h:outputText value="dbPassword" styleClass="formfieldnamefont"></h:outputText>
                     <br/>
-                    <font class="tinyfont">Smtp server name or ip address to use to send email.  Default is 'localhost'</font>
+                    <font class="tinyfont"></font>
                 </h:panelGroup>
                 <h:panelGroup>
-                    <h:inputText value="#{systemProps.smtpoutboundserver}" id="smtpoutboundserver" required="true">
+                    <h:inputText value="#{sysadminInstanceProps.dbPassword}" id="dbPassword" required="true">
                         <f:validateLength maximum="255"></f:validateLength>
                     </h:inputText>
                 </h:panelGroup>
                 <h:panelGroup>
-                    <h:message for="smtpoutboundserver" styleClass="RED"></h:message>
+                    <h:message for="dbPassword" styleClass="RED"></h:message>
                 </h:panelGroup>
 
 
                 <h:panelGroup>
-                    <h:outputText value="IsEverythingPasswordProtected" styleClass="formfieldnamefont"></h:outputText>
+                    <h:outputText value="dbMaxActive" styleClass="formfieldnamefont"></h:outputText>
                     <br/>
-                    <font class="tinyfont">0 or 1. Whether or not a password is required to see anything.  Used for beta capability.</font>
+                    <font class="tinyfont"></font>
                 </h:panelGroup>
                 <h:panelGroup>
-                    <h:inputText value="#{systemProps.iseverythingpasswordprotected}" id="iseverythingpasswordprotected" required="true">
+                    <h:inputText value="#{sysadminInstanceProps.dbMaxActive}" id="dbMaxActive" required="true">
                         <f:validateLength maximum="255"></f:validateLength>
                     </h:inputText>
                 </h:panelGroup>
                 <h:panelGroup>
-                    <h:message for="iseverythingpasswordprotected" styleClass="RED"></h:message>
+                    <h:message for="dbMaxActive" styleClass="RED"></h:message>
                 </h:panelGroup>
                 
                 <h:panelGroup>
-                    <h:outputText value="PayPalApiUsername" styleClass="formfieldnamefont"></h:outputText>
+                    <h:outputText value="dbMaxIdle" styleClass="formfieldnamefont"></h:outputText>
                     <br/>
-                    <font class="tinyfont">PayPal API username.</font>
+                    <font class="tinyfont"></font>
                 </h:panelGroup>
                 <h:panelGroup>
-                    <h:inputText value="#{systemProps.paypalapiusername}" id="paypalapiusername" required="true">
+                    <h:inputText value="#{sysadminInstanceProps.dbMaxIdle}" id="dbMaxIdle" required="true">
                         <f:validateLength maximum="255"></f:validateLength>
                     </h:inputText>
                 </h:panelGroup>
                 <h:panelGroup>
-                    <h:message for="paypalapiusername" styleClass="RED"></h:message>
+                    <h:message for="dbMaxIdle" styleClass="RED"></h:message>
                 </h:panelGroup>
 
                 <h:panelGroup>
-                    <h:outputText value="PayPalApiPassword" styleClass="formfieldnamefont"></h:outputText>
+                    <h:outputText value="dbMinIdle" styleClass="formfieldnamefont"></h:outputText>
                     <br/>
-                    <font class="tinyfont">PayPal API password.</font>
+                    <font class="tinyfont"></font>
                 </h:panelGroup>
                 <h:panelGroup>
-                    <h:inputText value="#{systemProps.paypalapipassword}" id="paypalapipassword" required="true">
+                    <h:inputText value="#{sysadminInstanceProps.dbMinIdle}" id="dbMinIdle" required="true">
                         <f:validateLength maximum="255"></f:validateLength>
                     </h:inputText>
                 </h:panelGroup>
                 <h:panelGroup>
-                    <h:message for="paypalapipassword" styleClass="RED"></h:message>
+                    <h:message for="dbMinIdle" styleClass="RED"></h:message>
                 </h:panelGroup>
 
                 <h:panelGroup>
-                    <h:outputText value="PayPalSignature" styleClass="formfieldnamefont"></h:outputText>
+                    <h:outputText value="dbMaxWait" styleClass="formfieldnamefont"></h:outputText>
                     <br/>
-                    <font class="tinyfont">PayPal signature.</font>
+                    <font class="tinyfont"></font>
                 </h:panelGroup>
                 <h:panelGroup>
-                    <h:inputText value="#{systemProps.paypalsignature}" id="paypalsignature" required="true">
+                    <h:inputText value="#{sysadminInstanceProps.dbMaxWait}" id="dbMaxWait" required="true">
                         <f:validateLength maximum="255"></f:validateLength>
                     </h:inputText>
                 </h:panelGroup>
                 <h:panelGroup>
-                    <h:message for="paypalsignature" styleClass="RED"></h:message>
+                    <h:message for="dbMaxWait" styleClass="RED"></h:message>
                 </h:panelGroup>
 
                 <h:panelGroup>
-                    <h:outputText value="PayPalEnvironment" styleClass="formfieldnamefont"></h:outputText>
+                    <h:outputText value="dbDriverName" styleClass="formfieldnamefont"></h:outputText>
                     <br/>
-                    <font class="tinyfont">PayPal environment.  I.e. 'sandbox' or 'live'</font>
+                    <font class="tinyfont"></font>
                 </h:panelGroup>
                 <h:panelGroup>
-                    <h:inputText value="#{systemProps.paypalenvironment}" id="paypalenvironment" required="true">
+                    <h:inputText value="#{sysadminInstanceProps.dbDriverName}" id="dbDriverName" required="true">
                         <f:validateLength maximum="255"></f:validateLength>
                     </h:inputText>
                 </h:panelGroup>
                 <h:panelGroup>
-                    <h:message for="paypalenvironment" styleClass="RED"></h:message>
+                    <h:message for="dbDriverName" styleClass="RED"></h:message>
                 </h:panelGroup>
 
                 <h:panelGroup>
-                    <h:outputText value="IsSSLOn" styleClass="formfieldnamefont"></h:outputText>
+                    <h:outputText value="runScheduledTasksOnThisInstance" styleClass="formfieldnamefont"></h:outputText>
                     <br/>
-                    <font class="tinyfont">0 or 1.  Whether SSL is installed at the server level for this install.</font>
+                    <font class="tinyfont">0 or 1</font>
                 </h:panelGroup>
                 <h:panelGroup>
-                    <h:inputText value="#{systemProps.issslon}" id="issslon" required="true">
+                    <h:inputText value="#{sysadminInstanceProps.runScheduledTasksOnThisInstance}" id="runScheduledTasksOnThisInstance" required="true">
                         <f:validateLength maximum="255"></f:validateLength>
                     </h:inputText>
                 </h:panelGroup>
                 <h:panelGroup>
-                    <h:message for="issslon" styleClass="RED"></h:message>
+                    <h:message for="runScheduledTasksOnThisInstance" styleClass="RED"></h:message>
                 </h:panelGroup>
 
 
@@ -154,7 +154,7 @@
                 </h:panelGroup>
                 <h:panelGroup>
                     <br/><br/>
-                    <h:commandButton action="#{systemProps.saveProps}" value="Save System Props" styleClass="formsubmitbutton"></h:commandButton>
+                    <h:commandButton action="#{sysadminInstanceProps.saveProps}" value="Save Instance Props" styleClass="formsubmitbutton"></h:commandButton>
                 </h:panelGroup>
                 <h:panelGroup>
                 </h:panelGroup>

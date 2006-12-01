@@ -51,7 +51,7 @@
         <!--
             Replication interval for replication queue (in ms)
         -->
-        <attribute name="ReplQueueInterval">30000</attribute>
+        <attribute name="ReplQueueInterval">20000</attribute>
 
         <!--
             Max number of elements which trigger replication

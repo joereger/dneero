@@ -1,9 +1,8 @@
 package com.dneero.cache.providers.oscache;
 
 import com.dneero.cache.providers.CacheProvider;
-import com.dneero.util.WebAppRootDir;
+import com.dneero.systemprops.WebAppRootDir;
 import com.opensymphony.oscache.general.GeneralCacheAdministrator;
-import com.opensymphony.oscache.plugins.clustersupport.JavaGroupsBroadcastingListener;
 import com.opensymphony.oscache.base.NeedsRefreshException;
 
 import java.util.ArrayList;

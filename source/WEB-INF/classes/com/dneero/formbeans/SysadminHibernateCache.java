@@ -1,6 +1,9 @@
 package com.dneero.formbeans;
 
 import com.dneero.dao.hibernate.HibernateCacheStats;
+import com.dneero.util.Jsf;
+
+import javax.faces.context.FacesContext;
 
 /**
  * User: Joe Reger Jr
@@ -13,6 +16,9 @@ public class SysadminHibernateCache {
 
     public SysadminHibernateCache(){
         cacheashtml = HibernateCacheStats.getCacheDump();
+
+
+ 
     }
 
 

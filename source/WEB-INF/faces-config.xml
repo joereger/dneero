@@ -71,11 +71,13 @@
         <component-class>com.dneero.util.UpdateActionListenerTaghandler</component-class>
     </component>
 
-    <managed-bean>
-      <managed-bean-name>systemProperty</managed-bean-name>
-      <managed-bean-class>com.dneero.systemprops.SystemProperty</managed-bean-class>
-      <managed-bean-scope>application</managed-bean-scope>
-     </managed-bean>
+    
+
+     <managed-bean>
+        <managed-bean-name>baseUrl</managed-bean-name>
+        <managed-bean-class>com.dneero.systemprops.BaseUrl</managed-bean-class>
+        <managed-bean-scope>application</managed-bean-scope>
+    </managed-bean>
 
     <managed-bean>
         <managed-bean-name>registration</managed-bean-name>
@@ -222,6 +224,12 @@
     <managed-bean>
         <managed-bean-name>sysadminSurveyList</managed-bean-name>
         <managed-bean-class>com.dneero.formbeans.SystemadminSurveyList</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>sysadminSessions</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.SysadminSessions</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
 
@@ -561,6 +569,14 @@
     </managed-bean>
 
     <managed-bean>
+        <managed-bean-name>sysadminInstanceProps</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.SysadminInstanceProps</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+
+
+    <managed-bean>
         <managed-bean-name>sysadminErrorList</managed-bean-name>
         <managed-bean-class>com.dneero.formbeans.SysadminErrorList</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
@@ -691,6 +707,10 @@
             <to-view-id>/sysadmin/systemprops.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
+            <from-outcome>sysadmininstanceprops</from-outcome>
+            <to-view-id>/sysadmin/instanceprops.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
             <from-outcome>sysadminsurveylist</from-outcome>
             <to-view-id>/sysadmin/sysadminsurveylist.xhtml</to-view-id>
         </navigation-case>
@@ -701,6 +721,10 @@
         <navigation-case>
             <from-outcome>sysadminhibernatecache</from-outcome>
             <to-view-id>/sysadmin/hibernatecache.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>sysadminsessions</from-outcome>
+            <to-view-id>/sysadmin/sessions.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>researcherhome</from-outcome>

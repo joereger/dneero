@@ -31,12 +31,13 @@ public class SystemProperty {
     public static String PROP_PAYPALAPIPASSWORD = "PROP_PAYPALAPIPASSWORD";
     public static String PROP_PAYPALSIGNATURE = "PROP_PAYPALSIGNATURE";
     public static String PROP_PAYPALENVIRONMENT = "PROP_PAYPALENVIRONMENT";
+    public static String PROP_ISSSLON = "PROP_ISSSLON";
 
     private static void loadAllPropsAndDefaultValues(){
         if (props==null){
             props = new HashMap<String, String>();
         }
-        props.put(PROP_BASEURL,"http://dneero.com/");
+        props.put(PROP_BASEURL,"www.dneero.com");
         props.put(PROP_SENDXMPP, "0");
         props.put(PROP_SMTPOUTBOUNDSERVER, "localhost");
         props.put(PROP_ISEVERYTHINGPASSWORDPROTECTED, "0");
@@ -44,6 +45,7 @@ public class SystemProperty {
         props.put(PROP_PAYPALAPIPASSWORD, "HSUYQXF6UN9ULK9E");
         props.put(PROP_PAYPALSIGNATURE, "AHK9lF0bFy62J27iS5lTA66dSQIVAUXbkCx4hysQRrfGIE9etQ9lIqlj");
         props.put(PROP_PAYPALENVIRONMENT, "sandbox");
+        props.put(PROP_ISSSLON, "0");
     }
 
 

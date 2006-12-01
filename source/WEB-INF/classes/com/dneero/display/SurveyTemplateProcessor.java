@@ -9,6 +9,7 @@ import com.dneero.util.Str;
 import com.dneero.display.components.def.Component;
 import com.dneero.display.components.def.ComponentTypes;
 import com.dneero.systemprops.SystemProperty;
+import com.dneero.systemprops.BaseUrl;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -107,9 +108,9 @@ public class SurveyTemplateProcessor {
 
     public String wrapInStandardSurveyWrapper(String in, boolean includeFooter){
         StringBuffer out = new StringBuffer();
-        String baseurl = SystemProperty.getProp(SystemProperty.PROP_BASEURL);
+        String baseurl = BaseUrl.get(false);
         out.append("<!-- Start dNeero Survey -->\n" +
-                    "<table cellpadding=\"0\" cellspacing=\"0\" border=\"0\" background=\""+baseurl+"images/surveyinblog/dneero-survey-bg.gif\" width=\"100%\" style=\"border: 2px solid #b4b4b4;\">\n" +
+                    "<table cellpadding=\"0\" cellspacing=\"0\" border=\"0\" background=\""+baseurl+"images/surveyinblog/dneero-survey-bg.gif\" width=\"100%\" style=\"border: 2px solid #b4b4b4; background-repeat: repeat-x;\">\n" +
                     "\t<tr>\n" +
                     "\t\t<td valign=\"top\" colspan=\"7\" style=\"padding: 15px;\">\n" +
                     "\t\t\t<!-- Start Survey Questions -->\n" +

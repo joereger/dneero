@@ -1,22 +1,13 @@
 package com.dneero.startup;
 
-import com.dneero.util.WebAppRootDir;
-import com.dneero.util.Jsf;
+import com.dneero.systemprops.WebAppRootDir;
+import com.dneero.systemprops.InstanceProperties;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.xmpp.SendXMPPMessage;
-import com.dneero.systemprops.SystemProperty;
-import com.dneero.db.DbConfig;
 
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.*;
-import java.io.IOException;
 
 import org.apache.log4j.Logger;
-import org.quartz.Scheduler;
-import org.quartz.impl.StdSchedulerFactory;
-import org.quartz.ee.servlet.QuartzInitializerServlet;
 
 /**
  * User: Joe Reger Jr
@@ -38,7 +29,7 @@ public class ApplicationStartup implements ServletContextListener {
         WebAppRootDir ward = new WebAppRootDir(cse.getServletContext());
         iswabapprooddirdiscovered = true;
         //Connect to database
-        if (DbConfig.haveValidConfig()){
+        if (InstanceProperties.haveValidConfig()){
             //Run pre-hibernate db upgrades
             DbVersionCheck dbvcPre = new DbVersionCheck();
             dbvcPre.doCheck(DbVersionCheck.EXECUTE_PREHIBERNATE);
@@ -54,7 +45,7 @@ public class ApplicationStartup implements ServletContextListener {
                 isappstarted = true;
             }
         } else {
-            logger.info("DbConfig.haveValidConfig()=false");
+            logger.info("InstanceProperties.haveValidConfig()=false");
         }
         //Report to log and XMPP
         logger.info("WebAppRootDir = " + WebAppRootDir.getWebAppRootPath());

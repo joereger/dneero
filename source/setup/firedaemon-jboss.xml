@@ -6,7 +6,7 @@
   <Name>JbossAs</Name>
   <DisplayName>JbossAs</DisplayName>
   <Description>JbossAs</Description>
-  <WorkingDir>C:\Superfly\jboss-4.0.5.GA\bin</WorkingDir>
+  <WorkingDir>C:\Superfly\jboss01\bin</WorkingDir>
   <Executable>C:\Program Files\Java\jdk1.5.0_06\bin\javaw.exe</Executable>
   <Parameters>%JAVA_OPTS% &quot;-Djava.endorsed.dirs=%JBOSS_ENDORSED_DIRS%&quot; -classpath &quot;%JBOSS_RUNPATH%&quot; org.jboss.Main</Parameters>
   <Delay>3000</Delay>
@@ -33,16 +33,16 @@
   </Dependencies>
  </Options>
  <RedirectIO>
-  <Stdout>C:\Superfly\jboss-4.0.5.GA\server\default\log\jboss.stdout</Stdout>
-  <Stderr>C:\Superfly\jboss-4.0.5.GA\server\default\log\jboss.stderr</Stderr>
+  <Stdout>C:\Superfly\jboss01\server\default\log\jboss.stdout</Stdout>
+  <Stderr>C:\Superfly\jboss01\server\default\log\jboss.stderr</Stderr>
  </RedirectIO>
  <Debug>
   <DebugEnabled>true</DebugEnabled>
-  <DebugLocation>C:\Superfly\jboss-4.0.5.GA\server\default\log\jboss.log</DebugLocation>
+  <DebugLocation>C:\Superfly\jboss01\server\default\log\jboss.log</DebugLocation>
  </Debug>
  <Environment>
   <Variable Name="JAVA_HOME">C:\Program Files\Java\jdk1.5.0_06</Variable>
-  <Variable Name="JBOSS_HOME">C:\Superfly\jboss-4.0.5.GA</Variable>
+  <Variable Name="JBOSS_HOME">C:\Superfly\jboss01</Variable>
   <Variable Name="RUNJAR">%JBOSS_HOME%\bin\run.jar</Variable>
   <Variable Name="JAVA">%JAVA_HOME%\bin\java.exe</Variable>
   <Variable Name="SHUTDOWNJAR">%JBOSS_HOME%\bin\shutdown.jar</Variable>
@@ -69,7 +69,7 @@
   <RestartDelay>0</RestartDelay>
  </Scheduling>
  <PostService>
-  <PostWorkingDir>C:\Superfly\jboss-4.0.5.GA\bin</PostWorkingDir>
+  <PostWorkingDir>C:\Superfly\jboss01\bin</PostWorkingDir>
   <PostExecutable>C:\Program Files\Java\jdk1.5.0_06\bin\java.exe</PostExecutable>
   <PostEventOrder>1</PostEventOrder>
   <PostParameters>%JAVA_OPTS% -classpath &quot;%JBOSS_SHUTDOWNPATH%&quot; org.jboss.Shutdown --shutdown</PostParameters>

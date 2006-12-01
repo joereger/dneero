@@ -4,20 +4,13 @@ import org.apache.log4j.AppenderSkeleton;
 import org.apache.log4j.Level;
 import org.apache.log4j.spi.LoggingEvent;
 import org.apache.log4j.spi.ErrorCode;
-import org.jivesoftware.smack.XMPPConnection;
-import org.jivesoftware.smack.XMPPException;
 
-import java.util.Date;
 import java.util.Calendar;
 
 import com.dneero.db.Db;
-import com.dneero.db.DbConfig;
-import com.dneero.util.Util;
 import com.dneero.util.Str;
 import com.dneero.util.Time;
-import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.startup.ApplicationStartup;
-import com.dneero.threadpool.ThreadPool;
 import com.dneero.xmpp.SendXMPPMessage;
 
 /**

@@ -1,8 +1,10 @@
-package com.dneero.db;
+package com.dneero.systemprops;
 
 import com.dneero.util.DesEncrypter;
-import com.dneero.util.WebAppRootDir;
+import com.dneero.systemprops.WebAppRootDir;
 import com.dneero.util.Num;
+import com.dneero.util.GeneralException;
+import com.dneero.db.Db;
 
 import java.io.IOException;
 import java.io.FileInputStream;
@@ -10,10 +12,12 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.util.Properties;
 
+import org.apache.log4j.Logger;
+
 /**
  * Holds database configuration parameters
  */
-public class DbConfig {
+public class InstanceProperties {
 
     private static String dbConnectionUrl;
     private static String dbUsername;
@@ -23,9 +27,12 @@ public class DbConfig {
     private static String dbMinIdle;
     private static String dbMaxWait;
     private static String dbDriverName;
+    private static String runScheduledTasksOnThisInstance;
+
+
+
 
     private static String passPhrase = "pupper";
-
     private static boolean haveValidConfig = false;
     private static boolean haveNewConfigToTest = false;
     private static boolean haveAttemptedToLoadDefaultPropsFile = false;
@@ -35,9 +42,7 @@ public class DbConfig {
     public static void load(){
         if (!haveValidConfig && !haveAttemptedToLoadDefaultPropsFile){
             try {
-
                 boolean gotFile = false;
-
                 //Look in the /conf directory
                 try{
                     File internalFile = new File(dbPropsInternalFilename);
@@ -52,7 +57,6 @@ public class DbConfig {
                 } catch (Exception e){
                     e.printStackTrace();
                 }
-
                 //If we don't have one in the conf directory, look to the system default dir
                 if (!gotFile){
                     try{
@@ -69,8 +73,6 @@ public class DbConfig {
                         e.printStackTrace();
                     }
                 }
-
-
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -88,6 +90,7 @@ public class DbConfig {
             dbMinIdle = properties.getProperty("dbMinIdle", "10");
             dbMaxWait = properties.getProperty("dbMaxWait", "10000");
             dbDriverName = properties.getProperty("dbDriverName", "com.mysql.jdbc.Driver");
+            runScheduledTasksOnThisInstance = properties.getProperty("runScheduledTasksOnThisInstance", "0");
 
             haveAttemptedToLoadDefaultPropsFile = true;
             haveNewConfigToTest = true;
@@ -98,7 +101,10 @@ public class DbConfig {
         testConfig();
     }
 
-    public static void save(){
+    public static void save() throws GeneralException {
+        Logger logger = Logger.getLogger(InstanceProperties.class);
+        logger.debug("save() called");
+        logger.debug("haveNewConfigToTest="+haveNewConfigToTest);
         if (!haveNewConfigToTest){
             Properties properties = new Properties();
             try {
@@ -131,67 +137,52 @@ public class DbConfig {
                 if (dbDriverName!=null){
                     properties.setProperty("dbDriverName", dbDriverName);
                 }
-                //Save to the file system in the conf directory
-                File fil = new File(dbPropsInternalFilename);
-                FileOutputStream fos = new FileOutputStream(fil);
-                properties.store(fos, "DbConfig");
-                fos.close();
-                fil = null;
-                fos = null;
+                if (runScheduledTasksOnThisInstance!=null){
+                    properties.setProperty("runScheduledTasksOnThisInstance", runScheduledTasksOnThisInstance);
+                }
 
-                //Store to default system location
-                File fil2 = new File("", dbPropsExternalFilename);
-                FileOutputStream fos2 = new FileOutputStream(fil2);
-                properties.store(fos2, "DbConfig for " + WebAppRootDir.getUniqueContextId());
-                fos2.close();
-                fil2 = null;
-                fos2 = null;
+                if (testConfig()){
+                    logger.debug("passed testConfig()");
+                    //Save to the file system in the conf directory
+                    File fil = new File(dbPropsInternalFilename);
+                    FileOutputStream fos = new FileOutputStream(fil);
+                    properties.store(fos, "InstanceProperties");
+                    fos.close();
+                    fil = null;
+                    fos = null;
+
+                    //Store to default system location
+                    File fil2 = new File("", dbPropsExternalFilename);
+                    FileOutputStream fos2 = new FileOutputStream(fil2);
+                    properties.store(fos2, "InstanceProperties for " + WebAppRootDir.getUniqueContextId());
+                    fos2.close();
+                    fil2 = null;
+                    fos2 = null;
+                } else {
+                    haveAttemptedToLoadDefaultPropsFile = false;
+                    load();
+                    //Failed validation
+                    GeneralException gex = new GeneralException("The new properties failed validation.");
+                    throw gex;
+                }
 
             } catch (IOException e) {
                 e.printStackTrace();
+                GeneralException gex = new GeneralException("The new properties failed validation: "+e.getMessage());
+                throw gex;
             }
-
-            //Test the new values
-            testConfig();
         }
     }
 
     public static boolean testConfig(){
         if (!haveValidConfig && haveNewConfigToTest){
-
             //-----------------------------------
             //-----------------------------------
-            //int count = Db.RunSQLUpdate("DROP TABLE test");
-            //-----------------------------------
-            //-----------------------------------
-
-            //-----------------------------------
-            //-----------------------------------
-            //int count1 = Db.RunSQLUpdate("CREATE TABLE `test` (`testid` int(11) NOT NULL auto_increment, `test` varchar(255) NOT NULL default '0', PRIMARY KEY  (`testid`)) ENGINE=MyISAM DEFAULT CHARSET=latin1;");
-            //-----------------------------------
-            //-----------------------------------
-
-            //-----------------------------------
-            //-----------------------------------
-            //int identity = Db.RunSQLInsert("INSERT INTO test(test) VALUES('This is a test: "+reger.core.TimeUtils.nowInGmtString()+"')");
-            //-----------------------------------
-            //-----------------------------------
-
-            //-----------------------------------
-            //-----------------------------------
-            //String[][] rstTest= Db.RunSQL("SELECT testid FROM test");
             String[][] rstTest= Db.RunSQL("SELECT 1");
             //-----------------------------------
             //-----------------------------------
             if (rstTest!=null && rstTest.length>0){
-                //-----------------------------------
-                //-----------------------------------
-                //int count2 = Db.RunSQLUpdate("DROP TABLE test");
-                //-----------------------------------
-                //-----------------------------------
-
                 haveValidConfig = true;
-
             }
         }
         haveNewConfigToTest = false;
@@ -204,7 +195,7 @@ public class DbConfig {
     }
 
     public static void setDbConnectionUrl(String dbConnectionUrl) {
-        DbConfig.dbConnectionUrl = dbConnectionUrl;
+        InstanceProperties.dbConnectionUrl = dbConnectionUrl;
     }
 
     public static String getDbUsername() {
@@ -213,7 +204,7 @@ public class DbConfig {
     }
 
     public static void setDbUsername(String dbUsername) {
-        DbConfig.dbUsername = dbUsername;
+        InstanceProperties.dbUsername = dbUsername;
     }
 
     public static String getDbPassword() {
@@ -222,7 +213,7 @@ public class DbConfig {
     }
 
     public static void setDbPassword(String dbPassword) {
-        DbConfig.dbPassword = dbPassword;
+        InstanceProperties.dbPassword = dbPassword;
     }
 
     public static int getDbMaxActive() {
@@ -235,7 +226,7 @@ public class DbConfig {
     }
 
     public static void setDbMaxActive(String dbMaxActive) {
-        DbConfig.dbMaxActive = dbMaxActive;
+        InstanceProperties.dbMaxActive = dbMaxActive;
     }
 
     public static int getDbMaxIdle() {
@@ -248,7 +239,7 @@ public class DbConfig {
     }
 
     public static void setDbMaxIdle(String dbMaxIdle) {
-        DbConfig.dbMaxIdle = dbMaxIdle;
+        InstanceProperties.dbMaxIdle = dbMaxIdle;
     }
 
     public static int getDbMinIdle() {
@@ -261,7 +252,7 @@ public class DbConfig {
     }
 
     public static void setDbMinIdle(String dbMinIdle) {
-        DbConfig.dbMinIdle = dbMinIdle;
+        InstanceProperties.dbMinIdle = dbMinIdle;
     }
 
     public static int getDbMaxWait() {
@@ -274,7 +265,7 @@ public class DbConfig {
     }
 
     public static void setDbMaxWait(String dbMaxWait) {
-        DbConfig.dbMaxWait = dbMaxWait;
+        InstanceProperties.dbMaxWait = dbMaxWait;
     }
 
     public static boolean haveValidConfig() {
@@ -283,7 +274,7 @@ public class DbConfig {
     }
 
     public static void setHaveValidConfig(boolean haveValidConfig) {
-        DbConfig.haveValidConfig = haveValidConfig;
+        InstanceProperties.haveValidConfig = haveValidConfig;
     }
 
     public static String getDbPropsInternalFilename() {
@@ -292,7 +283,7 @@ public class DbConfig {
     }
 
     public static void setDbPropsInternalFilename(String dbPropsInternalFilename) {
-        DbConfig.dbPropsInternalFilename = dbPropsInternalFilename;
+        InstanceProperties.dbPropsInternalFilename = dbPropsInternalFilename;
     }
 
     public static String getDbDriverName(){
@@ -301,7 +292,7 @@ public class DbConfig {
     }
 
     public static void setDbDriverName(String dbDriverName) {
-        DbConfig.dbDriverName = dbDriverName;
+        InstanceProperties.dbDriverName = dbDriverName;
     }
 
     public static boolean haveNewConfigToTest() {
@@ -309,7 +300,23 @@ public class DbConfig {
     }
 
     public static void setHaveNewConfigToTest(boolean haveNewConfigToTest) {
-        DbConfig.haveNewConfigToTest = haveNewConfigToTest;
+        InstanceProperties.haveNewConfigToTest = haveNewConfigToTest;
+    }
+
+    public static boolean getRunScheduledTasksOnThisInstance(){
+        load();
+        if (runScheduledTasksOnThisInstance!=null && runScheduledTasksOnThisInstance.equals("1")){
+            return true;
+        }
+        return false;
+    }
+
+    public static void setRunScheduledTasksOnThisInstance(boolean runScheduledTasksOnThisInstance){
+        if (runScheduledTasksOnThisInstance){
+            InstanceProperties.runScheduledTasksOnThisInstance = "1";
+        } else {
+            InstanceProperties.runScheduledTasksOnThisInstance = "0";
+        }
     }
 
 

@@ -5,7 +5,7 @@ import java.sql.*;
 import java.util.Vector;
 import java.util.Properties;
 
-import com.dneero.db.DbConfig;
+import com.dneero.systemprops.InstanceProperties;
 import com.dneero.util.RandomString;
 import org.logicalcobwebs.proxool.ProxoolFacade;
 import org.logicalcobwebs.proxool.admin.StatisticsIF;
@@ -35,13 +35,13 @@ public class Db {
 
             Class.forName("org.logicalcobwebs.proxool.ProxoolDriver");
             Properties info = new Properties();
-            info.setProperty("proxool.maximum-connection-count", String.valueOf(DbConfig.getDbMaxActive()));
-            info.setProperty("proxool.minimum-connection-count", String.valueOf(DbConfig.getDbMinIdle()));
+            info.setProperty("proxool.maximum-connection-count", String.valueOf(InstanceProperties.getDbMaxActive()));
+            info.setProperty("proxool.minimum-connection-count", String.valueOf(InstanceProperties.getDbMinIdle()));
             info.setProperty("proxool.house-keeping-test-sql", "select CURRENT_DATE");
-            info.setProperty("user", DbConfig.getDbUsername());
-            info.setProperty("password", DbConfig.getDbPassword());
-            String driverClass = DbConfig.getDbDriverName();
-            String driverUrl = DbConfig.getDbConnectionUrl();
+            info.setProperty("user", InstanceProperties.getDbUsername());
+            info.setProperty("password", InstanceProperties.getDbPassword());
+            String driverClass = InstanceProperties.getDbDriverName();
+            String driverUrl = InstanceProperties.getDbConnectionUrl();
             String url = "proxool." + alias + ":" + driverClass + ":" + driverUrl;
             ProxoolFacade.registerConnectionPool(url, info);
 
@@ -62,7 +62,7 @@ public class Db {
    */
   public static Connection getConnection(){
         try{
-            if (!driverHasBeenConfigured || DbConfig.haveNewConfigToTest()){
+            if (!driverHasBeenConfigured || InstanceProperties.haveNewConfigToTest()){
                 System.out.println("dNeero:"+alias+": proxool driverHasBeenConfigured is false or we have a new dbconfig to test.");
                 setupDataSource();
             }

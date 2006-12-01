@@ -11,6 +11,7 @@ import com.dneero.money.CurrentBalanceCalculator;
 import com.dneero.money.SurveyMoneyStatus;
 import com.dneero.money.MoveMoneyInRealWorld;
 import com.dneero.xmpp.SendXMPPMessage;
+import com.dneero.systemprops.InstanceProperties;
 
 import java.util.List;
 import java.util.Iterator;
@@ -30,11 +31,13 @@ public class ResearcherRemainingBalanceOperations implements Job {
 
 
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
-        logger.debug("execute() ResearcherRemainingBalanceOperations called");
-        List researchers = HibernateUtil.getSession().createQuery("from Researcher").list();
-        for (Iterator iterator = researchers.iterator(); iterator.hasNext();) {
-            Researcher researcher = (Researcher) iterator.next();
-            processResearcher(researcher);
+        if (InstanceProperties.getRunScheduledTasksOnThisInstance()){
+            logger.debug("execute() ResearcherRemainingBalanceOperations called");
+            List researchers = HibernateUtil.getSession().createQuery("from Researcher").list();
+            for (Iterator iterator = researchers.iterator(); iterator.hasNext();) {
+                Researcher researcher = (Researcher) iterator.next();
+                processResearcher(researcher);
+            }
         }
 
     }

@@ -1,4 +1,4 @@
-package com.dneero.util;
+package com.dneero.systemprops;
 
 import javax.servlet.ServletConfig;
 import java.util.regex.Pattern;
