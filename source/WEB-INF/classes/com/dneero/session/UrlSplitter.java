@@ -7,37 +7,27 @@ import java.util.ArrayList;
 public class UrlSplitter {
 
     private String rawIncomingServername = "";
-    private String servername = "";
-    private String virtualdir = "";
-    private String siterooturl = "";
     private int port = 80;
     private String scheme = "http://";
+    private String requestUrl = "";
+    private String querystring = "";
+    private String method = "";
+    private String servletPath = "";
     private ArrayList<String> servernameAllPossibleDomains=new ArrayList<String>();
+    private javax.servlet.http.HttpServletRequest request;
 
     Logger logger = Logger.getLogger(this.getClass().getName());
 
     public UrlSplitter(javax.servlet.http.HttpServletRequest request){
+        this.request = request;
+
+        logger.debug("");
+        logger.debug("------------------------------------");
+
         //Get the host
         rawIncomingServername = request.getServerName();
         logger.debug("rawIncomingServername=" + rawIncomingServername);
 
-        //Start Here
-        servername = rawIncomingServername;
-
-        //Strip www... it's always in the way
-        if (servername.length()>=4){
-            if (servername.substring(0,4).equalsIgnoreCase("www.")){
-                if (servername.length()>=5){
-                    servername = servername.substring(4, servername.length());
-                }
-            }
-        }
-        logger.debug("servername www removed=" + servername);
-
-        //Get the virtualdir
-        if (request.getParameter("virtualdir")!=null && !request.getParameter("virtualdir").equals("")){
-            virtualdir = request.getParameter("virtualdir");
-        }
 
         //Sequentially rip off subdomains from the servername
         String tmpServername = rawIncomingServername;
@@ -50,35 +40,83 @@ public class UrlSplitter {
             servernameAllPossibleDomains.add(tmpServername);
         }
 
+        //Url
+        requestUrl = request.getRequestURL().toString();
+        logger.debug("requestUrl=" + requestUrl);
 
-
-        //Set the siteRawUrl based on whether or not we have a virtualDir
-        if (virtualdir==null || virtualdir.equals("")){
-            siterooturl = servername;
-        } else {
-            siterooturl = servername + "/~" + virtualdir;
-        }
+        //Qs
+        querystring = request.getQueryString();
+        logger.debug("querystring=" + querystring);
 
         //Set the port
         port = request.getServerPort();
 
         //Set the protocol
         scheme = request.getScheme();
+        logger.debug("scheme=" + scheme);
+
+        //Method
+        method = request.getMethod();
+        logger.debug("method=" + method);
+
+        //Pathinfo
+        servletPath = request.getServletPath();
+        logger.debug("servletPath=" + servletPath);
+    }
+
+    public String getReconstructedGetVersionOfRequest(){
+        return request.getRequestURL().toString() + getParametersAsQueryStringQuestionMarkIfRequired();
+    }
+
+    public String getParametersAsQueryStringQuestionMarkIfRequired(){
+        logger.debug("getParametersAsQueryStringQuestionMarkIfRequired() start");
+        String getqs = getParametersAsQueryStringNoQuestionMark();
+        String qs = "";
+        if (!getqs.equals("")){
+            qs = "?" + getqs;
+        }
+        logger.debug("getParametersAsQueryStringQuestionMarkIfRequired() end");
+        return qs;
+    }
+
+    public String getParametersAsQueryStringNoQuestionMark(){
+        logger.debug("getParametersAsQueryStringNoQuestionMark() start");
+        if (request.getMethod().equals("GET")){
+            String qs = "";
+            if (querystring!=null && !querystring.equals("")){
+                qs = querystring;
+            }
+            logger.debug("getParametersAsQueryStringNoQuestionMark() end");
+            return qs;
+        } else if (request.getMethod().equals("POST")){
+            String qs = "";
+            //@todo why an infinite loop when i iterate parameternames?
+//            while (request.getParameterNames().hasMoreElements()) {
+//                String name = (String) request.getParameterNames().nextElement();
+//                logger.debug("name="+name);
+//                String[] values = request.getParameterValues(name);
+//                for (int i = 0; i < values.length; i++) {
+//                    String value = values[i];
+//                    logger.debug("value="+value);
+//                    String namevalue = name + "=" + value;
+//                    qs = qs + namevalue;
+//                }
+//            }
+            logger.debug("getParametersAsQueryStringNoQuestionMark() end");
+            return qs;
+        }
+        logger.debug("getParametersAsQueryStringNoQuestionMark() end");
+        return "";
     }
 
     public String getUrlSplitterAsString(){
-        return rawIncomingServername+":"+servername+":"+virtualdir+":"+siterooturl;
-    }
-
-    public String getVirtualdir() {
-        return virtualdir;
-    }
-
-    public String getServername() {
-        return servername;
+        return rawIncomingServername;
     }
 
 
+    public String getRequestUrl() {
+        return requestUrl;
+    }
 
     public int getPort() {
         return port;
@@ -89,16 +127,21 @@ public class UrlSplitter {
         if (port!=80 && port!=443){
             portStr = ":"+port;
         }
-        if (virtualdir==null || virtualdir.equals("")){
-            return servername+portStr;
-        } else {
-            return servername + portStr + "/~" + virtualdir;
-        }
+        return rawIncomingServername+portStr;
+
     }
 
 
-    public String getSiterooturl() {
-        return siterooturl;
+    public String getQuerystring() {
+        return querystring;
+    }
+
+    public String getMethod() {
+        return method;
+    }
+
+    public String getServletPath() {
+        return servletPath;
     }
 
     public String getRawIncomingServername() {

@@ -159,11 +159,14 @@ public class ImpressionActivityObjectStorage {
 
     public static int getImpressionsThatQualifyForPayment(Blog blog, Survey survey){
         int blogimpressionsthatqualifyforpayment = 0;
-        for (Iterator it2 = blog.getImpressions().iterator(); it2.hasNext(); ) {
-            Impression impression = (Impression)it2.next();
-            //Add the impressions that already exist... note that i'm only looking at the impressionsqualifyingforpayment var so that var must be kept up-to-date
-            if (survey.getSurveyid()==impression.getSurveyid()){
-                blogimpressionsthatqualifyforpayment = blogimpressionsthatqualifyforpayment + impression.getImpressionsqualifyingforpayment();
+        if (blog!=null && blog.getBlogid()>0){
+            blog = Blog.get(blog.getBlogid());
+            for (Iterator it2 = blog.getImpressions().iterator(); it2.hasNext(); ) {
+                Impression impression = (Impression)it2.next();
+                //Add the impressions that already exist... note that i'm only looking at the impressionsqualifyingforpayment var so that var must be kept up-to-date
+                if (survey.getSurveyid()==impression.getSurveyid()){
+                    blogimpressionsthatqualifyforpayment = blogimpressionsthatqualifyforpayment + impression.getImpressionsqualifyingforpayment();
+                }
             }
         }
         return blogimpressionsthatqualifyforpayment;

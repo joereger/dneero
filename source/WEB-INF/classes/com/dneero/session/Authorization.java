@@ -3,13 +3,9 @@ package com.dneero.session;
 import org.apache.log4j.Logger;
 
 import javax.faces.context.FacesContext;
-import javax.faces.context.ExternalContext;
 import javax.faces.component.UIComponentBase;
 import javax.faces.component.UIComponent;
 import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
@@ -40,6 +36,19 @@ public class Authorization extends UIComponentBase {
 
         String acl = (String)getAttributes().get("acl");
         String redirectonfail = (String)getAttributes().get("redirectonfail");
+
+        //Production redirect to www.dneero.com for https
+        //@todo make this configurable... i.e. no hard-coded urls
+        UrlSplitter urlSplitter = new UrlSplitter(Jsf.getHttpServletRequest());
+        if (urlSplitter.getRawIncomingServername().equals("dneero.com")){
+            if (urlSplitter.getMethod().equals("GET")){
+                context.getExternalContext().redirect(urlSplitter.getScheme()+"://"+"www.dneero.com"+urlSplitter.getServletPath()+urlSplitter.getParametersAsQueryStringQuestionMarkIfRequired());
+                return;
+            } else {
+                context.getExternalContext().redirect(urlSplitter.getScheme()+"://"+"www.dneero.com/");
+                return;
+            }
+        }
 
         //Persistent login start
         boolean wasAutoLoggedIn = false;
@@ -108,6 +117,8 @@ public class Authorization extends UIComponentBase {
             }
         }
         //Persistent login end
+
+
 
 
         //Now check the eula

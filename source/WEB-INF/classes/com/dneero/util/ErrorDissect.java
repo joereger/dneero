@@ -1,38 +1,18 @@
 package com.dneero.util;
 
 import java.io.ByteArrayOutputStream;
-import java.io.PrintWriter;
 import java.rmi.RemoteException;
 import java.util.Enumeration;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 
-import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.net.URLDecoder;
-import java.net.URLEncoder;
-import java.security.PrivateKey;
-import java.security.PublicKey;
-import java.security.Signature;
-import java.security.cert.Certificate;
-import java.util.Date;
-import java.util.Enumeration;
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 public class ErrorDissect {
 
@@ -329,7 +309,7 @@ public class ErrorDissect {
             buffer.append("request.getPathInfo()").append(": ").append(request.getPathInfo()).append("<br>");
         }
         if (request.getPathTranslated()!=null){
-            buffer.append("request.getPathTranslated()").append(": ").append(request.getPathTranslated()).append("<br>");
+            buffer.append("request.getServletPath()").append(": ").append(request.getPathTranslated()).append("<br>");
         }
         if (request.getRequestURI()!=null){
             buffer.append("request.getRequestURI()").append(": ").append(request.getRequestURI()).append("<br>");
