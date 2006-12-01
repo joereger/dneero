@@ -52,7 +52,7 @@ public class PublicSurveyAnswers {
             if (Jsf.getUserSession().getPendingSurveyReferredbyblogid()>0){
                 htmlreferredbyblogid = SurveyResultsDisplay.getHtmlForResults(survey, null, Jsf.getUserSession().getPendingSurveyReferredbyblogid());
             } else {
-                htmlreferredbyblogid = "<font class='mediumfont'>Nobody from this blog has answered... yet.  You could be the first!</font>";
+                htmlreferredbyblogid = "<font class='mediumfont'>Nobody who has clicked from the blog you were just at has answered... yet.  You could be the first!</font>";
             }
         }
 
