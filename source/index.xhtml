@@ -36,45 +36,50 @@
            </td>
        </tr>
 
-
        <tr>
-            <td align="left" valign="top">
-                <c:if test="#{!userSession.isloggedin}">
-                    <br/><br/>
-                    <a href='/publicsurveylist.jsf'>
-                        <img src="/images/surveys-hp.gif" alt="" border="0"/>
-                    </a>
-                </c:if>
-                <div style="padding: 15px;">
-                <font class="smallfont">
-                    <img src="/images/redbutton-disclosure.gif" align="left"/> All blog posts must disclose the fact that the blogger was paid to take the survey.  This ensures that the balance of trust in the blogosphere remains controlled by bloggers and their readers.  dNeero is dedicated to a free, excited and motivated blogosphere.  We want to bring researchers and marketers to the party and we want them to thrive, but we need to make sure they don't burn the couch before they go.
-                    <br/><br clear="all"/>
-                    <img src="/images/redbutton-neutrality.gif" align="left"/> Bloggers are never required to post positive reviews.  dNeero defends the the blogger's freedom to thrash any product by forcing researchers to remain neutral.  This, of course, increases the quality of market research garnered by the process and avoids the sugging quagmire.  Paying people to be fake is not what dNeero is about.  In fact, the prospect of such companies terrifies us... they degrade the blogosphere and reduce the credibility of research done in it.
-                    <br/><br clear="all"/>
-                    <img src="/images/redbutton-twoway.gif" align="left"/> Unlike other pay-for-blog schemes dNeero is a two-way process.  We'll stop short of claiming full Cluetrain credentials.  But the fact is that a researcher generates exposure and collects information from a market at the same time.  This is a first step to lowering the walls between the marketing department and the market research department.  dNeero believes that in the digital age outbound messaging and inbound communication should be united.  We didn't make this stuff up... go read Cluetrain.
-                </font>
+           <td colspan="2" valign="top">
+                <div class="rounded" style="padding: 5px; margin: 15px; background: #33FF00;">
+                    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                       <tr>
+                           <td valign="top" width="33%">
+                            <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
+                                <font class="largefont">#{publicIndex.dollarswaiting}</font>
+                                <br/>
+                                <font class="mediumfont">waiting to be earned by bloggers!</font>
+                            </div>
+                           </td>
+                           <td valign="top" width="33%">
+                            <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
+                                <font class="largefont">#{publicIndex.bloggersRegistered}</font>
+                                <br/>
+                                <font class="mediumfont">bloggers registered and seeking surveys</font>
+                            </div>
+                           </td>
+                           <td valign="top" width="33%">
+                            <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
+                                <font class="largefont">#{publicIndex.surveysServedAllTime}</font>
+                                <br/>
+                                <font class="mediumfont">survey results displayed in blogs</font>
+                            </div>
+                           </td>
+                       </tr>
+                    </table>    
                 </div>
-            </td>
-            <td align="left" valign="top">
-                <div class="rounded" style="padding: 15px; margin: 25px; background: #33FF00;">
-                    <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
-                        <font class="largefont">#{publicIndex.dollarswaiting}</font>
-                        <br/>
-                        <font class="mediumfont">waiting to be earned by bloggers!</font>
-                    </div>
-                    <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
-                        <font class="largefont">#{publicIndex.bloggersRegistered}</font>
-                        <br/>
-                        <font class="mediumfont">bloggers registered</font>
-                    </div>
-                    <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
-                        <font class="largefont">#{publicIndex.surveysServed30Days}</font>
-                        <br/>
-                        <font class="mediumfont">survey results displayed in blogs over last 30 days</font>
-                    </div>
-                </div>
-            </td>
-        </tr>
+           </td>
+       </tr>
+
+        <tr>
+           <td colspan="2" valign="top">
+            <c:if test="#{!userSession.isloggedin and 1 eq 2}">
+                <br/><br/>
+                <a href='/publicsurveylist.jsf'>
+                    <img src="/images/surveys-hp.gif" alt="" border="0"/>
+                </a>
+            </c:if>
+           </td>
+       </tr>
+
+ 
 
 
 

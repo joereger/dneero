@@ -18,24 +18,57 @@
     <h:form>
 
     <c:if test="${!userSession.isloggedin}">
-        <div style="margin: 15px;">
-        Engage bloggers on their own turf for more accurate market data (<b>ethnographic research</b> - bloggers post to their blogs so you'll hear what they tell their peers about your product... not what they'll tell a researcher)
-        <br/><br/>
-        Generate product awareness while you collect data (<b>market research meets marketing</b>)
-        <br/><br/>
-        Low risk, pay as you go: define max budget and <b>only pay for respondents and impressions that actually happen</b>
-        <br/><br/>
-        Quick and easy: <b>set up a campaign online in minutes</b>
-        <br/><br/>
-        <b>Full disclosure</b> that the blogger has been paid avoids sticky wickets, misrepresentation and other snafus
-        <br/><br/>
-        Customize the look of the survey to <b>include logos, product pictures, clickable links</b>, etc... survey taking meets guerilla marketing
-        </div>
 
-        <br/>
 
-        <div style="width: 200px;"><d:greenRoundedButton pathtoapproot="../"><h:commandLink value="Read the Researcher FAQ" action="researcherfaq" styleClass="subnavfont" style="color: #ffffff;"/></d:greenRoundedButton></div>
-        <div style="width: 200px;"><d:greenRoundedButton pathtoapproot="../" rendered="#{!userSession.isloggedin}"><h:commandLink value="Sign Up Now" action="registration" styleClass="subnavfont" style="color: #ffffff;"/></d:greenRoundedButton></div>
+        <table cellpadding="0" cellspacing="0" border="0" width="100%">
+           <tr>
+               <td valign="top" width="70%">
+                    <div style="margin: 15px;">
+                        Engage bloggers on their own turf for more accurate market data (<b>ethnographic research</b> - bloggers post to their blogs so you'll hear what they tell their peers about your product... not what they'll tell a researcher)
+                        <br/><br/>
+                        Generate product awareness while you collect data (<b>market research meets marketing</b>)
+                        <br/><br/>
+                        Low risk, pay as you go: define max budget and <b>only pay for respondents and impressions that actually happen</b>
+                        <br/><br/>
+                        Quick and easy: <b>set up a campaign online in minutes</b>
+                        <br/><br/>
+                        <b>Full disclosure</b> that the blogger has been paid avoids sticky wickets, misrepresentation and other snafus
+                        <br/><br/>
+                        Customize the look of the survey to <b>include logos, product pictures, clickable links</b>, etc... survey taking meets guerilla marketing
+                    </div>
+                    <table width="100%">
+                        <tr>
+                            <td width="50%" align="center">
+                                <div style="width: 200px;"><d:greenRoundedButton pathtoapproot="../"><h:commandLink value="Read the Researcher FAQ" action="researcherfaq" styleClass="subnavfont" style="color: #ffffff;"/></d:greenRoundedButton></div>
+                            </td>
+                            <td width="50%" align="center">
+                                <div style="width: 200px;"><d:greenRoundedButton pathtoapproot="../" rendered="#{!userSession.isloggedin}"><h:commandLink value="Sign Up Now" action="registration" styleClass="subnavfont" style="color: #ffffff;"/></d:greenRoundedButton></div>
+                            </td>
+                        </tr>
+                    </table>
+               </td>
+               <td valign="top" width="30%">
+                    <div class="rounded">
+                        <div class="rounded" style="background: #00ff00;">
+                            <a href='/registration.jsf'><font class="mediumfont">Get Started Now!</font></a>
+                        </div>
+                        <br/>
+                        <div class="rounded" style="background: #ffffff;">
+                        <font class="smallfont">
+                            <img src="/images/redbutton-disclosure.gif" align="left"/><br clear="all"/>All blog posts must disclose the fact that the blogger was paid to take the survey.  This ensures that the balance of trust in the blogosphere remains controlled by bloggers and their readers.  dNeero is dedicated to a free, excited and motivated blogosphere.  We want to bring researchers and marketers to the party and we want them to thrive, but we need to make sure they don't burn the couch before they go.
+                            <br/><br clear="all"/>
+                            <img src="/images/redbutton-neutrality.gif" align="left"/><br clear="all"/>Bloggers are never required to post positive reviews.  dNeero defends the the blogger's freedom to thrash any product by forcing researchers to remain neutral.  This, of course, increases the quality of market research garnered by the process and avoids the sugging quagmire.  Paying people to be fake is not what dNeero is about.  In fact, the prospect of such companies terrifies us... they degrade the blogosphere and reduce the credibility of research done in it.
+                            <br/><br clear="all"/>
+                            <img src="/images/redbutton-twoway.gif" align="left"/><br clear="all"/>Unlike other pay-for-blog schemes dNeero is a two-way process.  We'll stop short of claiming full Cluetrain credentials.  But the fact is that a researcher generates exposure and collects information from a market at the same time.  This is a first step to lowering the walls between the marketing department and the market research department.  dNeero believes that in the digital age outbound messaging and inbound communication should be united.  We didn't make this stuff up... go read Cluetrain.
+                        </font>
+                        </div>
+                    </div>
+               </td>
+           </tr>
+        </table>
+
+
+
 
     </c:if>
 

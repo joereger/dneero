@@ -28,6 +28,7 @@ public class PublicIndex {
     private String dollarswaiting;
     private String bloggersRegistered;
     private String surveysServed30Days;
+    private String surveysServedAllTime;
 
     public PublicIndex(){
         //Load the homepage values
@@ -56,6 +57,15 @@ public class PublicIndex {
 
     public void setSurveysServed30Days(String surveysServed30Days) {
         this.surveysServed30Days = surveysServed30Days;
+    }
+
+
+    public String getSurveysServedAllTime() {
+        return surveysServedAllTime;
+    }
+
+    public void setSurveysServedAllTime(String surveysServedAllTime) {
+        this.surveysServedAllTime = surveysServedAllTime;
     }
 
     private void load(){
@@ -88,7 +98,16 @@ public class PublicIndex {
             } else {
                 surveysServed30Days = "";
             }
+        }
 
+        if (surveysServedAllTime==null){
+            Calendar startDate = Time.xDaysAgoStart(Calendar.getInstance(), 30);
+            List results = HibernateUtil.getSession().createQuery("select count(*) from Impressiondetail").list();
+            if (results!=null && results.size()>0){
+                surveysServedAllTime = String.valueOf(results.get(0));
+            } else {
+                surveysServedAllTime = "";
+            }
         }
 
 
