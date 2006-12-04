@@ -9,7 +9,7 @@
       xmlns:d="http://dneero.com/taglib">
 
 <ui:composition template="/template/template-facelets.xhtml">
-    <ui:define name="title">Sign Up<br/><br/></ui:define>
+    <ui:define name="title">Sign Up for an Account<br/><br/></ui:define>
     <ui:param name="navtab" value="youraccount"/>
     <ui:define name="body">
     <d:authorization acl="public" redirectonfail="true"/>
@@ -18,6 +18,10 @@
         <div style="width: 200px; float: right;"><d:greenRoundedButton pathtoapproot="../"><h:commandLink value="Existing Users Log In" action="login" styleClass="subnavfont" style="color: #ffffff;"/></d:greenRoundedButton></div>
         </h:form>
         <h:form id="registrationForm">
+            <font class="mediumfont" style="color: #999999">Get started as a Blogger or as a Researcher</font>
+            <br/>
+            Sign Up is free.  On this page we collect some basics and then send you an email message with a link in it to activate your account.  Once activated, you'll log in and start working as a Blogger or as a Researcher (all accounts can do both functions).
+            <br/><br/>
             <h:panelGrid columns="3" cellpadding="3" border="0">
 
 
