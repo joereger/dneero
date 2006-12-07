@@ -9,9 +9,12 @@ import com.dneero.display.components.def.Component;
 import com.dneero.display.components.def.ComponentTypes;
 
 import java.util.Iterator;
-import java.io.StringWriter;
+import java.io.*;
 
 import au.com.bytecode.opencsv.CSVWriter;
+
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * User: Joe Reger Jr
@@ -68,8 +71,53 @@ public class ResearcherResultsAnswersCsv {
                 } catch (Exception ex){
                     logger.error(ex);
                 }
+                //Make sure something gets output
+                if (results==null || results.equals("")){
+                    results = "No data";
+                }
             }
         }
+    }
+
+    public void getCsv(){
+        FacesContext context = FacesContext.getCurrentInstance();
+
+        //Then we have to get the Response to write our file to
+        HttpServletResponse response = (HttpServletResponse) context.getExternalContext().getResponse();
+
+        //Now we create some variables we will use for writting the file to the response
+        int read = 0;
+        byte[] bytes = new byte[1024];
+
+
+        //Now set the content type for our response, be sure to use the best suitable content type depending on your file
+        //the content type presented here is ok for, lets say, text files and others (like  CSVs, PDFs)
+        response.setContentType("application/csv");
+
+        //This is another important attribute for the header of the response
+        //Here fileName, is a String with the name that you will suggest as a name to save as
+        //I use the same name as it is stored in the file system of the server.
+        response.setHeader("Content-Disposition", "attachment;filename=\"" + "dNeeroSurveyResultAsCsv.txt" + "\"");
+
+        try{
+            //First we load the file in our InputStream
+            ByteArrayInputStream fis = new ByteArrayInputStream(results.getBytes());
+            OutputStream os = response.getOutputStream();
+
+            //While there are still bytes in the file, read them and write them to our OutputStream
+            while((read = fis.read(bytes)) != -1){
+                os.write(bytes,0,read);
+            }
+
+            //Clean resources
+            os.flush();
+            os.close();
+        } catch (Exception ex){
+            logger.error(ex);
+        }
+
+        //This option isn't quite necessary, It worked for me with or without it
+        FacesContext.getCurrentInstance().responseComplete();
     }
 
     public Survey getSurvey() {

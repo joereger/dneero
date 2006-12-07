@@ -33,11 +33,15 @@ public class LoginToBeta {
         logger.debug("login() called.");
 
         if (!betapassword.equals("diaga")){
-            //Notify via XMPP
-            SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_SALES, "Somebody logged-in to the dNeero Beta! "+ Time.dateformatcompactwithtime(Calendar.getInstance()));
-            xmpp.send();
             Jsf.setFacesMessage("login:betapassword","Beta betapassword incorrect.");
             return null;
+        }
+        try{
+            //Notify via XMPP
+            SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_SALES, "Somebody logged-in to the dNeero Beta! ("+ Time.dateformatcompactwithtime(Calendar.getInstance())+") from "+Jsf.getHttpServletRequest().getRemoteAddr()+ " "+Jsf.getHttpServletRequest().getRemoteHost());
+            xmpp.send();
+        } catch (Exception ex){
+            logger.error(ex);
         }
         Jsf.getUserSession().setIsLoggedInToBeta(true);
         return "logintobetacomplete";
