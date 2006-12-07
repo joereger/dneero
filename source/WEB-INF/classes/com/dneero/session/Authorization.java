@@ -82,8 +82,8 @@ public class Authorization extends UIComponentBase {
                                 }
                                 Jsf.bindObjectToExpressionLanguage("#{userSession}", newUserSession);
                                 wasAutoLoggedIn = true;
-                                //Notify customer care group
-                                SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_DEBUG, "dNeero User Login: "+ user.getFirstname() + " " + user.getLastname() + " ("+user.getEmail()+")");
+                                //Notify via XMPP
+                                SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_SALES, "dNeero User Auto-Login: "+ user.getFirstname() + " " + user.getLastname() + " ("+user.getEmail()+")");
                                 xmpp.send();
                                 //Now dispatch request to the same page so that header is changed to reflect logged-in status
                                 if (wasAutoLoggedIn){

@@ -59,6 +59,7 @@ public class MoveMoneyInAccountBalance {
                             //Transfer the actual revshare
                             //Very important: note that qualifiesforrevsharedistribution=false on revshare distributions
                             MoveMoneyInAccountBalance.pay(userToPayRevshareTo, amttoshare, "Revenue share from "+userToPayRevshareTo.getFirstname()+" "+userToPayRevshareTo.getLastname()+"("+userToPayRevshareTo.getEmail()+")", false);
+                            //@todo Email the recipient of the revshare to tell them that their peeps are making them money!
                         }
                     }
                 }
@@ -72,7 +73,6 @@ public class MoveMoneyInAccountBalance {
 
     public static void charge(User user, double amt, String desc, int optionalimpressionpaymentgroupid, int optionalimpressionchargegroupid){
         Logger logger = Logger.getLogger(MoveMoneyInAccountBalance.class);
-
         Balance balance = new Balance();
         balance.setAmt((-1)*amt);
         balance.setDate(new Date());

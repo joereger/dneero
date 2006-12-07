@@ -3,9 +3,11 @@ package com.dneero.formbeans;
 import org.apache.log4j.Logger;
 
 import java.util.Iterator;
+import java.util.Calendar;
 
 import com.dneero.dao.User;
 import com.dneero.util.Jsf;
+import com.dneero.util.Time;
 import com.dneero.session.UserSession;
 import com.dneero.xmpp.SendXMPPMessage;
 
@@ -31,6 +33,9 @@ public class LoginToBeta {
         logger.debug("login() called.");
 
         if (!betapassword.equals("diaga")){
+            //Notify via XMPP
+            SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_SALES, "Somebody logged-in to the dNeero Beta! "+ Time.dateformatcompactwithtime(Calendar.getInstance()));
+            xmpp.send();
             Jsf.setFacesMessage("login:betapassword","Beta betapassword incorrect.");
             return null;
         }

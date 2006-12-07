@@ -89,8 +89,8 @@ public class Login {
                 }
             }
 
-            //Notify customer care group
-            SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_DEBUG, "dNeero User Login: "+ user.getFirstname() + " " + user.getLastname() + " ("+user.getEmail()+")");
+            //Notify via XMPP
+            SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_SALES, "dNeero User Login: "+ user.getFirstname() + " " + user.getLastname() + " ("+user.getEmail()+")");
             xmpp.send();
 
             Jsf.bindObjectToExpressionLanguage("#{userSession}", userSession);

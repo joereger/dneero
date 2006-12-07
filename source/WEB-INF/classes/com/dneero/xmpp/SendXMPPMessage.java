@@ -2,6 +2,8 @@ package com.dneero.xmpp;
 
 import org.jivesoftware.smack.XMPPConnection;
 import org.jivesoftware.smack.XMPPException;
+import org.jivesoftware.smack.GoogleTalkConnection;
+import org.apache.log4j.Logger;
 import com.dneero.threadpool.ThreadPool;
 import com.dneero.systemprops.SystemProperty;
 
@@ -12,10 +14,14 @@ import com.dneero.systemprops.SystemProperty;
  */
 public class SendXMPPMessage implements Runnable {
 
-    private String recipientaddress = "joereger@jabber.org";
+    Logger logger = Logger.getLogger(this.getClass().getName());
+
+    private String recipientaddress = "regerj@gmail.com";
     private String jabberserver = "jabber.org";
     private String senderusername = "dneeroserver";
     private String senderpassword = "dneerorules";
+    private String googlesenderusername = "dneeroserver";
+    private String googlesenderpassword = "dneerorules";
     private String message = "";
     private int grouptosendto = 0;
 
@@ -24,16 +30,16 @@ public class SendXMPPMessage implements Runnable {
     //Add and remove people from these notification groups.
     //They will need to have an account on jabber.org
     public static int GROUP_SYSADMINS = 1;
-    private String[] groupSYSADMINS = {"joereger@jabber.org", "frogfire@jabber.com"};
+    private String[] groupSYSADMINS = {"regerj@gmail.com"};
 
     public static int GROUP_SALES = 2;
-    private String[] groupSALES = {"joereger@jabber.org", "frogfire@jabber.com"};
+    private String[] groupSALES = {"regerj@gmail.com", "frogfire.joe@gmail.com"};
 
     public static int GROUP_CUSTOMERSUPPORT = 3;
-    private String[] groupCUSTOMERSUPPORT = {"joereger@jabber.org", "frogfire@jabber.com"};
+    private String[] groupCUSTOMERSUPPORT = {"regerj@gmail.com", "frogfire.joe@gmail.com"};
 
     public static int GROUP_DEBUG = 4;
-    private String[] groupDEBUG = {"joereger@jabber.org", "frogfire@jabber.com"};
+    private String[] groupDEBUG = {"regerj@gmail.com"};
 
     public SendXMPPMessage(int grouptosendto, String message){
         this.grouptosendto = grouptosendto;
@@ -75,9 +81,17 @@ public class SendXMPPMessage implements Runnable {
             if (!recipient.equals("")){
                 if (SystemProperty.getProp(SystemProperty.PROP_SENDXMPP).equals("1")){
                     try{
-                        XMPPConnection con = new XMPPConnection(jabberserver);
-                        con.login(senderusername, senderpassword);
-                        con.createChat(recipient).sendMessage(message);
+                        if (recipient.indexOf("gmail.com")<=-1){
+                            logger.debug("sending XMPP to "+recipient+" via normal XMPP connection");
+                            XMPPConnection con = new XMPPConnection(jabberserver);
+                            con.login(senderusername, senderpassword);
+                            con.createChat(recipient).sendMessage(message);
+                        } else {
+                            logger.debug("sending XMPP to "+recipient+" via google XMPP connection");
+                            GoogleTalkConnection con = new GoogleTalkConnection ();
+                            con.login(googlesenderusername, googlesenderpassword);
+                            con.createChat(recipient).sendMessage(message);    
+                        }
                     } catch (XMPPException xmppex){
                         System.out.println("Couldn't send XMPP to "+recipient+": "+xmppex.getMessage());
                     }

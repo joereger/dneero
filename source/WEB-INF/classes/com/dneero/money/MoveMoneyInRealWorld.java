@@ -4,6 +4,7 @@ import com.dneero.dao.User;
 import com.dneero.dao.Balance;
 import com.dneero.dao.Balancetransaction;
 import com.dneero.threadpool.ThreadPool;
+import com.dneero.xmpp.SendXMPPMessage;
 
 import java.util.Date;
 
@@ -92,6 +93,9 @@ public class MoveMoneyInRealWorld implements Runnable {
 
         //Only affect the account balance if the real-world transaction was successful
         if (pm.getIssuccessful()){
+            //Notify via XMPP
+            SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_CUSTOMERSUPPORT, "Successful Move Money in Real World: amt=$"+(-1)*amttogiveuser+" to/from "+ user.getFirstname() + " " + user.getLastname() + " ("+user.getEmail()+")");
+            xmpp.send();
             Balance balance = new Balance();
             balance.setAmt((-1)*amttogiveuser);
             balance.setDate(new Date());
@@ -99,6 +103,10 @@ public class MoveMoneyInRealWorld implements Runnable {
             balance.setCurrentbalance(CurrentBalanceCalculator.getCurrentBalance(user) - amttogiveuser);
             balance.setUserid(user.getUserid());
             try{balance.save();}catch (Exception ex){logger.error(ex);}
+        } else {
+            //Notify via XMPP
+            SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_CUSTOMERSUPPORT, "Failed Move Money in Real World: amt=$"+(-1)*amttogiveuser+" to/from "+ user.getFirstname() + " " + user.getLastname() + " ("+user.getEmail()+") Notes: "+pm.getNotes());
+            xmpp.send();
         }
 
         //Always record the transaction itself, even if it fails... this does not affect the account balance
