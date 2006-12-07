@@ -855,10 +855,6 @@
             <to-view-id>/researcher/results_answers_details.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
-            <from-outcome>researcherresultsanswerscsv</from-outcome>
-            <to-view-id>/researcher/results_answers_csv.xhtml</to-view-id>
-        </navigation-case>
-        <navigation-case>
             <from-outcome>researcherresultsrespondents</from-outcome>
             <to-view-id>/researcher/results_respondents.xhtml</to-view-id>
         </navigation-case>
