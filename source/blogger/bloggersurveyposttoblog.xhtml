@@ -21,36 +21,117 @@
 
 <h:form>
 
-    <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
-    <img src="/images/lightbulb_on.png" align="left"/>
-    Now that you've filled out the survey you can make even more money by posting it to your blog with a simple copy-and-paste operation.
-    <br/><br/><br/>
+   <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
+    <img src="/images/lightbulb_on.png" align="left" width="48" height="48"/>
+    <font class="mediumfont">You've earned #{bloggerSurveyPosttoblog.earnedalready} by responding to this survey!  Now earn up to another #{bloggerSurveyPosttoblog.canearn} by posting your answers to your blog!</font>
+    <br/><br/>
     </font></div></center>
     <br/>
-    <br/>
 
-    <d:roundedCornerBox uniqueboxname="youcouldearn" bodycolor="00ff00" widthinpixels="500">
-        <h:outputText value="You just earned:" styleClass="smallfont"/>
-        <br/>
-        <h:outputText value="#{bloggerSurveyPosttoblog.earnedalready}" styleClass="largefont"/>
-        <br/>
-        <h:outputText value="By posting to your blog you can earn up to another:" styleClass="smallfont"/>
-        <br/>
-        <h:outputText value="#{bloggerSurveyPosttoblog.canearn}" styleClass="mediumfont"/>
-    </d:roundedCornerBox>
+   <t:panelTabbedPane id="panel" bgcolor="#ffffff">
+        <t:panelTab id="panel_f" label="Post to your Blog">
+            <h:graphicImage url="/images/clear.gif" width="700" height="1"/><br/>
+            <font class="mediumfont">Post to your blog by copying the script below and pasting it into a blog post:</font>
+            <br/><br/>
+            <center><div class="rounded" style="background: #00ff00; text-align: center; padding: 20px;"><font class="smallfont">
+            <textarea rows="1" cols="55" readonly="readonly" onClick="javascript:this.select();">&lt;script src="${baseUrl.includinghttp}s?s=#{bloggerSurveyPosttoblog.survey.surveyid}&amp;u=#{userSession.user.userid}"&gt;&lt;/script&gt;</textarea>
+            </font></div></center>
+            <br/><br/>
+            
+        </t:panelTab>
+        <t:panelTab id="panel_b" label="Survey Summary" rendered="true">
+            <h:graphicImage url="/images/clear.gif" width="700" height="1"/><br/>
+            <table width="100%" cellpadding="5">
+                <tr>
+                    <td valign="top">
+                        <font class="medium">#{bloggerSurveyPosttoblog.survey.description}</font>
+                        <br/>
+                        <font class="tinyfont">Survey ID: #{bloggerSurveyPosttoblog.survey.surveyid}</font>
+                    </td>
+                    <td valign="top" align="right">
+                        <d:roundedCornerBox uniqueboxname="youcouldearn" bodycolor="00ff00" widthinpixels="200">
+                            <h:outputText value="Earn Up To" styleClass="smallfont"/>
+                            <br/>
+                            <h:outputText value="#{bloggerSurveyPosttoblog.surveyEnhancer.maxearning}" styleClass="largefont"/>
+                            <br/>
+                            <h:outputText value="(#{bloggerSurveyPosttoblog.surveyEnhancer.minearning} - #{bloggerSurveyPosttoblog.surveyEnhancer.maxearning})" styleClass="smallfont"/>
+                            <br/><br/>
+                            <font class="mediumfont" color="#ffffff">#{bloggerSurveyPosttoblog.surveyEnhancer.daysuntilend}</font>
+                        </d:roundedCornerBox>
+                    </td>
+                </tr>
+            </table>
+            <h:panelGrid columns="2" cellpadding="3" border="0">
+                <h:panelGroup>
+                    <h:outputText value=""/>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:outputText value="" styleClass="mediumfont"/>
+                </h:panelGroup>
 
+                <h:panelGroup>
+                    <h:outputText value="Start Date" styleClass="formfieldnamefont"/>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:outputText value="#{bloggerSurveyPosttoblog.surveyEnhancer.startdate}"/>
+                </h:panelGroup>
 
+                <h:panelGroup>
+                    <h:outputText value="End Date" styleClass="formfieldnamefont"/>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:outputText value="#{bloggerSurveyPosttoblog.surveyEnhancer.enddate}"/>
+                </h:panelGroup>
 
-    <font class="mediumfont">Here's how to do it:</font>
-    <br/>
-    <font class="smallfont">Copy and paste the html below into a blog post and publish it... that's all!</font>
-    <br/>
-    <d:roundedCornerBox uniqueboxname="posttoblog" bodycolor="ffffff" widthinpixels="500">
-        <font class="smallfont">&lt;script src="${baseUrl.includinghttp}s?s=#{bloggerSurveyPosttoblog.survey.surveyid}&amp;u=#{userSession.user.userid}"&gt;&lt;/script&gt;</font>
-    </d:roundedCornerBox>
+                <h:panelGroup>
+                    <h:outputText value="Pay for Responding to Survey" styleClass="formfieldnamefont"/>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:outputText value="#{bloggerSurveyPosttoblog.surveyEnhancer.willingtopayforresponse}"/>
+                </h:panelGroup>
 
+                <h:panelGroup>
+                    <h:outputText value="Pay for 1000 Hits on Your Blog" styleClass="formfieldnamefont"/>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:outputText value="#{bloggerSurveyPosttoblog.surveyEnhancer.willingtopayforcpm}"/>
+                </h:panelGroup>
 
+                <h:panelGroup>
+                    <h:outputText value="Number of Respondents To Date" styleClass="formfieldnamefont"/>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <d:percentCompleteBar currentvalue="#{bloggerSurveyPosttoblog.surveyEnhancer.responsesalreadygotten}" maximumvalue="#{bloggerSurveyPosttoblog.survey.numberofrespondentsrequested}" mintitle="" maxtitle="" widthinpixels="250"></d:percentCompleteBar>
+                    <h:outputText value="#{bloggerSurveyPosttoblog.surveyEnhancer.responsesalreadygotten} people have taken this survey.  #{bloggerSurveyPosttoblog.survey.numberofrespondentsrequested} will be paid for." styleClass="smallfont"/>
+                    <br/><br/>
+                </h:panelGroup>
 
+                <h:panelGroup>
+                    <h:outputText value="Number of Blog Displays To Date" styleClass="formfieldnamefont"/>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <d:percentCompleteBar currentvalue="#{bloggerSurveyPosttoblog.surveyEnhancer.impressionsalreadygotten}" maximumvalue="#{bloggerSurveyPosttoblog.survey.maxdisplaystotal}" mintitle="" maxtitle="" widthinpixels="250"></d:percentCompleteBar>
+                    <h:outputText value="#{bloggerSurveyPosttoblog.surveyEnhancer.impressionsalreadygotten} blog displays have happened.  #{bloggerSurveyPosttoblog.survey.maxdisplaystotal} will be paid for." styleClass="smallfont"/>
+                    <br/><br/>
+                </h:panelGroup>
+             </h:panelGrid>
+
+        </t:panelTab>
+
+        <t:panelTab id="panel_e" label="Your Answers">
+            <h:graphicImage url="/images/clear.gif" width="700" height="1"/><br/>
+            <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
+            <img src="/images/lightbulb_on.png" align="left"/>
+            These are the answers that you provided.
+            <br/><br/><br/>
+            </font></div></center>
+            <br/>
+            <br/>
+            <f:verbatim>#{bloggerSurveyPosttoblog.surveyAnswersForThisBlogger}</f:verbatim>
+            <br/><br/>
+        </t:panelTab>
+
+    </t:panelTabbedPane>
 
 
      

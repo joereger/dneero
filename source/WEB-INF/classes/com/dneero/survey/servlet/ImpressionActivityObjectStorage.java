@@ -127,6 +127,14 @@ public class ImpressionActivityObjectStorage {
     public static Blog findBlogFromReferer(String referer, User user){
         Logger logger = Logger.getLogger(ImpressionActivityObjectStorage.class);
         if (referer!=null && !referer.equals("")){
+            //Strip ending slash
+            logger.debug("referer.substring(referer.length()-1, referer.length())="+referer.substring(referer.length()-1, referer.length()));
+            if (referer.substring(referer.length()-1, referer.length()).equals("/")){
+                logger.debug("removing slash from referer: referer="+referer);
+                referer = referer.substring(0, referer.length()-1);
+            } else {
+                logger.debug("not removing slash from referer: referer="+referer);
+            }
             if (user!=null && user.getBloggerid()>0){
                 for (Iterator it = Blogger.get(user.getBloggerid()).getBlogs().iterator(); it.hasNext(); ) {
                     Blog blog = (Blog)it.next();

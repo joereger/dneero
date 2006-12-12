@@ -32,6 +32,7 @@ public class BloggerSurveyTake {
 
     private Survey survey;
     private String html;
+    private boolean haveerror = false;
 
     Logger logger = Logger.getLogger(this.getClass().getName());
 
@@ -50,7 +51,9 @@ public class BloggerSurveyTake {
         try{
             SurveyResponseParser srp = new SurveyResponseParser((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest());
             createResponse(survey, srp, Blogger.get(Jsf.getUserSession().getUser().getBloggerid()), 0);
+            haveerror = false;
         } catch (ComponentException cex){
+            haveerror = true;
             Jsf.setFacesMessage(cex.getErrorsAsSingleString());
             return "bloggersurveytake";
         }
@@ -140,6 +143,7 @@ public class BloggerSurveyTake {
         }
         //Throw if necessary
         if (allCex.getErrors().length>0){
+
             throw allCex;
         }
     }
@@ -160,5 +164,13 @@ public class BloggerSurveyTake {
 
     public void setHtml(String html) {
         this.html = html;
+    }
+
+    public boolean getHaveerror() {
+        return haveerror;
+    }
+
+    public void setHaveerror(boolean haveerror) {
+        this.haveerror = haveerror;
     }
 }

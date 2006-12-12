@@ -39,9 +39,9 @@ public class BloggerIndex {
                 try{
                     SurveyResponseParser srp = new SurveyResponseParser(responsepending.getResponseasstring());
                     BloggerSurveyTake.createResponse(survey,  srp, Blogger.get(Jsf.getUserSession().getUser().getBloggerid()), responsepending.getReferredbyblogid());
-                    responsependingmsg = responsependingmsg + "You just earned $"+ Str.formatForMoney(survey.getWillingtopayperrespondent())+"! We have successfully committed your response to '"+survey.getTitle()+"'!  But don't forget to post this survey to your blog.  To do so, click Earnings and choose this survey.  On that page you'll find a 'Post To Blog' tab that explains how to do so." + "<br/><br/>";
+                    responsependingmsg = responsependingmsg + "You just earned $"+ Str.formatForMoney(survey.getWillingtopayperrespondent())+"! We have successfully committed your response to '"+survey.getTitle()+"'!  But don't forget to post this survey to your blog to earn even more money... click <a href='bloggersurveyposttoblog.jsf?surveyid="+survey.getSurveyid()+"'>here</a>." + "<br/><br/>";
                 } catch (ComponentException cex){
-                    responsependingmsg = responsependingmsg + "There was an error committing your response to the survey '"+survey.getTitle()+"': " + cex.getErrorsAsSingleString() + "<br/><br/>";
+                    responsependingmsg = responsependingmsg + "There was an error committing your response to the survey '"+survey.getTitle()+"': " + cex.getErrorsAsSingleString() + "  But don't worry... we're always adding <a href='bloggersurveylist.jsf'>new survey opportunities</a>.<br/><br/>";
                 }
                 //Delete the responsepending, now that it's been handled
                 responsepending.delete();

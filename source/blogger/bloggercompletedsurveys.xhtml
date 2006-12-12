@@ -16,12 +16,6 @@
     <d:authorization acl="blogger" redirectonfail="true"/>
 
 
-    <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
-    <img src="/images/lightbulb_on.png" align="left"/>
-    Note: Earnings calculations are not final.   Final payment notification and calculation can be found on <a href="/account/accountbalance.jsf"><font class="smallfont">Your Account Balance</font></a> page.
-    <br/><br/><br/>
-    </font></div></center>
-    <br/>
 
         <h:form>
               <t:saveState id="save" value="#{bloggerCompletedsurveys}"/>
@@ -36,7 +30,7 @@
                 <f:facet name="header">
                   <af:outputText value="Survey Title"/>
                 </f:facet>
-                <h:commandLink action="#{bloggerSurveyDetail.beginView}">
+                <h:commandLink action="#{bloggerSurveyPosttoblog.beginView}">
                     <h:outputText value="#{listitem.surveytitle}" escape="false" styleClass="mediumfont" style="color: #0000ff;"/>
                     <f:param name="surveyid" value="#{listitem.surveyid}" />
                 </h:commandLink>
@@ -78,8 +72,12 @@
           </af:table>
 
         </h:form>
-
-
+        <br/><br/>
+        <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
+    <img src="/images/lightbulb_on.png" align="left"/>
+    Note: Earnings calculations are not final.   Final payment notification and calculation can be found on <a href="/account/accountbalance.jsf"><font class="smallfont">Your Account Balance</font></a> page.
+    <br/><br/><br/>
+    </font></div></center>
 
     </ui:define>
 </ui:composition>

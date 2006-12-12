@@ -22,7 +22,7 @@ import java.util.Iterator;
 public class ResearcherSurveyDetail02 {
 
     Logger logger = Logger.getLogger(this.getClass().getName());
-    private int newquestioncomponenttype;
+    private int newquestioncomponenttype = Textbox.ID;
     private String surveyForTakers;
     private int status;
     private String title;

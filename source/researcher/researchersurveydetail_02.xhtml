@@ -43,7 +43,7 @@
                 </f:facet>
                 <h:graphicImage url="/images/question.png"></h:graphicImage>
               </af:column>
-              <af:column>
+              <af:column rendered="false">
                 <f:facet name="header">
                   <af:outputText value="Id"/>
                 </f:facet>
@@ -57,9 +57,10 @@
               </af:column>
               <af:column>
                 <f:facet name="header">
-                  <af:outputText value="Is Required"/>
+                  <af:outputText value="Respondent Must Answer?"/>
                 </f:facet>
-                <af:outputText value="#{question.isrequired}"/>
+                <af:outputText value="Yes" rendered="#{question.isrequired}"/>
+                <af:outputText value="No" rendered="#{!question.isrequired}"/>
               </af:column>
               <af:column>
                 <f:facet name="header">
@@ -81,18 +82,38 @@
                 </h:commandLink>
               </af:column>
             </af:table>
-            <af:outputText value="Question Type:" styleClass="tinyfont" rendered="#{researcherSurveyDetail02.status eq 1}"/>
             <br/>
-            <h:selectOneMenu value="#{researcherSurveyDetail02.newquestioncomponenttype}" id="newquestioncomponenttype" required="true" rendered="#{researcherSurveyDetail02.status eq 1}">
+            <af:outputText value="Add a Question of Type:" styleClass="mediumfont" inlineStyle="color: #cccccc;" rendered="#{researcherSurveyDetail02.status eq 1}"/>
+            <br/>
+            <af:outputText value="See tab at upper right for Question Type Samples" styleClass="smallfont" inlineStyle="color: #000000;" rendered="#{researcherSurveyDetail02.status eq 1}"/>
+            <br/>
+            <h:selectOneRadio value="#{researcherSurveyDetail02.newquestioncomponenttype}" layout="pageDirection" id="newquestioncomponenttype" styleClass="normalfont" required="true" rendered="#{researcherSurveyDetail02.status eq 1}">
                 <f:selectItems value="#{componentTypes.typesaslinkedhashmap}"/>
-            </h:selectOneMenu>
+            </h:selectOneRadio>
             <h:commandButton action="#{researcherSurveyDetail02.addQuestion}" value="Add Question" styleClass="formsubmitbutton" rendered="#{researcherSurveyDetail02.status eq 1}">
                 <f:param name="isnewquestion" value="1" />
             </h:commandButton>
         </t:panelTab>
-        <t:panelTab id="panel_b" label="Preview the Survey">
+        <t:panelTab id="panel_b" label="Preview your Survey">
             <h:graphicImage url="/images/clear.gif" width="700" height="1"/><br/>
             <f:verbatim>#{researcherSurveyDetail02.surveyForTakers}</f:verbatim>
+        </t:panelTab>
+        <t:panelTab id="panel_c" label="Question Type Samples">
+            <h:graphicImage url="/images/clear.gif" width="700" height="1"/><br/>
+            <font class="mediumfont">Question Type: Textbox (Short Text)</font><br/>
+            <img src="../images/questiontypes/textbox.gif" border="0"></img><br/><br/>
+            <font class="mediumfont">Question Type: Essay (Long Text)</font><br/>
+            <img src="../images/questiontypes/essay.gif" border="0"></img><br/><br/>
+            <font class="mediumfont">Question Type: Dropdown (Choose One)</font><br/>
+            <img src="../images/questiontypes/dropdown.gif" border="0"></img><br/><br/>
+            <font class="mediumfont">Question Type: Checkboxes (Choose Multiple)</font><br/>
+            <img src="../images/questiontypes/selectmultiple.gif" border="0"></img><br/><br/>
+            <font class="mediumfont">Question Type: Range (i.e. 1-10)</font><br/><br/>
+            <img src="../images/questiontypes/range.gif" border="0"></img><br/><br/>
+            <font class="mediumfont">Question Type: Matrix (Choose One Per Row)</font><br/>
+            <img src="../images/questiontypes/matrixselectone.gif" border="0"></img><br/><br/>
+            <font class="mediumfont">Question Type: Matrix (Choose Many Per Row)</font><br/>
+            <img src="../images/questiontypes/matrixselectmany.gif" border="0"></img><br/><br/>
         </t:panelTab>
     </t:panelTabbedPane>
 

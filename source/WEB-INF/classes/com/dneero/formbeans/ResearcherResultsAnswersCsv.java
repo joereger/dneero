@@ -33,7 +33,6 @@ public class ResearcherResultsAnswersCsv {
         loadSurvey(Jsf.getUserSession().getCurrentSurveyid());
     }
 
-
     public void loadSurvey(int surveyid){
         logger.debug("loadSurvey called");
         survey = Survey.get(surveyid);

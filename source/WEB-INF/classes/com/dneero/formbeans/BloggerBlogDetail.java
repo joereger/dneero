@@ -62,9 +62,7 @@ public class BloggerBlogDetail {
             if (blogs.size()==0){
                 isonetimeconfig = true;
             }
-
         }
-
         logger.debug("End of beginView: blogid="+blogid);
         return "bloggerblogdetail";
     }
@@ -82,12 +80,28 @@ public class BloggerBlogDetail {
 
         if (blogid==0 || blog.canEdit(Jsf.getUserSession().getUser())){
 
-            //@todo url validation
-    //        UrlValidator urlValidator = new UrlValidator(new String[]{"http", "https"});
-    //        if (!urlValidator.isValid(url)){
-    //            Jsf.setFacesMessage("Url "+url+" is not valid.  Example: http://www.yourblog.com");
-    //            return null;
-    //        }
+
+
+
+            //URL validation/correction
+            if (url!=null && !url.equals("")){
+                //Append http
+                if (!url.substring(0,7).equals("http://") && !url.substring(0,8).equals("https://")){
+                    url = "http://" + url;
+                }
+            } else {
+                Jsf.setFacesMessage("Your URL can't be blank.");
+                return null;
+            }
+
+
+
+//            String[] schemes = {"http","https"};
+//            UrlValidator urlValidator = new UrlValidator();
+//            if (!urlValidator.isValid("http://www.ghost.com/")){
+//                Jsf.setFacesMessage("Url '"+url+"' is not valid.  Make sure you have http:// or https://.");
+//                return null;
+//            }
 
             //url must be unique
             List blogs = HibernateUtil.getSession().createQuery("from Blog where url='"+url+"' and blogid<>'"+blogid+"'").list();
@@ -95,6 +109,10 @@ public class BloggerBlogDetail {
                 //@todo way for user to report that somebody else is using their blog url
                 Jsf.setFacesMessage("Url "+url+" is already claimed by somebody else.");
                 return null;
+            }
+
+            if (title.equals("")){
+                title = url;
             }
 
             blog.setUrl(url);

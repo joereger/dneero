@@ -6,6 +6,7 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:t="http://myfaces.apache.org/tomahawk"
+      xmlns:af="http://xmlns.oracle.com/adf/faces"
       xmlns:d="http://dneero.com/taglib">
 
 <ui:composition template="/template/template-facelets.xhtml">
@@ -21,7 +22,7 @@
 
 <h:form>
 
-    <h:messages styleClass="RED"/>
+
 
     <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
     <img src="/images/lightbulb_on.png" align="left"/>
@@ -31,18 +32,26 @@
     <br/>
     <br/>
 
+    <t:div rendered="#{bloggerSurveyTake.haveerror}">
+        <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
+        <img src="/images/alert.png" align="left"/>
+        There were errors with your response:
+        <br/><br/>
+        <h:messages styleClass="RED"/>
+        <br/><br/>
+        Use your browser's back button, correct these errors and re-submit.  Thanks.
+        </font></div></center>
+    </t:div>
 
-    <h:outputText value="Take the Survey: #{bloggerSurveyTake.survey.title}" styleClass="mediumfont"/>
-    <br/>
-    <h:outputText value="#{bloggerSurveyTake.survey.description}" styleClass="smallfont"/>
-    <f:verbatim><br/><br/></f:verbatim>
-
-
-
-    <f:verbatim escape="false">#{bloggerSurveyTake.html}</f:verbatim>
-    <br/><br/>
-    <h:commandButton action="#{bloggerSurveyTake.takeSurvey}" value="Complete the Survey" styleClass="formsubmitbutton"></h:commandButton>
-
+    <t:div rendered="#{!bloggerSurveyTake.haveerror}">
+        <h:outputText value="Take the Survey: #{bloggerSurveyTake.survey.title}" styleClass="mediumfont"/>
+        <br/>
+        <h:outputText value="#{bloggerSurveyTake.survey.description}" styleClass="smallfont"/>
+        <f:verbatim><br/><br/></f:verbatim>
+        <f:verbatim escape="false">#{bloggerSurveyTake.html}</f:verbatim>
+        <br/><br/>
+        <h:commandButton action="#{bloggerSurveyTake.takeSurvey}" value="Complete the Survey" styleClass="formsubmitbutton"></h:commandButton>
+    </t:div>
 
 
 </h:form>

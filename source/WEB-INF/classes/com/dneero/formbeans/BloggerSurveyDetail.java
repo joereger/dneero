@@ -24,8 +24,6 @@ public class BloggerSurveyDetail {
     private Survey survey;
     private SurveyEnhancer surveyEnhancer;
     private String surveyForTakers;
-    private boolean bloggerhasalreadytakensurvey;
-    private String surveyAnswersForThisBlogger;
     private String surveyOnBlogPreview;
 
 
@@ -34,6 +32,7 @@ public class BloggerSurveyDetail {
     public BloggerSurveyDetail(){
         logger.debug("BloggerSurveyDetail instanciated.");
         survey = new Survey();
+        beginView();
     }
 
 
@@ -43,29 +42,31 @@ public class BloggerSurveyDetail {
         if (com.dneero.util.Num.isinteger(tmpSurveyid)){
             logger.debug("beginView called: found surveyid in param="+tmpSurveyid);
             Jsf.getUserSession().setCurrentSurveyid(Integer.parseInt(tmpSurveyid));
-            survey = Survey.get(Integer.parseInt(tmpSurveyid));
+            load();
+        } else {
+            logger.debug("beginView called: NOT found surveyid in param="+tmpSurveyid);
+        }
+        load();
+        return "bloggersurveydetail";
+    }
 
+    private void load(){
+
+            survey = Survey.get(Jsf.getUserSession().getCurrentSurveyid());
             Blogger blogger = Blogger.get(Jsf.getUserSession().getUser().getBloggerid());
-            bloggerhasalreadytakensurvey = false;
+            boolean bloggerhasalreadytakensurvey = false;
             for (Iterator<Response> iterator = blogger.getResponses().iterator(); iterator.hasNext();) {
                 Response response = iterator.next();
                 if (response.getSurveyid()==survey.getSurveyid()){
                     bloggerhasalreadytakensurvey = true;
                 }
             }
-            String url = "<script src=\"/s?s="+survey.getSurveyid()+"&u="+Jsf.getUserSession().getUser().getUserid()+"&ispreview=1\"></script>";
             if (bloggerhasalreadytakensurvey){
-                //surveyAnswersForThisBlogger = SurveyAsHtml.getHtml(survey, User.get(blogger.getUserid()));
-                surveyAnswersForThisBlogger = url;
-            } else {
-                surveyOnBlogPreview = url;
+                try{Jsf.redirectResponse("bloggersurveyposttoblog.jsf?surveyid="+survey.getSurveyid());}catch (Exception ex){logger.error(ex);}
             }
+            surveyOnBlogPreview = "<script src=\"/s?s="+survey.getSurveyid()+"&u="+Jsf.getUserSession().getUser().getUserid()+"&ispreview=1\"></script>";
             surveyEnhancer = new SurveyEnhancer(survey);
             surveyForTakers = SurveyTakerDisplay.getHtmlForSurveyTaking(survey, new Blogger());
-        } else {
-            logger.debug("beginView called: NOT found surveyid in param="+tmpSurveyid);
-        }
-        return "bloggersurveydetail";
     }
 
     public Survey getSurvey() {
@@ -92,21 +93,7 @@ public class BloggerSurveyDetail {
         this.surveyForTakers = surveyForTakers;
     }
 
-    public boolean getBloggerhasalreadytakensurvey() {
-        return bloggerhasalreadytakensurvey;
-    }
 
-    public void setBloggerhasalreadytakensurvey(boolean bloggerhasalreadytakensurvey) {
-        this.bloggerhasalreadytakensurvey = bloggerhasalreadytakensurvey;
-    }
-
-    public String getSurveyAnswersForThisBlogger() {
-        return surveyAnswersForThisBlogger;
-    }
-
-    public void setSurveyAnswersForThisBlogger(String surveyAnswersForThisBlogger) {
-        this.surveyAnswersForThisBlogger = surveyAnswersForThisBlogger;
-    }
 
     public String getSurveyOnBlogPreview() {
         return surveyOnBlogPreview;
@@ -115,4 +102,5 @@ public class BloggerSurveyDetail {
     public void setSurveyOnBlogPreview(String surveyOnBlogPreview) {
         this.surveyOnBlogPreview = surveyOnBlogPreview;
     }
+
 }

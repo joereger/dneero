@@ -34,6 +34,7 @@ public class PublicSurveyTake {
     private Survey survey;
     private String html;
     private SurveyEnhancer surveyEnhancer;
+    private boolean haveerror = false;
 
     Logger logger = Logger.getLogger(this.getClass().getName());
 
@@ -62,7 +63,9 @@ public class PublicSurveyTake {
         try{
             SurveyResponseParser srp = new SurveyResponseParser((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest());
             createResponse(survey, srp, null);
+            haveerror = false;
         } catch (ComponentException cex){
+            haveerror = true;
             Jsf.setFacesMessage(cex.getErrorsAsSingleString());
             return "publicsurveytake";
         }
@@ -146,5 +149,13 @@ public class PublicSurveyTake {
 
     public void setHtml(String html) {
         this.html = html;
+    }
+
+    public boolean getHaveerror() {
+        return haveerror;
+    }
+
+    public void setHaveerror(boolean haveerror) {
+        this.haveerror = haveerror;
     }
 }

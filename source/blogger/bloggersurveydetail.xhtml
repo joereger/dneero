@@ -26,22 +26,14 @@
     <img src="/images/lightbulb_on.png" align="left"/>
     On this screen you view the details of the survey opportunity.  See the questions in the 'Question Preview' tab and see how this survey will look on your blog in the 'On-Blog Preview' tab. 
     <br/><br/>
-    <h:commandButton action="bloggersurveytake" value="Ok, I'll Take the Survey" styleClass="formsubmitbutton" rendered="#{!bloggerSurveyDetail.bloggerhasalreadytakensurvey}"></h:commandButton>
+    <h:commandButton action="bloggersurveytake" value="Ok, I'll Take the Survey" styleClass="formsubmitbutton"></h:commandButton>
     </font></div></center>
     <br/>
 
 
-    <d:roundedCornerBox uniqueboxname="alreadytaken" bodycolor="00ff00" widthinpixels="700" rendered="#{bloggerSurveyDetail.bloggerhasalreadytakensurvey}">
-    <h:outputText value="You've already taken this survey." styleClass="mediumfont" rendered="#{bloggerSurveyDetail.bloggerhasalreadytakensurvey}"/>
-    </d:roundedCornerBox>
-    <f:verbatim rendered="#{bloggerSurveyDetail.bloggerhasalreadytakensurvey}"><br/><br/></f:verbatim>
-
-
     <t:panelTabbedPane id="panel" bgcolor="#ffffff">
-        <t:panelTab id="panel_b" label="Summary">
+        <t:panelTab id="panel_b" label="Summary" rendered="true">
             <h:graphicImage url="/images/clear.gif" width="700" height="1"/><br/>
-
-
             <table width="100%" cellpadding="5">
                 <tr>
                     <td valign="top">
@@ -62,21 +54,13 @@
                     </td>
                 </tr>
             </table>
-
-
-
-
-
             <h:panelGrid columns="2" cellpadding="3" border="0">
-
-
                 <h:panelGroup>
                     <h:outputText value=""/>
                 </h:panelGroup>
                 <h:panelGroup>
                     <h:outputText value="" styleClass="mediumfont"/>
                 </h:panelGroup>
-
 
                 <h:panelGroup>
                     <h:outputText value="Start Date" styleClass="formfieldnamefont"/>
@@ -92,10 +76,6 @@
                     <h:outputText value="#{bloggerSurveyDetail.surveyEnhancer.enddate}"/>
                 </h:panelGroup>
 
-
-
-
-
                 <h:panelGroup>
                     <h:outputText value="Pay for Responding to Survey" styleClass="formfieldnamefont"/>
                 </h:panelGroup>
@@ -110,7 +90,6 @@
                     <h:outputText value="#{bloggerSurveyDetail.surveyEnhancer.willingtopayforcpm}"/>
                 </h:panelGroup>
 
-
                 <h:panelGroup>
                     <h:outputText value="Number of Respondents To Date" styleClass="formfieldnamefont"/>
                 </h:panelGroup>
@@ -120,7 +99,6 @@
                     <br/><br/>
                 </h:panelGroup>
 
-
                 <h:panelGroup>
                     <h:outputText value="Number of Blog Displays To Date" styleClass="formfieldnamefont"/>
                 </h:panelGroup>
@@ -129,13 +107,10 @@
                     <h:outputText value="#{bloggerSurveyDetail.surveyEnhancer.impressionsalreadygotten} blog displays have happened.  #{bloggerSurveyDetail.survey.maxdisplaystotal} will be paid for." styleClass="smallfont"/>
                     <br/><br/>
                 </h:panelGroup>
-
-
-
              </h:panelGrid>
 
         </t:panelTab>
-        <t:panelTab id="panel_c" label="Question Preview" rendered="#{!bloggerSurveyDetail.bloggerhasalreadytakensurvey}">
+        <t:panelTab id="panel_c" label="Question Preview">
             <h:graphicImage url="/images/clear.gif" width="700" height="1"/><br/>
             <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
             <img src="/images/lightbulb_on.png" align="left"/>
@@ -147,7 +122,7 @@
             <f:verbatim>#{bloggerSurveyDetail.surveyForTakers}</f:verbatim>
             <br/><br/>
         </t:panelTab>
-        <t:panelTab id="panel_d" label="On-Blog Preview" rendered="#{!bloggerSurveyDetail.bloggerhasalreadytakensurvey}">
+        <t:panelTab id="panel_d" label="On-Blog Preview">
             <h:graphicImage url="/images/clear.gif" width="700" height="1"/><br/>
             <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
             <img src="/images/lightbulb_on.png" align="left"/>
@@ -159,32 +134,8 @@
             <f:verbatim>#{bloggerSurveyDetail.surveyOnBlogPreview}</f:verbatim>
             <br/><br/>
         </t:panelTab>
-        <t:panelTab id="panel_e" label="Your Answers" rendered="#{bloggerSurveyDetail.bloggerhasalreadytakensurvey}">
-            <h:graphicImage url="/images/clear.gif" width="700" height="1"/><br/>
-            <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
-            <img src="/images/lightbulb_on.png" align="left"/>
-            These are the answers that you provided.
-            <br/><br/><br/>
-            </font></div></center>
-            <br/>
-            <br/>
-            <f:verbatim>#{bloggerSurveyDetail.surveyAnswersForThisBlogger}</f:verbatim>
-            <br/><br/>
-        </t:panelTab>
-        <t:panelTab id="panel_f" label="Post to your Blog" rendered="#{bloggerSurveyDetail.bloggerhasalreadytakensurvey}">
-            <h:graphicImage url="/images/clear.gif" width="700" height="1"/><br/>
-            <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
-            <img src="/images/lightbulb_on.png" align="left"/>
-            Now that you've filled out the survey you can make even more money by posting it to your blog with a simple copy-and-paste operation.
-            <br/><br/><br/>
-            </font></div></center>
-            <br/>
-            <br/>
-            <d:roundedCornerBox uniqueboxname="posttoblog" bodycolor="ffffff" widthinpixels="700">
-            <font class="smallfont">&lt;script src="${baseUrl.includinghttp}s?s=#{bloggerSurveyDetail.survey.surveyid}&amp;u=#{userSession.user.userid}"&gt;&lt;/script&gt;</font>
-            </d:roundedCornerBox>
-            <br/><br/>
-        </t:panelTab>
+
+
     </t:panelTabbedPane>
 
 
