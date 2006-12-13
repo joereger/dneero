@@ -33,14 +33,14 @@
         <property name="status" type="int">
             <column name="status" not-null="true" />
         </property>
-        <property name="title" type="string">
+        <property name="title" type="text">
             <column name="title" not-null="true" />
         </property>
-        <property name="description" type="string">
-            <column name="description" length="65535" />
+        <property name="description" type="text">
+            <column name="description" />
         </property>
-        <property name="criteriaxml" type="string">
-            <column name="criteriaxml" length="65535" />
+        <property name="criteriaxml" type="text">
+            <column name="criteriaxml"/>
         </property>
         <property name="willingtopayperrespondent" type="double">
             <column name="willingtopayperrespondent" precision="22" scale="0" not-null="true" />
@@ -63,8 +63,8 @@
         <property name="enddate" type="timestamp">
             <column name="enddate" length="19" not-null="true" />
         </property>
-        <property name="template" type="string">
-            <column name="template" length="65535" />
+        <property name="template" type="text">
+            <column name="template"/>
         </property>
 
     </class>

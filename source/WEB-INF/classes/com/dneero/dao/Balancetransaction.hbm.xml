@@ -21,10 +21,10 @@
         <property name="amt" type="double">
             <column name="amt" precision="22" scale="0" not-null="true" />
         </property>
-        <property name="description" type="string">
+        <property name="description" type="text">
             <column name="description" not-null="true" />
         </property>
-        <property name="notes" type="string">
+        <property name="notes" type="text">
             <column name="notes" not-null="true" />
         </property>
         <property name="transactionid" type="string">

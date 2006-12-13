@@ -9,10 +9,10 @@
             <column name="systempropid" />
             <generator class="native" />
         </id>
-        <property name="name" type="string">
+        <property name="name" type="text">
             <column name="name" not-null="true" />
         </property>
-        <property name="value" type="string">
+        <property name="value" type="text">
             <column name="value" not-null="true" />
         </property>
     </class>

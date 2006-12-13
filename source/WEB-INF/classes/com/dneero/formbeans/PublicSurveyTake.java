@@ -8,16 +8,10 @@ import com.dneero.display.SurveyResponseParser;
 import com.dneero.display.components.def.ComponentException;
 import com.dneero.display.components.def.Component;
 import com.dneero.display.components.def.ComponentTypes;
-import com.dneero.finders.FindSurveysForBlogger;
-import com.dneero.money.MoveMoneyInAccountBalance;
-import com.dneero.money.SurveyMoneyStatus;
-import com.dneero.xmpp.SendXMPPMessage;
 import com.dneero.ui.SurveyEnhancer;
 import com.dneero.survey.servlet.ImpressionActivityObjectStorage;
 
-import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Date;
 
 import org.apache.log4j.Logger;
 
@@ -47,7 +41,7 @@ public class PublicSurveyTake {
         if(Jsf.getUserSession().getCurrentSurveyid()>0){
             survey = Survey.get(Jsf.getUserSession().getCurrentSurveyid());
             surveyEnhancer = new SurveyEnhancer(survey);
-            html = SurveyTakerDisplay.getHtmlForSurveyTaking(survey, new Blogger());
+            html = SurveyTakerDisplay.getHtmlForSurveyTaking(survey, new Blogger(), true);
         }
         //Establish pendingSurveyReferredbyblogid by looking at referer, store that in the session and use it later
         Blog referredByBlog = ImpressionActivityObjectStorage.findBlogFromReferer(Jsf.getHttpServletRequest().getHeader("referer"));

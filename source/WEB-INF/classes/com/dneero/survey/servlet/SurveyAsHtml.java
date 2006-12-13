@@ -2,17 +2,11 @@ package com.dneero.survey.servlet;
 
 import com.dneero.dao.Survey;
 import com.dneero.dao.User;
-import com.dneero.dao.Blog;
 import com.dneero.dao.Blogger;
 import com.dneero.display.SurveyTemplateProcessor;
 import com.dneero.util.Str;
-import com.dneero.systemprops.SystemProperty;
-
-import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
-
-import java.util.Iterator;
 
 /**
  * User: Joe Reger Jr
@@ -22,12 +16,12 @@ import java.util.Iterator;
 public class SurveyAsHtml {
 
 
-    public static String getHtml(Survey survey, User user){
+    public static String getHtml(Survey survey, User user, boolean makeHttpsIfSSLIsOn){
         StringBuffer out = new StringBuffer();
         Logger logger = Logger.getLogger(SurveyAsHtml.class);
         if (survey!=null && user!=null){
             SurveyTemplateProcessor stp = new SurveyTemplateProcessor(survey, Blogger.get(user.getBloggerid()));
-            out.append(stp.getSurveyForDisplay());
+            out.append(stp.getSurveyForDisplay(makeHttpsIfSSLIsOn));
         } else {
             out = new StringBuffer();
             out.append("This embedded survey link is not correctly formatted.");

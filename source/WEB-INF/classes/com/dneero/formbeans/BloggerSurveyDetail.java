@@ -1,17 +1,13 @@
 package com.dneero.formbeans;
 
 import org.apache.log4j.Logger;
-import com.dneero.dao.User;
 import com.dneero.dao.Survey;
 import com.dneero.dao.Blogger;
 import com.dneero.dao.Response;
 import com.dneero.util.*;
 import com.dneero.ui.SurveyEnhancer;
 import com.dneero.display.SurveyTakerDisplay;
-import com.dneero.survey.servlet.SurveyAsHtml;
 
-import javax.faces.context.FacesContext;
-import java.util.Calendar;
 import java.util.Iterator;
 
 /**
@@ -66,7 +62,7 @@ public class BloggerSurveyDetail {
             }
             surveyOnBlogPreview = "<script src=\"/s?s="+survey.getSurveyid()+"&u="+Jsf.getUserSession().getUser().getUserid()+"&ispreview=1\"></script>";
             surveyEnhancer = new SurveyEnhancer(survey);
-            surveyForTakers = SurveyTakerDisplay.getHtmlForSurveyTaking(survey, new Blogger());
+            surveyForTakers = SurveyTakerDisplay.getHtmlForSurveyTaking(survey, new Blogger(), true);
     }
 
     public Survey getSurvey() {

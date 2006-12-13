@@ -6,7 +6,6 @@ import com.dneero.util.GeneralException;
 import com.dneero.dao.Survey;
 import com.dneero.dao.Blogger;
 import com.dneero.session.UserSession;
-import com.dneero.survey.servlet.SurveyAsHtml;
 import com.dneero.display.SurveyTemplateProcessor;
 import com.dneero.display.SurveyTakerDisplay;
 
@@ -58,7 +57,7 @@ public class ResearcherSurveyDetail03 {
                 surveyForReaders = url;
 
 
-                surveyForTakers = SurveyTakerDisplay.getHtmlForSurveyTaking(survey, new Blogger());
+                surveyForTakers = SurveyTakerDisplay.getHtmlForSurveyTaking(survey, new Blogger(), true);
                 status = survey.getStatus();
             }
         }

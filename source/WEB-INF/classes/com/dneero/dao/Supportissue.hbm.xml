@@ -23,8 +23,8 @@
         <property name="status" type="int">
             <column name="status" not-null="true" />
         </property>
-        <property name="subject" type="string">
-            <column name="subject" length="255" />
+        <property name="subject" type="text">
+            <column name="subject"/>
         </property>
 
 

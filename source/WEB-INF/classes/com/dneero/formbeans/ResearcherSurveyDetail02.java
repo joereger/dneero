@@ -41,7 +41,7 @@ public class ResearcherSurveyDetail02 {
             logger.debug("Found survey in db: survey.getSurveyid()="+survey.getSurveyid()+" survey.getTitle()="+survey.getTitle());
             title = survey.getTitle();
             if (Jsf.getUserSession().getUser()!=null && survey.canEdit(Jsf.getUserSession().getUser())){
-                surveyForTakers = SurveyTakerDisplay.getHtmlForSurveyTaking(survey, new Blogger());
+                surveyForTakers = SurveyTakerDisplay.getHtmlForSurveyTaking(survey, new Blogger(), true);
                 status = survey.getStatus();
             }
         }

@@ -3,7 +3,6 @@ package com.dneero.formbeans;
 import com.dneero.dao.*;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.util.Jsf;
-import com.dneero.util.GeneralException;
 import com.dneero.xmpp.SendXMPPMessage;
 import com.dneero.money.MoveMoneyInAccountBalance;
 import com.dneero.money.SurveyMoneyStatus;
@@ -18,7 +17,6 @@ import org.hibernate.criterion.Restrictions;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.faces.context.FacesContext;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Date;
 import java.util.List;
@@ -41,7 +39,7 @@ public class BloggerSurveyTake {
         survey = new Survey();
         if (Jsf.getUserSession().getCurrentSurveyid()>0){
             survey = Survey.get(Jsf.getUserSession().getCurrentSurveyid());
-            html = SurveyTakerDisplay.getHtmlForSurveyTaking(Survey.get(Jsf.getUserSession().getCurrentSurveyid()), Blogger.get(Jsf.getUserSession().getUser().getBloggerid()));
+            html = SurveyTakerDisplay.getHtmlForSurveyTaking(Survey.get(Jsf.getUserSession().getCurrentSurveyid()), Blogger.get(Jsf.getUserSession().getUser().getBloggerid()), true);
         }
     }
 

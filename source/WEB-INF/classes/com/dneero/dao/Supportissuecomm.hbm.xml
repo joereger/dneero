@@ -18,8 +18,8 @@
         <property name="isfromdneeroadmin" type="boolean">
             <column name="isfromdneeroadmin" />
         </property>
-        <property name="notes" type="string">
-            <column name="notes" length="65535" />
+        <property name="notes" type="text">
+            <column name="notes"/>
         </property>
 
 

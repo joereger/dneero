@@ -38,7 +38,7 @@
         </h:panelGroup>
         <h:panelGroup>
             <h:inputText value="#{researcherSurveyDetail01.title}" size="50" id="title" required="true" rendered="#{researcherSurveyDetail01.status le 1}">
-                <f:validateLength minimum="3" maximum="255"></f:validateLength>
+                <f:validateLength minimum="3" maximum="200"></f:validateLength>
             </h:inputText>
             <h:outputText value="#{researcherSurveyDetail01.title}" rendered="#{researcherSurveyDetail01.status ge 2}"></h:outputText>
         </h:panelGroup>

@@ -9,18 +9,15 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Date;
 import java.io.IOException;
 
 import com.dneero.util.Jsf;
-import com.dneero.util.GeneralException;
 import com.dneero.dao.*;
 import com.dneero.display.components.def.Component;
 import com.dneero.display.components.def.ComponentTypes;
 import com.dneero.display.components.def.ComponentException;
 import com.dneero.display.SurveyTakerDisplay;
 import com.dneero.display.SurveyResponseParser;
-import com.dneero.survey.servlet.SurveyAsHtml;
 import com.dneero.finders.FindSurveysForBlogger;
 import com.dneero.formbeans.BloggerSurveyTake;
 
@@ -194,7 +191,7 @@ public class SurveyTaker extends UIInput {
 
         StringBuffer out = new StringBuffer();
         if (Jsf.getUserSession().getUser()!=null){
-            out.append(SurveyTakerDisplay.getHtmlForSurveyTaking(Survey.get(Jsf.getUserSession().getCurrentSurveyid()), Blogger.get(Jsf.getUserSession().getUser().getBloggerid())));
+            out.append(SurveyTakerDisplay.getHtmlForSurveyTaking(Survey.get(Jsf.getUserSession().getCurrentSurveyid()), Blogger.get(Jsf.getUserSession().getUser().getBloggerid()), true));
         }
 
         ResponseWriter writer = context.getResponseWriter();

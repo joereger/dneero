@@ -24,7 +24,7 @@
         <property name="bloggerid" type="int">
             <column name="bloggerid" not-null="true" />
         </property>
-        <property name="url" type="string">
+        <property name="url" type="text">
             <column name="url" not-null="true" />
         </property>
         <property name="title" type="string">

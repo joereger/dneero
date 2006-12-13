@@ -59,7 +59,7 @@ public class PublicSurveyDetail {
                 surveyOnBlogPreview = url;
             }
             surveyEnhancer = new SurveyEnhancer(survey);
-            surveyForTakers = SurveyTakerDisplay.getHtmlForSurveyTaking(survey, new Blogger());
+            surveyForTakers = SurveyTakerDisplay.getHtmlForSurveyTaking(survey, new Blogger(), true);
         } else {
             logger.debug("beginView called: NOT found surveyid in param="+tmpSurveyid);
         }

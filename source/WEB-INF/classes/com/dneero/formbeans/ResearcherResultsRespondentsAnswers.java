@@ -33,7 +33,7 @@ public class ResearcherResultsRespondentsAnswers {
             if (com.dneero.util.Num.isinteger(tmpBloggerid)){
                 blogger = Blogger.get(Integer.parseInt(tmpBloggerid));
                 user = User.get(blogger.getBloggerid());
-                resultsashtml = SurveyAsHtml.getHtml(survey, user);
+                resultsashtml = SurveyAsHtml.getHtml(survey, user, true);
             }
         }
         return "researcherresultsrespondentsanswers";

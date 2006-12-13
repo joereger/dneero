@@ -175,6 +175,8 @@ input, textarea, select{
    border-right-color:#666666;
    border-bottom-color:#666666;
    margin: 2px;
+   cursor: pointer;
+   cursor: hand;
 }
 
 .RED{

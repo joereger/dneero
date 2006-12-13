@@ -17,7 +17,7 @@
         <property name="surveyid" type="int">
             <column name="surveyid" not-null="true" />
         </property>
-        <property name="referer" type="string">
+        <property name="referer" type="text">
             <column name="referer" />
         </property>
         <property name="impressionsqualifyingforpayment" type="int">

@@ -15,8 +15,8 @@
         <property name="surveyid" type="int">
             <column name="surveyid" not-null="true" />
         </property>
-        <property name="responseasstring" type="string">
-            <column name="responseasstring" length="65535" />
+        <property name="responseasstring" type="text">
+            <column name="responseasstring" />
         </property>
         <property name="referredbyblogid" type="int">
             <column name="referredbyblogid" not-null="true" />

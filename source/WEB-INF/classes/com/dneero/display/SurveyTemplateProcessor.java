@@ -8,7 +8,6 @@ import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.util.Str;
 import com.dneero.display.components.def.Component;
 import com.dneero.display.components.def.ComponentTypes;
-import com.dneero.systemprops.SystemProperty;
 import com.dneero.systemprops.BaseUrl;
 
 import java.util.regex.Matcher;
@@ -49,7 +48,7 @@ public class SurveyTemplateProcessor {
         }
     }
 
-    public String getSurveyForTaking(){
+    public String getSurveyForTaking(boolean makeHttpsIfSSLIsOn){
         StringBuffer out = new StringBuffer();
         String template = survey.getTemplate();
         if (template==null){
@@ -74,11 +73,11 @@ public class SurveyTemplateProcessor {
         } catch (Exception e){
             //Do nothing... just null pointer
         }
-        return wrapInStandardSurveyWrapper(out.toString(), false);
+        return wrapInStandardSurveyWrapper(out.toString(), false, makeHttpsIfSSLIsOn);
     }
 
 
-    public String getSurveyForDisplay(){
+    public String getSurveyForDisplay(boolean makeHttpsIfSSLIsOn){
         StringBuffer out = new StringBuffer();
         String template = survey.getTemplate();
         if (template==null){
@@ -103,12 +102,12 @@ public class SurveyTemplateProcessor {
         } catch (Exception e){
             //Do nothing... just null pointer
         }
-        return wrapInStandardSurveyWrapper(out.toString(), true);
+        return wrapInStandardSurveyWrapper(out.toString(), true, makeHttpsIfSSLIsOn);
     }
 
-    public String wrapInStandardSurveyWrapper(String in, boolean includeFooter){
+    public String wrapInStandardSurveyWrapper(String in, boolean includeFooter, boolean makeHttpsIfSSLIsOn){
         StringBuffer out = new StringBuffer();
-        String baseurl = BaseUrl.get(false);
+        String baseurl = BaseUrl.get(makeHttpsIfSSLIsOn);
         out.append("<!-- Start dNeero Survey -->\n" +
                     "<table cellpadding=\"0\" cellspacing=\"0\" border=\"0\" background=\""+baseurl+"images/surveyinblog/dneero-survey-bg.gif\" width=\"100%\" style=\"border: 2px solid #b4b4b4; background-repeat: repeat-x;\">\n" +
                     "\t<tr>\n" +

@@ -2,7 +2,6 @@ package com.dneero.survey.servlet;
 
 import com.dneero.dao.Survey;
 import com.dneero.dao.User;
-import com.dneero.dao.Blog;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletResponse;
@@ -10,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.ServletException;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Iterator;
 
 import org.apache.log4j.Logger;
 
@@ -52,7 +50,7 @@ public class SurveyJavascriptServlet extends HttpServlet {
             RecordImpression.record(request);
         }
 
-        String output = SurveyAsHtml.getHtml(survey, user);
+        String output = SurveyAsHtml.getHtml(survey, user, true);
         output = output.replaceAll("\\n", "\"+\\\n\"");
         output = output.replaceAll("\\r", "\"+\\\n\"");
         out.print("document.write(\""+output+"\");"+"\n");
