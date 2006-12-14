@@ -27,6 +27,7 @@ public class ResearcherResultsRespondentsImpressions {
 
     public ResearcherResultsRespondentsImpressions(){
         logger.debug("Instanciating object.");
+        beginView();
     }
     
     public String beginView(){

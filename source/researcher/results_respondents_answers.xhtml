@@ -26,7 +26,12 @@
         <h:commandLink value="Respondents" action="researcherresultsrespondents" styleClass="subnavfont" style="padding-left: 15px;"/>
         <h:commandLink value="Financial Status" action="researcherresultsfinancial" styleClass="subnavfont" style="padding-left: 15px;"/>
     </div>
+
     <br/><br/>
+    <font class="mediumfont" style="color: #cccccc;">#{researcherResultsRespondentsAnswers.user.firstname} #{researcherResultsRespondentsAnswers.user.lastname}'s Answers</font>
+    <br/><br/>
+
+
 
 
 <f:verbatim escape="false">#{researcherResultsRespondentsAnswers.resultsashtml}</f:verbatim>

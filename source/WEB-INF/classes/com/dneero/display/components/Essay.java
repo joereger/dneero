@@ -1,9 +1,6 @@
 package com.dneero.display.components;
 
-import com.dneero.dao.Question;
-import com.dneero.dao.Blogger;
-import com.dneero.dao.Questionresponse;
-import com.dneero.dao.Response;
+import com.dneero.dao.*;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.util.GeneralException;
 import com.dneero.display.components.def.Component;
@@ -221,7 +218,9 @@ public class Essay implements Component {
             Questionresponse questionresponse = (Questionresponse)it.next();
             if (questionresponse.getName().equals("response")){
                 i = i + 1;
-                out.append("<b>Response " + i + "</b>");
+                Blogger blogger = Blogger.get(questionresponse.getBloggerid());
+                User user = User.get(blogger.getUserid());
+                out.append("<b>Response from: <a href='results_respondents_profile.jsf?responseid="+questionresponse.getResponseid()+"'>"+user.getFirstname()+" "+user.getLastname()+"</a></b>");
                 out.append("<br/>");
                 out.append(questionresponse.getValue());
                 out.append("<br/>");

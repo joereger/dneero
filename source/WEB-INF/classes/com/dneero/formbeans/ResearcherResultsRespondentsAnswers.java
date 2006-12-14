@@ -4,6 +4,7 @@ import org.apache.log4j.Logger;
 import com.dneero.dao.Survey;
 import com.dneero.dao.Blogger;
 import com.dneero.dao.User;
+import com.dneero.dao.Response;
 import com.dneero.util.Jsf;
 import com.dneero.survey.servlet.SurveyAsHtml;
 
@@ -23,7 +24,7 @@ public class ResearcherResultsRespondentsAnswers {
 
 
     public ResearcherResultsRespondentsAnswers(){
-
+        beginView();
     }
 
     public String beginView(){

@@ -31,12 +31,12 @@ public class ResearcherResults {
     private double maxpossiblespend = 0;
 
     public ResearcherResults(){
-        logger.debug("Instanciating object.");
+        logger.debug("Instanciating object. Jsf.getUserSession().getCurrentSurveyid()="+Jsf.getUserSession().getCurrentSurveyid());
         loadSurvey(Jsf.getUserSession().getCurrentSurveyid());
     }
 
     public String beginView(){
-        //logger.debug("beginView called:");
+        logger.debug("beginView called:");
         String tmpSurveyid = Jsf.getRequestParam("surveyid");
         if (com.dneero.util.Num.isinteger(tmpSurveyid)){
             logger.debug("beginView called: found surveyid in request param="+tmpSurveyid);
@@ -49,25 +49,29 @@ public class ResearcherResults {
 
 
     public void loadSurvey(int surveyid){
-        logger.debug("loadSurvey called");
+        logger.debug("loadSurvey called... surveyid="+surveyid);
         Survey survey = Survey.get(surveyid);
         if (survey!=null){
             if (Jsf.getUserSession().getUser()!=null && survey.canEdit(Jsf.getUserSession().getUser())){
-                this.survey=survey;
-                SurveyMoneyStatus sms = new SurveyMoneyStatus(survey);
-                spenttodate = sms.getSpentToDate();
-                maxpossiblespend = sms.getMaxPossibleSpend();
-                totalsurveyresponses = survey.getResponses().size();
-                maxsurveyresponses = survey.getNumberofrespondentsrequested();
-                maxsurveydisplays = survey.getMaxdisplaystotal();
-                totalsurveydisplays = 0;
-                status = survey.getStatus();
-                List<Impression> impressions = HibernateUtil.getSession().createCriteria(Impression.class)
-                                   .add( Restrictions.eq("surveyid", survey.getSurveyid()))
-                                   .list();
-                for (Iterator<Impression> iterator1 = impressions.iterator(); iterator1.hasNext();) {
-                    Impression impression = iterator1.next();
-                    totalsurveydisplays = totalsurveydisplays + impression.getImpressionsqualifyingforpayment();
+                try{
+                    this.survey=survey;
+                    SurveyMoneyStatus sms = new SurveyMoneyStatus(survey);
+                    spenttodate = sms.getSpentToDate();
+                    maxpossiblespend = sms.getMaxPossibleSpend();
+                    totalsurveyresponses = survey.getResponses().size();
+                    maxsurveyresponses = survey.getNumberofrespondentsrequested();
+                    maxsurveydisplays = survey.getMaxdisplaystotal();
+                    totalsurveydisplays = 0;
+                    status = survey.getStatus();
+                    List<Impression> impressions = HibernateUtil.getSession().createCriteria(Impression.class)
+                                       .add( Restrictions.eq("surveyid", survey.getSurveyid()))
+                                       .list();
+                    for (Iterator<Impression> iterator1 = impressions.iterator(); iterator1.hasNext();) {
+                        Impression impression = iterator1.next();
+                        totalsurveydisplays = totalsurveydisplays + impression.getImpressionsqualifyingforpayment();
+                    }
+                } catch (Exception ex){
+                    logger.error(ex);
                 }
             }
         }

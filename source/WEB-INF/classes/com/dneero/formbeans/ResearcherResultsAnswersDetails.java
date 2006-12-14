@@ -20,6 +20,7 @@ public class ResearcherResultsAnswersDetails {
 
     private Survey survey;
     private String results;
+    private Question question;
 
     public ResearcherResultsAnswersDetails(){
         logger.debug("Instanciating object.");
@@ -35,7 +36,7 @@ public class ResearcherResultsAnswersDetails {
                 String tmpQuestionid = Jsf.getRequestParam("questionid");
                 if (com.dneero.util.Num.isinteger(tmpQuestionid)){
                     logger.debug("beginView called: found tmpQuestionid in request param="+tmpQuestionid);
-                    Question question = Question.get(Integer.parseInt(tmpQuestionid));
+                    question = Question.get(Integer.parseInt(tmpQuestionid));
                     Component component = ComponentTypes.getComponentByID(question.getComponenttype(), question, new Blogger());
                     results = component.getHtmlForResultDetail(Util.setToArrayList(question.getQuestionresponses()));
                 }
@@ -60,4 +61,11 @@ public class ResearcherResultsAnswersDetails {
     }
 
 
+    public Question getQuestion() {
+        return question;
+    }
+
+    public void setQuestion(Question question) {
+        this.question = question;
+    }
 }

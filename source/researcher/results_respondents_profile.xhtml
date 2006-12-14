@@ -27,8 +27,21 @@
         <h:commandLink value="Respondents" action="researcherresultsrespondents" styleClass="subnavfont" style="padding-left: 15px;"/>
         <h:commandLink value="Financial Status" action="researcherresultsfinancial" styleClass="subnavfont" style="padding-left: 15px;"/>
     </div>
+
     <br/><br/>
-    
+    <font class="mediumfont" style="color: #cccccc;">#{researcherResultsRespondentsAnswers.user.firstname} #{researcherResultsRespondentsAnswers.user.lastname}'s Profile</font>
+    <br/><br/>
+
+    <h:commandLink action="#{researcherResultsRespondentsAnswers.beginView}">
+        <h:outputText value="This Blogger's Answers" escape="false" styleClass="smallfont"/>
+        <f:param name="bloggerid" value="#{researcherResultsRespondentsProfile.blogger.bloggerid}" />
+    </h:commandLink>
+    <br/>
+    <h:commandLink action="#{researcherResultsRespondentsImpressions.beginView}">
+        <h:outputText value="This Blogger's Impressions" escape="false" styleClass="smallfont"/>
+        <f:param name="responseid" value="#{researcherResultsRespondentsProfile.response.responseid}" />
+    </h:commandLink>
+    <br/><br/>
 
     <h:panelGrid columns="2" cellpadding="3" border="0">
 

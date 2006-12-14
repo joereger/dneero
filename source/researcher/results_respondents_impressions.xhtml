@@ -26,6 +26,9 @@
         <h:commandLink value="Respondents" action="researcherresultsrespondents" styleClass="subnavfont" style="padding-left: 15px;"/>
         <h:commandLink value="Financial Status" action="researcherresultsfinancial" styleClass="subnavfont" style="padding-left: 15px;"/>
     </div>
+
+    <br/><br/>
+    <font class="mediumfont" style="color: #cccccc;">#{researcherResultsRespondentsImpressions.user.firstname} #{researcherResultsRespondentsAnswers.user.lastname}'s Impressions</font>
     <br/><br/>
 
     <t:saveState id="save" value="#{researcherResultsRespondentsImpressions}"/>
@@ -40,14 +43,14 @@
         <f:facet name="header">
           <af:outputText value="Blog"/>
         </f:facet>
-        <a href="#{imp.blogurl}"><af:outputText value="#{imp.blogurl}"/></a>
+        <af:goLink targetFrame="referer" destination="#{imp.blogurl}" text="#{imp.blogurl}"></af:goLink>
         <af:outputText value="No Referer" rendered="#{empty imp.referer}"/>
       </af:column>
       <af:column>
         <f:facet name="header">
           <af:outputText value="Specific Page"/>
         </f:facet>
-        <a href="#{imp.referer}"><af:outputText value="#{imp.referer}"/></a>
+        <af:goLink targetFrame="referer" destination="#{imp.referer}" text="#{imp.referer}"></af:goLink>
       </af:column>
       <af:column>
         <f:facet name="header">

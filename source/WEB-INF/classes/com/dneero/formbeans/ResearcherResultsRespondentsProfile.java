@@ -25,6 +25,7 @@ public class ResearcherResultsRespondentsProfile {
 
     public ResearcherResultsRespondentsProfile(){
         load();
+        beginView();
     }
 
     public String beginView(){
