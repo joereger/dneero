@@ -24,7 +24,7 @@ public class ResearcherSurveyDetail06BalancecheckThread implements Runnable {
     public void run(){
         if (researcher!=null){
             logger.debug("waiting researcherid="+researcher.getResearcherid());
-            try{wait(10000);} catch (Exception ex){logger.error(ex);};
+            //try{wait(10000);} catch (Exception ex){logger.error(ex);};
             logger.debug("running researcherid="+researcher.getResearcherid());
             ResearcherRemainingBalanceOperations.processResearcher(researcher);
             logger.debug("done researcherid="+researcher.getResearcherid());

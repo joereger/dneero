@@ -53,24 +53,25 @@ public class BloggerSurveyPosttoblog {
     }
 
     public void load(){
-
-        survey = Survey.get(Jsf.getUserSession().getCurrentSurveyid());
-        Blogger blogger = Blogger.get(Jsf.getUserSession().getUser().getBloggerid());
-        boolean bloggerhasalreadytakensurvey = false;
-        for (Iterator<Response> iterator = blogger.getResponses().iterator(); iterator.hasNext();) {
-            Response response = iterator.next();
-            if (response.getSurveyid()==survey.getSurveyid()){
-                bloggerhasalreadytakensurvey = true;
+        if (Jsf.getUserSession()!=null && Jsf.getUserSession().getUser()!=null){
+            survey = Survey.get(Jsf.getUserSession().getCurrentSurveyid());
+            Blogger blogger = Blogger.get(Jsf.getUserSession().getUser().getBloggerid());
+            boolean bloggerhasalreadytakensurvey = false;
+            for (Iterator<Response> iterator = blogger.getResponses().iterator(); iterator.hasNext();) {
+                Response response = iterator.next();
+                if (response.getSurveyid()==survey.getSurveyid()){
+                    bloggerhasalreadytakensurvey = true;
+                }
             }
+            if (!bloggerhasalreadytakensurvey){
+                try{Jsf.redirectResponse("bloggersurveydetail.jsf?surveyid="+survey.getSurveyid());}catch (Exception ex){logger.error(ex);}
+            }
+            surveyAnswersForThisBlogger = "<script src=\"/s?s="+survey.getSurveyid()+"&u="+Jsf.getUserSession().getUser().getUserid()+"&ispreview=1\"></script>";
+            surveyEnhancer = new SurveyEnhancer(survey);
+            earnedalready = surveyEnhancer.getWillingtopayforresponse();
+            double maxearningNum = survey.getWillingtopayperrespondent()  +   ( (survey.getWillingtopaypercpm()*survey.getMaxdisplaysperblog())/1000 );
+            canearn = "$"+Str.formatForMoney(maxearningNum - survey.getWillingtopayperrespondent());
         }
-        if (!bloggerhasalreadytakensurvey){
-            try{Jsf.redirectResponse("bloggersurveydetail.jsf?surveyid="+survey.getSurveyid());}catch (Exception ex){logger.error(ex);}
-        }
-        surveyAnswersForThisBlogger = "<script src=\"/s?s="+survey.getSurveyid()+"&u="+Jsf.getUserSession().getUser().getUserid()+"&ispreview=1\"></script>";
-        surveyEnhancer = new SurveyEnhancer(survey);
-        earnedalready = surveyEnhancer.getWillingtopayforresponse();
-        double maxearningNum = survey.getWillingtopayperrespondent()  +   ( (survey.getWillingtopaypercpm()*survey.getMaxdisplaysperblog())/1000 );
-        canearn = "$"+Str.formatForMoney(maxearningNum - survey.getWillingtopayperrespondent());
     }
 
     public String takeSurvey(){

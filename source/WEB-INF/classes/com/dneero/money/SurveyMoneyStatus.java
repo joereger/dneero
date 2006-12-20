@@ -22,9 +22,12 @@ public class SurveyMoneyStatus {
     private double maxPossibleSpend = 0;
     private int responsesToDate = 0;
     private double spentOnResponsesToDate = 0;
+    private double spentOnResponsesToDateIncludingdNeeroFee = 0;
     private int impressionsToDate = 0;
     private double spentOnImpressionsToDate = 0;
+    private double spentOnImpressionsToDateIncludingdNeeroFee = 0;
     private double spentToDate = 0;
+    private double spentToDateIncludingdNeeroFee = 0;
     private double remainingPossibleSpend = 0;
 
 
@@ -36,15 +39,20 @@ public class SurveyMoneyStatus {
         maxPossibleSpend = maxPossiblePayoutToUsers + maxPossibledNeeroFee + PERSURVEYCREATIONFEE;
         responsesToDate = survey.getResponses().size();
         spentOnResponsesToDate = survey.getWillingtopayperrespondent() * responsesToDate;
+        spentOnResponsesToDateIncludingdNeeroFee = spentOnResponsesToDate + (spentOnResponsesToDate * (DNEEROMARKUPPERCENT/100));
         impressionsToDate = 0;
         for (Iterator<Impression> iterator2 = survey.getImpressions().iterator(); iterator2.hasNext();) {
             Impression impression = iterator2.next();
             impressionsToDate = impressionsToDate + impression.getImpressionsqualifyingforpayment();
         }
         spentOnImpressionsToDate = (Double.parseDouble(String.valueOf(impressionsToDate)) * survey.getWillingtopaypercpm())/1000;
-        spentToDate = spentOnResponsesToDate + spentOnImpressionsToDate;
-        remainingPossibleSpend = maxPossibleSpend - spentToDate;    
+        spentOnImpressionsToDateIncludingdNeeroFee = spentOnImpressionsToDate + (spentOnImpressionsToDate * (DNEEROMARKUPPERCENT/100));
+        spentToDate = spentOnResponsesToDate + spentOnImpressionsToDate + PERSURVEYCREATIONFEE;
+        spentToDateIncludingdNeeroFee = spentToDate + (spentToDate * (DNEEROMARKUPPERCENT/100));
+        remainingPossibleSpend = maxPossibleSpend - spentToDateIncludingdNeeroFee;
     }
+
+ 
 
 
     public double getMaxPossiblePayoutForResponses() {
@@ -92,4 +100,27 @@ public class SurveyMoneyStatus {
     }
 
 
+    public double getSpentOnResponsesToDateIncludingdNeeroFee() {
+        return spentOnResponsesToDateIncludingdNeeroFee;
+    }
+
+    public void setSpentOnResponsesToDateIncludingdNeeroFee(double spentOnResponsesToDateIncludingdNeeroFee) {
+        this.spentOnResponsesToDateIncludingdNeeroFee = spentOnResponsesToDateIncludingdNeeroFee;
+    }
+
+    public double getSpentOnImpressionsToDateIncludingdNeeroFee() {
+        return spentOnImpressionsToDateIncludingdNeeroFee;
+    }
+
+    public void setSpentOnImpressionsToDateIncludingdNeeroFee(double spentOnImpressionsToDateIncludingdNeeroFee) {
+        this.spentOnImpressionsToDateIncludingdNeeroFee = spentOnImpressionsToDateIncludingdNeeroFee;
+    }
+
+    public double getSpentToDateIncludingdNeeroFee() {
+        return spentToDateIncludingdNeeroFee;
+    }
+
+    public void setSpentToDateIncludingdNeeroFee(double spentToDateIncludingdNeeroFee) {
+        this.spentToDateIncludingdNeeroFee = spentToDateIncludingdNeeroFee;
+    }
 }

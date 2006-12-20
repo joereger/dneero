@@ -50,7 +50,6 @@ public class FindSurveysForBlogger {
         Criteria crit = HibernateUtil.getSession().createCriteria(Survey.class);
         //Status
         crit.add(Restrictions.eq("status", Survey.STATUS_OPEN));
-
         //Gender
         crit.add(Restrictions.like("criteriaxml", "%"+blogger.getGender()+"%"));
         //Ethnicity
@@ -69,10 +68,6 @@ public class FindSurveysForBlogger {
         crit.add(Restrictions.like("criteriaxml", "%"+blogger.getProfession()+"%"));
         //Politics
         crit.add(Restrictions.like("criteriaxml", "%"+blogger.getPolitics()+"%"));
-
-
-
-
 
         //Run the query and get the preliminary results
         List<Survey> surveys = crit.list();
@@ -163,14 +158,10 @@ public class FindSurveysForBlogger {
                 }
             }
 
-
-
             //If it hasn't been booted by now, keep it
             if (surveyfitsblogger){
                 this.surveys.add(survey);
             }
-
-
         }
 
     }

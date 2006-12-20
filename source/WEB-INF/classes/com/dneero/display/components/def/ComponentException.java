@@ -20,7 +20,7 @@ public class ComponentException extends Exception {
         StringBuffer mb = new StringBuffer();
         for (int i = 0; i < validationErrors.length; i++) {
             String validationError = validationErrors[i];
-            mb.append(validationError + "<br>");
+            mb.append(validationError + " ");
         }
         return mb.toString();
     }

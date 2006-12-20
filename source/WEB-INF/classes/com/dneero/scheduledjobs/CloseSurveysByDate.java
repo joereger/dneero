@@ -26,19 +26,14 @@ public class CloseSurveysByDate implements Job {
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
         if (InstanceProperties.getRunScheduledTasksOnThisInstance()){
             logger.debug("execute() CloseSurveysByDate called");
-
             List<Survey> surveys = HibernateUtil.getSession().createCriteria(Survey.class)
-                                   .add( Restrictions.lt("enddate", new Date()))
                                    .add( Restrictions.eq("status", Survey.STATUS_OPEN))
                                    .list();
-
             for (Iterator<Survey> iterator = surveys.iterator(); iterator.hasNext();) {
                 Survey survey = iterator.next();
-                survey.setStatus(Survey.STATUS_CLOSED);
-                try{
-                    survey.save();
-                } catch (GeneralException ex){
-                    logger.error(ex);
+                if (survey.getEnddate().before(new Date())){
+                    survey.setStatus(Survey.STATUS_CLOSED);
+                    try{ survey.save(); } catch (GeneralException ex){ logger.error(ex); }
                 }
             }
         }

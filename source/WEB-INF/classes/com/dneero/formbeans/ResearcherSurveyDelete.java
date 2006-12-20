@@ -37,7 +37,7 @@ public class ResearcherSurveyDelete {
 
 
     public String beginView(){
-        //logger.debug("beginView called:");
+        logger.debug("beginView called:");
         String tmpSurveyid = Jsf.getRequestParam("surveyid");
         if (com.dneero.util.Num.isinteger(tmpSurveyid)){
             logger.debug("beginView called: found surveyid in request param="+tmpSurveyid);
@@ -66,9 +66,9 @@ public class ResearcherSurveyDelete {
     }
 
     public String deleteSurvey(){
-        logger.debug("deleteSurvey() called.");
+        UserSession userSession = Jsf.getUserSession();
+        logger.debug("deleteSurvey() called. status="+status + " userSession.getCurrentSurveyid()="+userSession.getCurrentSurveyid());
         if (status==Survey.STATUS_DRAFT){
-            UserSession userSession = Jsf.getUserSession();
             if (userSession.getCurrentSurveyid()>0){
                 logger.debug("deleteSurvey() called: going to get Survey.get(surveyid)="+userSession.getCurrentSurveyid());
                 Survey survey = Survey.get(userSession.getCurrentSurveyid());
@@ -83,10 +83,12 @@ public class ResearcherSurveyDelete {
                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage( FacesMessage.SEVERITY_INFO, message, message));
                     return null;
                 }
+            } else {
+                logger.debug("Not deleting because userSession.getCurrentSurveyid() is not less than zero");
             }
-
+        } else {
+            logger.debug("Not deleting because status!=Survey.STATUS_DRAFT");
         }
-
         return "researchersurveylist";
     }
 

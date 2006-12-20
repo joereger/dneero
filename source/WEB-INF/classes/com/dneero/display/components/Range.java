@@ -71,7 +71,7 @@ public class Range implements Component {
 
         out.append("<table cellpadding=\"3\" cellspacing=\"0\" border=\"0\">");
         out.append("<tr>");
-        out.append("<td valign=top>");
+        out.append("<td align=center valign=top>");
         out.append(mintitle);
         out.append("</td>");
         boolean createdExactlyMaxRadio = false;
@@ -79,20 +79,20 @@ public class Range implements Component {
             if (i==max){
                 createdExactlyMaxRadio = true;
             }
-            out.append("<td valign=top>");
+            out.append("<td align=center valign=top>");
             out.append("<input type=radio name=\""+ SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"questionid_"+question.getQuestionid()+"\" value=\""+i+"\">");
             out.append("<br>");
             out.append(i);
             out.append("</td>");
         }
         if (!createdExactlyMaxRadio){
-            out.append("<td valign=top>");
+            out.append("<td align=center valign=top>");
             out.append("<input type=radio name=\""+ SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"questionid_"+question.getQuestionid()+"\" value=\""+max+"\">");
             out.append("<br>");
             out.append(max);
             out.append("</td>");
         }
-        out.append("<td valign=top>");
+        out.append("<td align=center valign=top>");
         out.append(maxtitle);
         out.append("</td>");
         out.append("</tr>");
@@ -142,7 +142,7 @@ public class Range implements Component {
 
             out.append("<table cellpadding=\"3\" cellspacing=\"0\" border=\"0\">");
             out.append("<tr>");
-            out.append("<td valign=top>");
+            out.append("<td align=center valign=top>");
             out.append(mintitle);
             out.append("</td>");
             boolean createdExactlyMaxRadio = false;
@@ -150,7 +150,7 @@ public class Range implements Component {
                 if (i==max){
                     createdExactlyMaxRadio = true;
                 }
-                out.append("<td valign=top>");
+                out.append("<td align=center valign=top>");
                 if (responseValue ==i){
                     out.append("<b>"+i+"</b>");
                 } else {
@@ -159,7 +159,7 @@ public class Range implements Component {
                 out.append("</td>");
             }
             if (!createdExactlyMaxRadio){
-                out.append("<td valign=top>");
+                out.append("<td align=center valign=top>");
                 if (responseValue ==max){
                     out.append("<b>"+max+"</b>");
                 } else {
@@ -167,7 +167,7 @@ public class Range implements Component {
                 }
                 out.append("</td>");
             }
-            out.append("<td valign=top>");
+            out.append("<td align=center valign=top>");
             out.append(maxtitle);
             out.append("</td>");
             out.append("</tr>");

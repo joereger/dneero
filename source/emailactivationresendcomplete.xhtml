@@ -12,7 +12,7 @@
     <ui:define name="title">Email Activation Message Sent<br/><br/></ui:define>
     <ui:param name="navtab" value="youraccount"/>
     <ui:define name="body">
-    <d:authorization acl="public" redirectonfail="true"/>
+    <d:authorization acl="publiclogin" redirectonfail="true"/>
         <h:form>
             <h:outputText>Your email activation message has been sent.  Please check your email inbox.</h:outputText>
             <f:verbatim><br/><br/></f:verbatim>

@@ -79,18 +79,42 @@ public class Checkboxes implements Component {
         out.append("<br/>");
         out.append("<font style=\"font-family: Arial, Arial, Helvetica, sans-serif; font-size: 12px;\">");
 
+        List<Questionresponse> responses = new ArrayList<Questionresponse>();
         if (blogger!=null && response!=null){
-            List<Questionresponse> responses = HibernateUtil.getSession().createQuery("from Questionresponse where questionid='"+question.getQuestionid()+"' and bloggerid='"+blogger.getBloggerid()+"' and responseid='"+response.getResponseid()+"'").list();
-            for (Iterator<Questionresponse> iterator = responses.iterator(); iterator.hasNext();) {
-                Questionresponse questionresponse = iterator.next();
-                out.append(questionresponse.getValue());
-                if (iterator.hasNext()){
-                    out.append("<br/>");
+            responses = HibernateUtil.getSession().createQuery("from Questionresponse where questionid='"+question.getQuestionid()+"' and bloggerid='"+blogger.getBloggerid()+"' and responseid='"+response.getResponseid()+"'").list();
+        }
+
+        String options = "";
+        for (Iterator<Questionconfig> iterator = question.getQuestionconfigs().iterator(); iterator.hasNext();) {
+            Questionconfig questionconfig = iterator.next();
+            if (questionconfig.getName().equals("options")){
+                options = questionconfig.getValue();
+            }
+        }
+        String[] optionsSplit = options.split("\\n");
+        //@todo test checkbox because i don't think that the hashmap holding the values properly handles multiple values for the same name
+        for (int i = 0; i < optionsSplit.length; i++) {
+            String s = optionsSplit[i];
+            boolean isSelected = false;
+            if (responses!=null && responses.size()>0){
+                for (Iterator<Questionresponse> iterator = responses.iterator(); iterator.hasNext();) {
+                    Questionresponse questionresponse = iterator.next();
+                    if (questionresponse.getValue().equals(s)){
+                        isSelected = true;
+                    }
                 }
             }
-        } else {
-            out.append("Not answered.");
+            if (isSelected){
+                out.append("<b>"+s+"</b>");
+            } else {
+                out.append(s);
+            }
+            if (optionsSplit.length>i+1){
+                out.append("<br/>");
+            }
         }
+
+
         out.append("</font>");
         return out.toString();
     }

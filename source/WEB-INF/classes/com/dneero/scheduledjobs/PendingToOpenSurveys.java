@@ -27,19 +27,14 @@ public class PendingToOpenSurveys implements Job {
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
         if (InstanceProperties.getRunScheduledTasksOnThisInstance()){
             logger.debug("execute() PendingToOpenSurveys called");
-
             List<Survey> surveys = HibernateUtil.getSession().createCriteria(Survey.class)
-                                   .add( Restrictions.lt("startdate", new Date()))
                                    .add( Restrictions.eq("status", Survey.STATUS_WAITINGFORSTARTDATE))
                                    .list();
-
             for (Iterator<Survey> iterator = surveys.iterator(); iterator.hasNext();) {
                 Survey survey = iterator.next();
-                survey.setStatus(Survey.STATUS_OPEN);
-                try{
-                    survey.save();
-                } catch (GeneralException ex){
-                    logger.error(ex);
+                if (survey.getStartdate().before(new Date())){
+                    survey.setStatus(Survey.STATUS_OPEN);
+                    try{ survey.save(); } catch (GeneralException ex){ logger.error(ex); }
                 }
             }
         }

@@ -81,7 +81,7 @@ public class Matrix implements Component {
         out.append("</td>");
         for (int j = 0; j < cols.length; j++) {
             String col = cols[j].trim();
-            out.append("<td valign=top>");
+            out.append("<td align=center valign=top>");
             out.append(col);
             out.append("</td>");
         }
@@ -91,12 +91,12 @@ public class Matrix implements Component {
         for (int i = 0; i < rows.length; i++) {
             String row = rows[i].trim();
             out.append("<tr>");
-            out.append("<td valign=top>");
+            out.append("<td align=center valign=top>");
             out.append(row);
             out.append("</td>");
             for (int j = 0; j < cols.length; j++) {
                 String col = cols[j].trim();
-                out.append("<td valign=top>");
+                out.append("<td align=center valign=top>");
                 if (respondentcanselectmany){
                     out.append("<input type=checkbox name=\""+ SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"questionid_"+question.getQuestionid()+"_row_"+Str.cleanForHtml(row)+"\" value=\""+com.dneero.util.Str.cleanForHtml(row+DELIM+col)+"\">");
                 } else {
@@ -165,7 +165,7 @@ public class Matrix implements Component {
             out.append("</td>");
             for (int j = 0; j < cols.length; j++) {
                 String col = cols[j].trim();
-                out.append("<td valign=top>");
+                out.append("<td align=center valign=top>");
                 out.append(col);
                 out.append("</td>");
             }
@@ -175,7 +175,7 @@ public class Matrix implements Component {
             for (int i = 0; i < rows.length; i++) {
                 String row = rows[i].trim();
                 out.append("<tr>");
-                out.append("<td valign=top>");
+                out.append("<td align=center valign=top>");
                 out.append(row);
                 out.append("</td>");
                 for (int j = 0; j < cols.length; j++) {
@@ -184,7 +184,7 @@ public class Matrix implements Component {
                     if (checkedboxes.contains(row+DELIM+col)){
                         thiswaschecked=true;
                     }
-                    out.append("<td valign=top>");
+                    out.append("<td align=center valign=top>");
                     if (thiswaschecked){
                         out.append("X");
                     }
@@ -323,7 +323,7 @@ public class Matrix implements Component {
         out.append("</td>");
         for (int j = 0; j < cols.length; j++) {
             String col = cols[j].trim();
-            out.append("<td valign=top bgcolor=#e6e6e6>");
+            out.append("<td align=center valign=top bgcolor=#e6e6e6>");
             out.append(col);
             out.append("</td>");
         }
@@ -336,7 +336,7 @@ public class Matrix implements Component {
         for (int i = 0; i < rows.length; i++) {
             String row = rows[i].trim();
             out.append("<tr>");
-            out.append("<td valign=top bgcolor=#e6e6e6>");
+            out.append("<td align=center valign=top bgcolor=#e6e6e6>");
             out.append(row);
             out.append("</td>");
             for (int j = 0; j < cols.length; j++) {
@@ -355,13 +355,13 @@ public class Matrix implements Component {
                 if (count>0){
                     bgcolor="#e6e6e6";
                 }
-                out.append("<td valign=\"top\" bgcolor=\""+bgcolor+"\">");
+                out.append("<td align=center valign=\"top\" bgcolor=\""+bgcolor+"\">");
                 out.append("<font class=\"smallfont\">");
                 out.append(""+String.valueOf(count)+"("+String.valueOf(formatter.format(percentage)) + "%)");
                 out.append("</font>");
                 out.append("</td>");
             }
-            out.append("<td valign=\"top\">");
+            out.append("<td align=center valign=\"top\">");
             out.append("<font class=\"smallfont\">");
             int count = 0;
             if (answerCountByRow.get(row)!=null){
@@ -384,7 +384,7 @@ public class Matrix implements Component {
             if (answerCountByCol.get(col)!=null){
                 count = answerCountByCol.get(col);
             }
-            out.append("<td valign=top>");
+            out.append("<td align=center valign=top>");
             out.append("<font class=\"smallfont\">");
             out.append(String.valueOf(count));
             out.append("</font>");
