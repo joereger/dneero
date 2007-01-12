@@ -13,7 +13,7 @@
             <column name="supportissueid" not-null="true" />
         </property>
         <property name="datetime" type="timestamp">
-            <column name="datetime" length="19" not-null="true" />
+            <column name="datetime" not-null="true" />
         </property>
         <property name="isfromdneeroadmin" type="boolean">
             <column name="isfromdneeroadmin" />

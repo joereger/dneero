@@ -16,7 +16,7 @@
             <column name="randomstring" not-null="true" />
         </property>
         <property name="lastusedtologin" type="timestamp">
-            <column name="lastusedtologin" length="19" not-null="true" />
+            <column name="lastusedtologin" not-null="true" />
         </property>
 
 

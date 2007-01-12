@@ -13,7 +13,7 @@
             <column name="researcherid" not-null="true" />
         </property>
         <property name="date" type="timestamp">
-            <column name="date" length="19" not-null="true" />
+            <column name="date" not-null="true" />
         </property>
         <property name="amt" type="double">
             <column name="amt" precision="22" scale="0" not-null="true" />

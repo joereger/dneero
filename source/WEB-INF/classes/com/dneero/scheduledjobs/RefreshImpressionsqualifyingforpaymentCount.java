@@ -44,6 +44,8 @@ public class RefreshImpressionsqualifyingforpaymentCount implements Job {
                     try{impression.save();} catch (GeneralException gex){logger.error(gex);}
                 }
             }
+        } else {
+            logger.debug("InstanceProperties.getRunScheduledTasksOnThisInstance() is FALSE for this instance so this task is not being executed.");
         }
     }
 

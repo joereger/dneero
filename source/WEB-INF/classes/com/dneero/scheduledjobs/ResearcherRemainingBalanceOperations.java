@@ -38,6 +38,8 @@ public class ResearcherRemainingBalanceOperations implements Job {
                 Researcher researcher = (Researcher) iterator.next();
                 processResearcher(researcher);
             }
+        } else {
+            logger.debug("InstanceProperties.getRunScheduledTasksOnThisInstance() is FALSE for this instance so this task is not being executed.");
         }
 
     }
@@ -45,21 +47,30 @@ public class ResearcherRemainingBalanceOperations implements Job {
     public static void processResearcher(Researcher researcher){
         Logger logger = Logger.getLogger(ResearcherRemainingBalanceOperations.class);
         if (researcher!=null){
+            logger.debug("--------------");
             User user = User.get(researcher.getUserid());
             //Collect data on this researcher
-            List surveys = HibernateUtil.getSession().createQuery("from Survey where researcherid='"+researcher.getResearcherid()+"' and status<>'"+Survey.STATUS_DRAFT+"'").list();
+            List surveys = HibernateUtil.getSession().createQuery("from Survey where researcherid='"+researcher.getResearcherid()+"'").list();
             double currentbalance = CurrentBalanceCalculator.getCurrentBalance(user);
             double totalremainingpossiblespendforallsurveys = 0;
             double totalmaxpossiblespendforallsurveys = 0;
             for (Iterator iterator1 = surveys.iterator(); iterator1.hasNext();) {
                 Survey survey = (Survey) iterator1.next();
-                SurveyMoneyStatus sms = new SurveyMoneyStatus(survey);
-                totalremainingpossiblespendforallsurveys = totalremainingpossiblespendforallsurveys + sms.getRemainingPossibleSpend();
-                totalmaxpossiblespendforallsurveys = totalmaxpossiblespendforallsurveys + sms.getMaxPossibleSpend();
+                if (survey.getStatus()!=Survey.STATUS_DRAFT){
+                    SurveyMoneyStatus sms = new SurveyMoneyStatus(survey);
+                    totalremainingpossiblespendforallsurveys = totalremainingpossiblespendforallsurveys + sms.getRemainingPossibleSpend();
+                    totalmaxpossiblespendforallsurveys = totalmaxpossiblespendforallsurveys + sms.getMaxPossibleSpend();
+                }
             }
+            logger.debug("userid="+user.getUserid()+ " ("+user.getFirstname() + " "+user.getLastname()+")");
+            logger.debug("researcherid="+researcher.getResearcherid());
+            logger.debug("currentbalance="+currentbalance);
+            logger.debug("totalremainingpossiblespendforallsurveys="+totalremainingpossiblespendforallsurveys);
+            logger.debug("totalmaxpossiblespendforallsurveys="+totalmaxpossiblespendforallsurveys);
 
             //Now operate on surveys
             if (currentbalance < ((MINPERCENTOFTOTALVALUEAVAILASBALANCE/100) * totalmaxpossiblespendforallsurveys)){
+                logger.debug("current balance is less than MINPERCENTOFTOTALVALUEAVAILASBALANCE of totalmaxpossiblespendforallsurveys ("+((MINPERCENTOFTOTALVALUEAVAILASBALANCE/100) * totalmaxpossiblespendforallsurveys)+")");
                 //The current balance is less than 10% of the total value of all surveys so I need to know how much to charge them
                 double amttocharge = (INCREMENTALPERCENTTOCHARGE/100) * totalmaxpossiblespendforallsurveys;
                 if (amttocharge > totalremainingpossiblespendforallsurveys){
@@ -82,29 +93,39 @@ public class ResearcherRemainingBalanceOperations implements Job {
                     //The current balance is less than the shutdown threshold
                     if (totalremainingpossiblespendforallsurveys > ((MINAVAILABLEBALANCEBEFORECLOSINGSURVEYS/100) * totalmaxpossiblespendforallsurveys)){
                         //We're not in the final little piece of the survey
-                        logger.debug("Setting survey status=STATUS_WAITINGFORFUNDS for researcherid="+researcher.getResearcherid());
-                        SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_SALES, "All surveys are being put into STATUS_WAITINGFORFUNDS for Researcher.researcherid="+researcher.getResearcherid()+" User: "+ user.getFirstname() + " " + user.getLastname() + "("+user.getEmail()+") due to a lack of funds.");
-                        xmpp.send();
-                        List surveysOpen = HibernateUtil.getSession().createQuery("from Survey where researcherid='"+researcher.getResearcherid()+"' and status='"+Survey.STATUS_OPEN+"'").list();
+                        List surveysOpen = HibernateUtil.getSession().createQuery("from Survey where researcherid='"+researcher.getResearcherid()+"'").list();
+                        boolean shutDownASurvey = false;
                         for (Iterator iterator1 = surveysOpen.iterator(); iterator1.hasNext();) {
                             Survey survey = (Survey) iterator1.next();
-                            logger.debug("operating on surveyid="+survey.getSurveyid());
-                            survey.setStatus(Survey.STATUS_WAITINGFORFUNDS);
-                            try{survey.save();} catch (GeneralException ex){logger.error(ex);}
+                            if (survey.getStatus()==Survey.STATUS_OPEN){
+                                shutDownASurvey = true;
+                                logger.debug("operating on surveyid="+survey.getSurveyid());
+                                survey.setStatus(Survey.STATUS_WAITINGFORFUNDS);
+                                try{survey.save();} catch (GeneralException ex){logger.error(ex);}
+                            }
+                        }
+                        if (shutDownASurvey){
+                            logger.debug("Setting survey status=STATUS_WAITINGFORFUNDS for researcherid="+researcher.getResearcherid());
+                            SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_SALES, "All surveys are being put into STATUS_WAITINGFORFUNDS for Researcher.researcherid="+researcher.getResearcherid()+" User: "+ user.getFirstname() + " " + user.getLastname() + "("+user.getEmail()+") due to a lack of funds.");
+                            xmpp.send();
                         }
                     }
                 }
             } else {
+                logger.debug("current balance is greater than MINPERCENTOFTOTALVALUEAVAILASBALANCE of totalmaxpossiblespendforallsurveys("+((MINPERCENTOFTOTALVALUEAVAILASBALANCE/100) * totalmaxpossiblespendforallsurveys)+")");
                 //Make sure this researcher has no surveys with status = STATUS_WAITINGFORFUNDS
                 logger.debug("Making sure there are no surveys in status=STATUS_WAITINGFORFUNDS for researcherid="+researcher.getResearcherid());
-                List surveysWaiting = HibernateUtil.getSession().createQuery("from Survey where researcherid='"+researcher.getResearcherid()+"' and status='"+Survey.STATUS_WAITINGFORFUNDS+"'").list();
+                List surveysWaiting = HibernateUtil.getSession().createQuery("from Survey where researcherid='"+researcher.getResearcherid()+"'").list();
                 for (Iterator iterator1 = surveysWaiting.iterator(); iterator1.hasNext();) {
                     Survey survey = (Survey) iterator1.next();
-                    logger.debug("operating on surveyid="+survey.getSurveyid());
-                    survey.setStatus(Survey.STATUS_OPEN);
-                    try{survey.save();} catch (GeneralException ex){logger.error(ex);}
+                    if (survey.getStatus()==Survey.STATUS_WAITINGFORFUNDS){
+                        logger.debug("operating on surveyid="+survey.getSurveyid());
+                        survey.setStatus(Survey.STATUS_OPEN);
+                        try{survey.save();} catch (GeneralException ex){logger.error(ex);}
+                    }
                 }
             }
+            logger.debug("--------------");
         }
     }
 

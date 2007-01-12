@@ -155,7 +155,7 @@
             </font></div></center>
             <br/>
             <br/>
-            <f:verbatim>#{publicSurveyDetail.surveyOnBlogPreview}</f:verbatim>
+            <h:outputText escape="false" value="#{publicSurveyDetail.surveyOnBlogPreview}"></h:outputText> 
         </t:panelTab>
         <t:panelTab id="panel_e" label="Your Answers" rendered="#{publicSurveyDetail.bloggerhasalreadytakensurvey}">
             <h:graphicImage url="/images/clear.gif" width="700" height="1"/><br/>

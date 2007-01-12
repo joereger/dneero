@@ -55,27 +55,23 @@ public class Essay implements Component {
 
     public String getHtmlForDisplay(Response response) {
         StringBuffer out = new StringBuffer();
-        out.append("<font style=\"font-family: Arial Black, Arial Black, Gadget, sans-serif; font-size: 12px;\">");
-        out.append("<b>");
+        out.append("<p style=\"font-family: Arial Black, Arial Black, Gadget, sans-serif; font-size: 12px; font-weight: bold;\">");
         out.append(question.getQuestion());
-        out.append("</b>");
-        out.append("</font>");
-        out.append("<br/>");
-        out.append("<font style=\"font-family: Arial, Arial, Helvetica, sans-serif; font-size: 12px;\">");
+        out.append("</p>");
+        out.append("<p style=\"font-family: Arial, Arial, Helvetica, sans-serif; font-size: 12px;\">");
 
         if (blogger!=null && response!=null){
             List<Questionresponse> responses = HibernateUtil.getSession().createQuery("from Questionresponse where questionid='"+question.getQuestionid()+"' and bloggerid='"+blogger.getBloggerid()+"' and responseid='"+response.getResponseid()+"'").list();
             for (Iterator<Questionresponse> iterator = responses.iterator(); iterator.hasNext();) {
                 Questionresponse questionresponse = iterator.next();
+                out.append("<p>");
                 out.append(questionresponse.getValue());
-                if (iterator.hasNext()){
-                    out.append("<br/>");
-                }
+                out.append("</p>");
             }
         } else {
-            out.append("Not answered.");
+            out.append("<p>Not answered.</p>");
         }
-        out.append("</font>");
+        out.append("</p>");
         return out.toString();
     }
 

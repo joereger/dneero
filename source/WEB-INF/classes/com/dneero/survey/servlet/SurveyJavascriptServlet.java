@@ -2,6 +2,7 @@ package com.dneero.survey.servlet;
 
 import com.dneero.dao.Survey;
 import com.dneero.dao.User;
+import com.dneero.util.Str;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletResponse;
@@ -50,7 +51,7 @@ public class SurveyJavascriptServlet extends HttpServlet {
             RecordImpression.record(request);
         }
 
-        String output = SurveyAsHtml.getHtml(survey, user, true);
+        String output = Str.cleanForjavascriptAndReplaceDoubleQuoteWithSingle(SurveyAsHtml.getHtml(survey, user, true));
         output = output.replaceAll("\\n", "\"+\\\n\"");
         output = output.replaceAll("\\r", "\"+\\\n\"");
         out.print("document.write(\""+output+"\");"+"\n");

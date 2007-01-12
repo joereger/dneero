@@ -1,5 +1,7 @@
 <%@ page import="com.dneero.util.Num" %>
 <%@ page import="com.dneero.systemprops.BaseUrl" %>
+<%@ page import="com.dneero.survey.servlet.EmbedInHtmlSyntax" %>
+<%@ page import="com.dneero.util.Jsf" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 
 <%
@@ -53,7 +55,7 @@ Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Quisque in ipsum. Done
 <br><br>
 Cras eget mauris in sem pretium dignissim. Donec nec pede id neque dapibus pellentesque. Etiam ac dolor non lectus gravida malesuada. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Praesent tortor eros, feugiat et, rhoncus sed, rutrum nec, lectus. Sed libero libero, consectetuer eget, volutpat et, vulputate quis, lorem. Donec rutrum sem quis enim. Mauris rutrum pede in lorem. Praesent blandit elit. Phasellus in quam vitae lectus interdum vulputate. Aliquam iaculis. Nam id mi id felis suscipit malesuada. Nullam pharetra. Aliquam velit dolor, accumsan sit amet, egestas in, luctus eu, felis. Nulla pulvinar. Integer sit amet nunc. Sed pellentesque pede tincidunt leo.
 <br><br>
-<script src="<%=BaseUrl.get(false)%>s?s=<%=surveyid%>&u=<%=userid%>"></script>
+<%=EmbedInHtmlSyntax.getFlash(BaseUrl.get(false), surveyid, userid, true)%>
 <br><br>
 Cras eget mauris in sem pretium dignissim. Donec nec pede id neque dapibus pellentesque. Etiam ac dolor non lectus gravida malesuada. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Praesent tortor eros, feugiat et, rhoncus sed, rutrum nec, lectus. Sed libero libero, consectetuer eget, volutpat et, vulputate quis, lorem. Donec rutrum sem quis enim. Mauris rutrum pede in lorem. Praesent blandit elit. Phasellus in quam vitae lectus interdum vulputate. Aliquam iaculis. Nam id mi id felis suscipit malesuada. Nullam pharetra. Aliquam velit dolor, accumsan sit amet, egestas in, luctus eu, felis. Nulla pulvinar. Integer sit amet nunc. Sed pellentesque pede tincidunt leo.
 

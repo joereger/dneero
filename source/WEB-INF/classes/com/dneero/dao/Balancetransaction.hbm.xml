@@ -13,7 +13,7 @@
             <column name="userid" not-null="true" />
         </property>
         <property name="date" type="timestamp">
-            <column name="date" length="19" not-null="true" />
+            <column name="date" not-null="true" />
         </property>
         <property name="issuccessful" type="boolean">
             <column name="issuccessful" not-null="true" />

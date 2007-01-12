@@ -24,7 +24,7 @@ public class Impression extends BasePersistentClass implements java.io.Serializa
      private String referer;
      private int impressionsqualifyingforpayment;
      private int quality;
-     private Date firstseendate;
+     private Date firstseen;
      private Set<Impressiondetail> impressiondetails = new HashSet<Impressiondetail>();
      private Blog blog;
 
@@ -134,12 +134,12 @@ public class Impression extends BasePersistentClass implements java.io.Serializa
         this.quality = quality;
     }
 
-    public Date getFirstseendate() {
-        return firstseendate;
+    public Date getFirstseen() {
+        return firstseen;
     }
 
-    public void setFirstseendate(Date firstseendate) {
-        this.firstseendate = firstseendate;
+    public void setFirstseen(Date firstseen) {
+        this.firstseen = firstseen;
     }
 
     public Blog getBlog() {

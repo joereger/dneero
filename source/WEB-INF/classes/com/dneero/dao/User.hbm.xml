@@ -67,10 +67,10 @@
             <column name="emailactivationkey" not-null="true" />
         </property>
         <property name="emailactivationlastsent" type="timestamp">
-            <column name="emailactivationlastsent" length="19" not-null="true" />
+            <column name="emailactivationlastsent" not-null="true" />
         </property>
         <property name="createdate" type="timestamp">
-            <column name="createdate" length="19" not-null="true" />
+            <column name="createdate" not-null="true" />
         </property>
         <property name="paymethod" type="int">
             <column name="paymethod" not-null="true" />

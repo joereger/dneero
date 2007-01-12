@@ -91,8 +91,7 @@ public class SysadminManuallyRunScheduledTask {
 
 
     public String runResearcherRemainingBalanceOperations(){
-        try{
-            ResearcherRemainingBalanceOperations task = new ResearcherRemainingBalanceOperations();
+        try{ResearcherRemainingBalanceOperations task = new ResearcherRemainingBalanceOperations();
             task.execute(null);} catch (Exception ex){logger.error(ex);}
         return "sysadminmanuallyrunscheduledtask";
     }

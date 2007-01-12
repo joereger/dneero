@@ -4,9 +4,11 @@ import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.dao.*;
 import com.dneero.util.GeneralException;
 import com.dneero.util.Num;
+import com.dneero.util.Time;
 
 import java.util.List;
 import java.util.Iterator;
+import java.util.Date;
 
 import org.apache.log4j.Logger;
 import org.hibernate.criterion.Restrictions;
@@ -74,6 +76,8 @@ public class ImpressionActivityObjectStorage {
             qualifiesforpaymentstatusreason = "This blog has already displayed the survey the maximum number of times for a blog.";
         }
 
+        //logger.debug("iao.getDate()="+iao.getDate().toString());
+        //logger.debug("iao.getDate()="+ Time.dateformatfordb(Time.getCalFromDate(iao.getDate())));
 
         //See if there's an existing impression to append this to, if not create one
         Impression impression = null;
@@ -88,7 +92,7 @@ public class ImpressionActivityObjectStorage {
             }
         } else {
             impression = new Impression();
-            impression.setFirstseendate(iao.getDate());
+            impression.setFirstseen(iao.getDate());
             impression.setSurveyid(iao.getSurveyid());
             //Only increment if this qualifies
             if (qualifiesforpaymentstatus==Impressiondetail.QUALIFIESFORPAYMENTSTATUS_TRUE){

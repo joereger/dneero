@@ -16,7 +16,7 @@
             <column name="eulaid" not-null="true" />
         </property>
         <property name="date" type="timestamp">
-            <column name="date" length="19" not-null="true" />
+            <column name="date" not-null="true" />
         </property>
         <property name="ip" type="string">
             <column name="ip" not-null="true" />

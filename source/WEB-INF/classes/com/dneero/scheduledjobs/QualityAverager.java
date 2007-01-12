@@ -8,9 +8,7 @@ import com.dneero.dao.Blog;
 import com.dneero.dao.Impression;
 import com.dneero.dao.Blogger;
 import com.dneero.dao.hibernate.HibernateUtil;
-import com.dneero.util.GeneralException;
 import com.dneero.util.Time;
-import com.dneero.util.Util;
 import com.dneero.util.DateDiff;
 import com.dneero.systemprops.InstanceProperties;
 
@@ -50,7 +48,7 @@ public class QualityAverager implements Job {
                     blog = new Blog();
                     blogger = new Blogger();
                 }
-                Calendar cal = Time.getCalFromDate(impression.getFirstseendate());
+                Calendar cal = Time.getCalFromDate(impression.getFirstseen());
                 int daysold = DateDiff.dateDiff("day", Calendar.getInstance(), cal);
                 //Delete or comment out next debug line before going live
                 //logger.debug("daysold="+daysold+" cal=" + Time.dateformatfordb(cal) + " now="+Time.dateformatfordb(Calendar.getInstance()));
@@ -191,6 +189,8 @@ public class QualityAverager implements Job {
                     }
                 }
             }
+        } else {
+            logger.debug("InstanceProperties.getRunScheduledTasksOnThisInstance() is FALSE for this instance so this task is not being executed.");
         }
 
     }

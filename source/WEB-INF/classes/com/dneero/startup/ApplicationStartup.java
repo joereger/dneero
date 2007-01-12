@@ -2,6 +2,7 @@ package com.dneero.startup;
 
 import com.dneero.systemprops.WebAppRootDir;
 import com.dneero.systemprops.InstanceProperties;
+import com.dneero.systemprops.SystemProperty;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.xmpp.SendXMPPMessage;
 
@@ -47,6 +48,8 @@ public class ApplicationStartup implements ServletContextListener {
         } else {
             logger.info("InstanceProperties.haveValidConfig()=false");
         }
+        //Load SystemProps
+        SystemProperty.refreshAllProps();
         //Report to log and XMPP
         logger.info("WebAppRootDir = " + WebAppRootDir.getWebAppRootPath());
         logger.info("dNeero Application Started!  Let's make some dinero!");

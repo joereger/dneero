@@ -35,6 +35,7 @@ public class EmailSendThread extends Thread {
     public void run() {
         try{
             logger.debug("Start sending htmlEmail subject:"+htmlEmail.getSubject());
+            logger.debug("SystemProperty.PROP_SMTPOUTBOUNDSERVER="+SystemProperty.getProp(SystemProperty.PROP_SMTPOUTBOUNDSERVER));
             htmlEmail.setHostName(SystemProperty.getProp(SystemProperty.PROP_SMTPOUTBOUNDSERVER));
             htmlEmail.send();
             logger.debug("End sending htmlEmail subject:"+htmlEmail.getSubject());

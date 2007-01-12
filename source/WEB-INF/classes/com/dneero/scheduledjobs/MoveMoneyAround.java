@@ -69,6 +69,8 @@ public class MoveMoneyAround implements Job {
                 logger.debug("Error in top block.");
                 logger.error(ex);
             }
+        } else {
+            logger.debug("InstanceProperties.getRunScheduledTasksOnThisInstance() is FALSE for this instance so this task is not being executed.");
         }
 
     }

@@ -58,10 +58,10 @@
             <column name="maxdisplaystotal" not-null="true" />
         </property>
         <property name="startdate" type="timestamp">
-            <column name="startdate" length="19" not-null="true" />
+            <column name="startdate" not-null="true" />
         </property>
         <property name="enddate" type="timestamp">
-            <column name="enddate" length="19" not-null="true" />
+            <column name="enddate" not-null="true" />
         </property>
         <property name="template" type="text">
             <column name="template"/>

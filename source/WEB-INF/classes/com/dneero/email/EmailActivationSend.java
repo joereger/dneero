@@ -22,13 +22,7 @@ public class EmailActivationSend {
         user.setIsactivatedbyemail(false);
         user.setEmailactivationkey(RandomString.randomAlphanumeric(5));
         user.setEmailactivationlastsent(new Date());
-
-        try{
-            user.save();
-        } catch (GeneralException gex){
-            logger.error("registerAction failed: " + gex.getErrorsAsSingleString());
-        }
-
+        try{user.save();} catch (GeneralException gex){logger.error("registerAction failed: " + gex.getErrorsAsSingleString());}
         EmailTemplateProcessor.sendMail("dNeero Account Activation", "accountactivation", user);
     }
 

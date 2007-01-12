@@ -72,7 +72,7 @@ public class Log4jCustomAppender extends AppenderSkeleton {
 
         //XMPP (Instant Messages)
         if (event.getLevel()==Level.ERROR || event.getLevel()==Level.FATAL){
-            SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_SYSADMINS, errorMessage.toString());
+            SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_SYSADMINS, Str.truncateString(errorMessage.toString(), 300));
             xmpp.send();
         }
 

@@ -6,6 +6,7 @@ import com.dneero.dao.Response;
 import com.dneero.ui.SurveyEnhancer;
 import com.dneero.util.Jsf;
 import com.dneero.display.SurveyTakerDisplay;
+import com.dneero.survey.servlet.EmbedInHtmlSyntax;
 import org.apache.log4j.Logger;
 
 import java.util.Iterator;
@@ -23,7 +24,6 @@ public class PublicSurveyDetail {
     private boolean bloggerhasalreadytakensurvey;
     private String surveyAnswersForThisBlogger;
     private String surveyOnBlogPreview;
-
 
     Logger logger = Logger.getLogger(this.getClass().getName());
 
@@ -52,11 +52,10 @@ public class PublicSurveyDetail {
                     }
                 }
             }
-            String url = "<script src=\"/s?s="+survey.getSurveyid()+"&u="+userid+"&ispreview=1\"></script>";
             if (bloggerhasalreadytakensurvey){
-                surveyAnswersForThisBlogger = url;
+                surveyAnswersForThisBlogger = EmbedInHtmlSyntax.getFlash("/", survey.getSurveyid(), userid, true);
             } else {
-                surveyOnBlogPreview = url;
+                surveyOnBlogPreview = EmbedInHtmlSyntax.getFlash("/", survey.getSurveyid(), userid, true);
             }
             surveyEnhancer = new SurveyEnhancer(survey);
             surveyForTakers = SurveyTakerDisplay.getHtmlForSurveyTaking(survey, new Blogger(), true);
@@ -122,4 +121,7 @@ public class PublicSurveyDetail {
     public void setSurveyOnBlogPreview(String surveyOnBlogPreview) {
         this.surveyOnBlogPreview = surveyOnBlogPreview;
     }
+
+
+
 }

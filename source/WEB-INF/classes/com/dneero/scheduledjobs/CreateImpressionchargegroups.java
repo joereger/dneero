@@ -99,6 +99,8 @@ public class CreateImpressionchargegroups implements Job {
 
 
             }
+        } else {
+            logger.debug("InstanceProperties.getRunScheduledTasksOnThisInstance() is FALSE for this instance so this task is not being executed.");
         }
     }
 

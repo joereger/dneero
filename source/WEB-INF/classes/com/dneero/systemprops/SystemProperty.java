@@ -51,8 +51,6 @@ public class SystemProperty {
 
 
     //Edits below this line not needed to add a prop
-
-
     public static String getProp(String nameOfPropToGet){
         if (props==null || !propsloadedfromdb){
             refreshAllProps();
@@ -103,7 +101,7 @@ public class SystemProperty {
         return out;
     }
 
-    private static void refreshAllProps(){
+    public static void refreshAllProps(){
         props = new HashMap<String, String>();
         loadAllPropsAndDefaultValues();
         loadPropsFromDb();
@@ -113,7 +111,7 @@ public class SystemProperty {
 
     private static void loadPropsFromDb(){
         Logger logger = Logger.getLogger(SystemProperty.class);
-        if (props==null || !propsloadedfromdb){
+        if (props==null){
             props = new HashMap<String, String>();
         }
         try{

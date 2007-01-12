@@ -26,7 +26,7 @@ public class SurveyAsHtml {
             out = new StringBuffer();
             out.append("This embedded survey link is not correctly formatted.");
         }
-        return Str.cleanForjavascriptAndReplaceDoubleQuoteWithSingle(out.toString());
+        return out.toString();
     }
 
 }

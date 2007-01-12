@@ -17,7 +17,7 @@
             <column name="bloggerid" not-null="true" />
         </property>
         <property name="responsedate" type="timestamp">
-            <column name="responsedate" length="19" not-null="true" />
+            <column name="responsedate" not-null="true" />
         </property>
         <property name="referredbyblogid" type="int">
             <column name="referredbyblogid" not-null="true" />

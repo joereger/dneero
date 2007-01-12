@@ -71,6 +71,8 @@ public class NotifyBloggersOfNewOffers implements Job {
                     }
                 }
             }
+        } else {
+            logger.debug("InstanceProperties.getRunScheduledTasksOnThisInstance() is FALSE for this instance so this task is not being executed.");
         }
     }
 

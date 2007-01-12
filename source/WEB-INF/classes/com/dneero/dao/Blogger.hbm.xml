@@ -29,7 +29,7 @@
             <column name="userid" not-null="true" />
         </property>
         <property name="birthdate" type="timestamp">
-            <column name="birthdate" length="19" not-null="true" />
+            <column name="birthdate" not-null="true" />
         </property>
         <property name="gender" type="string">
             <column name="gender" not-null="true" />
@@ -68,7 +68,7 @@
             <column name="notifyofnewsurveysbyemail" />
         </property>
         <property name="lastnewsurveynotificationsenton" type="timestamp">
-            <column name="lastnewsurveynotificationsenton" length="19" not-null="true" />
+            <column name="lastnewsurveynotificationsenton" not-null="true" />
         </property>
 
     </class>

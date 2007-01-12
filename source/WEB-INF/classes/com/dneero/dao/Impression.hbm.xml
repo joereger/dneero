@@ -17,8 +17,8 @@
         <property name="surveyid" type="int">
             <column name="surveyid" not-null="true" />
         </property>
-        <property name="referer" type="text">
-            <column name="referer" />
+        <property name="firstseen" type="timestamp">
+            <column name="firstseen" not-null="true" />
         </property>
         <property name="impressionsqualifyingforpayment" type="int">
             <column name="impressionsqualifyingforpayment" not-null="true" />
@@ -26,8 +26,8 @@
         <property name="quality" type="int">
             <column name="quality" not-null="true" />
         </property>
-        <property name="firstseendate" type="timestamp">
-            <column name="firstseendate" length="19" not-null="true" />
+        <property name="referer" type="text">
+            <column name="referer" />
         </property>
 
         <!-- Get parent -->

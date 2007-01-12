@@ -7,6 +7,7 @@ import com.dneero.util.Jsf;
 import com.dneero.util.Str;
 import com.dneero.ui.SurveyEnhancer;
 import com.dneero.display.SurveyTakerDisplay;
+import com.dneero.survey.servlet.EmbedInHtmlSyntax;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -28,6 +29,7 @@ public class BloggerSurveyPosttoblog {
     private String canearn = "$0.00";
     private String surveyAnswersForThisBlogger;
     private SurveyEnhancer surveyEnhancer;
+    private String htmltoposttoblog = "";
 
     Logger logger = Logger.getLogger(this.getClass().getName());
 
@@ -66,7 +68,8 @@ public class BloggerSurveyPosttoblog {
             if (!bloggerhasalreadytakensurvey){
                 try{Jsf.redirectResponse("bloggersurveydetail.jsf?surveyid="+survey.getSurveyid());}catch (Exception ex){logger.error(ex);}
             }
-            surveyAnswersForThisBlogger = "<script src=\"/s?s="+survey.getSurveyid()+"&u="+Jsf.getUserSession().getUser().getUserid()+"&ispreview=1\"></script>";
+            surveyAnswersForThisBlogger = EmbedInHtmlSyntax.getFlash("/", survey.getSurveyid(), Jsf.getUserSession().getUser().getUserid(), true);
+            htmltoposttoblog = EmbedInHtmlSyntax.getFlash("/", survey.getSurveyid(), Jsf.getUserSession().getUser().getUserid(), false);
             surveyEnhancer = new SurveyEnhancer(survey);
             earnedalready = surveyEnhancer.getWillingtopayforresponse();
             double maxearningNum = survey.getWillingtopayperrespondent()  +   ( (survey.getWillingtopaypercpm()*survey.getMaxdisplaysperblog())/1000 );
@@ -126,5 +129,14 @@ public class BloggerSurveyPosttoblog {
 
     public void setSurveyEnhancer(SurveyEnhancer surveyEnhancer) {
         this.surveyEnhancer = surveyEnhancer;
+    }
+
+
+    public String getHtmltoposttoblog() {
+        return htmltoposttoblog;
+    }
+
+    public void setHtmltoposttoblog(String htmltoposttoblog) {
+        this.htmltoposttoblog = htmltoposttoblog;
     }
 }

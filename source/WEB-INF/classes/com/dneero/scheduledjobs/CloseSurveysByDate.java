@@ -36,6 +36,8 @@ public class CloseSurveysByDate implements Job {
                     try{ survey.save(); } catch (GeneralException ex){ logger.error(ex); }
                 }
             }
+        } else {
+            logger.debug("InstanceProperties.getRunScheduledTasksOnThisInstance() is FALSE for this instance so this task is not being executed.");
         }
     }
 

@@ -22,7 +22,7 @@
             <column name="impressionpaymentgroupid" not-null="false" />
         </property>
         <property name="impressiondate" type="timestamp">
-            <column name="impressiondate" length="19" not-null="true" />
+            <column name="impressiondate" not-null="true" />
         </property>
         <property name="ip" type="string">
             <column name="ip" />
