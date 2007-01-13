@@ -40,9 +40,25 @@ public class EmbedInHtmlSyntax {
             baseurl = "/";
         }
 
-        String surveyashtml = SurveyAsHtml.getHtml(Survey.get(surveyid), User.get(userid), false);
-        String surveyashtmlencoded = surveyashtml;
-        try{surveyashtmlencoded = URLEncoder.encode(surveyashtml, "UTF-8");}catch(Exception ex){logger.error(ex); surveyashtmlencoded = surveyashtml;}
+        StringBuffer surveyashtml = new StringBuffer();
+        surveyashtml.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+        surveyashtml.append("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\" \"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\">");
+        surveyashtml.append("<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\" lang=\"en\">");
+        surveyashtml.append("<head>");
+        surveyashtml.append("<title>dNeero Survey</title>");
+        surveyashtml.append("</head>");
+        surveyashtml.append("<body>");
+        surveyashtml.append(SurveyAsHtml.getHtml(Survey.get(surveyid), User.get(userid), false));
+        surveyashtml.append("</body>");
+        surveyashtml.append("</html>");
+        
+        //String surveyashtmlquotes = surveyashtml.toString().replaceAll("\\\"","\\\\\"");
+        String surveyashtmlquotes = surveyashtml.toString();
+        logger.debug("surveyashtmlquotes = "+surveyashtmlquotes);
+       
+
+        String surveyashtmlencoded = surveyashtmlquotes;
+        try{surveyashtmlencoded = URLEncoder.encode(surveyashtmlquotes, "UTF-8");}catch(Exception ex){logger.error(ex); surveyashtmlencoded = surveyashtmlquotes;}
                    
         String urlofmovie = baseurl+"flashviewer/dneerosurvey.swf?s="+surveyid+"&u="+userid+"&ispreview="+ispreviewStr;
 
@@ -53,7 +69,6 @@ public class EmbedInHtmlSyntax {
               "<param name=\"quality\" value=\"high\" /><param name=\"bgcolor\" value=\"#ffffff\" />"+
               "<embed src=\""+urlofmovie+"\" FlashVars=\"surveyashtml="+surveyashtmlencoded+"\" quality=\"high\" bgcolor=\"#ffffff\" width=\"425\" height=\"300\" name=\"dneeroflashviewer\" align=\"middle\" allowScriptAccess=\"never\" type=\"application/x-shockwave-flash\" pluginspage=\"http://www.macromedia.com/go/getflashplayer\" />" +
               "</object><!-- End dNeero Survey -->";
-
         return out;
     }
 

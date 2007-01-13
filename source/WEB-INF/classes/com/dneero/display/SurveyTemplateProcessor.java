@@ -102,7 +102,7 @@ public class SurveyTemplateProcessor {
         } catch (Exception e){
             //Do nothing... just null pointer
         }
-        return wrapInStandardSurveyWrapper(out.toString(), false, makeHttpsIfSSLIsOn);
+        return out.toString().trim();
     }
 
     public String wrapInStandardSurveyWrapper(String in, boolean includeFooter, boolean makeHttpsIfSSLIsOn){
