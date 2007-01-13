@@ -222,6 +222,22 @@
         <servlet-name>DengSwf</servlet-name>
         <url-pattern>/deng.swf</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DengSwf</servlet-name>
+        <url-pattern>/blogger/deng.swf</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DengSwf</servlet-name>
+        <url-pattern>/researcher/deng.swf</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DengSwf</servlet-name>
+        <url-pattern>/sysadmin/deng.swf</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DengSwf</servlet-name>
+        <url-pattern>/account/deng.swf</url-pattern>
+    </servlet-mapping>
 
     <servlet>
         <servlet-name>quartz</servlet-name>

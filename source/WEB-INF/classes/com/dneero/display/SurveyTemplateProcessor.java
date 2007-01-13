@@ -155,13 +155,9 @@ public class SurveyTemplateProcessor {
         HibernateUtil.getSession().saveOrUpdate(survey);
         for (Iterator<Question> iterator = survey.getQuestions().iterator(); iterator.hasNext();) {
             Question question = iterator.next();
-            if (iterator.hasNext()){
-                out.append("<p>"+"\n");
-            }
+            out.append("<p>"+"\n");
             out.append("<$question_"+question.getQuestionid()+"$>"+"\n");
-            if (iterator.hasNext()){
-                out.append("</p>"+"\n");
-            }
+            out.append("</p>"+"\n");
         }
         return out.toString();
     }
