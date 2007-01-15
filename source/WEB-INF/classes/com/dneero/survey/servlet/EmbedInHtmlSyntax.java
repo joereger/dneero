@@ -59,8 +59,12 @@ public class EmbedInHtmlSyntax {
 
         String surveyashtmlencoded = surveyashtmlquotes;
         try{surveyashtmlencoded = URLEncoder.encode(surveyashtmlquotes, "UTF-8");}catch(Exception ex){logger.error(ex); surveyashtmlencoded = surveyashtmlquotes;}
-                   
-        String urlofmovie = baseurl+"flashviewer/dneerosurvey.swf?s="+surveyid+"&u="+userid+"&ispreview="+ispreviewStr;
+
+        String baseurlencoded = BaseUrl.get(false);
+        try{baseurlencoded = URLEncoder.encode(baseurlencoded, "UTF-8");}catch(Exception ex){logger.error(ex); baseurlencoded = BaseUrl.get(false);}
+
+
+        String urlofmovie = baseurl+"flashviewer/dneerosurvey.swf?s="+surveyid+"&u="+userid+"&ispreview="+ispreviewStr+"&baseurl="+baseurlencoded;
 
         out = "<!-- Start dNeero Survey --><object classid=\"clsid:d27cdb6e-ae6d-11cf-96b8-444553540000\" codebase=\"http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,0,0\" width=\"425\" height=\"300\" id=\"dneeroflashviewer\" align=\"middle\">" +
               "<param name=\"allowScriptAccess\" value=\"never\" />" +
