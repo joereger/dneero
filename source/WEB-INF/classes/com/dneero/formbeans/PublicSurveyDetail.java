@@ -31,6 +31,7 @@ public class PublicSurveyDetail {
     public PublicSurveyDetail(){
         logger.debug("PublicSurveyDetail instanciated.");
         survey = new Survey();
+        beginView();
     }
 
 

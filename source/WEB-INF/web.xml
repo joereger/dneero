@@ -215,6 +215,24 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>SurveyImagelinkServlet</servlet-name>
+        <servlet-class>com.dneero.survey.servlet.SurveyImagelinkServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SurveyImagelinkServlet</servlet-name>
+        <url-pattern>/i</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>SurveyHtmlpageServlet</servlet-name>
+        <servlet-class>com.dneero.survey.servlet.SurveyHtmlpageServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SurveyHtmlpageServlet</servlet-name>
+        <url-pattern>/shtml</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>DengSwf</servlet-name>
         <servlet-class>com.dneero.survey.servlet.DengSwf</servlet-class>
     </servlet>

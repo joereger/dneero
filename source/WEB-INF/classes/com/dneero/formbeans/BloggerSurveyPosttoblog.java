@@ -9,6 +9,7 @@ import com.dneero.ui.SurveyEnhancer;
 import com.dneero.systemprops.BaseUrl;
 import com.dneero.survey.servlet.SurveyJavascriptServlet;
 import com.dneero.survey.servlet.SurveyFlashServlet;
+import com.dneero.survey.servlet.SurveyImagelinkServlet;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -32,6 +33,7 @@ public class BloggerSurveyPosttoblog {
     private SurveyEnhancer surveyEnhancer;
     private String htmltoposttoblog = "";
     private String htmltoposttoblogflash = "";
+    private String htmltoposttoblogimagelink = "";
 
     Logger logger = Logger.getLogger(this.getClass().getName());
 
@@ -73,6 +75,7 @@ public class BloggerSurveyPosttoblog {
             surveyAnswersForThisBlogger = SurveyJavascriptServlet.getEmbedSyntax("/", survey.getSurveyid(), Jsf.getUserSession().getUser().getUserid(), true);
             htmltoposttoblog = SurveyJavascriptServlet.getEmbedSyntax(BaseUrl.get(false), survey.getSurveyid(), Jsf.getUserSession().getUser().getUserid(), false);
             htmltoposttoblogflash = SurveyFlashServlet.getEmbedSyntax(BaseUrl.get(false), survey.getSurveyid(), Jsf.getUserSession().getUser().getUserid(), false);
+            htmltoposttoblogimagelink = SurveyImagelinkServlet.getEmbedSyntax(BaseUrl.get(false), survey.getSurveyid(), Jsf.getUserSession().getUser().getUserid(), false);
             surveyEnhancer = new SurveyEnhancer(survey);
             earnedalready = surveyEnhancer.getWillingtopayforresponse();
             double maxearningNum = survey.getWillingtopayperrespondent()  +   ( (survey.getWillingtopaypercpm()*survey.getMaxdisplaysperblog())/1000 );
@@ -150,5 +153,13 @@ public class BloggerSurveyPosttoblog {
 
     public void setHtmltoposttoblogflash(String htmltoposttoblogflash) {
         this.htmltoposttoblogflash = htmltoposttoblogflash;
+    }
+
+    public String getHtmltoposttoblogimagelink() {
+        return htmltoposttoblogimagelink;
+    }
+
+    public void setHtmltoposttoblogimagelink(String htmltoposttoblogimagelink) {
+        this.htmltoposttoblogimagelink = htmltoposttoblogimagelink;
     }
 }

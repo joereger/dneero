@@ -94,18 +94,24 @@ public class EmailTemplateProcessor {
 
 
         //<$args.1$> <$args.2$> <$args.3$>
+        logger.debug("didn't find a normal tag");
         if (tag.indexOf("args")>-1){
+            logger.debug("found an args tag");
             String tagStripped = tag.substring(2, tag.length()-2);
-            String[] tagSplit = tagStripped.split(".");
+            logger.debug("tagStripped="+tagStripped);
+            String[] tagSplit = tagStripped.split("\\.");
             if (tagSplit.length>1){
+                logger.debug("tagSplit.length>1");
                 if (tagSplit[1]!=null && Num.isinteger(tagSplit[1])){
                     int index = Integer.parseInt(tagSplit[1]);
                     if (args!=null && args[index]!=null){
+                        logger.debug("returning: args["+index+"]="+args[index]);
                         return args[index];
                     }
                 }
             }
         }
+        logger.debug("didn't find any tag to apply... just returning blank");
         return out;
     }
 

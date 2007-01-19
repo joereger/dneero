@@ -9,6 +9,9 @@ import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.finders.FindSurveysForBlogger;
 import com.dneero.email.EmailTemplateProcessor;
 import com.dneero.systemprops.InstanceProperties;
+import com.dneero.systemprops.BaseUrl;
+import com.dneero.ui.SurveyEnhancer;
+import com.dneero.util.Str;
 
 import java.util.List;
 import java.util.Iterator;
@@ -56,18 +59,24 @@ public class NotifyBloggersOfNewOffers implements Job {
                         //Iterate surveys
                         for (Iterator<Survey> iterator1 = newSurveys.iterator(); iterator1.hasNext();) {
                             Survey survey = iterator1.next();
+                            SurveyEnhancer surveyEnhancer = new SurveyEnhancer(survey);
                             possibleearnings = possibleearnings + survey.getWillingtopayperrespondent();
-                            listofsurveysHtml.append("<br>" + survey.getTitle() + " - " + survey.getWillingtopayperrespondent());
-                            listofsurveysHtml.append("\n" + survey.getTitle() + " - " + survey.getWillingtopayperrespondent());
+                            String url = BaseUrl.get(false) + "publicsurveydetail.jsf?surveyid="+survey.getSurveyid();
+                            listofsurveysHtml.append("<br><br><a href='"+url+"'>" + survey.getTitle() + " (Earn up to: " + surveyEnhancer.getMaxearning() + ")</a>");
+                            listofsurveysTxt.append("\n\n" + survey.getTitle() + " (Earn up to: " + surveyEnhancer.getMaxearning()+")");
+                            listofsurveysTxt.append("\n" + url);
                         }
                         //Create the args array to hold the dynamic stuff
                         String[] args = new String[10];
-                        args[0] = String.valueOf(possibleearnings);
+                        args[0] = "$"+Str.formatForMoney(possibleearnings);
                         args[1] = listofsurveysHtml.toString();
                         args[2] = listofsurveysTxt.toString();
                         //Send the email
                         User user = User.get(blogger.getUserid());
                         EmailTemplateProcessor.sendMail("New dNeero Surveys for "+user.getFirstname(), "bloggernotifyofnewsurveys", user, args);
+                        //Update blogger last sent date
+                        blogger.setLastnewsurveynotificationsenton(new Date());
+                        try{blogger.save();}catch(Exception ex){logger.error(ex);}
                     }
                 }
             }

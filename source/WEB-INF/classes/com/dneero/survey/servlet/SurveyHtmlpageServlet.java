@@ -1,25 +1,25 @@
 package com.dneero.survey.servlet;
 
-import com.dneero.dao.Survey;
-import com.dneero.dao.User;
-import com.dneero.util.Str;
-import com.dneero.display.SurveyInBlogWrapper;
+import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.ServletException;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import org.apache.log4j.Logger;
+import com.dneero.dao.Survey;
+import com.dneero.dao.User;
+import com.dneero.display.SurveyInBlogWrapper;
+import com.dneero.util.Str;
 
 /**
  * User: Joe Reger Jr
  * Date: Jun 19, 2006
  * Time: 10:31:40 AM
  */
-public class SurveyJavascriptServlet extends HttpServlet {
+public class SurveyHtmlpageServlet extends HttpServlet {
 
     Logger logger = Logger.getLogger(this.getClass().getName());
 
@@ -51,20 +51,22 @@ public class SurveyJavascriptServlet extends HttpServlet {
             RecordImpression.record(request);
         }
 
+        //@todo add html headers/footers, etc
+
         String surveyashtml = SurveyAsHtml.getHtml(survey, user, false);
         StringBuffer scrollablediv = new StringBuffer();
         scrollablediv.append("<div style=\"border : solid 0px #cccccc; background : #e6e6e6; padding : 5px; width : 425px; height : 200px; overflow : auto; \">"+"\n");
         scrollablediv.append(surveyashtml);
         scrollablediv.append("</div>"+"\n");
         String surveyashtmlwrapped = SurveyInBlogWrapper.wrap(survey, scrollablediv.toString(), true, false);
-        String output = Str.cleanForjavascriptAndReplaceDoubleQuoteWithSingle(surveyashtmlwrapped);
-        output = output.replaceAll("\\n", "\"+\\\n\"");
-        output = output.replaceAll("\\r", "\"+\\\n\"");
-        out.print("document.write(\""+output+"\");"+"\n");
+
+        out.print(surveyashtmlwrapped);
 
     }
 
     public static String getEmbedSyntax(String baseurl, int surveyid, int userid, boolean ispreview){
+        Logger logger = Logger.getLogger(SurveyImagelinkServlet.class);
+        String out = "";
         String ispreviewStr = "0";
         if (ispreview){
             ispreviewStr = "1";
@@ -72,8 +74,16 @@ public class SurveyJavascriptServlet extends HttpServlet {
         if (baseurl.equals("")){
             baseurl = "/";
         }
-        String urlofsurvey = baseurl+"s?s="+surveyid+"&u="+userid+"&p="+ispreviewStr;
-        return "<!-- Start dNeero Survey --><script src=\""+urlofsurvey+"\"></script><!-- End dNeero Survey -->";
+
+        String urlofsurvey = baseurl+"shtml?s="+surveyid+"&u="+userid+"&p="+ispreviewStr;
+
+        out = "<!-- Start dNeero Survey -->"+
+              "<a href=\""+urlofsurvey+"\">" +
+              "View Survey" +
+              "</a>"+
+              "<!-- End dNeero Survey -->";
+
+        return out;
     }
 
 

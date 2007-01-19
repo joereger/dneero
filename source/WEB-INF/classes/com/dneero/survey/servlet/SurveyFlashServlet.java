@@ -48,8 +48,8 @@ public class SurveyFlashServlet extends HttpServlet {
         }
 
         boolean ispreview = false;
-        if (request.getParameter("ispreview")!=null && com.dneero.util.Num.isinteger(request.getParameter("ispreview"))){
-            if (request.getParameter("ispreview").equals("1")){
+        if (request.getParameter("p")!=null && com.dneero.util.Num.isinteger(request.getParameter("p"))){
+            if (request.getParameter("p").equals("1")){
                 ispreview = true;
             }
         }
@@ -200,7 +200,7 @@ public class SurveyFlashServlet extends HttpServlet {
         try{baseurlencoded = URLEncoder.encode(baseurlencoded, "UTF-8");}catch(Exception ex){logger.error(ex); baseurlencoded = BaseUrl.get(false);}
 
 
-        String urlofmovie = baseurl+"flashviewer/dneerosurvey.swf?s="+surveyid+"&u="+userid+"&ispreview="+ispreviewStr+"&baseurl="+baseurlencoded;
+        String urlofmovie = baseurl+"flashviewer/dneerosurvey.swf?s="+surveyid+"&u="+userid+"&p="+ispreviewStr+"&baseurl="+baseurlencoded;
 
 //        out = "<!-- Start dNeero Survey --><object classid=\"clsid:d27cdb6e-ae6d-11cf-96b8-444553540000\" codebase=\"http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,0,0\" width=\"425\" height=\"250\" id=\"dneeroflashviewer\" align=\"middle\">" +
 //              "<param name=\"allowScriptAccess\" value=\"never\" />" +
