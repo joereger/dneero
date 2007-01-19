@@ -6,7 +6,8 @@ import com.dneero.dao.Response;
 import com.dneero.ui.SurveyEnhancer;
 import com.dneero.util.Jsf;
 import com.dneero.display.SurveyTakerDisplay;
-import com.dneero.survey.servlet.EmbedInHtmlSyntax;
+import com.dneero.survey.servlet.SurveyJavascriptServlet;
+import com.dneero.survey.servlet.SurveyFlashServlet;
 import org.apache.log4j.Logger;
 
 import java.util.Iterator;
@@ -53,9 +54,9 @@ public class PublicSurveyDetail {
                 }
             }
             if (bloggerhasalreadytakensurvey){
-                surveyAnswersForThisBlogger = EmbedInHtmlSyntax.getFlash("/", survey.getSurveyid(), userid, true);
+                surveyAnswersForThisBlogger = SurveyJavascriptServlet.getEmbedSyntax("/", survey.getSurveyid(), userid, true);
             } else {
-                surveyOnBlogPreview = EmbedInHtmlSyntax.getFlash("/", survey.getSurveyid(), userid, true);
+                surveyOnBlogPreview = SurveyJavascriptServlet.getEmbedSyntax("/", survey.getSurveyid(), userid, true);
             }
             surveyEnhancer = new SurveyEnhancer(survey);
             surveyForTakers = SurveyTakerDisplay.getHtmlForSurveyTaking(survey, new Blogger(), true);

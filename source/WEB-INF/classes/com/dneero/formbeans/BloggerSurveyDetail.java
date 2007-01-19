@@ -7,7 +7,7 @@ import com.dneero.dao.Response;
 import com.dneero.util.*;
 import com.dneero.ui.SurveyEnhancer;
 import com.dneero.display.SurveyTakerDisplay;
-import com.dneero.survey.servlet.EmbedInHtmlSyntax;
+import com.dneero.survey.servlet.SurveyJavascriptServlet;
 
 import java.util.Iterator;
 
@@ -60,7 +60,7 @@ public class BloggerSurveyDetail {
             if (bloggerhasalreadytakensurvey){
                 try{Jsf.redirectResponse("bloggersurveyposttoblog.jsf?surveyid="+survey.getSurveyid());}catch (Exception ex){logger.error(ex);}
             }
-            surveyOnBlogPreview = EmbedInHtmlSyntax.getFlash("/", survey.getSurveyid(), Jsf.getUserSession().getUser().getUserid(), true);
+            surveyOnBlogPreview = SurveyJavascriptServlet.getEmbedSyntax("/", survey.getSurveyid(), Jsf.getUserSession().getUser().getUserid(), true);
             surveyEnhancer = new SurveyEnhancer(survey);
             surveyForTakers = SurveyTakerDisplay.getHtmlForSurveyTaking(survey, new Blogger(), true);
     }

@@ -6,8 +6,9 @@ import com.dneero.dao.Response;
 import com.dneero.util.Jsf;
 import com.dneero.util.Str;
 import com.dneero.ui.SurveyEnhancer;
-import com.dneero.display.SurveyTakerDisplay;
-import com.dneero.survey.servlet.EmbedInHtmlSyntax;
+import com.dneero.systemprops.BaseUrl;
+import com.dneero.survey.servlet.SurveyJavascriptServlet;
+import com.dneero.survey.servlet.SurveyFlashServlet;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -30,6 +31,7 @@ public class BloggerSurveyPosttoblog {
     private String surveyAnswersForThisBlogger;
     private SurveyEnhancer surveyEnhancer;
     private String htmltoposttoblog = "";
+    private String htmltoposttoblogflash = "";
 
     Logger logger = Logger.getLogger(this.getClass().getName());
 
@@ -68,8 +70,9 @@ public class BloggerSurveyPosttoblog {
             if (!bloggerhasalreadytakensurvey){
                 try{Jsf.redirectResponse("bloggersurveydetail.jsf?surveyid="+survey.getSurveyid());}catch (Exception ex){logger.error(ex);}
             }
-            surveyAnswersForThisBlogger = EmbedInHtmlSyntax.getFlash("/", survey.getSurveyid(), Jsf.getUserSession().getUser().getUserid(), true);
-            htmltoposttoblog = EmbedInHtmlSyntax.getFlash("/", survey.getSurveyid(), Jsf.getUserSession().getUser().getUserid(), false);
+            surveyAnswersForThisBlogger = SurveyJavascriptServlet.getEmbedSyntax("/", survey.getSurveyid(), Jsf.getUserSession().getUser().getUserid(), true);
+            htmltoposttoblog = SurveyJavascriptServlet.getEmbedSyntax(BaseUrl.get(false), survey.getSurveyid(), Jsf.getUserSession().getUser().getUserid(), false);
+            htmltoposttoblogflash = SurveyFlashServlet.getEmbedSyntax(BaseUrl.get(false), survey.getSurveyid(), Jsf.getUserSession().getUser().getUserid(), false);
             surveyEnhancer = new SurveyEnhancer(survey);
             earnedalready = surveyEnhancer.getWillingtopayforresponse();
             double maxearningNum = survey.getWillingtopayperrespondent()  +   ( (survey.getWillingtopaypercpm()*survey.getMaxdisplaysperblog())/1000 );
@@ -138,5 +141,14 @@ public class BloggerSurveyPosttoblog {
 
     public void setHtmltoposttoblog(String htmltoposttoblog) {
         this.htmltoposttoblog = htmltoposttoblog;
+    }
+
+
+    public String getHtmltoposttoblogflash() {
+        return htmltoposttoblogflash;
+    }
+
+    public void setHtmltoposttoblogflash(String htmltoposttoblogflash) {
+        this.htmltoposttoblogflash = htmltoposttoblogflash;
     }
 }

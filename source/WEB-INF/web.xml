@@ -238,6 +238,10 @@
         <servlet-name>DengSwf</servlet-name>
         <url-pattern>/account/deng.swf</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DengSwf</servlet-name>
+        <url-pattern>/flashviewer/deng.swf</url-pattern>
+    </servlet-mapping>
 
     <servlet>
         <servlet-name>quartz</servlet-name>

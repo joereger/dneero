@@ -1,7 +1,8 @@
 <%@ page import="com.dneero.util.Num" %>
 <%@ page import="com.dneero.systemprops.BaseUrl" %>
-<%@ page import="com.dneero.survey.servlet.EmbedInHtmlSyntax" %>
 <%@ page import="com.dneero.util.Jsf" %>
+<%@ page import="com.dneero.survey.servlet.SurveyFlashServlet" %>
+<%@ page import="com.dneero.survey.servlet.SurveyJavascriptServlet" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 
 <%
@@ -55,7 +56,15 @@ Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Quisque in ipsum. Done
 <br><br>
 Cras eget mauris in sem pretium dignissim. Donec nec pede id neque dapibus pellentesque. Etiam ac dolor non lectus gravida malesuada. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Praesent tortor eros, feugiat et, rhoncus sed, rutrum nec, lectus. Sed libero libero, consectetuer eget, volutpat et, vulputate quis, lorem. Donec rutrum sem quis enim. Mauris rutrum pede in lorem. Praesent blandit elit. Phasellus in quam vitae lectus interdum vulputate. Aliquam iaculis. Nam id mi id felis suscipit malesuada. Nullam pharetra. Aliquam velit dolor, accumsan sit amet, egestas in, luctus eu, felis. Nulla pulvinar. Integer sit amet nunc. Sed pellentesque pede tincidunt leo.
 <br><br>
-<%=EmbedInHtmlSyntax.getFlash(BaseUrl.get(false), surveyid, userid, true)%>
+<%=SurveyFlashServlet.getEmbedSyntax(BaseUrl.get(false), surveyid, userid, true)%>
+<br><br>
+Cras eget mauris in sem pretium dignissim. Donec nec pede id neque dapibus pellentesque. Etiam ac dolor non lectus gravida malesuada. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Praesent tortor eros, feugiat et, rhoncus sed, rutrum nec, lectus. Sed libero libero, consectetuer eget, volutpat et, vulputate quis, lorem. Donec rutrum sem quis enim. Mauris rutrum pede in lorem. Praesent blandit elit. Phasellus in quam vitae lectus interdum vulputate. Aliquam iaculis. Nam id mi id felis suscipit malesuada. Nullam pharetra. Aliquam velit dolor, accumsan sit amet, egestas in, luctus eu, felis. Nulla pulvinar. Integer sit amet nunc. Sed pellentesque pede tincidunt leo.
+<br><br>
+Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Quisque in ipsum. Donec nisl velit, vestibulum et, eleifend scelerisque, aliquam in, ligula. Phasellus sit amet nunc. Vestibulum pellentesque velit sit amet nunc. Aliquam id ante bibendum lectus vulputate cursus. Aenean lorem. Donec consequat sapien. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos hymenaeos. Nulla egestas. Cras sit amet risus. Suspendisse adipiscing tempus orci. Nunc ac nibh ut dolor bibendum feugiat. Suspendisse rutrum aliquet lorem. In id augue et turpis sollicitudin porta. Fusce sit amet ligula. Praesent auctor. Praesent ac metus non turpis lacinia suscipit. Integer molestie felis eu dolor. Aliquam eros. Vivamus a urna sed nibh pellentesque ornare.
+<br><br>
+Cras eget mauris in sem pretium dignissim. Donec nec pede id neque dapibus pellentesque. Etiam ac dolor non lectus gravida malesuada. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Praesent tortor eros, feugiat et, rhoncus sed, rutrum nec, lectus. Sed libero libero, consectetuer eget, volutpat et, vulputate quis, lorem. Donec rutrum sem quis enim. Mauris rutrum pede in lorem. Praesent blandit elit. Phasellus in quam vitae lectus interdum vulputate. Aliquam iaculis. Nam id mi id felis suscipit malesuada. Nullam pharetra. Aliquam velit dolor, accumsan sit amet, egestas in, luctus eu, felis. Nulla pulvinar. Integer sit amet nunc. Sed pellentesque pede tincidunt leo.
+<br><br>
+<%=SurveyJavascriptServlet.getEmbedSyntax(BaseUrl.get(false), surveyid, userid, true)%>
 <br><br>
 Cras eget mauris in sem pretium dignissim. Donec nec pede id neque dapibus pellentesque. Etiam ac dolor non lectus gravida malesuada. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Praesent tortor eros, feugiat et, rhoncus sed, rutrum nec, lectus. Sed libero libero, consectetuer eget, volutpat et, vulputate quis, lorem. Donec rutrum sem quis enim. Mauris rutrum pede in lorem. Praesent blandit elit. Phasellus in quam vitae lectus interdum vulputate. Aliquam iaculis. Nam id mi id felis suscipit malesuada. Nullam pharetra. Aliquam velit dolor, accumsan sit amet, egestas in, luctus eu, felis. Nulla pulvinar. Integer sit amet nunc. Sed pellentesque pede tincidunt leo.
 

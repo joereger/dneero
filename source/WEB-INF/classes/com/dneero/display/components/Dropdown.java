@@ -67,10 +67,10 @@ public class Dropdown implements Component {
 
     public String getHtmlForDisplay(Response response) {
         StringBuffer out = new StringBuffer();
-        out.append("<p style=\"font-family: Arial Black, Arial Black, Gadget, sans-serif; font-size: 12px; font-weight: bold;\">");
+        out.append("<p style=\"font-family: Arial Black, Arial Black, Gadget, sans-serif; font-size: 12px; font-weight: bold; margin: 1px;\">");
         out.append(question.getQuestion());
         out.append("</p>");
-        out.append("<p style=\"font-family: Arial, Arial, Helvetica, sans-serif; font-size: 12px;\">");
+        out.append("<p style=\"font-family: Arial, Arial, Helvetica, sans-serif; font-size: 12px; margin: 1px;\">");
 
         List<Questionresponse> responses = new ArrayList<Questionresponse>();
         if (blogger!=null && response!=null){

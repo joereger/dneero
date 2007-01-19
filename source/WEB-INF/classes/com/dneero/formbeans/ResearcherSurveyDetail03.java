@@ -8,7 +8,7 @@ import com.dneero.dao.Blogger;
 import com.dneero.session.UserSession;
 import com.dneero.display.SurveyTemplateProcessor;
 import com.dneero.display.SurveyTakerDisplay;
-import com.dneero.survey.servlet.EmbedInHtmlSyntax;
+import com.dneero.survey.servlet.SurveyJavascriptServlet;
 
 import javax.faces.context.FacesContext;
 import javax.faces.application.FacesMessage;
@@ -53,7 +53,7 @@ public class ResearcherSurveyDetail03 {
                 //surveyForReaders = SurveyAsHtml.getHtml(survey, Jsf.getUserSession().getUser());
                 //Have to now remove the \\' that the javascript version uses for " (double quotes)
                 //surveyForReaders = surveyForReaders.replaceAll("\\\\'", "'");
-                surveyForReaders = EmbedInHtmlSyntax.getFlash("/", survey.getSurveyid(), Jsf.getUserSession().getUser().getUserid(), true);
+                surveyForReaders = SurveyJavascriptServlet.getEmbedSyntax("/", survey.getSurveyid(), Jsf.getUserSession().getUser().getUserid(), true);
 
 
                 surveyForTakers = SurveyTakerDisplay.getHtmlForSurveyTaking(survey, new Blogger(), true);

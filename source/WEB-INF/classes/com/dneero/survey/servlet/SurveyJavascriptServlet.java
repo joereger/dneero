@@ -3,6 +3,7 @@ package com.dneero.survey.servlet;
 import com.dneero.dao.Survey;
 import com.dneero.dao.User;
 import com.dneero.util.Str;
+import com.dneero.display.SurveyInBlogWrapper;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletResponse;
@@ -27,7 +28,6 @@ public class SurveyJavascriptServlet extends HttpServlet {
     }
 
     public void doPost (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         PrintWriter out = response.getWriter();
 
         Survey survey = null;
@@ -51,11 +51,29 @@ public class SurveyJavascriptServlet extends HttpServlet {
             RecordImpression.record(request);
         }
 
-        String output = Str.cleanForjavascriptAndReplaceDoubleQuoteWithSingle(SurveyAsHtml.getHtml(survey, user, true));
+        String surveyashtml = SurveyAsHtml.getHtml(survey, user, false);
+        StringBuffer scrollablediv = new StringBuffer();
+        scrollablediv.append("<div style=\"border : solid 0px #cccccc; background : #e6e6e6; padding : 5px; width : 425px; height : 200px; overflow : auto; \">"+"\n");
+        scrollablediv.append(surveyashtml);
+        scrollablediv.append("</div>"+"\n");
+        String surveyashtmlwrapped = SurveyInBlogWrapper.wrap(survey, scrollablediv.toString(), true, false);
+        String output = Str.cleanForjavascriptAndReplaceDoubleQuoteWithSingle(surveyashtmlwrapped);
         output = output.replaceAll("\\n", "\"+\\\n\"");
         output = output.replaceAll("\\r", "\"+\\\n\"");
         out.print("document.write(\""+output+"\");"+"\n");
 
+    }
+
+    public static String getEmbedSyntax(String baseurl, int surveyid, int userid, boolean ispreview){
+        String ispreviewStr = "0";
+        if (ispreview){
+            ispreviewStr = "1";
+        }
+        if (baseurl.equals("")){
+            baseurl = "/";
+        }
+        String urlofsurvey = baseurl+"s?s="+surveyid+"&u="+userid+"&ispreview="+ispreviewStr;
+        return "<!-- Start dNeero Survey --><script src=\""+urlofsurvey+"\"></script><!-- End dNeero Survey -->";
     }
 
 
