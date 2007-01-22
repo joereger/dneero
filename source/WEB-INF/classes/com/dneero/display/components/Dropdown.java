@@ -43,6 +43,10 @@ public class Dropdown implements Component {
     public String getHtmlForInput() {
         StringBuffer out = new StringBuffer();
         out.append("<font class=\"formfieldnamefont\">"+question.getQuestion()+"</font>");
+        if (question.getIsrequired()){
+            out.append(" ");
+            out.append("<font class=\"formfieldnamefont\" style=\"color: #ff0000;\">(Required)</font>");
+        }
         out.append("<br/>");
 
         String options = "";
@@ -69,9 +73,6 @@ public class Dropdown implements Component {
         StringBuffer out = new StringBuffer();
         out.append("<p style=\"font-family: Arial Black, Arial Black, Gadget, sans-serif; font-size: 12px; font-weight: bold; margin: 1px;\">");
         out.append(question.getQuestion());
-        if (question.getIsrequired()){
-            out.append("(Required)");
-        }
         out.append("</p>");
         out.append("<p style=\"font-family: Arial, Arial, Helvetica, sans-serif; font-size: 12px; margin: 1px;\">");
 

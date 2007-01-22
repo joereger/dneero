@@ -47,6 +47,10 @@ public class Textbox implements Component {
     public String getHtmlForInput() {
         StringBuffer out = new StringBuffer();
         out.append("<font class=\"formfieldnamefont\">"+question.getQuestion()+"</font>");
+        if (question.getIsrequired()){
+            out.append(" ");
+            out.append("<font class=\"formfieldnamefont\" style=\"color: #ff0000;\">(Required)</font>");
+        }
         out.append("<br/>");
 
         out.append("<input type=text size=\"20\" maxlength=\"255\" name=\""+ SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"questionid_"+question.getQuestionid()+"\">");
@@ -58,9 +62,6 @@ public class Textbox implements Component {
         StringBuffer out = new StringBuffer();
         out.append("<p style=\"font-family: Arial Black, Arial Black, Gadget, sans-serif; font-size: 12px; font-weight: bold; margin: 1px;\">");
         out.append(question.getQuestion());
-        if (question.getIsrequired()){
-            out.append("(Required)");
-        }
         out.append("</p>");
         out.append("<p style=\"font-family: Arial, Arial, Helvetica, sans-serif; font-size: 12px; margin: 1px;\">");
 
