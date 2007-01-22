@@ -30,7 +30,7 @@ public class ResearcherResultsImpressionsDetails {
 
 
     public String beginView(){
-        //logger.debug("beginView called:");
+        logger.debug("beginView called:");
         String tmpImpressionid = Jsf.getRequestParam("impressionid");
         if (com.dneero.util.Num.isinteger(tmpImpressionid)){
             logger.debug("beginView called: found impressionid in request param="+tmpImpressionid);

@@ -33,14 +33,14 @@ public class BloggerBlogDetail {
 
     public BloggerBlogDetail(){
         logger.debug("BloggerBlogDetail instanciated.");
-
+        beginView();
     }
 
 
     public String beginView(){
         logger.debug("Start of beginView: blogid="+blogid);
         String tmpBlogid = Jsf.getRequestParam("blogid");
-        if (com.dneero.util.Num.isinteger(tmpBlogid)){
+        if (com.dneero.util.Num.isinteger(tmpBlogid) && Integer.parseInt(tmpBlogid)>0){
             logger.debug("beginView called: found blogid in param="+tmpBlogid);
             try{
                 Blog blog = Blog.get(Integer.parseInt(tmpBlogid));

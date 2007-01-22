@@ -37,20 +37,19 @@ public class ResearcherResultsImpressions {
         if (survey!=null){
             logger.debug("survey.getImpressions().size()="+survey.getImpressions().size());
             if (Jsf.getUserSession().getUser()!=null && survey.canEdit(Jsf.getUserSession().getUser())){
-
                 List<Impression> impressions = HibernateUtil.getSession().createCriteria(Impression.class)
                                    .add( Restrictions.eq("surveyid", survey.getSurveyid()))
                                    .list();
                 for (Iterator<Impression> iterator1 = impressions.iterator(); iterator1.hasNext();) {
                     Impression impression = iterator1.next();
                     ResearcherResultsImpressionsListitem robj = new ResearcherResultsImpressionsListitem();
+                    robj.setImpressionid(impression.getImpressionid());
+                    robj.setImpressionsqualifyingforpayment(impression.getImpressionsqualifyingforpayment());
+                    robj.setReferer(impression.getReferer());
                     if (impression.getBlog()!=null){
                         robj.setBlogtitle(impression.getBlog().getTitle());
                         robj.setBlogurl(impression.getBlog().getUrl());
-                        robj.setImpressionid(impression.getImpressionid());
                     }
-                    robj.setImpressionsqualifyingforpayment(impression.getImpressionsqualifyingforpayment());
-                    robj.setReferer(impression.getReferer());
                     researcherResultsImpressionsListitems.add(robj);
                 }
             }

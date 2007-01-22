@@ -39,8 +39,7 @@
     <br/><br/>
 
 <t:saveState id="save" value="#{researcherResultsImpressionsDetails}"/>
-<af:table value="#{researcherResultsImpressionsDetails.list}" bandingInterval="2" rows="100" banding="row" var="listitem">
-
+<af:table value="#{researcherResultsImpressionsDetails.list}" bandingInterval="2" rows="10" banding="row" var="listitem">
       <af:column>
         <f:facet name="header">
           <af:outputText value="Date"/>
@@ -61,7 +60,6 @@
         <af:outputText value="No" styleClass="tinyfont" rendered="${listitem.qualifiesforpaymentstatus eq 0}"/>
         <af:outputText value="Yes" styleClass="tinyfont" rendered="${listitem.qualifiesforpaymentstatus eq 1}"/>
       </af:column>
-
   </af:table>
 
     

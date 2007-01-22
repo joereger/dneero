@@ -288,8 +288,20 @@
 
 
     <f:verbatim><br/><br/></f:verbatim>
-    <font class="mediumfont">I understand that by launching this survey I am committing to spending up to #{researcherSurveyDetail06.maxpossiblespend}, although actual charges will be based only on activity (survey responses and the display of surveys on blogs.)  I understand that 20% will be charged now. Additional charges will be made in 20% increments whenever my account balance falls below 10% of the sum of Max Possible Spend for all open surveys.  If your balance falls below 5% of the sum of Max Possible Spend values for all open surveys, then all surveys will be put on hold until your balance is increased.</font>
-
+    <font class="mediumfont">
+        <ul>
+            <li>I understand that by launching this survey I am committing to spending up to #{researcherSurveyDetail06.maxpossiblespend} (Max Possible Spend.)</li>
+            <li>Actual charges will be based only on the activities of survey completion and impressions (i.e. viewing of your survey on blogs.)</li>
+            <li>I understand that my account balance must be sufficient to support activities:
+                <ul>
+                    <li>20% of the #{researcherSurveyDetail06.maxpossiblespend} will be charged now.</li>
+                    <li>Whenever my account balance falls below 10% of the sum of the Max Possible Spends for all of my live (open) surveys, additional charges will be made to attain the 20% balance.</li>
+                    <li>If my account balance falls below 5% of the sum of the Max Possible Spends for all of my live (open) surveys, then all my surveys will be put on hold until my account balance is increased.</li>
+                    <li>However, if my account balance is sufficient to complete the activities I have requested, my live (open) surveys will not be put on hold. </li>
+                </ul>
+            </li>
+        </ul>
+    </font>
 
     <f:verbatim><br/><br/></f:verbatim>
     <div class="surveyeditbuttonbox"><div class="surveyeditpreviousbutton"><h:commandButton action="#{researcherSurveyDetail06.previousStep}" value="Previous Step" styleClass="formsubmitbutton"/></div><div class="surveyeditnextbutton"><h:commandButton action="#{researcherSurveyDetail06.saveSurveyAsDraft}" value="Save and Continue Later" styleClass="formsubmitbutton" rendered="#{researcherSurveyDetail06.status eq 1}"/><h:commandButton action="#{researcherSurveyDetail06.saveSurvey}" value="Launch this Survey!" styleClass="formsubmitbutton" rendered="#{researcherSurveyDetail06.status eq 1}"/></div></div>
