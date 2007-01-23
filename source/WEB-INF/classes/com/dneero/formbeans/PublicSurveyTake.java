@@ -48,7 +48,10 @@ public class PublicSurveyTake {
         if (referredByBlog!=null){
             Jsf.getUserSession().setPendingSurveyReferredbyblogid(referredByBlog.getBlogid());
         }
-
+        //Establish user referral in case of signup
+        if (Num.isinteger(Jsf.getRequestParam("userid"))){
+            Jsf.getUserSession().setReferredbyOnlyUsedForSignup(Integer.parseInt(Jsf.getRequestParam("userid")));
+        }
     }
 
 

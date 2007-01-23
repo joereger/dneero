@@ -56,7 +56,7 @@ public class SurveyJavascriptServlet extends HttpServlet {
         scrollablediv.append("<div style=\"border : solid 0px #cccccc; background : #e6e6e6; padding : 5px; width : 425px; height : 200px; overflow : auto; \">"+"\n");
         scrollablediv.append(surveyashtml);
         scrollablediv.append("</div>"+"\n");
-        String surveyashtmlwrapped = SurveyInBlogWrapper.wrap(survey, scrollablediv.toString(), true, false);
+        String surveyashtmlwrapped = SurveyInBlogWrapper.wrap(user, survey, scrollablediv.toString(), true, false);
         String output = Str.cleanForjavascriptAndReplaceDoubleQuoteWithSingle(surveyashtmlwrapped);
         output = output.replaceAll("\\n", "\"+\\\n\"");
         output = output.replaceAll("\\r", "\"+\\\n\"");

@@ -12,7 +12,6 @@ import java.io.PrintWriter;
 import com.dneero.dao.Survey;
 import com.dneero.dao.User;
 import com.dneero.display.SurveyInBlogWrapper;
-import com.dneero.util.Str;
 
 /**
  * User: Joe Reger Jr
@@ -58,7 +57,7 @@ public class SurveyHtmlpageServlet extends HttpServlet {
         scrollablediv.append("<div style=\"border : solid 0px #cccccc; background : #e6e6e6; padding : 5px; width : 425px; height : 200px; overflow : auto; \">"+"\n");
         scrollablediv.append(surveyashtml);
         scrollablediv.append("</div>"+"\n");
-        String surveyashtmlwrapped = SurveyInBlogWrapper.wrap(survey, scrollablediv.toString(), true, false);
+        String surveyashtmlwrapped = SurveyInBlogWrapper.wrap(user, survey, scrollablediv.toString(), true, false);
 
         out.print(surveyashtmlwrapped);
 

@@ -55,7 +55,10 @@ public class PublicSurveyAnswers {
                 htmlreferredbyblogid = "<font class='mediumfont'>Nobody who has clicked from the blog you were just at has answered... yet.  You could be the first!</font>";
             }
         }
-
+        //Establish user referral in case of signup
+        if (Num.isinteger(Jsf.getRequestParam("userid"))){
+            Jsf.getUserSession().setReferredbyOnlyUsedForSignup(Integer.parseInt(Jsf.getRequestParam("userid")));
+        }
     }
 
     public Survey getSurvey() {
