@@ -8,14 +8,18 @@ import com.dneero.util.Jsf;
 import com.dneero.util.RandomString;
 import com.dneero.util.jcaptcha.CaptchaServiceSingleton;
 import com.dneero.session.UserSession;
+import com.dneero.session.PersistentLogin;
 import com.dneero.email.EmailActivationSend;
 import com.dneero.money.PaymentMethod;
 import com.dneero.xmpp.SendXMPPMessage;
 import com.dneero.eula.EulaHelper;
+import com.dneero.systemprops.SystemProperty;
+import com.dneero.systemprops.BaseUrl;
 import com.octo.captcha.service.CaptchaServiceException;
 
 import javax.faces.context.FacesContext;
 import javax.faces.application.FacesMessage;
+import javax.servlet.http.Cookie;
 import java.util.*;
 
 /**
@@ -148,7 +152,33 @@ public class Registration {
         SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_CUSTOMERSUPPORT, "New dNeero User: "+ user.getFirstname() + " " + user.getLastname() + "("+user.getEmail()+")");
         xmpp.send();
 
-        return "success";
+        //Log user in
+        UserSession userSession = new UserSession();
+        userSession.setUser(user);
+        userSession.setIsloggedin(true);
+        userSession.setIsLoggedInToBeta(Jsf.getUserSession().getIsLoggedInToBeta());
+        userSession.setIseulaok(true);
+        //Set persistent login cookie
+        Cookie[] cookies = PersistentLogin.getPersistentCookies(user.getUserid(), Jsf.getHttpServletRequest());
+        //Add a cookies to the response
+        for (int j = 0; j < cookies.length; j++) {
+            Jsf.getHttpServletResponse().addCookie(cookies[j]);
+        }
+        Jsf.bindObjectToExpressionLanguage("#{userSession}", userSession);
+
+        //Redir if https is on
+        if (SystemProperty.getProp(SystemProperty.PROP_ISSSLON).equals("1")){
+            try{
+                logger.debug("redirecting to https - "+ BaseUrl.get(true)+"account/index.jsf");
+                Jsf.redirectResponse(BaseUrl.get(true)+"account/index.jsf");
+                return null;
+            } catch (Exception ex){
+                logger.error(ex);
+                return "accountindex";
+            }
+        } else {
+            return "accountindex";
+        }
     }
 
 

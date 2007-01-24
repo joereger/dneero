@@ -4,6 +4,7 @@ import com.dneero.dao.User;
 import com.dneero.money.paypal.CallerFactory;
 import com.dneero.util.Str;
 import com.dneero.util.Time;
+import com.dneero.util.Num;
 import com.paypal.sdk.services.CallerServices;
 import com.paypal.sdk.exceptions.PayPalException;
 import com.paypal.soap.api.*;
@@ -31,7 +32,7 @@ public class PaymentMethodPayPal extends PaymentMethodBase implements PaymentMet
             logger.error("PayPal can not charge people money (negative amt sent to giveUserThisAmt()) userid="+user.getUserid()+" amt="+amt);
             return;
         }
-
+        logger.debug("---------- PayPal Call Start ----------");
         try{
             CallerFactory callerFactory = new CallerFactory();
             CallerServices caller = callerFactory.getCaller();
@@ -43,7 +44,12 @@ public class PaymentMethodPayPal extends PaymentMethodBase implements PaymentMet
 
             BasicAmountType orderTotal = new BasicAmountType();
             orderTotal.setCurrencyID(CurrencyCodeType.USD);
-            orderTotal.set_value(Str.formatForMoney(amt));
+            String amtAsStr = Str.formatForMoney(amt);
+            if (amtAsStr.equals("")){
+                logger.error("amtAsStr is blank... setting to 0: amt="+amt+" : Str.formatForMoney(amt)="+Str.formatForMoney(amt));
+                amtAsStr = "0";
+            }
+            orderTotal.set_value(amtAsStr);
             mprit.setAmount(orderTotal);
 
             MassPayRequestItemType[] mpArray = new MassPayRequestItemType[1];
@@ -53,7 +59,6 @@ public class PaymentMethodPayPal extends PaymentMethodBase implements PaymentMet
             try{
                 MassPayResponseType response = (MassPayResponseType) caller.call("MassPay", request);
                 logger.debug("Operation Ack: " + response.getAck());
-                logger.debug("---------- Results ----------");
                 logger.debug("getCorrelationID(): " + response.getCorrelationID());
                 correlationid = response.getCorrelationID();
                 transactionid = "";
@@ -62,17 +67,17 @@ public class PaymentMethodPayPal extends PaymentMethodBase implements PaymentMet
                     issuccessful = true;
                     for (int i = 0; i < errors.length; i++) {
                         ErrorType error = errors[i];
-                        logger.debug("Error "+i+": "+error.getLongMessage());
+                        logger.debug("Error "+i+": userid="+user.getUserid()+" : amt="+amt+" : "+error.getLongMessage());
                         if (error.getSeverityCode()==SeverityCodeType.Error){
-                            logger.error("PayPal Error: userid="+user.getUserid()+" :"+error.getLongMessage());
-                            notes =  notes + "PayPal Error: "+error.getLongMessage()+" ";
+                            logger.error("PayPal Error: userid="+user.getUserid()+" : amt="+amt+" :"+error.getLongMessage());
+                            notes =  notes + "PayPal Error: "+user.getUserid()+" : amt="+amt+" : "+error.getLongMessage()+" ";
                             issuccessful = false;
                         } else if (error.getSeverityCode()==SeverityCodeType.Warning){
-                            logger.error("PayPal Warning: userid="+user.getUserid()+" :"+error.getLongMessage());
-                            notes =  notes + "PayPal Warning: "+error.getLongMessage()+" ";
+                            logger.error("PayPal Warning: userid="+user.getUserid()+" : amt="+amt+" :"+error.getLongMessage());
+                            notes =  notes + "PayPal Warning: userid="+user.getUserid()+" : amt="+amt+" : "+error.getLongMessage()+" ";
                         }  else if (error.getSeverityCode()==SeverityCodeType.CustomCode){
-                            logger.error("PayPal Custom Code Error: userid="+user.getUserid()+" :"+error.getLongMessage());
-                            notes =  notes + "PayPal Custom Code Error: "+error.getLongMessage()+" ";
+                            logger.error("PayPal Custom Code Error: userid="+user.getUserid()+" : amt="+amt+" :"+error.getLongMessage());
+                            notes =  notes + "PayPal Custom Code Error: userid="+user.getUserid()+" : amt="+amt+" : "+error.getLongMessage()+" ";
                         }
                     }
                 } else {
@@ -92,6 +97,7 @@ public class PaymentMethodPayPal extends PaymentMethodBase implements PaymentMet
             notes = "An internal server error occurred at "+ Time.dateformatcompactwithtime(Calendar.getInstance())+".  No money was exchanged.";
             issuccessful = false;
         }
+        logger.debug("---------- PayPal Call End ----------");
     }
 
 

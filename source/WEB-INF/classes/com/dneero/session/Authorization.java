@@ -9,10 +9,12 @@ import javax.servlet.http.Cookie;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Calendar;
 
 import com.dneero.dao.Userrole;
 import com.dneero.dao.User;
 import com.dneero.util.Jsf;
+import com.dneero.util.Time;
 import com.dneero.systemprops.SystemProperty;
 import com.dneero.systemprops.BaseUrl;
 import com.dneero.eula.EulaHelper;
@@ -35,7 +37,21 @@ public class Authorization extends UIComponentBase {
         logger.debug("encodeBegin called");
 
         String acl = (String)getAttributes().get("acl");
+        if (acl==null){
+            acl = "";
+        }
+
         String redirectonfail = (String)getAttributes().get("redirectonfail");
+        if (redirectonfail==null){
+            redirectonfail = "true";
+        }
+
+        String httpsrequired = (String)getAttributes().get("httpsrequired");
+        if (httpsrequired==null){
+            httpsrequired = "false";
+        }
+
+
 
         //Production redirect to www.dneero.com for https
         //@todo make this configurable... i.e. no hard-coded urls
@@ -46,6 +62,16 @@ public class Authorization extends UIComponentBase {
                 return;
             } else {
                 context.getExternalContext().redirect(urlSplitter.getScheme()+"://"+"www.dneero.com/");
+                return;
+            }
+        }
+
+        //Redirect login page to https
+        if (SystemProperty.getProp(SystemProperty.PROP_ISSSLON).equals("1") && urlSplitter.getScheme().equals("http") && urlSplitter.getServletPath().equals("login.jsf")){
+            try{
+                context.getExternalContext().redirect(BaseUrl.get(true)+"login.jsf");
+            } catch (Exception ex){
+                logger.error(ex);
                 return;
             }
         }
@@ -129,13 +155,8 @@ public class Authorization extends UIComponentBase {
         }
 
 
-        if (acl==null){
-            acl = "";
-        }
-        if (redirectonfail==null){
-            redirectonfail = "true";
-        }
 
+        //Pre-beta lockdown
         if (SystemProperty.getProp(SystemProperty.PROP_ISEVERYTHINGPASSWORDPROTECTED).equals("1") && !Jsf.getUserSession().getIsLoggedInToBeta()){
             context.getExternalContext().redirect("/logintobeta.jsf");
             return;
@@ -145,12 +166,18 @@ public class Authorization extends UIComponentBase {
             }
         }
 
-
+        //Account activation
         if (Jsf.getUserSession().getUser()!=null && !Jsf.getUserSession().getUser().getIsactivatedbyemail()){
-            context.getExternalContext().redirect("/emailactivationwaiting.jsf");
-            return;
+            //User isn't activated but they get a grace period
+            int daysInGracePeriod = 3;
+            Calendar startOfGracePeriod = Time.xDaysAgoStart(Calendar.getInstance(), daysInGracePeriod);
+            if (Jsf.getUserSession().getUser().getCreatedate().before(startOfGracePeriod.getTime())){
+                context.getExternalContext().redirect("/emailactivationwaiting.jsf");
+                return;
+            }
         }
 
+        //Acl authorization
         if (!isAuthorized(context, acl)){
             if (redirectonfail.equals("true")){
                 UserSession userSession = Jsf.getUserSession();

@@ -45,12 +45,12 @@ public class MoveMoneyInRealWorld implements Runnable {
 
         //See if this needs to be broken into multiple transactions
         double amtremainder = 0;
-        if (amttogiveuser >0){
-            if (amttogiveuser >GLOBALMAXCHARGEPERTRANSACTION){
+        if (amttogiveuser>0){
+            if (amttogiveuser>GLOBALMAXCHARGEPERTRANSACTION){
                 amtremainder = amttogiveuser - GLOBALMAXCHARGEPERTRANSACTION;
                 amttogiveuser = GLOBALMAXCHARGEPERTRANSACTION;
             }
-        } else if (amttogiveuser <0){
+        } else if (amttogiveuser<0){
             if (((-1)* amttogiveuser)>GLOBALMAXCHARGEPERTRANSACTION){
                 amtremainder = amttogiveuser + GLOBALMAXCHARGEPERTRANSACTION;
                 amttogiveuser = (-1)*GLOBALMAXCHARGEPERTRANSACTION;
@@ -61,10 +61,10 @@ public class MoveMoneyInRealWorld implements Runnable {
         }
 
         //Get the payment method class based on the user's settings
-        PaymentMethod pm = new PaymentMethodManual(user, amttogiveuser);
+        PaymentMethod pm = new PaymentMethodCreditCard(user, amttogiveuser);
         String desc = "Charge.";
         int paymentmethod = 0;
-        if (amttogiveuser >0){
+        if (amttogiveuser>0){
             //Paying user
             if (user.getPaymethod()==PaymentMethod.PAYMENTMETHODCREDITCARD){
                 pm = new PaymentMethodCreditCard(user, amttogiveuser);
@@ -75,7 +75,7 @@ public class MoveMoneyInRealWorld implements Runnable {
                 paymentmethod = PaymentMethod.PAYMENTMETHODPAYPAL;
                 desc = "Charge to PayPal account.";
             }
-        } else if (amttogiveuser <0){
+        } else if (amttogiveuser<0){
             //Charging user
             if (user.getChargemethod()==PaymentMethod.PAYMENTMETHODCREDITCARD){
                 pm = new PaymentMethodCreditCard(user, amttogiveuser);
@@ -94,7 +94,7 @@ public class MoveMoneyInRealWorld implements Runnable {
         //Only affect the account balance if the real-world transaction was successful
         if (pm.getIssuccessful()){
             //Notify via XMPP
-            SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_CUSTOMERSUPPORT, "Successful Move Money in Real World: amt=$"+(-1)*amttogiveuser+" to/from "+ user.getFirstname() + " " + user.getLastname() + " ("+user.getEmail()+")");
+            SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_CUSTOMERSUPPORT, "Successful Move Money in Real World: amttogiveuser=$"+amttogiveuser+" to/from "+ user.getFirstname() + " " + user.getLastname() + " ("+user.getEmail()+")");
             xmpp.send();
             Balance balance = new Balance();
             balance.setAmt((-1)*amttogiveuser);
@@ -105,7 +105,7 @@ public class MoveMoneyInRealWorld implements Runnable {
             try{balance.save();}catch (Exception ex){logger.error(ex);}
         } else {
             //Notify via XMPP
-            SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_CUSTOMERSUPPORT, "Failed Move Money in Real World: amt=$"+(-1)*amttogiveuser+" to/from "+ user.getFirstname() + " " + user.getLastname() + " ("+user.getEmail()+") Notes: "+pm.getNotes());
+            SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_CUSTOMERSUPPORT, "Failed Move Money in Real World: amttogiveuser=$"+amttogiveuser+" to/from "+ user.getFirstname() + " " + user.getLastname() + " ("+user.getEmail()+") Notes: "+pm.getNotes());
             xmpp.send();
         }
 

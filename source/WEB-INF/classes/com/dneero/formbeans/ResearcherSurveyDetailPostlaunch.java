@@ -3,20 +3,8 @@ package com.dneero.formbeans;
 import org.apache.log4j.Logger;
 import com.dneero.util.*;
 import com.dneero.dao.Survey;
-import com.dneero.dao.Creditcard;
-import com.dneero.dao.User;
-import com.dneero.finders.FindBloggersForSurvey;
 import com.dneero.money.SurveyMoneyStatus;
-import com.dneero.money.PaymentMethod;
-import com.dneero.money.MoveMoneyInAccountBalance;
-import com.dneero.money.MoveMoneyInRealWorld;
-import com.dneero.session.UserSession;
 import com.dneero.scheduledjobs.ResearcherRemainingBalanceOperations;
-
-import javax.faces.context.FacesContext;
-import javax.faces.application.FacesMessage;
-import java.util.Calendar;
-import java.util.LinkedHashMap;
 
 /**
  * User: Joe Reger Jr
