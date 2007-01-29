@@ -6,7 +6,8 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:t="http://myfaces.apache.org/tomahawk"
-      xmlns:d="http://dneero.com/taglib">
+      xmlns:d="http://dneero.com/taglib"
+      xmlns:c="http://java.sun.com/jstl/core">
 
 <ui:composition template="/template/template-facelets.xhtml">
     <ui:define name="title">
@@ -30,7 +31,11 @@
     <br/>
 
     <d:roundedCornerBox uniqueboxname="alreadytaken" bodycolor="00ff00" widthinpixels="500" rendered="#{publicSurveyDetail.bloggerhasalreadytakensurvey}">
-    <h:outputText value="You've already taken this survey." styleClass="mediumfont" rendered="#{publicSurveyDetail.bloggerhasalreadytakensurvey}"/>
+        <h:outputText value="You've already taken this survey." styleClass="mediumfont" rendered="#{publicSurveyDetail.bloggerhasalreadytakensurvey}"/>
+    </d:roundedCornerBox>
+
+    <d:roundedCornerBox uniqueboxname="alreadytaken" bodycolor="00ff00" widthinpixels="500" rendered="#{!publicSurveyDetail.qualifiesforsurvey}">
+        <h:outputText value="Sorry, you're not qualified to take this survey.  Your qualification is determined by your Blogger Profile.  Researchers determine their intended audience when they create a survey." styleClass="mediumfont" rendered="#{!publicSurveyDetail.qualifiesforsurvey}"/>
     </d:roundedCornerBox>
 
 
@@ -62,10 +67,6 @@
                     </td>
                 </tr>
             </table>
-
-
-
-
 
             <h:panelGrid columns="2" cellpadding="3" border="0">
 

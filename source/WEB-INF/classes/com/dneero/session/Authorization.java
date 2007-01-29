@@ -70,6 +70,7 @@ public class Authorization extends UIComponentBase {
         if (SystemProperty.getProp(SystemProperty.PROP_ISSSLON).equals("1") && urlSplitter.getScheme().equals("http") && urlSplitter.getServletPath().equals("login.jsf")){
             try{
                 context.getExternalContext().redirect(BaseUrl.get(true)+"login.jsf");
+                return;
             } catch (Exception ex){
                 logger.error(ex);
                 return;

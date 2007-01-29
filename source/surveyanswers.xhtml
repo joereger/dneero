@@ -23,7 +23,7 @@
 
     <table width="100%" cellpadding="5">
         <tr>
-            <td valign="top" width="65%">
+            <td valign="top" width="450">
                 <font class="mediumfont" style="color: #00ff00">#{publicSurveyAnswers.survey.title}</font>
                 <br/>
                 <font class="smallfont">#{publicSurveyAnswers.survey.description}</font>
@@ -31,11 +31,11 @@
 
                 <t:panelTabbedPane id="panel" bgcolor="#ffffff">
                     <t:panelTab id="panel_a" label="People from this Blog">
-                        <h:graphicImage url="/images/clear.gif" width="400" height="1"/><br/>
+                        <h:graphicImage url="/images/clear.gif" width="450" height="1"/><br/>
                         <f:verbatim escape="false">#{publicSurveyAnswers.htmlreferredbyblogid}</f:verbatim>
                     </t:panelTab>
                     <t:panelTab id="panel_b" label="All People Who Answered">
-                        <h:graphicImage url="/images/clear.gif" width="400" height="1"/><br/>
+                        <h:graphicImage url="/images/clear.gif" width="450" height="1"/><br/>
                         <f:verbatim escape="false">#{publicSurveyAnswers.html}</f:verbatim>
                     </t:panelTab>
                 </t:panelTabbedPane>

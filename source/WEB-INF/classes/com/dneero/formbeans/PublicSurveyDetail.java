@@ -8,6 +8,7 @@ import com.dneero.util.Jsf;
 import com.dneero.display.SurveyTakerDisplay;
 import com.dneero.survey.servlet.SurveyJavascriptServlet;
 import com.dneero.survey.servlet.SurveyFlashServlet;
+import com.dneero.finders.FindSurveysForBlogger;
 import org.apache.log4j.Logger;
 
 import java.util.Iterator;
@@ -25,6 +26,7 @@ public class PublicSurveyDetail {
     private boolean bloggerhasalreadytakensurvey;
     private String surveyAnswersForThisBlogger;
     private String surveyOnBlogPreview;
+    private boolean qualifiesforsurvey = true;
 
     Logger logger = Logger.getLogger(this.getClass().getName());
 
@@ -44,7 +46,7 @@ public class PublicSurveyDetail {
             survey = Survey.get(Integer.parseInt(tmpSurveyid));
             bloggerhasalreadytakensurvey = false;
             int userid = 0;
-            if (Jsf.getUserSession().getUser()!=null && Jsf.getUserSession().getUser().getBloggerid()>0){
+            if (Jsf.getUserSession().getIsloggedin() && Jsf.getUserSession().getUser()!=null && Jsf.getUserSession().getUser().getBloggerid()>0){
                 userid = Jsf.getUserSession().getUser().getUserid();
                 Blogger blogger = Blogger.get(Jsf.getUserSession().getUser().getBloggerid());
                 for (Iterator<Response> iterator = blogger.getResponses().iterator(); iterator.hasNext();) {
@@ -52,6 +54,10 @@ public class PublicSurveyDetail {
                     if (response.getSurveyid()==survey.getSurveyid()){
                         bloggerhasalreadytakensurvey = true;
                     }
+                }
+                //See if blogger is qualified to take
+                if (!FindSurveysForBlogger.isBloggerQualifiedToTakeSurvey(blogger, survey)){
+                    qualifiesforsurvey = false;
                 }
             }
             if (bloggerhasalreadytakensurvey){
@@ -124,6 +130,11 @@ public class PublicSurveyDetail {
         this.surveyOnBlogPreview = surveyOnBlogPreview;
     }
 
+    public boolean getQualifiesforsurvey() {
+        return qualifiesforsurvey;
+    }
 
-
+    public void setQualifiesforsurvey(boolean qualifiesforsurvey) {
+        this.qualifiesforsurvey = qualifiesforsurvey;
+    }
 }

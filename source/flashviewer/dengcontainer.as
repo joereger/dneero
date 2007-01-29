@@ -33,8 +33,7 @@ function checkLoadProgress() {
 			this.initDeng();
 		} else {
 			var percent = Math.round(100 * bl / bt);
-			//this.displayStatus("Loading Survey: " + percent + "% " + DOCUMENT_URL + " on " + host);
-			//this.displayStatus(percent + "% -- 3 DENG_SWF_URL="+DENG_SWF_URL);
+			this.displayStatus("Loading: " + percent + "% " + DOCUMENT_URL);
 		}
 	}
 }
@@ -48,35 +47,56 @@ function initDeng() {
 	if (SURVEY_AS_HTML=="" || SURVEY_AS_HTML==undefined){
 		SURVEY_AS_HTML = "This is a blank survey."
 	}
+	//SURVEY_AS_HTML = "<a href=''>dsdf</p>?fsdsd><fssd><sdf/dfs>";
 	deng.setXmlSource(SURVEY_AS_HTML);
 	deng.setSize(Stage.width, Stage.height-footerheight);
 	deng.render();
-	//this.displayStatus("Loading Survey "+ DOCUMENT_URL);
 	//this.displayStatus("5 DENG_SWF_URL="+DENG_SWF_URL);
 }
 
 function onLoadXML(success, status) {
-	//this.displayStatus("");
+	
+	var _err = "";
+	switch(status) {
+		case 0: _err = ""; break;
+		case -2: _err = "A CDATA section was not properly terminated."; break;
+		case -3: _err = "The XML declaration was not properly terminated."; break;
+		case -4: _err = "The DOCTYPE declaration was not properly terminated."; break;
+		case -5: _err = "A comment was not properly terminated."; break;
+		case -6: _err = "An XML element was malformed."; break;
+		case -7: _err = "Out of memory."; break;
+		case -8: _err = "An attribute value was not properly terminated."; break;
+		case -9: _err = "A start-tag was not matched with an end-tag."; break;
+		case -10: _err = "An end-tag was encountered without a matching start-tag."; break;
+		case -100: _err = "Rendering in progress..."; break;
+		default: _err = "An unknown error occured (" + status + ")"; break;
+	}
+	if (_err!=""){
+		this.displayStatus("We're Sorry!\n\nFailure to Render the Survey:\n" + _err + "\n\nHTML:\n"+SURVEY_AS_HTML);
+		//deng.setXmlSource("<p>We're Sorry!!!\n\nThere was a Failure to Render the Survey:\n" + _err + "\n\nHTML:\n<pre>"+SURVEY_AS_HTML+"<pre></p>");
+		//deng.render();
+	}
 	this.onResize();
 }
 
 function onParseCSS() {
-	//this.displayStatus("");
+	//this.displayStatus("onParseCSS");
 }
 
 function onCreate() {
-	//this.displayStatus("");
+	//this.displayStatus("onCreate");
 }
 
 function onSize() {
-	//this.displayStatus("");
+	//this.displayStatus("onSize");
 }
 
 function onPosition() {
-	//this.displayStatus("");
+	//this.displayStatus("onPosition");
 }
 
 function onRender() {
+    //this.displayStatus("onRender");
 	this.displayStatus();
 	done = true;
 }
@@ -96,7 +116,7 @@ function displayStatus(txt) {
 	} else if(!done) {
 		if(this.tfDebug == undefined) {
 			this.createTextField("tfDebug", 50000, 0, 0, Stage.width, 200);
-			this.tfDebug.selectable = false;
+			this.tfDebug.selectable = true;
 			this.tfDebug.multiline = true;
 			this.tfDebug.wordWrap = true;
 			this.tfDebug.font = "_sans";

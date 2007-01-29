@@ -9,6 +9,7 @@ import com.dneero.session.UserSession;
 import com.dneero.display.SurveyTemplateProcessor;
 import com.dneero.display.SurveyTakerDisplay;
 import com.dneero.survey.servlet.SurveyJavascriptServlet;
+import com.dneero.survey.servlet.SurveyFlashServlet;
 
 import javax.faces.context.FacesContext;
 import javax.faces.application.FacesMessage;
@@ -53,9 +54,7 @@ public class ResearcherSurveyDetail03 {
                 //surveyForReaders = SurveyAsHtml.getHtml(survey, Jsf.getUserSession().getUser());
                 //Have to now remove the \\' that the javascript version uses for " (double quotes)
                 //surveyForReaders = surveyForReaders.replaceAll("\\\\'", "'");
-                surveyForReaders = SurveyJavascriptServlet.getEmbedSyntax("/", survey.getSurveyid(), Jsf.getUserSession().getUser().getUserid(), true);
-
-
+                surveyForReaders = SurveyFlashServlet.getEmbedSyntax("/", survey.getSurveyid(), Jsf.getUserSession().getUser().getUserid(), true);
                 surveyForTakers = SurveyTakerDisplay.getHtmlForSurveyTaking(survey, new Blogger(), true);
                 status = survey.getStatus();
             }
@@ -68,6 +67,11 @@ public class ResearcherSurveyDetail03 {
 
     public String previousStep(){
         return "researchersurveydetail_02";
+    }
+
+    public String resetFormatting(){
+        template = "";
+        return saveSurvey();
     }
 
     public String saveSurvey(){

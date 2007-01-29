@@ -112,9 +112,9 @@ public class SurveyTemplateProcessor {
         HibernateUtil.getSession().saveOrUpdate(survey);
         for (Iterator<Question> iterator = survey.getQuestions().iterator(); iterator.hasNext();) {
             Question question = iterator.next();
-            out.append("<p>"+"\n");
-            out.append("<$question_"+question.getQuestionid()+"$>"+"\n");
-            out.append("</p>"+"\n");
+            out.append("\n"+"<p>");
+            out.append("<$question_"+question.getQuestionid()+"$>");
+            out.append("</p>");
         }
         return out.toString();
     }
@@ -129,13 +129,9 @@ public class SurveyTemplateProcessor {
             Question question = iterator.next();
             String qtag = "<$question_"+question.getQuestionid()+"$>";
             if (currentTemplate==null || currentTemplate.indexOf(qtag)<0){
-                if (out.length()>0){
-                    out.append("<p>"+"\n");
-                }
-                out.append("<$question_"+question.getQuestionid()+"$>"+"\n");
-                if (out.length()>0){
-                    out.append("</p>"+"\n");
-                }
+                out.append("\n"+"<p>");
+                out.append("<$question_"+question.getQuestionid()+"$>");
+                out.append("</p>");
             }
         }
         return out.toString();

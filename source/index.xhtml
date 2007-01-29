@@ -38,33 +38,44 @@
 
        <tr>
            <td colspan="2" valign="top">
-                <div class="rounded" style="padding: 0px; margin: 10px; background: #33FF00;">
-                    <table cellpadding="0" cellspacing="0" border="0" width="100%">
-                       <tr>
-                           <td valign="top" width="33%">
-                            <div class="rounded" style="padding: 15px; margin: 8px; background: #BFFFBF;">
-                                <font class="largefont">#{publicIndex.dollarswaiting}</font>
-                                <br/>
-                                <font class="mediumfont">waiting to be earned by bloggers!</font>
-                            </div>
-                           </td>
-                           <td valign="top" width="33%">
-                            <div class="rounded" style="padding: 15px; margin: 8px; background: #BFFFBF;">
-                                <font class="largefont">#{publicIndex.bloggersRegistered}</font>
-                                <br/>
-                                <font class="mediumfont">bloggers registered and seeking surveys</font>
-                            </div>
-                           </td>
-                           <td valign="top" width="33%">
-                            <div class="rounded" style="padding: 15px; margin: 8px; background: #BFFFBF;">
-                                <font class="largefont">#{publicIndex.surveysServedAllTime}</font>
-                                <br/>
-                                <font class="mediumfont">survey results displayed in blogs</font>
-                            </div>
-                           </td>
-                       </tr>
-                    </table>    
-                </div>
+                <c:if test="#{systemProps.isbeta eq '1'}">
+                    <div class="rounded" style="padding: 0px; margin: 10px; background: #33FF00;">
+                        <div class="rounded" style="padding: 15px; margin: 8px; background: #BFFFBF;">
+                            <font class="largefont">We're in Beta!</font>
+                            <br/>
+                            <font class="normalfont">While we're in beta mode no real money will change hands.  Researchers will be given an artificial balance of $100,000 to use to create surveys and pay bloggers.  Bloggers will accrue a balance but it will not be paid.  At the end of the beta period all balances will be set to $0.</font>
+                        </div>
+                    </div>
+                </c:if>
+                <c:if test="#{systemProps.isbeta ne '1'}">
+                    <div class="rounded" style="padding: 0px; margin: 10px; background: #33FF00;">
+                        <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                           <tr>
+                               <td valign="top" width="33%">
+                                <div class="rounded" style="padding: 15px; margin: 8px; background: #BFFFBF;">
+                                    <font class="largefont">#{publicIndex.dollarswaiting}</font>
+                                    <br/>
+                                    <font class="mediumfont">waiting to be earned by bloggers!</font>
+                                </div>
+                               </td>
+                               <td valign="top" width="33%">
+                                <div class="rounded" style="padding: 15px; margin: 8px; background: #BFFFBF;">
+                                    <font class="largefont">#{publicIndex.bloggersRegistered}</font>
+                                    <br/>
+                                    <font class="mediumfont">bloggers registered and seeking surveys</font>
+                                </div>
+                               </td>
+                               <td valign="top" width="33%">
+                                <div class="rounded" style="padding: 15px; margin: 8px; background: #BFFFBF;">
+                                    <font class="largefont">#{publicIndex.surveysServedAllTime}</font>
+                                    <br/>
+                                    <font class="mediumfont">survey results displayed in blogs</font>
+                                </div>
+                               </td>
+                           </tr>
+                        </table>
+                    </div>
+                </c:if>
            </td>
        </tr>
     </table>

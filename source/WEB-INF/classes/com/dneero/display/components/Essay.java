@@ -85,6 +85,9 @@ public class Essay implements Component {
             if (requestParams==null || requestParams.length<1){
                 throw new ComponentException(question.getQuestion()+" is required.");
             }
+            if (requestParams[0]==null || requestParams[0].equals("")){
+                throw new ComponentException(question.getQuestion()+" is required.");
+            }
         }
     }
 

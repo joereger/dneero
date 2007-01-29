@@ -23,49 +23,50 @@ public class PublicSurveyList extends SortableList {
     public PublicSurveyList() {
         super("title");
         logger.debug("instanciating PublicSurveyList");
-        //Default sort column
 
-        //Go get the surveys from the database
-        //surveys = HibernateUtil.getSession().createQuery("from Survey").list();
 
-        //Can't get to this list if you're logged in because this list isn't specific to you
+        //If user is logged-in only show them their surveys
         if (Jsf.getUserSession().getIsloggedin()){
-            try{Jsf.redirectResponse("/index.jsf"); return;} catch (Exception ex){logger.error(ex);};
-        }
+
+            BloggerSurveyList bsl = new BloggerSurveyList();
+            surveys = bsl.getSurveys();
+
+        //Otherwise, get all open surveys
+        } else {
 
 
-        surveys = new ArrayList<BloggerSurveyListItem>();
-        List results = HibernateUtil.getSession().createQuery("from Survey where status='"+Survey.STATUS_OPEN+"' order by willingtopayperrespondent desc").list();
-        for (Iterator iterator = results.iterator(); iterator.hasNext();) {
-            Survey survey = (Survey) iterator.next();
+            surveys = new ArrayList<BloggerSurveyListItem>();
+            List results = HibernateUtil.getSession().createQuery("from Survey where status='"+Survey.STATUS_OPEN+"' order by willingtopayperrespondent desc").list();
+            for (Iterator iterator = results.iterator(); iterator.hasNext();) {
+                Survey survey = (Survey) iterator.next();
 
-            BloggerSurveyListItem bsli = new BloggerSurveyListItem();
-            bsli.setSurveyid(survey.getSurveyid());
-            bsli.setTitle(survey.getTitle());
-            bsli.setBloggerhasalreadytakensurvey(false);
+                BloggerSurveyListItem bsli = new BloggerSurveyListItem();
+                bsli.setSurveyid(survey.getSurveyid());
+                bsli.setTitle(survey.getTitle());
+                bsli.setBloggerhasalreadytakensurvey(false);
 
-            if (survey.getQuestions()!=null){
-                bsli.setNumberofquestions(String.valueOf(survey.getQuestions().size()));
-            } else {
-                bsli.setNumberofquestions("0");
+                if (survey.getQuestions()!=null){
+                    bsli.setNumberofquestions(String.valueOf(survey.getQuestions().size()));
+                } else {
+                    bsli.setNumberofquestions("0");
+                }
+
+                double maxearningNum = survey.getWillingtopayperrespondent()  +   ( (survey.getWillingtopaypercpm()*survey.getMaxdisplaysperblog())/1000 );
+                bsli.setMaxearning("$"+ Str.formatForMoney(maxearningNum));
+
+                int daysleft = DateDiff.dateDiff("day", Time.getCalFromDate(survey.getEnddate()), Calendar.getInstance());
+                if (daysleft==0){
+                    bsli.setDaysuntilend("Ends today!");
+                } else if (daysleft==1){
+                    bsli.setDaysuntilend("One day left!");
+                } else {
+                    bsli.setDaysuntilend(daysleft + " days left!");
+                }
+
+                surveys.add(bsli);
             }
 
-            double maxearningNum = survey.getWillingtopayperrespondent()  +   ( (survey.getWillingtopaypercpm()*survey.getMaxdisplaysperblog())/1000 );
-            bsli.setMaxearning("$"+ Str.formatForMoney(maxearningNum));
-
-            int daysleft = DateDiff.dateDiff("day", Time.getCalFromDate(survey.getEnddate()), Calendar.getInstance());
-            if (daysleft==0){
-                bsli.setDaysuntilend("Ends today!");
-            } else if (daysleft==1){
-                bsli.setDaysuntilend("One day left!");
-            } else {
-                bsli.setDaysuntilend(daysleft + " days left!");
-            }
-
-            surveys.add(bsli);
         }
-
-
 
 
 

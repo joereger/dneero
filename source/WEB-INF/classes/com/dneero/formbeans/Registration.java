@@ -17,8 +17,6 @@ import com.dneero.systemprops.SystemProperty;
 import com.dneero.systemprops.BaseUrl;
 import com.octo.captcha.service.CaptchaServiceException;
 
-import javax.faces.context.FacesContext;
-import javax.faces.application.FacesMessage;
 import javax.servlet.http.Cookie;
 import java.util.*;
 
@@ -37,6 +35,7 @@ public class Registration {
     private String lastname;
     private String j_captcha_response;
     private String eula;
+    private String invitationcode;
 
     //private String temp;
 
@@ -55,10 +54,16 @@ public class Registration {
         //Validation
         boolean haveErrors = false;
 
+        if (!invitationcode.equals("diaga")){
+            Jsf.setFacesMessage("registrationForm:invitationcode", "The dNeero beta is currently by invitation only.  We'll open the beta to the public very soon.");
+            haveErrors = true;
+        }
+
         if (!password.equals(passwordverify)){
             Jsf.setFacesMessage("registrationForm:password", "Password and Verify Password must match.");
             haveErrors = true;
         }
+
 
         if (!eula.equals(EulaHelper.getMostRecentEula().getEula())){
             logger.debug("eula="+eula);
@@ -247,5 +252,14 @@ public class Registration {
 
     public void setEula(String eula) {
         this.eula = eula;
+    }
+
+
+    public String getInvitationcode() {
+        return invitationcode;
+    }
+
+    public void setInvitationcode(String invitationcode) {
+        this.invitationcode = invitationcode;
     }
 }

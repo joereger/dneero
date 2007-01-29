@@ -28,8 +28,6 @@
     <img src="/images/lightbulb_on.png" align="left"/> 
     In this step you can optionally change the formatting of the survey as it appears on a person's blog.  Click the Advanced Formatting tab to get started.  This requires some basic HTML skills and is very powerful:
     <ul>
-    <li>Add a link to your company homepage</li>
-    <li>Embed an image or video of your product in use</li>
     <li>Change the order of questions</li>
     <li>Describe your motivations behind the survey</li>
     </ul>
@@ -44,31 +42,87 @@
     <t:panelTabbedPane id="panel" bgcolor="#ffffff">
         <t:panelTab id="panel_b" label="Preview of Survey in Blog">
             <h:graphicImage url="/images/clear.gif" width="725" height="1"/><br/>
-            <f:verbatim>#{researcherSurveyDetail03.surveyForReaders}</f:verbatim>
+            <center>
+                <f:verbatim>#{researcherSurveyDetail03.surveyForReaders}</f:verbatim>
+            </center>
         </t:panelTab>
         <t:panelTab id="panel_c" label="Advanced Formatting">
             <h:graphicImage url="/images/clear.gif" width="725" height="1"/><br/>
-            <font class="smallfont">Add any HTML formatting to the box below.  You must click Save Advanced Formatting to see your changes.  A list of question tags can be found to the right of the screen. Use these tags to add questions to the survey.  Each question tag will be replaced with the respondent's actual answer when it's displayed on their blog. </font>
+            <font class="smallfont">Add HTML formatting to the box below.  You must click Save Advanced Formatting to see your changes.  A list of question tags can be found to the right of the screen. Use these tags to add questions to the survey.  Each question tag will be replaced with the respondent's actual answer when it's displayed on their blog.  Before you move to the next section verify that your survey looks like you want it to look. </font>
             <f:verbatim><br/><br/></f:verbatim>
-            <h:panelGrid columns="2" cellpadding="3" border="0">
-                <h:panelGroup>
-                    <h:inputTextarea value="#{researcherSurveyDetail03.template}" cols="45" rows="15"></h:inputTextarea>
-                    <f:verbatim rendered="#{researcherSurveyDetail02.status eq 1}"><br/><br/></f:verbatim>
-                    <h:commandButton action="#{researcherSurveyDetail03.saveSurvey}" value="Save Advanced Formatting" rendered="#{researcherSurveyDetail03.status eq 1}" styleClass="formsubmitbutton"></h:commandButton>
-                </h:panelGroup>
-                <h:panelGroup>
-                    <!-- Begin Question Key -->
-                    <d:roundedCornerBox uniqueboxname="questionkey" bodycolor="e6e6e6" widthinpixels="200">
-                        <ui:repeat value="#{researcherSurveyQuestionList.questions}" var="question">
-                            <b><h:outputText value="&lt;$question_#{question.questionid}$>" styleClass="smallfont"></h:outputText></b>
+            <table cellpadding="0" cellspacing="5" border="0">
+                <tr>
+                    <td valign="top" width="75%">
+                        <h:inputTextarea value="#{researcherSurveyDetail03.template}" cols="45" rows="15"></h:inputTextarea>
+                        <f:verbatim rendered="#{researcherSurveyDetail02.status eq 1}"><br/><br/></f:verbatim>
+                        <h:commandButton action="#{researcherSurveyDetail03.resetFormatting}" value="Reset" rendered="#{researcherSurveyDetail03.status eq 1}" styleClass="formsubmitbutton"></h:commandButton>
+                        <h:commandButton action="#{researcherSurveyDetail03.saveSurvey}" value="Save Advanced Formatting" rendered="#{researcherSurveyDetail03.status eq 1}" styleClass="formsubmitbutton"></h:commandButton>
+                        <d:roundedCornerBox uniqueboxname="htmltips" bodycolor="e6e6e6" widthinpixels="300">
+                            <font class="mediumfont">Tips:</font>
+                            <font class="smallfont">
+                                <ul>
+                                    <li>HTML in surveys can be finickey.  We must display inside of a Flash movie to provide access to more bloggers and it requires very strictly perfect HTML.</li>
+                                    <li>Make small changes at first.</li>
+                                    <li>A very common mistake is not closing tags.  All tags must be closed with another tag of the same name (or self-closed).</li>
+                                    <li>If you get into trouble and can't get your survey to display, start over by clicking Reset.</li>
+                                </ul>
+                            </font>
+                        </d:roundedCornerBox>
+                    </td>
+                    <td valign="top">
+                        <!-- Begin Question Key -->
+                        <d:roundedCornerBox uniqueboxname="questionkey" bodycolor="e6e6e6" widthinpixels="300">
+                            <font class="mediumfont">Question Tags:</font>
                             <br/>
-                            <h:outputText value="#{question.question}" styleClass="smallfont"></h:outputText>
-                            <br/><br/>
-                        </ui:repeat>
-                    </d:roundedCornerBox>
-                    <!-- End Question Key -->
-                </h:panelGroup>
-            </h:panelGrid>
+                            <font class="smallfont">Use these tags to move a question around in the survey.  You can create tables using the html tags below but remember that you have a set 425 pixels to work with.</font>
+                            <br/>
+                            <ui:repeat value="#{researcherSurveyQuestionList.questions}" var="question">
+                                <b><h:outputText value="&lt;$question_#{question.questionid}$>" styleClass="smallfont"></h:outputText></b>
+                                <br/>
+                                <h:outputText value="#{question.question}" styleClass="smallfont"></h:outputText>
+                                <br/><br/>
+                            </ui:repeat>
+                        </d:roundedCornerBox>
+                        <!-- End Question Key -->
+                        <d:roundedCornerBox uniqueboxname="supportedhtml" bodycolor="e6e6e6" widthinpixels="300">
+                            <font class="mediumfont">Supported HTML Tags:</font>
+                            <br/>
+                            <font class="smallfont">A powerful subset of html tags is supported.  These tags must be carefully applied in xHTML format.  If the survey does not display then there is an error with the html syntax.  You can style these tags with basic CSS.</font>
+                            <br/>
+                            <table cellpadding="0" cellspacing="5" border="0">
+                                <tr>
+                                    <td valign="top" width="50%">
+                                        &lt;a&gt;<br/>
+                                        &lt;b&gt;<br/>
+                                        &lt;blockquote&gt;<br/>
+                                        &lt;div&gt;<br/>
+                                        &lt;h1&gt; - &lt;h6&gt;<br/>
+                                        &lt;hr&gt;<br/>
+                                        &lt;i&gt;<br/>
+                                        &lt;img&gt;<br/>
+                                        &lt;li&gt;<br/>
+                                        &lt;ol&gt;<br/>
+                                    </td>
+                                    <td valign="top" width="50%">
+                                        &lt;p&gt;<br/>
+                                        &lt;pre&gt;<br/>
+                                        &lt;strong&gt;<br/>
+                                        &lt;style&gt;<br/>
+                                        &lt;table&gt;<br/>
+                                        &lt;td&gt;<br/>
+                                        &lt;th&gt;<br/>
+                                        &lt;tr&gt;<br/>
+                                        &lt;ul&gt;<br/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </d:roundedCornerBox>
+                    </td>
+                </tr>
+            </table>
+
+
+
         </t:panelTab>
     </t:panelTabbedPane>
 

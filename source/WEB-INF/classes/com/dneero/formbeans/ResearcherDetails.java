@@ -9,6 +9,8 @@ import com.dneero.session.UserSession;
 import com.dneero.util.Jsf;
 import com.dneero.util.GeneralException;
 import com.dneero.dao.*;
+import com.dneero.systemprops.SystemProperty;
+import com.dneero.money.MoveMoneyInAccountBalance;
 
 /**
  * User: Joe Reger Jr
@@ -73,6 +75,11 @@ public class ResearcherDetails {
             if (isnewresearcher){
                 userSession.getUser().setResearcherid(researcher.getResearcherid());
                 try{userSession.getUser().save();}catch(Exception ex){logger.error(ex);}
+            }
+
+            //Beta mode cash to researcher
+            if (isnewresearcher && SystemProperty.getProp(SystemProperty.PROP_ISBETA).equals("1")){
+                MoveMoneyInAccountBalance.pay(userSession.getUser(), 100000, "Beta mode researcher startup cash.", false);
             }
 
             boolean hasroleassigned = false;

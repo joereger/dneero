@@ -23,6 +23,7 @@ public class SysadminSystemProps {
     public String paypalsignature;
     public String paypalenvironment;
     public String issslon;
+    public String isbeta;
 
     public SysadminSystemProps(){
         baseurl = SystemProperty.getProp(SystemProperty.PROP_BASEURL);
@@ -34,6 +35,7 @@ public class SysadminSystemProps {
         paypalsignature = SystemProperty.getProp(SystemProperty.PROP_PAYPALSIGNATURE);
         paypalenvironment = SystemProperty.getProp(SystemProperty.PROP_PAYPALENVIRONMENT);
         issslon = SystemProperty.getProp(SystemProperty.PROP_ISSSLON);
+        isbeta = SystemProperty.getProp(SystemProperty.PROP_ISBETA);
     }
 
     public String saveProps(){
@@ -47,6 +49,7 @@ public class SysadminSystemProps {
             SystemProperty.setProp(SystemProperty.PROP_PAYPALSIGNATURE, paypalsignature);
             SystemProperty.setProp(SystemProperty.PROP_PAYPALENVIRONMENT, paypalenvironment);
             SystemProperty.setProp(SystemProperty.PROP_ISSSLON, issslon);
+            SystemProperty.setProp(SystemProperty.PROP_ISBETA, isbeta);
             BaseUrl.refresh();
             Jsf.setFacesMessage("Save complete.");
         } catch (Exception ex){
@@ -130,5 +133,14 @@ public class SysadminSystemProps {
 
     public void setIssslon(String issslon) {
         this.issslon = issslon;
+    }
+
+
+    public String getIsbeta() {
+        return isbeta;
+    }
+
+    public void setIsbeta(String isbeta) {
+        this.isbeta = isbeta;
     }
 }
