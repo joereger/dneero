@@ -6,7 +6,8 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:t="http://myfaces.apache.org/tomahawk"
-      xmlns:d="http://dneero.com/taglib">
+      xmlns:d="http://dneero.com/taglib"
+      xmlns:c="http://java.sun.com/jstl/core">
 
 <ui:composition template="/template/template-facelets.xhtml">
     <ui:define name="title">
@@ -146,7 +147,15 @@
     </t:panelTabbedPane>
 
 
-     
+    <c:if test="#{systemProps.isbeta eq '1'}">
+        <div class="rounded" style="padding: 0px; margin: 10px; background: #33FF00;">
+            <div class="rounded" style="padding: 15px; margin: 8px; background: #BFFFBF;">
+                <font class="largefont">We're in Beta!</font>
+                <br/>
+                <font class="normalfont">Of course, being in Beta, you didn't really earn any money in the real world.  But we will increase your account balance.  Thanks for your help testing the system.</font>
+            </div>
+        </div>
+    </c:if>
 
 
 

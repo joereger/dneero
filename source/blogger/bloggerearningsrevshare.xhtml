@@ -7,13 +7,25 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:t="http://myfaces.apache.org/tomahawk"
       xmlns:af="http://xmlns.oracle.com/adf/faces"
-      xmlns:d="http://dneero.com/taglib">
+      xmlns:d="http://dneero.com/taglib"
+      xmlns:c="http://java.sun.com/jstl/core">
 
 <ui:composition template="/template/template-facelets.xhtml">
     <ui:define name="title">Revenue Sharing<br/><br/></ui:define>
     <ui:param name="navtab" value="bloggers"/>
     <ui:define name="body">
     <d:authorization acl="blogger" redirectonfail="true"/>
+
+
+    <c:if test="#{systemProps.isbeta eq '1'}">
+        <div class="rounded" style="padding: 0px; margin: 10px; background: #33FF00;">
+            <div class="rounded" style="padding: 15px; margin: 8px; background: #BFFFBF;">
+                <font class="largefont">We're in Beta!</font>
+                <br/>
+                <font class="normalfont">During the Beta you will accrue money to your account balance but you won't actually earn that money in the real world.  But, the referrals that you make now will remain valid once we go live.  So invite, invite, invite!</font>
+            </div>
+        </div>
+    </c:if>
 
         <table cellpadding="0" cellspacing="0" border="0">
             <tr><td valign="top">

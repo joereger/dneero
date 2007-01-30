@@ -7,13 +7,25 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:t="http://myfaces.apache.org/tomahawk"
       xmlns:af="http://xmlns.oracle.com/adf/faces"
-      xmlns:d="http://dneero.com/taglib">
+      xmlns:d="http://dneero.com/taglib"
+      xmlns:c="http://java.sun.com/jstl/core">
 
 <ui:composition template="/template/template-facelets.xhtml">
     <ui:define name="title">Account Balance: #{accountBalance.currentbalance}<br/><br/></ui:define>
     <ui:param name="navtab" value="youraccount"/>
     <ui:define name="body">
     <d:authorization acl="account" redirectonfail="true"/>
+
+
+    <c:if test="#{systemProps.isbeta eq '1'}">
+        <div class="rounded" style="padding: 0px; margin: 10px; background: #33FF00;">
+            <div class="rounded" style="padding: 15px; margin: 8px; background: #BFFFBF;">
+                <font class="largefont">We're in Beta!</font>
+                <br/>
+                <font class="normalfont">Because we're in beta mode this account balance is artificial.  At the end of the Beta this balance will be wiped out and we'll start again with real money!</font>
+            </div>
+        </div>
+    </c:if>
 
     
     <h:form>

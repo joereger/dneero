@@ -77,6 +77,20 @@
                 <h:panelGroup>
                     <h:message for="iseverythingpasswordprotected" styleClass="RED"></h:message>
                 </h:panelGroup>
+
+                <h:panelGroup>
+                    <h:outputText value="IsBeta" styleClass="formfieldnamefont"></h:outputText>
+                    <br/>
+                    <font class="tinyfont">0 or 1.  Whether the system is operating in BETA mode or not.</font>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:inputText value="#{systemProps.isbeta}" id="isbeta" required="true">
+                        <f:validateLength maximum="255"></f:validateLength>
+                    </h:inputText>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:message for="isbeta" styleClass="RED"></h:message>
+                </h:panelGroup>
                 
                 <h:panelGroup>
                     <h:outputText value="PayPalApiUsername" styleClass="formfieldnamefont"></h:outputText>
@@ -146,21 +160,6 @@
                 </h:panelGroup>
                 <h:panelGroup>
                     <h:message for="issslon" styleClass="RED"></h:message>
-                </h:panelGroup>
-
-
-                <h:panelGroup>
-                    <h:outputText value="IsBeta" styleClass="formfieldnamefont"></h:outputText>
-                    <br/>
-                    <font class="tinyfont">0 or 1.  Whether the system is operating in BETA mode or not.</font>
-                </h:panelGroup>
-                <h:panelGroup>
-                    <h:inputText value="#{systemProps.isbeta}" id="isbeta" required="true">
-                        <f:validateLength maximum="255"></f:validateLength>
-                    </h:inputText>
-                </h:panelGroup>
-                <h:panelGroup>
-                    <h:message for="isbeta" styleClass="RED"></h:message>
                 </h:panelGroup>
 
 
