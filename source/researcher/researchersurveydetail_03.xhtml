@@ -24,16 +24,6 @@
 
     <h:inputHidden name="surveyid" value="#{userSession.currentSurveyid}" />
 
-    <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
-    <img src="/images/lightbulb_on.png" align="left"/> 
-    In this step you can optionally change the formatting of the survey as it appears on a person's blog.  Click the Advanced Formatting tab to get started.  This requires some basic HTML skills and is very powerful:
-    <ul>
-    <li>Change the order of questions</li>
-    <li>Describe your motivations behind the survey</li>
-    </ul>
-    Advanced Formatting is powerful.  Please keep in mind that you are dealing with space on a person's blog.  Being more outrageous may require you to pay a higher per-display amount to get bloggers to post it.  Be careful and respectful.
-    </font></div></center>
-
     <f:verbatim><br/></f:verbatim>
     <f:verbatim><br/></f:verbatim>
 
@@ -43,31 +33,88 @@
         <t:panelTab id="panel_b" label="Preview of Survey in Blog">
             <h:graphicImage url="/images/clear.gif" width="725" height="1"/><br/>
             <center>
-                <f:verbatim>#{researcherSurveyDetail03.surveyForReaders}</f:verbatim>
+                <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
+                <img src="/images/lightbulb_on.png" align="right"/>
+                This is how your survey looks when posted to a blog.  Bloggers, depending on their blogging tool, can choose from one of many embedding methods.  Each renders the survey slightly differently.  You can enable/disable each method on the Advanced Formatting tab.
+                <br/><br/></font></div></center>
+                <table cellpadding="30" cellspacing="0" border="0">
+                    <tr style="border-top: solid #cccccc;">
+                        <td>
+                            <font class="formfieldnamefont">Javascript Embed:</font>
+                        </td>
+                        <td valign="top">
+                            <f:verbatim>#{researcherSurveyDetail03.embedjavascriptsyntax}</f:verbatim>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td valign="top" nowrap="true" style="border-top: solid 2px #cccccc;">
+                            <font class="formfieldnamefont">Flash Embed:</font>
+                        </td>
+                        <td valign="top" style="border-top: solid 2px #cccccc;">
+                            <f:verbatim>#{researcherSurveyDetail03.embedflashsyntax}</f:verbatim>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td valign="top" nowrap="true" style="border-top: solid 2px #cccccc;">
+                            <font class="formfieldnamefont">Link Embed:</font>
+                        </td>
+                        <td valign="top" style="border-top: solid 2px #cccccc;">
+                            <f:verbatim>#{researcherSurveyDetail03.embedlinksyntax}</f:verbatim>
+                        </td>
+                    </tr>
+                </table>
             </center>
         </t:panelTab>
         <t:panelTab id="panel_c" label="Advanced Formatting">
             <h:graphicImage url="/images/clear.gif" width="725" height="1"/><br/>
-            <font class="smallfont">Add HTML formatting to the box below.  You must click Save Advanced Formatting to see your changes.  A list of question tags can be found to the right of the screen. Use these tags to add questions to the survey.  Each question tag will be replaced with the respondent's actual answer when it's displayed on their blog.  Before you move to the next section verify that your survey looks like you want it to look. </font>
+            <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
+            <img src="/images/lightbulb_on.png" align="right"/>
+            In this step you can optionally change the formatting of the survey as it appears on a person's blog.  Click the Advanced Formatting tab to get started.  This requires some basic HTML skills and is very powerful:
+            <ul>
+            <li>Change the order of questions</li>
+            <li>Describe your motivations behind the survey</li>
+            </ul>
+            Advanced Formatting is powerful.  Please keep in mind that you are dealing with space on a person's blog.  Being more outrageous may require you to pay a higher per-display amount to get bloggers to post it.  Be careful and respectful.
+            <br/><br/>
+            Add HTML formatting to the box below.  You must click Save Advanced Formatting to see your changes.  A list of question tags can be found to the right of the screen. Use these tags to add questions to the survey.  Each question tag will be replaced with the respondent's actual answer when it's displayed on their blog.  Before you move to the next section verify that your survey looks like you want it to look.
+            </font></div></center>
             <f:verbatim><br/><br/></f:verbatim>
             <table cellpadding="0" cellspacing="5" border="0">
                 <tr>
                     <td valign="top" width="75%">
-                        <h:inputTextarea value="#{researcherSurveyDetail03.template}" cols="45" rows="15"></h:inputTextarea>
+                        <h:inputTextarea value="#{researcherSurveyDetail03.template}" cols="55" rows="15"></h:inputTextarea>
                         <f:verbatim rendered="#{researcherSurveyDetail02.status eq 1}"><br/><br/></f:verbatim>
+                        <table cellpadding="0" cellspacing="5" border="0">
+                            <tr>
+                                <td valign="top" nowrap="true">
+                                    <h:selectBooleanCheckbox title="embedjavascript" value="#{researcherSurveyDetail03.embedjavascript}" rendered="#{researcherSurveyDetail03.status eq 1}"/>
+                                    <font class="formfieldnamefont">Allow Javascript Embed?</font>
+                                </td>
+                                <td valign="top">
+                                    <font class="smallfont">This is the most robust embedding option, least likely to cause issues with browsers/users.</font>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td valign="top" nowrap="true">
+                                    <h:selectBooleanCheckbox title="embedflash" value="#{researcherSurveyDetail03.embedflash}" rendered="#{researcherSurveyDetail03.status eq 1}"/>
+                                    <font class="formfieldnamefont">Allow Flash Embed?</font>
+                                </td>
+                                <td valign="top">
+                                    <font class="smallfont">Flash embedding is powerful because it opens up MySpace and some other hard-to-embed environments but this reach comes at a cost:  you're unable to embed video/images in your survey or do advanced html formatting.</font>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td valign="top" nowrap="true">
+                                    <h:selectBooleanCheckbox title="embedlink" value="#{researcherSurveyDetail03.embedlink}" rendered="#{researcherSurveyDetail03.status eq 1}"/>
+                                    <font class="formfieldnamefont">Allow Link Embed?</font>
+                                </td>
+                                <td valign="top">
+                                    <font class="smallfont">The simplest form of embedding that works anywhere on the web.  Only a single image link appears on the blogger's site.  That link goes to a page that displays the survey.</font>
+                                </td>
+                            </tr>
+                        </table>
                         <h:commandButton action="#{researcherSurveyDetail03.resetFormatting}" value="Reset" rendered="#{researcherSurveyDetail03.status eq 1}" styleClass="formsubmitbutton"></h:commandButton>
                         <h:commandButton action="#{researcherSurveyDetail03.saveSurvey}" value="Save Advanced Formatting" rendered="#{researcherSurveyDetail03.status eq 1}" styleClass="formsubmitbutton"></h:commandButton>
-                        <d:roundedCornerBox uniqueboxname="htmltips" bodycolor="e6e6e6" widthinpixels="300">
-                            <font class="mediumfont">Tips:</font>
-                            <font class="smallfont">
-                                <ul>
-                                    <li>HTML in surveys can be finickey.  We must display inside of a Flash movie to provide access to more bloggers and it requires very strictly perfect HTML.</li>
-                                    <li>Make small changes at first.</li>
-                                    <li>A very common mistake is not closing tags.  All tags must be closed with another tag of the same name (or self-closed).</li>
-                                    <li>If you get into trouble and can't get your survey to display, start over by clicking Reset.</li>
-                                </ul>
-                            </font>
-                        </d:roundedCornerBox>
                     </td>
                     <td valign="top">
                         <!-- Begin Question Key -->
@@ -116,6 +163,17 @@
                                     </td>
                                 </tr>
                             </table>
+                        </d:roundedCornerBox>
+                        <d:roundedCornerBox uniqueboxname="htmltips" bodycolor="e6e6e6" widthinpixels="300">
+                            <font class="mediumfont">Tips:</font>
+                            <font class="smallfont">
+                                <ul>
+                                    <li>HTML in surveys can be finickey.  We must display inside of a Flash movie to provide access to more bloggers and it requires very strictly perfect HTML.</li>
+                                    <li>Make small changes at first.</li>
+                                    <li>A very common mistake is not closing tags.  All tags must be closed with another tag of the same name (or self-closed).</li>
+                                    <li>If you get into trouble and can't get your survey to display, start over by clicking Reset.</li>
+                                </ul>
+                            </font>
                         </d:roundedCornerBox>
                     </td>
                 </tr>

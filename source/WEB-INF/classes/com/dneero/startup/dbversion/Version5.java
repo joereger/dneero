@@ -9,7 +9,7 @@ import org.apache.log4j.Logger;
  * Date: Nov 26, 2006
  * Time: 11:57:46 AM
  */
-public class Version4 implements UpgradeDatabaseOneVersion {
+public class Version5 implements UpgradeDatabaseOneVersion {
 
     Logger logger = Logger.getLogger(this.getClass().getName());
 
@@ -24,15 +24,23 @@ public class Version4 implements UpgradeDatabaseOneVersion {
 
         //-----------------------------------
         //-----------------------------------
-        int count = Db.RunSQLUpdate("UPDATE response SET referredbyblogid='0'");
+        int count = Db.RunSQLUpdate("UPDATE survey SET embedjavascript='true'");
         //-----------------------------------
         //-----------------------------------
 
         //-----------------------------------
         //-----------------------------------
-        int count1 = Db.RunSQLUpdate("UPDATE responsepending SET referredbyblogid='0'");
+        int count1 = Db.RunSQLUpdate("UPDATE survey SET embedflash='true'");
         //-----------------------------------
         //-----------------------------------
+
+        //-----------------------------------
+        //-----------------------------------
+        int count2 = Db.RunSQLUpdate("UPDATE survey SET embedlink='true'");
+        //-----------------------------------
+        //-----------------------------------
+
+
 
         logger.debug("doPostHibernateUpgrade() finish");
     }
@@ -76,5 +84,9 @@ public class Version4 implements UpgradeDatabaseOneVersion {
     //-----------------------------------
     //-----------------------------------
 
-
+    //-----------------------------------
+    //-----------------------------------
+    //int count2 = Db.RunSQLUpdate("UPDATE survey SET embedlink='\u0001'");
+    //-----------------------------------
+    //-----------------------------------
 }

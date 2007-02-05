@@ -66,6 +66,15 @@
         <property name="template" type="text">
             <column name="template"/>
         </property>
+        <property name="embedjavascript" type="boolean">
+            <column name="embedjavascript" />
+        </property>
+        <property name="embedflash" type="boolean">
+            <column name="embedflash" />
+        </property>
+        <property name="embedlink" type="boolean">
+            <column name="embedlink" />
+        </property>
 
     </class>
 </hibernate-mapping>

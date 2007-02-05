@@ -23,7 +23,7 @@
 <h:form>
 
    <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
-    <img src="/images/lightbulb_on.png" align="left" width="48" height="48"/>
+    <img src="/images/lightbulb_on.png" align="right" width="48" height="48"/>
     <font class="mediumfont">You've earned #{bloggerSurveyPosttoblog.earnedalready} by responding to this survey!  Now earn up to another #{bloggerSurveyPosttoblog.canearn} by posting your answers to your blog!</font>
     <br/><br/>
     </font></div></center>
@@ -33,24 +33,30 @@
         <t:panelTab id="panel_f" label="Post to your Blog">
             <h:graphicImage url="/images/clear.gif" width="700" height="1"/><br/>
             <font class="mediumfont">Post to your blog by copying the script below and pasting it into a blog post:</font>
-            <br/><br/>
-            <center>
-            <font class="smallfont">Javascript Version for Most Applications</font><br/>
-            <div class="rounded" style="background: #00ff00; text-align: center; padding: 20px;"><font class="smallfont">
-            <textarea rows="3" cols="55" readonly="readonly" onClick="javascript:this.select();">#{bloggerSurveyPosttoblog.htmltoposttoblog}</textarea>
-            </font></div></center>
-            <br/><br/>
-            <center>
-            <font class="smallfont">Flash Version</font><br/>
-            <div class="rounded" style="background: #e6e6e6; text-align: center; padding: 20px;"><font class="smallfont">
-            <textarea rows="3" cols="55" readonly="readonly" onClick="javascript:this.select();">#{bloggerSurveyPosttoblog.htmltoposttoblogflash}</textarea>
-            </font></div></center>
-            <br/><br/>
-            <center>
-            <font class="smallfont">Image Link Version</font><br/>
-            <div class="rounded" style="background: #e6e6e6; text-align: center; padding: 20px;"><font class="smallfont">
-            <textarea rows="3" cols="55" readonly="readonly" onClick="javascript:this.select();">#{bloggerSurveyPosttoblog.htmltoposttoblogimagelink}</textarea>
-            </font></div></center>
+            <t:div rendered="#{bloggerSurveyPosttoblog.survey.embedjavascript}">
+                <br/><br/>
+                <center>
+                <font class="smallfont">Javascript Version for Most Applications</font><br/>
+                <div class="rounded" style="background: #00ff00; text-align: center; padding: 20px;"><font class="smallfont">
+                <textarea rows="3" cols="55" readonly="readonly" onClick="javascript:this.select();">#{bloggerSurveyPosttoblog.htmltoposttoblog}</textarea>
+                </font></div></center>
+            </t:div>
+            <t:div rendered="#{bloggerSurveyPosttoblog.survey.embedflash}">
+                <br/><br/>
+                <center>
+                <font class="smallfont">Flash Version</font><br/>
+                <div class="rounded" style="background: #e6e6e6; text-align: center; padding: 20px;"><font class="smallfont">
+                <textarea rows="3" cols="55" readonly="readonly" onClick="javascript:this.select();">#{bloggerSurveyPosttoblog.htmltoposttoblogflash}</textarea>
+                </font></div></center>
+             </t:div>
+             <t:div rendered="#{bloggerSurveyPosttoblog.survey.embedlink}">
+                <br/><br/>
+                <center>
+                <font class="smallfont">Image Link Version</font><br/>
+                <div class="rounded" style="background: #e6e6e6; text-align: center; padding: 20px;"><font class="smallfont">
+                <textarea rows="3" cols="55" readonly="readonly" onClick="javascript:this.select();">#{bloggerSurveyPosttoblog.htmltoposttoblogimagelink}</textarea>
+                </font></div></center>
+             </t:div>
         </t:panelTab>
         <t:panelTab id="panel_b" label="Survey Summary" rendered="true">
             <h:graphicImage url="/images/clear.gif" width="700" height="1"/><br/>
@@ -134,7 +140,7 @@
         <t:panelTab id="panel_e" label="Your Answers">
             <h:graphicImage url="/images/clear.gif" width="700" height="1"/><br/>
             <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
-            <img src="/images/lightbulb_on.png" align="left"/>
+            <img src="/images/lightbulb_on.png" align="right"/>
             These are the answers that you provided.
             <br/><br/><br/>
             </font></div></center>

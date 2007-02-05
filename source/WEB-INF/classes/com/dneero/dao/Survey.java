@@ -42,6 +42,9 @@ public class Survey extends BasePersistentClass implements java.io.Serializable,
      private Date enddate;
      private String template;
      private int status;
+     private boolean embedjavascript = true;
+     private boolean embedflash = true;
+     private boolean embedlink = true;
      private Set<Question> questions = new HashSet<Question>();
      private Set<Response> responses = new HashSet<Response>();
      private Set<Impression> impressions = new HashSet<Impression>();
@@ -254,5 +257,28 @@ public class Survey extends BasePersistentClass implements java.io.Serializable,
         this.status = status;
     }
 
-    
+
+    public boolean getEmbedjavascript() {
+        return embedjavascript;
+    }
+
+    public void setEmbedjavascript(boolean embedjavascript) {
+        this.embedjavascript = embedjavascript;
+    }
+
+    public boolean getEmbedflash() {
+        return embedflash;
+    }
+
+    public void setEmbedflash(boolean embedflash) {
+        this.embedflash = embedflash;
+    }
+
+    public boolean getEmbedlink() {
+        return embedlink;
+    }
+
+    public void setEmbedlink(boolean embedlink) {
+        this.embedlink = embedlink;
+    }
 }

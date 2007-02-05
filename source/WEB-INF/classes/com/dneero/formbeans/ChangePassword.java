@@ -45,7 +45,7 @@ public class ChangePassword {
 
 
 
-        return "success";
+        return "accountindex";
     }
 
 

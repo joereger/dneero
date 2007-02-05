@@ -60,7 +60,7 @@ public class AccountSettings {
             }
         }
 
-        return "success";
+        return "accountindex";
     }
 
 
