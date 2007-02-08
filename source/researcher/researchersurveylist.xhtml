@@ -53,6 +53,15 @@
                 <f:param name="surveyid" value="#{survey.surveyid}" />
             </h:commandLink>
           </af:column>
+          <af:column rendered="#{survey.status eq 4}">
+            <f:facet name="header">
+              <af:outputText value="-" inlineStyle="color: #ffffff;"/>
+            </f:facet>
+            <h:commandLink action="#{researcherEmailinvite.beginView}" rendered="#{survey.status eq 4}">
+                <h:outputText value="Invite" styleClass="normalfont" escape="false" />
+                <f:param name="surveyid" value="#{survey.surveyid}" />
+            </h:commandLink>
+          </af:column>
           <af:column>
             <f:facet name="header">
               <af:outputText value="-" inlineStyle="color: #ffffff;"/>

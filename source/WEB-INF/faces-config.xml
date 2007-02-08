@@ -314,6 +314,17 @@
     </managed-bean>
 
     <managed-bean>
+        <managed-bean-name>researcherEmailinvite</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.ResearcherEmailinvite</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>researcherEmailinviteComplete</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.ResearcherEmailinviteComplete</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
         <managed-bean-name>bloggerIndex</managed-bean-name>
         <managed-bean-class>com.dneero.formbeans.BloggerIndex</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
@@ -884,7 +895,18 @@
             <to-view-id>/researcher/results_financial.xhtml</to-view-id>
         </navigation-case>
 
-
+        <navigation-case>
+            <from-outcome>researcheremailinvite</from-outcome>
+            <to-view-id>/researcher/emailinvite.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>researcheremailinvitecomplete</from-outcome>
+            <to-view-id>/researcher/emailinvite-complete.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>researcheremailinvitesent</from-outcome>
+            <to-view-id>/researcher/emailinvite-sent.xhtml</to-view-id>
+        </navigation-case>
         <navigation-case>
             <from-outcome>researcherdetails</from-outcome>
             <to-view-id>/researcher/researcherdetails.xhtml</to-view-id>

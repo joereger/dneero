@@ -1,0 +1,10 @@
+You've been invited to take a survey to earn up to <$args.0$>!
+
+<$args.4$>
+<$args.3$>
+
+<$args.2$>
+
+Best,
+
+The dNeero Team

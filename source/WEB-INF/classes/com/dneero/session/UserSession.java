@@ -6,6 +6,7 @@ import org.apache.log4j.Logger;
 
 import java.util.Iterator;
 import java.util.HashMap;
+import java.util.ArrayList;
 import java.io.Serializable;
 
 /**
@@ -29,6 +30,10 @@ public class UserSession implements Serializable {
     private String pendingSurveyResponseAsString = "";
     private int pendingSurveyReferredbyblogid = 0;
     private boolean iseulaok = true;
+    private int emailinvitesurveyiduserisinvitedto = 0;
+    private String emailinvitesubject = "";
+    private String emailinvitemessage = "";
+    private ArrayList<String> emailinviteaddresses = new ArrayList<String>();
 
     public UserSession(){
 
@@ -135,5 +140,38 @@ public class UserSession implements Serializable {
 
     public void setIseulaok(boolean iseulaok) {
         this.iseulaok = iseulaok;
+    }
+
+
+    public ArrayList<String> getEmailinviteaddresses() {
+        return emailinviteaddresses;
+    }
+
+    public void setEmailinviteaddresses(ArrayList<String> emailinviteaddresses) {
+        this.emailinviteaddresses = emailinviteaddresses;
+    }
+
+    public int getEmailinvitesurveyiduserisinvitedto() {
+        return emailinvitesurveyiduserisinvitedto;
+    }
+
+    public void setEmailinvitesurveyiduserisinvitedto(int emailinvitesurveyiduserisinvitedto) {
+        this.emailinvitesurveyiduserisinvitedto = emailinvitesurveyiduserisinvitedto;
+    }
+
+    public String getEmailinvitesubject() {
+        return emailinvitesubject;
+    }
+
+    public void setEmailinvitesubject(String emailinvitesubject) {
+        this.emailinvitesubject = emailinvitesubject;
+    }
+
+    public String getEmailinvitemessage() {
+        return emailinvitemessage;
+    }
+
+    public void setEmailinvitemessage(String emailinvitemessage) {
+        this.emailinvitemessage = emailinvitemessage;
     }
 }

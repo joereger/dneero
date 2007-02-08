@@ -43,8 +43,21 @@
     </ul>
 
     <font class="smallfont">We appreciate your business!  If you have any questions, you can use the <h:commandLink value="Help/Support Ticket" action="accountsupportissueslist" styleClass="smallfont" style="margin-left: 5px;"/> system.</font>
+
     <br/><br/>
+    <font class="smallfont">You can invite people to take your survey:</font>
+    <br/>
+    <h:commandLink action="#{researcherEmailinvite.beginView}">
+        <h:outputText value="Invite People to Take this Survey" styleClass="normalfont" escape="false" />
+        <f:param name="surveyid" value="#{userSession.currentSurveyid}" />
+    </h:commandLink>
+
+    <br/><br/>
+    <font class="smallfont">Or return to your list of surveys:</font>
+    <br/>
     <h:commandLink value="Continue" action="researchersurveylist" styleClass="mediumfont" style="color: #0000ff;"/>
+
+
 
 </h:form>
 

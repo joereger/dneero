@@ -28,6 +28,14 @@ public class Researcher extends BasePersistentClass implements java.io.Serializa
      private String companytype;
      private String phone;
 
+     private Set<Emailinvitebatch> emailinvitebatches = new HashSet<Emailinvitebatch>();
+     public Set<Emailinvitebatch> getEmailinvitebatches() {
+        return emailinvitebatches;
+     }
+     public void setEmailinvitebatches(Set<Emailinvitebatch> emailinvitebatches) {
+        this.emailinvitebatches = emailinvitebatches;
+     }
+
     //Validator
     public void validateRegerEntity() throws GeneralException {
 
