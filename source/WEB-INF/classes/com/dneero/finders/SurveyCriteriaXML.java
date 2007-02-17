@@ -106,7 +106,7 @@ public class SurveyCriteriaXML {
         politics = convertToArray((LinkedHashMap)Jsf.getManagedBean("politics"));
     }
 
-    private String[] convertToArray(TreeMap tmap){
+    public static String[] convertToArray(TreeMap tmap){
         String[] out = new String[0];
         if (tmap!=null){
             out = new String[tmap.size()];
@@ -121,7 +121,7 @@ public class SurveyCriteriaXML {
         return out;
     }
 
-    private String[] convertToArray(LinkedHashMap tmap){
+    public static String[] convertToArray(LinkedHashMap tmap){
         String[] out = new String[0];
         if (tmap!=null){
             out = new String[tmap.size()];

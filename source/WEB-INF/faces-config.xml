@@ -162,6 +162,12 @@
     </managed-bean>
 
     <managed-bean>
+        <managed-bean-name>bloggerPanelOffers</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.BloggerPanelOffers</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
         <managed-bean-name>bloggerSurveyList</managed-bean-name>
         <managed-bean-class>com.dneero.formbeans.BloggerSurveyList</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
@@ -194,6 +200,30 @@
     <managed-bean>
         <managed-bean-name>bloggerImpressionDetails</managed-bean-name>
         <managed-bean-class>com.dneero.formbeans.BloggerImpressionDetails</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>researcherPanels</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.ResearcherPanels</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>researcherPanelsEdit</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.ResearcherPanelsEdit</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+     <managed-bean>
+        <managed-bean-name>researcherFindBloggers</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.ResearcherFindBloggers</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>researcherPanelsListBloggers</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.ResearcherPanelsListBloggers</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
 
@@ -277,20 +307,20 @@
     </managed-bean>
 
     <managed-bean>
-        <managed-bean-name>researcherResultsRespondentsAnswers</managed-bean-name>
-        <managed-bean-class>com.dneero.formbeans.ResearcherResultsRespondentsAnswers</managed-bean-class>
+        <managed-bean-name>researcherBloggerProfileAnswers</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.ResearcherBloggerProfileAnswers</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
 
     <managed-bean>
-        <managed-bean-name>researcherResultsRespondentsProfile</managed-bean-name>
-        <managed-bean-class>com.dneero.formbeans.ResearcherResultsRespondentsProfile</managed-bean-class>
+        <managed-bean-name>researcherBloggerProfile</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.ResearcherBloggerProfile</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
 
     <managed-bean>
-        <managed-bean-name>researcherResultsRespondentsImpressions</managed-bean-name>
-        <managed-bean-class>com.dneero.formbeans.ResearcherResultsRespondentsImpressions</managed-bean-class>
+        <managed-bean-name>researcherBloggerProfileImpressions</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.ResearcherBloggerProfileImpressions</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
 
@@ -747,6 +777,10 @@
             <to-view-id>/researcher/researchersurveydetail_01.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
+            <from-outcome>bloggerpaneloffers</from-outcome>
+            <to-view-id>/blogger/paneloffers.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
             <from-outcome>bloggercompletedsurveys</from-outcome>
             <to-view-id>/blogger/bloggercompletedsurveys.xhtml</to-view-id>
         </navigation-case>
@@ -797,6 +831,22 @@
         <navigation-case>
             <from-outcome>bloggerwelcomenewblogger</from-outcome>
             <to-view-id>/blogger/welcomenewblogger.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>researcherpanels</from-outcome>
+            <to-view-id>/researcher/panels.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>researcherpanelsedit</from-outcome>
+            <to-view-id>/researcher/panels-edit.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>researcherpanelslistbloggersinpanel</from-outcome>
+            <to-view-id>/researcher/panels-listbloggersinpanel.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>researcherfindbloggers</from-outcome>
+            <to-view-id>/researcher/find_bloggers.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>researchersurveylist</from-outcome>
@@ -871,16 +921,16 @@
             <to-view-id>/researcher/results_respondents.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
-            <from-outcome>researcherresultsrespondentsanswers</from-outcome>
-            <to-view-id>/researcher/results_respondents_answers.xhtml</to-view-id>
+            <from-outcome>researcherbloggerprofileanswers</from-outcome>
+            <to-view-id>/researcher/blogger_profile_answers.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
-            <from-outcome>researcherresultsrespondentsprofile</from-outcome>
-            <to-view-id>/researcher/results_respondents_profile.xhtml</to-view-id>
+            <from-outcome>researcherbloggerprofile</from-outcome>
+            <to-view-id>/researcher/blogger_profile.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
-            <from-outcome>researcherresultsrespondentsimpressions</from-outcome>
-            <to-view-id>/researcher/results_respondents_impressions.xhtml</to-view-id>
+            <from-outcome>researcherbloggerprofileimpressions</from-outcome>
+            <to-view-id>/researcher/blogger_profile_impressions.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>researcherresultsimpressions</from-outcome>

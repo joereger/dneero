@@ -51,13 +51,13 @@ public class SysadminErrorList extends SortableList {
     }
 
     public List getErrors() {
-        //logger.debug("getSurveys");
+        //logger.debug("getListitems");
         sort(getSort(), isAscending());
         return errors;
     }
 
     public void setErrors(List errors) {
-        //logger.debug("setSurveys");
+        //logger.debug("setListitems");
         this.errors = errors;
     }
 

@@ -4,20 +4,16 @@ import org.apache.log4j.Logger;
 
 import javax.faces.context.FacesContext;
 import javax.faces.application.FacesMessage;
+import javax.faces.model.SelectItem;
 import java.util.*;
 
-import org.jdom.Document;
-import org.jdom.Element;
-import org.jdom.output.XMLOutputter;
-import org.jdom.output.Format;
-
 import com.dneero.dao.*;
+import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.util.Str;
 import com.dneero.util.Jsf;
 import com.dneero.util.GeneralException;
-import com.dneero.util.Util;
+import com.dneero.util.Num;
 import com.dneero.session.UserSession;
-import com.dneero.constants.*;
 import com.dneero.finders.SurveyCriteriaXML;
 
 /**
@@ -55,6 +51,8 @@ public class ResearcherSurveyDetail04 {
     private String blogfocusStr;
     private String politicsStr;
 
+    private String[] panels;
+    private String panelsStr;
 
 
 
@@ -143,6 +141,15 @@ public class ResearcherSurveyDetail04 {
                 politicsStr = arrayToString(politics, "<br>");
                 blogfocus = surveyCriteriaXML.getBlogfocus();
                 blogfocusStr = arrayToString(blogfocus, ", ");
+                //Load panels
+                List results = HibernateUtil.getSession().createQuery("from Surveypanel where surveyid='"+Jsf.getUserSession().getCurrentSurveyid()+"'").list();
+                panels = new String[results.size()];
+                int i = 0;
+                for (Iterator iterator = results.iterator(); iterator.hasNext();) {
+                    Surveypanel surveypanel = (Surveypanel) iterator.next();
+                    panels[i]=String.valueOf(surveypanel.getPanelid());
+                    i=i+1;
+                }
             }
         }
     }
@@ -213,6 +220,56 @@ public class ResearcherSurveyDetail04 {
                     survey.setCriteriaxml(surveyCriteriaXML.getSurveyCriteriaAsString());
                 }
 
+                //Save panels
+                if (true){
+                    //Delete those that aren't in the
+                    ArrayList<Integer> surveypanelstodelete = new ArrayList<Integer>();
+                    List surveypanels = HibernateUtil.getSession().createQuery("from Surveypanel where surveyid='"+Jsf.getUserSession().getCurrentSurveyid()+"'").list();
+                    for (Iterator iterator = surveypanels.iterator(); iterator.hasNext();) {
+                        Surveypanel surveypanel = (Surveypanel) iterator.next();
+                        //Iterate panels chosen on UI
+                        boolean ischosen = false;
+                        for (int i = 0; i < panels.length; i++) {
+                            String p = panels[i];
+                            if (Num.isinteger(p)){
+                                if (Integer.parseInt(p)==surveypanel.getPanelid()){
+                                    ischosen = true;
+                                }
+                            }
+                        }
+                        if (!ischosen){
+                            surveypanelstodelete.add(surveypanel.getSurveypanelid());
+                        }
+                    }
+                    //Do the deleting
+                    for (Iterator<Integer> iterator = surveypanelstodelete.iterator(); iterator.hasNext();) {
+                        Integer surveypanelid = iterator.next();
+                        try{Surveypanel.get(surveypanelid).delete();}catch(Exception ex){logger.error(ex);}
+                    }
+                    //Find panelids to add
+                    ArrayList<Integer> panelstoadd = new ArrayList<Integer>();
+                    for (int i = 0; i < panels.length; i++) {
+                        String p = panels[i];
+                        if (Num.isinteger(p)){
+                            //Search database for this listing
+                            List sps = HibernateUtil.getSession().createQuery("from Surveypanel where surveyid='"+Jsf.getUserSession().getCurrentSurveyid()+"' and panelid='"+p+"'").list();
+                            if (sps!=null && sps.size()>0){
+
+                            } else {
+                                panelstoadd.add(Integer.parseInt(p));
+                            }
+                        }
+                    }
+                    //Do the adding
+                    for (Iterator<Integer> iterator = panelstoadd.iterator(); iterator.hasNext();) {
+                        Integer panelid = iterator.next();
+                        Surveypanel sp = new Surveypanel();
+                        sp.setSurveyid(Jsf.getUserSession().getCurrentSurveyid());
+                        sp.setPanelid(panelid);
+                        try{sp.save();}catch(Exception ex){logger.error(ex);}
+                    }
+                }
+
                //Final save
                 try{
                     logger.debug("saveSurvey() about to save (for 2nd time) survey.getSurveyid()=" + survey.getSurveyid());
@@ -234,7 +291,16 @@ public class ResearcherSurveyDetail04 {
         return "success";
     }
 
-
+    public List getPanelsavailable(){
+        ArrayList out = new ArrayList();
+        List results = HibernateUtil.getSession().createQuery("from Panel where researcherid='"+Jsf.getUserSession().getUser().getResearcherid()+"'").list();
+        for (Iterator iterator = results.iterator(); iterator.hasNext();) {
+            Panel panel = (Panel) iterator.next();
+            SelectItem item = new SelectItem(String.valueOf(panel.getPanelid()), Str.truncateString(panel.getName(), 40));
+            out.add(item);
+        }
+        return out;
+    }
 
     public int getAgemin() {
         return agemin;
@@ -442,5 +508,21 @@ public class ResearcherSurveyDetail04 {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String[] getPanels() {
+        return panels;
+    }
+
+    public void setPanels(String[] panels) {
+        this.panels = panels;
+    }
+
+    public String getPanelsStr() {
+        return panelsStr;
+    }
+
+    public void setPanelsStr(String panelsStr) {
+        this.panelsStr = panelsStr;
     }
 }

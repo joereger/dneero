@@ -1,10 +1,7 @@
 package com.dneero.formbeans;
 
 import com.dneero.util.*;
-import com.dneero.session.UserSession;
-import com.dneero.finders.FindSurveysForBlogger;
 import com.dneero.dao.Survey;
-import com.dneero.dao.Response;
 import com.dneero.dao.hibernate.HibernateUtil;
 import org.apache.log4j.Logger;
 
@@ -73,13 +70,13 @@ public class PublicSurveyList extends SortableList {
     }
 
     public ArrayList<BloggerSurveyListItem> getSurveys() {
-        //logger.debug("getSurveys");
+        //logger.debug("getListitems");
         sort(getSort(), isAscending());
         return surveys;
     }
 
     public void setSurveys(ArrayList<BloggerSurveyListItem> surveys) {
-        //logger.debug("setSurveys");
+        //logger.debug("setListitems");
         this.surveys = surveys;
     }
 

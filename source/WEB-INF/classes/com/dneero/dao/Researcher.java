@@ -29,12 +29,8 @@ public class Researcher extends BasePersistentClass implements java.io.Serializa
      private String phone;
 
      private Set<Emailinvitebatch> emailinvitebatches = new HashSet<Emailinvitebatch>();
-     public Set<Emailinvitebatch> getEmailinvitebatches() {
-        return emailinvitebatches;
-     }
-     public void setEmailinvitebatches(Set<Emailinvitebatch> emailinvitebatches) {
-        this.emailinvitebatches = emailinvitebatches;
-     }
+    private Set<Panel> panels = new HashSet<Panel>();
+
 
     //Validator
     public void validateRegerEntity() throws GeneralException {
@@ -131,5 +127,22 @@ public class Researcher extends BasePersistentClass implements java.io.Serializa
 
     public void setCompanyname(String companyname) {
         this.companyname = companyname;
+    }
+
+
+    public Set<Emailinvitebatch> getEmailinvitebatches() {
+        return emailinvitebatches;
+    }
+
+    public void setEmailinvitebatches(Set<Emailinvitebatch> emailinvitebatches) {
+        this.emailinvitebatches = emailinvitebatches;
+    }
+
+    public Set<Panel> getPanels() {
+        return panels;
+    }
+
+    public void setPanels(Set<Panel> panels) {
+        this.panels = panels;
     }
 }

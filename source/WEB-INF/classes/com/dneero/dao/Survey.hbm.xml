@@ -27,6 +27,13 @@
             <one-to-many class="com.dneero.dao.Impression" not-found="ignore"></one-to-many>
         </set>
 
+        <set name="surveypanels" inverse="true" cascade="save-update">
+            <cache usage="transactional"/>
+            <key column="surveyid"></key>
+            <one-to-many class="com.dneero.dao.Surveypanel" not-found="ignore"></one-to-many>
+        </set>
+
+
         <property name="researcherid" type="int">
             <column name="researcherid" not-null="true" />
         </property>

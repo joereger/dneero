@@ -6,6 +6,7 @@ import com.dneero.dao.Blogger;
 import com.dneero.dao.User;
 import com.dneero.dao.Response;
 import com.dneero.util.Jsf;
+import com.dneero.util.Num;
 import com.dneero.survey.servlet.SurveyAsHtml;
 
 /**
@@ -13,7 +14,7 @@ import com.dneero.survey.servlet.SurveyAsHtml;
  * Date: Nov 18, 2006
  * Time: 9:07:01 AM
  */
-public class ResearcherResultsRespondentsAnswers {
+public class ResearcherBloggerProfileAnswers {
 
     Logger logger = Logger.getLogger(this.getClass().getName());
     private Survey survey;
@@ -23,21 +24,24 @@ public class ResearcherResultsRespondentsAnswers {
 
 
 
-    public ResearcherResultsRespondentsAnswers(){
+    public ResearcherBloggerProfileAnswers(){
         beginView();
     }
 
     public String beginView(){
-        survey = Survey.get(Jsf.getUserSession().getCurrentSurveyid());
+        String tmpSurveyid = Jsf.getRequestParam("surveyid");
+        if (Num.isinteger(tmpSurveyid)){
+            survey = Survey.get(Integer.parseInt(tmpSurveyid));
+        }
         if (survey!=null && survey.getSurveyid()>0){
             String tmpBloggerid = Jsf.getRequestParam("bloggerid");
-            if (com.dneero.util.Num.isinteger(tmpBloggerid)){
+            if (Num.isinteger(tmpBloggerid)){
                 blogger = Blogger.get(Integer.parseInt(tmpBloggerid));
                 user = User.get(blogger.getBloggerid());
                 resultsashtml = SurveyAsHtml.getHtml(survey, user, true);
             }
         }
-        return "researcherresultsrespondentsanswers";
+        return "researcherbloggerprofileanswers";
     }
 
     public Blogger getBlogger() {

@@ -3,10 +3,8 @@ package com.dneero.formbeans;
 import com.dneero.util.SortableList;
 import com.dneero.util.Jsf;
 import com.dneero.dao.Survey;
-import com.dneero.dao.Researcher;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.session.UserSession;
-import com.dneero.finders.FindSurveysForBlogger;
 
 import java.util.*;
 
@@ -40,13 +38,13 @@ public class ResearcherSurveyList extends SortableList {
 
 
     public List getSurveys() {
-        logger.debug("getSurveys");
+        logger.debug("getListitems");
         sort(getSort(), isAscending());
         return surveys;
     }
 
     public void setSurveys(List surveys) {
-        logger.debug("setSurveys");
+        logger.debug("setListitems");
         this.surveys = surveys;
     }
 

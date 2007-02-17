@@ -15,7 +15,7 @@ import java.util.Iterator;
  * Date: Nov 18, 2006
  * Time: 9:07:21 AM
  */
-public class ResearcherResultsRespondentsImpressions {
+public class ResearcherBloggerProfileImpressions {
 
     Logger logger = Logger.getLogger(this.getClass().getName());
 
@@ -25,7 +25,7 @@ public class ResearcherResultsRespondentsImpressions {
     private Blogger blogger;
     private User user;
 
-    public ResearcherResultsRespondentsImpressions(){
+    public ResearcherBloggerProfileImpressions(){
         logger.debug("Instanciating object.");
         beginView();
     }
@@ -33,13 +33,13 @@ public class ResearcherResultsRespondentsImpressions {
     public String beginView(){
         String tmpResponseid = Jsf.getRequestParam("responseid");
         if (com.dneero.util.Num.isinteger(tmpResponseid)){
-            logger.debug("beginView called: found surveyid in request param="+tmpResponseid);
+            logger.debug("beginView called: found responseid in request param="+tmpResponseid);
             response = Response.get(Integer.parseInt(tmpResponseid));
             blogger = Blogger.get(response.getBloggerid());
             user = User.get(blogger.getUserid());
             load();
         }
-        return "researcherresultsrespondentsimpressions";
+        return "researcherbloggerprofileimpressions";
     }
 
     public void load(){

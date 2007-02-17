@@ -10,8 +10,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Calendar;
 
-import com.dneero.dao.Survey;
-import com.dneero.dao.Blogger;
+import com.dneero.dao.*;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.util.Time;
 
@@ -30,10 +29,39 @@ public class FindBloggersForSurvey {
     public FindBloggersForSurvey(Survey survey){
         this.bloggers = new ArrayList();
         this.survey = survey;
-
         //Get the surveycriteria in xml form
         SurveyCriteriaXML scXml = new SurveyCriteriaXML(survey.getCriteriaxml());
+        bloggers = getBloggersForParticularCriteria(scXml);
+        logger.debug("bloggers.size() before panels=" + bloggers.size());
+        //Incorporate panels
+        for (Iterator<Surveypanel> iterator = survey.getSurveypanels().iterator(); iterator.hasNext();) {
+            Surveypanel surveypanel = iterator.next();
+            Panel panel = Panel.get(surveypanel.getPanelid());
+            for (Iterator<Panelmembership> iterator1 = panel.getPanelmemberships().iterator(); iterator1.hasNext();) {
+                Panelmembership panelmembership = iterator1.next();
+                Blogger blogger = Blogger.get(panelmembership.getBloggerid());
+                boolean alreadyInList = false;
+                for (Iterator<Blogger> iterator2 = bloggers.iterator(); iterator2.hasNext();) {
+                    Blogger blogger1 = iterator2.next();
+                    if (blogger.getBloggerid()==blogger1.getBloggerid()){
+                        alreadyInList = true;
+                    }
+                }
+                if (!alreadyInList){
+                    this.bloggers.add(blogger);
+                }
+            }
+        }
+        logger.debug("bloggers.size() after panels=" + bloggers.size());
+    }
 
+    public FindBloggersForSurvey(SurveyCriteriaXML scXml){
+        bloggers = getBloggersForParticularCriteria(scXml);
+        logger.debug("bloggers.size()=" + bloggers.size()+" (this constructor does not incorporate panel membership)");
+    }
+
+    private List getBloggersForParticularCriteria(SurveyCriteriaXML scXml){
+        List out;
         //Create the criteria
         Criteria crit = HibernateUtil.getSession().createCriteria(Blogger.class);
 
@@ -65,10 +93,10 @@ public class FindBloggersForSurvey {
         crit.add(Restrictions.ge("birthdate", Time.subtractYear(Calendar.getInstance(), scXml.getAgemax()).getTime() ));
         crit.add(Restrictions.le("birthdate", Time.subtractYear(Calendar.getInstance(), scXml.getAgemin()).getTime() ));
 
-
         //Run the query and get the preliminary results
-        bloggers = crit.list();
-        logger.debug("bloggers.size()=" + bloggers.size());
+        out = crit.list();
+
+        return out;
     }
 
     public List getBloggers() {

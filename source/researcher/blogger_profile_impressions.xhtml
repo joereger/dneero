@@ -17,22 +17,14 @@
 
 <h:form>
 
-    <div class="rounded" style="background: #e6e6e6; text-align: center; padding: 15px;">
-        <font class="largefont">#{researcherResults.survey.title}</font>
-        <br/>
-        <h:commandLink value="Results Main" action="researcherresults" styleClass="subnavfont" style="padding-left: 15px;"/>
-        <h:commandLink value="Response Report" action="researcherresultsanswers" styleClass="subnavfont" style="padding-left: 15px;"/>
-        <h:commandLink value="Impressions" action="researcherresultsimpressions" styleClass="subnavfont" style="padding-left: 15px;"/>
-        <h:commandLink value="Respondents" action="researcherresultsrespondents" styleClass="subnavfont" style="padding-left: 15px;"/>
-        <h:commandLink value="Financial Status" action="researcherresultsfinancial" styleClass="subnavfont" style="padding-left: 15px;"/>
-    </div>
+
 
     <br/><br/>
-    <font class="mediumfont" style="color: #cccccc;">#{researcherResultsRespondentsImpressions.user.firstname} #{researcherResultsRespondentsAnswers.user.lastname}'s Impressions</font>
+    <font class="mediumfont" style="color: #cccccc;">#{researcherBloggerProfileImpressions.user.firstname} #{researcherBloggerProfileAnswers.user.lastname}'s Impressions</font>
     <br/><br/>
 
-    <t:saveState id="save" value="#{researcherResultsRespondentsImpressions}"/>
-    <af:table value="#{researcherResultsRespondentsImpressions.list}" bandingInterval="2" rows="50" banding="row" var="imp">
+    <t:saveState id="save" value="#{researcherBloggerProfileImpressions}"/>
+    <af:table value="#{researcherBloggerProfileImpressions.list}" bandingInterval="2" rows="50" banding="row" var="imp">
       <af:column rendered="false">
         <f:facet name="header">
           <af:outputText value="Impressionid"/>

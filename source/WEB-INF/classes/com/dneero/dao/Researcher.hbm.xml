@@ -14,6 +14,11 @@
             <key column="researcherid"></key>
             <one-to-many class="com.dneero.dao.Emailinvitebatch" not-found="ignore"></one-to-many>
         </set>
+        <set name="panels" inverse="true" cascade="all-delete-orphan">
+            <cache usage="transactional"/>
+            <key column="researcherid"></key>
+            <one-to-many class="com.dneero.dao.Panel" not-found="ignore"></one-to-many>
+        </set>
         <property name="userid" type="int">
             <column name="userid" not-null="true" />
         </property>

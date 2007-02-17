@@ -48,6 +48,7 @@ public class Survey extends BasePersistentClass implements java.io.Serializable,
      private Set<Question> questions = new HashSet<Question>();
      private Set<Response> responses = new HashSet<Response>();
      private Set<Impression> impressions = new HashSet<Impression>();
+     private Set<Surveypanel> surveypanels = new HashSet<Surveypanel>();
 
 
     //Validator
@@ -280,5 +281,14 @@ public class Survey extends BasePersistentClass implements java.io.Serializable,
 
     public void setEmbedlink(boolean embedlink) {
         this.embedlink = embedlink;
+    }
+
+
+    public Set<Surveypanel> getSurveypanels() {
+        return surveypanels;
+    }
+
+    public void setSurveypanels(Set<Surveypanel> surveypanels) {
+        this.surveypanels = surveypanels;
     }
 }

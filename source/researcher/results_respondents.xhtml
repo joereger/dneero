@@ -47,17 +47,8 @@
             <f:facet name="header">
               <af:outputText value="-" inlineStyle="color: #ffffff;"/>
             </f:facet>
-            <h:commandLink action="#{researcherResultsRespondentsProfile.beginView}">
+            <h:commandLink action="#{researcherBloggerProfile.beginView}">
                 <h:outputText value="Blogger's Profile" escape="false" styleClass="smallfont"/>
-                <f:param name="responseid" value="#{listitem.responseid}" />
-            </h:commandLink>
-          </af:column>
-          <af:column>
-            <f:facet name="header">
-              <af:outputText value="-" inlineStyle="color: #ffffff;"/>
-            </f:facet>
-            <h:commandLink action="#{researcherResultsRespondentsAnswers.beginView}">
-                <h:outputText value="Blogger's Answers" escape="false" styleClass="smallfont"/>
                 <f:param name="bloggerid" value="#{listitem.bloggerid}" />
             </h:commandLink>
           </af:column>
@@ -65,7 +56,17 @@
             <f:facet name="header">
               <af:outputText value="-" inlineStyle="color: #ffffff;"/>
             </f:facet>
-            <h:commandLink action="#{researcherResultsRespondentsImpressions.beginView}">
+            <h:commandLink action="#{researcherBloggerProfileAnswers.beginView}">
+                <h:outputText value="Blogger's Answers" escape="false" styleClass="smallfont"/>
+                <f:param name="bloggerid" value="#{listitem.bloggerid}" />
+                <f:param name="surveyid" value="#{researcherResults.survey.surveyid}" />
+            </h:commandLink>
+          </af:column>
+          <af:column>
+            <f:facet name="header">
+              <af:outputText value="-" inlineStyle="color: #ffffff;"/>
+            </f:facet>
+            <h:commandLink action="#{researcherBloggerProfileImpressions.beginView}">
                 <h:outputText value="Blogger's Impressions" escape="false" styleClass="smallfont"/>
                 <f:param name="responseid" value="#{listitem.responseid}" />
             </h:commandLink>

@@ -1,7 +1,6 @@
 package com.dneero.formbeans;
 
 import com.dneero.util.*;
-import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.dao.Survey;
 import com.dneero.dao.Blogger;
 import com.dneero.dao.Response;
@@ -80,13 +79,13 @@ public class BloggerSurveyList extends SortableList {
     }
 
     public ArrayList<BloggerSurveyListItem> getSurveys() {
-        //logger.debug("getSurveys");
+        //logger.debug("getListitems");
         sort(getSort(), isAscending());
         return surveys;
     }
 
     public void setSurveys(ArrayList<BloggerSurveyListItem> surveys) {
-        //logger.debug("setSurveys");
+        //logger.debug("setListitems");
         this.surveys = surveys;
     }
 

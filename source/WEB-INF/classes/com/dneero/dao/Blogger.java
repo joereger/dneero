@@ -41,7 +41,7 @@ public class Blogger extends BasePersistentClass implements java.io.Serializable
      private Set<Blog> blogs = new HashSet<Blog>();
      private Set<Response> responses = new HashSet<Response>();
      private Set<Impressionpaymentgroup> impressionpaymentgroups = new HashSet<Impressionpaymentgroup>();
-
+     private Set<Panelmembership> panelmemberships = new HashSet<Panelmembership>();
 
     //Validator
     public void validateRegerEntity() throws GeneralException {
@@ -245,4 +245,14 @@ public class Blogger extends BasePersistentClass implements java.io.Serializable
         this.lastnewsurveynotificationsenton = lastnewsurveynotificationsenton;
     }
 
+    public Set<Panelmembership> getPanelmemberships() {
+        return panelmemberships;
+    }
+
+    public void setPanelmemberships(Set<Panelmembership> panelmemberships) {
+        this.panelmemberships = panelmemberships;
+    }
+
+
+ 
 }

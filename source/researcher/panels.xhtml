@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:t="http://myfaces.apache.org/tomahawk"
+      xmlns:d="http://dneero.com/taglib"
+      xmlns:af="http://xmlns.oracle.com/adf/faces">
+
+<ui:composition template="/template/template-facelets.xhtml">
+    <ui:define name="title">Panels</ui:define>
+    <ui:param name="navtab" value="researchers"/>
+    <ui:define name="body">
+    <d:authorization acl="researcher" redirectonfail="true"/>
+
+    <t:div rendered="#{researcherPanels.msg ne '' and researcherPanels.msg ne null}">
+        <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
+        <img src="/images/lightbulb_on.png" align="right"/>
+        #{researcherPanels.msg}
+        <br/><br/></font></div></center>
+        <br/><br/>
+    </t:div>
+
+    <h:form id="panels">
+
+        <t:saveState id="save" value="#{researcherPanels}"/>
+        <af:table value="#{researcherPanels.listitems}" rows="50" bandingInterval="2" banding="row" var="listitem" rendered="#{!empty researcherPanels.listitems}">
+          <af:column rendered="false">
+            <f:facet name="header">
+              <af:outputText value="Id"/>
+            </f:facet>
+            <af:outputText value="#{listitem.panel.panelid}"/>
+          </af:column>
+          <af:column>
+            <f:facet name="header">
+              <af:outputText value="Panel Name"/>
+            </f:facet>
+            <af:outputText value="#{listitem.panel.name}" styleClass="mediumfont"/>
+          </af:column>
+          <af:column>
+            <f:facet name="header">
+              <af:outputText value="Create Date"/>
+            </f:facet>
+            <af:outputText value="#{listitem.panel.createdate}" styleClass="normalfont"><f:convertDateTime type="both" dateStyle="short" timeStyle="medium"/></af:outputText>
+          </af:column>
+          <af:column>
+            <f:facet name="header">
+              <af:outputText value="Number of Members"/>
+            </f:facet>
+            <af:outputText value="#{listitem.numberofmembers}" styleClass="normalfont"/>
+          </af:column>
+          <af:column>
+            <f:facet name="header">
+              <af:outputText value="-" inlineStyle="color: #ffffff;"/>
+            </f:facet>
+            <h:commandLink action="#{researcherPanelsListBloggers.beginView}">
+                <h:outputText value="View Members" styleClass="normalfont" escape="false" />
+                <f:param name="panelid" value="#{listitem.panel.panelid}" />
+            </h:commandLink>
+          </af:column>
+          <af:column>
+            <f:facet name="header">
+              <af:outputText value="-" inlineStyle="color: #ffffff;"/>
+            </f:facet>
+            <h:commandLink action="#{researcherFindBloggers.beginView}">
+                <h:outputText value="Find Bloggers to Add to Panel" styleClass="normalfont" escape="false" />
+                <f:param name="panelid" value="#{panel.panelid}" />
+            </h:commandLink>
+          </af:column>
+          <af:column>
+            <f:facet name="header">
+              <af:outputText value="-" inlineStyle="color: #ffffff;"/>
+            </f:facet>
+            <h:commandLink action="#{researcherPanelsEdit.beginView}">
+                <h:outputText value="Edit" styleClass="normalfont" escape="false" />
+                <f:param name="panelid" value="#{panel.panelid}" />
+            </h:commandLink>
+          </af:column>
+          <af:column>
+            <f:facet name="header">
+              <af:outputText value="-" inlineStyle="color: #ffffff;"/>
+            </f:facet>
+            <h:commandLink action="#{researcherPanels.deletePanel}">
+                <h:outputText value="Delete" styleClass="normalfont" escape="false" />
+                <f:param name="panelid" value="#{panel.panelid}" />
+            </h:commandLink>
+          </af:column>
+        </af:table>
+        <br/><br/>
+        <h:inputText value="#{researcherPanels.newpanelname}" id="newpanelname"></h:inputText>
+        <h:commandButton action="#{researcherPanels.createNewPanel}" value="Create a New Panel" styleClass="formsubmitbutton"></h:commandButton>
+
+
+    </h:form>
+
+</ui:define>
+
+
+</ui:composition>
+</html>
+
+

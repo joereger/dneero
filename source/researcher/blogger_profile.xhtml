@@ -1,0 +1,244 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:t="http://myfaces.apache.org/tomahawk"
+      xmlns:d="http://dneero.com/taglib"
+      xmlns:af="http://xmlns.oracle.com/adf/faces">
+
+<ui:composition template="/template/template-facelets.xhtml">
+    <ui:define name="title">Survey Results<br/><br/></ui:define>
+    <ui:param name="navtab" value="researchers"/>
+    <ui:define name="body">
+    <d:authorization acl="researcher" redirectonfail="true"/>
+
+<h:form>
+
+    <t:div rendered="#{researcherBloggerProfile.msg ne '' and researcherBloggerProfile.msg ne null}">
+        <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
+        <img src="/images/lightbulb_on.png" align="right"/>
+        #{researcherBloggerProfile.msg}
+        <br/><br/></font></div></center>
+        <br/><br/>
+    </t:div>
+
+
+    <font class="mediumfont" style="color: #000000;">#{researcherBloggerProfile.user.firstname} #{researcherBloggerProfile.user.lastname}'s Profile</font>
+    <br/><br/>
+
+    <h:selectOneMenu value="#{researcherBloggerProfile.panelid}" id="panelid" required="true">
+       <f:selectItems value="#{researcherBloggerProfile.panelids}"/>
+    </h:selectOneMenu>
+    <h:commandButton action="#{researcherBloggerProfile.addToPanel}" value="Add This Blogger to a Panel" styleClass="formsubmitbutton"></h:commandButton>
+
+
+    
+
+    <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+            <td valign="top">
+                <h:panelGrid columns="2" cellpadding="3" border="0">
+
+                    <h:panelGroup>
+                        <h:outputText value="Birthdate" styleClass="formfieldnamefont"></h:outputText>
+                    </h:panelGroup>
+                    <h:panelGroup>
+                        <h:outputText value="#{researcherBloggerProfile.blogger.birthdate}" styleClass="smallfont"></h:outputText>
+                    </h:panelGroup>
+
+
+
+                    <h:panelGroup>
+                        <h:outputText value="Gender" styleClass="formfieldnamefont"></h:outputText>
+                    </h:panelGroup>
+                    <h:panelGroup>
+                        <h:outputText value="#{researcherBloggerProfile.blogger.gender}" styleClass="smallfont"></h:outputText>
+                    </h:panelGroup>
+
+
+
+                    <h:panelGroup>
+                        <h:outputText value="Ethnicity" styleClass="formfieldnamefont"></h:outputText>
+                    </h:panelGroup>
+                    <h:panelGroup>
+                        <h:outputText value="#{researcherBloggerProfile.blogger.ethnicity}" styleClass="smallfont"></h:outputText>
+                    </h:panelGroup>
+
+                    <h:panelGroup>
+                        <h:outputText value="Marital Status" styleClass="formfieldnamefont"></h:outputText>
+                    </h:panelGroup>
+                    <h:panelGroup>
+                        <h:outputText value="#{researcherBloggerProfile.blogger.maritalstatus}" styleClass="smallfont"></h:outputText>
+                    </h:panelGroup>
+
+                    <h:panelGroup>
+                        <h:outputText value="Income" styleClass="formfieldnamefont"></h:outputText>
+                    </h:panelGroup>
+                    <h:panelGroup>
+                        <h:outputText value="#{researcherBloggerProfile.blogger.incomerange}" styleClass="smallfont"></h:outputText>
+                    </h:panelGroup>
+
+                    <h:panelGroup>
+                        <h:outputText value="Education" styleClass="formfieldnamefont"></h:outputText>
+                    </h:panelGroup>
+                    <h:panelGroup>
+                        <h:outputText value="#{researcherBloggerProfile.blogger.educationlevel}" styleClass="smallfont"></h:outputText>
+                    </h:panelGroup>
+
+
+
+                    <h:panelGroup>
+                        <h:outputText value="City" styleClass="formfieldnamefont"></h:outputText>
+                    </h:panelGroup>
+                    <h:panelGroup>
+                        <h:outputText value="#{researcherBloggerProfile.blogger.city}" styleClass="smallfont"></h:outputText>
+                    </h:panelGroup>
+
+
+
+                    <h:panelGroup>
+                        <h:outputText value="State" styleClass="formfieldnamefont"></h:outputText>
+                    </h:panelGroup>
+                    <h:panelGroup>
+                        <h:outputText value="#{researcherBloggerProfile.blogger.state}" styleClass="smallfont"></h:outputText>
+                    </h:panelGroup>
+
+
+                    <h:panelGroup>
+                        <h:outputText value="Profession" styleClass="formfieldnamefont"></h:outputText>
+                    </h:panelGroup>
+                    <h:panelGroup>
+                        <h:outputText value="#{researcherBloggerProfile.blogger.profession}" styleClass="smallfont"></h:outputText>
+                    </h:panelGroup>
+
+
+
+                    <h:panelGroup>
+                        <h:outputText value="Politics" styleClass="formfieldnamefont"></h:outputText>
+                    </h:panelGroup>
+                    <h:panelGroup>
+                        <h:outputText value="#{researcherBloggerProfile.blogger.politics}" styleClass="smallfont"></h:outputText>
+                    </h:panelGroup>
+
+
+                </h:panelGrid>
+            </td>
+            </tr>
+            <tr>
+            <td valign="top">
+                <t:saveState id="save" value="#{researcherBloggerProfile}"/>
+                <af:table value="#{researcherBloggerProfile.listitems}" bandingInterval="2" rows="10" banding="row" var="listitem" inlineStyle="width: 300px;">
+                  <af:column rendered="false">
+                    <f:facet name="header">
+                      <af:outputText value="Surveyid"/>
+                    </f:facet>
+                    <af:outputText value="#{listitem.survey.surveyid}"/>
+                  </af:column>
+                  <af:column>
+                    <f:facet name="header">
+                      <af:outputText value="Date"/>
+                    </f:facet>
+                      <af:outputText value="#{listitem.response.responsedate}" styleClass="tinyfont"><f:convertDateTime type="both" dateStyle="short" timeStyle="medium"/></af:outputText>
+                  </af:column>
+                  <af:column>
+                    <f:facet name="header">
+                      <af:outputText value="Survey Title"/>
+                    </f:facet>
+                    <af:outputText value="#{listitem.survey.title}" styleClass="normalfont"/>
+                  </af:column>
+                  <af:column>
+                        <f:facet name="header">
+                          <af:outputText value="-" inlineStyle="color: #ffffff;"/>
+                        </f:facet>
+                        <h:commandLink action="#{researcherBloggerProfileAnswers.beginView}">
+                            <h:outputText value="Answers" escape="false" styleClass="smallfont"/>
+                            <f:param name="bloggerid" value="#{researcherBloggerProfile.blogger.bloggerid}" />
+                            <f:param name="surveyid" value="#{listitem.survey.surveyid}" />
+                        </h:commandLink>
+                      </af:column>
+                      <af:column>
+                        <f:facet name="header">
+                          <af:outputText value="-" inlineStyle="color: #ffffff;"/>
+                        </f:facet>
+                        <h:commandLink action="#{researcherBloggerProfileImpressions.beginView}">
+                            <h:outputText value="Impressions" escape="false" styleClass="smallfont"/>
+                            <f:param name="responseid" value="#{listitem.response.responseid}" />
+                        </h:commandLink>
+                      </af:column>
+                 </af:table>
+            </td>
+        </tr>
+
+        <tr>
+            <td valign="top">
+                <t:saveState id="save" value="#{researcherBloggerProfile}"/>
+                <af:table value="#{researcherBloggerProfile.blogs}" bandingInterval="2" rows="10" banding="row" var="blog">
+                  <af:column rendered="false">
+                    <f:facet name="header">
+                      <af:outputText value="Blogid"/>
+                    </f:facet>
+                    <af:outputText value="#{blog.blogid}"/>
+                  </af:column>
+                  <af:column>
+                    <f:facet name="header">
+                      <af:outputText value="Blog Name"/>
+                    </f:facet>
+                    <af:outputText value="#{blog.title}" styleClass="normalfont"/>
+                  </af:column>
+                  <af:column>
+                    <f:facet name="header">
+                      <af:outputText value="Blog URL"/>
+                    </f:facet>
+                    <af:goLink destination="#{blog.url}" text="#{blog.url}" styleClass="normalfont"></af:goLink>
+                  </af:column>
+                </af:table>
+            </td>
+        </tr>
+
+        <tr>
+            <td valign="top">
+                <t:saveState id="save" value="#{researcherBloggerProfile}"/>
+                <af:table value="#{researcherBloggerProfile.panels}" bandingInterval="2" rows="10" banding="row" var="panel">
+                  <af:column rendered="false">
+                    <f:facet name="header">
+                      <af:outputText value="Panelid"/>
+                    </f:facet>
+                    <af:outputText value="#{panel.panelid}"/>
+                  </af:column>
+                  <af:column>
+                    <f:facet name="header">
+                      <af:outputText value="Panel Name"/>
+                    </f:facet>
+                    <af:outputText value="#{panel.name}" styleClass="normalfont"/>
+                  </af:column>
+                </af:table>
+            </td>
+        </tr>
+
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+</h:form>
+
+</ui:define>
+
+
+</ui:composition>
+</html>

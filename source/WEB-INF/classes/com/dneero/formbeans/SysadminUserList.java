@@ -4,7 +4,6 @@ import com.dneero.util.SortableList;
 import com.dneero.util.Num;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.dao.User;
-import com.dneero.dao.Survey;
 
 import java.util.List;
 import java.util.Comparator;
@@ -63,13 +62,13 @@ public class SysadminUserList extends SortableList {
     }
 
     public List getUsers() {
-        //logger.debug("getSurveys");
+        //logger.debug("getListitems");
         sort(getSort(), isAscending());
         return users;
     }
 
     public void setUsers(List users) {
-        //logger.debug("setSurveys");
+        //logger.debug("setListitems");
         this.users = users;
     }
 
