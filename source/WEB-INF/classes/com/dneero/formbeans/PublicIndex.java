@@ -25,93 +25,12 @@ import org.apache.log4j.Level;
  */
 public class PublicIndex {
 
-    private String dollarswaiting;
-    private String bloggersRegistered;
-    private String surveysServed30Days;
-    private String surveysServedAllTime;
 
     public PublicIndex(){
-        //Load the homepage values
-        load();
-    }
-
-    public String getDollarswaiting() {
-        return dollarswaiting;
-    }
-
-    public void setDollarswaiting(String dollarswaiting) {
-        this.dollarswaiting = dollarswaiting;
-    }
-
-    public String getBloggersRegistered() {
-        return bloggersRegistered;
-    }
-
-    public void setBloggersRegistered(String bloggersRegistered) {
-        this.bloggersRegistered = bloggersRegistered;
-    }
-
-    public String getSurveysServed30Days() {
-        return surveysServed30Days;
-    }
-
-    public void setSurveysServed30Days(String surveysServed30Days) {
-        this.surveysServed30Days = surveysServed30Days;
+        
     }
 
 
-    public String getSurveysServedAllTime() {
-        return surveysServedAllTime;
-    }
-
-    public void setSurveysServedAllTime(String surveysServedAllTime) {
-        this.surveysServedAllTime = surveysServedAllTime;
-    }
-
-    private void load(){
-        if (dollarswaiting==null){
-            List results = HibernateUtil.getSession().createQuery("from Survey where status='"+ Survey.STATUS_OPEN +"'").list();
-            double dollars = 0;
-            if (results!=null){
-                for (Iterator iterator = results.iterator(); iterator.hasNext();) {
-                    Survey survey = (Survey) iterator.next();
-                    dollars = dollars + (survey.getWillingtopayperrespondent() * survey.getNumberofrespondentsrequested()) + ((survey.getWillingtopaypercpm() * survey.getMaxdisplaystotal())/1000);
-                }
-            }
-            dollarswaiting = "$"+Str.formatForMoney(dollars);
-        }
-
-        if (bloggersRegistered==null){
-            List results = HibernateUtil.getSession().createQuery("select count(*) from Blogger").list();
-            if (results!=null && results.size()>0){
-                bloggersRegistered = String.valueOf(results.get(0));
-            } else {
-                bloggersRegistered = "";
-            }
-        }
-
-        if (surveysServed30Days==null){
-            Calendar startDate = Time.xDaysAgoStart(Calendar.getInstance(), 30);
-            List results = HibernateUtil.getSession().createQuery("select count(*) from Impressiondetail where impressiondate>='"+Time.dateformatfordb(startDate)+"' and impressiondate<='"+Time.dateformatfordb(Calendar.getInstance())+"'").list();
-            if (results!=null && results.size()>0){
-                surveysServed30Days = String.valueOf(results.get(0));
-            } else {
-                surveysServed30Days = "";
-            }
-        }
-
-        if (surveysServedAllTime==null){
-            Calendar startDate = Time.xDaysAgoStart(Calendar.getInstance(), 30);
-            List results = HibernateUtil.getSession().createQuery("select count(*) from Impressiondetail").list();
-            if (results!=null && results.size()>0){
-                surveysServedAllTime = String.valueOf(results.get(0));
-            } else {
-                surveysServedAllTime = "";
-            }
-        }
-
-
-    }
 
 
 }

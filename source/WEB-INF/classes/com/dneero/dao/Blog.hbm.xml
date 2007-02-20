@@ -39,6 +39,19 @@
         <property name="quality90days" type="double">
             <column name="quality90days" precision="22" scale="0" not-null="true" />
         </property>
+        <property name="socialinfluencerating" type="double">
+            <column name="socialinfluencerating" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="socialinfluencerating90days" type="double">
+            <column name="socialinfluencerating90days" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="socialinfluenceratingranking" type="int">
+            <column name="socialinfluenceratingranking" not-null="true" />
+        </property>
+        <property name="socialinfluenceratingranking90days" type="int">
+            <column name="socialinfluenceratingranking90days" not-null="true" />
+        </property>
+
 
 
     </class>

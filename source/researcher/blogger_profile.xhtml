@@ -126,8 +126,31 @@
 
                 </h:panelGrid>
             </td>
-            </tr>
-            <tr>
+            <td valign="top">
+                <div class="rounded" style="background: #e6e6e6; text-align: left; padding: 20px;">
+                    <h:panelGrid columns="2" cellpadding="3" border="0">
+
+                        <h:panelGroup>
+                            <h:outputText value="Social Influence Rating" styleClass="formfieldnamefont"></h:outputText>
+                        </h:panelGroup>
+                        <h:panelGroup>
+                            <h:outputText value="#{researcherBloggerProfile.blogger.socialinfluencerating}" styleClass="smallfont"></h:outputText>
+                            <h:outputText value="(Top #{researcherBloggerProfile.socialinfluenceratingpercentile}%)" styleClass="smallfont"></h:outputText>
+                        </h:panelGroup>
+
+                        <h:panelGroup>
+                            <h:outputText value="Social Influence Rating Last 90 Days" styleClass="formfieldnamefont"></h:outputText>
+                        </h:panelGroup>
+                        <h:panelGroup>
+                            <h:outputText value="#{researcherBloggerProfile.blogger.socialinfluencerating90days}" styleClass="smallfont"></h:outputText>
+                            <h:outputText value="(Top #{researcherBloggerProfile.socialinfluenceratingpercentile90days}%)" styleClass="smallfont"></h:outputText>
+                        </h:panelGroup>
+
+                    </h:panelGrid>
+                </div>
+            </td>
+          </tr>
+          <tr>
             <td valign="top">
                 <t:saveState id="save" value="#{researcherBloggerProfile}"/>
                 <af:table value="#{researcherBloggerProfile.listitems}" bandingInterval="2" rows="10" banding="row" var="listitem" inlineStyle="width: 300px;">

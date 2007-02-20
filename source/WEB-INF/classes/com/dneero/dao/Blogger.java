@@ -36,6 +36,10 @@ public class Blogger extends BasePersistentClass implements java.io.Serializable
      private String politics;
      private double quality;
      private double quality90days;
+     private double socialinfluencerating;
+     private double socialinfluencerating90days;
+     private int socialinfluenceratingranking;
+     private int socialinfluenceratingranking90days;
      private boolean notifyofnewsurveysbyemail;
      private Date lastnewsurveynotificationsenton;
      private Set<Blog> blogs = new HashSet<Blog>();
@@ -254,5 +258,35 @@ public class Blogger extends BasePersistentClass implements java.io.Serializable
     }
 
 
- 
+    public double getSocialinfluencerating() {
+        return socialinfluencerating;
+    }
+
+    public void setSocialinfluencerating(double socialinfluencerating) {
+        this.socialinfluencerating = socialinfluencerating;
+    }
+
+    public double getSocialinfluencerating90days() {
+        return socialinfluencerating90days;
+    }
+
+    public void setSocialinfluencerating90days(double socialinfluencerating90days) {
+        this.socialinfluencerating90days = socialinfluencerating90days;
+    }
+
+    public int getSocialinfluenceratingranking() {
+        return socialinfluenceratingranking;
+    }
+
+    public void setSocialinfluenceratingranking(int socialinfluenceratingranking) {
+        this.socialinfluenceratingranking = socialinfluenceratingranking;
+    }
+
+    public int getSocialinfluenceratingranking90days() {
+        return socialinfluenceratingranking90days;
+    }
+
+    public void setSocialinfluenceratingranking90days(int socialinfluenceratingranking90days) {
+        this.socialinfluenceratingranking90days = socialinfluenceratingranking90days;
+    }
 }

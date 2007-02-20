@@ -6,6 +6,8 @@ import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.util.Jsf;
 import com.dneero.util.Str;
 import com.dneero.util.Time;
+import com.dneero.sir.SocialInfluenceRatingPercentile;
+import com.dneero.scheduledjobs.SystemStats;
 
 import java.util.*;
 
@@ -26,6 +28,8 @@ public class ResearcherBloggerProfile {
     private List<Panel> panels;
     private int panelid;
     private String msg;
+    private int socialinfluenceratingpercentile;
+    private int socialinfluenceratingpercentile90days;
 
     public ResearcherBloggerProfile(){
         load();
@@ -60,6 +64,10 @@ public class ResearcherBloggerProfile {
                 Panelmembership panelmembership = (Panelmembership)iterator.next();
                 panels.add(Panel.get(panelmembership.getPanelid()));
             }
+
+            socialinfluenceratingpercentile = SocialInfluenceRatingPercentile.getPercentileOfRanking(SystemStats.getTotalbloggers(), blogger.getSocialinfluenceratingranking());
+            socialinfluenceratingpercentile90days = SocialInfluenceRatingPercentile.getPercentileOfRanking(SystemStats.getTotalbloggers(), blogger.getSocialinfluenceratingranking90days());
+
             load();
         }
         return "researcherbloggerprofile";
@@ -169,5 +177,29 @@ public class ResearcherBloggerProfile {
 
     public void setPanelid(int panelid) {
         this.panelid = panelid;
+    }
+
+    public int getSocialinfluenceratingpercentile() {
+        return socialinfluenceratingpercentile;
+    }
+
+    public void setSocialinfluenceratingpercentile(int socialinfluenceratingpercentile) {
+        this.socialinfluenceratingpercentile = socialinfluenceratingpercentile;
+    }
+
+    public int getSocialinfluenceratingpercentile90days() {
+        return socialinfluenceratingpercentile90days;
+    }
+
+    public void setSocialinfluenceratingpercentile90days(int socialinfluenceratingpercentile90days) {
+        this.socialinfluenceratingpercentile90days = socialinfluenceratingpercentile90days;
+    }
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
 }

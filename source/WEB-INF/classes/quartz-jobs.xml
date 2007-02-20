@@ -27,6 +27,28 @@
         </trigger>
     </job>
 
+    <job>
+        <job-detail>
+          <name>systemStats</name>
+          <group>surveyJobs</group>
+          <job-class>com.dneero.scheduledjobs.SystemStats</job-class>
+          <volatility>false</volatility>
+          <durability>false</durability>
+          <recover>false</recover>
+        </job-detail>
+        <trigger>
+          <!-- Sample cron triggers: http://www.opensymphony.com/quartz/wikidocs/TutorialLesson6.html -->
+          <cron>
+            <name>systemStatsTrigger</name>
+            <group>surveyTriggers</group>
+            <job-name>systemStats</job-name>
+            <job-group>surveyJobs</job-group>
+            <!-- every x minutes -->
+            <cron-expression>0 0/15 * * * ?</cron-expression>
+          </cron>
+        </trigger>
+    </job>
+
 
 
     <job>
@@ -47,6 +69,28 @@
             <job-group>surveyJobs</job-group>
             <!-- Fire at 3am every day -->
             <cron-expression>0 0 3 * * ?</cron-expression>
+          </cron>
+        </trigger>
+    </job>
+
+    <job>
+        <job-detail>
+          <name>socialInfluenceRatingUpdate</name>
+          <group>surveyJobs</group>
+          <job-class>com.dneero.scheduledjobs.SocialInfluenceRatingUpdate</job-class>
+          <volatility>false</volatility>
+          <durability>false</durability>
+          <recover>false</recover>
+        </job-detail>
+        <trigger>
+          <!-- Sample cron triggers: http://www.opensymphony.com/quartz/wikidocs/TutorialLesson6.html -->
+          <cron>
+            <name>socialInfluenceRatingUpdateTrigger</name>
+            <group>surveyTriggers</group>
+            <job-name>socialInfluenceRatingUpdate</job-name>
+            <job-group>surveyJobs</job-group>
+            <!-- Fire at 2am every day -->
+            <cron-expression>0 0 2 * * ?</cron-expression>
           </cron>
         </trigger>
     </job>

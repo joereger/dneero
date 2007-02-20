@@ -96,6 +96,18 @@ public class SysadminManuallyRunScheduledTask {
         return "sysadminmanuallyrunscheduledtask";
     }
 
+    public String runSocialInfluenceRatingUpdate(){
+        try{SocialInfluenceRatingUpdate task = new SocialInfluenceRatingUpdate();
+            task.execute(null);} catch (Exception ex){logger.error(ex);}
+        return "sysadminmanuallyrunscheduledtask";
+    }
+    
+    public String runSystemStats(){
+        try{SystemStats task = new SystemStats();
+            task.execute(null);} catch (Exception ex){logger.error(ex);}
+        return "sysadminmanuallyrunscheduledtask";
+    }
+
 
 
 }

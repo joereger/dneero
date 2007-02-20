@@ -8,6 +8,8 @@ import com.dneero.finders.SurveyCriteriaXML;
 import com.dneero.finders.FindBloggersForSurvey;
 import com.dneero.dao.*;
 import com.dneero.dao.hibernate.HibernateUtil;
+import com.dneero.sir.SocialInfluenceRatingPercentile;
+import com.dneero.scheduledjobs.SystemStats;
 
 import java.util.*;
 
@@ -29,6 +31,8 @@ public class ResearcherFindBloggers extends SortableList {
     private int agemax = 100;
     private int blogquality = 0;
     private int blogquality90days = 0;
+    private int minsocialinfluencepercentile = 100;
+    private int minsocialinfluencepercentile90days = 100;
     private String[] gender;
     private String[] ethnicity;
     private String[] maritalstatus;
@@ -78,6 +82,8 @@ public class ResearcherFindBloggers extends SortableList {
         surveyCriteriaXML.setAgemax(agemax);
         surveyCriteriaXML.setBlogquality(blogquality);
         surveyCriteriaXML.setBlogquality90days(blogquality90days);
+        surveyCriteriaXML.setMinsocialinfluencepercentile(minsocialinfluencepercentile);
+        surveyCriteriaXML.setMinsocialinfluencepercentile90days(minsocialinfluencepercentile90days);
         surveyCriteriaXML.setGender(gender);
         surveyCriteriaXML.setEthnicity(ethnicity);
         surveyCriteriaXML.setMaritalstatus(maritalstatus);
@@ -91,13 +97,14 @@ public class ResearcherFindBloggers extends SortableList {
 
         FindBloggersForSurvey finder = new FindBloggersForSurvey(surveyCriteriaXML);
         ArrayList bloggers = (ArrayList)finder.getBloggers();
-
         listitems = new ArrayList();
         for (Iterator it = bloggers.iterator(); it.hasNext(); ) {
             Blogger blogger = (Blogger)it.next();
+            int socialinfluenceratingpercentile = SocialInfluenceRatingPercentile.getPercentileOfRanking(SystemStats.getTotalbloggers(), blogger.getSocialinfluenceratingranking());
             ResearcherFindBloggersListitem li = new ResearcherFindBloggersListitem();
             li.setBlogger(blogger);
             li.setUser(User.get(blogger.getUserid()));
+            li.setSocialinfluenceratingpercentile(socialinfluenceratingpercentile);
             listitems.add(li);
             logger.debug("added bloggerid: "+blogger.getBloggerid());
         }
@@ -114,6 +121,8 @@ public class ResearcherFindBloggers extends SortableList {
         surveyCriteriaXML.setAgemax(agemax);
         surveyCriteriaXML.setBlogquality(blogquality);
         surveyCriteriaXML.setBlogquality90days(blogquality90days);
+        surveyCriteriaXML.setMinsocialinfluencepercentile(minsocialinfluencepercentile);
+        surveyCriteriaXML.setMinsocialinfluencepercentile90days(minsocialinfluencepercentile90days);
         surveyCriteriaXML.setGender(gender);
         surveyCriteriaXML.setEthnicity(ethnicity);
         surveyCriteriaXML.setMaritalstatus(maritalstatus);
@@ -351,5 +360,21 @@ public class ResearcherFindBloggers extends SortableList {
 
     public void setMsg(String msg) {
         this.msg = msg;
+    }
+
+    public int getMinsocialinfluencepercentile() {
+        return minsocialinfluencepercentile;
+    }
+
+    public void setMinsocialinfluencepercentile(int minsocialinfluencepercentile) {
+        this.minsocialinfluencepercentile = minsocialinfluencepercentile;
+    }
+
+    public int getMinsocialinfluencepercentile90days() {
+        return minsocialinfluencepercentile90days;
+    }
+
+    public void setMinsocialinfluencepercentile90days(int minsocialinfluencepercentile90days) {
+        this.minsocialinfluencepercentile90days = minsocialinfluencepercentile90days;
     }
 }

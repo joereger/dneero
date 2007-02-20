@@ -13,6 +13,7 @@ public class ResearcherFindBloggersListitem {
 
     private Blogger blogger;
     private User user;
+    private int socialinfluenceratingpercentile;
 
 
     public Blogger getBlogger() {
@@ -29,5 +30,14 @@ public class ResearcherFindBloggersListitem {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+
+    public int getSocialinfluenceratingpercentile() {
+        return socialinfluenceratingpercentile;
+    }
+
+    public void setSocialinfluenceratingpercentile(int socialinfluenceratingpercentile) {
+        this.socialinfluenceratingpercentile = socialinfluenceratingpercentile;
     }
 }

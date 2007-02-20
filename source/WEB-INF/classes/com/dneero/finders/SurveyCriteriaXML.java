@@ -30,6 +30,8 @@ public class SurveyCriteriaXML {
     private int agemax = 100;
     private int blogquality = 0;
     private int blogquality90days = 0;
+    private int minsocialinfluencepercentile = 100;
+    private int minsocialinfluencepercentile90days = 100;
     private String[] gender;
     private String[] ethnicity;
     private String[] maritalstatus;
@@ -68,6 +70,12 @@ public class SurveyCriteriaXML {
         }
         if (Num.isinteger(loadValueOfStringFromXML("blogquality90days"))){
             blogquality90days = Integer.parseInt(loadValueOfStringFromXML("blogquality90days"));
+        }
+        if (Num.isinteger(loadValueOfStringFromXML("minsocialinfluencepercentile"))){
+            minsocialinfluencepercentile = Integer.parseInt(loadValueOfStringFromXML("minsocialinfluencepercentile"));
+        }
+        if (Num.isinteger(loadValueOfStringFromXML("minsocialinfluencepercentile90days"))){
+            minsocialinfluencepercentile90days = Integer.parseInt(loadValueOfStringFromXML("minsocialinfluencepercentile90days"));
         }
         String[] tmpArray;
         tmpArray = loadValueOfArrayFromXML("gender");
@@ -157,6 +165,8 @@ public class SurveyCriteriaXML {
         setValueOfSimpleStringNode("agemax", String.valueOf(agemax));
         setValueOfSimpleStringNode("blogquality", String.valueOf(blogquality));
         setValueOfSimpleStringNode("blogquality90days", String.valueOf(blogquality90days));
+        setValueOfSimpleStringNode("minsocialinfluencepercentile", String.valueOf(minsocialinfluencepercentile));
+        setValueOfSimpleStringNode("minsocialinfluencepercentile90days", String.valueOf(minsocialinfluencepercentile90days));
         setValueOfArrayNode("gender", gender);
         setValueOfArrayNode("ethnicity", ethnicity);
         setValueOfArrayNode("maritalstatus", maritalstatus);
@@ -348,5 +358,21 @@ public class SurveyCriteriaXML {
 
     public void setBlogquality90days(int blogquality90days) {
         this.blogquality90days = blogquality90days;
+    }
+
+    public int getMinsocialinfluencepercentile() {
+        return minsocialinfluencepercentile;
+    }
+
+    public void setMinsocialinfluencepercentile(int minsocialinfluencepercentile) {
+        this.minsocialinfluencepercentile = minsocialinfluencepercentile;
+    }
+
+    public int getMinsocialinfluencepercentile90days() {
+        return minsocialinfluencepercentile90days;
+    }
+
+    public void setMinsocialinfluencepercentile90days(int minsocialinfluencepercentile90days) {
+        this.minsocialinfluencepercentile90days = minsocialinfluencepercentile90days;
     }
 }

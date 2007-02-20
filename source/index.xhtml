@@ -53,21 +53,21 @@
                            <tr>
                                <td valign="top" width="33%">
                                 <div class="rounded" style="padding: 15px; margin: 8px; background: #BFFFBF;">
-                                    <font class="largefont">#{publicIndex.dollarswaiting}</font>
+                                    <font class="largefont">$<h:outputText value="#{systemStats.dollarsavailabletobloggers}" styleClass="largefont"><f:converter converterId="DisplayAsMoneyConverter"/></h:outputText></font>
                                     <br/>
                                     <font class="mediumfont">waiting to be earned by bloggers!</font>
                                 </div>
                                </td>
                                <td valign="top" width="33%">
                                 <div class="rounded" style="padding: 15px; margin: 8px; background: #BFFFBF;">
-                                    <font class="largefont">#{publicIndex.bloggersRegistered}</font>
+                                    <font class="largefont">#{systemStats.totalbloggers}</font>
                                     <br/>
                                     <font class="mediumfont">bloggers registered and seeking surveys</font>
                                 </div>
                                </td>
                                <td valign="top" width="33%">
                                 <div class="rounded" style="padding: 15px; margin: 8px; background: #BFFFBF;">
-                                    <font class="largefont">#{publicIndex.surveysServedAllTime}</font>
+                                    <font class="largefont">#{systemStats.totalimpressions}</font>
                                     <br/>
                                     <font class="mediumfont">survey results displayed in blogs</font>
                                 </div>

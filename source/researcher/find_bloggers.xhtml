@@ -50,6 +50,12 @@
       </af:column>
       <af:column>
         <f:facet name="header">
+          <af:outputText value="Social Influence Ranking"/>
+        </f:facet>
+        <af:outputText value="Top #{listitem.socialinfluenceratingpercentile}%" styleClass="normalfont"/>
+      </af:column>
+      <af:column>
+        <f:facet name="header">
           <af:outputText value="-" inlineStyle="color: #ffffff;"/>
         </f:facet>
         <h:commandLink action="#{researcherBloggerProfile.beginView}">
@@ -64,6 +70,88 @@
 
 
     <h:panelGrid columns="4" cellpadding="3" border="0" rendered="#{empty researcherFindBloggers.listitems}">
+
+
+
+        <h:panelGroup>
+            <h:outputText value="Social Influence Rating" styleClass="formfieldnamefont"></h:outputText>
+            <br/>
+            <h:outputText value="Social Influence Rating takes site traffic, survey referrals and a number of other metrics into account to give you some measure of this blogger's influence with his/her readership." styleClass="smallfont"></h:outputText>
+            <br/>
+            <h:message for="minsocialinfluencepercentile" styleClass="RED"></h:message>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:selectOneMenu value="#{researcherFindBloggers.minsocialinfluencepercentile}" id="minsocialinfluencepercentile" required="true">
+               <f:selectItems value="#{percentiles}"/>
+            </h:selectOneMenu>
+        </h:panelGroup>
+
+
+        <h:panelGroup>
+            <h:outputText value="Social Influence Rating 90 Days" styleClass="formfieldnamefont"></h:outputText>
+            <br/>
+            <h:message for="minsocialinfluencepercentile90days" styleClass="RED"></h:message>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:selectOneMenu value="#{researcherFindBloggers.minsocialinfluencepercentile90days}" id="minsocialinfluencepercentile90days" required="true">
+               <f:selectItems value="#{percentiles}"/>
+            </h:selectOneMenu>
+        </h:panelGroup>
+
+        
+
+
+
+        <h:panelGroup>
+            <h:outputText value="Blog Quality of At Least" styleClass="formfieldnamefont"></h:outputText>
+            <br/>
+            <h:outputText value="Blog Quality is determined manually by our administrators visiting each blog post and assigning a general quality rating." styleClass="smallfont"></h:outputText>
+            <br/>
+            <h:message for="blogquality" styleClass="RED"></h:message>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:selectOneListbox value="#{researcherFindBloggers.blogquality}" size="1" id="blogquality" layout="pageDirection" required="true">
+                <f:selectItem itemValue="0"/>
+                <f:selectItem itemValue="1"/>
+                <f:selectItem itemValue="2"/>
+                <f:selectItem itemValue="3"/>
+                <f:selectItem itemValue="4"/>
+                <f:selectItem itemValue="5"/>
+                <f:selectItem itemValue="6"/>
+                <f:selectItem itemValue="7"/>
+                <f:selectItem itemValue="8"/>
+                <f:selectItem itemValue="9"/>
+                <f:selectItem itemValue="10"/>
+            </h:selectOneListbox>
+        </h:panelGroup>
+
+
+        <h:panelGroup>
+            <h:outputText value="Blog Quality Over Last 90 Days of At Least" styleClass="formfieldnamefont"></h:outputText>
+            <br/>
+            <h:message for="blogquality90days" styleClass="RED"></h:message>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:selectOneListbox value="#{researcherFindBloggers.blogquality90days}" size="1" id="blogquality90days" layout="pageDirection" required="true">
+                <f:selectItem itemValue="0"/>
+                <f:selectItem itemValue="1"/>
+                <f:selectItem itemValue="2"/>
+                <f:selectItem itemValue="3"/>
+                <f:selectItem itemValue="4"/>
+                <f:selectItem itemValue="5"/>
+                <f:selectItem itemValue="6"/>
+                <f:selectItem itemValue="7"/>
+                <f:selectItem itemValue="8"/>
+                <f:selectItem itemValue="9"/>
+                <f:selectItem itemValue="10"/>
+            </h:selectOneListbox>
+        </h:panelGroup>
+
+
+
+
+
+
         <h:panelGroup>
             <h:outputText value="Age Range" styleClass="formfieldnamefont"></h:outputText>
             <br/>
@@ -206,51 +294,10 @@
         </h:panelGroup>
 
 
-        <!--//@todo Uncomment blog quality once we have enough blogs with a rated quality-->
-        <!--<h:panelGroup>-->
-            <!--<h:outputText value="Blog Quality of At Least" styleClass="formfieldnamefont"></h:outputText>-->
-            <!--<br/>-->
-            <!--<h:message for="blogquality" styleClass="RED"></h:message>-->
-        <!--</h:panelGroup>-->
-        <!--<h:panelGroup>-->
-            <!--<h:selectOneListbox value="#{researcherFindBloggers.blogquality}" size="1" id="blogquality" layout="pageDirection" required="true">-->
-                <!--<f:selectItem itemValue="0"/>-->
-                <!--<f:selectItem itemValue="1"/>-->
-                <!--<f:selectItem itemValue="2"/>-->
-                <!--<f:selectItem itemValue="3"/>-->
-                <!--<f:selectItem itemValue="4"/>-->
-                <!--<f:selectItem itemValue="5"/>-->
-                <!--<f:selectItem itemValue="6"/>-->
-                <!--<f:selectItem itemValue="7"/>-->
-                <!--<f:selectItem itemValue="8"/>-->
-                <!--<f:selectItem itemValue="9"/>-->
-                <!--<f:selectItem itemValue="10"/>-->
-            <!--</h:selectOneListbox>-->
-            <!--<h:outputText value="#{researcherFindBloggers.blogquality}" escape="false"></h:outputText>-->
-        <!--</h:panelGroup>-->
-<!---->
-<!---->
-        <!--<h:panelGroup>-->
-            <!--<h:outputText value="Blog Quality Over Last 90 Days of At Least" styleClass="formfieldnamefont"></h:outputText>-->
-            <!--<br/>-->
-            <!--<h:message for="blogquality90days" styleClass="RED"></h:message>-->
-        <!--</h:panelGroup>-->
-        <!--<h:panelGroup>-->
-            <!--<h:selectOneListbox value="#{researcherFindBloggers.blogquality90days}" size="1" id="blogquality90days" layout="pageDirection" required="true">-->
-                <!--<f:selectItem itemValue="0"/>-->
-                <!--<f:selectItem itemValue="1"/>-->
-                <!--<f:selectItem itemValue="2"/>-->
-                <!--<f:selectItem itemValue="3"/>-->
-                <!--<f:selectItem itemValue="4"/>-->
-                <!--<f:selectItem itemValue="5"/>-->
-                <!--<f:selectItem itemValue="6"/>-->
-                <!--<f:selectItem itemValue="7"/>-->
-                <!--<f:selectItem itemValue="8"/>-->
-                <!--<f:selectItem itemValue="9"/>-->
-                <!--<f:selectItem itemValue="10"/>-->
-            <!--</h:selectOneListbox>-->
-            <!--<h:outputText value="#{researcherFindBloggers.blogquality90days}" escape="false"></h:outputText>-->
-        <!--</h:panelGroup>-->
+
+
+
+
 
 
     </h:panelGrid>

@@ -4,6 +4,8 @@ import com.dneero.dao.*;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.util.Util;
 import com.dneero.util.Time;
+import com.dneero.sir.SocialInfluenceRatingPercentile;
+import com.dneero.scheduledjobs.SystemStats;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -154,6 +156,26 @@ public class FindSurveysForBlogger {
                 } else {
                     logger.debug("no blogs found for bloggerid="+blogger.getBloggerid());
                 }
+
+
+                //Social Influence Rating
+                if (surveyfitsblogger){
+                    int maxranking = SocialInfluenceRatingPercentile.getRankingOfGivenPercentile(SystemStats.getTotalbloggers(), scXml.getMinsocialinfluencepercentile());
+                    if (blogger.getSocialinfluenceratingranking()>maxranking){
+                        surveyfitsblogger = false;
+                        logger.debug("survey not included because of socialinfluenceranking.  maxranking="+maxranking+" blogger.getSocialinfluenceratingranking()="+blogger.getSocialinfluenceratingranking());
+                    }
+                }
+
+                //Social Influence Rating 90 days
+                if (surveyfitsblogger){
+                    int maxranking90days = SocialInfluenceRatingPercentile.getRankingOfGivenPercentile(SystemStats.getTotalbloggers(), scXml.getMinsocialinfluencepercentile90days());
+                    if (blogger.getSocialinfluenceratingranking90days()>maxranking90days){
+                        surveyfitsblogger = false;
+                        logger.debug("survey not included because of socialinfluenceranking90days.  maxranking90days="+maxranking90days+" blogger.getSocialinfluenceratingranking90days()="+blogger.getSocialinfluenceratingranking90days());
+                    }
+                }
+   
             }
 
             //If it hasn't been booted by now, keep it

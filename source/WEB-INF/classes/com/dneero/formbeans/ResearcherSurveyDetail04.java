@@ -30,6 +30,8 @@ public class ResearcherSurveyDetail04 {
     private int agemax = 100;
     private int blogquality = 0;
     private int blogquality90days = 0;
+    private int minsocialinfluencepercentile = 100;
+    private int minsocialinfluencepercentile90days = 100;
     private String[] gender;
     private String[] ethnicity;
     private String[] maritalstatus;
@@ -121,6 +123,8 @@ public class ResearcherSurveyDetail04 {
                 agemax = surveyCriteriaXML.getAgemax();
                 blogquality = surveyCriteriaXML.getBlogquality();
                 blogquality90days = surveyCriteriaXML.getBlogquality90days();
+                minsocialinfluencepercentile = surveyCriteriaXML.getMinsocialinfluencepercentile();
+                minsocialinfluencepercentile90days = surveyCriteriaXML.getMinsocialinfluencepercentile90days();
                 gender = surveyCriteriaXML.getGender();
                 genderStr = arrayToString(gender, "<br>");
                 ethnicity = surveyCriteriaXML.getEthnicity();
@@ -206,6 +210,8 @@ public class ResearcherSurveyDetail04 {
                     surveyCriteriaXML.setAgemax(agemax);
                     surveyCriteriaXML.setBlogquality(blogquality);
                     surveyCriteriaXML.setBlogquality90days(blogquality90days);
+                    surveyCriteriaXML.setMinsocialinfluencepercentile(minsocialinfluencepercentile);
+                    surveyCriteriaXML.setMinsocialinfluencepercentile90days(minsocialinfluencepercentile90days);
                     surveyCriteriaXML.setGender(gender);
                     surveyCriteriaXML.setEthnicity(ethnicity);
                     surveyCriteriaXML.setMaritalstatus(maritalstatus);
@@ -301,6 +307,8 @@ public class ResearcherSurveyDetail04 {
         }
         return out;
     }
+
+
 
     public int getAgemin() {
         return agemin;
@@ -524,5 +532,21 @@ public class ResearcherSurveyDetail04 {
 
     public void setPanelsStr(String panelsStr) {
         this.panelsStr = panelsStr;
+    }
+
+    public int getMinsocialinfluencepercentile() {
+        return minsocialinfluencepercentile;
+    }
+
+    public void setMinsocialinfluencepercentile(int minsocialinfluencepercentile) {
+        this.minsocialinfluencepercentile = minsocialinfluencepercentile;
+    }
+
+    public int getMinsocialinfluencepercentile90days() {
+        return minsocialinfluencepercentile90days;
+    }
+
+    public void setMinsocialinfluencepercentile90days(int minsocialinfluencepercentile90days) {
+        this.minsocialinfluencepercentile90days = minsocialinfluencepercentile90days;
     }
 }
