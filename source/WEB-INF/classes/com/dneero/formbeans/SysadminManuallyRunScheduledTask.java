@@ -103,7 +103,7 @@ public class SysadminManuallyRunScheduledTask {
     }
     
     public String runSystemStats(){
-        try{SystemStats task = new SystemStats();
+        try{com.dneero.scheduledjobs.SystemStats task = new com.dneero.scheduledjobs.SystemStats();
             task.execute(null);} catch (Exception ex){logger.error(ex);}
         return "sysadminmanuallyrunscheduledtask";
     }

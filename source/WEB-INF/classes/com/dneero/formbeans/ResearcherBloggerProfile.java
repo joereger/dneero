@@ -99,9 +99,9 @@ public class ResearcherBloggerProfile {
         }
         try{panel.refresh();}catch(Exception ex){logger.error(ex);}
         if (bloggersadded>0){
-            msg = "The Blogger was added to the panel.";
+            msg = "The Blogger was added to the panel called: "+panel.getName();
         } else {
-            msg = "The Blogger was already in this panel.";
+            msg = "The Blogger was already in the panel called: "+panel.getName();
         }
         return "researcherbloggerprofile";
     }

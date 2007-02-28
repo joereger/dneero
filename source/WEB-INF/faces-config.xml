@@ -81,8 +81,8 @@
 
     <managed-bean>
         <managed-bean-name>systemStats</managed-bean-name>
-        <managed-bean-class>com.dneero.scheduledjobs.SystemStats</managed-bean-class>
-        <managed-bean-scope>application</managed-bean-scope>
+        <managed-bean-class>com.dneero.formbeans.SystemStats</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
 
     <managed-bean>

@@ -85,7 +85,7 @@ public class PaymentMethodCreditCard extends PaymentMethodBase implements Paymen
 
                 BasicAmountType orderTotal = new BasicAmountType();
                 orderTotal.setCurrencyID(CurrencyCodeType.USD);
-                orderTotal.set_value(Str.formatForMoney((-1)*amt));
+                orderTotal.set_value(Str.formatForFinancialTransactionsNoCommas((-1)*amt));
                 payment.setOrderTotal(orderTotal);
 
                 details.setPaymentDetails(payment);

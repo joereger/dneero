@@ -10,7 +10,7 @@
       xmlns:af="http://xmlns.oracle.com/adf/faces">
 
 <ui:composition template="/template/template-facelets.xhtml">
-    <ui:define name="title">Survey Results<br/><br/></ui:define>
+    <ui:define name="title"><img src="/images/user.png" align="right" alt="" border="0"/>#{researcherBloggerProfile.user.firstname} #{researcherBloggerProfile.user.lastname}'s Profile<br/><br clear="all"/></ui:define>
     <ui:param name="navtab" value="researchers"/>
     <ui:define name="body">
     <d:authorization acl="researcher" redirectonfail="true"/>
@@ -25,21 +25,10 @@
         <br/><br/>
     </t:div>
 
-
-    <font class="mediumfont" style="color: #000000;">#{researcherBloggerProfile.user.firstname} #{researcherBloggerProfile.user.lastname}'s Profile</font>
-    <br/><br/>
-
-    <h:selectOneMenu value="#{researcherBloggerProfile.panelid}" id="panelid" required="true">
-       <f:selectItems value="#{researcherBloggerProfile.panelids}"/>
-    </h:selectOneMenu>
-    <h:commandButton action="#{researcherBloggerProfile.addToPanel}" value="Add This Blogger to a Panel" styleClass="formsubmitbutton"></h:commandButton>
-
-
-    
-
-    <table cellpadding="0" cellspacing="0" border="0">
+    <div class="rounded" style="background: #e6e6e6; text-align: left; padding: 20px;">
+    <table cellpadding="20" cellspacing="0" border="0" width="100%">
         <tr>
-            <td valign="top">
+            <td valign="top" width="50%">
                 <h:panelGrid columns="2" cellpadding="3" border="0">
 
                     <h:panelGroup>
@@ -127,134 +116,143 @@
                 </h:panelGrid>
             </td>
             <td valign="top">
-                <div class="rounded" style="background: #e6e6e6; text-align: left; padding: 20px;">
-                    <h:panelGrid columns="2" cellpadding="3" border="0">
-
-                        <h:panelGroup>
-                            <h:outputText value="Social Influence Rating" styleClass="formfieldnamefont"></h:outputText>
-                        </h:panelGroup>
-                        <h:panelGroup>
-                            <h:outputText value="#{researcherBloggerProfile.blogger.socialinfluencerating}" styleClass="smallfont"></h:outputText>
-                            <h:outputText value="(Top #{researcherBloggerProfile.socialinfluenceratingpercentile}%)" styleClass="smallfont"></h:outputText>
-                        </h:panelGroup>
-
-                        <h:panelGroup>
-                            <h:outputText value="Social Influence Rating Last 90 Days" styleClass="formfieldnamefont"></h:outputText>
-                        </h:panelGroup>
-                        <h:panelGroup>
-                            <h:outputText value="#{researcherBloggerProfile.blogger.socialinfluencerating90days}" styleClass="smallfont"></h:outputText>
-                            <h:outputText value="(Top #{researcherBloggerProfile.socialinfluenceratingpercentile90days}%)" styleClass="smallfont"></h:outputText>
-                        </h:panelGroup>
-
-                    </h:panelGrid>
+                <div class="rounded" style="background: #ffffff; text-align: left; padding: 20px;">
+                    <table cellpadding="10" cellspacing="0" border="0" width="100%">
+                        <tr>
+                            <td valign="top" width="50%">
+                                <h:outputText value="Social Influence Rating" styleClass="formfieldnamefont"></h:outputText>
+                            </td>
+                            <td valign="top" width="50%">
+                                <h:outputText value="#{researcherBloggerProfile.blogger.socialinfluencerating}" styleClass="smallfont"></h:outputText>
+                                <br/>
+                                <h:outputText value="(Top #{researcherBloggerProfile.socialinfluenceratingpercentile}%)" styleClass="smallfont"></h:outputText>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td valign="top" width="50%">
+                                <h:outputText value="Social Influence Rating Over Last 90 Days" styleClass="formfieldnamefont"></h:outputText>
+                            </td>
+                            <td valign="top" width="50%">
+                                <h:outputText value="#{researcherBloggerProfile.blogger.socialinfluencerating90days}" styleClass="smallfont"></h:outputText>
+                                <br/>
+                                <h:outputText value="(Top #{researcherBloggerProfile.socialinfluenceratingpercentile90days}%)" styleClass="smallfont"></h:outputText>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
             </td>
           </tr>
-          <tr>
-            <td valign="top">
-                <t:saveState id="save" value="#{researcherBloggerProfile}"/>
-                <af:table value="#{researcherBloggerProfile.listitems}" bandingInterval="2" rows="10" banding="row" var="listitem" inlineStyle="width: 300px;">
-                  <af:column rendered="false">
-                    <f:facet name="header">
-                      <af:outputText value="Surveyid"/>
-                    </f:facet>
-                    <af:outputText value="#{listitem.survey.surveyid}"/>
-                  </af:column>
-                  <af:column>
-                    <f:facet name="header">
-                      <af:outputText value="Date"/>
-                    </f:facet>
-                      <af:outputText value="#{listitem.response.responsedate}" styleClass="tinyfont"><f:convertDateTime type="both" dateStyle="short" timeStyle="medium"/></af:outputText>
-                  </af:column>
-                  <af:column>
-                    <f:facet name="header">
-                      <af:outputText value="Survey Title"/>
-                    </f:facet>
-                    <af:outputText value="#{listitem.survey.title}" styleClass="normalfont"/>
-                  </af:column>
-                  <af:column>
-                        <f:facet name="header">
-                          <af:outputText value="-" inlineStyle="color: #ffffff;"/>
-                        </f:facet>
-                        <h:commandLink action="#{researcherBloggerProfileAnswers.beginView}">
-                            <h:outputText value="Answers" escape="false" styleClass="smallfont"/>
-                            <f:param name="bloggerid" value="#{researcherBloggerProfile.blogger.bloggerid}" />
-                            <f:param name="surveyid" value="#{listitem.survey.surveyid}" />
-                        </h:commandLink>
-                      </af:column>
-                      <af:column>
-                        <f:facet name="header">
-                          <af:outputText value="-" inlineStyle="color: #ffffff;"/>
-                        </f:facet>
-                        <h:commandLink action="#{researcherBloggerProfileImpressions.beginView}">
-                            <h:outputText value="Impressions" escape="false" styleClass="smallfont"/>
-                            <f:param name="responseid" value="#{listitem.response.responseid}" />
-                        </h:commandLink>
-                      </af:column>
-                 </af:table>
-            </td>
-        </tr>
-
-        <tr>
-            <td valign="top">
-                <t:saveState id="save" value="#{researcherBloggerProfile}"/>
-                <af:table value="#{researcherBloggerProfile.blogs}" bandingInterval="2" rows="10" banding="row" var="blog">
-                  <af:column rendered="false">
-                    <f:facet name="header">
-                      <af:outputText value="Blogid"/>
-                    </f:facet>
-                    <af:outputText value="#{blog.blogid}"/>
-                  </af:column>
-                  <af:column>
-                    <f:facet name="header">
-                      <af:outputText value="Blog Name"/>
-                    </f:facet>
-                    <af:outputText value="#{blog.title}" styleClass="normalfont"/>
-                  </af:column>
-                  <af:column>
-                    <f:facet name="header">
-                      <af:outputText value="Blog URL"/>
-                    </f:facet>
-                    <af:goLink destination="#{blog.url}" text="#{blog.url}" styleClass="normalfont"></af:goLink>
-                  </af:column>
-                </af:table>
-            </td>
-        </tr>
-
-        <tr>
-            <td valign="top">
-                <t:saveState id="save" value="#{researcherBloggerProfile}"/>
-                <af:table value="#{researcherBloggerProfile.panels}" bandingInterval="2" rows="10" banding="row" var="panel">
-                  <af:column rendered="false">
-                    <f:facet name="header">
-                      <af:outputText value="Panelid"/>
-                    </f:facet>
-                    <af:outputText value="#{panel.panelid}"/>
-                  </af:column>
-                  <af:column>
-                    <f:facet name="header">
-                      <af:outputText value="Panel Name"/>
-                    </f:facet>
-                    <af:outputText value="#{panel.name}" styleClass="normalfont"/>
-                  </af:column>
-                </af:table>
-            </td>
-        </tr>
-
-    </table>
+       </table>
+       </div>
 
 
+       <br/><br/>
+       <font class="mediumfont" style="color: #cccccc;">Surveys Taken</font>
+       <br/>
 
+        <t:saveState id="save" value="#{researcherBloggerProfile}"/>
+        <af:table value="#{researcherBloggerProfile.listitems}" bandingInterval="2" rows="10" banding="row" var="listitem" inlineStyle="width: 300px;">
+          <af:column rendered="false">
+            <f:facet name="header">
+              <af:outputText value="Surveyid"/>
+            </f:facet>
+            <af:outputText value="#{listitem.survey.surveyid}"/>
+          </af:column>
+          <af:column>
+            <f:facet name="header">
+              <af:outputText value="Date"/>
+            </f:facet>
+              <af:outputText value="#{listitem.response.responsedate}" styleClass="tinyfont"><f:convertDateTime type="both" dateStyle="short" timeStyle="medium"/></af:outputText>
+          </af:column>
+          <af:column>
+            <f:facet name="header">
+              <af:outputText value="Survey Title"/>
+            </f:facet>
+            <af:outputText value="#{listitem.survey.title}" styleClass="normalfont"/>
+          </af:column>
+          <af:column>
+                <f:facet name="header">
+                  <af:outputText value="-" inlineStyle="color: #ffffff;"/>
+                </f:facet>
+                <h:commandLink action="#{researcherBloggerProfileAnswers.beginView}">
+                    <h:outputText value="Answers" escape="false" styleClass="smallfont"/>
+                    <f:param name="bloggerid" value="#{researcherBloggerProfile.blogger.bloggerid}" />
+                    <f:param name="surveyid" value="#{listitem.survey.surveyid}" />
+                </h:commandLink>
+              </af:column>
+              <af:column>
+                <f:facet name="header">
+                  <af:outputText value="-" inlineStyle="color: #ffffff;"/>
+                </f:facet>
+                <h:commandLink action="#{researcherBloggerProfileImpressions.beginView}">
+                    <h:outputText value="Impressions" escape="false" styleClass="smallfont"/>
+                    <f:param name="responseid" value="#{listitem.response.responseid}" />
+                </h:commandLink>
+              </af:column>
+         </af:table>
 
+         <br/><br/>
+         <font class="mediumfont" style="color: #cccccc;">Blogs</font>
+         <br/>
+        <t:saveState id="save" value="#{researcherBloggerProfile}"/>
+        <af:table value="#{researcherBloggerProfile.blogs}" bandingInterval="2" rows="10" banding="row" var="blog">
+          <af:column rendered="false">
+            <f:facet name="header">
+              <af:outputText value="Blogid"/>
+            </f:facet>
+            <af:outputText value="#{blog.blogid}"/>
+          </af:column>
+          <af:column>
+            <f:facet name="header">
+              <af:outputText value="Blog Name"/>
+            </f:facet>
+            <af:outputText value="#{blog.title}" styleClass="normalfont"/>
+          </af:column>
+          <af:column>
+            <f:facet name="header">
+              <af:outputText value="Quality"/>
+            </f:facet>
+            <af:outputText value="#{blog.quality}" styleClass="normalfont"/>
+          </af:column>
+          <af:column>
+            <f:facet name="header">
+              <af:outputText value="Quality 90 Days"/>
+            </f:facet>
+            <af:outputText value="#{blog.quality90days}" styleClass="normalfont"/>
+          </af:column>
+          <af:column>
+            <f:facet name="header">
+              <af:outputText value="Blog URL"/>
+            </f:facet>
+            <af:goLink destination="#{blog.url}" text="#{blog.url}" styleClass="normalfont"></af:goLink>
+          </af:column>
+        </af:table>
 
+        <br/><br/>
+        <font class="mediumfont" style="color: #cccccc;">Panel Membership</font>
+        <br/>
+        <t:saveState id="save" value="#{researcherBloggerProfile}"/>
+        <af:table value="#{researcherBloggerProfile.panels}" bandingInterval="2" rows="10" banding="row" var="panel">
+          <af:column rendered="false">
+            <f:facet name="header">
+              <af:outputText value="Panelid"/>
+            </f:facet>
+            <af:outputText value="#{panel.panelid}"/>
+          </af:column>
+          <af:column>
+            <f:facet name="header">
+              <af:outputText value="Panel Name"/>
+            </f:facet>
+            <af:outputText value="#{panel.name}" styleClass="normalfont"/>
+          </af:column>
+        </af:table>
 
+    <br/><br/>
 
-
-
-
-
-
-
+    <h:selectOneMenu value="#{researcherBloggerProfile.panelid}" id="panelid" required="true" rendered="#{!empty researcherBloggerProfile.panelids}">
+       <f:selectItems value="#{researcherBloggerProfile.panelids}"/>
+    </h:selectOneMenu>
+    <h:commandButton action="#{researcherBloggerProfile.addToPanel}" value="Add This Blogger to a Panel" styleClass="formsubmitbutton"></h:commandButton>
 
 
     

@@ -25,6 +25,8 @@ public class SystemStats implements Job {
 
     Logger logger = Logger.getLogger(this.getClass().getName());
 
+    //BE SURE TO SYNC CODE HERE WITH MAIN SystemStats in formbeans (which jsf uses)
+
     private static int totalbloggers=0;
     private static int totalblogs=0;
     private static int totalresearchers=0;
@@ -33,9 +35,8 @@ public class SystemStats implements Job {
     private static double dollarsavailabletobloggers=0;
 
 
-
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
-        if (InstanceProperties.getRunScheduledTasksOnThisInstance()){
+        //if (InstanceProperties.getRunScheduledTasksOnThisInstance()){
             logger.debug("execute() SystemStats called");
 
             totalbloggers = (Integer)HibernateUtil.getSession().createQuery("select count(*) from Blogger").uniqueResult();
@@ -54,14 +55,11 @@ public class SystemStats implements Job {
                     dollarsavailabletobloggers = dollarsavailabletobloggers + (survey.getWillingtopayperrespondent() * survey.getNumberofrespondentsrequested()) + ((survey.getWillingtopaypercpm() * survey.getMaxdisplaystotal())/1000);
                 }
             }
-
-
-        } else {
-            logger.debug("InstanceProperties.getRunScheduledTasksOnThisInstance() is FALSE for this instance so this task is not being executed.");
-        }
-
-
+        //} else {
+            //logger.debug("InstanceProperties.getRunScheduledTasksOnThisInstance() is FALSE for this instance so this task is not being executed.");
+        //}
     }
+
 
 
     public static int getTotalbloggers() {

@@ -155,6 +155,20 @@ public class Str {
         }
     }
 
+    public static String formatForFinancialTransactionsNoCommas(double in){
+        Logger logger = Logger.getLogger(Str.class);
+        try{
+            NumberFormat formatter = DecimalFormat.getInstance();
+            formatter.setGroupingUsed(false);
+            formatter.setMinimumFractionDigits(2);
+            formatter.setMaximumFractionDigits(2);
+            return formatter.format(in);
+        } catch (Exception ex){
+            logger.error(ex);
+            return "";
+        }
+    }
+
     public static String formatNoDecimals(double in){
         Logger logger = Logger.getLogger(Str.class);
         try{

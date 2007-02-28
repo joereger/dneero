@@ -63,7 +63,7 @@
                     </center>
                     <br/><br/>
                     <div class="rounded" style="background: #eeeeee;">
-                        <font class="largefont">#{publicIndex.dollarswaiting}</font>
+                        <font class="largefont">$<h:outputText value="#{systemStats.dollarsavailabletobloggers}" styleClass="largefont"><f:converter converterId="DisplayAsMoneyConverter"/></h:outputText></font>
                         <br/>
                         <font class="mediumfont">waiting to be earned by bloggers!</font>
                     </div>

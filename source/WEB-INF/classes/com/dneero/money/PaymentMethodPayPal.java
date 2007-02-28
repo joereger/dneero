@@ -44,9 +44,9 @@ public class PaymentMethodPayPal extends PaymentMethodBase implements PaymentMet
 
             BasicAmountType orderTotal = new BasicAmountType();
             orderTotal.setCurrencyID(CurrencyCodeType.USD);
-            String amtAsStr = Str.formatForMoney(amt);
+            String amtAsStr = Str.formatForFinancialTransactionsNoCommas(amt);
             if (amtAsStr.equals("")){
-                logger.error("amtAsStr is blank... setting to 0: amt="+amt+" : Str.formatForMoney(amt)="+Str.formatForMoney(amt));
+                logger.error("amtAsStr is blank... setting to 0: amt="+amt+" : Str.formatForFinancialTransactionsNoCommas(amt)="+Str.formatForFinancialTransactionsNoCommas(amt));
                 amtAsStr = "0";
             }
             orderTotal.set_value(amtAsStr);
@@ -67,10 +67,10 @@ public class PaymentMethodPayPal extends PaymentMethodBase implements PaymentMet
                     issuccessful = true;
                     for (int i = 0; i < errors.length; i++) {
                         ErrorType error = errors[i];
-                        logger.debug("Error "+i+": userid="+user.getUserid()+" : amt="+amt+" : "+error.getLongMessage());
+                        logger.debug("Error "+i+": userid="+user.getUserid()+" : amtAsStr="+amtAsStr+" : "+error.getLongMessage());
                         if (error.getSeverityCode()==SeverityCodeType.Error){
-                            logger.error("PayPal Error: userid="+user.getUserid()+" : amt="+amt+" :"+error.getLongMessage());
-                            notes =  notes + "PayPal Error: "+user.getUserid()+" : amt="+amt+" : "+error.getLongMessage()+" ";
+                            logger.error("PayPal Error: userid="+user.getUserid()+" : amtAsStr="+amtAsStr+" :"+error.getLongMessage());
+                            notes =  notes + "PayPal Error: "+user.getUserid()+" : amtAsStr="+amtAsStr+" : "+error.getLongMessage()+" ";
                             issuccessful = false;
                         } else if (error.getSeverityCode()==SeverityCodeType.Warning){
                             logger.error("PayPal Warning: userid="+user.getUserid()+" : amt="+amt+" :"+error.getLongMessage());
