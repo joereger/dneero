@@ -10,7 +10,7 @@
       xmlns:c="http://java.sun.com/jstl/core">
 
 <ui:composition template="/template/template-facelets.xhtml">
-    <ui:define name="title">For Bloggers<br/><br/></ui:define>
+    <ui:define name="title"><img src="/images/user.png" alt="" border="0" width="128" height="128" align="right"/>For Bloggers<br/><br clear="all"/></ui:define>
     <ui:param name="navtab" value="bloggers"/>
     <ui:define name="body">
     <d:authorization acl="public" redirectonfail="true"/>
@@ -20,7 +20,7 @@
 
 
 
-    <c:if test="${!userSession.isloggedin}">
+    <c:if test="${!userSession.isloggedin or bloggerIndex.showmarketingmaterial}">
 
         <table cellpadding="0" cellspacing="0" border="0" width="100%">
            <tr>
@@ -93,7 +93,7 @@
         </t:div>
     </c:if>
 
-    <c:if test="${userSession.isloggedin and (userSession.user.bloggerid gt 0)}">
+    <c:if test="${userSession.isloggedin and (userSession.user.bloggerid gt 0) and (!bloggerIndex.showmarketingmaterial)}">
 
         <t:div rendered="#{bloggerIndex.responsependingmsg ne ''}">
             <div class="rounded" style="padding: 15px; margin: 5px; background: #00ff00;">
@@ -103,53 +103,56 @@
             <br/><br/>
         </t:div>
 
-        <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-            <h:commandLink value="Find Surveys to Take" action="bloggersurveylist" styleClass="mediumfont" style="color: #0000ff;"/>
-        </td></tr>
-        <tr><td valign="top"></td><td valign="top">
-            <font class="smallfont">Check back often to see new surveys for which you qualify.</font>
-        </td></tr></table>
+        <div width="50%">
 
-        <br/><br/>
-        <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-            <h:commandLink value="Update My Blogger Profile" action="bloggerdetails" styleClass="mediumfont" style="color: #0000ff;"/>
-        </td></tr>
-        <tr><td valign="top"></td><td valign="top">
-            <font class="smallfont">Your profile helps us find surveys that fit your interests.  Keep it up to date.</font>
-        </td></tr></table>
+            <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
+                <h:commandLink value="Find Surveys to Take" action="bloggersurveylist" styleClass="mediumfont" style="color: #596697;"/>
+            </td></tr>
+            <tr><td valign="top"></td><td valign="top">
+                <font class="smallfont">Check back often to see new surveys for which you qualify.</font>
+            </td></tr></table>
 
-        <br/><br/>
-        <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-            <h:commandLink value="Add/Edit My Blogs" action="bloggerblogslist" styleClass="mediumfont" style="color: #0000ff;"/>
-        </td></tr>
-        <tr><td valign="top"></td><td valign="top">
-            <font class="smallfont">We need to know which blogs are yours so that we can pay you for survey displays on that blog.  Make sure that any blog you post a survey to is listed here.</font>
-        </td></tr></table>
+            <br/><br/>
+            <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
+                <h:commandLink value="Update My Blogger Profile" action="bloggerdetails" styleClass="mediumfont" style="color: #596697;"/>
+            </td></tr>
+            <tr><td valign="top"></td><td valign="top">
+                <font class="smallfont">Your profile helps us find surveys that fit your interests.  Keep it up to date.</font>
+            </td></tr></table>
 
-        <br/><br/>
-        <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-            <h:commandLink value="Earnings from Completed Surveys" action="bloggercompletedsurveys" styleClass="mediumfont" style="color: #0000ff;"/>
-        </td></tr>
-        <tr><td valign="top"></td><td valign="top">
-            <font class="smallfont">See how much you've earned.</font>
-        </td></tr></table>
+            <br/><br/>
+            <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
+                <h:commandLink value="Add/Edit My Blogs" action="bloggerblogslist" styleClass="mediumfont" style="color: #596697;"/>
+            </td></tr>
+            <tr><td valign="top"></td><td valign="top">
+                <font class="smallfont">We need to know which blogs are yours so that we can pay you for survey displays on that blog.  Make sure that any blog you post a survey to is listed here.</font>
+            </td></tr></table>
 
-        <br/><br/>
-        <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-            <h:commandLink value="Earn Money Inviting Friends" action="bloggerearningsrevshare" styleClass="mediumfont" style="color: #0000ff;"/>
-        </td></tr>
-        <tr><td valign="top"></td><td valign="top">
-            <font class="smallfont">Invite friends and earn money when they take surveys!</font>
-        </td></tr></table>
+            <br/><br/>
+            <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
+                <h:commandLink value="Earnings from Completed Surveys" action="bloggercompletedsurveys" styleClass="mediumfont" style="color: #596697;"/>
+            </td></tr>
+            <tr><td valign="top"></td><td valign="top">
+                <font class="smallfont">See how much you've earned.</font>
+            </td></tr></table>
 
-        <br/><br/>
-        <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-            <h:commandLink value="Blogger Frequently Asked Questions" action="bloggerfaq" styleClass="mediumfont" style="color: #0000ff;"/>
-        </td></tr>
-        <tr><td valign="top"></td><td valign="top">
-            <font class="smallfont">Get your answers here!</font>
-        </td></tr></table>
+            <br/><br/>
+            <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
+                <h:commandLink value="Earn Money Inviting Friends" action="bloggerearningsrevshare" styleClass="mediumfont" style="color: #596697;"/>
+            </td></tr>
+            <tr><td valign="top"></td><td valign="top">
+                <font class="smallfont">Invite friends and earn money when they take surveys!</font>
+            </td></tr></table>
 
+            <br/><br/>
+            <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
+                <h:commandLink value="Blogger Frequently Asked Questions" action="bloggerfaq" styleClass="mediumfont" style="color: #596697;"/>
+            </td></tr>
+            <tr><td valign="top"></td><td valign="top">
+                <font class="smallfont">Get your answers here!</font>
+            </td></tr></table>
+
+        </div>
     </c:if>
 
 

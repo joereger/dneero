@@ -47,7 +47,7 @@
           </af:column>
           <af:column>
             <f:facet name="header">
-              <af:outputText value="Number of Members"/>
+              <af:outputText value="Members"/>
             </f:facet>
             <af:outputText value="#{listitem.numberofmembers}" styleClass="normalfont"/>
           </af:column>
@@ -65,8 +65,8 @@
               <af:outputText value="-" inlineStyle="color: #ffffff;"/>
             </f:facet>
             <h:commandLink action="#{researcherFindBloggers.beginView}">
-                <h:outputText value="Find Bloggers to Add to Panel" styleClass="normalfont" escape="false" />
-                <f:param name="panelid" value="#{panel.panelid}" />
+                <h:outputText value="Find Bloggers to Add" styleClass="normalfont" escape="false" />
+                <f:param name="panelid" value="#{listitem.panel.panelid}" />
             </h:commandLink>
           </af:column>
           <af:column>
@@ -75,7 +75,7 @@
             </f:facet>
             <h:commandLink action="#{researcherPanelsEdit.beginView}">
                 <h:outputText value="Edit" styleClass="normalfont" escape="false" />
-                <f:param name="panelid" value="#{panel.panelid}" />
+                <f:param name="panelid" value="#{listitem.panel.panelid}" />
             </h:commandLink>
           </af:column>
           <af:column>
@@ -84,7 +84,7 @@
             </f:facet>
             <h:commandLink action="#{researcherPanels.deletePanel}">
                 <h:outputText value="Delete" styleClass="normalfont" escape="false" />
-                <f:param name="panelid" value="#{panel.panelid}" />
+                <f:param name="panelid" value="#{listitem.panel.panelid}" />
             </h:commandLink>
           </af:column>
         </af:table>

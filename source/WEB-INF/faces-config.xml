@@ -210,6 +210,12 @@
     </managed-bean>
 
     <managed-bean>
+        <managed-bean-name>researcherIndex</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.ResearcherIndex</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
         <managed-bean-name>researcherPanels</managed-bean-name>
         <managed-bean-class>com.dneero.formbeans.ResearcherPanels</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>

@@ -24,8 +24,15 @@ public class BloggerIndex {
 
     private boolean userhasresponsependings = false;
     private String responsependingmsg = "";
+    private boolean showmarketingmaterial = false;
 
     public BloggerIndex(){
+        if (Jsf.getRequestParam("showmarketingmaterial")!=null && Jsf.getRequestParam("showmarketingmaterial").equals("1")){
+            showmarketingmaterial = true;
+        } else {
+            showmarketingmaterial = false;
+        }
+
         List<Responsepending> responsependings = HibernateUtil.getSession().createCriteria(Responsepending.class)
                                .add(Restrictions.eq("userid", Jsf.getUserSession().getUser().getUserid()))
                                .setCacheable(true)
@@ -64,5 +71,13 @@ public class BloggerIndex {
 
     public void setResponsependingmsg(String responsependingmsg) {
         this.responsependingmsg = responsependingmsg;
+    }
+
+    public boolean getShowmarketingmaterial() {
+        return showmarketingmaterial;
+    }
+
+    public void setShowmarketingmaterial(boolean showmarketingmaterial) {
+        this.showmarketingmaterial = showmarketingmaterial;
     }
 }

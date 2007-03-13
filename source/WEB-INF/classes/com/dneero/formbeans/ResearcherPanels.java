@@ -29,7 +29,11 @@ public class ResearcherPanels extends SortableList {
     public ResearcherPanels() {
         //Default sort column
         super("name");
+        load();
 
+    }
+
+    private void load(){
         if (Jsf.getUserSession()!=null && Jsf.getUserSession().getUser()!=null && Jsf.getUserSession().getUser().getResearcherid()>0){
             logger.debug("userSession, user and researcher not null");
             logger.debug("into loop for userSession.getUser().getResearcher().getResearcherid()="+Jsf.getUserSession().getUser().getResearcherid());
@@ -50,12 +54,24 @@ public class ResearcherPanels extends SortableList {
         if (newpanelname==null || newpanelname.equals("")){
             newpanelname = "My Panel ("+Time.dateformatdate(Calendar.getInstance())+")";
         }
-        //@todo - Don't allow duplicate panel names
+        //Don't allow duplicate panel names
+        int duplicatecount = 0;
+        for (Iterator iterator = listitems.iterator(); iterator.hasNext();) {
+            ResearcherPanelsListitem researcherPanelsListitem = (ResearcherPanelsListitem) iterator.next();
+            Panel p = researcherPanelsListitem.getPanel();
+            if (p.getName().equals(newpanelname)){
+                duplicatecount = duplicatecount + 1;
+            }
+        }
+        if (duplicatecount>0){
+            newpanelname = newpanelname + " #" + (duplicatecount+1);
+        }
         Panel panel = new Panel();
         panel.setCreatedate(new Date());
         panel.setName(newpanelname);
         panel.setResearcherid(Jsf.getUserSession().getUser().getResearcherid());
         try{panel.save();}catch (Exception ex){logger.error(ex);}
+        load();
         msg = "New panel created.";
         return "researcherpanels";
     }
@@ -64,8 +80,14 @@ public class ResearcherPanels extends SortableList {
         if (Num.isinteger(Jsf.getRequestParam("panelid"))){
             Panel panel = Panel.get(Integer.parseInt(Jsf.getRequestParam("panelid")));
             if (panel.canEdit(Jsf.getUserSession().getUser())){
-                try{panel.delete();}catch (Exception ex){logger.error(ex);}
-                msg = "Panel deleted.";
+                try{
+                    panel.delete();
+                    msg = "Panel deleted.";
+                    load();
+                }catch (Exception ex){
+                    logger.error(ex);
+                    msg="Error deleting panel.";
+                }
             }
         }
         return "researcherpanels";

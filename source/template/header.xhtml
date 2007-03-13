@@ -37,32 +37,32 @@
                     </td>
                 </tr>
                 <tr>
-                    <td valign="top" background="/images/navtabs/mainbar_bg.gif" width="234">
+                    <td valign="top" background="/images/navtabs2/mainbar_bg.gif" width="234">
                         <img src="/images/clear.gif" width="1" height="85"/>
                     </td>
-                    <td valign="top" background="/images/navtabs/mainbar_bg.gif">
+                    <td valign="top" background="/images/navtabs2/mainbar_bg.gif">
                         <a href="/index.jsf">
-                        <c:if test="${navtab!='home'}"><img src="/images/navtabs/home_off.gif" width="138" height="70" border="0"/></c:if>
-                        <c:if test="${navtab=='home'}"><img src="/images/navtabs/home_on.gif" width="138" height="70" border="0"/></c:if>
+                        <c:if test="${navtab!='home'}"><img src="/images/navtabs2/home_off.gif" width="138" height="70" border="0"/></c:if>
+                        <c:if test="${navtab=='home'}"><img src="/images/navtabs2/home_on.gif" width="138" height="70" border="0"/></c:if>
                         </a>
                     </td>
-                    <td valign="top" background="/images/navtabs/mainbar_bg.gif">
+                    <td valign="top" background="/images/navtabs2/mainbar_bg.gif">
                         <a href="/blogger/index.jsf">
-                        <c:if test="${navtab!='bloggers'}"><img src="/images/navtabs/bloggers_off.gif" width="138" height="70" border="0"/></c:if>
-                        <c:if test="${navtab=='bloggers'}"><img src="/images/navtabs/bloggers_on.gif" width="138" height="70" border="0"/></c:if>
+                        <c:if test="${navtab!='bloggers'}"><img src="/images/navtabs2/bloggers_off.gif" width="138" height="70" border="0"/></c:if>
+                        <c:if test="${navtab=='bloggers'}"><img src="/images/navtabs2/bloggers_on.gif" width="138" height="70" border="0"/></c:if>
                         </a>
                     </td>
-                    <td valign="top" background="/images/navtabs/mainbar_bg.gif">
+                    <td valign="top" background="/images/navtabs2/mainbar_bg.gif">
                         <a href="/researcher/index.jsf">
-                        <c:if test="${navtab!='researchers'}"><img src="/images/navtabs/researchers_off.gif" width="138" height="70" border="0"/></c:if>
-                        <c:if test="${navtab=='researchers'}"><img src="/images/navtabs/researchers_on.gif" width="138" height="70" border="0"/></c:if>
+                        <c:if test="${navtab!='researchers'}"><img src="/images/navtabs2/researchers_off.gif" width="138" height="70" border="0"/></c:if>
+                        <c:if test="${navtab=='researchers'}"><img src="/images/navtabs2/researchers_on.gif" width="138" height="70" border="0"/></c:if>
                         </a>
                     </td>
-                    <td valign="top" background="/images/navtabs/mainbar_bg.gif">
-                        <c:if test="${navtab!='youraccount' and userSession.isloggedin}"><a href="/account/index.jsf"><img src="/images/navtabs/youraccount_off.gif" width="138" height="70" border="0"/></a></c:if>
-                        <c:if test="${navtab=='youraccount' and userSession.isloggedin}"><a href="/account/index.jsf"><img src="/images/navtabs/youraccount_on.gif" width="138" height="70" border="0"/></a></c:if>
-                        <c:if test="${navtab!='youraccount' and !userSession.isloggedin}"><a href="/registration.jsf"><img src="/images/navtabs/youraccount_off.gif" width="138" height="70" border="0"/></a></c:if>
-                        <c:if test="${navtab=='youraccount' and !userSession.isloggedin}"><a href="/registration.jsf"><img src="/images/navtabs/youraccount_on.gif" width="138" height="70" border="0"/></a></c:if>
+                    <td valign="top" background="/images/navtabs2/mainbar_bg.gif">
+                        <c:if test="${navtab!='youraccount' and userSession.isloggedin}"><a href="/account/index.jsf"><img src="/images/navtabs2/youraccount_off.gif" width="138" height="70" border="0"/></a></c:if>
+                        <c:if test="${navtab=='youraccount' and userSession.isloggedin}"><a href="/account/index.jsf"><img src="/images/navtabs2/youraccount_on.gif" width="138" height="70" border="0"/></a></c:if>
+                        <c:if test="${navtab!='youraccount' and !userSession.isloggedin}"><a href="/registration.jsf"><img src="/images/navtabs2/youraccount_off.gif" width="138" height="70" border="0"/></a></c:if>
+                        <c:if test="${navtab=='youraccount' and !userSession.isloggedin}"><a href="/registration.jsf"><img src="/images/navtabs2/youraccount_on.gif" width="138" height="70" border="0"/></a></c:if>
                     </td>
                 </tr>
                 <tr>
@@ -78,7 +78,8 @@
                             <h:commandLink value="Blogger Profile" action="bloggerdetails" styleClass="subnavfont" style="padding-left: 15px; color: #000000;" rendered="#{userSession.isloggedin and (userSession.user.bloggerid gt 0)}"/>
                             <h:commandLink value="Your Blogs" action="bloggerblogslist" styleClass="subnavfont" style="padding-left: 15px; color: #000000;" rendered="#{userSession.isloggedin and (userSession.user.bloggerid gt 0)}"/>
                             <h:commandLink value="Revenue Share" action="bloggerearningsrevshare" styleClass="subnavfont" style="padding-left: 15px; color: #000000;" rendered="#{userSession.isloggedin and (userSession.user.bloggerid gt 0)}"/>
-                            <h:commandLink value="Blogger FAQ" action="bloggerfaq" style="padding-left: 15px; color: #000000;" styleClass="subnavfont"/>
+                            <h:commandLink value="FAQ" action="bloggerfaq" style="padding-left: 15px; color: #000000;" styleClass="subnavfont"/>
+                            <font class="subnavfont" style="padding-left: 15px; color: #000000;"><a href="/blogger/index.jsf?showmarketingmaterial=1">Basics</a></font>
                         </c:if>
                         <c:if test="${navtab=='researchers'}">
                             <h:commandLink value="My Surveys and Results" action="researchersurveylist" styleClass="subnavfont" style="padding-left: 15px; color: #000000;" rendered="#{userSession.isloggedin and (userSession.user.researcherid gt 0)}"/>
@@ -87,7 +88,8 @@
                             <h:commandLink value="Panels" action="researcherpanels" styleClass="subnavfont" style="padding-left: 15px; color: #000000;" rendered="#{userSession.isloggedin and (userSession.user.researcherid gt 0)}"/>
                             <h:commandLink value="Researcher Profile" action="researcherdetails" styleClass="subnavfont" style="padding-left: 15px; color: #000000;" rendered="#{userSession.isloggedin and (userSession.user.researcherid gt 0)}"/>
                             <h:commandLink value="Billing Info" action="researcherbilling" styleClass="subnavfont" style="padding-left: 15px; color: #000000;" rendered="#{userSession.isloggedin and (userSession.user.researcherid gt 0)}"/>
-                            <h:commandLink value="Researcher FAQ" action="researcherfaq" style="padding-left: 15px; color: #000000;" styleClass="subnavfont"/>
+                            <h:commandLink value="FAQ" action="researcherfaq" style="padding-left: 15px; color: #000000;" styleClass="subnavfont"/>
+                            <font class="subnavfont" style="padding-left: 15px; color: #000000;"><a href="/researcher/index.jsf?showmarketingmaterial=1">Basics</a></font>
                         </c:if>
                         <c:if test="${navtab=='youraccount'}">
                             <h:commandLink value="Account Balance" action="accountbalance" style="padding-left: 15px; color: #000000;" styleClass="subnavfont" rendered="#{userSession.isloggedin}"/>
@@ -110,7 +112,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td background="/images/navtabs/linedots.gif" colspan="5"><img src="/images/clear.gif" width="1" height="1"/></td>
+                    <td background="/images/navtabs2/linedots.gif" colspan="5"><img src="/images/clear.gif" width="1" height="1"/></td>
                 </tr>
             </table>
             <br/>

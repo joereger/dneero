@@ -53,10 +53,10 @@
                 <h:panelGroup>
                     <h:outputText value="Phone" styleClass="formfieldnamefont"></h:outputText>
                     <br/>
-                    <font class="tinyfont">So we can contact you regarding billing and survey issues.</font>
+                    <font class="tinyfont">So we can contact you regarding billing and survey issues (note required).</font>
                 </h:panelGroup>
                 <h:panelGroup>
-                    <h:inputText value="#{researcherDetails.phone}" id="phone" required="true"></h:inputText>
+                    <h:inputText value="#{researcherDetails.phone}" id="phone" required="false"></h:inputText>
                 </h:panelGroup>
                 <h:panelGroup>
                     <h:message for="phone" styleClass="RED"></h:message>

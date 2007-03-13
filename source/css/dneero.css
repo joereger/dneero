@@ -1,7 +1,7 @@
 
 
 a, a:link, a:visited, a:active {
-    color: #0000ff;
+    color: #596697;
     background-color: inherit;
 }
 
@@ -47,7 +47,7 @@ a, a:link, a:visited, a:active {
 
 .pagetitlefont {
     font-family: Impact, Verdana, Arial, Helvetica, sans-serif;
-    color: #00dd00;
+    color: #0bae17;
     font-size: 34px;
 }
 
@@ -58,7 +58,7 @@ td, th {
 }
 
 a:hover {
-    color: #ff0000;
+    color: #0000ff;
     background-color: inherit;
 }
 

@@ -23,15 +23,7 @@
 <h:form>
     <h:inputHidden name="surveyid" value="#{userSession.currentSurveyid}" />
 
-    <c:if test="#{systemProps.isbeta eq '1'}">
-        <div class="rounded" style="padding: 0px; margin: 10px; background: #33FF00;">
-            <div class="rounded" style="padding: 15px; margin: 8px; background: #BFFFBF;">
-                <font class="largefont">We're in Beta!</font>
-                <br/>
-                <font class="normalfont">While we're in Beta there's no actual real-world money being used.  When you created your Researcher account you were given $100,000 in virtual money to play with.  Use this money to entice bloggers to fill out your survey.</font>
-            </div>
-        </div>
-    </c:if>
+
 
     <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
     <img src="/images/lightbulb_on.png" align="right"/>

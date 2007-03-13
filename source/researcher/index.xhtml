@@ -10,14 +10,14 @@
       xmlns:c="http://java.sun.com/jstl/core">
 
 <ui:composition template="/template/template-facelets.xhtml">
-    <ui:define name="title">For Researchers and Marketers<br/><br/></ui:define>
+    <ui:define name="title"><img src="/images/statistic-128.png" alt="" border="0" width="128" height="128" align="right"/>For Researchers and Marketers<br/><br clear="all"/></ui:define>
     <ui:param name="navtab" value="researchers"/>
     <ui:define name="body">
     <d:authorization acl="public" redirectonfail="true"/>
 
     <h:form>
 
-    <c:if test="${!userSession.isloggedin}">
+    <c:if test="${!userSession.isloggedin or researcherIndex.showmarketingmaterial}">
         <table cellpadding="0" cellspacing="0" border="0" width="100%">
            <tr>
                <td valign="top" width="70%">
@@ -65,6 +65,14 @@
                         <br/>
                         Research data gained through dNeero is more reflective of how people actually act in their peer group because the answers they provide will be shared on their blog or social network.  In many traditional forms of market research the subject is apt to provide an answer that seems appropriate to the researcher but is not the actual answer that they'll use with their peers.  As a researcher you're much more interested in how they present their beliefs and views to their peers because these views drive market adoption and purchasing decisions.
                         <br/><br/><br/>
+                        <font class="mediumfont" style="color: #999999">Social Influence Rating (TM)</font>
+                        <br/>
+                        Bloggers post their survey answers to their blogs.  Their readers are given the opportunity to take the same survey.  We track this influence and incorporate blog traffic with the amount of skewing that the first blogger's answers resulted in (against the norm for the survey) and create a Social Influence Rating.  This helps you zero in on those bloggers that are effective in your space.
+                        <br/><br/><br/>
+                        <font class="mediumfont" style="color: #999999">Standing Panels of Bloggers for Longitudinal Studies</font>
+                        <br/>
+                        Create a panel of bloggers and approach them with surveys over time to do longitudinal research in the blogosphere.
+                        <br/><br/><br/>
                         <font class="mediumfont" style="color: #999999">Get Started Now, Low Commitment</font>
                         <br/>
                         It's easy to create an account and build a survey.  You won't be charged until you launch a survey, at which point it will be obvious that you're about to be charged.  Log in. Explore.  Ask us questions.  It's a new concept and we're excited to see how you apply it!
@@ -111,11 +119,11 @@
         </div>
     </c:if>
 
-    <c:if test="${userSession.isloggedin and (userSession.user.researcherid gt 0)}">
+    <c:if test="${userSession.isloggedin and (userSession.user.researcherid gt 0) and (!researcherIndex.showmarketingmaterial)}">
         
 
         <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-            <h:commandLink value="Start a New Survey" action="#{researcherSurveyDetail01.beginViewNewSurvey}" styleClass="mediumfont" style="color: #0000ff;"/>
+            <h:commandLink value="Start a New Survey" action="#{researcherSurveyDetail01.beginViewNewSurvey}" styleClass="mediumfont" style="color: #596697;"/>
         </td></tr>
         <tr><td valign="top"></td><td valign="top">
             <font class="smallfont">Create a new survey for bloggers. This step-by-step wizard will guide you through the process.  Your survey can be up and running in a matter of minutes.</font>
@@ -123,7 +131,7 @@
 
         <br/><br/>
         <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-            <h:commandLink value="My Surveys and Results" action="researchersurveylist" styleClass="mediumfont" style="color: #0000ff;"/>
+            <h:commandLink value="My Surveys and Results" action="researchersurveylist" styleClass="mediumfont" style="color: #596697;"/>
         </td></tr>
         <tr><td valign="top"></td><td valign="top">
             <font class="smallfont">A list of surveys that you've created or are working on.</font>
@@ -131,7 +139,7 @@
 
         <br/><br/>
         <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-            <h:commandLink value="Invite People to Take Surveys" action="researcheremailinvite" styleClass="mediumfont" style="color: #0000ff;"/>
+            <h:commandLink value="Invite People to Take Surveys" action="researcheremailinvite" styleClass="mediumfont" style="color: #596697;"/>
         </td></tr>
         <tr><td valign="top"></td><td valign="top">
             <font class="smallfont">Use this tool to send out emails inviting people to take your surveys.  We handle all of the heavy lifting.</font>
@@ -139,7 +147,7 @@
 
         <br/><br/>
         <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-            <h:commandLink value="Find Bloggers" action="researcherfindbloggers" styleClass="mediumfont" style="color: #0000ff;"/>
+            <h:commandLink value="Find Bloggers" action="researcherfindbloggers" styleClass="mediumfont" style="color: #596697;"/>
         </td></tr>
         <tr><td valign="top"></td><td valign="top">
             <font class="smallfont">Find bloggers already in the system.  Build panels of bloggers in this way.</font>
@@ -147,7 +155,7 @@
 
         <br/><br/>
         <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-            <h:commandLink value="Panels" action="researcherpanels" styleClass="mediumfont" style="color: #0000ff;"/>
+            <h:commandLink value="Panels" action="researcherpanels" styleClass="mediumfont" style="color: #596697;"/>
         </td></tr>
         <tr><td valign="top"></td><td valign="top">
             <font class="smallfont">Create and manage standing panels of bloggers for longitudinal studies.</font>
@@ -155,7 +163,7 @@
 
         <br/><br/>
         <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-            <h:commandLink value="Update My Researcher Profile" action="researcherdetails" styleClass="mediumfont" style="color: #0000ff;"/>
+            <h:commandLink value="Update My Researcher Profile" action="researcherdetails" styleClass="mediumfont" style="color: #596697;"/>
         </td></tr>
         <tr><td valign="top"></td><td valign="top">
             <font class="smallfont">Help us understand your needs so that we can serve you better.</font>
@@ -163,7 +171,7 @@
 
         <br/><br/>
         <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-            <h:commandLink value="Billing Info" action="researcherbilling" styleClass="mediumfont" style="color: #0000ff;"/>
+            <h:commandLink value="Billing Info" action="researcherbilling" styleClass="mediumfont" style="color: #596697;"/>
         </td></tr>
         <tr><td valign="top"></td><td valign="top">
             <font class="smallfont">Update your billing information on this screen.</font>
@@ -172,7 +180,7 @@
 
         <br/><br/>
         <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-            <h:commandLink value="Researcher Frequently Asked Questions" action="researcherfaq" styleClass="mediumfont" style="color: #0000ff;"/>
+            <h:commandLink value="Researcher Frequently Asked Questions" action="researcherfaq" styleClass="mediumfont" style="color: #596697;"/>
         </td></tr>
         <tr><td valign="top"></td><td valign="top">
             <font class="smallfont">Get your answers here!</font>

@@ -76,11 +76,13 @@ public class ResearcherSurveyDetail02 {
                 survey = Survey.get(userSession.getCurrentSurveyid());
             }
 
-
+            if (survey.getQuestions()==null || survey.getQuestions().size()==0){
+                Jsf.setFacesMessage("You must add at least one question to continue.");
+                return null;   
+            }
 
             if (Jsf.getUserSession().getUser()!=null && survey.canEdit(Jsf.getUserSession().getUser())){
                 //survey.setResearcherid(userSession.getUser().getResearcherid());
-
                 try{
                     logger.debug("saveSurvey() about to save survey.getSurveyid()=" + survey.getSurveyid());
                     survey.save();

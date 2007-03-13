@@ -28,9 +28,9 @@ public class SurveyEnhancer {
 
     public SurveyEnhancer(Survey survey){
         this.survey = survey;
-        if (survey!=null){
-
+        if (survey!=null && survey.getStartdate()!=null && survey.getEnddate()!=null){
             startdate = Time.dateformatcompactwithtime(Time.getCalFromDate(survey.getStartdate()));
+
             enddate = Time.dateformatcompactwithtime(Time.getCalFromDate(survey.getEnddate()));
 
             responsesalreadygotten = String.valueOf(survey.getResponses().size());
