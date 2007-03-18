@@ -77,6 +77,7 @@ public class ResearcherEmailinviteComplete {
                     args[2] = message;
                     args[3] = url;
                     args[4] = survey.getTitle();
+                    args[5] = survey.getDescription();
                     //Send the email
                     EmailTemplateProcessor.sendMail(subject, "researcherinviteemail", null, args, emailaddress,  Jsf.getUserSession().getUser().getEmail());
                     //Record address into batch in db

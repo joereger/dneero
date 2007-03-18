@@ -48,9 +48,7 @@ public class LoginToBeta {
 
     }
 
-
-
-
+    
 
     public String getBetapassword() {
         return betapassword;

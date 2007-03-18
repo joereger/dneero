@@ -10,7 +10,7 @@
       xmlns:af="http://xmlns.oracle.com/adf/faces">
 
 <ui:composition template="/template/template-facelets.xhtml">
-    <ui:define name="title">Survey Results<br/><br/></ui:define>
+    <ui:define name="title"><img src="/images/user.png" align="right" alt="" border="0"/>#{researcherBloggerProfile.user.firstname} #{researcherBloggerProfile.user.lastname}'s Answers<br/><br clear="all"/></ui:define>
     <ui:param name="navtab" value="researchers"/>
     <ui:define name="body">
     <d:authorization acl="researcher" redirectonfail="true"/>
@@ -18,7 +18,6 @@
 <h:form>
 
 
-    <br/><br/>
     <font class="mediumfont" style="color: #cccccc;">#{researcherBloggerProfileAnswers.user.firstname} #{researcherBloggerProfileAnswers.user.lastname}'s Answers</font>
     <br/><br/>
 
