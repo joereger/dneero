@@ -15,6 +15,41 @@
         <param-value>client</param-value>
     </context-param>
 
+
+
+
+    <!--<context-param>
+        <param-name>org.ajax4jsf.VIEW_HANDLERS</param-name>
+        <param-value>com.sun.facelets.FaceletViewHandler</param-value>
+     </context-param>-->
+    <context-param>
+      <param-name>org.ajax4jsf.SKIN</param-name>
+      <param-value>blueSky</param-value>
+     </context-param>
+     <filter>
+      <display-name>Ajax4jsf Filter</display-name>
+      <filter-name>ajax4jsf</filter-name>
+      <filter-class>org.ajax4jsf.Filter</filter-class>
+      <init-param>
+       <param-name>forceparser</param-name>
+       <param-value>false</param-value>
+      </init-param>
+     </filter>
+     <filter-mapping>
+      <filter-name>ajax4jsf</filter-name>
+       <servlet-name>Faces Servlet</servlet-name>
+       <dispatcher>REQUEST</dispatcher>
+       <dispatcher>FORWARD</dispatcher>
+       <dispatcher>INCLUDE</dispatcher>
+     </filter-mapping>
+
+
+
+
+
+
+
+
     <!--
 
     <context-param>
@@ -166,6 +201,24 @@
         <url-pattern>*.jsf</url-pattern>
     </filter-mapping>
     -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     <filter>
         <filter-name>HibernateSessionCloser</filter-name>

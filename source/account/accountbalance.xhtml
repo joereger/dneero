@@ -8,7 +8,9 @@
       xmlns:t="http://myfaces.apache.org/tomahawk"
       xmlns:af="http://xmlns.oracle.com/adf/faces"
       xmlns:d="http://dneero.com/taglib"
-      xmlns:c="http://java.sun.com/jstl/core">
+      xmlns:c="http://java.sun.com/jstl/core"
+      xmlns:rich="http://richfaces.ajax4jsf.org/rich"
+      xmlns:a4j="https://ajax4jsf.dev.java.net/ajax">
 
 <ui:composition template="/template/template-facelets.xhtml">
     <ui:define name="title">Account Balance: #{accountBalance.currentbalance}<br/><br/></ui:define>
@@ -24,50 +26,51 @@
         <t:saveState id="save" value="#{accountBalance}"/>
 
         <af:outputText value="There are not yet any financial transactions on your account.  Go fill out some surveys!  Or create some!" rendered="#{empty accountBalance.balances}"/>
-        <af:table value="#{accountBalance.balances}" bandingInterval="2" rows="25" banding="row" var="balance" rendered="#{!empty accountBalance.balances}">
-          <af:column>
+        <rich:datascroller for="balances" maxPages="20"/>
+        <rich:dataTable value="#{accountBalance.balances}" id="balances" style="width: 100%" bandingInterval="2" rows="25" banding="row" var="balance" rendered="#{!empty accountBalance.balances}">
+          <h:column>
             <f:facet name="header">
               <af:outputText value="Id"/>
             </f:facet>
-            <af:outputText value="#{balance.balanceid}" styleClass="tinyfont"/>
-          </af:column>
-          <af:column>
+            <h:outputText value="#{balance.balanceid}" styleClass="tinyfont"/>
+          </h:column>
+          <h:column>
             <f:facet name="header">
-              <af:outputText value="Date"/>
+              <h:outputText value="Date"/>
             </f:facet>
-              <af:outputText value="#{balance.date}" styleClass="tinyfont"><f:convertDateTime type="both" dateStyle="short" timeStyle="medium"/></af:outputText>
-          </af:column>
-          <af:column>
+              <h:outputText value="#{balance.date}" styleClass="tinyfont"><f:convertDateTime type="both" dateStyle="short" timeStyle="medium"/></h:outputText>
+          </h:column>
+          <h:column>
             <f:facet name="header">
-              <af:outputText value="Description"/>
+              <h:outputText value="Description"/>
             </f:facet>
-            <af:outputText value="#{balance.description}" styleClass="smallfont" rendered="#{balance.optionalimpressionpaymentgroupid le 0 and balance.optionalimpressionchargegroupid le 0}"/>
-            <h:commandLink action="#{accountImpressionpaymentgroup.beginView}" rendered="#{balance.optionalimpressionpaymentgroupid>0}">
+            <h:outputText value="#{balance.description}" styleClass="smallfont" rendered="#{balance.optionalimpressionpaymentgroupid le 0 and balance.optionalimpressionchargegroupid le 0}"/>
+            <a4j:commandLink action="#{accountImpressionpaymentgroup.beginView}" rendered="#{balance.optionalimpressionpaymentgroupid>0}">
                 <h:outputText value="#{balance.description}" styleClass="smallfont" escape="false" />
                 <f:param name="impressionpaymentgroupid" value="#{balance.optionalimpressionpaymentgroupid}" />
-            </h:commandLink>
-            <h:commandLink action="#{accountImpressionchargegroup.beginView}" rendered="#{balance.optionalimpressionchargegroupid>0}">
+            </a4j:commandLink>
+            <a4j:commandLink action="#{accountImpressionchargegroup.beginView}" rendered="#{balance.optionalimpressionchargegroupid>0}">
                 <h:outputText value="#{balance.description}" styleClass="smallfont" escape="false" />
                 <f:param name="impressionchargegroupid" value="#{balance.optionalimpressionchargegroupid}" />
-            </h:commandLink>
-          </af:column>
-          <af:column>
+            </a4j:commandLink>
+          </h:column>
+          <h:column>
             <f:facet name="header">
-              <af:outputText value="Amount"/>
+              <h:outputText value="Amount"/>
             </f:facet>
-            <af:outputText value="#{balance.amt}" styleClass="tinyfont"/>
-          </af:column>
-          <af:column>
+            <h:outputText value="#{balance.amt}" styleClass="tinyfont"/>
+          </h:column>
+          <h:column>
             <f:facet name="header">
-              <af:outputText value="Balance"/>
+              <h:outputText value="Balance"/>
             </f:facet>
-            <af:outputText value="#{balance.currentbalance}" styleClass="tinyfont" inlineStyle="font-weight: bold;"/>
-          </af:column>
-        </af:table>
+            <h:outputText value="#{balance.currentbalance}" styleClass="tinyfont" style="font-weight: bold;"/>
+          </h:column>
+        </rich:dataTable>
 
 
         <br/><br/>
-        <h:commandLink value="View Transfer Details" action="accounttransactions" style="padding-left: 25px;" styleClass="smallfont" rendered="#{!empty accountBalancetransaction.balances}"/>
+        <a4j:commandLink value="View Transfer Details" action="accounttransactions" style="padding-left: 25px;" styleClass="smallfont" rendered="#{!empty accountBalancetransaction.balances}"/>
 
 
     </h:form>
