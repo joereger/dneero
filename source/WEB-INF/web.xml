@@ -18,10 +18,10 @@
 
 
 
-    <!--<context-param>
+    <context-param>
         <param-name>org.ajax4jsf.VIEW_HANDLERS</param-name>
         <param-value>com.sun.facelets.FaceletViewHandler</param-value>
-     </context-param>-->
+     </context-param>
     <context-param>
       <param-name>org.ajax4jsf.SKIN</param-name>
       <param-value>blueSky</param-value>
@@ -50,8 +50,8 @@
 
 
 
-    <!--
 
+    <!--
     <context-param>
         <param-name>javax.faces.STATE_SAVING_METHOD</param-name>
         <param-value>server</param-value>
@@ -161,7 +161,7 @@
     </servlet-mapping>
 
 
-
+    <!--
     <context-param>
         <param-name>oracle.adf.view.faces.ALTERNATE_VIEW_HANDLER</param-name>
         <param-value>com.sun.facelets.FaceletViewHandler</param-value>
@@ -182,25 +182,9 @@
         <servlet-name>resources</servlet-name>
         <url-pattern>/adf/*</url-pattern>
     </servlet-mapping>
-
-    <!--
-    <context-param>
-        <param-name>facelets.LIBRARIES</param-name>
-        <param-value>/WEB-INF/ajaxanywhere.taglib.xml</param-value>
-    </context-param>
-    <filter>
-        <filter-name>AjaxAnywhere</filter-name>
-        <filter-class>org.ajaxanywhere.AAFilter</filter-class>
-    </filter>
-    <filter-mapping>
-        <filter-name>AjaxAnywhere</filter-name>
-        <url-pattern>*.xhtml</url-pattern>
-    </filter-mapping>
-    <filter-mapping>
-        <filter-name>AjaxAnywhere</filter-name>
-        <url-pattern>*.jsf</url-pattern>
-    </filter-mapping>
     -->
+
+   
 
 
 

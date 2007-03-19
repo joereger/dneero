@@ -15,15 +15,15 @@ import com.dneero.display.components.Textbox;
 import com.dneero.display.components.Matrix;
 
 import java.util.Iterator;
+import java.io.Serializable;
 
 /**
  * User: Joe Reger Jr
  * Date: Jun 15, 2006
  * Time: 9:54:08 AM
  */
-public class ResearcherSurveyDetail02matrix {
+public class ResearcherSurveyDetail02matrix implements Serializable {
 
-    Logger logger = Logger.getLogger(this.getClass().getName());
 
     private int questionid = 0;
     private String question;
@@ -37,6 +37,7 @@ public class ResearcherSurveyDetail02matrix {
 
 
     public ResearcherSurveyDetail02matrix(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("Instanciating object");
         String tmpQuestionid = Jsf.getRequestParam("questionid");
         String tmpIsnewquestion = Jsf.getRequestParam("isnewquestion");
@@ -50,6 +51,7 @@ public class ResearcherSurveyDetail02matrix {
 
 
     public void loadQuestion(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("loadQuestion called questionid="+questionid);
         Question question = Question.get(questionid);
         if (question!=null){
@@ -86,6 +88,7 @@ public class ResearcherSurveyDetail02matrix {
     }
 
     public String saveQuestion(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("saveQuestion() called. - questionid="+questionid);
 
         UserSession userSession = Jsf.getUserSession();

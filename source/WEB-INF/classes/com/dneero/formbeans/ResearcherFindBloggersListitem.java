@@ -4,12 +4,14 @@ import com.dneero.dao.Panelmembership;
 import com.dneero.dao.Blogger;
 import com.dneero.dao.User;
 
+import java.io.Serializable;
+
 /**
  * User: Joe Reger Jr
  * Date: Feb 9, 2007
  * Time: 10:42:52 AM
  */
-public class ResearcherFindBloggersListitem {
+public class ResearcherFindBloggersListitem implements Serializable {
 
     private Blogger blogger;
     private User user;

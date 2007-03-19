@@ -4,6 +4,7 @@ import org.apache.log4j.Logger;
 
 import java.util.Iterator;
 import java.util.Calendar;
+import java.io.Serializable;
 
 import com.dneero.dao.User;
 import com.dneero.util.Jsf;
@@ -19,17 +20,17 @@ import javax.faces.el.ValueBinding;
  * Date: Jun 15, 2006
  * Time: 9:54:08 AM
  */
-public class LoginToBeta {
+public class LoginToBeta implements Serializable {
 
     private String betapassword;
 
-    Logger logger = Logger.getLogger(this.getClass().getName());
-
     public LoginToBeta(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("Instanciating a Login object.");
     }
 
     public String login(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("login() called.");
 
         if (!betapassword.equals("diaga")){

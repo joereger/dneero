@@ -1,11 +1,13 @@
 package com.dneero.formbeans;
 
+import java.io.Serializable;
+
 /**
  * User: Joe Reger Jr
  * Date: Aug 21, 2006
  * Time: 7:27:26 PM
  */
-public class BloggerEarningsRevshareListRevshares {
+public class BloggerEarningsRevshareListRevshares implements Serializable {
 
     private String username;
     private double amt;

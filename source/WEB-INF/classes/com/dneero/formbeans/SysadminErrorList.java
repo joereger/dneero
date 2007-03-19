@@ -5,6 +5,7 @@ import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.dao.Error;
 
 import java.util.*;
+import java.io.Serializable;
 
 import org.apache.log4j.Logger;
 import org.apache.log4j.Level;
@@ -14,9 +15,8 @@ import org.apache.log4j.Level;
  * Date: Jun 8, 2006
  * Time: 10:16:03 AM
  */
-public class SysadminErrorList extends SortableList {
+public class SysadminErrorList extends SortableList implements Serializable {
 
-    Logger logger = Logger.getLogger(this.getClass().getName());
     private List errors;
     private int minleveltoshow=0;
 
@@ -27,6 +27,7 @@ public class SysadminErrorList extends SortableList {
     }
 
     public String load(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         //Go get the users from the database
         logger.debug("load() called. minleveltoshow="+minleveltoshow);
         errors = HibernateUtil.getSession().createQuery("from Error where level>='"+minleveltoshow+"'").list();
@@ -113,6 +114,7 @@ public class SysadminErrorList extends SortableList {
     }
 
     public void setMinleveltoshow(int minleveltoshow) {
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("setMinleveltoshow() called. minleveltoshow="+minleveltoshow);
         this.minleveltoshow = minleveltoshow;
     }

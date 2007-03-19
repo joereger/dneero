@@ -13,15 +13,15 @@ import com.dneero.display.SurveyTakerDisplay;
 import javax.faces.context.FacesContext;
 import javax.faces.application.FacesMessage;
 import java.util.Iterator;
+import java.io.Serializable;
 
 /**
  * User: Joe Reger Jr
  * Date: Jun 15, 2006
  * Time: 9:54:08 AM
  */
-public class ResearcherSurveyDetail02 {
+public class ResearcherSurveyDetail02 implements Serializable {
 
-    Logger logger = Logger.getLogger(this.getClass().getName());
     private int newquestioncomponenttype = Textbox.ID;
     private String surveyForTakers;
     private int status;
@@ -29,12 +29,14 @@ public class ResearcherSurveyDetail02 {
 
 
     public ResearcherSurveyDetail02(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("Instanciating object.");
         loadSurvey(Jsf.getUserSession().getCurrentSurveyid());
     }
 
 
     public void loadSurvey(int surveyid){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("loadSurvey called");
         Survey survey = Survey.get(surveyid);
         if (survey!=null){
@@ -66,6 +68,7 @@ public class ResearcherSurveyDetail02 {
     }
 
     public String saveSurvey(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("saveSurvey() called.");
         if (status<=Survey.STATUS_DRAFT){
             UserSession userSession = Jsf.getUserSession();
@@ -103,6 +106,7 @@ public class ResearcherSurveyDetail02 {
     }
 
     public String beginEdit(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("beginEdit() called");
 
         int componenttype = 0;
@@ -137,6 +141,7 @@ public class ResearcherSurveyDetail02 {
 
 
     public String addQuestion(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("addQuestion() called");
 
         if (newquestioncomponenttype== Textbox.ID){
@@ -162,6 +167,7 @@ public class ResearcherSurveyDetail02 {
     }
 
     public String deleteQuestion(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         String tmpQuestionid = Jsf.getRequestParam("questionid");
         int questionid = 0;
         if (com.dneero.util.Num.isinteger(tmpQuestionid)){

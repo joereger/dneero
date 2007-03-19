@@ -2,12 +2,14 @@ package com.dneero.formbeans;
 
 import org.apache.myfaces.custom.tree2.TreeNodeBase;
 
+import java.io.Serializable;
+
 /**
  * User: Joe Reger Jr
  * Date: Aug 31, 2006
  * Time: 2:23:37 PM
  */
-public class BloggerEarningsRevshareTreeNode extends TreeNodeBase {
+public class BloggerEarningsRevshareTreeNode extends TreeNodeBase implements Serializable {
 
    private double amtEarnedFromThisBloggerAllTime = 0;
    private double amtEarnedFromThisBlogger90Days = 0;

@@ -11,19 +11,18 @@ import com.octo.captcha.service.CaptchaServiceException;
 
 import java.util.List;
 import java.util.Iterator;
+import java.io.Serializable;
 
 /**
  * User: Joe Reger Jr
  * Date: Apr 21, 2006
  * Time: 10:38:03 AM
  */
-public class LostPassword {
+public class LostPassword implements Serializable {
 
     //Form props
     private String email;
     private String j_captcha_response;
-
-    Logger logger = Logger.getLogger(this.getClass().getName());
 
     public LostPassword(){
 

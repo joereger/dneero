@@ -6,8 +6,9 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:t="http://myfaces.apache.org/tomahawk"
-      xmlns:af="http://xmlns.oracle.com/adf/faces"
-      xmlns:d="http://dneero.com/taglib">
+      xmlns:d="http://dneero.com/taglib"
+      xmlns:rich="http://richfaces.ajax4jsf.org/rich"
+      xmlns:a4j="https://ajax4jsf.dev.java.net/ajax">
 
 
 
@@ -30,44 +31,44 @@
 
         <br/><br/>
 
-        <af:table value="#{sysadminErrorList.errors}"  bandingInterval="2" rows="15" banding="row" var="error">
-          <af:column sortProperty="errorid" sortable="true">
+        <rich:dataTable value="#{sysadminErrorList.errors}"  bandingInterval="2" rows="15" banding="row" var="error">
+          <h:column sortProperty="errorid" sortable="true">
             <f:facet name="header">
-              <af:outputText value="Id"/>
+              <h:outputText value="Id"/>
             </f:facet>
-            <af:outputText value="#{error.errorid}" styleClass="tinyfont"/>
-          </af:column>
-          <af:column>
+            <h:outputText value="#{error.errorid}" styleClass="tinyfont"/>
+          </h:column>
+          <h:column>
             <f:facet name="header">
-              <af:outputText value="Date"/>
+              <h:outputText value="Date"/>
             </f:facet>
-            <af:outputText value="#{error.date}" styleClass="tinyfont"><f:convertDateTime type="both" dateStyle="short" timeStyle="medium"/></af:outputText>
-          </af:column>
-          <af:column sortProperty="status" sortable="true" >
+            <h:outputText value="#{error.date}" styleClass="tinyfont"><f:convertDateTime type="both" dateStyle="short" timeStyle="medium"/></h:outputText>
+          </h:column>
+          <h:column sortProperty="status" sortable="true" >
             <f:facet name="header">
-              <af:outputText value="Status"/>
+              <h:outputText value="Status"/>
             </f:facet>
-            <af:outputText value="New" styleClass="tinyfont" rendered="#{error.status eq 1}"/>
-            <af:outputText value="Old" styleClass="tinyfont" rendered="#{error.status eq 0}"/>
-          </af:column>
-          <af:column sortProperty="level" sortable="true">
+            <h:outputText value="New" styleClass="tinyfont" rendered="#{error.status eq 1}"/>
+            <h:outputText value="Old" styleClass="tinyfont" rendered="#{error.status eq 0}"/>
+          </h:column>
+          <h:column sortProperty="level" sortable="true">
             <f:facet name="header">
-              <af:outputText value="Level"/>
+              <h:outputText value="Level"/>
             </f:facet>
-            <af:outputText value="Debug" styleClass="tinyfont" rendered="#{error.level eq 10000}"/>
-            <af:outputText value="Info" styleClass="tinyfont" rendered="#{error.level eq 20000}"/>
-            <af:outputText value="Warn" styleClass="tinyfont" rendered="#{error.level eq 30000}"/>
-            <af:outputText value="Error" styleClass="tinyfont" rendered="#{error.level eq 40000}"/>
-            <af:outputText value="Fatal" styleClass="tinyfont" rendered="#{error.level eq 50000}"/>
-          </af:column>
-          <af:column>
+            <h:outputText value="Debug" styleClass="tinyfont" rendered="#{error.level eq 10000}"/>
+            <h:outputText value="Info" styleClass="tinyfont" rendered="#{error.level eq 20000}"/>
+            <h:outputText value="Warn" styleClass="tinyfont" rendered="#{error.level eq 30000}"/>
+            <h:outputText value="Error" styleClass="tinyfont" rendered="#{error.level eq 40000}"/>
+            <h:outputText value="Fatal" styleClass="tinyfont" rendered="#{error.level eq 50000}"/>
+          </h:column>
+          <h:column>
             <f:facet name="header">
-              <af:outputText value="Error"/>
+              <h:outputText value="Error"/>
             </f:facet>
-            <af:outputText value="#{error.error}" styleClass="smallfont" escape="false"/>
-          </af:column>
+            <h:outputText value="#{error.error}" styleClass="smallfont" escape="false"/>
+          </h:column>
 
-        </af:table>
+        </rich:dataTable>
     </h:form>
 
 

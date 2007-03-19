@@ -7,17 +7,19 @@ import com.dneero.session.UserSession;
 import com.dneero.dao.User;
 import org.apache.log4j.Logger;
 
+import java.io.Serializable;
+
 /**
  * User: Joe Reger Jr
  * Date: Sep 1, 2006
  * Time: 12:46:48 PM
  */
-public class InviteLandingPage {
+public class InviteLandingPage implements Serializable {
 
     private String referredby;
-    Logger logger = Logger.getLogger(this.getClass().getName());
 
     public InviteLandingPage(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("instanciated");
         logger.debug("Jsf.getRequestParam(\"referredby\")="+Jsf.getRequestParam("referredby"));
         if (Num.isinteger(Jsf.getRequestParam("referredby"))){

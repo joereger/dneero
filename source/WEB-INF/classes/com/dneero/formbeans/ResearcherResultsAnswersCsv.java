@@ -21,19 +21,19 @@ import javax.servlet.http.HttpServletResponse;
  * Date: Nov 18, 2006
  * Time: 9:06:22 AM
  */
-public class ResearcherResultsAnswersCsv {
-
-    Logger logger = Logger.getLogger(this.getClass().getName());
+public class ResearcherResultsAnswersCsv implements Serializable {
 
     private Survey survey;
     private String results;
 
     public ResearcherResultsAnswersCsv(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("Instanciating object.");
         loadSurvey(Jsf.getUserSession().getCurrentSurveyid());
     }
 
     public void loadSurvey(int surveyid){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("loadSurvey called");
         survey = Survey.get(surveyid);
         if (survey!=null){
@@ -79,6 +79,7 @@ public class ResearcherResultsAnswersCsv {
     }
 
     public void getCsv(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         FacesContext context = FacesContext.getCurrentInstance();
 
         //Then we have to get the Response to write our file to

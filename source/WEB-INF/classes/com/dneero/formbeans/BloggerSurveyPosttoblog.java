@@ -13,6 +13,7 @@ import com.dneero.survey.servlet.SurveyImagelinkServlet;
 
 import java.util.HashMap;
 import java.util.Iterator;
+import java.io.Serializable;
 
 import org.apache.log4j.Logger;
 
@@ -23,7 +24,7 @@ import javax.faces.context.FacesContext;
  * Date: Apr 21, 2006
  * Time: 10:38:03 AM
  */
-public class BloggerSurveyPosttoblog {
+public class BloggerSurveyPosttoblog implements Serializable {
 
     private Survey survey;
     private HashMap valueMap;
@@ -35,9 +36,8 @@ public class BloggerSurveyPosttoblog {
     private String htmltoposttoblogflash = "";
     private String htmltoposttoblogimagelink = "";
 
-    Logger logger = Logger.getLogger(this.getClass().getName());
-
     public BloggerSurveyPosttoblog(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("BloggerSurveyPosttoblog instanciated.");
         survey = new Survey();
         beginView();
@@ -45,6 +45,7 @@ public class BloggerSurveyPosttoblog {
 
 
     public String beginView(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("beginView called");
         String tmpSurveyid = Jsf.getRequestParam("surveyid");
         if (com.dneero.util.Num.isinteger(tmpSurveyid)){
@@ -59,6 +60,7 @@ public class BloggerSurveyPosttoblog {
     }
 
     public void load(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         if (Jsf.getUserSession()!=null && Jsf.getUserSession().getUser()!=null){
             survey = Survey.get(Jsf.getUserSession().getCurrentSurveyid());
             Blogger blogger = Blogger.get(Jsf.getUserSession().getUser().getBloggerid());
@@ -84,6 +86,7 @@ public class BloggerSurveyPosttoblog {
     }
 
     public String takeSurvey(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("takeSurvey() called");
         return "bloggersurveyposttoblog";
     }

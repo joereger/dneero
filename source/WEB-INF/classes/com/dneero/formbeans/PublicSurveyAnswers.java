@@ -19,22 +19,22 @@ import org.apache.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.faces.context.FacesContext;
 import java.util.Iterator;
+import java.io.Serializable;
 
 /**
  * User: Joe Reger Jr
  * Date: Apr 21, 2006
  * Time: 10:38:03 AM
  */
-public class PublicSurveyAnswers {
+public class PublicSurveyAnswers implements Serializable {
 
     private Survey survey;
     private String html;
     private String htmlreferredbyblogid;
     private SurveyEnhancer surveyEnhancer;
 
-    Logger logger = Logger.getLogger(this.getClass().getName());
-
     public PublicSurveyAnswers(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("PublicSurveyAnswers instanciated.");
         survey = new Survey();
         if (Num.isinteger(Jsf.getRequestParam("surveyid"))){

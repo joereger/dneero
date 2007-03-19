@@ -7,6 +7,7 @@ import com.dneero.dao.Impressiondetail;
 import com.dneero.dao.Impression;
 
 import java.util.*;
+import java.io.Serializable;
 
 import org.apache.log4j.Logger;
 
@@ -15,20 +16,21 @@ import org.apache.log4j.Logger;
  * Date: Apr 21, 2006
  * Time: 10:38:03 AM
  */
-public class BloggerImpressionDetails extends SortableList {
+public class BloggerImpressionDetails extends SortableList implements Serializable {
 
     private ArrayList<BloggerImpressionDetailsListItem> list;
     private String surveytitle;
     private String referer;
 
-    Logger logger = Logger.getLogger(this.getClass().getName());
 
     public BloggerImpressionDetails(){
         super("date");
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("instanciated");
     }
 
     private void load(int impressionid){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("load() called with impressionid="+impressionid);
         Impression impression = Impression.get(impressionid);
         Survey survey = Survey.get(impression.getSurveyid());
@@ -51,6 +53,7 @@ public class BloggerImpressionDetails extends SortableList {
 
     public String beginView(){
         //@todo connect BloggerImpressionDetails to BloggerImpressions... tried but the jsf link fails for some reason
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("beginView() called");
         String tmpImpressionid = Jsf.getRequestParam("impressionid");
         if (com.dneero.util.Num.isinteger(tmpImpressionid)){

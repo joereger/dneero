@@ -8,15 +8,15 @@ import com.dneero.dao.hibernate.HibernateUtil;
 import org.apache.log4j.Logger;
 
 import java.util.*;
+import java.io.Serializable;
 
 /**
  * User: Joe Reger Jr
  * Date: Jun 8, 2006
  * Time: 10:16:03 AM
  */
-public class AccountSupportIssuesList extends SortableList {
+public class AccountSupportIssuesList extends SortableList implements Serializable {
 
-    Logger logger = Logger.getLogger(this.getClass().getName());
     private List<Supportissue> supportissues;
 
 
@@ -27,6 +27,7 @@ public class AccountSupportIssuesList extends SortableList {
     }
 
     public void load(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("load called");
         User user = Jsf.getUserSession().getUser();
         supportissues = HibernateUtil.getSession().createQuery("from Supportissue where userid='"+user.getUserid()+"' order by supportissueid desc").list();
@@ -46,6 +47,7 @@ public class AccountSupportIssuesList extends SortableList {
     }
 
     protected void sort(final String column, final boolean ascending) {
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("sort called");
         Comparator comparator = new Comparator() {
             public int compare(Object o1, Object o2) {

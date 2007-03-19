@@ -10,18 +10,17 @@ import org.apache.commons.mail.HtmlEmail;
 import org.apache.log4j.Logger;
 
 import java.util.List;
+import java.io.Serializable;
 
 /**
  * User: Joe Reger Jr
  * Date: Sep 1, 2006
  * Time: 11:42:10 AM
  */
-public class BloggerEarningsRevshareInvite {
+public class BloggerEarningsRevshareInvite implements Serializable {
 
     private String email;
     private String message;
-
-    Logger logger = Logger.getLogger(this.getClass().getName());
 
     public String invite(){
         User user = Jsf.getUserSession().getUser();

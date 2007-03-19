@@ -5,14 +5,15 @@ import com.dneero.dao.Survey;
 import com.dneero.util.Jsf;
 import com.dneero.money.SurveyMoneyStatus;
 
+import java.io.Serializable;
+
 /**
  * User: Joe Reger Jr
  * Date: Nov 18, 2006
  * Time: 9:08:14 AM
  */
-public class ResearcherResultsFinancial {
+public class ResearcherResultsFinancial implements Serializable {
 
-    Logger logger = Logger.getLogger(this.getClass().getName());
     private Survey survey;
     private SurveyMoneyStatus sms;
 

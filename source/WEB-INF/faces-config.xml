@@ -23,9 +23,9 @@
         </locale-config>
     </application>
 
-    <application>
+    <!--<application>
         <default-render-kit-id>oracle.adf.core</default-render-kit-id>
-    </application>
+    </application>-->
 
     <validator>
         <validator-id>org.apache.myfaces.custom.creditcardvalidator.CreditCardValidator</validator-id>

@@ -12,6 +12,7 @@ import com.dneero.ui.SurveyEnhancer;
 import com.dneero.survey.servlet.ImpressionActivityObjectStorage;
 
 import java.util.Iterator;
+import java.io.Serializable;
 
 import org.apache.log4j.Logger;
 
@@ -23,16 +24,15 @@ import javax.faces.context.FacesContext;
  * Date: Apr 21, 2006
  * Time: 10:38:03 AM
  */
-public class PublicSurveyTake {
+public class PublicSurveyTake implements Serializable {
 
     private Survey survey;
     private String html;
     private SurveyEnhancer surveyEnhancer;
     private boolean haveerror = false;
 
-    Logger logger = Logger.getLogger(this.getClass().getName());
-
     public PublicSurveyTake(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("PublicSurveyTake instanciated.");
         survey = new Survey();
         if (Num.isinteger(Jsf.getRequestParam("surveyid"))){
@@ -56,6 +56,7 @@ public class PublicSurveyTake {
 
 
     public String takeSurvey(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("takeSurvey() called");
         try{
             SurveyResponseParser srp = new SurveyResponseParser((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest());

@@ -10,16 +10,16 @@ import com.dneero.sir.SocialInfluenceRatingPercentile;
 import com.dneero.scheduledjobs.SystemStats;
 
 import java.util.*;
+import java.io.Serializable;
 
 /**
  * User: Joe Reger Jr
  * Date: Nov 18, 2006
  * Time: 9:07:11 AM
  */
-public class ResearcherBloggerProfile {
+public class ResearcherBloggerProfile implements Serializable {
 
 
-    Logger logger = Logger.getLogger(this.getClass().getName());
     private Survey survey;
     private Blogger blogger;
     private User user;
@@ -38,6 +38,7 @@ public class ResearcherBloggerProfile {
     }
 
     public String beginView(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         String tmpBloggerid = Jsf.getRequestParam("bloggerid");
         if (com.dneero.util.Num.isinteger(tmpBloggerid)){
             logger.debug("beginView called: found bloggerid in request param="+tmpBloggerid);
@@ -74,6 +75,7 @@ public class ResearcherBloggerProfile {
     }
 
     public String addToPanel(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         int bloggersadded = 0;
         Panel panel;
         if (panelid>0){

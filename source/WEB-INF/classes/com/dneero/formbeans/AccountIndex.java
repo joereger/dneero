@@ -7,6 +7,7 @@ import com.dneero.dao.Responsepending;
 import com.dneero.dao.hibernate.HibernateUtil;
 
 import java.util.List;
+import java.io.Serializable;
 
 import org.hibernate.criterion.Restrictions;
 
@@ -15,7 +16,7 @@ import org.hibernate.criterion.Restrictions;
  * Date: Nov 9, 2006
  * Time: 11:18:03 AM
  */
-public class AccountIndex {
+public class AccountIndex implements Serializable {
 
     private String currentbalance = "$0.00";
     private boolean userhasresponsependings = false;

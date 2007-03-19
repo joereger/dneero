@@ -9,6 +9,7 @@ import com.dneero.dao.Impressiondetail;
 import com.dneero.dao.hibernate.HibernateUtil;
 
 import java.util.*;
+import java.io.Serializable;
 
 import org.apache.log4j.Logger;
 import org.hibernate.criterion.Restrictions;
@@ -18,12 +19,9 @@ import org.hibernate.criterion.Restrictions;
  * Date: Apr 21, 2006
  * Time: 10:38:03 AM
  */
-public class AccountImpressionpaymentgroup extends SortableList {
+public class AccountImpressionpaymentgroup extends SortableList implements Serializable {
 
     private ArrayList<AccountImpressionpaymentgroupListItem> list;
-
-
-    Logger logger = Logger.getLogger(this.getClass().getName());
 
     public AccountImpressionpaymentgroup(){
         super("impressiondetailid");
@@ -61,6 +59,7 @@ public class AccountImpressionpaymentgroup extends SortableList {
         //logger.debug("beginView called:");
         String tmpImpressionpaymentgroupid = Jsf.getRequestParam("impressionpaymentgroupid");
         if (com.dneero.util.Num.isinteger(tmpImpressionpaymentgroupid)){
+            Logger logger = Logger.getLogger(this.getClass().getName());
             logger.debug("beginView called: found impressionpaymentgroupid in request param="+tmpImpressionpaymentgroupid);
             load(Integer.parseInt(tmpImpressionpaymentgroupid));
         }

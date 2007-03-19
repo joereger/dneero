@@ -6,9 +6,10 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:t="http://myfaces.apache.org/tomahawk"
-      xmlns:af="http://xmlns.oracle.com/adf/faces"
       xmlns:d="http://dneero.com/taglib"
-      xmlns:c="http://java.sun.com/jstl/core">
+      xmlns:c="http://java.sun.com/jstl/core"
+      xmlns:rich="http://richfaces.ajax4jsf.org/rich"
+      xmlns:a4j="https://ajax4jsf.dev.java.net/ajax">
 
 <ui:composition template="/template/template-facelets.xhtml">
     <ui:define name="title">Account Transactions<br/><br/></ui:define>
@@ -22,46 +23,46 @@
     <h:form>
         <t:saveState id="save" value="#{accountBalancetransaction}"/>    
 
-        <af:outputText value="There are not yet any financial transactions on your account." rendered="#{empty accountBalancetransaction.balances}"/>
-        <af:table value="#{accountBalancetransaction.balances}" bandingInterval="2" rows="25" banding="row" var="balance" rendered="#{!empty accountBalancetransaction.balances}">
-          <af:column>
+        <h:outputText value="There are not yet any financial transactions on your account." rendered="#{empty accountBalancetransaction.balances}"/>
+        <rich:dataTable value="#{accountBalancetransaction.balances}" bandingInterval="2" rows="25" banding="row" var="balance" rendered="#{!empty accountBalancetransaction.balances}">
+          <h:column>
             <f:facet name="header">
-              <af:outputText value="Id"/>
+              <h:outputText value="Id"/>
             </f:facet>
-            <af:outputText value="#{balance.balancetransactionid}" styleClass="tinyfont"/>
-          </af:column>
-          <af:column>
+            <h:outputText value="#{balance.balancetransactionid}" styleClass="tinyfont"/>
+          </h:column>
+          <h:column>
             <f:facet name="header">
-              <af:outputText value="Date"/>
+              <h:outputText value="Date"/>
             </f:facet>
-            <af:outputText value="#{balance.date}" styleClass="tinyfont"><f:convertDateTime type="both" dateStyle="short" timeStyle="medium"/></af:outputText>
-          </af:column>
-          <af:column>
+            <h:outputText value="#{balance.date}" styleClass="tinyfont"><f:convertDateTime type="both" dateStyle="short" timeStyle="medium"/></h:outputText>
+          </h:column>
+          <h:column>
             <f:facet name="header">
-              <af:outputText value="Success?"/>
+              <h:outputText value="Success?"/>
             </f:facet>
-            <af:outputText value="Success" rendered="#{balance.issuccessful}" styleClass="tinyfont"/>
-            <af:outputText value="Fail" rendered="#{!balance.issuccessful}" styleClass="tinyfont"/>
-          </af:column>
-          <af:column>
+            <h:outputText value="Success" rendered="#{balance.issuccessful}" styleClass="tinyfont"/>
+            <h:outputText value="Fail" rendered="#{!balance.issuccessful}" styleClass="tinyfont"/>
+          </h:column>
+          <h:column>
             <f:facet name="header">
-              <af:outputText value="Description"/>
+              <h:outputText value="Description"/>
             </f:facet>
-            <af:outputText value="#{balance.description}"  styleClass="tinyfont"/>
-          </af:column>
-          <af:column>
+            <h:outputText value="#{balance.description}"  styleClass="tinyfont"/>
+          </h:column>
+          <h:column>
             <f:facet name="header">
-              <af:outputText value="Notes"/>
+              <h:outputText value="Notes"/>
             </f:facet>
-            <af:outputText value="#{balance.notes}" styleClass="tinyfont"/>
-          </af:column>
-          <af:column>
+            <h:outputText value="#{balance.notes}" styleClass="tinyfont"/>
+          </h:column>
+          <h:column>
             <f:facet name="header">
-              <af:outputText value="Amount"/>
+              <h:outputText value="Amount"/>
             </f:facet>
-            <af:outputText value="#{balance.amt}" styleClass="tinyfont"/>
-          </af:column>
-        </af:table>
+            <h:outputText value="#{balance.amt}" styleClass="tinyfont"/>
+          </h:column>
+        </rich:dataTable>
 
 
     </h:form>

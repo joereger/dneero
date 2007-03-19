@@ -5,6 +5,7 @@ import org.apache.myfaces.custom.fileupload.UploadedFile;
 import org.apache.commons.validator.EmailValidator;
 
 import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.util.*;
 
 import au.com.bytecode.opencsv.CSVReader;
@@ -20,9 +21,7 @@ import com.dneero.session.UserSession;
  * Date: Nov 18, 2006
  * Time: 9:06:06 AM
  */
-public class ResearcherEmailinvite {
-
-    Logger logger = Logger.getLogger(this.getClass().getName());
+public class ResearcherEmailinvite implements Serializable {
 
     private UploadedFile fileupload;
     private String subject = "You've Been Invited to Take a Paid Survey";
@@ -52,6 +51,7 @@ public class ResearcherEmailinvite {
     }
 
     public String invite(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         TreeMap emailaddresses = new TreeMap();
         //Handle uploaded file
         if (fileupload!=null){

@@ -6,8 +6,9 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:t="http://myfaces.apache.org/tomahawk"
-      xmlns:af="http://xmlns.oracle.com/adf/faces"
-      xmlns:d="http://dneero.com/taglib">
+      xmlns:d="http://dneero.com/taglib"
+      xmlns:rich="http://richfaces.ajax4jsf.org/rich"
+      xmlns:a4j="https://ajax4jsf.dev.java.net/ajax">
 
 <ui:composition template="/template/template-facelets.xhtml">
     <ui:define name="title">Surveys<br/><br/></ui:define>
@@ -21,33 +22,33 @@
 
 
     <t:saveState id="save" value="#{stsadminSurveyList}"/>
-    <af:table value="#{sysadminSurveyList.surveys}" bandingInterval="2" rows="15" banding="row" var="survey">
-      <af:column>
+    <rich:dataTable value="#{sysadminSurveyList.surveys}" bandingInterval="2" rows="15" banding="row" var="survey">
+      <h:column>
         <f:facet name="header">
-          <af:outputText value="Surveyid"/>
+          <h:outputText value="Surveyid"/>
         </f:facet>
-        <af:outputText value="#{survey.surveyid}"/>
-      </af:column>
-      <af:column>
+        <h:outputText value="#{survey.surveyid}"/>
+      </h:column>
+      <h:column>
         <f:facet name="header">
-          <af:outputText value="Title"/>
+          <h:outputText value="Title"/>
         </f:facet>
-        <af:outputText value="#{survey.title}"/>
-      </af:column>
-      <af:column>
+        <h:outputText value="#{survey.title}"/>
+      </h:column>
+      <h:column>
         <f:facet name="header">
-          <af:outputText value="Description"/>
+          <h:outputText value="Description"/>
         </f:facet>
-        <af:outputText value="#{survey.description}"/>
-      </af:column>
-      <af:column>
+        <h:outputText value="#{survey.description}"/>
+      </h:column>
+      <h:column>
         <f:facet name="header">
-          <af:outputText value="Willing to Pay"/>
+          <h:outputText value="Willing to Pay"/>
         </f:facet>
-        <af:outputText value="#{survey.willingtopayperrespondent}"/>
-      </af:column>
+        <h:outputText value="#{survey.willingtopayperrespondent}"/>
+      </h:column>
 
-    </af:table>
+    </rich:dataTable>
 
 
 </h:form>

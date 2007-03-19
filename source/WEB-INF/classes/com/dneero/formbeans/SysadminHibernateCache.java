@@ -4,13 +4,14 @@ import com.dneero.dao.hibernate.HibernateCacheStats;
 import com.dneero.util.Jsf;
 
 import javax.faces.context.FacesContext;
+import java.io.Serializable;
 
 /**
  * User: Joe Reger Jr
  * Date: Nov 28, 2006
  * Time: 12:30:25 PM
  */
-public class SysadminHibernateCache {
+public class SysadminHibernateCache implements Serializable {
 
     private String cacheashtml;
 

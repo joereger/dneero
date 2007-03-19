@@ -11,15 +11,14 @@ import com.dneero.money.SurveyMoneyStatus;
 
 import java.util.List;
 import java.util.Iterator;
+import java.io.Serializable;
 
 /**
  * User: Joe Reger Jr
  * Date: Nov 18, 2006
  * Time: 9:06:06 AM
  */
-public class ResearcherResults {
-
-    Logger logger = Logger.getLogger(this.getClass().getName());
+public class ResearcherResults implements Serializable {
 
     private Survey survey;
     private int totalsurveyresponses = 0;
@@ -31,11 +30,13 @@ public class ResearcherResults {
     private double maxpossiblespend = 0;
 
     public ResearcherResults(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("Instanciating object. Jsf.getUserSession().getCurrentSurveyid()="+Jsf.getUserSession().getCurrentSurveyid());
         loadSurvey(Jsf.getUserSession().getCurrentSurveyid());
     }
 
     public String beginView(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("beginView called:");
         String tmpSurveyid = Jsf.getRequestParam("surveyid");
         if (com.dneero.util.Num.isinteger(tmpSurveyid)){
@@ -49,6 +50,7 @@ public class ResearcherResults {
 
 
     public void loadSurvey(int surveyid){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("loadSurvey called... surveyid="+surveyid);
         Survey survey = Survey.get(surveyid);
         if (survey!=null){

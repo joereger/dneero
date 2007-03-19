@@ -9,26 +9,28 @@ import com.dneero.util.Util;
 import com.dneero.display.components.def.Component;
 import com.dneero.display.components.def.ComponentTypes;
 
+import java.io.Serializable;
+
 /**
  * User: Joe Reger Jr
  * Date: Nov 18, 2006
  * Time: 9:06:06 AM
  */
-public class ResearcherResultsAnswersDetails {
-
-    Logger logger = Logger.getLogger(this.getClass().getName());
+public class ResearcherResultsAnswersDetails implements Serializable {
 
     private Survey survey;
     private String results;
     private Question question;
 
     public ResearcherResultsAnswersDetails(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("Instanciating object.");
         loadQuestion(Jsf.getUserSession().getCurrentSurveyid());
     }
 
 
     public void loadQuestion(int surveyid){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("loadSurvey called");
         survey = Survey.get(surveyid);
         if (survey!=null){

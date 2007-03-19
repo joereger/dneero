@@ -10,22 +10,23 @@ import com.dneero.display.SurveyTakerDisplay;
 import com.dneero.survey.servlet.SurveyJavascriptServlet;
 
 import java.util.Iterator;
+import java.io.Serializable;
 
 /**
  * User: Joe Reger Jr
  * Date: Apr 21, 2006
  * Time: 10:38:03 AM
  */
-public class BloggerSurveyDetail {
+public class BloggerSurveyDetail implements Serializable {
 
     private Survey survey;
     private SurveyEnhancer surveyEnhancer;
     private String surveyForTakers;
     private String surveyOnBlogPreview;
 
-    Logger logger = Logger.getLogger(this.getClass().getName());
 
     public BloggerSurveyDetail(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("BloggerSurveyDetail instanciated.");
         survey = new Survey();
         beginView();
@@ -33,6 +34,7 @@ public class BloggerSurveyDetail {
 
 
     public String beginView(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("beginView called");
         String tmpSurveyid = Jsf.getRequestParam("surveyid");
         if (com.dneero.util.Num.isinteger(tmpSurveyid)){
@@ -47,7 +49,7 @@ public class BloggerSurveyDetail {
     }
 
     private void load(){
-
+            Logger logger = Logger.getLogger(this.getClass().getName());
             survey = Survey.get(Jsf.getUserSession().getCurrentSurveyid());
             Blogger blogger = Blogger.get(Jsf.getUserSession().getUser().getBloggerid());
             boolean bloggerhasalreadytakensurvey = false;

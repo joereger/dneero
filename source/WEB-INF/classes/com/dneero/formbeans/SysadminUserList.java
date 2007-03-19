@@ -8,6 +8,7 @@ import com.dneero.dao.User;
 import java.util.List;
 import java.util.Comparator;
 import java.util.Collections;
+import java.io.Serializable;
 
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
@@ -18,9 +19,8 @@ import org.apache.log4j.Logger;
  * Date: Jun 8, 2006
  * Time: 10:16:03 AM
  */
-public class SysadminUserList extends SortableList {
+public class SysadminUserList extends SortableList implements Serializable {
 
-    Logger logger = Logger.getLogger(this.getClass().getName());
     private List users;
     private String searchuserid="";
     private String searchfirstname="";
@@ -29,11 +29,13 @@ public class SysadminUserList extends SortableList {
 
     public SysadminUserList() {
         super("userid");
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("instanciated");
         load();
     }
 
     private void load(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("load()");
         logger.debug("searchfirstname="+searchfirstname);
         logger.debug("searchlastname="+searchlastname);

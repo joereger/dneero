@@ -8,6 +8,7 @@ import com.dneero.session.UserSession;
 import com.dneero.finders.FindSurveysForBlogger;
 
 import java.util.*;
+import java.io.Serializable;
 
 import org.apache.log4j.Logger;
 
@@ -16,13 +17,13 @@ import org.apache.log4j.Logger;
  * Date: Jun 8, 2006
  * Time: 10:16:03 AM
  */
-public class BloggerSurveyList extends SortableList {
+public class BloggerSurveyList extends SortableList implements Serializable {
 
-    private Logger logger = Logger.getLogger(BloggerSurveyList.class);
     private ArrayList<BloggerSurveyListItem> surveys;
 
     public BloggerSurveyList() {
         super("title");
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("instanciating BloggerSurveyList");
         //Default sort column
 

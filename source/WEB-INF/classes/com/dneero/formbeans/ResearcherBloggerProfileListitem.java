@@ -3,12 +3,14 @@ package com.dneero.formbeans;
 import com.dneero.dao.Survey;
 import com.dneero.dao.Response;
 
+import java.io.Serializable;
+
 /**
  * User: Joe Reger Jr
  * Date: Feb 13, 2007
  * Time: 9:42:37 AM
  */
-public class ResearcherBloggerProfileListitem {
+public class ResearcherBloggerProfileListitem implements Serializable {
 
     private Survey survey;
     private Response response;

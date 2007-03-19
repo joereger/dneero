@@ -7,7 +7,8 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:t="http://myfaces.apache.org/tomahawk"
       xmlns:d="http://dneero.com/taglib"
-      xmlns:af="http://xmlns.oracle.com/adf/faces">
+      xmlns:rich="http://richfaces.ajax4jsf.org/rich"
+      xmlns:a4j="https://ajax4jsf.dev.java.net/ajax">
 
 <ui:composition template="/template/template-facelets.xhtml">
     <ui:define name="title"><img src="/images/user.png" align="right" alt="" border="0"/>#{researcherBloggerProfile.user.firstname} #{researcherBloggerProfile.user.lastname}'s Impressions<br/><br clear="all"/></ui:define>
@@ -21,33 +22,27 @@
     <br/><br/>
 
     <t:saveState id="save" value="#{researcherBloggerProfileImpressions}"/>
-    <af:table value="#{researcherBloggerProfileImpressions.list}" bandingInterval="2" rows="50" banding="row" var="imp">
-      <af:column rendered="false">
+    <rich:dataTable value="#{researcherBloggerProfileImpressions.list}" bandingInterval="2" rows="50" banding="row" var="imp">
+      <h:column>
         <f:facet name="header">
-          <af:outputText value="Impressionid"/>
+          <h:outputText value="Blog"/>
         </f:facet>
-        <af:outputText value="#{imp.blogtitle}"/>
-      </af:column>
-      <af:column>
+        <h:outputLink target="referer" value="#{imp.blogurl}" title="#{imp.blogurl}"></h:outputLink>
+        <h:outputText value="No Referer" rendered="#{empty imp.referer}"/>
+      </h:column>
+      <h:column>
         <f:facet name="header">
-          <af:outputText value="Blog"/>
+          <h:outputText value="Specific Page"/>
         </f:facet>
-        <af:goLink targetFrame="referer" destination="#{imp.blogurl}" text="#{imp.blogurl}"></af:goLink>
-        <af:outputText value="No Referer" rendered="#{empty imp.referer}"/>
-      </af:column>
-      <af:column>
+        <h:outputLink target="referer" value="#{imp.referer}" title="#{imp.referer}"></h:outputLink>
+      </h:column>
+      <h:column>
         <f:facet name="header">
-          <af:outputText value="Specific Page"/>
+          <h:outputText value="Impressions"/>
         </f:facet>
-        <af:goLink targetFrame="referer" destination="#{imp.referer}" text="#{imp.referer}"></af:goLink>
-      </af:column>
-      <af:column>
-        <f:facet name="header">
-          <af:outputText value="Impressions"/>
-        </f:facet>
-        <af:outputText value="#{imp.impressionsqualifyingforpayment}"></af:outputText>
-      </af:column>
-    </af:table>
+        <h:outputText value="#{imp.impressionsqualifyingforpayment}"></h:outputText>
+      </h:column>
+    </rich:dataTable>
 
     
 </h:form>

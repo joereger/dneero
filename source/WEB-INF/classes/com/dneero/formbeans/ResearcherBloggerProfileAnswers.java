@@ -9,14 +9,15 @@ import com.dneero.util.Jsf;
 import com.dneero.util.Num;
 import com.dneero.survey.servlet.SurveyAsHtml;
 
+import java.io.Serializable;
+
 /**
  * User: Joe Reger Jr
  * Date: Nov 18, 2006
  * Time: 9:07:01 AM
  */
-public class ResearcherBloggerProfileAnswers {
+public class ResearcherBloggerProfileAnswers implements Serializable {
 
-    Logger logger = Logger.getLogger(this.getClass().getName());
     private Survey survey;
     private String resultsashtml;
     private Blogger blogger;

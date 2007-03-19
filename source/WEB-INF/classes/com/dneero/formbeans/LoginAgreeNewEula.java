@@ -7,6 +7,7 @@ import com.dneero.util.Jsf;
 import com.dneero.util.GeneralException;
 
 import java.util.Date;
+import java.io.Serializable;
 
 import org.apache.log4j.Logger;
 
@@ -15,17 +16,16 @@ import org.apache.log4j.Logger;
  * Date: Nov 10, 2006
  * Time: 2:48:46 PM
  */
-public class LoginAgreeNewEula {
+public class LoginAgreeNewEula implements Serializable {
 
     private String eula;
-
-    Logger logger = Logger.getLogger(this.getClass().getName());
 
     public LoginAgreeNewEula(){
         eula = EulaHelper.getMostRecentEula().getEula();
     }
 
     public String agree(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         User user = Jsf.getUserSession().getUser();
 
         if (!eula.equals(EulaHelper.getMostRecentEula().getEula())){

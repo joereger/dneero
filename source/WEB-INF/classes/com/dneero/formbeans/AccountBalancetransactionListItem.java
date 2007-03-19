@@ -1,13 +1,14 @@
 package com.dneero.formbeans;
 
 import java.util.Date;
+import java.io.Serializable;
 
 /**
  * User: Joe Reger Jr
  * Date: Oct 13, 2006
  * Time: 9:05:26 AM
  */
-public class AccountBalancetransactionListItem {
+public class AccountBalancetransactionListItem implements Serializable {
 
      private int balancetransactionid;
      private int userid;

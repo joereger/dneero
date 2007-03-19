@@ -1,13 +1,14 @@
 package com.dneero.formbeans;
 
 import java.util.Date;
+import java.io.Serializable;
 
 /**
  * User: Joe Reger Jr
  * Date: Jul 27, 2006
  * Time: 8:00:34 AM
  */
-public class BloggerImpressionDetailsListItem {
+public class BloggerImpressionDetailsListItem implements Serializable {
 
     private int impressiondetailid;
     private int impressionid;

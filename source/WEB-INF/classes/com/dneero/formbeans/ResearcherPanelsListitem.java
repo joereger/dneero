@@ -2,12 +2,14 @@ package com.dneero.formbeans;
 
 import com.dneero.dao.Panel;
 
+import java.io.Serializable;
+
 /**
  * User: Joe Reger Jr
  * Date: Feb 9, 2007
  * Time: 11:14:03 AM
  */
-public class ResearcherPanelsListitem {
+public class ResearcherPanelsListitem implements Serializable {
 
     public Panel panel;
     public int numberofmembers;

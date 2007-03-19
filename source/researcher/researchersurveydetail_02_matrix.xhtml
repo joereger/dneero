@@ -7,7 +7,8 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:t="http://myfaces.apache.org/tomahawk"
       xmlns:d="http://dneero.com/taglib"
-      xmlns:af="http://xmlns.oracle.com/adf/faces">
+      xmlns:rich="http://richfaces.ajax4jsf.org/rich"
+      xmlns:a4j="https://ajax4jsf.dev.java.net/ajax">
 
 <ui:composition template="/template/template-facelets.xhtml">
     <ui:define name="title">
@@ -25,7 +26,7 @@
     <h:inputHidden name="questionid" value="#{researcherSurveyDetail02matrix.questionid}" />
 
     <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
-    <img src="/images/lightbulb_on.png" align="right"/>
+    <img src="/images/lightbulb_on.png" alt="" align="right"/>
     In a Matrix question type respondents are given a grid of possible answers.   To create this grid enter options for the Rows and the Columns and decide whether respondents can choose many answers per row.
     <br/><br/>
     Here's what a Matrix question looks like:

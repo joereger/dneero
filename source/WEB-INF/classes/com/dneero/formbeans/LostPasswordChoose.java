@@ -11,27 +11,26 @@ import com.octo.captcha.service.CaptchaServiceException;
 
 import java.util.List;
 import java.util.Iterator;
+import java.io.Serializable;
 
 /**
  * User: Joe Reger Jr
  * Date: Apr 21, 2006
  * Time: 10:38:03 AM
  */
-public class LostPasswordChoose {
+public class LostPasswordChoose implements Serializable {
 
     //Form props
     private String password;
     private String passwordverify;
     private String j_captcha_response;
 
-    Logger logger = Logger.getLogger(this.getClass().getName());
-
     public LostPasswordChoose(){
 
     }
 
     public String choosePassword(){
-
+        Logger logger = Logger.getLogger(this.getClass().getName());
         boolean isCaptchaCorrect = false;
         try {
             isCaptchaCorrect = CaptchaServiceSingleton.getInstance().validateResponseForID(Jsf.getHttpServletRequest().getSession().getId(), j_captcha_response);

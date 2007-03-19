@@ -14,13 +14,14 @@ import org.apache.commons.validator.UrlValidator;
 import javax.faces.context.FacesContext;
 import java.util.Iterator;
 import java.util.List;
+import java.io.Serializable;
 
 /**
  * User: Joe Reger Jr
  * Date: Apr 21, 2006
  * Time: 10:38:03 AM
  */
-public class BloggerBlogDetail {
+public class BloggerBlogDetail implements Serializable {
 
     private int blogid;
     private String url;
@@ -29,15 +30,16 @@ public class BloggerBlogDetail {
     private boolean isonetimeconfig = false;
 
 
-    Logger logger = Logger.getLogger(this.getClass().getName());
 
     public BloggerBlogDetail(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("BloggerBlogDetail instanciated.");
         beginView();
     }
 
 
     public String beginView(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("Start of beginView: blogid="+blogid);
         String tmpBlogid = Jsf.getRequestParam("blogid");
         if (com.dneero.util.Num.isinteger(tmpBlogid) && Integer.parseInt(tmpBlogid)>0){
@@ -125,6 +127,7 @@ public class BloggerBlogDetail {
                 blogid = blog.getBlogid();
             } catch (GeneralException gex){
                 Jsf.setFacesMessage("Error saving record: "+gex.getErrorsAsSingleString());
+                Logger logger = Logger.getLogger(this.getClass().getName());
                 logger.debug("saveAction failed: " + gex.getErrorsAsSingleString());
                 return null;
             }

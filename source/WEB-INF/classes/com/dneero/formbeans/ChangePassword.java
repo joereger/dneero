@@ -6,25 +6,25 @@ import com.dneero.util.GeneralException;
 import com.dneero.dao.User;
 import com.dneero.session.UserSession;
 
+import java.io.Serializable;
+
 /**
  * User: Joe Reger Jr
  * Date: Apr 21, 2006
  * Time: 10:38:03 AM
  */
-public class ChangePassword {
+public class ChangePassword implements Serializable {
 
     //Form props
     private String password;
     private String passwordverify;
-
-    Logger logger = Logger.getLogger(this.getClass().getName());
 
     public ChangePassword(){
 
     }
 
     public String saveAction(){
-
+        Logger logger = Logger.getLogger(this.getClass().getName());
         if (!password.equals(passwordverify)){
             Jsf.setFacesMessage("Password and Verify Password must match.");
             return null;

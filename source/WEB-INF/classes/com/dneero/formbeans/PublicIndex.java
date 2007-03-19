@@ -14,6 +14,7 @@ import java.util.Date;
 import java.util.Calendar;
 import java.text.NumberFormat;
 import java.text.DecimalFormat;
+import java.io.Serializable;
 
 import org.hibernate.criterion.Restrictions;
 import org.apache.log4j.Level;
@@ -23,7 +24,7 @@ import org.apache.log4j.Level;
  * Date: Sep 21, 2006
  * Time: 8:47:39 AM
  */
-public class PublicIndex {
+public class PublicIndex implements Serializable {
 
 
     public PublicIndex(){

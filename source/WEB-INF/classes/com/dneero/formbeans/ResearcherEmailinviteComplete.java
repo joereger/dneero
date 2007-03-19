@@ -14,15 +14,15 @@ import com.dneero.systemprops.BaseUrl;
 
 import java.util.Iterator;
 import java.util.Date;
+import java.io.Serializable;
 
 /**
  * User: Joe Reger Jr
  * Date: Nov 18, 2006
  * Time: 9:06:06 AM
  */
-public class ResearcherEmailinviteComplete {
+public class ResearcherEmailinviteComplete implements Serializable {
 
-    Logger logger = Logger.getLogger(this.getClass().getName());
     private String emailaddresslisthtml="";
     private int numberofrecipients = 0;
     private Survey survey;
@@ -44,6 +44,7 @@ public class ResearcherEmailinviteComplete {
     }
     
     public String complete(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         if (Jsf.getUserSession()!=null && Jsf.getUserSession().getEmailinviteaddresses()!=null && Jsf.getUserSession().getEmailinviteaddresses().size()>0){
             //Load the survey user's invited to
             if (Jsf.getUserSession().getEmailinvitesurveyiduserisinvitedto()>0){

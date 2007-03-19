@@ -7,15 +7,15 @@ import com.dneero.session.UserSession;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.io.Serializable;
 
 /**
  * User: Joe Reger Jr
  * Date: Nov 18, 2006
  * Time: 9:07:50 AM
  */
-public class ResearcherResultsImpressionsDetails {
+public class ResearcherResultsImpressionsDetails implements Serializable {
 
-    Logger logger = Logger.getLogger(this.getClass().getName());
     private Survey survey;
     private ArrayList<BloggerImpressionDetailsListItem> list;
     private Impression impression;
@@ -30,6 +30,7 @@ public class ResearcherResultsImpressionsDetails {
 
 
     public String beginView(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("beginView called:");
         String tmpImpressionid = Jsf.getRequestParam("impressionid");
         if (com.dneero.util.Num.isinteger(tmpImpressionid)){

@@ -10,20 +10,21 @@ import com.dneero.ui.SurveyEnhancer;
 import com.dneero.survey.servlet.ImpressionActivityObjectStorage;
 import org.apache.log4j.Logger;
 
+import java.io.Serializable;
+
 /**
  * User: Joe Reger Jr
  * Date: Apr 21, 2006
  * Time: 10:38:03 AM
  */
-public class PublicSurveyDisclosure {
+public class PublicSurveyDisclosure implements Serializable {
 
     private Survey survey;
     private String html;
     private SurveyEnhancer surveyEnhancer;
 
-    Logger logger = Logger.getLogger(this.getClass().getName());
-
     public PublicSurveyDisclosure(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("PublicSurveyDisclosure instanciated.");
         survey = new Survey();
         if (Num.isinteger(Jsf.getRequestParam("surveyid"))){

@@ -6,8 +6,9 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:t="http://myfaces.apache.org/tomahawk"
-      xmlns:af="http://xmlns.oracle.com/adf/faces"
-      xmlns:d="http://dneero.com/taglib">
+      xmlns:d="http://dneero.com/taglib"
+      xmlns:rich="http://richfaces.ajax4jsf.org/rich"
+      xmlns:a4j="https://ajax4jsf.dev.java.net/ajax">
 
 <ui:composition template="/template/template-facelets.xhtml">
     <ui:define name="title">Earnings from Completed Surveys<br/><br/></ui:define>
@@ -19,62 +20,50 @@
 
         <h:form>
               <t:saveState id="save" value="#{bloggerCompletedsurveys}"/>
-              <af:table value="#{bloggerCompletedsurveys.list}" bandingInterval="2" rows="25" banding="row" var="listitem">
-              <af:column rendered="false">
+              <rich:dataTable value="#{bloggerCompletedsurveys.list}" bandingInterval="2" rows="25" banding="row" var="listitem">
+              <h:column rendered="true">
                 <f:facet name="header">
-                  <af:outputText value="ID"/>
-                </f:facet>
-                <af:outputText value="#{listitem.surveyid}"/>
-              </af:column>
-              <af:column rendered="true">
-                <f:facet name="header">
-                  <af:outputText value="Survey Title"/>
+                  <h:outputText value="Survey Title"/>
                 </f:facet>
                 <h:commandLink action="#{bloggerSurveyPosttoblog.beginView}">
                     <h:outputText value="#{listitem.surveytitle}" escape="false" styleClass="mediumfont" style="color: #0000ff;"/>
                     <f:param name="surveyid" value="#{listitem.surveyid}" />
                 </h:commandLink>
-              </af:column>
-              <af:column>
+              </h:column>
+              <h:column>
                 <f:facet name="header">
-                  <af:outputText value="Date"/>
+                  <h:outputText value="Date"/>
                 </f:facet>
-                <af:outputText value="#{listitem.responsedate}" styleClass="smallfont"/>
-              </af:column>
-              <af:column>
+                <h:outputText value="#{listitem.responsedate}" styleClass="smallfont"/>
+              </h:column>
+              <h:column>
                 <f:facet name="header">
-                  <af:outputText value="Response Earnings"/>
+                  <h:outputText value="Response Earnings"/>
                 </f:facet>
-                <af:outputText value="#{listitem.amtforresponse}" styleClass="smallfont"/>
-              </af:column>
-              <af:column rendered="false">
+                <h:outputText value="#{listitem.amtforresponse}" styleClass="smallfont"/>
+              </h:column>
+              <h:column>
                 <f:facet name="header">
-                  <af:outputText value="Total Impressions"/>
-                </f:facet>
-                <af:outputText value="#{listitem.impressions}" styleClass="smallfont"/>
-              </af:column>
-              <af:column>
-                <f:facet name="header">
-                  <af:outputText value="Blog Displays"/>
+                  <h:outputText value="Blog Displays"/>
                 </f:facet>
                 <h:commandLink action="#{bloggerImpressions.beginView}">
                     <h:outputText value="#{listitem.impressions}" styleClass="smallfont" escape="false"/>
                     <f:param name="surveyid" value="#{listitem.surveyid}" />
                 </h:commandLink>
-              </af:column>
-              <af:column>
+              </h:column>
+              <h:column>
                 <f:facet name="header">
-                  <af:outputText value="Estimated Earnings"/>
+                  <h:outputText value="Estimated Earnings"/>
                 </f:facet>
-                <af:outputText value="#{listitem.amttotal}" styleClass="smallfont" inlineStyle="font-weight: bold;"/>
-              </af:column>
+                <h:outputText value="#{listitem.amttotal}" styleClass="smallfont" style="font-weight: bold;"/>
+              </h:column>
 
-          </af:table>
+          </rich:dataTable>
 
         </h:form>
         <br/><br/>
         <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
-    <img src="/images/lightbulb_on.png" align="right"/>
+    <img src="/images/lightbulb_on.png" alt="" align="right"/>
     Note: Earnings calculations are not final.   Final payment notification and calculation can be found on <a href="/account/accountbalance.jsf"><font class="smallfont">Your Account Balance</font></a> page.
     <br/><br/><br/>
     </font></div></center>

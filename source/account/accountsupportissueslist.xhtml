@@ -6,8 +6,9 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:t="http://myfaces.apache.org/tomahawk"
-      xmlns:af="http://xmlns.oracle.com/adf/faces"
-      xmlns:d="http://dneero.com/taglib">
+      xmlns:d="http://dneero.com/taglib"
+      xmlns:rich="http://richfaces.ajax4jsf.org/rich"
+      xmlns:a4j="https://ajax4jsf.dev.java.net/ajax">
 
 <ui:composition template="/template/template-facelets.xhtml">
     <ui:define name="title">Support Issues<br/><br/></ui:define>
@@ -19,39 +20,39 @@
     <h:form>
             <t:saveState id="save" value="#{accountSupportIssuesList}"/>
 
-            <af:table value="#{accountSupportIssuesList.supportissues}" bandingInterval="2" rows="15" banding="row" var="supportissue" rendered="#{!empty accountSupportIssuesList.supportissues}">
-              <af:column>
+            <rich:dataTable value="#{accountSupportIssuesList.supportissues}" bandingInterval="2" rows="15" banding="row" var="supportissue" rendered="#{!empty accountSupportIssuesList.supportissues}">
+              <h:column>
                 <f:facet name="header">
-                  <af:outputText value="Id"/>
+                  <h:outputText value="Id"/>
                 </f:facet>
-                <af:outputText value="#{supportissue.supportissueid}"/>
-              </af:column>
-              <af:column>
+                <h:outputText value="#{supportissue.supportissueid}"/>
+              </h:column>
+              <h:column>
                 <f:facet name="header">
-                  <af:outputText value="Date"/>
+                  <h:outputText value="Date"/>
                 </f:facet>
-                <af:outputText value="#{supportissue.datetime}" styleClass="mediumfont"/>
-              </af:column>
-              <af:column>
+                <h:outputText value="#{supportissue.datetime}" styleClass="mediumfont"/>
+              </h:column>
+              <h:column>
                 <f:facet name="header">
-                  <af:outputText value="-" inlineStyle="color: #ffffff;"/>
+                  <h:outputText value="-" style="color: #ffffff;"/>
                 </f:facet>
                 <h:commandLink action="#{accountSupportIssueDetail.beginView}">
                     <h:outputText value="#{supportissue.subject}" escape="false" />
                     <f:param name="supportissueid" value="#{supportissue.supportissueid}" />
                 </h:commandLink>
-              </af:column>
-              <af:column>
+              </h:column>
+              <h:column>
                 <f:facet name="header">
-                  <af:outputText value="Status"/>
+                  <h:outputText value="Status"/>
                 </f:facet>
-                <af:outputText value="Open" rendered="#{supportissue.status==0}"/>
-                <af:outputText value="Working" rendered="#{supportissue.status==1}"/>
-                <af:outputText value="Closed" rendered="#{supportissue.status==2}"/>
-              </af:column>
+                <h:outputText value="Open" rendered="#{supportissue.status==0}"/>
+                <h:outputText value="Working" rendered="#{supportissue.status==1}"/>
+                <h:outputText value="Closed" rendered="#{supportissue.status==2}"/>
+              </h:column>
 
 
-            </af:table>
+            </rich:dataTable>
         </h:form>
         <h:form>
 

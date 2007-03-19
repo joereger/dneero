@@ -7,7 +7,8 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:t="http://myfaces.apache.org/tomahawk"
       xmlns:d="http://dneero.com/taglib"
-      xmlns:af="http://xmlns.oracle.com/adf/faces">
+      xmlns:rich="http://richfaces.ajax4jsf.org/rich"
+      xmlns:a4j="https://ajax4jsf.dev.java.net/ajax">
 
 <ui:composition template="/template/template-facelets.xhtml">
     <ui:define name="title">Survey Results<br/><br/></ui:define>
@@ -30,7 +31,7 @@
     <font class="mediumfont" style="color: #666666;">Impressions on: #{researcherResultsImpressionsDetails.impression.referer}</font>
     <br/><br/>
     <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
-    <img src="/images/lightbulb_on.png" align="right"/>
+    <img src="/images/lightbulb_on.png" alt="" align="right"/>
     On this page you see a list of dates/times and ip addresses when a blog reader viewed your survey on the blog at #{researcherResultsImpressionsDetails.impression.referer}.  When you created the survey you specified the maximum number of impressions per blog and maximum number of impressions overall... when these limits have been met per blog or overall then we will automatically set Qualifies for Payment to No, meaning that you didn't pay the blogger for that impression.
     <br/><br/><br/>
     </font></div></center>
@@ -39,28 +40,28 @@
     <br/><br/>
 
 <t:saveState id="save" value="#{researcherResultsImpressionsDetails}"/>
-<af:table value="#{researcherResultsImpressionsDetails.list}" bandingInterval="2" rows="10" banding="row" var="listitem">
-      <af:column>
+<rich:dataTable value="#{researcherResultsImpressionsDetails.list}" bandingInterval="2" rows="10" banding="row" var="listitem">
+      <h:column>
         <f:facet name="header">
-          <af:outputText value="Date"/>
+          <h:outputText value="Date"/>
         </f:facet>
-        <af:outputText value="#{listitem.impressiondate}" styleClass="tinyfont"><f:convertDateTime type="both" dateStyle="short" timeStyle="medium"/></af:outputText>
-      </af:column>
-      <af:column>
+        <h:outputText value="#{listitem.impressiondate}" styleClass="tinyfont"><f:convertDateTime type="both" dateStyle="short" timeStyle="medium"/></h:outputText>
+      </h:column>
+      <h:column>
         <f:facet name="header">
-          <af:outputText value="Ip Address"/>
+          <h:outputText value="Ip Address"/>
         </f:facet>
-        <af:outputText value="#{listitem.ip}" styleClass="tinyfont"/>
-      </af:column>
-      <af:column>
+        <h:outputText value="#{listitem.ip}" styleClass="tinyfont"/>
+      </h:column>
+      <h:column>
         <f:facet name="header">
-          <af:outputText value="Qualifies for Payment?"/>
+          <h:outputText value="Qualifies for Payment?"/>
         </f:facet>
-        <af:outputText value="Pending Review" styleClass="tinyfont" rendered="${listitem.qualifiesforpaymentstatus eq -1}"/>
-        <af:outputText value="No" styleClass="tinyfont" rendered="${listitem.qualifiesforpaymentstatus eq 0}"/>
-        <af:outputText value="Yes" styleClass="tinyfont" rendered="${listitem.qualifiesforpaymentstatus eq 1}"/>
-      </af:column>
-  </af:table>
+        <h:outputText value="Pending Review" styleClass="tinyfont" rendered="${listitem.qualifiesforpaymentstatus eq -1}"/>
+        <h:outputText value="No" styleClass="tinyfont" rendered="${listitem.qualifiesforpaymentstatus eq 0}"/>
+        <h:outputText value="Yes" styleClass="tinyfont" rendered="${listitem.qualifiesforpaymentstatus eq 1}"/>
+      </h:column>
+  </rich:dataTable>
 
     
 </h:form>

@@ -10,27 +10,29 @@ import com.dneero.util.Jsf;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Iterator;
+import java.io.Serializable;
 
 /**
  * User: Joe Reger Jr
  * Date: Nov 18, 2006
  * Time: 9:07:40 AM
  */
-public class ResearcherResultsImpressions {
+public class ResearcherResultsImpressions implements Serializable {
 
-    Logger logger = Logger.getLogger(this.getClass().getName());
 
     private Survey survey;
     private ArrayList<ResearcherResultsImpressionsListitem> researcherResultsImpressionsListitems;
 
 
     public ResearcherResultsImpressions(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("Instanciating object.");
         loadSurvey(Jsf.getUserSession().getCurrentSurveyid());
     }
 
 
     public void loadSurvey(int surveyid){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("loadSurvey called");
         survey = Survey.get(surveyid);
         researcherResultsImpressionsListitems = new ArrayList<ResearcherResultsImpressionsListitem>();

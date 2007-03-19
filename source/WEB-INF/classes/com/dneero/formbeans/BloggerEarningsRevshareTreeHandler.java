@@ -10,6 +10,7 @@ import com.dneero.dao.Blogger;
 import com.dneero.dao.User;
 
 import java.util.*;
+import java.io.Serializable;
 
 import org.apache.log4j.Logger;
 import org.apache.myfaces.custom.tree2.TreeModel;
@@ -22,7 +23,7 @@ import org.apache.myfaces.custom.tree2.TreeNodeBase;
  * Date: Aug 21, 2006
  * Time: 7:12:35 PM
  */
-public class BloggerEarningsRevshareTreeHandler  {
+public class BloggerEarningsRevshareTreeHandler implements Serializable {
 
     public TreeModel getTreeModel(){
         UserSession userSession = Jsf.getUserSession();

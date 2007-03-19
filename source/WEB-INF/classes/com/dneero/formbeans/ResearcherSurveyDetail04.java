@@ -6,6 +6,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.application.FacesMessage;
 import javax.faces.model.SelectItem;
 import java.util.*;
+import java.io.Serializable;
 
 import com.dneero.dao.*;
 import com.dneero.dao.hibernate.HibernateUtil;
@@ -21,7 +22,7 @@ import com.dneero.finders.SurveyCriteriaXML;
  * Date: Jun 15, 2006
  * Time: 9:54:08 AM
  */
-public class ResearcherSurveyDetail04 {
+public class ResearcherSurveyDetail04 implements Serializable {
 
     private String title;
 
@@ -58,9 +59,8 @@ public class ResearcherSurveyDetail04 {
 
 
 
-    Logger logger = Logger.getLogger(this.getClass().getName());
-
     public ResearcherSurveyDetail04(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("Instanciating object.");
         //preSelectAll();
         loadSurvey(Jsf.getUserSession().getCurrentSurveyid());
@@ -111,6 +111,7 @@ public class ResearcherSurveyDetail04 {
 
 
     public void loadSurvey(int surveyid){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("loadSurvey called");
         Survey survey = Survey.get(surveyid);
         if (survey!=null){
@@ -191,6 +192,7 @@ public class ResearcherSurveyDetail04 {
     }
 
     public String saveSurvey(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("saveSurvey() called.");
         if (status<=Survey.STATUS_DRAFT){
             UserSession userSession = Jsf.getUserSession();

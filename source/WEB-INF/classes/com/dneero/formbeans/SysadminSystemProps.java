@@ -5,14 +5,15 @@ import com.dneero.util.Jsf;
 import com.dneero.systemprops.SystemProperty;
 import com.dneero.systemprops.BaseUrl;
 
+import java.io.Serializable;
+
 /**
  * User: Joe Reger Jr
  * Date: Oct 6, 2006
  * Time: 3:35:02 AM
  */
-public class SysadminSystemProps {
+public class SysadminSystemProps implements Serializable {
 
-    Logger logger = Logger.getLogger(this.getClass().getName());
 
     public String baseurl;
     public String sendxmpp;
@@ -39,6 +40,7 @@ public class SysadminSystemProps {
     }
 
     public String saveProps(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         try{
             SystemProperty.setProp(SystemProperty.PROP_BASEURL, baseurl);
             SystemProperty.setProp(SystemProperty.PROP_SENDXMPP, sendxmpp);

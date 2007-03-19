@@ -7,7 +7,8 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:t="http://myfaces.apache.org/tomahawk"
       xmlns:d="http://dneero.com/taglib"
-      xmlns:af="http://xmlns.oracle.com/adf/faces">
+      xmlns:rich="http://richfaces.ajax4jsf.org/rich"
+      xmlns:a4j="https://ajax4jsf.dev.java.net/ajax">
 
 <ui:composition template="/template/template-facelets.xhtml">
     <ui:define name="title">Survey Results<br/><br/></ui:define>
@@ -29,38 +30,38 @@
     <br/><br/>
 
     <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
-    <img src="/images/lightbulb_on.png" align="right"/>
+    <img src="/images/lightbulb_on.png" alt="" align="right"/>
     On this page you see a list of blogs that your survey has been posted to along with the number of times it has been viewed by that blog's readers.  You can visit each blog by clicking on the Specific Page link.
     <br/><br/><br/>
     </font></div></center>
 
     <br/><br/>
 
-    <af:table value="#{researcherResultsImpressions.researcherResultsImpressionsListitems}" bandingInterval="2" rows="50" banding="row" var="imp">
-      <af:column>
+    <rich:dataTable value="#{researcherResultsImpressions.researcherResultsImpressionsListitems}" bandingInterval="2" rows="50" banding="row" var="imp">
+      <h:column>
         <f:facet name="header">
-          <af:outputText value="Blog"/>
+          <h:outputText value="Blog"/>
         </f:facet>
-        <af:goLink targetFrame="referer" text="#{imp.blogurl}" destination="#{imp.blogurl}" styleClass="smallfont"></af:goLink>
-        <af:outputText value="None" rendered="#{empty imp.blogurl}"/>
-      </af:column>
-      <af:column>
+        <h:outputLink target="referer" value="#{imp.blogurl}" title="#{imp.blogurl}" styleClass="smallfont"></h:outputLink>
+        <h:outputText value="None" rendered="#{empty imp.blogurl}"/>
+      </h:column>
+      <h:column>
         <f:facet name="header">
-          <af:outputText value="Specific Page"/>
+          <h:outputText value="Specific Page"/>
         </f:facet>
-        <af:goLink targetFrame="referer" text="#{imp.referer}" destination="#{imp.referer}" styleClass="smallfont"></af:goLink>
-        <af:outputText value="None" rendered="#{empty imp.referer}"/>
-      </af:column>
-      <af:column>
+        <h:outputLink target="referer" value="#{imp.referer}" title="#{imp.referer}" styleClass="smallfont"></h:outputLink>
+        <h:outputText value="None" rendered="#{empty imp.referer}"/>
+      </h:column>
+      <h:column>
         <f:facet name="header">
-          <af:outputText value="Impressions"/>
+          <h:outputText value="Impressions"/>
         </f:facet>
-        <af:commandLink action="#{researcherResultsImpressionsDetails.beginView}">
-            <af:outputText value="#{imp.impressionsqualifyingforpayment}" styleClass="smallfont" inlineStyle="color: #0000ff;"/>
+        <a4j:commandLink action="#{researcherResultsImpressionsDetails.beginView}">
+            <h:outputText value="#{imp.impressionsqualifyingforpayment}" styleClass="smallfont" style="color: #0000ff;"/>
             <f:param name="impressionid" value="#{imp.impressionid}" />
-        </af:commandLink>
-      </af:column>
-    </af:table>
+        </a4j:commandLink>
+      </h:column>
+    </rich:dataTable>
     
 </h:form>
 

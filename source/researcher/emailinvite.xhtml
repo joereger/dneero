@@ -6,7 +6,9 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:t="http://myfaces.apache.org/tomahawk"
-      xmlns:d="http://dneero.com/taglib">
+      xmlns:d="http://dneero.com/taglib"
+      xmlns:rich="http://richfaces.ajax4jsf.org/rich"
+      xmlns:a4j="https://ajax4jsf.dev.java.net/ajax">
 
 <ui:composition template="/template/template-facelets.xhtml">
     <ui:define name="title">Invite People to Your Survey</ui:define>
@@ -17,7 +19,7 @@
     <h:form id="emailinvite" enctype="multipart/form-data">
         <t:div rendered="#{!researcherEmailinvite.researcherhasatleastonelivesurvey}">
             <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
-            <img src="/images/lightbulb_on.png" align="right"/>
+            <img src="/images/lightbulb_on.png" alt="" align="right"/>
             You must have at least one survey with a status of Live to invite people to.  Create a survey first and then come back to invite people to it.  You'll be able to upload a list of email addresses or manually enter them.  You'll be able to set a custom message and email subject.
             <br/><br/><br/></font></div></center>
         </t:div>

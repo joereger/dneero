@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Comparator;
 import java.util.Collections;
+import java.io.Serializable;
 
 import com.dneero.session.UserSession;
 import com.dneero.util.Jsf;
@@ -22,12 +23,10 @@ import com.dneero.money.BloggerIncomeCalculator;
  * Date: Aug 21, 2006
  * Time: 7:12:22 PM
  */
-public class BloggerEarningsSurvey extends SortableList {
+public class BloggerEarningsSurvey extends SortableList implements Serializable {
 
     private ArrayList<BloggerEarningsSurveyListPayments> list;
     private Survey survey;
-
-    Logger logger = Logger.getLogger(this.getClass().getName());
 
     public BloggerEarningsSurvey(){
         super("paymentdate");
@@ -56,6 +55,7 @@ public class BloggerEarningsSurvey extends SortableList {
     }
 
     public String beginView(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("beginView called");
         String tmpResponseid = Jsf.getRequestParam("responseid");
         if (com.dneero.util.Num.isinteger(tmpResponseid)){

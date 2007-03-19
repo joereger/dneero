@@ -14,15 +14,14 @@ import com.dneero.util.GeneralException;
 import com.dneero.display.components.Range;
 
 import java.util.Iterator;
+import java.io.Serializable;
 
 /**
  * User: Joe Reger Jr
  * Date: Jun 15, 2006
  * Time: 9:54:08 AM
  */
-public class ResearcherSurveyDetail02range {
-
-    Logger logger = Logger.getLogger(this.getClass().getName());
+public class ResearcherSurveyDetail02range implements Serializable {
 
     private String title;
 
@@ -40,6 +39,7 @@ public class ResearcherSurveyDetail02range {
 
 
     public ResearcherSurveyDetail02range(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("Instanciating object");
         String tmpQuestionid = Jsf.getRequestParam("questionid");
         String tmpIsnewquestion = Jsf.getRequestParam("isnewquestion");
@@ -53,6 +53,7 @@ public class ResearcherSurveyDetail02range {
 
 
     public void loadQuestion(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("loadQuestion called questionid="+questionid);
         Question question = Question.get(questionid);
         if (question!=null){
@@ -88,6 +89,7 @@ public class ResearcherSurveyDetail02range {
     }
 
     public String saveQuestion(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("saveQuestion() called. - questionid="+questionid);
 
         UserSession userSession = Jsf.getUserSession();

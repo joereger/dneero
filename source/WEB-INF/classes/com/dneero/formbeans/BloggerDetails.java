@@ -5,6 +5,7 @@ import org.apache.log4j.Logger;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.Calendar;
+import java.io.Serializable;
 
 import com.dneero.util.Jsf;
 import com.dneero.util.GeneralException;
@@ -20,7 +21,7 @@ import com.dneero.money.PaymentMethod;
  * Date: Apr 21, 2006
  * Time: 10:38:03 AM
  */
-public class BloggerDetails {
+public class BloggerDetails implements Serializable {
 
     //Form props
     private Date birthdate;

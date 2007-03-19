@@ -1,11 +1,13 @@
 package com.dneero.formbeans;
 
+import java.io.Serializable;
+
 /**
  * User: Joe Reger Jr
  * Date: Oct 3, 2006
  * Time: 9:44:11 AM
  */
-public class BloggerSurveyListItem {
+public class BloggerSurveyListItem implements Serializable {
 
     private int surveyid;
     private String title;

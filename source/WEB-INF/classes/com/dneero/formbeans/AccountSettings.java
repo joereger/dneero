@@ -8,12 +8,14 @@ import com.dneero.dao.Blogger;
 import com.dneero.session.UserSession;
 import com.dneero.email.EmailActivationSend;
 
+import java.io.Serializable;
+
 /**
  * User: Joe Reger Jr
  * Date: Apr 21, 2006
  * Time: 10:38:03 AM
  */
-public class AccountSettings {
+public class AccountSettings implements Serializable {
 
     //Form props
     private String email;
@@ -23,7 +25,7 @@ public class AccountSettings {
     //Other props
     private int userid;
 
-    Logger logger = Logger.getLogger(this.getClass().getName());
+
 
     public AccountSettings(){
         UserSession userSession = Jsf.getUserSession();
@@ -51,6 +53,7 @@ public class AccountSettings {
                 user.save();
                 userid = user.getUserid();
             } catch (GeneralException gex){
+                Logger logger = Logger.getLogger(this.getClass().getName());
                 logger.debug("registerAction failed: " + gex.getErrorsAsSingleString());
                 return null;
             }

@@ -1,11 +1,13 @@
 package com.dneero.formbeans;
 
+import java.io.Serializable;
+
 /**
  * User: Joe Reger Jr
  * Date: Feb 21, 2007
  * Time: 11:26:03 AM
  */
-public class SystemStats {
+public class SystemStats implements Serializable {
 
     //BE SURE TO SYNC CODE HERE WITH MAIN SystemStats in scheduledjobs
     private int totalbloggers=com.dneero.scheduledjobs.SystemStats.getTotalbloggers();

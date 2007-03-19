@@ -8,7 +8,8 @@
       xmlns:c="http://java.sun.com/jstl/core"
       xmlns:t="http://myfaces.apache.org/tomahawk"
       xmlns:d="http://dneero.com/taglib"
-      xmlns:af="http://xmlns.oracle.com/adf/faces">
+      xmlns:rich="http://richfaces.ajax4jsf.org/rich"
+      xmlns:a4j="https://ajax4jsf.dev.java.net/ajax">
 
 <ui:composition template="/template/template-facelets.xhtml">
     <ui:define name="title">
@@ -34,7 +35,7 @@
             <h:graphicImage url="/images/clear.gif" width="725" height="1"/><br/>
             <center>
                 <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
-                <img src="/images/lightbulb_on.png" align="right"/>
+                <img src="/images/lightbulb_on.png" alt="" align="right"/>
                 This is how your survey looks when posted to a blog.  Bloggers, depending on their blogging tool, can choose from one of many embedding methods.  Each renders the survey slightly differently.  You can enable/disable each method on the Advanced Formatting tab.
                 <br/><br/></font></div></center>
                 <table cellpadding="30" cellspacing="0" border="0">
@@ -68,7 +69,7 @@
         <t:panelTab id="panel_c" label="Advanced Formatting">
             <h:graphicImage url="/images/clear.gif" width="725" height="1"/><br/>
             <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
-            <img src="/images/lightbulb_on.png" align="right"/>
+            <img src="/images/lightbulb_on.png" alt="" align="right"/>
             In this step you can optionally change the formatting of the survey as it appears on a person's blog.  Click the Advanced Formatting tab to get started.  This requires some basic HTML skills and is very powerful:
             <ul>
             <li>Change the order of questions</li>

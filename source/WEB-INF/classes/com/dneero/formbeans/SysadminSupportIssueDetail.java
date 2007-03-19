@@ -16,13 +16,14 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Date;
+import java.io.Serializable;
 
 /**
  * User: Joe Reger Jr
  * Date: Apr 21, 2006
  * Time: 10:38:03 AM
  */
-public class SysadminSupportIssueDetail {
+public class SysadminSupportIssueDetail implements Serializable {
 
     private int supportissueid;
     private String notes;
@@ -31,14 +32,16 @@ public class SysadminSupportIssueDetail {
     private int status;
 
 
-    Logger logger = Logger.getLogger(this.getClass().getName());
+
 
     public SysadminSupportIssueDetail(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("SysadminSupportIssueDetail instanciated.");
     }
 
 
     public String beginView(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("beginView called: supportissueid="+supportissueid);
         String tmpSupportissueid = Jsf.getRequestParam("supportissueid");
         if (com.dneero.util.Num.isinteger(tmpSupportissueid)){
@@ -62,7 +65,7 @@ public class SysadminSupportIssueDetail {
     }
 
     public String newNote(){
-
+        Logger logger = Logger.getLogger(this.getClass().getName());
         if(supportissueid<=0){
             logger.debug("supportissueid not found: "+supportissueid);
             return "";

@@ -9,26 +9,28 @@ import com.dneero.util.Jsf;
 import com.dneero.util.SortableList;
 
 import java.util.*;
+import java.io.Serializable;
 
 /**
  * User: Joe Reger Jr
  * Date: Nov 18, 2006
  * Time: 9:06:40 AM
  */
-public class ResearcherResultsRespondents extends SortableList {
+public class ResearcherResultsRespondents extends SortableList implements Serializable {
 
 
-    Logger logger = Logger.getLogger(this.getClass().getName());
     private Survey survey;
     private List<ResearcherResultsRespondentsListitem> list;
 
     public ResearcherResultsRespondents(){
         super("responsedate");
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("instanciating");
         load();
     }
 
     private void load(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         survey = Survey.get(Jsf.getUserSession().getCurrentSurveyid());
         list = new ArrayList<ResearcherResultsRespondentsListitem>();
         if (survey!=null && survey.getSurveyid()>0){
@@ -53,6 +55,7 @@ public class ResearcherResultsRespondents extends SortableList {
     }
 
     protected void sort(final String column, final boolean ascending) {
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("sort called");
         Comparator comparator = new Comparator() {
             public int compare(Object o1, Object o2) {
@@ -88,6 +91,7 @@ public class ResearcherResultsRespondents extends SortableList {
     }
 
     public List getList() {
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("getList() called");
         if (list==null){
             load();

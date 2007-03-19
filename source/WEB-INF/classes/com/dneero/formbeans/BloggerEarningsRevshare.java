@@ -10,6 +10,7 @@ import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.money.RevshareLevelPercentageCalculator;
 
 import java.util.*;
+import java.io.Serializable;
 
 import org.apache.log4j.Logger;
 
@@ -18,7 +19,7 @@ import org.apache.log4j.Logger;
  * Date: Aug 21, 2006
  * Time: 7:12:35 PM
  */
-public class BloggerEarningsRevshare extends SortableList {
+public class BloggerEarningsRevshare extends SortableList implements Serializable {
 
     private ArrayList<BloggerEarningsRevshareListRevshares> list;
 
@@ -34,7 +35,6 @@ public class BloggerEarningsRevshare extends SortableList {
     private double level5amt;
 
 
-    Logger logger = Logger.getLogger(this.getClass().getName());
 
     public BloggerEarningsRevshare(){
         super("username");

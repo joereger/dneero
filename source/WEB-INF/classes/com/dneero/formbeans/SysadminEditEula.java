@@ -8,6 +8,7 @@ import com.dneero.util.Time;
 import com.mysql.jdbc.TimeUtil;
 
 import java.util.Date;
+import java.io.Serializable;
 
 import org.apache.log4j.Logger;
 
@@ -16,12 +17,11 @@ import org.apache.log4j.Logger;
  * Date: Nov 10, 2006
  * Time: 3:02:56 PM
  */
-public class SysadminEditEula {
+public class SysadminEditEula implements Serializable {
 
     private String eula;
     private int eulaid;
     private String date;
-    Logger logger = Logger.getLogger(this.getClass().getName());
 
     public SysadminEditEula(){
         eula = EulaHelper.getMostRecentEula().getEula();
@@ -30,6 +30,7 @@ public class SysadminEditEula {
     }
 
     public String edit(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         if (!eula.equals(EulaHelper.getMostRecentEula().getEula())){
             Eula eulaObj = new Eula();
             eulaObj.setDate(new Date());

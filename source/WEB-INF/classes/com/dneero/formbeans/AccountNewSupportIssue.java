@@ -7,6 +7,7 @@ import com.dneero.util.GeneralException;
 import com.dneero.xmpp.SendXMPPMessage;
 
 import java.util.Date;
+import java.io.Serializable;
 
 import org.apache.log4j.Logger;
 
@@ -15,12 +16,12 @@ import org.apache.log4j.Logger;
  * Date: Jul 28, 2006
  * Time: 8:39:38 AM
  */
-public class AccountNewSupportIssue {
+public class AccountNewSupportIssue implements Serializable {
 
     private String subject;
     private String notes;
 
-    Logger logger = Logger.getLogger(this.getClass().getName());
+
 
     public String newIssue(){
 
@@ -33,6 +34,7 @@ public class AccountNewSupportIssue {
             supportissue.save();
         } catch (GeneralException gex){
             Jsf.setFacesMessage("Sorry, there was an error: " + gex.getErrorsAsSingleString());
+            Logger logger = Logger.getLogger(this.getClass().getName());
             logger.debug("newIssue failed: " + gex.getErrorsAsSingleString());
             return null;
         }
@@ -47,6 +49,7 @@ public class AccountNewSupportIssue {
             supportissue.save();
         } catch (GeneralException gex){
             Jsf.setFacesMessage("Sorry, there was an error: " + gex.getErrorsAsSingleString());
+            Logger logger = Logger.getLogger(this.getClass().getName());
             logger.debug("newIssue failed: " + gex.getErrorsAsSingleString());
             return null;
         }

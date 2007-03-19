@@ -19,13 +19,14 @@ import com.octo.captcha.service.CaptchaServiceException;
 
 import javax.servlet.http.Cookie;
 import java.util.*;
+import java.io.Serializable;
 
 /**
  * User: Joe Reger Jr
  * Date: Apr 21, 2006
  * Time: 10:38:03 AM
  */
-public class Registration {
+public class Registration implements Serializable {
 
     //Form props
     private String email;
@@ -42,13 +43,12 @@ public class Registration {
     //Other props
     private int userid;
 
-    Logger logger = Logger.getLogger(this.getClass().getName());
-
     public Registration(){
         eula = EulaHelper.getMostRecentEula().getEula();
     }
 
     public String registerAction(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("registerAction called:  email="+email+" password="+password+" firstname="+firstname+" lastname="+lastname);
 
         //Validation

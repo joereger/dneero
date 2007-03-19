@@ -6,8 +6,9 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:t="http://myfaces.apache.org/tomahawk"
-      xmlns:af="http://xmlns.oracle.com/adf/faces"
-      xmlns:d="http://dneero.com/taglib">
+      xmlns:d="http://dneero.com/taglib"
+      xmlns:rich="http://richfaces.ajax4jsf.org/rich"
+      xmlns:a4j="https://ajax4jsf.dev.java.net/ajax">
 
 <ui:composition template="/template/template-facelets.xhtml">
     <ui:define name="title">Impression Charge Grouping<br/><br/></ui:define>
@@ -22,34 +23,34 @@
     <h:form>
         <t:saveState id="save" value="#{accountImpressionchargegroup}"/>
 
-        <af:outputText value="There are not yet any impressions in this group." rendered="#{empty accountImpressionchargegroup.list}"/>
-        <af:table value="#{accountImpressionchargegroup.list}" bandingInterval="2" rows="100" banding="row" var="listitem" rendered="#{!empty accountImpressionchargegroup.list}">
-          <af:column>
+        <h:outputText value="There are not yet any impressions in this group." rendered="#{empty accountImpressionchargegroup.list}"/>
+        <rich:dataTable value="#{accountImpressionchargegroup.list}" bandingInterval="2" rows="100" banding="row" var="listitem" rendered="#{!empty accountImpressionchargegroup.list}">
+          <h:column>
             <f:facet name="header">
-              <af:outputText value="Date"/>
+              <h:outputText value="Date"/>
             </f:facet>
-            <af:outputText value="#{listitem.impressiondate}" styleClass="tinyfont"><f:convertDateTime type="both" dateStyle="short" timeStyle="medium"/></af:outputText>
-          </af:column>
-          <af:column>
+            <h:outputText value="#{listitem.impressiondate}" styleClass="tinyfont"><f:convertDateTime type="both" dateStyle="short" timeStyle="medium"/></h:outputText>
+          </h:column>
+          <h:column>
             <f:facet name="header">
-              <af:outputText value="Survey"/>
+              <h:outputText value="Survey"/>
             </f:facet>
-            <af:outputText value="#{listitem.surveytitle}" styleClass="tinyfont"/>
-          </af:column>
-          <af:column>
+            <h:outputText value="#{listitem.surveytitle}" styleClass="tinyfont"/>
+          </h:column>
+          <h:column>
             <f:facet name="header">
-              <af:outputText value="Url"/>
+              <h:outputText value="Url"/>
             </f:facet>
-            <af:outputText value="#{listitem.referer}" styleClass="tinyfont"/>
-          </af:column>
-          <af:column>
+            <h:outputText value="#{listitem.referer}" styleClass="tinyfont"/>
+          </h:column>
+          <h:column>
             <f:facet name="header">
-              <af:outputText value="Ip"/>
+              <h:outputText value="Ip"/>
             </f:facet>
-            <af:outputText value="#{listitem.ip}" styleClass="tinyfont"/>
-          </af:column>
+            <h:outputText value="#{listitem.ip}" styleClass="tinyfont"/>
+          </h:column>
 
-        </af:table>
+        </rich:dataTable>
 
 
 

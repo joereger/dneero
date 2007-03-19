@@ -6,26 +6,27 @@ import com.dneero.dao.Blogger;
 import com.dneero.util.Jsf;
 import com.dneero.display.SurveyResultsDisplay;
 
+import java.io.Serializable;
+
 /**
  * User: Joe Reger Jr
  * Date: Nov 18, 2006
  * Time: 9:06:06 AM
  */
-public class ResearcherResultsAnswers {
-
-
-    Logger logger = Logger.getLogger(this.getClass().getName());
+public class ResearcherResultsAnswers implements Serializable {
 
     private Survey survey;
     private String results;
 
     public ResearcherResultsAnswers(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("Instanciating");
         loadSurvey(Jsf.getUserSession().getCurrentSurveyid());
     }
 
 
     public void loadSurvey(int surveyid){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("loadSurvey called");
         survey = Survey.get(surveyid);
         if (survey!=null){

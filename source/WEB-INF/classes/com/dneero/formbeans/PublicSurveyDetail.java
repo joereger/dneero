@@ -12,13 +12,14 @@ import com.dneero.finders.FindSurveysForBlogger;
 import org.apache.log4j.Logger;
 
 import java.util.Iterator;
+import java.io.Serializable;
 
 /**
  * User: Joe Reger Jr
  * Date: Apr 21, 2006
  * Time: 10:38:03 AM
  */
-public class PublicSurveyDetail {
+public class PublicSurveyDetail implements Serializable {
 
     private Survey survey;
     private SurveyEnhancer surveyEnhancer;
@@ -28,9 +29,8 @@ public class PublicSurveyDetail {
     private String surveyOnBlogPreview;
     private boolean qualifiesforsurvey = true;
 
-    Logger logger = Logger.getLogger(this.getClass().getName());
-
     public PublicSurveyDetail(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("PublicSurveyDetail instanciated.");
         survey = new Survey();
         beginView();
@@ -38,6 +38,7 @@ public class PublicSurveyDetail {
 
 
     public String beginView(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("beginView called");
         String tmpSurveyid = Jsf.getRequestParam("surveyid");
         if (com.dneero.util.Num.isinteger(tmpSurveyid)){
@@ -74,6 +75,7 @@ public class PublicSurveyDetail {
     }
 
     public String beginTakeSurvey(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         try{
             Jsf.redirectResponse("surveytake.jsf?surveyid="+Jsf.getUserSession().getCurrentSurveyid());
         } catch (Exception ex){

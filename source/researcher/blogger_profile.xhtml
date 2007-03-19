@@ -7,7 +7,8 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:t="http://myfaces.apache.org/tomahawk"
       xmlns:d="http://dneero.com/taglib"
-      xmlns:af="http://xmlns.oracle.com/adf/faces">
+      xmlns:rich="http://richfaces.ajax4jsf.org/rich"
+      xmlns:a4j="https://ajax4jsf.dev.java.net/ajax">
 
 <ui:composition template="/template/template-facelets.xhtml">
     <ui:define name="title"><img src="/images/user.png" align="right" alt="" border="0"/>#{researcherBloggerProfile.user.firstname} #{researcherBloggerProfile.user.lastname}'s Profile<br/><br clear="all"/></ui:define>
@@ -19,7 +20,7 @@
 
     <t:div rendered="#{researcherBloggerProfile.msg ne '' and researcherBloggerProfile.msg ne null}">
         <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
-        <img src="/images/lightbulb_on.png" align="right"/>
+        <img src="/images/lightbulb_on.png" alt="" align="right"/>
         #{researcherBloggerProfile.msg}
         <br/><br/></font></div></center>
         <br/><br/>
@@ -151,101 +152,83 @@
        <br/>
 
         <t:saveState id="save" value="#{researcherBloggerProfile}"/>
-        <af:table value="#{researcherBloggerProfile.listitems}" bandingInterval="2" rows="10" banding="row" var="listitem" inlineStyle="width: 300px;">
-          <af:column rendered="false">
+        <rich:dataTable value="#{researcherBloggerProfile.listitems}" bandingInterval="2" rows="10" banding="row" var="listitem" style="width: 300px;">
+          <h:column>
             <f:facet name="header">
-              <af:outputText value="Surveyid"/>
+              <h:outputText value="Date"/>
             </f:facet>
-            <af:outputText value="#{listitem.survey.surveyid}"/>
-          </af:column>
-          <af:column>
+              <h:outputText value="#{listitem.response.responsedate}" styleClass="tinyfont"><f:convertDateTime type="both" dateStyle="short" timeStyle="medium"/></h:outputText>
+          </h:column>
+          <h:column>
             <f:facet name="header">
-              <af:outputText value="Date"/>
+              <h:outputText value="Survey Title"/>
             </f:facet>
-              <af:outputText value="#{listitem.response.responsedate}" styleClass="tinyfont"><f:convertDateTime type="both" dateStyle="short" timeStyle="medium"/></af:outputText>
-          </af:column>
-          <af:column>
-            <f:facet name="header">
-              <af:outputText value="Survey Title"/>
-            </f:facet>
-            <af:outputText value="#{listitem.survey.title}" styleClass="normalfont"/>
-          </af:column>
-          <af:column>
+            <h:outputText value="#{listitem.survey.title}" styleClass="normalfont"/>
+          </h:column>
+          <h:column>
                 <f:facet name="header">
-                  <af:outputText value="-" inlineStyle="color: #ffffff;"/>
+                  <h:outputText value="-" style="color: #ffffff;"/>
                 </f:facet>
                 <h:commandLink action="#{researcherBloggerProfileAnswers.beginView}">
                     <h:outputText value="Answers" escape="false" styleClass="smallfont"/>
                     <f:param name="bloggerid" value="#{researcherBloggerProfile.blogger.bloggerid}" />
                     <f:param name="surveyid" value="#{listitem.survey.surveyid}" />
                 </h:commandLink>
-              </af:column>
-              <af:column>
+              </h:column>
+              <h:column>
                 <f:facet name="header">
-                  <af:outputText value="-" inlineStyle="color: #ffffff;"/>
+                  <h:outputText value="-" style="color: #ffffff;"/>
                 </f:facet>
                 <h:commandLink action="#{researcherBloggerProfileImpressions.beginView}">
                     <h:outputText value="Impressions" escape="false" styleClass="smallfont"/>
                     <f:param name="responseid" value="#{listitem.response.responseid}" />
                 </h:commandLink>
-              </af:column>
-         </af:table>
+              </h:column>
+         </rich:dataTable>
 
          <br/><br/>
          <font class="mediumfont" style="color: #cccccc;">Blogs</font>
          <br/>
         <t:saveState id="save" value="#{researcherBloggerProfile}"/>
-        <af:table value="#{researcherBloggerProfile.blogs}" bandingInterval="2" rows="10" banding="row" var="blog">
-          <af:column rendered="false">
+        <rich:dataTable value="#{researcherBloggerProfile.blogs}" bandingInterval="2" rows="10" banding="row" var="blog">
+          <h:column>
             <f:facet name="header">
-              <af:outputText value="Blogid"/>
+              <h:outputText value="Blog Name"/>
             </f:facet>
-            <af:outputText value="#{blog.blogid}"/>
-          </af:column>
-          <af:column>
+            <h:outputText value="#{blog.title}" styleClass="normalfont"/>
+          </h:column>
+          <h:column>
             <f:facet name="header">
-              <af:outputText value="Blog Name"/>
+              <h:outputText value="Quality"/>
             </f:facet>
-            <af:outputText value="#{blog.title}" styleClass="normalfont"/>
-          </af:column>
-          <af:column>
+            <h:outputText value="#{blog.quality}" styleClass="normalfont"/>
+          </h:column>
+          <h:column>
             <f:facet name="header">
-              <af:outputText value="Quality"/>
+              <h:outputText value="Quality 90 Days"/>
             </f:facet>
-            <af:outputText value="#{blog.quality}" styleClass="normalfont"/>
-          </af:column>
-          <af:column>
+            <h:outputText value="#{blog.quality90days}" styleClass="normalfont"/>
+          </h:column>
+          <h:column>
             <f:facet name="header">
-              <af:outputText value="Quality 90 Days"/>
+              <h:outputText value="Blog URL"/>
             </f:facet>
-            <af:outputText value="#{blog.quality90days}" styleClass="normalfont"/>
-          </af:column>
-          <af:column>
-            <f:facet name="header">
-              <af:outputText value="Blog URL"/>
-            </f:facet>
-            <af:goLink destination="#{blog.url}" text="#{blog.url}" styleClass="normalfont"></af:goLink>
-          </af:column>
-        </af:table>
+            <h:outputLink value="#{blog.url}" title="#{blog.url}" styleClass="normalfont"></h:outputLink>
+          </h:column>
+        </rich:dataTable>
 
         <br/><br/>
         <font class="mediumfont" style="color: #cccccc;">Panel Membership</font>
         <br/>
         <t:saveState id="save" value="#{researcherBloggerProfile}"/>
-        <af:table value="#{researcherBloggerProfile.panels}" bandingInterval="2" rows="10" banding="row" var="panel">
-          <af:column rendered="false">
+        <rich:dataTable value="#{researcherBloggerProfile.panels}" bandingInterval="2" rows="10" banding="row" var="panel">
+          <h:column>
             <f:facet name="header">
-              <af:outputText value="Panelid"/>
+              <h:outputText value="Panel Name"/>
             </f:facet>
-            <af:outputText value="#{panel.panelid}"/>
-          </af:column>
-          <af:column>
-            <f:facet name="header">
-              <af:outputText value="Panel Name"/>
-            </f:facet>
-            <af:outputText value="#{panel.name}" styleClass="normalfont"/>
-          </af:column>
-        </af:table>
+            <h:outputText value="#{panel.name}" styleClass="normalfont"/>
+          </h:column>
+        </rich:dataTable>
 
     <br/><br/>
 

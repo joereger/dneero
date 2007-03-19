@@ -9,15 +9,14 @@ import com.dneero.util.Jsf;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Iterator;
+import java.io.Serializable;
 
 /**
  * User: Joe Reger Jr
  * Date: Nov 18, 2006
  * Time: 9:07:21 AM
  */
-public class ResearcherBloggerProfileImpressions {
-
-    Logger logger = Logger.getLogger(this.getClass().getName());
+public class ResearcherBloggerProfileImpressions implements Serializable {
 
     private Survey survey;
     private ArrayList<ResearcherResultsImpressionsListitem> list;
@@ -26,11 +25,13 @@ public class ResearcherBloggerProfileImpressions {
     private User user;
 
     public ResearcherBloggerProfileImpressions(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("Instanciating object.");
         beginView();
     }
     
     public String beginView(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         String tmpResponseid = Jsf.getRequestParam("responseid");
         if (com.dneero.util.Num.isinteger(tmpResponseid)){
             logger.debug("beginView called: found responseid in request param="+tmpResponseid);
@@ -43,6 +44,7 @@ public class ResearcherBloggerProfileImpressions {
     }
 
     public void load(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("loadSurvey called");
         survey = Survey.get(Jsf.getUserSession().getCurrentSurveyid());
         list = new ArrayList<ResearcherResultsImpressionsListitem>();

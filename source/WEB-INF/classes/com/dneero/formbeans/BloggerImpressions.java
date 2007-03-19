@@ -8,6 +8,7 @@ import com.dneero.dao.Blogger;
 import com.dneero.money.BloggerIncomeCalculator;
 
 import java.util.*;
+import java.io.Serializable;
 
 import org.apache.log4j.Logger;
 
@@ -16,12 +17,10 @@ import org.apache.log4j.Logger;
  * Date: Apr 21, 2006
  * Time: 10:38:03 AM
  */
-public class BloggerImpressions extends SortableList {
+public class BloggerImpressions extends SortableList implements Serializable {
 
     private ArrayList<BloggerImpressionsListItem> list;
     private String surveytitle;
-
-    Logger logger = Logger.getLogger(this.getClass().getName());
 
     public BloggerImpressions(){
         super("impressionsqualifyingforpayment");
@@ -59,6 +58,7 @@ public class BloggerImpressions extends SortableList {
     }
 
     public String beginView(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("beginView called:");
         String tmpSurveyid = Jsf.getRequestParam("surveyid");
         if (com.dneero.util.Num.isinteger(tmpSurveyid)){

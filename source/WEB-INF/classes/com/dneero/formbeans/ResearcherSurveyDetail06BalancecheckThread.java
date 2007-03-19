@@ -5,15 +5,16 @@ import com.dneero.threadpool.ThreadPool;
 import com.dneero.scheduledjobs.ResearcherRemainingBalanceOperations;
 import org.apache.log4j.Logger;
 
+import java.io.Serializable;
+
 /**
  * User: Joe Reger Jr
  * Date: Nov 17, 2006
  * Time: 1:00:05 PM
  */
-public class ResearcherSurveyDetail06BalancecheckThread implements Runnable {
+public class ResearcherSurveyDetail06BalancecheckThread implements Runnable, Serializable {
     private Researcher researcher;
     private static ThreadPool tp;
-    Logger logger = Logger.getLogger(this.getClass().getName());
 
     public ResearcherSurveyDetail06BalancecheckThread(Researcher researcher){
         if (researcher!=null){
@@ -22,6 +23,7 @@ public class ResearcherSurveyDetail06BalancecheckThread implements Runnable {
     }
 
     public void run(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         if (researcher!=null){
             logger.debug("waiting researcherid="+researcher.getResearcherid());
             //try{wait(10000);} catch (Exception ex){logger.error(ex);};

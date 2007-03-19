@@ -4,6 +4,7 @@ import org.apache.log4j.Logger;
 
 import java.util.Date;
 import java.util.Calendar;
+import java.io.Serializable;
 
 import com.dneero.util.Jsf;
 import com.dneero.util.Time;
@@ -20,7 +21,7 @@ import javax.faces.application.FacesMessage;
  * Date: Jun 15, 2006
  * Time: 9:54:08 AM
  */
-public class ResearcherSurveyDelete {
+public class ResearcherSurveyDelete implements Serializable {
 
     private String title;
     private String description;
@@ -28,15 +29,15 @@ public class ResearcherSurveyDelete {
     private Date enddate;
     private int status;
 
-    Logger logger = Logger.getLogger(this.getClass().getName());
-
     public ResearcherSurveyDelete(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("Instanciating object.");
         loadSurvey(Jsf.getUserSession().getCurrentSurveyid());
     }
 
 
     public String beginView(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("beginView called:");
         String tmpSurveyid = Jsf.getRequestParam("surveyid");
         if (com.dneero.util.Num.isinteger(tmpSurveyid)){
@@ -49,6 +50,7 @@ public class ResearcherSurveyDelete {
     }
 
     public void loadSurvey(int surveyid){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("loadSurvey called for surveyid="+surveyid);
         Survey survey = Survey.get(surveyid);
         if (survey!=null){
@@ -66,6 +68,7 @@ public class ResearcherSurveyDelete {
     }
 
     public String deleteSurvey(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         UserSession userSession = Jsf.getUserSession();
         logger.debug("deleteSurvey() called. status="+status + " userSession.getCurrentSurveyid()="+userSession.getCurrentSurveyid());
         if (status==Survey.STATUS_DRAFT){

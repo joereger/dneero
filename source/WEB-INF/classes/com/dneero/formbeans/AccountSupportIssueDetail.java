@@ -15,28 +15,28 @@ import com.dneero.util.GeneralException;
 import com.dneero.xmpp.SendXMPPMessage;
 
 import java.util.*;
+import java.io.Serializable;
 
 /**
  * User: Joe Reger Jr
  * Date: Apr 21, 2006
  * Time: 10:38:03 AM
  */
-public class AccountSupportIssueDetail {
+public class AccountSupportIssueDetail implements Serializable {
 
     private int supportissueid;
     private String notes;
     private ArrayList<Supportissuecomm> supportissuecomms;
     private Supportissue supportissue;
 
-
-    Logger logger = Logger.getLogger(this.getClass().getName());
-
     public AccountSupportIssueDetail(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("AccountSupportIssueDetail instanciated.");
     }
 
 
     public String beginView(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("beginView called: supportissueid="+supportissueid);
         String tmpSupportissueid = Jsf.getRequestParam("supportissueid");
         if (com.dneero.util.Num.isinteger(tmpSupportissueid)){
@@ -58,7 +58,7 @@ public class AccountSupportIssueDetail {
     }
 
     public String newNote(){
-
+        Logger logger = Logger.getLogger(this.getClass().getName());
         if(supportissueid<=0){
             logger.debug("supportissueid not found: "+supportissueid);
             return "";

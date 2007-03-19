@@ -3,6 +3,7 @@ package com.dneero.formbeans;
 import org.apache.log4j.Logger;
 
 import java.util.*;
+import java.io.Serializable;
 
 import com.dneero.util.Jsf;
 import com.dneero.util.SortableList;
@@ -16,12 +17,9 @@ import com.dneero.dao.Panel;
  * Date: Feb 8, 2007
  * Time: 12:22:24 PM
  */
-public class ResearcherPanels extends SortableList {
+public class ResearcherPanels extends SortableList implements Serializable {
 
 
-
-
-    Logger logger = Logger.getLogger(this.getClass().getName());
     private List listitems;
     private String newpanelname = "My Panel";
     private String msg = "";
@@ -34,6 +32,7 @@ public class ResearcherPanels extends SortableList {
     }
 
     private void load(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         if (Jsf.getUserSession()!=null && Jsf.getUserSession().getUser()!=null && Jsf.getUserSession().getUser().getResearcherid()>0){
             logger.debug("userSession, user and researcher not null");
             logger.debug("into loop for userSession.getUser().getResearcher().getResearcherid()="+Jsf.getUserSession().getUser().getResearcherid());
@@ -51,6 +50,7 @@ public class ResearcherPanels extends SortableList {
     }
 
     public String createNewPanel(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         if (newpanelname==null || newpanelname.equals("")){
             newpanelname = "My Panel ("+Time.dateformatdate(Calendar.getInstance())+")";
         }
@@ -77,6 +77,7 @@ public class ResearcherPanels extends SortableList {
     }
 
     public String deletePanel(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         if (Num.isinteger(Jsf.getRequestParam("panelid"))){
             Panel panel = Panel.get(Integer.parseInt(Jsf.getRequestParam("panelid")));
             if (panel.canEdit(Jsf.getUserSession().getUser())){
@@ -95,12 +96,14 @@ public class ResearcherPanels extends SortableList {
 
 
     public List getListitems() {
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("getListitems");
         sort(getSort(), isAscending());
         return listitems;
     }
 
     public void setListitems(List listitems) {
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("setListitems");
         this.listitems = listitems;
     }
@@ -110,6 +113,7 @@ public class ResearcherPanels extends SortableList {
     }
 
     protected void sort(final String column, final boolean ascending) {
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("sort called");
         Comparator comparator = new Comparator() {
             public int compare(Object o1, Object o2) {

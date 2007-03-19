@@ -4,6 +4,7 @@ import org.apache.log4j.Logger;
 
 import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.io.Serializable;
 
 import com.dneero.session.UserSession;
 import com.dneero.util.Jsf;
@@ -17,20 +18,19 @@ import com.dneero.money.MoveMoneyInAccountBalance;
  * Date: Apr 21, 2006
  * Time: 10:38:03 AM
  */
-public class ResearcherDetails {
+public class ResearcherDetails implements Serializable {
 
     private String companyname;
     private String companytype;
     private String phone;
 
 
-    Logger logger = Logger.getLogger(this.getClass().getName());
-
     public ResearcherDetails(){
         load();
     }
 
     public void load(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("load called");
         UserSession userSession = Jsf.getUserSession();
         if (userSession.getUser()!=null && userSession.getUser().getResearcherid()>0){
@@ -44,7 +44,7 @@ public class ResearcherDetails {
     }
 
     public String saveAction(){
-
+        Logger logger = Logger.getLogger(this.getClass().getName());
         UserSession userSession = Jsf.getUserSession();
 
         Researcher researcher;

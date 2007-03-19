@@ -7,14 +7,14 @@ import com.dneero.systemprops.InstanceProperties;
 import com.dneero.util.Jsf;
 import com.dneero.util.GeneralException;
 
+import java.io.Serializable;
+
 /**
  * User: Joe Reger Jr
  * Date: Oct 6, 2006
  * Time: 3:35:02 AM
  */
-public class SysadminInstanceProps {
-
-    Logger logger = Logger.getLogger(this.getClass().getName());
+public class SysadminInstanceProps implements Serializable {
 
     private String dbConnectionUrl;
     private String dbUsername;
@@ -44,6 +44,7 @@ public class SysadminInstanceProps {
     }
 
     public String saveProps(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         try{
             //This assumes jsf page-level validation
             InstanceProperties.setDbConnectionUrl(dbConnectionUrl);

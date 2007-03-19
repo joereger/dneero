@@ -6,6 +6,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.application.FacesMessage;
 import java.util.Calendar;
 import java.util.LinkedHashMap;
+import java.io.Serializable;
 
 import com.dneero.dao.*;
 import com.dneero.util.*;
@@ -20,7 +21,7 @@ import com.dneero.threadpool.ThreadPool;
  * Date: Jun 15, 2006
  * Time: 9:54:08 AM
  */
-public class ResearcherSurveyDetail06 {
+public class ResearcherSurveyDetail06 implements Serializable {
 
 
     private String title;
@@ -60,11 +61,8 @@ public class ResearcherSurveyDetail06 {
     private String merchantsessionid;
 
 
-
-
-    Logger logger = Logger.getLogger(this.getClass().getName());
-
     public ResearcherSurveyDetail06(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("Instanciating object.");
         loadSurvey(Jsf.getUserSession().getCurrentSurveyid());
     }
@@ -72,6 +70,7 @@ public class ResearcherSurveyDetail06 {
 
 
     public void loadSurvey(int surveyid){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("loadSurvey called");
         Survey survey = Survey.get(surveyid);
         if (survey!=null){
@@ -179,6 +178,7 @@ public class ResearcherSurveyDetail06 {
     }
 
     public String saveSurvey(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("saveSurvey() called.");
         if (status<=Survey.STATUS_DRAFT){
             UserSession userSession = Jsf.getUserSession();

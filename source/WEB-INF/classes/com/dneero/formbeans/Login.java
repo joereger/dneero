@@ -5,6 +5,7 @@ import org.apache.log4j.Logger;
 import java.util.Date;
 import java.util.List;
 import java.util.Iterator;
+import java.io.Serializable;
 
 import com.dneero.dao.Survey;
 import com.dneero.dao.User;
@@ -29,19 +30,19 @@ import javax.servlet.http.Cookie;
  * Date: Jun 15, 2006
  * Time: 9:54:08 AM
  */
-public class Login {
+public class Login implements Serializable {
 
     private String email;
     private String password;
     private boolean keepmeloggedin = true;
 
-    Logger logger = Logger.getLogger(this.getClass().getName());
-
     public Login(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("Instanciating a Login object.");
     }
 
     public String login(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("login() called.");
         logger.debug("keepmeloggedin="+keepmeloggedin);
         List users = HibernateUtil.getSession().createQuery("FROM User as user WHERE user.email='"+email+"' AND user.password='"+password+"'").setMaxResults(1).list();

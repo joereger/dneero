@@ -20,21 +20,21 @@ import javax.faces.context.FacesContext;
 import java.util.Iterator;
 import java.util.Date;
 import java.util.List;
+import java.io.Serializable;
 
 /**
  * User: Joe Reger Jr
  * Date: Apr 21, 2006
  * Time: 10:38:03 AM
  */
-public class BloggerSurveyTake {
+public class BloggerSurveyTake implements Serializable {
 
     private Survey survey;
     private String html;
     private boolean haveerror = false;
 
-    Logger logger = Logger.getLogger(this.getClass().getName());
-
     public BloggerSurveyTake(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("BloggerSurveyTake instanciated.");
         survey = new Survey();
         if (Jsf.getUserSession().getCurrentSurveyid()>0){
@@ -45,6 +45,7 @@ public class BloggerSurveyTake {
 
 
     public String takeSurvey(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("takeSurvey() called");
         try{
             SurveyResponseParser srp = new SurveyResponseParser((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest());

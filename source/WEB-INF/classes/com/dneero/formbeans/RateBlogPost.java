@@ -6,21 +6,20 @@ import com.dneero.dao.hibernate.HibernateUtil;
 import org.apache.log4j.Logger;
 
 import java.util.List;
+import java.io.Serializable;
 
 /**
  * User: Joe Reger Jr
  * Date: Jul 30, 2006
  * Time: 11:10:50 AM
  */
-public class RateBlogPost {
+public class RateBlogPost implements Serializable {
 
     private int impressionid;
     private int quality;
     private String iframestr;
     private boolean haveposttoreview;
     private int remainingtoreview;
-
-    Logger logger = Logger.getLogger(this.getClass().getName());
 
     public RateBlogPost(){
         getNewPostToRate();
@@ -44,6 +43,7 @@ public class RateBlogPost {
     }
 
     public String rateAction(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         if (impressionid>0){
             Impression impression = Impression.get(impressionid);
             impression.setQuality(quality);

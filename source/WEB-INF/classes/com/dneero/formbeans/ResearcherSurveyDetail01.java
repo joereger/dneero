@@ -12,15 +12,14 @@ import org.apache.log4j.Logger;
 import javax.faces.context.FacesContext;
 import javax.faces.application.FacesMessage;
 import java.util.*;
-
-import oracle.adf.view.faces.model.*;
+import java.io.Serializable;
 
 /**
  * User: Joe Reger Jr
  * Date: Jun 15, 2006
  * Time: 9:54:08 AM
  */
-public class ResearcherSurveyDetail01 {
+public class ResearcherSurveyDetail01 implements Serializable {
 
     private String title;
     private String description;
@@ -28,15 +27,16 @@ public class ResearcherSurveyDetail01 {
     private Date enddate;
     private int status;
 
-    Logger logger = Logger.getLogger(this.getClass().getName());
 
     public ResearcherSurveyDetail01(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("Instanciating object.");
         logger.debug(" ");
         loadSurvey(Jsf.getUserSession().getCurrentSurveyid());
     }
 
     public String beginViewNewSurvey(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("beginViewNewSurvey() called:");
         Jsf.getUserSession().setCurrentSurveyid(0);
         title = "";
@@ -47,6 +47,7 @@ public class ResearcherSurveyDetail01 {
     }
 
     public String beginView(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("beginView() called:");
         String tmpSurveyid = Jsf.getRequestParam("surveyid");
         if (com.dneero.util.Num.isinteger(tmpSurveyid)){
@@ -59,6 +60,7 @@ public class ResearcherSurveyDetail01 {
     }
 
     public void loadSurvey(int surveyid){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("loadSurvey called for surveyid="+surveyid);
         Survey survey = Survey.get(surveyid);
         if (survey!=null){
@@ -84,6 +86,7 @@ public class ResearcherSurveyDetail01 {
     }
 
     public String saveSurvey(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("saveSurvey() called.");
         logger.debug("status="+status);
         if (startdate==null){
@@ -158,6 +161,7 @@ public class ResearcherSurveyDetail01 {
     }
 
     public String getTitle() {
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("setTitle() called:"+title);
         return title;
     }
@@ -179,6 +183,7 @@ public class ResearcherSurveyDetail01 {
     }
 
     public void setStartdate(Date startdate) {
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("setStartdate() called: "+Time.dateformatcompactwithtime(Time.getCalFromDate(startdate)));
         this.startdate = startdate;
     }

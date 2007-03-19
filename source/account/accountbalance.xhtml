@@ -6,7 +6,6 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:t="http://myfaces.apache.org/tomahawk"
-      xmlns:af="http://xmlns.oracle.com/adf/faces"
       xmlns:d="http://dneero.com/taglib"
       xmlns:c="http://java.sun.com/jstl/core"
       xmlns:rich="http://richfaces.ajax4jsf.org/rich"
@@ -25,12 +24,12 @@
     <h:form>
         <t:saveState id="save" value="#{accountBalance}"/>
 
-        <af:outputText value="There are not yet any financial transactions on your account.  Go fill out some surveys!  Or create some!" rendered="#{empty accountBalance.balances}"/>
+        <h:outputText value="There are not yet any financial transactions on your account.  Go fill out some surveys!  Or create some!" rendered="#{empty accountBalance.balances}"/>
         <rich:datascroller for="balances" maxPages="20"/>
         <rich:dataTable value="#{accountBalance.balances}" id="balances" style="width: 100%" bandingInterval="2" rows="25" banding="row" var="balance" rendered="#{!empty accountBalance.balances}">
           <h:column>
             <f:facet name="header">
-              <af:outputText value="Id"/>
+              <h:outputText value="Id"/>
             </f:facet>
             <h:outputText value="#{balance.balanceid}" styleClass="tinyfont"/>
           </h:column>

@@ -2,12 +2,14 @@ package com.dneero.formbeans;
 
 import com.dneero.util.Jsf;
 
+import java.io.Serializable;
+
 /**
  * User: Joe Reger Jr
  * Date: Mar 12, 2007
  * Time: 2:59:18 PM
  */
-public class ResearcherIndex {
+public class ResearcherIndex implements Serializable {
 
     private boolean showmarketingmaterial = false;
 

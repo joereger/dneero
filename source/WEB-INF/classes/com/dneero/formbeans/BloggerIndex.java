@@ -12,6 +12,7 @@ import com.dneero.display.components.def.ComponentException;
 
 import java.util.List;
 import java.util.Iterator;
+import java.io.Serializable;
 
 import org.hibernate.criterion.Restrictions;
 
@@ -20,7 +21,7 @@ import org.hibernate.criterion.Restrictions;
  * Date: Nov 22, 2006
  * Time: 9:48:52 AM
  */
-public class BloggerIndex {
+public class BloggerIndex implements Serializable {
 
     private boolean userhasresponsependings = false;
     private String responsependingmsg = "";

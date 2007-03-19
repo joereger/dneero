@@ -3,6 +3,7 @@ package com.dneero.formbeans;
 import org.apache.log4j.Logger;
 
 import java.util.*;
+import java.io.Serializable;
 
 import com.dneero.util.Jsf;
 import com.dneero.util.SortableList;
@@ -17,16 +18,15 @@ import com.dneero.dao.User;
  * Date: Feb 8, 2007
  * Time: 12:22:47 PM
  */
-public class ResearcherPanelsListBloggers extends SortableList {
+public class ResearcherPanelsListBloggers extends SortableList implements Serializable {
 
-    Logger logger = Logger.getLogger(this.getClass().getName());
     private List listitems;
     private int panelid = 0;
 
     public ResearcherPanelsListBloggers() {
         //Default sort column
         super("userlastname");
-
+        Logger logger = Logger.getLogger(this.getClass().getName());
         if (Jsf.getRequestParam("panelid")!=null && Num.isinteger(Jsf.getRequestParam("panelid"))){
             panelid = Integer.parseInt(Jsf.getRequestParam("panelid"));
         }
@@ -39,6 +39,7 @@ public class ResearcherPanelsListBloggers extends SortableList {
     }
 
     private void load(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         listitems = new ArrayList<ResearcherPanelsListBloggersListitem>();
         List panelmembers = HibernateUtil.getSession().createQuery("from Panelmembership where panelid='"+panelid+"'").list();
         for (Iterator iterator = panelmembers.iterator(); iterator.hasNext();) {
@@ -53,6 +54,7 @@ public class ResearcherPanelsListBloggers extends SortableList {
     }
 
     public String removeFromPanel(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         if (Jsf.getRequestParam("panelmembershipid")!=null && Num.isinteger(Jsf.getRequestParam("panelmembershipid"))){
             Panelmembership panelmembership = Panelmembership.get(Integer.parseInt(Jsf.getRequestParam("panelmembershipid")));
             try{panelmembership.delete();}catch(Exception ex){logger.debug(ex);}
@@ -70,12 +72,14 @@ public class ResearcherPanelsListBloggers extends SortableList {
 
 
     public List getListitems() {
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("getListitems");
         sort(getSort(), isAscending());
         return listitems;
     }
 
     public void setListitems(List listitems) {
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("setListitems");
         this.listitems = listitems;
     }
@@ -85,6 +89,7 @@ public class ResearcherPanelsListBloggers extends SortableList {
     }
 
     protected void sort(final String column, final boolean ascending) {
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("sort called");
         Comparator comparator = new Comparator() {
             public int compare(Object o1, Object o2) {

@@ -1,6 +1,7 @@
 package com.dneero.formbeans;
 
 import java.util.Date;
+import java.io.Serializable;
 
 
 /**
@@ -8,7 +9,7 @@ import java.util.Date;
  * Date: Oct 13, 2006
  * Time: 9:05:26 AM
  */
-public class AccountBalanceListItem {
+public class AccountBalanceListItem implements Serializable {
 
      private int balanceid;
      private int userid;

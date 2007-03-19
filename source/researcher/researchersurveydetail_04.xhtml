@@ -7,8 +7,9 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:t="http://myfaces.apache.org/tomahawk"
       xmlns:d="http://dneero.com/taglib"
-      xmlns:af="http://xmlns.oracle.com/adf/faces"
-      xmlns:c="http://java.sun.com/jstl/core">
+      xmlns:c="http://java.sun.com/jstl/core"
+      xmlns:rich="http://richfaces.ajax4jsf.org/rich"
+      xmlns:a4j="https://ajax4jsf.dev.java.net/ajax">
 
 <ui:composition template="/template/template-facelets.xhtml">
     <ui:define name="title">
@@ -24,7 +25,7 @@
     <h:inputHidden name="surveyid" value="#{userSession.currentSurveyid}" />
 
     <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
-    <img src="/images/lightbulb_on.png" align="right"/>
+    <img src="/images/lightbulb_on.png" alt="" align="right"/>
     Target your survey to the correct demographic.   Be careful not to cast too narrow a net.  In the final step we'll tell you how many bloggers fulfill your criteria and you'll have the opportunity to widen the search.
     <br/><br/><br/>
     </font></div></center>
@@ -73,19 +74,7 @@
             <h:message for="blogquality" styleClass="RED"></h:message>
         </h:panelGroup>
         <h:panelGroup>
-            <h:selectOneListbox value="#{researcherSurveyDetail04.blogquality}" size="1" id="blogquality" layout="pageDirection" required="true" rendered="#{researcherSurveyDetail04.status eq 1}">
-                <f:selectItem itemValue="0"/>
-                <f:selectItem itemValue="1"/>
-                <f:selectItem itemValue="2"/>
-                <f:selectItem itemValue="3"/>
-                <f:selectItem itemValue="4"/>
-                <f:selectItem itemValue="5"/>
-                <f:selectItem itemValue="6"/>
-                <f:selectItem itemValue="7"/>
-                <f:selectItem itemValue="8"/>
-                <f:selectItem itemValue="9"/>
-                <f:selectItem itemValue="10"/>
-            </h:selectOneListbox>
+            <rich:inputNumberSlider value="#{researcherSurveyDetail04.blogquality}" id="blogquality" width="200" minValue="0" maxValue="10" step="1" rendered="#{researcherSurveyDetail04.status eq 1}"/>
             <h:outputText value="#{researcherSurveyDetail04.blogquality}" rendered="#{researcherSurveyDetail04.status ne 1}" escape="false"></h:outputText>
         </h:panelGroup>
 
@@ -96,19 +85,7 @@
             <h:message for="blogquality90days" styleClass="RED"></h:message>
         </h:panelGroup>
         <h:panelGroup>
-            <h:selectOneListbox value="#{researcherSurveyDetail04.blogquality90days}" size="1" id="blogquality90days" layout="pageDirection" required="true" rendered="#{researcherSurveyDetail04.status eq 1}">
-                <f:selectItem itemValue="0"/>
-                <f:selectItem itemValue="1"/>
-                <f:selectItem itemValue="2"/>
-                <f:selectItem itemValue="3"/>
-                <f:selectItem itemValue="4"/>
-                <f:selectItem itemValue="5"/>
-                <f:selectItem itemValue="6"/>
-                <f:selectItem itemValue="7"/>
-                <f:selectItem itemValue="8"/>
-                <f:selectItem itemValue="9"/>
-                <f:selectItem itemValue="10"/>
-            </h:selectOneListbox>
+            <rich:inputNumberSlider value="#{researcherSurveyDetail04.blogquality90days}" id="blogquality90days" width="200" minValue="0" maxValue="10" step="1" rendered="#{researcherSurveyDetail04.status eq 1}"/>
             <h:outputText value="#{researcherSurveyDetail04.blogquality90days}" rendered="#{researcherSurveyDetail04.status ne 1}" escape="false"></h:outputText>
         </h:panelGroup>
 

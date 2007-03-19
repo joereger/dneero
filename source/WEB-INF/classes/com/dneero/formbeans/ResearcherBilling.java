@@ -11,13 +11,14 @@ import com.dneero.money.PaymentMethod;
 
 import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.io.Serializable;
 
 /**
  * User: Joe Reger Jr
  * Date: Apr 21, 2006
  * Time: 10:38:03 AM
  */
-public class ResearcherBilling {
+public class ResearcherBilling implements Serializable {
 
     private String ccnum;
     private int cctype;
@@ -33,14 +34,12 @@ public class ResearcherBilling {
     private String ipaddress;
     private String merchantsessionid;
 
-
-    Logger logger = Logger.getLogger(this.getClass().getName());
-
     public ResearcherBilling(){
         load();
     }
 
     public void load(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("load called");
         UserSession userSession = Jsf.getUserSession();
         if (userSession.getUser()!=null && userSession.getUser().getResearcherid()>0){
@@ -70,7 +69,7 @@ public class ResearcherBilling {
     }
 
     public String saveAction(){
-
+        Logger logger = Logger.getLogger(this.getClass().getName());
         UserSession userSession = Jsf.getUserSession();
 
 

@@ -7,6 +7,7 @@ import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.session.UserSession;
 
 import java.util.*;
+import java.io.Serializable;
 
 import org.apache.log4j.Logger;
 
@@ -15,15 +16,16 @@ import org.apache.log4j.Logger;
  * Date: Jun 8, 2006
  * Time: 10:16:03 AM
  */
-public class ResearcherSurveyList extends SortableList {
+public class ResearcherSurveyList extends SortableList implements Serializable {
 
-    Logger logger = Logger.getLogger(this.getClass().getName());
     private List surveys;
 
     public ResearcherSurveyList() {
         //Default sort column
         super("title");
+        Logger logger = Logger.getLogger(this.getClass().getName());
         //Go get the surveys from the database
+
         //surveys = HibernateUtil.getSession().createQuery("from Survey").list();
 
         UserSession userSession = Jsf.getUserSession();
@@ -38,12 +40,14 @@ public class ResearcherSurveyList extends SortableList {
 
 
     public List getSurveys() {
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("getListitems");
         sort(getSort(), isAscending());
         return surveys;
     }
 
     public void setSurveys(List surveys) {
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("setListitems");
         this.surveys = surveys;
     }
@@ -53,6 +57,7 @@ public class ResearcherSurveyList extends SortableList {
     }
 
     protected void sort(final String column, final boolean ascending) {
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("sort called");
         Comparator comparator = new Comparator() {
             public int compare(Object o1, Object o2) {

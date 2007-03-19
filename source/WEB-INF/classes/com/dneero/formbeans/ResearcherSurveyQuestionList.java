@@ -9,15 +9,15 @@ import com.dneero.dao.Question;
 import org.apache.log4j.Logger;
 
 import java.util.*;
+import java.io.Serializable;
 
 /**
  * User: Joe Reger Jr
  * Date: Jun 8, 2006
  * Time: 10:16:03 AM
  */
-public class ResearcherSurveyQuestionList extends SortableList {
+public class ResearcherSurveyQuestionList extends SortableList implements Serializable {
 
-    Logger logger = Logger.getLogger(this.getClass().getName());
     private ArrayList questions = new ArrayList();
 
     public ResearcherSurveyQuestionList() {
@@ -27,6 +27,7 @@ public class ResearcherSurveyQuestionList extends SortableList {
     }
 
     public void load(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         questions = new ArrayList();
         Survey survey = Survey.get(Jsf.getUserSession().getCurrentSurveyid());
         if (survey!=null){
@@ -39,12 +40,14 @@ public class ResearcherSurveyQuestionList extends SortableList {
     }
 
     public List getQuestions() {
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("getQuestions");
         sort(getSort(), isAscending());
         return questions;
     }
 
     public void setQuestions(List questions) {
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("setQuestions");
         this.questions = (ArrayList)questions;
     }
@@ -54,6 +57,7 @@ public class ResearcherSurveyQuestionList extends SortableList {
     }
 
     protected void sort(final String column, final boolean ascending) {
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("sort called");
         Comparator comparator = new Comparator() {
             public int compare(Object o1, Object o2) {

@@ -12,6 +12,7 @@ import com.dneero.sir.SocialInfluenceRatingPercentile;
 import com.dneero.scheduledjobs.SystemStats;
 
 import java.util.*;
+import java.io.Serializable;
 
 import org.apache.log4j.Logger;
 
@@ -20,9 +21,8 @@ import org.apache.log4j.Logger;
  * Date: Feb 8, 2007
  * Time: 12:23:05 PM
  */
-public class ResearcherFindBloggers extends SortableList {
+public class ResearcherFindBloggers extends SortableList implements Serializable {
 
-    Logger logger = Logger.getLogger(this.getClass().getName());
     private List listitems;
     private int panelid;
     private String msg;
@@ -77,6 +77,7 @@ public class ResearcherFindBloggers extends SortableList {
     }
 
     public String search(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         SurveyCriteriaXML surveyCriteriaXML = new SurveyCriteriaXML("");
         surveyCriteriaXML.setAgemin(agemin);
         surveyCriteriaXML.setAgemax(agemax);
@@ -108,10 +109,14 @@ public class ResearcherFindBloggers extends SortableList {
             listitems.add(li);
             logger.debug("added bloggerid: "+blogger.getBloggerid());
         }
+        if (listitems.size()<=0){
+            msg = "No bloggers were found using the specified criteria.  However, we're always growing and adding new bloggers so check back soon!";    
+        }
         return "researcherfindbloggers";
     }
 
     public String addAllToPanel(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("addAllToPanel() called");
         logger.debug("agemin: "+agemin);
         logger.debug("agemax: "+agemax);
@@ -190,12 +195,14 @@ public class ResearcherFindBloggers extends SortableList {
     }
 
     public List getListitems() {
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("getListitems");
         sort(getSort(), isAscending());
         return listitems;
     }
 
     public void setListitems(List listitems) {
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("setListitems");
         this.listitems = listitems;
     }
@@ -205,6 +212,7 @@ public class ResearcherFindBloggers extends SortableList {
     }
 
     protected void sort(final String column, final boolean ascending) {
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("sort called");
         Comparator comparator = new Comparator() {
             public int compare(Object o1, Object o2) {

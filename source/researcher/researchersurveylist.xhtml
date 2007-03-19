@@ -6,8 +6,9 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:t="http://myfaces.apache.org/tomahawk"
-      xmlns:af="http://xmlns.oracle.com/adf/faces"
-      xmlns:d="http://dneero.com/taglib">
+      xmlns:d="http://dneero.com/taglib"
+      xmlns:rich="http://richfaces.ajax4jsf.org/rich"
+      xmlns:a4j="https://ajax4jsf.dev.java.net/ajax">
 
 <ui:composition template="/template/template-facelets.xhtml">
     <ui:define name="title">My Surveys and Results</ui:define>
@@ -17,32 +18,26 @@
 
     <h:form>
         <t:saveState id="save" value="#{researcherSurveyList}"/>
-        <af:table value="#{researcherSurveyList.surveys}" rows="50" bandingInterval="2" banding="row" var="survey" rendered="#{!empty researcherSurveyList.surveys}">
-          <af:column rendered="false">
+        <rich:dataTable value="#{researcherSurveyList.surveys}" rows="50" bandingInterval="2" banding="row" var="survey" rendered="#{!empty researcherSurveyList.surveys}">
+          <h:column>
             <f:facet name="header">
-              <af:outputText value="Id"/>
+              <h:outputText value="Title"/>
             </f:facet>
-            <af:outputText value="#{survey.surveyid}"/>
-          </af:column>
-          <af:column>
+            <h:outputText value="#{survey.title}" styleClass="mediumfont"/>
+          </h:column>
+          <h:column>
             <f:facet name="header">
-              <af:outputText value="Title"/>
+              <h:outputText value="Status"/>
             </f:facet>
-            <af:outputText value="#{survey.title}" styleClass="mediumfont"/>
-          </af:column>
-          <af:column>
+            <h:outputText value="Draft" styleClass="normalfont" rendered="#{survey.status==1}"/>
+            <h:outputText value="Live, Waiting for Start Date" styleClass="normalfont" rendered="#{survey.status==2}"/>
+            <h:outputText value="Live, Waiting for Funds" styleClass="normalfont" rendered="#{survey.status==3}"/>
+            <h:outputText value="Live" styleClass="normalfont" rendered="#{survey.status==4}"/>
+            <h:outputText value="Closed" styleClass="normalfont" rendered="#{survey.status==5}"/>
+          </h:column>
+          <h:column>
             <f:facet name="header">
-              <af:outputText value="Status"/>
-            </f:facet>
-            <af:outputText value="Draft" styleClass="normalfont" rendered="#{survey.status==1}"/>
-            <af:outputText value="Live, Waiting for Start Date" styleClass="normalfont" rendered="#{survey.status==2}"/>
-            <af:outputText value="Live, Waiting for Funds" styleClass="normalfont" rendered="#{survey.status==3}"/>
-            <af:outputText value="Live" styleClass="normalfont" rendered="#{survey.status==4}"/>
-            <af:outputText value="Closed" styleClass="normalfont" rendered="#{survey.status==5}"/>
-          </af:column>
-          <af:column>
-            <f:facet name="header">
-              <af:outputText value="-" inlineStyle="color: #ffffff;"/>
+              <h:outputText value="-" style="color: #ffffff;"/>
             </f:facet>
             <h:commandLink action="#{researcherSurveyDetail01.beginView}" rendered="#{survey.status eq 1}">
                 <h:outputText value="Edit" styleClass="normalfont" escape="false" />
@@ -52,35 +47,35 @@
                 <h:outputText value="Review" styleClass="normalfont" escape="false" />
                 <f:param name="surveyid" value="#{survey.surveyid}" />
             </h:commandLink>
-          </af:column>
-          <af:column rendered="#{survey.status eq 4}">
+          </h:column>
+          <h:column rendered="#{survey.status eq 4}">
             <f:facet name="header">
-              <af:outputText value="-" inlineStyle="color: #ffffff;"/>
+              <h:outputText value="-" style="color: #ffffff;"/>
             </f:facet>
             <h:commandLink action="#{researcherEmailinvite.beginView}" rendered="#{survey.status eq 4}">
                 <h:outputText value="Invite" styleClass="normalfont" escape="false" />
                 <f:param name="surveyid" value="#{survey.surveyid}" />
             </h:commandLink>
-          </af:column>
-          <af:column>
+          </h:column>
+          <h:column>
             <f:facet name="header">
-              <af:outputText value="-" inlineStyle="color: #ffffff;"/>
+              <h:outputText value="-" style="color: #ffffff;"/>
             </f:facet>
             <h:commandLink action="#{researcherResults.beginView}" rendered="#{survey.status ne 1}">
                 <h:outputText value="Results" styleClass="normalfont" escape="false" />
                 <f:param name="surveyid" value="#{survey.surveyid}" />
             </h:commandLink>
-          </af:column>
-          <af:column>
+          </h:column>
+          <h:column>
             <f:facet name="header">
-              <af:outputText value="-" inlineStyle="color: #ffffff;"/>
+              <h:outputText value="-" style="color: #ffffff;"/>
             </f:facet>
             <h:commandLink action="#{researcherSurveyDelete.beginView}" rendered="#{survey.status eq 1}">
                 <h:outputText value=" Delete" styleClass="normalfont" escape="false"/>
                 <f:param name="surveyid" value="#{survey.surveyid}" />
             </h:commandLink>
-          </af:column>
-        </af:table>
+          </h:column>
+        </rich:dataTable>
         <br/><br/>
         <h:commandButton action="#{researcherSurveyDetail01.beginViewNewSurvey}" value="Create a New Survey" styleClass="formsubmitbutton"></h:commandButton>
 

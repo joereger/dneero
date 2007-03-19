@@ -9,6 +9,7 @@ import com.dneero.email.LostPasswordSend;
 import com.dneero.money.MoveMoneyInAccountBalance;
 
 import java.util.*;
+import java.io.Serializable;
 
 import org.apache.log4j.Logger;
 
@@ -17,8 +18,7 @@ import org.apache.log4j.Logger;
  * Date: Apr 21, 2006
  * Time: 10:38:03 AM
  */
-public class SysadminUserDetail  {
-    Logger logger = Logger.getLogger(this.getClass().getName());
+public class SysadminUserDetail implements Serializable {
 
     private int userid;
     private String firstname;
@@ -40,6 +40,7 @@ public class SysadminUserDetail  {
 
 
     public String beginView(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         //logger.debug("beginView called:");
         String tmpUserid = Jsf.getRequestParam("userid");
         if (com.dneero.util.Num.isinteger(tmpUserid)){
@@ -102,6 +103,7 @@ public class SysadminUserDetail  {
     }
 
     public String save(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("save() called");
         logger.debug("userid="+userid);
         logger.debug("firstname="+firstname);
@@ -137,6 +139,7 @@ public class SysadminUserDetail  {
     }
 
     public String togglesysadminprivs(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("togglesysadminprivs()");
         if (activitypin.equals("yes, i want to do this")){
             activitypin = "";

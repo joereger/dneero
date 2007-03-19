@@ -6,12 +6,14 @@ import com.dneero.dao.Survey;
 import com.dneero.money.SurveyMoneyStatus;
 import com.dneero.scheduledjobs.ResearcherRemainingBalanceOperations;
 
+import java.io.Serializable;
+
 /**
  * User: Joe Reger Jr
  * Date: Jun 15, 2006
  * Time: 9:54:08 AM
  */
-public class ResearcherSurveyDetailPostlaunch {
+public class ResearcherSurveyDetailPostlaunch implements Serializable {
 
 
     private String title;
@@ -23,9 +25,9 @@ public class ResearcherSurveyDetailPostlaunch {
     private String willingtopayperrespondent = "0";
 
 
-    Logger logger = Logger.getLogger(this.getClass().getName());
 
     public ResearcherSurveyDetailPostlaunch(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("Instanciating object.");
         loadSurvey(Jsf.getUserSession().getCurrentSurveyid());
     }
@@ -33,6 +35,7 @@ public class ResearcherSurveyDetailPostlaunch {
 
 
     public void loadSurvey(int surveyid){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("loadSurvey called");
         Survey survey = Survey.get(surveyid);
         if (survey!=null){

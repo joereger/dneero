@@ -6,8 +6,9 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:t="http://myfaces.apache.org/tomahawk"
-      xmlns:af="http://xmlns.oracle.com/adf/faces"
-      xmlns:d="http://dneero.com/taglib">
+      xmlns:d="http://dneero.com/taglib"
+      xmlns:rich="http://richfaces.ajax4jsf.org/rich"
+      xmlns:a4j="https://ajax4jsf.dev.java.net/ajax">
 
 <ui:composition template="/template/template-facelets.xhtml">
     <ui:define name="title">Survey Opportunities for Bloggers<br/><br/></ui:define>
@@ -20,48 +21,42 @@
 <h:form>
 
     <t:saveState id="save" value="#{publicSurveyList}"/>
-    <af:outputText value="There are currently no surveys listed.  Please check back soon as we're always adding new ones!" styleClass="mediumfont" rendered="#{empty publicSurveyList.surveys}"/>
-    <af:table value="#{publicSurveyList.surveys}" bandingInterval="2" rows="15" banding="row" var="srvy" rendered="#{!empty publicSurveyList.surveys}">
-      <af:column rendered="false">
+    <h:outputText value="There are currently no surveys listed.  Please check back soon as we're always adding new ones!" styleClass="mediumfont" rendered="#{empty publicSurveyList.surveys}"/>
+    <rich:dataTable value="#{publicSurveyList.surveys}" bandingInterval="2" rows="15" banding="row" var="srvy" rendered="#{!empty publicSurveyList.surveys}">
+      <h:column>
         <f:facet name="header">
-          <af:outputText value="Id"/>
+          <h:outputText value="Title"/>
         </f:facet>
-        <af:outputText value="#{srvy.surveyid}"/>
-      </af:column>
-      <af:column>
+        <h:outputText value="#{srvy.title}" styleClass="mediumfont"/>
+      </h:column>
+      <h:column>
         <f:facet name="header">
-          <af:outputText value="Title"/>
+          <h:outputText value="Questions"/>
         </f:facet>
-        <af:outputText value="#{srvy.title}" styleClass="mediumfont"/>
-      </af:column>
-      <af:column>
+        <h:outputText value="#{srvy.numberofquestions}"/>
+      </h:column>
+      <h:column>
         <f:facet name="header">
-          <af:outputText value="Questions"/>
+          <h:outputText value="Timing"/>
         </f:facet>
-        <af:outputText value="#{srvy.numberofquestions}"/>
-      </af:column>
-      <af:column>
+        <h:outputText value="#{srvy.daysuntilend}"/>
+      </h:column>
+      <h:column>
         <f:facet name="header">
-          <af:outputText value="Timing"/>
+          <h:outputText value="Earn Up To"/>
         </f:facet>
-        <af:outputText value="#{srvy.daysuntilend}"/>
-      </af:column>
-      <af:column>
+        <h:outputText value="#{srvy.maxearning}" styleClass="mediumfont"/>
+      </h:column>
+      <h:column>
         <f:facet name="header">
-          <af:outputText value="Earn Up To"/>
-        </f:facet>
-        <af:outputText value="#{srvy.maxearning}" styleClass="mediumfont"/>
-      </af:column>
-      <af:column>
-        <f:facet name="header">
-          <af:outputText value="-" inlineStyle="color: #ffffff;"/>
+          <h:outputText value="-" style="color: #ffffff;"/>
         </f:facet>
         <h:commandLink action="#{publicSurveyDetail.beginView}">
             <h:outputText value="View" escape="false" styleClass="mediumfont"/>
             <f:param name="surveyid" value="#{srvy.surveyid}" />
         </h:commandLink>
-      </af:column>
-    </af:table>
+      </h:column>
+    </rich:dataTable>
 
 
 </h:form>

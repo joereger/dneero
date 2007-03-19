@@ -7,7 +7,9 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:t="http://myfaces.apache.org/tomahawk"
       xmlns:d="http://dneero.com/taglib"
-      xmlns:c="http://java.sun.com/jstl/core">
+      xmlns:c="http://java.sun.com/jstl/core"
+      xmlns:rich="http://richfaces.ajax4jsf.org/rich"
+      xmlns:a4j="https://ajax4jsf.dev.java.net/ajax">
 
 <ui:composition template="/template/template-facelets.xhtml">
     <ui:define name="title">
@@ -23,7 +25,7 @@
 <h:form>
 
     <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
-    <img src="/images/lightbulb_on.png" align="right"/>
+    <img src="/images/lightbulb_on.png" alt="" align="right"/>
     On this screen you view the details of the survey opportunity.  See the questions in the 'Question Preview' tab and see how this survey will look on your blog in the 'On-Blog Preview' tab.
     <br/><br/>
     <h:commandButton action="#{publicSurveyDetail.beginTakeSurvey}" value="Ok, I'll Take the Survey" styleClass="formsubmitbutton"></h:commandButton>
@@ -139,7 +141,7 @@
         <t:panelTab id="panel_c" label="Question Preview" rendered="#{!publicSurveyDetail.bloggerhasalreadytakensurvey}">
             <h:graphicImage url="/images/clear.gif" width="700" height="1"/><br/>
             <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
-            <img src="/images/lightbulb_on.png" align="right"/>
+            <img src="/images/lightbulb_on.png" alt="" align="right"/>
             You don't take the survey here... this is just a preview of the questions to give you a sense of what you're getting into.  To take the survey, click the 'Summary' tab and then click the 'Ok, I'll Take the Survey' button.
             <br/><br/><br/>
             </font></div></center>
@@ -150,7 +152,7 @@
         <t:panelTab id="panel_d" label="On-Blog Preview" rendered="#{!publicSurveyDetail.bloggerhasalreadytakensurvey}">
             <h:graphicImage url="/images/clear.gif" width="700" height="1"/><br/>
             <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
-            <img src="/images/lightbulb_on.png" align="right"/>
+            <img src="/images/lightbulb_on.png" alt="" align="right"/>
             This is how the survey will look on your blog... we'll put your answers in there automatically, of course.  Use this screen to get a sense of how the survey will interact and flow with your blog.
             <br/><br/><br/>
             </font></div></center>
@@ -161,7 +163,7 @@
         <t:panelTab id="panel_e" label="Your Answers" rendered="#{publicSurveyDetail.bloggerhasalreadytakensurvey}">
             <h:graphicImage url="/images/clear.gif" width="700" height="1"/><br/>
             <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
-            <img src="/images/lightbulb_on.png" align="right"/>
+            <img src="/images/lightbulb_on.png" alt="" align="right"/>
             These are the answers that you provided.
             <br/><br/><br/>
             </font></div></center>
@@ -172,7 +174,7 @@
         <t:panelTab id="panel_f" label="Post to your Blog" rendered="#{publicSurveyDetail.bloggerhasalreadytakensurvey}">
             <h:graphicImage url="/images/clear.gif" width="700" height="1"/><br/>
             <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
-            <img src="/images/lightbulb_on.png" align="right"/>
+            <img src="/images/lightbulb_on.png" alt="" align="right"/>
             Now that you've filled out the survey you can make even more money by posting it to your blog with a simple copy-and-paste operation.
             <br/><br/><br/>
             </font></div></center>

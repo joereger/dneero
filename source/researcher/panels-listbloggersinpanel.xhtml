@@ -7,7 +7,8 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:t="http://myfaces.apache.org/tomahawk"
       xmlns:d="http://dneero.com/taglib"
-      xmlns:af="http://xmlns.oracle.com/adf/faces">
+      xmlns:rich="http://richfaces.ajax4jsf.org/rich"
+      xmlns:a4j="https://ajax4jsf.dev.java.net/ajax">
 
 <ui:composition template="/template/template-facelets.xhtml">
     <ui:define name="title">Bloggers in Panel</ui:define>
@@ -17,38 +18,32 @@
 
     <h:form id="panels">
         <t:saveState id="save" value="#{researcherPanelsListBloggers}"/>
-        <af:table value="#{researcherPanelsListBloggers.listitems}" rows="50" bandingInterval="2" banding="row" var="listitem" rendered="#{!empty researcherPanelsListBloggers.listitems}">
-          <af:column rendered="false">
+        <rich:dataTable value="#{researcherPanelsListBloggers.listitems}" rows="50" bandingInterval="2" banding="row" var="listitem" rendered="#{!empty researcherPanelsListBloggers.listitems}">
+          <h:column>
             <f:facet name="header">
-              <af:outputText value="Id"/>
+              <h:outputText value="Blogger Name"/>
             </f:facet>
-            <af:outputText value="#{listitem.panelmembership.panelmembershipid}"/>
-          </af:column>
-          <af:column>
+            <h:outputText value="#{listitem.user.lastname}, #{listitem.user.firstname}" styleClass="normalfont"/>
+          </h:column>
+          <h:column>
             <f:facet name="header">
-              <af:outputText value="Blogger Name"/>
-            </f:facet>
-            <af:outputText value="#{listitem.user.lastname}, #{listitem.user.firstname}" styleClass="normalfont"/>
-          </af:column>
-          <af:column>
-            <f:facet name="header">
-              <af:outputText value="-" inlineStyle="color: #ffffff;"/>
+              <h:outputText value="-" style="color: #ffffff;"/>
             </f:facet>
             <h:commandLink action="#{researcherBloggerProfile.beginView}">
                 <h:outputText value="Blogger's Profile" escape="false" styleClass="smallfont"/>
                 <f:param name="bloggerid" value="#{listitem.blogger.bloggerid}" />
             </h:commandLink>
-          </af:column>
-          <af:column>
+          </h:column>
+          <h:column>
             <f:facet name="header">
-              <af:outputText value="-" inlineStyle="color: #ffffff;"/>
+              <h:outputText value="-" style="color: #ffffff;"/>
             </f:facet>
             <h:commandLink action="#{researcherPanelsListBloggers.removeFromPanel}">
                 <h:outputText value="Remove From Panel" escape="false" styleClass="smallfont"/>
                 <f:param name="panelmembershipid" value="#{listitem.panelmembership.panelmembershipid}" />
             </h:commandLink>
-          </af:column>
-        </af:table>
+          </h:column>
+        </rich:dataTable>
 
     </h:form>
 

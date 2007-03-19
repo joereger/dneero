@@ -10,17 +10,16 @@ import com.dneero.money.BloggerIncomeCalculator;
 import org.apache.log4j.Logger;
 
 import java.util.*;
+import java.io.Serializable;
 
 /**
  * User: Joe Reger Jr
  * Date: Apr 21, 2006
  * Time: 10:38:03 AM
  */
-public class BloggerCompletedsurveys extends SortableList {
+public class BloggerCompletedsurveys extends SortableList implements Serializable {
 
     private ArrayList<BloggerCompletedsurveysListitem> list;
-
-    Logger logger = Logger.getLogger(this.getClass().getName());
 
     public BloggerCompletedsurveys(){
         super("title");

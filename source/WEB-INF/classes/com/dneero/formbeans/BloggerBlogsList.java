@@ -12,24 +12,28 @@ import org.hibernate.criterion.Restrictions;
 import java.util.List;
 import java.util.Comparator;
 import java.util.Collections;
+import java.io.Serializable;
 
 /**
  * User: Joe Reger Jr
  * Date: Jun 8, 2006
  * Time: 10:16:03 AM
  */
-public class BloggerBlogsList extends SortableList {
+public class BloggerBlogsList extends SortableList implements Serializable {
 
-    private Logger logger = Logger.getLogger(BloggerBlogsList.class);
     private List blogs;
 
     public BloggerBlogsList() {
         super("title");
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("instanciating BloggerBlogsList");
         load();
+
+        
     }
 
     private void load(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("Start load()");
 
         UserSession userSession = Jsf.getUserSession();
@@ -63,6 +67,7 @@ public class BloggerBlogsList extends SortableList {
     }
 
     public List getBlogs() {
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("getBlogs()");
         if (blogs==null){
             load();

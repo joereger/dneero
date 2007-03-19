@@ -7,7 +7,8 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:t="http://myfaces.apache.org/tomahawk"
       xmlns:d="http://dneero.com/taglib"
-      xmlns:af="http://xmlns.oracle.com/adf/faces">
+      xmlns:rich="http://richfaces.ajax4jsf.org/rich"
+      xmlns:a4j="https://ajax4jsf.dev.java.net/ajax">
 
 <ui:composition template="/template/template-facelets.xhtml">
     <ui:define name="title">Survey Results<br/><br/></ui:define>
@@ -29,50 +30,50 @@
     <br/><br/>
 
     <t:saveState id="save" value="#{researcherResultsRespondents}"/>
-    <af:table value="#{researcherResultsRespondents.list}" rows="50" bandingInterval="2" banding="row" var="listitem" rendered="#{!empty researcherResultsRespondents.list}">
+    <rich:dataTable value="#{researcherResultsRespondents.list}" rows="50" bandingInterval="2" banding="row" var="listitem" rendered="#{!empty researcherResultsRespondents.list}">
           
-          <af:column>
+          <h:column>
             <f:facet name="header">
-              <af:outputText value="Date"/>
+              <h:outputText value="Date"/>
             </f:facet>
-            <af:outputText value="#{listitem.responsedate}" styleClass="smallfont"><f:convertDateTime type="both" dateStyle="short" timeStyle="medium"/></af:outputText>
-          </af:column>
-          <af:column>
+            <h:outputText value="#{listitem.responsedate}" styleClass="smallfont"><f:convertDateTime type="both" dateStyle="short" timeStyle="medium"/></h:outputText>
+          </h:column>
+          <h:column>
             <f:facet name="header">
-              <af:outputText value="Blogger Name"/>
+              <h:outputText value="Blogger Name"/>
             </f:facet>
             <h:outputText value="#{listitem.firstname} #{listitem.lastname}" escape="false" styleClass="smallfont"/>
-          </af:column>
-          <af:column>
+          </h:column>
+          <h:column>
             <f:facet name="header">
-              <af:outputText value="-" inlineStyle="color: #ffffff;"/>
+              <h:outputText value="-" style="color: #ffffff;"/>
             </f:facet>
             <h:commandLink action="#{researcherBloggerProfile.beginView}">
                 <h:outputText value="Blogger's Profile" escape="false" styleClass="smallfont"/>
                 <f:param name="bloggerid" value="#{listitem.bloggerid}" />
             </h:commandLink>
-          </af:column>
-          <af:column>
+          </h:column>
+          <h:column>
             <f:facet name="header">
-              <af:outputText value="-" inlineStyle="color: #ffffff;"/>
+              <h:outputText value="-" style="color: #ffffff;"/>
             </f:facet>
             <h:commandLink action="#{researcherBloggerProfileAnswers.beginView}">
                 <h:outputText value="Blogger's Answers" escape="false" styleClass="smallfont"/>
                 <f:param name="bloggerid" value="#{listitem.bloggerid}" />
                 <f:param name="surveyid" value="#{researcherResults.survey.surveyid}" />
             </h:commandLink>
-          </af:column>
-          <af:column>
+          </h:column>
+          <h:column>
             <f:facet name="header">
-              <af:outputText value="-" inlineStyle="color: #ffffff;"/>
+              <h:outputText value="-" style="color: #ffffff;"/>
             </f:facet>
             <h:commandLink action="#{researcherBloggerProfileImpressions.beginView}">
                 <h:outputText value="Blogger's Impressions" escape="false" styleClass="smallfont"/>
                 <f:param name="responseid" value="#{listitem.responseid}" />
             </h:commandLink>
-          </af:column>
+          </h:column>
 
-        </af:table>
+        </rich:dataTable>
 
 
     

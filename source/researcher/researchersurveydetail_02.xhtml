@@ -7,7 +7,8 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:t="http://myfaces.apache.org/tomahawk"
       xmlns:d="http://dneero.com/taglib"
-      xmlns:af="http://xmlns.oracle.com/adf/faces">
+      xmlns:rich="http://richfaces.ajax4jsf.org/rich"
+      xmlns:a4j="https://ajax4jsf.dev.java.net/ajax">
 
 <ui:composition template="/template/template-facelets.xhtml">
     <ui:define name="title">
@@ -24,7 +25,7 @@
     <h:inputHidden name="surveyid" value="#{userSession.currentSurveyid}" />
 
     <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
-    <img src="/images/lightbulb_on.png" align="right"/>
+    <img src="/images/lightbulb_on.png" alt="" align="right"/>
     Add questions to your survey on this page.  Choose from the Question Type dropdown box and then click Add Question.  You'll quickly build a list of questions.  Click Preview the Survey to see what these questions look like to somebody taking the survey.  When you're done, click Next Step.
     <br/><br/>
     </font></div></center>
@@ -37,56 +38,50 @@
     <t:panelTabbedPane id="panel" bgcolor="#ffffff">
         <t:panelTab id="panel_a" label="Questions">
             <h:graphicImage url="/images/clear.gif" width="700" height="1"/><br/>
-            <af:table value="#{researcherSurveyQuestionList.questions}" bandingInterval="2" rows="50" banding="row" var="question" rendered="#{!empty researcherSurveyQuestionList.questions}">
-              <af:column>
+            <rich:dataTable value="#{researcherSurveyQuestionList.questions}" bandingInterval="2" rows="50" banding="row" var="question" rendered="#{!empty researcherSurveyQuestionList.questions}">
+              <h:column>
                 <f:facet name="header">
-                  <af:outputText value=""/>
+                  <h:outputText value=""/>
                 </f:facet>
                 <h:graphicImage url="/images/question.png"></h:graphicImage>
-              </af:column>
-              <af:column rendered="false">
+              </h:column>
+              <h:column>
                 <f:facet name="header">
-                  <af:outputText value="Id"/>
+                  <h:outputText value="Question"/>
                 </f:facet>
-                <af:outputText value="#{question.questionid}"/>
-              </af:column>
-              <af:column>
+                <h:outputText value="#{question.question}"/>
+              </h:column>
+              <h:column>
                 <f:facet name="header">
-                  <af:outputText value="Question"/>
+                  <h:outputText value="Respondent Must Answer?"/>
                 </f:facet>
-                <af:outputText value="#{question.question}"/>
-              </af:column>
-              <af:column>
+                <h:outputText value="Yes" rendered="#{question.isrequired}"/>
+                <h:outputText value="No" rendered="#{!question.isrequired}"/>
+              </h:column>
+              <h:column>
                 <f:facet name="header">
-                  <af:outputText value="Respondent Must Answer?"/>
-                </f:facet>
-                <af:outputText value="Yes" rendered="#{question.isrequired}"/>
-                <af:outputText value="No" rendered="#{!question.isrequired}"/>
-              </af:column>
-              <af:column>
-                <f:facet name="header">
-                  <af:outputText value="-" inlineStyle="color: #ffffff;"/>
+                  <h:outputText value="-" style="color: #ffffff;"/>
                 </f:facet>
                 <h:commandLink action="#{researcherSurveyDetail02.beginEdit}" rendered="#{researcherSurveyDetail02.status eq 1}">
                     <h:outputText value="Edit" escape="false" />
                     <f:param name="questionid" value="#{question.questionid}" />
                     <f:param name="componenttype" value="#{question.componenttype}" />
                 </h:commandLink>
-              </af:column>
-              <af:column>
+              </h:column>
+              <h:column>
                 <f:facet name="header">
-                  <af:outputText value="-" inlineStyle="color: #ffffff;"/>
+                  <h:outputText value="-" style="color: #ffffff;"/>
                 </f:facet>
                 <h:commandLink action="#{researcherSurveyDetail02.deleteQuestion}" rendered="#{researcherSurveyDetail02.status eq 1}">
                     <h:outputText value="Del" escape="false" />
                     <f:param name="questionid" value="#{question.questionid}" />
                 </h:commandLink>
-              </af:column>
-            </af:table>
+              </h:column>
+            </rich:dataTable>
             <br/>
-            <af:outputText value="Add a Question of Type:" styleClass="mediumfont" inlineStyle="color: #cccccc;" rendered="#{researcherSurveyDetail02.status eq 1}"/>
+            <h:outputText value="Add a Question of Type:" styleClass="mediumfont" style="color: #cccccc;" rendered="#{researcherSurveyDetail02.status eq 1}"/>
             <br/>
-            <af:outputText value="See tab at upper right for Question Type Samples" styleClass="smallfont" inlineStyle="color: #000000;" rendered="#{researcherSurveyDetail02.status eq 1}"/>
+            <h:outputText value="See tab at upper right for Question Type Samples" styleClass="smallfont" style="color: #000000;" rendered="#{researcherSurveyDetail02.status eq 1}"/>
             <br/>
             <h:selectOneRadio value="#{researcherSurveyDetail02.newquestioncomponenttype}" layout="pageDirection" id="newquestioncomponenttype" styleClass="normalfont" required="true" rendered="#{researcherSurveyDetail02.status eq 1}">
                 <f:selectItems value="#{componentTypes.typesaslinkedhashmap}"/>

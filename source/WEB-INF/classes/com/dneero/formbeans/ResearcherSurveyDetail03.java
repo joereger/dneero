@@ -12,16 +12,15 @@ import com.dneero.survey.servlet.SurveyImagelinkServlet;
 
 import javax.faces.context.FacesContext;
 import javax.faces.application.FacesMessage;
+import java.io.Serializable;
 
 /**
  * User: Joe Reger Jr
  * Date: Jun 15, 2006
  * Time: 9:54:08 AM
  */
-public class ResearcherSurveyDetail03 {
+public class ResearcherSurveyDetail03 implements Serializable {
 
-
-    Logger logger = Logger.getLogger(this.getClass().getName());
 
     private String templateFromDb;
     private String template;
@@ -36,12 +35,14 @@ public class ResearcherSurveyDetail03 {
     private boolean embedlink = true;
 
     public ResearcherSurveyDetail03(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("Instanciating object.");
         loadSurvey(Jsf.getUserSession().getCurrentSurveyid());
     }
 
 
     public void loadSurvey(int surveyid){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("loadSurvey called");
         Survey survey = Survey.get(surveyid);
         if (survey!=null){
@@ -79,6 +80,7 @@ public class ResearcherSurveyDetail03 {
     }
 
     public String saveSurvey(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("saveSurvey() called.");
         if (status<=Survey.STATUS_DRAFT){
             UserSession userSession = Jsf.getUserSession();
