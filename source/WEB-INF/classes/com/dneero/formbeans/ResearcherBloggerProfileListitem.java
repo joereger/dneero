@@ -15,6 +15,8 @@ public class ResearcherBloggerProfileListitem implements Serializable {
     private Survey survey;
     private Response response;
 
+    public ResearcherBloggerProfileListitem(){}
+
 
     public Survey getSurvey() {
         return survey;

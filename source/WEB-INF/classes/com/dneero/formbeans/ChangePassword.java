@@ -23,6 +23,10 @@ public class ChangePassword implements Serializable {
 
     }
 
+    public String beginView(){
+        return "changepassword";
+    }
+
     public String saveAction(){
         Logger logger = Logger.getLogger(this.getClass().getName());
         if (!password.equals(passwordverify)){

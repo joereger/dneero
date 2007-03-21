@@ -19,17 +19,19 @@ import java.io.Serializable;
  * Date: Jun 8, 2006
  * Time: 10:16:03 AM
  */
-public class BloggerBlogsList extends SortableList implements Serializable {
+public class BloggerBlogsList implements Serializable {
 
     private List blogs;
 
     public BloggerBlogsList() {
-        super("title");
+
+    }
+
+    public String beginView(){
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("instanciating BloggerBlogsList");
         load();
-
-        
+        return "bloggerblogslist";
     }
 
     private void load(){
@@ -72,7 +74,7 @@ public class BloggerBlogsList extends SortableList implements Serializable {
         if (blogs==null){
             load();
         }
-        sort(getSort(), isAscending());
+        sort("title", true);
         if (blogs!=null){
             logger.debug("returning blogs.size()="+blogs.size());
         } else {

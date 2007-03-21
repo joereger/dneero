@@ -34,6 +34,15 @@ public class PublicSurveyAnswers implements Serializable {
     private SurveyEnhancer surveyEnhancer;
 
     public PublicSurveyAnswers(){
+
+    }
+
+    public String beginView(){
+        load();
+        return "publicsurveyanswers";
+    }
+
+    private void load(){
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("PublicSurveyAnswers instanciated.");
         survey = new Survey();

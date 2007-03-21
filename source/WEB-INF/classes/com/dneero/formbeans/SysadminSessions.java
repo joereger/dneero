@@ -24,6 +24,14 @@ public class SysadminSessions implements Serializable {
     private String sessionsashtml;
 
     public SysadminSessions(){
+
+    }
+
+    public String beginView(){
+        return "sysadminsessions";
+    }
+
+    private void load(){
         Logger logger = Logger.getLogger(this.getClass().getName());
         try{
             StringBuffer out = new StringBuffer();

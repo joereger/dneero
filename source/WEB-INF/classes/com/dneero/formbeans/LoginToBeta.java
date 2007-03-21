@@ -25,8 +25,11 @@ public class LoginToBeta implements Serializable {
     private String betapassword;
 
     public LoginToBeta(){
-        Logger logger = Logger.getLogger(this.getClass().getName());
-        logger.debug("Instanciating a Login object.");
+
+    }
+
+    public String beginView(){
+        return "logintobeta";
     }
 
     public String login(){

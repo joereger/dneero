@@ -19,7 +19,7 @@ import org.apache.log4j.Logger;
  * Date: Jun 8, 2006
  * Time: 10:16:03 AM
  */
-public class SysadminUserList extends SortableList implements Serializable {
+public class SysadminUserList implements Serializable {
 
     private List users;
     private String searchuserid="";
@@ -28,10 +28,12 @@ public class SysadminUserList extends SortableList implements Serializable {
     private String searchemail="";
 
     public SysadminUserList() {
-        super("userid");
-        Logger logger = Logger.getLogger(this.getClass().getName());
-        logger.debug("instanciated");
+
+    }
+
+    public String beginView(){
         load();
+        return "userlist";
     }
 
     private void load(){
@@ -65,7 +67,7 @@ public class SysadminUserList extends SortableList implements Serializable {
 
     public List getUsers() {
         //logger.debug("getListitems");
-        sort(getSort(), isAscending());
+        sort("userid", false);
         return users;
     }
 

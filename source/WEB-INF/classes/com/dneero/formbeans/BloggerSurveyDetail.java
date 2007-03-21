@@ -26,10 +26,7 @@ public class BloggerSurveyDetail implements Serializable {
 
 
     public BloggerSurveyDetail(){
-        Logger logger = Logger.getLogger(this.getClass().getName());
-        logger.debug("BloggerSurveyDetail instanciated.");
-        survey = new Survey();
-        beginView();
+
     }
 
 

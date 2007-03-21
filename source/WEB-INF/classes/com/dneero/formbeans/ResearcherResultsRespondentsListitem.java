@@ -16,6 +16,8 @@ public class ResearcherResultsRespondentsListitem implements Serializable {
     private String firstname;
     private String lastname;
 
+    public ResearcherResultsRespondentsListitem(){}
+
 
     public String getLastname() {
         return lastname;

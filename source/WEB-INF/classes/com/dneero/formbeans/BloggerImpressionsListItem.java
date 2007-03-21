@@ -15,6 +15,8 @@ public class BloggerImpressionsListItem implements Serializable {
     private int impressionsqualifyingforpayment;
     private int quality;
 
+    public BloggerImpressionsListItem(){}
+
 
     public int getImpressionid() {
         return impressionid;

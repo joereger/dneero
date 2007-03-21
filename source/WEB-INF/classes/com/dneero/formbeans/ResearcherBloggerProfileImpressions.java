@@ -25,9 +25,7 @@ public class ResearcherBloggerProfileImpressions implements Serializable {
     private User user;
 
     public ResearcherBloggerProfileImpressions(){
-        Logger logger = Logger.getLogger(this.getClass().getName());
-        logger.debug("Instanciating object.");
-        beginView();
+
     }
     
     public String beginView(){

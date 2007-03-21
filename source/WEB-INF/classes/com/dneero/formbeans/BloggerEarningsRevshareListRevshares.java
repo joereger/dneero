@@ -12,6 +12,8 @@ public class BloggerEarningsRevshareListRevshares implements Serializable {
     private String username;
     private double amt;
 
+    public BloggerEarningsRevshareListRevshares(){}
+
     public String getUsername() {
         return username;
     }

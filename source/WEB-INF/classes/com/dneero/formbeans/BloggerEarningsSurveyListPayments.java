@@ -14,6 +14,8 @@ public class BloggerEarningsSurveyListPayments implements Serializable {
     private Date paymentdate;
     private String amt;
 
+    public BloggerEarningsSurveyListPayments(){}
+
     public int getImpressionpaymentgroupid() {
         return impressionpaymentgroupid;
     }

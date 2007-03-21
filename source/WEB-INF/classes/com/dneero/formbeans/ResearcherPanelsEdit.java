@@ -16,12 +16,22 @@ public class ResearcherPanelsEdit implements Serializable {
 
     private Panel panel;
 
+    public ResearcherPanelsEdit(){
+
+    }
+
     public String beginView(){
+        load();
+        return "researcherpanelsedit";
+    }
+
+    public void load(){
         if (Jsf.getRequestParam("panelid")!=null && Num.isinteger(Jsf.getRequestParam("panelid"))){
             panel = Panel.get(Integer.parseInt(Jsf.getRequestParam("panelid")));
         }
-        return "researcherpanelsedit";
     }
+
+
 
     public String edit(){
         Logger logger = Logger.getLogger(this.getClass().getName());

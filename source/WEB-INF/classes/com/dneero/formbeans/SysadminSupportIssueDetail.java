@@ -35,8 +35,7 @@ public class SysadminSupportIssueDetail implements Serializable {
 
 
     public SysadminSupportIssueDetail(){
-        Logger logger = Logger.getLogger(this.getClass().getName());
-        logger.debug("SysadminSupportIssueDetail instanciated.");
+        
     }
 
 

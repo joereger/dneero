@@ -44,9 +44,18 @@ public class BloggerDetails implements Serializable {
     //Other props
     private int userid;
 
-    Logger logger = Logger.getLogger(this.getClass().getName());
+
 
     public BloggerDetails(){
+
+    }
+
+    public String beginView(){
+        load();
+        return "bloggerdetails";
+    }
+
+    public void load(){
         UserSession userSession = Jsf.getUserSession();
         if (userSession.getUser()!=null && userSession.getUser().getBloggerid()>0){
             Blogger blogger = Blogger.get(userSession.getUser().getBloggerid());
@@ -72,7 +81,7 @@ public class BloggerDetails implements Serializable {
 
 
     public String saveAction(){
-
+        Logger logger = Logger.getLogger(this.getClass().getName());
         UserSession userSession = Jsf.getUserSession();
 
         Blogger blogger;

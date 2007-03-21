@@ -27,8 +27,15 @@ public class ResearcherResultsAnswersCsv implements Serializable {
     private String results;
 
     public ResearcherResultsAnswersCsv(){
-        Logger logger = Logger.getLogger(this.getClass().getName());
-        logger.debug("Instanciating object.");
+
+    }
+
+    public String beginView(){
+        load();
+        return "researcherresultsanswerscsv";
+    }
+
+    private void load(){
         loadSurvey(Jsf.getUserSession().getCurrentSurveyid());
     }
 

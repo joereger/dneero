@@ -26,7 +26,7 @@ public class ResearcherBloggerProfileAnswers implements Serializable {
 
 
     public ResearcherBloggerProfileAnswers(){
-        beginView();
+
     }
 
     public String beginView(){

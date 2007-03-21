@@ -29,6 +29,15 @@ public class ResearcherEmailinviteComplete implements Serializable {
 
 
     public ResearcherEmailinviteComplete(){
+
+    }
+
+    public String beginView(){
+        load();
+        return "researcheremailinvitecomplete";
+    }
+
+    private void load(){
         if (Jsf.getUserSession()!=null && Jsf.getUserSession().getEmailinviteaddresses()!=null){
             StringBuffer sb = new StringBuffer();
             sb.append("<textarea cols=\"30\" rows=\"10\">");

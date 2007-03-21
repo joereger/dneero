@@ -34,6 +34,15 @@ public class ResearcherSurveyDetail02checkboxes implements Serializable {
 
 
     public ResearcherSurveyDetail02checkboxes(){
+
+    }
+
+    public String beginView(){
+        load();
+        return "researchersurveydetail_02_checkboxes";
+    }
+
+    private void load(){
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("Instanciating object");
         String tmpQuestionid = Jsf.getRequestParam("questionid");

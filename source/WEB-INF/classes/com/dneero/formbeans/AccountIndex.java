@@ -22,7 +22,12 @@ public class AccountIndex implements Serializable {
     private boolean userhasresponsependings = false;
 
     public AccountIndex(){
+
+    }
+
+    public String beginView(){
         load();
+        return "accountindex";
     }
 
     private void load(){

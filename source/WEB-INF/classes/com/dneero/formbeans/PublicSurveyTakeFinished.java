@@ -9,6 +9,8 @@ import java.io.Serializable;
  */
 public class PublicSurveyTakeFinished implements Serializable {
 
+    public PublicSurveyTakeFinished(){
 
+    }
 
 }

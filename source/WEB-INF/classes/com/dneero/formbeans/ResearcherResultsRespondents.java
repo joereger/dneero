@@ -16,17 +16,19 @@ import java.io.Serializable;
  * Date: Nov 18, 2006
  * Time: 9:06:40 AM
  */
-public class ResearcherResultsRespondents extends SortableList implements Serializable {
+public class ResearcherResultsRespondents implements Serializable {
 
 
     private Survey survey;
     private List<ResearcherResultsRespondentsListitem> list;
 
     public ResearcherResultsRespondents(){
-        super("responsedate");
-        Logger logger = Logger.getLogger(this.getClass().getName());
-        logger.debug("instanciating");
+
+    }
+
+    public String beginView(){
         load();
+        return "researcherresultsrespondents";
     }
 
     private void load(){
@@ -96,7 +98,7 @@ public class ResearcherResultsRespondents extends SortableList implements Serial
         if (list==null){
             load();
         }
-        sort("responseid", isAscending());
+        sort("responseid", false);
         if (list==null){
             logger.debug("list is still null");
         } else {

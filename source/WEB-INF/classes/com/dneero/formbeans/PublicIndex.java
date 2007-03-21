@@ -31,7 +31,9 @@ public class PublicIndex implements Serializable {
         
     }
 
-
+    public String beginView(){
+        return "home";
+    }
 
 
 }

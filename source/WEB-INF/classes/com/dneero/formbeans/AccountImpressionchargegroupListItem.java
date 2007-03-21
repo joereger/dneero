@@ -17,6 +17,7 @@ public class AccountImpressionchargegroupListItem implements Serializable {
     private String referer;
     private String surveytitle;
 
+    public AccountImpressionchargegroupListItem(){}
 
     public int getImpressiondetailid() {
         return impressiondetailid;

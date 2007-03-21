@@ -35,7 +35,12 @@ public class ResearcherBilling implements Serializable {
     private String merchantsessionid;
 
     public ResearcherBilling(){
+
+    }
+
+    public String beginView(){
         load();
+        return "researcherbilling";
     }
 
     public void load(){

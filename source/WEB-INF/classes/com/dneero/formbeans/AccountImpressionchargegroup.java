@@ -16,16 +16,22 @@ import org.hibernate.criterion.Restrictions;
  * Date: Apr 21, 2006
  * Time: 10:38:03 AM
  */
-public class AccountImpressionchargegroup extends SortableList implements Serializable {
+public class AccountImpressionchargegroup implements Serializable {
 
     private ArrayList<AccountImpressionchargegroupListItem> list;
 
-
-
-
     public AccountImpressionchargegroup(){
-        super("impressiondetailid");
 
+    }
+
+    public String beginView(){
+        String tmpImpressionchargegroupid = Jsf.getRequestParam("impressionchargegroupid");
+        if (com.dneero.util.Num.isinteger(tmpImpressionchargegroupid)){
+            Logger logger = Logger.getLogger(this.getClass().getName());
+            logger.debug("beginView called: found impressionchargegroupid in request param="+tmpImpressionchargegroupid);
+            load(Integer.parseInt(tmpImpressionchargegroupid));
+        }
+        return "accountimpressionchargegroup";
     }
 
     private void load(int impressionchargegroupid){
@@ -55,16 +61,7 @@ public class AccountImpressionchargegroup extends SortableList implements Serial
         }
     }
 
-    public String beginView(){
-        //logger.debug("beginView called:");
-        String tmpImpressionchargegroupid = Jsf.getRequestParam("impressionchargegroupid");
-        if (com.dneero.util.Num.isinteger(tmpImpressionchargegroupid)){
-            Logger logger = Logger.getLogger(this.getClass().getName());
-            logger.debug("beginView called: found impressionchargegroupid in request param="+tmpImpressionchargegroupid);
-            load(Integer.parseInt(tmpImpressionchargegroupid));
-        }
-        return "accountimpressionchargegroup";
-    }
+
 
     protected boolean isDefaultAscending(String sortColumn) {
         return true;

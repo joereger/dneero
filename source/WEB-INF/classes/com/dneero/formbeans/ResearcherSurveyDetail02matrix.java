@@ -37,6 +37,16 @@ public class ResearcherSurveyDetail02matrix implements Serializable {
 
 
     public ResearcherSurveyDetail02matrix(){
+
+        
+    }
+
+    public String beginView(){
+        load();
+        return "researchersurveydetail_02_matrix";
+    }
+
+    private void load(){
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("Instanciating object");
         String tmpQuestionid = Jsf.getRequestParam("questionid");
@@ -46,7 +56,6 @@ public class ResearcherSurveyDetail02matrix implements Serializable {
             questionid = Integer.parseInt(tmpQuestionid);
             loadQuestion();
         }
-        
     }
 
 

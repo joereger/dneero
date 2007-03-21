@@ -21,7 +21,7 @@ import org.apache.log4j.Logger;
  * Date: Feb 8, 2007
  * Time: 12:23:05 PM
  */
-public class ResearcherFindBloggers extends SortableList implements Serializable {
+public class ResearcherFindBloggers implements Serializable {
 
     private List listitems;
     private int panelid;
@@ -45,14 +45,21 @@ public class ResearcherFindBloggers extends SortableList implements Serializable
     private String[] politics;
 
 
+   
 
     public ResearcherFindBloggers(){
-        super("userlastname");
 
+    }
+
+    public String beginView(){
         load();
+        return "researcherfindbloggers";
     }
 
     private void load(){
+        if (Jsf.getRequestParam("panelid")!=null && Num.isinteger(Jsf.getRequestParam("panelid"))){
+            panelid = Integer.parseInt(Jsf.getRequestParam("panelid"));
+        }
         gender = SurveyCriteriaXML.convertToArray((TreeMap) Jsf.getManagedBean("genders"));
         ethnicity = SurveyCriteriaXML.convertToArray((LinkedHashMap)Jsf.getManagedBean("ethnicities"));
         maritalstatus = SurveyCriteriaXML.convertToArray((LinkedHashMap)Jsf.getManagedBean("maritalstatuses"));
@@ -69,12 +76,7 @@ public class ResearcherFindBloggers extends SortableList implements Serializable
         }
     }
 
-    public String beginView(){
-        if (Jsf.getRequestParam("panelid")!=null && Num.isinteger(Jsf.getRequestParam("panelid"))){
-            panelid = Integer.parseInt(Jsf.getRequestParam("panelid"));
-        }
-        return "researcherfindbloggers";
-    }
+
 
     public String search(){
         Logger logger = Logger.getLogger(this.getClass().getName());
@@ -197,7 +199,7 @@ public class ResearcherFindBloggers extends SortableList implements Serializable
     public List getListitems() {
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("getListitems");
-        sort(getSort(), isAscending());
+        sort("userlastname", true);
         return listitems;
     }
 

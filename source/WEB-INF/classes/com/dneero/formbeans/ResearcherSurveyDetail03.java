@@ -35,8 +35,15 @@ public class ResearcherSurveyDetail03 implements Serializable {
     private boolean embedlink = true;
 
     public ResearcherSurveyDetail03(){
-        Logger logger = Logger.getLogger(this.getClass().getName());
-        logger.debug("Instanciating object.");
+
+    }
+
+    public String beginView(){
+        load();
+        return "researchersurveydetail_03";
+    }
+
+    private void load(){
         loadSurvey(Jsf.getUserSession().getCurrentSurveyid());
     }
 

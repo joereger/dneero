@@ -30,14 +30,13 @@ public class ResearcherResults implements Serializable {
     private double maxpossiblespend = 0;
 
     public ResearcherResults(){
-        Logger logger = Logger.getLogger(this.getClass().getName());
-        logger.debug("Instanciating object. Jsf.getUserSession().getCurrentSurveyid()="+Jsf.getUserSession().getCurrentSurveyid());
-        loadSurvey(Jsf.getUserSession().getCurrentSurveyid());
+
     }
 
     public String beginView(){
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("beginView called:");
+        loadSurvey(Jsf.getUserSession().getCurrentSurveyid());
         String tmpSurveyid = Jsf.getRequestParam("surveyid");
         if (com.dneero.util.Num.isinteger(tmpSurveyid)){
             logger.debug("beginView called: found surveyid in request param="+tmpSurveyid);

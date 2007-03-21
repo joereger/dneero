@@ -28,6 +28,10 @@ public class AccountSettings implements Serializable {
 
 
     public AccountSettings(){
+
+    }
+
+    public String beginView(){
         UserSession userSession = Jsf.getUserSession();
         if (userSession.getUser()!=null){
             User user = userSession.getUser();
@@ -35,6 +39,7 @@ public class AccountSettings implements Serializable {
             firstname = user.getFirstname();
             lastname = user.getLastname();
         }
+        return "accountsettings";   
     }
 
     public String saveAction(){

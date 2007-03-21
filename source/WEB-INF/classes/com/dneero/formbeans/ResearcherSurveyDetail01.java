@@ -29,11 +29,28 @@ public class ResearcherSurveyDetail01 implements Serializable {
 
 
     public ResearcherSurveyDetail01(){
+
+    }
+
+    public String beginView(){
         Logger logger = Logger.getLogger(this.getClass().getName());
-        logger.debug("Instanciating object.");
-        logger.debug(" ");
+        logger.debug("beginView() called:");
+        load();
+        String tmpSurveyid = Jsf.getRequestParam("surveyid");
+        if (com.dneero.util.Num.isinteger(tmpSurveyid)){
+            logger.debug("beginView called: found surveyid in request param="+tmpSurveyid);
+            UserSession userSession = Jsf.getUserSession();
+            userSession.setCurrentSurveyid(Integer.parseInt(tmpSurveyid));
+            loadSurvey(Integer.parseInt(tmpSurveyid));
+        }
+        return "researchersurveydetail_01";
+    }
+
+    private void load(){
         loadSurvey(Jsf.getUserSession().getCurrentSurveyid());
     }
+
+
 
     public String beginViewNewSurvey(){
         Logger logger = Logger.getLogger(this.getClass().getName());
@@ -46,18 +63,7 @@ public class ResearcherSurveyDetail01 implements Serializable {
         return "researchersurveydetail_01";
     }
 
-    public String beginView(){
-        Logger logger = Logger.getLogger(this.getClass().getName());
-        logger.debug("beginView() called:");
-        String tmpSurveyid = Jsf.getRequestParam("surveyid");
-        if (com.dneero.util.Num.isinteger(tmpSurveyid)){
-            logger.debug("beginView called: found surveyid in request param="+tmpSurveyid);
-            UserSession userSession = Jsf.getUserSession();
-            userSession.setCurrentSurveyid(Integer.parseInt(tmpSurveyid));
-            loadSurvey(Integer.parseInt(tmpSurveyid));
-        }
-        return "researchersurveydetail_01";
-    }
+
 
     public void loadSurvey(int surveyid){
         Logger logger = Logger.getLogger(this.getClass().getName());

@@ -32,6 +32,15 @@ public class PublicSurveyTake implements Serializable {
     private boolean haveerror = false;
 
     public PublicSurveyTake(){
+
+    }
+
+    public String beginView(){
+        load();
+        return "publicsurveytake";
+    }
+
+    private void load(){
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("PublicSurveyTake instanciated.");
         survey = new Survey();

@@ -27,6 +27,16 @@ public class SysadminInstanceProps implements Serializable {
     private String runScheduledTasksOnThisInstance;
 
     public SysadminInstanceProps(){
+
+
+    }
+
+    public String beginView(){
+        load();
+        return "sysadmininstanceprops";
+    }
+
+    private void load(){
         dbConnectionUrl = InstanceProperties.getDbConnectionUrl();
         dbUsername = InstanceProperties.getDbUsername();
         dbPassword = InstanceProperties.getDbPassword();
@@ -40,7 +50,6 @@ public class SysadminInstanceProps implements Serializable {
         } else {
             runScheduledTasksOnThisInstance = "0";
         }
-
     }
 
     public String saveProps(){

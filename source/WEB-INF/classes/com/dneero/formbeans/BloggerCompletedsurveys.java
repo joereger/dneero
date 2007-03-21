@@ -9,6 +9,7 @@ import com.dneero.util.Str;
 import com.dneero.money.BloggerIncomeCalculator;
 import org.apache.log4j.Logger;
 
+import javax.faces.context.FacesContext;
 import java.util.*;
 import java.io.Serializable;
 
@@ -17,12 +18,20 @@ import java.io.Serializable;
  * Date: Apr 21, 2006
  * Time: 10:38:03 AM
  */
-public class BloggerCompletedsurveys extends SortableList implements Serializable {
+public class BloggerCompletedsurveys implements Serializable {
 
     private ArrayList<BloggerCompletedsurveysListitem> list;
 
     public BloggerCompletedsurveys(){
-        super("title");
+
+    }
+
+    public String beginView(){
+        load();
+        return "bloggercompletedsurveys";        
+    }
+
+    private void load(){
         UserSession userSession = Jsf.getUserSession();
         if (userSession.getUser()!=null && userSession.getUser().getBloggerid()>0){
             list = new ArrayList();

@@ -8,4 +8,5 @@ import java.io.Serializable;
  * Time: 12:23:15 PM
  */
 public class BloggerPanelOffers implements Serializable {
+
 }

@@ -27,8 +27,15 @@ public class ResearcherSurveyDetailPostlaunch implements Serializable {
 
 
     public ResearcherSurveyDetailPostlaunch(){
-        Logger logger = Logger.getLogger(this.getClass().getName());
-        logger.debug("Instanciating object.");
+
+    }
+
+    public String beginView(){
+        load();
+        return "researchersurveydetailpostlaunch";
+    }
+
+    private void load(){
         loadSurvey(Jsf.getUserSession().getCurrentSurveyid());
     }
 

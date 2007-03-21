@@ -14,13 +14,21 @@ public class ResearcherIndex implements Serializable {
     private boolean showmarketingmaterial = false;
 
     public ResearcherIndex(){
+
+    }
+
+    public String beginView(){
+        load();
+        return "researcherhome";
+    }
+
+    private void load(){
         if (Jsf.getRequestParam("showmarketingmaterial")!=null && Jsf.getRequestParam("showmarketingmaterial").equals("1")){
             showmarketingmaterial = true;
         } else {
             showmarketingmaterial = false;
         }
     }
-
 
     public boolean getShowmarketingmaterial() {
         return showmarketingmaterial;

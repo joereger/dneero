@@ -31,6 +31,15 @@ public class ResearcherSurveyDetail02essay implements Serializable {
 
 
     public ResearcherSurveyDetail02essay(){
+
+    }
+
+    public String beginView(){
+        load();
+        return "researchersurveydetail_02_essay";
+    }
+
+    private void load(){
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("Instanciating object");
         String tmpQuestionid = Jsf.getRequestParam("questionid");

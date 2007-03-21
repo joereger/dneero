@@ -32,8 +32,6 @@ public class ResearcherBloggerProfile implements Serializable {
     private int socialinfluenceratingpercentile90days;
 
     public ResearcherBloggerProfile(){
-        load();
-        beginView();
 
     }
 

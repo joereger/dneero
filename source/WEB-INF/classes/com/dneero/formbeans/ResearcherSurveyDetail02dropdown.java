@@ -34,6 +34,15 @@ public class ResearcherSurveyDetail02dropdown implements Serializable {
 
 
     public ResearcherSurveyDetail02dropdown(){
+
+    }
+
+    public String beginView(){
+        load();
+        return "researchersurveydetail_02_dropdown";
+    }
+
+    private void load(){
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("Instanciating object");
         String tmpQuestionid = Jsf.getRequestParam("questionid");

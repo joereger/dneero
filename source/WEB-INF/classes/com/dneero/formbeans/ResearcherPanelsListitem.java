@@ -14,6 +14,8 @@ public class ResearcherPanelsListitem implements Serializable {
     public Panel panel;
     public int numberofmembers;
 
+    public ResearcherPanelsListitem(){}
+
 
     public int getNumberofmembers() {
         return numberofmembers;

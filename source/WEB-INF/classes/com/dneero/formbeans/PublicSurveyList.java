@@ -13,16 +13,22 @@ import java.io.Serializable;
  * Date: Jun 8, 2006
  * Time: 10:16:03 AM
  */
-public class PublicSurveyList extends SortableList implements Serializable {
+public class PublicSurveyList implements Serializable {
 
     private ArrayList<BloggerSurveyListItem> surveys;
 
     public PublicSurveyList() {
-        super("title");
+
+    }
+
+    public String beginView(){
+        load();
+        return "publicsurvey";
+    }
+
+    private void load(){
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("instanciating PublicSurveyList");
-
-
         //If user is logged-in only show them their surveys
         if (Jsf.getUserSession().getIsloggedin()){
 
@@ -65,14 +71,11 @@ public class PublicSurveyList extends SortableList implements Serializable {
             }
 
         }
-
-
-
     }
 
     public ArrayList<BloggerSurveyListItem> getSurveys() {
         //logger.debug("getListitems");
-        sort(getSort(), isAscending());
+        sort("title", true);
         return surveys;
     }
 

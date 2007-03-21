@@ -19,6 +19,8 @@ public class BloggerCompletedsurveysListitem implements Serializable {
     private String amtforresponse;
     private String amttotal;
 
+    public BloggerCompletedsurveysListitem(){}
+
     public int getSurveyid() {
         return surveyid;
     }

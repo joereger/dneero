@@ -19,7 +19,7 @@ import org.apache.log4j.Logger;
  * Date: Aug 21, 2006
  * Time: 7:12:35 PM
  */
-public class BloggerEarningsRevshare extends SortableList implements Serializable {
+public class BloggerEarningsRevshare implements Serializable {
 
     private ArrayList<BloggerEarningsRevshareListRevshares> list;
 
@@ -37,8 +37,15 @@ public class BloggerEarningsRevshare extends SortableList implements Serializabl
 
 
     public BloggerEarningsRevshare(){
-        super("username");
 
+    }
+
+    public String beginView(){
+        load();
+        return "bloggerearningsrevshare";
+    }
+
+    private void load(){
         UserSession userSession = Jsf.getUserSession();
         if (userSession.getUser()!=null && userSession.getUser().getBloggerid()>0){
             list = new ArrayList();
@@ -65,7 +72,6 @@ public class BloggerEarningsRevshare extends SortableList implements Serializabl
         level4amt = RevshareLevelPercentageCalculator.getAmountToShare(500, 4);
         level5percent = RevshareLevelPercentageCalculator.getPercentToShare(5);
         level5amt = RevshareLevelPercentageCalculator.getAmountToShare(500, 5);
-
     }
 
     protected boolean isDefaultAscending(String sortColumn) {

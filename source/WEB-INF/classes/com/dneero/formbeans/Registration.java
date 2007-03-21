@@ -44,6 +44,15 @@ public class Registration implements Serializable {
     private int userid;
 
     public Registration(){
+
+    }
+
+    public String beginView(){
+        load();
+        return "registration";
+    }
+
+    private void load(){
         eula = EulaHelper.getMostRecentEula().getEula();
     }
 

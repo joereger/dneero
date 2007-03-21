@@ -69,7 +69,7 @@
 
 
         <br/><br/>
-        <a4j:commandLink value="View Transfer Details" action="accounttransactions" style="padding-left: 25px;" styleClass="smallfont" rendered="#{!empty accountBalancetransaction.balances}"/>
+        <a4j:commandLink value="View Transfer Details" action="#{accountTransactions.beginView}" style="padding-left: 25px;" styleClass="smallfont" rendered="#{!empty accountBalancetransaction.balances}"/>
 
 
     </h:form>

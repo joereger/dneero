@@ -30,10 +30,7 @@ public class PublicSurveyDetail implements Serializable {
     private boolean qualifiesforsurvey = true;
 
     public PublicSurveyDetail(){
-        Logger logger = Logger.getLogger(this.getClass().getName());
-        logger.debug("PublicSurveyDetail instanciated.");
-        survey = new Survey();
-        beginView();
+
     }
 
 

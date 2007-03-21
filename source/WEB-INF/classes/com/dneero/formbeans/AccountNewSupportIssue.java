@@ -21,7 +21,7 @@ public class AccountNewSupportIssue implements Serializable {
     private String subject;
     private String notes;
 
-
+    public AccountNewSupportIssue(){}
 
     public String newIssue(){
 

@@ -60,55 +60,17 @@ public class ResearcherSurveyDetail04 implements Serializable {
 
 
     public ResearcherSurveyDetail04(){
-        Logger logger = Logger.getLogger(this.getClass().getName());
-        logger.debug("Instanciating object.");
-        //preSelectAll();
-        loadSurvey(Jsf.getUserSession().getCurrentSurveyid());
+
     }
 
-//    private void preSelectAll(){
-//        gender = convertToArray((TreeMap)Jsf.getManagedBean("genders"));
-//        ethnicity = convertToArray((LinkedHashMap)Jsf.getManagedBean("ethnicities"));
-//        maritalstatus = convertToArray((LinkedHashMap)Jsf.getManagedBean("maritalstatuses"));
-//        income = convertToArray((LinkedHashMap)Jsf.getManagedBean("incomes"));
-//        educationlevel = convertToArray((LinkedHashMap)Jsf.getManagedBean("educationlevels"));
-//        state = convertToArray((LinkedHashMap)Jsf.getManagedBean("states"));
-//        city = convertToArray((LinkedHashMap)Jsf.getManagedBean("cities"));
-//        profession = convertToArray((TreeMap)Jsf.getManagedBean("professions"));
-//        blogfocus = convertToArray((TreeMap)Jsf.getManagedBean("blogfocuses"));
-//        politics = convertToArray((LinkedHashMap)Jsf.getManagedBean("politics"));
-//    }
-//
-//    private String[] convertToArray(TreeMap tmap){
-//        String[] out = new String[0];
-//        if (tmap!=null){
-//            out = new String[tmap.size()];
-//            Iterator keyValuePairs = tmap.entrySet().iterator();
-//            for (int i = 0; i < tmap.size(); i++){
-//                Map.Entry mapentry = (Map.Entry) keyValuePairs.next();
-//                Object key = mapentry.getKey();
-//                String value = (String)mapentry.getValue();
-//                out[i] = value;
-//            }
-//        }
-//        return out;
-//    }
-//
-//    private String[] convertToArray(LinkedHashMap tmap){
-//        String[] out = new String[0];
-//        if (tmap!=null){
-//            out = new String[tmap.size()];
-//            Iterator keyValuePairs = tmap.entrySet().iterator();
-//            for (int i = 0; i < tmap.size(); i++){
-//                Map.Entry mapentry = (Map.Entry) keyValuePairs.next();
-//                Object key = mapentry.getKey();
-//                String value = (String)mapentry.getValue();
-//                out[i] = value;
-//            }
-//        }
-//        return out;
-//    }
+    public String beginView(){
+        load();
+        return "researchersurveydetail_04";
+    }
 
+    private void load(){
+        loadSurvey(Jsf.getUserSession().getCurrentSurveyid());
+    }
 
     public void loadSurvey(int surveyid){
         Logger logger = Logger.getLogger(this.getClass().getName());

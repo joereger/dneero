@@ -23,14 +23,28 @@ import com.dneero.money.BloggerIncomeCalculator;
  * Date: Aug 21, 2006
  * Time: 7:12:22 PM
  */
-public class BloggerEarningsSurvey extends SortableList implements Serializable {
+public class BloggerEarningsSurvey  implements Serializable {
 
     private ArrayList<BloggerEarningsSurveyListPayments> list;
     private Survey survey;
 
     public BloggerEarningsSurvey(){
-        super("paymentdate");
 
+
+    }
+
+
+    public String beginView(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
+        logger.debug("beginView called");
+        String tmpResponseid = Jsf.getRequestParam("responseid");
+        if (com.dneero.util.Num.isinteger(tmpResponseid)){
+            logger.debug("beginView called: found tmpResponseid in param="+tmpResponseid);
+            load(Integer.parseInt(tmpResponseid));
+        } else {
+            logger.debug("beginView called: NOT found tmpResponseid in param="+tmpResponseid);
+        }
+        return "bloggerearningssurvey";
     }
 
     private void load(int responseid){
@@ -54,18 +68,7 @@ public class BloggerEarningsSurvey extends SortableList implements Serializable 
         }
     }
 
-    public String beginView(){
-        Logger logger = Logger.getLogger(this.getClass().getName());
-        logger.debug("beginView called");
-        String tmpResponseid = Jsf.getRequestParam("responseid");
-        if (com.dneero.util.Num.isinteger(tmpResponseid)){
-            logger.debug("beginView called: found tmpResponseid in param="+tmpResponseid);
-            load(Integer.parseInt(tmpResponseid));
-        } else {
-            logger.debug("beginView called: NOT found tmpResponseid in param="+tmpResponseid);
-        }
-        return "bloggerearningssurvey";
-    }
+
 
     protected boolean isDefaultAscending(String sortColumn) {
         return true;

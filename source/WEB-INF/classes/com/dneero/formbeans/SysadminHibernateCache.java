@@ -16,10 +16,16 @@ public class SysadminHibernateCache implements Serializable {
     private String cacheashtml;
 
     public SysadminHibernateCache(){
+
+    }
+
+    public String beginView(){
+        load();
+        return "sysadminhibernatecache";
+    }
+
+    private void load(){
         cacheashtml = HibernateCacheStats.getCacheDump();
-
-
- 
     }
 
 

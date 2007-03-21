@@ -23,9 +23,16 @@ public class ResearcherResultsAnswersDetails implements Serializable {
     private Question question;
 
     public ResearcherResultsAnswersDetails(){
-        Logger logger = Logger.getLogger(this.getClass().getName());
-        logger.debug("Instanciating object.");
-        loadQuestion(Jsf.getUserSession().getCurrentSurveyid());
+
+    }
+
+    public String beginView(){
+        load();
+        return "researcherresultsanswersdetails";
+    }
+
+    private void load(){
+        loadQuestion(Jsf.getUserSession().getCurrentSurveyid());     
     }
 
 

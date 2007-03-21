@@ -30,10 +30,8 @@ public class AccountSupportIssueDetail implements Serializable {
     private Supportissue supportissue;
 
     public AccountSupportIssueDetail(){
-        Logger logger = Logger.getLogger(this.getClass().getName());
-        logger.debug("AccountSupportIssueDetail instanciated.");
-    }
 
+    }
 
     public String beginView(){
         Logger logger = Logger.getLogger(this.getClass().getName());

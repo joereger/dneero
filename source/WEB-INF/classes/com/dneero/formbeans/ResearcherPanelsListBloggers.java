@@ -18,15 +18,24 @@ import com.dneero.dao.User;
  * Date: Feb 8, 2007
  * Time: 12:22:47 PM
  */
-public class ResearcherPanelsListBloggers extends SortableList implements Serializable {
+public class ResearcherPanelsListBloggers implements Serializable {
 
     private List listitems;
     private int panelid = 0;
 
     public ResearcherPanelsListBloggers() {
-        //Default sort column
-        super("userlastname");
+
+
+    }
+
+    public String beginView(){
+        load();   
+        return "researcherpanelslistbloggersinpanel";
+    }
+
+    private void load(){
         Logger logger = Logger.getLogger(this.getClass().getName());
+
         if (Jsf.getRequestParam("panelid")!=null && Num.isinteger(Jsf.getRequestParam("panelid"))){
             panelid = Integer.parseInt(Jsf.getRequestParam("panelid"));
         }
@@ -36,10 +45,7 @@ public class ResearcherPanelsListBloggers extends SortableList implements Serial
             logger.debug("into loop for panelid="+panelid);
             load();
         }
-    }
 
-    private void load(){
-        Logger logger = Logger.getLogger(this.getClass().getName());
         listitems = new ArrayList<ResearcherPanelsListBloggersListitem>();
         List panelmembers = HibernateUtil.getSession().createQuery("from Panelmembership where panelid='"+panelid+"'").list();
         for (Iterator iterator = panelmembers.iterator(); iterator.hasNext();) {
@@ -63,18 +69,13 @@ public class ResearcherPanelsListBloggers extends SortableList implements Serial
         return "researcherpanelslistbloggersinpanel";
     }
 
-    public String beginView(){
-        if (Jsf.getRequestParam("panelid")!=null && Num.isinteger(Jsf.getRequestParam("panelid"))){
-            panelid = Integer.parseInt(Jsf.getRequestParam("panelid"));
-        }   
-        return "researcherpanelslistbloggersinpanel";
-    }
+
 
 
     public List getListitems() {
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("getListitems");
-        sort(getSort(), isAscending());
+        sort("userlastname", true);
         return listitems;
     }
 

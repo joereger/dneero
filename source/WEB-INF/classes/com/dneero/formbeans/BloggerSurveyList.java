@@ -17,12 +17,23 @@ import org.apache.log4j.Logger;
  * Date: Jun 8, 2006
  * Time: 10:16:03 AM
  */
-public class BloggerSurveyList extends SortableList implements Serializable {
+public class BloggerSurveyList implements Serializable {
 
     private ArrayList<BloggerSurveyListItem> surveys;
 
     public BloggerSurveyList() {
-        super("title");
+
+
+
+    }
+
+    public String beginView(){
+        load();
+        return "bloggersurveylist";
+    }
+
+    private void load(){
+
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("instanciating BloggerSurveyList");
         //Default sort column
@@ -75,13 +86,11 @@ public class BloggerSurveyList extends SortableList implements Serializable {
 
             }
         }
-
-
     }
 
     public ArrayList<BloggerSurveyListItem> getSurveys() {
         //logger.debug("getListitems");
-        sort(getSort(), isAscending());
+        sort("title", true);
         return surveys;
     }
 

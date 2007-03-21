@@ -10,12 +10,15 @@ import java.io.Serializable;
 public class SystemStats implements Serializable {
 
     //BE SURE TO SYNC CODE HERE WITH MAIN SystemStats in scheduledjobs
+    //These need to be here because of direct POJO injection by the JSF framework
     private int totalbloggers=com.dneero.scheduledjobs.SystemStats.getTotalbloggers();
     private int totalblogs=com.dneero.scheduledjobs.SystemStats.getTotalblogs();
     private int totalresearchers=com.dneero.scheduledjobs.SystemStats.getTotalresearchers();
     private int totalimpressions=com.dneero.scheduledjobs.SystemStats.getTotalimpressions();
     private int impressions30days=com.dneero.scheduledjobs.SystemStats.getImpressions30days();
     private double dollarsavailabletobloggers=com.dneero.scheduledjobs.SystemStats.getDollarsavailabletobloggers();
+
+    public SystemStats(){}
 
     public int getTotalbloggers() {
         return com.dneero.scheduledjobs.SystemStats.getTotalbloggers();

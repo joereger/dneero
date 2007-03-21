@@ -16,6 +16,8 @@ public class BloggerSurveyListItem implements Serializable {
     private String numberofquestions;
     private boolean bloggerhasalreadytakensurvey = false;
 
+    public BloggerSurveyListItem(){}
+
     public int getSurveyid() {
         return surveyid;
     }

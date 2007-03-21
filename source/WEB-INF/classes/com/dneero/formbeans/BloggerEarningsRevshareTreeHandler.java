@@ -25,6 +25,8 @@ import org.apache.myfaces.custom.tree2.TreeNodeBase;
  */
 public class BloggerEarningsRevshareTreeHandler implements Serializable {
 
+    public BloggerEarningsRevshareTreeHandler(){}
+
     public TreeModel getTreeModel(){
         UserSession userSession = Jsf.getUserSession();
 

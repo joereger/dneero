@@ -17,7 +17,7 @@ import com.dneero.dao.Panel;
  * Date: Feb 8, 2007
  * Time: 12:22:24 PM
  */
-public class ResearcherPanels extends SortableList implements Serializable {
+public class ResearcherPanels implements Serializable {
 
 
     private List listitems;
@@ -25,11 +25,15 @@ public class ResearcherPanels extends SortableList implements Serializable {
     private String msg = "";
 
     public ResearcherPanels() {
-        //Default sort column
-        super("name");
-        load();
 
     }
+
+
+    public String beginView(){
+        load();
+        return "researcherpanels";
+    }
+
 
     private void load(){
         Logger logger = Logger.getLogger(this.getClass().getName());
@@ -98,7 +102,8 @@ public class ResearcherPanels extends SortableList implements Serializable {
     public List getListitems() {
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("getListitems");
-        sort(getSort(), isAscending());
+        //sort(getSort(), isAscending());
+        sort("name", true);
         return listitems;
     }
 

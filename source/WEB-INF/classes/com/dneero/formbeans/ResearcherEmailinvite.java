@@ -32,6 +32,17 @@ public class ResearcherEmailinvite implements Serializable {
 
 
     public ResearcherEmailinvite(){
+
+    }
+
+
+
+    public String beginView(){
+        load();
+        return "researcheremailinvite";
+    }
+
+    private void load(){
         String tmpSurveyid = Jsf.getRequestParam("surveyid");
         if (com.dneero.util.Num.isinteger(tmpSurveyid) && Integer.parseInt(tmpSurveyid)>0){
             surveyiduserisinvitedto = Integer.parseInt(tmpSurveyid);
@@ -40,14 +51,6 @@ public class ResearcherEmailinvite implements Serializable {
         if (results==null || results.size()<=0){
             researcherhasatleastonelivesurvey = false;
         }
-    }
-
-    public String beginView(){
-        String tmpSurveyid = Jsf.getRequestParam("surveyid");
-        if (com.dneero.util.Num.isinteger(tmpSurveyid) && Integer.parseInt(tmpSurveyid)>0){
-            surveyiduserisinvitedto = Integer.parseInt(tmpSurveyid);
-        }
-        return "researcheremailinvite";
     }
 
     public String invite(){

@@ -32,9 +32,7 @@ public class BloggerBlogDetail implements Serializable {
 
 
     public BloggerBlogDetail(){
-        Logger logger = Logger.getLogger(this.getClass().getName());
-        logger.debug("BloggerBlogDetail instanciated.");
-        beginView();
+       
     }
 
 

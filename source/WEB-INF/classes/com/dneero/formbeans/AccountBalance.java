@@ -17,18 +17,19 @@ import java.io.Serializable;
  * Date: Jun 8, 2006
  * Time: 10:16:03 AM
  */
-public class AccountBalance extends SortableList implements Serializable {
+public class AccountBalance implements Serializable {
 
 
     private List balances;
     private String currentbalance = "$0.00";
 
     public AccountBalance() {
-        super("id");
-        Logger logger = Logger.getLogger(this.getClass().getName());
-        logger.debug("instanciating AccountBalance");
-        load();
 
+    }
+
+    public String beginView(){
+        load();
+        return "accountbalance";
     }
 
     private void load(){
@@ -50,7 +51,7 @@ public class AccountBalance extends SortableList implements Serializable {
                 abli.setOptionalimpressionchargegroupid(balance.getOptionalimpressionchargegroupid());
                 balances.add(abli);
             }
-
+            sort("id", false);
         }
     }
 

@@ -16,7 +16,7 @@ import org.apache.log4j.Logger;
  * Date: Apr 21, 2006
  * Time: 10:38:03 AM
  */
-public class BloggerImpressionDetails extends SortableList implements Serializable {
+public class BloggerImpressionDetails implements Serializable {
 
     private ArrayList<BloggerImpressionDetailsListItem> list;
     private String surveytitle;
@@ -24,9 +24,21 @@ public class BloggerImpressionDetails extends SortableList implements Serializab
 
 
     public BloggerImpressionDetails(){
-        super("date");
+
+    }
+
+    public String beginView(){
+        //@todo connect BloggerImpressionDetails to BloggerImpressions... tried but the jsf link fails for some reason
         Logger logger = Logger.getLogger(this.getClass().getName());
-        logger.debug("instanciated");
+        logger.debug("beginView() called");
+        String tmpImpressionid = Jsf.getRequestParam("impressionid");
+        if (com.dneero.util.Num.isinteger(tmpImpressionid)){
+            logger.debug("found impressionid in request param="+tmpImpressionid);
+            load(Integer.parseInt(tmpImpressionid));
+        } else {
+            logger.debug("no impressionid found");
+        }
+        return "bloggerimpressiondetails";
     }
 
     private void load(int impressionid){
@@ -51,19 +63,7 @@ public class BloggerImpressionDetails extends SortableList implements Serializab
         }
     }
 
-    public String beginView(){
-        //@todo connect BloggerImpressionDetails to BloggerImpressions... tried but the jsf link fails for some reason
-        Logger logger = Logger.getLogger(this.getClass().getName());
-        logger.debug("beginView() called");
-        String tmpImpressionid = Jsf.getRequestParam("impressionid");
-        if (com.dneero.util.Num.isinteger(tmpImpressionid)){
-            logger.debug("found impressionid in request param="+tmpImpressionid);
-            load(Integer.parseInt(tmpImpressionid));
-        } else {
-            logger.debug("no impressionid found");    
-        }
-        return "bloggerimpressiondetails";
-    }
+
 
     protected boolean isDefaultAscending(String sortColumn) {
         return true;

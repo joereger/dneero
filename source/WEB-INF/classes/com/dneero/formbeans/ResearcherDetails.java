@@ -26,7 +26,12 @@ public class ResearcherDetails implements Serializable {
 
 
     public ResearcherDetails(){
+
+    }
+
+    public String beginView(){
         load();
+        return "researcherdetails";
     }
 
     public void load(){

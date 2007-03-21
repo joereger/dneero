@@ -17,6 +17,8 @@ public class ResearcherPanelsListBloggersListitem implements Serializable {
     private Blogger blogger;
     private User user;
 
+    public ResearcherPanelsListBloggersListitem(){}
+
 
     public Panelmembership getPanelmembership() {
         return panelmembership;

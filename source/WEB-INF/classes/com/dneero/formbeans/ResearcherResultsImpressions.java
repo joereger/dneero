@@ -25,9 +25,16 @@ public class ResearcherResultsImpressions implements Serializable {
 
 
     public ResearcherResultsImpressions(){
-        Logger logger = Logger.getLogger(this.getClass().getName());
-        logger.debug("Instanciating object.");
-        loadSurvey(Jsf.getUserSession().getCurrentSurveyid());
+
+    }
+
+    public String beginView(){
+        load();
+        return "researcherresultsimpressions";
+    }
+
+    private void load(){
+        loadSurvey(Jsf.getUserSession().getCurrentSurveyid()); 
     }
 
 

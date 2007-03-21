@@ -17,14 +17,24 @@ import org.apache.log4j.Logger;
  * Date: Apr 21, 2006
  * Time: 10:38:03 AM
  */
-public class BloggerImpressions extends SortableList implements Serializable {
+public class BloggerImpressions  implements Serializable {
 
     private ArrayList<BloggerImpressionsListItem> list;
     private String surveytitle;
 
     public BloggerImpressions(){
-        super("impressionsqualifyingforpayment");
 
+    }
+
+    public String beginView(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
+        logger.debug("beginView called:");
+        String tmpSurveyid = Jsf.getRequestParam("surveyid");
+        if (com.dneero.util.Num.isinteger(tmpSurveyid)){
+            logger.debug("beginView called: found surveyid in request param="+tmpSurveyid);
+            load(Integer.parseInt(tmpSurveyid));
+        }
+        return "bloggerimpressions";
     }
 
     private void load(int surveyid){
@@ -57,16 +67,7 @@ public class BloggerImpressions extends SortableList implements Serializable {
         }
     }
 
-    public String beginView(){
-        Logger logger = Logger.getLogger(this.getClass().getName());
-        logger.debug("beginView called:");
-        String tmpSurveyid = Jsf.getRequestParam("surveyid");
-        if (com.dneero.util.Num.isinteger(tmpSurveyid)){
-            logger.debug("beginView called: found surveyid in request param="+tmpSurveyid);
-            load(Integer.parseInt(tmpSurveyid));
-        }
-        return "bloggerimpressions";
-    }
+
 
     protected boolean isDefaultAscending(String sortColumn) {
         return true;

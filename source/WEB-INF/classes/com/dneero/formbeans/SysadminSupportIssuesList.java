@@ -16,15 +16,18 @@ import java.io.Serializable;
  * Date: Jun 8, 2006
  * Time: 10:16:03 AM
  */
-public class SysadminSupportIssuesList extends SortableList implements Serializable {
+public class SysadminSupportIssuesList implements Serializable {
 
     private List supportissues = new ArrayList();
 
 
     public SysadminSupportIssuesList() {
-        //Default sort column
-        super("supportissueid");
+
+    }
+    
+    public String beginView(){
         load();
+        return "sysadminsupportissueslist";
     }
 
     public void load(){
@@ -33,7 +36,7 @@ public class SysadminSupportIssuesList extends SortableList implements Serializa
     }
 
     public List getSupportissues() {
-        sort(getSort(), isAscending());
+        sort("supportissueid", false);
         return supportissues;
     }
 

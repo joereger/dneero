@@ -29,6 +29,15 @@ public class EmailActivationResend implements Serializable {
     private String j_captcha_response;
 
     public EmailActivationResend(){
+
+    }
+
+    public String beginView(){
+        load();
+        return "emailactivationresend";
+    }
+
+    private void load(){
         if (Jsf.getUserSession().getUser()!=null){
             email = Jsf.getUserSession().getUser().getEmail();
         }

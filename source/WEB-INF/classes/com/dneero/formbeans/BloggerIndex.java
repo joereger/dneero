@@ -28,6 +28,15 @@ public class BloggerIndex implements Serializable {
     private boolean showmarketingmaterial = false;
 
     public BloggerIndex(){
+
+    }
+
+    public String beginView(){
+        load();
+        return "bloggerhome";
+    }
+
+    private void load(){
         if (Jsf.getRequestParam("showmarketingmaterial")!=null && Jsf.getRequestParam("showmarketingmaterial").equals("1")){
             showmarketingmaterial = true;
         } else {

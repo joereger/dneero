@@ -18,17 +18,21 @@ import java.io.Serializable;
  * Date: Jun 8, 2006
  * Time: 10:16:03 AM
  */
-public class AccountBalancetransaction extends SortableList implements Serializable {
+public class AccountBalancetransaction implements Serializable {
 
 
     private List balances;
 
     public AccountBalancetransaction() {
-        super("id");
+        
+
+    }
+
+    public String beginView(){
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("instanciating AccountBalancetransaction");
         load();
-
+        return "accountbalancetransaction";
     }
 
     private void load(){
@@ -48,7 +52,7 @@ public class AccountBalancetransaction extends SortableList implements Serializa
                 abli.setIssuccessful(balance.getIssuccessful());
                 balances.add(abli);
             }
-
+            sort("id", true);
         }
     }
 

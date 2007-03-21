@@ -17,6 +17,8 @@ public class ResearcherFindBloggersListitem implements Serializable {
     private User user;
     private int socialinfluenceratingpercentile;
 
+    public ResearcherFindBloggersListitem(){}
+
 
     public Blogger getBlogger() {
         return blogger;

@@ -14,7 +14,7 @@ public class BloggerEarningsRevshareTreeNode extends TreeNodeBase implements Ser
    private double amtEarnedFromThisBloggerAllTime = 0;
    private double amtEarnedFromThisBlogger90Days = 0;
 
-
+   public BloggerEarningsRevshareTreeNode(){}
 
     public BloggerEarningsRevshareTreeNode(String type, String description, String identifier, boolean leaf, double amtEarnedFromThisBloggerAllTime, double amtEarnedFromThisBlogger90Days){
         super(type, description, identifier, leaf);

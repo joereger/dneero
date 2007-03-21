@@ -28,7 +28,6 @@ public class ResearcherResultsImpressionsDetails implements Serializable {
     }
 
 
-
     public String beginView(){
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("beginView called:");

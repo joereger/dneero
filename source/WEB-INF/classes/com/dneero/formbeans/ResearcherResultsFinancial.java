@@ -19,7 +19,12 @@ public class ResearcherResultsFinancial implements Serializable {
 
 
     public ResearcherResultsFinancial(){
+       
+    }
+
+    public String beginView(){
         load();
+        return "researcherresultsfinancial";
     }
 
     private void load(){

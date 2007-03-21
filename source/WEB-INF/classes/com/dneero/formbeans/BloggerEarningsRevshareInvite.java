@@ -22,6 +22,8 @@ public class BloggerEarningsRevshareInvite implements Serializable {
     private String email;
     private String message;
 
+    public BloggerEarningsRevshareInvite(){}
+
     public String invite(){
         User user = Jsf.getUserSession().getUser();
         List existingusers = HibernateUtil.getSession().createQuery("from User where email='"+email+"'").list();

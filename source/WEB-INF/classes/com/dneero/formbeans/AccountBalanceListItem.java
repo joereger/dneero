@@ -20,6 +20,7 @@ public class AccountBalanceListItem implements Serializable {
      private int optionalimpressionpaymentgroupid;
      private int optionalimpressionchargegroupid;
 
+    public AccountBalanceListItem(){}
 
     public int getBalanceid() {
         return balanceid;

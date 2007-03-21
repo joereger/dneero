@@ -16,6 +16,8 @@ public class AccountImpressionpaymentgroupListItem implements Serializable {
     private String ip;
     private String referer;
     private String surveytitle;
+
+    public AccountImpressionpaymentgroupListItem(){}
     
 
     public int getImpressiondetailid() {

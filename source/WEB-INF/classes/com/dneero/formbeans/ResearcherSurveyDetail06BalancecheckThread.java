@@ -21,6 +21,7 @@ public class ResearcherSurveyDetail06BalancecheckThread implements Runnable, Ser
             this.researcher = researcher;
         }
     }
+    
 
     public void run(){
         Logger logger = Logger.getLogger(this.getClass().getName());

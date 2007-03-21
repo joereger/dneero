@@ -13,22 +13,28 @@ import java.io.Serializable;
  * Date: Jun 8, 2006
  * Time: 10:16:03 AM
  */
-public class SystemadminSurveyList extends SortableList implements Serializable {
+public class SystemadminSurveyList implements Serializable {
 
     private List surveys;
 
     public SystemadminSurveyList() {
-        //Default sort column
-        super("title");
-        //Go get the surveys from the database
-        surveys = HibernateUtil.getSession().createQuery("from Survey").list();
+
 
 
     }
 
+    public String beginView(){
+        load();
+        return "sysadminsurveylist";
+    }
+
+    private void load(){
+        surveys = HibernateUtil.getSession().createQuery("from Survey").list();
+    }
+
     public List getSurveys() {
         //logger.debug("getListitems");
-        sort(getSort(), isAscending());
+        sort("title", true);
         return surveys;
     }
 

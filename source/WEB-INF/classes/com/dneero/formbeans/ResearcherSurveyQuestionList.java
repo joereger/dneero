@@ -16,14 +16,17 @@ import java.io.Serializable;
  * Date: Jun 8, 2006
  * Time: 10:16:03 AM
  */
-public class ResearcherSurveyQuestionList extends SortableList implements Serializable {
+public class ResearcherSurveyQuestionList implements Serializable {
 
     private ArrayList questions = new ArrayList();
 
     public ResearcherSurveyQuestionList() {
-        //Default sort column
-        super("questionid");
+
+    }
+
+    public String beginView(){
         load();
+        return "researchersurveyquestionlist";
     }
 
     public void load(){
@@ -42,7 +45,7 @@ public class ResearcherSurveyQuestionList extends SortableList implements Serial
     public List getQuestions() {
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("getQuestions");
-        sort(getSort(), isAscending());
+        sort("questionid", false);
         return questions;
     }
 

@@ -18,6 +18,8 @@ public class BloggerImpressionDetailsListItem implements Serializable {
     private String referer;
     private int quality;
 
+    public BloggerImpressionDetailsListItem(){}
+
 
     public int getImpressiondetailid() {
         return impressiondetailid;

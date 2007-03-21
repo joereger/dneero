@@ -37,8 +37,6 @@ public class SysadminUserDetail implements Serializable {
 
     }
 
-
-
     public String beginView(){
         Logger logger = Logger.getLogger(this.getClass().getName());
         //logger.debug("beginView called:");

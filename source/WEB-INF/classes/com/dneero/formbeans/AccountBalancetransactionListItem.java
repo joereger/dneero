@@ -18,6 +18,7 @@ public class AccountBalancetransactionListItem implements Serializable {
      private String description;
      private String notes;
 
+    public AccountBalancetransactionListItem(){}
 
     public int getBalancetransactionid() {
         return balancetransactionid;

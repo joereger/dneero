@@ -19,6 +19,15 @@ public class InviteLandingPage implements Serializable {
     private String referredby;
 
     public InviteLandingPage(){
+
+    }
+    
+    public String beginView(){
+        load();
+        return "invitelandingpage";
+    }
+
+    private void load(){
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("instanciated");
         logger.debug("Jsf.getRequestParam(\"referredby\")="+Jsf.getRequestParam("referredby"));
@@ -32,7 +41,6 @@ public class InviteLandingPage implements Serializable {
             }
 
         }
-
     }
 
     public String getReferredby() {

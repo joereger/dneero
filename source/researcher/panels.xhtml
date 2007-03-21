@@ -29,8 +29,8 @@
         <t:saveState id="save" value="#{researcherPanels}"/>
         
         <br/><br/>
-        <rich:datascroller for="panellist" maxPages="20"/>
-        <rich:dataTable value="#{researcherPanels.listitems}" id="panellist" rows="25" bandingInterval="2" banding="row" var="listitem" rendered="#{!empty researcherPanels.listitems}">
+        <rich:datascroller for="panellist" maxPages="5"/>
+        <rich:dataTable value="#{researcherPanels.listitems}" id="panellist" rows="3" bandingInterval="2" banding="row" var="listitem" rendered="#{!empty researcherPanels.listitems}">
           <h:column>
             <f:facet name="header">
               <h:outputText value="Panel Name"/>

@@ -37,8 +37,11 @@ public class Login implements Serializable {
     private boolean keepmeloggedin = true;
 
     public Login(){
-        Logger logger = Logger.getLogger(this.getClass().getName());
-        logger.debug("Instanciating a Login object.");
+
+    }
+
+    public String beginView(){
+        return "login";
     }
 
     public String login(){

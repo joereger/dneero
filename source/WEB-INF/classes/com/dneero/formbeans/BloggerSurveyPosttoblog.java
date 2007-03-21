@@ -37,10 +37,7 @@ public class BloggerSurveyPosttoblog implements Serializable {
     private String htmltoposttoblogimagelink = "";
 
     public BloggerSurveyPosttoblog(){
-        Logger logger = Logger.getLogger(this.getClass().getName());
-        logger.debug("BloggerSurveyPosttoblog instanciated.");
-        survey = new Survey();
-        beginView();
+        
     }
 
 

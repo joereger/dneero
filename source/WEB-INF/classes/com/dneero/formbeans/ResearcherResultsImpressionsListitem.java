@@ -15,6 +15,8 @@ public class ResearcherResultsImpressionsListitem implements Serializable {
     private String referer;
     private int impressionid;
 
+    public ResearcherResultsImpressionsListitem(){}
+
     public String getBlogtitle() {
         return blogtitle;
     }

@@ -16,17 +16,21 @@ import org.apache.log4j.Logger;
  * Date: Jun 8, 2006
  * Time: 10:16:03 AM
  */
-public class ResearcherSurveyList extends SortableList implements Serializable {
+public class ResearcherSurveyList implements Serializable {
 
     private List surveys;
 
     public ResearcherSurveyList() {
-        //Default sort column
-        super("title");
-        Logger logger = Logger.getLogger(this.getClass().getName());
-        //Go get the surveys from the database
 
-        //surveys = HibernateUtil.getSession().createQuery("from Survey").list();
+    }
+
+    public String beginView(){
+        load();
+        return "researchersurveylist";
+    }
+
+    private void load(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
 
         UserSession userSession = Jsf.getUserSession();
         Jsf.getUserSession().setCurrentSurveyid(0);
@@ -42,7 +46,7 @@ public class ResearcherSurveyList extends SortableList implements Serializable {
     public List getSurveys() {
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("getListitems");
-        sort(getSort(), isAscending());
+        sort("title", true);
         return surveys;
     }
 

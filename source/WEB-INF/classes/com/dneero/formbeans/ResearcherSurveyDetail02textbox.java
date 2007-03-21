@@ -33,6 +33,15 @@ public class ResearcherSurveyDetail02textbox implements Serializable {
 
 
     public ResearcherSurveyDetail02textbox(){
+
+    }
+
+    public String beginView(){
+        load();
+        return "researchersurveydetail_02_textbox";
+    }
+
+    private void load(){
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("Instanciating object");
         String tmpQuestionid = Jsf.getRequestParam("questionid");

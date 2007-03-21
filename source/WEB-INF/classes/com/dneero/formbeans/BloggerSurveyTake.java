@@ -34,6 +34,15 @@ public class BloggerSurveyTake implements Serializable {
     private boolean haveerror = false;
 
     public BloggerSurveyTake(){
+
+    }
+
+    public String beginView(){
+        load();
+        return "bloggersurveytake";
+    }
+
+    private void load(){
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("BloggerSurveyTake instanciated.");
         survey = new Survey();

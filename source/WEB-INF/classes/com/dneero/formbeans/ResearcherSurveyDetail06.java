@@ -62,8 +62,15 @@ public class ResearcherSurveyDetail06 implements Serializable {
 
 
     public ResearcherSurveyDetail06(){
-        Logger logger = Logger.getLogger(this.getClass().getName());
-        logger.debug("Instanciating object.");
+
+    }
+
+    public String beginView(){
+        load();
+        return "researchersurveydetail_06";
+    }
+
+    private void load(){
         loadSurvey(Jsf.getUserSession().getCurrentSurveyid());
     }
 

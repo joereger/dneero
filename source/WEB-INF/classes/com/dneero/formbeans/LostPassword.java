@@ -28,6 +28,10 @@ public class LostPassword implements Serializable {
 
     }
 
+    public String beginView(){
+        return "lostpassword";
+    }
+
     public String recoverPassword(){
 
         boolean isCaptchaCorrect = false;

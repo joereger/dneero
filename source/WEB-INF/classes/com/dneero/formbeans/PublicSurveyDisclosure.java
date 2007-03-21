@@ -24,6 +24,16 @@ public class PublicSurveyDisclosure implements Serializable {
     private SurveyEnhancer surveyEnhancer;
 
     public PublicSurveyDisclosure(){
+
+    }
+
+    public String beginView(){
+        load();
+        return "publicsurveydisclosure";
+    }
+
+
+    private void load(){
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("PublicSurveyDisclosure instanciated.");
         survey = new Survey();
@@ -45,9 +55,6 @@ public class PublicSurveyDisclosure implements Serializable {
             Jsf.getUserSession().setReferredbyOnlyUsedForSignup(Integer.parseInt(Jsf.getRequestParam("userid")));
         }
     }
-
-
-
 
 
 

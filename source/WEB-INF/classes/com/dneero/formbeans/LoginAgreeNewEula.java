@@ -21,6 +21,15 @@ public class LoginAgreeNewEula implements Serializable {
     private String eula;
 
     public LoginAgreeNewEula(){
+
+    }
+
+    public String beginView(){
+        load();
+        return "loginagreeneweula";
+    }
+
+    private void load(){
         eula = EulaHelper.getMostRecentEula().getEula();
     }
 

@@ -39,6 +39,15 @@ public class ResearcherSurveyDetail02range implements Serializable {
 
 
     public ResearcherSurveyDetail02range(){
+
+    }
+
+    public String beginView(){
+        load();
+        return "researchersurveydetail_02_range";
+    }
+
+    private void load(){
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("Instanciating object");
         String tmpQuestionid = Jsf.getRequestParam("questionid");

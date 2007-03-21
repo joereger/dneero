@@ -15,15 +15,18 @@ import org.apache.log4j.Level;
  * Date: Jun 8, 2006
  * Time: 10:16:03 AM
  */
-public class SysadminErrorList extends SortableList implements Serializable {
+public class SysadminErrorList implements Serializable {
 
     private List errors;
     private int minleveltoshow=0;
 
     public SysadminErrorList() {
-        //Default sort column
-        super("errorid");
+
+    }
+
+    public String beginView(){
         load();
+        return "sysadminerrorlist";
     }
 
     public String load(){
@@ -53,7 +56,7 @@ public class SysadminErrorList extends SortableList implements Serializable {
 
     public List getErrors() {
         //logger.debug("getListitems");
-        sort(getSort(), isAscending());
+        sort("errorid", false);
         return errors;
     }
 

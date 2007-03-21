@@ -29,6 +29,10 @@ public class LostPasswordChoose implements Serializable {
 
     }
 
+    public String beginView(){
+        return "lostpasswordchoose";
+    }
+
     public String choosePassword(){
         Logger logger = Logger.getLogger(this.getClass().getName());
         boolean isCaptchaCorrect = false;

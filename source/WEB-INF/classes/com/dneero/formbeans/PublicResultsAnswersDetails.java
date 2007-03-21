@@ -22,11 +22,17 @@ public class PublicResultsAnswersDetails implements Serializable {
     private String results;
 
     public PublicResultsAnswersDetails(){
-        Logger logger = Logger.getLogger(this.getClass().getName());
-        logger.debug("Instanciating object.");
-        loadQuestion(Jsf.getUserSession().getCurrentSurveyid());
+
     }
 
+    public String beginView(){
+        load();
+        return "publicresultsanswersdetails";
+    }
+
+    private void load(){
+        loadQuestion(Jsf.getUserSession().getCurrentSurveyid());
+    }
 
     public void loadQuestion(int surveyid){
         Logger logger = Logger.getLogger(this.getClass().getName());

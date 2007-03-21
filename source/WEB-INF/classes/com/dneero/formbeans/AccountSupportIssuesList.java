@@ -15,15 +15,18 @@ import java.io.Serializable;
  * Date: Jun 8, 2006
  * Time: 10:16:03 AM
  */
-public class AccountSupportIssuesList extends SortableList implements Serializable {
+public class AccountSupportIssuesList implements Serializable {
 
     private List<Supportissue> supportissues;
 
 
     public AccountSupportIssuesList() {
-        //Default sort column
-        super("supportissueid");
+
+    }
+
+    public String beginView(){
         load();
+        return "accountsupportissueslist";
     }
 
     public void load(){
@@ -31,10 +34,11 @@ public class AccountSupportIssuesList extends SortableList implements Serializab
         logger.debug("load called");
         User user = Jsf.getUserSession().getUser();
         supportissues = HibernateUtil.getSession().createQuery("from Supportissue where userid='"+user.getUserid()+"' order by supportissueid desc").list();
+        sort("supportissueid", false);
     }
 
     public List getSupportissues() {
-        sort(getSort(), isAscending());
+        sort("supportissueid", false);
         return supportissues;
     }
 
