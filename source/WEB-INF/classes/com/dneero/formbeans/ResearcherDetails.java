@@ -125,7 +125,7 @@ public class ResearcherDetails implements Serializable {
             userSession.getUser().refresh();
 
             if (isnewresearcher){
-                return "success_newresearcher";
+                return "researcherwelcomenewresearcher";
             } else {
                 return "researcherhome";
             }

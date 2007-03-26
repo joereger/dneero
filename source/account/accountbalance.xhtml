@@ -25,8 +25,8 @@
         <t:saveState id="save" value="#{accountBalance}"/>
 
         <h:outputText value="There are not yet any financial transactions on your account.  Go fill out some surveys!  Or create some!" rendered="#{empty accountBalance.balances}"/>
-        <rich:datascroller for="balances" maxPages="20"/>
-        <rich:dataTable value="#{accountBalance.balances}" id="balances" style="width: 100%" bandingInterval="2" rows="25" banding="row" var="balance" rendered="#{!empty accountBalance.balances}">
+        <rich:datascroller for="datatable" maxPages="5"/>
+        <rich:dataTable id="datatable" value="#{accountBalance.balances}" width="100%" rows="25" var="balance" rendered="#{!empty accountBalance.balances}">
           <h:column>
             <f:facet name="header">
               <h:outputText value="Id"/>

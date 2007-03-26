@@ -22,7 +22,8 @@
     <br/><br/>
 
     <t:saveState id="save" value="#{researcherBloggerProfileImpressions}"/>
-    <rich:dataTable value="#{researcherBloggerProfileImpressions.list}" bandingInterval="2" rows="50" banding="row" var="imp">
+    <rich:datascroller for="datatable" maxPages="5"/>
+    <rich:dataTable id="datatable" value="#{researcherBloggerProfileImpressions.list}" width="100%" rows="50" var="imp">
       <h:column>
         <f:facet name="header">
           <h:outputText value="Blog"/>

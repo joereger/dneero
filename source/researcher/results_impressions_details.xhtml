@@ -40,7 +40,8 @@
     <br/><br/>
 
 <t:saveState id="save" value="#{researcherResultsImpressionsDetails}"/>
-<rich:dataTable value="#{researcherResultsImpressionsDetails.list}" bandingInterval="2" rows="10" banding="row" var="listitem">
+<rich:datascroller for="datatable" maxPages="5"/>
+<rich:dataTable id="datatable" value="#{researcherResultsImpressionsDetails.list}" width="100%" rows="10" var="listitem">
       <h:column>
         <f:facet name="header">
           <h:outputText value="Date"/>

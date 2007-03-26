@@ -18,7 +18,8 @@
 
     <h:form>
         <t:saveState id="save" value="#{researcherSurveyList}"/>
-        <rich:dataTable value="#{researcherSurveyList.surveys}" rows="50" bandingInterval="2" banding="row" var="survey" rendered="#{!empty researcherSurveyList.surveys}">
+        <rich:datascroller for="datatable" maxPages="5"/>
+        <rich:dataTable id="datatable" value="#{researcherSurveyList.surveys}" width="100%" rows="50" var="survey" rendered="#{!empty researcherSurveyList.surveys}">
           <h:column>
             <f:facet name="header">
               <h:outputText value="Title"/>

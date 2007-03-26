@@ -122,7 +122,9 @@ public class ResearcherSurveyDetail02textbox implements Serializable {
             survey.refresh();
         }
 
-        return "researchersurveydetail_02";
+        ResearcherSurveyDetail02 bean = (ResearcherSurveyDetail02)Jsf.getManagedBean("researcherSurveyDetail02");
+        return bean.beginView();
+        //return "researchersurveydetail_02";
     }
 
 

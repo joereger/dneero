@@ -32,7 +32,7 @@ public class ResearcherSurveyDetailPostlaunch implements Serializable {
 
     public String beginView(){
         load();
-        return "researchersurveydetailpostlaunch";
+        return "researchersurveydetail_postlaunch";
     }
 
     private void load(){

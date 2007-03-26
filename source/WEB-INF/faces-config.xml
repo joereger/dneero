@@ -853,6 +853,10 @@
             <to-view-id>/researcher/panels-edit.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
+            <from-outcome>researcherwelcomenewresearcher</from-outcome>
+            <to-view-id>/researcher/welcomenewresearcher.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
             <from-outcome>researcherpanelslistbloggersinpanel</from-outcome>
             <to-view-id>/researcher/panels-listbloggersinpanel.xhtml</to-view-id>
         </navigation-case>
@@ -1048,86 +1052,13 @@
     </navigation-rule>
 
 
-    <navigation-rule>
-		<from-view-id>/blogger/bloggersurveylist.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>beginview_success</from-outcome>
-			<to-view-id>/blogger/bloggersurveydetail.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-
-    <navigation-rule>
-        <from-view-id>/blogger/bloggerdetails.xhtml</from-view-id>
-        <navigation-case>
-            <from-outcome>success</from-outcome>
-            <to-view-id>/blogger/index.xhtml</to-view-id>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>success_newblogger</from-outcome>
-            <to-view-id>/blogger/bloggerblogdetail.xhtml</to-view-id>
-        </navigation-case>
-    </navigation-rule>
-
-    <navigation-rule>
-        <from-view-id>/researcher/researcherdetails.xhtml</from-view-id>
-        <navigation-case>
-            <from-outcome>success</from-outcome>
-            <to-view-id>/researcher/index.xhtml</to-view-id>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>success_newresearcher</from-outcome>
-            <to-view-id>/researcher/welcomenewresearcher.xhtml</to-view-id>
-        </navigation-case>
-    </navigation-rule>
-
-    <navigation-rule>
-        <from-view-id>/researcher/researchersurveydetail_01.xhtml</from-view-id>
-        <navigation-case>
-            <from-outcome>success</from-outcome>
-            <to-view-id>/researcher/researchersurveydetail_02.xhtml</to-view-id>
-        </navigation-case>
-    </navigation-rule>
-
-    <navigation-rule>
-        <from-view-id>/researcher/researchersurveydetail_02.xhtml</from-view-id>
-        <navigation-case>
-            <from-outcome>success</from-outcome>
-            <to-view-id>/researcher/researchersurveydetail_03.xhtml</to-view-id>
-        </navigation-case>
-    </navigation-rule>
 
 
-    <navigation-rule>
-        <from-view-id>/researcher/researchersurveydetail_03.xhtml</from-view-id>
-        <navigation-case>
-            <from-outcome>success</from-outcome>
-            <to-view-id>/researcher/researchersurveydetail_04.xhtml</to-view-id>
-        </navigation-case>
-    </navigation-rule>
 
-    <navigation-rule>
-        <from-view-id>/researcher/researchersurveydetail_04.xhtml</from-view-id>
-        <navigation-case>
-            <from-outcome>success</from-outcome>
-            <to-view-id>/researcher/researchersurveydetail_05.xhtml</to-view-id>
-        </navigation-case>
-    </navigation-rule>
 
-    <navigation-rule>
-        <from-view-id>/researcher/researchersurveydetail_05.xhtml</from-view-id>
-        <navigation-case>
-            <from-outcome>success</from-outcome>
-            <to-view-id>/researcher/researchersurveydetail_06.xhtml</to-view-id>
-        </navigation-case>
-    </navigation-rule>
 
-    <navigation-rule>
-        <from-view-id>/researcher/researchersurveydetail_06.xhtml</from-view-id>
-        <navigation-case>
-            <from-outcome>success</from-outcome>
-            <to-view-id>/researcher/researchersurveylist.xhtml</to-view-id>
-        </navigation-case>
-    </navigation-rule>
+
+
 
  
 

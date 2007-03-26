@@ -182,7 +182,7 @@ public class BloggerDetails implements Serializable {
             userSession.getUser().refresh();
 
             if (isnewblogger){
-                return "success_newblogger";
+                return "bloggerblogdetail";
             } else {
                 return "bloggerdetails";
             }

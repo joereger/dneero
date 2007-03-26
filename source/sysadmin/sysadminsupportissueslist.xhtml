@@ -22,7 +22,8 @@
 
 
     <t:saveState id="save" value="#{sysadminSupportIssuesList}"/>
-    <rich:dataTable value="#{sysadminSupportIssuesList.supportissues}" bandingInterval="2" rows="15" banding="row" var="supportissue">
+    <rich:datascroller for="datatable" maxPages="5"/>
+    <rich:dataTable id="datatable" value="#{sysadminSupportIssuesList.supportissues}" width="100%" rows="15" var="supportissue">
       <h:column>
         <f:facet name="header">
           <h:outputText value="Id"/>

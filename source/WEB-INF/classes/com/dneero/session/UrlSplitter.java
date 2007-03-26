@@ -21,8 +21,9 @@ public class UrlSplitter {
     public UrlSplitter(javax.servlet.http.HttpServletRequest request){
         this.request = request;
 
-        logger.debug("");
-        logger.debug("------------------------------------");
+
+
+        logger.debug(">>UrlSplitter Start<<");
 
         //Get the host
         rawIncomingServername = request.getServerName();
@@ -62,6 +63,8 @@ public class UrlSplitter {
         //Pathinfo
         servletPath = request.getServletPath();
         logger.debug("servletPath=" + servletPath);
+
+        logger.debug(">>UrlSplitter End<<");
     }
 
     public String getReconstructedGetVersionOfRequest(){

@@ -37,7 +37,8 @@
 
     <br/><br/>
 
-    <rich:dataTable value="#{researcherResultsImpressions.researcherResultsImpressionsListitems}" bandingInterval="2" rows="50" banding="row" var="imp">
+    <rich:datascroller for="datatable" maxPages="5"/>
+    <rich:dataTable id="datatable" value="#{researcherResultsImpressions.researcherResultsImpressionsListitems}" width="100%" rows="50" var="imp">
       <h:column>
         <f:facet name="header">
           <h:outputText value="Blog"/>

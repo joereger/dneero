@@ -34,8 +34,8 @@
     <br/>
 
 
-    <t:panelTabbedPane id="panel" bgcolor="#ffffff">
-        <t:panelTab id="panel_b" label="Summary" rendered="true">
+    <rich:tabPanel switchType="ajax" id="panel" bgcolor="#ffffff">
+        <rich:tab id="panel_b" label="Summary" rendered="true">
             <h:graphicImage url="/images/clear.gif" width="700" height="1"/><br/>
             <table width="100%" cellpadding="5">
                 <tr>
@@ -112,8 +112,8 @@
                 </h:panelGroup>
              </h:panelGrid>
 
-        </t:panelTab>
-        <t:panelTab id="panel_c" label="Question Preview">
+        </rich:tab>
+        <rich:tab id="panel_c" label="Question Preview">
             <h:graphicImage url="/images/clear.gif" width="700" height="1"/><br/>
             <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
             <img src="/images/lightbulb_on.png" alt="" align="right"/>
@@ -124,8 +124,8 @@
             <br/>
             <f:verbatim>#{bloggerSurveyDetail.surveyForTakers}</f:verbatim>
             <br/><br/>
-        </t:panelTab>
-        <t:panelTab id="panel_d" label="On-Blog Preview">
+        </rich:tab>
+        <rich:tab id="panel_d" label="On-Blog Preview">
             <h:graphicImage url="/images/clear.gif" width="700" height="1"/><br/>
             <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
             <img src="/images/lightbulb_on.png" alt="" align="right"/>
@@ -136,10 +136,10 @@
             <br/>
             <f:verbatim>#{bloggerSurveyDetail.surveyOnBlogPreview}</f:verbatim>
             <br/><br/>
-        </t:panelTab>
+        </rich:tab>
 
 
-    </t:panelTabbedPane>
+    </rich:tabPanel>
 
 
 

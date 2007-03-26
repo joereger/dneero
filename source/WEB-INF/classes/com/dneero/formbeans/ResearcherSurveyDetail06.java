@@ -4,6 +4,7 @@ import org.apache.log4j.Logger;
 
 import javax.faces.context.FacesContext;
 import javax.faces.application.FacesMessage;
+import javax.faces.application.NavigationHandler;
 import java.util.Calendar;
 import java.util.LinkedHashMap;
 import java.io.Serializable;
@@ -181,7 +182,9 @@ public class ResearcherSurveyDetail06 implements Serializable {
     }
 
     public String previousStep(){
-        return "researchersurveydetail_05";
+        ResearcherSurveyDetail05 bean = (ResearcherSurveyDetail05)Jsf.getManagedBean("researcherSurveyDetail05");
+        return bean.beginView();
+        //return "researchersurveydetail_05";
     }
 
     public String saveSurvey(){
@@ -285,7 +288,9 @@ public class ResearcherSurveyDetail06 implements Serializable {
             }
         }
 
-        return "researchersurveydetail_postlaunch";
+        ResearcherSurveyDetailPostlaunch bean = (ResearcherSurveyDetailPostlaunch)Jsf.getManagedBean("researcherSurveyDetailPostlaunch");
+        return bean.beginView();
+        //return "researchersurveydetail_postlaunch";
     }
 
 

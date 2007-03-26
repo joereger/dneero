@@ -25,7 +25,8 @@
 
         <h:form>
               <t:saveState id="save" value="#{bloggerImpressionDetails}"/>
-              <rich:dataTable value="#{bloggerImpressionDetails.list}" bandingInterval="2" rows="100" banding="row" var="listitem">
+              <rich:datascroller for="datatable" maxPages="5"/>
+              <rich:dataTable id="datatable" value="#{bloggerImpressionDetails.list}" width="100%" rows="100" var="listitem">
 
               <h:column>
                 <f:facet name="header">

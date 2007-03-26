@@ -31,8 +31,8 @@
     </font></div></center>
     <br/>
 
-   <t:panelTabbedPane id="panel" bgcolor="#ffffff">
-        <t:panelTab id="panel_f" label="Post to your Blog">
+   <rich:tabPanel switchType="ajax" id="panel" bgcolor="#ffffff">
+        <rich:tab id="panel_f" label="Post to your Blog">
             <h:graphicImage url="/images/clear.gif" width="700" height="1"/><br/>
             <font class="mediumfont">Post to your blog by copying the script below and pasting it into a blog post:</font>
             <t:div rendered="#{bloggerSurveyPosttoblog.survey.embedjavascript}">
@@ -59,8 +59,8 @@
                 <textarea rows="3" cols="55" readonly="readonly" onClick="javascript:this.select();">#{bloggerSurveyPosttoblog.htmltoposttoblogimagelink}</textarea>
                 </font></div></center>
              </t:div>
-        </t:panelTab>
-        <t:panelTab id="panel_b" label="Survey Summary" rendered="true">
+        </rich:tab>
+        <rich:tab id="panel_b" label="Survey Summary" rendered="true">
             <h:graphicImage url="/images/clear.gif" width="700" height="1"/><br/>
             <table width="100%" cellpadding="5">
                 <tr>
@@ -137,9 +137,9 @@
                 </h:panelGroup>
              </h:panelGrid>
 
-        </t:panelTab>
+        </rich:tab>
 
-        <t:panelTab id="panel_e" label="Your Answers">
+        <rich:tab id="panel_e" label="Your Answers">
             <h:graphicImage url="/images/clear.gif" width="700" height="1"/><br/>
             <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
             <img src="/images/lightbulb_on.png" alt="" align="right"/>
@@ -150,9 +150,9 @@
             <br/>
             <f:verbatim>#{bloggerSurveyPosttoblog.surveyAnswersForThisBlogger}</f:verbatim>
             <br/><br/>
-        </t:panelTab>
+        </rich:tab>
 
-    </t:panelTabbedPane>
+    </rich:tabPanel>
 
 
 

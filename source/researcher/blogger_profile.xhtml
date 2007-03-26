@@ -152,7 +152,8 @@
        <br/>
 
         <t:saveState id="save" value="#{researcherBloggerProfile}"/>
-        <rich:dataTable value="#{researcherBloggerProfile.listitems}" bandingInterval="2" rows="10" banding="row" var="listitem" style="width: 300px;">
+        <rich:datascroller for="datatable1" maxPages="5"/>
+        <rich:dataTable id="datatable1" value="#{researcherBloggerProfile.listitems}" width="100%" rows="10" var="listitem" style="width: 300px;">
           <h:column>
             <f:facet name="header">
               <h:outputText value="Date"/>
@@ -190,7 +191,8 @@
          <font class="mediumfont" style="color: #cccccc;">Blogs</font>
          <br/>
         <t:saveState id="save" value="#{researcherBloggerProfile}"/>
-        <rich:dataTable value="#{researcherBloggerProfile.blogs}" bandingInterval="2" rows="10" banding="row" var="blog">
+        <rich:datascroller for="datatable2" maxPages="5"/>
+        <rich:dataTable id="datatable2" value="#{researcherBloggerProfile.blogs}" width="100%" rows="10" var="blog">
           <h:column>
             <f:facet name="header">
               <h:outputText value="Blog Name"/>
@@ -221,7 +223,8 @@
         <font class="mediumfont" style="color: #cccccc;">Panel Membership</font>
         <br/>
         <t:saveState id="save" value="#{researcherBloggerProfile}"/>
-        <rich:dataTable value="#{researcherBloggerProfile.panels}" bandingInterval="2" rows="10" banding="row" var="panel">
+        <rich:datascroller for="datatable3" maxPages="5"/>
+        <rich:dataTable id="datatable3" value="#{researcherBloggerProfile.panels}" width="100%" rows="10" var="panel">
           <h:column>
             <f:facet name="header">
               <h:outputText value="Panel Name"/>

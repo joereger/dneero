@@ -132,7 +132,8 @@
         <h:form>
             <t:saveState id="save" value="#{sysadminUserDetail}"/>
             <h:outputText value="There are not yet any financial transactions on this account." rendered="#{empty sysadminUserDetail.balances}"/>
-            <rich:dataTable value="#{sysadminUserDetail.balances}" bandingInterval="2" rows="10" banding="row" var="balance" rendered="#{!empty sysadminUserDetail.balances}">
+            <rich:datascroller for="datatable1" maxPages="5"/>
+            <rich:dataTable id="datatable1" value="#{sysadminUserDetail.balances}" width="100%" rows="10" var="balance" rendered="#{!empty sysadminUserDetail.balances}">
               <h:column>
                 <f:facet name="header">
                   <h:outputText value="Id"/>
@@ -173,7 +174,8 @@
         <h:form>
             <t:saveState id="save" value="#{sysadminUserDetail}"/>
             <h:outputText value="There are not yet any financial transactions on this account." rendered="#{empty sysadminUserDetail.transactions}"/>
-            <rich:dataTable value="#{sysadminUserDetail.transactions}" bandingInterval="2" rows="10" banding="row" var="balance" rendered="#{!empty sysadminUserDetail.transactions}">
+            <rich:datascroller for="datatable2" maxPages="5"/>
+            <rich:dataTable id="datatable2" value="#{sysadminUserDetail.transactions}" width="100%" rows="10" var="balance" rendered="#{!empty sysadminUserDetail.transactions}">
               <h:column>
                 <f:facet name="header">
                   <h:outputText value="Id"/>

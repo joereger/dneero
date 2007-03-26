@@ -22,7 +22,8 @@
    <t:saveState id="save" value="#{bloggerSurveyList}"/>
 
     <h:outputText value="There are currently no surveys that fit your profile.  Please check back soon as we're always adding new surveys!" styleClass="mediumfont" rendered="#{empty bloggerSurveyList.surveys}"/>
-    <rich:dataTable value="#{bloggerSurveyList.surveys}" bandingInterval="2" rows="25" banding="row" var="srvy" rendered="#{!empty bloggerSurveyList.surveys}">
+    <rich:datascroller for="datatable" maxPages="5"/>
+    <rich:dataTable id="datatable" value="#{bloggerSurveyList.surveys}" width="100%" rows="25" var="srvy" rendered="#{!empty bloggerSurveyList.surveys}">
       <h:column>
         <f:facet name="header">
           <h:outputText value="Title"/>

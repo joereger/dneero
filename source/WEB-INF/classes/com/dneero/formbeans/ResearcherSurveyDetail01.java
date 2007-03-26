@@ -163,7 +163,9 @@ public class ResearcherSurveyDetail01 implements Serializable {
 
         }
 
-        return "success";
+        ResearcherSurveyDetail02 bean = (ResearcherSurveyDetail02)Jsf.getManagedBean("researcherSurveyDetail02");
+        return bean.beginView();
+        //return "researchersurveydetail_02";
     }
 
     public String getTitle() {

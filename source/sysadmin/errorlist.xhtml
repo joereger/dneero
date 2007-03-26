@@ -30,8 +30,8 @@
         <h:commandButton action="#{sysadminErrorList.onlyerrors}"  value="Only Errors" styleClass="formsubmitbutton"></h:commandButton>
 
         <br/><br/>
-
-        <rich:dataTable value="#{sysadminErrorList.errors}"  bandingInterval="2" rows="15" banding="row" var="error">
+        <rich:datascroller for="datatable" maxPages="5"/>
+        <rich:dataTable id="datatable" value="#{sysadminErrorList.errors}" width="100%" rows="15" var="error">
           <h:column sortProperty="errorid" sortable="true">
             <f:facet name="header">
               <h:outputText value="Id"/>

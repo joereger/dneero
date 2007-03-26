@@ -30,7 +30,8 @@
     <br/><br/>
 
     <t:saveState id="save" value="#{researcherResultsRespondents}"/>
-    <rich:dataTable value="#{researcherResultsRespondents.list}" rows="50" bandingInterval="2" banding="row" var="listitem" rendered="#{!empty researcherResultsRespondents.list}">
+    <rich:datascroller for="datatable" maxPages="5"/>
+    <rich:dataTable id="datatable" value="#{researcherResultsRespondents.list}" width="100%" rows="50" var="listitem" rendered="#{!empty researcherResultsRespondents.list}">
           
           <h:column>
             <f:facet name="header">

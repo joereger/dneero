@@ -24,7 +24,8 @@
         <t:saveState id="save" value="#{accountImpressionchargegroup}"/>
 
         <h:outputText value="There are not yet any impressions in this group." rendered="#{empty accountImpressionchargegroup.list}"/>
-        <rich:dataTable value="#{accountImpressionchargegroup.list}" bandingInterval="2" rows="100" banding="row" var="listitem" rendered="#{!empty accountImpressionchargegroup.list}">
+        <rich:datascroller for="datatable" maxPages="5"/>
+        <rich:dataTable id="datatable" value="#{accountImpressionchargegroup.list}" width="100%" rows="25" var="listitem" rendered="#{!empty accountImpressionchargegroup.list}">
           <h:column>
             <f:facet name="header">
               <h:outputText value="Date"/>

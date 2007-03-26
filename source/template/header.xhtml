@@ -12,7 +12,7 @@
 
     <ui:define name="header">
         <h:form>
-
+          
             <table width="786" cellspacing="0" border="0" cellpadding="0">
                 <tr>
                     <td valign="top" colspan="2">
@@ -80,7 +80,7 @@
                             <h:commandLink value="Blogger Profile" action="#{bloggerDetails.beginView}" styleClass="subnavfont" style="padding-left: 15px; color: #000000;" rendered="#{userSession.isloggedin and (userSession.user.bloggerid gt 0)}"/>
                             <h:commandLink value="Your Blogs" action="#{bloggerBlogsList.beginView}" styleClass="subnavfont" style="padding-left: 15px; color: #000000;" rendered="#{userSession.isloggedin and (userSession.user.bloggerid gt 0)}"/>
                             <h:commandLink value="Revenue Share" action="#{bloggerEarningsRevshare.beginView}" styleClass="subnavfont" style="padding-left: 15px; color: #000000;" rendered="#{userSession.isloggedin and (userSession.user.bloggerid gt 0)}"/>
-                            <h:commandLink value="FAQ" action="#{bloggerIndex.beginView}" style="padding-left: 15px; color: #000000;" styleClass="subnavfont"/>
+                            <h:commandLink value="FAQ" action="bloggerfaq" style="padding-left: 15px; color: #000000;" styleClass="subnavfont"/>
                             <font class="subnavfont" style="padding-left: 15px; color: #000000;"><a4j:commandLink action="#{bloggerIndex.beginView}"><f:param name="showmarketingmaterial" value="1"/>Basics</a4j:commandLink></font>
                         </c:if>
                         <c:if test="${navtab=='researchers'}">
@@ -90,7 +90,7 @@
                             <h:commandLink value="Panels" action="#{researcherPanels.beginView}" styleClass="subnavfont" style="padding-left: 15px; color: #000000;" rendered="#{userSession.isloggedin and (userSession.user.researcherid gt 0)}"/>
                             <h:commandLink value="Researcher Profile" action="#{researcherDetails.beginView}" styleClass="subnavfont" style="padding-left: 15px; color: #000000;" rendered="#{userSession.isloggedin and (userSession.user.researcherid gt 0)}"/>
                             <h:commandLink value="Billing Info" action="#{researcherBilling.beginView}" styleClass="subnavfont" style="padding-left: 15px; color: #000000;" rendered="#{userSession.isloggedin and (userSession.user.researcherid gt 0)}"/>
-                            <h:commandLink value="FAQ" action="#{researcherIndex.beginView}" style="padding-left: 15px; color: #000000;" styleClass="subnavfont"/>
+                            <h:commandLink value="FAQ" action="researcherfaq" style="padding-left: 15px; color: #000000;" styleClass="subnavfont"/>
                             <font class="subnavfont" style="padding-left: 15px; color: #000000;"><a4j:commandLink action="#{researcherIndex.beginView}"><f:param name="showmarketingmaterial" value="1"/>Basics</a4j:commandLink></font>
                         </c:if>
                         <c:if test="${navtab=='youraccount'}">
@@ -121,7 +121,7 @@
 
 
             
-            
+
         </h:form>
 
     </ui:define>

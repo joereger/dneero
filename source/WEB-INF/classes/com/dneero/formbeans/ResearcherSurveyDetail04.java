@@ -137,7 +137,7 @@ public class ResearcherSurveyDetail04 implements Serializable {
 
     public String saveSurveyAsDraft(){
         String save = saveSurvey();
-        if (save!=null && save.equals("success")){
+        if (save!=null){
             return "researchersurveylist";
         } else {
             return save;
@@ -147,7 +147,9 @@ public class ResearcherSurveyDetail04 implements Serializable {
     public String previousStep(){
         String save = saveSurvey();
         if (save!=null && save.equals("success")){
-            return "researchersurveydetail_03";
+            ResearcherSurveyDetail03 bean = (ResearcherSurveyDetail03)Jsf.getManagedBean("researcherSurveyDetail03");
+            return bean.beginView();
+            //return "researchersurveydetail_03";
         } else {
             return save;
         }
@@ -199,11 +201,13 @@ public class ResearcherSurveyDetail04 implements Serializable {
                         Surveypanel surveypanel = (Surveypanel) iterator.next();
                         //Iterate panels chosen on UI
                         boolean ischosen = false;
-                        for (int i = 0; i < panels.length; i++) {
-                            String p = panels[i];
-                            if (Num.isinteger(p)){
-                                if (Integer.parseInt(p)==surveypanel.getPanelid()){
-                                    ischosen = true;
+                        if (panels!=null){
+                            for (int i = 0; i < panels.length; i++) {
+                                String p = panels[i];
+                                if (Num.isinteger(p)){
+                                    if (Integer.parseInt(p)==surveypanel.getPanelid()){
+                                        ischosen = true;
+                                    }
                                 }
                             }
                         }
@@ -218,15 +222,17 @@ public class ResearcherSurveyDetail04 implements Serializable {
                     }
                     //Find panelids to add
                     ArrayList<Integer> panelstoadd = new ArrayList<Integer>();
-                    for (int i = 0; i < panels.length; i++) {
-                        String p = panels[i];
-                        if (Num.isinteger(p)){
-                            //Search database for this listing
-                            List sps = HibernateUtil.getSession().createQuery("from Surveypanel where surveyid='"+Jsf.getUserSession().getCurrentSurveyid()+"' and panelid='"+p+"'").list();
-                            if (sps!=null && sps.size()>0){
+                    if (panels!=null){
+                        for (int i = 0; i < panels.length; i++) {
+                            String p = panels[i];
+                            if (Num.isinteger(p)){
+                                //Search database for this listing
+                                List sps = HibernateUtil.getSession().createQuery("from Surveypanel where surveyid='"+Jsf.getUserSession().getCurrentSurveyid()+"' and panelid='"+p+"'").list();
+                                if (sps!=null && sps.size()>0){
 
-                            } else {
-                                panelstoadd.add(Integer.parseInt(p));
+                                } else {
+                                    panelstoadd.add(Integer.parseInt(p));
+                                }
                             }
                         }
                     }
@@ -257,8 +263,9 @@ public class ResearcherSurveyDetail04 implements Serializable {
             }
 
         }
-
-        return "success";
+        ResearcherSurveyDetail05 bean = (ResearcherSurveyDetail05)Jsf.getManagedBean("researcherSurveyDetail05");
+        return bean.beginView();
+        //return "researchersurveydetail_05";
     }
 
     public List getPanelsavailable(){

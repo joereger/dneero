@@ -25,7 +25,8 @@
     <t:saveState id="save" value="#{bloggerBlogsList}"/>   
 
     <h:outputText value="You have not claimed any blogs." rendered="#{empty bloggerBlogsList.blogs}"/>
-    <rich:dataTable value="#{bloggerBlogsList.blogs}" bandingInterval="2" rows="15" banding="row" var="blog" rendered="#{!empty bloggerBlogsList.blogs}">
+    <rich:datascroller for="datatable" maxPages="5"/>
+    <rich:dataTable id="datatable" value="#{bloggerBlogsList.blogs}" width="100%" rows="15" var="blog" rendered="#{!empty bloggerBlogsList.blogs}">
       <h:column>
         <f:facet name="header">
           <h:outputText value="Title"/>

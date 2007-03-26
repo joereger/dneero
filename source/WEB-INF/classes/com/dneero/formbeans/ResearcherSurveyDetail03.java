@@ -78,7 +78,9 @@ public class ResearcherSurveyDetail03 implements Serializable {
     }
 
     public String previousStep(){
-        return "researchersurveydetail_02";
+        ResearcherSurveyDetail02 bean = (ResearcherSurveyDetail02)Jsf.getManagedBean("researcherSurveyDetail02");
+        return bean.beginView();
+        //return "researchersurveydetail_02";
     }
 
     public String resetFormatting(){
@@ -124,12 +126,16 @@ public class ResearcherSurveyDetail03 implements Serializable {
                 survey.refresh();
             }
         }
-        return "researchersurveydetail_03";
+        ResearcherSurveyDetail03 bean = (ResearcherSurveyDetail03)Jsf.getManagedBean("researcherSurveyDetail03");
+        return bean.beginView();
+        //return "researchersurveydetail_03";
     }
 
     public String continueToNext(){
         if(saveSurvey()!=null){
-            return "success";
+            ResearcherSurveyDetail04 bean = (ResearcherSurveyDetail04)Jsf.getManagedBean("researcherSurveyDetail04");
+            return bean.beginView();
+            //return "researchersurveydetail_04";
         }
         return null;
     }

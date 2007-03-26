@@ -41,8 +41,8 @@
     </d:roundedCornerBox>
 
 
-    <t:panelTabbedPane id="panel" bgcolor="#ffffff">
-        <t:panelTab id="panel_b" label="Summary">
+    <rich:tabPanel switchType="ajax" id="panel" bgcolor="#ffffff">
+        <rich:tab id="panel_b" label="Summary">
             <h:graphicImage url="/images/clear.gif" width="700" height="1"/><br/>
 
 
@@ -137,8 +137,8 @@
 
              </h:panelGrid>
 
-        </t:panelTab>
-        <t:panelTab id="panel_c" label="Question Preview" rendered="#{!publicSurveyDetail.bloggerhasalreadytakensurvey}">
+        </rich:tab>
+        <rich:tab id="panel_c" label="Question Preview" rendered="#{!publicSurveyDetail.bloggerhasalreadytakensurvey}">
             <h:graphicImage url="/images/clear.gif" width="700" height="1"/><br/>
             <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
             <img src="/images/lightbulb_on.png" alt="" align="right"/>
@@ -148,8 +148,8 @@
             <br/>
             <br/>
             <f:verbatim>#{publicSurveyDetail.surveyForTakers}</f:verbatim>
-        </t:panelTab>
-        <t:panelTab id="panel_d" label="On-Blog Preview" rendered="#{!publicSurveyDetail.bloggerhasalreadytakensurvey}">
+        </rich:tab>
+        <rich:tab id="panel_d" label="On-Blog Preview" rendered="#{!publicSurveyDetail.bloggerhasalreadytakensurvey}">
             <h:graphicImage url="/images/clear.gif" width="700" height="1"/><br/>
             <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
             <img src="/images/lightbulb_on.png" alt="" align="right"/>
@@ -159,8 +159,8 @@
             <br/>
             <br/>
             <h:outputText escape="false" value="#{publicSurveyDetail.surveyOnBlogPreview}"></h:outputText> 
-        </t:panelTab>
-        <t:panelTab id="panel_e" label="Your Answers" rendered="#{publicSurveyDetail.bloggerhasalreadytakensurvey}">
+        </rich:tab>
+        <rich:tab id="panel_e" label="Your Answers" rendered="#{publicSurveyDetail.bloggerhasalreadytakensurvey}">
             <h:graphicImage url="/images/clear.gif" width="700" height="1"/><br/>
             <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
             <img src="/images/lightbulb_on.png" alt="" align="right"/>
@@ -170,8 +170,8 @@
             <br/>
             <br/>
             <f:verbatim>#{publicSurveyDetail.surveyAnswersForThisBlogger}</f:verbatim>
-        </t:panelTab>
-        <t:panelTab id="panel_f" label="Post to your Blog" rendered="#{publicSurveyDetail.bloggerhasalreadytakensurvey}">
+        </rich:tab>
+        <rich:tab id="panel_f" label="Post to your Blog" rendered="#{publicSurveyDetail.bloggerhasalreadytakensurvey}">
             <h:graphicImage url="/images/clear.gif" width="700" height="1"/><br/>
             <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
             <img src="/images/lightbulb_on.png" alt="" align="right"/>
@@ -183,8 +183,8 @@
             <d:roundedCornerBox uniqueboxname="posttoblog" bodycolor="ffffff" widthinpixels="500">
             <font class="smallfont">&lt;script src="${baseUrl.includinghttp}s?s=#{publicSurveyDetail.survey.surveyid}&amp;u=#{userSession.user.userid}"&gt;&lt;/script&gt;</font>
             </d:roundedCornerBox>
-        </t:panelTab>
-    </t:panelTabbedPane>
+        </rich:tab>
+    </rich:tabPanel>
 
 
 

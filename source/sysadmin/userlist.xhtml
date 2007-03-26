@@ -60,7 +60,8 @@
         <br/>
 
         <t:saveState id="save" value="#{sysadminUserList}"/>
-        <rich:dataTable value="#{sysadminUserList.users}" bandingInterval="2" rows="15" banding="row" var="user">
+        <rich:datascroller for="datatable" maxPages="5"/>
+        <rich:dataTable id="datatable" value="#{sysadminUserList.users}" width="100%" rows="15" var="user">
           <h:column>
             <f:facet name="header">
               <h:outputText value="Userid"/>

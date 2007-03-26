@@ -7,9 +7,7 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:c="http://java.sun.com/jstl/core"
       xmlns:t="http://myfaces.apache.org/tomahawk"
-      xmlns:d="http://dneero.com/taglib"
-      xmlns:rich="http://richfaces.ajax4jsf.org/rich"
-      xmlns:a4j="https://ajax4jsf.dev.java.net/ajax">
+      xmlns:d="http://dneero.com/taglib">
 
 <ui:composition template="/template/template-facelets.xhtml">
     <ui:define name="title">
@@ -23,14 +21,15 @@
 
 <h:form>
 
-    <h:inputHidden name="surveyid" value="#{userSession.currentSurveyid}" />
+    <t:saveState id="save" value="#{researcherSurveyDetail03}"/>
+
 
     <f:verbatim><br/></f:verbatim>
     <f:verbatim><br/></f:verbatim>
 
     <!-- Start Top -->
 
-    <t:panelTabbedPane id="panel" bgcolor="#ffffff">
+    <t:panelTabbedPane switchType="ajax" id="panel" bgcolor="#ffffff">
         <t:panelTab id="panel_b" label="Preview of Survey in Blog">
             <h:graphicImage url="/images/clear.gif" width="725" height="1"/><br/>
             <center>

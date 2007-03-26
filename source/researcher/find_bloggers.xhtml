@@ -36,7 +36,8 @@
         <font class="smallfont">You can add an individual blogger to a panel by viewing his/her Blogger Profile.</font>
         <br/><br/>
     </t:div>
-    <rich:dataTable value="#{researcherFindBloggers.listitems}" rows="50" bandingInterval="2" banding="row" var="listitem" rendered="#{!empty researcherFindBloggers.listitems}">
+    <rich:datascroller for="datatable" maxPages="5"/>
+    <rich:dataTable id="datatable" value="#{researcherFindBloggers.listitems}" width="100%" rows="50" var="listitem" rendered="#{!empty researcherFindBloggers.listitems}">
       <h:column>
         <f:facet name="header">
           <h:outputText value="Blogger Name"/>

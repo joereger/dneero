@@ -18,7 +18,8 @@
 
     <h:form id="panels">
         <t:saveState id="save" value="#{researcherPanelsListBloggers}"/>
-        <rich:dataTable value="#{researcherPanelsListBloggers.listitems}" rows="50" bandingInterval="2" banding="row" var="listitem" rendered="#{!empty researcherPanelsListBloggers.listitems}">
+        <rich:datascroller for="datatable" maxPages="5"/>
+        <rich:dataTable id="datatable" value="#{researcherPanelsListBloggers.listitems}" width="100%" rows="50" var="listitem" rendered="#{!empty researcherPanelsListBloggers.listitems}">
           <h:column>
             <f:facet name="header">
               <h:outputText value="Blogger Name"/>

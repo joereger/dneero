@@ -29,8 +29,8 @@
         <t:saveState id="save" value="#{researcherPanels}"/>
         
         <br/><br/>
-        <rich:datascroller for="panellist" maxPages="5"/>
-        <rich:dataTable value="#{researcherPanels.listitems}" id="panellist" rows="3" bandingInterval="2" banding="row" var="listitem" rendered="#{!empty researcherPanels.listitems}">
+        <rich:datascroller for="datatable" maxPages="5"/>
+        <rich:dataTable id="datatable" value="#{researcherPanels.listitems}" width="100%" rows="3" var="listitem" rendered="#{!empty researcherPanels.listitems}">
           <h:column>
             <f:facet name="header">
               <h:outputText value="Panel Name"/>
@@ -86,6 +86,8 @@
             </a4j:commandLink>
           </h:column>
         </rich:dataTable>
+
+        <f:verbatim>#{researcherPanels.test}</f:verbatim>
 
 
 

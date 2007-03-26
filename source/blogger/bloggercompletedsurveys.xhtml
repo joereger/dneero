@@ -20,7 +20,8 @@
 
         <h:form>
               <t:saveState id="save" value="#{bloggerCompletedsurveys}"/>
-              <rich:dataTable value="#{bloggerCompletedsurveys.list}" bandingInterval="2" rows="25" banding="row" var="listitem">
+              <rich:datascroller for="datatable" maxPages="5"/>
+              <rich:dataTable id="datatable" value="#{bloggerCompletedsurveys.list}" width="100%" rows="25" var="listitem">
               <h:column rendered="true">
                 <f:facet name="header">
                   <h:outputText value="Survey Title"/>
