@@ -60,8 +60,10 @@ public class ResearcherSurveyDetail02 implements Serializable {
 
     public String saveSurveyAsDraft(){
         String save = saveSurvey();
-        if (save!=null && save.equals("success")){
-            return "researchersurveylist";
+        if (save!=null){
+            ResearcherSurveyList bean = (ResearcherSurveyList)Jsf.getManagedBean("researcherSurveyList");
+            return bean.beginView();
+            //return "researchersurveylist";
         } else {
             return save;
         }

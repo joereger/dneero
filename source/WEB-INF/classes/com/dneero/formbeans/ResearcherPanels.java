@@ -24,7 +24,6 @@ public class ResearcherPanels implements Serializable {
     private List listitems;
     private String newpanelname = "My Panel";
     private String msg = "";
-    private String test = "";
 
     public ResearcherPanels() {
 
@@ -53,8 +52,6 @@ public class ResearcherPanels implements Serializable {
                 logger.debug("added panelid="+panel.getPanelid());
             }
         }
-
-        test = SurveyJavascriptServlet.getEmbedSyntax("/", 4, Jsf.getUserSession().getUser().getUserid(), true);
     }
 
     public String createNewPanel(){
@@ -163,11 +160,4 @@ public class ResearcherPanels implements Serializable {
         this.msg = msg;
     }
 
-    public String getTest() {
-        return test;
-    }
-
-    public void setTest(String test) {
-        this.test = test;
-    }
 }

@@ -7,8 +7,8 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:t="http://myfaces.apache.org/tomahawk"
       xmlns:d="http://dneero.com/taglib"
-      xmlns:rich="http://richfaces.ajax4jsf.org/rich"
-      xmlns:a4j="https://ajax4jsf.dev.java.net/ajax">
+
+      >
 
 
 
@@ -132,8 +132,8 @@
         <h:form>
             <t:saveState id="save" value="#{sysadminUserDetail}"/>
             <h:outputText value="There are not yet any financial transactions on this account." rendered="#{empty sysadminUserDetail.balances}"/>
-            <rich:datascroller for="datatable1" maxPages="5"/>
-            <rich:dataTable id="datatable1" value="#{sysadminUserDetail.balances}" width="100%" rows="10" var="balance" rendered="#{!empty sysadminUserDetail.balances}">
+            <t:dataScroller for="datatable1" maxPages="5"/>
+            <t:dataTable id="datatable1" value="#{sysadminUserDetail.balances}" rows="10" var="balance" rendered="#{!empty sysadminUserDetail.balances}" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcol,tcolnowrap,tcol,tcolnowrap,tcolnowrap">
               <h:column>
                 <f:facet name="header">
                   <h:outputText value="Id"/>
@@ -164,7 +164,21 @@
                 </f:facet>
                 <h:outputText value="#{balance.currentbalance}" styleClass="tinyfont" style="font-weight: bold;"/>
               </h:column>
-            </rich:dataTable>
+            </t:dataTable>
+            <t:dataScroller id="scroll_1" for="datatable1" fastStep="10" pageCountVar="pageCount" pageIndexVar="pageIndex" styleClass="scroller" paginator="true" paginatorMaxPages="9" paginatorTableClass="paginator" paginatorActiveColumnStyle="font-weight:bold;">
+                <f:facet name="first" >
+                    <t:graphicImage url="/images/myfaces-examples/arrow-first.gif" border="1" />
+                </f:facet>
+                <f:facet name="last">
+                    <t:graphicImage url="/images/myfaces-examples/arrow-last.gif" border="1" />
+                </f:facet>
+                <f:facet name="previous">
+                    <t:graphicImage url="/images/myfaces-examples/arrow-previous.gif" border="1" />
+                </f:facet>
+                <f:facet name="next">
+                    <t:graphicImage url="/images/myfaces-examples/arrow-next.gif" border="1" />
+                </f:facet>
+            </t:dataScroller>
         </h:form>
         </div>
 
@@ -174,8 +188,8 @@
         <h:form>
             <t:saveState id="save" value="#{sysadminUserDetail}"/>
             <h:outputText value="There are not yet any financial transactions on this account." rendered="#{empty sysadminUserDetail.transactions}"/>
-            <rich:datascroller for="datatable2" maxPages="5"/>
-            <rich:dataTable id="datatable2" value="#{sysadminUserDetail.transactions}" width="100%" rows="10" var="balance" rendered="#{!empty sysadminUserDetail.transactions}">
+            <t:dataScroller for="datatable2" maxPages="5"/>
+            <t:dataTable id="datatable2" value="#{sysadminUserDetail.transactions}" rows="10" var="balance" rendered="#{!empty sysadminUserDetail.transactions}" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcol,tcolnowrap,tcol,tcolnowrap,tcolnowrap">
               <h:column>
                 <f:facet name="header">
                   <h:outputText value="Id"/>
@@ -213,7 +227,21 @@
                 </f:facet>
                 <h:outputText value="#{balance.amt}" styleClass="tinyfont"/>
               </h:column>
-            </rich:dataTable>
+            </t:dataTable>
+            <t:dataScroller id="scroll_2" for="datatable2" fastStep="10" pageCountVar="pageCount" pageIndexVar="pageIndex" styleClass="scroller" paginator="true" paginatorMaxPages="9" paginatorTableClass="paginator" paginatorActiveColumnStyle="font-weight:bold;">
+                <f:facet name="first" >
+                    <t:graphicImage url="/images/myfaces-examples/arrow-first.gif" border="1" />
+                </f:facet>
+                <f:facet name="last">
+                    <t:graphicImage url="/images/myfaces-examples/arrow-last.gif" border="1" />
+                </f:facet>
+                <f:facet name="previous">
+                    <t:graphicImage url="/images/myfaces-examples/arrow-previous.gif" border="1" />
+                </f:facet>
+                <f:facet name="next">
+                    <t:graphicImage url="/images/myfaces-examples/arrow-next.gif" border="1" />
+                </f:facet>
+            </t:dataScroller>
         </h:form>
         </div>
 

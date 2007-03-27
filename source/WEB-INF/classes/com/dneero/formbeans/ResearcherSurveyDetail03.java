@@ -74,7 +74,9 @@ public class ResearcherSurveyDetail03 implements Serializable {
     }
 
     public String saveSurveyAsDraft(){
-        return "researchersurveylist";
+        ResearcherSurveyList bean = (ResearcherSurveyList)Jsf.getManagedBean("researcherSurveyList");
+        return bean.beginView();
+        //return "researchersurveylist";
     }
 
     public String previousStep(){

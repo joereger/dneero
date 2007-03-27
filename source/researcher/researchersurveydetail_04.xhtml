@@ -8,8 +8,8 @@
       xmlns:t="http://myfaces.apache.org/tomahawk"
       xmlns:d="http://dneero.com/taglib"
       xmlns:c="http://java.sun.com/jstl/core"
-      xmlns:rich="http://richfaces.ajax4jsf.org/rich"
-      xmlns:a4j="https://ajax4jsf.dev.java.net/ajax">
+
+      >
 
 <ui:composition template="/template/template-facelets.xhtml">
     <ui:define name="title">
@@ -45,7 +45,7 @@
         </h:panelGroup>
         <h:panelGroup>
             <h:selectOneMenu value="#{researcherSurveyDetail04.minsocialinfluencepercentile}" id="minsocialinfluencepercentile" required="true" rendered="#{researcherSurveyDetail04.status eq 1}">
-               <f:selectItems value="#{percentiles}"/>
+               <f:selectItems value="#{staticVariables.percentiles}"/>
             </h:selectOneMenu>
             <h:outputText value="#{researcherSurveyDetail04.minsocialinfluencepercentile}" rendered="#{researcherSurveyDetail04.status ne 1}" escape="false"></h:outputText>
         </h:panelGroup>
@@ -58,7 +58,7 @@
         </h:panelGroup>
         <h:panelGroup>
             <h:selectOneMenu value="#{researcherSurveyDetail04.minsocialinfluencepercentile90days}" id="minsocialinfluencepercentile90days" required="true" rendered="#{researcherSurveyDetail04.status eq 1}">
-               <f:selectItems value="#{percentiles}"/>
+               <f:selectItems value="#{staticVariables.percentiles}"/>
             </h:selectOneMenu>
             <h:outputText value="#{researcherSurveyDetail04.minsocialinfluencepercentile90days}" rendered="#{researcherSurveyDetail04.status ne 1}" escape="false"></h:outputText>
         </h:panelGroup>
@@ -74,7 +74,9 @@
             <h:message for="blogquality" styleClass="RED"></h:message>
         </h:panelGroup>
         <h:panelGroup>
-            <rich:inputNumberSlider value="#{researcherSurveyDetail04.blogquality}" id="blogquality" width="200" minValue="0" maxValue="10" step="1" rendered="#{researcherSurveyDetail04.status eq 1}"/>
+            <h:selectOneListbox value="#{researcherSurveyDetail04.blogquality}" size="1" id="blogquality" layout="pageDirection" required="true" rendered="#{researcherSurveyDetail04.status eq 1}">
+                <f:selectItems value="#{staticVariables.blogqualities}"/>
+            </h:selectOneListbox>
             <h:outputText value="#{researcherSurveyDetail04.blogquality}" rendered="#{researcherSurveyDetail04.status ne 1}" escape="false"></h:outputText>
         </h:panelGroup>
 
@@ -85,7 +87,9 @@
             <h:message for="blogquality90days" styleClass="RED"></h:message>
         </h:panelGroup>
         <h:panelGroup>
-            <rich:inputNumberSlider value="#{researcherSurveyDetail04.blogquality90days}" id="blogquality90days" width="200" minValue="0" maxValue="10" step="1" rendered="#{researcherSurveyDetail04.status eq 1}"/>
+            <h:selectOneListbox value="#{researcherSurveyDetail04.blogquality90days}" size="1" id="blogquality90days" layout="pageDirection" required="true" rendered="#{researcherSurveyDetail04.status eq 1}">
+                <f:selectItems value="#{staticVariables.blogqualities}"/>
+            </h:selectOneListbox>
             <h:outputText value="#{researcherSurveyDetail04.blogquality90days}" rendered="#{researcherSurveyDetail04.status ne 1}" escape="false"></h:outputText>
         </h:panelGroup>
 

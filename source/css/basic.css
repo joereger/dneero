@@ -15,16 +15,24 @@
 .scrollerTable {
 	font-family : verdana, Geneva, Arial, Helvetica, sans-serif;
 	font-size: 12px;
-	color: #000000;
+	color: #cccccc;
     padding: 2;
     border-style: solid;
-    border-width: 1px;
-    width: 400px;
+    border-width: 0px;
 }
 
 .scroller {
-    padding-left:20px;
+    padding-left:0px;
 }
+
+.dataTable {
+	font-family : verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size: 9px;
+	color: #000000;
+    width: 100%;
+}
+
+
 
 .paginator {
 	font-family : verdana, Geneva, Arial, Helvetica, sans-serif;
@@ -41,54 +49,70 @@
     border-width: 1px;
 }
 
-.standardTable_Header {
-	color: #000000;
-    background-color: #FFDD00;
-    padding: 3;
-    text-align: center;
-    border: none;
-}
-
-.standardTable_SortHeader {
-    background-color: #FFDD00;
-    color: #000000;
-    padding: 3;
-    text-align: center;
-    border: none;
+.theader, .theadersort {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 10px;
+    text-align: left;
+    border-style: solid;
+    border-color: #000000;
+    border-width: 0px 0px 1px 0px;
     font-weight: bold;
+    color: #666666;
 }
 
 .standardTable_Footer {
     background-color: #FFFFE0;
 }
 
+/*
 .standardTable_Row1 {
-    background-color: #FFFFE0;
+    background-color: #ffffff;
 }
 
 .standardTable_Row2 {
-    background-color: #FFFFE0;
+    background-color: #f6f6f6;
+}
+*/
+
+.trow1, .trow2 {
+    text-align: left;
+    border-style: solid;
+    border-color: #e6e6e6;
+    border-width: 0px 0px 1px 0px;
+    font-size: 12px;
+    color: #000000;
+    vertical-align: top;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
-.standardTable_Column {
+
+
+.tcol {
+    text-align: left;
 }
 
-.standardTable_ColumnCentered {
-    text-align: center
+.tcolnowrap {
+    text-align: left;
+    white-space: nowrap;
 }
 
-a
-{
+.standardTable_Column_Centered {
+    text-align: center;
+}
+
+/*
+a{
 	color: #333366;
     text-decoration: underline;
     font-size: 12px;
 }
 
-a:hover
-{
+a:hover{
 	color: #333366;
     text-decoration: underline;
 }
+*/
 
 .error {
 	font-family : verdana, Geneva, Arial, Helvetica, sans-serif;

@@ -109,7 +109,9 @@ public class ResearcherEmailinvite implements Serializable {
         Jsf.getUserSession().setEmailinvitemessage(message);
         Jsf.getUserSession().setEmailinvitesurveyiduserisinvitedto(surveyiduserisinvitedto);
 
-        return "researcheremailinvitecomplete";
+        ResearcherEmailinviteComplete bean = (ResearcherEmailinviteComplete)Jsf.getManagedBean("researcherEmailinviteComplete");
+        return bean.beginView();
+        //return "researcheremailinvitecomplete";
     }
 
     public LinkedHashMap getSurveyids(){

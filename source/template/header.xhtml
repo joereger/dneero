@@ -7,8 +7,8 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:d="http://dneero.com/taglib"
       xmlns:c="http://java.sun.com/jstl/core"
-      xmlns:rich="http://richfaces.ajax4jsf.org/rich"
-      xmlns:a4j="https://ajax4jsf.dev.java.net/ajax">
+
+      >
 
     <ui:define name="header">
         <h:form>
@@ -43,28 +43,28 @@
                         <img src="/images/clear.gif" width="1" height="85"/>
                     </td>
                     <td valign="top" background="/images/navtabs2/mainbar_bg.gif">
-                        <a4j:commandLink action="#{publicIndex.beginView}">
+                        <h:commandLink action="#{publicIndex.beginView}">
                         <c:if test="${navtab!='home'}"><img src="/images/navtabs2/home_off.gif" width="138" height="70" border="0"/></c:if>
                         <c:if test="${navtab=='home'}"><img src="/images/navtabs2/home_on.gif" width="138" height="70" border="0"/></c:if>
-                        </a4j:commandLink>
+                        </h:commandLink>
                     </td>
                     <td valign="top" background="/images/navtabs2/mainbar_bg.gif">
-                        <a4j:commandLink action="#{bloggerIndex.beginView}">
+                        <h:commandLink action="#{bloggerIndex.beginView}">
                         <c:if test="${navtab!='bloggers'}"><img src="/images/navtabs2/bloggers_off.gif" width="138" height="70" border="0"/></c:if>
                         <c:if test="${navtab=='bloggers'}"><img src="/images/navtabs2/bloggers_on.gif" width="138" height="70" border="0"/></c:if>
-                        </a4j:commandLink>
+                        </h:commandLink>
                     </td>
                     <td valign="top" background="/images/navtabs2/mainbar_bg.gif">
-                        <a4j:commandLink action="#{researcherIndex.beginView}">
+                        <h:commandLink action="#{researcherIndex.beginView}">
                         <c:if test="${navtab!='researchers'}"><img src="/images/navtabs2/researchers_off.gif" width="138" height="70" border="0"/></c:if>
                         <c:if test="${navtab=='researchers'}"><img src="/images/navtabs2/researchers_on.gif" width="138" height="70" border="0"/></c:if>
-                        </a4j:commandLink>
+                        </h:commandLink>
                     </td>
                     <td valign="top" background="/images/navtabs2/mainbar_bg.gif">
-                        <c:if test="${navtab!='youraccount' and userSession.isloggedin}"><a4j:commandLink action="#{accountIndex.beginView}"><img src="/images/navtabs2/youraccount_off.gif" width="138" height="70" border="0"/></a4j:commandLink></c:if>
-                        <c:if test="${navtab=='youraccount' and userSession.isloggedin}"><a4j:commandLink action="#{accountIndex.beginView}"><img src="/images/navtabs2/youraccount_on.gif" width="138" height="70" border="0"/></a4j:commandLink></c:if>
-                        <c:if test="${navtab!='youraccount' and !userSession.isloggedin}"><a4j:commandLink action="#{registration.beginView}"><img src="/images/navtabs2/youraccount_off.gif" width="138" height="70" border="0"/></a4j:commandLink></c:if>
-                        <c:if test="${navtab=='youraccount' and !userSession.isloggedin}"><a4j:commandLink action="#{registration.beginView}"><img src="/images/navtabs2/youraccount_on.gif" width="138" height="70" border="0"/></a4j:commandLink></c:if>
+                        <c:if test="${navtab!='youraccount' and userSession.isloggedin}"><h:commandLink action="#{accountIndex.beginView}"><img src="/images/navtabs2/youraccount_off.gif" alt="" width="138" height="70" border="0"/></h:commandLink></c:if>
+                        <c:if test="${navtab=='youraccount' and userSession.isloggedin}"><h:commandLink action="#{accountIndex.beginView}"><img src="/images/navtabs2/youraccount_on.gif" alt="" width="138" height="70" border="0"/></h:commandLink></c:if>
+                        <c:if test="${navtab!='youraccount' and !userSession.isloggedin}"><h:commandLink action="#{registration.beginView}"><img src="/images/navtabs2/youraccount_off.gif" alt="" width="138" height="70" border="0"/></h:commandLink></c:if>
+                        <c:if test="${navtab=='youraccount' and !userSession.isloggedin}"><h:commandLink action="#{registration.beginView}"><img src="/images/navtabs2/youraccount_on.gif" alt="" width="138" height="70" border="0"/></h:commandLink></c:if>
                     </td>
                 </tr>
                 <tr>
@@ -81,7 +81,7 @@
                             <h:commandLink value="Your Blogs" action="#{bloggerBlogsList.beginView}" styleClass="subnavfont" style="padding-left: 15px; color: #000000;" rendered="#{userSession.isloggedin and (userSession.user.bloggerid gt 0)}"/>
                             <h:commandLink value="Revenue Share" action="#{bloggerEarningsRevshare.beginView}" styleClass="subnavfont" style="padding-left: 15px; color: #000000;" rendered="#{userSession.isloggedin and (userSession.user.bloggerid gt 0)}"/>
                             <h:commandLink value="FAQ" action="bloggerfaq" style="padding-left: 15px; color: #000000;" styleClass="subnavfont"/>
-                            <font class="subnavfont" style="padding-left: 15px; color: #000000;"><a4j:commandLink action="#{bloggerIndex.beginView}"><f:param name="showmarketingmaterial" value="1"/>Basics</a4j:commandLink></font>
+                            <font class="subnavfont" style="padding-left: 15px; color: #000000;"><h:commandLink action="#{bloggerIndex.beginView}"><f:param name="showmarketingmaterial" value="1"/>Basics</h:commandLink></font>
                         </c:if>
                         <c:if test="${navtab=='researchers'}">
                             <h:commandLink value="My Surveys and Results" action="#{researcherSurveyList.beginView}" styleClass="subnavfont" style="padding-left: 15px; color: #000000;" rendered="#{userSession.isloggedin and (userSession.user.researcherid gt 0)}"/>
@@ -91,7 +91,7 @@
                             <h:commandLink value="Researcher Profile" action="#{researcherDetails.beginView}" styleClass="subnavfont" style="padding-left: 15px; color: #000000;" rendered="#{userSession.isloggedin and (userSession.user.researcherid gt 0)}"/>
                             <h:commandLink value="Billing Info" action="#{researcherBilling.beginView}" styleClass="subnavfont" style="padding-left: 15px; color: #000000;" rendered="#{userSession.isloggedin and (userSession.user.researcherid gt 0)}"/>
                             <h:commandLink value="FAQ" action="researcherfaq" style="padding-left: 15px; color: #000000;" styleClass="subnavfont"/>
-                            <font class="subnavfont" style="padding-left: 15px; color: #000000;"><a4j:commandLink action="#{researcherIndex.beginView}"><f:param name="showmarketingmaterial" value="1"/>Basics</a4j:commandLink></font>
+                            <font class="subnavfont" style="padding-left: 15px; color: #000000;"><h:commandLink action="#{researcherIndex.beginView}"><f:param name="showmarketingmaterial" value="1"/>Basics</h:commandLink></font>
                         </c:if>
                         <c:if test="${navtab=='youraccount'}">
                             <h:commandLink value="Account Balance" action="#{accountBalance.beginView}" style="padding-left: 15px; color: #000000;" styleClass="subnavfont" rendered="#{userSession.isloggedin}"/>

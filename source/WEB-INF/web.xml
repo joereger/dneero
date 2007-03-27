@@ -17,7 +17,7 @@
 
 
 
-
+    <!--
     <context-param>
         <param-name>org.ajax4jsf.VIEW_HANDLERS</param-name>
         <param-value>com.sun.facelets.FaceletViewHandler</param-value>
@@ -42,7 +42,7 @@
        <dispatcher>FORWARD</dispatcher>
        <dispatcher>INCLUDE</dispatcher>
      </filter-mapping>
-
+     -->
 
 
 

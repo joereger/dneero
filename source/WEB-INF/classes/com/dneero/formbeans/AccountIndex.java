@@ -10,6 +10,7 @@ import java.util.List;
 import java.io.Serializable;
 
 import org.hibernate.criterion.Restrictions;
+import org.apache.log4j.Logger;
 
 /**
  * User: Joe Reger Jr
@@ -20,6 +21,7 @@ public class AccountIndex implements Serializable {
 
     private String currentbalance = "$0.00";
     private boolean userhasresponsependings = false;
+    private String init;
 
     public AccountIndex(){
 
@@ -42,6 +44,20 @@ public class AccountIndex implements Serializable {
             }
         }
 
+    }
+
+    public String getInit() {
+        return init;
+    }
+
+    public void setInit(String init) {
+        Logger logger = Logger.getLogger(this.getClass().getName());
+        if (init!=null && init.equals("doinit")){
+            logger.debug("init = doinit so calling load()");
+            load();
+        } else {
+            logger.debug("init null or not doinit");
+        }
     }
 
 

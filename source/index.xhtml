@@ -8,8 +8,8 @@
       xmlns:t="http://myfaces.apache.org/tomahawk"
       xmlns:d="http://dneero.com/taglib"
       xmlns:c="http://java.sun.com/jstl/core"
-      xmlns:rich="http://richfaces.ajax4jsf.org/rich"
-      xmlns:a4j="https://ajax4jsf.dev.java.net/ajax">
+
+      >
 
 
 <ui:composition template="/template/template-facelets.xhtml">
@@ -27,14 +27,14 @@
     <table cellpadding="0" cellspacing="0" border="0" width="750">
        <tr>
            <td align="center">
-               <a href='/blogger/index.jsf'>
-               <img src="/images/homepage-v2-blogger.png" width="376" height="355" border="0"/>
-               </a>
+               <h:commandLink action="#{bloggerIndex.beginView}">
+               <img src="/images/homepage-v2-blogger.png" width="376" height="355" border="0" alt=""/>
+               </h:commandLink>
            </td>
            <td align="center">
-               <a href='/researcher/index.jsf'>
-               <img src="/images/homepage-v2-researcher.png" width="375" height="355" border="0"/>
-               </a>
+               <h:commandLink action="#{researcherIndex.beginView}">
+               <img src="/images/homepage-v2-researcher.png" width="375" height="355" border="0"  alt=""/>
+               </h:commandLink>
            </td>
        </tr>
 

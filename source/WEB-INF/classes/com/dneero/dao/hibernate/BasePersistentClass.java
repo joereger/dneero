@@ -16,10 +16,10 @@ import com.dneero.util.GeneralException;
 
 public class BasePersistentClass implements Lifecycle, Validatable, Serializable {
 
-    //private Logger logger = Logger.getLogger(this.getClass().getName());
-    private static Logger logger = Logger.getLogger(BasePersistentClass.class);
+
 
    public void save() throws GeneralException {
+       Logger logger = Logger.getLogger(BasePersistentClass.class);
        logger.debug("save() called on "+this.getClass().getName());
        Session hsession = HibernateUtil.getSession();
        try{
@@ -62,6 +62,7 @@ public class BasePersistentClass implements Lifecycle, Validatable, Serializable
         }
    }
    public void delete() throws HibernateException {
+        Logger logger = Logger.getLogger(BasePersistentClass.class);
         logger.debug("delete() called on "+this.getClass().getName());
         Session hsession = HibernateUtil.getSession();
         hsession.beginTransaction();
@@ -69,6 +70,7 @@ public class BasePersistentClass implements Lifecycle, Validatable, Serializable
         hsession.getTransaction().commit();
    }
    public void refresh() throws HibernateException {
+        Logger logger = Logger.getLogger(BasePersistentClass.class);
         logger.debug("Refresh called on "+this.getClass().getName());
         if (HibernateUtil.getSession().contains(this)){
             logger.debug("    Refreshing from hibernate");
@@ -92,6 +94,7 @@ public class BasePersistentClass implements Lifecycle, Validatable, Serializable
       return NO_VETO;
    }
    public void onLoad(Session s, Serializable id) {
+      Logger logger = Logger.getLogger(BasePersistentClass.class);
       logger.debug("onLoad() called _id="+id);
    }
 

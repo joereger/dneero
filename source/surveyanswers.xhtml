@@ -7,8 +7,8 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:t="http://myfaces.apache.org/tomahawk"
       xmlns:d="http://dneero.com/taglib"
-      xmlns:rich="http://richfaces.ajax4jsf.org/rich"
-      xmlns:a4j="https://ajax4jsf.dev.java.net/ajax">
+
+      >
 
 <ui:composition template="/template/template-facelets.xhtml">
     <ui:define name="title">Survey Results<br/></ui:define>
@@ -31,16 +31,16 @@
                 <font class="smallfont">#{publicSurveyAnswers.survey.description}</font>
                 <br/><br/>
 
-                <rich:tabPanel switchType="ajax" id="panel" bgcolor="#ffffff">
-                    <rich:tab id="panel_a" label="People from this Blog">
+                <t:panelTabbedPane id="panel" bgcolor="#ffffff">
+                    <t:panelTab id="panel_a" label="People from this Blog">
                         <h:graphicImage url="/images/clear.gif" width="450" height="1"/><br/>
                         <f:verbatim escape="false">#{publicSurveyAnswers.htmlreferredbyblogid}</f:verbatim>
-                    </rich:tab>
-                    <rich:tab id="panel_b" label="All People Who Answered">
+                    </t:panelTab>
+                    <t:panelTab id="panel_b" label="All People Who Answered">
                         <h:graphicImage url="/images/clear.gif" width="450" height="1"/><br/>
                         <f:verbatim escape="false">#{publicSurveyAnswers.html}</f:verbatim>
-                    </rich:tab>
-                </rich:tabPanel>
+                    </t:panelTab>
+                </t:panelTabbedPane>
 
                 <br/><br/>
                 <h:commandButton action="publicsurveytake" value="How Would You Answer?  We'll Pay For Your Opinion!" styleClass="formsubmitbutton"></h:commandButton>

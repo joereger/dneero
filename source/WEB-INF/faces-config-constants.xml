@@ -139,45 +139,7 @@
         </map-entries>
     </managed-bean>
 
-    <managed-bean>
-        <managed-bean-name>percentiles</managed-bean-name>
-        <managed-bean-class>java.util.LinkedHashMap</managed-bean-class>
-        <managed-bean-scope>application</managed-bean-scope>
-        <map-entries>
-            <map-entry>
-                <key>Top 1%</key>
-                <value>1</value>
-            </map-entry>
-            <map-entry>
-                <key>Top 5%</key>
-                <value>5</value>
-            </map-entry>
-            <map-entry>
-                <key>Top 10%</key>
-                <value>10</value>
-            </map-entry>
-            <map-entry>
-                <key>Top 15%</key>
-                <value>15</value>
-            </map-entry>
-            <map-entry>
-                <key>Top 20%</key>
-                <value>20</value>
-            </map-entry>
-            <map-entry>
-                <key>Top 25%</key>
-                <value>25</value>
-            </map-entry>
-            <map-entry>
-                <key>Top 50%</key>
-                <value>50</value>
-            </map-entry>
-            <map-entry>
-                <key>All Bloggers</key>
-                <value>100</value>
-            </map-entry>
-        </map-entries>
-    </managed-bean>
+    
 
     <managed-bean>
         <managed-bean-name>incomes</managed-bean-name>

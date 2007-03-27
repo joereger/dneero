@@ -8,12 +8,12 @@
       xmlns:t="http://myfaces.apache.org/tomahawk"
       xmlns:d="http://dneero.com/taglib"
       xmlns:c="http://java.sun.com/jstl/core"
-      xmlns:rich="http://richfaces.ajax4jsf.org/rich"
-      xmlns:a4j="https://ajax4jsf.dev.java.net/ajax">
+
+      >
 
 <ui:composition template="/template/template-facelets.xhtml">
     <ui:define name="title">
-        <img src="/images/process-train-blogger-01.gif" align="right" width="171" height="73"></img>
+        <img src="/images/process-train-blogger-01.gif" align="right" width="171" height="73" alt=""></img>
         <h:outputText value="Survey: ${bloggerSurveyDetail.survey.title}" styleClass="pagetitlefont"/>
         <br clear="all"/>
     </ui:define>
@@ -34,8 +34,8 @@
     <br/>
 
 
-    <rich:tabPanel switchType="ajax" id="panel" bgcolor="#ffffff">
-        <rich:tab id="panel_b" label="Summary" rendered="true">
+    <t:panelTabbedPane id="panel" bgcolor="#ffffff">
+        <t:panelTab id="panel_b" label="Summary" rendered="true">
             <h:graphicImage url="/images/clear.gif" width="700" height="1"/><br/>
             <table width="100%" cellpadding="5">
                 <tr>
@@ -112,8 +112,8 @@
                 </h:panelGroup>
              </h:panelGrid>
 
-        </rich:tab>
-        <rich:tab id="panel_c" label="Question Preview">
+        </t:panelTab>
+        <t:panelTab id="panel_c" label="Question Preview">
             <h:graphicImage url="/images/clear.gif" width="700" height="1"/><br/>
             <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
             <img src="/images/lightbulb_on.png" alt="" align="right"/>
@@ -124,8 +124,8 @@
             <br/>
             <f:verbatim>#{bloggerSurveyDetail.surveyForTakers}</f:verbatim>
             <br/><br/>
-        </rich:tab>
-        <rich:tab id="panel_d" label="On-Blog Preview">
+        </t:panelTab>
+        <t:panelTab id="panel_d" label="On-Blog Preview">
             <h:graphicImage url="/images/clear.gif" width="700" height="1"/><br/>
             <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
             <img src="/images/lightbulb_on.png" alt="" align="right"/>
@@ -136,10 +136,10 @@
             <br/>
             <f:verbatim>#{bloggerSurveyDetail.surveyOnBlogPreview}</f:verbatim>
             <br/><br/>
-        </rich:tab>
+        </t:panelTab>
 
 
-    </rich:tabPanel>
+    </t:panelTabbedPane>
 
 
 

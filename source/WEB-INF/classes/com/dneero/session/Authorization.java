@@ -19,6 +19,7 @@ import com.dneero.systemprops.SystemProperty;
 import com.dneero.systemprops.BaseUrl;
 import com.dneero.eula.EulaHelper;
 import com.dneero.xmpp.SendXMPPMessage;
+import com.dneero.formbeans.LoginAgreeNewEula;
 
 /**
  * User: Joe Reger Jr
@@ -151,6 +152,8 @@ public class Authorization extends UIComponentBase {
         //Now check the eula
         if (redirectonfail.equals("true") && Jsf.getUserSession().getIsloggedin() && !Jsf.getUserSession().getIseulaok()){
             System.out.println("redirecting to force eula accept");
+            LoginAgreeNewEula bean = (LoginAgreeNewEula)Jsf.getManagedBean("loginAgreeNewEula");
+            bean.beginView();
             context.getExternalContext().redirect("/loginagreeneweula.jsf");
             return;
         }
@@ -183,18 +186,9 @@ public class Authorization extends UIComponentBase {
             if (redirectonfail.equals("true")){
                 UserSession userSession = Jsf.getUserSession();
                 if (userSession!=null && userSession.getUser()!=null && userSession.getIsloggedin()){
-                    if(acl.equals("blogger") && userSession.getUser().getBloggerid()==0){
-                        context.getExternalContext().redirect("/blogger/bloggerdetails.jsf");
-                        return;
-                    }
-                    if(acl.equals("researcher") && userSession.getUser().getResearcherid()==0){
-                        context.getExternalContext().redirect("/researcher/researcherdetails.jsf");
-                        return;
-                    }
                     context.getExternalContext().redirect("/notauthorized.jsf");
                     return;
                 } else {
-
                     context.getExternalContext().redirect("/login.jsf");
                     return;
                 }

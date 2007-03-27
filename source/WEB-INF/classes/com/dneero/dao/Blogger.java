@@ -19,7 +19,7 @@ import java.util.HashSet;
  */
 
 public class Blogger extends BasePersistentClass implements java.io.Serializable, RegerEntity, AuthControlled {
-    Logger logger = Logger.getLogger(this.getClass().getName());
+
 
     // Fields
      private int bloggerid;
@@ -192,6 +192,7 @@ public class Blogger extends BasePersistentClass implements java.io.Serializable
     }
 
     public Set<Blog> getBlogs() {
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("getBlogs() called");
         return blogs;
     }

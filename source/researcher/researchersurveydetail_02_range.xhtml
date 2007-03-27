@@ -7,8 +7,8 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:t="http://myfaces.apache.org/tomahawk"
       xmlns:d="http://dneero.com/taglib"
-      xmlns:rich="http://richfaces.ajax4jsf.org/rich"
-      xmlns:a4j="https://ajax4jsf.dev.java.net/ajax">
+
+      >
 
 <ui:composition template="/template/template-facelets.xhtml">
     <ui:define name="title">
@@ -149,7 +149,7 @@
         </h:panelGroup>
         <h:panelGroup>
             <h:commandButton action="#{researcherSurveyDetail02range.saveQuestion}" value="Save Question and Continue" styleClass="formsubmitbutton"></h:commandButton>
-            <br/><br/><h:commandLink value="Nevermind, Take me Back" styleClass="tinyfont" action="researchersurveydetail_02" immediate="true"/>
+            <br/><br/><h:commandLink value="Nevermind, Take me Back" styleClass="tinyfont" action="#{researcherSurveyDetail02.beginView}" immediate="true"/>
         </h:panelGroup>
         <h:panelGroup>
         </h:panelGroup>

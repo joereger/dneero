@@ -6,9 +6,7 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:t="http://myfaces.apache.org/tomahawk"
-      xmlns:d="http://dneero.com/taglib"
-      xmlns:rich="http://richfaces.ajax4jsf.org/rich"
-      xmlns:a4j="https://ajax4jsf.dev.java.net/ajax">
+      xmlns:d="http://dneero.com/taglib">
 
 <ui:composition template="/template/template-facelets.xhtml">
     <ui:define name="title">Panels</ui:define>
@@ -29,66 +27,77 @@
         <t:saveState id="save" value="#{researcherPanels}"/>
         
         <br/><br/>
-        <rich:datascroller for="datatable" maxPages="5"/>
-        <rich:dataTable id="datatable" value="#{researcherPanels.listitems}" width="100%" rows="3" var="listitem" rendered="#{!empty researcherPanels.listitems}">
+
+        <t:dataTable id="datatable" value="#{researcherPanels.listitems}" var="listitem" rendered="#{!empty researcherPanels.listitems}" rows="10" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcol,tcolnowrap,tcol,tcolnowrap,tcolnowrap">
           <h:column>
             <f:facet name="header">
               <h:outputText value="Panel Name"/>
             </f:facet>
-            <h:outputText value="#{listitem.panel.name}" styleClass="mediumfont"/>
+            <h:outputText value="#{listitem.panel.name}" styleClass="normalfont" style="font-weight: bold;"/>
           </h:column>
           <h:column>
             <f:facet name="header">
               <h:outputText value="Create Date"/>
             </f:facet>
-            <h:outputText value="#{listitem.panel.createdate}" styleClass="normalfont"><f:convertDateTime type="both" dateStyle="short" timeStyle="medium"/></h:outputText>
+            <h:outputText value="#{listitem.panel.createdate}" styleClass="smallfont"><f:convertDateTime type="both" dateStyle="short" timeStyle="medium"/></h:outputText>
           </h:column>
           <h:column>
             <f:facet name="header">
               <h:outputText value="Members"/>
             </f:facet>
-            <h:outputText value="#{listitem.numberofmembers}" styleClass="normalfont"/>
+            <h:outputText value="#{listitem.numberofmembers}" styleClass="smallfont"/>
           </h:column>
           <h:column>
             <f:facet name="header">
               <h:outputText value="-" style="color: #ffffff;"/>
             </f:facet>
-            <a4j:commandLink action="#{researcherPanelsListBloggers.beginView}">
-                <h:outputText value="View Members" styleClass="normalfont" escape="false" />
+            <h:commandLink action="#{researcherPanelsListBloggers.beginView}">
+                <h:outputText value="View Members" styleClass="smallfont" escape="false" />
                 <f:param name="panelid" value="#{listitem.panel.panelid}" />
-            </a4j:commandLink>
+            </h:commandLink>
           </h:column>
           <h:column>
             <f:facet name="header">
               <h:outputText value="-" style="color: #ffffff;"/>
             </f:facet>
-            <a4j:commandLink action="#{researcherFindBloggers.beginView}">
-                <h:outputText value="Find Bloggers to Add" styleClass="normalfont" escape="false" />
+            <h:commandLink action="#{researcherFindBloggers.beginView}">
+                <h:outputText value="Find Bloggers to Add" styleClass="smallfont" escape="false" />
                 <f:param name="panelid" value="#{listitem.panel.panelid}" />
-            </a4j:commandLink>
+            </h:commandLink>
           </h:column>
           <h:column>
             <f:facet name="header">
               <h:outputText value="-" style="color: #ffffff;"/>
             </f:facet>
-            <a4j:commandLink action="#{researcherPanelsEdit.beginView}">
-                <h:outputText value="Edit" styleClass="normalfont" escape="false" />
+            <h:commandLink action="#{researcherPanelsEdit.beginView}">
+                <h:outputText value="Edit" styleClass="smallfont" escape="false" />
                 <f:param name="panelid" value="#{listitem.panel.panelid}" />
-            </a4j:commandLink>
+            </h:commandLink>
           </h:column>
           <h:column>
             <f:facet name="header">
               <h:outputText value="-" style="color: #ffffff;"/>
             </f:facet>
-            <a4j:commandLink action="#{researcherPanels.deletePanel}">
-                <h:outputText value="Delete" styleClass="normalfont" escape="false" />
+            <h:commandLink action="#{researcherPanels.deletePanel}">
+                <h:outputText value="Delete" styleClass="smallfont" escape="false" />
                 <f:param name="panelid" value="#{listitem.panel.panelid}" />
-            </a4j:commandLink>
+            </h:commandLink>
           </h:column>
-        </rich:dataTable>
-
-        <f:verbatim>#{researcherPanels.test}</f:verbatim>
-
+        </t:dataTable>
+        <t:dataScroller id="scroll_1" for="datatable" fastStep="10" pageCountVar="pageCount" pageIndexVar="pageIndex" styleClass="scroller" paginator="true" paginatorMaxPages="9" paginatorTableClass="paginator" paginatorActiveColumnStyle="font-weight:bold;">
+            <f:facet name="first" >
+                <t:graphicImage url="/images/myfaces-examples/arrow-first.gif" border="1" />
+            </f:facet>
+            <f:facet name="last">
+                <t:graphicImage url="/images/myfaces-examples/arrow-last.gif" border="1" />
+            </f:facet>
+            <f:facet name="previous">
+                <t:graphicImage url="/images/myfaces-examples/arrow-previous.gif" border="1" />
+            </f:facet>
+            <f:facet name="next">
+                <t:graphicImage url="/images/myfaces-examples/arrow-next.gif" border="1" />
+            </f:facet>
+        </t:dataScroller>
 
 
 

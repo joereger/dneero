@@ -19,6 +19,7 @@ import org.apache.log4j.Logger;
 public class LoginAgreeNewEula implements Serializable {
 
     private String eula;
+    private String init;
 
     public LoginAgreeNewEula(){
 
@@ -64,6 +65,20 @@ public class LoginAgreeNewEula implements Serializable {
 
     }
 
+
+    public String getInit() {
+        return init;
+    }
+
+    public void setInit(String init) {
+        Logger logger = Logger.getLogger(this.getClass().getName());
+        if (init!=null && init.equals("doinit")){
+            logger.debug("init = doinit so calling load()");
+            load();
+        } else {
+            logger.debug("init null or not doinit");
+        }
+    }
 
     public String getEula() {
         return eula;

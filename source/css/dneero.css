@@ -1,4 +1,14 @@
-
+body {
+    padding:0px;
+    margin:0px;
+    background:#FFFFFF;
+    background-image: url("/images/background-grey.gif");
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    font-weight: normal;
+    color: #000000;
+    background-color: #ffffff;
+}
 
 a, a:link, a:visited, a:active {
     color: #596697;
@@ -128,7 +138,7 @@ hr {
 }
 
 .af_column_sortable-header-text a{
-    color: #0000ff;   
+    color: #0000ff;
 }
 
 

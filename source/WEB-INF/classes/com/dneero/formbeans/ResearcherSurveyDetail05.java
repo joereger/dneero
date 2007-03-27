@@ -68,7 +68,9 @@ public class ResearcherSurveyDetail05 implements Serializable {
     public String saveSurveyAsDraft(){
         String save = saveSurvey();
         if (save!=null){
-            return "researchersurveylist";
+            ResearcherSurveyList bean = (ResearcherSurveyList)Jsf.getManagedBean("researcherSurveyList");
+            return bean.beginView();
+            //return "researchersurveylist";
         } else {
             return save;
         }
@@ -76,7 +78,7 @@ public class ResearcherSurveyDetail05 implements Serializable {
 
     public String previousStep(){
         String save = saveSurvey();
-        if (save!=null && save.equals("success")){
+        if (save!=null){
             ResearcherSurveyDetail04 bean = (ResearcherSurveyDetail04)Jsf.getManagedBean("researcherSurveyDetail04");
             return bean.beginView();
             //return "researchersurveydetail_04";

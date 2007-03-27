@@ -8,8 +8,8 @@
       xmlns:t="http://myfaces.apache.org/tomahawk"
       xmlns:d="http://dneero.com/taglib"
       xmlns:c="http://java.sun.com/jstl/core"
-      xmlns:rich="http://richfaces.ajax4jsf.org/rich"
-      xmlns:a4j="https://ajax4jsf.dev.java.net/ajax">
+
+      >
 
 <ui:composition template="/template/template-facelets.xhtml">
     <ui:define name="title">Account Balance: #{accountBalance.currentbalance}<br/><br/></ui:define>
@@ -25,8 +25,8 @@
         <t:saveState id="save" value="#{accountBalance}"/>
 
         <h:outputText value="There are not yet any financial transactions on your account.  Go fill out some surveys!  Or create some!" rendered="#{empty accountBalance.balances}"/>
-        <rich:datascroller for="datatable" maxPages="5"/>
-        <rich:dataTable id="datatable" value="#{accountBalance.balances}" width="100%" rows="25" var="balance" rendered="#{!empty accountBalance.balances}">
+        <t:dataScroller for="datatable" maxPages="5"/>
+        <t:dataTable id="datatable" value="#{accountBalance.balances}" rows="25" var="balance" rendered="#{!empty accountBalance.balances}" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcol,tcolnowrap,tcol,tcolnowrap,tcolnowrap">
           <h:column>
             <f:facet name="header">
               <h:outputText value="Id"/>
@@ -44,14 +44,14 @@
               <h:outputText value="Description"/>
             </f:facet>
             <h:outputText value="#{balance.description}" styleClass="smallfont" rendered="#{balance.optionalimpressionpaymentgroupid le 0 and balance.optionalimpressionchargegroupid le 0}"/>
-            <a4j:commandLink action="#{accountImpressionpaymentgroup.beginView}" rendered="#{balance.optionalimpressionpaymentgroupid>0}">
+            <h:commandLink action="#{accountImpressionpaymentgroup.beginView}" rendered="#{balance.optionalimpressionpaymentgroupid>0}">
                 <h:outputText value="#{balance.description}" styleClass="smallfont" escape="false" />
                 <f:param name="impressionpaymentgroupid" value="#{balance.optionalimpressionpaymentgroupid}" />
-            </a4j:commandLink>
-            <a4j:commandLink action="#{accountImpressionchargegroup.beginView}" rendered="#{balance.optionalimpressionchargegroupid>0}">
+            </h:commandLink>
+            <h:commandLink action="#{accountImpressionchargegroup.beginView}" rendered="#{balance.optionalimpressionchargegroupid>0}">
                 <h:outputText value="#{balance.description}" styleClass="smallfont" escape="false" />
                 <f:param name="impressionchargegroupid" value="#{balance.optionalimpressionchargegroupid}" />
-            </a4j:commandLink>
+            </h:commandLink>
           </h:column>
           <h:column>
             <f:facet name="header">
@@ -65,11 +65,25 @@
             </f:facet>
             <h:outputText value="#{balance.currentbalance}" styleClass="tinyfont" style="font-weight: bold;"/>
           </h:column>
-        </rich:dataTable>
+        </t:dataTable>
+        <t:dataScroller id="scroll_1" for="datatable" fastStep="10" pageCountVar="pageCount" pageIndexVar="pageIndex" styleClass="scroller" paginator="true" paginatorMaxPages="9" paginatorTableClass="paginator" paginatorActiveColumnStyle="font-weight:bold;">
+            <f:facet name="first" >
+                <t:graphicImage url="/images/myfaces-examples/arrow-first.gif" border="1" />
+            </f:facet>
+            <f:facet name="last">
+                <t:graphicImage url="/images/myfaces-examples/arrow-last.gif" border="1" />
+            </f:facet>
+            <f:facet name="previous">
+                <t:graphicImage url="/images/myfaces-examples/arrow-previous.gif" border="1" />
+            </f:facet>
+            <f:facet name="next">
+                <t:graphicImage url="/images/myfaces-examples/arrow-next.gif" border="1" />
+            </f:facet>
+        </t:dataScroller>
 
 
         <br/><br/>
-        <a4j:commandLink value="View Transfer Details" action="#{accountTransactions.beginView}" style="padding-left: 25px;" styleClass="smallfont" rendered="#{!empty accountBalancetransaction.balances}"/>
+        <h:commandLink value="View Transfer Details" action="#{accountTransactions.beginView}" style="padding-left: 25px;" styleClass="smallfont" rendered="#{!empty accountBalancetransaction.balances}"/>
 
 
     </h:form>

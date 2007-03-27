@@ -38,7 +38,8 @@ public class ResearcherPanelsEdit implements Serializable {
         if(panel.getName()!=null && !panel.getName().equals("")){
             try{panel.save();}catch(Exception ex){logger.error(ex);}
         }
-        return "researcherpanels";
+        ResearcherPanels bean = (ResearcherPanels)Jsf.getManagedBean("researcherPanels");
+        return bean.beginView();
     }
 
 

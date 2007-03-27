@@ -76,6 +76,8 @@ public class ResearcherFindBloggers implements Serializable {
         }
     }
 
+ 
+
 
 
     public String search(){

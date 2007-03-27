@@ -25,14 +25,16 @@ public class HibernateSessionCloser implements Filter {
 
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         try{
-            logger.debug("");
-            logger.debug("");
-            logger.debug("");
-            logger.debug("");
-            logger.debug("------");
-            logger.debug("-------------");
             HttpServletRequest httpServletRequest = (HttpServletRequest)request;
-            logger.debug("---------------------------START REQUEST: "+httpServletRequest.getRequestURL());
+            if (httpServletRequest.getRequestURL().indexOf("jpg")==-1 && httpServletRequest.getRequestURL().indexOf("css")==-1 && httpServletRequest.getRequestURL().indexOf("gif")==-1){
+                logger.debug("");
+                logger.debug("");
+                logger.debug("");
+                logger.debug("");
+                logger.debug("------");
+                logger.debug("-------------");
+                logger.debug("---------------------------START REQUEST: "+httpServletRequest.getRequestURL());
+            }
         }catch(Exception ex){logger.debug(ex);}
 
         chain.doFilter(request, response);
@@ -45,13 +47,15 @@ public class HibernateSessionCloser implements Filter {
 
         try{
             HttpServletRequest httpServletRequest = (HttpServletRequest)request;
-            logger.debug("---------------------------END REQUEST: "+httpServletRequest.getRequestURL());
-            logger.debug("-------------");
-            logger.debug("------");
-            logger.debug("");
-            logger.debug("");
-            logger.debug("");
-            logger.debug("");
+            if (httpServletRequest.getRequestURL().indexOf("jpg")==-1 && httpServletRequest.getRequestURL().indexOf("css")==-1 && httpServletRequest.getRequestURL().indexOf("gif")==-1){
+                logger.debug("---------------------------END REQUEST: "+httpServletRequest.getRequestURL());
+                logger.debug("-------------");
+                logger.debug("------");
+                logger.debug("");
+                logger.debug("");
+                logger.debug("");
+                logger.debug("");
+            }
         }catch(Exception ex){logger.debug(ex);}
     }
 

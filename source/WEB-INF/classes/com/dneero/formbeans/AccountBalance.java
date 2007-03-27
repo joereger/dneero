@@ -32,6 +32,7 @@ public class AccountBalance implements Serializable {
         return "accountbalance";
     }
 
+
     private void load(){
         UserSession userSession = Jsf.getUserSession();
         if (userSession!=null && userSession.getUser()!=null && userSession.getUser().getBloggerid()>0){

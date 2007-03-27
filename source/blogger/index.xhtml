@@ -8,8 +8,8 @@
       xmlns:t="http://myfaces.apache.org/tomahawk"
       xmlns:d="http://dneero.com/taglib"
       xmlns:c="http://java.sun.com/jstl/core"
-      xmlns:rich="http://richfaces.ajax4jsf.org/rich"
-      xmlns:a4j="https://ajax4jsf.dev.java.net/ajax">
+
+      >
 
 <ui:composition template="/template/template-facelets.xhtml">
     <ui:define name="title"><img src="/images/user.png" alt="" border="0" width="128" height="128" align="right"/>For Bloggers<br/><br clear="all"/></ui:define>
@@ -108,7 +108,7 @@
         <div width="50%">
 
             <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-                <h:commandLink value="Find Surveys to Take" action="bloggersurveylist" styleClass="mediumfont" style="color: #596697;"/>
+                <h:commandLink value="Find Surveys to Take" action="#{bloggerSurveyList.beginView}" styleClass="mediumfont" style="color: #596697;"/>
             </td></tr>
             <tr><td valign="top"></td><td valign="top">
                 <font class="smallfont">Check back often to see new surveys for which you qualify.</font>
@@ -116,7 +116,7 @@
 
             <br/><br/>
             <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-                <h:commandLink value="Update My Blogger Profile" action="bloggerdetails" styleClass="mediumfont" style="color: #596697;"/>
+                <h:commandLink value="Update My Blogger Profile" action="#{bloggerDetails.beginView}" styleClass="mediumfont" style="color: #596697;"/>
             </td></tr>
             <tr><td valign="top"></td><td valign="top">
                 <font class="smallfont">Your profile helps us find surveys that fit your interests.  Keep it up to date.</font>
@@ -124,7 +124,7 @@
 
             <br/><br/>
             <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-                <h:commandLink value="Add/Edit My Blogs" action="bloggerblogslist" styleClass="mediumfont" style="color: #596697;"/>
+                <h:commandLink value="Add/Edit My Blogs" action="#{bloggerBlogsList.beginView}" styleClass="mediumfont" style="color: #596697;"/>
             </td></tr>
             <tr><td valign="top"></td><td valign="top">
                 <font class="smallfont">We need to know which blogs are yours so that we can pay you for survey displays on that blog.  Make sure that any blog you post a survey to is listed here.</font>
@@ -132,7 +132,7 @@
 
             <br/><br/>
             <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-                <h:commandLink value="Earnings from Completed Surveys" action="bloggercompletedsurveys" styleClass="mediumfont" style="color: #596697;"/>
+                <h:commandLink value="Earnings from Completed Surveys" action="#{bloggerCompletedsurveys.beginView}" styleClass="mediumfont" style="color: #596697;"/>
             </td></tr>
             <tr><td valign="top"></td><td valign="top">
                 <font class="smallfont">See how much you've earned.</font>
@@ -140,7 +140,7 @@
 
             <br/><br/>
             <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-                <h:commandLink value="Earn Money Inviting Friends" action="bloggerearningsrevshare" styleClass="mediumfont" style="color: #596697;"/>
+                <h:commandLink value="Earn Money Inviting Friends" action="#{bloggerEarningsRevshare.beginView}" styleClass="mediumfont" style="color: #596697;"/>
             </td></tr>
             <tr><td valign="top"></td><td valign="top">
                 <font class="smallfont">Invite friends and earn money when they take surveys!</font>

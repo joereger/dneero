@@ -42,8 +42,7 @@ public class ResearcherPanelsListBloggers implements Serializable {
 
         if (Jsf.getUserSession()!=null && Jsf.getUserSession().getUser()!=null && Jsf.getUserSession().getUser().getResearcherid()>0){
             logger.debug("userSession, user and researcher not null");
-            logger.debug("into loop for panelid="+panelid);
-            load();
+            logger.debug("found panelid="+panelid);
         }
 
         listitems = new ArrayList<ResearcherPanelsListBloggersListitem>();

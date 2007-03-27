@@ -57,6 +57,7 @@ public class AccountSupportIssueDetail implements Serializable {
 
     public String newNote(){
         Logger logger = Logger.getLogger(this.getClass().getName());
+        beginView();
         if(supportissueid<=0){
             logger.debug("supportissueid not found: "+supportissueid);
             return "";
