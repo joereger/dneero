@@ -30,13 +30,17 @@ public class ResearcherBloggerProfileAnswers implements Serializable {
     }
 
     public String beginView(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
+
         String tmpSurveyid = Jsf.getRequestParam("surveyid");
+        logger.debug("beginView called" + " tmpSurveyid="+tmpSurveyid +" Jsf.getRequestParam(\"bloggerid\")="+Jsf.getRequestParam("bloggerid"));
         if (Num.isinteger(tmpSurveyid)){
             survey = Survey.get(Integer.parseInt(tmpSurveyid));
         }
         if (survey!=null && survey.getSurveyid()>0){
             String tmpBloggerid = Jsf.getRequestParam("bloggerid");
             if (Num.isinteger(tmpBloggerid)){
+                logger.debug("loaded bloggerid="+tmpBloggerid);
                 blogger = Blogger.get(Integer.parseInt(tmpBloggerid));
                 user = User.get(blogger.getBloggerid());
                 resultsashtml = SurveyAsHtml.getHtml(survey, user, true);

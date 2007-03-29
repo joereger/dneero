@@ -11,7 +11,7 @@
       >
 
 <ui:composition template="/template/template-facelets.xhtml">
-    <ui:define name="title"><img src="/images/user.png" align="right" alt="" border="0"/>#{researcherBloggerProfile.user.firstname} #{researcherBloggerProfile.user.lastname}'s Answers<br/><br clear="all"/></ui:define>
+    <ui:define name="title"><img src="/images/user.png" align="right" alt="" border="0"/>#{researcherBloggerProfileAnswers.user.firstname} #{researcherBloggerProfileAnswers.user.lastname}'s Answers<br/><br clear="all"/></ui:define>
     <ui:param name="navtab" value="researchers"/>
     <ui:define name="body">
     <d:authorization acl="researcher" redirectonfail="true"/>

@@ -24,7 +24,7 @@
         <t:saveState id="save" value="#{accountImpressionchargegroup}"/>
 
         <h:outputText value="There are not yet any impressions in this group." rendered="#{empty accountImpressionchargegroup.list}"/>
-        <t:dataScroller for="datatable" maxPages="5"/>
+
         <t:dataTable id="datatable" value="#{accountImpressionchargegroup.list}" rows="25" var="listitem" rendered="#{!empty accountImpressionchargegroup.list}" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcol,tcolnowrap,tcol,tcolnowrap,tcolnowrap">
           <h:column>
             <f:facet name="header">

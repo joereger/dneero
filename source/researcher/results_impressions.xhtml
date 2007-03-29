@@ -19,13 +19,13 @@
 <h:form>
 
     <div class="rounded" style="background: #e6e6e6; text-align: center; padding: 15px;">
-        <font class="largefont">#{researcherResults.survey.title}</font>
+        <font class="largefont">#{researcherResultsImpressions.survey.title}</font>
         <br/>
-        <h:commandLink value="Results Main" action="researcherresults" styleClass="subnavfont" style="padding-left: 15px;"/>
-        <h:commandLink value="Response Report" action="researcherresultsanswers" styleClass="subnavfont" style="padding-left: 15px;"/>
-        <h:commandLink value="Impressions" action="researcherresultsimpressions" styleClass="subnavfont" style="padding-left: 15px;"/>
-        <h:commandLink value="Respondents" action="researcherresultsrespondents" styleClass="subnavfont" style="padding-left: 15px;"/>
-        <h:commandLink value="Financial Status" action="researcherresultsfinancial" styleClass="subnavfont" style="padding-left: 15px;"/>
+        <h:commandLink value="Results Main" action="#{researcherResults.beginView}" styleClass="subnavfont" style="padding-left: 15px;"/>
+        <h:commandLink value="Response Report" action="#{researcherResultsAnswers.beginView}" styleClass="subnavfont" style="padding-left: 15px;"/>
+        <h:commandLink value="Impressions" action="#{researcherResultsImpressions.beginView}" styleClass="subnavfont" style="padding-left: 15px;"/>
+        <h:commandLink value="Respondents" action="#{researcherResultsRespondents.beginView}" styleClass="subnavfont" style="padding-left: 15px;"/>
+        <h:commandLink value="Financial Status" action="#{researcherResultsFinancial.beginView}" styleClass="subnavfont" style="padding-left: 15px;"/>
     </div>
     <br/><br/>
 
@@ -37,20 +37,21 @@
 
     <br/><br/>
 
-    <t:dataScroller for="datatable" maxPages="5"/>
+    <t:saveState id="save" value="#{researcherResultsImpressions}"/>
+
     <t:dataTable id="datatable" value="#{researcherResultsImpressions.researcherResultsImpressionsListitems}" rows="50" var="imp" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcol,tcolnowrap,tcol,tcolnowrap,tcolnowrap">
       <h:column>
         <f:facet name="header">
           <h:outputText value="Blog"/>
         </f:facet>
-        <h:outputLink target="referer" value="#{imp.blogurl}" title="#{imp.blogurl}" styleClass="smallfont"></h:outputLink>
+        <h:outputLink target="referer" value="#{imp.blogurl}" styleClass="smallfont"><h:outputText value="#{imp.blogurl}"/></h:outputLink>
         <h:outputText value="None" rendered="#{empty imp.blogurl}"/>
       </h:column>
       <h:column>
         <f:facet name="header">
           <h:outputText value="Specific Page"/>
         </f:facet>
-        <h:outputLink target="referer" value="#{imp.referer}" title="#{imp.referer}" styleClass="smallfont"></h:outputLink>
+        <h:outputLink target="referer" value="#{imp.referer}" styleClass="smallfont"><h:outputText value="#{imp.referer}"/></h:outputLink>
         <h:outputText value="None" rendered="#{empty imp.referer}"/>
       </h:column>
       <h:column>

@@ -29,6 +29,7 @@ public class ResearcherSurveyDetail01 implements Serializable {
 
 
     public ResearcherSurveyDetail01(){
+        //@todo Refactor Non-Empty Constructor
         load();
     }
 

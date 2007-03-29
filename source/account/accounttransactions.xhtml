@@ -24,7 +24,7 @@
         <t:saveState id="save" value="#{accountBalancetransaction}"/>    
 
         <h:outputText value="There are not yet any financial transactions on your account." rendered="#{empty accountBalancetransaction.balances}"/>
-        <t:dataScroller for="datatable" maxPages="5"/>
+
         <t:dataTable id="datatable" value="#{accountBalancetransaction.balances}" rows="25" var="balance" rendered="#{!empty accountBalancetransaction.balances}" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcol,tcolnowrap,tcol,tcolnowrap,tcolnowrap">
           <h:column>
             <f:facet name="header">

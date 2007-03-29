@@ -22,7 +22,7 @@
    <t:saveState id="save" value="#{bloggerSurveyList}"/>
 
     <h:outputText value="There are currently no surveys that fit your profile.  Please check back soon as we're always adding new surveys!" styleClass="mediumfont" rendered="#{empty bloggerSurveyList.surveys}"/>
-    <t:dataScroller for="datatable" maxPages="5"/>
+
     <t:dataTable id="datatable" value="#{bloggerSurveyList.surveys}" rows="25" var="srvy" rendered="#{!empty bloggerSurveyList.surveys}" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcol,tcolnowrap,tcol,tcolnowrap,tcolnowrap">
       <h:column>
         <f:facet name="header">

@@ -20,7 +20,7 @@
     <h:form>
             <t:saveState id="save" value="#{accountSupportIssuesList}"/>
 
-            <t:dataScroller for="datatable" maxPages="5"/>
+
             <t:dataTable id="datatable" value="#{accountSupportIssuesList.supportissues}" rows="15" var="supportissue" rendered="#{!empty accountSupportIssuesList.supportissues}" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcol,tcolnowrap,tcol,tcolnowrap,tcolnowrap">
               <h:column>
                 <f:facet name="header">

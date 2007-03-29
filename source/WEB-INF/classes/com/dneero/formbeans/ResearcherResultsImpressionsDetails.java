@@ -24,7 +24,8 @@ public class ResearcherResultsImpressionsDetails implements Serializable {
 
 
     public ResearcherResultsImpressionsDetails(){
-
+        //@todo Refactor Non-Empty Constructor
+        beginView();
     }
 
 

@@ -11,18 +11,18 @@
       >
 
 <ui:composition template="/template/template-facelets.xhtml">
-    <ui:define name="title"><img src="/images/user.png" align="right" alt="" border="0"/>#{researcherBloggerProfile.user.firstname} #{researcherBloggerProfile.user.lastname}'s Impressions<br/><br clear="all"/></ui:define>
+    <ui:define name="title"><img src="/images/user.png" align="right" alt="" border="0"/>#{researcherBloggerProfileImpressions.user.firstname} #{researcherBloggerProfileImpressions.user.lastname}'s Impressions<br/><br clear="all"/></ui:define>
     <ui:param name="navtab" value="researchers"/>
     <ui:define name="body">
     <d:authorization acl="researcher" redirectonfail="true"/>
 
 <h:form>
 
-    <font class="mediumfont" style="color: #cccccc;">#{researcherBloggerProfileImpressions.user.firstname} #{researcherBloggerProfileAnswers.user.lastname}'s Impressions</font>
+    <font class="mediumfont" style="color: #cccccc;">#{researcherBloggerProfileImpressions.user.firstname} #{researcherBloggerProfileImpressions.user.lastname}'s Impressions</font>
     <br/><br/>
 
     <t:saveState id="save" value="#{researcherBloggerProfileImpressions}"/>
-    <t:dataScroller for="datatable" maxPages="5"/>
+
     <t:dataTable id="datatable" value="#{researcherBloggerProfileImpressions.list}" rows="50" var="imp" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcol,tcolnowrap,tcol,tcolnowrap,tcolnowrap">
       <h:column>
         <f:facet name="header">

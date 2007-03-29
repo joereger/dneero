@@ -20,7 +20,7 @@
 
         <h:form>
               <t:saveState id="save" value="#{bloggerCompletedsurveys}"/>
-              <t:dataScroller for="datatable" maxPages="5"/>
+
               <t:dataTable id="datatable" value="#{bloggerCompletedsurveys.list}" rows="25" var="listitem" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcol,tcolnowrap,tcol,tcolnowrap,tcolnowrap">
               <h:column rendered="true">
                 <f:facet name="header">

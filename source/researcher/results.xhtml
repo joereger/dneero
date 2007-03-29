@@ -21,11 +21,11 @@
     <div class="rounded" style="background: #e6e6e6; text-align: center; padding: 15px;">
         <font class="largefont">#{researcherResults.survey.title}</font>
         <br/>
-        <h:commandLink value="Results Main" action="researcherresults" styleClass="subnavfont" style="padding-left: 15px;"/>
-        <h:commandLink value="Response Report" action="researcherresultsanswers" styleClass="subnavfont" style="padding-left: 15px;"/>
-        <h:commandLink value="Impressions" action="researcherresultsimpressions" styleClass="subnavfont" style="padding-left: 15px;"/>
-        <h:commandLink value="Respondents" action="researcherresultsrespondents" styleClass="subnavfont" style="padding-left: 15px;"/>
-        <h:commandLink value="Financial Status" action="researcherresultsfinancial" styleClass="subnavfont" style="padding-left: 15px;"/>
+        <h:commandLink value="Results Main" action="#{researcherResults.beginView}" styleClass="subnavfont" style="padding-left: 15px;"/>
+        <h:commandLink value="Response Report" action="#{researcherResultsAnswers.beginView}" styleClass="subnavfont" style="padding-left: 15px;"/>
+        <h:commandLink value="Impressions" action="#{researcherResultsImpressions.beginView}" styleClass="subnavfont" style="padding-left: 15px;"/>
+        <h:commandLink value="Respondents" action="#{researcherResultsRespondents.beginView}" styleClass="subnavfont" style="padding-left: 15px;"/>
+        <h:commandLink value="Financial Status" action="#{researcherResultsFinancial.beginView}" styleClass="subnavfont" style="padding-left: 15px;"/>
     </div>
 
 
@@ -51,7 +51,7 @@
                     <br/>
                     <font class="largefont">#{researcherResults.totalsurveyresponses}</font>
                     <br/>
-                    <h:commandButton action="researcherresultsanswers" value="Response Report" styleClass="formsubmitbutton"></h:commandButton>
+                    <h:commandButton action="#{researcherResultsAnswers.beginView}" value="Response Report" styleClass="formsubmitbutton"></h:commandButton>
                 </div>   
             </td>
             <td width="50%" valign="top">
@@ -60,14 +60,14 @@
                     <br/>
                     <font class="largefont">#{researcherResults.totalsurveydisplays}</font>
                     <br/>
-                    <h:commandButton action="researcherresultsimpressions" value="View Impressions" styleClass="formsubmitbutton"></h:commandButton>
+                    <h:commandButton action="#{researcherResultsImpressions.beginView}" value="View Impressions" styleClass="formsubmitbutton"></h:commandButton>
                 </div>
             </td>
         </tr>
         <tr>
             <td width="50%" valign="top">
                 <div class="rounded" style="background: #00ff00; text-align: right; padding: 20px;">
-                    <h:commandButton action="researcherresultsrespondents" value="See Respondents" styleClass="formsubmitbutton"></h:commandButton>
+                    <h:commandButton action="#{researcherResultsRespondents.beginView}" value="See Respondents" styleClass="formsubmitbutton"></h:commandButton>
                     <br/>
                     <font class="largefont">#{researcherResults.totalsurveyresponses}</font>
                     <br/>
@@ -76,7 +76,7 @@
             </td>
             <td width="50%" valign="top">
                 <div class="rounded" style="background: #88c99d; text-align: left; padding: 20px;">
-                    <h:commandButton action="researcherresultsfinancial" value="Financial Status" styleClass="formsubmitbutton"></h:commandButton>
+                    <h:commandButton action="#{researcherResultsFinancial.beginView}" value="Financial Status" styleClass="formsubmitbutton"></h:commandButton>
                     <br/>
                     <font class="largefont">$<h:outputText value="#{researcherResults.spenttodate}" styleClass="largefont"><f:converter converterId="DisplayAsMoneyConverter"/></h:outputText></font>
                     <br/>

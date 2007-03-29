@@ -23,7 +23,8 @@ public class ResearcherResultsAnswersDetails implements Serializable {
     private Question question;
 
     public ResearcherResultsAnswersDetails(){
-
+        //@todo Refactor Non-Empty Constructor
+        load();
     }
 
     public String beginView(){

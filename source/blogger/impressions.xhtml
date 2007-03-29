@@ -25,7 +25,7 @@
 
         <h:form>
               <t:saveState id="save" value="#{bloggerImpressions}"/>
-              <t:dataScroller for="datatable" maxPages="5"/>
+
               <t:dataTable id="datatable" value="#{bloggerImpressions.list}" rows="25" var="listitem" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcol,tcolnowrap,tcol,tcolnowrap,tcolnowrap">
               <h:column>
                 <f:facet name="header">

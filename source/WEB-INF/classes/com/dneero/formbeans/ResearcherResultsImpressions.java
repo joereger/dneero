@@ -51,6 +51,7 @@ public class ResearcherResultsImpressions implements Serializable {
                                    .list();
                 for (Iterator<Impression> iterator1 = impressions.iterator(); iterator1.hasNext();) {
                     Impression impression = iterator1.next();
+                    logger.debug("impressionid="+impression.getImpressionid()+" referer="+impression.getReferer() + " impressionsqualifyingforpayment="+impression.getImpressionsqualifyingforpayment());
                     ResearcherResultsImpressionsListitem robj = new ResearcherResultsImpressionsListitem();
                     robj.setImpressionid(impression.getImpressionid());
                     robj.setImpressionsqualifyingforpayment(impression.getImpressionsqualifyingforpayment());
