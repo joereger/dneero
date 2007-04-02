@@ -48,29 +48,36 @@ public class BloggerSurveyPosttoblog implements Serializable {
         if (com.dneero.util.Num.isinteger(tmpSurveyid)){
             logger.debug("beginView called: found surveyid in param="+tmpSurveyid);
             Jsf.getUserSession().setCurrentSurveyid(Integer.parseInt(tmpSurveyid));
-            load();
+            survey = Survey.get(Jsf.getUserSession().getCurrentSurveyid());
+            if (!bloggerHasAlreadyTakenSurvey(survey)){
+                logger.debug("beginView: apparently blogger has not taken surveyid="+tmpSurveyid);
+                try{
+                    BloggerSurveyDetail bean = (BloggerSurveyDetail)Jsf.getManagedBean("bloggerSurveyDetail");
+                    return bean.beginView();
+                }catch (Exception ex){logger.error(ex);}
+            }
         } else {
             logger.debug("beginView called: NOT found surveyid in param="+tmpSurveyid);
         }
         load();
-        return "bloggersurveydetail";
+        return "bloggersurveyposttoblog";
+    }
+
+    public boolean bloggerHasAlreadyTakenSurvey(Survey survey){
+        Blogger blogger = Blogger.get(Jsf.getUserSession().getUser().getBloggerid());
+        for (Iterator<Response> iterator = blogger.getResponses().iterator(); iterator.hasNext();) {
+            Response response = iterator.next();
+            if (response.getSurveyid()==survey.getSurveyid()){
+                return true;
+            }
+        }
+        return false;
     }
 
     public void load(){
         Logger logger = Logger.getLogger(this.getClass().getName());
         if (Jsf.getUserSession()!=null && Jsf.getUserSession().getUser()!=null){
             survey = Survey.get(Jsf.getUserSession().getCurrentSurveyid());
-            Blogger blogger = Blogger.get(Jsf.getUserSession().getUser().getBloggerid());
-            boolean bloggerhasalreadytakensurvey = false;
-            for (Iterator<Response> iterator = blogger.getResponses().iterator(); iterator.hasNext();) {
-                Response response = iterator.next();
-                if (response.getSurveyid()==survey.getSurveyid()){
-                    bloggerhasalreadytakensurvey = true;
-                }
-            }
-            if (!bloggerhasalreadytakensurvey){
-                try{Jsf.redirectResponse("bloggersurveydetail.jsf?surveyid="+survey.getSurveyid());}catch (Exception ex){logger.error(ex);}
-            }
             surveyAnswersForThisBlogger = SurveyJavascriptServlet.getEmbedSyntax("/", survey.getSurveyid(), Jsf.getUserSession().getUser().getUserid(), true);
             htmltoposttoblog = SurveyJavascriptServlet.getEmbedSyntax(BaseUrl.get(false), survey.getSurveyid(), Jsf.getUserSession().getUser().getUserid(), false);
             htmltoposttoblogflash = SurveyFlashServlet.getEmbedSyntax(BaseUrl.get(false), survey.getSurveyid(), Jsf.getUserSession().getUser().getUserid(), false);
@@ -82,11 +89,12 @@ public class BloggerSurveyPosttoblog implements Serializable {
         }
     }
 
-    public String takeSurvey(){
-        Logger logger = Logger.getLogger(this.getClass().getName());
-        logger.debug("takeSurvey() called");
-        return "bloggersurveyposttoblog";
-    }
+//    public String takeSurvey(){
+//        Logger logger = Logger.getLogger(this.getClass().getName());
+//        logger.debug("takeSurvey() called");
+//        BloggerSurveyPosttoblog bean = (BloggerSurveyPosttoblog)Jsf.getManagedBean("bloggerSurveyPosttoblog");
+//        return bean.beginView();
+//    }
 
     public Survey getSurvey() {
         return survey;

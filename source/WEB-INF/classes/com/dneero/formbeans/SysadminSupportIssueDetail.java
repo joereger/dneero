@@ -11,6 +11,7 @@ import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.session.UserSession;
 import com.dneero.util.Jsf;
 import com.dneero.util.GeneralException;
+import com.dneero.util.Num;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -29,7 +30,7 @@ public class SysadminSupportIssueDetail implements Serializable {
     private String notes;
     private ArrayList<Supportissuecomm> supportissuecomms;
     private Supportissue supportissue;
-    private int status;
+    private String status;
 
 
 
@@ -49,7 +50,7 @@ public class SysadminSupportIssueDetail implements Serializable {
             if (Jsf.getUserSession().getUser()!=null && supportissue.canEdit(Jsf.getUserSession().getUser())){
                 this.supportissue = supportissue;
                 this.supportissueid = supportissue.getSupportissueid();
-                this.status = supportissue.getStatus();
+                this.status = String.valueOf(supportissue.getStatus());
                 supportissuecomms = new ArrayList<Supportissuecomm>();
                 for (Iterator<Supportissuecomm> iterator = supportissue.getSupportissuecomms().iterator(); iterator.hasNext();){
                     Supportissuecomm supportissuecomm = iterator.next();
@@ -88,7 +89,11 @@ public class SysadminSupportIssueDetail implements Serializable {
             return null;
         }
 
-        supportissue.setStatus(status);
+        if (Num.isinteger(status)){
+            supportissue.setStatus(Integer.parseInt(status));
+        } else{
+            supportissue.setStatus(0);
+        }
 
         try{
             supportissue.save();
@@ -133,12 +138,12 @@ public class SysadminSupportIssueDetail implements Serializable {
         this.supportissuecomms = supportissuecomms;
     }
 
-    public int getStatus() {
+
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(String status) {
         this.status = status;
     }
-
 }

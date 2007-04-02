@@ -165,10 +165,6 @@ public class BloggerDetails implements Serializable {
             }
 
 
-
-
-
-
             userSession.getUser().setPaymethod(PaymentMethod.PAYMENTMETHODPAYPAL);
             userSession.getUser().setPaymethodpaypaladdress(paymethodpaypaladdress);
             try{
@@ -182,9 +178,13 @@ public class BloggerDetails implements Serializable {
             userSession.getUser().refresh();
 
             if (isnewblogger){
-                return "bloggerblogdetail";
+                BloggerBlogDetail bean = (BloggerBlogDetail)Jsf.getManagedBean("bloggerBlogDetail");
+                return bean.beginView();
+                //return "bloggerblogdetail";
             } else {
-                return "bloggerdetails";
+                BloggerIndex bean = (BloggerIndex)Jsf.getManagedBean("bloggerIndex");
+                return bean.beginView();
+                //return "bloggerhome";
             }
         } else {
             Jsf.setFacesMessage("UserSession.getUser() is null.  Please log in.");

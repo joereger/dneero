@@ -26,7 +26,7 @@ public class HibernateSessionCloser implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         try{
             HttpServletRequest httpServletRequest = (HttpServletRequest)request;
-            if (httpServletRequest.getRequestURL().indexOf("jpg")==-1 && httpServletRequest.getRequestURL().indexOf("css")==-1 && httpServletRequest.getRequestURL().indexOf("gif")==-1){
+            if (httpServletRequest.getRequestURL().indexOf("jpg")==-1 && httpServletRequest.getRequestURL().indexOf("css")==-1 && httpServletRequest.getRequestURL().indexOf("gif")==-1 && httpServletRequest.getRequestURL().indexOf("png")==-1){
                 logger.debug("");
                 logger.debug("");
                 logger.debug("");
@@ -47,7 +47,7 @@ public class HibernateSessionCloser implements Filter {
 
         try{
             HttpServletRequest httpServletRequest = (HttpServletRequest)request;
-            if (httpServletRequest.getRequestURL().indexOf("jpg")==-1 && httpServletRequest.getRequestURL().indexOf("css")==-1 && httpServletRequest.getRequestURL().indexOf("gif")==-1){
+            if (httpServletRequest.getRequestURL().indexOf("jpg")==-1 && httpServletRequest.getRequestURL().indexOf("css")==-1 && httpServletRequest.getRequestURL().indexOf("gif")==-1 && httpServletRequest.getRequestURL().indexOf("png")==-1){
                 logger.debug("---------------------------END REQUEST: "+httpServletRequest.getRequestURL());
                 logger.debug("-------------");
                 logger.debug("------");

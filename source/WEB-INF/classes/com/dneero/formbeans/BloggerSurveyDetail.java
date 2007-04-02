@@ -38,27 +38,33 @@ public class BloggerSurveyDetail implements Serializable {
             logger.debug("beginView called: found surveyid in param="+tmpSurveyid);
             Jsf.getUserSession().setCurrentSurveyid(Integer.parseInt(tmpSurveyid));
             load();
+            if (survey!=null && survey.getSurveyid()>0){
+                if (bloggerHasAlreadyTakenSurvey(survey)){
+                    BloggerSurveyPosttoblog bean = (BloggerSurveyPosttoblog)Jsf.getManagedBean("bloggerSurveyPosttoblog");
+                    return bean.beginView();
+                }
+            }
         } else {
             logger.debug("beginView called: NOT found surveyid in param="+tmpSurveyid);
         }
-        load();
+        //load();
         return "bloggersurveydetail";
+    }
+
+    public boolean bloggerHasAlreadyTakenSurvey(Survey survey){
+        Blogger blogger = Blogger.get(Jsf.getUserSession().getUser().getBloggerid());
+        for (Iterator<Response> iterator = blogger.getResponses().iterator(); iterator.hasNext();) {
+            Response response = iterator.next();
+            if (response.getSurveyid()==survey.getSurveyid()){
+                return true;
+            }
+        }
+        return false;
     }
 
     private void load(){
             Logger logger = Logger.getLogger(this.getClass().getName());
             survey = Survey.get(Jsf.getUserSession().getCurrentSurveyid());
-            Blogger blogger = Blogger.get(Jsf.getUserSession().getUser().getBloggerid());
-            boolean bloggerhasalreadytakensurvey = false;
-            for (Iterator<Response> iterator = blogger.getResponses().iterator(); iterator.hasNext();) {
-                Response response = iterator.next();
-                if (response.getSurveyid()==survey.getSurveyid()){
-                    bloggerhasalreadytakensurvey = true;
-                }
-            }
-            if (bloggerhasalreadytakensurvey){
-                try{Jsf.redirectResponse("bloggersurveyposttoblog.jsf?surveyid="+survey.getSurveyid());}catch (Exception ex){logger.error(ex);}
-            }
             surveyOnBlogPreview = SurveyJavascriptServlet.getEmbedSyntax("/", survey.getSurveyid(), Jsf.getUserSession().getUser().getUserid(), true);
             surveyEnhancer = new SurveyEnhancer(survey);
             surveyForTakers = SurveyTakerDisplay.getHtmlForSurveyTaking(survey, new Blogger(), true);

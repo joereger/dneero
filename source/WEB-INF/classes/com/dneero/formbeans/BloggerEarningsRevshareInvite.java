@@ -29,7 +29,9 @@ public class BloggerEarningsRevshareInvite implements Serializable {
         List existingusers = HibernateUtil.getSession().createQuery("from User where email='"+email+"'").list();
         if (existingusers.size()<=0){
             EmailTemplateProcessor.sendMail("dNeero Invitation from "+user.getFirstname()+" "+user.getLastname()+" - Make Money with your Blog!", "inviteblogger", user, null, this.email, user.getEmail());
-            return "bloggerearningsrevshare";
+            BloggerEarningsRevshare bean = (BloggerEarningsRevshare)Jsf.getManagedBean("bloggerEarningsRevshare");
+            return bean.beginView();
+            //return "bloggerearningsrevshare";
         } else {
             Jsf.setFacesMessage("inviteform:email", "A user with that email already exists.");
             return null;

@@ -39,7 +39,24 @@ public class BloggerSurveyTake implements Serializable {
 
     public String beginView(){
         load();
+        if (survey!=null && survey.getSurveyid()>0){
+            if (bloggerHasAlreadyTakenSurvey(survey)){
+                BloggerSurveyPosttoblog bean = (BloggerSurveyPosttoblog)Jsf.getManagedBean("bloggerSurveyPosttoblog");
+                return bean.beginView();
+            }
+        }
         return "bloggersurveytake";
+    }
+
+    public boolean bloggerHasAlreadyTakenSurvey(Survey survey){
+        Blogger blogger = Blogger.get(Jsf.getUserSession().getUser().getBloggerid());
+        for (Iterator<Response> iterator = blogger.getResponses().iterator(); iterator.hasNext();) {
+            Response response = iterator.next();
+            if (response.getSurveyid()==survey.getSurveyid()){
+                return true;
+            }
+        }
+        return false;
     }
 
     private void load(){
@@ -56,6 +73,7 @@ public class BloggerSurveyTake implements Serializable {
     public String takeSurvey(){
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("takeSurvey() called");
+        load();
         try{
             SurveyResponseParser srp = new SurveyResponseParser((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest());
             createResponse(survey, srp, Blogger.get(Jsf.getUserSession().getUser().getBloggerid()), 0);
@@ -63,9 +81,10 @@ public class BloggerSurveyTake implements Serializable {
         } catch (ComponentException cex){
             haveerror = true;
             Jsf.setFacesMessage(cex.getErrorsAsSingleString());
-            return "bloggersurveytake";
+            return null;
         }
-        return "bloggersurveyposttoblog";
+        BloggerSurveyPosttoblog bean = (BloggerSurveyPosttoblog)Jsf.getManagedBean("bloggerSurveyPosttoblog");
+        return bean.beginView();
     }
 
     //This method can be called by this class or by BloggerIndex to store a pending survey

@@ -56,11 +56,7 @@ public class RateBlogPost implements Serializable {
         if (impressionid>0){
             Impression impression = Impression.get(impressionid);
             impression.setQuality(quality);
-            try{
-                impression.save();
-            } catch (Exception ex){
-                logger.error(ex);
-            }
+            try{impression.save();} catch (Exception ex){logger.error(ex);}
         }
         getNewPostToRate();
         return "";
