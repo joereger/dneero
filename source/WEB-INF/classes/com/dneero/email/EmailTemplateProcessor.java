@@ -77,17 +77,41 @@ public class EmailTemplateProcessor {
         String out = "";
 
         if (tag.equals("<$user.email$>")){
-            return user.getEmail();
+            if (user!=null){
+                return user.getEmail();
+            } else {
+                return "";
+            }
         } else if (tag.equals("<$user.firstname$>")){
-            return user.getFirstname();
+            if (user!=null){
+                return user.getFirstname();
+            } else {
+                return "";
+            }
         } else if (tag.equals("<$user.lastname$>")){
-            return user.getLastname();
+            if (user!=null){
+                return user.getLastname();
+            } else {
+                return "";
+            }
         } else if (tag.equals("<$user.emailactivationkey$>")){
-            return user.getEmailactivationkey();
+            if (user!=null){
+                return user.getEmailactivationkey();
+            } else {
+                return "";
+            }
         } else if (tag.equals("<$user.password$>")){
-            return user.getPassword();
+            if (user!=null){
+                return user.getPassword();
+            } else {
+                return "";
+            }
         } else if (tag.equals("<$user.userid$>")){
-            return String.valueOf(user.getUserid());
+            if (user!=null){
+                return String.valueOf(user.getUserid());
+            } else {
+                return "";
+            }
         } else if (tag.equals("<$baseUrl.includinghttp$>")){
             return BaseUrl.get(false);
         }

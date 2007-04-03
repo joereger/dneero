@@ -23,7 +23,7 @@ public class PublicSurveyList implements Serializable {
 
     public String beginView(){
         load();
-        return "publicsurvey";
+        return "publicsurveylist";
     }
 
     private void load(){

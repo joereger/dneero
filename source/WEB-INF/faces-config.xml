@@ -639,6 +639,12 @@
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
 
+    <managed-bean>
+        <managed-bean-name>sysadminBetainvite</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.SysadminBetainvite</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
 
 
     <managed-bean>
@@ -787,6 +793,10 @@
         <navigation-case>
             <from-outcome>sysadminhibernatecache</from-outcome>
             <to-view-id>/sysadmin/hibernatecache.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>sysadminbetainvite</from-outcome>
+            <to-view-id>/sysadmin/betainvite.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>sysadminsessions</from-outcome>

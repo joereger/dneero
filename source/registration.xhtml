@@ -28,19 +28,7 @@
 
             <h:panelGrid columns="3" cellpadding="3" border="0">
 
-                <h:panelGroup>
-                    <h:outputText value="Beta Invitation Code" styleClass="formfieldnamefont"></h:outputText>
-                    <br/>
-                    <font class="tinyfont">(the dNeero beta is currently invitation-only)</font>
-                </h:panelGroup>
-                <h:panelGroup>
-                    <h:inputText value="#{registration.invitationcode}" id="invitationcode" required="true">
-                        <f:validateLength minimum="1" maximum="255"></f:validateLength>
-                    </h:inputText>
-                </h:panelGroup>
-                <h:panelGroup>
-                    <h:message for="invitationcode" styleClass="RED"></h:message>
-                </h:panelGroup>
+
 
                 <h:panelGroup>
                     <h:outputText value="First Name" styleClass="formfieldnamefont"></h:outputText>

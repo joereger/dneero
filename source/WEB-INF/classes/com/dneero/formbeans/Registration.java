@@ -36,7 +36,7 @@ public class Registration implements Serializable {
     private String lastname;
     private String j_captcha_response;
     private String eula;
-    private String invitationcode;
+
 
     //private String temp;
 
@@ -62,11 +62,6 @@ public class Registration implements Serializable {
 
         //Validation
         boolean haveErrors = false;
-
-        if (!invitationcode.equals("diaga")){
-            Jsf.setFacesMessage("registrationForm:invitationcode", "The dNeero beta is currently by invitation only.  We'll open the beta to the public very soon.");
-            haveErrors = true;
-        }
 
         if (!password.equals(passwordverify)){
             Jsf.setFacesMessage("registrationForm:password", "Password and Verify Password must match.");
@@ -264,11 +259,5 @@ public class Registration implements Serializable {
     }
 
 
-    public String getInvitationcode() {
-        return invitationcode;
-    }
-
-    public void setInvitationcode(String invitationcode) {
-        this.invitationcode = invitationcode;
-    }
+    
 }

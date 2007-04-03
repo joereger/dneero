@@ -104,12 +104,13 @@
                             <h:commandLink value="Users" action="#{sysadminUserList.beginView}" styleClass="subnavfont" style="padding-left: 15px; color: #000000;" rendered="#{userSession.isloggedin and userSession.isSysadmin}"/>
                             <h:commandLink value="Surveys" action="#{sysadminSurveyList.beginView}" styleClass="subnavfont" style="padding-left: 15px; color: #000000;" rendered="#{userSession.isloggedin and userSession.isSysadmin}"/>
                             <h:commandLink value="EULA" action="#{sysadminEditEula.beginView}" styleClass="subnavfont" style="padding-left: 15px; color: #000000;" rendered="#{userSession.isloggedin and userSession.isSysadmin}"/>
-                            <h:commandLink value="Support Issues" action="#{sysadminSupportIssuesList.beginView}" styleClass="subnavfont" style="padding-left: 15px; color: #000000;" rendered="#{userSession.isloggedin and userSession.isSysadmin}"/>
+                            <h:commandLink value="Support" action="#{sysadminSupportIssuesList.beginView}" styleClass="subnavfont" style="padding-left: 15px; color: #000000;" rendered="#{userSession.isloggedin and userSession.isSysadmin}"/>
                             <h:commandLink value="Rate Posts" action="#{rateBlogPost.beginView}" styleClass="subnavfont" style="padding-left: 15px; color: #000000;" rendered="#{userSession.isloggedin and userSession.isSysadmin}"/>
                             <h:commandLink value="Scheduled Tasks" action="#{sysadminManuallyRunScheduledTask.beginView}" styleClass="subnavfont" style="padding-left: 15px; color: #000000;" rendered="#{userSession.isloggedin and userSession.isSysadmin}"/>
                             <h:commandLink value="System Props" action="#{systemProps.beginView}" styleClass="subnavfont" style="padding-left: 15px; color: #000000;" rendered="#{userSession.isloggedin and userSession.isSysadmin}"/>
-                            <h:commandLink value="Hibernate Cache" action="#{sysadminHibernateCache.beginView}" styleClass="subnavfont" style="padding-left: 15px; color: #000000;" rendered="#{userSession.isloggedin and userSession.isSysadmin}"/>
                             <h:commandLink value="Instance Props" action="#{sysadminInstanceProps.beginView}" styleClass="subnavfont" style="padding-left: 15px; color: #000000;" rendered="#{userSession.isloggedin and userSession.isSysadmin}"/>
+                            <h:commandLink value="Cache" action="#{sysadminHibernateCache.beginView}" styleClass="subnavfont" style="padding-left: 15px; color: #000000;" rendered="#{userSession.isloggedin and userSession.isSysadmin}"/>
+                            <h:commandLink value="Beta Invite" action="#{sysadminBetainvite.beginView}" styleClass="subnavfont" style="padding-left: 15px; color: #000000;" rendered="#{userSession.isloggedin and userSession.isSysadmin}"/>
                         </c:if>
                     </td>
                 </tr>
