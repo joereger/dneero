@@ -58,7 +58,7 @@ public class BloggerIndex implements Serializable {
                         BloggerSurveyTake.createResponse(survey,  srp, Blogger.get(Jsf.getUserSession().getUser().getBloggerid()), responsepending.getReferredbyblogid());
                         responsependingmsg = responsependingmsg + "You just earned $"+ Str.formatForMoney(survey.getWillingtopayperrespondent())+"! We have successfully committed your response to '"+survey.getTitle()+"'!  But don't forget to post this survey to your blog to earn even more money... click <a href='bloggersurveyposttoblog.jsf?surveyid="+survey.getSurveyid()+"'>here</a>." + "<br/><br/>";
                     } catch (ComponentException cex){
-                        responsependingmsg = responsependingmsg + "There was an error committing your response to the survey '"+survey.getTitle()+"': " + cex.getErrorsAsSingleString() + "  But don't worry... we're always adding <a href='/blogger/bloggersurveylist.jsf'>new survey opportunities</a>.<br/><br/>";
+                        responsependingmsg = responsependingmsg + "There was an error committing your response to the survey '"+survey.getTitle()+"': " + cex.getErrorsAsSingleString() + "  But don't worry... we're always adding new survey opportunities!<br/><br/>";
                     }
                     //Delete the responsepending, now that it's been handled
                     responsepending.delete();

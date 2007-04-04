@@ -70,9 +70,10 @@
                 <tr>
                     <td bgcolor="#dadada" style="text-align: left; vertical-align: middle;" colspan="5" height="25">
                         <c:if test="${navtab=='home'}">
-                            <h:commandLink value="See Current Surveys" action="#{publicSurveyList.beginView}" style="padding-left: 15px; color: #000000;" styleClass="subnavfont" rendered="#{!userSession.isloggedin}"/>
+                            <h:commandLink value="Current Survey Opportunities" action="#{publicSurveyList.beginView}" style="padding-left: 15px; color: #000000;" styleClass="subnavfont"/>
                             <h:commandLink value="Sign Up" action="#{registration.beginView}" style="padding-left: 15px; color: #000000;" styleClass="subnavfont" rendered="#{!userSession.isloggedin}"/>
                             <h:commandLink value="Log In" action="#{login.beginView}" style="padding-left: 15px; color: #000000;" styleClass="subnavfont" rendered="#{!userSession.isloggedin}"/>
+                            <h:commandLink value="Log Out" action="#{login.logout}" style="padding-left: 15px; color: #000000;" styleClass="subnavfont" rendered="#{userSession.isloggedin}"/>
                         </c:if>
                         <c:if test="${navtab=='bloggers'}">
                             <h:commandLink value="New Survey Opportunities" action="#{bloggerSurveyList.beginView}" styleClass="subnavfont" style="padding-left: 15px; color: #000000;" rendered="#{userSession.isloggedin and (userSession.user.bloggerid gt 0)}"/>

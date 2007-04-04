@@ -30,7 +30,7 @@ public class PublicSurveyDetail implements Serializable {
     private boolean qualifiesforsurvey = true;
 
     public PublicSurveyDetail(){
-
+        beginView();
     }
 
 

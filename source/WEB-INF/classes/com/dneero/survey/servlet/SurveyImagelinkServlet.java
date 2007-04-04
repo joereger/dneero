@@ -34,7 +34,7 @@ public class SurveyImagelinkServlet extends HttpServlet {
     }
 
     public void doPost (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        logger.debug("Looking for flash survey.");
+        logger.debug("Looking for Image Link survey.");
 
         Survey survey = null;
         if (request.getParameter("s")!=null && com.dneero.util.Num.isinteger(request.getParameter("s"))){
@@ -63,7 +63,7 @@ public class SurveyImagelinkServlet extends HttpServlet {
         int bytesOutput = 0;
         try{
             //Get the image file from the hard disk
-            File imageFile = new File(WebAppRootDir.getWebAppRootPath() + "images/dneero-logo.gif");
+            File imageFile = new File(WebAppRootDir.getWebAppRootPath() + "images/image-embed.gif");
             if (!imageFile.canRead()) {
                 logger.error("Can't find dneero-logo.gif at "+imageFile.getAbsolutePath());
             }

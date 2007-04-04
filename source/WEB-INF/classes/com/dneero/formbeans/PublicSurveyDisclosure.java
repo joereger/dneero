@@ -24,11 +24,11 @@ public class PublicSurveyDisclosure implements Serializable {
     private SurveyEnhancer surveyEnhancer;
 
     public PublicSurveyDisclosure(){
-
+        load();
     }
 
     public String beginView(){
-        load();
+        //load();
         return "publicsurveydisclosure";
     }
 

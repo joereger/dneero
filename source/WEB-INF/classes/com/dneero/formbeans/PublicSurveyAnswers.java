@@ -34,11 +34,11 @@ public class PublicSurveyAnswers implements Serializable {
     private SurveyEnhancer surveyEnhancer;
 
     public PublicSurveyAnswers(){
-
+        load();
     }
 
     public String beginView(){
-        load();
+        //load();
         return "publicsurveyanswers";
     }
 

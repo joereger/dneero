@@ -2,7 +2,9 @@ package com.dneero.formbeans;
 
 import com.dneero.util.*;
 import com.dneero.dao.Survey;
+import com.dneero.dao.Blogger;
 import com.dneero.dao.hibernate.HibernateUtil;
+import com.dneero.finders.FindSurveysForBlogger;
 import org.apache.log4j.Logger;
 
 import java.util.*;
@@ -30,13 +32,19 @@ public class PublicSurveyList implements Serializable {
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("instanciating PublicSurveyList");
         //If user is logged-in only show them their surveys
-        if (Jsf.getUserSession().getIsloggedin()){
+//        if (Jsf.getUserSession().getIsloggedin()){
+//
+//            BloggerSurveyList bsl = new BloggerSurveyList();
+//            surveys = bsl.getSurveys();
+//
+//        //Otherwise, get all open surveys
+//        } else {
 
-            BloggerSurveyList bsl = new BloggerSurveyList();
-            surveys = bsl.getSurveys();
 
-        //Otherwise, get all open surveys
-        } else {
+            FindSurveysForBlogger fsfb = null;
+            if (Jsf.getUserSession().getIsloggedin() && Jsf.getUserSession().getUser()!=null && Jsf.getUserSession().getUser().getBloggerid()>0){
+                fsfb = new FindSurveysForBlogger(Blogger.get(Jsf.getUserSession().getUser().getBloggerid()));
+            }
 
 
             surveys = new ArrayList<BloggerSurveyListItem>();
@@ -67,10 +75,29 @@ public class PublicSurveyList implements Serializable {
                     bsli.setDaysuntilend(daysleft + " days left!");
                 }
 
+                //See if user is qualified
+                if (Jsf.getUserSession().getIsloggedin() && Jsf.getUserSession().getUser()!=null && Jsf.getUserSession().getUser().getBloggerid()>0){
+                    //Iterate surveys this blogger qualifies for
+                    boolean bloggerqualifies = false;
+                    for (Iterator iter = fsfb.getSurveys().iterator(); iter.hasNext();) {
+                        Survey tmpSurvey = (Survey) iter.next();
+                        if (tmpSurvey.getSurveyid()==survey.getSurveyid()){
+
+                        }
+                    }
+                    if (bloggerqualifies){
+                        bsli.setIsbloggerqualifiedstring("Yes");    
+                    } else {
+                        bsli.setIsbloggerqualifiedstring("No");
+                    }
+                } else {
+                    bsli.setIsbloggerqualifiedstring("Unknown");
+                }
+
                 surveys.add(bsli);
             }
 
-        }
+        //}
     }
 
     public ArrayList<BloggerSurveyListItem> getSurveys() {

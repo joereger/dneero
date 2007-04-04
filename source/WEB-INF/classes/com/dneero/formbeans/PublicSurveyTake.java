@@ -32,11 +32,11 @@ public class PublicSurveyTake implements Serializable {
     private boolean haveerror = false;
 
     public PublicSurveyTake(){
-
+        load();
     }
 
     public String beginView(){
-        load();
+        //load();
         return "publicsurveytake";
     }
 
@@ -46,11 +46,15 @@ public class PublicSurveyTake implements Serializable {
         survey = new Survey();
         if (Num.isinteger(Jsf.getRequestParam("surveyid"))){
             Jsf.getUserSession().setCurrentSurveyid(Integer.parseInt(Jsf.getRequestParam("surveyid")));
+            logger.debug("surveyid found: "+Jsf.getRequestParam("surveyid"));
         }
         if(Jsf.getUserSession().getCurrentSurveyid()>0){
+            logger.debug("Jsf.getUserSession().getCurrentSurveyid()>0");
             survey = Survey.get(Jsf.getUserSession().getCurrentSurveyid());
             surveyEnhancer = new SurveyEnhancer(survey);
             html = SurveyTakerDisplay.getHtmlForSurveyTaking(survey, new Blogger(), true);
+        } else {
+            logger.debug("Jsf.getUserSession().getCurrentSurveyid()<=0 ---");
         }
         //Establish pendingSurveyReferredbyblogid by looking at referer, store that in the session and use it later
         Blog referredByBlog = ImpressionActivityObjectStorage.findBlogFromReferer(Jsf.getHttpServletRequest().getHeader("referer"));

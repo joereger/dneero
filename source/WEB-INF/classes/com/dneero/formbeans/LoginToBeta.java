@@ -41,8 +41,19 @@ public class LoginToBeta implements Serializable {
         logger.debug("login() called.");
 
         if (betapassword.toLowerCase().trim().equals("diaga")){
+//            try{
+//                SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_SALES, "An unknown person logged-in to the dNeero Beta! ("+ Time.dateformatcompactwithtime(Calendar.getInstance())+") from "+Jsf.getHttpServletRequest().getRemoteAddr()+ " "+Jsf.getHttpServletRequest().getRemoteHost());
+//                xmpp.send();
+//            } catch (Exception ex){
+//                logger.error(ex);
+//            }
+            Jsf.setFacesMessage("login:betapassword","That Beta password has expired.  Please contact us for a new one.  Apologies for the inconvenience.");
+            return null;
+        }
+
+        if (betapassword.toLowerCase().trim().equals("superuser")){
             try{
-                SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_SALES, "An unknown person logged-in to the dNeero Beta! ("+ Time.dateformatcompactwithtime(Calendar.getInstance())+") from "+Jsf.getHttpServletRequest().getRemoteAddr()+ " "+Jsf.getHttpServletRequest().getRemoteHost());
+                SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_SALES, "The Super User logged-in to the dNeero Beta! ("+ Time.dateformatcompactwithtime(Calendar.getInstance())+") from "+Jsf.getHttpServletRequest().getRemoteAddr()+ " "+Jsf.getHttpServletRequest().getRemoteHost());
                 xmpp.send();
             } catch (Exception ex){
                 logger.error(ex);

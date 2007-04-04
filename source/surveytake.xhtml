@@ -30,71 +30,70 @@
         Use your browser's back button, correct these errors and re-submit.  Thanks.
         </font></div></center>
     </t:div>
-
     <t:div rendered="#{!publicSurveyTake.haveerror}">
         <c:if test="${publicSurveyTake.survey.status eq 4}">
-        <table width="100%" cellpadding="5">
-            <tr>
-                <td valign="top" width="450">
-                    <font class="mediumfont" style="color: #00ff00">#{publicSurveyTake.survey.title}</font>
-                    <br/>
-                    <font class="smallfont">#{publicSurveyTake.survey.description}</font>
-                    <br/><br/>
-                    <c:if test="${publicSurveyTake.survey.status ne 4}">
-                        <font class="mediumfont">Sorry, this survey is no longer open for respondents.  However, we still have many other surveys that allow you to make money!</font>
-                        <br/><br/>
-                        <h:commandButton action="publicsurveylist" value="Find Another Survey" styleClass="formsubmitbutton"></h:commandButton>
-                    </c:if>
-                    <c:if test="${publicSurveyTake.survey.status eq 4}">
-                        <f:verbatim escape="false">#{publicSurveyTake.html}</f:verbatim>
-                    </c:if>
-                    <br/><br/>
-                    <h:commandButton action="#{publicSurveyTake.takeSurvey}" value="Complete the Survey" styleClass="formsubmitbutton"></h:commandButton>
-                </td>
-                <td valign="top" align="left">
-                    <div class="rounded" style="background: #00ff00;">
-                        <div class="rounded" style="background: #ffffff; text-align: center;">
-                            <h:outputText value="Take this survey and earn" styleClass="mediumfont"/>
-                            <br/>
-                            <h:outputText value="#{publicSurveyTake.surveyEnhancer.minearning}" styleClass="largefont" style="font-size: 60px; color: #666666;"/>
-                            <br/>
-                            <h:outputText value="instantly or up to #{publicSurveyTake.surveyEnhancer.maxearning} when you post it to your blog!" styleClass="mediumfont"/>
-                        </div>
+            <table width="100%" cellpadding="5">
+                <tr>
+                    <td valign="top" width="450">
+                        <font class="largefont" style="color: #000000">#{publicSurveyTake.survey.title}</font>
                         <br/>
+                        <font class="smallfont">#{publicSurveyTake.survey.description}</font>
+                        <br/><br/>
+                        <c:if test="${publicSurveyTake.survey.status eq 4}">
+                            <f:verbatim escape="false">#{publicSurveyTake.html}</f:verbatim>
+                        </c:if>
+                        <br/><br/>
+                        <h:commandButton action="#{publicSurveyTake.takeSurvey}" value="Complete the Survey" styleClass="formsubmitbutton"></h:commandButton>
+                    </td>
+                    <td valign="top" align="left">
+                        <div class="rounded" style="background: #00ff00;">
+                            <div class="rounded" style="background: #ffffff; text-align: center;">
+                                <h:outputText value="Take this survey and earn" styleClass="mediumfont"/>
+                                <br/>
+                                <h:outputText value="#{publicSurveyTake.surveyEnhancer.minearning}" styleClass="largefont" style="font-size: 60px; color: #666666;"/>
+                                <br/>
+                                <h:outputText value="instantly or up to #{publicSurveyTake.surveyEnhancer.maxearning} when you post it to your blog!" styleClass="mediumfont"/>
+                            </div>
+                            <br/>
 
-                        <font class="smallfont">
-
-
-                        <br/><br/><b>Get paid to blog.</b><br/>
-                        dNeero pays bloggers to fill out surveys and post their answers to their blog.
-
-                        <br/><br/><b>Your answers appear on your blog</b><br/>
-                        However you answer, your blog readers will see it.  Express yourself!
-
-                        <br/><br/><b>You need to register and qualify to get paid.</b><br/>
-                        Once you fill out the survey you'll need to register and fill out a short blogger profile that asks some basic demographic questions.  If you qualify for this survey then you'll get paid.
-
-                        <br/><br/><b>You need to be honest</b><br/>
-                        We aren't paying you for any particular opinion.  We're paying you for your time and for the exposure on your blog.  If you don't like a product or service you need to be honest about that fact.
-
-                        <br/><br/><b>Stimulate conversation</b><br/>
-                        Engage companies who are actively seeking your feedback on products and services.  At the same time, engage your blog readers in discussion of the same product.
-
-                        <br/><br/><b>No gimmicks.</b><br/>
-                        This is the real deal.  A simple model that respects your privacy and allows you to control what you blog about and when.  We pay for activity you choose to engage in.
-
-                        <br/><br/><b>If you don't like this survey</b><br/>
-                        We have plenty more <h:commandLink value="surveys" action="publicsurveylist" style="padding-left: 5px;" styleClass="subnavfont"/> for you to choose from.  And all of them pay!
+                            <font class="smallfont">
 
 
+                            <br/><br/><b>Get paid to blog.</b><br/>
+                            dNeero pays bloggers to fill out surveys and post their answers to their blog.
 
-                        </font>
+                            <br/><br/><b>Your answers appear on your blog</b><br/>
+                            However you answer, your blog readers will see it.  Express yourself!
+
+                            <br/><br/><b>You need to register and qualify to get paid</b><br/>
+                            Once you fill out the survey you'll need to register and fill out a short blogger profile that asks some basic demographic questions.  If you qualify for this survey then you'll get paid.
+
+                            <br/><br/><b>You need to be honest</b><br/>
+                            We aren't paying you for any particular opinion.  We're paying you for your time and for the exposure on your blog.  If you don't like a product or service you need to be honest about that fact.
+
+                            <br/><br/><b>Stimulate conversation</b><br/>
+                            Engage companies who are actively seeking your feedback on products and services.  At the same time, engage your blog readers in discussion of the same product.
+
+                            <br/><br/><b>No gimmicks.</b><br/>
+                            This is the real deal.  A simple model that respects your privacy and allows you to control what you blog about and when.  We pay for activity you choose to engage in.
+
+                            <br/><br/><b>If you don't like this survey</b><br/>
+                            We have plenty more <h:commandLink value="surveys" action="#{publicSurveyList.beginView}" style="padding-left: 5px;" styleClass="subnavfont"/> for you to choose from.  And all of them pay!
 
 
-                    </div>
-                </td>
-            </tr>
-        </table>
+
+                            </font>
+
+
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </c:if>
+        <c:if test="${publicSurveyTake.survey.status ne 4}">
+            <font class="mediumfont">Sorry, this survey is no longer open for respondents.  However, we still have many other surveys that allow you to make money!</font>
+            <br/><br/>
+            <h:commandButton action="#{publicSurveyList.beginView}" value="Find Another Survey" styleClass="formsubmitbutton"></h:commandButton>
         </c:if>
     </t:div>
 
