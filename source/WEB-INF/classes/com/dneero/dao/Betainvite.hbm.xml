@@ -15,7 +15,7 @@
         <property name="email" type="string">
             <column name="email" not-null="true" />
         </property>
-        <property name="message" type="string">
+        <property name="message" type="text">
             <column name="message" not-null="true" />
         </property>
         <property name="password" type="string">
