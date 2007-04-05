@@ -47,10 +47,12 @@ public class Authorization extends UIComponentBase {
             redirectonfail = "true";
         }
 
-        String httpsrequired = (String)getAttributes().get("httpsrequired");
-        if (httpsrequired==null){
-            httpsrequired = "false";
+        String permitaccessduringprebeta = (String)getAttributes().get("permitaccessduringprebeta");
+        if (permitaccessduringprebeta==null){
+            permitaccessduringprebeta = "false";
         }
+
+
 
 
 
@@ -161,7 +163,7 @@ public class Authorization extends UIComponentBase {
 
 
         //Pre-beta lockdown
-        if (SystemProperty.getProp(SystemProperty.PROP_ISEVERYTHINGPASSWORDPROTECTED).equals("1") && !Jsf.getUserSession().getIsLoggedInToBeta()){
+        if (SystemProperty.getProp(SystemProperty.PROP_ISEVERYTHINGPASSWORDPROTECTED).equals("1") && !Jsf.getUserSession().getIsLoggedInToBeta() && permitaccessduringprebeta.equals("false")){
             context.getExternalContext().redirect("/logintobeta.jsf");
             return;
         } else {

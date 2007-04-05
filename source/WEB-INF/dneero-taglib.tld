@@ -147,6 +147,10 @@
         <name>redirectonfail</name>
         <description>Whether or not to redirect to the login page when fail.  If false, component will simply not be rendered.</description>
     </attribute>
+    <attribute>
+        <name>permitaccessduringprebeta</name>
+        <description>Whether to grant special access to this single page during pre-beta.</description>
+    </attribute>
 </tag>
 
 <tag>

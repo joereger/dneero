@@ -22,7 +22,8 @@ public class PublicResultsAnswersDetails implements Serializable {
     private String results;
 
     public PublicResultsAnswersDetails(){
-
+        //@todo Refactor Non-Empty Constructor
+        load();
     }
 
     public String beginView(){
