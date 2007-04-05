@@ -28,12 +28,14 @@
        <tr>
            <td align="center">
                <h:commandLink action="#{bloggerIndex.beginView}">
-               <img src="/images/homepage-v2-blogger.png" width="376" height="355" border="0" alt=""/>
+                    <f:param name="showmarketingmaterial" value="1"/>
+                    <img src="/images/homepage-v2-blogger.png" width="376" height="355" border="0" alt=""/>
                </h:commandLink>
            </td>
            <td align="center">
                <h:commandLink action="#{researcherIndex.beginView}">
-               <img src="/images/homepage-v2-researcher.png" width="375" height="355" border="0"  alt=""/>
+                    <f:param name="showmarketingmaterial" value="1"/>
+                    <img src="/images/homepage-v2-researcher.png" width="375" height="355" border="0"  alt=""/>
                </h:commandLink>
            </td>
        </tr>
