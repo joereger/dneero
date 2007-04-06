@@ -5,6 +5,7 @@ import com.dneero.util.*;
 import com.dneero.dao.Survey;
 import com.dneero.money.SurveyMoneyStatus;
 import com.dneero.scheduledjobs.ResearcherRemainingBalanceOperations;
+import com.dneero.ui.SocialBookmarkLinks;
 
 import java.io.Serializable;
 
@@ -23,6 +24,7 @@ public class ResearcherSurveyDetailPostlaunch implements Serializable {
     private String maxpossiblespend = "0";
     private String initialcharge = "0";
     private String willingtopayperrespondent = "0";
+    private String socialbookmarklinks = "";
 
 
 
@@ -48,6 +50,7 @@ public class ResearcherSurveyDetailPostlaunch implements Serializable {
         if (survey!=null){
             logger.debug("Found survey in db: survey.getSurveyid()="+survey.getSurveyid()+" survey.getTitle()="+survey.getTitle());
             title = survey.getTitle();
+            socialbookmarklinks = SocialBookmarkLinks.getSocialBookmarkLinks(survey);
             if (Jsf.getUserSession().getUser()!=null && survey.canEdit(Jsf.getUserSession().getUser())){
                 status = survey.getStatus();
 
@@ -124,5 +127,13 @@ public class ResearcherSurveyDetailPostlaunch implements Serializable {
 
     public void setWillingtopayperrespondent(String willingtopayperrespondent) {
         this.willingtopayperrespondent = willingtopayperrespondent;
+    }
+
+    public String getSocialbookmarklinks() {
+        return socialbookmarklinks;
+    }
+
+    public void setSocialbookmarklinks(String socialbookmarklinks) {
+        this.socialbookmarklinks = socialbookmarklinks;
     }
 }

@@ -54,14 +54,14 @@
                                 <div style="width: 200px;"><d:greenRoundedButton pathtoapproot="../"><h:commandLink value="Read the Blogger FAQ" action="bloggerfaq" styleClass="subnavfont" style="color: #ffffff;"/></d:greenRoundedButton></div>
                             </td>
                             <td width="50%" align="center">
-                                <div style="width: 200px;"><d:greenRoundedButton pathtoapproot="../" rendered="#{!userSession.isloggedin}"><h:commandLink value="Sign Up Now" action="registration" styleClass="subnavfont" style="color: #ffffff;"/></d:greenRoundedButton></div>
+                                <div style="width: 200px;"><d:greenRoundedButton pathtoapproot="../" rendered="#{!userSession.isloggedin}"><h:commandLink value="Sign Up Now" action="#{registration.beginView}" styleClass="subnavfont" style="color: #ffffff;"/></d:greenRoundedButton></div>
                             </td>
                         </tr>
                     </table>
                </td>
                <td valign="top" width="30%">
                     <center>
-                    <a href='/publicsurveylist.jsf'><img src="/images/blogger-check-out-opps.gif" width="190" height="132" border="0"></img></a>
+                    <h:commandLink action="#{publicSurveyList.beginView}"><img src="/images/blogger-check-out-opps.gif" width="190" height="132" border="0"></img></h:commandLink>
                     </center>
                     <br/><br/>
                     <div class="rounded" style="background: #eeeeee;">

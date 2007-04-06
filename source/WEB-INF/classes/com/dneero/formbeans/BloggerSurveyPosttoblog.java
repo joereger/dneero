@@ -6,6 +6,7 @@ import com.dneero.dao.Response;
 import com.dneero.util.Jsf;
 import com.dneero.util.Str;
 import com.dneero.ui.SurveyEnhancer;
+import com.dneero.ui.SocialBookmarkLinks;
 import com.dneero.systemprops.BaseUrl;
 import com.dneero.survey.servlet.SurveyJavascriptServlet;
 import com.dneero.survey.servlet.SurveyFlashServlet;
@@ -35,6 +36,7 @@ public class BloggerSurveyPosttoblog implements Serializable {
     private String htmltoposttoblog = "";
     private String htmltoposttoblogflash = "";
     private String htmltoposttoblogimagelink = "";
+    private String socialbookmarklinks = "";
 
     public BloggerSurveyPosttoblog(){
         
@@ -49,6 +51,7 @@ public class BloggerSurveyPosttoblog implements Serializable {
             logger.debug("beginView called: found surveyid in param="+tmpSurveyid);
             Jsf.getUserSession().setCurrentSurveyid(Integer.parseInt(tmpSurveyid));
             survey = Survey.get(Jsf.getUserSession().getCurrentSurveyid());
+            socialbookmarklinks = SocialBookmarkLinks.getSocialBookmarkLinks(survey);
             if (!bloggerHasAlreadyTakenSurvey(survey)){
                 logger.debug("beginView: apparently blogger has not taken surveyid="+tmpSurveyid);
                 try{
@@ -169,5 +172,13 @@ public class BloggerSurveyPosttoblog implements Serializable {
 
     public void setHtmltoposttoblogimagelink(String htmltoposttoblogimagelink) {
         this.htmltoposttoblogimagelink = htmltoposttoblogimagelink;
+    }
+
+    public String getSocialbookmarklinks() {
+        return socialbookmarklinks;
+    }
+
+    public void setSocialbookmarklinks(String socialbookmarklinks) {
+        this.socialbookmarklinks = socialbookmarklinks;
     }
 }

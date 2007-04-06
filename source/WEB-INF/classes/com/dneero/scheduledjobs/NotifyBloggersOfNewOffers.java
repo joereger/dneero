@@ -60,7 +60,7 @@ public class NotifyBloggersOfNewOffers implements Job {
                         for (Iterator<Survey> iterator1 = newSurveys.iterator(); iterator1.hasNext();) {
                             Survey survey = iterator1.next();
                             SurveyEnhancer surveyEnhancer = new SurveyEnhancer(survey);
-                            possibleearnings = possibleearnings + survey.getWillingtopayperrespondent();
+                            possibleearnings = possibleearnings + surveyEnhancer.getMaxearningDbl();
                             String url = BaseUrl.get(false) + "publicsurveydetail.jsf?surveyid="+survey.getSurveyid();
                             listofsurveysHtml.append("<br><br><a href='"+url+"'>" + survey.getTitle() + " (Earn up to: " + surveyEnhancer.getMaxearning() + ")</a>");
                             listofsurveysTxt.append("\n\n" + survey.getTitle() + " (Earn up to: " + surveyEnhancer.getMaxearning()+")");

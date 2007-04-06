@@ -6,6 +6,7 @@ import com.dneero.dao.Blogger;
 import com.dneero.dao.Response;
 import com.dneero.util.*;
 import com.dneero.ui.SurveyEnhancer;
+import com.dneero.ui.SocialBookmarkLinks;
 import com.dneero.display.SurveyTakerDisplay;
 import com.dneero.survey.servlet.SurveyJavascriptServlet;
 
@@ -23,6 +24,7 @@ public class BloggerSurveyDetail implements Serializable {
     private SurveyEnhancer surveyEnhancer;
     private String surveyForTakers;
     private String surveyOnBlogPreview;
+    private String socialbookmarklinks = "";
 
 
     public BloggerSurveyDetail(){
@@ -39,6 +41,7 @@ public class BloggerSurveyDetail implements Serializable {
             Jsf.getUserSession().setCurrentSurveyid(Integer.parseInt(tmpSurveyid));
             load();
             if (survey!=null && survey.getSurveyid()>0){
+                socialbookmarklinks = SocialBookmarkLinks.getSocialBookmarkLinks(survey);
                 if (bloggerHasAlreadyTakenSurvey(survey)){
                     BloggerSurveyPosttoblog bean = (BloggerSurveyPosttoblog)Jsf.getManagedBean("bloggerSurveyPosttoblog");
                     return bean.beginView();
@@ -105,4 +108,11 @@ public class BloggerSurveyDetail implements Serializable {
     }
 
 
+    public String getSocialbookmarklinks() {
+        return socialbookmarklinks;
+    }
+
+    public void setSocialbookmarklinks(String socialbookmarklinks) {
+        this.socialbookmarklinks = socialbookmarklinks;
+    }
 }

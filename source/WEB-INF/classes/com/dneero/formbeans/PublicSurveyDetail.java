@@ -4,6 +4,7 @@ import com.dneero.dao.Survey;
 import com.dneero.dao.Blogger;
 import com.dneero.dao.Response;
 import com.dneero.ui.SurveyEnhancer;
+import com.dneero.ui.SocialBookmarkLinks;
 import com.dneero.util.Jsf;
 import com.dneero.display.SurveyTakerDisplay;
 import com.dneero.survey.servlet.SurveyJavascriptServlet;
@@ -28,6 +29,7 @@ public class PublicSurveyDetail implements Serializable {
     private String surveyAnswersForThisBlogger;
     private String surveyOnBlogPreview;
     private boolean qualifiesforsurvey = true;
+    private String socialbookmarklinks = "";
 
     public PublicSurveyDetail(){
         beginView();
@@ -42,6 +44,7 @@ public class PublicSurveyDetail implements Serializable {
             logger.debug("beginView called: found surveyid in param="+tmpSurveyid);
             Jsf.getUserSession().setCurrentSurveyid(Integer.parseInt(tmpSurveyid));
             survey = Survey.get(Integer.parseInt(tmpSurveyid));
+            socialbookmarklinks = SocialBookmarkLinks.getSocialBookmarkLinks(survey);
             bloggerhasalreadytakensurvey = false;
             int userid = 0;
             if (Jsf.getUserSession().getIsloggedin() && Jsf.getUserSession().getUser()!=null && Jsf.getUserSession().getUser().getBloggerid()>0){
@@ -135,5 +138,13 @@ public class PublicSurveyDetail implements Serializable {
 
     public void setQualifiesforsurvey(boolean qualifiesforsurvey) {
         this.qualifiesforsurvey = qualifiesforsurvey;
+    }
+
+    public String getSocialbookmarklinks() {
+        return socialbookmarklinks;
+    }
+
+    public void setSocialbookmarklinks(String socialbookmarklinks) {
+        this.socialbookmarklinks = socialbookmarklinks;
     }
 }

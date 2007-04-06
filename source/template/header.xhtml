@@ -22,9 +22,9 @@
                     <td valign="top" style="text-align: right;" colspan="3">
                         <c:if test="#{!userSession.isloggedin}">
                             <div style="padding: 10px; text-align: right;">
-                            <font class="subnavfont">Already have an account?<img src="/images/clear.gif" width="20" height="1"/><h:commandLink value="Log In" action="login" styleClass="subnavfont"/></font>
+                            <font class="subnavfont">Already have an account?<img src="/images/clear.gif" width="20" height="1"/><h:commandLink value="Log In" action="#{login.beginView}" styleClass="subnavfont"/></font>
                             <br/>
-                            <font class="subnavfont">Want to get one?<img src="/images/clear.gif" width="20" height="1"/><h:commandLink value="Sign Up" action="registration" styleClass="subnavfont"/></font>
+                            <font class="subnavfont">Want to get one?<img src="/images/clear.gif" width="20" height="1"/><h:commandLink value="Sign Up" action="#{registration.beginView}" styleClass="subnavfont"/></font>
                             </div>
                         </c:if>
                         <c:if test="#{userSession.isloggedin}">

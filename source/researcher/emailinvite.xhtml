@@ -20,7 +20,7 @@
         <t:div rendered="#{!researcherEmailinvite.researcherhasatleastonelivesurvey}">
             <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
             <img src="/images/lightbulb_on.png" alt="" align="right"/>
-            You must have at least one survey with a status of Live to invite people to.  Create a survey first and then come back to invite people to it.  You'll be able to upload a list of email addresses or manually enter them.  You'll be able to set a custom message and email subject.
+            You must have at least one survey with a status of Live to invite people to.  Check <h:commandLink value="Your List of Surveys" action="#{researcherSurveyList.beginView}" styleClass="smallfont" style="color: #0000ff;"/>.  Create a survey first and then come back to invite people to it.  If you just created a survey, sometimes it takes a few minutes for the financial system to process and mark the survey as Live... check back soon.  You'll be able to upload a list of email addresses or manually enter them.  You'll be able to set a custom message and email subject.  
             <br/><br/><br/></font></div></center>
         </t:div>
         <t:div rendered="#{researcherEmailinvite.researcherhasatleastonelivesurvey}">

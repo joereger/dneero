@@ -22,7 +22,9 @@ public class SurveyEnhancer {
     private String willingtopayforresponse;
     private String willingtopayforcpm;
     private String daysuntilend;
+    private double minearningDbl;
     private String minearning;
+    private double maxearningDbl;
     private String maxearning;
     private String numberofquestions;
 
@@ -50,11 +52,11 @@ public class SurveyEnhancer {
                 daysuntilend = daysleft + " days left!";
             }
 
-            double minearningNum = survey.getWillingtopayperrespondent();
-            minearning = "$"+Str.formatForMoney(minearningNum);
+            minearningDbl = survey.getWillingtopayperrespondent();
+            minearning = "$"+Str.formatForMoney(minearningDbl);
 
-            double maxearningNum = survey.getWillingtopayperrespondent()  +   ( (survey.getWillingtopaypercpm()*survey.getMaxdisplaysperblog())/1000 );
-            maxearning = "$"+Str.formatForMoney(maxearningNum);
+            maxearningDbl = survey.getWillingtopayperrespondent()  +   ( (survey.getWillingtopaypercpm()*survey.getMaxdisplaysperblog())/1000 );
+            maxearning = "$"+Str.formatForMoney(maxearningDbl);
 
             if (survey.getQuestions()!=null){
                 numberofquestions = String.valueOf(survey.getQuestions().size());
@@ -156,4 +158,20 @@ public class SurveyEnhancer {
         this.numberofquestions = numberofquestions;
     }
 
+
+    public double getMinearningDbl() {
+        return minearningDbl;
+    }
+
+    public void setMinearningDbl(double minearningDbl) {
+        this.minearningDbl = minearningDbl;
+    }
+
+    public double getMaxearningDbl() {
+        return maxearningDbl;
+    }
+
+    public void setMaxearningDbl(double maxearningDbl) {
+        this.maxearningDbl = maxearningDbl;
+    }
 }

@@ -9,6 +9,7 @@ import com.dneero.display.components.def.ComponentException;
 import com.dneero.display.components.def.Component;
 import com.dneero.display.components.def.ComponentTypes;
 import com.dneero.ui.SurveyEnhancer;
+import com.dneero.ui.SocialBookmarkLinks;
 import com.dneero.survey.servlet.ImpressionActivityObjectStorage;
 
 import java.util.Iterator;
@@ -30,6 +31,7 @@ public class PublicSurveyTake implements Serializable {
     private String html;
     private SurveyEnhancer surveyEnhancer;
     private boolean haveerror = false;
+    private String socialbookmarklinks = "";
 
     public PublicSurveyTake(){
         load();
@@ -51,6 +53,7 @@ public class PublicSurveyTake implements Serializable {
         if(Jsf.getUserSession().getCurrentSurveyid()>0){
             logger.debug("Jsf.getUserSession().getCurrentSurveyid()>0");
             survey = Survey.get(Jsf.getUserSession().getCurrentSurveyid());
+            socialbookmarklinks = SocialBookmarkLinks.getSocialBookmarkLinks(survey);
             surveyEnhancer = new SurveyEnhancer(survey);
             html = SurveyTakerDisplay.getHtmlForSurveyTaking(survey, new Blogger(), true);
         } else {
@@ -168,5 +171,13 @@ public class PublicSurveyTake implements Serializable {
 
     public void setHaveerror(boolean haveerror) {
         this.haveerror = haveerror;
+    }
+
+    public String getSocialbookmarklinks() {
+        return socialbookmarklinks;
+    }
+
+    public void setSocialbookmarklinks(String socialbookmarklinks) {
+        this.socialbookmarklinks = socialbookmarklinks;
     }
 }

@@ -46,7 +46,7 @@
     <font class="smallfont">We appreciate your business!  If you have any questions, you can use the <h:commandLink value="Help/Support Ticket" action="accountsupportissueslist" styleClass="smallfont" style="margin-left: 5px;"/> system.</font>
 
     <br/><br/>
-    <font class="smallfont">You can invite people to take your survey:</font>
+    <font class="smallfont">Invite people to take your survey:</font>
     <br/>
     <h:commandLink action="#{researcherEmailinvite.beginView}">
         <h:outputText value="Invite People to Take this Survey" styleClass="normalfont" escape="false" />
@@ -54,10 +54,16 @@
     </h:commandLink>
 
     <br/><br/>
+    <font class="smallfont">Promote your survey:</font>
+    <br/>
+    <h:outputText value="#{researcherSurveyDetailPostlaunch.socialbookmarklinks}" escape="false" styleClass="smallfont"/>
+
+
+    <br/><br/>
     <font class="smallfont">Or return to your list of surveys:</font>
     <br/>
     <h:commandLink value="Continue" action="#{researcherSurveyList.beginView}" styleClass="mediumfont" style="color: #0000ff;"/>
-
+    <br/><br/>
 
 
 </h:form>

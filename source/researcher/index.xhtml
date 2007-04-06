@@ -85,7 +85,7 @@
                                 <div style="width: 200px;"><d:greenRoundedButton pathtoapproot="../"><h:commandLink value="Read the Researcher FAQ" action="researcherfaq" styleClass="subnavfont" style="color: #ffffff;"/></d:greenRoundedButton></div>
                             </td>
                             <td width="50%" align="center">
-                                <div style="width: 200px;"><d:greenRoundedButton pathtoapproot="../" rendered="#{!userSession.isloggedin}"><h:commandLink value="Sign Up Now" action="registration" styleClass="subnavfont" style="color: #ffffff;"/></d:greenRoundedButton></div>
+                                <div style="width: 200px;"><d:greenRoundedButton pathtoapproot="../" rendered="#{!userSession.isloggedin}"><h:commandLink value="Sign Up Now" action="#{registration.beginView}" styleClass="subnavfont" style="color: #ffffff;"/></d:greenRoundedButton></div>
                             </td>
                         </tr>
                     </table>
