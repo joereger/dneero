@@ -107,7 +107,7 @@ public class BloggerBlogDetail implements Serializable {
             List blogs = HibernateUtil.getSession().createQuery("from Blog where url='"+url+"' and blogid<>'"+blogid+"'").list();
             if (blogs.size()>0){
                 //@todo way for user to report that somebody else is using their blog url
-                Jsf.setFacesMessage("Url "+url+" is already claimed by somebody else.");
+                Jsf.setFacesMessage("Url "+url+" is already claimed by somebody else.  If this is your blog please report the situation using the Help system.");
                 return null;
             }
 

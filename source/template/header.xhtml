@@ -29,11 +29,13 @@
                         </c:if>
                         <c:if test="#{userSession.isloggedin}">
                             <div style="padding: 10px; text-align: right;">
-                                <font class="subnavfont">Hi, ${userSession.user.firstname} ${userSession.user.lastname}!<img src="/images/clear.gif" width="20" height="1"/><h:commandLink value="Log Out" action="#{login.logout}" styleClass="subnavfont"/></font>
+                                <font class="subnavfont">Hi, ${userSession.user.firstname} ${userSession.user.lastname}!<img src="/images/clear.gif" width="5" height="1"/><h:commandLink value="Log Out" action="#{login.logout}" styleClass="subnavfont"/></font>
                                 <c:if test="#{userSession.isloggedin and userSession.isSysadmin}">
                                     <br/>
-                                    <font class="subnavfont">You're a Sys Admin!<img src="/images/clear.gif" width="20" height="1"/><h:commandLink value="Rock On" action="sysadminhome" styleClass="subnavfont"/></font>
+                                    <font class="subnavfont">You're a Sys Admin!<img src="/images/clear.gif" width="5" height="1"/><h:commandLink value="Rock On" action="sysadminhome" styleClass="subnavfont"/></font>
                                 </c:if>
+                                <br/>
+                                <font class="subnavfont">Need <img src="/images/clear.gif" width="1" height="1"/><h:commandLink value="Help?" action="#{accountSupportIssuesList.beginView}" styleClass="subnavfont"/></font>
                             </div>
                         </c:if>
                     </td>
@@ -76,7 +78,6 @@
                             <h:commandLink value="Log Out" action="#{login.logout}" style="padding-left: 15px; color: #000000;" styleClass="subnavfont" rendered="#{userSession.isloggedin}"/>
                         </c:if>
                         <c:if test="${navtab=='bloggers'}">
-                            <h:commandLink value="New Survey Opportunities" action="#{bloggerSurveyList.beginView}" styleClass="subnavfont" style="padding-left: 15px; color: #000000;" rendered="#{userSession.isloggedin and (userSession.user.bloggerid gt 0)}"/>
                             <h:commandLink value="Earnings from Completed Surveys" action="#{bloggerCompletedsurveys.beginView}" styleClass="subnavfont" style="padding-left: 15px; color: #000000;" rendered="#{userSession.isloggedin and (userSession.user.bloggerid gt 0)}"/>
                             <h:commandLink value="Blogger Profile" action="#{bloggerDetails.beginView}" styleClass="subnavfont" style="padding-left: 15px; color: #000000;" rendered="#{userSession.isloggedin and (userSession.user.bloggerid gt 0)}"/>
                             <h:commandLink value="Your Blogs" action="#{bloggerBlogsList.beginView}" styleClass="subnavfont" style="padding-left: 15px; color: #000000;" rendered="#{userSession.isloggedin and (userSession.user.bloggerid gt 0)}"/>
@@ -85,7 +86,6 @@
                             <font class="subnavfont" style="padding-left: 15px; color: #000000;"><h:commandLink action="#{bloggerIndex.beginView}"><f:param name="showmarketingmaterial" value="1"/>Basics</h:commandLink></font>
                         </c:if>
                         <c:if test="${navtab=='researchers'}">
-                            <h:commandLink value="My Surveys and Results" action="#{researcherSurveyList.beginView}" styleClass="subnavfont" style="padding-left: 15px; color: #000000;" rendered="#{userSession.isloggedin and (userSession.user.researcherid gt 0)}"/>
                             <h:commandLink value="Invite People to Take Surveys" action="#{researcherEmailinvite.beginView}" styleClass="subnavfont" style="padding-left: 15px; color: #000000;" rendered="#{userSession.isloggedin and (userSession.user.researcherid gt 0)}"/>
                             <h:commandLink value="Find Bloggers" action="#{researcherFindBloggers.beginView}" styleClass="subnavfont" style="padding-left: 15px; color: #000000;" rendered="#{userSession.isloggedin and (userSession.user.researcherid gt 0)}"/>
                             <h:commandLink value="Panels" action="#{researcherPanels.beginView}" styleClass="subnavfont" style="padding-left: 15px; color: #000000;" rendered="#{userSession.isloggedin and (userSession.user.researcherid gt 0)}"/>

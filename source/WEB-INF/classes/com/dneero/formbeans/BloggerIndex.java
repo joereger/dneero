@@ -65,6 +65,10 @@ public class BloggerIndex implements Serializable {
                 }
             }
         }
+        BloggerSurveyList bean = (BloggerSurveyList)Jsf.getManagedBean("bloggerSurveyList");
+        bean.beginView();
+        BloggerCompletedsurveys bean2 = (BloggerCompletedsurveys)Jsf.getManagedBean("bloggerCompletedsurveys");
+        bean2.beginView();
     }
 
 

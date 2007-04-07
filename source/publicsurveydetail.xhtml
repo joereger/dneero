@@ -104,7 +104,7 @@
                             </h:panelGroup>
                             <h:panelGroup>
                                 <d:percentCompleteBar currentvalue="#{publicSurveyDetail.surveyEnhancer.responsesalreadygotten}" maximumvalue="#{publicSurveyDetail.survey.numberofrespondentsrequested}" mintitle="" maxtitle="" widthinpixels="250"></d:percentCompleteBar>
-                                <h:outputText value="#{publicSurveyDetail.surveyEnhancer.responsesalreadygotten} people have taken this survey.  #{publicSurveyDetail.survey.numberofrespondentsrequested} will be paid for." styleClass="smallfont"/>
+                                <h:outputText value="Up to #{publicSurveyDetail.survey.numberofrespondentsrequested} people may complete this survey for pay." styleClass="smallfont"/>
                                 <br/><br/>
                             </h:panelGroup>
 
@@ -114,7 +114,7 @@
                             </h:panelGroup>
                             <h:panelGroup>
                                 <d:percentCompleteBar currentvalue="#{publicSurveyDetail.surveyEnhancer.impressionsalreadygotten}" maximumvalue="#{publicSurveyDetail.survey.maxdisplaystotal}" mintitle="" maxtitle="" widthinpixels="250"></d:percentCompleteBar>
-                                <h:outputText value="#{publicSurveyDetail.surveyEnhancer.impressionsalreadygotten} blog displays have happened.  #{publicSurveyDetail.survey.maxdisplaystotal} will be paid for." styleClass="smallfont"/>
+                                <h:outputText value="We'll pay for the first #{publicSurveyDetail.survey.maxdisplaystotal} displays in blogs." styleClass="smallfont"/>
                                 <br/><br/>
                             </h:panelGroup>
 
@@ -132,7 +132,7 @@
                                 <br/>
                                 <h:outputText value="instantly or up to #{publicSurveyDetail.surveyEnhancer.maxearning} when you post it to your blog!" styleClass="mediumfont"/>
                                 <br/><br/>
-                                <font class="smallfont" color="#cccccc">#{publicSurveyDetail.surveyEnhancer.daysuntilend}</font>
+                                <font class="smallfont" color="#666666">#{publicSurveyDetail.surveyEnhancer.daysuntilend}</font>
                             </div>
                             <br/>
 
@@ -174,7 +174,7 @@
             <h:graphicImage url="/images/clear.gif" width="700" height="1"/><br/>
             <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
             <img src="/images/lightbulb_on.png" alt="" align="right"/>
-            You don't take the survey here... this is just a preview of the questions to give you a sense of what you're getting into.  To take the survey, click the 'Summary' tab and then click the 'Ok, I'll Take the Survey' button.
+            You don't take the survey here... this is just a preview of the questions to give you a sense of what you're getting into.  To take the survey, click the 'Ok, I'll Take the Survey' button.
             <br/><br/><br/>
             </font></div></center>
             <br/>
@@ -185,7 +185,7 @@
             <h:graphicImage url="/images/clear.gif" width="700" height="1"/><br/>
             <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
             <img src="/images/lightbulb_on.png" alt="" align="right"/>
-            This is how the survey will look on your blog... we'll put your answers in there automatically, of course.  Use this screen to get a sense of how the survey will interact and flow with your blog.
+            This is how the survey will look on your blog... we'll put your answers in there automatically, of course.  Use this screen to get a sense of how the survey will interact and flow with your blog. To take the survey, click the 'Ok, I'll Take the Survey' button.
             <br/><br/><br/>
             </font></div></center>
             <br/>

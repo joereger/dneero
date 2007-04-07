@@ -28,6 +28,8 @@ public class ResearcherIndex implements Serializable {
         } else {
             showmarketingmaterial = false;
         }
+        ResearcherSurveyList bean = (ResearcherSurveyList)Jsf.getManagedBean("researcherSurveyList");
+        bean.beginView();
     }
 
     public boolean getShowmarketingmaterial() {
