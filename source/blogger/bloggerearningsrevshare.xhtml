@@ -81,6 +81,7 @@
                     <font class="smallfont">Listed below are the friends that you've invited (and those that they've invited) to make money using their blog:</font>
                     <br/>
                     <h:form>
+                       <t:saveState id="save" value="#{bloggerEarningsRevshareTreeHandler}"/>
                        <t:tree2 id="serverTree" showRootNode="false" value="#{bloggerEarningsRevshareTreeHandler.treeModel}" var="node" varNodeToggler="t" preserveToggle="false" clientSideToggle="false">
                             <f:facet name="person">
                                     <h:panelGroup>
@@ -99,7 +100,7 @@
                     <font class="smallfont">You share in the revenue even if your friends do the inviting!  Of course, each level away from you that percentage will be smaller... but those little bits can add up!</font>
                     <br/>
                 <h:form>
-
+                    <t:saveState id="save" value="#{bloggerEarningsRevshare}"/>
                     <h:panelGrid columns="2" cellpadding="3" border="0">
 
                         <h:panelGroup><h:outputText value=" "></h:outputText></h:panelGroup>

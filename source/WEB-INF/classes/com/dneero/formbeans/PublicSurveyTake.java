@@ -85,9 +85,13 @@ public class PublicSurveyTake implements Serializable {
         }
         if (Jsf.getUserSession().getIsloggedin()){
             if (Jsf.getUserSession().getUser().getBloggerid()>0){
-                return "bloggerhome";
+                BloggerIndex bean = (BloggerIndex)Jsf.getManagedBean("bloggerIndex");
+                return bean.beginView();
+                //return "bloggerhome";
             } else {
-                return "accountindex";
+                AccountIndex bean = (AccountIndex)Jsf.getManagedBean("accountIndex");
+                return bean.beginView();
+                //return "accountindex";
             }
         }
         return "publicsurveytakefinished";

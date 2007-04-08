@@ -59,7 +59,9 @@ public class LoginAgreeNewEula implements Serializable {
         }
         Jsf.getUserSession().setIseulaok(true);
 
-        return "accountindex";
+        AccountIndex bean = (AccountIndex)Jsf.getManagedBean("accountIndex");
+        return bean.beginView();
+        //return "accountindex";
 
 
 

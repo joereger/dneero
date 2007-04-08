@@ -113,7 +113,7 @@
 
     <c:if test="${userSession.isloggedin and (userSession.user.researcherid eq 0)}">
         <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
-            <img src="/images/alert.png" border="0" align="left"/>
+            <img src="/images/alert.png" border="0" align="right"/>
             <h:commandLink action="researcherdetails"><font class="mediumfont">Quick One-time Researcher Configuration Required</font></h:commandLink>
             <br/>
             <font class="smallfont">Before you can do blogosphere research we need to collect a few pieces of information about you as a researcher.  This will only take a minute or two.</font>
@@ -195,7 +195,7 @@
                     <h:outputText value="Surveys You've Created" styleClass="largefont" style="color: #cccccc;" escape="false"/>
                     <t:div rendered="#{empty researcherSurveyList.surveys}">
                         <div class="rounded" style="padding: 15px; margin: 5px; background: #00ff00;">
-                            <img src="/images/alert.png" border="0" align="left"/>
+                            <img src="/images/alert.png" border="0" align="right"/>
                             <font class="mediumfont">You have not yet created any surveys.  To start one: <h:commandLink value="click here." action="#{researcherSurveyDetail01.beginViewNewSurvey}" styleClass="mediumfont" style="color: #596697;"/></font>
                         </div>
                         <br/><br/>

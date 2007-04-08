@@ -30,7 +30,7 @@
         <h:commandButton action="#{sysadminErrorList.onlyerrors}"  value="Only Errors" styleClass="formsubmitbutton"></h:commandButton>
 
         <br/><br/>
-
+        <t:saveState id="save" value="#{sysadminErrorList}"/>
         <t:dataTable id="datatable" value="#{sysadminErrorList.errors}" rows="15" var="error" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcol,tcolnowrap,tcol,tcolnowrap,tcolnowrap">
           <h:column sortProperty="errorid" sortable="true">
             <f:facet name="header">

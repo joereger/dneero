@@ -19,7 +19,8 @@ public class InviteLandingPage implements Serializable {
     private String referredby;
 
     public InviteLandingPage(){
-
+        //@todo Refactor Non-Empty Constructor
+        load();
     }
     
     public String beginView(){

@@ -67,8 +67,9 @@ public class AccountSettings implements Serializable {
                 EmailActivationSend.sendActivationEmail(user);
             }
         }
-
-        return "accountindex";
+        AccountIndex bean = (AccountIndex)Jsf.getManagedBean("accountIndex");
+        return bean.beginView();
+        //return "accountindex";
     }
 
 

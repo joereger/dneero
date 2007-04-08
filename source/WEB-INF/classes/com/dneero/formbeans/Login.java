@@ -107,10 +107,14 @@ public class Login implements Serializable {
                     return null;
                 } catch (Exception ex){
                     logger.error(ex);
-                    return "accountindex";
+                    AccountIndex bean = (AccountIndex)Jsf.getManagedBean("accountIndex");
+                    return bean.beginView();
+                    //return "accountindex";
                 }
             } else {
-                return "accountindex";
+                AccountIndex bean = (AccountIndex)Jsf.getManagedBean("accountIndex");
+                return bean.beginView();
+                //return "accountindex";
             }
         }
 

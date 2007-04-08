@@ -48,8 +48,9 @@ public class ChangePassword implements Serializable {
         }
 
 
-
-        return "accountindex";
+        AccountIndex bean = (AccountIndex)Jsf.getManagedBean("accountIndex");
+        return bean.beginView();
+        //return "accountindex";
     }
 
 

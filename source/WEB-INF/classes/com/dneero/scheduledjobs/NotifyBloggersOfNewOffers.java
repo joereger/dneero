@@ -35,6 +35,7 @@ public class NotifyBloggersOfNewOffers implements Job {
 
             for (Iterator<Blogger> iterator = bloggers.iterator(); iterator.hasNext();) {
                 Blogger blogger = iterator.next();
+                blogger.refresh();
                 if (blogger.getNotifyofnewsurveysbyemail()){
                     FindSurveysForBlogger finder = new FindSurveysForBlogger(blogger);
                     List allSurveys = finder.getSurveys();

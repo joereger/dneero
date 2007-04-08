@@ -56,12 +56,15 @@ public class LostPasswordServlet extends HttpServlet {
 
             //Set the flag in the session that'll allow this user to reset their password
             UserSession userSession = (UserSession)request.getSession().getAttribute("userSession");
-
-            userSession.setAllowedToResetPasswordBecauseHasValidatedByEmail(true);
-            userSession.setUser(user);
-
-            response.sendRedirect("/lostpasswordchoose.jsf");
-            return;
+            if (userSession!=null){
+                userSession.setAllowedToResetPasswordBecauseHasValidatedByEmail(true);
+                userSession.setUser(user);
+                response.sendRedirect("/lostpasswordchoose.jsf");
+                return;
+            } else {
+                response.sendRedirect("/lostpassword.jsf");
+                return;
+            }
         } else {
             response.sendRedirect("/lostpassword.jsf");
             return;
