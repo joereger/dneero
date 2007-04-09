@@ -97,6 +97,12 @@
 
     <c:if test="${userSession.isloggedin and (userSession.user.bloggerid gt 0) and (!bloggerIndex.showmarketingmaterial)}">
 
+        <t:div rendered="#{bloggerIndex.msg eq ''}">
+            <div class="rounded" style="padding: 15px; margin: 5px; background: #ffffcc;">
+                <font class="mediumfont">#{bloggerIndex.msg}</font>
+            </div>
+       </t:div>
+
         <t:div rendered="#{bloggerIndex.responsependingmsg ne ''}">
             <div class="rounded" style="padding: 15px; margin: 5px; background: #00ff00;">
                 <img src="/images/alert.png" border="0" align="right"/>

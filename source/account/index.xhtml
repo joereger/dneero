@@ -15,6 +15,12 @@
     <ui:param name="navtab" value="youraccount"/>
     <ui:define name="body">
     <d:authorization acl="account" redirectonfail="true"/>
+
+       <t:div rendered="#{accountIndex.msg eq ''}">
+            <div class="rounded" style="padding: 15px; margin: 5px; background: #ffffcc;">
+                <font class="mediumfont">#{accountIndex.msg}</font>
+            </div>
+       </t:div>
     
        <t:div rendered="#{param.msg eq 'autologin'}">
             <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">

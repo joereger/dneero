@@ -22,6 +22,7 @@ public class AccountIndex implements Serializable {
     private String currentbalance = "$0.00";
     private boolean userhasresponsependings = false;
     private String init;
+    private String msg = "";
 
     public AccountIndex(){
 
@@ -76,5 +77,13 @@ public class AccountIndex implements Serializable {
 
     public void setUserhasresponsependings(boolean userhasresponsependings) {
         this.userhasresponsependings = userhasresponsependings;
+    }
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
 }

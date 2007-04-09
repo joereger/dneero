@@ -26,6 +26,7 @@ public class BloggerIndex implements Serializable {
     private boolean userhasresponsependings = false;
     private String responsependingmsg = "";
     private boolean showmarketingmaterial = false;
+    private String msg = "";
 
     public BloggerIndex(){
 
@@ -94,5 +95,13 @@ public class BloggerIndex implements Serializable {
 
     public void setShowmarketingmaterial(boolean showmarketingmaterial) {
         this.showmarketingmaterial = showmarketingmaterial;
+    }
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
 }

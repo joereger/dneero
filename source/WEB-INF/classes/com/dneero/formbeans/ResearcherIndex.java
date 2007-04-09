@@ -12,6 +12,7 @@ import java.io.Serializable;
 public class ResearcherIndex implements Serializable {
 
     private boolean showmarketingmaterial = false;
+    private String msg = "";
 
     public ResearcherIndex(){
 
@@ -38,5 +39,14 @@ public class ResearcherIndex implements Serializable {
 
     public void setShowmarketingmaterial(boolean showmarketingmaterial) {
         this.showmarketingmaterial = showmarketingmaterial;
+    }
+
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
 }

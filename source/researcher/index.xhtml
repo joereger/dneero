@@ -122,6 +122,12 @@
     </c:if>
 
     <c:if test="${userSession.isloggedin and (userSession.user.researcherid gt 0) and (!researcherIndex.showmarketingmaterial)}">
+        <t:div rendered="#{researcherIndex.msg eq ''}">
+            <div class="rounded" style="padding: 15px; margin: 5px; background: #ffffcc;">
+                <font class="mediumfont">#{researcherIndex.msg}</font>
+            </div>
+        </t:div>
+
         <table cellpadding="10" cellspacing="0" border="0" width="100%">
             <tr>
                 <td width="250" valign="top">
