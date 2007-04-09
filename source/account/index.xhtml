@@ -16,21 +16,29 @@
     <ui:define name="body">
     <d:authorization acl="account" redirectonfail="true"/>
 
-       <t:div rendered="#{accountIndex.msg eq ''}">
-            <div class="rounded" style="padding: 15px; margin: 5px; background: #ffffcc;">
+       <t:div rendered="#{accountIndex.isfirsttimelogin}">
+            <div class="rounded" style="padding: 15px; margin: 5px; background: #F2FFBF;">
+                <font class="mediumfont">
+                    Welcome to dNeero!  What now?  Bloggers who want to take surveys<img src="/images/clear.gif" width="3" height="1" alt=""/><h:commandLink value="click here" action="#{bloggerIndex.beginView}" styleClass="mediumfont" style="color: #596697;"/><img src="/images/clear.gif" width="3" height="1" alt=""/>to get started.  Researchers who want to create surveys get started<img src="/images/clear.gif" width="3" height="1" alt=""/><h:commandLink value="over here" action="#{researcherIndex.beginView}" styleClass="mediumfont" style="color: #596697;"/>.
+                </font>
+            </div>
+       </t:div>
+
+       <t:div rendered="#{accountIndex.msg ne ''}">
+            <div class="rounded" style="padding: 15px; margin: 5px; background: #F2FFBF;">
                 <font class="mediumfont">#{accountIndex.msg}</font>
             </div>
        </t:div>
     
        <t:div rendered="#{param.msg eq 'autologin'}">
-            <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
+            <div class="rounded" style="padding: 15px; margin: 5px; background: #F2FFBF;">
                 <font class="mediumfont">Your previous session timed out so you've been logged-in automatically!</font>
             </div>
        </t:div>
 
        <t:div rendered="#{accountIndex.userhasresponsependings}">
             <h:form>
-            <div class="rounded" style="padding: 15px; margin: 5px; background: #596697;">
+            <div class="rounded" style="padding: 15px; margin: 5px; background: #F2FFBF;">
                 <font class="mediumfont">You have a pending survey response.
                 <br/>
                 <h:commandLink value="Continue Here" action="#{bloggerIndex.beginView}" styleClass="mediumfont" style="color: #596697;"/>

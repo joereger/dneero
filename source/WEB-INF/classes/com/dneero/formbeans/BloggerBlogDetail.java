@@ -137,8 +137,10 @@ public class BloggerBlogDetail implements Serializable {
         if (userblogs.size()==1){
             return "bloggerwelcomenewblogger";
         }
-
-        return "bloggerblogslist";
+        BloggerBlogsList bean = (BloggerBlogsList)Jsf.getManagedBean("bloggerBlogsList");
+        bean.setMsg("Blog saved successfully.");
+        return bean.beginView();
+        //return "bloggerblogslist";
 
 
     }

@@ -184,11 +184,13 @@ public class Registration implements Serializable {
             } catch (Exception ex){
                 logger.error(ex);
                 AccountIndex bean = (AccountIndex)Jsf.getManagedBean("accountIndex");
+                bean.setIsfirsttimelogin(true);
                 return bean.beginView();
                 //return "accountindex";
             }
         } else {
             AccountIndex bean = (AccountIndex)Jsf.getManagedBean("accountIndex");
+            bean.setIsfirsttimelogin(true);
             return bean.beginView();
             //return "accountindex";
         }

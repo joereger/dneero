@@ -30,6 +30,8 @@ public class BloggerEarningsRevshareInvite implements Serializable {
         if (existingusers.size()<=0){
             EmailTemplateProcessor.sendMail("dNeero Invitation from "+user.getFirstname()+" "+user.getLastname()+" - Make Money with your Blog!", "inviteblogger", user, null, this.email, user.getEmail());
             BloggerEarningsRevshare bean = (BloggerEarningsRevshare)Jsf.getManagedBean("bloggerEarningsRevshare");
+            bean.setMsg("Invitation(s) sent successfully.  Invite more?");
+            email = "";
             return bean.beginView();
             //return "bloggerearningsrevshare";
         } else {

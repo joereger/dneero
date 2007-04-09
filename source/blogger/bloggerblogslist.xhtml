@@ -22,7 +22,13 @@
 
 
 <h:form>
-    <t:saveState id="save" value="#{bloggerBlogsList}"/>   
+    <t:saveState id="save" value="#{bloggerBlogsList}"/>
+
+    <t:div rendered="#{bloggerBlogsList.msg ne ''}">
+        <div class="rounded" style="padding: 15px; margin: 5px; background: #F2FFBF;">
+            <font class="mediumfont">#{bloggerBlogsList.msg}</font>
+        </div>
+    </t:div>
 
     <h:outputText value="You have not claimed any blogs." rendered="#{empty bloggerBlogsList.blogs}"/>
 
@@ -45,6 +51,15 @@
         </f:facet>
         <h:commandLink action="#{bloggerBlogDetail.beginView}">
             <h:outputText value="Edit" escape="false" />
+            <f:param name="blogid" value="#{blog.blogid}" />
+        </h:commandLink>
+      </h:column>
+      <h:column>
+        <f:facet name="header">
+          <h:outputText value="-" style="color: #ffffff;"/>
+        </f:facet>
+        <h:commandLink action="#{bloggerBlogsList.delete}">
+            <h:outputText value="Delete" escape="false" />
             <f:param name="blogid" value="#{blog.blogid}" />
         </h:commandLink>
       </h:column>

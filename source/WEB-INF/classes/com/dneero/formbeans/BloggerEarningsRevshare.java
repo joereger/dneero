@@ -34,7 +34,7 @@ public class BloggerEarningsRevshare implements Serializable {
     private double level5percent;
     private double level5amt;
 
-
+    private String msg = "";
 
     public BloggerEarningsRevshare(){
 
@@ -189,5 +189,14 @@ public class BloggerEarningsRevshare implements Serializable {
 
     public void setLevel5amt(double level5amt) {
         this.level5amt = level5amt;
+    }
+
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
 }

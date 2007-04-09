@@ -16,12 +16,13 @@
     <ui:define name="body">
     <d:authorization acl="blogger" redirectonfail="true"/>
 
-
-    <d:roundedCornerBox uniqueboxname="newblogger" bodycolor="00ff00" widthinpixels="700" rendered="#{bloggerBlogDetail.isonetimeconfig}">
-    <font class="mediumfont">One-time Blogger Configuration Step 2: Blog Claim</font>
-    <br/>
-    <font class="smallfont">You need to claim at least one blog so that we know where to look for your survey posts.</font>
-    </d:roundedCornerBox>
+    <t:div rendered="#{bloggerBlogDetail.isonetimeconfig}">
+        <div class="rounded" style="padding: 15px; margin: 5px; background: #F2FFBF;">
+            <font class="mediumfont">One-time Blogger Configuration Step 2 of 2: Blog Claim</font>
+            <br/>
+            <font class="smallfont">You need to claim at least one blog so that we know where to look for your survey posts.</font>
+        </div>
+    </t:div>
 
 
 <h:form>

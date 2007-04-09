@@ -82,8 +82,8 @@
                             <h:commandLink value="Blogger Profile" action="#{bloggerDetails.beginView}" styleClass="subnavfont" style="padding-left: 15px; color: #000000;" rendered="#{userSession.isloggedin and (userSession.user.bloggerid gt 0)}"/>
                             <h:commandLink value="Your Blogs" action="#{bloggerBlogsList.beginView}" styleClass="subnavfont" style="padding-left: 15px; color: #000000;" rendered="#{userSession.isloggedin and (userSession.user.bloggerid gt 0)}"/>
                             <h:commandLink value="Revenue Share" action="#{bloggerEarningsRevshare.beginView}" styleClass="subnavfont" style="padding-left: 15px; color: #000000;" rendered="#{userSession.isloggedin and (userSession.user.bloggerid gt 0)}"/>
-                            <h:commandLink value="FAQ" action="bloggerfaq" style="padding-left: 15px; color: #000000;" styleClass="subnavfont"/>
-                            <font class="subnavfont" style="padding-left: 15px; color: #000000;"><h:commandLink action="#{bloggerIndex.beginView}"><f:param name="showmarketingmaterial" value="1"/>Basics</h:commandLink></font>
+                            <h:commandLink value="Blogger FAQ" action="bloggerfaq" style="padding-left: 15px; color: #000000;" styleClass="subnavfont"/>
+                            <font class="subnavfont" style="padding-left: 15px; color: #000000;"><h:commandLink action="#{bloggerIndex.beginView}"><f:param name="showmarketingmaterial" value="1"/>Blogger Basics</h:commandLink></font>
                         </c:if>
                         <c:if test="${navtab=='researchers'}">
                             <h:commandLink value="Invite People to Take Surveys" action="#{researcherEmailinvite.beginView}" styleClass="subnavfont" style="padding-left: 15px; color: #000000;" rendered="#{userSession.isloggedin and (userSession.user.researcherid gt 0)}"/>
@@ -91,8 +91,8 @@
                             <h:commandLink value="Panels" action="#{researcherPanels.beginView}" styleClass="subnavfont" style="padding-left: 15px; color: #000000;" rendered="#{userSession.isloggedin and (userSession.user.researcherid gt 0)}"/>
                             <h:commandLink value="Researcher Profile" action="#{researcherDetails.beginView}" styleClass="subnavfont" style="padding-left: 15px; color: #000000;" rendered="#{userSession.isloggedin and (userSession.user.researcherid gt 0)}"/>
                             <h:commandLink value="Billing Info" action="#{researcherBilling.beginView}" styleClass="subnavfont" style="padding-left: 15px; color: #000000;" rendered="#{userSession.isloggedin and (userSession.user.researcherid gt 0)}"/>
-                            <h:commandLink value="FAQ" action="researcherfaq" style="padding-left: 15px; color: #000000;" styleClass="subnavfont"/>
-                            <font class="subnavfont" style="padding-left: 15px; color: #000000;"><h:commandLink action="#{researcherIndex.beginView}"><f:param name="showmarketingmaterial" value="1"/>Basics</h:commandLink></font>
+                            <h:commandLink value="Researcher FAQ" action="researcherfaq" style="padding-left: 15px; color: #000000;" styleClass="subnavfont"/>
+                            <font class="subnavfont" style="padding-left: 15px; color: #000000;"><h:commandLink action="#{researcherIndex.beginView}"><f:param name="showmarketingmaterial" value="1"/>Researcher Basics</h:commandLink></font>
                         </c:if>
                         <c:if test="${navtab=='youraccount'}">
                             <h:commandLink value="Account Balance" action="#{accountBalance.beginView}" style="padding-left: 15px; color: #000000;" styleClass="subnavfont" rendered="#{userSession.isloggedin}"/>

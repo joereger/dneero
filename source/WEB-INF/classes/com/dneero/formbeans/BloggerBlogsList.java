@@ -22,6 +22,7 @@ import java.io.Serializable;
 public class BloggerBlogsList implements Serializable {
 
     private List blogs;
+    private String msg = "";
 
     public BloggerBlogsList() {
 
@@ -66,6 +67,27 @@ public class BloggerBlogsList implements Serializable {
             }
         }
         logger.debug("End load()");
+    }
+
+    public String delete(){
+        //@todo Verify that a user deleting a blog never deletes any impressions... only joinimpressions.
+        Logger logger = Logger.getLogger(this.getClass().getName());
+        String tmpBlogid = Jsf.getRequestParam("blogid");
+        if (com.dneero.util.Num.isinteger(tmpBlogid) && Integer.parseInt(tmpBlogid)>0){
+            logger.debug("beginView called: found blogid in param="+tmpBlogid);
+            try{
+                Blog blog = Blog.get(Integer.parseInt(tmpBlogid));
+                if (Jsf.getUserSession().getUser()!=null && blog.canEdit(Jsf.getUserSession().getUser())){
+                    blog.delete();
+                    msg="Blog deleted successfully.";
+                }
+            } catch (Exception ex){
+                logger.debug("Error in beginView()");
+                logger.error(ex);
+            }
+        }
+        load();
+        return "bloggerblogslist";
     }
 
     public List getBlogs() {
@@ -120,6 +142,11 @@ public class BloggerBlogsList implements Serializable {
     }
 
 
+    public String getMsg() {
+        return msg;
+    }
 
-
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
 }

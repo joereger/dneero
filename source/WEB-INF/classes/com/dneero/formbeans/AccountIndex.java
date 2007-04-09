@@ -23,6 +23,7 @@ public class AccountIndex implements Serializable {
     private boolean userhasresponsependings = false;
     private String init;
     private String msg = "";
+    private boolean isfirsttimelogin = false;
 
     public AccountIndex(){
 
@@ -85,5 +86,13 @@ public class AccountIndex implements Serializable {
 
     public void setMsg(String msg) {
         this.msg = msg;
+    }
+
+    public boolean getIsfirsttimelogin() {
+        return isfirsttimelogin;
+    }
+
+    public void setIsfirsttimelogin(boolean isfirsttimelogin) {
+        this.isfirsttimelogin = isfirsttimelogin;
     }
 }

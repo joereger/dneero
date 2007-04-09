@@ -183,6 +183,7 @@ public class BloggerDetails implements Serializable {
                 //return "bloggerblogdetail";
             } else {
                 BloggerIndex bean = (BloggerIndex)Jsf.getManagedBean("bloggerIndex");
+                bean.setMsg("Profile saved successfully.");
                 return bean.beginView();
                 //return "bloggerhome";
             }

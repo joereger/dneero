@@ -16,11 +16,14 @@
     <ui:define name="body">
     <d:authorization acl="account" redirectonfail="true"/>
 
-    <d:roundedCornerBox uniqueboxname="bloggerprofilenewblogger" bodycolor="00ff00" widthinpixels="700" rendered="#{userSession.isloggedin and (userSession.user.researcherid eq 0)}">
-    <font class="mediumfont">One-time Researcher Configuration Step 1: Profile Setup</font>
-    <br/>
-    <font class="smallfont">We must take your profile so that we can provide you the highest level of service.  This is a one-time step.  You can edit your answers later on.</font>
-    </d:roundedCornerBox>
+
+    <t:div rendered="#{userSession.isloggedin and (userSession.user.researcherid eq 0)}">
+        <div class="rounded" style="padding: 15px; margin: 5px; background: #F2FFBF;">
+            <font class="mediumfont">One-time Researcher Configuration Step 1 of 1: Profile Setup</font>
+            <br/>
+            <font class="smallfont">We must take your profile so that we can provide you the highest level of service.  This is a one-time step.  You can edit your answers later on.</font>
+        </div>
+    </t:div>
 
 
     <h:form id="researcherdetails">

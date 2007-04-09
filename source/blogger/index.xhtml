@@ -30,7 +30,9 @@
                     <div style="margin: 15px;">
                         <font class="mediumfont" style="color: #999999">Quick Summary</font>
                         <br/>
-                        dNeero helps bloggers make money filling out surveys and posting their answers to their blogs.  After filling out a survey here at dNeero.com you've already made some money.  But you can make more by posting your answers to your blog (all you have to do is copy-and-paste a single line of code).  Your blog readers will see your answers along with any other thoughts you had about the survey.  Your readers can then answer themselves or see how others from your blog answered.  As you automatically recruit more people from your blog we pay you a recruitment fee based on what they earn.
+                        dNeero helps bloggers make money filling out surveys and posting their answers to their blogs.
+                        <br/><br/>
+                        After filling out a survey here at dNeero.com you've already made some money.  But you can make more by posting your answers to your blog (all you have to do is copy-and-paste a single line of code).  Your blog readers will see your answers along with any other thoughts you had about the survey.  Your readers can then complete the survey, or see how others from your blog answered. If they complete the survey, we pay you a recruitment fee based on what they earn.
                         <br/><br/><br/>
                         <font class="mediumfont" style="color: #999999">How it Works for Bloggers</font>
                         <br/>
@@ -46,7 +48,7 @@
                         <br/><br/><br/>
                         <font class="mediumfont" style="color: #999999">How to Get Started</font>
                         <br/>
-                        Sign Up is free.  We collect some basics like email and password and then send you an email message to activate your account.  After your first log in we'll collect some basic demographic information (age, gender, location, etc.) so that we can find the best opportunities for you.  You'll be presented with a list of survey opportunities and within minutes you'll see an account balance.  We pay your PayPal account whevever you accrue $25 in your account... no waiting for quarter-ends!
+                        Sign Up is free.  We collect some basics like email and password and then send you an email message to activate your account.  After your first log in we'll collect some basic demographic information (age, gender, location, etc.) so that we can find the best opportunities for you.  We'll present you a list of survey opportunities, you'll complete surveys of your choosins and within minutes you'll see an account balance.  We pay your PayPal account whevever you accrue $25 in your account... no waiting the end of calendar quarters!
                     </div>
                     <table width="100%">
                         <tr>
@@ -80,14 +82,14 @@
     </c:if>
 
     <c:if test="${userSession.isloggedin and (userSession.user.bloggerid eq 0)}">
-        <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
+        <div class="rounded" style="padding: 15px; margin: 5px; background: #F2FFBF;">
             <img src="/images/alert.png" border="0" align="right"/>
             <h:commandLink action="bloggerdetails"><font class="mediumfont">Quick One-time Blogger Configuration Required</font></h:commandLink>
             <br/>
             <font class="smallfont">Before you can make money blogging we need to collect a few pieces of information about you and your blog.  This will only take a minute or two and you won't have to do it again on future visits.  You'll be filling out surveys, posting them to your blog and making money in no time!</font><br/><br/>
         </div>
         <t:div rendered="#{bloggerIndex.userhasresponsependings}">
-            <div class="rounded" style="padding: 15px; margin: 5px; background: #00ff00;">
+            <div class="rounded" style="padding: 15px; margin: 5px; background: #F2FFBF;">
                 <img src="/images/alert.png" border="0" align="right"/>
                 <font class="mediumfont">You have a pending survey response.  You must complete the Quick One-time Blogger Configuration to continue.</font>
                 <br/><br/>
@@ -96,15 +98,14 @@
     </c:if>
 
     <c:if test="${userSession.isloggedin and (userSession.user.bloggerid gt 0) and (!bloggerIndex.showmarketingmaterial)}">
-
-        <t:div rendered="#{bloggerIndex.msg eq ''}">
-            <div class="rounded" style="padding: 15px; margin: 5px; background: #ffffcc;">
+        <t:div rendered="#{bloggerIndex.msg ne ''}">
+            <div class="rounded" style="padding: 15px; margin: 5px; background: #F2FFBF;">
                 <font class="mediumfont">#{bloggerIndex.msg}</font>
             </div>
        </t:div>
 
         <t:div rendered="#{bloggerIndex.responsependingmsg ne ''}">
-            <div class="rounded" style="padding: 15px; margin: 5px; background: #00ff00;">
+            <div class="rounded" style="padding: 15px; margin: 5px; background: #F2FFBF;">
                 <img src="/images/alert.png" border="0" align="right"/>
                 <font class="mediumfont"><f:verbatim escape="false">#{bloggerIndex.responsependingmsg}</f:verbatim></font>
             </div>
@@ -166,7 +167,7 @@
                 <td valign="top">
                     <h:outputText value="Surveys You Qualify For" styleClass="largefont" style="color: #cccccc;" escape="false"/>
                     <t:div rendered="#{empty bloggerSurveyList.surveys}">
-                        <div class="rounded" style="padding: 15px; margin: 5px; background: #00ff00;">
+                        <div class="rounded" style="padding: 15px; margin: 5px; background: #F2FFBF;">
                             <img src="/images/alert.png" border="0" align="right"/>
                             <font class="mediumfont">There are currently no surveys targeted to your demographic profile but we're always adding new ones so check back soon!</font>
                         </div>
@@ -220,7 +221,7 @@
                     <br/><br/>
                     <h:outputText value="Surveys You've Completed" styleClass="largefont" style="color: #cccccc;" escape="false"/>
                     <t:div rendered="#{empty bloggerCompletedsurveys.list}">
-                        <div class="rounded" style="padding: 15px; margin: 5px; background: #00ff00;">
+                        <div class="rounded" style="padding: 15px; margin: 5px; background: #F2FFBF;">
                             <img src="/images/alert.png" border="0" align="right"/>
                             <font class="mediumfont">You haven't yet completed any surveys.<br/><br/></font>
                         </div>
