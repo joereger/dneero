@@ -34,7 +34,7 @@
    <t:panelTabbedPane id="panel" bgcolor="#ffffff">
         <t:panelTab id="panel_f" label="Post to your Blog">
             <h:graphicImage url="/images/clear.gif" width="700" height="1"/><br/>
-            <font class="mediumfont">Post to your blog by copying the script below and pasting it into a blog post:</font>
+            <font class="mediumfont">Post to your blog by copying one of the scripts below and pasting it into a blog post:</font>
             <t:div rendered="#{bloggerSurveyPosttoblog.survey.embedjavascript}">
                 <br/><br/>
                 <center>
@@ -72,15 +72,6 @@
                         <font class="tinyfont">Survey ID: #{bloggerSurveyPosttoblog.survey.surveyid}</font>
                     </td>
                     <td valign="top" align="right">
-                        <d:roundedCornerBox uniqueboxname="youcouldearn" bodycolor="00ff00" widthinpixels="200">
-                            <h:outputText value="Earn Up To" styleClass="smallfont"/>
-                            <br/>
-                            <h:outputText value="#{bloggerSurveyPosttoblog.surveyEnhancer.maxearning}" styleClass="largefont"/>
-                            <br/>
-                            <h:outputText value="(#{bloggerSurveyPosttoblog.surveyEnhancer.minearning} - #{bloggerSurveyPosttoblog.surveyEnhancer.maxearning})" styleClass="smallfont"/>
-                            <br/><br/>
-                            <font class="mediumfont" color="#ffffff">#{bloggerSurveyPosttoblog.surveyEnhancer.daysuntilend}</font>
-                        </d:roundedCornerBox>
                     </td>
                 </tr>
             </table>
@@ -146,7 +137,7 @@
             <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
             <img src="/images/lightbulb_on.png" alt="" align="right"/>
             These are the answers that you provided.
-            <br/><br/><br/>
+            <br/><br/><br/><br/>
             </font></div></center>
             <br/>
             <br/>

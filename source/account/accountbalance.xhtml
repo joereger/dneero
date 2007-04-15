@@ -12,7 +12,11 @@
       >
 
 <ui:composition template="/template/template-facelets.xhtml">
-    <ui:define name="title">Account Balance: #{accountBalance.currentbalance}<br/><br/></ui:define>
+    <ui:define name="title">Account Balance: #{accountBalance.currentbalance}
+        <br/><br/>
+        <h:outputText value="(We owe you money.)" styleClass="smallfont" style="color: #0bae17;" rendered="#{accountBalance.currentbalanceDbl gt 0}"/>
+        <h:outputText value="(You owe us money.)" styleClass="smallfont" style="color: #0bae17;" rendered="#{accountBalance.currentbalanceDbl lt 0}"/>
+    </ui:define>
     <ui:param name="navtab" value="youraccount"/>
     <ui:define name="body">
     <d:authorization acl="account" redirectonfail="true"/>

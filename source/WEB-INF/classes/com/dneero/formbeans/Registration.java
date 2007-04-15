@@ -98,6 +98,7 @@ public class Registration implements Serializable {
         }
 
         //Create the user
+        //@todo Use http://www.jasypt.org/ to encrypt password
         User user = new User();
         user.setEmail(email);
         user.setPassword(password);

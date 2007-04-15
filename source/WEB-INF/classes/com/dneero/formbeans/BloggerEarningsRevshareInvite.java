@@ -26,16 +26,33 @@ public class BloggerEarningsRevshareInvite implements Serializable {
 
     public String invite(){
         User user = Jsf.getUserSession().getUser();
-        List existingusers = HibernateUtil.getSession().createQuery("from User where email='"+email+"'").list();
-        if (existingusers.size()<=0){
-            EmailTemplateProcessor.sendMail("dNeero Invitation from "+user.getFirstname()+" "+user.getLastname()+" - Make Money with your Blog!", "inviteblogger", user, null, this.email, user.getEmail());
+        StringBuffer err = new StringBuffer();
+
+        if (email!=null && !email.equals("")){
+            String[] individualemails = email.split("\\n");
+            for (int i = 0; i < individualemails.length; i++) {
+                String individualemail = individualemails[i];
+                individualemail = individualemail.trim();
+
+                List existingusers = HibernateUtil.getSession().createQuery("from User where email='"+individualemail+"'").list();
+                if (existingusers.size()<=0){
+                    String[] args = new String[10];
+                    args[0]=message;
+                    EmailTemplateProcessor.sendMail("dNeero Invitation from "+user.getFirstname()+" "+user.getLastname()+" - Make Money with your Blog!", "inviteblogger", user, args, individualemail, user.getEmail());
+                } else {
+                    err.append("A user with the email address '"+email+"' already exists. ");
+                }
+                
+            }
+        }
+
+        if (err.length()<=0){
             BloggerEarningsRevshare bean = (BloggerEarningsRevshare)Jsf.getManagedBean("bloggerEarningsRevshare");
-            bean.setMsg("Invitation(s) sent successfully.  Invite more?");
+            bean.setMsg("Invitation sent successfully.");
             email = "";
             return bean.beginView();
-            //return "bloggerearningsrevshare";
         } else {
-            Jsf.setFacesMessage("inviteform:email", "A user with that email already exists.");
+            Jsf.setFacesMessage("inviteform:email", err.toString());
             return null;
         }
     }

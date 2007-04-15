@@ -24,21 +24,28 @@
 
 <h:form>
 
-    <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
-    <img src="/images/lightbulb_on.png" alt="" align="right"/>
-    On this screen you view the details of the survey opportunity.  See the questions in the 'Question Preview' tab and see how this survey will look on your blog in the 'On-Blog Preview' tab.
-    <br/><br/>
-    <h:commandButton action="#{publicSurveyDetail.beginTakeSurvey}" value="Ok, I'll Take the Survey" styleClass="formsubmitbutton"></h:commandButton>
-    </font></div></center>
-    <br/>
+    <t:div rendered="#{publicSurveyDetail.qualifiesforsurvey}">
+        <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
+        <img src="/images/lightbulb_on.png" alt="" align="right"/>
+        On this screen you view the details of the survey opportunity.  See the questions in the 'Question Preview' tab and see how this survey will look on your blog in the 'On-Blog Preview' tab.
+        <br/><br/>
+        <h:commandButton action="#{publicSurveyDetail.beginTakeSurvey}" value="Ok, I'll Take the Survey" styleClass="formsubmitbutton"></h:commandButton>
+        </font></div></center>
+        <br/>
+    </t:div>
 
-    <d:roundedCornerBox uniqueboxname="alreadytaken" bodycolor="00ff00" widthinpixels="500" rendered="#{publicSurveyDetail.bloggerhasalreadytakensurvey}">
-        <h:outputText value="You've already taken this survey." styleClass="mediumfont" rendered="#{publicSurveyDetail.bloggerhasalreadytakensurvey}"/>
-    </d:roundedCornerBox>
+    <t:div rendered="#{publicSurveyDetail.bloggerhasalreadytakensurvey}">
+        <div class="rounded" style="padding: 15px; margin: 5px; background: #F2FFBF;">
+            <h:outputText value="You've already taken this survey." styleClass="mediumfont"/>
+        </div>
+    </t:div>
 
-    <d:roundedCornerBox uniqueboxname="alreadytaken" bodycolor="00ff00" widthinpixels="500" rendered="#{!publicSurveyDetail.qualifiesforsurvey}">
-        <h:outputText value="Sorry, you're not qualified to take this survey.  Your qualification is determined by your Blogger Profile.  Researchers determine their intended audience when they create a survey." styleClass="mediumfont" rendered="#{!publicSurveyDetail.qualifiesforsurvey}"/>
-    </d:roundedCornerBox>
+    <t:div rendered="#{!publicSurveyDetail.qualifiesforsurvey}">
+        <div class="rounded" style="padding: 15px; margin: 5px; background: #F2FFBF;">
+            <h:outputText value="Sorry, you're not qualified to take this survey.  Your qualification is determined by your Blogger Profile.  Researchers determine their intended audience when they create a survey." styleClass="mediumfont"/>
+        </div>
+    </t:div>
+
 
 
     <t:panelTabbedPane id="panel" bgcolor="#ffffff">

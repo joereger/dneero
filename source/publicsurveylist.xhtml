@@ -19,10 +19,11 @@
 
 
 <h:form>
-
-    <d:roundedCornerBox uniqueboxname="alreadytaken" bodycolor="00ff00" widthinpixels="500" rendered="#{userSession.isloggedin}">
-        <h:outputText value="Note that this screen includes all surveys, including those that you don't qualify for.  In the For Bloggers section you'll find a list of only those surveys that you qualify for." styleClass="mediumfont" rendered="#{userSession.isloggedin}"/>
-    </d:roundedCornerBox>
+    <t:div rendered="#{userSession.isloggedin}">
+        <div class="rounded" style="padding: 15px; margin: 5px; background: #F2FFBF;">
+            <h:outputText value="${userSession.user.firstname}, note that this screen includes all surveys, including those that you don't qualify for.  In the For Bloggers section you'll find a list of only those surveys that you qualify for." styleClass="mediumfont"/>
+        </div>
+    </t:div>
 
 
     <t:saveState id="save" value="#{publicSurveyList}"/>

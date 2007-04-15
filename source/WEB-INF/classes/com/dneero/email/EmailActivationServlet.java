@@ -52,13 +52,9 @@ public class EmailActivationServlet extends HttpServlet {
 
         if (user!=null && user.getEmailactivationkey().equals(emailactivationkey)){
             user.setIsactivatedbyemail(true);
-            try{
-                user.save();
-            } catch (GeneralException gex){
-                logger.error("registerAction failed: " + gex.getErrorsAsSingleString());
-            }
+            try{user.save();} catch (Exception ex){logger.error(ex);}
 
-            //@todo send a welcome message after successful email activation
+            //@todo send a welcome email message after successful email activation
 
             response.sendRedirect("/emailactivationsuceed.jsf");
             return;

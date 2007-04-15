@@ -22,6 +22,7 @@ public class AccountBalance implements Serializable {
 
     private List balances;
     private String currentbalance = "$0.00";
+    private double currentbalanceDbl = 0.0;
 
     public AccountBalance() {
 
@@ -36,7 +37,8 @@ public class AccountBalance implements Serializable {
     private void load(){
         UserSession userSession = Jsf.getUserSession();
         if (userSession!=null && userSession.getUser()!=null && userSession.getUser().getBloggerid()>0){
-            currentbalance = "$"+Str.formatForMoney(CurrentBalanceCalculator.getCurrentBalance(Jsf.getUserSession().getUser()));
+            currentbalanceDbl = CurrentBalanceCalculator.getCurrentBalance(Jsf.getUserSession().getUser());
+            currentbalance = "$"+Str.formatForMoney(currentbalanceDbl);
             List bals = HibernateUtil.getSession().createQuery("from Balance where userid='"+userSession.getUser().getUserid()+"' order by balanceid desc").list();
             balances = new ArrayList<AccountBalanceListItem>();
             for (Iterator iterator = bals.iterator(); iterator.hasNext();) {
@@ -105,5 +107,13 @@ public class AccountBalance implements Serializable {
 
     public void setCurrentbalance(String currentbalance) {
         this.currentbalance = currentbalance;
+    }
+
+    public double getCurrentbalanceDbl() {
+        return currentbalanceDbl;
+    }
+
+    public void setCurrentbalanceDbl(double currentbalanceDbl) {
+        this.currentbalanceDbl = currentbalanceDbl;
     }
 }

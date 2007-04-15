@@ -73,12 +73,12 @@
             <font class="mediumfont">Create a New Support Issue</font>
             <br/>
             <font class="smallfont">Use this form to ask us anything at all about your account.  Report bugs.  Tell us where you're confused.  Tell us what could be better.  All communications will be archived and tracked for you here in the support section.</font>
-            <br/>
+            <br/><br/>
             <h:messages />
             <h:panelGrid columns="3" cellpadding="3" border="0">
 
                 <h:panelGroup>
-                    <h:outputText value="Subject" styleClass="formfieldnamefont"></h:outputText>
+                    <h:outputText value="Subject:" styleClass="formfieldnamefont"></h:outputText>
                 </h:panelGroup>
                 <h:panelGroup>
                     <h:inputText value="#{accountNewSupportIssue.subject}" id="subject" required="true">
@@ -91,7 +91,7 @@
 
 
                 <h:panelGroup>
-                    <h:outputText value="Issue Description" styleClass="formfieldnamefont"></h:outputText>
+                    <h:outputText value="Issue Description:" styleClass="formfieldnamefont"></h:outputText>
                 </h:panelGroup>
                 <h:panelGroup>
                     <h:inputTextarea value="#{accountNewSupportIssue.notes}" id="notes" required="true" cols="45" rows="5">

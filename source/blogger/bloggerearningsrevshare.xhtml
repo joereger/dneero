@@ -36,7 +36,8 @@
                <ul>
                   <li><font class="smallfont">We calculate your friend's earnings</font></li>
                   <li><font class="smallfont">We pay your friend</font></li>
-                  <li><font class="smallfont">We pay you up to #{bloggerEarningsRevshare.level1percent}% of your friend's earnings (out of our pocket)</font></li> 
+                  <li><font class="smallfont">We pay you up to #{bloggerEarningsRevshare.level1percent}% of your friend's earnings (out of our pocket)</font></li>
+                  <li><font class="smallfont">As your friend invites friends we pay you a percentage of your friend's friends earnings (also out of our pocket, see chart to right)</font></li> 
                </ul>
 
                <br/>
@@ -47,28 +48,29 @@
                     <h:panelGrid columns="2" cellpadding="3" border="0">
 
                         <h:panelGroup>
-                            <h:outputText value="Friend's Email" styleClass="formfieldnamefont"></h:outputText>
+                            <h:outputText value="Email Addresses" styleClass="formfieldnamefont"></h:outputText>
+                            <br/>
+                            <h:outputText value="One per line" styleClass="normalfont"></h:outputText>
                         </h:panelGroup>
                         <h:panelGroup>
-                            <h:inputText value="#{bloggerEarningsRevshareInvite.email}" id="email" required="true" size="40">
-                                <f:validateLength minimum="3" maximum="255"></f:validateLength>
-                            </h:inputText>
-                        </h:panelGroup>
-
-
-                        <h:panelGroup>
-                            <h:outputText value="Message" styleClass="formfieldnamefont"></h:outputText>
-                        </h:panelGroup>
-                        <h:panelGroup>
-                            <h:inputTextarea value="#{bloggerEarningsRevshareInvite.message}" id="message" required="false" cols="40">
-                            </h:inputTextarea>
+                            <h:inputTextarea value="#{bloggerEarningsRevshareInvite.email}" id="email" required="true" cols="40" rows="5"></h:inputTextarea>
                         </h:panelGroup>
 
 
                         <h:panelGroup>
+                            <h:outputText value="Optional Message" styleClass="formfieldnamefont"></h:outputText>
+                            <br/>
+                            <h:outputText value="We'll automatically include a link for your friend to click to easily sign up." styleClass="smallfont"></h:outputText>
                         </h:panelGroup>
                         <h:panelGroup>
-                            <h:commandButton action="#{bloggerEarningsRevshareInvite.invite}" value="Invite a Friend" styleClass="formsubmitbutton"></h:commandButton>
+                            <h:inputTextarea value="#{bloggerEarningsRevshareInvite.message}" id="message" required="false" cols="40" rows="5"></h:inputTextarea>
+                        </h:panelGroup>
+
+
+                        <h:panelGroup>
+                        </h:panelGroup>
+                        <h:panelGroup>
+                            <h:commandButton action="#{bloggerEarningsRevshareInvite.invite}" value="Invite Friends" styleClass="formsubmitbutton"></h:commandButton>
                         </h:panelGroup>
 
 

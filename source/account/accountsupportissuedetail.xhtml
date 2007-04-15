@@ -23,16 +23,16 @@
             <h:inputHidden name="supportissueid" value="#{accountSupportIssueDetail.supportissueid}" />
 
 
-            <d:roundedCornerBox uniqueboxname="supportissuesubject" bodycolor="00ff00" widthinpixels="500">
-                 <h:outputText value="#{accountSupportIssueDetail.supportissue.subject}" styleClass="mediumfont"></h:outputText>
-            </d:roundedCornerBox>
+
+            <h:outputText value="#{accountSupportIssueDetail.supportissue.subject}" styleClass="mediumfont"></h:outputText>
+
 
 
             <c:forEach var="supportissuecomm" items="#{accountSupportIssueDetail.supportissuecomms}">
                 <d:roundedCornerBox uniqueboxname="supportissuecomm-#{supportissuecomm.supportissuecommid}" bodycolor="e6e6e6" widthinpixels="500">
                     <h:outputText value="#{supportissuecomm.datetime}"></h:outputText>
                     <f:verbatim><br/></f:verbatim>
-                    <h:outputText value="From: dNeero Admin" rendered="#{supportissuecomm.isfromdneeroadmin}"></h:outputText>
+                    <h:outputText value="From: dNeero Admin" style="font-weight: bold;" rendered="#{supportissuecomm.isfromdneeroadmin}"></h:outputText>
                     <h:outputText value="From: You" rendered="#{!supportissuecomm.isfromdneeroadmin}"></h:outputText>
                     <f:verbatim><br/><br/></f:verbatim>
                     <h:outputText value="#{supportissuecomm.notes}"></h:outputText>
@@ -40,7 +40,7 @@
             </c:forEach>
 
 
-            <d:roundedCornerBox uniqueboxname="newsupportissue" bodycolor="00ff00" widthinpixels="500">
+
             <h:panelGrid columns="3" cellpadding="3" border="0">
 
 
@@ -48,7 +48,7 @@
                     <h:outputText value=" "></h:outputText>
                 </h:panelGroup>
                 <h:panelGroup>
-                    <h:inputTextarea value="#{accountSupportIssueDetail.notes}" id="notes" required="true">
+                    <h:inputTextarea value="#{accountSupportIssueDetail.notes}" id="notes" required="true" rows="5" cols="50">
                     <f:validateLength minimum="3" maximum="50000"></f:validateLength>
                 </h:inputTextarea>
                 </h:panelGroup>
@@ -65,7 +65,7 @@
                 </h:panelGroup>
 
             </h:panelGrid>
-            </d:roundedCornerBox>
+
 
 
 
