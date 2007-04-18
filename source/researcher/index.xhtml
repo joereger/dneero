@@ -112,13 +112,15 @@
     </c:if>
 
     <c:if test="${userSession.isloggedin and (userSession.user.researcherid eq 0)}">
-        <div class="rounded" style="padding: 15px; margin: 5px; background: #F2FFBF;">
-            <img src="/images/alert.png" border="0" align="right"/>
+        <center>
+        <div class="rounded" style="padding: 15px; margin: 5px; background: #F2FFBF; width: 65%;">
             <h:commandLink action="researcherdetails"><font class="mediumfont">Quick One-time Researcher Configuration Required</font></h:commandLink>
             <br/>
             <font class="smallfont">Before you can do blogosphere research we need to collect a few pieces of information about you as a researcher.  This will only take a minute or two.</font>
-            <br/><br/>
+            <br/><br/><br/>
+            <h:commandLink action="researcherdetails"><font class="normalfont">Continue</font></h:commandLink>
         </div>
+        </center>
     </c:if>
 
     <c:if test="${userSession.isloggedin and (userSession.user.researcherid gt 0) and (!researcherIndex.showmarketingmaterial)}">

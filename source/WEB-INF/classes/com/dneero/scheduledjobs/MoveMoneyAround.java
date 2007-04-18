@@ -44,7 +44,7 @@ public class MoveMoneyAround implements Job {
                                                                                   "or status='"+Survey.STATUS_WAITINGFORSTARTDATE+"'"+
                                                                                   "or status='"+Survey.STATUS_DRAFT+"'"+
                                                                                   ")").list();
-                            if (surveys.size()==0){
+                            if (surveys.size()>0){
                                 dopay=false;
                             }
                         }

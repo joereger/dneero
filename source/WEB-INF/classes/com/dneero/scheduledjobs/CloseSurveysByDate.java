@@ -8,6 +8,7 @@ import org.hibernate.criterion.Restrictions;
 import com.dneero.dao.Survey;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.util.GeneralException;
+import com.dneero.util.Time;
 import com.dneero.systemprops.InstanceProperties;
 
 import java.util.List;
@@ -31,9 +32,15 @@ public class CloseSurveysByDate implements Job {
                                    .list();
             for (Iterator<Survey> iterator = surveys.iterator(); iterator.hasNext();) {
                 Survey survey = iterator.next();
+                logger.debug("survey.getSurveyid()="+survey.getSurveyid()+" title="+survey.getTitle());
+                logger.debug("survey.getEnddate()="+Time.dateformatcompactwithtime(Time.getCalFromDate(survey.getEnddate())));
+                logger.debug("new Date()="+Time.dateformatcompactwithtime(Time.getCalFromDate(new Date())));
                 if (survey.getEnddate().before(new Date())){
                     survey.setStatus(Survey.STATUS_CLOSED);
                     try{ survey.save(); } catch (GeneralException ex){ logger.error(ex); }
+                    logger.debug("closing survey.getSurveyid()="+survey.getSurveyid()+" title="+survey.getTitle());
+                } else {
+                    logger.debug("keeping survey open survey.getSurveyid()="+survey.getSurveyid()+" title="+survey.getTitle());
                 }
             }
         } else {

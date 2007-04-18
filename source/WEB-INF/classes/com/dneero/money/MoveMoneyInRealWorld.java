@@ -102,7 +102,11 @@ public class MoveMoneyInRealWorld implements Runnable {
             balance.setDescription(desc);
             balance.setCurrentbalance(CurrentBalanceCalculator.getCurrentBalance(user) - amttogiveuser);
             balance.setUserid(user.getUserid());
-            try{balance.save();}catch (Exception ex){logger.error(ex);}
+            try{balance.save();}catch (Exception ex){
+                SendXMPPMessage xmpp2 = new SendXMPPMessage(SendXMPPMessage.GROUP_SYSADMINS, "WRITE TO DATABASE FAILED!!! Successful Move Money in Real World: amttogiveuser=$"+amttogiveuser+" to/from userid="+user.getUserid()+" "+ user.getFirstname() + " " + user.getLastname() + " ("+user.getEmail()+")");
+                xmpp2.send();
+                logger.error(ex);
+            }
         } else {
             //Notify via XMPP
             SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_CUSTOMERSUPPORT, "Failed Move Money in Real World: amttogiveuser=$"+amttogiveuser+" to/from "+ user.getFirstname() + " " + user.getLastname() + " ("+user.getEmail()+") Notes: "+pm.getNotes());

@@ -15,11 +15,11 @@
     <ui:param name="navtab" value="youraccount"/>
     <ui:define name="body">
     <d:authorization acl="account" redirectonfail="true"/>
-
+    <h:form>
        <t:div rendered="#{accountIndex.isfirsttimelogin}">
             <div class="rounded" style="padding: 15px; margin: 5px; background: #F2FFBF;">
                 <font class="mediumfont">
-                    Welcome to dNeero!  What now?  Bloggers who want to take surveys<img src="/images/clear.gif" width="3" height="1" alt=""/><h:commandLink value="click here" action="#{bloggerIndex.beginView}" styleClass="mediumfont" style="color: #596697;"/><img src="/images/clear.gif" width="3" height="1" alt=""/>to get started.  Researchers who want to create surveys get started<img src="/images/clear.gif" width="3" height="1" alt=""/><h:commandLink value="over here" action="#{researcherIndex.beginView}" styleClass="mediumfont" style="color: #596697;"/>.
+                    Welcome to dNeero!  Choose Blogger to take surveys and get paid.  Choose Researcher to create surveys for bloggers.
                 </font>
             </div>
        </t:div>
@@ -37,20 +37,17 @@
        </t:div>
 
        <t:div rendered="#{accountIndex.userhasresponsependings}">
-            <h:form>
             <div class="rounded" style="padding: 15px; margin: 5px; background: #F2FFBF;">
                 <font class="mediumfont">You have a pending survey response.
                 <br/>
                 <h:commandLink value="Continue Here" action="#{bloggerIndex.beginView}" styleClass="mediumfont" style="color: #596697;"/>
                 </font>
             </div>
-            </h:form>
        </t:div>
 
        <table cellpadding="10" cellspacing="0" border="0" width="100%">
             <tr>
                 <td width="250" valign="top">
-                    <h:form>
                     <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
                         <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
                             <h:commandLink value="Account Balance" action="#{accountBalance.beginView}" styleClass="mediumfont" style="color: #596697;"/>
@@ -83,14 +80,13 @@
                             <font class="smallfont">Use the built-in issue and question tracking system to get help with your account.  Ask us anything and view our responses quickly and easily.</font>
                         </td></tr></table>
                     </div>
-                    </h:form>
 
                     <br/>
                     <t:div rendered="#{!userSession.user.isactivatedbyemail}">
                         <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
                             <font class="mediumfont">Your account has not yet been activated by email.</font>
                             <br/>
-                            <font class="smallfont">You must activate within 3 days of signup.  Check your email inbox for an activation message.  If you've lost that message... no problem: <a href='../emailactivationwaiting.jsf'>re-send it</a>.</font>
+                            <font class="smallfont">You must activate within 3 days of signup.  Check your email inbox for an activation message.  If you've lost that message... no problem: <h:commandLink action="emailactivationresend">re-send it</h:commandLink>.</font>
                         </div>
                    </t:div>
                 </td>
@@ -98,26 +94,22 @@
                     <table cellpadding="20" cellspacing="0" border="0" width="100%">
                         <tr>
                             <td width="50%" align="left" valign="top">
-                                <h:form>
                                 <center><h:commandLink action="#{bloggerIndex.beginView}"><img src="/images/user.png" alt="" border="0" width="128" height="128"/></h:commandLink></center>
-                                    <div><d:greenRoundedButton pathtoapproot="../"><h:commandLink value="Blogger" action="#{bloggerIndex.beginView}" styleClass="mediumfont" style="color: #ffffff;"/></d:greenRoundedButton></div>
-                                    <div style="padding: 10px;">
-                                        <font class="smallfont">You're a blogger or publisher interested in taking surveys, posting your answers to your blog and making money.</font>
-                                        <br/>
-                                        <h:commandLink value="Continue as a Blogger" action="#{bloggerIndex.beginView}" styleClass="subnavfont" style="color: #596697;"/>
-                                    </div>
-                                </h:form>
+                                <div><d:greenRoundedButton pathtoapproot="../"><h:commandLink value="Blogger" action="#{bloggerIndex.beginView}" styleClass="mediumfont" style="color: #ffffff;"/></d:greenRoundedButton></div>
+                                <div style="padding: 10px;">
+                                    <font class="smallfont">You're a blogger or publisher interested in taking surveys, posting your answers to your blog and making money.</font>
+                                    <br/>
+                                    <h:commandLink value="Continue as a Blogger" action="#{bloggerIndex.beginView}" styleClass="subnavfont" style="color: #596697;"/>
+                                </div>
                             </td>
                             <td width="50%" align="left" valign="top">
-                                <h:form>
                                 <center><h:commandLink action="#{researcherIndex.beginView}"><img src="/images/statistic-128.png" alt="" border="0" width="128" height="128"/></h:commandLink></center>
-                                    <div><d:greenRoundedButton pathtoapproot="../"><h:commandLink value="Researcher" action="#{researcherIndex.beginView}" styleClass="mediumfont" style="color: #ffffff;"/></d:greenRoundedButton></div>
-                                    <div style="padding: 10px;">
-                                        <font class="smallfont">You're a researcher interested in creating surveys, finding bloggers to respond to them and generating buzz for your product or service.</font>
-                                        <br/>
-                                        <h:commandLink value="Continue as a Researcher" action="#{researcherIndex.beginView}" styleClass="subnavfont" style="color: #596697;"/>
-                                    </div>
-                                </h:form>
+                                <div><d:greenRoundedButton pathtoapproot="../"><h:commandLink value="Researcher" action="#{researcherIndex.beginView}" styleClass="mediumfont" style="color: #ffffff;"/></d:greenRoundedButton></div>
+                                <div style="padding: 10px;">
+                                    <font class="smallfont">You're a researcher interested in creating surveys, finding bloggers to respond to them and generating buzz for your product or service.</font>
+                                    <br/>
+                                    <h:commandLink value="Continue as a Researcher" action="#{researcherIndex.beginView}" styleClass="subnavfont" style="color: #596697;"/>
+                                </div>
                             </td>
                         </tr>
                     </table>
@@ -129,7 +121,7 @@
 
 
 
-
+    </h:form>
 </ui:define>
 
 
