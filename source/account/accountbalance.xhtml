@@ -13,7 +13,7 @@
 
 <ui:composition template="/template/template-facelets.xhtml">
     <ui:define name="title">Account Balance: #{accountBalance.currentbalance}<br/>
-        <h:outputText value="(We owe you money.)" styleClass="smallfont" style="color: #0bae17;" rendered="#{accountBalance.currentbalanceDbl gt 0}"/>
+        <h:outputText value="(We owe you money.  Once a day, if you have a balance of over $25 and don't have any live surveys that you've launched yourself then we'll send money to the PayPal address in your blogger profile.)" styleClass="smallfont" style="color: #0bae17;" rendered="#{accountBalance.currentbalanceDbl gt 0}"/>
         <h:outputText value="(You owe us money.)" styleClass="smallfont" style="color: #0bae17;" rendered="#{accountBalance.currentbalanceDbl lt 0}"/>
         <br/><br/>
     </ui:define>

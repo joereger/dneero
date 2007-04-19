@@ -83,9 +83,9 @@ public class ResearcherDetails implements Serializable {
             }
 
             //Beta mode cash to researcher
-            if (isnewresearcher && SystemProperty.getProp(SystemProperty.PROP_ISBETA).equals("1")){
-                MoveMoneyInAccountBalance.pay(userSession.getUser(), 100000, "Beta mode researcher startup cash.", false);
-            }
+            //if (isnewresearcher && SystemProperty.getProp(SystemProperty.PROP_ISBETA).equals("1")){
+                //MoveMoneyInAccountBalance.pay(userSession.getUser(), 100000, "Beta mode researcher startup cash.", false);
+            //}
 
             boolean hasroleassigned = false;
             if (userSession.getUser()!=null && userSession.getUser().getUserroles()!=null){

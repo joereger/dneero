@@ -49,7 +49,8 @@ public class MoveMoneyAround implements Job {
                             }
                         }
                         //Don't pay anything less than $25
-                        if (currentbalance<25){
+                        //@todo Set PayPal payment min back to $25 from $2
+                        if (currentbalance<2){
                             dopay=false;
                         }
 

@@ -50,20 +50,27 @@ public class ResearcherRemainingBalanceOperations implements Job {
             logger.debug("--------------");
             User user = User.get(researcher.getUserid());
             //Collect data on this researcher
-            List surveys = HibernateUtil.getSession().createQuery("from Survey where researcherid='"+researcher.getResearcherid()+"'").list();
+            List surveys = HibernateUtil.getSession().createQuery("from Survey where researcherid='"+researcher.getResearcherid()+"'").setCacheable(false).list();
             double currentbalance = CurrentBalanceCalculator.getCurrentBalance(user);
             double totalremainingpossiblespendforallsurveys = 0;
             double totalmaxpossiblespendforallsurveys = 0;
+            logger.debug("userid="+user.getUserid()+ " ("+user.getFirstname() + " "+user.getLastname()+")");
+            logger.debug("researcherid="+researcher.getResearcherid());
+            logger.debug("surveys.size()="+surveys.size());
+            logger.debug("start iterating surveys for researcherid="+researcher.getResearcherid());
             for (Iterator iterator1 = surveys.iterator(); iterator1.hasNext();) {
                 Survey survey = (Survey) iterator1.next();
+                logger.debug("found survey for researcher... surveyid="+survey.getSurveyid());
                 if (survey.getStatus()!=Survey.STATUS_DRAFT){
+                    logger.debug("surveyid="+survey.getSurveyid()+" survey is not draft");
                     SurveyMoneyStatus sms = new SurveyMoneyStatus(survey);
+                    logger.debug("surveyid="+survey.getSurveyid()+" sms.getRemainingPossibleSpend()="+sms.getRemainingPossibleSpend());
+                    logger.debug("surveyid="+survey.getSurveyid()+" sms.getMaxPossibleSpend()="+sms.getMaxPossibleSpend());
                     totalremainingpossiblespendforallsurveys = totalremainingpossiblespendforallsurveys + sms.getRemainingPossibleSpend();
                     totalmaxpossiblespendforallsurveys = totalmaxpossiblespendforallsurveys + sms.getMaxPossibleSpend();
                 }
             }
-            logger.debug("userid="+user.getUserid()+ " ("+user.getFirstname() + " "+user.getLastname()+")");
-            logger.debug("researcherid="+researcher.getResearcherid());
+            logger.debug("end iterating surveys for researcherid="+researcher.getResearcherid());
             logger.debug("currentbalance="+currentbalance);
             logger.debug("totalremainingpossiblespendforallsurveys="+totalremainingpossiblespendforallsurveys);
             logger.debug("totalmaxpossiblespendforallsurveys="+totalmaxpossiblespendforallsurveys);
@@ -114,10 +121,12 @@ public class ResearcherRemainingBalanceOperations implements Job {
             } else {
                 logger.debug("current balance is greater than MINPERCENTOFTOTALVALUEAVAILASBALANCE of totalmaxpossiblespendforallsurveys("+((MINPERCENTOFTOTALVALUEAVAILASBALANCE/100) * totalmaxpossiblespendforallsurveys)+")");
                 //Make sure this researcher has no surveys with status = STATUS_WAITINGFORFUNDS
-                logger.debug("Making sure there are no surveys in status=STATUS_WAITINGFORFUNDS for researcherid="+researcher.getResearcherid());
-                List surveysWaiting = HibernateUtil.getSession().createQuery("from Survey where researcherid='"+researcher.getResearcherid()+"'").list();
+                logger.debug("making sure there are no surveys in status=STATUS_WAITINGFORFUNDS for researcherid="+researcher.getResearcherid());
+                List surveysWaiting = HibernateUtil.getSession().createQuery("from Survey where researcherid='"+researcher.getResearcherid()+"'").setCacheable(false).list();
+                logger.debug("surveysWaiting.size()="+surveysWaiting.size());
                 for (Iterator iterator1 = surveysWaiting.iterator(); iterator1.hasNext();) {
                     Survey survey = (Survey) iterator1.next();
+                    logger.debug("found surveyid="+survey.getSurveyid());
                     if (survey.getStatus()==Survey.STATUS_WAITINGFORFUNDS){
                         logger.debug("operating on surveyid="+survey.getSurveyid());
                         survey.setStatus(Survey.STATUS_OPEN);

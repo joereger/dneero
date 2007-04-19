@@ -40,7 +40,7 @@
         <t:panelTab id="panel_a" label="Questions">
             <h:graphicImage url="/images/clear.gif" width="700" height="1"/><br/>
 
-            <t:dataTable id="datatable" value="#{researcherSurveyQuestionList.questions}" rows="2" var="question" rendered="#{!empty researcherSurveyQuestionList.questions}" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcol,tcolnowrap,tcol,tcolnowrap,tcolnowrap">
+            <t:dataTable id="datatable" value="#{researcherSurveyQuestionList.questions}" rows="10" var="question" rendered="#{!empty researcherSurveyQuestionList.questions}" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcol,tcolnowrap,tcol,tcolnowrap,tcolnowrap">
               <h:column>
                 <f:facet name="header">
                   <h:outputText value=""/>

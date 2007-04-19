@@ -82,7 +82,7 @@ public class PublicSurveyList implements Serializable {
                     for (Iterator iter = fsfb.getSurveys().iterator(); iter.hasNext();) {
                         Survey tmpSurvey = (Survey) iter.next();
                         if (tmpSurvey.getSurveyid()==survey.getSurveyid()){
-
+                            bloggerqualifies=true;
                         }
                     }
                     if (bloggerqualifies){

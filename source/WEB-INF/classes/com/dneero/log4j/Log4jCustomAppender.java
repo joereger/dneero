@@ -45,41 +45,41 @@ public class Log4jCustomAppender extends AppenderSkeleton {
                 }
             }
         }
-        //Write error message to the DB
-//        System.out.println("CUSTOMAPPENDER: "+errorMessage.toString());
-//        if (ApplicationStartup.getIshibernateinitialized()){
-//            com.dneero.dao.Error error = new com.dneero.dao.Error();
-//            error.setDate(new Date());
-//            error.setLevel(event.getLevel().toInt());
-//            error.setStatus(com.dneero.dao.Error.STATUS_NEW);
-//            error.setError(errorMessageAsHtml.toString());
-//            try{error.save();}catch(Exception ex){ex.printStackTrace();}
-//        }
 
-        if (ApplicationStartup.getIsappstarted()){
-            if (event.getLevel()==Level.ERROR || event.getLevel()==Level.FATAL){
-                try{
-                    //-----------------------------------
-                    //-----------------------------------
-                    int identity = Db.RunSQLInsert("INSERT INTO error(error, level, status, date) VALUES('"+Str.cleanForSQL(errorMessageAsHtml.toString())+"', '"+event.getLevel().toInt()+"', '"+com.dneero.dao.Error.STATUS_NEW+"', '"+ Time.dateformatfordb(Calendar.getInstance())+"')", false);
-                    //-----------------------------------
-                    //-----------------------------------
-                } catch (Exception ex){
-                    ex.printStackTrace();
+        if (shouldRecordThis(errorMessageAsHtml.toString())){
+            //Write to database
+            if (ApplicationStartup.getIsappstarted()){
+                if (event.getLevel()==Level.ERROR || event.getLevel()==Level.FATAL){
+                    try{
+                        //-----------------------------------
+                        //-----------------------------------
+                        int identity = Db.RunSQLInsert("INSERT INTO error(error, level, status, date) VALUES('"+Str.cleanForSQL(errorMessageAsHtml.toString())+"', '"+event.getLevel().toInt()+"', '"+com.dneero.dao.Error.STATUS_NEW+"', '"+ Time.dateformatfordb(Calendar.getInstance())+"')", false);
+                        //-----------------------------------
+                        //-----------------------------------
+                    } catch (Exception ex){
+                        ex.printStackTrace();
+                    }
                 }
             }
-        }
-
-        //XMPP (Instant Messages)
-        if (event.getLevel()==Level.ERROR || event.getLevel()==Level.FATAL){
-            SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_SYSADMINS, Str.truncateString(errorMessage.toString(), 300));
-            xmpp.send();
+            //XMPP (Instant Messages)
+            if (event.getLevel()==Level.ERROR || event.getLevel()==Level.FATAL){
+                SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_SYSADMINS, Str.truncateString(errorMessage.toString(), 300));
+                xmpp.send();
+            }
         }
 
     }
     
     public synchronized void close(){
 
+    }
+
+    //Allows me to filter out annoying framework-based errors that can't be fixed otherwise
+    public boolean shouldRecordThis(String err){
+        if (err.indexOf("org.apache.myfaces.shared_tomahawk.renderkit.html.HtmlTableRendererBase")>-1){
+            return false;
+        }
+        return true;
     }
 
 

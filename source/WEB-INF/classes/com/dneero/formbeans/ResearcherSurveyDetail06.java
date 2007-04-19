@@ -138,9 +138,14 @@ public class ResearcherSurveyDetail06 implements Serializable {
                 }
 
                 //Only worry about the credit carc stuff if there's not enough in the account currently
+                logger.debug("currentbalance: "+currentbalance);
+                logger.debug("sms.getMaxPossibleSpend()*(ResearcherRemainingBalanceOperations.INCREMENTALPERCENTTOCHARGE/100): "+(sms.getMaxPossibleSpend()*(ResearcherRemainingBalanceOperations.INCREMENTALPERCENTTOCHARGE/100)));
                 if(currentbalance<(sms.getMaxPossibleSpend()*(ResearcherRemainingBalanceOperations.INCREMENTALPERCENTTOCHARGE/100))){
-                    if (Jsf.getUserSession().getUser().getChargemethod()== PaymentMethod.PAYMENTMETHODCREDITCARD){
+                    logger.debug("currentbalance is < sms.get.....");
+                    if (Jsf.getUserSession().getUser().getChargemethod()==PaymentMethod.PAYMENTMETHODCREDITCARD){
+                        logger.debug("Jsf.getUserSession().getUser().getChargemethod()== PaymentMethod.PAYMENTMETHODCREDITCARD");
                         if (Jsf.getUserSession().getUser().getChargemethodcreditcardid()>0){
+                            logger.debug("Jsf.getUserSession().getUser().getChargemethodcreditcardid()>0");
                             warningdonthaveccinfo = false;
                             Creditcard cc = Creditcard.get(Jsf.getUserSession().getUser().getChargemethodcreditcardid());
                             ccnum = cc.getCcnum();
@@ -160,6 +165,7 @@ public class ResearcherSurveyDetail06 implements Serializable {
                             ipaddress = cc.getIpaddress();
                             merchantsessionid = cc.getMerchantsessionid();
                         } else {
+                            logger.debug("warningdonthaveccinfo = true because Jsf.getUserSession().getUser().getChargemethodcreditcardid()<=0");
                             warningdonthaveccinfo = true;
                         }
                     } else if (Jsf.getUserSession().getUser().getChargemethod()== PaymentMethod.PAYMENTMETHODMANUAL){
@@ -255,16 +261,6 @@ public class ResearcherSurveyDetail06 implements Serializable {
                     userSession.setUser(user);
                 }
 
-                //Charge the per-survey creation fee
-                MoveMoneyInAccountBalance.charge(userSession.getUser(), SurveyMoneyStatus.PERSURVEYCREATIONFEE, "Survey creation fee for '"+survey.getTitle()+"'");            
-
-                //Make sure user has enough in their account by running the remaining balance algorithm for just this researcher
-                if (Jsf.getUserSession().getUser()!=null){
-                    //Run in its own thread so that the user's screen progresses
-                    ResearcherSurveyDetail06BalancecheckThread thr = new ResearcherSurveyDetail06BalancecheckThread(Researcher.get(Jsf.getUserSession().getUser().getResearcherid()));
-                    thr.startThread();
-                }
-
                 //Manage the status as it relates to the startdate
                 if (startdate.before(now)){
                     survey.setStatus(Survey.STATUS_OPEN);
@@ -281,6 +277,17 @@ public class ResearcherSurveyDetail06 implements Serializable {
                     String message = "saveSurvey() save failed: " + gex.getErrorsAsSingleString();
                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage( FacesMessage.SEVERITY_INFO, message, message));
                     return null;
+                }
+
+                //Charge the per-survey creation fee
+                MoveMoneyInAccountBalance.charge(userSession.getUser(), SurveyMoneyStatus.PERSURVEYCREATIONFEE, "Survey creation fee for '"+survey.getTitle()+"'");
+
+                //Make sure user has enough in their account by running the remaining balance algorithm for just this researcher
+                if (Jsf.getUserSession().getUser()!=null){
+                    //Run in its own thread so that the user's screen progresses
+                    //ResearcherSurveyDetail06BalancecheckThread thr = new ResearcherSurveyDetail06BalancecheckThread(Researcher.get(Jsf.getUserSession().getUser().getResearcherid()));
+                    //thr.startThread();
+                    ResearcherRemainingBalanceOperations.processResearcher(Researcher.get(Jsf.getUserSession().getUser().getResearcherid()));
                 }
 
                 //Refresh
