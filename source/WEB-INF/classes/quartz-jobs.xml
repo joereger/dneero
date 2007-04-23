@@ -134,7 +134,7 @@
             <job-name>refreshImpressionsqualifyingforpaymentCount</job-name>
             <job-group>surveyJobs</job-group>
             <!-- every x minutes -->
-            <cron-expression>0 0/15 * * * ?</cron-expression>
+            <cron-expression>0 0/30 * * * ?</cron-expression>
           </cron>
         </trigger>
     </job>
@@ -233,7 +233,7 @@
             <job-name>qualityAverager</job-name>
             <job-group>surveyJobs</job-group>
             <!-- Fire at 3am every day -->
-            <cron-expression>0 0 3 * * ?</cron-expression>
+            <cron-expression>0 0 4 * * ?</cron-expression>
           </cron>
         </trigger>
     </job>
@@ -257,9 +257,9 @@
             <!-- 12pm on the 15th of the month -->
             <!--<cron-expression>0 0 12 15 * ?</cron-expression>-->
             <!-- Fire at 1am every day -->
-            <!--<cron-expression>0 0 1 * * ?</cron-expression>-->
+            <cron-expression>0 0 1 * * ?</cron-expression>
             <!-- every 15 minutes -->
-            <cron-expression>0 0/15 * * * ?</cron-expression>
+            <!--<cron-expression>0 0/15 * * * ?</cron-expression>-->
           </cron>
         </trigger>
     </job>
@@ -283,9 +283,9 @@
             <!-- 12pm on the 15th of the month -->
             <!--<cron-expression>0 0 12 15 * ?</cron-expression>-->
             <!-- Fire at 1am every day -->
-            <!--<cron-expression>0 0 1 * * ?</cron-expression>-->
+            <cron-expression>0 0 4 * * ?</cron-expression>
             <!-- every 15 minutes -->
-            <cron-expression>0 0/15 * * * ?</cron-expression>
+            <!--<cron-expression>0 0/15 * * * ?</cron-expression>-->
           </cron>
         </trigger>
     </job>
@@ -306,7 +306,7 @@
             <group>surveyTriggers</group>
             <job-name>notifyBloggersOfNewOffers</job-name>
             <job-group>surveyJobs</job-group>
-            <!-- Fire at 10am (noon) every day -->
+            <!-- Fire at 10am every day -->
             <cron-expression>0 0 10 * * ?</cron-expression>
           </cron>
         </trigger>
