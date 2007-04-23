@@ -212,16 +212,32 @@
         </t:panelTab>
         <t:panelTab id="panel_f" label="Post to your Blog" rendered="#{publicSurveyDetail.bloggerhasalreadytakensurvey}">
             <h:graphicImage url="/images/clear.gif" width="700" height="1"/><br/>
-            <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
-            <img src="/images/lightbulb_on.png" alt="" align="right"/>
-            Now that you've filled out the survey you can make even more money by posting it to your blog with a simple copy-and-paste operation.
-            <br/><br/><br/>
-            </font></div></center>
-            <br/>
-            <br/>
-            <d:roundedCornerBox uniqueboxname="posttoblog" bodycolor="ffffff" widthinpixels="500">
-            <font class="smallfont">&lt;script src="${baseUrl.includinghttp}s?s=#{publicSurveyDetail.survey.surveyid}&amp;u=#{userSession.user.userid}"&gt;&lt;/script&gt;</font>
-            </d:roundedCornerBox>
+            <font class="mediumfont">Post to your blog by copying one of the scripts below and pasting it into a blog post:</font>
+            <t:div rendered="#{publicSurveyDetail.survey.embedjavascript}">
+                <br/><br/>
+                <center>
+                <font class="smallfont">Javascript Version for Most Applications</font><br/>
+                <div class="rounded" style="background: #00ff00; text-align: center; padding: 20px;"><font class="smallfont">
+                <textarea rows="3" cols="55" readonly="readonly" onClick="javascript:this.select();">#{publicSurveyDetail.htmltoposttoblog}</textarea>
+                </font></div></center>
+            </t:div>
+            <t:div rendered="#{publicSurveyDetail.survey.embedflash}">
+                <br/><br/>
+                <center>
+                <font class="smallfont">Flash Version</font><br/>
+                <div class="rounded" style="background: #e6e6e6; text-align: center; padding: 20px;"><font class="smallfont">
+                <textarea rows="3" cols="55" readonly="readonly" onClick="javascript:this.select();">#{publicSurveyDetail.htmltoposttoblogflash}</textarea>
+                </font></div></center>
+             </t:div>
+             <t:div rendered="#{publicSurveyDetail.survey.embedlink}">
+                <br/><br/>
+                <center>
+                <font class="smallfont">Image Link Version</font><br/>
+                <div class="rounded" style="background: #e6e6e6; text-align: center; padding: 20px;"><font class="smallfont">
+                <textarea rows="3" cols="55" readonly="readonly" onClick="javascript:this.select();">#{publicSurveyDetail.htmltoposttoblogimagelink}</textarea>
+                </font></div></center>
+             </t:div>
+             <br/>
         </t:panelTab>
     </t:panelTabbedPane>
 

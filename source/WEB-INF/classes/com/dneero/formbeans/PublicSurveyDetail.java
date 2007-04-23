@@ -9,7 +9,9 @@ import com.dneero.util.Jsf;
 import com.dneero.display.SurveyTakerDisplay;
 import com.dneero.survey.servlet.SurveyJavascriptServlet;
 import com.dneero.survey.servlet.SurveyFlashServlet;
+import com.dneero.survey.servlet.SurveyImagelinkServlet;
 import com.dneero.finders.FindSurveysForBlogger;
+import com.dneero.systemprops.BaseUrl;
 import org.apache.log4j.Logger;
 
 import java.util.Iterator;
@@ -30,6 +32,9 @@ public class PublicSurveyDetail implements Serializable {
     private String surveyOnBlogPreview;
     private boolean qualifiesforsurvey = true;
     private String socialbookmarklinks = "";
+    private String htmltoposttoblog = "";
+    private String htmltoposttoblogflash = "";
+    private String htmltoposttoblogimagelink = "";
 
     public PublicSurveyDetail(){
         beginView();
@@ -62,9 +67,12 @@ public class PublicSurveyDetail implements Serializable {
                 }
             }
             if (bloggerhasalreadytakensurvey){
-                surveyAnswersForThisBlogger = SurveyJavascriptServlet.getEmbedSyntax("/", survey.getSurveyid(), userid, true);
+                surveyAnswersForThisBlogger = SurveyJavascriptServlet.getEmbedSyntax("/", survey.getSurveyid(), userid, true, true);
+                htmltoposttoblog = SurveyJavascriptServlet.getEmbedSyntax(BaseUrl.get(false), survey.getSurveyid(), Jsf.getUserSession().getUser().getUserid(), false, false);
+                htmltoposttoblogflash = SurveyFlashServlet.getEmbedSyntax(BaseUrl.get(false), survey.getSurveyid(), Jsf.getUserSession().getUser().getUserid(), false);
+                htmltoposttoblogimagelink = SurveyImagelinkServlet.getEmbedSyntax(BaseUrl.get(false), survey.getSurveyid(), Jsf.getUserSession().getUser().getUserid(), false);
             } else {
-                surveyOnBlogPreview = SurveyJavascriptServlet.getEmbedSyntax("/", survey.getSurveyid(), userid, true);
+                surveyOnBlogPreview = SurveyJavascriptServlet.getEmbedSyntax("/", survey.getSurveyid(), userid, true, true);
             }
             surveyEnhancer = new SurveyEnhancer(survey);
             surveyForTakers = SurveyTakerDisplay.getHtmlForSurveyTaking(survey, new Blogger(), true);
@@ -146,5 +154,29 @@ public class PublicSurveyDetail implements Serializable {
 
     public void setSocialbookmarklinks(String socialbookmarklinks) {
         this.socialbookmarklinks = socialbookmarklinks;
+    }
+
+    public String getHtmltoposttoblog() {
+        return htmltoposttoblog;
+    }
+
+    public void setHtmltoposttoblog(String htmltoposttoblog) {
+        this.htmltoposttoblog = htmltoposttoblog;
+    }
+
+    public String getHtmltoposttoblogflash() {
+        return htmltoposttoblogflash;
+    }
+
+    public void setHtmltoposttoblogflash(String htmltoposttoblogflash) {
+        this.htmltoposttoblogflash = htmltoposttoblogflash;
+    }
+
+    public String getHtmltoposttoblogimagelink() {
+        return htmltoposttoblogimagelink;
+    }
+
+    public void setHtmltoposttoblogimagelink(String htmltoposttoblogimagelink) {
+        this.htmltoposttoblogimagelink = htmltoposttoblogimagelink;
     }
 }

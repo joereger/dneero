@@ -42,7 +42,7 @@ public class ResearcherBloggerProfileAnswers implements Serializable {
             if (Num.isinteger(tmpBloggerid)){
                 logger.debug("loaded bloggerid="+tmpBloggerid);
                 blogger = Blogger.get(Integer.parseInt(tmpBloggerid));
-                user = User.get(blogger.getBloggerid());
+                user = User.get(blogger.getUserid());
                 resultsashtml = SurveyAsHtml.getHtml(survey, user, true);
             }
         }

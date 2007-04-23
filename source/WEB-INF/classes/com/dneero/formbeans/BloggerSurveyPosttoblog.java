@@ -18,8 +18,6 @@ import java.io.Serializable;
 
 import org.apache.log4j.Logger;
 
-import javax.faces.context.FacesContext;
-
 /**
  * User: Joe Reger Jr
  * Date: Apr 21, 2006
@@ -81,8 +79,8 @@ public class BloggerSurveyPosttoblog implements Serializable {
         Logger logger = Logger.getLogger(this.getClass().getName());
         if (Jsf.getUserSession()!=null && Jsf.getUserSession().getUser()!=null){
             survey = Survey.get(Jsf.getUserSession().getCurrentSurveyid());
-            surveyAnswersForThisBlogger = SurveyJavascriptServlet.getEmbedSyntax("/", survey.getSurveyid(), Jsf.getUserSession().getUser().getUserid(), true);
-            htmltoposttoblog = SurveyJavascriptServlet.getEmbedSyntax(BaseUrl.get(false), survey.getSurveyid(), Jsf.getUserSession().getUser().getUserid(), false);
+            surveyAnswersForThisBlogger = SurveyJavascriptServlet.getEmbedSyntax("/", survey.getSurveyid(), Jsf.getUserSession().getUser().getUserid(), true, true);
+            htmltoposttoblog = SurveyJavascriptServlet.getEmbedSyntax(BaseUrl.get(false), survey.getSurveyid(), Jsf.getUserSession().getUser().getUserid(), false, false);
             htmltoposttoblogflash = SurveyFlashServlet.getEmbedSyntax(BaseUrl.get(false), survey.getSurveyid(), Jsf.getUserSession().getUser().getUserid(), false);
             htmltoposttoblogimagelink = SurveyImagelinkServlet.getEmbedSyntax(BaseUrl.get(false), survey.getSurveyid(), Jsf.getUserSession().getUser().getUserid(), false);
             surveyEnhancer = new SurveyEnhancer(survey);

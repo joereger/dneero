@@ -24,7 +24,7 @@ public class SurveyInBlogWrapper {
         out.append("<!-- Start dNeero Survey -->\n" +
                 "<table cellpadding=\"0\" cellspacing=\"0\" border=\"0\" bgcolor=\"#e6e6e6\" width=\"425\">\n" +
                 "\t<tr>\n" +
-                "\t\t<td valign=\"top\" colspan=\"7\" height=\"215\">\n" +
+                "\t\t<td valign=\"top\" align=\"left\" colspan=\"7\" height=\"215\">\n" +
                 "\t\t\t<!-- Start Survey Questions -->\n" +
                 in +
                 "\n" +

@@ -68,7 +68,7 @@ public class BloggerSurveyDetail implements Serializable {
     private void load(){
             Logger logger = Logger.getLogger(this.getClass().getName());
             survey = Survey.get(Jsf.getUserSession().getCurrentSurveyid());
-            surveyOnBlogPreview = SurveyJavascriptServlet.getEmbedSyntax("/", survey.getSurveyid(), Jsf.getUserSession().getUser().getUserid(), true);
+            surveyOnBlogPreview = SurveyJavascriptServlet.getEmbedSyntax("/", survey.getSurveyid(), Jsf.getUserSession().getUser().getUserid(), true, true);
             surveyEnhancer = new SurveyEnhancer(survey);
             surveyForTakers = SurveyTakerDisplay.getHtmlForSurveyTaking(survey, new Blogger(), true);
     }

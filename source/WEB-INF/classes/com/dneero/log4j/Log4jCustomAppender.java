@@ -79,6 +79,9 @@ public class Log4jCustomAppender extends AppenderSkeleton {
         if (err.indexOf("org.apache.myfaces.shared_tomahawk.renderkit.html.HtmlTableRendererBase")>-1){
             return false;
         }
+        if (err.indexOf("org.apache.myfaces.renderkit.html.util.MyFacesResourceLoader")>-1 && err.indexOf("Unparsable")>-1){
+            return false;
+        }
         return true;
     }
 

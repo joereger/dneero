@@ -63,8 +63,16 @@ public class NotifyBloggersOfNewOffers implements Job {
                             SurveyEnhancer surveyEnhancer = new SurveyEnhancer(survey);
                             possibleearnings = possibleearnings + surveyEnhancer.getMaxearningDbl();
                             String url = BaseUrl.get(false) + "publicsurveydetail.jsf?surveyid="+survey.getSurveyid();
+                            //Html
                             listofsurveysHtml.append("<br><br><a href='"+url+"'>" + survey.getTitle() + " (Earn up to: " + surveyEnhancer.getMaxearning() + ")</a>");
+                            if (!survey.getDescription().equals("")){
+                                listofsurveysHtml.append("<br>"+survey.getDescription());
+                            }
+                            //Txt
                             listofsurveysTxt.append("\n\n" + survey.getTitle() + " (Earn up to: " + surveyEnhancer.getMaxearning()+")");
+                            if (!survey.getDescription().equals("")){
+                                listofsurveysTxt.append("\n" + survey.getDescription());
+                            }
                             listofsurveysTxt.append("\n" + url);
                         }
                         //Create the args array to hold the dynamic stuff

@@ -46,17 +46,23 @@ public class SurveyJavascriptServlet extends HttpServlet {
                 ispreview = true;
             }
         }
+        boolean makeHttpsIfSSLIsOn = false;
+        if (request.getParameter("h")!=null && com.dneero.util.Num.isinteger(request.getParameter("h"))){
+            if (request.getParameter("h").equals("1")){
+                makeHttpsIfSSLIsOn = true;
+            }
+        }
 
         if (survey!=null && !ispreview){
             RecordImpression.record(request);
         }
 
-        String surveyashtml = SurveyAsHtml.getHtml(survey, user, false);
+        String surveyashtml = SurveyAsHtml.getHtml(survey, user, makeHttpsIfSSLIsOn);
         StringBuffer scrollablediv = new StringBuffer();
         scrollablediv.append("<div style=\"border : solid 0px #cccccc; background : #e6e6e6; padding : 5px; width : 425px; height : 200px; overflow : auto; \">"+"\n");
         scrollablediv.append(surveyashtml);
         scrollablediv.append("</div>"+"\n");
-        String surveyashtmlwrapped = SurveyInBlogWrapper.wrap(user, survey, scrollablediv.toString(), true, false);
+        String surveyashtmlwrapped = SurveyInBlogWrapper.wrap(user, survey, scrollablediv.toString(), true, makeHttpsIfSSLIsOn);
         String output = Str.cleanForjavascriptAndReplaceDoubleQuoteWithSingle(surveyashtmlwrapped);
         output = output.replaceAll("\\n", "\"+\\\n\"");
         output = output.replaceAll("\\r", "\"+\\\n\"");
@@ -64,15 +70,19 @@ public class SurveyJavascriptServlet extends HttpServlet {
 
     }
 
-    public static String getEmbedSyntax(String baseurl, int surveyid, int userid, boolean ispreview){
+    public static String getEmbedSyntax(String baseurl, int surveyid, int userid, boolean ispreview, boolean makeHttpsIfSSLIsOn){
         String ispreviewStr = "0";
         if (ispreview){
             ispreviewStr = "1";
         }
+        String makeHttpsIfSSLIsOnStr = "0";
+        if (makeHttpsIfSSLIsOn){
+            makeHttpsIfSSLIsOnStr = "1";
+        }
         if (baseurl.equals("")){
             baseurl = "/";
         }
-        String urlofsurvey = baseurl+"s?s="+surveyid+"&u="+userid+"&p="+ispreviewStr;
+        String urlofsurvey = baseurl+"s?s="+surveyid+"&u="+userid+"&p="+ispreviewStr+"&h="+makeHttpsIfSSLIsOnStr;
         return "<!-- Start dNeero Survey --><script src=\""+urlofsurvey+"\"></script><!-- End dNeero Survey -->";
     }
 
