@@ -1,0 +1,205 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:t="http://myfaces.apache.org/tomahawk"
+      xmlns:d="http://dneero.com/taglib"
+
+      >
+
+<ui:composition template="/template/template-facelets.xhtml">
+    <ui:define name="title">Survey: #{sysadminSurveyDetail.survey.title}<br/><br/></ui:define>
+    <ui:param name="navtab" value="sysadmin"/>
+    <ui:define name="body">
+    <d:authorization acl="systemadmin" redirectonfail="true"/>
+
+
+
+<h:form>
+
+    <t:panelTabbedPane id="panel" bgcolor="#ffffff">
+        <t:panelTab id="panel_b" label="Summary">
+            <h:graphicImage url="/images/clear.gif" width="700" height="1"/><br/>
+
+
+            <table width="100%" cellpadding="5">
+                <tr>
+                    <td valign="top">
+                        <font class="largefont">#{sysadminSurveyDetail.survey.title}</font>
+                        <br/>
+                        <font class="smallfont">#{sysadminSurveyDetail.survey.description}</font>
+                        <br/><br/>
+                        <font class="mediumfont">Survey ID: #{sysadminSurveyDetail.survey.surveyid}</font>
+                        <br/><br/>
+                        <h:outputText value="#{sysadminSurveyDetail.user.firstname} #{sysadminSurveyDetail.user.lastname}" styleClass="mediumfont"/>: <h:commandLink action="#{sysadminUserDetail.beginView}">
+                            <h:outputText value="#{sysadminSurveyDetail.user.email}" styleClass="mediumfont" style="color: #0000ff;"/>
+                            <f:param name="userid" value="#{sysadminSurveyDetail.user.userid}" />
+                        </h:commandLink>
+                        <br/><br/>
+                        <div class="rounded" style="background: #e6e6e6; text-align: center; padding: 20px;">
+                            <h:outputText value="Survey Status: Draft" styleClass="mediumfont" rendered="#{sysadminSurveyDetail.survey.status==1}"></h:outputText>
+                            <h:outputText value="Survey Status: Waiting for Funds" styleClass="mediumfont" rendered="#{sysadminSurveyDetail.survey.status==2}"></h:outputText>
+                            <h:outputText value="Survey Status: Waiting for Start Date" styleClass="mediumfont" rendered="#{sysadminSurveyDetail.survey.status==3}"></h:outputText>
+                            <h:outputText value="Survey Status: Open" styleClass="mediumfont" rendered="#{sysadminSurveyDetail.survey.status==4}"></h:outputText>
+                            <h:outputText value="Survey Status: Closed" styleClass="mediumfont" rendered="#{sysadminSurveyDetail.survey.status==5}"></h:outputText>
+                        </div>
+                        <br/><br/>
+                        <h:panelGrid columns="2" cellpadding="3" border="0">
+
+                            <h:panelGroup>
+                                <h:outputText value=""/>
+                            </h:panelGroup>
+                            <h:panelGroup>
+                                <h:outputText value="" styleClass="mediumfont"/>
+                            </h:panelGroup>
+
+
+                            <h:panelGroup>
+                                <h:outputText value="Start Date" styleClass="formfieldnamefont"/>
+                            </h:panelGroup>
+                            <h:panelGroup>
+                                <h:outputText value="#{sysadminSurveyDetail.surveyEnhancer.startdate}"/>
+                            </h:panelGroup>
+
+                            <h:panelGroup>
+                                <h:outputText value="End Date" styleClass="formfieldnamefont"/>
+                            </h:panelGroup>
+                            <h:panelGroup>
+                                <h:outputText value="#{sysadminSurveyDetail.surveyEnhancer.enddate}"/>
+                            </h:panelGroup>
+
+                            <h:panelGroup>
+                                <h:outputText value="Pay for Responding to Survey" styleClass="formfieldnamefont"/>
+                            </h:panelGroup>
+                            <h:panelGroup>
+                                <h:outputText value="#{sysadminSurveyDetail.surveyEnhancer.willingtopayforresponse}"/>
+                            </h:panelGroup>
+
+                            <h:panelGroup>
+                                <h:outputText value="Pay for 1000 Hits on Your Blog" styleClass="formfieldnamefont"/>
+                            </h:panelGroup>
+                            <h:panelGroup>
+                                <h:outputText value="#{sysadminSurveyDetail.surveyEnhancer.willingtopayforcpm}"/>
+                            </h:panelGroup>
+
+                            <h:panelGroup>
+                                <h:outputText value="Number of Respondents To Date" styleClass="formfieldnamefont"/>
+                            </h:panelGroup>
+                            <h:panelGroup>
+                                <d:percentCompleteBar currentvalue="#{sysadminSurveyDetail.surveyEnhancer.responsesalreadygotten}" maximumvalue="#{sysadminSurveyDetail.survey.numberofrespondentsrequested}" mintitle="" maxtitle="" widthinpixels="250"></d:percentCompleteBar>
+                                <h:outputText value="Up to #{sysadminSurveyDetail.survey.numberofrespondentsrequested} people may complete this survey for pay." styleClass="smallfont"/>
+                                <br/><br/>
+                            </h:panelGroup>
+
+                            <h:panelGroup>
+                                <h:outputText value="Number of Blog Displays To Date" styleClass="formfieldnamefont"/>
+                            </h:panelGroup>
+                            <h:panelGroup>
+                                <d:percentCompleteBar currentvalue="#{sysadminSurveyDetail.surveyEnhancer.impressionsalreadygotten}" maximumvalue="#{sysadminSurveyDetail.survey.maxdisplaystotal}" mintitle="" maxtitle="" widthinpixels="250"></d:percentCompleteBar>
+                                <h:outputText value="We'll pay for the first #{sysadminSurveyDetail.survey.maxdisplaystotal} displays in blogs." styleClass="smallfont"/>
+                                <br/><br/>
+                            </h:panelGroup>
+
+                         </h:panelGrid>
+
+
+
+                         <h:panelGrid columns="3" cellpadding="3" border="0">
+                            <h:panelGroup>
+                                <h:outputText value="Survey Responses to Date" styleClass="formfieldnamefont"></h:outputText>
+                            </h:panelGroup>
+                            <h:panelGroup>
+                                <h:outputText value="#{sysadminSurveyDetail.sms.responsesToDate}"></h:outputText>
+                            </h:panelGroup>
+                            <h:panelGroup>
+                            </h:panelGroup>
+
+                            <h:panelGroup>
+                                <h:outputText value="Spent on Responses to Date" styleClass="formfieldnamefont"></h:outputText>
+                            </h:panelGroup>
+                            <h:panelGroup>
+                                $<h:outputText value="#{sysadminSurveyDetail.sms.spentOnResponsesToDateIncludingdNeeroFee}"><f:converter converterId="DisplayAsMoneyConverter"/></h:outputText>
+                            </h:panelGroup>
+                            <h:panelGroup>
+                            </h:panelGroup>
+
+                            <h:panelGroup>
+                                <h:outputText value="Blog Impressions to Date" styleClass="formfieldnamefont"></h:outputText>
+                            </h:panelGroup>
+                            <h:panelGroup>
+                                <h:outputText value="#{sysadminSurveyDetail.sms.impressionsToDate}"></h:outputText>
+                            </h:panelGroup>
+                            <h:panelGroup>
+                            </h:panelGroup>
+
+                            <h:panelGroup>
+                                <h:outputText value="Spent on Impressions to Date" styleClass="formfieldnamefont"></h:outputText>
+                            </h:panelGroup>
+                            <h:panelGroup>
+                                $<h:outputText value="#{sysadminSurveyDetail.sms.spentOnImpressionsToDateIncludingdNeeroFee}"><f:converter converterId="DisplayAsMoneyConverter"/></h:outputText>
+                            </h:panelGroup>
+                            <h:panelGroup>
+                            </h:panelGroup>
+
+                            <h:panelGroup>
+                                <h:outputText value="Total Spent to Date" styleClass="formfieldnamefont"></h:outputText>
+                            </h:panelGroup>
+                            <h:panelGroup>
+                                $<h:outputText value="#{sysadminSurveyDetail.sms.spentToDateIncludingdNeeroFee}"><f:converter converterId="DisplayAsMoneyConverter"/></h:outputText>
+                            </h:panelGroup>
+                            <h:panelGroup>
+                            </h:panelGroup>
+
+                            <h:panelGroup>
+                                <h:outputText value="Max Possible Spend" styleClass="formfieldnamefont"></h:outputText>
+                            </h:panelGroup>
+                            <h:panelGroup>
+                                $<h:outputText value="#{sysadminSurveyDetail.sms.maxPossibleSpend}"><f:converter converterId="DisplayAsMoneyConverter"/></h:outputText>
+                            </h:panelGroup>
+                            <h:panelGroup>
+                            </h:panelGroup>
+
+                            <h:panelGroup>
+                                <h:outputText value="Remaining Possible Spend" styleClass="formfieldnamefont"></h:outputText>
+                            </h:panelGroup>
+                            <h:panelGroup>
+                                $<h:outputText value="#{sysadminSurveyDetail.sms.remainingPossibleSpend}"><f:converter converterId="DisplayAsMoneyConverter"/></h:outputText>
+                            </h:panelGroup>
+                            <h:panelGroup>
+                            </h:panelGroup>
+                        </h:panelGrid>
+                         
+
+                    </td>
+                </tr>
+            </table>
+        </t:panelTab>
+        <t:panelTab id="panel_c" label="Question Preview">
+            <h:graphicImage url="/images/clear.gif" width="700" height="1"/><br/>
+            <f:verbatim>#{sysadminSurveyDetail.surveyForTakers}</f:verbatim>
+        </t:panelTab>
+        <t:panelTab id="panel_d" label="On-Blog">
+            <h:graphicImage url="/images/clear.gif" width="700" height="1"/><br/>
+            <h:outputText escape="false" value="#{sysadminSurveyDetail.surveyOnBlogPreview}"></h:outputText>
+        </t:panelTab>
+        <t:panelTab id="panel_f" label="Demographics">
+            <h:graphicImage url="/images/clear.gif" width="700" height="1"/><br/>
+            <h:inputTextarea value="#{sysadminSurveyDetail.surveycriteriaasstring}" id="surveycriteriaasstring" cols="80" rows="15" required="true"/>
+        </t:panelTab>
+    </t:panelTabbedPane>
+    
+
+
+</h:form>
+
+</ui:define>
+
+
+</ui:composition>
+</html>
+
+
+

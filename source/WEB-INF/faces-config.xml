@@ -158,25 +158,6 @@
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
 
-
-    <managed-bean>
-        <managed-bean-name>sysadminUserList</managed-bean-name>
-        <managed-bean-class>com.dneero.formbeans.SysadminUserList</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
-    </managed-bean>
-
-    <managed-bean>
-        <managed-bean-name>sysadminHibernateCache</managed-bean-name>
-        <managed-bean-class>com.dneero.formbeans.SysadminHibernateCache</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
-    </managed-bean>
-
-    <managed-bean>
-        <managed-bean-name>sysadminUserDetail</managed-bean-name>
-        <managed-bean-class>com.dneero.formbeans.SysadminUserDetail</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
-    </managed-bean>
-
     <managed-bean>
         <managed-bean-name>bloggerPanelOffers</managed-bean-name>
         <managed-bean-class>com.dneero.formbeans.BloggerPanelOffers</managed-bean-class>
@@ -547,6 +528,16 @@
     </managed-bean>
 
     <managed-bean>
+        <managed-bean-name>publicEula</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.PublicEula</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+        <managed-property>
+            <property-name>init</property-name>
+            <value>doinit</value>
+        </managed-property>
+    </managed-bean>
+
+    <managed-bean>
         <managed-bean-name>publicSurveyList</managed-bean-name>
         <managed-bean-class>com.dneero.formbeans.PublicSurveyList</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
@@ -645,11 +636,39 @@
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
 
+    <managed-bean>
+        <managed-bean-name>sysadminUserList</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.SysadminUserList</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
 
+    <managed-bean>
+        <managed-bean-name>sysadminHibernateCache</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.SysadminHibernateCache</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>sysadminUserDetail</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.SysadminUserDetail</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>sysadminSurveyDetail</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.SysadminSurveyDetail</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
 
     <managed-bean>
         <managed-bean-name>sysadminErrorList</managed-bean-name>
         <managed-bean-class>com.dneero.formbeans.SysadminErrorList</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>sysadminTransactions</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.SysadminTransactions</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
 
@@ -676,6 +695,10 @@
         <navigation-case>
             <from-outcome>registration</from-outcome>
             <to-view-id>/registration.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>publiceula</from-outcome>
+            <to-view-id>/eula.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>publicsurveylist</from-outcome>
@@ -787,6 +810,10 @@
             <to-view-id>/sysadmin/sysadminsurveylist.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
+            <from-outcome>sysadminsurveydetail</from-outcome>
+            <to-view-id>/sysadmin/sysadminsurveydetail.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
             <from-outcome>sysadminerrorlist</from-outcome>
             <to-view-id>/sysadmin/errorlist.xhtml</to-view-id>
         </navigation-case>
@@ -801,6 +828,10 @@
         <navigation-case>
             <from-outcome>sysadminsessions</from-outcome>
             <to-view-id>/sysadmin/sessions.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>sysadmintransactions</from-outcome>
+            <to-view-id>/sysadmin/transactions.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>researcherhome</from-outcome>

@@ -29,12 +29,12 @@ public class SystemadminSurveyList implements Serializable {
     }
 
     private void load(){
-        surveys = HibernateUtil.getSession().createQuery("from Survey").list();
+        surveys = HibernateUtil.getSession().createQuery("from Survey order by surveyid desc").list();
     }
 
     public List getSurveys() {
         //logger.debug("getListitems");
-        sort("title", true);
+        //sort("title", true);
         return surveys;
     }
 

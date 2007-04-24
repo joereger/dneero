@@ -21,7 +21,7 @@
 <h:form>
 
 
-    <t:saveState id="save" value="#{stsadminSurveyList}"/>
+    <t:saveState id="save" value="#{sysadminSurveyList}"/>
 
     <t:dataTable id="datatable" value="#{sysadminSurveyList.surveys}" rows="15" var="survey" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcol,tcolnowrap,tcol,tcolnowrap,tcolnowrap">
       <h:column>
@@ -34,21 +34,21 @@
         <f:facet name="header">
           <h:outputText value="Title"/>
         </f:facet>
-        <h:outputText value="#{survey.title}"/>
+        <h:commandLink action="#{sysadminSurveyDetail.beginView}">
+            <h:outputText value="#{survey.title}" styleClass="mediumfont" style="color: #0000ff;"/>
+            <f:param name="surveyid" value="#{survey.surveyid}" />
+        </h:commandLink>
       </h:column>
       <h:column>
         <f:facet name="header">
-          <h:outputText value="Description"/>
+          <h:outputText value="Status"/>
         </f:facet>
-        <h:outputText value="#{survey.description}"/>
+        <h:outputText value="Draft" styleClass="smallfont" rendered="#{survey.status==1}"/>
+        <h:outputText value="Pending, Waiting for Start Date" styleClass="smallfont" rendered="#{survey.status==2}"/>
+        <h:outputText value="Pending, Waiting for Funds" styleClass="smallfont" rendered="#{survey.status==3}"/>
+        <h:outputText value="Live" styleClass="smallfont" rendered="#{survey.status==4}"/>
+        <h:outputText value="Closed" styleClass="smallfont" rendered="#{survey.status==5}"/>
       </h:column>
-      <h:column>
-        <f:facet name="header">
-          <h:outputText value="Willing to Pay"/>
-        </f:facet>
-        <h:outputText value="#{survey.willingtopayperrespondent}"/>
-      </h:column>
-
     </t:dataTable>
     <t:dataScroller id="scroll_1" for="datatable" fastStep="10" pageCountVar="pageCount" pageIndexVar="pageIndex" styleClass="scroller" paginator="true" paginatorMaxPages="9" paginatorTableClass="paginator" paginatorActiveColumnStyle="font-weight:bold;">
         <f:facet name="first" >

@@ -18,6 +18,13 @@
                 <tr>
                     <td bgcolor="#dadada" style="text-align: right; vertical-align: middle;" height="25">
                         <font class="tinyfont">Copyright 2006-2007.  All rights reserved.</font>
+                        <h:outputText value=" | " styleClass="tinyfont"></h:outputText>
+                        <h:commandLink value="Terms of Use and Privacy Statement" action="#{publicEula.beginView}" styleClass="tinyfont"/>
+                        <c:if test="#{userSession.isloggedin}">
+                            <h:outputText value=" | " styleClass="tinyfont"></h:outputText>
+                            <h:commandLink value="Need Help?" action="#{accountSupportIssuesList.beginView}" styleClass="tinyfont"/>
+                        </c:if>
+                        <h:outputText value=" " styleClass="tinyfont"></h:outputText>
                     </td>
                 </tr>
                 <tr>
