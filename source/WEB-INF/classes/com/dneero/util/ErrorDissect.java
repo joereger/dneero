@@ -54,7 +54,7 @@ public class ErrorDissect {
 		buffer.append("</td>");
 		buffer.append("</tr>");
 		buffer.append("<tr>");
-	    buffer.append("<td valign=top align=left bgcolor=#ffffff>");
+	    buffer.append("<td valign=top align=left bgcolor=\"#ffffff\">");
 		buffer.append("<font face=arial size=-2>");
 		buffer.append("throwable class name: ").append(throwable.getClass().getName()).append("<br>");
 		buffer.append("toString(): ").append(throwable.toString()).append("<br>");
@@ -79,7 +79,7 @@ public class ErrorDissect {
 		    buffer.append("</td>");
 		    buffer.append("</tr>");
 		    buffer.append("<tr>");
-	        buffer.append("<td valign=top align=left bgcolor=#ffffff>");
+	        buffer.append("<td valign=top align=left bgcolor=\"#ffffff\">");
 		    buffer.append("<font face=arial size=-2>");
 			SAXParseException spe = (SAXParseException)throwable;
 			buffer.append("Document (line,col) where exception occurred: (" + spe.getLineNumber() + "," + spe.getColumnNumber() + ")\n");
@@ -118,7 +118,7 @@ public class ErrorDissect {
                 buffer.append("</td>");
                 buffer.append("</tr>");
                 buffer.append("<tr>");
-                buffer.append("<td valign=top align=left bgcolor=#ffffff>");
+                buffer.append("<td valign=top align=left bgcolor=\"#ffffff\">");
                 buffer.append("<font face=arial size=-1>");
                 buffer.append(dissect(inner, includeStackTrace, ""));
                 buffer.append("</font>");
@@ -137,7 +137,7 @@ public class ErrorDissect {
                 buffer.append("</td>");
                 buffer.append("</tr>");
                 buffer.append("<tr>");
-                buffer.append("<td valign=top align=left bgcolor=#ffffff>");
+                buffer.append("<td valign=top align=left bgcolor=\"#ffffff\">");
                 buffer.append("<font face=arial size=-1>");
                 buffer.append(dissect(inner, includeStackTrace, ""));
                 buffer.append("</font>");
@@ -155,7 +155,7 @@ public class ErrorDissect {
                 buffer.append("</td>");
                 buffer.append("</tr>");
                 buffer.append("<tr>");
-                buffer.append("<td valign=top align=left bgcolor=#ffffff>");
+                buffer.append("<td valign=top align=left bgcolor=\"#ffffff\">");
                 buffer.append("<font face=arial size=-1>");
                 buffer.append(dissect(inner, includeStackTrace, ""));
                 buffer.append("</font>");
@@ -181,7 +181,7 @@ public class ErrorDissect {
 //        PrintWriter writer = new PrintWriter(bytes, true);
 //        throwable.printStackTrace(writer);
 //        buffer.append("<tr>");
-//        buffer.append("<td valign=top align=left bgcolor=#ffffff>");
+//        buffer.append("<td valign=top align=left bgcolor=\"#ffffff\">");
 //        buffer.append("<font face=arial size=-1>");
 //        buffer.append(bytes.toString());
 //        buffer.append("</font>");
@@ -194,7 +194,7 @@ public class ErrorDissect {
         for(int i=0; i<el.length; i++){
             buffer.append("<tr>");
 
-            buffer.append("<td valign=top align=left bgcolor=#ffffff>");
+            buffer.append("<td valign=top align=left bgcolor=\"#ffffff\">");
             buffer.append("<font face=arial size=-2>");
             buffer.append(el[i].toString());
             buffer.append("</font>");
@@ -253,7 +253,7 @@ public class ErrorDissect {
         buffer.append("</tr>");
 
 		buffer.append("<tr>");
-        buffer.append("<td valign=top align=left bgcolor=#ffffff>");
+        buffer.append("<td valign=top align=left bgcolor=\"#ffffff\">");
         buffer.append("<font face=arial size=-2>");
 		buffer.append("Requested URL: ").append(request.getRequestURL().toString()).append("<br>");
 		buffer.append("Unparsed QueryString: ").append(request.getQueryString()).append("<br>");
@@ -276,7 +276,7 @@ public class ErrorDissect {
         buffer.append("</tr>");
 
 		buffer.append("<tr>");
-        buffer.append("<td valign=top align=left bgcolor=#ffffff>");
+        buffer.append("<td valign=top align=left bgcolor=\"#ffffff\">");
         buffer.append("<font face=arial size=-2>");
 		enumer = request.getAttributeNames();
 		while (enumer.hasMoreElements()) {
@@ -297,7 +297,7 @@ public class ErrorDissect {
         buffer.append("</tr>");
 
         buffer.append("<tr>");
-        buffer.append("<td valign=top align=left bgcolor=#ffffff>");
+        buffer.append("<td valign=top align=left bgcolor=\"#ffffff\">");
         buffer.append("<font face=arial size=-2>");
         if (request.getServerName()!=null){
             buffer.append("request.getServerName()").append(": ").append(request.getServerName()).append("<br>");
@@ -335,7 +335,7 @@ public class ErrorDissect {
             buffer.append("</tr>");
 
             buffer.append("<tr>");
-            buffer.append("<td valign=top align=left bgcolor=#ffffff>");
+            buffer.append("<td valign=top align=left bgcolor=\"#ffffff\">");
             buffer.append("<font face=arial size=-2>");
 			buffer.append("Session ID: ").append(session.getId()).append("<br>");
 			Enumeration valueEnum = session.getAttributeNames();
@@ -357,7 +357,7 @@ public class ErrorDissect {
         buffer.append("</tr>");
 
         buffer.append("<tr>");
-        buffer.append("<td valign=top align=left bgcolor=#ffffff>");
+        buffer.append("<td valign=top align=left bgcolor=\"#ffffff\">");
         buffer.append("<font face=arial size=-2>");
 		buffer.append("Method: ").append(request.getMethod()).append("<br>");
 		Enumeration e_hdr = request.getHeaderNames();
@@ -383,7 +383,7 @@ public class ErrorDissect {
             buffer.append("</tr>");
 
             buffer.append("<tr>");
-            buffer.append("<td valign=top align=left bgcolor=#ffffff>");
+            buffer.append("<td valign=top align=left bgcolor=\"#ffffff\">");
             buffer.append("<font face=arial size=-2>");
 			buffer.append("length: ").append(contentLength).append("<br>");
 			buffer.append("type: ").append(request.getContentType()).append("<br>");
@@ -416,7 +416,7 @@ public class ErrorDissect {
         buffer.append("</tr>");
 
         buffer.append("<tr>");
-        buffer.append("<td valign=top align=left bgcolor=#ffffff>");
+        buffer.append("<td valign=top align=left bgcolor=\"#ffffff\">");
         buffer.append("<font face=arial size=-2>");
 		Cookie[] cookies = request.getCookies();
 		if (cookies!=null){

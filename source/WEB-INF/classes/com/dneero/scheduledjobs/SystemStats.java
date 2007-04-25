@@ -26,13 +26,15 @@ public class SystemStats implements Job {
     Logger logger = Logger.getLogger(this.getClass().getName());
 
     //BE SURE TO SYNC CODE HERE WITH MAIN SystemStats in formbeans (which jsf uses)
-
     private static int totalbloggers=0;
     private static int totalblogs=0;
     private static int totalresearchers=0;
     private static int totalimpressions=0;
     private static int impressions30days=0;
     private static double dollarsavailabletobloggers=0;
+    private static double systembalance=0;
+    private static double systembalancerealworld=0;
+
 
 
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
@@ -55,6 +57,10 @@ public class SystemStats implements Job {
                     dollarsavailabletobloggers = dollarsavailabletobloggers + (survey.getWillingtopayperrespondent() * survey.getNumberofrespondentsrequested()) + ((survey.getWillingtopaypercpm() * survey.getMaxdisplaystotal())/1000);
                 }
             }
+
+            systembalance = (-1)*(Double)HibernateUtil.getSession().createQuery("select sum(amt) from Balance").uniqueResult();
+            systembalancerealworld = (-1)*(Double)HibernateUtil.getSession().createQuery("select sum(amt) from Balancetransaction where issuccessful=true").uniqueResult();
+
         //} else {
             //logger.debug("InstanceProperties.getRunScheduledTasksOnThisInstance() is FALSE for this instance so this task is not being executed.");
         //}
@@ -109,5 +115,21 @@ public class SystemStats implements Job {
 
     public static void setDollarsavailabletobloggers(double dollarsavailabletobloggers) {
         SystemStats.dollarsavailabletobloggers = dollarsavailabletobloggers;
+    }
+
+    public static double getSystembalance() {
+        return systembalance;
+    }
+
+    public static void setSystembalance(double systembalance) {
+        SystemStats.systembalance = systembalance;
+    }
+
+    public static double getSystembalancerealworld() {
+        return systembalancerealworld;
+    }
+
+    public static void setSystembalancerealworld(double systembalancerealworld) {
+        SystemStats.systembalancerealworld = systembalancerealworld;
     }
 }

@@ -76,16 +76,16 @@ public class Matrix implements Component {
         }
 
         //Display
-        out.append("<table cellpadding=3 cellspacing=1 border=0>");
+        out.append("<table cellpadding=\"3\" cellspacing=\"1\" border=\"0\">");
 
         //Header
         out.append("<tr>");
-        out.append("<td valign=top>");
+        out.append("<td valign=\"top\">");
         out.append("");
         out.append("</td>");
         for (int j = 0; j < cols.length; j++) {
             String col = cols[j].trim();
-            out.append("<td align=center valign=top>");
+            out.append("<td align=\"center\" valign=\"top\">");
             out.append(col);
             out.append("</td>");
         }
@@ -95,16 +95,16 @@ public class Matrix implements Component {
         for (int i = 0; i < rows.length; i++) {
             String row = rows[i].trim();
             out.append("<tr>");
-            out.append("<td align=center valign=top>");
+            out.append("<td align=\"center\" valign=\"top\">");
             out.append(row);
             out.append("</td>");
             for (int j = 0; j < cols.length; j++) {
                 String col = cols[j].trim();
-                out.append("<td align=center valign=top>");
+                out.append("<td align=\"center\" valign=\"top\">");
                 if (respondentcanselectmany){
-                    out.append("<input type=checkbox name=\""+ SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"questionid_"+question.getQuestionid()+"_row_"+Str.cleanForHtml(row)+"\" value=\""+com.dneero.util.Str.cleanForHtml(row+DELIM+col)+"\">");
+                    out.append("<input type=\"checkbox\" name=\""+ SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"questionid_"+question.getQuestionid()+"_row_"+Str.cleanForHtml(row)+"\" value=\""+com.dneero.util.Str.cleanForHtml(row+DELIM+col)+"\">");
                 } else {
-                    out.append("<input type=radio name=\""+ SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"questionid_"+question.getQuestionid()+"_row_"+Str.cleanForHtml(row)+"\" value=\""+com.dneero.util.Str.cleanForHtml(row+DELIM+col)+"\">");
+                    out.append("<input type=\"radio\" name=\""+ SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"questionid_"+question.getQuestionid()+"_row_"+Str.cleanForHtml(row)+"\" value=\""+com.dneero.util.Str.cleanForHtml(row+DELIM+col)+"\">");
                 }
                 out.append("</td>");
             }
@@ -157,16 +157,16 @@ public class Matrix implements Component {
             }
 
             //Display
-            out.append("<table cellpadding=3 cellspacing=1 border=0>");
+            out.append("<table cellpadding=\"3\" cellspacing=\"1\" border=\"0\">");
 
             //Header
             out.append("<tr>");
-            out.append("<td valign=top>");
+            out.append("<td valign=\"top\">");
             out.append("");
             out.append("</td>");
             for (int j = 0; j < cols.length; j++) {
                 String col = cols[j].trim();
-                out.append("<td align=center valign=top>");
+                out.append("<td align=\"center\" valign=\"top\">");
                 out.append(col);
                 out.append("</td>");
             }
@@ -176,7 +176,7 @@ public class Matrix implements Component {
             for (int i = 0; i < rows.length; i++) {
                 String row = rows[i].trim();
                 out.append("<tr>");
-                out.append("<td align=center valign=top>");
+                out.append("<td align=\"center\" valign=\"top\">");
                 out.append(row);
                 out.append("</td>");
                 for (int j = 0; j < cols.length; j++) {
@@ -185,7 +185,7 @@ public class Matrix implements Component {
                     if (checkedboxes.contains(row+DELIM+col)){
                         thiswaschecked=true;
                     }
-                    out.append("<td align=center valign=top>");
+                    out.append("<td align=\"center\" valign=\"top\">");
                     if (thiswaschecked){
                         out.append("X");
                     }
@@ -249,11 +249,11 @@ public class Matrix implements Component {
 
     public String getHtmlForResult(List<Questionresponse> questionresponses){
         StringBuffer out = new StringBuffer();
-        out.append("<table width=100% cellpadding=3 cellspacing=1 border=0>");
+        out.append("<table width=\"100%\" cellpadding=\"3\" cellspacing=\"1\" border=\"0\">");
 
 
         out.append("<tr>");
-        out.append("<td valign=top bgcolor=#ffffff colspan=2>");
+        out.append("<td valign=\"top\" bgcolor=\"#ffffff\" colspan=\"2\">");
 
         //Get config params
         String rowsStr = "";
@@ -318,20 +318,20 @@ public class Matrix implements Component {
 
 
         //Display
-        out.append("<table cellpadding=3 cellspacing=1 border=0>");
+        out.append("<table cellpadding=\"3\" cellspacing=\"1\" border=\"0\">");
 
         //Header
         out.append("<tr>");
-        out.append("<td valign=top>");
+        out.append("<td valign=\"top\">");
         out.append("");
         out.append("</td>");
         for (int j = 0; j < cols.length; j++) {
             String col = cols[j].trim();
-            out.append("<td align=center valign=top bgcolor=#e6e6e6>");
+            out.append("<td align=\"center\" valign=\"top\" bgcolor=\"#e6e6e6\">");
             out.append(col);
             out.append("</td>");
         }
-        out.append("<td valign=top>");
+        out.append("<td valign=\"top\">");
         out.append("");
         out.append("</td>");
         out.append("</tr>");
@@ -340,7 +340,7 @@ public class Matrix implements Component {
         for (int i = 0; i < rows.length; i++) {
             String row = rows[i].trim();
             out.append("<tr>");
-            out.append("<td align=center valign=top bgcolor=#e6e6e6>");
+            out.append("<td align=\"center\" valign=\"top\" bgcolor=\"#e6e6e6\">");
             out.append(row);
             out.append("</td>");
             for (int j = 0; j < cols.length; j++) {
@@ -359,13 +359,13 @@ public class Matrix implements Component {
                 if (count>0){
                     bgcolor="#e6e6e6";
                 }
-                out.append("<td align=center valign=\"top\" bgcolor=\""+bgcolor+"\">");
+                out.append("<td align=\"center\" valign=\"top\" bgcolor=\""+bgcolor+"\">");
                 out.append("<font class=\"smallfont\">");
                 out.append(""+String.valueOf(count)+"("+String.valueOf(formatter.format(percentage)) + "%)");
                 out.append("</font>");
                 out.append("</td>");
             }
-            out.append("<td align=center valign=\"top\">");
+            out.append("<td align=\"center\" valign=\"top\">");
             out.append("<font class=\"smallfont\">");
             int count = 0;
             if (answerCountByRow.get(row)!=null){
@@ -379,7 +379,7 @@ public class Matrix implements Component {
 
         //Col totals
         out.append("<tr>");
-        out.append("<td valign=top>");
+        out.append("<td valign=\"top\">");
         out.append("");
         out.append("</td>");
         for (int j = 0; j < cols.length; j++) {
@@ -388,13 +388,13 @@ public class Matrix implements Component {
             if (answerCountByCol.get(col)!=null){
                 count = answerCountByCol.get(col);
             }
-            out.append("<td align=center valign=top>");
+            out.append("<td align=\"center\" valign=\"top\">");
             out.append("<font class=\"smallfont\">");
             out.append(String.valueOf(count));
             out.append("</font>");
             out.append("</td>");
         }
-        out.append("<td valign=top>");
+        out.append("<td valign=\"top\">");
         out.append("");
         out.append("</td>");
         out.append("</tr>");

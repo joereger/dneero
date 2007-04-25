@@ -53,7 +53,7 @@ public class Textbox implements Component {
         }
         out.append("<br/>");
 
-        out.append("<input type=text size=\"20\" maxlength=\"255\" name=\""+ SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"questionid_"+question.getQuestionid()+"\">");
+        out.append("<input type=\"text\" size=\"20\" maxlength=\"255\" name=\""+ SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"questionid_"+question.getQuestionid()+"\">");
 
         return out.toString();
     }
@@ -122,17 +122,17 @@ public class Textbox implements Component {
 
     public String getHtmlForResult(List<Questionresponse> questionresponses){
         StringBuffer out = new StringBuffer();
-        out.append("<table width=100% cellpadding=3 cellspacing=1 border=0>");
+        out.append("<table width=\"100%\" cellpadding=\"3\" cellspacing=\"1\" border=\"0\">");
 
         out.append("<tr>");
-        out.append("<td valign=top bgcolor=#ffffff colspan=2>");
+        out.append("<td valign=\"top\" bgcolor=\"#ffffff\" colspan=\"2\">");
         out.append(" ");
         out.append("</td>");
-        out.append("<td valign=top bgcolor=#e6e6e6 width=65>");
-        out.append("<b class=smallfont>Response Percent</b>");
+        out.append("<td valign=\"top\" bgcolor=\"#e6e6e6\" width=\"65\">");
+        out.append("<b class=\"smallfont\">Response Percent</b>");
         out.append("</td>");
-        out.append("<td valign=top bgcolor=#e6e6e6 width=65>");
-        out.append("<b class=smallfont>Response Total</b>");
+        out.append("<td valign=\"top\" bgcolor=\"#e6e6e6\" width=\"65\">");
+        out.append("<b class=\"smallfont\">Response Total</b>");
         out.append("</td>");
         out.append("</tr>");
 
@@ -169,16 +169,16 @@ public class Textbox implements Component {
             formatter.setMaximumFractionDigits(0);
 
             out.append("<tr>");
-            out.append("<td valign=top bgcolor=#ffffff width=130>");
+            out.append("<td valign=\"top\" bgcolor=\"#ffffff\" width=\"130\">");
             out.append(answer);
             out.append("</td>");
-            out.append("<td valign=top bgcolor=#ffffff width=300>");
-            out.append("<img src='/images/bar_dkgrey-blend.gif' width='"+percentage+"%' height='10' border=0>");
+            out.append("<td valign=\"top\" bgcolor=\"#ffffff\" width=\"300\">");
+            out.append("<img src=\"/images/bar_dkgrey-blend.gif\" width=\""+percentage+"%\" height=\"10\" border=\"0\">");
             out.append("</td>");
-            out.append("<td valign=top bgcolor=#e6e6e6>");
+            out.append("<td valign=\"top\" bgcolor=\"#e6e6e6\">");
             out.append(String.valueOf(formatter.format(percentage)) + "%");
             out.append("</td>");
-            out.append("<td valign=top bgcolor=#e6e6e6>");
+            out.append("<td valign=\"top\" bgcolor=\"#e6e6e6\">");
             out.append(count);
             out.append("</td>");
             out.append("</tr>");
@@ -186,17 +186,17 @@ public class Textbox implements Component {
         }
 
         out.append("<tr>");
-        out.append("<td valign=top align=right bgcolor=#ffffff colspan=3>");
+        out.append("<td valign=\"top\" align=\"right\" bgcolor=\"#ffffff\" colspan=\"3\">");
         out.append("<b>Total</b>");
         out.append("</td>");
-        out.append("<td valign=top bgcolor=#e6e6e6>");
+        out.append("<td valign=\"top\" bgcolor=\"#e6e6e6\">");
         out.append(questionresponses.size());
         out.append("</td>");
         out.append("</tr>");
 
         out.append("<tr>");
-        out.append("<td valign=top align=right bgcolor=#ffffff colspan=4>");
-        out.append("<a href='results_answers_details.jsf?questionid="+question.getQuestionid()+"'><b>All Responses</b></a>");
+        out.append("<td valign=\"top\" align=\"right\" bgcolor=\"#ffffff\" colspan=4>");
+        out.append("<a href=\"results_answers_details.jsf?questionid="+question.getQuestionid()+"\"><b>All Responses</b></a>");
         out.append("</td>");
         out.append("</tr>");
 
@@ -206,17 +206,17 @@ public class Textbox implements Component {
 
     public String getHtmlForResultDetail(List<Questionresponse> questionresponses){
         StringBuffer out = new StringBuffer();
-        out.append("<table width=100% cellpadding=3 cellspacing=1 border=0>");
+        out.append("<table width=\"100%\" cellpadding=\"3\" cellspacing=\"1\" border=\"0\">");
 
         out.append("<tr>");
-        out.append("<td valign=top bgcolor=#ffffff colspan=2>");
+        out.append("<td valign=\"top\" bgcolor=\"#ffffff\" colspan=\"2\">");
         out.append(" ");
         out.append("</td>");
-        out.append("<td valign=top bgcolor=#e6e6e6 width=65>");
-        out.append("<b class=smallfont>Response Percent</b>");
+        out.append("<td valign=\"top\" bgcolor=\"#e6e6e6\" width=\"65\">");
+        out.append("<b class=\"smallfont\">Response Percent</b>");
         out.append("</td>");
-        out.append("<td valign=top bgcolor=#e6e6e6 width=65>");
-        out.append("<b class=smallfont>Response Total</b>");
+        out.append("<td valign=\"top\" bgcolor=\"#e6e6e6\" width=\"65\">");
+        out.append("<b class=\"smallfont\">Response Total</b>");
         out.append("</td>");
         out.append("</tr>");
 
@@ -249,16 +249,16 @@ public class Textbox implements Component {
             formatter.setMaximumFractionDigits(0);
 
             out.append("<tr>");
-            out.append("<td valign=top bgcolor=#ffffff width=130>");
+            out.append("<td valign=\"top\" bgcolor=\"#ffffff\" width=\"130\">");
             out.append(answer);
             out.append("</td>");
-            out.append("<td valign=top bgcolor=#ffffff width=300>");
-            out.append("<img src='/images/bar_dkgrey-blend.gif' width='"+percentage+"%' height='10' border=0>");
+            out.append("<td valign=\"top\" bgcolor=\"#ffffff\" width=\"300\">");
+            out.append("<img src=\"/images/bar_dkgrey-blend.gif\" width=\""+percentage+"%\" height=\"10\" border=\"0\">");
             out.append("</td>");
-            out.append("<td valign=top bgcolor=#e6e6e6>");
+            out.append("<td valign=\"top\" bgcolor=\"#e6e6e6\">");
             out.append(String.valueOf(formatter.format(percentage)) + "%");
             out.append("</td>");
-            out.append("<td valign=top bgcolor=#e6e6e6>");
+            out.append("<td valign=\"top\" bgcolor=\"#e6e6e6\">");
             out.append(count);
             out.append("</td>");
             out.append("</tr>");
@@ -266,10 +266,10 @@ public class Textbox implements Component {
         }
 
         out.append("<tr>");
-        out.append("<td valign=top align=right bgcolor=#ffffff colspan=3>");
+        out.append("<td valign=\"top\" align=\"right\" bgcolor=\"#ffffff\" colspan=\"3\">");
         out.append("<b>Total</b>");
         out.append("</td>");
-        out.append("<td valign=top bgcolor=#e6e6e6>");
+        out.append("<td valign=\"top\" bgcolor=\"#e6e6e6\">");
         out.append(questionresponses.size());
         out.append("</td>");
         out.append("</tr>");

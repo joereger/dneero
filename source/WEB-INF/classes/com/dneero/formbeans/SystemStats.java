@@ -17,6 +17,8 @@ public class SystemStats implements Serializable {
     private int totalimpressions=com.dneero.scheduledjobs.SystemStats.getTotalimpressions();
     private int impressions30days=com.dneero.scheduledjobs.SystemStats.getImpressions30days();
     private double dollarsavailabletobloggers=com.dneero.scheduledjobs.SystemStats.getDollarsavailabletobloggers();
+    private double systembalance=com.dneero.scheduledjobs.SystemStats.getSystembalance();
+    private double systembalancerealworld=com.dneero.scheduledjobs.SystemStats.getSystembalancerealworld();
 
     public SystemStats(){}
 
@@ -69,4 +71,19 @@ public class SystemStats implements Serializable {
 
     }
 
+    public double getSystembalance() {
+        return com.dneero.scheduledjobs.SystemStats.getSystembalance();
+    }
+
+    public void setSystembalance(double systembalance) {
+
+    }
+
+    public double getSystembalancerealworld() {
+        return com.dneero.scheduledjobs.SystemStats.getSystembalancerealworld();
+    }
+
+    public void setSystembalancerealworld(double systembalancerealworld) {
+
+    }
 }

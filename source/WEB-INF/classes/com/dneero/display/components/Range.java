@@ -75,7 +75,7 @@ public class Range implements Component {
 
         out.append("<table cellpadding=\"3\" cellspacing=\"0\" border=\"0\">");
         out.append("<tr>");
-        out.append("<td align=center valign=top>");
+        out.append("<td align=\"center\" valign=\"top\">");
         out.append(mintitle);
         out.append("</td>");
         boolean createdExactlyMaxRadio = false;
@@ -83,20 +83,20 @@ public class Range implements Component {
             if (i==max){
                 createdExactlyMaxRadio = true;
             }
-            out.append("<td align=center valign=top>");
-            out.append("<input type=radio name=\""+ SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"questionid_"+question.getQuestionid()+"\" value=\""+i+"\">");
+            out.append("<td align=\"center\" valign=\"top\">");
+            out.append("<input type=\"radio\" name=\""+ SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"questionid_"+question.getQuestionid()+"\" value=\""+i+"\">");
             out.append("<br>");
             out.append(i);
             out.append("</td>");
         }
         if (!createdExactlyMaxRadio){
-            out.append("<td align=center valign=top>");
-            out.append("<input type=radio name=\""+ SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"questionid_"+question.getQuestionid()+"\" value=\""+max+"\">");
+            out.append("<td align=\"center\" valign=\"top\">");
+            out.append("<input type=\"radio\" name=\""+ SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"questionid_"+question.getQuestionid()+"\" value=\""+max+"\">");
             out.append("<br>");
             out.append(max);
             out.append("</td>");
         }
-        out.append("<td align=center valign=top>");
+        out.append("<td align=\"center\" valign=\"top\">");
         out.append(maxtitle);
         out.append("</td>");
         out.append("</tr>");
@@ -143,7 +143,7 @@ public class Range implements Component {
 
             out.append("<table cellpadding=\"3\" cellspacing=\"0\" border=\"0\">");
             out.append("<tr>");
-            out.append("<td align=center valign=top>");
+            out.append("<td align=\"center\" valign=\"top\">");
             out.append(mintitle);
             out.append("</td>");
             boolean createdExactlyMaxRadio = false;
@@ -151,7 +151,7 @@ public class Range implements Component {
                 if (i==max){
                     createdExactlyMaxRadio = true;
                 }
-                out.append("<td align=center valign=top>");
+                out.append("<td align=\"center\" valign=\"top\">");
                 if (responseValue ==i){
                     out.append("<b>"+i+"</b>");
                 } else {
@@ -160,7 +160,7 @@ public class Range implements Component {
                 out.append("</td>");
             }
             if (!createdExactlyMaxRadio){
-                out.append("<td align=center valign=top>");
+                out.append("<td align=\"center\" valign=\"top\">");
                 if (responseValue ==max){
                     out.append("<b>"+max+"</b>");
                 } else {
@@ -168,7 +168,7 @@ public class Range implements Component {
                 }
                 out.append("</td>");
             }
-            out.append("<td align=center valign=top>");
+            out.append("<td align=\"center\" valign=\"top\">");
             out.append(maxtitle);
             out.append("</td>");
             out.append("</tr>");
@@ -222,17 +222,17 @@ public class Range implements Component {
 
     public String getHtmlForResult(List<Questionresponse> questionresponses){
         StringBuffer out = new StringBuffer();
-        out.append("<table width=100% cellpadding=3 cellspacing=1 border=0>");
+        out.append("<table width=\"100%\" cellpadding=\"3\" cellspacing=\"1\" border=\"0\">");
 
         out.append("<tr>");
-        out.append("<td valign=top bgcolor=#ffffff colspan=2>");
+        out.append("<td valign=\"top\" bgcolor=\"#ffffff\" colspan=\"2\">");
         out.append(" ");
         out.append("</td>");
-        out.append("<td valign=top bgcolor=#e6e6e6 width=65>");
-        out.append("<b class=smallfont>Response Percent</b>");
+        out.append("<td valign=\"top\" bgcolor=\"#e6e6e6\" width=\"65\">");
+        out.append("<b class=\"smallfont\">Response Percent</b>");
         out.append("</td>");
-        out.append("<td valign=top bgcolor=#e6e6e6 width=65>");
-        out.append("<b class=smallfont>Response Total</b>");
+        out.append("<td valign=\"top\" bgcolor=\"#e6e6e6\" width=\"65\">");
+        out.append("<b class=\"smallfont\">Response Total</b>");
         out.append("</td>");
         out.append("</tr>");
 
@@ -284,13 +284,13 @@ public class Range implements Component {
         }
 
         out.append("<tr>");
-        out.append("<td valign=top bgcolor=#ffffff colspan=2>");
+        out.append("<td valign=\"top\" bgcolor=\"#ffffff\" colspan=\"2\">");
         out.append(mintitle);
         out.append("</td>");
-        out.append("<td valign=top bgcolor=#e6e6e6>");
+        out.append("<td valign=\"top\" bgcolor=\"#e6e6e6\">");
         out.append(" ");
         out.append("</td>");
-        out.append("<td valign=top bgcolor=#e6e6e6>");
+        out.append("<td valign=\"top\" bgcolor=\"#e6e6e6\">");
         out.append(" ");
         out.append("</td>");
         out.append("</tr>");
@@ -306,16 +306,16 @@ public class Range implements Component {
             formatter.setMaximumFractionDigits(0);
 
             out.append("<tr>");
-            out.append("<td valign=top bgcolor=#ffffff width=130>");
+            out.append("<td valign=\"top\" bgcolor=\"#ffffff\" width=\"130\">");
             out.append(answer);
             out.append("</td>");
-            out.append("<td valign=top bgcolor=#ffffff width=300>");
-            out.append("<img src='/images/bar_dkgrey-blend.gif' width='"+percentage+"%' height='10' border=0>");
+            out.append("<td valign=\"top\" bgcolor=\"#ffffff\" width=\"300\">");
+            out.append("<img src=\"/images/bar_dkgrey-blend.gif\" width=\""+percentage+"%\" height=\"10\" border=\"0\">");
             out.append("</td>");
-            out.append("<td valign=top bgcolor=#e6e6e6>");
+            out.append("<td valign=\"top\" bgcolor=\"#e6e6e6\">");
             out.append(String.valueOf(formatter.format(percentage)) + "%");
             out.append("</td>");
-            out.append("<td valign=top bgcolor=#e6e6e6>");
+            out.append("<td valign=\"top\" bgcolor=\"#e6e6e6\">");
             out.append(count);
             out.append("</td>");
             out.append("</tr>");
@@ -323,22 +323,22 @@ public class Range implements Component {
         }
 
         out.append("<tr>");
-        out.append("<td valign=top bgcolor=#ffffff colspan=2>");
+        out.append("<td valign=\"top\" bgcolor=\"#ffffff\" colspan=\"2\">");
         out.append(maxtitle);
         out.append("</td>");
-        out.append("<td valign=top bgcolor=#e6e6e6>");
+        out.append("<td valign=\"top\" bgcolor=\"#e6e6e6\">");
         out.append(" ");
         out.append("</td>");
-        out.append("<td valign=top bgcolor=#e6e6e6>");
+        out.append("<td valign=\"top\" bgcolor=\"#e6e6e6\">");
         out.append(" ");
         out.append("</td>");
         out.append("</tr>");
 
         out.append("<tr>");
-        out.append("<td valign=top align=right bgcolor=#ffffff colspan=3>");
+        out.append("<td valign=\"top\" align=\"right\" bgcolor=\"#ffffff\" colspan=\"3\">");
         out.append("<b>Total</b>");
         out.append("</td>");
-        out.append("<td valign=top bgcolor=#e6e6e6>");
+        out.append("<td valign=\"top\" bgcolor=\"#e6e6e6\">");
         out.append(questionresponses.size());
         out.append("</td>");
         out.append("</tr>");

@@ -63,7 +63,7 @@ public class Checkboxes implements Component {
         //@todo test checkbox because i don't think that the hashmap holding the values properly handles multiple values for the same name
         for (int i = 0; i < optionsSplit.length; i++) {
             String s = optionsSplit[i];
-            out.append("<input type=checkbox name=\""+ SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"questionid_"+question.getQuestionid()+"\" value=\""+com.dneero.util.Str.cleanForHtml(s)+"\">" + s);
+            out.append("<input type=\"checkbox\" name=\""+ SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"questionid_"+question.getQuestionid()+"\" value=\""+com.dneero.util.Str.cleanForHtml(s)+"\">" + s);
             if (optionsSplit.length>i+1){
                 out.append("<br/>");
             }
@@ -159,17 +159,17 @@ public class Checkboxes implements Component {
 
     public String getHtmlForResult(List<Questionresponse> questionresponses){
         StringBuffer out = new StringBuffer();
-        out.append("<table width=100% cellpadding=3 cellspacing=1 border=0>");
+        out.append("<table width=\"100%\" cellpadding=\"3\" cellspacing=\"1\" border=\"0\">");
 
         out.append("<tr>");
-        out.append("<td valign=top bgcolor=#ffffff colspan=2>");
+        out.append("<td valign=\"top\" bgcolor=\"#ffffff\" colspan=\"2\">");
         out.append(" ");
         out.append("</td>");
-        out.append("<td valign=top bgcolor=#e6e6e6 width=65>");
-        out.append("<b class=smallfont>Response Percent</b>");
+        out.append("<td valign=\"top\" bgcolor=\"#e6e6e6\" width=\"65\">");
+        out.append("<b class=\"smallfont\">Response Percent</b>");
         out.append("</td>");
-        out.append("<td valign=top bgcolor=#e6e6e6 width=65>");
-        out.append("<b class=smallfont>Response Total</b>");
+        out.append("<td valign=\"top\" bgcolor=\"#e6e6e6\" width=\"65\">");
+        out.append("<b class=\"smallfont\">Response Total</b>");
         out.append("</td>");
         out.append("</tr>");
 
@@ -210,16 +210,16 @@ public class Checkboxes implements Component {
             formatter.setMaximumFractionDigits(0);
 
             out.append("<tr>");
-            out.append("<td valign=top bgcolor=#ffffff width=130>");
+            out.append("<td valign=\"top\" bgcolor=\"#ffffff\" width=\"130\">");
             out.append(answer);
             out.append("</td>");
-            out.append("<td valign=top bgcolor=#ffffff width=300>");
-            out.append("<img src='/images/bar_dkgrey-blend.gif' width='"+percentage+"%' height='10' border=0>");
+            out.append("<td valign=\"top\" bgcolor=\"#ffffff\" width=\"300\">");
+            out.append("<img src=\"/images/bar_dkgrey-blend.gif\" width=\""+percentage+"%\" height=\"10\" border=\"0\">");
             out.append("</td>");
-            out.append("<td valign=top bgcolor=#e6e6e6>");
+            out.append("<td valign=\"top\" bgcolor=\"#e6e6e6\">");
             out.append(String.valueOf(formatter.format(percentage)) + "%");
             out.append("</td>");
-            out.append("<td valign=top bgcolor=#e6e6e6>");
+            out.append("<td valign=\"top\" bgcolor=\"#e6e6e6\">");
             out.append(count);
             out.append("</td>");
             out.append("</tr>");
@@ -227,10 +227,10 @@ public class Checkboxes implements Component {
         }
 
         out.append("<tr>");
-        out.append("<td valign=top align=right bgcolor=#ffffff colspan=3>");
+        out.append("<td valign=\"top\" align=\"right\" bgcolor=\"#ffffff\" colspan=\"3\">");
         out.append("<b>Total</b>");
         out.append("</td>");
-        out.append("<td valign=top bgcolor=#e6e6e6>");
+        out.append("<td valign=\"top\" bgcolor=\"#e6e6e6\">");
         out.append(questionresponses.size());
         out.append("</td>");
         out.append("</tr>");
