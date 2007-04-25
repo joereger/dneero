@@ -50,8 +50,8 @@ public class SurveyHtmlpageServlet extends HttpServlet {
             RecordImpression.record(request);
         }
 
-        //@todo add html headers/footers and links to taking the survey, etc
-
+        response.setContentType("text/html");
+        
         String surveyashtml = SurveyAsHtml.getHtml(survey, user, false);
         StringBuffer scrollablediv = new StringBuffer();
         scrollablediv.append("<div style=\"border : solid 0px #cccccc; background : #e6e6e6; padding : 5px; width : 425px; height : 200px; overflow : auto; \">"+"\n");

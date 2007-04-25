@@ -101,7 +101,7 @@ public class SurveyImagelinkServlet extends HttpServlet {
                 logger.error(e);
             }
             //Close the output stream
-            logger.debug("flash swf sent to client: bytesOutput="+bytesOutput);
+            logger.debug("sent to client: bytesOutput="+bytesOutput);
             outStream.close();
         } catch (java.net.SocketException e){
             logger.debug(e);
