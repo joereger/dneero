@@ -5,6 +5,7 @@ import com.dneero.dao.hibernate.RegerEntity;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.util.GeneralException;
 import com.dneero.session.AuthControlled;
+import com.dneero.session.Authorization;
 
 import java.util.Set;
 import java.util.HashSet;
@@ -65,7 +66,7 @@ public class Supportissue extends BasePersistentClass implements java.io.Seriali
 
 
     public boolean canRead(User user){
-        if (user.getUserid()==userid){
+        if (user.getUserid()==userid || Authorization.isUserSysadmin(user)){
             return true;
         }
         return false;

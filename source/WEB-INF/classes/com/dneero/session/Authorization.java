@@ -238,14 +238,7 @@ public class Authorization extends UIComponentBase {
             }
 
             if (acl!=null && acl.equals("systemadmin")){
-                for (Iterator<Userrole> iterator = userSession.getUser().getUserroles().iterator(); iterator.hasNext();) {
-                    Userrole userrole = iterator.next();
-                    if (userrole.getRoleid()== Userrole.SYSTEMADMIN){
-                        logger.debug("Systemadmin authorized.");
-                        return true;
-                    }
-                }
-                return false;
+                return isUserSysadmin(userSession.getUser());
             }
 
             if (acl!=null && acl.equals("account")){
@@ -255,6 +248,18 @@ public class Authorization extends UIComponentBase {
 
         return false;
 
+    }
+
+    public static boolean isUserSysadmin(User user){
+        if (user!=null){
+            for (Iterator<Userrole> iterator = user.getUserroles().iterator(); iterator.hasNext();) {
+                Userrole userrole = iterator.next();
+                if (userrole.getRoleid()== Userrole.SYSTEMADMIN){
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
 
