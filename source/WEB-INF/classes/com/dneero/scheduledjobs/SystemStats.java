@@ -41,13 +41,13 @@ public class SystemStats implements Job {
         //if (InstanceProperties.getRunScheduledTasksOnThisInstance()){
             logger.debug("execute() SystemStats called");
 
-            totalbloggers = (Integer)HibernateUtil.getSession().createQuery("select count(*) from Blogger").uniqueResult();
-            totalblogs = (Integer)HibernateUtil.getSession().createQuery("select count(*) from Blog").uniqueResult();
-            totalresearchers = (Integer)HibernateUtil.getSession().createQuery("select count(*) from Researcher").uniqueResult();
-            totalimpressions = (Integer)HibernateUtil.getSession().createQuery("select count(*) from Impressiondetail").uniqueResult();
+            totalbloggers = ((Long)HibernateUtil.getSession().createQuery("select count(*) from Blogger").uniqueResult()).intValue();
+            totalblogs = ((Long)HibernateUtil.getSession().createQuery("select count(*) from Blog").uniqueResult()).intValue();
+            totalresearchers = ((Long)HibernateUtil.getSession().createQuery("select count(*) from Researcher").uniqueResult()).intValue();
+            totalimpressions = ((Long)HibernateUtil.getSession().createQuery("select count(*) from Impressiondetail").uniqueResult()).intValue();
 
             Calendar startDate = Time.xDaysAgoStart(Calendar.getInstance(), 30);
-            impressions30days = (Integer)HibernateUtil.getSession().createQuery("select count(*) from Impressiondetail where impressiondate>='"+Time.dateformatfordb(startDate)+"' and impressiondate<='"+Time.dateformatfordb(Calendar.getInstance())+"'").uniqueResult();
+            impressions30days = ((Long)HibernateUtil.getSession().createQuery("select count(*) from Impressiondetail where impressiondate>='"+Time.dateformatfordb(startDate)+"' and impressiondate<='"+Time.dateformatfordb(Calendar.getInstance())+"'").uniqueResult()).intValue();
 
             dollarsavailabletobloggers = 0;
             List opensurveys = HibernateUtil.getSession().createQuery("from Survey where status='"+ Survey.STATUS_OPEN +"'").list();
