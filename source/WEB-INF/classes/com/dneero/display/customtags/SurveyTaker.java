@@ -19,7 +19,8 @@ import com.dneero.display.components.def.ComponentException;
 import com.dneero.display.SurveyTakerDisplay;
 import com.dneero.display.SurveyResponseParser;
 import com.dneero.finders.FindSurveysForBlogger;
-import com.dneero.formbeans.BloggerSurveyTake;
+import com.dneero.formbeans.PublicSurveyTake;
+import com.dneero.formbeans.BloggerIndex;
 
 /**
  * User: Joe Reger Jr
@@ -27,9 +28,6 @@ import com.dneero.formbeans.BloggerSurveyTake;
  * Time: 9:51:56 AM
  */
 public class SurveyTaker extends UIInput {
-
-
-
 
 
 
@@ -166,7 +164,7 @@ public class SurveyTaker extends UIInput {
                 logger.debug("Storing survey response in memory: surveyid="+survey.getSurveyid()+" : srp.getAsString()="+srp.getAsString());
             } else {
                 //Create Response
-                try{BloggerSurveyTake.createResponse(survey, srp, Blogger.get(Jsf.getUserSession().getUser().getBloggerid()), 0);} catch (ComponentException cex){logger.debug(cex);allCex.addErrorsFromAnotherGeneralException(cex);}
+                try{BloggerIndex.createResponse(survey, srp, Blogger.get(Jsf.getUserSession().getUser().getBloggerid()), 0);} catch (ComponentException cex){logger.debug(cex);allCex.addErrorsFromAnotherGeneralException(cex);}
             }
         }
     }

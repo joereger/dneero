@@ -11,7 +11,7 @@
       >
 
 <ui:composition template="/template/template-facelets.xhtml">
-    <ui:define name="title">Survey Results<br/><br/></ui:define>
+    <ui:define name="title">#{publicResultsAnswersDetails.survey.title}<br/></ui:define>
     <ui:param name="navtab" value="home"/>
     <ui:define name="body">
     <d:authorization acl="public" redirectonfail="false" permitaccessduringprebeta="true"/>
@@ -20,30 +20,22 @@
 <h:form>
     <h:messages styleClass="RED"/>
 
+    <font class="smallfont">#{publicResultsAnswersDetails.survey.description}</font>
+    <br/><br/><br/>
 
 
     <table width="100%" cellpadding="5">
         <tr>
             <td valign="top" width="65%">
-                <font class="mediumfont" style="color: #00ff00">#{publicResultsAnswersDetails.survey.title}</font>
-                <br/>
-                <font class="smallfont">#{publicResultsAnswersDetails.survey.description}</font>
-                <br/><br/>
                 <f:verbatim escape="false">#{publicResultsAnswersDetails.results}</f:verbatim>
-                <br/><br/>
-                <h:commandButton action="publicsurveytake" value="How Would You Answer?" styleClass="formsubmitbutton"></h:commandButton>
             </td>
             <td valign="top" align="left">
                 <div class="rounded" style="background: #00ff00; text-align: center;">
                     <div class="rounded" style="background: #ffffff; text-align: center;">
-                        <h:outputText value="Take this survey and earn" styleClass="mediumfont"/>
+                        <center><img src="/images/undo-128.png" width="128" height="128"/></center>
                         <br/>
-                        <h:outputText value="#{publicResultsAnswersDetails.surveyEnhancer.minearning}" styleClass="largefont" style="font-size: 60px; color: #666666;"/>
-                        <br/>
-                        <h:outputText value="instantly or up to #{publicResultsAnswersDetails.surveyEnhancer.maxearning} when you post it to your blog!" styleClass="mediumfont"/>
+                        <a href="/survey.jsf?surveyid=#{publicResultsAnswersDetails.survey.surveyid}&amp;show=results"><font class="mediumfont">Return to the Survey Results</font></a>    
                     </div>
-                    <br/>
-                    <h:commandButton action="publicsurveytake" value="Take this Survey" styleClass="formsubmitbutton"></h:commandButton>
                 </div>
             </td>
         </tr>

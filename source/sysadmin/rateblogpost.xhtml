@@ -11,7 +11,7 @@
       >
 
 <ui:composition template="/template/template-facelets.xhtml">
-    <ui:define name="title">Rate Blog Post</ui:define>
+    <ui:define name="title">Rate Blog Post<br/></ui:define>
     <ui:param name="navtab" value="sysadmin"/>
     <ui:define name="body">
         <d:authorization acl="systemadmin" redirectonfail="true"/>
@@ -19,7 +19,7 @@
         <h:outputText value="No posts require review at this time." styleClass="largefont" rendered="#{!rateBlogPost.haveposttoreview}"></h:outputText>
 
          <h:form rendered="#{rateBlogPost.haveposttoreview}">
-            <h:messages />
+            <h:messages styleClass="RED"/>
             <t:saveState id="save" value="#{rateBlogPost}"/> 
             <d:roundedCornerBox uniqueboxname="rateblogscale" bodycolor="ffcc00" widthinpixels="725">
 

@@ -2,19 +2,25 @@ package com.dneero.formbeans;
 
 import com.dneero.util.Jsf;
 import com.dneero.util.Str;
-import com.dneero.dao.Impressiondetail;
-import com.dneero.dao.Responsepending;
-import com.dneero.dao.Survey;
-import com.dneero.dao.Blogger;
+import com.dneero.dao.*;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.display.SurveyResponseParser;
 import com.dneero.display.components.def.ComponentException;
+import com.dneero.display.components.def.Component;
+import com.dneero.display.components.def.ComponentTypes;
+import com.dneero.finders.FindSurveysForBlogger;
+import com.dneero.money.MoveMoneyInAccountBalance;
+import com.dneero.money.SurveyMoneyStatus;
+import com.dneero.xmpp.SendXMPPMessage;
+import com.dneero.session.SurveysTakenToday;
 
 import java.util.List;
 import java.util.Iterator;
+import java.util.Date;
 import java.io.Serializable;
 
 import org.hibernate.criterion.Restrictions;
+import org.apache.log4j.Logger;
 
 /**
  * User: Joe Reger Jr
@@ -34,16 +40,23 @@ public class BloggerIndex implements Serializable {
 
     public String beginView(){
         load();
-        return "bloggerhome";
+        //If the user hasn't yet set up their blogger profile
+        if (Jsf.getUserSession().getUser().getBloggerid()==0){
+            BloggerDetails bean = (BloggerDetails)Jsf.getManagedBean("bloggerDetails");
+            return bean.beginView();
+        }
+        return "bloggerindex";
     }
 
     private void load(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         if (Jsf.getRequestParam("showmarketingmaterial")!=null && Jsf.getRequestParam("showmarketingmaterial").equals("1")){
             showmarketingmaterial = true;
         } else {
             showmarketingmaterial = false;
         }
         if (Jsf.getUserSession()!=null && Jsf.getUserSession().getUser()!=null){
+            int surveyidtoredirectto = 0;
             List<Responsepending> responsependings = HibernateUtil.getSession().createCriteria(Responsepending.class)
                                    .add(Restrictions.eq("userid", Jsf.getUserSession().getUser().getUserid()))
                                    .setCacheable(true)
@@ -56,8 +69,9 @@ public class BloggerIndex implements Serializable {
                     Survey survey = Survey.get(responsepending.getSurveyid());
                     try{
                         SurveyResponseParser srp = new SurveyResponseParser(responsepending.getResponseasstring());
-                        BloggerSurveyTake.createResponse(survey,  srp, Blogger.get(Jsf.getUserSession().getUser().getBloggerid()), responsepending.getReferredbyblogid());
-                        responsependingmsg = responsependingmsg + "You just earned $"+ Str.formatForMoney(survey.getWillingtopayperrespondent())+"! We have successfully committed your response to '"+survey.getTitle()+"'!  But don't forget to post this survey to your blog to earn even more money... click <a href='bloggersurveyposttoblog.jsf?surveyid="+survey.getSurveyid()+"'>here</a>." + "<br/><br/>";
+                        createResponse(survey,  srp, Blogger.get(Jsf.getUserSession().getUser().getBloggerid()), responsepending.getReferredbyblogid());
+                        responsependingmsg = responsependingmsg + "You just earned $"+ Str.formatForMoney(survey.getWillingtopayperrespondent())+"! We have successfully committed your response to '"+survey.getTitle()+"'!  But don't forget to post this survey to your blog to earn even more money... click <a href='/survey.jsf?surveyid="+survey.getSurveyid()+"'>here</a>." + "<br/><br/>";
+                        surveyidtoredirectto = survey.getSurveyid();
                     } catch (ComponentException cex){
                         responsependingmsg = responsependingmsg + "There was an error committing your response to the survey '"+survey.getTitle()+"': " + cex.getErrorsAsSingleString() + "  But don't worry... we're always adding new survey opportunities!<br/><br/>";
                     }
@@ -65,11 +79,116 @@ public class BloggerIndex implements Serializable {
                     responsepending.delete();
                 }
             }
+            if(surveyidtoredirectto>0){
+                try{Jsf.redirectResponse("/survey.jsf?surveyid="+surveyidtoredirectto); return;}catch(Exception ex){logger.error(ex);}
+            }
         }
-        BloggerSurveyList bean = (BloggerSurveyList)Jsf.getManagedBean("bloggerSurveyList");
-        bean.beginView();
+//        BloggerSurveyList bean = (BloggerSurveyList)Jsf.getManagedBean("bloggerSurveyList");
+//        bean.beginView();
         BloggerCompletedsurveys bean2 = (BloggerCompletedsurveys)Jsf.getManagedBean("bloggerCompletedsurveys");
         bean2.beginView();
+    }
+
+    public static void createResponse(Survey survey, SurveyResponseParser srp, Blogger blogger, int referredbyblogid) throws ComponentException{
+        Logger logger = Logger.getLogger(PublicSurveyTake.class);
+        ComponentException allCex = new ComponentException();
+        //Make sure blogger hasn't taken already
+        List<Response> responses = HibernateUtil.getSession().createCriteria(Response.class)
+                                           .add(Restrictions.eq("bloggerid", blogger.getBloggerid()))
+                                           .setCacheable(true)
+                                           .list();
+        for (Iterator<Response> iterator = responses.iterator(); iterator.hasNext();) {
+            Response response = iterator.next();
+            if (response.getSurveyid()==survey.getSurveyid()){
+                allCex.addValidationError("You have already taken this survey before.  Each survey can only be answered once.");
+            }
+        }
+        //Make sure blogger is qualified to take
+        if (!FindSurveysForBlogger.isBloggerQualifiedToTakeSurvey(blogger, survey)){
+            allCex.addValidationError("Sorry, you're not qualified to take this survey.  Your qualification is determined by your Blogger Profile.  Researchers determine their intended audience when they create a survey.");
+        }
+        //Make sure each component is validated
+        for (Iterator<Question> iterator = survey.getQuestions().iterator(); iterator.hasNext();) {
+            Question question = iterator.next();
+            logger.debug("found question.getQuestionid()="+question.getQuestionid());
+            Component component = ComponentTypes.getComponentByID(question.getComponenttype(), question, blogger);
+            logger.debug("found component.getName()="+component.getName());
+            try{
+                component.validateAnswer(srp);
+            } catch (ComponentException cex){
+                logger.debug(cex);
+                allCex.addErrorsFromAnotherGeneralException(cex);
+            }
+        }
+        //If we are validated
+        if (allCex.getErrors().length<=0){
+            if (Jsf.getUserSession()!=null && !Jsf.getUserSession().getIsloggedin()){
+                //Not logged-in... store this response in memory for now
+                Jsf.getUserSession().setPendingSurveyResponseSurveyid(survey.getSurveyid());
+                Jsf.getUserSession().setPendingSurveyResponseAsString(srp.getAsString());
+                logger.debug("Storing survey response in memory: surveyid="+survey.getSurveyid()+" : srp.getAsString()="+srp.getAsString());
+            } else {
+                storeResponseInDb(survey, srp, blogger, referredbyblogid);
+            }
+        }
+        //Throw if necessary
+        if (allCex.getErrors().length>0){
+
+            throw allCex;
+        }
+    }
+
+    public static void storeResponseInDb(Survey survey, SurveyResponseParser srp, Blogger blogger, int referredbyblogid)  throws ComponentException{
+        Logger logger = Logger.getLogger(BloggerIndex.class);
+        ComponentException allCex = new ComponentException();
+        //Create Response
+        try{
+            //Create the response
+            Response response = new Response();
+            response.setBloggerid(blogger.getBloggerid());
+            response.setResponsedate(new Date());
+            response.setSurveyid(survey.getSurveyid());
+            response.setReferredbyblogid(referredbyblogid);
+            //survey.getResponses().add(response);
+            try{
+                response.save();
+                survey.refresh();
+            } catch (Exception ex){
+                logger.error(ex);
+                allCex.addValidationError(ex.getMessage());
+            }
+            //Process each question
+            if (allCex.getErrors().length<=0){
+                for (Iterator<Question> iterator = survey.getQuestions().iterator(); iterator.hasNext();) {
+                    Question question = iterator.next();
+                    Component component = ComponentTypes.getComponentByID(question.getComponenttype(), question, blogger);
+                    try{component.processAnswer(srp, response);} catch (ComponentException cex){allCex.addErrorsFromAnotherGeneralException(cex);}
+                }
+            }
+            //Refresh blogger
+            try{blogger.save();} catch (Exception ex){logger.error(ex);};
+        } catch (Exception ex){
+            logger.error(ex);
+            allCex.addValidationError(ex.getMessage());
+        }
+        //Move money, etc
+        if (allCex.getErrors().length<=0){
+            //Affect balance for blogger
+            MoveMoneyInAccountBalance.pay(Jsf.getUserSession().getUser(), survey.getWillingtopayperrespondent(), "Pay for taking survey: '"+survey.getTitle()+"'", true);
+            //Affect balance for researcher
+            MoveMoneyInAccountBalance.charge(User.get(Researcher.get(survey.getResearcherid()).getUserid()), (survey.getWillingtopayperrespondent()+(survey.getWillingtopayperrespondent()*(SurveyMoneyStatus.DNEEROMARKUPPERCENT/100))), "User "+Jsf.getUserSession().getUser().getFirstname()+" "+Jsf.getUserSession().getUser().getLastname()+" responds to survey '"+survey.getTitle()+"'");
+            //Notify debug group
+            SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_CUSTOMERSUPPORT, "dNeero Survey Taken: "+ survey.getTitle()+" (surveyid="+survey.getSurveyid()+") by "+Jsf.getUserSession().getUser().getFirstname()+" "+Jsf.getUserSession().getUser().getLastname()+" ("+Jsf.getUserSession().getUser().getEmail()+")");
+            xmpp.send();
+        } else {
+            throw allCex;
+        }
+        //Update the session data on number of surveys taken today
+        try{
+            Jsf.getUserSession().setSurveystakentoday(SurveysTakenToday.getNumberOfSurveysTakenToday(Jsf.getUserSession().getUser()));
+        } catch (Exception ex){
+            logger.error(ex);
+        }
     }
 
 

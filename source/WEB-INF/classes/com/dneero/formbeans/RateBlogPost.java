@@ -35,7 +35,7 @@ public class RateBlogPost implements Serializable {
     }
 
     private void getNewPostToRate(){
-        remainingtoreview = (Integer)HibernateUtil.getSession().createQuery("select count(*) from Impression where quality='0'").uniqueResult();
+        remainingtoreview = ((Long)HibernateUtil.getSession().createQuery("select count(*) from Impression where quality='0'").uniqueResult()).intValue();
         List<Impression> impressions = HibernateUtil.getSession().createQuery("from Impression where quality='0'").setMaxResults(1).list();
         if (impressions.size()>0){
             Impression impression = impressions.get(0);

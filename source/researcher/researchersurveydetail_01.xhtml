@@ -69,6 +69,10 @@
         <h:panelGroup>
             <t:inputDate value="#{researcherSurveyDetail01.startdate}"  type="both" popupCalendar="true" id="startdate" required="true" rendered="#{researcherSurveyDetail01.status le 1}"></t:inputDate>
             <h:outputText value="#{researcherSurveyDetail01.startdate}" rendered="#{researcherSurveyDetail01.status ge 2}"><f:convertDateTime type="both" dateStyle="short" timeStyle="medium"/></h:outputText>
+            <br/>
+            <font class="tinyfont">Click the ... button for a pop-up calendar.</font>
+            <br/>
+            <font class="tinyfont">(format is: dd month yyyy hour minute)</font>
         </h:panelGroup>
         <h:panelGroup>
             <h:message for="startdate" styleClass="RED"></h:message>
@@ -81,6 +85,10 @@
         <h:panelGroup>
             <t:inputDate value="#{researcherSurveyDetail01.enddate}" type="both" popupCalendar="true" id="enddate" required="true" rendered="#{researcherSurveyDetail01.status le 1}"></t:inputDate>
             <h:outputText value="#{researcherSurveyDetail01.enddate}" rendered="#{researcherSurveyDetail01.status ge 2}"><f:convertDateTime type="both" dateStyle="short" timeStyle="medium"/></h:outputText>
+            <br/>
+            <font class="tinyfont">Click the ... button for a pop-up calendar.</font>
+            <br/>
+            <font class="tinyfont">(format is: dd month yyyy hour minute)</font>
         </h:panelGroup>
         <h:panelGroup>
             <h:message for="enddate" styleClass="RED"></h:message>

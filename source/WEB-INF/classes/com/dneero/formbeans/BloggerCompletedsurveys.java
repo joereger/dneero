@@ -36,7 +36,8 @@ public class BloggerCompletedsurveys implements Serializable {
         if (userSession.getUser()!=null && userSession.getUser().getBloggerid()>0){
             list = new ArrayList();
             //HibernateUtil.getSession().saveOrUpdate(Blogger.get(userSession.getUser().getBloggerid()));
-            for (Iterator<Response> iterator = Blogger.get(userSession.getUser().getBloggerid()).getResponses().iterator(); iterator.hasNext();) {
+            List<Response> responses = HibernateUtil.getSession().createQuery("from Response where bloggerid='"+userSession.getUser().getBloggerid()+"' order by responseid desc").setCacheable(true).list();
+            for (Iterator<Response> iterator = responses.iterator(); iterator.hasNext();) {
                 Response response = iterator.next();
                 Survey survey = Survey.get(response.getSurveyid());
                 int allimpressions = BloggerIncomeCalculator.getAllImpressiondetailsForSurvey(Blogger.get(userSession.getUser().getBloggerid()), survey).size();

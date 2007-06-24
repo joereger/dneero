@@ -13,6 +13,7 @@ public class BloggerImpressionsListItem implements Serializable {
     private int impressionid;
     private String referer;
     private int impressionsqualifyingforpayment;
+    private int impressionstotal;
     private int quality;
 
     public BloggerImpressionsListItem(){}
@@ -49,5 +50,13 @@ public class BloggerImpressionsListItem implements Serializable {
 
     public void setQuality(int quality) {
         this.quality = quality;
+    }
+
+    public int getImpressionstotal() {
+        return impressionstotal;
+    }
+
+    public void setImpressionstotal(int impressionstotal) {
+        this.impressionstotal = impressionstotal;
     }
 }

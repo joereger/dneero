@@ -3,6 +3,7 @@ package com.dneero.formbeans;
 import com.dneero.util.*;
 import com.dneero.dao.Survey;
 import com.dneero.dao.Blogger;
+import com.dneero.dao.Response;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.finders.FindSurveysForBlogger;
 import org.apache.log4j.Logger;
@@ -55,7 +56,7 @@ public class PublicSurveyList implements Serializable {
                 BloggerSurveyListItem bsli = new BloggerSurveyListItem();
                 bsli.setSurveyid(survey.getSurveyid());
                 bsli.setTitle(survey.getTitle());
-                bsli.setBloggerhasalreadytakensurvey(false);
+                bsli.setDescription(survey.getDescription());
 
                 if (survey.getQuestions()!=null){
                     bsli.setNumberofquestions(String.valueOf(survey.getQuestions().size()));
@@ -75,24 +76,41 @@ public class PublicSurveyList implements Serializable {
                     bsli.setDaysuntilend(daysleft + " days left!");
                 }
 
-                //See if user is qualified
+                //See if user has taken survey
+                bsli.setBloggerhasalreadytakensurvey(false);
                 if (Jsf.getUserSession().getIsloggedin() && Jsf.getUserSession().getUser()!=null && Jsf.getUserSession().getUser().getBloggerid()>0){
-                    //Iterate surveys this blogger qualifies for
-                    boolean bloggerqualifies = false;
-                    for (Iterator iter = fsfb.getSurveys().iterator(); iter.hasNext();) {
-                        Survey tmpSurvey = (Survey) iter.next();
-                        if (tmpSurvey.getSurveyid()==survey.getSurveyid()){
-                            bloggerqualifies=true;
+                    Blogger blogger = Blogger.get(Jsf.getUserSession().getUser().getBloggerid());
+                    for (Iterator<Response> iterator2 = blogger.getResponses().iterator(); iterator2.hasNext();) {
+                        Response response = iterator2.next();
+                        if (response.getSurveyid()==survey.getSurveyid()){
+                            bsli.setBloggerhasalreadytakensurvey(true);
                         }
                     }
-                    if (bloggerqualifies){
-                        bsli.setIsbloggerqualifiedstring("Yes");    
+                }
+
+                //See if user is qualified
+                if (!bsli.getBloggerhasalreadytakensurvey()){
+                    if (Jsf.getUserSession().getIsloggedin() && Jsf.getUserSession().getUser()!=null && Jsf.getUserSession().getUser().getBloggerid()>0){
+                        //Iterate surveys this blogger qualifies for
+                        boolean bloggerqualifies = false;
+                        for (Iterator iter = fsfb.getSurveys().iterator(); iter.hasNext();) {
+                            Survey tmpSurvey = (Survey) iter.next();
+                            if (tmpSurvey.getSurveyid()==survey.getSurveyid()){
+                                bloggerqualifies=true;
+                            }
+                        }
+                        if (bloggerqualifies){
+                            bsli.setIsbloggerqualifiedstring("Yes");
+                        } else {
+                            bsli.setIsbloggerqualifiedstring("No");
+                        }
                     } else {
-                        bsli.setIsbloggerqualifiedstring("No");
+                        bsli.setIsbloggerqualifiedstring("Unknown");
                     }
                 } else {
-                    bsli.setIsbloggerqualifiedstring("Unknown");
+                    bsli.setIsbloggerqualifiedstring("Already Taken");
                 }
+
 
                 surveys.add(bsli);
             }

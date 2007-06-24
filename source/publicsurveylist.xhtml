@@ -19,50 +19,49 @@
 
 
 <h:form>
-    <t:div rendered="#{userSession.isloggedin}">
-        <div class="rounded" style="padding: 15px; margin: 5px; background: #F2FFBF;">
-            <h:outputText value="${userSession.user.firstname}, note that this screen includes all surveys, including those that you don't qualify for.  In the For Bloggers section you'll find a list of only those surveys that you qualify for." styleClass="mediumfont"/>
-        </div>
-    </t:div>
 
 
     <t:saveState id="save" value="#{publicSurveyList}"/>
     <h:outputText value="There are currently no surveys listed.  Please check back soon as we're always adding new ones!" styleClass="mediumfont" rendered="#{empty publicSurveyList.surveys}"/>
 
-    <t:dataTable id="datatable" value="#{publicSurveyList.surveys}" rows="15" var="srvy" rendered="#{!empty publicSurveyList.surveys}" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcol,tcolnowrap,tcol,tcolnowrap,tcolnowrap">
-      <h:column>
+    <t:dataTable sortable="true" id="datatable" value="#{publicSurveyList.surveys}" rows="15" var="srvy" rendered="#{!empty publicSurveyList.surveys}" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcol,tcolnowrap,tcol,tcolnowrap,tcolnowrap">
+      <t:column>
         <f:facet name="header">
-          <h:outputText value="Title"/>
+            <h:outputText value="Survey Name"/>
         </f:facet>
-        <h:commandLink action="#{publicSurveyDetail.beginView}">
-            <h:outputText value="#{srvy.title}" escape="false" styleClass="mediumfont"/>
+        <h:commandLink action="#{publicSurveyTakeRedirector.beginView}">
+            <h:outputText value="#{srvy.title}" escape="false" styleClass="mediumfont" style="color: #0000ff;"/>
             <f:param name="surveyid" value="#{srvy.surveyid}" />
         </h:commandLink>
-      </h:column>
-      <h:column>
+        <br/>
+        <h:outputText value="#{srvy.description}" escape="false" styleClass="tinyfont"/>
+      </t:column>
+      <t:column>
         <f:facet name="header">
-          <h:outputText value="Questions"/>
+            <t:commandSortHeader columnName="numberofquestions" arrow="false" immediate="false">
+                <h:outputText value="Questions"/>
+            </t:commandSortHeader>
         </f:facet>
-        <h:outputText value="#{srvy.numberofquestions}"/>
-      </h:column>
-      <h:column>
+        <h:outputText value="#{srvy.numberofquestions}" styleClass="smallfont"/>
+      </t:column>
+      <t:column>
         <f:facet name="header">
           <h:outputText value="Timing"/>
         </f:facet>
-        <h:outputText value="#{srvy.daysuntilend}"/>
-      </h:column>
-      <h:column>
+        <h:outputText value="#{srvy.daysuntilend}"  styleClass="smallfont"/>
+      </t:column>
+      <t:column>
         <f:facet name="header">
           <h:outputText value="Do You Qualify?"/>
         </f:facet>
-        <h:outputText value="#{srvy.isbloggerqualifiedstring}"/>
-      </h:column>
-      <h:column>
+        <h:outputText value="#{srvy.isbloggerqualifiedstring}"  styleClass="smallfont"/>
+      </t:column>
+      <t:column>
         <f:facet name="header">
           <h:outputText value="Earn Up To"/>
         </f:facet>
-        <h:outputText value="#{srvy.maxearning}" styleClass="mediumfont"/>
-      </h:column>
+        <h:outputText value="#{srvy.maxearning}" styleClass="smallfont" style="font-weight:bold;"/>
+      </t:column>
     </t:dataTable>
     <t:dataScroller id="scroll_1" for="datatable" fastStep="10" pageCountVar="pageCount" pageIndexVar="pageIndex" styleClass="scroller" paginator="true" paginatorMaxPages="9" paginatorTableClass="paginator" paginatorActiveColumnStyle="font-weight:bold;">
         <f:facet name="first" >

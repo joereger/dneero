@@ -6,12 +6,21 @@ import com.dneero.dao.hibernate.BasePersistentClass;
 import com.dneero.dao.hibernate.RegerEntity;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.session.AuthControlled;
+import com.dneero.cache.providers.CacheFactory;
+import com.dneero.scheduledjobs.CloseSurveysByDate;
+import com.dneero.scheduledjobs.SystemStats;
+import com.dneero.xmpp.SendXMPPMessage;
+import com.dneero.systemprops.WebAppRootDir;
 
 import java.util.Date;
 import java.util.Set;
 import java.util.HashSet;
+import java.io.StringWriter;
+import java.io.PrintWriter;
 
 import org.apache.log4j.Logger;
+import org.hibernate.HibernateException;
+import sun.reflect.Reflection;
 
 
 /**
@@ -45,11 +54,13 @@ public class Survey extends BasePersistentClass implements java.io.Serializable,
      private boolean embedjavascript = true;
      private boolean embedflash = true;
      private boolean embedlink = true;
+     private int publicsurveydisplays;
+     private boolean isspotlight = false;
      private Set<Question> questions = new HashSet<Question>();
      private Set<Response> responses = new HashSet<Response>();
      private Set<Impression> impressions = new HashSet<Impression>();
      private Set<Surveypanel> surveypanels = new HashSet<Surveypanel>();
-
+     private Set<Surveydiscuss> surveydiscusses = new HashSet<Surveydiscuss>();
 
     //Validator
     public void validateRegerEntity() throws GeneralException {
@@ -81,6 +92,48 @@ public class Survey extends BasePersistentClass implements java.io.Serializable,
 
     /** default constructor */
     public Survey() {
+    }
+
+    public void flushSurveyEmbeddingCache(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
+        String cacheGroup = "embeddedsurveycache";
+        CacheFactory.getCacheProvider().flush(cacheGroup+"/"+"surveyid-"+surveyid);
+    }
+
+    public void save() throws GeneralException {
+        Logger logger = Logger.getLogger(this.getClass().getName());
+        logger.debug("save() called and is accessing Survey.java");
+        //Start experimental
+        try{
+            Throwable t = new Throwable();
+            logger.debug("Survey.save(surveyid="+surveyid+", status="+status+") called by: "+t.getStackTrace()[1]);
+            logger.debug("                                 : "+t.getStackTrace()[2]);
+            logger.debug("                                 : "+t.getStackTrace()[3]);
+            logger.debug("                                 : "+t.getStackTrace()[4]);
+            String err = "Survey.save(surveyid="+surveyid+", status="+status+") called by: "+t.getStackTrace()[1];
+            SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_SYSADMINS, err);
+            xmpp.send();
+        }catch(Exception ex){logger.error(ex);}
+        //try{throw new Exception(" ");}catch( Exception e ){
+        //    logger.debug( "Survey.save() called by: " + e.getStackTrace()[1].getClassName() + "." +e.getStackTrace()[1].getMethodName() + "()" );
+        //}
+        //End Experimental
+        flushSurveyEmbeddingCache();
+        super.save();
+    }
+
+    public void delete() throws HibernateException {
+        Logger logger = Logger.getLogger(this.getClass().getName());
+        logger.debug("delete() called and is accessing Survey.java");
+        flushSurveyEmbeddingCache();
+        super.delete();
+    }
+
+    public void refresh() throws HibernateException {
+        Logger logger = Logger.getLogger(this.getClass().getName());
+        logger.debug("refresh() called and is accessing Survey.java");
+        flushSurveyEmbeddingCache();
+        super.refresh();
     }
 
 
@@ -290,5 +343,31 @@ public class Survey extends BasePersistentClass implements java.io.Serializable,
 
     public void setSurveypanels(Set<Surveypanel> surveypanels) {
         this.surveypanels = surveypanels;
+    }
+
+
+    public int getPublicsurveydisplays() {
+        return publicsurveydisplays;
+    }
+
+    public void setPublicsurveydisplays(int publicsurveydisplays) {
+        this.publicsurveydisplays = publicsurveydisplays;
+    }
+
+    public boolean isIsspotlight() {
+        return isspotlight;
+    }
+
+    public void setIsspotlight(boolean isspotlight) {
+        this.isspotlight = isspotlight;
+    }
+
+
+    public Set<Surveydiscuss> getSurveydiscusses() {
+        return surveydiscusses;
+    }
+
+    public void setSurveydiscusses(Set<Surveydiscuss> surveydiscusses) {
+        this.surveydiscusses = surveydiscusses;
     }
 }

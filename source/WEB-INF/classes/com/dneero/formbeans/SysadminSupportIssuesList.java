@@ -36,7 +36,7 @@ public class SysadminSupportIssuesList implements Serializable {
     }
 
     public List getSupportissues() {
-        sort("supportissueid", false);
+        //sort("supportissueid", false);
         return supportissues;
     }
 

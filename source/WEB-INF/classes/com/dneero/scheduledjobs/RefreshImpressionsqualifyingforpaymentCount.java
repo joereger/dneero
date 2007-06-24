@@ -37,7 +37,7 @@ public class RefreshImpressionsqualifyingforpaymentCount implements Job {
             for (Iterator iterator = impressions.iterator(); iterator.hasNext();) {
                 Impression impression = (Impression) iterator.next();
                 //Count impressiondetails where the payment status is true
-                int impressionsqualifyingforpayment = (Integer)HibernateUtil.getSession().createQuery("select count(*) from Impressiondetail where impressionid='"+impression.getImpressionid()+"' and qualifiesforpaymentstatus='"+ Impressiondetail.QUALIFIESFORPAYMENTSTATUS_TRUE+"'").uniqueResult();
+                int impressionsqualifyingforpayment = ((Long)HibernateUtil.getSession().createQuery("select count(*) from Impressiondetail where impressionid='"+impression.getImpressionid()+"' and qualifiesforpaymentstatus='"+ Impressiondetail.QUALIFIESFORPAYMENTSTATUS_TRUE+"'").uniqueResult()).intValue();
                 //Update if the number is off
                 if (impressionsqualifyingforpayment!=impression.getImpressionsqualifyingforpayment()){
                     impression.setImpressionsqualifyingforpayment(impressionsqualifyingforpayment);

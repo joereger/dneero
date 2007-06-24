@@ -35,16 +35,37 @@ public class LostPasswordChoose implements Serializable {
 
     public String choosePassword(){
         Logger logger = Logger.getLogger(this.getClass().getName());
+
+        boolean haveErrors = false;
+
+        if (password==null || password.equals("") || password.length()<6){
+            Jsf.setFacesMessage("lostpasswordchooseform:password", "Password must be at least six characters long.");
+            haveErrors = true;
+        }
+
+        if (!password.equals(passwordverify)){
+            Jsf.setFacesMessage("lostpasswordchooseform:password", "Password and Verify Password must match.");
+            haveErrors = true;
+        }
+
+
         boolean isCaptchaCorrect = false;
         try {
             isCaptchaCorrect = CaptchaServiceSingleton.getInstance().validateResponseForID(Jsf.getHttpServletRequest().getSession().getId(), j_captcha_response);
         } catch (CaptchaServiceException e) {
              //should not happen, may be thrown if the id is not valid
+             logger.error(e);
         }
         if (!isCaptchaCorrect){
             Jsf.setFacesMessage("lostpasswordchooseform:j_captcha_response", "You failed to correctly type the letters into the box.");
+            haveErrors = true;
+        }
+
+        
+        if (haveErrors){
             return null;
         }
+
 
         if (Jsf.getUserSession().getIsAllowedToResetPasswordBecauseHasValidatedByEmail()){
 
@@ -63,7 +84,8 @@ public class LostPasswordChoose implements Serializable {
             return null;
         }
 
-        return "home";
+        AccountIndex bean = (AccountIndex)Jsf.getManagedBean("accountIndex");
+        return bean.beginView();
     }
 
 

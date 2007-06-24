@@ -81,12 +81,6 @@
         <property name="socialinfluenceratingranking90days" type="int">
             <column name="socialinfluenceratingranking90days" not-null="true" />
         </property>
-        <property name="notifyofnewsurveysbyemail" type="boolean">
-            <column name="notifyofnewsurveysbyemail" />
-        </property>
-        <property name="lastnewsurveynotificationsenton" type="timestamp">
-            <column name="lastnewsurveynotificationsenton" not-null="true" />
-        </property>
 
     </class>
 </hibernate-mapping>

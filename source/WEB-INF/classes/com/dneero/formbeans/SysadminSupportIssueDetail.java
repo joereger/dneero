@@ -7,11 +7,14 @@ import javax.faces.context.FacesContext;
 import com.dneero.dao.Blog;
 import com.dneero.dao.Supportissuecomm;
 import com.dneero.dao.Supportissue;
+import com.dneero.dao.User;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.session.UserSession;
 import com.dneero.util.Jsf;
 import com.dneero.util.GeneralException;
 import com.dneero.util.Num;
+import com.dneero.util.Str;
+import com.dneero.email.EmailTemplateProcessor;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -102,6 +105,19 @@ public class SysadminSupportIssueDetail implements Serializable {
             logger.debug("saveAction failed: " + gex.getErrorsAsSingleString());
             return null;
         }
+
+        //Send notification email
+        String[] args = new String[3];
+        args[0]=supportissue.getSubject();
+        args[1]=supportissuecomm.getNotes();
+        if (supportissue.getStatus()==Supportissue.STATUS_OPEN){
+            args[2]= "Open";
+        } else if (supportissue.getStatus()==Supportissue.STATUS_CLOSED){
+            args[2]= "Closed";
+        } else {
+            args[2]= "Working";
+        }
+        EmailTemplateProcessor.sendMail("dNeero Support Issue: "+ Str.truncateString(supportissue.getSubject(),100), "supportissueresponse", User.get(supportissue.getUserid()), args);
 
         return "sysadminsupportissuenewnotedone";
     }

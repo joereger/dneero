@@ -75,10 +75,10 @@ public class Checkboxes implements Component {
 
     public String getHtmlForDisplay(Response response) {
         StringBuffer out = new StringBuffer();
-        out.append("<p style=\"font-family: Arial Black, Arial Black, Gadget, sans-serif; font-size: 12px; font-weight: bold; margin: 1px;\">");
+        out.append("<p style=\"font-family: Arial, Arial, Helvetica, sans-serif; font-size: 13px; font-weight: bold; margin: 0px; padding: 0px; text-align: left;\">");
         out.append(question.getQuestion());
         out.append("</p>");
-        out.append("<p style=\"font-family: Arial, Arial, Helvetica, sans-serif; font-size: 12px; margin: 1px;\">");
+        //out.append("<p style=\"font-family: Arial, Arial, Helvetica, sans-serif; font-size: 12px; margin: 1px;  padding: 0px; text-align: left;\">");
 
         List<Questionresponse> responses = new ArrayList<Questionresponse>();
         if (blogger!=null && response!=null){
@@ -105,7 +105,9 @@ public class Checkboxes implements Component {
                     }
                 }
             }
-            out.append("<p>");
+            out.append("<p style=\"font-family: Arial, Arial, Helvetica, sans-serif; font-size: 11px; margin: 1px;  padding: 0px; text-align: left;\">");
+            //out.append("<p>");
+            out.append("&nbsp;&nbsp;");
             if (isSelected){
                 out.append("<b>"+s+"</b>");
             } else {
@@ -113,7 +115,7 @@ public class Checkboxes implements Component {
             }
             out.append("</p>");
         }
-        out.append("</p>");
+        //out.append("</p>");
         return out.toString();
     }
 

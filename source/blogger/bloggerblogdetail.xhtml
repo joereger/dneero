@@ -18,14 +18,18 @@
 
     <t:div rendered="#{bloggerBlogDetail.isonetimeconfig}">
         <div class="rounded" style="padding: 15px; margin: 5px; background: #F2FFBF;">
-            <font class="mediumfont">One-time Blogger Configuration Step 2 of 2: Blog Claim</font>
+            <font class="smallfont">Step 2 of 2: Blog Claim</font>
+            <br/>
+            <font class="mediumfont">Quick One-time Blogger Configuration Required</font>
             <br/>
             <font class="smallfont">You need to claim at least one blog so that we know where to look for your survey posts.</font>
         </div>
+        <br/><br/>
     </t:div>
 
 
 <h:form>
+    <t:saveState id="save" value="#{bloggerBlogDetail}"/>
     <h:messages styleClass="RED"/>
     <h:inputHidden name="blogid" value="#{bloggerBlogDetail.blogid}" />
     <h:panelGrid columns="3" cellpadding="3" border="0">
@@ -33,7 +37,7 @@
 
 
         <h:panelGroup>
-            <h:outputText value="Url" styleClass="formfieldnamefont"></h:outputText>
+            <h:outputText value="Your Blog's Url" styleClass="formfieldnamefont"></h:outputText>
         </h:panelGroup>
         <h:panelGroup>
             <h:inputText value="#{bloggerBlogDetail.url}" id="url" required="true" size="45">
@@ -47,7 +51,7 @@
         </h:panelGroup>
 
         <h:panelGroup>
-            <h:outputText value="Blog Title" styleClass="formfieldnamefont"></h:outputText>
+            <h:outputText value="Your Blog's Title" styleClass="formfieldnamefont"></h:outputText>
         </h:panelGroup>
         <h:panelGroup>
             <h:inputText value="#{bloggerBlogDetail.title}" id="title" required="true" size="45">
@@ -59,7 +63,7 @@
         </h:panelGroup>
 
         <h:panelGroup>
-            <h:outputText value="Blog Focus" styleClass="formfieldnamefont"></h:outputText>
+            <h:outputText value="Your Blog's Focus" styleClass="formfieldnamefont"></h:outputText>
         </h:panelGroup>
         <h:panelGroup>
             <h:selectOneMenu value="#{bloggerBlogDetail.blogfocus}" id="blogfocus" required="true">

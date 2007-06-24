@@ -137,18 +137,13 @@
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
     <managed-bean>
-        <managed-bean-name>publicSurveyAnswers</managed-bean-name>
-        <managed-bean-class>com.dneero.formbeans.PublicSurveyAnswers</managed-bean-class>
+        <managed-bean-name>publicSurveyTakeRedirector</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.PublicSurveyTakeRedirector</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
     <managed-bean>
         <managed-bean-name>publicResultsAnswersDetails</managed-bean-name>
         <managed-bean-class>com.dneero.formbeans.PublicResultsAnswersDetails</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
-    </managed-bean>
-    <managed-bean>
-        <managed-bean-name>publicSurveyDisclosure</managed-bean-name>
-        <managed-bean-class>com.dneero.formbeans.PublicSurveyDisclosure</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
 
@@ -170,17 +165,6 @@
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
 
-    <managed-bean>
-        <managed-bean-name>bloggerSurveyTake</managed-bean-name>
-        <managed-bean-class>com.dneero.formbeans.BloggerSurveyTake</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
-    </managed-bean>
-
-    <managed-bean>
-        <managed-bean-name>bloggerSurveyPosttoblog</managed-bean-name>
-        <managed-bean-class>com.dneero.formbeans.BloggerSurveyPosttoblog</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
-    </managed-bean>
 
     <managed-bean>
         <managed-bean-name>bloggerDetails</managed-bean-name>
@@ -248,6 +232,7 @@
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
 
+
     <managed-bean>
         <managed-bean-name>researcherSurveyQuestionList</managed-bean-name>
         <managed-bean-class>com.dneero.formbeans.ResearcherSurveyQuestionList</managed-bean-class>
@@ -260,11 +245,6 @@
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
 
-    <managed-bean>
-        <managed-bean-name>sysadminSessions</managed-bean-name>
-        <managed-bean-class>com.dneero.formbeans.SysadminSessions</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
-    </managed-bean>
 
     <managed-bean>
         <managed-bean-name>componentTypes</managed-bean-name>
@@ -310,20 +290,26 @@
     </managed-bean>
 
     <managed-bean>
-        <managed-bean-name>researcherBloggerProfileAnswers</managed-bean-name>
-        <managed-bean-class>com.dneero.formbeans.ResearcherBloggerProfileAnswers</managed-bean-class>
+        <managed-bean-name>publicProfileAnswers</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.PublicProfileAnswers</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
 
     <managed-bean>
-        <managed-bean-name>researcherBloggerProfile</managed-bean-name>
-        <managed-bean-class>com.dneero.formbeans.ResearcherBloggerProfile</managed-bean-class>
+        <managed-bean-name>publicProfile</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.PublicProfile</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
 
     <managed-bean>
-        <managed-bean-name>researcherBloggerProfileImpressions</managed-bean-name>
-        <managed-bean-class>com.dneero.formbeans.ResearcherBloggerProfileImpressions</managed-bean-class>
+        <managed-bean-name>publicProfileImpressions</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.PublicProfileImpressions</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>publicResultsRespondentsProfile</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.PublicResultsRespondentsProfile</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
 
@@ -395,16 +381,6 @@
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
 
-
-    <managed-bean>
-        <managed-bean-name>bloggerSurveyDetail</managed-bean-name>
-        <managed-bean-class>com.dneero.formbeans.BloggerSurveyDetail</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
-        <managed-property>
-            <property-name>survey</property-name>
-            <value>#{survey}</value>
-        </managed-property>
-    </managed-bean>
 
     <managed-bean>
         <managed-bean-name>researcherSurveyDetail01</managed-bean-name>
@@ -524,7 +500,25 @@
     <managed-bean>
         <managed-bean-name>publicIndex</managed-bean-name>
         <managed-bean-class>com.dneero.formbeans.PublicIndex</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>publicEvil</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.PublicEvil</managed-bean-class>
         <managed-bean-scope>application</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>publicBlog</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.PublicBlog</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>publicBlogPost</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.PublicBlogPost</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
 
     <managed-bean>
@@ -544,11 +538,10 @@
     </managed-bean>
 
     <managed-bean>
-        <managed-bean-name>publicSurveyDetail</managed-bean-name>
-        <managed-bean-class>com.dneero.formbeans.PublicSurveyDetail</managed-bean-class>
+        <managed-bean-name>publicOldSurveyList</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.PublicOldSurveyList</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
-
 
     <managed-bean>
         <managed-bean-name>emailActivationResend</managed-bean-name>
@@ -610,11 +603,21 @@
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
 
-
+    <managed-bean>
+        <managed-bean-name>sysadminSessions</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.SysadminSessions</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
 
     <managed-bean>
         <managed-bean-name>sysadminEditEula</managed-bean-name>
         <managed-bean-class>com.dneero.formbeans.SysadminEditEula</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>sysadminBlogpost</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.SysadminBlogpost</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
 
@@ -624,10 +627,11 @@
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
 
+
     <managed-bean>
         <managed-bean-name>sysadminInstanceProps</managed-bean-name>
         <managed-bean-class>com.dneero.formbeans.SysadminInstanceProps</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
+        <managed-bean-scope>application</managed-bean-scope>
     </managed-bean>
 
     <managed-bean>
@@ -639,6 +643,24 @@
     <managed-bean>
         <managed-bean-name>sysadminUserList</managed-bean-name>
         <managed-bean-class>com.dneero.formbeans.SysadminUserList</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>sysadminMassemailList</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.SysadminMassemailList</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>sysadminMassemailDetail</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.SysadminMassemailDetail</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>sysadminMassemailSend</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.SysadminMassemailSend</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
 
@@ -705,28 +727,32 @@
             <to-view-id>/publicsurveylist.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
-            <from-outcome>publicsurveytake</from-outcome>
-            <to-view-id>/surveytake.xhtml</to-view-id>
+            <from-outcome>publicoldsurveylist</from-outcome>
+            <to-view-id>/publicoldsurveylist.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>publicsurvey</from-outcome>
+            <to-view-id>/survey.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>publicblog</from-outcome>
+            <to-view-id>/blog.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>publicblogpost</from-outcome>
+            <to-view-id>/blogpost.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>publicresultsanswersdetails</from-outcome>
             <to-view-id>/results_answers_details.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
-            <from-outcome>publicsurveyanswers</from-outcome>
-            <to-view-id>/surveyanswers.xhtml</to-view-id>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>publicsurveydisclosure</from-outcome>
-            <to-view-id>/surveydisclosure.xhtml</to-view-id>
-        </navigation-case>
-        <navigation-case>
             <from-outcome>publicsurveytakefinished</from-outcome>
             <to-view-id>/surveytakefinished.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
-            <from-outcome>publicsurveydetail</from-outcome>
-            <to-view-id>/publicsurveydetail.xhtml</to-view-id>
+            <from-outcome>publicevil</from-outcome>
+            <to-view-id>/evil.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>login</from-outcome>
@@ -818,6 +844,22 @@
             <to-view-id>/sysadmin/errorlist.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
+            <from-outcome>sysadminmassemaillist</from-outcome>
+            <to-view-id>/sysadmin/massemaillist.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>sysadminmassemaildetail</from-outcome>
+            <to-view-id>/sysadmin/massemaildetail.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>sysadminblogpost</from-outcome>
+            <to-view-id>/sysadmin/blogpost.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>sysadminmassemailsend</from-outcome>
+            <to-view-id>/sysadmin/massemailsend.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
             <from-outcome>sysadminhibernatecache</from-outcome>
             <to-view-id>/sysadmin/hibernatecache.xhtml</to-view-id>
         </navigation-case>
@@ -834,7 +876,7 @@
             <to-view-id>/sysadmin/transactions.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
-            <from-outcome>researcherhome</from-outcome>
+            <from-outcome>researcherindex</from-outcome>
             <to-view-id>/researcher/index.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
@@ -862,7 +904,7 @@
             <to-view-id>/blogger/impressiondetails.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
-            <from-outcome>bloggerhome</from-outcome>
+            <from-outcome>bloggerindex</from-outcome>
             <to-view-id>/blogger/index.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
@@ -880,18 +922,6 @@
         <navigation-case>
             <from-outcome>bloggersurveylist</from-outcome>
             <to-view-id>/blogger/bloggersurveylist.xhtml</to-view-id>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>bloggersurveydetail</from-outcome>
-            <to-view-id>/blogger/bloggersurveydetail.xhtml</to-view-id>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>bloggersurveytake</from-outcome>
-            <to-view-id>/blogger/bloggersurveytake.xhtml</to-view-id>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>bloggersurveyposttoblog</from-outcome>
-            <to-view-id>/blogger/bloggersurveyposttoblog.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>bloggerwelcomenewblogger</from-outcome>
@@ -990,16 +1020,20 @@
             <to-view-id>/researcher/results_respondents.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
-            <from-outcome>researcherbloggerprofileanswers</from-outcome>
-            <to-view-id>/researcher/blogger_profile_answers.xhtml</to-view-id>
+            <from-outcome>publicprofileanswers</from-outcome>
+            <to-view-id>/profileanswers.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
-            <from-outcome>researcherbloggerprofile</from-outcome>
-            <to-view-id>/researcher/blogger_profile.xhtml</to-view-id>
+            <from-outcome>publicprofile</from-outcome>
+            <to-view-id>/profile.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
-            <from-outcome>researcherbloggerprofileimpressions</from-outcome>
-            <to-view-id>/researcher/blogger_profile_impressions.xhtml</to-view-id>
+            <from-outcome>publicprofileimpressions</from-outcome>
+            <to-view-id>/profileimpressions.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>publicresultsrespondentsprofile</from-outcome>
+            <to-view-id>/results_respondents_profile.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>researcherresultsimpressions</from-outcome>

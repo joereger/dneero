@@ -15,6 +15,8 @@ import com.dneero.dao.Researcher;
 import com.dneero.dao.Survey;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.session.UserSession;
+import com.dneero.helpers.UserInputSafe;
+import com.dneero.systemprops.BaseUrl;
 
 /**
  * User: Joe Reger Jr
@@ -29,6 +31,9 @@ public class ResearcherEmailinvite implements Serializable {
     private String manuallyenteredemailaddresses;
     private int surveyiduserisinvitedto;
     private boolean researcherhasatleastonelivesurvey = true;
+    private Survey survey;
+    private String url;
+
 
 
     public ResearcherEmailinvite(){
@@ -46,6 +51,8 @@ public class ResearcherEmailinvite implements Serializable {
         String tmpSurveyid = Jsf.getRequestParam("surveyid");
         if (com.dneero.util.Num.isinteger(tmpSurveyid) && Integer.parseInt(tmpSurveyid)>0){
             surveyiduserisinvitedto = Integer.parseInt(tmpSurveyid);
+            survey = Survey.get(surveyiduserisinvitedto);
+            url = BaseUrl.get(false) + "survey.jsf?surveyid="+survey.getSurveyid();
         }
         List results = HibernateUtil.getSession().createQuery("from Survey where researcherid='"+Jsf.getUserSession().getUser().getResearcherid()+"' and status='"+Survey.STATUS_OPEN+"'").list();
         if (results==null || results.size()<=0){
@@ -105,8 +112,8 @@ public class ResearcherEmailinvite implements Serializable {
         }
         Jsf.getUserSession().setEmailinviteaddresses(em);
         //Put subject and others into memory
-        Jsf.getUserSession().setEmailinvitesubject(subject);
-        Jsf.getUserSession().setEmailinvitemessage(message);
+        Jsf.getUserSession().setEmailinvitesubject(UserInputSafe.clean(subject));
+        Jsf.getUserSession().setEmailinvitemessage(UserInputSafe.clean(message));
         Jsf.getUserSession().setEmailinvitesurveyiduserisinvitedto(surveyiduserisinvitedto);
 
         ResearcherEmailinviteComplete bean = (ResearcherEmailinviteComplete)Jsf.getManagedBean("researcherEmailinviteComplete");
@@ -173,5 +180,21 @@ public class ResearcherEmailinvite implements Serializable {
 
     public void setResearcherhasatleastonelivesurvey(boolean researcherhasatleastonelivesurvey) {
         this.researcherhasatleastonelivesurvey = researcherhasatleastonelivesurvey;
+    }
+
+    public Survey getSurvey() {
+        return survey;
+    }
+
+    public void setSurvey(Survey survey) {
+        this.survey = survey;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

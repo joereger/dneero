@@ -11,7 +11,7 @@
       >
 
 <ui:composition template="/template/template-facelets.xhtml">
-    <ui:define name="title">Invite People to Your Survey</ui:define>
+    <ui:define name="title">Invite People to Take Your Survey</ui:define>
     <ui:param name="navtab" value="researchers"/>
     <ui:define name="body">
     <d:authorization acl="researcher" redirectonfail="true"/>
@@ -26,48 +26,58 @@
         <t:div rendered="#{researcherEmailinvite.researcherhasatleastonelivesurvey}">
             <table cellpadding="10" cellspacing="0" border="0">
                 <tr>
-                    <td valign="top">
-                       <font class="mediumfont">Invite People to Take Your Survey</font>
-                       <br/><br/>
+                    <td valign="top" width="50%">
+                        <div class="rounded" style="background: #e6e6e6;">
+                           <font class="mediumfont">Invite Via Email</font>
+                           <br/><br/>
 
-                       <font class="formfieldnamefont">Surveys that are Live now:</font>
-                       <br/>
-                       <h:selectOneMenu value="#{researcherEmailinvite.surveyiduserisinvitedto}" id="surveyiduserisinvitedto" required="true">
-                           <f:selectItems value="#{researcherEmailinvite.surveyids}"/>
-                       </h:selectOneMenu>
+                           <font class="formfieldnamefont">Surveys that are Live now:</font>
+                           <br/>
+                           <h:selectOneMenu value="#{researcherEmailinvite.surveyiduserisinvitedto}" id="surveyiduserisinvitedto" required="true">
+                               <f:selectItems value="#{researcherEmailinvite.surveyids}"/>
+                           </h:selectOneMenu>
 
-                       <br/><br/>
-                       <font class="formfieldnamefont">Subject:</font>
-                       <br/>
-                       <h:panelGroup>
-                            <h:inputText value="#{researcherEmailinvite.subject}" id="subject" required="true" size="40"></h:inputText>
-                       </h:panelGroup>
+                           <br/><br/>
+                           <font class="formfieldnamefont">Subject:</font>
+                           <br/>
+                           <h:panelGroup>
+                                <h:inputText value="#{researcherEmailinvite.subject}" id="subject" required="true" size="40"></h:inputText>
+                           </h:panelGroup>
 
-                       <br/><br/>
-                       <font class="formfieldnamefont">Message (we'll add links to the surveys themselves):</font>
-                       <br/>
-                       <h:inputTextarea value="#{researcherEmailinvite.message}" id="message" cols="45" rows="3">
-                            <f:validateLength minimum="0" maximum="10000"></f:validateLength>
-                       </h:inputTextarea>
+                           <br/><br/>
+                           <font class="formfieldnamefont">Message (we'll add links to the survey):</font>
+                           <br/>
+                           <h:inputTextarea value="#{researcherEmailinvite.message}" id="message" cols="40" rows="3">
+                                <f:validateLength minimum="0" maximum="10000"></f:validateLength>
+                           </h:inputTextarea>
 
-                       <br/><br/>
-                       <font class="formfieldnamefont">Email Addresses (one per line):</font>
-                       <br/>
-                       <h:inputTextarea value="#{researcherEmailinvite.manuallyenteredemailaddresses}" id="manuallyenteredemailaddresses" cols="30" rows="5">
-                            <f:validateLength minimum="0" maximum="100000"></f:validateLength>
-                       </h:inputTextarea>
+                           <br/><br/>
+                           <font class="formfieldnamefont">Email Addresses (one per line):</font>
+                           <br/>
+                           <h:inputTextarea value="#{researcherEmailinvite.manuallyenteredemailaddresses}" id="manuallyenteredemailaddresses" cols="30" rows="5">
+                                <f:validateLength minimum="0" maximum="100000"></f:validateLength>
+                           </h:inputTextarea>
 
-                       <br/><br/>
-                       <font class="formfieldnamefont">Optionally upload a text or csv file of email addresses.<br/>One email address per line/row.<br/>In csv files email address must be in first column.</font>
-                       <br/>
-                       <t:inputFileUpload id="fileupload" accept="text/*" value="#{researcherEmailinvite.fileupload}" storage="file" styleClass="none" required="false" maxlength="20000000"/>
+                           <br/><br/>
+                           <font class="formfieldnamefont">Optionally upload a text or csv file of email addresses.<br/>One email address per line/row.<br/>In csv files email address must be in first column.</font>
+                           <br/>
+                           <t:inputFileUpload id="fileupload" accept="text/*" value="#{researcherEmailinvite.fileupload}" storage="file" styleClass="none" required="false" maxlength="20000000"/>
 
-                       <br/><br/>
-                       <h:commandButton action="#{researcherEmailinvite.invite}" value="Preview Invite" styleClass="formsubmitbutton"></h:commandButton>
+                           <br/><br/>
+                           <h:commandButton action="#{researcherEmailinvite.invite}" value="Preview Invite" styleClass="formsubmitbutton"></h:commandButton>
+                       </div>
                     </td>
                     <td valign="top">
-
-
+                        <div class="rounded" style="background: #e6e6e6;">
+                            <font class="mediumfont">Send them a Link</font>
+                            <br/><br/>
+                            <font class="formfieldnamefont">Copy and paste the link below into an email, blog or social networking profile:</font>
+                            <br/>
+                            <textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><a href="#{researcherEmailinvite.url}">#{researcherEmailinvite.survey.title}</a></textarea>
+                            <br/><br/>
+                            <a href="#{researcherEmailinvite.url}"><font class="mediumfont">See Your Survey Here</font></a>
+                            <br/><br/>
+                        </div>
                     </td>
                 </tr>
             </table>

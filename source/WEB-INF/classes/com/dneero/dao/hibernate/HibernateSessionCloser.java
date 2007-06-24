@@ -38,6 +38,7 @@ public class HibernateSessionCloser implements Filter {
         }catch(Exception ex){logger.debug(ex);}
 
         chain.doFilter(request, response);
+        
         try{
             HibernateUtil.closeSession();
         } catch (Exception ex){

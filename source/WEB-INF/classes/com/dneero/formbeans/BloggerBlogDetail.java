@@ -8,6 +8,7 @@ import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.session.UserSession;
 import com.dneero.util.Jsf;
 import com.dneero.util.GeneralException;
+import com.dneero.helpers.UserInputSafe;
 import org.apache.log4j.Logger;
 import org.apache.commons.validator.UrlValidator;
 
@@ -115,8 +116,8 @@ public class BloggerBlogDetail implements Serializable {
                 title = url;
             }
 
-            blog.setUrl(url);
-            blog.setTitle(title);
+            blog.setUrl(UserInputSafe.clean(url));
+            blog.setTitle(UserInputSafe.clean(title));
             blog.setBlogfocus(blogfocus);
             blog.setBloggerid(userSession.getUser().getBloggerid());
 
@@ -135,7 +136,8 @@ public class BloggerBlogDetail implements Serializable {
 
         List userblogs = HibernateUtil.getSession().createQuery("from Blog where bloggerid='"+Jsf.getUserSession().getUser().getBloggerid()+"'").list();
         if (userblogs.size()==1){
-            return "bloggerwelcomenewblogger";
+            BloggerIndex bean = (BloggerIndex)Jsf.getManagedBean("bloggerIndex");
+            return bean.beginView();
         }
         BloggerBlogsList bean = (BloggerBlogsList)Jsf.getManagedBean("bloggerBlogsList");
         bean.setMsg("Blog saved successfully.");

@@ -9,16 +9,17 @@ import com.dneero.dao.User;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.money.CurrentBalanceCalculator;
 import com.dneero.money.MoveMoneyInRealWorld;
+import com.dneero.money.SurveyMoneyStatus;
 import com.dneero.util.Jsf;
+import com.dneero.util.Time;
 import com.dneero.systemprops.InstanceProperties;
 
 import java.util.List;
 import java.util.Iterator;
+import java.util.Calendar;
 
 /**
- * User: Joe Reger Jr
- * Date: Jul 19, 2006
- * Time: 2:22:28 PM
+ * Reconciles discrepancies between in-system balance and the real world.
  */
 
 public class MoveMoneyAround implements Job {
@@ -35,22 +36,23 @@ public class MoveMoneyAround implements Job {
                     double currentbalance = CurrentBalanceCalculator.getCurrentBalance(user);
                     if (currentbalance>0){
                         boolean dopay = true;
-                        //Don't pay researchers if they have any open surveys
+                        //Don't pay researchers if they have any open surveys or closed surveys where we can still collect impression revenue
                         if (user.getResearcherid()>0){
-                           List surveys = HibernateUtil.getSession().createQuery("from Survey where researcherid='"+user.getResearcherid()+"' "+
+                            Calendar closeDateForSurveysNoLongerCollectingImpressionRevenue = Time.xDaysAgoEnd(Calendar.getInstance(), SurveyMoneyStatus.DAYSAFTERCLOSEOFSURVEYWECOLLECTFORIMPRESSIONS);
+                            List surveys = HibernateUtil.getSession().createQuery("from Survey where researcherid='"+user.getResearcherid()+"' "+
                                                                                   " and ("+
                                                                                   "status='"+Survey.STATUS_OPEN+"'"+
                                                                                   "or status='"+Survey.STATUS_WAITINGFORFUNDS+"'"+
                                                                                   "or status='"+Survey.STATUS_WAITINGFORSTARTDATE+"'"+
                                                                                   "or status='"+Survey.STATUS_DRAFT+"'"+
+                                                                                  "or (status='"+Survey.STATUS_CLOSED+"' and enddate>'"+Time.dateformatfordb(closeDateForSurveysNoLongerCollectingImpressionRevenue)+"')" +
                                                                                   ")").list();
                             if (surveys.size()>0){
                                 dopay=false;
                             }
                         }
                         //Don't pay anything less than $25
-                        //@todo Set PayPal payment min back to $25 from $2
-                        if (currentbalance<2){
+                        if (currentbalance<25){
                             dopay=false;
                         }
 

@@ -6,6 +6,7 @@ import org.jivesoftware.smack.GoogleTalkConnection;
 import org.apache.log4j.Logger;
 import com.dneero.threadpool.ThreadPool;
 import com.dneero.systemprops.SystemProperty;
+import com.dneero.systemprops.InstanceProperties;
 
 /**
  * User: Joe Reger Jr
@@ -85,12 +86,12 @@ public class SendXMPPMessage implements Runnable {
                             logger.debug("sending XMPP to "+recipient+" via normal XMPP connection");
                             XMPPConnection con = new XMPPConnection(jabberserver);
                             con.login(senderusername, senderpassword);
-                            con.createChat(recipient).sendMessage(message);
+                            con.createChat(recipient).sendMessage(InstanceProperties.getInstancename()+":"+message);
                         } else {
                             logger.debug("sending XMPP to "+recipient+" via google XMPP connection");
                             GoogleTalkConnection con = new GoogleTalkConnection ();
                             con.login(googlesenderusername, googlesenderpassword);
-                            con.createChat(recipient).sendMessage(message);    
+                            con.createChat(recipient).sendMessage(InstanceProperties.getInstancename()+":"+message);
                         }
                     } catch (XMPPException xmppex){
                         System.out.println("Couldn't send XMPP to "+recipient+": "+xmppex.getMessage());

@@ -6,6 +6,7 @@ import com.dneero.dao.Survey;
 import com.dneero.dao.Impression;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.util.Jsf;
+import com.dneero.util.Str;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,6 +57,7 @@ public class ResearcherResultsImpressions implements Serializable {
                     robj.setImpressionid(impression.getImpressionid());
                     robj.setImpressionsqualifyingforpayment(impression.getImpressionsqualifyingforpayment());
                     robj.setReferer(impression.getReferer());
+                    robj.setReferertruncated(Str.truncateString(impression.getReferer(), 35));
                     if (impression.getBlog()!=null){
                         robj.setBlogtitle(impression.getBlog().getTitle());
                         robj.setBlogurl(impression.getBlog().getUrl());

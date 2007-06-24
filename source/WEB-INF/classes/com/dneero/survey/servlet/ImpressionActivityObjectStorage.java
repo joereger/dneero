@@ -5,10 +5,13 @@ import com.dneero.dao.*;
 import com.dneero.util.GeneralException;
 import com.dneero.util.Num;
 import com.dneero.util.Time;
+import com.dneero.util.DateDiff;
+import com.dneero.money.SurveyMoneyStatus;
 
 import java.util.List;
 import java.util.Iterator;
 import java.util.Date;
+import java.util.Calendar;
 
 import org.apache.log4j.Logger;
 import org.hibernate.criterion.Restrictions;
@@ -52,7 +55,7 @@ public class ImpressionActivityObjectStorage {
             if (survey!=null && survey.getSurveyid()>0){
                 Object obj = HibernateUtil.getSession().createQuery("select sum(impressionsqualifyingforpayment) from Impression where surveyid='"+survey.getSurveyid()+"'").uniqueResult();
                 if (obj!=null && Num.isinteger(String.valueOf(obj))){
-                    surveyimpressionsthatqualifyforpayment = (Integer)obj;
+                    surveyimpressionsthatqualifyforpayment = ((Long)obj).intValue();
                 }
             } else {
                 //Error, survey not found, don't record
@@ -75,6 +78,11 @@ public class ImpressionActivityObjectStorage {
             qualifiesforpaymentstatus = Impressiondetail.QUALIFIESFORPAYMENTSTATUS_FALSE;
             qualifiesforpaymentstatusreason = "This blog has already displayed the survey the maximum number of times for a blog.";
         }
+        int dayssinceclose = DateDiff.dateDiff("day", Calendar.getInstance(), Time.getCalFromDate(survey.getEnddate()));
+        if (dayssinceclose>SurveyMoneyStatus.DAYSAFTERCLOSEOFSURVEYWECOLLECTFORIMPRESSIONS){
+            qualifiesforpaymentstatus = Impressiondetail.QUALIFIESFORPAYMENTSTATUS_FALSE;
+            qualifiesforpaymentstatusreason = "Over "+ SurveyMoneyStatus.DAYSAFTERCLOSEOFSURVEYWECOLLECTFORIMPRESSIONS+" days since end of survey.";
+        }
 
         //logger.debug("iao.getDate()="+iao.getDate().toString());
         //logger.debug("iao.getDate()="+ Time.dateformatfordb(Time.getCalFromDate(iao.getDate())));
@@ -89,6 +97,7 @@ public class ImpressionActivityObjectStorage {
                 if (qualifiesforpaymentstatus==Impressiondetail.QUALIFIESFORPAYMENTSTATUS_TRUE){
                     impression.setImpressionsqualifyingforpayment(impression.getImpressionsqualifyingforpayment()+1);
                 }
+                impression.setImpressionstotal(impression.getImpressionstotal()+1);
             }
         } else {
             impression = new Impression();
@@ -100,9 +109,12 @@ public class ImpressionActivityObjectStorage {
             } else {
                 impression.setImpressionsqualifyingforpayment(0);
             }
+            impression.setImpressionstotal(0);
             impression.setReferer(iao.getReferer());
         }
+        //logger.debug("about to call impression.save()");
         try{impression.save();} catch (GeneralException gex){logger.error(gex);}
+        //logger.debug("done with impression.save()");
 
         //Record the impressiondetail
         Impressiondetail impressiondetail = new Impressiondetail();
@@ -112,8 +124,7 @@ public class ImpressionActivityObjectStorage {
         impressiondetail.setQualifiesforpaymentstatus(qualifiesforpaymentstatus);
         impressiondetail.setBloggerid(bloggerid);
         impressiondetail.setQualifiesforpaymentstatusreason(qualifiesforpaymentstatusreason);
-        
-        //impression.getImpressiondetails().add(impressiondetail);
+
         try{impressiondetail.save();} catch (GeneralException gex){logger.error(gex);}
 
         //@todo is this the only thing that causes an entry in joinblogimpression? good for testing but is this necessary in the real world? especially once i start caching things?
@@ -170,6 +181,8 @@ public class ImpressionActivityObjectStorage {
     }
 
     public static int getImpressionsThatQualifyForPayment(Blog blog, Survey survey){
+        Logger logger = Logger.getLogger(ImpressionActivityObjectStorage.class);
+        //logger.debug("getImpressionsThatQualifyForPayment start");
         int blogimpressionsthatqualifyforpayment = 0;
         if (blog!=null && blog.getBlogid()>0){
             blog = Blog.get(blog.getBlogid());
@@ -181,6 +194,7 @@ public class ImpressionActivityObjectStorage {
                 }
             }
         }
+        //logger.debug("getImpressionsThatQualifyForPayment end");
         return blogimpressionsthatqualifyforpayment;
     }
 

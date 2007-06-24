@@ -17,8 +17,16 @@ public class SocialBookmarkLinks {
     public static String getSocialBookmarkLinks(Survey survey){
         try{
             SurveyEnhancer se = new SurveyEnhancer(survey);
-            String url = URLEncoder.encode(BaseUrl.get(false)+"surveytake.jsf?surveyid="+survey.getSurveyid(), "UTF-8");
+            String url = URLEncoder.encode(BaseUrl.get(false)+"survey.jsf?surveyid="+survey.getSurveyid(), "UTF-8");
             String title = URLEncoder.encode(Str.truncateString(survey.getTitle(), 50)+" (Earn up to "+se.getMaxearning()+" blogging)", "UTF-8");
+            return getSocialBookmarkLinks(url, title);
+        } catch (Exception ex){
+            return "";
+        }
+    }
+
+    public static String getSocialBookmarkLinks(String url, String title){
+        try{
 
             StringBuffer out = new StringBuffer();
             out.append("<table cellpadding='0' cellspacing='0' border='0'>");

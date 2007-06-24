@@ -28,6 +28,12 @@
             <one-to-many class="com.dneero.dao.Responsepending" not-found="ignore"></one-to-many>
         </set>
 
+        <set name="surveydiscusses" inverse="true" cascade="all-delete-orphan">
+            <cache usage="transactional"/>
+            <key column="userid"></key>
+            <one-to-many class="com.dneero.dao.Surveydiscuss" not-found="ignore"></one-to-many>
+        </set>
+
         <!--
         <one-to-one name="blogger" class="com.dneero.dao.Blogger" property-ref="userid" cascade="all">
         </one-to-one>
@@ -35,7 +41,9 @@
         <one-to-one name="researcher" class="com.dneero.dao.Researcher" property-ref="userid" cascade="all">
         </one-to-one>
         -->
-
+        <property name="isenabled" type="boolean">
+            <column name="isenabled" />
+        </property>
         <property name="bloggerid" type="int">
             <column name="bloggerid" not-null="true" />
         </property>
@@ -87,6 +95,31 @@
         <property name="chargemethodcreditcardid" type="int">
             <column name="chargemethodcreditcardid" not-null="true" />
         </property>
+        <property name="notifyofnewsurveysbyemaileveryexdays" type="int">
+            <column name="notifyofnewsurveysbyemaileveryexdays" not-null="true" />
+        </property>
+        <property name="notifyofnewsurveyslastsent" type="timestamp">
+            <column name="notifyofnewsurveyslastsent" not-null="true" />
+        </property>
+        <property name="allownoncriticalemails" type="boolean">
+            <column name="allownoncriticalemails" />
+        </property>
+        <property name="instantnotifybyemailison" type="boolean">
+            <column name="instantnotifybyemailison" />
+        </property>
+        <property name="instantnotifybytwitterison" type="boolean">
+            <column name="instantnotifybytwitterison" />
+        </property>
+        <property name="instantnotifytwitterusername" type="string">
+            <column name="instantnotifytwitterusername" />
+        </property>
+        <property name="instantnotifyxmppison" type="boolean">
+            <column name="instantnotifyxmppison" />
+        </property>
+        <property name="instantnotifyxmppusername" type="string">
+            <column name="instantnotifyxmppusername" />
+        </property>
+
 
     </class>
 </hibernate-mapping>

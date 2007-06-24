@@ -21,7 +21,7 @@
     <ui:define name="body">
     <d:authorization acl="researcher" redirectonfail="true"/>
 
-<h:form>
+<h:form id="surveyedit">
     <t:saveState id="save" value="#{researcherSurveyDetail05}"/>
 
 
@@ -75,7 +75,7 @@
         </h:panelGroup>
         <h:panelGroup>
             <h:inputText value="#{researcherSurveyDetail05.numberofrespondentsrequested}" id="numberofrespondentsrequested" required="true" rendered="#{researcherSurveyDetail05.status eq 1}">
-                <f:validateDoubleRange minimum="100" maximum="10000000"></f:validateDoubleRange>
+                <f:validateDoubleRange minimum="25" maximum="10000000"></f:validateDoubleRange>
             </h:inputText>
             <h:outputText value="#{researcherSurveyDetail05.numberofrespondentsrequested}" rendered="#{researcherSurveyDetail05.status ne 1}"></h:outputText>
         </h:panelGroup>
@@ -128,11 +128,11 @@
         <h:panelGroup>
             <h:outputText value="Max Survey Displays Total" styleClass="formfieldnamefont"></h:outputText>
             <br/>
-            <font class="smallfont">This is a safety check that allows you to cap the total number of displays that you're willing to pay for.  Note that this value is not simply the number of respondents requested multiplied by the max surveys per blog... many bloggers have multiple blogs and can get paid on each one separately.  The minimum value is 1000.</font>
+            <font class="smallfont">This is a safety check that allows you to cap the total number of displays that you're willing to pay for.  Note that this value is not simply the number of respondents requested multiplied by the max surveys per blog... many bloggers have multiple blogs and can get paid on each one separately.  The minimum value is 25% of Number of Respondents Requested multiplied by Max Survey Displays Per Blog.</font>
         </h:panelGroup>
         <h:panelGroup>
             <h:inputText value="#{researcherSurveyDetail05.maxdisplaystotal}" id="maxdisplaystotal" required="true" rendered="#{researcherSurveyDetail05.status eq 1}">
-                <f:validateDoubleRange minimum="1000" maximum="10000000"></f:validateDoubleRange>
+                <f:validateDoubleRange minimum="1" maximum="10000000"></f:validateDoubleRange>
             </h:inputText>
             <h:outputText value="#{researcherSurveyDetail05.maxdisplaystotal}" rendered="#{researcherSurveyDetail05.status ne 1}"></h:outputText>
         </h:panelGroup>

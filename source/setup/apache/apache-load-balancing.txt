@@ -119,4 +119,10 @@ The sticky_session property specifies the cluster behavior for HTTP sessions. If
 
 12) Make sure Tomcat isn't taking over any port that Apache is going to bind to... i.e. port 80.
 
+13) A very important note.  In Tomcat's server.xml you need to have a jvmRoute attribute on your Engine node:
+<Engine jvmRoute="node2"...
+
+And that name must tie to your worker node name in workers.properties:
+worker.node2.host=192.168.1.25
+
 

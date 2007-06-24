@@ -12,6 +12,7 @@ import com.dneero.session.UserSession;
 import com.dneero.util.Jsf;
 import com.dneero.util.GeneralException;
 import com.dneero.display.components.Range;
+import com.dneero.helpers.UserInputSafe;
 
 import java.util.Iterator;
 import java.io.Serializable;
@@ -117,7 +118,7 @@ public class ResearcherSurveyDetail02range implements Serializable {
             }
 
             question.setSurveyid(survey.getSurveyid());
-            question.setQuestion(this.question);
+            question.setQuestion(UserInputSafe.clean(this.question));
             question.setIsrequired(isrequired);
             question.setComponenttype(Range.ID);
 
@@ -150,31 +151,31 @@ public class ResearcherSurveyDetail02range implements Serializable {
             Questionconfig qc1 = new Questionconfig();
             qc1.setQuestionid(question.getQuestionid());
             qc1.setName("mintitle");
-            qc1.setValue(mintitle);
+            qc1.setValue(UserInputSafe.clean(mintitle));
             question.getQuestionconfigs().add(qc1);
 
             Questionconfig qc2 = new Questionconfig();
             qc2.setQuestionid(question.getQuestionid());
             qc2.setName("min");
-            qc2.setValue(String.valueOf(min));
+            qc2.setValue(UserInputSafe.clean(String.valueOf(min)));
             question.getQuestionconfigs().add(qc2);
 
             Questionconfig qc3 = new Questionconfig();
             qc3.setQuestionid(question.getQuestionid());
             qc3.setName("step");
-            qc3.setValue(String.valueOf(step));
+            qc3.setValue(UserInputSafe.clean(String.valueOf(step)));
             question.getQuestionconfigs().add(qc3);
 
             Questionconfig qc4 = new Questionconfig();
             qc4.setQuestionid(question.getQuestionid());
             qc4.setName("max");
-            qc4.setValue(String.valueOf(max));
+            qc4.setValue(UserInputSafe.clean(String.valueOf(max)));
             question.getQuestionconfigs().add(qc4);
 
             Questionconfig qc5 = new Questionconfig();
             qc5.setQuestionid(question.getQuestionid());
             qc5.setName("maxtitle");
-            qc5.setValue(maxtitle);
+            qc5.setValue(UserInputSafe.clean(maxtitle));
             question.getQuestionconfigs().add(qc5);
 
             try{

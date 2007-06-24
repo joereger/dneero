@@ -2,18 +2,23 @@ package com.dneero.money;
 
 import com.dneero.dao.Survey;
 import com.dneero.dao.Impression;
+import com.dneero.util.Time;
+import com.dneero.util.DateDiff;
 
 import java.util.Iterator;
+import java.util.Calendar;
+import java.io.Serializable;
 
 /**
  * User: Joe Reger Jr
  * Date: Nov 9, 2006
  * Time: 9:37:33 AM
  */
-public class SurveyMoneyStatus {
+public class SurveyMoneyStatus implements Serializable {
 
     public static double PERSURVEYCREATIONFEE = 5.00;
     public static double DNEEROMARKUPPERCENT = 25;
+    public static int DAYSAFTERCLOSEOFSURVEYWECOLLECTFORIMPRESSIONS = 120;
 
     private double maxPossiblePayoutForResponses = 0;
     private double maxPossiblePayoutForImpressions = 0;
@@ -49,7 +54,23 @@ public class SurveyMoneyStatus {
         spentOnImpressionsToDateIncludingdNeeroFee = spentOnImpressionsToDate + (spentOnImpressionsToDate * (DNEEROMARKUPPERCENT/100));
         spentToDate = spentOnResponsesToDate + spentOnImpressionsToDate + PERSURVEYCREATIONFEE;
         spentToDateIncludingdNeeroFee = spentToDate + (spentToDate * (DNEEROMARKUPPERCENT/100));
-        remainingPossibleSpend = maxPossibleSpend - spentToDateIncludingdNeeroFee;
+
+        //When calculating remainingPossibleSpend I must take survey status into account
+        if (survey.getStatus()!=Survey.STATUS_CLOSED){
+            //Survey is not closed
+            remainingPossibleSpend = maxPossibleSpend - spentToDateIncludingdNeeroFee;
+        } else {
+            //Survey is closed
+            int dayssinceclose = DateDiff.dateDiff("day", Calendar.getInstance(), Time.getCalFromDate(survey.getEnddate()));
+            if (dayssinceclose>DAYSAFTERCLOSEOFSURVEYWECOLLECTFORIMPRESSIONS){
+                //Over two months have passed, can not accrue more spend
+                remainingPossibleSpend = 0;
+            } else {
+                //Under two months have passed, could still accrue more spend
+                double uncollectedSurveyRevenue = maxPossiblePayoutForResponses - spentOnResponsesToDate;
+                remainingPossibleSpend = (maxPossibleSpend - uncollectedSurveyRevenue) - spentToDateIncludingdNeeroFee;
+            }
+        }
     }
 
  

@@ -5,6 +5,7 @@ import com.dneero.dao.Supportissuecomm;
 import com.dneero.util.Jsf;
 import com.dneero.util.GeneralException;
 import com.dneero.xmpp.SendXMPPMessage;
+import com.dneero.helpers.UserInputSafe;
 
 import java.util.Date;
 import java.io.Serializable;
@@ -27,7 +28,7 @@ public class AccountNewSupportIssue implements Serializable {
 
         Supportissue supportissue = new Supportissue();
         supportissue.setStatus(Supportissue.STATUS_OPEN);
-        supportissue.setSubject(subject);
+        supportissue.setSubject(UserInputSafe.clean(subject));
         supportissue.setDatetime(new Date());
         supportissue.setUserid(Jsf.getUserSession().getUser().getUserid());
         try{
@@ -43,7 +44,7 @@ public class AccountNewSupportIssue implements Serializable {
         supportissuecomm.setSupportissueid(supportissue.getSupportissueid());
         supportissuecomm.setDatetime(new Date());
         supportissuecomm.setIsfromdneeroadmin(false);
-        supportissuecomm.setNotes(notes);
+        supportissuecomm.setNotes(UserInputSafe.clean(notes));
         supportissue.getSupportissuecomms().add(supportissuecomm);
         try{
             supportissue.save();

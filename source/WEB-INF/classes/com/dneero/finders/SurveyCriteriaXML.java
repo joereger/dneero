@@ -247,6 +247,247 @@ public class SurveyCriteriaXML {
         return null;
     }
 
+    public String getAsHtml(){
+        StringBuffer out = new StringBuffer();
+        out.append("<table cellpadding=\"5\" cellspacing=\"0\" border=\"0\">");
+
+        out.append("<tr>");
+        out.append("<td valign=\"top\" width=\"25%\">");
+        out.append("</td>");
+        out.append("<td valign=\"top\">");
+        out.append("</td>");
+        out.append("</tr>");
+
+        out.append("<tr>");
+        out.append("<td valign=\"top\">");
+        out.append("<font class=\"formfieldnamefont\">");
+        out.append("Age");
+        out.append("</font>");
+        out.append("</td>");
+        out.append("<td valign=\"top\">");
+        out.append("<font class=\"smallfont\">");
+        out.append(agemin+" - "+agemax);
+        out.append("</font>");
+        out.append("</td>");
+        out.append("</tr>");
+
+        out.append("<tr>");
+        out.append("<td valign=\"top\">");
+        out.append("<font class=\"formfieldnamefont\">");
+        out.append("Blog Quality Of At Least");
+        out.append("</font>");
+        out.append("</td>");
+        out.append("<td valign=\"top\">");
+        out.append("<font class=\"smallfont\">");
+        out.append(blogquality);
+        out.append("</font>");
+        out.append("</td>");
+        out.append("</tr>");
+
+        out.append("<tr>");
+        out.append("<td valign=\"top\">");
+        out.append("<font class=\"formfieldnamefont\">");
+        out.append("Blog Quality Last 90 Days Of At Least");
+        out.append("</font>");
+        out.append("</td>");
+        out.append("<td valign=\"top\">");
+        out.append("<font class=\"smallfont\">");
+        out.append(blogquality90days);
+        out.append("</font>");
+        out.append("</td>");
+        out.append("</tr>");
+
+        out.append("<tr>");
+        out.append("<td valign=\"top\">");
+        out.append("<font class=\"formfieldnamefont\">");
+        out.append("Minimum Social Influence Rating");
+        out.append("</font>");
+        out.append("</td>");
+        out.append("<td valign=\"top\">");
+        out.append("<font class=\"smallfont\">");
+        out.append(100-minsocialinfluencepercentile);
+        out.append("</font>");
+        out.append("</td>");
+        out.append("</tr>");
+
+        out.append("<tr>");
+        out.append("<td valign=\"top\">");
+        out.append("<font class=\"formfieldnamefont\">");
+        out.append("Minimum Social Influence Rating 90 Days");
+        out.append("</font>");
+        out.append("</td>");
+        out.append("<td valign=\"top\">");
+        out.append("<font class=\"smallfont\">");
+        out.append(100-minsocialinfluencepercentile90days);
+        out.append("</font>");
+        out.append("</td>");
+        out.append("</tr>");
+
+        out.append("<tr>");
+        out.append("<td valign=\"top\">");
+        out.append("<font class=\"formfieldnamefont\">");
+        out.append("Gender");
+        out.append("</font>");
+        out.append("</td>");
+        out.append("<td valign=\"top\">");
+        out.append("<font class=\"smallfont\">");
+        for (int i = 0; i < gender.length; i++) {
+            out.append(gender[i]);
+            if (gender.length>(i+1)){out.append(", ");}
+        }
+        out.append("</font>");
+        out.append("</td>");
+        out.append("</tr>");
+
+        out.append("<tr>");
+        out.append("<td valign=\"top\">");
+        out.append("<font class=\"formfieldnamefont\">");
+        out.append("Ethnicity");
+        out.append("</font>");
+        out.append("</td>");
+        out.append("<td valign=\"top\">");
+        out.append("<font class=\"smallfont\">");
+        for (int i = 0; i < ethnicity.length; i++) {
+            out.append(ethnicity[i]);
+            if (ethnicity.length>(i+1)){out.append(", ");}
+        }
+        out.append("</font>");
+        out.append("</td>");
+        out.append("</tr>");
+
+        out.append("<tr>");
+        out.append("<td valign=\"top\">");
+        out.append("<font class=\"formfieldnamefont\">");
+        out.append("Marital Status");
+        out.append("</font>");
+        out.append("</td>");
+        out.append("<td valign=\"top\">");
+        out.append("<font class=\"smallfont\">");
+        for (int i = 0; i < maritalstatus.length; i++) {
+            out.append(maritalstatus[i]);
+            if (maritalstatus.length>(i+1)){out.append(", ");}
+        }
+        out.append("</font>");
+        out.append("</td>");
+        out.append("</tr>");
+
+        out.append("<tr>");
+        out.append("<td valign=\"top\">");
+        out.append("<font class=\"formfieldnamefont\">");
+        out.append("Income");
+        out.append("</font>");
+        out.append("</td>");
+        out.append("<td valign=\"top\">");
+        out.append("<font class=\"smallfont\">");
+        for (int i = 0; i < income.length; i++) {
+            out.append(income[i]);
+            if (income.length>(i+1)){out.append(", ");}
+        }
+        out.append("</font>");
+        out.append("</td>");
+        out.append("</tr>");
+
+        out.append("<tr>");
+        out.append("<td valign=\"top\">");
+        out.append("<font class=\"formfieldnamefont\">");
+        out.append("Education Level");
+        out.append("</font>");
+        out.append("</td>");
+        out.append("<td valign=\"top\">");
+        out.append("<font class=\"smallfont\">");
+        for (int i = 0; i < educationlevel.length; i++) {
+            out.append(educationlevel[i]);
+            if (educationlevel.length>(i+1)){out.append(", ");}
+        }
+        out.append("</font>");
+        out.append("</td>");
+        out.append("</tr>");
+
+        out.append("<tr>");
+        out.append("<td valign=\"top\">");
+        out.append("<font class=\"formfieldnamefont\">");
+        out.append("State");
+        out.append("</font>");
+        out.append("</td>");
+        out.append("<td valign=\"top\">");
+        out.append("<font class=\"smallfont\">");
+        for (int i = 0; i < state.length; i++) {
+            out.append(state[i]);
+            if (state.length>(i+1)){out.append(", ");}
+        }
+        out.append("</font>");
+        out.append("</td>");
+        out.append("</tr>");
+
+        out.append("<tr>");
+        out.append("<td valign=\"top\">");
+        out.append("<font class=\"formfieldnamefont\">");
+        out.append("Nearest City");
+        out.append("</font>");
+        out.append("</td>");
+        out.append("<td valign=\"top\">");
+        out.append("<font class=\"smallfont\">");
+        for (int i = 0; i < city.length; i++) {
+            out.append(city[i]);
+            if (city.length>(i+1)){out.append(", ");}
+        }
+        out.append("</font>");
+        out.append("</td>");
+        out.append("</tr>");
+
+        out.append("<tr>");
+        out.append("<td valign=\"top\">");
+        out.append("<font class=\"formfieldnamefont\">");
+        out.append("Profession");
+        out.append("</font>");
+        out.append("</td>");
+        out.append("<td valign=\"top\">");
+        out.append("<font class=\"smallfont\">");
+        for (int i = 0; i < profession.length; i++) {
+            out.append(profession[i]);
+            if (profession.length>(i+1)){out.append(", ");}
+        }
+        out.append("</font>");
+        out.append("</td>");
+        out.append("</tr>");
+
+        out.append("<tr>");
+        out.append("<td valign=\"top\">");
+        out.append("<font class=\"formfieldnamefont\">");
+        out.append("Blog Focus");
+        out.append("</font>");
+        out.append("</td>");
+        out.append("<td valign=\"top\">");
+        out.append("<font class=\"smallfont\">");
+        for (int i = 0; i < blogfocus.length; i++) {
+            out.append(blogfocus[i]);
+            if (blogfocus.length>(i+1)){out.append(", ");}
+        }
+        out.append("</font>");
+        out.append("</td>");
+        out.append("</tr>");
+
+        out.append("<tr>");
+        out.append("<td valign=\"top\">");
+        out.append("<font class=\"formfieldnamefont\">");
+        out.append("Politics");
+        out.append("</font>");
+        out.append("</td>");
+        out.append("<td valign=\"top\">");
+        out.append("<font class=\"smallfont\">");
+        for (int i = 0; i < politics.length; i++) {
+            out.append(politics[i]);
+            if (politics.length>(i+1)){out.append(", ");}
+        }
+        out.append("</font>");
+        out.append("</td>");
+        out.append("</tr>");
+
+        out.append("</table>");
+        return out.toString();
+    }
+
+
     public int getAgemin() {
         return agemin;
     }

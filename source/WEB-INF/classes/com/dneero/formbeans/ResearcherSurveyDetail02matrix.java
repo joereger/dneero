@@ -13,6 +13,7 @@ import com.dneero.util.Jsf;
 import com.dneero.util.GeneralException;
 import com.dneero.display.components.Textbox;
 import com.dneero.display.components.Matrix;
+import com.dneero.helpers.UserInputSafe;
 
 import java.util.Iterator;
 import java.io.Serializable;
@@ -117,7 +118,7 @@ public class ResearcherSurveyDetail02matrix implements Serializable {
             }
 
             question.setSurveyid(survey.getSurveyid());
-            question.setQuestion(this.question);
+            question.setQuestion(UserInputSafe.clean(this.question));
             question.setIsrequired(isrequired);
             question.setComponenttype(Matrix.ID);
 
@@ -149,13 +150,13 @@ public class ResearcherSurveyDetail02matrix implements Serializable {
             Questionconfig qc1 = new Questionconfig();
             qc1.setQuestionid(question.getQuestionid());
             qc1.setName("rows");
-            qc1.setValue(rows);
+            qc1.setValue(UserInputSafe.clean(rows));
             question.getQuestionconfigs().add(qc1);
 
             Questionconfig qc2 = new Questionconfig();
             qc2.setQuestionid(question.getQuestionid());
             qc2.setName("cols");
-            qc2.setValue(cols);
+            qc2.setValue(UserInputSafe.clean(cols));
             question.getQuestionconfigs().add(qc2);
 
             Questionconfig qc3 = new Questionconfig();

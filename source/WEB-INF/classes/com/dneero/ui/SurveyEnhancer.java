@@ -6,15 +6,15 @@ import com.dneero.util.Str;
 import com.dneero.util.DateDiff;
 
 import java.util.Calendar;
+import java.io.Serializable;
 
 /**
  * User: Joe Reger Jr
  * Date: Sep 27, 2006
  * Time: 10:15:47 AM
  */
-public class SurveyEnhancer {
+public class SurveyEnhancer implements Serializable {
 
-    private Survey survey;
     private String startdate;
     private String enddate;
     private String responsesalreadygotten;
@@ -27,9 +27,9 @@ public class SurveyEnhancer {
     private double maxearningDbl;
     private String maxearning;
     private String numberofquestions;
+    private String descriptiontruncated;
 
     public SurveyEnhancer(Survey survey){
-        this.survey = survey;
         if (survey!=null && survey.getStartdate()!=null && survey.getEnddate()!=null){
             startdate = Time.dateformatcompactwithtime(Time.getCalFromDate(survey.getStartdate()));
 
@@ -64,17 +64,12 @@ public class SurveyEnhancer {
                 numberofquestions = "0";
             }
 
+            descriptiontruncated = Str.truncateString(survey.getDescription(), 100);
+
         }
 
     }
 
-    public Survey getSurvey() {
-        return survey;
-    }
-
-    public void setSurvey(Survey survey) {
-        this.survey = survey;
-    }
 
     public String getStartdate() {
         return startdate;
@@ -173,5 +168,13 @@ public class SurveyEnhancer {
 
     public void setMaxearningDbl(double maxearningDbl) {
         this.maxearningDbl = maxearningDbl;
+    }
+
+    public String getDescriptiontruncated() {
+        return descriptiontruncated;
+    }
+
+    public void setDescriptiontruncated(String descriptiontruncated) {
+        this.descriptiontruncated = descriptiontruncated;
     }
 }

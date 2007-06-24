@@ -12,6 +12,7 @@ import com.dneero.util.GeneralException;
 import com.dneero.dao.*;
 import com.dneero.systemprops.SystemProperty;
 import com.dneero.money.MoveMoneyInAccountBalance;
+import com.dneero.helpers.UserInputSafe;
 
 /**
  * User: Joe Reger Jr
@@ -65,9 +66,9 @@ public class ResearcherDetails implements Serializable {
 
 
             researcher.setUserid(userSession.getUser().getUserid());
-            researcher.setCompanyname(companyname);
-            researcher.setCompanytype(companytype);
-            researcher.setPhone(phone);
+            researcher.setCompanyname(UserInputSafe.clean(companyname));
+            researcher.setCompanytype(UserInputSafe.clean(companytype));
+            researcher.setPhone(UserInputSafe.clean(phone));
 
             try{
                 researcher.save();
@@ -129,7 +130,7 @@ public class ResearcherDetails implements Serializable {
             } else {
                 ResearcherIndex bean = (ResearcherIndex)Jsf.getManagedBean("researcherIndex");
                 return bean.beginView();
-                //return "researcherhome";
+                //return "researcherindex";
             }
         } else {
             Jsf.setFacesMessage("UserSession.getUser() is null.  Please log in.");
@@ -140,10 +141,12 @@ public class ResearcherDetails implements Serializable {
     public LinkedHashMap getCompanytypes(){
         LinkedHashMap out = new LinkedHashMap();
         out.put("Other", "Other");
+        out.put("Individual", "Individual");
         out.put("Advertising/Marketing Agency", "Advertising/Marketing Agency");
         out.put("Public Relations Agency", "Public Relations Agency");
         out.put("Market Research Firm", "Market Research Firm");
         out.put("Internet Marketing Firm", "Internet Marketing Firm");
+        out.put("Journalist", "Journalist");
         return out;
     }
 

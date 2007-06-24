@@ -25,14 +25,13 @@ public class SysadminInstanceProps implements Serializable {
     private String dbMaxWait;
     private String dbDriverName;
     private String runScheduledTasksOnThisInstance;
+    private String instancename;
 
     public SysadminInstanceProps(){
-
-
+        load();
     }
 
     public String beginView(){
-        load();
         return "sysadmininstanceprops";
     }
 
@@ -50,6 +49,7 @@ public class SysadminInstanceProps implements Serializable {
         } else {
             runScheduledTasksOnThisInstance = "0";
         }
+        instancename = InstanceProperties.getInstancename();
     }
 
     public String saveProps(){
@@ -69,6 +69,7 @@ public class SysadminInstanceProps implements Serializable {
             } else {
                 InstanceProperties.setRunScheduledTasksOnThisInstance(false);
             }
+            InstanceProperties.setInstancename(instancename);
             try{
                 InstanceProperties.save();
                 if (InstanceProperties.haveValidConfig()){
@@ -159,5 +160,13 @@ public class SysadminInstanceProps implements Serializable {
 
     public void setDbDriverName(String dbDriverName) {
         this.dbDriverName = dbDriverName;
+    }
+
+    public String getInstancename() {
+        return instancename;
+    }
+
+    public void setInstancename(String instancename) {
+        this.instancename = instancename;
     }
 }

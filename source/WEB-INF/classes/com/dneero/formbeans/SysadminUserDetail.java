@@ -7,6 +7,7 @@ import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.email.EmailActivationSend;
 import com.dneero.email.LostPasswordSend;
 import com.dneero.money.MoveMoneyInAccountBalance;
+import com.dneero.scheduledjobs.ResearcherRemainingBalanceOperations;
 
 import java.util.*;
 import java.io.Serializable;
@@ -30,6 +31,7 @@ public class SysadminUserDetail implements Serializable {
     private String reason;
     private List balances;
     private List transactions;
+    private boolean isenabled = true;
 
 
     public SysadminUserDetail(){
@@ -55,6 +57,7 @@ public class SysadminUserDetail implements Serializable {
             firstname = user.getFirstname();
             lastname = user.getLastname();
             email = user.getEmail();
+            isenabled = user.getIsenabled();
             issysadmin = false;
             for (Iterator<Userrole> iterator = user.getUserroles().iterator(); iterator.hasNext();) {
                 Userrole userrole = iterator.next();
@@ -118,6 +121,7 @@ public class SysadminUserDetail implements Serializable {
         return "sysadminuserdetail";
     }
 
+
     public String sendresetpasswordemail(){
         User user = User.get(userid);
         if (user!=null && user.getUserid()>0){
@@ -133,6 +137,24 @@ public class SysadminUserDetail implements Serializable {
             EmailActivationSend.sendActivationEmail(user);
         }
         Jsf.setFacesMessage("Reactivation email sent");
+        return "sysadminuserdetail";
+    }
+
+    public String toggleisenabled(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
+        User user = User.get(userid);
+        if (user.getIsenabled()){
+            //Disable
+            user.setIsenabled(false);
+            isenabled = false;
+            Jsf.setFacesMessage("Account disabled.");
+        } else {
+            // Enable
+            user.setIsenabled(true);
+            isenabled = true;
+            Jsf.setFacesMessage("Account enabled.");
+        }
+        try{user.save();}catch (Exception ex){logger.error(ex);}
         return "sysadminuserdetail";
     }
 
@@ -178,6 +200,20 @@ public class SysadminUserDetail implements Serializable {
             }
         } else {
             Jsf.setFacesMessage("Activity Pin Not correct.");
+        }
+        return "sysadminuserdetail";
+    }
+
+    public String runResearcherRemainingBalanceOperations(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
+        User user = User.get(userid);
+        if (user!=null && user.getUserid()>0){
+            if (user.getResearcherid()>0){
+                try{ResearcherRemainingBalanceOperations task = new ResearcherRemainingBalanceOperations();
+                task.setResearcherid(user.getResearcherid());
+                task.execute(null);} catch (Exception ex){logger.error(ex);}
+                Jsf.setFacesMessage("Task run.");
+            }
         }
         return "sysadminuserdetail";
     }
@@ -284,5 +320,14 @@ public class SysadminUserDetail implements Serializable {
 
     public void setTransactions(List transactions) {
         this.transactions = transactions;
+    }
+
+
+    public boolean getIsenabled() {
+        return isenabled;
+    }
+
+    public void setIsenabled(boolean isenabled) {
+        this.isenabled = isenabled;
     }
 }

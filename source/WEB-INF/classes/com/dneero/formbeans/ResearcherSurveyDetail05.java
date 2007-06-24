@@ -68,9 +68,8 @@ public class ResearcherSurveyDetail05 implements Serializable {
     public String saveSurveyAsDraft(){
         String save = saveSurvey();
         if (save!=null){
-            ResearcherSurveyList bean = (ResearcherSurveyList)Jsf.getManagedBean("researcherSurveyList");
+            ResearcherIndex bean = (ResearcherIndex)Jsf.getManagedBean("researcherIndex");
             return bean.beginView();
-            //return "researchersurveylist";
         } else {
             return save;
         }
@@ -99,8 +98,29 @@ public class ResearcherSurveyDetail05 implements Serializable {
                 survey = Survey.get(userSession.getCurrentSurveyid());
             }
 
+
             if (Jsf.getUserSession().getUser()!=null && survey.canEdit(Jsf.getUserSession().getUser())){
 
+                //Validation
+                boolean haveError = false;
+                //Maxdisplaystotal must be above threshold
+                try{
+                    int mindisplays = (numberofrespondentsrequested * maxdisplaysperblog)/4;
+                    if (maxdisplaystotal < mindisplays){
+                        Jsf.setFacesMessage("surveyedit:maxdisplaystotal", "Max Displays Total must be at least 25% of Number of Respondents Requested multiplied by Max Displays Per Blog.");
+                        maxdisplaystotal = mindisplays;
+                        haveError = true;
+                    }
+                } catch (Exception ex){
+                    logger.error(ex);
+                }
+                //Validation return
+                if (haveError){
+                    return null;
+                }
+
+
+                //Save
                 survey.setWillingtopayperrespondent(willingtopayperrespondent);
                 survey.setNumberofrespondentsrequested(numberofrespondentsrequested);
                 survey.setWillingtopaypercpm(willingtopaypercpm);

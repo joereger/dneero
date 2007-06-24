@@ -13,6 +13,7 @@ import com.dneero.dao.Survey;
 import com.dneero.dao.Question;
 import com.dneero.session.UserSession;
 import com.dneero.display.components.Textbox;
+import com.dneero.helpers.UserInputSafe;
 
 import javax.faces.context.FacesContext;
 import javax.faces.application.FacesMessage;
@@ -94,7 +95,7 @@ public class ResearcherSurveyDetail02textbox implements Serializable {
             }
 
             question.setSurveyid(survey.getSurveyid());
-            question.setQuestion(this.question);
+            question.setQuestion(UserInputSafe.clean(this.question));
             question.setIsrequired(isrequired);
             question.setComponenttype(Textbox.ID);
 

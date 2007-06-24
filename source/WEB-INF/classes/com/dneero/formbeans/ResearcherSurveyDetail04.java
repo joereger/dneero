@@ -26,6 +26,8 @@ public class ResearcherSurveyDetail04 implements Serializable {
 
     private String title;
 
+    private String surveyCriteriaAsHtml;
+
     private int status;
     private int agemin = 13;
     private int agemax = 100;
@@ -43,16 +45,6 @@ public class ResearcherSurveyDetail04 implements Serializable {
     private String[] profession;
     private String[] blogfocus;
     private String[] politics;
-    private String genderStr;
-    private String ethnicityStr;
-    private String maritalstatusStr;
-    private String incomeStr;
-    private String educationlevelStr;
-    private String stateStr;
-    private String cityStr;
-    private String professionStr;
-    private String blogfocusStr;
-    private String politicsStr;
 
     private String[] panels;
     private String panelsStr;
@@ -82,6 +74,7 @@ public class ResearcherSurveyDetail04 implements Serializable {
             if (Jsf.getUserSession().getUser()!=null && survey.canEdit(Jsf.getUserSession().getUser())){
                 //Do it with XML
                 SurveyCriteriaXML surveyCriteriaXML = new SurveyCriteriaXML(survey.getCriteriaxml());
+                surveyCriteriaAsHtml = surveyCriteriaXML.getAsHtml();
                 agemin = surveyCriteriaXML.getAgemin();
                 agemax = surveyCriteriaXML.getAgemax();
                 blogquality = surveyCriteriaXML.getBlogquality();
@@ -89,25 +82,15 @@ public class ResearcherSurveyDetail04 implements Serializable {
                 minsocialinfluencepercentile = surveyCriteriaXML.getMinsocialinfluencepercentile();
                 minsocialinfluencepercentile90days = surveyCriteriaXML.getMinsocialinfluencepercentile90days();
                 gender = surveyCriteriaXML.getGender();
-                genderStr = arrayToString(gender, "<br>");
                 ethnicity = surveyCriteriaXML.getEthnicity();
-                ethnicityStr = arrayToString(ethnicity, "<br>");
                 maritalstatus = surveyCriteriaXML.getMaritalstatus();
-                maritalstatusStr = arrayToString(maritalstatus, "<br>");
                 income = surveyCriteriaXML.getIncome();
-                incomeStr = arrayToString(income, "<br>");
                 educationlevel = surveyCriteriaXML.getEducationlevel();
-                educationlevelStr = arrayToString(educationlevel, "<br>");
                 state = surveyCriteriaXML.getState();
-                stateStr = arrayToString(state, ", ");
                 city = surveyCriteriaXML.getCity();
-                cityStr = arrayToString(city, ", ");
                 profession = surveyCriteriaXML.getProfession();
-                professionStr = arrayToString(profession, "<br>");
                 politics = surveyCriteriaXML.getPolitics();
-                politicsStr = arrayToString(politics, "<br>");
                 blogfocus = surveyCriteriaXML.getBlogfocus();
-                blogfocusStr = arrayToString(blogfocus, ", ");
                 //Load panels
                 List results = HibernateUtil.getSession().createQuery("from Surveypanel where surveyid='"+Jsf.getUserSession().getCurrentSurveyid()+"'").list();
                 panels = new String[results.size()];
@@ -121,26 +104,13 @@ public class ResearcherSurveyDetail04 implements Serializable {
         }
     }
 
-    private String arrayToString(String[] array, String delimiter){
-        StringBuffer out = new StringBuffer();
-        if (array!=null){
-            for (int i = 0; i < array.length; i++) {
-                String s = array[i];
-                out.append(s);
-                if (i<array.length){
-                    out.append(delimiter);
-                }
-            }
-        }
-        return out.toString();
-    }
+
 
     public String saveSurveyAsDraft(){
         String save = saveSurvey();
         if (save!=null){
-            ResearcherSurveyList bean = (ResearcherSurveyList)Jsf.getManagedBean("researcherSurveyList");
+            ResearcherIndex bean = (ResearcherIndex)Jsf.getManagedBean("researcherIndex");
             return bean.beginView();
-            //return "researchersurveylist";
         } else {
             return save;
         }
@@ -192,6 +162,8 @@ public class ResearcherSurveyDetail04 implements Serializable {
                     surveyCriteriaXML.setPolitics(politics);
 
                     survey.setCriteriaxml(surveyCriteriaXML.getSurveyCriteriaAsString());
+
+                    surveyCriteriaAsHtml = surveyCriteriaXML.getAsHtml();
                 }
 
                 //Save panels
@@ -387,85 +359,7 @@ public class ResearcherSurveyDetail04 implements Serializable {
         this.status = status;
     }
 
-    public String getGenderStr() {
-        return genderStr;
-    }
 
-    public void setGenderStr(String genderStr) {
-        this.genderStr = genderStr;
-    }
-
-    public String getEthnicityStr() {
-        return ethnicityStr;
-    }
-
-    public void setEthnicityStr(String ethnicityStr) {
-        this.ethnicityStr = ethnicityStr;
-    }
-
-    public String getMaritalstatusStr() {
-        return maritalstatusStr;
-    }
-
-    public void setMaritalstatusStr(String maritalstatusStr) {
-        this.maritalstatusStr = maritalstatusStr;
-    }
-
-    public String getIncomeStr() {
-        return incomeStr;
-    }
-
-    public void setIncomeStr(String incomeStr) {
-        this.incomeStr = incomeStr;
-    }
-
-    public String getEducationlevelStr() {
-        return educationlevelStr;
-    }
-
-    public void setEducationlevelStr(String educationlevelStr) {
-        this.educationlevelStr = educationlevelStr;
-    }
-
-    public String getStateStr() {
-        return stateStr;
-    }
-
-    public void setStateStr(String stateStr) {
-        this.stateStr = stateStr;
-    }
-
-    public String getCityStr() {
-        return cityStr;
-    }
-
-    public void setCityStr(String cityStr) {
-        this.cityStr = cityStr;
-    }
-
-    public String getProfessionStr() {
-        return professionStr;
-    }
-
-    public void setProfessionStr(String professionStr) {
-        this.professionStr = professionStr;
-    }
-
-    public String getBlogfocusStr() {
-        return blogfocusStr;
-    }
-
-    public void setBlogfocusStr(String blogfocusStr) {
-        this.blogfocusStr = blogfocusStr;
-    }
-
-    public String getPoliticsStr() {
-        return politicsStr;
-    }
-
-    public void setPoliticsStr(String politicsStr) {
-        this.politicsStr = politicsStr;
-    }
 
     public int getBlogquality() {
         return blogquality;
@@ -521,5 +415,13 @@ public class ResearcherSurveyDetail04 implements Serializable {
 
     public void setMinsocialinfluencepercentile90days(int minsocialinfluencepercentile90days) {
         this.minsocialinfluencepercentile90days = minsocialinfluencepercentile90days;
+    }
+
+    public String getSurveyCriteriaAsHtml() {
+        return surveyCriteriaAsHtml;
+    }
+
+    public void setSurveyCriteriaAsHtml(String surveyCriteriaAsHtml) {
+        this.surveyCriteriaAsHtml = surveyCriteriaAsHtml;
     }
 }

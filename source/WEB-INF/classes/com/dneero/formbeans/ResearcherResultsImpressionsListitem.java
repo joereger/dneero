@@ -14,6 +14,7 @@ public class ResearcherResultsImpressionsListitem implements Serializable {
     private int impressionsqualifyingforpayment;
     private String referer;
     private int impressionid;
+    private String referertruncated;
 
     public ResearcherResultsImpressionsListitem(){}
 
@@ -56,5 +57,13 @@ public class ResearcherResultsImpressionsListitem implements Serializable {
 
     public void setImpressionid(int impressionid) {
         this.impressionid = impressionid;
+    }
+
+    public String getReferertruncated() {
+        return referertruncated;
+    }
+
+    public void setReferertruncated(String referertruncated) {
+        this.referertruncated = referertruncated;
     }
 }

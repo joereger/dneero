@@ -10,7 +10,8 @@ import com.dneero.cache.providers.oscache.OsCacheClusteredProvider;
 public class CacheFactory {
 
     public static CacheProvider getCacheProvider(){
-        return getCacheProvider("OsCacheProvider");
+        //return getCacheProvider("OsCacheProvider");
+        return getCacheProvider("JbossTreeCacheAOPProvider");
     }
 
     public static CacheProvider getCacheProvider(String providername){

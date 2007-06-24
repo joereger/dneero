@@ -22,6 +22,7 @@ public class User extends BasePersistentClass implements java.io.Serializable, R
 
 
      private int userid;
+     private boolean isenabled;
      private int bloggerid;
      private int researcherid;
      private int referredbyuserid;
@@ -39,31 +40,21 @@ public class User extends BasePersistentClass implements java.io.Serializable, R
      private String paymethodpaypaladdress;
      private int chargemethod;
      private int chargemethodcreditcardid;
+     private int notifyofnewsurveysbyemaileveryexdays;
+     private Date notifyofnewsurveyslastsent;
+     private boolean allownoncriticalemails;
+     private boolean instantnotifybyemailison;
+     private boolean instantnotifybytwitterison;
+     private String instantnotifytwitterusername;
+     private boolean instantnotifyxmppison;
+     private String instantnotifyxmppusername;
 
      //Association
     private Set<Userrole> userroles = new HashSet<Userrole>();
-    public Set<Userrole> getUserroles() {
-        return userroles;
-    }
-    public void setUserroles(Set<Userrole> userroles) {
-        this.userroles = userroles;
-    }
-
     private Set<Usereula> usereulas = new HashSet<Usereula>();
-    public Set<Usereula> getUsereulas() {
-        return usereulas;
-    }
-    public void setUsereulas(Set<Usereula> usereulas) {
-        this.usereulas = usereulas;
-    }
-
     private Set<Responsepending> responsependings = new HashSet<Responsepending>();
-    public Set<Responsepending> getResponsependings() {
-        return responsependings;
-    }
-    public void setResponsependings(Set<Responsepending> responsependings) {
-        this.responsependings = responsependings;
-    }
+    //@todo performance check: should surveydiscusses be included in all user loads?
+    private Set<Surveydiscuss> surveydiscusses = new HashSet<Surveydiscuss>();
 
     //Validator
     public void validateRegerEntity() throws GeneralException {
@@ -128,6 +119,14 @@ public class User extends BasePersistentClass implements java.io.Serializable, R
     
     public void setUserid(int userid) {
         this.userid = userid;
+    }
+
+    public boolean getIsenabled() {
+        return isenabled;
+    }
+
+    public void setIsenabled(boolean isenabled) {
+        this.isenabled = isenabled;
     }
 
     public int getReferredbyuserid() {
@@ -267,5 +266,104 @@ public class User extends BasePersistentClass implements java.io.Serializable, R
 
     public void setChargemethodcreditcardid(int chargemethodcreditcardid) {
         this.chargemethodcreditcardid = chargemethodcreditcardid;
+    }
+
+    public int getNotifyofnewsurveysbyemaileveryexdays() {
+        return notifyofnewsurveysbyemaileveryexdays;
+    }
+
+    public void setNotifyofnewsurveysbyemaileveryexdays(int notifyofnewsurveysbyemaileveryexdays) {
+        this.notifyofnewsurveysbyemaileveryexdays = notifyofnewsurveysbyemaileveryexdays;
+    }
+
+
+    public Date getNotifyofnewsurveyslastsent() {
+        return notifyofnewsurveyslastsent;
+    }
+
+    public void setNotifyofnewsurveyslastsent(Date notifyofnewsurveyslastsent) {
+        this.notifyofnewsurveyslastsent = notifyofnewsurveyslastsent;
+    }
+
+
+    public boolean getAllownoncriticalemails() {
+        return allownoncriticalemails;
+    }
+
+    public void setAllownoncriticalemails(boolean allownoncriticalemails) {
+        this.allownoncriticalemails = allownoncriticalemails;
+    }
+
+
+    public boolean getInstantnotifybyemailison() {
+        return instantnotifybyemailison;
+    }
+
+    public void setInstantnotifybyemailison(boolean instantnotifybyemailison) {
+        this.instantnotifybyemailison = instantnotifybyemailison;
+    }
+
+    public boolean getInstantnotifybytwitterison() {
+        return instantnotifybytwitterison;
+    }
+
+    public void setInstantnotifybytwitterison(boolean instantnotifybytwitterison) {
+        this.instantnotifybytwitterison = instantnotifybytwitterison;
+    }
+
+    public String getInstantnotifytwitterusername() {
+        return instantnotifytwitterusername;
+    }
+
+    public void setInstantnotifytwitterusername(String instantnotifytwitterusername) {
+        this.instantnotifytwitterusername = instantnotifytwitterusername;
+    }
+
+    public boolean getInstantnotifyxmppison() {
+        return instantnotifyxmppison;
+    }
+
+    public void setInstantnotifyxmppison(boolean instantnotifyxmppison) {
+        this.instantnotifyxmppison = instantnotifyxmppison;
+    }
+
+    public String getInstantnotifyxmppusername() {
+        return instantnotifyxmppusername;
+    }
+
+    public void setInstantnotifyxmppusername(String instantnotifyxmppusername) {
+        this.instantnotifyxmppusername = instantnotifyxmppusername;
+    }
+
+    public Set<Userrole> getUserroles() {
+        return userroles;
+    }
+
+    public void setUserroles(Set<Userrole> userroles) {
+        this.userroles = userroles;
+    }
+
+    public Set<Usereula> getUsereulas() {
+        return usereulas;
+    }
+
+    public void setUsereulas(Set<Usereula> usereulas) {
+        this.usereulas = usereulas;
+    }
+
+    public Set<Responsepending> getResponsependings() {
+        return responsependings;
+    }
+
+    public void setResponsependings(Set<Responsepending> responsependings) {
+        this.responsependings = responsependings;
+    }
+
+    public Set<Surveydiscuss> getSurveydiscusses() {
+        return surveydiscusses;
+    }
+
+    public void setSurveydiscusses(Set<Surveydiscuss> surveydiscusses) {
+        this.surveydiscusses = surveydiscusses;
     }
 }

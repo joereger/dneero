@@ -1,23 +1,15 @@
 package com.dneero.formbeans;
 
-import com.dneero.dao.hibernate.HibernateUtil;
-import com.dneero.dao.Survey;
-import com.dneero.dao.Impressiondetail;
+import com.dneero.twitter.TwitterUpdate;
 import com.dneero.util.Time;
-import com.dneero.util.Str;
-import com.dneero.threadpool.ThreadPool;
-import com.dneero.xmpp.SendXMPPMessage;
+import com.dneero.ui.SurveyEnhancer;
+import com.dneero.dao.Survey;
 
-import java.util.List;
-import java.util.Iterator;
-import java.util.Date;
-import java.util.Calendar;
-import java.text.NumberFormat;
-import java.text.DecimalFormat;
 import java.io.Serializable;
+import java.util.Calendar;
+import java.util.Map;
+import java.util.HashMap;
 
-import org.hibernate.criterion.Restrictions;
-import org.apache.log4j.Level;
 
 /**
  * User: Joe Reger Jr
@@ -26,14 +18,46 @@ import org.apache.log4j.Level;
  */
 public class PublicIndex implements Serializable {
 
+    private Map<String, Survey> spotlightsurveys;
+    private Map<String, SurveyEnhancer> spotlightsurveyenhancers;
 
     public PublicIndex(){
-        
+        load();
     }
 
     public String beginView(){
         return "home";
     }
 
+    private void load(){
+        spotlightsurveys = new HashMap<String, Survey>();
+        int[] spotlightsurveyids = com.dneero.scheduledjobs.SystemStats.getSpotlightsurveys();
+        for (int i = 0; i < spotlightsurveyids.length; i++) {
+            int surveyid = spotlightsurveyids[i];
+            if (surveyid>0){
+                Survey survey = Survey.get(surveyid);
+                spotlightsurveys.put(String.valueOf(i), survey);
+            } else {
+                spotlightsurveys.put(String.valueOf(i), new Survey());
+            }
+        }
+        spotlightsurveyenhancers = com.dneero.scheduledjobs.SystemStats.getSpotlightsurveyenhancers();
+    }
 
+
+    public Map<String, Survey> getSpotlightsurveys() {
+        return spotlightsurveys;
+    }
+
+    public void setSpotlightsurveys(Map<String, Survey> spotlightsurveys) {
+        this.spotlightsurveys = spotlightsurveys;
+    }
+
+    public Map<String, SurveyEnhancer> getSpotlightsurveyenhancers() {
+        return spotlightsurveyenhancers;
+    }
+
+    public void setSpotlightsurveyenhancers(Map<String, SurveyEnhancer> spotlightsurveyenhancers) {
+        this.spotlightsurveyenhancers = spotlightsurveyenhancers;
+    }
 }

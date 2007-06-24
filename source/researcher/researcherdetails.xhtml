@@ -33,7 +33,9 @@
 
 
                 <h:panelGroup>
-                    <h:outputText value="Company Name" styleClass="formfieldnamefont"></h:outputText>
+                    <h:outputText value="Name" styleClass="formfieldnamefont"></h:outputText>
+                    <br/>
+                    <h:outputText value="Could be company name.  Just something to identify your research or marketing organization." styleClass="tinyfont"></h:outputText>
                 </h:panelGroup>
                 <h:panelGroup>
                     <h:inputText value="#{researcherDetails.companyname}" id="companyname"></h:inputText>
@@ -44,7 +46,9 @@
 
 
                 <h:panelGroup>
-                    <h:outputText value="Company Type" styleClass="formfieldnamefont"></h:outputText>
+                    <h:outputText value="Type" styleClass="formfieldnamefont"></h:outputText>
+                    <br/>
+                    <h:outputText value="Choose the option that best describes you/your organization." styleClass="tinyfont"></h:outputText>
                 </h:panelGroup>
                 <h:panelGroup>
                     <h:selectOneMenu value="#{researcherDetails.companytype}" id="companytype" required="true">

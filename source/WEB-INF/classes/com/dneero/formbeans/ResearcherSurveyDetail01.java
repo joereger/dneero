@@ -7,6 +7,7 @@ import com.dneero.util.Str;
 import com.dneero.util.Time;
 import com.dneero.session.UserSession;
 import com.dneero.xmpp.SendXMPPMessage;
+import com.dneero.helpers.UserInputSafe;
 import org.apache.log4j.Logger;
 
 import javax.faces.context.FacesContext;
@@ -86,9 +87,8 @@ public class ResearcherSurveyDetail01 implements Serializable {
     public String saveSurveyAsDraft(){
         String save = saveSurvey();
         if (save!=null){
-            ResearcherSurveyList bean = (ResearcherSurveyList)Jsf.getManagedBean("researcherSurveyList");
+            ResearcherIndex bean = (ResearcherIndex)Jsf.getManagedBean("researcherIndex");
             return bean.beginView();
-            //return "researchersurveylist";
         } else {
             return save;
         }
@@ -111,6 +111,7 @@ public class ResearcherSurveyDetail01 implements Serializable {
             Survey survey = new Survey();
             survey.setResearcherid(userSession.getUser().getResearcherid());
             survey.setStatus(Survey.STATUS_DRAFT);
+            survey.setPublicsurveydisplays(0);
             boolean isnewsurvey = true;
             if (userSession.getCurrentSurveyid()>0){
                 logger.debug("saveSurvey() called: going to get Survey.get(surveyid)="+userSession.getCurrentSurveyid());
@@ -120,12 +121,12 @@ public class ResearcherSurveyDetail01 implements Serializable {
 
             //Validation
             boolean isValidData = true;
-            Calendar beforeMinusDay = Time.xDaysAgoStart(Calendar.getInstance(), 0);
-            if (startdate.before(beforeMinusDay.getTime())){
-                isValidData = false;
-                Jsf.setFacesMessage("surveyedit:startdate", "The Start Date must be today or after today.");
-                logger.debug("valdation error - startdate is in past.");
-            }
+//            Calendar beforeMinusDay = Time.xDaysAgoStart(Calendar.getInstance(), 0);
+//            if (startdate.before(beforeMinusDay.getTime())){
+//                isValidData = false;
+//                Jsf.setFacesMessage("surveyedit:startdate", "The Start Date must be today or after today.");
+//                logger.debug("valdation error - startdate is in past.");
+//            }
             if (startdate.after(enddate)){
                 isValidData = false;
                 Jsf.setFacesMessage("surveyedit:enddate", "The End Date must be after the Start Date.");
@@ -135,8 +136,8 @@ public class ResearcherSurveyDetail01 implements Serializable {
             if (isValidData && Jsf.getUserSession().getUser()!=null && survey.canEdit(Jsf.getUserSession().getUser())){
 
                 survey.setResearcherid(userSession.getUser().getResearcherid());
-                survey.setTitle(title);
-                survey.setDescription(description);
+                survey.setTitle(UserInputSafe.clean(title));
+                survey.setDescription(UserInputSafe.clean(description));
                 survey.setStartdate(startdate);
                 survey.setEnddate(enddate);
 

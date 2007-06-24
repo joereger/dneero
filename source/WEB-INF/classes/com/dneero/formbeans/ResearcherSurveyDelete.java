@@ -79,24 +79,31 @@ public class ResearcherSurveyDelete implements Serializable {
             if (userSession.getCurrentSurveyid()>0){
                 logger.debug("deleteSurvey() called: going to get Survey.get(surveyid)="+userSession.getCurrentSurveyid());
                 Survey survey = Survey.get(userSession.getCurrentSurveyid());
+                survey.refresh();
                 try{
                     logger.debug("deleteSurvey() about to delete survey.getSurveyid()=" + survey.getSurveyid());
                     survey.delete();
-                    userSession.setCurrentSurveyid(survey.getSurveyid());
+                    Jsf.setFacesMessage("Survey deleted.");
+                    userSession.setCurrentSurveyid(0);
                     logger.debug("deleteSurvey() done saving survey.getSurveyid()=" + survey.getSurveyid());
                 } catch (Exception gex){
                     logger.error(gex);
                     String message = "deleteSurvey() failed: " + gex.getMessage();
-                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage( FacesMessage.SEVERITY_INFO, message, message));
+                    Jsf.setFacesMessage("Sorry, there was an error. Please click the Delete button again.");
                     return null;
                 }
             } else {
                 logger.debug("Not deleting because userSession.getCurrentSurveyid() is not less than zero");
             }
         } else {
+            Jsf.setFacesMessage("Survey could not be deleted because it is not in draft mode.");
             logger.debug("Not deleting because status!=Survey.STATUS_DRAFT");
         }
-        return "researchersurveylist";
+
+        ResearcherSurveyList bean = (ResearcherSurveyList)Jsf.getManagedBean("researcherSurveyList");
+        bean.beginView();
+        ResearcherIndex bean2 = (ResearcherIndex)Jsf.getManagedBean("researcherIndex");
+        return bean2.beginView();
     }
 
     public String getTitle() {

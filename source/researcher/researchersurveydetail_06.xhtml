@@ -22,7 +22,7 @@
     <d:authorization acl="researcher" redirectonfail="true"/>
 
 <h:form>
-    <h:messages />
+    <h:messages styleClass="RED"/>
     <t:saveState id="save" value="#{researcherSurveyDetail06}"/>
 
 
@@ -96,7 +96,7 @@
         </h:panelGroup>
 
         <h:panelGroup>
-            <h:outputText value="Max dNeero Fee" styleClass="formfieldnamefont"></h:outputText>
+            <h:outputText value="Max Possible dNeero Fee" styleClass="formfieldnamefont"></h:outputText>
         </h:panelGroup>
         <h:panelGroup>
             <h:outputText value="#{researcherSurveyDetail06.dneerofee}"></h:outputText>
@@ -303,6 +303,7 @@
                     <li>However, if my account balance is sufficient to complete the activities I have requested, my live (open) surveys will not be put on hold. </li>
                 </ul>
             </li>
+            <li>Impressions on blogs will be paid for during a period extending 120 days from the end date of the survey, not to exceed the limits on impressions that you've set with your survey.  As such, dNeero will refund money after this period when the max number of surveys is not reached.</li>
         </ul>
     </font>
 

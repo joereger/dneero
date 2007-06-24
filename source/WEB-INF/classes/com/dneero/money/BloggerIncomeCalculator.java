@@ -103,7 +103,8 @@ public class BloggerIncomeCalculator {
         ArrayList<Impression> impressions = getAllImpressionsForSurvey(blogger, survey);
         for (Iterator<Impression> iterator = impressions.iterator(); iterator.hasNext();) {
             Impression impression = iterator.next();
-            for (Iterator<Impressiondetail> iterator2 = impression.getImpressiondetails().iterator(); iterator2.hasNext();) {
+            List impressiondetails = HibernateUtil.getSession().createQuery("from Impressiondetail where impressionid='"+impression.getImpressionid()+"' and qualifiesforpaymentstatus='"+Impressiondetail.QUALIFIESFORPAYMENTSTATUS_TRUE+"'").setCacheable(true).list();
+            for (Iterator<Impressiondetail> iterator2 = impressiondetails.iterator(); iterator2.hasNext();) {
                 Impressiondetail impressiondetail = iterator2.next();
                 if (impressiondetail.getQualifiesforpaymentstatus()==Impressiondetail.QUALIFIESFORPAYMENTSTATUS_TRUE){
                     out.add(impressiondetail);
@@ -118,7 +119,8 @@ public class BloggerIncomeCalculator {
         ArrayList<Impression> impressions = getAllImpressionsForSurvey(blogger, survey);
         for (Iterator<Impression> iterator = impressions.iterator(); iterator.hasNext();) {
             Impression impression = iterator.next();
-            out.addAll(impression.getImpressiondetails());
+            List impressiondetails = HibernateUtil.getSession().createQuery("from Impressiondetail where impressionid='"+impression.getImpressionid()+"'").setCacheable(true).list();
+            out.addAll(impressiondetails);
         }
         return out;
     }

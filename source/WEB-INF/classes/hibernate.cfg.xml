@@ -10,6 +10,7 @@
         <mapping resource="com/dneero/dao/Betainvite.hbm.xml" />
         <mapping resource="com/dneero/dao/Blogger.hbm.xml" />
         <mapping resource="com/dneero/dao/Blog.hbm.xml" />
+        <mapping resource="com/dneero/dao/Blogpost.hbm.xml" />
         <mapping resource="com/dneero/dao/Creditcard.hbm.xml" />
         <mapping resource="com/dneero/dao/Emailinvitebatch.hbm.xml" />
         <mapping resource="com/dneero/dao/Emailinvitebatchaddress.hbm.xml" />
@@ -19,6 +20,7 @@
         <mapping resource="com/dneero/dao/Impressiondetail.hbm.xml" />
         <mapping resource="com/dneero/dao/Impressionpaymentgroup.hbm.xml" />
         <mapping resource="com/dneero/dao/Impressionchargegroup.hbm.xml" />
+        <mapping resource="com/dneero/dao/Massemail.hbm.xml" />
         <mapping resource="com/dneero/dao/Panel.hbm.xml" />
         <mapping resource="com/dneero/dao/Panelmembership.hbm.xml" />
         <mapping resource="com/dneero/dao/Question.hbm.xml" />
@@ -31,6 +33,7 @@
         <mapping resource="com/dneero/dao/Supportissue.hbm.xml" />
         <mapping resource="com/dneero/dao/Supportissuecomm.hbm.xml" />
         <mapping resource="com/dneero/dao/Survey.hbm.xml" />
+        <mapping resource="com/dneero/dao/Surveydiscuss.hbm.xml" />
         <mapping resource="com/dneero/dao/Surveypanel.hbm.xml" />
         <mapping resource="com/dneero/dao/Systemprop.hbm.xml" />
         <mapping resource="com/dneero/dao/User.hbm.xml" />

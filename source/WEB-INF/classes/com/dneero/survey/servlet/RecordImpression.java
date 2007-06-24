@@ -4,6 +4,7 @@ import com.dneero.dao.Survey;
 import com.dneero.dao.User;
 import com.dneero.dao.Blog;
 import com.dneero.dao.hibernate.HibernateUtil;
+import com.dneero.scheduledjobs.ImpressionActivityObjectQueue;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Iterator;
@@ -60,9 +61,13 @@ public class RecordImpression {
         iao.setDate(new Date());
 
         //Write iao to db
-        //@todo cache impression activity for performance gain
         //I've already built the iao object so that it's easy to put into a simple memory list and then parse on some interval, writing to the database
-        ImpressionActivityObjectStorage.store(iao);
+        //ImpressionActivityObjectStorage.store(iao);
+        try{
+            ImpressionActivityObjectQueue.addIao(iao);
+        } catch (Exception ex){
+            logger.error(ex);
+        }
     }
 
 }

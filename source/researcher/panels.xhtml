@@ -60,15 +60,6 @@
             <f:facet name="header">
               <h:outputText value="-" style="color: #ffffff;"/>
             </f:facet>
-            <h:commandLink action="#{researcherFindBloggers.beginView}">
-                <h:outputText value="Find Bloggers to Add" styleClass="smallfont" escape="false" />
-                <f:param name="panelid" value="#{listitem.panel.panelid}" />
-            </h:commandLink>
-          </h:column>
-          <h:column>
-            <f:facet name="header">
-              <h:outputText value="-" style="color: #ffffff;"/>
-            </f:facet>
             <h:commandLink action="#{researcherPanelsEdit.beginView}">
                 <h:outputText value="Edit" styleClass="smallfont" escape="false" />
                 <f:param name="panelid" value="#{listitem.panel.panelid}" />

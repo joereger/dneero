@@ -23,6 +23,20 @@
             <h:panelGrid columns="3" cellpadding="3" border="0">
 
                 <h:panelGroup>
+                    <h:outputText value="Instance Name" styleClass="formfieldnamefont"></h:outputText>
+                    <br/>
+                    <font class="tinyfont"></font>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:inputText value="#{sysadminInstanceProps.instancename}" id="instancename" required="true">
+                        <f:validateLength maximum="255"></f:validateLength>
+                    </h:inputText>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:message for="instancename" styleClass="RED"></h:message>
+                </h:panelGroup>
+
+                <h:panelGroup>
                     <h:outputText value="dbConnectionUrl" styleClass="formfieldnamefont"></h:outputText>
                     <br/>
                     <font class="tinyfont"></font>

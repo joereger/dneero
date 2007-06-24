@@ -11,6 +11,7 @@ import com.dneero.session.UserSession;
 import com.dneero.util.Jsf;
 import com.dneero.util.GeneralException;
 import com.dneero.display.components.Essay;
+import com.dneero.helpers.UserInputSafe;
 
 import java.util.Iterator;
 import java.io.Serializable;
@@ -91,7 +92,7 @@ public class ResearcherSurveyDetail02essay implements Serializable {
             }
 
             question.setSurveyid(survey.getSurveyid());
-            question.setQuestion(this.question);
+            question.setQuestion(UserInputSafe.clean(this.question));
             question.setIsrequired(isrequired);
             question.setComponenttype(Essay.ID);
 

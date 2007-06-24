@@ -312,4 +312,92 @@
         </trigger>
     </job>
 
+    <job>
+        <job-detail>
+          <name>sendMassemails</name>
+          <group>surveyJobs</group>
+          <job-class>com.dneero.scheduledjobs.SendMassemails</job-class>
+          <volatility>false</volatility>
+          <durability>false</durability>
+          <recover>false</recover>
+        </job-detail>
+        <trigger>
+          <!-- Sample cron triggers: http://www.opensymphony.com/quartz/wikidocs/TutorialLesson6.html -->
+          <cron>
+            <name>sendMassemailsTrigger</name>
+            <group>surveyTriggers</group>
+            <job-name>sendMassemails</job-name>
+            <job-group>surveyJobs</job-group>
+            <!-- every XX minutes -->
+            <cron-expression>0 0/5 * * * ?</cron-expression>
+          </cron>
+        </trigger>
+    </job>
+
+    <job>
+        <job-detail>
+          <name>impressionActivityObjectQueue</name>
+          <group>surveyJobs</group>
+          <job-class>com.dneero.scheduledjobs.ImpressionActivityObjectQueue</job-class>
+          <volatility>false</volatility>
+          <durability>false</durability>
+          <recover>false</recover>
+        </job-detail>
+        <trigger>
+          <!-- Sample cron triggers: http://www.opensymphony.com/quartz/wikidocs/TutorialLesson6.html -->
+          <cron>
+            <name>impressionActivityObjectQueueTrigger</name>
+            <group>surveyTriggers</group>
+            <job-name>impressionActivityObjectQueue</job-name>
+            <job-group>surveyJobs</job-group>
+            <!-- every x minutes -->
+            <cron-expression>0 0/5 * * * ?</cron-expression>
+          </cron>
+        </trigger>
+    </job>
+
+    <job>
+        <job-detail>
+          <name>surveydisplayActivityObjectQueue</name>
+          <group>surveyJobs</group>
+          <job-class>com.dneero.scheduledjobs.SurveydisplayActivityObjectQueue</job-class>
+          <volatility>false</volatility>
+          <durability>false</durability>
+          <recover>false</recover>
+        </job-detail>
+        <trigger>
+          <!-- Sample cron triggers: http://www.opensymphony.com/quartz/wikidocs/TutorialLesson6.html -->
+          <cron>
+            <name>surveydisplayActivityObjectQueueTrigger</name>
+            <group>surveyTriggers</group>
+            <job-name>surveydisplayActivityObjectQueue</job-name>
+            <job-group>surveyJobs</job-group>
+            <!-- every x minutes -->
+            <cron-expression>0 0/10 * * * ?</cron-expression>
+          </cron>
+        </trigger>
+    </job>
+
+    <job>
+        <job-detail>
+          <name>refreshSystemProperties</name>
+          <group>surveyJobs</group>
+          <job-class>com.dneero.scheduledjobs.RefreshSystemProperties</job-class>
+          <volatility>false</volatility>
+          <durability>false</durability>
+          <recover>false</recover>
+        </job-detail>
+        <trigger>
+          <!-- Sample cron triggers: http://www.opensymphony.com/quartz/wikidocs/TutorialLesson6.html -->
+          <cron>
+            <name>refreshSystemPropertiesTrigger</name>
+            <group>surveyTriggers</group>
+            <job-name>refreshSystemProperties</job-name>
+            <job-group>surveyJobs</job-group>
+            <!-- every x minutes -->
+            <cron-expression>0 0/5 * * * ?</cron-expression>
+          </cron>
+        </trigger>
+    </job>
+
 </quartz>

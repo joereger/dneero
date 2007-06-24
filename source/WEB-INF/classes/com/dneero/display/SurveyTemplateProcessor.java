@@ -63,7 +63,7 @@ public class SurveyTemplateProcessor {
         Matcher m = p.matcher(template);
         while(m.find()) {
             ComponentTypes ct = new ComponentTypes();
-            Component component = ct.getByTagSyntax(m.group(), blogger);
+            Component component = ct.getByTagSyntax(m.group(), blogger, survey);
             if (component!=null){
                 m.appendReplacement(out, Str.cleanForAppendreplacement(component.getHtmlForInput() + "<br>"));
             }
@@ -73,7 +73,7 @@ public class SurveyTemplateProcessor {
         } catch (Exception e){
             //Do nothing... just null pointer
         }
-        return "<div style=\"background : #e6e6e6; padding : 5px; width : 425px; overflow : auto;\">"+out.toString()+"</div>";
+        return "<div style=\"background : #ffffff; border: 5px solid #cccccc; padding : 5px; width : 425px; overflow : auto;\">"+out.toString()+"</div>";
     }
 
 
@@ -92,7 +92,7 @@ public class SurveyTemplateProcessor {
         Matcher m = p.matcher(template);
         while(m.find()) {
             ComponentTypes ct = new ComponentTypes();
-            Component component = ct.getByTagSyntax(m.group(), blogger);
+            Component component = ct.getByTagSyntax(m.group(), blogger, survey);
             if (component!=null){
                 m.appendReplacement(out, "<p>"+Str.cleanForAppendreplacement(component.getHtmlForDisplay(response) + "</p>"));
             }

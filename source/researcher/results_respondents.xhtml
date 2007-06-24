@@ -48,7 +48,7 @@
             <f:facet name="header">
               <h:outputText value="-" style="color: #ffffff;"/>
             </f:facet>
-            <h:commandLink action="#{researcherBloggerProfile.beginView}">
+            <h:commandLink action="#{publicProfile.beginView}">
                 <h:outputText value="Blogger's Profile" escape="false" styleClass="smallfont"/>
                 <f:param name="bloggerid" value="#{listitem.bloggerid}" />
             </h:commandLink>
@@ -57,7 +57,7 @@
             <f:facet name="header">
               <h:outputText value="-" style="color: #ffffff;"/>
             </f:facet>
-            <h:commandLink action="#{researcherBloggerProfileAnswers.beginView}">
+            <h:commandLink action="#{publicProfileAnswers.beginView}">
                 <h:outputText value="Blogger's Answers" escape="false" styleClass="smallfont"/>
                 <f:param name="bloggerid" value="#{listitem.bloggerid}" />
                 <f:param name="surveyid" value="#{researcherResultsRespondents.survey.surveyid}" />
@@ -67,7 +67,7 @@
             <f:facet name="header">
               <h:outputText value="-" style="color: #ffffff;"/>
             </f:facet>
-            <h:commandLink action="#{researcherBloggerProfileImpressions.beginView}">
+            <h:commandLink action="#{publicProfileImpressions.beginView}">
                 <h:outputText value="Blogger's Impressions" escape="false" styleClass="smallfont"/>
                 <f:param name="responseid" value="#{listitem.responseid}" />
             </h:commandLink>

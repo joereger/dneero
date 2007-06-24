@@ -3,12 +3,19 @@ package com.dneero.formbeans;
 import org.apache.log4j.Logger;
 import com.dneero.util.Jsf;
 import com.dneero.util.GeneralException;
+import com.dneero.util.Str;
 import com.dneero.dao.User;
 import com.dneero.dao.Blogger;
+import com.dneero.dao.Panel;
+import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.session.UserSession;
 import com.dneero.email.EmailActivationSend;
+import com.dneero.helpers.UserInputSafe;
 
 import java.io.Serializable;
+import java.util.List;
+import java.util.LinkedHashMap;
+import java.util.Iterator;
 
 /**
  * User: Joe Reger Jr
@@ -21,11 +28,17 @@ public class AccountSettings implements Serializable {
     private String email;
     private String firstname;
     private String lastname;
+    private int notifyofnewsurveysbyemaileveryexdays = 1;
+    private boolean allownoncriticalemails = true;
+    private boolean instantnotifybyemailison = false;
+    private boolean instantnotifybytwitterison = false;
+    private String instantnotifytwitterusername = "";
+    private boolean instantnotifyxmppison = false;
+    private String instantnotifyxmppusername = "";
+    
 
     //Other props
     private int userid;
-
-
 
     public AccountSettings(){
 
@@ -38,6 +51,14 @@ public class AccountSettings implements Serializable {
             email = user.getEmail();
             firstname = user.getFirstname();
             lastname = user.getLastname();
+            notifyofnewsurveysbyemaileveryexdays = user.getNotifyofnewsurveysbyemaileveryexdays();
+            allownoncriticalemails = user.getAllownoncriticalemails();
+            instantnotifybyemailison = user.getInstantnotifybyemailison();
+            instantnotifybytwitterison = user.getInstantnotifybytwitterison();
+            instantnotifytwitterusername = user.getInstantnotifytwitterusername();
+            instantnotifyxmppison = user.getInstantnotifyxmppison();
+            instantnotifyxmppusername =  user.getInstantnotifyxmppusername();
+
         }
         return "accountsettings";   
     }
@@ -46,20 +67,38 @@ public class AccountSettings implements Serializable {
 
         UserSession userSession = Jsf.getUserSession();
         if (userSession.getUser()!=null){
+            boolean haveValidationError = false;
             boolean emailNeedsToBeReactivated = false;
             User user = userSession.getUser();
             if (!user.getEmail().equals(email)){
-                emailNeedsToBeReactivated = true;
+                long cnt = (Long)HibernateUtil.getSession().createQuery("select count(*) from User where email='"+email+"' and userid<>'"+userSession.getUser().getUserid()+"'").uniqueResult();
+                if (cnt>0){
+                    Jsf.setFacesMessage("accountSettingsForm:email", "The email address ("+email+") is already in use and was not added to your account.");
+                    haveValidationError = true;
+                    email = user.getEmail();
+                } else {
+                    emailNeedsToBeReactivated = true;
+                    user.setEmail(email);
+                }
             }
-            user.setEmail(email);
-            user.setFirstname(firstname);
-            user.setLastname(lastname);
+            user.setFirstname(UserInputSafe.clean(firstname));
+            user.setLastname(UserInputSafe.clean(lastname));
+            user.setNotifyofnewsurveysbyemaileveryexdays(notifyofnewsurveysbyemaileveryexdays);
+            user.setAllownoncriticalemails(allownoncriticalemails);
+            user.setInstantnotifybyemailison(instantnotifybyemailison);
+            user.setInstantnotifybytwitterison(instantnotifybytwitterison);
+            user.setInstantnotifytwitterusername(UserInputSafe.clean(instantnotifytwitterusername));
+            user.setInstantnotifyxmppison(instantnotifyxmppison);
+            user.setInstantnotifyxmppusername(UserInputSafe.clean(instantnotifyxmppusername));
             try{
                 user.save();
                 userid = user.getUserid();
+                if (!haveValidationError){
+                    Jsf.setFacesMessage("accountSettingsForm:all", "Settings saved!");
+                }
             } catch (GeneralException gex){
                 Logger logger = Logger.getLogger(this.getClass().getName());
-                logger.debug("registerAction failed: " + gex.getErrorsAsSingleString());
+                logger.debug("saveAction failed: " + gex.getErrorsAsSingleString());
                 return null;
             }
 
@@ -67,12 +106,19 @@ public class AccountSettings implements Serializable {
                 EmailActivationSend.sendActivationEmail(user);
             }
         }
-        AccountIndex bean = (AccountIndex)Jsf.getManagedBean("accountIndex");
+        AccountSettings bean = (AccountSettings)Jsf.getManagedBean("accountSettings");
         return bean.beginView();
         //return "accountindex";
     }
 
-
+    public LinkedHashMap getNotificationFrequencies(){
+        LinkedHashMap out = new LinkedHashMap();
+        out.put("Every Day", 1);
+        out.put("Every Week", 7);
+        out.put("Every 30 Days", 31);
+        out.put("Never", 0);
+        return out;
+    }
 
 
     public String getEmail() {
@@ -107,6 +153,61 @@ public class AccountSettings implements Serializable {
         this.userid = userid;
     }
 
-    
 
+    public int getNotifyofnewsurveysbyemaileveryexdays() {
+        return notifyofnewsurveysbyemaileveryexdays;
+    }
+
+    public void setNotifyofnewsurveysbyemaileveryexdays(int notifyofnewsurveysbyemaileveryexdays) {
+        this.notifyofnewsurveysbyemaileveryexdays = notifyofnewsurveysbyemaileveryexdays;
+    }
+
+    public boolean getAllownoncriticalemails() {
+        return allownoncriticalemails;
+    }
+
+    public void setAllownoncriticalemails(boolean allownoncriticalemails) {
+        this.allownoncriticalemails = allownoncriticalemails;
+    }
+
+
+    public boolean getInstantnotifybyemailison() {
+        return instantnotifybyemailison;
+    }
+
+    public void setInstantnotifybyemailison(boolean instantnotifybyemailison) {
+        this.instantnotifybyemailison = instantnotifybyemailison;
+    }
+
+    public boolean getInstantnotifybytwitterison() {
+        return instantnotifybytwitterison;
+    }
+
+    public void setInstantnotifybytwitterison(boolean instantnotifybytwitterison) {
+        this.instantnotifybytwitterison = instantnotifybytwitterison;
+    }
+
+    public String getInstantnotifytwitterusername() {
+        return instantnotifytwitterusername;
+    }
+
+    public void setInstantnotifytwitterusername(String instantnotifytwitterusername) {
+        this.instantnotifytwitterusername = instantnotifytwitterusername;
+    }
+
+    public boolean getInstantnotifyxmppison() {
+        return instantnotifyxmppison;
+    }
+
+    public void setInstantnotifyxmppison(boolean instantnotifyxmppison) {
+        this.instantnotifyxmppison = instantnotifyxmppison;
+    }
+
+    public String getInstantnotifyxmppusername() {
+        return instantnotifyxmppusername;
+    }
+
+    public void setInstantnotifyxmppusername(String instantnotifyxmppusername) {
+        this.instantnotifyxmppusername = instantnotifyxmppusername;
+    }
 }

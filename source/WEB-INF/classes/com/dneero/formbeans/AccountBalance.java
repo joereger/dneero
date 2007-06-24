@@ -39,7 +39,7 @@ public class AccountBalance implements Serializable {
         if (userSession!=null && userSession.getUser()!=null && userSession.getUser().getBloggerid()>0){
             currentbalanceDbl = CurrentBalanceCalculator.getCurrentBalance(Jsf.getUserSession().getUser());
             currentbalance = "$"+Str.formatForMoney(currentbalanceDbl);
-            List bals = HibernateUtil.getSession().createQuery("from Balance where userid='"+userSession.getUser().getUserid()+"' order by balanceid desc").list();
+            List bals = HibernateUtil.getSession().createQuery("from Balance where userid='"+userSession.getUser().getUserid()+"' order by balanceid desc").setCacheable(true).list();
             balances = new ArrayList<AccountBalanceListItem>();
             for (Iterator iterator = bals.iterator(); iterator.hasNext();) {
                 Balance balance = (Balance) iterator.next();

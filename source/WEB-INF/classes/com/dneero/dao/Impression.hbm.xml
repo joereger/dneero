@@ -9,11 +9,13 @@
             <column name="impressionid" />
             <generator class="native" />
         </id>
+        <!-- HORRIBLE PERFORMANCE - ALWAYS REMEMBER TO DELETE IMPRESSIONDETAILS IF YOU DELETE IMPRESSION
         <set name="impressiondetails" inverse="true" order-by="impressiondetailid asc" cascade="all-delete-orphan">
             <cache usage="transactional"/>
             <key column="impressionid"></key>
             <one-to-many class="com.dneero.dao.Impressiondetail" not-found="ignore"></one-to-many>
         </set>
+        -->
         <property name="surveyid" type="int">
             <column name="surveyid" not-null="true" />
         </property>
@@ -22,6 +24,9 @@
         </property>
         <property name="impressionsqualifyingforpayment" type="int">
             <column name="impressionsqualifyingforpayment" not-null="true" />
+        </property>
+        <property name="impressionstotal" type="int">
+            <column name="impressionstotal" not-null="true" />
         </property>
         <property name="quality" type="int">
             <column name="quality" not-null="true" />

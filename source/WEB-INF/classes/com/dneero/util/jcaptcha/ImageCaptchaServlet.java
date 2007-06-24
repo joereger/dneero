@@ -4,6 +4,7 @@ package com.dneero.util.jcaptcha;
 import com.octo.captcha.service.CaptchaServiceException;
 import com.sun.image.codec.jpeg.JPEGCodec;
 import com.sun.image.codec.jpeg.JPEGImageEncoder;
+import com.dneero.util.Jsf;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -54,6 +55,9 @@ public class ImageCaptchaServlet extends HttpServlet {
             } catch (CaptchaServiceException e) {
                 httpServletResponse.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
                 return;
+            } catch (Exception e){
+                logger.error("jCaptcha Error (top in code): captchaId="+httpServletRequest.getSession().getId());
+                logger.error(e);
             }
 
             captchaChallengeAsJpeg = jpegOutputStream.toByteArray();

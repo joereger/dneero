@@ -12,18 +12,17 @@
       >
 
 <ui:composition template="/template/template-facelets.xhtml">
-    <ui:define name="title">Account Balance: #{accountBalance.currentbalance}<br/>
-        <h:outputText value="(We owe you money.  Once a day, if you have a balance of over $25 and don't have any live surveys that you've launched yourself then we'll send money to the PayPal address in your blogger profile.)" styleClass="smallfont" style="color: #0bae17;" rendered="#{accountBalance.currentbalanceDbl gt 0}"/>
-        <h:outputText value="(You owe us money.)" styleClass="smallfont" style="color: #0bae17;" rendered="#{accountBalance.currentbalanceDbl lt 0}"/>
-        <br/><br/>
-    </ui:define>
+    <ui:define name="title">Account Balance: #{accountBalance.currentbalance}<br/></ui:define>
     <ui:param name="navtab" value="youraccount"/>
     <ui:define name="body">
     <d:authorization acl="account" redirectonfail="true"/>
 
 
-
-
+    <div class="rounded" style="padding: 15px; margin: 5px; background: #F2FFBF;">
+        <h:outputText value="(We owe you money.  Once a day, if you have a balance of over $25 and don't have any live surveys that you've launched yourself then we'll send money to the PayPal address in your blogger profile.)" styleClass="smallfont" style="color: #000000;" rendered="#{accountBalance.currentbalanceDbl gt 0}"/>
+        <h:outputText value="(You owe us money.)" styleClass="smallfont" style="color: #000000;" rendered="#{accountBalance.currentbalanceDbl lt 0}"/>
+    </div>
+    <br/><br/>
     
     <h:form>
         <t:saveState id="save" value="#{accountBalance}"/>

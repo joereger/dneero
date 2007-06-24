@@ -28,7 +28,7 @@
         <f:facet name="header">
           <h:outputText value="Title"/>
         </f:facet>
-        <h:commandLink action="#{bloggerSurveyDetail.beginView}">
+        <h:commandLink action="#{publicSurveyTakeRedirector.beginView}">
             <h:outputText value="#{srvy.title}" escape="false" styleClass="normalfont" style="color: #0000ff;"/>
             <f:param name="surveyid" value="#{srvy.surveyid}" />
         </h:commandLink>

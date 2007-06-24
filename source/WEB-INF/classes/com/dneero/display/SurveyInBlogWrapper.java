@@ -22,7 +22,8 @@ public class SurveyInBlogWrapper {
         }
         String baseurl = BaseUrl.get(makeHttpsIfSSLIsOn);
         out.append("<!-- Start dNeero Survey -->\n" +
-                "<table cellpadding=\"0\" cellspacing=\"0\" border=\"0\" bgcolor=\"#e6e6e6\" width=\"425\">\n" +
+                "<div style=\"border: 5px solid #cccccc; width: 415px\">"+
+                "<table cellpadding=\"0\" cellspacing=\"0\" border=\"0\" bgcolor=\"#ffffff\" width=\"415\">\n" +
                 "\t<tr>\n" +
                 "\t\t<td valign=\"top\" align=\"left\" colspan=\"7\" height=\"215\">\n" +
                 "\t\t\t<!-- Start Survey Questions -->\n" +
@@ -34,17 +35,18 @@ public class SurveyInBlogWrapper {
          if(includeFooter){
             out.append("\t<tr>\t\n" +
                     "\t\t<td valign=\"bottom\" align=\"left\" bgcolor=\"#ffffff\">\n" +
-                    "\t\t\t<a href='"+baseurl+"surveytake.jsf?surveyid="+survey.getSurveyid()+"&userid="+userid+"'><img src=\""+baseurl+"images/surveyinblog/dneero-survey-questionmark.gif\" border=\"0\"></a>\n" +
+                    "\t\t\t<a href='"+baseurl+"survey.jsf?surveyid="+survey.getSurveyid()+"&userid="+userid+"'><img src=\""+baseurl+"images/surveyinblog/dneero-survey-questionmark.gif\" border=\"0\"></a>\n" +
                     "\t\t</td>\n" +
                     "\t\t<td valign=\"bottom\" align=\"center\" bgcolor=\"#ffffff\">\n" +
-                    "\t\t\t<a href='"+baseurl+"surveyanswers.jsf?surveyid="+survey.getSurveyid()+"&userid="+userid+"'><img src=\""+baseurl+"images/surveyinblog/dneero-survey-people.gif\" border=\"0\"></a>\n" +
+                    "\t\t\t<a href='"+baseurl+"survey.jsf?surveyid="+survey.getSurveyid()+"&userid="+userid+"&show=results'><img src=\""+baseurl+"images/surveyinblog/dneero-survey-people.gif\" border=\"0\"></a>\n" +
                     "\t\t</td>\n" +
                     "\t\t<td valign=\"bottom\" align=\"right\" bgcolor=\"#ffffff\">\n" +
-                    "\t\t\t<a href='"+baseurl+"surveydisclosure.jsf?surveyid="+survey.getSurveyid()+"&userid="+userid+"'><img src=\""+baseurl+"images/surveyinblog/dneero-survey-logo.gif\" border=\"0\"></a>\n" +
+                    "\t\t\t<a href='"+baseurl+"survey.jsf?surveyid="+survey.getSurveyid()+"&userid="+userid+"&show=disclosure'><img src=\""+baseurl+"images/surveyinblog/dneero-survey-logo.gif\" border=\"0\"></a>\n" +
                     "\t\t</td>\n" +
                     "\t</tr>\n");    
         }
         out.append("</table>\n" +
+                "</div>"+
                 "<!-- End dNeero Survey -->");
 
          return out.toString();

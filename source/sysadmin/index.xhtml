@@ -18,11 +18,17 @@
 
     <font class="normalfont">Pending Balance: </font>
     <h:outputText value="#{systemStats.systembalance}" styleClass="normalfont"><f:convertNumber type="number" maxFractionDigits="2"/></h:outputText>
-    <br/><font class="tinyfont">The amount of accrued balance in the system that hasn't yet been handled in the real world.  A negative balance means that dNeero owes money to people.</font>
+    <br/><font class="tinyfont">The amount of accrued balance that users are holding.  A positive number means we are holding this much money for people.  But keep in mind that this also includes money for researchers who are running surveys.</font>
     <br/><br/>
     <font class="normalfont">System Balance Real World: </font>
     <h:outputText value="#{systemStats.systembalancerealworld}" styleClass="normalfont"><f:convertNumber type="number" maxFractionDigits="2"/></h:outputText>
-    <br/><font class="tinyfont">Real world difference in the amount of money taken in and amount of money sent out.  Gross margin.  A negative number means that dNeero is losing money.</font>
+    <br/><font class="tinyfont">Total real world money taken in and sent out.   A negative number means that dNeero has not collected all the money it has sent out... which shouldn't happen.</font>
+    <br/><br/>
+    <font class="normalfont">System Overall Balance: </font>
+    <h:outputText value="#{systemStats.systembalancetotal}" styleClass="normalfont"><f:convertNumber type="number" maxFractionDigits="2"/></h:outputText>
+    <br/><font class="tinyfont">Estimate of gross income.</font>
+
+
     </ui:define>
 
 

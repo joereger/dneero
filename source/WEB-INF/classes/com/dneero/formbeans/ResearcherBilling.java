@@ -8,6 +8,7 @@ import com.dneero.dao.Researcher;
 import com.dneero.dao.Creditcard;
 import com.dneero.dao.Userrole;
 import com.dneero.money.PaymentMethod;
+import com.dneero.helpers.UserInputSafe;
 
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -100,15 +101,15 @@ public class ResearcherBilling implements Serializable {
             cc.setCcexpyear(ccexpyear);
             cc.setCcnum(ccnum);
             cc.setCctype(cctype);
-            cc.setCity(cccity);
+            cc.setCity(UserInputSafe.clean(cccity));
             cc.setCvv2(cvv2);
-            cc.setFirstname(firstname);
+            cc.setFirstname(UserInputSafe.clean(firstname));
             cc.setIpaddress(Jsf.getRemoteAddr());
-            cc.setLastname(lastname);
+            cc.setLastname(UserInputSafe.clean(lastname));
             cc.setMerchantsessionid(Jsf.getSessionID());
             cc.setPostalcode(postalcode);
-            cc.setState(ccstate);
-            cc.setStreet(street);
+            cc.setState(UserInputSafe.clean(ccstate));
+            cc.setStreet(UserInputSafe.clean(street));
             cc.setUserid(userSession.getUser().getUserid());
             try{
                 cc.save();
@@ -137,7 +138,7 @@ public class ResearcherBilling implements Serializable {
 
             ResearcherIndex bean = (ResearcherIndex)Jsf.getManagedBean("researcherIndex");
             return bean.beginView();
-            //return "researcherhome";
+            //return "researcherindex";
 
         } else {
             Jsf.setFacesMessage("UserSession.getUser() is null.  Please log in.");

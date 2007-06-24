@@ -15,7 +15,8 @@ import com.dneero.session.UserSession;
 import com.dneero.finders.FindBloggersForSurvey;
 import com.dneero.money.*;
 import com.dneero.scheduledjobs.ResearcherRemainingBalanceOperations;
-import com.dneero.threadpool.ThreadPool;
+import com.dneero.instantnotify.InstantNotifyOfNewSurvey;
+
 
 /**
  * User: Joe Reger Jr
@@ -184,7 +185,8 @@ public class ResearcherSurveyDetail06 implements Serializable {
     }
 
     public String saveSurveyAsDraft(){
-        return "researchersurveylist";
+        ResearcherIndex bean = (ResearcherIndex)Jsf.getManagedBean("researcherIndex");
+        return bean.beginView();
     }
 
     public String previousStep(){
@@ -292,6 +294,10 @@ public class ResearcherSurveyDetail06 implements Serializable {
 
                 //Refresh
                 survey.refresh();
+
+                //InstantNotify
+                InstantNotifyOfNewSurvey inons = new InstantNotifyOfNewSurvey(survey.getSurveyid());
+                inons.sendNotifications();
             }
         }
 

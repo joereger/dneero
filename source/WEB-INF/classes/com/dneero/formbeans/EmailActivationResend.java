@@ -1,6 +1,7 @@
 package com.dneero.formbeans;
 
 import org.apache.log4j.Logger;
+import org.apache.commons.validator.EmailValidator;
 import com.dneero.util.Jsf;
 import com.dneero.util.RandomString;
 import com.dneero.util.GeneralException;
@@ -57,7 +58,7 @@ public class EmailActivationResend implements Serializable {
         }
 
         List<User> users = HibernateUtil.getSession().createQuery("from User where email='"+email+"'").list();
-        if (users.size()<=0){
+        if (email==null || email.equals("") || users.size()<=0){
             Jsf.setFacesMessage("resendform:email", "That email address was not found.");
             return null;
         }

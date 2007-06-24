@@ -13,6 +13,7 @@ import com.dneero.session.UserSession;
 import com.dneero.util.Jsf;
 import com.dneero.util.GeneralException;
 import com.dneero.xmpp.SendXMPPMessage;
+import com.dneero.helpers.UserInputSafe;
 
 import java.util.*;
 import java.io.Serializable;
@@ -69,7 +70,7 @@ public class AccountSupportIssueDetail implements Serializable {
         supportissuecomm.setSupportissueid(supportissueid);
         supportissuecomm.setDatetime(new Date());
         supportissuecomm.setIsfromdneeroadmin(false);
-        supportissuecomm.setNotes(notes);
+        supportissuecomm.setNotes(UserInputSafe.clean(notes));
 
         supportissue.getSupportissuecomms().add(supportissuecomm);
 

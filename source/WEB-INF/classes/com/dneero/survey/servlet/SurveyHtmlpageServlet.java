@@ -20,13 +20,18 @@ import com.dneero.display.SurveyInBlogWrapper;
  */
 public class SurveyHtmlpageServlet extends HttpServlet {
 
-    Logger logger = Logger.getLogger(this.getClass().getName());
 
     public void doGet (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doPost(request, response);
     }
 
     public void doPost (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Logger logger = Logger.getLogger(this.getClass().getName());
+        logger.debug("Looking for html page survey via servlet");
+        logger.debug("request.getParameter(\"s\")="+request.getParameter("s"));
+        logger.debug("request.getParameter(\"u\")="+request.getParameter("u"));
+        logger.debug("request.getParameter(\"p\")="+request.getParameter("p"));
+
         PrintWriter out = response.getWriter();
 
         Survey survey = null;
@@ -54,7 +59,7 @@ public class SurveyHtmlpageServlet extends HttpServlet {
         
         String surveyashtml = SurveyAsHtml.getHtml(survey, user, false);
         StringBuffer scrollablediv = new StringBuffer();
-        scrollablediv.append("<div style=\"border : solid 0px #cccccc; background : #e6e6e6; padding : 5px; width : 425px; height : 200px; overflow : auto; \">"+"\n");
+        scrollablediv.append("<div style=\"background : #ffffff; padding: 5px; width: 405px; height: 215px; overflow : auto; text-align: left;\">"+"\n");
         scrollablediv.append(surveyashtml);
         scrollablediv.append("</div>"+"\n");
         String surveyashtmlwrapped = SurveyInBlogWrapper.wrap(user, survey, scrollablediv.toString(), true, false);
@@ -64,7 +69,7 @@ public class SurveyHtmlpageServlet extends HttpServlet {
     }
 
     public static String getEmbedSyntax(String baseurl, int surveyid, int userid, boolean ispreview){
-        Logger logger = Logger.getLogger(SurveyImagelinkServlet.class);
+        Logger logger = Logger.getLogger(SurveyImageServlet.class);
         String out = "";
         String ispreviewStr = "0";
         if (ispreview){

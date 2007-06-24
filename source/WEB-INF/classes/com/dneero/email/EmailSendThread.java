@@ -10,26 +10,24 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import javax.activation.DataHandler;
 import java.util.Enumeration;
+import java.io.Serializable;
 
 import com.dneero.systemprops.SystemProperty;
+import com.dneero.threadpool.ThreadPool;
 
 /**
  * Sends automates email subscription emails
  */
-public class EmailSendThread extends Thread {
+public class EmailSendThread implements Runnable, Serializable {
 
     public HtmlEmail htmlEmail;
     public static String DEFAULTFROM = "info@dneero.com";
+    private static ThreadPool tp;
 
     Logger logger = Logger.getLogger(this.getClass().getName());
 
     public EmailSendThread() {
 
-    }
-
-    public void init() {
-        this.setPriority(Thread.MIN_PRIORITY);
-        run();
     }
 
     public void run() {
@@ -44,6 +42,13 @@ public class EmailSendThread extends Thread {
         } finally {
             logEmailSend(htmlEmail);
         }
+    }
+
+    public void startThread(){
+        if (tp==null){
+            tp = new ThreadPool(15);
+        }
+        tp.assign(this);
     }
 
     private void logEmailSend(HtmlEmail htmlEmail){

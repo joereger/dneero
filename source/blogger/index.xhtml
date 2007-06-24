@@ -81,24 +81,7 @@
 
     </c:if>
 
-    <c:if test="${userSession.isloggedin and (userSession.user.bloggerid eq 0)}">
-        <center>
-        <div class="rounded" style="padding: 15px; margin: 5px; background: #F2FFBF; width: 60%;">
-            <h:commandLink action="bloggerdetails"><font class="mediumfont">Quick One-time Blogger Configuration Required</font></h:commandLink>
-            <br/>
-            <font class="smallfont">Before you can make money blogging we need to collect a few pieces of information about you and your blog.  This will only take a minute or two and you won't have to do it again on future visits.  You'll be filling out surveys, posting them to your blog and making money in no time!</font>
-            <br/><br/><br/>
-            <h:commandLink action="bloggerdetails"><font class="normalfont">Continue</font></h:commandLink>
-        </div>
-        <t:div rendered="#{bloggerIndex.userhasresponsependings}">
-            <div class="rounded" style="padding: 15px; margin: 5px; background: #F2FFBF; width: 60%;">
-                <img src="/images/alert.png" border="0" align="right"/>
-                <font class="mediumfont">You have a pending survey response.  You must complete the Quick One-time Blogger Configuration to continue.</font>
-                <br/><br/>
-            </div>
-        </t:div>
-        </center>
-    </c:if>
+    
 
     <c:if test="${userSession.isloggedin and (userSession.user.bloggerid gt 0) and (!bloggerIndex.showmarketingmaterial)}">
         <t:div rendered="#{bloggerIndex.msg ne ''}">
@@ -118,56 +101,67 @@
         <table cellpadding="10" cellspacing="0" border="0" width="100%">
             <tr>
                 <td width="250" valign="top">
-                    <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
-                        <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-                            <h:commandLink value="Earnings from Completed Surveys" action="#{bloggerCompletedsurveys.beginView}" styleClass="mediumfont" style="color: #596697;"/>
-                        </td></tr>
-                        <tr><td valign="top"></td><td valign="top">
-                            <font class="smallfont">See how much you've earned.</font>
-                        </td></tr></table>
+                    <div class="rounded" style="padding: 5px; margin: 5px; background: #e6e6e6;">
+                        <div class="rounded" style="padding: 15px; margin: 5px; background: #ffffff;">
+                            <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
+                                <h:commandLink value="Find Surveys to Take" action="#{publicSurveyList.beginView}" styleClass="mediumfont" style="color: #596697;"/>
+                            </td></tr>
+                            <tr><td valign="top"></td><td valign="top">
+                                <font class="smallfont">Make money taking surveys and posting your answers to your blog.</font>
+                            </td></tr></table>
+                        </div>
+                        <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
+                            <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
+                                <h:commandLink value="Earn Money Inviting Friends" action="#{bloggerEarningsRevshare.beginView}" styleClass="mediumfont" style="color: #596697;"/>
+                            </td></tr>
+                            <tr><td valign="top"></td><td valign="top">
+                                <font class="smallfont">Invite friends and earn money when they take surveys!</font>
+                            </td></tr></table>
 
-                        <br/><br/>
-                        <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-                            <h:commandLink value="Update Blogger Profile" action="#{bloggerDetails.beginView}" styleClass="mediumfont" style="color: #596697;"/>
-                        </td></tr>
-                        <tr><td valign="top"></td><td valign="top">
-                            <font class="smallfont">Your profile helps us find surveys that fit your interests.  Keep it up to date.</font>
-                        </td></tr></table>
+                            <br/><br/>
+                            <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
+                                <h:commandLink value="Earnings from Completed Surveys" action="#{bloggerCompletedsurveys.beginView}" styleClass="mediumfont" style="color: #596697;"/>
+                            </td></tr>
+                            <tr><td valign="top"></td><td valign="top">
+                                <font class="smallfont">See how much you've earned.</font>
+                            </td></tr></table>
 
-                        <br/><br/>
-                        <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-                            <h:commandLink value="Add/Edit Blogs" action="#{bloggerBlogsList.beginView}" styleClass="mediumfont" style="color: #596697;"/>
-                        </td></tr>
-                        <tr><td valign="top"></td><td valign="top">
-                            <font class="smallfont">We need to know which blogs are yours so that we can pay you for survey displays on that blog.  Make sure that any blog you post a survey to is listed here.</font>
-                        </td></tr></table>
+                            <br/><br/>
+                            <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
+                                <h:commandLink value="Update Blogger Profile" action="#{bloggerDetails.beginView}" styleClass="mediumfont" style="color: #596697;"/>
+                            </td></tr>
+                            <tr><td valign="top"></td><td valign="top">
+                                <font class="smallfont">Your profile helps us find surveys that fit your interests.  Keep it up to date.</font>
+                            </td></tr></table>
 
-                        <br/><br/>
-                        <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-                            <h:commandLink value="Earn Money Inviting Friends" action="#{bloggerEarningsRevshare.beginView}" styleClass="mediumfont" style="color: #596697;"/>
-                        </td></tr>
-                        <tr><td valign="top"></td><td valign="top">
-                            <font class="smallfont">Invite friends and earn money when they take surveys!</font>
-                        </td></tr></table>
+                            <br/><br/>
+                            <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
+                                <h:commandLink value="Add/Edit Blogs" action="#{bloggerBlogsList.beginView}" styleClass="mediumfont" style="color: #596697;"/>
+                            </td></tr>
+                            <tr><td valign="top"></td><td valign="top">
+                                <font class="smallfont">We need to know which blogs are yours so that we can pay you for survey displays on that blog.  Make sure that any blog you post a survey to is listed here.</font>
+                            </td></tr></table>
 
-                        <br/><br/>
-                        <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-                            <h:commandLink value="Blogger Frequently Asked Questions" action="bloggerfaq" styleClass="mediumfont" style="color: #596697;"/>
-                        </td></tr>
-                        <tr><td valign="top"></td><td valign="top">
-                            <font class="smallfont">Get your answers here!</font>
-                        </td></tr></table>
+                            <br/><br/>
+                            <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
+                                <h:commandLink value="Blogger Frequently Asked Questions" action="bloggerfaq" styleClass="mediumfont" style="color: #596697;"/>
+                            </td></tr>
+                            <tr><td valign="top"></td><td valign="top">
+                                <font class="smallfont">Get your answers here!</font>
+                            </td></tr></table>
 
-                        <br/><br/>
-                        <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-                            <h:commandLink value="Blogger Basic Info" action="#{bloggerIndex.beginView}" styleClass="mediumfont" style="color: #596697;"><f:param name="showmarketingmaterial" value="1"/></h:commandLink>
-                        </td></tr>
-                        <tr><td valign="top"></td><td valign="top">
-                            <font class="smallfont">Basic Blogger information, how the system works, etc.</font>
-                        </td></tr></table>
+                            <br/><br/>
+                            <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
+                                <h:commandLink value="Blogger Basic Info" action="#{bloggerIndex.beginView}" styleClass="mediumfont" style="color: #596697;"><f:param name="showmarketingmaterial" value="1"/></h:commandLink>
+                            </td></tr>
+                            <tr><td valign="top"></td><td valign="top">
+                                <font class="smallfont">Basic Blogger information, how the system works, etc.</font>
+                            </td></tr></table>
+                        </div>
                     </div>
                 </td>
                 <td valign="top">
+                    <!--
                     <h:outputText value="Surveys You Qualify For" styleClass="largefont" style="color: #cccccc;" escape="false"/>
                     <t:div rendered="#{empty bloggerSurveyList.surveys}">
                         <div class="rounded" style="padding: 15px; margin: 5px; background: #F2FFBF;">
@@ -181,7 +175,7 @@
                         <f:facet name="header">
                           <h:outputText value="Title"/>
                         </f:facet>
-                        <h:commandLink action="#{bloggerSurveyDetail.beginView}">
+                        <h:commandLink action="#{publicSurveyTakeRedirector.beginView}">
                             <h:outputText value="#{srvy.title}" escape="false" styleClass="normalfont" style="font-weight: bold; color: #0000ff;"/>
                             <f:param name="surveyid" value="#{srvy.surveyid}" />
                         </h:commandLink>
@@ -221,10 +215,17 @@
                     </t:dataScroller>
 
                     <br/><br/>
+                    -->
+
                     <h:outputText value="Surveys You've Completed" styleClass="largefont" style="color: #cccccc;" escape="false"/>
                     <t:div rendered="#{empty bloggerCompletedsurveys.list}">
                         <div class="rounded" style="padding: 15px; margin: 5px; background: #F2FFBF;">
-                            <font class="smallfont">You haven't yet completed any surveys.</font>
+                            <font class="smallfont">
+                            <h:outputText value="You haven't yet completed any surveys." styleClass="smallfont" style="padding-right:8px;"/>
+                            <h:commandLink action="#{publicSurveyList.beginView}">
+                            <h:outputText value="Find Surveys to Take" escape="false" styleClass="smallfont" style="font-weight: bold; color: #0000ff;"/>
+                            </h:commandLink>
+                            </font>
                         </div>
                         <br/><br/>
                     </t:div>
@@ -234,7 +235,7 @@
                         <f:facet name="header">
                           <h:outputText value="Survey Title"/>
                         </f:facet>
-                        <h:commandLink action="#{bloggerSurveyPosttoblog.beginView}">
+                        <h:commandLink action="#{publicSurveyTakeRedirector.beginView}">
                             <h:outputText value="#{listitem.surveytitle}" escape="false" styleClass="normalfont" style="font-weight: bold; color: #0000ff;"/>
                             <f:param name="surveyid" value="#{listitem.surveyid}" />
                         </h:commandLink>
@@ -247,24 +248,29 @@
                       </h:column>
                       <h:column>
                         <f:facet name="header">
-                          <h:outputText value="Response Earnings"/>
-                        </f:facet>
-                        <h:outputText value="#{listitem.amtforresponse}" styleClass="smallfont"/>
-                      </h:column>
-                      <h:column>
-                        <f:facet name="header">
                           <h:outputText value="Blog Displays"/>
                         </f:facet>
-                        <h:commandLink action="#{bloggerImpressions.beginView}">
-                            <h:outputText value="#{listitem.impressions}" styleClass="smallfont" escape="false"/>
-                            <f:param name="surveyid" value="#{listitem.surveyid}" />
-                        </h:commandLink>
+                        <center>
+                            <h:commandLink action="#{bloggerImpressions.beginView}">
+                                <h:outputText value="#{listitem.impressions}" styleClass="smallfont" escape="false"/>
+                                <f:param name="surveyid" value="#{listitem.surveyid}" />
+                            </h:commandLink>
+                        </center>
                       </h:column>
                       <h:column>
                         <f:facet name="header">
                           <h:outputText value="Estimated Earnings"/>
                         </f:facet>
                         <h:outputText value="#{listitem.amttotal}" styleClass="smallfont" style="font-weight: bold;"/>
+                      </h:column>
+                      <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="-" style="color: #ffffff;"/>
+                        </f:facet>
+                        <h:commandLink action="#{publicSurveyTakeRedirector.beginView}" rendered="#{listitem.impressions eq 0}">
+                            <h:outputText value="Post to Blog" escape="false" styleClass="smallfont" style="font-weight:bold;"/>
+                            <f:param name="surveyid" value="#{listitem.surveyid}" />
+                        </h:commandLink>
                       </h:column>
                   </t:dataTable>
                     <t:dataScroller id="scroll_1" for="datatable" rendered="#{!empty bloggerCompletedsurveys.list}" fastStep="10" pageCountVar="pageCount" pageIndexVar="pageIndex" styleClass="scroller" paginator="true" paginatorMaxPages="9" paginatorTableClass="paginator" paginatorActiveColumnStyle="font-weight:bold;">
@@ -284,9 +290,7 @@
                     <t:div rendered="#{!empty bloggerCompletedsurveys.list}">
                         <br/><br/>
                         <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
-                        <img src="/images/lightbulb_on.png" alt="" align="right"/>
-                        Note: Earnings calculations are not final.   Final payment notification and calculation can be found on <h:commandLink  action="#{accountBalance.beginView}" styleClass="smallfont">Your Account Balance</h:commandLink> page.
-                        <br/><br/><br/>
+                        Note: Earnings calculations are not final.   Final payment notification and calculation can be found on <h:commandLink  action="#{accountBalance.beginView}" styleClass="smallfont" style="padding-left: 8px;">Your Account Balance</h:commandLink> page.
                         </font></div></center>
                     </t:div>
 

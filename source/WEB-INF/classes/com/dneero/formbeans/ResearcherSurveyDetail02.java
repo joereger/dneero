@@ -61,9 +61,8 @@ public class ResearcherSurveyDetail02 implements Serializable {
     public String saveSurveyAsDraft(){
         String save = saveSurvey();
         if (save!=null){
-            ResearcherSurveyList bean = (ResearcherSurveyList)Jsf.getManagedBean("researcherSurveyList");
+            ResearcherIndex bean = (ResearcherIndex)Jsf.getManagedBean("researcherIndex");
             return bean.beginView();
-            //return "researchersurveylist";
         } else {
             return save;
         }
@@ -221,7 +220,6 @@ public class ResearcherSurveyDetail02 implements Serializable {
             questionid = Integer.parseInt(tmpQuestionid);
         }
 
-
         UserSession userSession = Jsf.getUserSession();
 
         Survey survey = new Survey();
@@ -235,6 +233,23 @@ public class ResearcherSurveyDetail02 implements Serializable {
             Question question1 = iterator.next();
             if (question1.getQuestionid()==questionid){
                 iterator.remove();
+            }
+        }
+
+        //Have to delete the question tag from the template
+        logger.debug("About to update template to remove deleted question from the template. Looking for <$question_"+questionid+"$>");
+        if (survey.getTemplate()!=null && survey.getTemplate().indexOf("<$question_"+questionid+"$>")>-1){
+            logger.debug("found an instance of <$question_"+questionid+"$>");
+            String template = survey.getTemplate();
+            template = template.replaceAll("<p><\\$question_"+questionid+"\\$></p>", "");
+            template = template.replaceAll("<\\$question_"+questionid+"\\$>", "");
+            logger.debug(template);
+            survey.setTemplate(template);
+        } else {
+            if (survey.getTemplate()==null){
+                logger.debug("none found, survey.getTemplate() is null");   
+            } else {
+                logger.debug("none found, survey.getTemplate().indexOf(\"<$question_"+questionid+"$>\")="+survey.getTemplate().indexOf("<$question_"+questionid+"$>"));
             }
         }
 

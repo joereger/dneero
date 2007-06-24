@@ -3,6 +3,7 @@ package com.dneero.dao.hibernate;
 import org.hibernate.SessionFactory;
 import org.hibernate.Session;
 import org.hibernate.HibernateException;
+import org.hibernate.cache.TreeCacheProvider;
 import org.hibernate.tool.hbm2ddl.SchemaUpdate;
 import org.hibernate.event.*;
 import org.hibernate.cfg.Configuration;
@@ -10,6 +11,7 @@ import org.apache.log4j.Logger;
 
 import java.io.File;
 import java.io.Serializable;
+import java.lang.management.ManagementFactory;
 
 
 import com.dneero.systemprops.InstanceProperties;
@@ -19,6 +21,10 @@ import com.dneero.dao.hibernate.eventlisteners.RegerPreInsertEventListener;
 import com.dneero.dao.hibernate.eventlisteners.RegerPreDeleteEventListener;
 import com.dneero.dao.hibernate.eventlisteners.RegerPreUpdateEventListener;
 import com.dneero.startup.ApplicationStartup;
+
+import javax.management.MBeanServer;
+import javax.management.ObjectName;
+import javax.management.MBeanServerFactory;
 
 public class HibernateUtil {
 
@@ -30,6 +36,7 @@ public class HibernateUtil {
 
     private static void initializeSession(){
         Logger logger = Logger.getLogger(HibernateUtil.class);
+        logger.info("Starting HibernateUtil.initializeSession()");
         if (ApplicationStartup.getIswabapprooddirdiscovered()){
             if (InstanceProperties.haveValidConfig()){
                 try {
@@ -65,17 +72,21 @@ public class HibernateUtil {
                     //Interceptor(s)
                     //conf.setInterceptor(new HibernateInterceptor());
 
+                    
+
                     //Connection pool
                     conf.setProperty("hibernate.c3p0.min_size", String.valueOf(InstanceProperties.getDbMinIdle()));
                     conf.setProperty("hibernate.c3p0.max_size", String.valueOf(InstanceProperties.getDbMaxActive()));
                     conf.setProperty("hibernate.c3p0.timeout", String.valueOf(InstanceProperties.getDbMaxWait()));
                     conf.setProperty("hibernate.c3p0.max_statements", "50");
 
+
                     //Second level cache
                     conf.setProperty("hibernate.cache.use_second_level_cache", "true");
-                    //@todo if on jboss use cache.provider_class=org.jboss.ejb3.entity.TreeCacheProviderHook - see http://docs.jboss.com/jbossas/guides/clusteringguide/r2/en/html_single/#clustering-intro 1.4.2.2
+                    //@If on jboss use cache.provider_class=org.jboss.ejb3.entity.TreeCacheProviderHook - see http://docs.jboss.com/jbossas/guides/clusteringguide/r2/en/html_single/#clustering-intro 1.4.2.2
                     //conf.setProperty("hibernate.cache.provider_class", "org.hibernate.cache.OSCacheProvider");
                     conf.setProperty("hibernate.cache.provider_class", "org.hibernate.cache.TreeCacheProvider");
+                    //conf.setProperty("hibernate.cache.provider_class", "org.jboss.ejb3.entity.TreeCacheProviderHook");
                     conf.setProperty("hibernate.cache.use_structured_entries", "true");
                     conf.setProperty("hibernate.cache.use_query_cache", "true");
                     conf.setProperty("hibernate.cache.usage", "transactional");
@@ -100,6 +111,7 @@ public class HibernateUtil {
                 }
             }
         }
+        logger.info("Ending HibernateUtil.initializeSession()");
     }
 
 
@@ -151,6 +163,7 @@ public class HibernateUtil {
     }
 
 
-
-
+    public static SessionFactory getSessionFactory() {
+        return sessionFactory;
+    }
 }

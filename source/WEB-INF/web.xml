@@ -4,6 +4,16 @@
     <description>web.xml</description>
 
     <context-param>
+        <param-name>org.jboss.jbossfaces.WAR_BUNDLES_JSF_IMPL</param-name>
+        <param-value>true</param-value>
+    </context-param>
+
+    <error-page>
+        <error-code>500</error-code>
+        <location>/error/500.jsp</location>
+    </error-page>
+
+    <context-param>
         <param-name>javax.faces.CONFIG_FILES</param-name>
         <param-value>
             /WEB-INF/faces-config-constants.xml
@@ -135,6 +145,11 @@
     </context-param>
 
     <context-param>
+      <param-name>facelets.SKIP_COMMENTS</param-name>
+      <param-value>true</param-value>
+    </context-param>
+
+    <context-param>
         <param-name>facelets.DEVELOPMENT</param-name>
         <param-value>true</param-value>
     </context-param>
@@ -178,25 +193,6 @@
         <url-pattern>/adf/*</url-pattern>
     </servlet-mapping>
     -->
-
-   
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     <filter>
@@ -248,7 +244,7 @@
 
     <servlet>
         <servlet-name>SurveyImagelinkServlet</servlet-name>
-        <servlet-class>com.dneero.survey.servlet.SurveyImagelinkServlet</servlet-class>
+        <servlet-class>com.dneero.survey.servlet.SurveyImageServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>SurveyImagelinkServlet</servlet-name>
@@ -293,11 +289,20 @@
         <url-pattern>/flashviewer/deng.swf</url-pattern>
     </servlet-mapping>
 
-    <servlet>
+    <!--<servlet>
         <servlet-name>quartz</servlet-name>
         <servlet-class>org.quartz.ee.servlet.QuartzInitializerServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
+    </servlet>-->
+
+    <servlet>
+        <servlet-name>BlogRss</servlet-name>
+        <servlet-class>com.dneero.survey.servlet.BlogRss</servlet-class>
     </servlet>
+    <servlet-mapping>
+        <servlet-name>BlogRss</servlet-name>
+        <url-pattern>/rss.xml</url-pattern>
+    </servlet-mapping>
 
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>

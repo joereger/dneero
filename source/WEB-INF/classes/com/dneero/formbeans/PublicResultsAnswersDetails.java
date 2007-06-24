@@ -45,9 +45,8 @@ public class PublicResultsAnswersDetails implements Serializable {
                 logger.debug("beginView called: found tmpQuestionid in request param="+tmpQuestionid);
                 Question question = Question.get(Integer.parseInt(tmpQuestionid));
                 Component component = ComponentTypes.getComponentByID(question.getComponenttype(), question, new Blogger());
-                results = component.getHtmlForResultDetail(Util.setToArrayList(question.getQuestionresponses()));
+                results = "<font class=\"mediumfont\">Answers to the question: "+question.getQuestion()+"</font><br/><br/>"+component.getHtmlForResultDetail(Util.setToArrayList(question.getQuestionresponses()));
             }
-
         }
     }
 

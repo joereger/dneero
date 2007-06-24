@@ -2,19 +2,17 @@ package com.dneero.formbeans;
 
 import org.apache.log4j.Logger;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Iterator;
 import java.io.Serializable;
 
-import com.dneero.dao.Survey;
 import com.dneero.dao.User;
 import com.dneero.dao.Responsepending;
 import com.dneero.dao.hibernate.HibernateUtil;
-import com.dneero.util.GeneralException;
 import com.dneero.util.Jsf;
 import com.dneero.session.UserSession;
 import com.dneero.session.PersistentLogin;
+import com.dneero.session.SurveysTakenToday;
 import com.dneero.xmpp.SendXMPPMessage;
 import com.dneero.eula.EulaHelper;
 import com.dneero.systemprops.SystemProperty;
@@ -22,7 +20,6 @@ import com.dneero.systemprops.BaseUrl;
 
 import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
-import javax.servlet.http.HttpSession;
 import javax.servlet.http.Cookie;
 
 /**
@@ -55,66 +52,71 @@ public class Login implements Serializable {
         }
         for (Iterator it = users.iterator(); it.hasNext(); ) {
             User user = (User)it.next();
-            UserSession userSession = new UserSession();
-            userSession.setUser(user);
-            userSession.setIsloggedin(true);
-            userSession.setIsLoggedInToBeta(Jsf.getUserSession().getIsLoggedInToBeta());
-
-            //Check the eula
-            if (!EulaHelper.isUserUsingMostRecentEula(user)){
-                userSession.setIseulaok(false);
-            } else {
-                userSession.setIseulaok(true);
-            }
-
-            //Set persistent login cookie, if necessary
-            if (keepmeloggedin){
-                //Get all possible cookies to set
-                Cookie[] cookies = PersistentLogin.getPersistentCookies(user.getUserid(), Jsf.getHttpServletRequest());
-                //Add a cookies to the response
-                for (int j = 0; j < cookies.length; j++) {
-                    Jsf.getHttpServletResponse().addCookie(cookies[j]);
+            if (user.getIsenabled()){
+                UserSession userSession = new UserSession();
+                userSession.setUser(user);
+                userSession.setIsloggedin(true);
+                userSession.setIsLoggedInToBeta(Jsf.getUserSession().getIsLoggedInToBeta());
+                userSession.setSurveystakentoday(SurveysTakenToday.getNumberOfSurveysTakenToday(user));
+                //Check the eula
+                if (!EulaHelper.isUserUsingMostRecentEula(user)){
+                    userSession.setIseulaok(false);
+                } else {
+                    userSession.setIseulaok(true);
                 }
-            }
 
-            //Pending survey save
-            //Note: this code also on Resitration and PublicSurveyTake
-            if (Jsf.getUserSession().getPendingSurveyResponseSurveyid()>0){
-                if (!Jsf.getUserSession().getPendingSurveyResponseAsString().equals("")){
-                    Responsepending responsepending = new Responsepending();
-                    responsepending.setUserid(user.getUserid());
-                    responsepending.setReferredbyblogid(Jsf.getUserSession().getPendingSurveyReferredbyblogid());
-                    responsepending.setResponseasstring(Jsf.getUserSession().getPendingSurveyResponseAsString());
-                    responsepending.setSurveyid(Jsf.getUserSession().getPendingSurveyResponseSurveyid());
-                    try{responsepending.save();}catch (Exception ex){logger.error(ex);}
-                    Jsf.getUserSession().setPendingSurveyResponseSurveyid(0);
-                    Jsf.getUserSession().setPendingSurveyReferredbyblogid(0);
-                    Jsf.getUserSession().setPendingSurveyResponseAsString("");
+                //Set persistent login cookie, if necessary
+                if (keepmeloggedin){
+                    //Get all possible cookies to set
+                    Cookie[] cookies = PersistentLogin.getPersistentCookies(user.getUserid(), Jsf.getHttpServletRequest());
+                    //Add a cookies to the response
+                    for (int j = 0; j < cookies.length; j++) {
+                        Jsf.getHttpServletResponse().addCookie(cookies[j]);
+                    }
                 }
-            }
 
-            //Notify via XMPP
-            SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_SALES, "dNeero User Login: "+ user.getFirstname() + " " + user.getLastname() + " ("+user.getEmail()+")");
-            xmpp.send();
+                //Pending survey save
+                //Note: this code also on Resitration and PublicSurveyTake
+                if (Jsf.getUserSession().getPendingSurveyResponseSurveyid()>0){
+                    if (!Jsf.getUserSession().getPendingSurveyResponseAsString().equals("")){
+                        Responsepending responsepending = new Responsepending();
+                        responsepending.setUserid(user.getUserid());
+                        responsepending.setReferredbyblogid(Jsf.getUserSession().getPendingSurveyReferredbyblogid());
+                        responsepending.setResponseasstring(Jsf.getUserSession().getPendingSurveyResponseAsString());
+                        responsepending.setSurveyid(Jsf.getUserSession().getPendingSurveyResponseSurveyid());
+                        try{responsepending.save();}catch (Exception ex){logger.error(ex);}
+                        Jsf.getUserSession().setPendingSurveyResponseSurveyid(0);
+                        Jsf.getUserSession().setPendingSurveyReferredbyblogid(0);
+                        Jsf.getUserSession().setPendingSurveyResponseAsString("");
+                    }
+                }
 
-            Jsf.bindObjectToExpressionLanguage("#{userSession}", userSession);
+                //Notify via XMPP
+                SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_SALES, "dNeero User Login: "+ user.getFirstname() + " " + user.getLastname() + " ("+user.getEmail()+")");
+                xmpp.send();
 
-            //Redir if https is on
-            if (SystemProperty.getProp(SystemProperty.PROP_ISSSLON).equals("1")){
-                try{
-                    logger.debug("redirecting to https - "+BaseUrl.get(true)+"account/index.jsf");
-                    Jsf.redirectResponse(BaseUrl.get(true)+"account/index.jsf");
-                    return null;
-                } catch (Exception ex){
-                    logger.error(ex);
+                Jsf.bindObjectToExpressionLanguage("#{userSession}", userSession);
+
+                //Redir if https is on
+                if (SystemProperty.getProp(SystemProperty.PROP_ISSSLON).equals("1")){
+                    try{
+                        logger.debug("redirecting to https - "+BaseUrl.get(true)+"account/index.jsf");
+                        Jsf.redirectResponse(BaseUrl.get(true)+"account/index.jsf");
+                        return null;
+                    } catch (Exception ex){
+                        logger.error(ex);
+                        AccountIndex bean = (AccountIndex)Jsf.getManagedBean("accountIndex");
+                        return bean.beginView();
+                        //return "accountindex";
+                    }
+                } else {
                     AccountIndex bean = (AccountIndex)Jsf.getManagedBean("accountIndex");
                     return bean.beginView();
                     //return "accountindex";
                 }
             } else {
-                AccountIndex bean = (AccountIndex)Jsf.getManagedBean("accountIndex");
-                return bean.beginView();
-                //return "accountindex";
+                Jsf.setFacesMessage("This account is not active.  Please contact the system administrator if you feel this is an error.");
+                return null;
             }
         }
 

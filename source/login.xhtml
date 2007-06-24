@@ -40,7 +40,7 @@
                         <f:validateLength minimum="3" maximum="255"></f:validateLength>
                     </h:inputSecret>
                     <f:verbatim><br/></f:verbatim>
-                    <h:outputLink value="/lostpassword.jsf" styleClass="tinyfont"><f:verbatim>Lost your password?</f:verbatim></h:outputLink>
+                    <h:commandLink value="Lost your password?" action="#{lostPassword.beginView}" immediate="true" styleClass="tinyfont" style="color: #000000;"/>
                 </h:panelGroup>
                 <h:panelGroup>
                     <h:message for="password" styleClass="RED"></h:message>

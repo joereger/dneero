@@ -23,9 +23,10 @@ public class Impression extends BasePersistentClass implements java.io.Serializa
      private int surveyid;
      private String referer;
      private int impressionsqualifyingforpayment;
+     private int impressionstotal;
      private int quality;
      private Date firstseen;
-     private Set<Impressiondetail> impressiondetails = new HashSet<Impressiondetail>();
+     //private Set<Impressiondetail> impressiondetails = new HashSet<Impressiondetail>();
      private Blog blog;
 
 
@@ -118,13 +119,13 @@ public class Impression extends BasePersistentClass implements java.io.Serializa
         this.referer = referer;
     }
 
-    public Set<Impressiondetail> getImpressiondetails() {
-        return impressiondetails;
-    }
-
-    public void setImpressiondetails(Set<Impressiondetail> impressiondetails) {
-        this.impressiondetails = impressiondetails;
-    }
+//    public Set<Impressiondetail> getImpressiondetails() {
+//        return impressiondetails;
+//    }
+//
+//    public void setImpressiondetails(Set<Impressiondetail> impressiondetails) {
+//        this.impressiondetails = impressiondetails;
+//    }
 
     public int getQuality() {
         return quality;
@@ -148,5 +149,13 @@ public class Impression extends BasePersistentClass implements java.io.Serializa
 
     public void setBlog(Blog blog) {
         this.blog = blog;
+    }
+
+    public int getImpressionstotal() {
+        return impressionstotal;
+    }
+
+    public void setImpressionstotal(int impressionstotal) {
+        this.impressionstotal = impressionstotal;
     }
 }

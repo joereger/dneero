@@ -5,7 +5,20 @@
 
 <facelet-taglib>
     <namespace>http://myfaces.apache.org/tomahawk</namespace>
-
+    <tag>
+        <tag-name>collapsiblePanel</tag-name>
+        <component>
+            <component-type>org.apache.myfaces.HtmlCollapsiblePanel</component-type>
+            <renderer-type>org.apache.myfaces.CollapsiblePanel</renderer-type>
+        </component>
+    </tag>
+    <tag>
+        <tag-name>headerLink</tag-name>
+        <component>
+            <component-type>org.apache.myfaces.HtmlHeaderLink</component-type>
+            <renderer-type>org.apache.myfaces.Link</renderer-type>
+        </component>
+    </tag>
     <tag>
         <tag-name>aliasBean</tag-name>
         <component>

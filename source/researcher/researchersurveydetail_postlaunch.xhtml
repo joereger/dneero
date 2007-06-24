@@ -21,7 +21,7 @@
     <d:authorization acl="researcher" redirectonfail="true"/>
 
 <h:form>
-    <h:messages />
+    <h:messages styleClass="RED"/>
     <h:inputHidden name="surveyid" value="#{userSession.currentSurveyid}" />
 
     <font class="pagetitlefont" style="color: #333333;">Congratulations!  Your survey has been launched!</font>
@@ -62,7 +62,7 @@
     <br/><br/>
     <font class="smallfont">Or return to your list of surveys:</font>
     <br/>
-    <h:commandLink value="Continue" action="#{researcherSurveyList.beginView}" styleClass="mediumfont" style="color: #0000ff;"/>
+    <h:commandLink value="Return to List of Surveys" action="#{researcherIndex.beginView}" styleClass="mediumfont" style="color: #0000ff;"/>
     <br/><br/>
 
 

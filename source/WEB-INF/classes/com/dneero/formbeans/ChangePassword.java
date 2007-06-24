@@ -34,6 +34,11 @@ public class ChangePassword implements Serializable {
             return null;
         }
 
+        if (password.length()<6){
+            Jsf.setFacesMessage("Password must be at least six characters long.");
+            return null;
+        }
+
 
         UserSession userSession = Jsf.getUserSession();
         if (userSession.getUser()!=null){

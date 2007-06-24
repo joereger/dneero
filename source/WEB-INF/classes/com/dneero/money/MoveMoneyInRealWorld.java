@@ -69,81 +69,86 @@ public class MoveMoneyInRealWorld implements Runnable {
             if (user.getPaymethod()==PaymentMethod.PAYMENTMETHODCREDITCARD){
                 pm = new PaymentMethodCreditCard(user, amttogiveuser);
                 paymentmethod = PaymentMethod.PAYMENTMETHODCREDITCARD;
-                desc = "Charge to credit card.";
+                desc = "Put Money Onto Credit Card.";
             } else if (user.getPaymethod()==PaymentMethod.PAYMENTMETHODPAYPAL){
                 pm = new PaymentMethodPayPal(user, amttogiveuser);
                 paymentmethod = PaymentMethod.PAYMENTMETHODPAYPAL;
-                desc = "Charge to PayPal account.";
+                desc = "Transfer to PayPal account.";
             }
-        } else if (amttogiveuser<0){
+        } else if (amttogiveuser<((-1)*.01)){
             //Charging user
             if (user.getChargemethod()==PaymentMethod.PAYMENTMETHODCREDITCARD){
                 pm = new PaymentMethodCreditCard(user, amttogiveuser);
                 paymentmethod = PaymentMethod.PAYMENTMETHODCREDITCARD;
-                desc = "Charge to credit card.";
+                desc = "Charged Credit Card.";
             } else if (user.getChargemethod()==PaymentMethod.PAYMENTMETHODPAYPAL){
                 pm = new PaymentMethodPayPal(user, amttogiveuser);
                 paymentmethod = PaymentMethod.PAYMENTMETHODPAYPAL;
-                desc = "Charge to PayPal account.";
-            }
-        }
-
-        //Do the transaction
-        pm.giveUserThisAmt();
-
-        //Only affect the account balance if the real-world transaction was successful
-        if (pm.getIssuccessful()){
-            //Notify via XMPP
-            SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_CUSTOMERSUPPORT, "Successful Move Money in Real World: amttogiveuser=$"+amttogiveuser+" to/from "+ user.getFirstname() + " " + user.getLastname() + " ("+user.getEmail()+")");
-            xmpp.send();
-            Balance balance = new Balance();
-            balance.setAmt((-1)*amttogiveuser);
-            balance.setDate(new Date());
-            balance.setDescription(desc);
-            balance.setCurrentbalance(CurrentBalanceCalculator.getCurrentBalance(user) - amttogiveuser);
-            balance.setUserid(user.getUserid());
-            try{balance.save();}catch (Exception ex){
-                SendXMPPMessage xmpp2 = new SendXMPPMessage(SendXMPPMessage.GROUP_SYSADMINS, "WRITE TO DATABASE FAILED!!! Successful Move Money in Real World: amttogiveuser=$"+amttogiveuser+" to/from userid="+user.getUserid()+" "+ user.getFirstname() + " " + user.getLastname() + " ("+user.getEmail()+")");
-                xmpp2.send();
-                logger.error(ex);
+                desc = "Transfer from PayPal account.";
             }
         } else {
-            //Notify via XMPP
-            SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_CUSTOMERSUPPORT, "Failed Move Money in Real World: amttogiveuser=$"+amttogiveuser+" to/from "+ user.getFirstname() + " " + user.getLastname() + " ("+user.getEmail()+") Notes: "+pm.getNotes());
-            xmpp.send();
+            //Set to zero because we're talking about less than a cent
+            amttogiveuser = 0;
         }
 
-        //Always record the transaction itself, even if it fails... this does not affect the account balance
-        Balancetransaction balancetransaction = new Balancetransaction();
-        balancetransaction.setAmt(amttogiveuser);
-        balancetransaction.setDate(new Date());
-        balancetransaction.setDescription(desc);
-        balancetransaction.setIssuccessful(pm.getIssuccessful());
-        balancetransaction.setPaymentmethod(paymentmethod);
-        if (pm.getNotes()!=null){
-            balancetransaction.setNotes(pm.getNotes());
-        } else {
-            balancetransaction.setNotes("");
-        }
-        balancetransaction.setUserid(user.getUserid());
-        if (pm.getCorrelationid()!=null){
-            balancetransaction.setCorrelationid(pm.getCorrelationid());
-        } else {
-            balancetransaction.setCorrelationid("");
-        }
-        if (pm.getTransactionid()!=null){
-            balancetransaction.setTransactionid(pm.getTransactionid());
-        } else {
-            balancetransaction.setTransactionid("");
-        }
-        try{balancetransaction.save();}catch (Exception ex){logger.error(ex);}
+        if(amttogiveuser<0 || amttogiveuser>0){
 
-        //Now charge the remainder
-        if (amtremainder!=0){
-            amttogiveuser = amtremainder;
-            giveUserThisAmt();
-        }
+            //Do the transaction
+            pm.giveUserThisAmt();
 
+            //Only affect the account balance if the real-world transaction was successful
+            if (pm.getIssuccessful()){
+                //Notify via XMPP
+                SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_CUSTOMERSUPPORT, "Successful Move Money in Real World: amttogiveuser=$"+amttogiveuser+" to/from "+ user.getFirstname() + " " + user.getLastname() + " ("+user.getEmail()+")");
+                xmpp.send();
+                Balance balance = new Balance();
+                balance.setAmt((-1)*amttogiveuser);
+                balance.setDate(new Date());
+                balance.setDescription(desc);
+                balance.setCurrentbalance(CurrentBalanceCalculator.getCurrentBalance(user) - amttogiveuser);
+                balance.setUserid(user.getUserid());
+                try{balance.save();}catch (Exception ex){
+                    SendXMPPMessage xmpp2 = new SendXMPPMessage(SendXMPPMessage.GROUP_SYSADMINS, "WRITE TO DATABASE FAILED!!! Successful Move Money in Real World: amttogiveuser=$"+amttogiveuser+" to/from userid="+user.getUserid()+" "+ user.getFirstname() + " " + user.getLastname() + " ("+user.getEmail()+")");
+                    xmpp2.send();
+                    logger.error(ex);
+                }
+            } else {
+                //Notify via XMPP
+                SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_CUSTOMERSUPPORT, "Failed Move Money in Real World: amttogiveuser=$"+amttogiveuser+" to/from "+ user.getFirstname() + " " + user.getLastname() + " ("+user.getEmail()+") Notes: "+pm.getNotes());
+                xmpp.send();
+            }
+
+            //Always record the transaction itself, even if it fails... this does not affect the account balance
+            Balancetransaction balancetransaction = new Balancetransaction();
+            balancetransaction.setAmt(amttogiveuser);
+            balancetransaction.setDate(new Date());
+            balancetransaction.setDescription(desc);
+            balancetransaction.setIssuccessful(pm.getIssuccessful());
+            balancetransaction.setPaymentmethod(paymentmethod);
+            if (pm.getNotes()!=null){
+                balancetransaction.setNotes(pm.getNotes());
+            } else {
+                balancetransaction.setNotes("");
+            }
+            balancetransaction.setUserid(user.getUserid());
+            if (pm.getCorrelationid()!=null){
+                balancetransaction.setCorrelationid(pm.getCorrelationid());
+            } else {
+                balancetransaction.setCorrelationid("");
+            }
+            if (pm.getTransactionid()!=null){
+                balancetransaction.setTransactionid(pm.getTransactionid());
+            } else {
+                balancetransaction.setTransactionid("");
+            }
+            try{balancetransaction.save();}catch (Exception ex){logger.error(ex);}
+
+            //Now charge the remainder
+            if (amtremainder!=0){
+                amttogiveuser = amtremainder;
+                giveUserThisAmt();
+            }
+        }
     }
 
 

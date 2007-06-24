@@ -1,6 +1,7 @@
 package com.dneero.formbeans;
 
 import org.apache.log4j.Logger;
+import org.apache.commons.validator.EmailValidator;
 import com.dneero.dao.*;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.util.GeneralException;
@@ -15,6 +16,7 @@ import com.dneero.xmpp.SendXMPPMessage;
 import com.dneero.eula.EulaHelper;
 import com.dneero.systemprops.SystemProperty;
 import com.dneero.systemprops.BaseUrl;
+import com.dneero.helpers.UserInputSafe;
 import com.octo.captcha.service.CaptchaServiceException;
 
 import javax.servlet.http.Cookie;
@@ -63,21 +65,44 @@ public class Registration implements Serializable {
         //Validation
         boolean haveErrors = false;
 
+        if (password==null || password.equals("") || password.length()<6){
+            Jsf.setFacesMessage("registrationForm:password", "Password must be at least six characters long.");
+            haveErrors = true;
+        }
+
         if (!password.equals(passwordverify)){
             Jsf.setFacesMessage("registrationForm:password", "Password and Verify Password must match.");
             haveErrors = true;
         }
 
+        EmailValidator ev = EmailValidator.getInstance();
+        if (!ev.isValid(email)){
+            Jsf.setFacesMessage("registrationForm:email", "Not a valid email address.");
+            haveErrors = true;
+        }
 
-        if (!eula.equals(EulaHelper.getMostRecentEula().getEula())){
-            logger.debug("eula="+eula);
-            logger.debug("EulaHelper.getMostRecentEula().getEula()="+EulaHelper.getMostRecentEula().getEula());
+        if (firstname==null || firstname.equals("")){
+            Jsf.setFacesMessage("registrationForm:firstname", "First Name can't be blank.");
+            haveErrors = true;
+        }
+
+        if (lastname==null || lastname.equals("")){
+            Jsf.setFacesMessage("registrationForm:lastname", "Last Name can't be blank.");
+            haveErrors = true;
+        }
+
+
+
+        if (eula==null || !eula.equals(EulaHelper.getMostRecentEula().getEula())){
+            //logger.debug("eula="+eula);
+            //logger.debug("EulaHelper.getMostRecentEula().getEula()="+EulaHelper.getMostRecentEula().getEula());
             Jsf.setFacesMessage("registrationForm:eula", "The end user license can't be edited.");
             eula = EulaHelper.getMostRecentEula().getEula();
             haveErrors = true;
         }
 
         boolean isCaptchaCorrect = false;
+        logger.debug("sessionid="+Jsf.getHttpServletRequest().getSession().getId());
         try {
             isCaptchaCorrect = CaptchaServiceSingleton.getInstance().validateResponseForID(Jsf.getHttpServletRequest().getSession().getId(), j_captcha_response);
         } catch (CaptchaServiceException e) {
@@ -100,10 +125,10 @@ public class Registration implements Serializable {
         //Create the user
         //@todo Use http://www.jasypt.org/ to encrypt password
         User user = new User();
-        user.setEmail(email);
+        user.setEmail(UserInputSafe.clean(email));
         user.setPassword(password);
-        user.setFirstname(firstname);
-        user.setLastname(lastname);
+        user.setFirstname(UserInputSafe.clean(firstname));
+        user.setLastname(UserInputSafe.clean(lastname));
         user.setIsactivatedbyemail(false);
         user.setIsqualifiedforrevshare(false);
         user.setReferredbyuserid(Jsf.getUserSession().getReferredbyOnlyUsedForSignup());
@@ -117,6 +142,15 @@ public class Registration implements Serializable {
         user.setChargemethodcreditcardid(0);
         user.setBloggerid(0);
         user.setResearcherid(0);
+        user.setNotifyofnewsurveysbyemaileveryexdays(1);
+        user.setNotifyofnewsurveyslastsent(new Date());
+        user.setAllownoncriticalemails(true);
+        user.setInstantnotifybyemailison(false);
+        user.setInstantnotifybytwitterison(false);
+        user.setInstantnotifytwitterusername("");
+        user.setInstantnotifyxmppison(false);
+        user.setInstantnotifyxmppusername("");
+        user.setIsenabled(true);
         try{
             user.save();
             userid = user.getUserid();

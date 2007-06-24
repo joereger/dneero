@@ -12,14 +12,13 @@ import com.dneero.money.SurveyMoneyStatus;
 import com.dneero.money.MoveMoneyInRealWorld;
 import com.dneero.xmpp.SendXMPPMessage;
 import com.dneero.systemprops.InstanceProperties;
+import com.dneero.instantnotify.InstantNotifyOfNewSurvey;
 
 import java.util.List;
 import java.util.Iterator;
 
 /**
- * User: Joe Reger Jr
- * Date: Jul 19, 2006
- * Time: 2:22:28 PM
+ * Handles pre-pay for surveys at 20% intervals.
  */
 public class ResearcherRemainingBalanceOperations implements Job {
 
@@ -29,11 +28,17 @@ public class ResearcherRemainingBalanceOperations implements Job {
     public static double MINPERCENTOFTOTALVALUEAVAILASBALANCE = 10;
     public static double INCREMENTALPERCENTTOCHARGE = 20;
 
+    private int researcherid = 0;
+
 
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
         if (InstanceProperties.getRunScheduledTasksOnThisInstance()){
             logger.debug("execute() ResearcherRemainingBalanceOperations called");
-            List researchers = HibernateUtil.getSession().createQuery("from Researcher").list();
+            String rschStr = "";
+            if (researcherid>0){
+                rschStr = " where researcherid='"+researcherid+"'";
+            }
+            List researchers = HibernateUtil.getSession().createQuery("from Researcher" + rschStr).setCacheable(false).list();
             for (Iterator iterator = researchers.iterator(); iterator.hasNext();) {
                 Researcher researcher = (Researcher) iterator.next();
                 processResearcher(researcher);
@@ -100,7 +105,7 @@ public class ResearcherRemainingBalanceOperations implements Job {
                     //The current balance is less than the shutdown threshold
                     if (totalremainingpossiblespendforallsurveys > ((MINAVAILABLEBALANCEBEFORECLOSINGSURVEYS/100) * totalmaxpossiblespendforallsurveys)){
                         //We're not in the final little piece of the survey
-                        List surveysOpen = HibernateUtil.getSession().createQuery("from Survey where researcherid='"+researcher.getResearcherid()+"'").list();
+                        List surveysOpen = HibernateUtil.getSession().createQuery("from Survey where researcherid='"+researcher.getResearcherid()+"'").setCacheable(false).list();
                         boolean shutDownASurvey = false;
                         for (Iterator iterator1 = surveysOpen.iterator(); iterator1.hasNext();) {
                             Survey survey = (Survey) iterator1.next();
@@ -131,6 +136,9 @@ public class ResearcherRemainingBalanceOperations implements Job {
                         logger.debug("operating on surveyid="+survey.getSurveyid());
                         survey.setStatus(Survey.STATUS_OPEN);
                         try{survey.save();} catch (GeneralException ex){logger.error(ex);}
+                        //InstantNotify
+                        InstantNotifyOfNewSurvey inons = new InstantNotifyOfNewSurvey(survey.getSurveyid());
+                        inons.sendNotifications();
                     }
                 }
             }
@@ -138,4 +146,11 @@ public class ResearcherRemainingBalanceOperations implements Job {
         }
     }
 
+    public int getResearcherid() {
+        return researcherid;
+    }
+
+    public void setResearcherid(int researcherid) {
+        this.researcherid = researcherid;
+    }
 }

@@ -18,7 +18,7 @@
     <d:authorization acl="public" redirectonfail="true"/>
 
     <h:form>
-
+    <h:messages styleClass="RED"/>
     <c:if test="${!userSession.isloggedin or researcherIndex.showmarketingmaterial}">
         <table cellpadding="0" cellspacing="0" border="0" width="100%">
            <tr>
@@ -57,7 +57,7 @@
                         <br/><br/><br/>
                         <font class="mediumfont" style="color: #999999">Frame the Conversation to Get the Data You Need</font>
                         <br/>
-                        Other tools like Umbria and BuzzMetrics are great at finding out what people are saying about your product.  But this approach makes it difficult to see how many people feel about something in particular.  Often you need to drill down or focus on a specific point.  With dNeero you're able to frame the conversation in the form of a survey.  This gets a base set of feedback from all bloggers who respond to it.
+                        Other tools like Umbria and BuzzMetrics are great at finding out what people are saying about your product.  But this approach makes it difficult to see how people feel about something in particular.  Often you need to drill down or focus on a specific point.  With dNeero you're able to frame the conversation in the form of a survey.  This gets a base set of feedback from all bloggers who respond to it.
                         <br/><br/><br/>
                         <font class="mediumfont" style="color: #999999">Two Birds with One Stone</font>
                         <br/>
@@ -66,6 +66,10 @@
                         <font class="mediumfont" style="color: #999999">Research Data is More Accurate Because Peers are Involved</font>
                         <br/>
                         Research data gained through dNeero is more reflective of how people actually act in their peer group because the answers they provide will be shared on their blog or social network.  In many traditional forms of market research the subject is apt to provide an answer that seems appropriate to the researcher but is not the actual answer that they'll use with their peers.  As a researcher you're much more interested in how they present their beliefs and views to their peers because these views drive market adoption and purchasing decisions.
+                        <br/><br/><br/>
+                        <font class="mediumfont" style="color: #999999">Include Images in Surveys</font>
+                        <br/>
+                        Images allow survey takers to answer questions about a new product design, etc.  And by including an image in the survey you are actually putting that image onto many blog sites at once.
                         <br/><br/><br/>
                         <font class="mediumfont" style="color: #999999">Social Influence Rating (TM)</font>
                         <br/>
@@ -133,70 +137,56 @@
         <table cellpadding="10" cellspacing="0" border="0" width="100%">
             <tr>
                 <td width="250" valign="top">
-                    <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
-                        <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-                            <h:commandLink value="Start a New Survey" action="#{researcherSurveyDetail01.beginViewNewSurvey}" styleClass="mediumfont" style="color: #596697;"/>
-                        </td></tr>
-                        <tr><td valign="top"></td><td valign="top">
-                            <font class="smallfont">Create a new survey for bloggers. This step-by-step wizard will guide you through the process.  Your survey can be up and running in a matter of minutes.</font>
-                        </td></tr></table>
+                    <div class="rounded" style="padding: 5px; margin: 5px; background: #e6e6e6;">
+                        <div class="rounded" style="padding: 15px; margin: 5px; background: #ffffff;">
+                            <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
+                                <h:commandLink value="Start a New Survey" action="#{researcherSurveyDetail01.beginViewNewSurvey}" styleClass="mediumfont" style="color: #596697;"/>
+                            </td></tr>
+                            <tr><td valign="top"></td><td valign="top">
+                                <font class="smallfont">Create a new survey for bloggers. This step-by-step wizard will guide you through the process.  Your survey can be up and running in a matter of minutes.</font>
+                            </td></tr></table>
+                        </div>
+                        <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
+                            <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
+                                <h:commandLink value="Panels" action="#{researcherPanels.beginView}" styleClass="mediumfont" style="color: #596697;"/>
+                            </td></tr>
+                            <tr><td valign="top"></td><td valign="top">
+                                <font class="smallfont">Create and manage standing panels of bloggers for longitudinal studies.</font>
+                            </td></tr></table>
 
-                        <br/><br/>
-                        <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-                            <h:commandLink value="Invite People to Take Your Surveys" action="#{researcherEmailinvite.beginView}" styleClass="mediumfont" style="color: #596697;"/>
-                        </td></tr>
-                        <tr><td valign="top"></td><td valign="top">
-                            <font class="smallfont">Use this tool to send out emails inviting people to take your surveys.  We handle all of the heavy lifting.</font>
-                        </td></tr></table>
+                            <br/><br/>
+                            <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
+                                <h:commandLink value="Update My Researcher Profile" action="#{researcherDetails.beginView}" styleClass="mediumfont" style="color: #596697;"/>
+                            </td></tr>
+                            <tr><td valign="top"></td><td valign="top">
+                                <font class="smallfont">Help us understand your needs so that we can serve you better.</font>
+                            </td></tr></table>
 
-                        <br/><br/>
-                        <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-                            <h:commandLink value="Find Bloggers" action="#{researcherFindBloggers.beginView}" styleClass="mediumfont" style="color: #596697;"/>
-                        </td></tr>
-                        <tr><td valign="top"></td><td valign="top">
-                            <font class="smallfont">Find bloggers already in the system.  Build panels of bloggers in this way.</font>
-                        </td></tr></table>
-
-                        <br/><br/>
-                        <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-                            <h:commandLink value="Panels" action="#{researcherPanels.beginView}" styleClass="mediumfont" style="color: #596697;"/>
-                        </td></tr>
-                        <tr><td valign="top"></td><td valign="top">
-                            <font class="smallfont">Create and manage standing panels of bloggers for longitudinal studies.</font>
-                        </td></tr></table>
-
-                        <br/><br/>
-                        <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-                            <h:commandLink value="Update My Researcher Profile" action="#{researcherDetails.beginView}" styleClass="mediumfont" style="color: #596697;"/>
-                        </td></tr>
-                        <tr><td valign="top"></td><td valign="top">
-                            <font class="smallfont">Help us understand your needs so that we can serve you better.</font>
-                        </td></tr></table>
-
-                        <br/><br/>
-                        <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-                            <h:commandLink value="Billing Info" action="#{researcherBilling.beginView}" styleClass="mediumfont" style="color: #596697;"/>
-                        </td></tr>
-                        <tr><td valign="top"></td><td valign="top">
-                            <font class="smallfont">Update your billing information on this screen.</font>
-                        </td></tr></table>
+                            <br/><br/>
+                            <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
+                                <h:commandLink value="Billing Info" action="#{researcherBilling.beginView}" styleClass="mediumfont" style="color: #596697;"/>
+                            </td></tr>
+                            <tr><td valign="top"></td><td valign="top">
+                                <font class="smallfont">Update your billing information on this screen.</font>
+                            </td></tr></table>
 
 
-                        <br/><br/>
-                        <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-                            <h:commandLink value="Researcher Frequently Asked Questions" action="researcherfaq" styleClass="mediumfont" style="color: #596697;"/>
-                        </td></tr>
-                        <tr><td valign="top"></td><td valign="top">
-                            <font class="smallfont">Get your answers here!</font>
-                        </td></tr></table>
+                            <br/><br/>
+                            <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
+                                <h:commandLink value="Researcher Frequently Asked Questions" action="researcherfaq" styleClass="mediumfont" style="color: #596697;"/>
+                            </td></tr>
+                            <tr><td valign="top"></td><td valign="top">
+                                <font class="smallfont">Get your answers here!</font>
+                            </td></tr></table>
 
-                        <br/><br/>
-                        <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-                            <h:commandLink value="Researcher Basic Info" action="#{researcherIndex.beginView}" styleClass="mediumfont" style="color: #596697;"><f:param name="showmarketingmaterial" value="1"/></h:commandLink>
-                        </td></tr>
-                        <tr><td valign="top"></td><td valign="top">
-                            <font class="smallfont">Basic Researcher information, how the system works, etc.</font>
-                        </td></tr></table>
+                            <br/><br/>
+                            <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
+                                <h:commandLink value="Researcher Basic Info" action="#{researcherIndex.beginView}" styleClass="mediumfont" style="color: #596697;"><f:param name="showmarketingmaterial" value="1"/></h:commandLink>
+                            </td></tr>
+                            <tr><td valign="top"></td><td valign="top">
+                                <font class="smallfont">Basic Researcher information, how the system works, etc.</font>
+                            </td></tr></table>
+                        </div>
                     </div>
                 </td>
                 <td valign="top">
@@ -208,12 +198,16 @@
                         <br/><br/>
                     </t:div>
                     <t:saveState id="save" value="#{researcherSurveyList}"/>
-                    <t:dataTable id="datatable" value="#{researcherSurveyList.surveys}" rows="50" var="survey" rendered="#{!empty researcherSurveyList.surveys}" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcol,tcolnowrap,tcol,tcolnowrap,tcolnowrap">
+                    <t:dataTable id="datatable" value="#{researcherSurveyList.surveys}" rows="50" var="survey" rendered="#{!empty researcherSurveyList.surveys}" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcol,tcol,tcol,tcolnowrap,tcolnowrap">
                       <h:column>
                         <f:facet name="header">
                           <h:outputText value="Title"/>
                         </f:facet>
-                        <h:outputText value="#{survey.title}" styleClass="normalfont" style="font-weight: bold;"/>
+                        <h:outputText value="#{survey.title}" escape="false" styleClass="normalfont" style="font-weight:bold;" rendered="#{survey.status eq 1}"/>
+                        <h:commandLink action="#{publicSurveyTakeRedirector.beginView}" rendered="#{survey.status ne 1}">
+                            <h:outputText value="#{survey.title}" escape="false" styleClass="normalfont" style="font-weight:bold;"/>
+                            <f:param name="surveyid" value="#{survey.surveyid}" />
+                        </h:commandLink>
                       </h:column>
                       <h:column>
                         <f:facet name="header">
@@ -238,7 +232,7 @@
                             <f:param name="surveyid" value="#{survey.surveyid}" />
                         </h:commandLink>
                       </h:column>
-                      <h:column rendered="#{survey.status eq 4}">
+                      <h:column>
                         <f:facet name="header">
                           <h:outputText value="-" style="color: #ffffff;"/>
                         </f:facet>
@@ -253,6 +247,15 @@
                         </f:facet>
                         <h:commandLink action="#{researcherResults.beginView}" rendered="#{survey.status ne 1}">
                             <h:outputText value="Results" styleClass="smallfont" escape="false" />
+                            <f:param name="surveyid" value="#{survey.surveyid}" />
+                        </h:commandLink>
+                      </h:column>
+                      <h:column>
+                        <f:facet name="header">
+                          <h:outputText value="-" style="color: #ffffff;"/>
+                        </f:facet>
+                        <h:commandLink action="#{researcherIndex.copy}">
+                            <h:outputText value=" Copy" styleClass="smallfont" escape="false"/>
                             <f:param name="surveyid" value="#{survey.surveyid}" />
                         </h:commandLink>
                       </h:column>

@@ -16,6 +16,8 @@ public class BloggerSurveyListItem implements Serializable {
     private String numberofquestions;
     private boolean bloggerhasalreadytakensurvey = false;
     private String isbloggerqualifiedstring = "";
+    private String description = "";
+    private int numberofrespondents=0;
 
     public BloggerSurveyListItem(){}
 
@@ -60,7 +62,7 @@ public class BloggerSurveyListItem implements Serializable {
     }
 
 
-    public boolean isBloggerhasalreadytakensurvey() {
+    public boolean getBloggerhasalreadytakensurvey() {
         return bloggerhasalreadytakensurvey;
     }
 
@@ -74,5 +76,21 @@ public class BloggerSurveyListItem implements Serializable {
 
     public void setIsbloggerqualifiedstring(String isbloggerqualifiedstring) {
         this.isbloggerqualifiedstring = isbloggerqualifiedstring;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public int getNumberofrespondents() {
+        return numberofrespondents;
+    }
+
+    public void setNumberofrespondents(int numberofrespondents) {
+        this.numberofrespondents = numberofrespondents;
     }
 }

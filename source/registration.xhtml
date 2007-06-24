@@ -34,9 +34,7 @@
                     <h:outputText value="First Name" styleClass="formfieldnamefont"></h:outputText>
                 </h:panelGroup>
                 <h:panelGroup>
-                    <h:inputText value="#{registration.firstname}" id="firstname" required="true">
-                        <f:validateLength minimum="1" maximum="255"></f:validateLength>
-                    </h:inputText>
+                    <h:inputText value="#{registration.firstname}" id="firstname" required="false"></h:inputText>
                 </h:panelGroup>
                 <h:panelGroup>
                     <h:message for="firstname" styleClass="RED"></h:message>
@@ -46,8 +44,7 @@
                     <h:outputText value="Last Name" styleClass="formfieldnamefont"></h:outputText>
                 </h:panelGroup>
                 <h:panelGroup>
-                    <h:inputText value="#{registration.lastname}" id="lastname" required="true">
-                        <f:validateLength minimum="1" maximum="255"></f:validateLength>
+                    <h:inputText value="#{registration.lastname}" id="lastname" required="false">
                     </h:inputText>
                 </h:panelGroup>
                 <h:panelGroup>
@@ -59,10 +56,7 @@
                     <h:outputText value="Email" styleClass="formfieldnamefont"></h:outputText>
                 </h:panelGroup>
                 <h:panelGroup>
-                    <h:inputText value="#{registration.email}" id="email" required="true">
-                        <f:validateLength minimum="3" maximum="255"></f:validateLength>
-                        <t:validateEmail></t:validateEmail>
-                    </h:inputText>
+                    <h:inputText value="#{registration.email}" id="email" required="false"></h:inputText>
                 </h:panelGroup>
                 <h:panelGroup>
                     <h:message for="email" styleClass="RED"></h:message>
@@ -73,9 +67,7 @@
                     <h:outputText value="Password" styleClass="formfieldnamefont"></h:outputText>
                 </h:panelGroup>
                 <h:panelGroup>
-                    <h:inputSecret value="#{registration.password}" id="password" required="true">
-                        <f:validateLength minimum="3" maximum="255"></f:validateLength>
-                    </h:inputSecret>
+                    <h:inputSecret value="#{registration.password}" id="password" required="false"></h:inputSecret>
                 </h:panelGroup>
                 <h:panelGroup>
                     <h:message for="password" styleClass="RED"></h:message>
@@ -86,9 +78,7 @@
                     <h:outputText value="Verify Password" styleClass="formfieldnamefont"></h:outputText>
                 </h:panelGroup>
                 <h:panelGroup>
-                    <h:inputSecret value="#{registration.passwordverify}" id="passwordverify" required="true">
-                        <f:validateLength minimum="3" maximum="255"></f:validateLength>
-                    </h:inputSecret>
+                    <h:inputSecret value="#{registration.passwordverify}" id="passwordverify" required="false"></h:inputSecret>
                 </h:panelGroup>
                 <h:panelGroup>
                     <h:message for="passwordverify" styleClass="RED"></h:message>
@@ -101,11 +91,19 @@
                 </h:panelGroup>
                 <h:panelGroup>
                     <div style="border: 1px solid #ccc; padding: 3px;">
-                    <h:inputText value="#{registration.j_captcha_response}" id="j_captcha_response" required="true"/>
+                    <h:inputText value="#{registration.j_captcha_response}" id="j_captcha_response" required="false"/>
                     <br/>
                     <font class="tinyfont">(type the squiggly letters that appear below)</font>
                     <br/>
-                    <h:graphicImage url="/jcaptcha"></h:graphicImage>
+                    <table cellpadding="0" cellspacing="0" border="0">
+                        <tr>
+                            <td><img src="/images/clear.gif" alt="" width="1" height="100"></img></td>
+                            <td style="background: url(/images/loading-captcha.gif);">
+                                <img src="/images/clear.gif" alt="" width="200" height="1"></img><br/>
+                                <h:graphicImage url="/jcaptcha" width="200" height="100"></h:graphicImage>
+                            </td>
+                        </tr>
+                    </table>
                     </div>
                 </h:panelGroup>
                 <h:panelGroup>
@@ -117,7 +115,7 @@
                     <h:outputText value="End User License Agreement" styleClass="formfieldnamefont"></h:outputText>
                 </h:panelGroup>
                 <h:panelGroup>
-                    <h:inputTextarea value="#{registration.eula}" id="eula" cols="45" rows="5" required="true">
+                    <h:inputTextarea value="#{registration.eula}" id="eula" cols="45" rows="5" required="false">
                     </h:inputTextarea>
                 </h:panelGroup>
                 <h:panelGroup>

@@ -25,7 +25,7 @@ public class LostPassword implements Serializable {
     private String j_captcha_response;
 
     public LostPassword(){
-
+        
     }
 
     public String beginView(){
@@ -33,12 +33,13 @@ public class LostPassword implements Serializable {
     }
 
     public String recoverPassword(){
-
+        Logger logger = Logger.getLogger(this.getClass().getName());
         boolean isCaptchaCorrect = false;
         try {
             isCaptchaCorrect = CaptchaServiceSingleton.getInstance().validateResponseForID(Jsf.getHttpServletRequest().getSession().getId(), j_captcha_response);
         } catch (CaptchaServiceException e) {
              //should not happen, may be thrown if the id is not valid
+             logger.error(e);
         }
         if (!isCaptchaCorrect){
             Jsf.setFacesMessage("lostpasswordform:j_captcha_response", "You failed to correctly type the letters into the box.");

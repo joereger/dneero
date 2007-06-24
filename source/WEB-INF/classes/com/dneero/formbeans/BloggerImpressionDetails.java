@@ -5,6 +5,7 @@ import com.dneero.util.Jsf;
 import com.dneero.dao.Survey;
 import com.dneero.dao.Impressiondetail;
 import com.dneero.dao.Impression;
+import com.dneero.dao.hibernate.HibernateUtil;
 
 import java.util.*;
 import java.io.Serializable;
@@ -50,7 +51,8 @@ public class BloggerImpressionDetails implements Serializable {
             surveytitle = survey.getTitle();
             referer = impression.getReferer();
             list = new ArrayList();
-            for (Iterator<Impressiondetail> iterator = impression.getImpressiondetails().iterator(); iterator.hasNext();) {
+            List impressiondetails = HibernateUtil.getSession().createQuery("from Impressiondetail where impressionid='"+impression.getImpressionid()+"'").setCacheable(true).list();
+            for (Iterator<Impressiondetail> iterator = impressiondetails.iterator(); iterator.hasNext();) {
                 Impressiondetail impressiondetail = iterator.next();
                 BloggerImpressionDetailsListItem listitem = new BloggerImpressionDetailsListItem();
                 listitem.setImpressiondate(impressiondetail.getImpressiondate());

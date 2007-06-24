@@ -38,27 +38,36 @@
                 This is how your survey looks when posted to a blog.  Bloggers, depending on their blogging tool, can choose from one of many embedding methods.  Each renders the survey slightly differently.  You can enable/disable each method on the Advanced Formatting tab.
                 <br/><br/></font></div></center>
                 <table cellpadding="30" cellspacing="0" border="0">
-                    <tr style="border-top: solid #cccccc;">
+
+                    <tr>
                         <td>
-                            <font class="formfieldnamefont">Javascript Embed:</font>
+                            <font class="formfieldnamefont">Flash Embed:</font>
                         </td>
                         <td valign="top" align="left">
+                            <f:verbatim>#{researcherSurveyDetail03.embedflashsyntax}</f:verbatim>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td valign="top" nowrap="true" style="border-top: solid 2px #cccccc;">
+                            <font class="formfieldnamefont">Javascript Embed:</font>
+                        </td>
+                        <td valign="top" align="left" style="border-top: solid 2px #cccccc;">
                             <f:verbatim>#{researcherSurveyDetail03.embedjavascriptsyntax}</f:verbatim>
                         </td>
                     </tr>
                     <tr>
                         <td valign="top" nowrap="true" style="border-top: solid 2px #cccccc;">
-                            <font class="formfieldnamefont">Flash Embed:</font>
+                            <font class="formfieldnamefont">Image Embed:</font>
                         </td>
-                        <td valign="top"  align="left" style="border-top: solid 2px #cccccc;">
-                            <f:verbatim>#{researcherSurveyDetail03.embedflashsyntax}</f:verbatim>
+                        <td valign="top" align="left" style="border-top: solid 2px #cccccc;">
+                            <f:verbatim>#{researcherSurveyDetail03.embedimagesyntax}</f:verbatim>
                         </td>
                     </tr>
                     <tr>
                         <td valign="top" nowrap="true" style="border-top: solid 2px #cccccc;">
                             <font class="formfieldnamefont">Link Embed:</font>
                         </td>
-                        <td valign="top"  align="left" style="border-top: solid 2px #cccccc;">
+                        <td valign="top" align="left" style="border-top: solid 2px #cccccc;">
                             <f:verbatim>#{researcherSurveyDetail03.embedlinksyntax}</f:verbatim>
                         </td>
                     </tr>
@@ -123,10 +132,10 @@
                             <br/>
                             <font class="smallfont">Use these tags to move a question around in the survey.  You can create tables using the html tags below but remember that you have a set 425 pixels to work with.</font>
                             <br/>
-                            <ui:repeat value="#{researcherSurveyQuestionList.questions}" var="question">
+                            <ui:repeat value="#{researcherSurveyDetail03.questions}" var="question">
                                 <b><h:outputText value="&lt;$question_#{question.questionid}$>" styleClass="smallfont"></h:outputText></b>
                                 <br/>
-                                <h:outputText value="#{question.question}" styleClass="smallfont"></h:outputText>
+                                <h:outputText value="#{question.question}" styleClass="tinyfont"></h:outputText>
                                 <br/><br/>
                             </ui:repeat>
                         </d:roundedCornerBox>
@@ -172,6 +181,8 @@
                                     <li>Make small changes at first.</li>
                                     <li>A very common mistake is not closing tags.  All tags must be closed with another tag of the same name (or self-closed).</li>
                                     <li>If you get into trouble and can't get your survey to display, start over by clicking Reset.</li>
+                                    <li>Images can be added to surveys and will display in Flash and Javascript embedding.  However, you must close the image tag and you must include width and height attributes that are properly quoted.  Here's an example:<br/>&lt;img src="http://domain.com/image.jpg" width="100" height="50"/> (Note the closing / at the end of the img tag)</li>
+                                    <li>Only JPEG/JPG files are supported.  These files can not be progressive JPEGs.</li>
                                 </ul>
                             </font>
                         </d:roundedCornerBox>

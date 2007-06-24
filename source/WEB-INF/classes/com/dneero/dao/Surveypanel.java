@@ -16,7 +16,6 @@ import java.util.HashSet;
  */
 
 public class Surveypanel extends BasePersistentClass implements java.io.Serializable, RegerEntity, AuthControlled {
-    Logger logger = Logger.getLogger(this.getClass().getName());
 
     // Fields
      private int surveypanelid;

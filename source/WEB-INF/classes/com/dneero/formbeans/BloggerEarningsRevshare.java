@@ -23,16 +23,16 @@ public class BloggerEarningsRevshare implements Serializable {
 
     private ArrayList<BloggerEarningsRevshareListRevshares> list;
 
-    private double level1percent;
-    private double level1amt;
-    private double level2percent;
-    private double level2amt;
-    private double level3percent;
-    private double level3amt;
-    private double level4percent;
-    private double level4amt;
-    private double level5percent;
-    private double level5amt;
+    private double level1percent=RevshareLevelPercentageCalculator.getPercentToShare(1);
+    private double level1amt=RevshareLevelPercentageCalculator.getAmountToShare(500, 1);
+    private double level2percent=RevshareLevelPercentageCalculator.getPercentToShare(2);
+    private double level2amt=RevshareLevelPercentageCalculator.getAmountToShare(500, 2);
+    private double level3percent=RevshareLevelPercentageCalculator.getPercentToShare(3);
+    private double level3amt=RevshareLevelPercentageCalculator.getAmountToShare(500, 3);
+    private double level4percent=RevshareLevelPercentageCalculator.getPercentToShare(4);
+    private double level4amt=RevshareLevelPercentageCalculator.getAmountToShare(500, 4);
+    private double level5percent=RevshareLevelPercentageCalculator.getPercentToShare(5);
+    private double level5amt=RevshareLevelPercentageCalculator.getAmountToShare(500, 5);
 
     private String msg = "";
 
@@ -62,16 +62,16 @@ public class BloggerEarningsRevshare implements Serializable {
         }
 
         //Create the params for the revshare chart
-        level1percent = RevshareLevelPercentageCalculator.getPercentToShare(1);
-        level1amt = RevshareLevelPercentageCalculator.getAmountToShare(500, 1);
-        level2percent = RevshareLevelPercentageCalculator.getPercentToShare(2);
-        level2amt = RevshareLevelPercentageCalculator.getAmountToShare(500, 2);
-        level3percent = RevshareLevelPercentageCalculator.getPercentToShare(3);
-        level3amt = RevshareLevelPercentageCalculator.getAmountToShare(500, 3);
-        level4percent = RevshareLevelPercentageCalculator.getPercentToShare(4);
-        level4amt = RevshareLevelPercentageCalculator.getAmountToShare(500, 4);
-        level5percent = RevshareLevelPercentageCalculator.getPercentToShare(5);
-        level5amt = RevshareLevelPercentageCalculator.getAmountToShare(500, 5);
+//        level1percent = RevshareLevelPercentageCalculator.getPercentToShare(1);
+//        level1amt = RevshareLevelPercentageCalculator.getAmountToShare(500, 1);
+//        level2percent = RevshareLevelPercentageCalculator.getPercentToShare(2);
+//        level2amt = RevshareLevelPercentageCalculator.getAmountToShare(500, 2);
+//        level3percent = RevshareLevelPercentageCalculator.getPercentToShare(3);
+//        level3amt = RevshareLevelPercentageCalculator.getAmountToShare(500, 3);
+//        level4percent = RevshareLevelPercentageCalculator.getPercentToShare(4);
+//        level4amt = RevshareLevelPercentageCalculator.getAmountToShare(500, 4);
+//        level5percent = RevshareLevelPercentageCalculator.getPercentToShare(5);
+//        level5amt = RevshareLevelPercentageCalculator.getAmountToShare(500, 5);
     }
 
     protected boolean isDefaultAscending(String sortColumn) {

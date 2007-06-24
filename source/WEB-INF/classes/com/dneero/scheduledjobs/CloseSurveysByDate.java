@@ -29,6 +29,7 @@ public class CloseSurveysByDate implements Job {
             logger.debug("execute() CloseSurveysByDate called");
             List<Survey> surveys = HibernateUtil.getSession().createCriteria(Survey.class)
                                    .add( Restrictions.eq("status", Survey.STATUS_OPEN))
+                                   .setCacheable(false)
                                    .list();
             for (Iterator<Survey> iterator = surveys.iterator(); iterator.hasNext();) {
                 Survey survey = iterator.next();

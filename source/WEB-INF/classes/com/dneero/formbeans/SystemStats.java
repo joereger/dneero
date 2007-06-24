@@ -1,6 +1,12 @@
 package com.dneero.formbeans;
 
+import com.dneero.dao.Survey;
+import com.dneero.ui.SurveyEnhancer;
+
 import java.io.Serializable;
+import java.util.Map;
+
+import org.apache.log4j.Logger;
 
 /**
  * User: Joe Reger Jr
@@ -19,6 +25,8 @@ public class SystemStats implements Serializable {
     private double dollarsavailabletobloggers=com.dneero.scheduledjobs.SystemStats.getDollarsavailabletobloggers();
     private double systembalance=com.dneero.scheduledjobs.SystemStats.getSystembalance();
     private double systembalancerealworld=com.dneero.scheduledjobs.SystemStats.getSystembalancerealworld();
+    private double systembalancetotal=com.dneero.scheduledjobs.SystemStats.getSystembalancetotal();
+    private int numberofsurveysopen=com.dneero.scheduledjobs.SystemStats.getNumberofsurveysopen();
 
     public SystemStats(){}
 
@@ -86,4 +94,39 @@ public class SystemStats implements Serializable {
     public void setSystembalancerealworld(double systembalancerealworld) {
 
     }
+
+    public double getSystembalancetotal() {
+        return com.dneero.scheduledjobs.SystemStats.getSystembalancetotal();
+    }
+
+    public void setSystembalancetotal(double systembalancetotal) {
+
+    }
+
+    public int getNumberofsurveysopen() {
+        return com.dneero.scheduledjobs.SystemStats.getNumberofsurveysopen();
+    }
+
+    public void setNumberofsurveysopen(int numberofsurveysopen) {
+
+    }
+
+
+//    public Map<String, Survey> getSpotlightsurveys() {
+//        //Logger logger = Logger.getLogger(com.dneero.formbeans.SystemStats.class);
+//        //logger.debug("getSpotlightsurveys() called");
+//        return com.dneero.scheduledjobs.SystemStats.getSpotlightsurveys();
+//    }
+//
+//    public void setSpotlightsurveys(Map<String, Survey> spotlightsurveys) {
+//
+//    }
+//
+//    public Map<String, SurveyEnhancer> getSpotlightsurveyenhancers() {
+//        return com.dneero.scheduledjobs.SystemStats.getSpotlightsurveyenhancers();
+//    }
+//
+//    public void setSpotlightsurveyenhancers(Map<String, SurveyEnhancer> spotlightsurveyenhancers) {
+//
+//    }
 }

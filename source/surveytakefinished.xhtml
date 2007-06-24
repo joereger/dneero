@@ -12,7 +12,7 @@
       >
 
 <ui:composition template="/template/template-facelets.xhtml">
-    <ui:define name="title">Success!<br/><br/></ui:define>
+    <ui:define name="title">Almost done...<br/><br/></ui:define>
     <ui:param name="navtab" value="home"/>
     <ui:define name="body">
     <d:authorization acl="public" redirectonfail="false" permitaccessduringprebeta="true"/>
@@ -34,12 +34,12 @@
         <c:if test="#{!userSession.isloggedin}">
             <tr>
                 <td valign="top" width="50%">
-                    <div class="rounded" style="background: #00ff00; text-align: center;">
+                    <div class="rounded" style="background: #e6e6e6; text-align: center;">
                         <h:commandLink value="Sign Up" action="#{registration.beginView}" style="padding-left: 15px; color: #0000ff;" styleClass="mediumfont"/>
                     </div>
                 </td>
                 <td valign="top" align="left">
-                    <div class="rounded" style="background: #00ff00; text-align: center;">
+                    <div class="rounded" style="background: #e6e6e6; text-align: center;">
                         <h:commandLink value="Log In" action="#{login.beginView}" style="padding-left: 15px; color: #0000ff;" styleClass="mediumfont"/>
                     </div>
                 </td>
@@ -48,7 +48,7 @@
         <c:if test="#{userSession.isloggedin}">
             <tr>
                 <td valign="top" width="50%">
-                    <div class="rounded" style="background: #00ff00; text-align: center;">
+                    <div class="rounded" style="background: #e6e6e6; text-align: center;">
                         <h:commandLink value="Continue" action="#{accountIndex.beginView}" style="padding-left: 15px; color: #0000ff;" styleClass="mediumfont"/>
                     </div>
                 </td>

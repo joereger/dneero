@@ -1,8 +1,19 @@
 package com.dneero.formbeans;
 
 import com.dneero.util.Jsf;
+import com.dneero.util.Time;
+import com.dneero.dao.Survey;
+import com.dneero.dao.Question;
+import com.dneero.dao.Questionconfig;
+import com.dneero.dao.Surveypanel;
+import com.dneero.dao.hibernate.CopyHibernateObject;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Iterator;
+
+import org.apache.log4j.Logger;
 
 /**
  * User: Joe Reger Jr
@@ -15,12 +26,12 @@ public class ResearcherIndex implements Serializable {
     private String msg = "";
 
     public ResearcherIndex(){
-
+        
     }
 
     public String beginView(){
         load();
-        return "researcherhome";
+        return "researcherindex";
     }
 
     private void load(){
@@ -31,6 +42,59 @@ public class ResearcherIndex implements Serializable {
         }
         ResearcherSurveyList bean = (ResearcherSurveyList)Jsf.getManagedBean("researcherSurveyList");
         bean.beginView();
+    }
+
+
+    public String copy(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
+        String tmpSurveyid = Jsf.getRequestParam("surveyid");
+        if (com.dneero.util.Num.isinteger(tmpSurveyid)){
+            logger.debug("copy(): found surveyid in request param="+tmpSurveyid);
+            Survey origSurvey = Survey.get(Integer.parseInt(tmpSurveyid));
+            Survey newSurvey = new Survey();
+            //Copy the main survey and save it
+            ArrayList fieldstoignore = new ArrayList();
+            fieldstoignore.add("surveyid");
+            newSurvey = (Survey) CopyHibernateObject.shallowCopyIgnoreCertainFields(origSurvey, newSurvey, fieldstoignore);
+            newSurvey.setTitle(newSurvey.getTitle()+" (Copy "+ Time.dateformatcompactwithtime(Calendar.getInstance()) +")");
+            newSurvey.setStatus(Survey.STATUS_DRAFT);
+            try{newSurvey.save();}catch(Exception ex){logger.error(ex);}
+            //Copy the questions
+            for (Iterator<Question> iterator = origSurvey.getQuestions().iterator(); iterator.hasNext();) {
+                Question origQuestion = iterator.next();
+                Question newQuestion = new Question();
+                ArrayList fieldstoignore1 = new ArrayList();
+                fieldstoignore1.add("questionid");
+                newQuestion = (Question) CopyHibernateObject.shallowCopyIgnoreCertainFields(origQuestion, newQuestion, fieldstoignore1);
+                newQuestion.setSurveyid(newSurvey.getSurveyid());
+                try{newQuestion.save();}catch(Exception ex){logger.error(ex);}
+                //Copy the question configs
+                for (Iterator<Questionconfig> iterator1 = origQuestion.getQuestionconfigs().iterator(); iterator1.hasNext();){
+                    Questionconfig origQuestionconfig = iterator1.next();
+                    Questionconfig newQuestionconfig = new Questionconfig();
+                    ArrayList fieldstoignore2 = new ArrayList();
+                    fieldstoignore2.add("questionconfigid");
+                    newQuestionconfig = (Questionconfig) CopyHibernateObject.shallowCopyIgnoreCertainFields(origQuestionconfig, newQuestionconfig, fieldstoignore2);
+                    newQuestionconfig.setQuestionid(newQuestion.getQuestionid());
+                    try{newQuestionconfig.save();}catch(Exception ex){logger.error(ex);}
+                }
+            }
+            //Copy the surveypanels
+            for (Iterator<Surveypanel> iterator = origSurvey.getSurveypanels().iterator(); iterator.hasNext();) {
+                Surveypanel origSurveypanel = iterator.next();
+                Surveypanel newSurveypanel = new Surveypanel();
+                ArrayList fieldstoignore1 = new ArrayList();
+                fieldstoignore1.add("surveypanelid");
+                newSurveypanel = (Surveypanel) CopyHibernateObject.shallowCopyIgnoreCertainFields(origSurveypanel, newSurveypanel, fieldstoignore1);
+                newSurveypanel.setSurveyid(newSurvey.getSurveyid());
+                try{newSurveypanel.save();}catch(Exception ex){logger.error(ex);}
+            }
+            //Refresh the survey
+            try{newSurvey.refresh();}catch(Exception ex){logger.error(ex);}
+        }
+        Jsf.setFacesMessage("Survey copied!");
+        ResearcherIndex bean = (ResearcherIndex)Jsf.getManagedBean("researcherIndex");
+        return bean.beginView();
     }
 
     public boolean getShowmarketingmaterial() {

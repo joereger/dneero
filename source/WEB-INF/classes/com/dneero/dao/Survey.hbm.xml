@@ -27,10 +27,16 @@
             <one-to-many class="com.dneero.dao.Impression" not-found="ignore"></one-to-many>
         </set>
 
-        <set name="surveypanels" inverse="true" cascade="save-update">
+        <set name="surveypanels" inverse="true" cascade="all-delete-orphan">
             <cache usage="transactional"/>
             <key column="surveyid"></key>
             <one-to-many class="com.dneero.dao.Surveypanel" not-found="ignore"></one-to-many>
+        </set>
+
+        <set name="surveydiscusses" inverse="true" cascade="all-delete-orphan">
+            <cache usage="transactional"/>
+            <key column="surveyid"></key>
+            <one-to-many class="com.dneero.dao.Surveydiscuss" not-found="ignore"></one-to-many>
         </set>
 
 
@@ -81,6 +87,12 @@
         </property>
         <property name="embedlink" type="boolean">
             <column name="embedlink" />
+        </property>
+        <property name="publicsurveydisplays" type="int">
+            <column name="publicsurveydisplays" not-null="true" />
+        </property>
+        <property name="isspotlight" type="boolean">
+            <column name="isspotlight" />
         </property>
 
     </class>

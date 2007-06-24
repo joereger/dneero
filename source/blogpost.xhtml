@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:t="http://myfaces.apache.org/tomahawk"
+      xmlns:d="http://dneero.com/taglib"
+      xmlns:c="http://java.sun.com/jstl/core"
+
+      >
+
+
+<ui:composition template="/template/template-facelets.xhtml">
+    <ui:define name="title"></ui:define>
+    <ui:param name="navtab" value="home"/>
+    <ui:define name="body">
+    <d:authorization acl="public" redirectonfail="true"/>
+
+<h:form>
+
+    <font class="mediumfont" style="color: #0bae17;">#{publicBlogPost.blogpost.title}</font>
+    <br/>
+    <h:outputText styleClass="smallfont" value="#{publicBlogPost.blogpost.body}" escape="false"></h:outputText>
+    <br/>
+    <font class="tinyfont" style="color: #cccccc;">Posted by: #{publicBlogPost.blogpost.author} at <h:outputText value=" #{publicBlogPost.blogpost.date}" styleClass="tinyfont" style="color: #cccccc;"><f:convertDateTime type="both" dateStyle="short" timeStyle="medium"/></h:outputText></font>
+    <br/><br/>
+
+</h:form>
+
+
+</ui:define>
+
+
+</ui:composition>
+</html>

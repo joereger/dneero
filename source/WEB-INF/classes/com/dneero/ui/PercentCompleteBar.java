@@ -34,19 +34,19 @@ public class PercentCompleteBar extends UIComponentBase {
         String maxtitle = String.valueOf(getAttributes().get("maxtitle"));
         String widthinpixels = String.valueOf(getAttributes().get("widthinpixels"));
 
-        if (currentvalue==null){
+        if (currentvalue==null || currentvalue.equals("null")){
             currentvalue = "0";
         }
         if (maximumvalue==null || maximumvalue.equals("null")){
             maximumvalue = "100";
         }
-        if (mintitle==null){
+        if (mintitle==null || mintitle.equals("null")){
             mintitle = "";
         }
-        if (maxtitle==null){
+        if (maxtitle==null || maxtitle.equals("null")){
             maxtitle = "";
         }
-        if (widthinpixels==null){
+        if (widthinpixels==null || widthinpixels.equals("null")){
             widthinpixels = "300";
         }
 

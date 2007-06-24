@@ -28,6 +28,7 @@ public class InstanceProperties {
     private static String dbMaxWait;
     private static String dbDriverName;
     private static String runScheduledTasksOnThisInstance;
+    private static String instancename;
 
 
 
@@ -91,6 +92,7 @@ public class InstanceProperties {
             dbMaxWait = properties.getProperty("dbMaxWait", "10000");
             dbDriverName = properties.getProperty("dbDriverName", "com.mysql.jdbc.Driver");
             runScheduledTasksOnThisInstance = properties.getProperty("runScheduledTasksOnThisInstance", "0");
+            instancename = properties.getProperty("instancename", "InstanceNotNamed");
 
             haveAttemptedToLoadDefaultPropsFile = true;
             haveNewConfigToTest = true;
@@ -139,6 +141,9 @@ public class InstanceProperties {
                 }
                 if (runScheduledTasksOnThisInstance!=null){
                     properties.setProperty("runScheduledTasksOnThisInstance", runScheduledTasksOnThisInstance);
+                }
+                if (instancename!=null){
+                    properties.setProperty("instancename", instancename);
                 }
 
                 if (testConfig()){
@@ -320,4 +325,12 @@ public class InstanceProperties {
     }
 
 
+    public static String getInstancename() {
+        load();
+        return instancename;
+    }
+
+    public static void setInstancename(String instancename) {
+        InstanceProperties.instancename = instancename;
+    }
 }

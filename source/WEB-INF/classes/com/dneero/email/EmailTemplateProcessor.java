@@ -29,15 +29,19 @@ public class EmailTemplateProcessor {
 
     public static void sendMail(String subject, String emailTemplateFilenameWithoutExtension, User userTo, String[] args, String toaddress, String fromaddress){
         Logger logger = Logger.getLogger(EmailTemplateProcessor.class);
-        String htmlEmailHeader = Io.textFileRead(WebAppRootDir.getWebAppRootPath() + "emailtemplates" + java.io.File.separator + "emailheader.html").toString();
-        String htmlEmailFooter = Io.textFileRead(WebAppRootDir.getWebAppRootPath() + "emailtemplates" + java.io.File.separator + "emailfooter.html").toString();
         String htmlTemplate = Io.textFileRead(WebAppRootDir.getWebAppRootPath() + "emailtemplates" + java.io.File.separator + emailTemplateFilenameWithoutExtension + ".html").toString();
         String txtTemplate = Io.textFileRead(WebAppRootDir.getWebAppRootPath() + "emailtemplates" + java.io.File.separator + emailTemplateFilenameWithoutExtension + ".txt").toString();
+        sendMail(subject, htmlTemplate, txtTemplate, userTo, args, toaddress, fromaddress);
+    }
+
+    public static void sendMail(String subject, String htmlTemplate, String txtTemplate, User userTo, String[] args, String toaddress, String fromaddress){
+        Logger logger = Logger.getLogger(EmailTemplateProcessor.class);
+        String htmlEmailHeader = Io.textFileRead(WebAppRootDir.getWebAppRootPath() + "emailtemplates" + java.io.File.separator + "emailheader.html").toString();
+        String htmlEmailFooter = Io.textFileRead(WebAppRootDir.getWebAppRootPath() + "emailtemplates" + java.io.File.separator + "emailfooter.html").toString();
         String htmlMessage = processTemplate(htmlTemplate, userTo, args);
         String txtMessage = processTemplate(txtTemplate, userTo, args);
         htmlMessage = translateImageLinks(htmlMessage);
         txtMessage = translateImageLinks(txtMessage);
-
         try{
             HtmlEmail email = new HtmlEmail();
             if (toaddress!=null && !toaddress.equals("")){
@@ -46,9 +50,9 @@ public class EmailTemplateProcessor {
                 email.addTo(userTo.getEmail());
             }
             if (fromaddress!=null && !fromaddress.equals("")){
-                email.setFrom(fromaddress);
+                email.setFrom(fromaddress, fromaddress);
             } else {
-                email.setFrom(EmailSendThread.DEFAULTFROM);
+                email.setFrom(EmailSendThread.DEFAULTFROM, "dNeero Social Surveys");
             }
             email.setSubject(subject);
             email.setHtmlMsg(htmlEmailHeader + htmlMessage + htmlEmailFooter);
@@ -59,16 +63,18 @@ public class EmailTemplateProcessor {
         }
     }
 
-    private static String processTemplate(String template, User user, String[] args){
+    public static String processTemplate(String template, User user, String[] args){
         Logger logger = Logger.getLogger(EmailTemplateProcessor.class);
         StringBuffer out = new StringBuffer();
-        Pattern p = Pattern.compile("\\<\\$(.|\\n)*?\\$\\>");
-        Matcher m = p.matcher(template);
-        while(m.find()) {
-            String tag = m.group();
-            m.appendReplacement(out, Str.cleanForAppendreplacement(findWhatToAppend(tag, user, args)));
+        if (template!=null && !template.equals("")){
+            Pattern p = Pattern.compile("\\<\\$(.|\\n)*?\\$\\>");
+            Matcher m = p.matcher(template);
+            while(m.find()) {
+                String tag = m.group();
+                m.appendReplacement(out, Str.cleanForAppendreplacement(findWhatToAppend(tag, user, args)));
+            }
+            try{ m.appendTail(out); } catch (Exception e){}
         }
-        try{ m.appendTail(out); } catch (Exception e){}
         return out.toString();
     }
 
@@ -139,7 +145,7 @@ public class EmailTemplateProcessor {
         return out;
     }
 
-    private static String translateImageLinks(String template){
+    public static String translateImageLinks(String template){
         Logger logger = Logger.getLogger(EmailTemplateProcessor.class);
         try{
             StringBuffer out = new StringBuffer();

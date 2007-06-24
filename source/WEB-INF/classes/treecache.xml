@@ -8,7 +8,7 @@
 
 <server>
 
-    <classpath codebase="./lib" archives="jboss-cache.jar, jgroups-2.2.8.jar"/>
+    <classpath codebase="./lib" archives="jboss-cache.jar, jgroups-all.jar"/>
 
 
     <!-- ==================================================================== -->
@@ -26,9 +26,8 @@
         <!--
         Configure the TransactionManager
         -->
-        <!--
-        <attribute name="TransactionManagerLookupClass">org.jboss.cache.DummyTransactionManagerLookup</attribute>
-        -->
+        <attribute name="TransactionManagerLookupClass">org.jboss.cache.JBossTransactionManagerLookup</attribute>
+    
         <!--
             Isolation level : SERIALIZABLE
                               REPEATABLE_READ (default)
@@ -41,7 +40,7 @@
         <!--
              Valid modes are LOCAL, REPL_ASYNC and REPL_SYNC
         -->
-        <attribute name="CacheMode">REPL_ASYNC</attribute>
+        <attribute name="CacheMode">REPL_SYNC</attribute>
 
         <!--
         Just used for async repl: use a replication queue
@@ -51,7 +50,7 @@
         <!--
             Replication interval for replication queue (in ms)
         -->
-        <attribute name="ReplQueueInterval">20000</attribute>
+        <attribute name="ReplQueueInterval">1000</attribute>
 
         <!--
             Max number of elements which trigger replication
@@ -67,6 +66,7 @@
              e.g. file:/home/bela/default.xml
            <attribute name="ClusterProperties"></attribute>
         -->
+
         <attribute name="ClusterConfig">
             <config>
                 <!-- UDP: if you have a multihomed machine,
@@ -94,6 +94,7 @@
                 <pbcast.STATE_TRANSFER up_thread="true" down_thread="true"/>
             </config>
         </attribute>
+
 
 
         <!--
@@ -152,7 +153,7 @@
           Indicate whether to use marshalling or not. Set this to true if you are running under a scoped
           class loader, e.g., inside an application server. Default is "false".
        -->
-        <attribute name="UseMarshalling">true</attribute>
+        <attribute name="UseMarshalling">false</attribute>
 
 
     </mbean>

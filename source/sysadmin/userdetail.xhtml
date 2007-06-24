@@ -70,6 +70,11 @@
                             <h:commandButton action="#{sysadminUserDetail.reactivatebyemail}"  value="Force Re-Activation By Email" styleClass="formsubmitbutton"></h:commandButton>
                         </div>
                         <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
+                            <h:commandButton action="#{sysadminUserDetail.runResearcherRemainingBalanceOperations}" value="ResearcherRemainingBalanceOperations" styleClass="formsubmitbutton"></h:commandButton>
+                            <br/>
+                            <font class="tinyfont">This will process account balances, remaining impressions, credit card transfers, etc for only this account.  Only does something if this user has a researcher record.</font>
+                        </div>
+                        <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
                             <h:outputText value="User is a Sysadmin" rendered="#{sysadminUserDetail.issysadmin}" styleClass="mediumfont"></h:outputText>
                             <h:outputText value="User is not a Sysadmin" rendered="#{!sysadminUserDetail.issysadmin}" styleClass="mediumfont"></h:outputText>
                             <br/>
@@ -82,6 +87,15 @@
                     </td>
                  
                     <td valign="top" width="50%">
+                    <h:form id="activation">
+                        <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
+                            <h:outputText value="This Account is Currently Enabled." rendered="#{sysadminUserDetail.isenabled}" styleClass="mediumfont"></h:outputText>
+                            <h:outputText value="This Account is Currently Disabled." rendered="#{!sysadminUserDetail.isenabled}" styleClass="mediumfont"></h:outputText>
+                            <br/>
+                            <h:commandButton action="#{sysadminUserDetail.toggleisenabled}" value="Disable Account" styleClass="formsubmitbutton" rendered="#{sysadminUserDetail.isenabled}"></h:commandButton>
+                            <h:commandButton action="#{sysadminUserDetail.toggleisenabled}" value="Enable Account" styleClass="formsubmitbutton" rendered="#{!sysadminUserDetail.isenabled}"></h:commandButton>
+                        </div>
+                    </h:form>
                     <h:form id="giveusermoney">
                         <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
                                 <h:inputHidden value="#{sysadminUserDetail.userid}" />
@@ -99,8 +113,8 @@
                                 <br/>
                                 <h:commandButton action="#{sysadminUserDetail.giveusermoney}"  value="Give User Money" styleClass="formsubmitbutton"></h:commandButton>
                         </div>
-                        </h:form>
-                        <h:form id="takeawayusermoney">
+                    </h:form>
+                    <h:form id="takeawayusermoney">
                         <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
                                 <h:inputHidden value="#{sysadminUserDetail.userid}" />
                                 <font class="mediumfont">Take Money from User</font>

@@ -44,19 +44,23 @@
         <f:facet name="header">
           <h:outputText value="Blog"/>
         </f:facet>
-        <h:outputLink target="referer" value="#{imp.blogurl}" styleClass="smallfont"><h:outputText value="#{imp.blogurl}"/></h:outputLink>
+        <h:outputLink target="referer" value="#{imp.blogurl}">
+            <h:outputText value="#{imp.blogtitle}" styleClass="smallfont"/>
+        </h:outputLink>
         <h:outputText value="None" rendered="#{empty imp.blogurl}"/>
       </h:column>
       <h:column>
         <f:facet name="header">
           <h:outputText value="Specific Page"/>
         </f:facet>
-        <h:outputLink target="referer" value="#{imp.referer}" styleClass="smallfont"><h:outputText value="#{imp.referer}"/></h:outputLink>
+        <h:outputLink target="referer" value="#{imp.referer}">
+            <h:outputText value="#{imp.referertruncated}" styleClass="tinyfont"/>
+        </h:outputLink>
         <h:outputText value="None" rendered="#{empty imp.referer}"/>
       </h:column>
       <h:column>
         <f:facet name="header">
-          <h:outputText value="Impressions"/>
+          <h:outputText value="Impressions Qualifying"/>
         </f:facet>
         <h:commandLink action="#{researcherResultsImpressionsDetails.beginView}">
             <h:outputText value="#{imp.impressionsqualifyingforpayment}" styleClass="smallfont" style="color: #0000ff;"/>

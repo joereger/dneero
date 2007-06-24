@@ -5,6 +5,7 @@ import org.apache.log4j.Logger;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.Calendar;
+import java.util.List;
 import java.io.Serializable;
 
 import com.dneero.util.Jsf;
@@ -12,6 +13,8 @@ import com.dneero.util.GeneralException;
 import com.dneero.util.Time;
 import com.dneero.dao.Blogger;
 import com.dneero.dao.Userrole;
+import com.dneero.dao.User;
+import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.session.UserSession;
 import com.dneero.money.PaymentMethod;
 
@@ -25,7 +28,6 @@ public class BloggerDetails implements Serializable {
 
     //Form props
     private Date birthdate;
-    private int notifyofnewsurveysbyemail=1;
     private String gender;
     private String ethnicity;
     private String income;
@@ -60,11 +62,6 @@ public class BloggerDetails implements Serializable {
         if (userSession.getUser()!=null && userSession.getUser().getBloggerid()>0){
             Blogger blogger = Blogger.get(userSession.getUser().getBloggerid());
             birthdate = blogger.getBirthdate();
-            if (blogger.getNotifyofnewsurveysbyemail()){
-                notifyofnewsurveysbyemail = 1;
-            } else {
-                notifyofnewsurveysbyemail = 0;
-            }
             gender = String.valueOf(blogger.getGender());
             ethnicity = String.valueOf(blogger.getEthnicity());
             income = String.valueOf(blogger.getIncomerange());
@@ -92,7 +89,6 @@ public class BloggerDetails implements Serializable {
             blogger = new Blogger();
             blogger.setQuality(0);
             blogger.setQuality90days(0);
-            blogger.setLastnewsurveynotificationsenton(new Date());
             isnewblogger = true;
         }
 
@@ -100,9 +96,18 @@ public class BloggerDetails implements Serializable {
 
 
             //Validation of answers
+            boolean haveValidationError = false;
             Calendar birthdateCal = Time.getCalFromDate(birthdate);
             if (birthdateCal.after(Time.subtractYear(Calendar.getInstance(), 13))){
                 Jsf.setFacesMessage("bloggerdetails:birthdate", "You must be at least 13 years of age to use this system.");
+                haveValidationError = true;
+            }
+            long cnt = (Long)HibernateUtil.getSession().createQuery("select count(*) from User where paymethodpaypaladdress='"+paymethodpaypaladdress+"' and userid<>'"+userSession.getUser().getUserid()+"' and paymethodpaypaladdress<>'' and paymethodpaypaladdress IS NOT NULL").uniqueResult();
+            if (cnt>0){
+                Jsf.setFacesMessage("bloggerdetails:paymethodpaypaladdress", "That PayPal address is already in use by another user.");
+                haveValidationError = true;
+            }
+            if (haveValidationError){
                 return null;
             }
             //End validation
@@ -119,11 +124,6 @@ public class BloggerDetails implements Serializable {
             blogger.setCity(city);
             blogger.setProfession(profession);
             blogger.setPolitics(politics);
-            if (notifyofnewsurveysbyemail==0){
-                blogger.setNotifyofnewsurveysbyemail(false);
-            } else {
-                blogger.setNotifyofnewsurveysbyemail(true);
-            }
 
 
             try{
@@ -185,7 +185,7 @@ public class BloggerDetails implements Serializable {
                 BloggerIndex bean = (BloggerIndex)Jsf.getManagedBean("bloggerIndex");
                 bean.setMsg("Profile saved successfully.");
                 return bean.beginView();
-                //return "bloggerhome";
+                //return "bloggerindex";
             }
         } else {
             Jsf.setFacesMessage("UserSession.getUser() is null.  Please log in.");
@@ -296,13 +296,7 @@ public class BloggerDetails implements Serializable {
 
 
 
-    public int getNotifyofnewsurveysbyemail() {
-        return notifyofnewsurveysbyemail;
-    }
-
-    public void setNotifyofnewsurveysbyemail(int notifyofnewsurveysbyemail) {
-        this.notifyofnewsurveysbyemail = notifyofnewsurveysbyemail;
-    }
+  
 
 
     public String getPaymethodpaypaladdress() {

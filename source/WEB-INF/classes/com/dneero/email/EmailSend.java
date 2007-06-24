@@ -29,9 +29,8 @@ public class EmailSend {
         try {
             //Kick off a thread to send the email
             EmailSendThread eThr = new EmailSendThread();
-            eThr.setPriority(Thread.MIN_PRIORITY);
             eThr.htmlEmail = htmlEmail;
-            eThr.start();
+            eThr.startThread();
         }catch (Exception e) {
             logger.error("Error starting email thread.");
             logger.error(e);

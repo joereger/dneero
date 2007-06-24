@@ -95,7 +95,7 @@ public class Authorization extends UIComponentBase {
                         if (useridFromCookie>-1){
                             logger.debug("setting userid="+useridFromCookie);
                             User user = User.get(useridFromCookie);
-                            if (user!=null && user.getUserid()>0){
+                            if (user!=null && user.getUserid()>0 && user.getIsenabled()){
                                 UserSession newUserSession = new UserSession();
                                 newUserSession.setUser(user);
                                 newUserSession.setIsloggedin(true);
@@ -104,6 +104,7 @@ public class Authorization extends UIComponentBase {
                                 newUserSession.setPendingSurveyResponseAsString(Jsf.getUserSession().getPendingSurveyResponseAsString());
                                 newUserSession.setPendingSurveyResponseSurveyid(Jsf.getUserSession().getPendingSurveyResponseSurveyid());
                                 newUserSession.setCurrentSurveyid(Jsf.getUserSession().getCurrentSurveyid());
+                                newUserSession.setSurveystakentoday(SurveysTakenToday.getNumberOfSurveysTakenToday(user));
                                 //Check the eula
                                 if (!EulaHelper.isUserUsingMostRecentEula(user)){
                                     newUserSession.setIseulaok(false);
@@ -151,14 +152,7 @@ public class Authorization extends UIComponentBase {
 
 
 
-        //Now check the eula
-        if (redirectonfail.equals("true") && Jsf.getUserSession().getIsloggedin() && !Jsf.getUserSession().getIseulaok()){
-            System.out.println("redirecting to force eula accept");
-            LoginAgreeNewEula bean = (LoginAgreeNewEula)Jsf.getManagedBean("loginAgreeNewEula");
-            bean.beginView();
-            context.getExternalContext().redirect("/loginagreeneweula.jsf");
-            return;
-        }
+
 
 
 
@@ -181,6 +175,15 @@ public class Authorization extends UIComponentBase {
                 context.getExternalContext().redirect("/emailactivationwaiting.jsf");
                 return;
             }
+        }
+
+        //Now check the eula
+        if (redirectonfail.equals("true") && Jsf.getUserSession().getIsloggedin() && !Jsf.getUserSession().getIseulaok()){
+            System.out.println("redirecting to force eula accept");
+            LoginAgreeNewEula bean = (LoginAgreeNewEula)Jsf.getManagedBean("loginAgreeNewEula");
+            bean.beginView();
+            context.getExternalContext().redirect("/loginagreeneweula.jsf");
+            return;
         }
 
         //Acl authorization

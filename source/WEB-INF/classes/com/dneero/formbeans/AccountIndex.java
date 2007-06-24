@@ -31,6 +31,10 @@ public class AccountIndex implements Serializable {
 
     public String beginView(){
         load();
+        if (userhasresponsependings){
+            BloggerIndex bean = (BloggerIndex)Jsf.getManagedBean("bloggerIndex");
+            return bean.beginView();        
+        }
         return "accountindex";
     }
 
@@ -45,7 +49,8 @@ public class AccountIndex implements Serializable {
                 userhasresponsependings = true;
             }
         }
-
+        AccountBalance bean = (AccountBalance)Jsf.getManagedBean("accountBalance");
+        bean.beginView();
     }
 
     public String getInit() {

@@ -58,7 +58,12 @@
                 <h:panelGroup>
                     <h:commandButton action="#{sysadminManuallyRunScheduledTask.runSystemStats}" value="SystemStats" styleClass="formsubmitbutton"></h:commandButton>
                 </h:panelGroup>
-
+                <h:panelGroup>
+                    <h:commandButton action="#{sysadminManuallyRunScheduledTask.runSendMassemails}" value="SendMassemails" styleClass="formsubmitbutton"></h:commandButton>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:commandButton action="#{sysadminManuallyRunScheduledTask.runImpressionActivityObjectQueue}" value="ImpressionActivityObjectQueue" styleClass="formsubmitbutton"></h:commandButton>
+                </h:panelGroup>
             </h:panelGrid>
 
          </h:form>

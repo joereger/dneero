@@ -12,6 +12,7 @@ import com.dneero.session.UserSession;
 import com.dneero.util.Jsf;
 import com.dneero.util.GeneralException;
 import com.dneero.display.components.Checkboxes;
+import com.dneero.helpers.UserInputSafe;
 
 import java.util.Iterator;
 import java.io.Serializable;
@@ -104,7 +105,7 @@ public class ResearcherSurveyDetail02checkboxes implements Serializable {
             }
 
             question.setSurveyid(survey.getSurveyid());
-            question.setQuestion(this.question);
+            question.setQuestion(UserInputSafe.clean(this.question));
             question.setIsrequired(isrequired);
             question.setComponenttype(Checkboxes.ID);
 
@@ -136,7 +137,7 @@ public class ResearcherSurveyDetail02checkboxes implements Serializable {
             Questionconfig qc1 = new Questionconfig();
             qc1.setQuestionid(question.getQuestionid());
             qc1.setName("options");
-            qc1.setValue(options);
+            qc1.setValue(UserInputSafe.clean(options));
             question.getQuestionconfigs().add(qc1);
 
             try{

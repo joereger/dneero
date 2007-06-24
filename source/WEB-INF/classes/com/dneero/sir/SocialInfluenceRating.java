@@ -67,7 +67,8 @@ public class SocialInfluenceRating {
         int out = 0;
         for (Iterator<Impression> iterator = blog.getImpressions().iterator(); iterator.hasNext();) {
             Impression impression = iterator.next();
-            out = out + impression.getImpressiondetails().size();
+            int impressiondetailscount = ((Long)HibernateUtil.getSession().createQuery("count(*) from Impressiondetail where impressionid='"+impression.getImpressionid()+"'").uniqueResult()).intValue();
+            out = out + impressiondetailscount;
         }
         return out;
     }
@@ -77,7 +78,8 @@ public class SocialInfluenceRating {
         Calendar date90daysago = Time.xDaysAgoStart(Calendar.getInstance(), 90);
         for (Iterator<Impression> iterator = blog.getImpressions().iterator(); iterator.hasNext();) {
             Impression impression = iterator.next();
-            for (Iterator<Impressiondetail> iterator1 = impression.getImpressiondetails().iterator(); iterator1.hasNext();){
+            List impressiondetails = HibernateUtil.getSession().createQuery("from Impressiondetail where impressionid='"+impression.getImpressionid()+"'").setCacheable(true).list();
+            for (Iterator<Impressiondetail> iterator1 = impressiondetails.iterator(); iterator1.hasNext();){
                 Impressiondetail impressiondetail = iterator1.next();
                 if (impressiondetail.getImpressiondate().after(date90daysago.getTime())){
                     out = out + 1;

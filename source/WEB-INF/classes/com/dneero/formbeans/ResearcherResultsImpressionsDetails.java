@@ -2,11 +2,13 @@ package com.dneero.formbeans;
 
 import org.apache.log4j.Logger;
 import com.dneero.dao.*;
+import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.util.Jsf;
 import com.dneero.session.UserSession;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.io.Serializable;
 
 /**
@@ -39,7 +41,8 @@ public class ResearcherResultsImpressionsDetails implements Serializable {
             impression = Impression.get(Integer.parseInt(tmpImpressionid));
             referer = impression.getReferer();
             list = new ArrayList();
-            for (Iterator<Impressiondetail> iterator = impression.getImpressiondetails().iterator(); iterator.hasNext();) {
+            List impressiondetails = HibernateUtil.getSession().createQuery("from Impressiondetail where impressionid='"+impression.getImpressionid()+"'").setCacheable(true).list();
+            for (Iterator<Impressiondetail> iterator = impressiondetails.iterator(); iterator.hasNext();) {
                 Impressiondetail impressiondetail = iterator.next();
                 BloggerImpressionDetailsListItem listitem = new BloggerImpressionDetailsListItem();
                 listitem.setImpressiondate(impressiondetail.getImpressiondate());

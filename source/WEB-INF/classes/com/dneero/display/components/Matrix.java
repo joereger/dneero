@@ -95,7 +95,7 @@ public class Matrix implements Component {
         for (int i = 0; i < rows.length; i++) {
             String row = rows[i].trim();
             out.append("<tr>");
-            out.append("<td align=\"center\" valign=\"top\">");
+            out.append("<td align=\"left\" valign=\"top\">");
             out.append(row);
             out.append("</td>");
             for (int j = 0; j < cols.length; j++) {
@@ -119,10 +119,10 @@ public class Matrix implements Component {
 
     public String getHtmlForDisplay(Response response) {
         StringBuffer out = new StringBuffer();
-        out.append("<p style=\"font-family: Arial Black, Arial Black, Gadget, sans-serif; font-size: 12px; font-weight: bold; margin: 1px;\">");
+        out.append("<p style=\"font-family: Arial, Arial, Helvetica, sans-serif; font-size: 13px; font-weight: bold; margin: 0px; padding: 0px; text-align: left;\">");
         out.append(question.getQuestion());
         out.append("</p>");
-        out.append("<p style=\"font-family: Arial, Arial, Helvetica, sans-serif; font-size: 12px; margin: 1px;\">");
+        out.append("<p style=\"font-family: Arial, Arial, Helvetica, sans-serif; font-size: 11px; margin: 1px;  padding: 0px; text-align: left;\">");
 
         if (blogger!=null && response!=null){
             List<Questionresponse> responses = HibernateUtil.getSession().createQuery("from Questionresponse where questionid='"+question.getQuestionid()+"' and bloggerid='"+blogger.getBloggerid()+"' and responseid='"+response.getResponseid()+"'").list();
@@ -176,7 +176,7 @@ public class Matrix implements Component {
             for (int i = 0; i < rows.length; i++) {
                 String row = rows[i].trim();
                 out.append("<tr>");
-                out.append("<td align=\"center\" valign=\"top\">");
+                out.append("<td align=\"left\" valign=\"top\">");
                 out.append(row);
                 out.append("</td>");
                 for (int j = 0; j < cols.length; j++) {
@@ -198,7 +198,7 @@ public class Matrix implements Component {
 
 
         } else {
-            out.append("<p>Not answered.</p>");
+            out.append("Not answered.");
         }
         out.append("</p>");
         return out.toString();

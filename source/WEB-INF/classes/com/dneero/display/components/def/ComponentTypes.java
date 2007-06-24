@@ -3,6 +3,7 @@ package com.dneero.display.components.def;
 import com.dneero.dao.Blogger;
 import com.dneero.dao.Question;
 import com.dneero.dao.Response;
+import com.dneero.dao.Survey;
 import com.dneero.display.components.def.Component;
 import com.dneero.display.components.*;
 
@@ -63,13 +64,15 @@ public class ComponentTypes {
         this.typesaslinkedhashmap = typesaslinkedhashmap;
     }
 
-    public Component getByTagSyntax(String tag, Blogger blogger){
+    public Component getByTagSyntax(String tag, Blogger blogger, Survey survey){
         //Get questionid from <$question_22334$>
         String qidStr = tag.substring(11, tag.length()-2);
         logger.debug("tag="+tag+" qidStr="+qidStr);
         if (com.dneero.util.Num.isinteger(qidStr)){
             Question question = Question.get(Integer.parseInt(qidStr));
-            return getComponentByID(question.getComponenttype(), question, blogger);
+            if (question.getSurveyid()==survey.getSurveyid()){
+                return getComponentByID(question.getComponenttype(), question, blogger);
+            }
         }
         return null;
     }

@@ -5,6 +5,7 @@ import com.dneero.util.Jsf;
 import com.dneero.dao.Impression;
 import com.dneero.dao.Survey;
 import com.dneero.dao.Blogger;
+import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.money.BloggerIncomeCalculator;
 
 import java.util.*;
@@ -58,7 +59,8 @@ public class BloggerImpressions  implements Serializable {
                     listitem.setImpressionid(impression.getImpressionid());
                     listitem.setQuality(impression.getQuality());
                     listitem.setReferer(impression.getReferer());
-                    listitem.setImpressionsqualifyingforpayment(impression.getImpressiondetails().size());
+                    listitem.setImpressionsqualifyingforpayment(impression.getImpressionsqualifyingforpayment());
+                    listitem.setImpressionstotal(impression.getImpressionstotal());
                     list.add(listitem);
                 }
 

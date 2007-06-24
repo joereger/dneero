@@ -34,6 +34,7 @@ public class UserSession implements Serializable {
     private String emailinvitesubject = "";
     private String emailinvitemessage = "";
     private ArrayList<String> emailinviteaddresses = new ArrayList<String>();
+    private int surveystakentoday = 0;
 
     public UserSession(){
 
@@ -173,5 +174,13 @@ public class UserSession implements Serializable {
 
     public void setEmailinvitemessage(String emailinvitemessage) {
         this.emailinvitemessage = emailinvitemessage;
+    }
+
+    public int getSurveystakentoday() {
+        return surveystakentoday;
+    }
+
+    public void setSurveystakentoday(int surveystakentoday) {
+        this.surveystakentoday = surveystakentoday;
     }
 }

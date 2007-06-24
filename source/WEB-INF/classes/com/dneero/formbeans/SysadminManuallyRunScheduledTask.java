@@ -127,6 +127,20 @@ public class SysadminManuallyRunScheduledTask implements Serializable {
         return "sysadminmanuallyrunscheduledtask";
     }
 
+    public String runSendMassemails(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
+        try{com.dneero.scheduledjobs.SendMassemails task = new com.dneero.scheduledjobs.SendMassemails();
+            task.execute(null);} catch (Exception ex){logger.error(ex);}
+        return "sysadminmanuallyrunscheduledtask";
+    }
+
+    public String runImpressionActivityObjectQueue(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
+        try{com.dneero.scheduledjobs.ImpressionActivityObjectQueue task = new com.dneero.scheduledjobs.ImpressionActivityObjectQueue();
+            task.execute(null);} catch (Exception ex){logger.error(ex);}
+        return "sysadminmanuallyrunscheduledtask";
+    }
+
 
 
 }

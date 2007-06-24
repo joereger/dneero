@@ -2,8 +2,10 @@ package com.dneero.formbeans;
 
 import com.dneero.util.SortableList;
 import com.dneero.util.Jsf;
+import com.dneero.util.Time;
 import com.dneero.dao.Survey;
 import com.dneero.dao.hibernate.HibernateUtil;
+import com.dneero.dao.hibernate.CopyHibernateObject;
 import com.dneero.session.UserSession;
 
 import java.util.*;
@@ -38,9 +40,11 @@ public class ResearcherSurveyList implements Serializable {
         if (userSession!=null && userSession.getUser()!=null && userSession.getUser().getResearcherid()>0){
             logger.debug("userSession, user and researcher not null");
             logger.debug("into loop for userSession.getUser().getResearcher().getResearcherid()="+userSession.getUser().getResearcherid());
-            surveys = HibernateUtil.getSession().createQuery("from Survey where researcherid='"+userSession.getUser().getResearcherid()+"' order by surveyid desc").list();
+            surveys = HibernateUtil.getSession().createQuery("from Survey where researcherid='"+userSession.getUser().getResearcherid()+"' order by surveyid desc").setCacheable(true).list();
         }
     }
+
+    
 
 
     public List getSurveys() {
