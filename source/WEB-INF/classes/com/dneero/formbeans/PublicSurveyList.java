@@ -21,11 +21,10 @@ public class PublicSurveyList implements Serializable {
     private ArrayList<BloggerSurveyListItem> surveys;
 
     public PublicSurveyList() {
-
+        load();
     }
 
     public String beginView(){
-        load();
         return "publicsurveylist";
     }
 

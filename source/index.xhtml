@@ -102,9 +102,9 @@
        <tr>
            <td colspan="2" valign="top" align="right">
                 <br/>
-                <h:commandLink action="#{publicSurveyList.beginView}" style="color: #0BAE17; font-weight: bold; text-decoration: none; padding-right: 30px;">
-                    <font class="mediumfont" style="color: #0BAE17; font-weight: bold; text-decoration: none;">See All Survey Opportunities >></font>
-               </h:commandLink>
+                <h:outputLink value="/publicsurveylist.jsf">
+                    <h:outputText value="See All Survey Opportunities" styleClass="mediumfont" style="color: #0BAE17; font-weight: bold; text-decoration: none;"/>
+                </h:outputLink>
                <br/><br/>
            </td>
        </tr>

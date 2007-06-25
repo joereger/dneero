@@ -29,10 +29,9 @@
         <f:facet name="header">
             <h:outputText value="Survey Name"/>
         </f:facet>
-        <h:commandLink action="#{publicSurveyTakeRedirector.beginView}">
-            <h:outputText value="#{srvy.title}" escape="false" styleClass="mediumfont" style="color: #0000ff;"/>
-            <f:param name="surveyid" value="#{srvy.surveyid}" />
-        </h:commandLink>
+        <h:outputLink value="/survey.jsf?surveyid=#{srvy.surveyid}">
+            <h:outputText value="#{srvy.title}" styleClass="mediumfont" style="color: #0000ff;"/>
+        </h:outputLink>
         <br/>
         <h:outputText value="#{srvy.description}" escape="false" styleClass="tinyfont"/>
       </t:column>
@@ -78,6 +77,10 @@
         </f:facet>
     </t:dataScroller>
 
+    <br/><br/>
+    <div style="width: 99%; text-align: right;">
+    <h:outputLink value="/publicoldsurveylist.jsf"><h:outputText value="See Old Surveys" styleClass="subnavfont"/></h:outputLink>
+    </div>
 
 </h:form>
 

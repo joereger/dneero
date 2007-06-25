@@ -107,7 +107,7 @@ public class ResearcherSurveyDetail05 implements Serializable {
                 try{
                     int mindisplays = (numberofrespondentsrequested * maxdisplaysperblog)/4;
                     if (maxdisplaystotal < mindisplays){
-                        Jsf.setFacesMessage("surveyedit:maxdisplaystotal", "Max Displays Total must be at least 25% of Number of Respondents Requested multiplied by Max Displays Per Blog.");
+                        Jsf.setFacesMessage("surveyedit:maxdisplaystotal", "Max Displays Total must be at least 25% of Number of Respondents Requested multiplied by Max Displays Per Blog (in this case it's "+mindisplays+").  We've already adjusted the value accordingly.");
                         maxdisplaystotal = mindisplays;
                         haveError = true;
                     }

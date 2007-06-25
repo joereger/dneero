@@ -25,11 +25,10 @@ public class PublicOldSurveyList implements Serializable {
     private ArrayList<BloggerSurveyListItem> surveys;
 
     public PublicOldSurveyList() {
-
+        load();
     }
 
     public String beginView(){
-        load();
         return "publicoldsurveylist";
     }
 

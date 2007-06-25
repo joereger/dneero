@@ -29,11 +29,9 @@
         <f:facet name="header">
             <h:outputText value="Survey Name"/>
         </f:facet>
-        <h:commandLink action="#{publicSurveyTakeRedirector.beginView}">
-            <h:outputText value="#{srvy.title}" escape="false" styleClass="mediumfont" style="color: #0000ff;"/>
-            <f:param name="surveyid" value="#{srvy.surveyid}" />
-            <f:param name="tabselectedindex" value="2" />
-        </h:commandLink>
+        <h:outputLink value="/survey.jsf?surveyid=#{srvy.surveyid}&amp;tabselectedindex=2">
+            <h:outputText value="#{srvy.title}" styleClass="mediumfont" style="color: #0000ff;"/>
+        </h:outputLink>
         <br/>
         <h:outputText value="#{srvy.description}" escape="false" styleClass="tinyfont"/>
       </t:column>

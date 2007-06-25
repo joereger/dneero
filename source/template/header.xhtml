@@ -17,7 +17,7 @@
                 <tr>
                     <td valign="top" colspan="2">
                         <img src="/images/clear.gif" width="10" height="1" align="left"/>
-                        <img src="/images/dneero-logo.gif" width="200" height="94"/>
+                        <a href="/"><img src="/images/dneero-logo.gif" width="200" height="94" border="0"/></a>
                     </td>
                     <td valign="top" style="text-align: right;" colspan="3">
                         <c:if test="#{!userSession.isloggedin}">
@@ -72,7 +72,9 @@
                 <tr>
                     <td bgcolor="#dadada" style="text-align: left; vertical-align: middle;" colspan="5" height="25">
                         <c:if test="${navtab=='home'}">
+                            <!--<h:outputLink value="/publicsurveylist.jsf"><h:outputText value="Current Surveys" style="padding-left: 15px; color: #000000;" styleClass="subnavfont"/></h:outputLink>-->
                             <h:commandLink value="Current Surveys" action="#{publicSurveyList.beginView}" style="padding-left: 15px; color: #000000;" styleClass="subnavfont"/>
+                            <!--<h:outputLink value="/publicoldsurveylist.jsf"><h:outputText value="Old Surveys" style="padding-left: 15px; color: #000000;" styleClass="subnavfont"/></h:outputLink>-->
                             <h:commandLink value="Old Surveys" action="#{publicOldSurveyList.beginView}" style="padding-left: 15px; color: #000000;" styleClass="subnavfont"/>
                             <h:commandLink value="Blog" action="#{publicBlog.beginView}" style="padding-left: 15px; color: #000000;" styleClass="subnavfont"/>
                             <h:commandLink value="Sign Up" action="#{registration.beginView}" style="padding-left: 15px; color: #000000;" styleClass="subnavfont" rendered="#{!userSession.isloggedin}"/>
