@@ -155,6 +155,31 @@
 			</fileset>
 		</copy>
 	</target>
+
+	<target name="QuickBuildJboss" description="Compile the java source and put in Tomcat working directory">
+  	 	<echo message="Compiling Java code."/>
+     	<copy todir="${lastbuild}" >
+            <fileset dir="${sourcedir}" excludes="**/Thumbs.db"/>
+        </copy>
+        <mkdir dir="${jboss.quickbuild.compiled.destination.directory}"/>
+		<javac srcdir="${javasrc}" destdir="${jboss.quickbuild.compiled.destination.directory}" includes="**/**" debug="true" deprecation="true">
+            <classpath>
+                <path refid="lib.classpath" />
+            </classpath>
+        </javac>
+        <!--
+        <aopc compilerclasspathref="lib.classpath" verbose="false">
+            <classpath path="${quickbuild.compiled.destination.directory}"/>
+            <src path="${quickbuild.compiled.destination.directory}"/>
+            <include name="**/*.class"/>
+            <aoppath path="${sourcedir}/WEB-INF/jboss-aop.xml"/>
+         </aopc>
+         -->
+		<copy todir="${jboss.quickbuild.tomcat.root.directory}">
+			<fileset dir="${lastbuild}">
+			</fileset>
+		</copy>
+	</target>
 	
 	<target name="QuickBuildClean" description="Compile the java source and put in Tomcat working directory">
         <antcall target="cleanuplastbuild"/>
@@ -164,11 +189,30 @@
         <antcall target="QuickBuild"/>
     </target>
 
+    <target name="QuickBuildCleanJboss" description="Compile the java source and put in Tomcat working directory">
+        <antcall target="cleanuplastbuild"/>
+        <mkdir dir="${jboss.quickbuild.tomcat.root.directory}"/>
+        <delete includeemptydirs="true">
+            <fileset dir="${jboss.quickbuild.tomcat.root.directory}" includes="**/*"/>
+        </delete>
+        <antcall target="QuickBuildJboss"/>
+    </target>
+
+
+
 	<target name="buildWar" description="Builds a war file." depends="packagewithsource">
         <echo message="Creating ROOT.war for ${tomcat.app.name}."/>
         <copy file="${tomcat.app.name}-(bld${build.number})-${build.time}.war" tofile="${wardir}/ROOT.war" overwrite="true"/>
 		<delete file="${tomcat.app.name}-(bld${build.number})-${build.time}.war"/>
     </target>
+
+    <target name="buildWarToJbossFarmDir" description="Builds a war file to the Jboss Farm directory." depends="packagewithsource">
+        <echo message="Creating ROOT.war for ${tomcat.app.name}."/>
+        <copy file="${tomcat.app.name}-(bld${build.number})-${build.time}.war" tofile="${jboss.farm.directory}/ROOT.war" overwrite="true"/>
+		<delete file="${tomcat.app.name}-(bld${build.number})-${build.time}.war"/>
+    </target>
+
+
 
 
 
