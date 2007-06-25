@@ -41,7 +41,7 @@ public class BloggerIndex implements Serializable {
     public String beginView(){
         load();
         //If the user hasn't yet set up their blogger profile
-        if (Jsf.getUserSession().getUser().getBloggerid()==0){
+        if (Jsf.getUserSession()!=null && Jsf.getUserSession().getUser()!=null && Jsf.getUserSession().getUser().getBloggerid()==0){
             BloggerDetails bean = (BloggerDetails)Jsf.getManagedBean("bloggerDetails");
             return bean.beginView();
         }
