@@ -21,6 +21,8 @@
                         <h:outputText value=" | " styleClass="tinyfont"></h:outputText>
                         <h:commandLink value="terms of use and privacy statement" action="#{publicEula.beginView}" styleClass="tinyfont"/>
                         <h:outputText value=" | " styleClass="tinyfont"></h:outputText>
+                        <h:commandLink value="about us" action="publicaboutus" styleClass="tinyfont"/>
+                        <h:outputText value=" | " styleClass="tinyfont"></h:outputText>
                         <h:commandLink value="oh, btw, we're evil." action="publicevil" styleClass="tinyfont"/>
                         <c:if test="#{userSession.isloggedin}">
                             <h:outputText value=" | " styleClass="tinyfont"></h:outputText>
