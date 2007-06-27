@@ -141,7 +141,7 @@
                                     We have plenty more <h:commandLink value="surveys" action="#{publicSurveyList.beginView}" style="padding-left: 5px;" styleClass="subnavfont"/> for you to choose from.  And all of them pay!
 
                                     <br/><br/>
-                                    <div class="rounded" style="background: #ffffff; padding: 5px; margin: 5px; text-align: center;">
+                                    <div class="rounded" style="background: #ffffff; padding: 5px; margin: 5px; text-align: left;">
                                         <h:panelGrid columns="2" cellpadding="3" border="0">
 
                                             <h:panelGroup>
@@ -204,11 +204,22 @@
                                                 <br/><br/>
                                             </h:panelGroup>
 
+                                            <h:panelGroup>
+                                                <h:outputText value="This Page Displayed" styleClass="formfieldnamefont"/>
+                                            </h:panelGroup>
+                                            <h:panelGroup>
+                                                <h:outputText value="#{publicSurveyTake.survey.publicsurveydisplays} times"/>
+                                            </h:panelGroup>
+
+                                            <h:panelGroup>
+                                                <h:outputText value="Surveyid" styleClass="formfieldnamefont"/>
+                                            </h:panelGroup>
+                                            <h:panelGroup>
+                                                <h:outputText value="#{publicSurveyTake.survey.surveyid}"/>
+                                            </h:panelGroup>
+
                                          </h:panelGrid>
                                     </div>
-
-                                    <br/>
-                                    <font class="tinyfont">Survey ID: #{publicSurveyTake.survey.surveyid}</font>
                                     </font>
                                 </div>
                             </td>

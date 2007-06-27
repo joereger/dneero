@@ -151,6 +151,7 @@ public class ImpressionActivityObjectStorage {
                 logger.debug("not removing slash from referer: referer="+referer);
             }
             if (user!=null && user.getBloggerid()>0){
+                logger.debug("userid="+user.getUserid()+" bloggerid="+user.getBloggerid());
                 for (Iterator it = Blogger.get(user.getBloggerid()).getBlogs().iterator(); it.hasNext(); ) {
                     Blog blog = (Blog)it.next();
                     logger.debug("blog.getUrl()="+ blog.getUrl());
@@ -161,20 +162,22 @@ public class ImpressionActivityObjectStorage {
                     }
                 }
             } else {
-                //The user is null, no userid was passed on url line
-                List<Blog> blogs = HibernateUtil.getSession().createCriteria(Blog.class)
-                                                   .add(Restrictions.like("url", "%"+referer+"%"))
-                                                   .setCacheable(true)
-                                                   .list();
-                for (Iterator<Blog> iterator = blogs.iterator(); iterator.hasNext();) {
-                    Blog blog = iterator.next();
-                    logger.debug("blog.getUrl()="+ blog.getUrl());
-                    logger.debug("referer.indexOf(blog.getUrl())="+referer.indexOf(blog.getUrl()));
-                    if (referer.indexOf(blog.getUrl())>=0){
-                        logger.debug("found the blogid for this impression: blogid="+ blog.getBlogid());
-                        return blog;
-                    }
-                }
+                logger.debug("The user is null, no userid was passed on url line.");
+                //@todo this code doesn't work... Restrictions.like is reverse... the incoming is http://domain/blah.html while the database value is http://domain
+//                List<Blog> blogs = HibernateUtil.getSession().createCriteria(Blog.class)
+//                                                   .add(Restrictions.like("url", "%"+referer+"%"))
+//                                                   .setCacheable(true)
+//                                                   .list();
+//                logger.debug("blogs.size()="+blogs.size());
+//                for (Iterator<Blog> iterator = blogs.iterator(); iterator.hasNext();) {
+//                    Blog blog = iterator.next();
+//                    logger.debug("blog.getUrl()="+ blog.getUrl());
+//                    logger.debug("referer.indexOf(blog.getUrl())="+referer.indexOf(blog.getUrl()));
+//                    if (referer.indexOf(blog.getUrl())>=0){
+//                        logger.debug("found the blogid for this impression: blogid="+ blog.getBlogid());
+//                        return blog;
+//                    }
+//                }
             }
         }
         return null;

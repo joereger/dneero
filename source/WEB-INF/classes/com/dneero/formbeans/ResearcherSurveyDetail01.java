@@ -98,6 +98,9 @@ public class ResearcherSurveyDetail01 implements Serializable {
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("saveSurvey() called.");
         logger.debug("status="+status);
+        if (Jsf.getUserSession()==null || Jsf.getUserSession().getUser()==null){
+            return null;   
+        }
         if (startdate==null){
             logger.debug("startdate is null");
         } else {

@@ -58,27 +58,37 @@ public class PublicProfile implements Serializable {
         }
 
         listitems = new ArrayList<PublicProfileListitem>();
-        for (Iterator<Response> iterator = blogger.getResponses().iterator(); iterator.hasNext();) {
-            Response response1 = iterator.next();
-            Survey survey = Survey.get(response1.getSurveyid());
-            PublicProfileListitem li = new PublicProfileListitem();
-            li.setSurvey(survey);
-            li.setResponse(response1);
-            listitems.add(li);
+        if (blogger!=null && blogger.getResponses()!=null){
+            for (Iterator<Response> iterator = blogger.getResponses().iterator(); iterator.hasNext();) {
+                Response response1 = iterator.next();
+                Survey survey = Survey.get(response1.getSurveyid());
+                PublicProfileListitem li = new PublicProfileListitem();
+                li.setSurvey(survey);
+                li.setResponse(response1);
+                listitems.add(li);
+            }
         }
         blogs = new ArrayList<Blog>();
-        for (Iterator<Blog> iterator = blogger.getBlogs().iterator(); iterator.hasNext();) {
-            Blog blog = iterator.next();
-            blogs.add(blog);
+        if (blogger!=null && blogger.getBlogs()!=null){
+            for (Iterator<Blog> iterator = blogger.getBlogs().iterator(); iterator.hasNext();) {
+                Blog blog = iterator.next();
+                blogs.add(blog);
+            }
         }
         panels = new ArrayList<Panel>();
-        for (Iterator<Panelmembership> iterator = blogger.getPanelmemberships().iterator(); iterator.hasNext();) {
-            Panelmembership panelmembership = (Panelmembership)iterator.next();
-            panels.add(Panel.get(panelmembership.getPanelid()));
+        if (blogger!=null && blogger.getPanelmemberships()!=null){
+            for (Iterator<Panelmembership> iterator = blogger.getPanelmemberships().iterator(); iterator.hasNext();) {
+                Panelmembership panelmembership = (Panelmembership)iterator.next();
+                panels.add(Panel.get(panelmembership.getPanelid()));
+            }
         }
-
-        socialinfluenceratingpercentile = SocialInfluenceRatingPercentile.getPercentileOfRanking(SystemStats.getTotalbloggers(), blogger.getSocialinfluenceratingranking());
-        socialinfluenceratingpercentile90days = SocialInfluenceRatingPercentile.getPercentileOfRanking(SystemStats.getTotalbloggers(), blogger.getSocialinfluenceratingranking90days());
+        if (blogger!=null && blogger.getBloggerid()>0){
+            socialinfluenceratingpercentile = SocialInfluenceRatingPercentile.getPercentileOfRanking(SystemStats.getTotalbloggers(), blogger.getSocialinfluenceratingranking());
+            socialinfluenceratingpercentile90days = SocialInfluenceRatingPercentile.getPercentileOfRanking(SystemStats.getTotalbloggers(), blogger.getSocialinfluenceratingranking90days());
+        } else {
+            socialinfluenceratingpercentile = 0;
+            socialinfluenceratingpercentile90days = 0;
+        }
     }
 
     public String addToPanel(){

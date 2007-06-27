@@ -172,13 +172,19 @@ public class PublicSurveyTake implements Serializable {
 
 
             //Establish pendingSurveyReferredbyblogid by looking at referer, store that in the session and use it later
-            Blog referredByBlog = ImpressionActivityObjectStorage.findBlogFromReferer(Jsf.getHttpServletRequest().getHeader("referer"));
-            if (referredByBlog!=null){
+            logger.debug("Jsf.getHttpServletRequest().getHeader(\"referer\")="+Jsf.getHttpServletRequest().getHeader("referer"));
+            User user = null;
+            if (Jsf.getRequestParam("userid")!=null && Num.isinteger(Jsf.getRequestParam("userid"))){
+                user = User.get(Integer.parseInt(Jsf.getRequestParam("userid")));        
+            }
+            Blog referredByBlog = ImpressionActivityObjectStorage.findBlogFromReferer(Jsf.getHttpServletRequest().getHeader("referer"), user);
+            if (referredByBlog!=null && referredByBlog.getBlogid()>0){
                 Jsf.getUserSession().setPendingSurveyReferredbyblogid(referredByBlog.getBlogid());
                 isreferredbyblog = true;
             }
+            logger.debug("isreferredbyblog="+isreferredbyblog);
             resultsHtml = SurveyResultsDisplay.getHtmlForResults(survey, null, 0);
-            if (Jsf.getUserSession().getPendingSurveyReferredbyblogid()>0){
+            if (isreferredbyblog){
                 resultsHtmlForReferredByBlog = SurveyResultsDisplay.getHtmlForResults(survey, null, Jsf.getUserSession().getPendingSurveyReferredbyblogid());
                 resultstabselectedindex = 1;
             } else {

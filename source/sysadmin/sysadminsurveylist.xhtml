@@ -23,7 +23,7 @@
 
     <t:saveState id="save" value="#{sysadminSurveyList}"/>
 
-    <t:dataTable id="datatable" value="#{sysadminSurveyList.surveys}" rows="15" var="survey" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcol,tcolnowrap,tcol,tcolnowrap,tcolnowrap">
+    <t:dataTable id="datatable" value="#{sysadminSurveyList.surveys}" rows="15" var="survey" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcol,tcol,tcol,tcol,tcol">
       <h:column>
         <f:facet name="header">
           <h:outputText value="Surveyid"/>
@@ -38,6 +38,12 @@
             <h:outputText value="#{survey.title}" styleClass="mediumfont" style="color: #0000ff;"/>
             <f:param name="surveyid" value="#{survey.surveyid}" />
         </h:commandLink>
+      </h:column>
+      <h:column>
+        <f:facet name="header">
+          <h:outputText value="Displays"/>
+        </f:facet>
+        <h:outputText value="#{survey.publicsurveydisplays}"/>
       </h:column>
       <h:column>
         <f:facet name="header">

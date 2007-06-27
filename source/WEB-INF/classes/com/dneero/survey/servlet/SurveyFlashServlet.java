@@ -188,8 +188,12 @@ public class SurveyFlashServlet extends HttpServlet {
     public static String getEmbedSyntax(String baseurl, int surveyid, int userid, boolean ispreview, boolean cache, boolean appendrandomstringtoforcebrowserrefresh){
         String urlofmovie = getUrlOfMovie(baseurl, surveyid, userid, ispreview, cache, appendrandomstringtoforcebrowserrefresh);
 
+//        String out = ""+
+//              "<embed src=\""+urlofmovie+"\" quality=\"high\" bgcolor=\"#ffffff\" width=\"425\" height=\"250\" name=\"dneeroflashviewer\" align=\"middle\" allowScriptAccess=\"never\" type=\"application/x-shockwave-flash\" pluginspage=\"http://www.macromedia.com/go/getflashplayer\"></embed>" +
+//              "";
+              
         String out = ""+
-              "<embed src=\""+urlofmovie+"\" quality=\"high\" bgcolor=\"#ffffff\" width=\"425\" height=\"250\" name=\"dneeroflashviewer\" align=\"middle\" allowScriptAccess=\"never\" type=\"application/x-shockwave-flash\" pluginspage=\"http://www.macromedia.com/go/getflashplayer\"></embed>" +
+              "<embed src=\""+urlofmovie+"\" quality=\"high\" bgcolor=\"#ffffff\" width=\"425\" height=\"250\" name=\"dneeroflashviewer\" align=\"middle\" type=\"application/x-shockwave-flash\" pluginspage=\"http://www.macromedia.com/go/getflashplayer\"></embed>" +
               "";
 
         return out;

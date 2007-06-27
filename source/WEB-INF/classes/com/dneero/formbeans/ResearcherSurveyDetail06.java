@@ -7,6 +7,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.application.NavigationHandler;
 import java.util.Calendar;
 import java.util.LinkedHashMap;
+import java.util.Date;
 import java.io.Serializable;
 
 import com.dneero.dao.*;
@@ -266,6 +267,7 @@ public class ResearcherSurveyDetail06 implements Serializable {
                 //Manage the status as it relates to the startdate
                 if (startdate.before(now)){
                     survey.setStatus(Survey.STATUS_OPEN);
+                    survey.setStartdate(new Date());
                 } else {
                     survey.setStatus(Survey.STATUS_WAITINGFORSTARTDATE);
                 }

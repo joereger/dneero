@@ -91,6 +91,8 @@
             <table cellpadding="0" cellspacing="5" border="0">
                 <tr>
                     <td valign="top" width="75%">
+                        <h:commandButton action="#{researcherSurveyDetail03.resetFormatting}" value="Reset" rendered="#{researcherSurveyDetail03.status eq 1}" styleClass="formsubmitbutton"></h:commandButton>
+                        <br/>
                         <h:inputTextarea value="#{researcherSurveyDetail03.template}" cols="55" rows="15"></h:inputTextarea>
                         <f:verbatim rendered="#{researcherSurveyDetail02.status eq 1}"><br/><br/></f:verbatim>
                         <table cellpadding="0" cellspacing="5" border="0">
