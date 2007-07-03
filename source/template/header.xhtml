@@ -77,6 +77,7 @@
                             <!--<h:outputLink value="/publicoldsurveylist.jsf"><h:outputText value="Old Surveys" style="padding-left: 15px; color: #000000;" styleClass="subnavfont"/></h:outputLink>-->
                             <h:commandLink value="Old Surveys" action="#{publicOldSurveyList.beginView}" style="padding-left: 15px; color: #000000;" styleClass="subnavfont"/>
                             <h:commandLink value="The dNeero Blog" action="#{publicBlog.beginView}" style="padding-left: 15px; color: #000000;" styleClass="subnavfont"/>
+                            <h:commandLink value="Charity" action="#{publicCharity.beginView}" style="padding-left: 15px; color: #000000;" styleClass="subnavfont"/>
                             <h:commandLink value="Sign Up" action="#{registration.beginView}" style="padding-left: 15px; color: #000000;" styleClass="subnavfont" rendered="#{!userSession.isloggedin}"/>
                             <h:commandLink value="Log In" action="#{login.beginView}" style="padding-left: 15px; color: #000000;" styleClass="subnavfont" rendered="#{!userSession.isloggedin}"/>
                         </c:if>

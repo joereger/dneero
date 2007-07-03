@@ -11,13 +11,105 @@
       >
 
 <ui:composition template="/template/template-facelets.xhtml">
-    <ui:define name="title">Charity<br/><br/></ui:define>
+    <ui:define name="title">Save the World<br/><br/></ui:define>
     <ui:param name="navtab" value="home"/>
     <ui:define name="body">
     <d:authorization acl="public" redirectonfail="true"/>
         <h:form>
 
-            
+            <table cellpadding="10" cellspacing="3" border="0">
+                <tr>
+                    <td valign="top"  width="50%">
+                        <font class="mediumfont" style="color: #999999">We'll Give Your Earnings to Charity</font>
+                        <br/>
+                        dNeero will, if you so choose, donate your earnings to charity.  Each time you take a survey you'll be able to choose whether to donate and which charity to donate to.  We currently have a number of charitable options and will look to add more in the future.
+                        <br/><br/><br/>
+                        <font class="mediumfont" style="color: #999999">Results</font>
+                        <br/>
+                        Every quarter we'll write checks to the charities that you've chosen for the amounts that you've deferred.  We'll list your donations on this page.  When somebody clicks to dNeero from your blog we'll tell them that you donated your earnings to charity.
+                        <br/><br/><br/>
+                        <font class="mediumfont" style="color: #999999">Avoid the Perception of Bias</font>
+                        <br/>
+                        One of the big concerns from bloggers is that the money in the model presents possible bias.  Thanks to open and sharing people like <a href="http://www.ck-blog.com/cks_blog/2007/07/good-pitches-th.html">CK</a> we decided to make donating to charity a way to shed the concern over bias.  And do some good at the same time!
+                    </td>
+                    <td valign="top">
+                        <center>
+                        <div class="rounded" style="background: #e6e6e6; text-align: left; padding: 20px;">
+                            <font class="mediumfont" style="color: #999999">Biggest Donators</font>
+                            <br/>
+                            <font class="smallfont">List coming soon.</font>
+                        </div>
+                        <br/><br/>
+                        <div class="rounded" style="background: #e6e6e6; text-align: left; padding: 20px;">
+                            <font class="mediumfont" style="color: #999999">Available Charities</font>
+                            <br/>These are the charities that are currently available for you to choose from:
+                            <br/><a href="http://www.habitat.org/" target="charity">Habitat for Humanity</a>
+                            <br/><a href="http://www.wish.org/" target="charity">Make-A-Wish Foundation</a>
+                            <br/><a href="http://www.cancer.org/" target="charity">American Cancer Society</a>
+                            <br/><a href="http://www.petsmartcharities.org/" target="charity">PetSmart Charities</a>
+                            <br/><a href="http://en.wikipedia.org/wiki/Wikimedia_Foundation" target="charity">Wikimedia Foundation</a>
+                            <br/><a href="http://www.conservationfund.org/" target="charity">The Conservation Fund</a>
+                        </div>
+                        </center>
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top" colspan="2">
+                        <t:saveState id="save" value="#{publicCharity}"/>
+                        <font class="mediumfont" style="color: #999999">Most Recent Donations</font>
+                        <br/>
+                        <h:outputText value="There haven't yet been any charitable donations... yet.  We're just getting started.  Go take some surveys and donate!" styleClass="mediumfont" rendered="#{empty publicCharity.publicCharityListItemsMostRecent}"/>
+                        <t:dataTable sortable="false" id="datatable" value="#{publicCharity.publicCharityListItemsMostRecent}" rows="50" var="charityitem" rendered="#{!empty publicCharity.publicCharityListItemsMostRecent}" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcolnowrap,tcol,tcol,tcol">
+                          <t:column>
+                            <f:facet name="header">
+                                <h:outputText value="Donator"/>
+                            </f:facet>
+                            <h:outputLink value="/profile.jsf?userid=#{charityitem.user.userid}">
+                                <h:outputText value="#{charityitem.user.firstname} #{charityitem.user.lastname}" styleClass="smallfont" style="color: #0000ff;"/>
+                            </h:outputLink>
+                          </t:column>
+                          <t:column>
+                            <f:facet name="header">
+                              <h:outputText value="What was donated."/>
+                            </f:facet>
+                            <h:outputText value="#{charityitem.charitydonation.description}"  styleClass="smallfont"/>
+                          </t:column>
+                          <t:column>
+                            <f:facet name="header">
+                              <h:outputText value="Amount of Donation"/>
+                            </f:facet>
+                            <h:outputText value="#{charityitem.amtForScreen}"  styleClass="smallfont"/>
+                          </t:column>
+                          <t:column>
+                            <f:facet name="header">
+                              <h:outputText value="Donated To"/>
+                            </f:facet>
+                            <h:outputText value="#{charityitem.charitydonation.charityname}"  styleClass="smallfont"/>
+                          </t:column>
+                        </t:dataTable>
+                        <t:dataScroller id="scroll_1" for="datatable" fastStep="10" pageCountVar="pageCount" pageIndexVar="pageIndex" styleClass="scroller" paginator="true" paginatorMaxPages="9" paginatorTableClass="paginator" paginatorActiveColumnStyle="font-weight:bold;">
+                            <f:facet name="first" >
+                                <t:graphicImage url="/images/datascroller/play-first.png" border="0" />
+                            </f:facet>
+                            <f:facet name="last">
+                                <t:graphicImage url="/images/datascroller/play-forward.png" border="0" />
+                            </f:facet>
+                            <f:facet name="previous">
+                                <t:graphicImage url="/images/datascroller/play-back.png" border="0" />
+                            </f:facet>
+                            <f:facet name="next">
+                                <t:graphicImage url="/images/datascroller/play.png" border="0" />
+                            </f:facet>
+                        </t:dataScroller>
+                    </td>
+                </tr>
+
+            </table>
+
+
+
+
+
 
         </h:form>
     </ui:define>
