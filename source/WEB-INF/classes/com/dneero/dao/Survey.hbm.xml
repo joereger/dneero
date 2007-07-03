@@ -94,6 +94,8 @@
         <property name="isspotlight" type="boolean">
             <column name="isspotlight" />
         </property>
-
+        <property name="ischarityonly" type="boolean">
+            <column name="ischarityonly" />
+        </property>
     </class>
 </hibernate-mapping>

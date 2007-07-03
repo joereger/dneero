@@ -140,6 +140,29 @@
             <h:message for="maxdisplaystotal" styleClass="RED"></h:message>
         </h:panelGroup>
 
+        <h:panelGroup>
+            <br/><br/>
+            <h:outputText value="Charity" styleClass="mediumfont"></h:outputText>
+        </h:panelGroup>
+        <h:panelGroup>
+        </h:panelGroup>
+        <h:panelGroup>
+        </h:panelGroup>
+
+        <h:panelGroup>
+            <h:outputText value="Only if Blogger Lets dNeero Give Earnings to Charity?" styleClass="formfieldnamefont"></h:outputText>
+            <br/>
+            <font class="smallfont">By checking this box only those bloggers willing let dNeero give all of their earnings from this survey to charity will be able to take the survey.  The blogger will be able to choose from a list of charities.</font>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:selectBooleanCheckbox title="ischarityonly" id="ischarityonly" value="#{researcherSurveyDetail05.ischarityonly}" rendered="#{researcherSurveyDetail05.status eq 1}"/>
+            <h:outputText value="#{researcherSurveyDetail05.ischarityonly}" rendered="#{researcherSurveyDetail05.status ne 1}"></h:outputText>
+            <font class="formfieldnamefont">Yes, Only Charitable Bloggers</font>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:message for="ischarityonly" styleClass="RED"></h:message>
+        </h:panelGroup>
+
 
     </h:panelGrid>
 

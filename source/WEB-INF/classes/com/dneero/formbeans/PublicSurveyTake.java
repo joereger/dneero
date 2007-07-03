@@ -248,6 +248,7 @@ public class PublicSurveyTake implements Serializable {
             return "publicsurvey";
         }
 
+
         //Validate the response and put into memory
         SurveyResponseParser srp;
         try{

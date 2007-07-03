@@ -29,7 +29,7 @@ public class ResearcherSurveyDetail05 implements Serializable {
     private int maxdisplaysperblog = 500;
     private int maxdisplaystotal = 100000;
     private int status;
-
+    private boolean ischarityonly = false;
 
     public ResearcherSurveyDetail05(){
 
@@ -59,6 +59,7 @@ public class ResearcherSurveyDetail05 implements Serializable {
                 maxdisplaysperblog = survey.getMaxdisplaysperblog();
                 maxdisplaystotal = survey.getMaxdisplaystotal();
                 status = survey.getStatus();
+                ischarityonly = survey.getIscharityonly();
             }
 
         }
@@ -126,6 +127,7 @@ public class ResearcherSurveyDetail05 implements Serializable {
                 survey.setWillingtopaypercpm(willingtopaypercpm);
                 survey.setMaxdisplaysperblog(maxdisplaysperblog);
                 survey.setMaxdisplaystotal(maxdisplaystotal);
+                survey.setIscharityonly(ischarityonly);
 
                 try{
                     logger.debug("saveSurvey() about to save survey.getSurveyid()=" + survey.getSurveyid());
@@ -205,5 +207,13 @@ public class ResearcherSurveyDetail05 implements Serializable {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public boolean getIscharityonly() {
+        return ischarityonly;
+    }
+
+    public void setIscharityonly(boolean ischarityonly) {
+        this.ischarityonly = ischarityonly;
     }
 }

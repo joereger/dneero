@@ -64,10 +64,20 @@
                                     <table cellpadding="2" cellspacing="0" border="0" width="175">
                                         <tr>
                                             <td valign="top">
-                                                <input type="checkbox" name="${publicSurveyTake.DNEERO_REQUEST_PARAM_IDENTIFIER}charity-isforcharity" value="1"></input>
+                                                <c:if test="${!publicSurveyTake.survey.ischarityonly}">
+                                                    <input type="checkbox" name="${publicSurveyTake.DNEERO_REQUEST_PARAM_IDENTIFIER}charity-isforcharity" value="1"></input>
+                                                </c:if>
+                                                <c:if test="${publicSurveyTake.survey.ischarityonly}">
+                                                    <input type="hidden" name="${publicSurveyTake.DNEERO_REQUEST_PARAM_IDENTIFIER}charity-isforcharity" value="1"></input>
+                                                </c:if>
                                             </td>
                                             <td valign="top">
-                                                <font class="formfieldnamefont">Don't Pay Me. Give My Earnings to Charity:</font>
+                                                <c:if test="${!publicSurveyTake.survey.ischarityonly}">
+                                                    <font class="formfieldnamefont">Don't Pay Me. Give My Earnings to Charity:</font>
+                                                </c:if>
+                                                <c:if test="${publicSurveyTake.survey.ischarityonly}">
+                                                    <font class="formfieldnamefont">Earnings From This Survey Must be Given to Charity:</font>
+                                                </c:if>
                                                 <br/>
                                                 <select name="${publicSurveyTake.DNEERO_REQUEST_PARAM_IDENTIFIER}charity-charityname">
                                                     <option value="Habitat for Humanity">Habitat for Humanity</option>

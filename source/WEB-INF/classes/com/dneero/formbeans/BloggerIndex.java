@@ -163,6 +163,13 @@ public class BloggerIndex implements Serializable {
             } else {
                 logger.debug("srp.getNameValuePairs().get(SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+\"charity-isforcharity\")==null");
             }
+            //This is just a backup that forces a charity give in case somebody hacks the form and disables the hidden field isforcharity
+            if (survey.getIscharityonly()){
+                isforcharity = true;
+                if (charityname.equals("")){
+                    charityname = "Default Charity";
+                }
+            }
             logger.debug("isforcharity = "+isforcharity);
             logger.debug("charityname = "+charityname);
 
