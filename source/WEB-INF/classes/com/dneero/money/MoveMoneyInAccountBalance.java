@@ -3,6 +3,8 @@ package com.dneero.money;
 import com.dneero.dao.User;
 import com.dneero.dao.Balance;
 import com.dneero.dao.Revshare;
+import com.dneero.dao.Charitydonation;
+import com.dneero.util.Str;
 import org.apache.log4j.Logger;
 
 import java.util.Date;
@@ -14,12 +16,21 @@ import java.util.Date;
  */
 public class MoveMoneyInAccountBalance {
 
-    public static void pay(User user, double amt, String desc, boolean qualifiesforrevsharedistribution){
-        pay(user, amt, desc, qualifiesforrevsharedistribution, 0, 0);
+    public static void pay(User user, double amt, String desc, boolean qualifiesforrevsharedistribution, boolean isforcharity, String charityname){
+        pay(user, amt, desc, qualifiesforrevsharedistribution, isforcharity, charityname, 0, 0, 0);
     }
 
-    public static void pay(User user, double amt, String desc, boolean qualifiesforrevsharedistribution, int optionalimpressionpaymentgroupid, int optionalimpressionchargegroupid){
+    public static void pay(User user, double amt, String desc, boolean qualifiesforrevsharedistribution, boolean isforcharity, String charityname, int optionalimpressionpaymentgroupid, int optionalimpressionchargegroupid, int optionalresponseid){
         Logger logger = Logger.getLogger(MoveMoneyInAccountBalance.class);
+
+        double originalAmt = amt;
+        String originalDesc = desc;
+        if (isforcharity){
+            //Reset some vars
+            qualifiesforrevsharedistribution = false;
+            amt = 0;
+            desc = "Charity Donation of $"+ Str.formatForMoney(originalAmt)+" to "+charityname+": " + desc;
+        }
 
         Balance balance = new Balance();
         balance.setAmt(amt);
@@ -29,7 +40,20 @@ public class MoveMoneyInAccountBalance {
         balance.setUserid(user.getUserid());
         balance.setOptionalimpressionpaymentgroupid(optionalimpressionpaymentgroupid);
         balance.setOptionalimpressionchargegroupid(optionalimpressionchargegroupid);
+        balance.setOptionalresponseid(optionalresponseid);
         try{balance.save();}catch (Exception ex){logger.error(ex);}
+
+        if (isforcharity){
+            //Record to db
+            Charitydonation charitydonation = new Charitydonation();
+            charitydonation.setUserid(user.getUserid());
+            charitydonation.setDate(new Date());
+            charitydonation.setDescription(originalDesc);
+            charitydonation.setAmt(originalAmt);
+            charitydonation.setCharityname(charityname);
+            charitydonation.setBalanceid(balance.getBalanceid());
+            try{charitydonation.save();}catch (Exception ex){logger.error(ex);}
+        }
 
         //Give out a revshare if this payment requires it
         if (qualifiesforrevsharedistribution){
@@ -58,7 +82,7 @@ public class MoveMoneyInAccountBalance {
                             try{revshare.save();} catch (Exception ex){logger.error(ex);}
                             //Transfer the actual revshare
                             //Very important: note that qualifiesforrevsharedistribution=false on revshare distributions
-                            MoveMoneyInAccountBalance.pay(userToPayRevshareTo, amttoshare, "Revenue share from "+userToPayRevshareTo.getFirstname()+" "+userToPayRevshareTo.getLastname()+"("+userToPayRevshareTo.getEmail()+")", false);
+                            MoveMoneyInAccountBalance.pay(userToPayRevshareTo, amttoshare, "Revenue share from "+userToPayRevshareTo.getFirstname()+" "+userToPayRevshareTo.getLastname()+"("+userToPayRevshareTo.getEmail()+")", false, false, "");
                             //@todo Email the recipient of the revshare to tell them that their peeps are making them money!
                         }
                     }

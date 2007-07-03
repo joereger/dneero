@@ -137,6 +137,11 @@
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
     <managed-bean>
+        <managed-bean-name>publicCharity</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.PublicCharity</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
         <managed-bean-name>publicSurveyTakeRedirector</managed-bean-name>
         <managed-bean-class>com.dneero.formbeans.PublicSurveyTakeRedirector</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
@@ -753,6 +758,10 @@
         <navigation-case>
             <from-outcome>publicevil</from-outcome>
             <to-view-id>/evil.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>publiccharity</from-outcome>
+            <to-view-id>/charity.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>publicaboutus</from-outcome>

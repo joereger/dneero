@@ -26,7 +26,7 @@ public class Balance extends BasePersistentClass implements java.io.Serializable
      private String description;
      private int optionalimpressionpaymentgroupid;
      private int optionalimpressionchargegroupid;
-
+     private int optionalresponseid;
 
     //Validator
     public void validateRegerEntity() throws GeneralException {
@@ -141,5 +141,13 @@ public class Balance extends BasePersistentClass implements java.io.Serializable
 
     public void setOptionalimpressionchargegroupid(int optionalimpressionchargegroupid) {
         this.optionalimpressionchargegroupid = optionalimpressionchargegroupid;
+    }
+
+    public int getOptionalresponseid() {
+        return optionalresponseid;
+    }
+
+    public void setOptionalresponseid(int optionalresponseid) {
+        this.optionalresponseid = optionalresponseid;
     }
 }

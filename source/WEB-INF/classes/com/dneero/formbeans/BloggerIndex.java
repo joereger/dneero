@@ -142,16 +142,42 @@ public class BloggerIndex implements Serializable {
         Logger logger = Logger.getLogger(BloggerIndex.class);
         ComponentException allCex = new ComponentException();
         //Create Response
+        int responseid = 0;
+        boolean isforcharity = false;
+        String charityname = "";
         try{
+            //Charity
+            if (srp.getNameValuePairs().get(SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"charity-isforcharity")!=null){
+                logger.debug("srp.getNameValuePairs().get(SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+\"charity-isforcharity\")!=null");
+                logger.debug("srp.getNameValuePairs().get(SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+\"charity-isforcharity\")="+srp.getNameValuePairs().get(SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"charity-isforcharity"));
+                String[] isforcharityArr =(String[]) srp.getNameValuePairs().get(SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"charity-isforcharity");
+                if (isforcharityArr[0].equals("1")){
+                    isforcharity = true;
+                    if (srp.getNameValuePairs().get(SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"charity-charityname")!=null){
+                        String[] charitynameArr = (String[])srp.getNameValuePairs().get(SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"charity-charityname");
+                        charityname = charitynameArr[0];
+                    } else {
+                        charityname = "Default Charity";
+                    }
+                }
+            } else {
+                logger.debug("srp.getNameValuePairs().get(SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+\"charity-isforcharity\")==null");
+            }
+            logger.debug("isforcharity = "+isforcharity);
+            logger.debug("charityname = "+charityname);
+
             //Create the response
             Response response = new Response();
             response.setBloggerid(blogger.getBloggerid());
             response.setResponsedate(new Date());
             response.setSurveyid(survey.getSurveyid());
             response.setReferredbyblogid(referredbyblogid);
+            response.setIsforcharity(isforcharity);
+            response.setCharityname(charityname);
             //survey.getResponses().add(response);
             try{
                 response.save();
+                responseid = response.getResponseid();
                 survey.refresh();
             } catch (Exception ex){
                 logger.error(ex);
@@ -174,7 +200,7 @@ public class BloggerIndex implements Serializable {
         //Move money, etc
         if (allCex.getErrors().length<=0){
             //Affect balance for blogger
-            MoveMoneyInAccountBalance.pay(Jsf.getUserSession().getUser(), survey.getWillingtopayperrespondent(), "Pay for taking survey: '"+survey.getTitle()+"'", true);
+            MoveMoneyInAccountBalance.pay(Jsf.getUserSession().getUser(), survey.getWillingtopayperrespondent(), "Pay for taking survey: '"+survey.getTitle()+"'", true, isforcharity, charityname, 0, 0, responseid);
             //Affect balance for researcher
             MoveMoneyInAccountBalance.charge(User.get(Researcher.get(survey.getResearcherid()).getUserid()), (survey.getWillingtopayperrespondent()+(survey.getWillingtopayperrespondent()*(SurveyMoneyStatus.DNEEROMARKUPPERCENT/100))), "User "+Jsf.getUserSession().getUser().getFirstname()+" "+Jsf.getUserSession().getUser().getLastname()+" responds to survey '"+survey.getTitle()+"'");
             //Notify debug group

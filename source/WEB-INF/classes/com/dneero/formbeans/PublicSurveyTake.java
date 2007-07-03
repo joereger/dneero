@@ -67,6 +67,7 @@ public class PublicSurveyTake implements Serializable {
     private List<PublicSurveyDiscussListitem> surveydiscusses;
     private String discussSubject="";
     private String discussComment="";
+    public String DNEERO_REQUEST_PARAM_IDENTIFIER = SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER;
 
     public PublicSurveyTake(){
         load();
@@ -288,7 +289,6 @@ public class PublicSurveyTake implements Serializable {
                 logger.error(ex);
             }
         }
-
 
         //Where to send afterwards?
         if (Jsf.getUserSession().getIsloggedin()){
@@ -599,5 +599,13 @@ public class PublicSurveyTake implements Serializable {
 
     public void setHtmltoposttoblogflashwithembedandobjecttag(String htmltoposttoblogflashwithembedandobjecttag) {
         this.htmltoposttoblogflashwithembedandobjecttag = htmltoposttoblogflashwithembedandobjecttag;
+    }
+
+    public String getDNEERO_REQUEST_PARAM_IDENTIFIER() {
+        return DNEERO_REQUEST_PARAM_IDENTIFIER;
+    }
+
+    public void setDNEERO_REQUEST_PARAM_IDENTIFIER(String DNEERO_REQUEST_PARAM_IDENTIFIER) {
+        this.DNEERO_REQUEST_PARAM_IDENTIFIER = DNEERO_REQUEST_PARAM_IDENTIFIER;
     }
 }

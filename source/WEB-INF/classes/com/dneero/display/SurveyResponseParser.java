@@ -23,13 +23,17 @@ public class SurveyResponseParser {
     public static String DNEERO_REQUEST_PARAM_IDENTIFIER = "dneero-request-param-";
 
     public SurveyResponseParser(javax.servlet.http.HttpServletRequest request){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         nameValuePairs = new HashMap();
         Enumeration enumer = request.getParameterNames();
         while (enumer.hasMoreElements()) {
             String name = (String)enumer.nextElement();
             String[] values = request.getParameterValues(name);
             if (name.indexOf(DNEERO_REQUEST_PARAM_IDENTIFIER)>-1){
+                //logger.debug("adding: " + name);
                 nameValuePairs.put(name, values);
+            } else {
+                //logger.debug("not adding: " + name);   
             }
         }
     }
@@ -105,7 +109,6 @@ public class SurveyResponseParser {
         }
         return out;
     }
-
 
 
 

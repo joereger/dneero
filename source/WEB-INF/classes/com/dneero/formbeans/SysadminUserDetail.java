@@ -221,7 +221,7 @@ public class SysadminUserDetail implements Serializable {
     public String giveusermoney(){
         User user = User.get(userid);
         if (user!=null && user.getUserid()>0){
-            MoveMoneyInAccountBalance.pay(user, amt, "Manual transaction: "+reason, false);
+            MoveMoneyInAccountBalance.pay(user, amt, "Manual transaction: "+reason, false, false, "");
         }
         load(user.getUserid());
         Jsf.setFacesMessage("$"+ Str.formatForMoney(amt)+" given to user account balance");

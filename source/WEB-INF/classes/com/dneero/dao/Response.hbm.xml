@@ -22,6 +22,12 @@
         <property name="referredbyblogid" type="int">
             <column name="referredbyblogid" not-null="true" />
         </property>
+        <property name="isforcharity" type="boolean">
+            <column name="isforcharity" />
+        </property>
+        <property name="charityname" type="text">
+            <column name="charityname" not-null="true" />
+        </property>
 
     </class>
 </hibernate-mapping>

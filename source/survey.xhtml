@@ -60,6 +60,36 @@
                                     <f:verbatim escape="false">#{publicSurveyTake.html}</f:verbatim>
                                     <br/><br/>
                                     <h:commandButton action="#{publicSurveyTake.takeSurvey}" value="Complete the Survey" styleClass="formsubmitbutton"></h:commandButton>
+                                    <br/>
+                                    <table cellpadding="2" cellspacing="0" border="0" width="175">
+                                        <tr>
+                                            <td valign="top">
+                                                <input type="checkbox" name="${publicSurveyTake.DNEERO_REQUEST_PARAM_IDENTIFIER}charity-isforcharity" value="1"></input>
+                                            </td>
+                                            <td valign="top">
+                                                <font class="formfieldnamefont">Don't Pay Me. Give My Earnings to Charity:</font>
+                                                <br/>
+                                                <select name="${publicSurveyTake.DNEERO_REQUEST_PARAM_IDENTIFIER}charity-charityname">
+                                                    <option value="Habitat for Humanity">Habitat for Humanity</option>
+                                                    <option value="Make-A-Wish Foundation">Make-A-Wish Foundation</option>
+                                                    <option value="American Cancer Society">American Cancer Society</option>
+                                                    <option value="PetSmart Charities">PetSmart Charities</option>
+                                                    <option value="Wikimedia Foundation">Wikimedia Foundation</option>
+                                                    <option value="The Conservation Fund">The Conservation Fund</option>
+                                                </select>
+                                                <br/>
+                                                <font class="tinyfont">
+                                                We'll donate all of your earnings for this survey to the charity of your choice.  You can learn a little more about each of the charities:
+                                                <br/><a href="http://www.habitat.org/" target="charity">Habitat for Humanity</a>
+                                                <br/><a href="http://www.wish.org/" target="charity">Make-A-Wish Foundation</a>
+                                                <br/><a href="http://www.cancer.org/" target="charity">American Cancer Society</a>
+                                                <br/><a href="http://www.petsmartcharities.org/" target="charity">PetSmart Charities</a>
+                                                <br/><a href="http://en.wikipedia.org/wiki/Wikimedia_Foundation" target="charity">Wikimedia Foundation</a>
+                                                <br/><a href="http://www.conservationfund.org/" target="charity">The Conservation Fund</a>
+                                                </font>
+                                            </td>
+                                        </tr>
+                                    </table>
                                 </c:if>
                                 <c:if test="${publicSurveyTake.bloggerhasalreadytakensurvey}">
                                     <center><div class="rounded" style="background: #e6e6e6; text-align: left; padding: 20px;"><font class="smallfont">

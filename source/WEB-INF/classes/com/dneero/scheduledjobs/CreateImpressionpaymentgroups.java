@@ -10,9 +10,7 @@ import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.money.MoveMoneyInAccountBalance;
 import com.dneero.systemprops.InstanceProperties;
 
-import java.util.List;
-import java.util.Date;
-import java.util.Iterator;
+import java.util.*;
 
 /**
  * User: Joe Reger Jr
@@ -45,12 +43,40 @@ public class CreateImpressionpaymentgroups implements Job {
 
                     //Calculate amt, only for those that are marked for pay
                     double amt = 0;
+                    HashMap charityDonations = new HashMap();
                     for (Iterator<Impressiondetail> iterator1 = impressiondetails.iterator(); iterator1.hasNext();) {
                         Impressiondetail impressiondetail = iterator1.next();
                         if (impressiondetail.getQualifiesforpaymentstatus()==Impressiondetail.QUALIFIESFORPAYMENTSTATUS_TRUE){
                             Impression impression = Impression.get(impressiondetail.getImpressionid());
                             Survey survey = Survey.get(impression.getSurveyid());
-                            amt = amt + (survey.getWillingtopaypercpm()/1000);
+                            //Find the response
+                            Response response = null;
+                            boolean isforcharity = false;
+                            try{
+                                for (Iterator<Response> iterator2 = blogger.getResponses().iterator(); iterator2.hasNext();){
+                                    Response respTmp = iterator2.next();
+                                    if (respTmp.getSurveyid()==survey.getSurveyid()){
+                                        response = respTmp;
+                                    }
+                                }
+                                if (response!=null){
+                                    if (response.getIsforcharity()){
+                                        isforcharity = true;
+                                        if (charityDonations.containsKey(response.getCharityname())){
+                                            double currentCharityAmt = Double.parseDouble(String.valueOf(charityDonations.get(response.getCharityname())));
+                                            charityDonations.put(response.getCharityname(), currentCharityAmt+(survey.getWillingtopaypercpm()/1000));
+                                        } else {
+                                            charityDonations.put(response.getCharityname(), (survey.getWillingtopaypercpm()/1000));
+                                        }
+                                    }
+                                }
+                            } catch (Exception ex){
+                                logger.error("Error in charityDonations code.", ex);
+                            }
+                            //Calculate the amount that this impression is worth
+                            if (!isforcharity){
+                                amt = amt + (survey.getWillingtopaypercpm()/1000);
+                            }
                         }
                     }
 
@@ -71,11 +97,22 @@ public class CreateImpressionpaymentgroups implements Job {
                     //If there's an amount to be paid, pay it
                     if (amt>0){
                         //Update the account balance for the blogger
-                        MoveMoneyInAccountBalance.pay(User.get(blogger.getUserid()), impressionpaymentgroup.getAmt(), "Pay for blog impressions", true, impressionpaymentgroup.getImpressionpaymentgroupid(), 0);
+                        MoveMoneyInAccountBalance.pay(User.get(blogger.getUserid()), impressionpaymentgroup.getAmt(), "Pay for blog impressions", true, false, "", impressionpaymentgroup.getImpressionpaymentgroupid(), 0, 0);
                     }
 
+                    //Iterate charityDonations
+                    try{
+                        Iterator keyValuePairs = charityDonations.entrySet().iterator();
+                        for (int i = 0; i < charityDonations.size(); i++){
+                            Map.Entry mapentry = (Map.Entry) keyValuePairs.next();
+                            String charityname = (String)mapentry.getKey();
+                            double amtCharity = Double.parseDouble(String.valueOf(mapentry.getValue()));
+                            MoveMoneyInAccountBalance.pay(User.get(blogger.getUserid()), amtCharity, "Pay for blog impressions", false, true, charityname, impressionpaymentgroup.getImpressionpaymentgroupid(), 0, 0);
+                        }
+                    } catch (Exception ex){
+                        logger.error("Error in charity payment code.", ex);
+                    }
                 }
-
             }
         } else {
             logger.debug("InstanceProperties.getRunScheduledTasksOnThisInstance() is FALSE for this instance so this task is not being executed.");

@@ -30,6 +30,9 @@
         <property name="optionalimpressionchargegroupid" type="int">
             <column name="optionalimpressionchargegroupid" not-null="false" />
         </property>
+        <property name="optionalresponseid" type="int">
+            <column name="optionalresponseid" not-null="false" />
+        </property>
 
     </class>
 </hibernate-mapping>
