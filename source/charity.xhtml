@@ -11,12 +11,13 @@
       >
 
 <ui:composition template="/template/template-facelets.xhtml">
-    <ui:define name="title">Save the World<br/><br/></ui:define>
+    <ui:define name="title"><img src="/images/charity-128.png" alt="" border="0" width="128" height="128" align="right"/>Save the World<br/><br/></ui:define>
     <ui:param name="navtab" value="home"/>
     <ui:define name="body">
     <d:authorization acl="public" redirectonfail="true"/>
         <h:form>
-
+            <t:saveState id="save" value="#{publicCharity}"/>
+            <br/><br/><br/><br/>
             <table cellpadding="10" cellspacing="3" border="0">
                 <tr>
                     <td valign="top"  width="50%">
@@ -28,16 +29,52 @@
                         <br/>
                         Every quarter we'll write checks to the charities that you've chosen for the amounts that you've deferred.  We'll list your donations on this page.  When somebody clicks to dNeero from your blog we'll tell them that you donated your earnings to charity.
                         <br/><br/><br/>
-                        <font class="mediumfont" style="color: #999999">Avoid the Perception of Bias</font>
+                        <font class="mediumfont" style="color: #999999">Bloggers: Avoid the Perception of Bias</font>
                         <br/>
                         One of the big concerns from bloggers is that the money in the model presents possible bias.  Thanks to open and sharing people like <a href="http://www.ck-blog.com/cks_blog/2007/07/good-pitches-th.html">CK</a> we decided to make donating to charity a way to shed the concern over bias.  And do some good at the same time!
+                        <br/><br/><br/>
+                        <font class="mediumfont" style="color: #999999">Researchers and Marketers: Do Some Good</font>
+                        <br/>
+                        When you create a survey you can mark it as Charity Only which means that only bloggers who are willing to have their earnings donated to charity will be able to take it.
                     </td>
                     <td valign="top">
                         <center>
                         <div class="rounded" style="background: #e6e6e6; text-align: left; padding: 20px;">
-                            <font class="mediumfont" style="color: #999999">Biggest Donators</font>
+                            <font class="mediumfont" style="color: #999999">Top Donators</font>
                             <br/>
-                            <font class="smallfont">List coming soon.</font>
+                            <h:outputText value="Nobody's donated... yet." styleClass="smallfont" rendered="#{empty publicCharity.topdonatingUsers}"/>
+                            <t:dataTable sortable="false" id="datatable" value="#{publicCharity.topdonatingUsers}" rows="10" var="donator" rendered="#{!empty publicCharity.topdonatingUsers}" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcol,tcol,tcol,tcol">
+                              <t:column>
+                                <f:facet name="header">
+                                    <h:outputText value=""/>
+                                </f:facet>
+                                <h:outputLink value="/profile.jsf?userid=#{donator.user.userid}">
+                                    <h:outputText value="#{donator.user.firstname} #{donator.user.lastname}" styleClass="smallfont" style="color: #0000ff;"/>
+                                </h:outputLink>
+                              </t:column>
+                              <t:column>
+                                <f:facet name="header">
+                                  <h:outputText value=""/>
+                                </f:facet>
+                                <h:outputText value="#{donator.amtforscreen}"  styleClass="smallfont"/>
+                              </t:column>
+                            </t:dataTable>
+                            <t:dataScroller id="scroll_1" for="datatable" fastStep="10" pageCountVar="pageCount" pageIndexVar="pageIndex" styleClass="scroller" paginator="true" paginatorMaxPages="9" paginatorTableClass="paginator" paginatorActiveColumnStyle="font-weight:bold;" rendered="#{!empty publicCharity.topdonatingUsers and publicCharity.topdonatingUsers.size gt 10}">
+                                <f:facet name="first" >
+                                    <t:graphicImage url="/images/datascroller/play-first.png" border="0" />
+                                </f:facet>
+                                <f:facet name="last">
+                                    <t:graphicImage url="/images/datascroller/play-forward.png" border="0" />
+                                </f:facet>
+                                <f:facet name="previous">
+                                    <t:graphicImage url="/images/datascroller/play-back.png" border="0" />
+                                </f:facet>
+                                <f:facet name="next">
+                                    <t:graphicImage url="/images/datascroller/play.png" border="0" />
+                                </f:facet>
+                            </t:dataScroller>
+                            <br/>
+                            <font class="tinyfont" style="color: #999999">(Updated Nightly)</font>
                         </div>
                         <br/><br/>
                         <div class="rounded" style="background: #e6e6e6; text-align: left; padding: 20px;">
@@ -55,11 +92,10 @@
                 </tr>
                 <tr>
                     <td valign="top" colspan="2">
-                        <t:saveState id="save" value="#{publicCharity}"/>
                         <font class="mediumfont" style="color: #999999">Most Recent Donations</font>
                         <br/>
                         <h:outputText value="There haven't yet been any charitable donations... yet.  We're just getting started.  Go take some surveys and donate!" styleClass="mediumfont" rendered="#{empty publicCharity.publicCharityListItemsMostRecent}"/>
-                        <t:dataTable sortable="false" id="datatable" value="#{publicCharity.publicCharityListItemsMostRecent}" rows="50" var="charityitem" rendered="#{!empty publicCharity.publicCharityListItemsMostRecent}" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcolnowrap,tcol,tcol,tcol">
+                        <t:dataTable sortable="false" id="datatable2" value="#{publicCharity.publicCharityListItemsMostRecent}" rows="50" var="charityitem" rendered="#{!empty publicCharity.publicCharityListItemsMostRecent}" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcolnowrap,tcol,tcol,tcol">
                           <t:column>
                             <f:facet name="header">
                                 <h:outputText value="Donator"/>
@@ -87,7 +123,7 @@
                             <h:outputText value="#{charityitem.charitydonation.charityname}"  styleClass="smallfont"/>
                           </t:column>
                         </t:dataTable>
-                        <t:dataScroller id="scroll_1" for="datatable" fastStep="10" pageCountVar="pageCount" pageIndexVar="pageIndex" styleClass="scroller" paginator="true" paginatorMaxPages="9" paginatorTableClass="paginator" paginatorActiveColumnStyle="font-weight:bold;">
+                        <t:dataScroller id="scroll_2" for="datatable2" fastStep="10" pageCountVar="pageCount2" pageIndexVar="pageIndex2" styleClass="scroller" paginator="true" paginatorMaxPages="9" paginatorTableClass="paginator" paginatorActiveColumnStyle="font-weight:bold;">
                             <f:facet name="first" >
                                 <t:graphicImage url="/images/datascroller/play-first.png" border="0" />
                             </f:facet>

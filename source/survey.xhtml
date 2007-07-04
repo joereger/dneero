@@ -27,17 +27,25 @@
     <h:messages styleClass="RED"/>
 
     <t:div rendered="#{(!publicSurveyTake.qualifiesforsurvey) and (publicSurveyTake.survey.status ne 5)}">
-        <div class="rounded" style="padding: 15px; margin: 5px; background: #F2FFBF;">
+        <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
             <h:outputText value="Sorry, you're not qualified to take this survey.  Your qualification is determined by your Blogger Profile.  Researchers determine their intended audience when they create a survey." styleClass="mediumfont"/>
         </div>
+        <br/>
     </t:div>
 
-    <t:div rendered="#{publicSurveyTake.bloggerhastakentoomanysurveysalreadytoday}">
-        <div class="rounded" style="padding: 15px; margin: 5px; background: #F2FFBF;">
+    <t:div rendered="#{publicSurveyTake.bloggerhastakentoomanysurveysalreadytoday and !publicSurveyTake.bloggerhasalreadytakensurvey}">
+        <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
             <h:outputText value="Sorry, you've already taken the maximum number of surveys today.  Wait until tomorrow (as defined by U.S. EST) and try again." styleClass="mediumfont"/>
         </div>
+        <br/>
     </t:div>
 
+    <t:div rendered="#{publicSurveyTake.surveytakergavetocharity and publicSurveyTake.isuserwhotooksurveyloaded}">
+        <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
+            <h:outputText value="${publicSurveyTake.userwhotooksurvey.firstname} ${publicSurveyTake.userwhotooksurvey.lastname} had dNeero donate all earnings from this survey to ${publicSurveyTake.charityname}." styleClass="mediumfont"/>
+        </div>
+        <br/>
+    </t:div>
 
     <t:div rendered="#{publicSurveyTake.haveerror}">
         <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
@@ -134,6 +142,14 @@
                                             <h:outputText value="You've already earned" styleClass="mediumfont"/>
                                             <br/>
                                             <h:outputText value="#{publicSurveyTake.surveyEnhancer.minearning}" styleClass="largefont" style="font-size: 60px; color: #666666;"/>
+                                            <c:if test="${publicSurveyTake.surveytakergavetocharity or publicSurveyTake.survey.ischarityonly}">
+                                                <br/>
+                                                <h:outputText value="for charity" styleClass="mediumfont"/>
+                                            </c:if>
+                                            <c:if test="${publicSurveyTake.surveytakergavetocharity}">
+                                                <br/>
+                                                <h:outputText value="(${publicSurveyTake.charityname})" styleClass="mediumfont"/>
+                                            </c:if>
                                             <br/>
                                             <h:outputText value="and can earn up to #{publicSurveyTake.surveyEnhancer.maxearning} total by posting it to your blog!" styleClass="mediumfont"/>
                                         </c:if>
@@ -141,6 +157,10 @@
                                             <h:outputText value="Take this survey and earn" styleClass="mediumfont"/>
                                             <br/>
                                             <h:outputText value="#{publicSurveyTake.surveyEnhancer.minearning}" styleClass="largefont" style="font-size: 60px; color: #666666;"/>
+                                            <c:if test="${publicSurveyTake.surveytakergavetocharity or publicSurveyTake.survey.ischarityonly}">
+                                                <br/>
+                                                <h:outputText value="for charity" styleClass="mediumfont"/>
+                                            </c:if>
                                             <br/>
                                             <h:outputText value="instantly or up to #{publicSurveyTake.surveyEnhancer.maxearning} when you post it to your blog!" styleClass="mediumfont"/>
                                             <br/><br/>
@@ -152,6 +172,16 @@
                                             <h:outputText value="#{publicSurveyTake.surveyEnhancer.minearning}" styleClass="largefont" style="font-size: 60px; color: #666666;"/>
                                             <br/>
                                             <h:outputText value="and then earned up to #{publicSurveyTake.surveyEnhancer.maxearning} total by posting it to their blogs!" styleClass="mediumfont"/>
+                                        </c:if>
+                                        <c:if test="#{publicSurveyTake.survey.ischarityonly}">
+                                            <br/><br/>
+                                            <div class="rounded" style="background: #e6e6e6; text-align: center;">
+                                                <img src="/images/charity-128.png" alt="For Charity" width="128" height="128"/>
+                                                <br/>
+                                                <h:outputText value="This is a Charity Only survey." styleClass="mediumfont"/>
+                                                <br/>
+                                                <h:outputText value="The creator of the survey requires that dNeero donate all of your earnings from the survey to a charity of your choice.  It's a chance to do some good!" styleClass="tinyfont"/>
+                                            </div>
                                         </c:if>
                                     </div>
                                     <br/>
@@ -327,10 +357,28 @@
                                             <h:outputText value="You've already earned" styleClass="mediumfont"/>
                                             <br/>
                                             <h:outputText value="#{publicSurveyTake.surveyEnhancer.minearning}" styleClass="largefont" style="font-size: 60px; color: #666666;"/>
+                                            <c:if test="${publicSurveyTake.surveytakergavetocharity or publicSurveyTake.survey.ischarityonly}">
+                                                <br/>
+                                                <h:outputText value="for charity" styleClass="mediumfont"/>
+                                            </c:if>
+                                            <c:if test="${publicSurveyTake.surveytakergavetocharity}">
+                                                <br/>
+                                                <h:outputText value="(${publicSurveyTake.charityname})" styleClass="mediumfont"/>
+                                            </c:if>
                                             <br/>
                                             <h:outputText value="and can earn up to #{publicSurveyTake.surveyEnhancer.maxearning} total by posting it to your blog!" styleClass="mediumfont"/>
                                         </div>
                                         <br/>
+                                        <c:if test="#{publicSurveyTake.survey.ischarityonly}">
+                                            <br/><br/>
+                                            <div class="rounded" style="background: #e6e6e6; text-align: center;">
+                                                <img src="/images/charity-128.png" alt="For Charity" width="128" height="128"/>
+                                                <br/>
+                                                <h:outputText value="This is a Charity Only survey." styleClass="mediumfont"/>
+                                                <br/>
+                                                <h:outputText value="The creator of the survey requires that dNeero donate all of your earnings from the survey to a charity of your choice.  It's a chance to do some good!" styleClass="tinyfont"/>
+                                            </div>
+                                        </c:if>
 
                                         <font class="smallfont">
                                         <br/><br/><b>How do I add it to my blog?</b><br/>
@@ -900,6 +948,14 @@
                                             <h:outputText value="You've already earned" styleClass="mediumfont"/>
                                             <br/>
                                             <h:outputText value="#{publicSurveyTake.surveyEnhancer.minearning}" styleClass="largefont" style="font-size: 60px; color: #666666;"/>
+                                            <c:if test="${publicSurveyTake.surveytakergavetocharity or publicSurveyTake.survey.ischarityonly}">
+                                                <br/>
+                                                <h:outputText value="for charity" styleClass="mediumfont"/>
+                                            </c:if>
+                                            <c:if test="${publicSurveyTake.surveytakergavetocharity}">
+                                                <br/>
+                                                <h:outputText value="(${publicSurveyTake.charityname})" styleClass="mediumfont"/>
+                                            </c:if>
                                             <br/>
                                             <h:outputText value="and can earn up to #{publicSurveyTake.surveyEnhancer.maxearning} total by posting it to your blog!" styleClass="mediumfont"/>
                                         </c:if>
@@ -907,6 +963,10 @@
                                             <h:outputText value="Take this survey and earn" styleClass="mediumfont"/>
                                             <br/>
                                             <h:outputText value="#{publicSurveyTake.surveyEnhancer.minearning}" styleClass="largefont" style="font-size: 60px; color: #666666;"/>
+                                            <c:if test="${publicSurveyTake.survey.ischarityonly}">
+                                                <br/>
+                                                <h:outputText value="for charity" styleClass="mediumfont"/>
+                                            </c:if>
                                             <br/>
                                             <h:outputText value="instantly or up to #{publicSurveyTake.surveyEnhancer.maxearning} when you post it to your blog!" styleClass="mediumfont"/>
                                             <br/><br/>
@@ -918,6 +978,16 @@
                                             <h:outputText value="#{publicSurveyTake.surveyEnhancer.minearning}" styleClass="largefont" style="font-size: 60px; color: #666666;"/>
                                             <br/>
                                             <h:outputText value="and then earned up to #{publicSurveyTake.surveyEnhancer.maxearning} total by posting it to their blogs!" styleClass="mediumfont"/>
+                                        </c:if>
+                                        <c:if test="#{publicSurveyTake.survey.ischarityonly}">
+                                            <br/><br/>
+                                            <div class="rounded" style="background: #e6e6e6; text-align: center;">
+                                                <img src="/images/charity-128.png" alt="For Charity" width="128" height="128"/>
+                                                <br/>
+                                                <h:outputText value="This is a Charity Only survey." styleClass="mediumfont"/>
+                                                <br/>
+                                                <h:outputText value="The creator of the survey requires that dNeero donate all of your earnings from the survey to a charity of your choice.  It's a chance to do some good!" styleClass="tinyfont"/>
+                                            </div>
                                         </c:if>
                                     </div>
                                     <br/>
@@ -1144,6 +1214,14 @@
                                             <h:outputText value="You've already earned" styleClass="mediumfont"/>
                                             <br/>
                                             <h:outputText value="#{publicSurveyTake.surveyEnhancer.minearning}" styleClass="largefont" style="font-size: 60px; color: #666666;"/>
+                                            <c:if test="${publicSurveyTake.surveytakergavetocharity or publicSurveyTake.survey.ischarityonly}">
+                                                <br/>
+                                                <h:outputText value="for charity" styleClass="mediumfont"/>
+                                            </c:if>
+                                            <c:if test="${publicSurveyTake.surveytakergavetocharity}">
+                                                <br/>
+                                                <h:outputText value="(${publicSurveyTake.charityname})" styleClass="mediumfont"/>
+                                            </c:if>
                                             <br/>
                                             <h:outputText value="and can earn up to #{publicSurveyTake.surveyEnhancer.maxearning} total by posting it to your blog!" styleClass="mediumfont"/>
                                         </c:if>
@@ -1151,6 +1229,10 @@
                                             <h:outputText value="Take this survey and earn" styleClass="mediumfont"/>
                                             <br/>
                                             <h:outputText value="#{publicSurveyTake.surveyEnhancer.minearning}" styleClass="largefont" style="font-size: 60px; color: #666666;"/>
+                                            <c:if test="${publicSurveyTake.surveytakergavetocharity or publicSurveyTake.survey.ischarityonly}">
+                                                <br/>
+                                                <h:outputText value="for charity" styleClass="mediumfont"/>
+                                            </c:if>
                                             <br/>
                                             <h:outputText value="instantly or up to #{publicSurveyTake.surveyEnhancer.maxearning} when you post it to your blog!" styleClass="mediumfont"/>
                                             <br/><br/>
@@ -1160,8 +1242,22 @@
                                             <h:outputText value="People who took this survey earned" styleClass="mediumfont"/>
                                             <br/>
                                             <h:outputText value="#{publicSurveyTake.surveyEnhancer.minearning}" styleClass="largefont" style="font-size: 60px; color: #666666;"/>
+                                            <c:if test="${publicSurveyTake.surveytakergavetocharity or publicSurveyTake.survey.ischarityonly}">
+                                                <br/>
+                                                <h:outputText value="for charity" styleClass="mediumfont"/>
+                                            </c:if>
                                             <br/>
                                             <h:outputText value="and then earned up to #{publicSurveyTake.surveyEnhancer.maxearning} total by posting it to their blogs!" styleClass="mediumfont"/>
+                                        </c:if>
+                                        <c:if test="#{publicSurveyTake.survey.ischarityonly}">
+                                            <br/><br/>
+                                            <div class="rounded" style="background: #e6e6e6; text-align: center;">
+                                                <img src="/images/charity-128.png" alt="For Charity" width="128" height="128"/>
+                                                <br/>
+                                                <h:outputText value="This is a Charity Only survey." styleClass="mediumfont"/>
+                                                <br/>
+                                                <h:outputText value="The creator of the survey requires that dNeero donate all of your earnings from the survey to a charity of your choice.  It's a chance to do some good!" styleClass="tinyfont"/>
+                                            </div>
                                         </c:if>
                                     </div>
                                     <br/>

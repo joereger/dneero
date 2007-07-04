@@ -34,18 +34,29 @@ public class SurveyTemplateProcessor {
         this.survey = survey;
         this.blogger = blogger;
         if (survey!=null && blogger!=null){
+            logger.debug("blogger.getBloggerid()="+blogger.getBloggerid());
+            logger.debug("survey.getSurveyid()="+survey.getSurveyid());
             List results = HibernateUtil.getSession().createQuery("from Response where bloggerid='"+blogger.getBloggerid()+"' and surveyid='"+survey.getSurveyid()+"'").list();
+            logger.debug("results.size()="+results.size());
             for (Iterator iterator = results.iterator(); iterator.hasNext();) {
                 Response resp = (Response) iterator.next();
                 if (response==null){
-                    response = resp;
+                    response=resp;
                 }
                 //Choose the most recent response by this blogger... there should generally only be one
                 if (response.getResponsedate().before(resp.getResponsedate())){
-                    response = resp;
+                    response=resp;
                 }
             }
+        } else {
+            logger.debug("survey==null and blogger==null");
         }
+        if (response==null){
+            logger.debug("response==null");
+        } else {
+            logger.debug("response!=null responseid="+response.getResponseid());
+        }
+        
     }
 
     public String getSurveyForTaking(boolean makeHttpsIfSSLIsOn){

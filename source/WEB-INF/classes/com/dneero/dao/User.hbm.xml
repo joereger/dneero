@@ -119,7 +119,9 @@
         <property name="instantnotifyxmppusername" type="string">
             <column name="instantnotifyxmppusername" />
         </property>
-
+        <property name="charityamtdonated" type="double">
+            <column name="charityamtdonated" precision="22" scale="0" not-null="true" />
+        </property>
 
     </class>
 </hibernate-mapping>

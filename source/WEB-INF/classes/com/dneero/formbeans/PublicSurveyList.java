@@ -56,6 +56,8 @@ public class PublicSurveyList implements Serializable {
                 bsli.setSurveyid(survey.getSurveyid());
                 bsli.setTitle(survey.getTitle());
                 bsli.setDescription(survey.getDescription());
+                bsli.setIscharityonly(survey.getIscharityonly());
+                //logger.debug("survey: "+survey.getTitle()+" bsli.getIscharityonly()="+bsli.getIscharityonly());
 
                 if (survey.getQuestions()!=null){
                     bsli.setNumberofquestions(String.valueOf(survey.getQuestions().size()));

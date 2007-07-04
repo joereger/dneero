@@ -77,9 +77,31 @@ public class Dropdown implements Component {
         out.append("</p>");
         //out.append("<p style=\"font-family: Arial, Arial, Helvetica, sans-serif; font-size: 12px; margin: 1px;\">");
 
+        //logger.debug("Processing questionid="+question.getQuestionid()+" for blogger.getBloggerid()=" +blogger.getBloggerid()+" with response.getResponseid()="+response.getResponseid());
+        if (blogger==null){
+            logger.debug("blogger == null");
+        } else {
+            logger.debug("blogger.getBloggerid()="+blogger.getBloggerid());
+        }
+        if (response==null){
+            logger.debug("response == null");
+        } else {
+            logger.debug("response.getResponseid()="+response.getResponseid());
+        }
+        if (question==null){
+            logger.debug("question == null");
+        } else {
+            logger.debug("question.getQuestionid()="+question.getQuestionid());
+        }
+
         List<Questionresponse> responses = new ArrayList<Questionresponse>();
         if (blogger!=null && response!=null){
             responses = HibernateUtil.getSession().createQuery("from Questionresponse where questionid='"+question.getQuestionid()+"' and bloggerid='"+blogger.getBloggerid()+"' and responseid='"+response.getResponseid()+"'").list();
+        }
+        if (responses!=null){
+            logger.debug("responses.size()="+responses.size());    
+        } else {
+            logger.debug("responses == null");
         }
 
         String options = "";
@@ -97,14 +119,18 @@ public class Dropdown implements Component {
             if (responses!=null && responses.size()>0){
                 for (Iterator<Questionresponse> iterator = responses.iterator(); iterator.hasNext();) {
                     Questionresponse questionresponse = iterator.next();
-                    if (questionresponse.getValue().equals(s)){
+                    logger.debug("questionresponse.getValue()="+questionresponse.getValue());
+                    logger.debug("s="+s);
+                    if (questionresponse.getValue().trim().equals(s.trim())){
                         isSelected = true;
                     }
+                    logger.debug("isSelected="+isSelected);
                 }
             }
             out.append("<p style=\"font-family: Arial, Arial, Helvetica, sans-serif; font-size: 11px; margin: 1px;  padding: 0px; text-align: left;\">");
             //out.append("<p>");
             out.append("&nbsp;&nbsp;");
+            logger.debug("isSelected="+isSelected);
             if (isSelected){
                 out.append("<b>"+s+"</b>");
             } else {

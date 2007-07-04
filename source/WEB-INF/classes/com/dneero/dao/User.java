@@ -48,6 +48,7 @@ public class User extends BasePersistentClass implements java.io.Serializable, R
      private String instantnotifytwitterusername;
      private boolean instantnotifyxmppison;
      private String instantnotifyxmppusername;
+     private double charityamtdonated;
 
      //Association
     private Set<Userrole> userroles = new HashSet<Userrole>();
@@ -365,5 +366,13 @@ public class User extends BasePersistentClass implements java.io.Serializable, R
 
     public void setSurveydiscusses(Set<Surveydiscuss> surveydiscusses) {
         this.surveydiscusses = surveydiscusses;
+    }
+
+    public double getCharityamtdonated() {
+        return charityamtdonated;
+    }
+
+    public void setCharityamtdonated(double charityamtdonated) {
+        this.charityamtdonated = charityamtdonated;
     }
 }

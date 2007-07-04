@@ -400,4 +400,26 @@
         </trigger>
     </job>
 
+    <job>
+        <job-detail>
+          <name>charityCalculateAmountDonated</name>
+          <group>surveyJobs</group>
+          <job-class>com.dneero.scheduledjobs.CharityCalculateAmountDonated</job-class>
+          <volatility>false</volatility>
+          <durability>false</durability>
+          <recover>false</recover>
+        </job-detail>
+        <trigger>
+          <!-- Sample cron triggers: http://www.opensymphony.com/quartz/wikidocs/TutorialLesson6.html -->
+          <cron>
+            <name>charityCalculateAmountDonatedTrigger</name>
+            <group>surveyTriggers</group>
+            <job-name>charityCalculateAmountDonated</job-name>
+            <job-group>surveyJobs</job-group>
+            <!-- Fire at 4am every day -->
+            <cron-expression>0 0 4 * * ?</cron-expression>
+          </cron>
+        </trigger>
+    </job>
+
 </quartz>

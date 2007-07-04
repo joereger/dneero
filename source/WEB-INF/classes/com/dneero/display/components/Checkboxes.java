@@ -88,7 +88,7 @@ public class Checkboxes implements Component {
         String options = "";
         for (Iterator<Questionconfig> iterator = question.getQuestionconfigs().iterator(); iterator.hasNext();) {
             Questionconfig questionconfig = iterator.next();
-            if (questionconfig.getName().equals("options")){
+            if (questionconfig.getName().trim().equals("options")){
                 options = questionconfig.getValue();
             }
         }
@@ -100,7 +100,7 @@ public class Checkboxes implements Component {
             if (responses!=null && responses.size()>0){
                 for (Iterator<Questionresponse> iterator = responses.iterator(); iterator.hasNext();) {
                     Questionresponse questionresponse = iterator.next();
-                    if (questionresponse.getValue().equals(s)){
+                    if (questionresponse.getValue().trim().equals(s.trim())){
                         isSelected = true;
                     }
                 }

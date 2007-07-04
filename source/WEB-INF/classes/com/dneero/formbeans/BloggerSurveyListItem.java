@@ -18,6 +18,7 @@ public class BloggerSurveyListItem implements Serializable {
     private String isbloggerqualifiedstring = "";
     private String description = "";
     private int numberofrespondents=0;
+    private boolean ischarityonly = false;
 
     public BloggerSurveyListItem(){}
 
@@ -92,5 +93,13 @@ public class BloggerSurveyListItem implements Serializable {
 
     public void setNumberofrespondents(int numberofrespondents) {
         this.numberofrespondents = numberofrespondents;
+    }
+
+    public boolean getIscharityonly() {
+        return ischarityonly;
+    }
+
+    public void setIscharityonly(boolean ischarityonly) {
+        this.ischarityonly = ischarityonly;
     }
 }

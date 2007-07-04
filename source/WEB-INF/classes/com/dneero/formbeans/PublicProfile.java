@@ -28,6 +28,7 @@ public class PublicProfile implements Serializable {
     private String msg;
     private int socialinfluenceratingpercentile;
     private int socialinfluenceratingpercentile90days;
+    private String charityamtdonatedForscreen;
 
     public PublicProfile(){
         load();
@@ -56,6 +57,8 @@ public class PublicProfile implements Serializable {
                 }
             }
         }
+
+        charityamtdonatedForscreen = "$"+Str.formatForMoney(user.getCharityamtdonated());
 
         listitems = new ArrayList<PublicProfileListitem>();
         if (blogger!=null && blogger.getResponses()!=null){
@@ -210,5 +213,13 @@ public class PublicProfile implements Serializable {
 
     public void setMsg(String msg) {
         this.msg = msg;
+    }
+
+    public String getCharityamtdonatedForscreen() {
+        return charityamtdonatedForscreen;
+    }
+
+    public void setCharityamtdonatedForscreen(String charityamtdonatedForscreen) {
+        this.charityamtdonatedForscreen = charityamtdonatedForscreen;
     }
 }
