@@ -33,8 +33,10 @@ public class AccountSupportIssuesList implements Serializable {
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("load called");
         User user = Jsf.getUserSession().getUser();
-        supportissues = HibernateUtil.getSession().createQuery("from Supportissue where userid='"+user.getUserid()+"' order by supportissueid desc").list();
-        sort("supportissueid", false);
+        if (user!=null){
+            supportissues = HibernateUtil.getSession().createQuery("from Supportissue where userid='"+user.getUserid()+"' order by supportissueid desc").list();
+            sort("supportissueid", false);
+        }
     }
 
     public List getSupportissues() {

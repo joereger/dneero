@@ -11,7 +11,7 @@
       >
 
 <ui:composition template="/template/template-facelets.xhtml">
-    <ui:define name="title"><img src="/images/charity-128.png" alt="" border="0" width="128" height="128" align="right"/>Make (Real) Change<br/><font class="mediumfont">Make great content and great contributions—at the same time!</font><br/><br/></ui:define>
+    <ui:define name="title"><img src="/images/charity-128.png" alt="" border="0" width="128" height="128" align="right"/>Make (Real) Change<br/><font class="mediumfont">Make great content and great contributions -- at the same time!</font><br/><br/></ui:define>
     <ui:param name="navtab" value="home"/>
     <ui:define name="body">
     <d:authorization acl="public" redirectonfail="true"/>
@@ -19,7 +19,7 @@
             <t:saveState id="save" value="#{publicCharity}"/>
             <br/><br/><br/><br/>
             <table cellpadding="10" cellspacing="3" border="0">
-                <tr>
+                <tr>                                                                    
                     <td valign="top"  width="50%">
                         <font class="mediumfont" style="color: #999999">We'll Give Your Earnings to Charity</font>
                         <br/>
@@ -29,9 +29,9 @@
                         <br/>
                         Every quarter we'll write checks to the charities that you've chosen for the amounts that you've deferred.  We'll list your donations on this page.  When somebody clicks to dNeero from your blog we'll tell them that you donated your earnings to charity.
                         <br/><br/><br/>
-                        <font class="mediumfont" style="color: #999999">Bloggers: Avoid Losing Any Credibility…and Support a Great Cause!</font>
+                        <font class="mediumfont" style="color: #999999">Bloggers: Avoid Losing Any Credibility... and Support a Great Cause!</font>
                         <br/>
-                        One of the big concerns from bloggers is that the money in this model presents possible bias, and that your readers will not want to feel “monetized”. Thanks to open and sharing people like <a href="http://www.ck-blog.com/cks_blog/2007/07/good-pitches-th.html">CK</a> we decided to make donating to charity a way to shed this concern — now you can give any of the earnings to a good cause, avoid bias…and increase the features within your posts!
+                        One of the big concerns from bloggers is that the money in this model presents possible bias, and that your readers will not want to feel 'monetized'. Thanks to open and sharing people like <a href="http://www.ck-blog.com/cks_blog/2007/07/new-models-new-.html">CK</a> we decided to make donating to charity a way to shed this concern -- now you can give any of the earnings to a good cause, avoid bias... and increase the features within your posts!
                         <br/><br/><br/>
                         <font class="mediumfont" style="color: #999999">Researchers and Marketers: Do Some Good</font>
                         <br/>
@@ -59,7 +59,7 @@
                                 <h:outputText value="#{donator.amtforscreen}"  styleClass="smallfont"/>
                               </t:column>
                             </t:dataTable>
-                            <t:dataScroller id="scroll_1" for="datatable" fastStep="10" pageCountVar="pageCount" pageIndexVar="pageIndex" styleClass="scroller" paginator="true" paginatorMaxPages="9" paginatorTableClass="paginator" paginatorActiveColumnStyle="font-weight:bold;" rendered="#{!empty publicCharity.topdonatingUsers and publicCharity.topdonatingUsers.size gt 10}">
+                            <t:dataScroller id="scroll_1" for="datatable" fastStep="10" pageCountVar="pageCount" pageIndexVar="pageIndex" styleClass="scroller" paginator="true" paginatorMaxPages="9" paginatorTableClass="paginator" paginatorActiveColumnStyle="font-weight:bold;" rendered="#{!empty publicCharity.topdonatingUsers}">
                                 <f:facet name="first" >
                                     <t:graphicImage url="/images/datascroller/play-first.png" border="0" />
                                 </f:facet>
