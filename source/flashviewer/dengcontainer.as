@@ -1,4 +1,6 @@
 ﻿var footerheight = 35;
+var dneeroDengWidth = 415;
+var dneeroDengHeight = 203;
 var DENG_SWF_URL = unescape(baseurl) + "deng.swf";
 //var DOCUMENT_URL = "testsurvey.html";
 //var DOCUMENT_URL = unescape(urlofsurvey);
@@ -47,9 +49,11 @@ function initDeng() {
 	if (SURVEY_AS_HTML=="" || SURVEY_AS_HTML==undefined){
 		SURVEY_AS_HTML = "This is a blank survey."
 	}
-	//SURVEY_AS_HTML = "<a href=''>dsdf</p>?fsdsd><fssd><sdf/dfs>";
+	//SURVEY_AS_HTML = "<p>topk jh;kjh;kj hlkj hlkjghk gfjhgdfjhgfk gfnghfc ngmf gmffm ff mf f mtopk jh;kjh;kj hlkj hlkjghk gfjhgdfjhgfk gfnghfc ngmf gmffm ff mf f mtopk jh;kjh;kj hlkj hlkjghk gfjhgdfjhgfk gfnghfc ngmf gmffm ff mf f mtopk jh;kjh;kj hlkj hlkjghk gfjhgdfjhgfk gfnghfc ngmf gmffm ff mf f mtopk jh;kjh;kj hlkj hlkjghk gfjhgdfjhgfk gfnghfc ngmf gmffm ff mf f mtopk jh;kjh;kj hlkj hlkjghk gfjhgdfjhgfk gfnghfc ngmf gmffm ff mf f mtopk jh;kjh;kj hlkj hlkjghk gfjhgdfjhgfk gfnghfc ngmf gmffm ff mf f mtopk jh;kjh;kj hlkj hlkjghk gfjhgdfjhgfk gfnghfc ngmf gmffm ff mf f mtopk jh;kjh;kj hlkj hlkjghk gfjhgdfjhgfk gfnghfc ngmf gmffm ff mf f mtopk jh;kjh;kj hlkj hlkjghk gfjhgdfjhgfk gfnghfc ngmf gmffm ff mf f mtopk jh;kjh;kj hlkj hlkjghk gfjhgdfjhgfk gfnghfc ngmf gmffm ff mf f mtopk jh;kjh;kj hlkj hlkjghk gfjhgdfjhgfk gfnghfc ngmf gmffm ff mf f mtopk jh;kjh;kj hlkj hlkjghk gfjhgdfjhgfk gfnghfc ngmf gmffm ff mf f mtopk jh;kjh;kj hlkj hlkjghk gfjhgdfjhgfk gfnghfc ngmf gmffm ff mf f mtopk jh;kjh;kj hlkj hlkjghk gfjhgdfjhgfk gfnghfc ngmf gmffm ff mf f mtopk jh;kjh;kj hlkj hlkjghk gfjhgdfjhgfk gfnghfc ngmf gmffm ff mf f mtopk jh;kjh;kj hlkj hlkjghk gfjhgdfjhgfk gfnghfc ngmf gmffm ff mf f mtopk jh;kjh;kj hlkj hlkjghk gfjhgdfjhgfk gfnghfc ngmf gmffm ff mf f mtopk jh;kjh;kj hlkj hlkjghk gfjhgdfjhgfk gfnghfc ngmf gmffm ff mf f mtopk jh;kjh;kj hlkj hlkjghk gfjhgdfjhgfk gfnghfc ngmf gmffm ff mf f mtopk jh;kjh;kj hlkj hlkjghk gfjhgdfjhgfk gfnghfc ngmf gmffm ff mf f mtopk jh;kjh;kj hlkj hlkjghk gfjhgdfjhgfk gfnghfc ngmf gmffm ff mf f mtopk jh;kjh;kj hlkj hlkjghk gfjhgdfjhgfk gfnghfc ngmf gmffm ff mf f mtopk jh;kjh;kj hlkj hlkjghk gfjhgdfjhgfk gfnghfc ngmf gmffm ff mf f mtopk jh;kjh;kj hlkj hlkjghk gfjhgdfjhgfk gfnghfc ngmf gmffm ff mf f mtopk jh;kjh;kj hlkj hlkjghk gfjhgdfjhgfk gfnghfc ngmf gmffm ff mf f mtopk jh;kjh;kj hlkj hlkjghk gfjhgdfjhgfk gfnghfc ngmf gmffm ff mf f mtopk jh;kjh;kj hlkj hlkjghk gfjhgdfjhgfk gfnghfc ngmf gmffm ff mf f mtopk jh;kjh;kj hlkj hlkjghk gfjhgdfjhgfk gfnghfc ngmf gmffm ff mf f mtopk jh;kjh;kj hlkj hlkjghk gfjhgdfjhgfk gfnghfc ngmf gmffm ff mf f mtopk jh;kjh;kj hlkj hlkjghk gfjhgdfjhgfk gfnghfc ngmf gmffm ff mf f mtopk jh;kjh;kj hlkj hlkjghk gfjhgdfjhgfk gfnghfc ngmf gmffm ff mf f mtopk jh;kjh;kj hlkj hlkjghk gfjhgdfjhgfk gfnghfc ngmf gmffm ff mf f m</p>";
 	deng.setXmlSource(SURVEY_AS_HTML);
-	deng.setSize(Stage.width, Stage.height-footerheight);
+	deng.setSize(dneeroDengWidth, dneeroDengHeight);
+	deng._x=5;
+	deng._y=10;
 	deng.render();
 	//this.displayStatus("5 DENG_SWF_URL="+DENG_SWF_URL);
 }
@@ -106,8 +110,8 @@ function onClickHandler(linkUrl, targetStyle, targetPosition, targetName) {
 }
 
 function onResize() {
-	this.dengcontainer.deng_mc.setSize(Stage.width, Stage.height-footerheight);
-	this.tfDebug._width = Stage.width;
+	this.dengcontainer.deng_mc.setSize(dneeroDengWidth, dneeroDengHeight);
+	this.tfDebug._width = dneeroDengWidth;
 }
 
 function displayStatus(txt) {
@@ -115,7 +119,7 @@ function displayStatus(txt) {
 		this.tfDebug.removeTextField();
 	} else if(!done) {
 		if(this.tfDebug == undefined) {
-			this.createTextField("tfDebug", 50000, 0, 0, Stage.width, 200);
+			this.createTextField("tfDebug", 50000, 0, 0, dneeroDengWidth, dneeroDengHeight);
 			this.tfDebug.selectable = true;
 			this.tfDebug.multiline = true;
 			this.tfDebug.wordWrap = true;

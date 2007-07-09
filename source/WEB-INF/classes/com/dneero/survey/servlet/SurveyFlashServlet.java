@@ -105,6 +105,17 @@ public class SurveyFlashServlet extends HttpServlet {
                 surveyasxhtml.append("<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\" lang=\"en\">");
                 surveyasxhtml.append("<head>");
                 surveyasxhtml.append("<title>dNeero Survey</title>");
+                surveyasxhtml.append("<style>");
+                surveyasxhtml.append(".questiontitle{");
+                surveyasxhtml.append("font-family: Arial, Arial, Helvetica, sans-serif; font-size: 13px; font-weight: bold; margin: 0px; border: 0px solid #8d8d8d; padding: 0px; text-align: left; background: #e6e6e6;");
+                surveyasxhtml.append("}");
+                surveyasxhtml.append(".answer{");
+                surveyasxhtml.append("font-family: Arial, Arial, Helvetica, sans-serif; font-size: 11px; width: 95%; margin: 0px;  padding: 0px; text-align: left;");
+                surveyasxhtml.append("}");
+                surveyasxhtml.append(".answer_highlight{");
+                surveyasxhtml.append("font-family: Arial, Arial, Helvetica, sans-serif; font-size: 11px; width: 95%; font-weight: bold; border: 0px solid #c1c1c1; margin: 0px;  padding: 0px; text-align: left; background: #ffffff;");
+                surveyasxhtml.append("}");
+                surveyasxhtml.append("</style>");
                 surveyasxhtml.append("</head>");
                 surveyasxhtml.append("<body>");
                 surveyasxhtml.append(surveyashtml);
@@ -193,7 +204,7 @@ public class SurveyFlashServlet extends HttpServlet {
 //              "";
               
         String out = ""+
-              "<embed src=\""+urlofmovie+"\" quality=\"high\" bgcolor=\"#ffffff\" width=\"425\" height=\"250\" name=\"dneeroflashviewer\" align=\"middle\" type=\"application/x-shockwave-flash\" pluginspage=\"http://www.macromedia.com/go/getflashplayer\"></embed>" +
+              "<embed src=\""+urlofmovie+"\" wmode=\"transparent\" quality=\"high\" bgcolor=\"#ffffff\" width=\"425\" height=\"250\" name=\"dneeroflashviewer\" align=\"middle\" type=\"application/x-shockwave-flash\" pluginspage=\"http://www.macromedia.com/go/getflashplayer\"></embed>" +
               "";
 
         return out;
@@ -205,6 +216,7 @@ public class SurveyFlashServlet extends HttpServlet {
         String out = "<object type=\"application/x-shockwave-flash\" allowScriptAccess=\"never\" allowNetworking=\"internal\" width=\"425\" height=\"250\" align=\"middle\" data=\""+urlofmovie+"\">" +
                      "<param name=\"allowScriptAccess\" value=\"never\" />" +
                      "<param name=\"allowNetworking\" value=\"internal\" />" +
+                     "<param name=\"wmode\" value=\"transparent\">" +
                      "<param name=\"movie\" value=\""+urlofmovie+"\" />" +
                      "<embed src=\""+urlofmovie+"\" quality=\"high\" bgcolor=\"#ffffff\" width=\"425\" height=\"250\" name=\"dneeroflashviewer\" align=\"middle\" allowScriptAccess=\"never\" type=\"application/x-shockwave-flash\" pluginspage=\"http://www.macromedia.com/go/getflashplayer\">"+
                      "</embed>"+

@@ -60,10 +60,10 @@ public class Textbox implements Component {
 
     public String getHtmlForDisplay(Response response) {
         StringBuffer out = new StringBuffer();
-        out.append("<p style=\"font-family: Arial, Arial, Helvetica, sans-serif; font-size: 13px; font-weight: bold; margin: 0px; padding: 0px; text-align: left;\">");
+        out.append("<p class=\"questiontitle\">");
         out.append(question.getQuestion());
         out.append("</p>");
-        out.append("<p style=\"font-family: Arial, Arial, Helvetica, sans-serif; font-size: 11px; margin: 1px;  padding: 0px; text-align: left;\">");
+        out.append("<p class=\"answer\">");
 
         if (blogger!=null && response!=null){
             List<Questionresponse> responses = HibernateUtil.getSession().createQuery("from Questionresponse where questionid='"+question.getQuestionid()+"' and bloggerid='"+blogger.getBloggerid()+"' and responseid='"+response.getResponseid()+"'").list();

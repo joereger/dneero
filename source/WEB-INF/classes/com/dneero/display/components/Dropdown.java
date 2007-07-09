@@ -72,12 +72,10 @@ public class Dropdown implements Component {
 
     public String getHtmlForDisplay(Response response) {
         StringBuffer out = new StringBuffer();
-        out.append("<p style=\"font-family: Arial, Arial, Helvetica, sans-serif; font-size: 13px; font-weight: bold; margin: 0px; padding: 0px; text-align: left;\">");
+        out.append("<p class=\"questiontitle\">");
         out.append(question.getQuestion());
         out.append("</p>");
-        //out.append("<p style=\"font-family: Arial, Arial, Helvetica, sans-serif; font-size: 12px; margin: 1px;\">");
 
-        //logger.debug("Processing questionid="+question.getQuestionid()+" for blogger.getBloggerid()=" +blogger.getBloggerid()+" with response.getResponseid()="+response.getResponseid());
         if (blogger==null){
             logger.debug("blogger == null");
         } else {
@@ -127,18 +125,20 @@ public class Dropdown implements Component {
                     logger.debug("isSelected="+isSelected);
                 }
             }
-            out.append("<p style=\"font-family: Arial, Arial, Helvetica, sans-serif; font-size: 11px; margin: 1px;  padding: 0px; text-align: left;\">");
-            //out.append("<p>");
-            out.append("&nbsp;&nbsp;");
+
             logger.debug("isSelected="+isSelected);
             if (isSelected){
-                out.append("<b>"+s+"</b>");
-            } else {
+                out.append("<p class=\"answer_highlight\">");
+                out.append("&nbsp;&nbsp;&gt;");
                 out.append(s);
+                out.append("</p>");
+            } else {
+                out.append("<p class=\"answer\">");
+                out.append("&nbsp;&nbsp;&nbsp;&nbsp;");
+                out.append(s);
+                out.append("</p>");
             }
-            out.append("</p>");
         }
-        //out.append("</p>");
         return out.toString();
     }
 
