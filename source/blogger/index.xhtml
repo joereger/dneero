@@ -277,6 +277,7 @@
                             <h:outputText value="Post to Blog" escape="false" styleClass="smallfont" style="font-weight:bold;"/>
                             <f:param name="surveyid" value="#{listitem.surveyid}" />
                         </h:commandLink>
+                        <h:outputText value="Already Posted" escape="false" styleClass="smallfont" style="font-weight:bold;" rendered="#{listitem.impressions gt 0}"/>
                       </h:column>
                   </t:dataTable>
                     <t:dataScroller id="scroll_1" for="datatable" rendered="#{!empty bloggerCompletedsurveys.list}" fastStep="10" pageCountVar="pageCount" pageIndexVar="pageIndex" styleClass="scroller" paginator="true" paginatorMaxPages="9" paginatorTableClass="paginator" paginatorActiveColumnStyle="font-weight:bold;">

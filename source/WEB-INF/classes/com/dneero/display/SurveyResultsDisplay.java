@@ -4,13 +4,11 @@ import com.dneero.dao.*;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.display.components.def.Component;
 import com.dneero.display.components.def.ComponentTypes;
-import com.dneero.util.Util;
 import org.apache.log4j.Logger;
 import org.hibernate.criterion.Restrictions;
 
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 import java.util.ArrayList;
 
 /**
@@ -20,7 +18,7 @@ import java.util.ArrayList;
  */
 public class SurveyResultsDisplay {
 
-    public static String getHtmlForResults(Survey survey, Blogger blogger, int referredbyblogid){
+    public static String getHtmlForResults(Survey survey, Blogger blogger, int referredbyuserid){
         StringBuffer out = new StringBuffer();
         Logger logger = Logger.getLogger(SurveyResultsDisplay.class);
         for (Iterator<Question> iterator = survey.getQuestions().iterator(); iterator.hasNext();) {
@@ -43,12 +41,12 @@ public class SurveyResultsDisplay {
                    .add(Restrictions.eq("questionid", question.getQuestionid()))
                    .setCacheable(true)
                    .list();
-            if (referredbyblogid>0){
+            if (referredbyuserid>0){
                 List<Questionresponse> responsesreferred = new ArrayList<Questionresponse>();
                 for (Iterator<Questionresponse> iterator1 = questionresponses.iterator(); iterator1.hasNext();) {
                     Questionresponse questionresponse = iterator1.next();
                     Response response = Response.get(questionresponse.getResponseid());
-                    if (response.getReferredbyblogid()==referredbyblogid){
+                    if (response.getReferredbyuserid()==referredbyuserid){
                         responsesreferred.add(questionresponse);
                     }
                 }

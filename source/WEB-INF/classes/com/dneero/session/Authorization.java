@@ -100,7 +100,7 @@ public class Authorization extends UIComponentBase {
                                 newUserSession.setUser(user);
                                 newUserSession.setIsloggedin(true);
                                 newUserSession.setIsLoggedInToBeta(true);
-                                newUserSession.setPendingSurveyReferredbyblogid(Jsf.getUserSession().getPendingSurveyReferredbyblogid());
+                                newUserSession.setPendingSurveyReferredbyuserid(Jsf.getUserSession().getPendingSurveyReferredbyuserid());
                                 newUserSession.setPendingSurveyResponseAsString(Jsf.getUserSession().getPendingSurveyResponseAsString());
                                 newUserSession.setPendingSurveyResponseSurveyid(Jsf.getUserSession().getPendingSurveyResponseSurveyid());
                                 newUserSession.setCurrentSurveyid(Jsf.getUserSession().getCurrentSurveyid());

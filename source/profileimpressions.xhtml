@@ -24,21 +24,13 @@
     <t:saveState id="save" value="#{publicProfileImpressions}"/>
 
     <t:dataTable id="datatable" value="#{publicProfileImpressions.list}" rows="50" var="imp" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcol,tcolnowrap,tcol,tcolnowrap,tcolnowrap">
-      <h:column>
-        <f:facet name="header">
-          <h:outputText value="Blog"/>
-        </f:facet>
-        <h:outputLink target="referer" value="#{imp.blogurl}">
-            <h:outputText value="#{imp.blogurl}" styleClass="normalfont"/>
-        </h:outputLink>
-        <h:outputText value="No Referer" rendered="#{empty imp.referer}"/>
-      </h:column>
+
       <h:column>
         <f:facet name="header">
           <h:outputText value="Specific Page"/>
         </f:facet>
         <h:outputLink target="referer" value="#{imp.referer}">
-            <h:outputText value="#{imp.referer}" styleClass="normalfont"/>
+            <h:outputText value="#{imp.referertruncated}" styleClass="normalfont"/>
         </h:outputLink>
       </h:column>
       <h:column>
@@ -46,6 +38,12 @@
           <h:outputText value="Impressions"/>
         </f:facet>
         <h:outputText value="#{imp.impressionsqualifyingforpayment}"></h:outputText>
+      </h:column>
+      <h:column>
+        <f:facet name="header">
+          <h:outputText value="Quality Rating"/>
+        </f:facet>
+        <h:outputText value="#{imp.impressionquality}"></h:outputText>
       </h:column>
     </t:dataTable>
     <t:dataScroller id="scroll_1" for="datatable" fastStep="10" pageCountVar="pageCount" pageIndexVar="pageIndex" styleClass="scroller" paginator="true" paginatorMaxPages="9" paginatorTableClass="paginator" paginatorActiveColumnStyle="font-weight:bold;">

@@ -9,30 +9,16 @@ import java.io.Serializable;
  */
 public class ResearcherResultsImpressionsListitem implements Serializable {
 
-    private String blogtitle;
-    private String blogurl;
+
     private int impressionsqualifyingforpayment;
     private String referer;
     private int impressionid;
     private String referertruncated;
+    private String impressionquality;
 
     public ResearcherResultsImpressionsListitem(){}
 
-    public String getBlogtitle() {
-        return blogtitle;
-    }
 
-    public void setBlogtitle(String blogtitle) {
-        this.blogtitle = blogtitle;
-    }
-
-    public String getBlogurl() {
-        return blogurl;
-    }
-
-    public void setBlogurl(String blogurl) {
-        this.blogurl = blogurl;
-    }
 
     public int getImpressionsqualifyingforpayment() {
         return impressionsqualifyingforpayment;
@@ -65,5 +51,14 @@ public class ResearcherResultsImpressionsListitem implements Serializable {
 
     public void setReferertruncated(String referertruncated) {
         this.referertruncated = referertruncated;
+    }
+
+
+    public String getImpressionquality() {
+        return impressionquality;
+    }
+
+    public void setImpressionquality(String impressionquality) {
+        this.impressionquality = impressionquality;
     }
 }

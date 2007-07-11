@@ -58,10 +58,7 @@ public class ResearcherResultsImpressions implements Serializable {
                     robj.setImpressionsqualifyingforpayment(impression.getImpressionsqualifyingforpayment());
                     robj.setReferer(impression.getReferer());
                     robj.setReferertruncated(Str.truncateString(impression.getReferer(), 35));
-                    if (impression.getBlog()!=null){
-                        robj.setBlogtitle(impression.getBlog().getTitle());
-                        robj.setBlogurl(impression.getBlog().getUrl());
-                    }
+                    robj.setImpressionquality(String.valueOf(impression.getQuality()));
                     researcherResultsImpressionsListitems.add(robj);
                 }
             }

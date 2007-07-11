@@ -104,7 +104,9 @@ public class PublicSurveyTake implements Serializable {
         if (Jsf.getUserSession().getCurrentSurveyid()<=0){
             try{Jsf.getHttpServletResponse().sendRedirect("/publicsurveylist.jsf"); return;}catch(Exception ex){logger.error(ex);}
         }
-
+        if (Num.isinteger(Jsf.getRequestParam("userid"))){
+            Jsf.getUserSession().setPendingSurveyReferredbyuserid(Integer.parseInt(Jsf.getRequestParam("userid")));
+        }
 
 
 
@@ -221,21 +223,17 @@ public class PublicSurveyTake implements Serializable {
             }
 
 
-            //Establish pendingSurveyReferredbyblogid by looking at referer, store that in the session and use it later
-            logger.debug("Jsf.getHttpServletRequest().getHeader(\"referer\")="+Jsf.getHttpServletRequest().getHeader("referer"));
+            //Establish pendingSurveyReferredbyuserid
             User user = null;
             if (Jsf.getRequestParam("userid")!=null && Num.isinteger(Jsf.getRequestParam("userid"))){
-                user = User.get(Integer.parseInt(Jsf.getRequestParam("userid")));        
-            }
-            Blog referredByBlog = ImpressionActivityObjectStorage.findBlogFromReferer(Jsf.getHttpServletRequest().getHeader("referer"), user);
-            if (referredByBlog!=null && referredByBlog.getBlogid()>0){
-                Jsf.getUserSession().setPendingSurveyReferredbyblogid(referredByBlog.getBlogid());
+                user = User.get(Integer.parseInt(Jsf.getRequestParam("userid")));
                 isreferredbyblog = true;
+                Jsf.getUserSession().setPendingSurveyReferredbyuserid(user.getUserid());
             }
             logger.debug("isreferredbyblog="+isreferredbyblog);
             resultsHtml = SurveyResultsDisplay.getHtmlForResults(survey, null, 0);
             if (isreferredbyblog){
-                resultsHtmlForReferredByBlog = SurveyResultsDisplay.getHtmlForResults(survey, null, Jsf.getUserSession().getPendingSurveyReferredbyblogid());
+                resultsHtmlForReferredByBlog = SurveyResultsDisplay.getHtmlForResults(survey, null, Jsf.getUserSession().getPendingSurveyReferredbyuserid());
                 resultstabselectedindex = 1;
             } else {
                 resultsHtmlForReferredByBlog = "<font class='mediumfont'>Nobody who has clicked from the blog you were just at has answered... yet.  You could be the first!</font>";
@@ -265,11 +263,7 @@ public class PublicSurveyTake implements Serializable {
             logger.debug("Jsf.getUserSession().getCurrentSurveyid()<=0 ---");
         }
 
-        //Establish pendingSurveyReferredbyblogid by looking at referer, store that in the session and use it later
-        Blog referredByBlog = ImpressionActivityObjectStorage.findBlogFromReferer(Jsf.getHttpServletRequest().getHeader("referer"));
-        if (referredByBlog!=null){
-            Jsf.getUserSession().setPendingSurveyReferredbyblogid(referredByBlog.getBlogid());
-        }
+
 
         //Establish user referral in case of signup
         if (Num.isinteger(Jsf.getRequestParam("userid"))){
@@ -317,11 +311,11 @@ public class PublicSurveyTake implements Serializable {
             Responsepending responsepending = new Responsepending();
             responsepending.setUserid(Jsf.getUserSession().getUser().getUserid());
             responsepending.setResponseasstring(Jsf.getUserSession().getPendingSurveyResponseAsString());
-            responsepending.setReferredbyblogid(Jsf.getUserSession().getPendingSurveyReferredbyblogid());
+            responsepending.setReferredbyuserid(Jsf.getUserSession().getPendingSurveyReferredbyuserid());
             responsepending.setSurveyid(Jsf.getUserSession().getPendingSurveyResponseSurveyid());
             try{responsepending.save();}catch(Exception ex){logger.error(ex);}
             Jsf.getUserSession().setPendingSurveyResponseSurveyid(0);
-            Jsf.getUserSession().setPendingSurveyReferredbyblogid(0);
+            Jsf.getUserSession().setPendingSurveyReferredbyuserid(0);
             Jsf.getUserSession().setPendingSurveyResponseAsString("");
 
         }
@@ -330,7 +324,7 @@ public class PublicSurveyTake implements Serializable {
         if (Jsf.getUserSession().getIsloggedin() && Jsf.getUserSession().getUser()!=null && Jsf.getUserSession().getUser().getBloggerid()>0){
             Blogger blogger = Blogger.get(Jsf.getUserSession().getUser().getBloggerid());
             try{
-                BloggerIndex.storeResponseInDb(survey, srp, blogger, Jsf.getUserSession().getPendingSurveyReferredbyblogid());
+                BloggerIndex.storeResponseInDb(survey, srp, blogger, Jsf.getUserSession().getPendingSurveyReferredbyuserid());
             }catch (ComponentException cex){
                 haveerror = true;
                 Jsf.setFacesMessage(cex.getErrorsAsSingleString());

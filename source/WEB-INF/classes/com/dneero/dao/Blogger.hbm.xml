@@ -9,11 +9,6 @@
             <column name="bloggerid" />
             <generator class="native" />
         </id>
-        <set name="blogs" inverse="true" cascade="all-delete-orphan">
-            <cache usage="transactional"/>
-            <key column="bloggerid"></key>
-            <one-to-many class="com.dneero.dao.Blog" not-found="ignore"></one-to-many>
-        </set>
         <set name="responses" inverse="true" cascade="save-update">
             <cache usage="transactional"/>
             <key column="bloggerid"></key>
@@ -62,6 +57,9 @@
         </property>
         <property name="politics" type="string">
             <column name="politics" not-null="true" />
+        </property>
+        <property name="blogfocus" type="string">
+            <column name="blogfocus" not-null="true" />
         </property>
         <property name="quality" type="double">
             <column name="quality" precision="22" scale="0" not-null="true" />

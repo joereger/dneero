@@ -1,7 +1,6 @@
 package com.dneero.formbeans;
 
 import com.dneero.dao.Impression;
-import com.dneero.dao.Blog;
 import com.dneero.dao.hibernate.HibernateUtil;
 import org.apache.log4j.Logger;
 

@@ -20,7 +20,7 @@ public class Responsepending extends BasePersistentClass implements java.io.Seri
      private int userid;
      private int surveyid;
      private String responseasstring;
-     private int referredbyblogid;
+     private int referredbyuserid;
 
 
     //Validator
@@ -106,11 +106,11 @@ public class Responsepending extends BasePersistentClass implements java.io.Seri
     }
 
 
-    public int getReferredbyblogid() {
-        return referredbyblogid;
+    public int getReferredbyuserid() {
+        return referredbyuserid;
     }
 
-    public void setReferredbyblogid(int referredbyblogid) {
-        this.referredbyblogid = referredbyblogid;
+    public void setReferredbyuserid(int referredbyuserid) {
+        this.referredbyuserid = referredbyuserid;
     }
 }

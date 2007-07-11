@@ -72,6 +72,7 @@ public class BloggerDetails implements Serializable {
             profession = String.valueOf(blogger.getProfession());
             politics = String.valueOf(blogger.getPolitics());
             paymethodpaypaladdress = userSession.getUser().getPaymethodpaypaladdress();
+            blogfocus = blogger.getBlogfocus();
         }
     }
 
@@ -124,7 +125,7 @@ public class BloggerDetails implements Serializable {
             blogger.setCity(city);
             blogger.setProfession(profession);
             blogger.setPolitics(politics);
-
+            blogger.setBlogfocus(blogfocus);
 
             try{
                 blogger.save();
@@ -178,9 +179,10 @@ public class BloggerDetails implements Serializable {
             userSession.getUser().refresh();
 
             if (isnewblogger){
-                BloggerBlogDetail bean = (BloggerBlogDetail)Jsf.getManagedBean("bloggerBlogDetail");
+                BloggerIndex bean = (BloggerIndex)Jsf.getManagedBean("bloggerIndex");
+                bean.setMsg("Profile saved successfully.");
                 return bean.beginView();
-                //return "bloggerblogdetail";
+                //return "bloggerindex";
             } else {
                 BloggerIndex bean = (BloggerIndex)Jsf.getManagedBean("bloggerIndex");
                 bean.setMsg("Profile saved successfully.");
@@ -293,11 +295,6 @@ public class BloggerDetails implements Serializable {
     public void setPolitics(String politics) {
         this.politics = politics;
     }
-
-
-
-  
-
 
     public String getPaymethodpaypaladdress() {
         return paymethodpaypaladdress;

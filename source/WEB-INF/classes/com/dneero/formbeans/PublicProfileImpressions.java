@@ -5,6 +5,7 @@ import org.hibernate.criterion.Restrictions;
 import com.dneero.dao.*;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.util.Jsf;
+import com.dneero.util.Str;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,17 +57,12 @@ public class PublicProfileImpressions implements Serializable {
                 for (Iterator<Impression> iterator1 = impressions.iterator(); iterator1.hasNext();) {
                     Impression impression = iterator1.next();
 
-                    for (Iterator<Blog> iterator = blogger.getBlogs().iterator(); iterator.hasNext();) {
-                        Blog blog = iterator.next();
-                        if (impression.getBlog()!=null && blog.getBlogid()==impression.getBlog().getBlogid()){
-                            ResearcherResultsImpressionsListitem robj = new ResearcherResultsImpressionsListitem();
-                            robj.setBlogtitle(impression.getBlog().getTitle());
-                            robj.setBlogurl(impression.getBlog().getUrl());
-                            robj.setImpressionsqualifyingforpayment(impression.getImpressionsqualifyingforpayment());
-                            robj.setReferer(impression.getReferer());
-                            list.add(robj);
-                        }
-                    }
+                    ResearcherResultsImpressionsListitem robj = new ResearcherResultsImpressionsListitem();
+                    robj.setImpressionsqualifyingforpayment(impression.getImpressionsqualifyingforpayment());
+                    robj.setReferer(impression.getReferer());
+                    robj.setReferertruncated(Str.truncateString(impression.getReferer(), 45));
+                    robj.setImpressionquality(String.valueOf(impression.getQuality()));
+                    list.add(robj);
 
                 }
 

@@ -257,12 +257,6 @@
         <managed-bean-scope>application</managed-bean-scope>
     </managed-bean>
 
-    <managed-bean>
-        <managed-bean-name>bloggerBlogsList</managed-bean-name>
-        <managed-bean-class>com.dneero.formbeans.BloggerBlogsList</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
-    </managed-bean>
-
 
     <managed-bean>
         <managed-bean-name>researcherResults</managed-bean-name>
@@ -351,12 +345,6 @@
     <managed-bean>
         <managed-bean-name>bloggerIndex</managed-bean-name>
         <managed-bean-class>com.dneero.formbeans.BloggerIndex</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
-    </managed-bean>
-
-    <managed-bean>
-        <managed-bean-name>bloggerBlogDetail</managed-bean-name>
-        <managed-bean-class>com.dneero.formbeans.BloggerBlogDetail</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
 
@@ -923,14 +911,6 @@
         <navigation-case>
             <from-outcome>bloggerdetails</from-outcome>
             <to-view-id>/blogger/bloggerdetails.xhtml</to-view-id>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>bloggerblogslist</from-outcome>
-            <to-view-id>/blogger/bloggerblogslist.xhtml</to-view-id>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>bloggerblogdetail</from-outcome>
-            <to-view-id>/blogger/bloggerblogdetail.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>bloggersurveylist</from-outcome>

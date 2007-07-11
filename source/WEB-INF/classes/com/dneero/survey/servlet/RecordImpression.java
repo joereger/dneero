@@ -2,7 +2,6 @@ package com.dneero.survey.servlet;
 
 import com.dneero.dao.Survey;
 import com.dneero.dao.User;
-import com.dneero.dao.Blog;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.scheduledjobs.ImpressionActivityObjectQueue;
 

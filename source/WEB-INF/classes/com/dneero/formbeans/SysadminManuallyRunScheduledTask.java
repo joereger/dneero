@@ -141,6 +141,15 @@ public class SysadminManuallyRunScheduledTask implements Serializable {
         return "sysadminmanuallyrunscheduledtask";
     }
 
+    public String runCharityCalculateAmountDonated(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
+        try{com.dneero.scheduledjobs.CharityCalculateAmountDonated task = new com.dneero.scheduledjobs.CharityCalculateAmountDonated();
+            task.execute(null);} catch (Exception ex){logger.error(ex);}
+        return "sysadminmanuallyrunscheduledtask";
+    }
+
+
+
 
 
 }

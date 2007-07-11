@@ -69,7 +69,7 @@ public class BloggerIndex implements Serializable {
                     Survey survey = Survey.get(responsepending.getSurveyid());
                     try{
                         SurveyResponseParser srp = new SurveyResponseParser(responsepending.getResponseasstring());
-                        createResponse(survey,  srp, Blogger.get(Jsf.getUserSession().getUser().getBloggerid()), responsepending.getReferredbyblogid());
+                        createResponse(survey,  srp, Blogger.get(Jsf.getUserSession().getUser().getBloggerid()), responsepending.getReferredbyuserid());
                         responsependingmsg = responsependingmsg + "You just earned $"+ Str.formatForMoney(survey.getWillingtopayperrespondent())+"! We have successfully committed your response to '"+survey.getTitle()+"'!  But don't forget to post this survey to your blog to earn even more money... click <a href='/survey.jsf?surveyid="+survey.getSurveyid()+"'>here</a>." + "<br/><br/>";
                         surveyidtoredirectto = survey.getSurveyid();
                     } catch (ComponentException cex){
@@ -89,7 +89,7 @@ public class BloggerIndex implements Serializable {
         bean2.beginView();
     }
 
-    public static void createResponse(Survey survey, SurveyResponseParser srp, Blogger blogger, int referredbyblogid) throws ComponentException{
+    public static void createResponse(Survey survey, SurveyResponseParser srp, Blogger blogger, int referredbyuserid) throws ComponentException{
         Logger logger = Logger.getLogger(PublicSurveyTake.class);
         ComponentException allCex = new ComponentException();
         //Make sure blogger hasn't taken already
@@ -128,7 +128,7 @@ public class BloggerIndex implements Serializable {
                 Jsf.getUserSession().setPendingSurveyResponseAsString(srp.getAsString());
                 logger.debug("Storing survey response in memory: surveyid="+survey.getSurveyid()+" : srp.getAsString()="+srp.getAsString());
             } else {
-                storeResponseInDb(survey, srp, blogger, referredbyblogid);
+                storeResponseInDb(survey, srp, blogger, referredbyuserid);
             }
         }
         //Throw if necessary
@@ -138,7 +138,7 @@ public class BloggerIndex implements Serializable {
         }
     }
 
-    public static void storeResponseInDb(Survey survey, SurveyResponseParser srp, Blogger blogger, int referredbyblogid)  throws ComponentException{
+    public static void storeResponseInDb(Survey survey, SurveyResponseParser srp, Blogger blogger, int referredbyuserid)  throws ComponentException{
         Logger logger = Logger.getLogger(BloggerIndex.class);
         ComponentException allCex = new ComponentException();
         //Create Response
@@ -178,7 +178,7 @@ public class BloggerIndex implements Serializable {
             response.setBloggerid(blogger.getBloggerid());
             response.setResponsedate(new Date());
             response.setSurveyid(survey.getSurveyid());
-            response.setReferredbyblogid(referredbyblogid);
+            response.setReferredbyuserid(referredbyuserid);
             response.setIsforcharity(isforcharity);
             response.setCharityname(charityname);
             //survey.getResponses().add(response);

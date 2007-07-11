@@ -32,20 +32,13 @@ public class ImpressionActivityObjectStorage {
             user = User.get(iao.getUserid());
         }
 
-        //Find blog as indicated by referer
-        Blog blog=null;
-        if (iao.getReferer()!=null && !iao.getReferer().equals("")){
-            blog = findBlogFromReferer(iao.getReferer(), user);
-        } else {
-            //The referer is blank
-        }
-
-
         //Find bloggerid
         int bloggerid = 0;
-        if (blog!=null && blog.getBloggerid()>0){
-            bloggerid = blog.getBloggerid();
+        if (user!=null && user.getUserid()>0 && user.getBloggerid()>0){
+            bloggerid = user.getBloggerid();
         }
+
+
 
         //Find the survey
         Survey survey = null;
@@ -65,18 +58,18 @@ public class ImpressionActivityObjectStorage {
         }
 
         //Find number of impressions on this blog qualify for payment
-        int blogimpressionsthatqualifyforpayment = getImpressionsThatQualifyForPayment(blog, survey);
+        int blogimpressionsthatqualifyforpayment = getImpressionsThatQualifyForPayment(user, survey);
 
         //See if this impressiondetail qualifies for payment
         int qualifiesforpaymentstatus = Impressiondetail.QUALIFIESFORPAYMENTSTATUS_TRUE;
         String qualifiesforpaymentstatusreason = "";
         if (surveyimpressionsthatqualifyforpayment>survey.getMaxdisplaystotal()){
             qualifiesforpaymentstatus = Impressiondetail.QUALIFIESFORPAYMENTSTATUS_FALSE;
-            qualifiesforpaymentstatusreason = "The survey already reached its maximum number of survey displays across all blogs.";
+            qualifiesforpaymentstatusreason = "The survey already reached its maximum number of survey displays for all bloggers.";
         }
         if (blogimpressionsthatqualifyforpayment+1>survey.getMaxdisplaysperblog()){
             qualifiesforpaymentstatus = Impressiondetail.QUALIFIESFORPAYMENTSTATUS_FALSE;
-            qualifiesforpaymentstatusreason = "This blog has already displayed the survey the maximum number of times for a blog.";
+            qualifiesforpaymentstatusreason = "This blogger has already displayed the survey the maximum number of times.";
         }
         int dayssinceclose = DateDiff.dateDiff("day", Calendar.getInstance(), Time.getCalFromDate(survey.getEnddate()));
         if (dayssinceclose>SurveyMoneyStatus.DAYSAFTERCLOSEOFSURVEYWECOLLECTFORIMPRESSIONS){
@@ -103,6 +96,7 @@ public class ImpressionActivityObjectStorage {
             impression = new Impression();
             impression.setFirstseen(iao.getDate());
             impression.setSurveyid(iao.getSurveyid());
+            impression.setUserid(iao.getUserid());
             //Only increment if this qualifies
             if (qualifiesforpaymentstatus==Impressiondetail.QUALIFIESFORPAYMENTSTATUS_TRUE){
                 impression.setImpressionsqualifyingforpayment(1);
@@ -127,78 +121,29 @@ public class ImpressionActivityObjectStorage {
 
         try{impressiondetail.save();} catch (GeneralException gex){logger.error(gex);}
 
-        //@todo is this the only thing that causes an entry in joinblogimpression? good for testing but is this necessary in the real world? especially once i start caching things?
-        if (blog!=null && blog.getBlogid()>0){
-            blog.getImpressions().add(impression);
-            try{blog.save();} catch (GeneralException gex){logger.error(gex);}
-        }
-
     }
 
-    public static Blog findBlogFromReferer(String referer){
-        return findBlogFromReferer(referer, null);
-    }
 
-    public static Blog findBlogFromReferer(String referer, User user){
-        Logger logger = Logger.getLogger(ImpressionActivityObjectStorage.class);
-        if (referer!=null && !referer.equals("")){
-            //Strip ending slash
-            logger.debug("referer.substring(referer.length()-1, referer.length())="+referer.substring(referer.length()-1, referer.length()));
-            if (referer.substring(referer.length()-1, referer.length()).equals("/")){
-                logger.debug("removing slash from referer: referer="+referer);
-                referer = referer.substring(0, referer.length()-1);
-            } else {
-                logger.debug("not removing slash from referer: referer="+referer);
-            }
-            if (user!=null && user.getBloggerid()>0){
-                logger.debug("userid="+user.getUserid()+" bloggerid="+user.getBloggerid());
-                for (Iterator it = Blogger.get(user.getBloggerid()).getBlogs().iterator(); it.hasNext(); ) {
-                    Blog blog = (Blog)it.next();
-                    logger.debug("blog.getUrl()="+ blog.getUrl());
-                    logger.debug("referer.indexOf(blog.getUrl())="+referer.indexOf(blog.getUrl()));
-                    if (referer.indexOf(blog.getUrl())>=0){
-                        logger.debug("found the blogid for this impression: blogid="+ blog.getBlogid());
-                        return blog;
-                    }
-                }
-            } else {
-                logger.debug("The user is null, no userid was passed on url line.");
-                //@todo this code doesn't work... Restrictions.like is reverse... the incoming is http://domain/blah.html while the database value is http://domain
-//                List<Blog> blogs = HibernateUtil.getSession().createCriteria(Blog.class)
-//                                                   .add(Restrictions.like("url", "%"+referer+"%"))
-//                                                   .setCacheable(true)
-//                                                   .list();
-//                logger.debug("blogs.size()="+blogs.size());
-//                for (Iterator<Blog> iterator = blogs.iterator(); iterator.hasNext();) {
-//                    Blog blog = iterator.next();
-//                    logger.debug("blog.getUrl()="+ blog.getUrl());
-//                    logger.debug("referer.indexOf(blog.getUrl())="+referer.indexOf(blog.getUrl()));
-//                    if (referer.indexOf(blog.getUrl())>=0){
-//                        logger.debug("found the blogid for this impression: blogid="+ blog.getBlogid());
-//                        return blog;
-//                    }
-//                }
-            }
-        }
-        return null;
-    }
 
-    public static int getImpressionsThatQualifyForPayment(Blog blog, Survey survey){
+
+
+    public static int getImpressionsThatQualifyForPayment(User user, Survey survey){
         Logger logger = Logger.getLogger(ImpressionActivityObjectStorage.class);
         //logger.debug("getImpressionsThatQualifyForPayment start");
-        int blogimpressionsthatqualifyforpayment = 0;
-        if (blog!=null && blog.getBlogid()>0){
-            blog = Blog.get(blog.getBlogid());
-            for (Iterator it2 = blog.getImpressions().iterator(); it2.hasNext(); ) {
-                Impression impression = (Impression)it2.next();
-                //Add the impressions that already exist... note that i'm only looking at the impressionsqualifyingforpayment var so that var must be kept up-to-date
-                if (survey.getSurveyid()==impression.getSurveyid()){
-                    blogimpressionsthatqualifyforpayment = blogimpressionsthatqualifyforpayment + impression.getImpressionsqualifyingforpayment();
-                }
+        int impressionsthatqualifyforpayment = 0;
+        if (user!=null && user.getUserid()>0){
+            List<Impression> impressions = HibernateUtil.getSession().createCriteria(Impression.class)
+                                               .add(Restrictions.eq("surveyid", survey.getSurveyid()))
+                                               .add(Restrictions.eq("userid", user.getUserid()))
+                                               .setCacheable(true)
+                                               .list();
+            for (Iterator<Impression> iterator = impressions.iterator(); iterator.hasNext();) {
+                Impression impression = (Impression) iterator.next();
+                impressionsthatqualifyforpayment = impressionsthatqualifyforpayment + impression.getImpressionsqualifyingforpayment();
             }
         }
         //logger.debug("getImpressionsThatQualifyForPayment end");
-        return blogimpressionsthatqualifyforpayment;
+        return impressionsthatqualifyforpayment;
     }
 
 }

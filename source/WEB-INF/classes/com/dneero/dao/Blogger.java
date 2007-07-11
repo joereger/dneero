@@ -34,13 +34,13 @@ public class Blogger extends BasePersistentClass implements java.io.Serializable
      private String city;
      private String profession;
      private String politics;
+     private String blogfocus;
      private double quality;
      private double quality90days;
      private double socialinfluencerating;
      private double socialinfluencerating90days;
      private int socialinfluenceratingranking;
      private int socialinfluenceratingranking90days;
-     private Set<Blog> blogs = new HashSet<Blog>();
      private Set<Response> responses = new HashSet<Response>();
      private Set<Impressionpaymentgroup> impressionpaymentgroups = new HashSet<Impressionpaymentgroup>();
      private Set<Panelmembership> panelmemberships = new HashSet<Panelmembership>();
@@ -189,16 +189,6 @@ public class Blogger extends BasePersistentClass implements java.io.Serializable
         this.politics = politics;
     }
 
-    public Set<Blog> getBlogs() {
-        Logger logger = Logger.getLogger(this.getClass().getName());
-        logger.debug("getBlogs() called");
-        return blogs;
-    }
-
-    public void setBlogs(Set<Blog> blogs) {
-        this.blogs = blogs;
-    }
-
     public Set<Response> getResponses() {
         return responses;
     }
@@ -271,5 +261,13 @@ public class Blogger extends BasePersistentClass implements java.io.Serializable
 
     public void setSocialinfluenceratingranking90days(int socialinfluenceratingranking90days) {
         this.socialinfluenceratingranking90days = socialinfluenceratingranking90days;
+    }
+
+    public String getBlogfocus() {
+        return blogfocus;
+    }
+
+    public void setBlogfocus(String blogfocus) {
+        this.blogfocus = blogfocus;
     }
 }

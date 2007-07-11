@@ -18,8 +18,8 @@
         <property name="responseasstring" type="text">
             <column name="responseasstring" />
         </property>
-        <property name="referredbyblogid" type="int">
-            <column name="referredbyblogid" not-null="true" />
+        <property name="referredbyuserid" type="int">
+            <column name="referredbyuserid" not-null="true" />
         </property>
 
     </class>

@@ -22,7 +22,6 @@ public class PublicProfile implements Serializable {
     private Blogger blogger;
     private User user;
     private List<PublicProfileListitem> listitems;
-    private List<Blog> blogs;
     private List<Panel> panels;
     private int panelid;
     private String msg;
@@ -71,13 +70,7 @@ public class PublicProfile implements Serializable {
                 listitems.add(li);
             }
         }
-        blogs = new ArrayList<Blog>();
-        if (blogger!=null && blogger.getBlogs()!=null){
-            for (Iterator<Blog> iterator = blogger.getBlogs().iterator(); iterator.hasNext();) {
-                Blog blog = iterator.next();
-                blogs.add(blog);
-            }
-        }
+
         panels = new ArrayList<Panel>();
         if (blogger!=null && blogger.getPanelmemberships()!=null){
             for (Iterator<Panelmembership> iterator = blogger.getPanelmemberships().iterator(); iterator.hasNext();) {
@@ -167,13 +160,7 @@ public class PublicProfile implements Serializable {
     }
 
 
-    public List<Blog> getBlogs() {
-        return blogs;
-    }
 
-    public void setBlogs(List<Blog> blogs) {
-        this.blogs = blogs;
-    }
 
     public List<Panel> getPanels() {
         return panels;

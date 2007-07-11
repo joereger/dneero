@@ -42,15 +42,6 @@
     <t:dataTable id="datatable" value="#{researcherResultsImpressions.researcherResultsImpressionsListitems}" rows="50" var="imp" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcol,tcolnowrap,tcol,tcolnowrap,tcolnowrap">
       <h:column>
         <f:facet name="header">
-          <h:outputText value="Blog"/>
-        </f:facet>
-        <h:outputLink target="referer" value="#{imp.blogurl}">
-            <h:outputText value="#{imp.blogtitle}" styleClass="smallfont"/>
-        </h:outputLink>
-        <h:outputText value="None" rendered="#{empty imp.blogurl}"/>
-      </h:column>
-      <h:column>
-        <f:facet name="header">
           <h:outputText value="Specific Page"/>
         </f:facet>
         <h:outputLink target="referer" value="#{imp.referer}">
@@ -66,6 +57,12 @@
             <h:outputText value="#{imp.impressionsqualifyingforpayment}" styleClass="smallfont" style="color: #0000ff;"/>
             <f:param name="impressionid" value="#{imp.impressionid}" />
         </h:commandLink>
+      </h:column>
+      <h:column>
+        <f:facet name="header">
+          <h:outputText value="Quality Rating"/>
+        </f:facet>
+        <h:outputText value="#{imp.impressionquality}" styleClass="smallfont" style="color: #0000ff;"/>
       </h:column>
     </t:dataTable>
     <t:dataScroller id="scroll_1" for="datatable" fastStep="10" pageCountVar="pageCount" pageIndexVar="pageIndex" styleClass="scroller" paginator="true" paginatorMaxPages="9" paginatorTableClass="paginator" paginatorActiveColumnStyle="font-weight:bold;">

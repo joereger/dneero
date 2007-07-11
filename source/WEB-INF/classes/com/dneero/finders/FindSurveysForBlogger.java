@@ -115,68 +115,52 @@ public class FindSurveysForBlogger {
                 surveyfitsblogger = false;
                 logger.debug("survey not included because of politics.");
             }
+            if (surveyfitsblogger && !Util.arrayContains(scXml.getBlogfocus(), blogger.getBlogfocus())){
+                surveyfitsblogger = false;
+                logger.debug("survey not included because of blogfocus.");
+            }
 
             //Now check the age requirements
-            if (blogger.getBirthdate().before(   Time.subtractYear(Calendar.getInstance(), scXml.getAgemax()).getTime()    )){
+            if (surveyfitsblogger && blogger.getBirthdate().before(   Time.subtractYear(Calendar.getInstance(), scXml.getAgemax()).getTime()    )){
                 surveyfitsblogger = false;
                 logger.debug("survey not included because birthdate is before.");
             }
-            if (blogger.getBirthdate().after(   Time.subtractYear(Calendar.getInstance(), scXml.getAgemin()).getTime()    )){
+            if (surveyfitsblogger && blogger.getBirthdate().after(   Time.subtractYear(Calendar.getInstance(), scXml.getAgemin()).getTime()    )){
                 surveyfitsblogger = false;
                 logger.debug("survey not included because birthdate is after.");
             }
 
-            //Now check this blogger's blogs to see if they fulfill the criteria
-            if (surveyfitsblogger){
-                logger.debug("so far the survey fits so we're going to check blogfocus and quality.");
-                logger.debug("blogger.getBlogs().size()="+blogger.getBlogs().size());
-                if (blogger.getBlogs().size()>0){
-                    boolean atleastoneblogfulfills = false;
-                    for (Iterator<Blog> iterator = blogger.getBlogs().iterator(); iterator.hasNext();) {
-                        Blog blog = iterator.next();
-                        logger.debug("considering blogid="+blog.getBlogid());
-                        if (Util.arrayContains(scXml.getBlogfocus(), blog.getBlogfocus())){
-                            logger.debug("passes blogfocus");
-                            if (blog.getQuality()>=scXml.getBlogquality()){
-                                if (blog.getQuality90days()>=scXml.getBlogquality90days()){
-                                    atleastoneblogfulfills = true;
-                                } else {
-                                    logger.debug("fails blog quality 90 days");
-                                }
-                            } else {
-                                logger.debug("fails blog quality all time");
-                            }
-                        } else {
-                            logger.debug("survey not included because of blogfocus");
-                        }
-                    }
-                    if (!atleastoneblogfulfills){
-                        surveyfitsblogger = false;
-                    }
-                } else {
-                    logger.debug("no blogs found for bloggerid="+blogger.getBloggerid());
-                }
-
-
-                //Social Influence Rating
-                if (surveyfitsblogger){
-                    int maxranking = SocialInfluenceRatingPercentile.getRankingOfGivenPercentile(SystemStats.getTotalbloggers(), scXml.getMinsocialinfluencepercentile());
-                    if (blogger.getSocialinfluenceratingranking()>maxranking){
-                        surveyfitsblogger = false;
-                        logger.debug("survey not included because of socialinfluenceranking.  maxranking="+maxranking+" blogger.getSocialinfluenceratingranking()="+blogger.getSocialinfluenceratingranking());
-                    }
-                }
-
-                //Social Influence Rating 90 days
-                if (surveyfitsblogger){
-                    int maxranking90days = SocialInfluenceRatingPercentile.getRankingOfGivenPercentile(SystemStats.getTotalbloggers(), scXml.getMinsocialinfluencepercentile90days());
-                    if (blogger.getSocialinfluenceratingranking90days()>maxranking90days){
-                        surveyfitsblogger = false;
-                        logger.debug("survey not included because of socialinfluenceranking90days.  maxranking90days="+maxranking90days+" blogger.getSocialinfluenceratingranking90days()="+blogger.getSocialinfluenceratingranking90days());
-                    }
-                }
-   
+            //Quality
+            if (surveyfitsblogger && blogger.getQuality()<scXml.getBlogquality()){
+                surveyfitsblogger = false;
+                logger.debug("survey not included because of blog quality.");
             }
+
+            //Quality 90 days
+            if (surveyfitsblogger && blogger.getQuality90days()<scXml.getBlogquality90days()){
+                surveyfitsblogger = false;
+                logger.debug("survey not included because of blog quality 90 days.");
+            }
+
+
+            //Social Influence Rating
+            if (surveyfitsblogger){
+                int maxranking = SocialInfluenceRatingPercentile.getRankingOfGivenPercentile(SystemStats.getTotalbloggers(), scXml.getMinsocialinfluencepercentile());
+                if (blogger.getSocialinfluenceratingranking()>maxranking){
+                    surveyfitsblogger = false;
+                    logger.debug("survey not included because of socialinfluenceranking.  maxranking="+maxranking+" blogger.getSocialinfluenceratingranking()="+blogger.getSocialinfluenceratingranking());
+                }
+            }
+
+            //Social Influence Rating 90 days
+            if (surveyfitsblogger){
+                int maxranking90days = SocialInfluenceRatingPercentile.getRankingOfGivenPercentile(SystemStats.getTotalbloggers(), scXml.getMinsocialinfluencepercentile90days());
+                if (blogger.getSocialinfluenceratingranking90days()>maxranking90days){
+                    surveyfitsblogger = false;
+                    logger.debug("survey not included because of socialinfluenceranking90days.  maxranking90days="+maxranking90days+" blogger.getSocialinfluenceratingranking90days()="+blogger.getSocialinfluenceratingranking90days());
+                }
+            }
+   
 
             //If it hasn't been booted by now, keep it
             if (surveyfitsblogger){

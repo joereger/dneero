@@ -25,7 +25,6 @@ public class SystemStats implements Job {
 
     //BE SURE TO SYNC CODE HERE WITH MAIN SystemStats in formbeans (which jsf uses)
     private static int totalbloggers=0;
-    private static int totalblogs=0;
     private static int totalresearchers=0;
     private static int totalimpressions=0;
     private static int impressions30days=0;
@@ -43,7 +42,6 @@ public class SystemStats implements Job {
             logger.debug("execute() SystemStats called");
 
             totalbloggers = ((Long)HibernateUtil.getSession().createQuery("select count(*) from Blogger").uniqueResult()).intValue();
-            totalblogs = ((Long)HibernateUtil.getSession().createQuery("select count(*) from Blog").uniqueResult()).intValue();
             totalresearchers = ((Long)HibernateUtil.getSession().createQuery("select count(*) from Researcher").uniqueResult()).intValue();
             totalimpressions = ((Long)HibernateUtil.getSession().createQuery("select count(*) from Impressiondetail").uniqueResult()).intValue();
             numberofsurveysopen = ((Long)HibernateUtil.getSession().createQuery("select count(*) from Survey where status='"+Survey.STATUS_OPEN+"'").uniqueResult()).intValue();
@@ -122,13 +120,7 @@ public class SystemStats implements Job {
         //SystemStats.totalbloggers = totalbloggers;
     }
 
-    public static int getTotalblogs() {
-        return totalblogs;
-    }
-
-    public static void setTotalblogs(int totalblogs) {
-        //SystemStats.totalblogs = totalblogs;
-    }
+   
 
     public static int getTotalresearchers() {
         return totalresearchers;

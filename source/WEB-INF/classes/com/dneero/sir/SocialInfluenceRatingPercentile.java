@@ -1,7 +1,6 @@
 package com.dneero.sir;
 
 import org.apache.log4j.Logger;
-import com.dneero.dao.Blog;
 import com.dneero.dao.Blogger;
 import com.dneero.scheduledjobs.SystemStats;
 
@@ -10,12 +9,7 @@ import com.dneero.scheduledjobs.SystemStats;
  */
 public class SocialInfluenceRatingPercentile {
 
-    public static int getRankingPercentile(Blog blog){
-        return getPercentileOfRanking(SystemStats.getTotalblogs(), blog.getSocialinfluenceratingranking());
-    }
-    public static int getRankingPercentile90days(Blog blog){
-        return getPercentileOfRanking(SystemStats.getTotalblogs(), blog.getSocialinfluenceratingranking90days());
-    }
+
     public static int getRankingPercentile(Blogger blogger){
         return getPercentileOfRanking(SystemStats.getTotalbloggers(), blogger.getSocialinfluenceratingranking());
     }

@@ -22,7 +22,7 @@ public class Response extends BasePersistentClass implements java.io.Serializabl
      private int bloggerid;
      private Date responsedate;
      private Survey survey;
-     private int referredbyblogid;
+     private int referredbyuserid;
      private boolean isforcharity;
      private String charityname;
 
@@ -116,13 +116,12 @@ public class Response extends BasePersistentClass implements java.io.Serializabl
         this.survey = survey;
     }
 
-
-    public int getReferredbyblogid() {
-        return referredbyblogid;
+    public int getReferredbyuserid() {
+        return referredbyuserid;
     }
 
-    public void setReferredbyblogid(int referredbyblogid) {
-        this.referredbyblogid = referredbyblogid;
+    public void setReferredbyuserid(int referredbyuserid) {
+        this.referredbyuserid = referredbyuserid;
     }
 
     public boolean getIsforcharity() {

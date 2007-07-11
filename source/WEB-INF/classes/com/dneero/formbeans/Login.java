@@ -81,12 +81,12 @@ public class Login implements Serializable {
                     if (!Jsf.getUserSession().getPendingSurveyResponseAsString().equals("")){
                         Responsepending responsepending = new Responsepending();
                         responsepending.setUserid(user.getUserid());
-                        responsepending.setReferredbyblogid(Jsf.getUserSession().getPendingSurveyReferredbyblogid());
+                        responsepending.setReferredbyuserid(Jsf.getUserSession().getPendingSurveyReferredbyuserid());
                         responsepending.setResponseasstring(Jsf.getUserSession().getPendingSurveyResponseAsString());
                         responsepending.setSurveyid(Jsf.getUserSession().getPendingSurveyResponseSurveyid());
                         try{responsepending.save();}catch (Exception ex){logger.error(ex);}
                         Jsf.getUserSession().setPendingSurveyResponseSurveyid(0);
-                        Jsf.getUserSession().setPendingSurveyReferredbyblogid(0);
+                        Jsf.getUserSession().setPendingSurveyReferredbyuserid(0);
                         Jsf.getUserSession().setPendingSurveyResponseAsString("");
                     }
                 }

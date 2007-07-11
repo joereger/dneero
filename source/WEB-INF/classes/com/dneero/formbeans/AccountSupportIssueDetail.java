@@ -4,7 +4,6 @@ import org.apache.log4j.Logger;
 
 import javax.faces.context.FacesContext;
 
-import com.dneero.dao.Blog;
 import com.dneero.dao.Supportissue;
 import com.dneero.dao.Supportissuecomm;
 import com.dneero.dao.User;

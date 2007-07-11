@@ -34,12 +34,10 @@
         <property name="referer" type="text">
             <column name="referer" />
         </property>
+        <property name="userid" type="int">
+            <column name="userid" not-null="true" />
+        </property>
 
-        <!-- Get parent -->
-        <join table="joinblogimpression" inverse="true" optional="true">
-            <key column="impressionid"/>
-            <many-to-one name="blog" column="blogid" not-null="false"/>
-        </join>
 
     </class>
 </hibernate-mapping>
