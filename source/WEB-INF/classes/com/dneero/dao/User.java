@@ -49,6 +49,7 @@ public class User extends BasePersistentClass implements java.io.Serializable, R
      private boolean instantnotifyxmppison;
      private String instantnotifyxmppusername;
      private double charityamtdonated;
+     private int facebookuserid;
 
      //Association
     private Set<Userrole> userroles = new HashSet<Userrole>();
@@ -374,5 +375,13 @@ public class User extends BasePersistentClass implements java.io.Serializable, R
 
     public void setCharityamtdonated(double charityamtdonated) {
         this.charityamtdonated = charityamtdonated;
+    }
+
+    public int getFacebookuserid() {
+        return facebookuserid;
+    }
+
+    public void setFacebookuserid(int facebookuserid) {
+        this.facebookuserid = facebookuserid;
     }
 }

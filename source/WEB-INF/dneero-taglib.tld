@@ -174,4 +174,17 @@
     </attribute>
 </tag>
 
+<tag>
+    <name>pageload</name>
+    <tag-class>com.dneero.session.Pageload</tag-class>
+    <attribute>
+        <name>binding</name>
+        <description>A value binding that points to a bean property</description>
+    </attribute>
+    <attribute>
+        <name>id</name>
+        <description>The client id of this component</description>
+    </attribute>
+</tag>
+
 </taglib>

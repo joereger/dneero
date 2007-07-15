@@ -692,4 +692,5 @@ public class PublicSurveyTake implements Serializable {
     public void setIsuserwhotooksurveyloaded(boolean isuserwhotooksurveyloaded) {
         this.isuserwhotooksurveyloaded = isuserwhotooksurveyloaded;
     }
+
 }

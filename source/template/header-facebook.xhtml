@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:d="http://dneero.com/taglib"
+      xmlns:c="http://java.sun.com/jstl/core"
+
+      >
+
+    <ui:define name="header">
+        <h:form>
+          
+            <table width="626" cellspacing="0" border="0" cellpadding="0">
+                <!--<tr>
+                    <td valign="top" colspan="2">
+                        <img src="/images/clear.gif" width="10" height="1" align="left"/>
+                        <a href="/"><img src="/images/dneero-logo.gif" width="200" height="92" border="0"/></a>
+                    </td>
+                    <td valign="top" style="text-align: right;" colspan="3">
+                        <c:if test="#{!userSession.isloggedin}">
+                            <div style="padding: 10px; text-align: right;">
+                            <font class="subnavfont">Already have an account?<img src="/images/clear.gif" width="20" height="1"/><h:commandLink value="Log In" action="#{login.beginView}" styleClass="subnavfont"/></font>
+                            <br/>
+                            <font class="subnavfont">Want to get one?<img src="/images/clear.gif" width="20" height="1"/><h:commandLink value="Sign Up" action="#{registration.beginView}" styleClass="subnavfont"/></font>
+                            </div>
+                        </c:if>
+                        <c:if test="#{userSession.isloggedin}">
+                            <div style="padding: 10px; text-align: right;">
+                                <font class="subnavfont">Hi, ${userSession.user.firstname} ${userSession.user.lastname}!<img src="/images/clear.gif" width="5" height="1"/><h:commandLink value="Log Out" action="#{login.logout}" styleClass="subnavfont"/></font>
+                                <c:if test="#{userSession.isloggedin and userSession.isSysadmin}">
+                                    <br/>
+                                    <font class="subnavfont">You're a Sys Admin!<img src="/images/clear.gif" width="5" height="1"/><h:commandLink value="Rock On" action="sysadminhome" styleClass="subnavfont"/></font>
+                                </c:if>
+                                <br/>
+                                <font class="subnavfont">Need <img src="/images/clear.gif" width="1" height="1"/><h:commandLink value="Help?" action="#{accountSupportIssuesList.beginView}" styleClass="subnavfont"/></font>
+                            </div>
+                        </c:if>
+                    </td>
+                </tr>-->
+                <!--<tr>
+                    <td valign="top" background="/images/navtabs2/mainbar_bg.gif" width="1">
+                        <img src="/images/clear.gif" width="1" height="85"/>
+                    </td>
+                    <td valign="top" background="/images/navtabs2/mainbar_bg.gif">
+                        <h:commandLink action="#{publicIndex.beginView}">
+                        <c:if test="${navtab!='home'}"><img src="/images/navtabs2/home_off.gif" width="138" height="70" border="0"/></c:if>
+                        <c:if test="${navtab=='home'}"><img src="/images/navtabs2/home_on.gif" width="138" height="70" border="0"/></c:if>
+                        </h:commandLink>
+                    </td>
+                    <td valign="top" background="/images/navtabs2/mainbar_bg.gif">
+                        <h:commandLink action="#{bloggerIndex.beginView}">
+                        <c:if test="${navtab!='bloggers'}"><img src="/images/navtabs2/bloggers_off.gif" width="138" height="70" border="0"/></c:if>
+                        <c:if test="${navtab=='bloggers'}"><img src="/images/navtabs2/bloggers_on.gif" width="138" height="70" border="0"/></c:if>
+                        </h:commandLink>
+                    </td>
+                    <td valign="top" background="/images/navtabs2/mainbar_bg.gif">
+                        <c:if test="${navtab!='youraccount' and userSession.isloggedin}"><h:commandLink action="#{accountIndex.beginView}"><img src="/images/navtabs2/youraccount_off.gif" alt="" width="138" height="70" border="0"/></h:commandLink></c:if>
+                        <c:if test="${navtab=='youraccount' and userSession.isloggedin}"><h:commandLink action="#{accountIndex.beginView}"><img src="/images/navtabs2/youraccount_on.gif" alt="" width="138" height="70" border="0"/></h:commandLink></c:if>
+                        <c:if test="${navtab!='youraccount' and !userSession.isloggedin}"><h:commandLink action="#{registration.beginView}"><img src="/images/navtabs2/youraccount_off.gif" alt="" width="138" height="70" border="0"/></h:commandLink></c:if>
+                        <c:if test="${navtab=='youraccount' and !userSession.isloggedin}"><h:commandLink action="#{registration.beginView}"><img src="/images/navtabs2/youraccount_on.gif" alt="" width="138" height="70" border="0"/></h:commandLink></c:if>
+                    </td>
+                </tr>-->
+                <tr>
+                    <td bgcolor="#dadada" style="text-align: left; vertical-align: middle;" colspan="5" height="25">
+                        <c:if test="${navtab=='home'}">
+                            <!--<h:outputLink value="/publicsurveylist.jsf"><h:outputText value="Current Surveys" style="padding-left: 15px; color: #000000;" styleClass="subnavfont"/></h:outputLink>-->
+                            <h:commandLink value="Current Surveys" action="#{publicSurveyList.beginView}" style="padding-left: 15px; color: #000000;" styleClass="subnavfont"/>
+                            <!--<h:outputLink value="/publicoldsurveylist.jsf"><h:outputText value="Old Surveys" style="padding-left: 15px; color: #000000;" styleClass="subnavfont"/></h:outputLink>-->
+                            <h:commandLink value="Old Surveys" action="#{publicOldSurveyList.beginView}" style="padding-left: 15px; color: #000000;" styleClass="subnavfont"/>
+                            <h:commandLink value="The dNeero Blog" action="#{publicBlog.beginView}" style="padding-left: 15px; color: #000000;" styleClass="subnavfont"/>
+                            <h:commandLink value="Charity" action="#{publicCharity.beginView}" style="padding-left: 15px; color: #000000;" styleClass="subnavfont"/>
+                            <!--<h:commandLink value="Sign Up" action="#{registration.beginView}" style="padding-left: 15px; color: #000000;" styleClass="subnavfont" rendered="#{!userSession.isloggedin}"/>-->
+                            <!--<h:commandLink value="Log In" action="#{login.beginView}" style="padding-left: 15px; color: #000000;" styleClass="subnavfont" rendered="#{!userSession.isloggedin}"/>-->
+                        </c:if>
+                        <c:if test="${navtab=='bloggers'}">
+                            <h:commandLink value="Find Surveys" action="#{publicSurveyList.beginView}" styleClass="subnavfont" style="padding-left: 15px; color: #000000;" rendered="#{userSession.isloggedin and (userSession.user.bloggerid gt 0)}"/>
+                            <h:commandLink value="Earn Even More" action="#{bloggerEarningsRevshare.beginView}" styleClass="subnavfont" style="padding-left: 15px; color: #000000;" rendered="#{userSession.isloggedin and (userSession.user.bloggerid gt 0)}"/>
+                            <h:commandLink value="Earnings from Completed Surveys" action="#{bloggerCompletedsurveys.beginView}" styleClass="subnavfont" style="padding-left: 15px; color: #000000;" rendered="#{userSession.isloggedin and (userSession.user.bloggerid gt 0)}"/>
+                            <h:commandLink value="Blogger Profile" action="#{bloggerDetails.beginView}" styleClass="subnavfont" style="padding-left: 15px; color: #000000;" rendered="#{userSession.isloggedin and (userSession.user.bloggerid gt 0)}"/>
+                            <h:commandLink value="Blogger FAQ" action="bloggerfaq" style="padding-left: 15px; color: #000000;" styleClass="subnavfont"/>
+                            <font class="subnavfont" style="padding-left: 15px; color: #000000;"><h:commandLink action="#{bloggerIndex.beginView}"><f:param name="showmarketingmaterial" value="1"/>Blogger Basics</h:commandLink></font>
+                        </c:if>
+                        <c:if test="${navtab=='researchers'}">
+                            <h:commandLink value="My Surveys" action="#{researcherIndex.beginView}" styleClass="subnavfont" style="padding-left: 15px; color: #000000;" rendered="#{userSession.isloggedin and (userSession.user.researcherid gt 0)}"/>
+                            <h:commandLink value="Panels" action="#{researcherPanels.beginView}" styleClass="subnavfont" style="padding-left: 15px; color: #000000;" rendered="#{userSession.isloggedin and (userSession.user.researcherid gt 0)}"/>
+                            <h:commandLink value="Researcher Profile" action="#{researcherDetails.beginView}" styleClass="subnavfont" style="padding-left: 15px; color: #000000;" rendered="#{userSession.isloggedin and (userSession.user.researcherid gt 0)}"/>
+                            <h:commandLink value="Billing" action="#{researcherBilling.beginView}" styleClass="subnavfont" style="padding-left: 15px; color: #000000;" rendered="#{userSession.isloggedin and (userSession.user.researcherid gt 0)}"/>
+                            <h:commandLink value="Researcher FAQ" action="researcherfaq" style="padding-left: 15px; color: #000000;" styleClass="subnavfont"/>
+                            <font class="subnavfont" style="padding-left: 15px; color: #000000;"><h:commandLink action="#{researcherIndex.beginView}"><f:param name="showmarketingmaterial" value="1"/>Researcher Basics</h:commandLink></font>
+                        </c:if>
+                        <c:if test="${navtab=='youraccount'}">
+                            <h:commandLink value="Account Balance" action="#{accountBalance.beginView}" style="padding-left: 15px; color: #000000;" styleClass="subnavfont" rendered="#{userSession.isloggedin}"/>
+                            <h:commandLink value="Account Settings" action="#{accountSettings.beginView}" style="padding-left: 15px; color: #000000;" styleClass="subnavfont" rendered="#{userSession.isloggedin}"/>
+                            <h:commandLink value="Change Your Password" action="#{changePassword.beginView}" style="padding-left: 15px; color: #000000;" styleClass="subnavfont" rendered="#{userSession.isloggedin}"/>
+                            <h:commandLink value="Help/Support" action="#{accountSupportIssuesList.beginView}" style="padding-left: 15px; color: #000000;" styleClass="subnavfont" rendered="#{userSession.isloggedin}"/>
+                        </c:if>
+                        <c:if test="${navtab=='sysadmin'}">
+                            <h:commandLink value="SysLog" action="#{sysadminErrorList.beginView}" styleClass="subnavfont" style="padding-left: 10px; color: #000000;" rendered="#{userSession.isloggedin and userSession.isSysadmin}"/>
+                            <h:commandLink value="Trans" action="#{sysadminTransactions.beginView}" styleClass="subnavfont" style="padding-left: 10px; color: #000000;" rendered="#{userSession.isloggedin and userSession.isSysadmin}"/>
+                            <h:commandLink value="Users" action="#{sysadminUserList.beginView}" styleClass="subnavfont" style="padding-left: 10px; color: #000000;" rendered="#{userSession.isloggedin and userSession.isSysadmin}"/>
+                            <h:commandLink value="Surveys" action="#{sysadminSurveyList.beginView}" styleClass="subnavfont" style="padding-left: 10px; color: #000000;" rendered="#{userSession.isloggedin and userSession.isSysadmin}"/>
+                            <h:commandLink value="EULA" action="#{sysadminEditEula.beginView}" styleClass="subnavfont" style="padding-left: 10px; color: #000000;" rendered="#{userSession.isloggedin and userSession.isSysadmin}"/>
+                            <h:commandLink value="Support" action="#{sysadminSupportIssuesList.beginView}" styleClass="subnavfont" style="padding-left: 10px; color: #000000;" rendered="#{userSession.isloggedin and userSession.isSysadmin}"/>
+                            <h:commandLink value="Rate" action="#{rateBlogPost.beginView}" styleClass="subnavfont" style="padding-left: 10px; color: #000000;" rendered="#{userSession.isloggedin and userSession.isSysadmin}"/>
+                            <h:commandLink value="Scheduled" action="#{sysadminManuallyRunScheduledTask.beginView}" styleClass="subnavfont" style="padding-left: 10px; color: #000000;" rendered="#{userSession.isloggedin and userSession.isSysadmin}"/>
+                            <h:commandLink value="SysProps" action="#{systemProps.beginView}" styleClass="subnavfont" style="padding-left: 10px; color: #000000;" rendered="#{userSession.isloggedin and userSession.isSysadmin}"/>
+                            <h:commandLink value="InstanceProps" action="#{sysadminInstanceProps.beginView}" styleClass="subnavfont" style="padding-left: 10px; color: #000000;" rendered="#{userSession.isloggedin and userSession.isSysadmin}"/>
+                            <h:commandLink value="Cache" action="#{sysadminHibernateCache.beginView}" styleClass="subnavfont" style="padding-left: 10px; color: #000000;" rendered="#{userSession.isloggedin and userSession.isSysadmin}"/>
+                            <h:commandLink value="MassEmail" action="#{sysadminMassemailList.beginView}" styleClass="subnavfont" style="padding-left: 10px; color: #000000;" rendered="#{userSession.isloggedin and userSession.isSysadmin}"/>
+                            <h:commandLink value="BetaInvite" action="#{sysadminBetainvite.beginView}" styleClass="subnavfont" style="padding-left: 10px; color: #000000;" rendered="#{userSession.isloggedin and userSession.isSysadmin}"/>
+                            <h:commandLink value="Blog" action="#{sysadminBlogpost.beginView}" styleClass="subnavfont" style="padding-left: 10px; color: #000000;" rendered="#{userSession.isloggedin and userSession.isSysadmin}"/>
+                        </c:if>
+                    </td>
+                </tr>
+                <tr>
+                    <td background="/images/navtabs2/linedots.gif" colspan="5"><img src="/images/clear.gif" width="1" height="1"/></td>
+                </tr>
+            </table>
+            <br/>
+
+
+            
+
+        </h:form>
+
+    </ui:define>
+
+</html>

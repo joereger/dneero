@@ -35,6 +35,13 @@
     </tag>
 
     <tag>
+        <tag-name>pageload</tag-name>
+        <component>
+            <component-type>com.dneero.session.Pageload</component-type>
+        </component>
+    </tag>
+
+    <tag>
         <tag-name>surveyTaker</tag-name>
         <component>
             <component-type>com.dneero.display.customtags.SurveyTaker</component-type>

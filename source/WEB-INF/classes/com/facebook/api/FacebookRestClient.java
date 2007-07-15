@@ -74,7 +74,7 @@ public class FacebookRestClient {
   public static final String ERROR_TAG = "error_response";
   // presence of f8 here is temporary ... should be removed at launch
   // note that f8 does not support https://
-  public static final String FB_SERVER = "api.f8.facebook.com/restserver.php"; 
+  public static final String FB_SERVER = "api.facebook.com/restserver.php"; 
   public static final String SERVER_ADDR = "http://" + FB_SERVER;
   public static final String HTTPS_SERVER_ADDR = "https://" + FB_SERVER;
   public static URL SERVER_URL = null;

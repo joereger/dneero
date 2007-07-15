@@ -12,7 +12,7 @@
       >
 
 <ui:composition template="/template/template-facelets.xhtml">
-    <ui:define name="title">Survey Opportunities for Bloggers<br/><br/></ui:define>
+    <ui:define name="title">Survey Opportunities<br/><br/></ui:define>
     <ui:param name="navtab" value="home"/>
     <ui:define name="body">
     <d:authorization acl="public" redirectonfail="true"/>
@@ -30,10 +30,10 @@
         <f:facet name="header">
             <h:outputText value="Survey Name"/>
         </f:facet>
-        <h:outputLink value="/survey.jsf?surveyid=#{srvy.surveyid}">
-            <h:outputText value="#{srvy.title}" styleClass="mediumfont" style="color: #0000ff;"/>
+        <h:outputLink value="/survey.jsf?surveyid=#{srvy.surveyid}" style="text-decoration: none;">
+            <h:outputText value="#{srvy.title}" styleClass="smallfont" style="font-weight: bold; color: #0000ff;"/>
         </h:outputLink>
-        <br/>
+        <f:verbatim><br/></f:verbatim>
         <h:outputText value="#{srvy.description}" escape="false" styleClass="tinyfont"/>
       </t:column>
       <t:column>

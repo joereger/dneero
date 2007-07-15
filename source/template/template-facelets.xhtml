@@ -3,48 +3,21 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
-<head>
-  <meta http-equiv="Content-Type" content="text/html;CHARSET=iso-8859-1" />
-  <title>dNeero Social Surveys</title>
-  <link rel="stylesheet" type="text/css" href="/css/basic.css" />
-  <link rel="stylesheet" type="text/css" href="/css/dneero.css" />
-  <link rel="stylesheet" type="text/css" href="/js/niftycube/niftyCorners.css" />
-  <link rel="alternate" type="application/rss+xml" title="dNeero Social Surveys Blog" href="http://www.dneero.com/rss.xml" />
-  <meta name="description" content="dNeero connects advertisers and market researchers (pay to blog) with a large pool of qualified and motivated bloggers (blog for pay). Marketers initiate offers to blog (i.e. We'll pay $2 for a blogged review of our latest movie.), dNeero publishes those offers in a Yahoo-style directory and bloggers earn money following their passions. " />
-  <meta name="keywords" content="market research,survey,blog,web 2.0,startup,money,market intelligence" />
-  <script type="text/javascript" src="/js/niftycube/niftycube.js"></script>
-  <script type="text/javascript">
-   NiftyLoad=function(){
-       Nifty("div.rounded","big");
-   }
-  </script>
-</head>
-<body>
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jstl/core"
+      xmlns:d="http://dneero.com/taglib">
 
-    <ui:insert name="header">
-        <ui:include src="header.xhtml"/>
-    </ui:insert>
+    <d:pageload/>
 
-    <table width="775" cellspacing="0" border="0" cellpadding="20">
-        <tr>
-            <td valign="top">
-                <font class="pagetitlefont">
-                     <ui:insert name="title">
-                           <ui:include src="title.xhtml"/>
-                     </ui:insert>
-                 </font>
-                 <ui:insert name="body">
-                       <ui:include src="body.xhtml"/>
-                 </ui:insert>
-            </td>
-        </tr>
-    </table>
+    <c:if test="${!userSession.isfacebookui}">
+        <ui:insert name="main">
+            <ui:include src="main.xhtml"/>
+        </ui:insert>
+    </c:if>
+    <c:if test="${userSession.isfacebookui}">
+        <ui:insert name="main">
+            <ui:include src="main-facebook.xhtml"/>
+        </ui:insert>
+    </c:if>
 
-    <ui:insert name="footer">
-        <ui:include src="footer.xhtml"/>
-    </ui:insert>
-
-
-</body>
 </html>

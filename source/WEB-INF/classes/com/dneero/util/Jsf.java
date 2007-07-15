@@ -71,4 +71,6 @@ public class Jsf {
         return (String)FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get(paramName);
     }
 
+
+
 }

@@ -26,6 +26,7 @@
 
     <h:messages styleClass="RED"/>
 
+
     <t:div rendered="#{(!publicSurveyTake.qualifiesforsurvey) and (publicSurveyTake.survey.status ne 5)}">
         <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
             <h:outputText value="Sorry, you're not qualified to take this survey.  Your qualification is determined by your Blogger Profile.  Researchers determine their intended audience when they create a survey." styleClass="mediumfont"/>
@@ -47,6 +48,9 @@
         <br/>
     </t:div>
 
+
+
+
     <t:div rendered="#{publicSurveyTake.haveerror}">
         <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
         <img src="/images/alert.png" align="left"/>
@@ -60,54 +64,83 @@
     <t:div rendered="#{!publicSurveyTake.haveerror}">
             <t:panelTabbedPane id="panel" bgcolor="#ffffff" selectedIndex="#{publicSurveyTake.tabselectedindex}">
                 <t:panelTab id="panel_a" label="Questions">
-                    <h:graphicImage url="/images/clear.gif" width="700" height="1"/><br/>
+                    <h:graphicImage url="/images/clear.gif" width="700" height="1" styleClass="survey_tabs_body_width"/><br/>
                     <table width="100%" cellpadding="5">
                         <tr>
                             <td valign="top" width="450">
                                 <c:if test="${(publicSurveyTake.survey.status eq 4) and (!publicSurveyTake.bloggerhasalreadytakensurvey)}">
-                                    <f:verbatim escape="false">#{publicSurveyTake.html}</f:verbatim>
-                                    <br/><br/>
-                                    <h:commandButton action="#{publicSurveyTake.takeSurvey}" value="Complete the Survey" styleClass="formsubmitbutton"></h:commandButton>
+                                    <t:div rendered="#{userSession.isfacebookui and !publicSurveyTake.bloggerhasalreadytakensurvey}">
+                                        <div class="rounded" style="background: #e6e6e6; text-align: center;">
+                                            <h:outputText value="Take this survey and earn" styleClass="mediumfont"/>
+                                            <br/>
+                                            <h:outputText value="#{publicSurveyTake.surveyEnhancer.minearning}" styleClass="largefont" style="font-size: 30px; color: #666666;"/>
+                                            <c:if test="${publicSurveyTake.surveytakergavetocharity or publicSurveyTake.survey.ischarityonly}">
+                                                <br/>
+                                                <h:outputText value="for charity" styleClass="mediumfont"/>
+                                            </c:if>
+                                            <br/>
+                                            <h:outputText value="instantly and up to #{publicSurveyTake.surveyEnhancer.maxearning} depending on your profile traffic." styleClass="smallfont" style="font-weight: bold;"/>
+                                        </div>
+                                        <br/>
+                                    </t:div>
+                                    <div class="rounded" style="background: #e6e6e6; padding: 10px;">
+                                        <div class="rounded" style="background: #ffffff; padding: 5px;">
+                                            <f:verbatim escape="false">#{publicSurveyTake.html}</f:verbatim>
+                                        </div>
+                                    </div>
                                     <br/>
-                                    <table cellpadding="2" cellspacing="0" border="0" width="175">
-                                        <tr>
-                                            <td valign="top">
-                                                <c:if test="${!publicSurveyTake.survey.ischarityonly}">
-                                                    <input type="checkbox" name="${publicSurveyTake.DNEERO_REQUEST_PARAM_IDENTIFIER}charity-isforcharity" value="1"></input>
-                                                </c:if>
-                                                <c:if test="${publicSurveyTake.survey.ischarityonly}">
-                                                    <input type="hidden" name="${publicSurveyTake.DNEERO_REQUEST_PARAM_IDENTIFIER}charity-isforcharity" value="1"></input>
-                                                </c:if>
-                                            </td>
-                                            <td valign="top">
-                                                <c:if test="${!publicSurveyTake.survey.ischarityonly}">
-                                                    <font class="formfieldnamefont">Don't Pay Me. Give My Earnings to Charity:</font>
-                                                </c:if>
-                                                <c:if test="${publicSurveyTake.survey.ischarityonly}">
-                                                    <font class="formfieldnamefont">Earnings From This Survey Must be Given to Charity:</font>
-                                                </c:if>
-                                                <br/>
-                                                <select name="${publicSurveyTake.DNEERO_REQUEST_PARAM_IDENTIFIER}charity-charityname">
-                                                    <option value="Habitat for Humanity">Habitat for Humanity</option>
-                                                    <option value="Make-A-Wish Foundation">Make-A-Wish Foundation</option>
-                                                    <option value="American Cancer Society">American Cancer Society</option>
-                                                    <option value="PetSmart Charities">PetSmart Charities</option>
-                                                    <option value="Wikimedia Foundation">Wikimedia Foundation</option>
-                                                    <option value="The Conservation Fund">The Conservation Fund</option>
-                                                </select>
-                                                <br/>
-                                                <font class="tinyfont">
-                                                We'll donate all of your earnings for this survey to the charity of your choice.  You can learn a little more about each of the charities:
-                                                <br/><a href="http://www.habitat.org/" target="charity">Habitat for Humanity</a>
-                                                <br/><a href="http://www.wish.org/" target="charity">Make-A-Wish Foundation</a>
-                                                <br/><a href="http://www.cancer.org/" target="charity">American Cancer Society</a>
-                                                <br/><a href="http://www.petsmartcharities.org/" target="charity">PetSmart Charities</a>
-                                                <br/><a href="http://en.wikipedia.org/wiki/Wikimedia_Foundation" target="charity">Wikimedia Foundation</a>
-                                                <br/><a href="http://www.conservationfund.org/" target="charity">The Conservation Fund</a>
-                                                </font>
-                                            </td>
-                                        </tr>
-                                    </table>
+                                    <div class="rounded" style="background: #e6e6e6; text-align: center; padding: 10px;">
+                                        <div class="rounded" style="background: #ffffff; padding: 5px;">
+                                            <table cellpadding="5" cellspacing="0" border="0">
+                                                <tr>
+                                                    <td valign="top" align="left" width="20">
+                                                        <c:if test="${!publicSurveyTake.survey.ischarityonly}">
+                                                            <input type="checkbox" name="${publicSurveyTake.DNEERO_REQUEST_PARAM_IDENTIFIER}charity-isforcharity" value="1"></input>
+                                                        </c:if>
+                                                        <c:if test="${publicSurveyTake.survey.ischarityonly}">
+                                                            <input type="hidden" name="${publicSurveyTake.DNEERO_REQUEST_PARAM_IDENTIFIER}charity-isforcharity" value="1"></input>
+                                                        </c:if>
+                                                    </td>
+                                                    <td valign="top" width="155" align="left">
+                                                        <c:if test="${!publicSurveyTake.survey.ischarityonly}">
+                                                            <font class="formfieldnamefont">Don't Pay Me. Give My Earnings to this Charity:</font>
+                                                        </c:if>
+                                                        <c:if test="${publicSurveyTake.survey.ischarityonly}">
+                                                            <font class="formfieldnamefont">Earnings From This Survey Must be Given to Charity:</font>
+                                                        </c:if>
+                                                        <br/>
+                                                        <select name="${publicSurveyTake.DNEERO_REQUEST_PARAM_IDENTIFIER}charity-charityname">
+                                                            <option value="Habitat for Humanity">Habitat for Humanity</option>
+                                                            <option value="Make-A-Wish Foundation">Make-A-Wish Foundation</option>
+                                                            <option value="American Cancer Society">American Cancer Society</option>
+                                                            <option value="PetSmart Charities">PetSmart Charities</option>
+                                                            <option value="Wikimedia Foundation">Wikimedia Foundation</option>
+                                                            <option value="The Conservation Fund">The Conservation Fund</option>
+                                                        </select>
+                                                        <br/>
+                                                        <font class="tinyfont">
+                                                            If you check the box we'll donate all of your earnings for this survey to the charity of your choice.
+                                                        </font>
+                                                    </td>
+                                                    <td valign="top" align="left">
+                                                        <font class="tinyfont">
+                                                        Learn about each of the charities:
+                                                        <br/><a href="http://www.habitat.org/" target="charity">Habitat for Humanity</a>
+                                                        <br/><a href="http://www.wish.org/" target="charity">Make-A-Wish Foundation</a>
+                                                        <br/><a href="http://www.cancer.org/" target="charity">American Cancer Society</a>
+                                                        <br/><a href="http://www.petsmartcharities.org/" target="charity">PetSmart Charities</a>
+                                                        <br/><a href="http://en.wikipedia.org/wiki/Wikimedia_Foundation" target="charity">Wikimedia Foundation</a>
+                                                        <br/><a href="http://www.conservationfund.org/" target="charity">The Conservation Fund</a>
+                                                        </font>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        <br/>
+                                        <center>
+                                        <h:commandButton action="#{publicSurveyTake.takeSurvey}" value="Complete the Survey" styleClass="formsubmitbutton"></h:commandButton>
+                                        </center>
+                                    </div>
                                 </c:if>
                                 <c:if test="${publicSurveyTake.bloggerhasalreadytakensurvey}">
                                     <center><div class="rounded" style="background: #e6e6e6; text-align: left; padding: 20px;"><font class="smallfont">
@@ -125,220 +158,238 @@
                                 <br/><br/><br/><br/>
                                 <h:outputText value="#{publicSurveyTake.socialbookmarklinks}" escape="false" styleClass="smallfont"/>
                             </td>
-                            <td valign="top" align="left">
-                                <div class="rounded" style="background: #00ff00;">
-                                    <div class="rounded" style="background: #ffffff; text-align: center;">
-                                        <center><img src="/images/paste-128.png" width="128" height="128"/></center>
-                                        <br/>
-                                        <c:if test="${publicSurveyTake.survey.status ge 5}">
-                                            <div class="rounded" style="background: #cccccc; text-align: center;">
-                                                <center><img src="/images/stop-alt-48.png" width="48" height="48"/></center>
-                                                <br/>
-                                                <h:outputText value="This survey is closed." styleClass="mediumfont"/>
-                                            </div>
-                                            <br/>
-                                        </c:if>
-                                        <c:if test="${publicSurveyTake.bloggerhasalreadytakensurvey}">
-                                            <h:outputText value="You've already earned" styleClass="mediumfont"/>
-                                            <br/>
-                                            <h:outputText value="#{publicSurveyTake.surveyEnhancer.minearning}" styleClass="largefont" style="font-size: 60px; color: #666666;"/>
-                                            <c:if test="${publicSurveyTake.surveytakergavetocharity or publicSurveyTake.survey.ischarityonly}">
-                                                <br/>
-                                                <h:outputText value="for charity" styleClass="mediumfont"/>
-                                            </c:if>
-                                            <c:if test="${publicSurveyTake.surveytakergavetocharity}">
-                                                <br/>
-                                                <h:outputText value="(${publicSurveyTake.charityname})" styleClass="mediumfont"/>
-                                            </c:if>
-                                            <br/>
-                                            <h:outputText value="and can earn up to #{publicSurveyTake.surveyEnhancer.maxearning} total by posting it to your blog!" styleClass="mediumfont"/>
-                                        </c:if>
-                                        <c:if test="${(!publicSurveyTake.bloggerhasalreadytakensurvey) and (publicSurveyTake.survey.status le 4)}">
-                                            <h:outputText value="Take this survey and earn" styleClass="mediumfont"/>
-                                            <br/>
-                                            <h:outputText value="#{publicSurveyTake.surveyEnhancer.minearning}" styleClass="largefont" style="font-size: 60px; color: #666666;"/>
-                                            <c:if test="${publicSurveyTake.surveytakergavetocharity or publicSurveyTake.survey.ischarityonly}">
-                                                <br/>
-                                                <h:outputText value="for charity" styleClass="mediumfont"/>
-                                            </c:if>
-                                            <br/>
-                                            <h:outputText value="instantly or up to #{publicSurveyTake.surveyEnhancer.maxearning} when you post it to your blog!" styleClass="mediumfont"/>
-                                            <br/><br/>
-                                            <h:outputText value="(just answer the questions to the left and click Complete the Survey... easy!)" styleClass="smallfont"/>
-                                        </c:if>
-                                        <c:if test="${(!publicSurveyTake.bloggerhasalreadytakensurvey) and (publicSurveyTake.survey.status ge 5)}">
-                                            <h:outputText value="People who took this survey earned" styleClass="mediumfont"/>
-                                            <br/>
-                                            <h:outputText value="#{publicSurveyTake.surveyEnhancer.minearning}" styleClass="largefont" style="font-size: 60px; color: #666666;"/>
-                                            <br/>
-                                            <h:outputText value="and then earned up to #{publicSurveyTake.surveyEnhancer.maxearning} total by posting it to their blogs!" styleClass="mediumfont"/>
-                                        </c:if>
-                                        <c:if test="#{publicSurveyTake.survey.ischarityonly}">
-                                            <br/><br/>
-                                            <div class="rounded" style="background: #e6e6e6; text-align: center;">
-                                                <img src="/images/charity-128.png" alt="For Charity" width="128" height="128"/>
-                                                <br/>
-                                                <h:outputText value="This is a Charity Only survey." styleClass="mediumfont"/>
-                                                <br/>
-                                                <h:outputText value="The creator of the survey requires that dNeero donate all of your earnings from the survey to a charity of your choice.  It's a chance to do some good!" styleClass="tinyfont"/>
-                                            </div>
-                                        </c:if>
-                                    </div>
-                                    <br/>
-
-                                    <font class="smallfont">
-
-
-                                    <br/><br/><b>Get paid to blog.</b><br/>
-                                    dNeero pays bloggers to fill out surveys and post their answers to their blog.
-
-                                    <br/><br/><b>Your answers appear on your blog</b><br/>
-                                    However you answer, your blog readers will see it.  Express yourself!
-
-                                    <br/><br/><b>You need to register and qualify to get paid</b><br/>
-                                    Once you fill out the survey you'll need to register and fill out a short blogger profile that asks some basic demographic questions.  If you qualify for this survey then you'll get paid.
-
-                                    <br/><br/><b>You need to be honest</b><br/>
-                                    We aren't paying you for any particular opinion.  We're paying you for your time and for the exposure on your blog.  If you don't like a product or service you need to be honest about that fact.
-
-                                    <br/><br/><b>Stimulate conversation</b><br/>
-                                    Engage companies who are actively seeking your feedback on products and services.  At the same time, engage your blog readers in discussion of the same product.
-
-                                    <br/><br/><b>No gimmicks.</b><br/>
-                                    This is the real deal.  A simple model that respects your privacy and allows you to control what you blog about and when.  We pay for activity you choose to engage in.
-
-                                    <br/><br/><b>If you don't like this survey</b><br/>
-                                    We have plenty more <h:commandLink value="surveys" action="#{publicSurveyList.beginView}" style="padding-left: 5px;" styleClass="subnavfont"/> for you to choose from.  And all of them pay!
-
-                                    <br/><br/>
-                                    <div class="rounded" style="background: #ffffff; padding: 5px; margin: 5px; text-align: left;">
-                                        <h:panelGrid columns="2" cellpadding="3" border="0">
-
-                                            <h:panelGroup>
-                                                <h:outputText value=""/>
-                                            </h:panelGroup>
-                                            <h:panelGroup>
-                                                <h:outputText value="" styleClass="mediumfont"/>
-                                            </h:panelGroup>
-
-
-                                            <h:panelGroup>
-                                                <h:outputText value="Start Date" styleClass="formfieldnamefont"/>
-                                            </h:panelGroup>
-                                            <h:panelGroup>
-                                                <h:outputText value="#{publicSurveyTake.surveyEnhancer.startdate}"/>
-                                            </h:panelGroup>
-
-                                            <h:panelGroup>
-                                                <h:outputText value="End Date" styleClass="formfieldnamefont"/>
-                                            </h:panelGroup>
-                                            <h:panelGroup>
-                                                <h:outputText value="#{publicSurveyTake.surveyEnhancer.enddate}"/>
-                                            </h:panelGroup>
-
-
-
-
-
-                                            <h:panelGroup>
-                                                <h:outputText value="Pay for Responding to Survey" styleClass="formfieldnamefont"/>
-                                            </h:panelGroup>
-                                            <h:panelGroup>
-                                                <h:outputText value="#{publicSurveyTake.surveyEnhancer.willingtopayforresponse}"/>
-                                            </h:panelGroup>
-
-                                            <h:panelGroup>
-                                                <h:outputText value="Pay for 1000 Hits on Your Blog" styleClass="formfieldnamefont"/>
-                                            </h:panelGroup>
-                                            <h:panelGroup>
-                                                <h:outputText value="#{publicSurveyTake.surveyEnhancer.willingtopayforcpm}"/>
-                                            </h:panelGroup>
-
-
-                                            <h:panelGroup>
-                                                <h:outputText value="Number of Takers To Date" styleClass="formfieldnamefont"/>
-                                            </h:panelGroup>
-                                            <h:panelGroup>
-                                                <d:percentCompleteBar currentvalue="#{publicSurveyTake.surveyEnhancer.responsesalreadygotten}" maximumvalue="#{publicSurveyTake.survey.numberofrespondentsrequested}" mintitle="" maxtitle="" widthinpixels="75"></d:percentCompleteBar>
-                                                <h:outputText value="Up to #{publicSurveyTake.survey.numberofrespondentsrequested} people may complete this survey for pay." styleClass="smallfont"/>
-                                                <br/><br/>
-                                            </h:panelGroup>
-
-
-                                            <h:panelGroup>
-                                                <h:outputText value="Number of Blog Displays To Date" styleClass="formfieldnamefont"/>
-                                            </h:panelGroup>
-                                            <h:panelGroup>
-                                                <d:percentCompleteBar currentvalue="#{publicSurveyTake.surveyEnhancer.impressionsalreadygotten}" maximumvalue="#{publicSurveyTake.survey.maxdisplaystotal}" mintitle="" maxtitle="" widthinpixels="75"></d:percentCompleteBar>
-                                                <h:outputText value="We'll pay for the first #{publicSurveyTake.survey.maxdisplaystotal} displays in blogs." styleClass="smallfont"/>
-                                                <br/><br/>
-                                            </h:panelGroup>
-
-                                            <h:panelGroup>
-                                                <h:outputText value="This Page Displayed" styleClass="formfieldnamefont"/>
-                                            </h:panelGroup>
-                                            <h:panelGroup>
-                                                <h:outputText value="#{publicSurveyTake.survey.publicsurveydisplays} times"/>
-                                            </h:panelGroup>
-
-                                            <h:panelGroup>
-                                                <h:outputText value="Surveyid" styleClass="formfieldnamefont"/>
-                                            </h:panelGroup>
-                                            <h:panelGroup>
-                                                <h:outputText value="#{publicSurveyTake.survey.surveyid}"/>
-                                            </h:panelGroup>
-
-                                         </h:panelGrid>
-                                    </div>
-                                    </font>
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
-                </t:panelTab>
-                <t:panelTab id="panel_d" label="Post to Your Blog">
-                    <h:graphicImage url="/images/clear.gif" width="700" height="1"/><br/>
-                    <c:if test="${!publicSurveyTake.bloggerhasalreadytakensurvey}">
-                        <table width="100%" cellpadding="5">
-                            <tr>
-                                <td valign="top" width="450">
-                                    <br/><br/>
-                                    <f:verbatim escape="false">#{publicSurveyTake.surveyOnBlogPreview}</f:verbatim>
-                                </td>
-                                <td valign="top">
+                            <c:if test="${!userSession.isfacebookui}">
+                                <td valign="top" align="left">
                                     <div class="rounded" style="background: #00ff00;">
                                         <div class="rounded" style="background: #ffffff; text-align: center;">
-                                                <h:outputText value="What's this?" styleClass="mediumfont"/>
+                                            <center><img src="/images/paste-128.png" width="128" height="128"/></center>
+                                            <br/>
+                                            <c:if test="${publicSurveyTake.survey.status ge 5}">
+                                                <div class="rounded" style="background: #cccccc; text-align: center;">
+                                                    <center><img src="/images/stop-alt-48.png" width="48" height="48"/></center>
+                                                    <br/>
+                                                    <h:outputText value="This survey is closed." styleClass="mediumfont"/>
+                                                </div>
                                                 <br/>
-                                                <img src="/images/info-128.png" width="128" height="128"/>
+                                            </c:if>
+                                            <c:if test="${publicSurveyTake.bloggerhasalreadytakensurvey}">
+                                                <h:outputText value="You've already earned" styleClass="mediumfont"/>
                                                 <br/>
-                                                <h:outputText value="It's how this survey looks in your blog!" styleClass="mediumfont"/>
+                                                <h:outputText value="#{publicSurveyTake.surveyEnhancer.minearning}" styleClass="largefont" style="font-size: 60px; color: #666666;"/>
+                                                <c:if test="${publicSurveyTake.surveytakergavetocharity or publicSurveyTake.survey.ischarityonly}">
+                                                    <br/>
+                                                    <h:outputText value="for charity" styleClass="mediumfont"/>
+                                                </c:if>
+                                                <c:if test="${publicSurveyTake.surveytakergavetocharity}">
+                                                    <br/>
+                                                    <h:outputText value="(${publicSurveyTake.charityname})" styleClass="mediumfont"/>
+                                                </c:if>
                                                 <br/>
-                                                <h:outputText value="(of course, we'll put your actual answers in there)" styleClass="smallfont"/>
+                                                <h:outputText value="and can earn up to #{publicSurveyTake.surveyEnhancer.maxearning} total by posting it to your blog!" styleClass="mediumfont"/>
+                                            </c:if>
+                                            <c:if test="${(!publicSurveyTake.bloggerhasalreadytakensurvey) and (publicSurveyTake.survey.status le 4)}">
+                                                <h:outputText value="Take this survey and earn" styleClass="mediumfont"/>
+                                                <br/>
+                                                <h:outputText value="#{publicSurveyTake.surveyEnhancer.minearning}" styleClass="largefont" style="font-size: 60px; color: #666666;"/>
+                                                <c:if test="${publicSurveyTake.surveytakergavetocharity or publicSurveyTake.survey.ischarityonly}">
+                                                    <br/>
+                                                    <h:outputText value="for charity" styleClass="mediumfont"/>
+                                                </c:if>
+                                                <br/>
+                                                <h:outputText value="instantly or up to #{publicSurveyTake.surveyEnhancer.maxearning} when you post it to your blog!" styleClass="mediumfont"/>
+                                                <br/><br/>
+                                                <h:outputText value="(just answer the questions to the left and click Complete the Survey... easy!)" styleClass="smallfont"/>
+                                            </c:if>
+                                            <c:if test="${(!publicSurveyTake.bloggerhasalreadytakensurvey) and (publicSurveyTake.survey.status ge 5)}">
+                                                <h:outputText value="People who took this survey earned" styleClass="mediumfont"/>
+                                                <br/>
+                                                <h:outputText value="#{publicSurveyTake.surveyEnhancer.minearning}" styleClass="largefont" style="font-size: 60px; color: #666666;"/>
+                                                <br/>
+                                                <h:outputText value="and then earned up to #{publicSurveyTake.surveyEnhancer.maxearning} total by posting it to their blogs!" styleClass="mediumfont"/>
+                                            </c:if>
+                                            <c:if test="#{publicSurveyTake.survey.ischarityonly}">
+                                                <br/><br/>
+                                                <div class="rounded" style="background: #e6e6e6; text-align: center;">
+                                                    <img src="/images/charity-128.png" alt="For Charity" width="128" height="128"/>
+                                                    <br/>
+                                                    <h:outputText value="This is a Charity Only survey." styleClass="mediumfont"/>
+                                                    <br/>
+                                                    <h:outputText value="The creator of the survey requires that dNeero donate all of your earnings from the survey to a charity of your choice.  It's a chance to do some good!" styleClass="tinyfont"/>
+                                                </div>
+                                            </c:if>
                                         </div>
                                         <br/>
+
                                         <font class="smallfont">
-                                        <br/><br/><b>How do I add it to my blog?</b><br/>
-                                        We'll make it incredibly easy.  After you take the survey we'll give you a line of code that you copy and paste into a blog post.  That's it!
 
-                                        <br/><br/><b>What will appear on my blog?</b><br/>
-                                        The survey with your answers.  This is an opportunity to show your readers what you think.
 
-                                        <br/><br/><b>How big is it?</b><br/>
-                                        Smaller than a YouTube embed.  It's 425 pixels wide by 250 pixels tall.  That's it.  If the survey is long it'll scroll automatically.
+                                        <br/><br/><b>Get paid to blog.</b><br/>
+                                        dNeero pays bloggers to fill out surveys and post their answers to their blog.
 
-                                        <br/><br/><b>Can people who read my blog answer the questions?</b><br/>
-                                        Absolutely!  At the bottom of the survey there's a link where they can provide their own answers and then post them to their own blog.
+                                        <br/><br/><b>Your answers appear on your blog</b><br/>
+                                        However you answer, your blog readers will see it.  Express yourself!
 
-                                        <br/><br/><b>Will I see how others answered?</b><br/>
-                                        Yep!  This is the cool part!  When you click the See How Others Answered link at the bottom of the survey you'll see how those people who clicked from your blog answered.  Then you can quickly compare your readers to all bloggers who took the survey!
+                                        <br/><br/><b>You need to register and qualify to get paid</b><br/>
+                                        Once you fill out the survey you'll need to register and fill out a short blogger profile that asks some basic demographic questions.  If you qualify for this survey then you'll get paid.
+
+                                        <br/><br/><b>You need to be honest</b><br/>
+                                        We aren't paying you for any particular opinion.  We're paying you for your time and for the exposure on your blog.  If you don't like a product or service you need to be honest about that fact.
+
+                                        <br/><br/><b>Stimulate conversation</b><br/>
+                                        Engage companies who are actively seeking your feedback on products and services.  At the same time, engage your blog readers in discussion of the same product.
+
+                                        <br/><br/><b>No gimmicks.</b><br/>
+                                        This is the real deal.  A simple model that respects your privacy and allows you to control what you blog about and when.  We pay for activity you choose to engage in.
+
+                                        <br/><br/><b>If you don't like this survey</b><br/>
+                                        We have plenty more <h:commandLink value="surveys" action="#{publicSurveyList.beginView}" style="padding-left: 5px;" styleClass="subnavfont"/> for you to choose from.  And all of them pay!
+
+                                        <br/><br/>
+                                        <div class="rounded" style="background: #ffffff; padding: 5px; margin: 5px; text-align: left;">
+                                            <h:panelGrid columns="2" cellpadding="3" border="0">
+
+                                                <h:panelGroup>
+                                                    <h:outputText value=""/>
+                                                </h:panelGroup>
+                                                <h:panelGroup>
+                                                    <h:outputText value="" styleClass="mediumfont"/>
+                                                </h:panelGroup>
+
+
+                                                <h:panelGroup>
+                                                    <h:outputText value="Start Date" styleClass="formfieldnamefont"/>
+                                                </h:panelGroup>
+                                                <h:panelGroup>
+                                                    <h:outputText value="#{publicSurveyTake.surveyEnhancer.startdate}"/>
+                                                </h:panelGroup>
+
+                                                <h:panelGroup>
+                                                    <h:outputText value="End Date" styleClass="formfieldnamefont"/>
+                                                </h:panelGroup>
+                                                <h:panelGroup>
+                                                    <h:outputText value="#{publicSurveyTake.surveyEnhancer.enddate}"/>
+                                                </h:panelGroup>
+
+
+
+
+
+                                                <h:panelGroup>
+                                                    <h:outputText value="Pay for Responding to Survey" styleClass="formfieldnamefont"/>
+                                                </h:panelGroup>
+                                                <h:panelGroup>
+                                                    <h:outputText value="#{publicSurveyTake.surveyEnhancer.willingtopayforresponse}"/>
+                                                </h:panelGroup>
+
+                                                <h:panelGroup>
+                                                    <h:outputText value="Pay for 1000 Hits on Your Blog" styleClass="formfieldnamefont"/>
+                                                </h:panelGroup>
+                                                <h:panelGroup>
+                                                    <h:outputText value="#{publicSurveyTake.surveyEnhancer.willingtopayforcpm}"/>
+                                                </h:panelGroup>
+
+
+                                                <h:panelGroup>
+                                                    <h:outputText value="Number of Takers To Date" styleClass="formfieldnamefont"/>
+                                                </h:panelGroup>
+                                                <h:panelGroup>
+                                                    <d:percentCompleteBar currentvalue="#{publicSurveyTake.surveyEnhancer.responsesalreadygotten}" maximumvalue="#{publicSurveyTake.survey.numberofrespondentsrequested}" mintitle="" maxtitle="" widthinpixels="75"></d:percentCompleteBar>
+                                                    <h:outputText value="Up to #{publicSurveyTake.survey.numberofrespondentsrequested} people may complete this survey for pay." styleClass="smallfont"/>
+                                                    <br/><br/>
+                                                </h:panelGroup>
+
+
+                                                <h:panelGroup>
+                                                    <h:outputText value="Number of Blog Displays To Date" styleClass="formfieldnamefont"/>
+                                                </h:panelGroup>
+                                                <h:panelGroup>
+                                                    <d:percentCompleteBar currentvalue="#{publicSurveyTake.surveyEnhancer.impressionsalreadygotten}" maximumvalue="#{publicSurveyTake.survey.maxdisplaystotal}" mintitle="" maxtitle="" widthinpixels="75"></d:percentCompleteBar>
+                                                    <h:outputText value="We'll pay for the first #{publicSurveyTake.survey.maxdisplaystotal} displays in blogs." styleClass="smallfont"/>
+                                                    <br/><br/>
+                                                </h:panelGroup>
+
+                                                <h:panelGroup>
+                                                    <h:outputText value="This Page Displayed" styleClass="formfieldnamefont"/>
+                                                </h:panelGroup>
+                                                <h:panelGroup>
+                                                    <h:outputText value="#{publicSurveyTake.survey.publicsurveydisplays} times"/>
+                                                </h:panelGroup>
+
+                                                <h:panelGroup>
+                                                    <h:outputText value="Surveyid" styleClass="formfieldnamefont"/>
+                                                </h:panelGroup>
+                                                <h:panelGroup>
+                                                    <h:outputText value="#{publicSurveyTake.survey.surveyid}"/>
+                                                </h:panelGroup>
+
+                                             </h:panelGrid>
+                                        </div>
                                         </font>
                                     </div>
                                 </td>
-                            </tr>
-                        </table>
+                            </c:if>
+                        </tr>
+                    </table>
+                </t:panelTab>
+                <t:panelTab id="panel_d" label="Post It">
+                    <h:graphicImage url="/images/clear.gif" width="700" height="1" styleClass="survey_tabs_body_width"/><br/>
+                    <c:if test="${!publicSurveyTake.bloggerhasalreadytakensurvey}">
+                        <c:if test="${!userSession.isfacebookui}">
+                            <table width="100%" cellpadding="5">
+                                <tr>
+                                    <td valign="top" width="450">
+                                        <br/><br/>
+                                        <f:verbatim escape="false">#{publicSurveyTake.surveyOnBlogPreview}</f:verbatim>
+                                    </td>
+                                    <td valign="top">
+                                        <div class="rounded" style="background: #00ff00;">
+                                            <div class="rounded" style="background: #ffffff; text-align: center;">
+                                                    <h:outputText value="What's this?" styleClass="mediumfont"/>
+                                                    <br/>
+                                                    <img src="/images/info-128.png" width="128" height="128"/>
+                                                    <br/>
+                                                    <h:outputText value="It's how this survey looks in your blog!" styleClass="mediumfont"/>
+                                                    <br/>
+                                                    <h:outputText value="(of course, we'll put your actual answers in there)" styleClass="smallfont"/>
+                                            </div>
+                                            <br/>
+                                            <font class="smallfont">
+                                            <br/><br/><b>How do I add it to my blog?</b><br/>
+                                            We'll make it incredibly easy.  After you take the survey we'll give you a line of code that you copy and paste into a blog post.  That's it!
+
+                                            <br/><br/><b>What will appear on my blog?</b><br/>
+                                            The survey with your answers.  This is an opportunity to show your readers what you think.
+
+                                            <br/><br/><b>How big is it?</b><br/>
+                                            Smaller than a YouTube embed.  It's 425 pixels wide by 250 pixels tall.  That's it.  If the survey is long it'll scroll automatically.
+
+                                            <br/><br/><b>Can people who read my blog answer the questions?</b><br/>
+                                            Absolutely!  At the bottom of the survey there's a link where they can provide their own answers and then post them to their own blog.
+
+                                            <br/><br/><b>Will I see how others answered?</b><br/>
+                                            Yep!  This is the cool part!  When you click the See How Others Answered link at the bottom of the survey you'll see how those people who clicked from your blog answered.  Then you can quickly compare your readers to all bloggers who took the survey!
+                                            </font>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </c:if>
+                        <c:if test="${userSession.isfacebookui}">
+                            <div class="rounded" style="background: #00ff00;">
+                                <font class="smallfont">
+                                <b>Once you take the survey we'll post a link to your Facebook feed.  When friends click that link they'll see your answers in a widget like the one below.</b><br/>
+                                </font>
+                            </div>
+                        </c:if>
                     </c:if>
                     <c:if test="${publicSurveyTake.bloggerhasalreadytakensurvey}">
+                        <c:if test="${userSession.isfacebookui}">
+                            <div class="rounded" style="background: #00ff00;">
+                                <font class="smallfont">
+                                <b>A link to your survey has been posted to your Facebook feed.  You can also use the links below to embed your answers into another blog or website.</b><br/>
+                                </font>
+                            </div>
+                        </c:if> 
                         <table cellpadding="3" cellspacing="15" border="0" width="100%">
                             <tr>
                                 <td valign="top">
@@ -912,11 +963,11 @@
                                 </td>
                             </tr>
                         </table>
-                         <br/>
+                        <br/>
                     </c:if>
                 </t:panelTab>
                 <t:panelTab id="panel_r" label="Results">
-                    <h:graphicImage url="/images/clear.gif" width="700" height="1"/><br/>
+                    <h:graphicImage url="/images/clear.gif" width="700" height="1" styleClass="survey_tabs_body_width"/><br/>
                     <table width="100%" cellpadding="5">
                         <tr>
                             <td valign="top" width="450">
@@ -931,77 +982,79 @@
                                     </t:panelTab>
                                 </t:panelTabbedPane>
                             </td>
-                            <td valign="top" align="left">
-                                <div class="rounded" style="background: #00ff00;">
-                                    <div class="rounded" style="background: #ffffff; text-align: center;">
-                                        <center><img src="/images/statistic-128.png" width="128" height="128"/></center>
+                            <c:if test="${!userSession.isfacebookui}">
+                                <td valign="top" align="left">
+                                    <div class="rounded" style="background: #00ff00;">
+                                        <div class="rounded" style="background: #ffffff; text-align: center;">
+                                            <center><img src="/images/statistic-128.png" width="128" height="128"/></center>
+                                            <br/>
+                                            <c:if test="${publicSurveyTake.survey.status ge 5}">
+                                                <div class="rounded" style="background: #cccccc; text-align: center;">
+                                                    <center><img src="/images/stop-alt-48.png" width="48" height="48"/></center>
+                                                    <br/>
+                                                    <h:outputText value="This survey is closed." styleClass="mediumfont"/>
+                                                </div>
+                                                <br/>
+                                            </c:if>
+                                            <c:if test="${publicSurveyTake.bloggerhasalreadytakensurvey}">
+                                                <h:outputText value="You've already earned" styleClass="mediumfont"/>
+                                                <br/>
+                                                <h:outputText value="#{publicSurveyTake.surveyEnhancer.minearning}" styleClass="largefont" style="font-size: 60px; color: #666666;"/>
+                                                <c:if test="${publicSurveyTake.surveytakergavetocharity or publicSurveyTake.survey.ischarityonly}">
+                                                    <br/>
+                                                    <h:outputText value="for charity" styleClass="mediumfont"/>
+                                                </c:if>
+                                                <c:if test="${publicSurveyTake.surveytakergavetocharity}">
+                                                    <br/>
+                                                    <h:outputText value="(${publicSurveyTake.charityname})" styleClass="mediumfont"/>
+                                                </c:if>
+                                                <br/>
+                                                <h:outputText value="and can earn up to #{publicSurveyTake.surveyEnhancer.maxearning} total by posting it to your blog!" styleClass="mediumfont"/>
+                                            </c:if>
+                                            <c:if test="${(!publicSurveyTake.bloggerhasalreadytakensurvey) and (publicSurveyTake.survey.status le 4)}">
+                                                <h:outputText value="Take this survey and earn" styleClass="mediumfont"/>
+                                                <br/>
+                                                <h:outputText value="#{publicSurveyTake.surveyEnhancer.minearning}" styleClass="largefont" style="font-size: 60px; color: #666666;"/>
+                                                <c:if test="${publicSurveyTake.survey.ischarityonly}">
+                                                    <br/>
+                                                    <h:outputText value="for charity" styleClass="mediumfont"/>
+                                                </c:if>
+                                                <br/>
+                                                <h:outputText value="instantly or up to #{publicSurveyTake.surveyEnhancer.maxearning} when you post it to your blog!" styleClass="mediumfont"/>
+                                                <br/><br/>
+                                                <h:outputText value="(just click the Questions tab (top left) and Complete the Survey... easy!)" styleClass="smallfont"/>
+                                            </c:if>
+                                            <c:if test="${(!publicSurveyTake.bloggerhasalreadytakensurvey) and (publicSurveyTake.survey.status ge 5)}">
+                                                <h:outputText value="People who took this survey earned" styleClass="mediumfont"/>
+                                                <br/>
+                                                <h:outputText value="#{publicSurveyTake.surveyEnhancer.minearning}" styleClass="largefont" style="font-size: 60px; color: #666666;"/>
+                                                <br/>
+                                                <h:outputText value="and then earned up to #{publicSurveyTake.surveyEnhancer.maxearning} total by posting it to their blogs!" styleClass="mediumfont"/>
+                                            </c:if>
+                                            <c:if test="#{publicSurveyTake.survey.ischarityonly}">
+                                                <br/><br/>
+                                                <div class="rounded" style="background: #e6e6e6; text-align: center;">
+                                                    <img src="/images/charity-128.png" alt="For Charity" width="128" height="128"/>
+                                                    <br/>
+                                                    <h:outputText value="This is a Charity Only survey." styleClass="mediumfont"/>
+                                                    <br/>
+                                                    <h:outputText value="The creator of the survey requires that dNeero donate all of your earnings from the survey to a charity of your choice.  It's a chance to do some good!" styleClass="tinyfont"/>
+                                                </div>
+                                            </c:if>
+                                        </div>
                                         <br/>
-                                        <c:if test="${publicSurveyTake.survey.status ge 5}">
-                                            <div class="rounded" style="background: #cccccc; text-align: center;">
-                                                <center><img src="/images/stop-alt-48.png" width="48" height="48"/></center>
-                                                <br/>
-                                                <h:outputText value="This survey is closed." styleClass="mediumfont"/>
-                                            </div>
-                                            <br/>
-                                        </c:if>
-                                        <c:if test="${publicSurveyTake.bloggerhasalreadytakensurvey}">
-                                            <h:outputText value="You've already earned" styleClass="mediumfont"/>
-                                            <br/>
-                                            <h:outputText value="#{publicSurveyTake.surveyEnhancer.minearning}" styleClass="largefont" style="font-size: 60px; color: #666666;"/>
-                                            <c:if test="${publicSurveyTake.surveytakergavetocharity or publicSurveyTake.survey.ischarityonly}">
-                                                <br/>
-                                                <h:outputText value="for charity" styleClass="mediumfont"/>
-                                            </c:if>
-                                            <c:if test="${publicSurveyTake.surveytakergavetocharity}">
-                                                <br/>
-                                                <h:outputText value="(${publicSurveyTake.charityname})" styleClass="mediumfont"/>
-                                            </c:if>
-                                            <br/>
-                                            <h:outputText value="and can earn up to #{publicSurveyTake.surveyEnhancer.maxearning} total by posting it to your blog!" styleClass="mediumfont"/>
-                                        </c:if>
-                                        <c:if test="${(!publicSurveyTake.bloggerhasalreadytakensurvey) and (publicSurveyTake.survey.status le 4)}">
-                                            <h:outputText value="Take this survey and earn" styleClass="mediumfont"/>
-                                            <br/>
-                                            <h:outputText value="#{publicSurveyTake.surveyEnhancer.minearning}" styleClass="largefont" style="font-size: 60px; color: #666666;"/>
-                                            <c:if test="${publicSurveyTake.survey.ischarityonly}">
-                                                <br/>
-                                                <h:outputText value="for charity" styleClass="mediumfont"/>
-                                            </c:if>
-                                            <br/>
-                                            <h:outputText value="instantly or up to #{publicSurveyTake.surveyEnhancer.maxearning} when you post it to your blog!" styleClass="mediumfont"/>
-                                            <br/><br/>
-                                            <h:outputText value="(just click the Questions tab (top left) and Complete the Survey... easy!)" styleClass="smallfont"/>
-                                        </c:if>
-                                        <c:if test="${(!publicSurveyTake.bloggerhasalreadytakensurvey) and (publicSurveyTake.survey.status ge 5)}">
-                                            <h:outputText value="People who took this survey earned" styleClass="mediumfont"/>
-                                            <br/>
-                                            <h:outputText value="#{publicSurveyTake.surveyEnhancer.minearning}" styleClass="largefont" style="font-size: 60px; color: #666666;"/>
-                                            <br/>
-                                            <h:outputText value="and then earned up to #{publicSurveyTake.surveyEnhancer.maxearning} total by posting it to their blogs!" styleClass="mediumfont"/>
-                                        </c:if>
-                                        <c:if test="#{publicSurveyTake.survey.ischarityonly}">
-                                            <br/><br/>
-                                            <div class="rounded" style="background: #e6e6e6; text-align: center;">
-                                                <img src="/images/charity-128.png" alt="For Charity" width="128" height="128"/>
-                                                <br/>
-                                                <h:outputText value="This is a Charity Only survey." styleClass="mediumfont"/>
-                                                <br/>
-                                                <h:outputText value="The creator of the survey requires that dNeero donate all of your earnings from the survey to a charity of your choice.  It's a chance to do some good!" styleClass="tinyfont"/>
-                                            </div>
-                                        </c:if>
+                                        <font class="smallfont">
+                                        <br/><br/><b>For more info:</b><br/>
+                                        Click the Questions tab on this page.
+                                        </font>
                                     </div>
-                                    <br/>
-                                    <font class="smallfont">
-                                    <br/><br/><b>For more info:</b><br/>
-                                    Click the Questions tab on this page.
-                                    </font>
-                                </div>
-                            </td>
+                                </td>
+                            </c:if>
                         </tr>
                     </table>
                 </t:panelTab>
-                <t:panelTab id="panel_who" label="Who Blogged It?">
-                    <h:graphicImage url="/images/clear.gif" width="700" height="1"/><br/>
+                <t:panelTab id="panel_who" label="Who Posted It?">
+                    <h:graphicImage url="/images/clear.gif" width="700" height="1" styleClass="survey_tabs_body_width"/><br/>
                     <table width="100%" cellpadding="5">
                         <tr>
                             <td valign="top" width="150">
@@ -1047,7 +1100,7 @@
                     </t:dataScroller>
                 </t:panelTab>
                 <t:panelTab id="panel_discuss" label="Discuss">
-                    <h:graphicImage url="/images/clear.gif" width="700" height="1"/><br/>
+                    <h:graphicImage url="/images/clear.gif" width="700" height="1" styleClass="survey_tabs_body_width"/><br/>
                     <table width="100%" cellpadding="5">
                         <tr>
                             <td valign="top">
@@ -1146,97 +1199,99 @@
                     </c:if>
                 </t:panelTab>
                 <t:panelTab id="panel_b" label="Requirements">
-                    <h:graphicImage url="/images/clear.gif" width="700" height="1"/><br/>
+                    <h:graphicImage url="/images/clear.gif" width="700" height="1" styleClass="survey_tabs_body_width"/><br/>
                     <center><div class="rounded" style="background: #e6e6e6; text-align: left; padding: 20px;"><font class="smallfont">
                     To take this survey and get paid for it you must fulfill these demographic requirements.  If you take the survey before logging in and/or signing up and then do not fulfill these requirements we will discard your answers.
                     </font></div></center>
                     <f:verbatim escape="false">#{publicSurveyTake.surveyCriteriaAsHtml}</f:verbatim>
                 </t:panelTab>
                 <t:panelTab id="panel_disc" label="Disclosure">
-                    <h:graphicImage url="/images/clear.gif" width="700" height="1"/><br/>
+                    <h:graphicImage url="/images/clear.gif" width="700" height="1" styleClass="survey_tabs_body_width"/><br/>
                     <table width="100%" cellpadding="5">
                         <tr>
                             <td valign="top" width="450">
                                 <font class="largefont" style="color: #666666;">Paid Survey Disclosure</font>
                                 <br/><br/>
                                 <font class="normalfont">
-                                dNeero paid for this survey.  dNeero did not and does not encourage the blogger to post any particular opinion or answers.  dNeero encourages the blogger to simply tell the truth.
+                                dNeero paid for this survey.  dNeero did not and does not encourage the blogger/social networker to post any particular opinion or answers.  dNeero encourages the blogger/social networker to simply tell the truth.
                                 <br/><br/>
-                                dNeero pays the blogger for completing the survey and for the number of times that the survey is displayed on his or her blog.
+                                dNeero pays the blogger/social networker for completing the survey and for the number of times that the survey is displayed on his or her blog or social network profile.
                                 <br/><br/>
-                                A link to this disclosure statement is required (and is automatically posted) with each dNeero survey to protect the integrity of the blogosphere.
+                                A link to this disclosure statement is required (and is automatically posted) with each dNeero survey to protect the integrity of the blogosphere and social networks.
                                 </font>
                             </td>
-                            <td valign="top" align="left">
-                                <div class="rounded" style="background: #00ff00;">
-                                    <div class="rounded" style="background: #ffffff; text-align: center;">
-                                        <center><img src="/images/exclamation-128.png" width="128" height="128"/></center>
+                            <c:if test="${!userSession.isfacebookui}">
+                                <td valign="top" align="left">
+                                    <div class="rounded" style="background: #00ff00;">
+                                        <div class="rounded" style="background: #ffffff; text-align: center;">
+                                            <center><img src="/images/exclamation-128.png" width="128" height="128"/></center>
+                                            <br/>
+                                            <c:if test="${publicSurveyTake.survey.status ge 5}">
+                                                <div class="rounded" style="background: #cccccc; text-align: center;">
+                                                    <center><img src="/images/stop-alt-48.png" width="48" height="48"/></center>
+                                                    <br/>
+                                                    <h:outputText value="This survey is closed." styleClass="mediumfont"/>
+                                                </div>
+                                                <br/>
+                                            </c:if>
+                                            <c:if test="${publicSurveyTake.bloggerhasalreadytakensurvey}">
+                                                <h:outputText value="You've already earned" styleClass="mediumfont"/>
+                                                <br/>
+                                                <h:outputText value="#{publicSurveyTake.surveyEnhancer.minearning}" styleClass="largefont" style="font-size: 60px; color: #666666;"/>
+                                                <c:if test="${publicSurveyTake.surveytakergavetocharity or publicSurveyTake.survey.ischarityonly}">
+                                                    <br/>
+                                                    <h:outputText value="for charity" styleClass="mediumfont"/>
+                                                </c:if>
+                                                <c:if test="${publicSurveyTake.surveytakergavetocharity}">
+                                                    <br/>
+                                                    <h:outputText value="(${publicSurveyTake.charityname})" styleClass="mediumfont"/>
+                                                </c:if>
+                                                <br/>
+                                                <h:outputText value="and can earn up to #{publicSurveyTake.surveyEnhancer.maxearning} total by posting it to your blog!" styleClass="mediumfont"/>
+                                            </c:if>
+                                            <c:if test="${(!publicSurveyTake.bloggerhasalreadytakensurvey) and (publicSurveyTake.survey.status le 4)}">
+                                                <h:outputText value="Take this survey and earn" styleClass="mediumfont"/>
+                                                <br/>
+                                                <h:outputText value="#{publicSurveyTake.surveyEnhancer.minearning}" styleClass="largefont" style="font-size: 60px; color: #666666;"/>
+                                                <c:if test="${publicSurveyTake.surveytakergavetocharity or publicSurveyTake.survey.ischarityonly}">
+                                                    <br/>
+                                                    <h:outputText value="for charity" styleClass="mediumfont"/>
+                                                </c:if>
+                                                <br/>
+                                                <h:outputText value="instantly or up to #{publicSurveyTake.surveyEnhancer.maxearning} when you post it to your blog!" styleClass="mediumfont"/>
+                                                <br/><br/>
+                                                <h:outputText value="(just click the Questions tab (top left) and Complete the Survey... easy!)" styleClass="smallfont"/>
+                                            </c:if>
+                                            <c:if test="${(!publicSurveyTake.bloggerhasalreadytakensurvey) and (publicSurveyTake.survey.status ge 5)}">
+                                                <h:outputText value="People who took this survey earned" styleClass="mediumfont"/>
+                                                <br/>
+                                                <h:outputText value="#{publicSurveyTake.surveyEnhancer.minearning}" styleClass="largefont" style="font-size: 60px; color: #666666;"/>
+                                                <c:if test="${publicSurveyTake.surveytakergavetocharity or publicSurveyTake.survey.ischarityonly}">
+                                                    <br/>
+                                                    <h:outputText value="for charity" styleClass="mediumfont"/>
+                                                </c:if>
+                                                <br/>
+                                                <h:outputText value="and then earned up to #{publicSurveyTake.surveyEnhancer.maxearning} total by posting it to their blogs!" styleClass="mediumfont"/>
+                                            </c:if>
+                                            <c:if test="#{publicSurveyTake.survey.ischarityonly}">
+                                                <br/><br/>
+                                                <div class="rounded" style="background: #e6e6e6; text-align: center;">
+                                                    <img src="/images/charity-128.png" alt="For Charity" width="128" height="128"/>
+                                                    <br/>
+                                                    <h:outputText value="This is a Charity Only survey." styleClass="mediumfont"/>
+                                                    <br/>
+                                                    <h:outputText value="The creator of the survey requires that dNeero donate all of your earnings from the survey to a charity of your choice.  It's a chance to do some good!" styleClass="tinyfont"/>
+                                                </div>
+                                            </c:if>
+                                        </div>
                                         <br/>
-                                        <c:if test="${publicSurveyTake.survey.status ge 5}">
-                                            <div class="rounded" style="background: #cccccc; text-align: center;">
-                                                <center><img src="/images/stop-alt-48.png" width="48" height="48"/></center>
-                                                <br/>
-                                                <h:outputText value="This survey is closed." styleClass="mediumfont"/>
-                                            </div>
-                                            <br/>
-                                        </c:if>
-                                        <c:if test="${publicSurveyTake.bloggerhasalreadytakensurvey}">
-                                            <h:outputText value="You've already earned" styleClass="mediumfont"/>
-                                            <br/>
-                                            <h:outputText value="#{publicSurveyTake.surveyEnhancer.minearning}" styleClass="largefont" style="font-size: 60px; color: #666666;"/>
-                                            <c:if test="${publicSurveyTake.surveytakergavetocharity or publicSurveyTake.survey.ischarityonly}">
-                                                <br/>
-                                                <h:outputText value="for charity" styleClass="mediumfont"/>
-                                            </c:if>
-                                            <c:if test="${publicSurveyTake.surveytakergavetocharity}">
-                                                <br/>
-                                                <h:outputText value="(${publicSurveyTake.charityname})" styleClass="mediumfont"/>
-                                            </c:if>
-                                            <br/>
-                                            <h:outputText value="and can earn up to #{publicSurveyTake.surveyEnhancer.maxearning} total by posting it to your blog!" styleClass="mediumfont"/>
-                                        </c:if>
-                                        <c:if test="${(!publicSurveyTake.bloggerhasalreadytakensurvey) and (publicSurveyTake.survey.status le 4)}">
-                                            <h:outputText value="Take this survey and earn" styleClass="mediumfont"/>
-                                            <br/>
-                                            <h:outputText value="#{publicSurveyTake.surveyEnhancer.minearning}" styleClass="largefont" style="font-size: 60px; color: #666666;"/>
-                                            <c:if test="${publicSurveyTake.surveytakergavetocharity or publicSurveyTake.survey.ischarityonly}">
-                                                <br/>
-                                                <h:outputText value="for charity" styleClass="mediumfont"/>
-                                            </c:if>
-                                            <br/>
-                                            <h:outputText value="instantly or up to #{publicSurveyTake.surveyEnhancer.maxearning} when you post it to your blog!" styleClass="mediumfont"/>
-                                            <br/><br/>
-                                            <h:outputText value="(just click the Questions tab (top left) and Complete the Survey... easy!)" styleClass="smallfont"/>
-                                        </c:if>
-                                        <c:if test="${(!publicSurveyTake.bloggerhasalreadytakensurvey) and (publicSurveyTake.survey.status ge 5)}">
-                                            <h:outputText value="People who took this survey earned" styleClass="mediumfont"/>
-                                            <br/>
-                                            <h:outputText value="#{publicSurveyTake.surveyEnhancer.minearning}" styleClass="largefont" style="font-size: 60px; color: #666666;"/>
-                                            <c:if test="${publicSurveyTake.surveytakergavetocharity or publicSurveyTake.survey.ischarityonly}">
-                                                <br/>
-                                                <h:outputText value="for charity" styleClass="mediumfont"/>
-                                            </c:if>
-                                            <br/>
-                                            <h:outputText value="and then earned up to #{publicSurveyTake.surveyEnhancer.maxearning} total by posting it to their blogs!" styleClass="mediumfont"/>
-                                        </c:if>
-                                        <c:if test="#{publicSurveyTake.survey.ischarityonly}">
-                                            <br/><br/>
-                                            <div class="rounded" style="background: #e6e6e6; text-align: center;">
-                                                <img src="/images/charity-128.png" alt="For Charity" width="128" height="128"/>
-                                                <br/>
-                                                <h:outputText value="This is a Charity Only survey." styleClass="mediumfont"/>
-                                                <br/>
-                                                <h:outputText value="The creator of the survey requires that dNeero donate all of your earnings from the survey to a charity of your choice.  It's a chance to do some good!" styleClass="tinyfont"/>
-                                            </div>
-                                        </c:if>
+                                        <font class="smallfont">
+                                        <br/><br/><b>For more info:</b><br/>
+                                        Click the Questions tab on this page.
+                                        </font>
                                     </div>
-                                    <br/>
-                                    <font class="smallfont">
-                                    <br/><br/><b>For more info:</b><br/>
-                                    Click the Questions tab on this page.
-                                    </font>
-                                </div>
-                            </td>
+                                </td>
+                            </c:if>
                         </tr>
                     </table>
                 </t:panelTab>
