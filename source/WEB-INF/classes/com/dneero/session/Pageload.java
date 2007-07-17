@@ -43,10 +43,10 @@ public class Pageload extends UIComponentBase {
         UrlSplitter urlSplitter = new UrlSplitter(Jsf.getHttpServletRequest());
         if (urlSplitter.getRawIncomingServername().equals("dneero.com")){
             if (urlSplitter.getMethod().equals("GET")){
-                context.getExternalContext().redirect(urlSplitter.getScheme()+"://"+"www.dneero.com"+urlSplitter.getServletPath()+urlSplitter.getParametersAsQueryStringQuestionMarkIfRequired());
+                Jsf.redirectResponse(urlSplitter.getScheme()+"://"+"www.dneero.com"+urlSplitter.getServletPath()+urlSplitter.getParametersAsQueryStringQuestionMarkIfRequired());
                 return;
             } else {
-                context.getExternalContext().redirect(urlSplitter.getScheme()+"://"+"www.dneero.com/");
+                Jsf.redirectResponse(urlSplitter.getScheme()+"://"+"www.dneero.com/");
                 return;
             }
         }
@@ -54,7 +54,7 @@ public class Pageload extends UIComponentBase {
         //Redirect login page to https
         if (SystemProperty.getProp(SystemProperty.PROP_ISSSLON).equals("1") && urlSplitter.getScheme().equals("http") && urlSplitter.getServletPath().equals("login.jsf")){
             try{
-                context.getExternalContext().redirect(BaseUrl.get(true)+"login.jsf");
+                Jsf.redirectResponse(BaseUrl.get(true)+"login.jsf");
                 return;
             } catch (Exception ex){
                 logger.error(ex);
@@ -110,21 +110,21 @@ public class Pageload extends UIComponentBase {
                                         try{
                                             if (SystemProperty.getProp(SystemProperty.PROP_ISSSLON).equals("1")){
                                                 try{
-                                                    context.getExternalContext().redirect(BaseUrl.get(true)+"account/index.jsf?msg=autologin");
+                                                    Jsf.redirectResponse(BaseUrl.get(true)+"account/index.jsf?msg=autologin");
                                                     return;
                                                 } catch (Exception ex){
                                                     logger.error(ex);
-                                                    context.getExternalContext().redirect("/account/index.jsf?msg=autologin");
+                                                    Jsf.redirectResponse("/account/index.jsf?msg=autologin");
                                                     return;
                                                 }
                                             } else {
-                                                context.getExternalContext().redirect("/account/index.jsf?msg=autologin");
+                                                Jsf.redirectResponse("/account/index.jsf?msg=autologin");
                                                 return;
                                             }
                                         } catch (Exception ex){
                                             logger.error(ex);
                                             ex.printStackTrace();
-                                            context.getExternalContext().redirect("/index.jsf");
+                                            Jsf.redirectResponse("/index.jsf");
                                             return;
                                         }
                                     }
@@ -146,7 +146,7 @@ public class Pageload extends UIComponentBase {
             int daysInGracePeriod = 3;
             Calendar startOfGracePeriod = Time.xDaysAgoStart(Calendar.getInstance(), daysInGracePeriod);
             if (Jsf.getUserSession().getUser().getCreatedate().before(startOfGracePeriod.getTime())){
-                context.getExternalContext().redirect("/emailactivationwaiting.jsf");
+                Jsf.redirectResponse("/emailactivationwaiting.jsf");
                 return;
             }
         }
@@ -156,7 +156,7 @@ public class Pageload extends UIComponentBase {
             System.out.println("redirecting to force eula accept");
             LoginAgreeNewEula bean = (LoginAgreeNewEula)Jsf.getManagedBean("loginAgreeNewEula");
             bean.beginView();
-            context.getExternalContext().redirect("/loginagreeneweula.jsf");
+            Jsf.redirectResponse("/loginagreeneweula.jsf");
             return;
         }
 

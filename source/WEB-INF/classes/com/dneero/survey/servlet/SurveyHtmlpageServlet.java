@@ -28,53 +28,49 @@ public class SurveyHtmlpageServlet extends HttpServlet {
 
     public void doPost (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Logger logger = Logger.getLogger(this.getClass().getName());
-        logger.debug("Looking for html page survey via servlet");
-        logger.debug("request.getParameter(\"s\")="+request.getParameter("s"));
-        logger.debug("request.getParameter(\"u\")="+request.getParameter("u"));
-        logger.debug("request.getParameter(\"p\")="+request.getParameter("p"));
+        logger.error("SurveyHtmlpageServlet called.  It shouldn't be.");
+        response.sendRedirect("/surveysimple.jsf?s="+request.getParameter("s")+"&u="+request.getParameter("u")+"&p="+request.getParameter("p"));
+        return;
+//        logger.debug("Looking for html page survey via servlet");
+//        logger.debug("request.getParameter(\"s\")="+request.getParameter("s"));
+//        logger.debug("request.getParameter(\"u\")="+request.getParameter("u"));
+//        logger.debug("request.getParameter(\"p\")="+request.getParameter("p"));
+//
+//        PrintWriter out = response.getWriter();
+//
+//        Survey survey = null;
+//        if (request.getParameter("s")!=null && com.dneero.util.Num.isinteger(request.getParameter("s"))){
+//            survey = Survey.get(Integer.parseInt(request.getParameter("s")));
+//        }
+//
+//        User user = null;
+//        if (request.getParameter("u")!=null && com.dneero.util.Num.isinteger(request.getParameter("u"))){
+//            user = User.get(Integer.parseInt(request.getParameter("u")));
+//        }
+//
+//        boolean ispreview = false;
+//        if (request.getParameter("p")!=null && com.dneero.util.Num.isinteger(request.getParameter("p"))){
+//            if (request.getParameter("p").equals("1")){
+//                ispreview = true;
+//            }
+//        }
+//
+//        if (survey!=null && !ispreview){
+//            RecordImpression.record(request);
+//        }
+//
+//        response.setContentType("text/html");
+//
+//        String surveyflashembed = SurveyFlashServlet.getEmbedSyntax(BaseUrl.get(false), survey.getSurveyid(), user.getUserid(), ispreview, true, false);
+//
+//        out.print("<html><body bgcolor=\"#ffffff\">");
+//        out.print("<center>");
+//        out.print(surveyflashembed);
+//        out.print("</center>");
+//        out.print("<script src=\"https://ssl.google-analytics.com/urchin.js\" type=\"text/javascript\"></script>\n" +
+//                "        <script type=\"text/javascript\">_uacct = \"UA-208946-2\";urchinTracker();</script>");
+//        out.print("</body></html>");
 
-        PrintWriter out = response.getWriter();
-
-        Survey survey = null;
-        if (request.getParameter("s")!=null && com.dneero.util.Num.isinteger(request.getParameter("s"))){
-            survey = Survey.get(Integer.parseInt(request.getParameter("s")));
-        }
-
-        User user = null;
-        if (request.getParameter("u")!=null && com.dneero.util.Num.isinteger(request.getParameter("u"))){
-            user = User.get(Integer.parseInt(request.getParameter("u")));
-        }
-
-        boolean ispreview = false;
-        if (request.getParameter("p")!=null && com.dneero.util.Num.isinteger(request.getParameter("p"))){
-            if (request.getParameter("p").equals("1")){
-                ispreview = true;
-            }
-        }
-
-        if (survey!=null && !ispreview){
-            RecordImpression.record(request);
-        }
-
-        response.setContentType("text/html");
-        
-//        String surveyashtml = SurveyAsHtml.getHtml(survey, user, false);
-//        StringBuffer scrollablediv = new StringBuffer();
-//        scrollablediv.append("<div style=\"background : #ffffff; padding: 5px; width: 405px; height: 215px; overflow : auto; text-align: left;\">"+"\n");
-//        scrollablediv.append(surveyashtml);
-//        scrollablediv.append("</div>"+"\n");
-//        String surveyashtmlwrapped = SurveyInBlogWrapper.wrap(user, survey, scrollablediv.toString(), true, false);
-
-
-        String surveyflashembed = SurveyFlashServlet.getEmbedSyntax(BaseUrl.get(false), survey.getSurveyid(), user.getUserid(), ispreview, true, false);
-
-        out.print("<html><body bgcolor=\"#ffffff\">");
-        out.print("<center>");
-        out.print(surveyflashembed);
-        out.print("</center>");
-        out.print("<script src=\"https://ssl.google-analytics.com/urchin.js\" type=\"text/javascript\"></script>\n" +
-                "        <script type=\"text/javascript\">_uacct = \"UA-208946-2\";urchinTracker();</script>");
-        out.print("</body></html>");
     }
 
     public static String getEmbedSyntax(String baseurl, int surveyid, int userid, boolean ispreview){
@@ -93,7 +89,6 @@ public class SurveyHtmlpageServlet extends HttpServlet {
 
     public static String getUrlOfPageWithSurveyOnIt(String baseurl, int surveyid, int userid, boolean ispreview){
         Logger logger = Logger.getLogger(SurveyImageServlet.class);
-        String out = "";
         String ispreviewStr = "0";
         if (ispreview){
             ispreviewStr = "1";
@@ -102,7 +97,8 @@ public class SurveyHtmlpageServlet extends HttpServlet {
             baseurl = "/";
         }
 
-        String urlofsurvey = baseurl+"shtml?s="+surveyid+"&u="+userid+"&p="+ispreviewStr;
+        //String urlofsurvey = baseurl+"shtml?s="+surveyid+"&u="+userid+"&p="+ispreviewStr;
+        String urlofsurvey = baseurl+"surveysimple.jsf?s="+surveyid+"&u="+userid+"&p="+ispreviewStr;
         return urlofsurvey;
     }
 

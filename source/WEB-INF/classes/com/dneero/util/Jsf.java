@@ -64,7 +64,9 @@ public class Jsf {
     }
 
     public static void redirectResponse(String url) throws IOException {
+        url = FacesContext.getCurrentInstance().getExternalContext().encodeResourceURL(url);
         FacesContext.getCurrentInstance().getExternalContext().redirect(url);
+        FacesContext.getCurrentInstance().responseComplete();
     }
 
     public static String getRequestParam(String paramName){

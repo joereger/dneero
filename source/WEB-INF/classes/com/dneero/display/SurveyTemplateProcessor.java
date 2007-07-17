@@ -149,4 +149,15 @@ public class SurveyTemplateProcessor {
     }
 
 
+    public Response getResponse() {
+        return response;
+    }
+
+    public Blogger getBlogger() {
+        return blogger;
+    }
+
+    public Survey getSurvey() {
+        return survey;
+    }
 }

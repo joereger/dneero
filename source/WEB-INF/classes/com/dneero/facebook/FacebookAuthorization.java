@@ -49,6 +49,7 @@ public class FacebookAuthorization {
                         }
                         //If user hasn't added app yet redir to the app add page
                         if (facebookSessionKey.trim().equals("")){
+                            logger.debug("redirecting user to facebook add app page");
                             Jsf.redirectResponse("http://www.facebook.com/add.php?api_key="+FacebookVars.API_KEY);
                             return;
                         }
@@ -110,11 +111,5 @@ public class FacebookAuthorization {
         return null;
     }
 
-    public static User createdNeeroUserUsingFacebookInfo(int facebookuserid, String facebookSessionKey){
-        FacebookRestClient facebookRestClient = new FacebookRestClient(FacebookVars.API_KEY, FacebookVars.API_SECRET, facebookSessionKey);
-        //Get first name
-        //Get last name
-        return null;
-    }
 
 }
