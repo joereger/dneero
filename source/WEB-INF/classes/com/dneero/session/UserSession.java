@@ -37,9 +37,11 @@ public class UserSession implements Serializable {
     private int surveystakentoday = 0;
     private boolean isfacebookui = false;
     private String facebookSessionKey = "";
+    private int tempFacebookUserid = 0;
 
     public UserSession(){
-
+        Logger logger = Logger.getLogger(this.getClass().getName());
+        logger.debug("New UserSession created.");
     }
 
     public User getUser() {
@@ -53,13 +55,17 @@ public class UserSession implements Serializable {
 
     public void setUser(User user) {
         //this.user = user;
-        userid = user.getUserid();
-        isSysadmin = false;
-        for (Iterator<Userrole> iterator = user.getUserroles().iterator(); iterator.hasNext();) {
-            Userrole userrole = iterator.next();
-            if (userrole.getRoleid()== Userrole.SYSTEMADMIN){
-                isSysadmin = true;
+        if (user!=null){
+            userid = user.getUserid();
+            isSysadmin = false;
+            for (Iterator<Userrole> iterator = user.getUserroles().iterator(); iterator.hasNext();) {
+                Userrole userrole = iterator.next();
+                if (userrole.getRoleid()== Userrole.SYSTEMADMIN){
+                    isSysadmin = true;
+                }
             }
+        } else {
+            userid = 0;
         }
     }
 
@@ -202,5 +208,13 @@ public class UserSession implements Serializable {
 
     public void setIsfacebookui(boolean isfacebookui) {
         this.isfacebookui = isfacebookui;
+    }
+
+    public int getTempFacebookUserid() {
+        return tempFacebookUserid;
+    }
+
+    public void setTempFacebookUserid(int tempFacebookUserid) {
+        this.tempFacebookUserid = tempFacebookUserid;
     }
 }

@@ -12,6 +12,7 @@ import java.io.PrintWriter;
 import com.dneero.dao.Survey;
 import com.dneero.dao.User;
 import com.dneero.display.SurveyInBlogWrapper;
+import com.dneero.systemprops.BaseUrl;
 
 /**
  * User: Joe Reger Jr
@@ -57,18 +58,40 @@ public class SurveyHtmlpageServlet extends HttpServlet {
 
         response.setContentType("text/html");
         
-        String surveyashtml = SurveyAsHtml.getHtml(survey, user, false);
-        StringBuffer scrollablediv = new StringBuffer();
-        scrollablediv.append("<div style=\"background : #ffffff; padding: 5px; width: 405px; height: 215px; overflow : auto; text-align: left;\">"+"\n");
-        scrollablediv.append(surveyashtml);
-        scrollablediv.append("</div>"+"\n");
-        String surveyashtmlwrapped = SurveyInBlogWrapper.wrap(user, survey, scrollablediv.toString(), true, false);
+//        String surveyashtml = SurveyAsHtml.getHtml(survey, user, false);
+//        StringBuffer scrollablediv = new StringBuffer();
+//        scrollablediv.append("<div style=\"background : #ffffff; padding: 5px; width: 405px; height: 215px; overflow : auto; text-align: left;\">"+"\n");
+//        scrollablediv.append(surveyashtml);
+//        scrollablediv.append("</div>"+"\n");
+//        String surveyashtmlwrapped = SurveyInBlogWrapper.wrap(user, survey, scrollablediv.toString(), true, false);
 
-        out.print(surveyashtmlwrapped);
 
+        String surveyflashembed = SurveyFlashServlet.getEmbedSyntax(BaseUrl.get(false), survey.getSurveyid(), user.getUserid(), ispreview, true, false);
+
+        out.print("<html><body bgcolor=\"#ffffff\">");
+        out.print("<center>");
+        out.print(surveyflashembed);
+        out.print("</center>");
+        out.print("<script src=\"https://ssl.google-analytics.com/urchin.js\" type=\"text/javascript\"></script>\n" +
+                "        <script type=\"text/javascript\">_uacct = \"UA-208946-2\";urchinTracker();</script>");
+        out.print("</body></html>");
     }
 
     public static String getEmbedSyntax(String baseurl, int surveyid, int userid, boolean ispreview){
+        return getEmbedSyntax(baseurl, surveyid, userid, ispreview, "Show Survey");
+    }
+
+    public static String getEmbedSyntax(String baseurl, int surveyid, int userid, boolean ispreview, String linktext){
+        String out = ""+
+              "<a href=\""+getUrlOfPageWithSurveyOnIt(baseurl, surveyid, userid, ispreview)+"\">" +
+              linktext +
+              "</a>"+
+              "";
+
+        return out;
+    }
+
+    public static String getUrlOfPageWithSurveyOnIt(String baseurl, int surveyid, int userid, boolean ispreview){
         Logger logger = Logger.getLogger(SurveyImageServlet.class);
         String out = "";
         String ispreviewStr = "0";
@@ -80,14 +103,7 @@ public class SurveyHtmlpageServlet extends HttpServlet {
         }
 
         String urlofsurvey = baseurl+"shtml?s="+surveyid+"&u="+userid+"&p="+ispreviewStr;
-
-        out = "<!-- Start dNeero Survey -->"+
-              "<a href=\""+urlofsurvey+"\">" +
-              "View Survey" +
-              "</a>"+
-              "<!-- End dNeero Survey -->";
-
-        return out;
+        return urlofsurvey;
     }
 
 

@@ -21,7 +21,22 @@ public class PublicFacebookLandingPage implements Serializable {
 
     private void load(){
         Logger logger = Logger.getLogger(this.getClass().getName());
-        try{Jsf.redirectResponse("/publicsurveylist.jsf");}catch(Exception ex){logger.error(ex);}
+
+        //Make sure the app responds with the facebook ui
+        Jsf.getUserSession().setIsfacebookui(true);
+
+        //If we should display a specific survey, do so
+        if (Jsf.getRequestParam("action")!=null && Jsf.getRequestParam("action").indexOf("showsurvey")>-1){
+            String[] split = Jsf.getRequestParam("action").split("-");
+            if (split.length>=3){
+                //try{Jsf.redirectResponse("/survey.jsf?surveyid="+split[1]+"&userid="+split[2]);return;}catch(Exception ex){logger.error(ex);}
+                try{Jsf.redirectResponse("/publicsurveylist.jsf");return;}catch(Exception ex){logger.error(ex);}
+            }
+        }
+
+
+        //Redirect to the public survey list
+        try{Jsf.redirectResponse("/publicsurveylist.jsf");return;}catch(Exception ex){logger.error(ex);}
     }
 
 

@@ -15,7 +15,7 @@
     <ui:define name="title">#{publicSurveyTake.survey.title}<br/></ui:define>
     <ui:param name="navtab" value="home"/>
     <ui:define name="body">
-    <d:authorization acl="public" redirectonfail="false" permitaccessduringprebeta="true"/>
+    <d:authorization acl="public" redirectonfail="false"/>
 
 
 <h:form id="survey">
@@ -456,14 +456,14 @@
                                         </c:if>
                                     </div>
                                 </td>
-                                <td valign="top" width="450">
+                                <td valign="top" class="posttoblog_tabs_tablewidth">
                                     <center><div class="rounded" style="background: #e6e6e6; text-align: left; padding: 20px;"><font class="smallfont">
                                     Instructions for posting your survey answers to various blogs and social networks.  Need <h:commandLink value="help" action="#{accountSupportIssuesList.beginView}" styleClass="smallfont" style="padding-left: 5px; padding-right: 1px;"/> posting to your blog?
                                     </font></div></center>
                                     <br/>
                                     <t:collapsiblePanel id="cp7" value="true" title="cp7" var="cp7var">
                                         <f:facet name="header">
-                                            <t:div style="width:350px;background: url(/images/bg-green-fade.gif); margin: 3px; padding: 8px; border-top: 1px solid #333333;">
+                                            <t:div styleClass="posttoblog_tabs">
                                                 <h:outputText value="TypePad " styleClass="formfieldnamefont"/>
                                                 <t:headerLink immediate="true">
                                                     <h:outputText value="Show Instructions" rendered="#{cp7var}" styleClass="normalfont"/>
@@ -490,7 +490,7 @@
 
                                     <t:collapsiblePanel id="cp8" value="true" title="cp8" var="cp8var">
                                         <f:facet name="header">
-                                            <t:div style="width:350px;background: url(/images/bg-green-fade.gif); margin: 3px; padding: 8px; border-top: 1px solid #333333;">
+                                            <t:div styleClass="posttoblog_tabs">
                                                 <h:outputText value="LiveJournal " styleClass="formfieldnamefont"/>
                                                 <t:headerLink immediate="true">
                                                     <h:outputText value="Show Instructions" rendered="#{cp8var}" styleClass="normalfont"/>
@@ -518,7 +518,7 @@
 
                                     <t:collapsiblePanel id="cp1" value="true" title="cp1" var="cp1var">
                                         <f:facet name="header">
-                                            <t:div style="width:350px;background: url(/images/bg-green-fade.gif); margin: 3px; padding: 8px; border-top: 1px solid #333333;">
+                                            <t:div styleClass="posttoblog_tabs">
                                                 <h:outputText value="WordPress " styleClass="formfieldnamefont"/>
                                                 <t:headerLink immediate="true">
                                                     <h:outputText value="Show Instructions" rendered="#{cp1var}" styleClass="normalfont"/>
@@ -545,7 +545,7 @@
 
                                     <t:collapsiblePanel id="cp2" value="true" title="cp2" var="cp2var">
                                         <f:facet name="header">
-                                            <t:div style="width:350px;background: url(/images/bg-green-fade.gif); margin: 3px; padding: 8px; border-top: 1px solid #333333;">
+                                            <t:div styleClass="posttoblog_tabs">
                                                 <h:outputText value="MySpace " styleClass="formfieldnamefont"/>
                                                 <t:headerLink immediate="true">
                                                     <h:outputText value="Show Instructions" rendered="#{cp2var}" styleClass="normalfont"/>
@@ -570,7 +570,7 @@
 
                                     <t:collapsiblePanel id="cp3" value="true" title="cp3" var="cp3var">
                                         <f:facet name="header">
-                                            <t:div style="width:350px;background: url(/images/bg-green-fade.gif); margin: 3px; padding: 8px; border-top: 1px solid #333333;">
+                                            <t:div styleClass="posttoblog_tabs">
                                                 <h:outputText value="MySpace Blog " styleClass="formfieldnamefont"/>
                                                 <t:headerLink immediate="true">
                                                     <h:outputText value="Show Instructions" rendered="#{cp3var}" styleClass="normalfont"/>
@@ -597,7 +597,7 @@
 
                                     <t:collapsiblePanel id="cp4" value="true" title="cp4" var="cp4var">
                                         <f:facet name="header">
-                                            <t:div style="width:350px;background: url(/images/bg-green-fade.gif); margin: 3px; padding: 8px; border-top: 1px solid #333333;">
+                                            <t:div styleClass="posttoblog_tabs">
                                                 <h:outputText value="Blogger " styleClass="formfieldnamefont"/>
                                                 <t:headerLink immediate="true">
                                                     <h:outputText value="Show Instructions" rendered="#{cp4var}" styleClass="normalfont"/>
@@ -628,7 +628,7 @@
 
                                     <t:collapsiblePanel id="cp5" value="true" title="cp5" var="cp5var">
                                         <f:facet name="header">
-                                            <t:div style="width:350px;background: url(/images/bg-green-fade.gif); margin: 3px; padding: 8px; border-top: 1px solid #333333;">
+                                            <t:div styleClass="posttoblog_tabs">
                                                 <h:outputText value="Friendster Profile " styleClass="formfieldnamefont"/>
                                                 <t:headerLink immediate="true">
                                                     <h:outputText value="Show Instructions" rendered="#{cp5var}" styleClass="normalfont"/>
@@ -654,7 +654,7 @@
 
                                     <t:collapsiblePanel id="cp5b" value="true" title="cp5b" var="cp5bvar">
                                         <f:facet name="header">
-                                            <t:div style="width:350px;background: url(/images/bg-green-fade.gif); margin: 3px; padding: 8px; border-top: 1px solid #333333;">
+                                            <t:div styleClass="posttoblog_tabs">
                                                 <h:outputText value="Friendster Free Blog " styleClass="formfieldnamefont"/>
                                                 <t:headerLink immediate="true">
                                                     <h:outputText value="Show Instructions" rendered="#{cp5bvar}" styleClass="normalfont"/>
@@ -681,7 +681,7 @@
 
                                     <t:collapsiblePanel id="cp5a" value="true" title="cp5a" var="cp5avar">
                                         <f:facet name="header">
-                                            <t:div style="width:350px;background: url(/images/bg-green-fade.gif); margin: 3px; padding: 8px; border-top: 1px solid #333333;">
+                                            <t:div styleClass="posttoblog_tabs">
                                                 <h:outputText value="Friendster Paid Blog " styleClass="formfieldnamefont"/>
                                                 <t:headerLink immediate="true">
                                                     <h:outputText value="Show Instructions" rendered="#{cp5avar}" styleClass="normalfont"/>
@@ -709,7 +709,7 @@
 
                                     <t:collapsiblePanel id="cp6" value="true" title="cp6" var="cp6var">
                                         <f:facet name="header">
-                                            <t:div style="width:350px;background: url(/images/bg-green-fade.gif); margin: 3px; padding: 8px; border-top: 1px solid #333333;">
+                                            <t:div styleClass="posttoblog_tabs">
                                                 <h:outputText value="Yahoo! 360 " styleClass="formfieldnamefont"/>
                                                 <t:headerLink immediate="true">
                                                     <h:outputText value="Show Instructions" rendered="#{cp6var}" styleClass="normalfont"/>
@@ -737,7 +737,7 @@
 
                                     <t:collapsiblePanel id="cp9" value="true" title="cp9" var="cp9var">
                                         <f:facet name="header">
-                                            <t:div style="width:350px;background: url(/images/bg-green-fade.gif); margin: 3px; padding: 8px; border-top: 1px solid #333333;">
+                                            <t:div styleClass="posttoblog_tabs">
                                                 <h:outputText value="Tagged " styleClass="formfieldnamefont"/>
                                                 <t:headerLink immediate="true">
                                                     <h:outputText value="Show Instructions" rendered="#{cp9var}" styleClass="normalfont"/>
@@ -765,7 +765,7 @@
 
                                     <t:collapsiblePanel id="cpxanga" value="true" title="cpxanga" var="cpxangavar">
                                         <f:facet name="header">
-                                            <t:div style="width:350px;background: url(/images/bg-green-fade.gif); margin: 3px; padding: 8px; border-top: 1px solid #333333;">
+                                            <t:div styleClass="posttoblog_tabs">
                                                 <h:outputText value="Xanga " styleClass="formfieldnamefont"/>
                                                 <t:headerLink immediate="true">
                                                     <h:outputText value="Show Instructions" rendered="#{cpxangavar}" styleClass="normalfont"/>
@@ -792,7 +792,7 @@
 
                                     <t:collapsiblePanel id="cpfacebook" value="true" title="cpfacebook" var="cpfacebookvar">
                                         <f:facet name="header">
-                                            <t:div style="width:350px;background: url(/images/bg-green-fade.gif); margin: 3px; padding: 8px; border-top: 1px solid #333333;">
+                                            <t:div styleClass="posttoblog_tabs">
                                                 <h:outputText value="Facebook " styleClass="formfieldnamefont"/>
                                                 <t:headerLink immediate="true">
                                                     <h:outputText value="Show Instructions" rendered="#{cpfacebookvar}" styleClass="normalfont"/>
@@ -819,7 +819,7 @@
 
                                     <t:collapsiblePanel id="cp5z" value="true" title="cpz" var="cpzvar">
                                         <f:facet name="header">
-                                            <t:div style="width:350px;background: url(/images/bg-green-fade.gif); margin: 3px; padding: 8px; border-top: 1px solid #333333;">
+                                            <t:div styleClass="posttoblog_tabs">
                                                 <h:outputText value="Zimbio " styleClass="formfieldnamefont"/>
                                                 <t:headerLink immediate="true">
                                                     <h:outputText value="Show Instructions" rendered="#{cpzvar}" styleClass="normalfont"/>
@@ -847,7 +847,7 @@
 
                                     <t:collapsiblePanel id="cp11" value="true" title="cp11" var="cp11var">
                                         <f:facet name="header">
-                                            <t:div style="width:350px;background-color:#e6e6e6; margin: 3px; padding: 8px; border-top: 1px solid #333333;">
+                                            <t:div styleClass="posttoblog_tabs_generic">
                                                 <h:outputText value="Generic Flash Embedding (if your tool isn't listed above) " styleClass="formfieldnamefont"/>
                                                 <t:headerLink immediate="true">
                                                     <h:outputText value="Show Instructions" rendered="#{cp11var}" styleClass="normalfont"/>
@@ -876,7 +876,7 @@
 
                                     <t:collapsiblePanel id="cp10" value="true" title="cp10" var="cp10var">
                                         <f:facet name="header">
-                                            <t:div style="width:350px;background-color:#e6e6e6; margin: 3px; padding: 8px; border-top: 1px solid #333333;">
+                                            <t:div styleClass="posttoblog_tabs_generic">
                                                 <h:outputText value="Generic Javascript Embedding (if Flash doesn't work)" styleClass="formfieldnamefont"/>
                                                 <t:headerLink immediate="true">
                                                     <h:outputText value="Show Instructions" rendered="#{cp10var}" styleClass="normalfont"/>
@@ -905,7 +905,7 @@
 
                                     <t:collapsiblePanel id="cp10a" value="true" title="cp10a" var="cp10avar">
                                         <f:facet name="header">
-                                            <t:div style="width:350px;background-color:#e6e6e6; margin: 3px; padding: 8px; border-top: 1px solid #333333;">
+                                            <t:div styleClass="posttoblog_tabs_generic">
                                                 <h:outputText value="Generic Image/Link Embedding (a last resort)" styleClass="formfieldnamefont"/>
                                                 <t:headerLink immediate="true">
                                                     <h:outputText value="Show Instructions" rendered="#{cp10avar}" styleClass="normalfont"/>
@@ -934,7 +934,7 @@
 
                                     <t:collapsiblePanel id="cp10b" value="true" title="cp10b" var="cp10bvar">
                                         <f:facet name="header">
-                                            <t:div style="width:350px;background-color:#e6e6e6; margin: 3px; padding: 8px; border-top: 1px solid #333333;">
+                                            <t:div styleClass="posttoblog_tabs_generic">
                                                 <h:outputText value="Link Embedding (a very last resort)" styleClass="formfieldnamefont"/>
                                                 <t:headerLink immediate="true">
                                                     <h:outputText value="Show Instructions" rendered="#{cp10bvar}" styleClass="normalfont"/>

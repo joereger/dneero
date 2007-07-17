@@ -205,5 +205,25 @@ input, textarea, select{
     width: 590px;
 }
 
+.posttoblog_tabs_tablewidth{
+    width:275px;
+}
+
+.posttoblog_tabs{
+    width:250px;
+    background: url(/images/bg-green-fade.gif);
+    margin: 3px;
+    padding: 8px;
+    border-top: 1px solid #333333;
+}
+
+.posttoblog_tabs_generic{
+    width:250px;
+    background: url(/images/bg-green-fade.gif);
+    margin: 3px;
+    padding: 8px;
+    border-top: 1px solid #333333;
+}
+
 
 

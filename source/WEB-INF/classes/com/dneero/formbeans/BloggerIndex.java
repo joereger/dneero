@@ -13,6 +13,7 @@ import com.dneero.money.MoveMoneyInAccountBalance;
 import com.dneero.money.SurveyMoneyStatus;
 import com.dneero.xmpp.SendXMPPMessage;
 import com.dneero.session.SurveysTakenToday;
+import com.dneero.facebook.FacebookApiWrapper;
 
 import java.util.List;
 import java.util.Iterator;
@@ -200,6 +201,12 @@ public class BloggerIndex implements Serializable {
             }
             //Refresh blogger
             try{blogger.save();} catch (Exception ex){logger.error(ex);};
+
+            //Update Facebook
+            FacebookApiWrapper facebookApiWrapper = new FacebookApiWrapper(Jsf.getUserSession());
+            facebookApiWrapper.postSurveyToFacebookMiniFeed(survey, response);
+            facebookApiWrapper.postSurveyToFacebookProfile(survey, response);
+            
         } catch (Exception ex){
             logger.error(ex);
             allCex.addValidationError(ex.getMessage());
@@ -222,6 +229,8 @@ public class BloggerIndex implements Serializable {
         } catch (Exception ex){
             logger.error(ex);
         }
+
+
     }
 
 

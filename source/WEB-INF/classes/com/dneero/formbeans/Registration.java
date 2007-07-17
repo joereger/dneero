@@ -151,6 +151,7 @@ public class Registration implements Serializable {
         user.setInstantnotifyxmppison(false);
         user.setInstantnotifyxmppusername("");
         user.setIsenabled(true);
+        user.setFacebookuserid(Jsf.getUserSession().getTempFacebookUserid());
         try{
             user.save();
             userid = user.getUserid();
@@ -202,6 +203,9 @@ public class Registration implements Serializable {
         userSession.setIsloggedin(true);
         userSession.setIsLoggedInToBeta(Jsf.getUserSession().getIsLoggedInToBeta());
         userSession.setIseulaok(true);
+        userSession.setIsfacebookui(Jsf.getUserSession().getIsfacebookui());
+        userSession.setFacebookSessionKey(Jsf.getUserSession().getFacebookSessionKey());
+        userSession.setTempFacebookUserid(Jsf.getUserSession().getTempFacebookUserid());
         //Set persistent login cookie
         Cookie[] cookies = PersistentLogin.getPersistentCookies(user.getUserid(), Jsf.getHttpServletRequest());
         //Add a cookies to the response
