@@ -3,7 +3,6 @@ package com.dneero.formbeans;
 import org.apache.log4j.Logger;
 
 import java.io.Serializable;
-import java.io.PrintWriter;
 
 import com.dneero.dao.Survey;
 import com.dneero.dao.User;
