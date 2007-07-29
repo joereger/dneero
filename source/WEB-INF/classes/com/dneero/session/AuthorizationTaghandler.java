@@ -16,7 +16,6 @@ public class AuthorizationTaghandler extends UIComponentTag {
     // Declare a bean property for the hellomsg attribute.
     public String acl = null;
     public String redirectonfail = null;
-    public String permitaccessduringprebeta = null;
 
 
     // Associate the renderer and component type.
@@ -51,16 +50,6 @@ public class AuthorizationTaghandler extends UIComponentTag {
             }
         }
 
-        if (permitaccessduringprebeta != null){
-            if (isValueReference(permitaccessduringprebeta)) {
-                FacesContext context = FacesContext.getCurrentInstance();
-                Application app = context.getApplication();
-                ValueBinding vb = app.createValueBinding(permitaccessduringprebeta);
-                component.setValueBinding("permitaccessduringprebeta", vb);
-            } else {
-                component.getAttributes().put("permitaccessduringprebeta", permitaccessduringprebeta);
-            }
-        }
 
     }
 
@@ -89,11 +78,4 @@ public class AuthorizationTaghandler extends UIComponentTag {
     }
 
 
-    public String getPermitaccessduringprebeta() {
-        return permitaccessduringprebeta;
-    }
-
-    public void setPermitaccessduringprebeta(String permitaccessduringprebeta) {
-        this.permitaccessduringprebeta = permitaccessduringprebeta;
-    }
 }

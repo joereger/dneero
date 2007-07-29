@@ -6,9 +6,7 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:c="http://java.sun.com/jstl/core"
       xmlns:d="http://dneero.com/taglib">
-
     <d:pageload/>
-
     <c:if test="${!userSession.isfacebookui}">
         <ui:insert name="main">
             <ui:include src="main.xhtml"/>
@@ -19,5 +17,4 @@
             <ui:include src="main-facebook.xhtml"/>
         </ui:insert>
     </c:if>
-
 </html>

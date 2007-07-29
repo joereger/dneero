@@ -146,8 +146,10 @@ public class Pageload extends UIComponentBase {
             int daysInGracePeriod = 3;
             Calendar startOfGracePeriod = Time.xDaysAgoStart(Calendar.getInstance(), daysInGracePeriod);
             if (Jsf.getUserSession().getUser().getCreatedate().before(startOfGracePeriod.getTime())){
-                Jsf.redirectResponse("/emailactivationwaiting.jsf");
-                return;
+                if (urlSplitter.getRequestUrl().indexOf("emailactivationwaiting.jsf")==-1){
+                    Jsf.redirectResponse("/emailactivationwaiting.jsf");
+                    return;
+                }
             }
         }
 
@@ -156,8 +158,10 @@ public class Pageload extends UIComponentBase {
             System.out.println("redirecting to force eula accept");
             LoginAgreeNewEula bean = (LoginAgreeNewEula)Jsf.getManagedBean("loginAgreeNewEula");
             bean.beginView();
-            Jsf.redirectResponse("/loginagreeneweula.jsf");
-            return;
+            if (urlSplitter.getRequestUrl().indexOf("loginagreeneweula.jsf")==-1){
+                Jsf.redirectResponse("/loginagreeneweula.jsf");
+                return;
+            }
         }
 
 

@@ -51,11 +51,6 @@ public class Authorization extends UIComponentBase {
             redirectonfail = "true";
         }
 
-        String permitaccessduringprebeta = (String)getAttributes().get("permitaccessduringprebeta");
-        if (permitaccessduringprebeta==null){
-            permitaccessduringprebeta = "false";
-        }
-
         //Acl authorization
         if (!isAuthorized(context, acl)){
             if (redirectonfail.equals("true")){
