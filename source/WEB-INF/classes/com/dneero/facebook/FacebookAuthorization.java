@@ -5,6 +5,7 @@ import com.dneero.dao.User;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.xmpp.SendXMPPMessage;
 import com.dneero.session.SurveysTakenToday;
+import com.dneero.session.UrlSplitter;
 import com.facebook.api.FacebookRestClient;
 import com.facebook.api.FacebookException;
 import org.apache.log4j.Logger;
@@ -56,6 +57,7 @@ public class FacebookAuthorization {
                         logger.debug("User has added app... we have facebookSessionKey="+facebookSessionKey);
                         FacebookRestClient facebookRestClient = new FacebookRestClient(FacebookVars.API_KEY, FacebookVars.API_SECRET, facebookSessionKey);
                         int facebookuserid = facebookRestClient.users_getLoggedInUser();
+                        Jsf.getUserSession().setIsfacebookappadded(facebookRestClient.users_isAppAdded());
                         Jsf.getUserSession().setTempFacebookUserid(facebookuserid);
                         logger.debug("facebookRestClient.users_getLoggedInUser()="+facebookuserid);
                         //See if we have this facebook user as a dNeero user
@@ -90,7 +92,19 @@ public class FacebookAuthorization {
         } catch (Exception ex){
             logger.error("Facebook Error ex", ex);
         }
-        logger.debug("leaving FacebookAuthorization and isfacebookui="+Jsf.getUserSession().getIsfacebookui());
+
+
+        //If is coming from facebook but hasn't added app, make them add it
+        if (Jsf.getUserSession().getIsfacebookui() && !Jsf.getUserSession().getIsfacebookappadded()){
+            UrlSplitter urlSplitter = new UrlSplitter(Jsf.getHttpServletRequest());
+            //If user is not on facebooklandingpage.jsf and not on surveysimple.jsf, redir to app add
+            if (urlSplitter.getRequestUrl().indexOf("facebooklandingpage.jsf")==-1 && urlSplitter.getRequestUrl().indexOf("surveysimple.jsf")==-1){
+                logger.debug("redirecting to facebook add app page");
+                try{Jsf.redirectResponse("/facebooklandingpage.jsf");return;}catch(Exception ex){logger.error(ex);}
+            }
+        }
+        
+        logger.debug("leaving FacebookAuthorization and isfacebookui="+Jsf.getUserSession().getIsfacebookui() +" and isfacebookappadded="+Jsf.getUserSession().getIsfacebookappadded());
     }
 
 

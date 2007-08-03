@@ -1,6 +1,7 @@
 package com.dneero.formbeans;
 
 import com.dneero.util.Jsf;
+import com.dneero.facebook.FacebookVars;
 
 import java.io.Serializable;
 
@@ -14,6 +15,7 @@ import org.apache.log4j.Logger;
 public class PublicFacebookLandingPage implements Serializable {
 
     private String dummy = "";
+    private String addurl = "http://www.facebook.com/add.php?api_key="+ FacebookVars.API_KEY;
 
     public PublicFacebookLandingPage(){
         load();
@@ -24,6 +26,8 @@ public class PublicFacebookLandingPage implements Serializable {
 
         //Make sure the app responds with the facebook ui
         Jsf.getUserSession().setIsfacebookui(true);
+
+        logger.debug("into PublicFacebookLandingPage and isfacebookui="+Jsf.getUserSession().getIsfacebookui() +" and isfacebookappadded="+Jsf.getUserSession().getIsfacebookappadded());
 
         //Note: Facebook only allows me to append a single var to the end of my url so I have to do some splitting crap to make things work.
         //The basic format I'm using is action-var1-var2-var3 where the vars are specific to each action.  It's crap but it works.
@@ -38,8 +42,11 @@ public class PublicFacebookLandingPage implements Serializable {
             }
         }
 
+
         //Redirect to the public survey list
-        try{Jsf.redirectResponse("/publicsurveylist.jsf");return;}catch(Exception ex){logger.error(ex);}
+        if (Jsf.getUserSession().getIsfacebookui() && Jsf.getUserSession().getIsfacebookappadded()){
+            try{Jsf.redirectResponse("/publicsurveylist.jsf");return;}catch(Exception ex){logger.error(ex);}
+        }
     }
 
 
@@ -49,5 +56,13 @@ public class PublicFacebookLandingPage implements Serializable {
 
     public void setDummy(String dummy) {
         this.dummy = dummy;
+    }
+
+    public String getAddurl() {
+        return addurl;
+    }
+
+    public void setAddurl(String addurl) {
+        this.addurl = addurl;
     }
 }

@@ -11,6 +11,8 @@ import org.apache.log4j.Logger;
  */
 public class Version19 implements UpgradeDatabaseOneVersion {
 
+
+
     Logger logger = Logger.getLogger(this.getClass().getName());
 
     public void doPreHibernateUpgrade(){

@@ -30,22 +30,24 @@ public class CharityCalculateAmountDonated implements Job {
             logger.debug("execute() CharityCalculateAmountDonated called");
              List users = HibernateUtil.getSession().createQuery("from User").list();
                 for (Iterator iterator = users.iterator(); iterator.hasNext();) {
-                    User user = (User)iterator.next();
-                    double charityamtdonatedOriginal = user.getCharityamtdonated();
-                    double sum = ((Double)HibernateUtil.getSession().createQuery("select sum(amt) from Charitydonation where userid='"+user.getUserid()+"'").uniqueResult()).doubleValue();
-                    logger.debug("user name="+user.getFirstname()+" "+user.getLastname());
-                    logger.debug("charityamtdonatedOriginal="+charityamtdonatedOriginal);
-                    logger.debug("sum="+sum);
-                    if (charityamtdonatedOriginal<sum || charityamtdonatedOriginal>sum){
-                        logger.debug("user.setCharityamtdonated("+sum+")");
-                        user.setCharityamtdonated(sum);
-                        try{user.save();}catch(Exception ex){logger.error(ex);}
-                    } else {
-                        logger.debug("not updating because charityamtdonatedOriginal appears identical to sum");
+                    try{
+                        User user = (User)iterator.next();
+                        double charityamtdonatedOriginal = user.getCharityamtdonated();
+                        double sum = ((Double)HibernateUtil.getSession().createQuery("select sum(amt) from Charitydonation where userid='"+user.getUserid()+"'").uniqueResult()).doubleValue();
+                        logger.debug("user name="+user.getFirstname()+" "+user.getLastname());
+                        logger.debug("charityamtdonatedOriginal="+charityamtdonatedOriginal);
+                        logger.debug("sum="+sum);
+                        if (charityamtdonatedOriginal<sum || charityamtdonatedOriginal>sum){
+                            logger.debug("user.setCharityamtdonated("+sum+")");
+                            user.setCharityamtdonated(sum);
+                            try{user.save();}catch(Exception ex){logger.error(ex);}
+                        } else {
+                            logger.debug("not updating because charityamtdonatedOriginal appears identical to sum");
+                        }
+                    } catch (Exception ex){
+                        logger.debug(ex);
                     }
                 }
-
-
         } else {
             logger.debug("InstanceProperties.getRunScheduledTasksOnThisInstance() is FALSE for this instance so this task is not being executed.");
         }

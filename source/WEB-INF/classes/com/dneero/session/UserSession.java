@@ -36,6 +36,7 @@ public class UserSession implements Serializable {
     private ArrayList<String> emailinviteaddresses = new ArrayList<String>();
     private int surveystakentoday = 0;
     private boolean isfacebookui = false;
+    private boolean isfacebookappadded = false;
     private String facebookSessionKey = "";
     private int tempFacebookUserid = 0;
 
@@ -216,5 +217,13 @@ public class UserSession implements Serializable {
 
     public void setTempFacebookUserid(int tempFacebookUserid) {
         this.tempFacebookUserid = tempFacebookUserid;
+    }
+
+    public boolean getIsfacebookappadded() {
+        return isfacebookappadded;
+    }
+
+    public void setIsfacebookappadded(boolean isfacebookappadded) {
+        this.isfacebookappadded = isfacebookappadded;
     }
 }
