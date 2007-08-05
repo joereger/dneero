@@ -26,6 +26,7 @@ public class Blogpost extends BasePersistentClass implements java.io.Serializabl
      private String title;
      private String body;
      private String categories;
+     private Set<Blogpostcomment> blogpostcomments = new HashSet<Blogpostcomment>();
 
 
     //Validator
@@ -121,5 +122,13 @@ public class Blogpost extends BasePersistentClass implements java.io.Serializabl
 
     public void setCategories(String categories) {
         this.categories = categories;
+    }
+
+    public Set<Blogpostcomment> getBlogpostcomments() {
+        return blogpostcomments;
+    }
+
+    public void setBlogpostcomments(Set<Blogpostcomment> blogpostcomments) {
+        this.blogpostcomments = blogpostcomments;
     }
 }

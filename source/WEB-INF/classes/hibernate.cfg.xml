@@ -10,6 +10,7 @@
         <mapping resource="com/dneero/dao/Betainvite.hbm.xml" />
         <mapping resource="com/dneero/dao/Blogger.hbm.xml" />
         <mapping resource="com/dneero/dao/Blogpost.hbm.xml" />
+        <mapping resource="com/dneero/dao/Blogpostcomment.hbm.xml" />
         <mapping resource="com/dneero/dao/Charitydonation.hbm.xml" />
         <mapping resource="com/dneero/dao/Creditcard.hbm.xml" />
         <mapping resource="com/dneero/dao/Emailinvitebatch.hbm.xml" />

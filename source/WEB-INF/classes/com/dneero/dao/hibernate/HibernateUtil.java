@@ -48,7 +48,9 @@ public class HibernateUtil {
                     //conf.addPackage("com.dneero.dao.hibernate");
                     //conf.addAnnotatedClass(Banner.class);
                     //Set up database connection
-                    conf.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
+                    //conf.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
+                    //conf.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLInnoDBDialect");
+                    conf.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLMyISAMDialect");
                     conf.setProperty("hibernate.connection.username", InstanceProperties.getDbUsername());
                     conf.setProperty("hibernate.connection.url", InstanceProperties.getDbConnectionUrl());
                     conf.setProperty("hibernate.connection.password", InstanceProperties.getDbPassword());

@@ -43,8 +43,14 @@ public class SysadminErrorList implements Serializable {
         return "sysadminerrorlist";
     }
     public String deleteall(){
-        int ers = HibernateUtil.getSession().createQuery("delete from Error where errorid>'0'").executeUpdate();
-        errors = new ArrayList();
+        Logger logger = Logger.getLogger(this.getClass().getName());
+        //int ers = HibernateUtil.getSession().createQuery("delete from Error where errorid>'0'").executeUpdate();
+        errors = HibernateUtil.getSession().createQuery("from Error").list();
+        for (Iterator iterator = errors.iterator(); iterator.hasNext();) {
+            Error error = (Error) iterator.next();
+            try{error.save();}catch(Exception ex){logger.error(ex);}
+        }
+        load();
         return "sysadminerrorlist";        
     }
 

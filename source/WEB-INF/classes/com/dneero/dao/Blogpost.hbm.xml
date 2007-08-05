@@ -9,6 +9,11 @@
             <column name="blogpostid" />
             <generator class="native" />
         </id>
+        <set name="blogpostcomments" inverse="true" order-by="blogpostcommentid asc" cascade="all-delete-orphan">
+            <cache usage="transactional"/>
+            <key column="blogpostid"></key>
+            <one-to-many class="com.dneero.dao.Blogpostcomment" not-found="ignore"></one-to-many>
+        </set>
         <property name="date" type="timestamp">
             <column name="date" not-null="true" />
         </property>
