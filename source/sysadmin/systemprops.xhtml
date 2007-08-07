@@ -164,7 +164,47 @@
                     <h:message for="issslon" styleClass="RED"></h:message>
                 </h:panelGroup>
 
+                <h:panelGroup>
+                    <h:outputText value="Facebook App Name" styleClass="formfieldnamefont"></h:outputText>
+                    <br/>
+                    <font class="tinyfont">joestest or dneero</font>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:inputText value="#{systemProps.facebook_app_name}" id="facebook_app_name" required="true">
+                        <f:validateLength maximum="255"></f:validateLength>
+                    </h:inputText>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:message for="facebook_app_name" styleClass="RED"></h:message>
+                </h:panelGroup>
 
+                <h:panelGroup>
+                    <h:outputText value="Facebook API Key" styleClass="formfieldnamefont"></h:outputText>
+                    <br/>
+                    <font class="tinyfont">joestest is dece0e9c9bc48fa1078cbc5a0680cea3</font>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:inputText value="#{systemProps.facebook_api_key}" id="facebook_api_key" required="true">
+                        <f:validateLength maximum="255"></f:validateLength>
+                    </h:inputText>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:message for="facebook_api_key" styleClass="RED"></h:message>
+                </h:panelGroup>
+
+                <h:panelGroup>
+                    <h:outputText value="Facebook API Secret" styleClass="formfieldnamefont"></h:outputText>
+                    <br/>
+                    <font class="tinyfont">joestest is fde4c4950c909948fe3ada5676a19d2a</font>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:inputText value="#{systemProps.facebook_api_secret}" id="facebook_api_secret" required="true">
+                        <f:validateLength maximum="255"></f:validateLength>
+                    </h:inputText>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:message for="facebook_api_secret" styleClass="RED"></h:message>
+                </h:panelGroup>
 
                 <h:panelGroup>
                 </h:panelGroup>

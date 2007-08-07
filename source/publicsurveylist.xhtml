@@ -28,10 +28,10 @@
     <t:dataTable sortable="true" id="datatable" value="#{publicSurveyList.surveys}" rows="15" var="srvy" rendered="#{!empty publicSurveyList.surveys}" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcol,tcolnowrap,tcol,tcolnowrap,tcolnowrap">
       <t:column>
         <f:facet name="header">
-            <h:outputText value="Survey Name"/>
+            <h:outputText value=""/>
         </f:facet>
         <h:outputLink value="/survey.jsf?surveyid=#{srvy.surveyid}" style="text-decoration: none;">
-            <h:outputText value="#{srvy.title}" styleClass="smallfont" style="font-weight: bold; color: #0000ff;"/>
+            <h:outputText value="#{srvy.title}" styleClass="normalfont" style="font-weight: bold; color: #0000ff;"/>
         </h:outputLink>
         <f:verbatim><br/></f:verbatim>
         <h:outputText value="#{srvy.description}" escape="false" styleClass="tinyfont"/>

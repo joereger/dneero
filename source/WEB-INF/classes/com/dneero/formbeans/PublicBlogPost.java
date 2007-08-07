@@ -4,8 +4,11 @@ import com.dneero.dao.Blogpost;
 import com.dneero.dao.Blogpostcomment;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.util.Jsf;
+import com.dneero.util.jcaptcha.CaptchaServiceSingleton;
 import com.dneero.ui.SocialBookmarkLinks;
 import com.dneero.finders.SurveyCriteriaXML;
+import com.dneero.xmpp.SendXMPPMessage;
+import com.octo.captcha.service.CaptchaServiceException;
 
 import java.io.Serializable;
 import java.util.List;
@@ -20,10 +23,11 @@ import org.apache.log4j.Logger;
  */
 public class PublicBlogPost implements Serializable {
 
-    public Blogpost blogpost;
-    public String name;
-    public String url;
-    public String comment;
+    private Blogpost blogpost;
+    private String name;
+    private String url;
+    private String comment;
+    private String j_captcha_response;
 
     public PublicBlogPost(){
         load();
@@ -57,7 +61,17 @@ public class PublicBlogPost implements Serializable {
         if (url==null || url.equals("")){
             url = "#";
         }
-        if (comment!=null && !comment.equals("")){
+        boolean isCaptchaCorrect = false;
+        try {
+            isCaptchaCorrect = CaptchaServiceSingleton.getInstance().validateResponseForID(Jsf.getHttpServletRequest().getSession().getId(), j_captcha_response);
+        } catch (CaptchaServiceException e) {
+            //should not happen, may be thrown if the id is not valid
+        }
+        if (!isCaptchaCorrect){
+            Jsf.setFacesMessage("blogpost:j_captcha_response", "You failed to correctly type the letters into the box.");
+            return null;
+        }
+       if (comment!=null && !comment.equals("")){
             Blogpostcomment blogpostcomment = new Blogpostcomment();
             blogpostcomment.setBlogpostid(blogpost.getBlogpostid());
             blogpostcomment.setDate(new Date());
@@ -69,6 +83,9 @@ public class PublicBlogPost implements Serializable {
             blogpost.getBlogpostcomments().add(blogpostcomment);
             try{blogpost.save();}catch(Exception ex){logger.error(ex);}
         }
+        //Notify via XMPP
+        SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_CUSTOMERSUPPORT, "dNeero Blog Comment: "+ name + ": " + comment + " (http://dneero.com/blogpost.jsf?blogpostid="+blogpost.getBlogpostid()+")");
+        xmpp.send();
         //load();
         PublicBlogPost bean = (PublicBlogPost)Jsf.getManagedBean("publicBlogPost");
         try{Jsf.redirectResponse("/blogpost.jsf?blogpostid="+blogpost.getBlogpostid());}catch(Exception ex){logger.error(ex);}
@@ -108,5 +125,13 @@ public class PublicBlogPost implements Serializable {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    public String getJ_captcha_response() {
+        return j_captcha_response;
+    }
+
+    public void setJ_captcha_response(String j_captcha_response) {
+        this.j_captcha_response = j_captcha_response;
     }
 }

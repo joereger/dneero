@@ -5,6 +5,7 @@ import com.dneero.session.UserSession;
 import com.dneero.dao.Survey;
 import com.dneero.dao.Response;
 import com.dneero.ui.SurveyEnhancer;
+import com.dneero.systemprops.SystemProperty;
 import org.apache.log4j.Logger;
 
 /**
@@ -24,7 +25,7 @@ public class FacebookApiWrapper {
         if (userSession.getFacebookSessionKey()!=null && !userSession.getFacebookSessionKey().trim().equals("")){
             facebookSessionKey = userSession.getFacebookSessionKey().trim();
             try{
-                FacebookRestClient facebookRestClient = new FacebookRestClient(FacebookVars.API_KEY, FacebookVars.API_SECRET, facebookSessionKey);
+                FacebookRestClient facebookRestClient = new FacebookRestClient(SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_KEY), SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_SECRET), facebookSessionKey);
                 if (userSession.getUser()!=null && userSession.getUser().getUserid()>0){
                     if (userSession.getUser().getFacebookuserid()>0){
                         if (userSession.getUser().getFacebookuserid()==facebookRestClient.users_getLoggedInUser()){
@@ -53,8 +54,8 @@ public class FacebookApiWrapper {
                 if (response.getIsforcharity()){
                     forcharity = " for charity";
                 }
-                FacebookRestClient facebookRestClient = new FacebookRestClient(FacebookVars.API_KEY, FacebookVars.API_SECRET, facebookSessionKey);
-                facebookRestClient.feed_publishActionOfUser("took the survey <a href=\"http://apps.facebook.com/"+FacebookVars.APP_NAME+"/?action=showsurvey"+"-"+survey.getSurveyid()+"-"+userSession.getUser().getUserid()+"\">"+survey.getTitle()+"</a> and earned "+surveyEnhancer.getWillingtopayforresponse()+forcharity, "");
+                FacebookRestClient facebookRestClient = new FacebookRestClient(SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_KEY), SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_SECRET), facebookSessionKey);
+                facebookRestClient.feed_publishActionOfUser("took the survey <a href=\"http://apps.facebook.com/"+SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_APP_NAME)+"/?action=showsurvey"+"-"+survey.getSurveyid()+"-"+userSession.getUser().getUserid()+"\">"+survey.getTitle()+"</a> and earned "+surveyEnhancer.getWillingtopayforresponse()+forcharity, "");
             } catch (Exception ex){logger.error(ex);}
         } else {logger.debug("Can't execute because issessionok = false");}
     }

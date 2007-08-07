@@ -1,7 +1,7 @@
 package com.dneero.formbeans;
 
 import com.dneero.util.Jsf;
-import com.dneero.facebook.FacebookVars;
+import com.dneero.systemprops.SystemProperty;
 
 import java.io.Serializable;
 
@@ -15,7 +15,7 @@ import org.apache.log4j.Logger;
 public class PublicFacebookLandingPage implements Serializable {
 
     private String dummy = "";
-    private String addurl = "http://www.facebook.com/add.php?api_key="+ FacebookVars.API_KEY;
+    private String addurl = "http://www.facebook.com/add.php?api_key="+ SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_KEY);
 
     public PublicFacebookLandingPage(){
         load();

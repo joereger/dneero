@@ -25,6 +25,9 @@ public class SysadminSystemProps implements Serializable {
     public String paypalenvironment;
     public String issslon;
     public String isbeta;
+    public String facebook_app_name;
+    public String facebook_api_key;
+    public String facebook_api_secret;
 
     public SysadminSystemProps(){
 
@@ -46,6 +49,9 @@ public class SysadminSystemProps implements Serializable {
         paypalenvironment = SystemProperty.getProp(SystemProperty.PROP_PAYPALENVIRONMENT);
         issslon = SystemProperty.getProp(SystemProperty.PROP_ISSSLON);
         isbeta = SystemProperty.getProp(SystemProperty.PROP_ISBETA);
+        facebook_app_name = SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_APP_NAME);
+        facebook_api_key = SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_KEY);
+        facebook_api_secret = SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_SECRET);
     }
 
     public String saveProps(){
@@ -61,6 +67,9 @@ public class SysadminSystemProps implements Serializable {
             SystemProperty.setProp(SystemProperty.PROP_PAYPALENVIRONMENT, paypalenvironment);
             SystemProperty.setProp(SystemProperty.PROP_ISSSLON, issslon);
             SystemProperty.setProp(SystemProperty.PROP_ISBETA, isbeta);
+            SystemProperty.setProp(SystemProperty.PROP_FACEBOOK_APP_NAME, facebook_app_name);
+            SystemProperty.setProp(SystemProperty.PROP_FACEBOOK_API_KEY, facebook_api_key);
+            SystemProperty.setProp(SystemProperty.PROP_FACEBOOK_API_SECRET, facebook_api_secret);
             BaseUrl.refresh();
             Jsf.setFacesMessage("Save complete.");
         } catch (Exception ex){
@@ -153,5 +162,29 @@ public class SysadminSystemProps implements Serializable {
 
     public void setIsbeta(String isbeta) {
         this.isbeta = isbeta;
+    }
+
+    public String getFacebook_app_name() {
+        return facebook_app_name;
+    }
+
+    public void setFacebook_app_name(String facebook_app_name) {
+        this.facebook_app_name = facebook_app_name;
+    }
+
+    public String getFacebook_api_key() {
+        return facebook_api_key;
+    }
+
+    public void setFacebook_api_key(String facebook_api_key) {
+        this.facebook_api_key = facebook_api_key;
+    }
+
+    public String getFacebook_api_secret() {
+        return facebook_api_secret;
+    }
+
+    public void setFacebook_api_secret(String facebook_api_secret) {
+        this.facebook_api_secret = facebook_api_secret;
     }
 }

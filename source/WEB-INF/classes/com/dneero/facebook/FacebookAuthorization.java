@@ -6,6 +6,7 @@ import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.xmpp.SendXMPPMessage;
 import com.dneero.session.SurveysTakenToday;
 import com.dneero.session.UrlSplitter;
+import com.dneero.systemprops.SystemProperty;
 import com.facebook.api.FacebookRestClient;
 import com.facebook.api.FacebookException;
 import org.apache.log4j.Logger;
@@ -51,11 +52,11 @@ public class FacebookAuthorization {
                         //If user hasn't added app yet redir to the app add page
                         if (facebookSessionKey.trim().equals("")){
                             logger.debug("redirecting user to facebook add app page");
-                            Jsf.redirectResponse("http://www.facebook.com/add.php?api_key="+FacebookVars.API_KEY);
+                            Jsf.redirectResponse("http://www.facebook.com/add.php?api_key="+ SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_KEY));
                             return;
                         }
                         logger.debug("User has added app... we have facebookSessionKey="+facebookSessionKey);
-                        FacebookRestClient facebookRestClient = new FacebookRestClient(FacebookVars.API_KEY, FacebookVars.API_SECRET, facebookSessionKey);
+                        FacebookRestClient facebookRestClient = new FacebookRestClient(SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_KEY), SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_SECRET), facebookSessionKey);
                         int facebookuserid = facebookRestClient.users_getLoggedInUser();
                         Jsf.getUserSession().setIsfacebookappadded(facebookRestClient.users_isAppAdded());
                         Jsf.getUserSession().setTempFacebookUserid(facebookuserid);
@@ -98,6 +99,7 @@ public class FacebookAuthorization {
         if (Jsf.getUserSession().getIsfacebookui() && !Jsf.getUserSession().getIsfacebookappadded()){
             UrlSplitter urlSplitter = new UrlSplitter(Jsf.getHttpServletRequest());
             //If user is not on facebooklandingpage.jsf and not on surveysimple.jsf, redir to app add
+            //@todo This doesn't work because JSF changes referring url.  Need to set a var in landing page.
             if (urlSplitter.getRequestUrl().indexOf("facebooklandingpage.jsf")==-1 && urlSplitter.getRequestUrl().indexOf("surveysimple.jsf")==-1){
                 logger.debug("redirecting to facebook add app page");
                 try{Jsf.redirectResponse("/facebooklandingpage.jsf");return;}catch(Exception ex){logger.error(ex);}
@@ -111,6 +113,7 @@ public class FacebookAuthorization {
 
     public static User getdNeeroUserFromFacebookUserid(int facebookuserid){
         Logger logger = Logger.getLogger(FacebookAuthorization.class);
+        logger.debug("looking for user with facebookid="+facebookuserid);
         List<User> users = HibernateUtil.getSession().createCriteria(User.class)
                                            .add(Restrictions.eq("facebookuserid", facebookuserid))
                                            .setCacheable(true)
@@ -120,8 +123,10 @@ public class FacebookAuthorization {
         }
         for (Iterator<User> iterator = users.iterator(); iterator.hasNext();) {
             User user = iterator.next();
+            logger.debug("returning userid="+user.getUserid()+" for facebookid="+facebookuserid);
             return user;
         }
+        logger.debug("returning null user for facebookid="+facebookuserid);
         return null;
     }
 

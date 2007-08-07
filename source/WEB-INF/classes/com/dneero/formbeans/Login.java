@@ -1,6 +1,7 @@
 package com.dneero.formbeans;
 
 import org.apache.log4j.Logger;
+import org.hibernate.criterion.Restrictions;
 
 import java.util.List;
 import java.util.Iterator;
@@ -53,11 +54,17 @@ public class Login implements Serializable {
         for (Iterator it = users.iterator(); it.hasNext(); ) {
             User user = (User)it.next();
             if (user.getIsenabled()){
+                //Create a new session so that I can manually move stuff over and guarantee it's clean
                 UserSession userSession = new UserSession();
                 userSession.setUser(user);
                 userSession.setIsloggedin(true);
                 userSession.setIsLoggedInToBeta(Jsf.getUserSession().getIsLoggedInToBeta());
                 userSession.setSurveystakentoday(SurveysTakenToday.getNumberOfSurveysTakenToday(user));
+                userSession.setIsfacebookappadded(Jsf.getUserSession().getIsfacebookappadded());
+                userSession.setIsfacebookui(Jsf.getUserSession().getIsfacebookui());
+                userSession.setTempFacebookUserid(Jsf.getUserSession().getTempFacebookUserid());
+                userSession.setFacebookSessionKey(Jsf.getUserSession().getFacebookSessionKey());
+
                 //Check the eula
                 if (!EulaHelper.isUserUsingMostRecentEula(user)){
                     userSession.setIseulaok(false);
@@ -91,10 +98,32 @@ public class Login implements Serializable {
                     }
                 }
 
+                //Facebook
+                //If login is successful, app is added and we have a facebookid but it's not stored with the account
+                if (Jsf.getUserSession().getIsfacebookui()){
+                    if (Jsf.getUserSession().getTempFacebookUserid()>0){
+                        if (Jsf.getUserSession().getTempFacebookUserid()!=user.getFacebookuserid()){
+                            List<User> userswiththisfacebookid = HibernateUtil.getSession().createCriteria(User.class)
+                                                   .add(Restrictions.eq("facebookuserid", Jsf.getUserSession().getTempFacebookUserid()))
+                                                   .setCacheable(false)
+                                                   .list();
+                            //If no other account has this facebookid in use, save it
+                            if (userswiththisfacebookid.size()==0){
+                                user.setFacebookuserid(Jsf.getUserSession().getTempFacebookUserid());
+                                try{user.save();}catch(Exception ex){logger.error(ex);}
+                            } else {
+                                //@todo What to do here?
+                                logger.error("User logged-on but we already have that facebookid("+Jsf.getUserSession().getTempFacebookUserid()+") in the database.");
+                            }
+                        }
+                    }
+                }
+
                 //Notify via XMPP
                 SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_SALES, "dNeero User Login: "+ user.getFirstname() + " " + user.getLastname() + " ("+user.getEmail()+")");
                 xmpp.send();
 
+                //This is where the new UserSession is actually bound to Jsf.getUserSession()
                 Jsf.bindObjectToExpressionLanguage("#{userSession}", userSession);
 
                 //Redir if https is on
