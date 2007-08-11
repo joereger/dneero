@@ -51,6 +51,7 @@ public class BloggerCompletedsurveys implements Serializable {
                 listitem.setResponseid(response.getResponseid());
                 listitem.setSurveyid(survey.getSurveyid());
                 listitem.setSurveytitle(survey.getTitle());
+                listitem.setResponse(response);
                 list.add(listitem);
             }
 

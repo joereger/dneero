@@ -15,6 +15,10 @@ import java.util.Date;
 
 public class Response extends BasePersistentClass implements java.io.Serializable, RegerEntity, AuthControlled {
 
+    public static int POSTATUS_NOTPOSTED = 0;
+    public static int POSTATUS_POSTEDATLEASTONCE = 1;
+    public static int POSTATUS_POSTED = 2;
+    public static int POSTATUS_NOTPOSTEDTIMELIMITPASSED = 3;
 
     // Fields
      private int responseid;
@@ -25,6 +29,8 @@ public class Response extends BasePersistentClass implements java.io.Serializabl
      private int referredbyuserid;
      private boolean isforcharity;
      private String charityname;
+     private int poststatus;
+     private boolean ispaid;
 
 
     //Validator
@@ -138,5 +144,21 @@ public class Response extends BasePersistentClass implements java.io.Serializabl
 
     public void setCharityname(String charityname) {
         this.charityname = charityname;
+    }
+
+    public int getPoststatus() {
+        return poststatus;
+    }
+
+    public void setPoststatus(int poststatus) {
+        this.poststatus = poststatus;
+    }
+
+    public boolean getIspaid() {
+        return ispaid;
+    }
+
+    public void setIspaid(boolean ispaid) {
+        this.ispaid = ispaid;
     }
 }

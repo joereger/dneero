@@ -422,4 +422,48 @@
         </trigger>
     </job>
 
+    <job>
+        <job-detail>
+          <name>updateResponsePoststatus</name>
+          <group>surveyJobs</group>
+          <job-class>com.dneero.scheduledjobs.UpdateResponsePoststatus</job-class>
+          <volatility>false</volatility>
+          <durability>false</durability>
+          <recover>false</recover>
+        </job-detail>
+        <trigger>
+          <!-- Sample cron triggers: http://www.opensymphony.com/quartz/wikidocs/TutorialLesson6.html -->
+          <cron>
+            <name>updateResponsePoststatusTrigger</name>
+            <group>surveyTriggers</group>
+            <job-name>updateResponsePoststatus</job-name>
+            <job-group>surveyJobs</job-group>
+            <!-- Fire at 4am every day -->
+            <cron-expression>0 0 3 * * ?</cron-expression>
+          </cron>
+        </trigger>
+    </job>
+
+    <job>
+        <job-detail>
+          <name>payForSurveyResponsesOncePosted</name>
+          <group>surveyJobs</group>
+          <job-class>com.dneero.scheduledjobs.PayForSurveyResponsesOncePosted</job-class>
+          <volatility>false</volatility>
+          <durability>false</durability>
+          <recover>false</recover>
+        </job-detail>
+        <trigger>
+          <!-- Sample cron triggers: http://www.opensymphony.com/quartz/wikidocs/TutorialLesson6.html -->
+          <cron>
+            <name>payForSurveyResponsesOncePostedTrigger</name>
+            <group>surveyTriggers</group>
+            <job-name>payForSurveyResponsesOncePosted</job-name>
+            <job-group>surveyJobs</job-group>
+            <!-- Fire at 4am every day -->
+            <cron-expression>0 0 5 * * ?</cron-expression>
+          </cron>
+        </trigger>
+    </job>
+
 </quartz>

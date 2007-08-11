@@ -28,6 +28,12 @@
         <property name="charityname" type="text">
             <column name="charityname" not-null="true" />
         </property>
+        <property name="poststatus" type="int">
+            <column name="poststatus" not-null="true" />
+        </property>
+        <property name="ispaid" type="boolean">
+            <column name="ispaid" />
+        </property>
 
     </class>
 </hibernate-mapping>

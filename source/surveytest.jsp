@@ -66,7 +66,7 @@ Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Quisque in ipsum. Done
 <br><br>
 Cras eget mauris in sem pretium dignissim. Donec nec pede id neque dapibus pellentesque. Etiam ac dolor non lectus gravida malesuada. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Praesent tortor eros, feugiat et, rhoncus sed, rutrum nec, lectus. Sed libero libero, consectetuer eget, volutpat et, vulputate quis, lorem. Donec rutrum sem quis enim. Mauris rutrum pede in lorem. Praesent blandit elit. Phasellus in quam vitae lectus interdum vulputate. Aliquam iaculis. Nam id mi id felis suscipit malesuada. Nullam pharetra. Aliquam velit dolor, accumsan sit amet, egestas in, luctus eu, felis. Nulla pulvinar. Integer sit amet nunc. Sed pellentesque pede tincidunt leo.
 <br><br>
-<%=SurveyFlashServlet.getEmbedSyntax(BaseUrl.get(false), surveyid, userid, true, true, true)%>
+<%=SurveyFlashServlet.getEmbedSyntax(BaseUrl.get(false), surveyid, userid, 0, true, true, true)%>
 <br><br>
 Cras eget mauris in sem pretium dignissim. Donec nec pede id neque dapibus pellentesque. Etiam ac dolor non lectus gravida malesuada. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Praesent tortor eros, feugiat et, rhoncus sed, rutrum nec, lectus. Sed libero libero, consectetuer eget, volutpat et, vulputate quis, lorem. Donec rutrum sem quis enim. Mauris rutrum pede in lorem. Praesent blandit elit. Phasellus in quam vitae lectus interdum vulputate. Aliquam iaculis. Nam id mi id felis suscipit malesuada. Nullam pharetra. Aliquam velit dolor, accumsan sit amet, egestas in, luctus eu, felis. Nulla pulvinar. Integer sit amet nunc. Sed pellentesque pede tincidunt leo.
 <br><br>
@@ -74,7 +74,7 @@ Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Quisque in ipsum. Done
 <br><br>
 Cras eget mauris in sem pretium dignissim. Donec nec pede id neque dapibus pellentesque. Etiam ac dolor non lectus gravida malesuada. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Praesent tortor eros, feugiat et, rhoncus sed, rutrum nec, lectus. Sed libero libero, consectetuer eget, volutpat et, vulputate quis, lorem. Donec rutrum sem quis enim. Mauris rutrum pede in lorem. Praesent blandit elit. Phasellus in quam vitae lectus interdum vulputate. Aliquam iaculis. Nam id mi id felis suscipit malesuada. Nullam pharetra. Aliquam velit dolor, accumsan sit amet, egestas in, luctus eu, felis. Nulla pulvinar. Integer sit amet nunc. Sed pellentesque pede tincidunt leo.
 <br><br>
-<%=SurveyJavascriptServlet.getEmbedSyntax(BaseUrl.get(false), surveyid, userid, true, true, true, true)%>
+<%=SurveyJavascriptServlet.getEmbedSyntax(BaseUrl.get(false), surveyid, userid, 0, true, true, true, true)%>
 <br><br>
 Cras eget mauris in sem pretium dignissim. Donec nec pede id neque dapibus pellentesque. Etiam ac dolor non lectus gravida malesuada. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Praesent tortor eros, feugiat et, rhoncus sed, rutrum nec, lectus. Sed libero libero, consectetuer eget, volutpat et, vulputate quis, lorem. Donec rutrum sem quis enim. Mauris rutrum pede in lorem. Praesent blandit elit. Phasellus in quam vitae lectus interdum vulputate. Aliquam iaculis. Nam id mi id felis suscipit malesuada. Nullam pharetra. Aliquam velit dolor, accumsan sit amet, egestas in, luctus eu, felis. Nulla pulvinar. Integer sit amet nunc. Sed pellentesque pede tincidunt leo.
 

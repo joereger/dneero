@@ -153,4 +153,5 @@ public class Impressiondetail extends BasePersistentClass implements java.io.Ser
     public void setQualifiesforpaymentstatusreason(String qualifiesforpaymentstatusreason) {
         this.qualifiesforpaymentstatusreason = qualifiesforpaymentstatusreason;
     }
+
 }

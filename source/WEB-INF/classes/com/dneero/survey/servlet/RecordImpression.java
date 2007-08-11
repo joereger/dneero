@@ -51,6 +51,12 @@ public class RecordImpression {
         }
         logger.debug("surveyid=" + surveyid);
 
+        //Find the responseid
+        int responseid = 0;
+        if (request.getParameter("r")!=null && com.dneero.util.Num.isinteger(request.getParameter("r"))){
+            responseid = Integer.parseInt(request.getParameter("r"));
+        }
+
         //Create an IAO
         ImpressionActivityObject iao = new ImpressionActivityObject();
         iao.setSurveyid(surveyid);
@@ -58,6 +64,7 @@ public class RecordImpression {
         iao.setIp(ip);
         iao.setUserid(userid);
         iao.setDate(new Date());
+        iao.setResponseid(responseid);
 
         //Write iao to db
         //I've already built the iao object so that it's easy to put into a simple memory list and then parse on some interval, writing to the database

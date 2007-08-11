@@ -126,7 +126,7 @@
 
                             <br/><br/>
                             <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-                                <h:commandLink value="Earnings from Completed Surveys" action="#{bloggerCompletedsurveys.beginView}" styleClass="mediumfont" style="color: #596697;"/>
+                                <h:commandLink value="Earnings from Completed Surveys" action="#{bloggerIndex.beginView}" styleClass="mediumfont" style="color: #596697;"/>
                             </td></tr>
                             <tr><td valign="top"></td><td valign="top">
                                 <font class="smallfont">See how much you've earned.</font>
@@ -228,7 +228,7 @@
                         <br/><br/>
                     </t:div>
                     <t:saveState id="save" value="#{bloggerCompletedsurveys}"/>
-                      <t:dataTable id="datatable" value="#{bloggerCompletedsurveys.list}" rendered="#{!empty bloggerCompletedsurveys.list}" rows="25" var="listitem" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcol,tcolnowrap,tcol,tcolnowrap,tcolnowrap">
+                      <t:dataTable id="datatable" value="#{bloggerCompletedsurveys.list}" rendered="#{!empty bloggerCompletedsurveys.list}" rows="25" var="listitem" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcol,tcolnowrap,tcol,tcol,tcol,tcol">
                       <h:column rendered="true">
                         <f:facet name="header">
                           <h:outputText value="Survey Title"/>
@@ -242,7 +242,7 @@
                         <f:facet name="header">
                           <h:outputText value="Date"/>
                         </f:facet>
-                        <h:outputText value="#{listitem.responsedate}" styleClass="smallfont"/>
+                        <h:outputText value="#{listitem.responsedate}" styleClass="tinyfont"/>
                       </h:column>
                       <h:column>
                         <f:facet name="header">
@@ -250,26 +250,35 @@
                         </f:facet>
                         <center>
                             <h:commandLink action="#{bloggerImpressions.beginView}">
-                                <h:outputText value="#{listitem.impressions}" styleClass="smallfont" escape="false"/>
+                                <h:outputText value="#{listitem.impressions}" styleClass="tinyfont" escape="false"/>
                                 <f:param name="surveyid" value="#{listitem.surveyid}" />
                             </h:commandLink>
                         </center>
                       </h:column>
                       <h:column>
                         <f:facet name="header">
-                          <h:outputText value="Estimated Earnings"/>
+                            <h:outputText value="Posted?"/>
                         </f:facet>
-                        <h:outputText value="#{listitem.amttotal}" styleClass="smallfont" style="font-weight: bold;"/>
+                        <h:commandLink action="#{publicSurveyTakeRedirector.beginView}" rendered="#{listitem.response.poststatus eq 0}">
+                            <h:outputText value="Post It!" escape="false" styleClass="tinyfont" style="font-weight:bold;"/>
+                            <f:param name="surveyid" value="#{listitem.surveyid}" />
+                        </h:commandLink>
+                        <h:outputText value="Posted At Least Once" escape="false" styleClass="tinyfont" style="font-weight:bold;" rendered="#{listitem.response.poststatus eq 1}"/>
+                        <h:outputText value="Posted" escape="false" styleClass="tinyfont" style="font-weight:bold;" rendered="#{listitem.response.poststatus eq 2}"/>
+                        <h:outputText value="Too Late to Post" escape="false" styleClass="tinyfont" style="font-weight:bold;" rendered="#{listitem.response.poststatus eq 3}"/>
                       </h:column>
                       <h:column>
                         <f:facet name="header">
-                            <h:outputText value="-" style="color: #ffffff;"/>
+                            <h:outputText value="Paid?"/>
                         </f:facet>
-                        <h:commandLink action="#{publicSurveyTakeRedirector.beginView}" rendered="#{listitem.impressions eq 0}">
-                            <h:outputText value="Post to Blog" escape="false" styleClass="smallfont" style="font-weight:bold;"/>
-                            <f:param name="surveyid" value="#{listitem.surveyid}" />
-                        </h:commandLink>
-                        <h:outputText value="Already Posted" escape="false" styleClass="smallfont" style="font-weight:bold;" rendered="#{listitem.impressions gt 0}"/>
+                        <h:outputText value="Paid" escape="false" styleClass="tinyfont" style="font-weight:bold;" rendered="#{listitem.response.ispaid}"/>
+                        <h:outputText value="Not Paid" escape="false" styleClass="tinyfont" style="font-weight:bold;" rendered="#{!listitem.response.ispaid}"/>
+                      </h:column>
+                      <h:column>
+                        <f:facet name="header">
+                          <h:outputText value="Estimated Earnings"/>
+                        </f:facet>
+                        <h:outputText value="#{listitem.amttotal}" styleClass="tinyfont" style="font-weight: bold;"/>
                       </h:column>
                   </t:dataTable>
                     <t:dataScroller id="scroll_1" for="datatable" rendered="#{!empty bloggerCompletedsurveys.list}" fastStep="10" pageCountVar="pageCount" pageIndexVar="pageIndex" styleClass="scroller" paginator="true" paginatorMaxPages="9" paginatorTableClass="paginator" paginatorActiveColumnStyle="font-weight:bold;">
@@ -289,7 +298,7 @@
                     <t:div rendered="#{!empty bloggerCompletedsurveys.list}">
                         <br/><br/>
                         <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
-                        Note: Earnings calculations are not final.   Final payment notification and calculation can be found on <h:commandLink  action="#{accountBalance.beginView}" styleClass="smallfont" style="padding-left: 8px;">Your Account Balance</h:commandLink> page.
+                        Note: Earnings calculations are estimated and not final.   Final payment notification and calculation can be found on <h:commandLink  action="#{accountBalance.beginView}" styleClass="smallfont" style="padding-left: 8px;">Your Account Balance</h:commandLink> page. Posting and payment status both update nightly.
                         </font></div></center>
                     </t:div>
 

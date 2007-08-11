@@ -119,7 +119,7 @@ function displayStatus(txt) {
 		this.tfDebug.removeTextField();
 	} else if(!done) {
 		if(this.tfDebug == undefined) {
-			this.createTextField("tfDebug", 50000, 0, 0, dneeroDengWidth, dneeroDengHeight);
+			this.createTextField("tfDebug", 50000, 25, 25, dneeroDengWidth-30, dneeroDengHeight-100);
 			this.tfDebug.selectable = true;
 			this.tfDebug.multiline = true;
 			this.tfDebug.wordWrap = true;

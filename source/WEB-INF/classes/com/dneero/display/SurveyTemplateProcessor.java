@@ -31,6 +31,7 @@ public class SurveyTemplateProcessor {
     Logger logger = Logger.getLogger(this.getClass().getName());
 
     public SurveyTemplateProcessor(Survey survey, Blogger blogger){
+        //@todo refactor to delete this SurveyTemplateProcessor constructor... possible ambiguity of responseid
         this.survey = survey;
         this.blogger = blogger;
         if (survey!=null && blogger!=null){
@@ -56,7 +57,12 @@ public class SurveyTemplateProcessor {
         } else {
             logger.debug("response!=null responseid="+response.getResponseid());
         }
-        
+    }
+
+    public SurveyTemplateProcessor(Survey survey, Blogger blogger, Response response){
+        this.survey = survey;
+        this.blogger = blogger;
+        this.response = response;
     }
 
     public String getSurveyForTaking(boolean makeHttpsIfSSLIsOn){

@@ -84,7 +84,7 @@
                         <c:if test="${navtab=='bloggers'}">
                             <h:commandLink value="Find Surveys" action="#{publicSurveyList.beginView}" styleClass="subnavfont" style="padding-left: 15px; color: #000000;" rendered="#{userSession.isloggedin and (userSession.user.bloggerid gt 0)}"/>
                             <h:commandLink value="Earn Even More" action="#{bloggerEarningsRevshare.beginView}" styleClass="subnavfont" style="padding-left: 15px; color: #000000;" rendered="#{userSession.isloggedin and (userSession.user.bloggerid gt 0)}"/>
-                            <h:commandLink value="Earnings from Completed Surveys" action="#{bloggerCompletedsurveys.beginView}" styleClass="subnavfont" style="padding-left: 15px; color: #000000;" rendered="#{userSession.isloggedin and (userSession.user.bloggerid gt 0)}"/>
+                            <h:commandLink value="Earnings from Completed Surveys" action="#{bloggerIndex.beginView}" styleClass="subnavfont" style="padding-left: 15px; color: #000000;" rendered="#{userSession.isloggedin and (userSession.user.bloggerid gt 0)}"/>
                             <h:commandLink value="Blogger Profile" action="#{bloggerDetails.beginView}" styleClass="subnavfont" style="padding-left: 15px; color: #000000;" rendered="#{userSession.isloggedin and (userSession.user.bloggerid gt 0)}"/>
                             <h:commandLink value="Blogger FAQ" action="bloggerfaq" style="padding-left: 15px; color: #000000;" styleClass="subnavfont"/>
                             <font class="subnavfont" style="padding-left: 15px; color: #000000;"><h:commandLink action="#{bloggerIndex.beginView}"><f:param name="showmarketingmaterial" value="1"/>Blogger Basics</h:commandLink></font>

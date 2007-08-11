@@ -108,7 +108,7 @@ public class SurveyImageServlet extends HttpServlet {
 
 
 
-    public static String getEmbedSyntax(String baseurl, int surveyid, int userid, boolean ispreview){
+    public static String getEmbedSyntax(String baseurl, int surveyid, int userid, int responseid, boolean ispreview){
         Logger logger = Logger.getLogger(SurveyImageServlet.class);
         String out = "";
         String ispreviewStr = "0";
@@ -119,8 +119,8 @@ public class SurveyImageServlet extends HttpServlet {
             baseurl = "/";
         }
 
-        String urlofimage = baseurl+"i?s="+surveyid+"&u="+userid+"&p="+ispreviewStr;
-        String urlofsurvey = baseurl+"shtml?s="+surveyid+"&u="+userid+"&p="+ispreviewStr;
+        String urlofimage = baseurl+"i?s="+surveyid+"&u="+userid+"&p="+ispreviewStr+"&r="+responseid;
+        String urlofsurvey = baseurl+"shtml?s="+surveyid+"&u="+userid+"&p="+ispreviewStr+"&r="+responseid;
 
         out = "<!-- Start dNeero Survey -->"+
               "<a href=\""+urlofsurvey+"\">" +

@@ -18,7 +18,7 @@
 
          <h:form>
 
-            <h:panelGrid columns="2" cellpadding="3" border="0">
+            <h:panelGrid columns="1" cellpadding="3" border="0">
                 <h:panelGroup>
                     <h:commandButton action="#{sysadminManuallyRunScheduledTask.runCloseSurveysByDate}" value="CloseSurveysByDate" styleClass="formsubmitbutton"></h:commandButton>
                 </h:panelGroup>
@@ -66,6 +66,12 @@
                 </h:panelGroup>
                 <h:panelGroup>
                     <h:commandButton action="#{sysadminManuallyRunScheduledTask.runCharityCalculateAmountDonated}" value="CharityCalculateAmountDonated" styleClass="formsubmitbutton"></h:commandButton>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:commandButton action="#{sysadminManuallyRunScheduledTask.runUpdateResponsePoststatus}" value="UpdateResponsePoststatus" styleClass="formsubmitbutton"></h:commandButton>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:commandButton action="#{sysadminManuallyRunScheduledTask.runPayForSurveyResponsesOncePosted}" value="PayForSurveyResponsesOncePosted" styleClass="formsubmitbutton"></h:commandButton>
                 </h:panelGroup>
             </h:panelGrid>
 

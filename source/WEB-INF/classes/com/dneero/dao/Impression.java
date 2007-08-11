@@ -27,6 +27,7 @@ public class Impression extends BasePersistentClass implements java.io.Serializa
      private int quality;
      private Date firstseen;
      private int userid;
+     private int responseid;
      //private Set<Impressiondetail> impressiondetails = new HashSet<Impressiondetail>();
 
 
@@ -152,5 +153,13 @@ public class Impression extends BasePersistentClass implements java.io.Serializa
 
     public void setUserid(int userid) {
         this.userid = userid;
+    }
+
+    public int getResponseid() {
+        return responseid;
+    }
+
+    public void setResponseid(int responseid) {
+        this.responseid = responseid;
     }
 }

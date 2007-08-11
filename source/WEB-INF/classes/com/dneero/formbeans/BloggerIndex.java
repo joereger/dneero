@@ -182,6 +182,8 @@ public class BloggerIndex implements Serializable {
             response.setReferredbyuserid(referredbyuserid);
             response.setIsforcharity(isforcharity);
             response.setCharityname(charityname);
+            response.setPoststatus(Response.POSTATUS_NOTPOSTED);
+            response.setIspaid(false);
             //survey.getResponses().add(response);
             try{
                 response.save();
@@ -211,12 +213,8 @@ public class BloggerIndex implements Serializable {
             logger.error(ex);
             allCex.addValidationError(ex.getMessage());
         }
-        //Move money, etc
+        //Notify
         if (allCex.getErrors().length<=0){
-            //Affect balance for blogger
-            MoveMoneyInAccountBalance.pay(Jsf.getUserSession().getUser(), survey.getWillingtopayperrespondent(), "Pay for taking survey: '"+survey.getTitle()+"'", true, isforcharity, charityname, 0, 0, responseid);
-            //Affect balance for researcher
-            MoveMoneyInAccountBalance.charge(User.get(Researcher.get(survey.getResearcherid()).getUserid()), (survey.getWillingtopayperrespondent()+(survey.getWillingtopayperrespondent()*(SurveyMoneyStatus.DNEEROMARKUPPERCENT/100))), "User "+Jsf.getUserSession().getUser().getFirstname()+" "+Jsf.getUserSession().getUser().getLastname()+" responds to survey '"+survey.getTitle()+"'");
             //Notify debug group
             SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_CUSTOMERSUPPORT, "dNeero Survey Taken: "+ survey.getTitle()+" (surveyid="+survey.getSurveyid()+") by "+Jsf.getUserSession().getUser().getFirstname()+" "+Jsf.getUserSession().getUser().getLastname()+" ("+Jsf.getUserSession().getUser().getEmail()+")");
             xmpp.send();

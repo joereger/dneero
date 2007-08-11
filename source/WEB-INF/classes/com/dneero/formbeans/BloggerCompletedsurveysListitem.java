@@ -1,5 +1,7 @@
 package com.dneero.formbeans;
 
+import com.dneero.dao.Response;
+
 import java.util.Date;
 import java.io.Serializable;
 
@@ -18,6 +20,7 @@ public class BloggerCompletedsurveysListitem implements Serializable {
     private int impressionsthatqualifyforpay;
     private String amtforresponse;
     private String amttotal;
+    private Response response;
 
     public BloggerCompletedsurveysListitem(){}
 
@@ -83,5 +86,13 @@ public class BloggerCompletedsurveysListitem implements Serializable {
 
     public void setResponseid(int responseid) {
         this.responseid = responseid;
+    }
+
+    public Response getResponse() {
+        return response;
+    }
+
+    public void setResponse(Response response) {
+        this.response = response;
     }
 }

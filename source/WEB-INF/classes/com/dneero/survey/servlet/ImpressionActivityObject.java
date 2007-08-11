@@ -13,6 +13,7 @@ public class ImpressionActivityObject implements Serializable {
     //These are the things we track on each impression
     private int surveyid;
     private int userid;
+    private int responseid;
     private String referer;
     private String ip;
     private Date date;
@@ -57,5 +58,13 @@ public class ImpressionActivityObject implements Serializable {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public int getResponseid() {
+        return responseid;
+    }
+
+    public void setResponseid(int responseid) {
+        this.responseid = responseid;
     }
 }

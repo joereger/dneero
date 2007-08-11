@@ -119,7 +119,7 @@ public class SurveyJavascriptServlet extends HttpServlet {
         out.print(output);
     }
 
-    public static String getEmbedSyntax(String baseurl, int surveyid, int userid, boolean ispreview, boolean makeHttpsIfSSLIsOn, boolean cache, boolean appendrandomstringtoforcebrowserrefresh){
+    public static String getEmbedSyntax(String baseurl, int surveyid, int userid, int responseid, boolean ispreview, boolean makeHttpsIfSSLIsOn, boolean cache, boolean appendrandomstringtoforcebrowserrefresh){
         String ispreviewStr = "0";
         if (ispreview){
             ispreviewStr = "1";
@@ -139,7 +139,7 @@ public class SurveyJavascriptServlet extends HttpServlet {
         if (appendrandomstringtoforcebrowserrefresh){
             randomStr = "&rnd="+ RandomString.randomAlphanumeric(5);
         }
-        String urlofsurvey = baseurl+"s?s="+surveyid+"&u="+userid+"&p="+ispreviewStr+"&h="+makeHttpsIfSSLIsOnStr+"&c="+cacheStr+randomStr;
+        String urlofsurvey = baseurl+"s?s="+surveyid+"&u="+userid+"&r="+responseid+"&p="+ispreviewStr+"&h="+makeHttpsIfSSLIsOnStr+"&c="+cacheStr+randomStr;
         return "<script src=\""+urlofsurvey+"\"></script>";
     }
 

@@ -7,12 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.ServletException;
 import java.io.IOException;
-import java.io.PrintWriter;
-
-import com.dneero.dao.Survey;
-import com.dneero.dao.User;
-import com.dneero.display.SurveyInBlogWrapper;
-import com.dneero.systemprops.BaseUrl;
 
 /**
  * User: Joe Reger Jr
@@ -73,13 +67,13 @@ public class SurveyHtmlpageServlet extends HttpServlet {
 
     }
 
-    public static String getEmbedSyntax(String baseurl, int surveyid, int userid, boolean ispreview){
-        return getEmbedSyntax(baseurl, surveyid, userid, ispreview, "Show Survey");
+    public static String getEmbedSyntax(String baseurl, int surveyid, int userid, int responseid, boolean ispreview){
+        return getEmbedSyntax(baseurl, surveyid, userid, responseid, ispreview, "Show Survey");
     }
 
-    public static String getEmbedSyntax(String baseurl, int surveyid, int userid, boolean ispreview, String linktext){
+    public static String getEmbedSyntax(String baseurl, int surveyid, int userid, int responseid, boolean ispreview, String linktext){
         String out = ""+
-              "<a href=\""+getUrlOfPageWithSurveyOnIt(baseurl, surveyid, userid, ispreview)+"\">" +
+              "<a href=\""+getUrlOfPageWithSurveyOnIt(baseurl, surveyid, userid, responseid, ispreview)+"\">" +
               linktext +
               "</a>"+
               "";
@@ -87,7 +81,7 @@ public class SurveyHtmlpageServlet extends HttpServlet {
         return out;
     }
 
-    public static String getUrlOfPageWithSurveyOnIt(String baseurl, int surveyid, int userid, boolean ispreview){
+    public static String getUrlOfPageWithSurveyOnIt(String baseurl, int surveyid, int userid, int responseid, boolean ispreview){
         Logger logger = Logger.getLogger(SurveyImageServlet.class);
         String ispreviewStr = "0";
         if (ispreview){
@@ -98,7 +92,7 @@ public class SurveyHtmlpageServlet extends HttpServlet {
         }
 
         //String urlofsurvey = baseurl+"shtml?s="+surveyid+"&u="+userid+"&p="+ispreviewStr;
-        String urlofsurvey = baseurl+"surveysimple.jsf?s="+surveyid+"&u="+userid+"&p="+ispreviewStr;
+        String urlofsurvey = baseurl+"surveysimple.jsf?s="+surveyid+"&u="+userid+"&p="+ispreviewStr+"&r="+responseid;
         return urlofsurvey;
     }
 

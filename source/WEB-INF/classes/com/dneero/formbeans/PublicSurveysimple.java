@@ -35,6 +35,7 @@ public class PublicSurveysimple implements Serializable {
         logger.debug("request.getParameter(\"s\")="+ Jsf.getRequestParam("s"));
         logger.debug("request.getParameter(\"u\")="+ Jsf.getRequestParam("u"));
         logger.debug("request.getParameter(\"p\")="+ Jsf.getRequestParam("p"));
+        logger.debug("request.getParameter(\"r\")="+ Jsf.getRequestParam("r"));
 
         if (Jsf.getRequestParam("s")!=null && com.dneero.util.Num.isinteger(Jsf.getRequestParam("s"))){
             survey = Survey.get(Integer.parseInt(Jsf.getRequestParam("s")));
@@ -51,13 +52,18 @@ public class PublicSurveysimple implements Serializable {
             }
         }
 
+        int responseid = 0;
+        if (Jsf.getRequestParam("r")!=null && com.dneero.util.Num.isinteger(Jsf.getRequestParam("r"))){
+            responseid=Integer.parseInt(Jsf.getRequestParam("r"));
+        }
+
         if (survey!=null && !ispreview){
             RecordImpression.record(Jsf.getHttpServletRequest());
         }
 
         String url = BaseUrl.get(false);
         url = FacesContext.getCurrentInstance().getExternalContext().encodeResourceURL(url);
-        embedhtml = SurveyFlashServlet.getEmbedSyntax(url, survey.getSurveyid(), user.getUserid(), ispreview, true, false);
+        embedhtml = SurveyFlashServlet.getEmbedSyntax(url, survey.getSurveyid(), user.getUserid(), responseid, ispreview, true, false);
 
 
     }

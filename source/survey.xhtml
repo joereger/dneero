@@ -175,6 +175,8 @@
                                             <c:if test="${publicSurveyTake.bloggerhasalreadytakensurvey}">
                                                 <h:outputText value="You've already earned" styleClass="mediumfont"/>
                                                 <br/>
+                                                <h:outputText value="(pending posting verification)" styleClass="tinyfont"/>
+                                                <br/>
                                                 <h:outputText value="#{publicSurveyTake.surveyEnhancer.minearning}" styleClass="largefont" style="font-size: 60px; color: #666666;"/>
                                                 <c:if test="${publicSurveyTake.surveytakergavetocharity or publicSurveyTake.survey.ischarityonly}">
                                                     <br/>
@@ -401,11 +403,13 @@
                                                 <br/>
                                                 <h:outputText value="Now post your answers to your blog!" styleClass="mediumfont"/>
                                                 <br/>
-                                                <h:outputText value="(instructions to the right)" styleClass="smallfont"/>
+                                                <h:outputText value="(instructions to the right... the survey must appear on your blog for 20 of 30 days from when you took the survey to be paid)" styleClass="smallfont"/>
                                         </div>
                                         <br/>
                                         <div class="rounded" style="background: #ffffff; text-align: center;">
                                             <h:outputText value="You've already earned" styleClass="mediumfont"/>
+                                            <br/>
+                                            <h:outputText value="(pending posting verification)" styleClass="tinyfont"/>
                                             <br/>
                                             <h:outputText value="#{publicSurveyTake.surveyEnhancer.minearning}" styleClass="largefont" style="font-size: 60px; color: #666666;"/>
                                             <c:if test="${publicSurveyTake.surveytakergavetocharity or publicSurveyTake.survey.ischarityonly}">
@@ -999,6 +1003,8 @@
                                             <c:if test="${publicSurveyTake.bloggerhasalreadytakensurvey}">
                                                 <h:outputText value="You've already earned" styleClass="mediumfont"/>
                                                 <br/>
+                                                <h:outputText value="(pending posting verification)" styleClass="tinyfont"/>
+                                                <br/>
                                                 <h:outputText value="#{publicSurveyTake.surveyEnhancer.minearning}" styleClass="largefont" style="font-size: 60px; color: #666666;"/>
                                                 <c:if test="${publicSurveyTake.surveytakergavetocharity or publicSurveyTake.survey.ischarityonly}">
                                                     <br/>
@@ -1236,6 +1242,8 @@
                                             </c:if>
                                             <c:if test="${publicSurveyTake.bloggerhasalreadytakensurvey}">
                                                 <h:outputText value="You've already earned" styleClass="mediumfont"/>
+                                                <br/>
+                                                <h:outputText value="(pending posting verification)" styleClass="tinyfont"/>
                                                 <br/>
                                                 <h:outputText value="#{publicSurveyTake.surveyEnhancer.minearning}" styleClass="largefont" style="font-size: 60px; color: #666666;"/>
                                                 <c:if test="${publicSurveyTake.surveytakergavetocharity or publicSurveyTake.survey.ischarityonly}">

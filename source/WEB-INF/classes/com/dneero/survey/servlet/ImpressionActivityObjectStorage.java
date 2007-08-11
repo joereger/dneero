@@ -38,8 +38,6 @@ public class ImpressionActivityObjectStorage {
             bloggerid = user.getBloggerid();
         }
 
-
-
         //Find the survey
         Survey survey = null;
         int surveyimpressionsthatqualifyforpayment = 0;
@@ -55,6 +53,46 @@ public class ImpressionActivityObjectStorage {
                 logger.debug("Surveyid="+iao.getSurveyid()+" not found so aborting impression save.");
                 return;
             }
+        }
+
+        //Find the responseid
+        Response response = null;
+        int responseid = 0;
+        if (iao.getResponseid()>0){
+            response = Response.get(iao.getResponseid());
+            if (response!=null && response.getResponseid()>0){
+                //I've got a valid incoming responseid
+                responseid = response.getResponseid();
+            }
+        }
+        if (responseid==0){
+            logger.debug("responseid=0, will try to calculate with user.getBloggerid() and surveyid");
+            //This is just a backup way to see if I can determine the responseid from the surveyid and userid
+            if (user!=null && user.getBloggerid()>0 && survey!=null && survey.getSurveyid()>0){
+                logger.debug("user.getBloggerid()="+user.getBloggerid() + " survey.getSurveyid()="+survey.getSurveyid());
+                List results = HibernateUtil.getSession().createQuery("from Response where bloggerid='"+user.getBloggerid()+"' and surveyid='"+survey.getSurveyid()+"'").setCacheable(true).list();
+                logger.debug("results.size()="+results.size());
+                for (Iterator iterator = results.iterator(); iterator.hasNext();) {
+                    Response resp = (Response) iterator.next();
+                    if (response==null){
+                        response=resp;
+                        responseid = response.getResponseid();
+                    }
+                    //Choose the most recent response by this blogger... there should generally only be one
+                    if (response.getResponsedate().before(resp.getResponsedate())){
+                        response=resp;
+                        responseid = response.getResponseid();
+                    }
+                }
+            } else {
+                logger.debug("responseid=0 but can't calculate it because user==null and/or survey==null");
+            }
+        }
+
+        //Check to see if userid and responseid correlate
+        if (user!=null &&  response!=null && user.getBloggerid()!=response.getBloggerid()){
+            //Somebody may be spoofing the system, trying to get credit for another's surveys, etc... just logging now to see if it's common/an issue
+            logger.error("user.getBloggerid()!=response.getBloggerid(). User possibly spoofing system.  iao.getResponseid()="+iao.getResponseid()+" iao.getUserid()="+iao.getUserid()+" iao.getReferer()="+iao.getReferer());
         }
 
         //Find number of impressions on this blog qualify for payment
@@ -82,7 +120,7 @@ public class ImpressionActivityObjectStorage {
 
         //See if there's an existing impression to append this to, if not create one
         Impression impression = null;
-        List<Impression> impressions = HibernateUtil.getSession().createQuery("from Impression where surveyid='"+iao.getSurveyid()+"' and referer='"+iao.getReferer()+"'").list();
+        List<Impression> impressions = HibernateUtil.getSession().createQuery("from Impression where surveyid='"+iao.getSurveyid()+"' and referer='"+iao.getReferer()+"' and responseid='"+responseid+"'").list();
         if (impressions.size()>0){
             for (Iterator it = impressions.iterator(); it.hasNext(); ) {
                 impression = (Impression)it.next();
@@ -97,6 +135,7 @@ public class ImpressionActivityObjectStorage {
             impression.setFirstseen(iao.getDate());
             impression.setSurveyid(iao.getSurveyid());
             impression.setUserid(iao.getUserid());
+            impression.setResponseid(responseid);
             //Only increment if this qualifies
             if (qualifiesforpaymentstatus==Impressiondetail.QUALIFIESFORPAYMENTSTATUS_TRUE){
                 impression.setImpressionsqualifyingforpayment(1);

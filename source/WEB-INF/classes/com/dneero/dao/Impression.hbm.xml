@@ -37,6 +37,9 @@
         <property name="userid" type="int">
             <column name="userid" not-null="true" />
         </property>
+        <property name="responseid" type="int">
+            <column name="responseid" not-null="true" />
+        </property>
 
 
     </class>

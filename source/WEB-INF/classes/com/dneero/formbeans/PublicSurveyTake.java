@@ -165,12 +165,14 @@ public class PublicSurveyTake implements Serializable {
 
             //See if blogger is qualified to take
             bloggerhasalreadytakensurvey = false;
+            int responseid = 0;
             if (Jsf.getUserSession().getIsloggedin() && Jsf.getUserSession().getUser()!=null && Jsf.getUserSession().getUser().getBloggerid()>0){
                 Blogger blogger = Blogger.get(Jsf.getUserSession().getUser().getBloggerid());
                 for (Iterator<Response> iterator = blogger.getResponses().iterator(); iterator.hasNext();) {
                     Response response = iterator.next();
                     if (response.getSurveyid()==survey.getSurveyid()){
                         bloggerhasalreadytakensurvey = true;
+                        responseid = response.getResponseid();
                         //Now override any url-line userid=X that we see
                         userwhotooksurvey = Jsf.getUserSession().getUser();
                         isuserwhotooksurveysameasloggedinuser = true;
@@ -184,18 +186,18 @@ public class PublicSurveyTake implements Serializable {
 
             //If blogger has taken the survey already
             if (bloggerhasalreadytakensurvey){
-                surveyAnswersForThisBlogger = SurveyFlashServlet.getEmbedSyntax("/", survey.getSurveyid(), Jsf.getUserSession().getUser().getUserid(), true, true, false);
-                htmltoposttoblog = SurveyJavascriptServlet.getEmbedSyntax(BaseUrl.get(false), survey.getSurveyid(), Jsf.getUserSession().getUser().getUserid(), false, false, true, false);
-                htmltoposttoblogflash = SurveyFlashServlet.getEmbedSyntax(BaseUrl.get(false), survey.getSurveyid(), Jsf.getUserSession().getUser().getUserid(), false, true, false);
-                htmltoposttoblogflashwithembedandobjecttag = SurveyFlashServlet.getEmbedSyntaxWithObjectTag(BaseUrl.get(false), survey.getSurveyid(), Jsf.getUserSession().getUser().getUserid(), false, true, false);
-                htmltoposttoblogimagelink = SurveyImageServlet.getEmbedSyntax(BaseUrl.get(false), survey.getSurveyid(), Jsf.getUserSession().getUser().getUserid(), false);
-                htmltoposttobloglink = SurveyLinkServlet.getEmbedSyntax(BaseUrl.get(false), survey.getSurveyid(), Jsf.getUserSession().getUser().getUserid(), false);
+                surveyAnswersForThisBlogger = SurveyFlashServlet.getEmbedSyntax("/", survey.getSurveyid(), Jsf.getUserSession().getUser().getUserid(), responseid, true, true, false);
+                htmltoposttoblog = SurveyJavascriptServlet.getEmbedSyntax(BaseUrl.get(false), survey.getSurveyid(), Jsf.getUserSession().getUser().getUserid(), responseid, false, false, true, false);
+                htmltoposttoblogflash = SurveyFlashServlet.getEmbedSyntax(BaseUrl.get(false), survey.getSurveyid(), Jsf.getUserSession().getUser().getUserid(), responseid, false, true, false);
+                htmltoposttoblogflashwithembedandobjecttag = SurveyFlashServlet.getEmbedSyntaxWithObjectTag(BaseUrl.get(false), survey.getSurveyid(), Jsf.getUserSession().getUser().getUserid(), responseid, false, true, false);
+                htmltoposttoblogimagelink = SurveyImageServlet.getEmbedSyntax(BaseUrl.get(false), survey.getSurveyid(), Jsf.getUserSession().getUser().getUserid(), responseid, false);
+                htmltoposttobloglink = SurveyLinkServlet.getEmbedSyntax(BaseUrl.get(false), survey.getSurveyid(), Jsf.getUserSession().getUser().getUserid(), responseid, false);
             } else {
                 int useridTmp = 0;
                 if (userwhotooksurvey!=null && userwhotooksurvey.getUserid()>0){
                     useridTmp = userwhotooksurvey.getUserid();
                 }
-                surveyOnBlogPreview = SurveyFlashServlet.getEmbedSyntax("/", survey.getSurveyid(), useridTmp, true, true, false);
+                surveyOnBlogPreview = SurveyFlashServlet.getEmbedSyntax("/", survey.getSurveyid(), useridTmp, responseid, true, true, false);
             }
             surveyEnhancer = new SurveyEnhancer(survey);
             surveyForTakers = SurveyTakerDisplay.getHtmlForSurveyTaking(survey, new Blogger(), true);

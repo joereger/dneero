@@ -33,9 +33,10 @@ public class SurveyLinkServlet extends HttpServlet {
         logger.debug("request.getParameter(\"s\")="+request.getParameter("s"));
         logger.debug("request.getParameter(\"u\")="+request.getParameter("u"));
         logger.debug("request.getParameter(\"p\")="+request.getParameter("p"));
+        logger.debug("request.getParameter(\"r\")="+request.getParameter("r"));
 
         try{
-            String urlofsurvey = BaseUrl.get(false)+"shtml?s="+request.getParameter("s")+"&u="+request.getParameter("u")+"&p="+request.getParameter("p");
+            String urlofsurvey = BaseUrl.get(false)+"shtml?s="+request.getParameter("s")+"r="+request.getParameter("r")+"&u="+request.getParameter("u")+"&p="+request.getParameter("p");
             response.sendRedirect(urlofsurvey);
 
         } catch (java.net.SocketException e){
@@ -46,7 +47,7 @@ public class SurveyLinkServlet extends HttpServlet {
 
 
 
-    public static String getEmbedSyntax(String baseurl, int surveyid, int userid, boolean ispreview){
+    public static String getEmbedSyntax(String baseurl, int surveyid, int userid, int responseid, boolean ispreview){
         Logger logger = Logger.getLogger(SurveyLinkServlet.class);
         String out = "";
         String ispreviewStr = "0";
