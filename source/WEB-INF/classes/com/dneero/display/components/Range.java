@@ -301,7 +301,10 @@ public class Range implements Component {
             String answer = (String)mapentry.getKey();
             int count = (Integer)mapentry.getValue();
 
-            double percentage = (Double.parseDouble(String.valueOf(count))/Double.parseDouble(String.valueOf(questionresponses.size())))*100;
+            double percentage = 0;
+            if (count>0 && questionresponses!=null && questionresponses.size()>0){
+                percentage = (Double.parseDouble(String.valueOf(count))/Double.parseDouble(String.valueOf(questionresponses.size())))*100;
+            }
             NumberFormat formatter = DecimalFormat.getInstance();
             formatter.setMaximumFractionDigits(0);
 
