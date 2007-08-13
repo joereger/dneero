@@ -38,6 +38,7 @@ public class ResearcherSurveyDetail06 implements Serializable {
     private String maximpressionpayments = "";
     private String maxincentive = "0";
     private String dneerofee = "0";
+    private String hideresultsfee = "0";
     private String maxpossiblespend = "0";
     private int numberofquestions = 0;
     private boolean warningtimeperiodtooshort = false;
@@ -105,6 +106,7 @@ public class ResearcherSurveyDetail06 implements Serializable {
                 maxincentive = "$"+Str.formatForMoney(sms.getMaxPossiblePayoutForResponses() + sms.getMaxPossiblePayoutForImpressions());
                 dneerofee = "$"+Str.formatForMoney(sms.getMaxPossibledNeeroFee());
                 maxpossiblespend = "$"+Str.formatForMoney(sms.getMaxPossibleSpend());
+                hideresultsfee = "$"+Str.formatForMoney(sms.getHidesurveyfee());
 
                 //The user's current account balance
                 double currentbalance = CurrentBalanceCalculator.getCurrentBalance(Jsf.getUserSession().getUser());
@@ -285,6 +287,11 @@ public class ResearcherSurveyDetail06 implements Serializable {
 
                 //Charge the per-survey creation fee
                 MoveMoneyInAccountBalance.charge(userSession.getUser(), SurveyMoneyStatus.PERSURVEYCREATIONFEE, "Survey creation fee for '"+survey.getTitle()+"'");
+
+                //Charge the hide results fee, if applicable
+                if (survey.getIsresultshidden() && sms.getHidesurveyfee()>0){
+                    MoveMoneyInAccountBalance.charge(userSession.getUser(), sms.getHidesurveyfee(), "Hide overall aggregate results fee for '"+survey.getTitle()+"'");
+                }
 
                 //Make sure user has enough in their account by running the remaining balance algorithm for just this researcher
                 if (Jsf.getUserSession().getUser()!=null){
@@ -619,5 +626,14 @@ public class ResearcherSurveyDetail06 implements Serializable {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+
+    public String getHideresultsfee() {
+        return hideresultsfee;
+    }
+
+    public void setHideresultsfee(String hideresultsfee) {
+        this.hideresultsfee = hideresultsfee;
     }
 }

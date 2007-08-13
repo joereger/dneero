@@ -747,6 +747,7 @@
         <navigation-case>
             <from-outcome>publicblog</from-outcome>
             <to-view-id>/blog.xhtml</to-view-id>
+            <redirect/> 
         </navigation-case>
         <navigation-case>
             <from-outcome>publicblogpost</from-outcome>

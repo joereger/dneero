@@ -115,6 +115,7 @@ public class ResearcherSurveyDetail01 implements Serializable {
             survey.setResearcherid(userSession.getUser().getResearcherid());
             survey.setStatus(Survey.STATUS_DRAFT);
             survey.setPublicsurveydisplays(0);
+            survey.setIsresultshidden(false);
             boolean isnewsurvey = true;
             if (userSession.getCurrentSurveyid()>0){
                 logger.debug("saveSurvey() called: going to get Survey.get(surveyid)="+userSession.getCurrentSurveyid());

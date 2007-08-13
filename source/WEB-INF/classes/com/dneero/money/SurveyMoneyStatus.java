@@ -19,6 +19,7 @@ public class SurveyMoneyStatus implements Serializable {
     public static double PERSURVEYCREATIONFEE = 5.00;
     public static double DNEEROMARKUPPERCENT = 25;
     public static int DAYSAFTERCLOSEOFSURVEYWECOLLECTFORIMPRESSIONS = 120;
+    public static double HIDESURVEYFEEPERCENT = 5;
 
     private double maxPossiblePayoutForResponses = 0;
     private double maxPossiblePayoutForImpressions = 0;
@@ -34,6 +35,7 @@ public class SurveyMoneyStatus implements Serializable {
     private double spentToDate = 0;
     private double spentToDateIncludingdNeeroFee = 0;
     private double remainingPossibleSpend = 0;
+    private double hidesurveyfee = 0;
 
 
     public SurveyMoneyStatus(Survey survey){
@@ -41,7 +43,10 @@ public class SurveyMoneyStatus implements Serializable {
         maxPossiblePayoutForImpressions = ((survey.getWillingtopaypercpm()*survey.getMaxdisplaystotal())/1000);
         maxPossiblePayoutToUsers = maxPossiblePayoutForResponses + maxPossiblePayoutForImpressions;
         maxPossibledNeeroFee = maxPossiblePayoutToUsers * (DNEEROMARKUPPERCENT/100);
-        maxPossibleSpend = maxPossiblePayoutToUsers + maxPossibledNeeroFee + PERSURVEYCREATIONFEE;
+        if(survey.getIsresultshidden()){
+            hidesurveyfee = maxPossiblePayoutToUsers * (HIDESURVEYFEEPERCENT/100);
+        }
+        maxPossibleSpend = maxPossiblePayoutToUsers + maxPossibledNeeroFee + hidesurveyfee + PERSURVEYCREATIONFEE;
         responsesToDate = survey.getResponses().size();
         spentOnResponsesToDate = survey.getWillingtopayperrespondent() * responsesToDate;
         spentOnResponsesToDateIncludingdNeeroFee = spentOnResponsesToDate + (spentOnResponsesToDate * (DNEEROMARKUPPERCENT/100));
@@ -52,8 +57,8 @@ public class SurveyMoneyStatus implements Serializable {
         }
         spentOnImpressionsToDate = (Double.parseDouble(String.valueOf(impressionsToDate)) * survey.getWillingtopaypercpm())/1000;
         spentOnImpressionsToDateIncludingdNeeroFee = spentOnImpressionsToDate + (spentOnImpressionsToDate * (DNEEROMARKUPPERCENT/100));
-        spentToDate = spentOnResponsesToDate + spentOnImpressionsToDate + PERSURVEYCREATIONFEE;
-        spentToDateIncludingdNeeroFee = spentToDate + (spentToDate * (DNEEROMARKUPPERCENT/100));
+        spentToDate = spentOnResponsesToDate + spentOnImpressionsToDate;
+        spentToDateIncludingdNeeroFee = spentToDate + (spentToDate * (DNEEROMARKUPPERCENT/100)) + PERSURVEYCREATIONFEE + hidesurveyfee;
 
         //When calculating remainingPossibleSpend I must take survey status into account
         if (survey.getStatus()!=Survey.STATUS_CLOSED){
@@ -143,5 +148,13 @@ public class SurveyMoneyStatus implements Serializable {
 
     public void setSpentToDateIncludingdNeeroFee(double spentToDateIncludingdNeeroFee) {
         this.spentToDateIncludingdNeeroFee = spentToDateIncludingdNeeroFee;
+    }
+
+    public double getHidesurveyfee() {
+        return hidesurveyfee;
+    }
+
+    public void setHidesurveyfee(double hidesurveyfee) {
+        this.hidesurveyfee = hidesurveyfee;
     }
 }

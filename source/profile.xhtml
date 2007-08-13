@@ -93,11 +93,9 @@
                 <f:facet name="header">
                   <h:outputText value="-" style="color: #ffffff;"/>
                 </f:facet>
-                <h:commandLink action="#{publicProfileAnswers.beginView}">
-                    <h:outputText value="Answers" escape="false" styleClass="smallfont"/>
-                    <f:param name="bloggerid" value="#{publicProfile.blogger.bloggerid}" />
-                    <f:param name="surveyid" value="#{listitem.survey.surveyid}" />
-                </h:commandLink>
+                <h:outputLink value="/surveysimple.jsf?u=#{publicProfile.user.userid}&amp;s=#{listitem.survey.surveyid}&amp;p=0&amp;r=#{listitem.response.responseid}">
+                    <h:outputText value="Answer" styleClass="smallfont" style="font-weight: bold;"/>
+                </h:outputLink>
               </h:column>
               <h:column>
                 <f:facet name="header">

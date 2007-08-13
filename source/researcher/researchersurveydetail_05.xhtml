@@ -163,6 +163,29 @@
             <h:message for="ischarityonly" styleClass="RED"></h:message>
         </h:panelGroup>
 
+        <h:panelGroup>
+            <br/><br/>
+            <h:outputText value="Overall Results Visibility" styleClass="mediumfont"></h:outputText>
+        </h:panelGroup>
+        <h:panelGroup>
+        </h:panelGroup>
+        <h:panelGroup>
+        </h:panelGroup>
+
+        <h:panelGroup>
+            <h:outputText value="Hide Overall Aggregate Results for This Survey?" styleClass="formfieldnamefont"></h:outputText>
+            <br/>
+            <font class="smallfont">By checking this box you're hiding overall aggregate results on the survey's main page results tab.  Still available will be the aggregate results for individual blogs.  This is a balance between the blogger's widget value and value for you, the researcher. There are times when you don't want your competition to be able to simply grab the benefit of your research investment.  We advocate openness (these are social surveys, afterall) and charge an additional 5% fee to hide results.  This is calculated as 5% of the maximum possible survey fee and is a one-time non-refundable fee.</font>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:selectBooleanCheckbox title="isresultshidden" id="isresultshidden" value="#{researcherSurveyDetail05.isresultshidden}" rendered="#{researcherSurveyDetail05.status eq 1}"/>
+            <h:outputText value="#{researcherSurveyDetail05.isresultshidden}" rendered="#{researcherSurveyDetail05.status ne 1}"></h:outputText>
+            <font class="formfieldnamefont">Yes, Hide Aggregate Results for an Additional 5% Fee</font>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:message for="isresultshidden" styleClass="RED"></h:message>
+        </h:panelGroup>
+
 
     </h:panelGrid>
 

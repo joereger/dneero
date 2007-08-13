@@ -68,6 +68,7 @@ public class PublicSurveyTake implements Serializable {
     private boolean isreferredbyblog = false;
     private List<Impression> impressions;
     private List<PublicSurveyDiscussListitem> surveydiscusses;
+    private List<PublicSurveyRespondentsListitem> respondents;
     private String discussSubject="";
     private String discussComment="";
     private String DNEERO_REQUEST_PARAM_IDENTIFIER = SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER;
@@ -233,7 +234,11 @@ public class PublicSurveyTake implements Serializable {
                 Jsf.getUserSession().setPendingSurveyReferredbyuserid(user.getUserid());
             }
             logger.debug("isreferredbyblog="+isreferredbyblog);
-            resultsHtml = SurveyResultsDisplay.getHtmlForResults(survey, null, 0);
+            if (!survey.getIsresultshidden()){
+                resultsHtml = SurveyResultsDisplay.getHtmlForResults(survey, null, 0);
+            } else {
+                resultsHtml = "<font class=\"smallfont\">This researcher has chosen to hide overall aggregate results.  However, dNeero does not allow researchers to hide aggregate results from individual blogs so those results are still available.  To see such results, find a blog that's posted this survey and click the See How Others Voted link... you'll see how others from that blog answered.</font>";
+            }
             if (isreferredbyblog){
                 resultsHtmlForReferredByBlog = SurveyResultsDisplay.getHtmlForResults(survey, null, Jsf.getUserSession().getPendingSurveyReferredbyuserid());
                 resultstabselectedindex = 1;
@@ -256,6 +261,16 @@ public class PublicSurveyTake implements Serializable {
                 surveydiscusses.add(psdli);
             }
 
+            //Load respondents
+            respondents = new ArrayList();
+            List resp = HibernateUtil.getSession().createQuery("from Response where surveyid='"+survey.getSurveyid()+"' order by responseid desc").setCacheable(true).list();
+            for (Iterator iterator = resp.iterator(); iterator.hasNext();) {
+                Response response = (Response) iterator.next();
+                PublicSurveyRespondentsListitem psrli = new PublicSurveyRespondentsListitem();
+                psrli.setResponse(response);
+                psrli.setUser(User.get(Blogger.get(response.getBloggerid()).getUserid()));
+                respondents.add(psrli);
+            }
 
             //Record the survey display using the display cache
             SurveydisplayActivityObject sdao = new SurveydisplayActivityObject();
@@ -695,4 +710,11 @@ public class PublicSurveyTake implements Serializable {
         this.isuserwhotooksurveyloaded = isuserwhotooksurveyloaded;
     }
 
+    public List<PublicSurveyRespondentsListitem> getRespondents() {
+        return respondents;
+    }
+
+    public void setRespondents(List<PublicSurveyRespondentsListitem> respondents) {
+        this.respondents = respondents;
+    }
 }

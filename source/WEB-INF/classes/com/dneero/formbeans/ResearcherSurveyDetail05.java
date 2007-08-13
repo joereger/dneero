@@ -30,6 +30,7 @@ public class ResearcherSurveyDetail05 implements Serializable {
     private int maxdisplaystotal = 100000;
     private int status;
     private boolean ischarityonly = false;
+    private boolean isresultshidden = false;
 
     public ResearcherSurveyDetail05(){
 
@@ -60,6 +61,7 @@ public class ResearcherSurveyDetail05 implements Serializable {
                 maxdisplaystotal = survey.getMaxdisplaystotal();
                 status = survey.getStatus();
                 ischarityonly = survey.getIscharityonly();
+                isresultshidden = survey.getIsresultshidden();
             }
 
         }
@@ -128,6 +130,7 @@ public class ResearcherSurveyDetail05 implements Serializable {
                 survey.setMaxdisplaysperblog(maxdisplaysperblog);
                 survey.setMaxdisplaystotal(maxdisplaystotal);
                 survey.setIscharityonly(ischarityonly);
+                survey.setIsresultshidden(isresultshidden);
 
                 try{
                     logger.debug("saveSurvey() about to save survey.getSurveyid()=" + survey.getSurveyid());
@@ -215,5 +218,13 @@ public class ResearcherSurveyDetail05 implements Serializable {
 
     public void setIscharityonly(boolean ischarityonly) {
         this.ischarityonly = ischarityonly;
+    }
+
+    public boolean isIsresultshidden() {
+        return isresultshidden;
+    }
+
+    public void setIsresultshidden(boolean isresultshidden) {
+        this.isresultshidden = isresultshidden;
     }
 }

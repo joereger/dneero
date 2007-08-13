@@ -97,5 +97,8 @@
         <property name="ischarityonly" type="boolean">
             <column name="ischarityonly" />
         </property>
+        <property name="isresultshidden" type="boolean">
+            <column name="isresultshidden" />
+        </property>
     </class>
 </hibernate-mapping>

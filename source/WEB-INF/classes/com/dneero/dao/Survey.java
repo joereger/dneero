@@ -57,6 +57,8 @@ public class Survey extends BasePersistentClass implements java.io.Serializable,
      private int publicsurveydisplays;
      private boolean isspotlight = false;
      private boolean ischarityonly = false;
+     private boolean isresultshidden = false;
+
      private Set<Question> questions = new HashSet<Question>();
      private Set<Response> responses = new HashSet<Response>();
      private Set<Impression> impressions = new HashSet<Impression>();
@@ -378,5 +380,13 @@ public class Survey extends BasePersistentClass implements java.io.Serializable,
 
     public void setIscharityonly(boolean ischarityonly) {
         this.ischarityonly = ischarityonly;
+    }
+
+    public boolean getIsresultshidden() {
+        return isresultshidden;
+    }
+
+    public void setIsresultshidden(boolean isresultshidden) {
+        this.isresultshidden = isresultshidden;
     }
 }
