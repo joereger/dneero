@@ -9,6 +9,7 @@
 <%@ page import="java.util.Calendar" %>
 <%@ page import="com.dneero.session.UserSession" %>
 <%@ page import="com.dneero.session.Authorization" %>
+<%@ page import="com.dneero.util.Str" %>
 <%
 //Hide from snooping eyes... only sysadmins can play
 UserSession userSession = (UserSession) session.getAttribute("userSession");
@@ -38,15 +39,19 @@ if (request.getParameter("action") != null && request.getParameter("action").equ
 %>
 
 <%
-if (request.getParameter("action") != null && request.getParameter("action").equals("editlocalinstances")) {
-    List surveys = HibernateUtil.getSession().createQuery("from Survey order by surveyid asc").setCacheable(true).setMaxResults(5).list();
-    for (Iterator iterator = surveys.iterator(); iterator.hasNext();) {
-        Survey survey = (Survey) iterator.next();
-        survey.setStatus(Survey.STATUS_DRAFT);
-        survey.setTitle("Surveyid=" + survey.getSurveyid() + " Edited: " + Time.dateformatcompactwithtime(Calendar.getInstance()));
-        try{survey.save();}catch(Exception ex){logger.error(ex);}
+    if (request.getParameter("action") != null && request.getParameter("action").equals("editlocalinstances")) {
+        List surveys = HibernateUtil.getSession().createQuery("from Survey order by surveyid asc").setCacheable(true).setMaxResults(5).list();
+        for (Iterator iterator = surveys.iterator(); iterator.hasNext();) {
+            Survey survey = (Survey) iterator.next();
+            survey.setStatus(Survey.STATUS_DRAFT);
+            survey.setTitle("Surveyid=" + survey.getSurveyid() + " Edited: " + Time.dateformatcompactwithtime(Calendar.getInstance()));
+            try {
+                survey.save();
+            } catch (Exception ex) {
+                logger.error(ex);
+            }
+        }
     }
-}
 %>
 
 <%

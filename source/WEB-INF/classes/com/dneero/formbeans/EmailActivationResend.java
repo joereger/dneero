@@ -5,6 +5,7 @@ import org.apache.commons.validator.EmailValidator;
 import com.dneero.util.Jsf;
 import com.dneero.util.RandomString;
 import com.dneero.util.GeneralException;
+import com.dneero.util.Str;
 import com.dneero.util.jcaptcha.CaptchaServiceSingleton;
 import com.dneero.dao.User;
 import com.dneero.dao.hibernate.HibernateUtil;
@@ -57,7 +58,7 @@ public class EmailActivationResend implements Serializable {
             return null;
         }
 
-        List<User> users = HibernateUtil.getSession().createQuery("from User where email='"+email+"'").list();
+        List<User> users = HibernateUtil.getSession().createQuery("from User where email='"+ Str.cleanForSQL(email)+"'").list();
         if (email==null || email.equals("") || users.size()<=0){
             Jsf.setFacesMessage("resendform:email", "That email address was not found.");
             return null;

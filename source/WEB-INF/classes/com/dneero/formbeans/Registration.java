@@ -7,6 +7,7 @@ import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.util.GeneralException;
 import com.dneero.util.Jsf;
 import com.dneero.util.RandomString;
+import com.dneero.util.Str;
 import com.dneero.util.jcaptcha.CaptchaServiceSingleton;
 import com.dneero.session.UserSession;
 import com.dneero.session.PersistentLogin;
@@ -113,7 +114,7 @@ public class Registration implements Serializable {
             haveErrors = true;
         }
 
-        List<User> users = HibernateUtil.getSession().createQuery("from User where email='"+email+"'").list();
+        List<User> users = HibernateUtil.getSession().createQuery("from User where email='"+ Str.cleanForSQL(email)+"'").list();
         if (users.size()>0){
             Jsf.setFacesMessage("registrationForm:email", "That email address is already in use.");
         }

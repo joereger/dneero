@@ -1,6 +1,7 @@
 package com.dneero.formbeans;
 
 import com.dneero.util.Jsf;
+import com.dneero.util.Str;
 import com.dneero.dao.User;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.email.EmailSendThread;
@@ -35,7 +36,7 @@ public class BloggerEarningsRevshareInvite implements Serializable {
                 String individualemail = individualemails[i];
                 individualemail = individualemail.trim();
 
-                List existingusers = HibernateUtil.getSession().createQuery("from User where email='"+individualemail+"'").list();
+                List existingusers = HibernateUtil.getSession().createQuery("from User where email='"+ Str.cleanForSQL(individualemail)+"'").list();
                 if (existingusers.size()<=0){
                     String[] args = new String[10];
                     args[0]= UserInputSafe.clean(message);

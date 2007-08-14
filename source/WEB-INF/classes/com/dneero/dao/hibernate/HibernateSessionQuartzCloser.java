@@ -5,6 +5,10 @@ import org.quartz.JobListener;
 import org.quartz.JobExecutionException;
 import org.apache.log4j.Logger;
 
+import java.util.Date;
+
+import com.dneero.util.Num;
+
 /**
  * User: Joe Reger Jr
  * Date: Jun 23, 2007
@@ -19,6 +23,12 @@ public class HibernateSessionQuartzCloser implements JobListener {
     public void jobToBeExecuted(JobExecutionContext context){
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("jobToBeExecuted(): "+context.getJobDetail().getFullName());
+        synchronized(this){
+            int rndDelay = Num.randomInt(30000);
+            logger.debug("Start waiting "+rndDelay+" millis: "+new Date().getTime()+" for: "+context.getJobDetail().getFullName());
+            try{wait(rndDelay);}catch(Exception ex){logger.error(ex);}
+            logger.debug("End waiting "+rndDelay+" millis: "+new Date().getTime()+" for: "+context.getJobDetail().getFullName());
+        }
     }
 
     public void jobExecutionVetoed(JobExecutionContext jobExecutionContext) {

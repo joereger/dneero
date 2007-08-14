@@ -11,6 +11,7 @@ import com.dneero.dao.User;
 import com.dneero.dao.Responsepending;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.util.Jsf;
+import com.dneero.util.Str;
 import com.dneero.session.UserSession;
 import com.dneero.session.PersistentLogin;
 import com.dneero.session.SurveysTakenToday;
@@ -46,7 +47,7 @@ public class Login implements Serializable {
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("login() called.");
         logger.debug("keepmeloggedin="+keepmeloggedin);
-        List users = HibernateUtil.getSession().createQuery("FROM User as user WHERE user.email='"+email+"' AND user.password='"+password+"'").setMaxResults(1).list();
+        List users = HibernateUtil.getSession().createQuery("FROM User as user WHERE user.email='"+ Str.cleanForSQL(email)+"' AND user.password='"+Str.cleanForSQL(password)+"'").setMaxResults(1).list();
         if (users.size()==0){
             Jsf.setFacesMessage("Email/password incorrect.");
             return null;

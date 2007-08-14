@@ -3,6 +3,7 @@ package com.dneero.formbeans;
 import org.apache.log4j.Logger;
 import com.dneero.util.jcaptcha.CaptchaServiceSingleton;
 import com.dneero.util.Jsf;
+import com.dneero.util.Str;
 import com.dneero.dao.User;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.email.EmailActivationSend;
@@ -46,7 +47,7 @@ public class LostPassword implements Serializable {
             return null;
         }
 
-        List<User> users = HibernateUtil.getSession().createQuery("from User where email='"+email+"'").list();
+        List<User> users = HibernateUtil.getSession().createQuery("from User where email='"+ Str.cleanForSQL(email)+"'").list();
         if (users.size()>0){
             for (Iterator<User> iterator = users.iterator(); iterator.hasNext();) {
                 User user = iterator.next();
