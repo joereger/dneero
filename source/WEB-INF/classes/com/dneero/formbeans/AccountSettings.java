@@ -11,6 +11,7 @@ import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.session.UserSession;
 import com.dneero.email.EmailActivationSend;
 import com.dneero.helpers.UserInputSafe;
+import com.dneero.money.PaymentMethod;
 
 import java.io.Serializable;
 import java.util.List;
@@ -35,6 +36,7 @@ public class AccountSettings implements Serializable {
     private String instantnotifytwitterusername = "";
     private boolean instantnotifyxmppison = false;
     private String instantnotifyxmppusername = "";
+    private String paymethodpaypaladdress;
     
 
     //Other props
@@ -58,7 +60,7 @@ public class AccountSettings implements Serializable {
             instantnotifytwitterusername = user.getInstantnotifytwitterusername();
             instantnotifyxmppison = user.getInstantnotifyxmppison();
             instantnotifyxmppusername =  user.getInstantnotifyxmppusername();
-
+            paymethodpaypaladdress = user.getPaymethodpaypaladdress();
         }
         return "accountsettings";   
     }
@@ -81,6 +83,14 @@ public class AccountSettings implements Serializable {
                     user.setEmail(email);
                 }
             }
+            if (!user.getPaymethodpaypaladdress().equals(paymethodpaypaladdress)){
+                long cnt = (Long)HibernateUtil.getSession().createQuery("select count(*) from User where paymethodpaypaladdress='"+paymethodpaypaladdress+"' and userid<>'"+userSession.getUser().getUserid()+"' and paymethodpaypaladdress<>'' and paymethodpaypaladdress IS NOT NULL").uniqueResult();
+                if (cnt>0){
+                    Jsf.setFacesMessage("accountSettingsForm:paymethodpaypaladdress", "That PayPal address is already in use by another user.");
+                    paymethodpaypaladdress = user.getPaymethodpaypaladdress();
+                    haveValidationError = true;
+                }
+            }
             user.setFirstname(UserInputSafe.clean(firstname));
             user.setLastname(UserInputSafe.clean(lastname));
             user.setNotifyofnewsurveysbyemaileveryexdays(notifyofnewsurveysbyemaileveryexdays);
@@ -90,6 +100,8 @@ public class AccountSettings implements Serializable {
             user.setInstantnotifytwitterusername(UserInputSafe.clean(instantnotifytwitterusername));
             user.setInstantnotifyxmppison(instantnotifyxmppison);
             user.setInstantnotifyxmppusername(UserInputSafe.clean(instantnotifyxmppusername));
+            user.setPaymethod(PaymentMethod.PAYMENTMETHODPAYPAL);
+            user.setPaymethodpaypaladdress(paymethodpaypaladdress);
             try{
                 user.save();
                 userid = user.getUserid();
@@ -209,5 +221,14 @@ public class AccountSettings implements Serializable {
 
     public void setInstantnotifyxmppusername(String instantnotifyxmppusername) {
         this.instantnotifyxmppusername = instantnotifyxmppusername;
+    }
+
+
+    public String getPaymethodpaypaladdress() {
+        return paymethodpaypaladdress;
+    }
+
+    public void setPaymethodpaypaladdress(String paymethodpaypaladdress) {
+        this.paymethodpaypaladdress = paymethodpaypaladdress;
     }
 }

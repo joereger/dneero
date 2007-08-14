@@ -75,11 +75,11 @@
                                             <br/>
                                             <h:outputText value="#{publicSurveyTake.surveyEnhancer.minearning}" styleClass="largefont" style="font-size: 30px; color: #666666;"/>
                                             <c:if test="${publicSurveyTake.surveytakergavetocharity or publicSurveyTake.survey.ischarityonly}">
-                                                <br/>
+                                                <br/>               
                                                 <h:outputText value="for charity" styleClass="mediumfont"/>
                                             </c:if>
                                             <br/>
-                                            <h:outputText value="instantly and up to #{publicSurveyTake.surveyEnhancer.maxearning} depending on your profile traffic." styleClass="smallfont" style="font-weight: bold;"/>
+                                            <h:outputText value="and up to #{publicSurveyTake.surveyEnhancer.maxearning} depending on your profile traffic." styleClass="smallfont" style="font-weight: bold;"/>
                                         </div>
                                         <br/>
                                     </t:div>
@@ -378,7 +378,7 @@
                         </c:if>
                         <c:if test="${userSession.isfacebookui}">
                             <div class="rounded" style="background: #00ff00;">
-                                <font class="smallfont">
+                                <font class="normalfont">
                                 <b>Once you take the survey we'll post a link to your Facebook feed.  When friends click that link they'll see your answers in a widget like the one below.</b><br/>
                                 </font>
                             </div>
@@ -387,8 +387,8 @@
                     <c:if test="${publicSurveyTake.bloggerhasalreadytakensurvey}">
                         <c:if test="${userSession.isfacebookui}">
                             <div class="rounded" style="background: #00ff00;">
-                                <font class="smallfont">
-                                <b>A link to your survey has been posted to your Facebook feed.  You can also use the links below to embed your answers into another blog or website.</b><br/>
+                                <font class="mediumfont">
+                                <b>A link to your survey has been posted to your Facebook feed (which qualifies as a blog, for payment purposes).  You can also use the links below to embed your answers into another blog or website.</b><br/>
                                 </font>
                             </div>
                         </c:if> 

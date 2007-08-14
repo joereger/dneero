@@ -38,7 +38,6 @@ public class BloggerDetails implements Serializable {
     private String profession;
     private String blogfocus;
     private String politics;
-    private String paymethodpaypaladdress;
 
 
 
@@ -71,7 +70,6 @@ public class BloggerDetails implements Serializable {
             city = String.valueOf(blogger.getCity());
             profession = String.valueOf(blogger.getProfession());
             politics = String.valueOf(blogger.getPolitics());
-            paymethodpaypaladdress = userSession.getUser().getPaymethodpaypaladdress();
             blogfocus = blogger.getBlogfocus();
         }
     }
@@ -101,11 +99,6 @@ public class BloggerDetails implements Serializable {
             Calendar birthdateCal = Time.getCalFromDate(birthdate);
             if (birthdateCal.after(Time.subtractYear(Calendar.getInstance(), 13))){
                 Jsf.setFacesMessage("bloggerdetails:birthdate", "You must be at least 13 years of age to use this system.");
-                haveValidationError = true;
-            }
-            long cnt = (Long)HibernateUtil.getSession().createQuery("select count(*) from User where paymethodpaypaladdress='"+paymethodpaypaladdress+"' and userid<>'"+userSession.getUser().getUserid()+"' and paymethodpaypaladdress<>'' and paymethodpaypaladdress IS NOT NULL").uniqueResult();
-            if (cnt>0){
-                Jsf.setFacesMessage("bloggerdetails:paymethodpaypaladdress", "That PayPal address is already in use by another user.");
                 haveValidationError = true;
             }
             if (haveValidationError){
@@ -166,8 +159,7 @@ public class BloggerDetails implements Serializable {
             }
 
 
-            userSession.getUser().setPaymethod(PaymentMethod.PAYMENTMETHODPAYPAL);
-            userSession.getUser().setPaymethodpaypaladdress(paymethodpaypaladdress);
+           
             try{
                 userSession.getUser().save();
             } catch (GeneralException gex){
@@ -296,13 +288,6 @@ public class BloggerDetails implements Serializable {
         this.politics = politics;
     }
 
-    public String getPaymethodpaypaladdress() {
-        return paymethodpaypaladdress;
-    }
-
-    public void setPaymethodpaypaladdress(String paymethodpaypaladdress) {
-        this.paymethodpaypaladdress = paymethodpaypaladdress;
-    }
 
 
     

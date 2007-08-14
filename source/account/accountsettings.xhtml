@@ -158,6 +158,20 @@
                 </h:panelGroup>
 
 
+                
+                <h:panelGroup>
+                    <h:outputText value="PayPal Address (Optional)" styleClass="formfieldnamefont"></h:outputText>
+                    <br/>
+                    <font class="tinyfont">We can't pay you until we have a valid<br/>PayPal address.  You can enter one<br/>at any time.  You don't need to have one<br/>in the system to blog and earn money.<br/>Don't have a PayPal account? <br/>Setup is quick, easy and secure.<br/>Click <a href='http://www.paypal.com' target='paypal' class="tinyfont"><font class="tinyfont">here</font></a> to create one.</font>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:inputText value="#{accountSettings.paymethodpaypaladdress}" id="paymethodpaypaladdress" size="35"></h:inputText>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:message for="paymethodpaypaladdress" styleClass="RED"></h:message>
+                </h:panelGroup>
+
+
 
 
                 <h:panelGroup>

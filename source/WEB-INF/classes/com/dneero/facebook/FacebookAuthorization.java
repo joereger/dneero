@@ -97,12 +97,11 @@ public class FacebookAuthorization {
 
         //If is coming from facebook but hasn't added app, make them add it
         if (Jsf.getUserSession().getIsfacebookui() && !Jsf.getUserSession().getIsfacebookappadded()){
-            UrlSplitter urlSplitter = new UrlSplitter(Jsf.getHttpServletRequest());
-            //If user is not on facebooklandingpage.jsf and not on surveysimple.jsf, redir to app add
-            //@todo This doesn't work because JSF changes referring url.  Need to set a var in landing page.
-            if (urlSplitter.getRequestUrl().indexOf("facebooklandingpage.jsf")==-1 && urlSplitter.getRequestUrl().indexOf("surveysimple.jsf")==-1){
+            //UrlSplitter urlSplitter = new UrlSplitter(Jsf.getHttpServletRequest());
+            //If the showsurvey var isn't set in the incoming request, make them add it... this is currently the only exception
+            if (Jsf.getRequestParam("action")==null || Jsf.getRequestParam("action").indexOf("showsurvey")==-1){
                 logger.debug("redirecting to facebook add app page");
-                try{Jsf.redirectResponse("/facebooklandingpage.jsf");return;}catch(Exception ex){logger.error(ex);}
+                try{Jsf.redirectResponse("/facebooklandingpage.jsf?action=showsurvey");return;}catch(Exception ex){logger.error(ex);}
             }
         }
         

@@ -206,6 +206,7 @@ public class Registration implements Serializable {
         userSession.setIsfacebookui(Jsf.getUserSession().getIsfacebookui());
         userSession.setFacebookSessionKey(Jsf.getUserSession().getFacebookSessionKey());
         userSession.setTempFacebookUserid(Jsf.getUserSession().getTempFacebookUserid());
+        userSession.setIsfacebookappadded(Jsf.getUserSession().getIsfacebookappadded());
         //Set persistent login cookie
         Cookie[] cookies = PersistentLogin.getPersistentCookies(user.getUserid(), Jsf.getHttpServletRequest());
         //Add a cookies to the response

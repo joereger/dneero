@@ -36,12 +36,9 @@ public class PublicFacebookLandingPage implements Serializable {
         if (Jsf.getRequestParam("action")!=null && Jsf.getRequestParam("action").indexOf("showsurvey")>-1){
             String[] split = Jsf.getRequestParam("action").split("-");
             if (split.length>=3){
-                try{Jsf.redirectResponse("/surveysimple.jsf?s="+split[1]+"&u="+split[2]+"&p=0");return;}catch(Exception ex){logger.error(ex);}
-                //try{Jsf.redirectResponse("/survey.jsf?surveyid="+split[1]+"&userid="+split[2]);return;}catch(Exception ex){logger.error(ex);}
-                //try{Jsf.redirectResponse("/publicsurveylist.jsf");return;}catch(Exception ex){logger.error(ex);}
+                try{Jsf.redirectResponse("/surveysimple.jsf?s="+split[1]+"&u="+split[2]+"&p=0&action=showsurvey");return;}catch(Exception ex){logger.error(ex);}
             }
         }
-
 
         //Redirect to the public survey list
         if (Jsf.getUserSession().getIsfacebookui() && Jsf.getUserSession().getIsfacebookappadded()){

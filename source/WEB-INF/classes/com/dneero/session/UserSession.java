@@ -202,8 +202,8 @@ public class UserSession implements Serializable {
 
 
     public boolean getIsfacebookui() {
-        Logger logger = Logger.getLogger(this.getClass().getName());
-        logger.debug("getIsfacebookui()="+isfacebookui);
+        //Logger logger = Logger.getLogger(this.getClass().getName());
+        //logger.debug("getIsfacebookui()="+isfacebookui);
         return isfacebookui;
     }
 

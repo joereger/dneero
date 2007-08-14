@@ -142,6 +142,21 @@ public class BloggerIndex implements Serializable {
     public static void storeResponseInDb(Survey survey, SurveyResponseParser srp, Blogger blogger, int referredbyuserid)  throws ComponentException{
         Logger logger = Logger.getLogger(BloggerIndex.class);
         ComponentException allCex = new ComponentException();
+        //Make sure blogger hasn't taken already
+        List<Response> responses = HibernateUtil.getSession().createCriteria(Response.class)
+                                           .add(Restrictions.eq("bloggerid", blogger.getBloggerid()))
+                                           .setCacheable(true)
+                                           .list();
+        for (Iterator<Response> iterator = responses.iterator(); iterator.hasNext();) {
+            Response response = iterator.next();
+            if (response.getSurveyid()==survey.getSurveyid()){
+                allCex.addValidationError("You have already taken this survey before.  Each survey can only be answered once.");
+            }
+        }
+        //Make sure blogger is qualified to take
+        if (!FindSurveysForBlogger.isBloggerQualifiedToTakeSurvey(blogger, survey)){
+            allCex.addValidationError("Sorry, you're not qualified to take this survey.  Your qualification is determined by your Blogger Profile.  Researchers determine their intended audience when they create a survey.");
+        }
         //Create Response
         int responseid = 0;
         boolean isforcharity = false;
