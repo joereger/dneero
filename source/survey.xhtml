@@ -387,9 +387,22 @@
                     <c:if test="${publicSurveyTake.bloggerhasalreadytakensurvey}">
                         <c:if test="${userSession.isfacebookui}">
                             <div class="rounded" style="background: #00ff00;">
-                                <font class="mediumfont">
-                                <b>A link to your survey has been posted to your Facebook feed (which qualifies as a blog, for payment purposes).  You can also use the links below to embed your answers into another blog or website.</b><br/>
-                                </font>
+                                <font class="mediumfont"><b>Congratulations, your survey response has been accepted!</b></font>
+                                <br/>
+                                <font class="smallfont">A link to your survey has been posted to your Facebook feed (which qualifies as a blog, for payment purposes).  You can also use the links below to embed your answers into another blog or website.</font>
+                                <br/><br/>
+                                <div class="rounded" style="background: #ffffff;">
+                                    <font class="mediumfont"><b>Now Tell Up To 10 Friends About This Survey:</b></font>
+                                    <br/>
+                                    <font class="smallfont">They'll be able to see your answers and then take the survey themselves. If your friend hasn't ever used dNeero then we'll pay you for any earnings they make... and any earnings their friends make... up to five levels deep!</font>
+                                    <br/>
+                                    <h:message for="facebookfriendsselected" styleClass="RED"></h:message>
+                                    <h:selectManyCheckbox value="#{publicSurveyTake.facebookfriendsselected}" id="facebookfriendsselected" required="false" style="font-weight: bold;">
+                                        <f:selectItems value="#{publicSurveyTake.facebookallfriends}"/>
+                                    </h:selectManyCheckbox>
+                                    <br/>
+                                    <h:commandButton action="#{publicSurveyTake.tellFriends}" value="Tell Your Friends" styleClass="formsubmitbutton"/>
+                                </div>
                             </div>
                         </c:if> 
                         <table cellpadding="3" cellspacing="15" border="0" width="100%">

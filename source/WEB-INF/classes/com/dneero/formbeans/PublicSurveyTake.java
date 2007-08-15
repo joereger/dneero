@@ -20,11 +20,10 @@ import com.dneero.scheduledjobs.SurveydisplayActivityObjectQueue;
 import com.dneero.systemprops.BaseUrl;
 import com.dneero.session.SurveysTakenToday;
 import com.dneero.helpers.UserInputSafe;
+import com.dneero.facebook.FacebookApiWrapper;
+import com.dneero.facebook.FacebookUser;
 
-import java.util.Iterator;
-import java.util.List;
-import java.util.Date;
-import java.util.ArrayList;
+import java.util.*;
 import java.io.Serializable;
 
 import org.apache.log4j.Logger;
@@ -74,6 +73,7 @@ public class PublicSurveyTake implements Serializable {
     private String DNEERO_REQUEST_PARAM_IDENTIFIER = SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER;
     private boolean surveytakergavetocharity = false;
     private String charityname = "";
+    private String[] facebookfriendsselected;
 
     public PublicSurveyTake(){
         load();
@@ -438,6 +438,41 @@ public class PublicSurveyTake implements Serializable {
         return "publicsurvey";
     }
 
+    public String tellFriends(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
+
+        if (facebookfriendsselected!=null && facebookfriendsselected.length>0){
+            int numberinvited = 0;
+            ArrayList<Integer> uids = new ArrayList<Integer>();
+            for (int i = 0; i < facebookfriendsselected.length; i++) {
+                String uid = facebookfriendsselected[i];
+                if (Num.isinteger(uid)){
+                    numberinvited = numberinvited + 1;
+                    logger.debug("Facebookfriend to invite, uid="+uid);
+                    if (numberinvited<=10){
+                        uids.add(Integer.parseInt(uid));
+                    }
+                }
+            }
+            FacebookApiWrapper faw = new FacebookApiWrapper(Jsf.getUserSession());
+            faw.inviteFriendsToSurvey(uids, survey);
+        }
+
+        try{Jsf.getHttpServletResponse().sendRedirect("/survey.jsf?surveyid="+survey.getSurveyid()); return null;}catch(Exception ex){logger.error(ex);}
+        return "publicsurvey";
+    }
+
+    public TreeMap getFacebookallfriends(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
+        TreeMap tm = new TreeMap();
+        FacebookApiWrapper faw = new FacebookApiWrapper(Jsf.getUserSession());
+        ArrayList<FacebookUser> friends = faw.getFriends();
+        for (Iterator<FacebookUser> iterator = friends.iterator(); iterator.hasNext();) {
+            FacebookUser facebookUser = iterator.next();
+            tm.put(facebookUser.getFirst_name()+" "+facebookUser.getLast_name(), facebookUser.getUid());
+        }
+        return tm;
+    }
 
 
 
@@ -716,5 +751,14 @@ public class PublicSurveyTake implements Serializable {
 
     public void setRespondents(List<PublicSurveyRespondentsListitem> respondents) {
         this.respondents = respondents;
+    }
+
+
+    public String[] getFacebookfriendsselected() {
+        return facebookfriendsselected;
+    }
+
+    public void setFacebookfriendsselected(String[] facebookfriendsselected) {
+        this.facebookfriendsselected = facebookfriendsselected;
     }
 }

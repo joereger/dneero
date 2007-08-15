@@ -13,17 +13,18 @@
 
 
 <ui:composition template="/template/template-facelets.xhtml">
-    <ui:define name="title">You Need to Add the App<br/><br/></ui:define>
+    <ui:define name="title">Add the dNeero Facebook Application<br/><br/></ui:define>
     <ui:param name="navtab" value="home"/>
     <ui:define name="body">
     <d:authorization acl="public" redirectonfail="true"/>
-    
-    You must <a href="${publicFacebookLandingPage.addurl}" target="_top">Add this Application</a> to continue.
-
-
-
-
     ${publicFacebookLandingPage.dummy}
+
+    
+    Before you can take part in social surveys you need to <a href="${publicFacebookLandingPage.addurl}" target="_top">Add the dNeero Facebook Application</a>.
+
+
+
+
 
     </ui:define>
 

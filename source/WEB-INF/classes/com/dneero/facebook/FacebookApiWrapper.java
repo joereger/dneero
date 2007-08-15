@@ -10,12 +10,20 @@ import com.dneero.ui.SurveyEnhancer;
 import com.dneero.systemprops.SystemProperty;
 import com.dneero.systemprops.BaseUrl;
 import com.dneero.util.Str;
+import com.dneero.util.Num;
+import com.dneero.util.Jsf;
 import org.apache.log4j.Logger;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.criterion.Order;
+import org.jdom.Element;
+import org.jdom.output.XMLOutputter;
+import org.jdom.input.DOMBuilder;
+import org.w3c.dom.Document;
 
 import java.util.List;
 import java.util.Iterator;
+import java.util.ArrayList;
+import java.net.URL;
 
 /**
  * User: Joe Reger Jr
@@ -136,19 +144,102 @@ public class FacebookApiWrapper {
         } else {logger.debug("Can't execute because issessionok = false");}
     }
 
-//    public void doSomething(){
-//        Logger logger = Logger.getLogger(this.getClass().getName());
-//        if (issessionok){
-//            try{
-//                FacebookRestClient facebookRestClient = new FacebookRestClient(FacebookVars.API_KEY, FacebookVars.API_SECRET, facebookSessionKey);
-//                facebookRestClient.feed_publishActionOfUser("A survey was taken", "The survey was called "+survey.getTitle());
-//            } catch (Exception ex){logger.error(ex);}
-//        } else {logger.debug("Can't execute because issessionok = false");}
-//    }
+    public ArrayList<FacebookUser> getFriends(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
+        ArrayList<FacebookUser> friends = new ArrayList<FacebookUser>();
+        if (issessionok){
+            try{
+                FacebookRestClient facebookRestClient = new FacebookRestClient(SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_KEY), SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_SECRET), facebookSessionKey);
+                Document w3cDoc = facebookRestClient.friends_get();
+
+                DOMBuilder builder = new DOMBuilder();
+                org.jdom.Document jdomDoc = builder.build(w3cDoc);
+                logger.debug("Start Facebook API Friends Response:");
+                XMLOutputter outp = new XMLOutputter();
+                outp.output(jdomDoc, System.out);
+                logger.debug(":End Facebook API Friends Response");
+                Element root = jdomDoc.getRootElement();
+                outputChildrenToLogger(root, 0);
+
+                List allChildren = root.getChildren();
+                for (Iterator iterator = allChildren.iterator(); iterator.hasNext();) {
+                    Element element = (Element) iterator.next();
+                    if (element.getName().equals("uid")){
+                        if(Num.isinteger(element.getTextTrim())){
+                            FacebookUser facebookUser = new FacebookUser(Integer.parseInt(element.getTextTrim()), facebookSessionKey);
+                            if (!facebookUser.getUid().equals("")){
+                                friends.add(facebookUser);
+                            }
+                        }
+                    }
+                }
+
+            } catch (Exception ex){logger.error(ex);}
+        } else {logger.debug("Can't execute because issessionok = false");}
+        return friends;
+    }
+
+    public void inviteFriendsToSurvey(ArrayList<Integer> uids, Survey survey){
+        Logger logger = Logger.getLogger(this.getClass().getName());
+        FacebookRestClient facebookRestClient = new FacebookRestClient(SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_KEY), SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_SECRET), facebookSessionKey);
+        SurveyEnhancer surveyEnhancer = new SurveyEnhancer(survey);
+        String forcharity =  "";
+        if (survey.getIscharityonly()){
+            forcharity = " for charity";
+        }
+        String type = "social survey";
+        CharSequence typeChars = type.subSequence(0, type.length());
+        StringBuffer content = new StringBuffer();
+        content.append("You've been invited to the social survey: "+survey.getTitle());
+        content.append("<br/><br/>");
+        content.append("Earn up to "+surveyEnhancer.getWillingtopayforresponse()+forcharity);
+        content.append("<fb:req-choice url=\"http://apps.facebook.com/"+SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_APP_NAME)+"?action=showsurvey"+"-"+survey.getSurveyid()+"-"+userSession.getUser().getUserid()+"\" label=\"Check it Out\" />");
+        CharSequence contentChars = content.subSequence(0, content.length());
+        URL imgUrl = null;
+        try{
+            imgUrl = new URL("http", SystemProperty.getProp(SystemProperty.PROP_BASEURL), "/images/dneero-logo-100x100.png");
+        } catch (Exception ex){
+            logger.error(ex);    
+        }
+        try{
+            URL url = facebookRestClient.notifications_sendRequest(uids, typeChars, contentChars, imgUrl, true);
+            if (url!=null){
+                logger.debug("FacebookAPI returned: " + url.toString());
+                Jsf.redirectResponse(url.toString());
+                return;
+            }
+            
+        } catch (Exception ex){
+            logger.error(ex);
+        }
+    }
 
 
+    public static Element getChild(Element el, String name){
+        List allChildren = el.getChildren();
+        for (Iterator iterator = allChildren.iterator(); iterator.hasNext();) {
+            Element element = (Element) iterator.next();
+            if (element.getName().equals(name)){
+                return element;
+            }
+        }
+        return null;
+    }
 
-
+    public static void outputChildrenToLogger(Element el, int level){
+        Logger logger = Logger.getLogger(FacebookApiWrapper.class);
+        level = level + 1;
+        String indent = "";
+        for(int i=0; i<level; i++){
+            indent = indent + "-";
+        }
+        List allChildren = el.getChildren();
+        for (Iterator iterator = allChildren.iterator(); iterator.hasNext();) {
+            Element element = (Element) iterator.next();
+            logger.debug(indent + " " + element.getName());
+            outputChildrenToLogger(element, level);
+        }
+    }
 
 
 

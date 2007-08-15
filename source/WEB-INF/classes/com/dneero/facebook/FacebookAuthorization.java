@@ -18,6 +18,7 @@ import org.jdom.output.XMLOutputter;
 
 import java.util.List;
 import java.util.Iterator;
+import java.util.ArrayList;
 
 /**
  * User: Joe Reger Jr
@@ -62,9 +63,6 @@ public class FacebookAuthorization {
                         logger.debug("User has added app... we have facebookSessionKey="+facebookSessionKey);
                         FacebookRestClient facebookRestClient = new FacebookRestClient(SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_KEY), SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_SECRET), facebookSessionKey);
                         int facebookuserid = facebookRestClient.users_getLoggedInUser();
-                        //@todo Use the FacebookUserQuery to pre-populate registration form
-                        //FacebookUserQuery fuq = new FacebookUserQuery(facebookSessionKey, facebookuserid);
-                        //logger.debug("first_name="+fuq.getFirst_name()+" last_name="+fuq.getLast_name());
                         Jsf.getUserSession().setIsfacebookappadded(facebookRestClient.users_isAppAdded());
                         Jsf.getUserSession().setTempFacebookUserid(facebookuserid);
                         logger.debug("facebookRestClient.users_getLoggedInUser()="+facebookuserid);
@@ -79,7 +77,6 @@ public class FacebookAuthorization {
                             //Notify via XMPP
                             SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_SALES, "dNeero Facebook Login: "+ user.getFirstname() + " " + user.getLastname() + " ("+user.getEmail()+") (Facebook.userid="+user.getFacebookuserid()+")");
                             xmpp.send();
-                            //Could redirect to Facebook welcome screen here.
                         } else {
                             //Is not a dNeero user yet... make sure there's no user in the session
                             Jsf.getUserSession().setUser(null);
@@ -90,6 +87,7 @@ public class FacebookAuthorization {
                             xmpp.send();
                             //Could redirect to Facebook new user welcome screen here.
                         }
+
                     }
                 } catch (FacebookException fex){
                     logger.error("Facebook Error fex", fex);
