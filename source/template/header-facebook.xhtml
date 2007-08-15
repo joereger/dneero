@@ -124,6 +124,18 @@
                 <tr>
                     <td  bgcolor="#666666" colspan="5"><img src="/images/clear.gif" width="1" height="1"/></td>
                 </tr>
+                <c:if test="#{userSession.isloggedin}">
+                    <tr>
+                        <td bgcolor="#ffffff" style="text-align: right; vertical-align: top;" colspan="5" height="15">
+                            <div style="padding: 0px; text-align: right;">
+                                <font class="subnavfont">Hi, ${userSession.user.firstname} ${userSession.user.lastname}!<img src="/images/clear.gif" width="5" height="1"/></font>
+                            </div>
+                        </td>
+                    </tr>
+                </c:if>
+
+
+
             </table>
             <br/>
 

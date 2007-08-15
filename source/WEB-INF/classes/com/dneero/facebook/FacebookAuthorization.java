@@ -11,6 +11,10 @@ import com.facebook.api.FacebookRestClient;
 import com.facebook.api.FacebookException;
 import org.apache.log4j.Logger;
 import org.hibernate.criterion.Restrictions;
+import org.w3c.dom.Document;
+import org.w3c.dom.NodeList;
+import org.jdom.input.DOMBuilder;
+import org.jdom.output.XMLOutputter;
 
 import java.util.List;
 import java.util.Iterator;
@@ -58,6 +62,9 @@ public class FacebookAuthorization {
                         logger.debug("User has added app... we have facebookSessionKey="+facebookSessionKey);
                         FacebookRestClient facebookRestClient = new FacebookRestClient(SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_KEY), SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_SECRET), facebookSessionKey);
                         int facebookuserid = facebookRestClient.users_getLoggedInUser();
+                        //@todo Use the FacebookUserQuery to pre-populate registration form
+                        //FacebookUserQuery fuq = new FacebookUserQuery(facebookSessionKey, facebookuserid);
+                        //logger.debug("first_name="+fuq.getFirst_name()+" last_name="+fuq.getLast_name());
                         Jsf.getUserSession().setIsfacebookappadded(facebookRestClient.users_isAppAdded());
                         Jsf.getUserSession().setTempFacebookUserid(facebookuserid);
                         logger.debug("facebookRestClient.users_getLoggedInUser()="+facebookuserid);

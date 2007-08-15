@@ -142,6 +142,7 @@ public class BloggerIndex implements Serializable {
     public static void storeResponseInDb(Survey survey, SurveyResponseParser srp, Blogger blogger, int referredbyuserid)  throws ComponentException{
         Logger logger = Logger.getLogger(BloggerIndex.class);
         ComponentException allCex = new ComponentException();
+        User user = User.get(blogger.getUserid());
         //Make sure blogger hasn't taken already
         List<Response> responses = HibernateUtil.getSession().createCriteria(Response.class)
                                            .add(Restrictions.eq("bloggerid", blogger.getBloggerid()))
@@ -222,7 +223,7 @@ public class BloggerIndex implements Serializable {
             //Update Facebook
             FacebookApiWrapper facebookApiWrapper = new FacebookApiWrapper(Jsf.getUserSession());
             facebookApiWrapper.postSurveyToFacebookMiniFeed(survey, response);
-            facebookApiWrapper.postSurveyToFacebookProfile(survey, response);
+            facebookApiWrapper.updateFacebookProfile(user);
             
         } catch (Exception ex){
             logger.error(ex);
