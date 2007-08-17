@@ -158,12 +158,6 @@
     </managed-bean>
 
     <managed-bean>
-        <managed-bean-name>publicSurveyTakeFinished</managed-bean-name>
-        <managed-bean-class>com.dneero.formbeans.PublicSurveyTakeFinished</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
-    </managed-bean>
-
-    <managed-bean>
         <managed-bean-name>bloggerPanelOffers</managed-bean-name>
         <managed-bean-class>com.dneero.formbeans.BloggerPanelOffers</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
@@ -756,10 +750,6 @@
         <navigation-case>
             <from-outcome>publicresultsanswersdetails</from-outcome>
             <to-view-id>/results_answers_details.xhtml</to-view-id>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>publicsurveytakefinished</from-outcome>
-            <to-view-id>/surveytakefinished.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>publicsurveysimple</from-outcome>

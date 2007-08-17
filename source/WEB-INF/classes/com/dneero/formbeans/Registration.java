@@ -39,6 +39,7 @@ public class Registration implements Serializable {
     private String lastname;
     private String j_captcha_response;
     private String eula;
+    private boolean displaytempresponsesavedmessage;
 
 
     //private String temp;
@@ -56,6 +57,10 @@ public class Registration implements Serializable {
     }
 
     private void load(){
+        displaytempresponsesavedmessage = false;
+        if (Jsf.getUserSession().getPendingSurveyResponseAsString()!=null && !Jsf.getUserSession().getPendingSurveyResponseAsString().equals("")){
+            displaytempresponsesavedmessage = true;
+        }
         eula = EulaHelper.getMostRecentEula().getEula();
     }
 
@@ -306,5 +311,11 @@ public class Registration implements Serializable {
     }
 
 
-    
+    public boolean getDisplaytempresponsesavedmessage() {
+        return displaytempresponsesavedmessage;
+    }
+
+    public void setDisplaytempresponsesavedmessage(boolean displaytempresponsesavedmessage) {
+        this.displaytempresponsesavedmessage = displaytempresponsesavedmessage;
+    }
 }

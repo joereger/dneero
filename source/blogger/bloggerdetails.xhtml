@@ -11,7 +11,7 @@
       >
 
 <ui:composition template="/template/template-facelets.xhtml">
-    <ui:define name="title">Blogger Profile<br/><br/></ui:define>
+    <ui:define name="title">Profile<br/><br/></ui:define>
     <ui:param name="navtab" value="bloggers"/>
     <ui:define name="body">
     <d:authorization acl="account" redirectonfail="true"/>
@@ -19,13 +19,13 @@
 
     <t:div rendered="#{userSession.isloggedin and (userSession.user.bloggerid eq 0)}">
         <div class="rounded" style="padding: 15px; margin: 5px; background: #F2FFBF;">
-            <font class="mediumfont">Quick One-time Blogger Configuration Required</font>
+            <font class="mediumfont">Quick One-time Configuration Required</font>
             <br/>
-            <font class="smallfont">Before you can make money blogging we need to collect a few pieces of information about you and your blog.  This will only take a minute or two and you won't have to do it again on future visits.  You'll be filling out surveys, posting them to your blog and making money in no time! We must take your profile so that we can find offers that fit you.  This is a one-time step.  You can edit your answers later on.</font>
+            <font class="smallfont">Before you can make money we need to collect a few pieces of information about you.  This will only take a minute or two and you won't have to do it again on future visits.  You'll be filling out surveys, posting them socially and making money in no time! We must take your profile so that we can find offers that fit you.  This is a one-time step.  You can edit your answers later on.</font>
         </div>
     </t:div>
 
-    <font class="smallfont">Your blogger profile describes you and allows us to present you with surveys that fit your interests.</font>
+    <font class="smallfont">Your profile describes you and allows us to present you with surveys that fit your interests.</font>
     <br/><br/>
 
     <h:form id="bloggerdetails">

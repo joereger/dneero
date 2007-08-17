@@ -360,10 +360,10 @@ public class PublicSurveyTake implements Serializable {
             } else {
                 AccountIndex bean = (AccountIndex)Jsf.getManagedBean("accountIndex");
                 return bean.beginView();
-                //return "accountindex";
             }
         }
-        return "publicsurveytakefinished";
+        Registration bean = (Registration)Jsf.getManagedBean("registration");
+        return bean.beginView();
     }
 
 

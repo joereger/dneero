@@ -71,7 +71,7 @@
                                 <c:if test="${(publicSurveyTake.survey.status eq 4) and (!publicSurveyTake.bloggerhasalreadytakensurvey)}">
                                     <t:div rendered="#{userSession.isfacebookui and !publicSurveyTake.bloggerhasalreadytakensurvey}">
                                         <div class="rounded" style="background: #e6e6e6; text-align: center;">
-                                            <h:outputText value="Take this survey and earn" styleClass="mediumfont"/>
+                                            <h:outputText value="Take this survey and earn at least" styleClass="mediumfont"/>
                                             <br/>
                                             <h:outputText value="#{publicSurveyTake.surveyEnhancer.minearning}" styleClass="largefont" style="font-size: 30px; color: #666666;"/>
                                             <c:if test="${publicSurveyTake.surveytakergavetocharity or publicSurveyTake.survey.ischarityonly}">

@@ -191,7 +191,7 @@ public class FacebookApiWrapper {
         CharSequence typeChars = type.subSequence(0, type.length());
         StringBuffer content = new StringBuffer();
         content.append("You've been invited to the social survey: "+survey.getTitle());
-        content.append("<br/><br/>");
+        content.append(" ");
         content.append("Earn up to "+surveyEnhancer.getWillingtopayforresponse()+forcharity);
         content.append("<fb:req-choice url=\"http://apps.facebook.com/"+SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_APP_NAME)+"?action=showsurvey"+"-"+survey.getSurveyid()+"-"+userSession.getUser().getUserid()+"\" label=\"Check it Out\" />");
         CharSequence contentChars = content.subSequence(0, content.length());
