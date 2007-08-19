@@ -23,7 +23,7 @@ public class SurveyHtmlpageServlet extends HttpServlet {
     public void doPost (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.error("SurveyHtmlpageServlet called.  It shouldn't be.");
-        response.sendRedirect("/surveysimple.jsf?s="+request.getParameter("s")+"&u="+request.getParameter("u")+"&p="+request.getParameter("p"));
+        response.sendRedirect("/survey.jsf?s="+request.getParameter("s")+"&u="+request.getParameter("u")+"&p="+request.getParameter("p")+"&permitbeforefacebookappadd=1");
         return;
 //        logger.debug("Looking for html page survey via servlet");
 //        logger.debug("request.getParameter(\"s\")="+request.getParameter("s"));
@@ -92,7 +92,7 @@ public class SurveyHtmlpageServlet extends HttpServlet {
         }
 
         //String urlofsurvey = baseurl+"shtml?s="+surveyid+"&u="+userid+"&p="+ispreviewStr;
-        String urlofsurvey = baseurl+"surveysimple.jsf?s="+surveyid+"&u="+userid+"&p="+ispreviewStr+"&r="+responseid;
+        String urlofsurvey = baseurl+"survey.jsf?s="+surveyid+"&u="+userid+"&p="+ispreviewStr+"&r="+responseid+"+&permitbeforefacebookappadd=1";
         return urlofsurvey;
     }
 

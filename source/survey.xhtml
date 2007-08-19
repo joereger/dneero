@@ -404,7 +404,7 @@
                         <c:if test="${userSession.isfacebookui}">
                             <div class="rounded" style="background: #00ff00;">
                                 <font class="normalfont">
-                                <b>Once you take the survey we'll post a link to your Facebook feed.  When friends click that link they'll see your answers in a widget like the one below.</b><br/>
+                                <b>Once you take the survey we'll post a link to your Facebook feed and profile box.  When friends click that link they'll see your answers and be able to answer for themselves.</b><br/>
                                 </font>
                             </div>
                         </c:if>
@@ -1132,7 +1132,7 @@
                     <br/>
                     <t:panelTabbedPane id="whotookitpanel" bgcolor="#ffffff">
                         <t:panelTab id="whotookitpanel_a" label="Who Took It?">
-                            <h:graphicImage url="/images/clear.gif" width="415" height="1"/><br/>
+                            <h:graphicImage url="/images/clear.gif" width="550" height="1"/><br/>
                             <t:dataTable id="datatablerespondents" value="#{publicSurveyTake.respondents}" rows="100" var="respondent" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcol,tcolnowrap,tcol,tcolnowrap,tcolnowrap">
                               <h:column>
                                 <f:facet name="header">
@@ -1152,7 +1152,7 @@
                                 <f:facet name="header">
                                   <h:outputText value="Answers"/>
                                 </f:facet>
-                                <h:outputLink value="/surveysimple.jsf?u=#{respondent.user.userid}&amp;s=#{respondent.response.surveyid}&amp;p=0&amp;r=#{respondent.response.responseid}">
+                                <h:outputLink value="/survey.jsf?u=#{respondent.user.userid}&amp;s=#{respondent.response.surveyid}&amp;p=0&amp;r=#{respondent.response.responseid}&amp;permitbeforefacebookappadd=1">
                                     <h:outputText value="Answers" styleClass="tinyfont" style="font-weight: bold;"/>
                                 </h:outputLink>
                               </h:column>
@@ -1179,7 +1179,7 @@
                             </t:dataScroller>
                         </t:panelTab>
                         <t:panelTab id="whotookitpanel_b" label="Where It's Been Posted">
-                            <h:graphicImage url="/images/clear.gif" width="415" height="1"/><br/>
+                            <h:graphicImage url="/images/clear.gif" width="550" height="1"/><br/>
                             <t:dataTable id="datatable" value="#{publicSurveyTake.impressions}" rows="100" var="imp" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcol,tcolnowrap,tcol,tcolnowrap,tcolnowrap">
                               <h:column>
                                 <f:facet name="header">

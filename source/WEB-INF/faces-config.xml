@@ -520,12 +520,6 @@
     </managed-bean>
 
     <managed-bean>
-        <managed-bean-name>publicSurveysimple</managed-bean-name>
-        <managed-bean-class>com.dneero.formbeans.PublicSurveysimple</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
-    </managed-bean>
-
-    <managed-bean>
         <managed-bean-name>publicEula</managed-bean-name>
         <managed-bean-class>com.dneero.formbeans.PublicEula</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
@@ -750,10 +744,6 @@
         <navigation-case>
             <from-outcome>publicresultsanswersdetails</from-outcome>
             <to-view-id>/results_answers_details.xhtml</to-view-id>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>publicsurveysimple</from-outcome>
-            <to-view-id>/surveysimple.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>publicevil</from-outcome>
