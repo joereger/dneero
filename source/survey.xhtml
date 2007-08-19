@@ -33,14 +33,14 @@
         <br/>
     </t:div>
 
-    <t:div rendered="#{publicSurveyTake.bloggerhastakentoomanysurveysalreadytoday and !publicSurveyTake.bloggerhasalreadytakensurvey}">
+    <t:div rendered="#{publicSurveyTake.bloggerhastakentoomanysurveysalreadytoday and !publicSurveyTake.loggedinuserhasalreadytakensurvey}">
         <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
             <h:outputText value="Sorry, you've already taken the maximum number of surveys today.  Wait until tomorrow (as defined by U.S. EST) and try again." styleClass="mediumfont"/>
         </div>
         <br/>
     </t:div>
 
-    <t:div rendered="#{publicSurveyTake.surveytakergavetocharity and publicSurveyTake.isuserwhotooksurveyloaded}">
+    <t:div rendered="#{publicSurveyTake.surveytakergavetocharity}">
         <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
             <h:outputText value="${publicSurveyTake.userwhotooksurvey.firstname} ${publicSurveyTake.userwhotooksurvey.lastname} had dNeero donate all earnings from this survey to ${publicSurveyTake.charityname}." styleClass="mediumfont"/>
         </div>
@@ -68,24 +68,24 @@
                         <tr>
                             <td valign="top" width="450">
 
-                             <c:if test="${!publicSurveyTake.isuserwhotooksurveysameasloggedinuser and publicSurveyTake.useridisspecifiedonurl}">
+                             <c:if test="${(publicSurveyTake.userwhotooksurvey ne NULL) and (publicSurveyTake.userwhotooksurvey.userid>0)}">
                                     <center>
                                     <div class="rounded" style="width: 400px; padding: 15px; margin: 5px; background: #e6e6e6;">
                                         <center>
                                             <font class="mediumfont">
-                                                ${publicSurveysimple.user.firstname} ${publicSurveysimple.user.lastname}'s answers.
+                                                ${publicSurveyTake.userwhotooksurvey.firstname} ${publicSurveyTake.userwhotooksurvey.lastname}'s answers.
                                             </font>
                                         </center>
                                     </div>
                                     </center>
                                     <br/>
                                     <center>
-                                        <f:verbatim>#{publicSurveyTake.surveyAnswersForThisBlogger}</f:verbatim>
+                                        <f:verbatim>#{publicSurveyTake.surveyResponseFlashEmbed}</f:verbatim>
                                     </center>
                                </c:if>
 
-                                <c:if test="${(publicSurveyTake.survey.status eq 4) and (!publicSurveyTake.bloggerhasalreadytakensurvey)}">
-                                    <t:div rendered="#{userSession.isfacebookui and !publicSurveyTake.bloggerhasalreadytakensurvey}">
+                                <c:if test="${(publicSurveyTake.survey.status eq 4) and (!publicSurveyTake.loggedinuserhasalreadytakensurvey)}">
+                                    <t:div rendered="#{userSession.isfacebookui and !publicSurveyTake.loggedinuserhasalreadytakensurvey}">
                                         <div class="rounded" style="background: #e6e6e6; text-align: center;">
                                             <h:outputText value="Take this survey and earn at least" styleClass="mediumfont"/>
                                             <br/>
@@ -101,7 +101,7 @@
                                     </t:div>
                                     <div class="rounded" style="background: #e6e6e6; padding: 10px;">
                                         <div class="rounded" style="background: #ffffff; padding: 5px;">
-                                            <f:verbatim escape="false">#{publicSurveyTake.html}</f:verbatim>
+                                            <f:verbatim escape="false">#{publicSurveyTake.takesurveyhtml}</f:verbatim>
                                         </div>
                                     </div>
                                     <br/>
@@ -158,7 +158,8 @@
                                         </center>
                                     </div>
                                 </c:if>
-                                <c:if test="${publicSurveyTake.bloggerhasalreadytakensurvey}">
+                             <!--
+                                <c:if test="${publicSurveyTake.loggedinuserhasalreadytakensurvey}">
                                     <center>
                                     <div class="rounded" style="width: 400px; padding: 15px; margin: 5px; background: #e6e6e6;">
                                         <center>
@@ -173,7 +174,8 @@
                                         <f:verbatim>#{publicSurveyTake.surveyAnswersForThisBlogger}</f:verbatim>
                                     </center>
                                 </c:if>
-                                <c:if test="${(publicSurveyTake.survey.status ne 4) and (!publicSurveyTake.bloggerhasalreadytakensurvey)}">
+                                -->
+                                <c:if test="${(publicSurveyTake.survey.status ne 4) and (!publicSurveyTake.loggedinuserhasalreadytakensurvey)}">
                                     <font class="mediumfont">This survey is no longer open for respondents.  However, we still have many other surveys that allow you to make money!  Click the Results tab to see how people answered!</font>
                                     <br/><br/>
                                     <h:commandButton action="#{publicSurveyList.beginView}" value="Find Another Survey" styleClass="formsubmitbutton"></h:commandButton>
@@ -195,7 +197,7 @@
                                                 </div>
                                                 <br/>
                                             </c:if>
-                                            <c:if test="${publicSurveyTake.bloggerhasalreadytakensurvey}">
+                                            <c:if test="${publicSurveyTake.loggedinuserhasalreadytakensurvey}">
                                                 <h:outputText value="You've already earned" styleClass="mediumfont"/>
                                                 <br/>
                                                 <h:outputText value="(pending posting verification)" styleClass="tinyfont"/>
@@ -212,7 +214,7 @@
                                                 <br/>
                                                 <h:outputText value="and can earn up to #{publicSurveyTake.surveyEnhancer.maxearning} total by posting it to your blog!" styleClass="mediumfont"/>
                                             </c:if>
-                                            <c:if test="${(!publicSurveyTake.bloggerhasalreadytakensurvey) and (publicSurveyTake.survey.status le 4)}">
+                                            <c:if test="${(!publicSurveyTake.loggedinuserhasalreadytakensurvey) and (publicSurveyTake.survey.status le 4)}">
                                                 <h:outputText value="Take this survey and earn" styleClass="mediumfont"/>
                                                 <br/>
                                                 <h:outputText value="#{publicSurveyTake.surveyEnhancer.minearning}" styleClass="largefont" style="font-size: 60px; color: #666666;"/>
@@ -225,7 +227,7 @@
                                                 <br/><br/>
                                                 <h:outputText value="(just answer the questions to the left and click Complete the Survey... easy!)" styleClass="smallfont"/>
                                             </c:if>
-                                            <c:if test="${(!publicSurveyTake.bloggerhasalreadytakensurvey) and (publicSurveyTake.survey.status ge 5)}">
+                                            <c:if test="${(!publicSurveyTake.loggedinuserhasalreadytakensurvey) and (publicSurveyTake.survey.status ge 5)}">
                                                 <h:outputText value="People who took this survey earned" styleClass="mediumfont"/>
                                                 <br/>
                                                 <h:outputText value="#{publicSurveyTake.surveyEnhancer.minearning}" styleClass="largefont" style="font-size: 60px; color: #666666;"/>
@@ -358,7 +360,7 @@
                 </t:panelTab>
                 <t:panelTab id="panel_d" label="Post It">
                     <h:graphicImage url="/images/clear.gif" width="700" height="1" styleClass="survey_tabs_body_width"/><br/>
-                    <c:if test="${!publicSurveyTake.bloggerhasalreadytakensurvey}">
+                    <c:if test="${!publicSurveyTake.loggedinuserhasalreadytakensurvey}">
                         <c:if test="${!userSession.isfacebookui}">
                             <table width="100%" cellpadding="5">
                                 <tr>
@@ -407,7 +409,7 @@
                             </div>
                         </c:if>
                     </c:if>
-                    <c:if test="${publicSurveyTake.bloggerhasalreadytakensurvey}">
+                    <c:if test="${publicSurveyTake.loggedinuserhasalreadytakensurvey}">
                         <c:if test="${userSession.isfacebookui}">
                             <div class="rounded" style="background: #00ff00;">
                                 <font class="mediumfont"><b>Congratulations, your survey response has been accepted!</b></font>
@@ -491,7 +493,7 @@
                                         </font>
 
                                         <br/><br/>
-                                        <c:if test="${userSession.isloggedin and publicSurveyTake.bloggerhasalreadytakensurvey}">
+                                        <c:if test="${userSession.isloggedin and publicSurveyTake.loggedinuserhasalreadytakensurvey}">
                                             <div class="rounded" style="background: #ffffff; text-align: center;">
                                                 <h:commandLink value="Need Help?" action="#{accountSupportIssuesList.beginView}" styleClass="mediumfont"/>
                                             </div>
@@ -1018,9 +1020,21 @@
                                         <h:graphicImage url="/images/clear.gif" width="415" height="1"/><br/>
                                         <f:verbatim escape="false">#{publicSurveyTake.resultsHtml}</f:verbatim>
                                     </t:panelTab>
-                                    <t:panelTab id="resultspanel_b" label="#{publicSurveyTake.resultsfriendstabtext}" rendered="${publicSurveyTake.isreferredbyblog}">
+                                    <t:panelTab id="resultspanel_b" label="#{publicSurveyTake.resultsfriendstabtext}" rendered="${(publicSurveyTake.userwhotooksurvey ne NULL) and (publicSurveyTake.userwhotooksurvey.userid gt 0)}">
                                         <h:graphicImage url="/images/clear.gif" width="415" height="1"/><br/>
-                                        <f:verbatim escape="false">#{publicSurveyTake.resultsHtmlForReferredByBlog}</f:verbatim>
+                                        <table width="100%" cellpadding="10" cellspacing="0" border="0">
+                                            <tr>
+                                                <td valign="top">
+                                                    <f:verbatim escape="false">#{publicSurveyTake.resultsHtmlForUserWhoTookSurvey}</f:verbatim>
+                                                </td>
+                                                <t:div rendered="#{1 eq 1}">
+                                                    <td valign="top">
+                                                         <!-- List of friends who've taken and those who've not -->
+                                                    </td>
+                                                </t:div>
+                                            </tr>
+                                        </table>
+
                                     </t:panelTab>
                                     <t:panelTab id="resultspanel_c" label="Your Friends" rendered="${publicSurveyTake.resultsshowyourfriendstab}">
                                         <h:graphicImage url="/images/clear.gif" width="415" height="1"/><br/>
@@ -1042,7 +1056,7 @@
                                                 </div>
                                                 <br/>
                                             </c:if>
-                                            <c:if test="${publicSurveyTake.bloggerhasalreadytakensurvey}">
+                                            <c:if test="${publicSurveyTake.loggedinuserhasalreadytakensurvey}">
                                                 <h:outputText value="You've already earned" styleClass="mediumfont"/>
                                                 <br/>
                                                 <h:outputText value="(pending posting verification)" styleClass="tinyfont"/>
@@ -1059,7 +1073,7 @@
                                                 <br/>
                                                 <h:outputText value="and can earn up to #{publicSurveyTake.surveyEnhancer.maxearning} total by posting it to your blog!" styleClass="mediumfont"/>
                                             </c:if>
-                                            <c:if test="${(!publicSurveyTake.bloggerhasalreadytakensurvey) and (publicSurveyTake.survey.status le 4)}">
+                                            <c:if test="${(!publicSurveyTake.loggedinuserhasalreadytakensurvey) and (publicSurveyTake.survey.status le 4)}">
                                                 <h:outputText value="Take this survey and earn" styleClass="mediumfont"/>
                                                 <br/>
                                                 <h:outputText value="#{publicSurveyTake.surveyEnhancer.minearning}" styleClass="largefont" style="font-size: 60px; color: #666666;"/>
@@ -1072,7 +1086,7 @@
                                                 <br/><br/>
                                                 <h:outputText value="(just click the Questions tab (top left) and Complete the Survey... easy!)" styleClass="smallfont"/>
                                             </c:if>
-                                            <c:if test="${(!publicSurveyTake.bloggerhasalreadytakensurvey) and (publicSurveyTake.survey.status ge 5)}">
+                                            <c:if test="${(!publicSurveyTake.loggedinuserhasalreadytakensurvey) and (publicSurveyTake.survey.status ge 5)}">
                                                 <h:outputText value="People who took this survey earned" styleClass="mediumfont"/>
                                                 <br/>
                                                 <h:outputText value="#{publicSurveyTake.surveyEnhancer.minearning}" styleClass="largefont" style="font-size: 60px; color: #666666;"/>
@@ -1118,7 +1132,7 @@
                     <br/>
                     <t:panelTabbedPane id="whotookitpanel" bgcolor="#ffffff">
                         <t:panelTab id="whotookitpanel_a" label="Who Took It?">
-                            <h:graphicImage url="/images/clear.gif" width="600" height="1"/><br/>
+                            <h:graphicImage url="/images/clear.gif" width="415" height="1"/><br/>
                             <t:dataTable id="datatablerespondents" value="#{publicSurveyTake.respondents}" rows="100" var="respondent" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcol,tcolnowrap,tcol,tcolnowrap,tcolnowrap">
                               <h:column>
                                 <f:facet name="header">
@@ -1165,7 +1179,7 @@
                             </t:dataScroller>
                         </t:panelTab>
                         <t:panelTab id="whotookitpanel_b" label="Where It's Been Posted">
-                            <h:graphicImage url="/images/clear.gif" width="600" height="1"/><br/>
+                            <h:graphicImage url="/images/clear.gif" width="415" height="1"/><br/>
                             <t:dataTable id="datatable" value="#{publicSurveyTake.impressions}" rows="100" var="imp" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcol,tcolnowrap,tcol,tcolnowrap,tcolnowrap">
                               <h:column>
                                 <f:facet name="header">
@@ -1334,7 +1348,7 @@
                                                 </div>
                                                 <br/>
                                             </c:if>
-                                            <c:if test="${publicSurveyTake.bloggerhasalreadytakensurvey}">
+                                            <c:if test="${publicSurveyTake.loggedinuserhasalreadytakensurvey}">
                                                 <h:outputText value="You've already earned" styleClass="mediumfont"/>
                                                 <br/>
                                                 <h:outputText value="(pending posting verification)" styleClass="tinyfont"/>
@@ -1351,7 +1365,7 @@
                                                 <br/>
                                                 <h:outputText value="and can earn up to #{publicSurveyTake.surveyEnhancer.maxearning} total by posting it to your blog!" styleClass="mediumfont"/>
                                             </c:if>
-                                            <c:if test="${(!publicSurveyTake.bloggerhasalreadytakensurvey) and (publicSurveyTake.survey.status le 4)}">
+                                            <c:if test="${(!publicSurveyTake.loggedinuserhasalreadytakensurvey) and (publicSurveyTake.survey.status le 4)}">
                                                 <h:outputText value="Take this survey and earn" styleClass="mediumfont"/>
                                                 <br/>
                                                 <h:outputText value="#{publicSurveyTake.surveyEnhancer.minearning}" styleClass="largefont" style="font-size: 60px; color: #666666;"/>
@@ -1364,7 +1378,7 @@
                                                 <br/><br/>
                                                 <h:outputText value="(just click the Questions tab (top left) and Complete the Survey... easy!)" styleClass="smallfont"/>
                                             </c:if>
-                                            <c:if test="${(!publicSurveyTake.bloggerhasalreadytakensurvey) and (publicSurveyTake.survey.status ge 5)}">
+                                            <c:if test="${(!publicSurveyTake.loggedinuserhasalreadytakensurvey) and (publicSurveyTake.survey.status ge 5)}">
                                                 <h:outputText value="People who took this survey earned" styleClass="mediumfont"/>
                                                 <br/>
                                                 <h:outputText value="#{publicSurveyTake.surveyEnhancer.minearning}" styleClass="largefont" style="font-size: 60px; color: #666666;"/>

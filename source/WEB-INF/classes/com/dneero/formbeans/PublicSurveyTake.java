@@ -40,17 +40,14 @@ import javax.faces.context.FacesContext;
 public class PublicSurveyTake implements Serializable {
 
 
-    private String html;
+    private String takesurveyhtml;
     private boolean haveerror = false;
     private Survey survey;
     private User userwhotooksurvey = null;
-    private boolean useridisspecifiedonurl = false;
-    private boolean isuserwhotooksurveyloaded = false;
     private boolean isuserwhotooksurveysameasloggedinuser;
     private SurveyEnhancer surveyEnhancer;
-    private String surveyForTakers;
-    private boolean bloggerhasalreadytakensurvey;
-    private String surveyAnswersForThisBlogger;
+    private boolean loggedinuserhasalreadytakensurvey;
+    private String surveyResponseFlashEmbed;
     private String surveyOnBlogPreview;
     private boolean qualifiesforsurvey = true;
     private String socialbookmarklinks = "";
@@ -65,9 +62,8 @@ public class PublicSurveyTake implements Serializable {
     private int resultstabselectedindex = 0;
     private boolean bloggerhastakentoomanysurveysalreadytoday = false;
     private String resultsHtml = "";
-    private String resultsHtmlForReferredByBlog = "";
+    private String resultsHtmlForUserWhoTookSurvey = "";
     private String resultsYourFriends = "";
-    private boolean isreferredbyblog = false;
     private String resultsfriendstabtext = "People from site you were at";
     private boolean resultsshowyourfriendstab = false;
     private List<Impression> impressions;
@@ -99,226 +95,281 @@ public class PublicSurveyTake implements Serializable {
 
 
     private void load(){
+        //Set up logger
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("PublicSurveyTake instanciated.");
 
-        //Make sure we have a surveyid and set the current usersession to this surveyid
+        //Surveyid from session or url
+        int surveyid = Jsf.getUserSession().getCurrentSurveyid();
         if (Num.isinteger(Jsf.getRequestParam("surveyid"))){
-            Jsf.getUserSession().setCurrentSurveyid(Integer.parseInt(Jsf.getRequestParam("surveyid")));
-            logger.debug("surveyid found: "+Jsf.getRequestParam("surveyid"));
+            surveyid = Integer.parseInt(Jsf.getRequestParam("surveyid"));
+        } else if (Num.isinteger(Jsf.getRequestParam("s"))) {
+            surveyid = Integer.parseInt(Jsf.getRequestParam("s"));
         }
-        if (Jsf.getUserSession().getCurrentSurveyid()<=0){
+        Jsf.getUserSession().setCurrentSurveyid(surveyid);
+        logger.debug("surveyid found: "+surveyid);
+
+        //If we don't have a surveyid, shouldn't be on this page
+        if (surveyid<=0){
             try{Jsf.getHttpServletResponse().sendRedirect("/publicsurveylist.jsf"); return;}catch(Exception ex){logger.error(ex);}
         }
-        if (Num.isinteger(Jsf.getRequestParam("userid"))){
-            Jsf.getUserSession().setPendingSurveyReferredbyuserid(Integer.parseInt(Jsf.getRequestParam("userid")));
+
+        //Load up the survey
+        survey = Survey.get(surveyid);
+
+        //If the survey is draft or waiting
+        if (survey.getStatus()<Survey.STATUS_OPEN){
+            try{Jsf.getHttpServletResponse().sendRedirect("/surveynotopen.jsf"); return;}catch(Exception ex){logger.error(ex);}
         }
 
+        //Userid from url
+        int userid = 0;
+        if (Num.isinteger(Jsf.getRequestParam("userid"))){
+            userid = Integer.parseInt(Jsf.getRequestParam("userid"));
+        } else if (Num.isinteger(Jsf.getRequestParam("u"))){
+            userid = Integer.parseInt(Jsf.getRequestParam("u"));
+        }
+        Jsf.getUserSession().setPendingSurveyReferredbyuserid(userid);
+        Jsf.getUserSession().setReferredbyOnlyUsedForSignup(userid);
 
-
-        //Go about the fancy business of loading this bean
-        survey = new Survey();
-        if(Jsf.getUserSession().getCurrentSurveyid()>0){
-            logger.debug("Jsf.getUserSession().getCurrentSurveyid()>0");
-            survey = Survey.get(Jsf.getUserSession().getCurrentSurveyid());
-
-
-
-            
-            //Find the person who took the survey
-            if (Num.isinteger(Jsf.getRequestParam("userid"))){
-                logger.debug("userid found: "+Jsf.getRequestParam("userid"));
-                userwhotooksurvey = User.get(Integer.parseInt(Jsf.getRequestParam("userid")));
-                isuserwhotooksurveyloaded = true;
-                useridisspecifiedonurl = true;
-                Blogger bloggerwhotook = Blogger.get(userwhotooksurvey.getUserid());
-                for (Iterator<Response> iterator = bloggerwhotook.getResponses().iterator(); iterator.hasNext();) {
-                    Response response = iterator.next();
-                    if (response.getSurveyid()==survey.getSurveyid()){
-                        if (response.getIsforcharity()){
-                            surveytakergavetocharity = true;
-                            charityname = response.getCharityname();
-                        }
-                    }
+        //Set userwhotooksurvey, first verifying that they've actually taken the survey
+        userwhotooksurvey = null;
+        if (userid>0){
+            User userTmp = User.get(userid);
+            Blogger blogger = Blogger.get(userTmp.getBloggerid());
+            for (Iterator<Response> iterator = blogger.getResponses().iterator(); iterator.hasNext();) {
+                Response response = iterator.next();
+                if (response.getSurveyid()==survey.getSurveyid()){
+                    userwhotooksurvey = userTmp;
+                    break;
                 }
             }
+        }
 
-            //Determine whether the user who's seeing the page is the same person who took it
-            if (userwhotooksurvey!=null && Jsf.getUserSession().getIsloggedin() && userwhotooksurvey.getUserid()==Jsf.getUserSession().getUser().getUserid()){
-                isuserwhotooksurveysameasloggedinuser = true;
-            } else {
-                isuserwhotooksurveysameasloggedinuser = false;
-            }
-
-
-
-
-
-            //If the survey is draft or waiting
-            if (survey.getStatus()<Survey.STATUS_OPEN){
-                try{Jsf.getHttpServletResponse().sendRedirect("/surveynotopen.jsf"); return;}catch(Exception ex){logger.error(ex);}
-            }
-            socialbookmarklinks = SocialBookmarkLinks.getSocialBookmarkLinks(survey);
-            surveyEnhancer = new SurveyEnhancer(survey);
-            html = SurveyTakerDisplay.getHtmlForSurveyTaking(survey, new Blogger(), true);
-            SurveyCriteriaXML surveyCriteriaXML = new SurveyCriteriaXML(survey.getCriteriaxml());
-            surveyCriteriaAsHtml = surveyCriteriaXML.getAsHtml();
-            if (Jsf.getUserSession().getSurveystakentoday()>SurveysTakenToday.MAXSURVEYSPERDAY){
-                bloggerhastakentoomanysurveysalreadytoday = true;
-            } else {
-                bloggerhastakentoomanysurveysalreadytoday = false;
-            }
-
-
-            //See if blogger is qualified to take
-            bloggerhasalreadytakensurvey = false;
-            int responseid = 0;
-            if (Jsf.getUserSession().getIsloggedin() && Jsf.getUserSession().getUser()!=null && Jsf.getUserSession().getUser().getBloggerid()>0){
-                Blogger blogger = Blogger.get(Jsf.getUserSession().getUser().getBloggerid());
-                for (Iterator<Response> iterator = blogger.getResponses().iterator(); iterator.hasNext();) {
-                    Response response = iterator.next();
-                    if (response.getSurveyid()==survey.getSurveyid()){
-                        bloggerhasalreadytakensurvey = true;
-                        responseid = response.getResponseid();
-                        //Now override any url-line userid=X that we see
-                        userwhotooksurvey = Jsf.getUserSession().getUser();
-                        isuserwhotooksurveysameasloggedinuser = true;
-                        isuserwhotooksurveyloaded = true;
-                    }
-                }
-                if (!FindSurveysForBlogger.isBloggerQualifiedToTakeSurvey(blogger, survey)){
-                    qualifiesforsurvey = false;
+        //See if logged in user has taken survey yet
+        loggedinuserhasalreadytakensurvey = false;
+        int responseidOfLoggedinUser = 0;
+        if (Jsf.getUserSession().getIsloggedin() && Jsf.getUserSession().getUser()!=null && Jsf.getUserSession().getUser().getBloggerid()>0){
+            Blogger blogger = Blogger.get(Jsf.getUserSession().getUser().getBloggerid());
+            for (Iterator<Response> iterator = blogger.getResponses().iterator(); iterator.hasNext();) {
+                Response response = iterator.next();
+                if (response.getSurveyid()==survey.getSurveyid()){
+                    loggedinuserhasalreadytakensurvey = true;
+                    responseidOfLoggedinUser = response.getResponseid();
                 }
             }
+        }
 
-            //If blogger has taken the survey already
-            if (bloggerhasalreadytakensurvey){
-                surveyAnswersForThisBlogger = SurveyFlashServlet.getEmbedSyntax("/", survey.getSurveyid(), Jsf.getUserSession().getUser().getUserid(), responseid, true, true, false);
-                htmltoposttoblog = SurveyJavascriptServlet.getEmbedSyntax(BaseUrl.get(false), survey.getSurveyid(), Jsf.getUserSession().getUser().getUserid(), responseid, false, false, true, false);
-                htmltoposttoblogflash = SurveyFlashServlet.getEmbedSyntax(BaseUrl.get(false), survey.getSurveyid(), Jsf.getUserSession().getUser().getUserid(), responseid, false, true, false);
-                htmltoposttoblogflashwithembedandobjecttag = SurveyFlashServlet.getEmbedSyntaxWithObjectTag(BaseUrl.get(false), survey.getSurveyid(), Jsf.getUserSession().getUser().getUserid(), responseid, false, true, false);
-                htmltoposttoblogimagelink = SurveyImageServlet.getEmbedSyntax(BaseUrl.get(false), survey.getSurveyid(), Jsf.getUserSession().getUser().getUserid(), responseid, false);
-                htmltoposttobloglink = SurveyLinkServlet.getEmbedSyntax(BaseUrl.get(false), survey.getSurveyid(), Jsf.getUserSession().getUser().getUserid(), responseid, false);
-            } else {
-                int useridTmp = 0;
-                if (userwhotooksurvey!=null && userwhotooksurvey.getUserid()>0){
-                    useridTmp = userwhotooksurvey.getUserid();
-                }
-                surveyOnBlogPreview = SurveyFlashServlet.getEmbedSyntax("/", survey.getSurveyid(), useridTmp, responseid, true, true, false);
-            }
-            surveyEnhancer = new SurveyEnhancer(survey);
-            surveyForTakers = SurveyTakerDisplay.getHtmlForSurveyTaking(survey, new Blogger(), true);
+        //If we don't have a userwhotooksurvey yet but the logged-in user has, use the logged-in user
+        if (userwhotooksurvey==null && loggedinuserhasalreadytakensurvey){
+            userwhotooksurvey = Jsf.getUserSession().getUser();
+        }
 
-
-
-
-            //Turn on the correct tab
-            if (survey.getStatus()!=Survey.STATUS_OPEN){
-                tabselectedindex = 2;    
-            }
-            if (bloggerhasalreadytakensurvey){
-                tabselectedindex = 1;
-            } else {
-                tabselectedindex = 0;
-            }
-            if (Jsf.getRequestParam("show")!=null && Jsf.getRequestParam("show").equals("results")){
-                tabselectedindex = 2;
-            }
-            if (Jsf.getRequestParam("show")!=null && Jsf.getRequestParam("show").equals("disclosure")){
-                tabselectedindex = 6;
-            }
-            if (Jsf.getRequestParam("tabselectedindex")!=null && Num.isinteger(Jsf.getRequestParam("tabselectedindex"))){
-                tabselectedindex = Integer.parseInt(Jsf.getRequestParam("tabselectedindex"));
-            }
-
-
-            //Establish pendingSurveyReferredbyuserid
-            User user = null;
-            if (Jsf.getRequestParam("userid")!=null && Num.isinteger(Jsf.getRequestParam("userid"))){
-                user = User.get(Integer.parseInt(Jsf.getRequestParam("userid")));
-                isreferredbyblog = true;
-                Jsf.getUserSession().setPendingSurveyReferredbyuserid(user.getUserid());
-                resultsfriendstabtext = Str.truncateString(user.getFirstname(), 15)+" "+Str.truncateString(user.getLastname(), 15)+"'s Friends";
-            }
-            logger.debug("isreferredbyblog="+isreferredbyblog);
-            if (!survey.getIsresultshidden()){
-                resultsHtml = SurveyResultsDisplay.getHtmlForResults(survey, null, 0, new ArrayList<Integer>());
-            } else {
-                resultsHtml = "<font class=\"smallfont\">This researcher has chosen to hide overall aggregate results.  However, dNeero does not allow researchers to hide aggregate results from individual blogs so those results are still available.  To see such results, find a blog that's posted this survey and click the See How Others Voted link... you'll see how others from that blog answered.</font>";
-            }
-            if (isreferredbyblog){
-                resultsHtmlForReferredByBlog = SurveyResultsDisplay.getHtmlForResults(survey, null, Jsf.getUserSession().getPendingSurveyReferredbyuserid(), new ArrayList<Integer>());
-                resultstabselectedindex = 1;
-            } else {
-                resultsHtmlForReferredByBlog = "<font class='mediumfont'>Nobody who has clicked from the blog you were just at has answered... yet.  You could be the first!</font>";
-                resultstabselectedindex = 0;
-            }
-            if (Jsf.getUserSession().getIsfacebookui()){
-                resultsshowyourfriendstab = true;
-                FacebookApiWrapper faw = new FacebookApiWrapper(Jsf.getUserSession());
-                ArrayList<FacebookUser> friends = faw.getFriends();
-                if (friends!=null && friends.size()>0){
-                    StringBuffer facebookquery = new StringBuffer();
-                    facebookquery.append(" ( ");
-                    for (Iterator it = friends.iterator(); it.hasNext(); ) {
-                        FacebookUser facebookUser = (FacebookUser)it.next();
-                        facebookquery.append("facebookuserid="+facebookUser.getUid());
-                        if (it.hasNext()){
-                            facebookquery.append(" OR ");
-                        }
-                    }
-                    facebookquery.append(" ) ");
-                    ArrayList<Integer> onlyincluderesponsesfromtheseuserids = new ArrayList<Integer>();
-                    List fbusers = HibernateUtil.getSession().createQuery("from User WHERE "+facebookquery.toString()).list();
-                    for (Iterator iterator = fbusers.iterator(); iterator.hasNext();) {
-                        User fbuser = (User) iterator.next();
-                        onlyincluderesponsesfromtheseuserids.add(fbuser.getUserid());
-                    }
-                    resultsYourFriends = SurveyResultsDisplay.getHtmlForResults(survey, null, 0, onlyincluderesponsesfromtheseuserids);
-                } else {
-                    resultsYourFriends = "<font class='mediumfont'>None of your friends have taken this survey... yet.</font>";
-                }
-            }
-
-            //Load impressions
-            impressions = HibernateUtil.getSession().createQuery("from Impression where surveyid='"+survey.getSurveyid()+"' and referer<>'' order by impressionstotal desc").setCacheable(true).list();
-
-            //Load discussion items
-            surveydiscusses = new ArrayList();
-            List sds = HibernateUtil.getSession().createQuery("from Surveydiscuss where surveyid='"+survey.getSurveyid()+"' and isapproved=true order by surveydiscussid asc").setCacheable(true).list();
-            for (Iterator iterator = sds.iterator(); iterator.hasNext();) {
-                Surveydiscuss surveydiscuss = (Surveydiscuss) iterator.next();
-                PublicSurveyDiscussListitem psdli = new PublicSurveyDiscussListitem();
-                psdli.setSurveydiscuss(surveydiscuss);
-                psdli.setUser(User.get(surveydiscuss.getUserid()));
-                surveydiscusses.add(psdli);
-            }
-
-            //Load respondents
-            respondents = new ArrayList();
-            List resp = HibernateUtil.getSession().createQuery("from Response where surveyid='"+survey.getSurveyid()+"' order by responseid desc").setCacheable(true).list();
-            for (Iterator iterator = resp.iterator(); iterator.hasNext();) {
-                Response response = (Response) iterator.next();
-                PublicSurveyRespondentsListitem psrli = new PublicSurveyRespondentsListitem();
-                psrli.setResponse(response);
-                psrli.setUser(User.get(Blogger.get(response.getBloggerid()).getUserid()));
-                respondents.add(psrli);
-            }
-
-            //Record the survey display using the display cache
-            SurveydisplayActivityObject sdao = new SurveydisplayActivityObject();
-            sdao.setSurveyid(survey.getSurveyid());
-            SurveydisplayActivityObjectQueue.addSdao(sdao);
+        //Determine whether the user who's seeing the page is the same person who took it
+        if (userwhotooksurvey!=null && Jsf.getUserSession().getIsloggedin() && userwhotooksurvey.getUserid()==Jsf.getUserSession().getUser().getUserid()){
+            isuserwhotooksurveysameasloggedinuser = true;
         } else {
-            logger.debug("Jsf.getUserSession().getCurrentSurveyid()<=0 ---");
+            isuserwhotooksurveysameasloggedinuser = false;
         }
 
-
-
-        //Establish user referral in case of signup
-        if (Num.isinteger(Jsf.getRequestParam("userid"))){
-            Jsf.getUserSession().setReferredbyOnlyUsedForSignup(Integer.parseInt(Jsf.getRequestParam("userid")));
+        //Responseid
+        int responseid = 0;
+        if (Num.isinteger(Jsf.getRequestParam("responseid"))){
+            responseid=Integer.parseInt(Jsf.getRequestParam("responseid"));
+        } else if (Num.isinteger(Jsf.getRequestParam("r"))){
+            responseid=Integer.parseInt(Jsf.getRequestParam("r"));
         }
+
+        //Record the impression if we have enough info for it
+        if (userid>0 && surveyid>0 && (Jsf.getRequestParam("p")==null || Jsf.getRequestParam("p").equals("1"))){
+            RecordImpression.record(Jsf.getHttpServletRequest());
+        }
+
+        //Find charity status
+        surveytakergavetocharity = false;
+        charityname = "";
+        if (userwhotooksurvey!=null && userwhotooksurvey.getBloggerid()>0){
+            Blogger blogger = Blogger.get(userwhotooksurvey.getBloggerid());
+            for (Iterator<Response> iterator = blogger.getResponses().iterator(); iterator.hasNext();) {
+                Response response = iterator.next();
+                if (response.getSurveyid()==survey.getSurveyid()){
+                    if (response.getIsforcharity()){
+                        surveytakergavetocharity = true;
+                        charityname = response.getCharityname();
+                        break;
+                    }
+                }
+            }
+        }
+
+        //Social bookmark links
+        socialbookmarklinks = SocialBookmarkLinks.getSocialBookmarkLinks(survey);
+
+        //Survey enhancer
+        surveyEnhancer = new SurveyEnhancer(survey);
+
+        //Criteria for survey
+        SurveyCriteriaXML surveyCriteriaXML = new SurveyCriteriaXML(survey.getCriteriaxml());
+        surveyCriteriaAsHtml = surveyCriteriaXML.getAsHtml();
+
+        //Max surveys per day
+        if (Jsf.getUserSession().getSurveystakentoday()>SurveysTakenToday.MAXSURVEYSPERDAY){
+            bloggerhastakentoomanysurveysalreadytoday = true;
+        } else {
+            bloggerhastakentoomanysurveysalreadytoday = false;
+        }
+
+        //See if blogger is qualified to take survey
+        qualifiesforsurvey = true;
+        if (!loggedinuserhasalreadytakensurvey){
+            Blogger blogger = Blogger.get(Jsf.getUserSession().getUser().getBloggerid());
+            if (!FindSurveysForBlogger.isBloggerQualifiedToTakeSurvey(blogger, survey)){
+                qualifiesforsurvey = false;
+            }
+        }
+
+        //To display to those looking to take survey
+        if (!loggedinuserhasalreadytakensurvey){
+            takesurveyhtml = SurveyTakerDisplay.getHtmlForSurveyTaking(survey, new Blogger(), true);
+        } else {
+            takesurveyhtml = "";
+        }
+
+        //If blogger has taken the survey already
+        if (loggedinuserhasalreadytakensurvey){
+            htmltoposttoblog = SurveyJavascriptServlet.getEmbedSyntax(BaseUrl.get(false), survey.getSurveyid(), Jsf.getUserSession().getUser().getUserid(), responseidOfLoggedinUser, false, false, true, false);
+            htmltoposttoblogflash = SurveyFlashServlet.getEmbedSyntax(BaseUrl.get(false), survey.getSurveyid(), Jsf.getUserSession().getUser().getUserid(), responseidOfLoggedinUser, false, true, false);
+            htmltoposttoblogflashwithembedandobjecttag = SurveyFlashServlet.getEmbedSyntaxWithObjectTag(BaseUrl.get(false), survey.getSurveyid(), Jsf.getUserSession().getUser().getUserid(), responseidOfLoggedinUser, false, true, false);
+            htmltoposttoblogimagelink = SurveyImageServlet.getEmbedSyntax(BaseUrl.get(false), survey.getSurveyid(), Jsf.getUserSession().getUser().getUserid(), responseidOfLoggedinUser, false);
+            htmltoposttobloglink = SurveyLinkServlet.getEmbedSyntax(BaseUrl.get(false), survey.getSurveyid(), Jsf.getUserSession().getUser().getUserid(), responseidOfLoggedinUser, false);
+        } else {
+            htmltoposttoblog = "";
+            htmltoposttoblogflash = "";
+            htmltoposttoblogflashwithembedandobjecttag = "";
+            htmltoposttoblogimagelink = "";
+            htmltoposttobloglink = "";
+        }
+
+        //Survey on blog preview
+        if (loggedinuserhasalreadytakensurvey){
+            surveyOnBlogPreview = "";
+        } else {
+            int useridTmp = 0;
+            if (userwhotooksurvey!=null && userwhotooksurvey.getUserid()>0){
+                useridTmp = userwhotooksurvey.getUserid();
+            }
+            surveyOnBlogPreview = SurveyFlashServlet.getEmbedSyntax("/", survey.getSurveyid(), useridTmp, responseid, true, true, false);
+        }
+
+        //The main survey flash embed
+        if (userwhotooksurvey!=null){
+            surveyResponseFlashEmbed = SurveyFlashServlet.getEmbedSyntax("/", survey.getSurveyid(), userwhotooksurvey.getUserid(), responseid, true, true, false);
+        }
+
+        //Turn on the correct tab
+        if (survey.getStatus()!=Survey.STATUS_OPEN){
+            tabselectedindex = 2;
+        }
+        if (loggedinuserhasalreadytakensurvey){
+            tabselectedindex = 1;
+        } else {
+            tabselectedindex = 0;
+        }
+        if (Jsf.getRequestParam("show")!=null && Jsf.getRequestParam("show").equals("results")){
+            tabselectedindex = 2;
+        }
+        if (Jsf.getRequestParam("show")!=null && Jsf.getRequestParam("show").equals("disclosure")){
+            tabselectedindex = 6;
+        }
+        if (Jsf.getRequestParam("tabselectedindex")!=null && Num.isinteger(Jsf.getRequestParam("tabselectedindex"))){
+            tabselectedindex = Integer.parseInt(Jsf.getRequestParam("tabselectedindex"));
+        }
+
+        //Results main tab
+        if (!survey.getIsresultshidden()){
+            resultsHtml = SurveyResultsDisplay.getHtmlForResults(survey, null, 0, new ArrayList<Integer>());
+        } else {
+            resultsHtml = "<font class=\"smallfont\">The researcher who created this survey has chosen to hide overall aggregate results.  However, dNeero does not allow researchers to hide aggregate results from individual blogs so those results are still available.  To see such results, find a blog that's posted this survey and click the See How Others Voted link... you'll see how others from that blog answered.</font>";
+        }
+
+        //Set the results for userwhotooksurvey
+        if (userwhotooksurvey!=null){
+            resultsHtmlForUserWhoTookSurvey = SurveyResultsDisplay.getHtmlForResults(survey, null, Jsf.getUserSession().getPendingSurveyReferredbyuserid(), new ArrayList<Integer>());
+        } else {
+            resultsHtmlForUserWhoTookSurvey = "<font class='mediumfont'>Nobody who learned of this survey from "+userwhotooksurvey.getFirstname()+" "+userwhotooksurvey.getLastname()+" has answered... yet.  You could be the first!</font>";
+        }
+
+        //Determine which of the results tabs is on
+        if (userwhotooksurvey!=null){
+            resultstabselectedindex = 1;
+        } else {
+            resultstabselectedindex = 0;
+        }
+
+        //Set results friends tab text
+        if (userwhotooksurvey!=null){
+            resultsfriendstabtext = Str.truncateString(userwhotooksurvey.getFirstname(), 15)+" "+Str.truncateString(userwhotooksurvey.getLastname(), 15)+"'s Friends";
+        }
+
+        //Special Facebook Friends results tab
+        if (Jsf.getUserSession().getIsfacebookui()){
+            resultsshowyourfriendstab = true;
+            FacebookApiWrapper faw = new FacebookApiWrapper(Jsf.getUserSession());
+            ArrayList<FacebookUser> friends = faw.getFriends();
+            if (friends!=null && friends.size()>0){
+                StringBuffer facebookquery = new StringBuffer();
+                facebookquery.append(" ( ");
+                for (Iterator it = friends.iterator(); it.hasNext(); ) {
+                    FacebookUser facebookUser = (FacebookUser)it.next();
+                    facebookquery.append("facebookuserid="+facebookUser.getUid());
+                    if (it.hasNext()){
+                        facebookquery.append(" OR ");
+                    }
+                }
+                facebookquery.append(" ) ");
+                ArrayList<Integer> onlyincluderesponsesfromtheseuserids = new ArrayList<Integer>();
+                List fbusers = HibernateUtil.getSession().createQuery("from User WHERE "+facebookquery.toString()).list();
+                for (Iterator iterator = fbusers.iterator(); iterator.hasNext();) {
+                    User fbuser = (User) iterator.next();
+                    onlyincluderesponsesfromtheseuserids.add(fbuser.getUserid());
+                }
+                resultsYourFriends = SurveyResultsDisplay.getHtmlForResults(survey, null, 0, onlyincluderesponsesfromtheseuserids);
+            } else {
+                resultsYourFriends = "<font class='mediumfont'>None of your friends have taken this survey... yet.</font>";
+            }
+        }
+
+        //Load impressions
+        impressions = HibernateUtil.getSession().createQuery("from Impression where surveyid='"+survey.getSurveyid()+"' and referer<>'' order by impressionstotal desc").setCacheable(true).list();
+
+        //Load discussion items
+        surveydiscusses = new ArrayList();
+        List sds = HibernateUtil.getSession().createQuery("from Surveydiscuss where surveyid='"+survey.getSurveyid()+"' and isapproved=true order by surveydiscussid asc").setCacheable(true).list();
+        for (Iterator iterator = sds.iterator(); iterator.hasNext();) {
+            Surveydiscuss surveydiscuss = (Surveydiscuss) iterator.next();
+            PublicSurveyDiscussListitem psdli = new PublicSurveyDiscussListitem();
+            psdli.setSurveydiscuss(surveydiscuss);
+            psdli.setUser(User.get(surveydiscuss.getUserid()));
+            surveydiscusses.add(psdli);
+        }
+
+        //Load respondents
+        respondents = new ArrayList();
+        List resp = HibernateUtil.getSession().createQuery("from Response where surveyid='"+survey.getSurveyid()+"' order by responseid desc").setCacheable(true).list();
+        for (Iterator iterator = resp.iterator(); iterator.hasNext();) {
+            Response response = (Response) iterator.next();
+            PublicSurveyRespondentsListitem psrli = new PublicSurveyRespondentsListitem();
+            psrli.setResponse(response);
+            psrli.setUser(User.get(Blogger.get(response.getBloggerid()).getUserid()));
+            respondents.add(psrli);
+        }
+
+        //Record the survey display using the display cache
+        SurveydisplayActivityObject sdao = new SurveydisplayActivityObject();
+        sdao.setSurveyid(survey.getSurveyid());
+        SurveydisplayActivityObjectQueue.addSdao(sdao);
+
+
     }
 
 
@@ -526,12 +577,12 @@ public class PublicSurveyTake implements Serializable {
         this.surveyEnhancer = surveyEnhancer;
     }
 
-    public String getHtml() {
-        return html;
+    public String getTakesurveyhtml() {
+        return takesurveyhtml;
     }
 
-    public void setHtml(String html) {
-        this.html = html;
+    public void setTakesurveyhtml(String takesurveyhtml) {
+        this.takesurveyhtml = takesurveyhtml;
     }
 
     public boolean getHaveerror() {
@@ -558,28 +609,20 @@ public class PublicSurveyTake implements Serializable {
         this.surveyCriteriaAsHtml = surveyCriteriaAsHtml;
     }
 
-    public String getSurveyForTakers() {
-        return surveyForTakers;
+    public boolean getLoggedinuserhasalreadytakensurvey() {
+        return loggedinuserhasalreadytakensurvey;
     }
 
-    public void setSurveyForTakers(String surveyForTakers) {
-        this.surveyForTakers = surveyForTakers;
+    public void setLoggedinuserhasalreadytakensurvey(boolean loggedinuserhasalreadytakensurvey) {
+        this.loggedinuserhasalreadytakensurvey = loggedinuserhasalreadytakensurvey;
     }
 
-    public boolean getBloggerhasalreadytakensurvey() {
-        return bloggerhasalreadytakensurvey;
+    public String getSurveyResponseFlashEmbed() {
+        return surveyResponseFlashEmbed;
     }
 
-    public void setBloggerhasalreadytakensurvey(boolean bloggerhasalreadytakensurvey) {
-        this.bloggerhasalreadytakensurvey = bloggerhasalreadytakensurvey;
-    }
-
-    public String getSurveyAnswersForThisBlogger() {
-        return surveyAnswersForThisBlogger;
-    }
-
-    public void setSurveyAnswersForThisBlogger(String surveyAnswersForThisBlogger) {
-        this.surveyAnswersForThisBlogger = surveyAnswersForThisBlogger;
+    public void setSurveyResponseFlashEmbed(String surveyResponseFlashEmbed) {
+        this.surveyResponseFlashEmbed = surveyResponseFlashEmbed;
     }
 
     public String getSurveyOnBlogPreview() {
@@ -656,21 +699,12 @@ public class PublicSurveyTake implements Serializable {
         this.resultsHtml = resultsHtml;
     }
 
-    public String getResultsHtmlForReferredByBlog() {
-        return resultsHtmlForReferredByBlog;
+    public String getResultsHtmlForUserWhoTookSurvey() {
+        return resultsHtmlForUserWhoTookSurvey;
     }
 
-    public void setResultsHtmlForReferredByBlog(String resultsHtmlForReferredByBlog) {
-        this.resultsHtmlForReferredByBlog = resultsHtmlForReferredByBlog;
-    }
-
-
-    public boolean getIsreferredbyblog() {
-        return isreferredbyblog;
-    }
-
-    public void setIsreferredbyblog(boolean isreferredbyblog) {
-        this.isreferredbyblog = isreferredbyblog;
+    public void setResultsHtmlForUserWhoTookSurvey(String resultsHtmlForUserWhoTookSurvey) {
+        this.resultsHtmlForUserWhoTookSurvey = resultsHtmlForUserWhoTookSurvey;
     }
 
     public int getResultstabselectedindex() {
@@ -770,14 +804,6 @@ public class PublicSurveyTake implements Serializable {
         this.isuserwhotooksurveysameasloggedinuser = isuserwhotooksurveysameasloggedinuser;
     }
 
-    public boolean getIsuserwhotooksurveyloaded() {
-        return isuserwhotooksurveyloaded;
-    }
-
-    public void setIsuserwhotooksurveyloaded(boolean isuserwhotooksurveyloaded) {
-        this.isuserwhotooksurveyloaded = isuserwhotooksurveyloaded;
-    }
-
     public List<PublicSurveyRespondentsListitem> getRespondents() {
         return respondents;
     }
@@ -817,13 +843,5 @@ public class PublicSurveyTake implements Serializable {
 
     public void setResultsYourFriends(String resultsYourFriends) {
         this.resultsYourFriends = resultsYourFriends;
-    }
-
-    public boolean isUseridisspecifiedonurl() {
-        return useridisspecifiedonurl;
-    }
-
-    public void setUseridisspecifiedonurl(boolean useridisspecifiedonurl) {
-        this.useridisspecifiedonurl = useridisspecifiedonurl;
     }
 }

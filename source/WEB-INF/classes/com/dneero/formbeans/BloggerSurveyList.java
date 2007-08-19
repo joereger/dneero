@@ -50,17 +50,17 @@ public class BloggerSurveyList implements Serializable {
             surveys = new ArrayList<BloggerSurveyListItem>();
             for (Iterator iterator = finder.getSurveys().iterator(); iterator.hasNext();) {
                 Survey survey = (Survey) iterator.next();
-                boolean bloggerhasalreadytakensurvey = false;
+                boolean loggedinuserhasalreadytakensurvey = false;
                 for (Iterator<Response> iterator2 = Blogger.get(userSession.getUser().getBloggerid()).getResponses().iterator(); iterator2.hasNext();) {
                     Response response = iterator2.next();
                     if (response.getSurveyid()==survey.getSurveyid()){
-                        bloggerhasalreadytakensurvey = true;
+                        loggedinuserhasalreadytakensurvey = true;
                     }
                 }
                 BloggerSurveyListItem bsli = new BloggerSurveyListItem();
                 bsli.setSurveyid(survey.getSurveyid());
                 bsli.setTitle(survey.getTitle());
-                bsli.setBloggerhasalreadytakensurvey(bloggerhasalreadytakensurvey);
+                bsli.setLoggedinuserhasalreadytakensurvey(loggedinuserhasalreadytakensurvey);
 
                 if (survey.getQuestions()!=null){
                     bsli.setNumberofquestions(String.valueOf(survey.getQuestions().size()));
@@ -80,7 +80,7 @@ public class BloggerSurveyList implements Serializable {
                     bsli.setDaysuntilend(daysleft + " days left!");
                 }
                 //Only surveys blogger hasn't taken
-                if(!bloggerhasalreadytakensurvey){
+                if(!loggedinuserhasalreadytakensurvey){
                     surveys.add(bsli);
                 }
 

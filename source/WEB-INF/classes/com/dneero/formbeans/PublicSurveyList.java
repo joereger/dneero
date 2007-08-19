@@ -78,19 +78,19 @@ public class PublicSurveyList implements Serializable {
                 }
 
                 //See if user has taken survey
-                bsli.setBloggerhasalreadytakensurvey(false);
+                bsli.setLoggedinuserhasalreadytakensurvey(false);
                 if (Jsf.getUserSession().getIsloggedin() && Jsf.getUserSession().getUser()!=null && Jsf.getUserSession().getUser().getBloggerid()>0){
                     Blogger blogger = Blogger.get(Jsf.getUserSession().getUser().getBloggerid());
                     for (Iterator<Response> iterator2 = blogger.getResponses().iterator(); iterator2.hasNext();) {
                         Response response = iterator2.next();
                         if (response.getSurveyid()==survey.getSurveyid()){
-                            bsli.setBloggerhasalreadytakensurvey(true);
+                            bsli.setLoggedinuserhasalreadytakensurvey(true);
                         }
                     }
                 }
 
                 //See if user is qualified
-                if (!bsli.getBloggerhasalreadytakensurvey()){
+                if (!bsli.getLoggedinuserhasalreadytakensurvey()){
                     if (Jsf.getUserSession().getIsloggedin() && Jsf.getUserSession().getUser()!=null && Jsf.getUserSession().getUser().getBloggerid()>0){
                         //Iterate surveys this blogger qualifies for
                         boolean bloggerqualifies = false;

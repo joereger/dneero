@@ -4,6 +4,7 @@ import com.dneero.dao.Survey;
 import com.dneero.dao.User;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.scheduledjobs.ImpressionActivityObjectQueue;
+import com.dneero.util.Num;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Iterator;
@@ -39,23 +40,30 @@ public class RecordImpression {
 
         //Find userid
         int userid = 0;
-        if (request.getParameter("u")!=null && com.dneero.util.Num.isinteger(request.getParameter("u"))){
+        if (Num.isinteger(request.getParameter("u"))){
             userid = Integer.parseInt(request.getParameter("u"));
+        } else if (Num.isinteger(request.getParameter("userid"))){
+            userid = Integer.parseInt(request.getParameter("userid"));
         }
         logger.debug("userid=" + userid);
 
         //Find surveyid
         int surveyid = 0;
-        if (request.getParameter("s")!=null && com.dneero.util.Num.isinteger(request.getParameter("s"))){
+        if (Num.isinteger(request.getParameter("s"))){
             surveyid = Integer.parseInt(request.getParameter("s"));
+        } else if (Num.isinteger(request.getParameter("surveyid"))){
+            surveyid = Integer.parseInt(request.getParameter("surveyid"));
         }
         logger.debug("surveyid=" + surveyid);
 
         //Find the responseid
         int responseid = 0;
-        if (request.getParameter("r")!=null && com.dneero.util.Num.isinteger(request.getParameter("r"))){
+        if (Num.isinteger(request.getParameter("r"))){
             responseid = Integer.parseInt(request.getParameter("r"));
+        } else if (Num.isinteger(request.getParameter("responseid"))){
+            responseid = Integer.parseInt(request.getParameter("responseid"));
         }
+        logger.debug("responseid=" + responseid);
 
         //Create an IAO
         ImpressionActivityObject iao = new ImpressionActivityObject();

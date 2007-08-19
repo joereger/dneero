@@ -14,7 +14,7 @@ public class BloggerSurveyListItem implements Serializable {
     private String maxearning;
     private String daysuntilend;
     private String numberofquestions;
-    private boolean bloggerhasalreadytakensurvey = false;
+    private boolean loggedinuserhasalreadytakensurvey = false;
     private String isbloggerqualifiedstring = "";
     private String description = "";
     private int numberofrespondents=0;
@@ -63,12 +63,12 @@ public class BloggerSurveyListItem implements Serializable {
     }
 
 
-    public boolean getBloggerhasalreadytakensurvey() {
-        return bloggerhasalreadytakensurvey;
+    public boolean getLoggedinuserhasalreadytakensurvey() {
+        return loggedinuserhasalreadytakensurvey;
     }
 
-    public void setBloggerhasalreadytakensurvey(boolean bloggerhasalreadytakensurvey) {
-        this.bloggerhasalreadytakensurvey = bloggerhasalreadytakensurvey;
+    public void setLoggedinuserhasalreadytakensurvey(boolean loggedinuserhasalreadytakensurvey) {
+        this.loggedinuserhasalreadytakensurvey = loggedinuserhasalreadytakensurvey;
     }
 
     public String getIsbloggerqualifiedstring() {

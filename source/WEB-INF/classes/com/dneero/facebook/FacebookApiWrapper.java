@@ -37,6 +37,9 @@ public class FacebookApiWrapper {
     private boolean issessionok = false;
 
     public FacebookApiWrapper(UserSession userSession){
+
+
+
         Logger logger = Logger.getLogger(this.getClass().getName());
         this.userSession = userSession;
         if (userSession.getFacebookSessionKey()!=null && !userSession.getFacebookSessionKey().trim().equals("")){
