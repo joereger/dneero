@@ -36,7 +36,11 @@ public class BloggerIndex implements Serializable {
     private String msg = "";
 
     public BloggerIndex(){
-
+        Logger logger = Logger.getLogger(this.getClass().getName());
+        if (Jsf.getUserSession()!=null && Jsf.getUserSession().getUser()!=null && Jsf.getUserSession().getUser().getBloggerid()==0){
+            try{Jsf.redirectResponse("/blogger/bloggerdetails.jsf");}catch(Exception ex){logger.error(ex);}
+        }
+        load();
     }
 
     public String beginView(){

@@ -21,8 +21,7 @@
 <h:form id="survey">
     <t:saveState id="save" value="#{publicSurveyTake}"/>
 
-    <font class="smallfont">#{publicSurveyTake.survey.description}</font>
-    <br/><br/><br/>
+    <font class="smallfont">#{publicSurveyTake.survey.description}</font><br/><br/><br/>
 
     <h:messages styleClass="RED"/>
 
@@ -68,6 +67,23 @@
                     <table width="100%" cellpadding="5">
                         <tr>
                             <td valign="top" width="450">
+
+                             <c:if test="${!publicSurveyTake.isuserwhotooksurveysameasloggedinuser and publicSurveyTake.useridisspecifiedonurl}">
+                                    <center>
+                                    <div class="rounded" style="width: 400px; padding: 15px; margin: 5px; background: #e6e6e6;">
+                                        <center>
+                                            <font class="mediumfont">
+                                                ${publicSurveysimple.user.firstname} ${publicSurveysimple.user.lastname}'s answers.
+                                            </font>
+                                        </center>
+                                    </div>
+                                    </center>
+                                    <br/>
+                                    <center>
+                                        <f:verbatim>#{publicSurveyTake.surveyAnswersForThisBlogger}</f:verbatim>
+                                    </center>
+                               </c:if>
+
                                 <c:if test="${(publicSurveyTake.survey.status eq 4) and (!publicSurveyTake.bloggerhasalreadytakensurvey)}">
                                     <t:div rendered="#{userSession.isfacebookui and !publicSurveyTake.bloggerhasalreadytakensurvey}">
                                         <div class="rounded" style="background: #e6e6e6; text-align: center;">
@@ -143,12 +159,19 @@
                                     </div>
                                 </c:if>
                                 <c:if test="${publicSurveyTake.bloggerhasalreadytakensurvey}">
-                                    <center><div class="rounded" style="background: #e6e6e6; text-align: left; padding: 20px;"><font class="smallfont">
-                                    You've already taken this survey. These are your answers. Don't forget to post to your blog.
-                                    </font></div></center>
+                                    <center>
+                                    <div class="rounded" style="width: 400px; padding: 15px; margin: 5px; background: #e6e6e6;">
+                                        <center>
+                                            <font class="mediumfont">
+                                                You've already taken this survey.<br/>Your answers:
+                                            </font>
+                                        </center>
+                                    </div>
+                                    </center>
                                     <br/>
-                                    <br/>
-                                    <f:verbatim>#{publicSurveyTake.surveyAnswersForThisBlogger}</f:verbatim>
+                                    <center>
+                                        <f:verbatim>#{publicSurveyTake.surveyAnswersForThisBlogger}</f:verbatim>
+                                    </center>
                                 </c:if>
                                 <c:if test="${(publicSurveyTake.survey.status ne 4) and (!publicSurveyTake.bloggerhasalreadytakensurvey)}">
                                     <font class="mediumfont">This survey is no longer open for respondents.  However, we still have many other surveys that allow you to make money!  Click the Results tab to see how people answered!</font>
@@ -392,16 +415,18 @@
                                 <font class="smallfont">A link to your survey has been posted to your Facebook feed (which qualifies as a blog, for payment purposes).  You can also use the links below to embed your answers into another blog or website.</font>
                                 <br/><br/>
                                 <div class="rounded" style="background: #ffffff;">
-                                    <font class="mediumfont"><b>Now Tell Up To 10 Friends About This Survey:</b></font>
+                                    <font class="mediumfont"><b>Earn Even More... Tell Up To 10 Friends About This Survey:</b></font>
                                     <br/>
-                                    <font class="smallfont">They'll be able to see your answers and then take the survey themselves. If your friend hasn't ever used dNeero then we'll pay you for any earnings they make... and any earnings their friends make... up to five levels deep!</font>
+                                    <font class="smallfont">They'll be able to see your answers and then take the survey themselves. If your friend hasn't ever used dNeero then we'll pay you for any earnings they generate... and any earnings their friends make... and any earnings their friends make... up to five levels deep!</font>
                                     <br/>
                                     <h:message for="facebookfriendsselected" styleClass="RED"></h:message>
                                     <h:selectManyCheckbox value="#{publicSurveyTake.facebookfriendsselected}" id="facebookfriendsselected" required="false" style="font-weight: bold;">
                                         <f:selectItems value="#{publicSurveyTake.facebookallfriends}"/>
                                     </h:selectManyCheckbox>
                                     <br/>
-                                    <h:commandButton action="#{publicSurveyTake.tellFriends}" value="Tell Your Friends" styleClass="formsubmitbutton"/>
+                                    <h:commandLink action="#{publicSurveyTake.tellFriends}"><h:graphicImage value="/images/button-tellfacebookfriends.gif" width="154" height="32" border="0"/></h:commandLink>
+                                    <!--<h:commandLink action="#{publicSurveyTake.tellFriends}" target="_top"><h:graphicImage value="/images/button-tellfacebookfriends.gif" width="154" height="32" border="0"/></h:commandLink>-->
+                                    <!--<h:commandButton action="#{publicSurveyTake.tellFriends}" value="Tell Your Friends" styleClass="formsubmitbutton"/>-->
                                 </div>
                             </div>
                         </c:if> 
@@ -993,9 +1018,13 @@
                                         <h:graphicImage url="/images/clear.gif" width="415" height="1"/><br/>
                                         <f:verbatim escape="false">#{publicSurveyTake.resultsHtml}</f:verbatim>
                                     </t:panelTab>
-                                    <t:panelTab id="resultspanel_b" label="People from Blog you Were At" rendered="${publicSurveyTake.isreferredbyblog}">
+                                    <t:panelTab id="resultspanel_b" label="#{publicSurveyTake.resultsfriendstabtext}" rendered="${publicSurveyTake.isreferredbyblog}">
                                         <h:graphicImage url="/images/clear.gif" width="415" height="1"/><br/>
                                         <f:verbatim escape="false">#{publicSurveyTake.resultsHtmlForReferredByBlog}</f:verbatim>
+                                    </t:panelTab>
+                                    <t:panelTab id="resultspanel_c" label="Your Friends" rendered="${publicSurveyTake.resultsshowyourfriendstab}">
+                                        <h:graphicImage url="/images/clear.gif" width="415" height="1"/><br/>
+                                        <f:verbatim escape="false">#{publicSurveyTake.resultsYourFriends}</f:verbatim>
                                     </t:panelTab>
                                 </t:panelTabbedPane>
                             </td>

@@ -5,6 +5,7 @@ import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.util.Jsf;
 import com.dneero.util.Num;
 import com.dneero.util.GeneralException;
+import com.dneero.util.Str;
 import com.dneero.display.SurveyTakerDisplay;
 import com.dneero.display.SurveyResponseParser;
 import com.dneero.display.SurveyResultsDisplay;
@@ -43,6 +44,7 @@ public class PublicSurveyTake implements Serializable {
     private boolean haveerror = false;
     private Survey survey;
     private User userwhotooksurvey = null;
+    private boolean useridisspecifiedonurl = false;
     private boolean isuserwhotooksurveyloaded = false;
     private boolean isuserwhotooksurveysameasloggedinuser;
     private SurveyEnhancer surveyEnhancer;
@@ -64,7 +66,10 @@ public class PublicSurveyTake implements Serializable {
     private boolean bloggerhastakentoomanysurveysalreadytoday = false;
     private String resultsHtml = "";
     private String resultsHtmlForReferredByBlog = "";
+    private String resultsYourFriends = "";
     private boolean isreferredbyblog = false;
+    private String resultsfriendstabtext = "People from site you were at";
+    private boolean resultsshowyourfriendstab = false;
     private List<Impression> impressions;
     private List<PublicSurveyDiscussListitem> surveydiscusses;
     private List<PublicSurveyRespondentsListitem> respondents;
@@ -125,6 +130,7 @@ public class PublicSurveyTake implements Serializable {
                 logger.debug("userid found: "+Jsf.getRequestParam("userid"));
                 userwhotooksurvey = User.get(Integer.parseInt(Jsf.getRequestParam("userid")));
                 isuserwhotooksurveyloaded = true;
+                useridisspecifiedonurl = true;
                 Blogger bloggerwhotook = Blogger.get(userwhotooksurvey.getUserid());
                 for (Iterator<Response> iterator = bloggerwhotook.getResponses().iterator(); iterator.hasNext();) {
                     Response response = iterator.next();
@@ -232,19 +238,46 @@ public class PublicSurveyTake implements Serializable {
                 user = User.get(Integer.parseInt(Jsf.getRequestParam("userid")));
                 isreferredbyblog = true;
                 Jsf.getUserSession().setPendingSurveyReferredbyuserid(user.getUserid());
+                resultsfriendstabtext = Str.truncateString(user.getFirstname(), 15)+" "+Str.truncateString(user.getLastname(), 15)+"'s Friends";
             }
             logger.debug("isreferredbyblog="+isreferredbyblog);
             if (!survey.getIsresultshidden()){
-                resultsHtml = SurveyResultsDisplay.getHtmlForResults(survey, null, 0);
+                resultsHtml = SurveyResultsDisplay.getHtmlForResults(survey, null, 0, new ArrayList<Integer>());
             } else {
                 resultsHtml = "<font class=\"smallfont\">This researcher has chosen to hide overall aggregate results.  However, dNeero does not allow researchers to hide aggregate results from individual blogs so those results are still available.  To see such results, find a blog that's posted this survey and click the See How Others Voted link... you'll see how others from that blog answered.</font>";
             }
             if (isreferredbyblog){
-                resultsHtmlForReferredByBlog = SurveyResultsDisplay.getHtmlForResults(survey, null, Jsf.getUserSession().getPendingSurveyReferredbyuserid());
+                resultsHtmlForReferredByBlog = SurveyResultsDisplay.getHtmlForResults(survey, null, Jsf.getUserSession().getPendingSurveyReferredbyuserid(), new ArrayList<Integer>());
                 resultstabselectedindex = 1;
             } else {
                 resultsHtmlForReferredByBlog = "<font class='mediumfont'>Nobody who has clicked from the blog you were just at has answered... yet.  You could be the first!</font>";
                 resultstabselectedindex = 0;
+            }
+            if (Jsf.getUserSession().getIsfacebookui()){
+                resultsshowyourfriendstab = true;
+                FacebookApiWrapper faw = new FacebookApiWrapper(Jsf.getUserSession());
+                ArrayList<FacebookUser> friends = faw.getFriends();
+                if (friends!=null && friends.size()>0){
+                    StringBuffer facebookquery = new StringBuffer();
+                    facebookquery.append(" ( ");
+                    for (Iterator it = friends.iterator(); it.hasNext(); ) {
+                        FacebookUser facebookUser = (FacebookUser)it.next();
+                        facebookquery.append("facebookuserid="+facebookUser.getUid());
+                        if (it.hasNext()){
+                            facebookquery.append(" OR ");
+                        }
+                    }
+                    facebookquery.append(" ) ");
+                    ArrayList<Integer> onlyincluderesponsesfromtheseuserids = new ArrayList<Integer>();
+                    List fbusers = HibernateUtil.getSession().createQuery("from User WHERE "+facebookquery.toString()).list();
+                    for (Iterator iterator = fbusers.iterator(); iterator.hasNext();) {
+                        User fbuser = (User) iterator.next();
+                        onlyincluderesponsesfromtheseuserids.add(fbuser.getUserid());
+                    }
+                    resultsYourFriends = SurveyResultsDisplay.getHtmlForResults(survey, null, 0, onlyincluderesponsesfromtheseuserids);
+                } else {
+                    resultsYourFriends = "<font class='mediumfont'>None of your friends have taken this survey... yet.</font>";
+                }
             }
 
             //Load impressions
@@ -760,5 +793,37 @@ public class PublicSurveyTake implements Serializable {
 
     public void setFacebookfriendsselected(String[] facebookfriendsselected) {
         this.facebookfriendsselected = facebookfriendsselected;
+    }
+
+    public String getResultsfriendstabtext() {
+        return resultsfriendstabtext;
+    }
+
+    public void setResultsfriendstabtext(String resultsfriendstabtext) {
+        this.resultsfriendstabtext = resultsfriendstabtext;
+    }
+
+    public boolean getResultsshowyourfriendstab() {
+        return resultsshowyourfriendstab;
+    }
+
+    public void setResultsshowyourfriendstab(boolean resultsshowyourfriendstab) {
+        this.resultsshowyourfriendstab = resultsshowyourfriendstab;
+    }
+
+    public String getResultsYourFriends() {
+        return resultsYourFriends;
+    }
+
+    public void setResultsYourFriends(String resultsYourFriends) {
+        this.resultsYourFriends = resultsYourFriends;
+    }
+
+    public boolean isUseridisspecifiedonurl() {
+        return useridisspecifiedonurl;
+    }
+
+    public void setUseridisspecifiedonurl(boolean useridisspecifiedonurl) {
+        this.useridisspecifiedonurl = useridisspecifiedonurl;
     }
 }

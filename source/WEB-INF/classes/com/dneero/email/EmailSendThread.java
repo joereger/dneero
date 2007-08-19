@@ -34,8 +34,10 @@ public class EmailSendThread implements Runnable, Serializable {
         try{
             logger.debug("Start sending htmlEmail subject:"+htmlEmail.getSubject());
             logger.debug("SystemProperty.PROP_SMTPOUTBOUNDSERVER="+SystemProperty.getProp(SystemProperty.PROP_SMTPOUTBOUNDSERVER));
-            htmlEmail.setHostName(SystemProperty.getProp(SystemProperty.PROP_SMTPOUTBOUNDSERVER));
-            htmlEmail.send();
+            if (htmlEmail.getMimeMessage().getAllRecipients().length>0){
+                htmlEmail.setHostName(SystemProperty.getProp(SystemProperty.PROP_SMTPOUTBOUNDSERVER));
+                htmlEmail.send();
+            }
             logger.debug("End sending htmlEmail subject:"+htmlEmail.getSubject());
         } catch (Exception e){
             logger.error(e);

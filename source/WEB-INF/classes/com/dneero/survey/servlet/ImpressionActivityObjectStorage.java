@@ -92,7 +92,7 @@ public class ImpressionActivityObjectStorage {
         //Check to see if userid and responseid correlate
         if (user!=null &&  response!=null && user.getBloggerid()!=response.getBloggerid()){
             //Somebody may be spoofing the system, trying to get credit for another's surveys, etc... just logging now to see if it's common/an issue
-            logger.error("user.getBloggerid()!=response.getBloggerid(). User possibly spoofing system.  iao.getResponseid()="+iao.getResponseid()+" iao.getUserid()="+iao.getUserid()+" iao.getReferer()="+iao.getReferer());
+            logger.error("user.getBloggerid()!=response.getBloggerid(). User possibly spoofing system.  iao.getResponseid()="+iao.getResponseid()+" iao.getUserid()="+iao.getUserid()+" iao.getReferer()="+iao.getReferer()+" user.getBloggerid()="+user.getBloggerid()+" response.getBloggerid()="+response.getBloggerid());
         }
 
         //Find number of impressions on this blog qualify for payment

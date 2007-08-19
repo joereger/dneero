@@ -2,12 +2,10 @@ package com.dneero.formbeans;
 
 import org.apache.log4j.Logger;
 import org.apache.commons.validator.EmailValidator;
+import org.hibernate.criterion.Restrictions;
 import com.dneero.dao.*;
 import com.dneero.dao.hibernate.HibernateUtil;
-import com.dneero.util.GeneralException;
-import com.dneero.util.Jsf;
-import com.dneero.util.RandomString;
-import com.dneero.util.Str;
+import com.dneero.util.*;
 import com.dneero.util.jcaptcha.CaptchaServiceSingleton;
 import com.dneero.session.UserSession;
 import com.dneero.session.PersistentLogin;
@@ -18,6 +16,8 @@ import com.dneero.eula.EulaHelper;
 import com.dneero.systemprops.SystemProperty;
 import com.dneero.systemprops.BaseUrl;
 import com.dneero.helpers.UserInputSafe;
+import com.dneero.facebook.FacebookApiWrapper;
+import com.dneero.facebook.FacebookUser;
 import com.octo.captcha.service.CaptchaServiceException;
 
 import javax.servlet.http.Cookie;
@@ -57,11 +57,100 @@ public class Registration implements Serializable {
     }
 
     private void load(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         displaytempresponsesavedmessage = false;
         if (Jsf.getUserSession().getPendingSurveyResponseAsString()!=null && !Jsf.getUserSession().getPendingSurveyResponseAsString().equals("")){
             displaytempresponsesavedmessage = true;
         }
         eula = EulaHelper.getMostRecentEula().getEula();
+        //Start Facebook shenanigans
+        if (Jsf.getUserSession().getIsfacebookui()){
+            FacebookUser facebookUser = new FacebookUser(Jsf.getUserSession().getTempFacebookUserid(), Jsf.getUserSession().getFacebookSessionKey());
+            int facebookuserid = 0;
+            if (facebookUser.getUid()!=null && Num.isinteger(facebookUser.getUid())){
+                facebookuserid = Integer.parseInt(facebookUser.getUid());
+            }
+            if (facebookuserid>0){
+                User user = new User();
+                //Check to see if we already have this facebookuserid in the database
+                List<User> usersWithSameFacebookid = HibernateUtil.getSession().createCriteria(User.class)
+                                                   .add(Restrictions.eq("facebookuserid", facebookuserid))
+                                                   .setCacheable(true)
+                                                   .list();
+                //Just a little runtime error logging
+                if (usersWithSameFacebookid!=null && usersWithSameFacebookid.size()>1){
+                    logger.error("More than one user with facebookuserid="+facebookUser.getUid());
+                }
+                //Find the user or create them
+                if (usersWithSameFacebookid!=null && usersWithSameFacebookid.size()>0){
+                    //Grab the first user in the list
+                    user = usersWithSameFacebookid.get(0);
+                } else {
+                    //No user exists so I need to auto-create one
+                    user.setEmail("");
+                    user.setPassword("");
+                    user.setFirstname(UserInputSafe.clean(facebookUser.getFirst_name()));
+                    user.setLastname(UserInputSafe.clean(facebookUser.getLast_name()));
+                    user.setIsactivatedbyemail(true);  //Auto-activated by email... done because user will have to enter email in account settings
+                    user.setIsqualifiedforrevshare(false);
+                    user.setReferredbyuserid(Jsf.getUserSession().getReferredbyOnlyUsedForSignup());
+                    user.setEmailactivationkey(RandomString.randomAlphanumeric(5));
+                    user.setEmailactivationlastsent(new Date());
+                    user.setCreatedate(new Date());
+                    user.setPaymethodpaypaladdress("");
+                    user.setPaymethod(PaymentMethod.PAYMENTMETHODPAYPAL);
+                    user.setChargemethod(PaymentMethod.PAYMENTMETHODCREDITCARD);
+                    user.setPaymethodcreditcardid(0);
+                    user.setChargemethodcreditcardid(0);
+                    user.setBloggerid(0);
+                    user.setResearcherid(0);
+                    user.setNotifyofnewsurveysbyemaileveryexdays(1);
+                    user.setNotifyofnewsurveyslastsent(new Date());
+                    user.setAllownoncriticalemails(true);
+                    user.setInstantnotifybyemailison(false);
+                    user.setInstantnotifybytwitterison(false);
+                    user.setInstantnotifytwitterusername("");
+                    user.setInstantnotifyxmppison(false);
+                    user.setInstantnotifyxmppusername("");
+                    user.setIsenabled(true);
+                    user.setFacebookuserid(facebookuserid);
+                    try{
+                        user.save();
+                        userid = user.getUserid();
+                    } catch (GeneralException gex){
+                        logger.debug("Facebook auto-register failed: " + gex.getErrorsAsSingleString());
+                        return;
+                    }
+                }
+                //Pending survey save
+                //Note: this code also on Login and PublicSurveyTake
+                if (Jsf.getUserSession().getPendingSurveyResponseSurveyid()>0){
+                    if (!Jsf.getUserSession().getPendingSurveyResponseAsString().equals("")){
+                        Responsepending responsepending = new Responsepending();
+                        responsepending.setUserid(user.getUserid());
+                        responsepending.setReferredbyuserid(Jsf.getUserSession().getPendingSurveyReferredbyuserid());
+                        responsepending.setResponseasstring(Jsf.getUserSession().getPendingSurveyResponseAsString());
+                        responsepending.setSurveyid(Jsf.getUserSession().getPendingSurveyResponseSurveyid());
+                        try{responsepending.save();}catch (Exception ex){logger.error(ex);}
+                        Jsf.getUserSession().setPendingSurveyResponseSurveyid(0);
+                        Jsf.getUserSession().setPendingSurveyReferredbyuserid(0);
+                        Jsf.getUserSession().setPendingSurveyResponseAsString("");
+                    }
+                }
+
+                //Notify customer care group
+                SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_CUSTOMERSUPPORT, "New dNeero User via Facebook: "+ user.getFirstname() + " " + user.getLastname());
+                xmpp.send();
+
+                //Now redirect to the bloggr index page
+                Jsf.getUserSession().setUser(user);
+                Jsf.getUserSession().setIsloggedin(true);
+                Jsf.getUserSession().setIsLoggedInToBeta(true);
+                Jsf.getUserSession().setIseulaok(true);
+                try{Jsf.redirectResponse("/account/index.jsf"); return;}catch(Exception ex){logger.error(ex);}
+            }
+        }
+        //End Facebook shenanigans
     }
 
     public String registerAction(){

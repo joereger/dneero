@@ -7,7 +7,7 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:d="http://dneero.com/taglib"
       xmlns:c="http://java.sun.com/jstl/core"
-
+      xmlns:t="http://myfaces.apache.org/tomahawk"
       >
 
     <ui:define name="header">
@@ -132,6 +132,16 @@
                             </div>
                         </td>
                     </tr>
+                    <t:div rendered="#{empty userSession.user.paymethodpaypaladdress}">
+                        <tr>
+                            <td bgcolor="#ffffff" style="text-align: right; vertical-align: top;" colspan="5" height="15">
+                                <div style="padding: 0px; text-align: right;">
+                                    <font class="subnavfont">Note: We <img src="/images/clear.gif" width="2" height="1"/><h:commandLink action="#{accountSettings.beginView}">need</h:commandLink><img src="/images/clear.gif" width="2" height="1"/> a PayPal address to pay you.<img src="/images/clear.gif" width="5" height="1"/></font>
+                                </div>
+                            </td>
+                        </tr>
+
+                   </t:div>
                 </c:if>
 
 

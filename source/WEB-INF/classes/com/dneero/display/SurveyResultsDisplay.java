@@ -18,7 +18,9 @@ import java.util.ArrayList;
  */
 public class SurveyResultsDisplay {
 
-    public static String getHtmlForResults(Survey survey, Blogger blogger, int referredbyuserid){
+
+
+    public static String getHtmlForResults(Survey survey, Blogger blogger, int referredbyuserid, ArrayList<Integer> onlyincluderesponsesfromtheseuserids){
         StringBuffer out = new StringBuffer();
         Logger logger = Logger.getLogger(SurveyResultsDisplay.class);
         for (Iterator<Question> iterator = survey.getQuestions().iterator(); iterator.hasNext();) {
@@ -41,16 +43,38 @@ public class SurveyResultsDisplay {
                    .add(Restrictions.eq("questionid", question.getQuestionid()))
                    .setCacheable(true)
                    .list();
+            //If referredbyuserid is included, filter out those not referred by this userid
             if (referredbyuserid>0){
-                List<Questionresponse> responsesreferred = new ArrayList<Questionresponse>();
+                List<Questionresponse> responsesTmp = new ArrayList<Questionresponse>();
                 for (Iterator<Questionresponse> iterator1 = questionresponses.iterator(); iterator1.hasNext();) {
                     Questionresponse questionresponse = iterator1.next();
                     Response response = Response.get(questionresponse.getResponseid());
                     if (response.getReferredbyuserid()==referredbyuserid){
-                        responsesreferred.add(questionresponse);
+                        responsesTmp.add(questionresponse);
                     }
                 }
-                questionresponses = responsesreferred;
+                questionresponses = responsesTmp;
+            }
+            //If onlyincluderesponsesfromtheseuserids filter out those not in the list
+            if (onlyincluderesponsesfromtheseuserids!=null && onlyincluderesponsesfromtheseuserids.size()>0){
+                List<Questionresponse> responsesTmp = new ArrayList<Questionresponse>();
+                for (Iterator<Questionresponse> iterator1 = questionresponses.iterator(); iterator1.hasNext();) {
+                    Questionresponse questionresponse = iterator1.next();
+                    Response response = Response.get(questionresponse.getResponseid());
+                    int userid = Blogger.get(response.getBloggerid()).getUserid();
+                    boolean isinlistofuserids = false;
+                    for (Iterator it = onlyincluderesponsesfromtheseuserids.iterator(); it.hasNext(); ) {
+                        int onlyincluderesponsesfromtheseuserid = (Integer)it.next();
+                        if (userid==onlyincluderesponsesfromtheseuserid){
+                            isinlistofuserids = true;
+                            break;
+                        }
+                    }
+                    if (isinlistofuserids){
+                        responsesTmp.add(questionresponse);
+                    }
+                }
+                questionresponses = responsesTmp;
             }
             out.append(component.getHtmlForResult(questionresponses));
             out.append("</td>");

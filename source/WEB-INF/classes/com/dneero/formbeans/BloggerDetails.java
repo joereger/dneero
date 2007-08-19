@@ -48,11 +48,11 @@ public class BloggerDetails implements Serializable {
 
 
     public BloggerDetails(){
-
+        load();
     }
 
     public String beginView(){
-        load();
+        //load();
         return "bloggerdetails";
     }
 

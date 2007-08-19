@@ -89,7 +89,14 @@
                         <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
                             <font class="mediumfont">Your account has not yet been activated by email.</font>
                             <br/>
-                            <font class="smallfont">You must activate within 3 days of signup.  Check your email inbox for an activation message.  If you've lost that message... no problem: <h:commandLink action="emailactivationresend">re-send it</h:commandLink>.</font>
+                            <font class="smallfont">You must activate within 3 days of signup.  Check your email inbox for an activation message.  If you've lost that message... no problem: <img src="/images/clear.gif" width="2" height="1"/><h:commandLink action="emailactivationresend">re-send it</h:commandLink>.</font>
+                        </div>
+                   </t:div>
+                   <t:div rendered="#{empty userSession.user.paymethodpaypaladdress}">
+                        <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
+                            <font class="mediumfont">You must enter a PayPal address to get paid.</font>
+                            <br/>
+                            <font class="smallfont">Before we can pay you we must have a valid PayPal address.  Enter one: <img src="/images/clear.gif" width="2" height="1"/><h:commandLink action="#{accountSettings.beginView}">here</h:commandLink>.</font>
                         </div>
                    </t:div>
                 </td>
@@ -98,7 +105,7 @@
                         <tr>
                             <td width="50%" align="left" valign="top">
                                 <center><h:commandLink action="#{bloggerIndex.beginView}"><img src="/images/user.png" alt="" border="0" width="128" height="128"/></h:commandLink></center>
-                                <div><d:greenRoundedButton pathtoapproot="../"><h:commandLink value="For Bloggers" action="#{bloggerIndex.beginView}" styleClass="mediumfont" style="color: #ffffff;"/></d:greenRoundedButton></div>
+                                <div><d:greenRoundedButton pathtoapproot="../"><h:commandLink value="Bloggers" action="#{bloggerIndex.beginView}" styleClass="mediumfont" style="color: #ffffff;"/></d:greenRoundedButton></div>
                                 <div style="padding: 10px;">
                                     <font class="smallfont"><b>Take Surveys</b></font>
                                     <br/>
@@ -109,7 +116,7 @@
                             </td>
                             <td width="50%" align="left" valign="top">
                                 <center><h:commandLink action="#{researcherIndex.beginView}"><img src="/images/statistic-128.png" alt="" border="0" width="128" height="128"/></h:commandLink></center>
-                                <div><d:greenRoundedButton pathtoapproot="../"><h:commandLink value="For Researchers" action="#{researcherIndex.beginView}" styleClass="mediumfont" style="color: #ffffff;"/></d:greenRoundedButton></div>
+                                <div><d:greenRoundedButton pathtoapproot="../"><h:commandLink value="Researchers" action="#{researcherIndex.beginView}" styleClass="mediumfont" style="color: #ffffff;"/></d:greenRoundedButton></div>
                                 <div style="padding: 10px;">
                                     <font class="smallfont"><b>Create and Manage Surveys</b></font>
                                     <br/>

@@ -26,14 +26,20 @@ public class AccountIndex implements Serializable {
     private boolean isfirsttimelogin = false;
 
     public AccountIndex(){
-
+        Logger logger = Logger.getLogger(this.getClass().getName());
+        load();
+        if (userhasresponsependings){
+            try{Jsf.redirectResponse("/blogger/index.jsf");}catch(Exception ex){logger.error(ex);}
+        }
     }
 
     public String beginView(){
-        load();
+        Logger logger = Logger.getLogger(this.getClass().getName());
+        //load();
         if (userhasresponsependings){
-            BloggerIndex bean = (BloggerIndex)Jsf.getManagedBean("bloggerIndex");
-            return bean.beginView();        
+//            BloggerIndex bean = (BloggerIndex)Jsf.getManagedBean("bloggerIndex");
+//            return bean.beginView();
+            try{Jsf.redirectResponse("/blogger/index.jsf");}catch(Exception ex){logger.error(ex);}
         }
         return "accountindex";
     }

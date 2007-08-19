@@ -11,7 +11,7 @@
       >
 
 <ui:composition template="/template/template-facelets.xhtml">
-    <ui:define name="title">Profile<br/><br/></ui:define>
+    <ui:define name="title">Your Profile<br/><br/></ui:define>
     <ui:param name="navtab" value="bloggers"/>
     <ui:define name="body">
     <d:authorization acl="account" redirectonfail="true"/>
@@ -178,7 +178,7 @@
                 <h:panelGroup>
                 </h:panelGroup>
                 <h:panelGroup>
-                    <h:commandButton action="#{bloggerDetails.saveAction}" value="Save Blogger Profile" styleClass="formsubmitbutton"></h:commandButton>
+                    <h:commandButton action="#{bloggerDetails.saveAction}" value="Save Profile" styleClass="formsubmitbutton"></h:commandButton>
                 </h:panelGroup>
                 <h:panelGroup>
                 </h:panelGroup>

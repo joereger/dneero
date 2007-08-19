@@ -7,6 +7,7 @@ import com.dneero.util.Jsf;
 import com.dneero.display.SurveyResultsDisplay;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * User: Joe Reger Jr
@@ -33,7 +34,7 @@ public class ResearcherResultsAnswers implements Serializable {
         logger.debug("loadSurvey called");
         survey = Survey.get(surveyid);
         if (survey!=null){
-            results = SurveyResultsDisplay.getHtmlForResults(survey, null, 0);
+            results = SurveyResultsDisplay.getHtmlForResults(survey, null, 0, new ArrayList<Integer>());
         }
     }
 

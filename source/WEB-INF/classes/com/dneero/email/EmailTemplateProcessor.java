@@ -47,7 +47,9 @@ public class EmailTemplateProcessor {
             if (toaddress!=null && !toaddress.equals("")){
                 email.addTo(toaddress);
             } else {
-                email.addTo(userTo.getEmail());
+                if (userTo!=null){
+                    email.addTo(userTo.getEmail());
+                }
             }
             if (fromaddress!=null && !fromaddress.equals("")){
                 email.setFrom(fromaddress, fromaddress);
