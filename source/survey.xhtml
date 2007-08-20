@@ -42,7 +42,9 @@
 
     <t:div rendered="#{publicSurveyTake.surveytakergavetocharity}">
         <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
-            <h:outputText value="${publicSurveyTake.userwhotooksurvey.firstname} ${publicSurveyTake.userwhotooksurvey.lastname} had dNeero donate all earnings from this survey to ${publicSurveyTake.charityname}." styleClass="mediumfont"/>
+            <center>
+                <h:outputText value="${publicSurveyTake.userwhotooksurvey.firstname} ${publicSurveyTake.userwhotooksurvey.lastname} had dNeero donate all earnings from this survey to ${publicSurveyTake.charityname}." styleClass="tinyfont"/>
+            </center>
         </div>
         <br/>
     </t:div>
@@ -68,13 +70,18 @@
                         <tr>
                             <td valign="top" width="450">
 
-                             <c:if test="${(publicSurveyTake.userwhotooksurvey ne NULL) and (publicSurveyTake.userwhotooksurvey.userid>0)}">
+                             <c:if test="${(publicSurveyTake.showSurveyResponseFlashEmbed) and (publicSurveyTake.userwhotooksurvey ne NULL) and (publicSurveyTake.userwhotooksurvey.userid>0)}">
                                     <center>
                                     <div class="rounded" style="width: 400px; padding: 15px; margin: 5px; background: #e6e6e6;">
                                         <center>
                                             <font class="mediumfont">
                                                 ${publicSurveyTake.userwhotooksurvey.firstname} ${publicSurveyTake.userwhotooksurvey.lastname}'s answers.
                                             </font>
+                                            <t:div rendered="#{!publicSurveyTake.loggedinuserhasalreadytakensurvey}">
+                                                <font class="tinyfont">
+                                                    (you can answer below)
+                                                </font>
+                                            </t:div>
                                         </center>
                                     </div>
                                     </center>
@@ -82,12 +89,17 @@
                                     <center>
                                         <f:verbatim>#{publicSurveyTake.surveyResponseFlashEmbed}</f:verbatim>
                                     </center>
+                                    <br/><br/>
                                </c:if>
-
-                                <c:if test="${(publicSurveyTake.survey.status eq 4) and (!publicSurveyTake.loggedinuserhasalreadytakensurvey)}">
+                               <t:div rendered="#{userSession.isfacebookui and publicSurveyTake.loggedinuserhasalreadytakensurvey}">
+                                    <div class="rounded" style="background: #e6e6e6; text-align: center;">
+                                        <h:outputText value="You've already taken this survey." styleClass="mediumfont"/>
+                                    </div>
+                                </t:div>
+                                <c:if test="${(publicSurveyTake.survey.status eq 4) and (!publicSurveyTake.loggedinuserhasalreadytakensurvey) and (userSession.isfacebookappadded || !userSession.isfacebookui)}">
                                     <t:div rendered="#{userSession.isfacebookui and !publicSurveyTake.loggedinuserhasalreadytakensurvey}">
                                         <div class="rounded" style="background: #e6e6e6; text-align: center;">
-                                            <h:outputText value="Take this survey and earn at least" styleClass="mediumfont"/>
+                                            <h:outputText value="Take this survey to earn at least" styleClass="mediumfont"/>
                                             <br/>
                                             <h:outputText value="#{publicSurveyTake.surveyEnhancer.minearning}" styleClass="largefont" style="font-size: 30px; color: #666666;"/>
                                             <c:if test="${publicSurveyTake.surveytakergavetocharity or publicSurveyTake.survey.ischarityonly}">
@@ -96,6 +108,8 @@
                                             </c:if>
                                             <br/>
                                             <h:outputText value="and up to #{publicSurveyTake.surveyEnhancer.maxearning} depending on your profile traffic." styleClass="smallfont" style="font-weight: bold;"/>
+                                            <br/>
+                                            <h:outputText value="(Yes, we're talking real world money here.)" styleClass="smallfont" style="font-weight: bold;"/>
                                         </div>
                                         <br/>
                                     </t:div>
@@ -412,15 +426,15 @@
                     <c:if test="${publicSurveyTake.loggedinuserhasalreadytakensurvey}">
                         <c:if test="${userSession.isfacebookui}">
                             <div class="rounded" style="background: #00ff00;">
-                                <font class="mediumfont"><b>Congratulations, your survey response has been accepted!</b></font>
+                                <img src="/images/ok-64.png" width="64" height="64" align="left"/>
+                                <font class="mediumfont"><b>Your survey response has been accepted!</b></font>
                                 <br/>
-                                <font class="smallfont">A link to your survey has been posted to your Facebook feed (which qualifies as a blog, for payment purposes).  You can also use the links below to embed your answers into another blog or website.</font>
-                                <br/><br/>
+                                <font class="smallfont">A link to your survey has been posted to your Facebook feed (which qualifies as a blog, for payment purposes).  You can also use the links below to embed your answers into another blog or website.</font><br/><br/>
                                 <div class="rounded" style="background: #ffffff;">
-                                    <font class="mediumfont"><b>Earn Even More... Tell Up To 10 Friends About This Survey:</b></font>
+                                    <font class="formfieldnamefont"><b>Now earn even more... tell up to 10 friends about this survey:</b></font>
                                     <br/>
-                                    <font class="smallfont">They'll be able to see your answers and then take the survey themselves. If your friend hasn't ever used dNeero then we'll pay you for any earnings they generate... and any earnings their friends make... and any earnings their friends make... up to five levels deep!</font>
-                                    <br/>
+                                    <font class="smallfont">They'll be able to see your answers and then take the survey themselves. If your friend hasn't ever used dNeero then <b>we'll pay you for any earnings they generate</b>... and any earnings their friends make... and any earnings their friends make... up to five levels deep!</font>
+                                    <br/><br/>
                                     <h:message for="facebookfriendsselected" styleClass="RED"></h:message>
                                     <h:selectManyCheckbox value="#{publicSurveyTake.facebookfriendsselected}" id="facebookfriendsselected" required="false" style="font-weight: bold;">
                                         <f:selectItems value="#{publicSurveyTake.facebookallfriends}"/>
@@ -431,8 +445,9 @@
                                     <!--<h:commandButton action="#{publicSurveyTake.tellFriends}" value="Tell Your Friends" styleClass="formsubmitbutton"/>-->
                                 </div>
                             </div>
-                        </c:if> 
-                        <table cellpadding="3" cellspacing="15" border="0" width="100%">
+                        </c:if>
+                        <c:if test="${!userSession.isfacebookui}">
+                            <table cellpadding="3" cellspacing="15" border="0" width="100%">
                             <tr>
                                 <td valign="top">
                                     <div class="rounded" style="background: #00ff00;">
@@ -1007,6 +1022,7 @@
                                 </td>
                             </tr>
                         </table>
+                        </c:if>
                         <br/>
                     </c:if>
                 </t:panelTab>
@@ -1016,7 +1032,7 @@
                         <tr>
                             <td valign="top" width="450">
                                 <t:panelTabbedPane id="resultspanel" bgcolor="#ffffff" selectedIndex="#{publicSurveyTake.resultstabselectedindex}">
-                                    <t:panelTab id="resultspanel_a" label="All People Who Responded">
+                                    <t:panelTab id="resultspanel_a" label="Everybody">
                                         <h:graphicImage url="/images/clear.gif" width="415" height="1"/><br/>
                                         <f:verbatim escape="false">#{publicSurveyTake.resultsHtml}</f:verbatim>
                                     </t:panelTab>

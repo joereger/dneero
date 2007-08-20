@@ -48,6 +48,7 @@ public class PublicSurveyTake implements Serializable {
     private SurveyEnhancer surveyEnhancer;
     private boolean loggedinuserhasalreadytakensurvey;
     private String surveyResponseFlashEmbed;
+    private boolean showSurveyResponseFlashEmbed = false;
     private String surveyOnBlogPreview;
     private boolean qualifiesforsurvey = true;
     private String socialbookmarklinks = "";
@@ -235,6 +236,8 @@ public class PublicSurveyTake implements Serializable {
             takesurveyhtml = "";
         }
 
+        //Whether to hide the takesurveyhtml.  This is used when clicking on a 
+
         //If blogger has taken the survey already
         if (loggedinuserhasalreadytakensurvey){
             htmltoposttoblog = SurveyJavascriptServlet.getEmbedSyntax(BaseUrl.get(false), survey.getSurveyid(), Jsf.getUserSession().getUser().getUserid(), responseidOfLoggedinUser, false, false, true, false);
@@ -266,6 +269,11 @@ public class PublicSurveyTake implements Serializable {
             surveyResponseFlashEmbed = SurveyFlashServlet.getEmbedSyntax("/", survey.getSurveyid(), userwhotooksurvey.getUserid(), responseid, true, true, false);
         }
 
+        //Whether to show the answers for the userwho took the survey
+        if (Jsf.getRequestParam("show")!=null && Jsf.getRequestParam("show").equals("showSurveyResponseFlashEmbed")){
+            showSurveyResponseFlashEmbed = true;    
+        }
+
         //Turn on the correct tab
         if (survey.getStatus()!=Survey.STATUS_OPEN){
             tabselectedindex = 2;
@@ -285,6 +293,13 @@ public class PublicSurveyTake implements Serializable {
             tabselectedindex = Integer.parseInt(Jsf.getRequestParam("tabselectedindex"));
         }
 
+        //Determine which of the results tabs is on
+        if (userwhotooksurvey!=null){
+            resultstabselectedindex = 1;
+        } else {
+            resultstabselectedindex = 0;
+        }
+
         //Results main tab
         if (!survey.getIsresultshidden()){
             resultsHtml = SurveyResultsDisplay.getHtmlForResults(survey, null, 0, new ArrayList<Integer>());
@@ -300,16 +315,9 @@ public class PublicSurveyTake implements Serializable {
             resultsHtmlForUserWhoTookSurvey = "";
         }
 
-        //Determine which of the results tabs is on
-        if (userwhotooksurvey!=null){
-            resultstabselectedindex = 1;
-        } else {
-            resultstabselectedindex = 0;
-        }
-
         //Set results friends tab text
         if (userwhotooksurvey!=null){
-            resultsfriendstabtext = Str.truncateString(userwhotooksurvey.getFirstname(), 15)+" "+Str.truncateString(userwhotooksurvey.getLastname(), 15)+"'s Friends";
+            resultsfriendstabtext = Str.truncateString(userwhotooksurvey.getFirstname(), 15)+"'s Friends";
         }
 
         //Special Facebook Friends results tab
@@ -844,5 +852,14 @@ public class PublicSurveyTake implements Serializable {
 
     public void setResultsYourFriends(String resultsYourFriends) {
         this.resultsYourFriends = resultsYourFriends;
+    }
+
+
+    public boolean getShowSurveyResponseFlashEmbed() {
+        return showSurveyResponseFlashEmbed;
+    }
+
+    public void setShowSurveyResponseFlashEmbed(boolean showSurveyResponseFlashEmbed) {
+        this.showSurveyResponseFlashEmbed = showSurveyResponseFlashEmbed;
     }
 }
