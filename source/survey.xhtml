@@ -184,15 +184,18 @@
                                         <font class="mediumfont">You've Taken This Survey:</font><br/>
                                         <a href="/survey.jsf?surveyid=#{publicSurveyTake.survey.surveyid}&amp;userid=#{userSession.user.userid}&amp;permitbeforefacebookappadd=1&amp;show=showSurveyResponseFlashEmbed">
                                         <font class="tinyfont">Your Answers</font></a><br/>
+                                        <br/><br/>
                                     </c:if>
+                                    <!--
                                     <c:if test="#{!publicSurveyTake.loggedinuserhasalreadytakensurvey and publicSurveyTake.qualifiesforsurvey}">
                                         <font class="mediumfont">You Haven't Taken This Survey Yet.</font><br/>
                                         <c:if test="#{publicSurveyTake.showSurveyResponseFlashEmbed}">
                                             <a href="/survey.jsf?surveyid=#{publicSurveyTake.survey.surveyid}">   
                                             <font class="tinyfont">Take it Here</font></a><br/>
                                         </c:if>
+                                        <br/><br/>
                                     </c:if>
-                                    <br/><br/>
+                                    -->
                                     <font class="mediumfont">Friends Who Took It:</font><br/>
                                     <c:if test="${empty publicSurveyTake.facebookuserswhotooksurvey}">
                                         <font class="tinyfont">None</font><br/>
