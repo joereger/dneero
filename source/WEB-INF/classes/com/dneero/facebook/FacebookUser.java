@@ -8,12 +8,14 @@ import org.jdom.Element;
 import com.facebook.api.FacebookRestClient;
 import com.dneero.systemprops.SystemProperty;
 
+import java.io.Serializable;
+
 /**
  * User: Joe Reger Jr
  * Date: Aug 14, 2007
  * Time: 11:31:22 PM
  */
-public class FacebookUser {
+public class FacebookUser implements Serializable {
     private String first_name;
     private String last_name;
     private String uid;
@@ -21,6 +23,10 @@ public class FacebookUser {
 
     public FacebookUser(int facebookuserid, String facebookSessionKey){
         refreshFromFacebookApi(facebookuserid, facebookSessionKey);
+    }
+
+    public FacebookUser(Element userDom){
+        populateFromUserDom(userDom);
     }
 
     public void refreshFromFacebookApi(int facebookuserid, String facebookSessionKey){
@@ -38,18 +44,22 @@ public class FacebookUser {
             Element root = jdomDoc.getRootElement();
             //outputChildrenToLogger(root, 0);
             Element user = FacebookApiWrapper.getChild(root, "user");
-            Element first_name = FacebookApiWrapper.getChild(user, "first_name");
-            this.first_name = first_name.getTextTrim();
-            Element last_name = FacebookApiWrapper.getChild(user, "last_name");
-            this.last_name = last_name.getTextTrim();
-            Element uid = FacebookApiWrapper.getChild(user, "uid");
-            this.uid = uid.getTextTrim();
-            Element sex = FacebookApiWrapper.getChild(user, "sex");
-            this.sex = sex.getTextTrim();
+            populateFromUserDom(user);
         } catch (Exception ex){
             ex.printStackTrace();
             logger.error(ex);
         }
+    }
+
+    private void populateFromUserDom(Element userDom){
+        Element first_name = FacebookApiWrapper.getChild(userDom, "first_name");
+        this.first_name = first_name.getTextTrim();
+        Element last_name = FacebookApiWrapper.getChild(userDom, "last_name");
+        this.last_name = last_name.getTextTrim();
+        Element uid = FacebookApiWrapper.getChild(userDom, "uid");
+        this.uid = uid.getTextTrim();
+        Element sex = FacebookApiWrapper.getChild(userDom, "sex");
+        this.sex = sex.getTextTrim();
     }
 
     public String getFirst_name() {

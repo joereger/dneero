@@ -152,9 +152,10 @@ public class FacebookApiWrapper {
         ArrayList<FacebookUser> friends = new ArrayList<FacebookUser>();
         if (issessionok){
             try{
+                //Set up the facebook rest client
                 FacebookRestClient facebookRestClient = new FacebookRestClient(SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_KEY), SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_SECRET), facebookSessionKey);
+                //Get a list of uids
                 Document w3cDoc = facebookRestClient.friends_get();
-
                 DOMBuilder builder = new DOMBuilder();
                 org.jdom.Document jdomDoc = builder.build(w3cDoc);
                 logger.debug("Start Facebook API Friends Response:");
@@ -163,20 +164,39 @@ public class FacebookApiWrapper {
                 logger.debug(":End Facebook API Friends Response");
                 Element root = jdomDoc.getRootElement();
                 outputChildrenToLogger(root, 0);
-
+                //Create fql based on the list of uids
+                StringBuffer fqlWhere = new StringBuffer();
                 List allChildren = root.getChildren();
                 for (Iterator iterator = allChildren.iterator(); iterator.hasNext();) {
                     Element element = (Element) iterator.next();
                     if (element.getName().equals("uid")){
-                        if(Num.isinteger(element.getTextTrim())){
-                            FacebookUser facebookUser = new FacebookUser(Integer.parseInt(element.getTextTrim()), facebookSessionKey);
-                            if (!facebookUser.getUid().equals("")){
-                                friends.add(facebookUser);
-                            }
+                        fqlWhere.append(" uid="+element.getTextTrim()+" ");
+                        if (iterator.hasNext()){
+                            fqlWhere.append(" OR ");
                         }
                     }
                 }
-
+                //Go back and get all the important info
+                String fql = "SELECT first_name, last_name, birthday, sex, uid FROM user WHERE "+fqlWhere;
+                Document w3cDoc2 = facebookRestClient.fql_query(fql.subSequence(0,fql.length()));
+                DOMBuilder builder2 = new DOMBuilder();
+                org.jdom.Document jdomDoc2 = builder2.build(w3cDoc2);
+                logger.debug("Start Facebook FQL Response: "+fql);
+                XMLOutputter outp2 = new XMLOutputter();
+                outp2.output(jdomDoc2, System.out);
+                logger.debug(":End Facebook FQL Response");
+                Element root2 = jdomDoc2.getRootElement();
+                //Iterate each child
+                List fbusers = root2.getChildren();
+                for (Iterator iterator = fbusers.iterator(); iterator.hasNext();) {
+                    Element fbuser = (Element) iterator.next();
+                    if (fbuser.getName().equals("user")){
+                        FacebookUser facebookUser = new FacebookUser(fbuser);
+                        if (facebookUser.getUid().length()>0){
+                            friends.add(facebookUser);
+                        }
+                    }
+                }
             } catch (Exception ex){logger.error(ex);}
         } else {logger.debug("Can't execute because issessionok = false");}
         return friends;
