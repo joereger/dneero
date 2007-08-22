@@ -7,6 +7,7 @@ import com.dneero.xmpp.SendXMPPMessage;
 import com.dneero.session.SurveysTakenToday;
 import com.dneero.session.UrlSplitter;
 import com.dneero.systemprops.SystemProperty;
+import com.dneero.formbeans.PublicFacebookLandingPage;
 import com.facebook.api.FacebookRestClient;
 import com.facebook.api.FacebookException;
 import org.apache.log4j.Logger;
@@ -104,10 +105,13 @@ public class FacebookAuthorization {
         if (Jsf.getUserSession().getIsfacebookui() && !Jsf.getUserSession().getIsfacebookappadded()){
             //UrlSplitter urlSplitter = new UrlSplitter(Jsf.getHttpServletRequest());
             //If the showsurvey var isn't set in the incoming request, make them add it... this is currently the only exception
-            if (Jsf.getRequestParam("permitbeforefacebookappadd")==null || Jsf.getRequestParam("permitbeforefacebookappadd").equals("1")){
+            if (Jsf.getRequestParam("permitbeforefacebookappadd")==null || !Jsf.getRequestParam("permitbeforefacebookappadd").equals("1")){
                 logger.debug("redirecting to facebook add app page");
                 try{Jsf.redirectResponse("/facebooklandingpage.jsf?permitbeforefacebookappadd=1");return;}catch(Exception ex){logger.error(ex);}
+                //PublicFacebookLandingPage pfblp = new PublicFacebookLandingPage();
+                //try{Jsf.redirectResponse(pfblp.getAddurl());return;}catch(Exception ex){logger.error(ex);}
             }
+
         }
         
         logger.debug("leaving FacebookAuthorization and isfacebookui="+Jsf.getUserSession().getIsfacebookui() +" and isfacebookappadded="+Jsf.getUserSession().getIsfacebookappadded());

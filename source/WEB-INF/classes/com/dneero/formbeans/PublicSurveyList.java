@@ -234,6 +234,7 @@ public class PublicSurveyList implements Serializable {
                     facebookusersnotaddedapp.put(facebookUser.getFirst_name()+" "+facebookUser.getLast_name(), facebookUser.getUid());
                 }
             }
+            //@todo Now need to see who's not in either of these two... i.e. friends who don't have any users
         }
     }
 

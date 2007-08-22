@@ -39,9 +39,6 @@ public class FacebookApiWrapper {
     private boolean issessionok = false;
 
     public FacebookApiWrapper(UserSession userSession){
-
-
-
         Logger logger = Logger.getLogger(this.getClass().getName());
         this.userSession = userSession;
         if (userSession.getFacebookSessionKey()!=null && !userSession.getFacebookSessionKey().trim().equals("")){
@@ -59,7 +56,11 @@ public class FacebookApiWrapper {
                         logger.debug("userSession.getUser() (userid="+userSession.getUser().getUserid()+") passed to FacebookApiWrapper does not have a saved facebookuserid");
                     }
                 } else {
-                    logger.debug("userSession.getUser() passed to FacebookApiWrapper is either null or has a userid=0");
+                    if (userSession.getTempFacebookUserid()>0){
+                        issessionok = true;
+                    } else {
+                        logger.debug("don't have a facebookuserid to work with");
+                    }
                 }
             } catch (Exception ex){
                 logger.error(ex);
@@ -77,7 +78,7 @@ public class FacebookApiWrapper {
                     forcharity = " for charity";
                 }
                 FacebookRestClient facebookRestClient = new FacebookRestClient(SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_KEY), SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_SECRET), facebookSessionKey);
-                facebookRestClient.feed_publishActionOfUser("took the survey <a href=\"http://apps.facebook.com/"+SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_APP_NAME)+"/?action=showsurvey"+"-"+survey.getSurveyid()+"-"+userSession.getUser().getUserid()+"\">"+survey.getTitle()+"</a> and earned "+surveyEnhancer.getWillingtopayforresponse()+forcharity, "");
+                facebookRestClient.feed_publishActionOfUser("took the survey <a href=\"http://apps.facebook.com/"+SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_APP_NAME)+"/?action=showsurvey"+"-"+survey.getSurveyid()+"-"+Blogger.get(response.getBloggerid()).getUserid()+"\">"+survey.getTitle()+"</a> and earned "+surveyEnhancer.getWillingtopayforresponse()+forcharity, "");
             } catch (Exception ex){logger.error(ex);}
         } else {logger.debug("Can't execute because issessionok = false");}
     }
@@ -118,7 +119,7 @@ public class FacebookApiWrapper {
                             SurveyEnhancer surveyEnhancer = new SurveyEnhancer(survey);
                             fbml.append("<tr>");
                                 fbml.append("<td>");
-                                    fbml.append("<a href=\"http://apps.facebook.com/"+SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_APP_NAME)+"?action=showsurvey"+"-"+survey.getSurveyid()+"-"+userSession.getUser().getUserid()+"\">");
+                                    fbml.append("<a href=\"http://apps.facebook.com/"+SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_APP_NAME)+"?action=showsurvey"+"-"+survey.getSurveyid()+"-"+user.getUserid()+"\">");
                                     fbml.append("<img src=\""+ BaseUrl.getNoHttp() +"/images/dneero-favicon.png\" alt=\"\" width=\"16\" height=\"16\">");
                                     fbml.append(" "+Str.truncateString(survey.getTitle(), 40)+dotdotdot);
                                     fbml.append("</a>");
@@ -136,7 +137,7 @@ public class FacebookApiWrapper {
 
                     CharSequence cs = fbml.subSequence(0, fbml.length());
                     FacebookRestClient facebookRestClient = new FacebookRestClient(SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_KEY), SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_SECRET), facebookSessionKey);
-                    boolean success = facebookRestClient.profile_setFBML(cs, userSession.getUser().getFacebookuserid());
+                    boolean success = facebookRestClient.profile_setFBML(cs, user.getFacebookuserid());
                     if (success){
                         logger.debug("Apparently the setFBML was successful.");
                     } else {
@@ -310,7 +311,11 @@ public class FacebookApiWrapper {
         content.append("You've been invited to the social survey: "+survey.getTitle());
         content.append(" ");
         content.append("Earn up to "+surveyEnhancer.getWillingtopayforresponse()+forcharity);
-        content.append("<fb:req-choice url=\"http://apps.facebook.com/"+SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_APP_NAME)+"?action=showsurvey"+"-"+survey.getSurveyid()+"-"+userSession.getUser().getUserid()+"\" label=\"Check it Out\" />");
+        int userid = 0;
+        if(userSession.getUser()!=null){
+            userid = userSession.getUser().getUserid();
+        }
+        content.append("<fb:req-choice url=\"http://apps.facebook.com/"+SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_APP_NAME)+"?action=showsurvey"+"-"+survey.getSurveyid()+"-"+userid+"\" label=\"Check it Out\" />");
         CharSequence contentChars = content.subSequence(0, content.length());
         URL imgUrl = null;
         try{
