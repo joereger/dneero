@@ -26,6 +26,7 @@ import java.util.Iterator;
 import java.util.ArrayList;
 import java.util.TreeMap;
 import java.net.URL;
+import java.net.URLEncoder;
 
 /**
  * User: Joe Reger Jr
@@ -327,6 +328,7 @@ public class FacebookApiWrapper {
             URL url = facebookRestClient.notifications_sendRequest(uids, typeChars, contentChars, imgUrl, true);
             if (url!=null){
                 logger.debug("FacebookAPI returned: " + url.toString());
+                //String redirUrl = "/redirectoutofframe.jsp?url="+ URLEncoder.encode(url.toString(), "UTF-8");
                 Jsf.redirectResponse(url.toString());
                 return;
             }
@@ -355,6 +357,7 @@ public class FacebookApiWrapper {
             URL url = facebookRestClient.notifications_sendRequest(uids, typeChars, contentChars, imgUrl, true);
             if (url!=null){
                 logger.debug("FacebookAPI returned: " + url.toString());
+                //String redirUrl = "/redirectoutofframe.jsp?url="+ URLEncoder.encode(url.toString(), "UTF-8");
                 Jsf.redirectResponse(url.toString());
                 return;
             }

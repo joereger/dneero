@@ -553,7 +553,7 @@ public class PublicSurveyTake implements Serializable {
             FacebookApiWrapper faw = new FacebookApiWrapper(Jsf.getUserSession());
             faw.inviteFriendsToSurvey(uids, survey);
         }
-        try{Jsf.getHttpServletResponse().sendRedirect("/survey.jsf?surveyid="+survey.getSurveyid()); return null;}catch(Exception ex){logger.error(ex);}
+        try{Jsf.getHttpServletResponse().sendRedirect("/survey.jsf?surveyid="+survey.getSurveyid()); return null;}catch(Exception ex){logger.debug(ex);}
         return "publicsurvey";
     }
 

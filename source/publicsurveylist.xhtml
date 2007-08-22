@@ -101,7 +101,7 @@
                     <div class="rounded" style="background: #e6e6e6; padding: 10px;">
                         <font class="mediumfont">Surveys Friends Have Taken:</font><br/>
                         <c:if test="${empty publicSurveyList.facebookSurveyThatsBeenTakens}">
-                            <font class="normalfont" style="font-weight: bold; color: #0000ff;">Your friends haven't taken any surveys yet.</font>
+                            <font class="tinyfont">Your friends haven't taken any surveys yet.</font>
                         </c:if>
                         <c:forEach var="surveyfriendstook" items="${publicSurveyList.facebookSurveyThatsBeenTakens}">
                             <a href="/survey.jsf?surveyid=#{surveyfriendstook.survey.surveyid}"><font class="normalfont" style="font-weight: bold; color: #0000ff;">#{surveyfriendstook.survey.title}</font></a><br/>
