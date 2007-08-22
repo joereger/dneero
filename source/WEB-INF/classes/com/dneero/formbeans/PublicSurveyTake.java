@@ -78,8 +78,8 @@ public class PublicSurveyTake implements Serializable {
     private String charityname = "";
     private String[] facebookfriendsselected;
     private String[] facebookfriendsselected2;
-    private List<PublicSurveyFacebookFriendListitem> facebookuserswhotooksurvey;
-    private TreeMap<String, String> facebookuserswhodidnottakesurvey;
+    private List<PublicSurveyFacebookFriendListitem> facebookuserswhotooksurvey = new ArrayList<PublicSurveyFacebookFriendListitem>();
+    private TreeMap<String, String> facebookuserswhodidnottakesurvey = new TreeMap<String, String>();
 
     public PublicSurveyTake(){
         load();

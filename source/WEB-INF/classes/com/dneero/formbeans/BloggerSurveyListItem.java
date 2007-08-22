@@ -15,6 +15,7 @@ public class BloggerSurveyListItem implements Serializable {
     private String daysuntilend;
     private String numberofquestions;
     private boolean loggedinuserhasalreadytakensurvey = false;
+    private boolean isloggedinuserqualified = true;
     private String isbloggerqualifiedstring = "";
     private String description = "";
     private int numberofrespondents=0;
@@ -101,5 +102,13 @@ public class BloggerSurveyListItem implements Serializable {
 
     public void setIscharityonly(boolean ischarityonly) {
         this.ischarityonly = ischarityonly;
+    }
+
+    public boolean getIsloggedinuserqualified() {
+        return isloggedinuserqualified;
+    }
+
+    public void setIsloggedinuserqualified(boolean isloggedinuserqualified) {
+        this.isloggedinuserqualified = isloggedinuserqualified;
     }
 }

@@ -4,8 +4,13 @@ import com.dneero.util.*;
 import com.dneero.dao.Survey;
 import com.dneero.dao.Blogger;
 import com.dneero.dao.Response;
+import com.dneero.dao.User;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.finders.FindSurveysForBlogger;
+import com.dneero.facebook.FacebookApiWrapper;
+import com.dneero.facebook.FacebookSurveyThatsBeenTaken;
+import com.dneero.facebook.FacebookUser;
+import com.dneero.helpers.UserInputSafe;
 import org.apache.log4j.Logger;
 
 import java.util.*;
@@ -19,6 +24,10 @@ import java.io.Serializable;
 public class PublicSurveyList implements Serializable {
 
     private ArrayList<BloggerSurveyListItem> surveys;
+    private ArrayList<FacebookSurveyThatsBeenTaken> facebookSurveyThatsBeenTakens;
+    private String[] facebookfriendsselected;
+    private TreeMap<String, String> facebookusersnotaddedapp = new TreeMap<String, String>();
+    private List<PublicSurveyFacebookFriendListitem> facebookuserswhoaddedapp = new ArrayList<PublicSurveyFacebookFriendListitem>();
 
     public PublicSurveyList() {
         load();
@@ -90,6 +99,7 @@ public class PublicSurveyList implements Serializable {
                 }
 
                 //See if user is qualified
+                logger.debug("about to set isloggedinuserqualified");
                 if (!bsli.getLoggedinuserhasalreadytakensurvey()){
                     if (Jsf.getUserSession().getIsloggedin() && Jsf.getUserSession().getUser()!=null && Jsf.getUserSession().getUser().getBloggerid()>0){
                         //Iterate surveys this blogger qualifies for
@@ -101,23 +111,133 @@ public class PublicSurveyList implements Serializable {
                             }
                         }
                         if (bloggerqualifies){
-                            bsli.setIsbloggerqualifiedstring("Yes");
+                            logger.debug("yes, qualified");
+                            bsli.setIsbloggerqualifiedstring("You Qualify");
+                            bsli.setIsloggedinuserqualified(true);
                         } else {
-                            bsli.setIsbloggerqualifiedstring("No");
+                            logger.debug("no, not qualified");
+                            bsli.setIsbloggerqualifiedstring("You Don't Qualify");
+                            bsli.setIsloggedinuserqualified(false);
                         }
                     } else {
-                        bsli.setIsbloggerqualifiedstring("Unknown");
+                        logger.debug("unknown");
+                        bsli.setIsbloggerqualifiedstring("");
                     }
                 } else {
-                    bsli.setIsbloggerqualifiedstring("Already Taken");
+                    logger.debug("already taken");
+                    bsli.setIsbloggerqualifiedstring("You've Already Taken It");
                 }
-
-
                 surveys.add(bsli);
+            }
+
+            //Facebook stuff
+            if (Jsf.getUserSession().getIsfacebookui()){
+                //Load which friends are on dNeero and which aren't
+                loadFacebookUsers();
+                //Get list of friend uids
+                FacebookApiWrapper faw = new FacebookApiWrapper(Jsf.getUserSession());
+                //Load surveys taken by friends
+                TreeMap<Integer, FacebookSurveyThatsBeenTaken> surveys = faw.getSurveysFriendsHaveTaken();
+                //Boil it down to an arraylist
+                facebookSurveyThatsBeenTakens = new ArrayList<FacebookSurveyThatsBeenTaken>();
+                Iterator keyValuePairs = surveys.entrySet().iterator();
+                for (int i = 0; i < surveys.size(); i++){
+                    Map.Entry mapentry = (Map.Entry) keyValuePairs.next();
+                    Integer surveyid = (Integer)mapentry.getKey();
+                    FacebookSurveyThatsBeenTaken facebookSurveyThatsBeenTaken = (FacebookSurveyThatsBeenTaken)mapentry.getValue();
+                    //Limit to 10 for now
+                    if (i<10){
+                        facebookSurveyThatsBeenTakens.add(facebookSurveyThatsBeenTaken);
+                    }
+                }
             }
 
         //}
     }
+
+
+    public String tellFriends(){
+        return tellFriendsOperation(facebookfriendsselected);
+    }
+
+
+    private String tellFriendsOperation(String[] friendstotell){
+        Logger logger = Logger.getLogger(this.getClass().getName());
+        if (friendstotell!=null && friendstotell.length>0){
+            int numberinvited = 0;
+            ArrayList<Integer> uids = new ArrayList<Integer>();
+            for (int i = 0; i < friendstotell.length; i++) {
+                String uid = friendstotell[i];
+                if (Num.isinteger(uid)){
+                    numberinvited = numberinvited + 1;
+                    logger.debug("Facebookfriend to invite, uid="+uid);
+                    if (numberinvited<=10){
+                        uids.add(Integer.parseInt(uid));
+                    }
+                }
+            }
+            FacebookApiWrapper faw = new FacebookApiWrapper(Jsf.getUserSession());
+            faw.inviteFriendsTodNeero(uids);
+        }
+        try{Jsf.getHttpServletResponse().sendRedirect("/surveylist.jsf"); return null;}catch(Exception ex){logger.error(ex);}
+        return "publicsurvey";
+    }
+
+    private void loadFacebookUsers(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
+        facebookusersnotaddedapp = new TreeMap<String, String>();
+        facebookuserswhoaddedapp = new ArrayList<PublicSurveyFacebookFriendListitem>();
+        //Go to facebook and get a list of the logged-in user's friends
+        FacebookApiWrapper faw = new FacebookApiWrapper(Jsf.getUserSession());
+        ArrayList<FacebookUser> friends = faw.getFriends();
+        if (friends.size()>0){
+            //Build sql to pull up those users that are in the dneero db
+            StringBuffer sql = new StringBuffer();
+            sql.append(" ( ");
+            for (Iterator<FacebookUser> iterator = friends.iterator(); iterator.hasNext();) {
+                FacebookUser facebookUser = iterator.next();
+                sql.append(" facebookuserid='"+ UserInputSafe.clean(facebookUser.getUid())+"' ");
+                if(iterator.hasNext()){
+                    sql.append(" OR ");
+                }
+            }
+            sql.append(" ) ");
+            List users = HibernateUtil.getSession().createQuery("from User WHERE "+sql).setCacheable(true).list();
+            //Now I have a list of all friends from facebook and a list of users who are friends from dneero
+            //I need to create lists of those who've taken the survey (and therefore must be dneero users) and a list of those who haven't (and may be dneero users)
+            //Iterate all facebook users because they'll fall into one of the two camps
+            for (Iterator<FacebookUser> iterator = friends.iterator(); iterator.hasNext();) {
+                FacebookUser facebookUser = iterator.next();
+                //See if this facebookUser is a dneero user and if they've taken the survey
+                boolean isdneerouser = false;
+                int userid = 0;
+                boolean hastakensurvey = false;
+                int responseid = 0;
+                for (Iterator iterator2 = users.iterator(); iterator2.hasNext();) {
+                    User user = (User) iterator2.next();
+                    if (user.getFacebookuserid()>0 && String.valueOf(user.getFacebookuserid()).equals(facebookUser.getUid())){
+                        isdneerouser = true;
+                        userid = user.getUserid();
+                        break;
+                    }
+                }
+                //If they've taken the survey
+                if (hastakensurvey){
+                    PublicSurveyFacebookFriendListitem psffli = new PublicSurveyFacebookFriendListitem();
+                    psffli.setFacebookUser(facebookUser);
+                    psffli.setUserid(userid);
+                    psffli.setResponseid(responseid);
+                    facebookuserswhoaddedapp.add(psffli);
+                }
+                //Otherwise they've not taken the survey
+                if (!hastakensurvey){
+                    facebookusersnotaddedapp.put(facebookUser.getFirst_name()+" "+facebookUser.getLast_name(), facebookUser.getUid());
+                }
+            }
+        }
+    }
+
+
 
     public ArrayList<BloggerSurveyListItem> getSurveys() {
         //logger.debug("getListitems");
@@ -160,6 +280,35 @@ public class PublicSurveyList implements Serializable {
     }
 
 
+    public ArrayList<FacebookSurveyThatsBeenTaken> getFacebookSurveyThatsBeenTakens() {
+        return facebookSurveyThatsBeenTakens;
+    }
 
+    public void setFacebookSurveyThatsBeenTakens(ArrayList<FacebookSurveyThatsBeenTaken> facebookSurveyThatsBeenTakens) {
+        this.facebookSurveyThatsBeenTakens = facebookSurveyThatsBeenTakens;
+    }
 
+    public String[] getFacebookfriendsselected() {
+        return facebookfriendsselected;
+    }
+
+    public void setFacebookfriendsselected(String[] facebookfriendsselected) {
+        this.facebookfriendsselected = facebookfriendsselected;
+    }
+
+    public TreeMap<String, String> getFacebookusersnotaddedapp() {
+        return facebookusersnotaddedapp;
+    }
+
+    public void setFacebookusersnotaddedapp(TreeMap<String, String> facebookusersnotaddedapp) {
+        this.facebookusersnotaddedapp = facebookusersnotaddedapp;
+    }
+
+    public List<PublicSurveyFacebookFriendListitem> getFacebookuserswhoaddedapp() {
+        return facebookuserswhoaddedapp;
+    }
+
+    public void setFacebookuserswhoaddedapp(List<PublicSurveyFacebookFriendListitem> facebookuserswhoaddedapp) {
+        this.facebookuserswhoaddedapp = facebookuserswhoaddedapp;
+    }
 }

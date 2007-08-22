@@ -21,62 +21,122 @@
 
 <h:form>
 
+    <table cellpadding="0" border="0" width="100%">
+        <tr>
+            <td valign="top">
 
-    <t:saveState id="save" value="#{publicSurveyList}"/>
-    <h:outputText value="There are currently no surveys listed.  Please check back soon as we're always adding new ones!" styleClass="mediumfont" rendered="#{empty publicSurveyList.surveys}"/>
 
-    <t:dataTable sortable="true" id="datatable" value="#{publicSurveyList.surveys}" rows="15" var="srvy" rendered="#{!empty publicSurveyList.surveys}" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcol,tcolnowrap,tcol,tcolnowrap,tcolnowrap">
-      <t:column>
-        <f:facet name="header">
-            <h:outputText value=""/>
-        </f:facet>
-        <h:outputLink value="/survey.jsf?surveyid=#{srvy.surveyid}" style="text-decoration: none;">
-            <h:outputText value="#{srvy.title}" styleClass="normalfont" style="font-weight: bold; color: #0000ff;"/>
-        </h:outputLink>
-        <f:verbatim><br/></f:verbatim>
-        <h:outputText value="#{srvy.description}" escape="false" styleClass="tinyfont"/>
-      </t:column>
-      <t:column>
-        <f:facet name="header">
-            <t:commandSortHeader columnName="numberofquestions" arrow="false" immediate="false">
-                <h:outputText value="Questions"/>
-            </t:commandSortHeader>
-        </f:facet>
-        <h:outputText value="#{srvy.numberofquestions}" styleClass="smallfont"/>
-      </t:column>
-      <t:column>
-        <f:facet name="header">
-          <h:outputText value="Timing"/>
-        </f:facet>
-        <h:outputText value="#{srvy.daysuntilend}"  styleClass="smallfont"/>
-      </t:column>
-      <t:column>
-        <f:facet name="header">
-          <h:outputText value="Do You Qualify?"/>
-        </f:facet>
-        <h:outputText value="#{srvy.isbloggerqualifiedstring}"  styleClass="smallfont"/>
-      </t:column>
-      <t:column>
-        <f:facet name="header">
-          <h:outputText value="Earn Up To"/>
-        </f:facet>
-        <h:outputText value="#{srvy.maxearning}" styleClass="smallfont" style="font-weight:bold;"/>
-      </t:column>
-    </t:dataTable>
-    <t:dataScroller id="scroll_1" for="datatable" fastStep="10" pageCountVar="pageCount" pageIndexVar="pageIndex" styleClass="scroller" paginator="true" paginatorMaxPages="9" paginatorTableClass="paginator" paginatorActiveColumnStyle="font-weight:bold;">
-        <f:facet name="first" >
-            <t:graphicImage url="/images/datascroller/play-first.png" border="0" />
-        </f:facet>
-        <f:facet name="last">
-            <t:graphicImage url="/images/datascroller/play-forward.png" border="0" />
-        </f:facet>
-        <f:facet name="previous">
-            <t:graphicImage url="/images/datascroller/play-back.png" border="0" />
-        </f:facet>
-        <f:facet name="next">
-            <t:graphicImage url="/images/datascroller/play.png" border="0" />
-        </f:facet>
-    </t:dataScroller>
+                <t:saveState id="save" value="#{publicSurveyList}"/>
+                <h:outputText value="There are currently no surveys listed.  Please check back soon as we're always adding new ones!" styleClass="mediumfont" rendered="#{empty publicSurveyList.surveys}"/>
+
+                <t:dataTable sortable="true" id="datatable" value="#{publicSurveyList.surveys}" rows="15" var="srvy" rendered="#{!empty publicSurveyList.surveys}" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcol,tcolnowrap,tcol,tcolnowrap,tcolnowrap">
+                  <t:column>
+                    <f:facet name="header">
+                        <h:outputText value=""/>
+                    </f:facet>
+                    <div class="rounded" style="background: #e6e6e6; padding: 10px;">
+                        <table cellpadding="0" border="0" width="100%">
+                            <tr>
+                                <td>
+                                    <h:outputLink value="/survey.jsf?surveyid=#{srvy.surveyid}" style="text-decoration: none;">
+                                        <h:outputText value="#{srvy.title}" styleClass="normalfont" style="font-weight: bold; color: #0000ff;"/>
+                                    </h:outputLink><br/>
+                                    <h:outputText value="#{srvy.description}" escape="false" styleClass="tinyfont"/><br/><br/>
+                                    <font class="tinyfont"><b>#{srvy.daysuntilend} | #{srvy.isbloggerqualifiedstring}</b></font>
+                                </td>
+                                <!--
+                                <c:if test="#{userSession.isloggedin}">
+                                    <td width="20%">
+                                        <div class="rounded" style="background: #e6e6e6; padding: 10px;">
+                                            <center>
+                                                <c:if test="#{!srvy.loggedinuserhasalreadytakensurvey}">
+                                                    <c:if test="#{srvy.isloggedinuserqualified}">
+                                                        <font class="smallfont"><b>You Qualify</b></font><br/><img src="/images/play-star-16.png" alt="" width="16" height="16"/>
+                                                    </c:if>
+                                                    <c:if test="#{!srvy.isloggedinuserqualified}">
+                                                        <font class="smallfont"><b>You Don't Qualify</b></font><br/><img src="/images/delete-alt-16.png" alt="" width="16" height="16"/>
+                                                    </c:if>
+                                                </c:if>
+                                                <c:if test="#{srvy.loggedinuserhasalreadytakensurvey}">
+                                                    <font class="smallfont"><b>You've Already Taken It</b></font><br/><img src="/images/ok-16.png" alt="" width="16" height="16"/>
+                                                </c:if>
+                                            </center>
+                                        </div>
+                                    </td>
+                                </c:if>
+                                -->
+                                <td width="20%">
+                                    <div class="rounded" style="background: #ffffff; padding: 10px;">
+                                        <center>
+                                            <font class="smallfont"><b>Earn Up To</b></font><br/>
+                                            <font class="mediumfont">#{srvy.maxearning}</font>
+                                        </center>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                  </t:column>
+                </t:dataTable>
+                <t:dataScroller id="scroll_1" for="datatable" fastStep="10" pageCountVar="pageCount" pageIndexVar="pageIndex" styleClass="scroller" paginator="true" paginatorMaxPages="9" paginatorTableClass="paginator" paginatorActiveColumnStyle="font-weight:bold;">
+                    <f:facet name="first" >
+                        <t:graphicImage url="/images/datascroller/play-first.png" border="0" />
+                    </f:facet>
+                    <f:facet name="last">
+                        <t:graphicImage url="/images/datascroller/play-forward.png" border="0" />
+                    </f:facet>
+                    <f:facet name="previous">
+                        <t:graphicImage url="/images/datascroller/play-back.png" border="0" />
+                    </f:facet>
+                    <f:facet name="next">
+                        <t:graphicImage url="/images/datascroller/play.png" border="0" />
+                    </f:facet>
+                </t:dataScroller>
+
+            </td>
+
+            <c:if test="#{userSession.isfacebookui}">
+                <td valign="top" width="50%">
+
+                    <div class="rounded" style="background: #e6e6e6; padding: 10px;">
+                        <font class="mediumfont">Surveys Friends Have Taken:</font><br/>
+                        <c:if test="${empty publicSurveyList.facebookSurveyThatsBeenTakens}">
+                            <font class="normalfont" style="font-weight: bold; color: #0000ff;">Your friends haven't taken any surveys yet.</font>
+                        </c:if>
+                        <c:forEach var="surveyfriendstook" items="${publicSurveyList.facebookSurveyThatsBeenTakens}">
+                            <a href="/survey.jsf?surveyid=#{surveyfriendstook.survey.surveyid}"><font class="normalfont" style="font-weight: bold; color: #0000ff;">#{surveyfriendstook.survey.title}</font></a><br/>
+                            <font class="smallfont">
+                                Friends who took it:
+                                <c:forEach var="friendwhotook" items="${surveyfriendstook.facebookSurveyTakers}">
+                                    <a href="/survey.jsf?s=#{surveyfriendstook.survey.surveyid}&amp;u=#{friendwhotook.userid}&amp;r=#{friendwhotook.responseid}&amp;p=0">#{friendwhotook.facebookUser.first_name} #{friendwhotook.facebookUser.last_name}</a>
+                                </c:forEach>
+                            </font><br/><br/>
+                        </c:forEach>
+
+                        <br/><br/>
+                        <font class="mediumfont">Friends on dNeero:</font><br/>
+                        <c:if test="${empty publicSurveyList.facebookuserswhoaddedapp}">
+                            <font class="tinyfont">None, yet.</font><br/>
+                        </c:if>
+                        <c:forEach var="fbuser" items="${publicSurveyList.facebookuserswhoaddedapp}">
+                            <img src="/images/user-16.png" width="16" height="16" border="0" align="middle" alt=""/>
+                            <a href="/profile.jsf?userid=#{fbuser.userid}"><font class="tinyfont">#{fbuser.facebookUser.first_name} #{fbuser.facebookUser.last_name}</font></a><br/>
+                        </c:forEach>
+
+                        <br/><br/>
+                        <font class="mediumfont">Tell Friends Who Aren't Yet Using dNeero:</font><br/>
+                        <h:message for="facebookfriendsselected" styleClass="RED"></h:message>
+                        <h:selectManyCheckbox value="#{publicSurveyList.facebookfriendsselected}" layout="pageDirection" id="facebookfriendsselected" required="false" style="font-weight: bold;" styleClass="tinyfont">
+                            <f:selectItems value="#{publicSurveyList.facebookusersnotaddedapp}"/>
+                        </h:selectManyCheckbox>
+                        <br/>
+                        <h:commandButton action="#{publicSurveyTake.tellFriends}" value="Tell Friends" styleClass="formsubmitbutton"/>
+                    </div>
+                </td>
+            </c:if>
+
+        </tr>
+    </table>
 
 </h:form>
 

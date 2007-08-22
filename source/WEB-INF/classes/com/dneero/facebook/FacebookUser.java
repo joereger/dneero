@@ -20,6 +20,10 @@ public class FacebookUser implements Serializable {
     private String last_name;
     private String uid;
     private String sex;
+    private String pic_square;
+    private boolean has_added_app;
+
+    public static String sqlListOfCols = "first_name, last_name, birthday, sex, uid, pic_square, has_added_app";
 
     public FacebookUser(int facebookuserid, String facebookSessionKey){
         refreshFromFacebookApi(facebookuserid, facebookSessionKey);
@@ -33,7 +37,7 @@ public class FacebookUser implements Serializable {
         Logger logger = Logger.getLogger(this.getClass().getName());
         try{
             FacebookRestClient facebookRestClient = new FacebookRestClient(SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_KEY), SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_SECRET), facebookSessionKey);
-            String fql = "SELECT first_name, last_name, birthday, sex, uid FROM user WHERE uid="+facebookuserid;
+            String fql = "SELECT "+sqlListOfCols+" FROM user WHERE uid="+facebookuserid;
             Document w3cDoc = facebookRestClient.fql_query(fql.subSequence(0,fql.length()));
             DOMBuilder builder = new DOMBuilder();
             org.jdom.Document jdomDoc = builder.build(w3cDoc);
@@ -60,6 +64,14 @@ public class FacebookUser implements Serializable {
         this.uid = uid.getTextTrim();
         Element sex = FacebookApiWrapper.getChild(userDom, "sex");
         this.sex = sex.getTextTrim();
+        Element pic_square = FacebookApiWrapper.getChild(userDom, "pic_square");
+        this.pic_square = pic_square.getTextTrim();
+        Element has_added_app = FacebookApiWrapper.getChild(userDom, "has_added_app");
+        if (has_added_app.getTextTrim().equals("1")){
+            this.has_added_app = true;
+        } else {
+            this.has_added_app = false;
+        }
     }
 
     public String getFirst_name() {
@@ -92,5 +104,13 @@ public class FacebookUser implements Serializable {
 
     public void setSex(String sex) {
         this.sex = sex;
+    }
+
+    public String getPic_square() {
+        return pic_square;
+    }
+
+    public void setPic_square(String pic_square) {
+        this.pic_square = pic_square;
     }
 }
