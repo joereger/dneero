@@ -258,6 +258,8 @@ public class FacebookApiWrapper {
                         //Set up the taker
                         FacebookSurveyTaker facebookSurveyTaker = new FacebookSurveyTaker();
                         facebookSurveyTaker.setFacebookUser(getFacebookUserByUid(friends, String.valueOf(user.getFacebookuserid())));
+                        facebookSurveyTaker.setUserid(user.getUserid());
+                        facebookSurveyTaker.setResponseid(response.getResponseid());
                         //Get a facebookSurveyThatsBeenTaken object from the TreeMap (keyed by surveyid) or create one
                         FacebookSurveyThatsBeenTaken facebookSurveyThatsBeenTaken = new FacebookSurveyThatsBeenTaken();
                         if (out.containsKey(response.getSurveyid())){

@@ -113,4 +113,12 @@ public class FacebookUser implements Serializable {
     public void setPic_square(String pic_square) {
         this.pic_square = pic_square;
     }
+
+    public boolean getHas_added_app() {
+        return has_added_app;
+    }
+
+    public void setHas_added_app(boolean has_added_app) {
+        this.has_added_app = has_added_app;
+    }
 }

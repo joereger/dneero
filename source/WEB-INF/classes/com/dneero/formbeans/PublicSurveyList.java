@@ -185,6 +185,7 @@ public class PublicSurveyList implements Serializable {
 
     private void loadFacebookUsers(){
         Logger logger = Logger.getLogger(this.getClass().getName());
+        logger.debug("Start calculating which friends are on dNeero and which aren't");
         facebookusersnotaddedapp = new TreeMap<String, String>();
         facebookuserswhoaddedapp = new ArrayList<PublicSurveyFacebookFriendListitem>();
         //Go to facebook and get a list of the logged-in user's friends
@@ -192,49 +193,56 @@ public class PublicSurveyList implements Serializable {
         ArrayList<FacebookUser> friends = faw.getFriends();
         if (friends.size()>0){
             //Build sql to pull up those users that are in the dneero db
-            StringBuffer sql = new StringBuffer();
-            sql.append(" ( ");
-            for (Iterator<FacebookUser> iterator = friends.iterator(); iterator.hasNext();) {
-                FacebookUser facebookUser = iterator.next();
-                sql.append(" facebookuserid='"+ UserInputSafe.clean(facebookUser.getUid())+"' ");
-                if(iterator.hasNext()){
-                    sql.append(" OR ");
-                }
-            }
-            sql.append(" ) ");
-            List users = HibernateUtil.getSession().createQuery("from User WHERE "+sql).setCacheable(true).list();
+//            StringBuffer sql = new StringBuffer();
+//            sql.append(" ( ");
+//            for (Iterator<FacebookUser> iterator = friends.iterator(); iterator.hasNext();) {
+//                FacebookUser facebookUser = iterator.next();
+//                sql.append(" facebookuserid='"+ UserInputSafe.clean(facebookUser.getUid())+"' ");
+//                if(iterator.hasNext()){
+//                    sql.append(" OR ");
+//                }
+//            }
+//            sql.append(" ) ");
+//            logger.debug("from User WHERE "+sql);
+//            List users = HibernateUtil.getSession().createQuery("from User WHERE "+sql).setCacheable(true).list();
+//            logger.debug("users.size()="+users.size());
             //Now I have a list of all friends from facebook and a list of users who are friends from dneero
             //I need to create lists of those who've taken the survey (and therefore must be dneero users) and a list of those who haven't (and may be dneero users)
             //Iterate all facebook users because they'll fall into one of the two camps
             for (Iterator<FacebookUser> iterator = friends.iterator(); iterator.hasNext();) {
                 FacebookUser facebookUser = iterator.next();
                 //See if this facebookUser is a dneero user and if they've taken the survey
-                boolean isdneerouser = false;
-                int userid = 0;
-                boolean hastakensurvey = false;
-                int responseid = 0;
-                for (Iterator iterator2 = users.iterator(); iterator2.hasNext();) {
-                    User user = (User) iterator2.next();
-                    if (user.getFacebookuserid()>0 && String.valueOf(user.getFacebookuserid()).equals(facebookUser.getUid())){
-                        isdneerouser = true;
-                        userid = user.getUserid();
-                        break;
-                    }
-                }
+//                logger.debug("facebookUser="+facebookUser.getFirst_name()+" "+facebookUser.getLast_name()+" uid="+facebookUser.getUid());
+//                boolean isdneerouser = false;
+//                int userid = 0;
+//                int responseid = 0;
+//                for (Iterator iterator2 = users.iterator(); iterator2.hasNext();) {
+//                    User user = (User) iterator2.next();
+//                    logger.debug("facebookUser="+facebookUser.getFirst_name()+" "+facebookUser.getLast_name()+" user.getUserid()="+user.getUserid());
+//                    if (user.getFacebookuserid()>0 && Num.isinteger(facebookUser.getUid()) && user.getFacebookuserid()==Integer.parseInt(facebookUser.getUid())){
+//                        logger.debug("facebookUser="+facebookUser.getFirst_name()+" "+facebookUser.getLast_name()+" appears to be a dNeero user");
+//                        isdneerouser = true;
+//                        userid = user.getUserid();
+//                        break;
+//                    }
+//                }
                 //If they've taken the survey
-                if (hastakensurvey){
+                boolean isdneerouser = false;
+                if (facebookUser.getHas_added_app()){
+                    isdneerouser = true;
+                }
+                if (isdneerouser){
                     PublicSurveyFacebookFriendListitem psffli = new PublicSurveyFacebookFriendListitem();
                     psffli.setFacebookUser(facebookUser);
-                    psffli.setUserid(userid);
-                    psffli.setResponseid(responseid);
+                    psffli.setUserid(0);
+                    psffli.setResponseid(0);
                     facebookuserswhoaddedapp.add(psffli);
                 }
-                //Otherwise they've not taken the survey
-                if (!hastakensurvey){
+                //Otherwise they've not added the app
+                if (!isdneerouser){
                     facebookusersnotaddedapp.put(facebookUser.getFirst_name()+" "+facebookUser.getLast_name(), facebookUser.getUid());
                 }
             }
-            //@todo Now need to see who's not in either of these two... i.e. friends who don't have any users
         }
     }
 
