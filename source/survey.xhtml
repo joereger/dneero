@@ -64,16 +64,9 @@
                                         <div class="rounded" style="width: 400px; padding: 15px; margin: 5px; background: #e6e6e6;">
                                             <center>
                                                 <font class="mediumfont">${publicSurveyTake.userwhotooksurvey.firstname} ${publicSurveyTake.userwhotooksurvey.lastname}'s answers.</font><br/>
-                                                <t:div rendered="#{!publicSurveyTake.loggedinuserhasalreadytakensurvey}">
+                                                <c:if test="#{!publicSurveyTake.loggedinuserhasalreadytakensurvey}">
                                                     <font class="tinyfont">(you can answer below)</font>
-                                                </t:div>
-                                                <t:div rendered="#{publicSurveyTake.surveytakergavetocharity}">
-                                                    <div class="rounded" style="padding: 15px; margin: 5px; background: #ffffff;">
-                                                        <center>
-                                                            <h:outputText value="${publicSurveyTake.userwhotooksurvey.firstname} ${publicSurveyTake.userwhotooksurvey.lastname} had dNeero donate all earnings from this survey to ${publicSurveyTake.charityname}." styleClass="tinyfont"/>
-                                                        </center>
-                                                    </div>
-                                                </t:div>
+                                                </c:if>
                                             </center>
                                         </div>
                                         </center>
@@ -186,6 +179,13 @@
                                         <font class="tinyfont">Your Answers</font></a><br/>
                                         <br/><br/>
                                     </c:if>
+                                    <t:div rendered="#{!empty publicSurveyTake.userwhotooksurvey and publicSurveyTake.surveytakergavetocharity and (publicSurveyTake.showSurveyResponseFlashEmbed) and (publicSurveyTake.userwhotooksurvey.userid>0)}">
+                                        <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
+                                            <center>
+                                                <h:outputText value="${publicSurveyTake.userwhotooksurvey.firstname} ${publicSurveyTake.userwhotooksurvey.lastname} had dNeero donate all earnings from this survey to ${publicSurveyTake.charityname}." styleClass="tinyfont"/>
+                                            </center>
+                                        </div>
+                                    </t:div>
                                     <!--
                                     <c:if test="#{!publicSurveyTake.loggedinuserhasalreadytakensurvey and publicSurveyTake.qualifiesforsurvey}">
                                         <font class="mediumfont">You Haven't Taken This Survey Yet.</font><br/>

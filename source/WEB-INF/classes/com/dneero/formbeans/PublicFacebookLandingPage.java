@@ -44,6 +44,8 @@ public class PublicFacebookLandingPage implements Serializable {
         if (Jsf.getUserSession().getIsfacebookui() && Jsf.getUserSession().getIsfacebookappadded()){
             try{Jsf.redirectResponse("/publicsurveylist.jsf");return;}catch(Exception ex){logger.error(ex);}
         }
+
+       
     }
 
 

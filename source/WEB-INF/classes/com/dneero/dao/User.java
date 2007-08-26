@@ -50,6 +50,8 @@ public class User extends BasePersistentClass implements java.io.Serializable, R
      private String instantnotifyxmppusername;
      private double charityamtdonated;
      private int facebookuserid;
+     private boolean isfacebookappremoved;
+     private Date facebookappremoveddate;
 
      //Association
     private Set<Userrole> userroles = new HashSet<Userrole>();
@@ -383,5 +385,21 @@ public class User extends BasePersistentClass implements java.io.Serializable, R
 
     public void setFacebookuserid(int facebookuserid) {
         this.facebookuserid = facebookuserid;
+    }
+
+    public boolean getIsfacebookappremoved() {
+        return isfacebookappremoved;
+    }
+
+    public void setIsfacebookappremoved(boolean isfacebookappremoved) {
+        this.isfacebookappremoved = isfacebookappremoved;
+    }
+
+    public Date getFacebookappremoveddate() {
+        return facebookappremoveddate;
+    }
+
+    public void setFacebookappremoveddate(Date facebookappremoveddate) {
+        this.facebookappremoveddate = facebookappremoveddate;
     }
 }

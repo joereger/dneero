@@ -20,6 +20,7 @@ import org.jdom.output.XMLOutputter;
 import java.util.List;
 import java.util.Iterator;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * User: Joe Reger Jr
@@ -64,6 +65,7 @@ public class FacebookAuthorization {
                         logger.debug("User has added app... we have facebookSessionKey="+facebookSessionKey);
                         FacebookRestClient facebookRestClient = new FacebookRestClient(SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_KEY), SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_SECRET), facebookSessionKey);
                         int facebookuserid = facebookRestClient.users_getLoggedInUser();
+                        FacebookUser facebookUser = new FacebookUser(facebookuserid, Jsf.getUserSession().getFacebookSessionKey());
                         Jsf.getUserSession().setIsfacebookappadded(facebookRestClient.users_isAppAdded());
                         Jsf.getUserSession().setTempFacebookUserid(facebookuserid);
                         logger.debug("facebookRestClient.users_getLoggedInUser()="+facebookuserid);
@@ -75,8 +77,14 @@ public class FacebookAuthorization {
                             Jsf.getUserSession().setIsloggedin(true);
                             Jsf.getUserSession().setSurveystakentoday(SurveysTakenToday.getNumberOfSurveysTakenToday(user));
                             logger.debug("dNeero Facebook Login: "+ user.getFirstname() + " " + user.getLastname() + " ("+user.getEmail()+") (Facebook.userid="+user.getFacebookuserid()+")");
+                            //If their account is marked as having removed the app but facebook says they've got it added, update the User object
+                            if (facebookUser.getHas_added_app() && user.getIsfacebookappremoved()){
+                                user.setIsfacebookappremoved(false);
+                                user.setFacebookappremoveddate(user.getCreatedate());
+                                try {user.save();} catch (Exception ex) {logger.error(ex);}
+                            }
                             //Notify via XMPP
-                            SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_SALES, "dNeero Facebook Login: "+ user.getFirstname() + " " + user.getLastname() + " ("+user.getEmail()+") (Facebook.userid="+user.getFacebookuserid()+")");
+                            SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_SALES, "dNeero Facebook Login: "+ user.getFirstname() + " " + user.getLastname() + " (email="+user.getEmail()+") (facebook.uid="+user.getFacebookuserid()+")");
                             xmpp.send();
                         } else {
                             //Is not a dNeero user yet... make sure there's no user in the session
@@ -84,7 +92,7 @@ public class FacebookAuthorization {
                             Jsf.getUserSession().setIsloggedin(false);
                             logger.debug("Facebook user added app, considering taking surveys.  facebookSessionKey="+facebookSessionKey);
                             //Notify via XMPP
-                            SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_SALES, "Facebook user starts session.  Not yet a user.  facebookSessionKey="+facebookSessionKey);
+                            SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_SALES, "Facebook user '"+facebookUser.getFirst_name()+" "+facebookUser.getLast_name()+"' starts session.  Not yet a dNeero user.  facebookSessionKey="+facebookSessionKey);
                             xmpp.send();
                             //Could redirect to Facebook new user welcome screen here.
                         }

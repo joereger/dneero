@@ -125,6 +125,12 @@
         <property name="facebookuserid" type="int">
             <column name="facebookuserid" not-null="true" />
         </property>
+        <property name="isfacebookappremoved" type="boolean">
+            <column name="isfacebookappremoved" />
+        </property>
+        <property name="facebookappremoveddate" type="timestamp">
+            <column name="facebookappremoveddate" not-null="true" />
+        </property>
 
     </class>
 </hibernate-mapping>
