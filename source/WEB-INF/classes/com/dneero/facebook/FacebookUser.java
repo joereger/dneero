@@ -7,6 +7,7 @@ import org.jdom.output.XMLOutputter;
 import org.jdom.Element;
 import com.facebook.api.FacebookRestClient;
 import com.dneero.systemprops.SystemProperty;
+import com.dneero.systemprops.BaseUrl;
 
 import java.io.Serializable;
 
@@ -65,7 +66,11 @@ public class FacebookUser implements Serializable {
         Element sex = FacebookApiWrapper.getChild(userDom, "sex");
         this.sex = sex.getTextTrim();
         Element pic_square = FacebookApiWrapper.getChild(userDom, "pic_square");
-        this.pic_square = pic_square.getTextTrim();
+        if (!pic_square.getTextTrim().equals("")){
+            this.pic_square = pic_square.getTextTrim();
+        } else {
+            this.pic_square = BaseUrl.get(true)+"images/facebook-50x50-placeholder.gif";
+        }
         Element has_added_app = FacebookApiWrapper.getChild(userDom, "has_added_app");
         if (has_added_app.getTextTrim().equals("1")){
             this.has_added_app = true;
