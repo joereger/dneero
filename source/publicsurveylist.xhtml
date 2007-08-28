@@ -78,15 +78,13 @@
             </td>
 
             <c:if test="#{userSession.isfacebookui}">
-                <td valign="top" width="50%" style="padding-top: 5px;">
+                <td valign="top" width="50%" style="padding-top: 6px;">
                     <div class="rounded" style="background: #e6e6e6; padding: 10px;">
                         <c:if test="#{userSession.isloggedin}">
                             <div class="rounded" style="background: #ffffff; padding: 10px;">
                                 <font class="formfieldnamefont" style="color: #666666;">Current Balance:</font>
                                 <br/><font class="largefont" style="color: #cccccc;">#{accountBalance.currentbalance}</font>
-                                <c:if test="#{accountBalance.currentbalanceDbl gt 0}">
-                                    <br/><font class="tinyfont" style="color: #666666;">(yes, we're talking real world money here)</font>
-                                </c:if>
+                                <br/><font class="tinyfont" style="color: #666666; font-weight: bold;">(yes, we're talking real world money here)</font>
                                 <c:if test="#{accountBalance.pendingearningsDbl gt 0}">
                                     <br/><font class="formfieldnamefont" style="color: #666666;">Pending: #{accountBalance.pendingearnings}</font>
                                     <br/><font class="tinyfont" style="color: #cccccc;">Remember, you must have your survey on your mini-feed and/or profile to generate clicks for 20 days after you take it to get paid.  We'll put them there for you automatically.</font>
@@ -113,17 +111,13 @@
                         <c:if test="${empty publicSurveyList.facebookuserswhoaddedapp}">
                             <font class="tinyfont">None, yet.</font><br/>
                         </c:if>
-                        <h:panelGrid columns="3" cellpadding="3" border="0">
-
+                        <h:panelGrid columns="4" cellpadding="2" border="0">
                             <c:forEach var="fbuser" items="${publicSurveyList.facebookuserswhoaddedapp}">
                                 <h:panelGroup>
-                                <!--<img src="/images/user-16.png" width="16" height="16" border="0" align="middle" alt=""/>-->
-                                <img src="#{fbuser.facebookUser.pic_square}" width="50" height="50" border="0" align="middle" alt=""/>
-                                <br/>
-                                <font class="tinyfont">#{fbuser.facebookUser.first_name} #{fbuser.facebookUser.last_name}</font><br/><br/>
+                                    <img src="#{fbuser.facebookUser.pic_square}" width="50" height="50" border="0" align="middle" alt=""/><br/>
+                                    <font class="tinyfont" style="font-weight: bold;">#{fbuser.facebookUser.first_name} #{fbuser.facebookUser.last_name}</font><br/><br/>
                                 </h:panelGroup>
                             </c:forEach>
-
                         </h:panelGrid>
                         <br/><br/>
                         <font class="mediumfont">Tell Friends Who Aren't Yet Using dNeero:</font><br/>
