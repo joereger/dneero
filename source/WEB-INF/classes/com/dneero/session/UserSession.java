@@ -2,8 +2,11 @@ package com.dneero.session;
 
 import com.dneero.dao.User;
 import com.dneero.dao.Userrole;
+import com.dneero.util.Jsf;
 import org.apache.log4j.Logger;
 
+import javax.faces.context.FacesContext;
+import javax.faces.el.ValueBinding;
 import java.util.Iterator;
 import java.util.HashMap;
 import java.util.ArrayList;
@@ -52,6 +55,15 @@ public class UserSession implements Serializable {
             return null;
         }
         //return user;
+    }
+
+    public void leaveFacebookui(){
+        isfacebookui = false;
+        isfacebookappadded = false;
+        facebookSessionKey = "";
+        tempFacebookUserid = 0;
+        isloggedin = false;
+        userid = 0;
     }
 
     public void setUser(User user) {

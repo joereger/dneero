@@ -6,6 +6,7 @@
 <%@ page import="com.dneero.util.Str" %>
 <%@ page import="com.dneero.session.UserSession" %>
 <%@ page import="com.dneero.session.Authorization" %>
+<%@ page import="com.dneero.email.EmailTemplateProcessor" %>
 <%
 //Hide from snooping eyes... only sysadmins can play
 UserSession userSession = (UserSession) session.getAttribute("userSession");
@@ -15,14 +16,13 @@ if (userSession == null || !userSession.getIsloggedin() || !Authorization.isUser
 }
 %>
 <%
-
     int surveyid = 1;
-    if (request.getParameter("s")!=null && Num.isinteger(request.getParameter("s"))) {
+    if (request.getParameter("s") != null && Num.isinteger(request.getParameter("s"))) {
         surveyid = Integer.parseInt(request.getParameter("s"));
     }
 
     int userid = 1;
-    if (request.getParameter("u")!=null && Num.isinteger(request.getParameter("u"))) {
+    if (request.getParameter("u") != null && Num.isinteger(request.getParameter("u"))) {
         userid = Integer.parseInt(request.getParameter("u"));
     }
 %>

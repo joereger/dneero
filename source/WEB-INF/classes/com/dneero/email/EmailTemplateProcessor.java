@@ -44,11 +44,16 @@ public class EmailTemplateProcessor {
         txtMessage = translateImageLinks(txtMessage);
         try{
             HtmlEmail email = new HtmlEmail();
+            boolean havetoaddress=false;
             if (toaddress!=null && !toaddress.equals("")){
                 email.addTo(toaddress);
+                havetoaddress = true;
             } else {
                 if (userTo!=null){
-                    email.addTo(userTo.getEmail());
+                    if (userTo.getEmail()!=null && !userTo.getEmail().equals("")){
+                        email.addTo(userTo.getEmail());
+                        havetoaddress = true;
+                    }
                 }
             }
             if (fromaddress!=null && !fromaddress.equals("")){
@@ -59,7 +64,9 @@ public class EmailTemplateProcessor {
             email.setSubject(subject);
             email.setHtmlMsg(htmlEmailHeader + htmlMessage + htmlEmailFooter);
             email.setTextMsg(txtMessage);
-            EmailSend.sendMail(email);
+            if (havetoaddress){
+                EmailSend.sendMail(email);
+            }
         } catch (Exception e){
             logger.error(e);
         }

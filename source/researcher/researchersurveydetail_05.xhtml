@@ -55,11 +55,11 @@
         <h:panelGroup>
             <h:outputText value="Willing to Pay Per Respondent ($USD)" styleClass="formfieldnamefont"></h:outputText>
             <br/>
-            <font class="smallfont">Amount to pay to a person who fulfills the targeting criteria and successfully fills out the survey.  Paying more will attract more people.  The minimum is $.25.  A good starting point is $2.50.</font>
+            <font class="smallfont">Amount to pay to a person who fulfills the targeting criteria and successfully fills out the survey.  Paying more will attract more people.  The minimum is $.10.  A good starting point is $2.50.</font>
         </h:panelGroup>
         <h:panelGroup>
             <h:inputText value="#{researcherSurveyDetail05.willingtopayperrespondent}" id="willingtopayperrespondent" required="true" rendered="#{researcherSurveyDetail05.status eq 1}">
-                <f:validateDoubleRange minimum=".25" maximum="10000"></f:validateDoubleRange>
+                <f:validateDoubleRange minimum=".10" maximum="10000"></f:validateDoubleRange>
             </h:inputText>
             <h:outputText value="#{researcherSurveyDetail05.willingtopayperrespondent}" rendered="#{researcherSurveyDetail05.status ne 1}"></h:outputText>
         </h:panelGroup>
@@ -97,11 +97,11 @@
         <h:panelGroup>
             <h:outputText value="Willing to Pay Per Thousand Survey Displays on a Blog (CPM) ($USD)" styleClass="formfieldnamefont"></h:outputText>
             <br/>
-            <font class="smallfont">Once surveys are taken they are posted to a person's blog.  With this value you determine what you're willing to pay for 1000 displays (CPM) of your survey.  This value must be at least $1 to cover bandwidth costs and can go as high as $1000 ($1000 would be equivalent to $1 per display).  The more you pay the more you attract bloggers who will display your survey prominently on their blog.</font>
+            <font class="smallfont">Once surveys are taken they are posted to a person's blog.  With this value you determine what you're willing to pay for 1000 displays (CPM) of your survey.  This value must be at least $0.25 to cover bandwidth costs and can go as high as $1000 ($1000 would be equivalent to $1 per display).  The more you pay the more you attract bloggers who will display your survey prominently on their blog.</font>
         </h:panelGroup>
         <h:panelGroup>
             <h:inputText value="#{researcherSurveyDetail05.willingtopaypercpm}" id="willingtopaypercpm" required="true" rendered="#{researcherSurveyDetail05.status eq 1}">
-                <f:validateDoubleRange minimum="1" maximum="1000"></f:validateDoubleRange>
+                <f:validateDoubleRange minimum=".25" maximum="1000"></f:validateDoubleRange>
             </h:inputText>
             <h:outputText value="#{researcherSurveyDetail05.willingtopaypercpm}" rendered="#{researcherSurveyDetail05.status ne 1}"></h:outputText>
         </h:panelGroup>

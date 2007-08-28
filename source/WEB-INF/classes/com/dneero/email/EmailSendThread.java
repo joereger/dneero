@@ -34,19 +34,28 @@ public class EmailSendThread implements Runnable, Serializable {
         try{
             logger.debug("Start sending htmlEmail subject:"+htmlEmail.getSubject());
             logger.debug("SystemProperty.PROP_SMTPOUTBOUNDSERVER="+SystemProperty.getProp(SystemProperty.PROP_SMTPOUTBOUNDSERVER));
-            if (htmlEmail.getMimeMessage().getAllRecipients()!=null && htmlEmail.getMimeMessage().getAllRecipients().length>0){
+            if (htmlEmail!=null){
+                logger.debug("an htmlEmail was found... sending");
                 htmlEmail.setHostName(SystemProperty.getProp(SystemProperty.PROP_SMTPOUTBOUNDSERVER));
                 htmlEmail.send();
+            } else {
+                logger.debug("not sending");
+                if (htmlEmail==null){
+                    logger.debug("htmlEmail is null");
+                } else {
+                    logger.debug("no idea why it didn't send");
+                }
             }
             logger.debug("End sending htmlEmail subject:"+htmlEmail.getSubject());
         } catch (Exception e){
-            logger.error(e);
+            logger.error("top try/catch",e);
+            e.printStackTrace();
         } finally {
             try{
-                if (htmlEmail.getMimeMessage().getAllRecipients()!=null && htmlEmail.getMimeMessage().getAllRecipients().length>0){
+                if (htmlEmail!=null && htmlEmail.getMimeMessage()!=null && htmlEmail.getMimeMessage().getAllRecipients()!=null && htmlEmail.getMimeMessage().getAllRecipients().length>0){
                     logEmailSend(htmlEmail);
                 }
-            } catch (Exception ex){logger.error(ex);}
+            } catch (Exception ex){logger.error("try/catch inside finally", ex);ex.printStackTrace();}
         }
     }
 
@@ -93,7 +102,8 @@ public class EmailSendThread implements Runnable, Serializable {
                 logger.debug("   EMAIL: Content: "+String.valueOf(message.getContent().toString()));
             }
         } catch (Exception ex){
-            logger.error(ex);
+            logger.error("error in logEmailSend()", ex);
+            ex.printStackTrace();
         }
     }
 
