@@ -109,7 +109,8 @@ public class ResearcherSurveyDetail06 implements Serializable {
                 hideresultsfee = "$"+Str.formatForMoney(sms.getHidesurveyfee());
 
                 //The user's current account balance
-                double currentbalance = CurrentBalanceCalculator.getCurrentBalance(Jsf.getUserSession().getUser());
+                CurrentBalanceCalculator cbc = new CurrentBalanceCalculator(Jsf.getUserSession().getUser());
+                double currentbalance = cbc.getCurrentbalance();
 
                 //Warning: time period too short
                 if (DateDiff.dateDiff("day", Time.getCalFromDate(survey.getEnddate()), Time.getCalFromDate(survey.getStartdate()))<7){
@@ -220,7 +221,8 @@ public class ResearcherSurveyDetail06 implements Serializable {
                 logger.debug("startdate.before(now)="+startdate.before(now));
                 logger.debug("startdate.after(now)="+startdate.after(now));
 
-                double currentbalance = CurrentBalanceCalculator.getCurrentBalance(Jsf.getUserSession().getUser());
+                CurrentBalanceCalculator cbc = new CurrentBalanceCalculator(Jsf.getUserSession().getUser());
+                double currentbalance = cbc.getCurrentbalance();
 
                 //Only worry about the credit carc stuff if there's not enough in the account currently
                 if(currentbalance<(sms.getMaxPossibleSpend()*(ResearcherRemainingBalanceOperations.INCREMENTALPERCENTTOCHARGE/100))){

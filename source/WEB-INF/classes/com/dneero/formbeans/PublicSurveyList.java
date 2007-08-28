@@ -99,11 +99,12 @@ public class PublicSurveyList implements Serializable {
                 }
 
                 //See if user is qualified
+                boolean bloggerqualifies = false;
+                boolean bloggerqualifiesisunknown = false;
                 logger.debug("about to set isloggedinuserqualified");
                 if (!bsli.getLoggedinuserhasalreadytakensurvey()){
                     if (Jsf.getUserSession().getIsloggedin() && Jsf.getUserSession().getUser()!=null && Jsf.getUserSession().getUser().getBloggerid()>0){
                         //Iterate surveys this blogger qualifies for
-                        boolean bloggerqualifies = false;
                         for (Iterator iter = fsfb.getSurveys().iterator(); iter.hasNext();) {
                             Survey tmpSurvey = (Survey) iter.next();
                             if (tmpSurvey.getSurveyid()==survey.getSurveyid()){
@@ -121,13 +122,18 @@ public class PublicSurveyList implements Serializable {
                         }
                     } else {
                         logger.debug("unknown");
+                        bloggerqualifiesisunknown = true;
                         bsli.setIsbloggerqualifiedstring("");
                     }
                 } else {
                     logger.debug("already taken");
                     bsli.setIsbloggerqualifiedstring("You've Already Taken It");
                 }
-                surveys.add(bsli);
+                
+                //Only add if user qualifies or if it's unknown if they qualify (i.e. they're not logged-in)
+                if (bloggerqualifies || bloggerqualifiesisunknown){
+                    surveys.add(bsli);
+                }
             }
 
             //Facebook stuff
@@ -150,6 +156,9 @@ public class PublicSurveyList implements Serializable {
                         facebookSurveyThatsBeenTakens.add(facebookSurveyThatsBeenTaken);
                     }
                 }
+                //Load the account balance
+                AccountBalance bean = (AccountBalance)Jsf.getManagedBean("accountBalance");
+                bean.beginView();
             }
 
         //}

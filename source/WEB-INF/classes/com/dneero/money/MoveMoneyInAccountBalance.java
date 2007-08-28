@@ -36,7 +36,8 @@ public class MoveMoneyInAccountBalance {
         balance.setAmt(amt);
         balance.setDate(new Date());
         balance.setDescription(desc);
-        balance.setCurrentbalance(CurrentBalanceCalculator.getCurrentBalance(user) + amt);
+        CurrentBalanceCalculator cbc = new CurrentBalanceCalculator(user);
+        balance.setCurrentbalance(cbc.getCurrentbalance() + amt);
         balance.setUserid(user.getUserid());
         balance.setOptionalimpressionpaymentgroupid(optionalimpressionpaymentgroupid);
         balance.setOptionalimpressionchargegroupid(optionalimpressionchargegroupid);
@@ -101,7 +102,8 @@ public class MoveMoneyInAccountBalance {
         balance.setAmt((-1)*amt);
         balance.setDate(new Date());
         balance.setDescription(desc);
-        balance.setCurrentbalance(CurrentBalanceCalculator.getCurrentBalance(user) - amt);
+        CurrentBalanceCalculator cbc = new CurrentBalanceCalculator(user);
+        balance.setCurrentbalance(cbc.getCurrentbalance() - amt);
         balance.setUserid(user.getUserid());
         balance.setOptionalimpressionpaymentgroupid(optionalimpressionpaymentgroupid);
         balance.setOptionalimpressionchargegroupid(optionalimpressionchargegroupid);

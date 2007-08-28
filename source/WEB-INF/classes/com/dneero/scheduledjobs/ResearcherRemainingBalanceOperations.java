@@ -56,7 +56,8 @@ public class ResearcherRemainingBalanceOperations implements Job {
             User user = User.get(researcher.getUserid());
             //Collect data on this researcher
             List surveys = HibernateUtil.getSession().createQuery("from Survey where researcherid='"+researcher.getResearcherid()+"'").setCacheable(false).list();
-            double currentbalance = CurrentBalanceCalculator.getCurrentBalance(user);
+            CurrentBalanceCalculator cbc = new CurrentBalanceCalculator(user);
+            double currentbalance = cbc.getCurrentbalance();
             double totalremainingpossiblespendforallsurveys = 0;
             double totalmaxpossiblespendforallsurveys = 0;
             logger.debug("userid="+user.getUserid()+ " ("+user.getFirstname() + " "+user.getLastname()+")");

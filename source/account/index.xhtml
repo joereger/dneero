@@ -7,6 +7,7 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:t="http://myfaces.apache.org/tomahawk"
       xmlns:d="http://dneero.com/taglib"
+      xmlns:c="http://java.sun.com/jstl/core"
 
       >
 
@@ -54,8 +55,12 @@
                             </td></tr>
                             <tr><td valign="top"></td><td valign="top">
                                 <font class="smallfont">See the earnings and charges made to your account.  View financial transactions including failed attempts to charge credit cards or pay you.</font>
-                                <br/>
-                                <font class="largefont" style="color: #cccccc;">#{accountBalance.currentbalance}</font>
+                                <br/><br/><font class="formfieldnamefont" style="color: #666666;">Current Balance:</font>
+                                <br/><font class="largefont" style="color: #cccccc;">#{accountBalance.currentbalance}</font>
+                                <c:if test="#{accountBalance.pendingearningsDbl gt 0}">
+                                    <br/><font class="formfieldnamefont" style="color: #666666;">Pending: #{accountBalance.pendingearnings}</font>
+                                    <br/><font class="tinyfont" style="color: #666666;">Remember, you must post to your surveys and generate impressions for 20 days after you take it to get paid.</font>
+                                </c:if>
                             </td></tr></table>
                         </div>
                         <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">

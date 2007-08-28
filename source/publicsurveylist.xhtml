@@ -12,7 +12,7 @@
       >
 
 <ui:composition template="/template/template-facelets.xhtml">
-    <ui:define name="title">Survey Opportunities<br/><br/></ui:define>
+    <ui:define name="title">Social Surveys<br/><br/></ui:define>
     <ui:param name="navtab" value="home"/>
     <ui:define name="body">
     <d:authorization acl="public" redirectonfail="true"/>
@@ -29,7 +29,7 @@
                 <t:saveState id="save" value="#{publicSurveyList}"/>
                 <h:outputText value="There are currently no surveys listed.  Please check back soon as we're always adding new ones!" styleClass="mediumfont" rendered="#{empty publicSurveyList.surveys}"/>
 
-                <t:dataTable sortable="true" id="datatable" value="#{publicSurveyList.surveys}" rows="15" var="srvy" rendered="#{!empty publicSurveyList.surveys}" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcol,tcolnowrap,tcol,tcolnowrap,tcolnowrap">
+                <t:dataTable sortable="true" id="datatable" value="#{publicSurveyList.surveys}" rows="15" var="srvy" rendered="#{!empty publicSurveyList.surveys}" styleClass="dataTable" headerClass="" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcol,tcolnowrap,tcol,tcolnowrap,tcolnowrap">
                   <t:column>
                     <f:facet name="header">
                         <h:outputText value=""/>
@@ -42,34 +42,16 @@
                                         <h:outputText value="#{srvy.title}" styleClass="normalfont" style="font-weight: bold; color: #0000ff;"/>
                                     </h:outputLink><br/>
                                     <h:outputText value="#{srvy.description}" escape="false" styleClass="tinyfont"/><br/><br/>
-                                    <font class="tinyfont"><b>#{srvy.daysuntilend} #{srvy.isbloggerqualifiedstring}</b></font>
+                                    <font class="tinyfont"><b>#{srvy.daysuntilend}</b></font>
                                 </td>
-                                <!--
-                                <c:if test="#{userSession.isloggedin}">
-                                    <td width="20%">
-                                        <div class="rounded" style="background: #e6e6e6; padding: 10px;">
-                                            <center>
-                                                <c:if test="#{!srvy.loggedinuserhasalreadytakensurvey}">
-                                                    <c:if test="#{srvy.isloggedinuserqualified}">
-                                                        <font class="smallfont"><b>You Qualify</b></font><br/><img src="/images/play-star-16.png" alt="" width="16" height="16"/>
-                                                    </c:if>
-                                                    <c:if test="#{!srvy.isloggedinuserqualified}">
-                                                        <font class="smallfont"><b>You Don't Qualify</b></font><br/><img src="/images/delete-alt-16.png" alt="" width="16" height="16"/>
-                                                    </c:if>
-                                                </c:if>
-                                                <c:if test="#{srvy.loggedinuserhasalreadytakensurvey}">
-                                                    <font class="smallfont"><b>You've Already Taken It</b></font><br/><img src="/images/ok-16.png" alt="" width="16" height="16"/>
-                                                </c:if>
-                                            </center>
-                                        </div>
-                                    </td>
-                                </c:if>
-                                -->
-                                <td width="20%">
+                                <td width="25%">
                                     <div class="rounded" style="background: #ffffff; padding: 10px;">
                                         <center>
-                                            <font class="smallfont"><b>Earn Up To</b></font><br/>
+                                            <font class="tinyfont"><b>Earn Up To</b></font><br/>
                                             <font class="mediumfont">#{srvy.maxearning}</font>
+                                            <c:if test="#{srvy.ischarityonly}">
+                                                <br/><font class="tinyfont"><b>for charity</b></font>
+                                            </c:if>
                                         </center>
                                     </div>
                                 </td>
@@ -78,7 +60,7 @@
                     </div>
                   </t:column>
                 </t:dataTable>
-                <t:dataScroller id="scroll_1" for="datatable" fastStep="10" pageCountVar="pageCount" pageIndexVar="pageIndex" styleClass="scroller" paginator="true" paginatorMaxPages="9" paginatorTableClass="paginator" paginatorActiveColumnStyle="font-weight:bold;">
+                <t:dataScroller id="scroll_1" for="datatable"  fastStep="10" pageCountVar="pageCount" pageIndexVar="pageIndex" styleClass="scroller" paginator="true" paginatorMaxPages="9" paginatorTableClass="paginator" paginatorActiveColumnStyle="font-weight:bold;">
                     <f:facet name="first" >
                         <t:graphicImage url="/images/datascroller/play-first.png" border="0" />
                     </f:facet>
@@ -96,8 +78,22 @@
             </td>
 
             <c:if test="#{userSession.isfacebookui}">
-                <td valign="top" width="50%">
+                <td valign="top" width="50%" style="padding-top: 5px;">
                     <div class="rounded" style="background: #e6e6e6; padding: 10px;">
+                        <c:if test="#{userSession.isloggedin}">
+                            <div class="rounded" style="background: #ffffff; padding: 10px;">
+                                <font class="formfieldnamefont" style="color: #666666;">Current Balance:</font>
+                                <br/><font class="largefont" style="color: #cccccc;">#{accountBalance.currentbalance}</font>
+                                <c:if test="#{accountBalance.currentbalanceDbl gt 0}">
+                                    <br/><font class="tinyfont" style="color: #666666;">(yes, we're talking real world money here)</font>
+                                </c:if>
+                                <c:if test="#{accountBalance.pendingearningsDbl gt 0}">
+                                    <br/><font class="formfieldnamefont" style="color: #666666;">Pending: #{accountBalance.pendingearnings}</font>
+                                    <br/><font class="tinyfont" style="color: #cccccc;">Remember, you must have your survey on your mini-feed and/or profile to generate clicks for 20 days after you take it to get paid.  We'll put them there for you automatically.</font>
+                                </c:if>
+                            </div>
+                            <br/><br/>
+                        </c:if>
                         <font class="mediumfont">Surveys Friends Have Taken:</font><br/>
                         <c:if test="${empty publicSurveyList.facebookSurveyThatsBeenTakens}">
                             <font class="tinyfont">Your friends haven't taken any surveys yet.</font>
@@ -117,12 +113,18 @@
                         <c:if test="${empty publicSurveyList.facebookuserswhoaddedapp}">
                             <font class="tinyfont">None, yet.</font><br/>
                         </c:if>
-                        <c:forEach var="fbuser" items="${publicSurveyList.facebookuserswhoaddedapp}">
-                            <!--<img src="/images/user-16.png" width="16" height="16" border="0" align="middle" alt=""/>-->
-                            <img src="#{fbuser.facebookUser.pic_square}" width="50" height="50" border="0" align="middle" alt=""/>
-                            <br/>
-                            <font class="tinyfont">#{fbuser.facebookUser.first_name} #{fbuser.facebookUser.last_name}</font><br/><br/>
-                        </c:forEach>
+                        <h:panelGrid columns="3" cellpadding="3" border="0">
+
+                            <c:forEach var="fbuser" items="${publicSurveyList.facebookuserswhoaddedapp}">
+                                <h:panelGroup>
+                                <!--<img src="/images/user-16.png" width="16" height="16" border="0" align="middle" alt=""/>-->
+                                <img src="#{fbuser.facebookUser.pic_square}" width="50" height="50" border="0" align="middle" alt=""/>
+                                <br/>
+                                <font class="tinyfont">#{fbuser.facebookUser.first_name} #{fbuser.facebookUser.last_name}</font><br/><br/>
+                                </h:panelGroup>
+                            </c:forEach>
+
+                        </h:panelGrid>
                         <br/><br/>
                         <font class="mediumfont">Tell Friends Who Aren't Yet Using dNeero:</font><br/>
                         <h:message for="facebookfriendsselected" styleClass="RED"></h:message>

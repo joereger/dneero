@@ -22,7 +22,9 @@ public class AccountBalance implements Serializable {
 
     private List balances;
     private String currentbalance = "$0.00";
+    private String pendingearnings = "$0.00";
     private double currentbalanceDbl = 0.0;
+    private double pendingearningsDbl = 0.0;
 
     public AccountBalance() {
 
@@ -37,8 +39,11 @@ public class AccountBalance implements Serializable {
     private void load(){
         UserSession userSession = Jsf.getUserSession();
         if (userSession!=null && userSession.getUser()!=null && userSession.getUser().getBloggerid()>0){
-            currentbalanceDbl = CurrentBalanceCalculator.getCurrentBalance(Jsf.getUserSession().getUser());
+            CurrentBalanceCalculator cbc = new CurrentBalanceCalculator(Jsf.getUserSession().getUser());
+            currentbalanceDbl = cbc.getCurrentbalance();
+            pendingearningsDbl = cbc.getPendingearnings();
             currentbalance = "$"+Str.formatForMoney(currentbalanceDbl);
+            pendingearnings = "$"+Str.formatForMoney(pendingearningsDbl);
             List bals = HibernateUtil.getSession().createQuery("from Balance where userid='"+userSession.getUser().getUserid()+"' order by balanceid desc").setCacheable(true).list();
             balances = new ArrayList<AccountBalanceListItem>();
             for (Iterator iterator = bals.iterator(); iterator.hasNext();) {
@@ -115,5 +120,21 @@ public class AccountBalance implements Serializable {
 
     public void setCurrentbalanceDbl(double currentbalanceDbl) {
         this.currentbalanceDbl = currentbalanceDbl;
+    }
+
+    public String getPendingearnings() {
+        return pendingearnings;
+    }
+
+    public void setPendingearnings(String pendingearnings) {
+        this.pendingearnings = pendingearnings;
+    }
+
+    public double getPendingearningsDbl() {
+        return pendingearningsDbl;
+    }
+
+    public void setPendingearningsDbl(double pendingearningsDbl) {
+        this.pendingearningsDbl = pendingearningsDbl;
     }
 }

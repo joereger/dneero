@@ -13,7 +13,7 @@
 
 
 <ui:composition template="/template/template-facelets.xhtml">
-    <ui:define name="title">dNeero Facebook App<br/><br/></ui:define>
+    <ui:define name="title">Social Surveys<br/><br/></ui:define>
     <ui:param name="navtab" value="home"/>
     <ui:define name="body">
     <d:authorization acl="public" redirectonfail="true"/>
@@ -47,9 +47,10 @@
 
             </td>
         </tr>
+        <c:if test="#{1 eq 2}">
         <tr>
             <td valign="top">
-                <c:if test="${!empty publicSurveyList.facebookuserswhoaddedapp}">
+                <!--<c:if test="${!empty publicSurveyList.facebookuserswhoaddedapp}">-->
                     <br/><br/>
                     <font class="normalfont" style="font-weight: bold;">Friends Already on dNeero:</font><br/>
                     <c:if test="${empty publicSurveyList.facebookuserswhoaddedapp}">
@@ -61,8 +62,8 @@
                         <font class="normalfont">#{fbuser.facebookUser.first_name} #{fbuser.facebookUser.last_name}</font><br/>
                     </c:forEach>
                     <br/><br/>
-                </c:if>
-                <c:if test="${!empty publicSurveyList.facebookSurveyThatsBeenTakens}">
+                <!--</c:if>-->
+                <!--<c:if test="${!empty publicSurveyList.facebookSurveyThatsBeenTakens}">-->
                     <font class="normalfont" style="font-weight: bold;">Surveys Friends Have Taken:</font><br/>
                     <c:if test="${empty publicSurveyList.facebookSurveyThatsBeenTakens}">
                         <font class="tinyfont">Your friends haven't taken any surveys yet.</font>
@@ -77,11 +78,10 @@
                         </font><br/><br/>
                     </c:forEach>
                     <br/><br/>
-                </c:if>
+                <!--</c:if>-->
             </td>
-
-
         </tr>
+        </c:if>
     </table>
 
 </h:form>

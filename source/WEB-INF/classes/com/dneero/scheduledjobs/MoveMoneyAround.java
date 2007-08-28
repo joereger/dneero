@@ -33,7 +33,8 @@ public class MoveMoneyAround implements Job {
                 List users = HibernateUtil.getSession().createQuery("from User").list();
                 for (Iterator iterator = users.iterator(); iterator.hasNext();) {
                     User user = (User) iterator.next();
-                    double currentbalance = CurrentBalanceCalculator.getCurrentBalance(user);
+                    CurrentBalanceCalculator cbc = new CurrentBalanceCalculator(user);
+                    double currentbalance = cbc.getCurrentbalance();
                     if (currentbalance>0){
                         boolean dopay = true;
                         //Don't pay researchers if they have any open surveys or closed surveys where we can still collect impression revenue

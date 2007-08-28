@@ -46,7 +46,8 @@ public class AccountIndex implements Serializable {
 
     private void load(){
         if(Jsf.getUserSession().getUser()!=null){
-            currentbalance = "$"+Str.formatForMoney(CurrentBalanceCalculator.getCurrentBalance(Jsf.getUserSession().getUser()));
+            CurrentBalanceCalculator cbc = new CurrentBalanceCalculator(Jsf.getUserSession().getUser());
+            currentbalance = "$"+Str.formatForMoney(cbc.getCurrentbalance());
             List<Responsepending> responsependings = HibernateUtil.getSession().createCriteria(Responsepending.class)
                                    .add(Restrictions.eq("userid", Jsf.getUserSession().getUser().getUserid()))
                                    .setCacheable(true)
