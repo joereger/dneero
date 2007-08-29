@@ -15,12 +15,12 @@
         logger.debug("fb_sig_user is an integer");
         //@todo somehow validate that this is a good request from the actual servers... don't want script kiddies uninstalling (not that it does any more than setting a flag)
         int facebookuserid = Integer.parseInt(request.getParameter("fb_sig_user"));
-        List<User> users = HibernateUtil.getSession().createCriteria(User.class)
-                .add(Restrictions.eq("facebookuserid", facebookuserid))
+        List users = HibernateUtil.getSession().createCriteria(User.class)
+                .add(Restrictions.eq("facebookuserid", Integer.valueOf(facebookuserid)))
                 .setCacheable(true)
                 .list();
-        for (Iterator<User> iterator = users.iterator(); iterator.hasNext();) {
-            User user = iterator.next();
+        for (Iterator iterator = users.iterator(); iterator.hasNext();) {
+            User user = (User)iterator.next();
             user.setIsfacebookappremoved(true);
             user.setFacebookappremoveddate(new Date());
             try {user.save();} catch (Exception ex) {logger.error(ex);}
