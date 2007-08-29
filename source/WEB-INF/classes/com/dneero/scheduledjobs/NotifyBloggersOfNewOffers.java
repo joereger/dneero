@@ -37,7 +37,7 @@ public class NotifyBloggersOfNewOffers implements Job {
                 User user = User.get(blogger.getUserid());
 
                 boolean shouldSendUserNotifications = false;
-                    if (user.getNotifyofnewsurveysbyemaileveryexdays()>0){
+                if (user.getNotifyofnewsurveysbyemaileveryexdays()>0){
                     Calendar lastsenton = Time.getCalFromDate(user.getNotifyofnewsurveyslastsent());
                     int dayssincelastsend = DateDiff.dateDiff("day", Calendar.getInstance(), lastsenton);
                     if (dayssincelastsend>=user.getNotifyofnewsurveysbyemaileveryexdays()){

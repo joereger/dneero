@@ -114,6 +114,8 @@ public class Registration implements Serializable {
                     user.setInstantnotifyxmppusername("");
                     user.setIsenabled(true);
                     user.setFacebookuserid(facebookuserid);
+                    user.setFacebookappremoveddate(new Date());
+                    user.setIsfacebookappremoved(false);
                     try{
                         user.save();
                         userid = user.getUserid();
@@ -247,6 +249,8 @@ public class Registration implements Serializable {
         user.setInstantnotifyxmppusername("");
         user.setIsenabled(true);
         user.setFacebookuserid(Jsf.getUserSession().getTempFacebookUserid());
+        user.setFacebookappremoveddate(new Date());
+        user.setIsfacebookappremoved(false);
         try{
             user.save();
             userid = user.getUserid();
