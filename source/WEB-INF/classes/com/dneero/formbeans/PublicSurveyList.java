@@ -188,8 +188,8 @@ public class PublicSurveyList implements Serializable {
             FacebookApiWrapper faw = new FacebookApiWrapper(Jsf.getUserSession());
             faw.inviteFriendsTodNeero(uids);
         }
-        try{Jsf.getHttpServletResponse().sendRedirect("/surveylist.jsf"); return null;}catch(Exception ex){logger.debug(ex);}
-        return "publicsurvey";
+        try{Jsf.getHttpServletResponse().sendRedirect("/publicsurveylist.jsf"); return null;}catch(Exception ex){logger.debug(ex);}
+        return "publicsurveylist";
     }
 
     private void loadFacebookUsers(){

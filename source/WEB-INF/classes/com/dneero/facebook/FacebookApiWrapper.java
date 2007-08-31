@@ -186,23 +186,29 @@ public class FacebookApiWrapper {
 
     public ArrayList<FacebookUser> getFriends(){
         Logger logger = Logger.getLogger(this.getClass().getName());
+        logger.debug("begin getFriends() facebookSessionKey="+facebookSessionKey);
         ArrayList<FacebookUser> friends = new ArrayList<FacebookUser>();
         if (issessionok){
             try{
+
                 //Set up the facebook rest client
                 FacebookRestClient facebookRestClient = new FacebookRestClient(SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_KEY), SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_SECRET), facebookSessionKey);
                 //Get the list of uids
                 ArrayList<Integer> uids = getFriendUids();
+
                 if (uids!=null && uids.size()>0){
+                    logger.debug("getFriends() uids not null facebookSessionKey="+facebookSessionKey);
                     //Create fql based on the list of uids
                     StringBuffer fqlWhere = new StringBuffer();
+                    fqlWhere.append("(uid IN (");
                     for (Iterator iterator = uids.iterator(); iterator.hasNext();) {
                         Integer uid = (Integer) iterator.next();
-                        fqlWhere.append(" uid="+uid+" ");
+                        fqlWhere.append(uid);
                         if (iterator.hasNext()){
-                            fqlWhere.append(" OR ");
+                            fqlWhere.append(", ");
                         }
                     }
+                    fqlWhere.append("))");
                     //Go back and get all the important info
                     String fql = "SELECT "+FacebookUser.sqlListOfCols+" FROM user WHERE "+fqlWhere;
                     Document w3cDoc2 = facebookRestClient.fql_query(fql.subSequence(0,fql.length()));
@@ -225,8 +231,9 @@ public class FacebookApiWrapper {
                         }
                     }
                 }
-            } catch (Exception ex){logger.error(ex);}
+            } catch (Exception ex){logger.error(ex); ex.printStackTrace();}
         } else {logger.debug("Can't execute because issessionok = false");}
+        logger.debug("end getFriends() facebookSessionKey="+facebookSessionKey);
         return friends;
     }
 
@@ -343,7 +350,7 @@ public class FacebookApiWrapper {
     public void inviteFriendsTodNeero(ArrayList<Integer> uids){
         Logger logger = Logger.getLogger(this.getClass().getName());
         FacebookRestClient facebookRestClient = new FacebookRestClient(SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_KEY), SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_SECRET), facebookSessionKey);
-        String type = "social survey";
+        String type = "dNeero";
         CharSequence typeChars = type.subSequence(0, type.length());
         StringBuffer content = new StringBuffer();
         content.append("You've been invited to the social survey app called dNeero that allows you to earn real money taking surveys and sharing your answers with your friends.");
@@ -391,7 +398,7 @@ public class FacebookApiWrapper {
         List allChildren = el.getChildren();
         for (Iterator iterator = allChildren.iterator(); iterator.hasNext();) {
             Element element = (Element) iterator.next();
-            logger.debug(indent + " " + element.getName());
+            //logger.debug(indent + " " + element.getName());
             outputChildrenToLogger(element, level);
         }
     }
