@@ -26,6 +26,9 @@ public class UpdateResponsePoststatus implements Job {
 
     Logger logger = Logger.getLogger(this.getClass().getName());
 
+    public static int MAXPOSTINGPERIODINDAYS = 30;
+    public static int DAYSWITHIMPRESSIONREQUIREDINSIDEPOSTINGPERIOD = 10;
+
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
         if (InstanceProperties.getRunScheduledTasksOnThisInstance()){
             logger.debug("execute() UpdateResponsePoststatus called");
@@ -86,7 +89,7 @@ public class UpdateResponsePoststatus implements Job {
                 //Save updated response status, if necessary
                 if (dayswithimpressions.size()>=1){
                     response.setPoststatus(Response.POSTATUS_POSTEDATLEASTONCE);
-                    if (dayswithimpressions.size()>=20){
+                    if (dayswithimpressions.size()>=DAYSWITHIMPRESSIONREQUIREDINSIDEPOSTINGPERIOD){
                         response.setPoststatus(Response.POSTATUS_POSTED);
                     }
                     try{response.save();}catch(Exception ex){logger.error(ex);}
@@ -95,7 +98,7 @@ public class UpdateResponsePoststatus implements Job {
                 //If the time period for evaluating impressions has passed, set that status too
                 Calendar responseDateAsCal = Time.getCalFromDate(response.getResponsedate());
                 int daysold = DateDiff.dateDiff("day", Calendar.getInstance(), responseDateAsCal);
-                if (daysold>30){
+                if (daysold>MAXPOSTINGPERIODINDAYS){
                     response.setPoststatus(Response.POSTATUS_NOTPOSTEDTIMELIMITPASSED);
                     try{response.save();}catch(Exception ex){logger.error(ex);}
                 }

@@ -28,6 +28,7 @@ public class PublicSurveyList implements Serializable {
     private String[] facebookfriendsselected;
     private TreeMap<String, String> facebookusersnotaddedapp = new TreeMap<String, String>();
     private List<PublicSurveyFacebookFriendListitem> facebookuserswhoaddedapp = new ArrayList<PublicSurveyFacebookFriendListitem>();
+    private AccountBalance accountBalance;
 
     public PublicSurveyList() {
         load();
@@ -157,8 +158,12 @@ public class PublicSurveyList implements Serializable {
                     }
                 }
                 //Load the account balance
-                AccountBalance bean = (AccountBalance)Jsf.getManagedBean("accountBalance");
-                bean.beginView();
+                //AccountBalance bean = (AccountBalance)Jsf.getManagedBean("accountBalance");
+                //bean.beginView();
+                AccountBalance accountBalance = new AccountBalance();
+                accountBalance.beginView();
+                this.accountBalance = accountBalance;
+
             }
 
         //}
@@ -328,5 +333,13 @@ public class PublicSurveyList implements Serializable {
 
     public void setFacebookuserswhoaddedapp(List<PublicSurveyFacebookFriendListitem> facebookuserswhoaddedapp) {
         this.facebookuserswhoaddedapp = facebookuserswhoaddedapp;
+    }
+
+    public AccountBalance getAccountBalance() {
+        return accountBalance;
+    }
+
+    public void setAccountBalance(AccountBalance accountBalance) {
+        this.accountBalance = accountBalance;
     }
 }
