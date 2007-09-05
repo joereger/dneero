@@ -16,23 +16,21 @@ public class UrlSplitter {
     private ArrayList<String> servernameAllPossibleDomains=new ArrayList<String>();
     private javax.servlet.http.HttpServletRequest request;
 
-    Logger logger = Logger.getLogger(this.getClass().getName());
+
 
     public UrlSplitter(javax.servlet.http.HttpServletRequest request){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         this.request = request;
-
-
-
         logger.debug(">>UrlSplitter Start<<");
 
         //Get the host
         rawIncomingServername = request.getServerName();
         logger.debug("rawIncomingServername=" + rawIncomingServername);
 
-
         //Sequentially rip off subdomains from the servername
         String tmpServername = rawIncomingServername;
         servernameAllPossibleDomains.add(rawIncomingServername);
+
         //See if we have any subdomains
         while (tmpServername.indexOf(".")>-1 && tmpServername.split("\\.").length>=3){
             //Grab what's to the right of the dot
@@ -72,6 +70,7 @@ public class UrlSplitter {
     }
 
     public String getParametersAsQueryStringQuestionMarkIfRequired(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("getParametersAsQueryStringQuestionMarkIfRequired() start");
         String getqs = getParametersAsQueryStringNoQuestionMark();
         String qs = "";
@@ -83,6 +82,7 @@ public class UrlSplitter {
     }
 
     public String getParametersAsQueryStringNoQuestionMark(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("getParametersAsQueryStringNoQuestionMark() start");
         if (request.getMethod().equals("GET")){
             String qs = "";

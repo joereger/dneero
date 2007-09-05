@@ -44,8 +44,9 @@ public class SurveyResponseParser {
         for (int i = 0; i < split.length; i++) {
             try{
                 if(split[i].split("=").length>=2){
-                    String name = java.net.URLDecoder.decode(split[i].split("=")[0], "UTF-8");
-                    String value = java.net.URLDecoder.decode(split[i].split("=")[1], "UTF-8");
+                    //Note the trim because I believe some browsers add different chars after input fields
+                    String name = java.net.URLDecoder.decode(split[i].split("=")[0], "UTF-8").trim();
+                    String value = java.net.URLDecoder.decode(split[i].split("=")[1], "UTF-8").trim();
                     if (nameValuePairs.containsKey(name)){
                         String[] currentvalue = (String[])nameValuePairs.get(name);
                         nameValuePairs.put(name, Util.addToStringArray(currentvalue, value));

@@ -33,7 +33,8 @@ public class FacebookAuthorization {
         Logger logger = Logger.getLogger(FacebookAuthorization.class);
         logger.debug("starting FacebookAuthorization and isfacebookui="+Jsf.getUserSession().getIsfacebookui());
         try{
-            //First, determine whether this is a facebook request
+            //Determine whether this is a facebook request
+            //Facebook sends this any time it puts the app inside an iFrame
             if (Jsf.getRequestParam("fb_sig_api_key")!=null && !Jsf.getRequestParam("fb_sig_api_key").equals("")){
                 //Set the userSession flag to display UI as Facebook
                 Jsf.getUserSession().setIsfacebookui(true);
@@ -48,7 +49,9 @@ public class FacebookAuthorization {
                     }
                     //Check params sent by facebook
                     String fb_sig_session_key = Jsf.getRequestParam("fb_sig_session_key");
-                    //I only want to run the auth stuff when I see a new Facebook session key... i.e. one that's not null, not empty and is different than the one that's in userSession
+                    //I only want to run the auth stuff when I see a new Facebook session key...
+                    //i.e. one that's not null, not empty and is different than the one that's in userSession.
+                    //Facebook only sends the fb_sig_session_key after the user has added the app
                     if (fb_sig_session_key!=null && !fb_sig_session_key.trim().equals("") && !fb_sig_session_key.trim().equals(Jsf.getUserSession().getFacebookSessionKey().trim())){
                         //Just verify again... this check was in before some restructuring
                         if (fb_sig_session_key!=null && !fb_sig_session_key.trim().equals("")){
@@ -56,19 +59,24 @@ public class FacebookAuthorization {
                             Jsf.getUserSession().setFacebookSessionKey(facebookSessionKey);
                             logger.debug("Using facebookSessionKey from fb_sig_session_key param.");
                         }
-                        //If user hasn't added app yet redir to the app add page
-                        if (facebookSessionKey.trim().equals("")){
-                            logger.debug("redirecting user to facebook add app page");
-                            Jsf.redirectResponse("http://www.facebook.com/add.php?api_key="+ SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_KEY));
-                            return;
-                        }
-                        logger.debug("User has added app... we have facebookSessionKey="+facebookSessionKey);
+                        //Go get some details on this facebookuser
                         FacebookRestClient facebookRestClient = new FacebookRestClient(SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_KEY), SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_SECRET), facebookSessionKey);
                         int facebookuserid = facebookRestClient.users_getLoggedInUser();
                         FacebookUser facebookUser = new FacebookUser(facebookuserid, Jsf.getUserSession().getFacebookSessionKey());
                         Jsf.getUserSession().setIsfacebookappadded(facebookRestClient.users_isAppAdded());
                         Jsf.getUserSession().setTempFacebookUserid(facebookuserid);
+                        Jsf.getUserSession().setFacebookUser(facebookUser);
                         logger.debug("facebookRestClient.users_getLoggedInUser()="+facebookuserid);
+                        //If user hasn't added app yet redir to the app add page
+                        if (facebookSessionKey.trim().equals("")){
+                            logger.debug("redirecting this user to facebook add app page");
+                            //Notify via XMPP
+                            SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_DEBUG, "Redirecting "+ facebookUser.getFirst_name() + " " + facebookUser.getLast_name() + " to add app page. " + "(facebook.uid="+facebookUser.getUid()+")");
+                            xmpp.send();
+                            Jsf.redirectResponse("http://www.facebook.com/add.php?api_key="+ SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_KEY));
+                            return;
+                        }
+                        logger.debug("User has added app... we have facebookSessionKey="+facebookSessionKey);
                         //See if we have this facebook user as a dNeero user
                         User user = getdNeeroUserFromFacebookUserid(facebookuserid);
                         if (user!=null && user.getUserid()>0){
@@ -84,7 +92,7 @@ public class FacebookAuthorization {
                                 try {user.save();} catch (Exception ex) {logger.error(ex);}
                             }
                             //Notify via XMPP
-                            SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_SALES, "dNeero Facebook Login: "+ user.getFirstname() + " " + user.getLastname() + " (email="+user.getEmail()+") (facebook.uid="+user.getFacebookuserid()+")");
+                            SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_DEBUG, "Facebook Login: "+ user.getFirstname() + " " + user.getLastname() + " (email="+user.getEmail()+") (facebook.uid="+user.getFacebookuserid()+")");
                             xmpp.send();
                         } else {
                             //Is not a dNeero user yet... make sure there's no user in the session
@@ -92,17 +100,21 @@ public class FacebookAuthorization {
                             Jsf.getUserSession().setIsloggedin(false);
                             logger.debug("Facebook user added app, considering taking surveys.  facebookSessionKey="+facebookSessionKey);
                             //Notify via XMPP
-                            SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_SALES, "Facebook user '"+facebookUser.getFirst_name()+" "+facebookUser.getLast_name()+"' starts session.  Not yet a dNeero user.  facebookSessionKey="+facebookSessionKey);
+                            SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_DEBUG, "Facebook user '"+facebookUser.getFirst_name()+" "+facebookUser.getLast_name()+"' starts session.  Not yet a dNeero user.");
                             xmpp.send();
                             //Could redirect to Facebook new user welcome screen here.
                         }
 
+                    } else {
+                        logger.debug("no Jsf.getRequestParam(\"fb_sig_session_key\") found");
                     }
                 } catch (FacebookException fex){
                     logger.error("Facebook Error fex", fex);
                 } catch (Exception ex){
                     logger.error("Facebook Error ex", ex);
                 }
+            } else {
+                logger.debug("no Jsf.getRequestParam(\"fb_sig_api_key\") found");
             }
         } catch (Exception ex){
             logger.error("Facebook Error ex", ex);

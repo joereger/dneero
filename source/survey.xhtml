@@ -175,8 +175,7 @@
                                 <td valign="top" align="left">
                                     <c:if test="#{publicSurveyTake.loggedinuserhasalreadytakensurvey}">
                                         <font class="mediumfont">You've Taken This Survey:</font><br/>
-                                        <a href="/survey.jsf?surveyid=#{publicSurveyTake.survey.surveyid}&amp;userid=#{userSession.user.userid}&amp;permitbeforefacebookappadd=1&amp;show=showSurveyResponseFlashEmbed">
-                                        <font class="tinyfont">Your Answers</font></a><br/>
+                                        <h:outputLink value="/survey.jsf?surveyid=#{publicSurveyTake.survey.surveyid}&amp;userid=#{userSession.user.userid}&amp;permitbeforefacebookappadd=1&amp;show=showSurveyResponseFlashEmbed" styleClass="tinyfont" style="color: #0000ff;"><h:outputText>Your Answers</h:outputText></h:outputLink><br/><br/>
                                         <br/><br/>
                                     </c:if>
                                     <t:div rendered="#{!empty publicSurveyTake.userwhotooksurvey and publicSurveyTake.surveytakergavetocharity and (publicSurveyTake.showSurveyResponseFlashEmbed) and (publicSurveyTake.userwhotooksurvey.userid>0)}">
@@ -202,8 +201,7 @@
                                     </c:if>
                                     <c:forEach var="fbuser" items="${publicSurveyTake.facebookuserswhotooksurvey}">
                                         <img src="/images/user-16.png" width="16" height="16" border="0" align="middle" alt=""/>
-                                        <a href="/survey.jsf?surveyid=#{publicSurveyTake.survey.surveyid}&amp;userid=#{fbuser.userid}&amp;responseid=#{fbuser.responseid}&amp;permitbeforefacebookappadd=1&amp;show=showSurveyResponseFlashEmbed">
-                                        <font class="tinyfont">#{fbuser.facebookUser.first_name} #{fbuser.facebookUser.last_name}</font></a><br/>
+                                        <h:outputLink value="/survey.jsf?surveyid=#{publicSurveyTake.survey.surveyid}&amp;userid=#{fbuser.userid}&amp;responseid=#{fbuser.responseid}&amp;permitbeforefacebookappadd=1&amp;show=showSurveyResponseFlashEmbed" styleClass="tinyfont" style="color: #0000ff;"><h:outputText>#{fbuser.facebookUser.first_name} #{fbuser.facebookUser.last_name}</h:outputText></h:outputLink><br/>
                                     </c:forEach>
                                     <br/><br/>
                                     <font class="mediumfont">Tell Friends Who Haven't Taken It:</font><br/>
@@ -447,7 +445,7 @@
                                 <img src="/images/ok-64.png" width="64" height="64" align="left"/>
                                 <font class="mediumfont"><b>Your survey response has been accepted!</b></font>
                                 <br/>
-                                <font class="smallfont">A link to your survey has been posted to your Facebook feed (which qualifies as a blog, for payment purposes).  Keep the links on your mini-feed and profile because to get paid you must have somebody view your answers on 10 of the 30 days following when you took the survey.</font><br/><br/>
+                                <font class="smallfont">A link to your survey has been posted to your Facebook feed (which qualifies as a blog, for payment purposes).  Keep the links on your mini-feed and profile because to get paid you must have somebody view your answers on 5 of the 10 days following when you took the survey.</font><br/><br/>
                                 <div class="rounded" style="background: #ffffff;">
                                     <font class="formfieldnamefont"><b>Now earn even more... tell up to 10 friends about this survey:</b></font>
                                     <br/>
@@ -475,7 +473,7 @@
                                                 <br/>
                                                 <h:outputText value="Now post your answers to your blog!" styleClass="mediumfont"/>
                                                 <br/>
-                                                <h:outputText value="(instructions to the right... the survey must appear on your blog for 10 of 30 days from when you took the survey to be paid)" styleClass="smallfont"/>
+                                                <h:outputText value="(instructions to the right... the survey must appear on your blog for 5 of 10 days from when you took the survey to be paid)" styleClass="smallfont"/>
                                         </div>
                                         <br/>
                                         <div class="rounded" style="background: #ffffff; text-align: center;">

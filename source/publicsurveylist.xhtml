@@ -97,11 +97,11 @@
                             <font class="tinyfont">Your friends haven't taken any surveys yet.</font>
                         </c:if>
                         <c:forEach var="surveyfriendstook" items="${publicSurveyList.facebookSurveyThatsBeenTakens}">
-                            <a href="/survey.jsf?surveyid=#{surveyfriendstook.survey.surveyid}"><font class="normalfont" style="font-weight: bold; color: #0000ff;">#{surveyfriendstook.survey.title}</font></a><br/>
+                            <h:outputLink value="/survey.jsf?surveyid=#{surveyfriendstook.survey.surveyid}" styleClass="normalfont" style="font-weight: bold; color: #0000ff;"><h:outputText>#{surveyfriendstook.survey.title}</h:outputText></h:outputLink><br/>
                             <font class="smallfont">
-                                Who took it:
+                                How they answered:
                                 <c:forEach var="friendwhotook" items="${surveyfriendstook.facebookSurveyTakers}">
-                                    <a href="/survey.jsf?surveyid=#{surveyfriendstook.survey.surveyid}&amp;userid=#{friendwhotook.userid}&amp;responseid=#{friendwhotook.responseid}&amp;permitbeforefacebookappadd=1&amp;show=showSurveyResponseFlashEmbed">#{friendwhotook.facebookUser.first_name} #{friendwhotook.facebookUser.last_name}</a>
+                                    <h:outputLink value="/survey.jsf?surveyid=#{surveyfriendstook.survey.surveyid}&amp;userid=#{friendwhotook.userid}&amp;responseid=#{friendwhotook.responseid}&amp;permitbeforefacebookappadd=1&amp;show=showSurveyResponseFlashEmbed" styleClass="smallfont" style="color: #0000ff;"><h:outputText>#{friendwhotook.facebookUser.first_name} #{friendwhotook.facebookUser.last_name}</h:outputText></h:outputLink>
                                 </c:forEach>
                             </font><br/><br/>
                         </c:forEach>

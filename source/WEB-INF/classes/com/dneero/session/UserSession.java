@@ -3,6 +3,7 @@ package com.dneero.session;
 import com.dneero.dao.User;
 import com.dneero.dao.Userrole;
 import com.dneero.util.Jsf;
+import com.dneero.facebook.FacebookUser;
 import org.apache.log4j.Logger;
 
 import javax.faces.context.FacesContext;
@@ -42,6 +43,9 @@ public class UserSession implements Serializable {
     private boolean isfacebookappadded = false;
     private String facebookSessionKey = "";
     private int tempFacebookUserid = 0;
+    private FacebookUser facebookUser = null;
+  
+
 
     public UserSession(){
         Logger logger = Logger.getLogger(this.getClass().getName());
@@ -54,7 +58,6 @@ public class UserSession implements Serializable {
         } else {
             return null;
         }
-        //return user;
     }
 
     public void leaveFacebookui(){
@@ -67,7 +70,6 @@ public class UserSession implements Serializable {
     }
 
     public void setUser(User user) {
-        //this.user = user;
         if (user!=null){
             userid = user.getUserid();
             isSysadmin = false;
@@ -237,5 +239,13 @@ public class UserSession implements Serializable {
 
     public void setIsfacebookappadded(boolean isfacebookappadded) {
         this.isfacebookappadded = isfacebookappadded;
+    }
+
+    public FacebookUser getFacebookUser() {
+        return facebookUser;
+    }
+
+    public void setFacebookUser(FacebookUser facebookUser) {
+        this.facebookUser = facebookUser;
     }
 }

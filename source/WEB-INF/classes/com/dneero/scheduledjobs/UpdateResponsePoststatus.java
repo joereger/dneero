@@ -26,8 +26,8 @@ public class UpdateResponsePoststatus implements Job {
 
     Logger logger = Logger.getLogger(this.getClass().getName());
 
-    public static int MAXPOSTINGPERIODINDAYS = 30;
-    public static int DAYSWITHIMPRESSIONREQUIREDINSIDEPOSTINGPERIOD = 10;
+    public static int MAXPOSTINGPERIODINDAYS = 10;
+    public static int DAYSWITHIMPRESSIONREQUIREDINSIDEPOSTINGPERIOD = 5;
 
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
         if (InstanceProperties.getRunScheduledTasksOnThisInstance()){

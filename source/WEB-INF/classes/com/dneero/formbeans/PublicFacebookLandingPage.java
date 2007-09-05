@@ -1,7 +1,9 @@
 package com.dneero.formbeans;
 
 import com.dneero.util.Jsf;
+import com.dneero.util.Num;
 import com.dneero.systemprops.SystemProperty;
+import com.dneero.xmpp.SendXMPPMessage;
 
 import java.io.Serializable;
 
@@ -36,6 +38,19 @@ public class PublicFacebookLandingPage implements Serializable {
         if (Jsf.getRequestParam("action")!=null && Jsf.getRequestParam("action").indexOf("showsurvey")>-1){
             String[] split = Jsf.getRequestParam("action").split("-");
             if (split.length>=3){
+                //Set the referredbyuserid value in the session
+                if (split[2]!=null && Num.isinteger(split[2])){
+                    Jsf.getUserSession().setReferredbyOnlyUsedForSignup(Integer.parseInt(split[2]));
+                    if (Jsf.getUserSession().getFacebookUser()!=null){
+                        //Notify via XMPP
+                        SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_DEBUG, "Facebook user "+ Jsf.getUserSession().getFacebookUser().getFirst_name() + " " + Jsf.getUserSession().getFacebookUser().getLast_name() + " referred by userid="+split[2]+" to surveyid="+split[1]);
+                        xmpp.send();
+                    } else {
+                        //Notify via XMPP
+                        SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_DEBUG, "Facebook user Unknown:"+Jsf.getUserSession().getFacebookSessionKey()+" referred by userid="+split[2]+" to surveyid="+split[1]);
+                        xmpp.send();
+                    }
+                }
                 try{Jsf.redirectResponse("/survey.jsf?s="+split[1]+"&u="+split[2]+"&p=0&permitbeforefacebookappadd=1&show=showSurveyResponseFlashEmbed");return;}catch(Exception ex){logger.error(ex);}
             }
         }
@@ -44,6 +59,30 @@ public class PublicFacebookLandingPage implements Serializable {
         if (Jsf.getUserSession().getIsfacebookui() && Jsf.getUserSession().getIsfacebookappadded()){
             try{Jsf.redirectResponse("/publicsurveylist.jsf");return;}catch(Exception ex){logger.error(ex);}
         }
+
+        //User's gonna see the add app page we generate... just debug notification here
+        try{
+            if (Jsf.getRequestParam("permitbeforefacebookappadd")==null || !Jsf.getRequestParam("permitbeforefacebookappadd").equals("1")){
+                String referredbyuserid = "";
+                String referredtosurveyid = "";
+                if (Jsf.getRequestParam("action")!=null && Jsf.getRequestParam("action").indexOf("showsurvey")>-1){
+                    String[] split = Jsf.getRequestParam("action").split("-");
+                    if (split.length>=3){
+                        referredbyuserid = split[2];
+                        referredtosurveyid = split[1];
+                    }
+                }
+                if (Jsf.getUserSession().getFacebookUser()!=null){
+                    //Notify via XMPP
+                    SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_DEBUG, "Facebook app add page shown to "+ Jsf.getUserSession().getFacebookUser().getFirst_name() + " " + Jsf.getUserSession().getFacebookUser().getLast_name() + " referred by userid="+referredbyuserid+" to surveyid="+referredtosurveyid);
+                    xmpp.send();
+                } else {
+                    //Notify via XMPP
+                    SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_DEBUG, "Facebook app add page shown to Unknown:"+Jsf.getUserSession().getFacebookSessionKey()+" referred by userid="+referredbyuserid+" to surveyid="+referredtosurveyid);
+                    xmpp.send();
+                }
+            }
+        }catch(Exception ex){logger.error(ex);}
 
        
     }
