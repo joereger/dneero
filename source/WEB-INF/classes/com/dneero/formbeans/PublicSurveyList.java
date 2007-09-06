@@ -29,6 +29,7 @@ public class PublicSurveyList implements Serializable {
     private TreeMap<String, String> facebookusersnotaddedapp = new TreeMap<String, String>();
     private List<PublicSurveyFacebookFriendListitem> facebookuserswhoaddedapp = new ArrayList<PublicSurveyFacebookFriendListitem>();
     private AccountBalance accountBalance;
+    private String rndstr;
 
     public PublicSurveyList() {
         load();
@@ -50,6 +51,7 @@ public class PublicSurveyList implements Serializable {
 //        //Otherwise, get all open surveys
 //        } else {
 
+            rndstr = RandomString.randomAlphanumeric(5);
 
             FindSurveysForBlogger fsfb = null;
             if (Jsf.getUserSession().getIsloggedin() && Jsf.getUserSession().getUser()!=null && Jsf.getUserSession().getUser().getBloggerid()>0){
@@ -341,5 +343,13 @@ public class PublicSurveyList implements Serializable {
 
     public void setAccountBalance(AccountBalance accountBalance) {
         this.accountBalance = accountBalance;
+    }
+
+    public String getRndstr() {
+        return rndstr;
+    }
+
+    public void setRndstr(String rndstr) {
+        this.rndstr = rndstr;
     }
 }

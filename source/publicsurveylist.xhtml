@@ -17,7 +17,22 @@
     <ui:define name="body">
     <d:authorization acl="public" redirectonfail="true"/>
 
-
+    <c:if test="#{userSession.isfacebookui}">
+        <!--/*
+          *
+          *  If this tag is being served on a secure (SSL) page, you must replace
+          *  'http://www.trianads.com/adserver/www/delivery/.. .'
+          * with
+          *  'https://www.trianads.com/adserver/www/delivery/...'
+          *
+          *  To help prevent caching of this tracker beacon, if possible,
+          *  Replace %%RANDOM_NUMBER%% with a randomly generated number (or timestamp)
+          *
+          *  Place this code at the top of your post-add URL page, just after the <body> tag.
+          *
+          */-->
+        <div id='m3_tracker_4' style='position: absolute; left: 0px; top: 0px; visibility: hidden;'><img src=' http://www.trianads.com/adserver/www/delivery/ti.php?trackerid=4&amp;cb=#{publicSurveyList.rndstr}' width='0' height='0' alt='' /></div> 
+    </c:if>
 
 <h:form>
 
