@@ -28,13 +28,17 @@ public class ImpressionActivityObjectQueue implements Job {
             logger.debug("execute() ImpressionActivityObjectQueue called");
             try{
                 if (iaos!=null){
-                    for (Iterator it = iaos.iterator(); it.hasNext(); ) {
-                        ImpressionActivityObject iao = (ImpressionActivityObject)it.next();
-                        try{
-                            ImpressionActivityObjectStorage.store(iao);
-                            it.remove();
-                        } catch (Exception ex){
-                            logger.error(ex);
+                    synchronized(iaos){
+                        for (Iterator it = iaos.iterator(); it.hasNext(); ) {
+                            ImpressionActivityObject iao = (ImpressionActivityObject)it.next();
+                            try{
+                                ImpressionActivityObjectStorage.store(iao);
+                                synchronized(it){
+                                    it.remove();
+                                }
+                            } catch (Exception ex){
+                                logger.error(ex);
+                            }
                         }
                     }
                 }
@@ -51,10 +55,14 @@ public class ImpressionActivityObjectQueue implements Job {
         if (iaos==null){
             iaos = new ArrayList<ImpressionActivityObject>();
         }
-        iaos.add(iao);
+        synchronized(iaos){
+            iaos.add(iao);
+        }
     }
 
     public static ArrayList<ImpressionActivityObject> getIaos() {
-        return iaos;
+        synchronized(iaos){
+            return iaos;
+        }
     }
 }
