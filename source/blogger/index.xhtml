@@ -116,6 +116,21 @@
                                 <font class="smallfont">Make money taking surveys and posting your answers to your blog.</font>
                             </td></tr></table>
                         </div>
+                        <c:if test="#{!empty bloggerCompletedsurveys.listrecent}">
+                            <div class="rounded" style="padding: 15px; margin: 5px; background: #ffffff;">
+                                <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
+                                    <font class="mediumfont" style="color: #596697;">Payment Status for Recent Surveys:</font>
+                                </td></tr>
+                                <tr><td valign="top"></td><td valign="top">
+                                    <c:forEach var="completedsurvey" items="${bloggerCompletedsurveys.listrecent}">
+                                        <h:outputLink value="/survey.jsf?surveyid=#{completedsurvey.surveyid}" styleClass="normalfont" style="font-weight: bold; color: #0000ff;"><h:outputText>#{completedsurvey.surveytitle}</h:outputText></h:outputLink><br/>
+                                        <font class="smallfont">
+                                            <f:verbatim escape="false">#{completedsurvey.response.responsestatushtml}</f:verbatim>
+                                        </font><br/><br/>
+                                    </c:forEach>
+                                </td></tr></table>
+                            </div>
+                        </c:if>
                         <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
                             <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
                                 <h:commandLink value="Earn Money Inviting Friends" action="#{bloggerEarningsRevshare.beginView}" styleClass="mediumfont" style="color: #596697;"/>
@@ -301,6 +316,7 @@
                         Note: Earnings calculations are estimated and not final.   Final payment notification and calculation can be found on <h:commandLink  action="#{accountBalance.beginView}" styleClass="smallfont" style="padding-left: 8px;">Your Account Balance</h:commandLink> page. Posting and payment status both update nightly.
                         </font></div></center>
                     </t:div>
+
 
                 </td>
 

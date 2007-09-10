@@ -3,10 +3,9 @@ package com.dneero.formbeans;
 import com.dneero.dao.*;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.session.UserSession;
-import com.dneero.util.Jsf;
-import com.dneero.util.SortableList;
-import com.dneero.util.Str;
+import com.dneero.util.*;
 import com.dneero.money.BloggerIncomeCalculator;
+import com.dneero.scheduledjobs.UpdateResponsePoststatus;
 import org.apache.log4j.Logger;
 
 import javax.faces.context.FacesContext;
@@ -21,6 +20,7 @@ import java.io.Serializable;
 public class BloggerCompletedsurveys implements Serializable {
 
     private ArrayList<BloggerCompletedsurveysListitem> list;
+    private ArrayList<BloggerCompletedsurveysListitem> listrecent;
 
     public BloggerCompletedsurveys(){
 
@@ -35,6 +35,7 @@ public class BloggerCompletedsurveys implements Serializable {
         UserSession userSession = Jsf.getUserSession();
         if (userSession.getUser()!=null && userSession.getUser().getBloggerid()>0){
             list = new ArrayList();
+            listrecent = new ArrayList();
             //HibernateUtil.getSession().saveOrUpdate(Blogger.get(userSession.getUser().getBloggerid()));
             List<Response> responses = HibernateUtil.getSession().createQuery("from Response where bloggerid='"+userSession.getUser().getBloggerid()+"' order by responseid desc").setCacheable(true).list();
             for (Iterator<Response> iterator = responses.iterator(); iterator.hasNext();) {
@@ -53,6 +54,10 @@ public class BloggerCompletedsurveys implements Serializable {
                 listitem.setSurveytitle(survey.getTitle());
                 listitem.setResponse(response);
                 list.add(listitem);
+                int dayssinceresponse = DateDiff.dateDiff("day", Calendar.getInstance(), Time.getCalFromDate(listitem.getResponse().getResponsedate()));
+                if (dayssinceresponse<= UpdateResponsePoststatus.MAXPOSTINGPERIODINDAYS){
+                    listrecent.add(listitem);
+                }
             }
 
         }
@@ -96,5 +101,11 @@ public class BloggerCompletedsurveys implements Serializable {
     }
 
 
+    public ArrayList<BloggerCompletedsurveysListitem> getListrecent() {
+        return listrecent;
+    }
 
+    public void setListrecent(ArrayList<BloggerCompletedsurveysListitem> listrecent) {
+        this.listrecent = listrecent;
+    }
 }

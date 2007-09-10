@@ -30,7 +30,6 @@ public class AccountIndex implements Serializable {
     private String init;
     private String msg = "";
     private boolean isfirsttimelogin = false;
-    private ArrayList<BloggerCompletedsurveysListitem> completedsurveys;
 
     public AccountIndex(){
         Logger logger = Logger.getLogger(this.getClass().getName());
@@ -62,22 +61,6 @@ public class AccountIndex implements Serializable {
                                    .list();
             if (responsependings.size()>0){
                 userhasresponsependings = true;
-            }
-            //Load completed surveys
-            if (Jsf.getUserSession().getUser().getBloggerid()>0){
-                //Limit to last 10 surveys or only surveys in last 10 days
-                BloggerCompletedsurveys bcs = new BloggerCompletedsurveys();
-                bcs.beginView();
-                ArrayList<BloggerCompletedsurveysListitem> bcsl = bcs.getList();
-                completedsurveys = new ArrayList<BloggerCompletedsurveysListitem>();
-                for (int i = 0; i < bcsl.size(); i++) {
-                    BloggerCompletedsurveysListitem bloggerCompletedsurveysListitem = bcsl.get(i);
-                    int dayssinceresponse = DateDiff.dateDiff("day", Calendar.getInstance(), Time.getCalFromDate(bloggerCompletedsurveysListitem.getResponse().getResponsedate()));
-                    logger.debug("dayssinceresponse="+dayssinceresponse);
-                    if (dayssinceresponse<=UpdateResponsePoststatus.MAXPOSTINGPERIODINDAYS){
-                        completedsurveys.add(bloggerCompletedsurveysListitem);
-                    }
-                }            
             }
             //Load account balance
             AccountBalance bean = (AccountBalance)Jsf.getManagedBean("accountBalance");
@@ -133,11 +116,5 @@ public class AccountIndex implements Serializable {
         this.isfirsttimelogin = isfirsttimelogin;
     }
 
-    public ArrayList<BloggerCompletedsurveysListitem> getCompletedsurveys() {
-        return completedsurveys;
-    }
-
-    public void setCompletedsurveys(ArrayList<BloggerCompletedsurveysListitem> completedsurveys) {
-        this.completedsurveys = completedsurveys;
-    }
+ 
 }

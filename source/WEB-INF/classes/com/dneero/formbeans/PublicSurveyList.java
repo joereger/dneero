@@ -172,16 +172,7 @@ public class PublicSurveyList implements Serializable {
                     //Limit to last 10 surveys or only surveys in last 10 days
                     BloggerCompletedsurveys bcs = new BloggerCompletedsurveys();
                     bcs.beginView();
-                    ArrayList<BloggerCompletedsurveysListitem> bcsl = bcs.getList();
-                    completedsurveys = new ArrayList<BloggerCompletedsurveysListitem>();
-                    for (int i = 0; i < bcsl.size(); i++) {
-                        BloggerCompletedsurveysListitem bloggerCompletedsurveysListitem = bcsl.get(i);
-                        int dayssinceresponse = DateDiff.dateDiff("day", Calendar.getInstance(), Time.getCalFromDate(bloggerCompletedsurveysListitem.getResponse().getResponsedate()));
-                        logger.debug("dayssinceresponse="+dayssinceresponse);
-                        if (dayssinceresponse<= UpdateResponsePoststatus.MAXPOSTINGPERIODINDAYS){
-                            completedsurveys.add(bloggerCompletedsurveysListitem);
-                        }
-                    }
+                    completedsurveys = bcs.getList();
                 }
 
             }

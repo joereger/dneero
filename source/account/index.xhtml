@@ -133,12 +133,7 @@
                         </tr>
                     </table>
 
-                    <c:forEach var="completedsurvey" items="${accountIndex.completedsurveys}">
-                        <h:outputLink value="/survey.jsf?surveyid=#{completedsurvey.surveyid}" styleClass="normalfont" style="font-weight: bold; color: #0000ff;"><h:outputText>#{completedsurvey.surveytitle}</h:outputText></h:outputLink><br/>
-                        <font class="smallfont">
-                            <f:verbatim escape="false">#{completedsurvey.response.responsestatushtml}</f:verbatim>
-                        </font><br/><br/>
-                    </c:forEach>
+                    
                 </td>
             </tr>
         </table>
