@@ -23,9 +23,9 @@ import java.util.Date;
  */
 public class CharityCalculateAmountDonated implements Job {
 
-    Logger logger = Logger.getLogger(this.getClass().getName());
 
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
+        Logger logger = Logger.getLogger(this.getClass().getName());
         if (InstanceProperties.getRunScheduledTasksOnThisInstance()){
             logger.debug("execute() CharityCalculateAmountDonated called");
              List users = HibernateUtil.getSession().createQuery("from User").list();

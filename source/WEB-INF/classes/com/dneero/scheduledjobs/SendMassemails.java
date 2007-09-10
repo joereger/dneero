@@ -24,10 +24,11 @@ import java.util.Iterator;
 
 public class SendMassemails implements Job {
 
-    Logger logger = Logger.getLogger(this.getClass().getName());
+
     private static int NUMBERTOSENDTOEACHTIMESCHEDULERRUNS = 200;
 
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
+        Logger logger = Logger.getLogger(this.getClass().getName());
         if (InstanceProperties.getRunScheduledTasksOnThisInstance()){
             logger.debug("execute() SendMassemails called");
             try{

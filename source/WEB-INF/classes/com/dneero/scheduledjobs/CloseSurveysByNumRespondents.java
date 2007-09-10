@@ -20,9 +20,9 @@ import java.util.Iterator;
  */
 public class CloseSurveysByNumRespondents implements Job {
 
-    Logger logger = Logger.getLogger(this.getClass().getName());
 
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
+        Logger logger = Logger.getLogger(this.getClass().getName());
         if (InstanceProperties.getRunScheduledTasksOnThisInstance()){
             logger.debug("execute() CloseSurveysByNumRespondents called");
 

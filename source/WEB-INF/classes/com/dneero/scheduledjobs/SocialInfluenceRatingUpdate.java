@@ -25,9 +25,10 @@ import java.util.Calendar;
  */
 public class SocialInfluenceRatingUpdate implements Job {
 
-    Logger logger = Logger.getLogger(this.getClass().getName());
+
 
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
+        Logger logger = Logger.getLogger(this.getClass().getName());
         if (InstanceProperties.getRunScheduledTasksOnThisInstance()){
             logger.debug("execute() SocialInfluenceRatingUpdate called");
 

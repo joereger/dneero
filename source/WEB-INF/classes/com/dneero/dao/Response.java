@@ -31,6 +31,7 @@ public class Response extends BasePersistentClass implements java.io.Serializabl
      private String charityname;
      private int poststatus;
      private boolean ispaid;
+     private String responsestatushtml;
 
 
     //Validator
@@ -160,5 +161,14 @@ public class Response extends BasePersistentClass implements java.io.Serializabl
 
     public void setIspaid(boolean ispaid) {
         this.ispaid = ispaid;
+    }
+
+
+    public String getResponsestatushtml() {
+        return responsestatushtml;
+    }
+
+    public void setResponsestatushtml(String responsestatushtml) {
+        this.responsestatushtml = responsestatushtml;
     }
 }

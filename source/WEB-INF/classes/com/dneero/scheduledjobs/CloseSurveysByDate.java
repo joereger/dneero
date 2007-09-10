@@ -22,9 +22,9 @@ import java.util.Iterator;
  */
 public class CloseSurveysByDate implements Job {
 
-    Logger logger = Logger.getLogger(this.getClass().getName());
 
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
+        Logger logger = Logger.getLogger(this.getClass().getName());
         if (InstanceProperties.getRunScheduledTasksOnThisInstance()){
             logger.debug("execute() CloseSurveysByDate called");
             List<Survey> surveys = HibernateUtil.getSession().createCriteria(Survey.class)

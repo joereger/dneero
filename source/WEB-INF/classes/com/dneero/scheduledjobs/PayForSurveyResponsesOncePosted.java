@@ -25,9 +25,10 @@ import java.util.Date;
  */
 public class PayForSurveyResponsesOncePosted implements Job {
 
-    Logger logger = Logger.getLogger(this.getClass().getName());
+ 
 
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
+        Logger logger = Logger.getLogger(this.getClass().getName());
         if (InstanceProperties.getRunScheduledTasksOnThisInstance()){
             logger.debug("execute() CloseSurveysByDate called");
             List<Response> responses = HibernateUtil.getSession().createCriteria(Response.class)
@@ -51,6 +52,7 @@ public class PayForSurveyResponsesOncePosted implements Job {
                     //@todo Notify user via email that they've been paid... thank them for their effort
                 } catch (Exception ex){
                     logger.error(ex);
+                    ex.printStackTrace();
                 }
             }
 

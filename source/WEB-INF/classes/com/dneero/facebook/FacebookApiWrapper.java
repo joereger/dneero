@@ -76,7 +76,7 @@ public class FacebookApiWrapper {
                 SurveyEnhancer surveyEnhancer = new SurveyEnhancer(survey);
                 String forcharity =  "";
                 if (response.getIsforcharity()){
-                    forcharity = " for charity";
+                    forcharity = " for charity ("+response.getCharityname()+")";
                 }
                 FacebookRestClient facebookRestClient = new FacebookRestClient(SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_KEY), SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_SECRET), facebookSessionKey);
                 facebookRestClient.feed_publishActionOfUser("took the survey <a href=\"http://apps.facebook.com/"+SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_APP_NAME)+"/?action=showsurvey"+"-"+survey.getSurveyid()+"-"+Blogger.get(response.getBloggerid()).getUserid()+"\">"+survey.getTitle()+"</a> and earned "+surveyEnhancer.getWillingtopayforresponse()+forcharity, "");

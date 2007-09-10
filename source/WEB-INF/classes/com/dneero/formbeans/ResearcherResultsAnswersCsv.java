@@ -53,7 +53,7 @@ public class ResearcherResultsAnswersCsv implements Serializable {
                     //Choose how many cols this will have... later on this will get more complex and i'll have to call each component to get the sizing
                     String[] row = new String[survey.getQuestions().size() + 2];
                     //Start out with the basic info for each response
-                    row[0]= User.get(Blogger.get(response.getBloggerid()).getUserid()).getFirstname() + " " + User.get(Blogger.get(response.getBloggerid()).getUserid()).getFirstname();
+                    row[0]= User.get(Blogger.get(response.getBloggerid()).getUserid()).getFirstname() + " " + User.get(Blogger.get(response.getBloggerid()).getUserid()).getLastname();
                     row[1]= Time.dateformatcompactwithtime(Time.getCalFromDate(response.getResponsedate()));
                     for (Iterator<Question> iterator1 = survey.getQuestions().iterator(); iterator1.hasNext();) {
                         Question question = iterator1.next();

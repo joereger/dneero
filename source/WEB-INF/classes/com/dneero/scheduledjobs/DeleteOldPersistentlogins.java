@@ -26,9 +26,10 @@ import java.util.Calendar;
  */
 public class DeleteOldPersistentlogins implements Job {
 
-    Logger logger = Logger.getLogger(this.getClass().getName());
+
 
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
+        Logger logger = Logger.getLogger(this.getClass().getName());
         if (InstanceProperties.getRunScheduledTasksOnThisInstance()){
             logger.debug("execute() DeleteOldPersistentlogins called");
 

@@ -14,6 +14,7 @@ import com.dneero.money.SurveyMoneyStatus;
 import com.dneero.xmpp.SendXMPPMessage;
 import com.dneero.session.SurveysTakenToday;
 import com.dneero.facebook.FacebookApiWrapper;
+import com.dneero.scheduledjobs.UpdateResponsePoststatus;
 
 import java.util.List;
 import java.util.Iterator;
@@ -204,6 +205,7 @@ public class BloggerIndex implements Serializable {
             response.setCharityname(charityname);
             response.setPoststatus(Response.POSTATUS_NOTPOSTED);
             response.setIspaid(false);
+            response.setResponsestatushtml("");
             //survey.getResponses().add(response);
             try{
                 response.save();
@@ -223,6 +225,9 @@ public class BloggerIndex implements Serializable {
             }
             //Refresh blogger
             try{blogger.save();} catch (Exception ex){logger.error(ex);};
+            
+            //Process the statusHtml for the response
+            try{UpdateResponsePoststatus.processSingleResponse(response);} catch (Exception ex){logger.error(ex);};
 
             //Update Facebook
             FacebookApiWrapper facebookApiWrapper = new FacebookApiWrapper(Jsf.getUserSession());

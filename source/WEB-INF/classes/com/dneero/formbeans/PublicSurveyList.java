@@ -11,6 +11,7 @@ import com.dneero.facebook.FacebookApiWrapper;
 import com.dneero.facebook.FacebookSurveyThatsBeenTaken;
 import com.dneero.facebook.FacebookUser;
 import com.dneero.helpers.UserInputSafe;
+import com.dneero.scheduledjobs.UpdateResponsePoststatus;
 import org.apache.log4j.Logger;
 
 import java.util.*;
@@ -30,6 +31,7 @@ public class PublicSurveyList implements Serializable {
     private List<PublicSurveyFacebookFriendListitem> facebookuserswhoaddedapp = new ArrayList<PublicSurveyFacebookFriendListitem>();
     private AccountBalance accountBalance;
     private String rndstr;
+    private ArrayList<BloggerCompletedsurveysListitem> completedsurveys;
 
     public PublicSurveyList() {
         load();
@@ -165,6 +167,22 @@ public class PublicSurveyList implements Serializable {
                 AccountBalance accountBalance = new AccountBalance();
                 accountBalance.beginView();
                 this.accountBalance = accountBalance;
+                //Completedsurveys
+                if (Jsf.getUserSession().getUser().getBloggerid()>0){
+                    //Limit to last 10 surveys or only surveys in last 10 days
+                    BloggerCompletedsurveys bcs = new BloggerCompletedsurveys();
+                    bcs.beginView();
+                    ArrayList<BloggerCompletedsurveysListitem> bcsl = bcs.getList();
+                    completedsurveys = new ArrayList<BloggerCompletedsurveysListitem>();
+                    for (int i = 0; i < bcsl.size(); i++) {
+                        BloggerCompletedsurveysListitem bloggerCompletedsurveysListitem = bcsl.get(i);
+                        int dayssinceresponse = DateDiff.dateDiff("day", Calendar.getInstance(), Time.getCalFromDate(bloggerCompletedsurveysListitem.getResponse().getResponsedate()));
+                        logger.debug("dayssinceresponse="+dayssinceresponse);
+                        if (dayssinceresponse<= UpdateResponsePoststatus.MAXPOSTINGPERIODINDAYS){
+                            completedsurveys.add(bloggerCompletedsurveysListitem);
+                        }
+                    }
+                }
 
             }
 
@@ -351,5 +369,13 @@ public class PublicSurveyList implements Serializable {
 
     public void setRndstr(String rndstr) {
         this.rndstr = rndstr;
+    }
+
+    public ArrayList<BloggerCompletedsurveysListitem> getCompletedsurveys() {
+        return completedsurveys;
+    }
+
+    public void setCompletedsurveys(ArrayList<BloggerCompletedsurveysListitem> completedsurveys) {
+        this.completedsurveys = completedsurveys;
     }
 }

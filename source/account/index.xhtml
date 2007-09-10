@@ -20,7 +20,7 @@
        <t:div rendered="#{accountIndex.isfirsttimelogin}">
             <div class="rounded" style="padding: 15px; margin: 5px; background: #F2FFBF;">
                 <font class="mediumfont">
-                    Welcome to dNeero!  Choose Blogger to take surveys and get paid.  Choose Researcher to create surveys for bloggers.
+                    Welcome to dNeero!
                 </font>
             </div>
        </t:div>
@@ -132,6 +132,13 @@
                             </td>
                         </tr>
                     </table>
+
+                    <c:forEach var="completedsurvey" items="${accountIndex.completedsurveys}">
+                        <h:outputLink value="/survey.jsf?surveyid=#{completedsurvey.surveyid}" styleClass="normalfont" style="font-weight: bold; color: #0000ff;"><h:outputText>#{completedsurvey.surveytitle}</h:outputText></h:outputLink><br/>
+                        <font class="smallfont">
+                            <f:verbatim escape="false">#{completedsurvey.response.responsestatushtml}</f:verbatim>
+                        </font><br/><br/>
+                    </c:forEach>
                 </td>
             </tr>
         </table>

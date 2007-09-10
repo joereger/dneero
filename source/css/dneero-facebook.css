@@ -78,6 +78,10 @@ hr {
     border-width: 0px 0px 1px 0px;
 }
 
+.surveystatusbar{
+	border: 1px solid #666666; width: 10px; height: 25px;
+}
+
 .homepageGrid td {
     vertical-align: top;
 }

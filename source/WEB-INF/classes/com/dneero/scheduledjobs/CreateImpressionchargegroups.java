@@ -22,9 +22,9 @@ import java.util.Date;
  */
 public class CreateImpressionchargegroups implements Job {
 
-    Logger logger = Logger.getLogger(this.getClass().getName());
 
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
+        Logger logger = Logger.getLogger(this.getClass().getName());
         if (InstanceProperties.getRunScheduledTasksOnThisInstance()){
             logger.debug("execute() CreateImpressionchargegroups called +++++++++++++++++++++");
 

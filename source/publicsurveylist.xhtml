@@ -107,6 +107,18 @@
                             </div>
                             <br/><br/>
                         </c:if>
+
+
+                        <c:if test="#{!empty publicSurveyList.completedsurveys}"> 
+                            <font class="mediumfont">Surveys You've Taken:</font><br/>
+                            <c:forEach var="completedsurvey" items="${publicSurveyList.completedsurveys}">
+                                <h:outputLink value="/survey.jsf?surveyid=#{completedsurvey.surveyid}" styleClass="normalfont" style="font-weight: bold; color: #0000ff;"><h:outputText>#{completedsurvey.surveytitle}</h:outputText></h:outputLink><br/>
+                                <font class="smallfont">
+                                    <f:verbatim escape="false">#{completedsurvey.response.responsestatushtml}</f:verbatim>
+                                </font><br/><br/>
+                            </c:forEach>
+                        </c:if>
+
                         <font class="mediumfont">Surveys Friends Have Taken:</font><br/>
                         <c:if test="${empty publicSurveyList.facebookSurveyThatsBeenTakens}">
                             <font class="tinyfont">Your friends haven't taken any surveys yet.</font>

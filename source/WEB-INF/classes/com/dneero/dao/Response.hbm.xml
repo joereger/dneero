@@ -34,6 +34,9 @@
         <property name="ispaid" type="boolean">
             <column name="ispaid" />
         </property>
+        <property name="responsestatushtml" type="text">
+            <column name="responsestatushtml" not-null="true" />
+        </property>
 
     </class>
 </hibernate-mapping>

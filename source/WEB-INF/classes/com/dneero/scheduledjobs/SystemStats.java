@@ -21,7 +21,7 @@ import java.util.*;
  */
 public class SystemStats implements Job {
 
-    Logger logger = Logger.getLogger(this.getClass().getName());
+
 
     //BE SURE TO SYNC CODE HERE WITH MAIN SystemStats in formbeans (which jsf uses)
     private static int totalbloggers=0;
@@ -38,6 +38,7 @@ public class SystemStats implements Job {
 
 
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
+        Logger logger = Logger.getLogger(this.getClass().getName());
         //if (InstanceProperties.getRunScheduledTasksOnThisInstance()){
             logger.debug("execute() SystemStats called");
 

@@ -22,7 +22,7 @@ import java.util.Iterator;
  */
 public class ResearcherRemainingBalanceOperations implements Job {
 
-    Logger logger = Logger.getLogger(this.getClass().getName());
+
 
     public static double MINAVAILABLEBALANCEBEFORECLOSINGSURVEYS = 5;
     public static double MINPERCENTOFTOTALVALUEAVAILASBALANCE = 10;
@@ -32,6 +32,7 @@ public class ResearcherRemainingBalanceOperations implements Job {
 
 
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
+        Logger logger = Logger.getLogger(this.getClass().getName());
         if (InstanceProperties.getRunScheduledTasksOnThisInstance()){
             logger.debug("execute() ResearcherRemainingBalanceOperations called");
             String rschStr = "";
