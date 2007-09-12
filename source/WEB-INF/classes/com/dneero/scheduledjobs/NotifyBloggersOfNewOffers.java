@@ -10,6 +10,7 @@ import com.dneero.finders.FindSurveysForBlogger;
 import com.dneero.email.EmailTemplateProcessor;
 import com.dneero.systemprops.InstanceProperties;
 import com.dneero.systemprops.BaseUrl;
+import com.dneero.systemprops.SystemProperty;
 import com.dneero.ui.SurveyEnhancer;
 import com.dneero.util.Str;
 import com.dneero.util.Time;
@@ -72,6 +73,9 @@ public class NotifyBloggersOfNewOffers implements Job {
                             SurveyEnhancer surveyEnhancer = new SurveyEnhancer(survey);
                             possibleearnings = possibleearnings + surveyEnhancer.getMaxearningDbl();
                             String url = BaseUrl.get(false) + "survey.jsf?surveyid="+survey.getSurveyid();
+                            if (user.getFacebookuserid()>0){
+                                url = "http://apps.facebook.com/"+ SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_APP_NAME)+"/";   
+                            }
                             //Html
                             listofsurveysHtml.append("<br><br><a href='"+url+"'>" + survey.getTitle() + " (Earn up to: " + surveyEnhancer.getMaxearning() + ")</a>");
                             if (!survey.getDescription().equals("")){

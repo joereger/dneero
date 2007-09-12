@@ -172,7 +172,7 @@ public class PublicSurveyTake implements Serializable {
         }
 
         //Record the impression if we have enough info for it
-        if (userid>0 && surveyid>0 && (Jsf.getRequestParam("p")==null || Jsf.getRequestParam("p").equals("1"))){
+        if (userid>0 && surveyid>0 && (Jsf.getRequestParam("p")==null || Jsf.getRequestParam("p").equals("0"))){
             RecordImpression.record(Jsf.getHttpServletRequest());
         }
 
