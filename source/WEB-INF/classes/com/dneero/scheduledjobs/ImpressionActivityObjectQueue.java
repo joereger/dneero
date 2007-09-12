@@ -61,8 +61,11 @@ public class ImpressionActivityObjectQueue implements Job {
     }
 
     public static ArrayList<ImpressionActivityObject> getIaos() {
-        synchronized(iaos){
-            return iaos;
+        if(iaos!=null){
+            synchronized(iaos){
+                return iaos;
+            }
         }
+        return null;
     }
 }

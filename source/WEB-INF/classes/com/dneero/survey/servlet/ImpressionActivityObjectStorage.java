@@ -142,7 +142,7 @@ public class ImpressionActivityObjectStorage {
             } else {
                 impression.setImpressionsqualifyingforpayment(0);
             }
-            impression.setImpressionstotal(0);
+            impression.setImpressionstotal(1);
             impression.setReferer(iao.getReferer());
         }
         //logger.debug("about to call impression.save()");

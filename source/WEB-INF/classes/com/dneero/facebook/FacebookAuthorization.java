@@ -1,6 +1,7 @@
 package com.dneero.facebook;
 
 import com.dneero.util.Jsf;
+import com.dneero.util.Num;
 import com.dneero.dao.User;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.xmpp.SendXMPPMessage;
@@ -8,6 +9,7 @@ import com.dneero.session.SurveysTakenToday;
 import com.dneero.session.UrlSplitter;
 import com.dneero.systemprops.SystemProperty;
 import com.dneero.formbeans.PublicFacebookLandingPage;
+import com.dneero.survey.servlet.RecordImpression;
 import com.facebook.api.FacebookRestClient;
 import com.facebook.api.FacebookException;
 import org.apache.log4j.Logger;
@@ -33,6 +35,20 @@ public class FacebookAuthorization {
         Logger logger = Logger.getLogger(FacebookAuthorization.class);
         logger.debug("starting FacebookAuthorization and isfacebookui="+Jsf.getUserSession().getIsfacebookui());
         try{
+
+            //Set referred by userid
+            try{
+                if (Jsf.getRequestParam("action")!=null && Jsf.getRequestParam("action").indexOf("showsurvey")>-1){
+                    String[] split = Jsf.getRequestParam("action").split("-");
+                    if (split.length>=3){
+                        //Set the referredbyuserid value in the session
+                        if (split[2]!=null && Num.isinteger(split[2])){
+                            Jsf.getUserSession().setReferredbyOnlyUsedForSignup(Integer.parseInt(split[2]));
+                        }
+                    }
+                }
+            } catch (Exception ex) {logger.error(ex);}
+
             //Determine whether this is a facebook request
             //Facebook sends this any time it puts the app inside an iFrame
             if (Jsf.getRequestParam("fb_sig_api_key")!=null && !Jsf.getRequestParam("fb_sig_api_key").equals("")){
@@ -40,6 +56,12 @@ public class FacebookAuthorization {
                 Jsf.getUserSession().setIsfacebookui(true);
                 logger.debug("setting isfacebookui=true");
                 try{
+                    //See if the app is added... this url check can be overridden below
+//                    if (Jsf.getRequestParam("fb_sig_added")!=null && !Jsf.getRequestParam("fb_sig_added").equals("")){
+//                        if (Jsf.getRequestParam("fb_sig_added").trim().equals("1")){
+//                            Jsf.getUserSession().setIsfacebookappadded(true);
+//                        }
+//                    }
                     //Need to establish a facebook session
                     String facebookSessionKey = "";
                     //Check local dNeero session
@@ -52,7 +74,7 @@ public class FacebookAuthorization {
                     //I only want to run the auth stuff when I see a new Facebook session key...
                     //i.e. one that's not null, not empty and is different than the one that's in userSession.
                     //Facebook only sends the fb_sig_session_key after the user has added the app
-                    if (fb_sig_session_key!=null && !fb_sig_session_key.trim().equals("") && !fb_sig_session_key.trim().equals(Jsf.getUserSession().getFacebookSessionKey().trim())){
+                    if (fb_sig_session_key!=null && !fb_sig_session_key.trim().equals("") && !fb_sig_session_key.trim().equals(Jsf.getUserSession().getFacebookSessionKey().trim()) || (Jsf.getRequestParam("fb_sig_added").trim().equals("1") && !Jsf.getUserSession().getIsfacebookui())){
                         //Just verify again... this check was in before some restructuring
                         if (fb_sig_session_key!=null && !fb_sig_session_key.trim().equals("")){
                             facebookSessionKey = fb_sig_session_key;
@@ -73,6 +95,10 @@ public class FacebookAuthorization {
                             //Notify via XMPP
                             SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_DEBUG, "Redirecting "+ facebookUser.getFirst_name() + " " + facebookUser.getLast_name() + " to add app page. " + "(facebook.uid="+facebookUser.getUid()+")");
                             xmpp.send();
+                            //Need to record impressions if we're gonna send them away
+                            if (Jsf.getRequestParam("action")!=null && Jsf.getRequestParam("action").indexOf("showsurvey")>-1){
+                                RecordImpression.record(Jsf.getHttpServletRequest());
+                            }
                             Jsf.redirectResponse("http://www.facebook.com/add.php?api_key="+ SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_KEY));
                             return;
                         }
@@ -125,9 +151,14 @@ public class FacebookAuthorization {
         if (Jsf.getUserSession().getIsfacebookui() && !Jsf.getUserSession().getIsfacebookappadded()){
             //UrlSplitter urlSplitter = new UrlSplitter(Jsf.getHttpServletRequest());
             //If the showsurvey var isn't set in the incoming request, make them add it... this is currently the only exception
-            if (Jsf.getRequestParam("permitbeforefacebookappadd")==null || !Jsf.getRequestParam("permitbeforefacebookappadd").equals("1")){
+            if (Jsf.getRequestParam("stoplooping")==null || !Jsf.getRequestParam("stoplooping").equals("1")){
+
+                //Need to record impressions if we're gonna send them away
+                if (Jsf.getRequestParam("action")!=null && Jsf.getRequestParam("action").indexOf("showsurvey")>-1){
+                    RecordImpression.record(Jsf.getHttpServletRequest());
+                }
                 logger.debug("redirecting to facebook add app page");
-                try{Jsf.redirectResponse("/facebooklandingpage.jsf?permitbeforefacebookappadd=1");return;}catch(Exception ex){logger.error(ex);}
+                try{Jsf.redirectResponse("/facebooklandingpage.jsf?stoplooping=1&action="+Jsf.getRequestParam("action"));return;}catch(Exception ex){logger.error(ex);}
                 //PublicFacebookLandingPage pfblp = new PublicFacebookLandingPage();
                 //try{Jsf.redirectResponse(pfblp.getAddurl());return;}catch(Exception ex){logger.error(ex);}
             }

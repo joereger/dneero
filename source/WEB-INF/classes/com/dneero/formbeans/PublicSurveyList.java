@@ -168,7 +168,7 @@ public class PublicSurveyList implements Serializable {
                 accountBalance.beginView();
                 this.accountBalance = accountBalance;
                 //Completedsurveys
-                if (Jsf.getUserSession().getUser().getBloggerid()>0){
+                if (Jsf.getUserSession().getUser()!=null && Jsf.getUserSession().getUser().getBloggerid()>0){
                     //Limit to last 10 surveys or only surveys in last 10 days
                     BloggerCompletedsurveys bcs = new BloggerCompletedsurveys();
                     bcs.beginView();

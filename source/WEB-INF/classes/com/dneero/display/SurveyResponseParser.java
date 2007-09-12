@@ -29,11 +29,16 @@ public class SurveyResponseParser {
         while (enumer.hasMoreElements()) {
             String name = (String)enumer.nextElement();
             String[] values = request.getParameterValues(name);
+            //If this is a dneero param
             if (name.indexOf(DNEERO_REQUEST_PARAM_IDENTIFIER)>-1){
-                //logger.debug("adding: " + name);
-                nameValuePairs.put(name, values);
-            } else {
-                //logger.debug("not adding: " + name);   
+                //Trim all values and hold in valuesTmp
+                String[] valuesTmp = new String[values.length];
+                for (int i = 0; i < values.length; i++) {
+                    String s = values[i];
+                    valuesTmp[i] = s.trim();
+                }
+                //Put valuesTmp into the nameValuePairs
+                nameValuePairs.put(name, valuesTmp);
             }
         }
     }
@@ -49,7 +54,7 @@ public class SurveyResponseParser {
                     String value = java.net.URLDecoder.decode(split[i].split("=")[1], "UTF-8").trim();
                     if (nameValuePairs.containsKey(name)){
                         String[] currentvalue = (String[])nameValuePairs.get(name);
-                        nameValuePairs.put(name, Util.addToStringArray(currentvalue, value));
+                        nameValuePairs.put(name, Util.addToStringArray(currentvalue, value.trim()));
                     } else {
                         nameValuePairs.put(name, new String[]{value});
                     }
@@ -105,7 +110,14 @@ public class SurveyResponseParser {
             String name = (String)mapentry.getKey();
             String[] values = (String[])mapentry.getValue();
             if (name.indexOf("questionid_"+questionid)>-1){
-                out = Util.appendToEndOfStringArray(out, values);
+                //Trim all values and hold in valuesTmp
+                String[] valuesTmp = new String[values.length];
+                for (int j = 0; j < values.length; j++) {
+                    String s = values[j];
+                    valuesTmp[j] = s.trim();
+                }
+                //Add valuesTmp
+                out = Util.appendToEndOfStringArray(out, valuesTmp);
             }
         }
         return out;

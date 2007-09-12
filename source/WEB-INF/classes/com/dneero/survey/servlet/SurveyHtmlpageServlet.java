@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.ServletException;
 import java.io.IOException;
 
+import com.dneero.session.UrlSplitter;
+
 /**
  * User: Joe Reger Jr
  * Date: Jun 19, 2006
@@ -22,8 +24,9 @@ public class SurveyHtmlpageServlet extends HttpServlet {
 
     public void doPost (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Logger logger = Logger.getLogger(this.getClass().getName());
-        logger.error("SurveyHtmlpageServlet called.  It shouldn't be.");
-        response.sendRedirect("/survey.jsf?s="+request.getParameter("s")+"&u="+request.getParameter("u")+"&p="+request.getParameter("p")+"&permitbeforefacebookappadd=1");
+        UrlSplitter urlSplitter = new UrlSplitter(request);
+        logger.error("SurveyHtmlpageServlet called.  It shouldn't be. url="+urlSplitter.getRequestUrl()+"?"+urlSplitter.getQuerystring()+" referer="+request.getHeader("referer"));
+        response.sendRedirect("/survey.jsf?s="+request.getParameter("s")+"&u="+request.getParameter("u")+"&p="+request.getParameter("p"));
         return;
 //        logger.debug("Looking for html page survey via servlet");
 //        logger.debug("request.getParameter(\"s\")="+request.getParameter("s"));
@@ -92,7 +95,7 @@ public class SurveyHtmlpageServlet extends HttpServlet {
         }
 
         //String urlofsurvey = baseurl+"shtml?s="+surveyid+"&u="+userid+"&p="+ispreviewStr;
-        String urlofsurvey = baseurl+"survey.jsf?s="+surveyid+"&u="+userid+"&p="+ispreviewStr+"&r="+responseid+"+&permitbeforefacebookappadd=1";
+        String urlofsurvey = baseurl+"survey.jsf?s="+surveyid+"&u="+userid+"&p="+ispreviewStr+"&r="+responseid;
         return urlofsurvey;
     }
 

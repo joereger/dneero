@@ -193,8 +193,8 @@ public class Checkboxes implements Component {
         for (Iterator it = questionresponses.iterator(); it.hasNext(); ) {
             Questionresponse questionresponse = (Questionresponse)it.next();
             if (questionresponse.getName().equals("response")){
-                if (answers.containsKey(questionresponse.getValue())){
-                    int currcount = (Integer)answers.get(questionresponse.getValue());
+                if (answers.containsKey(questionresponse.getValue().trim())){
+                    int currcount = (Integer)answers.get(questionresponse.getValue().trim());
                     answers.put(questionresponse.getValue(), currcount+1);
                 } else {
                     answers.put(questionresponse.getValue(), 1);
@@ -234,7 +234,7 @@ public class Checkboxes implements Component {
 
         out.append("<tr>");
         out.append("<td valign=\"top\" align=\"right\" bgcolor=\"#ffffff\" colspan=\"3\">");
-        out.append("<b>Total</b>");
+        out.append("<b>Total Respondents</b>");
         out.append("</td>");
         out.append("<td valign=\"top\" bgcolor=\"#e6e6e6\">");
         out.append(questionresponses.size());

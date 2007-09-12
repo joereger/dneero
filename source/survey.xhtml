@@ -176,7 +176,7 @@
                                 <td valign="top" align="left">
                                     <c:if test="#{publicSurveyTake.loggedinuserhasalreadytakensurvey}">
                                         <font class="mediumfont">You've Taken This Survey:</font><br/>
-                                        <h:outputLink value="/survey.jsf?surveyid=#{publicSurveyTake.survey.surveyid}&amp;userid=#{userSession.user.userid}&amp;permitbeforefacebookappadd=1&amp;show=showSurveyResponseFlashEmbed" styleClass="tinyfont" style="color: #0000ff;"><h:outputText>Your Answers</h:outputText></h:outputLink><br/><br/>
+                                        <h:outputLink value="/survey.jsf?surveyid=#{publicSurveyTake.survey.surveyid}&amp;userid=#{userSession.user.userid}&amp;show=showSurveyResponseFlashEmbed" styleClass="tinyfont" style="color: #0000ff;"><h:outputText>Your Answers</h:outputText></h:outputLink><br/><br/>
                                         <br/><br/>
                                     </c:if>
                                     <t:div rendered="#{!empty publicSurveyTake.userwhotooksurvey and publicSurveyTake.surveytakergavetocharity and (publicSurveyTake.showSurveyResponseFlashEmbed) and (publicSurveyTake.userwhotooksurvey.userid>0)}">
@@ -202,7 +202,7 @@
                                     </c:if>
                                     <c:forEach var="fbuser" items="${publicSurveyTake.facebookuserswhotooksurvey}">
                                         <img src="/images/user-16.png" width="16" height="16" border="0" align="middle" alt=""/>
-                                        <h:outputLink value="/survey.jsf?surveyid=#{publicSurveyTake.survey.surveyid}&amp;userid=#{fbuser.userid}&amp;responseid=#{fbuser.responseid}&amp;permitbeforefacebookappadd=1&amp;show=showSurveyResponseFlashEmbed" styleClass="tinyfont" style="color: #0000ff;"><h:outputText>#{fbuser.facebookUser.first_name} #{fbuser.facebookUser.last_name}</h:outputText></h:outputLink><br/>
+                                        <h:outputLink value="/survey.jsf?surveyid=#{publicSurveyTake.survey.surveyid}&amp;userid=#{fbuser.userid}&amp;responseid=#{fbuser.responseid}&amp;show=showSurveyResponseFlashEmbed" styleClass="tinyfont" style="color: #0000ff;"><h:outputText>#{fbuser.facebookUser.first_name} #{fbuser.facebookUser.last_name}</h:outputText></h:outputLink><br/>
                                     </c:forEach>
                                     <br/><br/>
                                     <font class="mediumfont">Tell Friends Who Haven't Taken It:</font><br/>
@@ -1184,7 +1184,7 @@
                                 <f:facet name="header">
                                   <h:outputText value="Answers"/>
                                 </f:facet>
-                                <h:outputLink value="/survey.jsf?u=#{respondent.user.userid}&amp;s=#{respondent.response.surveyid}&amp;p=0&amp;r=#{respondent.response.responseid}&amp;permitbeforefacebookappadd=1">
+                                <h:outputLink value="/survey.jsf?u=#{respondent.user.userid}&amp;s=#{respondent.response.surveyid}&amp;p=0&amp;r=#{respondent.response.responseid}">
                                     <h:outputText value="Answers" styleClass="tinyfont" style="font-weight: bold;"/>
                                 </h:outputLink>
                               </h:column>

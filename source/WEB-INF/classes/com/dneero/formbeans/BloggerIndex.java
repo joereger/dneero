@@ -151,7 +151,7 @@ public class BloggerIndex implements Serializable {
         //Make sure blogger hasn't taken already
         List<Response> responses = HibernateUtil.getSession().createCriteria(Response.class)
                                            .add(Restrictions.eq("bloggerid", blogger.getBloggerid()))
-                                           .setCacheable(true)
+                                           .setCacheable(false)
                                            .list();
         for (Iterator<Response> iterator = responses.iterator(); iterator.hasNext();) {
             Response response = iterator.next();

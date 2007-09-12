@@ -55,7 +55,8 @@ public class BloggerCompletedsurveys implements Serializable {
                 listitem.setResponse(response);
                 list.add(listitem);
                 int dayssinceresponse = DateDiff.dateDiff("day", Calendar.getInstance(), Time.getCalFromDate(listitem.getResponse().getResponsedate()));
-                if (dayssinceresponse<= UpdateResponsePoststatus.MAXPOSTINGPERIODINDAYS){
+                //Keep it listed for five days after it's paid
+                if (dayssinceresponse<=(UpdateResponsePoststatus.MAXPOSTINGPERIODINDAYS+5)){
                     listrecent.add(listitem);
                 }
             }

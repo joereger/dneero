@@ -1,18 +1,10 @@
 package com.dneero.survey.servlet;
 
-import com.dneero.dao.Survey;
-import com.dneero.dao.User;
-import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.scheduledjobs.ImpressionActivityObjectQueue;
 import com.dneero.util.Num;
-
 import javax.servlet.http.HttpServletRequest;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Date;
-
 import org.apache.log4j.Logger;
-import org.hibernate.criterion.Restrictions;
 
 /**
  * User: Joe Reger Jr
@@ -64,6 +56,22 @@ public class RecordImpression {
             responseid = Integer.parseInt(request.getParameter("responseid"));
         }
         logger.debug("responseid=" + responseid);
+
+        //Facebook clicks
+        if (request.getParameter("action")!=null && request.getParameter("action").indexOf("showsurvey")>-1){
+            String[] split = request.getParameter("action").split("-");
+            if (split.length>=3){
+                if (split[1]!=null && Num.isinteger(split[1])){
+                    surveyid = Integer.parseInt(split[1]);
+                }
+                if (split[2]!=null && Num.isinteger(split[2])){
+                    userid = Integer.parseInt(split[2]);
+                }
+            }
+        }
+
+        //Debug
+        logger.debug("record() called: userid="+userid+" surveyid="+surveyid+" responseid="+responseid+" referer="+referer);
 
         //Create an IAO
         ImpressionActivityObject iao = new ImpressionActivityObject();

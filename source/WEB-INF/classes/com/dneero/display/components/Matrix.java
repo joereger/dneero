@@ -286,8 +286,8 @@ public class Matrix implements Component {
             Questionresponse questionresponse = (Questionresponse)it.next();
             if (questionresponse.getName().equals("response")){
                 //Answer
-                if (answers.containsKey(questionresponse.getValue())){
-                    int currcount = (Integer)answers.get(questionresponse.getValue());
+               if (answers.containsKey(questionresponse.getValue().trim())){
+                    int currcount = (Integer)answers.get(questionresponse.getValue().trim());
                     answers.put(questionresponse.getValue(), currcount+1);
                 } else {
                     answers.put(questionresponse.getValue(), 1);

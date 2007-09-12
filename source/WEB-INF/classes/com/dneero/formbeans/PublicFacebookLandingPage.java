@@ -6,6 +6,7 @@ import com.dneero.systemprops.SystemProperty;
 import com.dneero.xmpp.SendXMPPMessage;
 
 import java.io.Serializable;
+import java.net.URLEncoder;
 
 import org.apache.log4j.Logger;
 
@@ -51,7 +52,15 @@ public class PublicFacebookLandingPage implements Serializable {
                         xmpp.send();
                     }
                 }
-                try{Jsf.redirectResponse("/survey.jsf?s="+split[1]+"&u="+split[2]+"&p=0&permitbeforefacebookappadd=1&show=showSurveyResponseFlashEmbed");return;}catch(Exception ex){logger.error(ex);}
+                //If the user has the app added, redirect to the survey
+                if (Jsf.getUserSession().getIsfacebookui() && Jsf.getUserSession().getIsfacebookappadded()){
+                    try{Jsf.redirectResponse("/survey.jsf?s="+split[1]+"&u="+split[2]+"&p=0&show=showSurveyResponseFlashEmbed");return;}catch(Exception ex){logger.error(ex);}
+                }
+                //If we see this code we may be displaying the app add page which means we'll need a link
+                try{
+                    String next = URLEncoder.encode("?action=showsurvey"+"-"+split[1]+"-"+split[2], "UTF-8");
+                    addurl = "http://www.facebook.com/add.php?api_key="+ SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_KEY) + "&next="+next;
+                } catch(Exception ex){logger.error(ex);}
             }
         }
 
@@ -62,27 +71,28 @@ public class PublicFacebookLandingPage implements Serializable {
 
         //User's gonna see the add app page we generate... just debug notification here
         try{
-            if (Jsf.getRequestParam("permitbeforefacebookappadd")==null || !Jsf.getRequestParam("permitbeforefacebookappadd").equals("1")){
-                String referredbyuserid = "";
-                String referredtosurveyid = "";
-                if (Jsf.getRequestParam("action")!=null && Jsf.getRequestParam("action").indexOf("showsurvey")>-1){
-                    String[] split = Jsf.getRequestParam("action").split("-");
-                    if (split.length>=3){
-                        referredbyuserid = split[2];
-                        referredtosurveyid = split[1];
-                    }
-                }
-                if (Jsf.getUserSession().getFacebookUser()!=null){
-                    //Notify via XMPP
-                    SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_DEBUG, "Facebook app add page shown to "+ Jsf.getUserSession().getFacebookUser().getFirst_name() + " " + Jsf.getUserSession().getFacebookUser().getLast_name() + " referred by userid="+referredbyuserid+" to surveyid="+referredtosurveyid);
-                    xmpp.send();
-                } else {
-                    //Notify via XMPP
-                    SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_DEBUG, "Facebook app add page shown to Unknown:"+Jsf.getUserSession().getFacebookSessionKey()+" referred by userid="+referredbyuserid+" to surveyid="+referredtosurveyid);
-                    xmpp.send();
+            String referredbyuserid = "";
+            String referredtosurveyid = "";
+            if (Jsf.getRequestParam("action")!=null && Jsf.getRequestParam("action").indexOf("showsurvey")>-1){
+                String[] split = Jsf.getRequestParam("action").split("-");
+                if (split.length>=3){
+                    referredbyuserid = split[2];
+                    referredtosurveyid = split[1];
                 }
             }
+            if (Jsf.getUserSession().getFacebookUser()!=null){
+                //Notify via XMPP
+                SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_DEBUG, "Facebook app add page shown to "+ Jsf.getUserSession().getFacebookUser().getFirst_name() + " " + Jsf.getUserSession().getFacebookUser().getLast_name() + " referred by userid="+referredbyuserid+" to surveyid="+referredtosurveyid);
+                xmpp.send();
+            } else {
+                //Notify via XMPP
+                SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_DEBUG, "Facebook app add page shown to Unknown:"+Jsf.getUserSession().getFacebookSessionKey()+" referred by userid="+referredbyuserid+" to surveyid="+referredtosurveyid);
+                xmpp.send();
+            }
         }catch(Exception ex){logger.error(ex);}
+
+
+
 
        
     }

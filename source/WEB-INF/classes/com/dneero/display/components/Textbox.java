@@ -139,8 +139,8 @@ public class Textbox implements Component {
         for (Iterator it = questionresponses.iterator(); it.hasNext(); ) {
             Questionresponse questionresponse = (Questionresponse)it.next();
             if (questionresponse.getName().equals("response")){
-                if (answers.containsKey(questionresponse.getValue())){
-                    int currcount = (Integer)answers.get(questionresponse.getValue());
+                if (answers.containsKey(questionresponse.getValue().trim())){
+                    int currcount = (Integer)answers.get(questionresponse.getValue().trim());
                     answers.put(questionresponse.getValue(), currcount+1);
                 } else {
                     answers.put(questionresponse.getValue(), 1);

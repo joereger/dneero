@@ -106,6 +106,24 @@ public class UpdateResponsePoststatus implements Job {
                 logger.debug("date: "+key+" impressions: "+value);
             }
 
+
+            //Save updated response status, if necessary
+            if (dayswithimpressions.size()>=1){
+                response.setPoststatus(Response.POSTATUS_POSTEDATLEASTONCE);
+                if (dayswithimpressions.size()>=DAYSWITHIMPRESSIONREQUIREDINSIDEPOSTINGPERIOD){
+                    response.setPoststatus(Response.POSTATUS_POSTED);
+                }
+                try{response.save();}catch(Exception ex){logger.error(ex);}
+            }
+
+            //If the time period for evaluating impressions has passed, set that status too
+            Calendar responseDateAsCal = Time.getCalFromDate(response.getResponsedate());
+            int daysold = DateDiff.dateDiff("day", Calendar.getInstance(), responseDateAsCal);
+            if (daysold>MAXPOSTINGPERIODINDAYS){
+                response.setPoststatus(Response.POSTATUS_NOTPOSTEDTIMELIMITPASSED);
+                try{response.save();}catch(Exception ex){logger.error(ex);}
+            }
+
             //Create response payment status html and store it in the db
             StringBuffer statusHtml = new StringBuffer();
             int dayssinceresponsefortoday = DateDiff.dateDiff("day", Calendar.getInstance(), Time.getCalFromDate(response.getResponsedate()));
@@ -127,9 +145,27 @@ public class UpdateResponsePoststatus implements Job {
                 }
                 statusHtml.append("\t\t<td width=\"10\" bgcolor=\""+boxColor+"\" class=\"surveystatusbar\"><img src=\"/images/clear.gif\" width=\"1\" height=\"15\" border=\"0\"></td>\n");
             }
+            statusHtml.append("\t\t<td width=\"10\" rowspan=\"2\" nowrap><center>");
+            if (response.getPoststatus()==Response.POSTATUS_NOTPOSTEDTIMELIMITPASSED){
+                statusHtml.append("<img src=\"/images/delete-alt-32.png\" width=\"32\" height=\"32\" border=\"0\">");
+                statusHtml.append("<br/>");
+                statusHtml.append("<font class=\"smallfont\" style=\"color: #999999; font-weight: bold;\">Too Late</font>");
+            } else {
+                if (response.getIspaid()){
+                    statusHtml.append("<img src=\"/images/ok-32.png\" width=\"32\" height=\"32\" border=\"0\">");
+                    statusHtml.append("<br/>");
+                    statusHtml.append("<font class=\"smallfont\" style=\"color: #999999; font-weight: bold;\">Paid</font>");
+                } else {
+                    statusHtml.append("<img src=\"/images/clock-32.png\" width=\"32\" height=\"32\" border=\"0\">");
+                    statusHtml.append("<br/>");
+                    statusHtml.append("<font class=\"smallfont\" style=\"color: #999999; font-weight: bold;\">Pending</font>");
+                }
+            }
+
+            statusHtml.append("</center></td>\n");
             statusHtml.append(  "\t</tr>\n" +
                                 "\t<tr>\n" +
-                                "\t\t<td width=\"10\" bgcolor=\"#ffffff\" colspan=\"11\" nowrap><font class=\"tinyfont\">"+daysthatqualify+" Days Qualify; "+(DAYSWITHIMPRESSIONREQUIREDINSIDEPOSTINGPERIOD-daysthatqualify)+" More Needed</font></td>\n" +
+                                "\t\t<td width=\"10\" colspan=\""+(MAXPOSTINGPERIODINDAYS)+"\" nowrap><font class=\"tinyfont\">"+daysthatqualify+" Days Qualify; "+(DAYSWITHIMPRESSIONREQUIREDINSIDEPOSTINGPERIOD-daysthatqualify)+" More Needed</font></td>\n" +
                                 "\t</tr>\n" +
                                 "</table>");
             //Store it in the database for the response
@@ -137,24 +173,6 @@ public class UpdateResponsePoststatus implements Job {
                 response.setResponsestatushtml(statusHtml.toString());
                 response.save();
             }catch(Exception ex){logger.error(ex);}
-
-
-            //Save updated response status, if necessary
-            if (dayswithimpressions.size()>=1){
-                response.setPoststatus(Response.POSTATUS_POSTEDATLEASTONCE);
-                if (dayswithimpressions.size()>=DAYSWITHIMPRESSIONREQUIREDINSIDEPOSTINGPERIOD){
-                    response.setPoststatus(Response.POSTATUS_POSTED);
-                }
-                try{response.save();}catch(Exception ex){logger.error(ex);}
-            }
-
-            //If the time period for evaluating impressions has passed, set that status too
-            Calendar responseDateAsCal = Time.getCalFromDate(response.getResponsedate());
-            int daysold = DateDiff.dateDiff("day", Calendar.getInstance(), responseDateAsCal);
-            if (daysold>MAXPOSTINGPERIODINDAYS){
-                response.setPoststatus(Response.POSTATUS_NOTPOSTEDTIMELIMITPASSED);
-                try{response.save();}catch(Exception ex){logger.error(ex);}
-            }
 
         } catch (Exception ex){
             logger.error(ex);

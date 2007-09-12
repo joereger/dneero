@@ -99,25 +99,29 @@
                             <div class="rounded" style="background: #ffffff; padding: 10px;">
                                 <font class="formfieldnamefont" style="color: #666666;">Current Balance:</font>
                                 <br/><font class="largefont" style="color: #cccccc;">#{publicSurveyList.accountBalance.currentbalance}</font>
+                                <c:if test="#{!empty publicSurveyList.accountBalance}">
+                                    <c:if test="#{publicSurveyList.accountBalance.pendingearningsDbl gt 0}">
+                                        <br/><font class="formfieldnamefont" style="color: #666666;">Pending: #{publicSurveyList.accountBalance.pendingearnings}</font>
+                                    </c:if>
+                                </c:if>
                                 <br/><font class="tinyfont" style="color: #666666; font-weight: bold;">(yes, we're talking real world money here)</font>
-                                <c:if test="#{publicSurveyList.accountBalance.pendingearningsDbl gt 0}">
-                                    <br/><font class="formfieldnamefont" style="color: #666666;">Pending: #{publicSurveyList.accountBalance.pendingearnings}</font>
-                                    <br/><font class="tinyfont" style="color: #666666;">Remember, you must have your survey on your mini-feed and/or profile to generate clicks for 20 days after you take it to get paid.  We'll put them there for you automatically.</font>
+                                <c:if test="#{!empty publicSurveyList.completedsurveys}">
+                                    <br/><br/>
+                                    <c:forEach var="completedsurvey" items="${publicSurveyList.completedsurveys}">
+                                        <div class="rounded" style="background: #e6e6e6; padding: 10px; text-align: center;">
+                                            <h:outputLink value="/survey.jsf?surveyid=#{completedsurvey.surveyid}" styleClass="normalfont" style="font-weight: bold; color: #999999;"><h:outputText>#{completedsurvey.surveytitle}</h:outputText></h:outputLink><br/>
+                                            <f:verbatim escape="false"><center>#{completedsurvey.response.responsestatushtml}</center></f:verbatim>
+                                        </div>
+                                        <br/>
+                                    </c:forEach>
+                                    <font class="tinyfont" style="color: #666666;">Survey statuses update nightly. Remember, you must leave the survey on your mini-feed and profile to generate clicks for 5 days in the 10 after you take it to get paid.  Days that qualify are marked green.</font>
                                 </c:if>
                             </div>
                             <br/><br/>
                         </c:if>
 
 
-                        <c:if test="#{!empty publicSurveyList.completedsurveys}"> 
-                            <font class="mediumfont">Surveys You've Taken:</font><br/>
-                            <c:forEach var="completedsurvey" items="${publicSurveyList.completedsurveys}">
-                                <h:outputLink value="/survey.jsf?surveyid=#{completedsurvey.surveyid}" styleClass="normalfont" style="font-weight: bold; color: #0000ff;"><h:outputText>#{completedsurvey.surveytitle}</h:outputText></h:outputLink><br/>
-                                <font class="smallfont">
-                                    <f:verbatim escape="false">#{completedsurvey.response.responsestatushtml}</f:verbatim>
-                                </font><br/><br/>
-                            </c:forEach>
-                        </c:if>
+
 
                         <font class="mediumfont">Surveys Friends Have Taken:</font><br/>
                         <c:if test="${empty publicSurveyList.facebookSurveyThatsBeenTakens}">
@@ -128,7 +132,7 @@
                             <font class="smallfont">
                                 How they answered:
                                 <c:forEach var="friendwhotook" items="${surveyfriendstook.facebookSurveyTakers}">
-                                    <h:outputLink value="/survey.jsf?surveyid=#{surveyfriendstook.survey.surveyid}&amp;userid=#{friendwhotook.userid}&amp;responseid=#{friendwhotook.responseid}&amp;permitbeforefacebookappadd=1&amp;show=showSurveyResponseFlashEmbed" styleClass="smallfont" style="color: #0000ff;"><h:outputText>#{friendwhotook.facebookUser.first_name} #{friendwhotook.facebookUser.last_name}</h:outputText></h:outputLink>
+                                    <h:outputLink value="/survey.jsf?surveyid=#{surveyfriendstook.survey.surveyid}&amp;userid=#{friendwhotook.userid}&amp;responseid=#{friendwhotook.responseid}&amp;show=showSurveyResponseFlashEmbed" styleClass="smallfont" style="color: #0000ff;"><h:outputText>#{friendwhotook.facebookUser.first_name} #{friendwhotook.facebookUser.last_name}</h:outputText></h:outputLink>
                                 </c:forEach>
                             </font><br/><br/>
                         </c:forEach>
