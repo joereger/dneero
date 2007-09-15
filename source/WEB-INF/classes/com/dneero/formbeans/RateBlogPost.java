@@ -15,6 +15,7 @@ import java.io.Serializable;
 public class RateBlogPost implements Serializable {
 
     private int impressionid;
+    private Impression impression;
     private int quality;
     private String iframestr;
     private boolean haveposttoreview;
@@ -37,10 +38,10 @@ public class RateBlogPost implements Serializable {
         remainingtoreview = ((Long)HibernateUtil.getSession().createQuery("select count(*) from Impression where quality='0'").uniqueResult()).intValue();
         List<Impression> impressions = HibernateUtil.getSession().createQuery("from Impression where quality='0'").setMaxResults(1).list();
         if (impressions.size()>0){
-            Impression impression = impressions.get(0);
+            impression = impressions.get(0);
             impressionid = impression.getImpressionid();
             quality = 0;
-            iframestr = "<iframe frameborder=\"0\" marginheight=\"0\" marginwidth=\"0\" scrolling=\"auto\" src=\""+impression.getReferer()+"\" style=\"width:725px;height:400px;\"></iframe>";
+            iframestr = "<iframe frameborder=\"0\" marginheight=\"0\" marginwidth=\"0\" scrolling=\"auto\" src=\""+impression.getReferer()+"\" style=\"width:725px;height:500px;border: 3px solid #e6e6e6;\"></iframe>";
             haveposttoreview = true;
         } else {
             impressionid = 0;
@@ -99,5 +100,14 @@ public class RateBlogPost implements Serializable {
 
     public void setRemainingtoreview(int remainingtoreview) {
         this.remainingtoreview = remainingtoreview;
+    }
+
+
+    public Impression getImpression() {
+        return impression;
+    }
+
+    public void setImpression(Impression impression) {
+        this.impression = impression;
     }
 }

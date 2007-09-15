@@ -7,6 +7,7 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:t="http://myfaces.apache.org/tomahawk"
       xmlns:d="http://dneero.com/taglib"
+      xmlns:c="http://java.sun.com/jstl/core"
 
       >
 
@@ -53,6 +54,14 @@
                                     </td>
                                     <td valign="top">
                                         <h:inputText value="#{sysadminUserDetail.email}" id="email" size="30" required="true"></h:inputText>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td valign="top">
+                                        <font class="formfieldnamefont">Facebook uid</font>
+                                    </td>
+                                    <td valign="top">
+                                        <h:outputText value="#{sysadminUserDetail.user.facebookuserid}" styleClass="tinyfont"/>
                                     </td>
                                 </tr>
                                 <tr>
@@ -256,6 +265,18 @@
                 </f:facet>
             </t:dataScroller>
         </h:form>
+        </div>
+
+        <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
+            <font class="mediumfont">Completed Surveys</font>
+            <h:form>
+                <c:forEach var="completedsurvey" items="${sysadminUserDetail.responses}">
+                    <h:outputLink value="/survey.jsf?surveyid=#{completedsurvey.surveyid}" styleClass="normalfont" style="font-weight: bold; color: #0000ff;"><h:outputText>#{completedsurvey.surveytitle}</h:outputText></h:outputLink><br/>
+                    <font class="smallfont">
+                        <f:verbatim escape="false">#{completedsurvey.response.responsestatushtml}</f:verbatim>
+                    </font><br/><br/>
+                </c:forEach>
+            </h:form>
         </div>
 
 

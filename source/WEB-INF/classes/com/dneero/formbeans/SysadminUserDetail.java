@@ -2,12 +2,16 @@ package com.dneero.formbeans;
 
 import com.dneero.util.Jsf;
 import com.dneero.util.Str;
+import com.dneero.util.DateDiff;
+import com.dneero.util.Time;
 import com.dneero.dao.*;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.email.EmailActivationSend;
 import com.dneero.email.LostPasswordSend;
 import com.dneero.money.MoveMoneyInAccountBalance;
+import com.dneero.money.BloggerIncomeCalculator;
 import com.dneero.scheduledjobs.ResearcherRemainingBalanceOperations;
+import com.dneero.scheduledjobs.UpdateResponsePoststatus;
 
 import java.util.*;
 import java.io.Serializable;
@@ -31,7 +35,10 @@ public class SysadminUserDetail implements Serializable {
     private String reason;
     private List balances;
     private List transactions;
+    private ArrayList<BloggerCompletedsurveysListitem> responses;
+    private ArrayList<BloggerCompletedsurveysListitem> recentresponses;
     private boolean isenabled = true;
+    private User user;
 
 
     public SysadminUserDetail(){
@@ -54,6 +61,7 @@ public class SysadminUserDetail implements Serializable {
         User user = User.get(userid);
         if (user!=null && user.getUserid()>0){
             this.userid = user.getUserid();
+            this.user = user;
             firstname = user.getFirstname();
             lastname = user.getLastname();
             email = user.getEmail();
@@ -97,6 +105,35 @@ public class SysadminUserDetail implements Serializable {
                 abli.setUserid(transaction.getUserid());
                 abli.setIssuccessful(transaction.getIssuccessful());
                 transactions.add(abli);
+            }
+
+            responses = new ArrayList();
+            recentresponses = new ArrayList();
+            if (user.getBloggerid()>0){
+                //HibernateUtil.getSession().saveOrUpdate(Blogger.get(userSession.getUser().getBloggerid()));
+                List<Response> responses = HibernateUtil.getSession().createQuery("from Response where bloggerid='"+user.getBloggerid()+"' order by responseid desc").setCacheable(false).list();
+                for (Iterator<Response> iterator = responses.iterator(); iterator.hasNext();) {
+                    Response response = iterator.next();
+                    Survey survey = Survey.get(response.getSurveyid());
+                    int allimpressions = BloggerIncomeCalculator.getAllImpressiondetailsForSurvey(Blogger.get(user.getBloggerid()), survey).size();
+                    int allimpressionsqualifyingforpay = BloggerIncomeCalculator.getAllImpressiondetailsForSurveyThatQualifyForPay(Blogger.get(user.getBloggerid()), survey).size();
+                    BloggerCompletedsurveysListitem listitem = new BloggerCompletedsurveysListitem();
+                    listitem.setAmtforresponse("$"+Str.formatForMoney(survey.getWillingtopayperrespondent()));
+                    listitem.setAmttotal("$"+Str.formatForMoney(survey.getWillingtopayperrespondent() + ((allimpressionsqualifyingforpay*survey.getWillingtopaypercpm()/1000))));
+                    listitem.setImpressions(allimpressions);
+                    listitem.setImpressionsthatqualifyforpay(allimpressionsqualifyingforpay);
+                    listitem.setResponsedate(response.getResponsedate());
+                    listitem.setResponseid(response.getResponseid());
+                    listitem.setSurveyid(survey.getSurveyid());
+                    listitem.setSurveytitle(survey.getTitle());
+                    listitem.setResponse(response);
+                    this.responses.add(listitem);
+                    int dayssinceresponse = DateDiff.dateDiff("day", Calendar.getInstance(), Time.getCalFromDate(listitem.getResponse().getResponsedate()));
+                    //Keep it listed for five days after it's paid
+                    if (dayssinceresponse<=(UpdateResponsePoststatus.MAXPOSTINGPERIODINDAYS+5)){
+                        recentresponses.add(listitem);
+                    }
+                }
             }
 
 
@@ -329,5 +366,29 @@ public class SysadminUserDetail implements Serializable {
 
     public void setIsenabled(boolean isenabled) {
         this.isenabled = isenabled;
+    }
+
+    public ArrayList<BloggerCompletedsurveysListitem> getResponses() {
+        return responses;
+    }
+
+    public void setResponses(ArrayList<BloggerCompletedsurveysListitem> responses) {
+        this.responses = responses;
+    }
+
+    public ArrayList<BloggerCompletedsurveysListitem> getRecentresponses() {
+        return recentresponses;
+    }
+
+    public void setRecentresponses(ArrayList<BloggerCompletedsurveysListitem> recentresponses) {
+        this.recentresponses = recentresponses;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

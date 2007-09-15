@@ -31,10 +31,16 @@
 
             <c:forEach var="supportissuecomm" items="#{sysadminSupportIssueDetail.supportissuecomms}">
                 <d:roundedCornerBox uniqueboxname="supportissuecomm-#{supportissuecomm.supportissuecommid}" bodycolor="e6e6e6" widthinpixels="500">
-                    <h:outputText value="#{supportissuecomm.datetime}"></h:outputText>
+                    <h:outputText value="#{supportissuecomm.datetime}" style="font-weight: bold;"></h:outputText>
                     <f:verbatim><br/></f:verbatim>
-                    <h:outputText value="From: dNeero Admin" rendered="#{supportissuecomm.isfromdneeroadmin}"></h:outputText>
-                    <h:outputText value="From: You" rendered="#{!supportissuecomm.isfromdneeroadmin}"></h:outputText>
+                    <h:outputText value="From: dNeero Admin" rendered="#{supportissuecomm.isfromdneeroadmin}"  style="font-weight: bold;"></h:outputText>
+                    <h:commandLink action="#{sysadminUserDetail.beginView}" immediate="true" rendered="#{!supportissuecomm.isfromdneeroadmin}">
+                        <h:outputText value="From: #{sysadminSupportIssueDetail.fromuser.firstname} #{sysadminSupportIssueDetail.fromuser.lastname}"  style="font-weight: bold;"/>
+                        <f:param name="userid" value="#{sysadminSupportIssueDetail.fromuser.userid}" />
+                    </h:commandLink>
+                    <c:if test="#{sysadminSupportIssueDetail.fromuser.facebookuserid gt 0}">
+                        <h:outputText value="(Facebook User)"  style="font-weight: bold;"></h:outputText>        
+                    </c:if>
                     <f:verbatim><br/></f:verbatim>
                     <h:outputText value="#{supportissuecomm.notes}"></h:outputText>
                 </d:roundedCornerBox>
@@ -49,7 +55,7 @@
                     <h:outputText value=" "></h:outputText>
                 </h:panelGroup>
                 <h:panelGroup>
-                    <h:inputTextarea value="#{sysadminSupportIssueDetail.notes}" id="notes" cols="80" rows="8" required="true">
+                    <h:inputTextarea value="#{sysadminSupportIssueDetail.notes}" id="notes" cols="72" rows="8" required="true">
                         <f:validateLength minimum="3" maximum="50000"></f:validateLength>
                     </h:inputTextarea>
                 </h:panelGroup>

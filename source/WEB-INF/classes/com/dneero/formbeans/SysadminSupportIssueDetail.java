@@ -33,6 +33,7 @@ public class SysadminSupportIssueDetail implements Serializable {
     private ArrayList<Supportissuecomm> supportissuecomms;
     private Supportissue supportissue;
     private String status;
+    private User fromuser;
 
 
 
@@ -49,6 +50,7 @@ public class SysadminSupportIssueDetail implements Serializable {
         if (com.dneero.util.Num.isinteger(tmpSupportissueid)){
             logger.debug("beginView called: found supportissueid in param="+tmpSupportissueid);
             Supportissue supportissue = Supportissue.get(Integer.parseInt(tmpSupportissueid));
+            fromuser = User.get(supportissue.getUserid());
             if (Jsf.getUserSession().getUser()!=null && supportissue.canEdit(Jsf.getUserSession().getUser())){
                 this.supportissue = supportissue;
                 this.supportissueid = supportissue.getSupportissueid();
@@ -118,7 +120,8 @@ public class SysadminSupportIssueDetail implements Serializable {
         }
         EmailTemplateProcessor.sendMail("dNeero Support Issue: "+ Str.truncateString(supportissue.getSubject(),100), "supportissueresponse", User.get(supportissue.getUserid()), args);
 
-        return "sysadminsupportissuenewnotedone";
+        SysadminSupportIssuesList bean = (SysadminSupportIssuesList)Jsf.getManagedBean("sysadminSupportIssuesList");
+        return bean.beginView();
     }
 
     public int getSupportissueid() {
@@ -160,5 +163,13 @@ public class SysadminSupportIssueDetail implements Serializable {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public User getFromuser() {
+        return fromuser;
+    }
+
+    public void setFromuser(User fromuser) {
+        this.fromuser = fromuser;
     }
 }
