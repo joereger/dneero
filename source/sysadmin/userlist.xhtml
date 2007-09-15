@@ -35,6 +35,9 @@
                     <font class="tinyfont">Email</font>
                 </td>
                 <td valign="top">
+                    <font class="tinyfont">Facebook?</font>
+                </td>
+                <td valign="top">
 
                 </td>
             </tr>
@@ -52,6 +55,9 @@
                     <h:inputText value="#{sysadminUserList.searchemail}" id="searchemail" size="15"></h:inputText>
                 </td>
                 <td valign="top">
+                    <h:selectBooleanCheckbox value="#{sysadminUserList.searchfacebookers}" id="searchfacebookers"></h:selectBooleanCheckbox>
+                </td>
+                <td valign="top">
                     <h:commandButton action="#{sysadminUserList.search}"  value="Search" styleClass="formsubmitbutton"></h:commandButton>
                 </td>
             </tr>
@@ -61,7 +67,7 @@
 
         <t:saveState id="save" value="#{sysadminUserList}"/>
 
-        <t:dataTable id="datatable" value="#{sysadminUserList.users}" rows="15" var="user" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcol,tcolnowrap,tcol,tcolnowrap,tcolnowrap">
+        <t:dataTable id="datatable" value="#{sysadminUserList.users}" rows="50" var="user" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcol,tcolnowrap,tcol,tcolnowrap,tcolnowrap">
           <h:column>
             <f:facet name="header">
               <h:outputText value="Userid"/>

@@ -12,6 +12,7 @@ import java.io.Serializable;
 
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.criterion.Order;
 import org.apache.log4j.Logger;
 
 /**
@@ -26,6 +27,7 @@ public class SysadminUserList implements Serializable {
     private String searchfirstname="";
     private String searchlastname="";
     private String searchemail="";
+    private boolean searchfacebookers=false;
 
     public SysadminUserList() {
 
@@ -57,7 +59,10 @@ public class SysadminUserList implements Serializable {
         if (searchemail!=null && !searchemail.equals("")){
             crit.add(Restrictions.like("email", "%"+searchemail+"%"));
         }
-        users = crit.list();
+        if(searchfacebookers){
+            crit.add(Restrictions.gt("facebookuserid", 0));
+        }
+        users = crit.addOrder(Order.desc("userid")).list();
     }
     
     public String search(){
@@ -141,5 +146,13 @@ public class SysadminUserList implements Serializable {
 
     public void setSearchuserid(String searchuserid) {
         this.searchuserid = searchuserid;
+    }
+
+    public boolean getSearchfacebookers() {
+        return searchfacebookers;
+    }
+
+    public void setSearchfacebookers(boolean searchfacebookers) {
+        this.searchfacebookers = searchfacebookers;
     }
 }
