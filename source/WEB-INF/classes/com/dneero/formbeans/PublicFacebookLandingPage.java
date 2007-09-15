@@ -35,6 +35,11 @@ public class PublicFacebookLandingPage implements Serializable {
         //Note: Facebook only allows me to append a single var to the end of my url so I have to do some splitting crap to make things work.
         //The basic format I'm using is action-var1-var2-var3 where the vars are specific to each action.  It's crap but it works.
 
+        //Post add page
+        if (Jsf.getRequestParam("action")!=null && Jsf.getRequestParam("action").indexOf("addedapp")>-1){
+            try{Jsf.redirectResponse("/publicsurveylist.jsf?action=addedapp");return;}catch(Exception ex){logger.error(ex);}
+        }
+
         //If we should display a specific survey, do so
         if (Jsf.getRequestParam("action")!=null && Jsf.getRequestParam("action").indexOf("showsurvey")>-1){
             String[] split = Jsf.getRequestParam("action").split("-");

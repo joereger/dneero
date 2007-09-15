@@ -17,7 +17,7 @@
     <ui:define name="body">
     <d:authorization acl="public" redirectonfail="true"/>
 
-    <c:if test="#{userSession.isfacebookui}">
+    <c:if test="#{userSession.isfacebookui and publicSurveyList.facebookjustaddedapp}">
         <!--/*
           *
           *  If this tag is being served on a secure (SSL) page, you must replace

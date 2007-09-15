@@ -32,6 +32,7 @@ public class PublicSurveyList implements Serializable {
     private AccountBalance accountBalance;
     private String rndstr;
     private ArrayList<BloggerCompletedsurveysListitem> completedsurveys;
+    private boolean facebookjustaddedapp = false;
 
     public PublicSurveyList() {
         load();
@@ -142,6 +143,9 @@ public class PublicSurveyList implements Serializable {
             }
 
             //Facebook stuff
+            if (Jsf.getRequestParam("action")!=null && Jsf.getRequestParam("action").indexOf("addedapp")>-1){
+                facebookjustaddedapp = true;   
+            }
             if (Jsf.getUserSession().getIsfacebookui()){
                 //Load which friends are on dNeero and which aren't
                 loadFacebookUsers();
@@ -368,5 +372,13 @@ public class PublicSurveyList implements Serializable {
 
     public void setCompletedsurveys(ArrayList<BloggerCompletedsurveysListitem> completedsurveys) {
         this.completedsurveys = completedsurveys;
+    }
+
+    public boolean isFacebookjustaddedapp() {
+        return facebookjustaddedapp;
+    }
+
+    public void setFacebookjustaddedapp(boolean facebookjustaddedapp) {
+        this.facebookjustaddedapp = facebookjustaddedapp;
     }
 }
