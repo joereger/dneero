@@ -107,13 +107,14 @@ public class FacebookApiWrapper {
                                                .add(Restrictions.eq("bloggerid", user.getBloggerid()))
                                                .setCacheable(true)
                                                .addOrder(Order.desc("responsedate"))
+                                               .setMaxResults(25)
                                                .list();
                     for (Iterator<Response> iterator = responses.iterator(); iterator.hasNext();) {
                         Response response = iterator.next();
                         Survey survey = Survey.get(response.getSurveyid());
                         totalearnings = totalearnings + survey.getWillingtopayperrespondent();
-                        count = count + 1;
-                        if (count<=10){
+                        //count = count + 1;
+                        //if (count<=10){
                             String forcharity =  "";
                             if (response.getIsforcharity()){
                                 forcharity = " for charity";
@@ -134,7 +135,7 @@ public class FacebookApiWrapper {
                                     fbml.append(" (I earned "+surveyEnhancer.getWillingtopayforresponse()+forcharity+"."+")");
                                 fbml.append("</td>");
                             fbml.append("</tr>");
-                        }
+                        //}
                     }
                     fbml.append("</table>");
                     fbml.append("<hr style=\"border: 0; color:  #cccccc; background: #cccccc; height: 1px;\">");
