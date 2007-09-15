@@ -5,6 +5,7 @@ import com.dneero.dao.Balance;
 import com.dneero.dao.Balancetransaction;
 import com.dneero.threadpool.ThreadPool;
 import com.dneero.xmpp.SendXMPPMessage;
+import com.dneero.email.EmailSend;
 
 import java.util.Date;
 
@@ -64,7 +65,7 @@ public class MoveMoneyInRealWorld implements Runnable {
         PaymentMethod pm = new PaymentMethodCreditCard(user, amttogiveuser);
         String desc = "Charge.";
         int paymentmethod = 0;
-        if (amttogiveuser>0){
+        if (amttogiveuser>.01){
             //Paying user
             if (user.getPaymethod()==PaymentMethod.PAYMENTMETHODCREDITCARD){
                 pm = new PaymentMethodCreditCard(user, amttogiveuser);
@@ -111,6 +112,7 @@ public class MoveMoneyInRealWorld implements Runnable {
                 try{balance.save();}catch (Exception ex){
                     SendXMPPMessage xmpp2 = new SendXMPPMessage(SendXMPPMessage.GROUP_SYSADMINS, "WRITE TO DATABASE FAILED!!! Successful Move Money in Real World: amttogiveuser=$"+amttogiveuser+" to/from userid="+user.getUserid()+" "+ user.getFirstname() + " " + user.getLastname() + " ("+user.getEmail()+")");
                     xmpp2.send();
+                    //@todo send failed money transaction database write to sysadmin or accountant
                     logger.error(ex);
                 }
             } else {

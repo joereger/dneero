@@ -17,6 +17,7 @@ import com.dneero.util.jcaptcha.CaptchaServiceSingleton;
 import com.dneero.util.GeneralException;
 import com.dneero.dao.Survey;
 import com.dneero.dao.User;
+import com.dneero.systemprops.SystemProperty;
 import com.sun.image.codec.jpeg.JPEGImageEncoder;
 import com.sun.image.codec.jpeg.JPEGCodec;
 import com.octo.captcha.service.CaptchaServiceException;
@@ -50,14 +51,18 @@ public class EmailActivationServlet extends HttpServlet {
             emailactivationkey = request.getParameter("k");
         }
 
-        if (user!=null && user.getEmailactivationkey().equals(emailactivationkey)){
+        if (user!=null && user.getEmailactivationkey().trim().equals(emailactivationkey.trim())){
             user.setIsactivatedbyemail(true);
             try{user.save();} catch (Exception ex){logger.error(ex);}
 
             //@todo send a welcome email message after successful email activation
-
-            response.sendRedirect("/emailactivationsuceed.jsf");
-            return;
+            if(user.getFacebookuserid()<=0){
+                response.sendRedirect("/emailactivationsuceed.jsf");
+                return;
+            } else {
+                response.sendRedirect("http://apps.facebook.com/"+ SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_APP_NAME)+"/");
+                return;
+            }
         } else {
             response.sendRedirect("/emailactivationfail.jsf");
             return;

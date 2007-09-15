@@ -80,9 +80,15 @@ public class AccountSupportIssueDetail implements Serializable {
             logger.debug("saveAction failed: " + gex.getErrorsAsSingleString());
             return null;
         }
-
+        
         //Notify sales group
         Supportissue si = Supportissue.get(supportissueid);
+
+        //Mark as new again
+        si.setStatus(Supportissue.STATUS_OPEN);
+        try{si.save();}catch(Exception ex){logger.error(ex);}
+
+        //Send xmpp message
         SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_CUSTOMERSUPPORT, "New dNeero Customer Support Comment: "+si.getSubject()+" (supportissueid="+supportissueid+") ("+Jsf.getUserSession().getUser().getEmail()+") "+notes);
         xmpp.send();
 

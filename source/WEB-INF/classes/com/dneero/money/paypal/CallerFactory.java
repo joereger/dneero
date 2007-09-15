@@ -24,10 +24,10 @@ public class CallerFactory {
         caller = new CallerServices();
         try{
             APIProfile profile = ProfileFactory.createSignatureAPIProfile();
-            profile.setAPIUsername(SystemProperty.getProp(SystemProperty.PROP_PAYPALAPIUSERNAME));
-            profile.setAPIPassword(SystemProperty.getProp(SystemProperty.PROP_PAYPALAPIPASSWORD));
-            profile.setSignature(SystemProperty.getProp(SystemProperty.PROP_PAYPALSIGNATURE));
-            profile.setEnvironment(SystemProperty.getProp(SystemProperty.PROP_PAYPALENVIRONMENT));
+            profile.setAPIUsername(SystemProperty.getProp(SystemProperty.PROP_PAYPALAPIUSERNAME).trim());
+            profile.setAPIPassword(SystemProperty.getProp(SystemProperty.PROP_PAYPALAPIPASSWORD).trim());
+            profile.setSignature(SystemProperty.getProp(SystemProperty.PROP_PAYPALSIGNATURE).trim());
+            profile.setEnvironment(SystemProperty.getProp(SystemProperty.PROP_PAYPALENVIRONMENT).trim());
             caller.setAPIProfile(profile);
         } catch (Exception ex){
             logger.error(ex);
