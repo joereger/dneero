@@ -12,6 +12,7 @@ import com.dneero.util.Str;
 import com.dneero.util.Time;
 import com.dneero.startup.ApplicationStartup;
 import com.dneero.xmpp.SendXMPPMessage;
+import com.dneero.email.EmailTemplateProcessor;
 
 /**
  * User: Joe Reger Jr
@@ -47,7 +48,7 @@ public class Log4jCustomAppender extends AppenderSkeleton {
         }
 
         if (shouldRecordThis(errorMessageAsHtml.toString())){
-            //Write to database
+            //Write to database and send via email
             if (ApplicationStartup.getIsappstarted()){
                 if (event.getLevel()==Level.ERROR || event.getLevel()==Level.FATAL){
                     try{
@@ -56,6 +57,8 @@ public class Log4jCustomAppender extends AppenderSkeleton {
                         int identity = Db.RunSQLInsert("INSERT INTO error(error, level, status, date) VALUES('"+Str.cleanForSQL(errorMessageAsHtml.toString())+"', '"+event.getLevel().toInt()+"', '"+com.dneero.dao.Error.STATUS_NEW+"', '"+ Time.dateformatfordb(Calendar.getInstance())+"')", false);
                         //-----------------------------------
                         //-----------------------------------
+
+
                     } catch (Exception ex){
                         ex.printStackTrace();
                     }
@@ -66,8 +69,11 @@ public class Log4jCustomAppender extends AppenderSkeleton {
                 SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_SYSADMINS, Str.truncateString(errorMessage.toString(), 300));
                 xmpp.send();
             }
+            //Send via email
+            if (event.getLevel()==Level.ERROR || event.getLevel()==Level.FATAL){
+                EmailTemplateProcessor.sendGenericEmail("joe@joereger.com", "dNeero Error: "+event.getMessage().toString(), errorMessageAsHtml.toString());
+            }
         }
-
     }
     
     public synchronized void close(){

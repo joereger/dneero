@@ -535,6 +535,8 @@ public class PublicSurveyTake implements Serializable {
         return tellFriendsOperation(facebookfriendsselected2);
     }
 
+
+
     private String tellFriendsOperation(String[] friendstotell){
         Logger logger = Logger.getLogger(this.getClass().getName());
         if (friendstotell!=null && friendstotell.length>0){
@@ -554,6 +556,27 @@ public class PublicSurveyTake implements Serializable {
             faw.inviteFriendsToSurvey(uids, survey);
         }
         try{Jsf.getHttpServletResponse().sendRedirect("/survey.jsf?surveyid="+survey.getSurveyid()); return null;}catch(Exception ex){logger.debug(ex);}
+        return "publicsurvey";
+    }
+
+    public String updateFacebookProfile(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
+        try{
+            //Update Facebook
+            FacebookApiWrapper facebookApiWrapper = new FacebookApiWrapper(Jsf.getUserSession());
+            List<Response> responses = HibernateUtil.getSession().createCriteria(Response.class)
+                                               .add(Restrictions.eq("surveyid", survey.getSurveyid()))
+                                               .setCacheable(false)
+                                               .list();
+            for (Iterator<Response> iterator=responses.iterator(); iterator.hasNext();) {
+                Response response=iterator.next();
+                facebookApiWrapper.postSurveyToFacebookMiniFeed(survey, response);
+                facebookApiWrapper.updateFacebookProfile(Jsf.getUserSession().getUser());
+            } 
+            Jsf.setFacesMessage("Your Facebook profile should have been updated.");
+        } catch (Exception ex){
+            logger.error(ex);
+        }
         return "publicsurvey";
     }
 

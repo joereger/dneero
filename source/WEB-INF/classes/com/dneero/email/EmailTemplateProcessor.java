@@ -19,6 +19,15 @@ import org.apache.log4j.Logger;
  */
 public class EmailTemplateProcessor {
 
+    public static void sendGenericEmail(String toaddress, String subject, String body){
+        String emailTemplateFilenameWithoutExtension = "generic";
+        String htmlTemplate = Io.textFileRead(WebAppRootDir.getWebAppRootPath() + "emailtemplates" + java.io.File.separator + emailTemplateFilenameWithoutExtension + ".html").toString();
+        String txtTemplate = Io.textFileRead(WebAppRootDir.getWebAppRootPath() + "emailtemplates" + java.io.File.separator + emailTemplateFilenameWithoutExtension + ".txt").toString();
+        String[] args = new String[10];
+        args[0] = body;
+        sendMail(subject, htmlTemplate, txtTemplate, null, args, toaddress, "");   
+    }
+
     public static void sendMail(String subject, String emailTemplateFilenameWithoutExtension, User userTo){
         sendMail(subject, emailTemplateFilenameWithoutExtension, userTo, null, null, null);
     }

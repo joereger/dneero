@@ -16,7 +16,7 @@
     <!-- ==================================================================== -->
 
     <mbean code="org.jboss.cache.TreeCache"
-        name="jboss.cache:service=TreeCache">
+        name="jboss.cache:service=TreeCacheNonDao">
 
 
         <depends>jboss:service=Naming</depends>
