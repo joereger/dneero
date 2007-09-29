@@ -211,7 +211,7 @@
             <job-name>moveMoneyAround</job-name>
             <job-group>surveyJobs</job-group>
             <!-- Fire at 12pm (noon) every day -->
-            <cron-expression>0 0 12 * * ?</cron-expression>
+            <cron-expression>0 0 5 * * ?</cron-expression>
           </cron>
         </trigger>
     </job>

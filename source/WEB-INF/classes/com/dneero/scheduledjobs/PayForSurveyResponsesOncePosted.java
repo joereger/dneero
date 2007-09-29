@@ -50,7 +50,7 @@ public class PayForSurveyResponsesOncePosted implements Job {
                         //Affect balance for blogger
                         MoveMoneyInAccountBalance.pay(user, survey.getWillingtopayperrespondent(), "Pay for taking survey: '"+survey.getTitle()+"'", true, response.getIsforcharity(), response.getCharityname(), 0, 0, response.getResponseid());
                         //Affect balance for researcher
-                        MoveMoneyInAccountBalance.charge(User.get(Researcher.get(survey.getResearcherid()).getUserid()), (survey.getWillingtopayperrespondent()+(survey.getWillingtopayperrespondent()*(SurveyMoneyStatus.DNEEROMARKUPPERCENT/100))), "User "+Jsf.getUserSession().getUser().getFirstname()+" "+Jsf.getUserSession().getUser().getLastname()+" responds to survey '"+survey.getTitle()+"'");
+                        MoveMoneyInAccountBalance.charge(User.get(Researcher.get(survey.getResearcherid()).getUserid()), (survey.getWillingtopayperrespondent()+(survey.getWillingtopayperrespondent()*(SurveyMoneyStatus.DNEEROMARKUPPERCENT/100))), "User "+user.getFirstname()+" "+user.getLastname()+" responds to survey '"+survey.getTitle()+"'");
                     } catch (Exception ex){
                         logger.error(ex);
                         ex.printStackTrace();
