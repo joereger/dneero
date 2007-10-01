@@ -52,10 +52,10 @@ public class ResearcherResultsImpressions implements Serializable {
                                    .list();
                 for (Iterator<Impression> iterator1 = impressions.iterator(); iterator1.hasNext();) {
                     Impression impression = iterator1.next();
-                    logger.debug("impressionid="+impression.getImpressionid()+" referer="+impression.getReferer() + " impressionsqualifyingforpayment="+impression.getImpressionsqualifyingforpayment());
+                    logger.debug("impressionid="+impression.getImpressionid()+" referer="+impression.getReferer() + " impressionspaid="+impression.getImpressionspaid()+" impressionstobepaid="+impression.getImpressionstobepaid());
                     ResearcherResultsImpressionsListitem robj = new ResearcherResultsImpressionsListitem();
                     robj.setImpressionid(impression.getImpressionid());
-                    robj.setImpressionsqualifyingforpayment(impression.getImpressionsqualifyingforpayment());
+                    robj.setImpressionspaidandtobepaid(impression.getImpressionspaid() + impression.getImpressionstobepaid());
                     robj.setReferer(impression.getReferer());
                     robj.setReferertruncated(Str.truncateString(impression.getReferer(), 35));
                     robj.setImpressionquality(String.valueOf(impression.getQuality()));

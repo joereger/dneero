@@ -24,12 +24,6 @@
         <property name="description" type="string">
             <column name="description" not-null="true" />
         </property>
-        <property name="optionalimpressionpaymentgroupid" type="int">
-            <column name="optionalimpressionpaymentgroupid" not-null="false" />
-        </property>
-        <property name="optionalimpressionchargegroupid" type="int">
-            <column name="optionalimpressionchargegroupid" not-null="false" />
-        </property>
         <property name="optionalresponseid" type="int">
             <column name="optionalresponseid" not-null="false" />
         </property>

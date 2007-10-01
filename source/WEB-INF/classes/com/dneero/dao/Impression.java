@@ -16,15 +16,16 @@ public class Impression extends BasePersistentClass implements java.io.Serializa
 
     // Fields
      private int impressionid;
-     private int surveyid;
-     private String referer;
-     private int impressionsqualifyingforpayment;
-     private int impressionstotal;
-     private int quality;
-     private Date firstseen;
      private int userid;
      private int responseid;
-     //private Set<Impressiondetail> impressiondetails = new HashSet<Impressiondetail>();
+     private int surveyid;
+     private String referer;
+     private int impressionstotal;
+     private int impressionstobepaid;
+     private int impressionspaid;
+     private String impressionsbyday;
+     private int quality;
+     private Date firstseen;
 
 
 
@@ -84,15 +85,6 @@ public class Impression extends BasePersistentClass implements java.io.Serializa
     public void setSurveyid(int surveyid) {
         this.surveyid = surveyid;
     }
-
-    public int getImpressionsqualifyingforpayment() {
-        return impressionsqualifyingforpayment;
-    }
-
-    public void setImpressionsqualifyingforpayment(int impressionsqualifyingforpayment) {
-        this.impressionsqualifyingforpayment = impressionsqualifyingforpayment;
-    }
-
     public String getReferer() {
         return referer;
     }
@@ -101,13 +93,6 @@ public class Impression extends BasePersistentClass implements java.io.Serializa
         this.referer = referer;
     }
 
-//    public Set<Impressiondetail> getImpressiondetails() {
-//        return impressiondetails;
-//    }
-//
-//    public void setImpressiondetails(Set<Impressiondetail> impressiondetails) {
-//        this.impressiondetails = impressiondetails;
-//    }
 
     public int getQuality() {
         return quality;
@@ -148,5 +133,29 @@ public class Impression extends BasePersistentClass implements java.io.Serializa
 
     public void setResponseid(int responseid) {
         this.responseid = responseid;
+    }
+
+    public int getImpressionstobepaid() {
+        return impressionstobepaid;
+    }
+
+    public void setImpressionstobepaid(int impressionstobepaid) {
+        this.impressionstobepaid=impressionstobepaid;
+    }
+
+    public int getImpressionspaid() {
+        return impressionspaid;
+    }
+
+    public void setImpressionspaid(int impressionspaid) {
+        this.impressionspaid=impressionspaid;
+    }
+
+    public String getImpressionsbyday() {
+        return impressionsbyday;
+    }
+
+    public void setImpressionsbyday(String impressionsbyday) {
+        this.impressionsbyday=impressionsbyday;
     }
 }

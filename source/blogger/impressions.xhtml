@@ -37,19 +37,13 @@
                 <f:facet name="header">
                   <h:outputText value="Impressions Qualifying for Payment"/>
                 </f:facet>
-                <h:commandLink action="#{bloggerImpressionDetails.beginView}" rendered="false">
-                    <h:outputText value="#{listitem.impressionsqualifyingforpayment}" escape="false" styleClass="smallfont" style="color: #0000ff;"/>
-                    <f:param name="impressionid" value="#{listitem.impressionid}" />
-                </h:commandLink>
+                <h:outputText value="#{listitem.impressionspaidandtobepaid}" escape="false" styleClass="smallfont" style="color: #0000ff;"/>
               </h:column>
               <h:column rendered="true">
                 <f:facet name="header">
                   <h:outputText value="Impressions Total"/>
                 </f:facet>
-                <h:commandLink action="#{bloggerImpressionDetails.beginView}" rendered="false">
-                    <h:outputText value="#{listitem.impressionstotal}" escape="false" styleClass="smallfont" style="color: #0000ff;"/>
-                    <f:param name="impressionid" value="#{listitem.impressionid}" />
-                </h:commandLink>
+                <h:outputText value="#{listitem.totalimpressions}" escape="false" styleClass="smallfont" style="color: #0000ff;"/>
               </h:column>
               <h:column>
                 <f:facet name="header">

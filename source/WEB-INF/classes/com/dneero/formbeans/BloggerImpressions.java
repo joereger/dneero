@@ -1,12 +1,10 @@
 package com.dneero.formbeans;
 
-import com.dneero.util.SortableList;
 import com.dneero.util.Jsf;
 import com.dneero.dao.Impression;
 import com.dneero.dao.Survey;
 import com.dneero.dao.Blogger;
-import com.dneero.dao.hibernate.HibernateUtil;
-import com.dneero.money.BloggerIncomeCalculator;
+import com.dneero.money.UserImpressionFinder;
 
 import java.util.*;
 import java.io.Serializable;
@@ -44,22 +42,14 @@ public class BloggerImpressions  implements Serializable {
             surveytitle = survey.getTitle();
             list = new ArrayList();
 
-
-//                List<Impression> impressions = HibernateUtil.getSession().createCriteria(Impression.class)
-//                                   .add(Restrictions.eq("surveyid", survey.getSurveyid()))
-//                                   .createCriteria("impressiondetails")
-//                                        .add(Restrictions.eq("bloggerid", Jsf.getUserSession().getUser().getBloggerid()))
-//                                   .list();
-//
-
-                List<Impression> impressions = BloggerIncomeCalculator.getAllImpressionsForSurvey(Blogger.get(Jsf.getUserSession().getUser().getBloggerid()), survey);
+                List<Impression> impressions = UserImpressionFinder.getAllImpressionsForSurvey(Blogger.get(Jsf.getUserSession().getUser().getBloggerid()), survey);
                 for (Iterator<Impression> iterator1 = impressions.iterator(); iterator1.hasNext();) {
                     Impression impression = iterator1.next();
                     BloggerImpressionsListItem listitem = new BloggerImpressionsListItem();
                     listitem.setImpressionid(impression.getImpressionid());
                     listitem.setQuality(impression.getQuality());
                     listitem.setReferer(impression.getReferer());
-                    listitem.setImpressionsqualifyingforpayment(impression.getImpressionsqualifyingforpayment());
+                    listitem.setImpressionspaidandtobepaid(impression.getImpressionspaid() +  impression.getImpressionstobepaid());
                     listitem.setImpressionstotal(impression.getImpressionstotal());
                     list.add(listitem);
                 }
@@ -84,8 +74,8 @@ public class BloggerImpressions  implements Serializable {
                 if (column == null) {
                     return 0;
                 }
-                if (column.equals("impressionsqualifyingforpayment")) {
-                    return ascending ? obj1.getImpressionsqualifyingforpayment()-obj2.getImpressionsqualifyingforpayment() : obj2.getImpressionsqualifyingforpayment()-obj1.getImpressionsqualifyingforpayment() ;
+                if (column.equals("impressionspaidandtobepaid")) {
+                    return ascending ? obj1.getImpressionspaidandtobepaid()-obj2.getImpressionspaidandtobepaid() : obj2.getImpressionspaidandtobepaid()-obj1.getImpressionspaidandtobepaid() ;
                 } else {
                     return 0;
                 }

@@ -53,7 +53,7 @@ public class SurveyMoneyStatus implements Serializable {
         impressionsToDate = 0;
         for (Iterator<Impression> iterator2 = survey.getImpressions().iterator(); iterator2.hasNext();) {
             Impression impression = iterator2.next();
-            impressionsToDate = impressionsToDate + impression.getImpressionsqualifyingforpayment();
+            impressionsToDate = impressionsToDate + (impression.getImpressionspaid() + impression.getImpressionstobepaid());
         }
         spentOnImpressionsToDate = (Double.parseDouble(String.valueOf(impressionsToDate)) * survey.getWillingtopaypercpm())/1000;
         spentOnImpressionsToDateIncludingdNeeroFee = spentOnImpressionsToDate + (spentOnImpressionsToDate * (DNEEROMARKUPPERCENT/100));

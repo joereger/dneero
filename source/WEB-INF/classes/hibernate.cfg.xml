@@ -18,9 +18,6 @@
         <mapping resource="com/dneero/dao/Error.hbm.xml" />
         <mapping resource="com/dneero/dao/Eula.hbm.xml" />
         <mapping resource="com/dneero/dao/Impression.hbm.xml" />
-        <mapping resource="com/dneero/dao/Impressiondetail.hbm.xml" />
-        <mapping resource="com/dneero/dao/Impressionpaymentgroup.hbm.xml" />
-        <mapping resource="com/dneero/dao/Impressionchargegroup.hbm.xml" />
         <mapping resource="com/dneero/dao/Massemail.hbm.xml" />
         <mapping resource="com/dneero/dao/Panel.hbm.xml" />
         <mapping resource="com/dneero/dao/Panelmembership.hbm.xml" />

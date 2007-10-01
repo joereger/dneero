@@ -118,17 +118,7 @@
         </managed-property>
     </managed-bean>
 
-    <managed-bean>
-        <managed-bean-name>accountImpressionpaymentgroup</managed-bean-name>
-        <managed-bean-class>com.dneero.formbeans.AccountImpressionpaymentgroup</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
-    </managed-bean>
 
-    <managed-bean>
-        <managed-bean-name>accountImpressionchargegroup</managed-bean-name>
-        <managed-bean-class>com.dneero.formbeans.AccountImpressionchargegroup</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
-    </managed-bean>
 
     <managed-bean>
         <managed-bean-name>changePassword</managed-bean-name>
@@ -179,12 +169,6 @@
     <managed-bean>
         <managed-bean-name>bloggerImpressions</managed-bean-name>
         <managed-bean-class>com.dneero.formbeans.BloggerImpressions</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
-    </managed-bean>
-
-    <managed-bean>
-        <managed-bean-name>bloggerImpressionDetails</managed-bean-name>
-        <managed-bean-class>com.dneero.formbeans.BloggerImpressionDetails</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
 
@@ -314,12 +298,6 @@
     <managed-bean>
         <managed-bean-name>researcherResultsImpressions</managed-bean-name>
         <managed-bean-class>com.dneero.formbeans.ResearcherResultsImpressions</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
-    </managed-bean>
-
-    <managed-bean>
-        <managed-bean-name>researcherResultsImpressionsDetails</managed-bean-name>
-        <managed-bean-class>com.dneero.formbeans.ResearcherResultsImpressionsDetails</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
 
@@ -917,10 +895,6 @@
             <to-view-id>/blogger/impressions.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
-            <from-outcome>bloggerimpressiondetails</from-outcome>
-            <to-view-id>/blogger/impressiondetails.xhtml</to-view-id>
-        </navigation-case>
-        <navigation-case>
             <from-outcome>bloggerindex</from-outcome>
             <to-view-id>/blogger/index.xhtml</to-view-id>
         </navigation-case>
@@ -1049,10 +1023,6 @@
             <to-view-id>/researcher/results_impressions.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
-            <from-outcome>researcherresultsimpressionsdetails</from-outcome>
-            <to-view-id>/researcher/results_impressions_details.xhtml</to-view-id>
-        </navigation-case>
-        <navigation-case>
             <from-outcome>researcherresultsfinancial</from-outcome>
             <to-view-id>/researcher/results_financial.xhtml</to-view-id>
         </navigation-case>
@@ -1108,14 +1078,6 @@
         <navigation-case>
             <from-outcome>accountsupportissuenewnotedone</from-outcome>
             <to-view-id>/account/accountsupportissuenewnotedone.xhtml</to-view-id>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>accountimpressionpaymentgroup</from-outcome>
-            <to-view-id>/account/impressionpaymentgroup.xhtml</to-view-id>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>accountimpressionchargegroup</from-outcome>
-            <to-view-id>/account/impressionchargegroup.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>accountsupportissuedetail</from-outcome>

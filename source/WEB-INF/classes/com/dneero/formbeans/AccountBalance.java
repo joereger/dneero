@@ -55,8 +55,6 @@ public class AccountBalance implements Serializable {
                 abli.setDate(balance.getDate());
                 abli.setDescription(balance.getDescription());
                 abli.setUserid(balance.getUserid());
-                abli.setOptionalimpressionpaymentgroupid(balance.getOptionalimpressionpaymentgroupid());
-                abli.setOptionalimpressionchargegroupid(balance.getOptionalimpressionchargegroupid());
                 balances.add(abli);
             }
             sort("id", false);

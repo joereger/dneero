@@ -58,7 +58,7 @@ public class PublicProfileImpressions implements Serializable {
                     Impression impression = iterator1.next();
 
                     ResearcherResultsImpressionsListitem robj = new ResearcherResultsImpressionsListitem();
-                    robj.setImpressionsqualifyingforpayment(impression.getImpressionsqualifyingforpayment());
+                    robj.setImpressionspaidandtobepaid(impression.getImpressionspaid() + impression.getImpressionstobepaid());
                     robj.setReferer(impression.getReferer());
                     robj.setReferertruncated(Str.truncateString(impression.getReferer(), 45));
                     robj.setImpressionquality(String.valueOf(impression.getQuality()));

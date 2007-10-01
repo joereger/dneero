@@ -2,21 +2,14 @@ package com.dneero.formbeans;
 
 import org.apache.log4j.Logger;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Comparator;
-import java.util.Collections;
+import java.util.*;
 import java.io.Serializable;
 
 import com.dneero.session.UserSession;
 import com.dneero.util.Jsf;
-import com.dneero.util.SortableList;
 import com.dneero.util.Str;
 import com.dneero.dao.Response;
 import com.dneero.dao.Survey;
-import com.dneero.dao.Impressionpaymentgroup;
-import com.dneero.dao.Blogger;
-import com.dneero.money.BloggerIncomeCalculator;
 
 /**
  * User: Joe Reger Jr
@@ -54,16 +47,11 @@ public class BloggerEarningsSurvey  implements Serializable {
             Survey survey = Survey.get(response.getSurveyid());
             this.survey = survey;
             if (response.canRead(Jsf.getUserSession().getUser())){
-                ArrayList<Impressionpaymentgroup> impressionpaymentgroups = BloggerIncomeCalculator.getImpressionpaymentgroupsForASurvey(Blogger.get(userSession.getUser().getBloggerid()), survey);
-                list = new ArrayList();
-                for (Iterator<Impressionpaymentgroup> iterator = impressionpaymentgroups.iterator(); iterator.hasNext();) {
-                    Impressionpaymentgroup impressionpaymentgroup = iterator.next();
-                    BloggerEarningsSurveyListPayments listitem = new BloggerEarningsSurveyListPayments();
-                    listitem.setAmt("$"+Str.formatForMoney(impressionpaymentgroup.getAmt()));
-                    listitem.setImpressionpaymentgroupid(impressionpaymentgroup.getImpressionpaymentgroupid());
-                    listitem.setPaymentdate(impressionpaymentgroup.getDate());
-                    list.add(listitem);
-                }
+                BloggerEarningsSurveyListPayments listitem = new BloggerEarningsSurveyListPayments();
+                listitem.setAmt("$"+Str.formatForMoney(0));
+                listitem.setDescription("Desc");
+                listitem.setPaymentdate(new Date());
+                list.add(listitem);
             }
         }
     }

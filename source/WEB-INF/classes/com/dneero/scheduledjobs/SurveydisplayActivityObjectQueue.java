@@ -4,11 +4,8 @@ import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.apache.log4j.Logger;
-import com.dneero.survey.servlet.ImpressionActivityObject;
-import com.dneero.survey.servlet.ImpressionActivityObjectStorage;
 import com.dneero.survey.servlet.SurveydisplayActivityObject;
 import com.dneero.survey.servlet.SurveydisplayActivityObjectStorage;
-import com.dneero.systemprops.InstanceProperties;
 
 import java.util.ArrayList;
 import java.util.Iterator;

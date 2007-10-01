@@ -90,6 +90,26 @@ public class RecordImpression {
         } catch (Exception ex){
             logger.error(ex);
         }
+
+
+        //Create an IAOCollated
+        ImpressionActivityObjectCollated iaoc = new ImpressionActivityObjectCollated();
+        iaoc.setSurveyid(surveyid);
+        iaoc.setUserid(userid);
+        iaoc.setResponseid(responseid);
+        iaoc.setImpressions(1);
+
+        //Write iao to db
+        //I've already built the iao object so that it's easy to put into a simple memory list and then parse on some interval, writing to the database
+        //ImpressionActivityObjectStorage.store(iao);
+        try{
+            ImpressionActivityObjectQueue.addIaoc(iaoc);
+        } catch (Exception ex){
+            logger.error(ex);
+        }
+
+
+
     }
 
 }

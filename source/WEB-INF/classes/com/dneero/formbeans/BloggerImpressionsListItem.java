@@ -12,7 +12,7 @@ public class BloggerImpressionsListItem implements Serializable {
 
     private int impressionid;
     private String referer;
-    private int impressionsqualifyingforpayment;
+    private int impressionspaidandtobepaid;
     private int impressionstotal;
     private int quality;
 
@@ -36,12 +36,13 @@ public class BloggerImpressionsListItem implements Serializable {
         this.referer = referer;
     }
 
-    public int getImpressionsqualifyingforpayment() {
-        return impressionsqualifyingforpayment;
+
+    public int getImpressionspaidandtobepaid() {
+        return impressionspaidandtobepaid;
     }
 
-    public void setImpressionsqualifyingforpayment(int impressionsqualifyingforpayment) {
-        this.impressionsqualifyingforpayment = impressionsqualifyingforpayment;
+    public void setImpressionspaidandtobepaid(int impressionspaidandtobepaid) {
+        this.impressionspaidandtobepaid=impressionspaidandtobepaid;
     }
 
     public int getQuality() {

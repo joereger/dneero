@@ -17,8 +17,7 @@ public class AccountBalanceListItem implements Serializable {
      private String amt;
      private String currentbalance;
      private String description;
-     private int optionalimpressionpaymentgroupid;
-     private int optionalimpressionchargegroupid;
+
 
     public AccountBalanceListItem(){}
 
@@ -72,20 +71,5 @@ public class AccountBalanceListItem implements Serializable {
     }
 
 
-    public int getOptionalimpressionpaymentgroupid() {
-        return optionalimpressionpaymentgroupid;
-    }
 
-    public void setOptionalimpressionpaymentgroupid(int optionalimpressionpaymentgroupid) {
-        this.optionalimpressionpaymentgroupid = optionalimpressionpaymentgroupid;
-    }
-
-
-    public int getOptionalimpressionchargegroupid() {
-        return optionalimpressionchargegroupid;
-    }
-
-    public void setOptionalimpressionchargegroupid(int optionalimpressionchargegroupid) {
-        this.optionalimpressionchargegroupid = optionalimpressionchargegroupid;
-    }
 }

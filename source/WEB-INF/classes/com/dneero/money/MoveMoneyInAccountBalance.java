@@ -17,10 +17,10 @@ import java.util.Date;
 public class MoveMoneyInAccountBalance {
 
     public static void pay(User user, double amt, String desc, boolean qualifiesforrevsharedistribution, boolean isforcharity, String charityname){
-        pay(user, amt, desc, qualifiesforrevsharedistribution, isforcharity, charityname, 0, 0, 0);
+        pay(user, amt, desc, qualifiesforrevsharedistribution, isforcharity, charityname, 0);
     }
 
-    public static void pay(User user, double amt, String desc, boolean qualifiesforrevsharedistribution, boolean isforcharity, String charityname, int optionalimpressionpaymentgroupid, int optionalimpressionchargegroupid, int optionalresponseid){
+    public static void pay(User user, double amt, String desc, boolean qualifiesforrevsharedistribution, boolean isforcharity, String charityname, int optionalresponseid){
         Logger logger = Logger.getLogger(MoveMoneyInAccountBalance.class);
 
         double originalAmt = amt;
@@ -39,8 +39,6 @@ public class MoveMoneyInAccountBalance {
         CurrentBalanceCalculator cbc = new CurrentBalanceCalculator(user);
         balance.setCurrentbalance(cbc.getCurrentbalance() + amt);
         balance.setUserid(user.getUserid());
-        balance.setOptionalimpressionpaymentgroupid(optionalimpressionpaymentgroupid);
-        balance.setOptionalimpressionchargegroupid(optionalimpressionchargegroupid);
         balance.setOptionalresponseid(optionalresponseid);
         try{balance.save();}catch (Exception ex){logger.error(ex);}
 
@@ -92,11 +90,9 @@ public class MoveMoneyInAccountBalance {
         }
     }
 
-    public static void charge(User user, double amt, String desc){
-        charge(user, amt, desc, 0, 0);
-    }
 
-    public static void charge(User user, double amt, String desc, int optionalimpressionpaymentgroupid, int optionalimpressionchargegroupid){
+
+    public static void charge(User user, double amt, String desc){
         Logger logger = Logger.getLogger(MoveMoneyInAccountBalance.class);
         Balance balance = new Balance();
         balance.setAmt((-1)*amt);
@@ -105,9 +101,7 @@ public class MoveMoneyInAccountBalance {
         CurrentBalanceCalculator cbc = new CurrentBalanceCalculator(user);
         balance.setCurrentbalance(cbc.getCurrentbalance() - amt);
         balance.setUserid(user.getUserid());
-        balance.setOptionalimpressionpaymentgroupid(optionalimpressionpaymentgroupid);
-        balance.setOptionalimpressionchargegroupid(optionalimpressionchargegroupid);
-        try{balance.save();}catch (Exception ex){logger.error(ex);}       
+        try{balance.save();}catch (Exception ex){logger.error(ex);}
     }
 
 

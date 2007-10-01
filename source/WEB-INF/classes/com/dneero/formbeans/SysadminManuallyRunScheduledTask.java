@@ -35,34 +35,8 @@ public class SysadminManuallyRunScheduledTask implements Serializable {
 
 
 
-    public String runCreateImpressionpaymentgroups(){
-        Logger logger = Logger.getLogger(this.getClass().getName());
-        try{
-            CreateImpressionpaymentgroups task = new CreateImpressionpaymentgroups();
-            task.execute(null);} catch (Exception ex){logger.error(ex);}
-        return "sysadminmanuallyrunscheduledtask";
-    }
 
-    public String runCreateImpressionchargegroups(){
-        Logger logger = Logger.getLogger(this.getClass().getName());
-        try{
-            CreateImpressionchargegroups task = new CreateImpressionchargegroups();
-            task.execute(null);} catch (Exception ex){logger.error(ex);}
-        return "sysadminmanuallyrunscheduledtask";
-    }
-
-    public String runRefreshImpressionsqualifyingforpaymentCount(){
-        Logger logger = Logger.getLogger(this.getClass().getName());
-        try{
-            RefreshImpressionsqualifyingforpaymentCount task = new RefreshImpressionsqualifyingforpaymentCount();
-            task.execute(null);} catch (Exception ex){logger.error(ex);}
-        return "sysadminmanuallyrunscheduledtask";
-    }
-
-  
-
-    
-
+   
 
     public String runNotifyBloggersOfNewOffers(){
         Logger logger = Logger.getLogger(this.getClass().getName());
@@ -158,6 +132,13 @@ public class SysadminManuallyRunScheduledTask implements Serializable {
     public String runUpdateResponsePoststatus(){
         Logger logger = Logger.getLogger(this.getClass().getName());
         try{UpdateResponsePoststatus task = new com.dneero.scheduledjobs.UpdateResponsePoststatus();
+            task.execute(null);} catch (Exception ex){logger.error(ex);}
+        return "sysadminmanuallyrunscheduledtask";
+    }
+
+    public String runImpressionPayments(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
+        try{ImpressionPayments task = new com.dneero.scheduledjobs.ImpressionPayments();
             task.execute(null);} catch (Exception ex){logger.error(ex);}
         return "sysadminmanuallyrunscheduledtask";
     }

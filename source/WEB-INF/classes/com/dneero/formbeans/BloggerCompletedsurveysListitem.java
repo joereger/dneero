@@ -16,8 +16,8 @@ public class BloggerCompletedsurveysListitem implements Serializable {
     private int responseid;
     private String surveytitle;
     private Date responsedate;
-    private int impressions;
-    private int impressionsthatqualifyforpay;
+    private int totalimpressions;
+    private int paidandtobepaidimpressions;
     private String amtforresponse;
     private String amttotal;
     private Response response;
@@ -48,13 +48,6 @@ public class BloggerCompletedsurveysListitem implements Serializable {
         this.responsedate = responsedate;
     }
 
-    public int getImpressions() {
-        return impressions;
-    }
-
-    public void setImpressions(int impressions) {
-        this.impressions = impressions;
-    }
 
     public String getAmtforresponse() {
         return amtforresponse;
@@ -72,13 +65,6 @@ public class BloggerCompletedsurveysListitem implements Serializable {
         this.amttotal = amttotal;
     }
 
-    public int getImpressionsthatqualifyforpay() {
-        return impressionsthatqualifyforpay;
-    }
-
-    public void setImpressionsthatqualifyforpay(int impressionsthatqualifyforpay) {
-        this.impressionsthatqualifyforpay = impressionsthatqualifyforpay;
-    }
 
     public int getResponseid() {
         return responseid;
@@ -94,5 +80,22 @@ public class BloggerCompletedsurveysListitem implements Serializable {
 
     public void setResponse(Response response) {
         this.response = response;
+    }
+
+
+    public int getTotalimpressions() {
+        return totalimpressions;
+    }
+
+    public void setTotalimpressions(int totalimpressions) {
+        this.totalimpressions=totalimpressions;
+    }
+
+    public int getPaidandtobepaidimpressions() {
+        return paidandtobepaidimpressions;
+    }
+
+    public void setPaidandtobepaidimpressions(int paidandtobepaidimpressions) {
+        this.paidandtobepaidimpressions=paidandtobepaidimpressions;
     }
 }

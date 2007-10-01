@@ -10,7 +10,7 @@ import java.io.Serializable;
 public class ResearcherResultsImpressionsListitem implements Serializable {
 
 
-    private int impressionsqualifyingforpayment;
+    private int impressionspaidandtobepaid;
     private String referer;
     private int impressionid;
     private String referertruncated;
@@ -19,13 +19,12 @@ public class ResearcherResultsImpressionsListitem implements Serializable {
     public ResearcherResultsImpressionsListitem(){}
 
 
-
-    public int getImpressionsqualifyingforpayment() {
-        return impressionsqualifyingforpayment;
+    public int getImpressionspaidandtobepaid() {
+        return impressionspaidandtobepaid;
     }
 
-    public void setImpressionsqualifyingforpayment(int impressionsqualifyingforpayment) {
-        this.impressionsqualifyingforpayment = impressionsqualifyingforpayment;
+    public void setImpressionspaidandtobepaid(int impressionspaidandtobepaid) {
+        this.impressionspaidandtobepaid=impressionspaidandtobepaid;
     }
 
     public String getReferer() {

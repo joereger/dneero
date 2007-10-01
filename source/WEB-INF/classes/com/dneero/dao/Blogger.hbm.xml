@@ -14,11 +14,6 @@
             <key column="bloggerid"></key>
             <one-to-many class="com.dneero.dao.Response" not-found="ignore"></one-to-many>
         </set>
-        <set name="impressionpaymentgroups" inverse="true" cascade="save-update">
-            <cache usage="transactional"/>
-            <key column="bloggerid"></key>
-            <one-to-many class="com.dneero.dao.Impressionpaymentgroup" not-found="ignore"></one-to-many>
-        </set>
         <set name="panelmemberships" inverse="true" cascade="all-delete-orphan">
             <cache usage="transactional"/>
             <key column="bloggerid"></key>

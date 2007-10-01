@@ -117,31 +117,6 @@
         </trigger>
     </job>
 
-    <job>
-        <job-detail>
-          <name>refreshImpressionsqualifyingforpaymentCount</name>
-          <group>surveyJobs</group>
-          <job-class>com.dneero.scheduledjobs.RefreshImpressionsqualifyingforpaymentCount</job-class>
-          <volatility>false</volatility>
-          <durability>false</durability>
-          <recover>false</recover>
-        </job-detail>
-        <trigger>
-          <!-- Sample cron triggers: http://www.opensymphony.com/quartz/wikidocs/TutorialLesson6.html -->
-          <cron>
-            <name>refreshImpressionsqualifyingforpaymentCountTrigger</name>
-            <group>surveyTriggers</group>
-            <job-name>refreshImpressionsqualifyingforpaymentCount</job-name>
-            <job-group>surveyJobs</job-group>
-            <!-- every x minutes -->
-            <cron-expression>0 0/30 * * * ?</cron-expression>
-          </cron>
-        </trigger>
-    </job>
-
-
-
-
 
     <job>
         <job-detail>
@@ -238,11 +213,12 @@
         </trigger>
     </job>
 
+   
     <job>
         <job-detail>
-          <name>createImpressionpaymentgroups</name>
+          <name>impressionPayments</name>
           <group>surveyJobs</group>
-          <job-class>com.dneero.scheduledjobs.CreateImpressionpaymentgroups</job-class>
+          <job-class>com.dneero.scheduledjobs.ImpressionPayments</job-class>
           <volatility>false</volatility>
           <durability>false</durability>
           <recover>false</recover>
@@ -250,45 +226,16 @@
         <trigger>
           <!-- Sample cron triggers: http://www.opensymphony.com/quartz/wikidocs/TutorialLesson6.html -->
           <cron>
-            <name>createImpressionpaymentgroupsTrigger</name>
+            <name>impressionPaymentsTrigger</name>
             <group>surveyTriggers</group>
-            <job-name>createImpressionpaymentgroups</job-name>
+            <job-name>impressionPayments</job-name>
             <job-group>surveyJobs</job-group>
-            <!-- 12pm on the 15th of the month -->
-            <!--<cron-expression>0 0 12 15 * ?</cron-expression>-->
-            <!-- Fire at 1am every day -->
-            <cron-expression>0 0 1 * * ?</cron-expression>
-            <!-- every 15 minutes -->
-            <!--<cron-expression>0 0/15 * * * ?</cron-expression>-->
+            <!-- Fire at 10am every day -->
+            <cron-expression>0 0 5 * * ?</cron-expression>
           </cron>
         </trigger>
     </job>
 
-    <job>
-        <job-detail>
-          <name>createImpressionchargegroups</name>
-          <group>surveyJobs</group>
-          <job-class>com.dneero.scheduledjobs.CreateImpressionchargegroups</job-class>
-          <volatility>false</volatility>
-          <durability>false</durability>
-          <recover>false</recover>
-        </job-detail>
-        <trigger>
-          <!-- Sample cron triggers: http://www.opensymphony.com/quartz/wikidocs/TutorialLesson6.html -->
-          <cron>
-            <name>createImpressionchargegroupsTrigger</name>
-            <group>surveyTriggers</group>
-            <job-name>createImpressionchargegroups</job-name>
-            <job-group>surveyJobs</job-group>
-            <!-- 12pm on the 15th of the month -->
-            <!--<cron-expression>0 0 12 15 * ?</cron-expression>-->
-            <!-- Fire at 1am every day -->
-            <cron-expression>0 0 4 * * ?</cron-expression>
-            <!-- every 15 minutes -->
-            <!--<cron-expression>0 0/15 * * * ?</cron-expression>-->
-          </cron>
-        </trigger>
-    </job>
 
     <job>
         <job-detail>

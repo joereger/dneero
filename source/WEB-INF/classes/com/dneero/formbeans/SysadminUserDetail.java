@@ -9,7 +9,7 @@ import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.email.EmailActivationSend;
 import com.dneero.email.LostPasswordSend;
 import com.dneero.money.MoveMoneyInAccountBalance;
-import com.dneero.money.BloggerIncomeCalculator;
+import com.dneero.money.UserImpressionFinder;
 import com.dneero.scheduledjobs.ResearcherRemainingBalanceOperations;
 import com.dneero.scheduledjobs.UpdateResponsePoststatus;
 
@@ -86,8 +86,6 @@ public class SysadminUserDetail implements Serializable {
                 abli.setDate(balance.getDate());
                 abli.setDescription(balance.getDescription());
                 abli.setUserid(balance.getUserid());
-                abli.setOptionalimpressionpaymentgroupid(balance.getOptionalimpressionpaymentgroupid());
-                abli.setOptionalimpressionchargegroupid(balance.getOptionalimpressionchargegroupid());
                 balances.add(abli);
             }
 
@@ -115,13 +113,13 @@ public class SysadminUserDetail implements Serializable {
                 for (Iterator<Response> iterator = responses.iterator(); iterator.hasNext();) {
                     Response response = iterator.next();
                     Survey survey = Survey.get(response.getSurveyid());
-                    int allimpressions = BloggerIncomeCalculator.getAllImpressiondetailsForSurvey(Blogger.get(user.getBloggerid()), survey).size();
-                    int allimpressionsqualifyingforpay = BloggerIncomeCalculator.getAllImpressiondetailsForSurveyThatQualifyForPay(Blogger.get(user.getBloggerid()), survey).size();
+                    int totalimpressions = UserImpressionFinder.getTotalImpressions(Blogger.get(user.getBloggerid()), survey);
+                    int paidandtobepaidimpressions = UserImpressionFinder.getPaidAndToBePaidImpressions(Blogger.get(user.getBloggerid()), survey);
                     BloggerCompletedsurveysListitem listitem = new BloggerCompletedsurveysListitem();
                     listitem.setAmtforresponse("$"+Str.formatForMoney(survey.getWillingtopayperrespondent()));
-                    listitem.setAmttotal("$"+Str.formatForMoney(survey.getWillingtopayperrespondent() + ((allimpressionsqualifyingforpay*survey.getWillingtopaypercpm()/1000))));
-                    listitem.setImpressions(allimpressions);
-                    listitem.setImpressionsthatqualifyforpay(allimpressionsqualifyingforpay);
+                    listitem.setAmttotal("$"+Str.formatForMoney(survey.getWillingtopayperrespondent() + ((paidandtobepaidimpressions*survey.getWillingtopaypercpm()/1000))));
+                    listitem.setTotalimpressions(totalimpressions);
+                    listitem.setPaidandtobepaidimpressions(paidandtobepaidimpressions);
                     listitem.setResponsedate(response.getResponsedate());
                     listitem.setResponseid(response.getResponseid());
                     listitem.setSurveyid(survey.getSurveyid());

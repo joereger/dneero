@@ -42,37 +42,12 @@ public class SocialInfluenceRating {
     Impressions are a simple one-point-per
      */
     private static int getImpressions(User user){
-        int out = 0;
-        List<Impression> impressions = HibernateUtil.getSession().createCriteria(Impression.class)
-                                           .add(Restrictions.eq("userid", user.getUserid()))
-                                           .setCacheable(true)
-                                           .list();
-        for (Iterator<Impression> iterator = impressions.iterator(); iterator.hasNext();) {
-            Impression impression = iterator.next();
-            int impressiondetailscount = ((Long)HibernateUtil.getSession().createQuery("select count(*) from Impressiondetail where impressionid='"+impression.getImpressionid()+"'").setCacheable(true).uniqueResult()).intValue();
-            out = out + impressiondetailscount;
-        }
+        int out = ((Long)HibernateUtil.getSession().createQuery("select sum(impressionstotal) from Impression where userid='"+user.getUserid()+"'").setCacheable(true).uniqueResult()).intValue();
         return out;
     }
 
     private static int getImpressions90days(User user){
-        int out = 0;
-        Calendar date90daysago = Time.xDaysAgoStart(Calendar.getInstance(), 90);
-        List<Impression> impressions = HibernateUtil.getSession().createCriteria(Impression.class)
-                                           .add(Restrictions.eq("userid", user.getUserid()))
-                                           .setCacheable(true)
-                                           .list();
-        for (Iterator<Impression> iterator = impressions.iterator(); iterator.hasNext();) {
-            Impression impression = iterator.next();
-            List impressiondetails = HibernateUtil.getSession().createQuery("from Impressiondetail where impressionid='"+impression.getImpressionid()+"'").setCacheable(true).list();
-            for (Iterator<Impressiondetail> iterator1 = impressiondetails.iterator(); iterator1.hasNext();){
-                Impressiondetail impressiondetail = iterator1.next();
-                if (impressiondetail.getImpressiondate().after(date90daysago.getTime())){
-                    out = out + 1;
-                }
-            }
-        }
-        return out;
+        return getImpressions(user);
     }
 
 

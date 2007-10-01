@@ -27,7 +27,6 @@ public class SystemStats implements Job {
     private static int totalbloggers=0;
     private static int totalresearchers=0;
     private static int totalimpressions=0;
-    private static int impressions30days=0;
     private static double dollarsavailabletobloggers=0;
     private static double systembalance=0;
     private static double systembalancerealworld=0;
@@ -44,11 +43,9 @@ public class SystemStats implements Job {
 
             totalbloggers = ((Long)HibernateUtil.getSession().createQuery("select count(*) from Blogger").uniqueResult()).intValue();
             totalresearchers = ((Long)HibernateUtil.getSession().createQuery("select count(*) from Researcher").uniqueResult()).intValue();
-            totalimpressions = ((Long)HibernateUtil.getSession().createQuery("select count(*) from Impressiondetail").uniqueResult()).intValue();
+            totalimpressions = ((Long)HibernateUtil.getSession().createQuery("select sum(impressionstotal) from Impression").uniqueResult()).intValue();
             numberofsurveysopen = ((Long)HibernateUtil.getSession().createQuery("select count(*) from Survey where status='"+Survey.STATUS_OPEN+"'").uniqueResult()).intValue();
 
-            Calendar startDate = Time.xDaysAgoStart(Calendar.getInstance(), 30);
-            impressions30days = ((Long)HibernateUtil.getSession().createQuery("select count(*) from Impressiondetail where impressiondate>='"+Time.dateformatfordb(startDate)+"' and impressiondate<='"+Time.dateformatfordb(Calendar.getInstance())+"'").uniqueResult()).intValue();
 
             dollarsavailabletobloggers = 0;
             List opensurveys = HibernateUtil.getSession().createQuery("from Survey where status='"+ Survey.STATUS_OPEN +"'").list();
@@ -140,13 +137,7 @@ public class SystemStats implements Job {
     }
 
 
-    public static int getImpressions30days() {
-        return impressions30days;
-    }
-
-    public static void setImpressions30days(int impressions30days) {
-        //SystemStats.impressions30days = impressions30days;
-    }
+  
 
     public static double getDollarsavailabletobloggers() {
         return dollarsavailabletobloggers;

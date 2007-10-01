@@ -46,15 +46,8 @@
             <f:facet name="header">
               <h:outputText value="Description"/>
             </f:facet>
-            <h:outputText value="#{balance.description}" styleClass="smallfont" rendered="#{balance.optionalimpressionpaymentgroupid le 0 and balance.optionalimpressionchargegroupid le 0}"/>
-            <h:commandLink action="#{accountImpressionpaymentgroup.beginView}" rendered="#{balance.optionalimpressionpaymentgroupid>0}">
-                <h:outputText value="#{balance.description}" styleClass="smallfont" escape="false" />
-                <f:param name="impressionpaymentgroupid" value="#{balance.optionalimpressionpaymentgroupid}" />
-            </h:commandLink>
-            <h:commandLink action="#{accountImpressionchargegroup.beginView}" rendered="#{balance.optionalimpressionchargegroupid>0}">
-                <h:outputText value="#{balance.description}" styleClass="smallfont" escape="false" />
-                <f:param name="impressionchargegroupid" value="#{balance.optionalimpressionchargegroupid}" />
-            </h:commandLink>
+            <h:outputText value="#{balance.description}" styleClass="smallfont"/>
+
           </h:column>
           <h:column>
             <f:facet name="header">

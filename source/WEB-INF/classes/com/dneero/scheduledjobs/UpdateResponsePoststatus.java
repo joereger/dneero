@@ -6,14 +6,12 @@ import org.quartz.JobExecutionException;
 import org.apache.log4j.Logger;
 import org.hibernate.criterion.Restrictions;
 import com.dneero.systemprops.InstanceProperties;
-import com.dneero.dao.Survey;
 import com.dneero.dao.Response;
 import com.dneero.dao.Impression;
-import com.dneero.dao.Impressiondetail;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.util.Time;
-import com.dneero.util.GeneralException;
 import com.dneero.util.DateDiff;
+import com.dneero.survey.servlet.ImpressionsByDayUtil;
 
 import java.util.*;
 
@@ -55,66 +53,21 @@ public class UpdateResponsePoststatus implements Job {
     public static void processSingleResponse(Response response){
         Logger logger = Logger.getLogger(UpdateResponsePoststatus.class);
         try{
-            //I need to find out if there are at least 20 days with impressions.
-            //I'll use a treemap to add a bunch of dates as keys.  Values don't matter.
-            //Duplicate (multiple) impressions on a particular day mean nothing... they just overwrite the key.
-            //At the end (or during) I can do a treemap.size() to see if it's at least 20
-            TreeMap dayswithimpressions = new TreeMap();
-            TreeMap daybyday = new TreeMap();
 
-            //Start by pulling up impressions for this responseid
+            //Get a single ImpressionsByDayUtil that holds all impression by day data
+            ImpressionsByDayUtil ibdus = new ImpressionsByDayUtil("");
             List<Impression> impressions = HibernateUtil.getSession().createCriteria(Impression.class)
                                                .add(Restrictions.eq("responseid", response.getResponseid()))
                                                .setCacheable(true)
                                                .list();
             for (Iterator<Impression> iterator2 = impressions.iterator(); iterator2.hasNext();) {
                 Impression impression = iterator2.next();
-                //Next, pull up impressiondetails for this impressionid
-                List<Impressiondetail> impressiondetails = HibernateUtil.getSession().createCriteria(Impressiondetail.class)
-                                               .add(Restrictions.eq("impressionid", impression.getImpressionid()))
-                                               .setCacheable(true)
-                                               .list();
-                for (Iterator<Impressiondetail> iterator3 = impressiondetails.iterator(); iterator3.hasNext();) {
-                    Impressiondetail impressiondetail = iterator3.next();
-                    Calendar impressiondate = Time.getCalFromDate(impressiondetail.getImpressiondate());
-                    //Remove time, compress the impression date to something unique for the day
-                    String impressiondateAsStringNoTime = Time.dateformatdateMmddyyyy(impressiondate);
-                    //What the heck, create an incrementing count
-                    if (dayswithimpressions.containsKey(impressiondateAsStringNoTime)){
-                        dayswithimpressions.put(impressiondateAsStringNoTime, (Integer)dayswithimpressions.get(impressiondateAsStringNoTime)+1);
-                    } else {
-                        dayswithimpressions.put(impressiondateAsStringNoTime, 1);
-                    }
-                    //Also need to store a day by day report
-                    int dayssinceresponse = DateDiff.dateDiff("day", impressiondate, Time.getCalFromDate(response.getResponsedate()));
-                    logger.debug("dayssinceresponse="+dayssinceresponse+" impressiondate="+Time.dateformatfordb(impressiondate)+" responsedate="+Time.dateformatfordb(Time.getCalFromDate(response.getResponsedate())));
-                    if (daybyday.containsKey(dayssinceresponse)){
-                        daybyday.put(dayssinceresponse, (Integer)daybyday.get(dayssinceresponse)+1);
-                    } else {
-                        daybyday.put(dayssinceresponse, 1);
-                    }
-                }
-            }
-
-            //Debug, print out treemap
-            Iterator keyValuePairs = dayswithimpressions.entrySet().iterator();
-            logger.debug("dayswithimpressions results... size()="+dayswithimpressions.size());
-            for (int i = 0; i < dayswithimpressions.size(); i++){
-                Map.Entry mapentry = (Map.Entry) keyValuePairs.next();
-                String key = (String)mapentry.getKey();
-                int value = (Integer)mapentry.getValue();
-                logger.debug("date: "+key+" impressions: "+value);
+                ImpressionsByDayUtil ibdu = new ImpressionsByDayUtil(impression.getImpressionsbyday());
+                ibdus.add(ibdu);
             }
 
 
-            //Save updated response status, if necessary
-            if (dayswithimpressions.size()>=1){
-                response.setPoststatus(Response.POSTATUS_POSTEDATLEASTONCE);
-                if (dayswithimpressions.size()>=DAYSWITHIMPRESSIONREQUIREDINSIDEPOSTINGPERIOD){
-                    response.setPoststatus(Response.POSTATUS_POSTED);
-                }
-                try{response.save();}catch(Exception ex){logger.error(ex);}
-            }
+
 
             //If the time period for evaluating impressions has passed, set that status too
             Calendar responseDateAsCal = Time.getCalFromDate(response.getResponsedate());
@@ -136,7 +89,7 @@ public class UpdateResponsePoststatus implements Job {
                 //If this box represents a day in the future
                 if(i<=dayssinceresponsefortoday){
                     //If there are impressions on this day
-                    if(daybyday.containsKey(i)){
+                    if(ibdus.getImpressionsForParticularDay(i)>0){
                         boxColor = "#00ff00";
                         daysthatqualify = daysthatqualify + 1;
                     } else {
@@ -168,8 +121,16 @@ public class UpdateResponsePoststatus implements Job {
                                 "\t\t<td width=\"10\" colspan=\""+(MAXPOSTINGPERIODINDAYS)+"\" nowrap><font class=\"tinyfont\">"+daysthatqualify+" Days Qualify; "+(DAYSWITHIMPRESSIONREQUIREDINSIDEPOSTINGPERIOD-daysthatqualify)+" More Needed</font></td>\n" +
                                 "\t</tr>\n" +
                                 "</table>");
+
+                 
             //Store it in the database for the response
             try{
+                if (daysthatqualify>=1){
+                    response.setPoststatus(Response.POSTATUS_POSTEDATLEASTONCE);
+                    if (daysthatqualify>=DAYSWITHIMPRESSIONREQUIREDINSIDEPOSTINGPERIOD){
+                        response.setPoststatus(Response.POSTATUS_POSTED);
+                    }
+                }
                 response.setResponsestatushtml(statusHtml.toString());
                 response.save();
             }catch(Exception ex){logger.error(ex);}

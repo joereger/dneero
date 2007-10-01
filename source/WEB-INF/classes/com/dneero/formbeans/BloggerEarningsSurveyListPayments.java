@@ -10,18 +10,19 @@ import java.io.Serializable;
  */
 public class BloggerEarningsSurveyListPayments implements Serializable {
 
-    private int impressionpaymentgroupid;
+    private String description;
     private Date paymentdate;
     private String amt;
 
     public BloggerEarningsSurveyListPayments(){}
 
-    public int getImpressionpaymentgroupid() {
-        return impressionpaymentgroupid;
+
+    public String getDescription() {
+        return description;
     }
 
-    public void setImpressionpaymentgroupid(int impressionpaymentgroupid) {
-        this.impressionpaymentgroupid = impressionpaymentgroupid;
+    public void setDescription(String description) {
+        this.description=description;
     }
 
     public Date getPaymentdate() {

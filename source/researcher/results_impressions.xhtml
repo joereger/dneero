@@ -53,10 +53,7 @@
         <f:facet name="header">
           <h:outputText value="Impressions Qualifying"/>
         </f:facet>
-        <h:commandLink action="#{researcherResultsImpressionsDetails.beginView}">
-            <h:outputText value="#{imp.impressionsqualifyingforpayment}" styleClass="smallfont" style="color: #0000ff;"/>
-            <f:param name="impressionid" value="#{imp.impressionid}" />
-        </h:commandLink>
+        <h:outputText value="#{imp.impressionspaidandtobepaid}" styleClass="smallfont" style="color: #0000ff;"/>
       </h:column>
       <h:column>
         <f:facet name="header">

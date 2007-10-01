@@ -40,7 +40,6 @@ public class Blogger extends BasePersistentClass implements java.io.Serializable
      private int socialinfluenceratingranking;
      private int socialinfluenceratingranking90days;
      private Set<Response> responses = new HashSet<Response>();
-     private Set<Impressionpaymentgroup> impressionpaymentgroups = new HashSet<Impressionpaymentgroup>();
      private Set<Panelmembership> panelmemberships = new HashSet<Panelmembership>();
 
     public static Blogger get(int id) {
@@ -199,15 +198,6 @@ public class Blogger extends BasePersistentClass implements java.io.Serializable
 
     public void setQuality90days(double quality90days) {
         this.quality90days = quality90days;
-    }
-
-
-    public Set<Impressionpaymentgroup> getImpressionpaymentgroups() {
-        return impressionpaymentgroups;
-    }
-
-    public void setImpressionpaymentgroups(Set<Impressionpaymentgroup> impressionpaymentgroups) {
-        this.impressionpaymentgroups = impressionpaymentgroups;
     }
 
     public Set<Panelmembership> getPanelmemberships() {
