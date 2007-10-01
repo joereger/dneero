@@ -3,28 +3,17 @@ package com.dneero.dao.hibernate;
 import org.hibernate.SessionFactory;
 import org.hibernate.Session;
 import org.hibernate.HibernateException;
-import org.hibernate.cache.TreeCacheProvider;
 import org.hibernate.tool.hbm2ddl.SchemaUpdate;
-import org.hibernate.event.*;
 import org.hibernate.cfg.Configuration;
 import org.apache.log4j.Logger;
 
 import java.io.File;
 import java.io.Serializable;
-import java.lang.management.ManagementFactory;
 
 
 import com.dneero.systemprops.InstanceProperties;
 import com.dneero.systemprops.WebAppRootDir;
-import com.dneero.dao.hibernate.eventlisteners.RegerPostLoadEventListener;
-import com.dneero.dao.hibernate.eventlisteners.RegerPreInsertEventListener;
-import com.dneero.dao.hibernate.eventlisteners.RegerPreDeleteEventListener;
-import com.dneero.dao.hibernate.eventlisteners.RegerPreUpdateEventListener;
 import com.dneero.startup.ApplicationStartup;
-
-import javax.management.MBeanServer;
-import javax.management.ObjectName;
-import javax.management.MBeanServerFactory;
 
 public class HibernateUtil {
 
@@ -59,22 +48,7 @@ public class HibernateUtil {
                     //Misc
                     //conf.setProperty("hibernate.current_session_context_class", "thread");
                     conf.setProperty("hibernate.show_sql", "true");
-                    conf.setProperty("hibernate.generate_statistics", "true");
-
-                    //Save or update validation listener
-                    PreDeleteEventListener[] stack1 = { new RegerPreDeleteEventListener() };
-                    conf.getEventListeners().setPreDeleteEventListeners(stack1);
-                    PreUpdateEventListener[] stack2 = { new RegerPreUpdateEventListener() };
-                    conf.getEventListeners().setPreUpdateEventListeners(stack2);
-                    PreInsertEventListener[] stack3 = { new RegerPreInsertEventListener() };
-                    conf.getEventListeners().setPreInsertEventListeners(stack3);
-                    PostLoadEventListener[] stack4 = { new RegerPostLoadEventListener() };
-                    conf.getEventListeners().setPostLoadEventListeners(stack4);
-
-                    //Interceptor(s)
-                    //conf.setInterceptor(new HibernateInterceptor());
-
-                    
+                    conf.setProperty("hibernate.generate_statistics", "true");                    
 
                     //Connection pool
                     conf.setProperty("hibernate.c3p0.min_size", String.valueOf(InstanceProperties.getDbMinIdle()));

@@ -89,17 +89,8 @@ public class CreateImpressionchargegroups implements Job {
                                 MoveMoneyInAccountBalance.charge(User.get(researcher.getUserid()), amttocharge, "Charge for blog impressions on survey '"+survey.getTitle()+"'", 0, impressionchargegroup.getImpressionchargegroupid());
                             }
                         }
-
-
                     }
-
                 }
-
-
-
-
-
-
             }
         } else {
             logger.debug("InstanceProperties.getRunScheduledTasksOnThisInstance() is FALSE for this instance so this task is not being executed.");

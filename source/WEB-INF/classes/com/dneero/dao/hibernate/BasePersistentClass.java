@@ -24,18 +24,11 @@ public class BasePersistentClass implements Lifecycle, Validatable, Serializable
        Session hsession = HibernateUtil.getSession();
        try{
             logger.debug("Start validation in save()");
-            ValidateWorker.validate(this);
             logger.debug("End validation in save()");
             hsession.beginTransaction();
             hsession.saveOrUpdate(this);
             hsession.getTransaction().commit();
             hsession.refresh(this);
-        } catch (GeneralException vex){
-            hsession.getTransaction().rollback();
-            //hsession.evict(this);
-            HibernateUtil.closeSession();
-            logger.debug("GeneralException found in save()");
-            throw vex;
         } catch (HibernateException hex){
             logger.debug("HibernateException found in save()");
             logger.error("HibernateException", hex);
@@ -98,6 +91,6 @@ public class BasePersistentClass implements Lifecycle, Validatable, Serializable
       logger.debug("onLoad() called _id="+id);
    }
 
-   public void validate() throws HibValEx {
+   public void validate() {
    }
 }
