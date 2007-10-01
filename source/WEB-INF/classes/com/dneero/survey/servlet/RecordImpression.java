@@ -94,6 +94,7 @@ public class RecordImpression {
 
         //Create an IAOCollated
         ImpressionActivityObjectCollated iaoc = new ImpressionActivityObjectCollated();
+        iaoc.setReferer(referer);
         iaoc.setSurveyid(surveyid);
         iaoc.setUserid(userid);
         iaoc.setResponseid(responseid);

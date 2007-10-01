@@ -98,6 +98,9 @@ public class ImpressionActivityObjectStorage {
 //                logger.debug("responseid=0 but can't calculate it because user==null and/or survey==null");
 //            }
 //        }
+//        if (response!=null && response.getResponseid()>0){
+//            if (user!=null && user.getUserid()>0){
+//                if (survey!=null && survey.getSurveyid()>0){
 //
 //        //Check to see if userid and responseid correlate
 //        if (user!=null &&  response!=null && user.getBloggerid()!=response.getBloggerid()){
@@ -133,6 +136,10 @@ public class ImpressionActivityObjectStorage {
 //        //qualifiesforpayment
 //        //userid
 //        //qualifiesforpaymentreason
+//                }
+//            }
+//        }
+
 
     }
 

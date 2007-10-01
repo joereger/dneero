@@ -97,60 +97,66 @@ public class ImpressionActivityObjectCollatedStorage {
                 logger.debug("responseid=0 but can't calculate it because user==null and/or survey==null");
             }
         }
+        //Make sure we have a response
+        if (response!=null && response.getResponseid()>0){
+            if (user!=null && user.getUserid()>0){
+                if (survey!=null && survey.getSurveyid()>0){
 
 
-        //Find number of impressions on this blog qualify for payment
-        int blogimpressionspaidandtobepaid = UserImpressionFinder.getPaidAndToBePaidImpressions(user, survey);
+                    //Find number of impressions on this blog qualify for payment
+                    int blogimpressionspaidandtobepaid = UserImpressionFinder.getPaidAndToBePaidImpressions(user, survey);
 
-        //See if this impression qualifies for payment
-        int impressionsqualifyingforpayment = iao.getImpressions();
-        //Make sure we fit into the survey total
-        int remainingsurveyimpressions = survey.getMaxdisplaystotal()-surveyimpressionspaidandtobepaid;
-        if (remainingsurveyimpressions<impressionsqualifyingforpayment){
-            impressionsqualifyingforpayment = remainingsurveyimpressions;
-        }
-        //Make sure we fit into the blog total
-        int remainingblogimpressions = survey.getMaxdisplaysperblog()-blogimpressionspaidandtobepaid;
-        if (remainingblogimpressions<impressionsqualifyingforpayment){
-            impressionsqualifyingforpayment = remainingblogimpressions;
-        }
-        //This must be last... if the time period for posting is passed, set to 0
-        int dayssinceclose = DateDiff.dateDiff("day", Calendar.getInstance(), Time.getCalFromDate(survey.getEnddate()));
-        if (dayssinceclose>SurveyMoneyStatus.DAYSAFTERCLOSEOFSURVEYWECOLLECTFORIMPRESSIONS){
-            impressionsqualifyingforpayment = 0;
-        }
+                    //See if this impression qualifies for payment
+                    int impressionsqualifyingforpayment = iao.getImpressions();
+                    //Make sure we fit into the survey total
+                    int remainingsurveyimpressions = survey.getMaxdisplaystotal()-surveyimpressionspaidandtobepaid;
+                    if (remainingsurveyimpressions<impressionsqualifyingforpayment){
+                        impressionsqualifyingforpayment = remainingsurveyimpressions;
+                    }
+                    //Make sure we fit into the blog total
+                    int remainingblogimpressions = survey.getMaxdisplaysperblog()-blogimpressionspaidandtobepaid;
+                    if (remainingblogimpressions<impressionsqualifyingforpayment){
+                        impressionsqualifyingforpayment = remainingblogimpressions;
+                    }
+                    //This must be last... if the time period for posting is passed, set to 0
+                    int dayssinceclose = DateDiff.dateDiff("day", Calendar.getInstance(), Time.getCalFromDate(survey.getEnddate()));
+                    if (dayssinceclose>SurveyMoneyStatus.DAYSAFTERCLOSEOFSURVEYWECOLLECTFORIMPRESSIONS){
+                        impressionsqualifyingforpayment = 0;
+                    }
 
-        //logger.debug("iao.getDate()="+iao.getDate().toString());
-        //logger.debug("iao.getDate()="+ Time.dateformatfordb(Time.getCalFromDate(iao.getDate())));
+                    //logger.debug("iao.getDate()="+iao.getDate().toString());
+                    //logger.debug("iao.getDate()="+ Time.dateformatfordb(Time.getCalFromDate(iao.getDate())));
 
-        //See if there's an existing impression to append this to, if not create one
-        Impression impression = null;
-        List<Impression> impressions = HibernateUtil.getSession().createQuery("from Impression where surveyid='"+iao.getSurveyid()+"' and userid='"+iao.getUserid()+"' and referer='"+ UserInputSafe.clean(iao.getReferer().trim())+"' and responseid='"+responseid+"'").list();
-        if (impressions.size()>0){
-            for (Iterator it = impressions.iterator(); it.hasNext(); ) {
-                impression = (Impression)it.next();
-                impression.setImpressionstobepaid(impression.getImpressionstobepaid()+impressionsqualifyingforpayment);
-                impression.setImpressionstotal(impression.getImpressionstotal()+iao.getImpressions());
+                    //See if there's an existing impression to append this to, if not create one
+                    Impression impression = null;
+                    List<Impression> impressions = HibernateUtil.getSession().createQuery("from Impression where surveyid='"+iao.getSurveyid()+"' and userid='"+iao.getUserid()+"' and referer='"+ UserInputSafe.clean(iao.getReferer().trim())+"' and responseid='"+responseid+"'").list();
+                    if (impressions.size()>0){
+                        for (Iterator it = impressions.iterator(); it.hasNext(); ) {
+                            impression = (Impression)it.next();
+                            impression.setImpressionstobepaid(impression.getImpressionstobepaid()+impressionsqualifyingforpayment);
+                            impression.setImpressionstotal(impression.getImpressionstotal()+iao.getImpressions());
+                        }
+                    } else {
+                        impression = new Impression();
+                        impression.setFirstseen(new Date());
+                        impression.setSurveyid(iao.getSurveyid());
+                        impression.setUserid(iao.getUserid());
+                        impression.setResponseid(responseid);
+                        impression.setImpressionstobepaid(impressionsqualifyingforpayment);
+                        impression.setImpressionstotal(iao.getImpressions());
+                        impression.setReferer(iao.getReferer());
+                    }
+                    //Update the impressionsbyday string
+                    int dayssincetakingsurvey = DateDiff.dateDiff("day", Time.getCalFromDate(new Date()), Time.getCalFromDate(response.getResponsedate()));
+                    ImpressionsByDayUtil ibdu = new ImpressionsByDayUtil(impression.getImpressionsbyday());
+                    ibdu.add(1, dayssincetakingsurvey);
+                    impression.setImpressionsbyday(ibdu.getAsString());
+                    //logger.debug("about to call impression.save()");
+                    try{impression.save();} catch (GeneralException gex){logger.error(gex);}
+                    //logger.debug("done with impression.save()");
+                }
             }
-        } else {
-            impression = new Impression();
-            impression.setFirstseen(new Date());
-            impression.setSurveyid(iao.getSurveyid());
-            impression.setUserid(iao.getUserid());
-            impression.setResponseid(responseid);
-            impression.setImpressionstobepaid(impressionsqualifyingforpayment);
-            impression.setImpressionstotal(iao.getImpressions());
-            impression.setReferer(iao.getReferer());
         }
-        //Update the impressionsbyday string
-        int dayssincetakingsurvey = DateDiff.dateDiff("day", Time.getCalFromDate(new Date()), Time.getCalFromDate(response.getResponsedate()));
-        ImpressionsByDayUtil ibdu = new ImpressionsByDayUtil(impression.getImpressionsbyday());
-        ibdu.add(1, dayssincetakingsurvey);
-        impression.setImpressionsbyday(ibdu.getAsString());
-        //logger.debug("about to call impression.save()");
-        try{impression.save();} catch (GeneralException gex){logger.error(gex);}
-        //logger.debug("done with impression.save()");
-
 
     }
 

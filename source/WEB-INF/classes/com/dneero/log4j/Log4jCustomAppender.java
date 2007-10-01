@@ -71,7 +71,7 @@ public class Log4jCustomAppender extends AppenderSkeleton {
             }
             //Send via email
             if (event.getLevel()==Level.ERROR || event.getLevel()==Level.FATAL){
-                EmailTemplateProcessor.sendGenericEmail("joe@joereger.com", "dNeero Error: "+event.getMessage().toString(), errorMessageAsHtml.toString());
+                //EmailTemplateProcessor.sendGenericEmail("joe@joereger.com", "dNeero Error: "+event.getMessage().toString(), errorMessageAsHtml.toString());
             }
         }
     }

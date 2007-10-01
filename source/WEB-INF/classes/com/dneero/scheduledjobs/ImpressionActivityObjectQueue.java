@@ -59,19 +59,21 @@ ImpressionActivityObjectQueue implements Job {
                 if (iaocs!=null){
                     synchronized(iaocs){
                         for (Iterator it = iaocs.iterator(); it.hasNext(); ) {
-                            ImpressionActivityObjectCollated iao = (ImpressionActivityObjectCollated)it.next();
+                            ImpressionActivityObjectCollated iaoc = (ImpressionActivityObjectCollated)it.next();
                             try{
-                                ImpressionActivityObjectCollatedStorage.store(iao);
+                                ImpressionActivityObjectCollatedStorage.store(iaoc);
                                 synchronized(it){
                                     it.remove();
                                 }
                             } catch (Exception ex){
+                                ex.printStackTrace();
                                 logger.error(ex);
                             }
                         }
                     }
                 }
             } catch (Exception ex){
+                ex.printStackTrace();
                 logger.debug("Error in top block.");
                 logger.error(ex);
             }
