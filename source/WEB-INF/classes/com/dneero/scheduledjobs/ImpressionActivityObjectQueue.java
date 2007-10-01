@@ -18,7 +18,8 @@ import com.dneero.survey.servlet.ImpressionActivityObjectStorage;
  * Date: May 1, 2007
  * Time: 11:30:22 PM
  */
-public class ImpressionActivityObjectQueue implements Job {
+public class
+ImpressionActivityObjectQueue implements Job {
 
     public static ArrayList<ImpressionActivityObject> iaos;
 
