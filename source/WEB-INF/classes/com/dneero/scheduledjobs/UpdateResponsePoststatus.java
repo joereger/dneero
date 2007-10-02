@@ -22,8 +22,6 @@ import java.util.*;
  */
 public class UpdateResponsePoststatus implements Job {
 
-
-
     public static int MAXPOSTINGPERIODINDAYS = 10;
     public static int DAYSWITHIMPRESSIONREQUIREDINSIDEPOSTINGPERIOD = 5;
 
@@ -128,10 +126,18 @@ public class UpdateResponsePoststatus implements Job {
                     statusHtml.append("<font class=\"smallfont\" style=\"color: #999999; font-weight: bold;\">Pending</font>");
                 }
             }
+            int moreneeded =  DAYSWITHIMPRESSIONREQUIREDINSIDEPOSTINGPERIOD-daysthatqualify;
+            if (moreneeded<0){
+                moreneeded = 0;
+            }
+            String daysqualify = "Days Qualify";
+            if (daysthatqualify==1){
+                daysqualify = "Day Qualifies";    
+            }
             statusHtml.append("</td>\n");
             statusHtml.append(  "\t</tr>\n" +
                                 "\t<tr>\n" +
-                                "\t\t<td width=\"10\" colspan=\""+(MAXPOSTINGPERIODINDAYS)+"\" nowrap><font class=\"tinyfont\">"+daysthatqualify+" Days Qualify; "+(DAYSWITHIMPRESSIONREQUIREDINSIDEPOSTINGPERIOD-daysthatqualify)+" More Needed</font></td>\n" +
+                                "\t\t<td width=\"10\" colspan=\""+(MAXPOSTINGPERIODINDAYS)+"\" nowrap><font class=\"tinyfont\">"+daysthatqualify+" "+daysqualify+"; "+moreneeded+" More Needed</font></td>\n" +
                                 "\t</tr>\n" +
                                 "</table>");
 
