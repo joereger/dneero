@@ -25,7 +25,7 @@ public class SurveyHtmlpageServlet extends HttpServlet {
     public void doPost (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Logger logger = Logger.getLogger(this.getClass().getName());
         UrlSplitter urlSplitter = new UrlSplitter(request);
-        logger.error("SurveyHtmlpageServlet called.  It shouldn't be. url="+urlSplitter.getRequestUrl()+"?"+urlSplitter.getQuerystring()+" referer="+request.getHeader("referer"));
+        logger.debug("SurveyHtmlpageServlet called.  It shouldn't be. url="+urlSplitter.getRequestUrl()+"?"+urlSplitter.getQuerystring()+" referer="+request.getHeader("referer"));
         response.sendRedirect("/survey.jsf?s="+request.getParameter("s")+"&u="+request.getParameter("u")+"&p="+request.getParameter("p"));
         return;
 //        logger.debug("Looking for html page survey via servlet");

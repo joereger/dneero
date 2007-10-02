@@ -563,17 +563,20 @@ public class PublicSurveyTake implements Serializable {
         Logger logger = Logger.getLogger(this.getClass().getName());
         try{
             //Update Facebook
-            FacebookApiWrapper facebookApiWrapper = new FacebookApiWrapper(Jsf.getUserSession());
-            List<Response> responses = HibernateUtil.getSession().createCriteria(Response.class)
-                                               .add(Restrictions.eq("surveyid", survey.getSurveyid()))
-                                               .setCacheable(false)
-                                               .list();
-            for (Iterator<Response> iterator=responses.iterator(); iterator.hasNext();) {
-                Response response=iterator.next();
-                facebookApiWrapper.postSurveyToFacebookMiniFeed(survey, response);
-                facebookApiWrapper.updateFacebookProfile(Jsf.getUserSession().getUser());
-            } 
-            Jsf.setFacesMessage("Your Facebook profile should have been updated.");
+            if (Jsf.getUserSession().getUser().getBloggerid()>0){
+                FacebookApiWrapper facebookApiWrapper = new FacebookApiWrapper(Jsf.getUserSession());
+                List<Response> responses = HibernateUtil.getSession().createCriteria(Response.class)
+                                                   .add(Restrictions.eq("surveyid", survey.getSurveyid()))
+                                                   .add(Restrictions.eq("bloggerid", Jsf.getUserSession().getUser().getBloggerid()))
+                                                   .setCacheable(false)
+                                                   .list();
+                for (Iterator<Response> iterator=responses.iterator(); iterator.hasNext();) {
+                    Response response=iterator.next();
+                    facebookApiWrapper.postSurveyToFacebookMiniFeed(survey, response);
+                    facebookApiWrapper.updateFacebookProfile(Jsf.getUserSession().getUser());
+                }
+                Jsf.setFacesMessage("Your Facebook profile should have been updated.");
+            }
         } catch (Exception ex){
             logger.error(ex);
         }

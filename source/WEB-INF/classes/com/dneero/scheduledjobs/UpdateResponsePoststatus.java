@@ -50,6 +50,23 @@ public class UpdateResponsePoststatus implements Job {
         }
     }
 
+    public static void processAllResponses(){
+        Logger logger = Logger.getLogger(UpdateResponsePoststatus.class);
+        logger.debug("execute() UpdateResponsePoststatus called");
+        //Note that I'm saying NOT timepasses AND NOT moddeclined AND NOT posted
+        List<Response> responses = HibernateUtil.getSession().createCriteria(Response.class)
+                               .setCacheable(false)
+                               .list();
+        for (Iterator<Response> iterator = responses.iterator(); iterator.hasNext();) {
+            Response response = iterator.next();
+            logger.debug("response.getResponseid()="+response.getResponseid());
+            logger.debug("response.getResponsedate()="+ Time.dateformatcompactwithtime(Time.getCalFromDate(response.getResponsedate())));
+            logger.debug("new Date()="+Time.dateformatcompactwithtime(Time.getCalFromDate(new Date())));
+            //Process this response
+            processSingleResponse(response);
+        }
+    }
+
     public static void processSingleResponse(Response response){
         Logger logger = Logger.getLogger(UpdateResponsePoststatus.class);
         try{
@@ -65,9 +82,6 @@ public class UpdateResponsePoststatus implements Job {
                 ImpressionsByDayUtil ibdu = new ImpressionsByDayUtil(impression.getImpressionsbyday());
                 ibdus.add(ibdu);
             }
-
-
-
 
             //If the time period for evaluating impressions has passed, set that status too
             Calendar responseDateAsCal = Time.getCalFromDate(response.getResponsedate());
@@ -98,24 +112,23 @@ public class UpdateResponsePoststatus implements Job {
                 }
                 statusHtml.append("\t\t<td width=\"10\" bgcolor=\""+boxColor+"\" class=\"surveystatusbar\"><img src=\"/images/clear.gif\" width=\"1\" height=\"15\" border=\"0\"></td>\n");
             }
-            statusHtml.append("\t\t<td width=\"10\" rowspan=\"2\" nowrap><center>");
+            statusHtml.append("\t\t<td width=\"10\" rowspan=\"2\" nowrap>");
             if (response.getPoststatus()==Response.POSTATUS_NOTPOSTEDTIMELIMITPASSED){
-                statusHtml.append("<img src=\"/images/delete-alt-32.png\" width=\"32\" height=\"32\" border=\"0\">");
+                statusHtml.append("<img src=\"/images/delete-alt-16.png\" width=\"16\" height=\"16\" border=\"0\">");
                 statusHtml.append("<br/>");
                 statusHtml.append("<font class=\"smallfont\" style=\"color: #999999; font-weight: bold;\">Too Late</font>");
             } else {
                 if (response.getIspaid()){
-                    statusHtml.append("<img src=\"/images/ok-32.png\" width=\"32\" height=\"32\" border=\"0\">");
+                    statusHtml.append("<img src=\"/images/ok-16.png\" width=\"16\" height=\"16\" border=\"0\">");
                     statusHtml.append("<br/>");
                     statusHtml.append("<font class=\"smallfont\" style=\"color: #999999; font-weight: bold;\">Paid</font>");
                 } else {
-                    statusHtml.append("<img src=\"/images/clock-32.png\" width=\"32\" height=\"32\" border=\"0\">");
+                    statusHtml.append("<img src=\"/images/clock-16.png\" width=\"16\" height=\"16\" border=\"0\">");
                     statusHtml.append("<br/>");
                     statusHtml.append("<font class=\"smallfont\" style=\"color: #999999; font-weight: bold;\">Pending</font>");
                 }
             }
-
-            statusHtml.append("</center></td>\n");
+            statusHtml.append("</td>\n");
             statusHtml.append(  "\t</tr>\n" +
                                 "\t<tr>\n" +
                                 "\t\t<td width=\"10\" colspan=\""+(MAXPOSTINGPERIODINDAYS)+"\" nowrap><font class=\"tinyfont\">"+daysthatqualify+" Days Qualify; "+(DAYSWITHIMPRESSIONREQUIREDINSIDEPOSTINGPERIOD-daysthatqualify)+" More Needed</font></td>\n" +

@@ -20,11 +20,13 @@ public class ImpressionsByDayUtil {
         Logger logger = Logger.getLogger(this.getClass().getName());
         impressionsbyday = new HashMap<Integer, Integer>();
         try{
-            String[] split = impressionsbydayStr.split("-");
-            for (int i=0; i<split.length; i++) {
-                String s = split[i];
-                if (s!=null && Num.isinteger(s)){
-                    impressionsbyday.put(i, Integer.parseInt(s));
+            if (impressionsbydayStr!=null && !impressionsbydayStr.equals("")){
+                String[] split = impressionsbydayStr.split("-");
+                for (int i=0; i<split.length; i++) {
+                    String s = split[i];
+                    if (s!=null && Num.isinteger(s)){
+                        impressionsbyday.put(i, Integer.parseInt(s));
+                    }
                 }
             }
         } catch (Exception ex){

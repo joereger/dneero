@@ -35,7 +35,7 @@ public class FacebookSurveyThatsBeenTaken implements Serializable {
             }
         }
         if (isalreadyhere && survey!=null){
-            logger.error("userid="+facebookSurveyTaker.getUserid()+" appears to have taken surveyid="+survey.getSurveyid()+" more than once.");
+            logger.debug("userid="+facebookSurveyTaker.getUserid()+" appears to have taken surveyid="+survey.getSurveyid()+" more than once.");
         }
         if (!isalreadyhere){
             if (facebookSurveyTakers==null){

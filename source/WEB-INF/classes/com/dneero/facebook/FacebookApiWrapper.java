@@ -76,15 +76,23 @@ public class FacebookApiWrapper {
                 SurveyEnhancer surveyEnhancer = new SurveyEnhancer(survey);
                 int BUILTINCHARS = 28 + surveyEnhancer.getWillingtopayforresponse().length(); //Just update this with the most recent count of "took the survey " etc
                 int lengthofsurveytitle = survey.getTitle().length();
+                int lengthofforcharity = 0;
 
                 String forcharity =  "";
                 if (response.getIsforcharity()){
                     forcharity = " for charity";
+                    lengthofforcharity = 12;
+                }
+
+                int length=BUILTINCHARS + lengthofsurveytitle + lengthofforcharity;
+                int truncatetitleto = 100;
+                if (length>60){
+                    truncatetitleto = 60 - (BUILTINCHARS + lengthofforcharity);
                 }
                                
-                //@todo need to limit the length to 60 chars... not counting tags... just the displayed chars
+                //Limit the length to 60 chars... not counting tags... just the displayed chars
                 FacebookRestClient facebookRestClient = new FacebookRestClient(SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_KEY), SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_SECRET), facebookSessionKey);
-                facebookRestClient.feed_publishActionOfUser("took the survey <a href=\"http://apps.facebook.com/"+SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_APP_NAME)+"/?action=showsurvey"+"-"+survey.getSurveyid()+"-"+Blogger.get(response.getBloggerid()).getUserid()+"\">"+survey.getTitle()+"</a> and earned "+surveyEnhancer.getWillingtopayforresponse()+forcharity, "");
+                facebookRestClient.feed_publishActionOfUser("took the survey <a href=\"http://apps.facebook.com/"+SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_APP_NAME)+"/?action=showsurvey"+"-"+survey.getSurveyid()+"-"+Blogger.get(response.getBloggerid()).getUserid()+"\">"+Str.truncateString(survey.getTitle(), truncatetitleto)+"</a> and earned "+surveyEnhancer.getWillingtopayforresponse()+forcharity, "");
             } catch (Exception ex){logger.error(ex);}
         } else {logger.debug("Can't execute because issessionok = false");}
     }
