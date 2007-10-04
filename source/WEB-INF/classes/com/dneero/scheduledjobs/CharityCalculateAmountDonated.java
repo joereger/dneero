@@ -9,6 +9,7 @@ import com.dneero.systemprops.InstanceProperties;
 import com.dneero.dao.Survey;
 import com.dneero.dao.User;
 import com.dneero.dao.hibernate.HibernateUtil;
+import com.dneero.dao.hibernate.NumFromUniqueResult;
 import com.dneero.util.Time;
 import com.dneero.util.GeneralException;
 
@@ -33,7 +34,7 @@ public class CharityCalculateAmountDonated implements Job {
                     try{
                         User user = (User)iterator.next();
                         double charityamtdonatedOriginal = user.getCharityamtdonated();
-                        double sum = ((Double)HibernateUtil.getSession().createQuery("select sum(amt) from Charitydonation where userid='"+user.getUserid()+"'").uniqueResult()).doubleValue();
+                        double sum = NumFromUniqueResult.getDouble("select sum(amt) from Charitydonation where userid='"+user.getUserid()+"'");
                         logger.debug("user name="+user.getFirstname()+" "+user.getLastname());
                         logger.debug("charityamtdonatedOriginal="+charityamtdonatedOriginal);
                         logger.debug("sum="+sum);

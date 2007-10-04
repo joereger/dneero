@@ -5,6 +5,7 @@ import org.hibernate.criterion.Restrictions;
 import com.dneero.dao.Survey;
 import com.dneero.dao.Impression;
 import com.dneero.dao.hibernate.HibernateUtil;
+import com.dneero.dao.hibernate.NumFromUniqueResult;
 import com.dneero.util.Jsf;
 import com.dneero.session.UserSession;
 import com.dneero.money.SurveyMoneyStatus;
@@ -62,7 +63,7 @@ public class ResearcherResults implements Serializable {
                     totalsurveyresponses = survey.getResponses().size();
                     maxsurveyresponses = survey.getNumberofrespondentsrequested();
                     maxsurveydisplays = survey.getMaxdisplaystotal();
-                    totalsurveydisplays = 0;
+                    totalsurveydisplays = NumFromUniqueResult.getInt("select sum(impressionstotal) from Impression where surveyid='"+survey.getSurveyid()+"'");
                     status = survey.getStatus();
                     totalsurveydisplays = sms.getImpressionsToDate();
                 } catch (Exception ex){

@@ -1,7 +1,11 @@
 package com.dneero.util;
 
+import org.apache.log4j.Logger;
+
 import javax.servlet.http.Cookie;
 import java.util.*;
+
+import sun.reflect.Reflection;
 
 /**
  * User: Joe Reger Jr
@@ -17,6 +21,19 @@ public class Util {
             out.add(o);
         }
         return out;
+    }
+
+    public static void logStackTrace(int levelsdeep){
+        Logger logger = Logger.getLogger(Util.class.getName());
+        logger.debug("logStackTrace("+levelsdeep+") begin");
+        StackTraceElement[] elements = new Exception().getStackTrace();
+        for (int i=0; i<elements.length; i++) {
+            StackTraceElement element=elements[i];
+            if (i<levelsdeep){
+                logger.debug("class="+element.getClassName()+"."+element.getMethodName()+":"+element.getLineNumber());
+            }
+        }
+        logger.debug("logStackTrace("+levelsdeep+") end");
     }
 
     public static String[] addToStringArray(String[] src, String str){

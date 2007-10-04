@@ -1,6 +1,7 @@
 package com.dneero.survey.servlet;
 
 import com.dneero.dao.hibernate.HibernateUtil;
+import com.dneero.dao.hibernate.NumFromUniqueResult;
 import com.dneero.dao.*;
 import com.dneero.util.GeneralException;
 import com.dneero.util.Num;
@@ -45,16 +46,8 @@ public class ImpressionActivityObjectCollatedStorage {
         if (iao.getSurveyid()>0){
             survey = Survey.get(iao.getSurveyid());
             if (survey!=null && survey.getSurveyid()>0){
-                int impressionspaid = 0;
-                Object obj = HibernateUtil.getSession().createQuery("select sum(impressionspaid) from Impression where surveyid='"+survey.getSurveyid()+"'").uniqueResult();
-                if (obj!=null && Num.isinteger(String.valueOf(obj))){
-                    impressionspaid = ((Long)obj).intValue();
-                }
-                int impressionstobepaid = 0;
-                Object obj2 = HibernateUtil.getSession().createQuery("select sum(impressionstobepaid) from Impression where surveyid='"+survey.getSurveyid()+"'").uniqueResult();
-                if (obj2!=null && Num.isinteger(String.valueOf(obj2))){
-                    impressionstobepaid = ((Long)obj2).intValue();
-                }
+                int impressionspaid = NumFromUniqueResult.getInt("select sum(impressionspaid) from Impression where surveyid='"+survey.getSurveyid()+"'");
+                int impressionstobepaid = NumFromUniqueResult.getInt("select sum(impressionstobepaid) from Impression where surveyid='"+survey.getSurveyid()+"'");
                 //Sum them
                 surveyimpressionspaidandtobepaid = impressionspaid + impressionstobepaid;
             } else {

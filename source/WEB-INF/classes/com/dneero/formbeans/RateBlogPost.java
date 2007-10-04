@@ -2,6 +2,7 @@ package com.dneero.formbeans;
 
 import com.dneero.dao.Impression;
 import com.dneero.dao.hibernate.HibernateUtil;
+import com.dneero.dao.hibernate.NumFromUniqueResult;
 import org.apache.log4j.Logger;
 
 import java.util.List;
@@ -35,7 +36,7 @@ public class RateBlogPost implements Serializable {
     }
 
     private void getNewPostToRate(){
-        remainingtoreview = ((Long)HibernateUtil.getSession().createQuery("select count(*) from Impression where quality='0'").uniqueResult()).intValue();
+        remainingtoreview = NumFromUniqueResult.getInt("select count(*) from Impression where quality='0'");
         List<Impression> impressions = HibernateUtil.getSession().createQuery("from Impression where quality='0'").setMaxResults(1).list();
         if (impressions.size()>0){
             impression = impressions.get(0);

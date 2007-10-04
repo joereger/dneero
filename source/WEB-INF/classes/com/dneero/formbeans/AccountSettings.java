@@ -8,6 +8,7 @@ import com.dneero.dao.User;
 import com.dneero.dao.Blogger;
 import com.dneero.dao.Panel;
 import com.dneero.dao.hibernate.HibernateUtil;
+import com.dneero.dao.hibernate.NumFromUniqueResult;
 import com.dneero.session.UserSession;
 import com.dneero.email.EmailActivationSend;
 import com.dneero.helpers.UserInputSafe;
@@ -73,7 +74,7 @@ public class AccountSettings implements Serializable {
             boolean emailNeedsToBeReactivated = false;
             User user = userSession.getUser();
             if (!user.getEmail().equals(email)){
-                long cnt = (Long)HibernateUtil.getSession().createQuery("select count(*) from User where email='"+Str.cleanForSQL(email)+"' and userid<>'"+userSession.getUser().getUserid()+"'").uniqueResult();
+                int cnt = NumFromUniqueResult.getInt("select count(*) from User where email='"+Str.cleanForSQL(email)+"' and userid<>'"+userSession.getUser().getUserid()+"'");
                 if (cnt>0){
                     Jsf.setFacesMessage("accountSettingsForm:email", "The email address ("+email+") is already in use and was not added to your account.");
                     haveValidationError = true;
@@ -84,7 +85,7 @@ public class AccountSettings implements Serializable {
                 }
             }
             if (!user.getPaymethodpaypaladdress().equals(paymethodpaypaladdress)){
-                long cnt = (Long)HibernateUtil.getSession().createQuery("select count(*) from User where paymethodpaypaladdress='"+Str.cleanForSQL(paymethodpaypaladdress)+"' and userid<>'"+userSession.getUser().getUserid()+"' and paymethodpaypaladdress<>'' and paymethodpaypaladdress IS NOT NULL").uniqueResult();
+                int cnt = NumFromUniqueResult.getInt("select count(*) from User where paymethodpaypaladdress='"+Str.cleanForSQL(paymethodpaypaladdress)+"' and userid<>'"+userSession.getUser().getUserid()+"' and paymethodpaypaladdress<>'' and paymethodpaypaladdress IS NOT NULL");
                 if (cnt>0){
                     Jsf.setFacesMessage("accountSettingsForm:paymethodpaypaladdress", "That PayPal address is already in use by another user.");
                     paymethodpaypaladdress = user.getPaymethodpaypaladdress();

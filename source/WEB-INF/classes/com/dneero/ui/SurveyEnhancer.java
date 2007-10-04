@@ -1,6 +1,8 @@
 package com.dneero.ui;
 
 import com.dneero.dao.Survey;
+import com.dneero.dao.hibernate.HibernateUtil;
+import com.dneero.dao.hibernate.NumFromUniqueResult;
 import com.dneero.util.Time;
 import com.dneero.util.Str;
 import com.dneero.util.DateDiff;
@@ -36,8 +38,9 @@ public class SurveyEnhancer implements Serializable {
             enddate = Time.dateformatcompactwithtime(Time.getCalFromDate(survey.getEnddate()));
 
             responsesalreadygotten = String.valueOf(survey.getResponses().size());
-
-            impressionsalreadygotten = String.valueOf(survey.getImpressions().size());
+            //replace with singe sql call
+            //impressionsalreadygotten = String.valueOf(survey.getImpressions().size());
+            impressionsalreadygotten = String.valueOf(NumFromUniqueResult.getInt("select sum(impressionstotal) from Impression where surveyid='"+survey.getSurveyid()+"'"));
 
             willingtopayforresponse = "$"+ Str.formatForMoney(survey.getWillingtopayperrespondent());
 

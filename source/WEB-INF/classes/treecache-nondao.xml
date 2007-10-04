@@ -38,7 +38,7 @@
         <attribute name="IsolationLevel">NONE</attribute>
 
         <!--
-             Valid modes are LOCAL, REPL_ASYNC and REPL_SYNC
+             Valid modes are LOCAL, REPL_ASYNC and REPL_SYNC, INVALIDATION_SYNC
         -->
         <attribute name="CacheMode">REPL_SYNC</attribute>
 

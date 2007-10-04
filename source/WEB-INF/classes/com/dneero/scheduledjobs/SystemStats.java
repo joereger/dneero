@@ -8,6 +8,7 @@ import com.dneero.systemprops.InstanceProperties;
 import com.dneero.dao.Userpersistentlogin;
 import com.dneero.dao.Survey;
 import com.dneero.dao.hibernate.HibernateUtil;
+import com.dneero.dao.hibernate.NumFromUniqueResult;
 import com.dneero.util.Time;
 import com.dneero.session.PersistentLogin;
 import com.dneero.ui.SurveyEnhancer;
@@ -41,10 +42,10 @@ public class SystemStats implements Job {
         //if (InstanceProperties.getRunScheduledTasksOnThisInstance()){
             logger.debug("execute() SystemStats called");
 
-            totalbloggers = ((Long)HibernateUtil.getSession().createQuery("select count(*) from Blogger").uniqueResult()).intValue();
-            totalresearchers = ((Long)HibernateUtil.getSession().createQuery("select count(*) from Researcher").uniqueResult()).intValue();
-            totalimpressions = ((Long)HibernateUtil.getSession().createQuery("select sum(impressionstotal) from Impression").uniqueResult()).intValue();
-            numberofsurveysopen = ((Long)HibernateUtil.getSession().createQuery("select count(*) from Survey where status='"+Survey.STATUS_OPEN+"'").uniqueResult()).intValue();
+            totalbloggers = NumFromUniqueResult.getInt("select count(*) from Blogger");
+            totalresearchers = NumFromUniqueResult.getInt("select count(*) from Researcher");
+            totalimpressions = NumFromUniqueResult.getInt("select sum(impressionstotal) from Impression");
+            numberofsurveysopen = NumFromUniqueResult.getInt("select count(*) from Survey where status='"+Survey.STATUS_OPEN+"'");
 
 
             dollarsavailabletobloggers = 0;
@@ -56,8 +57,8 @@ public class SystemStats implements Job {
                 }
             }
 
-            systembalance = (Double)HibernateUtil.getSession().createQuery("select sum(amt) from Balance").uniqueResult();
-            systembalancerealworld = (-1)*(Double)HibernateUtil.getSession().createQuery("select sum(amt) from Balancetransaction where issuccessful=true").uniqueResult();
+            systembalance = NumFromUniqueResult.getDouble("select sum(amt) from Balance");
+            systembalancerealworld = (-1)*NumFromUniqueResult.getDouble("select sum(amt) from Balancetransaction where issuccessful=true");
             systembalancetotal = systembalancerealworld - systembalance;
 
             int surveyindex = 0;

@@ -1,9 +1,6 @@
 package com.dneero.formbeans;
 
-import com.dneero.util.Jsf;
-import com.dneero.util.Str;
-import com.dneero.util.DateDiff;
-import com.dneero.util.Time;
+import com.dneero.util.*;
 import com.dneero.money.CurrentBalanceCalculator;
 import com.dneero.dao.Responsepending;
 import com.dneero.dao.hibernate.HibernateUtil;
@@ -52,7 +49,7 @@ public class AccountIndex implements Serializable {
 
     private void load(){
         Logger logger = Logger.getLogger(this.getClass().getName());
-        if(Jsf.getUserSession().getUser()!=null){
+        if(Jsf.getUserSession().getUser()!=null && Num.isinteger(String.valueOf(Jsf.getUserSession().getUser().getUserid()))){
             CurrentBalanceCalculator cbc = new CurrentBalanceCalculator(Jsf.getUserSession().getUser());
             currentbalance = "$"+Str.formatForMoney(cbc.getCurrentbalance());
             List<Responsepending> responsependings = HibernateUtil.getSession().createCriteria(Responsepending.class)

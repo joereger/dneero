@@ -2,6 +2,7 @@ package com.dneero.dao;
 // Generated Apr 17, 2006 3:45:24 PM by Hibernate Tools 3.1.0.beta4
 
 import com.dneero.util.GeneralException;
+import com.dneero.util.Util;
 import com.dneero.dao.hibernate.BasePersistentClass;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.session.AuthControlled;
@@ -13,6 +14,7 @@ import java.util.HashSet;
 
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
+import sun.reflect.Reflection;
 
 
 /**
@@ -124,14 +126,14 @@ public class Survey extends BasePersistentClass implements java.io.Serializable,
 
 
     public boolean canRead(User user){
+        return true;    
+    }
+
+    public boolean canEdit(User user){
         if (user.getUserid()==Researcher.get(researcherid).getUserid()){
             return true;
         }
         return false;
-    }
-
-    public boolean canEdit(User user){
-        return canRead(user);
     }
 
 

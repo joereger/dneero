@@ -3,6 +3,7 @@ package com.dneero.session;
 import com.dneero.dao.User;
 import com.dneero.dao.Blogger;
 import com.dneero.dao.hibernate.HibernateUtil;
+import com.dneero.dao.hibernate.NumFromUniqueResult;
 import com.dneero.util.Time;
 
 import java.util.Calendar;
@@ -28,7 +29,7 @@ public class SurveysTakenToday {
                 Date startDate = startCal.getTime();
                 int out = 0;
                 try{
-                    out = ((Long)HibernateUtil.getSession().createQuery("select count(*) from Response where bloggerid='"+blogger.getBloggerid()+"' and responsedate>'"+Time.dateformatfordb(startCal)+"'").uniqueResult()).intValue();
+                    out = NumFromUniqueResult.getInt("select count(*) from Response where bloggerid='"+blogger.getBloggerid()+"' and responsedate>'"+Time.dateformatfordb(startCal)+"'");
                 } catch (Exception ex){
                     logger.error(ex);
                 }

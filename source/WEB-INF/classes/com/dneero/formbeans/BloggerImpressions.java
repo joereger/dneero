@@ -37,12 +37,14 @@ public class BloggerImpressions  implements Serializable {
     }
 
     private void load(int surveyid){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         Survey survey = Survey.get(surveyid);
         if (survey!=null && Jsf.getUserSession().getUser()!=null && survey.canRead(Jsf.getUserSession().getUser())){
             surveytitle = survey.getTitle();
             list = new ArrayList();
 
                 List<Impression> impressions = UserImpressionFinder.getAllImpressionsForSurvey(Blogger.get(Jsf.getUserSession().getUser().getBloggerid()), survey);
+                logger.debug("impressions.size()="+impressions.size());
                 for (Iterator<Impression> iterator1 = impressions.iterator(); iterator1.hasNext();) {
                     Impression impression = iterator1.next();
                     BloggerImpressionsListItem listitem = new BloggerImpressionsListItem();
@@ -56,6 +58,8 @@ public class BloggerImpressions  implements Serializable {
 
 
 
+        } else {
+            logger.debug("survey's null, user's null or can't read... survey.canRead(Jsf.getUserSession().getUser()="+survey.canRead(Jsf.getUserSession().getUser()));
         }
     }
 

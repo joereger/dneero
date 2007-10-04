@@ -45,7 +45,6 @@ public class ResearcherResultsImpressions implements Serializable {
         survey = Survey.get(surveyid);
         researcherResultsImpressionsListitems = new ArrayList<ResearcherResultsImpressionsListitem>();
         if (survey!=null){
-            logger.debug("survey.getImpressions().size()="+survey.getImpressions().size());
             if (Jsf.getUserSession().getUser()!=null && survey.canEdit(Jsf.getUserSession().getUser())){
                 List<Impression> impressions = HibernateUtil.getSession().createCriteria(Impression.class)
                                    .add( Restrictions.eq("surveyid", survey.getSurveyid()))

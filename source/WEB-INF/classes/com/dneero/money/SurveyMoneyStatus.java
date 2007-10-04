@@ -2,6 +2,8 @@ package com.dneero.money;
 
 import com.dneero.dao.Survey;
 import com.dneero.dao.Impression;
+import com.dneero.dao.hibernate.HibernateUtil;
+import com.dneero.dao.hibernate.NumFromUniqueResult;
 import com.dneero.util.Time;
 import com.dneero.util.DateDiff;
 
@@ -51,10 +53,13 @@ public class SurveyMoneyStatus implements Serializable {
         spentOnResponsesToDate = survey.getWillingtopayperrespondent() * responsesToDate;
         spentOnResponsesToDateIncludingdNeeroFee = spentOnResponsesToDate + (spentOnResponsesToDate * (DNEEROMARKUPPERCENT/100));
         impressionsToDate = 0;
-        for (Iterator<Impression> iterator2 = survey.getImpressions().iterator(); iterator2.hasNext();) {
-            Impression impression = iterator2.next();
-            impressionsToDate = impressionsToDate + (impression.getImpressionspaid() + impression.getImpressionstobepaid());
-        }
+        int impressionspaid  = NumFromUniqueResult.getInt("select sum(impressionspaid) from Impression where surveyid='"+survey.getSurveyid()+"'");
+        int impressionstobepaid  = NumFromUniqueResult.getInt("select sum(impressionstobepaid) from Impression where surveyid='"+survey.getSurveyid()+"'");
+        impressionsToDate = impressionsToDate + (impressionspaid + impressionstobepaid);
+//        for (Iterator<Impression> iterator2 = survey.getImpressions().iterator(); iterator2.hasNext();) {
+//            Impression impression = iterator2.next();
+//            impressionsToDate = impressionsToDate + (impression.getImpressionspaid() + impression.getImpressionstobepaid());
+//        }
         spentOnImpressionsToDate = (Double.parseDouble(String.valueOf(impressionsToDate)) * survey.getWillingtopaypercpm())/1000;
         spentOnImpressionsToDateIncludingdNeeroFee = spentOnImpressionsToDate + (spentOnImpressionsToDate * (DNEEROMARKUPPERCENT/100));
         spentToDate = spentOnResponsesToDate + spentOnImpressionsToDate;

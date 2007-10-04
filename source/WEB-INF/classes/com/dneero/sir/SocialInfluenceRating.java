@@ -2,6 +2,7 @@ package com.dneero.sir;
 
 import com.dneero.dao.*;
 import com.dneero.dao.hibernate.HibernateUtil;
+import com.dneero.dao.hibernate.NumFromUniqueResult;
 import com.dneero.util.Time;
 
 import java.util.Iterator;
@@ -42,7 +43,7 @@ public class SocialInfluenceRating {
     Impressions are a simple one-point-per
      */
     private static int getImpressions(User user){
-        int out = ((Long)HibernateUtil.getSession().createQuery("select sum(impressionstotal) from Impression where userid='"+user.getUserid()+"'").setCacheable(true).uniqueResult()).intValue();
+        int out = NumFromUniqueResult.getInt("select sum(impressionstotal) from Impression where userid='"+user.getUserid()+"'");
         return out;
     }
 

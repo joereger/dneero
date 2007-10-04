@@ -20,6 +20,11 @@ public class UserImpressionFinder {
     public static ArrayList<Impression> getAllImpressionsForSurvey(Blogger blogger, Survey survey){
         Logger logger = Logger.getLogger(UserImpressionFinder.class);
         logger.debug("getAllImpressionsForSurvey called for bloggerid="+blogger.getBloggerid());
+        if (survey==null){
+            logger.debug("survey is null");
+        } else {
+            logger.debug("survey is not null... surveyid="+survey.getSurveyid());
+        }
         HibernateUtil.getSession().saveOrUpdate(blogger);
         ArrayList<Impression> out = new ArrayList();
         if (survey!=null && survey.getSurveyid()>0){
@@ -28,12 +33,22 @@ public class UserImpressionFinder {
                                                .add(Restrictions.eq("surveyid", survey.getSurveyid()))
                                                .setCacheable(true)
                                                .list();
+            if (impressionsfromdb!=null){
+                logger.debug("impressionsfromdb.size()="+impressionsfromdb.size());
+            } else {
+                logger.debug("impressionsfromdb is null");
+            }
             out.addAll((ArrayList)impressionsfromdb);
         } else {
             List<Impression> impressionsfromdb = HibernateUtil.getSession().createCriteria(Impression.class)
                                                .add(Restrictions.eq("userid", blogger.getUserid()))
                                                .setCacheable(true)
                                                .list();
+            if (impressionsfromdb!=null){
+                logger.debug("impressionsfromdb.size()="+impressionsfromdb.size());
+            } else {
+                logger.debug("impressionsfromdb is null");
+            }
             out.addAll((ArrayList)impressionsfromdb);
         }
         return out;
