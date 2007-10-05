@@ -57,9 +57,9 @@ public class MoveMoneyAround implements Job {
                                 dopay=false;
                             }
                         }
-                        //Don't pay anything less than $5
-                        if (currentbalance<5){
-                            logger.debug("setting dopay=false because less than $5");
+                        //Don't pay anything less than $20
+                        if (currentbalance<20){
+                            logger.debug("setting dopay=false because less than $20");
                             dopay=false;
                         }
 

@@ -65,26 +65,32 @@
 
         <br/>
 
-        <t:saveState id="save" value="#{sysadminUserList}"/>
+        <!--<t:saveState id="save" value="#{sysadminUserList}"/>-->
 
-        <t:dataTable id="datatable" value="#{sysadminUserList.users}" rows="50" var="user" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcol,tcolnowrap,tcol,tcolnowrap,tcolnowrap">
+        <t:dataTable id="datatable" value="#{sysadminUserList.users}" rows="100" var="user" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcol,tcolnowrap,tcol,tcolnowrap,tcolnowrap">
           <h:column>
             <f:facet name="header">
               <h:outputText value="Userid"/>
             </f:facet>
+            <a href='/sysadmin/userdetail.jsf?userid=#{user.userid}'>#{user.userid}</a>
+            <!--
             <h:commandLink action="#{sysadminUserDetail.beginView}">
                 <h:outputText value="#{user.userid}" styleClass="smallfont" style="color: #0000ff;"/>
                 <f:param name="userid" value="#{user.userid}" />
             </h:commandLink>
+            -->
           </h:column>
           <h:column>
             <f:facet name="header">
               <h:outputText value="Email"/>
             </f:facet>
+            <a href='/sysadmin/userdetail.jsf?userid=#{user.userid}'>#{user.email}</a>
+            <!--
             <h:commandLink action="#{sysadminUserDetail.beginView}">
                 <h:outputText value="#{user.email}" styleClass="mediumfont" style="color: #0000ff;"/>
                 <f:param name="userid" value="#{user.userid}" />
             </h:commandLink>
+            -->
           </h:column>
           <h:column>
             <f:facet name="header">
@@ -105,6 +111,7 @@
             <h:outputText value="#{user.createdate}" styleClass="tinyfont"><f:convertDateTime type="both" dateStyle="short" timeStyle="medium"/></h:outputText>
           </h:column>
         </t:dataTable>
+        <!--
         <t:dataScroller id="scroll_1" for="datatable" fastStep="10" pageCountVar="pageCount" pageIndexVar="pageIndex" styleClass="scroller" paginator="true" paginatorMaxPages="9" paginatorTableClass="paginator" paginatorActiveColumnStyle="font-weight:bold;">
             <f:facet name="first" >
                 <t:graphicImage url="/images/datascroller/play-first.png" border="0" />
@@ -119,6 +126,7 @@
                 <t:graphicImage url="/images/datascroller/play.png" border="0" />
             </f:facet>
         </t:dataScroller>
+        -->
     </h:form>
 
 

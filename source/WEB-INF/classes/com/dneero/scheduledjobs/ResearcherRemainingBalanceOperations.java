@@ -7,6 +7,9 @@ import org.apache.log4j.Logger;
 import com.dneero.dao.*;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.util.GeneralException;
+import com.dneero.util.Str;
+import com.dneero.util.DateDiff;
+import com.dneero.util.Time;
 import com.dneero.money.CurrentBalanceCalculator;
 import com.dneero.money.SurveyMoneyStatus;
 import com.dneero.money.MoveMoneyInRealWorld;
@@ -16,6 +19,7 @@ import com.dneero.instantnotify.InstantNotifyOfNewSurvey;
 
 import java.util.List;
 import java.util.Iterator;
+import java.util.Calendar;
 
 /**
  * Handles pre-pay for surveys at 20% intervals.
@@ -73,8 +77,12 @@ public class ResearcherRemainingBalanceOperations implements Job {
                     SurveyMoneyStatus sms = new SurveyMoneyStatus(survey);
                     logger.debug("surveyid="+survey.getSurveyid()+" sms.getRemainingPossibleSpend()="+sms.getRemainingPossibleSpend());
                     logger.debug("surveyid="+survey.getSurveyid()+" sms.getMaxPossibleSpend()="+sms.getMaxPossibleSpend());
-                    totalremainingpossiblespendforallsurveys = totalremainingpossiblespendforallsurveys + sms.getRemainingPossibleSpend();
-                    totalmaxpossiblespendforallsurveys = totalmaxpossiblespendforallsurveys + sms.getMaxPossibleSpend();
+                    //If we're no longer paying out
+                    int dayssinceclose = DateDiff.dateDiff("day", Calendar.getInstance(), Time.getCalFromDate(survey.getEnddate()));
+                    if (dayssinceclose<=SurveyMoneyStatus.DAYSAFTERCLOSEOFSURVEYWECOLLECTFORIMPRESSIONS){
+                        totalremainingpossiblespendforallsurveys = totalremainingpossiblespendforallsurveys + sms.getRemainingPossibleSpend();
+                        totalmaxpossiblespendforallsurveys = totalmaxpossiblespendforallsurveys + sms.getMaxPossibleSpend();
+                    }
                 }
             }
             logger.debug("end iterating surveys for researcherid="+researcher.getResearcherid());
@@ -83,10 +91,11 @@ public class ResearcherRemainingBalanceOperations implements Job {
             logger.debug("totalmaxpossiblespendforallsurveys="+totalmaxpossiblespendforallsurveys);
 
             //Now operate on surveys
+            double amttocharge = 0.0;
             if (currentbalance < ((MINPERCENTOFTOTALVALUEAVAILASBALANCE/100) * totalmaxpossiblespendforallsurveys)){
                 logger.debug("current balance is less than MINPERCENTOFTOTALVALUEAVAILASBALANCE of totalmaxpossiblespendforallsurveys ("+((MINPERCENTOFTOTALVALUEAVAILASBALANCE/100) * totalmaxpossiblespendforallsurveys)+")");
                 //The current balance is less than 10% of the total value of all surveys so I need to know how much to charge them
-                double amttocharge = (INCREMENTALPERCENTTOCHARGE/100) * totalmaxpossiblespendforallsurveys;
+                amttocharge = (INCREMENTALPERCENTTOCHARGE/100) * totalmaxpossiblespendforallsurveys;
                 if (amttocharge > totalremainingpossiblespendforallsurveys){
                     //There isn't that much possible spend left in the surveys so charge the remaining total
                     amttocharge = totalremainingpossiblespendforallsurveys;
@@ -144,6 +153,21 @@ public class ResearcherRemainingBalanceOperations implements Job {
                     }
                 }
             }
+            //Update researcher nums
+            researcher.setNotaccurateamttocharge(amttocharge);
+            researcher.setNotaccuratecurrbalance(currentbalance);
+            researcher.setNotaccuratemaxpossspend(totalmaxpossiblespendforallsurveys);
+            researcher.setNotaccurateremainingpossspend(totalremainingpossiblespendforallsurveys);
+            double percentofmax = 0;
+            try{
+                if (totalmaxpossiblespendforallsurveys>0){
+                    percentofmax = (100)*currentbalance/totalmaxpossiblespendforallsurveys;
+                }
+            } catch (Exception ex){
+                logger.error(ex);
+            }
+            researcher.setNotaccuratepercentofmax(percentofmax);
+            try{researcher.save();}catch(Exception ex){logger.error(ex);}
             logger.debug("--------------");
         }
     }

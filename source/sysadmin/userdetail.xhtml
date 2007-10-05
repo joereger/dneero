@@ -147,7 +147,24 @@
                 </tr>
             </table>
 
-
+        <c:if test="#{!empty sysadminUserDetail.researcher}">
+            <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
+                <font class="mediumfont">Researcher Most Recent Financial Stats (Not Accurate)</font>
+                <br/>
+                <font class="tinyfont">(Calculated in ResearcherRemainingBalanceOperations.java)</font>
+                <br/><br/>
+                <font class="smallfont">Max Possible Spend: $#{sysadminUserDetail.researcher.notaccuratemaxpossspend}</font>
+                <br/>
+                <font class="smallfont">Max Remaining Spend: $#{sysadminUserDetail.researcher.notaccurateremainingpossspend}</font>
+                <br/>
+                <font class="smallfont">Current Balance: $#{sysadminUserDetail.researcher.notaccuratecurrbalance}</font>
+                <br/>
+                <font class="smallfont">Percent of Max: #{sysadminUserDetail.researcher.notaccuratepercentofmax} percent</font>
+                <br/>
+                <font class="smallfont">Amt To Charge: $#{sysadminUserDetail.researcher.notaccurateamttocharge}</font>
+                <br/>
+            </div>
+        </c:if>
 
         <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
         <font class="mediumfont">Account Balance (Internal Account Money Movement)</font>

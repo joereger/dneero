@@ -81,6 +81,10 @@ public class ImpressionPayments implements Job {
                                     }
                                     //Put back into main hashmap of UserPayUnits
                                     userPayUnits.put(user.getUserid(), ipupu);
+                                    //Move paid impressions over, resetting the paid clock
+                                    impression.setImpressionspaid(impression.getImpressionspaid()+impression.getImpressionstobepaid());
+                                    impression.setImpressionstobepaid(0);
+                                    try{impression.save();}catch(Exception ex){logger.error(ex);}
                                 }
                             }
                         }

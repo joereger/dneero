@@ -598,6 +598,12 @@
     </managed-bean>
 
     <managed-bean>
+        <managed-bean-name>sysadminIndex</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.SysadminIndex</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
         <managed-bean-name>sysadminBlogpost</managed-bean-name>
         <managed-bean-class>com.dneero.formbeans.SysadminBlogpost</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
@@ -837,6 +843,10 @@
         <navigation-case>
             <from-outcome>sysadminerrorlist</from-outcome>
             <to-view-id>/sysadmin/errorlist.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>sysadminindex</from-outcome>
+            <to-view-id>/sysadmin/index.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>sysadminmassemaillist</from-outcome>

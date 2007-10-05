@@ -25,6 +25,11 @@ public class Researcher extends BasePersistentClass implements java.io.Serializa
      private String companyname;
      private String companytype;
      private String phone;
+     private double notaccuratemaxpossspend;
+     private double notaccurateremainingpossspend;
+     private double notaccuratecurrbalance;
+     private double notaccuratepercentofmax;
+     private double notaccurateamttocharge;
 
      private Set<Emailinvitebatch> emailinvitebatches = new HashSet<Emailinvitebatch>();
     private Set<Panel> panels = new HashSet<Panel>();
@@ -133,5 +138,45 @@ public class Researcher extends BasePersistentClass implements java.io.Serializa
 
     public void setPanels(Set<Panel> panels) {
         this.panels = panels;
+    }
+
+    public double getNotaccuratemaxpossspend() {
+        return notaccuratemaxpossspend;
+    }
+
+    public void setNotaccuratemaxpossspend(double notaccuratemaxpossspend) {
+        this.notaccuratemaxpossspend=notaccuratemaxpossspend;
+    }
+
+    public double getNotaccurateremainingpossspend() {
+        return notaccurateremainingpossspend;
+    }
+
+    public void setNotaccurateremainingpossspend(double notaccurateremainingpossspend) {
+        this.notaccurateremainingpossspend=notaccurateremainingpossspend;
+    }
+
+    public double getNotaccuratecurrbalance() {
+        return notaccuratecurrbalance;
+    }
+
+    public void setNotaccuratecurrbalance(double notaccuratecurrbalance) {
+        this.notaccuratecurrbalance=notaccuratecurrbalance;
+    }
+
+    public double getNotaccuratepercentofmax() {
+        return notaccuratepercentofmax;
+    }
+
+    public void setNotaccuratepercentofmax(double notaccuratepercentofmax) {
+        this.notaccuratepercentofmax=notaccuratepercentofmax;
+    }
+
+    public double getNotaccurateamttocharge() {
+        return notaccurateamttocharge;
+    }
+
+    public void setNotaccurateamttocharge(double notaccurateamttocharge) {
+        this.notaccurateamttocharge=notaccurateamttocharge;
     }
 }

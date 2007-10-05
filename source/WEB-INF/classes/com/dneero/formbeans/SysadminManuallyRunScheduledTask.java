@@ -149,5 +149,11 @@ public class SysadminManuallyRunScheduledTask implements Serializable {
         return "sysadminmanuallyrunscheduledtask";
     }
 
+    public String runSystemStatsFinancial(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
+        try{SystemStatsFinancial task = new com.dneero.scheduledjobs.SystemStatsFinancial();
+            task.execute(null);} catch (Exception ex){logger.error(ex);}
+        return "sysadminmanuallyrunscheduledtask";
+    }
 
 }

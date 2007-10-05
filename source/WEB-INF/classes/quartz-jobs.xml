@@ -413,4 +413,26 @@
         </trigger>
     </job>
 
+    <job>
+        <job-detail>
+          <name>systemStatsFinancial</name>
+          <group>surveyJobs</group>
+          <job-class>com.dneero.scheduledjobs.SystemStatsFinancial</job-class>
+          <volatility>false</volatility>
+          <durability>false</durability>
+          <recover>false</recover>
+        </job-detail>
+        <trigger>
+          <!-- Sample cron triggers: http://www.opensymphony.com/quartz/wikidocs/TutorialLesson6.html -->
+          <cron>
+            <name>systemStatsFinancialTrigger</name>
+            <group>surveyTriggers</group>
+            <job-name>systemStatsFinancial</job-name>
+            <job-group>surveyJobs</job-group>
+            <!-- Fire at 4am every day -->
+            <cron-expression>0 0 6 * * ?</cron-expression>
+          </cron>
+        </trigger>
+    </job>
+
 </quartz>

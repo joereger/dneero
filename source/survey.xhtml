@@ -100,7 +100,7 @@
                                             <br/>
                                             <h:outputText value="and up to #{publicSurveyTake.surveyEnhancer.maxearning} depending on your profile traffic. Links to your answers must appear on your profile for at least five days and somebody needs to click them each day to get paid... usually your friends will take care of this on their own." styleClass="smallfont" style="font-weight: bold;"/>
                                             <br/>
-                                            <h:outputText value="(And yes, we're talking real world money here... we'll pay your PayPal account when you accrue a balance of $5.)" styleClass="smallfont" style="font-weight: bold;"/>
+                                            <h:outputText value="(And yes, we're talking real world money here... we'll pay your PayPal account when you accrue a balance of $20.)" styleClass="smallfont" style="font-weight: bold;"/>
                                         </div>
                                         <br/>
                                     </t:div>
@@ -1169,7 +1169,7 @@
                     <t:panelTabbedPane id="whotookitpanel" bgcolor="#ffffff">
                         <t:panelTab id="whotookitpanel_a" label="Who Took It?">
                             <h:graphicImage url="/images/clear.gif" width="550" height="1"/><br/>
-                            <t:dataTable id="datatablerespondents" value="#{publicSurveyTake.respondents}" rows="100" var="respondent" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcol,tcolnowrap,tcol,tcolnowrap,tcolnowrap">
+                            <t:dataTable id="datatablerespondents" value="#{publicSurveyTake.respondents}" rows="500" var="respondent" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcol,tcolnowrap,tcol,tcolnowrap,tcolnowrap">
                               <h:column>
                                 <f:facet name="header">
                                   <h:outputText value="Date"/>
@@ -1199,6 +1199,7 @@
                                 <h:outputText value="Earnings to Charity" styleClass="tinyfont" style="font-weight: bold;" rendered="#{respondent.response.isforcharity}"/>
                               </h:column>
                             </t:dataTable>
+                            <!--
                             <t:dataScroller id="scroll_1" for="datatablerespondents" fastStep="10" pageCountVar="pageCount" pageIndexVar="pageIndex" styleClass="scroller" paginator="true" paginatorMaxPages="9" paginatorTableClass="paginator" paginatorActiveColumnStyle="font-weight:bold;">
                                 <f:facet name="first" >
                                     <t:graphicImage url="/images/datascroller/play-first.png" border="0" />
@@ -1213,6 +1214,7 @@
                                     <t:graphicImage url="/images/datascroller/play.png" border="0" />
                                 </f:facet>
                             </t:dataScroller>
+                            -->
                         </t:panelTab>
                         <t:panelTab id="whotookitpanel_b" label="Where It's Been Posted">
                             <h:graphicImage url="/images/clear.gif" width="550" height="1"/><br/>
@@ -1232,6 +1234,7 @@
                                 <h:outputText value="#{imp.impressionstotal}" styleClass="smallfont" style="font-weight: bold;"/>
                               </h:column>
                             </t:dataTable>
+                            <!--
                             <t:dataScroller id="scroll_1" for="datatable" fastStep="10" pageCountVar="pageCount" pageIndexVar="pageIndex" styleClass="scroller" paginator="true" paginatorMaxPages="9" paginatorTableClass="paginator" paginatorActiveColumnStyle="font-weight:bold;">
                                 <f:facet name="first" >
                                     <t:graphicImage url="/images/datascroller/play-first.png" border="0" />
@@ -1246,6 +1249,7 @@
                                     <t:graphicImage url="/images/datascroller/play.png" border="0" />
                                 </f:facet>
                             </t:dataScroller>
+                            -->
                         </t:panelTab>
                     </t:panelTabbedPane>
                 </t:panelTab>
@@ -1268,7 +1272,7 @@
                         </tr>
                     </table>
                     <t:div rendered="#{!empty publicSurveyTake.surveydiscusses}">
-                        <t:dataTable id="datatablediscuss" value="#{publicSurveyTake.surveydiscusses}" rows="200" var="discuss" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcolnowrap,tcol,tcol,tcol,tcol">
+                        <t:dataTable id="datatablediscuss" value="#{publicSurveyTake.surveydiscusses}" rows="500" var="discuss" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcolnowrap,tcol,tcol,tcol,tcol">
                           <h:column>
                             <f:facet name="header">
                               <h:outputText value="-" style="color: #ffffff;"/>
@@ -1294,6 +1298,7 @@
                             <h:outputText value="#{discuss.surveydiscuss.comment}" styleClass="smallfont"/><br/><br/>
                           </h:column>
                         </t:dataTable>
+                        <!--
                         <t:dataScroller id="scroll_discuss" for="datatablediscuss" fastStep="10" pageCountVar="pageCountDiscuss" pageIndexVar="pageIndexDiscuss" styleClass="scroller" paginator="true" paginatorMaxPages="9" paginatorTableClass="paginator" paginatorActiveColumnStyle="font-weight:bold;">
                             <f:facet name="first" >
                                 <t:graphicImage url="/images/datascroller/play-first.png" border="0" />
@@ -1308,6 +1313,7 @@
                                 <t:graphicImage url="/images/datascroller/play.png" border="0" />
                             </f:facet>
                         </t:dataScroller>
+                        -->
                     </t:div>
                     <br/><br/>
                     <c:if test="#{userSession.isloggedin}">

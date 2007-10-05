@@ -39,11 +39,11 @@ public class SysadminUserDetail implements Serializable {
     private ArrayList<BloggerCompletedsurveysListitem> recentresponses;
     private boolean isenabled = true;
     private User user;
+    private Researcher researcher;
 
 
     public SysadminUserDetail(){
-
-
+        beginView();
     }
 
     public String beginView(){
@@ -73,9 +73,12 @@ public class SysadminUserDetail implements Serializable {
                     issysadmin = true;
                 }
             }
+            if (user.getResearcherid()>0){
+                researcher = Researcher.get(user.getResearcherid());
+            }
 
             //Load balance info
-            List bals = HibernateUtil.getSession().createQuery("from Balance where userid='"+userid+"' order by balanceid desc").list();
+            List bals = HibernateUtil.getSession().createQuery("from Balance where userid='"+userid+"' order by balanceid desc").setMaxResults(50).list();
             balances = new ArrayList<AccountBalanceListItem>();
             for (Iterator iterator = bals.iterator(); iterator.hasNext();) {
                 Balance balance = (Balance) iterator.next();
@@ -90,7 +93,7 @@ public class SysadminUserDetail implements Serializable {
             }
 
             //Load transaction info
-            List trans = HibernateUtil.getSession().createQuery("from Balancetransaction where userid='"+userid+"' order by balancetransactionid desc").list();
+            List trans = HibernateUtil.getSession().createQuery("from Balancetransaction where userid='"+userid+"' order by balancetransactionid desc").setMaxResults(50).list();
             transactions = new ArrayList<AccountBalancetransactionListItem>();
             for (Iterator iterator = trans.iterator(); iterator.hasNext();) {
                 Balancetransaction transaction = (Balancetransaction) iterator.next();
@@ -109,7 +112,7 @@ public class SysadminUserDetail implements Serializable {
             recentresponses = new ArrayList();
             if (user.getBloggerid()>0){
                 //HibernateUtil.getSession().saveOrUpdate(Blogger.get(userSession.getUser().getBloggerid()));
-                List<Response> responses = HibernateUtil.getSession().createQuery("from Response where bloggerid='"+user.getBloggerid()+"' order by responseid desc").setCacheable(false).list();
+                List<Response> responses = HibernateUtil.getSession().createQuery("from Response where bloggerid='"+user.getBloggerid()+"' order by responseid desc").setMaxResults(50).setCacheable(false).list();
                 for (Iterator<Response> iterator = responses.iterator(); iterator.hasNext();) {
                     Response response = iterator.next();
                     Survey survey = Survey.get(response.getSurveyid());
@@ -388,5 +391,13 @@ public class SysadminUserDetail implements Serializable {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Researcher getResearcher() {
+        return researcher;
+    }
+
+    public void setResearcher(Researcher researcher) {
+        this.researcher=researcher;
     }
 }

@@ -31,5 +31,20 @@
         <property name="phone" type="string">
             <column name="phone" length="255" />
         </property>
+        <property name="notaccuratemaxpossspend" type="double">
+            <column name="notaccuratemaxpossspend" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="notaccurateremainingpossspend" type="double">
+            <column name="notaccurateremainingpossspend" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="notaccuratecurrbalance" type="double">
+            <column name="notaccuratecurrbalance" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="notaccuratepercentofmax" type="double">
+            <column name="notaccuratepercentofmax" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="notaccurateamttocharge" type="double">
+            <column name="notaccurateamttocharge" precision="22" scale="0" not-null="true" />
+        </property>
     </class>
 </hibernate-mapping>

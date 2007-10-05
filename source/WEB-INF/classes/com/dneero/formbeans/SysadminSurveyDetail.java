@@ -34,8 +34,7 @@ public class SysadminSurveyDetail implements Serializable {
     private int dayssinceclose = 0;
 
     public SysadminSurveyDetail(){
-
-
+        beginView();
     }
 
     public String beginView(){

@@ -4,6 +4,8 @@ import com.dneero.util.Jsf;
 import com.dneero.util.Num;
 import com.dneero.systemprops.SystemProperty;
 import com.dneero.xmpp.SendXMPPMessage;
+import com.dneero.dao.User;
+import com.dneero.dao.Survey;
 
 import java.io.Serializable;
 import java.net.URLEncoder;
@@ -47,13 +49,24 @@ public class PublicFacebookLandingPage implements Serializable {
                 //Set the referredbyuserid value in the session
                 if (split[2]!=null && Num.isinteger(split[2])){
                     Jsf.getUserSession().setReferredbyOnlyUsedForSignup(Integer.parseInt(split[2]));
+                    String referredbyname = "";
+                    if (split[2]!=null && Num.isinteger(split[2])){
+                        User userReferer = User.get(Integer.parseInt(split[2]));
+                        referredbyname = userReferer.getFirstname()+" "+userReferer.getLastname();
+                    }
+                    String surveytitle = "";
+                    if (split[1]!=null && Num.isinteger(split[1])){
+                        Survey surveyTmp = Survey.get(Integer.parseInt(split[1]));
+                        surveytitle = surveyTmp.getTitle();
+                    }
                     if (Jsf.getUserSession().getFacebookUser()!=null){
                         //Notify via XMPP
-                        SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_DEBUG, "Facebook user "+ Jsf.getUserSession().getFacebookUser().getFirst_name() + " " + Jsf.getUserSession().getFacebookUser().getLast_name() + " referred by userid="+split[2]+" to surveyid="+split[1]);
+                        SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_DEBUG, "Facebook user "+ Jsf.getUserSession().getFacebookUser().getFirst_name() + " " + Jsf.getUserSession().getFacebookUser().getLast_name() + " referred by userid="+split[2]+" ("+referredbyname+") to surveyid="+split[1]+" ("+surveytitle+")");
                         xmpp.send();
                     } else {
+
                         //Notify via XMPP
-                        SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_DEBUG, "Facebook user Unknown:"+Jsf.getUserSession().getFacebookSessionKey()+" referred by userid="+split[2]+" to surveyid="+split[1]);
+                        SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_DEBUG, "Facebook user Unknown:"+Jsf.getUserSession().getFacebookSessionKey()+" referred by userid="+split[2]+" ("+referredbyname+") to surveyid="+split[1]+" ("+surveytitle+")");
                         xmpp.send();
                     }
                 }

@@ -20,7 +20,7 @@ public class SurveyMoneyStatus implements Serializable {
 
     public static double PERSURVEYCREATIONFEE = 5.00;
     public static double DNEEROMARKUPPERCENT = 25;
-    public static int DAYSAFTERCLOSEOFSURVEYWECOLLECTFORIMPRESSIONS = 120;
+    public static int DAYSAFTERCLOSEOFSURVEYWECOLLECTFORIMPRESSIONS = 30;
     public static double HIDESURVEYFEEPERCENT = 5;
 
     private double maxPossiblePayoutForResponses = 0;

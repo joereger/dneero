@@ -64,6 +64,9 @@ public class PayForSurveyResponsesOncePosted implements Job {
                         response.setIspaid(true);
                         try{response.save();}catch(Exception ex){logger.error(ex);}
                         //@todo Notify user via email that they've been paid... thank them for their effort
+                        if (user.getEmail()!=null && !user.getEmail().equals("")){
+                                
+                        }
                     }
                 } catch (Exception ex){
                     logger.error(ex);
