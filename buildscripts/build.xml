@@ -131,8 +131,21 @@
         </javadoc>
     </target>
 
-    <target name="QuickBuild" description="Compile the java source and put in Tomcat working directory">
-  	 	<echo message="Compiling Java code."/>
+    <target name="QuickBuildWithTomcatRestart" description="Compile the java source and put in Tomcat working directory">
+  	 	<echo message="Running QuickBuildWithTomcatRestart."/>
+  	 	<exec executable="net">
+            <arg value="stop"/>
+            <arg value="${tomcat.service.name}"/>
+        </exec>
+     	<antcall target="QuickBuild"/>
+		<exec executable="net">
+            <arg value="start"/>
+            <arg value="${tomcat.service.name}"/>
+        </exec>
+	</target>
+
+	<target name="QuickBuild" description="Compile the java source and put in Tomcat working directory">
+  	 	<echo message="Running QuickBuild."/>
      	<copy todir="${lastbuild}" >
             <fileset dir="${sourcedir}" excludes="**/Thumbs.db"/>
         </copy>
@@ -158,6 +171,10 @@
 
 	<target name="QuickBuildJboss" description="Compile the java source and put in Tomcat working directory">
   	 	<echo message="Compiling Java code."/>
+     	<exec executable="net">
+            <arg value="stop"/>
+            <arg value="${jboss.service.name}"/>
+        </exec>
      	<copy todir="${lastbuild}" >
             <fileset dir="${sourcedir}" excludes="**/Thumbs.db"/>
         </copy>
@@ -179,10 +196,18 @@
 			<fileset dir="${lastbuild}">
 			</fileset>
 		</copy>
+		<exec executable="net">
+            <arg value="start"/>
+            <arg value="${jboss.service.name}"/>
+        </exec>
 	</target>
 	
 	<target name="QuickBuildClean" description="Compile the java source and put in Tomcat working directory">
         <antcall target="cleanuplastbuild"/>
+        <exec executable="net">
+            <arg value="stop"/>
+            <arg value="${tomcat.service.name}"/>
+        </exec>
         <delete includeemptydirs="true">
             <fileset dir="${quickbuild.tomcat.root.directory}" includes="**/*"/>
         </delete>
@@ -191,6 +216,10 @@
 
     <target name="QuickBuildCleanJboss" description="Compile the java source and put in Tomcat working directory">
         <antcall target="cleanuplastbuild"/>
+        <exec executable="net">
+            <arg value="stop"/>
+            <arg value="${jboss.service.name}"/>
+        </exec>
         <mkdir dir="${jboss.quickbuild.tomcat.root.directory}"/>
         <delete includeemptydirs="true">
             <fileset dir="${jboss.quickbuild.tomcat.root.directory}" includes="**/*"/>
