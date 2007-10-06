@@ -71,16 +71,21 @@ public class FacebookAuthorization {
                 }
             }
 
+            //@todo This could cause problems.  The facebook user doesn't get to this point except on their first click from the facebook ui.
+            //@todo I try to pull their session from the cache (it won't be there).
+            //@todo Then I put the populated session back into the cache.  But it's already in the Jsf session... the cache here won't ever be used again.
+            //@todo And, the problem, if they do come back from the ui, they'll get a stale session... I don't think I need my own session cache for dNeero.
+
             //Pull userSession from cache
             boolean foundSessionInCache = false;
-            Object obj = CacheFactory.getCacheProvider().get(Jsf.getUserSession().getFacebookSessionKey(), "FacebookUserSession");
-            if (obj!=null && (obj instanceof UserSession)){
-                logger.debug("found a userSession in the cache");
-                Jsf.bindObjectToExpressionLanguage("#{userSession}", (UserSession)obj);
-                foundSessionInCache = true;
-            } else {
-                logger.debug("no userSession in cache");
-            }
+//            Object obj = CacheFactory.getCacheProvider().get(Jsf.getUserSession().getFacebookSessionKey(), "FacebookUserSession");
+//            if (obj!=null && (obj instanceof UserSession)){
+//                logger.debug("found a userSession in the cache");
+//                Jsf.bindObjectToExpressionLanguage("#{userSession}", (UserSession)obj);
+//                foundSessionInCache = true;
+//            } else {
+//                logger.debug("no userSession in cache");
+//            }
 
             //In general try not to handle request vars below this line
             //I only want to run this stuff when I see a new Facebook session key...
@@ -138,7 +143,7 @@ public class FacebookAuthorization {
             }
 
             //Save UserSession in Cache
-            CacheFactory.getCacheProvider().put(Jsf.getUserSession().getFacebookSessionKey(), "FacebookUserSession", Jsf.getUserSession());
+            //CacheFactory.getCacheProvider().put(Jsf.getUserSession().getFacebookSessionKey(), "FacebookUserSession", Jsf.getUserSession());
 
         } catch (Exception ex){
             ex.printStackTrace();
