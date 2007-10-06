@@ -87,7 +87,7 @@
                                     </center>
                                 </t:div>
                                 -->
-                                <c:if test="${(publicSurveyTake.survey.status eq 4) and (!publicSurveyTake.loggedinuserhasalreadytakensurvey) and ( (!empty userSession.facebookUser && userSession.facebookUser.has_added_app) || !userSession.isfacebookui)}">
+                                <c:if test="${(publicSurveyTake.survey.status eq 4) and (!publicSurveyTake.loggedinuserhasalreadytakensurvey) and ( (!empty userSession.facebookUser and userSession.facebookUser.has_added_app) || !userSession.isfacebookui)}">
                                     <t:div rendered="#{userSession.isfacebookui and !publicSurveyTake.loggedinuserhasalreadytakensurvey}">
                                         <div class="rounded" style="background: #e6e6e6; text-align: center;">
                                             <h:outputText value="Take this survey to earn at least" styleClass="mediumfont"/>
