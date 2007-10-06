@@ -57,7 +57,7 @@ public class FacebookApiWrapper {
                         logger.debug("userSession.getUser() (userid="+userSession.getUser().getUserid()+") passed to FacebookApiWrapper does not have a saved facebookuserid");
                     }
                 } else {
-                    if (userSession.getTempFacebookUserid()>0){
+                    if (userSession.getFacebookUser()!=null && userSession.getFacebookUser().getUid()!=null && userSession.getFacebookUser().getUid().length()>0){
                         issessionok = true;
                     } else {
                         logger.debug("don't have a facebookuserid to work with");

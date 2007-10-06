@@ -12,6 +12,7 @@ import com.dneero.dao.Responsepending;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.util.Jsf;
 import com.dneero.util.Str;
+import com.dneero.util.Num;
 import com.dneero.session.UserSession;
 import com.dneero.session.PersistentLogin;
 import com.dneero.session.SurveysTakenToday;
@@ -61,9 +62,7 @@ public class Login implements Serializable {
                 userSession.setIsloggedin(true);
                 userSession.setIsLoggedInToBeta(Jsf.getUserSession().getIsLoggedInToBeta());
                 userSession.setSurveystakentoday(SurveysTakenToday.getNumberOfSurveysTakenToday(user));
-                userSession.setIsfacebookappadded(Jsf.getUserSession().getIsfacebookappadded());
                 userSession.setIsfacebookui(Jsf.getUserSession().getIsfacebookui());
-                userSession.setTempFacebookUserid(Jsf.getUserSession().getTempFacebookUserid());
                 userSession.setFacebookSessionKey(Jsf.getUserSession().getFacebookSessionKey());
 
                 //Check the eula
@@ -102,19 +101,19 @@ public class Login implements Serializable {
                 //Facebook
                 //If login is successful, app is added and we have a facebookid but it's not stored with the account
                 if (Jsf.getUserSession().getIsfacebookui()){
-                    if (Jsf.getUserSession().getTempFacebookUserid()>0){
-                        if (Jsf.getUserSession().getTempFacebookUserid()!=user.getFacebookuserid()){
+                    if (Jsf.getUserSession().getFacebookUser()!=null && Jsf.getUserSession().getFacebookUser().getUid()!=null && Jsf.getUserSession().getFacebookUser().getUid().length()>0){
+                        if (Num.isinteger(Jsf.getUserSession().getFacebookUser().getUid()) && Integer.parseInt(Jsf.getUserSession().getFacebookUser().getUid())!=user.getFacebookuserid()){
                             List<User> userswiththisfacebookid = HibernateUtil.getSession().createCriteria(User.class)
-                                                   .add(Restrictions.eq("facebookuserid", Jsf.getUserSession().getTempFacebookUserid()))
+                                                   .add(Restrictions.eq("facebookuserid", Integer.parseInt(Jsf.getUserSession().getFacebookUser().getUid())))
                                                    .setCacheable(false)
                                                    .list();
                             //If no other account has this facebookid in use, save it
                             if (userswiththisfacebookid.size()==0){
-                                user.setFacebookuserid(Jsf.getUserSession().getTempFacebookUserid());
+                                user.setFacebookuserid(Integer.parseInt(Jsf.getUserSession().getFacebookUser().getUid()));
                                 try{user.save();}catch(Exception ex){logger.error(ex);}
                             } else {
                                 //@todo What to do here?
-                                logger.error("User logged-on but we already have that facebookid("+Jsf.getUserSession().getTempFacebookUserid()+") in the database.");
+                                logger.error("User logged-on but we already have that facebookuid("+Jsf.getUserSession().getFacebookUser().getUid()+") in the database.");
                             }
                         }
                     }

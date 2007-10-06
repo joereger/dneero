@@ -32,7 +32,7 @@ public class PublicFacebookLandingPage implements Serializable {
         //Make sure the app responds with the facebook ui
         Jsf.getUserSession().setIsfacebookui(true);
 
-        logger.debug("into PublicFacebookLandingPage and isfacebookui="+Jsf.getUserSession().getIsfacebookui() +" and isfacebookappadded="+Jsf.getUserSession().getIsfacebookappadded());
+        logger.debug("into PublicFacebookLandingPage and isfacebookui="+Jsf.getUserSession().getIsfacebookui());
 
         //Note: Facebook only allows me to append a single var to the end of my url so I have to do some splitting crap to make things work.
         //The basic format I'm using is action-var1-var2-var3 where the vars are specific to each action.  It's crap but it works.
@@ -71,7 +71,7 @@ public class PublicFacebookLandingPage implements Serializable {
                     }
                 }
                 //If the user has the app added, redirect to the survey
-                if (Jsf.getUserSession().getIsfacebookui() && Jsf.getUserSession().getIsfacebookappadded()){
+                if (Jsf.getUserSession().getIsfacebookui() &&  Jsf.getUserSession().getFacebookUser()!=null && Jsf.getUserSession().getFacebookUser().getHas_added_app()){
                     try{Jsf.redirectResponse("/survey.jsf?s="+split[1]+"&u="+split[2]+"&p=0&show=showSurveyResponseFlashEmbed");return;}catch(Exception ex){logger.error(ex);}
                 }
                 //If we see this code we may be displaying the app add page which means we'll need a link
@@ -83,7 +83,7 @@ public class PublicFacebookLandingPage implements Serializable {
         }
 
         //Redirect to the public survey list
-        if (Jsf.getUserSession().getIsfacebookui() && Jsf.getUserSession().getIsfacebookappadded()){
+        if (Jsf.getUserSession().getIsfacebookui() && Jsf.getUserSession().getFacebookUser()!=null && Jsf.getUserSession().getFacebookUser().getHas_added_app()){
             try{Jsf.redirectResponse("/publicsurveylist.jsf");return;}catch(Exception ex){logger.error(ex);}
         }
 

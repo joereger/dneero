@@ -39,13 +39,9 @@ public class UserSession implements Serializable {
     private String emailinvitemessage = "";
     private ArrayList<String> emailinviteaddresses = new ArrayList<String>();
     private int surveystakentoday = 0;
-    private boolean isfacebookui = false;
-    private boolean isfacebookappadded = false;
-    private String facebookSessionKey = "";
-    private int tempFacebookUserid = 0;
     private FacebookUser facebookUser = null;
-  
-
+    private String facebookSessionKey = "";
+    private boolean isfacebookui = false;
 
     public UserSession(){
         Logger logger = Logger.getLogger(this.getClass().getName());
@@ -62,9 +58,7 @@ public class UserSession implements Serializable {
 
     public void leaveFacebookui(){
         isfacebookui = false;
-        isfacebookappadded = false;
         facebookSessionKey = "";
-        tempFacebookUserid = 0;
         isloggedin = false;
         userid = 0;
     }
@@ -223,22 +217,6 @@ public class UserSession implements Serializable {
 
     public void setIsfacebookui(boolean isfacebookui) {
         this.isfacebookui = isfacebookui;
-    }
-
-    public int getTempFacebookUserid() {
-        return tempFacebookUserid;
-    }
-
-    public void setTempFacebookUserid(int tempFacebookUserid) {
-        this.tempFacebookUserid = tempFacebookUserid;
-    }
-
-    public boolean getIsfacebookappadded() {
-        return isfacebookappadded;
-    }
-
-    public void setIsfacebookappadded(boolean isfacebookappadded) {
-        this.isfacebookappadded = isfacebookappadded;
     }
 
     public FacebookUser getFacebookUser() {

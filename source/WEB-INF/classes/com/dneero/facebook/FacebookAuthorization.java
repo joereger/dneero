@@ -7,9 +7,11 @@ import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.xmpp.SendXMPPMessage;
 import com.dneero.session.SurveysTakenToday;
 import com.dneero.session.UrlSplitter;
+import com.dneero.session.UserSession;
 import com.dneero.systemprops.SystemProperty;
 import com.dneero.formbeans.PublicFacebookLandingPage;
 import com.dneero.survey.servlet.RecordImpression;
+import com.dneero.cache.providers.CacheFactory;
 import com.facebook.api.FacebookRestClient;
 import com.facebook.api.FacebookException;
 import org.apache.log4j.Logger;
@@ -49,128 +51,121 @@ public class FacebookAuthorization {
                 }
             } catch (Exception ex) {logger.error(ex);}
 
-            //Determine whether this is a facebook request
-            //Facebook sends this any time it puts the app inside an iFrame
-            if (Jsf.getRequestParam("fb_sig_api_key")!=null && !Jsf.getRequestParam("fb_sig_api_key").equals("")){
-                //Set the userSession flag to display UI as Facebook
-                Jsf.getUserSession().setIsfacebookui(true);
-                logger.debug("setting isfacebookui=true");
-                try{
-                    //See if the app is added... this url check can be overridden below
-//                    if (Jsf.getRequestParam("fb_sig_added")!=null && !Jsf.getRequestParam("fb_sig_added").equals("")){
-//                        if (Jsf.getRequestParam("fb_sig_added").trim().equals("1")){
-//                            Jsf.getUserSession().setIsfacebookappadded(true);
-//                        }
-//                    }
-                    //Need to establish a facebook session
-                    String facebookSessionKey = "";
-                    //Check local dNeero session
-                    if (Jsf.getUserSession().getFacebookSessionKey()!=null && !Jsf.getUserSession().getFacebookSessionKey().equals("")){
-                        facebookSessionKey = Jsf.getUserSession().getFacebookSessionKey();
-                        logger.debug("Using facebookSessionKey from dNeero userSession object.");
-                    }
-                    //Check params sent by facebook
-                    String fb_sig_session_key = Jsf.getRequestParam("fb_sig_session_key");
-                    //I only want to run the auth stuff when I see a new Facebook session key...
-                    //i.e. one that's not null, not empty and is different than the one that's in userSession.
-                    //Facebook only sends the fb_sig_session_key after the user has added the app
-                    if (fb_sig_session_key!=null && !fb_sig_session_key.trim().equals("") && !fb_sig_session_key.trim().equals(Jsf.getUserSession().getFacebookSessionKey().trim()) || (Jsf.getRequestParam("fb_sig_added").trim().equals("1") && !Jsf.getUserSession().getIsfacebookui())){
-                        //Just verify again... this check was in before some restructuring
-                        if (fb_sig_session_key!=null && !fb_sig_session_key.trim().equals("")){
-                            facebookSessionKey = fb_sig_session_key;
-                            Jsf.getUserSession().setFacebookSessionKey(facebookSessionKey);
-                            logger.debug("Using facebookSessionKey from fb_sig_session_key param.");
-                        }
-                        //Go get some details on this facebookuser
-                        FacebookRestClient facebookRestClient = new FacebookRestClient(SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_KEY), SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_SECRET), facebookSessionKey);
-                        int facebookuserid = facebookRestClient.users_getLoggedInUser();
-                        FacebookUser facebookUser = new FacebookUser(facebookuserid, Jsf.getUserSession().getFacebookSessionKey());
-                        Jsf.getUserSession().setIsfacebookappadded(facebookRestClient.users_isAppAdded());
-                        Jsf.getUserSession().setTempFacebookUserid(facebookuserid);
-                        Jsf.getUserSession().setFacebookUser(facebookUser);
-                        logger.debug("facebookRestClient.users_getLoggedInUser()="+facebookuserid);
-                        //If user hasn't added app yet redir to the app add page
-                        if (facebookSessionKey.trim().equals("")){
-                            logger.debug("redirecting this user to facebook add app page");
-                            //Notify via XMPP
-                            SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_DEBUG, "Redirecting "+ facebookUser.getFirst_name() + " " + facebookUser.getLast_name() + " to add app page. " + "(facebook.uid="+facebookUser.getUid()+")");
-                            xmpp.send();
-                            //Need to record impressions if we're gonna send them away
-                            if (Jsf.getRequestParam("action")!=null && Jsf.getRequestParam("action").indexOf("showsurvey")>-1){
-                                RecordImpression.record(Jsf.getHttpServletRequest());
-                            }
-                            Jsf.redirectResponse("http://www.facebook.com/add.php?api_key="+ SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_KEY));
-                            return;
-                        }
-                        logger.debug("User has added app... we have facebookSessionKey="+facebookSessionKey);
-                        //See if we have this facebook user as a dNeero user
-                        User user = getdNeeroUserFromFacebookUserid(facebookuserid);
-                        if (user!=null && user.getUserid()>0){
-                            //Is already a dNeero user
-                            Jsf.getUserSession().setUser(user);
-                            Jsf.getUserSession().setIsloggedin(true);
-                            Jsf.getUserSession().setSurveystakentoday(SurveysTakenToday.getNumberOfSurveysTakenToday(user));
-                            logger.debug("dNeero Facebook Login: "+ user.getFirstname() + " " + user.getLastname() + " ("+user.getEmail()+") (Facebook.userid="+user.getFacebookuserid()+")");
-                            //If their account is marked as having removed the app but facebook says they've got it added, update the User object
-                            if (facebookUser.getHas_added_app() && user.getIsfacebookappremoved()){
-                                user.setIsfacebookappremoved(false);
-                                user.setFacebookappremoveddate(user.getCreatedate());
-                                try {user.save();} catch (Exception ex) {logger.error(ex);}
-                            }
-                            //Notify via XMPP
-                            SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_DEBUG, "Facebook Login: "+ user.getFirstname() + " " + user.getLastname() + " (email="+user.getEmail()+") (facebook.uid="+user.getFacebookuserid()+")");
-                            xmpp.send();
-                        } else {
-                            //Is not a dNeero user yet... make sure there's no user in the session
-                            Jsf.getUserSession().setUser(null);
-                            Jsf.getUserSession().setIsloggedin(false);
-                            logger.debug("Facebook user added app, considering taking surveys.  facebookSessionKey="+facebookSessionKey);
-                            //Notify via XMPP
-                            SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_DEBUG, "Facebook user '"+facebookUser.getFirst_name()+" "+facebookUser.getLast_name()+"' starts session.  Not yet a dNeero user.");
-                            xmpp.send();
-                            //Could redirect to Facebook new user welcome screen here.
-                        }
+            //Need a session key
+            //auth_token should immediately be traded in for a valid fb_sig_session_key
+            if ((Jsf.getRequestParam("auth_token")!=null && !Jsf.getRequestParam("auth_token").trim().equals(""))){
+                logger.debug("auth_token found in request... will try to convert to session_key");
+                FacebookRestClient facebookRestClient = new FacebookRestClient(SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_KEY), SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_SECRET), Jsf.getUserSession().getFacebookSessionKey());
+                String facebooksessionkey = facebookRestClient.auth_getSession(Jsf.getRequestParam("auth_token").trim());
+                Jsf.getUserSession().setFacebookSessionKey(facebooksessionkey);
+            } else {
+                //No auth_token was sent (it's only sent for new apps and new logins, etc) so look to session_key
+                logger.debug("no auth_token found in request, looking for fb_sig_session_key");
+                if ((Jsf.getRequestParam("fb_sig_session_key")!=null && !Jsf.getRequestParam("fb_sig_session_key").trim().equals(""))){
+                    logger.debug("found a fb_sig_session_key in request");
+                    Jsf.getUserSession().setFacebookSessionKey((Jsf.getRequestParam("fb_sig_session_key").trim()));
+                } else {
+                    logger.debug("no fb_sig_session_key found in request... aborting FacebookAuthorization");
+                    //Jsf.redirectResponse("http://apps.facebook.com/"+SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_APP_NAME)+"/");
+                    return;
+                }
+            }
 
-                    } else {
-                        logger.debug("no Jsf.getRequestParam(\"fb_sig_session_key\") found");
-                    }
-                } catch (FacebookException fex){
+            //Pull userSession from cache
+            boolean foundSessionInCache = false;
+            Object obj = CacheFactory.getCacheProvider().get(Jsf.getUserSession().getFacebookSessionKey(), "FacebookUserSession");
+            if (obj!=null && (obj instanceof UserSession)){
+                logger.debug("found a userSession in the cache");
+                Jsf.bindObjectToExpressionLanguage("#{userSession}", (UserSession)obj);
+                foundSessionInCache = true;
+            } else {
+                logger.debug("no userSession in cache");
+            }
+
+            //In general try not to handle request vars below this line
+            //I only want to run this stuff when I see a new Facebook session key...
+            if (!foundSessionInCache) {
+                logger.debug("running heavy Facebook user setup with api calls due to new facebooksessionkey");
+
+                //Go get some details on this facebookuser
+                FacebookRestClient facebookRestClient = null;
+                try {
+                    facebookRestClient = new FacebookRestClient(SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_KEY), SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_SECRET), Jsf.getUserSession().getFacebookSessionKey());
+                    Jsf.getUserSession().setFacebookUser(new FacebookUser(facebookRestClient.users_getLoggedInUser(), Jsf.getUserSession().getFacebookSessionKey()));
+                } catch (FacebookException fex) {
                     logger.error("Facebook Error fex", fex);
-                } catch (Exception ex){
-                    logger.error("Facebook Error ex", ex);
+                }
+
+                //If we have a facebook user to work with
+                if (Jsf.getUserSession().getFacebookUser()!=null && !Jsf.getUserSession().getFacebookUser().getUid().trim().equals("")){
+                    //Set facebookui
+                    Jsf.getUserSession().setIsfacebookui(true);
+                    //See if we have this facebook user as a dNeero user
+                    User user = null;
+                    if (Num.isinteger(Jsf.getUserSession().getFacebookUser().getUid())){
+                        user = getdNeeroUserFromFacebookUserid(Integer.parseInt(Jsf.getUserSession().getFacebookUser().getUid()));
+                    }
+                    if (user!=null && user.getUserid()>0){
+                        //Is already a dNeero user
+                        Jsf.getUserSession().setUser(user);
+                        Jsf.getUserSession().setIsloggedin(true);
+                        Jsf.getUserSession().setSurveystakentoday(SurveysTakenToday.getNumberOfSurveysTakenToday(user));
+                        logger.debug("dNeero Facebook Login: "+ user.getFirstname() + " " + user.getLastname() + " ("+user.getEmail()+") (Facebook.userid="+user.getFacebookuserid()+")");
+                        //If their account is marked as having removed the app but facebook says they've got it added, update the User object
+                        if (Jsf.getUserSession().getFacebookUser().getHas_added_app() && user.getIsfacebookappremoved()){
+                            user.setIsfacebookappremoved(false);
+                            user.setFacebookappremoveddate(user.getCreatedate());
+                            try {user.save();} catch (Exception ex) {logger.error(ex);}
+                        }
+                        //Notify via XMPP
+                        SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_DEBUG, "Facebook Login: "+ user.getFirstname() + " " + user.getLastname() + " (email="+user.getEmail()+") (facebook.uid="+user.getFacebookuserid()+")");
+                        xmpp.send();
+                    } else {
+                        //Is not a dNeero user yet... make sure there's no user in the session
+                        Jsf.getUserSession().setUser(null);
+                        Jsf.getUserSession().setIsloggedin(false);
+                        logger.debug("Facebook user added app, considering taking surveys.  facebookSessionKey="+Jsf.getUserSession().getFacebookSessionKey());
+                        //Notify via XMPP
+                        SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_DEBUG, "Facebook user '"+Jsf.getUserSession().getFacebookUser().getFirst_name()+" "+Jsf.getUserSession().getFacebookUser().getLast_name()+"' starts session.  Not yet a dNeero user.");
+                        xmpp.send();
+                        //Could redirect to Facebook new user welcome screen here.
+                    }
+                } else {
+                    logger.debug("userSession.getFacebookUser() is empty after calling facebook api");
                 }
             } else {
-                logger.debug("no Jsf.getRequestParam(\"fb_sig_api_key\") found");
+                logger.debug("didn't find a new facebooksessionkey so didn't make api call to load facebook user");
             }
+
+            //Save UserSession in Cache
+            CacheFactory.getCacheProvider().put(Jsf.getUserSession().getFacebookSessionKey(), "FacebookUserSession", Jsf.getUserSession());
+
         } catch (Exception ex){
-            logger.error("Facebook Error ex", ex);
+            ex.printStackTrace();
+            logger.error(ex);
         }
 
-
         //If is coming from facebook but hasn't added app, make them add it
-        if (Jsf.getUserSession().getIsfacebookui() && !Jsf.getUserSession().getIsfacebookappadded()){
+        if (Jsf.getUserSession().getIsfacebookui() && Jsf.getUserSession().getFacebookUser()!=null && !Jsf.getUserSession().getFacebookUser().getHas_added_app()){
             //UrlSplitter urlSplitter = new UrlSplitter(Jsf.getHttpServletRequest());
             //If the showsurvey var isn't set in the incoming request, make them add it... this is currently the only exception
             if (Jsf.getRequestParam("stoplooping")==null || !Jsf.getRequestParam("stoplooping").equals("1")){
-
                 //Need to record impressions if we're gonna send them away
                 if (Jsf.getRequestParam("action")!=null && Jsf.getRequestParam("action").indexOf("showsurvey")>-1){
                     RecordImpression.record(Jsf.getHttpServletRequest());
                 }
                 logger.debug("redirecting to facebook add app page");
                 try{Jsf.redirectResponse("/facebooklandingpage.jsf?stoplooping=1&action="+Jsf.getRequestParam("action"));return;}catch(Exception ex){logger.error(ex);}
-                //PublicFacebookLandingPage pfblp = new PublicFacebookLandingPage();
-                //try{Jsf.redirectResponse(pfblp.getAddurl());return;}catch(Exception ex){logger.error(ex);}
             }
 
         }
         
-        logger.debug("leaving FacebookAuthorization and isfacebookui="+Jsf.getUserSession().getIsfacebookui() +" and isfacebookappadded="+Jsf.getUserSession().getIsfacebookappadded());
+        logger.debug("leaving FacebookAuthorization and isfacebookui="+Jsf.getUserSession().getIsfacebookui() +"");
     }
 
 
 
-    public static User getdNeeroUserFromFacebookUserid(int facebookuserid){
+    private static User getdNeeroUserFromFacebookUserid(int facebookuserid){
         Logger logger = Logger.getLogger(FacebookAuthorization.class);
         logger.debug("looking for user with facebookid="+facebookuserid);
         List<User> users = HibernateUtil.getSession().createCriteria(User.class)

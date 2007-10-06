@@ -65,10 +65,9 @@ public class Registration implements Serializable {
         eula = EulaHelper.getMostRecentEula().getEula();
         //Start Facebook shenanigans
         if (Jsf.getUserSession().getIsfacebookui()){
-            FacebookUser facebookUser = new FacebookUser(Jsf.getUserSession().getTempFacebookUserid(), Jsf.getUserSession().getFacebookSessionKey());
             int facebookuserid = 0;
-            if (facebookUser.getUid()!=null && Num.isinteger(facebookUser.getUid())){
-                facebookuserid = Integer.parseInt(facebookUser.getUid());
+            if (Jsf.getUserSession().getFacebookUser()!=null && Num.isinteger(Jsf.getUserSession().getFacebookUser().getUid())){
+                facebookuserid = Integer.parseInt(Jsf.getUserSession().getFacebookUser().getUid());
             }
             if (facebookuserid>0){
                 User user = new User();
@@ -79,7 +78,7 @@ public class Registration implements Serializable {
                                                    .list();
                 //Just a little runtime error logging
                 if (usersWithSameFacebookid!=null && usersWithSameFacebookid.size()>1){
-                    logger.error("More than one user with facebookuserid="+facebookUser.getUid());
+                    logger.error("More than one user with facebookuserid="+facebookuserid);
                 }
                 //Find the user or create them
                 if (usersWithSameFacebookid!=null && usersWithSameFacebookid.size()>0){
@@ -89,8 +88,8 @@ public class Registration implements Serializable {
                     //No user exists so I need to auto-create one
                     user.setEmail("");
                     user.setPassword("");
-                    user.setFirstname(UserInputSafe.clean(facebookUser.getFirst_name()));
-                    user.setLastname(UserInputSafe.clean(facebookUser.getLast_name()));
+                    user.setFirstname(UserInputSafe.clean(Jsf.getUserSession().getFacebookUser().getFirst_name()));
+                    user.setLastname(UserInputSafe.clean(Jsf.getUserSession().getFacebookUser().getLast_name()));
                     user.setIsactivatedbyemail(true);  //Auto-activated by email... done because user will have to enter email in account settings
                     user.setIsqualifiedforrevshare(false);
                     user.setReferredbyuserid(Jsf.getUserSession().getReferredbyOnlyUsedForSignup());
@@ -248,7 +247,6 @@ public class Registration implements Serializable {
         user.setInstantnotifyxmppison(false);
         user.setInstantnotifyxmppusername("");
         user.setIsenabled(true);
-        user.setFacebookuserid(Jsf.getUserSession().getTempFacebookUserid());
         user.setFacebookappremoveddate(new Date());
         user.setIsfacebookappremoved(false);
         try{
@@ -304,8 +302,6 @@ public class Registration implements Serializable {
         userSession.setIseulaok(true);
         userSession.setIsfacebookui(Jsf.getUserSession().getIsfacebookui());
         userSession.setFacebookSessionKey(Jsf.getUserSession().getFacebookSessionKey());
-        userSession.setTempFacebookUserid(Jsf.getUserSession().getTempFacebookUserid());
-        userSession.setIsfacebookappadded(Jsf.getUserSession().getIsfacebookappadded());
         //Set persistent login cookie
         Cookie[] cookies = PersistentLogin.getPersistentCookies(user.getUserid(), Jsf.getHttpServletRequest());
         //Add a cookies to the response

@@ -137,7 +137,7 @@ public class Pageload extends UIComponentBase {
         }
         //Persistent login end
 
-        logger.debug("after persistent login and isfacebookui="+Jsf.getUserSession().getIsfacebookui());
+        //logger.debug("after persistent login and isfacebookui="+Jsf.getUserSession().getIsfacebookui());
 
 
         //Account activation
