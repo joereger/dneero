@@ -20,7 +20,7 @@ public class PublicSurveyTakeRedirector {
             logger.debug("surveyid found: "+Jsf.getRequestParam("surveyid"));
         }
         if (Jsf.getUserSession().getCurrentSurveyid()>0){
-            try{Jsf.getHttpServletResponse().sendRedirect("/survey.jsf?surveyid="+Jsf.getUserSession().getCurrentSurveyid()); return null;}catch(Exception ex){logger.error(ex);}
+            try{Jsf.redirectResponse("/survey.jsf?surveyid="+Jsf.getUserSession().getCurrentSurveyid()); return null;}catch(Exception ex){logger.error(ex);}
         }
         if (!msg.equals("")){
             

@@ -102,7 +102,7 @@ public class PublicSurveyTake implements Serializable {
 
         //If we don't have a surveyid, shouldn't be on this page
         if (surveyid<=0){
-            try{Jsf.getHttpServletResponse().sendRedirect("/publicsurveylist.jsf"); return;}catch(Exception ex){logger.error(ex);}
+            try{Jsf.redirectResponse("/publicsurveylist.jsf"); return;}catch(Exception ex){logger.error(ex);}
         }
 
         //Load up the survey
@@ -110,7 +110,7 @@ public class PublicSurveyTake implements Serializable {
 
         //If the survey is draft or waiting
         if (survey.getStatus()<Survey.STATUS_OPEN){
-            try{Jsf.getHttpServletResponse().sendRedirect("/surveynotopen.jsf"); return;}catch(Exception ex){logger.error(ex);}
+            try{Jsf.redirectResponse("/surveynotopen.jsf"); return;}catch(Exception ex){logger.error(ex);}
         }
 
         //Userid from url
@@ -523,7 +523,7 @@ public class PublicSurveyTake implements Serializable {
         }
         tabselectedindex = 4;
         //Return from survey new comment in a way that retains the survey url
-        try{Jsf.getHttpServletResponse().sendRedirect("/survey.jsf?surveyid="+Jsf.getUserSession().getCurrentSurveyid()+"&tabselectedindex=4"); return null;}catch(Exception ex){logger.error(ex);}
+        try{Jsf.redirectResponse("/survey.jsf?surveyid="+Jsf.getUserSession().getCurrentSurveyid()+"&tabselectedindex=4"); return null;}catch(Exception ex){logger.error(ex);}
         return "publicsurvey";
     }
 
@@ -555,7 +555,7 @@ public class PublicSurveyTake implements Serializable {
             FacebookApiWrapper faw = new FacebookApiWrapper(Jsf.getUserSession());
             faw.inviteFriendsToSurvey(uids, survey);
         }
-        try{Jsf.getHttpServletResponse().sendRedirect("/survey.jsf?surveyid="+survey.getSurveyid()); return null;}catch(Exception ex){logger.debug(ex);}
+        try{Jsf.redirectResponse("/survey.jsf?surveyid="+survey.getSurveyid()); return null;}catch(Exception ex){logger.error(ex);}
         return "publicsurvey";
     }
 
