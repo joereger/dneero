@@ -89,6 +89,11 @@ public class BloggerIndex implements Serializable {
                 try{Jsf.redirectResponse("/survey.jsf?surveyid="+surveyidtoredirectto); return;}catch(Exception ex){logger.error(ex);}
             }
         }
+
+        if (Jsf.getUserSession()!=null && Jsf.getUserSession().getIsfacebookui()){
+            try{Jsf.redirectResponse("/publicsurveylist.jsf");}catch(Exception ex){logger.error(ex);}
+        }
+
 //        BloggerSurveyList bean = (BloggerSurveyList)Jsf.getManagedBean("bloggerSurveyList");
 //        bean.beginView();
         BloggerCompletedsurveys bean2 = (BloggerCompletedsurveys)Jsf.getManagedBean("bloggerCompletedsurveys");
