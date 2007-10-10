@@ -3,12 +3,12 @@
 <?xml version="1.0" encoding="ISO-8859-1" standalone="no" ?>
 <Service>
  <Program>
-  <Name>dNeeroJboss01</Name>
-  <DisplayName>dNeeroJboss01</DisplayName>
-  <Description>dNeeroJboss01</Description>
+  <Name>FbdblogJboss01</Name>
+  <DisplayName>FbdblogJboss01</DisplayName>
+  <Description>FbdblogJboss01</Description>
   <WorkingDir>C:\dNeeroApp\jboss01\bin</WorkingDir>
   <Executable>C:\dNeeroApp\java\jdk1.6.0\bin\javaw.exe</Executable>
-  <Parameters>%JAVA_OPTS% &quot;-Djava.endorsed.dirs=%JBOSS_ENDORSED_DIRS%&quot; -classpath &quot;%JBOSS_RUNPATH%&quot; org.jboss.Main -c all -b 10.0.0.1</Parameters>
+  <Parameters>%JAVA_OPTS% &quot;-Djava.endorsed.dirs=%JBOSS_ENDORSED_DIRS%&quot; &quot;-Djboss.partition.name=FbdblogPartition&quot; -classpath &quot;%JBOSS_RUNPATH%&quot; org.jboss.Main -c allFbdblog -b 10.0.0.24</Parameters>
   <Delay>3000</Delay>
   <ConsoleApp>false</ConsoleApp>
   <ForceReplace>true</ForceReplace>
@@ -33,12 +33,12 @@
   </Dependencies>
  </Options>
  <RedirectIO>
-  <Stdout>C:\dNeeroApp\jboss01\server\all\log\jboss.stdout</Stdout>
-  <Stderr>C:\dNeeroApp\jboss01\server\all\log\jboss.stderr</Stderr>
+  <Stdout>C:\dNeeroApp\jboss01\server\allFbdblog\log\jbossFbdblog.stdout</Stdout>
+  <Stderr>C:\dNeeroApp\jboss01\server\allFbdblog\log\jbossFbdblog.stderr</Stderr>
  </RedirectIO>
  <Debug>
   <DebugEnabled>true</DebugEnabled>
-  <DebugLocation>C:\dNeeroApp\jboss01\server\all\log\jboss.log</DebugLocation>
+  <DebugLocation>C:\dNeeroApp\jboss01\server\allFbdblog\log\jbossFbdblog.log</DebugLocation>
  </Debug>
  <Environment>
   <Variable Name="JAVA_HOME">C:\dNeeroApp\java\jdk1.6.0</Variable>

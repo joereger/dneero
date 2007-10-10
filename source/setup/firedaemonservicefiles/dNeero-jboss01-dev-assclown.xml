@@ -8,7 +8,7 @@
   <Description>dNeeroJboss01</Description>
   <WorkingDir>C:\dNeeroApp\jboss01\bin</WorkingDir>
   <Executable>C:\dNeeroApp\java\jdk1.6.0\bin\javaw.exe</Executable>
-  <Parameters>%JAVA_OPTS% &quot;-Djava.endorsed.dirs=%JBOSS_ENDORSED_DIRS%&quot; -classpath &quot;%JBOSS_RUNPATH%&quot; org.jboss.Main -c all -b 10.0.0.14</Parameters>
+  <Parameters>%JAVA_OPTS% &quot;-Djava.endorsed.dirs=%JBOSS_ENDORSED_DIRS%&quot; &quot;-Djboss.partition.name=dNeeroPartition&quot; -classpath &quot;%JBOSS_RUNPATH%&quot; org.jboss.Main -c all -b 192.168.1.104</Parameters>
   <Delay>3000</Delay>
   <ConsoleApp>false</ConsoleApp>
   <ForceReplace>true</ForceReplace>
@@ -33,12 +33,12 @@
   </Dependencies>
  </Options>
  <RedirectIO>
-  <Stdout>C:\dNeeroApp\jboss01\server\all\log\jboss.stdout</Stdout>
-  <Stderr>C:\dNeeroApp\jboss01\server\all\log\jboss.stderr</Stderr>
+  <Stdout>C:\dNeeroApp\jboss01\server\all\log\jbossdNeero.stdout</Stdout>
+  <Stderr>C:\dNeeroApp\jboss01\server\all\log\jbossdNeero.stderr</Stderr>
  </RedirectIO>
  <Debug>
   <DebugEnabled>true</DebugEnabled>
-  <DebugLocation>C:\dNeeroApp\jboss01\server\all\log\jboss.log</DebugLocation>
+  <DebugLocation>C:\dNeeroApp\jboss01\server\all\log\jbossdNeero.log</DebugLocation>
  </Debug>
  <Environment>
   <Variable Name="JAVA_HOME">C:\dNeeroApp\java\jdk1.6.0</Variable>
