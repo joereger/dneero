@@ -47,7 +47,7 @@
   <Variable Name="JAVA">%JAVA_HOME%\bin\java.exe</Variable>
   <Variable Name="SHUTDOWNJAR">%JBOSS_HOME%\bin\shutdown.jar</Variable>
   <Variable Name="JAVAC_JAR">%JAVA_HOME%\lib\tools.jar</Variable>
-  <Variable Name="JAVA_OPTS">-Xrs -Xms128m -Xmx1000m</Variable>
+  <Variable Name="JAVA_OPTS">-Xrs -Xms128m -Xmx600m</Variable>
   <Variable Name="JBOSS_ENDORSED_DIRS">%JBOSS_HOME%\lib\endorsed</Variable>
   <Variable Name="JBOSS_RUNPATH">%JAVAC_JAR%;%RUNJAR%</Variable>
   <Variable Name="JBOSS_SHUTDOWNPATH">%SHUTDOWNJAR%;%JBOSS_HOME%\client\jbossall-client.jar</Variable>

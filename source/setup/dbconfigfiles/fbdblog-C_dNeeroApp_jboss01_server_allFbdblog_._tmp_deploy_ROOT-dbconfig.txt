@@ -9,5 +9,5 @@ dbConnectionUrl=jdbc\:mysql\://10.0.0.2\:3306/fbdblog?autoReconnect\=true
 dbMinIdle=10
 dbUsername=root
 dbDriverName=com.mysql.jdbc.Driver
-absolutepathtochartfiles=\\\\WS01\\fbdblogchartcache
+absolutepathtochartfiles=\\\\WS01\\FbdblogChartcache
 dbPassword=YyfIEUenA5I8FnoWpQb9Fw\=\=
