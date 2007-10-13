@@ -95,7 +95,18 @@ public class UpdateResponsePoststatus implements Job {
             logger.debug("dayssinceresponsefortoday="+dayssinceresponsefortoday);
             statusHtml.append(  "<table cellpadding=\"0\" cellspacing=\"1\" border=\"0\">\n" +
                                 "\t<tr>\n");
+            //Calculate number of days that qualify
             int daysthatqualify = 0;
+            for (int i = 0; i < MAXPOSTINGPERIODINDAYS; i++){
+                //If this box represents a day in the future
+                if(i<=dayssinceresponsefortoday){
+                    //If there are impressions on this day
+                    if(ibdus.getImpressionsForParticularDay(i)>0){
+                        daysthatqualify = daysthatqualify + 1;
+                    }
+                }
+            }
+            //Output the html
             for (int i = 0; i < MAXPOSTINGPERIODINDAYS; i++){
                 String boxColor = "#cccccc";
                 //If this box represents a day in the future
@@ -103,10 +114,13 @@ public class UpdateResponsePoststatus implements Job {
                     //If there are impressions on this day
                     if(ibdus.getImpressionsForParticularDay(i)>0){
                         boxColor = "#00ff00";
-                        daysthatqualify = daysthatqualify + 1;
                     } else {
                         boxColor = "#ff0000";
                     }
+                }
+                //Override color and set to grey when posting limit has passed
+                if ((response.getPoststatus()==Response.POSTATUS_NOTPOSTEDTIMELIMITPASSED)){
+                    boxColor = "#cccccc";
                 }
                 statusHtml.append("\t\t<td width=\"10\" bgcolor=\""+boxColor+"\" class=\"surveystatusbar\"><img src=\"/images/clear.gif\" width=\"1\" height=\"15\" border=\"0\"></td>\n");
             }

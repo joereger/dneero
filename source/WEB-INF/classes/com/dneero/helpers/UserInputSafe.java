@@ -1,5 +1,7 @@
 package com.dneero.helpers;
 
+import com.dneero.util.Str;
+
 /**
  * User: Joe Reger Jr
  * Date: Jun 4, 2007
@@ -11,9 +13,10 @@ public class UserInputSafe {
         if (in==null){
             return null;
         }
-        String out = "";
-        out = cleanHtml(in);
-        out = cleanJavascript(in);
+        String out = in;
+        //out = cleanHtml(out);
+        out = cleanJavascript(out);
+        out = Str.cleanForSQL(out);
         return out;
     }
 

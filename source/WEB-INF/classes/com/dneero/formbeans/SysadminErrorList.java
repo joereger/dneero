@@ -33,7 +33,7 @@ public class SysadminErrorList implements Serializable {
         Logger logger = Logger.getLogger(this.getClass().getName());
         //Go get the users from the database
         logger.debug("load() called. minleveltoshow="+minleveltoshow);
-        errors = HibernateUtil.getSession().createQuery("from Error where level>='"+minleveltoshow+"' order by errorid desc").list();
+        errors = HibernateUtil.getSession().createQuery("from Error where level>='"+minleveltoshow+"' order by errorid desc").setMaxResults(100).list();
         return "";        
     }
 
@@ -48,7 +48,7 @@ public class SysadminErrorList implements Serializable {
         errors = HibernateUtil.getSession().createQuery("from Error").list();
         for (Iterator iterator = errors.iterator(); iterator.hasNext();) {
             Error error = (Error) iterator.next();
-            try{error.save();}catch(Exception ex){logger.error(ex);}
+            try{error.delete();}catch(Exception ex){logger.error(ex);}
         }
         load();
         return "sysadminerrorlist";        
