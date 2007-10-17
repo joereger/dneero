@@ -86,7 +86,8 @@ public class BloggerIndex implements Serializable {
                 }
             }
             if(surveyidtoredirectto>0){
-                try{Jsf.redirectResponse("/survey.jsf?surveyid="+surveyidtoredirectto); return;}catch(Exception ex){logger.error(ex);}
+                logger.debug("redirecting, will add justcompletedsurvey=1");
+                try{Jsf.redirectResponse("/survey.jsf?surveyid="+surveyidtoredirectto+"&justcompletedsurvey=1"); return;}catch(Exception ex){logger.error(ex);}
             }
         }
 
@@ -201,44 +202,45 @@ public class BloggerIndex implements Serializable {
             logger.debug("charityname = "+charityname);
 
             //Create the response
-            Response response = new Response();
-            response.setBloggerid(blogger.getBloggerid());
-            response.setResponsedate(new Date());
-            response.setSurveyid(survey.getSurveyid());
-            response.setReferredbyuserid(referredbyuserid);
-            response.setIsforcharity(isforcharity);
-            response.setCharityname(charityname);
-            response.setPoststatus(Response.POSTATUS_NOTPOSTED);
-            response.setIspaid(false);
-            response.setResponsestatushtml("");
-            //survey.getResponses().add(response);
-            try{
-                response.save();
-                responseid = response.getResponseid();
-                survey.refresh();
-            } catch (Exception ex){
-                logger.error(ex);
-                allCex.addValidationError(ex.getMessage());
-            }
-            //Process each question
             if (allCex.getErrors().length<=0){
-                for (Iterator<Question> iterator = survey.getQuestions().iterator(); iterator.hasNext();) {
-                    Question question = iterator.next();
-                    Component component = ComponentTypes.getComponentByID(question.getComponenttype(), question, blogger);
-                    try{component.processAnswer(srp, response);} catch (ComponentException cex){allCex.addErrorsFromAnotherGeneralException(cex);}
+                Response response = new Response();
+                response.setBloggerid(blogger.getBloggerid());
+                response.setResponsedate(new Date());
+                response.setSurveyid(survey.getSurveyid());
+                response.setReferredbyuserid(referredbyuserid);
+                response.setIsforcharity(isforcharity);
+                response.setCharityname(charityname);
+                response.setPoststatus(Response.POSTATUS_NOTPOSTED);
+                response.setIspaid(false);
+                response.setResponsestatushtml("");
+                //survey.getResponses().add(response);
+                try{
+                    response.save();
+                    responseid = response.getResponseid();
+                    survey.refresh();
+                } catch (Exception ex){
+                    logger.error(ex);
+                    allCex.addValidationError(ex.getMessage());
                 }
-            }
-            //Refresh blogger
-            try{blogger.save();} catch (Exception ex){logger.error(ex);};
-            
-            //Process the statusHtml for the response
-            try{UpdateResponsePoststatus.processSingleResponse(response);} catch (Exception ex){logger.error(ex);};
+                //Process each question
+                if (allCex.getErrors().length<=0){
+                    for (Iterator<Question> iterator = survey.getQuestions().iterator(); iterator.hasNext();) {
+                        Question question = iterator.next();
+                        Component component = ComponentTypes.getComponentByID(question.getComponenttype(), question, blogger);
+                        try{component.processAnswer(srp, response);} catch (ComponentException cex){allCex.addErrorsFromAnotherGeneralException(cex);}
+                    }
+                }
+                //Refresh blogger
+                try{blogger.save();} catch (Exception ex){logger.error(ex);};
 
-            //Update Facebook
-            FacebookApiWrapper facebookApiWrapper = new FacebookApiWrapper(Jsf.getUserSession());
-            facebookApiWrapper.postSurveyToFacebookMiniFeed(survey, response);
-            facebookApiWrapper.updateFacebookProfile(user);
-            
+                //Process the statusHtml for the response
+                try{UpdateResponsePoststatus.processSingleResponse(response);} catch (Exception ex){logger.error(ex);};
+
+                //Update Facebook
+                FacebookApiWrapper facebookApiWrapper = new FacebookApiWrapper(Jsf.getUserSession());
+                facebookApiWrapper.postSurveyToFacebookMiniFeed(survey, response);
+                facebookApiWrapper.updateFacebookProfile(user);
+            }
         } catch (Exception ex){
             logger.error(ex);
             allCex.addValidationError(ex.getMessage());

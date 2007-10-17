@@ -4,10 +4,14 @@ import com.dneero.dao.Supportissue;
 import com.dneero.dao.Supportissuecomm;
 import com.dneero.util.Jsf;
 import com.dneero.util.GeneralException;
+import com.dneero.util.ErrorDissect;
+import com.dneero.util.Time;
 import com.dneero.xmpp.SendXMPPMessage;
 import com.dneero.helpers.UserInputSafe;
+import com.dneero.email.EmailTemplateProcessor;
 
 import java.util.Date;
+import java.util.Iterator;
 import java.io.Serializable;
 
 import org.apache.log4j.Logger;
@@ -25,7 +29,7 @@ public class AccountNewSupportIssue implements Serializable {
     public AccountNewSupportIssue(){}
 
     public String newIssue(){
-
+        Logger logger = Logger.getLogger(this.getClass().getName());
         Supportissue supportissue = new Supportissue();
         supportissue.setStatus(Supportissue.STATUS_OPEN);
         supportissue.setSubject(UserInputSafe.clean(subject));
@@ -35,7 +39,6 @@ public class AccountNewSupportIssue implements Serializable {
             supportissue.save();
         } catch (GeneralException gex){
             Jsf.setFacesMessage("Sorry, there was an error: " + gex.getErrorsAsSingleString());
-            Logger logger = Logger.getLogger(this.getClass().getName());
             logger.debug("newIssue failed: " + gex.getErrorsAsSingleString());
             return null;
         }
@@ -50,15 +53,34 @@ public class AccountNewSupportIssue implements Serializable {
             supportissue.save();
         } catch (GeneralException gex){
             Jsf.setFacesMessage("Sorry, there was an error: " + gex.getErrorsAsSingleString());
-            Logger logger = Logger.getLogger(this.getClass().getName());
             logger.debug("newIssue failed: " + gex.getErrorsAsSingleString());
             return null;
         }
 
         //Notify customer care group
-        SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_CUSTOMERSUPPORT, "New dNeero Customer Support Issue: "+supportissue.getSubject()+" (supportissueid="+supportissue.getSupportissueid()+") ("+Jsf.getUserSession().getUser().getEmail()+") "+notes);
+        SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_CUSTOMERSUPPORT, "dNeero Support Issue: "+supportissue.getSubject()+" (supportissueid="+supportissue.getSupportissueid()+") ("+Jsf.getUserSession().getUser().getEmail()+") "+notes);
         xmpp.send();
 
+        //Send email to sysadmin
+        try{
+            StringBuffer body = new StringBuffer();
+            for (Iterator<Supportissuecomm> iterator = supportissue.getSupportissuecomms().iterator(); iterator.hasNext();){
+                Supportissuecomm sicom = iterator.next();
+                if (sicom.getIsfromdneeroadmin()){
+                    body.append("<b>From dNeero Admin</b>");
+                } else {
+                    body.append("<b>From "+Jsf.getUserSession().getUser().getFirstname()+" "+Jsf.getUserSession().getUser().getLastname()+"</b>");
+                }
+                body.append("<br>");
+                body.append(Time.dateformatfordb(Time.getCalFromDate(sicom.getDatetime())));
+                body.append("<br>");
+                body.append(sicom.getNotes());
+                body.append("<br><br>");
+            }
+            EmailTemplateProcessor.sendGenericEmail("joe@joereger.com", "dNeero Support Issue: "+supportissue.getSubject(), body.toString());
+        } catch (Exception ex){
+            logger.error(ex);
+        }
         return "accountsupportissuenewdone";
     }
 

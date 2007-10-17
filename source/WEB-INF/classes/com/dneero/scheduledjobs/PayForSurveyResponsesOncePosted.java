@@ -67,6 +67,8 @@ public class PayForSurveyResponsesOncePosted implements Job {
                         if (user.getEmail()!=null && !user.getEmail().equals("")){
                                 
                         }
+                        //Update responsehtml
+                        UpdateResponsePoststatus.processSingleResponse(response);
                     }
                 } catch (Exception ex){
                     logger.error(ex);

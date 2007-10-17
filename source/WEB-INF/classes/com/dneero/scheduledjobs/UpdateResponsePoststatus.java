@@ -29,10 +29,9 @@ public class UpdateResponsePoststatus implements Job {
         Logger logger = Logger.getLogger(this.getClass().getName());
         if (InstanceProperties.getRunScheduledTasksOnThisInstance()){
             logger.debug("execute() UpdateResponsePoststatus called");
-            //Note that I'm saying NOT timepasses AND NOT moddeclined AND NOT posted
             List<Response> responses = HibernateUtil.getSession().createCriteria(Response.class)
-                                   .add( Restrictions.ne("poststatus", Response.POSTATUS_NOTPOSTEDTIMELIMITPASSED))
-                                   .add( Restrictions.ne("poststatus", Response.POSTATUS_POSTED))
+                                   .add(Restrictions.ne("poststatus", Response.POSTATUS_NOTPOSTEDTIMELIMITPASSED))
+                                   .add(Restrictions.eq("ispaid", false))
                                    .setCacheable(false)
                                    .list();
             for (Iterator<Response> iterator = responses.iterator(); iterator.hasNext();) {
@@ -86,8 +85,13 @@ public class UpdateResponsePoststatus implements Job {
             int daysold = DateDiff.dateDiff("day", Calendar.getInstance(), responseDateAsCal);
             if (daysold>MAXPOSTINGPERIODINDAYS){
                 response.setPoststatus(Response.POSTATUS_NOTPOSTEDTIMELIMITPASSED);
+                logger.debug("marking as POSTATUS_NOTPOSTEDTIMELIMITPASSED");
                 try{response.save();}catch(Exception ex){logger.error(ex);}
+            } else {
+                logger.debug("not marking too late because daysold("+daysold+")<=MAXPOSTINGPERIODINDAYS("+MAXPOSTINGPERIODINDAYS+")");
             }
+
+            logger.debug("response.getPoststatus()="+response.getPoststatus());
 
             //Create response payment status html and store it in the db
             StringBuffer statusHtml = new StringBuffer();
@@ -158,7 +162,7 @@ public class UpdateResponsePoststatus implements Job {
                  
             //Store it in the database for the response
             try{
-                if (daysthatqualify>=1){
+                if (daysthatqualify>=1 && response.getPoststatus()!=Response.POSTATUS_NOTPOSTEDTIMELIMITPASSED){
                     response.setPoststatus(Response.POSTATUS_POSTEDATLEASTONCE);
                     if (daysthatqualify>=DAYSWITHIMPRESSIONREQUIREDINSIDEPOSTINGPERIOD){
                         response.setPoststatus(Response.POSTATUS_POSTED);

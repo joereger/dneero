@@ -89,18 +89,16 @@
                                 -->
                                 <c:if test="${(publicSurveyTake.survey.status eq 4) and (!publicSurveyTake.loggedinuserhasalreadytakensurvey) and ( (!empty userSession.facebookUser and userSession.facebookUser.has_added_app) || !userSession.isfacebookui)}">
                                     <t:div rendered="#{userSession.isfacebookui and !publicSurveyTake.loggedinuserhasalreadytakensurvey}">
-                                        <div class="rounded" style="background: #e6e6e6; text-align: center;">
-                                            <h:outputText value="Take this survey to earn at least" styleClass="mediumfont"/>
+                                        <div class="rounded" style="background: #ffffff; text-align: center;">
+                                            <h:outputText value="Take this survey to earn at least" styleClass="mediumfont" style="font-weight: bold; color: #666666;"/>
                                             <br/>
                                             <h:outputText value="#{publicSurveyTake.surveyEnhancer.minearning}" styleClass="largefont" style="font-size: 30px; color: #666666;"/>
                                             <c:if test="${publicSurveyTake.surveytakergavetocharity or publicSurveyTake.survey.ischarityonly}">
                                                 <br/>               
-                                                <h:outputText value="for charity" styleClass="mediumfont"/>
+                                                <h:outputText value="for charity" styleClass="mediumfont" style="font-weight: bold; color: #666666;"/>
                                             </c:if>
                                             <br/>
-                                            <h:outputText value="and up to #{publicSurveyTake.surveyEnhancer.maxearning} depending on your profile traffic. Links to your answers must appear on your profile for at least five days and somebody needs to click them each day to get paid... usually your friends will take care of this on their own." styleClass="smallfont" style="font-weight: bold;"/>
-                                            <br/>
-                                            <h:outputText value="(And yes, we're talking real world money here... we'll pay your PayPal account when you accrue a balance of $20.)" styleClass="smallfont" style="font-weight: bold;"/>
+                                            <h:outputText value="and up to #{publicSurveyTake.surveyEnhancer.maxearning} depending on your profile traffic. Links to your answers must appear on your profile for at least five days and somebody needs to click them each day to get paid... usually your friends will take care of this on their own. (And yes, we're talking real world money here... we'll pay your PayPal account when you accrue a balance of $20.)" styleClass="smallfont" style="font-weight: bold; color: #666666;"/>
                                         </div>
                                         <br/>
                                     </t:div>
@@ -174,11 +172,6 @@
                             </td>
                             <c:if test="${userSession.isfacebookui}">
                                 <td valign="top" align="left">
-                                    <c:if test="#{publicSurveyTake.loggedinuserhasalreadytakensurvey}">
-                                        <font class="mediumfont">You've Taken This Survey:</font><br/>
-                                        <h:outputLink value="/survey.jsf?surveyid=#{publicSurveyTake.survey.surveyid}&amp;userid=#{userSession.user.userid}&amp;show=showSurveyResponseFlashEmbed" styleClass="tinyfont" style="color: #0000ff;"><h:outputText>Your Answers</h:outputText></h:outputLink><br/><br/>
-                                        <br/><br/>
-                                    </c:if>
                                     <t:div rendered="#{!empty publicSurveyTake.userwhotooksurvey and publicSurveyTake.surveytakergavetocharity and (publicSurveyTake.showSurveyResponseFlashEmbed) and (publicSurveyTake.userwhotooksurvey.userid>0)}">
                                         <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
                                             <center>
@@ -196,15 +189,20 @@
                                         <br/><br/>
                                     </c:if>
                                     -->
-                                    <font class="mediumfont">Friends Who Took It:</font><br/>
-                                    <c:if test="${empty publicSurveyTake.facebookuserswhotooksurvey}">
-                                        <font class="tinyfont">None</font><br/>
+                                    <c:if test="${!empty publicSurveyTake.facebookuserswhotooksurvey}">
+                                        <font class="mediumfont" style="color: #cccccc;">Friends Who Took It:</font><br/>
+                                        <c:forEach var="fbuser" items="${publicSurveyTake.facebookuserswhotooksurvey}">
+                                            <!--<img src="/images/user-16.png" width="16" height="16" border="0" align="middle" alt=""/>-->
+                                            <h:outputLink value="/survey.jsf?surveyid=#{publicSurveyTake.survey.surveyid}&amp;userid=#{fbuser.userid}&amp;responseid=#{fbuser.responseid}&amp;show=showSurveyResponseFlashEmbed" styleClass="tinyfont" style="color: #0000ff;"><h:outputText>#{fbuser.facebookUser.first_name} #{fbuser.facebookUser.last_name}</h:outputText></h:outputLink><br/>
+                                        </c:forEach>
+                                        <br/><br/>
                                     </c:if>
-                                    <c:forEach var="fbuser" items="${publicSurveyTake.facebookuserswhotooksurvey}">
-                                        <img src="/images/user-16.png" width="16" height="16" border="0" align="middle" alt=""/>
-                                        <h:outputLink value="/survey.jsf?surveyid=#{publicSurveyTake.survey.surveyid}&amp;userid=#{fbuser.userid}&amp;responseid=#{fbuser.responseid}&amp;show=showSurveyResponseFlashEmbed" styleClass="tinyfont" style="color: #0000ff;"><h:outputText>#{fbuser.facebookUser.first_name} #{fbuser.facebookUser.last_name}</h:outputText></h:outputLink><br/>
-                                    </c:forEach>
-                                    <br/><br/>
+                                    <c:if test="#{publicSurveyTake.loggedinuserhasalreadytakensurvey}">
+                                        <font class="mediumfont">You've Taken This Survey:</font><br/>
+                                        <h:outputLink value="/survey.jsf?surveyid=#{publicSurveyTake.survey.surveyid}&amp;userid=#{userSession.user.userid}&amp;show=showSurveyResponseFlashEmbed" styleClass="tinyfont" style="color: #0000ff;"><h:outputText>Your Answers</h:outputText></h:outputLink><br/><br/>
+                                        <br/><br/>
+                                    </c:if>
+                                    <!--
                                     <font class="mediumfont">Tell Friends Who Haven't Taken It:</font><br/>
                                     <h:message for="facebookfriendsselected2" styleClass="RED"></h:message>
                                     <h:selectManyCheckbox value="#{publicSurveyTake.facebookfriendsselected2}" layout="pageDirection" id="facebookfriendsselected2" required="false" style="font-weight: bold;" styleClass="tinyfont">
@@ -212,6 +210,7 @@
                                     </h:selectManyCheckbox>
                                     <br/>
                                     <h:commandButton action="#{publicSurveyTake.tellFriends2}" value="Tell Friends" styleClass="formsubmitbutton"/>
+                                    -->
                                 </td>
                             </c:if>
                             <c:if test="${!userSession.isfacebookui}">
@@ -447,10 +446,12 @@
                                 <font class="mediumfont"><b>Your survey response has been accepted!</b></font>
                                 <br/>
                                 <font class="smallfont">A link to your survey has been posted to your Facebook feed (which qualifies as a blog, for payment purposes).  Keep the links on your mini-feed and profile because to get paid you must have somebody view your answers on 5 of the 10 days following when you took the survey.</font><br/><br/>
-                                <div class="rounded" style="background: #e6e6e6;">
-                                    <font class="smallfont">If you've deleted the survey from your Facebook Mini Feed or Profile and would like to add them back, click below.  Note that if you've turned off the profile box you'll have to turn it back on yourself.</font><br/>
-                                    <h:commandButton action="#{publicSurveyTake.updateFacebookProfile}" value="Update Facebook Profile" styleClass="formsubmitbutton"/>
-                                </div>
+                                <c:if test="#{!publicSurveyTake.justcompletedsurvey}">
+                                    <div class="rounded" style="background: #e6e6e6;">
+                                        <font class="smallfont">If you've deleted the survey from your Facebook Mini Feed or Profile and would like to add them back, click below.  Note that if you've turned off the profile box you'll have to turn it back on yourself in the Facebook settings for the dNeero app.</font><br/>
+                                        <h:commandButton action="#{publicSurveyTake.updateFacebookProfile}" value="Update Facebook Profile" styleClass="formsubmitbutton"/>
+                                    </div>
+                                </c:if>
                                 <div class="rounded" style="background: #ffffff;">
                                     <font class="formfieldnamefont"><b>Now earn even more... tell up to 10 friends about this survey:</b></font>
                                     <br/>
@@ -865,33 +866,6 @@
                                                 <li>Enter a "Title" and in the "Main Entry" box write your blog entry.</li>
                                                 <li>Click the "Edit HTML" check box, and paste the dNeero code into the "Main Entry" text box. (Left-click at the bottom of the "Main Entry" text box and either hit Ctrl+V, or Right-click and choose Paste.)</li>
                                                 <li>Click the "Save Changes" button at the bottom of the page and you're done! </li>
-                                            </ol>
-                                        </font>
-                                    </t:collapsiblePanel>
-
-                                    <t:collapsiblePanel id="cpfacebook" value="true" title="cpfacebook" var="cpfacebookvar">
-                                        <f:facet name="header">
-                                            <t:div styleClass="posttoblog_tabs">
-                                                <h:outputText value="Facebook " styleClass="formfieldnamefont"/>
-                                                <t:headerLink immediate="true">
-                                                    <h:outputText value="Show Instructions" rendered="#{cpfacebookvar}" styleClass="normalfont"/>
-                                                    <h:outputText value="Hide" rendered="#{!cpfacebookvar}" styleClass="normalfont"/>
-                                                </t:headerLink>
-                                            </t:div>
-                                        </f:facet>
-                                        <font class="smallfont">
-                                            <ol>
-                                                <li>Copy the code below. (Right-click and choose Copy or Left-click to select and hit Control-C)<br/>
-                                                    <c:choose>
-                                                        <c:when test="#{1 eq 2}"></c:when>
-                                                        <c:otherwise><textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();">#{publicSurveyTake.htmltoposttobloglink}</textarea></c:otherwise>
-                                                    </c:choose>
-                                                </li>
-                                                <li>Login into Facebook, click the "more" link (left hand column), then the "Notes" link , then the "+Write a New Note" button. </li>
-                                                <li>Enter a "Title:" </li>
-                                                <li>In the "Body:" paste the dNeero code (Left-click in the "Body:" text box and either hit Ctrl+V, or Right-click and choose Paste.)</li>
-                                                <li>Enter any other text/images.</li>
-                                                <li>Click the "Publish" button and you're done!</li>
                                             </ol>
                                         </font>
                                     </t:collapsiblePanel>

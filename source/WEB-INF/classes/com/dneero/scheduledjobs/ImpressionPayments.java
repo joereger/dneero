@@ -14,6 +14,8 @@ import com.dneero.util.DateDiff;
 import com.dneero.util.Time;
 
 import java.util.*;
+import java.text.NumberFormat;
+import java.text.DecimalFormat;
 
 /**
  * User: Joe Reger Jr
@@ -110,7 +112,16 @@ public class ImpressionPayments implements Job {
                             if (user!=null && user.getUserid()>0){
                                 //If there's an amount to pay
                                 if (ipupu.getAmt()>0){
-                                    MoveMoneyInAccountBalance.pay(user, ipupu.getAmt(), "Pay for impressions", true, false, "", 0);
+                                    String amtWithDec = "";
+                                    try{
+                                        NumberFormat formatter = DecimalFormat.getInstance();
+                                        formatter.setMinimumFractionDigits(4);
+                                        formatter.setMaximumFractionDigits(4);
+                                        amtWithDec = " ($"+formatter.format(ipupu.getAmt())+")";
+                                    } catch (Exception ex){
+                                        logger.error(ex);
+                                    }
+                                    MoveMoneyInAccountBalance.pay(user, ipupu.getAmt(), "Pay for impressions" + amtWithDec, true, false, "", 0);
                                 }
                                 //If there are charity donations to pay
                                 if (ipupu.getCharityDonations()!=null && ipupu.getCharityDonations().size()>0){

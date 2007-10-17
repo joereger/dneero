@@ -29,6 +29,8 @@ public class SysadminUserDetail implements Serializable {
     private String firstname;
     private String lastname;
     private String email;
+    private String paypaladdress="";
+    private int referredbyuserid=0;
     private boolean issysadmin = false;
     private String activitypin;
     private double amt;
@@ -65,6 +67,8 @@ public class SysadminUserDetail implements Serializable {
             firstname = user.getFirstname();
             lastname = user.getLastname();
             email = user.getEmail();
+            referredbyuserid = user.getReferredbyuserid();
+            paypaladdress = user.getPaymethodpaypaladdress();
             isenabled = user.getIsenabled();
             issysadmin = false;
             for (Iterator<Userrole> iterator = user.getUserroles().iterator(); iterator.hasNext();) {
@@ -153,6 +157,8 @@ public class SysadminUserDetail implements Serializable {
             user.setFirstname(firstname);
             user.setLastname(lastname);
             user.setEmail(email);
+            user.setReferredbyuserid(referredbyuserid);
+            user.setPaymethodpaypaladdress(paypaladdress);
             try{user.save();}catch (Exception ex){logger.error(ex);}
         }
         Jsf.setFacesMessage("User details saved");
@@ -399,5 +405,21 @@ public class SysadminUserDetail implements Serializable {
 
     public void setResearcher(Researcher researcher) {
         this.researcher=researcher;
+    }
+
+    public String getPaypaladdress() {
+        return paypaladdress;
+    }
+
+    public void setPaypaladdress(String paypaladdress) {
+        this.paypaladdress=paypaladdress;
+    }
+
+    public int getReferredbyuserid() {
+        return referredbyuserid;
+    }
+
+    public void setReferredbyuserid(int referredbyuserid) {
+        this.referredbyuserid=referredbyuserid;
     }
 }

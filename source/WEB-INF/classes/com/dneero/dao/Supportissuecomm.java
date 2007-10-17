@@ -83,7 +83,7 @@ public class Supportissuecomm extends BasePersistentClass implements java.io.Ser
         this.datetime = datetime;
     }
 
-    public boolean isIsfromdneeroadmin() {
+    public boolean getIsfromdneeroadmin() {
         return isfromdneeroadmin;
     }
 

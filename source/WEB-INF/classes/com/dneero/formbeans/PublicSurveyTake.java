@@ -80,6 +80,7 @@ public class PublicSurveyTake implements Serializable {
     private String[] facebookfriendsselected2;
     private List<PublicSurveyFacebookFriendListitem> facebookuserswhotooksurvey = new ArrayList<PublicSurveyFacebookFriendListitem>();
     private TreeMap<String, String> facebookuserswhodidnottakesurvey = new TreeMap<String, String>();
+    private boolean justcompletedsurvey = false;
 
     public PublicSurveyTake(){
         load();
@@ -313,6 +314,12 @@ public class PublicSurveyTake implements Serializable {
             resultsfriendstabtext = Str.truncateString(userwhotooksurvey.getFirstname(), 15)+"'s Friends";
         }
 
+        //Justcompletedsurvey
+        justcompletedsurvey = false;
+        if (Jsf.getRequestParam("justcompletedsurvey")!=null && Jsf.getRequestParam("justcompletedsurvey").equals("1")){
+            justcompletedsurvey = true;
+        }
+
         //Special Facebook activities
         if (Jsf.getUserSession().getIsfacebookui()){
             //Load facebook users
@@ -443,8 +450,9 @@ public class PublicSurveyTake implements Serializable {
         //Where to send afterwards?
         if (Jsf.getUserSession().getIsloggedin()){
             if (Jsf.getUserSession().getUser().getBloggerid()>0){
-                load();
-                try{Jsf.redirectResponse("/survey.jsf?surveyid="+survey.getSurveyid());}catch(Exception ex){logger.error(ex);}
+                //load();
+                logger.debug("redirecting, will add justcompletedsurvey=1");
+                try{Jsf.redirectResponse("/survey.jsf?surveyid="+survey.getSurveyid()+"&justcompletedsurvey=1");}catch(Exception ex){logger.error(ex);}
                 return "publicsurvey";
             } else {
                 AccountIndex bean = (AccountIndex)Jsf.getManagedBean("accountIndex");
@@ -573,8 +581,8 @@ public class PublicSurveyTake implements Serializable {
                 for (Iterator<Response> iterator=responses.iterator(); iterator.hasNext();) {
                     Response response=iterator.next();
                     facebookApiWrapper.postSurveyToFacebookMiniFeed(survey, response);
-                    facebookApiWrapper.updateFacebookProfile(Jsf.getUserSession().getUser());
                 }
+                facebookApiWrapper.updateFacebookProfile(Jsf.getUserSession().getUser());
                 Jsf.setFacesMessage("Your Facebook profile should have been updated.");
             }
         } catch (Exception ex){
@@ -964,5 +972,13 @@ public class PublicSurveyTake implements Serializable {
 
     public void setFacebookuserswhodidnottakesurvey(TreeMap<String, String> facebookuserswhodidnottakesurvey) {
         this.facebookuserswhodidnottakesurvey = facebookuserswhodidnottakesurvey;
+    }
+
+    public boolean getJustcompletedsurvey() {
+        return justcompletedsurvey;
+    }
+
+    public void setJustcompletedsurvey(boolean justcompletedsurvey) {
+        this.justcompletedsurvey=justcompletedsurvey;
     }
 }

@@ -1,9 +1,5 @@
 package com.dneero.formbeans;
 
-import com.dneero.util.SortableList;
-import com.dneero.util.Jsf;
-import com.dneero.dao.Survey;
-import com.dneero.dao.Question;
 import com.dneero.dao.Supportissue;
 import com.dneero.dao.hibernate.HibernateUtil;
 import org.apache.log4j.Logger;
@@ -19,6 +15,7 @@ import java.io.Serializable;
 public class SysadminSupportIssuesList implements Serializable {
 
     private List supportissues = new ArrayList();
+    private boolean showall= false;
 
 
     public SysadminSupportIssuesList() {
@@ -32,7 +29,14 @@ public class SysadminSupportIssuesList implements Serializable {
 
     public void load(){
         supportissues = new ArrayList();
-        supportissues = HibernateUtil.getSession().createQuery("from Supportissue order by supportissueid desc").list();
+        String whereSql = " where (status='"+Supportissue.STATUS_DNEEROWORKING+"' or status='"+Supportissue.STATUS_OPEN+"') ";
+        if (showall){
+            whereSql = "";
+        }
+        supportissues = HibernateUtil.getSession().createQuery("from Supportissue "+whereSql+" order by supportissueid desc").list();
+
+
+
     }
 
     public List getSupportissues() {
@@ -74,9 +78,17 @@ public class SysadminSupportIssuesList implements Serializable {
         }
     }
 
+    public String search(){
+        load();
+        return "sysadminsupportissueslist";
+    }
 
 
+    public boolean getShowall() {
+        return showall;
+    }
 
-
-
+    public void setShowall(boolean showall) {
+        this.showall=showall;
+    }
 }
