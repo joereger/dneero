@@ -25,7 +25,11 @@
         if (window==top){
             top.location.href="#{baseUrl.includinghttp}facebookexitui.jsf";
         }
-     }
+    } else {
+        if (window!=top){
+            top.location.href="#{baseUrl.includinghttp}facebookenterui.jsf";
+        }
+    }
   </script>
   <script type="text/javascript" src="/js/niftycube/niftycube.js"></script>
   <script type="text/javascript">

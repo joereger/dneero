@@ -492,6 +492,12 @@
     </managed-bean>
 
     <managed-bean>
+        <managed-bean-name>publicFacebookenterui</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.PublicFacebookenterui</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
         <managed-bean-name>publicBlog</managed-bean-name>
         <managed-bean-class>com.dneero.formbeans.PublicBlog</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
@@ -746,6 +752,10 @@
         <navigation-case>
             <from-outcome>publicfacebookexitui</from-outcome>
             <to-view-id>/facebookexitui.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>publicfacebookenterui</from-outcome>
+            <to-view-id>/facebookenterui.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>publiccharity</from-outcome>

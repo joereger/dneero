@@ -62,6 +62,7 @@ public class UserSession implements Serializable {
         isloggedin = false;
         userid = 0;
     }
+    
 
     public void setUser(User user) {
         if (user!=null){
