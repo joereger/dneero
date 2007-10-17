@@ -6,6 +6,7 @@ import com.dneero.systemprops.SystemProperty;
 import com.dneero.xmpp.SendXMPPMessage;
 import com.dneero.dao.User;
 import com.dneero.dao.Survey;
+import com.dneero.facebook.FacebookPendingReferrals;
 
 import java.io.Serializable;
 import java.net.URLEncoder;
@@ -59,6 +60,19 @@ public class PublicFacebookLandingPage implements Serializable {
                         Survey surveyTmp = Survey.get(Integer.parseInt(split[1]));
                         surveytitle = surveyTmp.getTitle();
                     }
+//                    //Save referral state
+//                    try{
+//                        if (split[2]!=null && Num.isinteger(split[2])){
+//                            if (Integer.parseInt(split[2])>0){
+//                                if (Jsf.getUserSession().getFacebookUser()!=null && Num.isinteger(Jsf.getUserSession().getFacebookUser().getUid())){
+//                                    FacebookPendingReferrals.addReferredBy(Integer.parseInt(split[2]), Integer.parseInt(Jsf.getUserSession().getFacebookUser().getUid()));
+//                                }
+//                            }
+//                        }
+//                    } catch (Exception ex){
+//                        logger.error(ex);
+//                    }
+                    //Notify admins
                     if (Jsf.getUserSession().getFacebookUser()!=null){
                         //Notify via XMPP
                         SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_DEBUG, "Facebook user "+ Jsf.getUserSession().getFacebookUser().getFirst_name() + " " + Jsf.getUserSession().getFacebookUser().getLast_name() + " referred by userid="+split[2]+" ("+referredbyname+") to surveyid="+split[1]+" ("+surveytitle+")");
@@ -98,6 +112,19 @@ public class PublicFacebookLandingPage implements Serializable {
                     referredtosurveyid = split[1];
                 }
             }
+//            //Save referral state
+//            try{
+//                if (referredbyuserid!=null && Num.isinteger(referredbyuserid)){
+//                    if (Integer.parseInt(referredbyuserid)>0){
+//                        if (Jsf.getUserSession().getFacebookUser()!=null && Num.isinteger(Jsf.getUserSession().getFacebookUser().getUid())){
+//                            FacebookPendingReferrals.addReferredBy(Integer.parseInt(referredbyuserid), Integer.parseInt(Jsf.getUserSession().getFacebookUser().getUid()));
+//                        }
+//                    }
+//                }
+//            } catch (Exception ex){
+//                logger.error(ex);
+//            }
+            //Notify admins
             if (Jsf.getUserSession().getFacebookUser()!=null){
                 //Notify via XMPP
                 SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_DEBUG, "Facebook app add page shown to "+ Jsf.getUserSession().getFacebookUser().getFirst_name() + " " + Jsf.getUserSession().getFacebookUser().getLast_name() + " referred by userid="+referredbyuserid+" to surveyid="+referredtosurveyid);
@@ -108,9 +135,6 @@ public class PublicFacebookLandingPage implements Serializable {
                 xmpp.send();
             }
         }catch(Exception ex){logger.error(ex);}
-
-
-
 
        
     }

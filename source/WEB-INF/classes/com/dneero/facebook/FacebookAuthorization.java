@@ -37,7 +37,6 @@ public class FacebookAuthorization {
         Logger logger = Logger.getLogger(FacebookAuthorization.class);
         logger.debug("starting FacebookAuthorization and isfacebookui="+Jsf.getUserSession().getIsfacebookui());
         try{
-
             //Set referred by userid
             try{
                 if (Jsf.getRequestParam("action")!=null && Jsf.getRequestParam("action").indexOf("showsurvey")>-1){
@@ -105,6 +104,16 @@ public class FacebookAuthorization {
                 if (Jsf.getUserSession().getFacebookUser()!=null && !Jsf.getUserSession().getFacebookUser().getUid().trim().equals("")){
                     //Set facebookui
                     Jsf.getUserSession().setIsfacebookui(true);
+                    //Save referral state
+                    try{
+                        if (Jsf.getUserSession().getReferredbyOnlyUsedForSignup()>0){
+                            if (Jsf.getUserSession().getFacebookUser()!=null && Num.isinteger(Jsf.getUserSession().getFacebookUser().getUid())){
+                                FacebookPendingReferrals.addReferredBy(Jsf.getUserSession().getReferredbyOnlyUsedForSignup(), Integer.parseInt(Jsf.getUserSession().getFacebookUser().getUid()));
+                            }
+                        }
+                    } catch (Exception ex){
+                        logger.error(ex);
+                    }
                     //See if we have this facebook user as a dNeero user
                     User user = null;
                     if (Num.isinteger(Jsf.getUserSession().getFacebookUser().getUid())){

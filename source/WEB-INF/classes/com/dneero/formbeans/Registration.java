@@ -18,6 +18,7 @@ import com.dneero.systemprops.BaseUrl;
 import com.dneero.helpers.UserInputSafe;
 import com.dneero.facebook.FacebookApiWrapper;
 import com.dneero.facebook.FacebookUser;
+import com.dneero.facebook.FacebookPendingReferrals;
 import com.octo.captcha.service.CaptchaServiceException;
 
 import javax.servlet.http.Cookie;
@@ -92,7 +93,7 @@ public class Registration implements Serializable {
                     user.setLastname(UserInputSafe.clean(Jsf.getUserSession().getFacebookUser().getLast_name()));
                     user.setIsactivatedbyemail(true);  //Auto-activated by email... done because user will have to enter email in account settings
                     user.setIsqualifiedforrevshare(false);
-                    user.setReferredbyuserid(Jsf.getUserSession().getReferredbyOnlyUsedForSignup());
+                    user.setReferredbyuserid(FacebookPendingReferrals.getReferredbyUserid(facebookuserid));
                     user.setEmailactivationkey(RandomString.randomAlphanumeric(5));
                     user.setEmailactivationlastsent(new Date());
                     user.setCreatedate(new Date());
