@@ -17,8 +17,10 @@ public class SystemStats implements Serializable {
 
     //BE SURE TO SYNC CODE HERE WITH MAIN SystemStats in scheduledjobs
     //These need to be here because of direct POJO injection by the JSF framework
+    private int totalusers=com.dneero.scheduledjobs.SystemStats.getTotalusers();
     private int totalbloggers=com.dneero.scheduledjobs.SystemStats.getTotalbloggers();
     private int totalresearchers=com.dneero.scheduledjobs.SystemStats.getTotalresearchers();
+    private int totalsurveystaken=com.dneero.scheduledjobs.SystemStats.getTotalsurveystaken();
     private int totalimpressions=com.dneero.scheduledjobs.SystemStats.getTotalimpressions();
     private double dollarsavailabletobloggers=com.dneero.scheduledjobs.SystemStats.getDollarsavailabletobloggers();
     private double systembalance=com.dneero.scheduledjobs.SystemStats.getSystembalance();
@@ -27,6 +29,14 @@ public class SystemStats implements Serializable {
     private int numberofsurveysopen=com.dneero.scheduledjobs.SystemStats.getNumberofsurveysopen();
 
     public SystemStats(){}
+
+    public int getTotalusers() {
+        return com.dneero.scheduledjobs.SystemStats.getTotalusers();
+    }
+
+    public void setTotalusers(int totalusers) {
+
+    }
 
     public int getTotalbloggers() {
         return com.dneero.scheduledjobs.SystemStats.getTotalbloggers();
@@ -53,6 +63,13 @@ public class SystemStats implements Serializable {
     }
 
 
+    public int getTotalsurveystaken() {
+        return com.dneero.scheduledjobs.SystemStats.getTotalsurveystaken();
+    }
+
+    public void setTotalsurveystaken(int totalsurveystaken) {
+
+    }
 
     public double getDollarsavailabletobloggers() {
         return com.dneero.scheduledjobs.SystemStats.getDollarsavailabletobloggers();

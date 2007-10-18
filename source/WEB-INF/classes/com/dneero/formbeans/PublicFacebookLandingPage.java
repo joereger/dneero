@@ -40,6 +40,16 @@ public class PublicFacebookLandingPage implements Serializable {
 
         //Post add page
         if (Jsf.getRequestParam("action")!=null && Jsf.getRequestParam("action").indexOf("addedapp")>-1){
+            //Notify admins
+            if (Jsf.getUserSession().getFacebookUser()!=null){
+                //Notify via XMPP
+                SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_DEBUG, "Facebook user "+ Jsf.getUserSession().getFacebookUser().getFirst_name() + " " + Jsf.getUserSession().getFacebookUser().getLast_name() + " just added app!");
+                xmpp.send();
+            } else {
+                //Notify via XMPP
+                SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_DEBUG, "Facebook user Unknown just added app!");
+                xmpp.send();
+            }
             try{Jsf.redirectResponse("/publicsurveylist.jsf?action=addedapp");return;}catch(Exception ex){logger.error(ex);}
         }
 
@@ -78,7 +88,6 @@ public class PublicFacebookLandingPage implements Serializable {
                         SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_DEBUG, "Facebook user "+ Jsf.getUserSession().getFacebookUser().getFirst_name() + " " + Jsf.getUserSession().getFacebookUser().getLast_name() + " referred by userid="+split[2]+" ("+referredbyname+") to surveyid="+split[1]+" ("+surveytitle+")");
                         xmpp.send();
                     } else {
-
                         //Notify via XMPP
                         SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_DEBUG, "Facebook user Unknown:"+Jsf.getUserSession().getFacebookSessionKey()+" referred by userid="+split[2]+" ("+referredbyname+") to surveyid="+split[1]+" ("+surveytitle+")");
                         xmpp.send();

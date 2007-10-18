@@ -6,11 +6,11 @@
     <class name="com.dneero.dao.Facebookpendingreferredby" table="facebookpendingreferredby">
         <cache usage="transactional"/>
         <id name="facebookpendingreferredbyid" type="int">
-            <column name="balanceid" />
+            <column name="facebookpendingreferredbyid" />
             <generator class="native" />
         </id>
         <property name="referredbyuserid" type="int">
-            <column name="userid" not-null="true" />
+            <column name="referredbyuserid" not-null="true" />
         </property>
         <property name="date" type="timestamp">
             <column name="date" not-null="true" />

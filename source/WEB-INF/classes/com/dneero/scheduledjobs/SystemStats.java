@@ -25,9 +25,11 @@ public class SystemStats implements Job {
 
 
     //BE SURE TO SYNC CODE HERE WITH MAIN SystemStats in formbeans (which jsf uses)
+    private static int totalusers=0;
     private static int totalbloggers=0;
     private static int totalresearchers=0;
     private static int totalimpressions=0;
+    private static int totalsurveystaken=0;
     private static double dollarsavailabletobloggers=0;
     private static double systembalance=0;
     private static double systembalancerealworld=0;
@@ -42,8 +44,10 @@ public class SystemStats implements Job {
         //if (InstanceProperties.getRunScheduledTasksOnThisInstance()){
             logger.debug("execute() SystemStats called");
 
+            totalusers = NumFromUniqueResult.getInt("select count(*) from User");
             totalbloggers = NumFromUniqueResult.getInt("select count(*) from Blogger");
             totalresearchers = NumFromUniqueResult.getInt("select count(*) from Researcher");
+            totalsurveystaken = NumFromUniqueResult.getInt("select count(*) from Response");
             totalimpressions = NumFromUniqueResult.getInt("select sum(impressionstotal) from Impression");
             numberofsurveysopen = NumFromUniqueResult.getInt("select count(*) from Survey where status='"+Survey.STATUS_OPEN+"'");
 
@@ -108,8 +112,13 @@ public class SystemStats implements Job {
     }
 
 
+    public static int getTotalsurveystaken() {
+        return totalsurveystaken;
+    }
 
-
+    public static void setTotalsurveystaken(int totalsurveystaken) {
+        //SystemStats.totalsurveystaken=totalsurveystaken;
+    }
 
     public static int getTotalbloggers() {
         return totalbloggers;
@@ -195,5 +204,13 @@ public class SystemStats implements Job {
 
     public static void setSpotlightsurveyenhancers(Map<String, SurveyEnhancer> spotlightsurveyenhancers) {
         //SystemStats.spotlightsurveyenhancers = spotlightsurveyenhancers;
+    }
+
+    public static int getTotalusers() {
+        return totalusers;
+    }
+
+    public static void setTotalusers(int totalusers) {
+        //SystemStats.totalusers=totalusers;
     }
 }
