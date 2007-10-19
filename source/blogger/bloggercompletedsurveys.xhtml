@@ -7,7 +7,7 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:t="http://myfaces.apache.org/tomahawk"
       xmlns:d="http://dneero.com/taglib"
-
+      xmlns:c="http://java.sun.com/jstl/core"
       >
 
 <ui:composition template="/template/template-facelets.xhtml">
@@ -38,7 +38,7 @@
                       </h:column>
                       <h:column>
                         <f:facet name="header">
-                          <h:outputText value="Blog Displays"/>
+                          <h:outputText value="Impressions"/>
                         </f:facet>
                         <center>
                             <h:commandLink action="#{bloggerImpressions.beginView}">
@@ -47,18 +47,20 @@
                             </h:commandLink>
                         </center>
                       </h:column>
-                      <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Posted?"/>
-                        </f:facet>
-                        <h:commandLink action="#{publicSurveyTakeRedirector.beginView}" rendered="#{listitem.response.poststatus eq 0}">
-                            <h:outputText value="Post It!" escape="false" styleClass="tinyfont" style="font-weight:bold;"/>
-                            <f:param name="surveyid" value="#{listitem.surveyid}" />
-                        </h:commandLink>
-                        <h:outputText value="Posted At Least Once" escape="false" styleClass="tinyfont" style="font-weight:bold;" rendered="#{listitem.response.poststatus eq 1}"/>
-                        <h:outputText value="Posted" escape="false" styleClass="tinyfont" style="font-weight:bold;" rendered="#{listitem.response.poststatus eq 2}"/>
-                        <h:outputText value="Too Late to Post" escape="false" styleClass="tinyfont" style="font-weight:bold;" rendered="#{listitem.response.poststatus eq 3}"/>
-                      </h:column>
+                      <c:if test="${!userSession.isfacebookui}">
+                          <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Posted?"/>
+                            </f:facet>
+                            <h:commandLink action="#{publicSurveyTakeRedirector.beginView}" rendered="#{listitem.response.poststatus eq 0}">
+                                <h:outputText value="Post It!" escape="false" styleClass="tinyfont" style="font-weight:bold;"/>
+                                <f:param name="surveyid" value="#{listitem.surveyid}" />
+                            </h:commandLink>
+                            <h:outputText value="Posted At Least Once" escape="false" styleClass="tinyfont" style="font-weight:bold;" rendered="#{listitem.response.poststatus eq 1}"/>
+                            <h:outputText value="Posted" escape="false" styleClass="tinyfont" style="font-weight:bold;" rendered="#{listitem.response.poststatus eq 2}"/>
+                            <h:outputText value="Too Late to Post" escape="false" styleClass="tinyfont" style="font-weight:bold;" rendered="#{listitem.response.poststatus eq 3}"/>
+                          </h:column>
+                      </c:if>
                       <h:column>
                         <f:facet name="header">
                             <h:outputText value="Paid?"/>
@@ -90,12 +92,14 @@
 
 
         <br/><br/>
-        <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
-    <img src="/images/lightbulb_on.png" alt="" align="right"/>
-    Your blog posting script: Click on any survey title to access the script that you'll use to post the survey to your blog.  You must do this to make money on your blog traffic impressions.
-    <br/><br/>
-    Note: Earnings calculations are not final.   Final payment notification and calculation can be found on <h:commandLink  action="#{accountBalance.beginView}" styleClass="smallfont">Your Account Balance</h:commandLink> page.
-    </font></div></center>
+        <c:if test="${!userSession.isfacebookui}">
+            <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
+            <img src="/images/lightbulb_on.png" alt="" align="right"/>
+            Your blog posting script: Click on any survey title to access the script that you'll use to post the survey to your blog.  You must do this to make money on your blog traffic impressions.
+            <br/><br/>
+            Note: Earnings calculations are not final.   Final payment notification and calculation can be found on <h:commandLink  action="#{accountBalance.beginView}" styleClass="smallfont">Your Account Balance</h:commandLink> page.
+            </font></div></center>
+        </c:if>
 
     </h:form>
 
