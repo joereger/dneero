@@ -151,13 +151,12 @@
                             </c:forEach>
                         </h:panelGrid>
                         <br/><br/>
+                        <!--
                         <font class="mediumfont">Tell Friends Who Aren't Yet Using dNeero:</font><br/>
-                        <h:message for="facebookfriendsselected" styleClass="RED"></h:message>
-                        <h:selectManyCheckbox value="#{publicSurveyList.facebookfriendsselected}" layout="pageDirection" id="facebookfriendsselected" required="false" style="font-weight: bold;" styleClass="tinyfont">
-                            <f:selectItems value="#{publicSurveyList.facebookusersnotaddedapp}"/>
-                        </h:selectManyCheckbox>
-                        <br/>
                         <h:commandButton action="#{publicSurveyList.tellFriends}" value="Tell Friends" styleClass="formsubmitbutton"/>
+                        -->
+                        <font class="mediumfont">Tell Friends Who Aren't Yet Using dNeero:</font><br/>
+                        <a href="#{publicSurveyList.invitefriendsurl}" target="top">Invite Friends</a>
                     </div>
                 </td>
             </c:if>

@@ -198,19 +198,12 @@
                                         <br/><br/>
                                     </c:if>
                                     <c:if test="#{publicSurveyTake.loggedinuserhasalreadytakensurvey}">
-                                        <font class="mediumfont">You've Taken This Survey:</font><br/>
+                                        <font class="mediumfont" style="color: #cccccc;">You've Taken This Survey:</font><br/>
                                         <h:outputLink value="/survey.jsf?surveyid=#{publicSurveyTake.survey.surveyid}&amp;userid=#{userSession.user.userid}&amp;show=showSurveyResponseFlashEmbed" styleClass="tinyfont" style="color: #0000ff;"><h:outputText>Your Answers</h:outputText></h:outputLink><br/><br/>
                                         <br/><br/>
                                     </c:if>
-                                    <!--
-                                    <font class="mediumfont">Tell Friends Who Haven't Taken It:</font><br/>
-                                    <h:message for="facebookfriendsselected2" styleClass="RED"></h:message>
-                                    <h:selectManyCheckbox value="#{publicSurveyTake.facebookfriendsselected2}" layout="pageDirection" id="facebookfriendsselected2" required="false" style="font-weight: bold;" styleClass="tinyfont">
-                                        <f:selectItems value="#{publicSurveyTake.facebookuserswhodidnottakesurvey}"/>
-                                    </h:selectManyCheckbox>
-                                    <br/>
-                                    <h:commandButton action="#{publicSurveyTake.tellFriends2}" value="Tell Friends" styleClass="formsubmitbutton"/>
-                                    -->
+                                    <font class="mediumfont" style="color: #cccccc;">Tell Friends Who Haven't Taken It:</font><br/>
+                                    <a href="#{publicSurveyTake.invitefriendsurl}" target="top">Invite Friends</a>
                                 </td>
                             </c:if>
                             <c:if test="${!userSession.isfacebookui}">
@@ -456,14 +449,7 @@
                                     <font class="formfieldnamefont"><b>Now earn even more... tell up to 10 friends about this survey:</b></font>
                                     <br/>
                                     <font class="smallfont">They'll be able to see your answers and then take the survey themselves. If your friend hasn't ever used dNeero then <b>we'll pay you for any earnings they generate</b>... and any earnings their friends make... and any earnings their friends make... up to five levels deep!</font>
-                                    <br/><br/>
-                                    <h:message for="facebookfriendsselected" styleClass="RED"></h:message>
-                                    <h:selectManyCheckbox value="#{publicSurveyTake.facebookfriendsselected}" layout="pageDirection" id="facebookfriendsselected" required="false" style="font-weight: bold;">
-                                        <f:selectItems value="#{publicSurveyTake.facebookuserswhodidnottakesurvey}"/>
-                                    </h:selectManyCheckbox>
-                                    <br/>
-                                    <!--<h:commandLink action="#{publicSurveyTake.tellFriends}" target="_top"><h:graphicImage value="/images/button-tellfacebookfriends.gif" width="154" height="32" border="0"/></h:commandLink>-->
-                                    <h:commandButton action="#{publicSurveyTake.tellFriends}" value="Tell Your Friends" styleClass="formsubmitbutton"/>
+                                    <a href="#{publicSurveyTake.invitefriendsurl}" target="top">Invite Friends</a>
                                 </div>
                             </div>
                         </c:if>

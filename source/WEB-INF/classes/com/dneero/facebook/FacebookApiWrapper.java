@@ -1,6 +1,7 @@
 package com.dneero.facebook;
 
 import com.facebook.api.FacebookRestClient;
+import com.facebook.api.FacebookSignatureUtil;
 import com.dneero.session.UserSession;
 import com.dneero.dao.Survey;
 import com.dneero.dao.Response;
@@ -320,16 +321,56 @@ public class FacebookApiWrapper {
 //        return false;
 //    }
 
-    public void inviteFriendsToSurvey(ArrayList<Integer> uids, Survey survey){
+//    public void inviteFriendsToSurveyOld(ArrayList<Integer> uids, Survey survey){
+//        Logger logger = Logger.getLogger(this.getClass().getName());
+//        FacebookRestClient facebookRestClient = new FacebookRestClient(SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_KEY), SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_SECRET), facebookSessionKey);
+//        SurveyEnhancer surveyEnhancer = new SurveyEnhancer(survey);
+//        String forcharity =  "";
+//        if (survey.getIscharityonly()){
+//            forcharity = " for charity";
+//        }
+//        String type = "social survey";
+//        CharSequence typeChars = type.subSequence(0, type.length());
+//        StringBuffer content = new StringBuffer();
+//        content.append("You've been invited to the social survey: "+survey.getTitle());
+//        content.append(" ");
+//        content.append("Earn up to "+surveyEnhancer.getWillingtopayforresponse()+forcharity);
+//        int userid = 0;
+//        if(userSession.getUser()!=null){
+//            userid = userSession.getUser().getUserid();
+//        }
+//        content.append("<fb:req-choice url=\"http://apps.facebook.com/"+SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_APP_NAME)+"?action=showsurvey"+"-"+survey.getSurveyid()+"-"+userid+"\" label=\"Check it Out\" />");
+//        CharSequence contentChars = content.subSequence(0, content.length());
+//        URL imgUrl = null;
+//        try{
+//            imgUrl = new URL("http", SystemProperty.getProp(SystemProperty.PROP_BASEURL), "/images/dneero-logo-100x100.png");
+//        } catch (Exception ex){
+//            logger.error(ex);
+//        }
+//        try{
+//            URL url = facebookRestClient.notifications_sendRequest(uids, typeChars, contentChars, imgUrl, true);
+//            if (url!=null){
+//                logger.debug("FacebookAPI returned: " + url.toString());
+//                //String redirUrl = "/redirectoutofframe.jsp?url="+ URLEncoder.encode(url.toString(), "UTF-8");
+//                Jsf.redirectResponse(url.toString());
+//                return;
+//            }
+//
+//        } catch (Exception ex){
+//            logger.error(ex);
+//        }
+//    }
+
+    public String inviteFriendsToSurvey(Survey survey){
         Logger logger = Logger.getLogger(this.getClass().getName());
-        FacebookRestClient facebookRestClient = new FacebookRestClient(SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_KEY), SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_SECRET), facebookSessionKey);
         SurveyEnhancer surveyEnhancer = new SurveyEnhancer(survey);
         String forcharity =  "";
         if (survey.getIscharityonly()){
             forcharity = " for charity";
         }
         String type = "social survey";
-        CharSequence typeChars = type.subSequence(0, type.length());
+        String actionText = "Invite your friends to dNeero";
+        String action = "http://apps.facebook.com/"+SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_APP_NAME)+"/?action=friendsinvited";
         StringBuffer content = new StringBuffer();
         content.append("You've been invited to the social survey: "+survey.getTitle());
         content.append(" ");
@@ -339,55 +380,109 @@ public class FacebookApiWrapper {
             userid = userSession.getUser().getUserid();
         }
         content.append("<fb:req-choice url=\"http://apps.facebook.com/"+SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_APP_NAME)+"?action=showsurvey"+"-"+survey.getSurveyid()+"-"+userid+"\" label=\"Check it Out\" />");
-        CharSequence contentChars = content.subSequence(0, content.length());
-        URL imgUrl = null;
         try{
-            imgUrl = new URL("http", SystemProperty.getProp(SystemProperty.PROP_BASEURL), "/images/dneero-logo-100x100.png");
-        } catch (Exception ex){
-            logger.error(ex);    
-        }
-        try{
-            URL url = facebookRestClient.notifications_sendRequest(uids, typeChars, contentChars, imgUrl, true);
-            if (url!=null){
-                logger.debug("FacebookAPI returned: " + url.toString());
-                //String redirUrl = "/redirectoutofframe.jsp?url="+ URLEncoder.encode(url.toString(), "UTF-8");
-                Jsf.redirectResponse(url.toString());
-                return;
-            }
-            
+            ArrayList<String> params = new ArrayList();
+            params.add("action="+action);
+            params.add("actiontext="+actionText);
+            params.add("api_key="+SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_KEY));
+            params.add("content="+content.toString());
+            params.add("type="+type);
+            String sig = FacebookSignatureUtil.generateSignature(params, SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_SECRET));
+
+            StringBuffer url = new StringBuffer();
+            url.append("http://www.facebook.com/multi_friend_selector.php");
+            url.append("?");
+            url.append("api_key="+URLEncoder.encode(SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_KEY), "UTF-8"));
+            url.append("&");
+            url.append("content="+URLEncoder.encode(content.toString(), "UTF-8"));
+            url.append("&");
+            url.append("type="+URLEncoder.encode(type, "UTF-8"));
+            url.append("&");
+            url.append("action="+URLEncoder.encode(action, "UTF-8"));
+            url.append("&");
+            url.append("actiontext="+URLEncoder.encode(actionText, "UTF-8"));
+            url.append("&");
+            url.append("sig="+URLEncoder.encode(sig, "UTF-8"));
+            logger.debug("url="+url.toString());
+            //Redirect the user
+            //Jsf.redirectResponse(url.toString());
+            return url.toString();
         } catch (Exception ex){
             logger.error(ex);
         }
+        return "";
     }
 
-    public void inviteFriendsTodNeero(ArrayList<Integer> uids){
+//    public void inviteFriendsTodNeeroOld(ArrayList<Integer> uids){
+//        Logger logger = Logger.getLogger(this.getClass().getName());
+//        FacebookRestClient facebookRestClient = new FacebookRestClient(SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_KEY), SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_SECRET), facebookSessionKey);
+//        String type = "dNeero";
+//        CharSequence typeChars = type.subSequence(0, type.length());
+//        StringBuffer content = new StringBuffer();
+//        content.append("You've been invited to the social survey app called dNeero that allows you to earn real money taking surveys and sharing your answers with your friends.");
+//        content.append("<fb:req-choice url=\"http://apps.facebook.com/"+SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_APP_NAME)+"\" label=\"Check it Out\" />");
+//        CharSequence contentChars = content.subSequence(0, content.length());
+//        URL imgUrl = null;
+//        try{
+//            imgUrl = new URL("http", SystemProperty.getProp(SystemProperty.PROP_BASEURL), "/images/dneero-logo-100x100.png");
+//        } catch (Exception ex){
+//            logger.error(ex);
+//        }
+//        try{
+//            URL url = facebookRestClient.notifications_sendRequest(uids, typeChars, contentChars, imgUrl, true);
+//            if (url!=null){
+//                logger.debug("FacebookAPI returned: " + url.toString());
+//                //String redirUrl = "/redirectoutofframe.jsp?url="+ URLEncoder.encode(url.toString(), "UTF-8");
+//                Jsf.redirectResponse(url.toString());
+//                return;
+//            }
+//
+//        } catch (Exception ex){
+//            logger.error(ex);
+//        }
+//    }
+    
+    public String inviteFriendsTodNeero(){
         Logger logger = Logger.getLogger(this.getClass().getName());
-        FacebookRestClient facebookRestClient = new FacebookRestClient(SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_KEY), SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_SECRET), facebookSessionKey);
         String type = "dNeero";
-        CharSequence typeChars = type.subSequence(0, type.length());
+        String actionText = "Invite your friends to dNeero";
+        String action = "http://apps.facebook.com/"+SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_APP_NAME)+"/?action=friendsinvited";
         StringBuffer content = new StringBuffer();
         content.append("You've been invited to the social survey app called dNeero that allows you to earn real money taking surveys and sharing your answers with your friends.");
         content.append("<fb:req-choice url=\"http://apps.facebook.com/"+SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_APP_NAME)+"\" label=\"Check it Out\" />");
-        CharSequence contentChars = content.subSequence(0, content.length());
-        URL imgUrl = null;
         try{
-            imgUrl = new URL("http", SystemProperty.getProp(SystemProperty.PROP_BASEURL), "/images/dneero-logo-100x100.png");
-        } catch (Exception ex){
-            logger.error(ex);
-        }
-        try{
-            URL url = facebookRestClient.notifications_sendRequest(uids, typeChars, contentChars, imgUrl, true);
-            if (url!=null){
-                logger.debug("FacebookAPI returned: " + url.toString());
-                //String redirUrl = "/redirectoutofframe.jsp?url="+ URLEncoder.encode(url.toString(), "UTF-8");
-                Jsf.redirectResponse(url.toString());
-                return;
-            }
+            ArrayList<String> params = new ArrayList();
+            params.add("action="+action);
+            params.add("actiontext="+actionText);
+            params.add("api_key="+SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_KEY));
+            params.add("content="+content.toString());
+            params.add("type="+type);
+            String sig = FacebookSignatureUtil.generateSignature(params, SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_SECRET));
 
+            StringBuffer url = new StringBuffer();
+            url.append("http://www.facebook.com/multi_friend_selector.php");
+            url.append("?");
+            url.append("api_key="+URLEncoder.encode(SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_KEY), "UTF-8"));
+            url.append("&");
+            url.append("content="+URLEncoder.encode(content.toString(), "UTF-8"));
+            url.append("&");
+            url.append("type="+URLEncoder.encode(type, "UTF-8"));
+            url.append("&");
+            url.append("action="+URLEncoder.encode(action, "UTF-8"));
+            url.append("&");
+            url.append("actiontext="+URLEncoder.encode(actionText, "UTF-8"));
+            url.append("&");
+            url.append("sig="+URLEncoder.encode(sig, "UTF-8"));
+            logger.debug("url="+url.toString());
+            //Redirect the user
+            //Jsf.redirectResponse(url.toString());
+            return url.toString();
         } catch (Exception ex){
             logger.error(ex);
         }
+        return "";
     }
+
 
 
     public static Element getChild(Element el, String name){

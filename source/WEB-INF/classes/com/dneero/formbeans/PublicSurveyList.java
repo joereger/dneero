@@ -33,6 +33,7 @@ public class PublicSurveyList implements Serializable {
     private String rndstr;
     private ArrayList<BloggerCompletedsurveysListitem> completedsurveys;
     private boolean facebookjustaddedapp = false;
+    private String invitefriendsurl = "";
 
     public PublicSurveyList() {
         load();
@@ -178,6 +179,8 @@ public class PublicSurveyList implements Serializable {
                     bcs.beginView();
                     completedsurveys = bcs.getList();
                 }
+                //Invite friends link
+                invitefriendsurl = faw.inviteFriendsTodNeero();
 
             }
 
@@ -185,32 +188,34 @@ public class PublicSurveyList implements Serializable {
     }
 
 
-    public String tellFriends(){
-        return tellFriendsOperation(facebookfriendsselected);
-    }
-
-
-    private String tellFriendsOperation(String[] friendstotell){
-        Logger logger = Logger.getLogger(this.getClass().getName());
-        if (friendstotell!=null && friendstotell.length>0){
-            int numberinvited = 0;
-            ArrayList<Integer> uids = new ArrayList<Integer>();
-            for (int i = 0; i < friendstotell.length; i++) {
-                String uid = friendstotell[i];
-                if (Num.isinteger(uid)){
-                    numberinvited = numberinvited + 1;
-                    logger.debug("Facebookfriend to invite, uid="+uid);
-                    if (numberinvited<=10){
-                        uids.add(Integer.parseInt(uid));
-                    }
-                }
-            }
-            FacebookApiWrapper faw = new FacebookApiWrapper(Jsf.getUserSession());
-            faw.inviteFriendsTodNeero(uids);
-        }
-        try{Jsf.redirectResponse("/publicsurveylist.jsf"); return null;}catch(Exception ex){logger.debug(ex);}
-        return "publicsurveylist";
-    }
+//    public String tellFriends(){
+//        return tellFriendsOperation(facebookfriendsselected);
+//    }
+//
+//
+//    private String tellFriendsOperation(String[] friendstotell){
+//        Logger logger = Logger.getLogger(this.getClass().getName());
+////        if (friendstotell!=null && friendstotell.length>0){
+////            int numberinvited = 0;
+////            ArrayList<Integer> uids = new ArrayList<Integer>();
+////            for (int i = 0; i < friendstotell.length; i++) {
+////                String uid = friendstotell[i];
+////                if (Num.isinteger(uid)){
+////                    numberinvited = numberinvited + 1;
+////                    logger.debug("Facebookfriend to invite, uid="+uid);
+////                    if (numberinvited<=10){
+////                        uids.add(Integer.parseInt(uid));
+////                    }
+////                }
+////            }
+////            FacebookApiWrapper faw = new FacebookApiWrapper(Jsf.getUserSession());
+////            faw.inviteFriendsTodNeero();
+////        }
+//        FacebookApiWrapper faw = new FacebookApiWrapper(Jsf.getUserSession());
+//        faw.inviteFriendsTodNeero();
+//        try{Jsf.redirectResponse("/publicsurveylist.jsf"); return null;}catch(Exception ex){logger.debug(ex);}
+//        return "publicsurveylist";
+//    }
 
     private void loadFacebookUsers(){
         Logger logger = Logger.getLogger(this.getClass().getName());
@@ -380,5 +385,13 @@ public class PublicSurveyList implements Serializable {
 
     public void setFacebookjustaddedapp(boolean facebookjustaddedapp) {
         this.facebookjustaddedapp = facebookjustaddedapp;
+    }
+
+    public String getInvitefriendsurl() {
+        return invitefriendsurl;
+    }
+
+    public void setInvitefriendsurl(String invitefriendsurl) {
+        this.invitefriendsurl=invitefriendsurl;
     }
 }

@@ -64,6 +64,15 @@ public class Pageload extends UIComponentBase {
 
         //Facebook start
         FacebookAuthorization.doAuth();
+        //Make sure they've filled out profile
+        if (Jsf.getUserSession().getIsfacebookui()){
+            if (Jsf.getUserSession().getUser()!=null){
+                if (Jsf.getUserSession().getUser().getBloggerid()<=0){
+                    //User hasn't filled out profile info... send to profile page
+                    
+                }
+            }
+        }
         //Facebook end
 
         logger.debug("before persistent login and isfacebookui="+Jsf.getUserSession().getIsfacebookui());

@@ -231,7 +231,7 @@
             <job-name>impressionPayments</job-name>
             <job-group>surveyJobs</job-group>
             <!-- Fire at 10am every day -->
-            <cron-expression>0 0 5 * * ?</cron-expression>
+            <cron-expression>0 0 6 * * ?</cron-expression>
           </cron>
         </trigger>
     </job>
@@ -408,7 +408,7 @@
             <job-name>payForSurveyResponsesOncePosted</job-name>
             <job-group>surveyJobs</job-group>
             <!-- Fire at 4am every day -->
-            <cron-expression>0 0 5 * * ?</cron-expression>
+            <cron-expression>0 0 7 * * ?</cron-expression>
           </cron>
         </trigger>
     </job>
