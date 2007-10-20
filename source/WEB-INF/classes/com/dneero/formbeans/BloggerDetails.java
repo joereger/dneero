@@ -97,8 +97,13 @@ public class BloggerDetails implements Serializable {
             //Validation of answers
             boolean haveValidationError = false;
             Calendar birthdateCal = Time.getCalFromDate(birthdate);
+            logger.debug("birthdateCal="+Time.dateformatfordb(birthdateCal));
             if (birthdateCal.after(Time.subtractYear(Calendar.getInstance(), 13))){
                 Jsf.setFacesMessage("bloggerdetails:birthdate", "You must be at least 13 years of age to use this system.");
+                haveValidationError = true;
+            }
+            if (birthdateCal.before(Time.subtractYear(Calendar.getInstance(), 110))){
+                Jsf.setFacesMessage("bloggerdetails:birthdate", "Please check your date and enter the year in YYYY format (i.e. 1975).");
                 haveValidationError = true;
             }
             if (haveValidationError){
