@@ -39,7 +39,7 @@ public class DeleteOldPersistentlogins implements Job {
                 Userpersistentlogin userpersistentlogin = (Userpersistentlogin) iterator.next();
                 Date longtimeago = Time.xDaysAgoEnd(Calendar.getInstance(), PersistentLogin.daysToKeepPersistentRecordWithoutLogin).getTime();
                 if (userpersistentlogin.getLastusedtologin().before(longtimeago)){
-                   try{userpersistentlogin.delete();}catch(Exception ex){logger.error(ex);};
+                   try{userpersistentlogin.delete();}catch(Exception ex){logger.error("",ex);};
                 }
             }
 

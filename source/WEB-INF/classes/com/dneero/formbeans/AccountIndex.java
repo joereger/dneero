@@ -32,7 +32,7 @@ public class AccountIndex implements Serializable {
         Logger logger = Logger.getLogger(this.getClass().getName());
         load();
         if (userhasresponsependings){
-            try{Jsf.redirectResponse("/blogger/index.jsf");}catch(Exception ex){logger.error(ex);}
+            try{Jsf.redirectResponse("/blogger/index.jsf");}catch(Exception ex){logger.error("",ex);}
         }
     }
 
@@ -42,7 +42,7 @@ public class AccountIndex implements Serializable {
         if (userhasresponsependings){
 //            BloggerIndex bean = (BloggerIndex)Jsf.getManagedBean("bloggerIndex");
 //            return bean.beginView();
-            try{Jsf.redirectResponse("/blogger/index.jsf");}catch(Exception ex){logger.error(ex);}
+            try{Jsf.redirectResponse("/blogger/index.jsf");}catch(Exception ex){logger.error("",ex);}
         }
         return "accountindex";
     }

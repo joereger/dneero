@@ -86,7 +86,7 @@ public class UpdateResponsePoststatus implements Job {
             if (daysold>MAXPOSTINGPERIODINDAYS){
                 response.setPoststatus(Response.POSTATUS_NOTPOSTEDTIMELIMITPASSED);
                 logger.debug("marking as POSTATUS_NOTPOSTEDTIMELIMITPASSED");
-                try{response.save();}catch(Exception ex){logger.error(ex);}
+                try{response.save();}catch(Exception ex){logger.error("",ex);}
             } else {
                 logger.debug("not marking too late because daysold("+daysold+")<=MAXPOSTINGPERIODINDAYS("+MAXPOSTINGPERIODINDAYS+")");
             }
@@ -170,10 +170,10 @@ public class UpdateResponsePoststatus implements Job {
                 }
                 response.setResponsestatushtml(statusHtml.toString());
                 response.save();
-            }catch(Exception ex){logger.error(ex);}
+            }catch(Exception ex){logger.error("",ex);}
 
         } catch (Exception ex){
-            logger.error(ex);
+            logger.error("",ex);
         }
     }
 }

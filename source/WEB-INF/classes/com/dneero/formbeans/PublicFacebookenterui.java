@@ -26,7 +26,7 @@ public class PublicFacebookenterui implements Serializable {
         Logger logger = Logger.getLogger(this.getClass().getName());
         //Clear the isfacebookui flag
         url = "http://apps.facebook.com/"+SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_APP_NAME)+"/";
-        try{Jsf.redirectResponse(url);}catch(Exception ex){logger.error(ex);}
+        try{Jsf.redirectResponse(url);}catch(Exception ex){logger.error("",ex);}
     }
 
     public String getDummy() {

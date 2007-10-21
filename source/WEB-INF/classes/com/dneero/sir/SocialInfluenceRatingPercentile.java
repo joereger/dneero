@@ -29,7 +29,7 @@ public class SocialInfluenceRatingPercentile {
             double rnk = ((Integer)max).doubleValue() * ( percentileDbl / 100 ) ;
             out = (new Double(rnk)).intValue();
         } catch (Exception ex){
-            logger.error(ex);
+            logger.error("",ex);
         }
         return out;
     }
@@ -41,7 +41,7 @@ public class SocialInfluenceRatingPercentile {
             double rnkPct = (((Integer)ranking).doubleValue() / ((Integer)max).doubleValue()) * 100;
             out = (new Double(rnkPct)).intValue();
         } catch (Exception ex){
-            logger.error(ex);
+            logger.error("",ex);
         }
         return out;
     }

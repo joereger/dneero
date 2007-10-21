@@ -57,7 +57,7 @@ public class SysadminMassemailDetail implements Serializable {
 
     public String save(){
         Logger logger = Logger.getLogger(this.getClass().getName());
-        try{massemail.save();}catch(Exception ex){logger.error(ex);}
+        try{massemail.save();}catch(Exception ex){logger.error("",ex);}
         calculatePreviews();
         Jsf.setFacesMessage("Saved!");
         return "sysadminmassemaildetail";
@@ -65,7 +65,7 @@ public class SysadminMassemailDetail implements Serializable {
 
     public String testSend(){
         Logger logger = Logger.getLogger(this.getClass().getName());
-        try{massemail.save();}catch(Exception ex){logger.error(ex);}
+        try{massemail.save();}catch(Exception ex){logger.error("",ex);}
         calculatePreviews();
         try{
             HtmlEmail email = new HtmlEmail();
@@ -82,7 +82,7 @@ public class SysadminMassemailDetail implements Serializable {
             Jsf.setFacesMessage("Test email sent to: "+testSentTo+"!");
         } catch (Exception e){
             Jsf.setFacesMessage("Error on send! " +e.getMessage());
-            logger.error(e);
+            logger.error("", e);
         }
         return "sysadminmassemaildetail";
     }
@@ -107,7 +107,7 @@ public class SysadminMassemailDetail implements Serializable {
         Logger logger = Logger.getLogger(this.getClass().getName());
         calculatePreviews();
         if (massemail.getStatus()==Massemail.STATUS_NEW){
-            try{massemail.save();}catch(Exception ex){logger.error(ex);}
+            try{massemail.save();}catch(Exception ex){logger.error("",ex);}
             SysadminMassemailSend bean = (SysadminMassemailSend)Jsf.getManagedBean("sysadminMassemailSend");
             bean.setMassemail(massemail);
             return bean.beginView();
@@ -129,7 +129,7 @@ public class SysadminMassemailDetail implements Serializable {
         massemailCopy.setStatus(Massemail.STATUS_NEW);
         massemailCopy.setSubject(massemail.getSubject());
         massemailCopy.setTxtmessage(massemail.getTxtmessage());
-        try{massemailCopy.save();}catch(Exception ex){logger.error(ex);}
+        try{massemailCopy.save();}catch(Exception ex){logger.error("",ex);}
         Jsf.setFacesMessage("Mass Email Copied!");
         SysadminMassemailList bean = (SysadminMassemailList)Jsf.getManagedBean("sysadminMassemailList");
         return bean.beginView();

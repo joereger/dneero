@@ -159,7 +159,7 @@ public class SysadminUserDetail implements Serializable {
             user.setEmail(email);
             user.setReferredbyuserid(referredbyuserid);
             user.setPaymethodpaypaladdress(paypaladdress);
-            try{user.save();}catch (Exception ex){logger.error(ex);}
+            try{user.save();}catch (Exception ex){logger.error("",ex);}
         }
         Jsf.setFacesMessage("User details saved");
         return "sysadminuserdetail";
@@ -198,7 +198,7 @@ public class SysadminUserDetail implements Serializable {
             isenabled = true;
             Jsf.setFacesMessage("Account enabled.");
         }
-        try{user.save();}catch (Exception ex){logger.error(ex);}
+        try{user.save();}catch (Exception ex){logger.error("",ex);}
         return "sysadminuserdetail";
     }
 
@@ -228,7 +228,7 @@ public class SysadminUserDetail implements Serializable {
                             iterator.remove();
                         }
                     }
-                    try{user.save();} catch (Exception ex){logger.error(ex);}
+                    try{user.save();} catch (Exception ex){logger.error("",ex);}
                     issysadmin = false;
                     Jsf.setFacesMessage("User is no longer a sysadmin");
                 } else {
@@ -236,7 +236,7 @@ public class SysadminUserDetail implements Serializable {
                     role.setUserid(user.getUserid());
                     role.setRoleid(Userrole.SYSTEMADMIN);
                     user.getUserroles().add(role);
-                    try{role.save();} catch (Exception ex){logger.error(ex);}
+                    try{role.save();} catch (Exception ex){logger.error("",ex);}
                     issysadmin = true;
                     Jsf.setFacesMessage("User is now a sysadmin");
                 }
@@ -255,7 +255,7 @@ public class SysadminUserDetail implements Serializable {
             if (user.getResearcherid()>0){
                 try{ResearcherRemainingBalanceOperations task = new ResearcherRemainingBalanceOperations();
                 task.setResearcherid(user.getResearcherid());
-                task.execute(null);} catch (Exception ex){logger.error(ex);}
+                task.execute(null);} catch (Exception ex){logger.error("",ex);}
                 Jsf.setFacesMessage("Task run.");
             }
         }

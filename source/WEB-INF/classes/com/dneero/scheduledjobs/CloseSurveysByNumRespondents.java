@@ -38,7 +38,7 @@ public class CloseSurveysByNumRespondents implements Job {
                     try{
                         survey.save();
                     } catch (GeneralException ex){
-                        logger.error(ex);
+                        logger.error("",ex);
                     }
 
                 }

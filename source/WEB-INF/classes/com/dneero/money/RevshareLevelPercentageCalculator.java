@@ -22,7 +22,7 @@ public class RevshareLevelPercentageCalculator {
             return percenttoshare;
         } catch (Exception ex){
             logger.debug("Percent to share couldn't be calculated. Returning 0. level="+level);
-            logger.error(ex);
+            logger.error("",ex);
             return 0;
         }
     }
@@ -33,7 +33,7 @@ public class RevshareLevelPercentageCalculator {
             return revenueShareIsBasedOn * (getPercentToShare(level)/100);
         } catch (Exception ex){
             logger.debug("Amount to share couldn't be calculated. Returning 0. revenueShareIsBasedOn=" + revenueShareIsBasedOn + " level="+level);
-            logger.error(ex);
+            logger.error("",ex);
             return 0;
         }
     }

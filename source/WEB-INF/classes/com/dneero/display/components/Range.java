@@ -83,6 +83,7 @@ public class Range implements Component {
             if (i==max){
                 createdExactlyMaxRadio = true;
             }
+            //@todo Stop 0 from appearing as 0.0
             out.append("<td align=\"center\" valign=\"top\">");
             out.append("<input type=\"radio\" name=\""+ SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"questionid_"+question.getQuestionid()+"\" value=\""+i+"\">");
             out.append("<br>");

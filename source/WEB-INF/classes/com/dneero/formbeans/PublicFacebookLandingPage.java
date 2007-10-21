@@ -50,7 +50,7 @@ public class PublicFacebookLandingPage implements Serializable {
                 SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_DEBUG, "Facebook user Unknown just added app!");
                 xmpp.send();
             }
-            try{Jsf.redirectResponse("/publicsurveylist.jsf?action=addedapp");return;}catch(Exception ex){logger.error(ex);}
+            try{Jsf.redirectResponse("/publicsurveylist.jsf?action=addedapp");return;}catch(Exception ex){logger.error("",ex);}
         }
 
         //If we should display a specific survey, do so
@@ -80,7 +80,7 @@ public class PublicFacebookLandingPage implements Serializable {
 //                            }
 //                        }
 //                    } catch (Exception ex){
-//                        logger.error(ex);
+//                        logger.error("",ex);
 //                    }
                     //Notify admins
                     if (Jsf.getUserSession().getFacebookUser()!=null){
@@ -95,19 +95,19 @@ public class PublicFacebookLandingPage implements Serializable {
                 }
                 //If the user has the app added, redirect to the survey
                 if (Jsf.getUserSession().getIsfacebookui() &&  Jsf.getUserSession().getFacebookUser()!=null && Jsf.getUserSession().getFacebookUser().getHas_added_app()){
-                    try{Jsf.redirectResponse("/survey.jsf?s="+split[1]+"&u="+split[2]+"&p=0&show=showSurveyResponseFlashEmbed");return;}catch(Exception ex){logger.error(ex);}
+                    try{Jsf.redirectResponse("/survey.jsf?s="+split[1]+"&u="+split[2]+"&p=0&show=showSurveyResponseFlashEmbed");return;}catch(Exception ex){logger.error("",ex);}
                 }
                 //If we see this code we may be displaying the app add page which means we'll need a link
                 try{
                     String next = URLEncoder.encode("?action=showsurvey"+"-"+split[1]+"-"+split[2], "UTF-8");
                     addurl = "http://www.facebook.com/add.php?api_key="+ SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_KEY) + "&next="+next;
-                } catch(Exception ex){logger.error(ex);}
+                } catch(Exception ex){logger.error("",ex);}
             }
         }
 
         //Redirect to the public survey list
         if (Jsf.getUserSession().getIsfacebookui() && Jsf.getUserSession().getFacebookUser()!=null && Jsf.getUserSession().getFacebookUser().getHas_added_app()){
-            try{Jsf.redirectResponse("/publicsurveylist.jsf");return;}catch(Exception ex){logger.error(ex);}
+            try{Jsf.redirectResponse("/publicsurveylist.jsf");return;}catch(Exception ex){logger.error("",ex);}
         }
 
         //User's gonna see the add app page we generate... just debug notification here
@@ -131,7 +131,7 @@ public class PublicFacebookLandingPage implements Serializable {
 //                    }
 //                }
 //            } catch (Exception ex){
-//                logger.error(ex);
+//                logger.error("",ex);
 //            }
             //Notify admins
             if (Jsf.getUserSession().getFacebookUser()!=null){
@@ -143,7 +143,7 @@ public class PublicFacebookLandingPage implements Serializable {
                 SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_DEBUG, "Facebook app add page shown to Unknown:"+Jsf.getUserSession().getFacebookSessionKey()+" referred by userid="+referredbyuserid+" to surveyid="+referredtosurveyid);
                 xmpp.send();
             }
-        }catch(Exception ex){logger.error(ex);}
+        }catch(Exception ex){logger.error("",ex);}
 
        
     }

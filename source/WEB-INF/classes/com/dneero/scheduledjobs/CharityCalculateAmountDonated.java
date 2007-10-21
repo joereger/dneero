@@ -41,7 +41,7 @@ public class CharityCalculateAmountDonated implements Job {
                         if (charityamtdonatedOriginal<sum || charityamtdonatedOriginal>sum){
                             logger.debug("user.setCharityamtdonated("+sum+")");
                             user.setCharityamtdonated(sum);
-                            try{user.save();}catch(Exception ex){logger.error(ex);}
+                            try{user.save();}catch(Exception ex){logger.error("",ex);}
                         } else {
                             logger.debug("not updating because charityamtdonatedOriginal appears identical to sum");
                         }

@@ -75,7 +75,7 @@ public class ResearcherResultsAnswersCsv implements Serializable {
                     writer.close();
                     results = sw.toString();
                 } catch (Exception ex){
-                    logger.error(ex);
+                    logger.error("",ex);
                 }
                 //Make sure something gets output
                 if (results==null || results.equals("")){
@@ -120,7 +120,7 @@ public class ResearcherResultsAnswersCsv implements Serializable {
             os.flush();
             os.close();
         } catch (Exception ex){
-            logger.error(ex);
+            logger.error("",ex);
         }
 
         //This option isn't quite necessary, It worked for me with or without it

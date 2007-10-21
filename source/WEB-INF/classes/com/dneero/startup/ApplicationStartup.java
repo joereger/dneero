@@ -71,14 +71,14 @@ public class ApplicationStartup implements ServletContextListener {
         SystemProperty.refreshAllProps();
         //Refresh SystemStats
         SystemStats ss = new SystemStats();
-        try{ss.execute(null);}catch(Exception ex){logger.error(ex);}
+        try{ss.execute(null);}catch(Exception ex){logger.error("",ex);}
         //Initialize Quartz
         initQuartz(cse.getServletContext());
         //Add Quartz listener
         try{
             SchedulerFactory schedFact = new StdSchedulerFactory();
             schedFact.getScheduler().addGlobalJobListener(new HibernateSessionQuartzCloser());
-        } catch (Exception ex){logger.error(ex);}
+        } catch (Exception ex){logger.error("",ex);}
         //Report to log and XMPP
         logger.info("WebAppRootDir = " + WebAppRootDir.getWebAppRootPath());
         logger.info("dNeero Application Started!  Let's make some dinero!");
@@ -89,7 +89,7 @@ public class ApplicationStartup implements ServletContextListener {
     public void contextDestroyed(ServletContextEvent cse) {
         //Record the last of the impressions dude
         try{com.dneero.scheduledjobs.ImpressionActivityObjectQueue task = new com.dneero.scheduledjobs.ImpressionActivityObjectQueue();
-            task.execute(null);} catch (Exception ex){logger.error(ex);}
+            task.execute(null);} catch (Exception ex){logger.error("",ex);}
         //Notify sysadmins
         SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_SYSADMINS, "dNeero Application shut down! ("+WebAppRootDir.getUniqueContextId()+")");
         xmpp.send();
@@ -97,7 +97,7 @@ public class ApplicationStartup implements ServletContextListener {
         try{
             HibernateUtil.closeSession();
             HibernateUtil.killSessionFactory();
-        } catch (Exception ex){logger.error(ex);}
+        } catch (Exception ex){logger.error("",ex);}
         //Shut down MBeans
         shutdownCacheMBean();
         //Log it
@@ -159,16 +159,16 @@ public class ApplicationStartup implements ServletContextListener {
                                 logger.info("Unregistering MBean: "+objectName.getCanonicalName());
                                 mBeanServer.unregisterMBean(objectName);
                             } catch (Exception ex){
-                                logger.error(ex);
+                                logger.error("",ex);
                             }
                         }
                     }
                 } catch (Exception ex){
-                    logger.error(ex);
+                    logger.error("",ex);
                 }
             }
         } catch (Exception ex){
-            logger.error(ex);
+            logger.error("",ex);
         }
     }
 
@@ -187,17 +187,17 @@ public class ApplicationStartup implements ServletContextListener {
                             logger.info("Unregistering MBean: "+tcObject.getCanonicalName());
                             mBeanServer.unregisterMBean(tcObject);
                         } catch (Exception ex){
-                            logger.error(ex);
+                            logger.error("",ex);
                         }
                     } else {
                         logger.info(tcObject.getCanonicalName()+" was *not* already registered");
                     }
                 } catch (Exception ex){
-                    logger.error(ex);
+                    logger.error("",ex);
                 }
             }
         } catch (Exception ex){
-            logger.error(ex);
+            logger.error("",ex);
         }
     }
 

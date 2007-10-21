@@ -43,14 +43,14 @@ ImpressionActivityObjectQueue implements Job {
                                     it.remove();
                                 }
                             } catch (Exception ex){
-                                logger.error(ex);
+                                logger.error("",ex);
                             }
                         }
                     }
                 }
             } catch (Exception ex){
                 logger.debug("Error in top block.");
-                logger.error(ex);
+                logger.error("",ex);
             }
 
 
@@ -67,7 +67,7 @@ ImpressionActivityObjectQueue implements Job {
                                 }
                             } catch (Exception ex){
                                 ex.printStackTrace();
-                                logger.error(ex);
+                                logger.error("",ex);
                             }
                         }
                     }
@@ -75,7 +75,7 @@ ImpressionActivityObjectQueue implements Job {
             } catch (Exception ex){
                 ex.printStackTrace();
                 logger.debug("Error in top block.");
-                logger.error(ex);
+                logger.error("",ex);
             }
 
         //} else {

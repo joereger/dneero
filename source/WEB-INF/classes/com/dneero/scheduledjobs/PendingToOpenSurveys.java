@@ -36,7 +36,7 @@ public class PendingToOpenSurveys implements Job {
                 Survey survey = iterator.next();
                 if (survey.getStartdate().before(new Date())){
                     survey.setStatus(Survey.STATUS_OPEN);
-                    try{ survey.save(); } catch (GeneralException ex){ logger.error(ex); }
+                    try{ survey.save(); } catch (GeneralException ex){ logger.error("",ex); }
                     //InstantNotify
                     InstantNotifyOfNewSurvey inons = new InstantNotifyOfNewSurvey(survey.getSurveyid());
                     inons.sendNotifications();

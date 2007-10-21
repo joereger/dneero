@@ -40,7 +40,7 @@ public class LostPassword implements Serializable {
             isCaptchaCorrect = CaptchaServiceSingleton.getInstance().validateResponseForID(Jsf.getHttpServletRequest().getSession().getId(), j_captcha_response);
         } catch (CaptchaServiceException e) {
              //should not happen, may be thrown if the id is not valid
-             logger.error(e);
+             logger.error("", e);
         }
         if (!isCaptchaCorrect){
             Jsf.setFacesMessage("lostpasswordform:j_captcha_response", "You failed to correctly type the letters into the box.");

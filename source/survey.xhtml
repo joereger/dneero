@@ -72,7 +72,12 @@
                                         </center>
                                         <br/>
                                         <center>
-                                            <f:verbatim>#{publicSurveyTake.surveyResponseFlashEmbed}</f:verbatim>
+                                            <c:if test="${!userSession.isfacebookui}">
+                                                <f:verbatim>#{publicSurveyTake.surveyResponseFlashEmbed}</f:verbatim>
+                                            </c:if>
+                                            <c:if test="${userSession.isfacebookui}">
+                                                <f:verbatim>#{publicSurveyTake.surveyResponseHtml}</f:verbatim>
+                                            </c:if>
                                         </center>
                                         <br/><br/>
                                    </c:if>

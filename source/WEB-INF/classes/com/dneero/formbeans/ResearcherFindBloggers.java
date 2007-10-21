@@ -156,12 +156,12 @@ public class ResearcherFindBloggers implements Serializable {
                     Panelmembership pm = new Panelmembership();
                     pm.setBloggerid(blogger.getBloggerid());
                     pm.setPanelid(panelid);
-                    try{pm.save();}catch(Exception ex){logger.error(ex);}
+                    try{pm.save();}catch(Exception ex){logger.error("",ex);}
                     bloggersadded = bloggersadded + 1;
                     logger.debug("creating panelmembership for bloggerid="+blogger.getBloggerid()+" in panelid="+panelid);
                 }
             }
-            try{panel.refresh();}catch(Exception ex){logger.error(ex);}
+            try{panel.refresh();}catch(Exception ex){logger.error("",ex);}
         }
         if (bloggersadded>0){
             msg = bloggersadded + " new bloggers added to the panel.";   

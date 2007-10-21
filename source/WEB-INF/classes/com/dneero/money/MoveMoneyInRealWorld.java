@@ -113,7 +113,7 @@ public class MoveMoneyInRealWorld implements Runnable {
                     SendXMPPMessage xmpp2 = new SendXMPPMessage(SendXMPPMessage.GROUP_SYSADMINS, "WRITE TO DATABASE FAILED!!! Successful Move Money in Real World: amttogiveuser=$"+amttogiveuser+" to/from userid="+user.getUserid()+" "+ user.getFirstname() + " " + user.getLastname() + " ("+user.getEmail()+")");
                     xmpp2.send();
                     //@todo send failed money transaction database write to sysadmin or accountant
-                    logger.error(ex);
+                    logger.error("",ex);
                 }
             } else {
                 //Notify via XMPP
@@ -144,7 +144,7 @@ public class MoveMoneyInRealWorld implements Runnable {
             } else {
                 balancetransaction.setTransactionid("");
             }
-            try{balancetransaction.save();}catch (Exception ex){logger.error(ex);}
+            try{balancetransaction.save();}catch (Exception ex){logger.error("",ex);}
 
             //Now charge the remainder
             if (amtremainder!=0){

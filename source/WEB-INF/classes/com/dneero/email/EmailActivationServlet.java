@@ -53,7 +53,7 @@ public class EmailActivationServlet extends HttpServlet {
 
         if (user!=null && user.getEmailactivationkey().trim().equals(emailactivationkey.trim())){
             user.setIsactivatedbyemail(true);
-            try{user.save();} catch (Exception ex){logger.error(ex);}
+            try{user.save();} catch (Exception ex){logger.error("",ex);}
 
             //@todo send a welcome email message after successful email activation
             if(user.getFacebookuserid()<=0){

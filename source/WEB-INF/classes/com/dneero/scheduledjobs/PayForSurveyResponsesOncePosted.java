@@ -52,7 +52,7 @@ public class PayForSurveyResponsesOncePosted implements Job {
                         //Affect balance for researcher
                         MoveMoneyInAccountBalance.charge(User.get(Researcher.get(survey.getResearcherid()).getUserid()), (survey.getWillingtopayperrespondent()+(survey.getWillingtopayperrespondent()*(SurveyMoneyStatus.DNEEROMARKUPPERCENT/100))), "User "+user.getFirstname()+" "+user.getLastname()+" responds to survey '"+survey.getTitle()+"'");
                     } catch (Exception ex){
-                        logger.error(ex);
+                        logger.error("",ex);
                         ex.printStackTrace();
                         //Notify sales group
                         SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_SYSADMINS, "BIG ERROR IN PayForSurveyResponsesOncePosted:  "+ex.getMessage());
@@ -62,7 +62,7 @@ public class PayForSurveyResponsesOncePosted implements Job {
                     } finally {
                         //Update paid status
                         response.setIspaid(true);
-                        try{response.save();}catch(Exception ex){logger.error(ex);}
+                        try{response.save();}catch(Exception ex){logger.error("",ex);}
                         //@todo Notify user via email that they've been paid... thank them for their effort
                         if (user.getEmail()!=null && !user.getEmail().equals("")){
                                 
@@ -71,7 +71,7 @@ public class PayForSurveyResponsesOncePosted implements Job {
                         UpdateResponsePoststatus.processSingleResponse(response);
                     }
                 } catch (Exception ex){
-                    logger.error(ex);
+                    logger.error("",ex);
                     ex.printStackTrace();
                 }
             }

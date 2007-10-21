@@ -48,7 +48,7 @@ if (request.getParameter("action") != null && request.getParameter("action").equ
             try {
                 survey.save();
             } catch (Exception ex) {
-                logger.error(ex);
+                logger.error("",ex);
             }
         }
     }
@@ -59,7 +59,7 @@ if (request.getParameter("action")!=null && request.getParameter("action").equal
     List surveysMem = HibernateStaticMemoryClustering.getSurveys();
     for (Iterator iterator = surveysMem.iterator(); iterator.hasNext();) {
         Survey survey = (Survey) iterator.next();
-        try{survey.save();}catch(Exception ex){logger.error(ex);}
+        try{survey.save();}catch(Exception ex){logger.error("",ex);}
     }
 }
 %>

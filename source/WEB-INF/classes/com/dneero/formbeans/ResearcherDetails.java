@@ -80,7 +80,7 @@ public class ResearcherDetails implements Serializable {
 
             if (isnewresearcher){
                 userSession.getUser().setResearcherid(researcher.getResearcherid());
-                try{userSession.getUser().save();}catch(Exception ex){logger.error(ex);}
+                try{userSession.getUser().save();}catch(Exception ex){logger.error("",ex);}
             }
 
             //Beta mode cash to researcher

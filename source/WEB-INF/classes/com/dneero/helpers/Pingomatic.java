@@ -29,7 +29,7 @@ public class Pingomatic {
             client.executeAsync("weblogUpdates.ping", params, new PingomaticCallback());
 
         } catch (Exception e) {
-            logger.error(e);
+            logger.error("", e);
         }
 
     }

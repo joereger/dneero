@@ -51,7 +51,7 @@ public class PersistentLogin {
                     for (Iterator<Userpersistentlogin> iterator = userpersistentlogins.iterator(); iterator.hasNext();){
                         Userpersistentlogin userpersistentlogin = iterator.next();
                         userpersistentlogin.setLastusedtologin(new Date());
-                        try{userpersistentlogin.save();}catch(Exception ex){logger.error(ex);};
+                        try{userpersistentlogin.save();}catch(Exception ex){logger.error("",ex);};
                         return userpersistentlogin.getUserid();
                     }
                 }
@@ -96,7 +96,7 @@ public class PersistentLogin {
         userpersistentlogin.setLastusedtologin(new Date());
         userpersistentlogin.setRandomstring(randomString);
         userpersistentlogin.setUserid(userid);
-        try{userpersistentlogin.save();}catch(Exception ex){logger.error(ex);};
+        try{userpersistentlogin.save();}catch(Exception ex){logger.error("",ex);};
 
         return userCookie;
     }
@@ -128,7 +128,7 @@ public class PersistentLogin {
                             List<Userpersistentlogin> userpersistentlogins = crit.list();
                             for (Iterator<Userpersistentlogin> iterator = userpersistentlogins.iterator(); iterator.hasNext();){
                                 Userpersistentlogin userpersistentlogin = iterator.next();
-                                try{userpersistentlogin.delete();}catch(Exception ex){logger.error(ex);};
+                                try{userpersistentlogin.delete();}catch(Exception ex){logger.error("",ex);};
                             }
                         }
                     }

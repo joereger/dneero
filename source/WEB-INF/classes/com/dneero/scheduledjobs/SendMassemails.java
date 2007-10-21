@@ -50,11 +50,11 @@ public class SendMassemails implements Job {
                     if (massemail.getLastuseridprocessed()==maxuserid){
                         massemail.setStatus(Massemail.STATUS_COMPLETE);
                     }
-                    try{massemail.save();}catch(Exception ex){logger.error(ex);}
+                    try{massemail.save();}catch(Exception ex){logger.error("",ex);}
                 }
             } catch (Exception ex){
                 logger.debug("Error in top block.");
-                logger.error(ex);
+                logger.error("",ex);
             }
         } else {
             logger.debug("InstanceProperties.getRunScheduledTasksOnThisInstance() is FALSE for this instance so this task is not being executed.");

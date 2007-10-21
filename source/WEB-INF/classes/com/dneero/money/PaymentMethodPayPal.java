@@ -88,12 +88,12 @@ public class PaymentMethodPayPal extends PaymentMethodBase implements PaymentMet
                 notes = "An internal server error occurred at "+ Time.dateformatcompactwithtime(Calendar.getInstance())+".  No money was exchanged.";
                 issuccessful = false;
             } catch (Exception ex){
-                logger.error(ex);
+                logger.error("",ex);
                 notes = "An internal server error occurred at "+ Time.dateformatcompactwithtime(Calendar.getInstance())+".  No money was exchanged.";
                 issuccessful = false;
             }
         } catch (Exception ex){
-            logger.error(ex);
+            logger.error("",ex);
             notes = "An internal server error occurred at "+ Time.dateformatcompactwithtime(Calendar.getInstance())+".  No money was exchanged.";
             issuccessful = false;
         }

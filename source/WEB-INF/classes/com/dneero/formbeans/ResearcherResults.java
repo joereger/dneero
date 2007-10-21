@@ -67,7 +67,7 @@ public class ResearcherResults implements Serializable {
                     status = survey.getStatus();
                     totalsurveydisplays = sms.getImpressionsToDate();
                 } catch (Exception ex){
-                    logger.error(ex);
+                    logger.error("",ex);
                 }
             }
         }

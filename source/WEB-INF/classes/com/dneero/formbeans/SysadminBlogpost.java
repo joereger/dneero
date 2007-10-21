@@ -80,14 +80,14 @@ public class SysadminBlogpost implements Serializable {
         blogpost.setTitle(title);
         blogpost.setBody(body);
         blogpost.setCategories(categories);
-        try{blogpost.save();}catch(Exception ex){logger.error(ex);}
+        try{blogpost.save();}catch(Exception ex){logger.error("",ex);}
         load();
         try{
             if (doPingomatic && BaseUrl.get(false).indexOf("localhost")<=-1){
                 Pingomatic.ping("dNeero Social Surveys Blog", BaseUrl.get(false)+"blog.jsf", BaseUrl.get(false)+"rss.xml");
             }
         } catch (Exception ex){
-            logger.error(ex);
+            logger.error("",ex);
         }
         return "sysadminblogpost";
     }
@@ -97,7 +97,7 @@ public class SysadminBlogpost implements Serializable {
         logger.debug("blogpostid="+blogpostid);
         if (blogpostid>0){
             Blogpost blogpost = Blogpost.get(blogpostid);
-            try{blogpost.delete();}catch(Exception ex){logger.error(ex);}
+            try{blogpost.delete();}catch(Exception ex){logger.error("",ex);}
         }
         load();
         return "sysadminblogpost";

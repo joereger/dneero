@@ -58,7 +58,7 @@ public class ResearcherIndex implements Serializable {
             newSurvey = (Survey) CopyHibernateObject.shallowCopyIgnoreCertainFields(origSurvey, newSurvey, fieldstoignore);
             newSurvey.setTitle(newSurvey.getTitle()+" (Copy "+ Time.dateformatcompactwithtime(Calendar.getInstance()) +")");
             newSurvey.setStatus(Survey.STATUS_DRAFT);
-            try{newSurvey.save();}catch(Exception ex){logger.error(ex);}
+            try{newSurvey.save();}catch(Exception ex){logger.error("",ex);}
             //Copy the questions
             for (Iterator<Question> iterator = origSurvey.getQuestions().iterator(); iterator.hasNext();) {
                 Question origQuestion = iterator.next();
@@ -67,7 +67,7 @@ public class ResearcherIndex implements Serializable {
                 fieldstoignore1.add("questionid");
                 newQuestion = (Question) CopyHibernateObject.shallowCopyIgnoreCertainFields(origQuestion, newQuestion, fieldstoignore1);
                 newQuestion.setSurveyid(newSurvey.getSurveyid());
-                try{newQuestion.save();}catch(Exception ex){logger.error(ex);}
+                try{newQuestion.save();}catch(Exception ex){logger.error("",ex);}
                 //Copy the question configs
                 for (Iterator<Questionconfig> iterator1 = origQuestion.getQuestionconfigs().iterator(); iterator1.hasNext();){
                     Questionconfig origQuestionconfig = iterator1.next();
@@ -76,7 +76,7 @@ public class ResearcherIndex implements Serializable {
                     fieldstoignore2.add("questionconfigid");
                     newQuestionconfig = (Questionconfig) CopyHibernateObject.shallowCopyIgnoreCertainFields(origQuestionconfig, newQuestionconfig, fieldstoignore2);
                     newQuestionconfig.setQuestionid(newQuestion.getQuestionid());
-                    try{newQuestionconfig.save();}catch(Exception ex){logger.error(ex);}
+                    try{newQuestionconfig.save();}catch(Exception ex){logger.error("",ex);}
                 }
             }
             //Copy the surveypanels
@@ -87,10 +87,10 @@ public class ResearcherIndex implements Serializable {
                 fieldstoignore1.add("surveypanelid");
                 newSurveypanel = (Surveypanel) CopyHibernateObject.shallowCopyIgnoreCertainFields(origSurveypanel, newSurveypanel, fieldstoignore1);
                 newSurveypanel.setSurveyid(newSurvey.getSurveyid());
-                try{newSurveypanel.save();}catch(Exception ex){logger.error(ex);}
+                try{newSurveypanel.save();}catch(Exception ex){logger.error("",ex);}
             }
             //Refresh the survey
-            try{newSurvey.refresh();}catch(Exception ex){logger.error(ex);}
+            try{newSurvey.refresh();}catch(Exception ex){logger.error("",ex);}
         }
         Jsf.setFacesMessage("Survey copied!");
         ResearcherIndex bean = (ResearcherIndex)Jsf.getManagedBean("researcherIndex");

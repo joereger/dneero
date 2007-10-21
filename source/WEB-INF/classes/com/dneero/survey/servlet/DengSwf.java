@@ -60,7 +60,7 @@ public class DengSwf extends HttpServlet {
                         logger.debug("IO Exception attempting to read file: '" + swffile.getAbsolutePath() + "'<br>" + e.toString());
                         logger.debug(e);
                     }catch (Throwable e){
-                        logger.error(e);
+                        logger.error("", e);
                     }
                 }
             } catch (IOException e){
@@ -70,7 +70,7 @@ public class DengSwf extends HttpServlet {
                 //This is a specific error that happens when users abort their connection.
                 logger.debug(e);
             } catch (Exception e) {
-                logger.error(e);
+                logger.error("", e);
             }
             //Close the output stream
             logger.debug("flash swf sent to client: bytesOutput="+bytesOutput);

@@ -39,7 +39,7 @@ public class BloggerIndex implements Serializable {
     public BloggerIndex(){
         Logger logger = Logger.getLogger(this.getClass().getName());
         if (Jsf.getUserSession()!=null && Jsf.getUserSession().getUser()!=null && Jsf.getUserSession().getUser().getBloggerid()==0){
-            try{Jsf.redirectResponse("/blogger/bloggerdetails.jsf");}catch(Exception ex){logger.error(ex);}
+            try{Jsf.redirectResponse("/blogger/bloggerdetails.jsf");}catch(Exception ex){logger.error("",ex);}
         }
         load();
     }
@@ -87,12 +87,12 @@ public class BloggerIndex implements Serializable {
             }
             if(surveyidtoredirectto>0){
                 logger.debug("redirecting, will add justcompletedsurvey=1");
-                try{Jsf.redirectResponse("/survey.jsf?surveyid="+surveyidtoredirectto+"&justcompletedsurvey=1"); return;}catch(Exception ex){logger.error(ex);}
+                try{Jsf.redirectResponse("/survey.jsf?surveyid="+surveyidtoredirectto+"&justcompletedsurvey=1"); return;}catch(Exception ex){logger.error("",ex);}
             }
         }
 
         if (Jsf.getUserSession()!=null && Jsf.getUserSession().getIsfacebookui()){
-            try{Jsf.redirectResponse("/publicsurveylist.jsf");}catch(Exception ex){logger.error(ex);}
+            try{Jsf.redirectResponse("/publicsurveylist.jsf");}catch(Exception ex){logger.error("",ex);}
         }
 
 //        BloggerSurveyList bean = (BloggerSurveyList)Jsf.getManagedBean("bloggerSurveyList");
@@ -219,7 +219,7 @@ public class BloggerIndex implements Serializable {
                     responseid = response.getResponseid();
                     survey.refresh();
                 } catch (Exception ex){
-                    logger.error(ex);
+                    logger.error("",ex);
                     allCex.addValidationError(ex.getMessage());
                 }
                 //Process each question
@@ -231,10 +231,10 @@ public class BloggerIndex implements Serializable {
                     }
                 }
                 //Refresh blogger
-                try{blogger.save();} catch (Exception ex){logger.error(ex);};
+                try{blogger.save();} catch (Exception ex){logger.error("",ex);};
 
                 //Process the statusHtml for the response
-                try{UpdateResponsePoststatus.processSingleResponse(response);} catch (Exception ex){logger.error(ex);};
+                try{UpdateResponsePoststatus.processSingleResponse(response);} catch (Exception ex){logger.error("",ex);};
 
                 //Update Facebook
                 FacebookApiWrapper facebookApiWrapper = new FacebookApiWrapper(Jsf.getUserSession());
@@ -242,7 +242,7 @@ public class BloggerIndex implements Serializable {
                 facebookApiWrapper.updateFacebookProfile(user);
             }
         } catch (Exception ex){
-            logger.error(ex);
+            logger.error("",ex);
             allCex.addValidationError(ex.getMessage());
         }
         //Notify
@@ -257,7 +257,7 @@ public class BloggerIndex implements Serializable {
         try{
             Jsf.getUserSession().setSurveystakentoday(SurveysTakenToday.getNumberOfSurveysTakenToday(Jsf.getUserSession().getUser()));
         } catch (Exception ex){
-            logger.error(ex);
+            logger.error("",ex);
         }
 
 

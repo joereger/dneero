@@ -20,7 +20,7 @@ public class NumFromUniqueResult {
                     int i = lng.intValue();
                     return i;
                 }
-            }catch(Exception ex){logger.error(ex); return 0;}
+            }catch(Exception ex){logger.error("",ex); return 0;}
         }
         return 0;
     }
@@ -34,7 +34,7 @@ public class NumFromUniqueResult {
                 if (Num.isdouble(String.valueOf(dbl))){
                     return dbl;
                 }
-            }catch(Exception ex){logger.error(ex); return 0;}
+            }catch(Exception ex){logger.error("",ex); return 0;}
         }
         return new Double(0);
     }

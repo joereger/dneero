@@ -124,7 +124,7 @@ public class ResearcherRemainingBalanceOperations implements Job {
                                 shutDownASurvey = true;
                                 logger.debug("operating on surveyid="+survey.getSurveyid());
                                 survey.setStatus(Survey.STATUS_WAITINGFORFUNDS);
-                                try{survey.save();} catch (GeneralException ex){logger.error(ex);}
+                                try{survey.save();} catch (GeneralException ex){logger.error("",ex);}
                             }
                         }
                         if (shutDownASurvey){
@@ -146,7 +146,7 @@ public class ResearcherRemainingBalanceOperations implements Job {
                     if (survey.getStatus()==Survey.STATUS_WAITINGFORFUNDS){
                         logger.debug("operating on surveyid="+survey.getSurveyid());
                         survey.setStatus(Survey.STATUS_OPEN);
-                        try{survey.save();} catch (GeneralException ex){logger.error(ex);}
+                        try{survey.save();} catch (GeneralException ex){logger.error("",ex);}
                         //InstantNotify
                         InstantNotifyOfNewSurvey inons = new InstantNotifyOfNewSurvey(survey.getSurveyid());
                         inons.sendNotifications();
@@ -164,10 +164,10 @@ public class ResearcherRemainingBalanceOperations implements Job {
                     percentofmax = (100)*currentbalance/totalmaxpossiblespendforallsurveys;
                 }
             } catch (Exception ex){
-                logger.error(ex);
+                logger.error("",ex);
             }
             researcher.setNotaccuratepercentofmax(percentofmax);
-            try{researcher.save();}catch(Exception ex){logger.error(ex);}
+            try{researcher.save();}catch(Exception ex){logger.error("",ex);}
             logger.debug("--------------");
         }
     }

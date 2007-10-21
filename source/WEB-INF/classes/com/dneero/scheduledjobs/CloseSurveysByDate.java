@@ -38,7 +38,7 @@ public class CloseSurveysByDate implements Job {
                 logger.debug("new Date()="+Time.dateformatcompactwithtime(Time.getCalFromDate(new Date())));
                 if (survey.getEnddate().before(new Date())){
                     survey.setStatus(Survey.STATUS_CLOSED);
-                    try{ survey.save(); } catch (GeneralException ex){ logger.error(ex); }
+                    try{ survey.save(); } catch (GeneralException ex){ logger.error("",ex); }
                     logger.debug("closing survey.getSurveyid()="+survey.getSurveyid()+" title="+survey.getTitle());
                 } else {
                     logger.debug("keeping survey open survey.getSurveyid()="+survey.getSurveyid()+" title="+survey.getTitle());

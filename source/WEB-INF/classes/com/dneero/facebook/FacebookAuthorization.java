@@ -48,7 +48,7 @@ public class FacebookAuthorization {
                         }
                     }
                 }
-            } catch (Exception ex) {logger.error(ex);}
+            } catch (Exception ex) {logger.error("",ex);}
 
             //Need a session key
             //auth_token should immediately be traded in for a valid fb_sig_session_key
@@ -112,7 +112,7 @@ public class FacebookAuthorization {
                             }
                         }
                     } catch (Exception ex){
-                        logger.error(ex);
+                        logger.error("",ex);
                     }
                     //See if we have this facebook user as a dNeero user
                     User user = null;
@@ -129,7 +129,7 @@ public class FacebookAuthorization {
                         if (Jsf.getUserSession().getFacebookUser().getHas_added_app() && user.getIsfacebookappremoved()){
                             user.setIsfacebookappremoved(false);
                             user.setFacebookappremoveddate(user.getCreatedate());
-                            try {user.save();} catch (Exception ex) {logger.error(ex);}
+                            try {user.save();} catch (Exception ex) {logger.error("",ex);}
                         }
                         //Notify via XMPP
                         SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_DEBUG, "Facebook Login: "+ user.getFirstname() + " " + user.getLastname() + " (email="+user.getEmail()+") (facebook.uid="+user.getFacebookuserid()+")");
@@ -156,7 +156,7 @@ public class FacebookAuthorization {
 
         } catch (Exception ex){
             ex.printStackTrace();
-            logger.error(ex);
+            logger.error("",ex);
         }
 
         //If is coming from facebook but hasn't added app, make them add it
@@ -169,7 +169,7 @@ public class FacebookAuthorization {
                     RecordImpression.record(Jsf.getHttpServletRequest());
                 }
                 logger.debug("redirecting to facebook add app page");
-                try{Jsf.redirectResponse("/facebooklandingpage.jsf?stoplooping=1&action="+Jsf.getRequestParam("action"));return;}catch(Exception ex){logger.error(ex);}
+                try{Jsf.redirectResponse("/facebooklandingpage.jsf?stoplooping=1&action="+Jsf.getRequestParam("action"));return;}catch(Exception ex){logger.error("",ex);}
             }
 
         }

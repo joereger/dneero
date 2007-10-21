@@ -31,7 +31,7 @@ public class SurveysTakenToday {
                 try{
                     out = NumFromUniqueResult.getInt("select count(*) from Response where bloggerid='"+blogger.getBloggerid()+"' and responsedate>'"+Time.dateformatfordb(startCal)+"'");
                 } catch (Exception ex){
-                    logger.error(ex);
+                    logger.error("",ex);
                 }
                 return out;
             }

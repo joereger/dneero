@@ -48,7 +48,7 @@ public class SysadminErrorList implements Serializable {
         errors = HibernateUtil.getSession().createQuery("from Error").list();
         for (Iterator iterator = errors.iterator(); iterator.hasNext();) {
             Error error = (Error) iterator.next();
-            try{error.delete();}catch(Exception ex){logger.error(ex);}
+            try{error.delete();}catch(Exception ex){logger.error("",ex);}
         }
         load();
         return "sysadminerrorlist";        

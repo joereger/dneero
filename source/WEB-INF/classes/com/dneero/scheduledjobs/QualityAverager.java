@@ -39,7 +39,7 @@ public class QualityAverager implements Job {
                 double avgquality =  NumFromUniqueResult.getDouble("select avg(quality) from Impression where quality>'0' and userid='"+blogger.getUserid()+"'");
                 blogger.setQuality(avgquality);
                 blogger.setQuality90days(avgquality);
-                try{ blogger.save(); } catch (Exception ex){ logger.error(ex); }
+                try{ blogger.save(); } catch (Exception ex){ logger.error("",ex); }
             }
 
 //            //Iterate impressions to collect averaging data
@@ -105,9 +105,9 @@ public class QualityAverager implements Job {
 //                        HashMap value = (HashMap)mapentry.getValue();
 //                        Blogger blogger = Blogger.get(key);
 //                        double avgquality = 0;
-//                        try{avgquality = (Integer)value.get("totalquality") / (Integer)value.get("uniquequalityratingsincludedincalculation"); } catch (Exception ex){ logger.error(ex);}
+//                        try{avgquality = (Integer)value.get("totalquality") / (Integer)value.get("uniquequalityratingsincludedincalculation"); } catch (Exception ex){ logger.error("",ex);}
 //                        blogger.setQuality(avgquality);
-//                        try{ blogger.save(); } catch (Exception ex){ logger.error(ex); }
+//                        try{ blogger.save(); } catch (Exception ex){ logger.error("",ex); }
 //                    }
 //                }
 //            }
@@ -122,9 +122,9 @@ public class QualityAverager implements Job {
 //                        HashMap value = (HashMap)mapentry.getValue();
 //                        Blogger blogger = Blogger.get(key);
 //                        double avgquality = 0;
-//                        try{avgquality = (Integer)value.get("totalquality") / (Integer)value.get("uniquequalityratingsincludedincalculation"); } catch (Exception ex){ logger.error(ex);}
+//                        try{avgquality = (Integer)value.get("totalquality") / (Integer)value.get("uniquequalityratingsincludedincalculation"); } catch (Exception ex){ logger.error("",ex);}
 //                        blogger.setQuality90days(avgquality);
-//                        try{ blogger.save(); } catch (Exception ex){ logger.error(ex); }
+//                        try{ blogger.save(); } catch (Exception ex){ logger.error("",ex); }
 //                    }
 //                }
 //            }

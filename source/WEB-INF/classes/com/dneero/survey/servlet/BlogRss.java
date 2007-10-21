@@ -120,7 +120,7 @@ public class BlogRss extends HttpServlet {
         } catch (FeedException fe) {
             logger.error("Rome RSS Feed died:" + fe.toString(), fe);
         } catch (Exception e){
-            logger.error(e);
+            logger.error("", e);
         }
 
 

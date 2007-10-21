@@ -132,7 +132,7 @@ public class SurveyFlashServlet extends HttpServlet {
                 surveyasxhtml.append("</html>");
                 String surveyashtmlencoded = surveyasxhtml.toString();
                 logger.debug("surveyashtmlencoded="+surveyashtmlencoded);
-                try{surveyashtmlencoded = URLEncoder.encode(surveyasxhtml.toString(), "UTF-8");}catch(Exception ex){logger.error(ex); surveyashtmlencoded = surveyasxhtml.toString();}
+                try{surveyashtmlencoded = URLEncoder.encode(surveyasxhtml.toString(), "UTF-8");}catch(Exception ex){logger.error("",ex); surveyashtmlencoded = surveyasxhtml.toString();}
                 if (1==1){
                     try{
                         logger.debug("Start TransformSWF");
@@ -156,7 +156,7 @@ public class SurveyFlashServlet extends HttpServlet {
                         CacheFactory.getCacheProvider().put(nameInCache, cacheGroup, bytes);
                         logger.debug("End TransformSWF");
                     } catch (Exception ex){
-                        logger.error(ex);
+                        logger.error("",ex);
                     }
                 }
             } catch (Exception ex){
@@ -164,7 +164,7 @@ public class SurveyFlashServlet extends HttpServlet {
             }
         }
 
-        try{logger.debug("bytes="+bytes.toString());}catch(Exception ex){logger.error(ex);}
+        try{logger.debug("bytes="+bytes.toString());}catch(Exception ex){logger.error("",ex);}
 
         try{
             //Get servlet outputstream, set content type and send swf to browser client
@@ -197,7 +197,7 @@ public class SurveyFlashServlet extends HttpServlet {
         }
 
         String baseurlencoded = BaseUrl.get(false);
-        try{baseurlencoded = URLEncoder.encode(baseurlencoded, "UTF-8");}catch(Exception ex){logger.error(ex); baseurlencoded = BaseUrl.get(false);}
+        try{baseurlencoded = URLEncoder.encode(baseurlencoded, "UTF-8");}catch(Exception ex){logger.error("",ex); baseurlencoded = BaseUrl.get(false);}
 
         String urlofmovie = baseurl+"flashviewer/dneerosurvey.swf?s="+surveyid+"&u="+userid+"&p="+ispreviewStr+"&c="+cacheStr+"&r="+responseid+"&baseurl="+baseurlencoded+randomStr;
         return urlofmovie;

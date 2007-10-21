@@ -36,7 +36,7 @@ public class ResearcherPanelsEdit implements Serializable {
     public String edit(){
         Logger logger = Logger.getLogger(this.getClass().getName());
         if(panel.getName()!=null && !panel.getName().equals("")){
-            try{panel.save();}catch(Exception ex){logger.error(ex);}
+            try{panel.save();}catch(Exception ex){logger.error("",ex);}
         }
         ResearcherPanels bean = (ResearcherPanels)Jsf.getManagedBean("researcherPanels");
         return bean.beginView();

@@ -51,13 +51,13 @@ public class PercentCompleteBar extends UIComponentBase {
         }
 
         double currentvalueNum = .0000001;
-        try{ currentvalueNum = Double.parseDouble(currentvalue);} catch (Exception ex){logger.error(ex);}
+        try{ currentvalueNum = Double.parseDouble(currentvalue);} catch (Exception ex){logger.error("",ex);}
 
         double maxvalueNum = .00000001;
-        try{ maxvalueNum = Double.parseDouble(maximumvalue);} catch (Exception ex){logger.error(ex);}
+        try{ maxvalueNum = Double.parseDouble(maximumvalue);} catch (Exception ex){logger.error("",ex);}
 
         int widthinpixelsNum = 0;
-        try{ widthinpixelsNum = Integer.parseInt(widthinpixels);} catch (Exception ex){logger.error(ex);}
+        try{ widthinpixelsNum = Integer.parseInt(widthinpixels);} catch (Exception ex){logger.error("",ex);}
 
         double percentcomplete = (currentvalueNum/maxvalueNum)*100;
         String percentcompleteStr = Str.formatNoDecimals(percentcomplete);

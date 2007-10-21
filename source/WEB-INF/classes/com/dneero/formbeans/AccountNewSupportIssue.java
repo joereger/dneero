@@ -79,7 +79,7 @@ public class AccountNewSupportIssue implements Serializable {
             }
             EmailTemplateProcessor.sendGenericEmail("joe@joereger.com", "dNeero Support Issue: "+supportissue.getSubject(), body.toString());
         } catch (Exception ex){
-            logger.error(ex);
+            logger.error("",ex);
         }
         return "accountsupportissuenewdone";
     }

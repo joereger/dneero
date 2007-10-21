@@ -24,7 +24,7 @@ public class PublicFacebookexitui implements Serializable {
         Logger logger = Logger.getLogger(this.getClass().getName());
         //Clear the isfacebookui flag
         Jsf.getUserSession().leaveFacebookui();
-        try{Jsf.redirectResponse(BaseUrl.get(false));}catch(Exception ex){logger.error(ex);}
+        try{Jsf.redirectResponse(BaseUrl.get(false));}catch(Exception ex){logger.error("",ex);}
     }
 
     public String getDummy() {

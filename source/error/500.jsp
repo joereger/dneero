@@ -4,9 +4,8 @@
 
 <%
     try {
-        exception.printStackTrace();
         Logger logger=Logger.getLogger(this.getClass().getName());
-        logger.error(exception);
+        logger.error("", exception);
     } catch (Throwable e) {
         e.printStackTrace();
     }

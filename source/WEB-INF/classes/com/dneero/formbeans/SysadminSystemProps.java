@@ -73,7 +73,7 @@ public class SysadminSystemProps implements Serializable {
             BaseUrl.refresh();
             Jsf.setFacesMessage("Save complete.");
         } catch (Exception ex){
-            logger.error(ex);
+            logger.error("",ex);
         }
 
         return "sysadminsystemprops";

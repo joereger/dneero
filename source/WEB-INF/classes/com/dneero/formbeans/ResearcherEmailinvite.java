@@ -82,7 +82,7 @@ public class ResearcherEmailinvite implements Serializable {
                         }
                     }
                 } catch (Exception ex){
-                    logger.error(ex);
+                    logger.error("",ex);
                 }
             }
         }

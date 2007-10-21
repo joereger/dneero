@@ -68,7 +68,7 @@ public class TwitterUpdate implements Runnable {
             int requestStatus = client.executeMethod( post );
             logger.debug(requestStatus + ": " + post.getResponseBodyAsString());
         } catch (Exception ex){
-            logger.error(ex);
+            logger.error("",ex);
         } finally {
             post.releaseConnection();
         }

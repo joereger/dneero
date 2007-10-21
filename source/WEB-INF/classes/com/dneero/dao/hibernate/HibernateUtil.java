@@ -98,7 +98,7 @@ public class HibernateUtil {
         if (sessionFactory==null){
             if (!isinitializingsessionrightnow){
                 isinitializingsessionrightnow  = true;
-                try{initializeSession();}catch(Exception ex){logger.error(ex);}
+                try{initializeSession();}catch(Exception ex){logger.error("",ex);}
                 isinitializingsessionrightnow = false;
             } else {
                 return null;
@@ -124,7 +124,7 @@ public class HibernateUtil {
                 s.close();
             }
         } catch (Exception ex){
-            logger.error(ex);
+            logger.error("",ex);
         }
     }
 

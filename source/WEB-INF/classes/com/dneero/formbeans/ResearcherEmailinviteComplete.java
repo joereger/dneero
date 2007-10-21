@@ -75,7 +75,7 @@ public class ResearcherEmailinviteComplete implements Serializable {
                 emailinvitebatch.setSubject(subject);
                 emailinvitebatch.setMessage(message);
                 emailinvitebatch.setDate(new Date());
-                try{emailinvitebatch.save();}catch(Exception ex){logger.error(ex);}
+                try{emailinvitebatch.save();}catch(Exception ex){logger.error("",ex);}
                 //Iterate email addresses and send
                 for (Iterator it = Jsf.getUserSession().getEmailinviteaddresses().iterator(); it.hasNext(); ) {
                     String emailaddress = (String)it.next();
@@ -95,7 +95,7 @@ public class ResearcherEmailinviteComplete implements Serializable {
                     emailinvitebatchaddress.setEmailinvitebatchid(emailinvitebatch.getEmailinvitebatchid());
                     emailinvitebatchaddress.setEmail(emailaddress);
                     emailinvitebatchaddress.setSentdate(new Date());
-                    try{emailinvitebatchaddress.save();}catch(Exception ex){logger.error(ex);}
+                    try{emailinvitebatchaddress.save();}catch(Exception ex){logger.error("",ex);}
                 }
                 //Reset vars to conserve memory
                 Jsf.getUserSession().setEmailinviteaddresses(null);

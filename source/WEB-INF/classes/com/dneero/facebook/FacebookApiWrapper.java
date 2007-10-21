@@ -65,7 +65,7 @@ public class FacebookApiWrapper {
                     }
                 }
             } catch (Exception ex){
-                logger.error(ex);
+                logger.error("",ex);
             }
         }
     }
@@ -94,7 +94,7 @@ public class FacebookApiWrapper {
                 //Limit the length to 60 chars... not counting tags... just the displayed chars
                 FacebookRestClient facebookRestClient = new FacebookRestClient(SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_KEY), SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_SECRET), facebookSessionKey);
                 facebookRestClient.feed_publishActionOfUser("took the survey <a href=\"http://apps.facebook.com/"+SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_APP_NAME)+"/?action=showsurvey"+"-"+survey.getSurveyid()+"-"+Blogger.get(response.getBloggerid()).getUserid()+"\">"+Str.truncateString(survey.getTitle(), truncatetitleto)+"</a> and earned "+surveyEnhancer.getWillingtopayforresponse()+forcharity, "");
-            } catch (Exception ex){logger.error(ex);}
+            } catch (Exception ex){logger.error("",ex);}
         } else {logger.debug("Can't execute because issessionok = false");}
     }
 
@@ -161,7 +161,7 @@ public class FacebookApiWrapper {
                 } else {
                     logger.debug("user.getBloggerid()==0... userid="+user.getUserid());
                 }
-            } catch (Exception ex){logger.error(ex);}
+            } catch (Exception ex){logger.error("",ex);}
         } else {logger.debug("Can't execute because issessionok = false");}
     }
 
@@ -192,7 +192,7 @@ public class FacebookApiWrapper {
                         }
                     }
                 }
-            } catch (Exception ex){logger.error(ex);}
+            } catch (Exception ex){logger.error("",ex);}
         } else {logger.debug("Can't execute because issessionok = false");}
         return friends;
     }
@@ -245,7 +245,7 @@ public class FacebookApiWrapper {
                         }
                     }
                 }
-            } catch (Exception ex){logger.error(ex); ex.printStackTrace();}
+            } catch (Exception ex){logger.error("",ex); ex.printStackTrace();}
         } else {logger.debug("Can't execute because issessionok = false");}
         logger.debug("end getFriends() facebookSessionKey="+facebookSessionKey);
         return friends;
@@ -345,7 +345,7 @@ public class FacebookApiWrapper {
 //        try{
 //            imgUrl = new URL("http", SystemProperty.getProp(SystemProperty.PROP_BASEURL), "/images/dneero-logo-100x100.png");
 //        } catch (Exception ex){
-//            logger.error(ex);
+//            logger.error("",ex);
 //        }
 //        try{
 //            URL url = facebookRestClient.notifications_sendRequest(uids, typeChars, contentChars, imgUrl, true);
@@ -357,7 +357,7 @@ public class FacebookApiWrapper {
 //            }
 //
 //        } catch (Exception ex){
-//            logger.error(ex);
+//            logger.error("",ex);
 //        }
 //    }
 
@@ -408,7 +408,7 @@ public class FacebookApiWrapper {
             //Jsf.redirectResponse(url.toString());
             return url.toString();
         } catch (Exception ex){
-            logger.error(ex);
+            logger.error("",ex);
         }
         return "";
     }
@@ -426,7 +426,7 @@ public class FacebookApiWrapper {
 //        try{
 //            imgUrl = new URL("http", SystemProperty.getProp(SystemProperty.PROP_BASEURL), "/images/dneero-logo-100x100.png");
 //        } catch (Exception ex){
-//            logger.error(ex);
+//            logger.error("",ex);
 //        }
 //        try{
 //            URL url = facebookRestClient.notifications_sendRequest(uids, typeChars, contentChars, imgUrl, true);
@@ -438,7 +438,7 @@ public class FacebookApiWrapper {
 //            }
 //
 //        } catch (Exception ex){
-//            logger.error(ex);
+//            logger.error("",ex);
 //        }
 //    }
     
@@ -478,7 +478,7 @@ public class FacebookApiWrapper {
             //Jsf.redirectResponse(url.toString());
             return url.toString();
         } catch (Exception ex){
-            logger.error(ex);
+            logger.error("",ex);
         }
         return "";
     }

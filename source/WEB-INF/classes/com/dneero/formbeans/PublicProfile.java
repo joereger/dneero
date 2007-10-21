@@ -101,18 +101,18 @@ public class PublicProfile implements Serializable {
             panel.setCreatedate(new Date());
             panel.setName(newpanelname);
             panel.setResearcherid(Jsf.getUserSession().getUser().getResearcherid());
-            try{panel.save();}catch (Exception ex){logger.error(ex);}
+            try{panel.save();}catch (Exception ex){logger.error("",ex);}
         }
         //Check to see if blogger is already in panel... if so, don't add
         if (!ResearcherFindBloggers.isBloggerInPanel(panel, blogger)){
             Panelmembership pm = new Panelmembership();
             pm.setBloggerid(blogger.getBloggerid());
             pm.setPanelid(panelid);
-            try{pm.save();}catch(Exception ex){logger.error(ex);}
+            try{pm.save();}catch(Exception ex){logger.error("",ex);}
             bloggersadded = bloggersadded + 1;
             logger.debug("creating panelmembership for bloggerid="+blogger.getBloggerid()+" in panelid="+panelid);
         }
-        try{panel.refresh();}catch(Exception ex){logger.error(ex);}
+        try{panel.refresh();}catch(Exception ex){logger.error("",ex);}
         if (bloggersadded>0){
             msg = "The Blogger was added to the panel called: "+panel.getName();
         } else {

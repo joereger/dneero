@@ -115,7 +115,7 @@ public class ResearcherSurveyDetail05 implements Serializable {
                         haveError = true;
                     }
                 } catch (Exception ex){
-                    logger.error(ex);
+                    logger.error("",ex);
                 }
                 //Validation return
                 if (haveError){

@@ -135,7 +135,7 @@ public class BloggerDetails implements Serializable {
 
             if (isnewblogger){
                 userSession.getUser().setBloggerid(blogger.getBloggerid());
-                try{userSession.getUser().save();}catch(Exception ex){logger.error(ex);}
+                try{userSession.getUser().save();}catch(Exception ex){logger.error("",ex);}
             }
 
 

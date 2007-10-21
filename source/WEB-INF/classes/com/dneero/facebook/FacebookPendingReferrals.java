@@ -34,7 +34,7 @@ public class FacebookPendingReferrals {
                 newfbpr.setDate(new Date());
                 newfbpr.setFacebookuid(facebookuid);
                 newfbpr.setReferredbyuserid(referredbyuserid);
-                try{newfbpr.save();}catch(Exception ex){logger.error(ex);}
+                try{newfbpr.save();}catch(Exception ex){logger.error("",ex);}
             }
         }
     }

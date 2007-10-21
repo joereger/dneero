@@ -45,7 +45,7 @@ public class LoginToBeta implements Serializable {
 //                SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_SALES, "An unknown person logged-in to the dNeero Beta! ("+ Time.dateformatcompactwithtime(Calendar.getInstance())+") from "+Jsf.getHttpServletRequest().getRemoteAddr()+ " "+Jsf.getHttpServletRequest().getRemoteHost());
 //                xmpp.send();
 //            } catch (Exception ex){
-//                logger.error(ex);
+//                logger.error("",ex);
 //            }
             Jsf.setFacesMessage("login:betapassword","That Beta password has expired.  Please contact us for a new one.  Apologies for the inconvenience.");
             return null;
@@ -56,7 +56,7 @@ public class LoginToBeta implements Serializable {
                 SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_SALES, "The Super User logged-in to the dNeero Beta! ("+ Time.dateformatcompactwithtime(Calendar.getInstance())+") from "+Jsf.getHttpServletRequest().getRemoteAddr()+ " "+Jsf.getHttpServletRequest().getRemoteHost());
                 xmpp.send();
             } catch (Exception ex){
-                logger.error(ex);
+                logger.error("",ex);
             }
             Jsf.getUserSession().setIsLoggedInToBeta(true);
             return "logintobetacomplete";
@@ -70,12 +70,12 @@ public class LoginToBeta implements Serializable {
                     SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_SALES, betainvite.getName()+" logged-in to the dNeero Beta! ("+ Time.dateformatcompactwithtime(Calendar.getInstance())+") from "+Jsf.getHttpServletRequest().getRemoteAddr()+ " "+Jsf.getHttpServletRequest().getRemoteHost());
                     xmpp.send();
                 } catch (Exception ex){
-                    logger.error(ex);
+                    logger.error("",ex);
                 }
                 betainvite.setHasloggedin(true);
                 betainvite.setDatelastloggedin(new Date());
                 betainvite.setNumberoftimesloggedin(betainvite.getNumberoftimesloggedin()+1);
-                try{betainvite.save();}catch(Exception ex){logger.error(ex);}
+                try{betainvite.save();}catch(Exception ex){logger.error("",ex);}
                 Jsf.getUserSession().setIsLoggedInToBeta(true);
                 return "logintobetacomplete";
             }

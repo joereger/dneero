@@ -133,7 +133,7 @@ public class PaymentMethodCreditCard extends PaymentMethodBase implements Paymen
                     issuccessful = false;
                 } catch (Exception ex){
                     ex.printStackTrace();
-                    logger.error(ex);
+                    logger.error("",ex);
                     notes = "An internal server error occurred at "+ Time.dateformatcompactwithtime(Calendar.getInstance())+".  No money was exchanged.";
                     issuccessful = false;
                 }
@@ -143,7 +143,7 @@ public class PaymentMethodCreditCard extends PaymentMethodBase implements Paymen
             }
         } catch (Exception ex){
             ex.printStackTrace();
-            logger.error(ex);
+            logger.error("",ex);
             notes = "An internal server error occurred at "+ Time.dateformatcompactwithtime(Calendar.getInstance())+".  No money was exchanged.";
             issuccessful = false;
         }

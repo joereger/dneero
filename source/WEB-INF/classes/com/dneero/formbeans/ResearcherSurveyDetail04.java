@@ -192,7 +192,7 @@ public class ResearcherSurveyDetail04 implements Serializable {
                     //Do the deleting
                     for (Iterator<Integer> iterator = surveypanelstodelete.iterator(); iterator.hasNext();) {
                         Integer surveypanelid = iterator.next();
-                        try{Surveypanel.get(surveypanelid).delete();}catch(Exception ex){logger.error(ex);}
+                        try{Surveypanel.get(surveypanelid).delete();}catch(Exception ex){logger.error("",ex);}
                     }
                     //Find panelids to add
                     ArrayList<Integer> panelstoadd = new ArrayList<Integer>();
@@ -216,7 +216,7 @@ public class ResearcherSurveyDetail04 implements Serializable {
                         Surveypanel sp = new Surveypanel();
                         sp.setSurveyid(Jsf.getUserSession().getCurrentSurveyid());
                         sp.setPanelid(panelid);
-                        try{sp.save();}catch(Exception ex){logger.error(ex);}
+                        try{sp.save();}catch(Exception ex){logger.error("",ex);}
                     }
                 }
 

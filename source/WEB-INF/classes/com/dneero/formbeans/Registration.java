@@ -133,7 +133,7 @@ public class Registration implements Serializable {
                         responsepending.setReferredbyuserid(Jsf.getUserSession().getPendingSurveyReferredbyuserid());
                         responsepending.setResponseasstring(Jsf.getUserSession().getPendingSurveyResponseAsString());
                         responsepending.setSurveyid(Jsf.getUserSession().getPendingSurveyResponseSurveyid());
-                        try{responsepending.save();}catch (Exception ex){logger.error(ex);}
+                        try{responsepending.save();}catch (Exception ex){logger.error("",ex);}
                         Jsf.getUserSession().setPendingSurveyResponseSurveyid(0);
                         Jsf.getUserSession().setPendingSurveyReferredbyuserid(0);
                         Jsf.getUserSession().setPendingSurveyResponseAsString("");
@@ -149,7 +149,7 @@ public class Registration implements Serializable {
                 Jsf.getUserSession().setIsloggedin(true);
                 Jsf.getUserSession().setIsLoggedInToBeta(true);
                 Jsf.getUserSession().setIseulaok(true);
-                try{Jsf.redirectResponse("/account/index.jsf"); return;}catch(Exception ex){logger.error(ex);}
+                try{Jsf.redirectResponse("/account/index.jsf"); return;}catch(Exception ex){logger.error("",ex);}
             }
         }
         //End Facebook shenanigans
@@ -281,7 +281,7 @@ public class Registration implements Serializable {
                 responsepending.setReferredbyuserid(Jsf.getUserSession().getPendingSurveyReferredbyuserid());
                 responsepending.setResponseasstring(Jsf.getUserSession().getPendingSurveyResponseAsString());
                 responsepending.setSurveyid(Jsf.getUserSession().getPendingSurveyResponseSurveyid());
-                try{responsepending.save();}catch (Exception ex){logger.error(ex);}
+                try{responsepending.save();}catch (Exception ex){logger.error("",ex);}
                 Jsf.getUserSession().setPendingSurveyResponseSurveyid(0);
                 Jsf.getUserSession().setPendingSurveyReferredbyuserid(0);
                 Jsf.getUserSession().setPendingSurveyResponseAsString("");
@@ -318,7 +318,7 @@ public class Registration implements Serializable {
                 Jsf.redirectResponse(BaseUrl.get(true)+"account/index.jsf");
                 return null;
             } catch (Exception ex){
-                logger.error(ex);
+                logger.error("",ex);
                 AccountIndex bean = (AccountIndex)Jsf.getManagedBean("accountIndex");
                 bean.setIsfirsttimelogin(true);
                 return bean.beginView();

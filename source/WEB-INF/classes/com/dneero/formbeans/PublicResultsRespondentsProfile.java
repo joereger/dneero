@@ -28,7 +28,7 @@ public class PublicResultsRespondentsProfile {
             Response response = Response.get(Integer.parseInt(Jsf.getRequestParam("responseid")));
             logger.debug("responseid found: "+Jsf.getRequestParam("responseid"));
             Blogger blogger = Blogger.get(response.getBloggerid());
-            try{Jsf.redirectResponse("/profile.jsf?userid="+blogger.getUserid()); return;}catch(Exception ex){logger.error(ex);}
+            try{Jsf.redirectResponse("/profile.jsf?userid="+blogger.getUserid()); return;}catch(Exception ex){logger.error("",ex);}
         }
         logger.debug("Should never get to this point.");
         //return "publicsurvey";

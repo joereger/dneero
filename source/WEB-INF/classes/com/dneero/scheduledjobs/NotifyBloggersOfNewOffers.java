@@ -97,7 +97,7 @@ public class NotifyBloggersOfNewOffers implements Job {
                         EmailTemplateProcessor.sendMail("New dNeero Surveys for "+user.getFirstname(), "bloggernotifyofnewsurveys", user, args);
                         //Update blogger last sent date
                         user.setNotifyofnewsurveyslastsent(new Date());
-                        try{user.save();}catch(Exception ex){logger.error(ex);}
+                        try{user.save();}catch(Exception ex){logger.error("",ex);}
                     }
                 }
             }

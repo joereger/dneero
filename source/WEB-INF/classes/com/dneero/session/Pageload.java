@@ -57,7 +57,7 @@ public class Pageload extends UIComponentBase {
                 Jsf.redirectResponse(BaseUrl.get(true)+"login.jsf");
                 return;
             } catch (Exception ex){
-                logger.error(ex);
+                logger.error("",ex);
                 return;
             }
         }
@@ -122,7 +122,7 @@ public class Pageload extends UIComponentBase {
                                                     Jsf.redirectResponse(BaseUrl.get(true)+"account/index.jsf?msg=autologin");
                                                     return;
                                                 } catch (Exception ex){
-                                                    logger.error(ex);
+                                                    logger.error("",ex);
                                                     Jsf.redirectResponse("/account/index.jsf?msg=autologin");
                                                     return;
                                                 }
@@ -131,7 +131,7 @@ public class Pageload extends UIComponentBase {
                                                 return;
                                             }
                                         } catch (Exception ex){
-                                            logger.error(ex);
+                                            logger.error("",ex);
                                             ex.printStackTrace();
                                             Jsf.redirectResponse("/index.jsf");
                                             return;

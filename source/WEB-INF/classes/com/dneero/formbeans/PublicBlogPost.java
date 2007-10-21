@@ -79,16 +79,16 @@ public class PublicBlogPost implements Serializable {
             blogpostcomment.setUrl(url);
             blogpostcomment.setComment(comment);
             blogpostcomment.setIsapproved(true);
-            try{blogpostcomment.save();}catch(Exception ex){logger.error(ex);}
+            try{blogpostcomment.save();}catch(Exception ex){logger.error("",ex);}
             blogpost.getBlogpostcomments().add(blogpostcomment);
-            try{blogpost.save();}catch(Exception ex){logger.error(ex);}
+            try{blogpost.save();}catch(Exception ex){logger.error("",ex);}
         }
         //Notify via XMPP
         SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_CUSTOMERSUPPORT, "dNeero Blog Comment: "+ name + ": " + comment + " (http://dneero.com/blogpost.jsf?blogpostid="+blogpost.getBlogpostid()+")");
         xmpp.send();
         //load();
         PublicBlogPost bean = (PublicBlogPost)Jsf.getManagedBean("publicBlogPost");
-        try{Jsf.redirectResponse("/blogpost.jsf?blogpostid="+blogpost.getBlogpostid());}catch(Exception ex){logger.error(ex);}
+        try{Jsf.redirectResponse("/blogpost.jsf?blogpostid="+blogpost.getBlogpostid());}catch(Exception ex){logger.error("",ex);}
         return null;
 
 

@@ -60,7 +60,7 @@ public class SysadminBetainvite implements Serializable {
         betainvite.setName(name);
         betainvite.setNumberoftimesloggedin(0);
         betainvite.setPassword(password);
-        try{betainvite.save();}catch(Exception ex){logger.error(ex);}
+        try{betainvite.save();}catch(Exception ex){logger.error("",ex);}
 
         String[] args = new String[3];
         args[0] = password;

@@ -101,7 +101,7 @@ public class Survey extends BasePersistentClass implements java.io.Serializable,
             //String err = "Survey.save(surveyid="+surveyid+", status="+status+") called by: "+t.getStackTrace()[1];
             //SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_SYSADMINS, err);
             //xmpp.send();
-        }catch(Exception ex){logger.error(ex);}
+        }catch(Exception ex){logger.error("",ex);}
         //try{throw new Exception(" ");}catch( Exception e ){
         //    logger.debug( "Survey.save() called by: " + e.getStackTrace()[1].getClassName() + "." +e.getStackTrace()[1].getMethodName() + "()" );
         //}

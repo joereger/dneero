@@ -77,7 +77,7 @@ public class EmailTemplateProcessor {
                 EmailSend.sendMail(email);
             }
         } catch (Exception e){
-            logger.error(e);
+            logger.error("", e);
         }
     }
 
@@ -183,7 +183,7 @@ public class EmailTemplateProcessor {
             try{ m.appendTail(out); } catch (Exception e){}
             return out.toString();
         } catch (Exception ex){
-            logger.error(ex);
+            logger.error("",ex);
             return template;
         }
 

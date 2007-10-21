@@ -40,7 +40,7 @@ public class MoveMoneyInAccountBalance {
         balance.setCurrentbalance(cbc.getCurrentbalance() + amt);
         balance.setUserid(user.getUserid());
         balance.setOptionalresponseid(optionalresponseid);
-        try{balance.save();}catch (Exception ex){logger.error(ex);}
+        try{balance.save();}catch (Exception ex){logger.error("",ex);}
 
         if (isforcharity){
             //Record to db
@@ -51,7 +51,7 @@ public class MoveMoneyInAccountBalance {
             charitydonation.setAmt(originalAmt);
             charitydonation.setCharityname(charityname);
             charitydonation.setBalanceid(balance.getBalanceid());
-            try{charitydonation.save();}catch (Exception ex){logger.error(ex);}
+            try{charitydonation.save();}catch (Exception ex){logger.error("",ex);}
         }
 
         //Give out a revshare if this payment requires it
@@ -78,7 +78,7 @@ public class MoveMoneyInAccountBalance {
                             revshare.setTargetbloggerid(userToPayRevshareTo.getBloggerid());
                             revshare.setAmt(amttoshare);
                             revshare.setDate(new Date());
-                            try{revshare.save();} catch (Exception ex){logger.error(ex);}
+                            try{revshare.save();} catch (Exception ex){logger.error("",ex);}
                             //Transfer the actual revshare
                             //Very important: note that qualifiesforrevsharedistribution=false on revshare distributions
                             MoveMoneyInAccountBalance.pay(userToPayRevshareTo, amttoshare, "Revenue share from "+userToPayRevshareTo.getFirstname()+" "+userToPayRevshareTo.getLastname()+"("+userToPayRevshareTo.getEmail()+")", false, false, "");
@@ -101,7 +101,7 @@ public class MoveMoneyInAccountBalance {
         CurrentBalanceCalculator cbc = new CurrentBalanceCalculator(user);
         balance.setCurrentbalance(cbc.getCurrentbalance() - amt);
         balance.setUserid(user.getUserid());
-        try{balance.save();}catch (Exception ex){logger.error(ex);}
+        try{balance.save();}catch (Exception ex){logger.error("",ex);}
     }
 
 

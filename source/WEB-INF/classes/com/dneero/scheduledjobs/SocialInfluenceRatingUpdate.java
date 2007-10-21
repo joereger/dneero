@@ -42,7 +42,7 @@ public class SocialInfluenceRatingUpdate implements Job {
                     User user = User.get(blogger.getUserid());
                     blogger.setSocialinfluencerating(SocialInfluenceRating.calculateSocialInfluenceRating(user));
                     blogger.setSocialinfluencerating90days(SocialInfluenceRating.calculateSocialInfluenceRating90days(user));
-                    try{blogger.save();}catch(Exception ex){logger.error(ex);}
+                    try{blogger.save();}catch(Exception ex){logger.error("",ex);}
                 }
             }
 
@@ -54,7 +54,7 @@ public class SocialInfluenceRatingUpdate implements Job {
                     Blogger blogger = (Blogger)iterator.next();
                     i = i + 1;
                     blogger.setSocialinfluenceratingranking(i);
-                    try{blogger.save();}catch(Exception ex){logger.error(ex);}
+                    try{blogger.save();}catch(Exception ex){logger.error("",ex);}
                 }
             }
 
@@ -66,7 +66,7 @@ public class SocialInfluenceRatingUpdate implements Job {
                     Blogger blogger = (Blogger)iterator.next();
                     i = i + 1;
                     blogger.setSocialinfluenceratingranking90days(i);
-                    try{blogger.save();}catch(Exception ex){logger.error(ex);}
+                    try{blogger.save();}catch(Exception ex){logger.error("",ex);}
                 }
             }
 

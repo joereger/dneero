@@ -86,7 +86,7 @@ public class ImpressionPayments implements Job {
                                     //Move paid impressions over, resetting the paid clock
                                     impression.setImpressionspaid(impression.getImpressionspaid()+impression.getImpressionstobepaid());
                                     impression.setImpressionstobepaid(0);
-                                    try{impression.save();}catch(Exception ex){logger.error(ex);}
+                                    try{impression.save();}catch(Exception ex){logger.error("",ex);}
                                 }
                             }
                         }
@@ -119,7 +119,7 @@ public class ImpressionPayments implements Job {
                                         formatter.setMaximumFractionDigits(4);
                                         amtWithDec = " ($"+formatter.format(ipupu.getAmt())+")";
                                     } catch (Exception ex){
-                                        logger.error(ex);
+                                        logger.error("",ex);
                                     }
                                     MoveMoneyInAccountBalance.pay(user, ipupu.getAmt(), "Pay for impressions" + amtWithDec, true, false, "", 0);
                                 }

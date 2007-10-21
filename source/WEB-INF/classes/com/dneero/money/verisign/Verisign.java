@@ -71,7 +71,7 @@ public class Verisign {
             //props.put("ACTION", String.valueOf("A"));
 
         } catch (Exception e){
-            logger.error(e);
+            logger.error("", e);
             e.printStackTrace();
             VerisignException ex = new VerisignException();
             ex.errorMessage = e.getMessage();
@@ -89,7 +89,7 @@ public class Verisign {
             logger.debug(vex);
             throw vex;
         } catch (Exception e){
-            logger.error(e);
+            logger.error("", e);
             VerisignException ex = new VerisignException();
             ex.errorMessage = e.getMessage();
             ex.sentString = buildSubmitString();

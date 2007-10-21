@@ -30,7 +30,7 @@ public class ImpressionsByDayUtil {
                 }
             }
         } catch (Exception ex){
-            logger.error(ex);
+            logger.error("",ex);
         }
     }
 

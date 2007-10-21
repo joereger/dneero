@@ -31,13 +31,13 @@ public class SurveydisplayActivityObjectQueue implements Job {
                             SurveydisplayActivityObjectStorage.store(sdao);
                             it.remove();
                         } catch (Exception ex){
-                            logger.error(ex);
+                            logger.error("",ex);
                         }
                     }
                 }
             } catch (Exception ex){
                 logger.debug("Error in top block.");
-                logger.error(ex);
+                logger.error("",ex);
             }
         //} else {
             //logger.debug("InstanceProperties.getRunScheduledTasksOnThisInstance() is FALSE for this instance so this task is not being executed.");
@@ -52,7 +52,7 @@ public class SurveydisplayActivityObjectQueue implements Job {
             }
             sdaos.add(sdao);
         } catch (Exception ex){
-            logger.error(ex);
+            logger.error("",ex);
         }
     }
 

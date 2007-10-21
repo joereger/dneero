@@ -88,7 +88,7 @@ public class RecordImpression {
         try{
             ImpressionActivityObjectQueue.addIao(iao);
         } catch (Exception ex){
-            logger.error(ex);
+            logger.error("",ex);
         }
 
 
@@ -106,7 +106,7 @@ public class RecordImpression {
         try{
             ImpressionActivityObjectQueue.addIaoc(iaoc);
         } catch (Exception ex){
-            logger.error(ex);
+            logger.error("",ex);
         }
 
 

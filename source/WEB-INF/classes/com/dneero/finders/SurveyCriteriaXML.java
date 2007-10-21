@@ -55,7 +55,7 @@ public class SurveyCriteriaXML {
             try{
                 doc = builder.build(new java.io.ByteArrayInputStream(criteriaxml.getBytes()));
             } catch (Exception ex){
-                logger.error(ex);
+                logger.error("",ex);
             }
         }
         nullDocCheck();
@@ -183,7 +183,7 @@ public class SurveyCriteriaXML {
             serializer.output(doc, out);
             return out.toString();
         } catch (Exception ex) {
-            logger.error(ex);
+            logger.error("",ex);
         }
         return "";
     }

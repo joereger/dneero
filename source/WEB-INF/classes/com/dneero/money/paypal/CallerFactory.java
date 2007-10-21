@@ -30,7 +30,7 @@ public class CallerFactory {
             profile.setEnvironment(SystemProperty.getProp(SystemProperty.PROP_PAYPALENVIRONMENT).trim());
             caller.setAPIProfile(profile);
         } catch (Exception ex){
-            logger.error(ex);
+            logger.error("",ex);
         }
     }
 

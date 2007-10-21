@@ -75,7 +75,7 @@ public class ResearcherPanels implements Serializable {
         panel.setCreatedate(new Date());
         panel.setName(newpanelname);
         panel.setResearcherid(Jsf.getUserSession().getUser().getResearcherid());
-        try{panel.save();}catch (Exception ex){logger.error(ex);}
+        try{panel.save();}catch (Exception ex){logger.error("",ex);}
         load();
         msg = "New panel created.";
         return "researcherpanels";
@@ -91,7 +91,7 @@ public class ResearcherPanels implements Serializable {
                     msg = "Panel deleted.";
                     load();
                 }catch (Exception ex){
-                    logger.error(ex);
+                    logger.error("",ex);
                     msg="Error deleting panel.";
                 }
             }

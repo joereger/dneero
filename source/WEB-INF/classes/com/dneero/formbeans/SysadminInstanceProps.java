@@ -82,7 +82,7 @@ public class SysadminInstanceProps implements Serializable {
             }
 
         } catch (Exception ex){
-            logger.error(ex);
+            logger.error("",ex);
             Jsf.setFacesMessage("Save failed: " + ex.getMessage());
         }
 

@@ -91,7 +91,7 @@ public class Login implements Serializable {
                         responsepending.setReferredbyuserid(Jsf.getUserSession().getPendingSurveyReferredbyuserid());
                         responsepending.setResponseasstring(Jsf.getUserSession().getPendingSurveyResponseAsString());
                         responsepending.setSurveyid(Jsf.getUserSession().getPendingSurveyResponseSurveyid());
-                        try{responsepending.save();}catch (Exception ex){logger.error(ex);}
+                        try{responsepending.save();}catch (Exception ex){logger.error("",ex);}
                         Jsf.getUserSession().setPendingSurveyResponseSurveyid(0);
                         Jsf.getUserSession().setPendingSurveyReferredbyuserid(0);
                         Jsf.getUserSession().setPendingSurveyResponseAsString("");
@@ -110,7 +110,7 @@ public class Login implements Serializable {
                             //If no other account has this facebookid in use, save it
                             if (userswiththisfacebookid.size()==0){
                                 user.setFacebookuserid(Integer.parseInt(Jsf.getUserSession().getFacebookUser().getUid()));
-                                try{user.save();}catch(Exception ex){logger.error(ex);}
+                                try{user.save();}catch(Exception ex){logger.error("",ex);}
                             } else {
                                 //@todo What to do here?
                                 logger.error("User logged-on but we already have that facebookuid("+Jsf.getUserSession().getFacebookUser().getUid()+") in the database.");
@@ -133,7 +133,7 @@ public class Login implements Serializable {
                         Jsf.redirectResponse(BaseUrl.get(true)+"account/index.jsf");
                         return null;
                     } catch (Exception ex){
-                        logger.error(ex);
+                        logger.error("",ex);
                         AccountIndex bean = (AccountIndex)Jsf.getManagedBean("accountIndex");
                         return bean.beginView();
                         //return "accountindex";

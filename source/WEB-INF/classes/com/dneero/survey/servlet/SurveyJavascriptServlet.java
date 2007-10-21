@@ -108,7 +108,7 @@ public class SurveyJavascriptServlet extends HttpServlet {
                     //Put bytes into cache
                     CacheFactory.getCacheProvider().put(nameInCache, cacheGroup, output);
                 } catch (Exception ex){
-                    logger.error(ex);
+                    logger.error("",ex);
                 }
             }
         } else {

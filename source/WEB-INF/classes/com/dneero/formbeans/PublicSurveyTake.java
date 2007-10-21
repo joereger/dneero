@@ -48,6 +48,7 @@ public class PublicSurveyTake implements Serializable {
     private boolean isuserwhotooksurveysameasloggedinuser;
     private SurveyEnhancer surveyEnhancer;
     private boolean loggedinuserhasalreadytakensurvey;
+    private String surveyResponseHtml;
     private String surveyResponseFlashEmbed;
     private boolean showSurveyResponseFlashEmbed = false;
     private String surveyOnBlogPreview;
@@ -104,7 +105,7 @@ public class PublicSurveyTake implements Serializable {
 
         //If we don't have a surveyid, shouldn't be on this page
         if (surveyid<=0){
-            try{Jsf.redirectResponse("/publicsurveylist.jsf"); return;}catch(Exception ex){logger.error(ex);}
+            try{Jsf.redirectResponse("/publicsurveylist.jsf"); return;}catch(Exception ex){logger.error("",ex);}
         }
 
         //Load up the survey
@@ -112,7 +113,7 @@ public class PublicSurveyTake implements Serializable {
 
         //If the survey is draft or waiting
         if (survey.getStatus()<Survey.STATUS_OPEN){
-            try{Jsf.redirectResponse("/surveynotopen.jsf"); return;}catch(Exception ex){logger.error(ex);}
+            try{Jsf.redirectResponse("/surveynotopen.jsf"); return;}catch(Exception ex){logger.error("",ex);}
         }
 
         //Userid from url
@@ -327,6 +328,28 @@ public class PublicSurveyTake implements Serializable {
 
         //Special Facebook activities
         if (Jsf.getUserSession().getIsfacebookui()){
+            //Load response html
+            if (userwhotooksurvey!=null){
+                String surveyashtml = SurveyAsHtml.getHtml(survey, userwhotooksurvey, false);
+                StringBuffer scrollablediv = new StringBuffer();
+                scrollablediv.append("<style>");
+                scrollablediv.append(".questiontitle{");
+                scrollablediv.append("font-family: Arial, Arial, Helvetica, sans-serif; font-size: 13px; font-weight: bold; margin: 0px; border: 0px solid #8d8d8d; padding: 0px; text-align: left; background: #e6e6e6;");
+                scrollablediv.append("}");
+                scrollablediv.append(".answer{");
+                scrollablediv.append("font-family: Arial, Arial, Helvetica, sans-serif; font-size: 11px; width: 95%; margin: 0px;  padding: 0px; text-align: left;");
+                scrollablediv.append("}");
+                scrollablediv.append(".answer_highlight{");
+                scrollablediv.append("font-family: Arial, Arial, Helvetica, sans-serif; font-size: 11px; width: 95%; font-weight: bold; border: 0px solid #c1c1c1; margin: 0px;  padding: 0px; text-align: left; background: #ffffff;");
+                scrollablediv.append("}");
+                scrollablediv.append("</style>");
+                scrollablediv.append("<div style=\"background : #ffffff; padding: 5px; width: 405px; height: 215px; overflow : auto; text-align: left;\">"+"\n");
+                scrollablediv.append(surveyashtml);
+                scrollablediv.append("</div>"+"\n");
+                surveyResponseHtml = scrollablediv.toString();
+            } else {
+                surveyResponseHtml = "";
+            }
             //Load facebook users
             loadFacebookUsers();
             //Generate results
@@ -434,7 +457,7 @@ public class PublicSurveyTake implements Serializable {
             responsepending.setResponseasstring(Jsf.getUserSession().getPendingSurveyResponseAsString());
             responsepending.setReferredbyuserid(Jsf.getUserSession().getPendingSurveyReferredbyuserid());
             responsepending.setSurveyid(Jsf.getUserSession().getPendingSurveyResponseSurveyid());
-            try{responsepending.save();}catch(Exception ex){logger.error(ex);}
+            try{responsepending.save();}catch(Exception ex){logger.error("",ex);}
             Jsf.getUserSession().setPendingSurveyResponseSurveyid(0);
             Jsf.getUserSession().setPendingSurveyReferredbyuserid(0);
             Jsf.getUserSession().setPendingSurveyResponseAsString("");
@@ -451,7 +474,7 @@ public class PublicSurveyTake implements Serializable {
                 Jsf.setFacesMessage(cex.getErrorsAsSingleString());
                 return "publicsurvey";
             }catch(Exception ex){
-                logger.error(ex);
+                logger.error("",ex);
             }
         }
 
@@ -460,7 +483,7 @@ public class PublicSurveyTake implements Serializable {
             if (Jsf.getUserSession().getUser().getBloggerid()>0){
                 //load();
                 logger.debug("redirecting, will add justcompletedsurvey=1");
-                try{Jsf.redirectResponse("/survey.jsf?surveyid="+survey.getSurveyid()+"&justcompletedsurvey=1");}catch(Exception ex){logger.error(ex);}
+                try{Jsf.redirectResponse("/survey.jsf?surveyid="+survey.getSurveyid()+"&justcompletedsurvey=1");}catch(Exception ex){logger.error("",ex);}
                 return "publicsurvey";
             } else {
                 AccountIndex bean = (AccountIndex)Jsf.getManagedBean("accountIndex");
@@ -539,7 +562,7 @@ public class PublicSurveyTake implements Serializable {
         }
         tabselectedindex = 4;
         //Return from survey new comment in a way that retains the survey url
-        try{Jsf.redirectResponse("/survey.jsf?surveyid="+Jsf.getUserSession().getCurrentSurveyid()+"&tabselectedindex=4"); return null;}catch(Exception ex){logger.error(ex);}
+        try{Jsf.redirectResponse("/survey.jsf?surveyid="+Jsf.getUserSession().getCurrentSurveyid()+"&tabselectedindex=4"); return null;}catch(Exception ex){logger.error("",ex);}
         return "publicsurvey";
     }
 
@@ -573,7 +596,7 @@ public class PublicSurveyTake implements Serializable {
 ////        }
 //        FacebookApiWrapper faw = new FacebookApiWrapper(Jsf.getUserSession());
 //        faw.inviteFriendsToSurvey(survey);
-//        try{Jsf.redirectResponse("/survey.jsf?surveyid="+survey.getSurveyid()); return null;}catch(Exception ex){logger.error(ex);}
+//        try{Jsf.redirectResponse("/survey.jsf?surveyid="+survey.getSurveyid()); return null;}catch(Exception ex){logger.error("",ex);}
 //        return "publicsurvey";
 //    }
 
@@ -596,7 +619,7 @@ public class PublicSurveyTake implements Serializable {
                 Jsf.setFacesMessage("Your Facebook profile should have been updated.");
             }
         } catch (Exception ex){
-            logger.error(ex);
+            logger.error("",ex);
         }
         return "publicsurvey";
     }
@@ -998,5 +1021,13 @@ public class PublicSurveyTake implements Serializable {
 
     public void setInvitefriendsurl(String invitefriendsurl) {
         this.invitefriendsurl=invitefriendsurl;
+    }
+
+    public String getSurveyResponseHtml() {
+        return surveyResponseHtml;
+    }
+
+    public void setSurveyResponseHtml(String surveyResponseHtml) {
+        this.surveyResponseHtml=surveyResponseHtml;
     }
 }
