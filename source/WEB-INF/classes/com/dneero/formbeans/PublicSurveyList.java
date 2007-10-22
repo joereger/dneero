@@ -107,7 +107,7 @@ public class PublicSurveyList implements Serializable {
 
                 //See if user is qualified
                 boolean bloggerqualifies = false;
-                boolean bloggerqualifiesisunknown = true;
+                boolean bloggerqualifiesisunknown = false;
                 logger.debug("about to set isloggedinuserqualified");
                 if (!bsli.getLoggedinuserhasalreadytakensurvey()){
                     if (Jsf.getUserSession().getIsloggedin() && Jsf.getUserSession().getUser()!=null && Jsf.getUserSession().getUser().getBloggerid()>0){
