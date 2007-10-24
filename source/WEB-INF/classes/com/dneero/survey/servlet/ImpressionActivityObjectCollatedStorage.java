@@ -3,10 +3,7 @@ package com.dneero.survey.servlet;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.dao.hibernate.NumFromUniqueResult;
 import com.dneero.dao.*;
-import com.dneero.util.GeneralException;
-import com.dneero.util.Num;
-import com.dneero.util.Time;
-import com.dneero.util.DateDiff;
+import com.dneero.util.*;
 import com.dneero.money.SurveyMoneyStatus;
 import com.dneero.money.UserImpressionFinder;
 import com.dneero.helpers.UserInputSafe;
@@ -27,6 +24,11 @@ public class ImpressionActivityObjectCollatedStorage {
 
     public static void store(ImpressionActivityObjectCollated iao){
         Logger logger = Logger.getLogger(ImpressionActivityObjectCollatedStorage.class);
+
+        //Return on nulls
+        if (iao==null){
+            return;
+        }
 
         //Find user
         User user = null;
@@ -55,6 +57,13 @@ public class ImpressionActivityObjectCollatedStorage {
                 logger.debug("Surveyid="+iao.getSurveyid()+" not found so aborting impression save.");
                 return;
             }
+        }
+        
+        //Wipe auth_code from url
+        if (iao.getReferer()!=null && iao.getReferer().indexOf("auth_token")>-1){
+            logger.debug("before replacing auth_token.  iao.getReferer()="+iao.getReferer());
+            iao.setReferer(iao.getReferer().replaceAll("auth_token=", RandomString.randomAlphanumeric(3)+"="+RandomString.randomAlphanumeric(5)));
+            logger.debug("after replacing auth_token.  iao.getReferer()="+iao.getReferer());
         }
 
         //Find the responseid
