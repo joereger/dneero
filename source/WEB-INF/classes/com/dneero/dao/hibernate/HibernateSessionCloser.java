@@ -51,8 +51,10 @@ public class HibernateSessionCloser implements Filter {
                 logger.debug("------");
                 logger.debug("-------------");
                 logger.debug("---------------------------START REQUEST: "+httpServletRequest.getRequestURL());
+
+                logger.debug("sessionid="+httpServletRequest.getSession().getId());
             }
-        }catch(Exception ex){logger.debug(ex);}
+        }catch(Exception ex){logger.error("", ex);}
 
         //Call the rest of the filters
         chain.doFilter(request, response);
@@ -75,7 +77,7 @@ public class HibernateSessionCloser implements Filter {
                 logger.debug("");
                 logger.debug("");
             }
-        }catch(Exception ex){logger.debug(ex);}
+        }catch(Exception ex){logger.error("", ex);}
     }
 
 }

@@ -22,7 +22,7 @@ public class BloggerImpressions  implements Serializable {
     private String surveytitle;
 
     public BloggerImpressions(){
-
+        
     }
 
     public String beginView(){

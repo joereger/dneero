@@ -34,6 +34,9 @@ import java.util.Date;
 public class FacebookAuthorization {
 
     public static void doAuth(){
+
+        //NOTE: NO REDIRETCS IN THIS PAGE!!!
+
         Logger logger = Logger.getLogger(FacebookAuthorization.class);
         logger.debug("starting FacebookAuthorization and isfacebookui="+Jsf.getUserSession().getIsfacebookui());
         try{
@@ -50,24 +53,46 @@ public class FacebookAuthorization {
                 }
             } catch (Exception ex) {logger.error("",ex);}
 
+            //Set the userSession var isfacebookui if we see anything that remotely resembles facebook activity
+            if (Jsf.getRequestParam("auth_token")!=null){
+                Jsf.getUserSession().setIsfacebookui(true);
+            }
+            if (Jsf.getRequestParam("fb_sig_session_key")!=null){
+                Jsf.getUserSession().setIsfacebookui(true);
+            }
+            if (Jsf.getRequestParam("action")!=null && Jsf.getRequestParam("action").indexOf("showsurvey")>-1){
+                Jsf.getUserSession().setIsfacebookui(true);
+            }
+
             //Need a session key
+            boolean foundanewfacebooksessionkey = false;
             //auth_token should immediately be traded in for a valid fb_sig_session_key
             if ((Jsf.getRequestParam("auth_token")!=null && !Jsf.getRequestParam("auth_token").trim().equals(""))){
                 logger.debug("auth_token found in request... will try to convert to session_key");
-                FacebookRestClient facebookRestClient = new FacebookRestClient(SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_KEY), SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_SECRET), Jsf.getUserSession().getFacebookSessionKey());
-                String facebooksessionkey = facebookRestClient.auth_getSession(Jsf.getRequestParam("auth_token").trim());
-                Jsf.getUserSession().setFacebookSessionKey(facebooksessionkey);
-            } else {
-                //No auth_token was sent (it's only sent for new apps and new logins, etc) so look to session_key
-                logger.debug("no auth_token found in request, looking for fb_sig_session_key");
-                if ((Jsf.getRequestParam("fb_sig_session_key")!=null && !Jsf.getRequestParam("fb_sig_session_key").trim().equals(""))){
-                    logger.debug("found a fb_sig_session_key in request");
-                    Jsf.getUserSession().setFacebookSessionKey((Jsf.getRequestParam("fb_sig_session_key").trim()));
-                } else {
-                    logger.debug("no fb_sig_session_key found in request... aborting FacebookAuthorization");
-                    //Jsf.redirectResponse("http://apps.facebook.com/"+SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_APP_NAME)+"/");
-                    return;
+                try{
+                    FacebookRestClient facebookRestClient = new FacebookRestClient(SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_KEY), SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_SECRET), Jsf.getUserSession().getFacebookSessionKey());
+                    String facebooksessionkey = facebookRestClient.auth_getSession(Jsf.getRequestParam("auth_token").trim());
+                    if (facebooksessionkey!=null && !facebooksessionkey.equals("")){
+                        Jsf.getUserSession().setFacebookSessionKey(facebooksessionkey);
+                        foundanewfacebooksessionkey = true;
+                    }
+                } catch (Exception ex) {
+                    logger.error("failed to convert auth_token to facebooksessionkey",ex); 
                 }
+            }
+            //No auth_token was sent (it's only sent for new apps and new logins, etc) so look to session_key
+            logger.debug("checking fb_sig_session_key which is much more reliable");
+            if ((Jsf.getRequestParam("fb_sig_session_key")!=null && !Jsf.getRequestParam("fb_sig_session_key").trim().equals(""))){
+                logger.debug("found a fb_sig_session_key in request");
+                Jsf.getUserSession().setFacebookSessionKey((Jsf.getRequestParam("fb_sig_session_key").trim()));
+                foundanewfacebooksessionkey = true;
+            } else {
+                logger.debug("no fb_sig_session_key found in request either.");
+            }
+            //If we don't have a session key, abort
+            if (!foundanewfacebooksessionkey){
+                logger.debug("foundanewfacebooksessionkey=false so aborting FacebookAuthorization");
+                return;
             }
 
             //This could cause problems.  The facebook user doesn't get to this point except on their first click from the facebook ui.
@@ -79,7 +104,7 @@ public class FacebookAuthorization {
             boolean foundSessionInCache = false;
 //            Object obj = CacheFactory.getCacheProvider().get(Jsf.getUserSession().getFacebookSessionKey(), "FacebookUserSession");
 //            if (obj!=null && (obj instanceof UserSession)){
-//                logger.debug("found a userSession in the cache");
+//                logger.debug("found a userSession in the cache, using it to override whatever crap JSF decided is a session");
 //                Jsf.bindObjectToExpressionLanguage("#{userSession}", (UserSession)obj);
 //                foundSessionInCache = true;
 //            } else {
@@ -171,9 +196,8 @@ public class FacebookAuthorization {
                 logger.debug("redirecting to facebook add app page");
                 try{Jsf.redirectResponse("/facebooklandingpage.jsf?stoplooping=1&action="+Jsf.getRequestParam("action"));return;}catch(Exception ex){logger.error("",ex);}
             }
-
         }
-        
+
         logger.debug("leaving FacebookAuthorization and isfacebookui="+Jsf.getUserSession().getIsfacebookui() +"");
     }
 

@@ -25,7 +25,11 @@ public class PublicFacebookenterui implements Serializable {
     private void load(){
         Logger logger = Logger.getLogger(this.getClass().getName());
         //Clear the isfacebookui flag
-        url = "http://apps.facebook.com/"+SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_APP_NAME)+"/";
+        String action = "";
+        if (Jsf.getRequestParam("action")!=null && Jsf.getRequestParam("action").indexOf("showsurvey")>-1){
+            action = "?action="+Jsf.getRequestParam("action");
+        }
+        url = "http://apps.facebook.com/"+SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_APP_NAME)+"/"+action;
         try{Jsf.redirectResponse(url);}catch(Exception ex){logger.error("",ex);}
     }
 

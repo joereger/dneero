@@ -10,85 +10,24 @@
       xmlns:c="http://java.sun.com/jstl/core"
 
       >
-
-
 <ui:composition template="/template/template-facelets.xhtml">
     <ui:define name="title">Social Surveys<br/><br/></ui:define>
     <ui:param name="navtab" value="home"/>
     <ui:define name="body">
     <d:authorization acl="public" redirectonfail="true"/>
 
-
-<h:form>
-
-    <table cellpadding="0" border="0" width="100%">
-        <tr>
-            <td valign="top">
-
-                <div class="rounded" style="background: #e6e6e6; padding: 10px;">
-
-                    <table border="0" cellspacing="10">
-                    <tr>
-                    <td width="25%">
-                        <div class="rounded" style="background: #ffffff; padding: 10px;">
-                            <center>
-                                <a href="${publicFacebookLandingPage.addurl}" target="_top"><img src="/images/add-64.png" alt="" border="0"/></a>
-                                <br/><a href="${publicFacebookLandingPage.addurl}" target="_top"><font class="formfieldnamefont">Add</font></a>
-                            </center>
-                        </div>
-                    </td>
-                    <td>
-                        <font class="normalfont" style="font-weight: bold;">You need to <a href="${publicFacebookLandingPage.addurl}" target="_top">add the dNeero Facebook application</a> before you can take part in social surveys.  Social surveys allow you to earn real money taking surveys and posting links to your answers on your profile.  There are no gimmicks, tricks or abusive processes to follow.</font><br/>
-                    </td>
-                    </tr>
-                    </table>
-                </div>
-
-            </td>
-        </tr>
-        <c:if test="#{1 eq 2}">
-        <tr>
-            <td valign="top">
-                <!--<c:if test="${!empty publicSurveyList.facebookuserswhoaddedapp}">-->
-                    <br/><br/>
-                    <font class="normalfont" style="font-weight: bold;">Friends Already on dNeero:</font><br/>
-                    <c:if test="${empty publicSurveyList.facebookuserswhoaddedapp}">
-                        <font class="tinyfont">None, yet.</font><br/>
-                    </c:if>
-                    <c:forEach var="fbuser" items="${publicSurveyList.facebookuserswhoaddedapp}">
-                        <!--<img src="/images/user-16.png" width="16" height="16" border="0" align="middle" alt=""/>-->
-                        <img src="#{fbuser.facebookUser.pic_square}" width="50" height="50" border="0" align="middle" alt=""/>
-                        <font class="normalfont">#{fbuser.facebookUser.first_name} #{fbuser.facebookUser.last_name}</font><br/>
-                    </c:forEach>
-                    <br/><br/>
-                <!--</c:if>-->
-                <!--<c:if test="${!empty publicSurveyList.facebookSurveyThatsBeenTakens}">-->
-                    <font class="normalfont" style="font-weight: bold;">Surveys Friends Have Taken:</font><br/>
-                    <c:if test="${empty publicSurveyList.facebookSurveyThatsBeenTakens}">
-                        <font class="tinyfont">Your friends haven't taken any surveys yet.</font>
-                    </c:if>
-                    <c:forEach var="surveyfriendstook" items="${publicSurveyList.facebookSurveyThatsBeenTakens}">
-                        <font class="normalfont" style="color: #0000ff;">#{surveyfriendstook.survey.title}</font><br/>
-                        <font class="smallfont">
-                            Who took it:
-                            <c:forEach var="friendwhotook" items="${surveyfriendstook.facebookSurveyTakers}">
-                                #{friendwhotook.facebookUser.first_name} #{friendwhotook.facebookUser.last_name}
-                            </c:forEach>
-                        </font><br/><br/>
-                    </c:forEach>
-                    <br/><br/>
-                <!--</c:if>-->
-            </td>
-        </tr>
-        </c:if>
-    </table>
-
-</h:form>
+    <!--<script type="text/javascript">
+    this.location.href="#{publicFacebookLandingPage.urltoredirectto}";
+    </script>-->
+    <a href="#{publicFacebookLandingPage.urltoredirectto}">Click here please.</a>
+    <br/>
+    <br/>
+    userSession.isfacebookui=#{userSession.isfacebookui}
 
 
-
-    </ui:define>
-
-
+</ui:define>
 </ui:composition>
+
+
+
 </html>

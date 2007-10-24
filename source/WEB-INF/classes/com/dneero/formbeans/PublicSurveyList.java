@@ -13,6 +13,8 @@ import com.dneero.facebook.FacebookUser;
 import com.dneero.helpers.UserInputSafe;
 import com.dneero.scheduledjobs.UpdateResponsePoststatus;
 import org.apache.log4j.Logger;
+import org.hibernate.criterion.Restrictions;
+import org.hibernate.criterion.Order;
 
 import java.util.*;
 import java.io.Serializable;
@@ -31,7 +33,7 @@ public class PublicSurveyList implements Serializable {
     private List<PublicSurveyFacebookFriendListitem> facebookuserswhoaddedapp = new ArrayList<PublicSurveyFacebookFriendListitem>();
     private AccountBalance accountBalance;
     private String rndstr;
-    private ArrayList<BloggerCompletedsurveysListitem> completedsurveys;
+    //private ArrayList<BloggerCompletedsurveysListitem> completedsurveys;
     private boolean facebookjustaddedapp = false;
     private String invitefriendsurl = "";
 
@@ -144,7 +146,7 @@ public class PublicSurveyList implements Serializable {
             }
 
             //Facebook stuff
-            if (Jsf.getRequestParam("action")!=null && Jsf.getRequestParam("action").indexOf("addedapp")>-1){
+            if (Jsf.getRequestParam("addedapp")!=null && Jsf.getRequestParam("addedapp").equals("1")){
                 facebookjustaddedapp = true;   
             }
             if (Jsf.getUserSession().getIsfacebookui()){
@@ -173,12 +175,32 @@ public class PublicSurveyList implements Serializable {
                 accountBalance.beginView();
                 this.accountBalance = accountBalance;
                 //Completedsurveys
-                if (Jsf.getUserSession().getUser()!=null && Jsf.getUserSession().getUser().getBloggerid()>0){
-                    //Limit to last 10 surveys or only surveys in last 10 days
-                    BloggerCompletedsurveys bcs = new BloggerCompletedsurveys();
-                    bcs.beginView();
-                    completedsurveys = bcs.getList();
-                }
+//                if (Jsf.getUserSession().getUser()!=null && Jsf.getUserSession().getUser().getBloggerid()>0){
+//                    completedsurveys = new ArrayList();
+//                    List<Response> responses = HibernateUtil.getSession().createCriteria(Response.class)
+//                                               .add(Restrictions.eq("bloggerid", Jsf.getUserSession().getUser().getBloggerid()))
+//                                               .add(Restrictions.eq("ispaid", false))
+//                                               .add(Restrictions.ne("poststatus", Response.POSTATUS_NOTPOSTEDTIMELIMITPASSED))
+//                                               .addOrder(Order.desc("responsedate"))
+//                                               .setCacheable(true)
+//                                               .setMaxResults(60)
+//                                               .list();
+//                    for (Iterator<Response> iterator = responses.iterator(); iterator.hasNext();) {
+//                        Response response = iterator.next();
+//                        Survey survey = Survey.get(response.getSurveyid());
+//                        BloggerCompletedsurveysListitem listitem = new BloggerCompletedsurveysListitem();
+//                        listitem.setAmtforresponse("");
+//                        listitem.setAmttotal("");
+//                        listitem.setTotalimpressions(0);
+//                        listitem.setPaidandtobepaidimpressions(0);
+//                        listitem.setResponsedate(response.getResponsedate());
+//                        listitem.setResponseid(response.getResponseid());
+//                        listitem.setSurveyid(survey.getSurveyid());
+//                        listitem.setSurveytitle(survey.getTitle());
+//                        listitem.setResponse(response);
+//                        completedsurveys.add(listitem);
+//                    }
+//                }
                 //Invite friends link
                 invitefriendsurl = faw.inviteFriendsTodNeero();
 
@@ -188,34 +210,7 @@ public class PublicSurveyList implements Serializable {
     }
 
 
-//    public String tellFriends(){
-//        return tellFriendsOperation(facebookfriendsselected);
-//    }
-//
-//
-//    private String tellFriendsOperation(String[] friendstotell){
-//        Logger logger = Logger.getLogger(this.getClass().getName());
-////        if (friendstotell!=null && friendstotell.length>0){
-////            int numberinvited = 0;
-////            ArrayList<Integer> uids = new ArrayList<Integer>();
-////            for (int i = 0; i < friendstotell.length; i++) {
-////                String uid = friendstotell[i];
-////                if (Num.isinteger(uid)){
-////                    numberinvited = numberinvited + 1;
-////                    logger.debug("Facebookfriend to invite, uid="+uid);
-////                    if (numberinvited<=10){
-////                        uids.add(Integer.parseInt(uid));
-////                    }
-////                }
-////            }
-////            FacebookApiWrapper faw = new FacebookApiWrapper(Jsf.getUserSession());
-////            faw.inviteFriendsTodNeero();
-////        }
-//        FacebookApiWrapper faw = new FacebookApiWrapper(Jsf.getUserSession());
-//        faw.inviteFriendsTodNeero();
-//        try{Jsf.redirectResponse("/publicsurveylist.jsf"); return null;}catch(Exception ex){logger.debug(ex);}
-//        return "publicsurveylist";
-//    }
+
 
     private void loadFacebookUsers(){
         Logger logger = Logger.getLogger(this.getClass().getName());
@@ -283,43 +278,12 @@ public class PublicSurveyList implements Serializable {
 
 
     public ArrayList<BloggerSurveyListItem> getSurveys() {
-        //logger.debug("getListitems");
-        sort("title", true);
         return surveys;
     }
 
     public void setSurveys(ArrayList<BloggerSurveyListItem> surveys) {
         //logger.debug("setListitems");
         this.surveys = surveys;
-    }
-
-    protected boolean isDefaultAscending(String sortColumn) {
-        return true;
-    }
-
-    protected void sort(final String column, final boolean ascending) {
-        //logger.debug("sort called");
-        Comparator comparator = new Comparator() {
-            public int compare(Object o1, Object o2) {
-                BloggerSurveyListItem survey1 = (BloggerSurveyListItem)o1;
-                BloggerSurveyListItem survey2 = (BloggerSurveyListItem)o2;
-                if (column == null) {
-                    return 0;
-                }
-                if (column.equals("title")) {
-                    return ascending ? survey1.getTitle().compareTo(survey2.getTitle()) : survey2.getTitle().compareTo(survey1.getTitle());
-                } else {
-                    return 0;
-                }
-            }
-        };
-
-        //sort and also set our model with the new sort, since using DataTable with
-        //ListDataModel on front end
-        if (surveys != null && !surveys.isEmpty()) {
-            //logger.debug("sorting surveys and initializing ListDataModel");
-            Collections.sort(surveys, comparator);
-        }
     }
 
 
@@ -371,13 +335,7 @@ public class PublicSurveyList implements Serializable {
         this.rndstr = rndstr;
     }
 
-    public ArrayList<BloggerCompletedsurveysListitem> getCompletedsurveys() {
-        return completedsurveys;
-    }
 
-    public void setCompletedsurveys(ArrayList<BloggerCompletedsurveysListitem> completedsurveys) {
-        this.completedsurveys = completedsurveys;
-    }
 
     public boolean isFacebookjustaddedapp() {
         return facebookjustaddedapp;

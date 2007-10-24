@@ -146,7 +146,7 @@ public class Pageload extends UIComponentBase {
         }
         //Persistent login end
 
-        //logger.debug("after persistent login and isfacebookui="+Jsf.getUserSession().getIsfacebookui());
+        logger.debug("after persistent login and isfacebookui="+Jsf.getUserSession().getIsfacebookui());
 
 
         //Account activation
@@ -172,6 +172,8 @@ public class Pageload extends UIComponentBase {
                 return;
             }
         }
+
+        Jsf.bindObjectToExpressionLanguage("#{userSession}", Jsf.getUserSession());
 
 
     }

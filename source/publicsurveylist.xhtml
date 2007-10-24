@@ -41,10 +41,10 @@
             <td valign="top">
 
 
-                <t:saveState id="save" value="#{publicSurveyList}"/>
+                <!--<t:saveState id="save" value="#{publicSurveyList}"/>-->
                 <h:outputText value="There are currently no surveys listed.  Please check back soon as we're always adding new ones!" styleClass="mediumfont" rendered="#{empty publicSurveyList.surveys}"/>
 
-                <t:dataTable sortable="true" id="datatable" value="#{publicSurveyList.surveys}" rows="15" var="srvy" rendered="#{!empty publicSurveyList.surveys}" styleClass="dataTable" headerClass="" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcol,tcolnowrap,tcol,tcolnowrap,tcolnowrap">
+                <t:dataTable sortable="true" id="datatable" value="#{publicSurveyList.surveys}" rows="100" var="srvy" rendered="#{!empty publicSurveyList.surveys}" styleClass="dataTable" headerClass="" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcol,tcolnowrap,tcol,tcolnowrap,tcolnowrap">
                   <t:column>
                     <f:facet name="header">
                         <h:outputText value=""/>
@@ -75,6 +75,7 @@
                     </div>
                   </t:column>
                 </t:dataTable>
+                <!--
                 <t:dataScroller id="scroll_1" for="datatable"  fastStep="10" pageCountVar="pageCount" pageIndexVar="pageIndex" styleClass="scroller" paginator="true" paginatorMaxPages="9" paginatorTableClass="paginator" paginatorActiveColumnStyle="font-weight:bold;">
                     <f:facet name="first" >
                         <t:graphicImage url="/images/datascroller/play-first.png" border="0" />
@@ -89,6 +90,7 @@
                         <t:graphicImage url="/images/datascroller/play.png" border="0" />
                     </f:facet>
                 </t:dataScroller>
+                -->
 
             </td>
 
@@ -101,21 +103,10 @@
                                 <br/><font class="largefont" style="color: #cccccc;">#{publicSurveyList.accountBalance.currentbalance}</font>
                                 <c:if test="#{!empty publicSurveyList.accountBalance}">
                                     <c:if test="#{publicSurveyList.accountBalance.pendingearningsDbl gt 0}">
-                                        <br/><font class="formfieldnamefont" style="color: #666666;">Pending: #{publicSurveyList.accountBalance.pendingearnings}</font>
+                                        <br/><h:commandLink value="Pending: #{publicSurveyList.accountBalance.pendingearnings}" action="#{bloggerCompletedsurveys.beginView}" styleClass="formfieldnamefont" style="color: #0000ff;" rendered="#{userSession.isloggedin and (userSession.user.bloggerid gt 0)}"/>
                                     </c:if>
                                 </c:if>
                                 <br/><font class="tinyfont" style="color: #666666; font-weight: bold;">(yes, we're talking real world money here)</font>
-                                <c:if test="#{!empty publicSurveyList.completedsurveys}">
-                                    <br/><br/>
-                                    <c:forEach var="completedsurvey" items="${publicSurveyList.completedsurveys}">
-                                        <div class="rounded" style="background: #e6e6e6; padding: 10px; text-align: center;">
-                                            <h:outputLink value="/survey.jsf?surveyid=#{completedsurvey.surveyid}" styleClass="normalfont" style="font-weight: bold; color: #999999;"><h:outputText>#{completedsurvey.surveytitle}</h:outputText></h:outputLink><br/>
-                                            <f:verbatim escape="false"><center>#{completedsurvey.response.responsestatushtml}</center></f:verbatim>
-                                        </div>
-                                        <br/>
-                                    </c:forEach>
-                                    <font class="tinyfont" style="color: #666666;">Survey statuses update nightly. Remember, you must leave the survey on your mini-feed and profile to generate clicks for 5 days in the 10 after you take it to get paid.  Days that qualify are marked green.</font>
-                                </c:if>
                             </div>
                             <br/><br/>
                         </c:if>
@@ -132,7 +123,7 @@
                             <font class="smallfont">
                                 How they answered:
                                 <c:forEach var="friendwhotook" items="${surveyfriendstook.facebookSurveyTakers}">
-                                    <h:outputLink value="/survey.jsf?surveyid=#{surveyfriendstook.survey.surveyid}&amp;userid=#{friendwhotook.userid}&amp;responseid=#{friendwhotook.responseid}&amp;show=showSurveyResponseFlashEmbed" styleClass="smallfont" style="color: #0000ff;"><h:outputText>#{friendwhotook.facebookUser.first_name} #{friendwhotook.facebookUser.last_name}</h:outputText></h:outputLink>
+                                    <h:outputLink value="/survey.jsf?surveyid=#{surveyfriendstook.survey.surveyid}&amp;userid=#{friendwhotook.userid}&amp;responseid=#{friendwhotook.responseid}" styleClass="smallfont" style="color: #0000ff;"><h:outputText>#{friendwhotook.facebookUser.first_name} #{friendwhotook.facebookUser.last_name}</h:outputText></h:outputLink>
                                 </c:forEach>
                             </font><br/><br/>
                         </c:forEach>
@@ -150,13 +141,13 @@
                                 </h:panelGroup>
                             </c:forEach>
                         </h:panelGrid>
+                        <br/>
+                        <center><a href="#{publicSurveyList.invitefriendsurl}" target="top"><font class="normalfont" style="font-weight: bold; color: #0000ff;">Invite Friends Who Aren't On dNeero</font></a></center>
                         <br/><br/>
                         <!--
                         <font class="mediumfont">Tell Friends Who Aren't Yet Using dNeero:</font><br/>
                         <h:commandButton action="#{publicSurveyList.tellFriends}" value="Tell Friends" styleClass="formsubmitbutton"/>
                         -->
-                        <font class="mediumfont">Tell Friends Who Aren't Yet Using dNeero:</font><br/>
-                        <a href="#{publicSurveyList.invitefriendsurl}" target="top">Invite Friends</a>
                     </div>
                 </td>
             </c:if>

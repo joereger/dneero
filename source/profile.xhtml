@@ -46,16 +46,6 @@
                         </tr>
                         <tr>
                             <td valign="top" width="50%">
-                                <h:outputText value="Social Influence Rating Over Last 90 Days" styleClass="formfieldnamefont"></h:outputText>
-                            </td>
-                            <td valign="top" width="50%">
-                                <h:outputText value="#{publicProfile.blogger.socialinfluencerating90days}" styleClass="smallfont"></h:outputText>
-                                <br/>
-                                <h:outputText value="(Top #{publicProfile.socialinfluenceratingpercentile90days}%)" styleClass="smallfont"></h:outputText>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td valign="top" width="50%">
                                 <h:outputText value="Amt Earned for Charity" styleClass="formfieldnamefont"></h:outputText>
                             </td>
                             <td valign="top" width="50%">
@@ -158,7 +148,7 @@
             <h:selectOneMenu value="#{publicProfile.panelid}" id="panelid" required="true" rendered="#{!empty publicProfile.panelids}">
                <f:selectItems value="#{publicProfile.panelids}"/>
             </h:selectOneMenu>
-            <h:commandButton action="#{publicProfile.addToPanel}" value="Add This Blogger to a Panel" styleClass="formsubmitbutton"></h:commandButton>
+            <h:commandButton action="#{publicProfile.addToPanel}" value="Add Blogger Panel" styleClass="formsubmitbutton"></h:commandButton>
         </c:if>
 
     

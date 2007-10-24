@@ -129,6 +129,7 @@ public class UpdateResponsePoststatus implements Job {
                 statusHtml.append("\t\t<td width=\"10\" bgcolor=\""+boxColor+"\" class=\"surveystatusbar\"><img src=\"/images/clear.gif\" width=\"1\" height=\"15\" border=\"0\"></td>\n");
             }
             statusHtml.append("\t\t<td width=\"10\" rowspan=\"2\" nowrap>");
+            statusHtml.append("<center>");
             if (response.getPoststatus()==Response.POSTATUS_NOTPOSTEDTIMELIMITPASSED){
                 statusHtml.append("<img src=\"/images/delete-alt-16.png\" width=\"16\" height=\"16\" border=\"0\">");
                 statusHtml.append("<br/>");
@@ -144,6 +145,7 @@ public class UpdateResponsePoststatus implements Job {
                     statusHtml.append("<font class=\"smallfont\" style=\"color: #999999; font-weight: bold;\">Pending</font>");
                 }
             }
+            statusHtml.append("</center>");
             int moreneeded =  DAYSWITHIMPRESSIONREQUIREDINSIDEPOSTINGPERIOD-daysthatqualify;
             if (moreneeded<0){
                 moreneeded = 0;

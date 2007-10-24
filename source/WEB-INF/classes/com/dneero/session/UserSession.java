@@ -46,6 +46,25 @@ public class UserSession implements Serializable {
     public UserSession(){
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("New UserSession created.");
+        try{
+            logger.debug("trying to set isfacebookui in UserSession");
+            //Set the userSession var isfacebookui if we see anything that remotely resembles facebook activity
+            if (Jsf.getRequestParam("auth_token")!=null){
+                logger.debug("setting isfacebook=true because of auth_token request param");
+                isfacebookui=true;
+            }
+            if (Jsf.getRequestParam("fb_sig_session_key")!=null){
+                logger.debug("setting isfacebook=true because of fb_sig_session_key request param");
+                isfacebookui=true;
+            }
+            if (Jsf.getRequestParam("action")!=null && Jsf.getRequestParam("action").indexOf("showsurvey")>-1){
+                logger.debug("setting isfacebook=true because of showsurvey request param");
+                isfacebookui=true;
+            }
+        } catch (Exception ex){
+            logger.error("", ex);
+        }
+        logger.debug("isfacebookui="+isfacebookui);
     }
 
     public User getUser() {

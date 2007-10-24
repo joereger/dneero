@@ -19,9 +19,11 @@ import com.dneero.scheduledjobs.UpdateResponsePoststatus;
 import java.util.List;
 import java.util.Iterator;
 import java.util.Date;
+import java.util.ArrayList;
 import java.io.Serializable;
 
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.criterion.Order;
 import org.apache.log4j.Logger;
 
 /**
@@ -35,6 +37,7 @@ public class BloggerIndex implements Serializable {
     private String responsependingmsg = "";
     private boolean showmarketingmaterial = false;
     private String msg = "";
+    //private ArrayList<BloggerCompletedsurveysListitem> completedsurveys;
 
     public BloggerIndex(){
         Logger logger = Logger.getLogger(this.getClass().getName());
@@ -87,9 +90,38 @@ public class BloggerIndex implements Serializable {
             }
             if(surveyidtoredirectto>0){
                 logger.debug("redirecting, will add justcompletedsurvey=1");
-                try{Jsf.redirectResponse("/survey.jsf?surveyid="+surveyidtoredirectto+"&justcompletedsurvey=1"); return;}catch(Exception ex){logger.error("",ex);}
+                try{Jsf.redirectResponse("/surveypostit.jsf?surveyid="+surveyidtoredirectto+"&justcompletedsurvey=1"); return;}catch(Exception ex){logger.error("",ex);}
             }
         }
+
+
+//        if (Jsf.getUserSession()!=null && Jsf.getUserSession().getUser()!=null && Jsf.getUserSession().getIsloggedin() && Jsf.getUserSession().getUser().getBloggerid()>0){
+//            completedsurveys = new ArrayList();
+//            List<Response> responses = HibernateUtil.getSession().createCriteria(Response.class)
+//                                       .add(Restrictions.eq("bloggerid", Jsf.getUserSession().getUser().getBloggerid()))
+//                                       .add(Restrictions.eq("ispaid", false))
+//                                       .add(Restrictions.ne("poststatus", Response.POSTATUS_NOTPOSTEDTIMELIMITPASSED))
+//                                       .addOrder(Order.desc("responsedate"))
+//                                       .setCacheable(true)
+//                                       .setMaxResults(60)
+//                                       .list();
+//            for (Iterator<Response> iterator = responses.iterator(); iterator.hasNext();) {
+//                Response response = iterator.next();
+//                Survey survey = Survey.get(response.getSurveyid());
+//                BloggerCompletedsurveysListitem listitem = new BloggerCompletedsurveysListitem();
+//                listitem.setAmtforresponse("");
+//                listitem.setAmttotal("");
+//                listitem.setTotalimpressions(0);
+//                listitem.setPaidandtobepaidimpressions(0);
+//                listitem.setResponsedate(response.getResponsedate());
+//                listitem.setResponseid(response.getResponseid());
+//                listitem.setSurveyid(survey.getSurveyid());
+//                listitem.setSurveytitle(survey.getTitle());
+//                listitem.setResponse(response);
+//                completedsurveys.add(listitem);
+//            }
+//        }
+
 
         if (Jsf.getUserSession()!=null && Jsf.getUserSession().getIsfacebookui()){
             try{Jsf.redirectResponse("/publicsurveylist.jsf");}catch(Exception ex){logger.error("",ex);}
@@ -295,4 +327,12 @@ public class BloggerIndex implements Serializable {
     public void setMsg(String msg) {
         this.msg = msg;
     }
+
+//    public ArrayList<BloggerCompletedsurveysListitem> getCompletedsurveys() {
+//        return completedsurveys;
+//    }
+//
+//    public void setCompletedsurveys(ArrayList<BloggerCompletedsurveysListitem> completedsurveys) {
+//        this.completedsurveys=completedsurveys;
+//    }
 }

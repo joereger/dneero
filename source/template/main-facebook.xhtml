@@ -7,6 +7,7 @@
       xmlns:c="http://java.sun.com/jstl/core">
 <head>
   <meta http-equiv="Content-Type" content="text/html;CHARSET=iso-8859-1" />
+  <meta content="main-facebook.xhtml"/>
   <title>dNeero Social Surveys</title>
   <link rel="stylesheet" type="text/css" href="/css/basic.css" />
   <link rel="stylesheet" type="text/css" href="/css/dneero-facebook.css" />
@@ -14,22 +15,30 @@
   <link rel="alternate" type="application/rss+xml" title="dNeero Social Surveys Blog" href="http://www.dneero.com/rss.xml" />
   <meta name="description" content="dNeero connects advertisers and market researchers with a large pool of qualified and motivated bloggers. Marketers initiate offers to blog (i.e. We'll pay $2 for a blogged review of our latest movie.), dNeero publishes those offers in a Yahoo-style directory and bloggers earn money (for themselves or for charity) taking surveys and posting their own results to their blogs. " />
   <meta name="keywords" content="market research,survey,blog,web 2.0,startup,money,market intelligence" />
+  <!-- main-facebook.xhtml -->
   <script type="text/javascript">
-    <c:if test="#{userSession.isfacebookui}">
+    <c:if test="#{!empty forceJavascriptRedirect.urltoredirectto}">
+        alert("Using forceJavascriptRedirect.urltoredirectto to redirect to #{forceJavascriptRedirect.urltoredirectto}");
+        window.location.href="#{forceJavascriptRedirect.urltoredirectto}";
+    </c:if>
+    <c:if test="#{empty forceJavascriptRedirect.urltoredirectto}">
+        <c:if test="#{userSession.isfacebookui}">
         var userSessionIsFacebookui = true;
-    </c:if>
-    <c:if test="#{!userSession.isfacebookui}">
+        </c:if>
+        <c:if test="#{!userSession.isfacebookui}">
         var userSessionIsFacebookui = false;
+        </c:if>
+        if (userSessionIsFacebookui) {
+            if (window==top){
+                top.location.href="#{baseUrl.includinghttp}facebookexitui.jsf";
+            }
+        } else {
+            if (window!=top){
+                //alert("Your session may have timed out.  If you're using the Facebook App please click your left-hand menu link to restart your session.  Thanks.");
+                top.location.href="#{baseUrl.includinghttp}facebookenterui.jsf";
+            }
+        }
     </c:if>
-    if (userSessionIsFacebookui) {
-        if (window==top){
-            top.location.href="#{baseUrl.includinghttp}facebookexitui.jsf";
-        }
-    } else {
-        if (window!=top){
-            top.location.href="#{baseUrl.includinghttp}facebookenterui.jsf";
-        }
-    }
   </script>
   <script type="text/javascript" src="/js/niftycube/niftycube.js"></script>
   <script type="text/javascript">

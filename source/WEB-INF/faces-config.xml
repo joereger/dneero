@@ -131,6 +131,43 @@
         <managed-bean-class>com.dneero.formbeans.PublicSurveyTake</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>publicSurvey</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.PublicSurvey</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>publicSurveyPostit</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.PublicSurveyPostit</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>publicSurveyResults</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.PublicSurveyResults</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>publicSurveyWhotookit</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.PublicSurveyWhotookit</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>publicSurveyDiscuss</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.PublicSurveyDiscuss</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>publicSurveyRequirements</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.PublicSurveyRequirements</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>publicSurveyDisclosure</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.PublicSurveyDisclosure</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
     <managed-bean>
         <managed-bean-name>publicCharity</managed-bean-name>
         <managed-bean-class>com.dneero.formbeans.PublicCharity</managed-bean-class>
@@ -468,6 +505,12 @@
     </managed-bean>
 
     <managed-bean>
+        <managed-bean-name>forceJavascriptRedirect</managed-bean-name>
+        <managed-bean-class>com.dneero.session.ForceJavascriptRedirect</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
         <managed-bean-name>publicIndex</managed-bean-name>
         <managed-bean-class>com.dneero.formbeans.PublicIndex</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
@@ -482,6 +525,12 @@
     <managed-bean>
         <managed-bean-name>publicFacebookLandingPage</managed-bean-name>
         <managed-bean-class>com.dneero.formbeans.PublicFacebookLandingPage</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>publicFacebookAppAdd</managed-bean-name>
+        <managed-bean-class>com.dneero.formbeans.PublicFacebookAppAdd</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
 
@@ -729,6 +778,31 @@
             <to-view-id>/survey.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
+            <from-outcome>publicsurveypostit</from-outcome>
+            <to-view-id>/surveypostit.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>publicsurveyresults</from-outcome>
+            <to-view-id>/surveyresults.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>publicsurveywhotookit</from-outcome>
+            <to-view-id>/surveywhotookit.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>publicsurveydiscuss</from-outcome>
+            <to-view-id>/surveydiscuss.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>publicsurveyrequirements</from-outcome>
+            <to-view-id>/surveyrequirements.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>publicsurveydisclosure</from-outcome>
+            <to-view-id>/surveydisclosure.xhtml</to-view-id>
+        </navigation-case>
+
+        <navigation-case>
             <from-outcome>publicblog</from-outcome>
             <to-view-id>/blog.xhtml</to-view-id>
             <redirect/> 
@@ -748,6 +822,10 @@
         <navigation-case>
             <from-outcome>publicfacebooklandingpage</from-outcome>
             <to-view-id>/facebooklandingpage.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>publicfacebookappadd</from-outcome>
+            <to-view-id>/facebookappadd.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>publicfacebookexitui</from-outcome>
@@ -917,6 +995,10 @@
         <navigation-case>
             <from-outcome>bloggerindex</from-outcome>
             <to-view-id>/blogger/index.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>facebookfaq</from-outcome>
+            <to-view-id>/blogger/facebookfaq.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>bloggerdetails</from-outcome>

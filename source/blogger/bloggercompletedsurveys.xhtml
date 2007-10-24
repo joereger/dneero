@@ -18,9 +18,55 @@
 
 
         <h:form>
+
+            <c:if test="#{!empty bloggerCompletedsurveys.list}">
+                        <c:forEach var="completedsurvey" items="${bloggerCompletedsurveys.list}">
+                            <div class="rounded" style="background: #e6e6e6; padding: 10px;">
+                                <table cellpadding="2" cellspacing="0" border="0" width="100%">
+                                    <tr>
+                                        <td valign="top">
+                                            <h:outputText value="#{completedsurvey.responsedate}" styleClass="tinyfont"/><br/>
+                                            <h:outputLink value="/survey.jsf?surveyid=#{completedsurvey.surveyid}" styleClass="normalfont" style="font-weight: bold; color: #0000ff;"><h:outputText>#{completedsurvey.surveytitle}</h:outputText></h:outputLink><br/>
+                                            <h:outputText value="Est earnings: #{completedsurvey.amttotal}" styleClass="tinyfont" style="font-weight: bold;"/>
+                                            <c:if test="${!userSession.isfacebookui}">
+                                                <br/>
+                                                <h:outputLink value="/survey.jsf?surveyid=#{completedsurvey.surveyid}" rendered="#{completedsurvey.response.poststatus eq 0}" styleClass="tinyfont" style="font-weight:bold;"><h:outputText>Needs to be Posted</h:outputText></h:outputLink>
+                                                <h:outputText value="Posted At Least Once" escape="false" styleClass="tinyfont" style="font-weight:bold;" rendered="#{completedsurvey.response.poststatus eq 1}"/>
+                                                <h:outputText value="Posted Successfully" escape="false" styleClass="tinyfont" style="font-weight:bold;" rendered="#{completedsurvey.response.poststatus eq 2}"/>
+                                                <h:outputText value="Too Late to Post" escape="false" styleClass="tinyfont" style="font-weight:bold;" rendered="#{completedsurvey.response.poststatus eq 3}"/>
+                                          </c:if>
+                                          <br/>
+                                          <h:commandLink action="#{bloggerImpressions.beginView}">
+                                                <h:outputText value="#{completedsurvey.totalimpressions}" styleClass="tinyfont" style="font-weight:bold; text-decoration: none; " escape="false"/>
+                                                <f:param name="surveyid" value="#{completedsurvey.surveyid}" />
+                                           </h:commandLink><h:outputText value=" impressions" styleClass="tinyfont" style="font-weight:bold;"/>
+                                        </td>
+                                        <td valign="top" align="right">
+                                            <f:verbatim escape="false">#{completedsurvey.response.responsestatushtml}</f:verbatim>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <br/>
+                        </c:forEach>
+                        <font class="tinyfont" style="color: #666666;">Survey statuses update nightly. Remember, you must leave the survey on your mini-feed and profile to generate clicks for 5 days in the 10 after you take it to get paid.  Days that qualify are marked green.</font>
+                    </c:if>
+
+             <!--
               <t:saveState id="save" value="#{bloggerCompletedsurveys}"/>
 
-              <t:dataTable id="datatable" value="#{bloggerCompletedsurveys.list}" rendered="#{!empty bloggerCompletedsurveys.list}" rows="25" var="listitem" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcol,tcolnowrap,tcol,tcol,tcol,tcol">
+              <t:dataTable id="datatable" value="#{bloggerCompletedsurveys.list}" rendered="#{!empty bloggerCompletedsurveys.list}" rows="50" var="listitem" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcol,tcolnowrap,tcol,tcol,tcol,tcol">
+                      <h:column rendered="true">
+                        <f:facet name="header">
+                          <h:outputText value=""/>
+                        </f:facet>
+                        <div class="rounded" style="background: #e6e6e6; padding: 10px; text-align: center;">
+                            <h:outputLink value="/survey.jsf?surveyid=#{listitem.surveyid}" styleClass="normalfont" style="font-weight: bold; color: #999999;"><h:outputText>#{listitem.surveytitle}</h:outputText></h:outputLink><br/>
+                            <f:verbatim escape="false"><center>#{listitem.response.responsestatushtml}</center></f:verbatim>
+                        </div>
+                      </h:column>
+
+
                       <h:column rendered="true">
                         <f:facet name="header">
                           <h:outputText value="Survey Title"/>
@@ -89,7 +135,7 @@
                             <t:graphicImage url="/images/datascroller/play.png" border="0" />
                         </f:facet>
                     </t:dataScroller>
-
+        -->
 
         <br/><br/>
         <c:if test="${!userSession.isfacebookui}">

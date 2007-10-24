@@ -67,13 +67,14 @@
                 </tr>-->
                 <tr>
                     <td bgcolor="#dadada" style="text-align: left; vertical-align: middle;" colspan="5" height="25">
-                        <h:commandLink value="Surveys You Can Take" action="#{publicSurveyList.beginView}" style="padding-left: 15px; padding-right: 15px; padding-top: 3px; padding-bottom: 3px; color: #000000; font-size: 12px; background: #00ff00;" styleClass="subnavfont"/>
-                        <h:commandLink value="Completed Surveys" action="#{bloggerCompletedsurveys.beginView}" styleClass="subnavfont" style="padding-left: 15px; color: #000000;" rendered="#{userSession.isloggedin and (userSession.user.bloggerid gt 0)}"/>
-                        <h:commandLink value="Demographic" action="#{bloggerDetails.beginView}" styleClass="subnavfont" style="padding-left: 15px; color: #000000;" rendered="#{userSession.isloggedin and (userSession.user.bloggerid gt 0)}"/>
-                        <h:commandLink value="Account Balance" action="#{accountBalance.beginView}" style="padding-left: 15px; color: #000000;" styleClass="subnavfont" rendered="#{userSession.isloggedin}"/>
-                        <h:commandLink value="Settings" action="#{accountSettings.beginView}" style="padding-left: 15px; color: #000000;" styleClass="subnavfont" rendered="#{userSession.isloggedin}"/>
-                        <h:commandLink value="Our Blog" action="#{publicBlog.beginView}" style="padding-left: 15px; color: #000000;" styleClass="subnavfont"/>
-                        <h:commandLink value="Help" action="#{accountSupportIssuesList.beginView}" style="padding-left: 15px; color: #000000;" styleClass="subnavfont" rendered="#{userSession.isloggedin}"/>
+                        <h:commandLink value="Surveys You Can Take" action="#{publicSurveyList.beginView}" style="padding-left: 12px; padding-right: 15px; padding-top: 3px; padding-bottom: 3px; color: #000000; font-size: 12px; background: #00ff00;" styleClass="subnavfont"/>
+                        <h:commandLink value="Completed Surveys" action="#{bloggerCompletedsurveys.beginView}" styleClass="subnavfont" style="padding-left: 12px; color: #000000;" rendered="#{userSession.isloggedin and (userSession.user.bloggerid gt 0)}"/>
+                        <h:commandLink value="Demographic" action="#{bloggerDetails.beginView}" styleClass="subnavfont" style="padding-left: 12px; color: #000000;" rendered="#{userSession.isloggedin and (userSession.user.bloggerid gt 0)}"/>
+                        <h:commandLink value="Balance" action="#{accountBalance.beginView}" style="padding-left: 12px; color: #000000;" styleClass="subnavfont" rendered="#{userSession.isloggedin}"/>
+                        <h:commandLink value="Settings" action="#{accountSettings.beginView}" style="padding-left: 12px; color: #000000;" styleClass="subnavfont" rendered="#{userSession.isloggedin}"/>
+                        <h:commandLink value="Blog" action="#{publicBlog.beginView}" style="padding-left: 12px; color: #000000;" styleClass="subnavfont"/>
+                        <h:commandLink value="FAQ" action="facebookfaq" style="padding-left: 12px; color: #000000;" styleClass="subnavfont"/>
+                        <h:commandLink value="Help" action="#{accountSupportIssuesList.beginView}" style="padding-left: 12px; color: #000000;" styleClass="subnavfont" rendered="#{userSession.isloggedin}"/>
 
 
                         <!--<c:if test="${navtab=='home'}">-->
