@@ -165,7 +165,7 @@ public class PublicSurvey implements Serializable {
         //Turn on the correct tab
         if (survey.getStatus()!=Survey.STATUS_OPEN){
             //redirect to results
-            try{Jsf.redirectResponse("/surveyresults.jsf?surveyid="+surveyid); return;}catch(Exception ex){logger.error("",ex);}
+            //try{Jsf.redirectResponse("/surveyresults.jsf?surveyid="+surveyid); return;}catch(Exception ex){logger.error("",ex);}
         }
         if (loggedinuserhasalreadytakensurvey && isuserwhotooksurveysameasloggedinuser){
             //redirect to postit
