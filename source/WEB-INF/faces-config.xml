@@ -505,12 +505,6 @@
     </managed-bean>
 
     <managed-bean>
-        <managed-bean-name>forceJavascriptRedirect</managed-bean-name>
-        <managed-bean-class>com.dneero.session.ForceJavascriptRedirect</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
-    </managed-bean>
-
-    <managed-bean>
         <managed-bean-name>publicIndex</managed-bean-name>
         <managed-bean-class>com.dneero.formbeans.PublicIndex</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>

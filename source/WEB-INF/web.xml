@@ -25,7 +25,23 @@
         <param-value>client</param-value>
     </context-param>
 
+    <!--
+    <context-param>
+        <param-name>javax.faces.STATE_SAVING_METHOD</param-name>
+        <param-value>server</param-value>
+    </context-param>
 
+    <context-param>
+        <param-name>org.apache.myfaces.COMPRESS_STATE_IN_SESSION</param-name>
+        <param-value>false</param-value>
+    </context-param>
+
+    <context-param>
+        <param-name>org.apache.myfaces.SERIALIZE_STATE_IN_SESSION</param-name>
+        <param-value>false</param-value>
+     </context-param>
+
+     -->
 
     <!--
     <context-param>
@@ -56,23 +72,7 @@
 
 
 
-    <!--
-    <context-param>
-        <param-name>javax.faces.STATE_SAVING_METHOD</param-name>
-        <param-value>server</param-value>
-    </context-param>
 
-    <context-param>
-        <param-name>org.apache.myfaces.COMPRESS_STATE_IN_SESSION</param-name>
-        <param-value>false</param-value>
-    </context-param>
-
-    <context-param>
-        <param-name>org.apache.myfaces.SERIALIZE_STATE_IN_SESSION</param-name>
-        <param-value>false</param-value>
-     </context-param>
-
-     -->
 
     <context-param>
         <param-name>org.apache.myfaces.ALLOW_JAVASCRIPT</param-name>
@@ -202,6 +202,15 @@
     <filter-mapping>
         <filter-name>HibernateSessionCloser</filter-name>
         <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>FilterMain</filter-name>
+        <filter-class>com.dneero.htmlui.FilterMain</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>FilterMain</filter-name>
+        <url-pattern>/jsp/*</url-pattern>
     </filter-mapping>
 
 

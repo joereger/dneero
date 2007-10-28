@@ -4,24 +4,7 @@ import org.apache.log4j.Logger;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Calendar;
-
-import com.dneero.session.UrlSplitter;
-import com.dneero.session.PersistentLogin;
-import com.dneero.session.UserSession;
-import com.dneero.session.SurveysTakenToday;
-import com.dneero.util.Jsf;
-import com.dneero.util.Time;
-import com.dneero.systemprops.SystemProperty;
-import com.dneero.systemprops.BaseUrl;
-import com.dneero.facebook.FacebookAuthorization;
-import com.dneero.dao.User;
-import com.dneero.eula.EulaHelper;
-import com.dneero.xmpp.SendXMPPMessage;
-import com.dneero.formbeans.LoginAgreeNewEula;
 
 /**
  * User: Joe Reger Jr
@@ -51,8 +34,7 @@ public class HibernateSessionCloser implements Filter {
                 logger.debug("------");
                 logger.debug("-------------");
                 logger.debug("---------------------------START REQUEST: "+httpServletRequest.getRequestURL());
-
-                logger.debug("sessionid="+httpServletRequest.getSession().getId());
+                logger.debug("httpServletRequest.getSession().getId()="+httpServletRequest.getSession().getId());
             }
         }catch(Exception ex){logger.error("", ex);}
 

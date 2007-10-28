@@ -17,11 +17,6 @@
   <meta name="keywords" content="market research,survey,blog,web 2.0,startup,money,market intelligence" />
   <!-- main-facebook.xhtml -->
   <script type="text/javascript">
-    <c:if test="#{!empty forceJavascriptRedirect.urltoredirectto}">
-        alert("Using forceJavascriptRedirect.urltoredirectto to redirect to #{forceJavascriptRedirect.urltoredirectto}");
-        window.location.href="#{forceJavascriptRedirect.urltoredirectto}";
-    </c:if>
-    <c:if test="#{empty forceJavascriptRedirect.urltoredirectto}">
         <c:if test="#{userSession.isfacebookui}">
         var userSessionIsFacebookui = true;
         </c:if>
@@ -38,7 +33,6 @@
                 top.location.href="#{baseUrl.includinghttp}facebookenterui.jsf";
             }
         }
-    </c:if>
   </script>
   <script type="text/javascript" src="/js/niftycube/niftycube.js"></script>
   <script type="text/javascript">

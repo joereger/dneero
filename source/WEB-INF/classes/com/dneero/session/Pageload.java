@@ -64,14 +64,6 @@ public class Pageload extends UIComponentBase {
 
         //Facebook start
         FacebookAuthorization.doAuth();
-//        if (Jsf.getUserSession().getIsfacebookui()){
-//            //Force clear of persistent login cookie(s)
-//            //Persistent Logout
-//            try{
-//                logger.debug("clearing persistent login cookies because isfacebookui=true");
-//                Jsf.getHttpServletResponse().addCookie(PersistentLogin.createCookieToClearPersistentLogin(Jsf.getHttpServletRequest()));
-//            } catch (Exception ex){logger.error("error clearing persistent login cookies when facebookui=true",ex);}
-//        }
         //Facebook end
 
         logger.debug("before persistent login and isfacebookui="+Jsf.getUserSession().getIsfacebookui());

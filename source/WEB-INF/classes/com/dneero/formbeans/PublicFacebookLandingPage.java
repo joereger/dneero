@@ -8,10 +8,8 @@ import com.dneero.dao.User;
 import com.dneero.dao.Survey;
 import com.dneero.facebook.FacebookPendingReferrals;
 import com.dneero.survey.servlet.RecordImpression;
-import com.dneero.session.ForceJavascriptRedirect;
 
 import java.io.Serializable;
-import java.net.URLEncoder;
 
 import org.apache.log4j.Logger;
 
