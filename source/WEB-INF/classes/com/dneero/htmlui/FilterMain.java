@@ -134,6 +134,7 @@ public class FilterMain implements Filter {
                                             //Notify via XMPP
                                             SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_SALES, "dNeero User Auto-Login: "+ user.getFirstname() + " " + user.getLastname() + " ("+user.getEmail()+")");
                                             xmpp.send();
+                                            break;
                                             //Now dispatch request to the same page so that header is changed to reflect logged-in status
 //                                            if (wasAutoLoggedIn){
 //                                                try{
