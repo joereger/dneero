@@ -11,16 +11,6 @@ String acl = "sysadmin";
 
 
 
-
-<ui:composition template="/template/template-facelets.xhtml">
-    <ui:define name="title">Beta Invites<br/><br/></ui:define>
-    <ui:param name="navtab" value="sysadmin"/>
-    <ui:define name="body">
-    <d:authorization acl="systemadmin" redirectonfail="true"/>
-
-    <h:form>
-
-
         <h:panelGrid columns="3" cellpadding="3" border="0">
 
 
@@ -146,15 +136,10 @@ String acl = "sysadmin";
 
 
 
-    </h:form>
 
 
 
-</ui:define>
 
-
-</ui:composition>
-</html>
-
+<%@ include file="/jsp/templates/footer.jsp" %>
 
 

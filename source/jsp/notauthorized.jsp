@@ -10,7 +10,6 @@ String acl = "public";
 
 
             <h:outputText>You are not authorized to view that resource.</h:outputText>
-        </h:form>
-    </ui:define>
-</ui:composition>
-</html>
+
+
+<%@ include file="/jsp/templates/footer.jsp" %>

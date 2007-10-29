@@ -25,7 +25,6 @@ String acl = "public";
             <br/>Phone: 404.394.6102
             <br/>Email: info@dneero.com
 
-        </h:form>
-    </ui:define>
-</ui:composition>
-</html>
+
+
+<%@ include file="/jsp/templates/footer.jsp" %>

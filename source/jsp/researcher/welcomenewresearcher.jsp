@@ -10,13 +10,9 @@ String acl = "researcher";
 
 
 
-        <h:form>
             <font class="smallfont">Your researcher profile is created and ready to roll.  In the future you'll be able to skip this step.</font>
             <br/><br/>
             <h:commandLink value="Click Here to Continue" action="#{researcherIndex.beginView}" style="color: #0000ff;" styleClass="mediumfont"/>
-        </h:form>
-    </ui:define>
 
 
-</ui:composition>
-</html>
+<%@ include file="/jsp/templates/footer.jsp" %>

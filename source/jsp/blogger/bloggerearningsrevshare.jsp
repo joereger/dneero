@@ -131,43 +131,6 @@ String acl = "blogger";
 
 
 
-         <!--<d:roundedCornerBox uniqueboxname="percentchart" bodycolor="ffffff" widthinpixels="250">-->
-        <!--<h:form>-->
-<!---->
-            <!--<h:panelGrid columns="3" cellpadding="3" border="0">-->
-<!---->
-                <!--<h:panelGroup><h:outputText value=" "></h:outputText></h:panelGroup>-->
-                <!--<h:panelGroup><h:outputText value="Percent Share"></h:outputText></h:panelGroup>-->
-                <!--<h:panelGroup><h:outputText value="Sample: Earnings on $500"></h:outputText></h:panelGroup>-->
-<!---->
-                <!--<h:panelGroup><h:outputText value="1st Level"></h:outputText></h:panelGroup>-->
-                <!--<h:panelGroup><h:outputText value="#{bloggerEarningsRevshare.level1percent} %"></h:outputText></h:panelGroup>-->
-                <!--<h:panelGroup><h:outputText value="$ #{bloggerEarningsRevshare.level1amt}"></h:outputText></h:panelGroup>-->
-<!---->
-                <!--<h:panelGroup><h:outputText value="2nd Level"></h:outputText></h:panelGroup>-->
-                <!--<h:panelGroup><h:outputText value="#{bloggerEarningsRevshare.level2percent} %"></h:outputText></h:panelGroup>-->
-                <!--<h:panelGroup><h:outputText value="$ #{bloggerEarningsRevshare.level2amt}"></h:outputText></h:panelGroup>-->
-<!---->
-                <!--<h:panelGroup><h:outputText value="3rd Level"></h:outputText></h:panelGroup>-->
-                <!--<h:panelGroup><h:outputText value="#{bloggerEarningsRevshare.level3percent} %"></h:outputText></h:panelGroup>-->
-                <!--<h:panelGroup><h:outputText value="$ #{bloggerEarningsRevshare.level3amt}"></h:outputText></h:panelGroup>-->
-<!---->
-                <!--<h:panelGroup><h:outputText value="4th Level"></h:outputText></h:panelGroup>-->
-                <!--<h:panelGroup><h:outputText value="#{bloggerEarningsRevshare.level4percent} %"></h:outputText></h:panelGroup>-->
-                <!--<h:panelGroup><h:outputText value="$ #{bloggerEarningsRevshare.level4amt}"></h:outputText></h:panelGroup>-->
-<!---->
-                <!--<h:panelGroup><h:outputText value="5th Level"></h:outputText></h:panelGroup>-->
-                <!--<h:panelGroup><h:outputText value="#{bloggerEarningsRevshare.level5percent} %"></h:outputText></h:panelGroup>-->
-                <!--<h:panelGroup><h:outputText value="$ #{bloggerEarningsRevshare.level5amt}"></h:outputText></h:panelGroup>-->
-<!---->
-             <!--</h:panelGrid>-->
-<!---->
-         <!--</h:form>-->
-         <!--</d:roundedCornerBox>-->
-
-
-    </ui:define>
-</ui:composition>
-</html>
+<%@ include file="/jsp/templates/footer.jsp" %>
 
 

@@ -241,8 +241,4 @@ String acl = "public";
     <!-- End FAQ Question -->
 
 
-    </ui:define>
-
-
-</ui:composition>
-</html>
+<%@ include file="/jsp/templates/footer.jsp" %>

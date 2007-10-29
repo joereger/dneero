@@ -14,8 +14,5 @@ String acl = "sysadmin";
     <f:verbatim escape="false">#{sysadminSessions.sessionsashtml}</f:verbatim>
 
 
-    </ui:define>
 
-
-</ui:composition>
-</html>
+<%@ include file="/jsp/templates/footer.jsp" %>

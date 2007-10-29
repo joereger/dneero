@@ -9,7 +9,6 @@ String acl = "public";
 <%@ include file="/jsp/templates/header.jsp" %>
 
             <a href="#{publicFacebookenterui.url}">Please click here to continue.</a>
-        </h:form>
-    </ui:define>
-</ui:composition>
-</html>
+
+
+<%@ include file="/jsp/templates/footer.jsp" %>

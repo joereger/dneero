@@ -15,9 +15,6 @@ String acl = "public";
     userSession.isfacebookui=#{userSession.isfacebookui}
 
 
-</ui:define>
-</ui:composition>
 
 
-
-</html>
+<%@ include file="/jsp/templates/footer.jsp" %>

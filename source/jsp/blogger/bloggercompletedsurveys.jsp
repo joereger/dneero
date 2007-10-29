@@ -138,10 +138,5 @@ String acl = "blogger";
             </font></div></center>
         </c:if>
 
-    </h:form>
-
-    </ui:define>
-</ui:composition>
-</html>
-
+<%@ include file="/jsp/templates/footer.jsp" %>
 

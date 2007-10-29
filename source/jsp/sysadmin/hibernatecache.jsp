@@ -25,10 +25,7 @@ String acl = "sysadmin";
             <f:verbatim escape="false">#{sysadminHibernateCache.misccacheashtml}</f:verbatim>
         </t:panelTab>
     </t:panelTabbedPane>
-    </h:form>
-
-    </ui:define>
 
 
-</ui:composition>
-</html>
+
+<%@ include file="/jsp/templates/footer.jsp" %>

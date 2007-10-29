@@ -57,7 +57,6 @@ String acl = "public";
             <br/><br/><br/>
             <h:outputText value="#{publicEvil.socialbookmarklinks}" escape="false" styleClass="smallfont"/>
 
-        </h:form>
-    </ui:define>
-</ui:composition>
-</html>
+
+
+<%@ include file="/jsp/templates/footer.jsp" %>

@@ -210,10 +210,5 @@ String acl = "blogger";
     </table>
 
 
-</ui:define>
-
-
-</ui:composition>
-</html>
-
+<%@ include file="/jsp/templates/footer.jsp" %>
 

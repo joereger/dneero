@@ -17,10 +17,6 @@ String acl = "researcher";
     <br/><br/>
     <h:commandLink value="Nevermind, Don't Delete this Survey" action="#{researcherIndex.beginView}" styleClass="subnavfont"/>
 
-</h:form>
-
-</ui:define>
 
 
-</ui:composition>
-</html>
+<%@ include file="/jsp/templates/footer.jsp" %>

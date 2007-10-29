@@ -16,12 +16,8 @@ String acl = "public";
     #{publicResultsRespondentsProfile.dummy}
 
 
-</h:form>
-
-</ui:define>
 
 
-</ui:composition>
-</html>
+<%@ include file="/jsp/templates/footer.jsp" %>
 
 

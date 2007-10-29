@@ -246,10 +246,6 @@ String acl = "researcher";
     <f:verbatim><br/><br/></f:verbatim>
     <div class="surveyeditbuttonbox"><div class="surveyeditpreviousbutton"><h:commandButton action="#{researcherSurveyDetail04.previousStep}" value="Previous Step" styleClass="formsubmitbutton"/></div><div class="surveyeditnextbutton"><h:commandButton action="#{researcherSurveyDetail04.saveSurveyAsDraft}" value="Save and Continue Later" styleClass="formsubmitbutton" rendered="#{researcherSurveyDetail04.status eq 1}"/><h:commandButton action="#{researcherSurveyDetail04.saveSurvey}" value="Next Step" styleClass="formsubmitbutton"/></div></div>
 
-</h:form>
-
-</ui:define>
 
 
-</ui:composition>
-</html>
+<%@ include file="/jsp/templates/footer.jsp" %>

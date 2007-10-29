@@ -88,10 +88,6 @@ String acl = "researcher";
 
     <div class="surveyeditbuttonbox"><div class="surveyeditpreviousbutton"></div><div class="surveyeditnextbutton"><h:commandButton action="#{researcherSurveyDetail01.saveSurvey}" value="Next Step" styleClass="formsubmitbutton"></h:commandButton></div></div>
 
-</h:form>
-
-</ui:define>
 
 
-</ui:composition>
-</html>
+<%@ include file="/jsp/templates/footer.jsp" %>

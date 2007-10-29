@@ -70,10 +70,6 @@ String acl = "researcher";
         </f:facet>
     </t:dataScroller>
     
-</h:form>
-
-</ui:define>
 
 
-</ui:composition>
-</html>
+<%@ include file="/jsp/templates/footer.jsp" %>

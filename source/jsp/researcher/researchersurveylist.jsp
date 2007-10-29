@@ -84,13 +84,9 @@ String acl = "researcher";
         <br/><br/>
         <h:commandButton action="#{researcherSurveyDetail01.beginViewNewSurvey}" value="Create a New Survey" styleClass="formsubmitbutton"></h:commandButton>
 
-    </h:form>
-
-</ui:define>
 
 
-</ui:composition>
-</html>
 
+<%@ include file="/jsp/templates/footer.jsp" %>
 
 

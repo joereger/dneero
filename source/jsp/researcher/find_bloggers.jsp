@@ -288,12 +288,6 @@ String acl = "researcher";
     <h:commandButton action="#{researcherFindBloggers.resetSearch}" value="Reset Search" styleClass="formsubmitbutton" rendered="#{!empty researcherFindBloggers.listitems}"></h:commandButton>
         
 
-    </h:form>
 
-</ui:define>
-
-
-</ui:composition>
-</html>
-
+<%@ include file="/jsp/templates/footer.jsp" %>
 

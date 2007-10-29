@@ -81,10 +81,6 @@ String acl = "researcher";
 
     <!-- End Bottom -->
 
-</h:form>
-
-</ui:define>
 
 
-</ui:composition>
-</html>
+<%@ include file="/jsp/templates/footer.jsp" %>

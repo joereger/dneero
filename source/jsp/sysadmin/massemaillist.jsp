@@ -69,13 +69,9 @@ String acl = "sysadmin";
     <h:commandButton action="#{sysadminMassemailDetail.beginView}" value="New Mass Email" styleClass="formsubmitbutton"></h:commandButton>
 
 
-</h:form>
-
-</ui:define>
 
 
-</ui:composition>
-</html>
+<%@ include file="/jsp/templates/footer.jsp" %>
 
 
 

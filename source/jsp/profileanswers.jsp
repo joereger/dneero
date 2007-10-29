@@ -16,13 +16,9 @@ String acl = "public";
 
 
 
-<f:verbatim escape="false">#{publicProfileAnswers.resultsashtml}</f:verbatim>
+    <f:verbatim escape="false">#{publicProfileAnswers.resultsashtml}</f:verbatim>
 
     
-</h:form>
-
-</ui:define>
 
 
-</ui:composition>
-</html>
+<%@ include file="/jsp/templates/footer.jsp" %>

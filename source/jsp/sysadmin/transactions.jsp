@@ -77,14 +77,9 @@ String acl = "sysadmin";
                     <t:graphicImage url="/images/datascroller/play.png" border="0" />
                 </f:facet>
             </t:dataScroller>
-        </h:form>
 
 
-</ui:define>
-
-
-</ui:composition>
-</html>
+<%@ include file="/jsp/templates/footer.jsp" %>
 
 
 

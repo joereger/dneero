@@ -10,7 +10,6 @@ String acl = "public";
 
             <h:outputText>Email activation failed.</h:outputText>
             <h:commandLink action="emailactivationresend" value="Click here to re-send email activation message."></h:commandLink>
-        </h:form>
-    </ui:define>
-</ui:composition>
-</html>
+
+
+<%@ include file="/jsp/templates/footer.jsp" %>

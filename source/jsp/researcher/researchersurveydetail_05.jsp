@@ -180,10 +180,5 @@ String acl = "researcher";
     <div class="surveyeditbuttonbox"><div class="surveyeditpreviousbutton"><h:commandButton action="#{researcherSurveyDetail05.previousStep}" value="Previous Step" styleClass="formsubmitbutton"/></div><div class="surveyeditnextbutton"><h:commandButton action="#{researcherSurveyDetail05.saveSurveyAsDraft}" value="Save and Continue Later" styleClass="formsubmitbutton" rendered="#{researcherSurveyDetail05.status eq 1}"/><h:commandButton action="#{researcherSurveyDetail05.saveSurvey}" value="Next Step" styleClass="formsubmitbutton"/></div></div>
 
 
-</h:form>
 
-</ui:define>
-
-
-</ui:composition>
-</html>
+<%@ include file="/jsp/templates/footer.jsp" %>

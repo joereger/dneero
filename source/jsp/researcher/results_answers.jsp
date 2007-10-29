@@ -27,10 +27,6 @@ String acl = "researcher";
     <h:commandButton action="#{researcherResultsAnswersCsv.getCsv}" value="Download as CSV" styleClass="formsubmitbutton"></h:commandButton>
 
     
-</h:form>
-
-</ui:define>
 
 
-</ui:composition>
-</html>
+<%@ include file="/jsp/templates/footer.jsp" %>

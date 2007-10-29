@@ -10,7 +10,6 @@ String acl = "public";
 
 
             <h:outputText>Please check your email... we have sent a password reset link.</h:outputText>
-        </h:form>
-    </ui:define>
-</ui:composition>
-</html>
+
+
+<%@ include file="/jsp/templates/footer.jsp" %>

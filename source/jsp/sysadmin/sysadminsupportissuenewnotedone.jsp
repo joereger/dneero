@@ -17,12 +17,8 @@ String acl = "sysadmin";
             <f:param name="supportissueid" value="#{sysadminSupportIssueDetail.supportissueid}" />
         </h:commandLink>
 
-    </h:form>
-
-</ui:define>
 
 
-</ui:composition>
-</html>
+<%@ include file="/jsp/templates/footer.jsp" %>
 
 

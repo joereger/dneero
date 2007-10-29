@@ -152,8 +152,5 @@ String acl = "public";
 
     
 
-    </ui:define>
 
-
-</ui:composition>
-</html>
+<%@ include file="/jsp/templates/footer.jsp" %>

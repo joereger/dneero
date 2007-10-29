@@ -14,12 +14,5 @@ String acl = "account";
         <f:verbatim><br/><br/></f:verbatim>
         <h:commandLink action="#{accountSupportIssuesList.beginView}" value="Support Issues List"></h:commandLink>
 
-    </h:form>
-
-</ui:define>
-
-
-</ui:composition>
-</html>
-
+<%@ include file="/jsp/templates/footer.jsp" %>
 

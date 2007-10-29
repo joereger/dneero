@@ -67,10 +67,6 @@ String acl = "sysadmin";
                 </h:panelGroup>
             </h:panelGrid>
 
-         </h:form>
-
-    </ui:define>
 
 
-</ui:composition>
-</html>
+<%@ include file="/jsp/templates/footer.jsp" %>

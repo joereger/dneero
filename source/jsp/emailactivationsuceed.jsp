@@ -11,7 +11,6 @@ String acl = "public";
             <h:outputText>Email activation was successful!  Your account is ready to roll!  You can now log in with the email address and password that you provided when you signed up.</h:outputText>
             <br/><br/>
             <h:commandButton action="#{login.beginView}" value="Please Log In" styleClass="formsubmitbutton" rendered="#{!userSession.isloggedin}"/>
-        </h:form>
-    </ui:define>
-</ui:composition>
-</html>
+
+
+<%@ include file="/jsp/templates/footer.jsp" %>

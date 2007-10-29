@@ -47,10 +47,6 @@ String acl = "sysadmin";
             <f:verbatim><br/></f:verbatim>
             <h:outputText value="#{rateBlogPost.iframestr}" escape="false"></h:outputText>
 
-         </h:form>
-
-    </ui:define>
 
 
-</ui:composition>
-</html>
+<%@ include file="/jsp/templates/footer.jsp" %>

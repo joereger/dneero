@@ -11,7 +11,6 @@ String acl = "public";
             <center>
             <h:inputTextarea value="#{publicEula.eula}" id="eula" cols="80" rows="15" required="true"></h:inputTextarea>
             </center>
-        </h:form>
-    </ui:define>
-</ui:composition>
-</html>
+
+
+<%@ include file="/jsp/templates/footer.jsp" %>

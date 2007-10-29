@@ -301,11 +301,7 @@ String acl = "sysadmin";
 
 
 
-</ui:define>
 
-
-</ui:composition>
-</html>
-
+<%@ include file="/jsp/templates/footer.jsp" %>
 
 
