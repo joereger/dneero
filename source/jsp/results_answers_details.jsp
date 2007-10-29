@@ -1,23 +1,15 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:t="http://myfaces.apache.org/tomahawk"
-      xmlns:d="http://dneero.com/taglib"
-
-      >
-
-<ui:composition template="/template/template-facelets.xhtml">
-    <ui:define name="title">#{publicResultsAnswersDetails.survey.title}<br/></ui:define>
-    <ui:param name="navtab" value="home"/>
-    <ui:define name="body">
-    <d:authorization acl="public" redirectonfail="false"/>
+<%@ page import="org.apache.log4j.Logger" %>
+<%@ page import="com.dneero.htmlui.Pagez" %>
+<%
+Logger logger = Logger.getLogger(this.getClass().getName());
+String pagetitle = "#{publicResultsAnswersDetails.survey.title}";
+String navtab = "home";
+String acl = "public";
+%>
+<%@ include file="/jsp/templates/header.jsp" %>
 
 
-<h:form>
+
     <h:messages styleClass="RED"/>
 
     <font class="smallfont">#{publicResultsAnswersDetails.survey.description}</font>

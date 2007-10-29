@@ -1,20 +1,14 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<%@ page import="org.apache.log4j.Logger" %>
+<%@ page import="com.dneero.htmlui.Pagez" %>
+<%
+Logger logger = Logger.getLogger(this.getClass().getName());
+String pagetitle = "Edit EULA";
+String navtab = "sysadmin";
+String acl = "sysadmin";
+%>
+<%@ include file="/jsp/templates/header.jsp" %>
 
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:t="http://myfaces.apache.org/tomahawk"
-      xmlns:d="http://dneero.com/taglib"
 
-      >
-
-<ui:composition template="/template/template-facelets.xhtml">
-    <ui:define name="title">Edit End User License Agreement<br/><br/></ui:define>
-    <ui:param name="navtab" value="sysadmin"/>
-    <ui:define name="body">
-        <d:authorization acl="systemadmin" redirectonfail="true"/>
 
         <font class="mediumfont">Be careful here... every edit... even the slightest one... causes every user to have to read and accept the new EULA the next time they log in.</font>
         <br/><br/>

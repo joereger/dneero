@@ -1,12 +1,15 @@
 <%@ page import="org.apache.log4j.Logger" %>
-<%@ page import="com.dneero.htmluibeans.AccountIndex" %>
 <%@ page import="com.dneero.htmlui.Pagez" %>
+<%@ page import="com.dneero.htmluibeans.AccountIndex" %>
 <%
-    Logger logger=Logger.getLogger(this.getClass().getName());
-    String pagetitle="Your Account";
-    String navtab="youraccount";
+Logger logger = Logger.getLogger(this.getClass().getName());
+String pagetitle = "Your Account";
+String navtab = "youraccount";
+String acl = "account";
 %>
 <%@ include file="/jsp/templates/header.jsp" %>
+
+
 
        <%if (((AccountIndex)Pagez.getBeanMgr().get("AccountIndex")).getIsfirsttimelogin()){%>
             <div class="rounded" style="padding: 15px; margin: 5px; background: #F2FFBF;">
@@ -16,7 +19,7 @@
             </div>
        <%}%>
 
-       <%if (!((AccountIndex)Pagez.getBeanMgr().get("AccountIndex")).getMsg().equals("")){%>
+       <%if (!((AccountIndex) Pagez.getBeanMgr().get("AccountIndex")).getMsg().equals("")) {%>
             <div class="rounded" style="padding: 15px; margin: 5px; background: #F2FFBF;">
                 <font class="mediumfont"><%=((AccountIndex)Pagez.getBeanMgr().get("AccountIndex")).getMsg()%></font>
             </div>
@@ -34,7 +37,7 @@
                     <div class="rounded" style="padding: 5px; margin: 5px; background: #e6e6e6;">
                         <div class="rounded" style="padding: 15px; margin: 5px; background: #ffffff;">
                             <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-                                <a href="/jsp/account/accountbalance.jsp"><font class="mediumfont" style="style="color: #596697;">Account Balance</font></a>
+                                <a href="/jsp/account/accountbalance.jsp"><font class="mediumfont" style="color: #596697;">Account Balance</font></a>
                             </td></tr>
                             <tr><td valign="top"></td><td valign="top">
                                 <font class="smallfont">See the earnings and charges made to your account.  View financial transactions including failed attempts to charge credit cards or pay you.</font>

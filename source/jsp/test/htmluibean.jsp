@@ -3,9 +3,10 @@
 <%@ page import="org.apache.log4j.Logger" %>
 <%@ page import="com.dneero.htmlui.Pagez" %>
 <%
-    Logger logger=Logger.getLogger(this.getClass().getName());
-    String pagetitle="HtmlUiBean";
-    String navtab="home";
+Logger logger = Logger.getLogger(this.getClass().getName());
+String pagetitle = "HtmlUiBean";
+String navtab = "home";
+String acl = "public";
 %>
 <%@ include file="/jsp/templates/header.jsp" %>
 

@@ -1,3 +1,15 @@
+<%@ page import="org.apache.log4j.Logger" %>
+<%@ page import="com.dneero.htmlui.Pagez" %>
+<%
+Logger logger = Logger.getLogger(this.getClass().getName());
+String pagetitle = "<img src=\"/images/process-train-survey-02.gif\" align=\"right\" width=\"350\" height=\"73\" alt=\"\"></img>\n" +
+"        <h:outputText value=\"${researcherSurveyDetail02.title}\" styleClass=\"pagetitlefont\" rendered=\"${researcherSurveyDetail02.title ne ''}\"/>\n" +
+"        <br clear=\"all\"/>";
+String navtab = "researchers";
+String acl = "researcher";
+%>
+<%@ include file="/jsp/templates/header.jsp" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 

@@ -1,27 +1,14 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:t="http://myfaces.apache.org/tomahawk"
-      xmlns:d="http://dneero.com/taglib"
-
-      >
-
-<ui:composition template="/template/template-facelets.xhtml">
-    <ui:define name="title">Old Surveys<br/><br/></ui:define>
-    <ui:param name="navtab" value="home"/>
-    <ui:define name="body">
-    <d:authorization acl="public" redirectonfail="true"/>
+<%@ page import="org.apache.log4j.Logger" %>
+<%@ page import="com.dneero.htmlui.Pagez" %>
+<%
+Logger logger = Logger.getLogger(this.getClass().getName());
+String pagetitle = "Old Surveys";
+String navtab = "home";
+String acl = "public";
+%>
+<%@ include file="/jsp/templates/header.jsp" %>
 
 
-
-<h:form>
-
-
-    <t:saveState id="save" value="#{publicOldSurveyList}"/>
     <h:outputText value="There are currently no surveys listed." styleClass="mediumfont" rendered="#{empty publicOldSurveyList.surveys}"/>
 
     <t:dataTable sortable="true" id="datatable" value="#{publicOldSurveyList.surveys}" rows="15" var="srvy" rendered="#{!empty publicOldSurveyList.surveys}" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcol,tcolnowrap,tcol,tcolnowrap,tcolnowrap">

@@ -19,61 +19,38 @@ import com.dneero.dao.User;
  * Date: Jun 23, 2006
  * Time: 1:06:30 PM
  */
-public class Authorization extends UIComponentBase {
+public class Authorization {
 
-    Logger logger = Logger.getLogger(this.getClass().getName());
 
-    public String getFamily(){
-        return "dNeeroAuth";
-    }
-
-    public void encodeBegin(FacesContext context) throws IOException {
-        logger.debug("encodeBegin called");
-
-        String acl = (String)getAttributes().get("acl");
-        if (acl==null){
-            acl = "";
-        }
-
-        String redirectonfail = (String)getAttributes().get("redirectonfail");
-        if (redirectonfail==null){
-            redirectonfail = "true";
-        }
+    public static boolean check(String acl) {
+        Logger logger = Logger.getLogger(Authorization.class);
+        logger.debug("check() called");
 
         //Acl authorization
-        if (!isAuthorized(context, acl)){
-            if (redirectonfail.equals("true")){
-                com.dneero.session.UserSession userSession = Jsf.getUserSession();
-                if (userSession!=null && userSession.getUser()!=null && userSession.getIsloggedin()){
-                    Jsf.redirectResponse("/notauthorized.jsf");
-                    return;
-                } else {
-                    Jsf.redirectResponse("/login.jsf");
-                    return;
-                }
+        if (!isAuthorized(acl)){
+            com.dneero.session.UserSession userSession = Jsf.getUserSession();
+            if (userSession!=null && userSession.getUser()!=null && userSession.getIsloggedin()){
+                try{Pagez.getResponse().sendRedirect("/jsp/notauthorized.jsp");}catch(Exception ex){logger.error("",ex);}
+                return false;
             } else {
-                setRendered(false);
-                List children = getChildren();
-                for (Iterator it = children.iterator(); it.hasNext(); ) {
-                    UIComponent child = (UIComponent)it.next();
-                    child.setRendered(false);
-                }
+                try{Pagez.getResponse().sendRedirect("/jsp/login.jsp");}catch(Exception ex){logger.error("",ex);}
+                return false;
             }
         }
+
+        return true;
     }
 
-    private boolean isAuthorized(FacesContext context, String acl)  throws IOException {
-
-        UserSession userSession = Jsf.getUserSession();
-
+    private static boolean isAuthorized(String acl) {
+        Logger logger = Logger.getLogger(Authorization.class);
+        
         if (acl!=null && acl.equals("public")){
             return true;
         }
 
-        if (userSession.getUser()!=null){
-
+        if (Pagez.getUserSession().getUser()!=null){
             if (acl!=null && acl.equals("blogger")){
-                for (Iterator<Userrole> iterator = userSession.getUser().getUserroles().iterator(); iterator.hasNext();) {
+                for (Iterator<Userrole> iterator = Pagez.getUserSession().getUser().getUserroles().iterator(); iterator.hasNext();) {
                     Userrole userrole = iterator.next();
                     if (userrole.getRoleid()== Userrole.BLOGGER){
                         logger.debug("Blogger authorized.");
@@ -84,7 +61,7 @@ public class Authorization extends UIComponentBase {
             }
 
             if (acl!=null && acl.equals("researcher")){
-                for (Iterator<Userrole> iterator = userSession.getUser().getUserroles().iterator(); iterator.hasNext();) {
+                for (Iterator<Userrole> iterator = Pagez.getUserSession().getUser().getUserroles().iterator(); iterator.hasNext();) {
                     Userrole userrole = iterator.next();
                     if (userrole.getRoleid()== Userrole.RESEARCHER){
                         logger.debug("Researcher authorized.");
@@ -94,8 +71,8 @@ public class Authorization extends UIComponentBase {
                 return false;
             }
 
-            if (acl!=null && acl.equals("systemadmin")){
-                return isUserSysadmin(userSession.getUser());
+            if (acl!=null && acl.equals("sysadmin")){
+                return isUserSysadmin(Pagez.getUserSession().getUser());
             }
 
             if (acl!=null && acl.equals("account")){

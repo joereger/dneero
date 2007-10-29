@@ -1,21 +1,13 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<%@ page import="org.apache.log4j.Logger" %>
+<%@ page import="com.dneero.htmlui.Pagez" %>
+<%
+Logger logger = Logger.getLogger(this.getClass().getName());
+String pagetitle = "oh, btw, we're evil.";
+String navtab = "home";
+String acl = "public";
+%>
+<%@ include file="/jsp/templates/header.jsp" %>
 
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:t="http://myfaces.apache.org/tomahawk"
-      xmlns:d="http://dneero.com/taglib"
-
-      >
-
-<ui:composition template="/template/template-facelets.xhtml">
-    <ui:define name="title">oh, btw, we're evil.<br/><br/></ui:define>
-    <ui:param name="navtab" value="home"/>
-    <ui:define name="body">
-    <d:authorization acl="public" redirectonfail="true"/>
-        <h:form>
 
             <font class="mediumfont" style="color: #0bae17;"><b>We're Evil</b></font>
             <br/>That's right.  We're a commercial entity and any time we play with the blogosphere we should be viewed as evil. We certainly don't view ourselves as evil and we vow, like many other companies, to not do evil.  But you shouldn't trust us.
