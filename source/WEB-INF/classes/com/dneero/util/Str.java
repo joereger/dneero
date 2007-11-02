@@ -182,4 +182,14 @@ public class Str {
         }
     }
 
+    public static String capitalizeFirstLetter(String in){
+        if (in!=null && in.length()>=1){
+            String firstletter = in.substring(0, 1);
+            String firstletterCap = firstletter.toUpperCase();
+            String inCap = firstletterCap + in.substring(1, in.length());
+            return inCap;
+        }
+        return "";
+    }
+
 }

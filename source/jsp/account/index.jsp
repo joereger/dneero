@@ -25,7 +25,7 @@ String acl = "account";
             </div>
        <%}%>
 
-       <%if (Pagez.getRequest().getParameter("msg").equals("autologin")){%>
+       <%if (Pagez.getRequest().getParameter("msg")!=null && Pagez.getRequest().getParameter("msg").equals("autologin")){%>
             <div class="rounded" style="padding: 15px; margin: 5px; background: #F2FFBF;">
                 <font class="mediumfont">Your previous session timed out so you've been logged-in automatically!</font>
             </div>

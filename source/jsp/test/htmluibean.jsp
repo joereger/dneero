@@ -10,9 +10,16 @@ String acl = "public";
 %>
 <%@ include file="/jsp/templates/header.jsp" %>
 
+<%
+if (request.getParameter("action")!=null && request.getParameter("action").equals("save")){
+
+}
+%>
+
 <form action="" method="get">
+    <input type="hidden" name="action" value="save">
     <%=Textbox.getHtml("test", "Test.test", 255, 35, "", "font-size: 14px; background: #ffcc00;")%>
-<input type="submit">
+<input type="submit" value="go">
 </form>
 <br/><br/>
 hasbeeninitialized=<%=((Test) Pagez.getBeanMgr().get("Test")).getHasbeeninitialized()%>
