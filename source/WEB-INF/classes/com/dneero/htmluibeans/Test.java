@@ -4,6 +4,9 @@ import com.dneero.htmlui.HtmlUiBean;
 
 import org.apache.log4j.Logger;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 /**
  * User: Joe Reger Jr
  * Date: Oct 28, 2007
@@ -11,7 +14,10 @@ import org.apache.log4j.Logger;
  */
 public class Test implements HtmlUiBean {
 
-    private String test;
+    private String textbox;
+    private String textarea;
+    private String dropdown;
+    private ArrayList<String> checkboxesvalues;
     private boolean hasbeeninitialized = false;
 
     public Test(){
@@ -23,16 +29,42 @@ public class Test implements HtmlUiBean {
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("initBean() called");
         hasbeeninitialized = true;
-        test = "booyah";
+        textbox = "booyah";
+        dropdown = "b";
+        checkboxesvalues = new ArrayList<String>();
+        checkboxesvalues.add("bradley");
+        checkboxesvalues.add("charcoal");
+        textarea="megawoowoo";
+    }
+
+    public void save(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
+        logger.debug("Saving...");
+        logger.debug("textbox="+textbox);
+        logger.debug("textarea="+textarea);
+        logger.debug("dropdown="+dropdown);
+        for (Iterator<String> iterator = checkboxesvalues.iterator(); iterator.hasNext();) {
+            String s = iterator.next();
+            logger.debug("checkboxesvalues: "+s);
+        }
+        logger.debug("Done saving.");
     }
 
 
-    public String getTest() {
-        return test;
+    public String getTextbox() {
+        return textbox;
     }
 
-    public void setTest(String test) {
-        this.test=test;
+    public void setTextbox(String textbox) {
+        this.textbox = textbox;
+    }
+
+    public String getDropdown() {
+        return dropdown;
+    }
+
+    public void setDropdown(String dropdown) {
+        this.dropdown = dropdown;
     }
 
     public boolean getHasbeeninitialized() {
@@ -41,5 +73,21 @@ public class Test implements HtmlUiBean {
 
     public void setHasbeeninitialized(boolean hasbeeninitialized) {
         this.hasbeeninitialized=hasbeeninitialized;
+    }
+
+    public ArrayList<String> getCheckboxesvalues() {
+        return checkboxesvalues;
+    }
+
+    public void setCheckboxesvalues(ArrayList<String> checkboxesvalues) {
+        this.checkboxesvalues = checkboxesvalues;
+    }
+
+    public String getTextarea() {
+        return textarea;
+    }
+
+    public void setTextarea(String textarea) {
+        this.textarea = textarea;
     }
 }
