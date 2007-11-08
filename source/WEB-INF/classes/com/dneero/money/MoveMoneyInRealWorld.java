@@ -6,6 +6,8 @@ import com.dneero.dao.Balancetransaction;
 import com.dneero.threadpool.ThreadPool;
 import com.dneero.xmpp.SendXMPPMessage;
 import com.dneero.email.EmailSend;
+import com.dneero.email.EmailTemplateProcessor;
+import com.dneero.util.Time;
 
 import java.util.Date;
 
@@ -99,21 +101,30 @@ public class MoveMoneyInRealWorld implements Runnable {
 
             //Only affect the account balance if the real-world transaction was successful
             if (pm.getIssuccessful()){
-                //Notify via XMPP
-                SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_CUSTOMERSUPPORT, "Successful Move Money in Real World: amttogiveuser=$"+amttogiveuser+" to/from "+ user.getFirstname() + " " + user.getLastname() + " ("+user.getEmail()+")");
-                xmpp.send();
                 Balance balance = new Balance();
                 balance.setAmt((-1)*amttogiveuser);
                 balance.setDate(new Date());
                 balance.setDescription(desc);
-                CurrentBalanceCalculator cbc = new CurrentBalanceCalculator(user);
-                balance.setCurrentbalance(cbc.getCurrentbalance() - amttogiveuser);
-                balance.setUserid(user.getUserid());
-                try{balance.save();}catch (Exception ex){
-                    SendXMPPMessage xmpp2 = new SendXMPPMessage(SendXMPPMessage.GROUP_SYSADMINS, "WRITE TO DATABASE FAILED!!! Successful Move Money in Real World: amttogiveuser=$"+amttogiveuser+" to/from userid="+user.getUserid()+" "+ user.getFirstname() + " " + user.getLastname() + " ("+user.getEmail()+")");
-                    xmpp2.send();
-                    //@todo send failed money transaction database write to sysadmin or accountant
-                    logger.error("",ex);
+                CurrentBalanceCalculator cbc;
+                try{
+                    cbc = new CurrentBalanceCalculator(user);
+                    balance.setCurrentbalance(cbc.getCurrentbalance() - amttogiveuser);
+                    balance.setUserid(user.getUserid());
+                    try{balance.save();}catch (Exception ex){
+                        SendXMPPMessage xmpp2 = new SendXMPPMessage(SendXMPPMessage.GROUP_SYSADMINS, "WRITE TO DATABASE FAILED!!! Successful Move Money in Real World: amttogiveuser=$"+amttogiveuser+" to/from userid="+user.getUserid()+" "+ user.getFirstname() + " " + user.getLastname() + " ("+user.getEmail()+")");
+                        xmpp2.send();
+                        EmailTemplateProcessor.sendGenericEmail("joe@joereger.com", "dNeero balance write failed", "Successful Move Money in Real World: amttogiveuser=$"+amttogiveuser+" to/from userid="+user.getUserid()+" "+ user.getFirstname() + " " + user.getLastname() + " ("+user.getEmail()+")");
+                        //@todo send failed money transaction database write to sysadmin or accountant
+                        logger.error("",ex);
+                    }
+                    //Notify via XMPP
+                    SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_CUSTOMERSUPPORT, "Successful Move Money in Real World: amttogiveuser=$"+amttogiveuser+" to/from "+ user.getFirstname() + " " + user.getLastname() + " ("+user.getEmail()+")");
+                    xmpp.send();
+                } catch (Exception ex){
+                    logger.error(ex);
+                    //Notify via XMPP
+                    SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_CUSTOMERSUPPORT, "Failed Move Money in Real World: amttogiveuser=$"+amttogiveuser+" to/from "+ user.getFirstname() + " " + user.getLastname() + " ("+user.getEmail()+") Notes: "+pm.getNotes());
+                    xmpp.send();
                 }
             } else {
                 //Notify via XMPP
@@ -144,7 +155,10 @@ public class MoveMoneyInRealWorld implements Runnable {
             } else {
                 balancetransaction.setTransactionid("");
             }
-            try{balancetransaction.save();}catch (Exception ex){logger.error("",ex);}
+            try{balancetransaction.save();}catch (Exception ex){
+                EmailTemplateProcessor.sendGenericEmail("joe@joereger.com", "dNeero balancetransaction write failed", "amttogiveuser="+amttogiveuser+" date="+ Time.dateformatcompactwithtime(Time.nowInUserTimezone("EST"))+" error="+ex.getMessage());
+                logger.error("",ex);
+            }
 
             //Now charge the remainder
             if (amtremainder!=0){

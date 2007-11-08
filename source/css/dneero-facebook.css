@@ -278,3 +278,15 @@ input, textarea, select{
 	  }
  /* End Css Tabs */
 
+.gridheader{
+   font-family:'trebuchet ms',helvetica,sans-serif;
+   font-weight:bold;
+   font-size: 12px;
+   background: #e6e6e6;
+}
+
+.gridcontent{
+   font-family:'trebuchet ms',helvetica,sans-serif;
+   font-weight:normal;
+   font-size: 12px;
+}

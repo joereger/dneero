@@ -1,11 +1,13 @@
 package com.dneero.htmluibeans;
 
 import com.dneero.htmlui.HtmlUiBean;
+import com.dneero.util.Time;
 
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Calendar;
 
 /**
  * User: Joe Reger Jr
@@ -17,8 +19,11 @@ public class Test implements HtmlUiBean {
     private String textbox;
     private String textarea;
     private String dropdown;
+    private ArrayList<String> dropdownmultiselect;
     private ArrayList<String> checkboxesvalues;
-    private boolean hasbeeninitialized = false;
+    private boolean booleantest= false;
+    private Calendar cal;
+    private Calendar cal2;
 
     public Test(){
         Logger logger = Logger.getLogger(this.getClass().getName());
@@ -28,13 +33,18 @@ public class Test implements HtmlUiBean {
     public void initBean() {
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("initBean() called");
-        hasbeeninitialized = true;
+        booleantest= true;
         textbox = "booyah";
         dropdown = "b";
         checkboxesvalues = new ArrayList<String>();
         checkboxesvalues.add("bradley");
         checkboxesvalues.add("charcoal");
+        dropdownmultiselect = new ArrayList<String>();
+        dropdownmultiselect.add("donkey");
+        dropdownmultiselect.add("snake");
         textarea="megawoowoo";
+        cal = Calendar.getInstance();
+        cal2 = Calendar.getInstance();
     }
 
     public void save(){
@@ -47,6 +57,17 @@ public class Test implements HtmlUiBean {
             String s = iterator.next();
             logger.debug("checkboxesvalues: "+s);
         }
+        for (Iterator<String> iterator = dropdownmultiselect.iterator(); iterator.hasNext();) {
+            String s = iterator.next();
+            logger.debug("dropdownmultiselect: "+s);
+        }
+        if (booleantest){
+            logger.debug("booleantest is true");
+        } else {
+            logger.debug("booleantest is false");        
+        }
+        logger.debug("cal="+ Time.dateformatfordb(cal));
+        logger.debug("cal2="+ Time.dateformatfordb(cal2));
         logger.debug("Done saving.");
     }
 
@@ -67,12 +88,12 @@ public class Test implements HtmlUiBean {
         this.dropdown = dropdown;
     }
 
-    public boolean getHasbeeninitialized() {
-        return hasbeeninitialized;
+    public boolean getBooleantest() {
+        return booleantest;
     }
 
-    public void setHasbeeninitialized(boolean hasbeeninitialized) {
-        this.hasbeeninitialized=hasbeeninitialized;
+    public void setBooleantest(boolean booleantest) {
+        this.booleantest=booleantest;
     }
 
     public ArrayList<String> getCheckboxesvalues() {
@@ -89,5 +110,29 @@ public class Test implements HtmlUiBean {
 
     public void setTextarea(String textarea) {
         this.textarea = textarea;
+    }
+
+    public ArrayList<String> getDropdownmultiselect() {
+        return dropdownmultiselect;
+    }
+
+    public void setDropdownmultiselect(ArrayList<String> dropdownmultiselect) {
+        this.dropdownmultiselect=dropdownmultiselect;
+    }
+
+    public Calendar getCal() {
+        return cal;
+    }
+
+    public void setCal(Calendar cal) {
+        this.cal=cal;
+    }
+
+    public Calendar getCal2() {
+        return cal2;
+    }
+
+    public void setCal2(Calendar cal2) {
+        this.cal2=cal2;
     }
 }

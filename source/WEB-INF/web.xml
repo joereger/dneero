@@ -3,6 +3,7 @@
 
     <description>web.xml</description>
 
+
     <context-param>
         <param-name>org.jboss.jbossfaces.WAR_BUNDLES_JSF_IMPL</param-name>
         <param-value>true</param-value>
@@ -318,5 +319,7 @@
     </welcome-file-list>
 
     <distributable/>
+
+
 
 </web-app>

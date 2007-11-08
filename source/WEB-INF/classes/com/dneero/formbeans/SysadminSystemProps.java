@@ -23,6 +23,7 @@ public class SysadminSystemProps implements Serializable {
     public String paypalapipassword;
     public String paypalsignature;
     public String paypalenvironment;
+    public String paypalenabled;
     public String issslon;
     public String isbeta;
     public String facebook_app_name;
@@ -47,6 +48,7 @@ public class SysadminSystemProps implements Serializable {
         paypalapipassword = SystemProperty.getProp(SystemProperty.PROP_PAYPALAPIPASSWORD);
         paypalsignature = SystemProperty.getProp(SystemProperty.PROP_PAYPALSIGNATURE);
         paypalenvironment = SystemProperty.getProp(SystemProperty.PROP_PAYPALENVIRONMENT);
+        paypalenabled = SystemProperty.getProp(SystemProperty.PROP_PAYPALENABLED);
         issslon = SystemProperty.getProp(SystemProperty.PROP_ISSSLON);
         isbeta = SystemProperty.getProp(SystemProperty.PROP_ISBETA);
         facebook_app_name = SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_APP_NAME);
@@ -65,6 +67,7 @@ public class SysadminSystemProps implements Serializable {
             SystemProperty.setProp(SystemProperty.PROP_PAYPALAPIPASSWORD, paypalapipassword);
             SystemProperty.setProp(SystemProperty.PROP_PAYPALSIGNATURE, paypalsignature);
             SystemProperty.setProp(SystemProperty.PROP_PAYPALENVIRONMENT, paypalenvironment);
+            SystemProperty.setProp(SystemProperty.PROP_PAYPALENABLED, paypalenabled);
             SystemProperty.setProp(SystemProperty.PROP_ISSSLON, issslon);
             SystemProperty.setProp(SystemProperty.PROP_ISBETA, isbeta);
             SystemProperty.setProp(SystemProperty.PROP_FACEBOOK_APP_NAME, facebook_app_name);
@@ -145,6 +148,14 @@ public class SysadminSystemProps implements Serializable {
 
     public void setPaypalenvironment(String paypalenvironment) {
         this.paypalenvironment = paypalenvironment;
+    }
+
+    public String getPaypalenabled() {
+        return paypalenabled;
+    }
+
+    public void setPaypalenabled(String paypalenabled) {
+        this.paypalenabled = paypalenabled;
     }
 
     public String getIssslon() {

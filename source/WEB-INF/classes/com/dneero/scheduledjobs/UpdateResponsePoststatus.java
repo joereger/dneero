@@ -83,15 +83,10 @@ public class UpdateResponsePoststatus implements Job {
             //If the time period for evaluating impressions has passed, set that status too
             Calendar responseDateAsCal = Time.getCalFromDate(response.getResponsedate());
             int daysold = DateDiff.dateDiff("day", Calendar.getInstance(), responseDateAsCal);
-            if (daysold>MAXPOSTINGPERIODINDAYS){
-                response.setPoststatus(Response.POSTATUS_NOTPOSTEDTIMELIMITPASSED);
-                logger.debug("marking as POSTATUS_NOTPOSTEDTIMELIMITPASSED");
-                try{response.save();}catch(Exception ex){logger.error("",ex);}
-            } else {
-                logger.debug("not marking too late because daysold("+daysold+")<=MAXPOSTINGPERIODINDAYS("+MAXPOSTINGPERIODINDAYS+")");
+            boolean toolate = false;
+            if (daysold>MAXPOSTINGPERIODINDAYS ){
+                toolate = true;
             }
-
-            logger.debug("response.getPoststatus()="+response.getPoststatus());
 
             //Create response payment status html and store it in the db
             StringBuffer statusHtml = new StringBuffer();
@@ -123,14 +118,14 @@ public class UpdateResponsePoststatus implements Job {
                     }
                 }
                 //Override color and set to grey when posting limit has passed
-                if ((response.getPoststatus()==Response.POSTATUS_NOTPOSTEDTIMELIMITPASSED)){
+                if (toolate && !response.getIspaid()){
                     boxColor = "#cccccc";
                 }
                 statusHtml.append("\t\t<td width=\"10\" bgcolor=\""+boxColor+"\" class=\"surveystatusbar\"><img src=\"/images/clear.gif\" width=\"1\" height=\"15\" border=\"0\"></td>\n");
             }
             statusHtml.append("\t\t<td width=\"10\" rowspan=\"2\" nowrap>");
             statusHtml.append("<center>");
-            if (response.getPoststatus()==Response.POSTATUS_NOTPOSTEDTIMELIMITPASSED){
+            if (toolate && !response.getIspaid()){
                 statusHtml.append("<img src=\"/images/delete-alt-16.png\" width=\"16\" height=\"16\" border=\"0\">");
                 statusHtml.append("<br/>");
                 statusHtml.append("<font class=\"smallfont\" style=\"color: #999999; font-weight: bold;\">Too Late</font>");
@@ -164,11 +159,17 @@ public class UpdateResponsePoststatus implements Job {
                  
             //Store it in the database for the response
             try{
-                if (daysthatqualify>=1 && response.getPoststatus()!=Response.POSTATUS_NOTPOSTEDTIMELIMITPASSED){
+                if (daysthatqualify>=1){
                     response.setPoststatus(Response.POSTATUS_POSTEDATLEASTONCE);
-                    if (daysthatqualify>=DAYSWITHIMPRESSIONREQUIREDINSIDEPOSTINGPERIOD){
-                        response.setPoststatus(Response.POSTATUS_POSTED);
-                    }
+                }
+                if (daysthatqualify>=DAYSWITHIMPRESSIONREQUIREDINSIDEPOSTINGPERIOD){
+                    response.setPoststatus(Response.POSTATUS_POSTED);
+                }
+                if (toolate && daysthatqualify<DAYSWITHIMPRESSIONREQUIREDINSIDEPOSTINGPERIOD){
+                    response.setPoststatus(Response.POSTATUS_NOTPOSTEDTIMELIMITPASSED);
+                }
+                if (response.getIspaid()){
+                    response.setPoststatus(Response.POSTATUS_POSTED);
                 }
                 response.setResponsestatushtml(statusHtml.toString());
                 response.save();

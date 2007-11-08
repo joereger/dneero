@@ -31,11 +31,13 @@ public class SystemProperty {
     public static String PROP_PAYPALAPIPASSWORD = "PROP_PAYPALAPIPASSWORD";
     public static String PROP_PAYPALSIGNATURE = "PROP_PAYPALSIGNATURE";
     public static String PROP_PAYPALENVIRONMENT = "PROP_PAYPALENVIRONMENT";
+    public static String PROP_PAYPALENABLED = "PROP_PAYPALENABLED";
     public static String PROP_ISSSLON = "PROP_ISSSLON";
     public static String PROP_ISBETA = "PROP_ISBETA";
     public static String PROP_FACEBOOK_APP_NAME = "PROP_FACEBOOK_APP_NAME";
     public static String PROP_FACEBOOK_API_KEY = "PROP_FACEBOOK_API_KEY";
     public static String PROP_FACEBOOK_API_SECRET = "PROP_FACEBOOK_API_SECRET";
+
 
     private static void loadAllPropsAndDefaultValues(){
         if (props==null){
@@ -49,6 +51,7 @@ public class SystemProperty {
         props.put(PROP_PAYPALAPIPASSWORD, "HSUYQXF6UN9ULK9E");
         props.put(PROP_PAYPALSIGNATURE, "AHK9lF0bFy62J27iS5lTA66dSQIVAUXbkCx4hysQRrfGIE9etQ9lIqlj");
         props.put(PROP_PAYPALENVIRONMENT, "sandbox");
+        props.put(PROP_PAYPALENABLED, "1");
         props.put(PROP_ISSSLON, "0");
         props.put(PROP_ISBETA, "1");
         props.put(PROP_FACEBOOK_APP_NAME, "joestest");

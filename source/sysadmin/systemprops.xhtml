@@ -151,6 +151,20 @@
                 </h:panelGroup>
 
                 <h:panelGroup>
+                    <h:outputText value="PayPalEnabled" styleClass="formfieldnamefont"></h:outputText>
+                    <br/>
+                    <font class="tinyfont">Whether to actually send money through PayPal.  I.e. '0' or '1'</font>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:inputText value="#{systemProps.paypalenabled}" id="paypalenabled" required="true">
+                        <f:validateLength maximum="255"></f:validateLength>
+                    </h:inputText>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:message for="paypalenabled" styleClass="RED"></h:message>
+                </h:panelGroup>
+
+                <h:panelGroup>
                     <h:outputText value="IsSSLOn" styleClass="formfieldnamefont"></h:outputText>
                     <br/>
                     <font class="tinyfont">0 or 1.  Whether SSL is installed at the server level for this install.</font>
