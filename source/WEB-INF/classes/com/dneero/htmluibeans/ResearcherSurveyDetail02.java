@@ -55,8 +55,8 @@ public class ResearcherSurveyDetail02 implements Serializable {
     public String saveSurveyAsDraft(){
         String save = saveSurvey();
         if (save!=null){
-            ResearcherIndex bean = (ResearcherIndex)Jsf.getManagedBean("researcherIndex");
-            return bean.beginView();
+            Pagez.sendRedirect("/jsp/researcher/index.jsp");
+            return "";
         } else {
             return save;
         }
@@ -65,9 +65,8 @@ public class ResearcherSurveyDetail02 implements Serializable {
     public String previousStep(){
         String save = saveSurvey();
         if (save!=null){
-            ResearcherSurveyDetail01 bean = (ResearcherSurveyDetail01)Jsf.getManagedBean("researcherSurveyDetail01");
-            return bean.beginView();
-            //return "researchersurveydetail_01";
+            Pagez.sendRedirect("/jsp/researcher/researchersurveydetail_01.jsp");
+            return "";
         } else {
             return save;
         }
@@ -76,7 +75,6 @@ public class ResearcherSurveyDetail02 implements Serializable {
     public String saveSurvey(){
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("saveSurvey() called.");
-        load();
         if (status<=Survey.STATUS_DRAFT){
             UserSession userSession = Pagez.getUserSession();
 
@@ -106,19 +104,17 @@ public class ResearcherSurveyDetail02 implements Serializable {
 
                 //Refresh
                 survey.refresh();
-                loadSurvey(survey.getSurveyid());
+                initBean();
             }
         }
 
-        ResearcherSurveyDetail03 bean = (ResearcherSurveyDetail03)Jsf.getManagedBean("researcherSurveyDetail03");
-        return bean.beginView();
-        //return "researchersurveydetail_03";
+        Pagez.sendRedirect("/jsp/researcher/researchersurveydetail_03.jsp");
+        return "";
     }
 
     public String beginEdit(){
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("beginEdit() called");
-        load();
         int componenttype = 0;
         String tmpComponenttype = Pagez.getRequest().getParameter("componenttype");
         if (com.dneero.util.Num.isinteger(tmpComponenttype)){
@@ -127,86 +123,70 @@ public class ResearcherSurveyDetail02 implements Serializable {
         }
 
         if (componenttype==Textbox.ID){
-            ResearcherSurveyDetail02textbox bean = (ResearcherSurveyDetail02textbox)Jsf.getManagedBean("researcherSurveyDetail02textbox");
-            return bean.beginView();
-            //return "researchersurveydetail_02_textbox";
+            Pagez.sendRedirect("/jsp/researcher/researchersurveydetail_02_textbox.jsp");
+            return "";
         }
         if (componenttype==Essay.ID){
-            ResearcherSurveyDetail02essay bean = (ResearcherSurveyDetail02essay)Jsf.getManagedBean("researcherSurveyDetail02essay");
-            return bean.beginView();
-            //return "researchersurveydetail_02_essay";
+            Pagez.sendRedirect("/jsp/researcher/researchersurveydetail_02_essay.jsp");
+            return "";
         }
         if (componenttype==Dropdown.ID){
-            ResearcherSurveyDetail02dropdown bean = (ResearcherSurveyDetail02dropdown)Jsf.getManagedBean("researcherSurveyDetail02dropdown");
-            return bean.beginView();
-            //return "researchersurveydetail_02_dropdown";
+            Pagez.sendRedirect("/jsp/researcher/researchersurveydetail_02_dropdown.jsp");
+            return "";
         }
         if (componenttype==Checkboxes.ID){
-            ResearcherSurveyDetail02checkboxes bean = (ResearcherSurveyDetail02checkboxes)Jsf.getManagedBean("researcherSurveyDetail02checkboxes");
-            return bean.beginView();
-            //return "researchersurveydetail_02_checkboxes";
+            Pagez.sendRedirect("/jsp/researcher/researchersurveydetail_02_checkboxes.jsp");
+            return "";
         }
         if (componenttype==Range.ID){
-            ResearcherSurveyDetail02range bean = (ResearcherSurveyDetail02range)Jsf.getManagedBean("researcherSurveyDetail02range");
-            return bean.beginView();
-            //return "researchersurveydetail_02_range";
+            Pagez.sendRedirect("/jsp/researcher/researchersurveydetail_02_range.jsp");
+            return "";
         }
         if (componenttype==Matrix.ID){
-            ResearcherSurveyDetail02matrix bean = (ResearcherSurveyDetail02matrix)Jsf.getManagedBean("researcherSurveyDetail02matrix");
-            return bean.beginView();
-            //return "researchersurveydetail_02_matrix";
+            Pagez.sendRedirect("/jsp/researcher/researchersurveydetail_02_matrix.jsp");
+            return "";
         }
 
         Jsf.setFacesMessage("Couldn't find componenttype="+componenttype);
-        ResearcherSurveyDetail02 bean = (ResearcherSurveyDetail02)Jsf.getManagedBean("researcherSurveyDetail02");
-        return bean.beginView();
-        //return "researchersurveydetail_02";
+        Pagez.sendRedirect("/jsp/researcher/researchersurveydetail_02.jsp");
+        return "";
     }
 
 
     public String addQuestion(){
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("addQuestion() called");
-        load();
         if (newquestioncomponenttype == Textbox.ID){
-            ResearcherSurveyDetail02textbox bean = (ResearcherSurveyDetail02textbox)Jsf.getManagedBean("researcherSurveyDetail02textbox");
-            return bean.beginView();
-            //return "researchersurveydetail_02_textbox";
+            Pagez.sendRedirect("/jsp/researcher/researchersurveydetail_02_textbox.jsp");
+            return "";
         }
         if (newquestioncomponenttype == Essay.ID){
-            ResearcherSurveyDetail02essay bean = (ResearcherSurveyDetail02essay)Jsf.getManagedBean("researcherSurveyDetail02essay");
-            return bean.beginView();
-            //return "researchersurveydetail_02_essay";
+            Pagez.sendRedirect("/jsp/researcher/researchersurveydetail_02_essay.jsp");
+            return "";
         }
         if (newquestioncomponenttype == Dropdown.ID){
-            ResearcherSurveyDetail02dropdown bean = (ResearcherSurveyDetail02dropdown)Jsf.getManagedBean("researcherSurveyDetail02dropdown");
-            return bean.beginView();
-            //return "researchersurveydetail_02_dropdown";
+            Pagez.sendRedirect("/jsp/researcher/researchersurveydetail_02_dropdown.jsp");
+            return "";
         }
         if (newquestioncomponenttype == Checkboxes.ID){
-            ResearcherSurveyDetail02checkboxes bean = (ResearcherSurveyDetail02checkboxes)Jsf.getManagedBean("researcherSurveyDetail02checkboxes");
-            return bean.beginView();
-            //return "researchersurveydetail_02_checkboxes";
+            Pagez.sendRedirect("/jsp/researcher/researchersurveydetail_02_checkboxes.jsp");
+            return "";
         }
         if (newquestioncomponenttype == Range.ID){
-            ResearcherSurveyDetail02range bean = (ResearcherSurveyDetail02range)Jsf.getManagedBean("researcherSurveyDetail02range");
-            return bean.beginView();
-            //return "researchersurveydetail_02_range";
+            Pagez.sendRedirect("/jsp/researcher/researchersurveydetail_02_range.jsp");
+            return "";
         }
         if (newquestioncomponenttype ==Matrix.ID){
-            ResearcherSurveyDetail02matrix bean = (ResearcherSurveyDetail02matrix)Jsf.getManagedBean("researcherSurveyDetail02matrix");
-            return bean.beginView();
-            //return "researchersurveydetail_02_matrix";
+            Pagez.sendRedirect("/jsp/researcher/researchersurveydetail_02_matrix.jsp");
+            return "";
         }
 
-        ResearcherSurveyDetail02textbox bean = (ResearcherSurveyDetail02textbox)Jsf.getManagedBean("researcherSurveyDetail02textbox");
-        return bean.beginView();
-        //return "researchersurveydetail_02_textbox";
+        Pagez.sendRedirect("/jsp/researcher/researchersurveydetail_02.jsp");
+        return "";
     }
 
     public String deleteQuestion(){
         Logger logger = Logger.getLogger(this.getClass().getName());
-        load();
         String tmpQuestionid = Pagez.getRequest().getParameter("questionid");
         int questionid = 0;
         if (com.dneero.util.Num.isinteger(tmpQuestionid)){
@@ -261,13 +241,8 @@ public class ResearcherSurveyDetail02 implements Serializable {
         //Refresh
         survey.refresh();
 
-        //Reset list
-        ResearcherSurveyQuestionList rsql = (ResearcherSurveyQuestionList)Jsf.getManagedBean("researcherSurveyQuestionList");
-        rsql.load();
-
-        ResearcherSurveyDetail02 bean = (ResearcherSurveyDetail02)Jsf.getManagedBean("researcherSurveyDetail02");
-        return bean.beginView();
-        //return "researchersurveydetail_02";
+        Pagez.sendRedirect("/jsp/researcher/researchersurveydetail_02.jsp");
+        return "";
     }
 
     public int getNewquestioncomponenttype() {

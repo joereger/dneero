@@ -134,10 +134,8 @@ public class ResearcherBilling implements Serializable {
 
             userSession.getUser().refresh();
 
-            ResearcherIndex bean = (ResearcherIndex)Jsf.getManagedBean("researcherIndex");
-            return bean.beginView();
-            //return "researcherindex";
-
+            Pagez.sendRedirect("/jsp/researcher/index.jsp");
+            return "";
         } else {
             Jsf.setFacesMessage("UserSession.getUser() is null.  Please log in.");
             return null;

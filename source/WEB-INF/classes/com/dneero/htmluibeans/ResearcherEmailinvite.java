@@ -15,6 +15,7 @@ import com.dneero.dao.Researcher;
 import com.dneero.dao.Survey;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.htmlui.UserSession;
+import com.dneero.htmlui.Pagez;
 import com.dneero.helpers.UserInputSafe;
 import com.dneero.systemprops.BaseUrl;
 
@@ -43,7 +44,7 @@ public class ResearcherEmailinvite implements Serializable {
 
 
 
-    private void load(){
+    public void initBean(){
         String tmpSurveyid = Pagez.getRequest().getParameter("surveyid");
         if (com.dneero.util.Num.isinteger(tmpSurveyid) && Integer.parseInt(tmpSurveyid)>0){
             surveyiduserisinvitedto = Integer.parseInt(tmpSurveyid);
@@ -112,9 +113,9 @@ public class ResearcherEmailinvite implements Serializable {
         Pagez.getUserSession().setEmailinvitemessage(UserInputSafe.clean(message));
         Pagez.getUserSession().setEmailinvitesurveyiduserisinvitedto(surveyiduserisinvitedto);
 
-        ResearcherEmailinviteComplete bean = (ResearcherEmailinviteComplete)Jsf.getManagedBean("researcherEmailinviteComplete");
-        return bean.beginView();
-        //return "researcheremailinvitecomplete";
+
+        Pagez.sendRedirect("/jsp/researcher/emailinvite-complete.jsp");
+        return "";
     }
 
     public LinkedHashMap getSurveyids(){

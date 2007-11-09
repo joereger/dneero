@@ -108,12 +108,12 @@ public class SysadminMassemailDetail implements Serializable {
         calculatePreviews();
         if (massemail.getStatus()==Massemail.STATUS_NEW){
             try{massemail.save();}catch(Exception ex){logger.error("",ex);}
-            SysadminMassemailSend bean = (SysadminMassemailSend)Jsf.getManagedBean("sysadminMassemailSend");
-            bean.setMassemail(massemail);
-            return bean.beginView();
+            //@todo setMassemail on SysadminMassemailSend bean
+            Pagez.sendRedirect("/jsp/sysadmin/massemailsend.jsp");
+            return "";
 
         } else {
-            Jsf.setFacesMessage("Sorry, this mass email has already been sent!");
+            //@todo set message "Sorry, this mass email has already been sent!"
             return "sysadminmassemaildetail";
         }
     }
@@ -131,9 +131,9 @@ public class SysadminMassemailDetail implements Serializable {
         massemailCopy.setSubject(massemail.getSubject());
         massemailCopy.setTxtmessage(massemail.getTxtmessage());
         try{massemailCopy.save();}catch(Exception ex){logger.error("",ex);}
-        Jsf.setFacesMessage("Mass Email Copied!");
-        SysadminMassemailList bean = (SysadminMassemailList)Jsf.getManagedBean("sysadminMassemailList");
-        return bean.beginView();
+        //@todo set message "Mass Email Copied!"
+        Pagez.sendRedirect("/jsp/sysadmin/massemaillist.jsp");
+        return "";
     }
 
 

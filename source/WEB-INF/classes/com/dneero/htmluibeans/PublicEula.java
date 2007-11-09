@@ -19,7 +19,6 @@ import org.apache.log4j.Logger;
 public class PublicEula implements Serializable {
 
     private String eula;
-    private String init;
 
     public PublicEula(){
 
@@ -29,20 +28,6 @@ public class PublicEula implements Serializable {
 
     public void initBean(){
         eula = EulaHelper.getMostRecentEula().getEula();
-    }
-
-    public String getInit() {
-        return init;
-    }
-
-    public void setInit(String init) {
-        Logger logger = Logger.getLogger(this.getClass().getName());
-        if (init!=null && init.equals("doinit")){
-            logger.debug("init = doinit so calling load()");
-            load();
-        } else {
-            logger.debug("init null or not doinit");
-        }
     }
 
 

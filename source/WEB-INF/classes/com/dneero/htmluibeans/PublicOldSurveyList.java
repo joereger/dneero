@@ -13,6 +13,7 @@ import com.dneero.util.Time;
 import com.dneero.dao.Blogger;
 import com.dneero.dao.Survey;
 import com.dneero.dao.hibernate.HibernateUtil;
+import com.dneero.htmlui.Pagez;
 
 /**
  * User: Joe Reger Jr
@@ -27,9 +28,7 @@ public class PublicOldSurveyList implements Serializable {
 
     }
 
-
-
-    private void load(){
+    public void initBean(){
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("instanciating PublicSurveyList");
         //If user is logged-in only show them their surveys

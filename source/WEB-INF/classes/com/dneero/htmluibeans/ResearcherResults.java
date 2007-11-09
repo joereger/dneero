@@ -43,7 +43,7 @@ public class ResearcherResults implements Serializable {
         Survey survey = Survey.get(Pagez.getUserSession().getCurrentSurveyid());
         if (com.dneero.util.Num.isinteger(Pagez.getRequest().getParameter("surveyid"))){
             Pagez.getUserSession().setCurrentSurveyid(Integer.parseInt(Pagez.getRequest().getParameter("surveyid")));
-            survey = Survey.get((Integer.parseInt(Pagez.getRequest().getParameter("surveyid")));
+            survey = Survey.get((Integer.parseInt(Pagez.getRequest().getParameter("surveyid"))));
         }
 
         if (survey!=null){

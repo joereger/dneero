@@ -107,8 +107,8 @@ public class ResearcherSurveyDetail04 implements Serializable {
     public String saveSurveyAsDraft(){
         String save = saveSurvey();
         if (save!=null){
-            ResearcherIndex bean = (ResearcherIndex)Jsf.getManagedBean("researcherIndex");
-            return bean.beginView();
+            Pagez.sendRedirect("/jsp/researcher/index.jsp");
+            return "";
         } else {
             return save;
         }
@@ -117,9 +117,8 @@ public class ResearcherSurveyDetail04 implements Serializable {
     public String previousStep(){
         String save = saveSurvey();
         if (save!=null){
-            ResearcherSurveyDetail03 bean = (ResearcherSurveyDetail03)Jsf.getManagedBean("researcherSurveyDetail03");
-            return bean.beginView();
-            //return "researchersurveydetail_03";
+            Pagez.sendRedirect("/jsp/researcher/researchersurveydetail_03.jsp");
+            return "";
         } else {
             return save;
         }
@@ -235,9 +234,8 @@ public class ResearcherSurveyDetail04 implements Serializable {
             }
 
         }
-        ResearcherSurveyDetail05 bean = (ResearcherSurveyDetail05)Jsf.getManagedBean("researcherSurveyDetail05");
-        return bean.beginView();
-        //return "researchersurveydetail_05";
+        Pagez.sendRedirect("/jsp/researcher/researchersurveydetail_05.jsp");
+        return "";
     }
 
     public List getPanelsavailable(){

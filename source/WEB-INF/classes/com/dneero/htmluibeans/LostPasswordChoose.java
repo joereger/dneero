@@ -7,6 +7,7 @@ import com.dneero.util.GeneralException;
 import com.dneero.dao.User;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.email.LostPasswordSend;
+import com.dneero.htmlui.Pagez;
 import com.octo.captcha.service.CaptchaServiceException;
 
 import java.util.List;
@@ -84,8 +85,8 @@ public class LostPasswordChoose implements Serializable {
             return null;
         }
 
-        AccountIndex bean = (AccountIndex)Jsf.getManagedBean("accountIndex");
-        return bean.beginView();
+        Pagez.sendRedirect("/jsp/account/index.jsp");
+        return "";
     }
 
 

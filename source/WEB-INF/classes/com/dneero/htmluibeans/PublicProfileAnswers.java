@@ -47,7 +47,6 @@ public class PublicProfileAnswers implements Serializable {
                 resultsashtml = SurveyAsHtml.getHtml(survey, user, true);
             }
         }
-        return "publicprofileanswers";
     }
 
     public Blogger getBlogger() {

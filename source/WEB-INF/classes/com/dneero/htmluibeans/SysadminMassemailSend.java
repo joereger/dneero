@@ -40,9 +40,9 @@ public class SysadminMassemailSend implements Serializable {
             massemail.setDate(new Date());
             massemail.setStatus(Massemail.STATUS_PROCESSING);
             try{massemail.save();}catch(Exception ex){logger.error("",ex);}
-            Jsf.setFacesMessage("Mass email scheduled for send!  Rock on!");
-            SysadminMassemailList bean = (SysadminMassemailList)Jsf.getManagedBean("sysadminMassemailList");
-            return bean.beginView();
+            //@todo set message "Mass email scheduled for send! Rock on!"
+            Pagez.sendRedirect("/jsp/sysadmin/massemaillist.jsp");
+            return "";
         } else {
             Jsf.setFacesMessage("Password fails!");
             return null;

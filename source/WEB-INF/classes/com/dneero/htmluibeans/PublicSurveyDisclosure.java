@@ -23,6 +23,7 @@ import com.dneero.facebook.FacebookApiWrapper;
 import com.dneero.facebook.FacebookUser;
 import com.dneero.scheduledjobs.SurveydisplayActivityObjectQueue;
 import com.dneero.helpers.UserInputSafe;
+import com.dneero.htmlui.Pagez;
 
 import java.io.Serializable;
 import java.util.*;
@@ -48,10 +49,10 @@ public class PublicSurveyDisclosure implements Serializable {
 
     }
 
-    private void load(){
+    public void initBean(){
         //Set up logger
         Logger logger = Logger.getLogger(this.getClass().getName());
-        logger.debug("PublicSurveyTake instanciated.");
+        logger.debug("PublicSurveyDisclosure instanciated.");
 
         //Surveyid from session or url
         int surveyid = Pagez.getUserSession().getCurrentSurveyid();

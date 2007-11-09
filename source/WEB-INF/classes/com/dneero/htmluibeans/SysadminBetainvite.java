@@ -64,7 +64,7 @@ public class SysadminBetainvite implements Serializable {
         args[2] = name;
         EmailTemplateProcessor.sendMail("You're Invited to the dNeero Closed Beta!", "betainvite", null, args, email, "joe.reger@dneero.com");
 
-        load();
+        initBean();
         return "sysadminbetainvite";
     }
 

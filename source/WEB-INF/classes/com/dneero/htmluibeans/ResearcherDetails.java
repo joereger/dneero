@@ -124,11 +124,11 @@ public class ResearcherDetails implements Serializable {
             userSession.getUser().refresh();
 
             if (isnewresearcher){
-                return "researcherwelcomenewresearcher";
+                Pagez.sendRedirect("/jsp/researcher/welcomenewresearcher.jsp");
+                return "";
             } else {
-                ResearcherIndex bean = (ResearcherIndex)Jsf.getManagedBean("researcherIndex");
-                return bean.beginView();
-                //return "researcherindex";
+                Pagez.sendRedirect("/jsp/researcher/index.jsp");
+                return "";
             }
         } else {
             Jsf.setFacesMessage("UserSession.getUser() is null.  Please log in.");

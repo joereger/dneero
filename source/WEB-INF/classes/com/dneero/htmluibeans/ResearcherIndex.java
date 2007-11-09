@@ -38,8 +38,7 @@ public class ResearcherIndex implements Serializable {
         } else {
             showmarketingmaterial = false;
         }
-        ResearcherSurveyList bean = (ResearcherSurveyList)Jsf.getManagedBean("researcherSurveyList");
-        bean.beginView();
+        Pagez.sendRedirect("/jsp/researcher/researchersurveylist.jsp");
     }
 
 
@@ -90,9 +89,9 @@ public class ResearcherIndex implements Serializable {
             //Refresh the survey
             try{newSurvey.refresh();}catch(Exception ex){logger.error("",ex);}
         }
-        Jsf.setFacesMessage("Survey copied!");
-        ResearcherIndex bean = (ResearcherIndex)Jsf.getManagedBean("researcherIndex");
-        return bean.beginView();
+        //@todo set message "Survey copied!"
+        Pagez.sendRedirect("/jsp/researcher/index.jsp");
+        return "";
     }
 
     public boolean getShowmarketingmaterial() {

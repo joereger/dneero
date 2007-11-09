@@ -80,7 +80,7 @@ public class Login implements Serializable {
                     Cookie[] cookies = PersistentLogin.getPersistentCookies(user.getUserid(), Jsf.getHttpServletRequest());
                     //Add a cookies to the response
                     for (int j = 0; j < cookies.length; j++) {
-                        Jsf.getHttpServletResponse().addCookie(cookies[j]);
+                        Pagez.getResponse().addCookie(cookies[j]);
                     }
                 }
 
@@ -156,7 +156,7 @@ public class Login implements Serializable {
         ValueBinding binding = ctx.getApplication().createValueBinding("#{userSession}");
         binding.setValue(ctx, userSession);
         //Persistent Logout
-        Jsf.getHttpServletResponse().addCookie(PersistentLogin.createCookieToClearPersistentLogin(Jsf.getHttpServletRequest()));
+        Pagez.getResponse().addCookie(PersistentLogin.createCookieToClearPersistentLogin(Jsf.getHttpServletRequest()));
         return "logout_success";
     }
 

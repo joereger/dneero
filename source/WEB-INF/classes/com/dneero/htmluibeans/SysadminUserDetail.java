@@ -235,10 +235,10 @@ public class SysadminUserDetail implements Serializable {
                     issysadmin = true;
                     Jsf.setFacesMessage("User is now a sysadmin");
                 }
-                load(user.getUserid());
+                initBean();
             }
         } else {
-            Jsf.setFacesMessage("Activity Pin Not correct.");
+            //@todo set message "Activity Pin Not Correct."
         }
         return "sysadminuserdetail";
     }
@@ -262,8 +262,8 @@ public class SysadminUserDetail implements Serializable {
         if (user!=null && user.getUserid()>0){
             MoveMoneyInAccountBalance.pay(user, amt, "Manual transaction: "+reason, false, false, "");
         }
-        load(user.getUserid());
-        Jsf.setFacesMessage("$"+ Str.formatForMoney(amt)+" given to user account balance");
+        initBean();
+        //@todo set message "$" + Str.formatForMoney(amt) + " given to user account balance."
         return "sysadminuserdetail";
     }
 
@@ -272,8 +272,8 @@ public class SysadminUserDetail implements Serializable {
         if (user!=null && user.getUserid()>0){
             MoveMoneyInAccountBalance.charge(user, amt, "Manual transaction: "+reason);
         }
-        load(user.getUserid());
-        Jsf.setFacesMessage("$"+ Str.formatForMoney(amt)+" taken from user account balance");
+        initBean();
+        //@todo set message "$"+ Str.formatForMoney(amt)+" taken from user account balance"
         return "sysadminuserdetail";
     }
 

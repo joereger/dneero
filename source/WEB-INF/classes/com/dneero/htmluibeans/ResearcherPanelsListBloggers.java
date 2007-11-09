@@ -61,7 +61,7 @@ public class ResearcherPanelsListBloggers implements Serializable {
         if (Pagez.getRequest().getParameter("panelmembershipid")!=null && Num.isinteger(Pagez.getRequest().getParameter("panelmembershipid"))){
             Panelmembership panelmembership = Panelmembership.get(Integer.parseInt(Pagez.getRequest().getParameter("panelmembershipid")));
             try{panelmembership.delete();}catch(Exception ex){logger.debug(ex);}
-            load();
+            initBean();
         }
         return "researcherpanelslistbloggersinpanel";
     }

@@ -355,7 +355,7 @@ public class PublicSurveyTake implements Serializable {
             loadFacebookUsers();
             //Generate results
             resultsshowyourfriendstab = true;
-            FacebookApiWrapper faw = new FacebookApiWrapper(Pagez.getUserSession());
+            FacebookApiWrapperHtmlui faw = new FacebookApiWrapperHtmlui(Pagez.getUserSession());
             ArrayList<FacebookUser> friends = faw.getFriends();
             if (friends!=null && friends.size()>0){
                 StringBuffer facebookquery = new StringBuffer();
@@ -592,10 +592,10 @@ public class PublicSurveyTake implements Serializable {
 ////                    }
 ////                }
 ////            }
-////            FacebookApiWrapper faw = new FacebookApiWrapper(Pagez.getUserSession());
+////            FacebookApiWrapperHtmlui faw = new FacebookApiWrapperHtmlui(Pagez.getUserSession());
 ////            faw.inviteFriendsToSurvey(survey);
 ////        }
-//        FacebookApiWrapper faw = new FacebookApiWrapper(Pagez.getUserSession());
+//        FacebookApiWrapperHtmlui faw = new FacebookApiWrapperHtmlui(Pagez.getUserSession());
 //        faw.inviteFriendsToSurvey(survey);
 //        try{Pagez.sendRedirect("/survey.jsf?surveyid="+survey.getSurveyid()); return null;}catch(Exception ex){logger.error("",ex);}
 //        return "publicsurvey";
@@ -631,7 +631,7 @@ public class PublicSurveyTake implements Serializable {
         facebookuserswhodidnottakesurvey = new TreeMap<String, String>();
         if (survey!=null){
             //Go to facebook and get a list of the logged-in user's friends
-            FacebookApiWrapper faw = new FacebookApiWrapper(Pagez.getUserSession());
+            FacebookApiWrapperHtmlui faw = new FacebookApiWrapperHtmlui(Pagez.getUserSession());
             ArrayList<FacebookUser> friends = faw.getFriends();
             if (friends.size()>0){
                 //Build sql to pull up those users that are in the dneero db

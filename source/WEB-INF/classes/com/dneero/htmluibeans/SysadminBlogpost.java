@@ -79,7 +79,7 @@ public class SysadminBlogpost implements Serializable {
         blogpost.setBody(body);
         blogpost.setCategories(categories);
         try{blogpost.save();}catch(Exception ex){logger.error("",ex);}
-        load();
+        initBean();
         try{
             if (doPingomatic && BaseUrl.get(false).indexOf("localhost")<=-1){
                 Pingomatic.ping("dNeero Social Surveys Blog", BaseUrl.get(false)+"blog.jsf", BaseUrl.get(false)+"rss.xml");

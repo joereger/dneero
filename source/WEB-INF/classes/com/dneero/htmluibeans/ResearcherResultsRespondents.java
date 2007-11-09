@@ -97,7 +97,7 @@ public class ResearcherResultsRespondents implements Serializable {
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("getList() called");
         if (list==null){
-            load();
+            initBean();
         }
         sort("responseid", false);
         if (list==null){

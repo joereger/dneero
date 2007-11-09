@@ -87,10 +87,8 @@ public class ResearcherSurveyDelete implements Serializable {
             logger.debug("Not deleting because status!=Survey.STATUS_DRAFT");
         }
 
-        ResearcherSurveyList bean = (ResearcherSurveyList)Jsf.getManagedBean("researcherSurveyList");
-        bean.beginView();
-        ResearcherIndex bean2 = (ResearcherIndex)Jsf.getManagedBean("researcherIndex");
-        return bean2.beginView();
+        Pagez.sendRedirect("/jsp/researcher/index.jsp");
+        return "";
     }
 
     public String getTitle() {

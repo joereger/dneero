@@ -52,16 +52,13 @@ public class LoginAgreeNewEula implements Serializable {
         } catch (GeneralException gex){
             logger.error(gex);
             logger.debug("agree failed: " + gex.getErrorsAsSingleString());
-            Jsf.setFacesMessage("eulaform:eula", "Error... please try again.");
+            //@todo set message "Error... please try again" on eula form element
             return null;
         }
         Pagez.getUserSession().setIseulaok(true);
+        Pagez.sendRedirect("/jsp/account/index.jsp");
 
-        AccountIndex bean = (AccountIndex)Jsf.getManagedBean("accountIndex");
-        return bean.beginView();
-        //return "accountindex";
-
-
+        return "";
 
     }
 
@@ -74,7 +71,7 @@ public class LoginAgreeNewEula implements Serializable {
         Logger logger = Logger.getLogger(this.getClass().getName());
         if (init!=null && init.equals("doinit")){
             logger.debug("init = doinit so calling load()");
-            load();
+            initBean();
         } else {
             logger.debug("init null or not doinit");
         }

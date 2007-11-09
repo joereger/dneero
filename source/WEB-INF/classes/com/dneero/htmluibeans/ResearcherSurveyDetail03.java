@@ -87,14 +87,13 @@ public class ResearcherSurveyDetail03 implements Serializable {
     }
 
     public String saveSurveyAsDraft(){
-        ResearcherIndex bean = (ResearcherIndex)Jsf.getManagedBean("researcherIndex");
-        return bean.beginView();
+        Pagez.sendRedirect("/jsp/researcher/index.jsp");
+        return "";
     }
 
     public String previousStep(){
-        ResearcherSurveyDetail02 bean = (ResearcherSurveyDetail02)Jsf.getManagedBean("researcherSurveyDetail02");
-        return bean.beginView();
-        //return "researchersurveydetail_02";
+        Pagez.sendRedirect("/jsp/researcher/researchersurveydetail_02.jsp");
+        return "";
     }
 
     public String resetFormatting(){
@@ -134,22 +133,20 @@ public class ResearcherSurveyDetail03 implements Serializable {
                     return null;
                 }
 
-                loadSurvey(survey.getSurveyid());
+                initBean();
  
                 //Refresh
                 survey.refresh();
             }
         }
-        ResearcherSurveyDetail03 bean = (ResearcherSurveyDetail03)Jsf.getManagedBean("researcherSurveyDetail03");
-        return bean.beginView();
-        //return "researchersurveydetail_03";
+        Pagez.sendRedirect("/jsp/researcher/researchersurveydetail_03.jsp");
+        return "";
     }
 
     public String continueToNext(){
         if(saveSurvey()!=null){
-            ResearcherSurveyDetail04 bean = (ResearcherSurveyDetail04)Jsf.getManagedBean("researcherSurveyDetail04");
-            return bean.beginView();
-            //return "researchersurveydetail_04";
+            Pagez.sendRedirect("/jsp/researcher/researchersurveydetail_04.jsp");
+            return "";
         }
         return null;
     }

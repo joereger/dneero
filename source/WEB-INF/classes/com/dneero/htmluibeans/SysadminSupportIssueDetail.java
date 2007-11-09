@@ -120,8 +120,8 @@ public class SysadminSupportIssueDetail implements Serializable {
         }
         EmailTemplateProcessor.sendMail("dNeero Support Issue: "+ Str.truncateString(supportissue.getSubject(),100), "supportissueresponse", User.get(supportissue.getUserid()), args);
 
-        SysadminSupportIssuesList bean = (SysadminSupportIssuesList)Jsf.getManagedBean("sysadminSupportIssuesList");
-        return bean.beginView();
+        Pagez.sendRedirect("/jsp/sysadmin/sysadminsupportissueslist.jsp");
+        return "";
     }
 
     public int getSupportissueid() {

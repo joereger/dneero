@@ -21,6 +21,7 @@ import com.dneero.session.SurveysTakenToday;
 import com.dneero.systemprops.BaseUrl;
 import com.dneero.facebook.FacebookApiWrapper;
 import com.dneero.facebook.FacebookUser;
+import com.dneero.facebook.FacebookApiWrapperHtmlui;
 import com.dneero.scheduledjobs.SurveydisplayActivityObjectQueue;
 import com.dneero.helpers.UserInputSafe;
 import com.dneero.htmlui.Pagez;
@@ -264,7 +265,7 @@ public class PublicSurvey implements Serializable {
             loadFacebookUsers();
 
             //Invite friends link
-            FacebookApiWrapper faw = new FacebookApiWrapper(Pagez.getUserSession());
+            FacebookApiWrapperHtmlui faw = new FacebookApiWrapperHtmlui(Pagez.getUserSession());
             invitefriendsurl = faw.inviteFriendsToSurvey(survey);
         }
 
@@ -350,12 +351,11 @@ public class PublicSurvey implements Serializable {
                 try{Pagez.sendRedirect("/surveypostit.jsf?surveyid="+survey.getSurveyid()+"&justcompletedsurvey=1");}catch(Exception ex){logger.error("",ex);}
                 return "publicsurvey";
             } else {
-                AccountIndex bean = (AccountIndex)Jsf.getManagedBean("accountIndex");
-                return bean.beginView();
+                Pagez.sendRedirect("/jsp/account/index.jsp");
             }
         }
-        Registration bean = (Registration)Jsf.getManagedBean("registration");
-        return bean.beginView();
+        Pagez.sendRedirect("/jsp/registration.jsp");
+        return "";
     }
 
 
@@ -401,7 +401,7 @@ public class PublicSurvey implements Serializable {
         facebookuserswhodidnottakesurvey = new TreeMap<String, String>();
         if (survey!=null){
             //Go to facebook and get a list of the logged-in user's friends
-            FacebookApiWrapper faw = new FacebookApiWrapper(Pagez.getUserSession());
+            FacebookApiWrapperHtmlui faw = new FacebookApiWrapperHtmlui(Pagez.getUserSession());
             ArrayList<FacebookUser> friends = faw.getFriends();
             if (friends.size()>0){
                 //Build sql to pull up those users that are in the dneero db

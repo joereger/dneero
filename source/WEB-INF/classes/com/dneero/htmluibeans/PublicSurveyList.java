@@ -10,6 +10,7 @@ import com.dneero.finders.FindSurveysForBlogger;
 import com.dneero.facebook.FacebookApiWrapper;
 import com.dneero.facebook.FacebookSurveyThatsBeenTaken;
 import com.dneero.facebook.FacebookUser;
+import com.dneero.facebook.FacebookApiWrapperHtmlui;
 import com.dneero.helpers.UserInputSafe;
 import com.dneero.scheduledjobs.UpdateResponsePoststatus;
 import com.dneero.htmlui.Pagez;
@@ -151,7 +152,7 @@ public class PublicSurveyList implements Serializable {
                 //Load which friends are on dNeero and which aren't
                 loadFacebookUsers();
                 //Get list of friend uids
-                FacebookApiWrapper faw = new FacebookApiWrapper(Pagez.getUserSession());
+                FacebookApiWrapperHtmlui faw = new FacebookApiWrapperHtmlui(Pagez.getUserSession());
                 //Load surveys taken by friends
                 TreeMap<Integer, FacebookSurveyThatsBeenTaken> surveys = faw.getSurveysFriendsHaveTaken();
                 //Boil it down to an arraylist
@@ -170,7 +171,7 @@ public class PublicSurveyList implements Serializable {
                 //AccountBalance bean = (AccountBalance)Jsf.getManagedBean("accountBalance");
                 //bean.beginView();
                 AccountBalance accountBalance = new AccountBalance();
-                accountBalance.beginView();
+                accountBalance.initBean();
                 this.accountBalance = accountBalance;
                 //Completedsurveys
 //                if (Pagez.getUserSession().getUser()!=null && Pagez.getUserSession().getUser().getBloggerid()>0){
@@ -216,7 +217,7 @@ public class PublicSurveyList implements Serializable {
         facebookusersnotaddedapp = new TreeMap<String, String>();
         facebookuserswhoaddedapp = new ArrayList<PublicSurveyFacebookFriendListitem>();
         //Go to facebook and get a list of the logged-in user's friends
-        FacebookApiWrapper faw = new FacebookApiWrapper(Pagez.getUserSession());
+        FacebookApiWrapperHtmlui faw = new FacebookApiWrapperHtmlui(Pagez.getUserSession());
         ArrayList<FacebookUser> friends = faw.getFriends();
         if (friends.size()>0){
             //Build sql to pull up those users that are in the dneero db

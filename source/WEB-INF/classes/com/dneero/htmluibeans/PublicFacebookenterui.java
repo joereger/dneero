@@ -7,6 +7,7 @@ import java.io.Serializable;
 import com.dneero.util.Jsf;
 import com.dneero.systemprops.BaseUrl;
 import com.dneero.systemprops.SystemProperty;
+import com.dneero.htmlui.Pagez;
 
 /**
  * User: Joe Reger Jr
@@ -22,7 +23,7 @@ public class PublicFacebookenterui implements Serializable {
 
     }
 
-    private void load(){
+    public void initBean(){
         Logger logger = Logger.getLogger(this.getClass().getName());
         //Clear the isfacebookui flag
         String action = "";
@@ -30,7 +31,8 @@ public class PublicFacebookenterui implements Serializable {
             action = "?action="+Pagez.getRequest().getParameter("action");
         }
         url = "http://apps.facebook.com/"+SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_APP_NAME)+"/"+action;
-        try{Pagez.sendRedirect(url);}catch(Exception ex){logger.error("",ex);}
+        try{
+            Pagez.sendRedirect(url);}catch(Exception ex){logger.error("",ex);}
     }
 
     public String getDummy() {

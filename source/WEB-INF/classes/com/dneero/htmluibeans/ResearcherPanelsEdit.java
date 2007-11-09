@@ -23,7 +23,7 @@ public class ResearcherPanelsEdit implements Serializable {
 
 
 
-    public void load(){
+    public void initBean(){
         if (Pagez.getRequest().getParameter("panelid")!=null && Num.isinteger(Pagez.getRequest().getParameter("panelid"))){
             panel = Panel.get(Integer.parseInt(Pagez.getRequest().getParameter("panelid")));
         }
@@ -36,8 +36,8 @@ public class ResearcherPanelsEdit implements Serializable {
         if(panel.getName()!=null && !panel.getName().equals("")){
             try{panel.save();}catch(Exception ex){logger.error("",ex);}
         }
-        ResearcherPanels bean = (ResearcherPanels)Jsf.getManagedBean("researcherPanels");
-        return bean.beginView();
+        Pagez.sendRedirect("/jsp/researcher/panels.jsp");
+        return "";
     }
 
 

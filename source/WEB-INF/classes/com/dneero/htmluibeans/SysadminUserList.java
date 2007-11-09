@@ -66,7 +66,6 @@ public class SysadminUserList implements Serializable {
 
     public List getUsers() {
         //logger.debug("getListitems");
-        sort("userid", false);
         return users;
     }
 

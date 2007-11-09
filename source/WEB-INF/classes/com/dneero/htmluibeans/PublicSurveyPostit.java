@@ -21,6 +21,7 @@ import com.dneero.session.SurveysTakenToday;
 import com.dneero.systemprops.BaseUrl;
 import com.dneero.facebook.FacebookApiWrapper;
 import com.dneero.facebook.FacebookUser;
+import com.dneero.facebook.FacebookApiWrapperHtmlui;
 import com.dneero.scheduledjobs.SurveydisplayActivityObjectQueue;
 import com.dneero.helpers.UserInputSafe;
 import com.dneero.htmlui.Pagez;
@@ -62,7 +63,7 @@ public class PublicSurveyPostit implements Serializable {
 
     }
 
-    private void load(){
+    public void initBean(){
         //Set up logger
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("PublicSurveyTake instanciated.");
@@ -189,7 +190,7 @@ public class PublicSurveyPostit implements Serializable {
         //Special Facebook activities
         if (Pagez.getUserSession().getIsfacebookui()){
             //Invite friends link
-            FacebookApiWrapper faw = new FacebookApiWrapper(Pagez.getUserSession());
+            FacebookApiWrapperHtmlui faw = new FacebookApiWrapperHtmlui(Pagez.getUserSession());
             invitefriendsurl = faw.inviteFriendsToSurvey(survey);
         }
 

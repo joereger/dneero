@@ -191,7 +191,7 @@ public class ResearcherFindBloggers implements Serializable {
     }
 
     public String resetSearch(){
-        load();
+        initBean();
         listitems = null;
         return "researcherfindbloggers";
     }

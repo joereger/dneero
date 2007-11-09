@@ -304,7 +304,7 @@ public class Registration implements Serializable {
         Cookie[] cookies = PersistentLogin.getPersistentCookies(user.getUserid(), Jsf.getHttpServletRequest());
         //Add a cookies to the response
         for (int j = 0; j < cookies.length; j++) {
-            Jsf.getHttpServletResponse().addCookie(cookies[j]);
+            Pagez.getResponse().addCookie(cookies[j]);
         }
         Jsf.bindObjectToExpressionLanguage("#{userSession}", userSession);
 
@@ -316,17 +316,14 @@ public class Registration implements Serializable {
                 return null;
             } catch (Exception ex){
                 logger.error("",ex);
-                AccountIndex bean = (AccountIndex)Jsf.getManagedBean("accountIndex");
-                bean.setIsfirsttimelogin(true);
-                return bean.beginView();
-                //return "accountindex";
+                //@todo setIsfirsttimelogin(true) on AccountIndex bean
+                Pagez.sendRedirect("/jsp/account/index.jsp");
             }
         } else {
-            AccountIndex bean = (AccountIndex)Jsf.getManagedBean("accountIndex");
-            bean.setIsfirsttimelogin(true);
-            return bean.beginView();
-            //return "accountindex";
+            //@todo setIsfirsttimelogin(true) on AccountIndex bean
+            Pagez.sendRedirect("/jsp/account/index.jsp");
         }
+        return "";
     }
 
 
