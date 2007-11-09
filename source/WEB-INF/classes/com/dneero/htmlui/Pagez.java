@@ -6,6 +6,8 @@ import com.dneero.cache.providers.CacheFactory;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+
 /**
  * User: Joe Reger Jr
  * Date: Oct 28, 2007
@@ -26,6 +28,12 @@ public class Pagez {
 
     public static void setResponse(HttpServletResponse response){
         responseLocal.set(response);
+    }
+
+    public static void sendRedirect(String url){
+        Logger logger = Logger.getLogger(Pagez.class);
+        url = responseLocal.get().encodeRedirectURL(url);
+        try{responseLocal.get().sendRedirect(url);}catch(Exception ex){logger.error("", ex);}
     }
 
     public static void setUserSessionAndUpdateCache(UserSession userSession){

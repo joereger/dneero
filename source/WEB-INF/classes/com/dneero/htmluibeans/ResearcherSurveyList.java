@@ -7,6 +7,7 @@ import com.dneero.dao.Survey;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.dao.hibernate.CopyHibernateObject;
 import com.dneero.htmlui.UserSession;
+import com.dneero.htmlui.Pagez;
 
 import java.util.*;
 import java.io.Serializable;
@@ -26,12 +27,8 @@ public class ResearcherSurveyList implements Serializable {
 
     }
 
-    public String beginView(){
-        load();
-        return "researchersurveylist";
-    }
 
-    private void load(){
+    public void initBean(){
         Logger logger = Logger.getLogger(this.getClass().getName());
 
         UserSession userSession = Pagez.getUserSession();

@@ -15,6 +15,7 @@ import com.dneero.util.Jsf;
 import com.dneero.email.EmailTemplateProcessor;
 import com.dneero.helpers.Pingomatic;
 import com.dneero.systemprops.BaseUrl;
+import com.dneero.htmlui.Pagez;
 
 /**
  * User: Joe Reger Jr
@@ -38,12 +39,9 @@ public class SysadminBlogpost implements Serializable {
 
     }
 
-    public String beginView(){
-        load();
-        return "sysadminblogpost";
-    }
 
-    private void load(){
+
+    public void initBean(){
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("load()");
         blogposts = HibernateUtil.getSession().createQuery("from Blogpost order by date DESC").list();

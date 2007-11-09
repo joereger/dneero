@@ -23,6 +23,7 @@ import com.dneero.facebook.FacebookApiWrapper;
 import com.dneero.facebook.FacebookUser;
 import com.dneero.scheduledjobs.SurveydisplayActivityObjectQueue;
 import com.dneero.helpers.UserInputSafe;
+import com.dneero.htmlui.Pagez;
 
 import java.io.Serializable;
 import java.util.*;
@@ -49,10 +50,10 @@ public class PublicSurveyDiscuss implements Serializable {
 
 
     public PublicSurveyDiscuss(){
-        load();
+
     }
 
-    private void load(){
+    public void initBean(){
         //Set up logger
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("PublicSurveyTake instanciated.");
@@ -69,7 +70,7 @@ public class PublicSurveyDiscuss implements Serializable {
 
         //If we don't have a surveyid, shouldn't be on this page
         if (surveyid<=0){
-            try{Jsf.redirectResponse("/publicsurveylist.jsf"); return;}catch(Exception ex){logger.error("",ex);}
+            try{Pagez.sendRedirect("/publicsurveylist.jsf"); return;}catch(Exception ex){logger.error("",ex);}
         }
 
         //Load up the survey
@@ -77,7 +78,7 @@ public class PublicSurveyDiscuss implements Serializable {
 
         //If the survey is draft or waiting
         if (survey.getStatus()<Survey.STATUS_OPEN){
-            try{Jsf.redirectResponse("/surveynotopen.jsf"); return;}catch(Exception ex){logger.error("",ex);}
+            try{Pagez.sendRedirect("/surveynotopen.jsf"); return;}catch(Exception ex){logger.error("",ex);}
         }
 
 
@@ -128,7 +129,7 @@ public class PublicSurveyDiscuss implements Serializable {
             //load();
         }
         //Return from survey new comment in a way that retains the survey url
-        try{Jsf.redirectResponse("/surveydiscuss.jsf?surveyid="+Pagez.getUserSession().getCurrentSurveyid()); return null;}catch(Exception ex){logger.error("",ex);}
+        try{Pagez.sendRedirect("/surveydiscuss.jsf?surveyid="+Pagez.getUserSession().getCurrentSurveyid()); return null;}catch(Exception ex){logger.error("",ex);}
         return "publicsurveydiscuss";
     }
 

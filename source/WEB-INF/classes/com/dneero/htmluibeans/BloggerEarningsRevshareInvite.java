@@ -8,6 +8,7 @@ import com.dneero.email.EmailSendThread;
 import com.dneero.email.EmailSend;
 import com.dneero.email.EmailTemplateProcessor;
 import com.dneero.helpers.UserInputSafe;
+import com.dneero.htmlui.Pagez;
 import org.apache.commons.mail.HtmlEmail;
 import org.apache.log4j.Logger;
 
@@ -25,6 +26,11 @@ public class BloggerEarningsRevshareInvite implements Serializable {
     private String message;
 
     public BloggerEarningsRevshareInvite(){}
+
+    public void initBean(){
+
+
+    }
 
     public String invite(){
         User user = Pagez.getUserSession().getUser();
@@ -49,14 +55,14 @@ public class BloggerEarningsRevshareInvite implements Serializable {
         }
 
         if (err.length()<=0){
-            BloggerEarningsRevshare bean = (BloggerEarningsRevshare)Jsf.getManagedBean("bloggerEarningsRevshare");
-            bean.setMsg("Invitation sent successfully.");
             email = "";
-            return bean.beginView();
+            //@todo set message "Invitation sent successfully."
+            Pagez.sendRedirect("/jsp/blogger/bloggerearningsrevshare.jsp");
         } else {
-            Jsf.setFacesMessage("inviteform:email", err.toString());
+            //@todo set message err.toString() on email input box
             return null;
         }
+        return "";
     }
 
     public String getEmail() {

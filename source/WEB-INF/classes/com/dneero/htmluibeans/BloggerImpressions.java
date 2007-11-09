@@ -27,11 +27,11 @@ public class BloggerImpressions  implements Serializable {
     }
 
 
-    private void load(int surveyid){
+    public void initBean(){
         Logger logger = Logger.getLogger(this.getClass().getName());
         Survey survey = null;
         if (com.dneero.util.Num.isinteger(Pagez.getRequest().getParameter("surveyid"))){
-            survey = Survey.get(surveyid);
+            survey = Survey.get(Integer.parseInt(Pagez.getRequest().getParameter("surveyid")));
         }
         if (survey!=null && Pagez.getUserSession().getUser()!=null && survey.canRead(Pagez.getUserSession().getUser())){
             surveytitle = survey.getTitle();

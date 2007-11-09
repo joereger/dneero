@@ -3,6 +3,7 @@ package com.dneero.htmluibeans;
 import com.dneero.util.SortableList;
 import com.dneero.util.Jsf;
 import com.dneero.htmlui.UserSession;
+import com.dneero.htmlui.Pagez;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.dao.Survey;
 import com.dneero.dao.Question;
@@ -24,12 +25,9 @@ public class ResearcherSurveyQuestionList implements Serializable {
 
     }
 
-    public String beginView(){
-        load();
-        return "researchersurveyquestionlist";
-    }
 
-    public void load(){
+
+    public void initBean(){
         Logger logger = Logger.getLogger(this.getClass().getName());
         questions = new ArrayList();
         Survey survey = Survey.get(Pagez.getUserSession().getCurrentSurveyid());

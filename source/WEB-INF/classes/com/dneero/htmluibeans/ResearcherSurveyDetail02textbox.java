@@ -12,6 +12,7 @@ import com.dneero.util.GeneralException;
 import com.dneero.dao.Survey;
 import com.dneero.dao.Question;
 import com.dneero.htmlui.UserSession;
+import com.dneero.htmlui.Pagez;
 import com.dneero.display.components.Textbox;
 import com.dneero.helpers.UserInputSafe;
 
@@ -37,12 +38,8 @@ public class ResearcherSurveyDetail02textbox implements Serializable {
 
     }
 
-    public String beginView(){
-        load();
-        return "researchersurveydetail_02_textbox";
-    }
 
-    private void load(){
+    public void initBean(){
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("Instanciating object");
         String tmpQuestionid = Pagez.getRequest().getParameter("questionid");

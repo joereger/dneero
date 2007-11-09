@@ -7,6 +7,7 @@ import java.util.LinkedHashMap;
 import java.io.Serializable;
 
 import com.dneero.htmlui.UserSession;
+import com.dneero.htmlui.Pagez;
 import com.dneero.util.Jsf;
 import com.dneero.util.GeneralException;
 import com.dneero.dao.*;
@@ -30,12 +31,9 @@ public class ResearcherDetails implements Serializable {
 
     }
 
-    public String beginView(){
-        load();
-        return "researcherdetails";
-    }
 
-    public void load(){
+
+    public void initBean(){
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("load called");
         UserSession userSession = Pagez.getUserSession();

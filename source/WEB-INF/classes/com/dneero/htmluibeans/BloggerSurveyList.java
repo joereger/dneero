@@ -5,6 +5,7 @@ import com.dneero.dao.Survey;
 import com.dneero.dao.Blogger;
 import com.dneero.dao.Response;
 import com.dneero.htmlui.UserSession;
+import com.dneero.htmlui.Pagez;
 import com.dneero.finders.FindSurveysForBlogger;
 
 import java.util.*;
@@ -27,12 +28,8 @@ public class BloggerSurveyList implements Serializable {
 
     }
 
-    public String beginView(){
-        load();
-        return "bloggersurveylist";
-    }
 
-    private void load(){
+    public void initBean(){
 
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("instanciating BloggerSurveyList");

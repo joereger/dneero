@@ -7,6 +7,7 @@ import com.dneero.dao.Impression;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.util.Jsf;
 import com.dneero.util.Str;
+import com.dneero.htmlui.Pagez;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,20 +30,15 @@ public class ResearcherResultsImpressions implements Serializable {
 
     }
 
-    public String beginView(){
-        load();
-        return "researcherresultsimpressions";
-    }
-
-    private void load(){
-        loadSurvey(Pagez.getUserSession().getCurrentSurveyid());
-    }
 
 
-    public void loadSurvey(int surveyid){
+    public void initBean(){
         Logger logger = Logger.getLogger(this.getClass().getName());
-        logger.debug("loadSurvey called");
-        survey = Survey.get(surveyid);
+        survey = Survey.get(Pagez.getUserSession().getCurrentSurveyid());
+        if (com.dneero.util.Num.isinteger(Pagez.getRequest().getParameter("surveyid"))){
+            Pagez.getUserSession().setCurrentSurveyid(Integer.parseInt(Pagez.getRequest().getParameter("surveyid")));
+            survey = Survey.get((Integer.parseInt(Pagez.getRequest().getParameter("surveyid"))));
+        }
         researcherResultsImpressionsListitems = new ArrayList<ResearcherResultsImpressionsListitem>();
         if (survey!=null){
             if (Pagez.getUserSession().getUser()!=null && survey.canEdit(Pagez.getUserSession().getUser())){

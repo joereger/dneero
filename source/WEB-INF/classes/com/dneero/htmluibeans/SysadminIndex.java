@@ -21,10 +21,10 @@ public class SysadminIndex implements Serializable {
     private String servermemory = "";
 
     public SysadminIndex(){
-        load();
+
     }
 
-    private void load(){
+    public void initBean(){
         StringBuffer fin = new StringBuffer();
 
         HashMap<Integer, Double> hm = SystemStatsFinancial.getAmtpendingbynumberofdayswithimpressions();

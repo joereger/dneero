@@ -15,6 +15,7 @@ import com.dneero.ui.SurveyEnhancer;
 import com.dneero.finders.SurveyCriteriaXML;
 import com.dneero.survey.servlet.SurveyFlashServlet;
 import com.dneero.display.SurveyTakerDisplay;
+import com.dneero.htmlui.Pagez;
 
 /**
  * User: Joe Reger Jr
@@ -34,22 +35,15 @@ public class SysadminSurveyDetail implements Serializable {
     private int dayssinceclose = 0;
 
     public SysadminSurveyDetail(){
-        beginView();
+
     }
 
-    public String beginView(){
-        Logger logger = Logger.getLogger(this.getClass().getName());
-        //logger.debug("beginView called:");
-        String tmpSurveyid = Pagez.getRequest().getParameter("surveyid");
-        if (com.dneero.util.Num.isinteger(tmpSurveyid)){
-            logger.debug("beginView called: found surveyid in request param="+tmpSurveyid);
-            load(Integer.parseInt(tmpSurveyid));
+
+    public void initBean(){
+        if (com.dneero.util.Num.isinteger(Pagez.getRequest().getParameter("surveyid"))){
+            Pagez.getUserSession().setCurrentSurveyid(Integer.parseInt(Pagez.getRequest().getParameter("surveyid")));
+            survey = Survey.get((Integer.parseInt(Pagez.getRequest().getParameter("surveyid"))));
         }
-        return "sysadminsurveydetail";
-    }
-
-    private void load(int surveyid){
-        survey = Survey.get(surveyid);
         if (survey!=null && survey.getSurveyid()>0){
             surveyOnBlogPreview = SurveyFlashServlet.getEmbedSyntax("/", survey.getSurveyid(), 0, 0, true, true, false);
             surveyEnhancer = new SurveyEnhancer(survey);
@@ -92,7 +86,6 @@ public class SysadminSurveyDetail implements Serializable {
             Jsf.setFacesMessage("There was an error.");
             return null;
         }
-        load(survey.getSurveyid());
         return "sysadminsurveydetail";
     }
 

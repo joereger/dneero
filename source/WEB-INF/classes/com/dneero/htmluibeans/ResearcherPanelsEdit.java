@@ -3,6 +3,7 @@ package com.dneero.htmluibeans;
 import com.dneero.dao.Panel;
 import com.dneero.util.Jsf;
 import com.dneero.util.Num;
+import com.dneero.htmlui.Pagez;
 import org.apache.log4j.Logger;
 
 import java.io.Serializable;
@@ -20,10 +21,7 @@ public class ResearcherPanelsEdit implements Serializable {
 
     }
 
-    public String beginView(){
-        load();
-        return "researcherpanelsedit";
-    }
+
 
     public void load(){
         if (Pagez.getRequest().getParameter("panelid")!=null && Num.isinteger(Pagez.getRequest().getParameter("panelid"))){

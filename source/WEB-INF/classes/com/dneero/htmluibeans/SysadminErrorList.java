@@ -24,22 +24,18 @@ public class SysadminErrorList implements Serializable {
 
     }
 
-    public String beginView(){
-        load();
-        return "sysadminerrorlist";
-    }
 
-    public String load(){
+
+    public void initBean(){
         Logger logger = Logger.getLogger(this.getClass().getName());
         //Go get the users from the database
         logger.debug("load() called. minleveltoshow="+minleveltoshow);
         errors = HibernateUtil.getSession().createQuery("from Error where level>='"+minleveltoshow+"' order by errorid desc").setMaxResults(100).list();
-        return "";        
     }
 
     public String markallold(){
         int ers = HibernateUtil.getSession().createQuery("update Error set status= :statusold").setString("statusold", String.valueOf(Error.STATUS_OLD)).executeUpdate();
-        load();
+        initBean();
         return "sysadminerrorlist";
     }
     public String deleteall(){
@@ -50,13 +46,13 @@ public class SysadminErrorList implements Serializable {
             Error error = (Error) iterator.next();
             try{error.delete();}catch(Exception ex){logger.error("",ex);}
         }
-        load();
+        initBean();
         return "sysadminerrorlist";        
     }
 
     public String onlyerrors(){
         minleveltoshow = Level.ERROR_INT;
-        load();
+        initBean();
         return "";
     }
 

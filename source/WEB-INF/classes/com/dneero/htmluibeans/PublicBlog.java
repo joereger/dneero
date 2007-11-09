@@ -18,14 +18,11 @@ public class PublicBlog implements Serializable {
     public static String CARRIAGERETURN = "\\r";
 
     public PublicBlog(){
-        load();
     }
 
-    public String beginView(){
-        return "publicblog";
-    }
 
-    private void load(){
+
+    public void initBean(){
         blogposts = HibernateUtil.getSession().createQuery("from Blogpost order by date DESC").setCacheable(true).setMaxResults(50).list();
         for (int i = 0; i < blogposts.size(); i++) {
             Blogpost blogpost = blogposts.get(i);

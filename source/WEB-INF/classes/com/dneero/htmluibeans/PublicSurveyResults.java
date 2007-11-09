@@ -23,6 +23,7 @@ import com.dneero.facebook.FacebookApiWrapper;
 import com.dneero.facebook.FacebookUser;
 import com.dneero.scheduledjobs.SurveydisplayActivityObjectQueue;
 import com.dneero.helpers.UserInputSafe;
+import com.dneero.htmlui.Pagez;
 
 import java.io.Serializable;
 import java.util.*;
@@ -55,10 +56,10 @@ public class PublicSurveyResults implements Serializable {
 
 
     public PublicSurveyResults(){
-        load();
+
     }
 
-    private void load(){
+    public void initBean(){
         //Set up logger
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("PublicSurveyTake instanciated.");
@@ -75,7 +76,7 @@ public class PublicSurveyResults implements Serializable {
 
         //If we don't have a surveyid, shouldn't be on this page
         if (surveyid<=0){
-            try{Jsf.redirectResponse("/publicsurveylist.jsf"); return;}catch(Exception ex){logger.error("",ex);}
+            try{Pagez.sendRedirect("/publicsurveylist.jsf"); return;}catch(Exception ex){logger.error("",ex);}
         }
 
         //Load up the survey
@@ -83,7 +84,7 @@ public class PublicSurveyResults implements Serializable {
 
         //If the survey is draft or waiting
         if (survey.getStatus()<Survey.STATUS_OPEN){
-            try{Jsf.redirectResponse("/surveynotopen.jsf"); return;}catch(Exception ex){logger.error("",ex);}
+            try{Pagez.sendRedirect("/surveynotopen.jsf"); return;}catch(Exception ex){logger.error("",ex);}
         }
 
         //Userid from url

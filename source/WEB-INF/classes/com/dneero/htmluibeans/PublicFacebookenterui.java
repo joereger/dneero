@@ -19,7 +19,7 @@ public class PublicFacebookenterui implements Serializable {
     private String url = "";
 
     public PublicFacebookenterui(){
-        load();
+
     }
 
     private void load(){
@@ -30,7 +30,7 @@ public class PublicFacebookenterui implements Serializable {
             action = "?action="+Pagez.getRequest().getParameter("action");
         }
         url = "http://apps.facebook.com/"+SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_APP_NAME)+"/"+action;
-        try{Jsf.redirectResponse(url);}catch(Exception ex){logger.error("",ex);}
+        try{Pagez.sendRedirect(url);}catch(Exception ex){logger.error("",ex);}
     }
 
     public String getDummy() {

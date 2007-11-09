@@ -2,6 +2,7 @@ package com.dneero.htmluibeans;
 
 import com.dneero.util.Jsf;
 import com.dneero.systemprops.BaseUrl;
+import com.dneero.htmlui.Pagez;
 
 import java.io.Serializable;
 
@@ -17,14 +18,14 @@ public class PublicFacebookexitui implements Serializable {
     private String dummy="";
 
     public PublicFacebookexitui(){
-        load();
+
     }
 
-    private void load(){
+    public void initBean(){
         Logger logger = Logger.getLogger(this.getClass().getName());
         //Clear the isfacebookui flag
         Pagez.getUserSession().leaveFacebookui();
-        try{Jsf.redirectResponse(BaseUrl.get(false));}catch(Exception ex){logger.error("",ex);}
+        try{Pagez.sendRedirect(BaseUrl.get(false));}catch(Exception ex){logger.error("",ex);}
     }
 
     public String getDummy() {

@@ -23,6 +23,7 @@ import com.dneero.session.SurveysTakenToday;
 import com.dneero.helpers.UserInputSafe;
 import com.dneero.facebook.FacebookApiWrapper;
 import com.dneero.facebook.FacebookUser;
+import com.dneero.htmlui.Pagez;
 
 import java.util.*;
 import java.io.Serializable;
@@ -85,7 +86,7 @@ public class PublicSurveyTake implements Serializable {
     private String invitefriendsurl = "";
 
     public PublicSurveyTake(){
-        load();
+
     }
 
     private void load(){
@@ -105,7 +106,7 @@ public class PublicSurveyTake implements Serializable {
 
         //If we don't have a surveyid, shouldn't be on this page
         if (surveyid<=0){
-            try{Jsf.redirectResponse("/publicsurveylist.jsf"); return;}catch(Exception ex){logger.error("",ex);}
+            try{Pagez.sendRedirect("/publicsurveylist.jsf"); return;}catch(Exception ex){logger.error("",ex);}
         }
 
         //Load up the survey
@@ -113,7 +114,7 @@ public class PublicSurveyTake implements Serializable {
 
         //If the survey is draft or waiting
         if (survey.getStatus()<Survey.STATUS_OPEN){
-            try{Jsf.redirectResponse("/surveynotopen.jsf"); return;}catch(Exception ex){logger.error("",ex);}
+            try{Pagez.sendRedirect("/surveynotopen.jsf"); return;}catch(Exception ex){logger.error("",ex);}
         }
 
         //Userid from url
@@ -483,7 +484,7 @@ public class PublicSurveyTake implements Serializable {
             if (Pagez.getUserSession().getUser().getBloggerid()>0){
                 //load();
                 logger.debug("redirecting, will add justcompletedsurvey=1");
-                try{Jsf.redirectResponse("/survey.jsf?surveyid="+survey.getSurveyid()+"&justcompletedsurvey=1");}catch(Exception ex){logger.error("",ex);}
+                try{Pagez.sendRedirect("/survey.jsf?surveyid="+survey.getSurveyid()+"&justcompletedsurvey=1");}catch(Exception ex){logger.error("",ex);}
                 return "publicsurvey";
             } else {
                 AccountIndex bean = (AccountIndex)Jsf.getManagedBean("accountIndex");
@@ -562,7 +563,7 @@ public class PublicSurveyTake implements Serializable {
         }
         tabselectedindex = 4;
         //Return from survey new comment in a way that retains the survey url
-        try{Jsf.redirectResponse("/survey.jsf?surveyid="+Pagez.getUserSession().getCurrentSurveyid()+"&tabselectedindex=4"); return null;}catch(Exception ex){logger.error("",ex);}
+        try{Pagez.sendRedirect("/survey.jsf?surveyid="+Pagez.getUserSession().getCurrentSurveyid()+"&tabselectedindex=4"); return null;}catch(Exception ex){logger.error("",ex);}
         return "publicsurvey";
     }
 
@@ -596,7 +597,7 @@ public class PublicSurveyTake implements Serializable {
 ////        }
 //        FacebookApiWrapper faw = new FacebookApiWrapper(Pagez.getUserSession());
 //        faw.inviteFriendsToSurvey(survey);
-//        try{Jsf.redirectResponse("/survey.jsf?surveyid="+survey.getSurveyid()); return null;}catch(Exception ex){logger.error("",ex);}
+//        try{Pagez.sendRedirect("/survey.jsf?surveyid="+survey.getSurveyid()); return null;}catch(Exception ex){logger.error("",ex);}
 //        return "publicsurvey";
 //    }
 
@@ -605,7 +606,7 @@ public class PublicSurveyTake implements Serializable {
         try{
             //Update Facebook
             if (Pagez.getUserSession().getUser().getBloggerid()>0){
-                FacebookApiWrapper facebookApiWrapper = new FacebookApiWrapper(Pagez.getUserSession());
+                FacebookApiWrapperHtmlui facebookApiWrapper = new FacebookApiWrapperHtmlui(Pagez.getUserSession());
                 List<Response> responses = HibernateUtil.getSession().createCriteria(Response.class)
                                                    .add(Restrictions.eq("surveyid", survey.getSurveyid()))
                                                    .add(Restrictions.eq("bloggerid", Pagez.getUserSession().getUser().getBloggerid()))

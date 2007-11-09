@@ -22,14 +22,12 @@ public class PublicCharity implements Serializable {
     private ArrayList<PublicCharityListItemTopDonators> topdonatingUsers;
 
     public PublicCharity(){
-        load();
+
     }
 
-    public String beginView(){
-        return "publiccharity";
-    }
 
-    private void load(){
+
+    public void initBean(){
         publicCharityListItemsMostRecent =  new ArrayList<PublicCharityListItem>();
         List<Charitydonation> charitydonations = HibernateUtil.getSession().createQuery("from Charitydonation where balanceid>0 order by charitydonationid desc").setMaxResults(50).setCacheable(true).list();
         for (Iterator<Charitydonation> iterator = charitydonations.iterator(); iterator.hasNext();) {

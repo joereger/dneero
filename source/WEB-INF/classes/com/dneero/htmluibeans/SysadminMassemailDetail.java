@@ -13,6 +13,7 @@ import com.dneero.email.EmailTemplateProcessor;
 import com.dneero.email.EmailSendThread;
 import com.dneero.email.EmailSend;
 import com.dneero.scheduledjobs.SendMassemails;
+import com.dneero.htmlui.Pagez;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -33,7 +34,7 @@ public class SysadminMassemailDetail implements Serializable {
     private String subjectPreview;
     private String testsendemailaddress;
 
-    public String beginView(){
+    public void initBean(){
         Logger logger = Logger.getLogger(this.getClass().getName());
         //logger.debug("beginView called:");
         String tmpMassemailid = Pagez.getRequest().getParameter("massemailid");
@@ -47,7 +48,6 @@ public class SysadminMassemailDetail implements Serializable {
             massemail.setLastuseridprocessed(0);
         }
         calculatePreviews();
-        return "sysadminmassemaildetail";
     }
 
     private void load(int massemailid){
@@ -111,6 +111,7 @@ public class SysadminMassemailDetail implements Serializable {
             SysadminMassemailSend bean = (SysadminMassemailSend)Jsf.getManagedBean("sysadminMassemailSend");
             bean.setMassemail(massemail);
             return bean.beginView();
+
         } else {
             Jsf.setFacesMessage("Sorry, this mass email has already been sent!");
             return "sysadminmassemaildetail";

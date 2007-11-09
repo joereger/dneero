@@ -14,6 +14,7 @@ import com.dneero.util.Jsf;
 import com.dneero.util.Str;
 import com.dneero.util.Num;
 import com.dneero.htmlui.UserSession;
+import com.dneero.htmlui.Pagez;
 import com.dneero.session.PersistentLogin;
 import com.dneero.session.SurveysTakenToday;
 import com.dneero.xmpp.SendXMPPMessage;
@@ -40,9 +41,10 @@ public class Login implements Serializable {
 
     }
 
-    public String beginView(){
-        return "login";
+    public void initBean(){
+
     }
+
 
     public String login(){
         Logger logger = Logger.getLogger(this.getClass().getName());
@@ -130,21 +132,17 @@ public class Login implements Serializable {
                 if (SystemProperty.getProp(SystemProperty.PROP_ISSSLON).equals("1")){
                     try{
                         logger.debug("redirecting to https - "+BaseUrl.get(true)+"account/index.jsf");
-                        Jsf.redirectResponse(BaseUrl.get(true)+"account/index.jsf");
+                        Pagez.sendRedirect(BaseUrl.get(true)+"account/index.jsf");
                         return null;
                     } catch (Exception ex){
                         logger.error("",ex);
-                        AccountIndex bean = (AccountIndex)Jsf.getManagedBean("accountIndex");
-                        return bean.beginView();
-                        //return "accountindex";
+                        Pagez.sendRedirect("/jsp/account/index.jsp");
                     }
                 } else {
-                    AccountIndex bean = (AccountIndex)Jsf.getManagedBean("accountIndex");
-                    return bean.beginView();
-                    //return "accountindex";
+                    Pagez.sendRedirect("/jsp/account/index.jsp");
                 }
             } else {
-                Jsf.setFacesMessage("This account is not active.  Please contact the system administrator if you feel this is an error.");
+                //@todo set message "This account is not active.  Please contact the system administrator if you feel this is an error."
                 return null;
             }
         }

@@ -15,6 +15,7 @@ import com.dneero.util.Jsf;
 import com.dneero.util.GeneralException;
 import com.dneero.util.Num;
 import com.dneero.htmlui.UserSession;
+import com.dneero.htmlui.Pagez;
 import com.dneero.finders.SurveyCriteriaXML;
 
 /**
@@ -55,19 +56,16 @@ public class ResearcherSurveyDetail04 implements Serializable {
 
     }
 
-    public String beginView(){
-        load();
-        return "researchersurveydetail_04";
-    }
 
-    private void load(){
-        loadSurvey(Pagez.getUserSession().getCurrentSurveyid());
-    }
 
-    public void loadSurvey(int surveyid){
+    public void initBean(){
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("loadSurvey called");
-        Survey survey = Survey.get(surveyid);
+        Survey survey = Survey.get(Pagez.getUserSession().getCurrentSurveyid());
+        if (com.dneero.util.Num.isinteger(Pagez.getRequest().getParameter("surveyid"))){
+            Pagez.getUserSession().setCurrentSurveyid(Integer.parseInt(Pagez.getRequest().getParameter("surveyid")));
+            survey = Survey.get((Integer.parseInt(Pagez.getRequest().getParameter("surveyid"))));
+        }
         if (survey!=null){
             title = survey.getTitle();
             status = survey.getStatus();

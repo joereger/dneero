@@ -17,7 +17,7 @@ public class PublicEvil {
     private String socialbookmarklinks;
 
     public PublicEvil(){
-        load();
+
     }
 
     public void load(){

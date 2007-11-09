@@ -9,6 +9,7 @@ import com.dneero.dao.Question;
 import com.dneero.dao.Survey;
 import com.dneero.dao.Questionconfig;
 import com.dneero.htmlui.UserSession;
+import com.dneero.htmlui.Pagez;
 import com.dneero.util.Jsf;
 import com.dneero.util.GeneralException;
 import com.dneero.display.components.Checkboxes;
@@ -38,12 +39,9 @@ public class ResearcherSurveyDetail02checkboxes implements Serializable {
 
     }
 
-    public String beginView(){
-        load();
-        return "researchersurveydetail_02_checkboxes";
-    }
 
-    private void load(){
+
+    public void initBean(){
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("Instanciating object");
         String tmpQuestionid = Pagez.getRequest().getParameter("questionid");

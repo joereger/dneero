@@ -24,12 +24,10 @@ public class PublicOldSurveyList implements Serializable {
     private ArrayList<BloggerSurveyListItem> surveys;
 
     public PublicOldSurveyList() {
-        load();
+
     }
 
-    public String beginView(){
-        return "publicoldsurveylist";
-    }
+
 
     private void load(){
         Logger logger = Logger.getLogger(this.getClass().getName());

@@ -4,6 +4,7 @@ import org.apache.log4j.Logger;
 import com.dneero.dao.Survey;
 import com.dneero.util.Jsf;
 import com.dneero.money.SurveyMoneyStatus;
+import com.dneero.htmlui.Pagez;
 
 import java.io.Serializable;
 
@@ -22,13 +23,14 @@ public class ResearcherResultsFinancial implements Serializable {
        
     }
 
-    public String beginView(){
-        load();
-        return "researcherresultsfinancial";
-    }
 
-    private void load(){
+
+    public void initBean(){
         Survey survey = Survey.get(Pagez.getUserSession().getCurrentSurveyid());
+        if (com.dneero.util.Num.isinteger(Pagez.getRequest().getParameter("surveyid"))){
+            Pagez.getUserSession().setCurrentSurveyid(Integer.parseInt(Pagez.getRequest().getParameter("surveyid")));
+            survey = Survey.get((Integer.parseInt(Pagez.getRequest().getParameter("surveyid"))));
+        }
         if (survey!=null && survey.getSurveyid()>0){
             this.survey = survey;
             sms = new SurveyMoneyStatus(survey);

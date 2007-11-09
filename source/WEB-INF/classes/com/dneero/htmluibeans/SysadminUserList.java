@@ -33,12 +33,9 @@ public class SysadminUserList implements Serializable {
 
     }
 
-    public String beginView(){
-        load();
-        return "userlist";
-    }
 
-    private void load(){
+
+    public void initBean(){
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("load()");
         logger.debug("searchfirstname="+searchfirstname);
@@ -65,10 +62,7 @@ public class SysadminUserList implements Serializable {
         users = crit.addOrder(Order.desc("userid")).list();
     }
     
-    public String search(){
-        load();
-        return "userlist";
-    }
+
 
     public List getUsers() {
         //logger.debug("getListitems");
@@ -85,35 +79,7 @@ public class SysadminUserList implements Serializable {
         return true;
     }
 
-    protected void sort(final String column, final boolean ascending) {
-        //logger.debug("sort called");
-        Comparator comparator = new Comparator() {
-            public int compare(Object o1, Object o2) {
-                User user1 = (User)o1;
-                User user2 = (User)o2;
 
-                if (column == null) {
-                    return 0;
-                }
-                if (column.equals("email")) {
-                    return ascending ? user1.getEmail().compareTo(user2.getEmail()) : user2.getEmail().compareTo(user1.getEmail());
-                } else if (column.equals("firstname")) {
-                    return ascending ? user1.getFirstname().compareTo(user2.getFirstname()) : user2.getFirstname().compareTo(user1.getFirstname());
-                } else if (column.equals("userid")){
-                    return ascending ? user2.getUserid()-user1.getUserid() : user1.getUserid()-user2.getUserid() ;
-                } else {
-                    return 0;
-                }
-            }
-        };
-
-        //sort and also set our model with the new sort, since using DataTable with
-        //ListDataModel on front end
-        if (users != null && !users.isEmpty()) {
-            //logger.debug("sorting users and initializing ListDataModel");
-            Collections.sort(users, comparator);
-        }
-    }
 
 
     public String getSearchfirstname() {

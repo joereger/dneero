@@ -13,6 +13,7 @@ import java.io.Serializable;
 import com.dneero.dao.*;
 import com.dneero.util.*;
 import com.dneero.htmlui.UserSession;
+import com.dneero.htmlui.Pagez;
 import com.dneero.finders.FindBloggersForSurvey;
 import com.dneero.money.*;
 import com.dneero.scheduledjobs.ResearcherRemainingBalanceOperations;
@@ -69,21 +70,18 @@ public class ResearcherSurveyDetail06 implements Serializable {
 
     }
 
-    public String beginView(){
-        load();
-        return "researchersurveydetail_06";
-    }
-
-    private void load(){
-        loadSurvey(Pagez.getUserSession().getCurrentSurveyid());
-    }
 
 
 
-    public void loadSurvey(int surveyid){
+
+    public void initBean(){
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("loadSurvey called");
-        Survey survey = Survey.get(surveyid);
+        Survey survey = Survey.get(Pagez.getUserSession().getCurrentSurveyid());
+        if (com.dneero.util.Num.isinteger(Pagez.getRequest().getParameter("surveyid"))){
+            Pagez.getUserSession().setCurrentSurveyid(Integer.parseInt(Pagez.getRequest().getParameter("surveyid")));
+            survey = Survey.get((Integer.parseInt(Pagez.getRequest().getParameter("surveyid"))));
+        }
         if (survey!=null){
             logger.debug("Found survey in db: survey.getSurveyid()="+survey.getSurveyid()+" survey.getTitle()="+survey.getTitle());
             title = survey.getTitle();

@@ -33,12 +33,8 @@ public class SysadminBetainvite implements Serializable {
 
     }
 
-    public String beginView(){
-        load();
-        return "sysadminbetainvite";
-    }
 
-    private void load(){
+    public void initBean(){
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("load()");
         betainvites = HibernateUtil.getSession().createQuery("from Betainvite").list();

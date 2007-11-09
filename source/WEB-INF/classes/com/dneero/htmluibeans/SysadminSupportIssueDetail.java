@@ -9,6 +9,7 @@ import com.dneero.dao.Supportissue;
 import com.dneero.dao.User;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.htmlui.UserSession;
+import com.dneero.htmlui.Pagez;
 import com.dneero.util.Jsf;
 import com.dneero.util.GeneralException;
 import com.dneero.util.Num;
@@ -43,7 +44,7 @@ public class SysadminSupportIssueDetail implements Serializable {
     }
 
 
-    public String beginView(){
+    public void initBean(){
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("beginView called: supportissueid="+supportissueid);
         String tmpSupportissueid = Pagez.getRequest().getParameter("supportissueid");
@@ -65,7 +66,6 @@ public class SysadminSupportIssueDetail implements Serializable {
         } else {
             logger.debug("beginView called: NOT found supportissueid in param="+tmpSupportissueid);
         }
-        return "sysadminsupportissuedetail";
     }
 
     public String newNote(){

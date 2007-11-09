@@ -29,8 +29,8 @@ public class LostPassword implements Serializable {
         
     }
 
-    public String beginView(){
-        return "lostpassword";
+    public void initBean(){
+
     }
 
     public String recoverPassword(){

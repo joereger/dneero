@@ -8,6 +8,7 @@ import com.dneero.facebook.FacebookPendingReferrals;
 import com.dneero.dao.User;
 import com.dneero.dao.Survey;
 import com.dneero.xmpp.SendXMPPMessage;
+import com.dneero.htmlui.Pagez;
 
 import java.io.Serializable;
 import java.net.URLEncoder;
@@ -25,10 +26,10 @@ public class PublicFacebookAppAdd implements Serializable {
     private String addurl = "http://www.facebook.com/add.php?api_key="+ SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_KEY);
 
     public PublicFacebookAppAdd(){
-        load();
+
     }
 
-    private void load(){
+    public void initBean(){
         Logger logger = Logger.getLogger(this.getClass().getName());
 
         //@todo append action to addurl

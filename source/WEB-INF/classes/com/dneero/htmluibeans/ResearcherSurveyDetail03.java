@@ -6,6 +6,7 @@ import com.dneero.util.GeneralException;
 import com.dneero.dao.Survey;
 import com.dneero.dao.Question;
 import com.dneero.htmlui.UserSession;
+import com.dneero.htmlui.Pagez;
 import com.dneero.display.SurveyTemplateProcessor;
 import com.dneero.survey.servlet.SurveyFlashServlet;
 import com.dneero.survey.servlet.SurveyJavascriptServlet;
@@ -45,20 +46,17 @@ public class ResearcherSurveyDetail03 implements Serializable {
 
     }
 
-    public String beginView(){
-        load();
-        return "researchersurveydetail_03";
-    }
-
-    private void load(){
-        loadSurvey(Pagez.getUserSession().getCurrentSurveyid());
-    }
 
 
-    public void loadSurvey(int surveyid){
+
+    public void initBean(){
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("loadSurvey called");
-        Survey survey = Survey.get(surveyid);
+        Survey survey = Survey.get(Pagez.getUserSession().getCurrentSurveyid());
+        if (com.dneero.util.Num.isinteger(Pagez.getRequest().getParameter("surveyid"))){
+            Pagez.getUserSession().setCurrentSurveyid(Integer.parseInt(Pagez.getRequest().getParameter("surveyid")));
+            survey = Survey.get((Integer.parseInt(Pagez.getRequest().getParameter("surveyid"))));
+        }
         if (survey!=null){
             logger.debug("Found survey in db: survey.getSurveyid()="+survey.getSurveyid()+" survey.getTitle()="+survey.getTitle());
             title = survey.getTitle();

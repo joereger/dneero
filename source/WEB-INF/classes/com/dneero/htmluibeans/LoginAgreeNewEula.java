@@ -5,6 +5,7 @@ import com.dneero.dao.User;
 import com.dneero.dao.Usereula;
 import com.dneero.util.Jsf;
 import com.dneero.util.GeneralException;
+import com.dneero.htmlui.Pagez;
 
 import java.util.Date;
 import java.io.Serializable;
@@ -25,12 +26,9 @@ public class LoginAgreeNewEula implements Serializable {
 
     }
 
-    public String beginView(){
-        load();
-        return "loginagreeneweula";
-    }
 
-    private void load(){
+
+    public void initBean(){
         eula = EulaHelper.getMostRecentEula().getEula();
     }
 

@@ -13,6 +13,7 @@ import com.dneero.util.Str;
 import com.dneero.util.Jsf;
 import com.dneero.util.GeneralException;
 import com.dneero.htmlui.UserSession;
+import com.dneero.htmlui.Pagez;
 
 /**
  * User: Joe Reger Jr
@@ -36,20 +37,17 @@ public class ResearcherSurveyDetail05 implements Serializable {
 
     }
 
-    public String beginView(){
-        load();
-        return "researchersurveydetail_05";
-    }
-
-    private void load(){
-        loadSurvey(Pagez.getUserSession().getCurrentSurveyid());
-    }
 
 
-    public void loadSurvey(int surveyid){
+
+    public void initBean(){
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("loadSurvey called");
-        Survey survey = Survey.get(surveyid);
+        Survey survey = Survey.get(Pagez.getUserSession().getCurrentSurveyid());
+        if (com.dneero.util.Num.isinteger(Pagez.getRequest().getParameter("surveyid"))){
+            Pagez.getUserSession().setCurrentSurveyid(Integer.parseInt(Pagez.getRequest().getParameter("surveyid")));
+            survey = Survey.get((Integer.parseInt(Pagez.getRequest().getParameter("surveyid"))));
+        }
         if (survey!=null){
             logger.debug("Found survey in db: survey.getSurveyid()="+survey.getSurveyid()+" survey.getTitle()="+survey.getTitle());
             title = survey.getTitle();

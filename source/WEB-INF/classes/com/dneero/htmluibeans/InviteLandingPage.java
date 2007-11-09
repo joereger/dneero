@@ -4,6 +4,7 @@ import com.dneero.util.Jsf;
 import com.dneero.util.Util;
 import com.dneero.util.Num;
 import com.dneero.htmlui.UserSession;
+import com.dneero.htmlui.Pagez;
 import com.dneero.dao.User;
 import org.apache.log4j.Logger;
 
@@ -19,14 +20,10 @@ public class InviteLandingPage implements Serializable {
     private String referredby;
 
     public InviteLandingPage(){
-        //@todo Refactor Non-Empty Constructor
-        load();
+
     }
     
-    public String beginView(){
-        load();
-        return "invitelandingpage";
-    }
+
 
     private void load(){
         Logger logger = Logger.getLogger(this.getClass().getName());

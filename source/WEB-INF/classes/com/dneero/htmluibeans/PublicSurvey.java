@@ -23,6 +23,7 @@ import com.dneero.facebook.FacebookApiWrapper;
 import com.dneero.facebook.FacebookUser;
 import com.dneero.scheduledjobs.SurveydisplayActivityObjectQueue;
 import com.dneero.helpers.UserInputSafe;
+import com.dneero.htmlui.Pagez;
 
 import java.io.Serializable;
 import java.util.*;
@@ -63,10 +64,10 @@ public class PublicSurvey implements Serializable {
 
 
     public PublicSurvey(){
-        load();
+
     }
 
-    private void load(){
+    public void initBean(){
         //Set up logger
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("PublicSurveyTake instanciated.");
@@ -83,7 +84,7 @@ public class PublicSurvey implements Serializable {
 
         //If we don't have a surveyid, shouldn't be on this page
         if (surveyid<=0){
-            try{Jsf.redirectResponse("/publicsurveylist.jsf"); return;}catch(Exception ex){logger.error("",ex);}
+            try{Pagez.sendRedirect("/publicsurveylist.jsf"); return;}catch(Exception ex){logger.error("",ex);}
         }
 
         //Load up the survey
@@ -91,7 +92,7 @@ public class PublicSurvey implements Serializable {
 
         //If the survey is draft or waiting
         if (survey.getStatus()<Survey.STATUS_OPEN){
-            try{Jsf.redirectResponse("/surveynotopen.jsf"); return;}catch(Exception ex){logger.error("",ex);}
+            try{Pagez.sendRedirect("/surveynotopen.jsf"); return;}catch(Exception ex){logger.error("",ex);}
         }
 
         //Userid from url
@@ -165,19 +166,19 @@ public class PublicSurvey implements Serializable {
         //Turn on the correct tab
         if (survey.getStatus()!=Survey.STATUS_OPEN){
             //redirect to results
-            //try{Jsf.redirectResponse("/surveyresults.jsf?surveyid="+surveyid); return;}catch(Exception ex){logger.error("",ex);}
+            //try{Pagez.sendRedirect("/surveyresults.jsf?surveyid="+surveyid); return;}catch(Exception ex){logger.error("",ex);}
         }
         if (loggedinuserhasalreadytakensurvey && isuserwhotooksurveysameasloggedinuser){
             //redirect to postit
-            //try{Jsf.redirectResponse("/surveypostit.jsf?surveyid="+surveyid); return;}catch(Exception ex){logger.error("",ex);}
+            //try{Pagez.sendRedirect("/surveypostit.jsf?surveyid="+surveyid); return;}catch(Exception ex){logger.error("",ex);}
         }
         if (Pagez.getRequest().getParameter("show")!=null && Pagez.getRequest().getParameter("show").equals("results")){
             //redirect to results
-            try{Jsf.redirectResponse("/surveyresults.jsf?surveyid="+surveyid+"&userid="+userid); return;}catch(Exception ex){logger.error("",ex);}
+            try{Pagez.sendRedirect("/surveyresults.jsf?surveyid="+surveyid+"&userid="+userid); return;}catch(Exception ex){logger.error("",ex);}
         }
         if (Pagez.getRequest().getParameter("show")!=null && Pagez.getRequest().getParameter("show").equals("disclosure")){
             //redirect to disclosure
-            try{Jsf.redirectResponse("/surveydisclosure.jsf?surveyid="+surveyid); return;}catch(Exception ex){logger.error("",ex);}
+            try{Pagez.sendRedirect("/surveydisclosure.jsf?surveyid="+surveyid); return;}catch(Exception ex){logger.error("",ex);}
         }
 
 
@@ -346,7 +347,7 @@ public class PublicSurvey implements Serializable {
             if (Pagez.getUserSession().getUser().getBloggerid()>0){
                 //load();
                 logger.debug("redirecting, will add justcompletedsurvey=1");
-                try{Jsf.redirectResponse("/surveypostit.jsf?surveyid="+survey.getSurveyid()+"&justcompletedsurvey=1");}catch(Exception ex){logger.error("",ex);}
+                try{Pagez.sendRedirect("/surveypostit.jsf?surveyid="+survey.getSurveyid()+"&justcompletedsurvey=1");}catch(Exception ex){logger.error("",ex);}
                 return "publicsurvey";
             } else {
                 AccountIndex bean = (AccountIndex)Jsf.getManagedBean("accountIndex");

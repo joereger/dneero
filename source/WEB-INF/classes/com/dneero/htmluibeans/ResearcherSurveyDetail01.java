@@ -31,29 +31,27 @@ public class ResearcherSurveyDetail01 implements Serializable {
 
 
     public ResearcherSurveyDetail01(){
-        //@todo Refactor Non-Empty Constructor
-        load();
     }
 
-    public String beginView(){
+    public void initBean(){
         Logger logger = Logger.getLogger(this.getClass().getName());
-        logger.debug("beginView() called:");
-        load();
-        String tmpSurveyid = Pagez.getRequest().getParameter("surveyid");
-        if (com.dneero.util.Num.isinteger(tmpSurveyid)){
-            logger.debug("beginView called: found surveyid in request param="+tmpSurveyid);
-            UserSession userSession = Pagez.getUserSession();
-            userSession.setCurrentSurveyid(Integer.parseInt(tmpSurveyid));
-            loadSurvey(Integer.parseInt(tmpSurveyid));
+        Survey survey = Survey.get(Pagez.getUserSession().getCurrentSurveyid());
+        if (com.dneero.util.Num.isinteger(Pagez.getRequest().getParameter("surveyid"))){
+            Pagez.getUserSession().setCurrentSurveyid(Integer.parseInt(Pagez.getRequest().getParameter("surveyid")));
+            survey = Survey.get((Integer.parseInt(Pagez.getRequest().getParameter("surveyid"))));
         }
-        return "researchersurveydetail_01";
+        if (survey!=null){
+            logger.debug("Found survey in db: survey.getSurveyid()="+survey.getSurveyid()+" survey.getTitle()="+survey.getTitle());
+            if (Pagez.getUserSession().getUser()!=null && survey.canEdit(Pagez.getUserSession().getUser())){
+                logger.debug("survey.canEdit(Pagez.getUserSession().getUser())="+survey.canEdit(Pagez.getUserSession().getUser()));
+                title = survey.getTitle();
+                description = survey.getDescription();
+                startdate = survey.getStartdate();
+                enddate = survey.getEnddate();
+                status = survey.getStatus();
+            }
+        }
     }
-
-    private void load(){
-        loadSurvey(Pagez.getUserSession().getCurrentSurveyid());
-    }
-
-
 
     public String beginViewNewSurvey(){
         Logger logger = Logger.getLogger(this.getClass().getName());
@@ -68,22 +66,7 @@ public class ResearcherSurveyDetail01 implements Serializable {
 
 
 
-    public void loadSurvey(int surveyid){
-        Logger logger = Logger.getLogger(this.getClass().getName());
-        logger.debug("loadSurvey called for surveyid="+surveyid);
-        Survey survey = Survey.get(surveyid);
-        if (survey!=null){
-            logger.debug("Found survey in db: survey.getSurveyid()="+survey.getSurveyid()+" survey.getTitle()="+survey.getTitle());
-            if (Pagez.getUserSession().getUser()!=null && survey.canEdit(Pagez.getUserSession().getUser())){
-                logger.debug("survey.canEdit(Pagez.getUserSession().getUser())="+survey.canEdit(Pagez.getUserSession().getUser()));
-                title = survey.getTitle();
-                description = survey.getDescription();
-                startdate = survey.getStartdate();
-                enddate = survey.getEnddate();
-                status = survey.getStatus();
-            }
-        }
-    }
+
 
     public String saveSurveyAsDraft(){
         String save = saveSurvey();

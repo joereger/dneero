@@ -16,6 +16,7 @@ import com.dneero.dao.Userrole;
 import com.dneero.dao.User;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.htmlui.UserSession;
+import com.dneero.htmlui.Pagez;
 import com.dneero.money.PaymentMethod;
 
 
@@ -52,7 +53,7 @@ public class BloggerDetails implements Serializable {
     }
 
 
-    public void load(){
+    public void initBean(){
         UserSession userSession = Pagez.getUserSession();
         if (userSession.getUser()!=null && userSession.getUser().getBloggerid()>0){
             Blogger blogger = Blogger.get(userSession.getUser().getBloggerid());
@@ -172,20 +173,17 @@ public class BloggerDetails implements Serializable {
             userSession.getUser().refresh();
 
             if (isnewblogger){
-                BloggerIndex bean = (BloggerIndex)Jsf.getManagedBean("bloggerIndex");
-                bean.setMsg("Profile saved successfully.");
-                return bean.beginView();
-                //return "bloggerindex";
+                //@todo set "Profile Saved Successfully" message on index
+                Pagez.sendRedirect("/jsp/blogger/index.jsp");
             } else {
-                BloggerIndex bean = (BloggerIndex)Jsf.getManagedBean("bloggerIndex");
-                bean.setMsg("Profile saved successfully.");
-                return bean.beginView();
-                //return "bloggerindex";
+                //@todo set "Profile Saved Successfully" message on index
+                Pagez.sendRedirect("/jsp/blogger/index.jsp");
             }
         } else {
-            Jsf.setFacesMessage("UserSession.getUser() is null.  Please log in.");
+            //@todo set message "UserSession.getUser() is null.  Please log in."
             return null;
         }
+        return "";
     }
 
 

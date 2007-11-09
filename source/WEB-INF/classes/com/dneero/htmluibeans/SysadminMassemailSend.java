@@ -7,6 +7,7 @@ import com.dneero.util.Jsf;
 import com.dneero.survey.servlet.SurveyJavascriptServlet;
 import com.dneero.display.SurveyTakerDisplay;
 import com.dneero.finders.SurveyCriteriaXML;
+import com.dneero.htmlui.Pagez;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -24,22 +25,13 @@ public class SysadminMassemailSend implements Serializable {
     private String password;
 
 
-    public String beginView(){
-        Logger logger = Logger.getLogger(this.getClass().getName());
-        //logger.debug("beginView called:");
-        String tmpMassemailid = Pagez.getRequest().getParameter("massemailid");
-        if (com.dneero.util.Num.isinteger(tmpMassemailid)){
-            logger.debug("beginView called: found massemailid in request param="+tmpMassemailid);
-            load(Integer.parseInt(tmpMassemailid));
-        }
-        return "sysadminmassemailsend";
-    }
 
-    private void load(int massemailid){
-        massemail = Massemail.get(massemailid);
-        if (massemail !=null && massemail.getMassemailid()>0){
 
+    public void initBean(){
+        if (com.dneero.util.Num.isinteger(Pagez.getRequest().getParameter("massemailid"))){
+            massemail = Massemail.get(Integer.parseInt(Pagez.getRequest().getParameter("massemailid")));
         }
+
     }
 
     public String send(){

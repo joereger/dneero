@@ -14,10 +14,6 @@ public class SysadminManuallyRunScheduledTask implements Serializable {
 
     public SysadminManuallyRunScheduledTask(){}
 
-    public String beginView(){
-        return "sysadminmanuallyrunscheduledtask";
-    }
-
 
     public String runCloseSurveysByDate(){
         Logger logger = Logger.getLogger(this.getClass().getName());

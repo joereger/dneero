@@ -8,6 +8,7 @@ import com.dneero.dao.Response;
 import com.dneero.util.Jsf;
 import com.dneero.util.Num;
 import com.dneero.survey.servlet.SurveyAsHtml;
+import com.dneero.htmlui.Pagez;
 
 import java.io.Serializable;
 
@@ -29,11 +30,11 @@ public class PublicProfileAnswers implements Serializable {
 
     }
 
-    public String beginView(){
+    public void initBean(){
         Logger logger = Logger.getLogger(this.getClass().getName());
 
         String tmpSurveyid = Pagez.getRequest().getParameter("surveyid");
-        logger.debug("beginView called" + " tmpSurveyid="+tmpSurveyid +" Pagez.getRequest().getParameter(\"bloggerid\")="+Pagez.getRequest().getParameter("bloggerid"));
+        logger.debug("beginView called" + " tmpSurveyid="+tmpSurveyid +" Pagez.getRequest().getParameter(\"bloggerid\")="+ Pagez.getRequest().getParameter("bloggerid"));
         if (Num.isinteger(tmpSurveyid)){
             survey = Survey.get(Integer.parseInt(tmpSurveyid));
         }

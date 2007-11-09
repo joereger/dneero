@@ -29,8 +29,8 @@ public class LostPasswordChoose implements Serializable {
 
     }
 
-    public String beginView(){
-        return "lostpasswordchoose";
+    public void initBean(){
+
     }
 
     public String choosePassword(){

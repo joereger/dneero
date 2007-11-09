@@ -4,6 +4,7 @@ import com.dneero.util.SortableList;
 import com.dneero.util.Jsf;
 import com.dneero.util.Time;
 import com.dneero.htmlui.UserSession;
+import com.dneero.htmlui.Pagez;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.dao.Revshare;
 import com.dneero.dao.Blogger;

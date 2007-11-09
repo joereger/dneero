@@ -7,6 +7,7 @@ import com.dneero.util.Time;
 import com.dneero.util.Util;
 import com.dneero.display.components.def.Component;
 import com.dneero.display.components.def.ComponentTypes;
+import com.dneero.htmlui.Pagez;
 
 import java.util.Iterator;
 import java.io.*;
@@ -30,19 +31,15 @@ public class ResearcherResultsAnswersCsv implements Serializable {
 
     }
 
-    public String beginView(){
-        load();
-        return "researcherresultsanswerscsv";
-    }
 
-    private void load(){
-        loadSurvey(Pagez.getUserSession().getCurrentSurveyid());
-    }
 
-    public void loadSurvey(int surveyid){
+    public void initBean(){
         Logger logger = Logger.getLogger(this.getClass().getName());
-        logger.debug("loadSurvey called");
-        survey = Survey.get(surveyid);
+        survey = Survey.get(Pagez.getUserSession().getCurrentSurveyid());
+        if (com.dneero.util.Num.isinteger(Pagez.getRequest().getParameter("surveyid"))){
+            Pagez.getUserSession().setCurrentSurveyid(Integer.parseInt(Pagez.getRequest().getParameter("surveyid")));
+            survey = Survey.get((Integer.parseInt(Pagez.getRequest().getParameter("surveyid"))));
+        }
         if (survey!=null){
             if (Pagez.getUserSession().getUser()!=null && survey.canEdit(Pagez.getUserSession().getUser())){
                 results = "";

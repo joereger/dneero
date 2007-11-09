@@ -27,11 +27,9 @@ public class SysadminSessions implements Serializable {
 
     }
 
-    public String beginView(){
-        return "sysadminsessions";
-    }
 
-    private void load(){
+
+    public void initBean(){
         Logger logger = Logger.getLogger(this.getClass().getName());
         try{
             StringBuffer out = new StringBuffer();

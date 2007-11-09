@@ -11,6 +11,7 @@ import com.dneero.dao.Emailinvitebatchaddress;
 import com.dneero.email.EmailTemplateProcessor;
 import com.dneero.ui.SurveyEnhancer;
 import com.dneero.systemprops.BaseUrl;
+import com.dneero.htmlui.Pagez;
 
 import java.util.Iterator;
 import java.util.Date;
@@ -32,12 +33,9 @@ public class ResearcherEmailinviteComplete implements Serializable {
 
     }
 
-    public String beginView(){
-        load();
-        return "researcheremailinvitecomplete";
-    }
 
-    private void load(){
+
+    public void initBean(){
         if (Pagez.getUserSession()!=null && Pagez.getUserSession().getEmailinviteaddresses()!=null){
             StringBuffer sb = new StringBuffer();
             sb.append("<textarea cols=\"30\" rows=\"10\">");

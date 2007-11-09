@@ -8,6 +8,7 @@ import com.dneero.util.Jsf;
 import com.dneero.util.Util;
 import com.dneero.display.components.def.Component;
 import com.dneero.display.components.def.ComponentTypes;
+import com.dneero.htmlui.Pagez;
 
 import java.io.Serializable;
 
@@ -23,24 +24,19 @@ public class ResearcherResultsAnswersDetails implements Serializable {
     private Question question;
 
     public ResearcherResultsAnswersDetails(){
-        //@todo Refactor Non-Empty Constructor
-        load();
-    }
 
-    public String beginView(){
-        load();
-        return "researcherresultsanswersdetails";
-    }
-
-    private void load(){
-        loadQuestion(Pagez.getUserSession().getCurrentSurveyid());
     }
 
 
-    public void loadQuestion(int surveyid){
+
+
+    public void initBean(){
         Logger logger = Logger.getLogger(this.getClass().getName());
-        logger.debug("loadSurvey called");
-        survey = Survey.get(surveyid);
+        survey = Survey.get(Pagez.getUserSession().getCurrentSurveyid());
+        if (com.dneero.util.Num.isinteger(Pagez.getRequest().getParameter("surveyid"))){
+            Pagez.getUserSession().setCurrentSurveyid(Integer.parseInt(Pagez.getRequest().getParameter("surveyid")));
+            survey = Survey.get((Integer.parseInt(Pagez.getRequest().getParameter("surveyid"))));
+        }
         if (survey!=null){
             if (Pagez.getUserSession().getUser()!=null && survey.canEdit(Pagez.getUserSession().getUser())){
                 String tmpQuestionid = Pagez.getRequest().getParameter("questionid");

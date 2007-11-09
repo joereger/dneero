@@ -2,6 +2,7 @@ package com.dneero.htmluibeans;
 
 import org.apache.log4j.Logger;
 import com.dneero.htmlui.UserSession;
+import com.dneero.htmlui.Pagez;
 import com.dneero.util.Jsf;
 import com.dneero.util.GeneralException;
 import com.dneero.dao.Researcher;
@@ -39,12 +40,9 @@ public class ResearcherBilling implements Serializable {
 
     }
 
-    public String beginView(){
-        load();
-        return "researcherbilling";
-    }
 
-    public void load(){
+
+    public void initBean(){
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("load called");
         UserSession userSession = Pagez.getUserSession();

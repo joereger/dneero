@@ -27,16 +27,12 @@ public class SysadminEditEula implements Serializable {
 
     }
 
-    public String beginView(){
-        load();
-        return "sysadminediteula";
-    }
 
-    private void load(){
+
+    public void initBean(){
         eula = EulaHelper.getMostRecentEula().getEula();
         eulaid = EulaHelper.getMostRecentEula().getEulaid();
         date = Time.dateformatcompactwithtime(Time.getCalFromDate(EulaHelper.getMostRecentEula().getDate()));
-
     }
 
     public String edit(){

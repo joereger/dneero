@@ -27,12 +27,9 @@ public class SysadminHibernateCache implements Serializable {
 
     }
 
-    public String beginView(){
-        load();
-        return "sysadminhibernatecache";
-    }
 
-    private void load(){
+
+    public void initBean(){
         cacheashtml = HibernateCacheStats.getCacheDump();
         misccacheashtml = CacheFactory.getCacheProvider().getCacheStatsAsHtml();
 
@@ -90,7 +87,7 @@ public class SysadminHibernateCache implements Serializable {
         Logger logger = Logger.getLogger(this.getClass().getName());
         try{com.dneero.scheduledjobs.ImpressionActivityObjectQueue task = new com.dneero.scheduledjobs.ImpressionActivityObjectQueue();
             task.execute(null);} catch (Exception ex){logger.error("",ex);}
-        load();
+        initBean();
         return "sysadminhibernatecache";
     }
 

@@ -10,6 +10,7 @@ import com.dneero.util.jcaptcha.CaptchaServiceSingleton;
 import com.dneero.dao.User;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.htmlui.UserSession;
+import com.dneero.htmlui.Pagez;
 import com.dneero.email.EmailSend;
 import com.dneero.email.EmailActivationSend;
 import com.octo.captcha.service.CaptchaServiceException;
@@ -34,12 +35,8 @@ public class EmailActivationResend implements Serializable {
 
     }
 
-    public String beginView(){
-        load();
-        return "emailactivationresend";
-    }
 
-    private void load(){
+    public void initBean(){
         if (Pagez.getUserSession().getUser()!=null){
             email = Pagez.getUserSession().getUser().getEmail();
         }

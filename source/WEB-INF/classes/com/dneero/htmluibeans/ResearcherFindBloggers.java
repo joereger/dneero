@@ -10,6 +10,7 @@ import com.dneero.dao.*;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.sir.SocialInfluenceRatingPercentile;
 import com.dneero.scheduledjobs.SystemStats;
+import com.dneero.htmlui.Pagez;
 
 import java.util.*;
 import java.io.Serializable;
@@ -51,12 +52,9 @@ public class ResearcherFindBloggers implements Serializable {
 
     }
 
-    public String beginView(){
-        load();
-        return "researcherfindbloggers";
-    }
 
-    private void load(){
+
+    public void initBean(){
         if (Pagez.getRequest().getParameter("panelid")!=null && Num.isinteger(Pagez.getRequest().getParameter("panelid"))){
             panelid = Integer.parseInt(Pagez.getRequest().getParameter("panelid"));
         }

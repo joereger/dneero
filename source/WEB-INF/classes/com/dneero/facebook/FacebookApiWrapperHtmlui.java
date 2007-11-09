@@ -1,32 +1,31 @@
 package com.dneero.facebook;
 
-import com.facebook.api.FacebookRestClient;
-import com.facebook.api.FacebookSignatureUtil;
-import com.dneero.session.UserSession;
-import com.dneero.dao.Survey;
-import com.dneero.dao.Response;
-import com.dneero.dao.User;
-import com.dneero.dao.Blogger;
-import com.dneero.dao.hibernate.HibernateUtil;
-import com.dneero.ui.SurveyEnhancer;
+
 import com.dneero.systemprops.SystemProperty;
 import com.dneero.systemprops.BaseUrl;
+import com.dneero.dao.Survey;
+import com.dneero.dao.Response;
+import com.dneero.dao.Blogger;
+import com.dneero.dao.User;
+import com.dneero.dao.hibernate.HibernateUtil;
+import com.dneero.ui.SurveyEnhancer;
 import com.dneero.util.Str;
 import com.dneero.util.Num;
-import com.dneero.util.Jsf;
+import com.dneero.htmlui.UserSession;
+import com.facebook.api.FacebookRestClient;
+import com.facebook.api.FacebookSignatureUtil;
 import org.apache.log4j.Logger;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.criterion.Order;
-import org.jdom.Element;
-import org.jdom.output.XMLOutputter;
-import org.jdom.input.DOMBuilder;
 import org.w3c.dom.Document;
+import org.jdom.input.DOMBuilder;
+import org.jdom.output.XMLOutputter;
+import org.jdom.Element;
 
 import java.util.List;
 import java.util.Iterator;
 import java.util.ArrayList;
 import java.util.TreeMap;
-import java.net.URL;
 import java.net.URLEncoder;
 
 /**
@@ -34,15 +33,15 @@ import java.net.URLEncoder;
  * Date: Jul 16, 2007
  * Time: 10:41:57 AM
  */
-public class FacebookApiWrapper {
+public class FacebookApiWrapperHtmlui {
 
     private UserSession userSession = null;
     private String facebookSessionKey = "";
     private boolean issessionok = false;
+    
 
 
-
-    public FacebookApiWrapper(UserSession userSession){
+    public FacebookApiWrapperHtmlui(UserSession userSession){
         Logger logger = Logger.getLogger(this.getClass().getName());
         this.userSession = userSession;
         if (userSession.getFacebookSessionKey()!=null && !userSession.getFacebookSessionKey().trim().equals("")){
@@ -92,10 +91,10 @@ public class FacebookApiWrapper {
                 if (length>60){
                     truncatetitleto = 60 - (BUILTINCHARS + lengthofforcharity);
                 }
-                               
+
                 //Limit the length to 60 chars... not counting tags... just the displayed chars
                 FacebookRestClient facebookRestClient = new FacebookRestClient(SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_KEY), SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_SECRET), facebookSessionKey);
-                facebookRestClient.feed_publishActionOfUser("took the survey <a href=\"http://apps.facebook.com/"+SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_APP_NAME)+"/?action=showsurvey"+"-"+survey.getSurveyid()+"-"+Blogger.get(response.getBloggerid()).getUserid()+"\">"+Str.truncateString(survey.getTitle(), truncatetitleto)+"</a> and earned "+surveyEnhancer.getWillingtopayforresponse()+forcharity, "");
+                facebookRestClient.feed_publishActionOfUser("took the survey <a href=\"http://apps.facebook.com/"+SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_APP_NAME)+"/?action=showsurvey"+"-"+survey.getSurveyid()+"-"+ Blogger.get(response.getBloggerid()).getUserid()+"\">"+ Str.truncateString(survey.getTitle(), truncatetitleto)+"</a> and earned "+surveyEnhancer.getWillingtopayforresponse()+forcharity, "");
             } catch (Exception ex){logger.error("",ex);}
         } else {logger.debug("Can't execute because issessionok = false");}
     }
@@ -394,7 +393,7 @@ public class FacebookApiWrapper {
             StringBuffer url = new StringBuffer();
             url.append("http://www.facebook.com/multi_friend_selector.php");
             url.append("?");
-            url.append("api_key="+URLEncoder.encode(SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_KEY), "UTF-8"));
+            url.append("api_key="+ URLEncoder.encode(SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_KEY), "UTF-8"));
             url.append("&");
             url.append("content="+URLEncoder.encode(content.toString(), "UTF-8"));
             url.append("&");
@@ -443,7 +442,7 @@ public class FacebookApiWrapper {
 //            logger.error("",ex);
 //        }
 //    }
-    
+
     public String inviteFriendsTodNeero(){
         Logger logger = Logger.getLogger(this.getClass().getName());
         String type = "dNeero";
@@ -499,7 +498,7 @@ public class FacebookApiWrapper {
     }
 
     public static void outputChildrenToLogger(Element el, int level){
-        Logger logger = Logger.getLogger(FacebookApiWrapper.class);
+        Logger logger = Logger.getLogger(FacebookApiWrapperHtmlui.class);
         level = level + 1;
         String indent = "";
         for(int i=0; i<level; i++){

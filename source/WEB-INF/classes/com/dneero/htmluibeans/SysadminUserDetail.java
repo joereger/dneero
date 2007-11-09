@@ -12,6 +12,7 @@ import com.dneero.money.MoveMoneyInAccountBalance;
 import com.dneero.money.UserImpressionFinder;
 import com.dneero.scheduledjobs.ResearcherRemainingBalanceOperations;
 import com.dneero.scheduledjobs.UpdateResponsePoststatus;
+import com.dneero.htmlui.Pagez;
 
 import java.util.*;
 import java.io.Serializable;
@@ -45,22 +46,16 @@ public class SysadminUserDetail implements Serializable {
 
 
     public SysadminUserDetail(){
-        beginView();
+
     }
 
-    public String beginView(){
-        Logger logger = Logger.getLogger(this.getClass().getName());
-        //logger.debug("beginView called:");
-        String tmpUserid = Pagez.getRequest().getParameter("userid");
-        if (com.dneero.util.Num.isinteger(tmpUserid)){
-            logger.debug("beginView called: found userid in request param="+tmpUserid);
-            load(Integer.parseInt(tmpUserid));
+
+
+    public void initBean(){
+        User user = null;
+        if (com.dneero.util.Num.isinteger(Pagez.getRequest().getParameter("userid"))){
+            user = User.get(Integer.parseInt(Pagez.getRequest().getParameter("userid")));
         }
-        return "sysadminuserdetail";
-    }
-
-    private void load(int userid){
-        User user = User.get(userid);
         if (user!=null && user.getUserid()>0){
             this.userid = user.getUserid();
             this.user = user;

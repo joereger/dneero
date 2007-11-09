@@ -8,6 +8,7 @@ import com.dneero.util.Str;
 import com.dneero.util.Time;
 import com.dneero.sir.SocialInfluenceRatingPercentile;
 import com.dneero.scheduledjobs.SystemStats;
+import com.dneero.htmlui.Pagez;
 
 import java.util.*;
 import java.io.Serializable;
@@ -30,14 +31,12 @@ public class PublicProfile implements Serializable {
     private String charityamtdonatedForscreen;
 
     public PublicProfile(){
-        load();
+
     }
     
-    public String beginView(){
-        return "publicprofile";
-    }
 
-    public void load(){
+
+    public void initBean(){
         Logger logger = Logger.getLogger(this.getClass().getName());
 
         user = null;

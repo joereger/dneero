@@ -6,6 +6,7 @@ import com.dneero.util.Jsf;
 import com.dneero.dao.Response;
 import com.dneero.dao.Blogger;
 import com.dneero.dao.User;
+import com.dneero.htmlui.Pagez;
 
 /**
  * User: Joe Reger Jr
@@ -17,7 +18,7 @@ public class PublicResultsRespondentsProfile {
     public String dummy = "";
 
     public PublicResultsRespondentsProfile(){
-        load();
+
     }
 
 
@@ -28,7 +29,7 @@ public class PublicResultsRespondentsProfile {
             Response response = Response.get(Integer.parseInt(Pagez.getRequest().getParameter("responseid")));
             logger.debug("responseid found: "+Pagez.getRequest().getParameter("responseid"));
             Blogger blogger = Blogger.get(response.getBloggerid());
-            try{Jsf.redirectResponse("/profile.jsf?userid="+blogger.getUserid()); return;}catch(Exception ex){logger.error("",ex);}
+            try{Pagez.sendRedirect("/profile.jsf?userid="+blogger.getUserid()); return;}catch(Exception ex){logger.error("",ex);}
         }
         logger.debug("Should never get to this point.");
         //return "publicsurvey";

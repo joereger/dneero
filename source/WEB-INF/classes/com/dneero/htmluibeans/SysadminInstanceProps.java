@@ -28,14 +28,12 @@ public class SysadminInstanceProps implements Serializable {
     private String instancename;
 
     public SysadminInstanceProps(){
-        load();
+
     }
 
-    public String beginView(){
-        return "sysadmininstanceprops";
-    }
 
-    private void load(){
+
+    public void initBean(){
         dbConnectionUrl = InstanceProperties.getDbConnectionUrl();
         dbUsername = InstanceProperties.getDbUsername();
         dbPassword = InstanceProperties.getDbPassword();

@@ -25,12 +25,9 @@ public class PublicEula implements Serializable {
 
     }
 
-    public String beginView(){
-        load();
-        return "publiceula";
-    }
 
-    private void load(){
+
+    public void initBean(){
         eula = EulaHelper.getMostRecentEula().getEula();
     }
 

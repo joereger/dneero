@@ -8,6 +8,7 @@ import com.dneero.util.jcaptcha.CaptchaServiceSingleton;
 import com.dneero.ui.SocialBookmarkLinks;
 import com.dneero.finders.SurveyCriteriaXML;
 import com.dneero.xmpp.SendXMPPMessage;
+import com.dneero.htmlui.Pagez;
 import com.octo.captcha.service.CaptchaServiceException;
 
 import java.io.Serializable;
@@ -30,14 +31,10 @@ public class PublicBlogPost implements Serializable {
     private String j_captcha_response;
 
     public PublicBlogPost(){
-        load();
+
     }
 
-    public String beginView(){
-        Logger logger = Logger.getLogger(this.getClass().getName());
-        //load();
-        return "publicblogpost";
-    }
+
 
     private void load(){
         Logger logger = Logger.getLogger(this.getClass().getName());
@@ -88,7 +85,7 @@ public class PublicBlogPost implements Serializable {
         xmpp.send();
         //load();
         PublicBlogPost bean = (PublicBlogPost)Jsf.getManagedBean("publicBlogPost");
-        try{Jsf.redirectResponse("/blogpost.jsf?blogpostid="+blogpost.getBlogpostid());}catch(Exception ex){logger.error("",ex);}
+        try{Pagez.sendRedirect("/blogpost.jsf?blogpostid="+blogpost.getBlogpostid());}catch(Exception ex){logger.error("",ex);}
         return null;
 
 

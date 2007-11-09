@@ -9,6 +9,7 @@ import com.dneero.dao.Question;
 import com.dneero.dao.Survey;
 import com.dneero.dao.Questionconfig;
 import com.dneero.htmlui.UserSession;
+import com.dneero.htmlui.Pagez;
 import com.dneero.util.Jsf;
 import com.dneero.util.GeneralException;
 import com.dneero.display.components.Range;
@@ -43,10 +44,7 @@ public class ResearcherSurveyDetail02range implements Serializable {
 
     }
 
-    public String beginView(){
-        load();
-        return "researchersurveydetail_02_range";
-    }
+
 
     private void load(){
         Logger logger = Logger.getLogger(this.getClass().getName());

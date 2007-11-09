@@ -23,12 +23,7 @@ public class SystemadminSurveyList implements Serializable {
 
     }
 
-    public String beginView(){
-        load();
-        return "sysadminsurveylist";
-    }
-
-    private void load(){
+    public void initBean(){
         surveys = HibernateUtil.getSession().createQuery("from Survey order by surveyid desc").list();
     }
 

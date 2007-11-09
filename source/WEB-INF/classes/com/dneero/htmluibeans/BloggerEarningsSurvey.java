@@ -28,7 +28,7 @@ public class BloggerEarningsSurvey  implements Serializable {
     }
 
 
-    private void load(){
+    public void initBean(){
         int responseid = 0;
         if (com.dneero.util.Num.isinteger(Pagez.getRequest().getParameter("responseid"))){
             responseid = Integer.parseInt(Pagez.getRequest().getParameter("responseid"));

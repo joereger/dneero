@@ -12,6 +12,7 @@ import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.dao.Panelmembership;
 import com.dneero.dao.Blogger;
 import com.dneero.dao.User;
+import com.dneero.htmlui.Pagez;
 
 /**
  * User: Joe Reger Jr
@@ -28,12 +29,9 @@ public class ResearcherPanelsListBloggers implements Serializable {
 
     }
 
-    public String beginView(){
-        load();   
-        return "researcherpanelslistbloggersinpanel";
-    }
 
-    private void load(){
+
+    public void initBean(){
         Logger logger = Logger.getLogger(this.getClass().getName());
 
         if (Pagez.getRequest().getParameter("panelid")!=null && Num.isinteger(Pagez.getRequest().getParameter("panelid"))){

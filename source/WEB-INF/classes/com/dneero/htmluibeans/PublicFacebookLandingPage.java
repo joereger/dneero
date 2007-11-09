@@ -8,6 +8,7 @@ import com.dneero.dao.User;
 import com.dneero.dao.Survey;
 import com.dneero.facebook.FacebookPendingReferrals;
 import com.dneero.survey.servlet.RecordImpression;
+import com.dneero.htmlui.Pagez;
 
 import java.io.Serializable;
 
@@ -24,7 +25,7 @@ public class PublicFacebookLandingPage implements Serializable {
     private String urltoredirectto = "";
 
     public PublicFacebookLandingPage(){
-        load();
+
     }
 
     private void load(){
@@ -102,13 +103,13 @@ public class PublicFacebookLandingPage implements Serializable {
                 //If the user has the app added, redirect to the survey
                 if (Pagez.getUserSession().getIsfacebookui() &&  Pagez.getUserSession().getFacebookUser()!=null && Pagez.getUserSession().getFacebookUser().getHas_added_app()){
                     urltoredirectto = appendFacebookStuff("/survey.jsf?s="+split[1]+"&u="+split[2]+"&p=0");
-                    try{Jsf.redirectResponse(urltoredirectto);return;}catch(Exception ex){logger.error("",ex);}
+                    try{Pagez.sendRedirect(urltoredirectto);return;}catch(Exception ex){logger.error("",ex);}
                     return;
                 } else {
                     //If we see this code we may be displaying the app add page which means we'll need a link
                     try{
                         urltoredirectto = appendFacebookStuff("/facebookappadd.jsf");
-                        try{Jsf.redirectResponse(urltoredirectto);return;}catch(Exception ex){logger.error("",ex);}
+                        try{Pagez.sendRedirect(urltoredirectto);return;}catch(Exception ex){logger.error("",ex);}
                         return;
                     } catch(Exception ex){logger.error("",ex);}
                 }
@@ -128,14 +129,14 @@ public class PublicFacebookLandingPage implements Serializable {
                 xmpp.send();
             }
             urltoredirectto = appendFacebookStuff("/publicsurveylist.jsf?addedapp=1");
-            try{Jsf.redirectResponse(urltoredirectto);return;}catch(Exception ex){logger.error("",ex);}
+            try{Pagez.sendRedirect(urltoredirectto);return;}catch(Exception ex){logger.error("",ex);}
             return;
         }
 
         //Redirect to the public survey list
         if (Pagez.getUserSession().getIsfacebookui() && Pagez.getUserSession().getFacebookUser()!=null && Pagez.getUserSession().getFacebookUser().getHas_added_app()){
             urltoredirectto = appendFacebookStuff("/publicsurveylist.jsf");
-            try{Jsf.redirectResponse(urltoredirectto);return;}catch(Exception ex){logger.error("",ex);}
+            try{Pagez.sendRedirect(urltoredirectto);return;}catch(Exception ex){logger.error("",ex);}
             return;
         }
 
@@ -164,7 +165,7 @@ public class PublicFacebookLandingPage implements Serializable {
                 xmpp.send();
             }
             urltoredirectto = appendFacebookStuff("/facebookappadd.jsf");
-            try{Jsf.redirectResponse(urltoredirectto);return;}catch(Exception ex){logger.error("",ex);}
+            try{Pagez.sendRedirect(urltoredirectto);return;}catch(Exception ex){logger.error("",ex);}
             return;
         }catch(Exception ex){logger.error("",ex);}
     }

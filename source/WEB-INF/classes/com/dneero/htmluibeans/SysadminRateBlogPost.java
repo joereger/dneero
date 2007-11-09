@@ -23,19 +23,11 @@ public class SysadminRateBlogPost implements Serializable {
     private int remainingtoreview;
 
     public SysadminRateBlogPost(){
-        getNewPostToRate();
+
     }
 
-    public String beginView(){
-        load();
-        return "rateblogpost";
-    }
 
-    private void load(){
-        getNewPostToRate();
-    }
-
-    private void getNewPostToRate(){
+    public void initBean(){
         remainingtoreview = NumFromUniqueResult.getInt("select count(*) from Impression where quality='0'");
         List<Impression> impressions = HibernateUtil.getSession().createQuery("from Impression where quality='0'").setMaxResults(1).list();
         if (impressions.size()>0){
@@ -59,7 +51,7 @@ public class SysadminRateBlogPost implements Serializable {
             impression.setQuality(quality);
             try{impression.save();} catch (Exception ex){logger.error("",ex);}
         }
-        getNewPostToRate();
+        initBean();
         return "";
     }
 

@@ -12,6 +12,7 @@ import com.dneero.facebook.FacebookSurveyThatsBeenTaken;
 import com.dneero.facebook.FacebookUser;
 import com.dneero.helpers.UserInputSafe;
 import com.dneero.scheduledjobs.UpdateResponsePoststatus;
+import com.dneero.htmlui.Pagez;
 import org.apache.log4j.Logger;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.criterion.Order;
@@ -38,14 +39,11 @@ public class PublicSurveyList implements Serializable {
     private String invitefriendsurl = "";
 
     public PublicSurveyList() {
-        load();
+
     }
 
-    public String beginView(){
-        return "publicsurveylist";
-    }
 
-    private void load(){
+    public void initBean(){
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("instanciating PublicSurveyList");
         //If user is logged-in only show them their surveys

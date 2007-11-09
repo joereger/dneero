@@ -7,6 +7,7 @@ import com.dneero.dao.Question;
 import com.dneero.dao.Questionconfig;
 import com.dneero.dao.Surveypanel;
 import com.dneero.dao.hibernate.CopyHibernateObject;
+import com.dneero.htmlui.Pagez;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -29,12 +30,9 @@ public class ResearcherIndex implements Serializable {
         
     }
 
-    public String beginView(){
-        load();
-        return "researcherindex";
-    }
 
-    private void load(){
+
+    public void initBean(){
         if (Pagez.getRequest().getParameter("showmarketingmaterial")!=null && Pagez.getRequest().getParameter("showmarketingmaterial").equals("1")){
             showmarketingmaterial = true;
         } else {

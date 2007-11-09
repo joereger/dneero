@@ -12,6 +12,7 @@ import com.dneero.util.Num;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.dao.Panel;
 import com.dneero.survey.servlet.SurveyJavascriptServlet;
+import com.dneero.htmlui.Pagez;
 
 /**
  * User: Joe Reger Jr
@@ -30,13 +31,9 @@ public class ResearcherPanels implements Serializable {
     }
 
 
-    public String beginView(){
-        load();
-        return "researcherpanels";
-    }
 
 
-    private void load(){
+    public void initBean(){
         Logger logger = Logger.getLogger(this.getClass().getName());
         if (Pagez.getUserSession()!=null && Pagez.getUserSession().getUser()!=null && Pagez.getUserSession().getUser().getResearcherid()>0){
             logger.debug("userSession, user and researcher not null");

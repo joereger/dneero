@@ -6,6 +6,7 @@ import com.dneero.dao.*;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.util.Jsf;
 import com.dneero.util.Str;
+import com.dneero.htmlui.Pagez;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,23 +29,19 @@ public class PublicProfileImpressions implements Serializable {
     public PublicProfileImpressions(){
 
     }
-    
-    public String beginView(){
-        Logger logger = Logger.getLogger(this.getClass().getName());
-        String tmpResponseid = Pagez.getRequest().getParameter("responseid");
-        if (com.dneero.util.Num.isinteger(tmpResponseid)){
-            logger.debug("beginView called: found responseid in request param="+tmpResponseid);
-            response = Response.get(Integer.parseInt(tmpResponseid));
-            blogger = Blogger.get(response.getBloggerid());
-            user = User.get(blogger.getUserid());
-            load();
-        }
-        return "publicprofileimpressions";
-    }
 
-    public void load(){
+
+    public void initBean(){
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("loadSurvey called");
+
+        if (com.dneero.util.Num.isinteger(Pagez.getRequest().getParameter("responseid"))){
+            logger.debug("beginView called: found responseid in request param="+Pagez.getRequest().getParameter("responseid"));
+            response = Response.get(Integer.parseInt(Pagez.getRequest().getParameter("responseid")));
+            blogger = Blogger.get(response.getBloggerid());
+            user = User.get(blogger.getUserid());
+        }
+
         survey = Survey.get(Pagez.getUserSession().getCurrentSurveyid());
         list = new ArrayList<ResearcherResultsImpressionsListitem>();
 

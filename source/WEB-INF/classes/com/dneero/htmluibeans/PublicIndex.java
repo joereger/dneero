@@ -22,14 +22,12 @@ public class PublicIndex implements Serializable {
     private Map<String, SurveyEnhancer> spotlightsurveyenhancers;
 
     public PublicIndex(){
-        load();
+
     }
 
-    public String beginView(){
-        return "home";
-    }
 
-    private void load(){
+
+    public void initBean(){
         spotlightsurveys = new HashMap<String, Survey>();
         int[] spotlightsurveyids = com.dneero.scheduledjobs.SystemStats.getSpotlightsurveys();
         for (int i = 0; i < spotlightsurveyids.length; i++) {

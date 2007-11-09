@@ -23,12 +23,9 @@ public class SysadminMassemailList implements Serializable {
 
     }
 
-    public String beginView(){
-        load();
-        return "sysadminmassemaillist";
-    }
 
-    private void load(){
+
+    public void initBean(){
         massemails = HibernateUtil.getSession().createQuery("from Massemail order by massemailid desc").list();
     }
 

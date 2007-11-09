@@ -8,6 +8,7 @@ import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.util.*;
 import com.dneero.util.jcaptcha.CaptchaServiceSingleton;
 import com.dneero.htmlui.UserSession;
+import com.dneero.htmlui.Pagez;
 import com.dneero.session.PersistentLogin;
 import com.dneero.email.EmailActivationSend;
 import com.dneero.money.PaymentMethod;
@@ -52,10 +53,6 @@ public class Registration implements Serializable {
 
     }
 
-    public String beginView(){
-        load();
-        return "registration";
-    }
 
     private void load(){
         Logger logger = Logger.getLogger(this.getClass().getName());
@@ -149,7 +146,7 @@ public class Registration implements Serializable {
                 Pagez.getUserSession().setIsloggedin(true);
                 Pagez.getUserSession().setIsLoggedInToBeta(true);
                 Pagez.getUserSession().setIseulaok(true);
-                try{Jsf.redirectResponse("/account/index.jsf"); return;}catch(Exception ex){logger.error("",ex);}
+                try{Pagez.sendRedirect("/account/index.jsf"); return;}catch(Exception ex){logger.error("",ex);}
             }
         }
         //End Facebook shenanigans
@@ -315,7 +312,7 @@ public class Registration implements Serializable {
         if (SystemProperty.getProp(SystemProperty.PROP_ISSSLON).equals("1")){
             try{
                 logger.debug("redirecting to https - "+ BaseUrl.get(true)+"account/index.jsf");
-                Jsf.redirectResponse(BaseUrl.get(true)+"account/index.jsf");
+                Pagez.sendRedirect(BaseUrl.get(true)+"account/index.jsf");
                 return null;
             } catch (Exception ex){
                 logger.error("",ex);

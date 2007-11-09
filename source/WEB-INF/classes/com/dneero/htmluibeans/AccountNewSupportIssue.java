@@ -29,6 +29,10 @@ public class AccountNewSupportIssue implements Serializable {
 
     public AccountNewSupportIssue(){}
 
+    public void initBean(){
+
+    }
+
     public String newIssue(){
         Logger logger = Logger.getLogger(this.getClass().getName());
         Supportissue supportissue = new Supportissue();

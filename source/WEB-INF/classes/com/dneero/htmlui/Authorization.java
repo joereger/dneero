@@ -30,10 +30,10 @@ public class Authorization {
         if (!isAuthorized(acl)){
             com.dneero.session.UserSession userSession = Jsf.getUserSession();
             if (userSession!=null && userSession.getUser()!=null && userSession.getIsloggedin()){
-                try{Pagez.getResponse().sendRedirect("/jsp/notauthorized.jsp");}catch(Exception ex){logger.error("",ex);}
+                try{Pagez.sendRedirect("/jsp/notauthorized.jsp");}catch(Exception ex){logger.error("",ex);}
                 return false;
             } else {
-                try{Pagez.getResponse().sendRedirect("/jsp/login.jsp");}catch(Exception ex){logger.error("",ex);}
+                try{Pagez.sendRedirect("/jsp/login.jsp");}catch(Exception ex){logger.error("",ex);}
                 return false;
             }
         }

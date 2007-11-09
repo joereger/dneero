@@ -5,6 +5,7 @@ import com.dneero.util.Jsf;
 import com.dneero.util.GeneralException;
 import com.dneero.dao.User;
 import com.dneero.htmlui.UserSession;
+import com.dneero.htmlui.Pagez;
 
 import java.io.Serializable;
 
@@ -23,8 +24,8 @@ public class ChangePassword implements Serializable {
 
     }
 
-    public String beginView(){
-        return "changepassword";
+    public void initBean(){
+
     }
 
     public String saveAction(){
@@ -53,9 +54,8 @@ public class ChangePassword implements Serializable {
         }
 
 
-        AccountIndex bean = (AccountIndex)Jsf.getManagedBean("accountIndex");
-        return bean.beginView();
-        //return "accountindex";
+        Pagez.sendRedirect("/jsp/account/index.jsp");
+        return "";
     }
 
 

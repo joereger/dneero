@@ -14,7 +14,9 @@ import com.dneero.money.SurveyMoneyStatus;
 import com.dneero.xmpp.SendXMPPMessage;
 import com.dneero.session.SurveysTakenToday;
 import com.dneero.facebook.FacebookApiWrapper;
+import com.dneero.facebook.FacebookApiWrapperHtmlui;
 import com.dneero.scheduledjobs.UpdateResponsePoststatus;
+import com.dneero.htmlui.Pagez;
 
 import java.util.List;
 import java.util.Iterator;
@@ -37,28 +39,15 @@ public class BloggerIndex implements Serializable {
     private String responsependingmsg = "";
     private boolean showmarketingmaterial = false;
     private String msg = "";
-    //private ArrayList<BloggerCompletedsurveysListitem> completedsurveys;
 
-    public BloggerIndex(){
+
+    public void initBean(){
         Logger logger = Logger.getLogger(this.getClass().getName());
-        if (Pagez.getUserSession()!=null && Pagez.getUserSession().getUser()!=null && Pagez.getUserSession().getUser().getBloggerid()==0){
-            try{Jsf.redirectResponse("/blogger/bloggerdetails.jsf");}catch(Exception ex){logger.error("",ex);}
-        }
-        load();
-    }
 
-    public String beginView(){
-        load();
-        //If the user hasn't yet set up their blogger profile
         if (Pagez.getUserSession()!=null && Pagez.getUserSession().getUser()!=null && Pagez.getUserSession().getUser().getBloggerid()==0){
-            BloggerDetails bean = (BloggerDetails)Jsf.getManagedBean("bloggerDetails");
-            return bean.beginView();
+            try{Pagez.sendRedirect("/blogger/bloggerdetails.jsf");return;} catch (Exception ex){logger.error("",ex);}
         }
-        return "bloggerindex";
-    }
 
-    private void load(){
-        Logger logger = Logger.getLogger(this.getClass().getName());
         if (Pagez.getRequest().getParameter("showmarketingmaterial")!=null && Pagez.getRequest().getParameter("showmarketingmaterial").equals("1")){
             showmarketingmaterial = true;
         } else {
@@ -90,7 +79,7 @@ public class BloggerIndex implements Serializable {
             }
             if(surveyidtoredirectto>0){
                 logger.debug("redirecting, will add justcompletedsurvey=1");
-                try{Jsf.redirectResponse("/surveypostit.jsf?surveyid="+surveyidtoredirectto+"&justcompletedsurvey=1"); return;}catch(Exception ex){logger.error("",ex);}
+                try{Pagez.sendRedirect("/surveypostit.jsf?surveyid="+surveyidtoredirectto+"&justcompletedsurvey=1"); return;}catch(Exception ex){logger.error("",ex);}
             }
         }
 
@@ -124,13 +113,9 @@ public class BloggerIndex implements Serializable {
 
 
         if (Pagez.getUserSession()!=null && Pagez.getUserSession().getIsfacebookui()){
-            try{Jsf.redirectResponse("/publicsurveylist.jsf");}catch(Exception ex){logger.error("",ex);}
+            try{Pagez.sendRedirect("/publicsurveylist.jsf");}catch(Exception ex){logger.error("",ex);}
         }
 
-//        BloggerSurveyList bean = (BloggerSurveyList)Jsf.getManagedBean("bloggerSurveyList");
-//        bean.beginView();
-        BloggerCompletedsurveys bean2 = (BloggerCompletedsurveys)Jsf.getManagedBean("bloggerCompletedsurveys");
-        bean2.beginView();
     }
 
     public static void createResponse(Survey survey, SurveyResponseParser srp, Blogger blogger, int referredbyuserid) throws ComponentException{
@@ -269,7 +254,7 @@ public class BloggerIndex implements Serializable {
                 try{UpdateResponsePoststatus.processSingleResponse(response);} catch (Exception ex){logger.error("",ex);};
 
                 //Update Facebook
-                FacebookApiWrapper facebookApiWrapper = new FacebookApiWrapper(Pagez.getUserSession());
+                FacebookApiWrapperHtmlui facebookApiWrapper = new FacebookApiWrapperHtmlui(Pagez.getUserSession());
                 facebookApiWrapper.postSurveyToFacebookMiniFeed(survey, response);
                 facebookApiWrapper.updateFacebookProfile(user);
             }

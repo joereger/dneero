@@ -8,6 +8,7 @@ import com.dneero.util.Jsf;
 import com.dneero.util.Util;
 import com.dneero.display.components.def.Component;
 import com.dneero.display.components.def.ComponentTypes;
+import com.dneero.htmlui.Pagez;
 
 import java.io.Serializable;
 
@@ -22,16 +23,12 @@ public class PublicResultsAnswersDetails implements Serializable {
     private String results;
 
     public PublicResultsAnswersDetails(){
-        //@todo Refactor Non-Empty Constructor
-        load();
+
     }
 
-    public String beginView(){
-        load();
-        return "publicresultsanswersdetails";
-    }
 
-    private void load(){
+
+    public void initBean(){
         loadQuestion(Pagez.getUserSession().getCurrentSurveyid());
     }
 

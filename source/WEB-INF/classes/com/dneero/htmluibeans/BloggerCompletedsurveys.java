@@ -26,7 +26,7 @@ public class BloggerCompletedsurveys implements Serializable {
     }
 
 
-    private void load(){
+    public void initBean(){
         UserSession userSession = Pagez.getUserSession();
         if (userSession.getUser()!=null && userSession.getUser().getBloggerid()>0){
             list = new ArrayList();

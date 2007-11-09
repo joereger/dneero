@@ -7,6 +7,7 @@ import com.dneero.dao.Blogger;
 import com.dneero.dao.User;
 import com.dneero.util.Jsf;
 import com.dneero.util.SortableList;
+import com.dneero.htmlui.Pagez;
 
 import java.util.*;
 import java.io.Serializable;
@@ -26,14 +27,14 @@ public class ResearcherResultsRespondents implements Serializable {
 
     }
 
-    public String beginView(){
-        load();
-        return "researcherresultsrespondents";
-    }
 
-    private void load(){
+    public void initBean(){
         Logger logger = Logger.getLogger(this.getClass().getName());
         survey = Survey.get(Pagez.getUserSession().getCurrentSurveyid());
+        if (com.dneero.util.Num.isinteger(Pagez.getRequest().getParameter("surveyid"))){
+            Pagez.getUserSession().setCurrentSurveyid(Integer.parseInt(Pagez.getRequest().getParameter("surveyid")));
+            survey = Survey.get((Integer.parseInt(Pagez.getRequest().getParameter("surveyid"))));
+        }
         list = new ArrayList<ResearcherResultsRespondentsListitem>();
         if (survey!=null && survey.getSurveyid()>0){
             for (Iterator<Response> iterator = survey.getResponses().iterator(); iterator.hasNext();) {

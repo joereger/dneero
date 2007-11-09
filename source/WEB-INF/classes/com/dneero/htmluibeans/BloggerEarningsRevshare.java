@@ -3,6 +3,7 @@ package com.dneero.htmluibeans;
 import com.dneero.util.SortableList;
 import com.dneero.util.Jsf;
 import com.dneero.htmlui.UserSession;
+import com.dneero.htmlui.Pagez;
 import com.dneero.dao.Revshare;
 import com.dneero.dao.Blogger;
 import com.dneero.dao.User;
@@ -41,7 +42,7 @@ public class BloggerEarningsRevshare implements Serializable {
     }
 
 
-    private void load(){
+    public void initBean(){
         UserSession userSession = Pagez.getUserSession();
         if (userSession.getUser()!=null && userSession.getUser().getBloggerid()>0){
             list = new ArrayList();

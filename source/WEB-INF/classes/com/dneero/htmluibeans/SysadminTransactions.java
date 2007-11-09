@@ -33,13 +33,8 @@ public class SysadminTransactions implements Serializable {
 
     }
 
-    public String beginView(){
-        Logger logger = Logger.getLogger(this.getClass().getName());
-        load();
-        return "sysadmintransactions";
-    }
 
-    private void load(){
+    public void initBean(){
         //Load transaction info
             List trans = HibernateUtil.getSession().createQuery("from Balancetransaction order by balancetransactionid desc").list();
             transactions = new ArrayList<AccountBalancetransactionListItem>();

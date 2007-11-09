@@ -5,6 +5,8 @@ import com.dneero.dao.Survey;
 import com.dneero.dao.Blogger;
 import com.dneero.util.Jsf;
 import com.dneero.display.SurveyResultsDisplay;
+import com.dneero.htmlui.Pagez;
+import com.dneero.htmlui.UserSession;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -23,16 +25,14 @@ public class ResearcherResultsAnswers implements Serializable {
 
     }
 
-    public String beginView(){
-        loadSurvey(Pagez.getUserSession().getCurrentSurveyid());
-        return "researcherresultsanswers";    
-    }
 
-
-    public void loadSurvey(int surveyid){
+    public void initBean(){
         Logger logger = Logger.getLogger(this.getClass().getName());
-        logger.debug("loadSurvey called");
-        survey = Survey.get(surveyid);
+        survey = Survey.get(Pagez.getUserSession().getCurrentSurveyid());
+        if (com.dneero.util.Num.isinteger(Pagez.getRequest().getParameter("surveyid"))){
+            Pagez.getUserSession().setCurrentSurveyid(Integer.parseInt(Pagez.getRequest().getParameter("surveyid")));
+            survey = Survey.get((Integer.parseInt(Pagez.getRequest().getParameter("surveyid"))));
+        }
         if (survey!=null){
             results = SurveyResultsDisplay.getHtmlForResults(survey, null, 0, new ArrayList<Integer>());
         }

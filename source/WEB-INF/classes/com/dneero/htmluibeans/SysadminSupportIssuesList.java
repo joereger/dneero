@@ -21,13 +21,8 @@ public class SysadminSupportIssuesList implements Serializable {
     public SysadminSupportIssuesList() {
 
     }
-    
-    public String beginView(){
-        load();
-        return "sysadminsupportissueslist";
-    }
 
-    public void load(){
+    public void initBean(){
         supportissues = new ArrayList();
         String whereSql = " where (status='"+Supportissue.STATUS_DNEEROWORKING+"' or status='"+Supportissue.STATUS_OPEN+"') ";
         if (showall){
@@ -40,7 +35,6 @@ public class SysadminSupportIssuesList implements Serializable {
     }
 
     public List getSupportissues() {
-        //sort("supportissueid", false);
         return supportissues;
     }
 
@@ -52,36 +46,7 @@ public class SysadminSupportIssuesList implements Serializable {
         return false;
     }
 
-    protected void sort(final String column, final boolean ascending) {
-        Logger logger = Logger.getLogger(this.getClass().getName());
-        logger.debug("sort called");
-        Comparator comparator = new Comparator() {
-            public int compare(Object o1, Object o2) {
-                Supportissue obj1 = (Supportissue)o1;
-                Supportissue obj2 = (Supportissue)o2;
-                if (column == null) {
-                    return 0;
-                }
-                if (obj1!=null && obj2!=null && column.equals("supportissueid")) {
-                    return ascending ? obj1.getSupportissueid()-obj2.getSupportissueid() : obj2.getSupportissueid()-obj1.getSupportissueid() ;
-                } else {
-                    return 0;
-                }
-            }
-        };
 
-        //sort and also set our model with the new sort, since using DataTable with
-        //ListDataModel on front end
-        if (supportissues != null && !supportissues.isEmpty()) {
-            logger.debug("sorting supportissues and initializing ListDataModel");
-            Collections.sort(supportissues, comparator);
-        }
-    }
-
-    public String search(){
-        load();
-        return "sysadminsupportissueslist";
-    }
 
 
     public boolean getShowall() {

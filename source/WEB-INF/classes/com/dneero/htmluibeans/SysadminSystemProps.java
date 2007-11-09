@@ -34,12 +34,9 @@ public class SysadminSystemProps implements Serializable {
 
     }
 
-    public String beginView(){
-        load();
-        return "sysadminsystemprops";
-    }
 
-    private void load(){
+
+    public void initBean(){
         baseurl = SystemProperty.getProp(SystemProperty.PROP_BASEURL);
         sendxmpp = SystemProperty.getProp(SystemProperty.PROP_SENDXMPP);
         smtpoutboundserver = SystemProperty.getProp(SystemProperty.PROP_SMTPOUTBOUNDSERVER);

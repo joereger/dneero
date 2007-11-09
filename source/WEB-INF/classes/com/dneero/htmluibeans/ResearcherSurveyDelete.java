@@ -10,6 +10,7 @@ import com.dneero.util.Jsf;
 import com.dneero.util.Time;
 import com.dneero.util.GeneralException;
 import com.dneero.htmlui.UserSession;
+import com.dneero.htmlui.Pagez;
 import com.dneero.dao.Survey;
 import com.dneero.xmpp.SendXMPPMessage;
 
@@ -34,29 +35,15 @@ public class ResearcherSurveyDelete implements Serializable {
     }
 
 
-    private void load(){
-        loadSurvey(Pagez.getUserSession().getCurrentSurveyid());
-    }
 
 
-    public String beginView(){
+    public void initBean(){
         Logger logger = Logger.getLogger(this.getClass().getName());
-        logger.debug("beginView called:");
-        load();
-        String tmpSurveyid = Pagez.getRequest().getParameter("surveyid");
-        if (com.dneero.util.Num.isinteger(tmpSurveyid)){
-            logger.debug("beginView called: found surveyid in request param="+tmpSurveyid);
-            UserSession userSession = Pagez.getUserSession();
-            userSession.setCurrentSurveyid(Integer.parseInt(tmpSurveyid));
-            loadSurvey(Integer.parseInt(tmpSurveyid));
+        Survey survey = Survey.get(Pagez.getUserSession().getCurrentSurveyid());
+        if (com.dneero.util.Num.isinteger(Pagez.getRequest().getParameter("surveyid"))){
+            Pagez.getUserSession().setCurrentSurveyid(Integer.parseInt(Pagez.getRequest().getParameter("surveyid")));
+            survey = Survey.get((Integer.parseInt(Pagez.getRequest().getParameter("surveyid"))));
         }
-        return "researchersurveydelete";
-    }
-
-    public void loadSurvey(int surveyid){
-        Logger logger = Logger.getLogger(this.getClass().getName());
-        logger.debug("loadSurvey called for surveyid="+surveyid);
-        Survey survey = Survey.get(surveyid);
         if (survey!=null){
             logger.debug("Found survey in db: survey.getSurveyid()="+survey.getSurveyid()+" survey.getTitle()="+survey.getTitle());
             if (Pagez.getUserSession().getUser()!=null && survey.canEdit(Pagez.getUserSession().getUser())){

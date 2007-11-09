@@ -8,6 +8,7 @@ import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.dao.hibernate.NumFromUniqueResult;
 import com.dneero.util.Jsf;
 import com.dneero.htmlui.UserSession;
+import com.dneero.htmlui.Pagez;
 import com.dneero.money.SurveyMoneyStatus;
 
 import java.util.List;
@@ -34,25 +35,17 @@ public class ResearcherResults implements Serializable {
 
     }
 
-    public String beginView(){
+
+
+    public void initBean(){
         Logger logger = Logger.getLogger(this.getClass().getName());
-        logger.debug("beginView called:");
-        loadSurvey(Pagez.getUserSession().getCurrentSurveyid());
-        String tmpSurveyid = Pagez.getRequest().getParameter("surveyid");
-        if (com.dneero.util.Num.isinteger(tmpSurveyid)){
-            logger.debug("beginView called: found surveyid in request param="+tmpSurveyid);
-            UserSession userSession = Pagez.getUserSession();
-            userSession.setCurrentSurveyid(Integer.parseInt(tmpSurveyid));
-            loadSurvey(Integer.parseInt(tmpSurveyid));
+
+        Survey survey = Survey.get(Pagez.getUserSession().getCurrentSurveyid());
+        if (com.dneero.util.Num.isinteger(Pagez.getRequest().getParameter("surveyid"))){
+            Pagez.getUserSession().setCurrentSurveyid(Integer.parseInt(Pagez.getRequest().getParameter("surveyid")));
+            survey = Survey.get((Integer.parseInt(Pagez.getRequest().getParameter("surveyid")));
         }
-        return "researcherresults";
-    }
 
-
-    public void loadSurvey(int surveyid){
-        Logger logger = Logger.getLogger(this.getClass().getName());
-        logger.debug("loadSurvey called... surveyid="+surveyid);
-        Survey survey = Survey.get(surveyid);
         if (survey!=null){
             if (Pagez.getUserSession().getUser()!=null && survey.canEdit(Pagez.getUserSession().getUser())){
                 try{

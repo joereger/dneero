@@ -42,10 +42,6 @@ public class ResearcherEmailinvite implements Serializable {
 
 
 
-    public String beginView(){
-        load();
-        return "researcheremailinvite";
-    }
 
     private void load(){
         String tmpSurveyid = Pagez.getRequest().getParameter("surveyid");
