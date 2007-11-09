@@ -2,12 +2,13 @@ package com.dneero.htmluibeans;
 
 import org.apache.log4j.Logger;
 import com.dneero.util.jcaptcha.CaptchaServiceSingleton;
-import com.dneero.util.Jsf;
+
 import com.dneero.util.Str;
 import com.dneero.dao.User;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.email.EmailActivationSend;
 import com.dneero.email.LostPasswordSend;
+import com.dneero.htmlui.Pagez;
 import com.octo.captcha.service.CaptchaServiceException;
 
 import java.util.List;
@@ -37,13 +38,13 @@ public class LostPassword implements Serializable {
         Logger logger = Logger.getLogger(this.getClass().getName());
         boolean isCaptchaCorrect = false;
         try {
-            isCaptchaCorrect = CaptchaServiceSingleton.getInstance().validateResponseForID(Jsf.getHttpServletRequest().getSession().getId(), j_captcha_response);
+            isCaptchaCorrect = CaptchaServiceSingleton.getInstance().validateResponseForID(Pagez.getRequest().getSession().getId(), j_captcha_response);
         } catch (CaptchaServiceException e) {
              //should not happen, may be thrown if the id is not valid
              logger.error("", e);
         }
         if (!isCaptchaCorrect){
-            Jsf.setFacesMessage("lostpasswordform:j_captcha_response", "You failed to correctly type the letters into the box.");
+            Pagez.getUserSession().setMessage("You failed to correctly type the letters into the box.");
             return null;
         }
 
@@ -54,7 +55,7 @@ public class LostPassword implements Serializable {
                 LostPasswordSend.sendLostPasswordEmail(user);
             }
         } else {
-            Jsf.setFacesMessage("lostpasswordform:email", "Email address not found.");
+            Pagez.getUserSession().setMessage("Email address not found.");
             return null;
         }
 

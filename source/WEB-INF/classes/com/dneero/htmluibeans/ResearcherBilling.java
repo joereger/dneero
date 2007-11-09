@@ -3,7 +3,7 @@ package com.dneero.htmluibeans;
 import org.apache.log4j.Logger;
 import com.dneero.htmlui.UserSession;
 import com.dneero.htmlui.Pagez;
-import com.dneero.util.Jsf;
+
 import com.dneero.util.GeneralException;
 import com.dneero.dao.Researcher;
 import com.dneero.dao.Creditcard;
@@ -84,7 +84,7 @@ public class ResearcherBilling implements Serializable {
             //Start validation
             //@todo better validation
             if (ccnum.equals("")){
-                Jsf.setFacesMessage("researcherdetails:ccnum", "You've chosen to be paid via credit card so you must provide a credit card number.");
+                Pagez.getUserSession().setMessage("You've chosen to be paid via credit card so you must provide a credit card number.");
                 return "";
             }
             //End validation
@@ -102,9 +102,9 @@ public class ResearcherBilling implements Serializable {
             cc.setCity(UserInputSafe.clean(cccity));
             cc.setCvv2(cvv2);
             cc.setFirstname(UserInputSafe.clean(firstname));
-            cc.setIpaddress(Jsf.getRemoteAddr());
+            cc.setIpaddress(Pagez.getRequest().getRemoteAddr());
             cc.setLastname(UserInputSafe.clean(lastname));
-            cc.setMerchantsessionid(Jsf.getSessionID());
+            cc.setMerchantsessionid(Pagez.getRequest().getSession().getId());
             cc.setPostalcode(postalcode);
             cc.setState(UserInputSafe.clean(ccstate));
             cc.setStreet(UserInputSafe.clean(street));
@@ -112,7 +112,7 @@ public class ResearcherBilling implements Serializable {
             try{
                 cc.save();
             } catch (GeneralException gex){
-                Jsf.setFacesMessage("Error saving record: "+gex.getErrorsAsSingleString());
+                Pagez.getUserSession().setMessage("Error saving record: "+gex.getErrorsAsSingleString());
                 logger.debug("saveAction failed: " + gex.getErrorsAsSingleString());
                 return null;
             }
@@ -125,7 +125,7 @@ public class ResearcherBilling implements Serializable {
             try{
                 userSession.getUser().save();
             } catch (GeneralException gex){
-                Jsf.setFacesMessage("Error saving record: "+gex.getErrorsAsSingleString());
+                Pagez.getUserSession().setMessage("Error saving record: "+gex.getErrorsAsSingleString());
                 logger.debug("saveAction failed: " + gex.getErrorsAsSingleString());
                 return null;
             }
@@ -137,7 +137,7 @@ public class ResearcherBilling implements Serializable {
             Pagez.sendRedirect("/jsp/researcher/index.jsp");
             return "";
         } else {
-            Jsf.setFacesMessage("UserSession.getUser() is null.  Please log in.");
+            Pagez.getUserSession().setMessage("UserSession.getUser() is null.  Please log in.");
             return null;
         }
     }

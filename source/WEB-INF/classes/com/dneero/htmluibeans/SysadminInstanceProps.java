@@ -4,8 +4,9 @@ import org.apache.log4j.Logger;
 import com.dneero.systemprops.SystemProperty;
 import com.dneero.systemprops.BaseUrl;
 import com.dneero.systemprops.InstanceProperties;
-import com.dneero.util.Jsf;
+
 import com.dneero.util.GeneralException;
+import com.dneero.htmlui.Pagez;
 
 import java.io.Serializable;
 
@@ -71,17 +72,17 @@ public class SysadminInstanceProps implements Serializable {
             try{
                 InstanceProperties.save();
                 if (InstanceProperties.haveValidConfig()){
-                    Jsf.setFacesMessage("Save complete.");
+                    Pagez.getUserSession().setMessage("Save complete.");
                 } else {
-                    Jsf.setFacesMessage("Save failed! Values reset.");
+                    Pagez.getUserSession().setMessage("Save failed! Values reset.");
                 }
             } catch (GeneralException gex){
-                Jsf.setFacesMessage("Save failed: " + gex.getErrorsAsSingleString());
+                Pagez.getUserSession().setMessage("Save failed: " + gex.getErrorsAsSingleString());
             }
 
         } catch (Exception ex){
             logger.error("",ex);
-            Jsf.setFacesMessage("Save failed: " + ex.getMessage());
+            Pagez.getUserSession().setMessage("Save failed: " + ex.getMessage());
         }
 
         return "sysadmininstanceprops";

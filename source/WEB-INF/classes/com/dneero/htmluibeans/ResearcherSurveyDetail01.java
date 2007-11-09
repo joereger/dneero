@@ -2,7 +2,7 @@ package com.dneero.htmluibeans;
 
 import com.dneero.dao.*;
 import com.dneero.util.GeneralException;
-import com.dneero.util.Jsf;
+
 import com.dneero.util.Str;
 import com.dneero.util.Time;
 import com.dneero.htmlui.UserSession;
@@ -112,12 +112,12 @@ public class ResearcherSurveyDetail01 implements Serializable {
 //            Calendar beforeMinusDay = Time.xDaysAgoStart(Calendar.getInstance(), 0);
 //            if (startdate.before(beforeMinusDay.getTime())){
 //                isValidData = false;
-//                Jsf.setFacesMessage("surveyedit:startdate", "The Start Date must be today or after today.");
+//                Pagez.getUserSession().setMessage("surveyedit:startdate", "The Start Date must be today or after today.");
 //                logger.debug("valdation error - startdate is in past.");
 //            }
             if (startdate.after(enddate)){
                 isValidData = false;
-                Jsf.setFacesMessage("surveyedit:enddate", "The End Date must be after the Start Date.");
+                Pagez.getUserSession().setMessage("The End Date must be after the Start Date.");
                 logger.debug("valdation error - startdate is after end date.");
             }
 

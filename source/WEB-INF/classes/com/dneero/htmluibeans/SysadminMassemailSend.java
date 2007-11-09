@@ -3,7 +3,7 @@ package com.dneero.htmluibeans;
 import com.dneero.dao.*;
 import com.dneero.ui.SurveyEnhancer;
 import com.dneero.money.SurveyMoneyStatus;
-import com.dneero.util.Jsf;
+
 import com.dneero.survey.servlet.SurveyJavascriptServlet;
 import com.dneero.display.SurveyTakerDisplay;
 import com.dneero.finders.SurveyCriteriaXML;
@@ -40,11 +40,11 @@ public class SysadminMassemailSend implements Serializable {
             massemail.setDate(new Date());
             massemail.setStatus(Massemail.STATUS_PROCESSING);
             try{massemail.save();}catch(Exception ex){logger.error("",ex);}
-            //@todo set message "Mass email scheduled for send! Rock on!"
+            Pagez.getUserSession().setMessage("Mass email scheduled for send! Rock on!");
             Pagez.sendRedirect("/jsp/sysadmin/massemaillist.jsp");
             return "";
         } else {
-            Jsf.setFacesMessage("Password fails!");
+            Pagez.getUserSession().setMessage("Password fails!");
             return null;
         }
     }

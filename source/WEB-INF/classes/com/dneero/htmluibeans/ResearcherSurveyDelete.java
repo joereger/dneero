@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.Calendar;
 import java.io.Serializable;
 
-import com.dneero.util.Jsf;
+
 import com.dneero.util.Time;
 import com.dneero.util.GeneralException;
 import com.dneero.htmlui.UserSession;
@@ -70,20 +70,20 @@ public class ResearcherSurveyDelete implements Serializable {
                 try{
                     logger.debug("deleteSurvey() about to delete survey.getSurveyid()=" + survey.getSurveyid());
                     survey.delete();
-                    Jsf.setFacesMessage("Survey deleted.");
+                    Pagez.getUserSession().setMessage("Survey deleted.");
                     userSession.setCurrentSurveyid(0);
                     logger.debug("deleteSurvey() done saving survey.getSurveyid()=" + survey.getSurveyid());
                 } catch (Exception gex){
                     logger.error(gex);
                     String message = "deleteSurvey() failed: " + gex.getMessage();
-                    Jsf.setFacesMessage("Sorry, there was an error. Please click the Delete button again.");
+                    Pagez.getUserSession().setMessage("Sorry, there was an error. Please click the Delete button again.");
                     return null;
                 }
             } else {
                 logger.debug("Not deleting because userSession.getCurrentSurveyid() is not less than zero");
             }
         } else {
-            Jsf.setFacesMessage("Survey could not be deleted because it is not in draft mode.");
+            Pagez.getUserSession().setMessage("Survey could not be deleted because it is not in draft mode.");
             logger.debug("Not deleting because status!=Survey.STATUS_DRAFT");
         }
 

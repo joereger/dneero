@@ -8,7 +8,7 @@ import java.io.Serializable;
 
 import com.dneero.htmlui.UserSession;
 import com.dneero.htmlui.Pagez;
-import com.dneero.util.Jsf;
+
 import com.dneero.util.GeneralException;
 import com.dneero.dao.*;
 import com.dneero.systemprops.SystemProperty;
@@ -71,7 +71,7 @@ public class ResearcherDetails implements Serializable {
             try{
                 researcher.save();
             } catch (GeneralException gex){
-                Jsf.setFacesMessage("Error saving record: "+gex.getErrorsAsSingleString());
+                Pagez.getUserSession().setMessage("Error saving record: "+gex.getErrorsAsSingleString());
                 logger.debug("saveAction failed: " + gex.getErrorsAsSingleString());
                 return null;
             }
@@ -103,7 +103,7 @@ public class ResearcherDetails implements Serializable {
                 try{
                     role.save();
                 } catch (GeneralException gex){
-                    Jsf.setFacesMessage("Error saving role record: "+gex.getErrorsAsSingleString());
+                    Pagez.getUserSession().setMessage("Error saving role record: "+gex.getErrorsAsSingleString());
                     logger.debug("saveAction failed: " + gex.getErrorsAsSingleString());
                     return null;
                 }
@@ -116,7 +116,7 @@ public class ResearcherDetails implements Serializable {
             try{
                 userSession.getUser().save();
             } catch (GeneralException gex){
-                Jsf.setFacesMessage("Error saving record: "+gex.getErrorsAsSingleString());
+                Pagez.getUserSession().setMessage("Error saving record: "+gex.getErrorsAsSingleString());
                 logger.debug("saveAction failed: " + gex.getErrorsAsSingleString());
                 return null;
             }
@@ -131,7 +131,7 @@ public class ResearcherDetails implements Serializable {
                 return "";
             }
         } else {
-            Jsf.setFacesMessage("UserSession.getUser() is null.  Please log in.");
+            Pagez.getUserSession().setMessage("UserSession.getUser() is null.  Please log in.");
             return null;
         }
     }

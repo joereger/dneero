@@ -112,5 +112,14 @@ public class Util {
         return outArr;
     }
 
+    public static TreeMap treeSetToTreeMap(TreeSet ts){
+        TreeMap tm = new TreeMap();
+        for (Iterator iterator=ts.iterator(); iterator.hasNext();) {
+            Object o=iterator.next();
+            tm.put(o,o);
+        }
+        return tm;   
+    }
+
 
 }

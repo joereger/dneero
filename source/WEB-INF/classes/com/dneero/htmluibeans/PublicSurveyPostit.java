@@ -10,7 +10,7 @@ import com.dneero.display.SurveyResultsDisplay;
 import com.dneero.display.components.def.ComponentException;
 import com.dneero.display.components.def.Component;
 import com.dneero.display.components.def.ComponentTypes;
-import com.dneero.util.Jsf;
+
 import com.dneero.util.Num;
 import com.dneero.util.Str;
 import com.dneero.util.GeneralException;
@@ -80,7 +80,8 @@ public class PublicSurveyPostit implements Serializable {
 
         //If we don't have a surveyid, shouldn't be on this page
         if (surveyid<=0){
-            try{Pagez.sendRedirect("/publicsurveylist.jsf"); return;}catch(Exception ex){logger.error("",ex);}
+            Pagez.sendRedirect("/jsp/publicsurveylist.jsp");
+            return;
         }
 
         //Load up the survey
@@ -88,7 +89,8 @@ public class PublicSurveyPostit implements Serializable {
 
         //If the survey is draft or waiting
         if (survey.getStatus()<Survey.STATUS_OPEN){
-            try{Pagez.sendRedirect("/surveynotopen.jsf"); return;}catch(Exception ex){logger.error("",ex);}
+            Pagez.sendRedirect("/jsp/surveynotopen.jsp");
+            return;
         }
 
         //Userid from url
@@ -213,7 +215,7 @@ public class PublicSurveyPostit implements Serializable {
                     facebookApiWrapper.postSurveyToFacebookMiniFeed(survey, response);
                 }
                 facebookApiWrapper.updateFacebookProfile(Pagez.getUserSession().getUser());
-                Jsf.setFacesMessage("Your Facebook profile should have been updated.");
+                Pagez.getUserSession().setMessage("Your Facebook profile should have been updated.");
             }
         } catch (Exception ex){
             logger.error("",ex);

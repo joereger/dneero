@@ -11,7 +11,7 @@ import java.util.Collections;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.dao.Betainvite;
 import com.dneero.dao.Blogpost;
-import com.dneero.util.Jsf;
+
 import com.dneero.email.EmailTemplateProcessor;
 import com.dneero.helpers.Pingomatic;
 import com.dneero.systemprops.BaseUrl;
@@ -82,7 +82,7 @@ public class SysadminBlogpost implements Serializable {
         initBean();
         try{
             if (doPingomatic && BaseUrl.get(false).indexOf("localhost")<=-1){
-                Pingomatic.ping("dNeero Social Surveys Blog", BaseUrl.get(false)+"blog.jsf", BaseUrl.get(false)+"rss.xml");
+                Pingomatic.ping("dNeero Social Surveys Blog", BaseUrl.get(false)+"jsp/blog.jsp", BaseUrl.get(false)+"rss.xml");
             }
         } catch (Exception ex){
             logger.error("",ex);
@@ -97,7 +97,7 @@ public class SysadminBlogpost implements Serializable {
             Blogpost blogpost = Blogpost.get(blogpostid);
             try{blogpost.delete();}catch(Exception ex){logger.error("",ex);}
         }
-        load();
+        initBean();
         return "sysadminblogpost";
     }
 

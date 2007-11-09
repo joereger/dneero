@@ -1,7 +1,7 @@
 package com.dneero.htmluibeans;
 
 import org.apache.log4j.Logger;
-import com.dneero.util.Jsf;
+
 import com.dneero.util.GeneralException;
 import com.dneero.util.Str;
 import com.dneero.dao.User;
@@ -76,7 +76,7 @@ public class AccountSettings implements Serializable {
             if (!user.getEmail().equals(email)){
                 int cnt = NumFromUniqueResult.getInt("select count(*) from User where email='"+Str.cleanForSQL(email)+"' and userid<>'"+userSession.getUser().getUserid()+"'");
                 if (cnt>0){
-                    Jsf.setFacesMessage("accountSettingsForm:email", "The email address ("+email+") is already in use and was not added to your account.");
+                    Pagez.getUserSession().setMessage("The email address ("+email+") is already in use and was not added to your account.");
                     haveValidationError = true;
                     email = user.getEmail();
                 } else {
@@ -87,7 +87,7 @@ public class AccountSettings implements Serializable {
             if (!user.getPaymethodpaypaladdress().equals(paymethodpaypaladdress)){
                 int cnt = NumFromUniqueResult.getInt("select count(*) from User where paymethodpaypaladdress='"+Str.cleanForSQL(paymethodpaypaladdress)+"' and userid<>'"+userSession.getUser().getUserid()+"' and paymethodpaypaladdress<>'' and paymethodpaypaladdress IS NOT NULL");
                 if (cnt>0){
-                    Jsf.setFacesMessage("accountSettingsForm:paymethodpaypaladdress", "That PayPal address is already in use by another user.");
+                    Pagez.getUserSession().setMessage("That PayPal address is already in use by another user.");
                     paymethodpaypaladdress = user.getPaymethodpaypaladdress();
                     haveValidationError = true;
                 }
@@ -107,7 +107,7 @@ public class AccountSettings implements Serializable {
                 user.save();
                 userid = user.getUserid();
                 if (!haveValidationError){
-                    Jsf.setFacesMessage("accountSettingsForm:all", "Settings saved!");
+                    Pagez.getUserSession().setMessage("Settings saved!");
                 }
             } catch (GeneralException gex){
                 Logger logger = Logger.getLogger(this.getClass().getName());

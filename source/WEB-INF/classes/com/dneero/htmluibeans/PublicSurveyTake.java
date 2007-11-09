@@ -2,7 +2,7 @@ package com.dneero.htmluibeans;
 
 import com.dneero.dao.*;
 import com.dneero.dao.hibernate.HibernateUtil;
-import com.dneero.util.Jsf;
+
 import com.dneero.util.Num;
 import com.dneero.util.GeneralException;
 import com.dneero.util.Str;
@@ -23,6 +23,7 @@ import com.dneero.session.SurveysTakenToday;
 import com.dneero.helpers.UserInputSafe;
 import com.dneero.facebook.FacebookApiWrapper;
 import com.dneero.facebook.FacebookUser;
+import com.dneero.facebook.FacebookApiWrapperHtmlui;
 import com.dneero.htmlui.Pagez;
 
 import java.util.*;
@@ -89,7 +90,7 @@ public class PublicSurveyTake implements Serializable {
 
     }
 
-    private void load(){
+    public void initBean(){
         //Set up logger
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("PublicSurveyTake instanciated.");
@@ -106,7 +107,8 @@ public class PublicSurveyTake implements Serializable {
 
         //If we don't have a surveyid, shouldn't be on this page
         if (surveyid<=0){
-            try{Pagez.sendRedirect("/publicsurveylist.jsf"); return;}catch(Exception ex){logger.error("",ex);}
+            Pagez.sendRedirect("/jsp/publicsurveylist.jsp");
+            return;
         }
 
         //Load up the survey
@@ -114,7 +116,8 @@ public class PublicSurveyTake implements Serializable {
 
         //If the survey is draft or waiting
         if (survey.getStatus()<Survey.STATUS_OPEN){
-            try{Pagez.sendRedirect("/surveynotopen.jsf"); return;}catch(Exception ex){logger.error("",ex);}
+            Pagez.sendRedirect("/jsp/surveynotopen.jsp");
+            return;
         }
 
         //Userid from url
@@ -181,7 +184,7 @@ public class PublicSurveyTake implements Serializable {
 
         //Record the impression if we have enough info for it
         if (userid>0 && surveyid>0 && (Pagez.getRequest().getParameter("p")==null || Pagez.getRequest().getParameter("p").equals("0"))){
-            RecordImpression.record(Jsf.getHttpServletRequest());
+            RecordImpression.record(Pagez.getRequest());
         }
 
         //Find charity status
@@ -425,14 +428,14 @@ public class PublicSurveyTake implements Serializable {
         //If the user's logged in and is a blogger make sure they're qualified for this survey
         if (Pagez.getUserSession().getIsloggedin() && Pagez.getUserSession().getUser()!=null && Pagez.getUserSession().getUser().getBloggerid()>0){
             if (!FindSurveysForBlogger.isBloggerQualifiedToTakeSurvey(Blogger.get(Pagez.getUserSession().getUser().getBloggerid()), survey)){
-                Jsf.setFacesMessage("Sorry, you're not qualified to take this survey.  Your qualification is determined by your Blogger Profile.  Researchers determine their intended audience when they create a survey.");
+                Pagez.getUserSession().setMessage("Sorry, you're not qualified to take this survey.  Your qualification is determined by your Blogger Profile.  Researchers determine their intended audience when they create a survey.");
                 return "publicsurvey";
             }
         }
 
         //If the user's already taken too many surveys
         if (Pagez.getUserSession().getSurveystakentoday()>SurveysTakenToday.MAXSURVEYSPERDAY){
-            Jsf.setFacesMessage("Sorry, you've already taken the maximum number of surveys today ("+SurveysTakenToday.MAXSURVEYSPERDAY+").  Wait until tomorrow (defined in U.S. Eastern Standard Time) and try again.");
+            Pagez.getUserSession().setMessage("Sorry, you've already taken the maximum number of surveys today ("+SurveysTakenToday.MAXSURVEYSPERDAY+").  Wait until tomorrow (defined in U.S. Eastern Standard Time) and try again.");
             return "publicsurvey";
         }
 
@@ -445,7 +448,7 @@ public class PublicSurveyTake implements Serializable {
             haveerror = false;
         } catch (ComponentException cex){
             haveerror = true;
-            Jsf.setFacesMessage(cex.getErrorsAsSingleString());
+            Pagez.getUserSession().setMessage(cex.getErrorsAsSingleString());
             return "publicsurvey";
         }
 
@@ -472,7 +475,7 @@ public class PublicSurveyTake implements Serializable {
                 BloggerIndex.storeResponseInDb(survey, srp, blogger, Pagez.getUserSession().getPendingSurveyReferredbyuserid());
             }catch (ComponentException cex){
                 haveerror = true;
-                Jsf.setFacesMessage(cex.getErrorsAsSingleString());
+                Pagez.getUserSession().setMessage(cex.getErrorsAsSingleString());
                 return "publicsurvey";
             }catch(Exception ex){
                 logger.error("",ex);
@@ -484,15 +487,15 @@ public class PublicSurveyTake implements Serializable {
             if (Pagez.getUserSession().getUser().getBloggerid()>0){
                 //load();
                 logger.debug("redirecting, will add justcompletedsurvey=1");
-                try{Pagez.sendRedirect("/survey.jsf?surveyid="+survey.getSurveyid()+"&justcompletedsurvey=1");}catch(Exception ex){logger.error("",ex);}
-                return "publicsurvey";
+                Pagez.sendRedirect("/jsp/survey.jsp?surveyid="+survey.getSurveyid()+"&justcompletedsurvey=1");
+                return "";
             } else {
-                AccountIndex bean = (AccountIndex)Jsf.getManagedBean("accountIndex");
-                return bean.beginView();
+                Pagez.sendRedirect("/jsp/account/index.jsp");
+                return "";
             }
         }
-        Registration bean = (Registration)Jsf.getManagedBean("registration");
-        return bean.beginView();
+        Pagez.sendRedirect("/jsp/registration.jsp");
+        return "";
     }
 
 
@@ -533,11 +536,11 @@ public class PublicSurveyTake implements Serializable {
         boolean haveError = false;
         if (discussSubject==null || discussSubject.equals("")){
             haveError = true;
-            Jsf.setFacesMessage("survey:discussSubject", "Oops! Subject is required.");
+            Pagez.getUserSession().setMessage("Oops! Subject is required.");
         }
         if (discussComment==null || discussComment.equals("")){
             haveError = true;
-            Jsf.setFacesMessage("survey:discussComment", "Oops! Comment is required.");
+            Pagez.getUserSession().setMessage("Oops! Comment is required.");
         }
         if (haveError){
             tabselectedindex = 4;
@@ -553,9 +556,9 @@ public class PublicSurveyTake implements Serializable {
             surveydiscuss.setUserid(Pagez.getUserSession().getUser().getUserid());
             try{
                 surveydiscuss.save();
-                Jsf.setFacesMessage("Your comment has been posted!");
+                Pagez.getUserSession().setMessage("Your comment has been posted!");
             } catch (GeneralException gex){
-                Jsf.setFacesMessage("Sorry, there was an error: " + gex.getErrorsAsSingleString());
+                Pagez.getUserSession().setMessage("Sorry, there was an error: " + gex.getErrorsAsSingleString());
                 logger.debug("newIssue failed: " + gex.getErrorsAsSingleString());
                 return null;
             }
@@ -563,8 +566,8 @@ public class PublicSurveyTake implements Serializable {
         }
         tabselectedindex = 4;
         //Return from survey new comment in a way that retains the survey url
-        try{Pagez.sendRedirect("/survey.jsf?surveyid="+Pagez.getUserSession().getCurrentSurveyid()+"&tabselectedindex=4"); return null;}catch(Exception ex){logger.error("",ex);}
-        return "publicsurvey";
+        Pagez.sendRedirect("/jsp/survey.jsp?surveyid="+Pagez.getUserSession().getCurrentSurveyid()+"&tabselectedindex=4");
+        return null;
     }
 
 //    public String tellFriends(){
@@ -597,7 +600,7 @@ public class PublicSurveyTake implements Serializable {
 ////        }
 //        FacebookApiWrapperHtmlui faw = new FacebookApiWrapperHtmlui(Pagez.getUserSession());
 //        faw.inviteFriendsToSurvey(survey);
-//        try{Pagez.sendRedirect("/survey.jsf?surveyid="+survey.getSurveyid()); return null;}catch(Exception ex){logger.error("",ex);}
+//        Pagez.sendRedirect("/jsp/survey.jsp?surveyid="+survey.getSurveyid()); return null;
 //        return "publicsurvey";
 //    }
 
@@ -617,7 +620,7 @@ public class PublicSurveyTake implements Serializable {
                     facebookApiWrapper.postSurveyToFacebookMiniFeed(survey, response);
                 }
                 facebookApiWrapper.updateFacebookProfile(Pagez.getUserSession().getUser());
-                Jsf.setFacesMessage("Your Facebook profile should have been updated.");
+                Pagez.getUserSession().setMessage("Your Facebook profile should have been updated.");
             }
         } catch (Exception ex){
             logger.error("",ex);

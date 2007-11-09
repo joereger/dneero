@@ -3,7 +3,7 @@ package com.dneero.htmluibeans;
 import com.dneero.dao.*;
 import com.dneero.ui.SurveyEnhancer;
 import com.dneero.money.SurveyMoneyStatus;
-import com.dneero.util.Jsf;
+
 import com.dneero.util.Io;
 import com.dneero.survey.servlet.SurveyJavascriptServlet;
 import com.dneero.display.SurveyTakerDisplay;
@@ -59,7 +59,7 @@ public class SysadminMassemailDetail implements Serializable {
         Logger logger = Logger.getLogger(this.getClass().getName());
         try{massemail.save();}catch(Exception ex){logger.error("",ex);}
         calculatePreviews();
-        Jsf.setFacesMessage("Saved!");
+        Pagez.getUserSession().setMessage("Saved!");
         return "sysadminmassemaildetail";
     }
 
@@ -79,9 +79,9 @@ public class SysadminMassemailDetail implements Serializable {
             email.setHtmlMsg(htmlPreview);
             email.setTextMsg(txtPreview);
             EmailSend.sendMail(email);
-            Jsf.setFacesMessage("Test email sent to: "+testSentTo+"!");
+            Pagez.getUserSession().setMessage("Test email sent to: "+testSentTo+"!");
         } catch (Exception e){
-            Jsf.setFacesMessage("Error on send! " +e.getMessage());
+            Pagez.getUserSession().setMessage("Error on send! " +e.getMessage());
             logger.error("", e);
         }
         return "sysadminmassemaildetail";
@@ -113,7 +113,7 @@ public class SysadminMassemailDetail implements Serializable {
             return "";
 
         } else {
-            //@todo set message "Sorry, this mass email has already been sent!"
+            Pagez.getUserSession().setMessage("Sorry, this mass email has already been sent!");
             return "sysadminmassemaildetail";
         }
     }
@@ -131,7 +131,7 @@ public class SysadminMassemailDetail implements Serializable {
         massemailCopy.setSubject(massemail.getSubject());
         massemailCopy.setTxtmessage(massemail.getTxtmessage());
         try{massemailCopy.save();}catch(Exception ex){logger.error("",ex);}
-        //@todo set message "Mass Email Copied!"
+        Pagez.getUserSession().setMessage("Mass Email Copied!");
         Pagez.sendRedirect("/jsp/sysadmin/massemaillist.jsp");
         return "";
     }

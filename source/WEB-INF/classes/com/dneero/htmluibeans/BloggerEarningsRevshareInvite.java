@@ -1,6 +1,6 @@
 package com.dneero.htmluibeans;
 
-import com.dneero.util.Jsf;
+
 import com.dneero.util.Str;
 import com.dneero.dao.User;
 import com.dneero.dao.hibernate.HibernateUtil;
@@ -56,10 +56,10 @@ public class BloggerEarningsRevshareInvite implements Serializable {
 
         if (err.length()<=0){
             email = "";
-            //@todo set message "Invitation sent successfully."
+            Pagez.getUserSession().setMessage("Invitation sent successfully.");
             Pagez.sendRedirect("/jsp/blogger/bloggerearningsrevshare.jsp");
         } else {
-            //@todo set message err.toString() on email input box
+            Pagez.getUserSession().setMessage(err.toString());
             return null;
         }
         return "";

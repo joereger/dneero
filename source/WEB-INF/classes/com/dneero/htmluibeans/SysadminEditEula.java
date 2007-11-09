@@ -3,8 +3,9 @@ package com.dneero.htmluibeans;
 import com.dneero.eula.EulaHelper;
 import com.dneero.dao.Eula;
 import com.dneero.util.GeneralException;
-import com.dneero.util.Jsf;
+
 import com.dneero.util.Time;
+import com.dneero.htmlui.Pagez;
 import com.mysql.jdbc.TimeUtil;
 
 import java.util.Date;
@@ -46,7 +47,7 @@ public class SysadminEditEula implements Serializable {
             } catch (GeneralException gex){
                 logger.error(gex);
                 logger.debug("agree failed: " + gex.getErrorsAsSingleString());
-                Jsf.setFacesMessage("eulaform:eula", "Error... please try again.");
+                Pagez.getUserSession().setMessage("Error... please try again.");
                 return null;
             }
             EulaHelper.refreshMostRecentEula();

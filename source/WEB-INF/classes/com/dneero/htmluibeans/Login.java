@@ -10,7 +10,7 @@ import java.io.Serializable;
 import com.dneero.dao.User;
 import com.dneero.dao.Responsepending;
 import com.dneero.dao.hibernate.HibernateUtil;
-import com.dneero.util.Jsf;
+
 import com.dneero.util.Str;
 import com.dneero.util.Num;
 import com.dneero.htmlui.UserSession;
@@ -52,7 +52,7 @@ public class Login implements Serializable {
         logger.debug("keepmeloggedin="+keepmeloggedin);
         List users = HibernateUtil.getSession().createQuery("FROM User as user WHERE user.email='"+ Str.cleanForSQL(email)+"' AND user.password='"+Str.cleanForSQL(password)+"'").setMaxResults(1).list();
         if (users.size()==0){
-            Jsf.setFacesMessage("Email/password incorrect.");
+            Pagez.getUserSession().setMessage("Email/password incorrect.");
             return null;
         }
         for (Iterator it = users.iterator(); it.hasNext(); ) {
@@ -77,7 +77,7 @@ public class Login implements Serializable {
                 //Set persistent login cookie, if necessary
                 if (keepmeloggedin){
                     //Get all possible cookies to set
-                    Cookie[] cookies = PersistentLogin.getPersistentCookies(user.getUserid(), Jsf.getHttpServletRequest());
+                    Cookie[] cookies = PersistentLogin.getPersistentCookies(user.getUserid(), Pagez.getRequest());
                     //Add a cookies to the response
                     for (int j = 0; j < cookies.length; j++) {
                         Pagez.getResponse().addCookie(cookies[j]);
@@ -126,23 +126,25 @@ public class Login implements Serializable {
                 xmpp.send();
 
                 //This is where the new UserSession is actually bound to Pagez.getUserSession()
-                Jsf.bindObjectToExpressionLanguage("#{userSession}", userSession);
+                Pagez.setUserSession(userSession);
 
                 //Redir if https is on
                 if (SystemProperty.getProp(SystemProperty.PROP_ISSSLON).equals("1")){
                     try{
-                        logger.debug("redirecting to https - "+BaseUrl.get(true)+"account/index.jsf");
-                        Pagez.sendRedirect(BaseUrl.get(true)+"account/index.jsf");
+                        logger.debug("redirecting to https - "+BaseUrl.get(true)+"jsp/account/index.jsp");
+                        Pagez.sendRedirect(BaseUrl.get(true)+"jsp/account/index.jsp");
                         return null;
                     } catch (Exception ex){
                         logger.error("",ex);
                         Pagez.sendRedirect("/jsp/account/index.jsp");
+                        return null;
                     }
                 } else {
                     Pagez.sendRedirect("/jsp/account/index.jsp");
+                    return null;
                 }
             } else {
-                //@todo set message "This account is not active.  Please contact the system administrator if you feel this is an error."
+                Pagez.getUserSession().setMessage("This account is not active.  Please contact the system administrator if you feel this is an error.");
                 return null;
             }
         }
@@ -156,7 +158,7 @@ public class Login implements Serializable {
         ValueBinding binding = ctx.getApplication().createValueBinding("#{userSession}");
         binding.setValue(ctx, userSession);
         //Persistent Logout
-        Pagez.getResponse().addCookie(PersistentLogin.createCookieToClearPersistentLogin(Jsf.getHttpServletRequest()));
+        Pagez.getResponse().addCookie(PersistentLogin.createCookieToClearPersistentLogin(Pagez.getRequest()));
         return "logout_success";
     }
 

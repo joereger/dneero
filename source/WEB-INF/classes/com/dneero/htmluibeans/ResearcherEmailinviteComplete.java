@@ -1,7 +1,7 @@
 package com.dneero.htmluibeans;
 
 import org.apache.log4j.Logger;
-import com.dneero.util.Jsf;
+
 import com.dneero.util.Str;
 import com.dneero.util.Num;
 import com.dneero.dao.User;
@@ -77,7 +77,7 @@ public class ResearcherEmailinviteComplete implements Serializable {
                 //Iterate email addresses and send
                 for (Iterator it = Pagez.getUserSession().getEmailinviteaddresses().iterator(); it.hasNext(); ) {
                     String emailaddress = (String)it.next();
-                    String url = BaseUrl.get(false) + "survey.jsf?surveyid="+survey.getSurveyid();
+                    String url = BaseUrl.get(false) + "jsp/survey.jsp?surveyid="+survey.getSurveyid();
                     //Create the args array to hold the dynamic portions of the email
                     String[] args = new String[10];
                     args[0] = sh.getMaxearning();

@@ -1,7 +1,6 @@
 package com.dneero.htmluibeans;
 
-import com.dneero.util.SortableList;
-import com.dneero.util.Jsf;
+
 import com.dneero.util.Str;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.dao.Balance;
@@ -53,7 +52,7 @@ public class AccountBalance implements Serializable {
                 abli.setUserid(balance.getUserid());
                 balances.add(abli);
             }
-            sort("id", false);
+
         }
     }
 
@@ -65,30 +64,7 @@ public class AccountBalance implements Serializable {
 
 
 
-    protected void sort(final String column, final boolean ascending) {
-        //logger.debug("sort called");
-        Comparator comparator = new Comparator() {
-            public int compare(Object o1, Object o2) {
-                AccountBalanceListItem obj1 = (AccountBalanceListItem)o1;
-                AccountBalanceListItem obj2 = (AccountBalanceListItem)o2;
-                if (column == null) {
-                    return 0;
-                }
-                if (column.equals("id")) {
-                    return ascending ? obj1.getBalanceid()-obj2.getBalanceid() : obj2.getBalanceid()-obj1.getBalanceid() ;
-                } else {
-                    return 0;
-                }
-            }
-        };
 
-        //sort and also set our model with the new sort, since using DataTable with
-        //ListDataModel on front end
-        if (balances!=null && !balances.isEmpty()) {
-            //logger.debug("sorting surveys and initializing ListDataModel");
-            Collections.sort(balances, comparator);
-        }
-    }
 
 
     public List getBalances() {

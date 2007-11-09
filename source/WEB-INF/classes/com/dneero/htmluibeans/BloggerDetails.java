@@ -8,7 +8,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.io.Serializable;
 
-import com.dneero.util.Jsf;
+
 import com.dneero.util.GeneralException;
 import com.dneero.util.Time;
 import com.dneero.dao.Blogger;
@@ -96,11 +96,11 @@ public class BloggerDetails implements Serializable {
             Calendar birthdateCal = Time.getCalFromDate(birthdate);
             logger.debug("birthdateCal="+Time.dateformatfordb(birthdateCal));
             if (birthdateCal.after(Time.subtractYear(Calendar.getInstance(), 13))){
-                Jsf.setFacesMessage("bloggerdetails:birthdate", "You must be at least 13 years of age to use this system.");
+                Pagez.getUserSession().setMessage("You must be at least 13 years of age to use this system.");
                 haveValidationError = true;
             }
             if (birthdateCal.before(Time.subtractYear(Calendar.getInstance(), 110))){
-                Jsf.setFacesMessage("bloggerdetails:birthdate", "Please check your date and enter the year in YYYY format (i.e. 1975).");
+                Pagez.getUserSession().setMessage("Please check your date and enter the year in YYYY format (i.e. 1975).");
                 haveValidationError = true;
             }
             if (haveValidationError){
@@ -125,7 +125,7 @@ public class BloggerDetails implements Serializable {
             try{
                 blogger.save();
             } catch (GeneralException gex){
-                Jsf.setFacesMessage("Error saving record: "+gex.getErrorsAsSingleString());
+                Pagez.getUserSession().setMessage("Error saving record: "+gex.getErrorsAsSingleString());
                 logger.debug("saveAction failed: " + gex.getErrorsAsSingleString());
                 return null;
             }
@@ -154,7 +154,7 @@ public class BloggerDetails implements Serializable {
                 try{
                     role.save();
                 } catch (GeneralException gex){
-                    Jsf.setFacesMessage("Error saving role record: "+gex.getErrorsAsSingleString());
+                    Pagez.getUserSession().setMessage("Error saving role record: "+gex.getErrorsAsSingleString());
                     logger.debug("saveAction failed: " + gex.getErrorsAsSingleString());
                     return null;
                 }
@@ -165,7 +165,7 @@ public class BloggerDetails implements Serializable {
             try{
                 userSession.getUser().save();
             } catch (GeneralException gex){
-                Jsf.setFacesMessage("Error saving record: "+gex.getErrorsAsSingleString());
+                Pagez.getUserSession().setMessage("Error saving record: "+gex.getErrorsAsSingleString());
                 logger.debug("saveAction failed: " + gex.getErrorsAsSingleString());
                 return null;
             }
@@ -173,14 +173,14 @@ public class BloggerDetails implements Serializable {
             userSession.getUser().refresh();
 
             if (isnewblogger){
-                //@todo set "Profile Saved Successfully" message on index
+                Pagez.getUserSession().setMessage("Profile Saved Successfully");
                 Pagez.sendRedirect("/jsp/blogger/index.jsp");
             } else {
-                //@todo set "Profile Saved Successfully" message on index
+                Pagez.getUserSession().setMessage("Profile Saved Successfully");
                 Pagez.sendRedirect("/jsp/blogger/index.jsp");
             }
         } else {
-            //@todo set message "UserSession.getUser() is null.  Please log in."
+            Pagez.getUserSession().setMessage("UserSession.getUser() is null.  Please log in.");
             return null;
         }
         return "";

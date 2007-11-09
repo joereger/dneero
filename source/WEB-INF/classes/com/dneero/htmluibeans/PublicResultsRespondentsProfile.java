@@ -2,7 +2,7 @@ package com.dneero.htmluibeans;
 
 import org.apache.log4j.Logger;
 import com.dneero.util.Num;
-import com.dneero.util.Jsf;
+
 import com.dneero.dao.Response;
 import com.dneero.dao.Blogger;
 import com.dneero.dao.User;
@@ -23,13 +23,13 @@ public class PublicResultsRespondentsProfile {
 
 
 
-    public void load(){
+    public void initBean(){
         Logger logger = Logger.getLogger(this.getClass().getName());
         if (Num.isinteger(Pagez.getRequest().getParameter("responseid"))){
             Response response = Response.get(Integer.parseInt(Pagez.getRequest().getParameter("responseid")));
             logger.debug("responseid found: "+Pagez.getRequest().getParameter("responseid"));
             Blogger blogger = Blogger.get(response.getBloggerid());
-            try{Pagez.sendRedirect("/profile.jsf?userid="+blogger.getUserid()); return;}catch(Exception ex){logger.error("",ex);}
+            try{Pagez.sendRedirect("/jsp/profile.jsp?userid="+blogger.getUserid()); return;}catch(Exception ex){logger.error("",ex);}
         }
         logger.debug("Should never get to this point.");
         //return "publicsurvey";

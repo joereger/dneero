@@ -3,7 +3,7 @@ package com.dneero.htmluibeans;
 import com.dneero.dao.Blogpost;
 import com.dneero.dao.Blogpostcomment;
 import com.dneero.dao.hibernate.HibernateUtil;
-import com.dneero.util.Jsf;
+
 import com.dneero.util.jcaptcha.CaptchaServiceSingleton;
 import com.dneero.ui.SocialBookmarkLinks;
 import com.dneero.finders.SurveyCriteriaXML;
@@ -36,7 +36,7 @@ public class PublicBlogPost implements Serializable {
 
 
 
-    private void load(){
+    public void initBean(){
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("beginView called");
         String tmpBlogpostid = Pagez.getRequest().getParameter("blogpostid");
@@ -60,12 +60,12 @@ public class PublicBlogPost implements Serializable {
         }
         boolean isCaptchaCorrect = false;
         try {
-            isCaptchaCorrect = CaptchaServiceSingleton.getInstance().validateResponseForID(Jsf.getHttpServletRequest().getSession().getId(), j_captcha_response);
+            isCaptchaCorrect = CaptchaServiceSingleton.getInstance().validateResponseForID(Pagez.getRequest().getSession().getId(), j_captcha_response);
         } catch (CaptchaServiceException e) {
             //should not happen, may be thrown if the id is not valid
         }
         if (!isCaptchaCorrect){
-            Jsf.setFacesMessage("blogpost:j_captcha_response", "You failed to correctly type the letters into the box.");
+            Pagez.getUserSession().setMessage("You failed to correctly type the letters into the box.");
             return null;
         }
        if (comment!=null && !comment.equals("")){
@@ -81,11 +81,10 @@ public class PublicBlogPost implements Serializable {
             try{blogpost.save();}catch(Exception ex){logger.error("",ex);}
         }
         //Notify via XMPP
-        SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_CUSTOMERSUPPORT, "dNeero Blog Comment: "+ name + ": " + comment + " (http://dneero.com/blogpost.jsf?blogpostid="+blogpost.getBlogpostid()+")");
+        SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_CUSTOMERSUPPORT, "dNeero Blog Comment: "+ name + ": " + comment + " (http://dneero.com/blogpost.jsp?blogpostid="+blogpost.getBlogpostid()+")");
         xmpp.send();
         //load();
-        PublicBlogPost bean = (PublicBlogPost)Jsf.getManagedBean("publicBlogPost");
-        try{Pagez.sendRedirect("/blogpost.jsf?blogpostid="+blogpost.getBlogpostid());}catch(Exception ex){logger.error("",ex);}
+        Pagez.sendRedirect("/jsp/blogpost.jsp?blogpostid="+blogpost.getBlogpostid());
         return null;
 
 

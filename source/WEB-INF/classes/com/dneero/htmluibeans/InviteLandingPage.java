@@ -1,6 +1,6 @@
 package com.dneero.htmluibeans;
 
-import com.dneero.util.Jsf;
+
 import com.dneero.util.Util;
 import com.dneero.util.Num;
 import com.dneero.htmlui.UserSession;
@@ -25,7 +25,7 @@ public class InviteLandingPage implements Serializable {
     
 
 
-    private void load(){
+    public void initBean(){
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("instanciated");
         logger.debug("Pagez.getRequest().getParameter(\"referredby\")="+Pagez.getRequest().getParameter("referredby"));

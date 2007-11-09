@@ -54,7 +54,7 @@ public class Registration implements Serializable {
     }
 
 
-    private void load(){
+    public void initBean(){
         Logger logger = Logger.getLogger(this.getClass().getName());
         displaytempresponsesavedmessage = false;
         if (Pagez.getUserSession().getPendingSurveyResponseAsString()!=null && !Pagez.getUserSession().getPendingSurveyResponseAsString().equals("")){
@@ -146,7 +146,8 @@ public class Registration implements Serializable {
                 Pagez.getUserSession().setIsloggedin(true);
                 Pagez.getUserSession().setIsLoggedInToBeta(true);
                 Pagez.getUserSession().setIseulaok(true);
-                try{Pagez.sendRedirect("/account/index.jsf"); return;}catch(Exception ex){logger.error("",ex);}
+                Pagez.sendRedirect("/jsp/account/index.jsp");
+                return;
             }
         }
         //End Facebook shenanigans
@@ -160,28 +161,28 @@ public class Registration implements Serializable {
         boolean haveErrors = false;
 
         if (password==null || password.equals("") || password.length()<6){
-            Jsf.setFacesMessage("registrationForm:password", "Password must be at least six characters long.");
+            Pagez.getUserSession().setMessage("Password must be at least six characters long.");
             haveErrors = true;
         }
 
         if (!password.equals(passwordverify)){
-            Jsf.setFacesMessage("registrationForm:password", "Password and Verify Password must match.");
+            Pagez.getUserSession().setMessage("Password and Verify Password must match.");
             haveErrors = true;
         }
 
         EmailValidator ev = EmailValidator.getInstance();
         if (!ev.isValid(email)){
-            Jsf.setFacesMessage("registrationForm:email", "Not a valid email address.");
+            Pagez.getUserSession().setMessage("Not a valid email address.");
             haveErrors = true;
         }
 
         if (firstname==null || firstname.equals("")){
-            Jsf.setFacesMessage("registrationForm:firstname", "First Name can't be blank.");
+            Pagez.getUserSession().setMessage("First Name can't be blank.");
             haveErrors = true;
         }
 
         if (lastname==null || lastname.equals("")){
-            Jsf.setFacesMessage("registrationForm:lastname", "Last Name can't be blank.");
+            Pagez.getUserSession().setMessage("Last Name can't be blank.");
             haveErrors = true;
         }
 
@@ -190,7 +191,7 @@ public class Registration implements Serializable {
         if (eula==null || !eula.equals(EulaHelper.getMostRecentEula().getEula())){
             //logger.debug("eula="+eula);
             //logger.debug("EulaHelper.getMostRecentEula().getEula()="+EulaHelper.getMostRecentEula().getEula());
-            Jsf.setFacesMessage("registrationForm:eula", "The end user license can't be edited.");
+            Pagez.getUserSession().setMessage("The end user license can't be edited.");
             eula = EulaHelper.getMostRecentEula().getEula();
             haveErrors = true;
         }
@@ -203,13 +204,13 @@ public class Registration implements Serializable {
              //should not happen, may be thrown if the id is not valid
         }
         if (!isCaptchaCorrect){
-            Jsf.setFacesMessage("registrationForm:j_captcha_response", "You failed to correctly type the letters into the box.");
+            Pagez.getUserSession().setMessage("You failed to correctly type the letters into the box.");
             haveErrors = true;
         }
 
         List<User> users = HibernateUtil.getSession().createQuery("from User where email='"+ Str.cleanForSQL(email)+"'").list();
         if (users.size()>0){
-            Jsf.setFacesMessage("registrationForm:email", "That email address is already in use.");
+            Pagez.getUserSession().setMessage("That email address is already in use.");
         }
 
         if (haveErrors){
@@ -311,8 +312,8 @@ public class Registration implements Serializable {
         //Redir if https is on
         if (SystemProperty.getProp(SystemProperty.PROP_ISSSLON).equals("1")){
             try{
-                logger.debug("redirecting to https - "+ BaseUrl.get(true)+"account/index.jsf");
-                Pagez.sendRedirect(BaseUrl.get(true)+"account/index.jsf");
+                logger.debug("redirecting to https - "+ BaseUrl.get(true)+"jsp/account/index.jsp");
+                Pagez.sendRedirect(BaseUrl.get(true)+"jsp/account/index.jsp");
                 return null;
             } catch (Exception ex){
                 logger.error("",ex);

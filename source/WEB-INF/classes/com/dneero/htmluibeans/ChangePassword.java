@@ -1,7 +1,7 @@
 package com.dneero.htmluibeans;
 
 import org.apache.log4j.Logger;
-import com.dneero.util.Jsf;
+
 import com.dneero.util.GeneralException;
 import com.dneero.dao.User;
 import com.dneero.htmlui.UserSession;
@@ -31,12 +31,12 @@ public class ChangePassword implements Serializable {
     public String saveAction(){
         Logger logger = Logger.getLogger(this.getClass().getName());
         if (!password.equals(passwordverify)){
-            Jsf.setFacesMessage("Password and Verify Password must match.");
+            Pagez.getUserSession().setMessage("Password and Verify Password must match.");
             return null;
         }
 
         if (password.length()<6){
-            Jsf.setFacesMessage("Password must be at least six characters long.");
+            Pagez.getUserSession().setMessage("Password must be at least six characters long.");
             return null;
         }
 

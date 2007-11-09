@@ -2,7 +2,7 @@ package com.dneero.htmluibeans;
 
 import org.apache.log4j.Logger;
 import com.dneero.util.Num;
-import com.dneero.util.Jsf;
+
 import com.dneero.htmlui.Pagez;
 
 /**
@@ -21,7 +21,8 @@ public class PublicSurveyTakeRedirector {
             logger.debug("surveyid found: "+Pagez.getRequest().getParameter("surveyid"));
         }
         if (Pagez.getUserSession().getCurrentSurveyid()>0){
-            try{Pagez.sendRedirect("/survey.jsf?surveyid="+Pagez.getUserSession().getCurrentSurveyid()); return;}catch(Exception ex){logger.error("",ex);}
+            Pagez.sendRedirect("/jsp/survey.jsp?surveyid="+Pagez.getUserSession().getCurrentSurveyid());
+            return;
         }
         if (!msg.equals("")){
             

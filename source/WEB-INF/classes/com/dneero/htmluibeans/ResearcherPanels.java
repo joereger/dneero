@@ -5,7 +5,7 @@ import org.apache.log4j.Logger;
 import java.util.*;
 import java.io.Serializable;
 
-import com.dneero.util.Jsf;
+
 import com.dneero.util.SortableList;
 import com.dneero.util.Time;
 import com.dneero.util.Num;
@@ -73,7 +73,7 @@ public class ResearcherPanels implements Serializable {
         panel.setName(newpanelname);
         panel.setResearcherid(Pagez.getUserSession().getUser().getResearcherid());
         try{panel.save();}catch (Exception ex){logger.error("",ex);}
-        load();
+        initBean();
         msg = "New panel created.";
         return "researcherpanels";
     }
@@ -86,7 +86,7 @@ public class ResearcherPanels implements Serializable {
                 try{
                     panel.delete();
                     msg = "Panel deleted.";
-                    load();
+                    initBean();
                 }catch (Exception ex){
                     logger.error("",ex);
                     msg="Error deleting panel.";

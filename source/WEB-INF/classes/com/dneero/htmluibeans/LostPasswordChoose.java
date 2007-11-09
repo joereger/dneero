@@ -2,7 +2,7 @@ package com.dneero.htmluibeans;
 
 import org.apache.log4j.Logger;
 import com.dneero.util.jcaptcha.CaptchaServiceSingleton;
-import com.dneero.util.Jsf;
+
 import com.dneero.util.GeneralException;
 import com.dneero.dao.User;
 import com.dneero.dao.hibernate.HibernateUtil;
@@ -40,25 +40,25 @@ public class LostPasswordChoose implements Serializable {
         boolean haveErrors = false;
 
         if (password==null || password.equals("") || password.length()<6){
-            Jsf.setFacesMessage("lostpasswordchooseform:password", "Password must be at least six characters long.");
+            Pagez.getUserSession().setMessage("Password must be at least six characters long.");
             haveErrors = true;
         }
 
         if (!password.equals(passwordverify)){
-            Jsf.setFacesMessage("lostpasswordchooseform:password", "Password and Verify Password must match.");
+            Pagez.getUserSession().setMessage("Password and Verify Password must match.");
             haveErrors = true;
         }
 
 
         boolean isCaptchaCorrect = false;
         try {
-            isCaptchaCorrect = CaptchaServiceSingleton.getInstance().validateResponseForID(Jsf.getHttpServletRequest().getSession().getId(), j_captcha_response);
+            isCaptchaCorrect = CaptchaServiceSingleton.getInstance().validateResponseForID(Pagez.getRequest().getSession().getId(), j_captcha_response);
         } catch (CaptchaServiceException e) {
              //should not happen, may be thrown if the id is not valid
              logger.error("", e);
         }
         if (!isCaptchaCorrect){
-            Jsf.setFacesMessage("lostpasswordchooseform:j_captcha_response", "You failed to correctly type the letters into the box.");
+            Pagez.getUserSession().setMessage("You failed to correctly type the letters into the box.");
             haveErrors = true;
         }
 
@@ -81,7 +81,7 @@ public class LostPasswordChoose implements Serializable {
 
             Pagez.getUserSession().setIsloggedin(true);
         } else {
-            Jsf.setFacesMessage("lostpasswordchooseform:email", "Sorry, it doesn't appear that you came to this page from an email link.");
+            Pagez.getUserSession().setMessage("Sorry, it doesn't appear that you came to this page from an email link.");
             return null;
         }
 

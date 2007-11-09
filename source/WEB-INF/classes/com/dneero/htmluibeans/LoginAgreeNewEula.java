@@ -3,7 +3,7 @@ package com.dneero.htmluibeans;
 import com.dneero.eula.EulaHelper;
 import com.dneero.dao.User;
 import com.dneero.dao.Usereula;
-import com.dneero.util.Jsf;
+
 import com.dneero.util.GeneralException;
 import com.dneero.htmlui.Pagez;
 
@@ -37,7 +37,7 @@ public class LoginAgreeNewEula implements Serializable {
         User user = Pagez.getUserSession().getUser();
 
         if (!eula.equals(EulaHelper.getMostRecentEula().getEula())){
-            Jsf.setFacesMessage("eulaform:eula", "The end user license can't be edited.");
+            Pagez.getUserSession().setMessage("The end user license can't be edited.");
             eula = EulaHelper.getMostRecentEula().getEula();
             return null;
         }
@@ -46,13 +46,13 @@ public class LoginAgreeNewEula implements Serializable {
         usereula.setDate(new Date());
         usereula.setEulaid(EulaHelper.getMostRecentEula().getEulaid());
         usereula.setUserid(user.getUserid());
-        usereula.setIp(Jsf.getRemoteAddr());
+        usereula.setIp(Pagez.getRequest().getRemoteAddr());
         try{
             usereula.save();
         } catch (GeneralException gex){
             logger.error(gex);
             logger.debug("agree failed: " + gex.getErrorsAsSingleString());
-            //@todo set message "Error... please try again" on eula form element
+            Pagez.getUserSession().setMessage("Error... please try again.");
             return null;
         }
         Pagez.getUserSession().setIseulaok(true);

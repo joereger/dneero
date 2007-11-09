@@ -1,9 +1,10 @@
 package com.dneero.htmluibeans;
 
-import com.dneero.util.Jsf;
+
 import com.dneero.util.Num;
 import com.dneero.util.SortableList;
 import com.dneero.util.Str;
+import com.dneero.util.Util;
 import com.dneero.finders.SurveyCriteriaXML;
 import com.dneero.finders.FindBloggersForSurvey;
 import com.dneero.dao.*;
@@ -11,6 +12,7 @@ import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.sir.SocialInfluenceRatingPercentile;
 import com.dneero.scheduledjobs.SystemStats;
 import com.dneero.htmlui.Pagez;
+import com.dneero.constants.*;
 
 import java.util.*;
 import java.io.Serializable;
@@ -58,20 +60,27 @@ public class ResearcherFindBloggers implements Serializable {
         if (Pagez.getRequest().getParameter("panelid")!=null && Num.isinteger(Pagez.getRequest().getParameter("panelid"))){
             panelid = Integer.parseInt(Pagez.getRequest().getParameter("panelid"));
         }
-        gender = SurveyCriteriaXML.convertToArray((TreeMap) Jsf.getManagedBean("genders"));
-        ethnicity = SurveyCriteriaXML.convertToArray((LinkedHashMap)Jsf.getManagedBean("ethnicities"));
-        maritalstatus = SurveyCriteriaXML.convertToArray((LinkedHashMap)Jsf.getManagedBean("maritalstatuses"));
-        income = SurveyCriteriaXML.convertToArray((LinkedHashMap)Jsf.getManagedBean("incomes"));
-        educationlevel = SurveyCriteriaXML.convertToArray((LinkedHashMap)Jsf.getManagedBean("educationlevels"));
-        state = SurveyCriteriaXML.convertToArray((LinkedHashMap)Jsf.getManagedBean("states"));
-        city = SurveyCriteriaXML.convertToArray((LinkedHashMap)Jsf.getManagedBean("cities"));
-        profession = SurveyCriteriaXML.convertToArray((TreeMap)Jsf.getManagedBean("professions"));
-        blogfocus = SurveyCriteriaXML.convertToArray((TreeMap)Jsf.getManagedBean("blogfocuses"));
-        politics = SurveyCriteriaXML.convertToArray((LinkedHashMap)Jsf.getManagedBean("politics"));
-
-        if (Pagez.getRequest().getParameter("panelid")!=null && Num.isinteger(Pagez.getRequest().getParameter("panelid"))){
-            panelid = Integer.parseInt(Pagez.getRequest().getParameter("panelid"));
-        }
+        //Prepopulating with all selected
+        gender = SurveyCriteriaXML.convertToArray(Util.treeSetToTreeMap(Genders.get()));
+        ethnicity = SurveyCriteriaXML.convertToArray(Util.treeSetToTreeMap(Ethnicities.get()));
+        maritalstatus = SurveyCriteriaXML.convertToArray(Util.treeSetToTreeMap(Maritalstatuses.get()));
+        income = SurveyCriteriaXML.convertToArray(Util.treeSetToTreeMap(Incomes.get()));
+        educationlevel = SurveyCriteriaXML.convertToArray(Util.treeSetToTreeMap(Educationlevels.get()));
+        state = SurveyCriteriaXML.convertToArray(Util.treeSetToTreeMap(States.get()));
+        city = SurveyCriteriaXML.convertToArray(Util.treeSetToTreeMap(Cities.get()));
+        profession = SurveyCriteriaXML.convertToArray(Util.treeSetToTreeMap(Professions.get()));
+        blogfocus = SurveyCriteriaXML.convertToArray(Util.treeSetToTreeMap(Blogfocuses.get()));
+        politics = SurveyCriteriaXML.convertToArray(Util.treeSetToTreeMap(Politics.get()));
+//        gender = SurveyCriteriaXML.convertToArray((TreeMap) Jsf.getManagedBean("genders"));
+//        ethnicity = SurveyCriteriaXML.convertToArray((LinkedHashMap)Jsf.getManagedBean("ethnicities"));
+//        maritalstatus = SurveyCriteriaXML.convertToArray((LinkedHashMap)Jsf.getManagedBean("maritalstatuses"));
+//        income = SurveyCriteriaXML.convertToArray((LinkedHashMap)Jsf.getManagedBean("incomes"));
+//        educationlevel = SurveyCriteriaXML.convertToArray((LinkedHashMap)Jsf.getManagedBean("educationlevels"));
+//        state = SurveyCriteriaXML.convertToArray((LinkedHashMap)Jsf.getManagedBean("states"));
+//        city = SurveyCriteriaXML.convertToArray((LinkedHashMap)Jsf.getManagedBean("cities"));
+//        profession = SurveyCriteriaXML.convertToArray((TreeMap)Jsf.getManagedBean("professions"));
+//        blogfocus = SurveyCriteriaXML.convertToArray((TreeMap)Jsf.getManagedBean("blogfocuses"));
+//        politics = SurveyCriteriaXML.convertToArray((LinkedHashMap)Jsf.getManagedBean("politics"));
     }
 
  

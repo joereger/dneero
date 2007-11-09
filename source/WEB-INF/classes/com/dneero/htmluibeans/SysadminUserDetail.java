@@ -1,6 +1,6 @@
 package com.dneero.htmluibeans;
 
-import com.dneero.util.Jsf;
+
 import com.dneero.util.Str;
 import com.dneero.util.DateDiff;
 import com.dneero.util.Time;
@@ -156,7 +156,7 @@ public class SysadminUserDetail implements Serializable {
             user.setPaymethodpaypaladdress(paypaladdress);
             try{user.save();}catch (Exception ex){logger.error("",ex);}
         }
-        Jsf.setFacesMessage("User details saved");
+        Pagez.getUserSession().setMessage("User details saved");
         return "sysadminuserdetail";
     }
 
@@ -166,7 +166,7 @@ public class SysadminUserDetail implements Serializable {
         if (user!=null && user.getUserid()>0){
             LostPasswordSend.sendLostPasswordEmail(user);
         }
-        Jsf.setFacesMessage("Password reset email sent");
+        Pagez.getUserSession().setMessage("Password reset email sent");
         return "sysadminuserdetail";
     }
 
@@ -175,7 +175,7 @@ public class SysadminUserDetail implements Serializable {
         if (user!=null && user.getUserid()>0){
             EmailActivationSend.sendActivationEmail(user);
         }
-        Jsf.setFacesMessage("Reactivation email sent");
+        Pagez.getUserSession().setMessage("Reactivation email sent");
         return "sysadminuserdetail";
     }
 
@@ -186,12 +186,12 @@ public class SysadminUserDetail implements Serializable {
             //Disable
             user.setIsenabled(false);
             isenabled = false;
-            Jsf.setFacesMessage("Account disabled.");
+            Pagez.getUserSession().setMessage("Account disabled.");
         } else {
             // Enable
             user.setIsenabled(true);
             isenabled = true;
-            Jsf.setFacesMessage("Account enabled.");
+            Pagez.getUserSession().setMessage("Account enabled.");
         }
         try{user.save();}catch (Exception ex){logger.error("",ex);}
         return "sysadminuserdetail";
@@ -225,7 +225,7 @@ public class SysadminUserDetail implements Serializable {
                     }
                     try{user.save();} catch (Exception ex){logger.error("",ex);}
                     issysadmin = false;
-                    Jsf.setFacesMessage("User is no longer a sysadmin");
+                    Pagez.getUserSession().setMessage("User is no longer a sysadmin");
                 } else {
                     Userrole role = new Userrole();
                     role.setUserid(user.getUserid());
@@ -233,12 +233,12 @@ public class SysadminUserDetail implements Serializable {
                     user.getUserroles().add(role);
                     try{role.save();} catch (Exception ex){logger.error("",ex);}
                     issysadmin = true;
-                    Jsf.setFacesMessage("User is now a sysadmin");
+                    Pagez.getUserSession().setMessage("User is now a sysadmin");
                 }
                 initBean();
             }
         } else {
-            //@todo set message "Activity Pin Not Correct."
+            Pagez.getUserSession().setMessage("Activity Pin Not Correct.");
         }
         return "sysadminuserdetail";
     }
@@ -251,7 +251,7 @@ public class SysadminUserDetail implements Serializable {
                 try{ResearcherRemainingBalanceOperations task = new ResearcherRemainingBalanceOperations();
                 task.setResearcherid(user.getResearcherid());
                 task.execute(null);} catch (Exception ex){logger.error("",ex);}
-                Jsf.setFacesMessage("Task run.");
+                Pagez.getUserSession().setMessage("Task run.");
             }
         }
         return "sysadminuserdetail";
@@ -263,7 +263,7 @@ public class SysadminUserDetail implements Serializable {
             MoveMoneyInAccountBalance.pay(user, amt, "Manual transaction: "+reason, false, false, "");
         }
         initBean();
-        //@todo set message "$" + Str.formatForMoney(amt) + " given to user account balance."
+        Pagez.getUserSession().setMessage("$" + Str.formatForMoney(amt) + " given to user account balance.");
         return "sysadminuserdetail";
     }
 
@@ -273,7 +273,7 @@ public class SysadminUserDetail implements Serializable {
             MoveMoneyInAccountBalance.charge(user, amt, "Manual transaction: "+reason);
         }
         initBean();
-        //@todo set message "$"+ Str.formatForMoney(amt)+" taken from user account balance"
+        Pagez.getUserSession().setMessage("$"+ Str.formatForMoney(amt)+" taken from user account balance");
         return "sysadminuserdetail";
     }
 

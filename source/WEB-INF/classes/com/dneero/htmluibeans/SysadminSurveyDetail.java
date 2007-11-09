@@ -5,7 +5,7 @@ import org.apache.log4j.Logger;
 import java.io.Serializable;
 import java.util.*;
 
-import com.dneero.util.Jsf;
+
 import com.dneero.util.Time;
 import com.dneero.util.GeneralException;
 import com.dneero.util.DateDiff;
@@ -67,23 +67,23 @@ public class SysadminSurveyDetail implements Serializable {
         Calendar beforeMinusDay = Time.xDaysAgoStart(Calendar.getInstance(), 0);
         if (survey.getStartdate().after(survey.getEnddate())){
             isValidData = false;
-            Jsf.setFacesMessage("surveyedit:enddate", "The End Date must be after the Start Date.");
+            Pagez.getUserSession().setMessage("The End Date must be after the Start Date.");
             logger.debug("valdation error - startdate is after end date.");
         }
         if (isValidData){
             try{
                 logger.debug("saveSurvey() about to save survey.getSurveyid()=" + survey.getSurveyid());
                 survey.save();
-                Jsf.setFacesMessage("Survey saved!");
+                Pagez.getUserSession().setMessage("Survey saved!");
                 logger.debug("saveSurvey() done saving survey.getSurveyid()=" + survey.getSurveyid());
             } catch (GeneralException gex){
                 logger.debug("saveSurvey() failed: " + gex.getErrorsAsSingleString());
                 String message = "saveSurvey() save failed: " + gex.getErrorsAsSingleString();
-                Jsf.setFacesMessage(message);
+                Pagez.getUserSession().setMessage(message);
                 return null;
             }
         } else {
-            Jsf.setFacesMessage("There was an error.");
+            Pagez.getUserSession().setMessage("There was an error.");
             return null;
         }
         return "sysadminsurveydetail";

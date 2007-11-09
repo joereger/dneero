@@ -1,7 +1,7 @@
 package com.dneero.htmluibeans;
 
 import org.apache.log4j.Logger;
-import com.dneero.util.Jsf;
+
 import com.dneero.util.GeneralException;
 import com.dneero.dao.Survey;
 import com.dneero.dao.Question;
@@ -85,7 +85,7 @@ public class ResearcherSurveyDetail02 implements Serializable {
             }
 
             if (survey.getQuestions()==null || survey.getQuestions().size()==0){
-                Jsf.setFacesMessage("You must add at least one question to continue.");
+                Pagez.getUserSession().setMessage("You must add at least one question to continue.");
                 return null;   
             }
 
@@ -147,7 +147,7 @@ public class ResearcherSurveyDetail02 implements Serializable {
             return "";
         }
 
-        Jsf.setFacesMessage("Couldn't find componenttype="+componenttype);
+        Pagez.getUserSession().setMessage("Couldn't find componenttype="+componenttype);
         Pagez.sendRedirect("/jsp/researcher/researchersurveydetail_02.jsp");
         return "";
     }

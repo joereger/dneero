@@ -1,6 +1,6 @@
 package com.dneero.htmluibeans;
 
-import com.dneero.util.Jsf;
+
 import com.dneero.util.Time;
 import com.dneero.dao.Survey;
 import com.dneero.dao.Question;
@@ -89,7 +89,7 @@ public class ResearcherIndex implements Serializable {
             //Refresh the survey
             try{newSurvey.refresh();}catch(Exception ex){logger.error("",ex);}
         }
-        //@todo set message "Survey copied!"
+        Pagez.getUserSession().setMessage("Survey copied!");
         Pagez.sendRedirect("/jsp/researcher/index.jsp");
         return "";
     }

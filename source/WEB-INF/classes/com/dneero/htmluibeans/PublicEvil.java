@@ -20,11 +20,11 @@ public class PublicEvil {
 
     }
 
-    public void load(){
+    public void initBean(){
         Logger logger = Logger.getLogger(this.getClass().getName());
         String url = "";
         try{
-            url = URLEncoder.encode(BaseUrl.get(false)+"evil.jsf", "UTF-8");
+            url = URLEncoder.encode(BaseUrl.get(false)+"jsp/evil.jsp", "UTF-8");
         } catch (Exception ex){
             logger.debug(ex);
         }

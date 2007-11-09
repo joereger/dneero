@@ -10,7 +10,7 @@ import com.dneero.display.SurveyResultsDisplay;
 import com.dneero.display.components.def.ComponentException;
 import com.dneero.display.components.def.Component;
 import com.dneero.display.components.def.ComponentTypes;
-import com.dneero.util.Jsf;
+
 import com.dneero.util.Num;
 import com.dneero.util.Str;
 import com.dneero.util.GeneralException;
@@ -70,7 +70,7 @@ public class PublicSurveyDiscuss implements Serializable {
 
         //If we don't have a surveyid, shouldn't be on this page
         if (surveyid<=0){
-            try{Pagez.sendRedirect("/publicsurveylist.jsf"); return;}catch(Exception ex){logger.error("",ex);}
+            try{Pagez.sendRedirect("/jsp/publicsurveylist.jsp"); return;}catch(Exception ex){logger.error("",ex);}
         }
 
         //Load up the survey
@@ -78,7 +78,7 @@ public class PublicSurveyDiscuss implements Serializable {
 
         //If the survey is draft or waiting
         if (survey.getStatus()<Survey.STATUS_OPEN){
-            try{Pagez.sendRedirect("/surveynotopen.jsf"); return;}catch(Exception ex){logger.error("",ex);}
+            try{Pagez.sendRedirect("/jsp/surveynotopen.jsp"); return;}catch(Exception ex){logger.error("",ex);}
         }
 
 
@@ -101,11 +101,11 @@ public class PublicSurveyDiscuss implements Serializable {
         boolean haveError = false;
         if (discussSubject==null || discussSubject.equals("")){
             haveError = true;
-            Jsf.setFacesMessage("survey:discussSubject", "Oops! Subject is required.");
+            Pagez.getUserSession().setMessage("Oops! Subject is required.");
         }
         if (discussComment==null || discussComment.equals("")){
             haveError = true;
-            Jsf.setFacesMessage("survey:discussComment", "Oops! Comment is required.");
+            Pagez.getUserSession().setMessage("Oops! Comment is required.");
         }
         if (haveError){
             return null;
@@ -120,16 +120,16 @@ public class PublicSurveyDiscuss implements Serializable {
             surveydiscuss.setUserid(Pagez.getUserSession().getUser().getUserid());
             try{
                 surveydiscuss.save();
-                Jsf.setFacesMessage("Your comment has been posted!");
+                Pagez.getUserSession().setMessage("Your comment has been posted!");
             } catch (GeneralException gex){
-                Jsf.setFacesMessage("Sorry, there was an error: " + gex.getErrorsAsSingleString());
+                Pagez.getUserSession().setMessage("Sorry, there was an error: " + gex.getErrorsAsSingleString());
                 logger.debug("newIssue failed: " + gex.getErrorsAsSingleString());
                 return null;
             }
             //load();
         }
         //Return from survey new comment in a way that retains the survey url
-        try{Pagez.sendRedirect("/surveydiscuss.jsf?surveyid="+Pagez.getUserSession().getCurrentSurveyid()); return null;}catch(Exception ex){logger.error("",ex);}
+        try{Pagez.sendRedirect("/jsp/surveydiscuss.jsp?surveyid="+Pagez.getUserSession().getCurrentSurveyid()); return null;}catch(Exception ex){logger.error("",ex);}
         return "publicsurveydiscuss";
     }
 

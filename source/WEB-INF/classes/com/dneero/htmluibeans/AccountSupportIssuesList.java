@@ -1,7 +1,7 @@
 package com.dneero.htmluibeans;
 
 import com.dneero.util.SortableList;
-import com.dneero.util.Jsf;
+
 import com.dneero.util.GeneralException;
 import com.dneero.dao.*;
 import com.dneero.dao.hibernate.HibernateUtil;

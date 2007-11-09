@@ -39,6 +39,7 @@ public class UserSession implements Serializable {
     private FacebookUser facebookUser = null;
     private String facebookSessionKey = "";
     private boolean isfacebookui = false;
+    private String message = "";
 
     public UserSession(){
         Logger logger = Logger.getLogger(this.getClass().getName());
@@ -242,5 +243,17 @@ public class UserSession implements Serializable {
 
     public void setFacebookUser(FacebookUser facebookUser) {
         this.facebookUser = facebookUser;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        if (this.message==null || this.message.equals("")){
+            this.message = message;
+        } else {
+            this.message = this.message + "<br/>" + message;
+        }
     }
 }

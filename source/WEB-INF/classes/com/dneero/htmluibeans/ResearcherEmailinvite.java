@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.util.*;
 
 import au.com.bytecode.opencsv.CSVReader;
-import com.dneero.util.Jsf;
+
 import com.dneero.util.Str;
 import com.dneero.dao.Researcher;
 import com.dneero.dao.Survey;
@@ -49,7 +49,7 @@ public class ResearcherEmailinvite implements Serializable {
         if (com.dneero.util.Num.isinteger(tmpSurveyid) && Integer.parseInt(tmpSurveyid)>0){
             surveyiduserisinvitedto = Integer.parseInt(tmpSurveyid);
             survey = Survey.get(surveyiduserisinvitedto);
-            url = BaseUrl.get(false) + "survey.jsf?surveyid="+survey.getSurveyid();
+            url = BaseUrl.get(false) + "jsp/survey.jsp?surveyid="+survey.getSurveyid();
         }
         List results = HibernateUtil.getSession().createQuery("from Survey where researcherid='"+Pagez.getUserSession().getUser().getResearcherid()+"' and status='"+Survey.STATUS_OPEN+"'").list();
         if (results==null || results.size()<=0){

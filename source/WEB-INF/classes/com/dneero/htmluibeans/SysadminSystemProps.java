@@ -1,9 +1,10 @@
 package com.dneero.htmluibeans;
 
 import org.apache.log4j.Logger;
-import com.dneero.util.Jsf;
+
 import com.dneero.systemprops.SystemProperty;
 import com.dneero.systemprops.BaseUrl;
+import com.dneero.htmlui.Pagez;
 
 import java.io.Serializable;
 
@@ -71,7 +72,7 @@ public class SysadminSystemProps implements Serializable {
             SystemProperty.setProp(SystemProperty.PROP_FACEBOOK_API_KEY, facebook_api_key);
             SystemProperty.setProp(SystemProperty.PROP_FACEBOOK_API_SECRET, facebook_api_secret);
             BaseUrl.refresh();
-            Jsf.setFacesMessage("Save complete.");
+            Pagez.getUserSession().setMessage("Save complete.");
         } catch (Exception ex){
             logger.error("",ex);
         }

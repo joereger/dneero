@@ -10,7 +10,7 @@ import com.dneero.display.SurveyResultsDisplay;
 import com.dneero.display.components.def.ComponentException;
 import com.dneero.display.components.def.Component;
 import com.dneero.display.components.def.ComponentTypes;
-import com.dneero.util.Jsf;
+
 import com.dneero.util.Num;
 import com.dneero.util.Str;
 import com.dneero.util.GeneralException;
@@ -85,7 +85,7 @@ public class PublicSurvey implements Serializable {
 
         //If we don't have a surveyid, shouldn't be on this page
         if (surveyid<=0){
-            try{Pagez.sendRedirect("/publicsurveylist.jsf"); return;}catch(Exception ex){logger.error("",ex);}
+            try{Pagez.sendRedirect("/jsp/publicsurveylist.jsp"); return;}catch(Exception ex){logger.error("",ex);}
         }
 
         //Load up the survey
@@ -93,7 +93,7 @@ public class PublicSurvey implements Serializable {
 
         //If the survey is draft or waiting
         if (survey.getStatus()<Survey.STATUS_OPEN){
-            try{Pagez.sendRedirect("/surveynotopen.jsf"); return;}catch(Exception ex){logger.error("",ex);}
+            try{Pagez.sendRedirect("/jsp/surveynotopen.jsp"); return;}catch(Exception ex){logger.error("",ex);}
         }
 
         //Userid from url
@@ -160,26 +160,26 @@ public class PublicSurvey implements Serializable {
 
         //Record the impression if we have enough info for it
         if (userid>0 && surveyid>0 && (Pagez.getRequest().getParameter("p")==null || Pagez.getRequest().getParameter("p").equals("0"))){
-            RecordImpression.record(Jsf.getHttpServletRequest());
+            RecordImpression.record(Pagez.getRequest());
         }
 
 
         //Turn on the correct tab
         if (survey.getStatus()!=Survey.STATUS_OPEN){
             //redirect to results
-            //try{Pagez.sendRedirect("/surveyresults.jsf?surveyid="+surveyid); return;}catch(Exception ex){logger.error("",ex);}
+            //try{Pagez.sendRedirect("/jsp/surveyresults.jsp?surveyid="+surveyid); return;}catch(Exception ex){logger.error("",ex);}
         }
         if (loggedinuserhasalreadytakensurvey && isuserwhotooksurveysameasloggedinuser){
             //redirect to postit
-            //try{Pagez.sendRedirect("/surveypostit.jsf?surveyid="+surveyid); return;}catch(Exception ex){logger.error("",ex);}
+            //try{Pagez.sendRedirect("/jsp/surveypostit.jsp?surveyid="+surveyid); return;}catch(Exception ex){logger.error("",ex);}
         }
         if (Pagez.getRequest().getParameter("show")!=null && Pagez.getRequest().getParameter("show").equals("results")){
             //redirect to results
-            try{Pagez.sendRedirect("/surveyresults.jsf?surveyid="+surveyid+"&userid="+userid); return;}catch(Exception ex){logger.error("",ex);}
+            try{Pagez.sendRedirect("/jsp/surveyresults.jsp?surveyid="+surveyid+"&userid="+userid); return;}catch(Exception ex){logger.error("",ex);}
         }
         if (Pagez.getRequest().getParameter("show")!=null && Pagez.getRequest().getParameter("show").equals("disclosure")){
             //redirect to disclosure
-            try{Pagez.sendRedirect("/surveydisclosure.jsf?surveyid="+surveyid); return;}catch(Exception ex){logger.error("",ex);}
+            try{Pagez.sendRedirect("/jsp/surveydisclosure.jsp?surveyid="+surveyid); return;}catch(Exception ex){logger.error("",ex);}
         }
 
 
@@ -289,14 +289,14 @@ public class PublicSurvey implements Serializable {
         //If the user's logged in and is a blogger make sure they're qualified for this survey
         if (Pagez.getUserSession().getIsloggedin() && Pagez.getUserSession().getUser()!=null && Pagez.getUserSession().getUser().getBloggerid()>0){
             if (!FindSurveysForBlogger.isBloggerQualifiedToTakeSurvey(Blogger.get(Pagez.getUserSession().getUser().getBloggerid()), survey)){
-                Jsf.setFacesMessage("Sorry, you're not qualified to take this survey.  Your qualification is determined by your Blogger Profile.  Researchers determine their intended audience when they create a survey.");
+                Pagez.getUserSession().setMessage("Sorry, you're not qualified to take this survey.  Your qualification is determined by your Blogger Profile.  Researchers determine their intended audience when they create a survey.");
                 return "publicsurvey";
             }
         }
 
         //If the user's already taken too many surveys
         if (Pagez.getUserSession().getSurveystakentoday()>SurveysTakenToday.MAXSURVEYSPERDAY){
-            //Jsf.setFacesMessage("Sorry, you've already taken the maximum number of surveys today ("+SurveysTakenToday.MAXSURVEYSPERDAY+").  Wait until tomorrow (defined in U.S. Eastern Standard Time) and try again.");
+            //Pagez.getUserSession().setMessage("Sorry, you've already taken the maximum number of surveys today ("+SurveysTakenToday.MAXSURVEYSPERDAY+").  Wait until tomorrow (defined in U.S. Eastern Standard Time) and try again.");
             return "publicsurvey";
         }
 
@@ -309,7 +309,7 @@ public class PublicSurvey implements Serializable {
             haveerror = false;
         } catch (ComponentException cex){
             haveerror = true;
-            Jsf.setFacesMessage(cex.getErrorsAsSingleString());
+            Pagez.getUserSession().setMessage(cex.getErrorsAsSingleString());
             return "publicsurvey";
         }
 
@@ -336,7 +336,7 @@ public class PublicSurvey implements Serializable {
                 BloggerIndex.storeResponseInDb(survey, srp, blogger, Pagez.getUserSession().getPendingSurveyReferredbyuserid());
             }catch (ComponentException cex){
                 haveerror = true;
-                Jsf.setFacesMessage(cex.getErrorsAsSingleString());
+                Pagez.getUserSession().setMessage(cex.getErrorsAsSingleString());
                 return "publicsurvey";
             }catch(Exception ex){
                 logger.error("",ex);
@@ -348,7 +348,7 @@ public class PublicSurvey implements Serializable {
             if (Pagez.getUserSession().getUser().getBloggerid()>0){
                 //load();
                 logger.debug("redirecting, will add justcompletedsurvey=1");
-                try{Pagez.sendRedirect("/surveypostit.jsf?surveyid="+survey.getSurveyid()+"&justcompletedsurvey=1");}catch(Exception ex){logger.error("",ex);}
+                try{Pagez.sendRedirect("/jsp/surveypostit.jsp?surveyid="+survey.getSurveyid()+"&justcompletedsurvey=1");}catch(Exception ex){logger.error("",ex);}
                 return "publicsurvey";
             } else {
                 Pagez.sendRedirect("/jsp/account/index.jsp");

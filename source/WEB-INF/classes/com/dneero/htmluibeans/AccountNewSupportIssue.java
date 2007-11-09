@@ -2,7 +2,7 @@ package com.dneero.htmluibeans;
 
 import com.dneero.dao.Supportissue;
 import com.dneero.dao.Supportissuecomm;
-import com.dneero.util.Jsf;
+
 import com.dneero.util.GeneralException;
 import com.dneero.util.ErrorDissect;
 import com.dneero.util.Time;
@@ -43,7 +43,8 @@ public class AccountNewSupportIssue implements Serializable {
         try{
             supportissue.save();
         } catch (GeneralException gex){
-            Jsf.setFacesMessage("Sorry, there was an error: " + gex.getErrorsAsSingleString());
+            Pagez.getUserSession().setMessage("Sorry, there was an error: " + gex.getErrorsAsSingleString());
+            
             logger.debug("newIssue failed: " + gex.getErrorsAsSingleString());
             return null;
         }
@@ -57,7 +58,7 @@ public class AccountNewSupportIssue implements Serializable {
         try{
             supportissue.save();
         } catch (GeneralException gex){
-            Jsf.setFacesMessage("Sorry, there was an error: " + gex.getErrorsAsSingleString());
+            Pagez.getUserSession().setMessage("Sorry, there was an error: " + gex.getErrorsAsSingleString());
             logger.debug("newIssue failed: " + gex.getErrorsAsSingleString());
             return null;
         }

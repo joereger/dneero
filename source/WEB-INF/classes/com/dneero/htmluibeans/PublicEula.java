@@ -3,7 +3,7 @@ package com.dneero.htmluibeans;
 import com.dneero.eula.EulaHelper;
 import com.dneero.dao.User;
 import com.dneero.dao.Usereula;
-import com.dneero.util.Jsf;
+
 import com.dneero.util.GeneralException;
 
 import java.io.Serializable;

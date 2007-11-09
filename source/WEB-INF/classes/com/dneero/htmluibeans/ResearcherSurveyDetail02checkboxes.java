@@ -10,7 +10,7 @@ import com.dneero.dao.Survey;
 import com.dneero.dao.Questionconfig;
 import com.dneero.htmlui.UserSession;
 import com.dneero.htmlui.Pagez;
-import com.dneero.util.Jsf;
+
 import com.dneero.util.GeneralException;
 import com.dneero.display.components.Checkboxes;
 import com.dneero.helpers.UserInputSafe;
@@ -152,9 +152,8 @@ public class ResearcherSurveyDetail02checkboxes implements Serializable {
             //Refresh
             survey.refresh();
         }
-        ResearcherSurveyDetail02 bean = (ResearcherSurveyDetail02)Jsf.getManagedBean("researcherSurveyDetail02");
-        return bean.beginView();
-        //return "researchersurveydetail_02";
+        Pagez.sendRedirect("/jsp/researcher/researchersurveydetail_02.jsp");
+        return "";
     }
 
 

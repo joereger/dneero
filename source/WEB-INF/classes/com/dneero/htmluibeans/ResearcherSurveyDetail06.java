@@ -187,14 +187,13 @@ public class ResearcherSurveyDetail06 implements Serializable {
     }
 
     public String saveSurveyAsDraft(){
-        ResearcherIndex bean = (ResearcherIndex)Jsf.getManagedBean("researcherIndex");
-        return bean.beginView();
+        Pagez.sendRedirect("/jsp/researcher/index.jsp");
+        return "";
     }
 
     public String previousStep(){
-        ResearcherSurveyDetail05 bean = (ResearcherSurveyDetail05)Jsf.getManagedBean("researcherSurveyDetail05");
-        return bean.beginView();
-        //return "researchersurveydetail_05";
+        Pagez.sendRedirect("/jsp/researcher/researchersurveydetail_05.jsp");
+        return "";
     }
 
     public String saveSurvey(){
@@ -236,9 +235,9 @@ public class ResearcherSurveyDetail06 implements Serializable {
                     cc.setCity(cccity);
                     cc.setCvv2(cvv2);
                     cc.setFirstname(firstname);
-                    cc.setIpaddress(Jsf.getRemoteAddr());
+                    cc.setIpaddress(Pagez.getRequest().getRemoteAddr());
                     cc.setLastname(lastname);
-                    cc.setMerchantsessionid(Jsf.getSessionID());
+                    cc.setMerchantsessionid(Pagez.getRequest().getSession().getId());
                     cc.setPostalcode(postalcode);
                     cc.setState(ccstate);
                     cc.setStreet(street);
@@ -246,7 +245,7 @@ public class ResearcherSurveyDetail06 implements Serializable {
                     try{
                         cc.save();
                     } catch (GeneralException gex){
-                        Jsf.setFacesMessage("Error saving record: "+gex.getErrorsAsSingleString());
+                        Pagez.getUserSession().setMessage("Error saving record: "+gex.getErrorsAsSingleString());
                         logger.debug("saveAction failed: " + gex.getErrorsAsSingleString());
                         return null;
                     }
@@ -259,7 +258,7 @@ public class ResearcherSurveyDetail06 implements Serializable {
                         //userSession.getUser().save();
                         user.save();
                     } catch (GeneralException gex){
-                        Jsf.setFacesMessage("Error saving record: "+gex.getErrorsAsSingleString());
+                        Pagez.getUserSession().setMessage("Error saving record: "+gex.getErrorsAsSingleString());
                         logger.debug("saveAction failed: " + gex.getErrorsAsSingleString());
                         return null;
                     }
@@ -310,9 +309,8 @@ public class ResearcherSurveyDetail06 implements Serializable {
             }
         }
 
-        ResearcherSurveyDetailPostlaunch bean = (ResearcherSurveyDetailPostlaunch)Jsf.getManagedBean("researcherSurveyDetailPostlaunch");
-        return bean.beginView();
-        //return "researchersurveydetail_postlaunch";
+        Pagez.sendRedirect("/jsp/researcher/researchersurveydetail_postlaunch.jsp");
+        return "";
     }
 
 

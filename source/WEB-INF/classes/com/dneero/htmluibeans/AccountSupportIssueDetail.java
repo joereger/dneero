@@ -10,7 +10,7 @@ import com.dneero.dao.User;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.htmlui.UserSession;
 import com.dneero.htmlui.Pagez;
-import com.dneero.util.Jsf;
+
 import com.dneero.util.GeneralException;
 import com.dneero.xmpp.SendXMPPMessage;
 import com.dneero.helpers.UserInputSafe;
@@ -77,7 +77,7 @@ public class AccountSupportIssueDetail implements Serializable {
         try{
             supportissuecomm.save();
         } catch (GeneralException gex){
-            Jsf.setFacesMessage("Error saving record: "+gex.getErrorsAsSingleString());
+            Pagez.getUserSession().setMessage("Error saving record: "+gex.getErrorsAsSingleString());
             logger.debug("saveAction failed: " + gex.getErrorsAsSingleString());
             return null;
         }

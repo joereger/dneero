@@ -11,56 +11,6 @@
 <faces-config>
 
 
-    <managed-bean>
-        <managed-bean-name>blogfocusesget</managed-bean-name>
-        <managed-bean-class>com.dneero.constants.BlogfocusesGet</managed-bean-class>
-        <managed-bean-scope>application</managed-bean-scope>
-    </managed-bean>
-    <managed-bean>
-        <managed-bean-name>citiesget</managed-bean-name>
-        <managed-bean-class>com.dneero.constants.CitiesGet</managed-bean-class>
-        <managed-bean-scope>application</managed-bean-scope>
-    </managed-bean>
-    <managed-bean>
-        <managed-bean-name>educationlevelsget</managed-bean-name>
-        <managed-bean-class>com.dneero.constants.EducationlevelsGet</managed-bean-class>
-        <managed-bean-scope>application</managed-bean-scope>
-    </managed-bean>
-    <managed-bean>
-        <managed-bean-name>ethnicitiesget</managed-bean-name>
-        <managed-bean-class>com.dneero.constants.EthnicitiesGet</managed-bean-class>
-        <managed-bean-scope>application</managed-bean-scope>
-    </managed-bean>
-    <managed-bean>
-        <managed-bean-name>gendersget</managed-bean-name>
-        <managed-bean-class>com.dneero.constants.GendersGet</managed-bean-class>
-        <managed-bean-scope>application</managed-bean-scope>
-    </managed-bean>
-    <managed-bean>
-        <managed-bean-name>incomesget</managed-bean-name>
-        <managed-bean-class>com.dneero.constants.IncomesGet</managed-bean-class>
-        <managed-bean-scope>application</managed-bean-scope>
-    </managed-bean>
-    <managed-bean>
-        <managed-bean-name>maritalstatusesget</managed-bean-name>
-        <managed-bean-class>com.dneero.constants.MaritalstatusesGet</managed-bean-class>
-        <managed-bean-scope>application</managed-bean-scope>
-    </managed-bean>
-    <managed-bean>
-        <managed-bean-name>politicsget</managed-bean-name>
-        <managed-bean-class>com.dneero.constants.PoliticsGet</managed-bean-class>
-        <managed-bean-scope>application</managed-bean-scope>
-    </managed-bean>
-    <managed-bean>
-        <managed-bean-name>professionsget</managed-bean-name>
-        <managed-bean-class>com.dneero.constants.ProfessionsGet</managed-bean-class>
-        <managed-bean-scope>application</managed-bean-scope>
-    </managed-bean>
-    <managed-bean>
-        <managed-bean-name>statesget</managed-bean-name>
-        <managed-bean-class>com.dneero.constants.StatesGet</managed-bean-class>
-        <managed-bean-scope>application</managed-bean-scope>
-    </managed-bean>
 
 
 

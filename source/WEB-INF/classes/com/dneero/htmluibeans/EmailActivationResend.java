@@ -2,7 +2,7 @@ package com.dneero.htmluibeans;
 
 import org.apache.log4j.Logger;
 import org.apache.commons.validator.EmailValidator;
-import com.dneero.util.Jsf;
+
 import com.dneero.util.RandomString;
 import com.dneero.util.GeneralException;
 import com.dneero.util.Str;
@@ -46,18 +46,18 @@ public class EmailActivationResend implements Serializable {
 
         boolean isCaptchaCorrect = false;
         try {
-            isCaptchaCorrect = CaptchaServiceSingleton.getInstance().validateResponseForID(Jsf.getHttpServletRequest().getSession().getId(), j_captcha_response);
+            isCaptchaCorrect = CaptchaServiceSingleton.getInstance().validateResponseForID(Pagez.getRequest().getSession().getId(), j_captcha_response);
         } catch (CaptchaServiceException e) {
              //should not happen, may be thrown if the id is not valid
         }
         if (!isCaptchaCorrect){
-            Jsf.setFacesMessage("resendform:j_captcha_response", "You failed to correctly type the letters into the box.");
+            Pagez.getUserSession().setMessage("You failed to correctly type the letters into the box.");
             return null;
         }
 
         List<User> users = HibernateUtil.getSession().createQuery("from User where email='"+ Str.cleanForSQL(email)+"'").list();
         if (email==null || email.equals("") || users.size()<=0){
-            Jsf.setFacesMessage("resendform:email", "That email address was not found.");
+            Pagez.getUserSession().setMessage("That email address was not found.");
             return null;
         }
         for (Iterator<User> iterator = users.iterator(); iterator.hasNext();) {
