@@ -2,7 +2,7 @@
 <%@ page import="com.dneero.htmlui.Pagez" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
-String pagetitle = "#{publicSurveyDiscuss.survey.title}";
+String pagetitle = "<%=((PublicSurveyDiscuss)Pagez.getBeanMgr().get("PublicSurveyDiscuss")).getSurvey().getTitle()%>";
 String navtab = "home";
 String acl = "public";
 %>
@@ -10,30 +10,30 @@ String acl = "public";
 
 
 
-    <font class="smallfont">#{publicSurveyDiscuss.survey.description}</font><br/><br/><br/>
+    <font class="smallfont"><%=((PublicSurveyDiscuss)Pagez.getBeanMgr().get("PublicSurveyDiscuss")).getSurvey().getDescription()%></font><br/><br/><br/>
 
     <h:messages styleClass="RED"/>
 
     <div id="csstabs">
       <ul>
-        <li><a href="/survey.jsf?surveyid=#{publicSurveyDiscuss.survey.surveyid}" title="Questions"><span>Questions</span></a></li>
-        <li><a href="/surveypostit.jsf?surveyid=#{publicSurveyDiscuss.survey.surveyid}" title="Post It"><span>Post It</span></a></li>
-        <li><a href="/surveyresults.jsf?surveyid=#{publicSurveyDiscuss.survey.surveyid}" title="Results"><span>Results</span></a></li>
-        <li><a href="/surveywhotookit.jsf?surveyid=#{publicSurveyDiscuss.survey.surveyid}" title="Who Took It?"><span>Who Took It?</span></a></li>
-        <li><a href="/surveydiscuss.jsf?surveyid=#{publicSurveyDiscuss.survey.surveyid}" title="Discuss"><span>Discuss</span></a></li>
-        <li><a href="/surveyrequirements.jsf?surveyid=#{publicSurveyDiscuss.survey.surveyid}" title="Requirements"><span>Requirements</span></a></li>
-        <li><a href="/surveydisclosure.jsf?surveyid=#{publicSurveyDiscuss.survey.surveyid}" title="LDisclosure"><span>Disclosure</span></a></li>
+        <li><a href="/survey.jsf?surveyid=<%=((PublicSurveyDiscuss)Pagez.getBeanMgr().get("PublicSurveyDiscuss")).getSurvey().getSurveyid()%>" title="Questions"><span>Questions</span></a></li>
+        <li><a href="/surveypostit.jsf?surveyid=<%=((PublicSurveyDiscuss)Pagez.getBeanMgr().get("PublicSurveyDiscuss")).getSurvey().getSurveyid()%>" title="Post It"><span>Post It</span></a></li>
+        <li><a href="/surveyresults.jsf?surveyid=<%=((PublicSurveyDiscuss)Pagez.getBeanMgr().get("PublicSurveyDiscuss")).getSurvey().getSurveyid()%>" title="Results"><span>Results</span></a></li>
+        <li><a href="/surveywhotookit.jsf?surveyid=<%=((PublicSurveyDiscuss)Pagez.getBeanMgr().get("PublicSurveyDiscuss")).getSurvey().getSurveyid()%>" title="Who Took It?"><span>Who Took It?</span></a></li>
+        <li><a href="/surveydiscuss.jsf?surveyid=<%=((PublicSurveyDiscuss)Pagez.getBeanMgr().get("PublicSurveyDiscuss")).getSurvey().getSurveyid()%>" title="Discuss"><span>Discuss</span></a></li>
+        <li><a href="/surveyrequirements.jsf?surveyid=<%=((PublicSurveyDiscuss)Pagez.getBeanMgr().get("PublicSurveyDiscuss")).getSurvey().getSurveyid()%>" title="Requirements"><span>Requirements</span></a></li>
+        <li><a href="/surveydisclosure.jsf?surveyid=<%=((PublicSurveyDiscuss)Pagez.getBeanMgr().get("PublicSurveyDiscuss")).getSurvey().getSurveyid()%>" title="LDisclosure"><span>Disclosure</span></a></li>
       </ul>
     </div>
     <br/><br/><br/>
     <!--
-    <a href="/survey.jsf?surveyid=#{publicSurveyDiscuss.survey.surveyid}">Questions</a> |
-    <a href="/surveypostit.jsf?surveyid=#{publicSurveyDiscuss.survey.surveyid}">Post It</a> |
-    <a href="/surveyresults.jsf?surveyid=#{publicSurveyDiscuss.survey.surveyid}">Results</a> |
-    <a href="/surveywhotookit.jsf?surveyid=#{publicSurveyDiscuss.survey.surveyid}">Who Took It?</a> |
-    <a href="/surveydiscuss.jsf?surveyid=#{publicSurveyDiscuss.survey.surveyid}">Discuss</a> |
-    <a href="/surveyrequirements.jsf?surveyid=#{publicSurveyDiscuss.survey.surveyid}">Requirements</a> |
-    <a href="/surveydisclosure.jsf?surveyid=#{publicSurveyDiscuss.survey.surveyid}">Disclosure</a>
+    <a href="/survey.jsf?surveyid=<%=((PublicSurveyDiscuss)Pagez.getBeanMgr().get("PublicSurveyDiscuss")).getSurvey().getSurveyid()%>">Questions</a> |
+    <a href="/surveypostit.jsf?surveyid=<%=((PublicSurveyDiscuss)Pagez.getBeanMgr().get("PublicSurveyDiscuss")).getSurvey().getSurveyid()%>">Post It</a> |
+    <a href="/surveyresults.jsf?surveyid=<%=((PublicSurveyDiscuss)Pagez.getBeanMgr().get("PublicSurveyDiscuss")).getSurvey().getSurveyid()%>">Results</a> |
+    <a href="/surveywhotookit.jsf?surveyid=<%=((PublicSurveyDiscuss)Pagez.getBeanMgr().get("PublicSurveyDiscuss")).getSurvey().getSurveyid()%>">Who Took It?</a> |
+    <a href="/surveydiscuss.jsf?surveyid=<%=((PublicSurveyDiscuss)Pagez.getBeanMgr().get("PublicSurveyDiscuss")).getSurvey().getSurveyid()%>">Discuss</a> |
+    <a href="/surveyrequirements.jsf?surveyid=<%=((PublicSurveyDiscuss)Pagez.getBeanMgr().get("PublicSurveyDiscuss")).getSurvey().getSurveyid()%>">Requirements</a> |
+    <a href="/surveydisclosure.jsf?surveyid=<%=((PublicSurveyDiscuss)Pagez.getBeanMgr().get("PublicSurveyDiscuss")).getSurvey().getSurveyid()%>">Disclosure</a>
     -->
 
     <h:graphicImage url="/images/clear.gif" width="700" height="1" styleClass="survey_tabs_body_width"/><br/>
@@ -43,10 +43,10 @@ String acl = "public";
                 <center><div class="rounded" style="background: #e6e6e6; text-align: left; padding: 20px;"><font class="smallfont">
                 Discuss this survey here.  Thoughts on the results?  Thoughts on the financial incentive?  Thoughts on the people who are posting it to their blogs?  Thoughts on the questions asked?  Thoughts on anything else related to this survey?
                 </font></div></center>
-                <c:if test="#{!userSession.isloggedin}">
+                <% if ("<%=((!userSession)Pagez.getBeanMgr().get("!userSession")).getIsloggedin()%>){ %>
                     <br/><br/>
                     <font class="mediumfont">You must be logged-in to take part in the discussion.</font>
-                </c:if>
+                <% } %>
             </td>
             <td valign="top" width="150">
                 <img src="/images/wireless-green-128.png" width="128" height="128"/>
@@ -54,7 +54,7 @@ String acl = "public";
         </tr>
     </table>
     <t:div rendered="#{!empty publicSurveyDiscuss.surveydiscusses}">
-        <t:dataTable id="datatablediscuss" value="#{publicSurveyDiscuss.surveydiscusses}" rows="500" var="discuss" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcolnowrap,tcol,tcol,tcol,tcol">
+        <t:dataTable id="datatablediscuss" value="<%=((PublicSurveyDiscuss)Pagez.getBeanMgr().get("PublicSurveyDiscuss")).getSurveydiscusses()%>" rows="500" var="discuss" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcolnowrap,tcol,tcol,tcol,tcol">
           <h:column>
             <f:facet name="header">
               <h:outputText value="-" style="color: #ffffff;"/>
@@ -65,19 +65,19 @@ String acl = "public";
             <f:facet name="header">
               <h:outputText value="-" style="color: #ffffff;"/>
             </f:facet>
-            <h:outputLink value="/profile.jsf?userid=#{discuss.user.userid}">
-                <h:outputText value="#{discuss.user.firstname} #{discuss.user.lastname}" styleClass="normalfont" style="font-weight: bold;"/>
+            <h:outputLink value="/profile.jsf?userid=<%=((Discuss)Pagez.getBeanMgr().get("Discuss")).getUser().getUserid()%>">
+                <h:outputText value="<%=((Discuss)Pagez.getBeanMgr().get("Discuss")).getUser().getFirstname()%> <%=((Discuss)Pagez.getBeanMgr().get("Discuss")).getUser().getLastname()%>" styleClass="normalfont" style="font-weight: bold;"/>
             </h:outputLink>
           </h:column>
           <h:column>
             <f:facet name="header">
               <h:outputText value="-" style="color: #ffffff;"/>
             </f:facet>
-            <h:outputText value="#{discuss.surveydiscuss.date}" styleClass="tinyfont"><f:convertDateTime type="both" dateStyle="short" timeStyle="medium"/></h:outputText>
+            <h:outputText value="<%=((Discuss)Pagez.getBeanMgr().get("Discuss")).getSurveydiscuss().getDate()%>" styleClass="tinyfont"><f:convertDateTime type="both" dateStyle="short" timeStyle="medium"/></h:outputText>
             <br/>
-            <h:outputText value="#{discuss.surveydiscuss.subject}" styleClass="normalfont" style="font-weight: bold;"/>
+            <h:outputText value="<%=((Discuss)Pagez.getBeanMgr().get("Discuss")).getSurveydiscuss().getSubject()%>" styleClass="normalfont" style="font-weight: bold;"/>
             <br/>
-            <h:outputText value="#{discuss.surveydiscuss.comment}" styleClass="smallfont"/><br/><br/>
+            <h:outputText value="<%=((Discuss)Pagez.getBeanMgr().get("Discuss")).getSurveydiscuss().getComment()%>" styleClass="smallfont"/><br/><br/>
           </h:column>
         </t:dataTable>
         <!--
@@ -98,43 +98,43 @@ String acl = "public";
         -->
     </t:div>
     <br/><br/>
-    <c:if test="#{userSession.isloggedin}">
+    <% if ("<%=((UserSession)Pagez.getBeanMgr().get("UserSession")).getIsloggedin()%>){ %>
         <font class="mediumfont">Post a Comment!</font>
         <br/><br/>
         <h:messages styleClass="RED"/>
-        <h:panelGrid columns="3" cellpadding="3" border="0">
+        <table cellpadding="0" cellspacing="0" border="0">
 
-            <h:panelGroup>
+            <td valign="top">
                 <h:outputText value="Subject:" styleClass="formfieldnamefont"></h:outputText>
-            </h:panelGroup>
-            <h:panelGroup>
-                <h:inputText value="#{publicSurveyDiscuss.discussSubject}" id="discussSubject"></h:inputText>
-            </h:panelGroup>
-            <h:panelGroup>
+            </td>
+            <td valign="top">
+                <h:inputText value="<%=((PublicSurveyDiscuss)Pagez.getBeanMgr().get("PublicSurveyDiscuss")).getDiscussSubject()%>" id="discussSubject"></h:inputText>
+            </td>
+            <td valign="top">
                 <h:message for="discussSubject" styleClass="RED"></h:message>
-            </h:panelGroup>
+            </td>
 
 
-            <h:panelGroup>
+            <td valign="top">
                 <h:outputText value="Comment:" styleClass="formfieldnamefont"></h:outputText>
-            </h:panelGroup>
-            <h:panelGroup>
-                <h:inputTextarea value="#{publicSurveyDiscuss.discussComment}" id="discussComment" cols="65" rows="6"></h:inputTextarea>
-            </h:panelGroup>
-            <h:panelGroup>
+            </td>
+            <td valign="top">
+                <h:inputTextarea value="<%=((PublicSurveyDiscuss)Pagez.getBeanMgr().get("PublicSurveyDiscuss")).getDiscussComment()%>" id="discussComment" cols="65" rows="6"></h:inputTextarea>
+            </td>
+            <td valign="top">
                 <h:message for="discussComment" styleClass="RED"></h:message>
-            </h:panelGroup>
+            </td>
 
-            <h:panelGroup>
-            </h:panelGroup>
-            <h:panelGroup>
-                <h:commandButton action="#{publicSurveyDiscuss.newComment}" value="Post Comment" styleClass="formsubmitbutton"></h:commandButton>
-            </h:panelGroup>
-            <h:panelGroup>
-            </h:panelGroup>
+            <td valign="top">
+            </td>
+            <td valign="top">
+                <h:commandButton action="<%=((PublicSurveyDiscuss)Pagez.getBeanMgr().get("PublicSurveyDiscuss")).getNewComment()%>" value="Post Comment" styleClass="formsubmitbutton"></h:commandButton>
+            </td>
+            <td valign="top">
+            </td>
 
-        </h:panelGrid>
-    </c:if>
+        </table>
+    <% } %>
 
 
 

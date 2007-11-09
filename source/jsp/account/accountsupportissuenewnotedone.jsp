@@ -12,9 +12,9 @@ String acl = "account";
 
         <h:outputText>Success!  Your comment has been added.  We will respond soon!</h:outputText>
         <f:verbatim><br/><br/></f:verbatim>
-        <h:commandLink action="#{accountSupportIssueDetail.beginView}">
+        <h:commandLink action="<%=((AccountSupportIssueDetail)Pagez.getBeanMgr().get("AccountSupportIssueDetail")).getBeginView()%>">
             <h:outputText value="Continue" escape="false" />
-            <f:param name="supportissueid" value="#{accountSupportIssueDetail.supportissueid}" />
+            <f:param name="supportissueid" value="<%=((AccountSupportIssueDetail)Pagez.getBeanMgr().get("AccountSupportIssueDetail")).getSupportissueid()%>" />
         </h:commandLink>
 
 <%@ include file="/jsp/templates/footer.jsp" %>

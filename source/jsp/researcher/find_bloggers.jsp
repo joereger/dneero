@@ -13,42 +13,42 @@ String acl = "researcher";
     <t:div rendered="#{researcherFindBloggers.msg ne '' and researcherFindBloggers.msg ne null}">
         <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
         <img src="/images/lightbulb_on.png" alt="" align="right"/>
-        #{researcherFindBloggers.msg}
+        <%=((ResearcherFindBloggers)Pagez.getBeanMgr().get("ResearcherFindBloggers")).getMsg()%>
         <br/><br/></font></div></center>
         <br/><br/>
     </t:div>
 
     <t:saveState id="save" value="#{researcherFindBloggers}"/>
-    <h:selectOneMenu value="#{researcherFindBloggers.panelid}" id="panelid" required="true" rendered="#{!empty researcherFindBloggers.listitems}">
-       <f:selectItems value="#{researcherFindBloggers.panelids}"/>
+    <h:selectOneMenu value="<%=((ResearcherFindBloggers)Pagez.getBeanMgr().get("ResearcherFindBloggers")).getPanelid()%>" id="panelid" required="true" rendered="#{!empty researcherFindBloggers.listitems}">
+       <f:selectItems value="<%=((ResearcherFindBloggers)Pagez.getBeanMgr().get("ResearcherFindBloggers")).getPanelids()%>"/>
     </h:selectOneMenu>
-    <h:commandButton action="#{researcherFindBloggers.addAllToPanel}" value="Add All Bloggers Listed to Panel" styleClass="formsubmitbutton" rendered="#{!empty researcherFindBloggers.listitems}"></h:commandButton>
+    <h:commandButton action="<%=((ResearcherFindBloggers)Pagez.getBeanMgr().get("ResearcherFindBloggers")).getAddAllToPanel()%>" value="Add All Bloggers Listed to Panel" styleClass="formsubmitbutton" rendered="#{!empty researcherFindBloggers.listitems}"></h:commandButton>
     <t:div rendered="#{!empty researcherFindBloggers.listitems}">
         <br/>
         <font class="smallfont">You can add an individual blogger to a panel by viewing his/her Blogger Profile.</font>
         <br/><br/>
     </t:div>
     <t:dataScroller for="datatable" maxPages="5" rendered="#{!empty researcherFindBloggers.listitems}"/>
-    <t:dataTable id="datatable" value="#{researcherFindBloggers.listitems}" rows="50" var="listitem" rendered="#{!empty researcherFindBloggers.listitems}" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcol,tcolnowrap,tcol,tcolnowrap,tcolnowrap">
+    <t:dataTable id="datatable" value="<%=((ResearcherFindBloggers)Pagez.getBeanMgr().get("ResearcherFindBloggers")).getListitems()%>" rows="50" var="listitem" rendered="#{!empty researcherFindBloggers.listitems}" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcol,tcolnowrap,tcol,tcolnowrap,tcolnowrap">
       <h:column>
         <f:facet name="header">
           <h:outputText value="Blogger Name"/>
         </f:facet>
-        <h:outputText value="#{listitem.user.lastname}, #{listitem.user.firstname}" styleClass="normalfont"/>
+        <h:outputText value="<%=((Listitem)Pagez.getBeanMgr().get("Listitem")).getUser().getLastname()%>, <%=((Listitem)Pagez.getBeanMgr().get("Listitem")).getUser().getFirstname()%>" styleClass="normalfont"/>
       </h:column>
       <h:column>
         <f:facet name="header">
           <h:outputText value="Social Influence Rating (TM)"/>
         </f:facet>
-        <h:outputText value="Top #{listitem.socialinfluenceratingpercentile}%" styleClass="normalfont"/>
+        <h:outputText value="Top <%=((Listitem)Pagez.getBeanMgr().get("Listitem")).getSocialinfluenceratingpercentile()%>%" styleClass="normalfont"/>
       </h:column>
       <h:column>
         <f:facet name="header">
           <h:outputText value="-" style="color: #ffffff;"/>
         </f:facet>
-        <h:commandLink action="#{publicProfile.beginView}">
+        <h:commandLink action="<%=((PublicProfile)Pagez.getBeanMgr().get("PublicProfile")).getBeginView()%>">
             <h:outputText value="Blogger's Profile" escape="false" styleClass="smallfont"/>
-            <f:param name="bloggerid" value="#{listitem.blogger.bloggerid}" />
+            <f:param name="bloggerid" value="<%=((Listitem)Pagez.getBeanMgr().get("Listitem")).getBlogger().getBloggerid()%>" />
         </h:commandLink>
       </h:column>
     </t:dataTable>
@@ -75,217 +75,217 @@ String acl = "researcher";
 
 
 
-        <h:panelGroup>
+        <td valign="top">
             <h:outputText value="Social Influence Rating (TM)" styleClass="formfieldnamefont"></h:outputText>
             <br/>
             <h:outputText value="Social Influence Rating takes site traffic, survey referrals and a number of other metrics into account to give you some measure of this blogger's influence with his/her readership." styleClass="smallfont"></h:outputText>
             <br/>
             <h:message for="minsocialinfluencepercentile" styleClass="RED"></h:message>
-        </h:panelGroup>
-        <h:panelGroup>
-            <h:selectOneMenu value="#{researcherFindBloggers.minsocialinfluencepercentile}" id="minsocialinfluencepercentile">
-               <f:selectItems value="#{staticVariables.percentiles}"/>
+        </td>
+        <td valign="top">
+            <h:selectOneMenu value="<%=((ResearcherFindBloggers)Pagez.getBeanMgr().get("ResearcherFindBloggers")).getMinsocialinfluencepercentile()%>" id="minsocialinfluencepercentile">
+               <f:selectItems value="<%=((StaticVariables)Pagez.getBeanMgr().get("StaticVariables")).getPercentiles()%>"/>
             </h:selectOneMenu>
-        </h:panelGroup>
+        </td>
 
 
-        <h:panelGroup>
+        <td valign="top">
             <h:outputText value="Social Influence Rating 90 Days" styleClass="formfieldnamefont"></h:outputText>
             <br/>
             <h:message for="minsocialinfluencepercentile90days" styleClass="RED"></h:message>
-        </h:panelGroup>
-        <h:panelGroup>
-            <h:selectOneMenu value="#{researcherFindBloggers.minsocialinfluencepercentile90days}" id="minsocialinfluencepercentile90days">
-               <f:selectItems value="#{staticVariables.percentiles}"/>
+        </td>
+        <td valign="top">
+            <h:selectOneMenu value="<%=((ResearcherFindBloggers)Pagez.getBeanMgr().get("ResearcherFindBloggers")).getMinsocialinfluencepercentile90days()%>" id="minsocialinfluencepercentile90days">
+               <f:selectItems value="<%=((StaticVariables)Pagez.getBeanMgr().get("StaticVariables")).getPercentiles()%>"/>
             </h:selectOneMenu>
-        </h:panelGroup>
+        </td>
 
         
 
 
 
-        <h:panelGroup>
+        <td valign="top">
             <h:outputText value="Blog Quality of At Least" styleClass="formfieldnamefont"></h:outputText>
             <br/>
             <h:outputText value="Blog Quality is determined manually by our administrators visiting each blog post and assigning a general quality rating." styleClass="smallfont"></h:outputText>
             <br/>
             <h:message for="blogquality" styleClass="RED"></h:message>
-        </h:panelGroup>
-        <h:panelGroup>
-            <h:selectOneListbox value="#{researcherFindBloggers.blogquality}" size="1" id="blogquality">
-                <f:selectItems value="#{staticVariables.blogqualities}"/>
+        </td>
+        <td valign="top">
+            <h:selectOneListbox value="<%=((ResearcherFindBloggers)Pagez.getBeanMgr().get("ResearcherFindBloggers")).getBlogquality()%>" size="1" id="blogquality">
+                <f:selectItems value="<%=((StaticVariables)Pagez.getBeanMgr().get("StaticVariables")).getBlogqualities()%>"/>
             </h:selectOneListbox>
-        </h:panelGroup>
+        </td>
 
 
-        <h:panelGroup>
+        <td valign="top">
             <h:outputText value="Blog Quality Over Last 90 Days of At Least" styleClass="formfieldnamefont"></h:outputText>
             <br/>
             <h:message for="blogquality90days" styleClass="RED"></h:message>
-        </h:panelGroup>
-        <h:panelGroup>
-            <h:selectOneListbox value="#{researcherFindBloggers.blogquality90days}" size="1" id="blogquality90days">
-                <f:selectItems value="#{staticVariables.blogqualities}"/>
+        </td>
+        <td valign="top">
+            <h:selectOneListbox value="<%=((ResearcherFindBloggers)Pagez.getBeanMgr().get("ResearcherFindBloggers")).getBlogquality90days()%>" size="1" id="blogquality90days">
+                <f:selectItems value="<%=((StaticVariables)Pagez.getBeanMgr().get("StaticVariables")).getBlogqualities()%>"/>
             </h:selectOneListbox>
-        </h:panelGroup>
+        </td>
 
 
 
 
 
 
-        <h:panelGroup>
+        <td valign="top">
             <h:outputText value="Age Range" styleClass="formfieldnamefont"></h:outputText>
             <br/>
             <h:message for="agemin" styleClass="RED"></h:message>
             <h:message for="agemax" styleClass="RED"></h:message>
-        </h:panelGroup>
-        <h:panelGroup>
-            <h:inputText value="#{researcherFindBloggers.agemin}" id="agemin" size="3" required="true">
+        </td>
+        <td valign="top">
+            <h:inputText value="<%=((ResearcherFindBloggers)Pagez.getBeanMgr().get("ResearcherFindBloggers")).getAgemin()%>" id="agemin" size="3" required="true">
                 <f:validateDoubleRange minimum="1" maximum="120"></f:validateDoubleRange>
             </h:inputText>
             <h:outputText value=" - "></h:outputText>
-            <h:inputText value="#{researcherFindBloggers.agemax}" id="agemax" size="3" required="true">
+            <h:inputText value="<%=((ResearcherFindBloggers)Pagez.getBeanMgr().get("ResearcherFindBloggers")).getAgemax()%>" id="agemax" size="3" required="true">
                 <f:validateDoubleRange minimum="1" maximum="120"></f:validateDoubleRange>
             </h:inputText>
-        </h:panelGroup>
+        </td>
 
 
 
 
-        <h:panelGroup>
+        <td valign="top">
             <h:outputText value="Gender" styleClass="formfieldnamefont"></h:outputText>
             <br/>
             <h:message for="gender" styleClass="RED"></h:message>
-        </h:panelGroup>
-        <h:panelGroup>
-            <h:selectManyCheckbox value="#{researcherFindBloggers.gender}" id="gender" required="true">
+        </td>
+        <td valign="top">
+            <h:selectManyCheckbox value="<%=((ResearcherFindBloggers)Pagez.getBeanMgr().get("ResearcherFindBloggers")).getGender()%>" id="gender" required="true">
                 <f:selectItems value="#{genders}"/>
             </h:selectManyCheckbox>
-        </h:panelGroup>
+        </td>
 
 
-        <h:panelGroup>
+        <td valign="top">
             <h:outputText value="Ethnicity" styleClass="formfieldnamefont"></h:outputText>
             <br/>
             <h:message for="ethnicity" styleClass="RED"></h:message>
-        </h:panelGroup>
-        <h:panelGroup>
-            <h:selectManyListbox value="#{researcherFindBloggers.ethnicity}" id="ethnicity" size="6" required="true">
+        </td>
+        <td valign="top">
+            <h:selectManyListbox value="<%=((ResearcherFindBloggers)Pagez.getBeanMgr().get("ResearcherFindBloggers")).getEthnicity()%>" id="ethnicity" size="6" required="true">
                 <f:selectItems value="#{ethnicities}"/>
             </h:selectManyListbox>
-        </h:panelGroup>
+        </td>
 
 
-        <h:panelGroup>
+        <td valign="top">
             <h:outputText value="Marital Status" styleClass="formfieldnamefont"></h:outputText>
             <br/>
             <h:message for="maritalstatus" styleClass="RED"></h:message>
-        </h:panelGroup>
-        <h:panelGroup>
-            <h:selectManyCheckbox value="#{researcherFindBloggers.maritalstatus}" id="maritalstatus" required="true">
+        </td>
+        <td valign="top">
+            <h:selectManyCheckbox value="<%=((ResearcherFindBloggers)Pagez.getBeanMgr().get("ResearcherFindBloggers")).getMaritalstatus()%>" id="maritalstatus" required="true">
                 <f:selectItems value="#{maritalstatuses}"/>
             </h:selectManyCheckbox>
-        </h:panelGroup>
+        </td>
 
-        <h:panelGroup>
+        <td valign="top">
             <h:outputText value="Income" styleClass="formfieldnamefont"></h:outputText>
             <br/>
             <h:message for="income" styleClass="RED"></h:message>
-        </h:panelGroup>
-        <h:panelGroup>
-            <h:selectManyListbox value="#{researcherFindBloggers.income}" size="5" id="income" required="true">
+        </td>
+        <td valign="top">
+            <h:selectManyListbox value="<%=((ResearcherFindBloggers)Pagez.getBeanMgr().get("ResearcherFindBloggers")).getIncome()%>" size="5" id="income" required="true">
                 <f:selectItems value="#{incomes}"/>
             </h:selectManyListbox>
-        </h:panelGroup>
+        </td>
 
-        <h:panelGroup>
+        <td valign="top">
             <h:outputText value="Education" styleClass="formfieldnamefont"></h:outputText>
             <br/>
             <h:message for="educationlevel" styleClass="RED"></h:message>
-        </h:panelGroup>
-        <h:panelGroup>
-            <h:selectManyCheckbox value="#{researcherFindBloggers.educationlevel}" id="educationlevel" layout="pageDirection" required="true">
+        </td>
+        <td valign="top">
+            <h:selectManyCheckbox value="<%=((ResearcherFindBloggers)Pagez.getBeanMgr().get("ResearcherFindBloggers")).getEducationlevel()%>" id="educationlevel" layout="pageDirection" required="true">
                 <f:selectItems value="#{educationlevels}"/>
             </h:selectManyCheckbox>
-        </h:panelGroup>
+        </td>
 
 
 
-        <h:panelGroup>
+        <td valign="top">
             <h:outputText value="State" styleClass="formfieldnamefont"></h:outputText>
             <br/>
             <h:message for="state" styleClass="RED"></h:message>
-        </h:panelGroup>
-        <h:panelGroup>
-            <h:selectManyListbox value="#{researcherFindBloggers.state}" size="5" id="state" required="true">
+        </td>
+        <td valign="top">
+            <h:selectManyListbox value="<%=((ResearcherFindBloggers)Pagez.getBeanMgr().get("ResearcherFindBloggers")).getState()%>" size="5" id="state" required="true">
                 <f:selectItems value="#{states}"/>
             </h:selectManyListbox>
-        </h:panelGroup>
+        </td>
 
-        <h:panelGroup>
+        <td valign="top">
             <h:outputText value="City" styleClass="formfieldnamefont"></h:outputText>
             <br/>
             <h:message for="city" styleClass="RED"></h:message>
-        </h:panelGroup>
-        <h:panelGroup>
-            <h:selectManyListbox value="#{researcherFindBloggers.city}" size="5" id="city" required="true">
+        </td>
+        <td valign="top">
+            <h:selectManyListbox value="<%=((ResearcherFindBloggers)Pagez.getBeanMgr().get("ResearcherFindBloggers")).getCity()%>" size="5" id="city" required="true">
                 <f:selectItems value="#{cities}"/>
             </h:selectManyListbox>
-        </h:panelGroup>
+        </td>
 
 
-        <h:panelGroup>
+        <td valign="top">
             <h:outputText value="Profession" styleClass="formfieldnamefont"></h:outputText>
             <br/>
             <h:message for="profession" styleClass="RED"></h:message>
-        </h:panelGroup>
-        <h:panelGroup>
-            <h:selectManyListbox value="#{researcherFindBloggers.profession}" size="5" id="profession" required="true">
+        </td>
+        <td valign="top">
+            <h:selectManyListbox value="<%=((ResearcherFindBloggers)Pagez.getBeanMgr().get("ResearcherFindBloggers")).getProfession()%>" size="5" id="profession" required="true">
                 <f:selectItems value="#{professions}"/>
             </h:selectManyListbox>
-        </h:panelGroup>
+        </td>
 
 
-        <h:panelGroup>
+        <td valign="top">
             <h:outputText value="Blog Focus" styleClass="formfieldnamefont"></h:outputText>
             <br/>
             <h:message for="blogfocus" styleClass="RED"></h:message>
-        </h:panelGroup>
-        <h:panelGroup>
-            <h:selectManyListbox value="#{researcherFindBloggers.blogfocus}" size="5" id="blogfocus" required="true">
+        </td>
+        <td valign="top">
+            <h:selectManyListbox value="<%=((ResearcherFindBloggers)Pagez.getBeanMgr().get("ResearcherFindBloggers")).getBlogfocus()%>" size="5" id="blogfocus" required="true">
                 <f:selectItems value="#{blogfocuses}"/>
             </h:selectManyListbox>
-        </h:panelGroup>
+        </td>
 
 
-        <h:panelGroup>
+        <td valign="top">
             <h:outputText value="Politics" styleClass="formfieldnamefont"></h:outputText>
             <br/>
             <h:message for="politics" styleClass="RED"></h:message>
-        </h:panelGroup>
-        <h:panelGroup>
-            <h:selectManyListbox value="#{researcherFindBloggers.politics}" size="5" id="politics" required="true">
+        </td>
+        <td valign="top">
+            <h:selectManyListbox value="<%=((ResearcherFindBloggers)Pagez.getBeanMgr().get("ResearcherFindBloggers")).getPolitics()%>" size="5" id="politics" required="true">
                 <f:selectItems value="#{politics}"/>
             </h:selectManyListbox>
-        </h:panelGroup>
+        </td>
 
-        <h:panelGroup>
-        </h:panelGroup>
-        <h:panelGroup>
-        </h:panelGroup>
-
-
+        <td valign="top">
+        </td>
+        <td valign="top">
+        </td>
 
 
 
 
 
 
-    </h:panelGrid>
+
+
+    </table>
     <br/><br/>
-    <h:commandButton action="#{researcherFindBloggers.search}" value="Find Bloggers" styleClass="formsubmitbutton" rendered="#{empty researcherFindBloggers.listitems}"></h:commandButton>
-    <h:commandButton action="#{researcherFindBloggers.resetSearch}" value="Reset Search" styleClass="formsubmitbutton" rendered="#{!empty researcherFindBloggers.listitems}"></h:commandButton>
+    <h:commandButton action="<%=((ResearcherFindBloggers)Pagez.getBeanMgr().get("ResearcherFindBloggers")).getSearch()%>" value="Find Bloggers" styleClass="formsubmitbutton" rendered="#{empty researcherFindBloggers.listitems}"></h:commandButton>
+    <h:commandButton action="<%=((ResearcherFindBloggers)Pagez.getBeanMgr().get("ResearcherFindBloggers")).getResetSearch()%>" value="Reset Search" styleClass="formsubmitbutton" rendered="#{!empty researcherFindBloggers.listitems}"></h:commandButton>
         
 
 

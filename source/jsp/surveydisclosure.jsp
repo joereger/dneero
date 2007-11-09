@@ -2,7 +2,7 @@
 <%@ page import="com.dneero.htmlui.Pagez" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
-String pagetitle = "#{publicSurveyDisclosure.survey.title}";
+String pagetitle = "<%=((PublicSurveyDisclosure)Pagez.getBeanMgr().get("PublicSurveyDisclosure")).getSurvey().getTitle()%>";
 String navtab = "home";
 String acl = "public";
 %>
@@ -10,30 +10,30 @@ String acl = "public";
 
 
 
-    <font class="smallfont">#{publicSurveyDisclosure.survey.description}</font><br/><br/><br/>
+    <font class="smallfont"><%=((PublicSurveyDisclosure)Pagez.getBeanMgr().get("PublicSurveyDisclosure")).getSurvey().getDescription()%></font><br/><br/><br/>
 
     <h:messages styleClass="RED"/>
 
     <div id="csstabs">
       <ul>
-        <li><a href="/survey.jsf?surveyid=#{publicSurveyDisclosure.survey.surveyid}" title="Questions"><span>Questions</span></a></li>
-        <li><a href="/surveypostit.jsf?surveyid=#{publicSurveyDisclosure.survey.surveyid}" title="Post It"><span>Post It</span></a></li>
-        <li><a href="/surveyresults.jsf?surveyid=#{publicSurveyDisclosure.survey.surveyid}" title="Results"><span>Results</span></a></li>
-        <li><a href="/surveywhotookit.jsf?surveyid=#{publicSurveyDisclosure.survey.surveyid}" title="Who Took It?"><span>Who Took It?</span></a></li>
-        <li><a href="/surveydiscuss.jsf?surveyid=#{publicSurveyDisclosure.survey.surveyid}" title="Discuss"><span>Discuss</span></a></li>
-        <li><a href="/surveyrequirements.jsf?surveyid=#{publicSurveyDisclosure.survey.surveyid}" title="Requirements"><span>Requirements</span></a></li>
-        <li><a href="/surveydisclosure.jsf?surveyid=#{publicSurveyDisclosure.survey.surveyid}" title="LDisclosure"><span>Disclosure</span></a></li>
+        <li><a href="/survey.jsf?surveyid=<%=((PublicSurveyDisclosure)Pagez.getBeanMgr().get("PublicSurveyDisclosure")).getSurvey().getSurveyid()%>" title="Questions"><span>Questions</span></a></li>
+        <li><a href="/surveypostit.jsf?surveyid=<%=((PublicSurveyDisclosure)Pagez.getBeanMgr().get("PublicSurveyDisclosure")).getSurvey().getSurveyid()%>" title="Post It"><span>Post It</span></a></li>
+        <li><a href="/surveyresults.jsf?surveyid=<%=((PublicSurveyDisclosure)Pagez.getBeanMgr().get("PublicSurveyDisclosure")).getSurvey().getSurveyid()%>" title="Results"><span>Results</span></a></li>
+        <li><a href="/surveywhotookit.jsf?surveyid=<%=((PublicSurveyDisclosure)Pagez.getBeanMgr().get("PublicSurveyDisclosure")).getSurvey().getSurveyid()%>" title="Who Took It?"><span>Who Took It?</span></a></li>
+        <li><a href="/surveydiscuss.jsf?surveyid=<%=((PublicSurveyDisclosure)Pagez.getBeanMgr().get("PublicSurveyDisclosure")).getSurvey().getSurveyid()%>" title="Discuss"><span>Discuss</span></a></li>
+        <li><a href="/surveyrequirements.jsf?surveyid=<%=((PublicSurveyDisclosure)Pagez.getBeanMgr().get("PublicSurveyDisclosure")).getSurvey().getSurveyid()%>" title="Requirements"><span>Requirements</span></a></li>
+        <li><a href="/surveydisclosure.jsf?surveyid=<%=((PublicSurveyDisclosure)Pagez.getBeanMgr().get("PublicSurveyDisclosure")).getSurvey().getSurveyid()%>" title="LDisclosure"><span>Disclosure</span></a></li>
       </ul>
     </div>
     <br/><br/><br/>
     <!--
-    <a href="/survey.jsf?surveyid=#{publicSurveyDisclosure.survey.surveyid}">Questions</a> |
-    <a href="/surveypostit.jsf?surveyid=#{publicSurveyDisclosure.survey.surveyid}">Post It</a> |
-    <a href="/surveyresults.jsf?surveyid=#{publicSurveyDisclosure.survey.surveyid}">Results</a> |
-    <a href="/surveywhotookit.jsf?surveyid=#{publicSurveyDisclosure.survey.surveyid}">Who Took It?</a> |
-    <a href="/surveydiscuss.jsf?surveyid=#{publicSurveyDisclosure.survey.surveyid}">Discuss</a> |
-    <a href="/surveyrequirements.jsf?surveyid=#{publicSurveyDisclosure.survey.surveyid}">Requirements</a> |
-    <a href="/surveydisclosure.jsf?surveyid=#{publicSurveyDisclosure.survey.surveyid}">Disclosure</a>
+    <a href="/survey.jsf?surveyid=<%=((PublicSurveyDisclosure)Pagez.getBeanMgr().get("PublicSurveyDisclosure")).getSurvey().getSurveyid()%>">Questions</a> |
+    <a href="/surveypostit.jsf?surveyid=<%=((PublicSurveyDisclosure)Pagez.getBeanMgr().get("PublicSurveyDisclosure")).getSurvey().getSurveyid()%>">Post It</a> |
+    <a href="/surveyresults.jsf?surveyid=<%=((PublicSurveyDisclosure)Pagez.getBeanMgr().get("PublicSurveyDisclosure")).getSurvey().getSurveyid()%>">Results</a> |
+    <a href="/surveywhotookit.jsf?surveyid=<%=((PublicSurveyDisclosure)Pagez.getBeanMgr().get("PublicSurveyDisclosure")).getSurvey().getSurveyid()%>">Who Took It?</a> |
+    <a href="/surveydiscuss.jsf?surveyid=<%=((PublicSurveyDisclosure)Pagez.getBeanMgr().get("PublicSurveyDisclosure")).getSurvey().getSurveyid()%>">Discuss</a> |
+    <a href="/surveyrequirements.jsf?surveyid=<%=((PublicSurveyDisclosure)Pagez.getBeanMgr().get("PublicSurveyDisclosure")).getSurvey().getSurveyid()%>">Requirements</a> |
+    <a href="/surveydisclosure.jsf?surveyid=<%=((PublicSurveyDisclosure)Pagez.getBeanMgr().get("PublicSurveyDisclosure")).getSurvey().getSurveyid()%>">Disclosure</a>
     -->
 
 
@@ -51,21 +51,21 @@ String acl = "public";
                 A link to this disclosure statement is required (and is automatically posted) with each dNeero survey to protect the integrity of the blogosphere and social networks.
                 </font>
             </td>
-            <c:if test="${!userSession.isfacebookui}">
+            <% if ("<%=((!userSession)Pagez.getBeanMgr().get("!userSession")).getIsfacebookui()%>){ %>
                 <td valign="top" align="left">
                     <div class="rounded" style="background: #00ff00;">
                         <div class="rounded" style="background: #ffffff; text-align: center;">
                             <center><img src="/images/exclamation-128.png" width="128" height="128"/></center>
                             <br/>
-                            <c:if test="${publicSurveyDisclosure.survey.status ge 5}">
+                            <% if ("${publicSurveyDisclosure.survey.status ge 5}){ %>
                                 <div class="rounded" style="background: #cccccc; text-align: center;">
                                     <center><img src="/images/stop-alt-48.png" width="48" height="48"/></center>
                                     <br/>
                                     <h:outputText value="This survey is closed." styleClass="mediumfont"/>
                                 </div>
                                 <br/>
-                            </c:if>
-                            <c:if test="#{publicSurveyDisclosure.survey.ischarityonly}">
+                            <% } %>
+                            <% if ("<%=((PublicSurveyDisclosure)Pagez.getBeanMgr().get("PublicSurveyDisclosure")).getSurvey().getIscharityonly()%>){ %>
                                 <br/><br/>
                                 <div class="rounded" style="background: #e6e6e6; text-align: center;">
                                     <img src="/images/charity-128.png" alt="For Charity" width="128" height="128"/>
@@ -74,7 +74,7 @@ String acl = "public";
                                     <br/>
                                     <h:outputText value="The creator of the survey requires that dNeero donate all of your earnings from the survey to a charity of your choice.  It's a chance to do some good!" styleClass="tinyfont"/>
                                 </div>
-                            </c:if>
+                            <% } %>
                         </div>
                         <br/>
                         <font class="smallfont">
@@ -83,7 +83,7 @@ String acl = "public";
                         </font>
                     </div>
                 </td>
-            </c:if>
+            <% } %>
         </tr>
     </table>
 

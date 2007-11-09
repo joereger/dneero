@@ -15,28 +15,28 @@ String acl = "sysadmin";
            <tr>
                <td valign="top" width="25%">
                 <div class="rounded" style="padding: 15px; margin: 8px; background: #BFFFBF;">
-                    <font class="largefont">$<h:outputText value="#{systemStats.dollarsavailabletobloggers}" styleClass="largefont"><f:converter converterId="DisplayAsMoneyConverter"/></h:outputText></font>
+                    <font class="largefont">$<h:outputText value="<%=((SystemStats)Pagez.getBeanMgr().get("SystemStats")).getDollarsavailabletobloggers()%>" styleClass="largefont"><f:converter converterId="DisplayAsMoneyConverter"/></h:outputText></font>
                     <br/>
                     <font class="mediumfont">waiting to be earned</font>
                 </div>
                </td>
                <td valign="top" width="25%">
                 <div class="rounded" style="padding: 15px; margin: 8px; background: #BFFFBF;">
-                    <font class="largefont">#{systemStats.totalusers}</font>
+                    <font class="largefont"><%=((SystemStats)Pagez.getBeanMgr().get("SystemStats")).getTotalusers()%></font>
                     <br/>
                     <font class="mediumfont">users in the system</font>
                 </div>
                </td>
                <td valign="top" width="25%">
                 <div class="rounded" style="padding: 15px; margin: 8px; background: #BFFFBF;">
-                    <font class="largefont">#{systemStats.totalsurveystaken}</font>
+                    <font class="largefont"><%=((SystemStats)Pagez.getBeanMgr().get("SystemStats")).getTotalsurveystaken()%></font>
                     <br/>
                     <font class="mediumfont">surveys taken by users</font>
                 </div>
                </td>
                <td valign="top" width="25%">
                 <div class="rounded" style="padding: 15px; margin: 8px; background: #BFFFBF;">
-                    <font class="largefont">#{systemStats.totalimpressions}</font>
+                    <font class="largefont"><%=((SystemStats)Pagez.getBeanMgr().get("SystemStats")).getTotalimpressions()%></font>
                     <br/>
                     <font class="mediumfont">survey results displayed</font>
                 </div>
@@ -46,25 +46,25 @@ String acl = "sysadmin";
     </div>
 
     <div class="rounded" style="padding: 15px; margin: 8px; background: #BFFFBF;">
-        <f:verbatim escape="false">#{sysadminIndex.servermemory}</f:verbatim>
+        <f:verbatim escape="false"><%=((SysadminIndex)Pagez.getBeanMgr().get("SysadminIndex")).getServermemory()%></f:verbatim>
     </div>
 
     <div class="rounded" style="padding: 15px; margin: 8px; background: #BFFFBF;">
         <font class="normalfont"><b>Pending Balance:</b> </font>
-        <h:outputText value="#{systemStats.systembalance}" styleClass="normalfont"><f:convertNumber type="number" maxFractionDigits="2"/></h:outputText>
+        <h:outputText value="<%=((SystemStats)Pagez.getBeanMgr().get("SystemStats")).getSystembalance()%>" styleClass="normalfont"><f:convertNumber type="number" maxFractionDigits="2"/></h:outputText>
         <br/><font class="tinyfont">The amount of accrued balance that users are holding.  A positive number means we are holding this much money for people.  But keep in mind that this also includes money for researchers who are running surveys.</font>
         <br/><br/>
         <font class="normalfont"><b>System Balance Real World:</b> </font>
-        <h:outputText value="#{systemStats.systembalancerealworld}" styleClass="normalfont"><f:convertNumber type="number" maxFractionDigits="2"/></h:outputText>
+        <h:outputText value="<%=((SystemStats)Pagez.getBeanMgr().get("SystemStats")).getSystembalancerealworld()%>" styleClass="normalfont"><f:convertNumber type="number" maxFractionDigits="2"/></h:outputText>
         <br/><font class="tinyfont">Total real world money taken in and sent out.   A negative number means that dNeero has not collected all the money it has sent out... which shouldn't happen.</font>
         <br/><br/>
         <font class="normalfont"><b>System Overall Balance:</b> </font>
-        <h:outputText value="#{systemStats.systembalancetotal}" styleClass="normalfont"><f:convertNumber type="number" maxFractionDigits="2"/></h:outputText>
+        <h:outputText value="<%=((SystemStats)Pagez.getBeanMgr().get("SystemStats")).getSystembalancetotal()%>" styleClass="normalfont"><f:convertNumber type="number" maxFractionDigits="2"/></h:outputText>
         <br/><font class="tinyfont">Estimate of gross income.</font>
     </div>
 
     <div class="rounded" style="padding: 15px; margin: 8px; background: #BFFFBF;">
-        <f:verbatim escape="false">#{sysadminIndex.financialStatsHtml}</f:verbatim>
+        <f:verbatim escape="false"><%=((SysadminIndex)Pagez.getBeanMgr().get("SysadminIndex")).getFinancialStatsHtml()%></f:verbatim>
     </div>
 
 

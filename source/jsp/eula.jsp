@@ -9,7 +9,7 @@ String acl = "public";
 <%@ include file="/jsp/templates/header.jsp" %>
 
             <center>
-            <h:inputTextarea value="#{publicEula.eula}" id="eula" cols="80" rows="15" required="true"></h:inputTextarea>
+            <h:inputTextarea value="<%=((PublicEula)Pagez.getBeanMgr().get("PublicEula")).getEula()%>" id="eula" cols="80" rows="15" required="true"></h:inputTextarea>
             </center>
 
 

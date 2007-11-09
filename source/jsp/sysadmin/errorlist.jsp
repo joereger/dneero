@@ -10,29 +10,29 @@ String acl = "sysadmin";
 
 
 
-        <h:selectOneMenu value="#{sysadminErrorList.minleveltoshow}" id="minleveltoshow" required="false">
-            <f:selectItems value="#{sysadminErrorList.levels}"/>
+        <h:selectOneMenu value="<%=((SysadminErrorList)Pagez.getBeanMgr().get("SysadminErrorList")).getMinleveltoshow()%>" id="minleveltoshow" required="false">
+            <f:selectItems value="<%=((SysadminErrorList)Pagez.getBeanMgr().get("SysadminErrorList")).getLevels()%>"/>
         </h:selectOneMenu>
 
-        <h:commandButton action="#{sysadminErrorList.load}"  value="Refresh" styleClass="formsubmitbutton"></h:commandButton>
-        <h:commandButton action="#{sysadminErrorList.markallold}"  value="Mark All Old" styleClass="formsubmitbutton"></h:commandButton>
-        <h:commandButton action="#{sysadminErrorList.deleteall}"  value="Delete All" styleClass="formsubmitbutton"></h:commandButton>
-        <h:commandButton action="#{sysadminErrorList.onlyerrors}"  value="Only Errors" styleClass="formsubmitbutton"></h:commandButton>
+        <h:commandButton action="<%=((SysadminErrorList)Pagez.getBeanMgr().get("SysadminErrorList")).getLoad()%>"  value="Refresh" styleClass="formsubmitbutton"></h:commandButton>
+        <h:commandButton action="<%=((SysadminErrorList)Pagez.getBeanMgr().get("SysadminErrorList")).getMarkallold()%>"  value="Mark All Old" styleClass="formsubmitbutton"></h:commandButton>
+        <h:commandButton action="<%=((SysadminErrorList)Pagez.getBeanMgr().get("SysadminErrorList")).getDeleteall()%>"  value="Delete All" styleClass="formsubmitbutton"></h:commandButton>
+        <h:commandButton action="<%=((SysadminErrorList)Pagez.getBeanMgr().get("SysadminErrorList")).getOnlyerrors()%>"  value="Only Errors" styleClass="formsubmitbutton"></h:commandButton>
 
         <br/><br/>
         <t:saveState id="save" value="#{sysadminErrorList}"/>
-        <t:dataTable id="datatable" value="#{sysadminErrorList.errors}" rows="15" var="error" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcol,tcolnowrap,tcol,tcolnowrap,tcolnowrap">
+        <t:dataTable id="datatable" value="<%=((SysadminErrorList)Pagez.getBeanMgr().get("SysadminErrorList")).getErrors()%>" rows="15" var="error" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcol,tcolnowrap,tcol,tcolnowrap,tcolnowrap">
           <h:column sortProperty="errorid" sortable="true">
             <f:facet name="header">
               <h:outputText value="Id"/>
             </f:facet>
-            <h:outputText value="#{error.errorid}" styleClass="tinyfont"/>
+            <h:outputText value="<%=((Error)Pagez.getBeanMgr().get("Error")).getErrorid()%>" styleClass="tinyfont"/>
           </h:column>
           <h:column>
             <f:facet name="header">
               <h:outputText value="Date"/>
             </f:facet>
-            <h:outputText value="#{error.date}" styleClass="tinyfont"><f:convertDateTime type="both" dateStyle="short" timeStyle="medium"/></h:outputText>
+            <h:outputText value="<%=((Error)Pagez.getBeanMgr().get("Error")).getDate()%>" styleClass="tinyfont"><f:convertDateTime type="both" dateStyle="short" timeStyle="medium"/></h:outputText>
           </h:column>
           <h:column sortProperty="status" sortable="true" >
             <f:facet name="header">
@@ -55,7 +55,7 @@ String acl = "sysadmin";
             <f:facet name="header">
               <h:outputText value="Error"/>
             </f:facet>
-            <h:outputText value="#{error.error}" styleClass="smallfont" escape="false"/>
+            <h:outputText value="<%=((Error)Pagez.getBeanMgr().get("Error")).getError()%>" styleClass="smallfont" escape="false"/>
           </h:column>
 
         </t:dataTable>

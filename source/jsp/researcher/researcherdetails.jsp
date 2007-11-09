@@ -23,57 +23,57 @@ String acl = "account";
     <h:form id="researcherdetails">
 
 
-            <h:panelGrid columns="3" cellpadding="3" border="0">
+            <table cellpadding="0" cellspacing="0" border="0">
 
 
-                <h:panelGroup>
+                <td valign="top">
                     <h:outputText value="Name" styleClass="formfieldnamefont"></h:outputText>
                     <br/>
                     <h:outputText value="Could be company name.  Just something to identify your research or marketing organization." styleClass="tinyfont"></h:outputText>
-                </h:panelGroup>
-                <h:panelGroup>
-                    <h:inputText value="#{researcherDetails.companyname}" id="companyname"></h:inputText>
-                </h:panelGroup>
-                <h:panelGroup>
+                </td>
+                <td valign="top">
+                    <h:inputText value="<%=((ResearcherDetails)Pagez.getBeanMgr().get("ResearcherDetails")).getCompanyname()%>" id="companyname"></h:inputText>
+                </td>
+                <td valign="top">
                     <h:message for="companyname" styleClass="RED"></h:message>
-                </h:panelGroup>
+                </td>
 
 
-                <h:panelGroup>
+                <td valign="top">
                     <h:outputText value="Type" styleClass="formfieldnamefont"></h:outputText>
                     <br/>
                     <h:outputText value="Choose the option that best describes you/your organization." styleClass="tinyfont"></h:outputText>
-                </h:panelGroup>
-                <h:panelGroup>
-                    <h:selectOneMenu value="#{researcherDetails.companytype}" id="companytype" required="true">
-                        <f:selectItems value="#{researcherDetails.companytypes}"/>
+                </td>
+                <td valign="top">
+                    <h:selectOneMenu value="<%=((ResearcherDetails)Pagez.getBeanMgr().get("ResearcherDetails")).getCompanytype()%>" id="companytype" required="true">
+                        <f:selectItems value="<%=((ResearcherDetails)Pagez.getBeanMgr().get("ResearcherDetails")).getCompanytypes()%>"/>
                     </h:selectOneMenu>
-                </h:panelGroup>
-                <h:panelGroup>
+                </td>
+                <td valign="top">
                     <h:message for="companytype" styleClass="RED"></h:message>
-                </h:panelGroup>
+                </td>
 
-                <h:panelGroup>
+                <td valign="top">
                     <h:outputText value="Phone (Optional)" styleClass="formfieldnamefont"></h:outputText>
                     <br/>
                     <font class="tinyfont">So we can contact you regarding<br/>billing and survey issues.</font>
-                </h:panelGroup>
-                <h:panelGroup>
-                    <h:inputText value="#{researcherDetails.phone}" id="phone" required="false"></h:inputText>
-                </h:panelGroup>
-                <h:panelGroup>
+                </td>
+                <td valign="top">
+                    <h:inputText value="<%=((ResearcherDetails)Pagez.getBeanMgr().get("ResearcherDetails")).getPhone()%>" id="phone" required="false"></h:inputText>
+                </td>
+                <td valign="top">
                     <h:message for="phone" styleClass="RED"></h:message>
-                </h:panelGroup>
+                </td>
 
-                <h:panelGroup>
-                </h:panelGroup>
-                <h:panelGroup>
-                    <h:commandButton action="#{researcherDetails.saveAction}" value="Save Researcher Profile" styleClass="formsubmitbutton"></h:commandButton>
-                </h:panelGroup>
-                <h:panelGroup>
-                </h:panelGroup>
+                <td valign="top">
+                </td>
+                <td valign="top">
+                    <h:commandButton action="<%=((ResearcherDetails)Pagez.getBeanMgr().get("ResearcherDetails")).getSaveAction()%>" value="Save Researcher Profile" styleClass="formsubmitbutton"></h:commandButton>
+                </td>
+                <td valign="top">
+                </td>
 
-            </h:panelGrid>
+            </table>
 
 
 

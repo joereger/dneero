@@ -10,62 +10,62 @@ String acl = "sysadmin";
 
 
 
-            <h:panelGrid columns="1" cellpadding="3" border="0">
-                <h:panelGroup>
-                    <h:commandButton action="#{sysadminManuallyRunScheduledTask.runCloseSurveysByDate}" value="CloseSurveysByDate" styleClass="formsubmitbutton"></h:commandButton>
-                </h:panelGroup>
-                <h:panelGroup>
-                    <h:commandButton action="#{sysadminManuallyRunScheduledTask.runCloseSurveysByNumRespondents}" value="CloseSurveysByNumRespondents" styleClass="formsubmitbutton"></h:commandButton>
-                </h:panelGroup>
-                <h:panelGroup>
-                    <h:commandButton action="#{sysadminManuallyRunScheduledTask.runNotifyBloggersOfNewOffers}" value="NotifyBloggersOfNewOffers" styleClass="formsubmitbutton"></h:commandButton>
-                </h:panelGroup>
-                <h:panelGroup>
-                    <h:commandButton action="#{sysadminManuallyRunScheduledTask.runPendingToOpenSurveys}" value="PendingToOpenSurveys" styleClass="formsubmitbutton"></h:commandButton>
-                </h:panelGroup>
-                <h:panelGroup>
-                    <h:commandButton action="#{sysadminManuallyRunScheduledTask.runQualityAverager}" value="QualityAverager" styleClass="formsubmitbutton"></h:commandButton>
-                </h:panelGroup>
-                <h:panelGroup>
-                    <h:commandButton action="#{sysadminManuallyRunScheduledTask.runMoveMoneyAround}" value="MoveMoneyAround" styleClass="formsubmitbutton"></h:commandButton>
-                </h:panelGroup>
-                <h:panelGroup>
-                    <h:commandButton action="#{sysadminManuallyRunScheduledTask.runResearcherRemainingBalanceOperations}" value="ResearcherRemainingBalanceOperations" styleClass="formsubmitbutton"></h:commandButton>
-                </h:panelGroup>
-                <h:panelGroup>
-                    <h:commandButton action="#{sysadminManuallyRunScheduledTask.runDeleteOldPersistentlogins}" value="DeleteOldPersistentlogins" styleClass="formsubmitbutton"></h:commandButton>
-                </h:panelGroup>
-                <h:panelGroup>
-                    <h:commandButton action="#{sysadminManuallyRunScheduledTask.runSocialInfluenceRatingUpdate}" value="SocialInfluenceRatingUpdate" styleClass="formsubmitbutton"></h:commandButton>
-                </h:panelGroup>
-                <h:panelGroup>
-                    <h:commandButton action="#{sysadminManuallyRunScheduledTask.runSystemStats}" value="SystemStats" styleClass="formsubmitbutton"></h:commandButton>
-                </h:panelGroup>
-                <h:panelGroup>
-                    <h:commandButton action="#{sysadminManuallyRunScheduledTask.runSendMassemails}" value="SendMassemails" styleClass="formsubmitbutton"></h:commandButton>
-                </h:panelGroup>
-                <h:panelGroup>
-                    <h:commandButton action="#{sysadminManuallyRunScheduledTask.runImpressionActivityObjectQueue}" value="ImpressionActivityObjectQueue" styleClass="formsubmitbutton"></h:commandButton>
-                </h:panelGroup>
-                <h:panelGroup>
-                    <h:commandButton action="#{sysadminManuallyRunScheduledTask.runCharityCalculateAmountDonated}" value="CharityCalculateAmountDonated" styleClass="formsubmitbutton"></h:commandButton>
-                </h:panelGroup>
-                <h:panelGroup>
-                    <h:commandButton action="#{sysadminManuallyRunScheduledTask.runUpdateResponsePoststatus}" value="UpdateResponsePoststatus" styleClass="formsubmitbutton"></h:commandButton>
-                </h:panelGroup>
-                <h:panelGroup>
-                    <h:commandButton action="#{sysadminManuallyRunScheduledTask.runUpdateResponsePoststatusForAll}" value="UpdateResponsePoststatus(All)" styleClass="formsubmitbutton"></h:commandButton>
-                </h:panelGroup>
-                <h:panelGroup>
-                    <h:commandButton action="#{sysadminManuallyRunScheduledTask.runPayForSurveyResponsesOncePosted}" value="PayForSurveyResponsesOncePosted" styleClass="formsubmitbutton"></h:commandButton>
-                </h:panelGroup>
-                <h:panelGroup>
-                    <h:commandButton action="#{sysadminManuallyRunScheduledTask.runImpressionPayments}" value="ImpressionPayments" styleClass="formsubmitbutton"></h:commandButton>
-                </h:panelGroup>
-                <h:panelGroup>
-                    <h:commandButton action="#{sysadminManuallyRunScheduledTask.runSystemStatsFinancial}" value="SystemStatsFinancial" styleClass="formsubmitbutton"></h:commandButton>
-                </h:panelGroup>
-            </h:panelGrid>
+            <table cellpadding="0" cellspacing="0" border="0">
+                <td valign="top">
+                    <h:commandButton action="<%=((SysadminManuallyRunScheduledTask)Pagez.getBeanMgr().get("SysadminManuallyRunScheduledTask")).getRunCloseSurveysByDate()%>" value="CloseSurveysByDate" styleClass="formsubmitbutton"></h:commandButton>
+                </td>
+                <td valign="top">
+                    <h:commandButton action="<%=((SysadminManuallyRunScheduledTask)Pagez.getBeanMgr().get("SysadminManuallyRunScheduledTask")).getRunCloseSurveysByNumRespondents()%>" value="CloseSurveysByNumRespondents" styleClass="formsubmitbutton"></h:commandButton>
+                </td>
+                <td valign="top">
+                    <h:commandButton action="<%=((SysadminManuallyRunScheduledTask)Pagez.getBeanMgr().get("SysadminManuallyRunScheduledTask")).getRunNotifyBloggersOfNewOffers()%>" value="NotifyBloggersOfNewOffers" styleClass="formsubmitbutton"></h:commandButton>
+                </td>
+                <td valign="top">
+                    <h:commandButton action="<%=((SysadminManuallyRunScheduledTask)Pagez.getBeanMgr().get("SysadminManuallyRunScheduledTask")).getRunPendingToOpenSurveys()%>" value="PendingToOpenSurveys" styleClass="formsubmitbutton"></h:commandButton>
+                </td>
+                <td valign="top">
+                    <h:commandButton action="<%=((SysadminManuallyRunScheduledTask)Pagez.getBeanMgr().get("SysadminManuallyRunScheduledTask")).getRunQualityAverager()%>" value="QualityAverager" styleClass="formsubmitbutton"></h:commandButton>
+                </td>
+                <td valign="top">
+                    <h:commandButton action="<%=((SysadminManuallyRunScheduledTask)Pagez.getBeanMgr().get("SysadminManuallyRunScheduledTask")).getRunMoveMoneyAround()%>" value="MoveMoneyAround" styleClass="formsubmitbutton"></h:commandButton>
+                </td>
+                <td valign="top">
+                    <h:commandButton action="<%=((SysadminManuallyRunScheduledTask)Pagez.getBeanMgr().get("SysadminManuallyRunScheduledTask")).getRunResearcherRemainingBalanceOperations()%>" value="ResearcherRemainingBalanceOperations" styleClass="formsubmitbutton"></h:commandButton>
+                </td>
+                <td valign="top">
+                    <h:commandButton action="<%=((SysadminManuallyRunScheduledTask)Pagez.getBeanMgr().get("SysadminManuallyRunScheduledTask")).getRunDeleteOldPersistentlogins()%>" value="DeleteOldPersistentlogins" styleClass="formsubmitbutton"></h:commandButton>
+                </td>
+                <td valign="top">
+                    <h:commandButton action="<%=((SysadminManuallyRunScheduledTask)Pagez.getBeanMgr().get("SysadminManuallyRunScheduledTask")).getRunSocialInfluenceRatingUpdate()%>" value="SocialInfluenceRatingUpdate" styleClass="formsubmitbutton"></h:commandButton>
+                </td>
+                <td valign="top">
+                    <h:commandButton action="<%=((SysadminManuallyRunScheduledTask)Pagez.getBeanMgr().get("SysadminManuallyRunScheduledTask")).getRunSystemStats()%>" value="SystemStats" styleClass="formsubmitbutton"></h:commandButton>
+                </td>
+                <td valign="top">
+                    <h:commandButton action="<%=((SysadminManuallyRunScheduledTask)Pagez.getBeanMgr().get("SysadminManuallyRunScheduledTask")).getRunSendMassemails()%>" value="SendMassemails" styleClass="formsubmitbutton"></h:commandButton>
+                </td>
+                <td valign="top">
+                    <h:commandButton action="<%=((SysadminManuallyRunScheduledTask)Pagez.getBeanMgr().get("SysadminManuallyRunScheduledTask")).getRunImpressionActivityObjectQueue()%>" value="ImpressionActivityObjectQueue" styleClass="formsubmitbutton"></h:commandButton>
+                </td>
+                <td valign="top">
+                    <h:commandButton action="<%=((SysadminManuallyRunScheduledTask)Pagez.getBeanMgr().get("SysadminManuallyRunScheduledTask")).getRunCharityCalculateAmountDonated()%>" value="CharityCalculateAmountDonated" styleClass="formsubmitbutton"></h:commandButton>
+                </td>
+                <td valign="top">
+                    <h:commandButton action="<%=((SysadminManuallyRunScheduledTask)Pagez.getBeanMgr().get("SysadminManuallyRunScheduledTask")).getRunUpdateResponsePoststatus()%>" value="UpdateResponsePoststatus" styleClass="formsubmitbutton"></h:commandButton>
+                </td>
+                <td valign="top">
+                    <h:commandButton action="<%=((SysadminManuallyRunScheduledTask)Pagez.getBeanMgr().get("SysadminManuallyRunScheduledTask")).getRunUpdateResponsePoststatusForAll()%>" value="UpdateResponsePoststatus(All)" styleClass="formsubmitbutton"></h:commandButton>
+                </td>
+                <td valign="top">
+                    <h:commandButton action="<%=((SysadminManuallyRunScheduledTask)Pagez.getBeanMgr().get("SysadminManuallyRunScheduledTask")).getRunPayForSurveyResponsesOncePosted()%>" value="PayForSurveyResponsesOncePosted" styleClass="formsubmitbutton"></h:commandButton>
+                </td>
+                <td valign="top">
+                    <h:commandButton action="<%=((SysadminManuallyRunScheduledTask)Pagez.getBeanMgr().get("SysadminManuallyRunScheduledTask")).getRunImpressionPayments()%>" value="ImpressionPayments" styleClass="formsubmitbutton"></h:commandButton>
+                </td>
+                <td valign="top">
+                    <h:commandButton action="<%=((SysadminManuallyRunScheduledTask)Pagez.getBeanMgr().get("SysadminManuallyRunScheduledTask")).getRunSystemStatsFinancial()%>" value="SystemStatsFinancial" styleClass="formsubmitbutton"></h:commandButton>
+                </td>
+            </table>
 
 
 

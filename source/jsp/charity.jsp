@@ -34,20 +34,20 @@ String acl = "public";
                             <font class="mediumfont" style="color: #999999">Top Donators</font>
                             <br/>
                             <h:outputText value="Nobody's donated... yet." styleClass="smallfont" rendered="#{empty publicCharity.topdonatingUsers}"/>
-                            <t:dataTable sortable="false" id="datatable" value="#{publicCharity.topdonatingUsers}" rows="10" var="donator" rendered="#{!empty publicCharity.topdonatingUsers}" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcol,tcol,tcol,tcol">
+                            <t:dataTable sortable="false" id="datatable" value="<%=((PublicCharity)Pagez.getBeanMgr().get("PublicCharity")).getTopdonatingUsers()%>" rows="10" var="donator" rendered="#{!empty publicCharity.topdonatingUsers}" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcol,tcol,tcol,tcol">
                               <t:column>
                                 <f:facet name="header">
                                     <h:outputText value=""/>
                                 </f:facet>
-                                <h:outputLink value="/profile.jsf?userid=#{donator.user.userid}">
-                                    <h:outputText value="#{donator.user.firstname} #{donator.user.lastname}" styleClass="smallfont" style="color: #0000ff;"/>
+                                <h:outputLink value="/profile.jsf?userid=<%=((Donator)Pagez.getBeanMgr().get("Donator")).getUser().getUserid()%>">
+                                    <h:outputText value="<%=((Donator)Pagez.getBeanMgr().get("Donator")).getUser().getFirstname()%> <%=((Donator)Pagez.getBeanMgr().get("Donator")).getUser().getLastname()%>" styleClass="smallfont" style="color: #0000ff;"/>
                                 </h:outputLink>
                               </t:column>
                               <t:column>
                                 <f:facet name="header">
                                   <h:outputText value=""/>
                                 </f:facet>
-                                <h:outputText value="#{donator.amtforscreen}"  styleClass="smallfont"/>
+                                <h:outputText value="<%=((Donator)Pagez.getBeanMgr().get("Donator")).getAmtforscreen()%>"  styleClass="smallfont"/>
                               </t:column>
                             </t:dataTable>
                             <t:dataScroller id="scroll_1" for="datatable" fastStep="10" pageCountVar="pageCount" pageIndexVar="pageIndex" styleClass="scroller" paginator="true" paginatorMaxPages="9" paginatorTableClass="paginator" paginatorActiveColumnStyle="font-weight:bold;" rendered="#{!empty publicCharity.topdonatingUsers}">
@@ -86,32 +86,32 @@ String acl = "public";
                         <font class="mediumfont" style="color: #999999">Most Recent Donations</font>
                         <br/>
                         <h:outputText value="There haven't yet been any charitable donations... yet.  We're just getting started.  Go take some surveys and donate!" styleClass="mediumfont" rendered="#{empty publicCharity.publicCharityListItemsMostRecent}"/>
-                        <t:dataTable sortable="false" id="datatable2" value="#{publicCharity.publicCharityListItemsMostRecent}" rows="50" var="charityitem" rendered="#{!empty publicCharity.publicCharityListItemsMostRecent}" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcolnowrap,tcol,tcol,tcol">
+                        <t:dataTable sortable="false" id="datatable2" value="<%=((PublicCharity)Pagez.getBeanMgr().get("PublicCharity")).getPublicCharityListItemsMostRecent()%>" rows="50" var="charityitem" rendered="#{!empty publicCharity.publicCharityListItemsMostRecent}" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcolnowrap,tcol,tcol,tcol">
                           <t:column>
                             <f:facet name="header">
                                 <h:outputText value="Donator"/>
                             </f:facet>
-                            <h:outputLink value="/profile.jsf?userid=#{charityitem.user.userid}">
-                                <h:outputText value="#{charityitem.user.firstname} #{charityitem.user.lastname}" styleClass="smallfont" style="color: #0000ff;"/>
+                            <h:outputLink value="/profile.jsf?userid=<%=((Charityitem)Pagez.getBeanMgr().get("Charityitem")).getUser().getUserid()%>">
+                                <h:outputText value="<%=((Charityitem)Pagez.getBeanMgr().get("Charityitem")).getUser().getFirstname()%> <%=((Charityitem)Pagez.getBeanMgr().get("Charityitem")).getUser().getLastname()%>" styleClass="smallfont" style="color: #0000ff;"/>
                             </h:outputLink>
                           </t:column>
                           <t:column>
                             <f:facet name="header">
                               <h:outputText value="What was donated."/>
                             </f:facet>
-                            <h:outputText value="#{charityitem.charitydonation.description}"  styleClass="smallfont"/>
+                            <h:outputText value="<%=((Charityitem)Pagez.getBeanMgr().get("Charityitem")).getCharitydonation().getDescription()%>"  styleClass="smallfont"/>
                           </t:column>
                           <t:column>
                             <f:facet name="header">
                               <h:outputText value="Amount of Donation"/>
                             </f:facet>
-                            <h:outputText value="#{charityitem.amtForScreen}"  styleClass="smallfont"/>
+                            <h:outputText value="<%=((Charityitem)Pagez.getBeanMgr().get("Charityitem")).getAmtForScreen()%>"  styleClass="smallfont"/>
                           </t:column>
                           <t:column>
                             <f:facet name="header">
                               <h:outputText value="Donated To"/>
                             </f:facet>
-                            <h:outputText value="#{charityitem.charitydonation.charityname}"  styleClass="smallfont"/>
+                            <h:outputText value="<%=((Charityitem)Pagez.getBeanMgr().get("Charityitem")).getCharitydonation().getCharityname()%>"  styleClass="smallfont"/>
                           </t:column>
                         </t:dataTable>
                         <t:dataScroller id="scroll_2" for="datatable2" fastStep="10" pageCountVar="pageCount2" pageIndexVar="pageIndex2" styleClass="scroller" paginator="true" paginatorMaxPages="9" paginatorTableClass="paginator" paginatorActiveColumnStyle="font-weight:bold;">

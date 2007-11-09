@@ -15,12 +15,12 @@ String acl = "public";
      <br/>
 
      <!--
-     <c:forEach var="blogpost" items="${publicBlog.blogposts}">
-        <a href="blogpost.jsf?blogpostid=#{blogpost.blogpostid}"><font class="mediumfont" style="color: #0bae17; font-weight: bold;">#{blogpost.title}</font></a>
+     <c:forEach var="blogpost" items="<%=((PublicBlog)Pagez.getBeanMgr().get("PublicBlog")).getBlogposts()%>">
+        <a href="blogpost.jsf?blogpostid=<%=((Blogpost)Pagez.getBeanMgr().get("Blogpost")).getBlogpostid()%>"><font class="mediumfont" style="color: #0bae17; font-weight: bold;"><%=((Blogpost)Pagez.getBeanMgr().get("Blogpost")).getTitle()%></font></a>
         <br/>
-        <h:outputText styleClass="smallfont" value="#{blogpost.body}" escape="false"></h:outputText>
+        <h:outputText styleClass="smallfont" value="<%=((Blogpost)Pagez.getBeanMgr().get("Blogpost")).getBody()%>" escape="false"></h:outputText>
         <br/>
-        <font class="tinyfont" style="color: #999999;">Posted by: #{blogpost.author} at <h:outputText value=" #{blogpost.date}" styleClass="tinyfont" style="color: #cccccc;"><f:convertDateTime type="both" dateStyle="short" timeStyle="medium"/></h:outputText></font>
+        <font class="tinyfont" style="color: #999999;">Posted by: <%=((Blogpost)Pagez.getBeanMgr().get("Blogpost")).getAuthor()%> at <h:outputText value=" <%=((Blogpost)Pagez.getBeanMgr().get("Blogpost")).getDate()%>" styleClass="tinyfont" style="color: #cccccc;"><f:convertDateTime type="both" dateStyle="short" timeStyle="medium"/></h:outputText></font>
         <br/><br/>
      </c:forEach>
 
@@ -29,16 +29,16 @@ String acl = "public";
 
 
 
-     <t:dataTable id="datatable1" value="#{publicBlog.blogposts}" rows="100" var="blogpost" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcol,tcolnowrap,tcol,tcolnowrap,tcolnowrap">
+     <t:dataTable id="datatable1" value="<%=((PublicBlog)Pagez.getBeanMgr().get("PublicBlog")).getBlogposts()%>" rows="100" var="blogpost" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcol,tcolnowrap,tcol,tcolnowrap,tcolnowrap">
       <h:column>
         <f:facet name="header">
           <h:outputText value=""/>
         </f:facet>
-        <a href="/blogpost.jsf?blogpostid=#{blogpost.blogpostid}"><font class="mediumfont" style="color: #0bae17; font-weight: bold;">#{blogpost.title}</font></a>
+        <a href="/blogpost.jsf?blogpostid=<%=((Blogpost)Pagez.getBeanMgr().get("Blogpost")).getBlogpostid()%>"><font class="mediumfont" style="color: #0bae17; font-weight: bold;"><%=((Blogpost)Pagez.getBeanMgr().get("Blogpost")).getTitle()%></font></a>
         <br/>
-        <h:outputText styleClass="smallfont" value="#{blogpost.body}" escape="false"></h:outputText>
+        <h:outputText styleClass="smallfont" value="<%=((Blogpost)Pagez.getBeanMgr().get("Blogpost")).getBody()%>" escape="false"></h:outputText>
         <br/>
-        <font class="tinyfont" style="color: #999999;">Posted by: #{blogpost.author} at <h:outputText value=" #{blogpost.date}" styleClass="tinyfont" style="color: #cccccc;"><f:convertDateTime type="both" dateStyle="short" timeStyle="medium"/></h:outputText></font>
+        <font class="tinyfont" style="color: #999999;">Posted by: <%=((Blogpost)Pagez.getBeanMgr().get("Blogpost")).getAuthor()%> at <h:outputText value=" <%=((Blogpost)Pagez.getBeanMgr().get("Blogpost")).getDate()%>" styleClass="tinyfont" style="color: #cccccc;"><f:convertDateTime type="both" dateStyle="short" timeStyle="medium"/></h:outputText></font>
         <br/><br/>
       </h:column>
      </t:dataTable>

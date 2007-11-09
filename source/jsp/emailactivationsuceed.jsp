@@ -10,7 +10,7 @@ String acl = "public";
 
             <h:outputText>Email activation was successful!  Your account is ready to roll!  You can now log in with the email address and password that you provided when you signed up.</h:outputText>
             <br/><br/>
-            <h:commandButton action="#{login.beginView}" value="Please Log In" styleClass="formsubmitbutton" rendered="#{!userSession.isloggedin}"/>
+            <h:commandButton action="<%=((Login)Pagez.getBeanMgr().get("Login")).getBeginView()%>" value="Please Log In" styleClass="formsubmitbutton" rendered="<%=((!userSession)Pagez.getBeanMgr().get("!userSession")).getIsloggedin()%>"/>
 
 
 <%@ include file="/jsp/templates/footer.jsp" %>

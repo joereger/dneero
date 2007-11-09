@@ -14,6 +14,10 @@ import org.apache.log4j.Logger;
  */
 public class DateTime {
 
+    public static String getHtml(String name, java.util.Date date, String styleclass, String style){
+        return getHtml(name, Time.getCalFromDate(date), styleclass, style);
+    }
+
     public static String getHtml(String name, Calendar cal, String styleclass, String style){
         StringBuffer out = new StringBuffer();
 
@@ -28,7 +32,7 @@ public class DateTime {
         String date = Time.dateformatfordb(cal);
         int hh=Integer.parseInt(date.substring(11,13));
         int min=Integer.parseInt(date.substring(14,16));
-        int mo = Integer.parseInt(date.substring(5,7))-1;
+        int mo = Integer.parseInt(date.substring(5,7));
         int day = Integer.parseInt(date.substring(8,10));
         int year = Integer.parseInt(date.substring(0,4));
         String ampm = "PM";
@@ -49,6 +53,50 @@ public class DateTime {
 
         out.append("<table cellpadding=2 cellspacing=1 border=0>");
         out.append("<tr>");
+
+
+
+        //StartMonth
+        out.append("<td align=left valign=top>");
+        out.append("<select name='"+name+"mo' "+styleclass+" "+style+">");
+        for(int i=1; i<=12; i++){
+            out.append("<option value='" + i + "' ");
+            if (i==mo) {
+                out.append("selected");
+            }
+            out.append(">" + i + "</option>");
+        }
+        out.append("</select>");
+        out.append("<br><font face=arial size=-2 class=smallfont>Month</font>");
+        out.append("</td>");
+
+        //StartDay
+        out.append("<td align=left valign=top>");
+        out.append("<select name='"+name+"day' "+styleclass+" "+style+">");
+        for(int i=1; i<=31; i++){
+            out.append("<option value='" + i + "' ");
+            if (i==day) {
+                out.append("selected");
+            }
+            out.append(">" + i + "</option>");
+        }
+        out.append("</select>");
+        out.append("<br><font face=arial size=-2 class=smallfont>Day</font>");
+        out.append("</td>");
+
+        //StartYear
+        out.append("<td align=left valign=top>");
+        out.append("<select name='"+name+"year' "+styleclass+" "+style+">");
+        for(int i=1900; i<=2020; i++){
+            out.append("<option value='" + i + "' ");
+            if (i==year) {
+                out.append("selected");
+            }
+            out.append(">" + i + "</option>");
+        }
+        out.append("</select>");
+        out.append("<br><font face=arial size=-2 class=smallfont>Year</font>");
+        out.append("</td>");
 
         //StartHour
         out.append("<td align=left valign=top>");
@@ -93,48 +141,6 @@ public class DateTime {
         out.append(">AM</option>");
         out.append("</select>");
         out.append("<br><font face=arial size=-2 class=smallfont>AM/PM</font>");
-        out.append("</td>");
-
-        //StartMonth
-        out.append("<td align=left valign=top>");
-        out.append("<select name='"+name+"mo' "+styleclass+" "+style+">");
-        for(int i=0; i<=11; i++){
-            out.append("<option value='" + i + "' ");
-            if (i==mo) {
-                out.append("selected");
-            }
-            out.append(">" + (i+1) + "</option>");
-        }
-        out.append("</select>");
-        out.append("<br><font face=arial size=-2 class=smallfont>Month</font>");
-        out.append("</td>");
-
-        //StartDay
-        out.append("<td align=left valign=top>");
-        out.append("<select name='"+name+"day' "+styleclass+" "+style+">");
-        for(int i=1; i<=31; i++){
-            out.append("<option value='" + i + "' ");
-            if (i==day) {
-                out.append("selected");
-            }
-            out.append(">" + i + "</option>");
-        }
-        out.append("</select>");
-        out.append("<br><font face=arial size=-2 class=smallfont>Day</font>");
-        out.append("</td>");
-
-        //StartYear
-        out.append("<td align=left valign=top>");
-        out.append("<select name='"+name+"year' "+styleclass+" "+style+">");
-        for(int i=1900; i<=2020; i++){
-            out.append("<option value='" + i + "' ");
-            if (i==year) {
-                out.append("selected");
-            }
-            out.append(">" + i + "</option>");
-        }
-        out.append("</select>");
-        out.append("<br><font face=arial size=-2 class=smallfont>Year</font>");
         out.append("</td>");
 
         out.append("</tr>");

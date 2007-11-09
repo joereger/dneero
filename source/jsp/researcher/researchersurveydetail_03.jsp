@@ -3,7 +3,7 @@
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "<img src=\"/images/process-train-survey-03.gif\" align=\"right\" width=\"350\" height=\"73\"></img>\n" +
-"        <h:outputText value=\"${researcherSurveyDetail03.title}\" styleClass=\"pagetitlefont\" rendered=\"${researcherSurveyDetail03.title ne ''}\"/>\n" +
+"        <h:outputText value=\"<%=((ResearcherSurveyDetail03)Pagez.getBeanMgr().get("ResearcherSurveyDetail03")).getTitle()%>\" styleClass=\"pagetitlefont\" rendered=\"${researcherSurveyDetail03.title ne ''}\"/>\n" +
 "        <br clear=\"all\"/>";
 String navtab = "researchers";
 String acl = "researcher";
@@ -33,7 +33,7 @@ String acl = "researcher";
                             <font class="formfieldnamefont">Flash Embed:</font>
                         </td>
                         <td valign="top" align="left">
-                            <f:verbatim>#{researcherSurveyDetail03.embedflashsyntax}</f:verbatim>
+                            <f:verbatim><%=((ResearcherSurveyDetail03)Pagez.getBeanMgr().get("ResearcherSurveyDetail03")).getEmbedflashsyntax()%></f:verbatim>
                         </td>
                     </tr>
                     <tr>
@@ -41,7 +41,7 @@ String acl = "researcher";
                             <font class="formfieldnamefont">Javascript Embed:</font>
                         </td>
                         <td valign="top" align="left" style="border-top: solid 2px #cccccc;">
-                            <f:verbatim>#{researcherSurveyDetail03.embedjavascriptsyntax}</f:verbatim>
+                            <f:verbatim><%=((ResearcherSurveyDetail03)Pagez.getBeanMgr().get("ResearcherSurveyDetail03")).getEmbedjavascriptsyntax()%></f:verbatim>
                         </td>
                     </tr>
                     <tr>
@@ -49,7 +49,7 @@ String acl = "researcher";
                             <font class="formfieldnamefont">Image Embed:</font>
                         </td>
                         <td valign="top" align="left" style="border-top: solid 2px #cccccc;">
-                            <f:verbatim>#{researcherSurveyDetail03.embedimagesyntax}</f:verbatim>
+                            <f:verbatim><%=((ResearcherSurveyDetail03)Pagez.getBeanMgr().get("ResearcherSurveyDetail03")).getEmbedimagesyntax()%></f:verbatim>
                         </td>
                     </tr>
                     <tr>
@@ -57,7 +57,7 @@ String acl = "researcher";
                             <font class="formfieldnamefont">Link Embed:</font>
                         </td>
                         <td valign="top" align="left" style="border-top: solid 2px #cccccc;">
-                            <f:verbatim>#{researcherSurveyDetail03.embedlinksyntax}</f:verbatim>
+                            <f:verbatim><%=((ResearcherSurveyDetail03)Pagez.getBeanMgr().get("ResearcherSurveyDetail03")).getEmbedlinksyntax()%></f:verbatim>
                         </td>
                     </tr>
                 </table>
@@ -80,14 +80,14 @@ String acl = "researcher";
             <table cellpadding="0" cellspacing="5" border="0">
                 <tr>
                     <td valign="top" width="75%">
-                        <h:commandButton action="#{researcherSurveyDetail03.resetFormatting}" value="Reset" rendered="#{researcherSurveyDetail03.status eq 1}" styleClass="formsubmitbutton"></h:commandButton>
+                        <h:commandButton action="<%=((ResearcherSurveyDetail03)Pagez.getBeanMgr().get("ResearcherSurveyDetail03")).getResetFormatting()%>" value="Reset" rendered="#{researcherSurveyDetail03.status eq 1}" styleClass="formsubmitbutton"></h:commandButton>
                         <br/>
-                        <h:inputTextarea value="#{researcherSurveyDetail03.template}" cols="55" rows="15"></h:inputTextarea>
+                        <h:inputTextarea value="<%=((ResearcherSurveyDetail03)Pagez.getBeanMgr().get("ResearcherSurveyDetail03")).getTemplate()%>" cols="55" rows="15"></h:inputTextarea>
                         <f:verbatim rendered="#{researcherSurveyDetail02.status eq 1}"><br/><br/></f:verbatim>
                         <table cellpadding="0" cellspacing="5" border="0">
                             <tr>
                                 <td valign="top" nowrap="true">
-                                    <h:selectBooleanCheckbox title="embedjavascript" value="#{researcherSurveyDetail03.embedjavascript}" rendered="#{researcherSurveyDetail03.status eq 1}"/>
+                                    <h:selectBooleanCheckbox title="embedjavascript" value="<%=((ResearcherSurveyDetail03)Pagez.getBeanMgr().get("ResearcherSurveyDetail03")).getEmbedjavascript()%>" rendered="#{researcherSurveyDetail03.status eq 1}"/>
                                     <font class="formfieldnamefont">Allow Javascript Embed?</font>
                                 </td>
                                 <td valign="top">
@@ -96,7 +96,7 @@ String acl = "researcher";
                             </tr>
                             <tr>
                                 <td valign="top" nowrap="true">
-                                    <h:selectBooleanCheckbox title="embedflash" value="#{researcherSurveyDetail03.embedflash}" rendered="#{researcherSurveyDetail03.status eq 1}"/>
+                                    <h:selectBooleanCheckbox title="embedflash" value="<%=((ResearcherSurveyDetail03)Pagez.getBeanMgr().get("ResearcherSurveyDetail03")).getEmbedflash()%>" rendered="#{researcherSurveyDetail03.status eq 1}"/>
                                     <font class="formfieldnamefont">Allow Flash Embed?</font>
                                 </td>
                                 <td valign="top">
@@ -105,7 +105,7 @@ String acl = "researcher";
                             </tr>
                             <tr>
                                 <td valign="top" nowrap="true">
-                                    <h:selectBooleanCheckbox title="embedlink" value="#{researcherSurveyDetail03.embedlink}" rendered="#{researcherSurveyDetail03.status eq 1}"/>
+                                    <h:selectBooleanCheckbox title="embedlink" value="<%=((ResearcherSurveyDetail03)Pagez.getBeanMgr().get("ResearcherSurveyDetail03")).getEmbedlink()%>" rendered="#{researcherSurveyDetail03.status eq 1}"/>
                                     <font class="formfieldnamefont">Allow Link Embed?</font>
                                 </td>
                                 <td valign="top">
@@ -113,8 +113,8 @@ String acl = "researcher";
                                 </td>
                             </tr>
                         </table>
-                        <h:commandButton action="#{researcherSurveyDetail03.resetFormatting}" value="Reset" rendered="#{researcherSurveyDetail03.status eq 1}" styleClass="formsubmitbutton"></h:commandButton>
-                        <h:commandButton action="#{researcherSurveyDetail03.saveSurvey}" value="Save Advanced Formatting" rendered="#{researcherSurveyDetail03.status eq 1}" styleClass="formsubmitbutton"></h:commandButton>
+                        <h:commandButton action="<%=((ResearcherSurveyDetail03)Pagez.getBeanMgr().get("ResearcherSurveyDetail03")).getResetFormatting()%>" value="Reset" rendered="#{researcherSurveyDetail03.status eq 1}" styleClass="formsubmitbutton"></h:commandButton>
+                        <h:commandButton action="<%=((ResearcherSurveyDetail03)Pagez.getBeanMgr().get("ResearcherSurveyDetail03")).getSaveSurvey()%>" value="Save Advanced Formatting" rendered="#{researcherSurveyDetail03.status eq 1}" styleClass="formsubmitbutton"></h:commandButton>
                     </td>
                     <td valign="top">
                         <!-- Begin Question Key -->
@@ -123,10 +123,10 @@ String acl = "researcher";
                             <br/>
                             <font class="smallfont">Use these tags to move a question around in the survey.  You can create tables using the html tags below but remember that you have a set 425 pixels to work with.</font>
                             <br/>
-                            <ui:repeat value="#{researcherSurveyDetail03.questions}" var="question">
-                                <b><h:outputText value="&lt;$question_#{question.questionid}$>" styleClass="smallfont"></h:outputText></b>
+                            <ui:repeat value="<%=((ResearcherSurveyDetail03)Pagez.getBeanMgr().get("ResearcherSurveyDetail03")).getQuestions()%>" var="question">
+                                <b><h:outputText value="&lt;$question_<%=((Question)Pagez.getBeanMgr().get("Question")).getQuestionid()%>$>" styleClass="smallfont"></h:outputText></b>
                                 <br/>
-                                <h:outputText value="#{question.question}" styleClass="tinyfont"></h:outputText>
+                                <h:outputText value="<%=((Question)Pagez.getBeanMgr().get("Question")).getQuestion()%>" styleClass="tinyfont"></h:outputText>
                                 <br/><br/>
                             </ui:repeat>
                         </d:roundedCornerBox>
@@ -189,7 +189,7 @@ String acl = "researcher";
 
 
     <f:verbatim><br/><br/></f:verbatim>
-    <div class="surveyeditbuttonbox"><div class="surveyeditpreviousbutton"><h:commandButton action="#{researcherSurveyDetail03.previousStep}" value="Previous Step" styleClass="formsubmitbutton"/></div><div class="surveyeditnextbutton"><h:commandButton action="#{researcherSurveyDetail03.saveSurveyAsDraft}" value="Save and Continue Later" styleClass="formsubmitbutton" rendered="#{researcherSurveyDetail03.status eq 1}"/><h:commandButton action="#{researcherSurveyDetail03.continueToNext}" value="Next Step" styleClass="formsubmitbutton"/></div></div>
+    <div class="surveyeditbuttonbox"><div class="surveyeditpreviousbutton"><h:commandButton action="<%=((ResearcherSurveyDetail03)Pagez.getBeanMgr().get("ResearcherSurveyDetail03")).getPreviousStep()%>" value="Previous Step" styleClass="formsubmitbutton"/></div><div class="surveyeditnextbutton"><h:commandButton action="<%=((ResearcherSurveyDetail03)Pagez.getBeanMgr().get("ResearcherSurveyDetail03")).getSaveSurveyAsDraft()%>" value="Save and Continue Later" styleClass="formsubmitbutton" rendered="#{researcherSurveyDetail03.status eq 1}"/><h:commandButton action="<%=((ResearcherSurveyDetail03)Pagez.getBeanMgr().get("ResearcherSurveyDetail03")).getContinueToNext()%>" value="Next Step" styleClass="formsubmitbutton"/></div></div>
 
 
 

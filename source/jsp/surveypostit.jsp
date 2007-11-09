@@ -2,7 +2,7 @@
 <%@ page import="com.dneero.htmlui.Pagez" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
-String pagetitle = "#{publicSurveyPostit.survey.title}";
+String pagetitle = "<%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getSurvey().getTitle()%>";
 String navtab = "home";
 String acl = "public";
 %>
@@ -10,40 +10,40 @@ String acl = "public";
 
 
 
-    <font class="smallfont">#{publicSurveyPostit.survey.description}</font><br/><br/><br/>
+    <font class="smallfont"><%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getSurvey().getDescription()%></font><br/><br/><br/>
 
     <h:messages styleClass="RED"/>
 
     <div id="csstabs">
       <ul>
-        <li><a href="/survey.jsf?surveyid=#{publicSurveyPostit.survey.surveyid}" title="Questions"><span>Questions</span></a></li>
-        <li><a href="/surveypostit.jsf?surveyid=#{publicSurveyPostit.survey.surveyid}" title="Post It"><span>Post It</span></a></li>
-        <li><a href="/surveyresults.jsf?surveyid=#{publicSurveyPostit.survey.surveyid}" title="Results"><span>Results</span></a></li>
-        <li><a href="/surveywhotookit.jsf?surveyid=#{publicSurveyPostit.survey.surveyid}" title="Who Took It?"><span>Who Took It?</span></a></li>
-        <li><a href="/surveydiscuss.jsf?surveyid=#{publicSurveyPostit.survey.surveyid}" title="Discuss"><span>Discuss</span></a></li>
-        <li><a href="/surveyrequirements.jsf?surveyid=#{publicSurveyPostit.survey.surveyid}" title="Requirements"><span>Requirements</span></a></li>
-        <li><a href="/surveydisclosure.jsf?surveyid=#{publicSurveyPostit.survey.surveyid}" title="LDisclosure"><span>Disclosure</span></a></li>
+        <li><a href="/survey.jsf?surveyid=<%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getSurvey().getSurveyid()%>" title="Questions"><span>Questions</span></a></li>
+        <li><a href="/surveypostit.jsf?surveyid=<%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getSurvey().getSurveyid()%>" title="Post It"><span>Post It</span></a></li>
+        <li><a href="/surveyresults.jsf?surveyid=<%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getSurvey().getSurveyid()%>" title="Results"><span>Results</span></a></li>
+        <li><a href="/surveywhotookit.jsf?surveyid=<%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getSurvey().getSurveyid()%>" title="Who Took It?"><span>Who Took It?</span></a></li>
+        <li><a href="/surveydiscuss.jsf?surveyid=<%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getSurvey().getSurveyid()%>" title="Discuss"><span>Discuss</span></a></li>
+        <li><a href="/surveyrequirements.jsf?surveyid=<%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getSurvey().getSurveyid()%>" title="Requirements"><span>Requirements</span></a></li>
+        <li><a href="/surveydisclosure.jsf?surveyid=<%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getSurvey().getSurveyid()%>" title="LDisclosure"><span>Disclosure</span></a></li>
       </ul>
     </div>
     <br/><br/><br/>
     <!--
-    <a href="/survey.jsf?surveyid=#{publicSurveyPostit.survey.surveyid}">Questions</a> |
-    <a href="/surveypostit.jsf?surveyid=#{publicSurveyPostit.survey.surveyid}">Post It</a> |
-    <a href="/surveyresults.jsf?surveyid=#{publicSurveyPostit.survey.surveyid}">Results</a> |
-    <a href="/surveywhotookit.jsf?surveyid=#{publicSurveyPostit.survey.surveyid}">Who Took It?</a> |
-    <a href="/surveydiscuss.jsf?surveyid=#{publicSurveyPostit.survey.surveyid}">Discuss</a> |
-    <a href="/surveyrequirements.jsf?surveyid=#{publicSurveyPostit.survey.surveyid}">Requirements</a> |
-    <a href="/surveydisclosure.jsf?surveyid=#{publicSurveyPostit.survey.surveyid}">Disclosure</a>
+    <a href="/survey.jsf?surveyid=<%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getSurvey().getSurveyid()%>">Questions</a> |
+    <a href="/surveypostit.jsf?surveyid=<%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getSurvey().getSurveyid()%>">Post It</a> |
+    <a href="/surveyresults.jsf?surveyid=<%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getSurvey().getSurveyid()%>">Results</a> |
+    <a href="/surveywhotookit.jsf?surveyid=<%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getSurvey().getSurveyid()%>">Who Took It?</a> |
+    <a href="/surveydiscuss.jsf?surveyid=<%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getSurvey().getSurveyid()%>">Discuss</a> |
+    <a href="/surveyrequirements.jsf?surveyid=<%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getSurvey().getSurveyid()%>">Requirements</a> |
+    <a href="/surveydisclosure.jsf?surveyid=<%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getSurvey().getSurveyid()%>">Disclosure</a>
     -->
 
     <h:graphicImage url="/images/clear.gif" width="700" height="1" styleClass="survey_tabs_body_width"/><br/>
-    <c:if test="${!publicSurveyPostit.loggedinuserhasalreadytakensurvey}">
-        <c:if test="${!userSession.isfacebookui}">
+    <% if ("<%=((!publicSurveyPostit)Pagez.getBeanMgr().get("!publicSurveyPostit")).getLoggedinuserhasalreadytakensurvey()%>){ %>
+        <% if ("<%=((!userSession)Pagez.getBeanMgr().get("!userSession")).getIsfacebookui()%>){ %>
             <table width="100%" cellpadding="5">
                 <tr>
                     <td valign="top" width="450">
                         <br/><br/>
-                        <f:verbatim escape="false">#{publicSurveyPostit.surveyOnBlogPreview}</f:verbatim>
+                        <f:verbatim escape="false"><%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getSurveyOnBlogPreview()%></f:verbatim>
                     </td>
                     <td valign="top">
                         <div class="rounded" style="background: #00ff00;">
@@ -77,38 +77,38 @@ String acl = "public";
                     </td>
                 </tr>
             </table>
-        </c:if>
-        <c:if test="${userSession.isfacebookui}">
+        <% } %>
+        <% if ("<%=((UserSession)Pagez.getBeanMgr().get("UserSession")).getIsfacebookui()%>){ %>
             <div class="rounded" style="background: #e6e6e6;">
                 <font class="normalfont">
                 <b>Once you take the survey we'll post a link to your Facebook feed and profile box.  When friends click that link they'll see your answers and be able to answer for themselves.</b><br/>
                 </font>
             </div>
-        </c:if>
-    </c:if>
-    <c:if test="${publicSurveyPostit.loggedinuserhasalreadytakensurvey}">
-        <c:if test="${userSession.isfacebookui}">
+        <% } %>
+    <% } %>
+    <% if ("<%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getLoggedinuserhasalreadytakensurvey()%>){ %>
+        <% if ("<%=((UserSession)Pagez.getBeanMgr().get("UserSession")).getIsfacebookui()%>){ %>
             <div class="rounded" style="background: #e6e6e6;">
                 <img src="/images/ok-64.png" width="64" height="64" align="left"/>
                 <font class="mediumfont"><b>Your survey response has been accepted!</b></font>
                 <br/>
                 <font class="smallfont">A link to your survey has been posted to your Facebook feed (which qualifies as a blog, for payment purposes).  Keep the links on your mini-feed and profile because to get paid you must have somebody view your answers on 5 of the 10 days following when you took the survey.</font><br/><br/>
-                <c:if test="#{!publicSurveyPostit.justcompletedsurvey}">
+                <% if ("<%=((!publicSurveyPostit)Pagez.getBeanMgr().get("!publicSurveyPostit")).getJustcompletedsurvey()%>){ %>
                     <div class="rounded" style="background: #e6e6e6;">
                         <font class="smallfont">If you've deleted the survey from your Facebook Mini Feed or Profile and would like to add them back, click below.  Note that if you've turned off the profile box you'll have to turn it back on yourself in the Facebook settings for the dNeero app.</font><br/>
-                        <h:commandButton action="#{publicSurveyPostit.updateFacebookProfile}" value="Update Facebook Profile" styleClass="formsubmitbutton"/>
+                        <h:commandButton action="<%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getUpdateFacebookProfile()%>" value="Update Facebook Profile" styleClass="formsubmitbutton"/>
                     </div>
-                </c:if>
+                <% } %>
                 <div class="rounded" style="background: #ffffff;">
                     <font class="formfieldnamefont"><b>Now earn even more... tell friends about this survey:</b></font>
                     <br/>
                     <font class="smallfont">They'll be able to see your answers and then take the survey themselves. If your friend hasn't ever used dNeero then <b>we'll pay you for any earnings they generate</b>... and any earnings their friends make... and any earnings their friends make... up to five levels deep!</font>
                     <br/>
-                    <a href="#{publicSurveyPostit.invitefriendsurl}" target="top"><font class="mediumfont">Invite Friends to this Survey</font></a>
+                    <a href="<%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getInvitefriendsurl()%>" target="top"><font class="mediumfont">Invite Friends to this Survey</font></a>
                 </div>
             </div>
-        </c:if>
-        <c:if test="${!userSession.isfacebookui}">
+        <% } %>
+        <% if ("<%=((!userSession)Pagez.getBeanMgr().get("!userSession")).getIsfacebookui()%>){ %>
             <table cellpadding="3" cellspacing="15" border="0" width="100%">
             <tr>
                 <td valign="top">
@@ -128,20 +128,20 @@ String acl = "public";
                             <br/>
                             <h:outputText value="(pending posting verification)" styleClass="tinyfont"/>
                             <br/>
-                            <h:outputText value="#{publicSurveyPostit.surveyEnhancer.minearning}" styleClass="largefont" style="font-size: 60px; color: #666666;"/>
-                            <c:if test="${publicSurveyPostit.surveytakergavetocharity or publicSurveyPostit.survey.ischarityonly}">
+                            <h:outputText value="<%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getSurveyEnhancer().getMinearning()%>" styleClass="largefont" style="font-size: 60px; color: #666666;"/>
+                            <% if ("${publicSurveyPostit.surveytakergavetocharity or publicSurveyPostit.survey.ischarityonly}){ %>
                                 <br/>
                                 <h:outputText value="for charity" styleClass="mediumfont"/>
-                            </c:if>
-                            <c:if test="${publicSurveyPostit.surveytakergavetocharity}">
+                            <% } %>
+                            <% if ("<%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getSurveytakergavetocharity()%>){ %>
                                 <br/>
-                                <h:outputText value="(${publicSurveyPostit.charityname})" styleClass="mediumfont"/>
-                            </c:if>
+                                <h:outputText value="(<%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getCharityname()%>)" styleClass="mediumfont"/>
+                            <% } %>
                             <br/>
-                            <h:outputText value="and can earn up to #{publicSurveyPostit.surveyEnhancer.maxearning} total by posting it to your blog!" styleClass="mediumfont"/>
+                            <h:outputText value="and can earn up to <%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getSurveyEnhancer().getMaxearning()%> total by posting it to your blog!" styleClass="mediumfont"/>
                         </div>
                         <br/>
-                        <c:if test="#{publicSurveyPostit.survey.ischarityonly}">
+                        <% if ("<%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getSurvey().getIscharityonly()%>){ %>
                             <br/><br/>
                             <div class="rounded" style="background: #e6e6e6; text-align: center;">
                                 <img src="/images/charity-128.png" alt="For Charity" width="128" height="128"/>
@@ -150,7 +150,7 @@ String acl = "public";
                                 <br/>
                                 <h:outputText value="The creator of the survey requires that dNeero donate all of your earnings from the survey to a charity of your choice.  It's a chance to do some good!" styleClass="tinyfont"/>
                             </div>
-                        </c:if>
+                        <% } %>
 
                         <font class="smallfont">
                         <br/><br/><b>How do I add it to my blog?</b><br/>
@@ -170,16 +170,16 @@ String acl = "public";
                         </font>
 
                         <br/><br/>
-                        <c:if test="${userSession.isloggedin and publicSurveyPostit.loggedinuserhasalreadytakensurvey}">
+                        <% if ("${userSession.isloggedin and publicSurveyPostit.loggedinuserhasalreadytakensurvey}){ %>
                             <div class="rounded" style="background: #ffffff; text-align: center;">
-                                <h:commandLink value="Need Help?" action="#{accountSupportIssuesList.beginView}" styleClass="mediumfont"/>
+                                <h:commandLink value="Need Help?" action="<%=((AccountSupportIssuesList)Pagez.getBeanMgr().get("AccountSupportIssuesList")).getBeginView()%>" styleClass="mediumfont"/>
                             </div>
-                        </c:if>
+                        <% } %>
                     </div>
                 </td>
                 <td valign="top" class="posttoblog_tabs_tablewidth">
                     <center><div class="rounded" style="background: #e6e6e6; text-align: left; padding: 20px;"><font class="smallfont">
-                    Instructions for posting your survey answers to various blogs and social networks.  Need <h:commandLink value="help" action="#{accountSupportIssuesList.beginView}" styleClass="smallfont" style="padding-left: 5px; padding-right: 1px;"/> posting to your blog?
+                    Instructions for posting your survey answers to various blogs and social networks.  Need <h:commandLink value="help" action="<%=((AccountSupportIssuesList)Pagez.getBeanMgr().get("AccountSupportIssuesList")).getBeginView()%>" styleClass="smallfont" style="padding-left: 5px; padding-right: 1px;"/> posting to your blog?
                     </font></div></center>
                     <br/>
                     <t:collapsiblePanel id="cp7" value="true" title="cp7" var="cp7var">
@@ -196,8 +196,8 @@ String acl = "public";
                             <ol>
                                 <li>Copy the code below. (Right-click and choose Copy or Left-click to select and hit Control-C)<br/>
                                     <c:choose>
-                                        <c:when test="#{publicSurveyPostit.survey.embedflash}"><textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();">#{publicSurveyPostit.htmltoposttoblogflash}</textarea></c:when>
-                                        <c:otherwise><textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();">#{publicSurveyPostit.htmltoposttoblogimagelink}</textarea></c:otherwise>
+                                        <c:when test="<%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getSurvey().getEmbedflash()%>"><textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getHtmltoposttoblogflash()%></textarea></c:when>
+                                        <c:otherwise><textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getHtmltoposttoblogimagelink()%></textarea></c:otherwise>
                                     </c:choose>
                                 </li>
                                 <li>Login into TypePad and click on the "Weblogs" tab at the top of the page.</li>
@@ -223,8 +223,8 @@ String acl = "public";
                             <ol>
                                 <li>Copy the code below. (Right-click and choose Copy, or Left-click and hit Ctrl+C)<br/>
                                     <c:choose>
-                                        <c:when test="#{publicSurveyPostit.survey.embedflash}"><textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();">#{publicSurveyPostit.htmltoposttoblogflash}</textarea></c:when>
-                                        <c:otherwise><textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();">#{publicSurveyPostit.htmltoposttoblogimagelink}</textarea></c:otherwise>
+                                        <c:when test="<%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getSurvey().getEmbedflash()%>"><textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getHtmltoposttoblogflash()%></textarea></c:when>
+                                        <c:otherwise><textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getHtmltoposttoblogimagelink()%></textarea></c:otherwise>
                                     </c:choose>
                                 </li>
                                 <li>Log in to LiveJournal and click the "Post" link at the top of the page. NOTE: If you go to your journal first (e.g., [YourJournal].livejournal.com) and login from there, you should click the "Post to Journal" link at the top of the page.</li>
@@ -252,7 +252,7 @@ String acl = "public";
                                 <li>Copy the code below. (Right-click and choose Copy, or Left-click and hit Ctrl+C)<br/>
                                     <c:choose>
                                         <c:when test="#{1 eq 2}"></c:when>
-                                        <c:otherwise><textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();">#{publicSurveyPostit.htmltoposttoblogimagelink}</textarea></c:otherwise>
+                                        <c:otherwise><textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getHtmltoposttoblogimagelink()%></textarea></c:otherwise>
                                     </c:choose>
                                 </li>
                                 <li>Login into your WordPress.com blog and click on the "New Post" link at the top of the page. </li>
@@ -278,8 +278,8 @@ String acl = "public";
                             <ol>
                                 <li>Copy the code below. (Right-click and choose Copy or Left-click to select and hit Control-C)<br/>
                                     <c:choose>
-                                        <c:when test="#{publicSurveyPostit.survey.embedflash}"><textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();">#{publicSurveyPostit.htmltoposttoblogflashwithembedandobjecttag}</textarea></c:when>
-                                        <c:otherwise><textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();">#{publicSurveyPostit.htmltoposttoblogimagelink}</textarea></c:otherwise>
+                                        <c:when test="<%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getSurvey().getEmbedflash()%>"><textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getHtmltoposttoblogflashwithembedandobjecttag()%></textarea></c:when>
+                                        <c:otherwise><textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getHtmltoposttoblogimagelink()%></textarea></c:otherwise>
                                     </c:choose>
                                 </li>
                                 <li>Login into MySpace and click on the "Edit Profile" link on the center of the page.</li>
@@ -303,8 +303,8 @@ String acl = "public";
                             <ol>
                                 <li>Copy the code below. (Right-click and choose Copy or Left-click to select and hit Control-C)<br/>
                                     <c:choose>
-                                        <c:when test="#{publicSurveyPostit.survey.embedflash}"><textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><font style="color: #ffffff;">[code]</font>#{publicSurveyPostit.htmltoposttoblogflashwithembedandobjecttag}<font style="color: #ffffff;">[/code]</font></textarea></c:when>
-                                        <c:otherwise><textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();">#{publicSurveyPostit.htmltoposttoblogimagelink}</textarea></c:otherwise>
+                                        <c:when test="<%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getSurvey().getEmbedflash()%>"><textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><font style="color: #ffffff;">[code]</font><%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getHtmltoposttoblogflashwithembedandobjecttag()%><font style="color: #ffffff;">[/code]</font></textarea></c:when>
+                                        <c:otherwise><textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getHtmltoposttoblogimagelink()%></textarea></c:otherwise>
                                     </c:choose>
                                 </li>
                                 <li>Login into MySpace and click on the "Manage Blog" link.</li>
@@ -330,9 +330,9 @@ String acl = "public";
                             <ol>
                                 <li>Copy the code below. (Right-click and choose Copy or Left-click to select and hit Control-C)<br/>
                                     <c:choose>
-                                        <c:when test="#{publicSurveyPostit.survey.embedflash}"><textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();">#{publicSurveyPostit.htmltoposttoblogflash}</textarea></c:when>
-                                        <c:when test="#{publicSurveyPostit.survey.embedjavascript}"><textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();">#{publicSurveyPostit.htmltoposttoblog}</textarea></c:when>
-                                        <c:otherwise><textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();">#{publicSurveyPostit.htmltoposttoblogimagelink}</textarea></c:otherwise>
+                                        <c:when test="<%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getSurvey().getEmbedflash()%>"><textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getHtmltoposttoblogflash()%></textarea></c:when>
+                                        <c:when test="<%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getSurvey().getEmbedjavascript()%>"><textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getHtmltoposttoblog()%></textarea></c:when>
+                                        <c:otherwise><textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getHtmltoposttoblogimagelink()%></textarea></c:otherwise>
                                     </c:choose>
                                 </li>
                                 <li>Login to Blogger and click on the "New Post" link on the top of the page.</li>
@@ -361,8 +361,8 @@ String acl = "public";
                             <ol>
                                 <li>Copy the code below. (Right-click and choose Copy or Left-click to select and hit Control-C)<br/>
                                     <c:choose>
-                                        <c:when test="#{publicSurveyPostit.survey.embedflash}"><textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();">#{publicSurveyPostit.htmltoposttoblogflash}</textarea></c:when>
-                                        <c:otherwise><textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();">#{publicSurveyPostit.htmltoposttoblogimagelink}</textarea></c:otherwise>
+                                        <c:when test="<%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getSurvey().getEmbedflash()%>"><textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getHtmltoposttoblogflash()%></textarea></c:when>
+                                        <c:otherwise><textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getHtmltoposttoblogimagelink()%></textarea></c:otherwise>
                                     </c:choose>
                                 </li>
                                 <li>Login into Friendster and click on the "Edit Profile" link on the center of the page.</li>
@@ -388,7 +388,7 @@ String acl = "public";
                                 <li>Copy the code below. (Right-click and choose Copy or Left-click to select and hit Control-C)<br/>
                                     <c:choose>
                                         <c:when test="#{1 eq 2}"></c:when>
-                                        <c:otherwise><textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();">#{publicSurveyPostit.htmltoposttoblogimagelink}</textarea></c:otherwise>
+                                        <c:otherwise><textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getHtmltoposttoblogimagelink()%></textarea></c:otherwise>
                                     </c:choose>
                                 </li>
                                 <li>Login into Friendster, go to Blogs, then "My Blog Home", then under Shortcuts click "Create a Post"</li>
@@ -414,9 +414,9 @@ String acl = "public";
                             <ol>
                                 <li>Copy the code below. (Right-click and choose Copy or Left-click to select and hit Control-C)<br/>
                                     <c:choose>
-                                        <c:when test="#{publicSurveyPostit.survey.embedflash}"><textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();">#{publicSurveyPostit.htmltoposttoblogflash}</textarea></c:when>
-                                        <c:when test="#{publicSurveyPostit.survey.embedjavascript}"><textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();">#{publicSurveyPostit.htmltoposttoblog}</textarea></c:when>
-                                        <c:otherwise><textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();">#{publicSurveyPostit.htmltoposttoblogimagelink}</textarea></c:otherwise>
+                                        <c:when test="<%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getSurvey().getEmbedflash()%>"><textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getHtmltoposttoblogflash()%></textarea></c:when>
+                                        <c:when test="<%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getSurvey().getEmbedjavascript()%>"><textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getHtmltoposttoblog()%></textarea></c:when>
+                                        <c:otherwise><textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getHtmltoposttoblogimagelink()%></textarea></c:otherwise>
                                     </c:choose>
                                 </li>
                                 <li>Login into Friendster, go to Blogs, then "My Blog Home", then under Shortcuts click "Create a Post"</li>
@@ -442,8 +442,8 @@ String acl = "public";
                             <ol>
                                 <li>Copy the code below. (Right-click and choose Copy or Left-click to select and hit Control-C)<br/>
                                     <c:choose>
-                                        <c:when test="#{publicSurveyPostit.survey.embedflash}"><textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();">#{publicSurveyPostit.htmltoposttoblogflash}</textarea></c:when>
-                                        <c:otherwise><textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();">#{publicSurveyPostit.htmltoposttoblogimagelink}</textarea></c:otherwise>
+                                        <c:when test="<%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getSurvey().getEmbedflash()%>"><textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getHtmltoposttoblogflash()%></textarea></c:when>
+                                        <c:otherwise><textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getHtmltoposttoblogimagelink()%></textarea></c:otherwise>
                                     </c:choose>
                                 </li>
                                 <li>Login into Yahoo! 360 and click on the "My Blog" link at the top of the page.</li>
@@ -470,8 +470,8 @@ String acl = "public";
                             <ol>
                                 <li>Copy the code below. (Right-click and choose Copy or Left-click to select and hit Control-C)<br/>
                                     <c:choose>
-                                        <c:when test="#{publicSurveyPostit.survey.embedflash}"><textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();">#{publicSurveyPostit.htmltoposttoblogflash}</textarea></c:when>
-                                        <c:otherwise><textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();">#{publicSurveyPostit.htmltoposttoblogimagelink}</textarea></c:otherwise>
+                                        <c:when test="<%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getSurvey().getEmbedflash()%>"><textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getHtmltoposttoblogflash()%></textarea></c:when>
+                                        <c:otherwise><textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getHtmltoposttoblogimagelink()%></textarea></c:otherwise>
                                     </c:choose>
                                 </li>
                                 <li>Login into Tagged and click on the "MyProfile" tab at the top of the page.</li>
@@ -498,8 +498,8 @@ String acl = "public";
                             <ol>
                                 <li>Copy the code below. (Right-click and choose Copy or Left-click to select and hit Control-C)<br/>
                                     <c:choose>
-                                        <c:when test="#{publicSurveyPostit.survey.embedflash}"><textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();">#{publicSurveyPostit.htmltoposttoblogflash}</textarea></c:when>
-                                        <c:otherwise><textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();">#{publicSurveyPostit.htmltoposttoblogimagelink}</textarea></c:otherwise>
+                                        <c:when test="<%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getSurvey().getEmbedflash()%>"><textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getHtmltoposttoblogflash()%></textarea></c:when>
+                                        <c:otherwise><textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getHtmltoposttoblogimagelink()%></textarea></c:otherwise>
                                     </c:choose>
                                 </li>
                                 <li>Log in to Xanga and click on the "New Entry" link. (Make sure you're in the "Dash" tab.)</li>
@@ -526,7 +526,7 @@ String acl = "public";
                                 <li>Copy the code below. (Right-click and choose Copy or Left-click to select and hit Control-C)<br/>
                                     <c:choose>
                                         <c:when test="#{1 eq 2}"></c:when>
-                                        <c:otherwise><textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();">#{publicSurveyPostit.htmltoposttobloglink}</textarea></c:otherwise>
+                                        <c:otherwise><textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getHtmltoposttobloglink()%></textarea></c:otherwise>
                                     </c:choose>
                                 </li>
                                 <li>Login into Zimbio, go to "My Dashboard", then "My Articles", then "Write Article"</li>
@@ -553,7 +553,7 @@ String acl = "public";
                             <ol>
                                 <li>Copy the code below. (Right-click and choose Copy or Left-click to select and hit Control-C)<br/>
                                     <c:choose>
-                                        <c:when test="#{publicSurveyPostit.survey.embedflash}"><textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();">#{publicSurveyPostit.htmltoposttoblogflash}</textarea></c:when>
+                                        <c:when test="<%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getSurvey().getEmbedflash()%>"><textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getHtmltoposttoblogflash()%></textarea></c:when>
                                         <c:otherwise>Sorry, this survey does not allow Flash embedding.</c:otherwise>
                                     </c:choose>
                                 </li>
@@ -582,7 +582,7 @@ String acl = "public";
                             <ol>
                                 <li>Copy the code below. (Right-click and choose Copy or Left-click to select and hit Control-C)<br/>
                                     <c:choose>
-                                        <c:when test="#{publicSurveyPostit.survey.embedjavascript}"><textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();">#{publicSurveyPostit.htmltoposttoblog}</textarea></c:when>
+                                        <c:when test="<%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getSurvey().getEmbedjavascript()%>"><textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getHtmltoposttoblog()%></textarea></c:when>
                                         <c:otherwise>This survey does not support Javascript embedding.</c:otherwise>
                                     </c:choose>
                                 </li>
@@ -612,7 +612,7 @@ String acl = "public";
                                 <li>Copy the code below. (Right-click and choose Copy or Left-click to select and hit Control-C)<br/>
                                     <c:choose>
                                         <c:when test="#{1 eq 2}"></c:when>
-                                        <c:otherwise><textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();">#{publicSurveyPostit.htmltoposttoblogimagelink}</textarea></c:otherwise>
+                                        <c:otherwise><textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getHtmltoposttoblogimagelink()%></textarea></c:otherwise>
                                     </c:choose>
                                 </li>
                                 <li>Login into your publishing tool of choice.</li>
@@ -641,7 +641,7 @@ String acl = "public";
                                 <li>Copy the code below. (Right-click and choose Copy or Left-click to select and hit Control-C)<br/>
                                     <c:choose>
                                         <c:when test="#{1 eq 2}"></c:when>
-                                        <c:otherwise><textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();">#{publicSurveyPostit.htmltoposttobloglink}</textarea></c:otherwise>
+                                        <c:otherwise><textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getHtmltoposttobloglink()%></textarea></c:otherwise>
                                     </c:choose>
                                 </li>
                                 <li>Login into your publishing tool of choice.</li>
@@ -657,9 +657,9 @@ String acl = "public";
                 </td>
             </tr>
         </table>
-        </c:if>
+        <% } %>
         <br/>
-    </c:if>
+    <% } %>
 
 
 

@@ -11,7 +11,7 @@ String acl = "sysadmin";
 
 
 
-    <f:verbatim escape="false">#{sysadminSessions.sessionsashtml}</f:verbatim>
+    <f:verbatim escape="false"><%=((SysadminSessions)Pagez.getBeanMgr().get("SysadminSessions")).getSessionsashtml()%></f:verbatim>
 
 
 

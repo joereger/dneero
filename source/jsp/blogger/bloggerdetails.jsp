@@ -24,162 +24,162 @@ String acl = "blogger";
         <tr>
             <td valign="top">
                 <h:form id="bloggerdetails">
-                    <h:panelGrid columns="3" cellpadding="3" border="0">
+                    <table cellpadding="0" cellspacing="0" border="0">
 
-                        <h:panelGroup>
+                        <td valign="top">
                             <h:outputText value="Birthdate" styleClass="formfieldnamefont"></h:outputText>
-                        </h:panelGroup>
-                        <h:panelGroup>
-                            <t:inputDate value="#{bloggerDetails.birthdate}" type="date" popupCalendar="true" id="birthdate" required="true"></t:inputDate>
+                        </td>
+                        <td valign="top">
+                            <t:inputDate value="<%=((BloggerDetails)Pagez.getBeanMgr().get("BloggerDetails")).getBirthdate()%>" type="date" popupCalendar="true" id="birthdate" required="true"></t:inputDate>
                             <br/>
                             <font class="tinyfont">(dd, mm, yyyy)... click the three dots for popup chooser</font>
-                        </h:panelGroup>
-                        <h:panelGroup>
+                        </td>
+                        <td valign="top">
                             <h:message for="birthdate" styleClass="RED"></h:message>
-                        </h:panelGroup>
+                        </td>
 
 
-                        <h:panelGroup>
+                        <td valign="top">
                             <h:outputText value="Gender" styleClass="formfieldnamefont"></h:outputText>
-                        </h:panelGroup>
-                        <h:panelGroup>
-                            <h:selectOneRadio value="#{bloggerDetails.gender}" id="gender" required="true">
+                        </td>
+                        <td valign="top">
+                            <h:selectOneRadio value="<%=((BloggerDetails)Pagez.getBeanMgr().get("BloggerDetails")).getGender()%>" id="gender" required="true">
                                 <f:selectItems value="#{genders}"/>
                             </h:selectOneRadio>
-                        </h:panelGroup>
-                        <h:panelGroup>
+                        </td>
+                        <td valign="top">
                             <h:message for="gender" styleClass="RED"></h:message>
-                        </h:panelGroup>
+                        </td>
 
 
-                        <h:panelGroup>
+                        <td valign="top">
                             <h:outputText value="Ethnicity" styleClass="formfieldnamefont"></h:outputText>
-                        </h:panelGroup>
-                        <h:panelGroup>
-                            <h:selectOneMenu value="#{bloggerDetails.ethnicity}" id="ethnicity" required="true">
+                        </td>
+                        <td valign="top">
+                            <h:selectOneMenu value="<%=((BloggerDetails)Pagez.getBeanMgr().get("BloggerDetails")).getEthnicity()%>" id="ethnicity" required="true">
                                 <f:selectItems value="#{ethnicities}"/>
                             </h:selectOneMenu>
-                        </h:panelGroup>
-                        <h:panelGroup>
+                        </td>
+                        <td valign="top">
                             <h:message for="ethnicity" styleClass="RED"></h:message>
-                        </h:panelGroup>
+                        </td>
 
-                        <h:panelGroup>
+                        <td valign="top">
                             <h:outputText value="Marital Status" styleClass="formfieldnamefont"></h:outputText>
-                        </h:panelGroup>
-                        <h:panelGroup>
-                            <h:selectOneMenu value="#{bloggerDetails.maritalstatus}" id="maritalstatus" required="true">
+                        </td>
+                        <td valign="top">
+                            <h:selectOneMenu value="<%=((BloggerDetails)Pagez.getBeanMgr().get("BloggerDetails")).getMaritalstatus()%>" id="maritalstatus" required="true">
                                 <f:selectItems value="#{maritalstatuses}"/>
                             </h:selectOneMenu>
-                        </h:panelGroup>
-                        <h:panelGroup>
+                        </td>
+                        <td valign="top">
                             <h:message for="maritalstatus" styleClass="RED"></h:message>
-                        </h:panelGroup>
+                        </td>
 
-                        <h:panelGroup>
+                        <td valign="top">
                             <h:outputText value="Income" styleClass="formfieldnamefont"></h:outputText>
-                        </h:panelGroup>
-                        <h:panelGroup>
-                            <h:selectOneMenu value="#{bloggerDetails.income}" id="income" required="true">
+                        </td>
+                        <td valign="top">
+                            <h:selectOneMenu value="<%=((BloggerDetails)Pagez.getBeanMgr().get("BloggerDetails")).getIncome()%>" id="income" required="true">
                                 <f:selectItems value="#{incomes}"/>
                             </h:selectOneMenu>
-                        </h:panelGroup>
-                        <h:panelGroup>
+                        </td>
+                        <td valign="top">
                             <h:message for="income" styleClass="RED"></h:message>
-                        </h:panelGroup>
+                        </td>
 
-                        <h:panelGroup>
+                        <td valign="top">
                             <h:outputText value="Education" styleClass="formfieldnamefont"></h:outputText>
-                        </h:panelGroup>
-                        <h:panelGroup>
-                            <h:selectOneMenu value="#{bloggerDetails.educationlevel}" id="educationlevel" required="true">
+                        </td>
+                        <td valign="top">
+                            <h:selectOneMenu value="<%=((BloggerDetails)Pagez.getBeanMgr().get("BloggerDetails")).getEducationlevel()%>" id="educationlevel" required="true">
                                 <f:selectItems value="#{educationlevels}"/>
                             </h:selectOneMenu>
-                        </h:panelGroup>
-                        <h:panelGroup>
+                        </td>
+                        <td valign="top">
                             <h:message for="educationlevel" styleClass="RED"></h:message>
-                        </h:panelGroup>
+                        </td>
 
 
 
-                        <h:panelGroup>
+                        <td valign="top">
                             <h:outputText value="Nearest City" styleClass="formfieldnamefont"></h:outputText>
-                        </h:panelGroup>
-                        <h:panelGroup>
-                            <h:selectOneMenu value="#{bloggerDetails.city}" id="city" required="true">
+                        </td>
+                        <td valign="top">
+                            <h:selectOneMenu value="<%=((BloggerDetails)Pagez.getBeanMgr().get("BloggerDetails")).getCity()%>" id="city" required="true">
                                 <f:selectItems value="#{cities}"/>
                             </h:selectOneMenu>
-                        </h:panelGroup>
-                        <h:panelGroup>
+                        </td>
+                        <td valign="top">
                             <h:message for="city" styleClass="RED"></h:message>
-                        </h:panelGroup>
+                        </td>
 
 
-                        <h:panelGroup>
+                        <td valign="top">
                             <h:outputText value="State" styleClass="formfieldnamefont"></h:outputText>
-                        </h:panelGroup>
-                        <h:panelGroup>
-                            <h:selectOneMenu value="#{bloggerDetails.state}" id="state" required="true">
+                        </td>
+                        <td valign="top">
+                            <h:selectOneMenu value="<%=((BloggerDetails)Pagez.getBeanMgr().get("BloggerDetails")).getState()%>" id="state" required="true">
                                 <f:selectItems value="#{states}"/>
                             </h:selectOneMenu>
-                        </h:panelGroup>
-                        <h:panelGroup>
+                        </td>
+                        <td valign="top">
                             <h:message for="state" styleClass="RED"></h:message>
-                        </h:panelGroup>
+                        </td>
 
 
-                        <h:panelGroup>
+                        <td valign="top">
                             <h:outputText value="Profession" styleClass="formfieldnamefont"></h:outputText>
-                        </h:panelGroup>
-                        <h:panelGroup>
-                            <h:selectOneMenu value="#{bloggerDetails.profession}" id="profession" required="true">
+                        </td>
+                        <td valign="top">
+                            <h:selectOneMenu value="<%=((BloggerDetails)Pagez.getBeanMgr().get("BloggerDetails")).getProfession()%>" id="profession" required="true">
                                 <f:selectItems value="#{professions}"/>
                             </h:selectOneMenu>
-                        </h:panelGroup>
-                        <h:panelGroup>
+                        </td>
+                        <td valign="top">
                             <h:message for="profession" styleClass="RED"></h:message>
-                        </h:panelGroup>
+                        </td>
 
 
 
-                        <h:panelGroup>
+                        <td valign="top">
                             <h:outputText value="Politics" styleClass="formfieldnamefont"></h:outputText>
-                        </h:panelGroup>
-                        <h:panelGroup>
-                            <h:selectOneMenu value="#{bloggerDetails.politics}" id="politics" required="true">
+                        </td>
+                        <td valign="top">
+                            <h:selectOneMenu value="<%=((BloggerDetails)Pagez.getBeanMgr().get("BloggerDetails")).getPolitics()%>" id="politics" required="true">
                                 <f:selectItems value="#{politics}"/>
                             </h:selectOneMenu>
-                        </h:panelGroup>
-                        <h:panelGroup>
+                        </td>
+                        <td valign="top">
                             <h:message for="politics" styleClass="RED"></h:message>
-                        </h:panelGroup>
+                        </td>
 
-                        <h:panelGroup>
+                        <td valign="top">
                             <h:outputText value="Your Blog's Focus" styleClass="formfieldnamefont"></h:outputText>
                             <br/>
                             <font class="tinyfont">The most accurate description of what<br/>you blog about or discuss on<br/>social networks.</font>
-                        </h:panelGroup>
-                        <h:panelGroup>
-                            <h:selectOneMenu value="#{bloggerDetails.blogfocus}" id="blogfocus" required="true">
+                        </td>
+                        <td valign="top">
+                            <h:selectOneMenu value="<%=((BloggerDetails)Pagez.getBeanMgr().get("BloggerDetails")).getBlogfocus()%>" id="blogfocus" required="true">
                                 <f:selectItems value="#{blogfocuses}"/>
                             </h:selectOneMenu>
-                        </h:panelGroup>
-                        <h:panelGroup>
+                        </td>
+                        <td valign="top">
                             <h:message for="blogfocus" styleClass="RED"></h:message>
-                        </h:panelGroup>
+                        </td>
 
 
 
-                        <h:panelGroup>
-                        </h:panelGroup>
-                        <h:panelGroup>
-                            <h:commandButton action="#{bloggerDetails.saveAction}" value="Save Profile" styleClass="formsubmitbutton"></h:commandButton>
-                        </h:panelGroup>
-                        <h:panelGroup>
-                        </h:panelGroup>
+                        <td valign="top">
+                        </td>
+                        <td valign="top">
+                            <h:commandButton action="<%=((BloggerDetails)Pagez.getBeanMgr().get("BloggerDetails")).getSaveAction()%>" value="Save Profile" styleClass="formsubmitbutton"></h:commandButton>
+                        </td>
+                        <td valign="top">
+                        </td>
 
 
-                    </h:panelGrid>
+                    </table>
 
                 </h:form>
             </td>

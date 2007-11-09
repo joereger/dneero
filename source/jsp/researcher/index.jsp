@@ -9,7 +9,7 @@ String acl = "public";
 <%@ include file="/jsp/templates/header.jsp" %>
 
 
-    <c:if test="${!userSession.isloggedin or researcherIndex.showmarketingmaterial}">
+    <% if ("${!userSession.isloggedin or researcherIndex.showmarketingmaterial}){ %>
         <table cellpadding="0" cellspacing="0" border="0" width="100%">
            <tr>
                <td valign="top" width="70%">
@@ -83,7 +83,7 @@ String acl = "public";
                                 <div style="width: 200px;"><d:greenRoundedButton pathtoapproot="../"><h:commandLink value="Read the Researcher FAQ" action="researcherfaq" styleClass="subnavfont" style="color: #ffffff;"/></d:greenRoundedButton></div>
                             </td>
                             <td width="50%" align="center">
-                                <div style="width: 200px;"><d:greenRoundedButton pathtoapproot="../" rendered="#{!userSession.isloggedin}"><h:commandLink value="Sign Up Now" action="#{registration.beginView}" styleClass="subnavfont" style="color: #ffffff;"/></d:greenRoundedButton></div>
+                                <div style="width: 200px;"><d:greenRoundedButton pathtoapproot="../" rendered="<%=((!userSession)Pagez.getBeanMgr().get("!userSession")).getIsloggedin()%>"><h:commandLink value="Sign Up Now" action="<%=((Registration)Pagez.getBeanMgr().get("Registration")).getBeginView()%>" styleClass="subnavfont" style="color: #ffffff;"/></d:greenRoundedButton></div>
                             </td>
                         </tr>
                     </table>
@@ -107,9 +107,9 @@ String acl = "public";
 
 
 
-    </c:if>
+    <% } %>
 
-    <c:if test="${userSession.isloggedin and (userSession.user.researcherid eq 0)}">
+    <% if ("${userSession.isloggedin and (userSession.user.researcherid eq 0)}){ %>
         <center>
         <div class="rounded" style="padding: 15px; margin: 5px; background: #F2FFBF; width: 65%;">
             <h:commandLink action="researcherdetails"><font class="mediumfont">Quick One-time Researcher Configuration Required</font></h:commandLink>
@@ -119,12 +119,12 @@ String acl = "public";
             <h:commandLink action="researcherdetails"><font class="normalfont">Continue</font></h:commandLink>
         </div>
         </center>
-    </c:if>
+    <% } %>
 
-    <c:if test="${userSession.isloggedin and (userSession.user.researcherid gt 0) and (!researcherIndex.showmarketingmaterial)}">
+    <% if ("${userSession.isloggedin and (userSession.user.researcherid gt 0) and (!researcherIndex.showmarketingmaterial)}){ %>
         <t:div rendered="#{researcherIndex.msg ne ''}">
             <div class="rounded" style="padding: 15px; margin: 5px; background: #F2FFBF;">
-                <font class="mediumfont">#{researcherIndex.msg}</font>
+                <font class="mediumfont"><%=((ResearcherIndex)Pagez.getBeanMgr().get("ResearcherIndex")).getMsg()%></font>
             </div>
         </t:div>
 
@@ -134,7 +134,7 @@ String acl = "public";
                     <div class="rounded" style="padding: 5px; margin: 5px; background: #e6e6e6;">
                         <div class="rounded" style="padding: 15px; margin: 5px; background: #ffffff;">
                             <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-                                <h:commandLink value="Start a New Survey" action="#{researcherSurveyDetail01.beginViewNewSurvey}" styleClass="mediumfont" style="color: #596697;"/>
+                                <h:commandLink value="Start a New Survey" action="<%=((ResearcherSurveyDetail01)Pagez.getBeanMgr().get("ResearcherSurveyDetail01")).getBeginViewNewSurvey()%>" styleClass="mediumfont" style="color: #596697;"/>
                             </td></tr>
                             <tr><td valign="top"></td><td valign="top">
                                 <font class="smallfont">Create a new survey for bloggers. This step-by-step wizard will guide you through the process.  Your survey can be up and running in a matter of minutes.</font>
@@ -142,7 +142,7 @@ String acl = "public";
                         </div>
                         <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
                             <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-                                <h:commandLink value="Panels" action="#{researcherPanels.beginView}" styleClass="mediumfont" style="color: #596697;"/>
+                                <h:commandLink value="Panels" action="<%=((ResearcherPanels)Pagez.getBeanMgr().get("ResearcherPanels")).getBeginView()%>" styleClass="mediumfont" style="color: #596697;"/>
                             </td></tr>
                             <tr><td valign="top"></td><td valign="top">
                                 <font class="smallfont">Create and manage standing panels of bloggers for longitudinal studies.</font>
@@ -150,7 +150,7 @@ String acl = "public";
 
                             <br/><br/>
                             <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-                                <h:commandLink value="Update My Researcher Profile" action="#{researcherDetails.beginView}" styleClass="mediumfont" style="color: #596697;"/>
+                                <h:commandLink value="Update My Researcher Profile" action="<%=((ResearcherDetails)Pagez.getBeanMgr().get("ResearcherDetails")).getBeginView()%>" styleClass="mediumfont" style="color: #596697;"/>
                             </td></tr>
                             <tr><td valign="top"></td><td valign="top">
                                 <font class="smallfont">Help us understand your needs so that we can serve you better.</font>
@@ -158,7 +158,7 @@ String acl = "public";
 
                             <br/><br/>
                             <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-                                <h:commandLink value="Billing Info" action="#{researcherBilling.beginView}" styleClass="mediumfont" style="color: #596697;"/>
+                                <h:commandLink value="Billing Info" action="<%=((ResearcherBilling)Pagez.getBeanMgr().get("ResearcherBilling")).getBeginView()%>" styleClass="mediumfont" style="color: #596697;"/>
                             </td></tr>
                             <tr><td valign="top"></td><td valign="top">
                                 <font class="smallfont">Update your billing information on this screen.</font>
@@ -175,7 +175,7 @@ String acl = "public";
 
                             <br/><br/>
                             <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-                                <h:commandLink value="Researcher Basic Info" action="#{researcherIndex.beginView}" styleClass="mediumfont" style="color: #596697;"><f:param name="showmarketingmaterial" value="1"/></h:commandLink>
+                                <h:commandLink value="Researcher Basic Info" action="<%=((ResearcherIndex)Pagez.getBeanMgr().get("ResearcherIndex")).getBeginView()%>" styleClass="mediumfont" style="color: #596697;"><f:param name="showmarketingmaterial" value="1"/></h:commandLink>
                             </td></tr>
                             <tr><td valign="top"></td><td valign="top">
                                 <font class="smallfont">Basic Researcher information, how the system works, etc.</font>
@@ -187,79 +187,79 @@ String acl = "public";
                     <h:outputText value="Surveys You've Created" styleClass="largefont" style="color: #cccccc;" escape="false"/>
                     <t:div rendered="#{empty researcherSurveyList.surveys}">
                         <div class="rounded" style="padding: 15px; margin: 5px; background: #F2FFBF;">
-                            <font class="smallfont">You have not yet created any surveys.<br/><h:commandLink value="Start a New Survey" action="#{researcherSurveyDetail01.beginViewNewSurvey}" styleClass="smallfont" style="color: #596697;"/></font>
+                            <font class="smallfont">You have not yet created any surveys.<br/><h:commandLink value="Start a New Survey" action="<%=((ResearcherSurveyDetail01)Pagez.getBeanMgr().get("ResearcherSurveyDetail01")).getBeginViewNewSurvey()%>" styleClass="smallfont" style="color: #596697;"/></font>
                         </div>
                         <br/><br/>
                     </t:div>
                     <t:saveState id="save" value="#{researcherSurveyList}"/>
-                    <t:dataTable id="datatable" value="#{researcherSurveyList.surveys}" rows="50" var="survey" rendered="#{!empty researcherSurveyList.surveys}" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcol,tcol,tcol,tcolnowrap,tcolnowrap">
+                    <t:dataTable id="datatable" value="<%=((ResearcherSurveyList)Pagez.getBeanMgr().get("ResearcherSurveyList")).getSurveys()%>" rows="50" var="survey" rendered="#{!empty researcherSurveyList.surveys}" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcol,tcol,tcol,tcolnowrap,tcolnowrap">
                       <h:column>
                         <f:facet name="header">
                           <h:outputText value="Title"/>
                         </f:facet>
-                        <h:outputText value="#{survey.title}" escape="false" styleClass="normalfont" style="font-weight:bold;" rendered="#{survey.status eq 1}"/>
-                        <h:commandLink action="#{publicSurveyTakeRedirector.beginView}" rendered="#{survey.status ne 1}">
-                            <h:outputText value="#{survey.title}" escape="false" styleClass="normalfont" style="font-weight:bold;"/>
-                            <f:param name="surveyid" value="#{survey.surveyid}" />
+                        <h:outputText value="<%=((Survey)Pagez.getBeanMgr().get("Survey")).getTitle()%>" escape="false" styleClass="normalfont" style="font-weight:bold;" rendered="#{survey.status eq 1}"/>
+                        <h:commandLink action="<%=((PublicSurveyTakeRedirector)Pagez.getBeanMgr().get("PublicSurveyTakeRedirector")).getBeginView()%>" rendered="#{survey.status ne 1}">
+                            <h:outputText value="<%=((Survey)Pagez.getBeanMgr().get("Survey")).getTitle()%>" escape="false" styleClass="normalfont" style="font-weight:bold;"/>
+                            <f:param name="surveyid" value="<%=((Survey)Pagez.getBeanMgr().get("Survey")).getSurveyid()%>" />
                         </h:commandLink>
                       </h:column>
                       <h:column>
                         <f:facet name="header">
                           <h:outputText value="Status"/>
                         </f:facet>
-                        <h:outputText value="Draft" styleClass="smallfont" rendered="#{survey.status==1}"/>
-                        <h:outputText value="Pending, Waiting for Start Date" styleClass="smallfont" rendered="#{survey.status==2}"/>
-                        <h:outputText value="Pending, Waiting for Funds" styleClass="smallfont" rendered="#{survey.status==3}"/>
-                        <h:outputText value="Live" styleClass="smallfont" rendered="#{survey.status==4}"/>
-                        <h:outputText value="Closed" styleClass="smallfont" rendered="#{survey.status==5}"/>
+                        <h:outputText value="Draft" styleClass="smallfont" rendered="<%=((Survey)Pagez.getBeanMgr().get("Survey")).getStatus==1()%>"/>
+                        <h:outputText value="Pending, Waiting for Start Date" styleClass="smallfont" rendered="<%=((Survey)Pagez.getBeanMgr().get("Survey")).getStatus==2()%>"/>
+                        <h:outputText value="Pending, Waiting for Funds" styleClass="smallfont" rendered="<%=((Survey)Pagez.getBeanMgr().get("Survey")).getStatus==3()%>"/>
+                        <h:outputText value="Live" styleClass="smallfont" rendered="<%=((Survey)Pagez.getBeanMgr().get("Survey")).getStatus==4()%>"/>
+                        <h:outputText value="Closed" styleClass="smallfont" rendered="<%=((Survey)Pagez.getBeanMgr().get("Survey")).getStatus==5()%>"/>
                       </h:column>
                       <h:column>
                         <f:facet name="header">
                           <h:outputText value="-" style="color: #ffffff;"/>
                         </f:facet>
-                        <h:commandLink action="#{researcherSurveyDetail01.beginView}" rendered="#{survey.status eq 1}">
+                        <h:commandLink action="<%=((ResearcherSurveyDetail01)Pagez.getBeanMgr().get("ResearcherSurveyDetail01")).getBeginView()%>" rendered="#{survey.status eq 1}">
                             <h:outputText value="Edit" styleClass="smallfont" escape="false" />
-                            <f:param name="surveyid" value="#{survey.surveyid}" />
+                            <f:param name="surveyid" value="<%=((Survey)Pagez.getBeanMgr().get("Survey")).getSurveyid()%>" />
                         </h:commandLink>
-                        <h:commandLink action="#{researcherSurveyDetail01.beginView}" rendered="#{survey.status ne 1}">
+                        <h:commandLink action="<%=((ResearcherSurveyDetail01)Pagez.getBeanMgr().get("ResearcherSurveyDetail01")).getBeginView()%>" rendered="#{survey.status ne 1}">
                             <h:outputText value="Review" styleClass="smallfont" escape="false" />
-                            <f:param name="surveyid" value="#{survey.surveyid}" />
+                            <f:param name="surveyid" value="<%=((Survey)Pagez.getBeanMgr().get("Survey")).getSurveyid()%>" />
                         </h:commandLink>
                       </h:column>
                       <h:column>
                         <f:facet name="header">
                           <h:outputText value="-" style="color: #ffffff;"/>
                         </f:facet>
-                        <h:commandLink action="#{researcherEmailinvite.beginView}" rendered="#{survey.status eq 4}">
+                        <h:commandLink action="<%=((ResearcherEmailinvite)Pagez.getBeanMgr().get("ResearcherEmailinvite")).getBeginView()%>" rendered="#{survey.status eq 4}">
                             <h:outputText value="Invite" styleClass="smallfont" escape="false" />
-                            <f:param name="surveyid" value="#{survey.surveyid}" />
+                            <f:param name="surveyid" value="<%=((Survey)Pagez.getBeanMgr().get("Survey")).getSurveyid()%>" />
                         </h:commandLink>
                       </h:column>
                       <h:column>
                         <f:facet name="header">
                           <h:outputText value="-" style="color: #ffffff;"/>
                         </f:facet>
-                        <h:commandLink action="#{researcherResults.beginView}" rendered="#{survey.status ne 1}">
+                        <h:commandLink action="<%=((ResearcherResults)Pagez.getBeanMgr().get("ResearcherResults")).getBeginView()%>" rendered="#{survey.status ne 1}">
                             <h:outputText value="Results" styleClass="smallfont" escape="false" />
-                            <f:param name="surveyid" value="#{survey.surveyid}" />
+                            <f:param name="surveyid" value="<%=((Survey)Pagez.getBeanMgr().get("Survey")).getSurveyid()%>" />
                         </h:commandLink>
                       </h:column>
                       <h:column>
                         <f:facet name="header">
                           <h:outputText value="-" style="color: #ffffff;"/>
                         </f:facet>
-                        <h:commandLink action="#{researcherIndex.copy}">
+                        <h:commandLink action="<%=((ResearcherIndex)Pagez.getBeanMgr().get("ResearcherIndex")).getCopy()%>">
                             <h:outputText value=" Copy" styleClass="smallfont" escape="false"/>
-                            <f:param name="surveyid" value="#{survey.surveyid}" />
+                            <f:param name="surveyid" value="<%=((Survey)Pagez.getBeanMgr().get("Survey")).getSurveyid()%>" />
                         </h:commandLink>
                       </h:column>
                       <h:column>
                         <f:facet name="header">
                           <h:outputText value="-" style="color: #ffffff;"/>
                         </f:facet>
-                        <h:commandLink action="#{researcherSurveyDelete.beginView}" rendered="#{survey.status eq 1}">
+                        <h:commandLink action="<%=((ResearcherSurveyDelete)Pagez.getBeanMgr().get("ResearcherSurveyDelete")).getBeginView()%>" rendered="#{survey.status eq 1}">
                             <h:outputText value=" Delete" styleClass="smallfont" escape="false"/>
-                            <f:param name="surveyid" value="#{survey.surveyid}" />
+                            <f:param name="surveyid" value="<%=((Survey)Pagez.getBeanMgr().get("Survey")).getSurveyid()%>" />
                         </h:commandLink>
                       </h:column>
                     </t:dataTable>
@@ -282,7 +282,7 @@ String acl = "public";
              </tr>
          </table>
 
-    </c:if>
+    <% } %>
 
 
 

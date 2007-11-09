@@ -9,35 +9,35 @@ String acl = "public";
 <%@ include file="/jsp/templates/header.jsp" %>
 
 
-            <h:panelGrid columns="3" cellpadding="3" border="0">
+            <table cellpadding="0" cellspacing="0" border="0">
 
-                <h:panelGroup>
+                <td valign="top">
                     <h:outputText value="Password" styleClass="formfieldnamefont"></h:outputText>
-                </h:panelGroup>
-                <h:panelGroup>
-                    <h:inputSecret value="#{lostPasswordChoose.password}" id="password" required="false"></h:inputSecret>
-                </h:panelGroup>
-                <h:panelGroup>
+                </td>
+                <td valign="top">
+                    <h:inputSecret value="<%=((LostPasswordChoose)Pagez.getBeanMgr().get("LostPasswordChoose")).getPassword()%>" id="password" required="false"></h:inputSecret>
+                </td>
+                <td valign="top">
                     <h:message for="password" styleClass="RED"></h:message>
-                </h:panelGroup>
+                </td>
 
 
-                <h:panelGroup>
+                <td valign="top">
                     <h:outputText value="Verify Password" styleClass="formfieldnamefont"></h:outputText>
-                </h:panelGroup>
-                <h:panelGroup>
-                    <h:inputSecret value="#{lostPasswordChoose.passwordverify}" id="passwordverify" required="false"></h:inputSecret>
-                </h:panelGroup>
-                <h:panelGroup>
+                </td>
+                <td valign="top">
+                    <h:inputSecret value="<%=((LostPasswordChoose)Pagez.getBeanMgr().get("LostPasswordChoose")).getPasswordverify()%>" id="passwordverify" required="false"></h:inputSecret>
+                </td>
+                <td valign="top">
                     <h:message for="passwordverify" styleClass="RED"></h:message>
-                </h:panelGroup>
+                </td>
 
-                <h:panelGroup>
+                <td valign="top">
                     <h:outputText value="Prove You're a Human" styleClass="formfieldnamefont"></h:outputText>
-                </h:panelGroup>
-                <h:panelGroup>
+                </td>
+                <td valign="top">
                     <div style="border: 1px solid #ccc; padding: 3px;">
-                    <h:inputText value="#{lostPasswordChoose.j_captcha_response}" id="j_captcha_response" required="false"/>
+                    <h:inputText value="<%=((LostPasswordChoose)Pagez.getBeanMgr().get("LostPasswordChoose")).getJ_captcha_response()%>" id="j_captcha_response" required="false"/>
                     <br/>
                     <font class="tinyfont">(type the squiggly letters that appear below)</font>
                     <br/>
@@ -51,20 +51,20 @@ String acl = "public";
                         </tr>
                     </table>
                     </div>
-                </h:panelGroup>
-                <h:panelGroup>
+                </td>
+                <td valign="top">
                     <h:message for="j_captcha_response" styleClass="RED"></h:message>
-                </h:panelGroup>
+                </td>
 
-                <h:panelGroup>
-                </h:panelGroup>
-                <h:panelGroup>
-                    <h:commandButton action="#{lostPasswordChoose.choosePassword}" value="Reset Password" styleClass="formsubmitbutton"></h:commandButton>
-                </h:panelGroup>
-                <h:panelGroup>
-                </h:panelGroup>
+                <td valign="top">
+                </td>
+                <td valign="top">
+                    <h:commandButton action="<%=((LostPasswordChoose)Pagez.getBeanMgr().get("LostPasswordChoose")).getChoosePassword()%>" value="Reset Password" styleClass="formsubmitbutton"></h:commandButton>
+                </td>
+                <td valign="top">
+                </td>
 
-            </h:panelGrid>
+            </table>
 
 
 

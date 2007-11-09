@@ -13,7 +13,7 @@ String acl = "blogger";
 
         <t:div rendered="#{bloggerEarningsRevshare.msg ne ''}">
             <div class="rounded" style="padding: 15px; margin: 5px; background: #F2FFBF;">
-                <font class="mediumfont">#{bloggerEarningsRevshare.msg}</font>
+                <font class="mediumfont"><%=((BloggerEarningsRevshare)Pagez.getBeanMgr().get("BloggerEarningsRevshare")).getMsg()%></font>
             </div>
         </t:div>
 
@@ -30,7 +30,7 @@ String acl = "blogger";
                <ul>
                   <li><font class="smallfont">We calculate your friend's earnings</font></li>
                   <li><font class="smallfont">We pay your friend</font></li>
-                  <li><font class="smallfont">We pay you up to #{bloggerEarningsRevshare.level1percent}% of your friend's earnings (out of our pocket)</font></li>
+                  <li><font class="smallfont">We pay you up to <%=((BloggerEarningsRevshare)Pagez.getBeanMgr().get("BloggerEarningsRevshare")).getLevel1percent()%>% of your friend's earnings (out of our pocket)</font></li>
                   <li><font class="smallfont">As your friend invites friends we pay you a percentage of your friend's friends earnings (also out of our pocket, see chart to right)</font></li> 
                </ul>
 
@@ -39,36 +39,36 @@ String acl = "blogger";
                 <h:form id="inviteform">
                     <h:message for="email" styleClass="RED"></h:message>
                     <h:message for="message" styleClass="RED"></h:message>
-                    <h:panelGrid columns="2" cellpadding="3" border="0">
+                    <table cellpadding="0" cellspacing="0" border="0">
 
-                        <h:panelGroup>
+                        <td valign="top">
                             <h:outputText value="Email Addresses" styleClass="formfieldnamefont"></h:outputText>
                             <br/>
                             <h:outputText value="One per line" styleClass="normalfont"></h:outputText>
-                        </h:panelGroup>
-                        <h:panelGroup>
-                            <h:inputTextarea value="#{bloggerEarningsRevshareInvite.email}" id="email" required="true" cols="40" rows="5"></h:inputTextarea>
-                        </h:panelGroup>
+                        </td>
+                        <td valign="top">
+                            <h:inputTextarea value="<%=((BloggerEarningsRevshareInvite)Pagez.getBeanMgr().get("BloggerEarningsRevshareInvite")).getEmail()%>" id="email" required="true" cols="40" rows="5"></h:inputTextarea>
+                        </td>
 
 
-                        <h:panelGroup>
+                        <td valign="top">
                             <h:outputText value="Optional Message" styleClass="formfieldnamefont"></h:outputText>
                             <br/>
                             <h:outputText value="We'll automatically include a link for your friend to click to easily sign up." styleClass="smallfont"></h:outputText>
-                        </h:panelGroup>
-                        <h:panelGroup>
-                            <h:inputTextarea value="#{bloggerEarningsRevshareInvite.message}" id="message" required="false" cols="40" rows="5"></h:inputTextarea>
-                        </h:panelGroup>
+                        </td>
+                        <td valign="top">
+                            <h:inputTextarea value="<%=((BloggerEarningsRevshareInvite)Pagez.getBeanMgr().get("BloggerEarningsRevshareInvite")).getMessage()%>" id="message" required="false" cols="40" rows="5"></h:inputTextarea>
+                        </td>
 
 
-                        <h:panelGroup>
-                        </h:panelGroup>
-                        <h:panelGroup>
-                            <h:commandButton action="#{bloggerEarningsRevshareInvite.invite}" value="Invite Friends" styleClass="formsubmitbutton"></h:commandButton>
-                        </h:panelGroup>
+                        <td valign="top">
+                        </td>
+                        <td valign="top">
+                            <h:commandButton action="<%=((BloggerEarningsRevshareInvite)Pagez.getBeanMgr().get("BloggerEarningsRevshareInvite")).getInvite()%>" value="Invite Friends" styleClass="formsubmitbutton"></h:commandButton>
+                        </td>
 
 
-                    </h:panelGrid>
+                    </table>
 
                 </h:form>
             </div>
@@ -82,13 +82,13 @@ String acl = "blogger";
                     <br/>
                     <h:form>
                        <t:saveState id="save" value="#{bloggerEarningsRevshareTreeHandler}"/>
-                       <t:tree2 id="serverTree" showRootNode="false" value="#{bloggerEarningsRevshareTreeHandler.treeModel}" var="node" varNodeToggler="t" preserveToggle="false" clientSideToggle="false">
+                       <t:tree2 id="serverTree" showRootNode="false" value="<%=((BloggerEarningsRevshareTreeHandler)Pagez.getBeanMgr().get("BloggerEarningsRevshareTreeHandler")).getTreeModel()%>" var="node" varNodeToggler="t" preserveToggle="false" clientSideToggle="false">
                             <f:facet name="person">
-                                    <h:panelGroup>
-                                            <t:graphicImage value="/images/myfaces-examples/yellow-folder-open.png" rendered="#{t.nodeExpanded}" border="0" />
-                                            <t:graphicImage value="/images/myfaces-examples/yellow-folder-closed.png" rendered="#{!t.nodeExpanded}" border="0" />
-                                            <h:outputText value="#{node.description} ($ #{node.amtEarnedFromThisBloggerAllTime})" styleClass="nodeFolder" />
-                                    </h:panelGroup>
+                                    <td valign="top">
+                                            <t:graphicImage value="/images/myfaces-examples/yellow-folder-open.png" rendered="<%=((T)Pagez.getBeanMgr().get("T")).getNodeExpanded()%>" border="0" />
+                                            <t:graphicImage value="/images/myfaces-examples/yellow-folder-closed.png" rendered="<%=((!t)Pagez.getBeanMgr().get("!t")).getNodeExpanded()%>" border="0" />
+                                            <h:outputText value="<%=((Node)Pagez.getBeanMgr().get("Node")).getDescription()%> ($ <%=((Node)Pagez.getBeanMgr().get("Node")).getAmtEarnedFromThisBloggerAllTime()%>)" styleClass="nodeFolder" />
+                                    </td>
                             </f:facet>
                        </t:tree2>
                     </h:form>
@@ -101,27 +101,27 @@ String acl = "blogger";
                     <br/>
                 <h:form>
                     <t:saveState id="save" value="#{bloggerEarningsRevshare}"/>
-                    <h:panelGrid columns="2" cellpadding="3" border="0">
+                    <table cellpadding="0" cellspacing="0" border="0">
 
-                        <h:panelGroup><h:outputText value=" "></h:outputText></h:panelGroup>
-                        <h:panelGroup><h:outputText value="You Earn" styleClass="mediumfont"></h:outputText></h:panelGroup>
+                        <td valign="top"><h:outputText value=" "></h:outputText></td>
+                        <td valign="top"><h:outputText value="You Earn" styleClass="mediumfont"></h:outputText></td>
 
-                        <h:panelGroup><h:outputText value="1st Level" styleClass="mediumfont"></h:outputText></h:panelGroup>
-                        <h:panelGroup><h:outputText value="#{bloggerEarningsRevshare.level1percent} %"></h:outputText></h:panelGroup>
+                        <td valign="top"><h:outputText value="1st Level" styleClass="mediumfont"></h:outputText></td>
+                        <td valign="top"><h:outputText value="<%=((BloggerEarningsRevshare)Pagez.getBeanMgr().get("BloggerEarningsRevshare")).getLevel1percent()%> %"></h:outputText></td>
 
-                        <h:panelGroup><h:outputText value="2nd Level" styleClass="mediumfont"></h:outputText></h:panelGroup>
-                        <h:panelGroup><h:outputText value="#{bloggerEarningsRevshare.level2percent} %"></h:outputText></h:panelGroup>
+                        <td valign="top"><h:outputText value="2nd Level" styleClass="mediumfont"></h:outputText></td>
+                        <td valign="top"><h:outputText value="<%=((BloggerEarningsRevshare)Pagez.getBeanMgr().get("BloggerEarningsRevshare")).getLevel2percent()%> %"></h:outputText></td>
 
-                        <h:panelGroup><h:outputText value="3rd Level" styleClass="mediumfont"></h:outputText></h:panelGroup>
-                        <h:panelGroup><h:outputText value="#{bloggerEarningsRevshare.level3percent} %"></h:outputText></h:panelGroup>
+                        <td valign="top"><h:outputText value="3rd Level" styleClass="mediumfont"></h:outputText></td>
+                        <td valign="top"><h:outputText value="<%=((BloggerEarningsRevshare)Pagez.getBeanMgr().get("BloggerEarningsRevshare")).getLevel3percent()%> %"></h:outputText></td>
 
-                        <h:panelGroup><h:outputText value="4th Level" styleClass="mediumfont"></h:outputText></h:panelGroup>
-                        <h:panelGroup><h:outputText value="#{bloggerEarningsRevshare.level4percent} %"></h:outputText></h:panelGroup>
+                        <td valign="top"><h:outputText value="4th Level" styleClass="mediumfont"></h:outputText></td>
+                        <td valign="top"><h:outputText value="<%=((BloggerEarningsRevshare)Pagez.getBeanMgr().get("BloggerEarningsRevshare")).getLevel4percent()%> %"></h:outputText></td>
 
-                        <h:panelGroup><h:outputText value="5th Level" styleClass="mediumfont"></h:outputText></h:panelGroup>
-                        <h:panelGroup><h:outputText value="#{bloggerEarningsRevshare.level5percent} %"></h:outputText></h:panelGroup>
+                        <td valign="top"><h:outputText value="5th Level" styleClass="mediumfont"></h:outputText></td>
+                        <td valign="top"><h:outputText value="<%=((BloggerEarningsRevshare)Pagez.getBeanMgr().get("BloggerEarningsRevshare")).getLevel5percent()%> %"></h:outputText></td>
 
-                     </h:panelGrid>
+                     </table>
 
                  </h:form>
                  </d:roundedCornerBox>

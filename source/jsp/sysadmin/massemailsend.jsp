@@ -17,9 +17,9 @@ String acl = "sysadmin";
     <br/><br/>
     <font class="formfieldnamefont">Please enter the send password:</font>   
     <br/>
-    <h:inputSecret value="#{sysadminMassemailSend.password}" id="password" required="true"></h:inputSecret>
+    <h:inputSecret value="<%=((SysadminMassemailSend)Pagez.getBeanMgr().get("SysadminMassemailSend")).getPassword()%>" id="password" required="true"></h:inputSecret>
     <br/>
-    <h:commandButton action="#{sysadminMassemailSend.send}" value="Send this Mass Email" styleClass="formsubmitbutton"></h:commandButton>
+    <h:commandButton action="<%=((SysadminMassemailSend)Pagez.getBeanMgr().get("SysadminMassemailSend")).getSend()%>" value="Send this Mass Email" styleClass="formsubmitbutton"></h:commandButton>
     
 
 

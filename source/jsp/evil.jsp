@@ -55,7 +55,7 @@ String acl = "public";
             <br/><br/>We're small.  A couple people.  No funding.  We worked hard to get the base business model built solidly.  Before we can implement many of the features we'd like to implement we need to get some revenue.  See, we're rationalizing.  Don't let us off the hook.
 
             <br/><br/><br/>
-            <h:outputText value="#{publicEvil.socialbookmarklinks}" escape="false" styleClass="smallfont"/>
+            <h:outputText value="<%=((PublicEvil)Pagez.getBeanMgr().get("PublicEvil")).getSocialbookmarklinks()%>" escape="false" styleClass="smallfont"/>
 
 
 

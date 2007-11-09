@@ -19,12 +19,12 @@
     <%}%>
     if (userSessionIsFacebookui) {
         if (window==top){
-            top.location.href="#{baseUrl.includinghttp}facebookexitui.jsf";
+            top.location.href="<%=((BaseUrl)Pagez.getBeanMgr().get("BaseUrl")).getIncludinghttp()%>facebookexitui.jsf";
         }
     } else {
         if (window!=top){
             //alert("Your session may have timed out.  If you're using the Facebook App please click your left-hand menu link to restart your session.  Thanks.");
-            top.location.href="#{baseUrl.includinghttp}facebookenterui.jsf";
+            top.location.href="<%=((BaseUrl)Pagez.getBeanMgr().get("BaseUrl")).getIncludinghttp()%>facebookenterui.jsf";
         }
     }
   </script>

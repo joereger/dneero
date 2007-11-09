@@ -12,7 +12,7 @@ String acl = "public";
 
 
 
-    <c:if test="${!userSession.isloggedin or bloggerIndex.showmarketingmaterial}">
+    <% if ("${!userSession.isloggedin or bloggerIndex.showmarketingmaterial}){ %>
 
         <table cellpadding="0" cellspacing="0" border="0" width="100%">
            <tr>
@@ -52,18 +52,18 @@ String acl = "public";
                                 <div style="width: 200px;"><d:greenRoundedButton pathtoapproot="../"><h:commandLink value="Read the Blogger FAQ" action="bloggerfaq" styleClass="subnavfont" style="color: #ffffff;"/></d:greenRoundedButton></div>
                             </td>
                             <td width="50%" align="center">
-                                <div style="width: 200px;"><d:greenRoundedButton pathtoapproot="../" rendered="#{!userSession.isloggedin}"><h:commandLink value="Sign Up Now" action="#{registration.beginView}" styleClass="subnavfont" style="color: #ffffff;"/></d:greenRoundedButton></div>
+                                <div style="width: 200px;"><d:greenRoundedButton pathtoapproot="../" rendered="<%=((!userSession)Pagez.getBeanMgr().get("!userSession")).getIsloggedin()%>"><h:commandLink value="Sign Up Now" action="<%=((Registration)Pagez.getBeanMgr().get("Registration")).getBeginView()%>" styleClass="subnavfont" style="color: #ffffff;"/></d:greenRoundedButton></div>
                             </td>
                         </tr>
                     </table>
                </td>
                <td valign="top" width="30%">
                     <center>
-                    <h:commandLink action="#{publicSurveyList.beginView}"><img src="/images/blogger-check-out-opps.gif" width="190" height="132" border="0"></img></h:commandLink>
+                    <h:commandLink action="<%=((PublicSurveyList)Pagez.getBeanMgr().get("PublicSurveyList")).getBeginView()%>"><img src="/images/blogger-check-out-opps.gif" width="190" height="132" border="0"></img></h:commandLink>
                     </center>
                     <br/><br/>
                     <div class="rounded" style="background: #eeeeee;">
-                        <font class="largefont">$<h:outputText value="#{systemStats.dollarsavailabletobloggers}" styleClass="largefont"><f:converter converterId="DisplayAsMoneyConverter"/></h:outputText></font>
+                        <font class="largefont">$<h:outputText value="<%=((SystemStats)Pagez.getBeanMgr().get("SystemStats")).getDollarsavailabletobloggers()%>" styleClass="largefont"><f:converter converterId="DisplayAsMoneyConverter"/></h:outputText></font>
                         <br/>
                         <font class="mediumfont">waiting to be earned by bloggers!</font>
                     </div>
@@ -75,21 +75,21 @@ String acl = "public";
         <br/>
 
 
-    </c:if>
+    <% } %>
 
     
 
-    <c:if test="${userSession.isloggedin and (userSession.user.bloggerid gt 0) and (!bloggerIndex.showmarketingmaterial)}">
+    <% if ("${userSession.isloggedin and (userSession.user.bloggerid gt 0) and (!bloggerIndex.showmarketingmaterial)}){ %>
         <t:div rendered="#{bloggerIndex.msg ne ''}">
             <div class="rounded" style="padding: 15px; margin: 5px; background: #F2FFBF;">
-                <font class="mediumfont">#{bloggerIndex.msg}</font>
+                <font class="mediumfont"><%=((BloggerIndex)Pagez.getBeanMgr().get("BloggerIndex")).getMsg()%></font>
             </div>
        </t:div>
 
         <t:div rendered="#{bloggerIndex.responsependingmsg ne ''}">
             <div class="rounded" style="padding: 15px; margin: 5px; background: #F2FFBF;">
                 <img src="/images/alert.png" border="0" align="right"/>
-                <font class="mediumfont"><f:verbatim escape="false">#{bloggerIndex.responsependingmsg}</f:verbatim></font>
+                <font class="mediumfont"><f:verbatim escape="false"><%=((BloggerIndex)Pagez.getBeanMgr().get("BloggerIndex")).getResponsependingmsg()%></f:verbatim></font>
             </div>
             <br/><br/>
         </t:div>
@@ -100,30 +100,30 @@ String acl = "public";
                     <div class="rounded" style="padding: 5px; margin: 5px; background: #e6e6e6;">
                         <div class="rounded" style="padding: 15px; margin: 5px; background: #ffffff;">
                             <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-                                <h:commandLink value="Find Surveys to Take" action="#{publicSurveyList.beginView}" styleClass="mediumfont" style="color: #596697;"/>
+                                <h:commandLink value="Find Surveys to Take" action="<%=((PublicSurveyList)Pagez.getBeanMgr().get("PublicSurveyList")).getBeginView()%>" styleClass="mediumfont" style="color: #596697;"/>
                             </td></tr>
                             <tr><td valign="top"></td><td valign="top">
                                 <font class="smallfont">Make money taking surveys and posting your answers to your blog.</font>
                             </td></tr></table>
                         </div>
-                        <!--<c:if test="#{!empty bloggerCompletedsurveys.listrecent}">
+                        <!--<% if ("#{!empty bloggerCompletedsurveys.listrecent}){ %>
                             <div class="rounded" style="padding: 15px; margin: 5px; background: #ffffff;">
                                 <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
                                     <font class="mediumfont" style="color: #596697;">Payment Status for Recent Surveys:</font>
                                 </td></tr>
                                 <tr><td valign="top"></td><td valign="top">
-                                    <c:forEach var="completedsurvey" items="${bloggerCompletedsurveys.listrecent}">
-                                        <h:outputLink value="/survey.jsf?surveyid=#{completedsurvey.surveyid}" styleClass="normalfont" style="font-weight: bold; color: #0000ff;"><h:outputText>#{completedsurvey.surveytitle}</h:outputText></h:outputLink><br/>
+                                    <c:forEach var="completedsurvey" items="<%=((BloggerCompletedsurveys)Pagez.getBeanMgr().get("BloggerCompletedsurveys")).getListrecent()%>">
+                                        <h:outputLink value="/survey.jsf?surveyid=<%=((Completedsurvey)Pagez.getBeanMgr().get("Completedsurvey")).getSurveyid()%>" styleClass="normalfont" style="font-weight: bold; color: #0000ff;"><h:outputText><%=((Completedsurvey)Pagez.getBeanMgr().get("Completedsurvey")).getSurveytitle()%></h:outputText></h:outputLink><br/>
                                         <font class="smallfont">
-                                            <f:verbatim escape="false">#{completedsurvey.response.responsestatushtml}</f:verbatim>
+                                            <f:verbatim escape="false"><%=((Completedsurvey)Pagez.getBeanMgr().get("Completedsurvey")).getResponse().getResponsestatushtml()%></f:verbatim>
                                         </font><br/><br/>
                                     </c:forEach>
                                 </td></tr></table>
                             </div>
-                        </c:if>-->
+                        <% } %>-->
                         <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
                             <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-                                <h:commandLink value="Earn Money Inviting Friends" action="#{bloggerEarningsRevshare.beginView}" styleClass="mediumfont" style="color: #596697;"/>
+                                <h:commandLink value="Earn Money Inviting Friends" action="<%=((BloggerEarningsRevshare)Pagez.getBeanMgr().get("BloggerEarningsRevshare")).getBeginView()%>" styleClass="mediumfont" style="color: #596697;"/>
                             </td></tr>
                             <tr><td valign="top"></td><td valign="top">
                                 <font class="smallfont">Invite friends and earn money when they take surveys!</font>
@@ -131,7 +131,7 @@ String acl = "public";
 
                             <br/><br/>
                             <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-                                <h:commandLink value="Earnings from Completed Surveys" action="#{bloggerIndex.beginView}" styleClass="mediumfont" style="color: #596697;"/>
+                                <h:commandLink value="Earnings from Completed Surveys" action="<%=((BloggerIndex)Pagez.getBeanMgr().get("BloggerIndex")).getBeginView()%>" styleClass="mediumfont" style="color: #596697;"/>
                             </td></tr>
                             <tr><td valign="top"></td><td valign="top">
                                 <font class="smallfont">See how much you've earned.</font>
@@ -139,7 +139,7 @@ String acl = "public";
 
                             <br/><br/>
                             <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-                                <h:commandLink value="Update Blogger Profile" action="#{bloggerDetails.beginView}" styleClass="mediumfont" style="color: #596697;"/>
+                                <h:commandLink value="Update Blogger Profile" action="<%=((BloggerDetails)Pagez.getBeanMgr().get("BloggerDetails")).getBeginView()%>" styleClass="mediumfont" style="color: #596697;"/>
                             </td></tr>
                             <tr><td valign="top"></td><td valign="top">
                                 <font class="smallfont">Your profile helps us find surveys that fit your interests.  Keep it up to date.</font>
@@ -155,7 +155,7 @@ String acl = "public";
 
                             <br/><br/>
                             <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-                                <h:commandLink value="Blogger Basic Info" action="#{bloggerIndex.beginView}" styleClass="mediumfont" style="color: #596697;"><f:param name="showmarketingmaterial" value="1"/></h:commandLink>
+                                <h:commandLink value="Blogger Basic Info" action="<%=((BloggerIndex)Pagez.getBeanMgr().get("BloggerIndex")).getBeginView()%>" styleClass="mediumfont" style="color: #596697;"><f:param name="showmarketingmaterial" value="1"/></h:commandLink>
                             </td></tr>
                             <tr><td valign="top"></td><td valign="top">
                                 <font class="smallfont">Basic Blogger information, how the system works, etc.</font>
@@ -173,33 +173,33 @@ String acl = "public";
                         <br/><br/>
                     </t:div>
                     <t:saveState id="save" value="#{bloggerSurveyList}"/>
-                    <t:dataTable id="datatable" value="#{bloggerSurveyList.surveys}" rows="25" var="srvy" rendered="#{!empty bloggerSurveyList.surveys}" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcol,tcolnowrap,tcolnowrap,tcolnowrap">
+                    <t:dataTable id="datatable" value="<%=((BloggerSurveyList)Pagez.getBeanMgr().get("BloggerSurveyList")).getSurveys()%>" rows="25" var="srvy" rendered="#{!empty bloggerSurveyList.surveys}" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcol,tcolnowrap,tcolnowrap,tcolnowrap">
                       <h:column>
                         <f:facet name="header">
                           <h:outputText value="Title"/>
                         </f:facet>
-                        <h:commandLink action="#{publicSurveyTakeRedirector.beginView}">
-                            <h:outputText value="#{srvy.title}" escape="false" styleClass="normalfont" style="font-weight: bold; color: #0000ff;"/>
-                            <f:param name="surveyid" value="#{srvy.surveyid}" />
+                        <h:commandLink action="<%=((PublicSurveyTakeRedirector)Pagez.getBeanMgr().get("PublicSurveyTakeRedirector")).getBeginView()%>">
+                            <h:outputText value="<%=((Srvy)Pagez.getBeanMgr().get("Srvy")).getTitle()%>" escape="false" styleClass="normalfont" style="font-weight: bold; color: #0000ff;"/>
+                            <f:param name="surveyid" value="<%=((Srvy)Pagez.getBeanMgr().get("Srvy")).getSurveyid()%>" />
                         </h:commandLink>
                       </h:column>
                       <h:column>
                         <f:facet name="header">
                           <h:outputText value="Questions"/>
                         </f:facet>
-                        <h:outputText value="#{srvy.numberofquestions}" styleClass="smallfont"/>
+                        <h:outputText value="<%=((Srvy)Pagez.getBeanMgr().get("Srvy")).getNumberofquestions()%>" styleClass="smallfont"/>
                       </h:column>
                       <h:column>
                         <f:facet name="header">
                           <h:outputText value="Timing"/>
                         </f:facet>
-                        <h:outputText value="#{srvy.daysuntilend}" styleClass="smallfont"/>
+                        <h:outputText value="<%=((Srvy)Pagez.getBeanMgr().get("Srvy")).getDaysuntilend()%>" styleClass="smallfont"/>
                       </h:column>
                       <h:column>
                         <f:facet name="header">
                           <h:outputText value="Earn Up To"/>
                         </f:facet>
-                        <h:outputText value="#{srvy.maxearning}" styleClass="smallfont"/>
+                        <h:outputText value="<%=((Srvy)Pagez.getBeanMgr().get("Srvy")).getMaxearning()%>" styleClass="smallfont"/>
                       </h:column>
                     </t:dataTable>
                     <t:dataScroller id="scroll_1" for="datatable" rendered="#{!empty bloggerSurveyList.surveys}" fastStep="10" pageCountVar="pageCount" pageIndexVar="pageIndex" styleClass="scroller" paginator="true" paginatorMaxPages="9" paginatorTableClass="paginator" paginatorActiveColumnStyle="font-weight:bold;">
@@ -225,7 +225,7 @@ String acl = "public";
                         <div class="rounded" style="padding: 15px; margin: 5px; background: #F2FFBF;">
                             <font class="smallfont">
                             <h:outputText value="You haven't yet completed any surveys." styleClass="smallfont" style="padding-right:8px;"/>
-                            <h:commandLink action="#{publicSurveyList.beginView}">
+                            <h:commandLink action="<%=((PublicSurveyList)Pagez.getBeanMgr().get("PublicSurveyList")).getBeginView()%>">
                             <h:outputText value="Find Surveys to Take" escape="false" styleClass="smallfont" style="font-weight: bold; color: #0000ff;"/>
                             </h:commandLink>
                             </font>
@@ -233,30 +233,30 @@ String acl = "public";
                         <br/><br/>
                     </t:div>
 
-                    <c:if test="#{!empty bloggerCompletedsurveys.list}">
-                        <c:forEach var="completedsurvey" items="${bloggerCompletedsurveys.list}">
+                    <% if ("#{!empty bloggerCompletedsurveys.list}){ %>
+                        <c:forEach var="completedsurvey" items="<%=((BloggerCompletedsurveys)Pagez.getBeanMgr().get("BloggerCompletedsurveys")).getList()%>">
                             <div class="rounded" style="background: #e6e6e6; padding: 10px;">
                                 <table cellpadding="2" cellspacing="0" border="0" width="100%">
                                     <tr>
                                         <td valign="top">
-                                            <h:outputText value="#{completedsurvey.responsedate}" styleClass="tinyfont"/><br/>
-                                            <h:outputLink value="/survey.jsf?surveyid=#{completedsurvey.surveyid}" styleClass="normalfont" style="font-weight: bold; color: #0000ff;"><h:outputText>#{completedsurvey.surveytitle}</h:outputText></h:outputLink><br/>
-                                            <h:outputText value="Est earnings: #{completedsurvey.amttotal}" styleClass="tinyfont" style="font-weight: bold;"/>
-                                            <c:if test="${!userSession.isfacebookui}">
+                                            <h:outputText value="<%=((Completedsurvey)Pagez.getBeanMgr().get("Completedsurvey")).getResponsedate()%>" styleClass="tinyfont"/><br/>
+                                            <h:outputLink value="/survey.jsf?surveyid=<%=((Completedsurvey)Pagez.getBeanMgr().get("Completedsurvey")).getSurveyid()%>" styleClass="normalfont" style="font-weight: bold; color: #0000ff;"><h:outputText><%=((Completedsurvey)Pagez.getBeanMgr().get("Completedsurvey")).getSurveytitle()%></h:outputText></h:outputLink><br/>
+                                            <h:outputText value="Est earnings: <%=((Completedsurvey)Pagez.getBeanMgr().get("Completedsurvey")).getAmttotal()%>" styleClass="tinyfont" style="font-weight: bold;"/>
+                                            <% if ("<%=((!userSession)Pagez.getBeanMgr().get("!userSession")).getIsfacebookui()%>){ %>
                                                 <br/>
-                                                <h:outputLink value="/survey.jsf?surveyid=#{completedsurvey.surveyid}" rendered="#{completedsurvey.response.poststatus eq 0}" styleClass="tinyfont" style="font-weight:bold;"><h:outputText>Needs to be Posted</h:outputText></h:outputLink>
+                                                <h:outputLink value="/survey.jsf?surveyid=<%=((Completedsurvey)Pagez.getBeanMgr().get("Completedsurvey")).getSurveyid()%>" rendered="#{completedsurvey.response.poststatus eq 0}" styleClass="tinyfont" style="font-weight:bold;"><h:outputText>Needs to be Posted</h:outputText></h:outputLink>
                                                 <h:outputText value="Posted At Least Once" escape="false" styleClass="tinyfont" style="font-weight:bold;" rendered="#{completedsurvey.response.poststatus eq 1}"/>
                                                 <h:outputText value="Posted Successfully" escape="false" styleClass="tinyfont" style="font-weight:bold;" rendered="#{completedsurvey.response.poststatus eq 2}"/>
                                                 <h:outputText value="Too Late to Post" escape="false" styleClass="tinyfont" style="font-weight:bold;" rendered="#{completedsurvey.response.poststatus eq 3}"/>
-                                            </c:if>
+                                            <% } %>
                                             <br/>
-                                            <h:commandLink action="#{bloggerImpressions.beginView}">
-                                                <h:outputText value="#{completedsurvey.totalimpressions}" styleClass="tinyfont" style="font-weight:bold; text-decoration: none; " escape="false"/>
-                                                <f:param name="surveyid" value="#{completedsurvey.surveyid}" />
+                                            <h:commandLink action="<%=((BloggerImpressions)Pagez.getBeanMgr().get("BloggerImpressions")).getBeginView()%>">
+                                                <h:outputText value="<%=((Completedsurvey)Pagez.getBeanMgr().get("Completedsurvey")).getTotalimpressions()%>" styleClass="tinyfont" style="font-weight:bold; text-decoration: none; " escape="false"/>
+                                                <f:param name="surveyid" value="<%=((Completedsurvey)Pagez.getBeanMgr().get("Completedsurvey")).getSurveyid()%>" />
                                            </h:commandLink><h:outputText value=" impressions" styleClass="tinyfont" style="font-weight:bold;"/>
                                         </td>
                                         <td valign="top" align="right">
-                                            <f:verbatim escape="false">#{completedsurvey.response.responsestatushtml}</f:verbatim>
+                                            <f:verbatim escape="false"><%=((Completedsurvey)Pagez.getBeanMgr().get("Completedsurvey")).getResponse().getResponsestatushtml()%></f:verbatim>
                                         </td>
                                     </tr>
                                 </table>
@@ -264,12 +264,12 @@ String acl = "public";
                             <br/>
                         </c:forEach>
                         <font class="tinyfont" style="color: #666666;">Survey statuses update nightly. Remember, you must leave the survey on your mini-feed and profile to generate clicks for 5 days in the 10 after you take it to get paid.  Days that qualify are marked green.</font>
-                    </c:if>
+                    <% } %>
 
                     <t:div rendered="#{!empty bloggerCompletedsurveys.list}">
                         <br/><br/>
                         <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
-                        Note: Earnings calculations are estimated and not final.   Final payment notification and calculation can be found on <h:commandLink  action="#{accountBalance.beginView}" styleClass="smallfont" style="padding-left: 8px;">Your Account Balance</h:commandLink> page. Posting and payment status both update nightly.
+                        Note: Earnings calculations are estimated and not final.   Final payment notification and calculation can be found on <h:commandLink  action="<%=((AccountBalance)Pagez.getBeanMgr().get("AccountBalance")).getBeginView()%>" styleClass="smallfont" style="padding-left: 8px;">Your Account Balance</h:commandLink> page. Posting and payment status both update nightly.
                         </font></div></center>
                     </t:div>
 
@@ -278,6 +278,6 @@ String acl = "public";
 
             </tr>
         </table>
-    </c:if>
+    <% } %>
 
 <%@ include file="/jsp/templates/footer.jsp" %>

@@ -12,57 +12,57 @@ String acl = "researcher";
 
 
     <div class="rounded" style="background: #e6e6e6; text-align: center; padding: 15px;">
-        <font class="largefont">#{researcherResultsRespondents.survey.title}</font>
+        <font class="largefont"><%=((ResearcherResultsRespondents)Pagez.getBeanMgr().get("ResearcherResultsRespondents")).getSurvey().getTitle()%></font>
         <br/>
-        <h:commandLink value="Results Main" action="#{researcherResults.beginView}" styleClass="subnavfont" style="padding-left: 15px;"/>
-        <h:commandLink value="Response Report" action="#{researcherResultsAnswers.beginView}" styleClass="subnavfont" style="padding-left: 15px;"/>
-        <h:commandLink value="Impressions" action="#{researcherResultsImpressions.beginView}" styleClass="subnavfont" style="padding-left: 15px;"/>
-        <h:commandLink value="Respondents" action="#{researcherResultsRespondents.beginView}" styleClass="subnavfont" style="padding-left: 15px;"/>
-        <h:commandLink value="Financial Status" action="#{researcherResultsFinancial.beginView}" styleClass="subnavfont" style="padding-left: 15px;"/>
+        <h:commandLink value="Results Main" action="<%=((ResearcherResults)Pagez.getBeanMgr().get("ResearcherResults")).getBeginView()%>" styleClass="subnavfont" style="padding-left: 15px;"/>
+        <h:commandLink value="Response Report" action="<%=((ResearcherResultsAnswers)Pagez.getBeanMgr().get("ResearcherResultsAnswers")).getBeginView()%>" styleClass="subnavfont" style="padding-left: 15px;"/>
+        <h:commandLink value="Impressions" action="<%=((ResearcherResultsImpressions)Pagez.getBeanMgr().get("ResearcherResultsImpressions")).getBeginView()%>" styleClass="subnavfont" style="padding-left: 15px;"/>
+        <h:commandLink value="Respondents" action="<%=((ResearcherResultsRespondents)Pagez.getBeanMgr().get("ResearcherResultsRespondents")).getBeginView()%>" styleClass="subnavfont" style="padding-left: 15px;"/>
+        <h:commandLink value="Financial Status" action="<%=((ResearcherResultsFinancial)Pagez.getBeanMgr().get("ResearcherResultsFinancial")).getBeginView()%>" styleClass="subnavfont" style="padding-left: 15px;"/>
     </div>
     <br/><br/>
 
     <t:saveState id="save" value="#{researcherResultsRespondents}"/>
 
-    <t:dataTable id="datatable" value="#{researcherResultsRespondents.list}" rows="50" var="listitem" rendered="#{!empty researcherResultsRespondents.list}" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcol,tcolnowrap,tcol,tcolnowrap,tcolnowrap">
+    <t:dataTable id="datatable" value="<%=((ResearcherResultsRespondents)Pagez.getBeanMgr().get("ResearcherResultsRespondents")).getList()%>" rows="50" var="listitem" rendered="#{!empty researcherResultsRespondents.list}" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcol,tcolnowrap,tcol,tcolnowrap,tcolnowrap">
           <h:column>
             <f:facet name="header">
               <h:outputText value="Date"/>
             </f:facet>
-            <h:outputText value="#{listitem.responsedate}" styleClass="smallfont"><f:convertDateTime type="both" dateStyle="short" timeStyle="medium"/></h:outputText>
+            <h:outputText value="<%=((Listitem)Pagez.getBeanMgr().get("Listitem")).getResponsedate()%>" styleClass="smallfont"><f:convertDateTime type="both" dateStyle="short" timeStyle="medium"/></h:outputText>
           </h:column>
           <h:column>
             <f:facet name="header">
               <h:outputText value="Blogger Name"/>
             </f:facet>
-            <h:outputText value="#{listitem.firstname} #{listitem.lastname}" escape="false" styleClass="smallfont"/>
+            <h:outputText value="<%=((Listitem)Pagez.getBeanMgr().get("Listitem")).getFirstname()%> <%=((Listitem)Pagez.getBeanMgr().get("Listitem")).getLastname()%>" escape="false" styleClass="smallfont"/>
           </h:column>
           <h:column>
             <f:facet name="header">
               <h:outputText value="-" style="color: #ffffff;"/>
             </f:facet>
-            <h:commandLink action="#{publicProfile.beginView}">
+            <h:commandLink action="<%=((PublicProfile)Pagez.getBeanMgr().get("PublicProfile")).getBeginView()%>">
                 <h:outputText value="Blogger's Profile" escape="false" styleClass="smallfont"/>
-                <f:param name="bloggerid" value="#{listitem.bloggerid}" />
+                <f:param name="bloggerid" value="<%=((Listitem)Pagez.getBeanMgr().get("Listitem")).getBloggerid()%>" />
             </h:commandLink>
           </h:column>
           <h:column>
             <f:facet name="header">
               <h:outputText value="-" style="color: #ffffff;"/>
             </f:facet>
-            <h:commandLink action="#{publicProfileAnswers.beginView}">
+            <h:commandLink action="<%=((PublicProfileAnswers)Pagez.getBeanMgr().get("PublicProfileAnswers")).getBeginView()%>">
                 <h:outputText value="Blogger's Answers" escape="false" styleClass="smallfont"/>
-                <f:param name="bloggerid" value="#{listitem.bloggerid}" />
-                <f:param name="surveyid" value="#{researcherResultsRespondents.survey.surveyid}" />
+                <f:param name="bloggerid" value="<%=((Listitem)Pagez.getBeanMgr().get("Listitem")).getBloggerid()%>" />
+                <f:param name="surveyid" value="<%=((ResearcherResultsRespondents)Pagez.getBeanMgr().get("ResearcherResultsRespondents")).getSurvey().getSurveyid()%>" />
             </h:commandLink>
           </h:column>
           <h:column>
             <f:facet name="header">
               <h:outputText value="-" style="color: #ffffff;"/>
             </f:facet>
-            <h:commandLink action="#{publicProfileImpressions.beginView}">
+            <h:commandLink action="<%=((PublicProfileImpressions)Pagez.getBeanMgr().get("PublicProfileImpressions")).getBeginView()%>">
                 <h:outputText value="Blogger's Impressions" escape="false" styleClass="smallfont"/>
-                <f:param name="responseid" value="#{listitem.responseid}" />
+                <f:param name="responseid" value="<%=((Listitem)Pagez.getBeanMgr().get("Listitem")).getResponseid()%>" />
             </h:commandLink>
           </h:column>
 

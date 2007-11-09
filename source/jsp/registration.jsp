@@ -9,7 +9,7 @@ String acl = "public";
 <%@ include file="/jsp/templates/header.jsp" %>
 
 
-        <t:div rendered="#{registration.displaytempresponsesavedmessage}">
+        <t:div rendered="<%=((Registration)Pagez.getBeanMgr().get("Registration")).getDisplaytempresponsesavedmessage()%>">
             <div class="rounded" style="padding: 15px; margin: 5px; background: #00ff00;">
                 <table cellpadding="5">
                     <tr>
@@ -32,7 +32,7 @@ String acl = "public";
                 <font class="mediumfont" style="color: #333333">Existing Users</font><br/>
                 <font class="smallfont">If you've already got a dNeero account you can simply log in.</font><br/>
                 <div class="rounded" style="padding: 15px; margin: 5px; background: #ffffff;">
-                    <d:greenRoundedButton pathtoapproot="../"><h:commandLink value="Log In" action="#{login.beginView}" styleClass="subnavfont" style="color: #ffffff; font-weight: bold;"/></d:greenRoundedButton>
+                    <d:greenRoundedButton pathtoapproot="../"><h:commandLink value="Log In" action="<%=((Login)Pagez.getBeanMgr().get("Login")).getBeginView()%>" styleClass="subnavfont" style="color: #ffffff; font-weight: bold;"/></d:greenRoundedButton>
                 </div>
             </div>
         </div>
@@ -43,70 +43,70 @@ String acl = "public";
                 <br/>
                 <font class="smallfont">Sign Up is free.  On this page we collect some basic information.  After this you'll start working immediately to create and/or take surveys (all accounts can do both functions).  You have three days (during which you can use your account) to activate by clicking a link that we send to your email address.  Your account is completely free to set up and explore.</font><br/><br/>
 
-                <h:panelGrid columns="3" cellpadding="3" border="0">
+                <table cellpadding="0" cellspacing="0" border="0">
 
-                    <h:panelGroup>
+                    <td valign="top">
                         <h:outputText value="First Name" styleClass="formfieldnamefont"></h:outputText>
-                    </h:panelGroup>
-                    <h:panelGroup>
-                        <h:inputText value="#{registration.firstname}" id="firstname" required="false" size="35" maxlength="200"></h:inputText>
-                    </h:panelGroup>
-                    <h:panelGroup>
+                    </td>
+                    <td valign="top">
+                        <h:inputText value="<%=((Registration)Pagez.getBeanMgr().get("Registration")).getFirstname()%>" id="firstname" required="false" size="35" maxlength="200"></h:inputText>
+                    </td>
+                    <td valign="top">
                         <h:message for="firstname" styleClass="RED"></h:message>
-                    </h:panelGroup>
+                    </td>
 
-                    <h:panelGroup>
+                    <td valign="top">
                         <h:outputText value="Last Name" styleClass="formfieldnamefont"></h:outputText>
-                    </h:panelGroup>
-                    <h:panelGroup>
-                        <h:inputText value="#{registration.lastname}" id="lastname" required="false" size="35" maxlength="200">
+                    </td>
+                    <td valign="top">
+                        <h:inputText value="<%=((Registration)Pagez.getBeanMgr().get("Registration")).getLastname()%>" id="lastname" required="false" size="35" maxlength="200">
                         </h:inputText>
-                    </h:panelGroup>
-                    <h:panelGroup>
+                    </td>
+                    <td valign="top">
                         <h:message for="lastname" styleClass="RED"></h:message>
-                    </h:panelGroup>
+                    </td>
 
 
-                    <h:panelGroup>
+                    <td valign="top">
                         <h:outputText value="Email" styleClass="formfieldnamefont"></h:outputText>
-                    </h:panelGroup>
-                    <h:panelGroup>
-                        <h:inputText value="#{registration.email}" id="email" required="false" size="35" maxlength="200"></h:inputText>
-                    </h:panelGroup>
-                    <h:panelGroup>
+                    </td>
+                    <td valign="top">
+                        <h:inputText value="<%=((Registration)Pagez.getBeanMgr().get("Registration")).getEmail()%>" id="email" required="false" size="35" maxlength="200"></h:inputText>
+                    </td>
+                    <td valign="top">
                         <h:message for="email" styleClass="RED"></h:message>
-                    </h:panelGroup>
+                    </td>
 
 
-                    <h:panelGroup>
+                    <td valign="top">
                         <h:outputText value="Password" styleClass="formfieldnamefont"></h:outputText>
-                    </h:panelGroup>
-                    <h:panelGroup>
-                        <h:inputSecret value="#{registration.password}" id="password" required="false" size="35" maxlength="200"></h:inputSecret>
-                    </h:panelGroup>
-                    <h:panelGroup>
+                    </td>
+                    <td valign="top">
+                        <h:inputSecret value="<%=((Registration)Pagez.getBeanMgr().get("Registration")).getPassword()%>" id="password" required="false" size="35" maxlength="200"></h:inputSecret>
+                    </td>
+                    <td valign="top">
                         <h:message for="password" styleClass="RED"></h:message>
-                    </h:panelGroup>
+                    </td>
 
 
-                    <h:panelGroup>
+                    <td valign="top">
                         <h:outputText value="Verify Password" styleClass="formfieldnamefont"></h:outputText>
-                    </h:panelGroup>
-                    <h:panelGroup>
-                        <h:inputSecret value="#{registration.passwordverify}" id="passwordverify" required="false" size="35" maxlength="200"></h:inputSecret>
-                    </h:panelGroup>
-                    <h:panelGroup>
+                    </td>
+                    <td valign="top">
+                        <h:inputSecret value="<%=((Registration)Pagez.getBeanMgr().get("Registration")).getPasswordverify()%>" id="passwordverify" required="false" size="35" maxlength="200"></h:inputSecret>
+                    </td>
+                    <td valign="top">
                         <h:message for="passwordverify" styleClass="RED"></h:message>
-                    </h:panelGroup>
+                    </td>
 
 
 
-                    <h:panelGroup>
+                    <td valign="top">
                         <h:outputText value="Prove You're a Human" styleClass="formfieldnamefont"></h:outputText>
-                    </h:panelGroup>
-                    <h:panelGroup>
+                    </td>
+                    <td valign="top">
                         <div style="border: 1px solid #ccc; padding: 3px;">
-                        <h:inputText value="#{registration.j_captcha_response}" id="j_captcha_response" required="false" size="35" maxlength="200"/>
+                        <h:inputText value="<%=((Registration)Pagez.getBeanMgr().get("Registration")).getJ_captcha_response()%>" id="j_captcha_response" required="false" size="35" maxlength="200"/>
                         <br/>
                         <font class="tinyfont">(type the squiggly letters that appear below)</font>
                         <br/>
@@ -120,35 +120,35 @@ String acl = "public";
                             </tr>
                         </table>
                         </div>
-                    </h:panelGroup>
-                    <h:panelGroup>
+                    </td>
+                    <td valign="top">
                         <h:message for="j_captcha_response" styleClass="RED"></h:message>
-                    </h:panelGroup>
+                    </td>
 
 
-                    <h:panelGroup>
+                    <td valign="top">
                         <h:outputText value="End User License Agreement" styleClass="formfieldnamefont"></h:outputText>
-                    </h:panelGroup>
-                    <h:panelGroup>
-                        <h:inputTextarea value="#{registration.eula}" id="eula" cols="45" rows="5" required="false">
+                    </td>
+                    <td valign="top">
+                        <h:inputTextarea value="<%=((Registration)Pagez.getBeanMgr().get("Registration")).getEula()%>" id="eula" cols="45" rows="5" required="false">
                         </h:inputTextarea>
-                    </h:panelGroup>
-                    <h:panelGroup>
+                    </td>
+                    <td valign="top">
                         <h:message for="eula" styleClass="RED"></h:message>
-                    </h:panelGroup>
+                    </td>
 
 
 
-                    <h:panelGroup>
-                    </h:panelGroup>
-                    <h:panelGroup>
+                    <td valign="top">
+                    </td>
+                    <td valign="top">
                         <br/><br/>
-                        <h:commandButton action="#{registration.registerAction}" value="Sign Up" styleClass="formsubmitbutton" target="_top"></h:commandButton>
-                    </h:panelGroup>
-                    <h:panelGroup>
-                    </h:panelGroup>
+                        <h:commandButton action="<%=((Registration)Pagez.getBeanMgr().get("Registration")).getRegisterAction()%>" value="Sign Up" styleClass="formsubmitbutton" target="_top"></h:commandButton>
+                    </td>
+                    <td valign="top">
+                    </td>
 
-                </h:panelGrid>
+                </table>
 
 
             </div>

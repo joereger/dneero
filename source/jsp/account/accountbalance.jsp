@@ -2,7 +2,7 @@
 <%@ page import="com.dneero.htmlui.Pagez" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
-String pagetitle = "Account Balance: #{accountBalance.currentbalance}";
+String pagetitle = "Account Balance: <%=((AccountBalance)Pagez.getBeanMgr().get("AccountBalance")).getCurrentbalance()%>";
 String navtab = "youraccount";
 String acl = "account";
 %>
@@ -21,37 +21,37 @@ String acl = "account";
 
         <h:outputText value="There are not yet any financial transactions on your account.  Go fill out some surveys!  Or create some!" rendered="#{empty accountBalance.balances}"/>
 
-        <t:dataTable id="datatable" value="#{accountBalance.balances}" rows="25" var="balance" rendered="#{!empty accountBalance.balances}" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcol,tcolnowrap,tcol,tcolnowrap,tcolnowrap">
+        <t:dataTable id="datatable" value="<%=((AccountBalance)Pagez.getBeanMgr().get("AccountBalance")).getBalances()%>" rows="25" var="balance" rendered="#{!empty accountBalance.balances}" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcol,tcolnowrap,tcol,tcolnowrap,tcolnowrap">
           <h:column>
             <f:facet name="header">
               <h:outputText value="Id"/>
             </f:facet>
-            <h:outputText value="#{balance.balanceid}" styleClass="tinyfont"/>
+            <h:outputText value="<%=((Balance)Pagez.getBeanMgr().get("Balance")).getBalanceid()%>" styleClass="tinyfont"/>
           </h:column>
           <h:column>
             <f:facet name="header">
               <h:outputText value="Date"/>
             </f:facet>
-            <h:outputText value="#{balance.date}" styleClass="tinyfont"><f:convertDateTime type="both" dateStyle="short" timeStyle="medium"/></h:outputText>
+            <h:outputText value="<%=((Balance)Pagez.getBeanMgr().get("Balance")).getDate()%>" styleClass="tinyfont"><f:convertDateTime type="both" dateStyle="short" timeStyle="medium"/></h:outputText>
           </h:column>
           <h:column>
             <f:facet name="header">
               <h:outputText value="Description"/>
             </f:facet>
-            <h:outputText value="#{balance.description}" styleClass="smallfont"/>
+            <h:outputText value="<%=((Balance)Pagez.getBeanMgr().get("Balance")).getDescription()%>" styleClass="smallfont"/>
 
           </h:column>
           <h:column>
             <f:facet name="header">
               <h:outputText value="Amount"/>
             </f:facet>
-            <h:outputText value="#{balance.amt}" styleClass="tinyfont"/>
+            <h:outputText value="<%=((Balance)Pagez.getBeanMgr().get("Balance")).getAmt()%>" styleClass="tinyfont"/>
           </h:column>
           <h:column>
             <f:facet name="header">
               <h:outputText value="Balance"/>
             </f:facet>
-            <h:outputText value="#{balance.currentbalance}" styleClass="tinyfont" style="font-weight: bold;"/>
+            <h:outputText value="<%=((Balance)Pagez.getBeanMgr().get("Balance")).getCurrentbalance()%>" styleClass="tinyfont" style="font-weight: bold;"/>
           </h:column>
         </t:dataTable>
         <t:dataScroller id="scroll_1" for="datatable" fastStep="10" pageCountVar="pageCount" pageIndexVar="pageIndex" styleClass="scroller" paginator="true" paginatorMaxPages="9" paginatorTableClass="paginator" paginatorActiveColumnStyle="font-weight:bold;">
@@ -71,7 +71,7 @@ String acl = "account";
 
 
         <br/><br/>
-        <h:commandLink value="View Transfer Details" action="#{accountTransactions.beginView}" style="padding-left: 25px;" styleClass="smallfont" rendered="#{!empty accountBalancetransaction.balances}"/>
+        <h:commandLink value="View Transfer Details" action="<%=((AccountTransactions)Pagez.getBeanMgr().get("AccountTransactions")).getBeginView()%>" style="padding-left: 25px;" styleClass="smallfont" rendered="#{!empty accountBalancetransaction.balances}"/>
 
 
 <%@ include file="/jsp/templates/footer.jsp" %>

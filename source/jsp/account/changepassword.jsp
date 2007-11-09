@@ -10,49 +10,49 @@ String acl = "account";
 
 
             <h:messages styleClass="RED"/>
-            <h:panelGrid columns="3" cellpadding="3" border="0">
+            <table cellpadding="0" cellspacing="0" border="0">
 
 
 
 
-                <h:panelGroup>
+                <td valign="top">
                     <h:outputText value="New Password" styleClass="formfieldnamefont"></h:outputText>
-                </h:panelGroup>
-                <h:panelGroup>
-                    <h:inputSecret value="#{changePassword.password}" id="password" required="true">
+                </td>
+                <td valign="top">
+                    <h:inputSecret value="<%=((ChangePassword)Pagez.getBeanMgr().get("ChangePassword")).getPassword()%>" id="password" required="true">
                         <f:validateLength minimum="3" maximum="255"></f:validateLength>
                     </h:inputSecret>
-                </h:panelGroup>
-                <h:panelGroup>
+                </td>
+                <td valign="top">
                     <h:message for="password" styleClass="RED"></h:message>
-                </h:panelGroup>
+                </td>
 
 
-                <h:panelGroup>
+                <td valign="top">
                     <h:outputText value="Verify New Password" styleClass="formfieldnamefont"></h:outputText>
-                </h:panelGroup>
-                <h:panelGroup>
-                    <h:inputSecret value="#{changePassword.passwordverify}" id="passwordverify" required="true">
+                </td>
+                <td valign="top">
+                    <h:inputSecret value="<%=((ChangePassword)Pagez.getBeanMgr().get("ChangePassword")).getPasswordverify()%>" id="passwordverify" required="true">
                         <f:validateLength minimum="3" maximum="255"></f:validateLength>
                     </h:inputSecret>
-                </h:panelGroup>
-                <h:panelGroup>
+                </td>
+                <td valign="top">
                     <h:message for="passwordverify" styleClass="RED"></h:message>
-                </h:panelGroup>
+                </td>
 
 
 
 
-                <h:panelGroup>
-                </h:panelGroup>
-                <h:panelGroup>
+                <td valign="top">
+                </td>
+                <td valign="top">
                     <br/><br/>
-                    <h:commandButton action="#{changePassword.saveAction}" value="Save New Password" styleClass="formsubmitbutton"></h:commandButton>
-                </h:panelGroup>
-                <h:panelGroup>
-                </h:panelGroup>
+                    <h:commandButton action="<%=((ChangePassword)Pagez.getBeanMgr().get("ChangePassword")).getSaveAction()%>" value="Save New Password" styleClass="formsubmitbutton"></h:commandButton>
+                </td>
+                <td valign="top">
+                </td>
 
-            </h:panelGrid>
+            </table>
 
 
 <%@ include file="/jsp/templates/footer.jsp" %>

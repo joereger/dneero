@@ -2,7 +2,7 @@
 <%@ page import="com.dneero.htmlui.Pagez" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
-String pagetitle = "#{bloggerImpressions.surveytitle}";
+String pagetitle = "<%=((BloggerImpressions)Pagez.getBeanMgr().get("BloggerImpressions")).getSurveytitle()%>";
 String navtab = "bloggers";
 String acl = "blogger";
 %>
@@ -20,30 +20,30 @@ String acl = "blogger";
         <h:form>
               <t:saveState id="save" value="#{bloggerImpressions}"/>
 
-              <t:dataTable id="datatable" value="#{bloggerImpressions.list}" rows="25" var="listitem" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcol,tcolnowrap,tcol,tcolnowrap,tcolnowrap">
+              <t:dataTable id="datatable" value="<%=((BloggerImpressions)Pagez.getBeanMgr().get("BloggerImpressions")).getList()%>" rows="25" var="listitem" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcol,tcolnowrap,tcol,tcolnowrap,tcolnowrap">
               <h:column>
                 <f:facet name="header">
                   <h:outputText value="Url"/>
                 </f:facet>
-                <h:outputText value="#{listitem.referer}" styleClass="smallfont"/>
+                <h:outputText value="<%=((Listitem)Pagez.getBeanMgr().get("Listitem")).getReferer()%>" styleClass="smallfont"/>
               </h:column>
               <h:column rendered="true">
                 <f:facet name="header">
                   <h:outputText value="Impressions Qualifying for Payment"/>
                 </f:facet>
-                <h:outputText value="#{listitem.impressionspaidandtobepaid}" escape="false" styleClass="smallfont" style="color: #0000ff;"/>
+                <h:outputText value="<%=((Listitem)Pagez.getBeanMgr().get("Listitem")).getImpressionspaidandtobepaid()%>" escape="false" styleClass="smallfont" style="color: #0000ff;"/>
               </h:column>
               <h:column rendered="true">
                 <f:facet name="header">
                   <h:outputText value="Impressions Total"/>
                 </f:facet>
-                <h:outputText value="#{listitem.impressionstotal}" escape="false" styleClass="smallfont" style="color: #0000ff;"/>
+                <h:outputText value="<%=((Listitem)Pagez.getBeanMgr().get("Listitem")).getImpressionstotal()%>" escape="false" styleClass="smallfont" style="color: #0000ff;"/>
               </h:column>
               <h:column>
                 <f:facet name="header">
                   <h:outputText value="Quality Rating"/>
                 </f:facet>
-                <h:outputText value="#{listitem.quality}"/>
+                <h:outputText value="<%=((Listitem)Pagez.getBeanMgr().get("Listitem")).getQuality()%>"/>
               </h:column>
           </t:dataTable>
             <t:dataScroller id="scroll_1" for="datatable" fastStep="10" pageCountVar="pageCount" pageIndexVar="pageIndex" styleClass="scroller" paginator="true" paginatorMaxPages="9" paginatorTableClass="paginator" paginatorActiveColumnStyle="font-weight:bold;">

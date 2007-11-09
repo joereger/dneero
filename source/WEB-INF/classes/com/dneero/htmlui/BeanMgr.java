@@ -22,7 +22,7 @@ public class BeanMgr {
     public Object get(String beanname){
         Logger logger = Logger.getLogger(this.getClass().getName());
         if (beans!=null && beans.containsKey(beanname)){
-            logger.debug("returning previously initialized bean for beanname="+ beanname);
+            //logger.debug("returning previously initialized bean for beanname="+ beanname);
             return beans.get(beanname);
         } else {
             try{

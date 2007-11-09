@@ -12,7 +12,7 @@ String acl = "account";
 
         <h:outputText>Success!  We will respond soon!</h:outputText>
         <f:verbatim><br/><br/></f:verbatim>
-        <h:commandLink action="#{accountSupportIssuesList.beginView}" value="Support Issues List"></h:commandLink>
+        <h:commandLink action="<%=((AccountSupportIssuesList)Pagez.getBeanMgr().get("AccountSupportIssuesList")).getBeginView()%>" value="Support Issues List"></h:commandLink>
 
 <%@ include file="/jsp/templates/footer.jsp" %>
 

@@ -10,28 +10,28 @@ String acl = "account";
 
 
             <h:messages styleClass="RED"/>
-            <h:panelGrid columns="1" cellpadding="3" border="0">
+            <table cellpadding="0" cellspacing="0" border="0">
 
-                <h:panelGroup>
+                <td valign="top">
                     <font class="formfieldnamefont">The End User License Agreement has changed.<br/>You must read and agree to it before you can proceed:</font>
-                </h:panelGroup>
+                </td>
 
 
-                <h:panelGroup>
-                    <h:commandButton action="#{loginAgreeNewEula.agree}" value="I Agree to the EULA" styleClass="formsubmitbutton"></h:commandButton>
-                </h:panelGroup>
+                <td valign="top">
+                    <h:commandButton action="<%=((LoginAgreeNewEula)Pagez.getBeanMgr().get("LoginAgreeNewEula")).getAgree()%>" value="I Agree to the EULA" styleClass="formsubmitbutton"></h:commandButton>
+                </td>
 
 
-                <h:panelGroup>
+                <td valign="top">
                     <h:message for="eula" styleClass="RED"></h:message>
-                </h:panelGroup>
-                <h:panelGroup>
-                    <h:inputTextarea value="#{loginAgreeNewEula.eula}" id="eula" cols="80" rows="25" required="true">
+                </td>
+                <td valign="top">
+                    <h:inputTextarea value="<%=((LoginAgreeNewEula)Pagez.getBeanMgr().get("LoginAgreeNewEula")).getEula()%>" id="eula" cols="80" rows="25" required="true">
                     </h:inputTextarea>
-                </h:panelGroup>
+                </td>
 
 
-            </h:panelGrid>
+            </table>
 
 
 <%@ include file="/jsp/templates/footer.jsp" %>

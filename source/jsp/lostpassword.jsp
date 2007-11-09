@@ -9,24 +9,24 @@ String acl = "public";
 <%@ include file="/jsp/templates/header.jsp" %>
 
 
-            <h:panelGrid columns="3" cellpadding="3" border="0">
+            <table cellpadding="0" cellspacing="0" border="0">
 
-                <h:panelGroup>
+                <td valign="top">
                     <h:outputText value="Email" styleClass="formfieldnamefont"></h:outputText>
-                </h:panelGroup>
-                <h:panelGroup>
-                    <h:inputText value="#{lostPassword.email}" id="email" required="false"></h:inputText>
-                </h:panelGroup>
-                <h:panelGroup>
+                </td>
+                <td valign="top">
+                    <h:inputText value="<%=((LostPassword)Pagez.getBeanMgr().get("LostPassword")).getEmail()%>" id="email" required="false"></h:inputText>
+                </td>
+                <td valign="top">
                     <h:message for="email" styleClass="RED"></h:message>
-                </h:panelGroup>
+                </td>
 
-                <h:panelGroup>
+                <td valign="top">
                     <h:outputText value="Prove You're a Human" styleClass="formfieldnamefont"></h:outputText>
-                </h:panelGroup>
-                <h:panelGroup>
+                </td>
+                <td valign="top">
                     <div style="border: 1px solid #ccc; padding: 3px;">
-                    <h:inputText value="#{lostPassword.j_captcha_response}" id="j_captcha_response" required="false"/>
+                    <h:inputText value="<%=((LostPassword)Pagez.getBeanMgr().get("LostPassword")).getJ_captcha_response()%>" id="j_captcha_response" required="false"/>
                     <br/>
                     <font class="tinyfont">(type the squiggly letters that appear below)</font>
                     <br/>
@@ -40,20 +40,20 @@ String acl = "public";
                         </tr>
                     </table>
                     </div>
-                </h:panelGroup>
-                <h:panelGroup>
+                </td>
+                <td valign="top">
                     <h:message for="j_captcha_response" styleClass="RED"></h:message>
-                </h:panelGroup>
+                </td>
 
-                <h:panelGroup>
-                </h:panelGroup>
-                <h:panelGroup>
-                    <h:commandButton action="#{lostPassword.recoverPassword}" value="Recover Password by Email" styleClass="formsubmitbutton"></h:commandButton>
-                </h:panelGroup>
-                <h:panelGroup>
-                </h:panelGroup>
+                <td valign="top">
+                </td>
+                <td valign="top">
+                    <h:commandButton action="<%=((LostPassword)Pagez.getBeanMgr().get("LostPassword")).getRecoverPassword()%>" value="Recover Password by Email" styleClass="formsubmitbutton"></h:commandButton>
+                </td>
+                <td valign="top">
+                </td>
 
-            </h:panelGrid>
+            </table>
 
 
 

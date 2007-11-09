@@ -12,13 +12,13 @@ String acl = "researcher";
 
 
     <div class="rounded" style="background: #e6e6e6; text-align: center; padding: 15px;">
-        <font class="largefont">#{researcherResultsImpressions.survey.title}</font>
+        <font class="largefont"><%=((ResearcherResultsImpressions)Pagez.getBeanMgr().get("ResearcherResultsImpressions")).getSurvey().getTitle()%></font>
         <br/>
-        <h:commandLink value="Results Main" action="#{researcherResults.beginView}" styleClass="subnavfont" style="padding-left: 15px;"/>
-        <h:commandLink value="Response Report" action="#{researcherResultsAnswers.beginView}" styleClass="subnavfont" style="padding-left: 15px;"/>
-        <h:commandLink value="Impressions" action="#{researcherResultsImpressions.beginView}" styleClass="subnavfont" style="padding-left: 15px;"/>
-        <h:commandLink value="Respondents" action="#{researcherResultsRespondents.beginView}" styleClass="subnavfont" style="padding-left: 15px;"/>
-        <h:commandLink value="Financial Status" action="#{researcherResultsFinancial.beginView}" styleClass="subnavfont" style="padding-left: 15px;"/>
+        <h:commandLink value="Results Main" action="<%=((ResearcherResults)Pagez.getBeanMgr().get("ResearcherResults")).getBeginView()%>" styleClass="subnavfont" style="padding-left: 15px;"/>
+        <h:commandLink value="Response Report" action="<%=((ResearcherResultsAnswers)Pagez.getBeanMgr().get("ResearcherResultsAnswers")).getBeginView()%>" styleClass="subnavfont" style="padding-left: 15px;"/>
+        <h:commandLink value="Impressions" action="<%=((ResearcherResultsImpressions)Pagez.getBeanMgr().get("ResearcherResultsImpressions")).getBeginView()%>" styleClass="subnavfont" style="padding-left: 15px;"/>
+        <h:commandLink value="Respondents" action="<%=((ResearcherResultsRespondents)Pagez.getBeanMgr().get("ResearcherResultsRespondents")).getBeginView()%>" styleClass="subnavfont" style="padding-left: 15px;"/>
+        <h:commandLink value="Financial Status" action="<%=((ResearcherResultsFinancial)Pagez.getBeanMgr().get("ResearcherResultsFinancial")).getBeginView()%>" styleClass="subnavfont" style="padding-left: 15px;"/>
     </div>
     <br/><br/>
 
@@ -32,13 +32,13 @@ String acl = "researcher";
 
     <t:saveState id="save" value="#{researcherResultsImpressions}"/>
 
-    <t:dataTable id="datatable" value="#{researcherResultsImpressions.researcherResultsImpressionsListitems}" rows="50" var="imp" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcol,tcolnowrap,tcol,tcolnowrap,tcolnowrap">
+    <t:dataTable id="datatable" value="<%=((ResearcherResultsImpressions)Pagez.getBeanMgr().get("ResearcherResultsImpressions")).getResearcherResultsImpressionsListitems()%>" rows="50" var="imp" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcol,tcolnowrap,tcol,tcolnowrap,tcolnowrap">
       <h:column>
         <f:facet name="header">
           <h:outputText value="Specific Page"/>
         </f:facet>
-        <h:outputLink target="referer" value="#{imp.referer}">
-            <h:outputText value="#{imp.referertruncated}" styleClass="tinyfont"/>
+        <h:outputLink target="referer" value="<%=((Imp)Pagez.getBeanMgr().get("Imp")).getReferer()%>">
+            <h:outputText value="<%=((Imp)Pagez.getBeanMgr().get("Imp")).getReferertruncated()%>" styleClass="tinyfont"/>
         </h:outputLink>
         <h:outputText value="None" rendered="#{empty imp.referer}"/>
       </h:column>
@@ -46,13 +46,13 @@ String acl = "researcher";
         <f:facet name="header">
           <h:outputText value="Impressions Qualifying"/>
         </f:facet>
-        <h:outputText value="#{imp.impressionspaidandtobepaid}" styleClass="smallfont" style="color: #0000ff;"/>
+        <h:outputText value="<%=((Imp)Pagez.getBeanMgr().get("Imp")).getImpressionspaidandtobepaid()%>" styleClass="smallfont" style="color: #0000ff;"/>
       </h:column>
       <h:column>
         <f:facet name="header">
           <h:outputText value="Quality Rating"/>
         </f:facet>
-        <h:outputText value="#{imp.impressionquality}" styleClass="smallfont" style="color: #0000ff;"/>
+        <h:outputText value="<%=((Imp)Pagez.getBeanMgr().get("Imp")).getImpressionquality()%>" styleClass="smallfont" style="color: #0000ff;"/>
       </h:column>
     </t:dataTable>
     <t:dataScroller id="scroll_1" for="datatable" fastStep="10" pageCountVar="pageCount" pageIndexVar="pageIndex" styleClass="scroller" paginator="true" paginatorMaxPages="9" paginatorTableClass="paginator" paginatorActiveColumnStyle="font-weight:bold;">

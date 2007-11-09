@@ -13,7 +13,7 @@ String acl = "researcher";
     <t:div rendered="#{researcherPanels.msg ne '' and researcherPanels.msg ne null}">
         <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
         <img src="/images/lightbulb_on.png" alt="" align="right"/>
-        #{researcherPanels.msg}
+        <%=((ResearcherPanels)Pagez.getBeanMgr().get("ResearcherPanels")).getMsg()%>
         <br/><br/></font></div></center>
         <br/><br/>
     </t:div>
@@ -24,50 +24,50 @@ String acl = "researcher";
         
         <br/><br/>
 
-        <t:dataTable id="datatable" value="#{researcherPanels.listitems}" var="listitem" rendered="#{!empty researcherPanels.listitems}" rows="10" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcol,tcolnowrap,tcol,tcolnowrap,tcolnowrap">
+        <t:dataTable id="datatable" value="<%=((ResearcherPanels)Pagez.getBeanMgr().get("ResearcherPanels")).getListitems()%>" var="listitem" rendered="#{!empty researcherPanels.listitems}" rows="10" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcol,tcolnowrap,tcol,tcolnowrap,tcolnowrap">
           <h:column>
             <f:facet name="header">
               <h:outputText value="Panel Name"/>
             </f:facet>
-            <h:outputText value="#{listitem.panel.name}" styleClass="normalfont" style="font-weight: bold;"/>
+            <h:outputText value="<%=((Listitem)Pagez.getBeanMgr().get("Listitem")).getPanel().getName()%>" styleClass="normalfont" style="font-weight: bold;"/>
           </h:column>
           <h:column>
             <f:facet name="header">
               <h:outputText value="Create Date"/>
             </f:facet>
-            <h:outputText value="#{listitem.panel.createdate}" styleClass="smallfont"><f:convertDateTime type="both" dateStyle="short" timeStyle="medium"/></h:outputText>
+            <h:outputText value="<%=((Listitem)Pagez.getBeanMgr().get("Listitem")).getPanel().getCreatedate()%>" styleClass="smallfont"><f:convertDateTime type="both" dateStyle="short" timeStyle="medium"/></h:outputText>
           </h:column>
           <h:column>
             <f:facet name="header">
               <h:outputText value="Members"/>
             </f:facet>
-            <h:outputText value="#{listitem.numberofmembers}" styleClass="smallfont"/>
+            <h:outputText value="<%=((Listitem)Pagez.getBeanMgr().get("Listitem")).getNumberofmembers()%>" styleClass="smallfont"/>
           </h:column>
           <h:column>
             <f:facet name="header">
               <h:outputText value="-" style="color: #ffffff;"/>
             </f:facet>
-            <h:commandLink action="#{researcherPanelsListBloggers.beginView}">
+            <h:commandLink action="<%=((ResearcherPanelsListBloggers)Pagez.getBeanMgr().get("ResearcherPanelsListBloggers")).getBeginView()%>">
                 <h:outputText value="View Members" styleClass="smallfont" escape="false" />
-                <f:param name="panelid" value="#{listitem.panel.panelid}" />
+                <f:param name="panelid" value="<%=((Listitem)Pagez.getBeanMgr().get("Listitem")).getPanel().getPanelid()%>" />
             </h:commandLink>
           </h:column>
           <h:column>
             <f:facet name="header">
               <h:outputText value="-" style="color: #ffffff;"/>
             </f:facet>
-            <h:commandLink action="#{researcherPanelsEdit.beginView}">
+            <h:commandLink action="<%=((ResearcherPanelsEdit)Pagez.getBeanMgr().get("ResearcherPanelsEdit")).getBeginView()%>">
                 <h:outputText value="Edit" styleClass="smallfont" escape="false" />
-                <f:param name="panelid" value="#{listitem.panel.panelid}" />
+                <f:param name="panelid" value="<%=((Listitem)Pagez.getBeanMgr().get("Listitem")).getPanel().getPanelid()%>" />
             </h:commandLink>
           </h:column>
           <h:column>
             <f:facet name="header">
               <h:outputText value="-" style="color: #ffffff;"/>
             </f:facet>
-            <h:commandLink action="#{researcherPanels.deletePanel}">
+            <h:commandLink action="<%=((ResearcherPanels)Pagez.getBeanMgr().get("ResearcherPanels")).getDeletePanel()%>">
                 <h:outputText value="Delete" styleClass="smallfont" escape="false" />
-                <f:param name="panelid" value="#{listitem.panel.panelid}" />
+                <f:param name="panelid" value="<%=((Listitem)Pagez.getBeanMgr().get("Listitem")).getPanel().getPanelid()%>" />
             </h:commandLink>
           </h:column>
         </t:dataTable>
@@ -89,8 +89,8 @@ String acl = "researcher";
 
 
         <br/><br/>
-        <h:inputText value="#{researcherPanels.newpanelname}" id="newpanelname"></h:inputText>
-        <h:commandButton action="#{researcherPanels.createNewPanel}" value="Create a New Panel" styleClass="formsubmitbutton"></h:commandButton>
+        <h:inputText value="<%=((ResearcherPanels)Pagez.getBeanMgr().get("ResearcherPanels")).getNewpanelname()%>" id="newpanelname"></h:inputText>
+        <h:commandButton action="<%=((ResearcherPanels)Pagez.getBeanMgr().get("ResearcherPanels")).getCreateNewPanel()%>" value="Create a New Panel" styleClass="formsubmitbutton"></h:commandButton>
 
 
 

@@ -3,15 +3,15 @@
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "<img src=\"/images/process-train-survey-02.gif\" align=\"right\" width=\"350\" height=\"73\" alt=\"\"></img>\n" +
-"        <h:outputText value=\"${researcherSurveyDetail02.title}\" styleClass=\"pagetitlefont\" rendered=\"${researcherSurveyDetail02.title ne ''}\"/>\n" +
+"        <h:outputText value=\"<%=((ResearcherSurveyDetail02)Pagez.getBeanMgr().get("ResearcherSurveyDetail02")).getTitle()%>\" styleClass=\"pagetitlefont\" rendered=\"${researcherSurveyDetail02.title ne ''}\"/>\n" +
 "        <br clear=\"all\"/>";
 String navtab = "researchers";
 String acl = "researcher";
 %>
 <%@ include file="/jsp/templates/header.jsp" %>
 
-    <h:inputHidden value="#{userSession.currentSurveyid}" />
-    <h:inputHidden value="#{researcherSurveyDetail02textbox.questionid}" />
+    <h:inputHidden value="<%=((UserSession)Pagez.getBeanMgr().get("UserSession")).getCurrentSurveyid()%>" />
+    <h:inputHidden value="<%=((ResearcherSurveyDetail02textbox)Pagez.getBeanMgr().get("ResearcherSurveyDetail02textbox")).getQuestionid()%>" />
 
     <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
     <img src="/images/lightbulb_on.png" alt="" align="right"/>
@@ -28,56 +28,56 @@ String acl = "researcher";
 
     <!-- Start Bottom -->
 
-    <h:panelGrid columns="3" cellpadding="3" border="0">
+    <table cellpadding="0" cellspacing="0" border="0">
 
-        <h:panelGroup>
+        <td valign="top">
             <h:outputText value="Question Type"></h:outputText>
-        </h:panelGroup>
-        <h:panelGroup>
+        </td>
+        <td valign="top">
             <h:outputText value="Textbox"></h:outputText>
-        </h:panelGroup>
-        <h:panelGroup>
-        </h:panelGroup>
+        </td>
+        <td valign="top">
+        </td>
 
         
 
 
-        <h:panelGroup>
+        <td valign="top">
             <h:outputText value="Question" styleClass="formfieldnamefont"></h:outputText>
-        </h:panelGroup>
-        <h:panelGroup>
-            <h:inputText value="#{researcherSurveyDetail02textbox.question}" id="question" required="true">
+        </td>
+        <td valign="top">
+            <h:inputText value="<%=((ResearcherSurveyDetail02textbox)Pagez.getBeanMgr().get("ResearcherSurveyDetail02textbox")).getQuestion()%>" id="question" required="true">
                 <f:validateLength minimum="3" maximum="254"></f:validateLength>
             </h:inputText>
-        </h:panelGroup>
-        <h:panelGroup>
+        </td>
+        <td valign="top">
             <h:message for="question" styleClass="RED"></h:message>
-        </h:panelGroup>
+        </td>
 
 
-        <h:panelGroup>
+        <td valign="top">
             <h:outputText value="Is Required?" styleClass="formfieldnamefont"></h:outputText>
-        </h:panelGroup>
-        <h:panelGroup>
-            <h:selectBooleanCheckbox value="#{researcherSurveyDetail02textbox.isrequired}" id="isrequired" required="true"></h:selectBooleanCheckbox>
-        </h:panelGroup>
-        <h:panelGroup>
+        </td>
+        <td valign="top">
+            <h:selectBooleanCheckbox value="<%=((ResearcherSurveyDetail02textbox)Pagez.getBeanMgr().get("ResearcherSurveyDetail02textbox")).getIsrequired()%>" id="isrequired" required="true"></h:selectBooleanCheckbox>
+        </td>
+        <td valign="top">
             <h:message for="isrequired" styleClass="RED"></h:message>
-        </h:panelGroup>
+        </td>
 
 
 
 
-        <h:panelGroup>
-        </h:panelGroup>
-        <h:panelGroup>
-            <h:commandButton action="#{researcherSurveyDetail02textbox.saveQuestion}" value="Save Question and Continue" styleClass="formsubmitbutton"></h:commandButton>
-            <br/><br/><h:commandLink value="Nevermind, Take me Back" styleClass="tinyfont" action="#{researcherSurveyDetail02.beginView}" immediate="true"/>
-        </h:panelGroup>
-        <h:panelGroup>
-        </h:panelGroup>
+        <td valign="top">
+        </td>
+        <td valign="top">
+            <h:commandButton action="<%=((ResearcherSurveyDetail02textbox)Pagez.getBeanMgr().get("ResearcherSurveyDetail02textbox")).getSaveQuestion()%>" value="Save Question and Continue" styleClass="formsubmitbutton"></h:commandButton>
+            <br/><br/><h:commandLink value="Nevermind, Take me Back" styleClass="tinyfont" action="<%=((ResearcherSurveyDetail02)Pagez.getBeanMgr().get("ResearcherSurveyDetail02")).getBeginView()%>" immediate="true"/>
+        </td>
+        <td valign="top">
+        </td>
 
-    </h:panelGrid>
+    </table>
 
     <!-- End Bottom -->
 

@@ -19,7 +19,7 @@ String acl = "public";
                 <font class="mediumfont">The survey you've selected isn't available.  It may not have launched yet.  Or it may be closed.</font>
                 <br/><br/>
                 <div class="rounded" style="background: #e6e6e6; text-align: center;">
-                    <h:commandLink value="Find Surveys to Take" action="#{publicSurveyList.beginView}" style="padding-left: 15px; color: #0000ff;" styleClass="mediumfont"/>
+                    <h:commandLink value="Find Surveys to Take" action="<%=((PublicSurveyList)Pagez.getBeanMgr().get("PublicSurveyList")).getBeginView()%>" style="padding-left: 15px; color: #0000ff;" styleClass="mediumfont"/>
                 </div>
             </center>
         </div>

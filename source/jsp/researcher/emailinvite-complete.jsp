@@ -10,18 +10,18 @@ String acl = "researcher";
 
 
 
-        <font class="formfieldnamefont">Survey to invite people to: #{researcherEmailinviteComplete.survey.title}</font>
+        <font class="formfieldnamefont">Survey to invite people to: <%=((ResearcherEmailinviteComplete)Pagez.getBeanMgr().get("ResearcherEmailinviteComplete")).getSurvey().getTitle()%></font>
 
         <br/><br/>
-        <font class="formfieldnamefont">Valid email addresses: #{researcherEmailinviteComplete.numberofrecipients}</font>
+        <font class="formfieldnamefont">Valid email addresses: <%=((ResearcherEmailinviteComplete)Pagez.getBeanMgr().get("ResearcherEmailinviteComplete")).getNumberofrecipients()%></font>
 
         <br/><br/>
         <font class="formfieldnamefont">List of email addresses: (read-only)</font>
         <br/>
-        <f:verbatim>#{researcherEmailinviteComplete.emailaddresslisthtml}</f:verbatim>
+        <f:verbatim><%=((ResearcherEmailinviteComplete)Pagez.getBeanMgr().get("ResearcherEmailinviteComplete")).getEmailaddresslisthtml()%></f:verbatim>
 
         <br/><br/>
-        <h:commandButton action="#{researcherEmailinviteComplete.complete}" value="Send Invites" styleClass="formsubmitbutton"></h:commandButton>
+        <h:commandButton action="<%=((ResearcherEmailinviteComplete)Pagez.getBeanMgr().get("ResearcherEmailinviteComplete")).getComplete()%>" value="Send Invites" styleClass="formsubmitbutton"></h:commandButton>
 
 
 

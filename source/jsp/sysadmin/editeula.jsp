@@ -17,41 +17,41 @@ String acl = "sysadmin";
 
 
             <h:messages styleClass="RED"/>
-            <h:panelGrid columns="1" cellpadding="3" border="0">
+            <table cellpadding="0" cellspacing="0" border="0">
 
-                <h:panelGroup>
-                    <h:outputText value="Last Edited: ${sysadminEditEula.date}" styleClass="formfieldnamefont"></h:outputText>
-                </h:panelGroup>
-                <h:panelGroup>
-                    <h:outputText value="Eulaid: ${sysadminEditEula.eulaid}" styleClass="formfieldnamefont"></h:outputText>
-                </h:panelGroup>
-                <h:panelGroup>
-                </h:panelGroup>
+                <td valign="top">
+                    <h:outputText value="Last Edited: <%=((SysadminEditEula)Pagez.getBeanMgr().get("SysadminEditEula")).getDate()%>" styleClass="formfieldnamefont"></h:outputText>
+                </td>
+                <td valign="top">
+                    <h:outputText value="Eulaid: <%=((SysadminEditEula)Pagez.getBeanMgr().get("SysadminEditEula")).getEulaid()%>" styleClass="formfieldnamefont"></h:outputText>
+                </td>
+                <td valign="top">
+                </td>
             
 
-                <h:panelGroup>
-                </h:panelGroup>
-                <h:panelGroup>
-                    <h:inputTextarea value="#{sysadminEditEula.eula}" id="eula" cols="80" rows="25" required="true">
+                <td valign="top">
+                </td>
+                <td valign="top">
+                    <h:inputTextarea value="<%=((SysadminEditEula)Pagez.getBeanMgr().get("SysadminEditEula")).getEula()%>" id="eula" cols="80" rows="25" required="true">
                     </h:inputTextarea>
-                </h:panelGroup>
-                <h:panelGroup>
+                </td>
+                <td valign="top">
                     <h:message for="eula" styleClass="RED"></h:message>
-                </h:panelGroup>
+                </td>
 
 
 
 
 
-                <h:panelGroup>
-                </h:panelGroup>
-                <h:panelGroup>
-                    <h:commandButton action="#{sysadminEditEula.edit}" value="Edit the EULA and Force All Users to Re-Accept" styleClass="formsubmitbutton"></h:commandButton>
-                </h:panelGroup>
-                <h:panelGroup>
-                </h:panelGroup>
+                <td valign="top">
+                </td>
+                <td valign="top">
+                    <h:commandButton action="<%=((SysadminEditEula)Pagez.getBeanMgr().get("SysadminEditEula")).getEdit()%>" value="Edit the EULA and Force All Users to Re-Accept" styleClass="formsubmitbutton"></h:commandButton>
+                </td>
+                <td valign="top">
+                </td>
 
-            </h:panelGrid>
+            </table>
 
 
 

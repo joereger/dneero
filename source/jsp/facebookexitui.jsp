@@ -8,7 +8,7 @@ String acl = "public";
 %>
 <%@ include file="/jsp/templates/header.jsp" %>
 
-            <a href="#{baseUrl.includinghttp}">Please click here to continue.</a>
+            <a href="<%=((BaseUrl)Pagez.getBeanMgr().get("BaseUrl")).getIncludinghttp()%>">Please click here to continue.</a>
 
 
 <%@ include file="/jsp/templates/footer.jsp" %>

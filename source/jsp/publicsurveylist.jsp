@@ -10,7 +10,7 @@ String acl = "public";
 
 
 
-    <c:if test="#{userSession.isfacebookui and publicSurveyList.facebookjustaddedapp}">
+    <% if ("#{userSession.isfacebookui and publicSurveyList.facebookjustaddedapp}){ %>
         <!--/*
           *
           *  If this tag is being served on a secure (SSL) page, you must replace
@@ -24,8 +24,8 @@ String acl = "public";
           *  Place this code at the top of your post-add URL page, just after the <body> tag.
           *
           */-->
-        <div id='m3_tracker_4' style='position: absolute; left: 0px; top: 0px; visibility: hidden;'><img src=' http://www.trianads.com/adserver/www/delivery/ti.php?trackerid=4&amp;cb=#{publicSurveyList.rndstr}' width='0' height='0' alt='' /></div> 
-    </c:if>
+        <div id='m3_tracker_4' style='position: absolute; left: 0px; top: 0px; visibility: hidden;'><img src=' http://www.trianads.com/adserver/www/delivery/ti.php?trackerid=4&amp;cb=<%=((PublicSurveyList)Pagez.getBeanMgr().get("PublicSurveyList")).getRndstr()%>' width='0' height='0' alt='' /></div> 
+    <% } %>
 
 
     <table cellpadding="0" border="0" width="100%">
@@ -36,7 +36,7 @@ String acl = "public";
                 <!--<t:saveState id="save" value="#{publicSurveyList}"/>-->
                 <h:outputText value="There are currently no surveys listed.  Please check back soon as we're always adding new ones!" styleClass="mediumfont" rendered="#{empty publicSurveyList.surveys}"/>
 
-                <t:dataTable sortable="true" id="datatable" value="#{publicSurveyList.surveys}" rows="100" var="srvy" rendered="#{!empty publicSurveyList.surveys}" styleClass="dataTable" headerClass="" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcol,tcolnowrap,tcol,tcolnowrap,tcolnowrap">
+                <t:dataTable sortable="true" id="datatable" value="<%=((PublicSurveyList)Pagez.getBeanMgr().get("PublicSurveyList")).getSurveys()%>" rows="100" var="srvy" rendered="#{!empty publicSurveyList.surveys}" styleClass="dataTable" headerClass="" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcol,tcolnowrap,tcol,tcolnowrap,tcolnowrap">
                   <t:column>
                     <f:facet name="header">
                         <h:outputText value=""/>
@@ -45,20 +45,20 @@ String acl = "public";
                         <table cellpadding="0" border="0" width="100%">
                             <tr>
                                 <td>
-                                    <h:outputLink value="/survey.jsf?surveyid=#{srvy.surveyid}" style="text-decoration: none;">
-                                        <h:outputText value="#{srvy.title}" styleClass="normalfont" style="font-weight: bold; color: #0000ff;"/>
+                                    <h:outputLink value="/survey.jsf?surveyid=<%=((Srvy)Pagez.getBeanMgr().get("Srvy")).getSurveyid()%>" style="text-decoration: none;">
+                                        <h:outputText value="<%=((Srvy)Pagez.getBeanMgr().get("Srvy")).getTitle()%>" styleClass="normalfont" style="font-weight: bold; color: #0000ff;"/>
                                     </h:outputLink><br/>
-                                    <h:outputText value="#{srvy.description}" escape="false" styleClass="tinyfont"/><br/><br/>
-                                    <font class="tinyfont"><b>#{srvy.daysuntilend}</b></font>
+                                    <h:outputText value="<%=((Srvy)Pagez.getBeanMgr().get("Srvy")).getDescription()%>" escape="false" styleClass="tinyfont"/><br/><br/>
+                                    <font class="tinyfont"><b><%=((Srvy)Pagez.getBeanMgr().get("Srvy")).getDaysuntilend()%></b></font>
                                 </td>
                                 <td width="25%">
                                     <div class="rounded" style="background: #ffffff; padding: 10px;">
                                         <center>
                                             <font class="tinyfont"><b>Earn Up To</b></font><br/>
-                                            <font class="mediumfont">#{srvy.maxearning}</font>
-                                            <c:if test="#{srvy.ischarityonly}">
+                                            <font class="mediumfont"><%=((Srvy)Pagez.getBeanMgr().get("Srvy")).getMaxearning()%></font>
+                                            <% if ("<%=((Srvy)Pagez.getBeanMgr().get("Srvy")).getIscharityonly()%>){ %>
                                                 <br/><font class="tinyfont"><b>for charity</b></font>
-                                            </c:if>
+                                            <% } %>
                                         </center>
                                     </div>
                                 </td>
@@ -86,63 +86,63 @@ String acl = "public";
 
             </td>
 
-            <c:if test="#{userSession.isfacebookui}">
+            <% if ("<%=((UserSession)Pagez.getBeanMgr().get("UserSession")).getIsfacebookui()%>){ %>
                 <td valign="top" width="50%" style="padding-top: 6px;">
                     <div class="rounded" style="background: #e6e6e6; padding: 10px;">
-                        <c:if test="#{1 eq 1 or userSession.isloggedin}">
+                        <% if ("#{1 eq 1 or userSession.isloggedin}){ %>
                             <div class="rounded" style="background: #ffffff; padding: 10px;">
                                 <font class="formfieldnamefont" style="color: #666666;">Current Balance:</font>
-                                <br/><font class="largefont" style="color: #cccccc;">#{publicSurveyList.accountBalance.currentbalance}</font>
-                                <c:if test="#{!empty publicSurveyList.accountBalance}">
-                                    <c:if test="#{publicSurveyList.accountBalance.pendingearningsDbl gt 0}">
-                                        <br/><h:commandLink value="Pending: #{publicSurveyList.accountBalance.pendingearnings}" action="#{bloggerCompletedsurveys.beginView}" styleClass="formfieldnamefont" style="color: #0000ff;" rendered="#{userSession.isloggedin and (userSession.user.bloggerid gt 0)}"/>
-                                    </c:if>
-                                </c:if>
+                                <br/><font class="largefont" style="color: #cccccc;"><%=((PublicSurveyList)Pagez.getBeanMgr().get("PublicSurveyList")).getAccountBalance().getCurrentbalance()%></font>
+                                <% if ("#{!empty publicSurveyList.accountBalance}){ %>
+                                    <% if ("#{publicSurveyList.accountBalance.pendingearningsDbl gt 0}){ %>
+                                        <br/><h:commandLink value="Pending: <%=((PublicSurveyList)Pagez.getBeanMgr().get("PublicSurveyList")).getAccountBalance().getPendingearnings()%>" action="<%=((BloggerCompletedsurveys)Pagez.getBeanMgr().get("BloggerCompletedsurveys")).getBeginView()%>" styleClass="formfieldnamefont" style="color: #0000ff;" rendered="#{userSession.isloggedin and (userSession.user.bloggerid gt 0)}"/>
+                                    <% } %>
+                                <% } %>
                                 <br/><font class="tinyfont" style="color: #666666; font-weight: bold;">(yes, we're talking real world money here)</font>
                             </div>
                             <br/><br/>
-                        </c:if>
+                        <% } %>
 
 
 
 
                         <font class="mediumfont">Surveys Friends Have Taken:</font><br/>
-                        <c:if test="${empty publicSurveyList.facebookSurveyThatsBeenTakens}">
+                        <% if ("${empty publicSurveyList.facebookSurveyThatsBeenTakens}){ %>
                             <font class="tinyfont">Your friends haven't taken any surveys yet.</font>
-                        </c:if>
-                        <c:forEach var="surveyfriendstook" items="${publicSurveyList.facebookSurveyThatsBeenTakens}">
-                            <h:outputLink value="/survey.jsf?surveyid=#{surveyfriendstook.survey.surveyid}" styleClass="normalfont" style="font-weight: bold; color: #0000ff;"><h:outputText>#{surveyfriendstook.survey.title}</h:outputText></h:outputLink><br/>
+                        <% } %>
+                        <c:forEach var="surveyfriendstook" items="<%=((PublicSurveyList)Pagez.getBeanMgr().get("PublicSurveyList")).getFacebookSurveyThatsBeenTakens()%>">
+                            <h:outputLink value="/survey.jsf?surveyid=<%=((Surveyfriendstook)Pagez.getBeanMgr().get("Surveyfriendstook")).getSurvey().getSurveyid()%>" styleClass="normalfont" style="font-weight: bold; color: #0000ff;"><h:outputText><%=((Surveyfriendstook)Pagez.getBeanMgr().get("Surveyfriendstook")).getSurvey().getTitle()%></h:outputText></h:outputLink><br/>
                             <font class="smallfont">
                                 How they answered:
-                                <c:forEach var="friendwhotook" items="${surveyfriendstook.facebookSurveyTakers}">
-                                    <h:outputLink value="/survey.jsf?surveyid=#{surveyfriendstook.survey.surveyid}&amp;userid=#{friendwhotook.userid}&amp;responseid=#{friendwhotook.responseid}" styleClass="smallfont" style="color: #0000ff;"><h:outputText>#{friendwhotook.facebookUser.first_name} #{friendwhotook.facebookUser.last_name}</h:outputText></h:outputLink>
+                                <c:forEach var="friendwhotook" items="<%=((Surveyfriendstook)Pagez.getBeanMgr().get("Surveyfriendstook")).getFacebookSurveyTakers()%>">
+                                    <h:outputLink value="/survey.jsf?surveyid=<%=((Surveyfriendstook)Pagez.getBeanMgr().get("Surveyfriendstook")).getSurvey().getSurveyid()%>&amp;userid=<%=((Friendwhotook)Pagez.getBeanMgr().get("Friendwhotook")).getUserid()%>&amp;responseid=<%=((Friendwhotook)Pagez.getBeanMgr().get("Friendwhotook")).getResponseid()%>" styleClass="smallfont" style="color: #0000ff;"><h:outputText><%=((Friendwhotook)Pagez.getBeanMgr().get("Friendwhotook")).getFacebookUser().getFirst_name()%> <%=((Friendwhotook)Pagez.getBeanMgr().get("Friendwhotook")).getFacebookUser().getLast_name()%></h:outputText></h:outputLink>
                                 </c:forEach>
                             </font><br/><br/>
                         </c:forEach>
 
                         <br/><br/>
                         <font class="mediumfont">Friends on dNeero:</font><br/>
-                        <c:if test="${empty publicSurveyList.facebookuserswhoaddedapp}">
+                        <% if ("${empty publicSurveyList.facebookuserswhoaddedapp}){ %>
                             <font class="tinyfont">None, yet.</font><br/>
-                        </c:if>
-                        <h:panelGrid columns="4" cellpadding="2" border="0">
-                            <c:forEach var="fbuser" items="${publicSurveyList.facebookuserswhoaddedapp}">
-                                <h:panelGroup>
-                                    <img src="#{fbuser.facebookUser.pic_square}" width="50" height="50" border="0" align="middle" alt=""/><br/>
-                                    <font class="tinyfont" style="font-weight: bold;">#{fbuser.facebookUser.first_name} #{fbuser.facebookUser.last_name}</font><br/><br/>
-                                </h:panelGroup>
+                        <% } %>
+                        <table cellpadding="0" cellspacing="0" border="0">
+                            <c:forEach var="fbuser" items="<%=((PublicSurveyList)Pagez.getBeanMgr().get("PublicSurveyList")).getFacebookuserswhoaddedapp()%>">
+                                <td valign="top">
+                                    <img src="<%=((Fbuser)Pagez.getBeanMgr().get("Fbuser")).getFacebookUser().getPic_square()%>" width="50" height="50" border="0" align="middle" alt=""/><br/>
+                                    <font class="tinyfont" style="font-weight: bold;"><%=((Fbuser)Pagez.getBeanMgr().get("Fbuser")).getFacebookUser().getFirst_name()%> <%=((Fbuser)Pagez.getBeanMgr().get("Fbuser")).getFacebookUser().getLast_name()%></font><br/><br/>
+                                </td>
                             </c:forEach>
-                        </h:panelGrid>
+                        </table>
                         <br/>
-                        <center><a href="#{publicSurveyList.invitefriendsurl}" target="top"><font class="normalfont" style="font-weight: bold; color: #0000ff;">Invite Friends Who Aren't On dNeero</font></a></center>
+                        <center><a href="<%=((PublicSurveyList)Pagez.getBeanMgr().get("PublicSurveyList")).getInvitefriendsurl()%>" target="top"><font class="normalfont" style="font-weight: bold; color: #0000ff;">Invite Friends Who Aren't On dNeero</font></a></center>
                         <br/><br/>
                         <!--
                         <font class="mediumfont">Tell Friends Who Aren't Yet Using dNeero:</font><br/>
-                        <h:commandButton action="#{publicSurveyList.tellFriends}" value="Tell Friends" styleClass="formsubmitbutton"/>
+                        <h:commandButton action="<%=((PublicSurveyList)Pagez.getBeanMgr().get("PublicSurveyList")).getTellFriends()%>" value="Tell Friends" styleClass="formsubmitbutton"/>
                         -->
                     </div>
                 </td>
-            </c:if>
+            <% } %>
 
         </tr>
     </table>

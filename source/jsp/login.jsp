@@ -10,56 +10,56 @@ String acl = "public";
 
 
             <h:messages styleClass="RED"/>
-            <h:panelGrid columns="3" cellpadding="3" border="0">
+            <table cellpadding="0" cellspacing="0" border="0">
 
-                <h:panelGroup>
+                <td valign="top">
                     <h:outputText value="Email" styleClass="formfieldnamefont"></h:outputText>
-                </h:panelGroup>
-                <h:panelGroup>
-                    <h:inputText value="#{login.email}" id="email" required="true">
+                </td>
+                <td valign="top">
+                    <h:inputText value="<%=((Login)Pagez.getBeanMgr().get("Login")).getEmail()%>" id="email" required="true">
                         <f:validateLength minimum="3" maximum="255"></f:validateLength>
                     </h:inputText>
-                </h:panelGroup>
-                <h:panelGroup>
+                </td>
+                <td valign="top">
                     <h:message for="email" styleClass="RED"></h:message>
-                </h:panelGroup>
+                </td>
 
 
-                <h:panelGroup>
+                <td valign="top">
                     <h:outputText value="Password" styleClass="formfieldnamefont"></h:outputText>
-                </h:panelGroup>
-                <h:panelGroup>
-                    <h:inputSecret value="#{login.password}" id="password" required="true">
+                </td>
+                <td valign="top">
+                    <h:inputSecret value="<%=((Login)Pagez.getBeanMgr().get("Login")).getPassword()%>" id="password" required="true">
                         <f:validateLength minimum="3" maximum="255"></f:validateLength>
                     </h:inputSecret>
                     <f:verbatim><br/></f:verbatim>
-                    <h:commandLink value="Lost your password?" action="#{lostPassword.beginView}" immediate="true" styleClass="tinyfont" style="color: #000000;"/>
-                </h:panelGroup>
-                <h:panelGroup>
+                    <h:commandLink value="Lost your password?" action="<%=((LostPassword)Pagez.getBeanMgr().get("LostPassword")).getBeginView()%>" immediate="true" styleClass="tinyfont" style="color: #000000;"/>
+                </td>
+                <td valign="top">
                     <h:message for="password" styleClass="RED"></h:message>
-                </h:panelGroup>
+                </td>
 
-                <h:panelGroup>
-                </h:panelGroup>
-                <h:panelGroup>
-                    <h:selectBooleanCheckbox value="#{login.keepmeloggedin}" id="keepmeloggedin"></h:selectBooleanCheckbox>
+                <td valign="top">
+                </td>
+                <td valign="top">
+                    <h:selectBooleanCheckbox value="<%=((Login)Pagez.getBeanMgr().get("Login")).getKeepmeloggedin()%>" id="keepmeloggedin"></h:selectBooleanCheckbox>
                     <font class="formfieldnamefont">Stay Logged In?</font>
-                </h:panelGroup>
-                <h:panelGroup>
+                </td>
+                <td valign="top">
                     <h:message for="keepmeloggedin" styleClass="RED"></h:message>
-                </h:panelGroup>
+                </td>
 
 
-                <h:panelGroup>
-                </h:panelGroup>
-                <h:panelGroup>
-                    <h:commandButton action="#{login.login}" value="Log In" styleClass="formsubmitbutton"></h:commandButton>
-                </h:panelGroup>
-                <h:panelGroup>
-                </h:panelGroup>
+                <td valign="top">
+                </td>
+                <td valign="top">
+                    <h:commandButton action="<%=((Login)Pagez.getBeanMgr().get("Login")).getLogin()%>" value="Log In" styleClass="formsubmitbutton"></h:commandButton>
+                </td>
+                <td valign="top">
+                </td>
 
 
-            </h:panelGrid>
+            </table>
 
 
 <%@ include file="/jsp/templates/footer.jsp" %>

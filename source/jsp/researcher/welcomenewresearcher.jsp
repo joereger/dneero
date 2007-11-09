@@ -12,7 +12,7 @@ String acl = "researcher";
 
             <font class="smallfont">Your researcher profile is created and ready to roll.  In the future you'll be able to skip this step.</font>
             <br/><br/>
-            <h:commandLink value="Click Here to Continue" action="#{researcherIndex.beginView}" style="color: #0000ff;" styleClass="mediumfont"/>
+            <h:commandLink value="Click Here to Continue" action="<%=((ResearcherIndex)Pagez.getBeanMgr().get("ResearcherIndex")).getBeginView()%>" style="color: #0000ff;" styleClass="mediumfont"/>
 
 
 <%@ include file="/jsp/templates/footer.jsp" %>

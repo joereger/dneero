@@ -11,7 +11,7 @@ String acl = "public";
 
     <t:div rendered="#{publicProfile.msg ne '' and publicProfile.msg ne null}">
         <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
-        #{publicProfile.msg}
+        <%=((PublicProfile)Pagez.getBeanMgr().get("PublicProfile")).getMsg()%>
         </font></div></center>
         <br/><br/>
     </t:div>
@@ -30,9 +30,9 @@ String acl = "public";
                                 <h:outputText value="Social Influence Rating (TM)" styleClass="formfieldnamefont"></h:outputText>
                             </td>
                             <td valign="top" width="50%">
-                                <h:outputText value="#{publicProfile.blogger.socialinfluencerating}" styleClass="smallfont"></h:outputText>
+                                <h:outputText value="<%=((PublicProfile)Pagez.getBeanMgr().get("PublicProfile")).getBlogger().getSocialinfluencerating()%>" styleClass="smallfont"></h:outputText>
                                 <br/>
-                                <h:outputText value="(Top #{publicProfile.socialinfluenceratingpercentile}%)" styleClass="smallfont"></h:outputText>
+                                <h:outputText value="(Top <%=((PublicProfile)Pagez.getBeanMgr().get("PublicProfile")).getSocialinfluenceratingpercentile()%>%)" styleClass="smallfont"></h:outputText>
                             </td>
                         </tr>
                         <tr>
@@ -40,7 +40,7 @@ String acl = "public";
                                 <h:outputText value="Amt Earned for Charity" styleClass="formfieldnamefont"></h:outputText>
                             </td>
                             <td valign="top" width="50%">
-                                <h:outputText value="#{publicProfile.charityamtdonatedForscreen}" styleClass="smallfont"></h:outputText>
+                                <h:outputText value="<%=((PublicProfile)Pagez.getBeanMgr().get("PublicProfile")).getCharityamtdonatedForscreen()%>" styleClass="smallfont"></h:outputText>
                             </td>
                         </tr>
                     </table>
@@ -57,24 +57,24 @@ String acl = "public";
 
         <t:saveState id="save" value="#{publicProfile}"/>
         <t:dataScroller for="datatable1" maxPages="5"/>
-        <t:dataTable id="datatable1" value="#{publicProfile.listitems}" rows="10" var="listitem" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcol,tcolnowrap,tcol,tcolnowrap,tcolnowrap">
+        <t:dataTable id="datatable1" value="<%=((PublicProfile)Pagez.getBeanMgr().get("PublicProfile")).getListitems()%>" rows="10" var="listitem" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcol,tcolnowrap,tcol,tcolnowrap,tcolnowrap">
           <h:column>
             <f:facet name="header">
               <h:outputText value="Date"/>
             </f:facet>
-              <h:outputText value="#{listitem.response.responsedate}" styleClass="tinyfont"><f:convertDateTime type="both" dateStyle="short" timeStyle="medium"/></h:outputText>
+              <h:outputText value="<%=((Listitem)Pagez.getBeanMgr().get("Listitem")).getResponse().getResponsedate()%>" styleClass="tinyfont"><f:convertDateTime type="both" dateStyle="short" timeStyle="medium"/></h:outputText>
           </h:column>
           <h:column>
             <f:facet name="header">
               <h:outputText value="Survey Title"/>
             </f:facet>
-            <h:outputText value="#{listitem.survey.title}" styleClass="normalfont"/>
+            <h:outputText value="<%=((Listitem)Pagez.getBeanMgr().get("Listitem")).getSurvey().getTitle()%>" styleClass="normalfont"/>
           </h:column>
           <h:column>
                 <f:facet name="header">
                   <h:outputText value="-" style="color: #ffffff;"/>
                 </f:facet>
-                <h:outputLink value="/survey.jsf?u=#{publicProfile.user.userid}&amp;s=#{listitem.survey.surveyid}&amp;p=0&amp;r=#{listitem.response.responseid}">
+                <h:outputLink value="/survey.jsf?u=<%=((PublicProfile)Pagez.getBeanMgr().get("PublicProfile")).getUser().getUserid()%>&amp;s=<%=((Listitem)Pagez.getBeanMgr().get("Listitem")).getSurvey().getSurveyid()%>&amp;p=0&amp;r=<%=((Listitem)Pagez.getBeanMgr().get("Listitem")).getResponse().getResponseid()%>">
                     <h:outputText value="Answers" styleClass="smallfont"/>
                 </h:outputLink>
               </h:column>
@@ -82,9 +82,9 @@ String acl = "public";
                 <f:facet name="header">
                   <h:outputText value="-" style="color: #ffffff;"/>
                 </f:facet>
-                <h:commandLink action="#{publicProfileImpressions.beginView}">
+                <h:commandLink action="<%=((PublicProfileImpressions)Pagez.getBeanMgr().get("PublicProfileImpressions")).getBeginView()%>">
                     <h:outputText value="Impressions" escape="false" styleClass="smallfont"/>
-                    <f:param name="responseid" value="#{listitem.response.responseid}" />
+                    <f:param name="responseid" value="<%=((Listitem)Pagez.getBeanMgr().get("Listitem")).getResponse().getResponseid()%>" />
                 </h:commandLink>
               </h:column>
          </t:dataTable>
@@ -105,18 +105,18 @@ String acl = "public";
 
 
 
-        <c:if test="#{userSession.isloggedin and (userSession.user.researcherid gt 0)}">
+        <% if ("#{userSession.isloggedin and (userSession.user.researcherid gt 0)}){ %>
             <br/><br/>
             <font class="mediumfont" style="color: #cccccc;">Panel Membership</font>
             <br/>
             <t:saveState id="save" value="#{publicProfile}"/>
             <t:dataScroller for="datatable3" maxPages="5"/>
-            <t:dataTable id="datatable3" value="#{publicProfile.panels}" rows="10" var="panel" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcol,tcolnowrap,tcol,tcolnowrap,tcolnowrap">
+            <t:dataTable id="datatable3" value="<%=((PublicProfile)Pagez.getBeanMgr().get("PublicProfile")).getPanels()%>" rows="10" var="panel" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcol,tcolnowrap,tcol,tcolnowrap,tcolnowrap">
               <h:column>
                 <f:facet name="header">
                   <h:outputText value="Panel Name"/>
                 </f:facet>
-                <h:outputText value="#{panel.name}" styleClass="normalfont"/>
+                <h:outputText value="<%=((Panel)Pagez.getBeanMgr().get("Panel")).getName()%>" styleClass="normalfont"/>
               </h:column>
             </t:dataTable>
             <t:dataScroller id="scroll_3" for="datatable3" fastStep="10" pageCountVar="pageCount" pageIndexVar="pageIndex" styleClass="scroller" paginator="true" paginatorMaxPages="9" paginatorTableClass="paginator" paginatorActiveColumnStyle="font-weight:bold;">
@@ -136,11 +136,11 @@ String acl = "public";
 
             <br/><br/>
 
-            <h:selectOneMenu value="#{publicProfile.panelid}" id="panelid" required="true" rendered="#{!empty publicProfile.panelids}">
-               <f:selectItems value="#{publicProfile.panelids}"/>
+            <h:selectOneMenu value="<%=((PublicProfile)Pagez.getBeanMgr().get("PublicProfile")).getPanelid()%>" id="panelid" required="true" rendered="#{!empty publicProfile.panelids}">
+               <f:selectItems value="<%=((PublicProfile)Pagez.getBeanMgr().get("PublicProfile")).getPanelids()%>"/>
             </h:selectOneMenu>
-            <h:commandButton action="#{publicProfile.addToPanel}" value="Add Blogger Panel" styleClass="formsubmitbutton"></h:commandButton>
-        </c:if>
+            <h:commandButton action="<%=((PublicProfile)Pagez.getBeanMgr().get("PublicProfile")).getAddToPanel()%>" value="Add Blogger Panel" styleClass="formsubmitbutton"></h:commandButton>
+        <% } %>
 
     
 

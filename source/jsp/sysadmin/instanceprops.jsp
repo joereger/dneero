@@ -11,162 +11,162 @@ String acl = "sysadmin";
 
 
             <h:messages styleClass="RED"/>
-            <h:panelGrid columns="3" cellpadding="3" border="0">
+            <table cellpadding="0" cellspacing="0" border="0">
 
-                <h:panelGroup>
+                <td valign="top">
                     <h:outputText value="Instance Name" styleClass="formfieldnamefont"></h:outputText>
                     <br/>
                     <font class="tinyfont"></font>
-                </h:panelGroup>
-                <h:panelGroup>
-                    <h:inputText value="#{sysadminInstanceProps.instancename}" id="instancename" required="true">
+                </td>
+                <td valign="top">
+                    <h:inputText value="<%=((SysadminInstanceProps)Pagez.getBeanMgr().get("SysadminInstanceProps")).getInstancename()%>" id="instancename" required="true">
                         <f:validateLength maximum="255"></f:validateLength>
                     </h:inputText>
-                </h:panelGroup>
-                <h:panelGroup>
+                </td>
+                <td valign="top">
                     <h:message for="instancename" styleClass="RED"></h:message>
-                </h:panelGroup>
+                </td>
 
-                <h:panelGroup>
+                <td valign="top">
                     <h:outputText value="dbConnectionUrl" styleClass="formfieldnamefont"></h:outputText>
                     <br/>
                     <font class="tinyfont"></font>
-                </h:panelGroup>
-                <h:panelGroup>
-                    <h:inputText value="#{sysadminInstanceProps.dbConnectionUrl}" id="dbConnectionUrl" required="true">
+                </td>
+                <td valign="top">
+                    <h:inputText value="<%=((SysadminInstanceProps)Pagez.getBeanMgr().get("SysadminInstanceProps")).getDbConnectionUrl()%>" id="dbConnectionUrl" required="true">
                         <f:validateLength maximum="255"></f:validateLength>
                     </h:inputText>
-                </h:panelGroup>
-                <h:panelGroup>
+                </td>
+                <td valign="top">
                     <h:message for="dbConnectionUrl" styleClass="RED"></h:message>
-                </h:panelGroup>
+                </td>
 
-                <h:panelGroup>
+                <td valign="top">
                     <h:outputText value="dbUsername" styleClass="formfieldnamefont"></h:outputText>
                     <br/>
                     <font class="tinyfont"></font>
-                </h:panelGroup>
-                <h:panelGroup>
-                    <h:inputText value="#{sysadminInstanceProps.dbUsername}" id="dbUsername" required="true">
+                </td>
+                <td valign="top">
+                    <h:inputText value="<%=((SysadminInstanceProps)Pagez.getBeanMgr().get("SysadminInstanceProps")).getDbUsername()%>" id="dbUsername" required="true">
                         <f:validateLength maximum="255"></f:validateLength>
                     </h:inputText>
-                </h:panelGroup>
-                <h:panelGroup>
+                </td>
+                <td valign="top">
                     <h:message for="dbUsername" styleClass="RED"></h:message>
-                </h:panelGroup>
+                </td>
 
 
-                <h:panelGroup>
+                <td valign="top">
                     <h:outputText value="dbPassword" styleClass="formfieldnamefont"></h:outputText>
                     <br/>
                     <font class="tinyfont"></font>
-                </h:panelGroup>
-                <h:panelGroup>
-                    <h:inputText value="#{sysadminInstanceProps.dbPassword}" id="dbPassword" required="true">
+                </td>
+                <td valign="top">
+                    <h:inputText value="<%=((SysadminInstanceProps)Pagez.getBeanMgr().get("SysadminInstanceProps")).getDbPassword()%>" id="dbPassword" required="true">
                         <f:validateLength maximum="255"></f:validateLength>
                     </h:inputText>
-                </h:panelGroup>
-                <h:panelGroup>
+                </td>
+                <td valign="top">
                     <h:message for="dbPassword" styleClass="RED"></h:message>
-                </h:panelGroup>
+                </td>
 
 
-                <h:panelGroup>
+                <td valign="top">
                     <h:outputText value="dbMaxActive" styleClass="formfieldnamefont"></h:outputText>
                     <br/>
                     <font class="tinyfont"></font>
-                </h:panelGroup>
-                <h:panelGroup>
-                    <h:inputText value="#{sysadminInstanceProps.dbMaxActive}" id="dbMaxActive" required="true">
+                </td>
+                <td valign="top">
+                    <h:inputText value="<%=((SysadminInstanceProps)Pagez.getBeanMgr().get("SysadminInstanceProps")).getDbMaxActive()%>" id="dbMaxActive" required="true">
                         <f:validateLength maximum="255"></f:validateLength>
                     </h:inputText>
-                </h:panelGroup>
-                <h:panelGroup>
+                </td>
+                <td valign="top">
                     <h:message for="dbMaxActive" styleClass="RED"></h:message>
-                </h:panelGroup>
+                </td>
                 
-                <h:panelGroup>
+                <td valign="top">
                     <h:outputText value="dbMaxIdle" styleClass="formfieldnamefont"></h:outputText>
                     <br/>
                     <font class="tinyfont"></font>
-                </h:panelGroup>
-                <h:panelGroup>
-                    <h:inputText value="#{sysadminInstanceProps.dbMaxIdle}" id="dbMaxIdle" required="true">
+                </td>
+                <td valign="top">
+                    <h:inputText value="<%=((SysadminInstanceProps)Pagez.getBeanMgr().get("SysadminInstanceProps")).getDbMaxIdle()%>" id="dbMaxIdle" required="true">
                         <f:validateLength maximum="255"></f:validateLength>
                     </h:inputText>
-                </h:panelGroup>
-                <h:panelGroup>
+                </td>
+                <td valign="top">
                     <h:message for="dbMaxIdle" styleClass="RED"></h:message>
-                </h:panelGroup>
+                </td>
 
-                <h:panelGroup>
+                <td valign="top">
                     <h:outputText value="dbMinIdle" styleClass="formfieldnamefont"></h:outputText>
                     <br/>
                     <font class="tinyfont"></font>
-                </h:panelGroup>
-                <h:panelGroup>
-                    <h:inputText value="#{sysadminInstanceProps.dbMinIdle}" id="dbMinIdle" required="true">
+                </td>
+                <td valign="top">
+                    <h:inputText value="<%=((SysadminInstanceProps)Pagez.getBeanMgr().get("SysadminInstanceProps")).getDbMinIdle()%>" id="dbMinIdle" required="true">
                         <f:validateLength maximum="255"></f:validateLength>
                     </h:inputText>
-                </h:panelGroup>
-                <h:panelGroup>
+                </td>
+                <td valign="top">
                     <h:message for="dbMinIdle" styleClass="RED"></h:message>
-                </h:panelGroup>
+                </td>
 
-                <h:panelGroup>
+                <td valign="top">
                     <h:outputText value="dbMaxWait" styleClass="formfieldnamefont"></h:outputText>
                     <br/>
                     <font class="tinyfont"></font>
-                </h:panelGroup>
-                <h:panelGroup>
-                    <h:inputText value="#{sysadminInstanceProps.dbMaxWait}" id="dbMaxWait" required="true">
+                </td>
+                <td valign="top">
+                    <h:inputText value="<%=((SysadminInstanceProps)Pagez.getBeanMgr().get("SysadminInstanceProps")).getDbMaxWait()%>" id="dbMaxWait" required="true">
                         <f:validateLength maximum="255"></f:validateLength>
                     </h:inputText>
-                </h:panelGroup>
-                <h:panelGroup>
+                </td>
+                <td valign="top">
                     <h:message for="dbMaxWait" styleClass="RED"></h:message>
-                </h:panelGroup>
+                </td>
 
-                <h:panelGroup>
+                <td valign="top">
                     <h:outputText value="dbDriverName" styleClass="formfieldnamefont"></h:outputText>
                     <br/>
                     <font class="tinyfont"></font>
-                </h:panelGroup>
-                <h:panelGroup>
-                    <h:inputText value="#{sysadminInstanceProps.dbDriverName}" id="dbDriverName" required="true">
+                </td>
+                <td valign="top">
+                    <h:inputText value="<%=((SysadminInstanceProps)Pagez.getBeanMgr().get("SysadminInstanceProps")).getDbDriverName()%>" id="dbDriverName" required="true">
                         <f:validateLength maximum="255"></f:validateLength>
                     </h:inputText>
-                </h:panelGroup>
-                <h:panelGroup>
+                </td>
+                <td valign="top">
                     <h:message for="dbDriverName" styleClass="RED"></h:message>
-                </h:panelGroup>
+                </td>
 
-                <h:panelGroup>
+                <td valign="top">
                     <h:outputText value="runScheduledTasksOnThisInstance" styleClass="formfieldnamefont"></h:outputText>
                     <br/>
                     <font class="tinyfont">0 or 1</font>
-                </h:panelGroup>
-                <h:panelGroup>
-                    <h:inputText value="#{sysadminInstanceProps.runScheduledTasksOnThisInstance}" id="runScheduledTasksOnThisInstance" required="true">
+                </td>
+                <td valign="top">
+                    <h:inputText value="<%=((SysadminInstanceProps)Pagez.getBeanMgr().get("SysadminInstanceProps")).getRunScheduledTasksOnThisInstance()%>" id="runScheduledTasksOnThisInstance" required="true">
                         <f:validateLength maximum="255"></f:validateLength>
                     </h:inputText>
-                </h:panelGroup>
-                <h:panelGroup>
+                </td>
+                <td valign="top">
                     <h:message for="runScheduledTasksOnThisInstance" styleClass="RED"></h:message>
-                </h:panelGroup>
+                </td>
 
 
 
-                <h:panelGroup>
-                </h:panelGroup>
-                <h:panelGroup>
+                <td valign="top">
+                </td>
+                <td valign="top">
                     <br/><br/>
-                    <h:commandButton action="#{sysadminInstanceProps.saveProps}" value="Save Instance Props" styleClass="formsubmitbutton"></h:commandButton>
-                </h:panelGroup>
-                <h:panelGroup>
-                </h:panelGroup>
+                    <h:commandButton action="<%=((SysadminInstanceProps)Pagez.getBeanMgr().get("SysadminInstanceProps")).getSaveProps()%>" value="Save Instance Props" styleClass="formsubmitbutton"></h:commandButton>
+                </td>
+                <td valign="top">
+                </td>
 
-            </h:panelGrid>
+            </table>
 
 
 

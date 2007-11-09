@@ -12,7 +12,7 @@ String acl = "blogger";
 
             <font class="smallfont">With your profile and blog set up, you're ready to make some money!</font>
             <br/><br/>
-            <h:commandLink value="Click Here to Continue" action="#{bloggerIndex.beginView}" style="color: #0000ff;" styleClass="mediumfont"/>
+            <h:commandLink value="Click Here to Continue" action="<%=((BloggerIndex)Pagez.getBeanMgr().get("BloggerIndex")).getBeginView()%>" style="color: #0000ff;" styleClass="mediumfont"/>
 
 
 <%@ include file="/jsp/templates/footer.jsp" %>

@@ -3,7 +3,7 @@
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "<img src=\"/images/process-train-survey-02.gif\" align=\"right\" width=\"350\" height=\"73\" alt=\"\"></img>\n" +
-"        <h:outputText value=\"${researcherSurveyDetail02.title}\" styleClass=\"pagetitlefont\" rendered=\"${researcherSurveyDetail02.title ne ''}\"/>\n" +
+"        <h:outputText value=\"<%=((ResearcherSurveyDetail02)Pagez.getBeanMgr().get("ResearcherSurveyDetail02")).getTitle()%>\" styleClass=\"pagetitlefont\" rendered=\"${researcherSurveyDetail02.title ne ''}\"/>\n" +
 "        <br clear=\"all\"/>";
 String navtab = "researchers";
 String acl = "researcher";
@@ -25,7 +25,7 @@ String acl = "researcher";
 <ui:composition template="/template/template-facelets.xhtml">
     <ui:define name="title">
         <img src="/images/process-train-survey-02.gif" align="right" width="350" height="73" alt=""></img>
-        <h:outputText value="${researcherSurveyDetail02.title}" styleClass="pagetitlefont" rendered="${researcherSurveyDetail02.title ne ''}"/>
+        <h:outputText value="<%=((ResearcherSurveyDetail02)Pagez.getBeanMgr().get("ResearcherSurveyDetail02")).getTitle()%>" styleClass="pagetitlefont" rendered="${researcherSurveyDetail02.title ne ''}"/>
         <br clear="all"/>
     </ui:define>
     <ui:param name="navtab" value="researchers"/>
@@ -52,7 +52,7 @@ String acl = "researcher";
         <t:panelTab id="panel_a" label="Questions">
             <h:graphicImage url="/images/clear.gif" width="700" height="1"/><br/>
 
-            <t:dataTable id="datatable" value="#{researcherSurveyQuestionList.questions}" rows="10" var="question" rendered="#{!empty researcherSurveyQuestionList.questions}" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcol,tcol,tcol,tcolnowrap,tcolnowrap">
+            <t:dataTable id="datatable" value="<%=((ResearcherSurveyQuestionList)Pagez.getBeanMgr().get("ResearcherSurveyQuestionList")).getQuestions()%>" rows="10" var="question" rendered="#{!empty researcherSurveyQuestionList.questions}" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcol,tcol,tcol,tcolnowrap,tcolnowrap">
               <h:column>
                 <f:facet name="header">
                   <h:outputText value=""/>
@@ -63,32 +63,32 @@ String acl = "researcher";
                 <f:facet name="header">
                   <h:outputText value="Question"/>
                 </f:facet>
-                <h:outputText value="#{question.question}"/>
+                <h:outputText value="<%=((Question)Pagez.getBeanMgr().get("Question")).getQuestion()%>"/>
               </h:column>
               <h:column>
                 <f:facet name="header">
                   <h:outputText value="Respondent Must Answer?"/>
                 </f:facet>
-                <h:outputText value="Yes" rendered="#{question.isrequired}"/>
-                <h:outputText value="No" rendered="#{!question.isrequired}"/>
+                <h:outputText value="Yes" rendered="<%=((Question)Pagez.getBeanMgr().get("Question")).getIsrequired()%>"/>
+                <h:outputText value="No" rendered="<%=((!question)Pagez.getBeanMgr().get("!question")).getIsrequired()%>"/>
               </h:column>
               <h:column>
                 <f:facet name="header">
                   <h:outputText value="-" style="color: #ffffff;"/>
                 </f:facet>
-                <h:commandLink action="#{researcherSurveyDetail02.beginEdit}" rendered="#{researcherSurveyDetail02.status eq 1}">
+                <h:commandLink action="<%=((ResearcherSurveyDetail02)Pagez.getBeanMgr().get("ResearcherSurveyDetail02")).getBeginEdit()%>" rendered="#{researcherSurveyDetail02.status eq 1}">
                     <h:outputText value="Edit" escape="false" />
-                    <f:param name="questionid" value="#{question.questionid}" />
-                    <f:param name="componenttype" value="#{question.componenttype}" />
+                    <f:param name="questionid" value="<%=((Question)Pagez.getBeanMgr().get("Question")).getQuestionid()%>" />
+                    <f:param name="componenttype" value="<%=((Question)Pagez.getBeanMgr().get("Question")).getComponenttype()%>" />
                 </h:commandLink>
               </h:column>
               <h:column>
                 <f:facet name="header">
                   <h:outputText value="-" style="color: #ffffff;"/>
                 </f:facet>
-                <h:commandLink action="#{researcherSurveyDetail02.deleteQuestion}" rendered="#{researcherSurveyDetail02.status eq 1}">
+                <h:commandLink action="<%=((ResearcherSurveyDetail02)Pagez.getBeanMgr().get("ResearcherSurveyDetail02")).getDeleteQuestion()%>" rendered="#{researcherSurveyDetail02.status eq 1}">
                     <h:outputText value="Del" escape="false" />
-                    <f:param name="questionid" value="#{question.questionid}" />
+                    <f:param name="questionid" value="<%=((Question)Pagez.getBeanMgr().get("Question")).getQuestionid()%>" />
                 </h:commandLink>
               </h:column>
             </t:dataTable>
@@ -111,16 +111,16 @@ String acl = "researcher";
             <br/>
             <h:outputText value="See tab at upper right for Question Type Samples" styleClass="smallfont" style="color: #000000;" rendered="#{researcherSurveyDetail02.status eq 1}"/>
             <br/>
-            <h:selectOneRadio value="#{researcherSurveyDetail02.newquestioncomponenttype}" layout="pageDirection" id="newquestioncomponenttype" styleClass="normalfont" required="true" rendered="#{researcherSurveyDetail02.status eq 1}">
-                <f:selectItems value="#{componentTypes.typesaslinkedhashmap}"/>
+            <h:selectOneRadio value="<%=((ResearcherSurveyDetail02)Pagez.getBeanMgr().get("ResearcherSurveyDetail02")).getNewquestioncomponenttype()%>" layout="pageDirection" id="newquestioncomponenttype" styleClass="normalfont" required="true" rendered="#{researcherSurveyDetail02.status eq 1}">
+                <f:selectItems value="<%=((ComponentTypes)Pagez.getBeanMgr().get("ComponentTypes")).getTypesaslinkedhashmap()%>"/>
             </h:selectOneRadio>
-            <h:commandButton action="#{researcherSurveyDetail02.addQuestion}" value="Add Question" styleClass="formsubmitbutton" rendered="#{researcherSurveyDetail02.status eq 1}">
+            <h:commandButton action="<%=((ResearcherSurveyDetail02)Pagez.getBeanMgr().get("ResearcherSurveyDetail02")).getAddQuestion()%>" value="Add Question" styleClass="formsubmitbutton" rendered="#{researcherSurveyDetail02.status eq 1}">
                 <f:param name="isnewquestion" value="1" />
             </h:commandButton>
         </t:panelTab>
         <t:panelTab id="panel_b" label="Preview your Survey">                                                                     
             <h:graphicImage url="/images/clear.gif" width="700" height="1"/><br/>
-            <f:verbatim>#{researcherSurveyDetail02.surveyForTakers}</f:verbatim>
+            <f:verbatim><%=((ResearcherSurveyDetail02)Pagez.getBeanMgr().get("ResearcherSurveyDetail02")).getSurveyForTakers()%></f:verbatim>
         </t:panelTab>
         <t:panelTab id="panel_c" label="Question Type Samples">
             <h:graphicImage url="/images/clear.gif" width="700" height="1"/><br/>
@@ -143,7 +143,7 @@ String acl = "researcher";
 
 
     <f:verbatim><br/><br/></f:verbatim>
-    <div class="surveyeditbuttonbox"><div class="surveyeditpreviousbutton"><h:commandButton action="#{researcherSurveyDetail02.previousStep}" value="Previous Step" styleClass="formsubmitbutton"/></div><div class="surveyeditnextbutton"><h:commandButton action="#{researcherSurveyDetail02.saveSurveyAsDraft}" value="Save and Continue Later" styleClass="formsubmitbutton" rendered="#{researcherSurveyDetail02.status eq 1}"/><h:commandButton action="#{researcherSurveyDetail02.saveSurvey}" value="Next Step" styleClass="formsubmitbutton"/></div></div>
+    <div class="surveyeditbuttonbox"><div class="surveyeditpreviousbutton"><h:commandButton action="<%=((ResearcherSurveyDetail02)Pagez.getBeanMgr().get("ResearcherSurveyDetail02")).getPreviousStep()%>" value="Previous Step" styleClass="formsubmitbutton"/></div><div class="surveyeditnextbutton"><h:commandButton action="<%=((ResearcherSurveyDetail02)Pagez.getBeanMgr().get("ResearcherSurveyDetail02")).getSaveSurveyAsDraft()%>" value="Save and Continue Later" styleClass="formsubmitbutton" rendered="#{researcherSurveyDetail02.status eq 1}"/><h:commandButton action="<%=((ResearcherSurveyDetail02)Pagez.getBeanMgr().get("ResearcherSurveyDetail02")).getSaveSurvey()%>" value="Next Step" styleClass="formsubmitbutton"/></div></div>
 
 
 

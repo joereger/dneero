@@ -3,7 +3,7 @@
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "<img src=\"/images/process-train-survey-06.gif\" align=\"right\" width=\"350\" height=\"73\"></img>\n" +
-"        <h:outputText value=\"${researcherSurveyDetailPostlaunch.title}\" styleClass=\"pagetitlefont\" rendered=\"${researcherSurveyDetailPostlaunch.title ne ''}\"/>\n" +
+"        <h:outputText value=\"<%=((ResearcherSurveyDetailPostlaunch)Pagez.getBeanMgr().get("ResearcherSurveyDetailPostlaunch")).getTitle()%>\" styleClass=\"pagetitlefont\" rendered=\"${researcherSurveyDetailPostlaunch.title ne ''}\"/>\n" +
 "        <br clear=\"all\"/>";
 String navtab = "researchers";
 String acl = "researcher";
@@ -11,7 +11,7 @@ String acl = "researcher";
 <%@ include file="/jsp/templates/header.jsp" %>
 
     <h:messages styleClass="RED"/>
-    <h:inputHidden name="surveyid" value="#{userSession.currentSurveyid}" />
+    <h:inputHidden name="surveyid" value="<%=((UserSession)Pagez.getBeanMgr().get("UserSession")).getCurrentSurveyid()%>" />
 
     <font class="pagetitlefont" style="color: #333333;">Congratulations!  Your survey has been launched!</font>
     <br/><br/>
@@ -19,10 +19,10 @@ String acl = "researcher";
     <br/><br/>
     <ul>
         <li>You can no longer edit your survey, but you can review it.</li>
-        <li>We'll verify that your account balance has at least #{researcherSurveyDetailPostlaunch.initialcharge} which represents 20% of the maximum possible spend, #{researcherSurveyDetailPostlaunch.maxpossiblespend}, for your survey.</li>
+        <li>We'll verify that your account balance has at least <%=((ResearcherSurveyDetailPostlaunch)Pagez.getBeanMgr().get("ResearcherSurveyDetailPostlaunch")).getInitialcharge()%> which represents 20% of the maximum possible spend, <%=((ResearcherSurveyDetailPostlaunch)Pagez.getBeanMgr().get("ResearcherSurveyDetailPostlaunch")).getMaxpossiblespend()%>, for your survey.</li>
         <li>Bloggers will see your survey and take it.</li>
             <ul>
-                <li>Each time a blogger takes the survey your account balance will be debited by #{researcherSurveyDetailPostlaunch.willingtopayperrespondent}.</li>
+                <li>Each time a blogger takes the survey your account balance will be debited by <%=((ResearcherSurveyDetailPostlaunch)Pagez.getBeanMgr().get("ResearcherSurveyDetailPostlaunch")).getWillingtopayperrespondent()%>.</li>
                 <li>We will close your survey either when the end date is reached or when the maximum number of respondents has been reached.</li>
                 <li>Bloggers will post the survey to their blogs.</li>
             </ul>
@@ -37,21 +37,21 @@ String acl = "researcher";
     <br/><br/>
     <font class="smallfont">Invite people to take your survey:</font>
     <br/>
-    <h:commandLink action="#{researcherEmailinvite.beginView}">
+    <h:commandLink action="<%=((ResearcherEmailinvite)Pagez.getBeanMgr().get("ResearcherEmailinvite")).getBeginView()%>">
         <h:outputText value="Invite People to Take this Survey" styleClass="normalfont" escape="false" />
-        <f:param name="surveyid" value="#{userSession.currentSurveyid}" />
+        <f:param name="surveyid" value="<%=((UserSession)Pagez.getBeanMgr().get("UserSession")).getCurrentSurveyid()%>" />
     </h:commandLink>
 
     <br/><br/>
     <font class="smallfont">Promote your survey:</font>
     <br/>
-    <h:outputText value="#{researcherSurveyDetailPostlaunch.socialbookmarklinks}" escape="false" styleClass="smallfont"/>
+    <h:outputText value="<%=((ResearcherSurveyDetailPostlaunch)Pagez.getBeanMgr().get("ResearcherSurveyDetailPostlaunch")).getSocialbookmarklinks()%>" escape="false" styleClass="smallfont"/>
 
 
     <br/><br/>
     <font class="smallfont">Or return to your list of surveys:</font>
     <br/>
-    <h:commandLink value="Return to List of Surveys" action="#{researcherIndex.beginView}" styleClass="mediumfont" style="color: #0000ff;"/>
+    <h:commandLink value="Return to List of Surveys" action="<%=((ResearcherIndex)Pagez.getBeanMgr().get("ResearcherIndex")).getBeginView()%>" styleClass="mediumfont" style="color: #0000ff;"/>
     <br/><br/>
 
 

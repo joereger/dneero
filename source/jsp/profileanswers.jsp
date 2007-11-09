@@ -2,7 +2,7 @@
 <%@ page import="com.dneero.htmlui.Pagez" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
-String pagetitle = "<img src=\"/images/user.png\" align=\"right\" alt=\"\" border=\"0\"/>#{publicProfileAnswers.user.firstname} #{publicProfileAnswers.user.lastname}'s Answers<br/><br clear=\"all\"/>";
+String pagetitle = "<img src=\"/images/user.png\" align=\"right\" alt=\"\" border=\"0\"/><%=((PublicProfileAnswers)Pagez.getBeanMgr().get("PublicProfileAnswers")).getUser().getFirstname()%> <%=((PublicProfileAnswers)Pagez.getBeanMgr().get("PublicProfileAnswers")).getUser().getLastname()%>'s Answers<br/><br clear=\"all\"/>";
 String navtab = "home";
 String acl = "public";
 %>
@@ -10,13 +10,13 @@ String acl = "public";
 
 
 
-    <font class="mediumfont" style="color: #cccccc;">#{publicProfileAnswers.survey.title}</font>
+    <font class="mediumfont" style="color: #cccccc;"><%=((PublicProfileAnswers)Pagez.getBeanMgr().get("PublicProfileAnswers")).getSurvey().getTitle()%></font>
     <br/><br/>
 
 
 
 
-    <f:verbatim escape="false">#{publicProfileAnswers.resultsashtml}</f:verbatim>
+    <f:verbatim escape="false"><%=((PublicProfileAnswers)Pagez.getBeanMgr().get("PublicProfileAnswers")).getResultsashtml()%></f:verbatim>
 
     
 

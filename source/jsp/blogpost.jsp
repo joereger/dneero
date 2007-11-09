@@ -8,31 +8,31 @@ String acl = "public";
 %>
 <%@ include file="/jsp/templates/header.jsp" %>
 
-    <font class="mediumfont" style="color: #0bae17;">#{publicBlogPost.blogpost.title}</font>
+    <font class="mediumfont" style="color: #0bae17;"><%=((PublicBlogPost)Pagez.getBeanMgr().get("PublicBlogPost")).getBlogpost().getTitle()%></font>
     <br/>
-    <h:outputText styleClass="smallfont" value="#{publicBlogPost.blogpost.body}" escape="false"></h:outputText>
+    <h:outputText styleClass="smallfont" value="<%=((PublicBlogPost)Pagez.getBeanMgr().get("PublicBlogPost")).getBlogpost().getBody()%>" escape="false"></h:outputText>
     <br/>
-    <font class="tinyfont" style="color: #cccccc;">Posted by: #{publicBlogPost.blogpost.author} at <h:outputText value=" #{publicBlogPost.blogpost.date}" styleClass="tinyfont" style="color: #cccccc;"><f:convertDateTime type="both" dateStyle="short" timeStyle="medium"/></h:outputText></font>
+    <font class="tinyfont" style="color: #cccccc;">Posted by: <%=((PublicBlogPost)Pagez.getBeanMgr().get("PublicBlogPost")).getBlogpost().getAuthor()%> at <h:outputText value=" <%=((PublicBlogPost)Pagez.getBeanMgr().get("PublicBlogPost")).getBlogpost().getDate()%>" styleClass="tinyfont" style="color: #cccccc;"><f:convertDateTime type="both" dateStyle="short" timeStyle="medium"/></h:outputText></font>
     <br/><br/>
 
 
-    <t:dataTable sortable="false" id="datatable" value="#{publicBlogPost.blogpost.blogpostcomments}" rows="1000" var="comment" rendered="#{!empty publicBlogPost.blogpost.blogpostcomments}" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcolnowrap,tcol,tcol,tcol">
+    <t:dataTable sortable="false" id="datatable" value="<%=((PublicBlogPost)Pagez.getBeanMgr().get("PublicBlogPost")).getBlogpost().getBlogpostcomments()%>" rows="1000" var="comment" rendered="#{!empty publicBlogPost.blogpost.blogpostcomments}" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcolnowrap,tcol,tcol,tcol">
       <t:column>
         <f:facet name="header">
           <h:outputText value=""/>
         </f:facet>
-        <h:outputText value="#{comment.date}" styleClass="tinyfont"><f:convertDateTime type="both" dateStyle="short" timeStyle="medium"/></h:outputText>
+        <h:outputText value="<%=((Comment)Pagez.getBeanMgr().get("Comment")).getDate()%>" styleClass="tinyfont"><f:convertDateTime type="both" dateStyle="short" timeStyle="medium"/></h:outputText>
       </t:column>
       <t:column>
         <f:facet name="header">
             <h:outputText value=""/>
         </f:facet>
         <font class="smallfont">Comment by: </font>
-        <h:outputLink value="#{comment.url}">
-            <h:outputText value="#{comment.name}" styleClass="smallfont" style="color: #0000ff;"/>
+        <h:outputLink value="<%=((Comment)Pagez.getBeanMgr().get("Comment")).getUrl()%>">
+            <h:outputText value="<%=((Comment)Pagez.getBeanMgr().get("Comment")).getName()%>" styleClass="smallfont" style="color: #0000ff;"/>
         </h:outputLink>
         <br/>
-        <font class="tinyfont">#{comment.comment}</font>
+        <font class="tinyfont"><%=((Comment)Pagez.getBeanMgr().get("Comment")).getComment()%></font>
         <br/><br/>
       </t:column>
     </t:dataTable>
@@ -55,45 +55,45 @@ String acl = "public";
     <br/><br/>
     <font class="formfieldnamefont">Post a comment:</font>
     <br/>
-    <h:panelGrid columns="3" cellpadding="3" border="0">
+    <table cellpadding="0" cellspacing="0" border="0">
 
-            <h:panelGroup>
+            <td valign="top">
                 <h:outputText value="Name" styleClass="formfieldnamefont"></h:outputText>
-            </h:panelGroup>
-            <h:panelGroup>
-                <h:inputText value="#{publicBlogPost.name}" id="name" required="false" maxlength="255"></h:inputText>
-            </h:panelGroup>
-            <h:panelGroup>
+            </td>
+            <td valign="top">
+                <h:inputText value="<%=((PublicBlogPost)Pagez.getBeanMgr().get("PublicBlogPost")).getName()%>" id="name" required="false" maxlength="255"></h:inputText>
+            </td>
+            <td valign="top">
                 <h:message for="name" styleClass="RED"></h:message>
-            </h:panelGroup>
+            </td>
 
-            <h:panelGroup>
+            <td valign="top">
                 <h:outputText value="URL" styleClass="formfieldnamefont"></h:outputText>
-            </h:panelGroup>
-            <h:panelGroup>
-                <h:inputText value="#{publicBlogPost.url}" id="url" required="false" maxlength="255"></h:inputText>
-            </h:panelGroup>
-            <h:panelGroup>
+            </td>
+            <td valign="top">
+                <h:inputText value="<%=((PublicBlogPost)Pagez.getBeanMgr().get("PublicBlogPost")).getUrl()%>" id="url" required="false" maxlength="255"></h:inputText>
+            </td>
+            <td valign="top">
                 <h:message for="url" styleClass="RED"></h:message>
-            </h:panelGroup>
+            </td>
 
-            <h:panelGroup>
+            <td valign="top">
                 <h:outputText value="Comment" styleClass="formfieldnamefont"></h:outputText>
-            </h:panelGroup>
-            <h:panelGroup>
-                <h:inputTextarea value="#{publicBlogPost.comment}" id="comment" cols="45" rows="5" required="false">
+            </td>
+            <td valign="top">
+                <h:inputTextarea value="<%=((PublicBlogPost)Pagez.getBeanMgr().get("PublicBlogPost")).getComment()%>" id="comment" cols="45" rows="5" required="false">
                 </h:inputTextarea>
-            </h:panelGroup>
-            <h:panelGroup>
+            </td>
+            <td valign="top">
                 <h:message for="comment" styleClass="RED"></h:message>
-            </h:panelGroup>
+            </td>
 
-            <h:panelGroup>
+            <td valign="top">
                 <h:outputText value="Prove You're a Human" styleClass="formfieldnamefont"></h:outputText>
-            </h:panelGroup>
-            <h:panelGroup>
+            </td>
+            <td valign="top">
                 <div style="border: 1px solid #ccc; padding: 3px;">
-                <h:inputText value="#{publicBlogPost.j_captcha_response}" id="j_captcha_response" required="false"/>
+                <h:inputText value="<%=((PublicBlogPost)Pagez.getBeanMgr().get("PublicBlogPost")).getJ_captcha_response()%>" id="j_captcha_response" required="false"/>
                 <br/>
                 <font class="tinyfont">(type the squiggly letters that appear below)</font>
                 <br/>
@@ -107,22 +107,22 @@ String acl = "public";
                     </tr>
                 </table>
                 </div>
-            </h:panelGroup>
-            <h:panelGroup>
+            </td>
+            <td valign="top">
                 <h:message for="j_captcha_response" styleClass="RED"></h:message>
-            </h:panelGroup>
+            </td>
 
-            <h:panelGroup>
-            </h:panelGroup>
-            <h:panelGroup>
-                <h:commandButton action="#{publicBlogPost.postComment}" value="Post Comment" styleClass="formsubmitbutton"></h:commandButton>
-            </h:panelGroup>
-            <h:panelGroup>
-            </h:panelGroup>
+            <td valign="top">
+            </td>
+            <td valign="top">
+                <h:commandButton action="<%=((PublicBlogPost)Pagez.getBeanMgr().get("PublicBlogPost")).getPostComment()%>" value="Post Comment" styleClass="formsubmitbutton"></h:commandButton>
+            </td>
+            <td valign="top">
+            </td>
 
 
 
-     </h:panelGrid>
+     </table>
 
 
 

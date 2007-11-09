@@ -10,29 +10,29 @@ String acl = "researcher";
 
 
 
-        <t:dataTable id="datatable" value="#{researcherPanelsListBloggers.listitems}" rows="50" var="listitem" rendered="#{!empty researcherPanelsListBloggers.listitems}" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcol,tcolnowrap,tcol,tcolnowrap,tcolnowrap">
+        <t:dataTable id="datatable" value="<%=((ResearcherPanelsListBloggers)Pagez.getBeanMgr().get("ResearcherPanelsListBloggers")).getListitems()%>" rows="50" var="listitem" rendered="#{!empty researcherPanelsListBloggers.listitems}" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcol,tcolnowrap,tcol,tcolnowrap,tcolnowrap">
           <h:column>
             <f:facet name="header">
               <h:outputText value="Blogger Name"/>
             </f:facet>
-            <h:outputText value="#{listitem.user.lastname}, #{listitem.user.firstname}" styleClass="normalfont"/>
+            <h:outputText value="<%=((Listitem)Pagez.getBeanMgr().get("Listitem")).getUser().getLastname()%>, <%=((Listitem)Pagez.getBeanMgr().get("Listitem")).getUser().getFirstname()%>" styleClass="normalfont"/>
           </h:column>
           <h:column>
             <f:facet name="header">
               <h:outputText value="-" style="color: #ffffff;"/>
             </f:facet>
-            <h:commandLink action="#{publicProfile.beginView}">
+            <h:commandLink action="<%=((PublicProfile)Pagez.getBeanMgr().get("PublicProfile")).getBeginView()%>">
                 <h:outputText value="Blogger's Profile" escape="false" styleClass="smallfont"/>
-                <f:param name="bloggerid" value="#{listitem.blogger.bloggerid}" />
+                <f:param name="bloggerid" value="<%=((Listitem)Pagez.getBeanMgr().get("Listitem")).getBlogger().getBloggerid()%>" />
             </h:commandLink>
           </h:column>
           <h:column>
             <f:facet name="header">
               <h:outputText value="-" style="color: #ffffff;"/>
             </f:facet>
-            <h:commandLink action="#{researcherPanelsListBloggers.removeFromPanel}">
+            <h:commandLink action="<%=((ResearcherPanelsListBloggers)Pagez.getBeanMgr().get("ResearcherPanelsListBloggers")).getRemoveFromPanel()%>">
                 <h:outputText value="Remove From Panel" escape="false" styleClass="smallfont"/>
-                <f:param name="panelmembershipid" value="#{listitem.panelmembership.panelmembershipid}" />
+                <f:param name="panelmembershipid" value="<%=((Listitem)Pagez.getBeanMgr().get("Listitem")).getPanelmembership().getPanelmembershipid()%>" />
             </h:commandLink>
           </h:column>
         </t:dataTable>

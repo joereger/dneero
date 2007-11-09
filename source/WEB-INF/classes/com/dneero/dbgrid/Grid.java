@@ -135,7 +135,7 @@ public class Grid {
         StringBuffer out = new StringBuffer();
         int overrideGridColType = 0;
         String beanprop = tag.substring(2, tag.length()-2);
-        logger.debug("beanprop(pre split)="+beanprop);
+        //logger.debug("beanprop(pre split)="+beanprop);
         if (beanprop.indexOf("|")>-1){
             String[] split = beanprop.split("\\|");
             if (split.length>=1){
@@ -147,7 +147,7 @@ public class Grid {
                 }
             }
         }
-        logger.debug("beanprop(after split)="+beanprop);
+        //logger.debug("beanprop(after split)="+beanprop);
 
         try{
             PropertyUtilsBean pub = new PropertyUtilsBean();

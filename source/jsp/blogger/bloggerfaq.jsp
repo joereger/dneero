@@ -97,11 +97,11 @@ String acl = "public";
     <font class="mediumfont" color="#333333">Can I make money inviting friends?</font>
     <br/>
     <font class="smallfont">
-    We want you to invite friends to the system so we're paying you up to #{bloggerEarningsRevshare.level1percent}% of what we pay your friends.  Here's how it works:
+    We want you to invite friends to the system so we're paying you up to <%=((BloggerEarningsRevshare)Pagez.getBeanMgr().get("BloggerEarningsRevshare")).getLevel1percent()%>% of what we pay your friends.  Here's how it works:
     <ul>
       <li><font class="smallfont">We calculate your friend's earnings</font></li>
       <li><font class="smallfont">We pay your friend</font></li>
-      <li><font class="smallfont">We pay you up to #{bloggerEarningsRevshare.level1percent}% of your friend's earnings (out of our pocket)</font></li>
+      <li><font class="smallfont">We pay you up to <%=((BloggerEarningsRevshare)Pagez.getBeanMgr().get("BloggerEarningsRevshare")).getLevel1percent()%>% of your friend's earnings (out of our pocket)</font></li>
     </ul>
     </font>
     <br/>

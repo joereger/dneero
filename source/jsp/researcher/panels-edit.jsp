@@ -10,27 +10,27 @@ String acl = "researcher";
 
 
 
-        <h:panelGrid columns="3" cellpadding="3" border="0">
-                <h:panelGroup>
+        <table cellpadding="0" cellspacing="0" border="0">
+                <td valign="top">
                     <h:outputText value="Panel Name" styleClass="formfieldnamefont"></h:outputText>
-                </h:panelGroup>
-                <h:panelGroup>
-                    <h:inputText value="#{researcherPanelsEdit.panel.name}" id="panelname"></h:inputText>
-                </h:panelGroup>
-                <h:panelGroup>
+                </td>
+                <td valign="top">
+                    <h:inputText value="<%=((ResearcherPanelsEdit)Pagez.getBeanMgr().get("ResearcherPanelsEdit")).getPanel().getName()%>" id="panelname"></h:inputText>
+                </td>
+                <td valign="top">
                     <h:message for="panelname" styleClass="RED"></h:message>
-                </h:panelGroup>
+                </td>
 
 
-                <h:panelGroup>
-                </h:panelGroup>
-                <h:panelGroup>
-                    <h:commandButton action="#{researcherPanelsEdit.edit}" value="Edit Panel" styleClass="formsubmitbutton"></h:commandButton>
-                </h:panelGroup>
-                <h:panelGroup>
-                </h:panelGroup>
+                <td valign="top">
+                </td>
+                <td valign="top">
+                    <h:commandButton action="<%=((ResearcherPanelsEdit)Pagez.getBeanMgr().get("ResearcherPanelsEdit")).getEdit()%>" value="Edit Panel" styleClass="formsubmitbutton"></h:commandButton>
+                </td>
+                <td valign="top">
+                </td>
 
-            </h:panelGrid>
+            </table>
 
 
 

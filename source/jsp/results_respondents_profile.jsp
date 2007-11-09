@@ -13,7 +13,7 @@ String acl = "public";
 
     <font class="smallfont">This page has been displayed in error.  Please try again.  We apologize for the inconvenience.</font>
     <br/><br/><br/>
-    #{publicResultsRespondentsProfile.dummy}
+    <%=((PublicResultsRespondentsProfile)Pagez.getBeanMgr().get("PublicResultsRespondentsProfile")).getDummy()%>
 
 
 

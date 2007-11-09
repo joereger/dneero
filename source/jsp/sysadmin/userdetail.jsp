@@ -2,7 +2,7 @@
 <%@ page import="com.dneero.htmlui.Pagez" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
-String pagetitle = "User: #{sysadminUserDetail.email}";
+String pagetitle = "User: <%=((SysadminUserDetail)Pagez.getBeanMgr().get("SysadminUserDetail")).getEmail()%>";
 String navtab = "sysadmin";
 String acl = "sysadmin";
 %>
@@ -15,7 +15,7 @@ String acl = "sysadmin";
                     <td valign="top" width="50%">
                     <h:form>
 
-                        <h:inputHidden value="#{sysadminUserDetail.userid}" />
+                        <h:inputHidden value="<%=((SysadminUserDetail)Pagez.getBeanMgr().get("SysadminUserDetail")).getUserid()%>" />
 
                         <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
                             <table cellpadding="0" cellspacing="0" border="0">
@@ -24,7 +24,7 @@ String acl = "sysadmin";
                                         <font class="formfieldnamefont">First Name</font>
                                     </td>
                                     <td valign="top">
-                                        <h:inputText value="#{sysadminUserDetail.firstname}" id="firstname" size="30" required="true"></h:inputText>
+                                        <h:inputText value="<%=((SysadminUserDetail)Pagez.getBeanMgr().get("SysadminUserDetail")).getFirstname()%>" id="firstname" size="30" required="true"></h:inputText>
                                     </td>
                                 </tr>
                                 <tr>
@@ -32,7 +32,7 @@ String acl = "sysadmin";
                                         <font class="formfieldnamefont">Last Name</font>
                                     </td>
                                     <td valign="top">
-                                        <h:inputText value="#{sysadminUserDetail.lastname}" id="lastname" size="30" required="true"></h:inputText>
+                                        <h:inputText value="<%=((SysadminUserDetail)Pagez.getBeanMgr().get("SysadminUserDetail")).getLastname()%>" id="lastname" size="30" required="true"></h:inputText>
                                     </td>
                                 </tr>
                                 <tr>
@@ -40,7 +40,7 @@ String acl = "sysadmin";
                                         <font class="formfieldnamefont">Email</font>
                                     </td>
                                     <td valign="top">
-                                        <h:inputText value="#{sysadminUserDetail.email}" id="email" size="30" required="true"></h:inputText>
+                                        <h:inputText value="<%=((SysadminUserDetail)Pagez.getBeanMgr().get("SysadminUserDetail")).getEmail()%>" id="email" size="30" required="true"></h:inputText>
                                     </td>
                                 </tr>
                                 <tr>
@@ -48,7 +48,7 @@ String acl = "sysadmin";
                                         <font class="formfieldnamefont">PayPal Address</font>
                                     </td>
                                     <td valign="top">
-                                        <h:inputText value="#{sysadminUserDetail.paypaladdress}" id="paypaladdress" size="30" required="false"></h:inputText>
+                                        <h:inputText value="<%=((SysadminUserDetail)Pagez.getBeanMgr().get("SysadminUserDetail")).getPaypaladdress()%>" id="paypaladdress" size="30" required="false"></h:inputText>
                                     </td>
                                 </tr>
                                 <tr>
@@ -56,7 +56,7 @@ String acl = "sysadmin";
                                         <font class="formfieldnamefont">Referredbyuserid</font>
                                     </td>
                                     <td valign="top">
-                                        <h:inputText value="#{sysadminUserDetail.referredbyuserid}" id="referredbyuserid" size="30" required="false"></h:inputText>
+                                        <h:inputText value="<%=((SysadminUserDetail)Pagez.getBeanMgr().get("SysadminUserDetail")).getReferredbyuserid()%>" id="referredbyuserid" size="30" required="false"></h:inputText>
                                     </td>
                                 </tr>
                                 <tr>
@@ -64,7 +64,7 @@ String acl = "sysadmin";
                                         <font class="formfieldnamefont">Facebook uid</font>
                                     </td>
                                     <td valign="top">
-                                        <h:outputText value="#{sysadminUserDetail.user.facebookuserid}" styleClass="tinyfont"/>
+                                        <h:outputText value="<%=((SysadminUserDetail)Pagez.getBeanMgr().get("SysadminUserDetail")).getUser().getFacebookuserid()%>" styleClass="tinyfont"/>
                                     </td>
                                 </tr>
                                 <tr>
@@ -72,28 +72,28 @@ String acl = "sysadmin";
 
                                     </td>
                                     <td valign="top">
-                                        <h:commandButton action="#{sysadminUserDetail.save}"  value="Save User Details" styleClass="formsubmitbutton"></h:commandButton>
+                                        <h:commandButton action="<%=((SysadminUserDetail)Pagez.getBeanMgr().get("SysadminUserDetail")).getSave()%>"  value="Save User Details" styleClass="formsubmitbutton"></h:commandButton>
                                     </td>
                                 </tr>
                             </table>
                         </div>
                         <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
-                            <h:commandButton action="#{sysadminUserDetail.sendresetpasswordemail}"  value="Send Password Reset Email" styleClass="formsubmitbutton"></h:commandButton>
+                            <h:commandButton action="<%=((SysadminUserDetail)Pagez.getBeanMgr().get("SysadminUserDetail")).getSendresetpasswordemail()%>"  value="Send Password Reset Email" styleClass="formsubmitbutton"></h:commandButton>
                         </div>
                         <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
-                            <h:commandButton action="#{sysadminUserDetail.reactivatebyemail}"  value="Force Re-Activation By Email" styleClass="formsubmitbutton"></h:commandButton>
+                            <h:commandButton action="<%=((SysadminUserDetail)Pagez.getBeanMgr().get("SysadminUserDetail")).getReactivatebyemail()%>"  value="Force Re-Activation By Email" styleClass="formsubmitbutton"></h:commandButton>
                         </div>
                         <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
-                            <h:commandButton action="#{sysadminUserDetail.runResearcherRemainingBalanceOperations}" value="ResearcherRemainingBalanceOperations" styleClass="formsubmitbutton"></h:commandButton>
+                            <h:commandButton action="<%=((SysadminUserDetail)Pagez.getBeanMgr().get("SysadminUserDetail")).getRunResearcherRemainingBalanceOperations()%>" value="ResearcherRemainingBalanceOperations" styleClass="formsubmitbutton"></h:commandButton>
                             <br/>
                             <font class="tinyfont">This will process account balances, remaining impressions, credit card transfers, etc for only this account.  Only does something if this user has a researcher record.</font>
                         </div>
                         <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
-                            <h:outputText value="User is a Sysadmin" rendered="#{sysadminUserDetail.issysadmin}" styleClass="mediumfont"></h:outputText>
-                            <h:outputText value="User is not a Sysadmin" rendered="#{!sysadminUserDetail.issysadmin}" styleClass="mediumfont"></h:outputText>
+                            <h:outputText value="User is a Sysadmin" rendered="<%=((SysadminUserDetail)Pagez.getBeanMgr().get("SysadminUserDetail")).getIssysadmin()%>" styleClass="mediumfont"></h:outputText>
+                            <h:outputText value="User is not a Sysadmin" rendered="<%=((!sysadminUserDetail)Pagez.getBeanMgr().get("!sysadminUserDetail")).getIssysadmin()%>" styleClass="mediumfont"></h:outputText>
                             <br/>
-                            <h:commandButton action="#{sysadminUserDetail.togglesysadminprivs}"  value="Toggle Sysadmin Privileges" styleClass="formsubmitbutton"></h:commandButton>
-                            <h:inputText value="#{sysadminUserDetail.activitypin}" id="activitypin" size="10"></h:inputText>
+                            <h:commandButton action="<%=((SysadminUserDetail)Pagez.getBeanMgr().get("SysadminUserDetail")).getTogglesysadminprivs()%>"  value="Toggle Sysadmin Privileges" styleClass="formsubmitbutton"></h:commandButton>
+                            <h:inputText value="<%=((SysadminUserDetail)Pagez.getBeanMgr().get("SysadminUserDetail")).getActivitypin()%>" id="activitypin" size="10"></h:inputText>
                             <br/>
                             <font class="tinyfont">You must type "yes, i want to do this" in the box to make this happen</font>
                         </div>
@@ -103,71 +103,71 @@ String acl = "sysadmin";
                     <td valign="top" width="50%">
                     <h:form id="activation">
                         <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
-                            <h:outputText value="This Account is Currently Enabled." rendered="#{sysadminUserDetail.isenabled}" styleClass="mediumfont"></h:outputText>
-                            <h:outputText value="This Account is Currently Disabled." rendered="#{!sysadminUserDetail.isenabled}" styleClass="mediumfont"></h:outputText>
+                            <h:outputText value="This Account is Currently Enabled." rendered="<%=((SysadminUserDetail)Pagez.getBeanMgr().get("SysadminUserDetail")).getIsenabled()%>" styleClass="mediumfont"></h:outputText>
+                            <h:outputText value="This Account is Currently Disabled." rendered="<%=((!sysadminUserDetail)Pagez.getBeanMgr().get("!sysadminUserDetail")).getIsenabled()%>" styleClass="mediumfont"></h:outputText>
                             <br/>
-                            <h:commandButton action="#{sysadminUserDetail.toggleisenabled}" value="Disable Account" styleClass="formsubmitbutton" rendered="#{sysadminUserDetail.isenabled}"></h:commandButton>
-                            <h:commandButton action="#{sysadminUserDetail.toggleisenabled}" value="Enable Account" styleClass="formsubmitbutton" rendered="#{!sysadminUserDetail.isenabled}"></h:commandButton>
+                            <h:commandButton action="<%=((SysadminUserDetail)Pagez.getBeanMgr().get("SysadminUserDetail")).getToggleisenabled()%>" value="Disable Account" styleClass="formsubmitbutton" rendered="<%=((SysadminUserDetail)Pagez.getBeanMgr().get("SysadminUserDetail")).getIsenabled()%>"></h:commandButton>
+                            <h:commandButton action="<%=((SysadminUserDetail)Pagez.getBeanMgr().get("SysadminUserDetail")).getToggleisenabled()%>" value="Enable Account" styleClass="formsubmitbutton" rendered="<%=((!sysadminUserDetail)Pagez.getBeanMgr().get("!sysadminUserDetail")).getIsenabled()%>"></h:commandButton>
                         </div>
                     </h:form>
                     <h:form id="giveusermoney">
                         <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
-                                <h:inputHidden value="#{sysadminUserDetail.userid}" />
+                                <h:inputHidden value="<%=((SysadminUserDetail)Pagez.getBeanMgr().get("SysadminUserDetail")).getUserid()%>" />
                                 <font class="mediumfont">Give User Money</font>
                                 <br/>
                                 <font class="formfieldnamefont">Amount to give:</font>
                                 <br/>
-                                <h:inputText value="#{sysadminUserDetail.amt}" id="amt" size="30" required="true"><f:validateDoubleRange minimum=".01" maximum="100000"></f:validateDoubleRange></h:inputText>
+                                <h:inputText value="<%=((SysadminUserDetail)Pagez.getBeanMgr().get("SysadminUserDetail")).getAmt()%>" id="amt" size="30" required="true"><f:validateDoubleRange minimum=".01" maximum="100000"></f:validateDoubleRange></h:inputText>
                                 <br/>
                                 <font class="formfieldnamefont">Detailed Reason:</font>
                                 <br/>
                                 <font class="tinyfont">(user will see reason)</font>
                                 <br/>
-                                <h:inputText value="#{sysadminUserDetail.reason}" id="reason" size="30" required="true"></h:inputText>
+                                <h:inputText value="<%=((SysadminUserDetail)Pagez.getBeanMgr().get("SysadminUserDetail")).getReason()%>" id="reason" size="30" required="true"></h:inputText>
                                 <br/>
-                                <h:commandButton action="#{sysadminUserDetail.giveusermoney}"  value="Give User Money" styleClass="formsubmitbutton"></h:commandButton>
+                                <h:commandButton action="<%=((SysadminUserDetail)Pagez.getBeanMgr().get("SysadminUserDetail")).getGiveusermoney()%>"  value="Give User Money" styleClass="formsubmitbutton"></h:commandButton>
                         </div>
                     </h:form>
                     <h:form id="takeawayusermoney">
                         <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
-                                <h:inputHidden value="#{sysadminUserDetail.userid}" />
+                                <h:inputHidden value="<%=((SysadminUserDetail)Pagez.getBeanMgr().get("SysadminUserDetail")).getUserid()%>" />
                                 <font class="mediumfont">Take Money from User</font>
                                 <br/>
                                 <font class="formfieldnamefont">Amount to take:</font>
                                 <br/>
-                                <h:inputText value="#{sysadminUserDetail.amt}" id="amt" size="30" required="true"><f:validateDoubleRange minimum=".01" maximum="100000"></f:validateDoubleRange></h:inputText>
+                                <h:inputText value="<%=((SysadminUserDetail)Pagez.getBeanMgr().get("SysadminUserDetail")).getAmt()%>" id="amt" size="30" required="true"><f:validateDoubleRange minimum=".01" maximum="100000"></f:validateDoubleRange></h:inputText>
                                 <br/>
                                 <font class="formfieldnamefont">Detailed Reason:</font>
                                 <br/>
                                 <font class="tinyfont">(user will see reason)</font>
                                 <br/>
-                                <h:inputText value="#{sysadminUserDetail.reason}" id="reason" size="30" required="true"></h:inputText>
+                                <h:inputText value="<%=((SysadminUserDetail)Pagez.getBeanMgr().get("SysadminUserDetail")).getReason()%>" id="reason" size="30" required="true"></h:inputText>
                                 <br/>
-                                <h:commandButton action="#{sysadminUserDetail.takeusermoney}"  value="Take User Money" styleClass="formsubmitbutton"></h:commandButton>
+                                <h:commandButton action="<%=((SysadminUserDetail)Pagez.getBeanMgr().get("SysadminUserDetail")).getTakeusermoney()%>"  value="Take User Money" styleClass="formsubmitbutton"></h:commandButton>
                         </div>
                     </h:form>
                     </td>
                 </tr>
             </table>
 
-        <c:if test="#{!empty sysadminUserDetail.researcher}">
+        <% if ("#{!empty sysadminUserDetail.researcher}){ %>
             <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
                 <font class="mediumfont">Researcher Most Recent Financial Stats (Not Accurate)</font>
                 <br/>
                 <font class="tinyfont">(Calculated in ResearcherRemainingBalanceOperations.java)</font>
                 <br/><br/>
-                <font class="smallfont">Max Possible Spend: $#{sysadminUserDetail.researcher.notaccuratemaxpossspend}</font>
+                <font class="smallfont">Max Possible Spend: $<%=((SysadminUserDetail)Pagez.getBeanMgr().get("SysadminUserDetail")).getResearcher().getNotaccuratemaxpossspend()%></font>
                 <br/>
-                <font class="smallfont">Max Remaining Spend: $#{sysadminUserDetail.researcher.notaccurateremainingpossspend}</font>
+                <font class="smallfont">Max Remaining Spend: $<%=((SysadminUserDetail)Pagez.getBeanMgr().get("SysadminUserDetail")).getResearcher().getNotaccurateremainingpossspend()%></font>
                 <br/>
-                <font class="smallfont">Current Balance: $#{sysadminUserDetail.researcher.notaccuratecurrbalance}</font>
+                <font class="smallfont">Current Balance: $<%=((SysadminUserDetail)Pagez.getBeanMgr().get("SysadminUserDetail")).getResearcher().getNotaccuratecurrbalance()%></font>
                 <br/>
-                <font class="smallfont">Percent of Max: #{sysadminUserDetail.researcher.notaccuratepercentofmax} percent</font>
+                <font class="smallfont">Percent of Max: <%=((SysadminUserDetail)Pagez.getBeanMgr().get("SysadminUserDetail")).getResearcher().getNotaccuratepercentofmax()%> percent</font>
                 <br/>
-                <font class="smallfont">Amt To Charge: $#{sysadminUserDetail.researcher.notaccurateamttocharge}</font>
+                <font class="smallfont">Amt To Charge: $<%=((SysadminUserDetail)Pagez.getBeanMgr().get("SysadminUserDetail")).getResearcher().getNotaccurateamttocharge()%></font>
                 <br/>
             </div>
-        </c:if>
+        <% } %>
 
         <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
         <font class="mediumfont">Account Balance (Internal Account Money Movement)</font>
@@ -175,36 +175,36 @@ String acl = "sysadmin";
             <t:saveState id="save" value="#{sysadminUserDetail}"/>
             <h:outputText value="There are not yet any financial transactions on this account." rendered="#{empty sysadminUserDetail.balances}"/>
             <t:dataScroller for="datatable1" maxPages="5"/>
-            <t:dataTable id="datatable1" value="#{sysadminUserDetail.balances}" rows="10" var="balance" rendered="#{!empty sysadminUserDetail.balances}" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcol,tcolnowrap,tcol,tcolnowrap,tcolnowrap">
+            <t:dataTable id="datatable1" value="<%=((SysadminUserDetail)Pagez.getBeanMgr().get("SysadminUserDetail")).getBalances()%>" rows="10" var="balance" rendered="#{!empty sysadminUserDetail.balances}" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcol,tcolnowrap,tcol,tcolnowrap,tcolnowrap">
               <h:column>
                 <f:facet name="header">
                   <h:outputText value="Id"/>
                 </f:facet>
-                <h:outputText value="#{balance.balanceid}" styleClass="tinyfont"/>
+                <h:outputText value="<%=((Balance)Pagez.getBeanMgr().get("Balance")).getBalanceid()%>" styleClass="tinyfont"/>
               </h:column>
               <h:column>
                 <f:facet name="header">
                   <h:outputText value="Date"/>
                 </f:facet>
-                  <h:outputText value="#{balance.date}" styleClass="tinyfont"><f:convertDateTime type="both" dateStyle="short" timeStyle="medium"/></h:outputText>
+                  <h:outputText value="<%=((Balance)Pagez.getBeanMgr().get("Balance")).getDate()%>" styleClass="tinyfont"><f:convertDateTime type="both" dateStyle="short" timeStyle="medium"/></h:outputText>
               </h:column>
               <h:column>
                 <f:facet name="header">
                   <h:outputText value="Description"/>
                 </f:facet>
-                <h:outputText value="#{balance.description}" styleClass="smallfont"/>
+                <h:outputText value="<%=((Balance)Pagez.getBeanMgr().get("Balance")).getDescription()%>" styleClass="smallfont"/>
               </h:column>
               <h:column>
                 <f:facet name="header">
                   <h:outputText value="Amount"/>
                 </f:facet>
-                <h:outputText value="#{balance.amt}" styleClass="tinyfont"/>
+                <h:outputText value="<%=((Balance)Pagez.getBeanMgr().get("Balance")).getAmt()%>" styleClass="tinyfont"/>
               </h:column>
               <h:column>
                 <f:facet name="header">
                   <h:outputText value="Balance"/>
                 </f:facet>
-                <h:outputText value="#{balance.currentbalance}" styleClass="tinyfont" style="font-weight: bold;"/>
+                <h:outputText value="<%=((Balance)Pagez.getBeanMgr().get("Balance")).getCurrentbalance()%>" styleClass="tinyfont" style="font-weight: bold;"/>
               </h:column>
             </t:dataTable>
             <t:dataScroller id="scroll_1" for="datatable1" fastStep="10" pageCountVar="pageCount" pageIndexVar="pageIndex" styleClass="scroller" paginator="true" paginatorMaxPages="9" paginatorTableClass="paginator" paginatorActiveColumnStyle="font-weight:bold;">
@@ -231,43 +231,43 @@ String acl = "sysadmin";
             <t:saveState id="save" value="#{sysadminUserDetail}"/>
             <h:outputText value="There are not yet any financial transactions on this account." rendered="#{empty sysadminUserDetail.transactions}"/>
             <t:dataScroller for="datatable2" maxPages="5"/>
-            <t:dataTable id="datatable2" value="#{sysadminUserDetail.transactions}" rows="10" var="balance" rendered="#{!empty sysadminUserDetail.transactions}" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcol,tcolnowrap,tcol,tcolnowrap,tcolnowrap">
+            <t:dataTable id="datatable2" value="<%=((SysadminUserDetail)Pagez.getBeanMgr().get("SysadminUserDetail")).getTransactions()%>" rows="10" var="balance" rendered="#{!empty sysadminUserDetail.transactions}" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcol,tcolnowrap,tcol,tcolnowrap,tcolnowrap">
               <h:column>
                 <f:facet name="header">
                   <h:outputText value="Id"/>
                 </f:facet>
-                <h:outputText value="#{balance.balancetransactionid}" styleClass="tinyfont"/>
+                <h:outputText value="<%=((Balance)Pagez.getBeanMgr().get("Balance")).getBalancetransactionid()%>" styleClass="tinyfont"/>
               </h:column>
               <h:column>
                 <f:facet name="header">
                   <h:outputText value="Date"/>
                 </f:facet>
-                <h:outputText value="#{balance.date}" styleClass="tinyfont"><f:convertDateTime type="both" dateStyle="short" timeStyle="medium"/></h:outputText>
+                <h:outputText value="<%=((Balance)Pagez.getBeanMgr().get("Balance")).getDate()%>" styleClass="tinyfont"><f:convertDateTime type="both" dateStyle="short" timeStyle="medium"/></h:outputText>
               </h:column>
               <h:column>
                 <f:facet name="header">
                   <h:outputText value=""/>
                 </f:facet>
-                <h:outputText value="Success" rendered="#{balance.issuccessful}" styleClass="tinyfont"/>
-                <h:outputText value="Fail" rendered="#{!balance.issuccessful}" styleClass="tinyfont"/>
+                <h:outputText value="Success" rendered="<%=((Balance)Pagez.getBeanMgr().get("Balance")).getIssuccessful()%>" styleClass="tinyfont"/>
+                <h:outputText value="Fail" rendered="<%=((!balance)Pagez.getBeanMgr().get("!balance")).getIssuccessful()%>" styleClass="tinyfont"/>
               </h:column>
               <h:column>
                 <f:facet name="header">
                   <h:outputText value="Description"/>
                 </f:facet>
-                <h:outputText value="#{balance.description}"  styleClass="tinyfont"/>
+                <h:outputText value="<%=((Balance)Pagez.getBeanMgr().get("Balance")).getDescription()%>"  styleClass="tinyfont"/>
               </h:column>
               <h:column>
                 <f:facet name="header">
                   <h:outputText value="Notes"/>
                 </f:facet>
-                <h:outputText value="#{balance.notes}" styleClass="tinyfont"/>
+                <h:outputText value="<%=((Balance)Pagez.getBeanMgr().get("Balance")).getNotes()%>" styleClass="tinyfont"/>
               </h:column>
               <h:column>
                 <f:facet name="header">
                   <h:outputText value="Amount"/>
                 </f:facet>
-                <h:outputText value="#{balance.amt}" styleClass="tinyfont"/>
+                <h:outputText value="<%=((Balance)Pagez.getBeanMgr().get("Balance")).getAmt()%>" styleClass="tinyfont"/>
               </h:column>
             </t:dataTable>
             <t:dataScroller id="scroll_2" for="datatable2" fastStep="10" pageCountVar="pageCount" pageIndexVar="pageIndex" styleClass="scroller" paginator="true" paginatorMaxPages="9" paginatorTableClass="paginator" paginatorActiveColumnStyle="font-weight:bold;">
@@ -290,10 +290,10 @@ String acl = "sysadmin";
         <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
             <font class="mediumfont">Completed Surveys</font>
             <h:form>
-                <c:forEach var="completedsurvey" items="${sysadminUserDetail.responses}">
-                    <h:outputLink value="/survey.jsf?surveyid=#{completedsurvey.surveyid}" styleClass="normalfont" style="font-weight: bold; color: #0000ff;"><h:outputText>#{completedsurvey.surveytitle}</h:outputText></h:outputLink><br/>
+                <c:forEach var="completedsurvey" items="<%=((SysadminUserDetail)Pagez.getBeanMgr().get("SysadminUserDetail")).getResponses()%>">
+                    <h:outputLink value="/survey.jsf?surveyid=<%=((Completedsurvey)Pagez.getBeanMgr().get("Completedsurvey")).getSurveyid()%>" styleClass="normalfont" style="font-weight: bold; color: #0000ff;"><h:outputText><%=((Completedsurvey)Pagez.getBeanMgr().get("Completedsurvey")).getSurveytitle()%></h:outputText></h:outputLink><br/>
                     <font class="smallfont">
-                        <f:verbatim escape="false">#{completedsurvey.response.responsestatushtml}</f:verbatim>
+                        <f:verbatim escape="false"><%=((Completedsurvey)Pagez.getBeanMgr().get("Completedsurvey")).getResponse().getResponsestatushtml()%></f:verbatim>
                     </font><br/><br/>
                 </c:forEach>
             </h:form>
