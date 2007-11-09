@@ -5,6 +5,7 @@ import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
@@ -23,7 +24,7 @@ public class Grid {
     public static int GRIDCOLRENDERER_DATETIMECOMPACT= 2;
     public static int GRIDCOLRENDERER_DOUBLEASMONEY= 3;
 
-    public static String render(ArrayList rows, ArrayList<GridCol> cols, int rowsperpage, String pagename, String currentpageVar){
+    public static String render(List rows, ArrayList<GridCol> cols, int rowsperpage, String pagename, String currentpageVar){
         Logger logger = Logger.getLogger(Grid.class);
         StringBuffer out = new StringBuffer();
         if (rows!=null && cols!=null){

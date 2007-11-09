@@ -1,5 +1,6 @@
 <%@ page import="org.apache.log4j.Logger" %>
 <%@ page import="com.dneero.htmlui.Pagez" %>
+<%@ page import="com.dneero.htmluibeans.PublicFacebookAppAdd" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "Social Surveys";
@@ -19,7 +20,7 @@ String acl = "public";
                         <td width="25%">
                             <div class="rounded" style="background: #ffffff; padding: 10px;">
                                 <center>
-                                    <a href="<%=((PublicFacebookAppAdd)Pagez.getBeanMgr().get("PublicFacebookAppAdd")).getAddurl()%>" target="_top"><img src="/images/add-64.png" alt="" border="0"/></a>
+                                    <a href="<%=((com.dneero.htmluibeans.PublicFacebookAppAdd)Pagez.getBeanMgr().get("PublicFacebookAppAdd")).getAddurl()%>" target="_top"><img src="/images/add-64.png" alt="" border="0"/></a>
                                     <br/><a href="<%=((PublicFacebookAppAdd)Pagez.getBeanMgr().get("PublicFacebookAppAdd")).getAddurl()%>" target="_top"><font class="formfieldnamefont">Add</font></a>
                                 </center>
                             </div>

@@ -1,5 +1,6 @@
 <%@ page import="org.apache.log4j.Logger" %>
-<%@ page import="com.dneero.htmlui.Pagez" %>
+<%@ page import="com.dneero.htmluibeans.Login" %>
+<%@ page import="com.dneero.htmlui.*" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "Log In";
@@ -8,58 +9,65 @@ String acl = "public";
 %>
 <%@ include file="/jsp/templates/header.jsp" %>
 
+<%
+    if (request.getParameter("action") != null && request.getParameter("action").equals("login")) {
+    try {
+        ((Login) Pagez.getBeanMgr().get("Login")).setEmail(com.dneero.htmlui.Textbox.getValueFromRequest("email", "Email", true, DatatypeString.DATATYPEID));
+        ((Login) Pagez.getBeanMgr().get("Login")).setPassword(com.dneero.htmlui.Textbox.getValueFromRequest("password", "Password", true, DatatypeString.DATATYPEID));
+        ((Login) Pagez.getBeanMgr().get("Login")).setKeepmeloggedin(CheckboxBoolean.getValueFromRequest("keepmeloggedin"));
+        ((Login) Pagez.getBeanMgr().get("Login")).login();
+    } catch (ValidationException vex) {
+    %>
+    <%=vex.getErrorsAsSingleString()%>
+    <%
+    }
+}
+%>
+    <br/><br/>
+    <form action="login.jsp" method="post">
+        <input type="hidden" name="action" value="login">
 
-            <h:messages styleClass="RED"/>
-            <table cellpadding="0" cellspacing="0" border="0">
+            <table cellpadding="5" cellspacing="0" border="0">
 
-                <td valign="top">
-                    <h:outputText value="Email" styleClass="formfieldnamefont"></h:outputText>
-                </td>
-                <td valign="top">
-                    <h:inputText value="<%=((Login)Pagez.getBeanMgr().get("Login")).getEmail()%>" id="email" required="true">
-                        <f:validateLength minimum="3" maximum="255"></f:validateLength>
-                    </h:inputText>
-                </td>
-                <td valign="top">
-                    <h:message for="email" styleClass="RED"></h:message>
-                </td>
+                <tr>
+                    <td valign="top">
+                        <font class="formfieldnamefont">Email</font>
+                    </td>
+                    <td valign="top">
+                        <%=Textbox.getHtml("email", ((Login)Pagez.getBeanMgr().get("Login")).getEmail(), 255, 20, "", "")%>
+                    </td>
+                </tr>
 
+                <tr>
+                    <td valign="top">
+                        <font class="formfieldnamefont">Password</font>
+                    </td>
+                    <td valign="top">
+                        <%=Textbox.getHtml("password", ((Login)Pagez.getBeanMgr().get("Login")).getPassword(), 255, 20, "", "")%>
+                        <br/>
+                        <a href="lostpassword.jsp"><font class="tinyfont" style="color: #000000;">Lost your password?</font></a>
+                    </td>
+                </tr>
 
-                <td valign="top">
-                    <h:outputText value="Password" styleClass="formfieldnamefont"></h:outputText>
-                </td>
-                <td valign="top">
-                    <h:inputSecret value="<%=((Login)Pagez.getBeanMgr().get("Login")).getPassword()%>" id="password" required="true">
-                        <f:validateLength minimum="3" maximum="255"></f:validateLength>
-                    </h:inputSecret>
-                    <f:verbatim><br/></f:verbatim>
-                    <h:commandLink value="Lost your password?" action="<%=((LostPassword)Pagez.getBeanMgr().get("LostPassword")).getBeginView()%>" immediate="true" styleClass="tinyfont" style="color: #000000;"/>
-                </td>
-                <td valign="top">
-                    <h:message for="password" styleClass="RED"></h:message>
-                </td>
+                <tr>
+                    <td valign="top">
+                    </td>
+                    <td valign="top">
+                        <%=CheckboxBoolean.getHtml("keepmeloggedin", ((Login)Pagez.getBeanMgr().get("Login")).getKeepmeloggedin(), "", "")%>
+                        <font class="formfieldnamefont">Stay Logged In?</font>
+                    </td>
+                </tr>
 
-                <td valign="top">
-                </td>
-                <td valign="top">
-                    <h:selectBooleanCheckbox value="<%=((Login)Pagez.getBeanMgr().get("Login")).getKeepmeloggedin()%>" id="keepmeloggedin"></h:selectBooleanCheckbox>
-                    <font class="formfieldnamefont">Stay Logged In?</font>
-                </td>
-                <td valign="top">
-                    <h:message for="keepmeloggedin" styleClass="RED"></h:message>
-                </td>
-
-
-                <td valign="top">
-                </td>
-                <td valign="top">
-                    <h:commandButton action="<%=((Login)Pagez.getBeanMgr().get("Login")).getLogin()%>" value="Log In" styleClass="formsubmitbutton"></h:commandButton>
-                </td>
-                <td valign="top">
-                </td>
-
+                <tr>
+                    <td valign="top">
+                    </td>
+                    <td valign="top">
+                        <input type="submit" class="formsubmitbutton" value="Log In">
+                    </td>
+                </tr>
 
             </table>
 
+    </form>
 
 <%@ include file="/jsp/templates/footer.jsp" %>

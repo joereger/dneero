@@ -8,11 +8,8 @@ String acl = "researcher";
 %>
 <%@ include file="/jsp/templates/header.jsp" %>
 
-
-
-            <font class="smallfont">Your researcher profile is created and ready to roll.  In the future you'll be able to skip this step.</font>
-            <br/><br/>
-            <h:commandLink value="Click Here to Continue" action="<%=((ResearcherIndex)Pagez.getBeanMgr().get("ResearcherIndex")).getBeginView()%>" style="color: #0000ff;" styleClass="mediumfont"/>
-
+    <font class="smallfont">Your researcher profile is created and ready to roll.  In the future you'll be able to skip this step.</font>
+    <br/><br/>
+    <a href="/jsp/researcher/index.jsp"><font class="mediumfont" style="color: #0000ff;">Click Here to Continue</font></a>
 
 <%@ include file="/jsp/templates/footer.jsp" %>

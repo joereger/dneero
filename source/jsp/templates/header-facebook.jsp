@@ -1,3 +1,5 @@
+<%@ page import="com.dneero.htmlui.Pagez" %>
+<%@ page import="com.dneero.systemprops.BaseUrl" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
           "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
@@ -19,12 +21,12 @@
         <%}%>
         if (userSessionIsFacebookui) {
             if (window==top){
-                top.location.href="<%=((BaseUrl)Pagez.getBeanMgr().get("BaseUrl")).getIncludinghttp()%>facebookexitui.jsf";
+                top.location.href="<%=BaseUrl.get(true)%>facebookexitui.jsf";
             }
         } else {
             if (window!=top){
                 //alert("Your session may have timed out.  If you're using the Facebook App please click your left-hand menu link to restart your session.  Thanks.");
-                top.location.href="<%=((BaseUrl)Pagez.getBeanMgr().get("BaseUrl")).getIncludinghttp()%>facebookenterui.jsf";
+                top.location.href="<%=BaseUrl.get(true)%>facebookenterui.jsf";
             }
         }
   </script>

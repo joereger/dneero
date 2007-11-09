@@ -9,7 +9,7 @@ String acl = "public";
 <%@ include file="/jsp/templates/header.jsp" %>
 
 
-            <h:outputText>You are not authorized to view that resource.</h:outputText>
+    <font class="normalfont">You are not authorized to view that resource.</font>
 
 
 <%@ include file="/jsp/templates/footer.jsp" %>
