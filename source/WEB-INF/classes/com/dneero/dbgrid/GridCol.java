@@ -13,6 +13,7 @@ public class GridCol {
     private String content;
     private String contentStyleClass;
     private String contentStyle;
+    private boolean isnowrap = false;
 
     //Format of content is <$propertyname$>
     // or
@@ -23,20 +24,35 @@ public class GridCol {
         this.content = content;
     }
 
-    public GridCol (String header, String content, String headerStyle, String contentStyle){
+    public GridCol (String header, String content, boolean isnowrap){
         this.header = header;
-        this.headerStyle = headerStyle;
         this.content = content;
-        this.contentStyle = contentStyle;
+        this.isnowrap = isnowrap;
     }
 
-    public GridCol (String header, String content, String headerStyle, String contentStyle, String headerStyleClass, String contentStyleClass){
+    public GridCol (String header, String content, boolean isnowrap, String headerStyleClass, String contentStyleClass){
+        this.header = header;
+        this.headerStyleClass = headerStyleClass;
+        this.content = content;
+        this.contentStyleClass = contentStyleClass;
+        this.isnowrap = isnowrap;
+    }
+
+    public GridCol (String header, String content, String headerStyleClass, String contentStyleClass){
+        this.header = header;
+        this.headerStyleClass = headerStyleClass;
+        this.content = content;
+        this.contentStyleClass = contentStyleClass;
+    }
+
+    public GridCol (String header, String content, boolean isnowrap, String headerStyleClass, String contentStyleClass, String headerStyle, String contentStyle){
         this.header = header;
         this.headerStyle = headerStyle;
         this.headerStyleClass = headerStyleClass;
         this.content = content;
         this.contentStyle = contentStyle;
         this.contentStyleClass = contentStyleClass;
+        this.isnowrap = isnowrap;
     }
 
 
@@ -87,5 +103,13 @@ public class GridCol {
 
     public void setContentStyle(String contentStyle) {
         this.contentStyle=contentStyle;
+    }
+
+    public boolean getIsnowrap() {
+        return isnowrap;
+    }
+
+    public void setIsnowrap(boolean isnowrap) {
+        this.isnowrap=isnowrap;
     }
 }

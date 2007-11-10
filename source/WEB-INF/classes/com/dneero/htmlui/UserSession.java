@@ -255,5 +255,8 @@ public class UserSession implements Serializable {
         } else {
             this.message = this.message + "<br/>" + message;
         }
+        if (message==null || message.equals("")){
+            this.message = "";
+        }
     }
 }

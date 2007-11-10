@@ -28,7 +28,7 @@ public class Grid {
         Logger logger = Logger.getLogger(Grid.class);
         StringBuffer out = new StringBuffer();
         if (rows!=null && cols!=null){
-            out.append("<table callpadding=\"1\" cellspacing=\"1\" border=\"0\">");
+            out.append("<table callpadding=\"2\" cellspacing=\"1\" border=\"0\" width=\"100%\">");
             //To do "proper" paging I'll accept totalrows in the method and then limit/do paging in the bean
             int totalrows = rows.size();
             int totalpages = totalrows/rowsperpage;
@@ -81,7 +81,11 @@ public class Grid {
                         if (gridCol.getContentStyleClass()!=null && !gridCol.getContentStyleClass().equals("")){
                             contentStyleClass = " class=\""+gridCol.getContentStyleClass()+"\" ";
                         }
-                        out.append("<td valign=\"top\" "+contentStyleClass+" "+contentStyle+">");
+                        String nowrap = "";
+                        if (gridCol.getIsnowrap()){
+                            nowrap = " nowrap ";
+                        }
+                        out.append("<td valign=\"top\" "+contentStyleClass+" "+contentStyle+" "+nowrap+">");
                         out.append(processTemplate(gridCol.getContent(), rowObj));
                         out.append("</td>");
                     }
@@ -91,8 +95,8 @@ public class Grid {
 
             //Paging display
             if (totalrows>rowsperpage){
-                out.append("<tr colspan=\""+cols.size()+"\">");
-                out.append("<td align=\"right\">");
+                out.append("<tr>");
+                out.append("<td align=\"right\" colspan=\""+cols.size()+"\" style=\"background: #e6e6e6\">");
                 if (currentpage>1){
                     out.append("<a href=\""+pagename+"?"+currentpageVar+"="+(currentpage-1)+"\">");
                     out.append("Previous");

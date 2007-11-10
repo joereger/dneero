@@ -26,16 +26,16 @@ String acl = "account";
 
     <%if (((AccountBalance)Pagez.getBeanMgr().get("AccountBalance")).getBalances()==null || ((AccountBalance)Pagez.getBeanMgr().get("AccountBalance")).getBalances().size()==0){%>
         <font class="normalfont">There are not yet any financial transactions on your account.  Go fill out some surveys!  Or create some!</font>
-    <%} else %>
+    <%} else {%>
         <%
         ArrayList<GridCol> cols=new ArrayList<GridCol>();
-        cols.add(new GridCol("Id", "<$balanceid$>"));
-        cols.add(new GridCol("Date", "<$date$>"));
-        cols.add(new GridCol("Description", "<font class=\"smallfont\"><$description$></font>"));
-        cols.add(new GridCol("Amount", "<$amt$>"));
-        cols.add(new GridCol("Balance", "<$currentbalance$>"));
+        cols.add(new GridCol("Id", "<$balanceid$>", true, "", "tinyfont"));
+        cols.add(new GridCol("Date", "<$date$>", true, "", "tinyfont", "", "background: #e6e6e6;"));
+        cols.add(new GridCol("Description", "<$description$>", false, "", "tinyfont"));
+        cols.add(new GridCol("Amount", "<$amt$>", true, "", "tinyfont"));
+        cols.add(new GridCol("Balance", "<$currentbalance$>", true, "", "tinyfont"));
         %>
-        <%=Grid.render(((AccountBalance)Pagez.getBeanMgr().get("AccountBalance")).getBalances(), cols, 5, "htmluibean.jsp", "page")%>
+        <%=Grid.render(((AccountBalance)Pagez.getBeanMgr().get("AccountBalance")).getBalances(), cols, 50, "accountbalance.jsp", "page")%>
     <%}%>
 
     <br/><br/>
