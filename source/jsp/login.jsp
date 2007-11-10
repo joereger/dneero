@@ -8,7 +8,6 @@ String navtab = "youraccount";
 String acl = "public";
 %>
 <%@ include file="/jsp/templates/header.jsp" %>
-
 <%
     if (request.getParameter("action") != null && request.getParameter("action").equals("login")) {
     try {
@@ -43,7 +42,7 @@ String acl = "public";
                         <font class="formfieldnamefont">Password</font>
                     </td>
                     <td valign="top">
-                        <%=Textbox.getHtml("password", ((Login)Pagez.getBeanMgr().get("Login")).getPassword(), 255, 20, "", "")%>
+                        <%=TextboxSecret.getHtml("password", ((Login)Pagez.getBeanMgr().get("Login")).getPassword(), 255, 20, "", "")%>
                         <br/>
                         <a href="lostpassword.jsp"><font class="tinyfont" style="color: #000000;">Lost your password?</font></a>
                     </td>

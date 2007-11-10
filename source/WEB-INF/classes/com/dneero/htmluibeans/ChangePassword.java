@@ -53,7 +53,7 @@ public class ChangePassword implements Serializable {
             }
         }
 
-
+        Pagez.getUserSession().setMessage("Your password has been changed.");
         Pagez.sendRedirect("/jsp/account/index.jsp");
         return "";
     }
