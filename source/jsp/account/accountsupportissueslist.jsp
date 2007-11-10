@@ -1,107 +1,79 @@
 <%@ page import="org.apache.log4j.Logger" %>
-<%@ page import="com.dneero.htmlui.Pagez" %>
+<%@ page import="com.dneero.htmluibeans.AccountSupportIssuesList" %>
+<%@ page import="com.dneero.dbgrid.GridCol" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="com.dneero.dbgrid.Grid" %>
+<%@ page import="com.dneero.htmluibeans.AccountNewSupportIssue" %>
+<%@ page import="com.dneero.htmlui.*" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "Support Issues";
 String navtab = "youraccount";
 String acl = "account";
 %>
+<%
+    if (request.getParameter("action") != null && request.getParameter("action").equals("save")) {
+        try {
+            ((AccountNewSupportIssue) Pagez.getBeanMgr().get("AccountNewSupportIssue")).setSubject(Textbox.getValueFromRequest("subject", "Subject", true, DatatypeString.DATATYPEID));
+            ((AccountNewSupportIssue) Pagez.getBeanMgr().get("AccountNewSupportIssue")).setNotes(Textarea.getValueFromRequest("notes", "Issue Description", true));
+            ((AccountNewSupportIssue) Pagez.getBeanMgr().get("AccountNewSupportIssue")).newIssue();
+        } catch (ValidationException vex) {
+            Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
+        }
+    }
+%>
 <%@ include file="/jsp/templates/header.jsp" %>
+    <br/><br/>
+    <%if (((AccountSupportIssuesList) Pagez.getBeanMgr().get("AccountSupportIssuesList")).getSupportissues() == null || ((AccountSupportIssuesList) Pagez.getBeanMgr().get("AccountSupportIssuesList")).getSupportissues().size() == 0) {%>
+
+    <%} else {%>
+        <%
+            ArrayList<GridCol> cols=new ArrayList<GridCol>();
+            cols.add(new GridCol("Id", "<$supportissueid$>", true, "", "tinyfont"));
+            cols.add(new GridCol("Date", "<$datetime$>", true, "", "tinyfont", "", "background: #e6e6e6;"));
+            cols.add(new GridCol("Subject", "<a href=\"accountsupportissuedetail.jsp?supportissueid=<$supportissueid$>\"><$subject$></a>", false, "", "tinyfont"));
+        %>
+        <%=Grid.render(((AccountSupportIssuesList) Pagez.getBeanMgr().get("AccountSupportIssuesList")).getSupportissues(), cols, 10, "accountsupportissueslist.jsp", "page")%>
+    <%}%>
 
 
-            <t:saveState id="save" value="#{accountSupportIssuesList}"/>
-
-
-            <t:dataTable id="datatable" value="<%=((AccountSupportIssuesList)Pagez.getBeanMgr().get("AccountSupportIssuesList")).getSupportissues()%>" rows="15" var="supportissue" rendered="#{!empty accountSupportIssuesList.supportissues}" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcol,tcolnowrap,tcol,tcolnowrap,tcolnowrap">
-              <h:column>
-                <f:facet name="header">
-                  <h:outputText value="Id"/>
-                </f:facet>
-                <h:outputText value="<%=((Supportissue)Pagez.getBeanMgr().get("Supportissue")).getSupportissueid()%>"/>
-              </h:column>
-              <h:column>
-                <f:facet name="header">
-                  <h:outputText value="Date"/>
-                </f:facet>
-                <h:outputText value="<%=((Supportissue)Pagez.getBeanMgr().get("Supportissue")).getDatetime()%>" styleClass="mediumfont"/>
-              </h:column>
-              <h:column>
-                <f:facet name="header">
-                  <h:outputText value="-" style="color: #ffffff;"/>
-                </f:facet>
-                <h:commandLink action="<%=((AccountSupportIssueDetail)Pagez.getBeanMgr().get("AccountSupportIssueDetail")).getBeginView()%>">
-                    <h:outputText value="<%=((Supportissue)Pagez.getBeanMgr().get("Supportissue")).getSubject()%>" escape="false" />
-                    <f:param name="supportissueid" value="<%=((Supportissue)Pagez.getBeanMgr().get("Supportissue")).getSupportissueid()%>" />
-                </h:commandLink>
-              </h:column>
-              <h:column>
-                <f:facet name="header">
-                  <h:outputText value="Status"/>
-                </f:facet>
-                <h:outputText value="Open" rendered="<%=((Supportissue)Pagez.getBeanMgr().get("Supportissue")).getStatus==0()%>"/>
-                <h:outputText value="Working" rendered="<%=((Supportissue)Pagez.getBeanMgr().get("Supportissue")).getStatus==1()%>"/>
-                <h:outputText value="Closed" rendered="<%=((Supportissue)Pagez.getBeanMgr().get("Supportissue")).getStatus==2()%>"/>
-              </h:column>
-            </t:dataTable>
-            <t:dataScroller id="scroll_1" for="datatable" fastStep="10" pageCountVar="pageCount" pageIndexVar="pageIndex" styleClass="scroller" paginator="true" paginatorMaxPages="9" paginatorTableClass="paginator" paginatorActiveColumnStyle="font-weight:bold;">
-                <f:facet name="first" >
-                    <t:graphicImage url="/images/datascroller/play-first.png" border="0" />
-                </f:facet>
-                <f:facet name="last">
-                    <t:graphicImage url="/images/datascroller/play-forward.png" border="0" />
-                </f:facet>
-                <f:facet name="previous">
-                    <t:graphicImage url="/images/datascroller/play-back.png" border="0" />
-                </f:facet>
-                <f:facet name="next">
-                    <t:graphicImage url="/images/datascroller/play.png" border="0" />
-                </f:facet>
-            </t:dataScroller>
-        </h:form>
-        <h:form>
-
+    <form action="accountsupportissueslist.jsp" method="post">
+        <input type="hidden" name="action" value="save">
             <br/>
             <font class="mediumfont">Ask a Question. Make an Observation. Recommend an Improvement.</font>
             <br/>
             <font class="smallfont">Use this form to ask us anything at all about your account.  Report bugs.  Tell us where you're confused.  Tell us what could be better.  All communications will be archived and tracked for you here in the support section.</font>
             <br/><br/>
-            <h:messages styleClass="RED"/>
             <table cellpadding="0" cellspacing="0" border="0">
 
-                <td valign="top">
-                    <h:outputText value="Subject:" styleClass="formfieldnamefont"></h:outputText>
-                </td>
-                <td valign="top">
-                    <h:inputText value="<%=((AccountNewSupportIssue)Pagez.getBeanMgr().get("AccountNewSupportIssue")).getSubject()%>" id="subject" required="true">
-                        <f:validateLength minimum="3" maximum="1024"></f:validateLength>
-                    </h:inputText>
-                </td>
-                <td valign="top">
-                    <h:message for="subject" styleClass="RED"></h:message>
-                </td>
+                <tr>
+                    <td valign="top">
+                        <font class="formfieldnamefont">Subject:</font>
+                    </td>
+                    <td valign="top">
+                        <%=Textbox.getHtml("subject", ((AccountNewSupportIssue) Pagez.getBeanMgr().get("AccountNewSupportIssue")).getSubject(), 255, 20, "", "")%>
+                    </td>
+                </tr>
 
+                <tr>
+                    <td valign="top">
+                        <font class="formfieldnamefont">Issue Description:</font>
+                    </td>
+                    <td valign="top">
+                        <%=Textarea.getHtml("notes", ((AccountNewSupportIssue)Pagez.getBeanMgr().get("AccountNewSupportIssue")).getNotes(), 3, 35, "", "")%>
+                    </td>
+                </tr>
 
-                <td valign="top">
-                    <h:outputText value="Issue Description:" styleClass="formfieldnamefont"></h:outputText>
-                </td>
-                <td valign="top">
-                    <h:inputTextarea value="<%=((AccountNewSupportIssue)Pagez.getBeanMgr().get("AccountNewSupportIssue")).getNotes()%>" id="notes" required="true" cols="45" rows="5">
-                    <f:validateLength minimum="3" maximum="50000"></f:validateLength>
-                </h:inputTextarea>
-                </td>
-                <td valign="top">
-                    <h:message for="notes" styleClass="RED"></h:message>
-                </td>
-
-                <td valign="top">
-                </td>
-                <td valign="top">
-                    <h:commandButton action="<%=((AccountNewSupportIssue)Pagez.getBeanMgr().get("AccountNewSupportIssue")).getNewIssue()%>" value="Create a New Support Issue" styleClass="formsubmitbutton"></h:commandButton>
-                </td>
-                <td valign="top">
-                </td>
+                <tr>
+                    <td valign="top">
+                    </td>
+                    <td valign="top">
+                        <input type="submit" class="formsubmitbutton" value="Create a New Support Issue">
+                    </td>
+                </tr>
 
             </table>
+        </form>
 
 
 <%@ include file="/jsp/templates/footer.jsp" %>

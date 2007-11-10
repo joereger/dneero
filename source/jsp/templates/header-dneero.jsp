@@ -167,10 +167,12 @@
         <tr>
             <td valign="top">
                 <font class="pagetitlefont"><%=pagetitle%></font>
+                <br/>
                 <%
                 if (Pagez.getUserSession().getMessage()!=null && !Pagez.getUserSession().getMessage().equals("")){
                     %>
-                    <br/><font class="formfieldfont" style="background: #ffcc00;"><%=Pagez.getUserSession().getMessage()%></font>
+                    <font class="formfieldfont" style="background: #ffcc00;"><%=Pagez.getUserSession().getMessage()%></font>
+                    <br/>
                     <%
                     //Clear the message since it's been displayed
                     Pagez.getUserSession().setMessage("");

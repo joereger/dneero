@@ -1,62 +1,75 @@
 <%@ page import="org.apache.log4j.Logger" %>
-<%@ page import="com.dneero.htmlui.Pagez" %>
+<%@ page import="com.dneero.htmluibeans.AccountSupportIssueDetail" %>
+<%@ page import="com.dneero.dao.Supportissuecomm" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.Iterator" %>
+<%@ page import="com.dneero.htmlui.*" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "Support: Issue Detail";
 String navtab = "youraccount";
 String acl = "account";
 %>
+<%
+    if (request.getParameter("action") != null && request.getParameter("action").equals("save")) {
+        try {
+            ((AccountSupportIssueDetail) Pagez.getBeanMgr().get("AccountSupportIssueDetail")).setNotes(Textarea.getValueFromRequest("notes", "Comments", true));
+            ((AccountSupportIssueDetail) Pagez.getBeanMgr().get("AccountSupportIssueDetail")).newNote();
+        } catch (ValidationException vex) {
+            Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
+        }
+    }
+%>
 <%@ include file="/jsp/templates/header.jsp" %>
 
-
-            <h:messages styleClass="RED"/>
-            <h:inputHidden name="supportissueid" value="<%=((AccountSupportIssueDetail)Pagez.getBeanMgr().get("AccountSupportIssueDetail")).getSupportissueid()%>" />
+    <font class="mediumfont"><%=((AccountSupportIssueDetail)Pagez.getBeanMgr().get("AccountSupportIssueDetail")).getSupportissue().getSubject()%></font>
 
 
+    <%
+        ArrayList<Supportissuecomm> issues=((AccountSupportIssueDetail) Pagez.getBeanMgr().get("AccountSupportIssueDetail")).getSupportissuecomms();
+        for (Iterator it=issues.iterator(); it.hasNext();) {
+            Supportissuecomm comm=(Supportissuecomm) it.next();
+            StringBuffer body = new StringBuffer();
+            body.append("<font class=\"tinyfont\">"+comm.getDatetime()+"</font>");
+            body.append("<br/>");
+            if (comm.getIsfromdneeroadmin()){
+                body.append("<font class=\"normalfont\" style=\"font-weight: bold;\">From: dNeero Admin</font>");
+            } else {
+                body.append("<font class=\"normalfont\" style=\"font-weight: bold;\">From: You</font>");
+            }
+            body.append("<br/>");
+            body.append("<font class=\"normalfont\">"+comm.getNotes()+"</font>");
+            %>
+            <%=RoundedCornerBox.get(body.toString(), "supportissuecomm-"+comm.getSupportissueid(), "", "500", "", "", "e6e6e6", "", "", "")%>
+            <%
+        }
+    %>
 
-            <h:outputText value="<%=((AccountSupportIssueDetail)Pagez.getBeanMgr().get("AccountSupportIssueDetail")).getSupportissue().getSubject()%>" styleClass="mediumfont"></h:outputText>
-
-
-
-            <c:forEach var="supportissuecomm" items="<%=((AccountSupportIssueDetail)Pagez.getBeanMgr().get("AccountSupportIssueDetail")).getSupportissuecomms()%>">
-                <d:roundedCornerBox uniqueboxname="supportissuecomm-<%=((Supportissuecomm)Pagez.getBeanMgr().get("Supportissuecomm")).getSupportissuecommid()%>" bodycolor="e6e6e6" widthinpixels="500">
-                    <h:outputText value="<%=((Supportissuecomm)Pagez.getBeanMgr().get("Supportissuecomm")).getDatetime()%>"></h:outputText>
-                    <f:verbatim><br/></f:verbatim>
-                    <h:outputText value="From: dNeero Admin" style="font-weight: bold;" rendered="<%=((Supportissuecomm)Pagez.getBeanMgr().get("Supportissuecomm")).getIsfromdneeroadmin()%>"></h:outputText>
-                    <h:outputText value="From: You" rendered="<%=((!supportissuecomm)Pagez.getBeanMgr().get("!supportissuecomm")).getIsfromdneeroadmin()%>"></h:outputText>
-                    <f:verbatim><br/><br/></f:verbatim>
-                    <h:outputText value="<%=((Supportissuecomm)Pagez.getBeanMgr().get("Supportissuecomm")).getNotes()%>"></h:outputText>
-                </d:roundedCornerBox>
-            </c:forEach>
-
-
+    <form action="accountsupportissuedetail.jsp" method="post">
+        <input type="hidden" name="action" value="save">
+        <input type="hidden" name="supportissueid" value="<%=((AccountSupportIssueDetail)Pagez.getBeanMgr().get("AccountSupportIssueDetail")).getSupportissue().getSupportissueid()%>">
 
             <table cellpadding="0" cellspacing="0" border="0">
 
+                <tr>
+                    <td valign="top">
+                    </td>
+                    <td valign="top">
+                        <%=Textarea.getHtml("notes", ((AccountSupportIssueDetail)Pagez.getBeanMgr().get("AccountSupportIssueDetail")).getNotes(), 3, 35, "", "")%>
+                    </td>
+                </tr>
 
-                <td valign="top">
-                    <h:outputText value=" "></h:outputText>
-                </td>
-                <td valign="top">
-                    <h:inputTextarea value="<%=((AccountSupportIssueDetail)Pagez.getBeanMgr().get("AccountSupportIssueDetail")).getNotes()%>" id="notes" required="true" rows="5" cols="50">
-                    <f:validateLength minimum="3" maximum="50000"></f:validateLength>
-                </h:inputTextarea>
-                </td>
-                <td valign="top">
-                    <h:message for="notes" styleClass="RED"></h:message>
-                </td>
-
-                <td valign="top">
-                </td>
-                <td valign="top">
-                    <h:commandButton action="<%=((AccountSupportIssueDetail)Pagez.getBeanMgr().get("AccountSupportIssueDetail")).getNewNote()%>" value="Add a Comment to this Issue" styleClass="formsubmitbutton"></h:commandButton>
-                </td>
-                <td valign="top">
-                </td>
+                <tr>
+                    <td valign="top">
+                    </td>
+                    <td valign="top">
+                        <input type="submit" class="formsubmitbutton" value="Add Comment to this Issue">
+                    </td>
+                </tr>
 
             </table>
 
-
+    </form>
 
 <%@ include file="/jsp/templates/footer.jsp" %>
 

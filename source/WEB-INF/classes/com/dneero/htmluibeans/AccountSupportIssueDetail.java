@@ -34,7 +34,7 @@ public class AccountSupportIssueDetail implements Serializable {
 
     }
 
-    public String beginView(){
+    public void initBean(){
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("beginView called: supportissueid="+supportissueid);
         String tmpSupportissueid = Pagez.getRequest().getParameter("supportissueid");
@@ -53,12 +53,10 @@ public class AccountSupportIssueDetail implements Serializable {
         } else {
             logger.debug("beginView called: NOT found supportissueid in param="+tmpSupportissueid);
         }
-        return "accountsupportissuedetail";
     }
 
     public String newNote(){
         Logger logger = Logger.getLogger(this.getClass().getName());
-        beginView();
         if(supportissueid<=0){
             logger.debug("supportissueid not found: "+supportissueid);
             return "";
@@ -81,6 +79,9 @@ public class AccountSupportIssueDetail implements Serializable {
             logger.debug("saveAction failed: " + gex.getErrorsAsSingleString());
             return null;
         }
+
+        Pagez.getUserSession().setMessage("Thanks, your comments have been added to the issue.");
+        initBean();
         
         //Notify sales group
         Supportissue si = Supportissue.get(supportissueid);
@@ -93,7 +94,7 @@ public class AccountSupportIssueDetail implements Serializable {
         SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_CUSTOMERSUPPORT, "New dNeero Customer Support Comment: "+si.getSubject()+" (supportissueid="+supportissueid+") ("+Pagez.getUserSession().getUser().getEmail()+") "+notes);
         xmpp.send();
 
-        return "accountsupportissuenewnotedone";
+        return "";
     }
 
     public int getSupportissueid() {
