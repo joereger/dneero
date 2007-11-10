@@ -7,7 +7,6 @@ String pagetitle = "Change Password";
 String navtab = "youraccount";
 String acl = "account";
 %>
-<%@ include file="/jsp/templates/header.jsp" %>
 <%
     if (request.getParameter("action") != null && request.getParameter("action").equals("save")) {
     try {
@@ -15,13 +14,12 @@ String acl = "account";
         ((ChangePassword) Pagez.getBeanMgr().get("ChangePassword")).setPasswordverify(TextboxSecret.getValueFromRequest("passwordverify", "Verify New Password", true, DatatypeString.DATATYPEID));
         ((ChangePassword) Pagez.getBeanMgr().get("ChangePassword")).saveAction();
     } catch (ValidationException vex) {
-        %>
-        <br/>
-        <%=vex.getErrorsAsSingleString()%>
-        <%
+        Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
     }
 }
 %>
+<%@ include file="/jsp/templates/header.jsp" %>
+
 
     <br/><br/>
     <form action="changepassword.jsp" method="post">

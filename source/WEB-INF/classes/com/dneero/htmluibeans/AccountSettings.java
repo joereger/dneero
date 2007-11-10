@@ -19,6 +19,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.LinkedHashMap;
 import java.util.Iterator;
+import java.util.ArrayList;
 
 /**
  * User: Joe Reger Jr
@@ -121,12 +122,12 @@ public class AccountSettings implements Serializable {
         }
     }
 
-    public LinkedHashMap getNotificationFrequencies(){
-        LinkedHashMap out = new LinkedHashMap();
-        out.put("Every Day", 1);
-        out.put("Every Week", 7);
-        out.put("Every 30 Days", 31);
-        out.put("Never", 0);
+    public ArrayList<String> getNotificationFrequencies(){
+        ArrayList<String> out  = new ArrayList<String>();
+        out.add("1");
+        out.add("7");
+        out.add("31");
+        out.add("0");
         return out;
     }
 

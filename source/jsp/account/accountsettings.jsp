@@ -1,182 +1,177 @@
 <%@ page import="org.apache.log4j.Logger" %>
-<%@ page import="com.dneero.htmlui.Pagez" %>
+<%@ page import="com.dneero.htmlui.*" %>
+<%@ page import="com.dneero.htmluibeans.AccountSettings" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "Account Settings";
 String navtab = "youraccount";
 String acl = "account";
 %>
+<%
+    if (request.getParameter("action") != null && request.getParameter("action").equals("save")) {
+    try {
+        ((AccountSettings) Pagez.getBeanMgr().get("AccountSettings")).setFirstname(Textbox.getValueFromRequest("firstname", "First Name", true, DatatypeString.DATATYPEID));
+        ((AccountSettings) Pagez.getBeanMgr().get("AccountSettings")).setLastname(Textbox.getValueFromRequest("lastname", "Last Name", true, DatatypeString.DATATYPEID));
+        ((AccountSettings) Pagez.getBeanMgr().get("AccountSettings")).setEmail(Textbox.getValueFromRequest("email", "Email", true, DatatypeString.DATATYPEID));
+        ((AccountSettings) Pagez.getBeanMgr().get("AccountSettings")).setNotifyofnewsurveysbyemaileveryexdays(Integer.parseInt(Dropdown.getValueFromRequest("notifyofnewsurveysbyemaileveryexdays", "Notify Every X Days", true)));
+        ((AccountSettings) Pagez.getBeanMgr().get("AccountSettings")).setAllownoncriticalemails(CheckboxBoolean.getValueFromRequest("allownoncriticalemails"));
+        ((AccountSettings) Pagez.getBeanMgr().get("AccountSettings")).setInstantnotifybyemailison(CheckboxBoolean.getValueFromRequest("instantnotifybyemailison"));
+        ((AccountSettings) Pagez.getBeanMgr().get("AccountSettings")).setInstantnotifybytwitterison(CheckboxBoolean.getValueFromRequest("instantnotifybytwitterison"));
+        ((AccountSettings) Pagez.getBeanMgr().get("AccountSettings")).setInstantnotifytwitterusername(Textbox.getValueFromRequest("instantnotifytwitterusername", "Twitter Username", false, DatatypeString.DATATYPEID));
+        ((AccountSettings) Pagez.getBeanMgr().get("AccountSettings")).setInstantnotifyxmppison(CheckboxBoolean.getValueFromRequest("instantnotifyxmppison"));
+        ((AccountSettings) Pagez.getBeanMgr().get("AccountSettings")).setInstantnotifyxmppusername(Textbox.getValueFromRequest("instantnotifyxmppusername", "XMPP/Jabber Username", false, DatatypeString.DATATYPEID));
+        ((AccountSettings) Pagez.getBeanMgr().get("AccountSettings")).setPaymethodpaypaladdress(Textbox.getValueFromRequest("paymethodpaypaladdress", "PayPal Address", false, DatatypeString.DATATYPEID));
+        ((AccountSettings) Pagez.getBeanMgr().get("AccountSettings")).saveAction();
+    } catch (com.dneero.htmlui.ValidationException vex) {
+        Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
+    }
+}
+%>
 <%@ include file="/jsp/templates/header.jsp" %>
 
+    <br/><br/>
+    <form action="accountsettings.jsp" method="post">
+        <input type="hidden" name="action" value="save">
 
-            <h:messages styleClass="RED" id="all"/>
-            <table cellpadding="0" cellspacing="0" border="0">
+            <table cellpadding="3" cellspacing="0" border="0">
 
+                <tr>
+                    <td valign="top">
+                        <font class="formfieldnamefont">First Name</font>
+                    </td>
+                    <td valign="top">
+                        <%=Textbox.getHtml("firstname", ((AccountSettings) Pagez.getBeanMgr().get("AccountSettings")).getFirstname(), 255, 20, "", "")%>
+                    </td>
+                </tr>
 
-                <td valign="top">
-                    <h:outputText value="First Name" styleClass="formfieldnamefont"></h:outputText>
-                </td>
-                <td valign="top">
-                    <h:inputText value="<%=((AccountSettings)Pagez.getBeanMgr().get("AccountSettings")).getFirstname()%>" id="firstname" required="true">
-                        <f:validateLength minimum="1" maximum="255"></f:validateLength>
-                    </h:inputText>
-                </td>
-                <td valign="top">
-                    <h:message for="firstname" styleClass="RED"></h:message>
-                </td>
+                <tr>
+                    <td valign="top">
+                        <font class="formfieldnamefont">Last Name</font>
+                    </td>
+                    <td valign="top">
+                        <%=Textbox.getHtml("lastname", ((AccountSettings) Pagez.getBeanMgr().get("AccountSettings")).getLastname(), 255, 20, "", "")%>
+                    </td>
+                </tr>
 
-                <td valign="top">
-                    <h:outputText value="Last Name" styleClass="formfieldnamefont"></h:outputText>
-                </td>
-                <td valign="top">
-                    <h:inputText value="<%=((AccountSettings)Pagez.getBeanMgr().get("AccountSettings")).getLastname()%>" id="lastname" required="true">
-                        <f:validateLength minimum="1" maximum="255"></f:validateLength>
-                    </h:inputText>
-                </td>
-                <td valign="top">
-                    <h:message for="lastname" styleClass="RED"></h:message>
-                </td>
-
-
-                <td valign="top">
-                    <h:outputText value="Email" styleClass="formfieldnamefont"></h:outputText>
-                    <br/>
-                    <h:outputText value="This is used to log in." styleClass="tinyfont"></h:outputText>
-                </td>
-                <td valign="top">
-                    <h:inputText value="<%=((AccountSettings)Pagez.getBeanMgr().get("AccountSettings")).getEmail()%>" id="email" required="true">
-                        <f:validateLength minimum="3" maximum="255"></f:validateLength>
-                        <t:validateEmail></t:validateEmail>
-                    </h:inputText>
-                    <f:verbatim><br/></f:verbatim>
-                    <h:outputText value="Changing email will require re-activation." styleClass="tinyfont"></h:outputText>
-                </td>
-                <td valign="top">
-                    <h:message for="email" styleClass="RED"></h:message>
-                </td>
+                <tr>
+                    <td valign="top">
+                        <font class="formfieldnamefont">Email</font>
+                        <br/>
+                        <font class="tinyfont">This is used to log in.</font>
+                    </td>
+                    <td valign="top">
+                        <%=Textbox.getHtml("email", ((AccountSettings) Pagez.getBeanMgr().get("AccountSettings")).getEmail(), 255, 20, "", "")%>
+                        <br/>
+                        <font class="tinyfont">Changing email will require re-activation</font>
+                    </td>
+                </tr>
 
 
-
-                <td valign="top">
-                    <h:outputText value="Password" styleClass="formfieldnamefont"></h:outputText>
-                    <br/>
-                    <h:outputText value="Password changes are handled on a separate screen." styleClass="tinyfont"></h:outputText>
-                </td>
-                <td valign="top">
-                    <h:commandLink value="Change Password" action="changepassword"/>
-                </td>
-                <td valign="top">
-                </td>
-
+                <tr>
+                    <td valign="top">
+                        <font class="formfieldnamefont">Password</font>
+                        <br/>
+                        <font class="tinyfont">Password changes are handled on a separate screen.</font>
+                    </td>
+                    <td valign="top">
+                        <h:commandLink value="Change Password" action="changepassword"/>
+                    </td>
+                </tr>
 
 
-                <td valign="top">
-                    <h:outputText value="Notification of New Surveys" styleClass="formfieldnamefont"></h:outputText>
-                    <br/>
-                    <font class="tinyfont">Learn about new surveys before others.<br/>Of course we'll only disturb your inbox<br/>if there's actually a new survey<br/>that you qualify for.</font>
-                </td>
-                <td valign="top">
-                    <h:selectOneMenu value="<%=((AccountSettings)Pagez.getBeanMgr().get("AccountSettings")).getNotifyofnewsurveysbyemaileveryexdays()%>" id="notifyofnewsurveysbyemaileveryexdays" required="true">
-                            <f:selectItems value="<%=((AccountSettings)Pagez.getBeanMgr().get("AccountSettings")).getNotificationFrequencies()%>"/>
-                    </h:selectOneMenu>
-                </td>
-                <td valign="top">
-                    <h:message for="notifyofnewsurveysbyemaileveryexdays" styleClass="RED"></h:message>
-                </td>
+                <tr>
+                    <td valign="top">
+                        <font class="formfieldnamefont">Notification of New Surveys<br/>Every X Days</font>
+                        <br/>
+                        <font class="tinyfont">Learn about new surveys before others.<br/>Of course we'll only disturb your inbox<br/>if there's actually a new survey<br/>that you qualify for.</font>
+                    </td>
+                    <td valign="top">
+                        <%=Dropdown.getHtml("notifyofnewsurveysbyemaileveryexdays",String.valueOf(((AccountSettings)Pagez.getBeanMgr().get("AccountSettings")).getNotifyofnewsurveysbyemaileveryexdays()), ((AccountSettings)Pagez.getBeanMgr().get("AccountSettings")).getNotificationFrequencies(), "","")%>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td valign="top">
+                        <font class="formfieldnamefont">Non Critical Email</font>
+                        <br/>
+                        <font class="tinyfont">We only send messages that we believe<br/>you'll want to see.  However, you can opt<br/>out of everything but the most critical<br/>account-related and legal messages.</font>
+                    </td>
+                    <td valign="top">
+                        <%=CheckboxBoolean.getHtml("allownoncriticalemails", ((AccountSettings)Pagez.getBeanMgr().get("AccountSettings")).getAllownoncriticalemails(), "", "")%>
+                        <font class="formfieldnamefont">Allow informative non-critical email</font>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td valign="top">
+                        <font class="formfieldnamefont">Email Instant Notify</font>
+                        <br/>
+                        <font class="tinyfont">If you like we can instantly notify<br/>you of new surveys by email.  No need to wait<br/>for the once a day message!</font>
+                    </td>
+                    <td valign="top">
+                        <%=CheckboxBoolean.getHtml("instantnotifybyemailison", ((AccountSettings)Pagez.getBeanMgr().get("AccountSettings")).getInstantnotifybyemailison(), "", "")%>
+                        <font class="formfieldnamefont">Instantly notify me via email</font>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td valign="top">
+                        <font class="formfieldnamefont">Twitter Instant Notify</font>
+                        <br/>
+                        <font class="tinyfont">If you like we can also instantly notify<br/>you of new surveys via Twitter.</font>
+                    </td>
+                    <td valign="top">
+                        <%=CheckboxBoolean.getHtml("instantnotifybytwitterison", ((AccountSettings)Pagez.getBeanMgr().get("AccountSettings")).getInstantnotifybytwitterison(), "", "")%>
+                        <font class="formfieldnamefont">Instantly notify me via Twitter</font>
+                        <br/>
+                        <%=Textbox.getHtml("instantnotifytwitterusername", ((AccountSettings) Pagez.getBeanMgr().get("AccountSettings")).getInstantnotifytwitterusername(), 255, 20, "", "")%>
+                        <br/>
+                        <font class="tinyfont">Twitter Username.<br/>Note: this should be something like "joereger"<br/>and not your email address.<br/>Note: You must add info@dneero.com as a friend<br/>in your Twitter account or your notifications<br/>will not arrive.</font>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td valign="top">
+                        <font class="formfieldnamefont">XMPP/Jabber Instant Notify</font>
+                        <br/>
+                        <font class="tinyfont">If you like we can also instantly notify<br/>you of new surveys via XMPP/Jabber.<br/>This works with a Google Chat account<br/>or other Jabber servers.</font>
+                    </td>
+                    <td valign="top">
+                        <%=CheckboxBoolean.getHtml("instantnotifyxmppison", ((AccountSettings)Pagez.getBeanMgr().get("AccountSettings")).getInstantnotifyxmppison(), "", "")%>
+                        <font class="formfieldnamefont">Instantly notify me via XMPP/Jabber</font>
+                        <br/>
+                        <%=Textbox.getHtml("instantnotifyxmppusername", ((AccountSettings) Pagez.getBeanMgr().get("AccountSettings")).getInstantnotifyxmppusername(), 255, 20, "", "")%>
+                        <br/>
+                        <font class="tinyfont">Jabber Address</font>
+                    </td>
+                </tr>
 
 
-                <td valign="top">
-                    <h:outputText value="Non Critical Email" styleClass="formfieldnamefont"></h:outputText>
-                    <br/>
-                    <font class="tinyfont">We only send messages that we believe<br/>you'll want to see.  However, you can opt<br/>out of everything but the most critical<br/>account-related and legal messages.</font>
-                </td>
-                <td valign="top">
-                    <h:selectBooleanCheckbox value="<%=((AccountSettings)Pagez.getBeanMgr().get("AccountSettings")).getAllownoncriticalemails()%>" id="allownoncriticalemails"></h:selectBooleanCheckbox>
-                    <font class="formfieldnamefont">Allow informative non-critical email</font>
-                </td>
-                <td valign="top">
-                    <h:message for="allownoncriticalemails" styleClass="RED"></h:message>
-                </td>
-
-
-                <td valign="top">
-                    <h:outputText value="Email Instant Notify" styleClass="formfieldnamefont"></h:outputText>
-                    <br/>
-                    <font class="tinyfont">If you like we can instantly notify<br/>you of new surveys by email.  No need to wait<br/>for the once a day message!</font>
-                </td>
-                <td valign="top">
-                    <h:selectBooleanCheckbox value="<%=((AccountSettings)Pagez.getBeanMgr().get("AccountSettings")).getInstantnotifybyemailison()%>" id="instantnotifybyemailison"></h:selectBooleanCheckbox>
-                    <font class="formfieldnamefont">Instantly notify me via email</font>
-                </td>
-                <td valign="top">
-                    <h:message for="instantnotifybyemailison" styleClass="RED"></h:message>
-                </td>
-
-                <td valign="top">
-                    <h:outputText value="Twitter Instant Notify" styleClass="formfieldnamefont"></h:outputText>
-                    <br/>
-                    <font class="tinyfont">If you like we can also instantly notify<br/>you of new surveys via Twitter.</font>
-                </td>
-                <td valign="top">
-                    <h:selectBooleanCheckbox value="<%=((AccountSettings)Pagez.getBeanMgr().get("AccountSettings")).getInstantnotifybytwitterison()%>" id="instantnotifybytwitterison"></h:selectBooleanCheckbox>
-                    <font class="formfieldnamefont">Instantly notify me via Twitter</font>
-                    <br/>
-                    <h:inputText value="<%=((AccountSettings)Pagez.getBeanMgr().get("AccountSettings")).getInstantnotifytwitterusername()%>" id="instantnotifytwitterusername" required="false"></h:inputText>
-                    <br/>
-                    <font class="tinyfont">Twitter Username.<br/>Note: this should be something like "joereger"<br/>and not your email address.<br/>Note: You must add info@dneero.com as a friend<br/>in your Twitter account or your notifications<br/>will not arrive.</font>
-                </td>
-                <td valign="top">
-                    <h:message for="instantnotifybytwitterison" styleClass="RED"></h:message>
-                    <h:message for="instantnotifytwitterusername" styleClass="RED"></h:message>
-                </td>
-
-                <td valign="top">
-                    <h:outputText value="XMPP/Jabber Instant Notify" styleClass="formfieldnamefont"></h:outputText>
-                    <br/>
-                    <font class="tinyfont">If you like we can also instantly notify<br/>you of new surveys via XMPP/Jabber.<br/>This works with a Google Chat account<br/>or other Jabber servers.</font>
-                </td>
-                <td valign="top">
-                    <h:selectBooleanCheckbox value="<%=((AccountSettings)Pagez.getBeanMgr().get("AccountSettings")).getInstantnotifyxmppison()%>" id="instantnotifyxmppison"></h:selectBooleanCheckbox>
-                    <font class="formfieldnamefont">Instantly notify me via XMPP/Jabber</font>
-                    <br/>
-                    <h:inputText value="<%=((AccountSettings)Pagez.getBeanMgr().get("AccountSettings")).getInstantnotifyxmppusername()%>" id="instantnotifyxmppusername" required="false"></h:inputText>
-                    <br/>
-                    <font class="tinyfont">Jabber Address</font>
-                </td>
-                <td valign="top">
-                    <h:message for="instantnotifyxmppison" styleClass="RED"></h:message>
-                    <h:message for="instantnotifyxmppusername" styleClass="RED"></h:message>
-                </td>
-
-
-                
-                <td valign="top">
-                    <h:outputText value="PayPal Address (Optional)" styleClass="formfieldnamefont"></h:outputText>
-                    <br/>
-                    <font class="tinyfont">We can't pay you until we have a valid<br/>PayPal address.  You can enter one<br/>at any time.  You don't need to have one<br/>in the system to blog and earn money.<br/>Your PayPal address is the email<br/>address you use to log in<br/>to paypal.com.<br/>Don't have a PayPal account? <br/>Setup is quick, easy and secure.<br/>Click <a href='http://www.paypal.com' target='paypal' class="tinyfont"><font class="tinyfont">here</font></a> to create one.</font>
-                </td>
-                <td valign="top">
-                    <h:inputText value="<%=((AccountSettings)Pagez.getBeanMgr().get("AccountSettings")).getPaymethodpaypaladdress()%>" id="paymethodpaypaladdress" size="35"></h:inputText>
-                </td>
-                <td valign="top">
-                    <h:message for="paymethodpaypaladdress" styleClass="RED"></h:message>
-                </td>
+                <tr>
+                    <td valign="top">
+                        <font class="formfieldnamefont">PayPal Address (Optional)</font>
+                        <br/>
+                        <font class="tinyfont">We can't pay you until we have a valid<br/>PayPal address.  You can enter one<br/>at any time.  You don't need to have one<br/>in the system to blog and earn money.<br/>Your PayPal address is the email<br/>address you use to log in<br/>to paypal.com.<br/>Don't have a PayPal account? <br/>Setup is quick, easy and secure.<br/>Click <a href='http://www.paypal.com' target='paypal' class="tinyfont"><font class="tinyfont">here</font></a> to create one.</font>
+                    </td>
+                    <td valign="top">
+                        <%=Textbox.getHtml("paymethodpaypaladdress", ((AccountSettings) Pagez.getBeanMgr().get("AccountSettings")).getPaymethodpaypaladdress(), 255, 20, "", "")%>
+                    </td>
+                </tr>
 
 
 
-
-                <td valign="top">
-                </td>
-                <td valign="top">
-                    <br/><br/>
-                    <h:commandButton action="<%=((AccountSettings)Pagez.getBeanMgr().get("AccountSettings")).getSaveAction()%>" value="Save Settings" styleClass="formsubmitbutton"></h:commandButton>
-                </td>
-                <td valign="top">
-                </td>
+                <tr>
+                    <td valign="top">
+                    </td>
+                    <td valign="top">
+                        <br/><br/>
+                        <input type="submit" class="formsubmitbutton" value="Save Settings">
+                    </td>
+                </tr>
 
             </table>
 
-
+    </form>
 
 
 <%@ include file="/jsp/templates/footer.jsp" %>

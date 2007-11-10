@@ -7,7 +7,6 @@ String pagetitle = "Log In";
 String navtab = "youraccount";
 String acl = "public";
 %>
-<%@ include file="/jsp/templates/header.jsp" %>
 <%
     if (request.getParameter("action") != null && request.getParameter("action").equals("login")) {
     try {
@@ -16,12 +15,12 @@ String acl = "public";
         ((Login) Pagez.getBeanMgr().get("Login")).setKeepmeloggedin(CheckboxBoolean.getValueFromRequest("keepmeloggedin"));
         ((Login) Pagez.getBeanMgr().get("Login")).login();
     } catch (ValidationException vex) {
-    %>
-    <%=vex.getErrorsAsSingleString()%>
-    <%
+        Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
     }
 }
 %>
+<%@ include file="/jsp/templates/header.jsp" %>
+
     <br/><br/>
     <form action="login.jsp" method="post">
         <input type="hidden" name="action" value="login">

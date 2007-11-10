@@ -39,15 +39,15 @@ String acl = "public";
 
 <form action="" method="get">
     <input type="hidden" name="action" value="save">
-    <br/><%=Textbox.getHtml("textbox", ((Test)Pagez.getBeanMgr().get("Test")).getTextbox(), 255, 35, "", "font-size: 14px; background: #ffcc00;")%>
+    <br/><%=Textbox.getHtml("textbox", ((Test)Pagez.getBeanMgr().get("Test")).getTextbox(), 255, 35, "", "")%>
     <%
         ArrayList<String> options = new ArrayList<String>();
         options.add("a");
         options.add("b");
         options.add("c");
     %>
-    <br/><%=Dropdown.getHtml("dropdown",((Test)Pagez.getBeanMgr().get("Test")).getDropdown(), options, "","font-size: 14px; background: #ffcc00;")%>
-    <br/><%=Textarea.getHtml("textarea", ((Test)Pagez.getBeanMgr().get("Test")).getTextarea(), 3, 35, "", "font-size: 14px; background: #ffcc00;")%>
+    <br/><%=Dropdown.getHtml("dropdown",((Test)Pagez.getBeanMgr().get("Test")).getDropdown(), options, "","")%>
+    <br/><%=Textarea.getHtml("textarea", ((Test)Pagez.getBeanMgr().get("Test")).getTextarea(), 3, 35, "", "")%>
     <%
         ArrayList<String> checkboxvalues = ((Test)Pagez.getBeanMgr().get("Test")).getCheckboxesvalues();
         ArrayList<String> possiblevalues = new ArrayList<String>();
@@ -55,7 +55,7 @@ String acl = "public";
         possiblevalues.add("bradley");
         possiblevalues.add("charcoal");
     %>
-    <br/><%=Checkboxes.getHtml("checkboxes", checkboxvalues, possiblevalues, "", "font-size: 14px; background: #ffcc00;")%>
+    <br/><%=Checkboxes.getHtml("checkboxes", checkboxvalues, possiblevalues, "", "")%>
     <%
 
         ArrayList<String> ddmsv = ((Test)Pagez.getBeanMgr().get("Test")).getDropdownmultiselect();
@@ -68,10 +68,10 @@ String acl = "public";
         possibleddvalues.add("32d22dwe");
         possibleddvalues.add("werwe23");
     %>
-    <br/><%=DropdownMultiselect.getHtml("dropdownmultiselect", ddmsv, possibleddvalues, 3, "", "font-size: 14px; background: #ffcc00;")%>
-    <br/><%=CheckboxBoolean.getHtml("booleantest", ((Test)Pagez.getBeanMgr().get("Test")).getBooleantest(), "", "font-size: 14px; background: #ffcc00;")%> Is True?
-    <br/><%=DateTime.getHtml("cal", ((Test)Pagez.getBeanMgr().get("Test")).getCal(), "", "font-size: 14px; background: #ffcc00;")%>
-    <br/><%=Date.getHtml("cal2", ((Test)Pagez.getBeanMgr().get("Test")).getCal2(), "", "font-size: 14px; background: #ffcc00;")%>
+    <br/><%=DropdownMultiselect.getHtml("dropdownmultiselect", ddmsv, possibleddvalues, 3, "", "")%>
+    <br/><%=CheckboxBoolean.getHtml("booleantest", ((Test)Pagez.getBeanMgr().get("Test")).getBooleantest(), "", "")%> Is True?
+    <br/><%=DateTime.getHtml("cal", ((Test)Pagez.getBeanMgr().get("Test")).getCal(), "", "")%>
+    <br/><%=Date.getHtml("cal2", ((Test)Pagez.getBeanMgr().get("Test")).getCal2(), "", "")%>
     <br/><input type="submit" value="go">
 </form>
 <br/><br/>
