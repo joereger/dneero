@@ -8,12 +8,15 @@ String navtab = "youraccount";
 String acl = "public";
 %>
 <%
+Login login = (Login) Pagez.getBeanMgr().get("Login");
+%>
+<%
     if (request.getParameter("action") != null && request.getParameter("action").equals("login")) {
     try {
-        ((Login) Pagez.getBeanMgr().get("Login")).setEmail(com.dneero.htmlui.Textbox.getValueFromRequest("email", "Email", true, DatatypeString.DATATYPEID));
-        ((Login) Pagez.getBeanMgr().get("Login")).setPassword(com.dneero.htmlui.Textbox.getValueFromRequest("password", "Password", true, DatatypeString.DATATYPEID));
-        ((Login) Pagez.getBeanMgr().get("Login")).setKeepmeloggedin(CheckboxBoolean.getValueFromRequest("keepmeloggedin"));
-        ((Login) Pagez.getBeanMgr().get("Login")).login();
+        login.setEmail(com.dneero.htmlui.Textbox.getValueFromRequest("email", "Email", true, DatatypeString.DATATYPEID));
+        login.setPassword(com.dneero.htmlui.Textbox.getValueFromRequest("password", "Password", true, DatatypeString.DATATYPEID));
+        login.setKeepmeloggedin(CheckboxBoolean.getValueFromRequest("keepmeloggedin"));
+        login.login();
     } catch (ValidationException vex) {
         Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
     }
@@ -32,7 +35,7 @@ String acl = "public";
                         <font class="formfieldnamefont">Email</font>
                     </td>
                     <td valign="top">
-                        <%=Textbox.getHtml("email", ((Login)Pagez.getBeanMgr().get("Login")).getEmail(), 255, 20, "", "")%>
+                        <%=Textbox.getHtml("email", login.getEmail(), 255, 20, "", "")%>
                     </td>
                 </tr>
 
@@ -41,7 +44,7 @@ String acl = "public";
                         <font class="formfieldnamefont">Password</font>
                     </td>
                     <td valign="top">
-                        <%=TextboxSecret.getHtml("password", ((Login)Pagez.getBeanMgr().get("Login")).getPassword(), 255, 20, "", "")%>
+                        <%=TextboxSecret.getHtml("password", login.getPassword(), 255, 20, "", "")%>
                         <br/>
                         <a href="lostpassword.jsp"><font class="tinyfont" style="color: #000000;">Lost your password?</font></a>
                     </td>
@@ -51,7 +54,7 @@ String acl = "public";
                     <td valign="top">
                     </td>
                     <td valign="top">
-                        <%=CheckboxBoolean.getHtml("keepmeloggedin", ((Login)Pagez.getBeanMgr().get("Login")).getKeepmeloggedin(), "", "")%>
+                        <%=CheckboxBoolean.getHtml("keepmeloggedin", login.getKeepmeloggedin(), "", "")%>
                         <font class="formfieldnamefont">Stay Logged In?</font>
                     </td>
                 </tr>

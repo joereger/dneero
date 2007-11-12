@@ -10,9 +10,12 @@ String pagetitle = "Account Transactions";
 String navtab = "youraccount";
 String acl = "account";
 %>
+<%
+AccountBalancetransaction accountBalancetransaction = (AccountBalancetransaction) Pagez.getBeanMgr().get("AccountBalancetransaction");
+%>
 <%@ include file="/jsp/templates/header.jsp" %>
 
-        <%if (((AccountBalancetransaction) Pagez.getBeanMgr().get("AccountBalancetransaction")).getBalances() == null || ((AccountBalancetransaction) Pagez.getBeanMgr().get("AccountBalancetransaction")).getBalances().size() == 0) {%>
+        <%if (accountBalancetransaction.getBalances() == null || accountBalancetransaction.getBalances().size() == 0) {%>
             <font class="normalfont">There are not yet any financial transactions on your account.  Go fill out some surveys!  Or create some!</font>
         <%} else {%>
             <%
@@ -24,7 +27,7 @@ String acl = "account";
                 cols.add(new GridCol("Notes", "<$notes$>", false, "", "tinyfont"));
                 cols.add(new GridCol("Amount", "<$amt$>", true, "", "tinyfont"));
             %>
-            <%=Grid.render(((AccountBalancetransaction) Pagez.getBeanMgr().get("AccountBalancetransaction")).getBalances(), cols, 50, "accounttransactions.jsp", "page")%>
+            <%=Grid.render(accountBalancetransaction.getBalances(), cols, 50, "accounttransactions.jsp", "page")%>
         <%}%>
 
 

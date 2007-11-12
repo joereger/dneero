@@ -8,11 +8,14 @@ String navtab = "youraccount";
 String acl = "account";
 %>
 <%
+ChangePassword changePassword = (ChangePassword) Pagez.getBeanMgr().get("ChangePassword");
+%>
+<%
     if (request.getParameter("action") != null && request.getParameter("action").equals("save")) {
     try {
-        ((ChangePassword) Pagez.getBeanMgr().get("ChangePassword")).setPassword(TextboxSecret.getValueFromRequest("password", "New Password", true, DatatypeString.DATATYPEID));
-        ((ChangePassword) Pagez.getBeanMgr().get("ChangePassword")).setPasswordverify(TextboxSecret.getValueFromRequest("passwordverify", "Verify New Password", true, DatatypeString.DATATYPEID));
-        ((ChangePassword) Pagez.getBeanMgr().get("ChangePassword")).saveAction();
+        changePassword.setPassword(TextboxSecret.getValueFromRequest("password", "New Password", true, DatatypeString.DATATYPEID));
+        changePassword.setPasswordverify(TextboxSecret.getValueFromRequest("passwordverify", "Verify New Password", true, DatatypeString.DATATYPEID));
+        changePassword.saveAction();
     } catch (ValidationException vex) {
         Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
     }
@@ -31,7 +34,7 @@ String acl = "account";
                         <font class="formfieldnamefont">New Password</font>
                     </td>
                     <td valign="top">
-                        <%=TextboxSecret.getHtml("password", ((ChangePassword) Pagez.getBeanMgr().get("ChangePassword")).getPassword(), 255, 20, "", "")%>
+                        <%=TextboxSecret.getHtml("password", changePassword.getPassword(), 255, 20, "", "")%>
                     </td>
                 </tr>
 
@@ -40,7 +43,7 @@ String acl = "account";
                         <font class="formfieldnamefont">Verify New Password</font>
                     </td>
                     <td valign="top">
-                        <%=TextboxSecret.getHtml("passwordverify", ((ChangePassword) Pagez.getBeanMgr().get("ChangePassword")).getPasswordverify(), 255, 20, "", "")%>
+                        <%=TextboxSecret.getHtml("passwordverify", changePassword.getPasswordverify(), 255, 20, "", "")%>
                     </td>
                 </tr>
 

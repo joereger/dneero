@@ -8,20 +8,23 @@ String navtab = "youraccount";
 String acl = "account";
 %>
 <%
+AccountSettings accountSettings = (AccountSettings) Pagez.getBeanMgr().get("AccountSettings");
+%>
+<%
     if (request.getParameter("action") != null && request.getParameter("action").equals("save")) {
     try {
-        ((AccountSettings) Pagez.getBeanMgr().get("AccountSettings")).setFirstname(Textbox.getValueFromRequest("firstname", "First Name", true, DatatypeString.DATATYPEID));
-        ((AccountSettings) Pagez.getBeanMgr().get("AccountSettings")).setLastname(Textbox.getValueFromRequest("lastname", "Last Name", true, DatatypeString.DATATYPEID));
-        ((AccountSettings) Pagez.getBeanMgr().get("AccountSettings")).setEmail(Textbox.getValueFromRequest("email", "Email", true, DatatypeString.DATATYPEID));
-        ((AccountSettings) Pagez.getBeanMgr().get("AccountSettings")).setNotifyofnewsurveysbyemaileveryexdays(Integer.parseInt(Dropdown.getValueFromRequest("notifyofnewsurveysbyemaileveryexdays", "Notify Every X Days", true)));
-        ((AccountSettings) Pagez.getBeanMgr().get("AccountSettings")).setAllownoncriticalemails(CheckboxBoolean.getValueFromRequest("allownoncriticalemails"));
-        ((AccountSettings) Pagez.getBeanMgr().get("AccountSettings")).setInstantnotifybyemailison(CheckboxBoolean.getValueFromRequest("instantnotifybyemailison"));
-        ((AccountSettings) Pagez.getBeanMgr().get("AccountSettings")).setInstantnotifybytwitterison(CheckboxBoolean.getValueFromRequest("instantnotifybytwitterison"));
-        ((AccountSettings) Pagez.getBeanMgr().get("AccountSettings")).setInstantnotifytwitterusername(Textbox.getValueFromRequest("instantnotifytwitterusername", "Twitter Username", false, DatatypeString.DATATYPEID));
-        ((AccountSettings) Pagez.getBeanMgr().get("AccountSettings")).setInstantnotifyxmppison(CheckboxBoolean.getValueFromRequest("instantnotifyxmppison"));
-        ((AccountSettings) Pagez.getBeanMgr().get("AccountSettings")).setInstantnotifyxmppusername(Textbox.getValueFromRequest("instantnotifyxmppusername", "XMPP/Jabber Username", false, DatatypeString.DATATYPEID));
-        ((AccountSettings) Pagez.getBeanMgr().get("AccountSettings")).setPaymethodpaypaladdress(Textbox.getValueFromRequest("paymethodpaypaladdress", "PayPal Address", false, DatatypeString.DATATYPEID));
-        ((AccountSettings) Pagez.getBeanMgr().get("AccountSettings")).saveAction();
+        accountSettings.setFirstname(Textbox.getValueFromRequest("firstname", "First Name", true, DatatypeString.DATATYPEID));
+        accountSettings.setLastname(Textbox.getValueFromRequest("lastname", "Last Name", true, DatatypeString.DATATYPEID));
+        accountSettings.setEmail(Textbox.getValueFromRequest("email", "Email", true, DatatypeString.DATATYPEID));
+        accountSettings.setNotifyofnewsurveysbyemaileveryexdays(Integer.parseInt(Dropdown.getValueFromRequest("notifyofnewsurveysbyemaileveryexdays", "Notify Every X Days", true)));
+        accountSettings.setAllownoncriticalemails(CheckboxBoolean.getValueFromRequest("allownoncriticalemails"));
+        accountSettings.setInstantnotifybyemailison(CheckboxBoolean.getValueFromRequest("instantnotifybyemailison"));
+        accountSettings.setInstantnotifybytwitterison(CheckboxBoolean.getValueFromRequest("instantnotifybytwitterison"));
+        accountSettings.setInstantnotifytwitterusername(Textbox.getValueFromRequest("instantnotifytwitterusername", "Twitter Username", false, DatatypeString.DATATYPEID));
+        accountSettings.setInstantnotifyxmppison(CheckboxBoolean.getValueFromRequest("instantnotifyxmppison"));
+        accountSettings.setInstantnotifyxmppusername(Textbox.getValueFromRequest("instantnotifyxmppusername", "XMPP/Jabber Username", false, DatatypeString.DATATYPEID));
+        accountSettings.setPaymethodpaypaladdress(Textbox.getValueFromRequest("paymethodpaypaladdress", "PayPal Address", false, DatatypeString.DATATYPEID));
+        accountSettings.saveAction();
     } catch (com.dneero.htmlui.ValidationException vex) {
         Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
     }
@@ -40,7 +43,7 @@ String acl = "account";
                         <font class="formfieldnamefont">First Name</font>
                     </td>
                     <td valign="top">
-                        <%=Textbox.getHtml("firstname", ((AccountSettings) Pagez.getBeanMgr().get("AccountSettings")).getFirstname(), 255, 20, "", "")%>
+                        <%=Textbox.getHtml("firstname", accountSettings.getFirstname(), 255, 20, "", "")%>
                     </td>
                 </tr>
 
@@ -49,7 +52,7 @@ String acl = "account";
                         <font class="formfieldnamefont">Last Name</font>
                     </td>
                     <td valign="top">
-                        <%=Textbox.getHtml("lastname", ((AccountSettings) Pagez.getBeanMgr().get("AccountSettings")).getLastname(), 255, 20, "", "")%>
+                        <%=Textbox.getHtml("lastname", accountSettings.getLastname(), 255, 20, "", "")%>
                     </td>
                 </tr>
 
@@ -60,7 +63,7 @@ String acl = "account";
                         <font class="tinyfont">This is used to log in.</font>
                     </td>
                     <td valign="top">
-                        <%=Textbox.getHtml("email", ((AccountSettings) Pagez.getBeanMgr().get("AccountSettings")).getEmail(), 255, 20, "", "")%>
+                        <%=Textbox.getHtml("email", accountSettings.getEmail(), 255, 20, "", "")%>
                         <br/>
                         <font class="tinyfont">Changing email will require re-activation</font>
                     </td>
@@ -86,7 +89,7 @@ String acl = "account";
                         <font class="tinyfont">Learn about new surveys before others.<br/>Of course we'll only disturb your inbox<br/>if there's actually a new survey<br/>that you qualify for.</font>
                     </td>
                     <td valign="top">
-                        <%=Dropdown.getHtml("notifyofnewsurveysbyemaileveryexdays",String.valueOf(((AccountSettings)Pagez.getBeanMgr().get("AccountSettings")).getNotifyofnewsurveysbyemaileveryexdays()), ((AccountSettings)Pagez.getBeanMgr().get("AccountSettings")).getNotificationFrequencies(), "","")%>
+                        <%=Dropdown.getHtml("notifyofnewsurveysbyemaileveryexdays",String.valueOf(accountSettings.getNotifyofnewsurveysbyemaileveryexdays()), ((AccountSettings)Pagez.getBeanMgr().get("AccountSettings")).getNotificationFrequencies(), "","")%>
                     </td>
                 </tr>
 
@@ -97,7 +100,7 @@ String acl = "account";
                         <font class="tinyfont">We only send messages that we believe<br/>you'll want to see.  However, you can opt<br/>out of everything but the most critical<br/>account-related and legal messages.</font>
                     </td>
                     <td valign="top">
-                        <%=CheckboxBoolean.getHtml("allownoncriticalemails", ((AccountSettings)Pagez.getBeanMgr().get("AccountSettings")).getAllownoncriticalemails(), "", "")%>
+                        <%=CheckboxBoolean.getHtml("allownoncriticalemails", accountSettings.getAllownoncriticalemails(), "", "")%>
                         <font class="formfieldnamefont">Allow informative non-critical email</font>
                     </td>
                 </tr>
@@ -109,7 +112,7 @@ String acl = "account";
                         <font class="tinyfont">If you like we can instantly notify<br/>you of new surveys by email.  No need to wait<br/>for the once a day message!</font>
                     </td>
                     <td valign="top">
-                        <%=CheckboxBoolean.getHtml("instantnotifybyemailison", ((AccountSettings)Pagez.getBeanMgr().get("AccountSettings")).getInstantnotifybyemailison(), "", "")%>
+                        <%=CheckboxBoolean.getHtml("instantnotifybyemailison", accountSettings.getInstantnotifybyemailison(), "", "")%>
                         <font class="formfieldnamefont">Instantly notify me via email</font>
                     </td>
                 </tr>
@@ -121,10 +124,10 @@ String acl = "account";
                         <font class="tinyfont">If you like we can also instantly notify<br/>you of new surveys via Twitter.</font>
                     </td>
                     <td valign="top">
-                        <%=CheckboxBoolean.getHtml("instantnotifybytwitterison", ((AccountSettings)Pagez.getBeanMgr().get("AccountSettings")).getInstantnotifybytwitterison(), "", "")%>
+                        <%=CheckboxBoolean.getHtml("instantnotifybytwitterison", accountSettings.getInstantnotifybytwitterison(), "", "")%>
                         <font class="formfieldnamefont">Instantly notify me via Twitter</font>
                         <br/>
-                        <%=Textbox.getHtml("instantnotifytwitterusername", ((AccountSettings) Pagez.getBeanMgr().get("AccountSettings")).getInstantnotifytwitterusername(), 255, 20, "", "")%>
+                        <%=Textbox.getHtml("instantnotifytwitterusername", accountSettings.getInstantnotifytwitterusername(), 255, 20, "", "")%>
                         <br/>
                         <font class="tinyfont">Twitter Username.<br/>Note: this should be something like "joereger"<br/>and not your email address.<br/>Note: You must add info@dneero.com as a friend<br/>in your Twitter account or your notifications<br/>will not arrive.</font>
                     </td>
@@ -137,10 +140,10 @@ String acl = "account";
                         <font class="tinyfont">If you like we can also instantly notify<br/>you of new surveys via XMPP/Jabber.<br/>This works with a Google Chat account<br/>or other Jabber servers.</font>
                     </td>
                     <td valign="top">
-                        <%=CheckboxBoolean.getHtml("instantnotifyxmppison", ((AccountSettings)Pagez.getBeanMgr().get("AccountSettings")).getInstantnotifyxmppison(), "", "")%>
+                        <%=CheckboxBoolean.getHtml("instantnotifyxmppison", accountSettings.getInstantnotifyxmppison(), "", "")%>
                         <font class="formfieldnamefont">Instantly notify me via XMPP/Jabber</font>
                         <br/>
-                        <%=Textbox.getHtml("instantnotifyxmppusername", ((AccountSettings) Pagez.getBeanMgr().get("AccountSettings")).getInstantnotifyxmppusername(), 255, 20, "", "")%>
+                        <%=Textbox.getHtml("instantnotifyxmppusername", accountSettings.getInstantnotifyxmppusername(), 255, 20, "", "")%>
                         <br/>
                         <font class="tinyfont">Jabber Address</font>
                     </td>
@@ -154,7 +157,7 @@ String acl = "account";
                         <font class="tinyfont">We can't pay you until we have a valid<br/>PayPal address.  You can enter one<br/>at any time.  You don't need to have one<br/>in the system to blog and earn money.<br/>Your PayPal address is the email<br/>address you use to log in<br/>to paypal.com.<br/>Don't have a PayPal account? <br/>Setup is quick, easy and secure.<br/>Click <a href='http://www.paypal.com' target='paypal' class="tinyfont"><font class="tinyfont">here</font></a> to create one.</font>
                     </td>
                     <td valign="top">
-                        <%=Textbox.getHtml("paymethodpaypaladdress", ((AccountSettings) Pagez.getBeanMgr().get("AccountSettings")).getPaymethodpaypaladdress(), 255, 20, "", "")%>
+                        <%=Textbox.getHtml("paymethodpaypaladdress", accountSettings.getPaymethodpaypaladdress(), 255, 20, "", "")%>
                     </td>
                 </tr>
 

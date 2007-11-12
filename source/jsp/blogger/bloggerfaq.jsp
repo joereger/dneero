@@ -1,5 +1,6 @@
 <%@ page import="org.apache.log4j.Logger" %>
 <%@ page import="com.dneero.htmlui.Pagez" %>
+<%@ page import="com.dneero.htmluibeans.BloggerEarningsRevshare" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "Blogger FAQ";
@@ -101,7 +102,7 @@ String acl = "public";
     <ul>
       <li><font class="smallfont">We calculate your friend's earnings</font></li>
       <li><font class="smallfont">We pay your friend</font></li>
-      <li><font class="smallfont">We pay you up to <%=((BloggerEarningsRevshare)Pagez.getBeanMgr().get("BloggerEarningsRevshare")).getLevel1percent()%>% of your friend's earnings (out of our pocket)</font></li>
+      <li><font class="smallfont">We pay you up to <%=((BloggerEarningsRevshare) Pagez.getBeanMgr().get("BloggerEarningsRevshare")).getLevel1percent()%>% of your friend's earnings (out of our pocket)</font></li>
     </ul>
     </font>
     <br/>

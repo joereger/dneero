@@ -12,11 +12,14 @@ String navtab = "youraccount";
 String acl = "account";
 %>
 <%
+AccountNewSupportIssue accountNewSupportIssue = (AccountNewSupportIssue) Pagez.getBeanMgr().get("AccountNewSupportIssue");
+%>
+<%
     if (request.getParameter("action") != null && request.getParameter("action").equals("save")) {
         try {
-            ((AccountNewSupportIssue) Pagez.getBeanMgr().get("AccountNewSupportIssue")).setSubject(Textbox.getValueFromRequest("subject", "Subject", true, DatatypeString.DATATYPEID));
-            ((AccountNewSupportIssue) Pagez.getBeanMgr().get("AccountNewSupportIssue")).setNotes(Textarea.getValueFromRequest("notes", "Issue Description", true));
-            ((AccountNewSupportIssue) Pagez.getBeanMgr().get("AccountNewSupportIssue")).newIssue();
+            accountNewSupportIssue.setSubject(Textbox.getValueFromRequest("subject", "Subject", true, DatatypeString.DATATYPEID));
+            accountNewSupportIssue.setNotes(Textarea.getValueFromRequest("notes", "Issue Description", true));
+            accountNewSupportIssue.newIssue();
         } catch (ValidationException vex) {
             Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
         }
@@ -51,7 +54,7 @@ String acl = "account";
                         <font class="formfieldnamefont">Subject:</font>
                     </td>
                     <td valign="top">
-                        <%=Textbox.getHtml("subject", ((AccountNewSupportIssue) Pagez.getBeanMgr().get("AccountNewSupportIssue")).getSubject(), 255, 20, "", "")%>
+                        <%=Textbox.getHtml("subject", accountNewSupportIssue.getSubject(), 255, 20, "", "")%>
                     </td>
                 </tr>
 
@@ -60,7 +63,7 @@ String acl = "account";
                         <font class="formfieldnamefont">Issue Description:</font>
                     </td>
                     <td valign="top">
-                        <%=Textarea.getHtml("notes", ((AccountNewSupportIssue)Pagez.getBeanMgr().get("AccountNewSupportIssue")).getNotes(), 3, 35, "", "")%>
+                        <%=Textarea.getHtml("notes", accountNewSupportIssue.getNotes(), 3, 35, "", "")%>
                     </td>
                 </tr>
 

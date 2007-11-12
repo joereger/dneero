@@ -11,10 +11,13 @@ String navtab = "youraccount";
 String acl = "account";
 %>
 <%
+AccountSupportIssueDetail accountSupportIssueDetail = (AccountSupportIssueDetail)Pagez.getBeanMgr().get("AccountSupportIssueDetail");
+%>
+<%
     if (request.getParameter("action") != null && request.getParameter("action").equals("save")) {
         try {
-            ((AccountSupportIssueDetail) Pagez.getBeanMgr().get("AccountSupportIssueDetail")).setNotes(Textarea.getValueFromRequest("notes", "Comments", true));
-            ((AccountSupportIssueDetail) Pagez.getBeanMgr().get("AccountSupportIssueDetail")).newNote();
+            accountSupportIssueDetail.setNotes(Textarea.getValueFromRequest("notes", "Comments", true));
+            accountSupportIssueDetail.newNote();
         } catch (ValidationException vex) {
             Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
         }
@@ -22,11 +25,11 @@ String acl = "account";
 %>
 <%@ include file="/jsp/templates/header.jsp" %>
 
-    <font class="mediumfont"><%=((AccountSupportIssueDetail)Pagez.getBeanMgr().get("AccountSupportIssueDetail")).getSupportissue().getSubject()%></font>
+    <font class="mediumfont"><%=accountSupportIssueDetail.getSupportissue().getSubject()%></font>
 
 
     <%
-        ArrayList<Supportissuecomm> issues=((AccountSupportIssueDetail) Pagez.getBeanMgr().get("AccountSupportIssueDetail")).getSupportissuecomms();
+        ArrayList<Supportissuecomm> issues=accountSupportIssueDetail.getSupportissuecomms();
         for (Iterator it=issues.iterator(); it.hasNext();) {
             Supportissuecomm comm=(Supportissuecomm) it.next();
             StringBuffer body = new StringBuffer();
@@ -47,7 +50,7 @@ String acl = "account";
 
     <form action="accountsupportissuedetail.jsp" method="post">
         <input type="hidden" name="action" value="save">
-        <input type="hidden" name="supportissueid" value="<%=((AccountSupportIssueDetail)Pagez.getBeanMgr().get("AccountSupportIssueDetail")).getSupportissue().getSupportissueid()%>">
+        <input type="hidden" name="supportissueid" value="<%=accountSupportIssueDetail.getSupportissue().getSupportissueid()%>">
 
             <table cellpadding="0" cellspacing="0" border="0">
 
@@ -55,7 +58,7 @@ String acl = "account";
                     <td valign="top">
                     </td>
                     <td valign="top">
-                        <%=Textarea.getHtml("notes", ((AccountSupportIssueDetail)Pagez.getBeanMgr().get("AccountSupportIssueDetail")).getNotes(), 3, 35, "", "")%>
+                        <%=Textarea.getHtml("notes", accountSupportIssueDetail.getNotes(), 3, 35, "", "")%>
                     </td>
                 </tr>
 

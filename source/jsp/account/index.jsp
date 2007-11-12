@@ -8,11 +8,15 @@ String pagetitle = "Your Account";
 String navtab = "youraccount";
 String acl = "account";
 %>
+<%
+AccountIndex accountIndex = (AccountIndex) Pagez.getBeanMgr().get("AccountIndex");
+AccountBalance accountBalance = (AccountBalance) Pagez.getBeanMgr().get("AccountBalance");
+%>
 <%@ include file="/jsp/templates/header.jsp" %>
 
 
 
-       <%if (!((AccountIndex) Pagez.getBeanMgr().get("AccountIndex")).getMsg().equals("")) {%>
+       <%if (!accountIndex.getMsg().equals("")) {%>
             <div class="rounded" style="padding: 15px; margin: 5px; background: #F2FFBF;">
                 <font class="mediumfont"><%=((AccountIndex)Pagez.getBeanMgr().get("AccountIndex")).getMsg()%></font>
             </div>
@@ -35,9 +39,9 @@ String acl = "account";
                             <tr><td valign="top"></td><td valign="top">
                                 <font class="smallfont">See the earnings and charges made to your account.  View financial transactions including failed attempts to charge credit cards or pay you.</font>
                                 <br/><br/><font class="formfieldnamefont" style="color: #666666;">Current Balance:</font>
-                                <br/><font class="largefont" style="color: #cccccc;"><%=((AccountBalance) Pagez.getBeanMgr().get("AccountBalance")).getCurrentbalance()%></font>
-                                <% if (((AccountBalance) Pagez.getBeanMgr().get("AccountBalance")).getPendingearningsDbl()>0){ %>
-                                    <br/><font class="formfieldnamefont" style="color: #666666;">Pending: <%=((AccountBalance)Pagez.getBeanMgr().get("AccountBalance")).getPendingearnings()%></font>
+                                <br/><font class="largefont" style="color: #cccccc;"><%=accountBalance.getCurrentbalance()%></font>
+                                <% if (accountBalance.getPendingearningsDbl()>0){ %>
+                                    <br/><font class="formfieldnamefont" style="color: #666666;">Pending: <%=accountBalance.getPendingearnings()%></font>
                                     <br/><font class="tinyfont" style="color: #666666;">Remember, your surveys must generate impressions for 10 days after you take them to get paid.</font>
                                 <% } %>
                             </td></tr></table>

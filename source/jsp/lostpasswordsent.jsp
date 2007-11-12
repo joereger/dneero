@@ -9,7 +9,7 @@ String acl = "public";
 <%@ include file="/jsp/templates/header.jsp" %>
 
 
-            <font class="normalfont">Please check your email... we have sent a password reset link.</font>
+    <font class="normalfont">Please check your email... we have sent a password reset link.</font>
 
 
 <%@ include file="/jsp/templates/footer.jsp" %>

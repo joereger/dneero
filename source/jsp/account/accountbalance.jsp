@@ -10,21 +10,24 @@ String pagetitle = "Account Balance: "+((AccountBalance)Pagez.getBeanMgr().get("
 String navtab = "youraccount";
 String acl = "account";
 %>
+<%
+AccountBalance accountBalance = (AccountBalance)Pagez.getBeanMgr().get("AccountBalance");
+%>
 <%@ include file="/jsp/templates/header.jsp" %>
 
 
     <div class="rounded" style="padding: 15px; margin: 5px; background: #F2FFBF;">
-        <%if (((AccountBalance)Pagez.getBeanMgr().get("AccountBalance")).getCurrentbalanceDbl()>0){%>
+        <%if (accountBalance.getCurrentbalanceDbl()>0){%>
             <h:outputText value="" styleClass="smallfont" style="color: #000000;" rendered="#{accountBalance.currentbalanceDbl gt 0}"/>
             <font class="smallfont" style="color: #000000;">(We owe you money.  Once a day, if you have a balance of over $20 and don't have any live surveys that you've launched yourself then we'll send money to the PayPal address in your account settings.)</font>
-        <%} else if (((AccountBalance)Pagez.getBeanMgr().get("AccountBalance")).getCurrentbalanceDbl()<0){%>
+        <%} else if (accountBalance.getCurrentbalanceDbl()<0){%>
             <h:outputText value="(You owe us money.)" styleClass="smallfont" style="color: #000000;" rendered="#{accountBalance.currentbalanceDbl lt 0}"/>
         <%}%>
     </div>
     <br/><br/>
     
 
-    <%if (((AccountBalance)Pagez.getBeanMgr().get("AccountBalance")).getBalances()==null || ((AccountBalance)Pagez.getBeanMgr().get("AccountBalance")).getBalances().size()==0){%>
+    <%if (accountBalance.getBalances()==null || accountBalance.getBalances().size()==0){%>
         <font class="normalfont">There are not yet any financial transactions on your account.  Go fill out some surveys!  Or create some!</font>
     <%} else {%>
         <%
@@ -35,7 +38,7 @@ String acl = "account";
         cols.add(new GridCol("Amount", "<$amt$>", true, "", "tinyfont"));
         cols.add(new GridCol("Balance", "<$currentbalance$>", true, "", "tinyfont"));
         %>
-        <%=Grid.render(((AccountBalance)Pagez.getBeanMgr().get("AccountBalance")).getBalances(), cols, 50, "accountbalance.jsp", "page")%>
+        <%=Grid.render(accountBalance.getBalances(), cols, 50, "accountbalance.jsp", "page")%>
     <%}%>
 
     <br/><br/>
