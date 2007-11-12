@@ -6,6 +6,7 @@ String pagetitle = "Blog Posting";
 String navtab = "sysadmin";
 String acl = "sysadmin";
 %>
+<%@ include file="/jsp/templates/auth.jsp" %>
 <%@ include file="/jsp/templates/header.jsp" %>
 
 

@@ -10,6 +10,7 @@ String pagetitle = "Support: Issue Detail";
 String navtab = "youraccount";
 String acl = "account";
 %>
+<%@ include file="/jsp/templates/auth.jsp" %>
 <%
 AccountSupportIssueDetail accountSupportIssueDetail = (AccountSupportIssueDetail)Pagez.getBeanMgr().get("AccountSupportIssueDetail");
 %>

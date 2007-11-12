@@ -7,6 +7,7 @@ String pagetitle = "Log In";
 String navtab = "youraccount";
 String acl = "public";
 %>
+<%@ include file="/jsp/templates/auth.jsp" %>
 <%
 Login login = (Login) Pagez.getBeanMgr().get("Login");
 %>

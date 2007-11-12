@@ -12,6 +12,7 @@ String pagetitle = "<img src=\"/images/user.png\" alt=\"\" border=\"0\" width=\"
 String navtab = "bloggers";
 String acl = "public";
 %>
+<%@ include file="/jsp/templates/auth.jsp" %>
 <%
     BloggerIndex bloggerIndex=(BloggerIndex) Pagez.getBeanMgr().get("BloggerIndex");
     SystemStats systemStats=((SystemStats) Pagez.getBeanMgr().get("SystemStats"));

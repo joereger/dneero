@@ -1,21 +1,42 @@
 <%@ page import="org.apache.log4j.Logger" %>
-<%@ page import="com.dneero.htmlui.Pagez" %>
+<%@ page import="com.dneero.htmluibeans.BloggerEarningsRevshare" %>
+<%@ page import="com.dneero.htmluibeans.BloggerEarningsRevshareInvite" %>
+<%@ page import="com.dneero.htmluibeans.BloggerEarningsRevshareTreeHandler" %>
+<%@ page import="com.dneero.htmlui.*" %>
+<%@ page import="java.util.Iterator" %>
+<%@ page import="com.dneero.htmluibeans.BloggerEarningsRevshareTreeNode" %>
+<%@ page import="com.dneero.util.Str" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "Revenue Sharing";
 String navtab = "bloggers";
 String acl = "blogger";
 %>
+<%@ include file="/jsp/templates/auth.jsp" %>
+<%
+    BloggerEarningsRevshare bloggerEarningsRevshare=(BloggerEarningsRevshare) Pagez.getBeanMgr().get("BloggerEarningsRevshare");
+    BloggerEarningsRevshareInvite bloggerEarningsRevshareInvite=(BloggerEarningsRevshareInvite) Pagez.getBeanMgr().get("BloggerEarningsRevshareInvite");
+    BloggerEarningsRevshareTreeHandler bloggerEarningsRevshareTreeHandler=(BloggerEarningsRevshareTreeHandler) Pagez.getBeanMgr().get("BloggerEarningsRevshareTreeHandler");
+%>
+<%
+    if (request.getParameter("action") != null && request.getParameter("action").equals("invite")) {
+        try {
+            bloggerEarningsRevshareInvite.setEmail(Textarea.getValueFromRequest("email", "Email", true));
+            bloggerEarningsRevshareInvite.setMessage(Textarea.getValueFromRequest("message", "Message", false));
+        } catch (com.dneero.htmlui.ValidationException vex) {
+            Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
+        }
+    }
+%>
 <%@ include file="/jsp/templates/header.jsp" %>
 
 
 
-
-        <t:div rendered="#{bloggerEarningsRevshare.msg ne ''}">
+        <%if (bloggerEarningsRevshare.getMsg()!=null && !bloggerEarningsRevshare.getMsg().equals("")){%>
             <div class="rounded" style="padding: 15px; margin: 5px; background: #F2FFBF;">
-                <font class="mediumfont"><%=((BloggerEarningsRevshare)Pagez.getBeanMgr().get("BloggerEarningsRevshare")).getMsg()%></font>
+                <font class="mediumfont"><%=bloggerEarningsRevshare.getMsg()%></font>
             </div>
-        </t:div>
+        <%}%>
 
 
         <table cellpadding="0" cellspacing="0" border="0">
@@ -30,101 +51,97 @@ String acl = "blogger";
                <ul>
                   <li><font class="smallfont">We calculate your friend's earnings</font></li>
                   <li><font class="smallfont">We pay your friend</font></li>
-                  <li><font class="smallfont">We pay you up to <%=((BloggerEarningsRevshare)Pagez.getBeanMgr().get("BloggerEarningsRevshare")).getLevel1percent()%>% of your friend's earnings (out of our pocket)</font></li>
+                  <li><font class="smallfont">We pay you up to <%=bloggerEarningsRevshare.getLevel1percent()%>% of your friend's earnings (out of our pocket)</font></li>
                   <li><font class="smallfont">As your friend invites friends we pay you a percentage of your friend's friends earnings (also out of our pocket, see chart to right)</font></li> 
                </ul>
 
                <br/>
                <br/>
-                <h:form id="inviteform">
-                    <h:message for="email" styleClass="RED"></h:message>
-                    <h:message for="message" styleClass="RED"></h:message>
+                <form action="bloggerearningsrevshare.jsp" method="post">
+                    <input type="hidden" name="action" value="invite">
+
                     <table cellpadding="0" cellspacing="0" border="0">
 
-                        <td valign="top">
-                            <h:outputText value="Email Addresses" styleClass="formfieldnamefont"></h:outputText>
-                            <br/>
-                            <h:outputText value="One per line" styleClass="normalfont"></h:outputText>
-                        </td>
-                        <td valign="top">
-                            <h:inputTextarea value="<%=((BloggerEarningsRevshareInvite)Pagez.getBeanMgr().get("BloggerEarningsRevshareInvite")).getEmail()%>" id="email" required="true" cols="40" rows="5"></h:inputTextarea>
-                        </td>
+                        <tr>
+                            <td valign="top">
+                                <font class="formfieldnamefont">Email Addresses</font>
+                                <br/>
+                                <font class="normalfont">One per line</font>
+                            </td>
+                            <td valign="top">
+                                <%=Textarea.getHtml("email", bloggerEarningsRevshareInvite.getEmail(), 5, 30, "", "")%>
+                            </td>
+                        </tr>
 
+                        <tr>
+                            <td valign="top">
+                                <font class="formfieldnamefont">Optional Message</font>
+                                <br/>
+                                <font class="smallfont">We'll automatically include a link for your friend to click to easily sign up.</font>
+                            </td>
+                            <td valign="top">
+                                <%=Textarea.getHtml("message", bloggerEarningsRevshareInvite.getMessage(), 5, 30, "", "")%>
+                            </td>
+                        </tr>
 
-                        <td valign="top">
-                            <h:outputText value="Optional Message" styleClass="formfieldnamefont"></h:outputText>
-                            <br/>
-                            <h:outputText value="We'll automatically include a link for your friend to click to easily sign up." styleClass="smallfont"></h:outputText>
-                        </td>
-                        <td valign="top">
-                            <h:inputTextarea value="<%=((BloggerEarningsRevshareInvite)Pagez.getBeanMgr().get("BloggerEarningsRevshareInvite")).getMessage()%>" id="message" required="false" cols="40" rows="5"></h:inputTextarea>
-                        </td>
-
-
-                        <td valign="top">
-                        </td>
-                        <td valign="top">
-                            <h:commandButton action="<%=((BloggerEarningsRevshareInvite)Pagez.getBeanMgr().get("BloggerEarningsRevshareInvite")).getInvite()%>" value="Invite Friends" styleClass="formsubmitbutton"></h:commandButton>
-                        </td>
-
+                        <tr>
+                            <td valign="top">
+                            </td>
+                            <td valign="top">
+                                <input type="submit" value="Invite Friends">
+                            </td>
+                        </tr>
 
                     </table>
 
-                </h:form>
+                </form>
             </div>
 
            </td>
            <td valign="top">
-                <d:roundedCornerBox uniqueboxname="revsharetree" bodycolor="ffffff" widthinpixels="250">
+                <div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px; width: 250px;">
                     <font class="mediumfont">Friends</font>
                     <br/>
                     <font class="smallfont">Listed below are the friends that you've invited (and those that they've invited) to make money using their blog:</font>
                     <br/>
-                    <h:form>
-                       <t:saveState id="save" value="#{bloggerEarningsRevshareTreeHandler}"/>
-                       <t:tree2 id="serverTree" showRootNode="false" value="<%=((BloggerEarningsRevshareTreeHandler)Pagez.getBeanMgr().get("BloggerEarningsRevshareTreeHandler")).getTreeModel()%>" var="node" varNodeToggler="t" preserveToggle="false" clientSideToggle="false">
-                            <f:facet name="person">
-                                    <td valign="top">
-                                            <t:graphicImage value="/images/myfaces-examples/yellow-folder-open.png" rendered="<%=((T)Pagez.getBeanMgr().get("T")).getNodeExpanded()%>" border="0" />
-                                            <t:graphicImage value="/images/myfaces-examples/yellow-folder-closed.png" rendered="<%=((!t)Pagez.getBeanMgr().get("!t")).getNodeExpanded()%>" border="0" />
-                                            <h:outputText value="<%=((Node)Pagez.getBeanMgr().get("Node")).getDescription()%> ($ <%=((Node)Pagez.getBeanMgr().get("Node")).getAmtEarnedFromThisBloggerAllTime()%>)" styleClass="nodeFolder" />
-                                    </td>
-                            </f:facet>
-                       </t:tree2>
-                    </h:form>
-                </d:roundedCornerBox>
+                    <%
+                        for (Iterator it=bloggerEarningsRevshareTreeHandler.getTree().iterator(); it.hasNext();) {
+                            BloggerEarningsRevshareTreeNode bertn = (BloggerEarningsRevshareTreeNode) it.next();
+                            %>
+                            <br/><font class="tinyfont"><%=bertn.getDescription()%> ($<%=Str.formatForMoney(bertn.getAmtEarnedFromThisBloggerAllTime())%>)</font>
+                            <%
+                        }
+                    %>
+                </div>
 
-                <d:roundedCornerBox uniqueboxname="percentchart" bodycolor="ffffcc" widthinpixels="250">
+                <br/>
+                <div class="rounded" style="background: #ffffcc; text-align: left; padding: 20px; width: 250px;">
                 <font class="mediumfont">Earn on Your Friend's Friends</font>
                     <br/>
                     <font class="smallfont">You share in the revenue even if your friends do the inviting!  Of course, each level away from you that percentage will be smaller... but those little bits can add up!</font>
                     <br/>
-                <h:form>
-                    <t:saveState id="save" value="#{bloggerEarningsRevshare}"/>
                     <table cellpadding="0" cellspacing="0" border="0">
 
                         <td valign="top"><h:outputText value=" "></h:outputText></td>
                         <td valign="top"><h:outputText value="You Earn" styleClass="mediumfont"></h:outputText></td>
 
                         <td valign="top"><h:outputText value="1st Level" styleClass="mediumfont"></h:outputText></td>
-                        <td valign="top"><h:outputText value="<%=((BloggerEarningsRevshare)Pagez.getBeanMgr().get("BloggerEarningsRevshare")).getLevel1percent()%> %"></h:outputText></td>
+                        <td valign="top"><h:outputText value="<%=bloggerEarningsRevshare.getLevel1percent()%> %"></h:outputText></td>
 
                         <td valign="top"><h:outputText value="2nd Level" styleClass="mediumfont"></h:outputText></td>
-                        <td valign="top"><h:outputText value="<%=((BloggerEarningsRevshare)Pagez.getBeanMgr().get("BloggerEarningsRevshare")).getLevel2percent()%> %"></h:outputText></td>
+                        <td valign="top"><h:outputText value="<%=bloggerEarningsRevshare.getLevel2percent()%> %"></h:outputText></td>
 
                         <td valign="top"><h:outputText value="3rd Level" styleClass="mediumfont"></h:outputText></td>
-                        <td valign="top"><h:outputText value="<%=((BloggerEarningsRevshare)Pagez.getBeanMgr().get("BloggerEarningsRevshare")).getLevel3percent()%> %"></h:outputText></td>
+                        <td valign="top"><h:outputText value="<%=bloggerEarningsRevshare.getLevel3percent()%> %"></h:outputText></td>
 
                         <td valign="top"><h:outputText value="4th Level" styleClass="mediumfont"></h:outputText></td>
-                        <td valign="top"><h:outputText value="<%=((BloggerEarningsRevshare)Pagez.getBeanMgr().get("BloggerEarningsRevshare")).getLevel4percent()%> %"></h:outputText></td>
+                        <td valign="top"><h:outputText value="<%=bloggerEarningsRevshare.getLevel4percent()%> %"></h:outputText></td>
 
                         <td valign="top"><h:outputText value="5th Level" styleClass="mediumfont"></h:outputText></td>
-                        <td valign="top"><h:outputText value="<%=((BloggerEarningsRevshare)Pagez.getBeanMgr().get("BloggerEarningsRevshare")).getLevel5percent()%> %"></h:outputText></td>
+                        <td valign="top"><h:outputText value="<%=bloggerEarningsRevshare.getLevel5percent()%> %"></h:outputText></td>
 
                      </table>
-
-                 </h:form>
-                 </d:roundedCornerBox>
+                 </div>
 
             </td></tr>
         </table>

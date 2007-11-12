@@ -6,6 +6,7 @@ String pagetitle = "One-Time Researcher Configuration Complete!";
 String navtab = "researchers";
 String acl = "researcher";
 %>
+<%@ include file="/jsp/templates/auth.jsp" %>
 <%@ include file="/jsp/templates/header.jsp" %>
 
     <font class="smallfont">Your researcher profile is created and ready to roll.  In the future you'll be able to skip this step.</font>

@@ -112,7 +112,7 @@
                 <%if (navtab.equals("bloggers")){%>
                     <%if (Pagez.getUserSession().getIsloggedin() && Pagez.getUserSession().getUser().getBloggerid()>0){%>
                         <a href="/jsp/publicsurveylist.jsp"><font class="subnavfont" style="padding-left: 15px; color: #000000;">Find Surveys</font></a>
-                        <a href="/jsp/blogger/earningsrevshare.jsp"><font class="subnavfont" style="padding-left: 15px; color: #000000;">Earn Even More</font></a>
+                        <a href="/jsp/blogger/bloggerearningsrevshare.jsp"><font class="subnavfont" style="padding-left: 15px; color: #000000;">Earn Even More</font></a>
                         <a href="/jsp/blogger/index.jsp"><font class="subnavfont" style="padding-left: 15px; color: #000000;">Earnings from Completed Surveys</font></a>
                         <a href="/jsp/blogger/bloggerdetails.jsp"><font class="subnavfont" style="padding-left: 15px; color: #000000;">Blogger Profile</font></a>
                     <%}%>

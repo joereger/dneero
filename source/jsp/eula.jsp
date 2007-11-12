@@ -7,6 +7,7 @@ String pagetitle = "Terms of Use and Privacy Statement";
 String navtab = "home";
 String acl = "public";
 %>
+<%@ include file="/jsp/templates/auth.jsp" %>
 <%
 PublicEula publicEula = (PublicEula)Pagez.getBeanMgr().get("PublicEula");
 %>

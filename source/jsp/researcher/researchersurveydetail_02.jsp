@@ -8,6 +8,7 @@ String pagetitle = "<img src=\"/images/process-train-survey-02.gif\" align=\"rig
 String navtab = "researchers";
 String acl = "researcher";
 %>
+<%@ include file="/jsp/templates/auth.jsp" %>
 <%@ include file="/jsp/templates/header.jsp" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"

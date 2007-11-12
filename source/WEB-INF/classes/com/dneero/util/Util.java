@@ -121,5 +121,14 @@ public class Util {
         return tm;   
     }
 
+    public static ArrayList treeSetToArrayList(TreeSet ts){
+        ArrayList al = new ArrayList();
+        for (Iterator iterator=ts.iterator(); iterator.hasNext();) {
+            Object o=iterator.next();
+            al.add(o);
+        }
+        return al;   
+    }
+
 
 }

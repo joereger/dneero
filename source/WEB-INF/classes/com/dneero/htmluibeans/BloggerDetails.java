@@ -75,12 +75,11 @@ public class BloggerDetails implements Serializable {
 
     public String saveAction(){
         Logger logger = Logger.getLogger(this.getClass().getName());
-        UserSession userSession = Pagez.getUserSession();
 
         Blogger blogger;
         boolean isnewblogger = false;
-        if (userSession.getUser()!=null && userSession.getUser().getBloggerid()>0){
-            blogger =  Blogger.get(userSession.getUser().getBloggerid());
+        if (Pagez.getUserSession().getUser()!=null && Pagez.getUserSession().getUser().getBloggerid()>0){
+            blogger =  Blogger.get(Pagez.getUserSession().getUser().getBloggerid());
         } else {
             blogger = new Blogger();
             blogger.setQuality(0);
@@ -88,7 +87,7 @@ public class BloggerDetails implements Serializable {
             isnewblogger = true;
         }
 
-        if (userSession.getUser()!=null){
+        if (Pagez.getUserSession().getUser()!=null){
 
 
             //Validation of answers
@@ -109,7 +108,7 @@ public class BloggerDetails implements Serializable {
             //End validation
 
 
-            blogger.setUserid(userSession.getUser().getUserid());
+            blogger.setUserid(Pagez.getUserSession().getUser().getUserid());
             blogger.setBirthdate(birthdate);
             blogger.setEducationlevel(educationlevel);
             blogger.setEthnicity(ethnicity);
@@ -131,26 +130,26 @@ public class BloggerDetails implements Serializable {
             }
 
             if (isnewblogger){
-                userSession.getUser().setBloggerid(blogger.getBloggerid());
-                try{userSession.getUser().save();}catch(Exception ex){logger.error("",ex);}
+                Pagez.getUserSession().getUser().setBloggerid(blogger.getBloggerid());
+                try{Pagez.getUserSession().getUser().save();}catch(Exception ex){logger.error("",ex);}
             }
 
 
 
             boolean hasroleassigned = false;
-            if (userSession.getUser()!=null && userSession.getUser().getUserroles()!=null){
-                for (Iterator iterator = userSession.getUser().getUserroles().iterator(); iterator.hasNext();) {
+            if (Pagez.getUserSession().getUser()!=null && Pagez.getUserSession().getUser().getUserroles()!=null){
+                for (Iterator iterator = Pagez.getUserSession().getUser().getUserroles().iterator(); iterator.hasNext();) {
                     Userrole role =  (Userrole)iterator.next();
                     if (role.getRoleid()== Userrole.BLOGGER){
                         hasroleassigned = true;
                     }
                 }
             }
-            if (!hasroleassigned && userSession.getUser()!=null){
+            if (!hasroleassigned && Pagez.getUserSession().getUser()!=null){
                 Userrole role = new Userrole();
-                role.setUserid(userSession.getUser().getUserid());
+                role.setUserid(Pagez.getUserSession().getUser().getUserid());
                 role.setRoleid(Userrole.BLOGGER);
-                userSession.getUser().getUserroles().add(role);
+                Pagez.getUserSession().getUser().getUserroles().add(role);
                 try{
                     role.save();
                 } catch (GeneralException gex){
@@ -163,14 +162,14 @@ public class BloggerDetails implements Serializable {
 
            
             try{
-                userSession.getUser().save();
+                Pagez.getUserSession().getUser().save();
             } catch (GeneralException gex){
                 Pagez.getUserSession().setMessage("Error saving record: "+gex.getErrorsAsSingleString());
                 logger.debug("saveAction failed: " + gex.getErrorsAsSingleString());
                 return null;
             }
 
-            userSession.getUser().refresh();
+            Pagez.getUserSession().getUser().refresh();
 
             if (isnewblogger){
                 Pagez.getUserSession().setMessage("Profile Saved Successfully");

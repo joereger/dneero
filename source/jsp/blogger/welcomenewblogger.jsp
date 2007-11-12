@@ -6,6 +6,7 @@ String pagetitle = "One-Time Configuration is Complete!";
 String navtab = "bloggers";
 String acl = "blogger";
 %>
+<%@ include file="/jsp/templates/auth.jsp" %>
 <%@ include file="/jsp/templates/header.jsp" %>
 
     <font class="smallfont">With your profile and blog set up, you're ready to make some money!</font>

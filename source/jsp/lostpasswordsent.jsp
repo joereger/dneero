@@ -6,6 +6,7 @@ String pagetitle = "Password Sent";
 String navtab = "youraccount";
 String acl = "public";
 %>
+<%@ include file="/jsp/templates/auth.jsp" %>
 <%@ include file="/jsp/templates/header.jsp" %>
 
 

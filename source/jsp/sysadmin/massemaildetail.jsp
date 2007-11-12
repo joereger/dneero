@@ -6,6 +6,7 @@ String pagetitle = "Mass Email Detail: <%=((SysadminMassemailDetail)Pagez.getBea
 String navtab = "sysadmin";
 String acl = "sysadmin";
 %>
+<%@ include file="/jsp/templates/auth.jsp" %>
 <%@ include file="/jsp/templates/header.jsp" %>
 
 

@@ -6,6 +6,7 @@ String pagetitle = "Email Activation Sent";
 String navtab = "youraccount";
 String acl = "public";
 %>
+<%@ include file="/jsp/templates/auth.jsp" %>
 <%@ include file="/jsp/templates/header.jsp" %>
 
             <h:outputText>Your email activation message has been sent.  Please check your email inbox.</h:outputText>

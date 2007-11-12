@@ -127,8 +127,6 @@ public class BloggerIndex implements Serializable {
             try{Jsf.redirectResponse("/publicsurveylist.jsf");}catch(Exception ex){logger.error("",ex);}
         }
 
-//        BloggerSurveyList bean = (BloggerSurveyList)Jsf.getManagedBean("bloggerSurveyList");
-//        bean.beginView();
         BloggerCompletedsurveys bean2 = (BloggerCompletedsurveys)Jsf.getManagedBean("bloggerCompletedsurveys");
         bean2.beginView();
     }

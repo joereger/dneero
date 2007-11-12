@@ -35,7 +35,7 @@ public class BloggerSurveyList implements Serializable {
     private void load(){
 
         Logger logger = Logger.getLogger(this.getClass().getName());
-        logger.debug("instanciating BloggerSurveyList");
+        logger.debug("instanciating");
         //Default sort column
 
         //Go get the surveys from the database

@@ -6,6 +6,7 @@ String pagetitle = "About Us";
 String navtab = "home";
 String acl = "public";
 %>
+<%@ include file="/jsp/templates/auth.jsp" %>
 <%@ include file="/jsp/templates/header.jsp" %>
 
 

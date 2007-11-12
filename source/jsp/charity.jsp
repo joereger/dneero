@@ -6,6 +6,7 @@ String pagetitle = "<img src=\"/images/charity-128.png\" alt=\"\" border=\"0\" w
 String navtab = "home";
 String acl = "public";
 %>
+<%@ include file="/jsp/templates/auth.jsp" %>
 <%@ include file="/jsp/templates/header.jsp" %>
 
             <br/><br/><br/><br/>

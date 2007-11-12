@@ -22,7 +22,7 @@ import com.dneero.htmlui.Pagez;
  */
 public class PublicOldSurveyList implements Serializable {
 
-    private ArrayList<BloggerSurveyListItem> surveys;
+    private ArrayList<SurveyListItem> surveys;
 
     public PublicOldSurveyList() {
 
@@ -34,8 +34,6 @@ public class PublicOldSurveyList implements Serializable {
         //If user is logged-in only show them their surveys
 //        if (Pagez.getUserSession().getIsloggedin()){
 //
-//            BloggerSurveyList bsl = new BloggerSurveyList();
-//            surveys = bsl.getSurveys();
 //
 //        //Otherwise, get all open surveys
 //        } else {
@@ -47,12 +45,12 @@ public class PublicOldSurveyList implements Serializable {
             }
 
 
-            surveys = new ArrayList<BloggerSurveyListItem>();
+            surveys = new ArrayList<SurveyListItem>();
             List results = HibernateUtil.getSession().createQuery("from Survey where status='"+ Survey.STATUS_CLOSED+"' order by enddate desc").list();
             for (Iterator iterator = results.iterator(); iterator.hasNext();) {
                 Survey survey = (Survey) iterator.next();
 
-                BloggerSurveyListItem bsli = new BloggerSurveyListItem();
+                SurveyListItem bsli = new SurveyListItem();
                 bsli.setSurveyid(survey.getSurveyid());
                 bsli.setTitle(survey.getTitle());
                 bsli.setDescription(survey.getDescription());
@@ -118,13 +116,13 @@ public class PublicOldSurveyList implements Serializable {
         //}
     }
 
-    public ArrayList<BloggerSurveyListItem> getSurveys() {
+    public ArrayList<SurveyListItem> getSurveys() {
         //logger.debug("getListitems");
         sort("title", true);
         return surveys;
     }
 
-    public void setSurveys(ArrayList<BloggerSurveyListItem> surveys) {
+    public void setSurveys(ArrayList<SurveyListItem> surveys) {
         //logger.debug("setListitems");
         this.surveys = surveys;
     }
@@ -137,8 +135,8 @@ public class PublicOldSurveyList implements Serializable {
         //logger.debug("sort called");
         Comparator comparator = new Comparator() {
             public int compare(Object o1, Object o2) {
-                BloggerSurveyListItem survey1 = (BloggerSurveyListItem)o1;
-                BloggerSurveyListItem survey2 = (BloggerSurveyListItem)o2;
+                SurveyListItem survey1 = (SurveyListItem)o1;
+                SurveyListItem survey2 = (SurveyListItem)o2;
                 if (column == null) {
                     return 0;
                 }

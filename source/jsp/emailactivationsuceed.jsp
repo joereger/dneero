@@ -6,6 +6,7 @@ String pagetitle = "Email Activation Successful";
 String navtab = "youraccount";
 String acl = "public";
 %>
+<%@ include file="/jsp/templates/auth.jsp" %>
 <%@ include file="/jsp/templates/header.jsp" %>
 
             <h:outputText>Email activation was successful!  Your account is ready to roll!  You can now log in with the email address and password that you provided when you signed up.</h:outputText>

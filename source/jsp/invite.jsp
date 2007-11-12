@@ -7,6 +7,7 @@ String pagetitle = "Welcome to dNeero!";
 String navtab = "home";
 String acl = "public";
 %>
+<%@ include file="/jsp/templates/auth.jsp" %>
 <%@ include file="/jsp/templates/header.jsp" %>
 
     <%if (((InviteLandingPage) Pagez.getBeanMgr().get("InviteLandingPage")).getReferredby()!=null){%>

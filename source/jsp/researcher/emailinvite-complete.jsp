@@ -6,6 +6,7 @@ String pagetitle = "Please Confirm Email Invite";
 String navtab = "researchers";
 String acl = "researcher";
 %>
+<%@ include file="/jsp/templates/auth.jsp" %>
 <%@ include file="/jsp/templates/header.jsp" %>
 
 

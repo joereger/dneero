@@ -6,6 +6,7 @@ String pagetitle = "<%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurvey
 String navtab = "home";
 String acl = "public";
 %>
+<%@ include file="/jsp/templates/auth.jsp" %>
 <%@ include file="/jsp/templates/header.jsp" %>
 
 

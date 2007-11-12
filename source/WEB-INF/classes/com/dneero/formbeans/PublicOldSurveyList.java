@@ -37,8 +37,7 @@ public class PublicOldSurveyList implements Serializable {
         //If user is logged-in only show them their surveys
 //        if (Jsf.getUserSession().getIsloggedin()){
 //
-//            BloggerSurveyList bsl = new BloggerSurveyList();
-//            surveys = bsl.getSurveys();
+
 //
 //        //Otherwise, get all open surveys
 //        } else {

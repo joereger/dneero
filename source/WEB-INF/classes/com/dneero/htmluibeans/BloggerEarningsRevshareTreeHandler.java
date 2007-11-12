@@ -1,6 +1,5 @@
 package com.dneero.htmluibeans;
 
-import com.dneero.util.SortableList;
 
 import com.dneero.util.Time;
 import com.dneero.htmlui.UserSession;
@@ -13,11 +12,6 @@ import com.dneero.dao.User;
 import java.util.*;
 import java.io.Serializable;
 
-import org.apache.log4j.Logger;
-import org.apache.myfaces.custom.tree2.TreeModel;
-import org.apache.myfaces.custom.tree2.TreeModelBase;
-import org.apache.myfaces.custom.tree2.TreeNode;
-import org.apache.myfaces.custom.tree2.TreeNodeBase;
 
 /**
  * User: Joe Reger Jr
@@ -26,20 +20,20 @@ import org.apache.myfaces.custom.tree2.TreeNodeBase;
  */
 public class BloggerEarningsRevshareTreeHandler implements Serializable {
 
+    private ArrayList<BloggerEarningsRevshareTreeNode> tree = new ArrayList<BloggerEarningsRevshareTreeNode>();;
+
     public BloggerEarningsRevshareTreeHandler(){}
 
-    public TreeModel getTreeModel(){
+    public void initBean(){
         UserSession userSession = Pagez.getUserSession();
-
+        tree = new ArrayList<BloggerEarningsRevshareTreeNode>();
         if (userSession.getUser()!=null){
-            BloggerEarningsRevshareTreeNode basenode = new BloggerEarningsRevshareTreeNode("person", userSession.getUser().getFirstname()+" "+userSession.getUser().getLastname(), "userid"+userSession.getUser().getUserid(), false, 0, 0);
-            basenode = addChildren(basenode, userSession.getUser(), userSession.getUser());
-            return new TreeModelBase(basenode);
+            tree = addChildren(userSession.getUser(), userSession.getUser(), tree, 0);
         }
-        return new TreeModelBase(new TreeNodeBase());
     }
 
-    private BloggerEarningsRevshareTreeNode addChildren(BloggerEarningsRevshareTreeNode node, User user, User rootuser){
+
+    private ArrayList<BloggerEarningsRevshareTreeNode> addChildren(User user, User rootuser, ArrayList<BloggerEarningsRevshareTreeNode> childTree, int level){
         List children = HibernateUtil.getSession().createQuery("FROM User where referredbyuserid='"+user.getUserid()+"'").list();
         for (Iterator iterator = children.iterator(); iterator.hasNext();) {
             User child = (User) iterator.next();
@@ -57,17 +51,22 @@ public class BloggerEarningsRevshareTreeHandler implements Serializable {
                     }
                 }
             }
-
             //Create the node
-            BloggerEarningsRevshareTreeNode newnode = new BloggerEarningsRevshareTreeNode("person", child.getFirstname()+" "+child.getLastname(), "userid"+child.getUserid(), false, amtEarnedFromThisBloggerAllTime, amtEarnedFromThisBlogger90Days);
-            newnode = addChildren(newnode, child, rootuser);
-            node.getChildren().add(newnode);
+            if (amtEarnedFromThisBloggerAllTime>0){
+                BloggerEarningsRevshareTreeNode newnode = new BloggerEarningsRevshareTreeNode(child.getFirstname()+" "+child.getLastname(), "userid"+child.getUserid(), level, amtEarnedFromThisBloggerAllTime, amtEarnedFromThisBlogger90Days);
+                childTree.add(newnode);
+            }
+            childTree.addAll(addChildren(child, rootuser, childTree, level+1));
         }
-        return node;
+        return childTree;
     }
 
 
+    public ArrayList<BloggerEarningsRevshareTreeNode> getTree() {
+        return tree;
+    }
 
-
-
+    public void setTree(ArrayList<BloggerEarningsRevshareTreeNode> tree) {
+        this.tree=tree;
+    }
 }

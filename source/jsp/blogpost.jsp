@@ -6,6 +6,7 @@ String pagetitle = "";
 String navtab = "home";
 String acl = "public";
 %>
+<%@ include file="/jsp/templates/auth.jsp" %>
 <%@ include file="/jsp/templates/header.jsp" %>
 
     <font class="mediumfont" style="color: #0bae17;"><%=((PublicBlogPost)Pagez.getBeanMgr().get("PublicBlogPost")).getBlogpost().getTitle()%></font>

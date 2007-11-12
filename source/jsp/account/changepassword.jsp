@@ -7,6 +7,7 @@ String pagetitle = "Change Password";
 String navtab = "youraccount";
 String acl = "account";
 %>
+<%@ include file="/jsp/templates/auth.jsp" %>
 <%
 ChangePassword changePassword = (ChangePassword) Pagez.getBeanMgr().get("ChangePassword");
 %>

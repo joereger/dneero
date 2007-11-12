@@ -7,6 +7,7 @@ String pagetitle = "Account Settings";
 String navtab = "youraccount";
 String acl = "account";
 %>
+<%@ include file="/jsp/templates/auth.jsp" %>
 <%
 AccountSettings accountSettings = (AccountSettings) Pagez.getBeanMgr().get("AccountSettings");
 %>

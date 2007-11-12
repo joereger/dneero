@@ -6,6 +6,7 @@ String pagetitle = "Sign Up for a dNeero Account";
 String navtab = "youraccount";
 String acl = "public";
 %>
+<%@ include file="/jsp/templates/auth.jsp" %>
 <%@ include file="/jsp/templates/header.jsp" %>
 
 

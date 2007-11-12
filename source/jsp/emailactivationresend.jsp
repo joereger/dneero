@@ -6,6 +6,7 @@ String pagetitle = "Email Activation Re-Send";
 String navtab = "youraccount";
 String acl = "public";
 %>
+<%@ include file="/jsp/templates/auth.jsp" %>
 <%@ include file="/jsp/templates/header.jsp" %>
 
             <table cellpadding="0" cellspacing="0" border="0">

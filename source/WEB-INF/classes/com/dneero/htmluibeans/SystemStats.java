@@ -30,6 +30,10 @@ public class SystemStats implements Serializable {
 
     public SystemStats(){}
 
+    public void initBean(){
+        
+    }
+
     public int getTotalusers() {
         return com.dneero.scheduledjobs.SystemStats.getTotalusers();
     }

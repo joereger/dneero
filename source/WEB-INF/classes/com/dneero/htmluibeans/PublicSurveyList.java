@@ -4,19 +4,13 @@ import com.dneero.util.*;
 import com.dneero.dao.Survey;
 import com.dneero.dao.Blogger;
 import com.dneero.dao.Response;
-import com.dneero.dao.User;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.finders.FindSurveysForBlogger;
-import com.dneero.facebook.FacebookApiWrapper;
 import com.dneero.facebook.FacebookSurveyThatsBeenTaken;
 import com.dneero.facebook.FacebookUser;
 import com.dneero.facebook.FacebookApiWrapperHtmlui;
-import com.dneero.helpers.UserInputSafe;
-import com.dneero.scheduledjobs.UpdateResponsePoststatus;
 import com.dneero.htmlui.Pagez;
 import org.apache.log4j.Logger;
-import org.hibernate.criterion.Restrictions;
-import org.hibernate.criterion.Order;
 
 import java.util.*;
 import java.io.Serializable;
@@ -28,7 +22,7 @@ import java.io.Serializable;
  */
 public class PublicSurveyList implements Serializable {
 
-    private ArrayList<BloggerSurveyListItem> surveys;
+    private ArrayList<SurveyListItem> surveys;
     private ArrayList<FacebookSurveyThatsBeenTaken> facebookSurveyThatsBeenTakens;
     private String[] facebookfriendsselected;
     private TreeMap<String, String> facebookusersnotaddedapp = new TreeMap<String, String>();
@@ -50,8 +44,6 @@ public class PublicSurveyList implements Serializable {
         //If user is logged-in only show them their surveys
 //        if (Pagez.getUserSession().getIsloggedin()){
 //
-//            BloggerSurveyList bsl = new BloggerSurveyList();
-//            surveys = bsl.getSurveys();
 //
 //        //Otherwise, get all open surveys
 //        } else {
@@ -64,12 +56,12 @@ public class PublicSurveyList implements Serializable {
             }
 
 
-            surveys = new ArrayList<BloggerSurveyListItem>();
+            surveys = new ArrayList<SurveyListItem>();
             List results = HibernateUtil.getSession().createQuery("from Survey where status='"+Survey.STATUS_OPEN+"' order by willingtopayperrespondent desc").list();
             for (Iterator iterator = results.iterator(); iterator.hasNext();) {
                 Survey survey = (Survey) iterator.next();
 
-                BloggerSurveyListItem bsli = new BloggerSurveyListItem();
+                SurveyListItem bsli = new SurveyListItem();
                 bsli.setSurveyid(survey.getSurveyid());
                 bsli.setTitle(survey.getTitle());
                 bsli.setDescription(survey.getDescription());
@@ -276,11 +268,11 @@ public class PublicSurveyList implements Serializable {
 
 
 
-    public ArrayList<BloggerSurveyListItem> getSurveys() {
+    public ArrayList<SurveyListItem> getSurveys() {
         return surveys;
     }
 
-    public void setSurveys(ArrayList<BloggerSurveyListItem> surveys) {
+    public void setSurveys(ArrayList<SurveyListItem> surveys) {
         //logger.debug("setListitems");
         this.surveys = surveys;
     }

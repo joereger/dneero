@@ -7,6 +7,7 @@ String pagetitle = "Blogger FAQ";
 String navtab = "bloggers";
 String acl = "public";
 %>
+<%@ include file="/jsp/templates/auth.jsp" %>
 <%@ include file="/jsp/templates/header.jsp" %>
 
 

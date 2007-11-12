@@ -6,6 +6,7 @@ String pagetitle = "Researcher FAQ";
 String navtab = "researchers";
 String acl = "public";
 %>
+<%@ include file="/jsp/templates/auth.jsp" %>
 <%@ include file="/jsp/templates/header.jsp" %>
 
 

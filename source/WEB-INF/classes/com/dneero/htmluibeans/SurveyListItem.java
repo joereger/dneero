@@ -7,7 +7,7 @@ import java.io.Serializable;
  * Date: Oct 3, 2006
  * Time: 9:44:11 AM
  */
-public class BloggerSurveyListItem implements Serializable {
+public class SurveyListItem implements Serializable {
 
     private int surveyid;
     private String title;
@@ -21,7 +21,7 @@ public class BloggerSurveyListItem implements Serializable {
     private int numberofrespondents=0;
     private boolean ischarityonly = false;
 
-    public BloggerSurveyListItem(){}
+    public SurveyListItem(){}
 
     public int getSurveyid() {
         return surveyid;

@@ -15,20 +15,24 @@ String pagetitle = "HtmlUiBean";
 String navtab = "home";
 String acl = "public";
 %>
+<%@ include file="/jsp/templates/auth.jsp" %>
+<%
+Test test = (Test) Pagez.getBeanMgr().get("Test");
+%>
 <%@ include file="/jsp/templates/header.jsp" %>
 
 <%
     if (request.getParameter("action") != null && request.getParameter("action").equals("save")) {
         try {
-            ((Test) Pagez.getBeanMgr().get("Test")).setTextbox(Textbox.getValueFromRequest("textbox", "Text Box", false, DatatypeString.DATATYPEID));
-            ((Test) Pagez.getBeanMgr().get("Test")).setDropdown(Dropdown.getValueFromRequest("dropdown", "Dropdown", false));
-            ((Test) Pagez.getBeanMgr().get("Test")).setTextarea(Textarea.getValueFromRequest("textarea", "Textarea", false));
-            ((Test) Pagez.getBeanMgr().get("Test")).setDropdownmultiselect(DropdownMultiselect.getValueFromRequest("dropdownmultiselect", "Dropdownmultiselect", false));
-            ((Test) Pagez.getBeanMgr().get("Test")).setCheckboxesvalues(Checkboxes.getValueFromRequest("checkboxes", "Checkboxes", false));
-            ((Test) Pagez.getBeanMgr().get("Test")).setBooleantest(CheckboxBoolean.getValueFromRequest("booleantest"));
-            ((Test) Pagez.getBeanMgr().get("Test")).setCal(DateTime.getValueFromRequest("cal", "Cal", false));
-            ((Test) Pagez.getBeanMgr().get("Test")).setCal2(DateTime.getValueFromRequest("cal2", "Cal2", false));
-            ((Test) Pagez.getBeanMgr().get("Test")).save();
+            test.setTextbox(Textbox.getValueFromRequest("textbox", "Text Box", false, DatatypeString.DATATYPEID));
+            test.setDropdown(Dropdown.getValueFromRequest("dropdown", "Dropdown", false));
+            test.setTextarea(Textarea.getValueFromRequest("textarea", "Textarea", false));
+            test.setDropdownmultiselect(DropdownMultiselect.getValueFromRequest("dropdownmultiselect", "Dropdownmultiselect", false));
+            test.setCheckboxesvalues(Checkboxes.getValueFromRequest("checkboxes", "Checkboxes", false));
+            test.setBooleantest(CheckboxBoolean.getValueFromRequest("booleantest"));
+            test.setCal(DateTime.getValueFromRequest("cal", "Cal", false));
+            test.setCal2(DateTime.getValueFromRequest("cal2", "Cal2", false));
+            test.save();
         } catch (ValidationException vex) {
 %>
         There's been an error: <%=vex.getErrorsAsSingleString()%>
@@ -39,17 +43,17 @@ String acl = "public";
 
 <form action="" method="get">
     <input type="hidden" name="action" value="save">
-    <br/><%=Textbox.getHtml("textbox", ((Test)Pagez.getBeanMgr().get("Test")).getTextbox(), 255, 35, "", "")%>
+    <br/><%=Textbox.getHtml("textbox", test.getTextbox(), 255, 35, "", "")%>
     <%
         ArrayList<String> options = new ArrayList<String>();
         options.add("a");
         options.add("b");
         options.add("c");
     %>
-    <br/><%=Dropdown.getHtml("dropdown",((Test)Pagez.getBeanMgr().get("Test")).getDropdown(), options, "","")%>
-    <br/><%=Textarea.getHtml("textarea", ((Test)Pagez.getBeanMgr().get("Test")).getTextarea(), 3, 35, "", "")%>
+    <br/><%=Dropdown.getHtml("dropdown",test.getDropdown(), options, "","")%>
+    <br/><%=Textarea.getHtml("textarea", test.getTextarea(), 3, 35, "", "")%>
     <%
-        ArrayList<String> checkboxvalues = ((Test)Pagez.getBeanMgr().get("Test")).getCheckboxesvalues();
+        ArrayList<String> checkboxvalues = test.getCheckboxesvalues();
         ArrayList<String> possiblevalues = new ArrayList<String>();
         possiblevalues.add("another");
         possiblevalues.add("bradley");
@@ -57,8 +61,7 @@ String acl = "public";
     %>
     <br/><%=Checkboxes.getHtml("checkboxes", checkboxvalues, possiblevalues, "", "")%>
     <%
-
-        ArrayList<String> ddmsv = ((Test)Pagez.getBeanMgr().get("Test")).getDropdownmultiselect();
+        ArrayList<String> ddmsv = test.getDropdownmultiselect();
         ArrayList<String> possibleddvalues = new ArrayList<String>();
         possibleddvalues.add("snake");
         possibleddvalues.add("donkey");
@@ -69,9 +72,9 @@ String acl = "public";
         possibleddvalues.add("werwe23");
     %>
     <br/><%=DropdownMultiselect.getHtml("dropdownmultiselect", ddmsv, possibleddvalues, 3, "", "")%>
-    <br/><%=CheckboxBoolean.getHtml("booleantest", ((Test)Pagez.getBeanMgr().get("Test")).getBooleantest(), "", "")%> Is True?
-    <br/><%=DateTime.getHtml("cal", ((Test)Pagez.getBeanMgr().get("Test")).getCal(), "", "")%>
-    <br/><%=Date.getHtml("cal2", ((Test)Pagez.getBeanMgr().get("Test")).getCal2(), "", "")%>
+    <br/><%=CheckboxBoolean.getHtml("booleantest", test.getBooleantest(), "", "")%> Is True?
+    <br/><%=DateTime.getHtml("cal", test.getCal(), "", "")%>
+    <br/><%=Date.getHtml("cal2", test.getCal2(), "", "")%>
     <br/><input type="submit" value="go">
 </form>
 <br/><br/>

@@ -10,6 +10,7 @@ String pagetitle = "Account Transactions";
 String navtab = "youraccount";
 String acl = "account";
 %>
+<%@ include file="/jsp/templates/auth.jsp" %>
 <%
 AccountBalancetransaction accountBalancetransaction = (AccountBalancetransaction) Pagez.getBeanMgr().get("AccountBalancetransaction");
 %>

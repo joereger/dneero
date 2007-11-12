@@ -10,6 +10,7 @@ String pagetitle = "Account Balance: "+((AccountBalance)Pagez.getBeanMgr().get("
 String navtab = "youraccount";
 String acl = "account";
 %>
+<%@ include file="/jsp/templates/auth.jsp" %>
 <%
 AccountBalance accountBalance = (AccountBalance)Pagez.getBeanMgr().get("AccountBalance");
 %>
