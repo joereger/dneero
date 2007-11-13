@@ -11,8 +11,8 @@ String acl = "researcher";
 
 
 
-           <font class="mediumfont">Your email invitations have been sent!</font>
-           <br/><br/>
+       <font class="mediumfont">Your email invitations have been sent!</font>
+       <br/><br/>
 
 
 <%@ include file="/jsp/templates/footer.jsp" %>

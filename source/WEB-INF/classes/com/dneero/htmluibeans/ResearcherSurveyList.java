@@ -21,7 +21,7 @@ import org.apache.log4j.Logger;
  */
 public class ResearcherSurveyList implements Serializable {
 
-    private List surveys;
+    private List<ResearcherSurveyListitem> surveys;
 
     public ResearcherSurveyList() {
 
@@ -33,11 +33,49 @@ public class ResearcherSurveyList implements Serializable {
 
         UserSession userSession = Pagez.getUserSession();
         Pagez.getUserSession().setCurrentSurveyid(0);
-
+        surveys = new ArrayList<ResearcherSurveyListitem>();
         if (userSession!=null && userSession.getUser()!=null && userSession.getUser().getResearcherid()>0){
             logger.debug("userSession, user and researcher not null");
             logger.debug("into loop for userSession.getUser().getResearcher().getResearcherid()="+userSession.getUser().getResearcherid());
-            surveys = HibernateUtil.getSession().createQuery("from Survey where researcherid='"+userSession.getUser().getResearcherid()+"' order by surveyid desc").setCacheable(true).list();
+            List srvys = HibernateUtil.getSession().createQuery("from Survey where researcherid='"+userSession.getUser().getResearcherid()+"' order by surveyid desc").setCacheable(true).list();
+            for (Iterator iterator=srvys.iterator(); iterator.hasNext();) {
+                Survey srvy =(Survey) iterator.next();
+                ResearcherSurveyListitem rsli = new ResearcherSurveyListitem();
+                rsli.setSurvey(srvy);
+                if (srvy.getStatus()==Survey.STATUS_DRAFT){
+                    rsli.setStatus("Draft");
+                } else if (srvy.getStatus()==Survey.STATUS_CLOSED){
+                    rsli.setStatus("Closed");
+                } if (srvy.getStatus()==Survey.STATUS_OPEN){
+                    rsli.setStatus("Live");
+                } if (srvy.getStatus()==Survey.STATUS_WAITINGFORFUNDS){
+                    rsli.setStatus("Pending, Waiting for Funds");
+                } if (srvy.getStatus()==Survey.STATUS_WAITINGFORSTARTDATE){
+                    rsli.setStatus("Pending, Waiting for Start Date");
+                }
+                if (srvy.getStatus()==Survey.STATUS_DRAFT){
+                    rsli.setEditorreviewlink("<a href=\"researchersurveydetail_01.jsp?surveyid="+srvy.getSurveyid()+"\">Edit</a>");
+                } else {
+                    rsli.setEditorreviewlink("<a href=\"researchersurveydetail_01.jsp?surveyid="+srvy.getSurveyid()+"\">Review</a>");
+                }
+                if (srvy.getStatus()==Survey.STATUS_OPEN){
+                    rsli.setInvitelink("<a href=\"emailinvite.jsp?surveyid="+srvy.getSurveyid()+"\">Invite</a>");
+                } else {
+                    rsli.setInvitelink("");
+                }
+                if (srvy.getStatus()!=Survey.STATUS_DRAFT){
+                    rsli.setEditorreviewlink("<a href=\"results.jsp?surveyid="+srvy.getSurveyid()+"\">Results</a>");
+                } else {
+                    rsli.setEditorreviewlink("");
+                }
+                rsli.setCopylink("<a href=\"index.jsp?surveyid="+srvy.getSurveyid()+"&action=copy\">Copy</a>");
+                if (srvy.getStatus()==Survey.STATUS_DRAFT){
+                    rsli.setEditorreviewlink("<a href=\"researchersurveydelete.jsp?surveyid="+srvy.getSurveyid()+"\">Delete</a>");
+                } else {
+                    rsli.setEditorreviewlink("");
+                }
+                surveys.add(rsli);
+            }
         }
     }
 
@@ -47,7 +85,6 @@ public class ResearcherSurveyList implements Serializable {
     public List getSurveys() {
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("getListitems");
-        //sort("title", true);
         return surveys;
     }
 
@@ -57,35 +94,6 @@ public class ResearcherSurveyList implements Serializable {
         this.surveys = surveys;
     }
 
-    protected boolean isDefaultAscending(String sortColumn) {
-        return true;
-    }
-
-    protected void sort(final String column, final boolean ascending) {
-//        Logger logger = Logger.getLogger(this.getClass().getName());
-//        logger.debug("sort called");
-//        Comparator comparator = new Comparator() {
-//            public int compare(Object o1, Object o2) {
-//                Survey survey1 = (Survey)o1;
-//                Survey survey2 = (Survey)o2;
-//                if (column == null) {
-//                    return 0;
-//                }
-//                if (survey1!=null && survey2!=null && column.equals("title")) {
-//                    return ascending ? survey1.getTitle().compareTo(survey2.getTitle()) : survey2.getTitle().compareTo(survey1.getTitle());
-//                } else {
-//                    return 0;
-//                }
-//            }
-//        };
-//
-//        //sort and also set our model with the new sort, since using DataTable with
-//        //ListDataModel on front end
-//        if (surveys != null && !surveys.isEmpty()) {
-//            logger.debug("sorting surveys and initializing ListDataModel");
-//            Collections.sort(surveys, comparator);
-//        }
-    }
 
 
 

@@ -103,7 +103,7 @@ public class PublicProfile implements Serializable {
             try{panel.save();}catch (Exception ex){logger.error("",ex);}
         }
         //Check to see if blogger is already in panel... if so, don't add
-        if (!ResearcherFindBloggers.isBloggerInPanel(panel, blogger)){
+        if (!SysadminFindBloggers.isBloggerInPanel(panel, blogger)){
             Panelmembership pm = new Panelmembership();
             pm.setBloggerid(blogger.getBloggerid());
             pm.setPanelid(panelid);

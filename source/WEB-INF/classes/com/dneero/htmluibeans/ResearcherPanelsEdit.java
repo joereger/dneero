@@ -4,6 +4,7 @@ import com.dneero.dao.Panel;
 
 import com.dneero.util.Num;
 import com.dneero.htmlui.Pagez;
+import com.dneero.htmlui.ValidationException;
 import org.apache.log4j.Logger;
 
 import java.io.Serializable;
@@ -31,11 +32,12 @@ public class ResearcherPanelsEdit implements Serializable {
 
 
 
-    public String edit(){
+    public String edit() throws ValidationException {
         Logger logger = Logger.getLogger(this.getClass().getName());
         if(panel.getName()!=null && !panel.getName().equals("")){
             try{panel.save();}catch(Exception ex){logger.error("",ex);}
         }
+        Pagez.getUserSession().setMessage("Panel edited.");
         Pagez.sendRedirect("/jsp/researcher/panels.jsp");
         return "";
     }

@@ -25,7 +25,9 @@ public class GridColRendererFactory {
         } else if (colObj instanceof Integer){
             return new GridColRendererString();
         }
-        logger.debug("GridColRenderer not found for colObj.getClass().getName()="+colObj.getClass().getName());
+        if (colObj!=null && colObj.getClass()!=null){
+            logger.debug("GridColRenderer not found for colObj.getClass().getName()="+colObj.getClass().getName());
+        }
         return new GridColRendererString();
     }
 

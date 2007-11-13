@@ -4,6 +4,8 @@ import com.dneero.util.Str;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.TreeMap;
+import java.util.Map;
 
 /**
  * User: Joe Reger Jr
@@ -12,7 +14,8 @@ import java.util.Iterator;
  */
 public class DropdownMultiselect {
 
-    public static String getHtml(String name, ArrayList<String> values, ArrayList<String> options, int size, String styleclass, String style){
+    //In options<String, String> the first is the id value... second is displayed in the dropdown
+    public static String getHtml(String name, ArrayList<String> values, TreeMap<String, String> options, int size, String styleclass, String style){
         StringBuffer out = new StringBuffer();
 
         if (styleclass!=null && !styleclass.equals("")){
@@ -27,13 +30,16 @@ public class DropdownMultiselect {
 
         out.append("<select name=\""+ Str.cleanForHtml(name)+"\" multiple size=\""+size+"\">");
         out.append("<option value=\"\"></option>");
-        for (Iterator iterator = options.iterator(); iterator.hasNext();) {
-            String s = (String) iterator.next();
+        Iterator keyValuePairs = options.entrySet().iterator();
+        for (int i = 0; i < options.size(); i++){
+            Map.Entry mapentry = (Map.Entry) keyValuePairs.next();
+            String key = (String)mapentry.getKey();
+            String val = (String)mapentry.getValue();
             String selected = "";
-            if (isSelected(s, values)){
+            if (isSelected(key, values)){
                 selected = " selected";
             }
-            out.append("<option value=\""+Str.cleanForHtml(s.trim())+"\" "+selected+">" + Str.truncateString(s.trim(), 30) + "</option>");
+            out.append("<option value=\""+Str.cleanForHtml(key.trim())+"\" "+selected+">" + Str.truncateString(val.trim(), 30) + "</option>");
         }
         out.append("</select>");
 

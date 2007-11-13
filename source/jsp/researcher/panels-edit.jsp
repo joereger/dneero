@@ -1,5 +1,6 @@
 <%@ page import="org.apache.log4j.Logger" %>
-<%@ page import="com.dneero.htmlui.Pagez" %>
+<%@ page import="com.dneero.htmluibeans.ResearcherPanelsEdit" %>
+<%@ page import="com.dneero.htmlui.*" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "Edit Panel";
@@ -7,33 +8,46 @@ String navtab = "researchers";
 String acl = "researcher";
 %>
 <%@ include file="/jsp/templates/auth.jsp" %>
+<%
+ResearcherPanelsEdit researcherPanelsEdit = (ResearcherPanelsEdit)Pagez.getBeanMgr().get("ResearcherPanelsEdit");
+%>
+<%
+    if (request.getParameter("action") != null && request.getParameter("action").equals("edit")) {
+        try {
+            researcherPanelsEdit.getPanel().setName(Textbox.getValueFromRequest("panelname", "Panel Name", true, DatatypeString.DATATYPEID));
+            researcherPanelsEdit.edit();
+        } catch (ValidationException vex) {
+            Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
+        }
+    }
+%>
 <%@ include file="/jsp/templates/header.jsp" %>
 
-
+    <form action="panels-edit.jsp" method="post">
+        <input type="hidden" name="action" value="edit">
 
         <table cellpadding="0" cellspacing="0" border="0">
+            <tr>
                 <td valign="top">
-                    <h:outputText value="Panel Name" styleClass="formfieldnamefont"></h:outputText>
+                    <font class="formfieldnamefont">Panel Name</font>
                 </td>
                 <td valign="top">
-                    <h:inputText value="<%=((ResearcherPanelsEdit)Pagez.getBeanMgr().get("ResearcherPanelsEdit")).getPanel().getName()%>" id="panelname"></h:inputText>
+                    <%=Textbox.getHtml("panelname", researcherPanelsEdit.getPanel().getName(), 255, 35, "", "")%>
                 </td>
-                <td valign="top">
-                    <h:message for="panelname" styleClass="RED"></h:message>
-                </td>
+            </tr>
 
 
+             <tr>
                 <td valign="top">
                 </td>
                 <td valign="top">
-                    <h:commandButton action="<%=((ResearcherPanelsEdit)Pagez.getBeanMgr().get("ResearcherPanelsEdit")).getEdit()%>" value="Edit Panel" styleClass="formsubmitbutton"></h:commandButton>
+                    <input type="submit" value="Edit Panel">
                 </td>
-                <td valign="top">
-                </td>
+            </tr>
 
-            </table>
+        </table>
 
-
+    </form>
 
 <%@ include file="/jsp/templates/footer.jsp" %>
 

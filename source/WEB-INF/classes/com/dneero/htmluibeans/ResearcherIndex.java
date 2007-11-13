@@ -8,6 +8,7 @@ import com.dneero.dao.Questionconfig;
 import com.dneero.dao.Surveypanel;
 import com.dneero.dao.hibernate.CopyHibernateObject;
 import com.dneero.htmlui.Pagez;
+import com.dneero.htmlui.ValidationException;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -38,11 +39,11 @@ public class ResearcherIndex implements Serializable {
         } else {
             showmarketingmaterial = false;
         }
-        Pagez.sendRedirect("/jsp/researcher/researchersurveylist.jsp");
+        //Pagez.sendRedirect("/jsp/researcher/researchersurveylist.jsp");
     }
 
 
-    public String copy(){
+    public String copy() throws ValidationException {
         Logger logger = Logger.getLogger(this.getClass().getName());
         String tmpSurveyid = Pagez.getRequest().getParameter("surveyid");
         if (com.dneero.util.Num.isinteger(tmpSurveyid)){
@@ -89,8 +90,8 @@ public class ResearcherIndex implements Serializable {
             //Refresh the survey
             try{newSurvey.refresh();}catch(Exception ex){logger.error("",ex);}
         }
+        initBean();
         Pagez.getUserSession().setMessage("Survey copied!");
-        Pagez.sendRedirect("/jsp/researcher/index.jsp");
         return "";
     }
 

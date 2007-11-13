@@ -179,7 +179,6 @@ String acl = "public";
                         if (bloggerCompletedsurveys.getList() != null && bloggerCompletedsurveys.getList().size()>0) {
                             for (Iterator<BloggerCompletedsurveysListitem> iterator=bloggerCompletedsurveys.getList().iterator(); iterator.hasNext();){
                                 BloggerCompletedsurveysListitem bloggerCompletedsurveysListitem= iterator.next();
-
                                 %>
                                 <div class="rounded" style="background: #e6e6e6; padding: 10px;">
                                     <table cellpadding="2" cellspacing="0" border="0" width="100%">

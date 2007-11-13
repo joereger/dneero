@@ -8,6 +8,7 @@
 <%@ page import="com.dneero.dbgrid.Grid" %>
 <%@ page import="com.dneero.htmluibeans.TestGridSubobject" %>
 <%@ page import="java.util.Calendar" %>
+<%@ page import="java.util.TreeMap" %>
 
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
@@ -45,10 +46,10 @@ Test test = (Test) Pagez.getBeanMgr().get("Test");
     <input type="hidden" name="action" value="save">
     <br/><%=Textbox.getHtml("textbox", test.getTextbox(), 255, 35, "", "")%>
     <%
-        ArrayList<String> options = new ArrayList<String>();
-        options.add("a");
-        options.add("b");
-        options.add("c");
+        TreeMap<String, String> options=new TreeMap<String, String>();
+        options.put("a", "Option a");
+        options.put("b", "Option b");
+        options.put("c", "Option c");
     %>
     <br/><%=Dropdown.getHtml("dropdown",test.getDropdown(), options, "","")%>
     <br/><%=Textarea.getHtml("textarea", test.getTextarea(), 3, 35, "", "")%>
@@ -62,14 +63,14 @@ Test test = (Test) Pagez.getBeanMgr().get("Test");
     <br/><%=Checkboxes.getHtml("checkboxes", checkboxvalues, possiblevalues, "", "")%>
     <%
         ArrayList<String> ddmsv = test.getDropdownmultiselect();
-        ArrayList<String> possibleddvalues = new ArrayList<String>();
-        possibleddvalues.add("snake");
-        possibleddvalues.add("donkey");
-        possibleddvalues.add("arse");
-        possibleddvalues.add("sdfsfd");
-        possibleddvalues.add("arsssde");
-        possibleddvalues.add("32d22dwe");
-        possibleddvalues.add("werwe23");
+        TreeMap<String, String> possibleddvalues = new TreeMap<String, String>();
+        possibleddvalues.put("snake", "snake");
+        possibleddvalues.put("donkey", "donkey");
+        possibleddvalues.put("arse", "arse");
+        possibleddvalues.put("sdfsfd", "sdfsfd");
+        possibleddvalues.put("arsssde", "arsssde");
+        possibleddvalues.put("32d22dwe", "32d22dwe");
+        possibleddvalues.put("werwe23", "werwe23");
     %>
     <br/><%=DropdownMultiselect.getHtml("dropdownmultiselect", ddmsv, possibleddvalues, 3, "", "")%>
     <br/><%=CheckboxBoolean.getHtml("booleantest", test.getBooleantest(), "", "")%> Is True?

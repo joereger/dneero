@@ -69,7 +69,7 @@ BloggerDetails bloggerDetails = (BloggerDetails)Pagez.getBeanMgr().get("BloggerD
                                 <font class="formfieldnamefont">Gender</font>
                             </td>
                             <td valign="top">
-                                <%=Dropdown.getHtml("gender", bloggerDetails.getGender(), Util.treeSetToArrayList(Genders.get()), "", "")%>
+                                <%=Dropdown.getHtml("gender", bloggerDetails.getGender(), Util.treeSetToTreeMap(Genders.get()), "", "")%>
                             </td>
                         </tr>
 
@@ -78,7 +78,7 @@ BloggerDetails bloggerDetails = (BloggerDetails)Pagez.getBeanMgr().get("BloggerD
                                 <font class="formfieldnamefont">Ethnicity</font>
                             </td>
                             <td valign="top">
-                                <%=Dropdown.getHtml("ethnicity", bloggerDetails.getEthnicity(), Util.treeSetToArrayList(Ethnicities.get()), "", "")%>
+                                <%=Dropdown.getHtml("ethnicity", bloggerDetails.getEthnicity(), Util.treeSetToTreeMap(Ethnicities.get()), "", "")%>
                             </td>
                         </tr>
 
@@ -87,7 +87,7 @@ BloggerDetails bloggerDetails = (BloggerDetails)Pagez.getBeanMgr().get("BloggerD
                                 <font class="formfieldnamefont">Marital Status</font>
                             </td>
                             <td valign="top">
-                                <%=Dropdown.getHtml("maritalstatus", bloggerDetails.getMaritalstatus(), Util.treeSetToArrayList(Maritalstatuses.get()), "", "")%>
+                                <%=Dropdown.getHtml("maritalstatus", bloggerDetails.getMaritalstatus(), Util.treeSetToTreeMap(Maritalstatuses.get()), "", "")%>
                             </td>
                         </tr>
 
@@ -96,7 +96,7 @@ BloggerDetails bloggerDetails = (BloggerDetails)Pagez.getBeanMgr().get("BloggerD
                                 <font class="formfieldnamefont">Income</font>
                             </td>
                             <td valign="top">
-                                <%=Dropdown.getHtml("income", bloggerDetails.getIncome(), Util.treeSetToArrayList(Incomes.get()), "", "")%>
+                                <%=Dropdown.getHtml("income", bloggerDetails.getIncome(), Util.treeSetToTreeMap(Incomes.get()), "", "")%>
                             </td>
                         </tr>
 
@@ -105,7 +105,7 @@ BloggerDetails bloggerDetails = (BloggerDetails)Pagez.getBeanMgr().get("BloggerD
                                 <font class="formfieldnamefont">Education</font>
                             </td>
                             <td valign="top">
-                                <%=Dropdown.getHtml("educationlevel", bloggerDetails.getEducationlevel(), Util.treeSetToArrayList(Educationlevels.get()), "", "")%>
+                                <%=Dropdown.getHtml("educationlevel", bloggerDetails.getEducationlevel(), Util.treeSetToTreeMap(Educationlevels.get()), "", "")%>
                             </td>
                         </tr>
 
@@ -115,7 +115,7 @@ BloggerDetails bloggerDetails = (BloggerDetails)Pagez.getBeanMgr().get("BloggerD
                                 <font class="formfieldnamefont">Nearest City</font>
                             </td>
                             <td valign="top">
-                                <%=Dropdown.getHtml("city", bloggerDetails.getCity(), Util.treeSetToArrayList(Cities.get()), "", "")%>
+                                <%=Dropdown.getHtml("city", bloggerDetails.getCity(), Util.treeSetToTreeMap(Cities.get()), "", "")%>
                             </td>
                         </tr>
 
@@ -124,7 +124,7 @@ BloggerDetails bloggerDetails = (BloggerDetails)Pagez.getBeanMgr().get("BloggerD
                                 <font class="formfieldnamefont">State</font>
                             </td>
                             <td valign="top">
-                                <%=Dropdown.getHtml("state", bloggerDetails.getState(), Util.treeSetToArrayList(States.get()), "", "")%>
+                                <%=Dropdown.getHtml("state", bloggerDetails.getState(), Util.treeSetToTreeMap(States.get()), "", "")%>
                             </td>
                         </tr>
 
@@ -133,7 +133,7 @@ BloggerDetails bloggerDetails = (BloggerDetails)Pagez.getBeanMgr().get("BloggerD
                                 <font class="formfieldnamefont">Profession</font>
                             </td>
                             <td valign="top">
-                                <%=Dropdown.getHtml("profession", bloggerDetails.getProfession(), Util.treeSetToArrayList(Professions.get()), "", "")%>
+                                <%=Dropdown.getHtml("profession", bloggerDetails.getProfession(), Util.treeSetToTreeMap(Professions.get()), "", "")%>
                             </td>
                         </tr>
 
@@ -143,7 +143,7 @@ BloggerDetails bloggerDetails = (BloggerDetails)Pagez.getBeanMgr().get("BloggerD
                                 <font class="formfieldnamefont">Politics</font>
                             </td>
                             <td valign="top">
-                                <%=Dropdown.getHtml("politics", bloggerDetails.getPolitics(), Util.treeSetToArrayList(Politics.get()), "", "")%>
+                                <%=Dropdown.getHtml("politics", bloggerDetails.getPolitics(), Util.treeSetToTreeMap(Politics.get()), "", "")%>
                             </td>
                         </tr>
 
@@ -154,7 +154,7 @@ BloggerDetails bloggerDetails = (BloggerDetails)Pagez.getBeanMgr().get("BloggerD
                                 <font class="tinyfont">The most accurate description of what<br/>you blog about or discuss on<br/>social networks.</font>
                             </td>
                             <td valign="top">
-                                <%=Dropdown.getHtml("blogfocus", bloggerDetails.getBlogfocus(), Util.treeSetToArrayList(Blogfocuses.get()), "", "")%>
+                                <%=Dropdown.getHtml("blogfocus", bloggerDetails.getBlogfocus(), Util.treeSetToTreeMap(Blogfocuses.get()), "", "")%>
                             </td>
                         </tr>
 

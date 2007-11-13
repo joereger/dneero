@@ -16,10 +16,7 @@ import com.dneero.helpers.UserInputSafe;
 import com.dneero.money.PaymentMethod;
 
 import java.io.Serializable;
-import java.util.List;
-import java.util.LinkedHashMap;
-import java.util.Iterator;
-import java.util.ArrayList;
+import java.util.*;
 
 /**
  * User: Joe Reger Jr
@@ -122,12 +119,12 @@ public class AccountSettings implements Serializable {
         }
     }
 
-    public ArrayList<String> getNotificationFrequencies(){
-        ArrayList<String> out  = new ArrayList<String>();
-        out.add("1");
-        out.add("7");
-        out.add("31");
-        out.add("0");
+    public TreeMap<String, String> getNotificationFrequencies(){
+        TreeMap<String, String> out  = new TreeMap<String, String>();
+        out.put("1", "Every Day");
+        out.put("7", "Every 7 Days");
+        out.put("31", "Every 31 Days");
+        out.put("0", "Never");
         return out;
     }
 

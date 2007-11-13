@@ -8,7 +8,10 @@ package com.dneero.dbgrid;
 public class GridColRendererString implements GridColRenderer {
 
     public String render(Object in) {
-        return in.toString();
+        if (in!=null){
+            return in.toString();
+        }
+        return "";
     }
 
 }

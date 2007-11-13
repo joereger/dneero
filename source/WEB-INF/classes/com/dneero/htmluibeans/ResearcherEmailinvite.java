@@ -16,6 +16,7 @@ import com.dneero.dao.Survey;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.htmlui.UserSession;
 import com.dneero.htmlui.Pagez;
+import com.dneero.htmlui.ValidationException;
 import com.dneero.helpers.UserInputSafe;
 import com.dneero.systemprops.BaseUrl;
 
@@ -57,7 +58,7 @@ public class ResearcherEmailinvite implements Serializable {
         }
     }
 
-    public String invite(){
+    public String invite() throws ValidationException {
         Logger logger = Logger.getLogger(this.getClass().getName());
         TreeMap emailaddresses = new TreeMap();
         //Handle uploaded file
@@ -84,6 +85,7 @@ public class ResearcherEmailinvite implements Serializable {
             }
         }
         //Handle manually-added
+        logger.debug("manuallyenteredemailaddresses="+manuallyenteredemailaddresses);
         if (manuallyenteredemailaddresses!=null && !manuallyenteredemailaddresses.equals("")){
             String[] individualemails = manuallyenteredemailaddresses.split("\\n");
             for (int i = 0; i < individualemails.length; i++) {
@@ -113,17 +115,16 @@ public class ResearcherEmailinvite implements Serializable {
         Pagez.getUserSession().setEmailinvitemessage(UserInputSafe.clean(message));
         Pagez.getUserSession().setEmailinvitesurveyiduserisinvitedto(surveyiduserisinvitedto);
 
-
         Pagez.sendRedirect("/jsp/researcher/emailinvite-complete.jsp");
         return "";
     }
 
-    public LinkedHashMap getSurveyids(){
-        LinkedHashMap out = new LinkedHashMap();
+    public TreeMap<String, String> getSurveyids(){
+        TreeMap<String, String> out = new TreeMap<String, String>();
         List results = HibernateUtil.getSession().createQuery("from Survey where researcherid='"+Pagez.getUserSession().getUser().getResearcherid()+"' and status='"+Survey.STATUS_OPEN+"'").list();
         for (Iterator iterator = results.iterator(); iterator.hasNext();) {
             Survey survey = (Survey) iterator.next();
-            out.put(Str.truncateString(survey.getTitle(), 40), survey.getSurveyid());
+            out.put(String.valueOf(survey.getSurveyid()), survey.getTitle());
         }
         return out;
     }

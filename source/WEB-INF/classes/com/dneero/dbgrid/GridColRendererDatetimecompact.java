@@ -13,10 +13,12 @@ import java.util.Date;
 public class GridColRendererDatetimecompact implements GridColRenderer {
 
     public String render(Object in) {
-        if (in instanceof Calendar){
-            return Time.dateformatcompactwithtime((Calendar)in);
-        } else if (in instanceof Date){
-            return Time.dateformatcompactwithtime(Time.getCalFromDate((Date)in));
+        if (in!=null){
+            if (in instanceof Calendar){
+                return Time.dateformatcompactwithtime((Calendar)in);
+            } else if (in instanceof Date){
+                return Time.dateformatcompactwithtime(Time.getCalFromDate((Date)in));
+            }
         }
         return "";
     }

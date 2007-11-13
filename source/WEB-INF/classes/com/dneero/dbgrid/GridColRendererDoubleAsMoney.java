@@ -14,8 +14,10 @@ import java.util.Date;
 public class GridColRendererDoubleAsMoney implements GridColRenderer {
 
     public String render(Object in) {
-        if (in instanceof Double){
-            return "$"+Str.formatForMoney((Double)in);
+        if (in!=null){
+            if (in instanceof Double){
+                return "$"+Str.formatForMoney((Double)in);
+            }
         }
         return "";
     }

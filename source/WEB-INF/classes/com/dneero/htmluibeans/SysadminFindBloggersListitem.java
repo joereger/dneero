@@ -11,13 +11,13 @@ import java.io.Serializable;
  * Date: Feb 9, 2007
  * Time: 10:42:52 AM
  */
-public class ResearcherFindBloggersListitem implements Serializable {
+public class SysadminFindBloggersListitem implements Serializable {
 
     private Blogger blogger;
     private User user;
     private int socialinfluenceratingpercentile;
 
-    public ResearcherFindBloggersListitem(){}
+    public SysadminFindBloggersListitem(){}
 
 
     public Blogger getBlogger() {

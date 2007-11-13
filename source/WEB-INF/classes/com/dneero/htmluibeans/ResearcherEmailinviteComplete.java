@@ -12,6 +12,7 @@ import com.dneero.email.EmailTemplateProcessor;
 import com.dneero.ui.SurveyEnhancer;
 import com.dneero.systemprops.BaseUrl;
 import com.dneero.htmlui.Pagez;
+import com.dneero.htmlui.ValidationException;
 
 import java.util.Iterator;
 import java.util.Date;
@@ -36,6 +37,7 @@ public class ResearcherEmailinviteComplete implements Serializable {
 
 
     public void initBean(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         if (Pagez.getUserSession()!=null && Pagez.getUserSession().getEmailinviteaddresses()!=null){
             StringBuffer sb = new StringBuffer();
             sb.append("<textarea cols=\"30\" rows=\"10\">");
@@ -47,10 +49,12 @@ public class ResearcherEmailinviteComplete implements Serializable {
             emailaddresslisthtml = sb.toString();
             numberofrecipients = Pagez.getUserSession().getEmailinviteaddresses().size();
             survey = Survey.get(Pagez.getUserSession().getEmailinvitesurveyiduserisinvitedto());
+        } else {
+            logger.debug("Pagez.getUserSession()==null || Pagez.getUserSession().getEmailinviteaddresses()==null");
         }
     }
     
-    public String complete(){
+    public String complete() throws ValidationException {
         Logger logger = Logger.getLogger(this.getClass().getName());
         if (Pagez.getUserSession()!=null && Pagez.getUserSession().getEmailinviteaddresses()!=null && Pagez.getUserSession().getEmailinviteaddresses().size()>0){
             //Load the survey user's invited to
@@ -102,6 +106,8 @@ public class ResearcherEmailinviteComplete implements Serializable {
                 Pagez.getUserSession().setEmailinvitesurveyiduserisinvitedto(0);
             }
         }
+        Pagez.getUserSession().setMessage("Invitations sent!");
+        Pagez.sendRedirect("emailinvite-sent.jsp");
         return "researcheremailinvitesent";
     }
 

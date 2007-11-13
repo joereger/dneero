@@ -1,5 +1,10 @@
 <%@ page import="org.apache.log4j.Logger" %>
-<%@ page import="com.dneero.htmlui.Pagez" %>
+<%@ page import="com.dneero.htmluibeans.ResearcherIndex" %>
+<%@ page import="com.dneero.dbgrid.GridCol" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="com.dneero.dbgrid.Grid" %>
+<%@ page import="com.dneero.htmluibeans.ResearcherSurveyList" %>
+<%@ page import="com.dneero.htmlui.*" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "<img src=\"/images/statistic-128.png\" alt=\"\" border=\"0\" width=\"128\" height=\"128\" align=\"right\"/>For Researchers and Marketers<br/><br clear=\"all\"/>";
@@ -7,10 +12,23 @@ String navtab = "researchers";
 String acl = "public";
 %>
 <%@ include file="/jsp/templates/auth.jsp" %>
+<%
+    ResearcherIndex researcherIndex=(ResearcherIndex) Pagez.getBeanMgr().get("ResearcherIndex");
+    ResearcherSurveyList researcherSurveyList=(ResearcherSurveyList) Pagez.getBeanMgr().get("ResearcherSurveyList");
+%>
+<%
+    if (request.getParameter("action") != null && request.getParameter("action").equals("copy")) {
+        try {
+            researcherIndex.copy();
+        } catch (ValidationException vex) {
+            Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
+        }
+    }
+%>
 <%@ include file="/jsp/templates/header.jsp" %>
 
 
-    <% if ("${!userSession.isloggedin or researcherIndex.showmarketingmaterial}){ %>
+    <% if (!Pagez.getUserSession().getIsloggedin() || researcherIndex.getShowmarketingmaterial()){ %>
         <table cellpadding="0" cellspacing="0" border="0" width="100%">
            <tr>
                <td valign="top" width="70%">
@@ -81,10 +99,12 @@ String acl = "public";
                     <table width="100%">
                         <tr>
                             <td width="50%" align="center">
-                                <div style="width: 200px;"><d:greenRoundedButton pathtoapproot="../"><h:commandLink value="Read the Researcher FAQ" action="researcherfaq" styleClass="subnavfont" style="color: #ffffff;"/></d:greenRoundedButton></div>
+                                <div style="width: 200px;"><%=com.dneero.htmlui.GreenRoundedButton.get("<a href=\"researcherfaq.jsp\"><font class=\"subnavfont\" style=\"color: #ffffff;\">Read the Researcher FAQ</font></a>")%></div>
                             </td>
                             <td width="50%" align="center">
-                                <div style="width: 200px;"><d:greenRoundedButton pathtoapproot="../" rendered="<%=((!userSession)Pagez.getBeanMgr().get("!userSession")).getIsloggedin()%>"><h:commandLink value="Sign Up Now" action="<%=((Registration)Pagez.getBeanMgr().get("Registration")).getBeginView()%>" styleClass="subnavfont" style="color: #ffffff;"/></d:greenRoundedButton></div>
+                                <%if (!Pagez.getUserSession().getIsloggedin()){%>
+                                    <div style="width: 200px;"><%=com.dneero.htmlui.GreenRoundedButton.get("<a href=\"/jsp/registration.jsp\"><font class=\"subnavfont\" style=\"color: #ffffff;\">Sign Up Now</font></a>")%></div>
+                                <%}%>
                             </td>
                         </tr>
                     </table>
@@ -104,30 +124,26 @@ String acl = "public";
                </td>
            </tr>
         </table>
-
-
-
-
     <% } %>
 
-    <% if ("${userSession.isloggedin and (userSession.user.researcherid eq 0)}){ %>
+    <% if (Pagez.getUserSession().getIsloggedin() && (Pagez.getUserSession().getUser().getResearcherid()==0) && (!researcherIndex.getShowmarketingmaterial())){ %>
         <center>
         <div class="rounded" style="padding: 15px; margin: 5px; background: #F2FFBF; width: 65%;">
-            <h:commandLink action="researcherdetails"><font class="mediumfont">Quick One-time Researcher Configuration Required</font></h:commandLink>
+            <a href="researcherdetails.jsp"><font class="mediumfont">Quick One-time Researcher Configuration Required</font></a>
             <br/>
             <font class="smallfont">Before you can do blogosphere research we need to collect a few pieces of information about you as a researcher.  This will only take a minute or two.</font>
             <br/><br/><br/>
-            <h:commandLink action="researcherdetails"><font class="normalfont">Continue</font></h:commandLink>
+            <a href="researcherdetails.jsp"><font class="normalfont">Continue</font></a>
         </div>
         </center>
     <% } %>
 
-    <% if ("${userSession.isloggedin and (userSession.user.researcherid gt 0) and (!researcherIndex.showmarketingmaterial)}){ %>
-        <t:div rendered="#{researcherIndex.msg ne ''}">
+    <% if (Pagez.getUserSession().getIsloggedin() && (Pagez.getUserSession().getUser().getResearcherid()>0) && (!researcherIndex.getShowmarketingmaterial())){ %>
+        <%if (researcherIndex.getMsg()!=null && !researcherIndex.getMsg().equals("")){%>
             <div class="rounded" style="padding: 15px; margin: 5px; background: #F2FFBF;">
-                <font class="mediumfont"><%=((ResearcherIndex)Pagez.getBeanMgr().get("ResearcherIndex")).getMsg()%></font>
+                <font class="mediumfont"><%=researcherIndex.getMsg()%></font>
             </div>
-        </t:div>
+        <%}%>
 
         <table cellpadding="10" cellspacing="0" border="0" width="100%">
             <tr>
@@ -135,7 +151,7 @@ String acl = "public";
                     <div class="rounded" style="padding: 5px; margin: 5px; background: #e6e6e6;">
                         <div class="rounded" style="padding: 15px; margin: 5px; background: #ffffff;">
                             <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-                                <h:commandLink value="Start a New Survey" action="<%=((ResearcherSurveyDetail01)Pagez.getBeanMgr().get("ResearcherSurveyDetail01")).getBeginViewNewSurvey()%>" styleClass="mediumfont" style="color: #596697;"/>
+                                <a href="researchersurveydetail_01.jsp"><font class="mediumfont" style="color: #596697;">Start a New Survey</font></a>
                             </td></tr>
                             <tr><td valign="top"></td><td valign="top">
                                 <font class="smallfont">Create a new survey for bloggers. This step-by-step wizard will guide you through the process.  Your survey can be up and running in a matter of minutes.</font>
@@ -143,7 +159,7 @@ String acl = "public";
                         </div>
                         <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
                             <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-                                <h:commandLink value="Panels" action="<%=((ResearcherPanels)Pagez.getBeanMgr().get("ResearcherPanels")).getBeginView()%>" styleClass="mediumfont" style="color: #596697;"/>
+                                <a href="panels.jsp"><font class="mediumfont" style="color: #596697;">Start a New Survey</font></a>
                             </td></tr>
                             <tr><td valign="top"></td><td valign="top">
                                 <font class="smallfont">Create and manage standing panels of bloggers for longitudinal studies.</font>
@@ -151,15 +167,15 @@ String acl = "public";
 
                             <br/><br/>
                             <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-                                <h:commandLink value="Update My Researcher Profile" action="<%=((ResearcherDetails)Pagez.getBeanMgr().get("ResearcherDetails")).getBeginView()%>" styleClass="mediumfont" style="color: #596697;"/>
-                            </td></tr>
+                                <a href="researcherdetails.jsp"><font class="mediumfont" style="color: #596697;">Start a New Survey</font></a>
+                             </td></tr>
                             <tr><td valign="top"></td><td valign="top">
                                 <font class="smallfont">Help us understand your needs so that we can serve you better.</font>
                             </td></tr></table>
 
                             <br/><br/>
                             <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-                                <h:commandLink value="Billing Info" action="<%=((ResearcherBilling)Pagez.getBeanMgr().get("ResearcherBilling")).getBeginView()%>" styleClass="mediumfont" style="color: #596697;"/>
+                                <a href="researcherbilling.jsp"><font class="mediumfont" style="color: #596697;">Start a New Survey</font></a>
                             </td></tr>
                             <tr><td valign="top"></td><td valign="top">
                                 <font class="smallfont">Update your billing information on this screen.</font>
@@ -168,7 +184,7 @@ String acl = "public";
 
                             <br/><br/>
                             <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-                                <h:commandLink value="Researcher Frequently Asked Questions" action="researcherfaq" styleClass="mediumfont" style="color: #596697;"/>
+                                <a href="researcherfaq.jsp"><font class="mediumfont" style="color: #596697;">Start a New Survey</font></a>
                             </td></tr>
                             <tr><td valign="top"></td><td valign="top">
                                 <font class="smallfont">Get your answers here!</font>
@@ -176,7 +192,7 @@ String acl = "public";
 
                             <br/><br/>
                             <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-                                <h:commandLink value="Researcher Basic Info" action="<%=((ResearcherIndex)Pagez.getBeanMgr().get("ResearcherIndex")).getBeginView()%>" styleClass="mediumfont" style="color: #596697;"><f:param name="showmarketingmaterial" value="1"/></h:commandLink>
+                                <a href="index.jsp?showmarketingmaterial=1"><font class="mediumfont" style="color: #596697;">Start a New Survey</font></a>
                             </td></tr>
                             <tr><td valign="top"></td><td valign="top">
                                 <font class="smallfont">Basic Researcher information, how the system works, etc.</font>
@@ -186,98 +202,22 @@ String acl = "public";
                 </td>
                 <td valign="top">
                     <h:outputText value="Surveys You've Created" styleClass="largefont" style="color: #cccccc;" escape="false"/>
-                    <t:div rendered="#{empty researcherSurveyList.surveys}">
-                        <div class="rounded" style="padding: 15px; margin: 5px; background: #F2FFBF;">
-                            <font class="smallfont">You have not yet created any surveys.<br/><h:commandLink value="Start a New Survey" action="<%=((ResearcherSurveyDetail01)Pagez.getBeanMgr().get("ResearcherSurveyDetail01")).getBeginViewNewSurvey()%>" styleClass="smallfont" style="color: #596697;"/></font>
-                        </div>
-                        <br/><br/>
-                    </t:div>
-                    <t:saveState id="save" value="#{researcherSurveyList}"/>
-                    <t:dataTable id="datatable" value="<%=((ResearcherSurveyList)Pagez.getBeanMgr().get("ResearcherSurveyList")).getSurveys()%>" rows="50" var="survey" rendered="#{!empty researcherSurveyList.surveys}" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcol,tcol,tcol,tcolnowrap,tcolnowrap">
-                      <h:column>
-                        <f:facet name="header">
-                          <h:outputText value="Title"/>
-                        </f:facet>
-                        <h:outputText value="<%=((Survey)Pagez.getBeanMgr().get("Survey")).getTitle()%>" escape="false" styleClass="normalfont" style="font-weight:bold;" rendered="#{survey.status eq 1}"/>
-                        <h:commandLink action="<%=((PublicSurveyTakeRedirector)Pagez.getBeanMgr().get("PublicSurveyTakeRedirector")).getBeginView()%>" rendered="#{survey.status ne 1}">
-                            <h:outputText value="<%=((Survey)Pagez.getBeanMgr().get("Survey")).getTitle()%>" escape="false" styleClass="normalfont" style="font-weight:bold;"/>
-                            <f:param name="surveyid" value="<%=((Survey)Pagez.getBeanMgr().get("Survey")).getSurveyid()%>" />
-                        </h:commandLink>
-                      </h:column>
-                      <h:column>
-                        <f:facet name="header">
-                          <h:outputText value="Status"/>
-                        </f:facet>
-                        <h:outputText value="Draft" styleClass="smallfont" rendered="<%=((Survey)Pagez.getBeanMgr().get("Survey")).getStatus==1()%>"/>
-                        <h:outputText value="Pending, Waiting for Start Date" styleClass="smallfont" rendered="<%=((Survey)Pagez.getBeanMgr().get("Survey")).getStatus==2()%>"/>
-                        <h:outputText value="Pending, Waiting for Funds" styleClass="smallfont" rendered="<%=((Survey)Pagez.getBeanMgr().get("Survey")).getStatus==3()%>"/>
-                        <h:outputText value="Live" styleClass="smallfont" rendered="<%=((Survey)Pagez.getBeanMgr().get("Survey")).getStatus==4()%>"/>
-                        <h:outputText value="Closed" styleClass="smallfont" rendered="<%=((Survey)Pagez.getBeanMgr().get("Survey")).getStatus==5()%>"/>
-                      </h:column>
-                      <h:column>
-                        <f:facet name="header">
-                          <h:outputText value="-" style="color: #ffffff;"/>
-                        </f:facet>
-                        <h:commandLink action="<%=((ResearcherSurveyDetail01)Pagez.getBeanMgr().get("ResearcherSurveyDetail01")).getBeginView()%>" rendered="#{survey.status eq 1}">
-                            <h:outputText value="Edit" styleClass="smallfont" escape="false" />
-                            <f:param name="surveyid" value="<%=((Survey)Pagez.getBeanMgr().get("Survey")).getSurveyid()%>" />
-                        </h:commandLink>
-                        <h:commandLink action="<%=((ResearcherSurveyDetail01)Pagez.getBeanMgr().get("ResearcherSurveyDetail01")).getBeginView()%>" rendered="#{survey.status ne 1}">
-                            <h:outputText value="Review" styleClass="smallfont" escape="false" />
-                            <f:param name="surveyid" value="<%=((Survey)Pagez.getBeanMgr().get("Survey")).getSurveyid()%>" />
-                        </h:commandLink>
-                      </h:column>
-                      <h:column>
-                        <f:facet name="header">
-                          <h:outputText value="-" style="color: #ffffff;"/>
-                        </f:facet>
-                        <h:commandLink action="<%=((ResearcherEmailinvite)Pagez.getBeanMgr().get("ResearcherEmailinvite")).getBeginView()%>" rendered="#{survey.status eq 4}">
-                            <h:outputText value="Invite" styleClass="smallfont" escape="false" />
-                            <f:param name="surveyid" value="<%=((Survey)Pagez.getBeanMgr().get("Survey")).getSurveyid()%>" />
-                        </h:commandLink>
-                      </h:column>
-                      <h:column>
-                        <f:facet name="header">
-                          <h:outputText value="-" style="color: #ffffff;"/>
-                        </f:facet>
-                        <h:commandLink action="<%=((ResearcherResults)Pagez.getBeanMgr().get("ResearcherResults")).getBeginView()%>" rendered="#{survey.status ne 1}">
-                            <h:outputText value="Results" styleClass="smallfont" escape="false" />
-                            <f:param name="surveyid" value="<%=((Survey)Pagez.getBeanMgr().get("Survey")).getSurveyid()%>" />
-                        </h:commandLink>
-                      </h:column>
-                      <h:column>
-                        <f:facet name="header">
-                          <h:outputText value="-" style="color: #ffffff;"/>
-                        </f:facet>
-                        <h:commandLink action="<%=((ResearcherIndex)Pagez.getBeanMgr().get("ResearcherIndex")).getCopy()%>">
-                            <h:outputText value=" Copy" styleClass="smallfont" escape="false"/>
-                            <f:param name="surveyid" value="<%=((Survey)Pagez.getBeanMgr().get("Survey")).getSurveyid()%>" />
-                        </h:commandLink>
-                      </h:column>
-                      <h:column>
-                        <f:facet name="header">
-                          <h:outputText value="-" style="color: #ffffff;"/>
-                        </f:facet>
-                        <h:commandLink action="<%=((ResearcherSurveyDelete)Pagez.getBeanMgr().get("ResearcherSurveyDelete")).getBeginView()%>" rendered="#{survey.status eq 1}">
-                            <h:outputText value=" Delete" styleClass="smallfont" escape="false"/>
-                            <f:param name="surveyid" value="<%=((Survey)Pagez.getBeanMgr().get("Survey")).getSurveyid()%>" />
-                        </h:commandLink>
-                      </h:column>
-                    </t:dataTable>
-                    <t:dataScroller id="scroll_1" for="datatable" rendered="#{!empty researcherSurveyList.surveys}" fastStep="10" pageCountVar="pageCount" pageIndexVar="pageIndex" styleClass="scroller" paginator="true" paginatorMaxPages="9" paginatorTableClass="paginator" paginatorActiveColumnStyle="font-weight:bold;">
-                        <f:facet name="first" >
-                            <t:graphicImage url="/images/datascroller/play-first.png" border="0" />
-                        </f:facet>
-                        <f:facet name="last">
-                            <t:graphicImage url="/images/datascroller/play-forward.png" border="0" />
-                        </f:facet>
-                        <f:facet name="previous">
-                            <t:graphicImage url="/images/datascroller/play-back.png" border="0" />
-                        </f:facet>
-                        <f:facet name="next">
-                            <t:graphicImage url="/images/datascroller/play.png" border="0" />
-                        </f:facet>
-                    </t:dataScroller>
+                    <%if (researcherSurveyList.getSurveys()==null || researcherSurveyList.getSurveys().size()==0){%>
+                        <font class="normalfont">You have not yet created any surveys. <a href="researchersurveydetail_01.jsp">Start a New Survey</a>.</font>
+                    <%} else {%>
+                        <%
+                            ArrayList<GridCol> cols=new ArrayList<GridCol>();
+                            cols.add(new GridCol("Title", "<a href=\"/jsp/survey.jsp?surveyid=<$survey.surveyid$>\"><font style=\"font-weight:bold;\"><$survey.title$></font></a>", false, "", "normalfont"));
+                            cols.add(new GridCol("Status", "<$status$>", false, "", "smallfont", "", ""));
+                            cols.add(new GridCol("", "<$editorreviewlink$>", false, "", "smallfont"));
+                            cols.add(new GridCol("", "<$invitelink$>", false, "", "smallfont"));
+                            cols.add(new GridCol("", "<$resultslink$>", false, "", "smallfont"));
+                            cols.add(new GridCol("", "<$copylink$>", false, "", "smallfont"));
+                            cols.add(new GridCol("", "<$deletelink$>", false, "", "smallfont"));
+                        %>
+                        <%=Grid.render(researcherSurveyList.getSurveys(), cols, 50, "index.jsp", "page")%>
+                    <%}%>
+
                 </td>
 
              </tr>

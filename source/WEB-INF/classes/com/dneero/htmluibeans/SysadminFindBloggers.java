@@ -2,7 +2,6 @@ package com.dneero.htmluibeans;
 
 
 import com.dneero.util.Num;
-import com.dneero.util.SortableList;
 import com.dneero.util.Str;
 import com.dneero.util.Util;
 import com.dneero.finders.SurveyCriteriaXML;
@@ -24,7 +23,7 @@ import org.apache.log4j.Logger;
  * Date: Feb 8, 2007
  * Time: 12:23:05 PM
  */
-public class ResearcherFindBloggers implements Serializable {
+public class SysadminFindBloggers implements Serializable {
 
     private List listitems;
     private int panelid;
@@ -50,10 +49,9 @@ public class ResearcherFindBloggers implements Serializable {
 
    
 
-    public ResearcherFindBloggers(){
+    public SysadminFindBloggers(){
 
     }
-
 
 
     public void initBean(){
@@ -71,16 +69,6 @@ public class ResearcherFindBloggers implements Serializable {
         profession = SurveyCriteriaXML.convertToArray(Util.treeSetToTreeMap(Professions.get()));
         blogfocus = SurveyCriteriaXML.convertToArray(Util.treeSetToTreeMap(Blogfocuses.get()));
         politics = SurveyCriteriaXML.convertToArray(Util.treeSetToTreeMap(Politics.get()));
-//        gender = SurveyCriteriaXML.convertToArray((TreeMap) Jsf.getManagedBean("genders"));
-//        ethnicity = SurveyCriteriaXML.convertToArray((LinkedHashMap)Jsf.getManagedBean("ethnicities"));
-//        maritalstatus = SurveyCriteriaXML.convertToArray((LinkedHashMap)Jsf.getManagedBean("maritalstatuses"));
-//        income = SurveyCriteriaXML.convertToArray((LinkedHashMap)Jsf.getManagedBean("incomes"));
-//        educationlevel = SurveyCriteriaXML.convertToArray((LinkedHashMap)Jsf.getManagedBean("educationlevels"));
-//        state = SurveyCriteriaXML.convertToArray((LinkedHashMap)Jsf.getManagedBean("states"));
-//        city = SurveyCriteriaXML.convertToArray((LinkedHashMap)Jsf.getManagedBean("cities"));
-//        profession = SurveyCriteriaXML.convertToArray((TreeMap)Jsf.getManagedBean("professions"));
-//        blogfocus = SurveyCriteriaXML.convertToArray((TreeMap)Jsf.getManagedBean("blogfocuses"));
-//        politics = SurveyCriteriaXML.convertToArray((LinkedHashMap)Jsf.getManagedBean("politics"));
     }
 
  
@@ -113,7 +101,7 @@ public class ResearcherFindBloggers implements Serializable {
         for (Iterator it = bloggers.iterator(); it.hasNext(); ) {
             Blogger blogger = (Blogger)it.next();
             int socialinfluenceratingpercentile = SocialInfluenceRatingPercentile.getPercentileOfRanking(SystemStats.getTotalbloggers(), blogger.getSocialinfluenceratingranking());
-            ResearcherFindBloggersListitem li = new ResearcherFindBloggersListitem();
+            SysadminFindBloggersListitem li = new SysadminFindBloggersListitem();
             li.setBlogger(blogger);
             li.setUser(User.get(blogger.getUserid()));
             li.setSocialinfluenceratingpercentile(socialinfluenceratingpercentile);
@@ -227,8 +215,8 @@ public class ResearcherFindBloggers implements Serializable {
         logger.debug("sort called");
         Comparator comparator = new Comparator() {
             public int compare(Object o1, Object o2) {
-                ResearcherFindBloggersListitem obj1 = (ResearcherFindBloggersListitem)o1;
-                ResearcherFindBloggersListitem obj2 = (ResearcherFindBloggersListitem)o2;
+                SysadminFindBloggersListitem obj1 = (SysadminFindBloggersListitem)o1;
+                SysadminFindBloggersListitem obj2 = (SysadminFindBloggersListitem)o2;
                 if (column == null) {
                     return 0;
                 }
