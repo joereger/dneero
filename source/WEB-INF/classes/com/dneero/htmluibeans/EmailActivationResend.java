@@ -11,6 +11,7 @@ import com.dneero.dao.User;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.htmlui.UserSession;
 import com.dneero.htmlui.Pagez;
+import com.dneero.htmlui.ValidationException;
 import com.dneero.email.EmailSend;
 import com.dneero.email.EmailActivationSend;
 import com.octo.captcha.service.CaptchaServiceException;
@@ -42,7 +43,7 @@ public class EmailActivationResend implements Serializable {
         }
     }
 
-    public String reSendEmail(){
+    public String reSendEmail() throws ValidationException {
 
         boolean isCaptchaCorrect = false;
         try {

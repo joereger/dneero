@@ -12,6 +12,10 @@ import java.util.Date;
  */
 public class GridColRendererDatetimecompact implements GridColRenderer {
 
+    //Format of content is <$propertyname$>
+    // or
+    // <$propertyname|"+Grid.GRIDCOLRENDERER_DATETIMECOMPACT+"$>
+
     public String render(Object in) {
         if (in!=null){
             if (in instanceof Calendar){

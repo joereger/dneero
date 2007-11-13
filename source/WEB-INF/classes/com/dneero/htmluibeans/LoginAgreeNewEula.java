@@ -6,6 +6,7 @@ import com.dneero.dao.Usereula;
 
 import com.dneero.util.GeneralException;
 import com.dneero.htmlui.Pagez;
+import com.dneero.htmlui.ValidationException;
 
 import java.util.Date;
 import java.io.Serializable;
@@ -32,7 +33,7 @@ public class LoginAgreeNewEula implements Serializable {
         eula = EulaHelper.getMostRecentEula().getEula();
     }
 
-    public String agree(){
+    public String agree() throws ValidationException {
         Logger logger = Logger.getLogger(this.getClass().getName());
         User user = Pagez.getUserSession().getUser();
 

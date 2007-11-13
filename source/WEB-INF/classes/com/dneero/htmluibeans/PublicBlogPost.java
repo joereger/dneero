@@ -9,6 +9,7 @@ import com.dneero.ui.SocialBookmarkLinks;
 import com.dneero.finders.SurveyCriteriaXML;
 import com.dneero.xmpp.SendXMPPMessage;
 import com.dneero.htmlui.Pagez;
+import com.dneero.htmlui.ValidationException;
 import com.octo.captcha.service.CaptchaServiceException;
 
 import java.io.Serializable;
@@ -50,7 +51,7 @@ public class PublicBlogPost implements Serializable {
         }  
     }
 
-    public String postComment(){
+    public String postComment() throws ValidationException {
         Logger logger = Logger.getLogger(this.getClass().getName());
         if (name==null || name.equals("")){
             name = "Anonymous";

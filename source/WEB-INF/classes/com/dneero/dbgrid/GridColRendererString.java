@@ -7,6 +7,10 @@ package com.dneero.dbgrid;
  */
 public class GridColRendererString implements GridColRenderer {
 
+    //Format of content is <$propertyname$>
+    // or
+    // <$propertyname|"+Grid.GRIDCOLRENDERER_DATETIMECOMPACT+"$>
+
     public String render(Object in) {
         if (in!=null){
             return in.toString();

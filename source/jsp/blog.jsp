@@ -1,5 +1,10 @@
 <%@ page import="org.apache.log4j.Logger" %>
 <%@ page import="com.dneero.htmlui.Pagez" %>
+<%@ page import="com.dneero.dao.Blogpost" %>
+<%@ page import="com.dneero.htmluibeans.PublicBlog" %>
+<%@ page import="com.dneero.dbgrid.GridCol" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="com.dneero.dbgrid.Grid" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "dNeero Social Surveys Blog";
@@ -7,6 +12,9 @@ String navtab = "home";
 String acl = "public";
 %>
 <%@ include file="/jsp/templates/auth.jsp" %>
+<%
+PublicBlog publicBlog = (PublicBlog)Pagez.getBeanMgr().get("PublicBlog");
+%>
 <%@ include file="/jsp/templates/header.jsp" %>
 
 
@@ -15,37 +23,23 @@ String acl = "public";
      </div>
      <br/>
 
-     
+    <%if (publicBlog.getBlogposts()==null || publicBlog.getBlogposts().size()==0){%>
+        <font class="normalfont">No blog posts yet.</font>
+    <%} else {%>
+        <%
+        StringBuffer post = new StringBuffer();
+        post.append("<a href=\"/jsp/blogpost.jsp?blogpostid=<$blogpostid$>\"><font class=\"mediumfont\" style=\"color: #0bae17; font-weight: bold;\"><$title$></font></a>\n" +
+"        <br/>\n" +
+"        <font class=\"smallfont\"><$body$></font>\n" +
+"        <br/>\n" +
+"        <font class=\"tinyfont\" style=\"color: #999999;\">Posted by: <$author$> at <$date|"+Grid.GRIDCOLRENDERER_DATETIMECOMPACT+"$></font>\n" +
+"        <br/><br/>");
 
-     <t:dataTable id="datatable1" value="<%=((PublicBlog)Pagez.getBeanMgr().get("PublicBlog")).getBlogposts()%>" rows="100" var="blogpost" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcol,tcolnowrap,tcol,tcolnowrap,tcolnowrap">
-      <h:column>
-        <f:facet name="header">
-          <h:outputText value=""/>
-        </f:facet>
-        <a href="/blogpost.jsf?blogpostid=<%=((Blogpost)Pagez.getBeanMgr().get("Blogpost")).getBlogpostid()%>"><font class="mediumfont" style="color: #0bae17; font-weight: bold;"><%=((Blogpost)Pagez.getBeanMgr().get("Blogpost")).getTitle()%></font></a>
-        <br/>
-        <h:outputText styleClass="smallfont" value="<%=((Blogpost)Pagez.getBeanMgr().get("Blogpost")).getBody()%>" escape="false"></h:outputText>
-        <br/>
-        <font class="tinyfont" style="color: #999999;">Posted by: <%=((Blogpost)Pagez.getBeanMgr().get("Blogpost")).getAuthor()%> at <h:outputText value=" <%=((Blogpost)Pagez.getBeanMgr().get("Blogpost")).getDate()%>" styleClass="tinyfont" style="color: #cccccc;"><f:convertDateTime type="both" dateStyle="short" timeStyle="medium"/></h:outputText></font>
-        <br/><br/>
-      </h:column>
-     </t:dataTable>
-    <t:dataScroller id="scroll_1" for="datatable1" fastStep="100" pageCountVar="pageCount" pageIndexVar="pageIndex" styleClass="scroller" paginator="true" paginatorMaxPages="9" paginatorTableClass="paginator" paginatorActiveColumnStyle="font-weight:bold;">
-        <f:facet name="first" >
-            <t:graphicImage url="/images/datascroller/play-first.png" border="0" />
-        </f:facet>
-        <f:facet name="last">
-            <t:graphicImage url="/images/datascroller/play-forward.png" border="0" />
-        </f:facet>
-        <f:facet name="previous">
-            <t:graphicImage url="/images/datascroller/play-back.png" border="0" />
-        </f:facet>
-        <f:facet name="next">
-            <t:graphicImage url="/images/datascroller/play.png" border="0" />
-        </f:facet>
-    </t:dataScroller>
-
-
+        ArrayList<GridCol> cols=new ArrayList<GridCol>();
+        cols.add(new GridCol("", post.toString(), false, "", ""));
+        %>
+        <%=Grid.render(publicBlog.getBlogposts(), cols, 100, "blog.jsp", "page")%>
+    <%}%>
     <br/><br/> 
 
 

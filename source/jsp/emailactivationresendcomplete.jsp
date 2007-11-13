@@ -9,9 +9,9 @@ String acl = "public";
 <%@ include file="/jsp/templates/auth.jsp" %>
 <%@ include file="/jsp/templates/header.jsp" %>
 
-            <h:outputText>Your email activation message has been sent.  Please check your email inbox.</h:outputText>
-            <f:verbatim><br/><br/></f:verbatim>
-            <h:outputText>Also, please note that all previous activation emails are now invalid... you must use the most recent one that we've sent.  This is for your security.  Thanks!</h:outputText>
+            Your email activation message has been sent.  Please check your email inbox.
+            <br/><br/>
+            Also, please note that all previous activation emails are now invalid... you must use the most recent one that we've sent.  This is for your security.  Thanks!
 
 
 <%@ include file="/jsp/templates/footer.jsp" %>

@@ -18,6 +18,8 @@
 <body bgcolor=#ffffff>
 <br><br>
 <blockquote><blockquote>
+<img src="/images/dneero-logo.jpg" alt=""/>
+<br/>
 <strong><font face=arial size=+1 color="#000000">We're sorry.  We must be updating the software at this time.  We're always trying to launch new features to make the site more powerful.  We apologize for the invconvenience.  Please try again soon.</font></strong>
 </blockquote></blockquote>
 <br>

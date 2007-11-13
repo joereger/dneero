@@ -1,3 +1,4 @@
+<%@ page import="com.dneero.htmlui.Authorization" %>
 <%
-Authorization.check(acl);
+    Authorization.check(acl);
 %>

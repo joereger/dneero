@@ -9,9 +9,11 @@ String acl = "public";
 <%@ include file="/jsp/templates/auth.jsp" %>
 <%@ include file="/jsp/templates/header.jsp" %>
 
-            <h:outputText>Email activation was successful!  Your account is ready to roll!  You can now log in with the email address and password that you provided when you signed up.</h:outputText>
+            Email activation was successful!  Your account is ready to roll!  You can now log in with the email address and password that you provided when you signed up.
             <br/><br/>
-            <h:commandButton action="<%=((Login)Pagez.getBeanMgr().get("Login")).getBeginView()%>" value="Please Log In" styleClass="formsubmitbutton" rendered="<%=((!userSession)Pagez.getBeanMgr().get("!userSession")).getIsloggedin()%>"/>
+            <%if (!Pagez.getUserSession().getIsloggedin()){%>
+                <a href="login.jsp">Please Log In Now</a>
+            <%}%>
 
 
 <%@ include file="/jsp/templates/footer.jsp" %>

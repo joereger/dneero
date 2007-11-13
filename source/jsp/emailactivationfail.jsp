@@ -9,8 +9,9 @@ String acl = "public";
 <%@ include file="/jsp/templates/auth.jsp" %>
 <%@ include file="/jsp/templates/header.jsp" %>
 
-            <h:outputText>Email activation failed.</h:outputText>
-            <h:commandLink action="emailactivationresend" value="Click here to re-send email activation message."></h:commandLink>
+            Email activation failed.
+            <br/><br/>
+            <a href="emailactivationresend.jsp">Click here to re-send email activation message.</a>
 
 
 <%@ include file="/jsp/templates/footer.jsp" %>
