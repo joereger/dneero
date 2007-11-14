@@ -35,11 +35,9 @@ Test test = (Test) Pagez.getBeanMgr().get("Test");
             test.setCal2(DateTime.getValueFromRequest("cal2", "Cal2", false));
             test.save();
         } catch (ValidationException vex) {
-%>
-        There's been an error: <%=vex.getErrorsAsSingleString()%>
-        <%
+            Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
+        }
     }
-}
 %>
 
 <form action="" method="get">

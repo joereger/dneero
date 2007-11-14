@@ -95,10 +95,14 @@ public class Grid {
 
             //Paging display
             if (totalrows>rowsperpage){
+                String questionmark = "?";
+                if (pagename.indexOf("?")>-1){
+                    questionmark = "&";
+                }
                 out.append("<tr>");
                 out.append("<td align=\"right\" colspan=\""+cols.size()+"\" style=\"background: #e6e6e6\">");
                 if (currentpage>1){
-                    out.append("<a href=\""+pagename+"?"+currentpageVar+"="+(currentpage-1)+"\">");
+                    out.append("<a href=\""+pagename+questionmark+currentpageVar+"="+(currentpage-1)+"\">");
                     out.append("Previous");
                     out.append("</a>");
                     out.append(" ");
@@ -106,10 +110,9 @@ public class Grid {
                 out.append("Page "+currentpage+" of "+totalpages);
                 if (currentpage<totalpages){
                     out.append(" ");
-                    out.append("<a href=\""+pagename+"?"+currentpageVar+"="+(currentpage+1)+"\">");
+                    out.append("<a href=\""+pagename+questionmark+currentpageVar+"="+(currentpage+1)+"\">");
                     out.append("Next");
                     out.append("</a>");
-
                 }
                 out.append("</td>");
                 out.append("</tr>");

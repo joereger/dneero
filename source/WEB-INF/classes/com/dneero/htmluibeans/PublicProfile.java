@@ -9,6 +9,7 @@ import com.dneero.util.Time;
 import com.dneero.sir.SocialInfluenceRatingPercentile;
 import com.dneero.scheduledjobs.SystemStats;
 import com.dneero.htmlui.Pagez;
+import com.dneero.htmlui.ValidationException;
 
 import java.util.*;
 import java.io.Serializable;
@@ -86,7 +87,7 @@ public class PublicProfile implements Serializable {
         }
     }
 
-    public String addToPanel(){
+    public String addToPanel() throws ValidationException {
         Logger logger = Logger.getLogger(this.getClass().getName());
         int bloggersadded = 0;
         Panel panel;
@@ -120,12 +121,12 @@ public class PublicProfile implements Serializable {
         return "publicprofile";
     }
 
-    public LinkedHashMap getPanelids(){
-        LinkedHashMap out = new LinkedHashMap();
+    public TreeMap<String, String> getPanelids(){
+        TreeMap<String, String> out = new TreeMap<String, String>();
         List results = HibernateUtil.getSession().createQuery("from Panel where researcherid='"+Pagez.getUserSession().getUser().getResearcherid()+"'").list();
         for (Iterator iterator = results.iterator(); iterator.hasNext();) {
             Panel panel = (Panel) iterator.next();
-            out.put(Str.truncateString(panel.getName(), 40), panel.getPanelid());
+            out.put(String.valueOf(panel.getPanelid()), Str.truncateString(panel.getName(), 40));
         }
         return out;
     }

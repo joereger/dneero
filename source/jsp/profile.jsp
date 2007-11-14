@@ -1,21 +1,37 @@
 <%@ page import="org.apache.log4j.Logger" %>
-<%@ page import="com.dneero.htmlui.Pagez" %>
+<%@ page import="com.dneero.htmluibeans.PublicProfile" %>
+<%@ page import="com.dneero.dbgrid.GridCol" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="com.dneero.dbgrid.Grid" %>
+<%@ page import="com.dneero.htmlui.*" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
-String pagetitle = "XXX's Profile";
+String pagetitle = ((PublicProfile) Pagez.getBeanMgr().get("PublicProfile")).getUser().getFirstname()+" "+((PublicProfile) Pagez.getBeanMgr().get("PublicProfile")).getUser().getLastname()+"'s Profile";
 String navtab = "home";
 String acl = "public";
 %>
 <%@ include file="/jsp/templates/auth.jsp" %>
+<%
+    PublicProfile publicProfile=(PublicProfile) Pagez.getBeanMgr().get("PublicProfile");
+%>
+<%
+    if (request.getParameter("action") != null && request.getParameter("action").equals("add")) {
+        try {
+            publicProfile.setPanelid(Integer.parseInt(Dropdown.getValueFromRequest("panelid", "Panel", true)));
+            publicProfile.addToPanel();
+        } catch (ValidationException vex) {
+            Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
+        }
+    }
+%>
 <%@ include file="/jsp/templates/header.jsp" %>
 
-
-    <t:div rendered="#{publicProfile.msg ne '' and publicProfile.msg ne null}">
+    <%if (publicProfile.getMsg()!=null && !publicProfile.getMsg().equals("")){%>
         <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
-        <%=((PublicProfile)Pagez.getBeanMgr().get("PublicProfile")).getMsg()%>
+        <%=publicProfile.getMsg()%>
         </font></div></center>
         <br/><br/>
-    </t:div>
+    <%}%>
 
     <div class="rounded" style="background: #e6e6e6; text-align: left; padding: 20px;">
     <table cellpadding="10" cellspacing="0" border="0" width="100%">
@@ -28,20 +44,20 @@ String acl = "public";
                     <table cellpadding="10" cellspacing="0" border="0" width="100%">
                         <tr>
                             <td valign="top" width="50%">
-                                <h:outputText value="Social Influence Rating (TM)" styleClass="formfieldnamefont"></h:outputText>
+                                <font class="formfieldnamefont">Social Influence Rating (TM)</font>
                             </td>
                             <td valign="top" width="50%">
-                                <h:outputText value="<%=((PublicProfile)Pagez.getBeanMgr().get("PublicProfile")).getBlogger().getSocialinfluencerating()%>" styleClass="smallfont"></h:outputText>
+                                <font class="smallfont"><%=publicProfile.getBlogger().getSocialinfluencerating()%></font>
                                 <br/>
-                                <h:outputText value="(Top <%=((PublicProfile)Pagez.getBeanMgr().get("PublicProfile")).getSocialinfluenceratingpercentile()%>%)" styleClass="smallfont"></h:outputText>
+                                <font class="smallfont">Rank: <%=publicProfile.getBlogger().getSocialinfluenceratingranking()%></font>
                             </td>
                         </tr>
                         <tr>
                             <td valign="top" width="50%">
-                                <h:outputText value="Amt Earned for Charity" styleClass="formfieldnamefont"></h:outputText>
+                                <font class="formfieldnamefont">Amt Earned for Charity</font>
                             </td>
                             <td valign="top" width="50%">
-                                <h:outputText value="<%=((PublicProfile)Pagez.getBeanMgr().get("PublicProfile")).getCharityamtdonatedForscreen()%>" styleClass="smallfont"></h:outputText>
+                                <font class="smallfont"><%=publicProfile.getCharityamtdonatedForscreen()%></font>
                             </td>
                         </tr>
                     </table>
@@ -55,93 +71,43 @@ String acl = "public";
        <br/><br/>
        <font class="mediumfont" style="color: #cccccc;">Surveys Taken</font>
        <br/>
-
-        <t:saveState id="save" value="#{publicProfile}"/>
-        <t:dataScroller for="datatable1" maxPages="5"/>
-        <t:dataTable id="datatable1" value="<%=((PublicProfile)Pagez.getBeanMgr().get("PublicProfile")).getListitems()%>" rows="10" var="listitem" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcol,tcolnowrap,tcol,tcolnowrap,tcolnowrap">
-          <h:column>
-            <f:facet name="header">
-              <h:outputText value="Date"/>
-            </f:facet>
-              <h:outputText value="<%=((Listitem)Pagez.getBeanMgr().get("Listitem")).getResponse().getResponsedate()%>" styleClass="tinyfont"><f:convertDateTime type="both" dateStyle="short" timeStyle="medium"/></h:outputText>
-          </h:column>
-          <h:column>
-            <f:facet name="header">
-              <h:outputText value="Survey Title"/>
-            </f:facet>
-            <h:outputText value="<%=((Listitem)Pagez.getBeanMgr().get("Listitem")).getSurvey().getTitle()%>" styleClass="normalfont"/>
-          </h:column>
-          <h:column>
-                <f:facet name="header">
-                  <h:outputText value="-" style="color: #ffffff;"/>
-                </f:facet>
-                <h:outputLink value="/survey.jsf?u=<%=((PublicProfile)Pagez.getBeanMgr().get("PublicProfile")).getUser().getUserid()%>&amp;s=<%=((Listitem)Pagez.getBeanMgr().get("Listitem")).getSurvey().getSurveyid()%>&amp;p=0&amp;r=<%=((Listitem)Pagez.getBeanMgr().get("Listitem")).getResponse().getResponseid()%>">
-                    <h:outputText value="Answers" styleClass="smallfont"/>
-                </h:outputLink>
-              </h:column>
-              <h:column>
-                <f:facet name="header">
-                  <h:outputText value="-" style="color: #ffffff;"/>
-                </f:facet>
-                <h:commandLink action="<%=((PublicProfileImpressions)Pagez.getBeanMgr().get("PublicProfileImpressions")).getBeginView()%>">
-                    <h:outputText value="Impressions" escape="false" styleClass="smallfont"/>
-                    <f:param name="responseid" value="<%=((Listitem)Pagez.getBeanMgr().get("Listitem")).getResponse().getResponseid()%>" />
-                </h:commandLink>
-              </h:column>
-         </t:dataTable>
-        <t:dataScroller id="scroll_1" for="datatable1" fastStep="10" pageCountVar="pageCount" pageIndexVar="pageIndex" styleClass="scroller" paginator="true" paginatorMaxPages="9" paginatorTableClass="paginator" paginatorActiveColumnStyle="font-weight:bold;">
-            <f:facet name="first" >
-                <t:graphicImage url="/images/datascroller/play-first.png" border="0" />
-            </f:facet>
-            <f:facet name="last">
-                <t:graphicImage url="/images/datascroller/play-forward.png" border="0" />
-            </f:facet>
-            <f:facet name="previous">
-                <t:graphicImage url="/images/datascroller/play-back.png" border="0" />
-            </f:facet>
-            <f:facet name="next">
-                <t:graphicImage url="/images/datascroller/play.png" border="0" />
-            </f:facet>
-        </t:dataScroller>
+       <%if (publicProfile.getListitems()==null || publicProfile.getListitems().size()==0){%>
+            <font class="normalfont">None... yet.</font>
+       <%} else {%>
+            <%
+                ArrayList<GridCol> cols=new ArrayList<GridCol>();
+                cols.add(new GridCol("Date", "<$response.responsedate|"+Grid.GRIDCOLRENDERER_DATETIMECOMPACT+"$>", true, "", "tinyfont"));
+                cols.add(new GridCol("Survey Title", "<$survey.title$>", false, "", "normalfont"));
+                cols.add(new GridCol("", "<a href=\"survey.jsp?u=<$user.userid$>\">Answers</a>", false, "", "smallfont"));
+                cols.add(new GridCol("", "<a href=\"profileimpressions.jsp?responseid=<$response.responseid$>\">Impressions</a>", false, "", "smallfont"));
+            %>
+            <%=Grid.render(publicProfile.getListitems(), cols, 10, "profile.jsp?userid="+publicProfile.getUser().getUserid(), "pagesurveys")%>
+        <%}%>
 
 
 
-        <% if ("#{userSession.isloggedin and (userSession.user.researcherid gt 0)}){ %>
+        <% if (Pagez.getUserSession().getIsloggedin() && Pagez.getUserSession().getUser().getResearcherid()>0){ %>
             <br/><br/>
             <font class="mediumfont" style="color: #cccccc;">Panel Membership</font>
             <br/>
-            <t:saveState id="save" value="#{publicProfile}"/>
-            <t:dataScroller for="datatable3" maxPages="5"/>
-            <t:dataTable id="datatable3" value="<%=((PublicProfile)Pagez.getBeanMgr().get("PublicProfile")).getPanels()%>" rows="10" var="panel" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcol,tcolnowrap,tcol,tcolnowrap,tcolnowrap">
-              <h:column>
-                <f:facet name="header">
-                  <h:outputText value="Panel Name"/>
-                </f:facet>
-                <h:outputText value="<%=((Panel)Pagez.getBeanMgr().get("Panel")).getName()%>" styleClass="normalfont"/>
-              </h:column>
-            </t:dataTable>
-            <t:dataScroller id="scroll_3" for="datatable3" fastStep="10" pageCountVar="pageCount" pageIndexVar="pageIndex" styleClass="scroller" paginator="true" paginatorMaxPages="9" paginatorTableClass="paginator" paginatorActiveColumnStyle="font-weight:bold;">
-                <f:facet name="first" >
-                    <t:graphicImage url="/images/datascroller/play-first.png" border="0" />
-                </f:facet>
-                <f:facet name="last">
-                    <t:graphicImage url="/images/datascroller/play-forward.png" border="0" />
-                </f:facet>
-                <f:facet name="previous">
-                    <t:graphicImage url="/images/datascroller/play-back.png" border="0" />
-                </f:facet>
-                <f:facet name="next">
-                    <t:graphicImage url="/images/datascroller/play.png" border="0" />
-                </f:facet>
-            </t:dataScroller>
+            <%if (publicProfile.getPanels()==null || publicProfile.getPanels().size()==0){%>
+                <font class="normalfont">None... yet.</font>
+            <%} else {%>
+                <%
+                    ArrayList<GridCol> cols=new ArrayList<GridCol>();
+                    cols.add(new GridCol("Panel Name", "<$name$>", true, "", "smallfont"));
+               %>
+                <%=Grid.render(publicProfile.getPanels(), cols, 10, "profile.jsp?userid="+publicProfile.getUser().getUserid(), "pagepanels")%>
+            <%}%>
+
 
             <br/><br/>
-
-            <h:selectOneMenu value="<%=((PublicProfile)Pagez.getBeanMgr().get("PublicProfile")).getPanelid()%>" id="panelid" required="true" rendered="#{!empty publicProfile.panelids}">
-               <f:selectItems value="<%=((PublicProfile)Pagez.getBeanMgr().get("PublicProfile")).getPanelids()%>"/>
-            </h:selectOneMenu>
-            <h:commandButton action="<%=((PublicProfile)Pagez.getBeanMgr().get("PublicProfile")).getAddToPanel()%>" value="Add Blogger Panel" styleClass="formsubmitbutton"></h:commandButton>
-        <% } %>
+            <form action="profile.jsp" method="post">
+                <input type="hidden" name="action" value="add">
+                <%=com.dneero.htmlui.Dropdown.getHtml("panelid", String.valueOf(publicProfile.getPanelid()), publicProfile.getPanelids(), "", "")%>
+                <input type="submit" value="Add Blogger To Panel">
+            </form>
+        <%}%>
 
     
 

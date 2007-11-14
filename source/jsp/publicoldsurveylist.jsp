@@ -1,5 +1,9 @@
 <%@ page import="org.apache.log4j.Logger" %>
 <%@ page import="com.dneero.htmlui.Pagez" %>
+<%@ page import="com.dneero.htmluibeans.PublicOldSurveyList" %>
+<%@ page import="com.dneero.dbgrid.GridCol" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="com.dneero.dbgrid.Grid" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "Old Surveys";
@@ -7,53 +11,22 @@ String navtab = "home";
 String acl = "public";
 %>
 <%@ include file="/jsp/templates/auth.jsp" %>
+<%
+PublicOldSurveyList publicOldSurveyList = (PublicOldSurveyList) Pagez.getBeanMgr().get("PublicOldSurveyList");
+%>
 <%@ include file="/jsp/templates/header.jsp" %>
 
-
-    <h:outputText value="There are currently no surveys listed." styleClass="mediumfont" rendered="#{empty publicOldSurveyList.surveys}"/>
-
-    <t:dataTable sortable="true" id="datatable" value="<%=((PublicOldSurveyList)Pagez.getBeanMgr().get("PublicOldSurveyList")).getSurveys()%>" rows="15" var="srvy" rendered="#{!empty publicOldSurveyList.surveys}" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcol,tcolnowrap,tcol,tcolnowrap,tcolnowrap">
-      <t:column>
-        <f:facet name="header">
-            <h:outputText value="Survey Name"/>
-        </f:facet>
-        <h:outputLink value="/surveyresults.jsf?surveyid=<%=((Srvy)Pagez.getBeanMgr().get("Srvy")).getSurveyid()%>">
-            <h:outputText value="<%=((Srvy)Pagez.getBeanMgr().get("Srvy")).getTitle()%>" styleClass="normalfont" style="font-weight: bold; color: #0000ff;"/>
-        </h:outputLink>
-        <br/>
-        <h:outputText value="<%=((Srvy)Pagez.getBeanMgr().get("Srvy")).getDescription()%>" escape="false" styleClass="tinyfont"/>
-      </t:column>
-
-      <t:column>
-        <f:facet name="header">
-          <h:outputText value="Respondents Earned Up To"/>
-        </f:facet>
-        <h:outputText value="<%=((Srvy)Pagez.getBeanMgr().get("Srvy")).getMaxearning()%>" styleClass="smallfont" style="font-weight:normal;"/>
-      </t:column>
-      <t:column>
-        <f:facet name="header">
-          <h:outputText value="Number of Respondents"/>
-        </f:facet>
-        <h:outputText value="<%=((Srvy)Pagez.getBeanMgr().get("Srvy")).getNumberofrespondents()%>" styleClass="smallfont" style="font-weight:normal;"/>
-      </t:column>
-    </t:dataTable>
-    <t:dataScroller id="scroll_1" for="datatable" fastStep="10" pageCountVar="pageCount" pageIndexVar="pageIndex" styleClass="scroller" paginator="true" paginatorMaxPages="9" paginatorTableClass="paginator" paginatorActiveColumnStyle="font-weight:bold;">
-        <f:facet name="first" >
-            <t:graphicImage url="/images/datascroller/play-first.png" border="0" />
-        </f:facet>
-        <f:facet name="last">
-            <t:graphicImage url="/images/datascroller/play-forward.png" border="0" />
-        </f:facet>
-        <f:facet name="previous">
-            <t:graphicImage url="/images/datascroller/play-back.png" border="0" />
-        </f:facet>
-        <f:facet name="next">
-            <t:graphicImage url="/images/datascroller/play.png" border="0" />
-        </f:facet>
-    </t:dataScroller>
-
-
-
+    <%if (publicOldSurveyList.getSurveys()==null || publicOldSurveyList.getSurveys().size()==0){%>
+        <font class="normalfont">No old surveys listed right now... check back soon.</font>
+    <%} else {%>
+        <%
+            ArrayList<GridCol> cols=new ArrayList<GridCol>();
+            cols.add(new GridCol("Survey Name", "<a href=\"survey.jsp?surveyid=<$surveyid$>&show=results\"><$title$></a><br/><font class=\"tinyfont\"><$description$></font>", false, "", "normalfont", "", "font-weight: bold; color: #0000ff;"));
+            cols.add(new GridCol("Respondents Earned Up To", "<$maxearning$>", true, "", "smallfont"));
+            cols.add(new GridCol("Number of Respondents", "<$numberofrespondents$>", true, "", "smallfont"));
+        %>
+        <%=Grid.render(publicOldSurveyList.getSurveys(), cols, 50, "publicoldsurveylist.jsp", "page")%>
+    <%}%>
 
 <%@ include file="/jsp/templates/footer.jsp" %>
 

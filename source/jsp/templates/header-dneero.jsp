@@ -171,8 +171,9 @@
                 <%
                 if (Pagez.getUserSession().getMessage()!=null && !Pagez.getUserSession().getMessage().equals("")){
                     %>
-                    <font class="formfieldfont" style="background: #ffcc00;"><%=Pagez.getUserSession().getMessage()%></font>
                     <br/>
+                    <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="formfieldfont"><%=Pagez.getUserSession().getMessage()%></font></div></center>
+                    <br/><br/>
                     <%
                     //Clear the message since it's been displayed
                     Pagez.getUserSession().setMessage("");
