@@ -13,6 +13,7 @@ import com.dneero.dao.Panelmembership;
 import com.dneero.dao.Blogger;
 import com.dneero.dao.User;
 import com.dneero.htmlui.Pagez;
+import com.dneero.htmlui.ValidationException;
 
 /**
  * User: Joe Reger Jr
@@ -56,7 +57,7 @@ public class ResearcherPanelsListBloggers implements Serializable {
         }
     }
 
-    public String removeFromPanel(){
+    public String removeFromPanel() throws ValidationException {
         Logger logger = Logger.getLogger(this.getClass().getName());
         if (Pagez.getRequest().getParameter("panelmembershipid")!=null && Num.isinteger(Pagez.getRequest().getParameter("panelmembershipid"))){
             Panelmembership panelmembership = Panelmembership.get(Integer.parseInt(Pagez.getRequest().getParameter("panelmembershipid")));

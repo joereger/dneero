@@ -34,7 +34,7 @@ String acl = "researcher";
         <%if (!researcherEmailinvite.getResearcherhasatleastonelivesurvey()){%>
             <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
             <img src="/images/lightbulb_on.png" alt="" align="right"/>
-            You must have at least one survey with a status of Live to invite people to.  Check <a href="researchersurveylist.jsp">Your List of Surveys</a>.  Create a survey first and then come back to invite people to it.  If you just created a survey, sometimes it takes a few minutes for the financial system to process and mark the survey as Live... check back soon.  You'll be able to upload a list of email addresses or manually enter them.  You'll be able to set a custom message and email subject.
+            You must have at least one survey with a status of Live to invite people to.  Check <a href="index.jsp">Your List of Surveys</a>.  Create a survey first and then come back to invite people to it.  If you just created a survey, sometimes it takes a few minutes for the financial system to process and mark the survey as Live... check back soon.  You'll be able to upload a list of email addresses or manually enter them.  You'll be able to set a custom message and email subject.
             <br/><br/><br/></font></div></center>
         <%}%>
         <%if (researcherEmailinvite.getResearcherhasatleastonelivesurvey()){%>

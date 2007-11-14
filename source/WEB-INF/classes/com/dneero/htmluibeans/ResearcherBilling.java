@@ -3,6 +3,7 @@ package com.dneero.htmluibeans;
 import org.apache.log4j.Logger;
 import com.dneero.htmlui.UserSession;
 import com.dneero.htmlui.Pagez;
+import com.dneero.htmlui.ValidationException;
 
 import com.dneero.util.GeneralException;
 import com.dneero.dao.Researcher;
@@ -13,6 +14,7 @@ import com.dneero.helpers.UserInputSafe;
 
 import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.TreeMap;
 import java.io.Serializable;
 
 /**
@@ -72,7 +74,7 @@ public class ResearcherBilling implements Serializable {
 
     }
 
-    public String saveAction(){
+    public String saveAction() throws ValidationException {
         Logger logger = Logger.getLogger(this.getClass().getName());
         UserSession userSession = Pagez.getUserSession();
 
@@ -133,7 +135,7 @@ public class ResearcherBilling implements Serializable {
 
 
             userSession.getUser().refresh();
-
+            Pagez.getUserSession().setMessage("Billing information saved.");
             Pagez.sendRedirect("/jsp/researcher/index.jsp");
             return "";
         } else {
@@ -143,46 +145,45 @@ public class ResearcherBilling implements Serializable {
     }
 
 
-    public LinkedHashMap getCreditcardtypes(){
-        LinkedHashMap out = new LinkedHashMap();
-        out.put("Visa", Creditcard.CREDITCARDTYPE_VISA);
-        out.put("Master Card", Creditcard.CREDITCARDTYPE_MASTERCARD);
-        out.put("American Express", Creditcard.CREDITCARDTYPE_AMEX);
-        out.put("Discover", Creditcard.CREDITCARDTYPE_DISCOVER);
+    public TreeMap<String, String> getCreditcardtypes(){
+        TreeMap<String, String> out = new TreeMap<String, String>();
+        out.put(String.valueOf(Creditcard.CREDITCARDTYPE_VISA), "Visa");
+        out.put(String.valueOf(Creditcard.CREDITCARDTYPE_MASTERCARD), "Master Card");
+        out.put(String.valueOf(Creditcard.CREDITCARDTYPE_AMEX), "American Express");
+        out.put(String.valueOf(Creditcard.CREDITCARDTYPE_DISCOVER), "Discover");
         return out;
     }
 
-    public LinkedHashMap getMonthsForCreditcard(){
-        LinkedHashMap out = new LinkedHashMap();
-        out.put("Jan(01)", 1);
-        out.put("Feb(02)", 2);
-        out.put("Mar(03)", 3);
-        out.put("Apr(04)", 4);
-        out.put("May(05)", 5);
-        out.put("Jun(06)", 6);
-        out.put("Jul(07)", 7);
-        out.put("Aug(08)", 8);
-        out.put("Sep(09)", 9);
-        out.put("Oct(10)", 10);
-        out.put("Nov(11)", 11);
-        out.put("Dec(12)", 12);
+    public TreeMap<String, String> getMonthsForCreditcard(){
+        TreeMap<String, String> out = new TreeMap<String, String>();
+        out.put(String.valueOf(1), "Jan(01)");
+        out.put(String.valueOf(2), "Feb(02)");
+        out.put(String.valueOf(3), "Mar(03)");
+        out.put(String.valueOf(4), "Apr(04)");
+        out.put(String.valueOf(5), "May(05)");
+        out.put(String.valueOf(6), "Jun(06)");
+        out.put(String.valueOf(7), "Jul(07)");
+        out.put(String.valueOf(8), "Aug(08)");
+        out.put(String.valueOf(9), "Sep(09)");
+        out.put(String.valueOf(10), "Oct(10)");
+        out.put(String.valueOf(11), "Nov(11)");
+        out.put(String.valueOf(12), "Dec(12)");
         return out;
     }
 
-    public LinkedHashMap getYearsForCreditcard(){
-        LinkedHashMap out = new LinkedHashMap();
-        out.put("2006", 2006);
-        out.put("2007", 2007);
-        out.put("2008", 2008);
-        out.put("2009", 2009);
-        out.put("2010", 2010);
-        out.put("2011", 2011);
-        out.put("2012", 2012);
-        out.put("2013", 2013);
-        out.put("2014", 2014);
-        out.put("2015", 2015);
-        out.put("2016", 2016);
-        out.put("2017", 2017);
+    public TreeMap<String, String> getYearsForCreditcard(){
+        TreeMap<String, String> out = new TreeMap<String, String>();
+        out.put(String.valueOf(2007), "2007");
+        out.put(String.valueOf(2008), "2008");
+        out.put(String.valueOf(2009), "2009");
+        out.put(String.valueOf(2010), "2010");
+        out.put(String.valueOf(2011), "2011");
+        out.put(String.valueOf(2012), "2012");
+        out.put(String.valueOf(2013), "2013");
+        out.put(String.valueOf(2014), "2014");
+        out.put(String.valueOf(2015), "2015");
+        out.put(String.valueOf(2016), "2016");
+        out.put(String.valueOf(2017), "2017");
         return out;
     }
 

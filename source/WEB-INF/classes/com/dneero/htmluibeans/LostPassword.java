@@ -9,6 +9,7 @@ import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.email.EmailActivationSend;
 import com.dneero.email.LostPasswordSend;
 import com.dneero.htmlui.Pagez;
+import com.dneero.htmlui.ValidationException;
 import com.octo.captcha.service.CaptchaServiceException;
 
 import java.util.List;
@@ -34,7 +35,7 @@ public class LostPassword implements Serializable {
 
     }
 
-    public String recoverPassword(){
+    public String recoverPassword() throws ValidationException {
         Logger logger = Logger.getLogger(this.getClass().getName());
         boolean isCaptchaCorrect = false;
         try {

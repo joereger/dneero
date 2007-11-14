@@ -39,7 +39,6 @@ public class ResearcherIndex implements Serializable {
         } else {
             showmarketingmaterial = false;
         }
-        //Pagez.sendRedirect("/jsp/researcher/researchersurveylist.jsp");
     }
 
 

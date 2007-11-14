@@ -13,6 +13,7 @@ import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.dao.Panel;
 import com.dneero.survey.servlet.SurveyJavascriptServlet;
 import com.dneero.htmlui.Pagez;
+import com.dneero.htmlui.ValidationException;
 
 /**
  * User: Joe Reger Jr
@@ -51,7 +52,7 @@ public class ResearcherPanels implements Serializable {
         }
     }
 
-    public String createNewPanel(){
+    public String createNewPanel() throws ValidationException {
         Logger logger = Logger.getLogger(this.getClass().getName());
         if (newpanelname==null || newpanelname.equals("")){
             newpanelname = "My Panel ("+Time.dateformatdate(Calendar.getInstance())+")";
@@ -78,7 +79,7 @@ public class ResearcherPanels implements Serializable {
         return "researcherpanels";
     }
 
-    public String deletePanel(){
+    public String deletePanel() throws ValidationException {
         Logger logger = Logger.getLogger(this.getClass().getName());
         if (Num.isinteger(Pagez.getRequest().getParameter("panelid"))){
             Panel panel = Panel.get(Integer.parseInt(Pagez.getRequest().getParameter("panelid")));

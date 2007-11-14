@@ -1,5 +1,6 @@
 <%@ page import="org.apache.log4j.Logger" %>
-<%@ page import="com.dneero.htmlui.Pagez" %>
+<%@ page import="com.dneero.htmluibeans.ResearcherBilling" %>
+<%@ page import="com.dneero.htmlui.*" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "Researcher Billing Details";
@@ -7,10 +8,35 @@ String navtab = "researchers";
 String acl = "account";
 %>
 <%@ include file="/jsp/templates/auth.jsp" %>
+<%
+ResearcherBilling researcherBilling = (ResearcherBilling)Pagez.getBeanMgr().get("ResearcherBilling");
+%>
+<%
+    if (request.getParameter("action") != null && request.getParameter("action").equals("save")) {
+        try {
+            researcherBilling.setCccity(Textbox.getValueFromRequest("cccity", "City", true, DatatypeString.DATATYPEID));
+            researcherBilling.setCcexpmo(Integer.parseInt(Dropdown.getValueFromRequest("ccexpmo", "Expiration Month", true)));
+            researcherBilling.setCcexpyear(Integer.parseInt(Dropdown.getValueFromRequest("ccexpyear", "Expiration Year", true)));
+            researcherBilling.setCcnum(Textbox.getValueFromRequest("ccnum", "Credit Card Number", true, DatatypeString.DATATYPEID));
+            researcherBilling.setCcstate(Textbox.getValueFromRequest("ccstate", "State", true, DatatypeString.DATATYPEID));
+            researcherBilling.setCctype(Integer.parseInt(Dropdown.getValueFromRequest("cctype", "Credit Card Type", true)));
+            researcherBilling.setCvv2(Textbox.getValueFromRequest("cvv2", "CVV2", true, DatatypeString.DATATYPEID));
+            researcherBilling.setFirstname(Textbox.getValueFromRequest("firstname", "First Name", true, DatatypeString.DATATYPEID));
+            researcherBilling.setLastname(Textbox.getValueFromRequest("lastname", "Last Name", true, DatatypeString.DATATYPEID));
+            researcherBilling.setPostalcode(Textbox.getValueFromRequest("postalcode", "Zip", true, DatatypeString.DATATYPEID));
+            researcherBilling.setStreet(Textbox.getValueFromRequest("street", "Street", true, DatatypeString.DATATYPEID));
+            researcherBilling.saveAction();
+        } catch (ValidationException vex) {
+            Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
+        } catch (Exception ex){
+            Pagez.getUserSession().setMessage("There has been an error. Please try again.");
+        }
+    }
+%>
 <%@ include file="/jsp/templates/header.jsp" %>
 
-
-
+    <form action="researcherbilling.jsp" method="post">
+        <input type="hidden" name="action" value="save">
            <table cellpadding="0" cellspacing="0" border="0">
                <tr>
 
@@ -22,86 +48,65 @@ String acl = "account";
 
                             <tr>
                                <td valign="top" align="left">
-                                    <h:outputText value="Name" styleClass="formfieldnamefont"></h:outputText>
+                                    <font class="formfieldnamefont">Name</font>
                                     <br/>
-                                    <h:outputText value="(first then last)" styleClass="tinyfont"></h:outputText>
+                                    <font class="tinyfont">(first then last)</font>
                                </td>
                                <td valign="top" align="left">
-                                    <h:inputText value="<%=((ResearcherBilling)Pagez.getBeanMgr().get("ResearcherBilling")).getFirstname()%>" id="firstname"  size="15"></h:inputText>
-                                    <h:outputText value=" " styleClass="formfieldnamefont"></h:outputText>
-                                    <h:inputText value="<%=((ResearcherBilling)Pagez.getBeanMgr().get("ResearcherBilling")).getLastname()%>" id="lastname" size="15"></h:inputText>
-                                    <h:message for="firstname" styleClass="RED"></h:message>
-                                    <h:message for="lastname" styleClass="RED"></h:message>
+                                    <%=Textbox.getHtml("firstname", researcherBilling.getFirstname(), 255, 15, "", "")%>
+                                    <%=Textbox.getHtml("lastname", researcherBilling.getLastname(), 255, 15, "", "")%>
                                </td>
                             </tr>
 
                             <tr>
                                <td valign="top" align="left">
-                                    <h:outputText value="Street Address" styleClass="formfieldnamefont"></h:outputText>
+                                    <font class="formfieldnamefont">Street Address</font>
                                </td>
                                <td valign="top" align="left">
-                                    <h:inputText value="<%=((ResearcherBilling)Pagez.getBeanMgr().get("ResearcherBilling")).getStreet()%>" id="street" size="30"></h:inputText>
-                                    <h:message for="street" styleClass="RED"></h:message>
+                                    <%=Textbox.getHtml("street", researcherBilling.getStreet(), 255, 30, "", "")%>
                                </td>
                             </tr>
 
 
                             <tr>
                                <td valign="top" align="left">
-                                    <h:outputText value="City, State, Zip" styleClass="formfieldnamefont"></h:outputText>
+                                    <font class="formfieldnamefont">City, State, Zip</font>
                                </td>
                                <td valign="top" align="left">
-                                    <h:inputText value="<%=((ResearcherBilling)Pagez.getBeanMgr().get("ResearcherBilling")).getCccity()%>" id="cccity" size="20"></h:inputText>
-                                    <h:outputText value=" " styleClass="formfieldnamefont"></h:outputText>
-                                    <h:inputText value="<%=((ResearcherBilling)Pagez.getBeanMgr().get("ResearcherBilling")).getCcstate()%>" id="ccstate"  size="2"></h:inputText>
-                                    <h:outputText value=" " styleClass="formfieldnamefont"></h:outputText>
-                                    <h:inputText value="<%=((ResearcherBilling)Pagez.getBeanMgr().get("ResearcherBilling")).getPostalcode()%>" id="postalcode" size="6"></h:inputText>
-                                    <h:message for="cccity" styleClass="RED"></h:message>
-                                    <h:message for="ccstate" styleClass="RED"></h:message>
-                                    <h:message for="postalcode" styleClass="RED"></h:message>
+                                    <%=Textbox.getHtml("cccity", researcherBilling.getCccity(), 255, 20, "", "")%>
+                                    <%=Textbox.getHtml("ccstate", researcherBilling.getCcstate(), 255, 2, "", "")%>
+                                    <%=Textbox.getHtml("postalcode", researcherBilling.getPostalcode(), 255, 6, "", "")%>
                                </td>
                             </tr>
 
 
                             <tr>
                                <td valign="top" align="left">
-                                    <h:outputText value="Credit Card Type" styleClass="formfieldnamefont"></h:outputText>
+                                    <font class="formfieldnamefont">Credit Card Type</font>
                                </td>
                                <td valign="top" align="left">
-                                    <h:selectOneMenu value="<%=((ResearcherBilling)Pagez.getBeanMgr().get("ResearcherBilling")).getCctype()%>" id="cctype" required="true">
-                                        <f:selectItems value="<%=((ResearcherBilling)Pagez.getBeanMgr().get("ResearcherBilling")).getCreditcardtypes()%>"/>
-                                    </h:selectOneMenu>
-                                    <h:message for="cctype" styleClass="RED"></h:message>
+                                    <%=Dropdown.getHtml("cctype", String.valueOf(researcherBilling.getCctype()), researcherBilling.getCreditcardtypes(), "","")%>
                                </td>
                             </tr>
 
                             <tr>
                                <td valign="top" align="left">
-                                    <h:outputText value="Credit Card Number" styleClass="formfieldnamefont"></h:outputText>
+                                    <font class="formfieldnamefont">Credit Card Number</font>
                                </td>
                                <td valign="top" align="left">
-                                    <h:inputText value="<%=((ResearcherBilling)Pagez.getBeanMgr().get("ResearcherBilling")).getCcnum()%>" id="ccnum"  size="18">
-                                        <t:validateCreditCard />
-                                    </h:inputText>
-                                    <h:message for="ccnum" styleClass="RED"></h:message>
+                                    <%=Textbox.getHtml("ccnum", researcherBilling.getCcnum(), 255, 18, "", "")%>
                                </td>
                             </tr>
 
 
                             <tr>
                                <td valign="top" align="left">
-                                    <h:outputText value="Expiration Date" styleClass="formfieldnamefont"></h:outputText>
+                                    <font class="formfieldnamefont">Expiration Date</font>
                                </td>
                                <td valign="top" align="left">
-                                    <h:selectOneMenu value="<%=((ResearcherBilling)Pagez.getBeanMgr().get("ResearcherBilling")).getCcexpmo()%>" id="ccexpmo" required="true">
-                                        <f:selectItems value="<%=((ResearcherBilling)Pagez.getBeanMgr().get("ResearcherBilling")).getMonthsForCreditcard()%>"/>
-                                    </h:selectOneMenu>
+                                    <%=Dropdown.getHtml("ccexpmo", String.valueOf(researcherBilling.getCcexpmo()), researcherBilling.getMonthsForCreditcard(), "","")%>
                                     /
-                                    <h:selectOneMenu value="<%=((ResearcherBilling)Pagez.getBeanMgr().get("ResearcherBilling")).getCcexpyear()%>" id="ccexpyear" required="true">
-                                        <f:selectItems value="<%=((ResearcherBilling)Pagez.getBeanMgr().get("ResearcherBilling")).getYearsForCreditcard()%>"/>
-                                    </h:selectOneMenu>
-                                    <h:message for="ccexpmo" styleClass="RED"></h:message>
-                                    <h:message for="ccexpyear" styleClass="RED"></h:message>
+                                    <%=Dropdown.getHtml("ccexpyear", String.valueOf(researcherBilling.getCcexpyear()), researcherBilling.getYearsForCreditcard(), "","")%>
                                </td>
                             </tr>
 
@@ -109,13 +114,12 @@ String acl = "account";
 
                             <tr>
                                <td valign="top" align="left">
-                                    <h:outputText value="CVV2" styleClass="formfieldnamefont"></h:outputText>
+                                    <font class="formfieldnamefont">CVV2</font>
                                     <br/>
-                                    <h:outputText value="(three digit number on back of card)" styleClass="tinyfont"></h:outputText>
+                                    <font class="tinyfont">(three digit number on back of card)</font>
                                </td>
                                <td valign="top" align="left">
-                                    <h:inputText value="<%=((ResearcherBilling)Pagez.getBeanMgr().get("ResearcherBilling")).getCvv2()%>" id="cvv2" size="3"></h:inputText>
-                                    <h:message for="cvv2" styleClass="RED"></h:message>
+                                    <%=Textbox.getHtml("cvv2", researcherBilling.getCvv2(), 255, 3, "", "")%>
                                </td>
                             </tr>
 
@@ -126,20 +130,9 @@ String acl = "account";
                </tr>
            </table>
 
-
-
-
-
-
-
-
-
-
-
-
             <table cellpadding="0" cellspacing="0" border="0">
                 <td valign="top">
-                    <h:commandButton action="<%=((ResearcherBilling)Pagez.getBeanMgr().get("ResearcherBilling")).getSaveAction()%>" value="Save Billing Details" styleClass="formsubmitbutton"></h:commandButton>
+                    <input type="submit" value="Save Billing Details">
                 </td>
                 <td valign="top">
                 </td>
@@ -148,7 +141,7 @@ String acl = "account";
             </table>
 
 
-
+    </form>
 
 <%@ include file="/jsp/templates/footer.jsp" %>
 

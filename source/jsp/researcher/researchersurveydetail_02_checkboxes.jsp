@@ -22,8 +22,8 @@ String acl = "researcher";
     <center><img src="../images/questiontypes/selectmultiple.gif" border="0"></img></center>
     </font></div></center>
 
-    <f:verbatim><br/></f:verbatim>
-    <f:verbatim><br/></f:verbatim>
+    <br/>
+    <br/>
 
 
 

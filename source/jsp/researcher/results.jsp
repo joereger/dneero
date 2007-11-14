@@ -1,5 +1,7 @@
 <%@ page import="org.apache.log4j.Logger" %>
-<%@ page import="com.dneero.htmlui.Pagez" %>
+<%@ page import="com.dneero.htmluibeans.ResearcherResults" %>
+<%@ page import="com.dneero.dao.Survey" %>
+<%@ page import="com.dneero.htmlui.*" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "Survey Results";
@@ -7,18 +9,21 @@ String navtab = "researchers";
 String acl = "researcher";
 %>
 <%@ include file="/jsp/templates/auth.jsp" %>
+<%
+    ResearcherResults researcherResults=(ResearcherResults) Pagez.getBeanMgr().get("ResearcherResults");
+%>
 <%@ include file="/jsp/templates/header.jsp" %>
 
 
 
     <div class="rounded" style="background: #e6e6e6; text-align: center; padding: 15px;">
-        <font class="largefont"><%=((ResearcherResults)Pagez.getBeanMgr().get("ResearcherResults")).getSurvey().getTitle()%></font>
+        <font class="largefont"><%=researcherResults.getSurvey().getTitle()%></font>
         <br/>
-        <h:commandLink value="Results Main" action="<%=((ResearcherResults)Pagez.getBeanMgr().get("ResearcherResults")).getBeginView()%>" styleClass="subnavfont" style="padding-left: 15px;"/>
-        <h:commandLink value="Response Report" action="<%=((ResearcherResultsAnswers)Pagez.getBeanMgr().get("ResearcherResultsAnswers")).getBeginView()%>" styleClass="subnavfont" style="padding-left: 15px;"/>
-        <h:commandLink value="Impressions" action="<%=((ResearcherResultsImpressions)Pagez.getBeanMgr().get("ResearcherResultsImpressions")).getBeginView()%>" styleClass="subnavfont" style="padding-left: 15px;"/>
-        <h:commandLink value="Respondents" action="<%=((ResearcherResultsRespondents)Pagez.getBeanMgr().get("ResearcherResultsRespondents")).getBeginView()%>" styleClass="subnavfont" style="padding-left: 15px;"/>
-        <h:commandLink value="Financial Status" action="<%=((ResearcherResultsFinancial)Pagez.getBeanMgr().get("ResearcherResultsFinancial")).getBeginView()%>" styleClass="subnavfont" style="padding-left: 15px;"/>
+        <a href="results.jsp" style="padding-left: 15px;"><font class="subnavfont">Results Main</font></a>
+        <a href="results_answers.jsp"style="padding-left: 15px;"><font class="subnavfont">Response Report</font></a>
+        <a href="results_impressions.jsp"style="padding-left: 15px;"><font class="subnavfont">Impressions</font></a>
+        <a href="results_respondents.jsp"style="padding-left: 15px;"><font class="subnavfont">Respondents</font></a>
+        <a href="results_financial.jsp"style="padding-left: 15px;"><font class="subnavfont">Financial Status</font></a>
     </div>
 
 
@@ -28,11 +33,18 @@ String acl = "researcher";
         <tr>
             <td colspan="2" valign="top">
                 <div class="rounded" style="background: #e6e6e6; text-align: center; padding: 20px;">
-                    <h:outputText value="Survey Status: Draft" styleClass="mediumfont" rendered="<%=((ResearcherResults)Pagez.getBeanMgr().get("ResearcherResults")).getStatus==1()%>"></h:outputText>
-                    <h:outputText value="Survey Status: Waiting for Funds" styleClass="mediumfont" rendered="<%=((ResearcherResults)Pagez.getBeanMgr().get("ResearcherResults")).getStatus==2()%>"></h:outputText>
-                    <h:outputText value="Survey Status: Waiting for Start Date" styleClass="mediumfont" rendered="<%=((ResearcherResults)Pagez.getBeanMgr().get("ResearcherResults")).getStatus==3()%>"></h:outputText>
-                    <h:outputText value="Survey Status: Open" styleClass="mediumfont" rendered="<%=((ResearcherResults)Pagez.getBeanMgr().get("ResearcherResults")).getStatus==4()%>"></h:outputText>
-                    <h:outputText value="Survey Status: Closed" styleClass="mediumfont" rendered="<%=((ResearcherResults)Pagez.getBeanMgr().get("ResearcherResults")).getStatus==5()%>"></h:outputText>
+                    <%if (researcherResults.getStatus() == Survey.STATUS_DRAFT) {%>
+                        <font class="mediumfont">Survey Status: Draft</font>
+                    <%} else if (researcherResults.getStatus() == Survey.STATUS_WAITINGFORFUNDS){%>
+                        <font class="mediumfont">Survey Status: Waiting for Funds</font>
+                    <%} else if (researcherResults.getStatus() == Survey.STATUS_WAITINGFORSTARTDATE){%>
+                        <font class="mediumfont">Survey Status: Waiting for Start Date</font>
+                    <%} else if (researcherResults.getStatus() == Survey.STATUS_OPEN){%>
+                        <font class="mediumfont">Survey Status: Open</font>
+                    <%} else if (researcherResults.getStatus() == Survey.STATUS_CLOSED){%>
+                        <font class="mediumfont">Survey Status: Closed</font>
+                    <%}%>
+
                 </div>
                 <br/>
             </td>
@@ -42,36 +54,36 @@ String acl = "researcher";
                 <div class="rounded" style="background: #88c99d; text-align: right; padding: 20px;">
                     <font class="smallfont">Total Survey Responses</font>
                     <br/>
-                    <font class="largefont"><%=((ResearcherResults)Pagez.getBeanMgr().get("ResearcherResults")).getTotalsurveyresponses()%></font>
+                    <font class="largefont"><%=researcherResults.getTotalsurveyresponses()%></font>
                     <br/>
-                    <h:commandButton action="<%=((ResearcherResultsAnswers)Pagez.getBeanMgr().get("ResearcherResultsAnswers")).getBeginView()%>" value="Response Report" styleClass="formsubmitbutton"></h:commandButton>
-                </div>   
+                    <a href="results_answers.jsp"><font class="normalfont">Response Report</font></a>
+                </div>
             </td>
             <td width="50%" valign="top">
                 <div class="rounded" style="background: #00ff00; text-align: left; padding: 20px;">
                     <font class="smallfont">Impressions on Blogs Qualifying for Payment</font>
                     <br/>
-                    <font class="largefont"><%=((ResearcherResults)Pagez.getBeanMgr().get("ResearcherResults")).getTotalsurveydisplays()%></font>
+                    <font class="largefont"><%=researcherResults.getTotalsurveydisplays()%></font>
                     <br/>
-                    <h:commandButton action="<%=((ResearcherResultsImpressions)Pagez.getBeanMgr().get("ResearcherResultsImpressions")).getBeginView()%>" value="View Impressions" styleClass="formsubmitbutton"></h:commandButton>
+                    <a href="results_impressions.jsp"><font class="normalfont">View Impressions</font></a>
                 </div>
             </td>
         </tr>
         <tr>
             <td width="50%" valign="top">
                 <div class="rounded" style="background: #00ff00; text-align: right; padding: 20px;">
-                    <h:commandButton action="<%=((ResearcherResultsRespondents)Pagez.getBeanMgr().get("ResearcherResultsRespondents")).getBeginView()%>" value="See Respondents" styleClass="formsubmitbutton"></h:commandButton>
+                    <a href="results_respondents.jsp"><font class="normalfont">See Respondents</font></a>
                     <br/>
-                    <font class="largefont"><%=((ResearcherResults)Pagez.getBeanMgr().get("ResearcherResults")).getTotalsurveyresponses()%></font>
+                    <font class="largefont"><%=researcherResults.getTotalsurveyresponses()%></font>
                     <br/>
                     <font class="smallfont">People Have Taken the Survey</font>
                 </div>
             </td>
             <td width="50%" valign="top">
                 <div class="rounded" style="background: #88c99d; text-align: left; padding: 20px;">
-                    <h:commandButton action="<%=((ResearcherResultsFinancial)Pagez.getBeanMgr().get("ResearcherResultsFinancial")).getBeginView()%>" value="Financial Status" styleClass="formsubmitbutton"></h:commandButton>
+                    <a href="results_financial.jsp"><font class="normalfont">Financial Status</font></a>
                     <br/>
-                    <font class="largefont">$<h:outputText value="<%=((ResearcherResults)Pagez.getBeanMgr().get("ResearcherResults")).getSpenttodate()%>" styleClass="largefont"><f:converter converterId="DisplayAsMoneyConverter"/></h:outputText></font>
+                    <font class="largefont">$<h:outputText value="<%=researcherResults.getSpenttodate()%>" styleClass="largefont"><f:converter converterId="DisplayAsMoneyConverter"/></h:outputText></font>
                     <br/>
                     <font class="smallfont">Has Been Spent to Date</font>
                 </div>
@@ -82,7 +94,7 @@ String acl = "researcher";
                 <br/>
                 <div class="rounded" style="background: #e6e6e6; text-align: center; padding: 20px;">
                     <font class="mediumfont" style="color: #333333;">Survey Responses</font>
-                    <d:percentCompleteBar currentvalue="<%=((ResearcherResults)Pagez.getBeanMgr().get("ResearcherResults")).getTotalsurveyresponses()%>" maximumvalue="<%=((ResearcherResults)Pagez.getBeanMgr().get("ResearcherResults")).getMaxsurveyresponses()%>" mintitle="" maxtitle="" widthinpixels="650"/>
+                    <%=PercentCompleteBar.get(String.valueOf(researcherResults.getTotalsurveyresponses()), String.valueOf(researcherResults.getMaxsurveyresponses()), "", "", String.valueOf(650))%>
                 </div>
             </td>
         </tr>
@@ -91,7 +103,7 @@ String acl = "researcher";
                 <br/>
                 <div class="rounded" style="background: #e6e6e6; text-align: center; padding: 20px;">
                     <font class="mediumfont" style="color: #333333;">Survey Impressions on Blogs</font>
-                    <d:percentCompleteBar currentvalue="<%=((ResearcherResults)Pagez.getBeanMgr().get("ResearcherResults")).getTotalsurveydisplays()%>" maximumvalue="<%=((ResearcherResults)Pagez.getBeanMgr().get("ResearcherResults")).getMaxsurveydisplays()%>" mintitle="" maxtitle="" widthinpixels="650"/>
+                    <%=PercentCompleteBar.get(String.valueOf(researcherResults.getTotalsurveydisplays()), String.valueOf(researcherResults.getMaxsurveydisplays()), "", "", String.valueOf(650))%>
                 </div>
             </td>
         </tr>
@@ -100,7 +112,7 @@ String acl = "researcher";
                 <br/>
                 <div class="rounded" style="background: #e6e6e6; text-align: center; padding: 20px;">
                     <font class="mediumfont" style="color: #333333;">Possible Spend</font>
-                    <d:percentCompleteBar currentvalue="<%=((ResearcherResults)Pagez.getBeanMgr().get("ResearcherResults")).getSpenttodate()%>" maximumvalue="<%=((ResearcherResults)Pagez.getBeanMgr().get("ResearcherResults")).getMaxpossiblespend()%>" mintitle="" maxtitle="" widthinpixels="650"/>
+                    <%=PercentCompleteBar.get(String.valueOf(researcherResults.getSpenttodate()), String.valueOf(researcherResults.getMaxpossiblespend()), "", "", String.valueOf(650))%>
                 </div>
             </td>
         </tr>

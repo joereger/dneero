@@ -64,40 +64,53 @@ public class NotifyBloggersOfNewOffers implements Job {
                         //If we have any new ones
                         if (newSurveys.size()>0){
                             //Vars to hold our strings in the email
+                            boolean atleastonenewsurveyforblogger = false;
                             double possibleearnings = 0;
                             StringBuffer listofsurveysHtml = new StringBuffer();
                             StringBuffer listofsurveysTxt = new StringBuffer();
                             //Iterate surveys
                             for (Iterator<Survey> iterator1 = newSurveys.iterator(); iterator1.hasNext();) {
                                 Survey survey = iterator1.next();
-                                SurveyEnhancer surveyEnhancer = new SurveyEnhancer(survey);
-                                possibleearnings = possibleearnings + surveyEnhancer.getMaxearningDbl();
-                                String url = BaseUrl.get(false) + "survey.jsf?surveyid="+survey.getSurveyid();
-                                if (user.getFacebookuserid()>0){
-                                    url = "http://apps.facebook.com/"+ SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_APP_NAME)+"/";
+                                boolean bloggerhastakensurvey = false;
+                                for (Iterator<Response> iterator2 = blogger.getResponses().iterator(); iterator2.hasNext();) {
+                                    Response response = iterator2.next();
+                                    if (response.getSurveyid()==survey.getSurveyid()){
+                                        bloggerhastakensurvey = true;
+                                    }
                                 }
-                                //Html
-                                listofsurveysHtml.append("<br><br><a href='"+url+"'>" + survey.getTitle() + " (Earn up to: " + surveyEnhancer.getMaxearning() + ")</a>");
-                                if (!survey.getDescription().equals("")){
-                                    listofsurveysHtml.append("<br>"+survey.getDescription());
+                                if (!bloggerhastakensurvey){
+                                    atleastonenewsurveyforblogger = true;
+                                    SurveyEnhancer surveyEnhancer = new SurveyEnhancer(survey);
+                                    possibleearnings = possibleearnings + surveyEnhancer.getMaxearningDbl();
+                                    String url = BaseUrl.get(false) + "survey.jsf?surveyid="+survey.getSurveyid();
+                                    if (user.getFacebookuserid()>0){
+                                        url = "http://apps.facebook.com/"+ SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_APP_NAME)+"/";
+                                    }
+                                    //Html
+                                    listofsurveysHtml.append("<br><br><a href='"+url+"'>" + survey.getTitle() + " (Earn up to: " + surveyEnhancer.getMaxearning() + ")</a>");
+                                    if (!survey.getDescription().equals("")){
+                                        listofsurveysHtml.append("<br>"+survey.getDescription());
+                                    }
+                                    //Txt
+                                    listofsurveysTxt.append("\n\n" + survey.getTitle() + " (Earn up to: " + surveyEnhancer.getMaxearning()+")");
+                                    if (!survey.getDescription().equals("")){
+                                        listofsurveysTxt.append("\n" + survey.getDescription());
+                                    }
+                                    listofsurveysTxt.append("\n" + url);
                                 }
-                                //Txt
-                                listofsurveysTxt.append("\n\n" + survey.getTitle() + " (Earn up to: " + surveyEnhancer.getMaxearning()+")");
-                                if (!survey.getDescription().equals("")){
-                                    listofsurveysTxt.append("\n" + survey.getDescription());
-                                }
-                                listofsurveysTxt.append("\n" + url);
                             }
-                            //Create the args array to hold the dynamic stuff
-                            String[] args = new String[10];
-                            args[0] = "$"+Str.formatForMoney(possibleearnings);
-                            args[1] = listofsurveysHtml.toString();
-                            args[2] = listofsurveysTxt.toString();
-                            //Send the email
-                            EmailTemplateProcessor.sendMail("New dNeero Surveys for "+user.getFirstname(), "bloggernotifyofnewsurveys", user, args);
-                            //Update blogger last sent date
-                            user.setNotifyofnewsurveyslastsent(new Date());
-                            try{user.save();}catch(Exception ex){logger.error("",ex);}
+                            if (atleastonenewsurveyforblogger){
+                                //Create the args array to hold the dynamic stuff
+                                String[] args = new String[10];
+                                args[0] = "$"+Str.formatForMoney(possibleearnings);
+                                args[1] = listofsurveysHtml.toString();
+                                args[2] = listofsurveysTxt.toString();
+                                //Send the email
+                                EmailTemplateProcessor.sendMail("New dNeero Surveys for "+user.getFirstname(), "bloggernotifyofnewsurveys", user, args);
+                                //Update blogger last sent date
+                                user.setNotifyofnewsurveyslastsent(new Date());
+                                try{user.save();}catch(Exception ex){logger.error("",ex);}
+                            }
                         }
                     }
                 }

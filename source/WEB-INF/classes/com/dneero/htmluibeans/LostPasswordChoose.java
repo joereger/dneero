@@ -8,6 +8,7 @@ import com.dneero.dao.User;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.email.LostPasswordSend;
 import com.dneero.htmlui.Pagez;
+import com.dneero.htmlui.ValidationException;
 import com.octo.captcha.service.CaptchaServiceException;
 
 import java.util.List;
@@ -34,7 +35,7 @@ public class LostPasswordChoose implements Serializable {
 
     }
 
-    public String choosePassword(){
+    public String choosePassword() throws ValidationException {
         Logger logger = Logger.getLogger(this.getClass().getName());
 
         boolean haveErrors = false;

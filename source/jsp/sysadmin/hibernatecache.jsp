@@ -1,5 +1,6 @@
 <%@ page import="org.apache.log4j.Logger" %>
 <%@ page import="com.dneero.htmlui.Pagez" %>
+<%@ page import="com.dneero.htmluibeans.SysadminHibernateCache" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "Cache";
@@ -15,15 +16,15 @@ String acl = "sysadmin";
             <h:graphicImage url="/images/clear.gif" width="700" height="1"/><br/>
             <h:commandButton action="<%=((SysadminHibernateCache)Pagez.getBeanMgr().get("SysadminHibernateCache")).getRunImpressionActivityObjectQueue()%>" value="ImpressionActivityObjectQueue" styleClass="formsubmitbutton"></h:commandButton>
             <br/>
-            <f:verbatim escape="false"><%=((SysadminHibernateCache)Pagez.getBeanMgr().get("SysadminHibernateCache")).getIaosqueue()%></f:verbatim>
+            <%=((SysadminHibernateCache)Pagez.getBeanMgr().get("SysadminHibernateCache")).getIaosqueue()%>
         </t:panelTab>
         <t:panelTab id="panel_b" label="Hibernate Cache">
             <h:graphicImage url="/images/clear.gif" width="700" height="1"/><br/>
-            <f:verbatim escape="false"><%=((SysadminHibernateCache)Pagez.getBeanMgr().get("SysadminHibernateCache")).getCacheashtml()%></f:verbatim>
+            <%=((SysadminHibernateCache)Pagez.getBeanMgr().get("SysadminHibernateCache")).getCacheashtml()%>
         </t:panelTab>
         <t:panelTab id="panel_c" label="Misc Cache">
             <h:graphicImage url="/images/clear.gif" width="700" height="1"/><br/>
-            <f:verbatim escape="false"><%=((SysadminHibernateCache)Pagez.getBeanMgr().get("SysadminHibernateCache")).getMisccacheashtml()%></f:verbatim>
+            <%=((com.dneero.htmluibeans.SysadminHibernateCache) Pagez.getBeanMgr().get("SysadminHibernateCache")).getMisccacheashtml()%>
         </t:panelTab>
     </t:panelTabbedPane>
 

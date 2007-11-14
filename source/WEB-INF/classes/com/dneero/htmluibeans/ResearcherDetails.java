@@ -4,10 +4,12 @@ import org.apache.log4j.Logger;
 
 import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.TreeMap;
 import java.io.Serializable;
 
 import com.dneero.htmlui.UserSession;
 import com.dneero.htmlui.Pagez;
+import com.dneero.htmlui.ValidationException;
 
 import com.dneero.util.GeneralException;
 import com.dneero.dao.*;
@@ -47,7 +49,7 @@ public class ResearcherDetails implements Serializable {
 
     }
 
-    public String saveAction(){
+    public String saveAction() throws ValidationException {
         Logger logger = Logger.getLogger(this.getClass().getName());
         UserSession userSession = Pagez.getUserSession();
 
@@ -122,6 +124,7 @@ public class ResearcherDetails implements Serializable {
             }
 
             userSession.getUser().refresh();
+            Pagez.getUserSession().setMessage("Researcher profile saved.");
 
             if (isnewresearcher){
                 Pagez.sendRedirect("/jsp/researcher/welcomenewresearcher.jsp");
@@ -136,8 +139,8 @@ public class ResearcherDetails implements Serializable {
         }
     }
 
-    public LinkedHashMap getCompanytypes(){
-        LinkedHashMap out = new LinkedHashMap();
+    public TreeMap<String, String> getCompanytypes(){
+        TreeMap<String, String> out = new TreeMap<String, String>();
         out.put("Other", "Other");
         out.put("Individual", "Individual");
         out.put("Advertising/Marketing Agency", "Advertising/Marketing Agency");

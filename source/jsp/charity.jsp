@@ -1,5 +1,9 @@
 <%@ page import="org.apache.log4j.Logger" %>
 <%@ page import="com.dneero.htmlui.Pagez" %>
+<%@ page import="com.dneero.htmluibeans.PublicCharity" %>
+<%@ page import="com.dneero.dbgrid.GridCol" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="com.dneero.dbgrid.Grid" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "<img src=\"/images/charity-128.png\" alt=\"\" border=\"0\" width=\"128\" height=\"128\" align=\"right\"/>Make (Real) Change<br/><font class=\"mediumfont\">Make great content and great contributions -- at the same time!</font>";
@@ -7,6 +11,9 @@ String navtab = "home";
 String acl = "public";
 %>
 <%@ include file="/jsp/templates/auth.jsp" %>
+<%
+PublicCharity publicCharity = (PublicCharity) Pagez.getBeanMgr().get("PublicCharity");
+%>
 <%@ include file="/jsp/templates/header.jsp" %>
 
             <br/><br/><br/><br/>
@@ -34,40 +41,21 @@ String acl = "public";
                         <div class="rounded" style="background: #e6e6e6; text-align: left; padding: 20px;">
                             <font class="mediumfont" style="color: #999999">Top Donators</font>
                             <br/>
-                            <h:outputText value="Nobody's donated... yet." styleClass="smallfont" rendered="#{empty publicCharity.topdonatingUsers}"/>
-                            <t:dataTable sortable="false" id="datatable" value="<%=((PublicCharity)Pagez.getBeanMgr().get("PublicCharity")).getTopdonatingUsers()%>" rows="10" var="donator" rendered="#{!empty publicCharity.topdonatingUsers}" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcol,tcol,tcol,tcol">
-                              <t:column>
-                                <f:facet name="header">
-                                    <h:outputText value=""/>
-                                </f:facet>
-                                <h:outputLink value="/profile.jsf?userid=<%=((Donator)Pagez.getBeanMgr().get("Donator")).getUser().getUserid()%>">
-                                    <h:outputText value="<%=((Donator)Pagez.getBeanMgr().get("Donator")).getUser().getFirstname()%> <%=((Donator)Pagez.getBeanMgr().get("Donator")).getUser().getLastname()%>" styleClass="smallfont" style="color: #0000ff;"/>
-                                </h:outputLink>
-                              </t:column>
-                              <t:column>
-                                <f:facet name="header">
-                                  <h:outputText value=""/>
-                                </f:facet>
-                                <h:outputText value="<%=((Donator)Pagez.getBeanMgr().get("Donator")).getAmtforscreen()%>"  styleClass="smallfont"/>
-                              </t:column>
-                            </t:dataTable>
-                            <t:dataScroller id="scroll_1" for="datatable" fastStep="10" pageCountVar="pageCount" pageIndexVar="pageIndex" styleClass="scroller" paginator="true" paginatorMaxPages="9" paginatorTableClass="paginator" paginatorActiveColumnStyle="font-weight:bold;" rendered="#{!empty publicCharity.topdonatingUsers}">
-                                <f:facet name="first" >
-                                    <t:graphicImage url="/images/datascroller/play-first.png" border="0" />
-                                </f:facet>
-                                <f:facet name="last">
-                                    <t:graphicImage url="/images/datascroller/play-forward.png" border="0" />
-                                </f:facet>
-                                <f:facet name="previous">
-                                    <t:graphicImage url="/images/datascroller/play-back.png" border="0" />
-                                </f:facet>
-                                <f:facet name="next">
-                                    <t:graphicImage url="/images/datascroller/play.png" border="0" />
-                                </f:facet>
-                            </t:dataScroller>
+                            <%if (publicCharity.getTopdonatingUsers()==null || publicCharity.getTopdonatingUsers().size()==0){%>
+                                <font class="normalfont">Nobody's donated... yet.</font>
+                            <%} else {%>
+                                <%
+                                    ArrayList<GridCol> cols=new ArrayList<GridCol>();
+                                    cols.add(new GridCol("Name", "<a href=\"/jsp/profile.jsp?userid=<$user.userid$>\"><$user.firstname$> <$user.lastname$></a>", false, "", "smallfont"));
+                                    cols.add(new GridCol("Donations", "<$amtForFcreen$>", false, "", "smallfont"));
+                                %>
+                                <%=Grid.render(publicCharity.getTopdonatingUsers(), cols, 100, "charity.jsp", "pagecharity")%>
+                            <%}%>
                             <br/>
                             <font class="tinyfont" style="color: #999999">(Updated Nightly)</font>
                         </div>
+                        <br/><br/>
+
                         <br/><br/>
                         <div class="rounded" style="background: #e6e6e6; text-align: left; padding: 20px;">
                             <font class="mediumfont" style="color: #999999">Available Charities</font>
@@ -86,49 +74,18 @@ String acl = "public";
                     <td valign="top" colspan="2">
                         <font class="mediumfont" style="color: #999999">Most Recent Donations</font>
                         <br/>
-                        <h:outputText value="There haven't yet been any charitable donations... yet.  We're just getting started.  Go take some surveys and donate!" styleClass="mediumfont" rendered="#{empty publicCharity.publicCharityListItemsMostRecent}"/>
-                        <t:dataTable sortable="false" id="datatable2" value="<%=((PublicCharity)Pagez.getBeanMgr().get("PublicCharity")).getPublicCharityListItemsMostRecent()%>" rows="50" var="charityitem" rendered="#{!empty publicCharity.publicCharityListItemsMostRecent}" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcolnowrap,tcol,tcol,tcol">
-                          <t:column>
-                            <f:facet name="header">
-                                <h:outputText value="Donator"/>
-                            </f:facet>
-                            <h:outputLink value="/profile.jsf?userid=<%=((Charityitem)Pagez.getBeanMgr().get("Charityitem")).getUser().getUserid()%>">
-                                <h:outputText value="<%=((Charityitem)Pagez.getBeanMgr().get("Charityitem")).getUser().getFirstname()%> <%=((Charityitem)Pagez.getBeanMgr().get("Charityitem")).getUser().getLastname()%>" styleClass="smallfont" style="color: #0000ff;"/>
-                            </h:outputLink>
-                          </t:column>
-                          <t:column>
-                            <f:facet name="header">
-                              <h:outputText value="What was donated."/>
-                            </f:facet>
-                            <h:outputText value="<%=((Charityitem)Pagez.getBeanMgr().get("Charityitem")).getCharitydonation().getDescription()%>"  styleClass="smallfont"/>
-                          </t:column>
-                          <t:column>
-                            <f:facet name="header">
-                              <h:outputText value="Amount of Donation"/>
-                            </f:facet>
-                            <h:outputText value="<%=((Charityitem)Pagez.getBeanMgr().get("Charityitem")).getAmtForScreen()%>"  styleClass="smallfont"/>
-                          </t:column>
-                          <t:column>
-                            <f:facet name="header">
-                              <h:outputText value="Donated To"/>
-                            </f:facet>
-                            <h:outputText value="<%=((Charityitem)Pagez.getBeanMgr().get("Charityitem")).getCharitydonation().getCharityname()%>"  styleClass="smallfont"/>
-                          </t:column>
-                        </t:dataTable>
-                        <t:dataScroller id="scroll_2" for="datatable2" fastStep="10" pageCountVar="pageCount2" pageIndexVar="pageIndex2" styleClass="scroller" paginator="true" paginatorMaxPages="9" paginatorTableClass="paginator" paginatorActiveColumnStyle="font-weight:bold;">
-                            <f:facet name="first" >
-                                <t:graphicImage url="/images/datascroller/play-first.png" border="0" />
-                            </f:facet>
-                            <f:facet name="last">
-                                <t:graphicImage url="/images/datascroller/play-forward.png" border="0" />
-                            </f:facet>
-                            <f:facet name="previous">
-                                <t:graphicImage url="/images/datascroller/play-back.png" border="0" />
-                            </f:facet>
-                            <f:facet name="next">
-                                <t:graphicImage url="/images/datascroller/play.png" border="0" />
-                            </f:facet>
-                        </t:dataScroller>
+                        <%if (publicCharity.getTopdonatingUsers()==null || publicCharity.getTopdonatingUsers().size()==0){%>
+                            <font class="normalfont">There haven't yet been any charitable donations... yet.</font>
+                        <%} else {%>
+                            <%
+                                ArrayList<GridCol> cols=new ArrayList<GridCol>();
+                                cols.add(new GridCol("Donator", "<a href=\"/jsp/profile.jsp?userid=<$user.userid$>\"><$user.firstname$> <$user.lastname$></a>", false, "", "smallfont"));
+                                cols.add(new GridCol("What was donated.", "<$charitydonation.description$>", false, "", "smallfont"));
+                                cols.add(new GridCol("Amount", "<$amtForScreen$>", false, "", "smallfont"));
+                                cols.add(new GridCol("Donated To", "<$charitydonation.charityname$>", false, "", "smallfont"));
+                            %>
+                            <%=Grid.render(publicCharity.getPublicCharityListItemsMostRecent(), cols, 50, "charity.jsp", "pagedonations")%>
+                        <%}%>
                     </td>
                 </tr>
 

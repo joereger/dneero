@@ -11,12 +11,10 @@ String acl = "sysadmin";
 
 
 
-        <h:outputText>Success!  Your comment has been added.</h:outputText>
-        <f:verbatim><br/><br/></f:verbatim>
-        <h:commandLink action="<%=((SysadminSupportIssueDetail)Pagez.getBeanMgr().get("SysadminSupportIssueDetail")).getBeginView()%>">
-            <h:outputText value="Continue" escape="false" />
-            <f:param name="supportissueid" value="<%=((SysadminSupportIssueDetail)Pagez.getBeanMgr().get("SysadminSupportIssueDetail")).getSupportissueid()%>" />
-        </h:commandLink>
+        Success!  Your comment has been added.
+        <br/><br/>
+        <a href="sysadminsupportissueslist.jsp">Continue</a>
+
 
 
 

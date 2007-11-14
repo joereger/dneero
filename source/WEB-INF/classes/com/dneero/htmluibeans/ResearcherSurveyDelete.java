@@ -11,6 +11,7 @@ import com.dneero.util.Time;
 import com.dneero.util.GeneralException;
 import com.dneero.htmlui.UserSession;
 import com.dneero.htmlui.Pagez;
+import com.dneero.htmlui.ValidationException;
 import com.dneero.dao.Survey;
 import com.dneero.xmpp.SendXMPPMessage;
 
@@ -29,6 +30,7 @@ public class ResearcherSurveyDelete implements Serializable {
     private Date startdate;
     private Date enddate;
     private int status;
+    private Survey survey;
 
     public ResearcherSurveyDelete(){
 
@@ -53,12 +55,13 @@ public class ResearcherSurveyDelete implements Serializable {
                 startdate = survey.getStartdate();
                 enddate = survey.getEnddate();
                 status = survey.getStatus();
+                this.survey = survey;
             }
         }
 
     }
 
-    public String deleteSurvey(){
+    public String deleteSurvey() throws ValidationException {
         Logger logger = Logger.getLogger(this.getClass().getName());
         UserSession userSession = Pagez.getUserSession();
         logger.debug("deleteSurvey() called. status="+status + " userSession.getCurrentSurveyid()="+userSession.getCurrentSurveyid());
@@ -129,5 +132,13 @@ public class ResearcherSurveyDelete implements Serializable {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public Survey getSurvey() {
+        return survey;
+    }
+
+    public void setSurvey(Survey survey) {
+        this.survey=survey;
     }
 }
