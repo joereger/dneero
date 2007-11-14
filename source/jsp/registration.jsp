@@ -1,5 +1,6 @@
 <%@ page import="org.apache.log4j.Logger" %>
-<%@ page import="com.dneero.htmlui.Pagez" %>
+<%@ page import="com.dneero.htmluibeans.Registration" %>
+<%@ page import="com.dneero.htmlui.*" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "Sign Up for a dNeero Account";
@@ -7,10 +8,28 @@ String navtab = "youraccount";
 String acl = "public";
 %>
 <%@ include file="/jsp/templates/auth.jsp" %>
+<%
+Registration registration = (Registration)Pagez.getBeanMgr().get("Registration");
+%>
+<%
+    if (request.getParameter("action") != null && request.getParameter("action").equals("register")) {
+        try {
+            registration.setEmail(Textbox.getValueFromRequest("email", "Email", true, DatatypeString.DATATYPEID));
+            registration.setEula(Textarea.getValueFromRequest("eula", "Eula", true));
+            registration.setFirstname(Textbox.getValueFromRequest("firstname", "First Name", true, DatatypeString.DATATYPEID));
+            registration.setJ_captcha_response(Textbox.getValueFromRequest("j_captcha_response", "Squiggly Letters", true, DatatypeString.DATATYPEID));
+            registration.setLastname(Textbox.getValueFromRequest("lastname", "Last Name", true, DatatypeString.DATATYPEID));
+            registration.setPassword(TextboxSecret.getValueFromRequest("password", "Password", true, DatatypeString.DATATYPEID));
+            registration.setPasswordverify(TextboxSecret.getValueFromRequest("passwordverify", "Password Verify", true, DatatypeString.DATATYPEID));
+            registration.registerAction();
+        } catch (ValidationException vex) {
+            Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
+        }
+    }
+%>
 <%@ include file="/jsp/templates/header.jsp" %>
 
-
-        <t:div rendered="<%=((Registration)Pagez.getBeanMgr().get("Registration")).getDisplaytempresponsesavedmessage()%>">
+        <%if (registration.getDisplaytempresponsesavedmessage()){%>
             <div class="rounded" style="padding: 15px; margin: 5px; background: #00ff00;">
                 <table cellpadding="5">
                     <tr>
@@ -26,19 +45,19 @@ String acl = "public";
                 </table>
             </div>
             <br/>
-        </t:div>
+        <%}%>
 
         <div style="width: 250px; float: right; padding-left: 20px;">
             <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
                 <font class="mediumfont" style="color: #333333">Existing Users</font><br/>
                 <font class="smallfont">If you've already got a dNeero account you can simply log in.</font><br/>
                 <div class="rounded" style="padding: 15px; margin: 5px; background: #ffffff;">
-                    <d:greenRoundedButton pathtoapproot="../"><h:commandLink value="Log In" action="<%=((Login)Pagez.getBeanMgr().get("Login")).getBeginView()%>" styleClass="subnavfont" style="color: #ffffff; font-weight: bold;"/></d:greenRoundedButton>
+                    <%=GreenRoundedButton.get("<a href=\"login.jsp\"><font class=\"subnavfont\" style=\"color: #ffffff; font-weight: bold;\">Log In</font></a>")%>
                 </div>
             </div>
         </div>
-        </h:form>
-        <h:form id="registrationForm">
+        <form action="registration.jsp" method="post">
+            <input type="hidden" name="action" value="register">
             <div class="rounded" style="padding: 15px; margin: 5px; background: #ffffff;">
                 <font class="mediumfont" style="color: #333333">Get started creating and/or taking surveys</font>
                 <br/>
@@ -46,113 +65,97 @@ String acl = "public";
 
                 <table cellpadding="0" cellspacing="0" border="0">
 
-                    <td valign="top">
-                        <h:outputText value="First Name" styleClass="formfieldnamefont"></h:outputText>
-                    </td>
-                    <td valign="top">
-                        <h:inputText value="<%=((Registration)Pagez.getBeanMgr().get("Registration")).getFirstname()%>" id="firstname" required="false" size="35" maxlength="200"></h:inputText>
-                    </td>
-                    <td valign="top">
-                        <h:message for="firstname" styleClass="RED"></h:message>
-                    </td>
+                    <tr>
+                        <td valign="top">
+                            <font class="formfieldnamefont">First Name</font>
+                        </td>
+                        <td valign="top">
+                            <%=Textbox.getHtml("firstname", registration.getFirstname(), 255, 35, "", "")%>
+                        </td>
+                    </tr>
 
-                    <td valign="top">
-                        <h:outputText value="Last Name" styleClass="formfieldnamefont"></h:outputText>
-                    </td>
-                    <td valign="top">
-                        <h:inputText value="<%=((Registration)Pagez.getBeanMgr().get("Registration")).getLastname()%>" id="lastname" required="false" size="35" maxlength="200">
-                        </h:inputText>
-                    </td>
-                    <td valign="top">
-                        <h:message for="lastname" styleClass="RED"></h:message>
-                    </td>
+                    <tr>
+                        <td valign="top">
+                            <font class="formfieldnamefont">Last Name</font>
+                        </td>
+                        <td valign="top">
+                            <%=Textbox.getHtml("lastname", registration.getLastname(), 255, 35, "", "")%>
+                        </td>
+                    </tr>
 
+                    <tr>
+                        <td valign="top">
+                            <font class="formfieldnamefont">Email</font>
+                        </td>
+                        <td valign="top">
+                            <%=Textbox.getHtml("email", registration.getEmail(), 255, 35, "", "")%>
+                        </td>
+                    </tr>
 
-                    <td valign="top">
-                        <h:outputText value="Email" styleClass="formfieldnamefont"></h:outputText>
-                    </td>
-                    <td valign="top">
-                        <h:inputText value="<%=((Registration)Pagez.getBeanMgr().get("Registration")).getEmail()%>" id="email" required="false" size="35" maxlength="200"></h:inputText>
-                    </td>
-                    <td valign="top">
-                        <h:message for="email" styleClass="RED"></h:message>
-                    </td>
+                    <tr>
+                        <td valign="top">
+                            <font class="formfieldnamefont">Password</font>
+                        </td>
+                        <td valign="top">
+                            <%=TextboxSecret.getHtml("password", registration.getPassword(), 255, 35, "", "")%>
+                        </td>
+                    </tr>
 
-
-                    <td valign="top">
-                        <h:outputText value="Password" styleClass="formfieldnamefont"></h:outputText>
-                    </td>
-                    <td valign="top">
-                        <h:inputSecret value="<%=((Registration)Pagez.getBeanMgr().get("Registration")).getPassword()%>" id="password" required="false" size="35" maxlength="200"></h:inputSecret>
-                    </td>
-                    <td valign="top">
-                        <h:message for="password" styleClass="RED"></h:message>
-                    </td>
-
-
-                    <td valign="top">
-                        <h:outputText value="Verify Password" styleClass="formfieldnamefont"></h:outputText>
-                    </td>
-                    <td valign="top">
-                        <h:inputSecret value="<%=((Registration)Pagez.getBeanMgr().get("Registration")).getPasswordverify()%>" id="passwordverify" required="false" size="35" maxlength="200"></h:inputSecret>
-                    </td>
-                    <td valign="top">
-                        <h:message for="passwordverify" styleClass="RED"></h:message>
-                    </td>
+                    <tr>
+                        <td valign="top">
+                            <font class="formfieldnamefont">Password Verify</font>
+                        </td>
+                        <td valign="top">
+                            <%=TextboxSecret.getHtml("passwordverify", registration.getPasswordverify(), 255, 35, "", "")%>
+                        </td>
+                    </tr>
 
 
+                    <tr>
+                        <td valign="top">
+                            <font class="formfieldnamefont">Prove You're a Human</font>
+                        </td>
+                        <td valign="top">
+                            <div style="border: 1px solid #ccc; padding: 3px;">
+                            <%=Textbox.getHtml("j_captcha_response", registration.getJ_captcha_response(), 255, 35, "", "")%>
+                            <br/>
+                            <font class="tinyfont">(type the squiggly letters that appear below)</font>
+                            <br/>
+                            <table cellpadding="0" cellspacing="0" border="0">
+                                <tr>
+                                    <td><img src="/images/clear.gif" alt="" width="1" height="100"></img></td>
+                                    <td style="background: url(/images/loading-captcha.gif);">
+                                        <img src="/images/clear.gif" alt="" width="200" height="1"></img><br/>
+                                        <img src="/jcaptcha" width="200" height="100"/>
+                                    </td>
+                                </tr>
+                            </table>
+                            </div>
+                        </td>
+                    </tr>
 
-                    <td valign="top">
-                        <h:outputText value="Prove You're a Human" styleClass="formfieldnamefont"></h:outputText>
-                    </td>
-                    <td valign="top">
-                        <div style="border: 1px solid #ccc; padding: 3px;">
-                        <h:inputText value="<%=((Registration)Pagez.getBeanMgr().get("Registration")).getJ_captcha_response()%>" id="j_captcha_response" required="false" size="35" maxlength="200"/>
-                        <br/>
-                        <font class="tinyfont">(type the squiggly letters that appear below)</font>
-                        <br/>
-                        <table cellpadding="0" cellspacing="0" border="0">
-                            <tr>
-                                <td><img src="/images/clear.gif" alt="" width="1" height="100"></img></td>
-                                <td style="background: url(/images/loading-captcha.gif);">
-                                    <img src="/images/clear.gif" alt="" width="200" height="1"></img><br/>
-                                    <h:graphicImage url="/jcaptcha" width="200" height="100"></h:graphicImage>
-                                </td>
-                            </tr>
-                        </table>
-                        </div>
-                    </td>
-                    <td valign="top">
-                        <h:message for="j_captcha_response" styleClass="RED"></h:message>
-                    </td>
-
-
-                    <td valign="top">
-                        <h:outputText value="End User License Agreement" styleClass="formfieldnamefont"></h:outputText>
-                    </td>
-                    <td valign="top">
-                        <h:inputTextarea value="<%=((Registration)Pagez.getBeanMgr().get("Registration")).getEula()%>" id="eula" cols="45" rows="5" required="false">
-                        </h:inputTextarea>
-                    </td>
-                    <td valign="top">
-                        <h:message for="eula" styleClass="RED"></h:message>
-                    </td>
+                    <tr>
+                        <td valign="top">
+                            <font class="formfieldnamefont">End User License Agreement</font>
+                        </td>
+                        <td valign="top">
+                            <%=Textarea.getHtml("eula", registration.getEula(), 3, 40, "", "")%>
+                        </td>
+                    </tr>
 
 
-
-                    <td valign="top">
-                    </td>
-                    <td valign="top">
-                        <br/><br/>
-                        <h:commandButton action="<%=((Registration)Pagez.getBeanMgr().get("Registration")).getRegisterAction()%>" value="Sign Up" styleClass="formsubmitbutton" target="_top"></h:commandButton>
-                    </td>
-                    <td valign="top">
-                    </td>
+                    <tr>
+                        <td valign="top">
+                        </td>
+                        <td valign="top">
+                            <br/><br/>
+                            <input type="submit" value="Sign Up">
+                        </td>
+                    </tr>
 
                 </table>
-
-
             </div>
+        </form>
 
 
 <%@ include file="/jsp/templates/footer.jsp" %>

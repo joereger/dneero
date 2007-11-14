@@ -9,6 +9,7 @@ import com.dneero.util.*;
 import com.dneero.util.jcaptcha.CaptchaServiceSingleton;
 import com.dneero.htmlui.UserSession;
 import com.dneero.htmlui.Pagez;
+import com.dneero.htmlui.ValidationException;
 import com.dneero.session.PersistentLogin;
 import com.dneero.email.EmailActivationSend;
 import com.dneero.money.PaymentMethod;
@@ -153,7 +154,7 @@ public class Registration implements Serializable {
         //End Facebook shenanigans
     }
 
-    public String registerAction(){
+    public String registerAction() throws ValidationException {
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("registerAction called:  email="+email+" password="+password+" firstname="+firstname+" lastname="+lastname);
 
