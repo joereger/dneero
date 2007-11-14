@@ -27,15 +27,7 @@ String acl = "public";
       </ul>
     </div>
     <br/><br/><br/>
-    <!--
-    <a href="/survey.jsf?surveyid=<%=((PublicSurveyResults)Pagez.getBeanMgr().get("PublicSurveyResults")).getSurvey().getSurveyid()%>">Questions</a> |
-    <a href="/surveypostit.jsf?surveyid=<%=((PublicSurveyResults)Pagez.getBeanMgr().get("PublicSurveyResults")).getSurvey().getSurveyid()%>">Post It</a> |
-    <a href="/surveyresults.jsf?surveyid=<%=((PublicSurveyResults)Pagez.getBeanMgr().get("PublicSurveyResults")).getSurvey().getSurveyid()%>">Results</a> |
-    <a href="/surveywhotookit.jsf?surveyid=<%=((PublicSurveyResults)Pagez.getBeanMgr().get("PublicSurveyResults")).getSurvey().getSurveyid()%>">Who Took It?</a> |
-    <a href="/surveydiscuss.jsf?surveyid=<%=((PublicSurveyResults)Pagez.getBeanMgr().get("PublicSurveyResults")).getSurvey().getSurveyid()%>">Discuss</a> |
-    <a href="/surveyrequirements.jsf?surveyid=<%=((PublicSurveyResults)Pagez.getBeanMgr().get("PublicSurveyResults")).getSurvey().getSurveyid()%>">Requirements</a> |
-    <a href="/surveydisclosure.jsf?surveyid=<%=((PublicSurveyResults)Pagez.getBeanMgr().get("PublicSurveyResults")).getSurvey().getSurveyid()%>">Disclosure</a>
-    -->
+
 
     <h:graphicImage url="/images/clear.gif" width="700" height="1" styleClass="survey_tabs_body_width"/><br/>
     <table width="100%" cellpadding="5">
