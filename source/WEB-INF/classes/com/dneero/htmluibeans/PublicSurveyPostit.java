@@ -25,6 +25,7 @@ import com.dneero.facebook.FacebookApiWrapperHtmlui;
 import com.dneero.scheduledjobs.SurveydisplayActivityObjectQueue;
 import com.dneero.helpers.UserInputSafe;
 import com.dneero.htmlui.Pagez;
+import com.dneero.htmlui.ValidationException;
 
 import java.io.Serializable;
 import java.util.*;
@@ -199,7 +200,7 @@ public class PublicSurveyPostit implements Serializable {
 
     }
 
-    public String updateFacebookProfile(){
+    public String updateFacebookProfile() throws ValidationException {
         Logger logger = Logger.getLogger(this.getClass().getName());
         try{
             //Update Facebook

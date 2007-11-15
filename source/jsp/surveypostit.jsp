@@ -1,53 +1,65 @@
 <%@ page import="org.apache.log4j.Logger" %>
-<%@ page import="com.dneero.htmlui.Pagez" %>
+<%@ page import="com.dneero.htmluibeans.PublicSurveyPostit" %>
+<%@ page import="com.dneero.htmlui.*" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
-String pagetitle = "<%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getSurvey().getTitle()%>";
+String pagetitle = ((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getSurvey().getTitle();
 String navtab = "home";
 String acl = "public";
 %>
 <%@ include file="/jsp/templates/auth.jsp" %>
+<%
+    PublicSurveyPostit publicSurveyPostit=(PublicSurveyPostit) Pagez.getBeanMgr().get("PublicSurveyPostit");
+%>
+<%
+    if (request.getParameter("action") != null && request.getParameter("action").equals("updatefacebookprofile")) {
+        try {
+            publicSurveyPostit.updateFacebookProfile();
+        } catch (com.dneero.htmlui.ValidationException vex) {
+            Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
+        }
+    }
+%>
 <%@ include file="/jsp/templates/header.jsp" %>
 
 
 
-    <font class="smallfont"><%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getSurvey().getDescription()%></font><br/><br/><br/>
+    <font class="smallfont"><%=publicSurveyPostit.getSurvey().getDescription()%></font><br/><br/><br/>
 
-    <h:messages styleClass="RED"/>
 
     <div id="csstabs">
       <ul>
-        <li><a href="/survey.jsf?surveyid=<%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getSurvey().getSurveyid()%>" title="Questions"><span>Questions</span></a></li>
-        <li><a href="/surveypostit.jsf?surveyid=<%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getSurvey().getSurveyid()%>" title="Post It"><span>Post It</span></a></li>
-        <li><a href="/surveyresults.jsf?surveyid=<%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getSurvey().getSurveyid()%>" title="Results"><span>Results</span></a></li>
-        <li><a href="/surveywhotookit.jsf?surveyid=<%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getSurvey().getSurveyid()%>" title="Who Took It?"><span>Who Took It?</span></a></li>
-        <li><a href="/surveydiscuss.jsf?surveyid=<%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getSurvey().getSurveyid()%>" title="Discuss"><span>Discuss</span></a></li>
-        <li><a href="/surveyrequirements.jsf?surveyid=<%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getSurvey().getSurveyid()%>" title="Requirements"><span>Requirements</span></a></li>
-        <li><a href="/surveydisclosure.jsf?surveyid=<%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getSurvey().getSurveyid()%>" title="LDisclosure"><span>Disclosure</span></a></li>
+        <li><a href="/survey.jsf?surveyid=<%=publicSurveyPostit.getSurvey().getSurveyid()%>" title="Questions"><span>Questions</span></a></li>
+        <li><a href="/surveypostit.jsf?surveyid=<%=publicSurveyPostit.getSurvey().getSurveyid()%>" title="Post It"><span>Post It</span></a></li>
+        <li><a href="/surveyresults.jsf?surveyid=<%=publicSurveyPostit.getSurvey().getSurveyid()%>" title="Results"><span>Results</span></a></li>
+        <li><a href="/surveywhotookit.jsf?surveyid=<%=publicSurveyPostit.getSurvey().getSurveyid()%>" title="Who Took It?"><span>Who Took It?</span></a></li>
+        <li><a href="/surveydiscuss.jsf?surveyid=<%=publicSurveyPostit.getSurvey().getSurveyid()%>" title="Discuss"><span>Discuss</span></a></li>
+        <li><a href="/surveyrequirements.jsf?surveyid=<%=publicSurveyPostit.getSurvey().getSurveyid()%>" title="Requirements"><span>Requirements</span></a></li>
+        <li><a href="/surveydisclosure.jsf?surveyid=<%=publicSurveyPostit.getSurvey().getSurveyid()%>" title="LDisclosure"><span>Disclosure</span></a></li>
       </ul>
     </div>
     <br/><br/><br/>
 
 
-    <h:graphicImage url="/images/clear.gif" width="700" height="1" styleClass="survey_tabs_body_width"/><br/>
-    <% if ("<%=((!publicSurveyPostit)Pagez.getBeanMgr().get("!publicSurveyPostit")).getLoggedinuserhasalreadytakensurvey()%>){ %>
-        <% if ("<%=((!userSession)Pagez.getBeanMgr().get("!userSession")).getIsfacebookui()%>){ %>
+    <img src="/images/clear.gif" width="700" height="1" class="survey_tabs_body_width"/><br/>
+    <% if (!publicSurveyPostit.isLoggedinuserhasalreadytakensurvey()){ %>
+        <% if (Pagez.getUserSession().getIsfacebookui()){ %>
             <table width="100%" cellpadding="5">
                 <tr>
                     <td valign="top" width="450">
                         <br/><br/>
-                        <f:verbatim escape="false"><%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getSurveyOnBlogPreview()%></f:verbatim>
+                        <%=publicSurveyPostit.getSurveyOnBlogPreview()%>
                     </td>
                     <td valign="top">
                         <div class="rounded" style="background: #00ff00;">
                             <div class="rounded" style="background: #ffffff; text-align: center;">
-                                    <h:outputText value="What's this?" styleClass="mediumfont"/>
-                                    <br/>
-                                    <img src="/images/info-128.png" width="128" height="128"/>
-                                    <br/>
-                                    <h:outputText value="It's how this survey looks in your blog!" styleClass="mediumfont"/>
-                                    <br/>
-                                    <h:outputText value="(of course, we'll put your actual answers in there)" styleClass="smallfont"/>
+                                <font class="mediumfont">What's this?</font>
+                                <br/>
+                                <img src="/images/info-128.png" width="128" height="128"/>
+                                <br/>
+                                <font class="mediumfont">It's how this survey looks in your blog!</font>
+                                <br/>
+                                <font class="smallfont">(of course, we'll put your actual answers in there)</font>
                             </div>
                             <br/>
                             <font class="smallfont">
@@ -71,7 +83,7 @@ String acl = "public";
                 </tr>
             </table>
         <% } %>
-        <% if ("<%=((UserSession)Pagez.getBeanMgr().get("UserSession")).getIsfacebookui()%>){ %>
+        <% if (Pagez.getUserSession().getIsfacebookui()){ %>
             <div class="rounded" style="background: #e6e6e6;">
                 <font class="normalfont">
                 <b>Once you take the survey we'll post a link to your Facebook feed and profile box.  When friends click that link they'll see your answers and be able to answer for themselves.</b><br/>
@@ -79,17 +91,21 @@ String acl = "public";
             </div>
         <% } %>
     <% } %>
-    <% if ("<%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getLoggedinuserhasalreadytakensurvey()%>){ %>
-        <% if ("<%=((UserSession)Pagez.getBeanMgr().get("UserSession")).getIsfacebookui()%>){ %>
+    <% if (publicSurveyPostit.isLoggedinuserhasalreadytakensurvey()){ %>
+        <% if (Pagez.getUserSession().getIsfacebookui()){ %>
             <div class="rounded" style="background: #e6e6e6;">
                 <img src="/images/ok-64.png" width="64" height="64" align="left"/>
                 <font class="mediumfont"><b>Your survey response has been accepted!</b></font>
                 <br/>
                 <font class="smallfont">A link to your survey has been posted to your Facebook feed (which qualifies as a blog, for payment purposes).  Keep the links on your mini-feed and profile because to get paid you must have somebody view your answers on 5 of the 10 days following when you took the survey.</font><br/><br/>
-                <% if ("<%=((!publicSurveyPostit)Pagez.getBeanMgr().get("!publicSurveyPostit")).getJustcompletedsurvey()%>){ %>
+                <% if (!publicSurveyPostit.getJustcompletedsurvey()){ %>
                     <div class="rounded" style="background: #e6e6e6;">
                         <font class="smallfont">If you've deleted the survey from your Facebook Mini Feed or Profile and would like to add them back, click below.  Note that if you've turned off the profile box you'll have to turn it back on yourself in the Facebook settings for the dNeero app.</font><br/>
-                        <h:commandButton action="<%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getUpdateFacebookProfile()%>" value="Update Facebook Profile" styleClass="formsubmitbutton"/>
+                        <form action="surveypostit.jsp" method="post">
+                            <input type="hidden" name="action" value="updatefacebookprofile">
+                            <input type="hidden" name="surveyid" value="<%=publicSurveyPostit.getSurvey().getSurveyid()%>">
+                            <input type="submit" value="Update Facebook Profile">
+                        </form>
                     </div>
                 <% } %>
                 <div class="rounded" style="background: #ffffff;">
@@ -97,51 +113,51 @@ String acl = "public";
                     <br/>
                     <font class="smallfont">They'll be able to see your answers and then take the survey themselves. If your friend hasn't ever used dNeero then <b>we'll pay you for any earnings they generate</b>... and any earnings their friends make... and any earnings their friends make... up to five levels deep!</font>
                     <br/>
-                    <a href="<%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getInvitefriendsurl()%>" target="top"><font class="mediumfont">Invite Friends to this Survey</font></a>
+                    <a href="<%=publicSurveyPostit.getInvitefriendsurl()%>" target="top"><font class="mediumfont">Invite Friends to this Survey</font></a>
                 </div>
             </div>
         <% } %>
-        <% if ("<%=((!userSession)Pagez.getBeanMgr().get("!userSession")).getIsfacebookui()%>){ %>
+        <% if (Pagez.getUserSession().getIsfacebookui()){ %>
             <table cellpadding="3" cellspacing="15" border="0" width="100%">
             <tr>
                 <td valign="top">
                     <div class="rounded" style="background: #00ff00;">
                         <div class="rounded" style="background: #ffffff; text-align: center;">
-                                <h:outputText value="You've Completed this Survey!" styleClass="mediumfont"/>
-                                <br/>
-                                <img src="/images/ok-128.png" width="128" height="128"/>
-                                <br/>
-                                <h:outputText value="Now post your answers to your blog!" styleClass="mediumfont"/>
-                                <br/>
-                                <h:outputText value="(instructions to the right... the survey must appear on your blog for 5 of 10 days from when you took the survey to be paid)" styleClass="smallfont"/>
+                            <font class="mediumfont">You've Completed this Survey!</font>
+                            <br/>
+                            <img src="/images/ok-128.png" width="128" height="128"/>
+                            <br/>
+                            <font class="mediumfont">Now post your answers to your blog!</font>
+                            <br/>
+                            <font class="smallfont">(instructions to the right... the survey must appear on your blog for 5 of 10 days from when you took the survey to be paid)</font>
                         </div>
                         <br/>
                         <div class="rounded" style="background: #ffffff; text-align: center;">
-                            <h:outputText value="You've already earned" styleClass="mediumfont"/>
+                            <font class="mediumfont">You've already earned</font>
                             <br/>
-                            <h:outputText value="(pending posting verification)" styleClass="tinyfont"/>
+                            <font class="tinyfont">(pending posting verification)</font>
                             <br/>
-                            <h:outputText value="<%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getSurveyEnhancer().getMinearning()%>" styleClass="largefont" style="font-size: 60px; color: #666666;"/>
-                            <% if ("${publicSurveyPostit.surveytakergavetocharity or publicSurveyPostit.survey.ischarityonly}){ %>
+                            <font class="largefont" style="font-size: 60px; color: #666666;"><%=publicSurveyPostit.getSurveyEnhancer().getMinearning()%></font>
+                            <% if (publicSurveyPostit.getSurveytakergavetocharity() || publicSurveyPostit.getSurvey().getIscharityonly()){ %>
                                 <br/>
-                                <h:outputText value="for charity" styleClass="mediumfont"/>
+                                <font class="mediumfont">for charity</font>
                             <% } %>
-                            <% if ("<%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getSurveytakergavetocharity()%>){ %>
+                            <% if (publicSurveyPostit.getSurveytakergavetocharity()){ %>
                                 <br/>
-                                <h:outputText value="(<%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getCharityname()%>)" styleClass="mediumfont"/>
+                                <font class="mediumfont">(<%=publicSurveyPostit.getCharityname()%>)</font>
                             <% } %>
                             <br/>
-                            <h:outputText value="and can earn up to <%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getSurveyEnhancer().getMaxearning()%> total by posting it to your blog!" styleClass="mediumfont"/>
+                            <font class="mediumfont">and can earn up to <%=publicSurveyPostit.getSurveyEnhancer().getMaxearning()%> total by posting it to your blog!</font>
                         </div>
                         <br/>
-                        <% if ("<%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getSurvey().getIscharityonly()%>){ %>
+                        <% if (publicSurveyPostit.getSurvey().getIscharityonly()){ %>
                             <br/><br/>
                             <div class="rounded" style="background: #e6e6e6; text-align: center;">
                                 <img src="/images/charity-128.png" alt="For Charity" width="128" height="128"/>
                                 <br/>
-                                <h:outputText value="This is a Charity Only survey." styleClass="mediumfont"/>
+                                <font class="mediumfont">This is a Charity Only survey.</font>
                                 <br/>
-                                <h:outputText value="The creator of the survey requires that dNeero donate all of your earnings from the survey to a charity of your choice.  It's a chance to do some good!" styleClass="tinyfont"/>
+                                <font class="tinyfont">The creator of the survey requires that dNeero donate all of your earnings from the survey to a charity of your choice.  It's a chance to do some good!</font>
                             </div>
                         <% } %>
 
@@ -163,490 +179,361 @@ String acl = "public";
                         </font>
 
                         <br/><br/>
-                        <% if ("${userSession.isloggedin and publicSurveyPostit.loggedinuserhasalreadytakensurvey}){ %>
+                        <% if (Pagez.getUserSession().getIsloggedin() && publicSurveyPostit.isLoggedinuserhasalreadytakensurvey()){ %>
                             <div class="rounded" style="background: #ffffff; text-align: center;">
-                                <h:commandLink value="Need Help?" action="<%=((AccountSupportIssuesList)Pagez.getBeanMgr().get("AccountSupportIssuesList")).getBeginView()%>" styleClass="mediumfont"/>
+                                <a href="/jsp/account/accountsupportissueslist.jsp"><font class="mediumfont">Need Help?</font></a>
                             </div>
                         <% } %>
                     </div>
                 </td>
                 <td valign="top" class="posttoblog_tabs_tablewidth">
                     <center><div class="rounded" style="background: #e6e6e6; text-align: left; padding: 20px;"><font class="smallfont">
-                    Instructions for posting your survey answers to various blogs and social networks.  Need <h:commandLink value="help" action="<%=((AccountSupportIssuesList)Pagez.getBeanMgr().get("AccountSupportIssuesList")).getBeginView()%>" styleClass="smallfont" style="padding-left: 5px; padding-right: 1px;"/> posting to your blog?
+                    Instructions for posting your survey answers to various blogs and social networks.  Need <a href="/jsp/account/accountsupportissueslist.jsp"><font class="smallfont">help</font></a> posting to your blog?
                     </font></div></center>
+
+                    <br/><br/>
+                    <font class="mediumfont">TypePad</font>
                     <br/>
-                    <t:collapsiblePanel id="cp7" value="true" title="cp7" var="cp7var">
-                        <f:facet name="header">
-                            <t:div styleClass="posttoblog_tabs">
-                                <h:outputText value="TypePad " styleClass="formfieldnamefont"/>
-                                <t:headerLink immediate="true">
-                                    <h:outputText value="Show Instructions" rendered="#{cp7var}" styleClass="normalfont"/>
-                                    <h:outputText value="Hide" rendered="#{!cp7var}" styleClass="normalfont"/>
-                                </t:headerLink>
-                            </t:div>
-                        </f:facet>
-                        <font class="smallfont">
-                            <ol>
-                                <li>Copy the code below. (Right-click and choose Copy or Left-click to select and hit Control-C)<br/>
-                                    <c:choose>
-                                        <c:when test="<%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getSurvey().getEmbedflash()%>"><textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getHtmltoposttoblogflash()%></textarea></c:when>
-                                        <c:otherwise><textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getHtmltoposttoblogimagelink()%></textarea></c:otherwise>
-                                    </c:choose>
-                                </li>
-                                <li>Login into TypePad and click on the "Weblogs" tab at the top of the page.</li>
-                                <li>Click on the "Begin a new post" button.</li>
-                                <li>Click the "Edit HTML" tab.</li>
-                                <li>Paste the code into the "Post Body" text box.</li>
-                                <li>Click the "Preview" or "Save" button at the bottom of the page and you're done!</li>
-                            </ol>
-                        </font>
-                    </t:collapsiblePanel>
+                    <font class="smallfont">
+                        <ol>
+                            <li>Copy the code below. (Right-click and choose Copy or Left-click to select and hit Control-C)<br/>
+                            <%if (publicSurveyPostit.getSurvey().getEmbedflash()){%>
+                                <textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><%=publicSurveyPostit.getHtmltoposttoblogflash()%></textarea>
+                            <%} else {%>
+                                <textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><%=publicSurveyPostit.getHtmltoposttoblogimagelink()%></textarea>
+                            <%}%>
+                            </li>
+                            <li>Login into TypePad and click on the "Weblogs" tab at the top of the page.</li>
+                            <li>Click on the "Begin a new post" button.</li>
+                            <li>Click the "Edit HTML" tab.</li>
+                            <li>Paste the code into the "Post Body" text box.</li>
+                            <li>Click the "Preview" or "Save" button at the bottom of the page and you're done!</li>
+                        </ol>
+                    </font>
 
-                    <t:collapsiblePanel id="cp8" value="true" title="cp8" var="cp8var">
-                        <f:facet name="header">
-                            <t:div styleClass="posttoblog_tabs">
-                                <h:outputText value="LiveJournal " styleClass="formfieldnamefont"/>
-                                <t:headerLink immediate="true">
-                                    <h:outputText value="Show Instructions" rendered="#{cp8var}" styleClass="normalfont"/>
-                                    <h:outputText value="Hide" rendered="#{!cp8var}" styleClass="normalfont"/>
-                                </t:headerLink>
-                            </t:div>
-                        </f:facet>
-                        <font class="smallfont">
-                            <ol>
-                                <li>Copy the code below. (Right-click and choose Copy, or Left-click and hit Ctrl+C)<br/>
-                                    <c:choose>
-                                        <c:when test="<%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getSurvey().getEmbedflash()%>"><textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getHtmltoposttoblogflash()%></textarea></c:when>
-                                        <c:otherwise><textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getHtmltoposttoblogimagelink()%></textarea></c:otherwise>
-                                    </c:choose>
-                                </li>
-                                <li>Log in to LiveJournal and click the "Post" link at the top of the page. NOTE: If you go to your journal first (e.g., [YourJournal].livejournal.com) and login from there, you should click the "Post to Journal" link at the top of the page.</li>
-                                <li>On the "Rich text" tab, click the "Embed Media" link (it's a round disk in the center of the Rich Text editor's menu bar). We recommend that you not use the HTML tab. </li>
-                                <li>Paste the code in the "Insert Embedded Content" box and click the "Insert" button.</li>
-                                <li>If you want to add text do so at the blinking cursor ... you'll see it beneath the survey window.</li>
-                                <li>Write a subject for your post.</li>
-                                <li>Click the "Post to YourJournal" button at the bottom of the page and you're done!</li>
-                            </ol>
-                        </font>
-                    </t:collapsiblePanel>
 
-                    <t:collapsiblePanel id="cp1" value="true" title="cp1" var="cp1var">
-                        <f:facet name="header">
-                            <t:div styleClass="posttoblog_tabs">
-                                <h:outputText value="WordPress " styleClass="formfieldnamefont"/>
-                                <t:headerLink immediate="true">
-                                    <h:outputText value="Show Instructions" rendered="#{cp1var}" styleClass="normalfont"/>
-                                    <h:outputText value="Hide" rendered="#{!cp1var}" styleClass="normalfont"/>
-                                </t:headerLink>
-                            </t:div>
-                        </f:facet>
-                        <font class="smallfont">
-                            <ol>
-                                <li>Copy the code below. (Right-click and choose Copy, or Left-click and hit Ctrl+C)<br/>
-                                    <c:choose>
-                                        <c:when test="#{1 eq 2}"></c:when>
-                                        <c:otherwise><textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getHtmltoposttoblogimagelink()%></textarea></c:otherwise>
-                                    </c:choose>
-                                </li>
-                                <li>Login into your WordPress.com blog and click on the "New Post" link at the top of the page. </li>
-                                <li>Enter a "Title", and paste the dNeero code into the "Post" box (right click in the box and choose Paste, or left click in the box and hit Ctrl+V)</li>
-                                <li>Space down down and enter any additional text you wish.</li>
-                                <li>Click the "Publish" button and you're done!</li>
-                            </ol>
-                            Note: If are using a hosted blog from Wordpress.org, you can use <a href="http://kimili.com/plugins/kimili-flash-embed-for-wordpress">Kimli Flash Embed for Wordpress</a> to embed a flash object. You'll need to install the plugin, get the dNeero flash embed url from the flash embed tab and then create a blog post according to Kimili's syntax. It's a little complex but may be worth it!
-                        </font>
-                    </t:collapsiblePanel>
+                    <br/><br/>
+                    <font class="mediumfont">LiveJournal</font>
+                    <br/>
+                    <font class="smallfont">
+                        <ol>
+                            <li>Copy the code below. (Right-click and choose Copy, or Left-click and hit Ctrl+C)<br/>
+                            <%if (publicSurveyPostit.getSurvey().getEmbedflash()){%>
+                                <textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><%=publicSurveyPostit.getHtmltoposttoblogflash()%></textarea>
+                            <%} else {%>
+                                <textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><%=publicSurveyPostit.getHtmltoposttoblogimagelink()%></textarea>
+                            <%}%>
+                            </li>
+                            <li>Log in to LiveJournal and click the "Post" link at the top of the page. NOTE: If you go to your journal first (e.g., [YourJournal].livejournal.com) and login from there, you should click the "Post to Journal" link at the top of the page.</li>
+                            <li>On the "Rich text" tab, click the "Embed Media" link (it's a round disk in the center of the Rich Text editor's menu bar). We recommend that you not use the HTML tab. </li>
+                            <li>Paste the code in the "Insert Embedded Content" box and click the "Insert" button.</li>
+                            <li>If you want to add text do so at the blinking cursor ... you'll see it beneath the survey window.</li>
+                            <li>Write a subject for your post.</li>
+                            <li>Click the "Post to YourJournal" button at the bottom of the page and you're done!</li>
+                        </ol>
+                    </font>
 
-                    <t:collapsiblePanel id="cp2" value="true" title="cp2" var="cp2var">
-                        <f:facet name="header">
-                            <t:div styleClass="posttoblog_tabs">
-                                <h:outputText value="MySpace " styleClass="formfieldnamefont"/>
-                                <t:headerLink immediate="true">
-                                    <h:outputText value="Show Instructions" rendered="#{cp2var}" styleClass="normalfont"/>
-                                    <h:outputText value="Hide" rendered="#{!cp2var}" styleClass="normalfont"/>
-                                </t:headerLink>
-                            </t:div>
-                        </f:facet>
-                        <font class="smallfont">
-                            <ol>
-                                <li>Copy the code below. (Right-click and choose Copy or Left-click to select and hit Control-C)<br/>
-                                    <c:choose>
-                                        <c:when test="<%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getSurvey().getEmbedflash()%>"><textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getHtmltoposttoblogflashwithembedandobjecttag()%></textarea></c:when>
-                                        <c:otherwise><textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getHtmltoposttoblogimagelink()%></textarea></c:otherwise>
-                                    </c:choose>
-                                </li>
-                                <li>Login into MySpace and click on the "Edit Profile" link on the center of the page.</li>
-                                <li>Paste the code into any of the boxes such as "About Me", "I'd Like to Meet", "Interests", "Music", "Movies", "Television", "Books" or "Heroes" sections.</li>
-                                <li>Scroll down to the bottom of the page and click the "Save" button and you're done!</li>
-                            </ol>
-                        </font>
-                    </t:collapsiblePanel>
 
-                    <t:collapsiblePanel id="cp3" value="true" title="cp3" var="cp3var">
-                        <f:facet name="header">
-                            <t:div styleClass="posttoblog_tabs">
-                                <h:outputText value="MySpace Blog " styleClass="formfieldnamefont"/>
-                                <t:headerLink immediate="true">
-                                    <h:outputText value="Show Instructions" rendered="#{cp3var}" styleClass="normalfont"/>
-                                    <h:outputText value="Hide" rendered="#{!cp3var}" styleClass="normalfont"/>
-                                </t:headerLink>
-                            </t:div>
-                        </f:facet>
-                        <font class="smallfont">
-                            <ol>
-                                <li>Copy the code below. (Right-click and choose Copy or Left-click to select and hit Control-C)<br/>
-                                    <c:choose>
-                                        <c:when test="<%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getSurvey().getEmbedflash()%>"><textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><font style="color: #ffffff;">[code]</font><%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getHtmltoposttoblogflashwithembedandobjecttag()%><font style="color: #ffffff;">[/code]</font></textarea></c:when>
-                                        <c:otherwise><textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getHtmltoposttoblogimagelink()%></textarea></c:otherwise>
-                                    </c:choose>
-                                </li>
-                                <li>Login into MySpace and click on the "Manage Blog" link.</li>
-                                <li>Click the "Post New Blog" link.</li>
-                                <li>Type a title for your post in the "Subject" box.</li>
-                                <li>Check the "View Source" check box at the bottom of the text field and paste your code into the "Body" field.</li>
-                                <li>Click the "Preview and Post" button and you're done!</li>
-                            </ol>
-                        </font>
-                    </t:collapsiblePanel>
+                    <br/><br/>
+                    <font class="mediumfont">WordPress</font>
+                    <br/>
+                    <font class="smallfont">
+                        <ol>
+                            <li>Copy the code below. (Right-click and choose Copy, or Left-click and hit Ctrl+C)<br/>
+                                <textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><%=publicSurveyPostit.getHtmltoposttoblogimagelink()%></textarea>
+                            </li>
+                            <li>Login into your WordPress.com blog and click on the "New Post" link at the top of the page. </li>
+                            <li>Enter a "Title", and paste the dNeero code into the "Post" box (right click in the box and choose Paste, or left click in the box and hit Ctrl+V)</li>
+                            <li>Space down down and enter any additional text you wish.</li>
+                            <li>Click the "Publish" button and you're done!</li>
+                        </ol>
+                        Note: If are using a hosted blog from Wordpress.org, you can use <a href="http://kimili.com/plugins/kimili-flash-embed-for-wordpress">Kimli Flash Embed for Wordpress</a> to embed a flash object. You'll need to install the plugin, get the dNeero flash embed url from the flash embed tab and then create a blog post according to Kimili's syntax. It's a little complex but may be worth it!
+                    </font>
 
-                    <t:collapsiblePanel id="cp4" value="true" title="cp4" var="cp4var">
-                        <f:facet name="header">
-                            <t:div styleClass="posttoblog_tabs">
-                                <h:outputText value="Blogger " styleClass="formfieldnamefont"/>
-                                <t:headerLink immediate="true">
-                                    <h:outputText value="Show Instructions" rendered="#{cp4var}" styleClass="normalfont"/>
-                                    <h:outputText value="Hide" rendered="#{!cp4var}" styleClass="normalfont"/>
-                                </t:headerLink>
-                            </t:div>
-                        </f:facet>
-                        <font class="smallfont">
-                            <ol>
-                                <li>Copy the code below. (Right-click and choose Copy or Left-click to select and hit Control-C)<br/>
-                                    <c:choose>
-                                        <c:when test="<%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getSurvey().getEmbedflash()%>"><textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getHtmltoposttoblogflash()%></textarea></c:when>
-                                        <c:when test="<%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getSurvey().getEmbedjavascript()%>"><textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getHtmltoposttoblog()%></textarea></c:when>
-                                        <c:otherwise><textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getHtmltoposttoblogimagelink()%></textarea></c:otherwise>
-                                    </c:choose>
-                                </li>
-                                <li>Login to Blogger and click on the "New Post" link on the top of the page.</li>
-                                <li>The next page should contain the create post text boxes and the "Edit HTML" tab should be open ... if this is true, skip to step 6., otherwise proceed to step.</li>
-                                <li>Click on the "Create" link under the "Posting" tab</li>
-                                <li>Click on the "Edit HTML" tab.</li>
-                                <li>Add a title in the "Title" textbox.</li>
-                                <li>Paste the code into the big HTML textbox (Right click and choose Paste or hit Control-V)</li>
-                                <li>Either in the Edit HTML or the Compose textboxes, you can add your add text where it says "Enter text here" ... if you are not going to add text just delete the two instances of "Enter text here".</li>
-                                <li>Click "Publish" and you're done!</li>
-                            </ol>
-                        </font>
-                    </t:collapsiblePanel>
+                    <br/><br/>
+                    <font class="mediumfont">MySpace</font>
+                    <br/>
+                    <font class="smallfont">
+                        <ol>
+                            <li>Copy the code below. (Right-click and choose Copy or Left-click to select and hit Control-C)<br/>
+                            <%if (publicSurveyPostit.getSurvey().getEmbedflash()){%>
+                                <textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><%=publicSurveyPostit.getHtmltoposttoblogflash()%></textarea>
+                            <%} else {%>
+                                <textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><%=publicSurveyPostit.getHtmltoposttoblogimagelink()%></textarea>
+                            <%}%>
+                            </li>
+                            <li>Login into MySpace and click on the "Edit Profile" link on the center of the page.</li>
+                            <li>Paste the code into any of the boxes such as "About Me", "I'd Like to Meet", "Interests", "Music", "Movies", "Television", "Books" or "Heroes" sections.</li>
+                            <li>Scroll down to the bottom of the page and click the "Save" button and you're done!</li>
+                        </ol>
+                    </font>
 
-                    <t:collapsiblePanel id="cp5" value="true" title="cp5" var="cp5var">
-                        <f:facet name="header">
-                            <t:div styleClass="posttoblog_tabs">
-                                <h:outputText value="Friendster Profile " styleClass="formfieldnamefont"/>
-                                <t:headerLink immediate="true">
-                                    <h:outputText value="Show Instructions" rendered="#{cp5var}" styleClass="normalfont"/>
-                                    <h:outputText value="Hide" rendered="#{!cp5var}" styleClass="normalfont"/>
-                                </t:headerLink>
-                            </t:div>
-                        </f:facet>
-                        <font class="smallfont">
-                            <ol>
-                                <li>Copy the code below. (Right-click and choose Copy or Left-click to select and hit Control-C)<br/>
-                                    <c:choose>
-                                        <c:when test="<%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getSurvey().getEmbedflash()%>"><textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getHtmltoposttoblogflash()%></textarea></c:when>
-                                        <c:otherwise><textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getHtmltoposttoblogimagelink()%></textarea></c:otherwise>
-                                    </c:choose>
-                                </li>
-                                <li>Login into Friendster and click on the "Edit Profile" link on the center of the page.</li>
-                                <li>Click the "Customize" tab.</li>
-                                <li>Scroll down to the "Add Media" section and paste the code into the text box.</li>
-                                <li>Scroll down to the bottom of the page and click the "Save" button and you're done!</li>
-                            </ol>
-                        </font>
-                    </t:collapsiblePanel>
 
-                    <t:collapsiblePanel id="cp5b" value="true" title="cp5b" var="cp5bvar">
-                        <f:facet name="header">
-                            <t:div styleClass="posttoblog_tabs">
-                                <h:outputText value="Friendster Free Blog " styleClass="formfieldnamefont"/>
-                                <t:headerLink immediate="true">
-                                    <h:outputText value="Show Instructions" rendered="#{cp5bvar}" styleClass="normalfont"/>
-                                    <h:outputText value="Hide" rendered="#{!cp5bvar}" styleClass="normalfont"/>
-                                </t:headerLink>
-                            </t:div>
-                        </f:facet>
-                        <font class="smallfont">
-                            <ol>
-                                <li>Copy the code below. (Right-click and choose Copy or Left-click to select and hit Control-C)<br/>
-                                    <c:choose>
-                                        <c:when test="#{1 eq 2}"></c:when>
-                                        <c:otherwise><textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getHtmltoposttoblogimagelink()%></textarea></c:otherwise>
-                                    </c:choose>
-                                </li>
-                                <li>Login into Friendster, go to Blogs, then "My Blog Home", then under Shortcuts click "Create a Post"</li>
-                                <li>Type in some text like "To see my most recent dNeero survey [click here].</li>
-                                <li>Highlight "click here" (or any other text or image that you have in the Post Body, and the click the "Insert Link" icon ... a popup will appear ... delete "http://" ... paste the dNeero code ... Click "OK"</li>
-                                <li>Enter a title.</li>
-                                <li>Scroll down to the bottom of the page and click the "Save" button and you're done!</li>
-                            </ol>
-                        </font>
-                    </t:collapsiblePanel>
+                    <br/><br/>
+                    <font class="mediumfont">MySpace Blog</font>
+                    <br/>
+                    <font class="smallfont">
+                        <ol>
+                            <li>Copy the code below. (Right-click and choose Copy or Left-click to select and hit Control-C)<br/>
+                            <%if (publicSurveyPostit.getSurvey().getEmbedflash()){%>
+                                <textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><%=publicSurveyPostit.getHtmltoposttoblogflash()%></textarea>
+                            <%} else {%>
+                                <textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><%=publicSurveyPostit.getHtmltoposttoblogimagelink()%></textarea>
+                            <%}%>
+                            </li>
+                            <li>Login into MySpace and click on the "Manage Blog" link.</li>
+                            <li>Click the "Post New Blog" link.</li>
+                            <li>Type a title for your post in the "Subject" box.</li>
+                            <li>Check the "View Source" check box at the bottom of the text field and paste your code into the "Body" field.</li>
+                            <li>Click the "Preview and Post" button and you're done!</li>
+                        </ol>
+                    </font>
 
-                    <t:collapsiblePanel id="cp5a" value="true" title="cp5a" var="cp5avar">
-                        <f:facet name="header">
-                            <t:div styleClass="posttoblog_tabs">
-                                <h:outputText value="Friendster Paid Blog " styleClass="formfieldnamefont"/>
-                                <t:headerLink immediate="true">
-                                    <h:outputText value="Show Instructions" rendered="#{cp5avar}" styleClass="normalfont"/>
-                                    <h:outputText value="Hide" rendered="#{!cp5avar}" styleClass="normalfont"/>
-                                </t:headerLink>
-                            </t:div>
-                        </f:facet>
-                        <font class="smallfont">
-                            <ol>
-                                <li>Copy the code below. (Right-click and choose Copy or Left-click to select and hit Control-C)<br/>
-                                    <c:choose>
-                                        <c:when test="<%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getSurvey().getEmbedflash()%>"><textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getHtmltoposttoblogflash()%></textarea></c:when>
-                                        <c:when test="<%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getSurvey().getEmbedjavascript()%>"><textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getHtmltoposttoblog()%></textarea></c:when>
-                                        <c:otherwise><textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getHtmltoposttoblogimagelink()%></textarea></c:otherwise>
-                                    </c:choose>
-                                </li>
-                                <li>Login into Friendster, go to Blogs, then "My Blog Home", then under Shortcuts click "Create a Post"</li>
-                                <li>Click the "Edit HTML" tab. </li>
-                                <li>Paste the dNeero survey code onto the Post Body window. You can paste either by Ctrl+v or right click in the Post Body window and choose Paste.</li>
-                                <li>Enter a title.</li>
-                                <li>Scroll down to the bottom of the page and click the "Save" button and you're done!</li>
-                            </ol>
-                        </font>
-                    </t:collapsiblePanel>
+                    <br/><br/>
+                    <font class="mediumfont">Blogger</font>
+                    <br/>
+                    <font class="smallfont">
+                        <ol>
+                            <li>Copy the code below. (Right-click and choose Copy or Left-click to select and hit Control-C)<br/>
+                            <%if (publicSurveyPostit.getSurvey().getEmbedflash()){%>
+                                <textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><%=publicSurveyPostit.getHtmltoposttoblogflash()%></textarea>
+                            <%} else if (publicSurveyPostit.getSurvey().getEmbedjavascript()) {%>
+                                <textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><%=publicSurveyPostit.getHtmltoposttoblog()%></textarea>
+                            <%} else {%>
+                                <textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><%=publicSurveyPostit.getHtmltoposttoblogimagelink()%></textarea>
+                            <%}%>
+                            </li>
+                            <li>Login to Blogger and click on the "New Post" link on the top of the page.</li>
+                            <li>The next page should contain the create post text boxes and the "Edit HTML" tab should be open ... if this is true, skip to step 6., otherwise proceed to step.</li>
+                            <li>Click on the "Create" link under the "Posting" tab</li>
+                            <li>Click on the "Edit HTML" tab.</li>
+                            <li>Add a title in the "Title" textbox.</li>
+                            <li>Paste the code into the big HTML textbox (Right click and choose Paste or hit Control-V)</li>
+                            <li>Either in the Edit HTML or the Compose textboxes, you can add your add text where it says "Enter text here" ... if you are not going to add text just delete the two instances of "Enter text here".</li>
+                            <li>Click "Publish" and you're done!</li>
+                        </ol>
+                    </font>
 
-                    <t:collapsiblePanel id="cp6" value="true" title="cp6" var="cp6var">
-                        <f:facet name="header">
-                            <t:div styleClass="posttoblog_tabs">
-                                <h:outputText value="Yahoo! 360 " styleClass="formfieldnamefont"/>
-                                <t:headerLink immediate="true">
-                                    <h:outputText value="Show Instructions" rendered="#{cp6var}" styleClass="normalfont"/>
-                                    <h:outputText value="Hide" rendered="#{!cp6var}" styleClass="normalfont"/>
-                                </t:headerLink>
-                            </t:div>
-                        </f:facet>
-                        <font class="smallfont">
-                            <ol>
-                                <li>Copy the code below. (Right-click and choose Copy or Left-click to select and hit Control-C)<br/>
-                                    <c:choose>
-                                        <c:when test="<%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getSurvey().getEmbedflash()%>"><textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getHtmltoposttoblogflash()%></textarea></c:when>
-                                        <c:otherwise><textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getHtmltoposttoblogimagelink()%></textarea></c:otherwise>
-                                    </c:choose>
-                                </li>
-                                <li>Login into Yahoo! 360 and click on the "My Blog" link at the top of the page.</li>
-                                <li>Click on the "Compose Blog Entry" link.</li>
-                                <li>Enter a title for your post under "Entry Title:" and write some text for your blog entry in the "Entry Content:" text box (or upload an image). </li>
-                                <li>Click the "View HTML Source" check box.</li>
-                                <li>Enter a title for your post under "Entry Title" and paste the code into the "Entry Content" text box.</li>
-                                <li>Click the "Post This Entry" button at the bottom of the page and you're done!</li>
-                            </ol>
-                        </font>
-                    </t:collapsiblePanel>
+                    <br/><br/>
+                    <font class="mediumfont">Friendster Profile</font>
+                    <br/>
+                    <font class="smallfont">
+                        <ol>
+                            <li>Copy the code below. (Right-click and choose Copy or Left-click to select and hit Control-C)<br/>
+                            <%if (publicSurveyPostit.getSurvey().getEmbedflash()){%>
+                                <textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><%=publicSurveyPostit.getHtmltoposttoblogflash()%></textarea>
+                            <%} else {%>
+                                <textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><%=publicSurveyPostit.getHtmltoposttoblogimagelink()%></textarea>
+                            <%}%>
+                            </li>
+                            <li>Login into Friendster and click on the "Edit Profile" link on the center of the page.</li>
+                            <li>Click the "Customize" tab.</li>
+                            <li>Scroll down to the "Add Media" section and paste the code into the text box.</li>
+                            <li>Scroll down to the bottom of the page and click the "Save" button and you're done!</li>
+                        </ol>
+                    </font>
 
-                    <t:collapsiblePanel id="cp9" value="true" title="cp9" var="cp9var">
-                        <f:facet name="header">
-                            <t:div styleClass="posttoblog_tabs">
-                                <h:outputText value="Tagged " styleClass="formfieldnamefont"/>
-                                <t:headerLink immediate="true">
-                                    <h:outputText value="Show Instructions" rendered="#{cp9var}" styleClass="normalfont"/>
-                                    <h:outputText value="Hide" rendered="#{!cp9var}" styleClass="normalfont"/>
-                                </t:headerLink>
-                            </t:div>
-                        </f:facet>
-                        <font class="smallfont">
-                            <ol>
-                                <li>Copy the code below. (Right-click and choose Copy or Left-click to select and hit Control-C)<br/>
-                                    <c:choose>
-                                        <c:when test="<%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getSurvey().getEmbedflash()%>"><textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getHtmltoposttoblogflash()%></textarea></c:when>
-                                        <c:otherwise><textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getHtmltoposttoblogimagelink()%></textarea></c:otherwise>
-                                    </c:choose>
-                                </li>
-                                <li>Login into Tagged and click on the "MyProfile" tab at the top of the page.</li>
-                                <li>Click the "Write In Journal" link under the "My Profile" section.</li>
-                                <li>Enter a "Subject" for your entry, and any text you wish in the "Text:" field.</li>
-                                <li>In the "Widget:" field, click the "Enter Code" tab.</li>
-                                <li>Paste the code in the text box.</li>
-                                <li>Click the "Post" button at the bottom of the page and you're done!</li>
-                            </ol>
-                        </font>
-                    </t:collapsiblePanel>
+                    <br/><br/>
+                    <font class="mediumfont">Friendster Free Blog</font>
+                    <br/>
+                    <font class="smallfont">
+                        <ol>
+                            <li>Copy the code below. (Right-click and choose Copy or Left-click to select and hit Control-C)<br/>
+                            <textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><%=publicSurveyPostit.getHtmltoposttoblogimagelink()%></textarea>
+                            </li>
+                            <li>Login into Friendster, go to Blogs, then "My Blog Home", then under Shortcuts click "Create a Post"</li>
+                            <li>Type in some text like "To see my most recent dNeero survey [click here].</li>
+                            <li>Highlight "click here" (or any other text or image that you have in the Post Body, and the click the "Insert Link" icon ... a popup will appear ... delete "http://" ... paste the dNeero code ... Click "OK"</li>
+                            <li>Enter a title.</li>
+                            <li>Scroll down to the bottom of the page and click the "Save" button and you're done!</li>
+                        </ol>
+                    </font>
 
-                    <t:collapsiblePanel id="cpxanga" value="true" title="cpxanga" var="cpxangavar">
-                        <f:facet name="header">
-                            <t:div styleClass="posttoblog_tabs">
-                                <h:outputText value="Xanga " styleClass="formfieldnamefont"/>
-                                <t:headerLink immediate="true">
-                                    <h:outputText value="Show Instructions" rendered="#{cpxangavar}" styleClass="normalfont"/>
-                                    <h:outputText value="Hide" rendered="#{!cpxangavar}" styleClass="normalfont"/>
-                                </t:headerLink>
-                            </t:div>
-                        </f:facet>
-                        <font class="smallfont">
-                            <ol>
-                                <li>Copy the code below. (Right-click and choose Copy or Left-click to select and hit Control-C)<br/>
-                                    <c:choose>
-                                        <c:when test="<%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getSurvey().getEmbedflash()%>"><textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getHtmltoposttoblogflash()%></textarea></c:when>
-                                        <c:otherwise><textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getHtmltoposttoblogimagelink()%></textarea></c:otherwise>
-                                    </c:choose>
-                                </li>
-                                <li>Log in to Xanga and click on the "New Entry" link. (Make sure you're in the "Dash" tab.)</li>
-                                <li>If your blog is set to Rich Text, proceed to step 4, otherwise click on the "settings" link, which is near the top right of the Weblog Entry page. You may have to login again, and then under "Basic Editor Setting" choose "Rich Text - default" from the dropdown box. Scroll to bottom of page and and click the "Save Changes" button.</li>
-                                <li>Enter a "Title" and in the "Main Entry" box write your blog entry.</li>
-                                <li>Click the "Edit HTML" check box, and paste the dNeero code into the "Main Entry" text box. (Left-click at the bottom of the "Main Entry" text box and either hit Ctrl+V, or Right-click and choose Paste.)</li>
-                                <li>Click the "Save Changes" button at the bottom of the page and you're done! </li>
-                            </ol>
-                        </font>
-                    </t:collapsiblePanel>
 
-                    <t:collapsiblePanel id="cp5z" value="true" title="cpz" var="cpzvar">
-                        <f:facet name="header">
-                            <t:div styleClass="posttoblog_tabs">
-                                <h:outputText value="Zimbio " styleClass="formfieldnamefont"/>
-                                <t:headerLink immediate="true">
-                                    <h:outputText value="Show Instructions" rendered="#{cpzvar}" styleClass="normalfont"/>
-                                    <h:outputText value="Hide" rendered="#{!cpzvar}" styleClass="normalfont"/>
-                                </t:headerLink>
-                            </t:div>
-                        </f:facet>
-                        <font class="smallfont">
-                            <ol>
-                                <li>Copy the code below. (Right-click and choose Copy or Left-click to select and hit Control-C)<br/>
-                                    <c:choose>
-                                        <c:when test="#{1 eq 2}"></c:when>
-                                        <c:otherwise><textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getHtmltoposttobloglink()%></textarea></c:otherwise>
-                                    </c:choose>
-                                </li>
-                                <li>Login into Zimbio, go to "My Dashboard", then "My Articles", then "Write Article"</li>
-                                <li>Type in some text like "To see my most recent dNeero survey [click here]." </li>
-                                <li>Highlight "click here" (or any other text or image that you have in the main window), and the click the "Insert/edit Link" icon ... a popup will appear ...</li>
-                                <li>Paste the dNeero code in the "Link URL" box and click the "Insert" button. (Left-click in the "Link URL" text box and either hit Ctrl+V, or Right-click and choose Paste.)</li>
-                                <li>Enter a Tiltle and any other text/images.</li>
-                                <li>Click the "Save" button and you're done!</li>
-                            </ol>
-                        </font>
-                    </t:collapsiblePanel>
+                    <br/><br/>
+                    <font class="mediumfont">Friendster Paid Blog</font>
+                    <br/>
+                    <font class="smallfont">
+                        <ol>
+                            <li>Copy the code below. (Right-click and choose Copy or Left-click to select and hit Control-C)<br/>
+                            <%if (publicSurveyPostit.getSurvey().getEmbedflash()){%>
+                                <textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><%=publicSurveyPostit.getHtmltoposttoblogflash()%></textarea>
+                            <%} else if (publicSurveyPostit.getSurvey().getEmbedjavascript()) {%>
+                                <textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><%=publicSurveyPostit.getHtmltoposttoblog()%></textarea>
+                            <%} else {%>
+                                <textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><%=publicSurveyPostit.getHtmltoposttoblogimagelink()%></textarea>
+                            <%}%>
+                            </li>
+                            <li>Login into Friendster, go to Blogs, then "My Blog Home", then under Shortcuts click "Create a Post"</li>
+                            <li>Click the "Edit HTML" tab. </li>
+                            <li>Paste the dNeero survey code onto the Post Body window. You can paste either by Ctrl+v or right click in the Post Body window and choose Paste.</li>
+                            <li>Enter a title.</li>
+                            <li>Scroll down to the bottom of the page and click the "Save" button and you're done!</li>
+                        </ol>
+                    </font>
 
-                    <t:collapsiblePanel id="cp11" value="true" title="cp11" var="cp11var">
-                        <f:facet name="header">
-                            <t:div styleClass="posttoblog_tabs_generic">
-                                <h:outputText value="Generic Flash Embedding (if your tool isn't listed above) " styleClass="formfieldnamefont"/>
-                                <t:headerLink immediate="true">
-                                    <h:outputText value="Show Instructions" rendered="#{cp11var}" styleClass="normalfont"/>
-                                    <h:outputText value="Hide" rendered="#{!cp11var}" styleClass="normalfont"/>
-                                </t:headerLink>
-                            </t:div>
-                        </f:facet>
-                        <font class="smallfont">
-                            <ol>
-                                <li>Copy the code below. (Right-click and choose Copy or Left-click to select and hit Control-C)<br/>
-                                    <c:choose>
-                                        <c:when test="<%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getSurvey().getEmbedflash()%>"><textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getHtmltoposttoblogflash()%></textarea></c:when>
-                                        <c:otherwise>Sorry, this survey does not allow Flash embedding.</c:otherwise>
-                                    </c:choose>
-                                </li>
-                                <li>Login into your publishing tool of choice.</li>
-                                <li>Go to the page that allows you to create a blog entry.</li>
-                                <li>Paste the code from above into your post being careful that:</li>
-                                    <ul>
-                                        <li>When your publishing tool publishes the code it should do so directly.  Sometimes this means editing the html of your post directly.  Sometimes this means that you need to use a special embed functionality.  Check with your publishing tool provider.</li>
-                                    </ul>
-                                <li>Click to publish and you're done!</li>
-                            </ol>
-                        </font>
-                    </t:collapsiblePanel>
 
-                    <t:collapsiblePanel id="cp10" value="true" title="cp10" var="cp10var">
-                        <f:facet name="header">
-                            <t:div styleClass="posttoblog_tabs_generic">
-                                <h:outputText value="Generic Javascript Embedding (if Flash doesn't work)" styleClass="formfieldnamefont"/>
-                                <t:headerLink immediate="true">
-                                    <h:outputText value="Show Instructions" rendered="#{cp10var}" styleClass="normalfont"/>
-                                    <h:outputText value="Hide" rendered="#{!cp10var}" styleClass="normalfont"/>
-                                </t:headerLink>
-                            </t:div>
-                        </f:facet>
-                        <font class="smallfont">
-                            <ol>
-                                <li>Copy the code below. (Right-click and choose Copy or Left-click to select and hit Control-C)<br/>
-                                    <c:choose>
-                                        <c:when test="<%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getSurvey().getEmbedjavascript()%>"><textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getHtmltoposttoblog()%></textarea></c:when>
-                                        <c:otherwise>This survey does not support Javascript embedding.</c:otherwise>
-                                    </c:choose>
-                                </li>
-                                <li>Login into your publishing tool of choice.</li>
-                                <li>Go to the page that allows you to create a blog entry.</li>
-                                <li>Paste the code from above into your post being careful that:</li>
-                                    <ul>
-                                        <li>When your publishing tool publishes the code it should do so directly.  Sometimes this means editing the html of your post directly.  Sometimes this means that you need to use a special embed functionality.  Check with your publishing tool provider.</li>
-                                    </ul>
-                                <li>Click to publish and you're done!</li>
-                            </ol>
-                        </font>
-                    </t:collapsiblePanel>
+                    <br/><br/>
+                    <font class="mediumfont">Yahoo! 360</font>
+                    <br/>
+                    <font class="smallfont">
+                        <ol>
+                            <li>Copy the code below. (Right-click and choose Copy or Left-click to select and hit Control-C)<br/>
+                            <%if (publicSurveyPostit.getSurvey().getEmbedflash()){%>
+                                <textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><%=publicSurveyPostit.getHtmltoposttoblogflash()%></textarea>
+                            <%} else {%>
+                                <textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><%=publicSurveyPostit.getHtmltoposttoblogimagelink()%></textarea>
+                            <%}%>
+                            </li>
+                            <li>Login into Yahoo! 360 and click on the "My Blog" link at the top of the page.</li>
+                            <li>Click on the "Compose Blog Entry" link.</li>
+                            <li>Enter a title for your post under "Entry Title:" and write some text for your blog entry in the "Entry Content:" text box (or upload an image). </li>
+                            <li>Click the "View HTML Source" check box.</li>
+                            <li>Enter a title for your post under "Entry Title" and paste the code into the "Entry Content" text box.</li>
+                            <li>Click the "Post This Entry" button at the bottom of the page and you're done!</li>
+                        </ol>
+                    </font>
 
-                    <t:collapsiblePanel id="cp10a" value="true" title="cp10a" var="cp10avar">
-                        <f:facet name="header">
-                            <t:div styleClass="posttoblog_tabs_generic">
-                                <h:outputText value="Generic Image/Link Embedding (a last resort)" styleClass="formfieldnamefont"/>
-                                <t:headerLink immediate="true">
-                                    <h:outputText value="Show Instructions" rendered="#{cp10avar}" styleClass="normalfont"/>
-                                    <h:outputText value="Hide" rendered="#{!cp10avar}" styleClass="normalfont"/>
-                                </t:headerLink>
-                            </t:div>
-                        </f:facet>
-                        <font class="smallfont">
-                            <ol>
-                                <li>Copy the code below. (Right-click and choose Copy or Left-click to select and hit Control-C)<br/>
-                                    <c:choose>
-                                        <c:when test="#{1 eq 2}"></c:when>
-                                        <c:otherwise><textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getHtmltoposttoblogimagelink()%></textarea></c:otherwise>
-                                    </c:choose>
-                                </li>
-                                <li>Login into your publishing tool of choice.</li>
-                                <li>Go to the page that allows you to create a blog entry.</li>
-                                <li>Paste the code from above into your post being careful that:</li>
-                                    <ul>
-                                        <li>When your publishing tool publishes the code it should do so directly.  Sometimes this means editing the html of your post directly.  Sometimes this means that you need to use a special embed functionality.  Check with your publishing tool provider.</li>
-                                    </ul>
-                                <li>Click to publish and you're done!</li>
-                            </ol>
-                        </font>
-                    </t:collapsiblePanel>
 
-                    <t:collapsiblePanel id="cp10b" value="true" title="cp10b" var="cp10bvar">
-                        <f:facet name="header">
-                            <t:div styleClass="posttoblog_tabs_generic">
-                                <h:outputText value="Link Embedding (a very last resort)" styleClass="formfieldnamefont"/>
-                                <t:headerLink immediate="true">
-                                    <h:outputText value="Show Instructions" rendered="#{cp10bvar}" styleClass="normalfont"/>
-                                    <h:outputText value="Hide" rendered="#{!cp10bvar}" styleClass="normalfont"/>
-                                </t:headerLink>
-                            </t:div>
-                        </f:facet>
-                        <font class="smallfont">
-                            <ol>
-                                <li>Copy the code below. (Right-click and choose Copy or Left-click to select and hit Control-C)<br/>
-                                    <c:choose>
-                                        <c:when test="#{1 eq 2}"></c:when>
-                                        <c:otherwise><textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><%=((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getHtmltoposttobloglink()%></textarea></c:otherwise>
-                                    </c:choose>
-                                </li>
-                                <li>Login into your publishing tool of choice.</li>
-                                <li>Go to the page that allows you to create a blog entry.</li>
-                                <li>Paste the code from above into your post being careful that:</li>
-                                    <ul>
-                                        <li>When your publishing tool publishes the code it should do so directly.  Sometimes this means editing the html of your post directly.  Sometimes this means that you need to use a special embed functionality.  Check with your publishing tool provider.</li>
-                                    </ul>
-                                <li>Click to publish and you're done!</li>
-                            </ol>
-                        </font>
-                    </t:collapsiblePanel>
+                    <br/><br/>
+                    <font class="mediumfont">Tagged</font>
+                    <br/>
+                    <font class="smallfont">
+                        <ol>
+                            <li>Copy the code below. (Right-click and choose Copy or Left-click to select and hit Control-C)<br/>
+                            <%if (publicSurveyPostit.getSurvey().getEmbedflash()){%>
+                                <textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><%=publicSurveyPostit.getHtmltoposttoblogflash()%></textarea>
+                            <%} else {%>
+                                <textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><%=publicSurveyPostit.getHtmltoposttoblogimagelink()%></textarea>
+                            <%}%>
+                            </li>
+                            <li>Login into Tagged and click on the "MyProfile" tab at the top of the page.</li>
+                            <li>Click the "Write In Journal" link under the "My Profile" section.</li>
+                            <li>Enter a "Subject" for your entry, and any text you wish in the "Text:" field.</li>
+                            <li>In the "Widget:" field, click the "Enter Code" tab.</li>
+                            <li>Paste the code in the text box.</li>
+                            <li>Click the "Post" button at the bottom of the page and you're done!</li>
+                        </ol>
+                    </font>
+
+                    <br/><br/>
+                    <font class="mediumfont">Xanga</font>
+                    <br/>
+                    <font class="smallfont">
+                        <ol>
+                            <li>Copy the code below. (Right-click and choose Copy or Left-click to select and hit Control-C)<br/>
+                            <%if (publicSurveyPostit.getSurvey().getEmbedflash()){%>
+                                <textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><%=publicSurveyPostit.getHtmltoposttoblogflash()%></textarea>
+                            <%} else {%>
+                                <textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><%=publicSurveyPostit.getHtmltoposttoblogimagelink()%></textarea>
+                            <%}%>
+                            </li>
+                            <li>Log in to Xanga and click on the "New Entry" link. (Make sure you're in the "Dash" tab.)</li>
+                            <li>If your blog is set to Rich Text, proceed to step 4, otherwise click on the "settings" link, which is near the top right of the Weblog Entry page. You may have to login again, and then under "Basic Editor Setting" choose "Rich Text - default" from the dropdown box. Scroll to bottom of page and and click the "Save Changes" button.</li>
+                            <li>Enter a "Title" and in the "Main Entry" box write your blog entry.</li>
+                            <li>Click the "Edit HTML" check box, and paste the dNeero code into the "Main Entry" text box. (Left-click at the bottom of the "Main Entry" text box and either hit Ctrl+V, or Right-click and choose Paste.)</li>
+                            <li>Click the "Save Changes" button at the bottom of the page and you're done! </li>
+                        </ol>
+                    </font>
+
+                    <br/><br/>
+                    <font class="mediumfont">Zimbio</font>
+                    <br/>
+                    <font class="smallfont">
+                        <ol>
+                            <li>Copy the code below. (Right-click and choose Copy or Left-click to select and hit Control-C)<br/>
+                                <textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><%=publicSurveyPostit.getHtmltoposttobloglink()%></textarea>
+                            </li>
+                            <li>Login into Zimbio, go to "My Dashboard", then "My Articles", then "Write Article"</li>
+                            <li>Type in some text like "To see my most recent dNeero survey [click here]." </li>
+                            <li>Highlight "click here" (or any other text or image that you have in the main window), and the click the "Insert/edit Link" icon ... a popup will appear ...</li>
+                            <li>Paste the dNeero code in the "Link URL" box and click the "Insert" button. (Left-click in the "Link URL" text box and either hit Ctrl+V, or Right-click and choose Paste.)</li>
+                            <li>Enter a Tiltle and any other text/images.</li>
+                            <li>Click the "Save" button and you're done!</li>
+                        </ol>
+                    </font>
+
+                    <br/><br/>
+                    <font class="mediumfont">Generic Flash Embedding (if your tool isn't listed above)</font>
+                    <br/>
+                    <font class="smallfont">
+                        <ol>
+                            <li>Copy the code below. (Right-click and choose Copy or Left-click to select and hit Control-C)<br/>
+                            <%if (publicSurveyPostit.getSurvey().getEmbedflash()){%>
+                                <textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><%=publicSurveyPostit.getHtmltoposttoblogflash()%></textarea>
+                            <%} else {%>
+                                Sorry, this survey does not allow Flash embedding.
+                            <%}%>
+                            </li>
+                            <li>Login into your publishing tool of choice.</li>
+                            <li>Go to the page that allows you to create a blog entry.</li>
+                            <li>Paste the code from above into your post being careful that:</li>
+                                <ul>
+                                    <li>When your publishing tool publishes the code it should do so directly.  Sometimes this means editing the html of your post directly.  Sometimes this means that you need to use a special embed functionality.  Check with your publishing tool provider.</li>
+                                </ul>
+                            <li>Click to publish and you're done!</li>
+                        </ol>
+                    </font>
+
+
+                    <br/><br/>
+                    <font class="mediumfont">Generic Javascript Embedding (if Flash doesn't work)</font>
+                    <br/>
+                    <font class="smallfont">
+                        <ol>
+                            <li>Copy the code below. (Right-click and choose Copy or Left-click to select and hit Control-C)<br/>
+                            <%if (publicSurveyPostit.getSurvey().getEmbedjavascript()) {%>
+                                <textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><%=publicSurveyPostit.getHtmltoposttoblog()%></textarea>
+                            <%} else {%>
+                                Sorry, this survey does not allow Javascript embedding.
+                            <%}%>
+                            </li>
+                            <li>Login into your publishing tool of choice.</li>
+                            <li>Go to the page that allows you to create a blog entry.</li>
+                            <li>Paste the code from above into your post being careful that:</li>
+                                <ul>
+                                    <li>When your publishing tool publishes the code it should do so directly.  Sometimes this means editing the html of your post directly.  Sometimes this means that you need to use a special embed functionality.  Check with your publishing tool provider.</li>
+                                </ul>
+                            <li>Click to publish and you're done!</li>
+                        </ol>
+                    </font>
+
+                    <br/><br/>
+                    <font class="mediumfont">Generic Image/Link Embedding (a last resort)</font>
+                    <br/>
+                    <font class="smallfont">
+                        <ol>
+                            <li>Copy the code below. (Right-click and choose Copy or Left-click to select and hit Control-C)<br/>
+                            <textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><%=publicSurveyPostit.getHtmltoposttoblogimagelink()%></textarea>
+                            </li>
+                            <li>Login into your publishing tool of choice.</li>
+                            <li>Go to the page that allows you to create a blog entry.</li>
+                            <li>Paste the code from above into your post being careful that:</li>
+                                <ul>
+                                    <li>When your publishing tool publishes the code it should do so directly.  Sometimes this means editing the html of your post directly.  Sometimes this means that you need to use a special embed functionality.  Check with your publishing tool provider.</li>
+                                </ul>
+                            <li>Click to publish and you're done!</li>
+                        </ol>
+                    </font>
+
+                    <br/><br/>
+                    <font class="mediumfont">Link Embedding (a very last resort)</font>
+                    <br/>
+                    <font class="smallfont">
+                        <ol>
+                            <li>Copy the code below. (Right-click and choose Copy or Left-click to select and hit Control-C)<br/>
+                                <textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><%=publicSurveyPostit.getHtmltoposttobloglink()%></textarea>
+                            </li>
+                            <li>Login into your publishing tool of choice.</li>
+                            <li>Go to the page that allows you to create a blog entry.</li>
+                            <li>Paste the code from above into your post being careful that:</li>
+                                <ul>
+                                    <li>When your publishing tool publishes the code it should do so directly.  Sometimes this means editing the html of your post directly.  Sometimes this means that you need to use a special embed functionality.  Check with your publishing tool provider.</li>
+                                </ul>
+                            <li>Click to publish and you're done!</li>
+                        </ol>
+                    </font>
+
                 </td>
             </tr>
         </table>

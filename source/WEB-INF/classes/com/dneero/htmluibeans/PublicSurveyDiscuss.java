@@ -24,6 +24,7 @@ import com.dneero.facebook.FacebookUser;
 import com.dneero.scheduledjobs.SurveydisplayActivityObjectQueue;
 import com.dneero.helpers.UserInputSafe;
 import com.dneero.htmlui.Pagez;
+import com.dneero.htmlui.ValidationException;
 
 import java.io.Serializable;
 import java.util.*;
@@ -96,7 +97,7 @@ public class PublicSurveyDiscuss implements Serializable {
 
 
 
-    public String newComment(){
+    public String newComment() throws ValidationException {
         Logger logger = Logger.getLogger(this.getClass().getName());
         boolean haveError = false;
         if (discussSubject==null || discussSubject.equals("")){
