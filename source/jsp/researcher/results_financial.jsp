@@ -1,5 +1,7 @@
 <%@ page import="org.apache.log4j.Logger" %>
 <%@ page import="com.dneero.htmlui.Pagez" %>
+<%@ page import="com.dneero.htmluibeans.ResearcherResultsFinancial" %>
+<%@ page import="com.dneero.util.Str" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "Survey Results";
@@ -7,6 +9,9 @@ String navtab = "researchers";
 String acl = "researcher";
 %>
 <%@ include file="/jsp/templates/auth.jsp" %>
+<%
+    ResearcherResultsFinancial researcherResultsFinancial= (ResearcherResultsFinancial)Pagez.getBeanMgr().get("ResearcherResultsFinancial");
+%>
 <%@ include file="/jsp/templates/header.jsp" %>
 
 
@@ -25,68 +30,71 @@ String acl = "researcher";
 
 
     <table cellpadding="0" cellspacing="0" border="0">
-        <td valign="top">
-            <h:outputText value="Survey Responses to Date" styleClass="formfieldnamefont"></h:outputText>
-        </td>
-        <td valign="top">
-            <h:outputText value="<%=((ResearcherResultsFinancial)Pagez.getBeanMgr().get("ResearcherResultsFinancial")).getSms().getResponsesToDate()%>"></h:outputText>
-        </td>
-        <td valign="top">
-        </td>
+        <tr>
+            <td valign="top">
+                <font class="formfieldnamefont">Survey Responses to Date</font>
+            </td>
+            <td valign="top">
+                <font class="normalfont"><%=researcherResultsFinancial.getSms().getResponsesToDate()%></font>
+            </td>
+        </tr>
 
-        <td valign="top">
-            <h:outputText value="Spent on Responses to Date" styleClass="formfieldnamefont"></h:outputText>
-        </td>
-        <td valign="top">
-            $<h:outputText value="<%=((ResearcherResultsFinancial)Pagez.getBeanMgr().get("ResearcherResultsFinancial")).getSms().getSpentOnResponsesToDateIncludingdNeeroFee()%>"><f:converter converterId="DisplayAsMoneyConverter"/></h:outputText>
-        </td>
-        <td valign="top">
-        </td>
+        <tr>
+            <td valign="top">
+                <font class="formfieldnamefont">Spent on Responses to Date</font>
+            </td>
+            <td valign="top">
+                <font class="normalfont">$<%=Str.formatForMoney(researcherResultsFinancial.getSms().getSpentOnResponsesToDateIncludingdNeeroFee())%></font>
+            </td>
+        </tr>
 
-        <td valign="top">
-            <h:outputText value="Blog Impressions to Date" styleClass="formfieldnamefont"></h:outputText>
-        </td>
-        <td valign="top">
-            <h:outputText value="<%=((ResearcherResultsFinancial)Pagez.getBeanMgr().get("ResearcherResultsFinancial")).getSms().getImpressionsToDate()%>"></h:outputText>
-        </td>
-        <td valign="top">
-        </td>
+        <tr>
+            <td valign="top">
+                <font class="formfieldnamefont">Blog Impressions to Date</font>
+            </td>
+            <td valign="top">
+                <font class="normalfont"><%=researcherResultsFinancial.getSms().getImpressionsToDate()%></font>
+            </td>
+        </tr>
 
-        <td valign="top">
-            <h:outputText value="Spent on Impressions to Date" styleClass="formfieldnamefont"></h:outputText>
-        </td>
-        <td valign="top">
-            $<h:outputText value="<%=((ResearcherResultsFinancial)Pagez.getBeanMgr().get("ResearcherResultsFinancial")).getSms().getSpentOnImpressionsToDateIncludingdNeeroFee()%>"><f:converter converterId="DisplayAsMoneyConverter"/></h:outputText>
-        </td>
-        <td valign="top">
-        </td>
+        <tr>
+            <td valign="top">
+                <font class="formfieldnamefont">Spent on Impressions to Date</font>
+            </td>
+            <td valign="top">
+                <font class="normalfont">$<%=Str.formatForMoney(researcherResultsFinancial.getSms().getSpentOnImpressionsToDateIncludingdNeeroFee())%></font>
+            </td>
+        </tr>
 
-        <td valign="top">
-            <h:outputText value="Total Spent to Date" styleClass="formfieldnamefont"></h:outputText>
-        </td>
-        <td valign="top">
-            $<h:outputText value="<%=((ResearcherResultsFinancial)Pagez.getBeanMgr().get("ResearcherResultsFinancial")).getSms().getSpentToDateIncludingdNeeroFee()%>"><f:converter converterId="DisplayAsMoneyConverter"/></h:outputText>
-        </td>
-        <td valign="top">
-        </td>
+        <tr>
+            <td valign="top">
+                <font class="formfieldnamefont">Total Spent to Date</font>
+            </td>
+            <td valign="top">
+                <font class="normalfont">$<%=Str.formatForMoney(researcherResultsFinancial.getSms().getSpentToDateIncludingdNeeroFee())%></font>
+            </td>
+        </tr>
 
-        <td valign="top">
-            <h:outputText value="Max Possible Spend" styleClass="formfieldnamefont"></h:outputText>
-        </td>
-        <td valign="top">
-            $<h:outputText value="<%=((ResearcherResultsFinancial)Pagez.getBeanMgr().get("ResearcherResultsFinancial")).getSms().getMaxPossibleSpend()%>"><f:converter converterId="DisplayAsMoneyConverter"/></h:outputText>
-        </td>
-        <td valign="top">
-        </td>
+        <tr>
+            <td valign="top">
+                <font class="formfieldnamefont">Max Possible Spend</font>
+            </td>
+            <td valign="top">
+                <font class="normalfont">$<%=Str.formatForMoney(researcherResultsFinancial.getSms().getMaxPossibleSpend())%></font>
+            </td>
+        </tr>
 
-        <td valign="top">
-            <h:outputText value="Remaining Possible Spend" styleClass="formfieldnamefont"></h:outputText>
-        </td>
-        <td valign="top">
-            $<h:outputText value="<%=((ResearcherResultsFinancial)Pagez.getBeanMgr().get("ResearcherResultsFinancial")).getSms().getRemainingPossibleSpend()%>"><f:converter converterId="DisplayAsMoneyConverter"/></h:outputText>
-        </td>
-        <td valign="top">
-        </td>
+
+        <tr>
+            <td valign="top">
+                <font class="formfieldnamefont">Remaining Possible Spend</font>
+            </td>
+            <td valign="top">
+                <font class="normalfont">$<%=Str.formatForMoney(researcherResultsFinancial.getSms().getRemainingPossibleSpend())%></font>
+            </td>
+        </tr>
+
+
     </table>
 
     

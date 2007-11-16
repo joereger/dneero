@@ -1,5 +1,6 @@
 <%@ page import="org.apache.log4j.Logger" %>
 <%@ page import="com.dneero.htmlui.Pagez" %>
+<%@ page import="com.dneero.htmluibeans.ResearcherResultsAnswersDetails" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "Survey Results";
@@ -7,6 +8,9 @@ String navtab = "researchers";
 String acl = "researcher";
 %>
 <%@ include file="/jsp/templates/auth.jsp" %>
+<%
+ResearcherResultsAnswersDetails researcherResultsAnswersDetails = (ResearcherResultsAnswersDetails)Pagez.getBeanMgr().get("ResearcherResultsAnswersDetails");
+%>
 <%@ include file="/jsp/templates/header.jsp" %>
 
 
@@ -23,10 +27,10 @@ String acl = "researcher";
     </div>
     <br/><br/>
 
-<font class="mediumfont" style="color: #cccccc;">Question: <%=((ResearcherResultsAnswersDetails)Pagez.getBeanMgr().get("ResearcherResultsAnswersDetails")).getQuestion().getQuestion()%></font>
+<font class="mediumfont" style="color: #cccccc;">Question: <%=researcherResultsAnswersDetails.getQuestion().getQuestion()%></font>
 <br/><br/>
 
-<f:verbatim><%=((ResearcherResultsAnswersDetails)Pagez.getBeanMgr().get("ResearcherResultsAnswersDetails")).getResults()%></f:verbatim>
+<%=researcherResultsAnswersDetails.getResults()%>
 
     
 

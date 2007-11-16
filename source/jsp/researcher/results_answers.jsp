@@ -1,5 +1,7 @@
 <%@ page import="org.apache.log4j.Logger" %>
 <%@ page import="com.dneero.htmlui.Pagez" %>
+<%@ page import="com.dneero.htmluibeans.ResearcherResultsAnswers" %>
+<%@ page import="com.dneero.htmluibeans.ResearcherResultsAnswersCsv" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "Survey Results";
@@ -7,6 +9,9 @@ String navtab = "researchers";
 String acl = "researcher";
 %>
 <%@ include file="/jsp/templates/auth.jsp" %>
+<%
+ResearcherResultsAnswers researcherResultsAnswers = (ResearcherResultsAnswers) Pagez.getBeanMgr().get("ResearcherResultsAnswers");
+%>
 <%@ include file="/jsp/templates/header.jsp" %>
 
 
@@ -23,10 +28,11 @@ String acl = "researcher";
     </div>
     <br/><br/>
 
-    <f:verbatim><%=((ResearcherResultsAnswers)Pagez.getBeanMgr().get("ResearcherResultsAnswers")).getResults()%></f:verbatim>
-
-    <h:commandButton action="<%=((ResearcherResultsAnswersCsv)Pagez.getBeanMgr().get("ResearcherResultsAnswersCsv")).getGetCsv()%>" value="Download as CSV" styleClass="formsubmitbutton"></h:commandButton>
-
+    <%=researcherResultsAnswers.getResults()%>
+    
+    <br/><br/>
+    <%//@todo download results as csv page%>
+    <!--<a href="results_csv.jsp">Download Results as CSV</a>-->
     
 
 
