@@ -76,20 +76,24 @@ String acl="researcher";
                 <f:facet name="header">
                   <h:outputText value="-" style="color: #ffffff;"/>
                 </f:facet>
-                <h:commandLink action="<%=((ResearcherSurveyDetail02)Pagez.getBeanMgr().get("ResearcherSurveyDetail02")).getBeginEdit()%>" rendered="#{researcherSurveyDetail02.status eq 1}">
-                    <h:outputText value="Edit" escape="false" />
-                    <f:param name="questionid" value="<%=((Question)Pagez.getBeanMgr().get("Question")).getQuestionid()%>" />
-                    <f:param name="componenttype" value="<%=((Question)Pagez.getBeanMgr().get("Question")).getComponenttype()%>" />
-                </h:commandLink>
+                <%if (researcherSurveyDetail02.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {%>
+                    <h:commandLink action="<%=((ResearcherSurveyDetail02)Pagez.getBeanMgr().get("ResearcherSurveyDetail02")).getBeginEdit()%>" rendered="#{researcherSurveyDetail02.status eq 1}">
+                        <h:outputText value="Edit" escape="false" />
+                        <f:param name="questionid" value="<%=((Question)Pagez.getBeanMgr().get("Question")).getQuestionid()%>" />
+                        <f:param name="componenttype" value="<%=((Question)Pagez.getBeanMgr().get("Question")).getComponenttype()%>" />
+                    </h:commandLink>
+                <%}%>
               </h:column>
               <h:column>
                 <f:facet name="header">
                   <h:outputText value="-" style="color: #ffffff;"/>
                 </f:facet>
-                <h:commandLink action="<%=((ResearcherSurveyDetail02)Pagez.getBeanMgr().get("ResearcherSurveyDetail02")).getDeleteQuestion()%>" rendered="#{researcherSurveyDetail02.status eq 1}">
-                    <h:outputText value="Del" escape="false" />
-                    <f:param name="questionid" value="<%=((Question)Pagez.getBeanMgr().get("Question")).getQuestionid()%>" />
-                </h:commandLink>
+                <%if (researcherSurveyDetail02.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {%>
+                    <h:commandLink action="<%=((ResearcherSurveyDetail02)Pagez.getBeanMgr().get("ResearcherSurveyDetail02")).getDeleteQuestion()%>" rendered="#{researcherSurveyDetail02.status eq 1}">
+                        <h:outputText value="Del" escape="false" />
+                        <f:param name="questionid" value="<%=((Question)Pagez.getBeanMgr().get("Question")).getQuestionid()%>" />
+                    </h:commandLink>
+                <%}%>
               </h:column>
             </t:dataTable>
             <t:dataScroller id="scroll_1" for="datatable" fastStep="10" pageCountVar="pageCount" pageIndexVar="pageIndex" styleClass="scroller" paginator="true" paginatorMaxPages="9" paginatorTableClass="paginator" paginatorActiveColumnStyle="font-weight:bold;">
@@ -106,17 +110,19 @@ String acl="researcher";
                     <t:graphicImage url="/images/datascroller/play.png" border="0" />
                 </f:facet>
             </t:dataScroller>
-            <br/>
-            <h:outputText value="Add a Question of Type:" styleClass="mediumfont" style="color: #cccccc;" rendered="#{researcherSurveyDetail02.status eq 1}"/>
-            <br/>
-            <h:outputText value="See tab at upper right for Question Type Samples" styleClass="smallfont" style="color: #000000;" rendered="#{researcherSurveyDetail02.status eq 1}"/>
-            <br/>
-            <h:selectOneRadio value="<%=((ResearcherSurveyDetail02)Pagez.getBeanMgr().get("ResearcherSurveyDetail02")).getNewquestioncomponenttype()%>" layout="pageDirection" id="newquestioncomponenttype" styleClass="normalfont" required="true" rendered="#{researcherSurveyDetail02.status eq 1}">
-                <f:selectItems value="<%=((ComponentTypes)Pagez.getBeanMgr().get("ComponentTypes")).getTypesaslinkedhashmap()%>"/>
-            </h:selectOneRadio>
-            <h:commandButton action="<%=((ResearcherSurveyDetail02)Pagez.getBeanMgr().get("ResearcherSurveyDetail02")).getAddQuestion()%>" value="Add Question" styleClass="formsubmitbutton" rendered="#{researcherSurveyDetail02.status eq 1}">
-                <f:param name="isnewquestion" value="1" />
-            </h:commandButton>
+            <%if (researcherSurveyDetail02.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {%>
+                <br/>
+                <h:outputText value="Add a Question of Type:" styleClass="mediumfont" style="color: #cccccc;" rendered="#{researcherSurveyDetail02.status eq 1}"/>
+                <br/>
+                <h:outputText value="See tab at upper right for Question Type Samples" styleClass="smallfont" style="color: #000000;" rendered="#{researcherSurveyDetail02.status eq 1}"/>
+                <br/>
+                <h:selectOneRadio value="<%=((ResearcherSurveyDetail02)Pagez.getBeanMgr().get("ResearcherSurveyDetail02")).getNewquestioncomponenttype()%>" layout="pageDirection" id="newquestioncomponenttype" styleClass="normalfont" required="true" rendered="#{researcherSurveyDetail02.status eq 1}">
+                    <f:selectItems value="<%=((ComponentTypes)Pagez.getBeanMgr().get("ComponentTypes")).getTypesaslinkedhashmap()%>"/>
+                </h:selectOneRadio>
+                <h:commandButton action="<%=((ResearcherSurveyDetail02)Pagez.getBeanMgr().get("ResearcherSurveyDetail02")).getAddQuestion()%>" value="Add Question" styleClass="formsubmitbutton" rendered="#{researcherSurveyDetail02.status eq 1}">
+                    <f:param name="isnewquestion" value="1" />
+                </h:commandButton>
+            <%}%>
         </t:panelTab>
         <t:panelTab id="panel_b" label="Preview your Survey">                                                                     
             <h:graphicImage url="/images/clear.gif" width="700" height="1"/><br/>

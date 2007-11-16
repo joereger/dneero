@@ -1,6 +1,7 @@
 <%@ page import="org.apache.log4j.Logger" %>
 <%@ page import="com.dneero.htmlui.Pagez" %>
 <%@ page import="com.dneero.htmluibeans.ResearcherSurveyDetail03" %>
+<%@ page import="com.dneero.dao.Survey" %>
 <%
 Logger logger=Logger.getLogger(this.getClass().getName());
 String pagetitle="<img src=\"/images/process-train-survey-03.gif\" align=\"right\" width=\"350\" height=\"73\" alt=\"\"/>\n" +
@@ -35,7 +36,7 @@ String pagetitle="<img src=\"/images/process-train-survey-03.gif\" align=\"right
                             <font class="formfieldnamefont">Flash Embed:</font>
                         </td>
                         <td valign="top" align="left">
-                            <f:verbatim><%=((ResearcherSurveyDetail03)Pagez.getBeanMgr().get("ResearcherSurveyDetail03")).getEmbedflashsyntax()%></f:verbatim>
+                            <%=((ResearcherSurveyDetail03)Pagez.getBeanMgr().get("ResearcherSurveyDetail03")).getEmbedflashsyntax()%>
                         </td>
                     </tr>
                     <tr>
@@ -43,7 +44,7 @@ String pagetitle="<img src=\"/images/process-train-survey-03.gif\" align=\"right
                             <font class="formfieldnamefont">Javascript Embed:</font>
                         </td>
                         <td valign="top" align="left" style="border-top: solid 2px #cccccc;">
-                            <f:verbatim><%=((ResearcherSurveyDetail03)Pagez.getBeanMgr().get("ResearcherSurveyDetail03")).getEmbedjavascriptsyntax()%></f:verbatim>
+                            <%=((ResearcherSurveyDetail03)Pagez.getBeanMgr().get("ResearcherSurveyDetail03")).getEmbedjavascriptsyntax()%>
                         </td>
                     </tr>
                     <tr>
@@ -51,7 +52,7 @@ String pagetitle="<img src=\"/images/process-train-survey-03.gif\" align=\"right
                             <font class="formfieldnamefont">Image Embed:</font>
                         </td>
                         <td valign="top" align="left" style="border-top: solid 2px #cccccc;">
-                            <f:verbatim><%=((ResearcherSurveyDetail03)Pagez.getBeanMgr().get("ResearcherSurveyDetail03")).getEmbedimagesyntax()%></f:verbatim>
+                            <%=((ResearcherSurveyDetail03)Pagez.getBeanMgr().get("ResearcherSurveyDetail03")).getEmbedimagesyntax()%>
                         </td>
                     </tr>
                     <tr>
@@ -59,7 +60,7 @@ String pagetitle="<img src=\"/images/process-train-survey-03.gif\" align=\"right
                             <font class="formfieldnamefont">Link Embed:</font>
                         </td>
                         <td valign="top" align="left" style="border-top: solid 2px #cccccc;">
-                            <f:verbatim><%=((ResearcherSurveyDetail03)Pagez.getBeanMgr().get("ResearcherSurveyDetail03")).getEmbedlinksyntax()%></f:verbatim>
+                            <%=((ResearcherSurveyDetail03)Pagez.getBeanMgr().get("ResearcherSurveyDetail03")).getEmbedlinksyntax()%>
                         </td>
                     </tr>
                 </table>
@@ -82,41 +83,43 @@ String pagetitle="<img src=\"/images/process-train-survey-03.gif\" align=\"right
             <table cellpadding="0" cellspacing="5" border="0">
                 <tr>
                     <td valign="top" width="75%">
-                        <h:commandButton action="<%=((ResearcherSurveyDetail03)Pagez.getBeanMgr().get("ResearcherSurveyDetail03")).getResetFormatting()%>" value="Reset" rendered="#{researcherSurveyDetail03.status eq 1}" styleClass="formsubmitbutton"></h:commandButton>
-                        <br/>
-                        <h:inputTextarea value="<%=((ResearcherSurveyDetail03)Pagez.getBeanMgr().get("ResearcherSurveyDetail03")).getTemplate()%>" cols="55" rows="15"></h:inputTextarea>
-                        <f:verbatim rendered="#{researcherSurveyDetail02.status eq 1}"><br/><br/></f:verbatim>
-                        <table cellpadding="0" cellspacing="5" border="0">
-                            <tr>
-                                <td valign="top" nowrap="true">
-                                    <h:selectBooleanCheckbox title="embedjavascript" value="<%=((ResearcherSurveyDetail03)Pagez.getBeanMgr().get("ResearcherSurveyDetail03")).getEmbedjavascript()%>" rendered="#{researcherSurveyDetail03.status eq 1}"/>
-                                    <font class="formfieldnamefont">Allow Javascript Embed?</font>
-                                </td>
-                                <td valign="top">
-                                    <font class="smallfont">This is the most robust embedding option, least likely to cause issues with browsers/users.</font>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td valign="top" nowrap="true">
-                                    <h:selectBooleanCheckbox title="embedflash" value="<%=((ResearcherSurveyDetail03)Pagez.getBeanMgr().get("ResearcherSurveyDetail03")).getEmbedflash()%>" rendered="#{researcherSurveyDetail03.status eq 1}"/>
-                                    <font class="formfieldnamefont">Allow Flash Embed?</font>
-                                </td>
-                                <td valign="top">
-                                    <font class="smallfont">Flash embedding is powerful because it opens up MySpace and some other hard-to-embed environments but this reach comes at a cost:  you're unable to embed video/images in your survey or do advanced html formatting.</font>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td valign="top" nowrap="true">
-                                    <h:selectBooleanCheckbox title="embedlink" value="<%=((ResearcherSurveyDetail03)Pagez.getBeanMgr().get("ResearcherSurveyDetail03")).getEmbedlink()%>" rendered="#{researcherSurveyDetail03.status eq 1}"/>
-                                    <font class="formfieldnamefont">Allow Link Embed?</font>
-                                </td>
-                                <td valign="top">
-                                    <font class="smallfont">The simplest form of embedding that works anywhere on the web.  Only a single image link appears on the blogger's site.  That link goes to a page that displays the survey.</font>
-                                </td>
-                            </tr>
-                        </table>
-                        <h:commandButton action="<%=((ResearcherSurveyDetail03)Pagez.getBeanMgr().get("ResearcherSurveyDetail03")).getResetFormatting()%>" value="Reset" rendered="#{researcherSurveyDetail03.status eq 1}" styleClass="formsubmitbutton"></h:commandButton>
-                        <h:commandButton action="<%=((ResearcherSurveyDetail03)Pagez.getBeanMgr().get("ResearcherSurveyDetail03")).getSaveSurvey()%>" value="Save Advanced Formatting" rendered="#{researcherSurveyDetail03.status eq 1}" styleClass="formsubmitbutton"></h:commandButton>
+                        <%if (researcherSurveyDetail03.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {%>
+                            <h:commandButton action="<%=((ResearcherSurveyDetail03)Pagez.getBeanMgr().get("ResearcherSurveyDetail03")).getResetFormatting()%>" value="Reset" rendered="#{researcherSurveyDetail03.status eq 1}" styleClass="formsubmitbutton"></h:commandButton>
+                            <br/>
+                            <h:inputTextarea value="<%=((ResearcherSurveyDetail03)Pagez.getBeanMgr().get("ResearcherSurveyDetail03")).getTemplate()%>" cols="55" rows="15"></h:inputTextarea>
+                            <br/><br/>
+                            <table cellpadding="0" cellspacing="5" border="0">
+                                <tr>
+                                    <td valign="top" nowrap="true">
+                                        <h:selectBooleanCheckbox title="embedjavascript" value="<%=((ResearcherSurveyDetail03)Pagez.getBeanMgr().get("ResearcherSurveyDetail03")).getEmbedjavascript()%>" rendered="#{researcherSurveyDetail03.status eq 1}"/>
+                                        <font class="formfieldnamefont">Allow Javascript Embed?</font>
+                                    </td>
+                                    <td valign="top">
+                                        <font class="smallfont">This is the most robust embedding option, least likely to cause issues with browsers/users.</font>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td valign="top" nowrap="true">
+                                        <h:selectBooleanCheckbox title="embedflash" value="<%=((ResearcherSurveyDetail03)Pagez.getBeanMgr().get("ResearcherSurveyDetail03")).getEmbedflash()%>" rendered="#{researcherSurveyDetail03.status eq 1}"/>
+                                        <font class="formfieldnamefont">Allow Flash Embed?</font>
+                                    </td>
+                                    <td valign="top">
+                                        <font class="smallfont">Flash embedding is powerful because it opens up MySpace and some other hard-to-embed environments but this reach comes at a cost:  you're unable to embed video/images in your survey or do advanced html formatting.</font>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td valign="top" nowrap="true">
+                                        <h:selectBooleanCheckbox title="embedlink" value="<%=((ResearcherSurveyDetail03)Pagez.getBeanMgr().get("ResearcherSurveyDetail03")).getEmbedlink()%>" rendered="#{researcherSurveyDetail03.status eq 1}"/>
+                                        <font class="formfieldnamefont">Allow Link Embed?</font>
+                                    </td>
+                                    <td valign="top">
+                                        <font class="smallfont">The simplest form of embedding that works anywhere on the web.  Only a single image link appears on the blogger's site.  That link goes to a page that displays the survey.</font>
+                                    </td>
+                                </tr>
+                            </table>
+                            <h:commandButton action="<%=((ResearcherSurveyDetail03)Pagez.getBeanMgr().get("ResearcherSurveyDetail03")).getResetFormatting()%>" value="Reset" rendered="#{researcherSurveyDetail03.status eq 1}" styleClass="formsubmitbutton"></h:commandButton>
+                            <h:commandButton action="<%=((ResearcherSurveyDetail03)Pagez.getBeanMgr().get("ResearcherSurveyDetail03")).getSaveSurvey()%>" value="Save Advanced Formatting" rendered="#{researcherSurveyDetail03.status eq 1}" styleClass="formsubmitbutton"></h:commandButton>
+                        <%}%>
                     </td>
                     <td valign="top">
                         <!-- Begin Question Key -->

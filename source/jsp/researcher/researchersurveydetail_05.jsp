@@ -47,10 +47,13 @@ String acl="researcher";
             <font class="smallfont">Amount to pay to a person who fulfills the targeting criteria and successfully fills out the survey.  Paying more will attract more people.  The minimum is $.10.  A good starting point is $2.50.</font>
         </td>
         <td valign="top">
-            <h:inputText value="<%=((ResearcherSurveyDetail05)Pagez.getBeanMgr().get("ResearcherSurveyDetail05")).getWillingtopayperrespondent()%>" id="willingtopayperrespondent" required="true" rendered="#{researcherSurveyDetail05.status eq 1}">
-                <f:validateDoubleRange minimum=".10" maximum="10000"></f:validateDoubleRange>
-            </h:inputText>
-            <h:outputText value="<%=((ResearcherSurveyDetail05)Pagez.getBeanMgr().get("ResearcherSurveyDetail05")).getWillingtopayperrespondent()%>" rendered="#{researcherSurveyDetail05.status ne 1}"></h:outputText>
+            <%if (researcherSurveyDetail05.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {%>
+                <h:inputText value="<%=((ResearcherSurveyDetail05)Pagez.getBeanMgr().get("ResearcherSurveyDetail05")).getWillingtopayperrespondent()%>" id="willingtopayperrespondent" required="true" rendered="#{researcherSurveyDetail05.status eq 1}">
+                    <f:validateDoubleRange minimum=".10" maximum="10000"></f:validateDoubleRange>
+                </h:inputText>
+            <%} else {%>
+                <h:outputText value="<%=((ResearcherSurveyDetail05)Pagez.getBeanMgr().get("ResearcherSurveyDetail05")).getWillingtopayperrespondent()%>" rendered="#{researcherSurveyDetail05.status ne 1}"></h:outputText>
+            <%}%>
         </td>
         <td valign="top">
             <h:message for="willingtopayperrespondent" styleClass="RED"></h:message>
@@ -63,10 +66,13 @@ String acl="researcher";
             <font class="smallfont">The number of people that you would like to have fill out the survey and post to their blogs.  Once this number is reached no more people can take the survey.  The minimum is 100.</font>
         </td>
         <td valign="top">
-            <h:inputText value="<%=((ResearcherSurveyDetail05)Pagez.getBeanMgr().get("ResearcherSurveyDetail05")).getNumberofrespondentsrequested()%>" id="numberofrespondentsrequested" required="true" rendered="#{researcherSurveyDetail05.status eq 1}">
-                <f:validateDoubleRange minimum="25" maximum="10000000"></f:validateDoubleRange>
-            </h:inputText>
-            <h:outputText value="<%=((ResearcherSurveyDetail05)Pagez.getBeanMgr().get("ResearcherSurveyDetail05")).getNumberofrespondentsrequested()%>" rendered="#{researcherSurveyDetail05.status ne 1}"></h:outputText>
+            <%if (researcherSurveyDetail05.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {%>
+                <h:inputText value="<%=((ResearcherSurveyDetail05)Pagez.getBeanMgr().get("ResearcherSurveyDetail05")).getNumberofrespondentsrequested()%>" id="numberofrespondentsrequested" required="true" rendered="#{researcherSurveyDetail05.status eq 1}">
+                    <f:validateDoubleRange minimum="25" maximum="10000000"></f:validateDoubleRange>
+                </h:inputText>
+            <%} else {%>
+                <h:outputText value="<%=((ResearcherSurveyDetail05)Pagez.getBeanMgr().get("ResearcherSurveyDetail05")).getNumberofrespondentsrequested()%>" rendered="#{researcherSurveyDetail05.status ne 1}"></h:outputText>
+            <%}%>
         </td>
         <td valign="top">
             <h:message for="numberofrespondentsrequested" styleClass="RED"></h:message>
@@ -89,10 +95,13 @@ String acl="researcher";
             <font class="smallfont">Once surveys are taken they are posted to a person's blog.  With this value you determine what you're willing to pay for 1000 displays (CPM) of your survey.  This value must be at least $0.25 to cover bandwidth costs and can go as high as $1000 ($1000 would be equivalent to $1 per display).  The more you pay the more you attract bloggers who will display your survey prominently on their blog.</font>
         </td>
         <td valign="top">
-            <h:inputText value="<%=((ResearcherSurveyDetail05)Pagez.getBeanMgr().get("ResearcherSurveyDetail05")).getWillingtopaypercpm()%>" id="willingtopaypercpm" required="true" rendered="#{researcherSurveyDetail05.status eq 1}">
-                <f:validateDoubleRange minimum=".25" maximum="1000"></f:validateDoubleRange>
-            </h:inputText>
-            <h:outputText value="<%=((ResearcherSurveyDetail05)Pagez.getBeanMgr().get("ResearcherSurveyDetail05")).getWillingtopaypercpm()%>" rendered="#{researcherSurveyDetail05.status ne 1}"></h:outputText>
+            <%if (researcherSurveyDetail05.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {%>
+                <h:inputText value="<%=((ResearcherSurveyDetail05)Pagez.getBeanMgr().get("ResearcherSurveyDetail05")).getWillingtopaypercpm()%>" id="willingtopaypercpm" required="true" rendered="#{researcherSurveyDetail05.status eq 1}">
+                    <f:validateDoubleRange minimum=".25" maximum="1000"></f:validateDoubleRange>
+                </h:inputText>
+            <%} else {%>
+                <h:outputText value="<%=((ResearcherSurveyDetail05)Pagez.getBeanMgr().get("ResearcherSurveyDetail05")).getWillingtopaypercpm()%>" rendered="#{researcherSurveyDetail05.status ne 1}"></h:outputText>
+            <%}%>
         </td>
         <td valign="top">
             <h:message for="willingtopaypercpm" styleClass="RED"></h:message>
@@ -105,10 +114,13 @@ String acl="researcher";
             <font class="smallfont">You may want to cap the maximum number of displays that a blogger can get paid for.  Your survey will continue to be displayed if the blog is visited over this number of times but you won't be charged for it.  It is tempting to set this number low, but be cautious... bloggers will quickly realize that they don't stand to make money by displaying your survey... so they won't.  The minimum value is 1000.</font>
         </td>
         <td valign="top">
-            <h:inputText value="<%=((ResearcherSurveyDetail05)Pagez.getBeanMgr().get("ResearcherSurveyDetail05")).getMaxdisplaysperblog()%>" id="maxdisplaysperblog" required="true" rendered="#{researcherSurveyDetail05.status eq 1}">
-                <f:validateDoubleRange minimum="1000" maximum="10000000"></f:validateDoubleRange>
-            </h:inputText>
-            <h:outputText value="<%=((ResearcherSurveyDetail05)Pagez.getBeanMgr().get("ResearcherSurveyDetail05")).getMaxdisplaysperblog()%>" rendered="#{researcherSurveyDetail05.status ne 1}"></h:outputText>
+            <%if (researcherSurveyDetail05.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {%>
+                <h:inputText value="<%=((ResearcherSurveyDetail05)Pagez.getBeanMgr().get("ResearcherSurveyDetail05")).getMaxdisplaysperblog()%>" id="maxdisplaysperblog" required="true" rendered="#{researcherSurveyDetail05.status eq 1}">
+                    <f:validateDoubleRange minimum="1000" maximum="10000000"></f:validateDoubleRange>
+                </h:inputText>
+            <%} else {%>
+                <h:outputText value="<%=((ResearcherSurveyDetail05)Pagez.getBeanMgr().get("ResearcherSurveyDetail05")).getMaxdisplaysperblog()%>" rendered="#{researcherSurveyDetail05.status ne 1}"></h:outputText>
+            <%}%>
         </td>
         <td valign="top">
             <h:message for="maxdisplaysperblog" styleClass="RED"></h:message>
@@ -120,10 +132,13 @@ String acl="researcher";
             <font class="smallfont">This is a safety check that allows you to cap the total number of displays that you're willing to pay for.  Note that this value is not simply the number of respondents requested multiplied by the max surveys per blog... many bloggers have multiple blogs and can get paid on each one separately.  The minimum value is 25% of Number of Respondents Requested multiplied by Max Survey Displays Per Blog.</font>
         </td>
         <td valign="top">
-            <h:inputText value="<%=((ResearcherSurveyDetail05)Pagez.getBeanMgr().get("ResearcherSurveyDetail05")).getMaxdisplaystotal()%>" id="maxdisplaystotal" required="true" rendered="#{researcherSurveyDetail05.status eq 1}">
-                <f:validateDoubleRange minimum="1" maximum="10000000"></f:validateDoubleRange>
-            </h:inputText>
-            <h:outputText value="<%=((ResearcherSurveyDetail05)Pagez.getBeanMgr().get("ResearcherSurveyDetail05")).getMaxdisplaystotal()%>" rendered="#{researcherSurveyDetail05.status ne 1}"></h:outputText>
+            <%if (researcherSurveyDetail05.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {%>
+                <h:inputText value="<%=((ResearcherSurveyDetail05)Pagez.getBeanMgr().get("ResearcherSurveyDetail05")).getMaxdisplaystotal()%>" id="maxdisplaystotal" required="true" rendered="#{researcherSurveyDetail05.status eq 1}">
+                    <f:validateDoubleRange minimum="1" maximum="10000000"></f:validateDoubleRange>
+                </h:inputText>
+            <%} else {%>
+                <h:outputText value="<%=((ResearcherSurveyDetail05)Pagez.getBeanMgr().get("ResearcherSurveyDetail05")).getMaxdisplaystotal()%>" rendered="#{researcherSurveyDetail05.status ne 1}"></h:outputText>
+            <%}%>
         </td>
         <td valign="top">
             <h:message for="maxdisplaystotal" styleClass="RED"></h:message>
@@ -144,8 +159,11 @@ String acl="researcher";
             <font class="smallfont">By checking this box only those bloggers willing let dNeero give all of their earnings from this survey to charity will be able to take the survey.  The blogger will be able to choose from a list of charities.</font>
         </td>
         <td valign="top">
-            <h:selectBooleanCheckbox title="ischarityonly" id="ischarityonly" value="<%=((ResearcherSurveyDetail05)Pagez.getBeanMgr().get("ResearcherSurveyDetail05")).getIscharityonly()%>" rendered="#{researcherSurveyDetail05.status eq 1}"/>
-            <h:outputText value="<%=((ResearcherSurveyDetail05)Pagez.getBeanMgr().get("ResearcherSurveyDetail05")).getIscharityonly()%>" rendered="#{researcherSurveyDetail05.status ne 1}"></h:outputText>
+            <%if (researcherSurveyDetail05.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {%>
+                <h:selectBooleanCheckbox title="ischarityonly" id="ischarityonly" value="<%=((ResearcherSurveyDetail05)Pagez.getBeanMgr().get("ResearcherSurveyDetail05")).getIscharityonly()%>" rendered="#{researcherSurveyDetail05.status eq 1}"/>
+            <%} else {%>
+                <h:outputText value="<%=((ResearcherSurveyDetail05)Pagez.getBeanMgr().get("ResearcherSurveyDetail05")).getIscharityonly()%>" rendered="#{researcherSurveyDetail05.status ne 1}"></h:outputText>
+            <%}%>
             <font class="formfieldnamefont">Yes, Only Charitable Bloggers</font>
         </td>
         <td valign="top">
@@ -167,8 +185,11 @@ String acl="researcher";
             <font class="smallfont">By checking this box you're hiding overall aggregate results on the survey's main page results tab.  Still available will be the aggregate results for individual blogs.  This is a balance between the blogger's widget value and value for you, the researcher. There are times when you don't want your competition to be able to simply grab the benefit of your research investment.  We advocate openness (these are social surveys, afterall) and charge an additional 5% fee to hide results.  This is calculated as 5% of the maximum possible survey fee and is a one-time non-refundable fee.</font>
         </td>
         <td valign="top">
-            <h:selectBooleanCheckbox title="isresultshidden" id="isresultshidden" value="<%=((ResearcherSurveyDetail05)Pagez.getBeanMgr().get("ResearcherSurveyDetail05")).getIsresultshidden()%>" rendered="#{researcherSurveyDetail05.status eq 1}"/>
-            <h:outputText value="<%=((ResearcherSurveyDetail05)Pagez.getBeanMgr().get("ResearcherSurveyDetail05")).getIsresultshidden()%>" rendered="#{researcherSurveyDetail05.status ne 1}"></h:outputText>
+            <%if (researcherSurveyDetail05.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {%>
+                <h:selectBooleanCheckbox title="isresultshidden" id="isresultshidden" value="<%=((ResearcherSurveyDetail05)Pagez.getBeanMgr().get("ResearcherSurveyDetail05")).getIsresultshidden()%>" rendered="#{researcherSurveyDetail05.status eq 1}"/>
+            <%} else {%>
+                <h:outputText value="<%=((ResearcherSurveyDetail05)Pagez.getBeanMgr().get("ResearcherSurveyDetail05")).getIsresultshidden()%>" rendered="#{researcherSurveyDetail05.status ne 1}"></h:outputText>
+            <%}%>
             <font class="formfieldnamefont">Yes, Hide Aggregate Results for an Additional 5% Fee</font>
         </td>
         <td valign="top">

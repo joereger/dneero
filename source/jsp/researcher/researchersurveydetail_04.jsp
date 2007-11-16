@@ -1,6 +1,7 @@
 <%@ page import="org.apache.log4j.Logger" %>
 <%@ page import="com.dneero.htmlui.Pagez" %>
 <%@ page import="com.dneero.htmluibeans.ResearcherSurveyDetail04" %>
+<%@ page import="com.dneero.dao.Survey" %>
 <%
 Logger logger=Logger.getLogger(this.getClass().getName());
 String pagetitle="<img src=\"/images/process-train-survey-04.gif\" align=\"right\" width=\"350\" height=\"73\" alt=\"\"/>\n" +
@@ -20,8 +21,7 @@ String acl="researcher";
     <br/><br/><br/>
     </font></div></center>
 
-    <f:verbatim><br/></f:verbatim>
-    <f:verbatim><br/></f:verbatim>
+    <br/><br/>
 
     <h:messages/>
 
@@ -32,7 +32,7 @@ String acl="researcher";
         <h:outputText value="<%=((ResearcherSurveyDetail04)Pagez.getBeanMgr().get("ResearcherSurveyDetail04")).getPanelsStr()%>" rendered="#{researcherSurveyDetail04.status ne 1}" escape="false"></h:outputText>
     </t:div>
 
-    <t:div rendered="#{researcherSurveyDetail04.status eq 1}">
+    <%if (researcherSurveyDetail04.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {%>
         <table cellpadding="0" cellspacing="0" border="0">
 
             <td valign="top">
@@ -243,9 +243,9 @@ String acl="researcher";
 
 
         </table>
-    </t:div>
+    <%}%>
 
-    <f:verbatim><br/><br/></f:verbatim>
+    <br/><br/>
     <div class="surveyeditbuttonbox"><div class="surveyeditpreviousbutton"><h:commandButton action="<%=((ResearcherSurveyDetail04)Pagez.getBeanMgr().get("ResearcherSurveyDetail04")).getPreviousStep()%>" value="Previous Step" styleClass="formsubmitbutton"/></div><div class="surveyeditnextbutton"><h:commandButton action="<%=((ResearcherSurveyDetail04)Pagez.getBeanMgr().get("ResearcherSurveyDetail04")).getSaveSurveyAsDraft()%>" value="Save and Continue Later" styleClass="formsubmitbutton" rendered="#{researcherSurveyDetail04.status eq 1}"/><h:commandButton action="<%=((ResearcherSurveyDetail04)Pagez.getBeanMgr().get("ResearcherSurveyDetail04")).getSaveSurvey()%>" value="Next Step" styleClass="formsubmitbutton"/></div></div>
 
 

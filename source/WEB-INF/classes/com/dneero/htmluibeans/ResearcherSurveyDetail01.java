@@ -8,6 +8,7 @@ import com.dneero.util.Time;
 import com.dneero.util.Num;
 import com.dneero.htmlui.UserSession;
 import com.dneero.htmlui.Pagez;
+import com.dneero.htmlui.ValidationException;
 import com.dneero.xmpp.SendXMPPMessage;
 import com.dneero.helpers.UserInputSafe;
 import org.apache.log4j.Logger;
@@ -79,7 +80,7 @@ public class ResearcherSurveyDetail01 implements Serializable {
         return "";
     }
 
-    public String saveSurvey(){
+    public String saveSurvey() throws ValidationException {
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("saveSurvey() called.");
         logger.debug("status="+status);
