@@ -1,18 +1,35 @@
 <%@ page import="org.apache.log4j.Logger" %>
-<%@ page import="com.dneero.htmlui.Pagez" %>
+<%@ page import="com.dneero.htmluibeans.ResearcherSurveyDetail02range" %>
+<%@ page import="com.dneero.htmlui.*" %>
 <%
-Logger logger = Logger.getLogger(this.getClass().getName());
-String pagetitle = "<img src=\"/images/process-train-survey-02.gif\" align=\"right\" width=\"350\" height=\"73\" alt=\"\"></img>\n" +
-"        <h:outputText value=\"<%=((ResearcherSurveyDetail02)Pagez.getBeanMgr().get("ResearcherSurveyDetail02")).getTitle()%>\" styleClass=\"pagetitlefont\" rendered=\"${researcherSurveyDetail02.title ne ''}\"/>\n" +
-"        <br clear=\"all\"/>";
-String navtab = "researchers";
-String acl = "researcher";
+Logger logger=Logger.getLogger(this.getClass().getName());
+String pagetitle="<img src=\"/images/process-train-survey-02.gif\" align=\"right\" width=\"350\" height=\"73\" alt=\"\"/>\n" +
+        "        <font class=\"pagetitlefont\">" + ((ResearcherSurveyDetail02range) Pagez.getBeanMgr().get("ResearcherSurveyDetail02range")).getTitle() + "</font>\n" +
+        "        <br clear=\"all\"/>";
+String navtab="researchers";
+String acl="researcher";
 %>
 <%@ include file="/jsp/templates/auth.jsp" %>
+<%
+ResearcherSurveyDetail02range researcherSurveyDetail02range = (ResearcherSurveyDetail02range)Pagez.getBeanMgr().get("ResearcherSurveyDetail02range");
+%>
+<%
+    if (request.getParameter("action") != null && request.getParameter("action").equals("save")) {
+        try {
+            researcherSurveyDetail02range.setQuestion(Textbox.getValueFromRequest("question", "Question", true, DatatypeString.DATATYPEID));
+            researcherSurveyDetail02range.setIsrequired(CheckboxBoolean.getValueFromRequest("isrequired"));
+            researcherSurveyDetail02range.setMintitle(Textbox.getValueFromRequest("mintitle", "Min Title", true, DatatypeString.DATATYPEID));
+            researcherSurveyDetail02range.setMin(Textbox.getValueFromRequest("min", "Min", true, DatatypeString.DATATYPEID));
+            researcherSurveyDetail02range.setStep(Textbox.getValueFromRequest("step", "Step", true, DatatypeString.DATATYPEID));
+            researcherSurveyDetail02range.setMax(Textbox.getValueFromRequest("max", "Max", true, DatatypeString.DATATYPEID));
+            researcherSurveyDetail02range.setMaxtitle(Textbox.getValueFromRequest("maxtitle", "Max Title", true, DatatypeString.DATATYPEID));
+            researcherSurveyDetail02range.saveQuestion();
+        } catch (ValidationException vex) {
+            Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
+        }
+    }
+%>
 <%@ include file="/jsp/templates/header.jsp" %>
-
-    <h:inputHidden name="surveyid" value="<%=((UserSession)Pagez.getBeanMgr().get("UserSession")).getCurrentSurveyid()%>" />
-    <h:inputHidden name="questionid" value="<%=((ResearcherSurveyDetail02range)Pagez.getBeanMgr().get("ResearcherSurveyDetail02range")).getQuestionid()%>" />
 
     <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
     <img src="/images/lightbulb_on.png" alt="" align="right"/>
@@ -22,129 +39,105 @@ String acl = "researcher";
     <center><img src="../images/questiontypes/range.gif" border="0"></img></center>
     </font></div></center>
 
-    <f:verbatim><br/></f:verbatim>
-    <f:verbatim><br/></f:verbatim>
+    <br/><br/>
 
 
 
     <!-- Start Bottom -->
+    <form action="researchersurveydetail_02_checkboxes.jsp" method="post">
+        <input type="hidden" name="action" value="save">
+        <input type="hidden" name="surveyid" value="<%=Pagez.getUserSession().getCurrentSurveyid()%>"/>
+        <input type="hidden" name="questionid" value="<%=researcherSurveyDetail02range.getQuestionid()%>"/>
 
-    <table cellpadding="0" cellspacing="0" border="0">
-
-        <td valign="top">
-            <h:outputText value="Question Type"></h:outputText>
-        </td>
-        <td valign="top">
-            <h:outputText value="Range"></h:outputText>
-        </td>
-        <td valign="top">
-        </td>
-
-        
-
-
-        <td valign="top">
-            <h:outputText value="Question" styleClass="formfieldnamefont"></h:outputText>
-        </td>
-        <td valign="top">
-            <h:inputText value="<%=((ResearcherSurveyDetail02range)Pagez.getBeanMgr().get("ResearcherSurveyDetail02range")).getQuestion()%>" id="question" required="true">
-                <f:validateLength minimum="3" maximum="254"></f:validateLength>
-            </h:inputText>
-        </td>
-        <td valign="top">
-            <h:message for="question" styleClass="RED"></h:message>
-        </td>
+        <table cellpadding="0" cellspacing="0" border="0">
+            <tr>
+                <td valign="top">
+                    <font class="formfieldnamefont">Question Type</font>
+                </td>
+                <td valign="top">
+                    <font class="normalfont">Range</font>
+                </td>
+            </tr>
 
 
-        <td valign="top">
-            <h:outputText value="Is Required?" styleClass="formfieldnamefont"></h:outputText>
-        </td>
-        <td valign="top">
-            <h:selectBooleanCheckbox value="<%=((ResearcherSurveyDetail02range)Pagez.getBeanMgr().get("ResearcherSurveyDetail02range")).getIsrequired()%>" id="isrequired" required="true"></h:selectBooleanCheckbox>
-        </td>
-        <td valign="top">
-            <h:message for="isrequired" styleClass="RED"></h:message>
-        </td>
 
-    </table>
+            <tr>
+                <td valign="top">
+                    <h:outputText value="Question" styleClass="formfieldnamefont"></h:outputText>
+                </td>
+                <td valign="top">
+                    <h:inputText value="<%=researcherSurveyDetail02range.getQuestion()%>" id="question" required="true">
+                        <f:validateLength minimum="3" maximum="254"></f:validateLength>
+                    </h:inputText>
+                </td>
+            </tr>
 
+            <tr>
+                <td valign="top">
+                    <h:outputText value="Is Required?" styleClass="formfieldnamefont"></h:outputText>
+                </td>
+                <td valign="top">
+                    <%=CheckboxBoolean.getHtml("isrequired", researcherSurveyDetail02range.getIsrequired(), "", "")%>
+                </td>
+            </tr>
 
-    <table cellpadding="0" cellspacing="0" border="0">
-
-        <td valign="top">
-            <h:outputText value="Min Title" styleClass="formfieldnamefont"></h:outputText>
-        </td>
-        <td valign="top">
-            <h:outputText value="Min" styleClass="formfieldnamefont"></h:outputText>
-        </td>
-        <td valign="top">
-            <h:outputText value="Step" styleClass="formfieldnamefont"></h:outputText>
-        </td>
-        <td valign="top">
-            <h:outputText value="Max" styleClass="formfieldnamefont"></h:outputText>
-        </td>
-        <td valign="top">
-            <h:outputText value="Max Title" styleClass="formfieldnamefont"></h:outputText>
-        </td>
-
-        <td valign="top">
-            <h:inputText value="<%=((ResearcherSurveyDetail02range)Pagez.getBeanMgr().get("ResearcherSurveyDetail02range")).getMintitle()%>" id="mintitle" required="false" size="7" maxlength="20">
-                <f:validateLength maximum="20"></f:validateLength>
-            </h:inputText>
-        </td>
-        <td valign="top">
-            <h:inputText value="<%=((ResearcherSurveyDetail02range)Pagez.getBeanMgr().get("ResearcherSurveyDetail02range")).getMin()%>" id="min" required="true" size="3" maxlength="7">
-                <f:validateDoubleRange minimum=".0001" maximum="1200000"></f:validateDoubleRange>
-            </h:inputText>
-        </td>
-        <td valign="top">
-            <h:inputText value="<%=((ResearcherSurveyDetail02range)Pagez.getBeanMgr().get("ResearcherSurveyDetail02range")).getStep()%>" id="step" required="true" size="3" maxlength="7">
-                <f:validateDoubleRange minimum=".0001" maximum="1200000"></f:validateDoubleRange>
-            </h:inputText>
-        </td>
-        <td valign="top">
-            <h:inputText value="<%=((ResearcherSurveyDetail02range)Pagez.getBeanMgr().get("ResearcherSurveyDetail02range")).getMax()%>" id="max" required="true" size="3" maxlength="7">
-                <f:validateDoubleRange minimum=".0001" maximum="1200000"></f:validateDoubleRange>
-            </h:inputText>
-        </td>
-        <td valign="top">
-            <h:inputText value="<%=((ResearcherSurveyDetail02range)Pagez.getBeanMgr().get("ResearcherSurveyDetail02range")).getMaxtitle()%>" id="maxtitle" required="true" size="7" maxlength="20">
-                <f:validateLength maximum="20"></f:validateLength>
-            </h:inputText>
-        </td>
-
-        <td valign="top">
-            <h:message for="mintitle" styleClass="RED"></h:message>
-        </td>
-        <td valign="top">
-            <h:message for="min" styleClass="RED"></h:message>
-        </td>
-        <td valign="top">
-            <h:message for="step" styleClass="RED"></h:message>
-        </td>
-        <td valign="top">
-            <h:message for="max" styleClass="RED"></h:message>
-        </td>
-        <td valign="top">
-            <h:message for="maxtitle" styleClass="RED"></h:message>
-        </td>
-
-    </table>
+        </table>
 
 
-    <table cellpadding="0" cellspacing="0" border="0">
+        <table cellpadding="0" cellspacing="0" border="0">
+            <tr>
+                <td valign="top">
+                    <h:outputText value="Min Title" styleClass="formfieldnamefont"></h:outputText>
+                </td>
+                <td valign="top">
+                    <h:outputText value="Min" styleClass="formfieldnamefont"></h:outputText>
+                </td>
+                <td valign="top">
+                    <h:outputText value="Step" styleClass="formfieldnamefont"></h:outputText>
+                </td>
+                <td valign="top">
+                    <h:outputText value="Max" styleClass="formfieldnamefont"></h:outputText>
+                </td>
+                <td valign="top">
+                    <h:outputText value="Max Title" styleClass="formfieldnamefont"></h:outputText>
+                </td>
+            </tr>
 
-        <td valign="top">
-        </td>
-        <td valign="top">
-            <h:commandButton action="<%=((ResearcherSurveyDetail02range)Pagez.getBeanMgr().get("ResearcherSurveyDetail02range")).getSaveQuestion()%>" value="Save Question and Continue" styleClass="formsubmitbutton"></h:commandButton>
-            <br/><br/><h:commandLink value="Nevermind, Take me Back" styleClass="tinyfont" action="<%=((ResearcherSurveyDetail02)Pagez.getBeanMgr().get("ResearcherSurveyDetail02")).getBeginView()%>" immediate="true"/>
-        </td>
-        <td valign="top">
-        </td>
+            <tr>
+                <td valign="top">
+                    <%=Textbox.getHtml("mintitle", researcherSurveyDetail02range.getMintitle(), 20, 7, "", "")%>
+                </td>
+                <td valign="top">
+                    <%=Textbox.getHtml("min", String.valueOf(researcherSurveyDetail02range.getMin()), 7, 3, "", "")%>
+                </td>
+                <td valign="top">
+                    <%=Textbox.getHtml("step", String.valueOf(researcherSurveyDetail02range.getStep()), 7, 3, "", "")%>
+                </td>
+                <td valign="top">
+                    <%=Textbox.getHtml("max", String.valueOf(researcherSurveyDetail02range.getMax()), 7, 3, "", "")%>
+                </td>
+                <td valign="top">
+                    <%=Textbox.getHtml("maxtitle", researcherSurveyDetail02range.getMaxtitle(), 20, 7, "", "")%>
+                </td>
+            </tr>
 
-    </table>
 
+        </table>
+
+
+        <table cellpadding="0" cellspacing="0" border="0">
+
+            <tr>
+                <td valign="top">
+                </td>
+                <td valign="top">
+                    <input type="submit" value="Save Question and Continue">
+                    <br/><br/><a href="researchersurveydetail_02.jsp?surveyid=<%=researcherSurveyDetail02range.getSurvey().getSurveyid()%>"><font class="tinyfont">Nevermind, Take me Back</font></a>
+                </td>
+            </tr>
+
+        </table>
+    </form>
     <!-- End Bottom -->
 
 

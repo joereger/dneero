@@ -12,6 +12,7 @@ import com.dneero.dao.*;
 import com.dneero.util.Str;
 
 import com.dneero.util.GeneralException;
+import com.dneero.util.Num;
 import com.dneero.htmlui.UserSession;
 import com.dneero.htmlui.Pagez;
 
@@ -32,6 +33,7 @@ public class ResearcherSurveyDetail05 implements Serializable {
     private int status;
     private boolean ischarityonly = false;
     private boolean isresultshidden = false;
+    private Survey survey;
 
     public ResearcherSurveyDetail05(){
 
@@ -43,8 +45,7 @@ public class ResearcherSurveyDetail05 implements Serializable {
     public void initBean(){
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("loadSurvey called");
-        Survey survey = Survey.get(Pagez.getUserSession().getCurrentSurveyid());
-        if (com.dneero.util.Num.isinteger(Pagez.getRequest().getParameter("surveyid"))){
+        if (Num.isinteger(Pagez.getRequest().getParameter("surveyid"))){
             Pagez.getUserSession().setCurrentSurveyid(Integer.parseInt(Pagez.getRequest().getParameter("surveyid")));
             survey = Survey.get((Integer.parseInt(Pagez.getRequest().getParameter("surveyid"))));
         }
@@ -91,12 +92,6 @@ public class ResearcherSurveyDetail05 implements Serializable {
         logger.debug("saveSurvey() called.");
         if (status<=Survey.STATUS_DRAFT){
             UserSession userSession = Pagez.getUserSession();
-
-            Survey survey = new Survey();
-            if (userSession.getCurrentSurveyid()>0){
-                logger.debug("saveSurvey() called: going to get Survey.get(surveyid)="+userSession.getCurrentSurveyid());
-                survey = Survey.get(userSession.getCurrentSurveyid());
-            }
 
 
             if (Pagez.getUserSession().getUser()!=null && survey.canEdit(Pagez.getUserSession().getUser())){
@@ -222,5 +217,13 @@ public class ResearcherSurveyDetail05 implements Serializable {
 
     public void setIsresultshidden(boolean isresultshidden) {
         this.isresultshidden = isresultshidden;
+    }
+
+    public Survey getSurvey() {
+        return survey;
+    }
+
+    public void setSurvey(Survey survey) {
+        this.survey=survey;
     }
 }

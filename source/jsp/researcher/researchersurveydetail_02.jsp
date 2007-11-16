@@ -1,12 +1,13 @@
 <%@ page import="org.apache.log4j.Logger" %>
 <%@ page import="com.dneero.htmlui.Pagez" %>
+<%@ page import="com.dneero.htmluibeans.ResearcherSurveyDetail02" %>
 <%
-Logger logger = Logger.getLogger(this.getClass().getName());
-String pagetitle = "<img src=\"/images/process-train-survey-02.gif\" align=\"right\" width=\"350\" height=\"73\" alt=\"\"></img>\n" +
-"        <h:outputText value=\"<%=((ResearcherSurveyDetail02)Pagez.getBeanMgr().get("ResearcherSurveyDetail02")).getTitle()%>\" styleClass=\"pagetitlefont\" rendered=\"${researcherSurveyDetail02.title ne ''}\"/>\n" +
-"        <br clear=\"all\"/>";
-String navtab = "researchers";
-String acl = "researcher";
+Logger logger=Logger.getLogger(this.getClass().getName());
+String pagetitle="<img src=\"/images/process-train-survey-02.gif\" align=\"right\" width=\"350\" height=\"73\" alt=\"\"/>\n" +
+        "        <font class=\"pagetitlefont\">" + ((ResearcherSurveyDetail02) Pagez.getBeanMgr().get("ResearcherSurveyDetail02")).getTitle() + "</font>\n" +
+        "        <br clear=\"all\"/>";
+String navtab="researchers";
+String acl="researcher";
 %>
 <%@ include file="/jsp/templates/auth.jsp" %>
 <%@ include file="/jsp/templates/header.jsp" %>
@@ -35,8 +36,6 @@ String acl = "researcher";
 
 <h:form>
 
-    <t:saveState id="save" value="#{researcherSurveyDetail02}"/>
-    <t:saveState id="save" value="#{researcherSurveyQuestionList}"/>
 
     <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
     <img src="/images/lightbulb_on.png" alt="" align="right"/>

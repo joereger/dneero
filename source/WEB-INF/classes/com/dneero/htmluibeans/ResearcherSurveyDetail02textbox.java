@@ -9,6 +9,7 @@ import java.io.Serializable;
 
 
 import com.dneero.util.GeneralException;
+import com.dneero.util.Num;
 import com.dneero.dao.Survey;
 import com.dneero.dao.Question;
 import com.dneero.htmlui.UserSession;
@@ -31,6 +32,7 @@ public class ResearcherSurveyDetail02textbox implements Serializable {
     private boolean isrequired=true;
     private int componenttype;
     private String title;
+    private Survey survey;
 
 
 
@@ -42,6 +44,10 @@ public class ResearcherSurveyDetail02textbox implements Serializable {
     public void initBean(){
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("Instanciating object");
+        if (Num.isinteger(Pagez.getRequest().getParameter("surveyid"))){
+            Pagez.getUserSession().setCurrentSurveyid(Integer.parseInt(Pagez.getRequest().getParameter("surveyid")));
+            survey = Survey.get((Integer.parseInt(Pagez.getRequest().getParameter("surveyid"))));
+        }
         String tmpQuestionid = Pagez.getRequest().getParameter("questionid");
         String tmpIsnewquestion = Pagez.getRequest().getParameter("isnewquestion");
         if (questionid==0 && com.dneero.util.Num.isinteger(tmpQuestionid) && (tmpIsnewquestion==null || !tmpIsnewquestion.equals("1"))){
@@ -79,11 +85,7 @@ public class ResearcherSurveyDetail02textbox implements Serializable {
 
         UserSession userSession = Pagez.getUserSession();
 
-        Survey survey = new Survey();
-        if (userSession.getCurrentSurveyid()>0){
-            logger.debug("saveSurvey() called: going to get Survey.get(surveyid)="+userSession.getCurrentSurveyid());
-            survey = Survey.get(userSession.getCurrentSurveyid());
-        }
+
         if (Pagez.getUserSession().getUser()!=null && survey.canEdit(Pagez.getUserSession().getUser())){
             Question question = new Question();
             if (questionid>0){
@@ -141,7 +143,7 @@ public class ResearcherSurveyDetail02textbox implements Serializable {
         this.question = question;
     }
 
-    public boolean isIsrequired() {
+    public boolean getIsrequired() {
         return isrequired;
     }
 
@@ -164,5 +166,13 @@ public class ResearcherSurveyDetail02textbox implements Serializable {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public Survey getSurvey() {
+        return survey;
+    }
+
+    public void setSurvey(Survey survey) {
+        this.survey=survey;
     }
 }

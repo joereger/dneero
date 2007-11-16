@@ -26,6 +26,7 @@ public class ResearcherSurveyDetailPostlaunch implements Serializable {
     private String initialcharge = "0";
     private String willingtopayperrespondent = "0";
     private String socialbookmarklinks = "";
+    private Survey survey;
 
 
 
@@ -40,8 +41,7 @@ public class ResearcherSurveyDetailPostlaunch implements Serializable {
     public void initBean(){
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("loadSurvey called");
-        Survey survey = Survey.get(Pagez.getUserSession().getCurrentSurveyid());
-        if (com.dneero.util.Num.isinteger(Pagez.getRequest().getParameter("surveyid"))){
+        if (Num.isinteger(Pagez.getRequest().getParameter("surveyid"))){
             Pagez.getUserSession().setCurrentSurveyid(Integer.parseInt(Pagez.getRequest().getParameter("surveyid")));
             survey = Survey.get((Integer.parseInt(Pagez.getRequest().getParameter("surveyid"))));
         }
@@ -133,5 +133,13 @@ public class ResearcherSurveyDetailPostlaunch implements Serializable {
 
     public void setSocialbookmarklinks(String socialbookmarklinks) {
         this.socialbookmarklinks = socialbookmarklinks;
+    }
+
+    public Survey getSurvey() {
+        return survey;
+    }
+
+    public void setSurvey(Survey survey) {
+        this.survey=survey;
     }
 }

@@ -26,6 +26,7 @@ import com.dneero.finders.SurveyCriteriaXML;
 public class ResearcherSurveyDetail04 implements Serializable {
 
     private String title;
+    private Survey survey;
 
     private String surveyCriteriaAsHtml;
 
@@ -61,8 +62,7 @@ public class ResearcherSurveyDetail04 implements Serializable {
     public void initBean(){
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("loadSurvey called");
-        Survey survey = Survey.get(Pagez.getUserSession().getCurrentSurveyid());
-        if (com.dneero.util.Num.isinteger(Pagez.getRequest().getParameter("surveyid"))){
+        if (Num.isinteger(Pagez.getRequest().getParameter("surveyid"))){
             Pagez.getUserSession().setCurrentSurveyid(Integer.parseInt(Pagez.getRequest().getParameter("surveyid")));
             survey = Survey.get((Integer.parseInt(Pagez.getRequest().getParameter("surveyid"))));
         }
@@ -129,12 +129,6 @@ public class ResearcherSurveyDetail04 implements Serializable {
         logger.debug("saveSurvey() called.");
         if (status<=Survey.STATUS_DRAFT){
             UserSession userSession = Pagez.getUserSession();
-
-            Survey survey = new Survey();
-            if (userSession.getCurrentSurveyid()>0){
-                logger.debug("saveSurvey() called: going to get Survey.get(surveyid)="+userSession.getCurrentSurveyid());
-                survey = Survey.get(userSession.getCurrentSurveyid());
-            }
 
             if (Pagez.getUserSession().getUser()!=null && survey.canEdit(Pagez.getUserSession().getUser())){
 
@@ -419,5 +413,13 @@ public class ResearcherSurveyDetail04 implements Serializable {
 
     public void setSurveyCriteriaAsHtml(String surveyCriteriaAsHtml) {
         this.surveyCriteriaAsHtml = surveyCriteriaAsHtml;
+    }
+
+    public Survey getSurvey() {
+        return survey;
+    }
+
+    public void setSurvey(Survey survey) {
+        this.survey=survey;
     }
 }

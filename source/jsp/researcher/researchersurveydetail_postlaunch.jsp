@@ -4,10 +4,10 @@
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "<img src=\"/images/process-train-survey-06.gif\" align=\"right\" width=\"350\" height=\"73\"/><br clear=\"all\"/>";
-if (((ResearcherSurveyDetailPostlaunch)Pagez.getBeanMgr().get("ResearcherSurveyDetailPostlaunch"))!=null && !((ResearcherSurveyDetailPostlaunch) Pagez.getBeanMgr().get("ResearcherSurveyDetailPostlaunch")).getTitle().equals("")){
-    pagetitle = "<img src=\"/images/process-train-survey-06.gif\" align=\"right\" width=\"350\" height=\"73\"/>\n" +
-    "        <font class=\"pagetitlefont\">"+((ResearcherSurveyDetailPostlaunch) Pagez.getBeanMgr().get("ResearcherSurveyDetailPostlaunch")).getTitle()+"</font>\n" +
-    "        <br clear=\"all\"/>";
+if (((ResearcherSurveyDetailPostlaunch)Pagez.getBeanMgr().get("ResearcherSurveyDetailPostlaunch"))!=null && !((ResearcherSurveyDetailPostlaunch)Pagez.getBeanMgr().get("ResearcherSurveyDetailPostlaunch")).getTitle().equals("")){
+    pagetitle = "<img src=\"/images/process-train-survey-02.gif\" align=\"right\" width=\"350\" height=\"73\" alt=\"\"/>\n" +
+"        <font class=\"pagetitlefont\">"+((ResearcherSurveyDetailPostlaunch) Pagez.getBeanMgr().get("ResearcherSurveyDetailPostlaunch")).getTitle()+"</font>\n" +
+"        <br clear=\"all\"/>";
 }
 
 String navtab = "researchers";

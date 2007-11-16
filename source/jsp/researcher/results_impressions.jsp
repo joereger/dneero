@@ -1,5 +1,9 @@
 <%@ page import="org.apache.log4j.Logger" %>
 <%@ page import="com.dneero.htmlui.Pagez" %>
+<%@ page import="com.dneero.htmluibeans.ResearcherResultsImpressions" %>
+<%@ page import="com.dneero.dbgrid.Grid" %>
+<%@ page import="com.dneero.dbgrid.GridCol" %>
+<%@ page import="java.util.ArrayList" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "Survey Results";
@@ -7,13 +11,16 @@ String navtab = "researchers";
 String acl = "researcher";
 %>
 <%@ include file="/jsp/templates/auth.jsp" %>
+<%
+    ResearcherResultsImpressions researcherResultsImpressions=(ResearcherResultsImpressions) Pagez.getBeanMgr().get("ResearcherResultsImpressions");
+%>
 <%@ include file="/jsp/templates/header.jsp" %>
 
 
 
 
     <div class="rounded" style="background: #e6e6e6; text-align: center; padding: 15px;">
-        <font class="largefont"><%=researcherResultsFinancial.getSurvey().getTitle()%></font>
+        <font class="largefont"><%=researcherResultsImpressions.getSurvey().getTitle()%></font>
         <br/>
         <a href="results.jsp" style="padding-left: 15px;"><font class="subnavfont">Results Main</font></a>
         <a href="results_answers.jsp"style="padding-left: 15px;"><font class="subnavfont">Response Report</font></a>
@@ -31,45 +38,21 @@ String acl = "researcher";
 
     <br/><br/>
 
-    <t:saveState id="save" value="#{researcherResultsImpressions}"/>
+    <%if (researcherResultsImpressions.getResearcherResultsImpressionsListitems()==null || researcherResultsImpressions.getResearcherResultsImpressionsListitems().size()==0){%>
+        <font class="normalfont">None... yet.</font>
+    <%} else {%>
+        <%
+            ArrayList<GridCol> cols=new ArrayList<GridCol>();
+            cols.add(new GridCol("Specific Page", "<$referertruncated$>", false, "", "tinyfont"));
+            cols.add(new GridCol("Impressions Qualifying", "<$impressionspaidandtobepaid$>", false, "", "tinyfont"));
+            cols.add(new GridCol("Quality Rating", "<$impressionquality$>", false, "", "tinyfont"));
+        %>
+        <%=Grid.render(researcherResultsImpressions.getResearcherResultsImpressionsListitems(), cols, 50, "results_impressions.jsp?surveyid="+researcherResultsImpressions.getSurvey().getSurveyid(), "page")%>
+    <%}%>
 
-    <t:dataTable id="datatable" value="<%=((ResearcherResultsImpressions)Pagez.getBeanMgr().get("ResearcherResultsImpressions")).getResearcherResultsImpressionsListitems()%>" rows="50" var="imp" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcol,tcolnowrap,tcol,tcolnowrap,tcolnowrap">
-      <h:column>
-        <f:facet name="header">
-          <h:outputText value="Specific Page"/>
-        </f:facet>
-        <h:outputLink target="referer" value="<%=((Imp)Pagez.getBeanMgr().get("Imp")).getReferer()%>">
-            <h:outputText value="<%=((Imp)Pagez.getBeanMgr().get("Imp")).getReferertruncated()%>" styleClass="tinyfont"/>
-        </h:outputLink>
-        <h:outputText value="None" rendered="#{empty imp.referer}"/>
-      </h:column>
-      <h:column>
-        <f:facet name="header">
-          <h:outputText value="Impressions Qualifying"/>
-        </f:facet>
-        <h:outputText value="<%=((Imp)Pagez.getBeanMgr().get("Imp")).getImpressionspaidandtobepaid()%>" styleClass="smallfont" style="color: #0000ff;"/>
-      </h:column>
-      <h:column>
-        <f:facet name="header">
-          <h:outputText value="Quality Rating"/>
-        </f:facet>
-        <h:outputText value="<%=((Imp)Pagez.getBeanMgr().get("Imp")).getImpressionquality()%>" styleClass="smallfont" style="color: #0000ff;"/>
-      </h:column>
-    </t:dataTable>
-    <t:dataScroller id="scroll_1" for="datatable" fastStep="10" pageCountVar="pageCount" pageIndexVar="pageIndex" styleClass="scroller" paginator="true" paginatorMaxPages="9" paginatorTableClass="paginator" paginatorActiveColumnStyle="font-weight:bold;">
-        <f:facet name="first" >
-            <t:graphicImage url="/images/datascroller/play-first.png" border="0" />
-        </f:facet>
-        <f:facet name="last">
-            <t:graphicImage url="/images/datascroller/play-forward.png" border="0" />
-        </f:facet>
-        <f:facet name="previous">
-            <t:graphicImage url="/images/datascroller/play-back.png" border="0" />
-        </f:facet>
-        <f:facet name="next">
-            <t:graphicImage url="/images/datascroller/play.png" border="0" />
-        </f:facet>
-    </t:dataScroller>
+
+
+
     
 
 

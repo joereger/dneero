@@ -5,6 +5,7 @@ import com.dneero.util.GeneralException;
 
 import com.dneero.util.Str;
 import com.dneero.util.Time;
+import com.dneero.util.Num;
 import com.dneero.htmlui.UserSession;
 import com.dneero.htmlui.Pagez;
 import com.dneero.xmpp.SendXMPPMessage;
@@ -28,6 +29,7 @@ public class ResearcherSurveyDetail01 implements Serializable {
     private Date startdate;
     private Date enddate;
     private int status;
+    private Survey survey;
 
 
     public ResearcherSurveyDetail01(){
@@ -35,8 +37,7 @@ public class ResearcherSurveyDetail01 implements Serializable {
 
     public void initBean(){
         Logger logger = Logger.getLogger(this.getClass().getName());
-        Survey survey = Survey.get(Pagez.getUserSession().getCurrentSurveyid());
-        if (com.dneero.util.Num.isinteger(Pagez.getRequest().getParameter("surveyid"))){
+        if (Num.isinteger(Pagez.getRequest().getParameter("surveyid"))){
             Pagez.getUserSession().setCurrentSurveyid(Integer.parseInt(Pagez.getRequest().getParameter("surveyid")));
             survey = Survey.get((Integer.parseInt(Pagez.getRequest().getParameter("surveyid"))));
         }
@@ -201,5 +202,13 @@ public class ResearcherSurveyDetail01 implements Serializable {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public Survey getSurvey() {
+        return survey;
+    }
+
+    public void setSurvey(Survey survey) {
+        this.survey=survey;
     }
 }

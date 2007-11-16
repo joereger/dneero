@@ -1,5 +1,9 @@
 <%@ page import="org.apache.log4j.Logger" %>
 <%@ page import="com.dneero.htmlui.Pagez" %>
+<%@ page import="com.dneero.htmluibeans.ResearcherResultsRespondents" %>
+<%@ page import="com.dneero.dbgrid.GridCol" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="com.dneero.dbgrid.Grid" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "Survey Results";
@@ -7,6 +11,9 @@ String navtab = "researchers";
 String acl = "researcher";
 %>
 <%@ include file="/jsp/templates/auth.jsp" %>
+<%
+    ResearcherResultsRespondents researcherResultsRespondents=(ResearcherResultsRespondents) Pagez.getBeanMgr().get("ResearcherResultsRespondents");
+%>
 <%@ include file="/jsp/templates/header.jsp" %>
 
 
@@ -23,65 +30,21 @@ String acl = "researcher";
     </div>
     <br/><br/>
 
-    <t:saveState id="save" value="#{researcherResultsRespondents}"/>
+    <%if (researcherResultsRespondents.getList()==null || researcherResultsRespondents.getList().size()==0){%>
+        <font class="normalfont">None... yet.</font>
+    <%} else {%>
+        <%
+            ArrayList<GridCol> cols=new ArrayList<GridCol>();
+            cols.add(new GridCol("Date", "<$responsedate|"+Grid.GRIDCOLRENDERER_DATETIMECOMPACT+"$>", false, "", "smallfont"));
+            cols.add(new GridCol("Name", "<$firstname$> <$lastname$>", false, "", "smallfont"));
+            cols.add(new GridCol("", "<a href=\"/jsp/profile.jsp?bloggerid=<$bloggerid$>\">Profile</a>", false, "", "smallfont"));
+            cols.add(new GridCol("", "<a href=\"/jsp/profileanswers.jsp?surveyid="+researcherResultsRespondents.getSurvey().getSurveyid()+"&bloggerid=<$bloggerid$>\">Answers</a>", false, "", "smallfont"));
+            cols.add(new GridCol("", "<a href=\"/jsp/profileimpressions.jsp?responseid=<$responseid$>\">Impressions</a>", false, "", "smallfont"));
+        %>
+        <%=Grid.render(researcherResultsRespondents.getList(), cols, 50, "results_respondents.jsp?surveyid=" + researcherResultsRespondents.getSurvey().getSurveyid(), "page")%>
+    <%}%>
 
-    <t:dataTable id="datatable" value="<%=((ResearcherResultsRespondents)Pagez.getBeanMgr().get("ResearcherResultsRespondents")).getList()%>" rows="50" var="listitem" rendered="#{!empty researcherResultsRespondents.list}" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcol,tcolnowrap,tcol,tcolnowrap,tcolnowrap">
-          <h:column>
-            <f:facet name="header">
-              <h:outputText value="Date"/>
-            </f:facet>
-            <h:outputText value="<%=((Listitem)Pagez.getBeanMgr().get("Listitem")).getResponsedate()%>" styleClass="smallfont"><f:convertDateTime type="both" dateStyle="short" timeStyle="medium"/></h:outputText>
-          </h:column>
-          <h:column>
-            <f:facet name="header">
-              <h:outputText value="Blogger Name"/>
-            </f:facet>
-            <h:outputText value="<%=((Listitem)Pagez.getBeanMgr().get("Listitem")).getFirstname()%> <%=((Listitem)Pagez.getBeanMgr().get("Listitem")).getLastname()%>" escape="false" styleClass="smallfont"/>
-          </h:column>
-          <h:column>
-            <f:facet name="header">
-              <h:outputText value="-" style="color: #ffffff;"/>
-            </f:facet>
-            <h:commandLink action="<%=((PublicProfile)Pagez.getBeanMgr().get("PublicProfile")).getBeginView()%>">
-                <h:outputText value="Blogger's Profile" escape="false" styleClass="smallfont"/>
-                <f:param name="bloggerid" value="<%=((Listitem)Pagez.getBeanMgr().get("Listitem")).getBloggerid()%>" />
-            </h:commandLink>
-          </h:column>
-          <h:column>
-            <f:facet name="header">
-              <h:outputText value="-" style="color: #ffffff;"/>
-            </f:facet>
-            <h:commandLink action="<%=((PublicProfileAnswers)Pagez.getBeanMgr().get("PublicProfileAnswers")).getBeginView()%>">
-                <h:outputText value="Blogger's Answers" escape="false" styleClass="smallfont"/>
-                <f:param name="bloggerid" value="<%=((Listitem)Pagez.getBeanMgr().get("Listitem")).getBloggerid()%>" />
-                <f:param name="surveyid" value="<%=((ResearcherResultsRespondents)Pagez.getBeanMgr().get("ResearcherResultsRespondents")).getSurvey().getSurveyid()%>" />
-            </h:commandLink>
-          </h:column>
-          <h:column>
-            <f:facet name="header">
-              <h:outputText value="-" style="color: #ffffff;"/>
-            </f:facet>
-            <h:commandLink action="<%=((PublicProfileImpressions)Pagez.getBeanMgr().get("PublicProfileImpressions")).getBeginView()%>">
-                <h:outputText value="Blogger's Impressions" escape="false" styleClass="smallfont"/>
-                <f:param name="responseid" value="<%=((Listitem)Pagez.getBeanMgr().get("Listitem")).getResponseid()%>" />
-            </h:commandLink>
-          </h:column>
 
-        </t:dataTable>
-        <t:dataScroller id="scroll_1" for="datatable" fastStep="10" pageCountVar="pageCount" pageIndexVar="pageIndex" styleClass="scroller" paginator="true" paginatorMaxPages="9" paginatorTableClass="paginator" paginatorActiveColumnStyle="font-weight:bold;">
-            <f:facet name="first" >
-                <t:graphicImage url="/images/datascroller/play-first.png" border="0" />
-            </f:facet>
-            <f:facet name="last">
-                <t:graphicImage url="/images/datascroller/play-forward.png" border="0" />
-            </f:facet>
-            <f:facet name="previous">
-                <t:graphicImage url="/images/datascroller/play-back.png" border="0" />
-            </f:facet>
-            <f:facet name="next">
-                <t:graphicImage url="/images/datascroller/play.png" border="0" />
-            </f:facet>
-        </t:dataScroller>
 
 
     

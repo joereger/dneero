@@ -3,6 +3,7 @@ package com.dneero.htmluibeans;
 import org.apache.log4j.Logger;
 
 import com.dneero.util.GeneralException;
+import com.dneero.util.Num;
 import com.dneero.dao.Survey;
 import com.dneero.dao.Question;
 import com.dneero.dao.Blogger;
@@ -27,6 +28,7 @@ public class ResearcherSurveyDetail02 implements Serializable {
     private String surveyForTakers;
     private int status;
     private String title;
+    private Survey survey;
 
 
     public ResearcherSurveyDetail02(){
@@ -37,8 +39,7 @@ public class ResearcherSurveyDetail02 implements Serializable {
     public void initBean(){
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("loadSurvey called");
-        Survey survey = Survey.get(Pagez.getUserSession().getCurrentSurveyid());
-        if (com.dneero.util.Num.isinteger(Pagez.getRequest().getParameter("surveyid"))){
+        if (Num.isinteger(Pagez.getRequest().getParameter("surveyid"))){
             Pagez.getUserSession().setCurrentSurveyid(Integer.parseInt(Pagez.getRequest().getParameter("surveyid")));
             survey = Survey.get((Integer.parseInt(Pagez.getRequest().getParameter("surveyid"))));
         }
@@ -276,5 +277,13 @@ public class ResearcherSurveyDetail02 implements Serializable {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public Survey getSurvey() {
+        return survey;
+    }
+
+    public void setSurvey(Survey survey) {
+        this.survey=survey;
     }
 }

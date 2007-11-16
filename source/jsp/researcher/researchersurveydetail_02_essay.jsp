@@ -1,18 +1,30 @@
 <%@ page import="org.apache.log4j.Logger" %>
-<%@ page import="com.dneero.htmlui.Pagez" %>
+<%@ page import="com.dneero.htmluibeans.ResearcherSurveyDetail02essay" %>
+<%@ page import="com.dneero.htmlui.*" %>
 <%
-Logger logger = Logger.getLogger(this.getClass().getName());
-String pagetitle = "<img src=\"/images/process-train-survey-02.gif\" align=\"right\" width=\"350\" height=\"73\" alt=\"\"></img>\n" +
-"        <h:outputText value=\"<%=((ResearcherSurveyDetail02)Pagez.getBeanMgr().get("ResearcherSurveyDetail02")).getTitle()%>\" styleClass=\"pagetitlefont\" rendered=\"${researcherSurveyDetail02.title ne ''}\"/>\n" +
-"        <br clear=\"all\"/>";
-String navtab = "researchers";
-String acl = "researcher";
+Logger logger=Logger.getLogger(this.getClass().getName());
+String pagetitle="<img src=\"/images/process-train-survey-02.gif\" align=\"right\" width=\"350\" height=\"73\" alt=\"\"/>\n" +
+        "        <font class=\"pagetitlefont\">" + ((ResearcherSurveyDetail02essay) Pagez.getBeanMgr().get("ResearcherSurveyDetail02essay")).getTitle() + "</font>\n" +
+        "        <br clear=\"all\"/>";
+String navtab="researchers";
+String acl="researcher";
 %>
 <%@ include file="/jsp/templates/auth.jsp" %>
+<%
+ResearcherSurveyDetail02essay researcherSurveyDetail02essay = (ResearcherSurveyDetail02essay)Pagez.getBeanMgr().get("ResearcherSurveyDetail02essay");
+%>
+<%
+    if (request.getParameter("action") != null && request.getParameter("action").equals("save")) {
+        try {
+            researcherSurveyDetail02essay.setQuestion(Textbox.getValueFromRequest("question", "Question", true, com.dneero.htmlui.DatatypeString.DATATYPEID));
+            researcherSurveyDetail02essay.setIsrequired(CheckboxBoolean.getValueFromRequest("isrequired"));
+            researcherSurveyDetail02essay.saveQuestion();
+        } catch (ValidationException vex) {
+            Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
+        }
+    }
+%>
 <%@ include file="/jsp/templates/header.jsp" %>
-
-    <h:inputHidden name="surveyid" value="<%=((UserSession)Pagez.getBeanMgr().get("UserSession")).getCurrentSurveyid()%>" />
-    <h:inputHidden name="questionid" value="<%=((ResearcherSurveyDetail02essay)Pagez.getBeanMgr().get("ResearcherSurveyDetail02essay")).getQuestionid()%>" />
 
     <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
     <img src="/images/lightbulb_on.png" alt="" align="right"/>
@@ -22,64 +34,62 @@ String acl = "researcher";
     <center><img src="../images/questiontypes/essay.gif" border="0"></img></center>
     </font></div></center>
 
-    <f:verbatim><br/></f:verbatim>
-    <f:verbatim><br/></f:verbatim>
+    <br/><br/>
 
 
 
     <!-- Start Bottom -->
+    <form action="researchersurveydetail_02_checkboxes.jsp" method="post">
+        <input type="hidden" name="action" value="save">
+        <input type="hidden" name="surveyid" value="<%=Pagez.getUserSession().getCurrentSurveyid()%>"/>
+        <input type="hidden" name="questionid" value="<%=researcherSurveyDetail02essay.getQuestionid()%>"/>
 
-    <table cellpadding="0" cellspacing="0" border="0">
+        <table cellpadding="0" cellspacing="0" border="0">
 
-        <td valign="top">
-            <h:outputText value="Question Type"></h:outputText>
-        </td>
-        <td valign="top">
-            <h:outputText value="Essay"></h:outputText>
-        </td>
-        <td valign="top">
-        </td>
-
-
-
-
-        <td valign="top">
-            <h:outputText value="Question" styleClass="formfieldnamefont"></h:outputText>
-        </td>
-        <td valign="top">
-            <h:inputText value="<%=((ResearcherSurveyDetail02essay)Pagez.getBeanMgr().get("ResearcherSurveyDetail02essay")).getQuestion()%>" id="question" required="true">
-                <f:validateLength minimum="3" maximum="254"></f:validateLength>
-            </h:inputText>
-        </td>
-        <td valign="top">
-            <h:message for="question" styleClass="RED"></h:message>
-        </td>
-
-
-        <td valign="top">
-            <h:outputText value="Is Required?" styleClass="formfieldnamefont"></h:outputText>
-        </td>
-        <td valign="top">
-            <h:selectBooleanCheckbox value="<%=((ResearcherSurveyDetail02essay)Pagez.getBeanMgr().get("ResearcherSurveyDetail02essay")).getIsrequired()%>" id="isrequired" required="true"></h:selectBooleanCheckbox>
-        </td>
-        <td valign="top">
-            <h:message for="isrequired" styleClass="RED"></h:message>
-        </td>
+            <tr>
+                <td valign="top">
+                    <font class="formfieldnamefont">Question Type</font>
+                </td>
+                <td valign="top">
+                    <font class="normalfont">Essay</font>
+                </td>
+            </tr>
 
 
 
+            <tr>
+                <td valign="top">
+                    <h:outputText value="Question" styleClass="formfieldnamefont"></h:outputText>
+                </td>
+                <td valign="top">
+                    <h:inputText value="<%=researcherSurveyDetail02essay.getQuestion()%>" id="question" required="true">
+                        <f:validateLength minimum="3" maximum="254"></f:validateLength>
+                    </h:inputText>
+                </td>
+            </tr>
 
-        <td valign="top">
-        </td>
-        <td valign="top">
-            <h:commandButton action="<%=((ResearcherSurveyDetail02essay)Pagez.getBeanMgr().get("ResearcherSurveyDetail02essay")).getSaveQuestion()%>" value="Save Question and Continue" styleClass="formsubmitbutton"></h:commandButton>
-            <br/><br/><h:commandLink value="Nevermind, Take me Back" styleClass="tinyfont" action="<%=((ResearcherSurveyDetail02)Pagez.getBeanMgr().get("ResearcherSurveyDetail02")).getBeginView()%>" immediate="true"/>
-        </td>
-        <td valign="top">
-        </td>
+            <tr>
+                <td valign="top">
+                    <h:outputText value="Is Required?" styleClass="formfieldnamefont"></h:outputText>
+                </td>
+                <td valign="top">
+                    <%=CheckboxBoolean.getHtml("isrequired", researcherSurveyDetail02essay.getIsrequired(), "", "")%>
+                </td>
+            </tr>
 
-    </table>
 
+
+            <tr>
+                <td valign="top">
+                </td>
+                <td valign="top">
+                    <input type="submit" value="Save Question and Continue">
+                    <br/><br/><a href="researchersurveydetail_02.jsp?surveyid=<%=researcherSurveyDetail02essay.getSurvey().getSurveyid()%>"><font class="tinyfont">Nevermind, Take me Back</font></a>
+                </td>
+            </tr>
+
+        </table>
+    </form>
     <!-- End Bottom -->
 
 

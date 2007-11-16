@@ -12,6 +12,7 @@ import com.dneero.htmlui.UserSession;
 import com.dneero.htmlui.Pagez;
 
 import com.dneero.util.GeneralException;
+import com.dneero.util.Num;
 import com.dneero.display.components.Range;
 import com.dneero.helpers.UserInputSafe;
 
@@ -31,6 +32,7 @@ public class ResearcherSurveyDetail02range implements Serializable {
     private String question;
     private boolean isrequired=true;
     private int componenttype;
+    private Survey survey;
 
     private String mintitle = "Low";
     private double min = 1;
@@ -49,6 +51,10 @@ public class ResearcherSurveyDetail02range implements Serializable {
     public void initBean(){
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("Instanciating object");
+        if (Num.isinteger(Pagez.getRequest().getParameter("surveyid"))){
+            Pagez.getUserSession().setCurrentSurveyid(Integer.parseInt(Pagez.getRequest().getParameter("surveyid")));
+            survey = Survey.get((Integer.parseInt(Pagez.getRequest().getParameter("surveyid"))));
+        }
         String tmpQuestionid = Pagez.getRequest().getParameter("questionid");
         String tmpIsnewquestion = Pagez.getRequest().getParameter("isnewquestion");
         if (questionid==0 && com.dneero.util.Num.isinteger(tmpQuestionid) && (tmpIsnewquestion==null || !tmpIsnewquestion.equals("1"))){
@@ -102,11 +108,7 @@ public class ResearcherSurveyDetail02range implements Serializable {
 
         UserSession userSession = Pagez.getUserSession();
 
-        Survey survey = new Survey();
-        if (userSession.getCurrentSurveyid()>0){
-            logger.debug("saveSurvey() called: going to get Survey.get(surveyid)="+userSession.getCurrentSurveyid());
-            survey = Survey.get(userSession.getCurrentSurveyid());
-        }
+
 
         if (Pagez.getUserSession().getUser()!=null && survey.canEdit(Pagez.getUserSession().getUser())){
             Question question = new Question();
@@ -212,7 +214,7 @@ public class ResearcherSurveyDetail02range implements Serializable {
         this.question = question;
     }
 
-    public boolean isIsrequired() {
+    public boolean getIsrequired() {
         return isrequired;
     }
 
@@ -244,6 +246,12 @@ public class ResearcherSurveyDetail02range implements Serializable {
         this.min = min;
     }
 
+    public void setMin(String min) {
+        if (Num.isdouble(min)){
+            this.min = Double.parseDouble(min);
+        }
+    }
+
     public double getStep() {
         return step;
     }
@@ -252,12 +260,24 @@ public class ResearcherSurveyDetail02range implements Serializable {
         this.step = step;
     }
 
+    public void setStep(String step) {
+        if (Num.isdouble(step)){
+            this.step = Double.parseDouble(step);
+        }
+    }
+
     public double getMax() {
         return max;
     }
 
     public void setMax(double max) {
         this.max = max;
+    }
+
+    public void setMax(String max) {
+        if (Num.isdouble(max)){
+            this.max = Double.parseDouble(max);
+        }
     }
 
     public String getMaxtitle() {
@@ -274,5 +294,13 @@ public class ResearcherSurveyDetail02range implements Serializable {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public Survey getSurvey() {
+        return survey;
+    }
+
+    public void setSurvey(Survey survey) {
+        this.survey=survey;
     }
 }

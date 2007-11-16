@@ -29,6 +29,7 @@ public class ResearcherSurveyDetail06 implements Serializable {
 
 
     private String title;
+    private Survey survey;
 
     private int status;
     private int numberofbloggersqualifiedforthissurvey = 0;
@@ -77,8 +78,7 @@ public class ResearcherSurveyDetail06 implements Serializable {
     public void initBean(){
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("loadSurvey called");
-        Survey survey = Survey.get(Pagez.getUserSession().getCurrentSurveyid());
-        if (com.dneero.util.Num.isinteger(Pagez.getRequest().getParameter("surveyid"))){
+        if (Num.isinteger(Pagez.getRequest().getParameter("surveyid"))){
             Pagez.getUserSession().setCurrentSurveyid(Integer.parseInt(Pagez.getRequest().getParameter("surveyid")));
             survey = Survey.get((Integer.parseInt(Pagez.getRequest().getParameter("surveyid"))));
         }
@@ -201,13 +201,6 @@ public class ResearcherSurveyDetail06 implements Serializable {
         logger.debug("saveSurvey() called.");
         if (status<=Survey.STATUS_DRAFT){
             UserSession userSession = Pagez.getUserSession();
-
-            Survey survey = new Survey();
-            if (userSession.getCurrentSurveyid()>0){
-                logger.debug("saveSurvey() called: going to get Survey.get(surveyid)="+userSession.getCurrentSurveyid());
-                survey = Survey.get(userSession.getCurrentSurveyid());
-            }
-
 
             if (Pagez.getUserSession().getUser()!=null && survey.canEdit(Pagez.getUserSession().getUser())){
                 Calendar startdate = Time.getCalFromDate(survey.getStartdate());
@@ -633,5 +626,13 @@ public class ResearcherSurveyDetail06 implements Serializable {
 
     public void setHideresultsfee(String hideresultsfee) {
         this.hideresultsfee = hideresultsfee;
+    }
+
+    public Survey getSurvey() {
+        return survey;
+    }
+
+    public void setSurvey(Survey survey) {
+        this.survey=survey;
     }
 }
