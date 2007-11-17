@@ -1,6 +1,7 @@
 <%@ page import="org.apache.log4j.Logger" %>
 <%@ page import="com.dneero.htmlui.Pagez" %>
 <%@ page import="com.dneero.htmluibeans.ResearcherSurveyDetail05" %>
+<%@ page import="com.dneero.dao.Survey" %>
 <%
 Logger logger=Logger.getLogger(this.getClass().getName());
 String pagetitle="<img src=\"/images/process-train-survey-05.gif\" align=\"right\" width=\"350\" height=\"73\" alt=\"\"/>\n" +
@@ -10,9 +11,15 @@ String navtab="researchers";
 String acl="researcher";
 %>
 <%@ include file="/jsp/templates/auth.jsp" %>
+<%
+ResearcherSurveyDetail05 researcherSurveyDetail05 = (ResearcherSurveyDetail05)Pagez.getBeanMgr().get("ResearcherSurveyDetail05");
+%>
 <%@ include file="/jsp/templates/header.jsp" %>
 
 
+<form action="researchersurveydetail_05.jsp" method="post" id="rsdform">
+        <input type="hidden" name="action" value="next">
+        <input type="hidden" name="surveyid" value="<%=researcherSurveyDetail05.getSurvey().getSurveyid()%>"/>
 
 
     <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
@@ -48,11 +55,11 @@ String acl="researcher";
         </td>
         <td valign="top">
             <%if (researcherSurveyDetail05.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {%>
-                <h:inputText value="<%=((ResearcherSurveyDetail05)Pagez.getBeanMgr().get("ResearcherSurveyDetail05")).getWillingtopayperrespondent()%>" id="willingtopayperrespondent" required="true" rendered="#{researcherSurveyDetail05.status eq 1}">
+                <h:inputText value="<%=researcherSurveyDetail05.getWillingtopayperrespondent()%>" id="willingtopayperrespondent" required="true" rendered="#{researcherSurveyDetail05.status eq 1}">
                     <f:validateDoubleRange minimum=".10" maximum="10000"></f:validateDoubleRange>
                 </h:inputText>
             <%} else {%>
-                <h:outputText value="<%=((ResearcherSurveyDetail05)Pagez.getBeanMgr().get("ResearcherSurveyDetail05")).getWillingtopayperrespondent()%>" rendered="#{researcherSurveyDetail05.status ne 1}"></h:outputText>
+                <h:outputText value="<%=researcherSurveyDetail05.getWillingtopayperrespondent()%>" rendered="#{researcherSurveyDetail05.status ne 1}"></h:outputText>
             <%}%>
         </td>
         <td valign="top">
@@ -67,11 +74,11 @@ String acl="researcher";
         </td>
         <td valign="top">
             <%if (researcherSurveyDetail05.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {%>
-                <h:inputText value="<%=((ResearcherSurveyDetail05)Pagez.getBeanMgr().get("ResearcherSurveyDetail05")).getNumberofrespondentsrequested()%>" id="numberofrespondentsrequested" required="true" rendered="#{researcherSurveyDetail05.status eq 1}">
+                <h:inputText value="<%=researcherSurveyDetail05.getNumberofrespondentsrequested()%>" id="numberofrespondentsrequested" required="true" rendered="#{researcherSurveyDetail05.status eq 1}">
                     <f:validateDoubleRange minimum="25" maximum="10000000"></f:validateDoubleRange>
                 </h:inputText>
             <%} else {%>
-                <h:outputText value="<%=((ResearcherSurveyDetail05)Pagez.getBeanMgr().get("ResearcherSurveyDetail05")).getNumberofrespondentsrequested()%>" rendered="#{researcherSurveyDetail05.status ne 1}"></h:outputText>
+                <h:outputText value="<%=researcherSurveyDetail05.getNumberofrespondentsrequested()%>" rendered="#{researcherSurveyDetail05.status ne 1}"></h:outputText>
             <%}%>
         </td>
         <td valign="top">
@@ -96,11 +103,11 @@ String acl="researcher";
         </td>
         <td valign="top">
             <%if (researcherSurveyDetail05.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {%>
-                <h:inputText value="<%=((ResearcherSurveyDetail05)Pagez.getBeanMgr().get("ResearcherSurveyDetail05")).getWillingtopaypercpm()%>" id="willingtopaypercpm" required="true" rendered="#{researcherSurveyDetail05.status eq 1}">
+                <h:inputText value="<%=researcherSurveyDetail05.getWillingtopaypercpm()%>" id="willingtopaypercpm" required="true" rendered="#{researcherSurveyDetail05.status eq 1}">
                     <f:validateDoubleRange minimum=".25" maximum="1000"></f:validateDoubleRange>
                 </h:inputText>
             <%} else {%>
-                <h:outputText value="<%=((ResearcherSurveyDetail05)Pagez.getBeanMgr().get("ResearcherSurveyDetail05")).getWillingtopaypercpm()%>" rendered="#{researcherSurveyDetail05.status ne 1}"></h:outputText>
+                <h:outputText value="<%=researcherSurveyDetail05.getWillingtopaypercpm()%>" rendered="#{researcherSurveyDetail05.status ne 1}"></h:outputText>
             <%}%>
         </td>
         <td valign="top">
@@ -115,11 +122,11 @@ String acl="researcher";
         </td>
         <td valign="top">
             <%if (researcherSurveyDetail05.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {%>
-                <h:inputText value="<%=((ResearcherSurveyDetail05)Pagez.getBeanMgr().get("ResearcherSurveyDetail05")).getMaxdisplaysperblog()%>" id="maxdisplaysperblog" required="true" rendered="#{researcherSurveyDetail05.status eq 1}">
+                <h:inputText value="<%=researcherSurveyDetail05.getMaxdisplaysperblog()%>" id="maxdisplaysperblog" required="true" rendered="#{researcherSurveyDetail05.status eq 1}">
                     <f:validateDoubleRange minimum="1000" maximum="10000000"></f:validateDoubleRange>
                 </h:inputText>
             <%} else {%>
-                <h:outputText value="<%=((ResearcherSurveyDetail05)Pagez.getBeanMgr().get("ResearcherSurveyDetail05")).getMaxdisplaysperblog()%>" rendered="#{researcherSurveyDetail05.status ne 1}"></h:outputText>
+                <h:outputText value="<%=researcherSurveyDetail05.getMaxdisplaysperblog()%>" rendered="#{researcherSurveyDetail05.status ne 1}"></h:outputText>
             <%}%>
         </td>
         <td valign="top">
@@ -133,11 +140,11 @@ String acl="researcher";
         </td>
         <td valign="top">
             <%if (researcherSurveyDetail05.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {%>
-                <h:inputText value="<%=((ResearcherSurveyDetail05)Pagez.getBeanMgr().get("ResearcherSurveyDetail05")).getMaxdisplaystotal()%>" id="maxdisplaystotal" required="true" rendered="#{researcherSurveyDetail05.status eq 1}">
+                <h:inputText value="<%=researcherSurveyDetail05.getMaxdisplaystotal()%>" id="maxdisplaystotal" required="true" rendered="#{researcherSurveyDetail05.status eq 1}">
                     <f:validateDoubleRange minimum="1" maximum="10000000"></f:validateDoubleRange>
                 </h:inputText>
             <%} else {%>
-                <h:outputText value="<%=((ResearcherSurveyDetail05)Pagez.getBeanMgr().get("ResearcherSurveyDetail05")).getMaxdisplaystotal()%>" rendered="#{researcherSurveyDetail05.status ne 1}"></h:outputText>
+                <h:outputText value="<%=researcherSurveyDetail05.getMaxdisplaystotal()%>" rendered="#{researcherSurveyDetail05.status ne 1}"></h:outputText>
             <%}%>
         </td>
         <td valign="top">
@@ -160,9 +167,9 @@ String acl="researcher";
         </td>
         <td valign="top">
             <%if (researcherSurveyDetail05.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {%>
-                <h:selectBooleanCheckbox title="ischarityonly" id="ischarityonly" value="<%=((ResearcherSurveyDetail05)Pagez.getBeanMgr().get("ResearcherSurveyDetail05")).getIscharityonly()%>" rendered="#{researcherSurveyDetail05.status eq 1}"/>
+                <h:selectBooleanCheckbox title="ischarityonly" id="ischarityonly" value="<%=researcherSurveyDetail05.getIscharityonly()%>" rendered="#{researcherSurveyDetail05.status eq 1}"/>
             <%} else {%>
-                <h:outputText value="<%=((ResearcherSurveyDetail05)Pagez.getBeanMgr().get("ResearcherSurveyDetail05")).getIscharityonly()%>" rendered="#{researcherSurveyDetail05.status ne 1}"></h:outputText>
+                <h:outputText value="<%=researcherSurveyDetail05.getIscharityonly()%>" rendered="#{researcherSurveyDetail05.status ne 1}"></h:outputText>
             <%}%>
             <font class="formfieldnamefont">Yes, Only Charitable Bloggers</font>
         </td>
@@ -186,9 +193,9 @@ String acl="researcher";
         </td>
         <td valign="top">
             <%if (researcherSurveyDetail05.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {%>
-                <h:selectBooleanCheckbox title="isresultshidden" id="isresultshidden" value="<%=((ResearcherSurveyDetail05)Pagez.getBeanMgr().get("ResearcherSurveyDetail05")).getIsresultshidden()%>" rendered="#{researcherSurveyDetail05.status eq 1}"/>
+                <h:selectBooleanCheckbox title="isresultshidden" id="isresultshidden" value="<%=researcherSurveyDetail05.getIsresultshidden()%>" rendered="#{researcherSurveyDetail05.status eq 1}"/>
             <%} else {%>
-                <h:outputText value="<%=((ResearcherSurveyDetail05)Pagez.getBeanMgr().get("ResearcherSurveyDetail05")).getIsresultshidden()%>" rendered="#{researcherSurveyDetail05.status ne 1}"></h:outputText>
+                <h:outputText value="<%=researcherSurveyDetail05.getIsresultshidden()%>" rendered="#{researcherSurveyDetail05.status ne 1}"></h:outputText>
             <%}%>
             <font class="formfieldnamefont">Yes, Hide Aggregate Results for an Additional 5% Fee</font>
         </td>
@@ -199,9 +206,22 @@ String acl="researcher";
 
     </table>
 
-    <f:verbatim><br/><br/></f:verbatim>
-    <div class="surveyeditbuttonbox"><div class="surveyeditpreviousbutton"><h:commandButton action="<%=((ResearcherSurveyDetail05)Pagez.getBeanMgr().get("ResearcherSurveyDetail05")).getPreviousStep()%>" value="Previous Step" styleClass="formsubmitbutton"/></div><div class="surveyeditnextbutton"><h:commandButton action="<%=((ResearcherSurveyDetail05)Pagez.getBeanMgr().get("ResearcherSurveyDetail05")).getSaveSurveyAsDraft()%>" value="Save and Continue Later" styleClass="formsubmitbutton" rendered="#{researcherSurveyDetail05.status eq 1}"/><h:commandButton action="<%=((ResearcherSurveyDetail05)Pagez.getBeanMgr().get("ResearcherSurveyDetail05")).getSaveSurvey()%>" value="Next Step" styleClass="formsubmitbutton"/></div></div>
-
-
+    <br/><br/>
+    <!-- Start Bottom Nav -->
+    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+        <tr>
+            <td valign="top" align="left">
+                <input type="submit" value="Previous Step" onclick="document.rsdform.action.value='previous'">
+            </td>
+            <td valign="top" align="right">
+                <%if (researcherSurveyDetail05.getSurvey().getStatus()==Survey.STATUS_DRAFT) {%>
+                    <input type="submit" value="Save and Continue Later" onclick="document.rsdform.action.value='saveasdraft'">
+                <%}%>
+                <input type="submit" value="Next Step">
+            </td>
+        </tr>
+    </table>
+    <!-- End Bottom Nav -->
+</form>
 
 <%@ include file="/jsp/templates/footer.jsp" %>

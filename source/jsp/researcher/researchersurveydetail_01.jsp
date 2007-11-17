@@ -16,13 +16,21 @@ String acl = "researcher";
 ResearcherSurveyDetail01 researcherSurveyDetail01 = (ResearcherSurveyDetail01)Pagez.getBeanMgr().get("ResearcherSurveyDetail01");
 %>
 <%
-    if (request.getParameter("action") != null && request.getParameter("action").equals("save")) {
+    if (request.getParameter("action") != null && (request.getParameter("action").equals("next") || request.getParameter("action").equals("save") || request.getParameter("action").equals("previous"))) {
         try {
             researcherSurveyDetail01.setTitle(Textbox.getValueFromRequest("title", "Title", true, DatatypeString.DATATYPEID));
             researcherSurveyDetail01.setDescription(Textarea.getValueFromRequest("description", "Description", true));
             researcherSurveyDetail01.setStartdate(DateTime.getValueFromRequest("startdate", "Start Date", true).getTime());
             researcherSurveyDetail01.setEnddate(DateTime.getValueFromRequest("enddate", "End Date", true).getTime());
-            researcherSurveyDetail01.saveSurvey();
+            if (request.getParameter("action").equals("next")){
+                researcherSurveyDetail01.saveSurvey();
+            } else if (request.getParameter("action").equals("saveasdraft")) {
+                logger.debug("Saveasdraft was clicked");
+                //researcherSurveyDetail01.getSaveSurveyAsDraft();
+            } else if (request.getParameter("action").equals("previous")) {
+                logger.debug("Previous was clicked");
+                //researcherSurveyDetail01.getPreviousStep();
+            }
         } catch (ValidationException vex) {
             Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
         }
@@ -31,9 +39,9 @@ ResearcherSurveyDetail01 researcherSurveyDetail01 = (ResearcherSurveyDetail01)Pa
 <%@ include file="/jsp/templates/header.jsp" %>
 
 
-    <form action="researchersurveydetail_02_checkboxes.jsp" method="post">
-        <input type="hidden" name="action" value="save">
-        <input type="hidden" name="surveyid" value="<%=researcherSurveyDetail01.getSurvey().getSurveyid()%>"/>
+<form action="researchersurveydetail_01.jsp" method="post" id="rsdform">
+    <input type="hidden" name="action" value="next">
+    <input type="hidden" name="surveyid" value="<%=researcherSurveyDetail01.getSurvey().getSurveyid()%>"/>
 
 
         <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
@@ -46,15 +54,13 @@ ResearcherSurveyDetail01 researcherSurveyDetail01 = (ResearcherSurveyDetail01)Pa
         <table cellpadding="0" cellspacing="0" border="0">
 
             <td valign="top">
-                <h:outputText value="Survey Title" styleClass="formfieldnamefont"></h:outputText>
+                <font class="formfieldnamefont">Survey Title</font>
             </td>
             <td valign="top">
                 <%if (researcherSurveyDetail01.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {%>
-                    <h:inputText value="<%=researcherSurveyDetail01.getTitle()%>" size="50" id="title" required="true" rendered="#{researcherSurveyDetail01.status le 1}">
-                        <f:validateLength minimum="3" maximum="200"></f:validateLength>
-                    </h:inputText>
+                    <%=Textbox.getHtml("title", researcherSurveyDetail01.getTitle(), 255, 50, "", "")%>
                 <%} else {%>
-                    <h:outputText value="<%=researcherSurveyDetail01.getTitle()%>" rendered="#{researcherSurveyDetail01.status ge 2}"></h:outputText>
+                    <font class="smallfont"><%=researcherSurveyDetail01.getTitle()%></font>
                 <%}%>
             </td>
 
@@ -62,62 +68,62 @@ ResearcherSurveyDetail01 researcherSurveyDetail01 = (ResearcherSurveyDetail01)Pa
 
 
             <td valign="top">
-                <h:outputText value="Description" styleClass="formfieldnamefont"></h:outputText>
+                <font class="formfieldnamefont">Description</font>
             </td>
             <td valign="top">
                 <%if (researcherSurveyDetail01.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {%>
-                    <h:inputTextarea value="<%=researcherSurveyDetail01.getDescription()%>" id="description" cols="45" required="true" rendered="#{researcherSurveyDetail01.status le 1}">
-                        <f:validateLength minimum="3" maximum="50000"></f:validateLength>
-                    </h:inputTextarea>
+                    <%=Textarea.getHtml("description", researcherSurveyDetail01.getDescription(), 3, 45, "", "")%>
                 <%} else {%>
-                    <h:outputText value="<%=researcherSurveyDetail01.getDescription()%>" rendered="#{researcherSurveyDetail01.status ge 2}"></h:outputText>
+                    <font class="normalfont"><%=researcherSurveyDetail01.getDescription()%></font>
                 <%}%>
             </td>
 
 
 
             <td valign="top">
-                <h:outputText value="Start Date" styleClass="formfieldnamefont"></h:outputText>
+                <font class="formfieldnamefont">Start Date</font>
             </td>
             <td valign="top">
                 <%if (researcherSurveyDetail01.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {%>
-                    <t:inputDate value="<%=researcherSurveyDetail01.getStartdate()%>"  type="both" popupCalendar="true" id="startdate" required="true" rendered="#{researcherSurveyDetail01.status le 1}"></t:inputDate>
+                    <%=DateTime.getHtml("startdate", Time.getCalFromDate(researcherSurveyDetail01.getStartdate()), "", "")%>
                 <%} else {%>
-                    <h:outputText value="<%=researcherSurveyDetail01.getStartdate()%>" rendered="#{researcherSurveyDetail01.status ge 2}"><f:convertDateTime type="both" dateStyle="short" timeStyle="medium"/></h:outputText>
+                    <font class="normalfont"><%=Time.dateformatcompactwithtime(Time.getCalFromDate(researcherSurveyDetail01.getStartdate()))%></font>
                 <%}%>
             </td>
 
 
             <td valign="top">
-                <h:outputText value="End Date" styleClass="formfieldnamefont"></h:outputText>
+                <font class="formfieldnamefont">End Date</font>
             </td>
             <td valign="top">
                 <%if (researcherSurveyDetail01.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {%>
-                    <t:inputDate value="<%=researcherSurveyDetail01.getEnddate()%>" type="both" popupCalendar="true" id="enddate" required="true" rendered="#{researcherSurveyDetail01.status le 1}"></t:inputDate>
+                    <%=DateTime.getHtml("enddate", Time.getCalFromDate(researcherSurveyDetail01.getEnddate()), "", "")%>
                 <%} else {%>
-                    <h:outputText value="<%=researcherSurveyDetail01.getEnddate()%>" rendered="#{researcherSurveyDetail01.status ge 2}"><f:convertDateTime type="both" dateStyle="short" timeStyle="medium"/></h:outputText>
+                    <font class="normalfont"><%=Time.dateformatcompactwithtime(Time.getCalFromDate(researcherSurveyDetail01.getEnddate()))%></font>
                 <%}%>
             </td>
 
         </table>
         
-        
+        <br/><br/>
         <!-- Start Bottom Nav -->
         <table cellpadding="0" cellspacing="0" border="0" width="100%">
             <tr>
                 <td valign="top" align="left">
-                    <form action=""     
+                    <input type="submit" value="Previous" onclick="document.rsdform.action.value='previous'">
                 </td>
                 <td valign="top" align="right">
-                    
+                    <%if (researcherSurveyDetail01.getSurvey().getStatus()==Survey.STATUS_DRAFT) {%>
+                        <input type="submit" value="Save and Continue Later" onclick="document.rsdform.action.value='saveasdraft'">
+                    <%}%>
+                    <input type="submit" value="Next Step">
                 </td>
             </tr>
         </table>
         <!-- End Bottom Nav -->
 
-        <div class="surveyeditbuttonbox"><div class="surveyeditpreviousbutton"></div><div class="surveyeditnextbutton"><h:commandButton action="<%=researcherSurveyDetail01.getSaveSurvey()%>" value="Next Step" styleClass="formsubmitbutton"></h:commandButton></div></div>
 
-    </form>
+</form>
 
 
 <%@ include file="/jsp/templates/footer.jsp" %>

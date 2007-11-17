@@ -176,7 +176,7 @@ input, textarea, select{
     text-align: left;
 }
 
-.formsubmitbutton {
+.formsubmitbutton, submit {
    color:#333;
    font-family:'trebuchet ms',helvetica,sans-serif;
    font-weight:bold;
@@ -290,3 +290,41 @@ input, textarea, select{
    font-weight:normal;
    font-size: 12px;
 }
+
+/* Start dhtml tabpanel */
+#tabs {
+display: block;
+float: left;
+width: 100%;
+}
+a.tab {
+border-collapse: collapse;
+border-style: solid solid none solid;
+border-color: #999900;
+border-width: 1px 1px 1px 1px;
+background-color: #33ff33;
+padding: 10px 0.5em 2px 0.5em;
+margin-top: 4px;
+margin-right: 2px;
+margin-left: 4px;
+font-family: arial;
+font-size: 12px;
+font-weight: bold;
+text-decoration: none;
+text-align: center;
+float: left;
+color: #000000;
+}
+a.tab:hover {
+border-color: #33ff33;
+background-color: white;
+color: #000000;
+}
+.panel {
+border: solid 1px #009900;
+background-color: white;
+height: 10px;
+padding: 5px;
+clear: left;
+}
+/* End dhtml tabpanel */

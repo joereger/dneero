@@ -11,8 +11,14 @@ String navtab="researchers";
 String acl="researcher";
 %>
 <%@ include file="/jsp/templates/auth.jsp" %>
+<%
+ResearcherSurveyDetail04 researcherSurveyDetail04 = (ResearcherSurveyDetail04)Pagez.getBeanMgr().get("ResearcherSurveyDetail04");
+%>
 <%@ include file="/jsp/templates/header.jsp" %>
 
+<form action="researchersurveydetail_04.jsp" method="post" id="rsdform">
+        <input type="hidden" name="action" value="next">
+        <input type="hidden" name="surveyid" value="<%=researcherSurveyDetail04.getSurvey().getSurveyid()%>"/>
 
 
     <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
@@ -23,13 +29,13 @@ String acl="researcher";
 
     <br/><br/>
 
-    <h:messages/>
+
 
     <t:div rendered="#{researcherSurveyDetail04.status ne 1}">
-        <f:verbatim escape="false"><%=((ResearcherSurveyDetail04)Pagez.getBeanMgr().get("ResearcherSurveyDetail04")).getSurveyCriteriaAsHtml()%></f:verbatim>
+        <f:verbatim escape="false"><%=researcherSurveyDetail04.getSurveyCriteriaAsHtml()%></f:verbatim>
         <br/>
         <b>Panels:</b>
-        <h:outputText value="<%=((ResearcherSurveyDetail04)Pagez.getBeanMgr().get("ResearcherSurveyDetail04")).getPanelsStr()%>" rendered="#{researcherSurveyDetail04.status ne 1}" escape="false"></h:outputText>
+        <h:outputText value="<%=researcherSurveyDetail04.getPanelsStr()%>" rendered="#{researcherSurveyDetail04.status ne 1}" escape="false"></h:outputText>
     </t:div>
 
     <%if (researcherSurveyDetail04.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {%>
@@ -43,7 +49,7 @@ String acl="researcher";
                 <h:message for="minsocialinfluencepercentile" styleClass="RED"></h:message>
             </td>
             <td valign="top">
-                <h:selectOneMenu value="<%=((ResearcherSurveyDetail04)Pagez.getBeanMgr().get("ResearcherSurveyDetail04")).getMinsocialinfluencepercentile()%>" id="minsocialinfluencepercentile" required="true">
+                <h:selectOneMenu value="<%=researcherSurveyDetail04.getMinsocialinfluencepercentile()%>" id="minsocialinfluencepercentile" required="true">
                    <f:selectItems value="<%=((StaticVariables)Pagez.getBeanMgr().get("StaticVariables")).getPercentiles()%>"/>
                 </h:selectOneMenu>
             </td>
@@ -55,7 +61,7 @@ String acl="researcher";
                 <h:message for="minsocialinfluencepercentile90days" styleClass="RED"></h:message>
             </td>
             <td valign="top">
-                <h:selectOneMenu value="<%=((ResearcherSurveyDetail04)Pagez.getBeanMgr().get("ResearcherSurveyDetail04")).getMinsocialinfluencepercentile90days()%>" id="minsocialinfluencepercentile90days" required="true">
+                <h:selectOneMenu value="<%=researcherSurveyDetail04.getMinsocialinfluencepercentile90days()%>" id="minsocialinfluencepercentile90days" required="true">
                    <f:selectItems value="<%=((StaticVariables)Pagez.getBeanMgr().get("StaticVariables")).getPercentiles()%>"/>
                 </h:selectOneMenu>
             </td>
@@ -71,7 +77,7 @@ String acl="researcher";
                 <h:message for="blogquality" styleClass="RED"></h:message>
             </td>
             <td valign="top">
-                <h:selectOneListbox value="<%=((ResearcherSurveyDetail04)Pagez.getBeanMgr().get("ResearcherSurveyDetail04")).getBlogquality()%>" size="1" id="blogquality" layout="pageDirection" required="true">
+                <h:selectOneListbox value="<%=researcherSurveyDetail04.getBlogquality()%>" size="1" id="blogquality" layout="pageDirection" required="true">
                     <f:selectItems value="<%=((StaticVariables)Pagez.getBeanMgr().get("StaticVariables")).getBlogqualities()%>"/>
                 </h:selectOneListbox>
             </td>
@@ -83,7 +89,7 @@ String acl="researcher";
                 <h:message for="blogquality90days" styleClass="RED"></h:message>
             </td>
             <td valign="top">
-                <h:selectOneListbox value="<%=((ResearcherSurveyDetail04)Pagez.getBeanMgr().get("ResearcherSurveyDetail04")).getBlogquality90days()%>" size="1" id="blogquality90days" layout="pageDirection" required="true">
+                <h:selectOneListbox value="<%=researcherSurveyDetail04.getBlogquality90days()%>" size="1" id="blogquality90days" layout="pageDirection" required="true">
                     <f:selectItems value="<%=((StaticVariables)Pagez.getBeanMgr().get("StaticVariables")).getBlogqualities()%>"/>
                 </h:selectOneListbox>
             </td>
@@ -101,11 +107,11 @@ String acl="researcher";
                 <h:message for="agemax" styleClass="RED"></h:message>
             </td>
             <td valign="top">
-                <h:inputText value="<%=((ResearcherSurveyDetail04)Pagez.getBeanMgr().get("ResearcherSurveyDetail04")).getAgemin()%>" id="agemin" size="3" required="true">
+                <h:inputText value="<%=researcherSurveyDetail04.getAgemin()%>" id="agemin" size="3" required="true">
                     <f:validateDoubleRange minimum="13" maximum="120"></f:validateDoubleRange>
                 </h:inputText>
                 <h:outputText value=" - "></h:outputText>
-                <h:inputText value="<%=((ResearcherSurveyDetail04)Pagez.getBeanMgr().get("ResearcherSurveyDetail04")).getAgemax()%>" id="agemax" size="3" required="true">
+                <h:inputText value="<%=researcherSurveyDetail04.getAgemax()%>" id="agemax" size="3" required="true">
                     <f:validateDoubleRange minimum="13" maximum="120"></f:validateDoubleRange>
                 </h:inputText>
             </td>
@@ -119,7 +125,7 @@ String acl="researcher";
                 <h:message for="gender" styleClass="RED"></h:message>
             </td>
             <td valign="top">
-                <h:selectManyCheckbox value="<%=((ResearcherSurveyDetail04)Pagez.getBeanMgr().get("ResearcherSurveyDetail04")).getGender()%>" id="gender" required="true">
+                <h:selectManyCheckbox value="<%=researcherSurveyDetail04.getGender()%>" id="gender" required="true">
                     <f:selectItems value="#{genders}"/>
                 </h:selectManyCheckbox>
             </td>
@@ -131,7 +137,7 @@ String acl="researcher";
                 <h:message for="ethnicity" styleClass="RED"></h:message>
             </td>
             <td valign="top">
-                <h:selectManyListbox value="<%=((ResearcherSurveyDetail04)Pagez.getBeanMgr().get("ResearcherSurveyDetail04")).getEthnicity()%>" id="ethnicity" size="6" layout="pageDirection" required="true">
+                <h:selectManyListbox value="<%=researcherSurveyDetail04.getEthnicity()%>" id="ethnicity" size="6" layout="pageDirection" required="true">
                     <f:selectItems value="#{ethnicities}"/>
                 </h:selectManyListbox>
             </td>
@@ -143,7 +149,7 @@ String acl="researcher";
                 <h:message for="maritalstatus" styleClass="RED"></h:message>
             </td>
             <td valign="top">
-                <h:selectManyCheckbox value="<%=((ResearcherSurveyDetail04)Pagez.getBeanMgr().get("ResearcherSurveyDetail04")).getMaritalstatus()%>" id="maritalstatus" required="true">
+                <h:selectManyCheckbox value="<%=researcherSurveyDetail04.getMaritalstatus()%>" id="maritalstatus" required="true">
                     <f:selectItems value="#{maritalstatuses}"/>
                 </h:selectManyCheckbox>
             </td>
@@ -154,7 +160,7 @@ String acl="researcher";
                 <h:message for="income" styleClass="RED"></h:message>
             </td>
             <td valign="top">
-                <h:selectManyListbox value="<%=((ResearcherSurveyDetail04)Pagez.getBeanMgr().get("ResearcherSurveyDetail04")).getIncome()%>" size="5" id="income" layout="pageDirection" required="true">
+                <h:selectManyListbox value="<%=researcherSurveyDetail04.getIncome()%>" size="5" id="income" layout="pageDirection" required="true">
                     <f:selectItems value="#{incomes}"/>
                 </h:selectManyListbox>
             </td>
@@ -165,7 +171,7 @@ String acl="researcher";
                 <h:message for="educationlevel" styleClass="RED"></h:message>
             </td>
             <td valign="top">
-                <h:selectManyCheckbox value="<%=((ResearcherSurveyDetail04)Pagez.getBeanMgr().get("ResearcherSurveyDetail04")).getEducationlevel()%>" id="educationlevel" layout="pageDirection" required="true">
+                <h:selectManyCheckbox value="<%=researcherSurveyDetail04.getEducationlevel()%>" id="educationlevel" layout="pageDirection" required="true">
                     <f:selectItems value="#{educationlevels}"/>
                 </h:selectManyCheckbox>
             </td>
@@ -178,7 +184,7 @@ String acl="researcher";
                 <h:message for="state" styleClass="RED"></h:message>
             </td>
             <td valign="top">
-                <h:selectManyListbox value="<%=((ResearcherSurveyDetail04)Pagez.getBeanMgr().get("ResearcherSurveyDetail04")).getState()%>" size="5" id="state" layout="pageDirection" required="true">
+                <h:selectManyListbox value="<%=researcherSurveyDetail04.getState()%>" size="5" id="state" layout="pageDirection" required="true">
                     <f:selectItems value="#{states}"/>
                 </h:selectManyListbox>
             </td>
@@ -189,7 +195,7 @@ String acl="researcher";
                 <h:message for="city" styleClass="RED"></h:message>
             </td>
             <td valign="top">
-                <h:selectManyListbox value="<%=((ResearcherSurveyDetail04)Pagez.getBeanMgr().get("ResearcherSurveyDetail04")).getCity()%>" size="5" id="city" layout="pageDirection" required="true">
+                <h:selectManyListbox value="<%=researcherSurveyDetail04.getCity()%>" size="5" id="city" layout="pageDirection" required="true">
                     <f:selectItems value="#{cities}"/>
                 </h:selectManyListbox>
             </td>
@@ -201,7 +207,7 @@ String acl="researcher";
                 <h:message for="profession" styleClass="RED"></h:message>
             </td>
             <td valign="top">
-                <h:selectManyListbox value="<%=((ResearcherSurveyDetail04)Pagez.getBeanMgr().get("ResearcherSurveyDetail04")).getProfession()%>" size="5" id="profession" layout="pageDirection" required="true">
+                <h:selectManyListbox value="<%=researcherSurveyDetail04.getProfession()%>" size="5" id="profession" layout="pageDirection" required="true">
                     <f:selectItems value="#{professions}"/>
                 </h:selectManyListbox>
             </td>
@@ -213,7 +219,7 @@ String acl="researcher";
                 <h:message for="blogfocus" styleClass="RED"></h:message>
             </td>
             <td valign="top">
-                <h:selectManyListbox value="<%=((ResearcherSurveyDetail04)Pagez.getBeanMgr().get("ResearcherSurveyDetail04")).getBlogfocus()%>" size="5" id="blogfocus" layout="pageDirection" required="true">
+                <h:selectManyListbox value="<%=researcherSurveyDetail04.getBlogfocus()%>" size="5" id="blogfocus" layout="pageDirection" required="true">
                     <f:selectItems value="#{blogfocuses}"/>
                 </h:selectManyListbox>
             </td>
@@ -225,7 +231,7 @@ String acl="researcher";
                 <h:message for="politics" styleClass="RED"></h:message>
             </td>
             <td valign="top">
-                <h:selectManyListbox value="<%=((ResearcherSurveyDetail04)Pagez.getBeanMgr().get("ResearcherSurveyDetail04")).getPolitics()%>" size="5" id="politics" layout="pageDirection" required="true">
+                <h:selectManyListbox value="<%=researcherSurveyDetail04.getPolitics()%>" size="5" id="politics" layout="pageDirection" required="true">
                     <f:selectItems value="#{politics}"/>
                 </h:selectManyListbox>
             </td>
@@ -236,8 +242,8 @@ String acl="researcher";
                 <h:message for="panels" styleClass="RED"></h:message>
             </td>
             <td valign="top">
-                <h:selectManyListbox value="<%=((ResearcherSurveyDetail04)Pagez.getBeanMgr().get("ResearcherSurveyDetail04")).getPanels()%>" id="panels" size="6" layout="pageDirection" required="false">
-                    <f:selectItems value="<%=((ResearcherSurveyDetail04)Pagez.getBeanMgr().get("ResearcherSurveyDetail04")).getPanelsavailable()%>"/>
+                <h:selectManyListbox value="<%=researcherSurveyDetail04.getPanels()%>" id="panels" size="6" layout="pageDirection" required="false">
+                    <f:selectItems value="<%=researcherSurveyDetail04.getPanelsavailable()%>"/>
                 </h:selectManyListbox>
             </td>
 
@@ -246,8 +252,21 @@ String acl="researcher";
     <%}%>
 
     <br/><br/>
-    <div class="surveyeditbuttonbox"><div class="surveyeditpreviousbutton"><h:commandButton action="<%=((ResearcherSurveyDetail04)Pagez.getBeanMgr().get("ResearcherSurveyDetail04")).getPreviousStep()%>" value="Previous Step" styleClass="formsubmitbutton"/></div><div class="surveyeditnextbutton"><h:commandButton action="<%=((ResearcherSurveyDetail04)Pagez.getBeanMgr().get("ResearcherSurveyDetail04")).getSaveSurveyAsDraft()%>" value="Save and Continue Later" styleClass="formsubmitbutton" rendered="#{researcherSurveyDetail04.status eq 1}"/><h:commandButton action="<%=((ResearcherSurveyDetail04)Pagez.getBeanMgr().get("ResearcherSurveyDetail04")).getSaveSurvey()%>" value="Next Step" styleClass="formsubmitbutton"/></div></div>
-
-
+    <!-- Start Bottom Nav -->
+    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+        <tr>
+            <td valign="top" align="left">
+                <input type="submit" value="Previous Step" onclick="document.rsdform.action.value='previous'">
+            </td>
+            <td valign="top" align="right">
+                <%if (researcherSurveyDetail04.getSurvey().getStatus()==Survey.STATUS_DRAFT) {%>
+                    <input type="submit" value="Save and Continue Later" onclick="document.rsdform.action.value='saveasdraft'">
+                <%}%>
+                <input type="submit" value="Next Step">
+            </td>
+        </tr>
+    </table>
+    <!-- End Bottom Nav -->
+</form>
 
 <%@ include file="/jsp/templates/footer.jsp" %>

@@ -11,18 +11,48 @@ String pagetitle="<img src=\"/images/process-train-survey-03.gif\" align=\"right
     String acl="researcher";
 %>
 <%@ include file="/jsp/templates/auth.jsp" %>
+<%
+ResearcherSurveyDetail03 researcherSurveyDetail03 = (ResearcherSurveyDetail03)Pagez.getBeanMgr().get("ResearcherSurveyDetail03");
+%>
 <%@ include file="/jsp/templates/header.jsp" %>
 
 
+<form action="researchersurveydetail_03.jsp" method="post" id="rsdform">
+        <input type="hidden" name="action" value="next">
+        <input type="hidden" name="surveyid" value="<%=researcherSurveyDetail03.getSurvey().getSurveyid()%>"/>
 
 
-    <f:verbatim><br/></f:verbatim>
-    <f:verbatim><br/></f:verbatim>
+    <br/><br/>
 
     <!-- Start Top -->
 
-    <t:panelTabbedPane id="panel" bgcolor="#ffffff">
-        <t:panelTab id="panel_b" label="Preview of Survey in Blog">
+    <script language="JavaScript" type="text/javascript">
+      var panels = new Array('panel1', 'panel2');
+      var selectedTab = null;
+      function showPanel(tab, name)
+      {
+        if (selectedTab)
+        {
+          selectedTab.style.backgroundColor = '';
+          selectedTab.style.paddingTop = '';
+          selectedTab.style.marginTop = '4px';
+        }
+        selectedTab = tab;
+        selectedTab.style.backgroundColor = 'white';
+        selectedTab.style.paddingTop = '6px';
+        selectedTab.style.marginTop = '0px';
+
+        for(i = 0; i < panels.length; i++)
+          document.getElementById(panels[i]).style.display = (name == panels[i]) ? 'block':'none';
+
+        return false;
+      }
+    </script>
+    <div id="tabs">
+    <a href="" class="tab" onmousedown="return event.returnValue = showPanel(this, 'panel1');" id="tab1" onclick="return false;">Preview of Survey in Blog</a>
+    <a href="" class="tab" onmousedown="return event.returnValue = showPanel(this, 'panel2');" onclick="return false;">Advanced Formatting</a>
+    </div>
+    <div class="panel" id="panel1" style="display: block">
             <h:graphicImage url="/images/clear.gif" width="725" height="1"/><br/>
             <center>
                 <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
@@ -36,7 +66,7 @@ String pagetitle="<img src=\"/images/process-train-survey-03.gif\" align=\"right
                             <font class="formfieldnamefont">Flash Embed:</font>
                         </td>
                         <td valign="top" align="left">
-                            <%=((ResearcherSurveyDetail03)Pagez.getBeanMgr().get("ResearcherSurveyDetail03")).getEmbedflashsyntax()%>
+                            <%=researcherSurveyDetail03.getEmbedflashsyntax()%>
                         </td>
                     </tr>
                     <tr>
@@ -44,7 +74,7 @@ String pagetitle="<img src=\"/images/process-train-survey-03.gif\" align=\"right
                             <font class="formfieldnamefont">Javascript Embed:</font>
                         </td>
                         <td valign="top" align="left" style="border-top: solid 2px #cccccc;">
-                            <%=((ResearcherSurveyDetail03)Pagez.getBeanMgr().get("ResearcherSurveyDetail03")).getEmbedjavascriptsyntax()%>
+                            <%=researcherSurveyDetail03.getEmbedjavascriptsyntax()%>
                         </td>
                     </tr>
                     <tr>
@@ -52,7 +82,7 @@ String pagetitle="<img src=\"/images/process-train-survey-03.gif\" align=\"right
                             <font class="formfieldnamefont">Image Embed:</font>
                         </td>
                         <td valign="top" align="left" style="border-top: solid 2px #cccccc;">
-                            <%=((ResearcherSurveyDetail03)Pagez.getBeanMgr().get("ResearcherSurveyDetail03")).getEmbedimagesyntax()%>
+                            <%=researcherSurveyDetail03.getEmbedimagesyntax()%>
                         </td>
                     </tr>
                     <tr>
@@ -60,13 +90,13 @@ String pagetitle="<img src=\"/images/process-train-survey-03.gif\" align=\"right
                             <font class="formfieldnamefont">Link Embed:</font>
                         </td>
                         <td valign="top" align="left" style="border-top: solid 2px #cccccc;">
-                            <%=((ResearcherSurveyDetail03)Pagez.getBeanMgr().get("ResearcherSurveyDetail03")).getEmbedlinksyntax()%>
+                            <%=researcherSurveyDetail03.getEmbedlinksyntax()%>
                         </td>
                     </tr>
                 </table>
             </center>
-        </t:panelTab>
-        <t:panelTab id="panel_c" label="Advanced Formatting">
+    </div>
+    <div class="panel" id="panel2" style="display: none">
             <h:graphicImage url="/images/clear.gif" width="725" height="1"/><br/>
             <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
             <img src="/images/lightbulb_on.png" alt="" align="right"/>
@@ -84,14 +114,14 @@ String pagetitle="<img src=\"/images/process-train-survey-03.gif\" align=\"right
                 <tr>
                     <td valign="top" width="75%">
                         <%if (researcherSurveyDetail03.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {%>
-                            <h:commandButton action="<%=((ResearcherSurveyDetail03)Pagez.getBeanMgr().get("ResearcherSurveyDetail03")).getResetFormatting()%>" value="Reset" rendered="#{researcherSurveyDetail03.status eq 1}" styleClass="formsubmitbutton"></h:commandButton>
+                            <h:commandButton action="<%=researcherSurveyDetail03.getResetFormatting()%>" value="Reset" rendered="#{researcherSurveyDetail03.status eq 1}" styleClass="formsubmitbutton"></h:commandButton>
                             <br/>
-                            <h:inputTextarea value="<%=((ResearcherSurveyDetail03)Pagez.getBeanMgr().get("ResearcherSurveyDetail03")).getTemplate()%>" cols="55" rows="15"></h:inputTextarea>
+                            <h:inputTextarea value="<%=researcherSurveyDetail03.getTemplate()%>" cols="55" rows="15"></h:inputTextarea>
                             <br/><br/>
                             <table cellpadding="0" cellspacing="5" border="0">
                                 <tr>
                                     <td valign="top" nowrap="true">
-                                        <h:selectBooleanCheckbox title="embedjavascript" value="<%=((ResearcherSurveyDetail03)Pagez.getBeanMgr().get("ResearcherSurveyDetail03")).getEmbedjavascript()%>" rendered="#{researcherSurveyDetail03.status eq 1}"/>
+                                        <h:selectBooleanCheckbox title="embedjavascript" value="<%=researcherSurveyDetail03.getEmbedjavascript()%>" rendered="#{researcherSurveyDetail03.status eq 1}"/>
                                         <font class="formfieldnamefont">Allow Javascript Embed?</font>
                                     </td>
                                     <td valign="top">
@@ -100,7 +130,7 @@ String pagetitle="<img src=\"/images/process-train-survey-03.gif\" align=\"right
                                 </tr>
                                 <tr>
                                     <td valign="top" nowrap="true">
-                                        <h:selectBooleanCheckbox title="embedflash" value="<%=((ResearcherSurveyDetail03)Pagez.getBeanMgr().get("ResearcherSurveyDetail03")).getEmbedflash()%>" rendered="#{researcherSurveyDetail03.status eq 1}"/>
+                                        <h:selectBooleanCheckbox title="embedflash" value="<%=researcherSurveyDetail03.getEmbedflash()%>" rendered="#{researcherSurveyDetail03.status eq 1}"/>
                                         <font class="formfieldnamefont">Allow Flash Embed?</font>
                                     </td>
                                     <td valign="top">
@@ -109,7 +139,7 @@ String pagetitle="<img src=\"/images/process-train-survey-03.gif\" align=\"right
                                 </tr>
                                 <tr>
                                     <td valign="top" nowrap="true">
-                                        <h:selectBooleanCheckbox title="embedlink" value="<%=((ResearcherSurveyDetail03)Pagez.getBeanMgr().get("ResearcherSurveyDetail03")).getEmbedlink()%>" rendered="#{researcherSurveyDetail03.status eq 1}"/>
+                                        <h:selectBooleanCheckbox title="embedlink" value="<%=researcherSurveyDetail03.getEmbedlink()%>" rendered="#{researcherSurveyDetail03.status eq 1}"/>
                                         <font class="formfieldnamefont">Allow Link Embed?</font>
                                     </td>
                                     <td valign="top">
@@ -117,8 +147,8 @@ String pagetitle="<img src=\"/images/process-train-survey-03.gif\" align=\"right
                                     </td>
                                 </tr>
                             </table>
-                            <h:commandButton action="<%=((ResearcherSurveyDetail03)Pagez.getBeanMgr().get("ResearcherSurveyDetail03")).getResetFormatting()%>" value="Reset" rendered="#{researcherSurveyDetail03.status eq 1}" styleClass="formsubmitbutton"></h:commandButton>
-                            <h:commandButton action="<%=((ResearcherSurveyDetail03)Pagez.getBeanMgr().get("ResearcherSurveyDetail03")).getSaveSurvey()%>" value="Save Advanced Formatting" rendered="#{researcherSurveyDetail03.status eq 1}" styleClass="formsubmitbutton"></h:commandButton>
+                            <h:commandButton action="<%=researcherSurveyDetail03.getResetFormatting()%>" value="Reset" rendered="#{researcherSurveyDetail03.status eq 1}" styleClass="formsubmitbutton"></h:commandButton>
+                            <h:commandButton action="<%=researcherSurveyDetail03.getSaveSurvey()%>" value="Save Advanced Formatting" rendered="#{researcherSurveyDetail03.status eq 1}" styleClass="formsubmitbutton"></h:commandButton>
                         <%}%>
                     </td>
                     <td valign="top">
@@ -128,7 +158,7 @@ String pagetitle="<img src=\"/images/process-train-survey-03.gif\" align=\"right
                             <br/>
                             <font class="smallfont">Use these tags to move a question around in the survey.  You can create tables using the html tags below but remember that you have a set 425 pixels to work with.</font>
                             <br/>
-                            <ui:repeat value="<%=((ResearcherSurveyDetail03)Pagez.getBeanMgr().get("ResearcherSurveyDetail03")).getQuestions()%>" var="question">
+                            <ui:repeat value="<%=researcherSurveyDetail03.getQuestions()%>" var="question">
                                 <b><h:outputText value="&lt;$question_<%=((Question)Pagez.getBeanMgr().get("Question")).getQuestionid()%>$>" styleClass="smallfont"></h:outputText></b>
                                 <br/>
                                 <h:outputText value="<%=((Question)Pagez.getBeanMgr().get("Question")).getQuestion()%>" styleClass="tinyfont"></h:outputText>
@@ -185,18 +215,29 @@ String pagetitle="<img src=\"/images/process-train-survey-03.gif\" align=\"right
                     </td>
                 </tr>
             </table>
+    </div
 
 
 
-        </t:panelTab>
-    </t:panelTabbedPane>
 
 
-
-    <f:verbatim><br/><br/></f:verbatim>
-    <div class="surveyeditbuttonbox"><div class="surveyeditpreviousbutton"><h:commandButton action="<%=((ResearcherSurveyDetail03)Pagez.getBeanMgr().get("ResearcherSurveyDetail03")).getPreviousStep()%>" value="Previous Step" styleClass="formsubmitbutton"/></div><div class="surveyeditnextbutton"><h:commandButton action="<%=((ResearcherSurveyDetail03)Pagez.getBeanMgr().get("ResearcherSurveyDetail03")).getSaveSurveyAsDraft()%>" value="Save and Continue Later" styleClass="formsubmitbutton" rendered="#{researcherSurveyDetail03.status eq 1}"/><h:commandButton action="<%=((ResearcherSurveyDetail03)Pagez.getBeanMgr().get("ResearcherSurveyDetail03")).getContinueToNext()%>" value="Next Step" styleClass="formsubmitbutton"/></div></div>
-
-
+    <br/><br/>
+    <!-- Start Bottom Nav -->
+    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+        <tr>
+            <td valign="top" align="left">
+                <input type="submit" value="Previous Step" onclick="document.rsdform.action.value='previous'">
+            </td>
+            <td valign="top" align="right">
+                <%if (researcherSurveyDetail03.getSurvey().getStatus()==Survey.STATUS_DRAFT) {%>
+                    <input type="submit" value="Save and Continue Later" onclick="document.rsdform.action.value='saveasdraft'">
+                <%}%>
+                <input type="submit" value="Next Step">
+            </td>
+        </tr>
+    </table>
+    <!-- End Bottom Nav -->
+</form>
 
 
 
