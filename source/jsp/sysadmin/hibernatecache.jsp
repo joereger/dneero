@@ -8,6 +8,9 @@ String navtab = "sysadmin";
 String acl = "sysadmin";
 %>
 <%@ include file="/jsp/templates/auth.jsp" %>
+<%
+SysadminHibernateCache sysadminHibernateCache = (SysadminHibernateCache)Pagez.getBeanMgr().get("SysadminHibernateCache");
+%>
 <%@ include file="/jsp/templates/header.jsp" %>
 
 
@@ -39,18 +42,16 @@ String acl = "sysadmin";
     <a href="" class="tab" onmousedown="return event.returnValue = showPanel(this, 'panel3');" onclick="return false;">Question Type Samples</a>
     </div>
     <div class="panel" id="panel1" style="display: block">
-        <h:graphicImage url="/images/clear.gif" width="700" height="1"/><br/>
-        <h:commandButton action="<%=((SysadminHibernateCache)Pagez.getBeanMgr().get("SysadminHibernateCache")).getRunImpressionActivityObjectQueue()%>" value="ImpressionActivityObjectQueue" styleClass="formsubmitbutton"></h:commandButton>
-        <br/>
-        <%=((SysadminHibernateCache)Pagez.getBeanMgr().get("SysadminHibernateCache")).getIaosqueue()%>
+        <img src="/images/clear.gif" width="700" height="1"/><br/>
+        <%=sysadminHibernateCache.getIaosqueue()%>
     </div>
     <div class="panel" id="panel2" style="display: none">
-        <h:graphicImage url="/images/clear.gif" width="700" height="1"/><br/>
-        <%=((SysadminHibernateCache)Pagez.getBeanMgr().get("SysadminHibernateCache")).getCacheashtml()%>
+        <img src="/images/clear.gif" width="700" height="1"/><br/>
+        <%=sysadminHibernateCache.getCacheashtml()%>
     </div>
     <div class="panel" id="panel3" style="display: none">
-        <h:graphicImage url="/images/clear.gif" width="700" height="1"/><br/>
-        <%=((com.dneero.htmluibeans.SysadminHibernateCache) Pagez.getBeanMgr().get("SysadminHibernateCache")).getMisccacheashtml()%>
+        <img src="/images/clear.gif" width="700" height="1"/><br/>
+        <%=sysadminHibernateCache.getMisccacheashtml()%>
     </div>
 
   

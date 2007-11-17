@@ -7,7 +7,7 @@ import com.dneero.dao.Survey;
 import com.dneero.display.components.def.Component;
 import com.dneero.display.components.*;
 
-import java.util.LinkedHashMap;
+import java.util.*;
 
 import org.apache.log4j.Logger;
 
@@ -58,6 +58,19 @@ public class ComponentTypes {
             typesaslinkedhashmap.put(Matrix.NAME, Matrix.ID);
         }
         return typesaslinkedhashmap;
+    }
+
+    public TreeMap<String, String> getTypes(){
+        TreeMap<String, String> out = new TreeMap<String, String>();
+        LinkedHashMap lhm = getTypesaslinkedhashmap();
+        Iterator keyValuePairs = lhm.entrySet().iterator();
+        for (int i = 0; i < lhm.size(); i++){
+            Map.Entry mapentry = (Map.Entry) keyValuePairs.next();
+            String key = (String)mapentry.getKey();
+            String value = String.valueOf(mapentry.getValue());
+            out.put(value, key);
+        }
+        return out;
     }
 
     public void setTypesaslinkedhashmap(LinkedHashMap typesaslinkedhashmap){

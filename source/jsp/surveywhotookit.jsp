@@ -51,8 +51,33 @@ PublicSurveyWhotookit publicSurveyWhotookit = (PublicSurveyWhotookit)Pagez.getBe
     </table>
 
     <br/>
-    <t:panelTabbedPane id="whotookitpanel" bgcolor="#ffffff">
-        <t:panelTab id="whotookitpanel_a" label="Who Took It?">
+    <script language="JavaScript" type="text/javascript">
+      var panels = new Array('panel1', 'panel2');
+      var selectedTab = null;
+      function showPanel(tab, name)
+      {
+        if (selectedTab)
+        {
+          selectedTab.style.backgroundColor = '';
+          selectedTab.style.paddingTop = '';
+          selectedTab.style.marginTop = '4px';
+        }
+        selectedTab = tab;
+        selectedTab.style.backgroundColor = 'white';
+        selectedTab.style.paddingTop = '6px';
+        selectedTab.style.marginTop = '0px';
+
+        for(i = 0; i < panels.length; i++){
+          document.getElementById(panels[i]).style.display = (name == panels[i]) ? 'block':'none';
+        }
+        return false;
+      }
+    </script>
+    <div id="tabs">
+    <a href="" class="tab" onmousedown="return event.returnValue = showPanel(this, 'panel1');" id="tab1" onclick="return false;">Who Took It?</a>
+    <a href="" class="tab" onmousedown="return event.returnValue = showPanel(this, 'panel2');" onclick="return false;">Where It's Been Posted</a>
+    </div>
+    <div class="panel" id="panel1" style="display: block">
             <img src="/images/clear.gif" width="550" height="1"/><br/>
             <%if (publicSurveyWhotookit.getRespondents()==null || publicSurveyWhotookit.getRespondents().size()==0){%>
                 <font class="normalfont">Nobody has taken this survey... yet.</font>
@@ -65,8 +90,8 @@ PublicSurveyWhotookit publicSurveyWhotookit = (PublicSurveyWhotookit)Pagez.getBe
                 %>
                 <%=Grid.render(publicSurveyWhotookit.getRespondents(), cols, 500, "surveywhotookit.jsp?surveyid="+publicSurveyWhotookit.getSurvey().getSurveyid(), "pagewhotookit")%>
             <%}%>
-        </t:panelTab>
-        <t:panelTab id="whotookitpanel_b" label="Where It's Been Posted">
+    </div>
+    <div class="panel" id="panel1" style="display: none">
             <img src="/images/clear.gif" width="550" height="1"/><br/>
             <%if (publicSurveyWhotookit.getImpressions()==null || publicSurveyWhotookit.getImpressions().size()==0){%>
                 <font class="normalfont">Not posted anywhere... yet.</font>
@@ -78,11 +103,10 @@ PublicSurveyWhotookit publicSurveyWhotookit = (PublicSurveyWhotookit)Pagez.getBe
                 %>
                 <%=Grid.render(publicSurveyWhotookit.getImpressions(), cols, 100, "surveywhotookit.jsp?surveyid="+publicSurveyWhotookit.getSurvey().getSurveyid(), "pageimpressions")%>
             <%}%>
-        </t:panelTab>
-    </t:panelTabbedPane>
+    </div>
 
 
-
+    
 
 
 

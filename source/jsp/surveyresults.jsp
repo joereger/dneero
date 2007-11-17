@@ -36,26 +36,60 @@ PublicSurveyResults publicSurveyResults = (PublicSurveyResults)Pagez.getBeanMgr(
     <table width="100%" cellpadding="5">
         <tr>
             <td valign="top" width="450">
-                <t:panelTabbedPane id="resultspanel" bgcolor="#ffffff" selectedIndex="<%=publicSurveyResults.getResultstabselectedindex()%>">
-                    <t:panelTab id="resultspanel_a" label="Everybody">
-                        <img src="/images/clear.gif" width="415" height="1"/><br/>
-                        <%=publicSurveyResults.getResultsHtml()%>
-                    </t:panelTab>
-                    <t:panelTab id="resultspanel_b" label="<%=publicSurveyResults.getResultsfriendstabtext()%>" rendered="${(!empty publicSurveyResults.userwhotooksurvey) and (publicSurveyResults.userwhotooksurvey.userid gt 0)}">
-                        <img src="/images/clear.gif" width="415" height="1"/><br/>
-                        <table width="100%" cellpadding="10" cellspacing="0" border="0">
-                            <tr>
-                                <td valign="top">
-                                    <%=publicSurveyResults.getResultsHtmlForUserWhoTookSurvey()%>
-                                </td>
-                            </tr>
-                        </table>
-                    </t:panelTab>
-                    <t:panelTab id="resultspanel_c" label="Your Friends" rendered="<%=publicSurveyResults.getResultsshowyourfriendstab()%>">
+
+                <script language="JavaScript" type="text/javascript">
+                  <%if (publicSurveyResults.getResultsshowyourfriendstab()){%>
+                    var panels = new Array('panel1', 'panel2', 'panel3');
+                  <%} else {%>
+                    var panels = new Array('panel1', 'panel2');
+                  <%}%>
+                  var selectedTab = null;
+                  function showPanel(tab, name)
+                  {
+                    if (selectedTab)
+                    {
+                      selectedTab.style.backgroundColor = '';
+                      selectedTab.style.paddingTop = '';
+                      selectedTab.style.marginTop = '4px';
+                    }
+                    selectedTab = tab;
+                    selectedTab.style.backgroundColor = 'white';
+                    selectedTab.style.paddingTop = '6px';
+                    selectedTab.style.marginTop = '0px';
+
+                    for(i = 0; i < panels.length; i++){
+                      document.getElementById(panels[i]).style.display = (name == panels[i]) ? 'block':'none';
+                    }
+                    return false;
+                  }
+                </script>
+                <div id="tabs">
+                <a href="" class="tab" onmousedown="return event.returnValue = showPanel(this, 'panel1');" id="tab1" onclick="return false;">Everybody</a>
+                <a href="" class="tab" onmousedown="return event.returnValue = showPanel(this, 'panel2');" onclick="return false;"><%=publicSurveyResults.getResultsfriendstabtext()%></a>
+                <%if (publicSurveyResults.getResultsshowyourfriendstab()){%>
+                    <a href="" class="tab" onmousedown="return event.returnValue = showPanel(this, 'panel3');" onclick="return false;">Your Friends</a>
+                <%}%>
+                </div>
+                <div class="panel" id="panel1" style="display: block">
+                    <img src="/images/clear.gif" width="415" height="1"/><br/>
+                    <%=publicSurveyResults.getResultsHtml()%>
+                </div>
+                <div class="panel" id="panel2" style="display: none">
+                    <img src="/images/clear.gif" width="415" height="1"/><br/>
+                    <table width="100%" cellpadding="10" cellspacing="0" border="0">
+                        <tr>
+                            <td valign="top">
+                                <%=publicSurveyResults.getResultsHtmlForUserWhoTookSurvey()%>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <%if (publicSurveyResults.getResultsshowyourfriendstab()){%>
+                    <div class="panel" id="panel3" style="display: none">
                         <img src="/images/clear.gif" width="415" height="1"/><br/>
                         <%=publicSurveyResults.getResultsYourFriends()%>
-                    </t:panelTab>
-                </t:panelTabbedPane>
+                    </div>
+                <%}%>
             </td>
             <% if (Pagez.getUserSession().getIsfacebookui()){ %>
                 <td valign="top" align="left">

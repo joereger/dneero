@@ -47,10 +47,11 @@
     <a href="/surveydisclosure.jsf?surveyid=#{publicSurveyResults.survey.surveyid}">Disclosure</a>
     -->
 
-    <h:graphicImage url="/images/clear.gif" width="700" height="1" styleClass="survey_tabs_body_width"/><br/>
+    <img src="/images/clear.gif" width="700" height="1" class="survey_tabs_body_width"/><br/>
     <table width="100%" cellpadding="5">
         <tr>
             <td valign="top" width="450">
+
                 <t:panelTabbedPane id="resultspanel" bgcolor="#ffffff" selectedIndex="#{publicSurveyResults.resultstabselectedindex}">
                     <t:panelTab id="resultspanel_a" label="Everybody">
                         <h:graphicImage url="/images/clear.gif" width="415" height="1"/><br/>

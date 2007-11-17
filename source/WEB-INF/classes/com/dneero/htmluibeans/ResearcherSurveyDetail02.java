@@ -113,78 +113,9 @@ public class ResearcherSurveyDetail02 implements Serializable {
         return "";
     }
 
-    public String beginEdit(){
-        Logger logger = Logger.getLogger(this.getClass().getName());
-        logger.debug("beginEdit() called");
-        int componenttype = 0;
-        String tmpComponenttype = Pagez.getRequest().getParameter("componenttype");
-        if (com.dneero.util.Num.isinteger(tmpComponenttype)){
-            logger.debug("beginEdit called: found componenttype in param="+tmpComponenttype);
-            componenttype = Integer.parseInt(tmpComponenttype);
-        }
-
-        if (componenttype==Textbox.ID){
-            Pagez.sendRedirect("/jsp/researcher/researchersurveydetail_02_textbox.jsp");
-            return "";
-        }
-        if (componenttype==Essay.ID){
-            Pagez.sendRedirect("/jsp/researcher/researchersurveydetail_02_essay.jsp");
-            return "";
-        }
-        if (componenttype==Dropdown.ID){
-            Pagez.sendRedirect("/jsp/researcher/researchersurveydetail_02_dropdown.jsp");
-            return "";
-        }
-        if (componenttype==Checkboxes.ID){
-            Pagez.sendRedirect("/jsp/researcher/researchersurveydetail_02_checkboxes.jsp");
-            return "";
-        }
-        if (componenttype==Range.ID){
-            Pagez.sendRedirect("/jsp/researcher/researchersurveydetail_02_range.jsp");
-            return "";
-        }
-        if (componenttype==Matrix.ID){
-            Pagez.sendRedirect("/jsp/researcher/researchersurveydetail_02_matrix.jsp");
-            return "";
-        }
-
-        Pagez.getUserSession().setMessage("Couldn't find componenttype="+componenttype);
-        Pagez.sendRedirect("/jsp/researcher/researchersurveydetail_02.jsp");
-        return "";
-    }
 
 
-    public String addQuestion(){
-        Logger logger = Logger.getLogger(this.getClass().getName());
-        logger.debug("addQuestion() called");
-        if (newquestioncomponenttype == Textbox.ID){
-            Pagez.sendRedirect("/jsp/researcher/researchersurveydetail_02_textbox.jsp");
-            return "";
-        }
-        if (newquestioncomponenttype == Essay.ID){
-            Pagez.sendRedirect("/jsp/researcher/researchersurveydetail_02_essay.jsp");
-            return "";
-        }
-        if (newquestioncomponenttype == Dropdown.ID){
-            Pagez.sendRedirect("/jsp/researcher/researchersurveydetail_02_dropdown.jsp");
-            return "";
-        }
-        if (newquestioncomponenttype == Checkboxes.ID){
-            Pagez.sendRedirect("/jsp/researcher/researchersurveydetail_02_checkboxes.jsp");
-            return "";
-        }
-        if (newquestioncomponenttype == Range.ID){
-            Pagez.sendRedirect("/jsp/researcher/researchersurveydetail_02_range.jsp");
-            return "";
-        }
-        if (newquestioncomponenttype ==Matrix.ID){
-            Pagez.sendRedirect("/jsp/researcher/researchersurveydetail_02_matrix.jsp");
-            return "";
-        }
 
-        Pagez.sendRedirect("/jsp/researcher/researchersurveydetail_02.jsp");
-        return "";
-    }
 
     public String deleteQuestion(){
         Logger logger = Logger.getLogger(this.getClass().getName());

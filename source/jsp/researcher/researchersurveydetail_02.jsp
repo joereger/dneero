@@ -3,6 +3,17 @@
 <%@ page import="com.dneero.dao.Survey" %>
 <%@ page import="com.dneero.htmluibeans.ResearcherSurveyQuestionList" %>
 <%@ page import="com.dneero.htmlui.*" %>
+<%@ page import="com.dneero.dbgrid.GridCol" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="com.dneero.dbgrid.Grid" %>
+<%@ page import="com.dneero.display.components.def.ComponentTypes" %>
+<%@ page import="java.util.TreeMap" %>
+<%@ page import="java.util.Iterator" %>
+<%@ page import="java.util.Map" %>
+<%@ page import="com.dneero.display.components.*" %>
+<%@ page import="com.dneero.htmlui.Checkboxes" %>
+<%@ page import="com.dneero.htmlui.Dropdown" %>
+<%@ page import="com.dneero.htmlui.Textbox" %>
 <%
 Logger logger=Logger.getLogger(this.getClass().getName());
 String pagetitle="<img src=\"/images/process-train-survey-02.gif\" align=\"right\" width=\"350\" height=\"73\" alt=\"\"/>\n" +
@@ -15,6 +26,24 @@ String acl="researcher";
 <%
     ResearcherSurveyDetail02 researcherSurveyDetail02=(ResearcherSurveyDetail02) Pagez.getBeanMgr().get("ResearcherSurveyDetail02");
     ResearcherSurveyQuestionList researcherSurveyQuestionList = (ResearcherSurveyQuestionList)Pagez.getBeanMgr().get("ResearcherSurveyQuestionList");
+    ComponentTypes componentTypes = (ComponentTypes)Pagez.getBeanMgr().get("ComponentTypes");
+%>
+<%
+    if (request.getParameter("action") != null && (request.getParameter("action").equals("next") || request.getParameter("action").equals("save") || request.getParameter("action").equals("previous"))) {
+        try {
+            if (request.getParameter("action").equals("next")) {
+                researcherSurveyDetail02.saveSurvey();
+            } else if (request.getParameter("action").equals("saveasdraft")) {
+                logger.debug("Saveasdraft was clicked");
+                researcherSurveyDetail02.saveSurveyAsDraft();
+            } else if (request.getParameter("action").equals("previous")) {
+                logger.debug("Previous was clicked");
+                researcherSurveyDetail02.previousStep();
+            }
+        } catch (ValidationException vex) {
+            Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
+        }
+    }
 %>
 <%@ include file="/jsp/templates/header.jsp" %>
 
@@ -49,9 +78,9 @@ String acl="researcher";
         selectedTab.style.paddingTop = '6px';
         selectedTab.style.marginTop = '0px';
 
-        for(i = 0; i < panels.length; i++)
+        for(i = 0; i < panels.length; i++){
           document.getElementById(panels[i]).style.display = (name == panels[i]) ? 'block':'none';
-
+        }
         return false;
       }
     </script>
@@ -62,77 +91,62 @@ String acl="researcher";
     </div>
     <div class="panel" id="panel1" style="display: block">
             <img src="/images/clear.gif" width="700" height="1"/><br/>
-            <t:dataTable id="datatable" value="<%=researcherSurveyQuestionList.getQuestions()%>" rows="10" var="question" rendered="#{!empty researcherSurveyQuestionList.questions}" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcol,tcol,tcol,tcolnowrap,tcolnowrap">
-              <h:column>
-                <f:facet name="header">
-                  <h:outputText value=""/>
-                </f:facet>
-                <h:graphicImage url="/images/question.png"></h:graphicImage>
-              </h:column>
-              <h:column>
-                <f:facet name="header">
-                  <h:outputText value="Question"/>
-                </f:facet>
-                <h:outputText value="<%=question.getQuestion()%>"/>
-              </h:column>
-              <h:column>
-                <f:facet name="header">
-                  <h:outputText value="Respondent Must Answer?"/>
-                </f:facet>
-                <h:outputText value="Yes" rendered="<%=question.getIsrequired()%>"/>
-                <h:outputText value="No" rendered="<%=((!question)Pagez.getBeanMgr().get("!question")).getIsrequired()%>"/>
-              </h:column>
-              <h:column>
-                <f:facet name="header">
-                  <h:outputText value="-" style="color: #ffffff;"/>
-                </f:facet>
-                <%if (researcherSurveyDetail02.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {%>
-                    <h:commandLink action="<%=researcherSurveyDetail02.getBeginEdit()%>" rendered="#{researcherSurveyDetail02.status eq 1}">
-                        <h:outputText value="Edit" escape="false" />
-                        <f:param name="questionid" value="<%=question.getQuestionid()%>" />
-                        <f:param name="componenttype" value="<%=question.getComponenttype()%>" />
-                    </h:commandLink>
-                <%}%>
-              </h:column>
-              <h:column>
-                <f:facet name="header">
-                  <h:outputText value="-" style="color: #ffffff;"/>
-                </f:facet>
-                <%if (researcherSurveyDetail02.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {%>
-                    <h:commandLink action="<%=researcherSurveyDetail02.getDeleteQuestion()%>" rendered="#{researcherSurveyDetail02.status eq 1}">
-                        <h:outputText value="Del" escape="false" />
-                        <f:param name="questionid" value="<%=question.getQuestionid()%>" />
-                    </h:commandLink>
-                <%}%>
-              </h:column>
-            </t:dataTable>
-            <t:dataScroller id="scroll_1" for="datatable" fastStep="10" pageCountVar="pageCount" pageIndexVar="pageIndex" styleClass="scroller" paginator="true" paginatorMaxPages="9" paginatorTableClass="paginator" paginatorActiveColumnStyle="font-weight:bold;">
-                <f:facet name="first" >
-                    <t:graphicImage url="/images/datascroller/play-first.png" border="0" />
-                </f:facet>
-                <f:facet name="last">
-                    <t:graphicImage url="/images/datascroller/play-forward.png" border="0" />
-                </f:facet>
-                <f:facet name="previous">
-                    <t:graphicImage url="/images/datascroller/play-back.png" border="0" />
-                </f:facet>
-                <f:facet name="next">
-                    <t:graphicImage url="/images/datascroller/play.png" border="0" />
-                </f:facet>
-            </t:dataScroller>
+
+            <%if (researcherSurveyQuestionList.getQuestions()==null || researcherSurveyQuestionList.getQuestions().size()==0){%>
+                <font class="normalfont">This survey contains no questions.</font>
+            <%} else {%>
+                <%
+                    ArrayList<GridCol> cols=new ArrayList<GridCol>();
+                    cols.add(new GridCol("", "<img src=\"/images/question.png\"/>", true, "", ""));
+                    cols.add(new GridCol("Question", "<$question$>", false, "", "smallfont"));
+                    cols.add(new GridCol("Required?", "<$isrequired$>", false, "", "smallfont"));
+                    if (researcherSurveyDetail02.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {
+                        cols.add(new GridCol("", "<a href=\"researchersurveydetail_02.jsp?action=editquestion&questionid=<$questionid$>&componenttype=<$componenttype$>&surveyid="+researcherSurveyDetail02.getSurvey().getSurveyid()+"\">Edit</a>", false, "", "smallfont"));
+                    }
+                    if (researcherSurveyDetail02.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {
+                        cols.add(new GridCol("", "<a href=\"researchersurveydetail_02.jsp?action=deletequestion&questionid=<$questionid$>&surveyid="+researcherSurveyDetail02.getSurvey().getSurveyid()+"\">Del</a>", false, "", "smallfont"));
+                    }
+                %>
+                <%=Grid.render(researcherSurveyQuestionList.getQuestions(), cols, 50, "researchersurveydetail_02.jsp", "page")%>
+            <%}%>
+
+
             <%if (researcherSurveyDetail02.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {%>
                 <br/>
                 <font class="mediumfont" style="color: #cccccc;">Add a Question of Type</font>
                 <br/>
                 <font class="mediumfont" style="color: #000000;">See tab at upper right for Question Type Samples</font>
                 <br/>
-                <%//@todo links for each question type%>
-                <h:selectOneRadio value="<%=researcherSurveyDetail02.getNewquestioncomponenttype()%>" layout="pageDirection" id="newquestioncomponenttype" styleClass="normalfont" required="true" rendered="#{researcherSurveyDetail02.status eq 1}">
-                    <f:selectItems value="<%=((ComponentTypes)Pagez.getBeanMgr().get("ComponentTypes")).getTypesaslinkedhashmap()%>"/>
-                </h:selectOneRadio>
-                <h:commandButton action="<%=researcherSurveyDetail02.getAddQuestion()%>" value="Add Question" styleClass="formsubmitbutton" rendered="#{researcherSurveyDetail02.status eq 1}">
-                    <f:param name="isnewquestion" value="1" />
-                </h:commandButton>
+                <%
+                    Iterator keyValuePairs=componentTypes.getTypes().entrySet().iterator();
+                    for (int i=0; i<componentTypes.getTypes().size(); i++) {
+                        Map.Entry mapentry=(Map.Entry) keyValuePairs.next();
+                        String key=(String) mapentry.getKey();
+                        String value=(String) mapentry.getValue();
+                        String url = "";
+                        if (key.equals(String.valueOf(com.dneero.display.components.Textbox.ID))) {
+                            url="researchersurveydetail_02_textbox.jsp";
+                        }
+                        if (key.equals(String.valueOf(com.dneero.display.components.Essay.ID))) {
+                            url="researchersurveydetail_02_essay.jsp";
+                        }
+                        if (key.equals(String.valueOf(com.dneero.display.components.Dropdown.ID))) {
+                            url="researchersurveydetail_02_dropdown.jsp";
+                        }
+                        if (key.equals(String.valueOf(com.dneero.display.components.Checkboxes.ID))) {
+                            url="researchersurveydetail_02_checkboxes.jsp";
+                        }
+                        if (key.equals(String.valueOf(com.dneero.display.components.Range.ID))) {
+                            url="researchersurveydetail_02_range.jsp";
+                        }
+                        if (key.equals(String.valueOf(com.dneero.display.components.Matrix.ID))) {
+                            url="researchersurveydetail_02_matrix.jsp";
+                        }
+                        %>
+                        <a href="<%=url%>?isnewquestion=1&surveyid=<%=researcherSurveyDetail02.getSurvey().getSurveyid()%>"><font class="smallfont"><%=value%></font></a><br/>
+                        <%
+                    }
+                %>
             <%}%>
     </div>
     <div class="panel" id="panel2" style="display: none">
