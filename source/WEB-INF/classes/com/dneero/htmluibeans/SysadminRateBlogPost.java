@@ -3,6 +3,7 @@ package com.dneero.htmluibeans;
 import com.dneero.dao.Impression;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.dao.hibernate.NumFromUniqueResult;
+import com.dneero.htmlui.ValidationException;
 import org.apache.log4j.Logger;
 
 import java.util.List;
@@ -44,7 +45,7 @@ public class SysadminRateBlogPost implements Serializable {
         }
     }
 
-    public String rateAction(){
+    public String rateAction() throws ValidationException {
         Logger logger = Logger.getLogger(this.getClass().getName());
         if (impressionid>0){
             Impression impression = Impression.get(impressionid);
@@ -79,7 +80,7 @@ public class SysadminRateBlogPost implements Serializable {
         this.iframestr = iframestr;
     }
 
-    public boolean isHaveposttoreview() {
+    public boolean getHaveposttoreview() {
         return haveposttoreview;
     }
 
