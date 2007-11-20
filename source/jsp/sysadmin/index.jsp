@@ -1,5 +1,8 @@
 <%@ page import="org.apache.log4j.Logger" %>
 <%@ page import="com.dneero.htmlui.Pagez" %>
+<%@ page import="com.dneero.htmluibeans.SystemStats" %>
+<%@ page import="com.dneero.util.Str" %>
+<%@ page import="com.dneero.htmluibeans.SysadminIndex" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "SysAdmin Home";
@@ -7,6 +10,10 @@ String navtab = "sysadmin";
 String acl = "sysadmin";
 %>
 <%@ include file="/jsp/templates/auth.jsp" %>
+<%
+    SysadminIndex sysadminIndex=(SysadminIndex) Pagez.getBeanMgr().get("SysadminIndex");
+    SystemStats systemStats=(SystemStats) Pagez.getBeanMgr().get("SystemStats");
+%>
 <%@ include file="/jsp/templates/header.jsp" %>
 
 
@@ -16,28 +23,28 @@ String acl = "sysadmin";
            <tr>
                <td valign="top" width="25%">
                 <div class="rounded" style="padding: 15px; margin: 8px; background: #BFFFBF;">
-                    <font class="largefont">$<h:outputText value="<%=((SystemStats)Pagez.getBeanMgr().get("SystemStats")).getDollarsavailabletobloggers()%>" styleClass="largefont"><f:converter converterId="DisplayAsMoneyConverter"/></h:outputText></font>
+                    <font class="largefont">$<%=Str.formatForMoney(systemStats.getDollarsavailabletobloggers())%></font>
                     <br/>
                     <font class="mediumfont">waiting to be earned</font>
                 </div>
                </td>
                <td valign="top" width="25%">
                 <div class="rounded" style="padding: 15px; margin: 8px; background: #BFFFBF;">
-                    <font class="largefont"><%=((SystemStats)Pagez.getBeanMgr().get("SystemStats")).getTotalusers()%></font>
+                    <font class="largefont"><%=systemStats.getTotalusers()%></font>
                     <br/>
                     <font class="mediumfont">users in the system</font>
                 </div>
                </td>
                <td valign="top" width="25%">
                 <div class="rounded" style="padding: 15px; margin: 8px; background: #BFFFBF;">
-                    <font class="largefont"><%=((SystemStats)Pagez.getBeanMgr().get("SystemStats")).getTotalsurveystaken()%></font>
+                    <font class="largefont"><%=systemStats.getTotalsurveystaken()%></font>
                     <br/>
                     <font class="mediumfont">surveys taken by users</font>
                 </div>
                </td>
                <td valign="top" width="25%">
                 <div class="rounded" style="padding: 15px; margin: 8px; background: #BFFFBF;">
-                    <font class="largefont"><%=((SystemStats)Pagez.getBeanMgr().get("SystemStats")).getTotalimpressions()%></font>
+                    <font class="largefont"><%=systemStats.getTotalimpressions()%></font>
                     <br/>
                     <font class="mediumfont">survey results displayed</font>
                 </div>
@@ -47,25 +54,25 @@ String acl = "sysadmin";
     </div>
 
     <div class="rounded" style="padding: 15px; margin: 8px; background: #BFFFBF;">
-        <f:verbatim escape="false"><%=((SysadminIndex)Pagez.getBeanMgr().get("SysadminIndex")).getServermemory()%></f:verbatim>
+        <%=sysadminIndex.getServermemory()%>
     </div>
 
     <div class="rounded" style="padding: 15px; margin: 8px; background: #BFFFBF;">
         <font class="normalfont"><b>Pending Balance:</b> </font>
-        <h:outputText value="<%=((SystemStats)Pagez.getBeanMgr().get("SystemStats")).getSystembalance()%>" styleClass="normalfont"><f:convertNumber type="number" maxFractionDigits="2"/></h:outputText>
+        <font class="normalfont"><%=Str.formatForMoney(systemStats.getSystembalance())%></font>
         <br/><font class="tinyfont">The amount of accrued balance that users are holding.  A positive number means we are holding this much money for people.  But keep in mind that this also includes money for researchers who are running surveys.</font>
         <br/><br/>
         <font class="normalfont"><b>System Balance Real World:</b> </font>
-        <h:outputText value="<%=((SystemStats)Pagez.getBeanMgr().get("SystemStats")).getSystembalancerealworld()%>" styleClass="normalfont"><f:convertNumber type="number" maxFractionDigits="2"/></h:outputText>
+        <font class="normalfont"><%=Str.formatForMoney(systemStats.getSystembalancerealworld())%></font>
         <br/><font class="tinyfont">Total real world money taken in and sent out.   A negative number means that dNeero has not collected all the money it has sent out... which shouldn't happen.</font>
         <br/><br/>
         <font class="normalfont"><b>System Overall Balance:</b> </font>
-        <h:outputText value="<%=((SystemStats)Pagez.getBeanMgr().get("SystemStats")).getSystembalancetotal()%>" styleClass="normalfont"><f:convertNumber type="number" maxFractionDigits="2"/></h:outputText>
+        <font class="normalfont"><%=Str.formatForMoney(systemStats.getSystembalancetotal())%></font>
         <br/><font class="tinyfont">Estimate of gross income.</font>
     </div>
 
     <div class="rounded" style="padding: 15px; margin: 8px; background: #BFFFBF;">
-        <f:verbatim escape="false"><%=((SysadminIndex)Pagez.getBeanMgr().get("SysadminIndex")).getFinancialStatsHtml()%></f:verbatim>
+        <%=sysadminIndex.getFinancialStatsHtml()%>
     </div>
 
 

@@ -6,6 +6,7 @@ import com.dneero.util.GeneralException;
 
 import com.dneero.util.Time;
 import com.dneero.htmlui.Pagez;
+import com.dneero.htmlui.ValidationException;
 import com.mysql.jdbc.TimeUtil;
 
 import java.util.Date;
@@ -36,7 +37,7 @@ public class SysadminEditEula implements Serializable {
         date = Time.dateformatcompactwithtime(Time.getCalFromDate(EulaHelper.getMostRecentEula().getDate()));
     }
 
-    public String edit(){
+    public String edit() throws ValidationException {
         Logger logger = Logger.getLogger(this.getClass().getName());
         if (!eula.equals(EulaHelper.getMostRecentEula().getEula())){
             Eula eulaObj = new Eula();
