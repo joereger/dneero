@@ -2,6 +2,8 @@ package com.dneero.htmluibeans;
 
 
 import java.util.LinkedHashMap;
+import java.util.ArrayList;
+import java.util.TreeMap;
 
 
 /**
@@ -12,30 +14,30 @@ import java.util.LinkedHashMap;
 public class StaticVariables {
 
 
-    public LinkedHashMap getPercentiles(){
-        LinkedHashMap out = new LinkedHashMap();
-        out.put("Top 1%", 1);
-        out.put("Top 5%", 5);
-        out.put("Top 10%", 10);
-        out.put("Top 25%", 25);
-        out.put("Top 50%", 50);
-        out.put("All Bloggers", 100);
+    public TreeMap<String, String> getPercentiles(){
+        TreeMap<String, String> out = new TreeMap<String, String>();
+        out.put("Top 1%", String.valueOf(1));
+        out.put("Top 5%", String.valueOf(5));
+        out.put("Top 10%", String.valueOf(10));
+        out.put("Top 25%", String.valueOf(25));
+        out.put("Top 50%", String.valueOf(50));
+        out.put("Everybody", String.valueOf(100));
         return out;
     }
 
-    public LinkedHashMap getBlogqualities(){
-        LinkedHashMap out = new LinkedHashMap();
-        out.put("0", 0);
-        out.put("1", 1);
-        out.put("2", 2);
-        out.put("3", 3);
-        out.put("4", 4);
-        out.put("5", 5);
-        out.put("6", 6);
-        out.put("7", 7);
-        out.put("8", 8);
-        out.put("9", 9);
-        out.put("10", 10);
+    public TreeMap<String, String> getBlogqualities(){
+        TreeMap<String, String> out = new TreeMap<String, String>();
+        out.put("0", String.valueOf(0));
+        out.put("1", String.valueOf(1));
+        out.put("2", String.valueOf(2));
+        out.put("3", String.valueOf(3));
+        out.put("4", String.valueOf(4));
+        out.put("5", String.valueOf(5));
+        out.put("6", String.valueOf(6));
+        out.put("7", String.valueOf(7));
+        out.put("8", String.valueOf(8));
+        out.put("9", String.valueOf(9));
+        out.put("10", String.valueOf(10));
         return out;
     }
 

@@ -1,7 +1,7 @@
 <%@ page import="org.apache.log4j.Logger" %>
-<%@ page import="com.dneero.htmlui.Pagez" %>
 <%@ page import="com.dneero.htmluibeans.ResearcherSurveyDetail06" %>
 <%@ page import="com.dneero.dao.Survey" %>
+<%@ page import="com.dneero.htmlui.*" %>
 <%
 Logger logger=Logger.getLogger(this.getClass().getName());
 String pagetitle="<img src=\"/images/process-train-survey-06.gif\" align=\"right\" width=\"350\" height=\"73\" alt=\"\"/>\n" +
@@ -14,163 +14,188 @@ String acl="researcher";
 <%
 ResearcherSurveyDetail06 researcherSurveyDetail06 = (ResearcherSurveyDetail06)Pagez.getBeanMgr().get("ResearcherSurveyDetail06");
 %>
+<%
+    if (request.getParameter("action") != null && (request.getParameter("action").equals("next") || request.getParameter("action").equals("save") || request.getParameter("action").equals("previous"))) {
+        try {
+            researcherSurveyDetail06.setCccity(Textbox.getValueFromRequest("cccity", "City", false, DatatypeString.DATATYPEID));
+            researcherSurveyDetail06.setCcexpmo(Integer.parseInt(Textbox.getValueFromRequest("ccexpmo", "Expiration Month", false, DatatypeInteger.DATATYPEID)));
+            researcherSurveyDetail06.setCcexpyear(Integer.parseInt(Textbox.getValueFromRequest("ccexpyear", "Expiration Year", false, DatatypeInteger.DATATYPEID)));
+            researcherSurveyDetail06.setCcnum(Textbox.getValueFromRequest("ccnum", "Credit Card Number", false, DatatypeString.DATATYPEID));
+            researcherSurveyDetail06.setCcstate(Textbox.getValueFromRequest("ccstate", "State", false, DatatypeString.DATATYPEID));
+            researcherSurveyDetail06.setCctype(Integer.parseInt(Dropdown.getValueFromRequest("cctype", "Credit Card Type", false)));
+            researcherSurveyDetail06.setCvv2(Dropdown.getValueFromRequest("cvv2", "CVV2", false));
+            researcherSurveyDetail06.setFirstname(Dropdown.getValueFromRequest("firstname", "First Name", false));
+            researcherSurveyDetail06.setLastname(Dropdown.getValueFromRequest("lastname", "Last Name", false));
+            researcherSurveyDetail06.setPostalcode(Dropdown.getValueFromRequest("postalcode", "Postal Code", false));
+            researcherSurveyDetail06.setStreet(Dropdown.getValueFromRequest("street", "Street", false));
+            if (request.getParameter("action").equals("next")) {
+                researcherSurveyDetail06.saveSurvey();
+            } else if (request.getParameter("action").equals("saveasdraft")) {
+                logger.debug("Saveasdraft was clicked");
+                researcherSurveyDetail06.saveSurveyAsDraft();
+            } else if (request.getParameter("action").equals("previous")) {
+                logger.debug("Previous was clicked");
+                researcherSurveyDetail06.previousStep();
+            }
+        } catch (ValidationException vex) {
+            Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
+        }
+    }
+%>
 <%@ include file="/jsp/templates/header.jsp" %>
 
 
 <form action="researchersurveydetail_06.jsp" method="post" id="rsdform">
-        <input type="hidden" name="action" value="next">
-        <input type="hidden" name="surveyid" value="<%=researcherSurveyDetail06.getSurvey().getSurveyid()%>"/>
+    <input type="hidden" name="action" value="next">
+    <input type="hidden" name="surveyid" value="<%=researcherSurveyDetail06.getSurvey().getSurveyid()%>"/>
 
 
 
     <div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;">
-    <table cellpadding="0" cellspacing="0" border="0">
+        <table cellpadding="0" cellspacing="0" border="0">
 
+            <tr>
+                <td valign="top">
+                    <font class="formfieldnamefont">Bloggers In System Fulfilling Requirements</font>
+                </td>
+                <td valign="top">
+                    <font class="normalfont"><%=researcherSurveyDetail06.getNumberofbloggersqualifiedforthissurvey()%>"></font>
+                </td>
+            </tr>
 
-        <td valign="top">
-            <h:outputText value="Bloggers In System Fulfilling Requirements" styleClass="formfieldnamefont"></h:outputText>
-        </td>
-        <td valign="top">
-            <h:outputText value="<%=researcherSurveyDetail06.getNumberofbloggersqualifiedforthissurvey()%>"></h:outputText>
-        </td>
-        <td valign="top">
-        </td>
+            <tr>
+                <td valign="top">
+                    <font class="formfieldnamefont">Number of Questions in Survey</font>
+                </td>
+                <td valign="top">
+                    <font class="normalfont"><%=researcherSurveyDetail06.getNumberofquestions()%></font>
+                </td>
+            </tr>
 
-        <td valign="top">
-            <h:outputText value="Number of Questions in Survey" styleClass="formfieldnamefont"></h:outputText>
-        </td>
-        <td valign="top">
-            <h:outputText value="<%=researcherSurveyDetail06.getNumberofquestions()%>"></h:outputText>
-        </td>
-        <td valign="top">
-        </td>
+            <tr>
+                <td valign="top">
+                    <font class="formfieldnamefont">Survey Start Date/Time</font>
+                </td>
+                <td valign="top">
+                    <font class="normalfont"><%=researcherSurveyDetail06.getStartdate()%></font>
+                </td>
+            </tr>
 
-        <td valign="top">
-            <h:outputText value="Survey Start Date/Time" styleClass="formfieldnamefont"></h:outputText>
-        </td>
-        <td valign="top">
-            <h:outputText value="<%=researcherSurveyDetail06.getStartdate()%>"></h:outputText>
-        </td>
-        <td valign="top">
-        </td>
+            <tr>
+                <td valign="top">
+                    <font class="formfieldnamefont">Survey End Date/Time</font>
+                </td>
+                <td valign="top">
+                    <font class="normalfont"><%=researcherSurveyDetail06.getEnddate()%></font>
+                </td>
+            </tr>
 
-        <td valign="top">
-            <h:outputText value="Survey End Date/Time" styleClass="formfieldnamefont"></h:outputText>
-        </td>
-        <td valign="top">
-            <h:outputText value="<%=researcherSurveyDetail06.getEnddate()%>"></h:outputText>
-        </td>
-        <td valign="top">
-        </td>
+            <tr>
+                <td valign="top">
+                    <font class="formfieldnamefont">Max Possible Payment for Survey Responses</font>
+                </td>
+                <td valign="top">
+                    <font class="normalfont"><%=researcherSurveyDetail06.getMaxrespondentpayments()%></font>
+                </td>
+            </tr>
 
+            <tr>
+                <td valign="top">
+                    <font class="formfieldnamefont">Max Possible Payment for Survey Displays on Blogs</font>
+                </td>
+                <td valign="top">
+                    <font class="normalfont"><%=researcherSurveyDetail06.getMaximpressionpayments()%></font>
+                </td>
+            </tr>
 
-        <td valign="top">
-            <h:outputText value="Max Possible Payment for Survey Responses" styleClass="formfieldnamefont"></h:outputText>
-        </td>
-        <td valign="top">
-            <h:outputText value="<%=researcherSurveyDetail06.getMaxrespondentpayments()%>"></h:outputText>
-        </td>
-        <td valign="top">
-        </td>
+            <tr>
+                <td valign="top">
+                    <font class="formfieldnamefont">Survey Creation Fee</font>
+                </td>
+                <td valign="top">
+                    <font class="normalfont">$5.00</font>
+                </td>
+            </tr>
 
-        <td valign="top">
-            <h:outputText value="Max Possible Payment for Survey Displays on Blogs" styleClass="formfieldnamefont"></h:outputText>
-        </td>
-        <td valign="top">
-            <h:outputText value="<%=researcherSurveyDetail06.getMaximpressionpayments()%>"></h:outputText>
-        </td>
-        <td valign="top">
-        </td>
+            <tr>
+                <td valign="top">
+                    <font class="formfieldnamefont">Hide Survey Overall Aggregate Results Fee</font>
+                </td>
+                <td valign="top">
+                    <font class="normalfont"><%=researcherSurveyDetail06.getHideresultsfee()%></font>
+                </td>
+            </tr>
 
-        <td valign="top">
-            <h:outputText value="Survey Creation Fee" styleClass="formfieldnamefont"></h:outputText>
-        </td>
-        <td valign="top">
-            <h:outputText value="$5.00"></h:outputText>
-        </td>
-        <td valign="top">
-        </td>
+            <tr>
+                <td valign="top">
+                    <font class="formfieldnamefont">Max Possible dNeero Fee</font>
+                </td>
+                <td valign="top">
+                    <font class="normalfont"><%=researcherSurveyDetail06.getDneerofee()%></font>
+                </td>
+            </tr>
 
-        <td valign="top">
-            <h:outputText value="Hide Survey Overall Aggregate Results Fee" styleClass="formfieldnamefont"></h:outputText>
-        </td>
-        <td valign="top">
-            <h:outputText value="<%=researcherSurveyDetail06.getHideresultsfee()%>"></h:outputText>
-        </td>
-        <td valign="top">
-        </td>
-
-        <td valign="top">
-            <h:outputText value="Max Possible dNeero Fee" styleClass="formfieldnamefont"></h:outputText>
-        </td>
-        <td valign="top">
-            <h:outputText value="<%=researcherSurveyDetail06.getDneerofee()%>"></h:outputText>
-        </td>
-        <td valign="top">
-        </td>
-
-        <td valign="top">
-            <h:outputText value="Max Possible Spend" styleClass="formfieldnamefont"></h:outputText>
-        </td>
-        <td valign="top">
-            <h:outputText value="<%=researcherSurveyDetail06.getMaxpossiblespend()%>"></h:outputText>
-        </td>
-        <td valign="top">
-        </td>
+            <tr>
+                <td valign="top">
+                    <font class="formfieldnamefont">Max Possible Spend</font>
+                </td>
+                <td valign="top">
+                    <font class="normalfont"><%=researcherSurveyDetail06.getMaxpossiblespend()%></font>
+                </td>
+            </tr>
 
 
 
-    </table>
+        </table>
     </div>
 
-    <d:roundedCornerBox uniqueboxname="warningnumberofbloggerslessthanrequested" bodycolor="ffffcc" widthinpixels="700" rendered="#{1 eq 2 and researcherSurveyDetail06.warningnumberofbloggerslessthanrequested}">
-        <h:graphicImage url="/images/lightbulb_on.png"></h:graphicImage>
-        <font class="smallfont">
-        Warning: You've requested a number of survey respondents that is larger than the current number of bloggers in the system that fulfill your targeting criteria.  This may or may not be a problem.  Surveys often attract new bloggers to the system... you are in no way limited to the bloggers already signed-up.
-        <br/><h:commandLink value="Possible Remedy: Relax the Targeting Criteria" styleClass="smallfont" action="researchersurveydetail_04" immediate="true"/>
-        <br/><h:commandLink value="Idea: Increase Your Incentive to Attract New Bloggers" styleClass="smallfont" action="researchersurveydetail_05" immediate="true"/>
-        </font>
-    </d:roundedCornerBox>
+    <%if (1==2){%>
+        <%if (researcherSurveyDetail06.getWarningnumberofbloggerslessthanrequested()){%>
+            <img src="/images/lightbulb_on.png"/>
+            <font class="smallfont">
+            Warning: You've requested a number of survey respondents that is larger than the current number of bloggers in the system that fulfill your targeting criteria.  This may or may not be a problem.  Surveys often attract new bloggers to the system... you are in no way limited to the bloggers already signed-up.
+            <br/><h:commandLink value="Possible Remedy: Relax the Targeting Criteria" styleClass="smallfont" action="researchersurveydetail_04" immediate="true"/>
+            <br/><h:commandLink value="Idea: Increase Your Incentive to Attract New Bloggers" styleClass="smallfont" action="researchersurveydetail_05" immediate="true"/>
+            </font>
+        <%}%>
 
-    <d:roundedCornerBox uniqueboxname="warningnumberrequestedratiotoobig" bodycolor="ffffcc" widthinpixels="700" rendered="#{1 eq 2 and researcherSurveyDetail06.warningnumberrequestedratiotoobig and !researcherSurveyDetail06.warningnumberofbloggerslessthanrequested}">
-        <h:graphicImage url="/images/lightbulb_on.png"></h:graphicImage>
-        <font class="smallfont">
-        Warning: The ratio of the number of respondents you've requested to the number of bloggers that qualify for your criteria is a little high meaning that it may be difficult to attract enough respondents. This may or may not be a problem.  Surveys often attract new bloggers to the system... you are in no way limited to the bloggers already signed-up.
-        <br/><h:commandLink value="Possible Remedy: Relax the Targeting Criteria" styleClass="smallfont" action="researchersurveydetail_04" immediate="true"/>
-        <br/><h:commandLink value="Idea: Increase Your Incentive to Attract New Bloggers" styleClass="smallfont" action="researchersurveydetail_05" immediate="true"/>
-        </font>
-    </d:roundedCornerBox>
+        <%if (researcherSurveyDetail06.getWarningnumberrequestedratiotoobig()){%>
+            <img src="/images/lightbulb_on.png"/>
+            <font class="smallfont">
+            Warning: The ratio of the number of respondents you've requested to the number of bloggers that qualify for your criteria is a little high meaning that it may be difficult to attract enough respondents. This may or may not be a problem.  Surveys often attract new bloggers to the system... you are in no way limited to the bloggers already signed-up.
+            <br/><h:commandLink value="Possible Remedy: Relax the Targeting Criteria" styleClass="smallfont" action="researchersurveydetail_04" immediate="true"/>
+            <br/><h:commandLink value="Idea: Increase Your Incentive to Attract New Bloggers" styleClass="smallfont" action="researchersurveydetail_05" immediate="true"/>
+            </font>
+        <%}%>
 
-    <d:roundedCornerBox uniqueboxname="warningtoomanyquestions" bodycolor="ffffcc" widthinpixels="700" rendered="<%=researcherSurveyDetail06.getWarningtoomanyquestions()%>">
-        <h:graphicImage url="/images/lightbulb_on.png"></h:graphicImage>
-        <font class="smallfont">
-        Warning: You seem to have a large number of questions in your survey.  There is nothing wrong with this.  But large surveys and blogs may not be the best fit.  First, bloggers are a quick bunch, always having a lot to do. Second, you're asking them to post the survey to their blogs... large surveys may take over a blog at which point the blogger will take the survey down.  This may not be a problem for you, but we did want you to know about the possible issue.
-        <br/><h:commandLink value="Possible Remedy: Adjust the Questions of Your Survey" styleClass="smallfont" action="researchersurveydetail_02" immediate="true"/>
-        </font>
-    </d:roundedCornerBox>
+        <%if (researcherSurveyDetail06.getWarningtoomanyquestions()){%>
+            <img src="/images/lightbulb_on.png"/>
+            <font class="smallfont">
+            Warning: You seem to have a large number of questions in your survey.  There is nothing wrong with this.  But large surveys and blogs may not be the best fit.  First, bloggers are a quick bunch, always having a lot to do. Second, you're asking them to post the survey to their blogs... large surveys may take over a blog at which point the blogger will take the survey down.  This may not be a problem for you, but we did want you to know about the possible issue.
+            <br/><h:commandLink value="Possible Remedy: Adjust the Questions of Your Survey" styleClass="smallfont" action="researchersurveydetail_02" immediate="true"/>
+            </font>
+        <%}%>
 
-    <d:roundedCornerBox uniqueboxname="warningnoquestions" bodycolor="ffffcc" widthinpixels="700" rendered="<%=researcherSurveyDetail06.getWarningnoquestions()%>">
-        <h:graphicImage url="/images/lightbulb_on.png"></h:graphicImage>
-        <font class="smallfont">
-        Warning: This survey has no questions.  You may be trying to use the system as an advertising placement tool (which is fine) but we thought that you may have accidentally skipped the question page.
-        <br/><h:commandLink value="Possible Remedy: Add Questions to Your Survey" styleClass="smallfont" action="researchersurveydetail_02" immediate="true"/>
-        </font>
-    </d:roundedCornerBox>
+        <%if (researcherSurveyDetail06.getWarningnoquestions()){%>
+            <img src="/images/lightbulb_on.png"/>
+            <font class="smallfont">
+            Warning: This survey has no questions.  You may be trying to use the system as an advertising placement tool (which is fine) but we thought that you may have accidentally skipped the question page.
+            <br/><h:commandLink value="Possible Remedy: Add Questions to Your Survey" styleClass="smallfont" action="researchersurveydetail_02" immediate="true"/>
+            </font>
+        <%}%>
 
-
-    <d:roundedCornerBox uniqueboxname="warningtimeperiodtooshort" bodycolor="ffffcc" widthinpixels="700" rendered="<%=researcherSurveyDetail06.getWarningtimeperiodtooshort()%>">
-        <h:graphicImage url="/images/lightbulb_on.png"></h:graphicImage>
-        <font class="smallfont">
-        Warning: The survey time period is rather short.  You may have very good reasons for doing so but we did want to note that surveys take some time to be publicized, signed up for, posted, etc.  30 days is a good safe period of time for a survey.
-        <br/><h:commandLink value="Possible Remedy: Adjust the Start and End Dates" styleClass="smallfont" action="researchersurveydetail_01" immediate="true"/>
-        </font>
-    </d:roundedCornerBox>
-
-
-
+        <%if (researcherSurveyDetail06.getWarningtimeperiodtooshort()){%>
+            <img src="/images/lightbulb_on.png"/>
+            <font class="smallfont">
+            Warning: The survey time period is rather short.  You may have very good reasons for doing so but we did want to note that surveys take some time to be publicized, signed up for, posted, etc.  30 days is a good safe period of time for a survey.
+            <br/><h:commandLink value="Possible Remedy: Adjust the Start and End Dates" styleClass="smallfont" action="researchersurveydetail_01" immediate="true"/>
+            </font>
+        <%}%>
+    <%}%>
 
 
-     <t:div rendered="<%=researcherSurveyDetail06.getWarningdonthaveccinfo()%>">
+
+     <%if (researcherSurveyDetail06.getWarningdonthaveccinfo()){%>
         <div class="rounded" style="background: #ffffff; text-align: left; padding: 20px;">
             <font class="mediumfont" style="color: #cccccc;">Credit Card Info</font>
             <br/>
@@ -179,86 +204,65 @@ ResearcherSurveyDetail06 researcherSurveyDetail06 = (ResearcherSurveyDetail06)Pa
 
             <tr>
                <td valign="top" align="left">
-                    <h:outputText value="Name" styleClass="formfieldnamefont"></h:outputText>
+                    <font class="formfieldnamefont">Name</font>
                     <br/>
-                    <h:outputText value="(first then last)" styleClass="tinyfont"></h:outputText>
+                    <font class="tinyfont">(first then last)</font>
                </td>
                <td valign="top" align="left">
-                    <h:inputText value="<%=researcherSurveyDetail06.getFirstname()%>" id="firstname"  size="15"></h:inputText>
-                    <h:outputText value=" " styleClass="formfieldnamefont"></h:outputText>
-                    <h:inputText value="<%=researcherSurveyDetail06.getLastname()%>" id="lastname" size="15"></h:inputText>
-                    <h:message for="firstname" styleClass="RED"></h:message>
-                    <h:message for="lastname" styleClass="RED"></h:message>
+                    <%=Textbox.getHtml("firstname", researcherSurveyDetail06.getFirstname(), 255, 15, "", "")%>
+                    <%=Textbox.getHtml("lastname", researcherSurveyDetail06.getLastname(), 255, 15, "", "")%>
                </td>
             </tr>
 
             <tr>
                <td valign="top" align="left">
-                    <h:outputText value="Street Address" styleClass="formfieldnamefont"></h:outputText>
+                    <font class="formfieldnamefont">Street Address</font>
                </td>
                <td valign="top" align="left">
-                    <h:inputText value="<%=researcherSurveyDetail06.getStreet()%>" id="street" size="30"></h:inputText>
-                    <h:message for="street" styleClass="RED"></h:message>
+                    <%=Textbox.getHtml("street", researcherSurveyDetail06.getStreet(), 255, 30, "", "")%>
                </td>
             </tr>
 
 
             <tr>
                <td valign="top" align="left">
-                    <h:outputText value="City, State, Zip" styleClass="formfieldnamefont"></h:outputText>
+                    <font class="formfieldnamefont">City, State, Zip</font>
                </td>
                <td valign="top" align="left">
-                    <h:inputText value="<%=researcherSurveyDetail06.getCccity()%>" id="cccity" size="20"></h:inputText>
-                    <h:outputText value=" " styleClass="formfieldnamefont"></h:outputText>
-                    <h:inputText value="<%=researcherSurveyDetail06.getCcstate()%>" id="ccstate"  size="2"></h:inputText>
-                    <h:outputText value=" " styleClass="formfieldnamefont"></h:outputText>
-                    <h:inputText value="<%=researcherSurveyDetail06.getPostalcode()%>" id="postalcode" size="6"></h:inputText>
-                    <h:message for="cccity" styleClass="RED"></h:message>
-                    <h:message for="ccstate" styleClass="RED"></h:message>
-                    <h:message for="postalcode" styleClass="RED"></h:message>
+                    <%=Textbox.getHtml("cccity", researcherSurveyDetail06.getCccity(), 255, 20, "", "")%>
+                    <%=Textbox.getHtml("ccstate", researcherSurveyDetail06.getCcstate(), 255, 2, "", "")%>
+                    <%=Textbox.getHtml("postalcode", researcherSurveyDetail06.getPostalcode(), 255, 6, "", "")%>
                </td>
             </tr>
 
 
             <tr>
                <td valign="top" align="left">
-                    <h:outputText value="Credit Card Type" styleClass="formfieldnamefont"></h:outputText>
+                    <font class="formfieldnamefont">Credit Card Type</font>
                </td>
                <td valign="top" align="left">
-                    <h:selectOneMenu value="<%=researcherSurveyDetail06.getCctype()%>" id="cctype" required="true">
-                        <f:selectItems value="<%=researcherSurveyDetail06.getCreditcardtypes()%>"/>
-                    </h:selectOneMenu>
-                    <h:message for="cctype" styleClass="RED"></h:message>
+                    <%=Dropdown.getHtml("cctype", String.valueOf(researcherSurveyDetail06.getCctype()), researcherSurveyDetail06.getCreditcardtypes(), "","")%>
                </td>
             </tr>
 
             <tr>
                <td valign="top" align="left">
-                    <h:outputText value="Credit Card Number" styleClass="formfieldnamefont"></h:outputText>
+                    <font class="formfieldnamefont">Credit Card Number</font>
                </td>
                <td valign="top" align="left">
-                    <h:inputText value="<%=researcherSurveyDetail06.getCcnum()%>" id="ccnum"  size="18">
-                        <t:validateCreditCard />
-                    </h:inputText>
-                    <h:message for="ccnum" styleClass="RED"></h:message>
+                    <%=Textbox.getHtml("ccnum", researcherSurveyDetail06.getCcnum(), 255, 18, "", "")%>
                </td>
             </tr>
 
 
             <tr>
                <td valign="top" align="left">
-                    <h:outputText value="Expiration Date" styleClass="formfieldnamefont"></h:outputText>
+                    <font class="formfieldnamefont">Expiration Date</font>
                </td>
                <td valign="top" align="left">
-                    <h:selectOneMenu value="<%=researcherSurveyDetail06.getCcexpmo()%>" id="ccexpmo" required="true">
-                        <f:selectItems value="<%=researcherSurveyDetail06.getMonthsForCreditcard()%>"/>
-                    </h:selectOneMenu>
+                    <%=Dropdown.getHtml("ccexpmo", String.valueOf(researcherSurveyDetail06.getCcexpmo()), researcherSurveyDetail06.getMonthsForCreditcard(), "","")%>
                     /
-                    <h:selectOneMenu value="<%=researcherSurveyDetail06.getCcexpyear()%>" id="ccexpyear" required="true">
-                        <f:selectItems value="<%=researcherSurveyDetail06.getYearsForCreditcard()%>"/>
-                    </h:selectOneMenu>
-                    <h:message for="ccexpmo" styleClass="RED"></h:message>
-                    <h:message for="ccexpyear" styleClass="RED"></h:message>
+                    <%=Dropdown.getHtml("ccexpyear", String.valueOf(researcherSurveyDetail06.getCcexpyear()), researcherSurveyDetail06.getYearsForCreditcard(), "","")%>
                </td>
             </tr>
 
@@ -266,13 +270,12 @@ ResearcherSurveyDetail06 researcherSurveyDetail06 = (ResearcherSurveyDetail06)Pa
 
             <tr>
                <td valign="top" align="left">
-                    <h:outputText value="CVV2" styleClass="formfieldnamefont"></h:outputText>
+                    <font class="formfieldnamefont">CVV2</font>
                     <br/>
-                    <h:outputText value="(three digit number on back of card)" styleClass="tinyfont"></h:outputText>
+                    <font class="tinyfont">(three digit number on back of card)</font>
                </td>
                <td valign="top" align="left">
-                    <h:inputText value="<%=researcherSurveyDetail06.getCvv2()%>" id="cvv2" size="3"></h:inputText>
-                    <h:message for="cvv2" styleClass="RED"></h:message>
+                    <%=Textbox.getHtml("cvv2", researcherSurveyDetail06.getCvv2(), 255, 3, "", "")%>
                </td>
             </tr>
 
@@ -280,10 +283,10 @@ ResearcherSurveyDetail06 researcherSurveyDetail06 = (ResearcherSurveyDetail06)Pa
 
 
             </div>
-        </t:div>
+        <%}%>
 
 
-    <f:verbatim><br/><br/></f:verbatim>
+    <br/><br/>
     <font class="mediumfont">
         <ul>
             <li>I understand that by launching this survey I am committing to spending up to <%=researcherSurveyDetail06.getMaxpossiblespend()%> (Max Possible Spend.)</li>

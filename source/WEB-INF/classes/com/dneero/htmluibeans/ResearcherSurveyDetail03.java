@@ -8,6 +8,7 @@ import com.dneero.dao.Survey;
 import com.dneero.dao.Question;
 import com.dneero.htmlui.UserSession;
 import com.dneero.htmlui.Pagez;
+import com.dneero.htmlui.ValidationException;
 import com.dneero.display.SurveyTemplateProcessor;
 import com.dneero.survey.servlet.SurveyFlashServlet;
 import com.dneero.survey.servlet.SurveyJavascriptServlet;
@@ -97,12 +98,12 @@ public class ResearcherSurveyDetail03 implements Serializable {
         return "";
     }
 
-    public String resetFormatting(){
+    public String resetFormatting() throws ValidationException {
         template = "";
         return saveSurvey();
     }
 
-    public String saveSurvey(){
+    public String saveSurvey() throws ValidationException {
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("saveSurvey() called.");
         if (status<=Survey.STATUS_DRAFT){
@@ -139,7 +140,7 @@ public class ResearcherSurveyDetail03 implements Serializable {
         return "";
     }
 
-    public String continueToNext(){
+    public String continueToNext() throws ValidationException {
         if(saveSurvey()!=null){
             Pagez.sendRedirect("/jsp/researcher/researchersurveydetail_04.jsp");
             return "";

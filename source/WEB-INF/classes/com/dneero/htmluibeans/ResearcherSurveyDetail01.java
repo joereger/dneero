@@ -70,7 +70,7 @@ public class ResearcherSurveyDetail01 implements Serializable {
 
 
 
-    public String saveSurveyAsDraft(){
+    public String saveSurveyAsDraft() throws ValidationException {
         String save = saveSurvey();
         if (save!=null){
             Pagez.sendRedirect("/jsp/researcher/index.jsp");

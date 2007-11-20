@@ -232,13 +232,12 @@ public class ResearcherSurveyDetail04 implements Serializable {
         return "";
     }
 
-    public List getPanelsavailable(){
-        ArrayList out = new ArrayList();
+    public TreeMap<String, String> getPanelsavailable(){
+        TreeMap<String, String> out = new TreeMap<String, String>();
         List results = HibernateUtil.getSession().createQuery("from Panel where researcherid='"+Pagez.getUserSession().getUser().getResearcherid()+"'").list();
         for (Iterator iterator = results.iterator(); iterator.hasNext();) {
             Panel panel = (Panel) iterator.next();
-            SelectItem item = new SelectItem(String.valueOf(panel.getPanelid()), Str.truncateString(panel.getName(), 40));
-            out.add(item);
+            out.put(String.valueOf(panel.getPanelid()), Str.truncateString(panel.getName(), 40));
         }
         return out;
     }

@@ -1,7 +1,10 @@
 <%@ page import="org.apache.log4j.Logger" %>
-<%@ page import="com.dneero.htmlui.Pagez" %>
 <%@ page import="com.dneero.htmluibeans.ResearcherSurveyDetail04" %>
 <%@ page import="com.dneero.dao.Survey" %>
+<%@ page import="com.dneero.htmlui.*" %>
+<%@ page import="com.dneero.htmluibeans.StaticVariables" %>
+<%@ page import="com.dneero.util.Util" %>
+<%@ page import="com.dneero.constants.*" %>
 <%
 Logger logger=Logger.getLogger(this.getClass().getName());
 String pagetitle="<img src=\"/images/process-train-survey-04.gif\" align=\"right\" width=\"350\" height=\"73\" alt=\"\"/>\n" +
@@ -13,6 +16,39 @@ String acl="researcher";
 <%@ include file="/jsp/templates/auth.jsp" %>
 <%
 ResearcherSurveyDetail04 researcherSurveyDetail04 = (ResearcherSurveyDetail04)Pagez.getBeanMgr().get("ResearcherSurveyDetail04");
+StaticVariables staticVariables = (StaticVariables)Pagez.getBeanMgr().get("StaticVariables");
+%>
+<%
+    if (request.getParameter("action") != null && (request.getParameter("action").equals("next") || request.getParameter("action").equals("save") || request.getParameter("action").equals("previous"))) {
+        try {
+            researcherSurveyDetail04.setAgemin(Integer.parseInt(Textbox.getValueFromRequest("agemin", "Age Min", true, DatatypeInteger.DATATYPEID)));
+            researcherSurveyDetail04.setAgemax(Integer.parseInt(Textbox.getValueFromRequest("agemax", "Age Max", true, DatatypeInteger.DATATYPEID)));
+            researcherSurveyDetail04.setBlogfocus(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("blogfocus", "Blog Focus", false)));
+            researcherSurveyDetail04.setBlogquality(Integer.parseInt(Dropdown.getValueFromRequest("blogquality", "Blog Quality", false)));
+            researcherSurveyDetail04.setCity(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("cities", "Cities", false)));
+            researcherSurveyDetail04.setEducationlevel(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("educationlevel", "Education Levels", false)));
+            researcherSurveyDetail04.setEthnicity(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("ethnicity", "Ethnicity", false)));
+            researcherSurveyDetail04.setGender(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("gender", "Genders", false)));
+            researcherSurveyDetail04.setIncome(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("income", "Incomes", false)));
+            researcherSurveyDetail04.setMaritalstatus(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("maritalstatus", "Marital Statuses", false)));
+            researcherSurveyDetail04.setMinsocialinfluencepercentile(Integer.parseInt(Dropdown.getValueFromRequest("minsocialinfluencepercentile", "Min Social Influence", false)));
+            researcherSurveyDetail04.setPanels(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("panels", "Panels", false)));
+            researcherSurveyDetail04.setPolitics(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("politics", "Politics", false)));
+            researcherSurveyDetail04.setProfession(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("professions", "Professions", false)));
+            researcherSurveyDetail04.setState(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("states", "States", false)));
+            if (request.getParameter("action").equals("next")) {
+                researcherSurveyDetail04.saveSurvey();
+            } else if (request.getParameter("action").equals("saveasdraft")) {
+                logger.debug("Saveasdraft was clicked");
+                researcherSurveyDetail04.saveSurveyAsDraft();
+            } else if (request.getParameter("action").equals("previous")) {
+                logger.debug("Previous was clicked");
+                researcherSurveyDetail04.previousStep();
+            }
+        } catch (ValidationException vex) {
+            Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
+        }
+    }
 %>
 <%@ include file="/jsp/templates/header.jsp" %>
 
@@ -31,222 +67,141 @@ ResearcherSurveyDetail04 researcherSurveyDetail04 = (ResearcherSurveyDetail04)Pa
 
 
 
-    <t:div rendered="#{researcherSurveyDetail04.status ne 1}">
-        <f:verbatim escape="false"><%=researcherSurveyDetail04.getSurveyCriteriaAsHtml()%></f:verbatim>
+    <%if (researcherSurveyDetail04.getSurvey().getStatus()>Survey.STATUS_DRAFT) {%>
+        <%=researcherSurveyDetail04.getSurveyCriteriaAsHtml()%>
         <br/>
         <b>Panels:</b>
-        <h:outputText value="<%=researcherSurveyDetail04.getPanelsStr()%>" rendered="#{researcherSurveyDetail04.status ne 1}" escape="false"></h:outputText>
-    </t:div>
+        <%=researcherSurveyDetail04.getPanelsStr()%>
+    <%}%>
 
     <%if (researcherSurveyDetail04.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {%>
         <table cellpadding="0" cellspacing="0" border="0">
 
-            <td valign="top">
-                <h:outputText value="Social Influence Rating (TM)" styleClass="formfieldnamefont"></h:outputText>
-                <br/>
-                <h:outputText value="Social Influence Rating takes site traffic, survey referrals and a number of other metrics into account to give you some measure of this blogger's influence with his/her readership." styleClass="smallfont"></h:outputText>
-                <br/>
-                <h:message for="minsocialinfluencepercentile" styleClass="RED"></h:message>
-            </td>
-            <td valign="top">
-                <h:selectOneMenu value="<%=researcherSurveyDetail04.getMinsocialinfluencepercentile()%>" id="minsocialinfluencepercentile" required="true">
-                   <f:selectItems value="<%=((StaticVariables)Pagez.getBeanMgr().get("StaticVariables")).getPercentiles()%>"/>
-                </h:selectOneMenu>
-            </td>
+
+            <tr>
+                <td valign="top">
+                    <font class="formfieldnamefont">Social Influence Rating (TM)</font>
+                    <br/>
+                    <font class="smallfont">Social Influence Rating takes site traffic, survey referrals and a number of other metrics into account to give you some measure of this blogger's influence with his/her readership.</font>
+                </td>
+                <td valign="top">
+                    <%=Dropdown.getHtml("minsocialinfluencepercentile", String.valueOf(researcherSurveyDetail04.getMinsocialinfluencepercentile()), staticVariables.getPercentiles(), "", "")%>
+                </td>
 
 
-            <td valign="top">
-                <h:outputText value="Social Influence Rating 90 Days" styleClass="formfieldnamefont"></h:outputText>
-                <br/>
-                <h:message for="minsocialinfluencepercentile90days" styleClass="RED"></h:message>
-            </td>
-            <td valign="top">
-                <h:selectOneMenu value="<%=researcherSurveyDetail04.getMinsocialinfluencepercentile90days()%>" id="minsocialinfluencepercentile90days" required="true">
-                   <f:selectItems value="<%=((StaticVariables)Pagez.getBeanMgr().get("StaticVariables")).getPercentiles()%>"/>
-                </h:selectOneMenu>
-            </td>
+                <td valign="top">
+                    <font class="formfieldnamefont">Blog Quality of At Least</font>
+                    <br/>
+                    <font class="smallfont">Blog Quality is determined manually by our administrators visiting each blog post and assigning a general quality rating.</font>
+                </td>
+                <td valign="top">
+                    <%=Dropdown.getHtml("blogquality", String.valueOf(researcherSurveyDetail04.getBlogquality()), staticVariables.getBlogqualities(), "", "")%>
+                </td>
+            </tr>
 
 
 
 
-            <td valign="top">
-                <h:outputText value="Blog Quality of At Least" styleClass="formfieldnamefont"></h:outputText>
-                <br/>
-                <h:outputText value="Blog Quality is determined manually by our administrators visiting each blog post and assigning a general quality rating." styleClass="smallfont"></h:outputText>
-                <br/>
-                <h:message for="blogquality" styleClass="RED"></h:message>
-            </td>
-            <td valign="top">
-                <h:selectOneListbox value="<%=researcherSurveyDetail04.getBlogquality()%>" size="1" id="blogquality" layout="pageDirection" required="true">
-                    <f:selectItems value="<%=((StaticVariables)Pagez.getBeanMgr().get("StaticVariables")).getBlogqualities()%>"/>
-                </h:selectOneListbox>
-            </td>
+            <tr>
+                <td valign="top">
+                    <font class="formfieldnamefont">Age Range</font>
+                </td>
+                <td valign="top">
+                    <%=Textbox.getHtml("agemin", String.valueOf(researcherSurveyDetail04.getAgemin()), 5, 3, "", "")%>
+                    -
+                    <%=Textbox.getHtml("agemax", String.valueOf(researcherSurveyDetail04.getAgemax()), 5, 3, "", "")%>
+                </td>
+
+                <td valign="top">
+                    <font class="formfieldnamefont">Gender</font>
+                </td>
+                <td valign="top">
+                    <%=DropdownMultiselect.getHtml("gender", Util.stringArrayToArrayList(researcherSurveyDetail04.getGender()), Util.treeSetToTreeMap(Genders.get()), 6, "", "")%>
+                </td>
+            </tr>
+
+            <tr>
+                <td valign="top">
+                    <font class="formfieldnamefont">Ethnicity</font>
+                </td>
+                <td valign="top">
+                    <%=DropdownMultiselect.getHtml("ethnicity", Util.stringArrayToArrayList(researcherSurveyDetail04.getEthnicity()), Util.treeSetToTreeMap(Ethnicities.get()), 6, "", "")%>
+                </td>
 
 
-            <td valign="top">
-                <h:outputText value="Blog Quality Over Last 90 Days of At Least" styleClass="formfieldnamefont"></h:outputText>
-                <br/>
-                <h:message for="blogquality90days" styleClass="RED"></h:message>
-            </td>
-            <td valign="top">
-                <h:selectOneListbox value="<%=researcherSurveyDetail04.getBlogquality90days()%>" size="1" id="blogquality90days" layout="pageDirection" required="true">
-                    <f:selectItems value="<%=((StaticVariables)Pagez.getBeanMgr().get("StaticVariables")).getBlogqualities()%>"/>
-                </h:selectOneListbox>
-            </td>
+                <td valign="top">
+                    <font class="formfieldnamefont">Marital Status</font>
+                </td>
+                <td valign="top">
+                    <%=DropdownMultiselect.getHtml("maritalstatus", Util.stringArrayToArrayList(researcherSurveyDetail04.getMaritalstatus()), Util.treeSetToTreeMap(Maritalstatuses.get()), 6, "", "")%>
+                </td>
+            </tr>
+
+            <tr>
+                <td valign="top">
+                    <font class="formfieldnamefont">Income</font>
+                </td>
+                <td valign="top">
+                    <%=DropdownMultiselect.getHtml("income", Util.stringArrayToArrayList(researcherSurveyDetail04.getIncome()), Util.treeSetToTreeMap(Incomes.get()), 6, "", "")%>
+                </td>
+
+                <td valign="top">
+                    <font class="formfieldnamefont">Education</font>
+                </td>
+                <td valign="top">
+                    <%=DropdownMultiselect.getHtml("educationlevel", Util.stringArrayToArrayList(researcherSurveyDetail04.getEducationlevel()), Util.treeSetToTreeMap(Educationlevels.get()), 6, "", "")%>
+                </td>
+            </tr>
+
+            <tr>
+                <td valign="top">
+                    <font class="formfieldnamefont">State</font>
+                </td>
+                <td valign="top">
+                    <%=DropdownMultiselect.getHtml("states", Util.stringArrayToArrayList(researcherSurveyDetail04.getState()), Util.treeSetToTreeMap(States.get()), 6, "", "")%>
+                </td>
+
+                <td valign="top">
+                    <font class="formfieldnamefont">City</font>
+                </td>
+                <td valign="top">
+                    <%=DropdownMultiselect.getHtml("cities", Util.stringArrayToArrayList(researcherSurveyDetail04.getCity()), Util.treeSetToTreeMap(Cities.get()), 6, "", "")%>
+                </td>
+            </tr>
+
+            <tr>
+                <td valign="top">
+                    <font class="formfieldnamefont">Profession</font>
+                </td>
+                <td valign="top">
+                    <%=DropdownMultiselect.getHtml("professions", Util.stringArrayToArrayList(researcherSurveyDetail04.getProfession()), Util.treeSetToTreeMap(Professions.get()), 6, "", "")%>
+                </td>
 
 
+                <td valign="top">
+                    <font class="formfieldnamefont">Blog Focus</font>
+                </td>
+                <td valign="top">
+                    <%=DropdownMultiselect.getHtml("blogfocus", Util.stringArrayToArrayList(researcherSurveyDetail04.getBlogfocus()), Util.treeSetToTreeMap(Blogfocuses.get()), 6, "", "")%>
+                </td>
+            </tr>
 
 
+            <tr>
+                <td valign="top">
+                    <font class="formfieldnamefont">Politics</font>
+                </td>
+                <td valign="top">
+                    <%=DropdownMultiselect.getHtml("politics", Util.stringArrayToArrayList(researcherSurveyDetail04.getPolitics()), Util.treeSetToTreeMap(Politics.get()), 6, "", "")%>
+                </td>
 
-
-
-            <td valign="top">
-                <h:outputText value="Age Range" styleClass="formfieldnamefont"></h:outputText>
-                <br/>
-                <h:message for="agemin" styleClass="RED"></h:message>
-                <h:message for="agemax" styleClass="RED"></h:message>
-            </td>
-            <td valign="top">
-                <h:inputText value="<%=researcherSurveyDetail04.getAgemin()%>" id="agemin" size="3" required="true">
-                    <f:validateDoubleRange minimum="13" maximum="120"></f:validateDoubleRange>
-                </h:inputText>
-                <h:outputText value=" - "></h:outputText>
-                <h:inputText value="<%=researcherSurveyDetail04.getAgemax()%>" id="agemax" size="3" required="true">
-                    <f:validateDoubleRange minimum="13" maximum="120"></f:validateDoubleRange>
-                </h:inputText>
-            </td>
-
-
-
-
-            <td valign="top">
-                <h:outputText value="Gender" styleClass="formfieldnamefont"></h:outputText>
-                <br/>
-                <h:message for="gender" styleClass="RED"></h:message>
-            </td>
-            <td valign="top">
-                <h:selectManyCheckbox value="<%=researcherSurveyDetail04.getGender()%>" id="gender" required="true">
-                    <f:selectItems value="#{genders}"/>
-                </h:selectManyCheckbox>
-            </td>
-
-
-            <td valign="top">
-                <h:outputText value="Ethnicity" styleClass="formfieldnamefont"></h:outputText>
-                <br/>
-                <h:message for="ethnicity" styleClass="RED"></h:message>
-            </td>
-            <td valign="top">
-                <h:selectManyListbox value="<%=researcherSurveyDetail04.getEthnicity()%>" id="ethnicity" size="6" layout="pageDirection" required="true">
-                    <f:selectItems value="#{ethnicities}"/>
-                </h:selectManyListbox>
-            </td>
-
-
-            <td valign="top">
-                <h:outputText value="Marital Status" styleClass="formfieldnamefont"></h:outputText>
-                <br/>
-                <h:message for="maritalstatus" styleClass="RED"></h:message>
-            </td>
-            <td valign="top">
-                <h:selectManyCheckbox value="<%=researcherSurveyDetail04.getMaritalstatus()%>" id="maritalstatus" required="true">
-                    <f:selectItems value="#{maritalstatuses}"/>
-                </h:selectManyCheckbox>
-            </td>
-
-            <td valign="top">
-                <h:outputText value="Income" styleClass="formfieldnamefont"></h:outputText>
-                <br/>
-                <h:message for="income" styleClass="RED"></h:message>
-            </td>
-            <td valign="top">
-                <h:selectManyListbox value="<%=researcherSurveyDetail04.getIncome()%>" size="5" id="income" layout="pageDirection" required="true">
-                    <f:selectItems value="#{incomes}"/>
-                </h:selectManyListbox>
-            </td>
-
-            <td valign="top">
-                <h:outputText value="Education" styleClass="formfieldnamefont"></h:outputText>
-                <br/>
-                <h:message for="educationlevel" styleClass="RED"></h:message>
-            </td>
-            <td valign="top">
-                <h:selectManyCheckbox value="<%=researcherSurveyDetail04.getEducationlevel()%>" id="educationlevel" layout="pageDirection" required="true">
-                    <f:selectItems value="#{educationlevels}"/>
-                </h:selectManyCheckbox>
-            </td>
-
-
-
-            <td valign="top">
-                <h:outputText value="State" styleClass="formfieldnamefont"></h:outputText>
-                <br/>
-                <h:message for="state" styleClass="RED"></h:message>
-            </td>
-            <td valign="top">
-                <h:selectManyListbox value="<%=researcherSurveyDetail04.getState()%>" size="5" id="state" layout="pageDirection" required="true">
-                    <f:selectItems value="#{states}"/>
-                </h:selectManyListbox>
-            </td>
-
-            <td valign="top">
-                <h:outputText value="City" styleClass="formfieldnamefont"></h:outputText>
-                <br/>
-                <h:message for="city" styleClass="RED"></h:message>
-            </td>
-            <td valign="top">
-                <h:selectManyListbox value="<%=researcherSurveyDetail04.getCity()%>" size="5" id="city" layout="pageDirection" required="true">
-                    <f:selectItems value="#{cities}"/>
-                </h:selectManyListbox>
-            </td>
-
-
-            <td valign="top">
-                <h:outputText value="Profession" styleClass="formfieldnamefont"></h:outputText>
-                <br/>
-                <h:message for="profession" styleClass="RED"></h:message>
-            </td>
-            <td valign="top">
-                <h:selectManyListbox value="<%=researcherSurveyDetail04.getProfession()%>" size="5" id="profession" layout="pageDirection" required="true">
-                    <f:selectItems value="#{professions}"/>
-                </h:selectManyListbox>
-            </td>
-
-
-            <td valign="top">
-                <h:outputText value="Blog Focus" styleClass="formfieldnamefont"></h:outputText>
-                <br/>
-                <h:message for="blogfocus" styleClass="RED"></h:message>
-            </td>
-            <td valign="top">
-                <h:selectManyListbox value="<%=researcherSurveyDetail04.getBlogfocus()%>" size="5" id="blogfocus" layout="pageDirection" required="true">
-                    <f:selectItems value="#{blogfocuses}"/>
-                </h:selectManyListbox>
-            </td>
-
-
-            <td valign="top">
-                <h:outputText value="Politics" styleClass="formfieldnamefont"></h:outputText>
-                <br/>
-                <h:message for="politics" styleClass="RED"></h:message>
-            </td>
-            <td valign="top">
-                <h:selectManyListbox value="<%=researcherSurveyDetail04.getPolitics()%>" size="5" id="politics" layout="pageDirection" required="true">
-                    <f:selectItems value="#{politics}"/>
-                </h:selectManyListbox>
-            </td>
-
-            <td valign="top">
-                <h:outputText value="Panel Membership" styleClass="formfieldnamefont"></h:outputText>
-                <br/>
-                <h:message for="panels" styleClass="RED"></h:message>
-            </td>
-            <td valign="top">
-                <h:selectManyListbox value="<%=researcherSurveyDetail04.getPanels()%>" id="panels" size="6" layout="pageDirection" required="false">
-                    <f:selectItems value="<%=researcherSurveyDetail04.getPanelsavailable()%>"/>
-                </h:selectManyListbox>
-            </td>
-
+                <td valign="top">
+                    <font class="formfieldnamefont">Panel Membership</font>
+                </td>
+                <td valign="top">
+                    <%=DropdownMultiselect.getHtml("panels", Util.stringArrayToArrayList(researcherSurveyDetail04.getPanels()), researcherSurveyDetail04.getPanelsavailable(), 6, "", "")%>
+                </td>
+            </tr>
 
         </table>
     <%}%>

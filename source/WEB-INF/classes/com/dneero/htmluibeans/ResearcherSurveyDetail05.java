@@ -15,6 +15,7 @@ import com.dneero.util.GeneralException;
 import com.dneero.util.Num;
 import com.dneero.htmlui.UserSession;
 import com.dneero.htmlui.Pagez;
+import com.dneero.htmlui.ValidationException;
 
 /**
  * User: Joe Reger Jr
@@ -67,7 +68,7 @@ public class ResearcherSurveyDetail05 implements Serializable {
 
     }
 
-    public String saveSurveyAsDraft(){
+    public String saveSurveyAsDraft() throws ValidationException {
         String save = saveSurvey();
         if (save!=null){
             Pagez.sendRedirect("/jsp/researcher/index.jsp");
@@ -77,7 +78,7 @@ public class ResearcherSurveyDetail05 implements Serializable {
         }
     }
 
-    public String previousStep(){
+    public String previousStep() throws ValidationException {
         String save = saveSurvey();
         if (save!=null){
             Pagez.sendRedirect("/jsp/researcher/researchersurveydetail_04.jsp");
@@ -87,7 +88,7 @@ public class ResearcherSurveyDetail05 implements Serializable {
         }
     }
 
-    public String saveSurvey(){
+    public String saveSurvey() throws ValidationException {
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("saveSurvey() called.");
         if (status<=Survey.STATUS_DRAFT){
@@ -211,7 +212,7 @@ public class ResearcherSurveyDetail05 implements Serializable {
         this.ischarityonly = ischarityonly;
     }
 
-    public boolean isIsresultshidden() {
+    public boolean getIsresultshidden() {
         return isresultshidden;
     }
 

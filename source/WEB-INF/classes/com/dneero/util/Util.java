@@ -23,6 +23,8 @@ public class Util {
         return out;
     }
 
+
+
     public static void logStackTrace(int levelsdeep){
         Logger logger = Logger.getLogger(Util.class.getName());
         logger.debug("logStackTrace("+levelsdeep+") begin");
@@ -47,6 +49,16 @@ public class Util {
         }
         outArr[src.length]=str;
         return outArr;
+    }
+
+    public static ArrayList stringArrayToArrayList(String[] src){
+        ArrayList<String> out = new ArrayList<String>();
+        if (src!=null){
+            for(int i=0; i < src.length; i++) {
+                out.add(src[i]);
+            }
+        }
+        return out;
     }
 
 
@@ -130,7 +142,19 @@ public class Util {
         return al;   
     }
 
-
+    public static String[] arrayListToStringArray(ArrayList<String> in){
+        String[] out = new String[0];
+        if (in!=null){
+            out = new String[in.size()];
+            int i = 0;
+            for (Iterator it = in.iterator(); it.hasNext(); ) {
+                String var = (String)it.next();
+                out[i] = var;
+                i = i + 1;
+            }
+        }
+        return out;
+    }
 
 
 }

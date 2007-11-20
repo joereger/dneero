@@ -1,7 +1,9 @@
 <%@ page import="org.apache.log4j.Logger" %>
-<%@ page import="com.dneero.htmlui.Pagez" %>
 <%@ page import="com.dneero.htmluibeans.ResearcherSurveyDetail03" %>
 <%@ page import="com.dneero.dao.Survey" %>
+<%@ page import="java.util.Iterator" %>
+<%@ page import="com.dneero.dao.Question" %>
+<%@ page import="com.dneero.htmlui.*" %>
 <%
 Logger logger=Logger.getLogger(this.getClass().getName());
 String pagetitle="<img src=\"/images/process-train-survey-03.gif\" align=\"right\" width=\"350\" height=\"73\" alt=\"\"/>\n" +
@@ -14,13 +16,46 @@ String pagetitle="<img src=\"/images/process-train-survey-03.gif\" align=\"right
 <%
 ResearcherSurveyDetail03 researcherSurveyDetail03 = (ResearcherSurveyDetail03)Pagez.getBeanMgr().get("ResearcherSurveyDetail03");
 %>
+<%
+    if (request.getParameter("action")!=null && request.getParameter("action").equals("resetformatting")) {
+        try {
+            logger.debug("Resetformatting was clicked");
+            researcherSurveyDetail03.resetFormatting();
+        } catch (ValidationException vex) {
+            Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
+        }
+    }
+%>
+<%
+    if (request.getParameter("action") != null && (request.getParameter("action").equals("next") || request.getParameter("action").equals("save") || request.getParameter("action").equals("previous"))) {
+        try {
+            researcherSurveyDetail03.setTemplate((Textbox.getValueFromRequest("template", "Template", false, DatatypeString.DATATYPEID)));
+            researcherSurveyDetail03.setEmbedflash(CheckboxBoolean.getValueFromRequest("embedflash"));
+            researcherSurveyDetail03.setEmbedjavascript(CheckboxBoolean.getValueFromRequest("embedjavascript"));
+            researcherSurveyDetail03.setEmbedlink(CheckboxBoolean.getValueFromRequest("embedlink"));
+            if (request.getParameter("action").equals("next")) {
+                researcherSurveyDetail03.continueToNext();
+            } else if (request.getParameter("action").equals("savetemplate")) {
+                logger.debug("Savetemplate was clicked");
+                researcherSurveyDetail03.saveSurvey();
+            } else if (request.getParameter("action").equals("saveasdraft")) {
+                logger.debug("Saveasdraft was clicked");
+                researcherSurveyDetail03.saveSurveyAsDraft();
+            } else if (request.getParameter("action").equals("previous")) {
+                logger.debug("Previous was clicked");
+                researcherSurveyDetail03.previousStep();
+            }
+        } catch (ValidationException vex) {
+            Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
+        }
+    }
+%>
 <%@ include file="/jsp/templates/header.jsp" %>
 
 
 <form action="researchersurveydetail_03.jsp" method="post" id="rsdform">
         <input type="hidden" name="action" value="next">
         <input type="hidden" name="surveyid" value="<%=researcherSurveyDetail03.getSurvey().getSurveyid()%>"/>
-
 
     <br/><br/>
 
@@ -53,14 +88,13 @@ ResearcherSurveyDetail03 researcherSurveyDetail03 = (ResearcherSurveyDetail03)Pa
     <a href="" class="tab" onmousedown="return event.returnValue = showPanel(this, 'panel2');" onclick="return false;">Advanced Formatting</a>
     </div>
     <div class="panel" id="panel1" style="display: block">
-            <h:graphicImage url="/images/clear.gif" width="725" height="1"/><br/>
+            <img src="/images/clear.gif" width="725" height="1"/><br/>
             <center>
                 <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
                 <img src="/images/lightbulb_on.png" alt="" align="right"/>
                 This is how your survey looks when posted to a blog.  Bloggers, depending on their blogging tool, can choose from one of many embedding methods.  Each renders the survey slightly differently.  You can enable/disable each method on the Advanced Formatting tab.
                 <br/><br/></font></div></center>
                 <table cellpadding="30" cellspacing="0" border="0">
-
                     <tr>
                         <td>
                             <font class="formfieldnamefont">Flash Embed:</font>
@@ -97,7 +131,7 @@ ResearcherSurveyDetail03 researcherSurveyDetail03 = (ResearcherSurveyDetail03)Pa
             </center>
     </div>
     <div class="panel" id="panel2" style="display: none">
-            <h:graphicImage url="/images/clear.gif" width="725" height="1"/><br/>
+            <img src="/images/clear.gif" width="725" height="1"/><br/>
             <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
             <img src="/images/lightbulb_on.png" alt="" align="right"/>
             In this step you can optionally change the formatting of the survey as it appears on a person's blog.  Click the Advanced Formatting tab to get started.  This requires some basic HTML skills and is very powerful:
@@ -109,19 +143,19 @@ ResearcherSurveyDetail03 researcherSurveyDetail03 = (ResearcherSurveyDetail03)Pa
             <br/><br/>
             Add HTML formatting to the box below.  You must click Save Advanced Formatting to see your changes.  A list of question tags can be found to the right of the screen. Use these tags to add questions to the survey.  Each question tag will be replaced with the respondent's actual answer when it's displayed on their blog.  Before you move to the next section verify that your survey looks like you want it to look.
             </font></div></center>
-            <f:verbatim><br/><br/></f:verbatim>
+            <br/><br/>
             <table cellpadding="0" cellspacing="5" border="0">
                 <tr>
                     <td valign="top" width="75%">
                         <%if (researcherSurveyDetail03.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {%>
-                            <h:commandButton action="<%=researcherSurveyDetail03.getResetFormatting()%>" value="Reset" rendered="#{researcherSurveyDetail03.status eq 1}" styleClass="formsubmitbutton"></h:commandButton>
+                            <input type="submit" value="Reset" onclick="document.rsdform.action.value='resetformatting'">
                             <br/>
-                            <h:inputTextarea value="<%=researcherSurveyDetail03.getTemplate()%>" cols="55" rows="15"></h:inputTextarea>
+                            <%=Textarea.getHtml("template", researcherSurveyDetail03.getTemplate(), 15, 45, "", "")%>
                             <br/><br/>
                             <table cellpadding="0" cellspacing="5" border="0">
                                 <tr>
                                     <td valign="top" nowrap="true">
-                                        <h:selectBooleanCheckbox title="embedjavascript" value="<%=researcherSurveyDetail03.getEmbedjavascript()%>" rendered="#{researcherSurveyDetail03.status eq 1}"/>
+                                        <%=CheckboxBoolean.getHtml("embedjavascript", researcherSurveyDetail03.getEmbedjavascript(), "", "")%>
                                         <font class="formfieldnamefont">Allow Javascript Embed?</font>
                                     </td>
                                     <td valign="top">
@@ -130,7 +164,7 @@ ResearcherSurveyDetail03 researcherSurveyDetail03 = (ResearcherSurveyDetail03)Pa
                                 </tr>
                                 <tr>
                                     <td valign="top" nowrap="true">
-                                        <h:selectBooleanCheckbox title="embedflash" value="<%=researcherSurveyDetail03.getEmbedflash()%>" rendered="#{researcherSurveyDetail03.status eq 1}"/>
+                                        <%=CheckboxBoolean.getHtml("embedflash", researcherSurveyDetail03.getEmbedflash(), "", "")%>
                                         <font class="formfieldnamefont">Allow Flash Embed?</font>
                                     </td>
                                     <td valign="top">
@@ -139,7 +173,7 @@ ResearcherSurveyDetail03 researcherSurveyDetail03 = (ResearcherSurveyDetail03)Pa
                                 </tr>
                                 <tr>
                                     <td valign="top" nowrap="true">
-                                        <h:selectBooleanCheckbox title="embedlink" value="<%=researcherSurveyDetail03.getEmbedlink()%>" rendered="#{researcherSurveyDetail03.status eq 1}"/>
+                                        <%=CheckboxBoolean.getHtml("embedlink", researcherSurveyDetail03.getEmbedlink(), "", "")%>
                                         <font class="formfieldnamefont">Allow Link Embed?</font>
                                     </td>
                                     <td valign="top">
@@ -147,26 +181,31 @@ ResearcherSurveyDetail03 researcherSurveyDetail03 = (ResearcherSurveyDetail03)Pa
                                     </td>
                                 </tr>
                             </table>
-                            <h:commandButton action="<%=researcherSurveyDetail03.getResetFormatting()%>" value="Reset" rendered="#{researcherSurveyDetail03.status eq 1}" styleClass="formsubmitbutton"></h:commandButton>
-                            <h:commandButton action="<%=researcherSurveyDetail03.getSaveSurvey()%>" value="Save Advanced Formatting" rendered="#{researcherSurveyDetail03.status eq 1}" styleClass="formsubmitbutton"></h:commandButton>
+                            <input type="submit" value="Reset" onclick="document.rsdform.action.value='resetformatting'">
+                            <input type="submit" value="Save Advanced Formatting" onclick="document.rsdform.action.value='savetemplate'">
                         <%}%>
                     </td>
                     <td valign="top">
                         <!-- Begin Question Key -->
-                        <d:roundedCornerBox uniqueboxname="questionkey" bodycolor="e6e6e6" widthinpixels="300">
+                        <div class="rounded" style="background: #e6e6e6;">
                             <font class="mediumfont">Question Tags:</font>
                             <br/>
                             <font class="smallfont">Use these tags to move a question around in the survey.  You can create tables using the html tags below but remember that you have a set 425 pixels to work with.</font>
                             <br/>
-                            <ui:repeat value="<%=researcherSurveyDetail03.getQuestions()%>" var="question">
-                                <b><h:outputText value="&lt;$question_<%=((Question)Pagez.getBeanMgr().get("Question")).getQuestionid()%>$>" styleClass="smallfont"></h:outputText></b>
-                                <br/>
-                                <h:outputText value="<%=((Question)Pagez.getBeanMgr().get("Question")).getQuestion()%>" styleClass="tinyfont"></h:outputText>
-                                <br/><br/>
-                            </ui:repeat>
-                        </d:roundedCornerBox>
+                            <%
+                                for (Iterator iterator=researcherSurveyDetail03.getQuestions().iterator(); iterator.hasNext();){
+                                    Question question=(Question) iterator.next();
+                                    %>
+                                    <b><font class="smallfont">&lt;$question_<%=question.getQuestionid()%>$></font></b>
+                                    <br/>
+                                    <font class="tinyfont"><%=question.getQuestion()%></font>
+                                    <br/><br/>
+                                    <%
+                                }
+                            %>
+                        </div>
                         <!-- End Question Key -->
-                        <d:roundedCornerBox uniqueboxname="supportedhtml" bodycolor="e6e6e6" widthinpixels="300">
+                        <div class="rounded" style="background: #e6e6e6;">
                             <font class="mediumfont">Supported HTML Tags:</font>
                             <br/>
                             <font class="smallfont">A powerful subset of html tags is supported.  These tags must be carefully applied in xHTML format.  If the survey does not display then there is an error with the html syntax.  You can style these tags with basic CSS.</font>
@@ -198,8 +237,8 @@ ResearcherSurveyDetail03 researcherSurveyDetail03 = (ResearcherSurveyDetail03)Pa
                                     </td>
                                 </tr>
                             </table>
-                        </d:roundedCornerBox>
-                        <d:roundedCornerBox uniqueboxname="htmltips" bodycolor="e6e6e6" widthinpixels="300">
+                        </div>
+                        <div class="rounded" style="background: #e6e6e6;">
                             <font class="mediumfont">Tips:</font>
                             <font class="smallfont">
                                 <ul>
@@ -211,11 +250,11 @@ ResearcherSurveyDetail03 researcherSurveyDetail03 = (ResearcherSurveyDetail03)Pa
                                     <li>Only JPEG/JPG files are supported.  These files can not be progressive JPEGs.</li>
                                 </ul>
                             </font>
-                        </d:roundedCornerBox>
+                        </div>
                     </td>
                 </tr>
             </table>
-    </div
+    </div>
 
 
 
