@@ -5,6 +5,7 @@ import org.apache.log4j.Logger;
 import com.dneero.systemprops.SystemProperty;
 import com.dneero.systemprops.BaseUrl;
 import com.dneero.htmlui.Pagez;
+import com.dneero.htmlui.ValidationException;
 
 import java.io.Serializable;
 
@@ -54,7 +55,7 @@ public class SysadminSystemProps implements Serializable {
         facebook_api_secret = SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_SECRET);
     }
 
-    public String saveProps(){
+    public String saveProps() throws ValidationException {
         Logger logger = Logger.getLogger(this.getClass().getName());
         try{
             SystemProperty.setProp(SystemProperty.PROP_BASEURL, baseurl);

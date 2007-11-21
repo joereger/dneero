@@ -1,5 +1,9 @@
 <%@ page import="org.apache.log4j.Logger" %>
-<%@ page import="com.dneero.htmlui.Pagez" %>
+<%@ page import="com.dneero.htmluibeans.SysadminErrorList" %>
+<%@ page import="com.dneero.dbgrid.GridCol" %>
+<%@ page import="com.dneero.dbgrid.Grid" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="com.dneero.htmlui.*" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "Error and Debug Log";
@@ -7,73 +11,74 @@ String navtab = "sysadmin";
 String acl = "sysadmin";
 %>
 <%@ include file="/jsp/templates/auth.jsp" %>
+<%
+SysadminErrorList sysadminErrorList=(SysadminErrorList) Pagez.getBeanMgr().get("SysadminErrorList");
+%>
+<%
+    if (request.getParameter("action") != null && request.getParameter("action").equals("refresh")) {
+        try {
+            sysadminErrorList.setMinleveltoshow(Integer.parseInt(Dropdown.getValueFromRequest("minleveltoshow", "Min Level to Show", false)));
+            sysadminErrorList.initBean();
+        } catch (ValidationException vex) {
+            Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
+        }
+    }
+%>
+<%
+    if (request.getParameter("action") != null && request.getParameter("action").equals("markallold")) {
+        try {
+            sysadminErrorList.markallold();
+        } catch (ValidationException vex) {
+            Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
+        }
+    }
+%>
+<%
+    if (request.getParameter("action") != null && request.getParameter("action").equals("deleteall")) {
+        try {
+            sysadminErrorList.deleteall();
+        } catch (ValidationException vex) {
+            Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
+        }
+    }
+%>
+<%
+    if (request.getParameter("action") != null && request.getParameter("action").equals("onlyerrors")) {
+        try {
+            sysadminErrorList.onlyerrors();
+        } catch (ValidationException vex) {
+            Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
+        }
+    }
+%>
 <%@ include file="/jsp/templates/header.jsp" %>
 
-
-
-        <h:selectOneMenu value="<%=((SysadminErrorList)Pagez.getBeanMgr().get("SysadminErrorList")).getMinleveltoshow()%>" id="minleveltoshow" required="false">
-            <f:selectItems value="<%=((SysadminErrorList)Pagez.getBeanMgr().get("SysadminErrorList")).getLevels()%>"/>
-        </h:selectOneMenu>
-
-        <h:commandButton action="<%=((SysadminErrorList)Pagez.getBeanMgr().get("SysadminErrorList")).getLoad()%>"  value="Refresh" styleClass="formsubmitbutton"></h:commandButton>
-        <h:commandButton action="<%=((SysadminErrorList)Pagez.getBeanMgr().get("SysadminErrorList")).getMarkallold()%>"  value="Mark All Old" styleClass="formsubmitbutton"></h:commandButton>
-        <h:commandButton action="<%=((SysadminErrorList)Pagez.getBeanMgr().get("SysadminErrorList")).getDeleteall()%>"  value="Delete All" styleClass="formsubmitbutton"></h:commandButton>
-        <h:commandButton action="<%=((SysadminErrorList)Pagez.getBeanMgr().get("SysadminErrorList")).getOnlyerrors()%>"  value="Only Errors" styleClass="formsubmitbutton"></h:commandButton>
-
+        <form action="errorlist.jsp" method="post">
+            <input type="hidden" name="action" value="refresh">
+            <%=Dropdown.getHtml("minleveltoshow", String.valueOf(sysadminErrorList.getMinleveltoshow()), sysadminErrorList.getLevels(), "", "")%>
+            <input type="submit" value="Refresh">
+        </form>
+        <a href="errorlist.jsp?action=markallold"><font class="smallfont">Mark All Old</font></a>
+        <a href="errorlist.jsp?action=deleteall"><font class="smallfont">Delete All</font></a>
+        <a href="errorlist.jsp?action=onlyerrors"><font class="smallfont">Only Errors</font></a>
         <br/><br/>
-        <t:saveState id="save" value="#{sysadminErrorList}"/>
-        <t:dataTable id="datatable" value="<%=((SysadminErrorList)Pagez.getBeanMgr().get("SysadminErrorList")).getErrors()%>" rows="15" var="error" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcol,tcolnowrap,tcol,tcolnowrap,tcolnowrap">
-          <h:column sortProperty="errorid" sortable="true">
-            <f:facet name="header">
-              <h:outputText value="Id"/>
-            </f:facet>
-            <h:outputText value="<%=((Error)Pagez.getBeanMgr().get("Error")).getErrorid()%>" styleClass="tinyfont"/>
-          </h:column>
-          <h:column>
-            <f:facet name="header">
-              <h:outputText value="Date"/>
-            </f:facet>
-            <h:outputText value="<%=((Error)Pagez.getBeanMgr().get("Error")).getDate()%>" styleClass="tinyfont"><f:convertDateTime type="both" dateStyle="short" timeStyle="medium"/></h:outputText>
-          </h:column>
-          <h:column sortProperty="status" sortable="true" >
-            <f:facet name="header">
-              <h:outputText value="Status"/>
-            </f:facet>
-            <h:outputText value="New" styleClass="tinyfont" rendered="#{error.status eq 1}"/>
-            <h:outputText value="Old" styleClass="tinyfont" rendered="#{error.status eq 0}"/>
-          </h:column>
-          <h:column sortProperty="level" sortable="true">
-            <f:facet name="header">
-              <h:outputText value="Level"/>
-            </f:facet>
-            <h:outputText value="Debug" styleClass="tinyfont" rendered="#{error.level eq 10000}"/>
-            <h:outputText value="Info" styleClass="tinyfont" rendered="#{error.level eq 20000}"/>
-            <h:outputText value="Warn" styleClass="tinyfont" rendered="#{error.level eq 30000}"/>
-            <h:outputText value="Error" styleClass="tinyfont" rendered="#{error.level eq 40000}"/>
-            <h:outputText value="Fatal" styleClass="tinyfont" rendered="#{error.level eq 50000}"/>
-          </h:column>
-          <h:column>
-            <f:facet name="header">
-              <h:outputText value="Error"/>
-            </f:facet>
-            <h:outputText value="<%=((Error)Pagez.getBeanMgr().get("Error")).getError()%>" styleClass="smallfont" escape="false"/>
-          </h:column>
 
-        </t:dataTable>
-        <t:dataScroller id="scroll_1" for="datatable" fastStep="10" pageCountVar="pageCount" pageIndexVar="pageIndex" styleClass="scroller" paginator="true" paginatorMaxPages="9" paginatorTableClass="paginator" paginatorActiveColumnStyle="font-weight:bold;">
-            <f:facet name="first" >
-                <t:graphicImage url="/images/datascroller/play-first.png" border="0" />
-            </f:facet>
-            <f:facet name="last">
-                <t:graphicImage url="/images/datascroller/play-forward.png" border="0" />
-            </f:facet>
-            <f:facet name="previous">
-                <t:graphicImage url="/images/datascroller/play-back.png" border="0" />
-            </f:facet>
-            <f:facet name="next">
-                <t:graphicImage url="/images/datascroller/play.png" border="0" />
-            </f:facet>
-        </t:dataScroller>
+
+        <%if (sysadminErrorList.getErrors()==null || sysadminErrorList.getErrors().size()==0){%>
+            <font class="normalfont">None found.</font>
+        <%} else {%>
+            <%
+                ArrayList<GridCol> cols=new ArrayList<GridCol>();
+                cols.add(new GridCol("Id", "<$errorid$>", false, "", "tinyfont"));
+                cols.add(new GridCol("Id", "<$date|"+Grid.GRIDCOLRENDERER_DATETIMECOMPACT+"$>", false, "", "tinyfont"));
+                cols.add(new GridCol("Id", "<$error$>", false, "", "smallfont"));
+            %>
+            <%=Grid.render(sysadminErrorList.getErrors(), cols, 250, "errorlist.jsp", "page")%>
+        <%}%>
+
+
+
+
 
 
 

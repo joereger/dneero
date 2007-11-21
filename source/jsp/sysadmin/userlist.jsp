@@ -1,5 +1,9 @@
 <%@ page import="org.apache.log4j.Logger" %>
-<%@ page import="com.dneero.htmlui.Pagez" %>
+<%@ page import="com.dneero.htmluibeans.SysadminUserList" %>
+<%@ page import="com.dneero.dbgrid.GridCol" %>
+<%@ page import="com.dneero.dbgrid.Grid" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="com.dneero.htmlui.*" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "Users";
@@ -7,10 +11,29 @@ String navtab = "sysadmin";
 String acl = "sysadmin";
 %>
 <%@ include file="/jsp/templates/auth.jsp" %>
+<%
+SysadminUserList sysadminUserList = (SysadminUserList)Pagez.getBeanMgr().get("SysadminUserList");
+%>
+<%
+    if (request.getParameter("action") != null && request.getParameter("action").equals("search")) {
+        try {
+            sysadminUserList.setSearchemail(Textbox.getValueFromRequest("searchemail", "Email", false, DatatypeString.DATATYPEID));
+            sysadminUserList.setSearchfacebookers(CheckboxBoolean.getValueFromRequest("searchfacebookers"));
+            sysadminUserList.setSearchfirstname(Textbox.getValueFromRequest("searchfirstname", "Firstname", false, DatatypeString.DATATYPEID));
+            sysadminUserList.setSearchlastname(Textbox.getValueFromRequest("searchlastname", "Lastname", false, DatatypeString.DATATYPEID));
+            sysadminUserList.setSearchuserid(Textbox.getValueFromRequest("searchuserid", "Userid", false, DatatypeString.DATATYPEID));
+            sysadminUserList.initBean();
+        } catch (com.dneero.htmlui.ValidationException vex) {
+            Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
+        }
+    }
+%>
 <%@ include file="/jsp/templates/header.jsp" %>
 
 
-
+    <form action="userlist.jsp" method="post">
+        <input type="hidden" name="action" value="search">
+        
         <table cellpadding="0" cellspacing="0" border="0">
             <tr>
                 <td valign="top">
@@ -34,90 +57,45 @@ String acl = "sysadmin";
             </tr>
             <tr>
                 <td valign="top">
-                    <h:inputText value="<%=((SysadminUserList)Pagez.getBeanMgr().get("SysadminUserList")).getSearchuserid()%>" id="searchuserrid" size="5"></h:inputText>
+                    <h:inputText value="<%=sysadminUserList.getSearchuserid()%>" id="searchuserrid" size="5"></h:inputText>
                 </td>
                 <td valign="top">
-                    <h:inputText value="<%=((SysadminUserList)Pagez.getBeanMgr().get("SysadminUserList")).getSearchfirstname()%>" id="searchfirstname" size="15"></h:inputText>
+                    <h:inputText value="<%=sysadminUserList.getSearchfirstname()%>" id="searchfirstname" size="15"></h:inputText>
                 </td>
                 <td valign="top">
-                    <h:inputText value="<%=((SysadminUserList)Pagez.getBeanMgr().get("SysadminUserList")).getSearchlastname()%>" id="searchlastname" size="15"></h:inputText>
+                    <h:inputText value="<%=sysadminUserList.getSearchlastname()%>" id="searchlastname" size="15"></h:inputText>
                 </td>
                 <td valign="top">
-                    <h:inputText value="<%=((SysadminUserList)Pagez.getBeanMgr().get("SysadminUserList")).getSearchemail()%>" id="searchemail" size="15"></h:inputText>
+                    <h:inputText value="<%=sysadminUserList.getSearchemail()%>" id="searchemail" size="15"></h:inputText>
                 </td>
                 <td valign="top">
-                    <h:selectBooleanCheckbox value="<%=((SysadminUserList)Pagez.getBeanMgr().get("SysadminUserList")).getSearchfacebookers()%>" id="searchfacebookers"></h:selectBooleanCheckbox>
+                    <h:selectBooleanCheckbox value="<%=sysadminUserList.getSearchfacebookers()%>" id="searchfacebookers"></h:selectBooleanCheckbox>
                 </td>
                 <td valign="top">
-                    <h:commandButton action="<%=((SysadminUserList)Pagez.getBeanMgr().get("SysadminUserList")).getSearch()%>"  value="Search" styleClass="formsubmitbutton"></h:commandButton>
+                    <input type="submit" value="Search">
                 </td>
             </tr>
         </table>
+    </form>
 
         <br/>
 
-        <!--<t:saveState id="save" value="#{sysadminUserList}"/>-->
+        <%if (sysadminUserList.getUsers()==null || sysadminUserList.getUsers().size()==0){%>
+            <font class="normalfont">No users!</font>
+        <%} else {%>
+            <%
+                ArrayList<GridCol> cols=new ArrayList<GridCol>();
+                cols.add(new GridCol("Userid", "<a href=\"userdetail.jsf?userid=<$userid$>\"><$userid$></a>", false, "", "tinyfont"));
+                cols.add(new GridCol("Email", "<$email$>", false, "", "tinyfont"));
+                cols.add(new GridCol("Name", "<$firstname$> <$lastname$>", false, "", "tinyfont"));
+                cols.add(new GridCol("Signup Date", "<$createdate|"+Grid.GRIDCOLRENDERER_DATETIMECOMPACT+"$>", false, "", "tinyfont"));
+            %>
+            <%=Grid.render(sysadminUserList.getUsers(), cols, 200, "userlist.jsp", "page")%>
+        <%}%>
 
-        <t:dataTable id="datatable" value="<%=((SysadminUserList)Pagez.getBeanMgr().get("SysadminUserList")).getUsers()%>" rows="100" var="user" styleClass="dataTable" headerClass="theader" footerClass="theader" rowClasses="trow1,trow2" columnClasses="tcol,tcolnowrap,tcol,tcolnowrap,tcolnowrap">
-          <h:column>
-            <f:facet name="header">
-              <h:outputText value="Userid"/>
-            </f:facet>
-            <a href='/sysadmin/userdetail.jsf?userid=<%=((User)Pagez.getBeanMgr().get("User")).getUserid()%>'><%=((User)Pagez.getBeanMgr().get("User")).getUserid()%></a>
-            <!--
-            <h:commandLink action="<%=((SysadminUserDetail)Pagez.getBeanMgr().get("SysadminUserDetail")).getBeginView()%>">
-                <h:outputText value="<%=((User)Pagez.getBeanMgr().get("User")).getUserid()%>" styleClass="smallfont" style="color: #0000ff;"/>
-                <f:param name="userid" value="<%=((User)Pagez.getBeanMgr().get("User")).getUserid()%>" />
-            </h:commandLink>
-            -->
-          </h:column>
-          <h:column>
-            <f:facet name="header">
-              <h:outputText value="Email"/>
-            </f:facet>
-            <a href='/sysadmin/userdetail.jsf?userid=<%=((User)Pagez.getBeanMgr().get("User")).getUserid()%>'><%=((User)Pagez.getBeanMgr().get("User")).getEmail()%></a>
-            <!--
-            <h:commandLink action="<%=((SysadminUserDetail)Pagez.getBeanMgr().get("SysadminUserDetail")).getBeginView()%>">
-                <h:outputText value="<%=((User)Pagez.getBeanMgr().get("User")).getEmail()%>" styleClass="mediumfont" style="color: #0000ff;"/>
-                <f:param name="userid" value="<%=((User)Pagez.getBeanMgr().get("User")).getUserid()%>" />
-            </h:commandLink>
-            -->
-          </h:column>
-          <h:column>
-            <f:facet name="header">
-              <h:outputText value="First Name"/>
-            </f:facet>
-            <h:outputText value="<%=((User)Pagez.getBeanMgr().get("User")).getFirstname()%>" styleClass="smallfont"/>
-          </h:column>
-          <h:column>
-            <f:facet name="header">
-              <h:outputText value="Last Name"/>
-            </f:facet>
-            <h:outputText value="<%=((User)Pagez.getBeanMgr().get("User")).getLastname()%>" styleClass="smallfont"/>
-          </h:column>
-          <h:column>
-            <f:facet name="header">
-              <h:outputText value="Signup Date"/>
-            </f:facet>
-            <h:outputText value="<%=((User)Pagez.getBeanMgr().get("User")).getCreatedate()%>" styleClass="tinyfont"><f:convertDateTime type="both" dateStyle="short" timeStyle="medium"/></h:outputText>
-          </h:column>
-        </t:dataTable>
-        <!--
-        <t:dataScroller id="scroll_1" for="datatable" fastStep="10" pageCountVar="pageCount" pageIndexVar="pageIndex" styleClass="scroller" paginator="true" paginatorMaxPages="9" paginatorTableClass="paginator" paginatorActiveColumnStyle="font-weight:bold;">
-            <f:facet name="first" >
-                <t:graphicImage url="/images/datascroller/play-first.png" border="0" />
-            </f:facet>
-            <f:facet name="last">
-                <t:graphicImage url="/images/datascroller/play-forward.png" border="0" />
-            </f:facet>
-            <f:facet name="previous">
-                <t:graphicImage url="/images/datascroller/play-back.png" border="0" />
-            </f:facet>
-            <f:facet name="next">
-                <t:graphicImage url="/images/datascroller/play.png" border="0" />
-            </f:facet>
-        </t:dataScroller>
-        -->
+
+
+
 
 
 <%@ include file="/jsp/templates/footer.jsp" %>

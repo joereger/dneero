@@ -1,5 +1,6 @@
 <%@ page import="org.apache.log4j.Logger" %>
-<%@ page import="com.dneero.htmlui.Pagez" %>
+<%@ page import="com.dneero.htmluibeans.SysadminSystemProps" %>
+<%@ page import="com.dneero.htmlui.*" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "SystemProps... Be Careful!!!";
@@ -7,209 +8,194 @@ String navtab = "sysadmin";
 String acl = "sysadmin";
 %>
 <%@ include file="/jsp/templates/auth.jsp" %>
+<%
+    SysadminSystemProps sysadminSystemProps=(SysadminSystemProps) Pagez.getBeanMgr().get("SystemProps");
+%>
+<%
+    if (request.getParameter("action") != null && request.getParameter("action").equals("save")) {
+        try {
+            sysadminSystemProps.setBaseurl(Textbox.getValueFromRequest("baseurl", "baseurl", true, DatatypeString.DATATYPEID));
+            sysadminSystemProps.setFacebook_api_key(Textbox.getValueFromRequest("facebook_api_key", "facebook_api_key", true, DatatypeString.DATATYPEID));
+            sysadminSystemProps.setFacebook_api_secret(Textbox.getValueFromRequest("facebook_api_secret", "facebook_api_secret", true, DatatypeString.DATATYPEID));
+            sysadminSystemProps.setFacebook_app_name(Textbox.getValueFromRequest("facebook_app_name", "facebook_app_name", true, DatatypeString.DATATYPEID));
+            sysadminSystemProps.setIsbeta(Textbox.getValueFromRequest("isbeta", "isbeta", true, DatatypeString.DATATYPEID));
+            sysadminSystemProps.setIseverythingpasswordprotected(Textbox.getValueFromRequest("iseverythingpasswordprotected", "iseverythingpasswordprotected", true, DatatypeString.DATATYPEID));
+            sysadminSystemProps.setIssslon(Textbox.getValueFromRequest("issslon", "issslon", true, DatatypeString.DATATYPEID));
+            sysadminSystemProps.setPaypalapipassword(Textbox.getValueFromRequest("paypalapipassword", "paypalapipassword", true, DatatypeString.DATATYPEID));
+            sysadminSystemProps.setPaypalapiusername(Textbox.getValueFromRequest("paypalapiusername", "paypalapiusername", true, DatatypeString.DATATYPEID));
+            sysadminSystemProps.setPaypalenabled(Textbox.getValueFromRequest("paypalenabled", "paypalenabled", true, DatatypeString.DATATYPEID));
+            sysadminSystemProps.setPaypalenvironment(Textbox.getValueFromRequest("paypalenvironment", "paypalenvironment", true, DatatypeString.DATATYPEID));
+            sysadminSystemProps.setPaypalsignature(Textbox.getValueFromRequest("paypalsignature", "paypalsignature", true, DatatypeString.DATATYPEID));
+            sysadminSystemProps.setSendxmpp(Textbox.getValueFromRequest("sendxmpp", "sendxmpp", true, DatatypeString.DATATYPEID));
+            sysadminSystemProps.setSmtpoutboundserver(Textbox.getValueFromRequest("smtpoutboundserver", "smtpoutboundserver", true, DatatypeString.DATATYPEID));
+            sysadminSystemProps.saveProps();
+        } catch (ValidationException vex) {
+            Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
+        }
+    }
+%>
 <%@ include file="/jsp/templates/header.jsp" %>
 
 
+    <form action="systemprops.jsp" method="post">
+        <input type="hidden" name="action" value="save">
 
+        <table cellpadding="0" cellspacing="0" border="0">
 
-            <h:messages styleClass="RED"/>
-            <table cellpadding="0" cellspacing="0" border="0">
-
+            <tr>
                 <td valign="top">
-                    <h:outputText value="Base Url" styleClass="formfieldnamefont"></h:outputText>
+                    <font class="formfieldnamefont">Base Url</font>
                     <br/>
                     <font class="tinyfont">The base url that this instance is installed at.  No http:// and no trailing slash!  Ex: www.dneero.com</font>
                 </td>
                 <td valign="top">
-                    <h:inputText value="<%=((SystemProps)Pagez.getBeanMgr().get("SystemProps")).getBaseurl()%>" id="baseurl" required="true">
-                        <f:validateLength maximum="255"></f:validateLength>
-                    </h:inputText>
+                    <%=Textbox.getHtml("baseurl", sysadminSystemProps.getBaseurl(), 255, 35, "", "")%>
                 </td>
-                <td valign="top">
-                    <h:message for="baseurl" styleClass="RED"></h:message>
-                </td>
+            </tr>
 
+            <tr>
                 <td valign="top">
-                    <h:outputText value="SendXMPP" styleClass="formfieldnamefont"></h:outputText>
+                    <font class="formfieldnamefont">SendXMPP</font>
                     <br/>
                     <font class="tinyfont">0 or 1.  Whether or not to send XMPP notifications from this installation.</font>
                 </td>
                 <td valign="top">
-                    <h:inputText value="<%=((SystemProps)Pagez.getBeanMgr().get("SystemProps")).getSendxmpp()%>" id="sendxmpp" required="true">
-                        <f:validateLength maximum="255"></f:validateLength>
-                    </h:inputText>
+                    <%=Textbox.getHtml("sendxmpp", sysadminSystemProps.getSendxmpp(), 255, 35, "", "")%>
                 </td>
-                <td valign="top">
-                    <h:message for="sendxmpp" styleClass="RED"></h:message>
-                </td>
+            </tr>
 
-
+            <tr>
                 <td valign="top">
-                    <h:outputText value="SmtpOutboundServer" styleClass="formfieldnamefont"></h:outputText>
+                    <font class="formfieldnamefont">SmtpOutboundServer</font>
                     <br/>
                     <font class="tinyfont">Smtp server name or ip address to use to send email.  Default is 'localhost'</font>
                 </td>
                 <td valign="top">
-                    <h:inputText value="<%=((SystemProps)Pagez.getBeanMgr().get("SystemProps")).getSmtpoutboundserver()%>" id="smtpoutboundserver" required="true">
-                        <f:validateLength maximum="255"></f:validateLength>
-                    </h:inputText>
+                    <%=Textbox.getHtml("smtpoutboundserver", sysadminSystemProps.getSmtpoutboundserver(), 255, 35, "", "")%>
                 </td>
-                <td valign="top">
-                    <h:message for="smtpoutboundserver" styleClass="RED"></h:message>
-                </td>
+            </tr>
 
-
+            <tr>
                 <td valign="top">
-                    <h:outputText value="IsEverythingPasswordProtected" styleClass="formfieldnamefont"></h:outputText>
+                    <font class="formfieldnamefont">IsEverythingPasswordProtected</font>
                     <br/>
                     <font class="tinyfont">0 or 1. Whether or not a password is required to see anything.  Used for beta capability.</font>
                 </td>
                 <td valign="top">
-                    <h:inputText value="<%=((SystemProps)Pagez.getBeanMgr().get("SystemProps")).getIseverythingpasswordprotected()%>" id="iseverythingpasswordprotected" required="true">
-                        <f:validateLength maximum="255"></f:validateLength>
-                    </h:inputText>
+                    <%=Textbox.getHtml("iseverythingpasswordprotected", sysadminSystemProps.getIseverythingpasswordprotected(), 255, 35, "", "")%>
                 </td>
-                <td valign="top">
-                    <h:message for="iseverythingpasswordprotected" styleClass="RED"></h:message>
-                </td>
+            </tr>
 
+            <tr>
                 <td valign="top">
-                    <h:outputText value="IsBeta" styleClass="formfieldnamefont"></h:outputText>
+                    <font class="formfieldnamefont">IsBeta</font>
                     <br/>
                     <font class="tinyfont">0 or 1.  Whether the system is operating in BETA mode or not.</font>
                 </td>
                 <td valign="top">
-                    <h:inputText value="<%=((SystemProps)Pagez.getBeanMgr().get("SystemProps")).getIsbeta()%>" id="isbeta" required="true">
-                        <f:validateLength maximum="255"></f:validateLength>
-                    </h:inputText>
+                    <%=Textbox.getHtml("isbeta", sysadminSystemProps.getIsbeta(), 255, 35, "", "")%>
                 </td>
-                <td valign="top">
-                    <h:message for="isbeta" styleClass="RED"></h:message>
-                </td>
+            </tr>
 
+            <tr>
                 <td valign="top">
-                    <h:outputText value="PayPalApiUsername" styleClass="formfieldnamefont"></h:outputText>
+                    <font class="formfieldnamefont">PayPalApiUsername</font>
                     <br/>
                     <font class="tinyfont">PayPal API username.</font>
                 </td>
                 <td valign="top">
-                    <h:inputText value="<%=((SystemProps)Pagez.getBeanMgr().get("SystemProps")).getPaypalapiusername()%>" id="paypalapiusername" required="true">
-                        <f:validateLength maximum="255"></f:validateLength>
-                    </h:inputText>
+                    <%=Textbox.getHtml("paypalapiusername", sysadminSystemProps.getPaypalapiusername(), 255, 35, "", "")%>
                 </td>
-                <td valign="top">
-                    <h:message for="paypalapiusername" styleClass="RED"></h:message>
-                </td>
+            </tr>
 
+            <tr>
                 <td valign="top">
-                    <h:outputText value="PayPalApiPassword" styleClass="formfieldnamefont"></h:outputText>
+                    <font class="formfieldnamefont">PayPalApiPassword</font>
                     <br/>
                     <font class="tinyfont">PayPal API password.</font>
                 </td>
                 <td valign="top">
-                    <h:inputText value="<%=((SystemProps)Pagez.getBeanMgr().get("SystemProps")).getPaypalapipassword()%>" id="paypalapipassword" required="true">
-                        <f:validateLength maximum="255"></f:validateLength>
-                    </h:inputText>
+                    <%=Textbox.getHtml("paypalapipassword", sysadminSystemProps.getPaypalapipassword(), 255, 35, "", "")%>
                 </td>
-                <td valign="top">
-                    <h:message for="paypalapipassword" styleClass="RED"></h:message>
-                </td>
+            </tr>
 
+            <tr>
                 <td valign="top">
-                    <h:outputText value="PayPalSignature" styleClass="formfieldnamefont"></h:outputText>
+                    <font class="formfieldnamefont">PayPalSignature</font>
                     <br/>
                     <font class="tinyfont">PayPal signature.</font>
                 </td>
                 <td valign="top">
-                    <h:inputText value="<%=((SystemProps)Pagez.getBeanMgr().get("SystemProps")).getPaypalsignature()%>" id="paypalsignature" required="true">
-                        <f:validateLength maximum="255"></f:validateLength>
-                    </h:inputText>
+                    <%=Textbox.getHtml("paypalsignature", sysadminSystemProps.getPaypalsignature(), 255, 35, "", "")%>
                 </td>
-                <td valign="top">
-                    <h:message for="paypalsignature" styleClass="RED"></h:message>
-                </td>
+            </tr>
 
+            <tr>
                 <td valign="top">
-                    <h:outputText value="PayPalEnvironment" styleClass="formfieldnamefont"></h:outputText>
+                    <font class="formfieldnamefont">PayPalEnvironment</font>
                     <br/>
                     <font class="tinyfont">PayPal environment.  I.e. 'sandbox' or 'live'</font>
                 </td>
                 <td valign="top">
-                    <h:inputText value="<%=((SystemProps)Pagez.getBeanMgr().get("SystemProps")).getPaypalenvironment()%>" id="paypalenvironment" required="true">
-                        <f:validateLength maximum="255"></f:validateLength>
-                    </h:inputText>
+                    <%=Textbox.getHtml("paypalenvironment", sysadminSystemProps.getPaypalenvironment(), 255, 35, "", "")%>
                 </td>
-                <td valign="top">
-                    <h:message for="paypalenvironment" styleClass="RED"></h:message>
-                </td>
+            </tr>
 
+            <tr>
                 <td valign="top">
-                    <h:outputText value="IsSSLOn" styleClass="formfieldnamefont"></h:outputText>
+                    <font class="formfieldnamefont">IsSSLOn</font>
                     <br/>
                     <font class="tinyfont">0 or 1.  Whether SSL is installed at the server level for this install.</font>
                 </td>
                 <td valign="top">
-                    <h:inputText value="<%=((SystemProps)Pagez.getBeanMgr().get("SystemProps")).getIssslon()%>" id="issslon" required="true">
-                        <f:validateLength maximum="255"></f:validateLength>
-                    </h:inputText>
+                    <%=Textbox.getHtml("issslon", sysadminSystemProps.getIssslon(), 255, 35, "", "")%>
                 </td>
-                <td valign="top">
-                    <h:message for="issslon" styleClass="RED"></h:message>
-                </td>
+            </tr>
 
+            <tr>
                 <td valign="top">
-                    <h:outputText value="Facebook App Name" styleClass="formfieldnamefont"></h:outputText>
+                    <font class="formfieldnamefont">Facebook App Name</font>
                     <br/>
                     <font class="tinyfont">joestest or dneero</font>
                 </td>
                 <td valign="top">
-                    <h:inputText value="<%=((SystemProps)Pagez.getBeanMgr().get("SystemProps")).getFacebook_app_name()%>" id="facebook_app_name" required="true">
-                        <f:validateLength maximum="255"></f:validateLength>
-                    </h:inputText>
+                    <%=Textbox.getHtml("facebook_app_name", sysadminSystemProps.getFacebook_app_name(), 255, 35, "", "")%>
                 </td>
-                <td valign="top">
-                    <h:message for="facebook_app_name" styleClass="RED"></h:message>
-                </td>
+            </tr>
 
+            <tr>
                 <td valign="top">
-                    <h:outputText value="Facebook API Key" styleClass="formfieldnamefont"></h:outputText>
+                    <font class="formfieldnamefont">Facebook API Key</font>
                     <br/>
                     <font class="tinyfont">joestest is dece0e9c9bc48fa1078cbc5a0680cea3</font>
                 </td>
                 <td valign="top">
-                    <h:inputText value="<%=((SystemProps)Pagez.getBeanMgr().get("SystemProps")).getFacebook_api_key()%>" id="facebook_api_key" required="true">
-                        <f:validateLength maximum="255"></f:validateLength>
-                    </h:inputText>
+                    <%=Textbox.getHtml("facebook_api_key", sysadminSystemProps.getFacebook_api_key(), 255, 35, "", "")%>
                 </td>
-                <td valign="top">
-                    <h:message for="facebook_api_key" styleClass="RED"></h:message>
-                </td>
+            </tr>
 
+            <tr>
                 <td valign="top">
-                    <h:outputText value="Facebook API Secret" styleClass="formfieldnamefont"></h:outputText>
+                    <font class="formfieldnamefont">Facebook API Secret</font>
                     <br/>
                     <font class="tinyfont">joestest is fde4c4950c909948fe3ada5676a19d2a</font>
                 </td>
                 <td valign="top">
-                    <h:inputText value="<%=((SystemProps)Pagez.getBeanMgr().get("SystemProps")).getFacebook_api_secret()%>" id="facebook_api_secret" required="true">
-                        <f:validateLength maximum="255"></f:validateLength>
-                    </h:inputText>
+                    <%=Textbox.getHtml("facebook_api_secret", sysadminSystemProps.getFacebook_api_secret(), 255, 35, "", "")%>
                 </td>
-                <td valign="top">
-                    <h:message for="facebook_api_secret" styleClass="RED"></h:message>
-                </td>
+            </tr>
 
+            <tr>
                 <td valign="top">
                 </td>
                 <td valign="top">
                     <br/><br/>
-                    <h:commandButton action="<%=((SystemProps)Pagez.getBeanMgr().get("SystemProps")).getSaveProps()%>" value="Save System Props" styleClass="formsubmitbutton"></h:commandButton>
+                    <input type="submit" value="Save System Props">
                 </td>
-                <td valign="top">
-                </td>
+             </tr>
 
-            </table>
+        </table>
 
-
+    </form>
 
 <%@ include file="/jsp/templates/footer.jsp" %>

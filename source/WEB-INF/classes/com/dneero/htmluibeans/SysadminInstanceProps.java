@@ -7,6 +7,7 @@ import com.dneero.systemprops.InstanceProperties;
 
 import com.dneero.util.GeneralException;
 import com.dneero.htmlui.Pagez;
+import com.dneero.htmlui.ValidationException;
 
 import java.io.Serializable;
 
@@ -51,7 +52,7 @@ public class SysadminInstanceProps implements Serializable {
         instancename = InstanceProperties.getInstancename();
     }
 
-    public String saveProps(){
+    public String saveProps() throws ValidationException {
         Logger logger = Logger.getLogger(this.getClass().getName());
         try{
             //This assumes jsf page-level validation

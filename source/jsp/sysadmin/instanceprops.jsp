@@ -1,5 +1,6 @@
 <%@ page import="org.apache.log4j.Logger" %>
-<%@ page import="com.dneero.htmlui.Pagez" %>
+<%@ page import="com.dneero.htmluibeans.SysadminInstanceProps" %>
+<%@ page import="com.dneero.htmlui.*" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "InstanceProps... Be Careful!!!";
@@ -7,167 +8,145 @@ String navtab = "sysadmin";
 String acl = "sysadmin";
 %>
 <%@ include file="/jsp/templates/auth.jsp" %>
+<%
+SysadminInstanceProps sysadminInstanceProps = (SysadminInstanceProps)Pagez.getBeanMgr().get("SysadminInstanceProps");
+%>
+<%
+    if (request.getParameter("action") != null && request.getParameter("action").equals("save")) {
+        try {
+            sysadminInstanceProps.setDbConnectionUrl(Textbox.getValueFromRequest("dbConnectionUrl", "dbConnectionUrl", true, DatatypeString.DATATYPEID));
+            sysadminInstanceProps.setDbDriverName(Textbox.getValueFromRequest("dbDriverName", "dbDriverName", true, DatatypeString.DATATYPEID));
+            sysadminInstanceProps.setDbMaxActive(Textbox.getValueFromRequest("dbMaxActive(", "dbMaxActive(", true, DatatypeString.DATATYPEID));
+            sysadminInstanceProps.setDbMaxIdle(Textbox.getValueFromRequest("dbMaxIdle", "dbMaxIdle", true, DatatypeString.DATATYPEID));
+            sysadminInstanceProps.setDbMaxWait(Textbox.getValueFromRequest("dbMaxWait", "dbMaxWait", true, DatatypeString.DATATYPEID));
+            sysadminInstanceProps.setDbMinIdle(Textbox.getValueFromRequest("dbMinIdle", "dbMinIdle", true, DatatypeString.DATATYPEID));
+            sysadminInstanceProps.setDbPassword(Textbox.getValueFromRequest("dbPassword", "dbPassword", true, DatatypeString.DATATYPEID));
+            sysadminInstanceProps.setDbUsername(Textbox.getValueFromRequest("dbUsername", "dbUsername", true, DatatypeString.DATATYPEID));
+            sysadminInstanceProps.setInstancename(Textbox.getValueFromRequest("instancename", "instancename", true, DatatypeString.DATATYPEID));
+            sysadminInstanceProps.setRunScheduledTasksOnThisInstance(Textbox.getValueFromRequest("runScheduledTasksOnThisInstance", "runScheduledTasksOnThisInstance", true, DatatypeString.DATATYPEID));
+            sysadminInstanceProps.saveProps();
+        } catch (ValidationException vex) {
+            Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
+        }
+    }
+%>
 <%@ include file="/jsp/templates/header.jsp" %>
 
+    <form action="instanceprops.jsp" method="post">
+        <input type="hidden" name="action" value="save">
+
+        <table cellpadding="0" cellspacing="0" border="0">
+
+            <tr>
+                <td valign="top">
+                    <font class="formfieldnamefont">Instance Name</font>
+                </td>
+                <td valign="top">
+                    <%=Textbox.getHtml("instancename", sysadminInstanceProps.getInstancename(), 255, 35, "", "")%>
+                </td>
+            </tr>
+
+            <tr>
+                <td valign="top">
+                    <font class="formfieldnamefont">dbConnectionUrl</font>
+                </td>
+                <td valign="top">
+                    <%=Textbox.getHtml("dbConnectionUrl", sysadminInstanceProps.getDbConnectionUrl(), 255, 35, "", "")%>
+                </td>
+            </tr>
+
+            <tr>
+                <td valign="top">
+                    <font class="formfieldnamefont">dbUsername</font>
+                </td>
+                <td valign="top">
+                    <%=Textbox.getHtml("dbUsername", sysadminInstanceProps.getDbUsername(), 255, 35, "", "")%>
+                </td>
+            </tr>
 
 
-            <h:messages styleClass="RED"/>
-            <table cellpadding="0" cellspacing="0" border="0">
-
+            <tr>
                 <td valign="top">
-                    <h:outputText value="Instance Name" styleClass="formfieldnamefont"></h:outputText>
-                    <br/>
-                    <font class="tinyfont"></font>
+                    <font class="formfieldnamefont">dbPassword</font>
                 </td>
                 <td valign="top">
-                    <h:inputText value="<%=((SysadminInstanceProps)Pagez.getBeanMgr().get("SysadminInstanceProps")).getInstancename()%>" id="instancename" required="true">
-                        <f:validateLength maximum="255"></f:validateLength>
-                    </h:inputText>
+                    <%=Textbox.getHtml("dbPassword", sysadminInstanceProps.getDbPassword(), 255, 35, "", "")%>
                 </td>
-                <td valign="top">
-                    <h:message for="instancename" styleClass="RED"></h:message>
-                </td>
-
-                <td valign="top">
-                    <h:outputText value="dbConnectionUrl" styleClass="formfieldnamefont"></h:outputText>
-                    <br/>
-                    <font class="tinyfont"></font>
-                </td>
-                <td valign="top">
-                    <h:inputText value="<%=((SysadminInstanceProps)Pagez.getBeanMgr().get("SysadminInstanceProps")).getDbConnectionUrl()%>" id="dbConnectionUrl" required="true">
-                        <f:validateLength maximum="255"></f:validateLength>
-                    </h:inputText>
-                </td>
-                <td valign="top">
-                    <h:message for="dbConnectionUrl" styleClass="RED"></h:message>
-                </td>
-
-                <td valign="top">
-                    <h:outputText value="dbUsername" styleClass="formfieldnamefont"></h:outputText>
-                    <br/>
-                    <font class="tinyfont"></font>
-                </td>
-                <td valign="top">
-                    <h:inputText value="<%=((SysadminInstanceProps)Pagez.getBeanMgr().get("SysadminInstanceProps")).getDbUsername()%>" id="dbUsername" required="true">
-                        <f:validateLength maximum="255"></f:validateLength>
-                    </h:inputText>
-                </td>
-                <td valign="top">
-                    <h:message for="dbUsername" styleClass="RED"></h:message>
-                </td>
+            </tr>
 
 
+            <tr>
                 <td valign="top">
-                    <h:outputText value="dbPassword" styleClass="formfieldnamefont"></h:outputText>
-                    <br/>
-                    <font class="tinyfont"></font>
+                    <font class="formfieldnamefont">dbMaxActive</font>
                 </td>
                 <td valign="top">
-                    <h:inputText value="<%=((SysadminInstanceProps)Pagez.getBeanMgr().get("SysadminInstanceProps")).getDbPassword()%>" id="dbPassword" required="true">
-                        <f:validateLength maximum="255"></f:validateLength>
-                    </h:inputText>
+                    <%=Textbox.getHtml("dbMaxActive", sysadminInstanceProps.getDbMaxActive(), 255, 35, "", "")%>
                 </td>
-                <td valign="top">
-                    <h:message for="dbPassword" styleClass="RED"></h:message>
-                </td>
+            </tr>
 
 
+            <tr>
                 <td valign="top">
-                    <h:outputText value="dbMaxActive" styleClass="formfieldnamefont"></h:outputText>
-                    <br/>
-                    <font class="tinyfont"></font>
+                    <font class="formfieldnamefont">dbMaxIdle</font>
                 </td>
                 <td valign="top">
-                    <h:inputText value="<%=((SysadminInstanceProps)Pagez.getBeanMgr().get("SysadminInstanceProps")).getDbMaxActive()%>" id="dbMaxActive" required="true">
-                        <f:validateLength maximum="255"></f:validateLength>
-                    </h:inputText>
+                    <%=Textbox.getHtml("dbMaxIdle", sysadminInstanceProps.getDbMaxIdle(), 255, 35, "", "")%>
                 </td>
-                <td valign="top">
-                    <h:message for="dbMaxActive" styleClass="RED"></h:message>
-                </td>
-                
-                <td valign="top">
-                    <h:outputText value="dbMaxIdle" styleClass="formfieldnamefont"></h:outputText>
-                    <br/>
-                    <font class="tinyfont"></font>
-                </td>
-                <td valign="top">
-                    <h:inputText value="<%=((SysadminInstanceProps)Pagez.getBeanMgr().get("SysadminInstanceProps")).getDbMaxIdle()%>" id="dbMaxIdle" required="true">
-                        <f:validateLength maximum="255"></f:validateLength>
-                    </h:inputText>
-                </td>
-                <td valign="top">
-                    <h:message for="dbMaxIdle" styleClass="RED"></h:message>
-                </td>
+            </tr>
 
+            <tr>
                 <td valign="top">
-                    <h:outputText value="dbMinIdle" styleClass="formfieldnamefont"></h:outputText>
-                    <br/>
-                    <font class="tinyfont"></font>
+                    <font class="formfieldnamefont">dbMinIdle</font>
                 </td>
                 <td valign="top">
-                    <h:inputText value="<%=((SysadminInstanceProps)Pagez.getBeanMgr().get("SysadminInstanceProps")).getDbMinIdle()%>" id="dbMinIdle" required="true">
-                        <f:validateLength maximum="255"></f:validateLength>
-                    </h:inputText>
+                    <%=Textbox.getHtml("dbMinIdle", sysadminInstanceProps.getDbMinIdle(), 255, 35, "", "")%>
                 </td>
-                <td valign="top">
-                    <h:message for="dbMinIdle" styleClass="RED"></h:message>
-                </td>
+            </tr>
 
+            <tr>
                 <td valign="top">
-                    <h:outputText value="dbMaxWait" styleClass="formfieldnamefont"></h:outputText>
-                    <br/>
-                    <font class="tinyfont"></font>
+                    <font class="formfieldnamefont">dbMaxWait</font>
                 </td>
                 <td valign="top">
-                    <h:inputText value="<%=((SysadminInstanceProps)Pagez.getBeanMgr().get("SysadminInstanceProps")).getDbMaxWait()%>" id="dbMaxWait" required="true">
-                        <f:validateLength maximum="255"></f:validateLength>
-                    </h:inputText>
+                    <%=Textbox.getHtml("dbMaxWait", sysadminInstanceProps.getDbMaxWait(), 255, 35, "", "")%>
                 </td>
-                <td valign="top">
-                    <h:message for="dbMaxWait" styleClass="RED"></h:message>
-                </td>
+            </tr>
 
+            <tr>
                 <td valign="top">
-                    <h:outputText value="dbDriverName" styleClass="formfieldnamefont"></h:outputText>
-                    <br/>
-                    <font class="tinyfont"></font>
+                    <font class="formfieldnamefont">dbDriverName</font>
                 </td>
                 <td valign="top">
-                    <h:inputText value="<%=((SysadminInstanceProps)Pagez.getBeanMgr().get("SysadminInstanceProps")).getDbDriverName()%>" id="dbDriverName" required="true">
-                        <f:validateLength maximum="255"></f:validateLength>
-                    </h:inputText>
+                    <%=Textbox.getHtml("dbDriverName", sysadminInstanceProps.getDbDriverName(), 255, 35, "", "")%>
                 </td>
-                <td valign="top">
-                    <h:message for="dbDriverName" styleClass="RED"></h:message>
-                </td>
+            </tr>
 
+            <tr>
                 <td valign="top">
-                    <h:outputText value="runScheduledTasksOnThisInstance" styleClass="formfieldnamefont"></h:outputText>
+                    <font class="formfieldnamefont">runScheduledTasksOnThisInstance</font>
                     <br/>
                     <font class="tinyfont">0 or 1</font>
                 </td>
                 <td valign="top">
-                    <h:inputText value="<%=((SysadminInstanceProps)Pagez.getBeanMgr().get("SysadminInstanceProps")).getRunScheduledTasksOnThisInstance()%>" id="runScheduledTasksOnThisInstance" required="true">
-                        <f:validateLength maximum="255"></f:validateLength>
-                    </h:inputText>
+                    <%=Textbox.getHtml("runScheduledTasksOnThisInstance", sysadminInstanceProps.getRunScheduledTasksOnThisInstance(), 255, 35, "", "")%>
                 </td>
-                <td valign="top">
-                    <h:message for="runScheduledTasksOnThisInstance" styleClass="RED"></h:message>
-                </td>
+            </tr>
 
 
-
+            <tr>
                 <td valign="top">
                 </td>
                 <td valign="top">
                     <br/><br/>
-                    <h:commandButton action="<%=((SysadminInstanceProps)Pagez.getBeanMgr().get("SysadminInstanceProps")).getSaveProps()%>" value="Save Instance Props" styleClass="formsubmitbutton"></h:commandButton>
+                    <input type="submit" value="Save Instance Props">
                 </td>
-                <td valign="top">
-                </td>
+            </tr>
 
-            </table>
+
+        </table>
+
+
+    </form>
 
 
 

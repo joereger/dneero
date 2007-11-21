@@ -16,6 +16,7 @@ import com.dneero.email.EmailTemplateProcessor;
 import com.dneero.helpers.Pingomatic;
 import com.dneero.systemprops.BaseUrl;
 import com.dneero.htmlui.Pagez;
+import com.dneero.htmlui.ValidationException;
 
 /**
  * User: Joe Reger Jr
@@ -65,7 +66,7 @@ public class SysadminBlogpost implements Serializable {
         }
     }
 
-    public String save(){
+    public String save() throws ValidationException {
         Logger logger = Logger.getLogger(this.getClass().getName());
         Blogpost blogpost = new Blogpost();
         boolean doPingomatic = true;
@@ -90,7 +91,7 @@ public class SysadminBlogpost implements Serializable {
         return "sysadminblogpost";
     }
 
-    public String delete(){
+    public String delete() throws ValidationException {
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("blogpostid="+blogpostid);
         if (blogpostid>0){

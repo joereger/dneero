@@ -3,6 +3,7 @@ package com.dneero.htmluibeans;
 import com.dneero.util.SortableList;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.dao.Error;
+import com.dneero.htmlui.ValidationException;
 
 import java.util.*;
 import java.io.Serializable;
@@ -24,21 +25,19 @@ public class SysadminErrorList implements Serializable {
 
     }
 
-
-
     public void initBean(){
         Logger logger = Logger.getLogger(this.getClass().getName());
         //Go get the users from the database
         logger.debug("load() called. minleveltoshow="+minleveltoshow);
-        errors = HibernateUtil.getSession().createQuery("from Error where level>='"+minleveltoshow+"' order by errorid desc").setMaxResults(100).list();
+        errors = HibernateUtil.getSession().createQuery("from Error where level>='"+minleveltoshow+"' order by errorid desc").setMaxResults(250).list();
     }
 
-    public String markallold(){
+    public String markallold() throws ValidationException {
         int ers = HibernateUtil.getSession().createQuery("update Error set status= :statusold").setString("statusold", String.valueOf(Error.STATUS_OLD)).executeUpdate();
         initBean();
         return "sysadminerrorlist";
     }
-    public String deleteall(){
+    public String deleteall() throws ValidationException {
         Logger logger = Logger.getLogger(this.getClass().getName());
         //int ers = HibernateUtil.getSession().createQuery("delete from Error where errorid>'0'").executeUpdate();
         errors = HibernateUtil.getSession().createQuery("from Error").list();
@@ -50,20 +49,17 @@ public class SysadminErrorList implements Serializable {
         return "sysadminerrorlist";        
     }
 
-    public String onlyerrors(){
+    public String onlyerrors() throws ValidationException {
         minleveltoshow = Level.ERROR_INT;
         initBean();
         return "";
     }
 
     public List getErrors() {
-        //logger.debug("getListitems");
-        sort("errorid", true);
         return errors;
     }
 
     public void setErrors(List errors) {
-        //logger.debug("setListitems");
         this.errors = errors;
     }
 
@@ -71,45 +67,16 @@ public class SysadminErrorList implements Serializable {
         return true;
     }
 
-    protected void sort(final String column, final boolean ascending) {
-        //logger.debug("sort called");
-        Comparator comparator = new Comparator() {
-            public int compare(Object o1, Object o2) {
-                Error user1 = (Error)o1;
-                Error user2 = (Error)o2;
 
-                if (column == null) {
-                    return 0;
-                }
 
-                if (column.equals("errorid")){
-                    return ascending ? user2.getErrorid()-user1.getErrorid() : user1.getErrorid()-user2.getErrorid() ;
-                } else if (column.equals("status")){
-                    return ascending ? user2.getStatus()-user1.getStatus() : user1.getStatus()-user2.getStatus() ;
-                }  else if (column.equals("level")){
-                    return ascending ? user2.getLevel()-user1.getLevel() : user1.getLevel()-user2.getLevel() ;
-                } else {
-                    return 0;
-                }
-            }
-        };
-
-        //sort and also set our model with the new sort, since using DataTable with
-        //ListDataModel on front end
-        if (errors != null && !errors.isEmpty()) {
-            //logger.debug("sorting users and initializing ListDataModel");
-            Collections.sort(errors, comparator);
-        }
-    }
-
-    public LinkedHashMap getLevels(){
-        LinkedHashMap out = new LinkedHashMap();
-        out.put("Show All", 0);
-        out.put("Debug or Higher", Level.DEBUG_INT);
-        out.put("Warn or Higher", Level.WARN_INT);
-        out.put("Info or Higher", Level.INFO_INT);
-        out.put("Error or Higher", Level.ERROR_INT);
-        out.put("Fatal Only", Level.FATAL_INT);
+    public TreeMap<String, String> getLevels(){
+        TreeMap<String, String> out = new TreeMap<String, String>();
+        out.put(String.valueOf(0), "Show All");
+        out.put(String.valueOf(Level.DEBUG_INT), "Debug or Higher");
+        out.put(String.valueOf(Level.WARN_INT), "Warn or Higher");
+        out.put(String.valueOf(Level.INFO_INT), "Info or Higher");
+        out.put(String.valueOf(Level.ERROR_INT), "Error or Higher");
+        out.put(String.valueOf(Level.FATAL_INT), "Fatal Only");
         return out;
     }
 

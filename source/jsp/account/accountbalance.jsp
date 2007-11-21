@@ -34,7 +34,7 @@ AccountBalance accountBalance = (AccountBalance)Pagez.getBeanMgr().get("AccountB
         <%
         ArrayList<GridCol> cols=new ArrayList<GridCol>();
         cols.add(new GridCol("Id", "<$balanceid$>", true, "", "tinyfont"));
-        cols.add(new GridCol("Date", "<$date$>", true, "", "tinyfont", "", "background: #e6e6e6;"));
+        cols.add(new GridCol("Date", "<$date|"+Grid.GRIDCOLRENDERER_DATETIMECOMPACT+"$>", true, "", "tinyfont", "", "background: #e6e6e6;"));
         cols.add(new GridCol("Description", "<$description$>", false, "", "tinyfont"));
         cols.add(new GridCol("Amount", "<$amt$>", true, "", "tinyfont"));
         cols.add(new GridCol("Balance", "<$currentbalance$>", true, "", "tinyfont"));
