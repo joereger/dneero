@@ -11,11 +11,11 @@ String pagetitle = "<img src=\"/images/user.png\" align=\"right\" alt=\"\" borde
 String navtab = "home";
 String acl = "public";
 %>
-<%@ include file="/jsp/templates/auth.jsp" %>
+<%@ include file="/template/auth.jsp" %>
 <%
 PublicProfileImpressions publicProfileImpressions = (PublicProfileImpressions) Pagez.getBeanMgr().get("PublicProfileImpressions");
 %>
-<%@ include file="/jsp/templates/header.jsp" %>
+<%@ include file="/template/header.jsp" %>
 
 
 
@@ -35,4 +35,4 @@ PublicProfileImpressions publicProfileImpressions = (PublicProfileImpressions) P
 
 
 
-<%@ include file="/jsp/templates/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %>

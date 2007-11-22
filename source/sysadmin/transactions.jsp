@@ -10,11 +10,11 @@ String pagetitle = "Transactions";
 String navtab = "sysadmin";
 String acl = "sysadmin";
 %>
-<%@ include file="/jsp/templates/auth.jsp" %>
+<%@ include file="/template/auth.jsp" %>
 <%
     SysadminTransactions sysadminTransactions=(SysadminTransactions) Pagez.getBeanMgr().get("SysadminTransactions");
 %>
-<%@ include file="/jsp/templates/header.jsp" %>
+<%@ include file="/template/header.jsp" %>
 
 
     <font class="mediumfont">Real World Money Movement</font>
@@ -39,7 +39,7 @@ String acl = "sysadmin";
         
 
 
-<%@ include file="/jsp/templates/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %>
 
 
 

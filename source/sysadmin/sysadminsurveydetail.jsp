@@ -9,7 +9,7 @@ String pagetitle = "Survey: "+((SysadminSurveyDetail)Pagez.getBeanMgr().get("Sys
 String navtab = "sysadmin";
 String acl = "sysadmin";
 %>
-<%@ include file="/jsp/templates/auth.jsp" %>
+<%@ include file="/template/auth.jsp" %>
 <%
     SysadminSurveyDetail sysadminSurveyDetail=(SysadminSurveyDetail) Pagez.getBeanMgr().get("SysadminSurveyDetail");
 %>
@@ -34,7 +34,7 @@ String acl = "sysadmin";
         }
     }
 %>
-<%@ include file="/jsp/templates/header.jsp" %>
+<%@ include file="/template/header.jsp" %>
 
     <script language="JavaScript" type="text/javascript">
       var panels = new Array('panel1', 'panel2', 'panel3');
@@ -322,7 +322,7 @@ String acl = "sysadmin";
 
 
 
-<%@ include file="/jsp/templates/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %>
 
 
 

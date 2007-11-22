@@ -15,8 +15,6 @@ import com.dneero.htmlui.ValidationException;
 import com.dneero.dao.Survey;
 import com.dneero.xmpp.SendXMPPMessage;
 
-import javax.faces.context.FacesContext;
-import javax.faces.application.FacesMessage;
 
 /**
  * User: Joe Reger Jr
@@ -90,7 +88,7 @@ public class ResearcherSurveyDelete implements Serializable {
             logger.debug("Not deleting because status!=Survey.STATUS_DRAFT");
         }
 
-        Pagez.sendRedirect("/jsp/researcher/index.jsp");
+        Pagez.sendRedirect("/researcher/index.jsp");
         return "";
     }
 

@@ -7,11 +7,11 @@ String pagetitle = ((PublicResultsAnswersDetails)Pagez.getBeanMgr().get("PublicR
 String navtab = "home";
 String acl = "public";
 %>
-<%@ include file="/jsp/templates/auth.jsp" %>
+<%@ include file="/template/auth.jsp" %>
 <%
 PublicResultsAnswersDetails publicResultsAnswersDetails = (PublicResultsAnswersDetails)Pagez.getBeanMgr().get("PublicResultsAnswersDetails");
 %>
-<%@ include file="/jsp/templates/header.jsp" %>
+<%@ include file="/template/header.jsp" %>
 
 
 
@@ -41,6 +41,6 @@ PublicResultsAnswersDetails publicResultsAnswersDetails = (PublicResultsAnswersD
 
 
 
-<%@ include file="/jsp/templates/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %>
 
 

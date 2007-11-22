@@ -109,7 +109,7 @@ public class SysadminMassemailDetail implements Serializable {
         if (massemail.getStatus()==Massemail.STATUS_NEW){
             try{massemail.save();}catch(Exception ex){logger.error("",ex);}
             //@todo setMassemail on SysadminMassemailSend bean
-            Pagez.sendRedirect("/jsp/sysadmin/massemailsend.jsp");
+            Pagez.sendRedirect("/sysadmin/massemailsend.jsp");
             return "";
 
         } else {
@@ -132,7 +132,7 @@ public class SysadminMassemailDetail implements Serializable {
         massemailCopy.setTxtmessage(massemail.getTxtmessage());
         try{massemailCopy.save();}catch(Exception ex){logger.error("",ex);}
         Pagez.getUserSession().setMessage("Mass Email Copied!");
-        Pagez.sendRedirect("/jsp/sysadmin/massemaillist.jsp");
+        Pagez.sendRedirect("/sysadmin/massemaillist.jsp");
         return "";
     }
 

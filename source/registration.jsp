@@ -7,7 +7,7 @@ String pagetitle = "Sign Up for a dNeero Account";
 String navtab = "youraccount";
 String acl = "public";
 %>
-<%@ include file="/jsp/templates/auth.jsp" %>
+<%@ include file="/template/auth.jsp" %>
 <%
 Registration registration = (Registration)Pagez.getBeanMgr().get("Registration");
 %>
@@ -27,7 +27,7 @@ Registration registration = (Registration)Pagez.getBeanMgr().get("Registration")
         }
     }
 %>
-<%@ include file="/jsp/templates/header.jsp" %>
+<%@ include file="/template/header.jsp" %>
 
         <%if (registration.getDisplaytempresponsesavedmessage()){%>
             <div class="rounded" style="padding: 15px; margin: 5px; background: #00ff00;">
@@ -158,4 +158,4 @@ Registration registration = (Registration)Pagez.getBeanMgr().get("Registration")
         </form>
 
 
-<%@ include file="/jsp/templates/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %>

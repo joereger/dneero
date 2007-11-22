@@ -24,7 +24,7 @@ public class PublicEvil {
         Logger logger = Logger.getLogger(this.getClass().getName());
         String url = "";
         try{
-            url = URLEncoder.encode(BaseUrl.get(false)+"jsp/evil.jsp", "UTF-8");
+            url = URLEncoder.encode(BaseUrl.get(false)+"evil.jsp", "UTF-8");
         } catch (Exception ex){
             logger.debug(ex);
         }

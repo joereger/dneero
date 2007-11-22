@@ -44,7 +44,7 @@ public class BloggerIndex implements Serializable {
         Logger logger = Logger.getLogger(this.getClass().getName());
 
         if (Pagez.getUserSession()!=null && Pagez.getUserSession().getUser()!=null && Pagez.getUserSession().getUser().getBloggerid()==0){
-            try{Pagez.sendRedirect("/jsp/blogger/bloggerdetails.jsp");return;} catch (Exception ex){logger.error("",ex);}
+            try{Pagez.sendRedirect("/blogger/bloggerdetails.jsp");return;} catch (Exception ex){logger.error("",ex);}
         }
 
         if (Pagez.getRequest().getParameter("showmarketingmaterial")!=null && Pagez.getRequest().getParameter("showmarketingmaterial").equals("1")){
@@ -67,7 +67,7 @@ public class BloggerIndex implements Serializable {
                     try{
                         SurveyResponseParser srp = new SurveyResponseParser(responsepending.getResponseasstring());
                         createResponse(survey,  srp, Blogger.get(Pagez.getUserSession().getUser().getBloggerid()), responsepending.getReferredbyuserid());
-                        responsependingmsg = responsependingmsg + "You just earned $"+ Str.formatForMoney(survey.getWillingtopayperrespondent())+"! We have successfully committed your response to '"+survey.getTitle()+"'!  But don't forget to post this survey to your blog to earn even more money... click <a href='/jsp/survey.jsp?surveyid="+survey.getSurveyid()+"'>here</a>." + "<br/><br/>";
+                        responsependingmsg = responsependingmsg + "You just earned $"+ Str.formatForMoney(survey.getWillingtopayperrespondent())+"! We have successfully committed your response to '"+survey.getTitle()+"'!  But don't forget to post this survey to your blog to earn even more money... click <a href='/survey.jsp?surveyid="+survey.getSurveyid()+"'>here</a>." + "<br/><br/>";
                         surveyidtoredirectto = survey.getSurveyid();
                     } catch (ComponentException cex){
                         responsependingmsg = responsependingmsg + "There was an error committing your response to the survey '"+survey.getTitle()+"': " + cex.getErrorsAsSingleString() + "  But don't worry... we're always adding new survey opportunities!<br/><br/>";
@@ -78,7 +78,7 @@ public class BloggerIndex implements Serializable {
             }
             if(surveyidtoredirectto>0){
                 logger.debug("redirecting, will add justcompletedsurvey=1");
-                Pagez.sendRedirect("/jsp/surveypostit.jsp?surveyid="+surveyidtoredirectto+"&justcompletedsurvey=1");
+                Pagez.sendRedirect("/surveypostit.jsp?surveyid="+surveyidtoredirectto+"&justcompletedsurvey=1");
                 return;
             }
         }
@@ -113,7 +113,7 @@ public class BloggerIndex implements Serializable {
 
 
         if (Pagez.getUserSession()!=null && Pagez.getUserSession().getIsfacebookui()){
-            Pagez.sendRedirect("/jsp/publicsurveylist.jsp");
+            Pagez.sendRedirect("/publicsurveylist.jsp");
             return;
         }
 

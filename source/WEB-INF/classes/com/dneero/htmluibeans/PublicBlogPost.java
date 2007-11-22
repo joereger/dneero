@@ -85,7 +85,7 @@ public class PublicBlogPost implements Serializable {
         SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_CUSTOMERSUPPORT, "dNeero Blog Comment: "+ name + ": " + comment + " (http://dneero.com/blogpost.jsp?blogpostid="+blogpost.getBlogpostid()+")");
         xmpp.send();
         //load();
-        Pagez.sendRedirect("/jsp/blogpost.jsp?blogpostid="+blogpost.getBlogpostid());
+        Pagez.sendRedirect("/blogpost.jsp?blogpostid="+blogpost.getBlogpostid());
         return null;
 
 

@@ -10,7 +10,7 @@ String pagetitle = "Support Issues";
 String navtab = "sysadmin";
 String acl = "sysadmin";
 %>
-<%@ include file="/jsp/templates/auth.jsp" %>
+<%@ include file="/template/auth.jsp" %>
 <%
 SysadminSupportIssuesList sysadminSupportIssuesList = (SysadminSupportIssuesList)Pagez.getBeanMgr().get("SysadminSupportIssuesList");
 %>
@@ -24,7 +24,7 @@ SysadminSupportIssuesList sysadminSupportIssuesList = (SysadminSupportIssuesList
         }
     }
 %>
-<%@ include file="/jsp/templates/header.jsp" %>
+<%@ include file="/template/header.jsp" %>
 
 
 
@@ -54,7 +54,7 @@ SysadminSupportIssuesList sysadminSupportIssuesList = (SysadminSupportIssuesList
 
 
 
-<%@ include file="/jsp/templates/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %>
 
 
 

@@ -58,14 +58,14 @@ public class LostPasswordServlet extends HttpServlet {
             if (userSession!=null){
                 userSession.setAllowedToResetPasswordBecauseHasValidatedByEmail(true);
                 userSession.setUser(user);
-                response.sendRedirect("/lostpasswordchoose.jsf");
+                response.sendRedirect("/lostpasswordchoose.jsp");
                 return;
             } else {
-                response.sendRedirect("/lostpassword.jsf");
+                response.sendRedirect("/lostpassword.jsp");
                 return;
             }
         } else {
-            response.sendRedirect("/lostpassword.jsf");
+            response.sendRedirect("/lostpassword.jsp");
             return;
         }
 

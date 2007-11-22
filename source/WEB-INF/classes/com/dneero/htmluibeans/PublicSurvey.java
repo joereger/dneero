@@ -32,7 +32,7 @@ import org.apache.log4j.Logger;
 import org.hibernate.criterion.Restrictions;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.faces.context.FacesContext;
+
 
 /**
  * User: Joe Reger Jr
@@ -84,7 +84,7 @@ public class PublicSurvey implements Serializable {
 
         //If we don't have a surveyid, shouldn't be on this page
         if (surveyid<=0){
-            try{Pagez.sendRedirect("/jsp/publicsurveylist.jsp"); return;}catch(Exception ex){logger.error("",ex);}
+            try{Pagez.sendRedirect("/publicsurveylist.jsp"); return;}catch(Exception ex){logger.error("",ex);}
         }
 
         //Load up the survey
@@ -92,7 +92,7 @@ public class PublicSurvey implements Serializable {
 
         //If the survey is draft or waiting
         if (survey.getStatus()<Survey.STATUS_OPEN){
-            try{Pagez.sendRedirect("/jsp/surveynotopen.jsp"); return;}catch(Exception ex){logger.error("",ex);}
+            try{Pagez.sendRedirect("/surveynotopen.jsp"); return;}catch(Exception ex){logger.error("",ex);}
         }
 
         //Userid from url
@@ -166,19 +166,19 @@ public class PublicSurvey implements Serializable {
         //Turn on the correct tab
         if (survey.getStatus()!=Survey.STATUS_OPEN){
             //redirect to results
-            //try{Pagez.sendRedirect("/jsp/surveyresults.jsp?surveyid="+surveyid); return;}catch(Exception ex){logger.error("",ex);}
+            //try{Pagez.sendRedirect("/surveyresults.jsp?surveyid="+surveyid); return;}catch(Exception ex){logger.error("",ex);}
         }
         if (loggedinuserhasalreadytakensurvey && isuserwhotooksurveysameasloggedinuser){
             //redirect to postit
-            //try{Pagez.sendRedirect("/jsp/surveypostit.jsp?surveyid="+surveyid); return;}catch(Exception ex){logger.error("",ex);}
+            //try{Pagez.sendRedirect("/surveypostit.jsp?surveyid="+surveyid); return;}catch(Exception ex){logger.error("",ex);}
         }
         if (Pagez.getRequest().getParameter("show")!=null && Pagez.getRequest().getParameter("show").equals("results")){
             //redirect to results
-            try{Pagez.sendRedirect("/jsp/surveyresults.jsp?surveyid="+surveyid+"&userid="+userid); return;}catch(Exception ex){logger.error("",ex);}
+            try{Pagez.sendRedirect("/surveyresults.jsp?surveyid="+surveyid+"&userid="+userid); return;}catch(Exception ex){logger.error("",ex);}
         }
         if (Pagez.getRequest().getParameter("show")!=null && Pagez.getRequest().getParameter("show").equals("disclosure")){
             //redirect to disclosure
-            try{Pagez.sendRedirect("/jsp/surveydisclosure.jsp?surveyid="+surveyid); return;}catch(Exception ex){logger.error("",ex);}
+            try{Pagez.sendRedirect("/surveydisclosure.jsp?surveyid="+surveyid); return;}catch(Exception ex){logger.error("",ex);}
         }
 
 
@@ -303,7 +303,7 @@ public class PublicSurvey implements Serializable {
         //Validate the response and put into memory
         SurveyResponseParser srp;
         try{
-            srp = new SurveyResponseParser((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest());
+            srp = new SurveyResponseParser(Pagez.getRequest());
             createResponse(survey, srp, null);
             haveerror = false;
         } catch (ComponentException cex){
@@ -347,13 +347,13 @@ public class PublicSurvey implements Serializable {
             if (Pagez.getUserSession().getUser().getBloggerid()>0){
                 //load();
                 logger.debug("redirecting, will add justcompletedsurvey=1");
-                try{Pagez.sendRedirect("/jsp/surveypostit.jsp?surveyid="+survey.getSurveyid()+"&justcompletedsurvey=1");}catch(Exception ex){logger.error("",ex);}
+                try{Pagez.sendRedirect("/surveypostit.jsp?surveyid="+survey.getSurveyid()+"&justcompletedsurvey=1");}catch(Exception ex){logger.error("",ex);}
                 return "publicsurvey";
             } else {
-                Pagez.sendRedirect("/jsp/account/index.jsp");
+                Pagez.sendRedirect("/account/index.jsp");
             }
         }
-        Pagez.sendRedirect("/jsp/registration.jsp");
+        Pagez.sendRedirect("/registration.jsp");
         return "";
     }
 

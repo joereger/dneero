@@ -207,7 +207,7 @@ public class Essay implements Component {
 
         out.append("<tr>");
         out.append("<td valign=\"top\" align=\"right\" bgcolor=\"#ffffff\" colspan=4>");
-        out.append("<a href=\"results_answers_details.jsf?questionid="+question.getQuestionid()+"\"><b>All Essay Responses</b></a>");
+        out.append("<a href=\"results_answers_details.jsp?questionid="+question.getQuestionid()+"\"><b>All Essay Responses</b></a>");
         out.append("</td>");
         out.append("</tr>");
 
@@ -224,7 +224,7 @@ public class Essay implements Component {
                 i = i + 1;
                 Blogger blogger = Blogger.get(questionresponse.getBloggerid());
                 User user = User.get(blogger.getUserid());
-                out.append("<b>Response from: <a href=\"results_respondents_profile.jsf?responseid="+questionresponse.getResponseid()+"\">"+user.getFirstname()+" "+user.getLastname()+"</a></b>");
+                out.append("<b>Response from: <a href=\"results_respondents_profile.jsp?responseid="+questionresponse.getResponseid()+"\">"+user.getFirstname()+" "+user.getLastname()+"</a></b>");
                 out.append("<br/>");
                 out.append(questionresponse.getValue());
                 out.append("<br/>");

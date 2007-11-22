@@ -12,7 +12,7 @@ String pagetitle = "Revenue Sharing";
 String navtab = "bloggers";
 String acl = "blogger";
 %>
-<%@ include file="/jsp/templates/auth.jsp" %>
+<%@ include file="/template/auth.jsp" %>
 <%
     BloggerEarningsRevshare bloggerEarningsRevshare=(BloggerEarningsRevshare) Pagez.getBeanMgr().get("BloggerEarningsRevshare");
     BloggerEarningsRevshareInvite bloggerEarningsRevshareInvite=(BloggerEarningsRevshareInvite) Pagez.getBeanMgr().get("BloggerEarningsRevshareInvite");
@@ -28,7 +28,7 @@ String acl = "blogger";
         }
     }
 %>
-<%@ include file="/jsp/templates/header.jsp" %>
+<%@ include file="/template/header.jsp" %>
 
 
 
@@ -148,6 +148,6 @@ String acl = "blogger";
 
 
 
-<%@ include file="/jsp/templates/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %>
 
 

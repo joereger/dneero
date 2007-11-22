@@ -7,7 +7,7 @@ String pagetitle = "Edit EULA";
 String navtab = "sysadmin";
 String acl = "sysadmin";
 %>
-<%@ include file="/jsp/templates/auth.jsp" %>
+<%@ include file="/template/auth.jsp" %>
 <%
 SysadminEditEula sysadminEditEula = (SysadminEditEula)Pagez.getBeanMgr().get("SysadminEditEula");
 %>
@@ -21,7 +21,7 @@ SysadminEditEula sysadminEditEula = (SysadminEditEula)Pagez.getBeanMgr().get("Sy
         }
     }
 %>
-<%@ include file="/jsp/templates/header.jsp" %>
+<%@ include file="/template/header.jsp" %>
 
 
 
@@ -62,4 +62,4 @@ SysadminEditEula sysadminEditEula = (SysadminEditEula)Pagez.getBeanMgr().get("Sy
     </form>
 
 
-<%@ include file="/jsp/templates/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %>

@@ -12,13 +12,13 @@ String pagetitle = "<img src=\"/images/user.png\" alt=\"\" border=\"0\" width=\"
 String navtab = "bloggers";
 String acl = "public";
 %>
-<%@ include file="/jsp/templates/auth.jsp" %>
+<%@ include file="/template/auth.jsp" %>
 <%
     BloggerIndex bloggerIndex=(BloggerIndex) Pagez.getBeanMgr().get("BloggerIndex");
     SystemStats systemStats=((SystemStats) Pagez.getBeanMgr().get("SystemStats"));
     BloggerCompletedsurveys bloggerCompletedsurveys = (BloggerCompletedsurveys) Pagez.getBeanMgr().get("BloggerCompletedsurveys");
 %>
-<%@ include file="/jsp/templates/header.jsp" %>
+<%@ include file="/template/header.jsp" %>
 
 
 
@@ -52,7 +52,7 @@ String acl = "public";
                         <br/>
                         One of the big concerns from bloggers is that the money in this model presents possible bias, and that your readers will not want to feel 'monetized'. Thanks to open and sharing people like <a href="http://www.ck-blog.com/">CK</a> we decided to make donating to charity a way to shed this concern -- now you can give any of the earnings to a good cause, avoid bias... and increase the features within your posts!
                         <br/><br/>
-                        With a single click you can direct earnings from any survey to a charity of your choosing.  Learn more about the program <a href="/charity.jsf">here</a>.
+                        With a single click you can direct earnings from any survey to a charity of your choosing.  Learn more about the program <a href="/charity.jsp">here</a>.
                         <br/><br/><br/>
                         <font class="mediumfont" style="color: #999999">How to Get Started</font>
                         <br/>
@@ -65,7 +65,7 @@ String acl = "public";
                             </td>
                             <td width="50%" align="center">
                                 <%if(!Pagez.getUserSession().getIsloggedin()){%>
-                                    <div style="width: 200px;"><%=GreenRoundedButton.get("<a href=\"/jsp/registration.jsp\"><font class=\"subnavfont\" style=\"color: #ffffff;\">Sign Up Now</font></a>")%></div>
+                                    <div style="width: 200px;"><%=GreenRoundedButton.get("<a href=\"/registration.jsp\"><font class=\"subnavfont\" style=\"color: #ffffff;\">Sign Up Now</font></a>")%></div>
                                 <%}%>
                             </td>
                         </tr>
@@ -73,7 +73,7 @@ String acl = "public";
                </td>
                <td valign="top" width="30%">
                     <center>
-                    <a href="/jsp/publicsurveylist.jsp"><img src="/images/blogger-check-out-opps.gif" width="190" height="132" border="0"/></a>
+                    <a href="/publicsurveylist.jsp"><img src="/images/blogger-check-out-opps.gif" width="190" height="132" border="0"/></a>
                     </center>
                     <br/><br/>
                     <div class="rounded" style="background: #eeeeee;">
@@ -114,7 +114,7 @@ String acl = "public";
                     <div class="rounded" style="padding: 5px; margin: 5px; background: #e6e6e6;">
                         <div class="rounded" style="padding: 15px; margin: 5px; background: #ffffff;">
                             <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-                                <a href="/jsp/publicsurveylist.jsp"><font class="mediumfont" style="color: #596697;">Find Surveys to Take</font></a>
+                                <a href="/publicsurveylist.jsp"><font class="mediumfont" style="color: #596697;">Find Surveys to Take</font></a>
                             </td></tr>
                             <tr><td valign="top"></td><td valign="top">
                                 <font class="smallfont">Make money taking surveys and posting your answers to your blog.</font>
@@ -169,7 +169,7 @@ String acl = "public";
                         <div class="rounded" style="padding: 15px; margin: 5px; background: #F2FFBF;">
                             <font class="smallfont">
                                 You haven't yet completed any surveys.
-                                <a href="/jsp/publicsurveylist.jsp"><font style="font-weight: bold; color: #0000ff;">Find Surveys to Take</font></a>
+                                <a href="/publicsurveylist.jsp"><font style="font-weight: bold; color: #0000ff;">Find Surveys to Take</font></a>
                             </font>
                         </div>
                         <br/><br/>
@@ -185,13 +185,13 @@ String acl = "public";
                                         <tr>
                                             <td valign="top">
                                                 <font class="tinyfont"><%=bloggerCompletedsurveysListitem.getResponsedate()%></font><br/>
-                                                <font class="normalfont" style="font-weight: bold; color: #0000ff;"><a href="/jsp/survey.jsp?surveyid=<%=bloggerCompletedsurveysListitem.getSurveyid()%>"><%=bloggerCompletedsurveysListitem.getSurveytitle()%></a></font><br/>
+                                                <font class="normalfont" style="font-weight: bold; color: #0000ff;"><a href="/survey.jsp?surveyid=<%=bloggerCompletedsurveysListitem.getSurveyid()%>"><%=bloggerCompletedsurveysListitem.getSurveytitle()%></a></font><br/>
                                                 <font class="tinyfont" style="font-weight: bold;">Est earnings: <%=bloggerCompletedsurveysListitem.getAmttotal()%></font>
                                                 <% if (!Pagez.getUserSession().getIsfacebookui()){ %>
                                                     <br/>
                                                     <font class="tinyfont" style="font-weight:bold;">
                                                         <%if (bloggerCompletedsurveysListitem.getResponse().getPoststatus()==0){%>
-                                                            <a href="/jsp/survey.jsp?surveyid=<%=bloggerCompletedsurveysListitem.getSurveyid()%>">Needs to be Posted</a>
+                                                            <a href="/survey.jsp?surveyid=<%=bloggerCompletedsurveysListitem.getSurveyid()%>">Needs to be Posted</a>
                                                         <%} else if (bloggerCompletedsurveysListitem.getResponse().getPoststatus()==1){%>
                                                             Posted at Least Once
                                                         <%} else if (bloggerCompletedsurveysListitem.getResponse().getPoststatus()==2){%>
@@ -223,7 +223,7 @@ String acl = "public";
                     <%if (bloggerCompletedsurveys.getList()!=null && bloggerCompletedsurveys.getList().size()>0){%>
                         <br/><br/>
                         <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
-                        Note: Earnings calculations are estimated and not final.   Final payment notification and calculation can be found on <a href="/jsp/account/accountbalance.jsp">Your Account Balance</a> page. Posting and payment status both update nightly.
+                        Note: Earnings calculations are estimated and not final.   Final payment notification and calculation can be found on <a href="/account/accountbalance.jsp">Your Account Balance</a> page. Posting and payment status both update nightly.
                         </font></div></center>
                     <%}%>
 
@@ -233,4 +233,4 @@ String acl = "public";
         </table>
     <% } %>
 
-<%@ include file="/jsp/templates/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %>

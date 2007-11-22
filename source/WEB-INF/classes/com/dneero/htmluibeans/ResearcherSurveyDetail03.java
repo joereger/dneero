@@ -16,8 +16,6 @@ import com.dneero.survey.servlet.SurveyImageServlet;
 import com.dneero.survey.servlet.SurveyLinkServlet;
 import com.dneero.helpers.UserInputSafe;
 
-import javax.faces.context.FacesContext;
-import javax.faces.application.FacesMessage;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -89,12 +87,12 @@ public class ResearcherSurveyDetail03 implements Serializable {
     }
 
     public String saveSurveyAsDraft(){
-        Pagez.sendRedirect("/jsp/researcher/index.jsp");
+        Pagez.sendRedirect("/researcher/index.jsp");
         return "";
     }
 
     public String previousStep(){
-        Pagez.sendRedirect("/jsp/researcher/researchersurveydetail_02.jsp");
+        Pagez.sendRedirect("/researcher/researchersurveydetail_02.jsp");
         return "";
     }
 
@@ -126,7 +124,7 @@ public class ResearcherSurveyDetail03 implements Serializable {
                 } catch (GeneralException gex){
                     logger.debug("saveSurvey() failed: " + gex.getErrorsAsSingleString());
                     String message = "saveSurvey() save failed: " + gex.getErrorsAsSingleString();
-                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage( FacesMessage.SEVERITY_INFO, message, message));
+                    Pagez.getUserSession().setMessage(message);
                     return null;
                 }
 
@@ -136,13 +134,13 @@ public class ResearcherSurveyDetail03 implements Serializable {
                 survey.refresh();
             }
         }
-        Pagez.sendRedirect("/jsp/researcher/researchersurveydetail_03.jsp");
+        Pagez.sendRedirect("/researcher/researchersurveydetail_03.jsp");
         return "";
     }
 
     public String continueToNext() throws ValidationException {
         if(saveSurvey()!=null){
-            Pagez.sendRedirect("/jsp/researcher/researchersurveydetail_04.jsp");
+            Pagez.sendRedirect("/researcher/researchersurveydetail_04.jsp");
             return "";
         }
         return null;

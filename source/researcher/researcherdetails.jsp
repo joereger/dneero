@@ -7,7 +7,7 @@ String pagetitle = "Researcher Profile";
 String navtab = "researchers";
 String acl = "account";
 %>
-<%@ include file="/jsp/templates/auth.jsp" %>
+<%@ include file="/template/auth.jsp" %>
 <%
     ResearcherDetails researcherDetails=(ResearcherDetails) Pagez.getBeanMgr().get("ResearcherDetails");
 %>
@@ -23,7 +23,7 @@ String acl = "account";
         }
     }
 %>
-<%@ include file="/jsp/templates/header.jsp" %>
+<%@ include file="/template/header.jsp" %>
 
 
 
@@ -89,5 +89,5 @@ String acl = "account";
 
 
 
-<%@ include file="/jsp/templates/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %>
 

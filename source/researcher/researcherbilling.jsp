@@ -7,7 +7,7 @@ String pagetitle = "Researcher Billing Details";
 String navtab = "researchers";
 String acl = "account";
 %>
-<%@ include file="/jsp/templates/auth.jsp" %>
+<%@ include file="/template/auth.jsp" %>
 <%
 ResearcherBilling researcherBilling = (ResearcherBilling)Pagez.getBeanMgr().get("ResearcherBilling");
 %>
@@ -33,7 +33,7 @@ ResearcherBilling researcherBilling = (ResearcherBilling)Pagez.getBeanMgr().get(
         }
     }
 %>
-<%@ include file="/jsp/templates/header.jsp" %>
+<%@ include file="/template/header.jsp" %>
 
     <form action="researcherbilling.jsp" method="post">
         <input type="hidden" name="action" value="save">
@@ -143,6 +143,6 @@ ResearcherBilling researcherBilling = (ResearcherBilling)Pagez.getBeanMgr().get(
 
     </form>
 
-<%@ include file="/jsp/templates/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %>
 
 

@@ -7,9 +7,9 @@ String pagetitle = "Enter Facebook App";
 String navtab = "home";
 String acl = "public";
 %>
-<%@ include file="/jsp/templates/auth.jsp" %>
-<%@ include file="/jsp/templates/header.jsp" %>
+<%@ include file="/template/auth.jsp" %>
+<%@ include file="/template/header.jsp" %>
 
     <a href="<%=((com.dneero.htmluibeans.PublicFacebookenterui)Pagez.getBeanMgr().get("PublicFacebookenterui")).getUrl()%>">Please click here to continue.</a>
 
-<%@ include file="/jsp/templates/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %>

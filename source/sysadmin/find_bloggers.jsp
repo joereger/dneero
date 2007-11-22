@@ -6,8 +6,8 @@ String pagetitle = "Find Bloggers";
 String navtab = "sysadmin";
 String acl = "sysadmin";
 %>
-<%@ include file="../templates/auth.jsp" %>
-<%@ include file="../templates/header.jsp" %>
+<%@ include file="../template/auth.jsp" %>
+<%@ include file="../template/header.jsp" %>
 
 
 
@@ -291,5 +291,5 @@ String acl = "sysadmin";
         
 
 
-<%@ include file="../templates/footer.jsp" %>
+<%@ include file="../template/footer.jsp" %>
 

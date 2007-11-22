@@ -81,9 +81,9 @@ public class FilterMain implements Filter {
                 }
 
                 //Redirect login page to https
-                if (SystemProperty.getProp(SystemProperty.PROP_ISSSLON).equals("1") && urlSplitter.getScheme().equals("http") && urlSplitter.getServletPath().equals("login.jsf")){
+                if (SystemProperty.getProp(SystemProperty.PROP_ISSSLON).equals("1") && urlSplitter.getScheme().equals("http") && urlSplitter.getServletPath().equals("login.jsp")){
                     try{
-                        httpServletResponse.sendRedirect(BaseUrl.get(true)+"jsp/login.jsp");
+                        httpServletResponse.sendRedirect(BaseUrl.get(true)+"login.jsp");
                         return;
                     } catch (Exception ex){
                         logger.error("",ex);
@@ -140,21 +140,21 @@ public class FilterMain implements Filter {
 //                                                try{
 //                                                    if (SystemProperty.getProp(SystemProperty.PROP_ISSSLON).equals("1")){
 //                                                        try{
-//                                                            httpServletResponse.sendRedirect(BaseUrl.get(true)+"jsp/account/index.jsp?msg=autologin");
+//                                                            httpServletResponse.sendRedirect(BaseUrl.get(true)+"account/index.jsp?msg=autologin");
 //                                                            return;
 //                                                        } catch (Exception ex){
 //                                                            logger.error("",ex);
-//                                                            httpServletResponse.sendRedirect("/jsp/account/index.jsp?msg=autologin");
+//                                                            httpServletResponse.sendRedirect("/account/index.jsp?msg=autologin");
 //                                                            return;
 //                                                        }
 //                                                    } else {
-//                                                        httpServletResponse.sendRedirect("/jsp/account/index.jsp?msg=autologin");
+//                                                        httpServletResponse.sendRedirect("/account/index.jsp?msg=autologin");
 //                                                        return;
 //                                                    }
 //                                                } catch (Exception ex){
 //                                                    logger.error("",ex);
 //                                                    ex.printStackTrace();
-//                                                    httpServletResponse.sendRedirect("/jsp/index.jsp");
+//                                                    httpServletResponse.sendRedirect("/index.jsp");
 //                                                    return;
 //                                                }
 //                                            }
@@ -177,7 +177,7 @@ public class FilterMain implements Filter {
                     Calendar startOfGracePeriod = Time.xDaysAgoStart(Calendar.getInstance(), daysInGracePeriod);
                     if (Pagez.getUserSession().getUser().getCreatedate().before(startOfGracePeriod.getTime())){
                         if (urlSplitter.getRequestUrl().indexOf("emailactivationwaiting.jsp")==-1){
-                            httpServletResponse.sendRedirect("/jsp/emailactivationwaiting.jsp");
+                            httpServletResponse.sendRedirect("/emailactivationwaiting.jsp");
                             return;
                         }
                     }
@@ -187,7 +187,7 @@ public class FilterMain implements Filter {
                 if (Pagez.getUserSession().getIsloggedin() && !Pagez.getUserSession().getIseulaok()){
                     System.out.println("redirecting to force eula accept");
                     if (urlSplitter.getRequestUrl().indexOf("loginagreeneweula.jsp")==-1){
-                        httpServletResponse.sendRedirect("/jsp/loginagreeneweula.jsp");
+                        httpServletResponse.sendRedirect("/loginagreeneweula.jsp");
                         return;
                     }
                 }

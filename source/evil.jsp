@@ -7,8 +7,8 @@ String pagetitle = "oh, btw, we're evil.";
 String navtab = "home";
 String acl = "public";
 %>
-<%@ include file="/jsp/templates/auth.jsp" %>
-<%@ include file="/jsp/templates/header.jsp" %>
+<%@ include file="/template/auth.jsp" %>
+<%@ include file="/template/header.jsp" %>
 
 
             <font class="mediumfont" style="color: #0bae17;"><b>We're Evil</b></font>
@@ -61,4 +61,4 @@ String acl = "public";
 
 
 
-<%@ include file="/jsp/templates/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %>

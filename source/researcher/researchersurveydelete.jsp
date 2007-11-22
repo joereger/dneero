@@ -7,7 +7,7 @@ String pagetitle = "Delete Survey";
 String navtab = "researchers";
 String acl = "researcher";
 %>
-<%@ include file="/jsp/templates/auth.jsp" %>
+<%@ include file="/template/auth.jsp" %>
 <%
 ResearcherSurveyDelete researcherSurveyDelete = (ResearcherSurveyDelete) Pagez.getBeanMgr().get("ResearcherSurveyDelete");
 %>
@@ -20,7 +20,7 @@ ResearcherSurveyDelete researcherSurveyDelete = (ResearcherSurveyDelete) Pagez.g
         }
     }
 %>
-<%@ include file="/jsp/templates/header.jsp" %>
+<%@ include file="/template/header.jsp" %>
 
     <form action="researchersurveydelete.jsp" method="post">
         <input type="hidden" name="action" value="delete">
@@ -33,4 +33,4 @@ ResearcherSurveyDelete researcherSurveyDelete = (ResearcherSurveyDelete) Pagez.g
     </form>
 
 
-<%@ include file="/jsp/templates/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %>

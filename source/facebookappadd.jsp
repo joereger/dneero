@@ -7,8 +7,8 @@ String pagetitle = "Social Surveys";
 String navtab = "home";
 String acl = "public";
 %>
-<%@ include file="/jsp/templates/auth.jsp" %>
-<%@ include file="/jsp/templates/header.jsp" %>
+<%@ include file="/template/auth.jsp" %>
+<%@ include file="/template/header.jsp" %>
 
 
         <table cellpadding="0" border="0" width="100%">
@@ -39,4 +39,4 @@ String acl = "public";
 
 
 
-<%@ include file="/jsp/templates/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %>

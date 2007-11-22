@@ -1,3 +1,4 @@
+<%@ page import="com.dneero.htmlui.Pagez" %>
 <!-- End Body -->
             </td>
         </tr>
@@ -12,14 +13,14 @@
             <td bgcolor="#dadada" style="text-align: right; vertical-align: middle;" height="25">
                 <font class="tinyfont">Copyright 2006-2007.  All rights reserved.</font>
                 |
-                <a href="/jsp/eula.jsp"><font class="tinyfont">terms of use and privacy statement</font></a>
+                <a href="/eula.jsp"><font class="tinyfont">terms of use and privacy statement</font></a>
                 |
-                <a href="/jsp/aboutus.jsp"><font class="tinyfont">about us</font></a>
+                <a href="/aboutus.jsp"><font class="tinyfont">about us</font></a>
                 |
-                <a href="/jsp/evil.jsp"><font class="tinyfont">oh, btw, we're evil.</font></a>
+                <a href="/evil.jsp"><font class="tinyfont">oh, btw, we're evil.</font></a>
                 <%if (Pagez.getUserSession().getIsloggedin()) {%>
                     |
-                    <a href="/jsp/account/accountsupportissueslist.jsp"><font class="tinyfont">need help?</font></a>
+                    <a href="/account/accountsupportissueslist.jsp"><font class="tinyfont">need help?</font></a>
                 <%}%>
                 <img src="/images/clear.gif" width="10" height="1"/>
             </td>

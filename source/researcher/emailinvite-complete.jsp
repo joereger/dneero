@@ -7,7 +7,7 @@ String pagetitle = "Please Confirm Email Invite";
 String navtab = "researchers";
 String acl = "researcher";
 %>
-<%@ include file="/jsp/templates/auth.jsp" %>
+<%@ include file="/template/auth.jsp" %>
 <%
 ResearcherEmailinviteComplete researcherEmailinviteComplete = (ResearcherEmailinviteComplete)Pagez.getBeanMgr().get("ResearcherEmailinviteComplete");
 %>
@@ -20,7 +20,7 @@ ResearcherEmailinviteComplete researcherEmailinviteComplete = (ResearcherEmailin
         }
     }
 %>
-<%@ include file="/jsp/templates/header.jsp" %>
+<%@ include file="/template/header.jsp" %>
 
 
         <form action="emailinvite-complete.jsp" method="post">
@@ -40,5 +40,5 @@ ResearcherEmailinviteComplete researcherEmailinviteComplete = (ResearcherEmailin
         </form>
 
 
-<%@ include file="/jsp/templates/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %>
 

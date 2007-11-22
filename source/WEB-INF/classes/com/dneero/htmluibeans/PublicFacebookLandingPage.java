@@ -102,13 +102,13 @@ public class PublicFacebookLandingPage implements Serializable {
                 }
                 //If the user has the app added, redirect to the survey
                 if (Pagez.getUserSession().getIsfacebookui() &&  Pagez.getUserSession().getFacebookUser()!=null && Pagez.getUserSession().getFacebookUser().getHas_added_app()){
-                    urltoredirectto = appendFacebookStuff("/jsp/survey.jsp?s="+split[1]+"&u="+split[2]+"&p=0");
+                    urltoredirectto = appendFacebookStuff("/survey.jsp?s="+split[1]+"&u="+split[2]+"&p=0");
                     try{Pagez.sendRedirect(urltoredirectto);return;}catch(Exception ex){logger.error("",ex);}
                     return;
                 } else {
                     //If we see this code we may be displaying the app add page which means we'll need a link
                     try{
-                        urltoredirectto = appendFacebookStuff("/jsp/facebookappadd.jsp");
+                        urltoredirectto = appendFacebookStuff("/facebookappadd.jsp");
                         try{Pagez.sendRedirect(urltoredirectto);return;}catch(Exception ex){logger.error("",ex);}
                         return;
                     } catch(Exception ex){logger.error("",ex);}
@@ -128,14 +128,14 @@ public class PublicFacebookLandingPage implements Serializable {
                 SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_DEBUG, "Facebook user Unknown just added app!");
                 xmpp.send();
             }
-            urltoredirectto = appendFacebookStuff("/jsp/publicsurveylist.jsp?addedapp=1");
+            urltoredirectto = appendFacebookStuff("/publicsurveylist.jsp?addedapp=1");
             try{Pagez.sendRedirect(urltoredirectto);return;}catch(Exception ex){logger.error("",ex);}
             return;
         }
 
         //Redirect to the public survey list
         if (Pagez.getUserSession().getIsfacebookui() && Pagez.getUserSession().getFacebookUser()!=null && Pagez.getUserSession().getFacebookUser().getHas_added_app()){
-            urltoredirectto = appendFacebookStuff("/jsp/publicsurveylist.jsp");
+            urltoredirectto = appendFacebookStuff("/publicsurveylist.jsp");
             try{Pagez.sendRedirect(urltoredirectto);return;}catch(Exception ex){logger.error("",ex);}
             return;
         }
@@ -164,7 +164,7 @@ public class PublicFacebookLandingPage implements Serializable {
                 SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_DEBUG, "Facebook app add page shown to Unknown:"+Pagez.getUserSession().getFacebookSessionKey()+" referred by userid="+referredbyuserid+" to surveyid="+referredtosurveyid);
                 xmpp.send();
             }
-            urltoredirectto = appendFacebookStuff("/jsp/facebookappadd.jsp");
+            urltoredirectto = appendFacebookStuff("/facebookappadd.jsp");
             try{Pagez.sendRedirect(urltoredirectto);return;}catch(Exception ex){logger.error("",ex);}
             return;
         }catch(Exception ex){logger.error("",ex);}

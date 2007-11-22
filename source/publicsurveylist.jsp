@@ -14,11 +14,11 @@ String pagetitle = "Social Surveys";
 String navtab = "home";
 String acl = "public";
 %>
-<%@ include file="/jsp/templates/auth.jsp" %>
+<%@ include file="/template/auth.jsp" %>
 <%
 PublicSurveyList publicSurveyList = (PublicSurveyList)Pagez.getBeanMgr().get("PublicSurveyList");
 %>
-<%@ include file="/jsp/templates/header.jsp" %>
+<%@ include file="/template/header.jsp" %>
 
 
 
@@ -84,7 +84,7 @@ PublicSurveyList publicSurveyList = (PublicSurveyList)Pagez.getBeanMgr().get("Pu
                                 <br/><font class="largefont" style="color: #cccccc;"><%=publicSurveyList.getAccountBalance().getCurrentbalance()%></font>
                                 <% if (publicSurveyList.getAccountBalance()!=null){ %>
                                     <% if (publicSurveyList.getAccountBalance().getPendingearningsDbl()>0){ %>
-                                        <br/><a href="/jsp/blogger/bloggercompletedsurveys.jsp"><font class="formfieldnamefont" style="color: #0000ff;">Pending: <%=publicSurveyList.getAccountBalance().getPendingearnings()%></font></a>
+                                        <br/><a href="/blogger/bloggercompletedsurveys.jsp"><font class="formfieldnamefont" style="color: #0000ff;">Pending: <%=publicSurveyList.getAccountBalance().getPendingearnings()%></font></a>
                                     <% } %>
                                 <% } %>
                                 <br/><font class="tinyfont" style="color: #666666; font-weight: bold;">(yes, we're talking real world money here)</font>
@@ -154,7 +154,7 @@ PublicSurveyList publicSurveyList = (PublicSurveyList)Pagez.getBeanMgr().get("Pu
 
 
 
-<%@ include file="/jsp/templates/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %>
 
 
 

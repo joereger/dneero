@@ -7,11 +7,11 @@ String pagetitle = "Cache";
 String navtab = "sysadmin";
 String acl = "sysadmin";
 %>
-<%@ include file="/jsp/templates/auth.jsp" %>
+<%@ include file="/template/auth.jsp" %>
 <%
 SysadminHibernateCache sysadminHibernateCache = (SysadminHibernateCache)Pagez.getBeanMgr().get("SysadminHibernateCache");
 %>
-<%@ include file="/jsp/templates/header.jsp" %>
+<%@ include file="/template/header.jsp" %>
 
 
     <script language="JavaScript" type="text/javascript">
@@ -58,4 +58,4 @@ SysadminHibernateCache sysadminHibernateCache = (SysadminHibernateCache)Pagez.ge
 
 
 
-<%@ include file="/jsp/templates/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %>

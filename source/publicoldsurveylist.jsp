@@ -10,11 +10,11 @@ String pagetitle = "Old Surveys";
 String navtab = "home";
 String acl = "public";
 %>
-<%@ include file="/jsp/templates/auth.jsp" %>
+<%@ include file="/template/auth.jsp" %>
 <%
 PublicOldSurveyList publicOldSurveyList = (PublicOldSurveyList) Pagez.getBeanMgr().get("PublicOldSurveyList");
 %>
-<%@ include file="/jsp/templates/header.jsp" %>
+<%@ include file="/template/header.jsp" %>
 
     <%if (publicOldSurveyList.getSurveys()==null || publicOldSurveyList.getSurveys().size()==0){%>
         <font class="normalfont">No old surveys listed right now... check back soon.</font>
@@ -28,7 +28,7 @@ PublicOldSurveyList publicOldSurveyList = (PublicOldSurveyList) Pagez.getBeanMgr
         <%=Grid.render(publicOldSurveyList.getSurveys(), cols, 50, "publicoldsurveylist.jsp", "page")%>
     <%}%>
 
-<%@ include file="/jsp/templates/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %>
 
 
 

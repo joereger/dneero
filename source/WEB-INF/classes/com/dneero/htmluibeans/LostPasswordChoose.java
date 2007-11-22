@@ -86,7 +86,7 @@ public class LostPasswordChoose implements Serializable {
             return null;
         }
 
-        Pagez.sendRedirect("/jsp/account/index.jsp");
+        Pagez.sendRedirect("/account/index.jsp");
         return "";
     }
 

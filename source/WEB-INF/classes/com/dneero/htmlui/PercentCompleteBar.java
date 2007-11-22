@@ -2,7 +2,6 @@ package com.dneero.htmlui;
 
 import com.dneero.util.Str;
 
-import javax.faces.context.ResponseWriter;
 
 import org.apache.log4j.Logger;
 

@@ -10,7 +10,7 @@ String pagetitle = "Bloggers in Panel";
 String navtab = "researchers";
 String acl = "researcher";
 %>
-<%@ include file="/jsp/templates/auth.jsp" %>
+<%@ include file="/template/auth.jsp" %>
 <%
 ResearcherPanelsListBloggers researcherPanelsListBloggers = (ResearcherPanelsListBloggers)Pagez.getBeanMgr().get("ResearcherPanelsListBloggers");
 %>
@@ -23,7 +23,7 @@ ResearcherPanelsListBloggers researcherPanelsListBloggers = (ResearcherPanelsLis
         }
     }
 %>
-<%@ include file="/jsp/templates/header.jsp" %>
+<%@ include file="/template/header.jsp" %>
 
 
         <%if (researcherPanelsListBloggers.getListitems()==null || researcherPanelsListBloggers.getListitems().size()==0){%>
@@ -31,7 +31,7 @@ ResearcherPanelsListBloggers researcherPanelsListBloggers = (ResearcherPanelsLis
         <%} else {%>
             <%
             ArrayList<GridCol> cols=new ArrayList<GridCol>();
-            cols.add(new GridCol("Name", "<a href=\"/jsp/profile.jsp?userid=<$user.userid$>\"><$user.firstname$> <$user.lastname$></a>", true, "", "smallfont"));
+            cols.add(new GridCol("Name", "<a href=\"/profile.jsp?userid=<$user.userid$>\"><$user.firstname$> <$user.lastname$></a>", true, "", "smallfont"));
             cols.add(new GridCol("Name", "<a href=\"panels-listbloggersinpanel.jsp?panelmembershipid=<$panelmembership.panelmembershipid$>&action=remove\">Remove</a>", true, "", "smallfont"));
             %>
             <%=Grid.render(researcherPanelsListBloggers.getListitems(), cols, 50, "panels-listbloggersinpanel.jsp", "page")%>
@@ -39,6 +39,6 @@ ResearcherPanelsListBloggers researcherPanelsListBloggers = (ResearcherPanelsLis
 
 
 
-<%@ include file="/jsp/templates/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %>
 
 

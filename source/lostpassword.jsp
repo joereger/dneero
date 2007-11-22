@@ -7,7 +7,7 @@ String pagetitle = "Lost Password";
 String navtab = "youraccount";
 String acl = "public";
 %>
-<%@ include file="/jsp/templates/auth.jsp" %>
+<%@ include file="/template/auth.jsp" %>
 <%
 LostPassword lostPassword = (LostPassword)Pagez.getBeanMgr().get("LostPassword");
 %>
@@ -22,7 +22,7 @@ LostPassword lostPassword = (LostPassword)Pagez.getBeanMgr().get("LostPassword")
         }
     }
 %>
-<%@ include file="/jsp/templates/header.jsp" %>
+<%@ include file="/template/header.jsp" %>
 
     <form action="lostpassword.jsp" method="post">
         <input type="hidden" name="action" value="go">
@@ -72,4 +72,4 @@ LostPassword lostPassword = (LostPassword)Pagez.getBeanMgr().get("LostPassword")
     </form>
 
 
-<%@ include file="/jsp/templates/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %>

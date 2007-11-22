@@ -7,7 +7,7 @@ String pagetitle = "Mass Email Detail: "+((SysadminMassemailDetail)Pagez.getBean
 String navtab = "sysadmin";
 String acl = "sysadmin";
 %>
-<%@ include file="/jsp/templates/auth.jsp" %>
+<%@ include file="/template/auth.jsp" %>
 <%
 SysadminMassemailDetail sysadminMassemailDetail = (SysadminMassemailDetail)Pagez.getBeanMgr().get("SysadminMassemailDetail");
 %>
@@ -35,7 +35,7 @@ SysadminMassemailDetail sysadminMassemailDetail = (SysadminMassemailDetail)Pagez
         }
     }
 %>
-<%@ include file="/jsp/templates/header.jsp" %>
+<%@ include file="/template/header.jsp" %>
 
 
     <script language="JavaScript" type="text/javascript">
@@ -162,7 +162,7 @@ SysadminMassemailDetail sysadminMassemailDetail = (SysadminMassemailDetail)Pagez
     </div>
 
 
-<%@ include file="/jsp/templates/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %>
 
 
 

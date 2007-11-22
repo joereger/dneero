@@ -7,7 +7,7 @@ String pagetitle = "InstanceProps... Be Careful!!!";
 String navtab = "sysadmin";
 String acl = "sysadmin";
 %>
-<%@ include file="/jsp/templates/auth.jsp" %>
+<%@ include file="/template/auth.jsp" %>
 <%
 SysadminInstanceProps sysadminInstanceProps = (SysadminInstanceProps)Pagez.getBeanMgr().get("SysadminInstanceProps");
 %>
@@ -30,7 +30,7 @@ SysadminInstanceProps sysadminInstanceProps = (SysadminInstanceProps)Pagez.getBe
         }
     }
 %>
-<%@ include file="/jsp/templates/header.jsp" %>
+<%@ include file="/template/header.jsp" %>
 
     <form action="instanceprops.jsp" method="post">
         <input type="hidden" name="action" value="save">
@@ -150,4 +150,4 @@ SysadminInstanceProps sysadminInstanceProps = (SysadminInstanceProps)Pagez.getBe
 
 
 
-<%@ include file="/jsp/templates/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %>

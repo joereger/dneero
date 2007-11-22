@@ -14,7 +14,6 @@ import java.io.*;
 
 import au.com.bytecode.opencsv.CSVWriter;
 
-import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletResponse;
 
 /**
@@ -84,10 +83,10 @@ public class ResearcherResultsAnswersCsv implements Serializable {
 
     public void getCsv(){
         Logger logger = Logger.getLogger(this.getClass().getName());
-        FacesContext context = FacesContext.getCurrentInstance();
+
 
         //Then we have to get the Response to write our file to
-        HttpServletResponse response = (HttpServletResponse) context.getExternalContext().getResponse();
+        HttpServletResponse response = Pagez.getResponse();
 
         //Now we create some variables we will use for writting the file to the response
         int read = 0;
@@ -120,8 +119,7 @@ public class ResearcherResultsAnswersCsv implements Serializable {
             logger.error("",ex);
         }
 
-        //This option isn't quite necessary, It worked for me with or without it
-        FacesContext.getCurrentInstance().responseComplete();
+
     }
 
     public Survey getSurvey() {

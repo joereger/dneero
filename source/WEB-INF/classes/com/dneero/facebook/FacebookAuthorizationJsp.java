@@ -184,7 +184,7 @@ public class FacebookAuthorizationJsp {
                     RecordImpression.record(Pagez.getRequest());
                 }
                 logger.debug("redirecting to facebook add app page");
-                try{Pagez.sendRedirect("/facebooklandingpage.jsf?stoplooping=1&action="+Pagez.getRequest().getParameter("action"));return;}catch(Exception ex){logger.error("",ex);}
+                try{Pagez.sendRedirect("/facebooklandingpage.jsp?stoplooping=1&action="+Pagez.getRequest().getParameter("action"));return;}catch(Exception ex){logger.error("",ex);}
             }
         }
 

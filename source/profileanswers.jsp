@@ -7,14 +7,14 @@ String pagetitle = "<img src=\"/images/user.png\" align=\"right\" alt=\"\" borde
 String navtab = "home";
 String acl = "public";
 %>
-<%@ include file="/jsp/templates/auth.jsp" %>
+<%@ include file="/template/auth.jsp" %>
 <%
 PublicProfileAnswers publicProfileAnswers = (PublicProfileAnswers)Pagez.getBeanMgr().get("PublicProfileAnswers");
 %>
-<%@ include file="/jsp/templates/header.jsp" %>
+<%@ include file="/template/header.jsp" %>
 
     <font class="mediumfont" style="color: #cccccc;"><%=publicProfileAnswers.getSurvey().getTitle()%></font>
     <br/><br/>
     <%=((PublicProfileAnswers)Pagez.getBeanMgr().get("PublicProfileAnswers")).getResultsashtml()%>
 
-<%@ include file="/jsp/templates/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %>

@@ -6,11 +6,11 @@ String pagetitle = "Not Authorized";
 String navtab = "home";
 String acl = "public";
 %>
-<%@ include file="/jsp/templates/auth.jsp" %>
-<%@ include file="/jsp/templates/header.jsp" %>
+<%@ include file="/template/auth.jsp" %>
+<%@ include file="/template/header.jsp" %>
 
 
     <font class="normalfont">You are not authorized to view that resource.</font>
 
 
-<%@ include file="/jsp/templates/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %>

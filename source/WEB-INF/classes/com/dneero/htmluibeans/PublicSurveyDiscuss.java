@@ -51,7 +51,7 @@ public class PublicSurveyDiscuss implements Serializable {
 
         //If we don't have a surveyid, shouldn't be on this page
         if (surveyid<=0){
-            try{Pagez.sendRedirect("/jsp/publicsurveylist.jsp"); return;}catch(Exception ex){logger.error("",ex);}
+            try{Pagez.sendRedirect("/publicsurveylist.jsp"); return;}catch(Exception ex){logger.error("",ex);}
         }
 
         //Load up the survey
@@ -59,7 +59,7 @@ public class PublicSurveyDiscuss implements Serializable {
 
         //If the survey is draft or waiting
         if (survey.getStatus()<Survey.STATUS_OPEN){
-            try{Pagez.sendRedirect("/jsp/surveynotopen.jsp"); return;}catch(Exception ex){logger.error("",ex);}
+            try{Pagez.sendRedirect("/surveynotopen.jsp"); return;}catch(Exception ex){logger.error("",ex);}
         }
 
 
@@ -110,7 +110,7 @@ public class PublicSurveyDiscuss implements Serializable {
             //load();
         }
         //Return from survey new comment in a way that retains the survey url
-        try{Pagez.sendRedirect("/jsp/surveydiscuss.jsp?surveyid="+Pagez.getUserSession().getCurrentSurveyid()); return null;}catch(Exception ex){logger.error("",ex);}
+        try{Pagez.sendRedirect("/surveydiscuss.jsp?surveyid="+Pagez.getUserSession().getCurrentSurveyid()); return null;}catch(Exception ex){logger.error("",ex);}
         return "publicsurveydiscuss";
     }
 

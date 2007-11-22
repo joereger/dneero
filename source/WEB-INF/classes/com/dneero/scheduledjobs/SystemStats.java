@@ -24,7 +24,7 @@ public class SystemStats implements Job {
 
 
 
-    //BE SURE TO SYNC CODE HERE WITH MAIN SystemStats in formbeans (which jsf uses)
+    //BE SURE TO SYNC CODE HERE WITH MAIN SystemStats in beans 
     private static int totalusers=0;
     private static int totalbloggers=0;
     private static int totalresearchers=0;

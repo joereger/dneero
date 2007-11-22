@@ -38,7 +38,7 @@ public class ResearcherPanelsEdit implements Serializable {
             try{panel.save();}catch(Exception ex){logger.error("",ex);}
         }
         Pagez.getUserSession().setMessage("Panel edited.");
-        Pagez.sendRedirect("/jsp/researcher/panels.jsp");
+        Pagez.sendRedirect("/researcher/panels.jsp");
         return "";
     }
 

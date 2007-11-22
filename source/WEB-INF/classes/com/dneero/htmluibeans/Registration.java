@@ -145,7 +145,7 @@ public class Registration implements Serializable {
                 Pagez.getUserSession().setIsloggedin(true);
                 Pagez.getUserSession().setIsLoggedInToBeta(true);
                 Pagez.getUserSession().setIseulaok(true);
-                Pagez.sendRedirect("/jsp/account/index.jsp");
+                Pagez.sendRedirect("/account/index.jsp");
                 return;
             }
         }
@@ -311,17 +311,17 @@ public class Registration implements Serializable {
         //Redir if https is on
         if (SystemProperty.getProp(SystemProperty.PROP_ISSSLON).equals("1")){
             try{
-                logger.debug("redirecting to https - "+ BaseUrl.get(true)+"jsp/account/index.jsp");
-                Pagez.sendRedirect(BaseUrl.get(true)+"jsp/account/index.jsp");
+                logger.debug("redirecting to https - "+ BaseUrl.get(true)+"account/index.jsp");
+                Pagez.sendRedirect(BaseUrl.get(true)+"account/index.jsp");
                 return null;
             } catch (Exception ex){
                 logger.error("",ex);
                 //@todo setIsfirsttimelogin(true) on AccountIndex bean
-                Pagez.sendRedirect("/jsp/account/index.jsp");
+                Pagez.sendRedirect("/account/index.jsp");
             }
         } else {
             //@todo setIsfirsttimelogin(true) on AccountIndex bean
-            Pagez.sendRedirect("/jsp/account/index.jsp");
+            Pagez.sendRedirect("/account/index.jsp");
         }
         return "";
     }

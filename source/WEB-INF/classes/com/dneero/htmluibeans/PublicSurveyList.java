@@ -160,8 +160,6 @@ public class PublicSurveyList implements Serializable {
                     }
                 }
                 //Load the account balance
-                //AccountBalance bean = (AccountBalance)Jsf.getManagedBean("accountBalance");
-                //bean.beginView();
                 AccountBalance accountBalance = new AccountBalance();
                 accountBalance.initBean();
                 this.accountBalance = accountBalance;

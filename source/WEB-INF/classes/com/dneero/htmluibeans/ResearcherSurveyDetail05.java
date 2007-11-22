@@ -2,8 +2,6 @@ package com.dneero.htmluibeans;
 
 import org.apache.log4j.Logger;
 
-import javax.faces.context.FacesContext;
-import javax.faces.application.FacesMessage;
 import java.util.Date;
 import java.util.Iterator;
 import java.io.Serializable;
@@ -71,7 +69,7 @@ public class ResearcherSurveyDetail05 implements Serializable {
     public String saveSurveyAsDraft() throws ValidationException {
         String save = saveSurvey();
         if (save!=null){
-            Pagez.sendRedirect("/jsp/researcher/index.jsp");
+            Pagez.sendRedirect("/researcher/index.jsp");
             return "";
         } else {
             return save;
@@ -81,7 +79,7 @@ public class ResearcherSurveyDetail05 implements Serializable {
     public String previousStep() throws ValidationException {
         String save = saveSurvey();
         if (save!=null){
-            Pagez.sendRedirect("/jsp/researcher/researchersurveydetail_04.jsp");
+            Pagez.sendRedirect("/researcher/researchersurveydetail_04.jsp");
             return "";
         } else {
             return save;
@@ -132,7 +130,7 @@ public class ResearcherSurveyDetail05 implements Serializable {
                 } catch (GeneralException gex){
                     logger.debug("saveSurvey() failed: " + gex.getErrorsAsSingleString());
                     String message = "saveSurvey() save failed: " + gex.getErrorsAsSingleString();
-                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage( FacesMessage.SEVERITY_INFO, message, message));
+                    Pagez.getUserSession().setMessage(message);
                     return null;
                 }
 
@@ -142,7 +140,7 @@ public class ResearcherSurveyDetail05 implements Serializable {
             }
         }
 
-        Pagez.sendRedirect("/jsp/researcher/researchersurveydetail_06.jsp");
+        Pagez.sendRedirect("/researcher/researchersurveydetail_06.jsp");
         return "";
     }
 

@@ -21,7 +21,7 @@ public class PublicSurveyTakeRedirector {
             logger.debug("surveyid found: "+Pagez.getRequest().getParameter("surveyid"));
         }
         if (Pagez.getUserSession().getCurrentSurveyid()>0){
-            Pagez.sendRedirect("/jsp/survey.jsp?surveyid="+Pagez.getUserSession().getCurrentSurveyid());
+            Pagez.sendRedirect("/survey.jsp?surveyid="+Pagez.getUserSession().getCurrentSurveyid());
             return;
         }
         if (!msg.equals("")){

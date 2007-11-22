@@ -10,7 +10,7 @@ String pagetitle = "Panels";
 String navtab = "researchers";
 String acl = "researcher";
 %>
-<%@ include file="/jsp/templates/auth.jsp" %>
+<%@ include file="/template/auth.jsp" %>
 <%
     ResearcherPanels researcherPanels=(ResearcherPanels) Pagez.getBeanMgr().get("ResearcherPanels");
 %>
@@ -33,7 +33,7 @@ String acl = "researcher";
         }
     }
 %>
-<%@ include file="/jsp/templates/header.jsp" %>
+<%@ include file="/template/header.jsp" %>
 
 
     <%if (researcherPanels.getMsg()!=null && !researcherPanels.getMsg().equals("")){%>
@@ -78,5 +78,5 @@ String acl = "researcher";
 
 
 
-<%@ include file="/jsp/templates/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %>
 

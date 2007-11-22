@@ -1,6 +1,5 @@
 package com.dneero.htmluibeans;
 
-import org.apache.myfaces.custom.tree2.TreeNodeBase;
 
 import java.io.Serializable;
 

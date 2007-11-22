@@ -10,11 +10,11 @@ String pagetitle = ((PublicSurveyWhotookit) Pagez.getBeanMgr().get("PublicSurvey
 String navtab="home";
 String acl="public";
 %>
-<%@ include file="/jsp/templates/auth.jsp" %>
+<%@ include file="/template/auth.jsp" %>
 <%
 PublicSurveyWhotookit publicSurveyWhotookit = (PublicSurveyWhotookit)Pagez.getBeanMgr().get("PublicSurveyWhotookit");
 %>
-<%@ include file="/jsp/templates/header.jsp" %>
+<%@ include file="/template/header.jsp" %>
 
 
 
@@ -24,13 +24,13 @@ PublicSurveyWhotookit publicSurveyWhotookit = (PublicSurveyWhotookit)Pagez.getBe
 
     <div id="csstabs">
       <ul>
-        <li><a href="/survey.jsf?surveyid=<%=publicSurveyWhotookit.getSurvey().getSurveyid()%>" title="Questions"><span>Questions</span></a></li>
-        <li><a href="/surveypostit.jsf?surveyid=<%=publicSurveyWhotookit.getSurvey().getSurveyid()%>" title="Post It"><span>Post It</span></a></li>
-        <li><a href="/surveyresults.jsf?surveyid=<%=publicSurveyWhotookit.getSurvey().getSurveyid()%>" title="Results"><span>Results</span></a></li>
-        <li><a href="/surveywhotookit.jsf?surveyid=<%=publicSurveyWhotookit.getSurvey().getSurveyid()%>" title="Who Took It?"><span>Who Took It?</span></a></li>
-        <li><a href="/surveydiscuss.jsf?surveyid=<%=publicSurveyWhotookit.getSurvey().getSurveyid()%>" title="Discuss"><span>Discuss</span></a></li>
-        <li><a href="/surveyrequirements.jsf?surveyid=<%=publicSurveyWhotookit.getSurvey().getSurveyid()%>" title="Requirements"><span>Requirements</span></a></li>
-        <li><a href="/surveydisclosure.jsf?surveyid=<%=publicSurveyWhotookit.getSurvey().getSurveyid()%>" title="LDisclosure"><span>Disclosure</span></a></li>
+        <li><a href="/survey.jsp?surveyid=<%=publicSurveyWhotookit.getSurvey().getSurveyid()%>" title="Questions"><span>Questions</span></a></li>
+        <li><a href="/surveypostit.jsp?surveyid=<%=publicSurveyWhotookit.getSurvey().getSurveyid()%>" title="Post It"><span>Post It</span></a></li>
+        <li><a href="/surveyresults.jsp?surveyid=<%=publicSurveyWhotookit.getSurvey().getSurveyid()%>" title="Results"><span>Results</span></a></li>
+        <li><a href="/surveywhotookit.jsp?surveyid=<%=publicSurveyWhotookit.getSurvey().getSurveyid()%>" title="Who Took It?"><span>Who Took It?</span></a></li>
+        <li><a href="/surveydiscuss.jsp?surveyid=<%=publicSurveyWhotookit.getSurvey().getSurveyid()%>" title="Discuss"><span>Discuss</span></a></li>
+        <li><a href="/surveyrequirements.jsp?surveyid=<%=publicSurveyWhotookit.getSurvey().getSurveyid()%>" title="Requirements"><span>Requirements</span></a></li>
+        <li><a href="/surveydisclosure.jsp?surveyid=<%=publicSurveyWhotookit.getSurvey().getSurveyid()%>" title="LDisclosure"><span>Disclosure</span></a></li>
       </ul>
     </div>
     <br/><br/><br/>
@@ -111,6 +111,6 @@ PublicSurveyWhotookit publicSurveyWhotookit = (PublicSurveyWhotookit)Pagez.getBe
 
 
 
-<%@ include file="/jsp/templates/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %>
 
 

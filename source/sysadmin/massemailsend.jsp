@@ -7,7 +7,7 @@ String pagetitle = "Password Required to Send";
 String navtab = "sysadmin";
 String acl = "sysadmin";
 %>
-<%@ include file="/jsp/templates/auth.jsp" %>
+<%@ include file="/template/auth.jsp" %>
 <%
 SysadminMassemailSend sysadminMassemailSend = (SysadminMassemailSend)Pagez.getBeanMgr().get("SysadminMassemailSend");
 %>
@@ -21,7 +21,7 @@ SysadminMassemailSend sysadminMassemailSend = (SysadminMassemailSend)Pagez.getBe
         }
     }
 %>
-<%@ include file="/jsp/templates/header.jsp" %>
+<%@ include file="/template/header.jsp" %>
 
     <form action="massemailsend.jsp" method="post">
         <input type="hidden" name="action" value="send">
@@ -43,7 +43,7 @@ SysadminMassemailSend sysadminMassemailSend = (SysadminMassemailSend)Pagez.getBe
 
 
 
-<%@ include file="/jsp/templates/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %>
 
 
 

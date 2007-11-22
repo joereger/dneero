@@ -127,10 +127,10 @@ public class ResearcherDetails implements Serializable {
             Pagez.getUserSession().setMessage("Researcher profile saved.");
 
             if (isnewresearcher){
-                Pagez.sendRedirect("/jsp/researcher/welcomenewresearcher.jsp");
+                Pagez.sendRedirect("/researcher/welcomenewresearcher.jsp");
                 return "";
             } else {
-                Pagez.sendRedirect("/jsp/researcher/index.jsp");
+                Pagez.sendRedirect("/researcher/index.jsp");
                 return "";
             }
         } else {

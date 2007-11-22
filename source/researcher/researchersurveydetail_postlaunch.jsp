@@ -13,11 +13,11 @@ if (((ResearcherSurveyDetailPostlaunch)Pagez.getBeanMgr().get("ResearcherSurveyD
 String navtab = "researchers";
 String acl = "researcher";
 %>
-<%@ include file="/jsp/templates/auth.jsp" %>
+<%@ include file="/template/auth.jsp" %>
 <%
 ResearcherSurveyDetailPostlaunch researcherSurveyDetailPostlaunch = (ResearcherSurveyDetailPostlaunch)Pagez.getBeanMgr().get("ResearcherSurveyDetailPostlaunch");
 %>
-<%@ include file="/jsp/templates/header.jsp" %>
+<%@ include file="/template/header.jsp" %>
 
 
     <font class="pagetitlefont" style="color: #333333;">Congratulations!  Your survey has been launched!</font>
@@ -39,7 +39,7 @@ ResearcherSurveyDetailPostlaunch researcherSurveyDetailPostlaunch = (ResearcherS
 
     </ul>
 
-    <font class="smallfont">We appreciate your business!  If you have any questions, you can use the <a href="/jsp/account/accountsupportissueslist.jsp">Help/Support Ticket</a> system.</font>
+    <font class="smallfont">We appreciate your business!  If you have any questions, you can use the <a href="/account/accountsupportissueslist.jsp">Help/Support Ticket</a> system.</font>
 
     <br/><br/>
     <font class="smallfont">Invite people to take your survey:</font>
@@ -63,4 +63,4 @@ ResearcherSurveyDetailPostlaunch researcherSurveyDetailPostlaunch = (ResearcherS
 
 
 
-<%@ include file="/jsp/templates/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %>

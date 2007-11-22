@@ -57,7 +57,7 @@ public class BloggerEarningsRevshareInvite implements Serializable {
         if (err.length()<=0){
             email = "";
             Pagez.getUserSession().setMessage("Invitation sent successfully.");
-            Pagez.sendRedirect("/jsp/blogger/bloggerearningsrevshare.jsp");
+            Pagez.sendRedirect("/blogger/bloggerearningsrevshare.jsp");
         } else {
             Pagez.getUserSession().setMessage(err.toString());
             return null;

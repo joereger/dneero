@@ -13,8 +13,7 @@ import com.dneero.xmpp.SendXMPPMessage;
 import com.dneero.helpers.UserInputSafe;
 import org.apache.log4j.Logger;
 
-import javax.faces.context.FacesContext;
-import javax.faces.application.FacesMessage;
+
 import java.util.*;
 import java.io.Serializable;
 
@@ -73,7 +72,7 @@ public class ResearcherSurveyDetail01 implements Serializable {
     public String saveSurveyAsDraft() throws ValidationException {
         String save = saveSurvey();
         if (save!=null){
-            Pagez.sendRedirect("/jsp/researcher/index.jsp");
+            Pagez.sendRedirect("/researcher/index.jsp");
         } else {
             return save;
         }
@@ -139,7 +138,7 @@ public class ResearcherSurveyDetail01 implements Serializable {
                 } catch (GeneralException gex){
                     logger.debug("saveSurvey() failed: " + gex.getErrorsAsSingleString());
                     String message = "saveSurvey() save failed: " + gex.getErrorsAsSingleString();
-                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage( FacesMessage.SEVERITY_INFO, message, message));
+                    Pagez.getUserSession().setMessage(message);
                     return null;
                 }
 
@@ -157,7 +156,7 @@ public class ResearcherSurveyDetail01 implements Serializable {
 
         }
 
-        Pagez.sendRedirect("/jsp/researcher/researchersurveydetail_02.jsp");
+        Pagez.sendRedirect("/researcher/researchersurveydetail_02.jsp");
         return "";
     }
 

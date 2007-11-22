@@ -11,11 +11,11 @@ String pagetitle = "dNeero Social Surveys Blog";
 String navtab = "home";
 String acl = "public";
 %>
-<%@ include file="/jsp/templates/auth.jsp" %>
+<%@ include file="/template/auth.jsp" %>
 <%
 PublicBlog publicBlog = (PublicBlog)Pagez.getBeanMgr().get("PublicBlog");
 %>
-<%@ include file="/jsp/templates/header.jsp" %>
+<%@ include file="/template/header.jsp" %>
 
 
      <div style="width: 99%; text-align: right;">
@@ -28,7 +28,7 @@ PublicBlog publicBlog = (PublicBlog)Pagez.getBeanMgr().get("PublicBlog");
     <%} else {%>
         <%
         StringBuffer post = new StringBuffer();
-        post.append("<a href=\"/jsp/blogpost.jsp?blogpostid=<$blogpostid$>\"><font class=\"mediumfont\" style=\"color: #0bae17; font-weight: bold;\"><$title$></font></a>\n" +
+        post.append("<a href=\"/blogpost.jsp?blogpostid=<$blogpostid$>\"><font class=\"mediumfont\" style=\"color: #0bae17; font-weight: bold;\"><$title$></font></a>\n" +
 "        <br/>\n" +
 "        <font class=\"smallfont\"><$body$></font>\n" +
 "        <br/>\n" +
@@ -45,4 +45,4 @@ PublicBlog publicBlog = (PublicBlog)Pagez.getBeanMgr().get("PublicBlog");
 
 
 
-<%@ include file="/jsp/templates/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %>

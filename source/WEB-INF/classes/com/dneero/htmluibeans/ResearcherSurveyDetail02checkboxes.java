@@ -2,8 +2,6 @@ package com.dneero.htmluibeans;
 
 import org.apache.log4j.Logger;
 
-import javax.faces.context.FacesContext;
-import javax.faces.application.FacesMessage;
 
 import com.dneero.dao.Question;
 import com.dneero.dao.Survey;
@@ -123,7 +121,7 @@ public class ResearcherSurveyDetail02checkboxes implements Serializable {
             } catch (GeneralException gex){
                 logger.debug("saveSurvey() failed: " + gex.getErrorsAsSingleString());
                 String message = "saveSurvey() save failed: " + gex.getErrorsAsSingleString();
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage( FacesMessage.SEVERITY_INFO, message, message));
+                Pagez.getUserSession().setMessage(message);
                 return null;
             }
 
@@ -145,14 +143,14 @@ public class ResearcherSurveyDetail02checkboxes implements Serializable {
             } catch (GeneralException gex){
                 logger.debug("saveSurvey() failed: " + gex.getErrorsAsSingleString());
                 String message = "saveSurvey() save failed: " + gex.getErrorsAsSingleString();
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage( FacesMessage.SEVERITY_INFO, message, message));
+                Pagez.getUserSession().setMessage(message);
                 return null;
             }
 
             //Refresh
             survey.refresh();
         }
-        Pagez.sendRedirect("/jsp/researcher/researchersurveydetail_02.jsp");
+        Pagez.sendRedirect("/researcher/researchersurveydetail_02.jsp");
         return "";
     }
 

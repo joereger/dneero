@@ -7,7 +7,7 @@ String pagetitle = "Invite People to Take Your Survey";
 String navtab = "researchers";
 String acl = "researcher";
 %>
-<%@ include file="/jsp/templates/auth.jsp" %>
+<%@ include file="/template/auth.jsp" %>
 <%
     ResearcherEmailinvite researcherEmailinvite=(ResearcherEmailinvite) Pagez.getBeanMgr().get("ResearcherEmailinvite");
 %>
@@ -24,7 +24,7 @@ String acl = "researcher";
         }
     }
 %>
-<%@ include file="/jsp/templates/header.jsp" %>
+<%@ include file="/template/header.jsp" %>
 
 
 
@@ -101,5 +101,5 @@ String acl = "researcher";
 
 
 
-<%@ include file="/jsp/templates/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %>
 

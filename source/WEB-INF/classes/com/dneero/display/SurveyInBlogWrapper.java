@@ -35,13 +35,13 @@ public class SurveyInBlogWrapper {
          if(includeFooter){
             out.append("\t<tr>\t\n" +
                     "\t\t<td valign=\"bottom\" align=\"left\" bgcolor=\"#ffffff\">\n" +
-                    "\t\t\t<a href='"+baseurl+"survey.jsf?surveyid="+survey.getSurveyid()+"&userid="+userid+"'><img src=\""+baseurl+"images/surveyinblog/dneero-survey-questionmark.gif\" border=\"0\"></a>\n" +
+                    "\t\t\t<a href='"+baseurl+"survey.jsp?surveyid="+survey.getSurveyid()+"&userid="+userid+"'><img src=\""+baseurl+"images/surveyinblog/dneero-survey-questionmark.gif\" border=\"0\"></a>\n" +
                     "\t\t</td>\n" +
                     "\t\t<td valign=\"bottom\" align=\"center\" bgcolor=\"#ffffff\">\n" +
-                    "\t\t\t<a href='"+baseurl+"survey.jsf?surveyid="+survey.getSurveyid()+"&userid="+userid+"&show=results'><img src=\""+baseurl+"images/surveyinblog/dneero-survey-people.gif\" border=\"0\"></a>\n" +
+                    "\t\t\t<a href='"+baseurl+"survey.jsp?surveyid="+survey.getSurveyid()+"&userid="+userid+"&show=results'><img src=\""+baseurl+"images/surveyinblog/dneero-survey-people.gif\" border=\"0\"></a>\n" +
                     "\t\t</td>\n" +
                     "\t\t<td valign=\"bottom\" align=\"right\" bgcolor=\"#ffffff\">\n" +
-                    "\t\t\t<a href='"+baseurl+"survey.jsf?surveyid="+survey.getSurveyid()+"&userid="+userid+"&show=disclosure'><img src=\""+baseurl+"images/surveyinblog/dneero-survey-logo.gif\" border=\"0\"></a>\n" +
+                    "\t\t\t<a href='"+baseurl+"survey.jsp?surveyid="+survey.getSurveyid()+"&userid="+userid+"&show=disclosure'><img src=\""+baseurl+"images/surveyinblog/dneero-survey-logo.gif\" border=\"0\"></a>\n" +
                     "\t\t</td>\n" +
                     "\t</tr>\n");    
         }

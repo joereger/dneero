@@ -5,9 +5,7 @@ package com.dneero.htmluibeans;
 
 import org.apache.log4j.Logger;
 
-import javax.faces.context.FacesContext;
-import javax.faces.context.ExternalContext;
-import javax.faces.application.StateManager;
+
 import javax.servlet.http.HttpSession;
 import javax.servlet.ServletContext;
 import java.util.Iterator;
@@ -33,7 +31,6 @@ public class SysadminSessions implements Serializable {
         Logger logger = Logger.getLogger(this.getClass().getName());
         try{
             StringBuffer out = new StringBuffer();
-            ExternalContext extContext = FacesContext.getCurrentInstance().getExternalContext();
             //ServletExternalContextImpl servExtContext = (ServletExternalContextImpl)extContext;
             sessionsashtml = "";
 

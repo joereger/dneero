@@ -8,11 +8,11 @@ String pagetitle = "Survey Results";
 String navtab = "researchers";
 String acl = "researcher";
 %>
-<%@ include file="/jsp/templates/auth.jsp" %>
+<%@ include file="/template/auth.jsp" %>
 <%
     ResearcherResults researcherResults=(ResearcherResults) Pagez.getBeanMgr().get("ResearcherResults");
 %>
-<%@ include file="/jsp/templates/header.jsp" %>
+<%@ include file="/template/header.jsp" %>
 
 
 
@@ -138,4 +138,4 @@ String acl = "researcher";
 
 
 
-<%@ include file="/jsp/templates/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %>

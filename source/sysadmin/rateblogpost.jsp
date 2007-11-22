@@ -9,7 +9,7 @@ String pagetitle = "";
 String navtab = "sysadmin";
 String acl = "sysadmin";
 %>
-<%@ include file="/jsp/templates/auth.jsp" %>
+<%@ include file="/template/auth.jsp" %>
 <%
     SysadminRateBlogPost sysadminRateBlogPost = (SysadminRateBlogPost)Pagez.getBeanMgr().get("SysadminRateBlogPost");
     StaticVariables staticVariables = (StaticVariables)Pagez.getBeanMgr().get("StaticVariables");
@@ -24,7 +24,7 @@ String acl = "sysadmin";
         }
     }
 %>
-<%@ include file="/jsp/templates/header.jsp" %>
+<%@ include file="/template/header.jsp" %>
 
         <%if (sysadminRateBlogPost.getHaveposttoreview()){%>
              <form action="rateblogpost.jsp" method="post">
@@ -67,4 +67,4 @@ String acl = "sysadmin";
 
 
 
-<%@ include file="/jsp/templates/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %>

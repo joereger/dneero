@@ -10,7 +10,7 @@ String pagetitle="<img src=\"/images/process-train-survey-02.gif\" align=\"right
 String navtab="researchers";
 String acl="researcher";
 %>
-<%@ include file="/jsp/templates/auth.jsp" %>
+<%@ include file="/template/auth.jsp" %>
 <%
 ResearcherSurveyDetail02checkboxes researcherSurveyDetail02checkboxes = (ResearcherSurveyDetail02checkboxes)Pagez.getBeanMgr().get("ResearcherSurveyDetail02checkboxes");
 %>
@@ -27,7 +27,7 @@ ResearcherSurveyDetail02checkboxes researcherSurveyDetail02checkboxes = (Researc
     }
 %>
 
-<%@ include file="/jsp/templates/header.jsp" %>
+<%@ include file="/template/header.jsp" %>
 
     <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
     <img src="/images/lightbulb_on.png" alt="" align="right"/>
@@ -103,4 +103,4 @@ ResearcherSurveyDetail02checkboxes researcherSurveyDetail02checkboxes = (Researc
 
 
 
-<%@ include file="/jsp/templates/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %>

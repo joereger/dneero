@@ -16,7 +16,7 @@ import org.apache.log4j.Logger;
 public class SystemStats implements Serializable {
 
     //BE SURE TO SYNC CODE HERE WITH MAIN SystemStats in scheduledjobs
-    //These need to be here because of direct POJO injection by the JSF framework
+    //These need to be here because of direct POJO injection by the framework
     private int totalusers=com.dneero.scheduledjobs.SystemStats.getTotalusers();
     private int totalbloggers=com.dneero.scheduledjobs.SystemStats.getTotalbloggers();
     private int totalresearchers=com.dneero.scheduledjobs.SystemStats.getTotalresearchers();
@@ -117,7 +117,7 @@ public class SystemStats implements Serializable {
 
 
 //    public Map<String, Survey> getSpotlightsurveys() {
-//        //Logger logger = Logger.getLogger(com.dneero.formbeans.SystemStats.class);
+//        //Logger logger = Logger.getLogger(SystemStats.class);
 //        //logger.debug("getSpotlightsurveys() called");
 //        return com.dneero.scheduledjobs.SystemStats.getSpotlightsurveys();
 //    }

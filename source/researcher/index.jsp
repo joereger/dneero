@@ -11,7 +11,7 @@ String pagetitle = "<img src=\"/images/statistic-128.png\" alt=\"\" border=\"0\"
 String navtab = "researchers";
 String acl = "public";
 %>
-<%@ include file="/jsp/templates/auth.jsp" %>
+<%@ include file="/template/auth.jsp" %>
 <%
     ResearcherIndex researcherIndex=(ResearcherIndex) Pagez.getBeanMgr().get("ResearcherIndex");
     ResearcherSurveyList researcherSurveyList=(ResearcherSurveyList) Pagez.getBeanMgr().get("ResearcherSurveyList");
@@ -25,7 +25,7 @@ String acl = "public";
         }
     }
 %>
-<%@ include file="/jsp/templates/header.jsp" %>
+<%@ include file="/template/header.jsp" %>
 
 
     <% if (!Pagez.getUserSession().getIsloggedin() || researcherIndex.getShowmarketingmaterial()){ %>
@@ -90,7 +90,7 @@ String acl = "public";
                         <br/><br/><br/>
                         <font class="mediumfont" style="color: #999999">The Charity Only Option</font>
                         <br/>
-                        With a single check box you can designate a survey as Charity Only.  Doing so means that only bloggers who agree to have all of their earnings from the survey donated to a charity will be able to take it. Learn more about the program <a href="/charity.jsf">here</a>.
+                        With a single check box you can designate a survey as Charity Only.  Doing so means that only bloggers who agree to have all of their earnings from the survey donated to a charity will be able to take it. Learn more about the program <a href="/charity.jsp">here</a>.
                         <br/><br/><br/>
                         <font class="mediumfont" style="color: #999999">Get Started Now, Low Commitment</font>
                         <br/>
@@ -103,7 +103,7 @@ String acl = "public";
                             </td>
                             <td width="50%" align="center">
                                 <%if (!Pagez.getUserSession().getIsloggedin()){%>
-                                    <div style="width: 200px;"><%=com.dneero.htmlui.GreenRoundedButton.get("<a href=\"/jsp/registration.jsp\"><font class=\"subnavfont\" style=\"color: #ffffff;\">Sign Up Now</font></a>")%></div>
+                                    <div style="width: 200px;"><%=com.dneero.htmlui.GreenRoundedButton.get("<a href=\"/registration.jsp\"><font class=\"subnavfont\" style=\"color: #ffffff;\">Sign Up Now</font></a>")%></div>
                                 <%}%>
                             </td>
                         </tr>
@@ -207,7 +207,7 @@ String acl = "public";
                     <%} else {%>
                         <%
                             ArrayList<GridCol> cols=new ArrayList<GridCol>();
-                            cols.add(new GridCol("Title", "<a href=\"/jsp/survey.jsp?surveyid=<$survey.surveyid$>\"><font style=\"font-weight:bold;\"><$survey.title$></font></a>", false, "", "normalfont"));
+                            cols.add(new GridCol("Title", "<a href=\"/survey.jsp?surveyid=<$survey.surveyid$>\"><font style=\"font-weight:bold;\"><$survey.title$></font></a>", false, "", "normalfont"));
                             cols.add(new GridCol("Status", "<$status$>", false, "", "smallfont", "", ""));
                             cols.add(new GridCol("", "<$editorreviewlink$>", false, "", "smallfont"));
                             cols.add(new GridCol("", "<$invitelink$>", false, "", "smallfont"));
@@ -227,4 +227,4 @@ String acl = "public";
 
 
 
-<%@ include file="/jsp/templates/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %>

@@ -32,7 +32,7 @@ import org.apache.log4j.Logger;
 import org.hibernate.criterion.Restrictions;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.faces.context.FacesContext;
+
 
 /**
  * User: Joe Reger Jr
@@ -106,7 +106,7 @@ public class PublicSurveyTake implements Serializable {
 
         //If we don't have a surveyid, shouldn't be on this page
         if (surveyid<=0){
-            Pagez.sendRedirect("/jsp/publicsurveylist.jsp");
+            Pagez.sendRedirect("/publicsurveylist.jsp");
             return;
         }
 
@@ -115,7 +115,7 @@ public class PublicSurveyTake implements Serializable {
 
         //If the survey is draft or waiting
         if (survey.getStatus()<Survey.STATUS_OPEN){
-            Pagez.sendRedirect("/jsp/surveynotopen.jsp");
+            Pagez.sendRedirect("/surveynotopen.jsp");
             return;
         }
 
@@ -442,7 +442,7 @@ public class PublicSurveyTake implements Serializable {
         //Validate the response and put into memory
         SurveyResponseParser srp;
         try{
-            srp = new SurveyResponseParser((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest());
+            srp = new SurveyResponseParser(Pagez.getRequest());
             createResponse(survey, srp, null);
             haveerror = false;
         } catch (ComponentException cex){
@@ -486,14 +486,14 @@ public class PublicSurveyTake implements Serializable {
             if (Pagez.getUserSession().getUser().getBloggerid()>0){
                 //load();
                 logger.debug("redirecting, will add justcompletedsurvey=1");
-                Pagez.sendRedirect("/jsp/survey.jsp?surveyid="+survey.getSurveyid()+"&justcompletedsurvey=1");
+                Pagez.sendRedirect("/survey.jsp?surveyid="+survey.getSurveyid()+"&justcompletedsurvey=1");
                 return "";
             } else {
-                Pagez.sendRedirect("/jsp/account/index.jsp");
+                Pagez.sendRedirect("/account/index.jsp");
                 return "";
             }
         }
-        Pagez.sendRedirect("/jsp/registration.jsp");
+        Pagez.sendRedirect("/registration.jsp");
         return "";
     }
 
@@ -565,7 +565,7 @@ public class PublicSurveyTake implements Serializable {
         }
         tabselectedindex = 4;
         //Return from survey new comment in a way that retains the survey url
-        Pagez.sendRedirect("/jsp/survey.jsp?surveyid="+Pagez.getUserSession().getCurrentSurveyid()+"&tabselectedindex=4");
+        Pagez.sendRedirect("/survey.jsp?surveyid="+Pagez.getUserSession().getCurrentSurveyid()+"&tabselectedindex=4");
         return null;
     }
 
@@ -599,7 +599,7 @@ public class PublicSurveyTake implements Serializable {
 ////        }
 //        FacebookApiWrapperHtmlui faw = new FacebookApiWrapperHtmlui(Pagez.getUserSession());
 //        faw.inviteFriendsToSurvey(survey);
-//        Pagez.sendRedirect("/jsp/survey.jsp?surveyid="+survey.getSurveyid()); return null;
+//        Pagez.sendRedirect("/survey.jsp?surveyid="+survey.getSurveyid()); return null;
 //        return "publicsurvey";
 //    }
 

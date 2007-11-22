@@ -7,7 +7,7 @@ String pagetitle = "Email Activation Re-Send";
 String navtab = "youraccount";
 String acl = "public";
 %>
-<%@ include file="/jsp/templates/auth.jsp" %>
+<%@ include file="/template/auth.jsp" %>
 <%
 EmailActivationResend emailActivationResend = (EmailActivationResend)Pagez.getBeanMgr().get("EmailActivationResend");
 %>
@@ -22,7 +22,7 @@ EmailActivationResend emailActivationResend = (EmailActivationResend)Pagez.getBe
         }
     }
 %>
-<%@ include file="/jsp/templates/header.jsp" %>
+<%@ include file="/template/header.jsp" %>
 
         <form action="emailactivationresend.jsp" method="post">
             <input type="hidden" name="action" value="send">
@@ -73,4 +73,4 @@ EmailActivationResend emailActivationResend = (EmailActivationResend)Pagez.getBe
 
 
 
-<%@ include file="/jsp/templates/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %>

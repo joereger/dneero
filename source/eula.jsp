@@ -7,14 +7,14 @@ String pagetitle = "Terms of Use and Privacy Statement";
 String navtab = "home";
 String acl = "public";
 %>
-<%@ include file="/jsp/templates/auth.jsp" %>
+<%@ include file="/template/auth.jsp" %>
 <%
 PublicEula publicEula = (PublicEula)Pagez.getBeanMgr().get("PublicEula");
 %>
-<%@ include file="/jsp/templates/header.jsp" %>
+<%@ include file="/template/header.jsp" %>
 
     <center>
     <textarea rows="15" cols="80"><%=publicEula.getEula()%></textarea>
     </center>
 
-<%@ include file="/jsp/templates/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %>

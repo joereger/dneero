@@ -1,20 +1,20 @@
 <%@ page import="org.apache.log4j.Logger" %>
 <%@ page import="com.dneero.htmlui.Pagez" %>
-<%@ page import="com.dneero.formbeans.BloggerImpressions" %>
 <%@ page import="com.dneero.dbgrid.GridCol" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.dneero.dbgrid.Grid" %>
+<%@ page import="com.dneero.htmluibeans.BloggerImpressions" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = ((BloggerImpressions) Pagez.getBeanMgr().get("BloggerImpressions")).getSurveytitle();
 String navtab = "bloggers";
 String acl = "blogger";
 %>
-<%@ include file="/jsp/templates/auth.jsp" %>
+<%@ include file="/template/auth.jsp" %>
 <%
-BloggerImpressions bloggerImpressions = (BloggerImpressions)Pagez.getBeanMgr().get("BloggerImpressions");
+    BloggerImpressions bloggerImpressions=(BloggerImpressions) Pagez.getBeanMgr().get("BloggerImpressions");
 %>
-<%@ include file="/jsp/templates/header.jsp" %>
+<%@ include file="/template/header.jsp" %>
 
     
     <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
@@ -36,5 +36,5 @@ BloggerImpressions bloggerImpressions = (BloggerImpressions)Pagez.getBeanMgr().g
         <%=Grid.render(bloggerImpressions.getList(), cols, 50, "impressions.jsp", "page")%>
     <%}%>
 
-<%@ include file="/jsp/templates/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %>
 

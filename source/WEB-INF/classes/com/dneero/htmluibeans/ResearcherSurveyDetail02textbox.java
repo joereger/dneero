@@ -17,8 +17,6 @@ import com.dneero.htmlui.Pagez;
 import com.dneero.display.components.Textbox;
 import com.dneero.helpers.UserInputSafe;
 
-import javax.faces.context.FacesContext;
-import javax.faces.application.FacesMessage;
 
 /**
  * User: Joe Reger Jr
@@ -114,7 +112,7 @@ public class ResearcherSurveyDetail02textbox implements Serializable {
             } catch (GeneralException gex){
                 logger.debug("saveSurvey() failed: " + gex.getErrorsAsSingleString());
                 String message = "saveSurvey() save failed: " + gex.getErrorsAsSingleString();
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage( FacesMessage.SEVERITY_INFO, message, message));
+                Pagez.getUserSession().setMessage(message);
                 return null;
             }
 
@@ -122,7 +120,7 @@ public class ResearcherSurveyDetail02textbox implements Serializable {
             survey.refresh();
         }
 
-        Pagez.sendRedirect("/jsp/researcher/researchersurveydetail_02.jsp");
+        Pagez.sendRedirect("/researcher/researchersurveydetail_02.jsp");
         return "";
     }
 

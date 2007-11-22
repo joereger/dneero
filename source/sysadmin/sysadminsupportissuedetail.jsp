@@ -12,7 +12,7 @@ String pagetitle = "Support Issue Detail";
 String navtab = "sysadmin";
 String acl = "sysadmin";
 %>
-<%@ include file="/jsp/templates/auth.jsp" %>
+<%@ include file="/template/auth.jsp" %>
 <%
     SysadminSupportIssueDetail sysadminSupportIssueDetail=(SysadminSupportIssueDetail) Pagez.getBeanMgr().get("SysadminSupportIssueDetail");
 %>
@@ -27,7 +27,7 @@ String acl = "sysadmin";
         }
     }
 %>
-<%@ include file="/jsp/templates/header.jsp" %>
+<%@ include file="/template/header.jsp" %>
 
 
             <div class="rounded" style="padding: 0px; margin: 10px; background: #33FF00;">
@@ -100,7 +100,7 @@ String acl = "sysadmin";
 
 
 
-<%@ include file="/jsp/templates/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %>
 
 
 

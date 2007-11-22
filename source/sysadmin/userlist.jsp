@@ -10,7 +10,7 @@ String pagetitle = "Users";
 String navtab = "sysadmin";
 String acl = "sysadmin";
 %>
-<%@ include file="/jsp/templates/auth.jsp" %>
+<%@ include file="/template/auth.jsp" %>
 <%
 SysadminUserList sysadminUserList = (SysadminUserList)Pagez.getBeanMgr().get("SysadminUserList");
 %>
@@ -28,7 +28,7 @@ SysadminUserList sysadminUserList = (SysadminUserList)Pagez.getBeanMgr().get("Sy
         }
     }
 %>
-<%@ include file="/jsp/templates/header.jsp" %>
+<%@ include file="/template/header.jsp" %>
 
 
     <form action="userlist.jsp" method="post">
@@ -85,7 +85,7 @@ SysadminUserList sysadminUserList = (SysadminUserList)Pagez.getBeanMgr().get("Sy
         <%} else {%>
             <%
                 ArrayList<GridCol> cols=new ArrayList<GridCol>();
-                cols.add(new GridCol("Userid", "<a href=\"userdetail.jsf?userid=<$userid$>\"><$userid$></a>", false, "", "tinyfont"));
+                cols.add(new GridCol("Userid", "<a href=\"userdetail.jsp?userid=<$userid$>\"><$userid$></a>", false, "", "tinyfont"));
                 cols.add(new GridCol("Email", "<$email$>", false, "", "tinyfont"));
                 cols.add(new GridCol("Name", "<$firstname$> <$lastname$>", false, "", "tinyfont"));
                 cols.add(new GridCol("Signup Date", "<$createdate|"+Grid.GRIDCOLRENDERER_DATETIMECOMPACT+"$>", false, "", "tinyfont"));
@@ -98,7 +98,7 @@ SysadminUserList sysadminUserList = (SysadminUserList)Pagez.getBeanMgr().get("Sy
 
 
 
-<%@ include file="/jsp/templates/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %>
 
 
 

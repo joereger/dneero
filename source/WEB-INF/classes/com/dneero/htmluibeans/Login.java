@@ -22,8 +22,6 @@ import com.dneero.eula.EulaHelper;
 import com.dneero.systemprops.SystemProperty;
 import com.dneero.systemprops.BaseUrl;
 
-import javax.faces.context.FacesContext;
-import javax.faces.el.ValueBinding;
 import javax.servlet.http.Cookie;
 
 /**
@@ -131,16 +129,16 @@ public class Login implements Serializable {
                 //Redir if https is on
                 if (SystemProperty.getProp(SystemProperty.PROP_ISSSLON).equals("1")){
                     try{
-                        logger.debug("redirecting to https - "+BaseUrl.get(true)+"jsp/account/index.jsp");
-                        Pagez.sendRedirect(BaseUrl.get(true)+"jsp/account/index.jsp");
+                        logger.debug("redirecting to https - "+BaseUrl.get(true)+"account/index.jsp");
+                        Pagez.sendRedirect(BaseUrl.get(true)+"account/index.jsp");
                         return null;
                     } catch (Exception ex){
                         logger.error("",ex);
-                        Pagez.sendRedirect("/jsp/account/index.jsp");
+                        Pagez.sendRedirect("/account/index.jsp");
                         return null;
                     }
                 } else {
-                    Pagez.sendRedirect("/jsp/account/index.jsp");
+                    Pagez.sendRedirect("/account/index.jsp");
                     return null;
                 }
             } else {
@@ -153,10 +151,7 @@ public class Login implements Serializable {
     }
 
     public String logout(){
-        UserSession userSession = new UserSession();
-        FacesContext ctx = FacesContext.getCurrentInstance();
-        ValueBinding binding = ctx.getApplication().createValueBinding("#{userSession}");
-        binding.setValue(ctx, userSession);
+        Pagez.setUserSession(new UserSession());
         //Persistent Logout
         Pagez.getResponse().addCookie(PersistentLogin.createCookieToClearPersistentLogin(Pagez.getRequest()));
         return "logout_success";

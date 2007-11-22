@@ -2,7 +2,7 @@
 
 <$args.0$>
 
-<$baseUrl.includinghttp$>invite.jsf?referredby=<$user.userid$>
+<$baseUrl.includinghttp$>invite.jsp?referredby=<$user.userid$>
 
 Best,
 

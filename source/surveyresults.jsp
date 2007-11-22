@@ -8,11 +8,11 @@ String pagetitle = ((PublicSurveyResults)Pagez.getBeanMgr().get("PublicSurveyRes
 String navtab = "home";
 String acl = "public";
 %>
-<%@ include file="/jsp/templates/auth.jsp" %>
+<%@ include file="/template/auth.jsp" %>
 <%
 PublicSurveyResults publicSurveyResults = (PublicSurveyResults)Pagez.getBeanMgr().get("PublicSurveyResults");
 %>
-<%@ include file="/jsp/templates/header.jsp" %>
+<%@ include file="/template/header.jsp" %>
 
 
 
@@ -20,13 +20,13 @@ PublicSurveyResults publicSurveyResults = (PublicSurveyResults)Pagez.getBeanMgr(
 
     <div id="csstabs">
       <ul>
-        <li><a href="/survey.jsf?surveyid=<%=publicSurveyResults.getSurvey().getSurveyid()%>" title="Questions"><span>Questions</span></a></li>
-        <li><a href="/surveypostit.jsf?surveyid=<%=publicSurveyResults.getSurvey().getSurveyid()%>" title="Post It"><span>Post It</span></a></li>
-        <li><a href="/surveyresults.jsf?surveyid=<%=publicSurveyResults.getSurvey().getSurveyid()%>" title="Results"><span>Results</span></a></li>
-        <li><a href="/surveywhotookit.jsf?surveyid=<%=publicSurveyResults.getSurvey().getSurveyid()%>" title="Who Took It?"><span>Who Took It?</span></a></li>
-        <li><a href="/surveydiscuss.jsf?surveyid=<%=publicSurveyResults.getSurvey().getSurveyid()%>" title="Discuss"><span>Discuss</span></a></li>
-        <li><a href="/surveyrequirements.jsf?surveyid=<%=publicSurveyResults.getSurvey().getSurveyid()%>" title="Requirements"><span>Requirements</span></a></li>
-        <li><a href="/surveydisclosure.jsf?surveyid=<%=publicSurveyResults.getSurvey().getSurveyid()%>" title="LDisclosure"><span>Disclosure</span></a></li>
+        <li><a href="/survey.jsp?surveyid=<%=publicSurveyResults.getSurvey().getSurveyid()%>" title="Questions"><span>Questions</span></a></li>
+        <li><a href="/surveypostit.jsp?surveyid=<%=publicSurveyResults.getSurvey().getSurveyid()%>" title="Post It"><span>Post It</span></a></li>
+        <li><a href="/surveyresults.jsp?surveyid=<%=publicSurveyResults.getSurvey().getSurveyid()%>" title="Results"><span>Results</span></a></li>
+        <li><a href="/surveywhotookit.jsp?surveyid=<%=publicSurveyResults.getSurvey().getSurveyid()%>" title="Who Took It?"><span>Who Took It?</span></a></li>
+        <li><a href="/surveydiscuss.jsp?surveyid=<%=publicSurveyResults.getSurvey().getSurveyid()%>" title="Discuss"><span>Discuss</span></a></li>
+        <li><a href="/surveyrequirements.jsp?surveyid=<%=publicSurveyResults.getSurvey().getSurveyid()%>" title="Requirements"><span>Requirements</span></a></li>
+        <li><a href="/surveydisclosure.jsp?surveyid=<%=publicSurveyResults.getSurvey().getSurveyid()%>" title="LDisclosure"><span>Disclosure</span></a></li>
       </ul>
     </div>
     <br/><br/><br/>
@@ -132,6 +132,6 @@ PublicSurveyResults publicSurveyResults = (PublicSurveyResults)Pagez.getBeanMgr(
 
 
 
-<%@ include file="/jsp/templates/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %>
 
 

@@ -10,7 +10,7 @@ String pagetitle = "Support: Issue Detail";
 String navtab = "youraccount";
 String acl = "account";
 %>
-<%@ include file="/jsp/templates/auth.jsp" %>
+<%@ include file="/template/auth.jsp" %>
 <%
 AccountSupportIssueDetail accountSupportIssueDetail = (AccountSupportIssueDetail)Pagez.getBeanMgr().get("AccountSupportIssueDetail");
 %>
@@ -24,7 +24,7 @@ AccountSupportIssueDetail accountSupportIssueDetail = (AccountSupportIssueDetail
         }
     }
 %>
-<%@ include file="/jsp/templates/header.jsp" %>
+<%@ include file="/template/header.jsp" %>
 
     <font class="mediumfont"><%=accountSupportIssueDetail.getSupportissue().getSubject()%></font>
 
@@ -75,5 +75,5 @@ AccountSupportIssueDetail accountSupportIssueDetail = (AccountSupportIssueDetail
 
     </form>
 
-<%@ include file="/jsp/templates/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %>
 

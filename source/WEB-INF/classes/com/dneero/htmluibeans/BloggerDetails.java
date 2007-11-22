@@ -173,10 +173,10 @@ public class BloggerDetails implements Serializable {
 
             if (isnewblogger){
                 Pagez.getUserSession().setMessage("Profile Saved Successfully");
-                Pagez.sendRedirect("/jsp/blogger/index.jsp");
+                Pagez.sendRedirect("/blogger/index.jsp");
             } else {
                 Pagez.getUserSession().setMessage("Profile Saved Successfully");
-                Pagez.sendRedirect("/jsp/blogger/index.jsp");
+                Pagez.sendRedirect("/blogger/index.jsp");
             }
         } else {
             Pagez.getUserSession().setMessage("UserSession.getUser() is null.  Please log in.");

@@ -55,7 +55,7 @@ public class SysadminInstanceProps implements Serializable {
     public String saveProps() throws ValidationException {
         Logger logger = Logger.getLogger(this.getClass().getName());
         try{
-            //This assumes jsf page-level validation
+            //This assumes page-level validation
             InstanceProperties.setDbConnectionUrl(dbConnectionUrl);
             InstanceProperties.setDbUsername(dbUsername);
             InstanceProperties.setDbPassword(dbPassword);

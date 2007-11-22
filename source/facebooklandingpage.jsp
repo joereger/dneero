@@ -7,9 +7,9 @@ String pagetitle = "Social Surveys";
 String navtab = "home";
 String acl = "public";
 %>
-<%@ include file="/jsp/templates/auth.jsp" %>
-<%@ include file="/jsp/templates/header.jsp" %>
+<%@ include file="/template/auth.jsp" %>
+<%@ include file="/template/header.jsp" %>
 
     <a href="<%=((PublicFacebookLandingPage)Pagez.getBeanMgr().get("PublicFacebookLandingPage")).getUrltoredirectto()%>">Click here please.</a>
 
-<%@ include file="/jsp/templates/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %>

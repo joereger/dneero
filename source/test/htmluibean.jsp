@@ -16,11 +16,11 @@ String pagetitle = "HtmlUiBean";
 String navtab = "home";
 String acl = "public";
 %>
-<%@ include file="/jsp/templates/auth.jsp" %>
+<%@ include file="/template/auth.jsp" %>
 <%
 Test test = (Test) Pagez.getBeanMgr().get("Test");
 %>
-<%@ include file="/jsp/templates/header.jsp" %>
+<%@ include file="/template/header.jsp" %>
 
 <%
     if (request.getParameter("action") != null && request.getParameter("action").equals("save")) {
@@ -100,4 +100,4 @@ Test test = (Test) Pagez.getBeanMgr().get("Test");
 <%=Grid.render(rows, cols, 5, "htmluibean.jsp", "page")%>
 
 
-<%@ include file="/jsp/templates/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %>

@@ -7,7 +7,7 @@ String pagetitle = ((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPost
 String navtab = "home";
 String acl = "public";
 %>
-<%@ include file="/jsp/templates/auth.jsp" %>
+<%@ include file="/template/auth.jsp" %>
 <%
     PublicSurveyPostit publicSurveyPostit=(PublicSurveyPostit) Pagez.getBeanMgr().get("PublicSurveyPostit");
 %>
@@ -20,7 +20,7 @@ String acl = "public";
         }
     }
 %>
-<%@ include file="/jsp/templates/header.jsp" %>
+<%@ include file="/template/header.jsp" %>
 
 
 
@@ -29,13 +29,13 @@ String acl = "public";
 
     <div id="csstabs">
       <ul>
-        <li><a href="/survey.jsf?surveyid=<%=publicSurveyPostit.getSurvey().getSurveyid()%>" title="Questions"><span>Questions</span></a></li>
-        <li><a href="/surveypostit.jsf?surveyid=<%=publicSurveyPostit.getSurvey().getSurveyid()%>" title="Post It"><span>Post It</span></a></li>
-        <li><a href="/surveyresults.jsf?surveyid=<%=publicSurveyPostit.getSurvey().getSurveyid()%>" title="Results"><span>Results</span></a></li>
-        <li><a href="/surveywhotookit.jsf?surveyid=<%=publicSurveyPostit.getSurvey().getSurveyid()%>" title="Who Took It?"><span>Who Took It?</span></a></li>
-        <li><a href="/surveydiscuss.jsf?surveyid=<%=publicSurveyPostit.getSurvey().getSurveyid()%>" title="Discuss"><span>Discuss</span></a></li>
-        <li><a href="/surveyrequirements.jsf?surveyid=<%=publicSurveyPostit.getSurvey().getSurveyid()%>" title="Requirements"><span>Requirements</span></a></li>
-        <li><a href="/surveydisclosure.jsf?surveyid=<%=publicSurveyPostit.getSurvey().getSurveyid()%>" title="LDisclosure"><span>Disclosure</span></a></li>
+        <li><a href="/survey.jsp?surveyid=<%=publicSurveyPostit.getSurvey().getSurveyid()%>" title="Questions"><span>Questions</span></a></li>
+        <li><a href="/surveypostit.jsp?surveyid=<%=publicSurveyPostit.getSurvey().getSurveyid()%>" title="Post It"><span>Post It</span></a></li>
+        <li><a href="/surveyresults.jsp?surveyid=<%=publicSurveyPostit.getSurvey().getSurveyid()%>" title="Results"><span>Results</span></a></li>
+        <li><a href="/surveywhotookit.jsp?surveyid=<%=publicSurveyPostit.getSurvey().getSurveyid()%>" title="Who Took It?"><span>Who Took It?</span></a></li>
+        <li><a href="/surveydiscuss.jsp?surveyid=<%=publicSurveyPostit.getSurvey().getSurveyid()%>" title="Discuss"><span>Discuss</span></a></li>
+        <li><a href="/surveyrequirements.jsp?surveyid=<%=publicSurveyPostit.getSurvey().getSurveyid()%>" title="Requirements"><span>Requirements</span></a></li>
+        <li><a href="/surveydisclosure.jsp?surveyid=<%=publicSurveyPostit.getSurvey().getSurveyid()%>" title="LDisclosure"><span>Disclosure</span></a></li>
       </ul>
     </div>
     <br/><br/><br/>
@@ -181,14 +181,14 @@ String acl = "public";
                         <br/><br/>
                         <% if (Pagez.getUserSession().getIsloggedin() && publicSurveyPostit.isLoggedinuserhasalreadytakensurvey()){ %>
                             <div class="rounded" style="background: #ffffff; text-align: center;">
-                                <a href="/jsp/account/accountsupportissueslist.jsp"><font class="mediumfont">Need Help?</font></a>
+                                <a href="/account/accountsupportissueslist.jsp"><font class="mediumfont">Need Help?</font></a>
                             </div>
                         <% } %>
                     </div>
                 </td>
                 <td valign="top" class="posttoblog_tabs_tablewidth">
                     <center><div class="rounded" style="background: #e6e6e6; text-align: left; padding: 20px;"><font class="smallfont">
-                    Instructions for posting your survey answers to various blogs and social networks.  Need <a href="/jsp/account/accountsupportissueslist.jsp"><font class="smallfont">help</font></a> posting to your blog?
+                    Instructions for posting your survey answers to various blogs and social networks.  Need <a href="/account/accountsupportissueslist.jsp"><font class="smallfont">help</font></a> posting to your blog?
                     </font></div></center>
 
                     <br/><br/>
@@ -547,6 +547,6 @@ String acl = "public";
 
 
 
-<%@ include file="/jsp/templates/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %>
 
 

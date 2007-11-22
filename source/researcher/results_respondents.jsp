@@ -10,11 +10,11 @@ String pagetitle = "Survey Results";
 String navtab = "researchers";
 String acl = "researcher";
 %>
-<%@ include file="/jsp/templates/auth.jsp" %>
+<%@ include file="/template/auth.jsp" %>
 <%
     ResearcherResultsRespondents researcherResultsRespondents=(ResearcherResultsRespondents) Pagez.getBeanMgr().get("ResearcherResultsRespondents");
 %>
-<%@ include file="/jsp/templates/header.jsp" %>
+<%@ include file="/template/header.jsp" %>
 
 
 
@@ -37,9 +37,9 @@ String acl = "researcher";
             ArrayList<GridCol> cols=new ArrayList<GridCol>();
             cols.add(new GridCol("Date", "<$responsedate|"+Grid.GRIDCOLRENDERER_DATETIMECOMPACT+"$>", false, "", "smallfont"));
             cols.add(new GridCol("Name", "<$firstname$> <$lastname$>", false, "", "smallfont"));
-            cols.add(new GridCol("", "<a href=\"/jsp/profile.jsp?bloggerid=<$bloggerid$>\">Profile</a>", false, "", "smallfont"));
-            cols.add(new GridCol("", "<a href=\"/jsp/profileanswers.jsp?surveyid="+researcherResultsRespondents.getSurvey().getSurveyid()+"&bloggerid=<$bloggerid$>\">Answers</a>", false, "", "smallfont"));
-            cols.add(new GridCol("", "<a href=\"/jsp/profileimpressions.jsp?responseid=<$responseid$>\">Impressions</a>", false, "", "smallfont"));
+            cols.add(new GridCol("", "<a href=\"/profile.jsp?bloggerid=<$bloggerid$>\">Profile</a>", false, "", "smallfont"));
+            cols.add(new GridCol("", "<a href=\"/profileanswers.jsp?surveyid="+researcherResultsRespondents.getSurvey().getSurveyid()+"&bloggerid=<$bloggerid$>\">Answers</a>", false, "", "smallfont"));
+            cols.add(new GridCol("", "<a href=\"/profileimpressions.jsp?responseid=<$responseid$>\">Impressions</a>", false, "", "smallfont"));
         %>
         <%=Grid.render(researcherResultsRespondents.getList(), cols, 50, "results_respondents.jsp?surveyid=" + researcherResultsRespondents.getSurvey().getSurveyid(), "page")%>
     <%}%>
@@ -50,4 +50,4 @@ String acl = "researcher";
     
 
 
-<%@ include file="/jsp/templates/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %>

@@ -7,7 +7,7 @@ String pagetitle = "SystemProps... Be Careful!!!";
 String navtab = "sysadmin";
 String acl = "sysadmin";
 %>
-<%@ include file="/jsp/templates/auth.jsp" %>
+<%@ include file="/template/auth.jsp" %>
 <%
     SysadminSystemProps sysadminSystemProps=(SysadminSystemProps) Pagez.getBeanMgr().get("SystemProps");
 %>
@@ -34,7 +34,7 @@ String acl = "sysadmin";
         }
     }
 %>
-<%@ include file="/jsp/templates/header.jsp" %>
+<%@ include file="/template/header.jsp" %>
 
 
     <form action="systemprops.jsp" method="post">
@@ -198,4 +198,4 @@ String acl = "sysadmin";
 
     </form>
 
-<%@ include file="/jsp/templates/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %>

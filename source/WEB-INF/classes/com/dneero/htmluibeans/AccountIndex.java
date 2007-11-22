@@ -40,7 +40,7 @@ public class AccountIndex implements Serializable {
                                    .list();
             if (responsependings.size()>0){
                 userhasresponsependings = true;
-                Pagez.sendRedirect("/jsp/blogger/index.jsp");
+                Pagez.sendRedirect("/blogger/index.jsp");
             }
         }
     }

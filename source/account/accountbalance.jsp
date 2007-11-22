@@ -10,11 +10,11 @@ String pagetitle = "Account Balance: "+((AccountBalance)Pagez.getBeanMgr().get("
 String navtab = "youraccount";
 String acl = "account";
 %>
-<%@ include file="/jsp/templates/auth.jsp" %>
+<%@ include file="/template/auth.jsp" %>
 <%
 AccountBalance accountBalance = (AccountBalance)Pagez.getBeanMgr().get("AccountBalance");
 %>
-<%@ include file="/jsp/templates/header.jsp" %>
+<%@ include file="/template/header.jsp" %>
 
 
     <div class="rounded" style="padding: 15px; margin: 5px; background: #F2FFBF;">
@@ -43,7 +43,7 @@ AccountBalance accountBalance = (AccountBalance)Pagez.getBeanMgr().get("AccountB
     <%}%>
 
     <br/><br/>
-    <a href="/jsp/account/accounttransactions.jsp"><font class="smallfont">View Transfer Details</font></a>
+    <a href="/account/accounttransactions.jsp"><font class="smallfont">View Transfer Details</font></a>
 
 
-<%@ include file="/jsp/templates/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %>

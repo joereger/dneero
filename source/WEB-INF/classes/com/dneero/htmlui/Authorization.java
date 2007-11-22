@@ -2,11 +2,7 @@ package com.dneero.htmlui;
 
 import org.apache.log4j.Logger;
 
-import javax.faces.component.UIComponentBase;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import java.io.IOException;
-import java.util.List;
+
 import java.util.Iterator;
 
 import com.dneero.dao.Userrole;
@@ -28,10 +24,10 @@ public class Authorization {
         if (!isAuthorized(acl)){
             UserSession userSession = Pagez.getUserSession();
             if (userSession!=null && userSession.getUser()!=null && userSession.getIsloggedin()){
-                try{Pagez.sendRedirect("/jsp/notauthorized.jsp");}catch(Exception ex){logger.error("",ex);}
+                try{Pagez.sendRedirect("/notauthorized.jsp");}catch(Exception ex){logger.error("",ex);}
                 return false;
             } else {
-                try{Pagez.sendRedirect("/jsp/login.jsp");}catch(Exception ex){logger.error("",ex);}
+                try{Pagez.sendRedirect("/login.jsp");}catch(Exception ex){logger.error("",ex);}
                 return false;
             }
         }

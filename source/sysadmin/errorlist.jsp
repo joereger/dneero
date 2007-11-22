@@ -10,7 +10,7 @@ String pagetitle = "Error and Debug Log";
 String navtab = "sysadmin";
 String acl = "sysadmin";
 %>
-<%@ include file="/jsp/templates/auth.jsp" %>
+<%@ include file="/template/auth.jsp" %>
 <%
 SysadminErrorList sysadminErrorList=(SysadminErrorList) Pagez.getBeanMgr().get("SysadminErrorList");
 %>
@@ -51,7 +51,7 @@ SysadminErrorList sysadminErrorList=(SysadminErrorList) Pagez.getBeanMgr().get("
         }
     }
 %>
-<%@ include file="/jsp/templates/header.jsp" %>
+<%@ include file="/template/header.jsp" %>
 
         <form action="errorlist.jsp" method="post">
             <input type="hidden" name="action" value="refresh">
@@ -85,7 +85,7 @@ SysadminErrorList sysadminErrorList=(SysadminErrorList) Pagez.getBeanMgr().get("
 
 
 
-<%@ include file="/jsp/templates/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %>
 
 
 

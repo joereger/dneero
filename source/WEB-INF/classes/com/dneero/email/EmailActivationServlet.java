@@ -57,14 +57,14 @@ public class EmailActivationServlet extends HttpServlet {
 
             //@todo send a welcome email message after successful email activation
             if(user.getFacebookuserid()<=0){
-                response.sendRedirect("/emailactivationsuceed.jsf");
+                response.sendRedirect("/emailactivationsuceed.jsp");
                 return;
             } else {
                 response.sendRedirect("http://apps.facebook.com/"+ SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_APP_NAME)+"/");
                 return;
             }
         } else {
-            response.sendRedirect("/emailactivationfail.jsf");
+            response.sendRedirect("/emailactivationfail.jsp");
             return;
         }
 

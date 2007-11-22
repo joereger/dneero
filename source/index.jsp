@@ -9,11 +9,11 @@ String pagetitle = "";
 String navtab = "home";
 String acl = "public";
 %>
-<%@ include file="/jsp/templates/auth.jsp" %>
+<%@ include file="/template/auth.jsp" %>
 <%
 PublicIndex publicIndex = (PublicIndex)Pagez.getBeanMgr().get("PublicIndex");
 %>
-<%@ include file="/jsp/templates/header.jsp" %>
+<%@ include file="/template/header.jsp" %>
 
 
 
@@ -21,10 +21,10 @@ PublicIndex publicIndex = (PublicIndex)Pagez.getBeanMgr().get("PublicIndex");
     <table cellpadding="0" cellspacing="0" border="0" width="750">
        <tr>
            <td align="center">
-               <a href="/jsp/blogger/index.jsp?showmarketingmaterial=1"><img src="/images/homepage-v2-blogger.png" width="376" height="355" border="0" alt=""/></a>
+               <a href="/blogger/index.jsp?showmarketingmaterial=1"><img src="/images/homepage-v2-blogger.png" width="376" height="355" border="0" alt=""/></a>
            </td>
            <td align="center">
-                <a href="/jsp/researcher/index.jsp?showmarketingmaterial=1"><img src="/images/homepage-v2-researcher.png" width="375" height="355" border="0" alt=""/></a>
+                <a href="/researcher/index.jsp?showmarketingmaterial=1"><img src="/images/homepage-v2-researcher.png" width="375" height="355" border="0" alt=""/></a>
            </td>
        </tr>
 
@@ -36,19 +36,19 @@ PublicIndex publicIndex = (PublicIndex)Pagez.getBeanMgr().get("PublicIndex");
                     <tr>
                         <td valign="top" width="25%" style="padding: 0px 8px 0px 8px;">
                             <font class="smallfont" style="color: #666666; font-weight: bold;">Survey Opportunity:</font><br/>
-                            <font class="mediumfont"><a href="/survey.jsf?surveyid=<%=publicIndex.getSpotlightsurveys().get(0).getSurveyid()%>" style="color: #0BAE17; font-weight: bold;"><%=publicIndex.getSpotlightsurveys().get(0).getTitle()%></a></font><br/>
+                            <font class="mediumfont"><a href="/survey.jsp?surveyid=<%=publicIndex.getSpotlightsurveys().get(0).getSurveyid()%>" style="color: #0BAE17; font-weight: bold;"><%=publicIndex.getSpotlightsurveys().get(0).getTitle()%></a></font><br/>
                         </td>
                         <td valign="top" width="25%" style="padding: 0px 8px 0px 8px;">
                             <font class="smallfont" style="color: #666666; font-weight: bold;">Survey Opportunity:</font><br/>
-                            <font class="mediumfont"><a href="/survey.jsf?surveyid=<%=publicIndex.getSpotlightsurveys().get(1).getSurveyid()%>" style="color: #0BAE17; font-weight: bold;"><%=publicIndex.getSpotlightsurveys().get(1).getTitle()%></a></font><br/>
+                            <font class="mediumfont"><a href="/survey.jsp?surveyid=<%=publicIndex.getSpotlightsurveys().get(1).getSurveyid()%>" style="color: #0BAE17; font-weight: bold;"><%=publicIndex.getSpotlightsurveys().get(1).getTitle()%></a></font><br/>
                         </td>
                         <td valign="top" width="25%" style="padding: 0px 8px 0px 8px;">
                             <font class="smallfont" style="color: #666666; font-weight: bold;">Survey Opportunity:</font><br/>
-                            <font class="mediumfont"><a href="/survey.jsf?surveyid=<%=publicIndex.getSpotlightsurveys().get(2).getSurveyid()%>" style="color: #0BAE17; font-weight: bold;"><%=publicIndex.getSpotlightsurveys().get(2).getTitle()%></a></font>
+                            <font class="mediumfont"><a href="/survey.jsp?surveyid=<%=publicIndex.getSpotlightsurveys().get(2).getSurveyid()%>" style="color: #0BAE17; font-weight: bold;"><%=publicIndex.getSpotlightsurveys().get(2).getTitle()%></a></font>
                         </td>
                         <td valign="top" width="25%" style="padding: 0px 8px 0px 8px;">
                             <font class="smallfont" style="color: #666666; font-weight: bold;">Survey Opportunity:</font><br/>
-                            <font class="mediumfont"><a href="/survey.jsf?surveyid=<%=publicIndex.getSpotlightsurveys().get(3).getSurveyid()%>" style="color: #0BAE17; font-weight: bold;"><%=publicIndex.getSpotlightsurveys().get(3).getTitle()%></a></font><br/>
+                            <font class="mediumfont"><a href="/survey.jsp?surveyid=<%=publicIndex.getSpotlightsurveys().get(3).getSurveyid()%>" style="color: #0BAE17; font-weight: bold;"><%=publicIndex.getSpotlightsurveys().get(3).getTitle()%></a></font><br/>
                         </td>
                     </tr>
                     <tr>
@@ -92,7 +92,7 @@ PublicIndex publicIndex = (PublicIndex)Pagez.getBeanMgr().get("PublicIndex");
        <tr>
            <td colspan="2" valign="top" align="right">
                 <br/>
-                <a href="/jsp/publicsurveylist.jsp"><font class="mediumfont" style="color: #0BAE17; font-weight: bold; text-decoration: none;">See All Surveys</font></a>
+                <a href="/publicsurveylist.jsp"><font class="mediumfont" style="color: #0BAE17; font-weight: bold; text-decoration: none;">See All Surveys</font></a>
            </td>
        </tr>
 
@@ -102,4 +102,4 @@ PublicIndex publicIndex = (PublicIndex)Pagez.getBeanMgr().get("PublicIndex");
 
 
 
-<%@ include file="/jsp/templates/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %>

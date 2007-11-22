@@ -22,7 +22,7 @@ String pagetitle="<img src=\"/images/process-train-survey-02.gif\" align=\"right
 String navtab="researchers";
 String acl="researcher";
 %>
-<%@ include file="/jsp/templates/auth.jsp" %>
+<%@ include file="/template/auth.jsp" %>
 <%
     ResearcherSurveyDetail02 researcherSurveyDetail02=(ResearcherSurveyDetail02) Pagez.getBeanMgr().get("ResearcherSurveyDetail02");
     ResearcherSurveyQuestionList researcherSurveyQuestionList = (ResearcherSurveyQuestionList)Pagez.getBeanMgr().get("ResearcherSurveyQuestionList");
@@ -45,7 +45,7 @@ String acl="researcher";
         }
     }
 %>
-<%@ include file="/jsp/templates/header.jsp" %>
+<%@ include file="/template/header.jsp" %>
 
 
 <form action="researchersurveydetail_02.jsp" method="post" id="rsdform">
@@ -192,4 +192,4 @@ String acl="researcher";
 </form>
 
 
-<%@ include file="/jsp/templates/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %>

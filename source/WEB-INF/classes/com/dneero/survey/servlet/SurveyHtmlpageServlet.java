@@ -26,7 +26,7 @@ public class SurveyHtmlpageServlet extends HttpServlet {
         Logger logger = Logger.getLogger(this.getClass().getName());
         UrlSplitter urlSplitter = new UrlSplitter(request);
         logger.debug("SurveyHtmlpageServlet called.  It shouldn't be. url="+urlSplitter.getRequestUrl()+"?"+urlSplitter.getQuerystring()+" referer="+request.getHeader("referer"));
-        response.sendRedirect("/survey.jsf?s="+request.getParameter("s")+"&u="+request.getParameter("u")+"&p="+request.getParameter("p"));
+        response.sendRedirect("/survey.jsp?s="+request.getParameter("s")+"&u="+request.getParameter("u")+"&p="+request.getParameter("p"));
         return;
 //        logger.debug("Looking for html page survey via servlet");
 //        logger.debug("request.getParameter(\"s\")="+request.getParameter("s"));
@@ -95,7 +95,7 @@ public class SurveyHtmlpageServlet extends HttpServlet {
         }
 
         //String urlofsurvey = baseurl+"shtml?s="+surveyid+"&u="+userid+"&p="+ispreviewStr;
-        String urlofsurvey = baseurl+"survey.jsf?s="+surveyid+"&u="+userid+"&p="+ispreviewStr+"&r="+responseid;
+        String urlofsurvey = baseurl+"survey.jsp?s="+surveyid+"&u="+userid+"&p="+ispreviewStr+"&r="+responseid;
         return urlofsurvey;
     }
 

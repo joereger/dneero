@@ -57,7 +57,7 @@ public class LoginAgreeNewEula implements Serializable {
             return null;
         }
         Pagez.getUserSession().setIseulaok(true);
-        Pagez.sendRedirect("/jsp/account/index.jsp");
+        Pagez.sendRedirect("/account/index.jsp");
 
         return "";
 

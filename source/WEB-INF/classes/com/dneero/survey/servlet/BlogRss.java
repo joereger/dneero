@@ -20,7 +20,7 @@ import com.dneero.dao.Blogpost;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.systemprops.WebAppRootDir;
 import com.dneero.systemprops.BaseUrl;
-import com.dneero.formbeans.PublicBlog;
+import com.dneero.htmluibeans.PublicBlog;
 import com.sun.syndication.feed.rss.Channel;
 import com.sun.syndication.feed.rss.Guid;
 import com.sun.syndication.feed.rss.Category;
@@ -58,7 +58,7 @@ public class BlogRss extends HttpServlet {
         feed.setDescription(channelDesc);
 
         //Channel Link
-        String channelLink = BaseUrl.get(false)+"blog.jsf";
+        String channelLink = BaseUrl.get(false)+"blog.jsp";
         feed.setLink(channelLink);
 
         //Create Items
@@ -76,7 +76,7 @@ public class BlogRss extends HttpServlet {
             entry.setPublishedDate(blogpost.getDate());
 
             //Item Link
-            entry.setLink(BaseUrl.get(false)+"blogpost.jsf?blogpostid="+blogpost.getBlogpostid());
+            entry.setLink(BaseUrl.get(false)+"blogpost.jsp?blogpostid="+blogpost.getBlogpostid());
 
             //Item title
             String itemTitle = blogpost.getTitle();

@@ -10,7 +10,7 @@ String pagetitle = ((PublicProfile) Pagez.getBeanMgr().get("PublicProfile")).get
 String navtab = "home";
 String acl = "public";
 %>
-<%@ include file="/jsp/templates/auth.jsp" %>
+<%@ include file="/template/auth.jsp" %>
 <%
     PublicProfile publicProfile=(PublicProfile) Pagez.getBeanMgr().get("PublicProfile");
 %>
@@ -24,7 +24,7 @@ String acl = "public";
         }
     }
 %>
-<%@ include file="/jsp/templates/header.jsp" %>
+<%@ include file="/template/header.jsp" %>
 
     <%if (publicProfile.getMsg()!=null && !publicProfile.getMsg().equals("")){%>
         <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
@@ -112,4 +112,4 @@ String acl = "public";
     
 
 
-<%@ include file="/jsp/templates/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %>

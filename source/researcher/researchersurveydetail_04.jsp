@@ -13,7 +13,7 @@ String pagetitle="<img src=\"/images/process-train-survey-04.gif\" align=\"right
 String navtab="researchers";
 String acl="researcher";
 %>
-<%@ include file="/jsp/templates/auth.jsp" %>
+<%@ include file="/template/auth.jsp" %>
 <%
 ResearcherSurveyDetail04 researcherSurveyDetail04 = (ResearcherSurveyDetail04)Pagez.getBeanMgr().get("ResearcherSurveyDetail04");
 StaticVariables staticVariables = (StaticVariables)Pagez.getBeanMgr().get("StaticVariables");
@@ -50,7 +50,7 @@ StaticVariables staticVariables = (StaticVariables)Pagez.getBeanMgr().get("Stati
         }
     }
 %>
-<%@ include file="/jsp/templates/header.jsp" %>
+<%@ include file="/template/header.jsp" %>
 
 <form action="researchersurveydetail_04.jsp" method="post" id="rsdform">
         <input type="hidden" name="action" value="next">
@@ -224,4 +224,4 @@ StaticVariables staticVariables = (StaticVariables)Pagez.getBeanMgr().get("Stati
     <!-- End Bottom Nav -->
 </form>
 
-<%@ include file="/jsp/templates/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %>

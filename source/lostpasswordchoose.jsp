@@ -7,7 +7,7 @@ String pagetitle = "Reset Password";
 String navtab = "youraccount";
 String acl = "public";
 %>
-<%@ include file="/jsp/templates/auth.jsp" %>
+<%@ include file="/template/auth.jsp" %>
 <%
 LostPasswordChoose lostPasswordChoose=(LostPasswordChoose) Pagez.getBeanMgr().get("LostPasswordChoose");
 %>
@@ -23,7 +23,7 @@ LostPasswordChoose lostPasswordChoose=(LostPasswordChoose) Pagez.getBeanMgr().ge
         }
     }
 %>
-<%@ include file="/jsp/templates/header.jsp" %>
+<%@ include file="/template/header.jsp" %>
 
     <form action="lostpasswordchoose.jsp" method="post">
         <input type="hidden" name="action" value="go">
@@ -82,4 +82,4 @@ LostPasswordChoose lostPasswordChoose=(LostPasswordChoose) Pagez.getBeanMgr().ge
     </form>
 
 
-<%@ include file="/jsp/templates/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %>

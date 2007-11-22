@@ -82,12 +82,6 @@ public class Log4jCustomAppender extends AppenderSkeleton {
 
     //Allows me to filter out annoying framework-based errors that can't be fixed otherwise
     public boolean shouldRecordThis(String err){
-        if (err.indexOf("org.apache.myfaces.shared_tomahawk.renderkit.html.HtmlTableRendererBase")>-1){
-            return false;
-        }
-        if (err.indexOf("org.apache.myfaces.renderkit.html.util.MyFacesResourceLoader")>-1 && err.indexOf("Unparsable")>-1){
-            return false;
-        }
         return true;
     }
 

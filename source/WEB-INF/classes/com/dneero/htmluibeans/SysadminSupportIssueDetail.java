@@ -2,7 +2,6 @@ package com.dneero.htmluibeans;
 
 import org.apache.log4j.Logger;
 
-import javax.faces.context.FacesContext;
 
 import com.dneero.dao.Supportissuecomm;
 import com.dneero.dao.Supportissue;
@@ -120,7 +119,7 @@ public class SysadminSupportIssueDetail implements Serializable {
         }
         EmailTemplateProcessor.sendMail("dNeero Support Issue: "+ Str.truncateString(supportissue.getSubject(),100), "supportissueresponse", User.get(supportissue.getUserid()), args);
 
-        Pagez.sendRedirect("/jsp/sysadmin/sysadminsupportissueslist.jsp");
+        Pagez.sendRedirect("/sysadmin/sysadminsupportissueslist.jsp");
         return "";
     }
 

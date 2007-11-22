@@ -42,7 +42,7 @@ public class SysadminMassemailSend implements Serializable {
             massemail.setStatus(Massemail.STATUS_PROCESSING);
             try{massemail.save();}catch(Exception ex){logger.error("",ex);}
             Pagez.getUserSession().setMessage("Mass email scheduled for send! Rock on!");
-            Pagez.sendRedirect("/jsp/sysadmin/massemaillist.jsp");
+            Pagez.sendRedirect("/sysadmin/massemaillist.jsp");
             return "";
         } else {
             throw new ValidationException("Password fails!");

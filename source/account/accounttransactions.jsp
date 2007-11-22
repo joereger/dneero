@@ -10,11 +10,11 @@ String pagetitle = "Account Transactions";
 String navtab = "youraccount";
 String acl = "account";
 %>
-<%@ include file="/jsp/templates/auth.jsp" %>
+<%@ include file="/template/auth.jsp" %>
 <%
 AccountBalancetransaction accountBalancetransaction = (AccountBalancetransaction) Pagez.getBeanMgr().get("AccountBalancetransaction");
 %>
-<%@ include file="/jsp/templates/header.jsp" %>
+<%@ include file="/template/header.jsp" %>
 
         <%if (accountBalancetransaction.getBalances() == null || accountBalancetransaction.getBalances().size() == 0) {%>
             <font class="normalfont">There are not yet any financial transactions on your account.  Go fill out some surveys!  Or create some!</font>
@@ -32,5 +32,5 @@ AccountBalancetransaction accountBalancetransaction = (AccountBalancetransaction
         <%}%>
 
 
-<%@ include file="/jsp/templates/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %>
 

@@ -11,7 +11,7 @@ String pagetitle = "Support Issues";
 String navtab = "youraccount";
 String acl = "account";
 %>
-<%@ include file="/jsp/templates/auth.jsp" %>
+<%@ include file="/template/auth.jsp" %>
 <%
 AccountNewSupportIssue accountNewSupportIssue = (AccountNewSupportIssue) Pagez.getBeanMgr().get("AccountNewSupportIssue");
 %>
@@ -26,7 +26,7 @@ AccountNewSupportIssue accountNewSupportIssue = (AccountNewSupportIssue) Pagez.g
         }
     }
 %>
-<%@ include file="/jsp/templates/header.jsp" %>
+<%@ include file="/template/header.jsp" %>
     <br/><br/>
     <%if (((AccountSupportIssuesList) Pagez.getBeanMgr().get("AccountSupportIssuesList")).getSupportissues() == null || ((AccountSupportIssuesList) Pagez.getBeanMgr().get("AccountSupportIssuesList")).getSupportissues().size() == 0) {%>
 
@@ -80,6 +80,6 @@ AccountNewSupportIssue accountNewSupportIssue = (AccountNewSupportIssue) Pagez.g
         </form>
 
 
-<%@ include file="/jsp/templates/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %>
 
 

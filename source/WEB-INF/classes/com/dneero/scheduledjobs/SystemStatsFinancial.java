@@ -18,7 +18,7 @@ import java.util.*;
  */
 public class SystemStatsFinancial implements Job {
 
-    //BE SURE TO SYNC CODE HERE WITH MAIN SystemStatsFinancial in formbeans (which jsf uses)
+    //BE SURE TO SYNC CODE HERE WITH MAIN SystemStatsFinancial in beans
     private static int unpaidresponses=0;
     private static double unpaidresponsesamt=0.0;
     private static HashMap<Integer, Double> amtpendingbynumberofdayswithimpressions= new HashMap<Integer, Double>();

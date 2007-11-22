@@ -10,11 +10,11 @@ String pagetitle = "<img src=\"/images/charity-128.png\" alt=\"\" border=\"0\" w
 String navtab = "home";
 String acl = "public";
 %>
-<%@ include file="/jsp/templates/auth.jsp" %>
+<%@ include file="/template/auth.jsp" %>
 <%
 PublicCharity publicCharity = (PublicCharity) Pagez.getBeanMgr().get("PublicCharity");
 %>
-<%@ include file="/jsp/templates/header.jsp" %>
+<%@ include file="/template/header.jsp" %>
 
             <br/><br/><br/><br/>
             <table cellpadding="10" cellspacing="3" border="0">
@@ -46,7 +46,7 @@ PublicCharity publicCharity = (PublicCharity) Pagez.getBeanMgr().get("PublicChar
                             <%} else {%>
                                 <%
                                     ArrayList<GridCol> cols=new ArrayList<GridCol>();
-                                    cols.add(new GridCol("Name", "<a href=\"/jsp/profile.jsp?userid=<$user.userid$>\"><$user.firstname$> <$user.lastname$></a>", false, "", "smallfont"));
+                                    cols.add(new GridCol("Name", "<a href=\"/profile.jsp?userid=<$user.userid$>\"><$user.firstname$> <$user.lastname$></a>", false, "", "smallfont"));
                                     cols.add(new GridCol("Donations", "<$amtForFcreen$>", false, "", "smallfont"));
                                 %>
                                 <%=Grid.render(publicCharity.getTopdonatingUsers(), cols, 100, "charity.jsp", "pagecharity")%>
@@ -79,7 +79,7 @@ PublicCharity publicCharity = (PublicCharity) Pagez.getBeanMgr().get("PublicChar
                         <%} else {%>
                             <%
                                 ArrayList<GridCol> cols=new ArrayList<GridCol>();
-                                cols.add(new GridCol("Donator", "<a href=\"/jsp/profile.jsp?userid=<$user.userid$>\"><$user.firstname$> <$user.lastname$></a>", false, "", "smallfont"));
+                                cols.add(new GridCol("Donator", "<a href=\"/profile.jsp?userid=<$user.userid$>\"><$user.firstname$> <$user.lastname$></a>", false, "", "smallfont"));
                                 cols.add(new GridCol("What was donated.", "<$charitydonation.description$>", false, "", "smallfont"));
                                 cols.add(new GridCol("Amount", "<$amtForScreen$>", false, "", "smallfont"));
                                 cols.add(new GridCol("Donated To", "<$charitydonation.charityname$>", false, "", "smallfont"));
@@ -97,4 +97,4 @@ PublicCharity publicCharity = (PublicCharity) Pagez.getBeanMgr().get("PublicChar
 
 
 
-<%@ include file="/jsp/templates/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %>

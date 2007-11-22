@@ -7,16 +7,16 @@ String pagetitle = "Profile";
 String navtab = "home";
 String acl = "public";
 %>
-<%@ include file="/jsp/templates/auth.jsp" %>
+<%@ include file="/template/auth.jsp" %>
 <%
     PublicResultsRespondentsProfile publicResultsRespondentsProfile = (PublicResultsRespondentsProfile)Pagez.getBeanMgr().get("PublicResultsRespondentsProfile");
 %>
-<%@ include file="/jsp/templates/header.jsp" %>
+<%@ include file="/template/header.jsp" %>
 
     <font class="smallfont">This page has been displayed in error.  Please try again.  We apologize for the inconvenience.</font>
     <br/><br/><br/>
     <%=publicResultsRespondentsProfile.getDummy()%>
 
-<%@ include file="/jsp/templates/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %>
 
 

@@ -7,8 +7,8 @@ String pagetitle = "Blogger FAQ";
 String navtab = "bloggers";
 String acl = "public";
 %>
-<%@ include file="/jsp/templates/auth.jsp" %>
-<%@ include file="/jsp/templates/header.jsp" %>
+<%@ include file="/template/auth.jsp" %>
+<%@ include file="/template/header.jsp" %>
 
 
 
@@ -243,4 +243,4 @@ String acl = "public";
     <!-- End FAQ Question -->
 
 
-<%@ include file="/jsp/templates/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %>

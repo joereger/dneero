@@ -312,55 +312,6 @@ public class FacebookApiWrapperHtmlui {
 
 
 
-//    private boolean isSurveyidInListOfSurveysTaken(ArrayList<FacebookSurveyThatsBeenTaken> facebookSurveyThatsBeenTakens, int surveyid){
-//        for (Iterator<FacebookSurveyThatsBeenTaken> iterator = facebookSurveyThatsBeenTakens.iterator(); iterator.hasNext();){
-//            FacebookSurveyThatsBeenTaken facebookSurveyThatsBeenTaken = iterator.next();
-//            if (facebookSurveyThatsBeenTaken.getSurvey().getSurveyid()==surveyid){
-//                return true;
-//            }
-//        }
-//        return false;
-//    }
-
-//    public void inviteFriendsToSurveyOld(ArrayList<Integer> uids, Survey survey){
-//        Logger logger = Logger.getLogger(this.getClass().getName());
-//        FacebookRestClient facebookRestClient = new FacebookRestClient(SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_KEY), SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_SECRET), facebookSessionKey);
-//        SurveyEnhancer surveyEnhancer = new SurveyEnhancer(survey);
-//        String forcharity =  "";
-//        if (survey.getIscharityonly()){
-//            forcharity = " for charity";
-//        }
-//        String type = "social survey";
-//        CharSequence typeChars = type.subSequence(0, type.length());
-//        StringBuffer content = new StringBuffer();
-//        content.append("You've been invited to the social survey: "+survey.getTitle());
-//        content.append(" ");
-//        content.append("Earn up to "+surveyEnhancer.getWillingtopayforresponse()+forcharity);
-//        int userid = 0;
-//        if(userSession.getUser()!=null){
-//            userid = userSession.getUser().getUserid();
-//        }
-//        content.append("<fb:req-choice url=\"http://apps.facebook.com/"+SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_APP_NAME)+"?action=showsurvey"+"-"+survey.getSurveyid()+"-"+userid+"\" label=\"Check it Out\" />");
-//        CharSequence contentChars = content.subSequence(0, content.length());
-//        URL imgUrl = null;
-//        try{
-//            imgUrl = new URL("http", SystemProperty.getProp(SystemProperty.PROP_BASEURL), "/images/dneero-logo-100x100.png");
-//        } catch (Exception ex){
-//            logger.error("",ex);
-//        }
-//        try{
-//            URL url = facebookRestClient.notifications_sendRequest(uids, typeChars, contentChars, imgUrl, true);
-//            if (url!=null){
-//                logger.debug("FacebookAPI returned: " + url.toString());
-//                //String redirUrl = "/redirectoutofframe.jsp?url="+ URLEncoder.encode(url.toString(), "UTF-8");
-//                Jsf.redirectResponse(url.toString());
-//                return;
-//            }
-//
-//        } catch (Exception ex){
-//            logger.error("",ex);
-//        }
-//    }
 
     public String inviteFriendsToSurvey(Survey survey){
         Logger logger = Logger.getLogger(this.getClass().getName());

@@ -10,11 +10,11 @@ String pagetitle = "Surveys";
 String navtab = "sysadmin";
 String acl = "sysadmin";
 %>
-<%@ include file="/jsp/templates/auth.jsp" %>
+<%@ include file="/template/auth.jsp" %>
 <%
     SysadminSurveyList sysadminSurveyList=(SysadminSurveyList) Pagez.getBeanMgr().get("SysadminSurveyList");
 %>
-<%@ include file="/jsp/templates/header.jsp" %>
+<%@ include file="/template/header.jsp" %>
 
 
 
@@ -24,7 +24,7 @@ String acl = "sysadmin";
         <%
             ArrayList<GridCol> cols=new ArrayList<GridCol>();
             cols.add(new GridCol("Surveyid", "<$surveyid$>", false, "", "tinyfont"));
-            cols.add(new GridCol("Title", "<a href=\"sysadminsurveydetail.jsf?surveyid=<$surveyid$>\"><$title$></a>", false, "", "tinyfont"));
+            cols.add(new GridCol("Title", "<a href=\"sysadminsurveydetail.jsp?surveyid=<$surveyid$>\"><$title$></a>", false, "", "tinyfont"));
             cols.add(new GridCol("Displays", "<$publicsurveydisplays$>", false, "", "tinyfont"));
             cols.add(new GridCol("Spotlight?", "<$isspotlight$>", false, "", "tinyfont"));
             cols.add(new GridCol("Status", "<$status$>", false, "", "tinyfont"));
@@ -37,7 +37,7 @@ String acl = "sysadmin";
 
 
 
-<%@ include file="/jsp/templates/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %>
 
 
 

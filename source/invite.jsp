@@ -7,8 +7,8 @@ String pagetitle = "Welcome to dNeero!";
 String navtab = "home";
 String acl = "public";
 %>
-<%@ include file="/jsp/templates/auth.jsp" %>
-<%@ include file="/jsp/templates/header.jsp" %>
+<%@ include file="/template/auth.jsp" %>
+<%@ include file="/template/header.jsp" %>
 
     <%if (((InviteLandingPage) Pagez.getBeanMgr().get("InviteLandingPage")).getReferredby()!=null){%>
         <font class="largefont"><%=((InviteLandingPage) Pagez.getBeanMgr().get("InviteLandingPage")).getReferredby()%> has invited you to make money with your blog!</font>
@@ -20,4 +20,4 @@ String acl = "public";
     <a href="registration.jsp"><font class="mediumfont">Click here to Sign Up!</font></a>
 
 
-<%@ include file="/jsp/templates/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %>

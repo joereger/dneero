@@ -21,7 +21,7 @@ public class SystemProperty {
     //1) Add a public static var here
     //2) Put the values into props
     //3) Edit /sysadmin/systemprops.xhtml to include input for the prop
-    //4) Edit /formbeans/SysadminSystemProps.java to include saving of the prop
+    //4) Edit /htmluibeans/SysadminSystemProps.java to include saving of the prop
 
     public static String PROP_BASEURL = "PROP_BASEURL";
     public static String PROP_SENDXMPP = "PROP_SENDXMPP";

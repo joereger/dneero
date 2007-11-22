@@ -7,7 +7,7 @@ String pagetitle = "Account Settings";
 String navtab = "youraccount";
 String acl = "account";
 %>
-<%@ include file="/jsp/templates/auth.jsp" %>
+<%@ include file="/template/auth.jsp" %>
 <%
 AccountSettings accountSettings = (AccountSettings) Pagez.getBeanMgr().get("AccountSettings");
 %>
@@ -31,7 +31,7 @@ AccountSettings accountSettings = (AccountSettings) Pagez.getBeanMgr().get("Acco
     }
 }
 %>
-<%@ include file="/jsp/templates/header.jsp" %>
+<%@ include file="/template/header.jsp" %>
 
     <br/><br/>
     <form action="accountsettings.jsp" method="post">
@@ -178,6 +178,6 @@ AccountSettings accountSettings = (AccountSettings) Pagez.getBeanMgr().get("Acco
     </form>
 
 
-<%@ include file="/jsp/templates/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %>
 
 

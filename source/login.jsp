@@ -7,7 +7,7 @@ String pagetitle = "Log In";
 String navtab = "youraccount";
 String acl = "public";
 %>
-<%@ include file="/jsp/templates/auth.jsp" %>
+<%@ include file="/template/auth.jsp" %>
 <%
 Login login = (Login) Pagez.getBeanMgr().get("Login");
 %>
@@ -23,7 +23,7 @@ Login login = (Login) Pagez.getBeanMgr().get("Login");
     }
 }
 %>
-<%@ include file="/jsp/templates/header.jsp" %>
+<%@ include file="/template/header.jsp" %>
 
     <br/><br/>
     <form action="login.jsp" method="post">
@@ -72,4 +72,4 @@ Login login = (Login) Pagez.getBeanMgr().get("Login");
 
     </form>
 
-<%@ include file="/jsp/templates/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %>

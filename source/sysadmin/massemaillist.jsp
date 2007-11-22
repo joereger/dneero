@@ -10,11 +10,11 @@ String pagetitle = "Mass Emails";
 String navtab = "sysadmin";
 String acl = "sysadmin";
 %>
-<%@ include file="/jsp/templates/auth.jsp" %>
+<%@ include file="/template/auth.jsp" %>
 <%
 SysadminMassemailList sysadminMassemailList = (SysadminMassemailList)Pagez.getBeanMgr().get("SysadminMassemailList");
 %>
-<%@ include file="/jsp/templates/header.jsp" %>
+<%@ include file="/template/header.jsp" %>
 
 
 
@@ -39,7 +39,7 @@ SysadminMassemailList sysadminMassemailList = (SysadminMassemailList)Pagez.getBe
 
 
 
-<%@ include file="/jsp/templates/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %>
 
 
 

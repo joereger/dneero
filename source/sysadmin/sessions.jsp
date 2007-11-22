@@ -7,11 +7,11 @@ String pagetitle = "Active Sessions";
 String navtab = "sysadmin";
 String acl = "sysadmin";
 %>
-<%@ include file="/jsp/templates/auth.jsp" %>
+<%@ include file="/template/auth.jsp" %>
 <%
 SysadminSessions sysadminSessions = (SysadminSessions) Pagez.getBeanMgr().get("SysadminSessions");
 %>
-<%@ include file="/jsp/templates/header.jsp" %>
+<%@ include file="/template/header.jsp" %>
 
 
 
@@ -20,4 +20,4 @@ SysadminSessions sysadminSessions = (SysadminSessions) Pagez.getBeanMgr().get("S
 
 
 
-<%@ include file="/jsp/templates/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %>

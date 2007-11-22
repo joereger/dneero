@@ -7,7 +7,7 @@ String pagetitle = "Change Password";
 String navtab = "youraccount";
 String acl = "account";
 %>
-<%@ include file="/jsp/templates/auth.jsp" %>
+<%@ include file="/template/auth.jsp" %>
 <%
 ChangePassword changePassword = (ChangePassword) Pagez.getBeanMgr().get("ChangePassword");
 %>
@@ -22,7 +22,7 @@ ChangePassword changePassword = (ChangePassword) Pagez.getBeanMgr().get("ChangeP
     }
 }
 %>
-<%@ include file="/jsp/templates/header.jsp" %>
+<%@ include file="/template/header.jsp" %>
 
 
     <br/><br/>
@@ -62,5 +62,5 @@ ChangePassword changePassword = (ChangePassword) Pagez.getBeanMgr().get("ChangeP
             </table>
        </form>
 
-<%@ include file="/jsp/templates/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %>
 

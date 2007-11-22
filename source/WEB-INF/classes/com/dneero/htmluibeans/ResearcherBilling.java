@@ -136,7 +136,7 @@ public class ResearcherBilling implements Serializable {
 
             userSession.getUser().refresh();
             Pagez.getUserSession().setMessage("Billing information saved.");
-            Pagez.sendRedirect("/jsp/researcher/index.jsp");
+            Pagez.sendRedirect("/researcher/index.jsp");
             return "";
         } else {
             Pagez.getUserSession().setMessage("UserSession.getUser() is null.  Please log in.");
