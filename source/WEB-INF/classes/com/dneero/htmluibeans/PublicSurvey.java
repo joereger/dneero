@@ -19,7 +19,6 @@ import com.dneero.finders.SurveyCriteriaXML;
 import com.dneero.finders.FindSurveysForBlogger;
 import com.dneero.session.SurveysTakenToday;
 import com.dneero.systemprops.BaseUrl;
-import com.dneero.facebook.FacebookApiWrapper;
 import com.dneero.facebook.FacebookUser;
 import com.dneero.facebook.FacebookApiWrapperHtmlui;
 import com.dneero.scheduledjobs.SurveydisplayActivityObjectQueue;

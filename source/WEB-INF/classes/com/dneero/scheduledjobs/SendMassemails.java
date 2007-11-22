@@ -11,7 +11,6 @@ import com.dneero.dao.Massemail;
 import com.dneero.email.EmailTemplateProcessor;
 import com.dneero.email.MassemailQualifier;
 import com.dneero.helpers.UserAnnotator;
-import com.dneero.util.Jsf;
 
 import java.util.List;
 import java.util.Iterator;

@@ -4,7 +4,6 @@ package com.dneero.util.jcaptcha;
 import com.octo.captcha.service.CaptchaServiceException;
 import com.sun.image.codec.jpeg.JPEGCodec;
 import com.sun.image.codec.jpeg.JPEGImageEncoder;
-import com.dneero.util.Jsf;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;

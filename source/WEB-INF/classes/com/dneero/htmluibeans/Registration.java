@@ -18,8 +18,6 @@ import com.dneero.eula.EulaHelper;
 import com.dneero.systemprops.SystemProperty;
 import com.dneero.systemprops.BaseUrl;
 import com.dneero.helpers.UserInputSafe;
-import com.dneero.facebook.FacebookApiWrapper;
-import com.dneero.facebook.FacebookUser;
 import com.dneero.facebook.FacebookPendingReferrals;
 import com.octo.captcha.service.CaptchaServiceException;
 
@@ -198,9 +196,9 @@ public class Registration implements Serializable {
         }
 
         boolean isCaptchaCorrect = false;
-        logger.debug("sessionid="+Jsf.getHttpServletRequest().getSession().getId());
+        logger.debug("sessionid="+Pagez.getRequest().getSession().getId());
         try {
-            isCaptchaCorrect = CaptchaServiceSingleton.getInstance().validateResponseForID(Jsf.getHttpServletRequest().getSession().getId(), j_captcha_response);
+            isCaptchaCorrect = CaptchaServiceSingleton.getInstance().validateResponseForID(Pagez.getRequest().getSession().getId(), j_captcha_response);
         } catch (CaptchaServiceException e) {
              //should not happen, may be thrown if the id is not valid
         }
@@ -262,7 +260,7 @@ public class Registration implements Serializable {
         usereula.setDate(new Date());
         usereula.setEulaid(EulaHelper.getMostRecentEula().getEulaid());
         usereula.setUserid(user.getUserid());
-        usereula.setIp(Jsf.getRemoteAddr());
+        usereula.setIp(Pagez.getRequest().getRemoteAddr());
         try{
             usereula.save();
         } catch (GeneralException gex){
@@ -303,12 +301,12 @@ public class Registration implements Serializable {
         userSession.setIsfacebookui(Pagez.getUserSession().getIsfacebookui());
         userSession.setFacebookSessionKey(Pagez.getUserSession().getFacebookSessionKey());
         //Set persistent login cookie
-        Cookie[] cookies = PersistentLogin.getPersistentCookies(user.getUserid(), Jsf.getHttpServletRequest());
+        Cookie[] cookies = PersistentLogin.getPersistentCookies(user.getUserid(), Pagez.getRequest());
         //Add a cookies to the response
         for (int j = 0; j < cookies.length; j++) {
             Pagez.getResponse().addCookie(cookies[j]);
         }
-        Jsf.bindObjectToExpressionLanguage("#{userSession}", userSession);
+        //@todo put userSession object into a cache or something?
 
         //Redir if https is on
         if (SystemProperty.getProp(SystemProperty.PROP_ISSSLON).equals("1")){

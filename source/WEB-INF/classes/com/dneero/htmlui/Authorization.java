@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Iterator;
 
-import com.dneero.util.Jsf;
 import com.dneero.dao.Userrole;
 import com.dneero.dao.User;
 
@@ -27,7 +26,7 @@ public class Authorization {
 
         //Acl authorization
         if (!isAuthorized(acl)){
-            com.dneero.session.UserSession userSession = Jsf.getUserSession();
+            UserSession userSession = Pagez.getUserSession();
             if (userSession!=null && userSession.getUser()!=null && userSession.getIsloggedin()){
                 try{Pagez.sendRedirect("/jsp/notauthorized.jsp");}catch(Exception ex){logger.error("",ex);}
                 return false;

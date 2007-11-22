@@ -48,7 +48,7 @@ public class FacebookUser implements Serializable {
             logger.debug(":End Facebook FQL Response");
             Element root = jdomDoc.getRootElement();
             //outputChildrenToLogger(root, 0);
-            Element user = FacebookApiWrapper.getChild(root, "user");
+            Element user = FacebookApiWrapperHtmlui.getChild(root, "user");
             populateFromUserDom(user);
         } catch (Exception ex){
             ex.printStackTrace();
@@ -57,21 +57,21 @@ public class FacebookUser implements Serializable {
     }
 
     private void populateFromUserDom(Element userDom){
-        Element first_name = FacebookApiWrapper.getChild(userDom, "first_name");
+        Element first_name = FacebookApiWrapperHtmlui.getChild(userDom, "first_name");
         this.first_name = first_name.getTextTrim();
-        Element last_name = FacebookApiWrapper.getChild(userDom, "last_name");
+        Element last_name = FacebookApiWrapperHtmlui.getChild(userDom, "last_name");
         this.last_name = last_name.getTextTrim();
-        Element uid = FacebookApiWrapper.getChild(userDom, "uid");
+        Element uid = FacebookApiWrapperHtmlui.getChild(userDom, "uid");
         this.uid = uid.getTextTrim();
-        Element sex = FacebookApiWrapper.getChild(userDom, "sex");
+        Element sex = FacebookApiWrapperHtmlui.getChild(userDom, "sex");
         this.sex = sex.getTextTrim();
-        Element pic_square = FacebookApiWrapper.getChild(userDom, "pic_square");
+        Element pic_square = FacebookApiWrapperHtmlui.getChild(userDom, "pic_square");
         if (!pic_square.getTextTrim().equals("")){
             this.pic_square = pic_square.getTextTrim();
         } else {
             this.pic_square = BaseUrl.get(true)+"images/facebook-50x50-placeholder.gif";
         }
-        Element has_added_app = FacebookApiWrapper.getChild(userDom, "has_added_app");
+        Element has_added_app = FacebookApiWrapperHtmlui.getChild(userDom, "has_added_app");
         if (has_added_app.getTextTrim().equals("1")){
             this.has_added_app = true;
         } else {

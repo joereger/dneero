@@ -10,7 +10,6 @@ import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.money.CurrentBalanceCalculator;
 import com.dneero.money.MoveMoneyInRealWorld;
 import com.dneero.money.SurveyMoneyStatus;
-import com.dneero.util.Jsf;
 import com.dneero.util.Time;
 import com.dneero.systemprops.InstanceProperties;
 

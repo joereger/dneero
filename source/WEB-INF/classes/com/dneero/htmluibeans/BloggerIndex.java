@@ -13,7 +13,6 @@ import com.dneero.money.MoveMoneyInAccountBalance;
 import com.dneero.money.SurveyMoneyStatus;
 import com.dneero.xmpp.SendXMPPMessage;
 import com.dneero.session.SurveysTakenToday;
-import com.dneero.facebook.FacebookApiWrapper;
 import com.dneero.facebook.FacebookApiWrapperHtmlui;
 import com.dneero.scheduledjobs.UpdateResponsePoststatus;
 import com.dneero.htmlui.Pagez;

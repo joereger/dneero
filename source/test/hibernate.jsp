@@ -1,10 +1,3 @@
-<%@ page import="com.dneero.dao.Blogger"%>
-<%@ page import="com.dneero.util.GeneralException"%>
-<%@ page import="com.dneero.util.Jsf"%>
-<%@ page import="java.util.Iterator"%>
-<%@ page import="com.dneero.dao.Userrole"%>
-<%@ page import="java.util.Date"%>
-<%@ page import="com.dneero.dao.User"%>
 <%@ page import="com.dneero.htmlui.UserSession" %>
 <%@ page import="com.dneero.htmlui.Authorization" %>
 <%

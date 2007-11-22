@@ -14,7 +14,7 @@ import java.io.ByteArrayOutputStream;
 import java.util.*;
 
 import com.dneero.util.Num;
-import com.dneero.util.Jsf;
+import com.dneero.constants.*;
 
 /**
  * User: Joe Reger Jr
@@ -102,16 +102,16 @@ public class SurveyCriteriaXML {
     }
 
     private void preSelectAll(){
-        gender = convertToArray((TreeMap) Jsf.getManagedBean("genders"));
-        ethnicity = convertToArray((LinkedHashMap)Jsf.getManagedBean("ethnicities"));
-        maritalstatus = convertToArray((LinkedHashMap)Jsf.getManagedBean("maritalstatuses"));
-        income = convertToArray((LinkedHashMap)Jsf.getManagedBean("incomes"));
-        educationlevel = convertToArray((LinkedHashMap)Jsf.getManagedBean("educationlevels"));
-        state = convertToArray((LinkedHashMap)Jsf.getManagedBean("states"));
-        city = convertToArray((LinkedHashMap)Jsf.getManagedBean("cities"));
-        profession = convertToArray((TreeMap)Jsf.getManagedBean("professions"));
-        blogfocus = convertToArray((TreeMap)Jsf.getManagedBean("blogfocuses"));
-        politics = convertToArray((LinkedHashMap)Jsf.getManagedBean("politics"));
+        gender = convertToArray(Genders.get());
+        ethnicity = convertToArray(Ethnicities.get());
+        maritalstatus = convertToArray(Maritalstatuses.get());
+        income = convertToArray(Incomes.get());
+        educationlevel = convertToArray(Educationlevels.get());
+        state = convertToArray(States.get());
+        city = convertToArray(Cities.get());
+        profession = convertToArray(Professions.get());
+        blogfocus = convertToArray(Blogfocuses.get());
+        politics = convertToArray(Politics.get());
     }
 
     public static String[] convertToArray(TreeMap tmap){
@@ -125,6 +125,21 @@ public class SurveyCriteriaXML {
                 String value = (String)mapentry.getValue();
                 out[i] = value;
             }
+        }
+        return out;
+    }
+
+    public static String[] convertToArray(TreeSet<String> tmap){
+        String[] out = new String[0];
+        if (tmap!=null){
+            out = new String[tmap.size()];
+            int i = 0;
+            for (Iterator<String> iterator=tmap.iterator(); iterator.hasNext();) {
+                String s=iterator.next();
+                out[i] = s;
+                i = i + 1;
+            }
+
         }
         return out;
     }
