@@ -1,0 +1,3 @@
+<%
+    Authorization.check(acl);
+%>
