@@ -7,8 +7,8 @@
 <%@ page import="org.apache.log4j.Logger" %>
 <%@ page import="com.dneero.util.Time" %>
 <%@ page import="java.util.Calendar" %>
-<%@ page import="com.dneero.session.UserSession" %>
-<%@ page import="com.dneero.session.Authorization" %>
+<%@ page import="com.dneero.htmlui.UserSession" %>
+<%@ page import="com.dneero.htmlui.Authorization" %>
 <%@ page import="com.dneero.util.Str" %>
 <%
 //Hide from snooping eyes... only sysadmins can play

@@ -14,151 +14,12 @@
         <location>/error/500.jsp</location>
     </error-page>
 
-    <context-param>
-        <param-name>javax.faces.CONFIG_FILES</param-name>
-        <param-value>
-            /WEB-INF/faces-config-constants.xml
-        </param-value>
-    </context-param>
 
-    <context-param>
-        <param-name>javax.faces.STATE_SAVING_METHOD</param-name>
-        <param-value>client</param-value>
-    </context-param>
-
-    <!--
-    <context-param>
-        <param-name>javax.faces.STATE_SAVING_METHOD</param-name>
-        <param-value>server</param-value>
-    </context-param>
-
-    <context-param>
-        <param-name>org.apache.myfaces.COMPRESS_STATE_IN_SESSION</param-name>
-        <param-value>false</param-value>
-    </context-param>
-
-    <context-param>
-        <param-name>org.apache.myfaces.SERIALIZE_STATE_IN_SESSION</param-name>
-        <param-value>false</param-value>
-     </context-param>
-
-     -->
-
-    <!--
-    <context-param>
-        <param-name>org.ajax4jsf.VIEW_HANDLERS</param-name>
-        <param-value>com.sun.facelets.FaceletViewHandler</param-value>
-     </context-param>
-    <context-param>
-      <param-name>org.ajax4jsf.SKIN</param-name>
-      <param-value>blueSky</param-value>
-     </context-param>
-     <filter>
-      <display-name>Ajax4jsf Filter</display-name>
-      <filter-name>ajax4jsf</filter-name>
-      <filter-class>org.ajax4jsf.Filter</filter-class>
-      <init-param>
-       <param-name>forceparser</param-name>
-       <param-value>false</param-value>
-      </init-param>
-     </filter>
-     <filter-mapping>
-      <filter-name>ajax4jsf</filter-name>
-       <servlet-name>Faces Servlet</servlet-name>
-       <dispatcher>REQUEST</dispatcher>
-       <dispatcher>FORWARD</dispatcher>
-       <dispatcher>INCLUDE</dispatcher>
-     </filter-mapping>
-     -->
-
-
-
-
-
-    <context-param>
-        <param-name>org.apache.myfaces.ALLOW_JAVASCRIPT</param-name>
-        <param-value>true</param-value>
-    </context-param>
-
-    <context-param>
-        <param-name>org.apache.myfaces.DETECT_JAVASCRIPT</param-name>
-        <param-value>false</param-value>
-    </context-param>
-
-    <context-param>
-        <param-name>org.apache.myfaces.PRETTY_HTML</param-name>
-        <param-value>true</param-value>
-    </context-param>
-
-    <context-param>
-        <param-name>org.apache.myfaces.AUTO_SCROLL</param-name>
-        <param-value>true</param-value>
-    </context-param>
-
-    <filter>
-        <filter-name>MyFacesExtensionsFilter</filter-name>
-        <filter-class>org.apache.myfaces.webapp.filter.ExtensionsFilter</filter-class>
-        <init-param>
-            <param-name>maxFileSize</param-name>
-            <param-value>20m</param-value>
-        </init-param>
-    </filter>
-    <filter-mapping>
-        <filter-name>MyFacesExtensionsFilter</filter-name>
-        <url-pattern>*.jsp</url-pattern>
-    </filter-mapping>
-    <filter-mapping>
-        <filter-name>MyFacesExtensionsFilter</filter-name>
-        <servlet-name>Faces Servlet</servlet-name>
-    </filter-mapping>
-    <filter-mapping>
-        <filter-name>MyFacesExtensionsFilter</filter-name>
-        <url-pattern>/faces/myFacesExtensionResource/*</url-pattern>
-    </filter-mapping>
-
-    <listener>
-      <listener-class>org.apache.myfaces.webapp.StartupServletContextListener</listener-class>
-    </listener>
 
     <listener>
       <listener-class>com.dneero.startup.ApplicationStartup</listener-class>
     </listener>
 
-    <servlet>
-        <servlet-name>Faces Servlet</servlet-name>
-        <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
-        <load-on-startup>1</load-on-startup>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>Faces Servlet</servlet-name>
-        <url-pattern>*.jsf</url-pattern>
-    </servlet-mapping>
-
-    <context-param>
-        <param-name>javax.faces.DEFAULT_SUFFIX</param-name>
-        <param-value>.xhtml</param-value>
-    </context-param>
-
-    <context-param>
-        <param-name>facelets.LIBRARIES</param-name>
-        <param-value>/WEB-INF/tomahawk.taglib.xml;
-                     /WEB-INF/dneero.taglib.xml</param-value>
-    </context-param>
-
-    <context-param>
-      <param-name>facelets.SKIP_COMMENTS</param-name>
-      <param-value>true</param-value>
-    </context-param>
-
-    <context-param>
-        <param-name>facelets.DEVELOPMENT</param-name>
-        <param-value>true</param-value>
-    </context-param>
-
-    <context-param>
-        <param-name>facelets.REFRESH_PERIOD</param-name>
-        <param-value>2</param-value>
-    </context-param>
 
 
     <servlet>
@@ -172,28 +33,6 @@
     </servlet-mapping>
 
 
-    <!--
-    <context-param>
-        <param-name>oracle.adf.view.faces.ALTERNATE_VIEW_HANDLER</param-name>
-        <param-value>com.sun.facelets.FaceletViewHandler</param-value>
-    </context-param>
-    <filter>
-        <filter-name>adfFaces</filter-name>
-        <filter-class>oracle.adf.view.faces.webapp.AdfFacesFilter</filter-class>
-    </filter>
-    <filter-mapping>
-        <filter-name>adfFaces</filter-name>
-        <servlet-name>Faces Servlet</servlet-name>
-    </filter-mapping>
-    <servlet>
-        <servlet-name>resources</servlet-name>
-        <servlet-class>oracle.adf.view.faces.webapp.ResourceServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>resources</servlet-name>
-        <url-pattern>/adf/*</url-pattern>
-    </servlet-mapping>
-    -->
 
 
     <filter>
@@ -211,7 +50,7 @@
     </filter>
     <filter-mapping>
         <filter-name>FilterMain</filter-name>
-        <url-pattern>/jsp/*</url-pattern>
+        <url-pattern>/*</url-pattern>
     </filter-mapping>
 
 
@@ -299,11 +138,7 @@
         <url-pattern>/flashviewer/deng.swf</url-pattern>
     </servlet-mapping>
 
-    <!--<servlet>
-        <servlet-name>quartz</servlet-name>
-        <servlet-class>org.quartz.ee.servlet.QuartzInitializerServlet</servlet-class>
-        <load-on-startup>1</load-on-startup>
-    </servlet>-->
+    
 
     <servlet>
         <servlet-name>BlogRss</servlet-name>

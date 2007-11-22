@@ -5,8 +5,8 @@
 <%@ page import="com.dneero.dao.Userrole"%>
 <%@ page import="java.util.Date"%>
 <%@ page import="com.dneero.dao.User"%>
-<%@ page import="com.dneero.session.UserSession" %>
-<%@ page import="com.dneero.session.Authorization" %>
+<%@ page import="com.dneero.htmlui.UserSession" %>
+<%@ page import="com.dneero.htmlui.Authorization" %>
 <%
 //Hide from snooping eyes... only sysadmins can play
 UserSession userSession = (UserSession) session.getAttribute("userSession");

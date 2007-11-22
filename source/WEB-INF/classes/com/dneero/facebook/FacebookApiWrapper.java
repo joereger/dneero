@@ -2,7 +2,7 @@ package com.dneero.facebook;
 
 import com.facebook.api.FacebookRestClient;
 import com.facebook.api.FacebookSignatureUtil;
-import com.dneero.session.UserSession;
+import com.dneero.htmlui.UserSession;
 import com.dneero.dao.Survey;
 import com.dneero.dao.Response;
 import com.dneero.dao.User;

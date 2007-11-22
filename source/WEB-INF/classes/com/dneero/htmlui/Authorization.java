@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Iterator;
 
-import com.dneero.session.UserSession;
 import com.dneero.util.Jsf;
 import com.dneero.dao.Userrole;
 import com.dneero.dao.User;

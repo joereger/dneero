@@ -1,12 +1,9 @@
 <%@ page import="com.dneero.util.Num" %>
 <%@ page import="com.dneero.systemprops.BaseUrl" %>
-<%@ page import="com.dneero.util.Jsf" %>
 <%@ page import="com.dneero.survey.servlet.SurveyFlashServlet" %>
 <%@ page import="com.dneero.survey.servlet.SurveyJavascriptServlet" %>
-<%@ page import="com.dneero.util.Str" %>
-<%@ page import="com.dneero.session.UserSession" %>
-<%@ page import="com.dneero.session.Authorization" %>
-<%@ page import="com.dneero.email.EmailTemplateProcessor" %>
+<%@ page import="com.dneero.htmlui.UserSession" %>
+<%@ page import="com.dneero.htmlui.Authorization" %>
 <%
 //Hide from snooping eyes... only sysadmins can play
 UserSession userSession = (UserSession) session.getAttribute("userSession");

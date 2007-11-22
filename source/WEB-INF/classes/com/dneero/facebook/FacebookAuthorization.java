@@ -7,7 +7,7 @@ import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.xmpp.SendXMPPMessage;
 import com.dneero.session.SurveysTakenToday;
 import com.dneero.session.UrlSplitter;
-import com.dneero.session.UserSession;
+import com.dneero.htmlui.UserSession;
 import com.dneero.systemprops.SystemProperty;
 import com.dneero.formbeans.PublicFacebookLandingPage;
 import com.dneero.survey.servlet.RecordImpression;

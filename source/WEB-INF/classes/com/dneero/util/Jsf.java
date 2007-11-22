@@ -1,6 +1,6 @@
 package com.dneero.util;
 
-import com.dneero.session.UserSession;
+import com.dneero.htmlui.UserSession;
 
 import javax.faces.context.FacesContext;
 import javax.faces.application.FacesMessage;
@@ -8,7 +8,6 @@ import javax.faces.el.ValueBinding;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
 
 import java.io.IOException;
 

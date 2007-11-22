@@ -3,7 +3,7 @@ package com.dneero.dao;
 import com.dneero.dao.hibernate.BasePersistentClass;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.session.AuthControlled;
-import com.dneero.session.Authorization;
+import com.dneero.htmlui.Authorization;
 
 import java.util.Set;
 import java.util.HashSet;

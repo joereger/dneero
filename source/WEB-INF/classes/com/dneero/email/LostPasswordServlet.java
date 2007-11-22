@@ -13,7 +13,7 @@ import java.io.PrintWriter;
 import com.dneero.dao.User;
 import com.dneero.util.GeneralException;
 import com.dneero.util.Jsf;
-import com.dneero.session.UserSession;
+import com.dneero.htmlui.UserSession;
 
 /**
  * Serves a captcha image
