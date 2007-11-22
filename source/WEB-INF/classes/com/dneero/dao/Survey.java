@@ -345,6 +345,9 @@ public class Survey extends BasePersistentClass implements java.io.Serializable,
     public boolean isIsspotlight() {
         return isspotlight;
     }
+    public boolean getIsspotlight() {
+        return isspotlight;
+    }
 
     public void setIsspotlight(boolean isspotlight) {
         this.isspotlight = isspotlight;

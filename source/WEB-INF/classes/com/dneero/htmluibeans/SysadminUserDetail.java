@@ -13,6 +13,7 @@ import com.dneero.money.UserImpressionFinder;
 import com.dneero.scheduledjobs.ResearcherRemainingBalanceOperations;
 import com.dneero.scheduledjobs.UpdateResponsePoststatus;
 import com.dneero.htmlui.Pagez;
+import com.dneero.htmlui.ValidationException;
 
 import java.util.*;
 import java.io.Serializable;
@@ -140,7 +141,7 @@ public class SysadminUserDetail implements Serializable {
         }
     }
 
-    public String save(){
+    public String save() throws ValidationException {
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("save() called");
         logger.debug("userid="+userid);
@@ -161,7 +162,7 @@ public class SysadminUserDetail implements Serializable {
     }
 
 
-    public String sendresetpasswordemail(){
+    public String sendresetpasswordemail() throws ValidationException {
         User user = User.get(userid);
         if (user!=null && user.getUserid()>0){
             LostPasswordSend.sendLostPasswordEmail(user);
@@ -170,7 +171,7 @@ public class SysadminUserDetail implements Serializable {
         return "sysadminuserdetail";
     }
 
-    public String reactivatebyemail(){
+    public String reactivatebyemail() throws ValidationException {
         User user = User.get(userid);
         if (user!=null && user.getUserid()>0){
             EmailActivationSend.sendActivationEmail(user);
@@ -179,7 +180,7 @@ public class SysadminUserDetail implements Serializable {
         return "sysadminuserdetail";
     }
 
-    public String toggleisenabled(){
+    public String toggleisenabled() throws ValidationException {
         Logger logger = Logger.getLogger(this.getClass().getName());
         User user = User.get(userid);
         if (user.getIsenabled()){
@@ -197,7 +198,7 @@ public class SysadminUserDetail implements Serializable {
         return "sysadminuserdetail";
     }
 
-    public String togglesysadminprivs(){
+    public String togglesysadminprivs() throws ValidationException {
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("togglesysadminprivs()");
         if (activitypin.equals("yes, i want to do this")){
@@ -243,7 +244,7 @@ public class SysadminUserDetail implements Serializable {
         return "sysadminuserdetail";
     }
 
-    public String runResearcherRemainingBalanceOperations(){
+    public String runResearcherRemainingBalanceOperations() throws ValidationException {
         Logger logger = Logger.getLogger(this.getClass().getName());
         User user = User.get(userid);
         if (user!=null && user.getUserid()>0){
@@ -257,7 +258,7 @@ public class SysadminUserDetail implements Serializable {
         return "sysadminuserdetail";
     }
 
-    public String giveusermoney(){
+    public String giveusermoney() throws ValidationException {
         User user = User.get(userid);
         if (user!=null && user.getUserid()>0){
             MoveMoneyInAccountBalance.pay(user, amt, "Manual transaction: "+reason, false, false, "");
@@ -267,7 +268,7 @@ public class SysadminUserDetail implements Serializable {
         return "sysadminuserdetail";
     }
 
-    public String takeusermoney(){
+    public String takeusermoney() throws ValidationException {
         User user = User.get(userid);
         if (user!=null && user.getUserid()>0){
             MoveMoneyInAccountBalance.charge(user, amt, "Manual transaction: "+reason);

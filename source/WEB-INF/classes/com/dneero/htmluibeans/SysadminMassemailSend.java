@@ -8,6 +8,7 @@ import com.dneero.survey.servlet.SurveyJavascriptServlet;
 import com.dneero.display.SurveyTakerDisplay;
 import com.dneero.finders.SurveyCriteriaXML;
 import com.dneero.htmlui.Pagez;
+import com.dneero.htmlui.ValidationException;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -34,7 +35,7 @@ public class SysadminMassemailSend implements Serializable {
 
     }
 
-    public String send(){
+    public String send() throws ValidationException {
         Logger logger = Logger.getLogger(this.getClass().getName());
         if (password.equals("pupper") && massemail.getStatus()==Massemail.STATUS_NEW){
             massemail.setDate(new Date());
@@ -44,8 +45,7 @@ public class SysadminMassemailSend implements Serializable {
             Pagez.sendRedirect("/jsp/sysadmin/massemaillist.jsp");
             return "";
         } else {
-            Pagez.getUserSession().setMessage("Password fails!");
-            return null;
+            throw new ValidationException("Password fails!");
         }
     }
 

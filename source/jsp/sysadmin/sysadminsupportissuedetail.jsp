@@ -1,5 +1,11 @@
 <%@ page import="org.apache.log4j.Logger" %>
-<%@ page import="com.dneero.htmlui.Pagez" %>
+<%@ page import="com.dneero.htmluibeans.SysadminSupportIssueDetail" %>
+<%@ page import="java.util.Iterator" %>
+<%@ page import="com.dneero.dao.Supportissuecomm" %>
+<%@ page import="com.dneero.util.Str" %>
+<%@ page import="com.dneero.util.Time" %>
+<%@ page import="java.util.TreeMap" %>
+<%@ page import="com.dneero.htmlui.*" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "Support Issue Detail";
@@ -7,80 +13,89 @@ String navtab = "sysadmin";
 String acl = "sysadmin";
 %>
 <%@ include file="/jsp/templates/auth.jsp" %>
+<%
+    SysadminSupportIssueDetail sysadminSupportIssueDetail=(SysadminSupportIssueDetail) Pagez.getBeanMgr().get("SysadminSupportIssueDetail");
+%>
+<%
+    if (request.getParameter("action") != null && request.getParameter("action").equals("save")) {
+        try {
+            sysadminSupportIssueDetail.setStatus(Dropdown.getValueFromRequest("status", "Status", true));
+            sysadminSupportIssueDetail.setNotes(Textarea.getValueFromRequest("notes", "Notes", false));
+            sysadminSupportIssueDetail.newNote();
+        } catch (com.dneero.htmlui.ValidationException vex) {
+            Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
+        }
+    }
+%>
 <%@ include file="/jsp/templates/header.jsp" %>
 
 
+            <div class="rounded" style="padding: 0px; margin: 10px; background: #33FF00;">
+                <font class="mediumfont"><%=sysadminSupportIssueDetail.getSupportissue().getSubject()%></font>
+            </div>
 
 
 
-<h:form>
-            <h:messages styleClass="RED"/>
-            <h:inputHidden name="supportissueid" value="<%=((SysadminSupportIssueDetail)Pagez.getBeanMgr().get("SysadminSupportIssueDetail")).getSupportissueid()%>" />
-
-
-            <d:roundedCornerBox uniqueboxname="supportissuesubject" bodycolor="00ff00" widthinpixels="500">
-                 <h:outputText value="<%=((SysadminSupportIssueDetail)Pagez.getBeanMgr().get("SysadminSupportIssueDetail")).getSupportissue().getSubject()%>" styleClass="mediumfont"></h:outputText>
-            </d:roundedCornerBox>
-
-
-            <c:forEach var="supportissuecomm" items="<%=((SysadminSupportIssueDetail)Pagez.getBeanMgr().get("SysadminSupportIssueDetail")).getSupportissuecomms()%>">
-                <d:roundedCornerBox uniqueboxname="supportissuecomm-<%=((Supportissuecomm)Pagez.getBeanMgr().get("Supportissuecomm")).getSupportissuecommid()%>" bodycolor="e6e6e6" widthinpixels="500">
-                    <h:outputText value="<%=((Supportissuecomm)Pagez.getBeanMgr().get("Supportissuecomm")).getDatetime()%>" style="font-weight: bold;"></h:outputText>
-                    <f:verbatim><br/></f:verbatim>
-                    <h:outputText value="From: dNeero Admin" rendered="<%=((Supportissuecomm)Pagez.getBeanMgr().get("Supportissuecomm")).getIsfromdneeroadmin()%>"  style="font-weight: bold;"></h:outputText>
-                    <h:commandLink action="<%=((SysadminUserDetail)Pagez.getBeanMgr().get("SysadminUserDetail")).getBeginView()%>" immediate="true" rendered="<%=((!supportissuecomm)Pagez.getBeanMgr().get("!supportissuecomm")).getIsfromdneeroadmin()%>">
-                        <h:outputText value="From: <%=((SysadminSupportIssueDetail)Pagez.getBeanMgr().get("SysadminSupportIssueDetail")).getFromuser().getFirstname()%> <%=((SysadminSupportIssueDetail)Pagez.getBeanMgr().get("SysadminSupportIssueDetail")).getFromuser().getLastname()%>"  style="font-weight: bold;"/>
-                        <f:param name="userid" value="<%=((SysadminSupportIssueDetail)Pagez.getBeanMgr().get("SysadminSupportIssueDetail")).getFromuser().getUserid()%>" />
-                    </h:commandLink>
-                    <% if ("#{sysadminSupportIssueDetail.fromuser.facebookuserid gt 0}){ %>
-                        <h:outputText value="(Facebook User)"  style="font-weight: bold;"></h:outputText>        
+            <%
+            for (Iterator<Supportissuecomm> iterator=sysadminSupportIssueDetail.getSupportissuecomms().iterator(); iterator.hasNext();){
+                Supportissuecomm supportissuecomm = iterator.next();
+                %>
+                <div class="rounded" style="padding: 0px; margin: 10px; background: #e6e6e6;">
+                    <font class="smallfont" style="font-weight: bold;"><%=Time.dateformatcompactwithtime(Time.getCalFromDate(supportissuecomm.getDatetime()))%></font>
+                    <br/>
+                    <%if (!supportissuecomm.getIsfromdneeroadmin()){%>
+                        <a href="userdetail.jsp?userid=<%=sysadminSupportIssueDetail.getFromuser().getUserid()%>"><font class="smallfont" style="font-weight: bold;">From: <%=sysadminSupportIssueDetail.getFromuser().getFirstname()%> <%=sysadminSupportIssueDetail.getFromuser().getLastname()%></font></a>
+                    <%} else {%>
+                        <font class="smallfont" style="font-weight: bold;">dNeero Admin</font>
+                    <%}%>
+                    <% if (sysadminSupportIssueDetail.getFromuser().getFacebookuserid()>0){ %>
+                        <font class="smallfont" style="font-weight: bold;">(Facebook User)</font>
                     <% } %>
-                    <f:verbatim><br/></f:verbatim>
-                    <h:outputText value="<%=((Supportissuecomm)Pagez.getBeanMgr().get("Supportissuecomm")).getNotes()%>"></h:outputText>
-                </d:roundedCornerBox>
-            </c:forEach>
+                    <br/>
+                    <font class="smallfont"><%=supportissuecomm.getNotes()%></font>
+                </div>
+                <%
+            }
+            %>
 
 
-            <d:roundedCornerBox uniqueboxname="newsupportissue" bodycolor="00ff00" widthinpixels="500">
-            <h:messages styleClass="RED"/>
+
+        <form action="sysadminsupportissuedetail.jsp" method="post">
+            <input type="hidden" name="action" value="save">
+            <input type="hidden" name="supportissueid" value="<%=sysadminSupportIssueDetail.getSupportissueid()%>">
+
             <table cellpadding="0" cellspacing="0" border="0">
-
-                <td valign="top">
-                    <h:outputText value=" "></h:outputText>
-                </td>
-                <td valign="top">
-                    <h:inputTextarea value="<%=((SysadminSupportIssueDetail)Pagez.getBeanMgr().get("SysadminSupportIssueDetail")).getNotes()%>" id="notes" cols="72" rows="8" required="true">
-                        <f:validateLength minimum="3" maximum="50000"></f:validateLength>
-                    </h:inputTextarea>
-                </td>
-                <td valign="top">
-                    <h:message for="notes" styleClass="RED"></h:message>
-                </td>
-
-                <td valign="top">
-                    <h:outputText value=" "></h:outputText>
-                </td>
-                <td valign="top">
-                    <h:selectOneMenu value="<%=((SysadminSupportIssueDetail)Pagez.getBeanMgr().get("SysadminSupportIssueDetail")).getStatus()%>" id="status" required="true">
-                        <f:selectItem  itemValue="0" itemLabel="Open"></f:selectItem>
-                        <f:selectItem  itemValue="1" itemLabel="Working"></f:selectItem>
-                        <f:selectItem  itemValue="2" itemLabel="Closed"></f:selectItem>
-                    </h:selectOneMenu>
-                </td>
-                <td valign="top">
-                    <h:message for="status" styleClass="RED"></h:message>
-                </td>
-
-                <td valign="top">
-                </td>
-                <td valign="top">
-                    <h:commandButton action="<%=((SysadminSupportIssueDetail)Pagez.getBeanMgr().get("SysadminSupportIssueDetail")).getNewNote()%>" value="Add a Comment" styleClass="formsubmitbutton"></h:commandButton>
-                </td>
-                <td valign="top">
-                </td>
+                <tr>
+                    <td valign="top">
+                        <%=Textarea.getHtml("notes", sysadminSupportIssueDetail.getNotes(), 8, 72, "", "")%>
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top">
+                        <%
+                            TreeMap<String, String> options=new TreeMap<String, String>();
+                            options.put("0", "Open");
+                            options.put("1", "Working");
+                            options.put("2", "Closed");
+                        %>
+                        <br/><%=Dropdown.getHtml("status", String.valueOf(sysadminSupportIssueDetail.getStatus()), options, "", "")%>
+                        <h:selectOneMenu value="<%=sysadminSupportIssueDetail.getStatus()%>" id="status" required="true">
+                            <f:selectItem  itemValue="0" itemLabel="Open"></f:selectItem>
+                            <f:selectItem  itemValue="1" itemLabel="Working"></f:selectItem>
+                            <f:selectItem  itemValue="2" itemLabel="Closed"></f:selectItem>
+                        </h:selectOneMenu>
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top">
+                        <input type="submit" value="Add a Comment">
+                    </td>
+                </tr>
 
             </table>
-            </d:roundedCornerBox>
+
+        </form>
+
 
 
 

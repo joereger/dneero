@@ -89,13 +89,13 @@ public class SysadminSurveyDetail implements Serializable {
         return "sysadminsurveydetail";
     }
 
-    public LinkedHashMap getStatuses(){
-        LinkedHashMap out = new LinkedHashMap();
-        out.put("Draft", Survey.STATUS_DRAFT);
-        out.put("Waiting for Start Date", Survey.STATUS_WAITINGFORSTARTDATE);
-        out.put("Waiting for Funds", Survey.STATUS_WAITINGFORFUNDS);
-        out.put("Open", Survey.STATUS_OPEN);
-        out.put("Closed", Survey.STATUS_CLOSED);
+    public TreeMap<String, String> getStatuses(){
+        TreeMap<String, String> out = new TreeMap<String, String>();
+        out.put(String.valueOf(Survey.STATUS_DRAFT), "Draft");
+        out.put(String.valueOf(Survey.STATUS_WAITINGFORSTARTDATE), "Waiting for Start Date");
+        out.put(String.valueOf(Survey.STATUS_WAITINGFORFUNDS), "Waiting for Funds");
+        out.put(String.valueOf(Survey.STATUS_OPEN), "Open");
+        out.put(String.valueOf(Survey.STATUS_CLOSED), "Closed");
         return out;
     }
 

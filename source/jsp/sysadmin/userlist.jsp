@@ -57,19 +57,19 @@ SysadminUserList sysadminUserList = (SysadminUserList)Pagez.getBeanMgr().get("Sy
             </tr>
             <tr>
                 <td valign="top">
-                    <h:inputText value="<%=sysadminUserList.getSearchuserid()%>" id="searchuserrid" size="5"></h:inputText>
+                    <%=Textbox.getHtml("searchuserrid", sysadminUserList.getSearchuserid(), 255, 5, "", "")%>
                 </td>
                 <td valign="top">
-                    <h:inputText value="<%=sysadminUserList.getSearchfirstname()%>" id="searchfirstname" size="15"></h:inputText>
+                    <%=Textbox.getHtml("searchfirstname", sysadminUserList.getSearchfirstname(), 255, 5, "", "")%>
                 </td>
                 <td valign="top">
-                    <h:inputText value="<%=sysadminUserList.getSearchlastname()%>" id="searchlastname" size="15"></h:inputText>
+                    <%=Textbox.getHtml("searchlastname", sysadminUserList.getSearchlastname(), 255, 5, "", "")%>
                 </td>
                 <td valign="top">
-                    <h:inputText value="<%=sysadminUserList.getSearchemail()%>" id="searchemail" size="15"></h:inputText>
+                    <%=Textbox.getHtml("searchemail", sysadminUserList.getSearchemail(), 255, 5, "", "")%>
                 </td>
                 <td valign="top">
-                    <h:selectBooleanCheckbox value="<%=sysadminUserList.getSearchfacebookers()%>" id="searchfacebookers"></h:selectBooleanCheckbox>
+                    <%=CheckboxBoolean.getHtml("searchfacebookers", sysadminUserList.getSearchfacebookers(), "", "")%>
                 </td>
                 <td valign="top">
                     <input type="submit" value="Search">
