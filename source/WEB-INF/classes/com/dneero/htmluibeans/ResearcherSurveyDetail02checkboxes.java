@@ -150,7 +150,7 @@ public class ResearcherSurveyDetail02checkboxes implements Serializable {
             //Refresh
             survey.refresh();
         }
-        Pagez.sendRedirect("/researcher/researchersurveydetail_02.jsp");
+        Pagez.sendRedirect("/researcher/researchersurveydetail_02.jsp?surveyid="+survey.getSurveyid());
         return "";
     }
 

@@ -84,7 +84,7 @@ ResearcherSurveyDetail02textbox researcherSurveyDetail02textbox = (ResearcherSur
                 <td valign="top">
                 </td>
                 <td valign="top">
-                    <input type="submit" value="Save Question and Continue">
+                    <input type="submit" class="formsubmitbutton" value="Save Question and Continue">
                     <br/><br/><a href="researchersurveydetail_02.jsp?surveyid=<%=researcherSurveyDetail02textbox.getSurvey().getSurveyid()%>"><font class="tinyfont">Nevermind, Take me Back</font></a>
                 </td>
             </tr>

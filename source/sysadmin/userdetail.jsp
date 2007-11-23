@@ -164,7 +164,7 @@ SysadminUserDetail sysadminUserDetail = (SysadminUserDetail)Pagez.getBeanMgr().g
 
                                         </td>
                                         <td valign="top">
-                                            <input type="submit" value="Save User Details">
+                                            <input type="submit" class="formsubmitbutton" value="Save User Details">
                                         </td>
                                     </tr>
                                 </table>
@@ -174,21 +174,21 @@ SysadminUserDetail sysadminUserDetail = (SysadminUserDetail)Pagez.getBeanMgr().g
                             <form action="userdetail.jsp" method="post">
                                 <input type="hidden" name="action" value="passwordresetemail">
                                 <input type="hidden" name="userid" value="<%=sysadminUserDetail.getUserid()%>">
-                                <input type="submit" value="Send Password Reset Email">
+                                <input type="submit" class="formsubmitbutton" value="Send Password Reset Email">
                             </form>
                         </div>
                         <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
                             <form action="userdetail.jsp" method="post">
                                 <input type="hidden" name="action" value="reactivationemail">
                                 <input type="hidden" name="userid" value="<%=sysadminUserDetail.getUserid()%>">
-                                <input type="submit" value="Force Re-Activation By Email">
+                                <input type="submit" class="formsubmitbutton" value="Force Re-Activation By Email">
                             </form>
                         </div>
                         <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
                             <form action="userdetail.jsp" method="post">
                                 <input type="hidden" name="action" value="researcherremainingbalanceoperations">
                                 <input type="hidden" name="userid" value="<%=sysadminUserDetail.getUserid()%>">
-                                <input type="submit" value="ResearcherRemainingBalanceOperations">
+                                <input type="submit" class="formsubmitbutton" value="ResearcherRemainingBalanceOperations">
                             </form>
                             <br/>
                             <font class="tinyfont">This will process account balances, remaining impressions, credit card transfers, etc for only this account.  Only does something if this user has a researcher record.</font>
@@ -203,7 +203,7 @@ SysadminUserDetail sysadminUserDetail = (SysadminUserDetail)Pagez.getBeanMgr().g
                                     <font class="mediumfont">User is not a Sysadmin.</font>
                                 <%}%>
                                 <br/>
-                                <input type="submit" value="Toggle Sysadmin Privileges">
+                                <input type="submit" class="formsubmitbutton" value="Toggle Sysadmin Privileges">
                                 <%=Textbox.getHtml("activitypin", String.valueOf(sysadminUserDetail.getActivitypin()), 255, 25, "", "")%>
                                 <br/>
                                 <font class="tinyfont">You must type "yes, i want to do this" in the box to make this happen</font>
@@ -220,11 +220,11 @@ SysadminUserDetail sysadminUserDetail = (SysadminUserDetail)Pagez.getBeanMgr().g
                                 <%if (sysadminUserDetail.getIsenabled()){%>
                                     <font class="mediumfont">This Account is Currently Enabled.</font>
                                     <br/>
-                                    <input type="submit" value="Disable Account">
+                                    <input type="submit" class="formsubmitbutton" value="Disable Account">
                                 <%} else {%>
                                     <font class="mediumfont">This Account is Currently Disabled.</font>
                                     <br/>
-                                    <input type="submit" value="Enable Account">
+                                    <input type="submit" class="formsubmitbutton" value="Enable Account">
                                 <%}%>
                             </form>
                         </div>
@@ -245,7 +245,7 @@ SysadminUserDetail sysadminUserDetail = (SysadminUserDetail)Pagez.getBeanMgr().g
                                 <br/>
                                 <%=Textbox.getHtml("reason", sysadminUserDetail.getReason(), 255, 25, "", "")%>
                                 <br/>
-                                <input type="submit" value="Give User Money">
+                                <input type="submit" class="formsubmitbutton" value="Give User Money">
                             </form>
                         </div>
 
@@ -266,7 +266,7 @@ SysadminUserDetail sysadminUserDetail = (SysadminUserDetail)Pagez.getBeanMgr().g
                                 <br/>
                                 <%=Textbox.getHtml("reason", sysadminUserDetail.getReason(), 255, 25, "", "")%>
                                 <br/>
-                                <input type="submit" value="Take User Money">
+                                <input type="submit" class="formsubmitbutton" value="Take User Money">
                             </form>
                         </div>
                    

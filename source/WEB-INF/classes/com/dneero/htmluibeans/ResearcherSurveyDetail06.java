@@ -192,7 +192,7 @@ public class ResearcherSurveyDetail06 implements Serializable {
     }
 
     public String previousStep(){
-        Pagez.sendRedirect("/researcher/researchersurveydetail_05.jsp");
+        Pagez.sendRedirect("/researcher/researchersurveydetail_05.jsp?surveyid="+survey.getSurveyid());
         return "";
     }
 
@@ -302,7 +302,7 @@ public class ResearcherSurveyDetail06 implements Serializable {
             }
         }
 
-        Pagez.sendRedirect("/researcher/researchersurveydetail_postlaunch.jsp");
+        Pagez.sendRedirect("/researcher/researchersurveydetail_postlaunch.jsp?surveyid="+survey.getSurveyid());
         return "";
     }
 

@@ -72,7 +72,7 @@ SysadminUserList sysadminUserList = (SysadminUserList)Pagez.getBeanMgr().get("Sy
                     <%=CheckboxBoolean.getHtml("searchfacebookers", sysadminUserList.getSearchfacebookers(), "", "")%>
                 </td>
                 <td valign="top">
-                    <input type="submit" value="Search">
+                    <input type="submit" class="formsubmitbutton" value="Search">
                 </td>
             </tr>
         </table>

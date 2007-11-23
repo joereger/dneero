@@ -104,7 +104,7 @@ String acl = "public";
                         <form action="surveypostit.jsp" method="post">
                             <input type="hidden" name="action" value="updatefacebookprofile">
                             <input type="hidden" name="surveyid" value="<%=publicSurveyPostit.getSurvey().getSurveyid()%>">
-                            <input type="submit" value="Update Facebook Profile">
+                            <input type="submit" class="formsubmitbutton" value="Update Facebook Profile">
                         </form>
                     </div>
                 <% } %>

@@ -64,15 +64,15 @@ public class ResearcherSurveyList implements Serializable {
                     rsli.setInvitelink("");
                 }
                 if (srvy.getStatus()!=Survey.STATUS_DRAFT){
-                    rsli.setEditorreviewlink("<a href=\"results.jsp?surveyid="+srvy.getSurveyid()+"\">Results</a>");
+                    rsli.setResultslink("<a href=\"results.jsp?surveyid="+srvy.getSurveyid()+"\">Results</a>");
                 } else {
-                    rsli.setEditorreviewlink("");
+                    rsli.setResultslink("");
                 }
                 rsli.setCopylink("<a href=\"index.jsp?surveyid="+srvy.getSurveyid()+"&action=copy\">Copy</a>");
                 if (srvy.getStatus()==Survey.STATUS_DRAFT){
-                    rsli.setEditorreviewlink("<a href=\"researchersurveydelete.jsp?surveyid="+srvy.getSurveyid()+"\">Delete</a>");
+                    rsli.setDeletelink("<a href=\"researchersurveydelete.jsp?surveyid="+srvy.getSurveyid()+"\">Delete</a>");
                 } else {
-                    rsli.setEditorreviewlink("");
+                    rsli.setDeletelink("");
                 }
                 surveys.add(rsli);
             }

@@ -88,7 +88,7 @@ String acl = "sysadmin";
                 </tr>
                 <tr>
                     <td valign="top">
-                        <input type="submit" value="Add a Comment">
+                        <input type="submit" class="formsubmitbutton" value="Add a Comment">
                     </td>
                 </tr>
 

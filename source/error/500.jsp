@@ -20,9 +20,18 @@
 <blockquote><blockquote>
 <img src="/images/dneero-logo.jpg" alt=""/>
 <br/>
-<strong><font face=arial size=+1 color="#000000">We're sorry.  We must be updating the software at this time.  We're always trying to launch new features to make the site more powerful.  We apologize for the invconvenience.  Please try again soon.</font></strong>
+<strong><font face=arial size=+1 color="#666666">We're sorry.  We're either updating the software at this time or there's been some sort of catastrophic software error.</font></strong><br/>
+<font face=arial size=-1 color="#666666">We're always trying to launch new features to make the site more powerful and sometimes bugs slip out the door.  We apologize for the invconvenience.  Please try again soon.  A system administrator has been notified of this error.</font>
 </blockquote></blockquote>
 <br>
+<%
+if (1==1){
+    String errorAsString = ErrorDissect.dissect(exception);
+    %>
+        <blockquote><blockquote><%=errorAsString%></blockquote></blockquote>
+    <%
+}
+%>
 </body>
 </html>
 

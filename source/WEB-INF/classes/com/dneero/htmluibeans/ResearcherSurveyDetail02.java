@@ -65,7 +65,7 @@ public class ResearcherSurveyDetail02 implements Serializable {
     public String previousStep() throws ValidationException {
         String save = saveSurvey();
         if (save!=null){
-            Pagez.sendRedirect("/researcher/researchersurveydetail_01.jsp");
+            Pagez.sendRedirect("/researcher/researchersurveydetail_01.jsp?surveyid="+survey.getSurveyid());
             return "";
         } else {
             return save;
@@ -108,7 +108,7 @@ public class ResearcherSurveyDetail02 implements Serializable {
             }
         }
 
-        Pagez.sendRedirect("/researcher/researchersurveydetail_03.jsp");
+        Pagez.sendRedirect("/researcher/researchersurveydetail_03.jsp?surveyid="+survey.getSurveyid());
         return "";
     }
 
@@ -172,7 +172,7 @@ public class ResearcherSurveyDetail02 implements Serializable {
         //Refresh
         survey.refresh();
 
-        Pagez.sendRedirect("/researcher/researchersurveydetail_02.jsp");
+        Pagez.sendRedirect("/researcher/researchersurveydetail_02.jsp?surveyid="+survey.getSurveyid());
         return "";
     }
 

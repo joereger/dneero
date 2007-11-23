@@ -115,7 +115,7 @@ public class ResearcherSurveyDetail04 implements Serializable {
     public String previousStep(){
         String save = saveSurvey();
         if (save!=null){
-            Pagez.sendRedirect("/researcher/researchersurveydetail_03.jsp");
+            Pagez.sendRedirect("/researcher/researchersurveydetail_03.jsp?surveyid="+survey.getSurveyid());
             return "";
         } else {
             return save;
@@ -226,7 +226,7 @@ public class ResearcherSurveyDetail04 implements Serializable {
             }
 
         }
-        Pagez.sendRedirect("/researcher/researchersurveydetail_05.jsp");
+        Pagez.sendRedirect("/researcher/researchersurveydetail_05.jsp?surveyid="+survey.getSurveyid());
         return "";
     }
 

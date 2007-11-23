@@ -88,7 +88,7 @@ String acl = "blogger";
                             <td valign="top">
                             </td>
                             <td valign="top">
-                                <input type="submit" value="Invite Friends">
+                                <input type="submit" class="formsubmitbutton" value="Invite Friends">
                             </td>
                         </tr>
 

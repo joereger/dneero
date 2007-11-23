@@ -56,7 +56,7 @@ if (userSession == null || !userSession.getIsloggedin() || !Authorization.isUser
         }
         %>
     </select>
-    <input type="submit" value="Go">
+    <input type="submit" class="formsubmitbutton" value="Go">
 </form>
 <br><br>
 Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Quisque in ipsum. Donec nisl velit, vestibulum et, eleifend scelerisque, aliquam in, ligula. Phasellus sit amet nunc. Vestibulum pellentesque velit sit amet nunc. Aliquam id ante bibendum lectus vulputate cursus. Aenean lorem. Donec consequat sapien. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos hymenaeos. Nulla egestas. Cras sit amet risus. Suspendisse adipiscing tempus orci. Nunc ac nibh ut dolor bibendum feugiat. Suspendisse rutrum aliquet lorem. In id augue et turpis sollicitudin porta. Fusce sit amet ligula. Praesent auctor. Praesent ac metus non turpis lacinia suscipit. Integer molestie felis eu dolor. Aliquam eros. Vivamus a urna sed nibh pellentesque ornare.

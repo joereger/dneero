@@ -77,7 +77,7 @@ String acl = "researcher";
                                     -->
 
                                    <br/><br/>
-                                   <input type="submit" value="Preview Invite">
+                                   <input type="submit" class="formsubmitbutton" value="Preview Invite">
                             </div>
                         </td>
                         <td valign="top">

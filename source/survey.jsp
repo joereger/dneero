@@ -151,7 +151,7 @@ PublicSurvey publicSurvey = (PublicSurvey)Pagez.getBeanMgr().get("PublicSurvey")
                             </div>
                             <br/>
                             <center>
-                                <input type="submit" value="Complete the Survey">
+                                <input type="submit" class="formsubmitbutton" value="Complete the Survey">
                             </center>
                         </div>
                     <% } %>

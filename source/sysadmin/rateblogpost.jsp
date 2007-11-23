@@ -48,7 +48,7 @@ String acl = "sysadmin";
                                     <img src="/images/clear.gif" width="10" height="1"></img>
                                 </td>
                                 <td valign="top">
-                                    <input type="submit" value="Rate Post">
+                                    <input type="submit" class="formsubmitbutton" value="Rate Post">
                                     <br/>
                                     <font class="tinyfont"><%=sysadminRateBlogPost.getRemainingtoreview()%> posts remaining</font>
                                 </td>

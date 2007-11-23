@@ -54,7 +54,7 @@ SysadminEditEula sysadminEditEula = (SysadminEditEula)Pagez.getBeanMgr().get("Sy
                     <td valign="top">
                     </td>
                     <td valign="top">
-                        <input type="submit" value="Edit the EULA and Force All Users to Re-Accept">
+                        <input type="submit" class="formsubmitbutton" value="Edit the EULA and Force All Users to Re-Accept">
                     </td>
                 </tr>
 

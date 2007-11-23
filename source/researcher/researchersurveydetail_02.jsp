@@ -26,7 +26,7 @@ String acl="researcher";
 <%
     ResearcherSurveyDetail02 researcherSurveyDetail02=(ResearcherSurveyDetail02) Pagez.getBeanMgr().get("ResearcherSurveyDetail02");
     ResearcherSurveyQuestionList researcherSurveyQuestionList = (ResearcherSurveyQuestionList)Pagez.getBeanMgr().get("ResearcherSurveyQuestionList");
-    ComponentTypes componentTypes = (ComponentTypes)Pagez.getBeanMgr().get("ComponentTypes");
+    ComponentTypes componentTypes = new ComponentTypes();
 %>
 <%
     if (request.getParameter("action") != null && (request.getParameter("action").equals("next") || request.getParameter("action").equals("save") || request.getParameter("action").equals("previous"))) {
@@ -93,7 +93,7 @@ String acl="researcher";
             <img src="/images/clear.gif" width="700" height="1"/><br/>
 
             <%if (researcherSurveyQuestionList.getQuestions()==null || researcherSurveyQuestionList.getQuestions().size()==0){%>
-                <font class="normalfont">This survey contains no questions.</font>
+                <font class="normalfont">This survey contains no questions... you need to add one to continue.</font>
             <%} else {%>
                 <%
                     ArrayList<GridCol> cols=new ArrayList<GridCol>();
@@ -112,10 +112,10 @@ String acl="researcher";
 
 
             <%if (researcherSurveyDetail02.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {%>
+                <br/><br/>
+                <font class="mediumfont" style="color: #000000;">Add a Question of Type</font>
                 <br/>
-                <font class="mediumfont" style="color: #cccccc;">Add a Question of Type</font>
-                <br/>
-                <font class="mediumfont" style="color: #000000;">See tab at upper right for Question Type Samples</font>
+                <font class="smallfont" style="color: #000000;">See tab at upper right for Question Type Samples</font>
                 <br/>
                 <%
                     Iterator keyValuePairs=componentTypes.getTypes().entrySet().iterator();
@@ -178,13 +178,13 @@ String acl="researcher";
     <table cellpadding="0" cellspacing="0" border="0" width="100%">
         <tr>
             <td valign="top" align="left">
-                <input type="submit" value="Previous Step" onclick="document.rsdform.action.value='previous'">
+                <input type="submit" class="formsubmitbutton" value="Previous Step" onclick="document.rsdform.action.value='previous'">
             </td>
             <td valign="top" align="right">
                 <%if (researcherSurveyDetail02.getSurvey().getStatus()==Survey.STATUS_DRAFT) {%>
-                    <input type="submit" value="Save and Continue Later" onclick="document.rsdform.action.value='saveasdraft'">
+                    <input type="submit" class="formsubmitbutton" value="Save and Continue Later" onclick="document.rsdform.action.value='saveasdraft'">
                 <%}%>
-                <input type="submit" value="Next Step">
+                <input type="submit" class="formsubmitbutton" value="Next Step">
             </td>
         </tr>
     </table>

@@ -116,7 +116,7 @@ PublicSurveyDiscuss publicSurveyDiscuss = (PublicSurveyDiscuss)Pagez.getBeanMgr(
                     <td valign="top">
                     </td>
                     <td valign="top">
-                        <input type="submit" value="Post Comment">
+                        <input type="submit" class="formsubmitbutton" value="Post Comment">
                     </td>
                 </tr>
 

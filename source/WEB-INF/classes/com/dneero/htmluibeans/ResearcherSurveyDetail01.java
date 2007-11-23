@@ -41,6 +41,9 @@ public class ResearcherSurveyDetail01 implements Serializable {
             Pagez.getUserSession().setCurrentSurveyid(Integer.parseInt(Pagez.getRequest().getParameter("surveyid")));
             survey = Survey.get((Integer.parseInt(Pagez.getRequest().getParameter("surveyid"))));
         }
+        if (survey==null|| survey.getSurveyid()==0){
+            beginViewNewSurvey();
+        }
         if (survey!=null){
             logger.debug("Found survey in db: survey.getSurveyid()="+survey.getSurveyid()+" survey.getTitle()="+survey.getTitle());
             if (Pagez.getUserSession().getUser()!=null && survey.canEdit(Pagez.getUserSession().getUser())){
@@ -54,15 +57,19 @@ public class ResearcherSurveyDetail01 implements Serializable {
         }
     }
 
-    public String beginViewNewSurvey(){
+    public void beginViewNewSurvey(){
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("beginViewNewSurvey() called:");
         Pagez.getUserSession().setCurrentSurveyid(0);
+        survey = new Survey();
         title = "";
+        survey.setTitle(title);
         description = "";
+        survey.setDescription(description);
         startdate = Calendar.getInstance().getTime();
+        survey.setStartdate(startdate);
         enddate = Time.AddOneMonth(Calendar.getInstance()).getTime();
-        return "researchersurveydetail_01";
+        survey.setEnddate(enddate);
     }
 
 
@@ -156,7 +163,7 @@ public class ResearcherSurveyDetail01 implements Serializable {
 
         }
 
-        Pagez.sendRedirect("/researcher/researchersurveydetail_02.jsp");
+        Pagez.sendRedirect("/researcher/researchersurveydetail_02.jsp?surveyid="+survey.getSurveyid());
         return "";
     }
 

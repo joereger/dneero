@@ -202,7 +202,7 @@ String acl = "public";
                                                     </font>
                                                 <% } %>
                                                 <br/>
-                                                <font class="tinyfont" style="font-weight:bold; text-decoration: none;"><a href="bloggerimpressions.jsp?surveyid=<%=bloggerCompletedsurveysListitem.getSurveyid()%>"><%=bloggerCompletedsurveysListitem.getTotalimpressions()%></a> impressions</font>
+                                                <font class="tinyfont" style="font-weight:bold; text-decoration: none;"><a href="impressions.jsp?surveyid=<%=bloggerCompletedsurveysListitem.getSurveyid()%>"><%=bloggerCompletedsurveysListitem.getTotalimpressions()%></a> impressions</font>
                                             </td>
                                             <td valign="top" align="right">
                                                 <%=bloggerCompletedsurveysListitem.getResponse().getResponsestatushtml()%>

@@ -105,7 +105,7 @@ String acl = "public";
             <form action="profile.jsp" method="post">
                 <input type="hidden" name="action" value="add">
                 <%=com.dneero.htmlui.Dropdown.getHtml("panelid", String.valueOf(publicProfile.getPanelid()), publicProfile.getPanelids(), "", "")%>
-                <input type="submit" value="Add Blogger To Panel">
+                <input type="submit" class="formsubmitbutton" value="Add Blogger To Panel">
             </form>
         <%}%>
 

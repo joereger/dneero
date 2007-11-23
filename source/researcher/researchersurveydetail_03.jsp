@@ -148,7 +148,7 @@ ResearcherSurveyDetail03 researcherSurveyDetail03 = (ResearcherSurveyDetail03)Pa
                 <tr>
                     <td valign="top" width="75%">
                         <%if (researcherSurveyDetail03.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {%>
-                            <input type="submit" value="Reset" onclick="document.rsdform.action.value='resetformatting'">
+                            <input type="submit" class="formsubmitbutton" value="Reset" onclick="document.rsdform.action.value='resetformatting'">
                             <br/>
                             <%=Textarea.getHtml("template", researcherSurveyDetail03.getTemplate(), 15, 45, "", "")%>
                             <br/><br/>
@@ -181,8 +181,8 @@ ResearcherSurveyDetail03 researcherSurveyDetail03 = (ResearcherSurveyDetail03)Pa
                                     </td>
                                 </tr>
                             </table>
-                            <input type="submit" value="Reset" onclick="document.rsdform.action.value='resetformatting'">
-                            <input type="submit" value="Save Advanced Formatting" onclick="document.rsdform.action.value='savetemplate'">
+                            <input type="submit" class="formsubmitbutton" value="Reset" onclick="document.rsdform.action.value='resetformatting'">
+                            <input type="submit" class="formsubmitbutton" value="Save Advanced Formatting" onclick="document.rsdform.action.value='savetemplate'">
                         <%}%>
                     </td>
                     <td valign="top">
@@ -265,13 +265,13 @@ ResearcherSurveyDetail03 researcherSurveyDetail03 = (ResearcherSurveyDetail03)Pa
     <table cellpadding="0" cellspacing="0" border="0" width="100%">
         <tr>
             <td valign="top" align="left">
-                <input type="submit" value="Previous Step" onclick="document.rsdform.action.value='previous'">
+                <input type="submit" class="formsubmitbutton" value="Previous Step" onclick="document.rsdform.action.value='previous'">
             </td>
             <td valign="top" align="right">
                 <%if (researcherSurveyDetail03.getSurvey().getStatus()==Survey.STATUS_DRAFT) {%>
-                    <input type="submit" value="Save and Continue Later" onclick="document.rsdform.action.value='saveasdraft'">
+                    <input type="submit" class="formsubmitbutton" value="Save and Continue Later" onclick="document.rsdform.action.value='saveasdraft'">
                 <%}%>
-                <input type="submit" value="Next Step">
+                <input type="submit" class="formsubmitbutton" value="Next Step">
             </td>
         </tr>
     </table>

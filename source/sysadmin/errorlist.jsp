@@ -56,7 +56,7 @@ SysadminErrorList sysadminErrorList=(SysadminErrorList) Pagez.getBeanMgr().get("
         <form action="errorlist.jsp" method="post">
             <input type="hidden" name="action" value="refresh">
             <%=Dropdown.getHtml("minleveltoshow", String.valueOf(sysadminErrorList.getMinleveltoshow()), sysadminErrorList.getLevels(), "", "")%>
-            <input type="submit" value="Refresh">
+            <input type="submit" class="formsubmitbutton" value="Refresh">
         </form>
         <a href="errorlist.jsp?action=markallold"><font class="smallfont">Mark All Old</font></a>
         <a href="errorlist.jsp?action=deleteall"><font class="smallfont">Delete All</font></a>

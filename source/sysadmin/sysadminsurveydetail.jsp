@@ -207,7 +207,7 @@ String acl = "sysadmin";
                         <td valign="top">
                         </td>
                         <td valign="top">
-                            <input type="submit" value="Save">
+                            <input type="submit" class="formsubmitbutton" value="Save">
                         </td>
                     </tr>
                     <tr>

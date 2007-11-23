@@ -149,7 +149,7 @@ Registration registration = (Registration)Pagez.getBeanMgr().get("Registration")
                         </td>
                         <td valign="top">
                             <br/><br/>
-                            <input type="submit" value="Sign Up">
+                            <input type="submit" class="formsubmitbutton" value="Sign Up">
                         </td>
                     </tr>
 

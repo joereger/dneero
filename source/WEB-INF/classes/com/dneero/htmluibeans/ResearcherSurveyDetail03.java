@@ -92,7 +92,7 @@ public class ResearcherSurveyDetail03 implements Serializable {
     }
 
     public String previousStep(){
-        Pagez.sendRedirect("/researcher/researchersurveydetail_02.jsp");
+        Pagez.sendRedirect("/researcher/researchersurveydetail_02.jsp?surveyid="+survey.getSurveyid());
         return "";
     }
 
@@ -134,13 +134,13 @@ public class ResearcherSurveyDetail03 implements Serializable {
                 survey.refresh();
             }
         }
-        Pagez.sendRedirect("/researcher/researchersurveydetail_03.jsp");
+        Pagez.sendRedirect("/researcher/researchersurveydetail_03.jsp?surveyid="+survey.getSurveyid());
         return "";
     }
 
     public String continueToNext() throws ValidationException {
         if(saveSurvey()!=null){
-            Pagez.sendRedirect("/researcher/researchersurveydetail_04.jsp");
+            Pagez.sendRedirect("/researcher/researchersurveydetail_04.jsp?surveyid="+survey.getSurveyid());
             return "";
         }
         return null;

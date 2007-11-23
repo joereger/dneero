@@ -163,7 +163,7 @@ BloggerDetails bloggerDetails = (BloggerDetails)Pagez.getBeanMgr().get("BloggerD
                             <td valign="top">
                             </td>
                             <td valign="top">
-                               <input type="submit" value="Save Profile">
+                               <input type="submit" class="formsubmitbutton" value="Save Profile">
                             </td>
                         </tr>
 

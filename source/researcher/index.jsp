@@ -159,7 +159,7 @@ String acl = "public";
                         </div>
                         <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
                             <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-                                <a href="panels.jsp"><font class="mediumfont" style="color: #596697;">Start a New Survey</font></a>
+                                <a href="panels.jsp"><font class="mediumfont" style="color: #596697;">Panels</font></a>
                             </td></tr>
                             <tr><td valign="top"></td><td valign="top">
                                 <font class="smallfont">Create and manage standing panels of bloggers for longitudinal studies.</font>
@@ -167,7 +167,7 @@ String acl = "public";
 
                             <br/><br/>
                             <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-                                <a href="researcherdetails.jsp"><font class="mediumfont" style="color: #596697;">Start a New Survey</font></a>
+                                <a href="researcherdetails.jsp"><font class="mediumfont" style="color: #596697;">Update My Researcher Profile</font></a>
                              </td></tr>
                             <tr><td valign="top"></td><td valign="top">
                                 <font class="smallfont">Help us understand your needs so that we can serve you better.</font>
@@ -175,7 +175,7 @@ String acl = "public";
 
                             <br/><br/>
                             <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-                                <a href="researcherbilling.jsp"><font class="mediumfont" style="color: #596697;">Start a New Survey</font></a>
+                                <a href="researcherbilling.jsp"><font class="mediumfont" style="color: #596697;">Billing Info</font></a>
                             </td></tr>
                             <tr><td valign="top"></td><td valign="top">
                                 <font class="smallfont">Update your billing information on this screen.</font>
@@ -184,7 +184,7 @@ String acl = "public";
 
                             <br/><br/>
                             <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-                                <a href="researcherfaq.jsp"><font class="mediumfont" style="color: #596697;">Start a New Survey</font></a>
+                                <a href="researcherfaq.jsp"><font class="mediumfont" style="color: #596697;">Researcher Frequently Asked Questions</font></a>
                             </td></tr>
                             <tr><td valign="top"></td><td valign="top">
                                 <font class="smallfont">Get your answers here!</font>
@@ -192,7 +192,7 @@ String acl = "public";
 
                             <br/><br/>
                             <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-                                <a href="index.jsp?showmarketingmaterial=1"><font class="mediumfont" style="color: #596697;">Start a New Survey</font></a>
+                                <a href="index.jsp?showmarketingmaterial=1"><font class="mediumfont" style="color: #596697;">Researcher Basic Info</font></a>
                             </td></tr>
                             <tr><td valign="top"></td><td valign="top">
                                 <font class="smallfont">Basic Researcher information, how the system works, etc.</font>

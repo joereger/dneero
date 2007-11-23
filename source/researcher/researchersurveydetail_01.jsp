@@ -52,56 +52,59 @@ ResearcherSurveyDetail01 researcherSurveyDetail01 = (ResearcherSurveyDetail01)Pa
         <br/><br/>
 
         <table cellpadding="0" cellspacing="0" border="0">
-
-            <td valign="top">
-                <font class="formfieldnamefont">Survey Title</font>
-            </td>
-            <td valign="top">
-                <%if (researcherSurveyDetail01.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {%>
-                    <%=Textbox.getHtml("title", researcherSurveyDetail01.getTitle(), 255, 50, "", "")%>
-                <%} else {%>
-                    <font class="smallfont"><%=researcherSurveyDetail01.getTitle()%></font>
-                <%}%>
-            </td>
-
-
-
-
-            <td valign="top">
-                <font class="formfieldnamefont">Description</font>
-            </td>
-            <td valign="top">
-                <%if (researcherSurveyDetail01.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {%>
-                    <%=Textarea.getHtml("description", researcherSurveyDetail01.getDescription(), 3, 45, "", "")%>
-                <%} else {%>
-                    <font class="normalfont"><%=researcherSurveyDetail01.getDescription()%></font>
-                <%}%>
-            </td>
+            <tr>
+                <td valign="top">
+                    <font class="formfieldnamefont">Survey Title</font>
+                </td>
+                <td valign="top">
+                    <%if (researcherSurveyDetail01.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {%>
+                        <%=Textbox.getHtml("title", researcherSurveyDetail01.getTitle(), 255, 50, "", "")%>
+                    <%} else {%>
+                        <font class="smallfont"><%=researcherSurveyDetail01.getTitle()%></font>
+                    <%}%>
+                </td>
+            </tr>
 
 
 
-            <td valign="top">
-                <font class="formfieldnamefont">Start Date</font>
-            </td>
-            <td valign="top">
-                <%if (researcherSurveyDetail01.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {%>
-                    <%=DateTime.getHtml("startdate", Time.getCalFromDate(researcherSurveyDetail01.getStartdate()), "", "")%>
-                <%} else {%>
-                    <font class="normalfont"><%=Time.dateformatcompactwithtime(Time.getCalFromDate(researcherSurveyDetail01.getStartdate()))%></font>
-                <%}%>
-            </td>
+            <tr>
+                <td valign="top">
+                    <font class="formfieldnamefont">Description</font>
+                </td>
+                <td valign="top">
+                    <%if (researcherSurveyDetail01.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {%>
+                        <%=Textarea.getHtml("description", researcherSurveyDetail01.getDescription(), 3, 45, "", "")%>
+                    <%} else {%>
+                        <font class="normalfont"><%=researcherSurveyDetail01.getDescription()%></font>
+                    <%}%>
+                </td>
+            </tr>
 
+            <tr>
+                <td valign="top">
+                    <font class="formfieldnamefont">Start Date</font>
+                </td>
+                <td valign="top">
+                    <%if (researcherSurveyDetail01.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {%>
+                        <%=DateTime.getHtml("startdate", Time.getCalFromDate(researcherSurveyDetail01.getStartdate()), "", "")%>
+                    <%} else {%>
+                        <font class="normalfont"><%=Time.dateformatcompactwithtime(Time.getCalFromDate(researcherSurveyDetail01.getStartdate()))%></font>
+                    <%}%>
+                </td>
+            </tr>
 
-            <td valign="top">
-                <font class="formfieldnamefont">End Date</font>
-            </td>
-            <td valign="top">
-                <%if (researcherSurveyDetail01.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {%>
-                    <%=DateTime.getHtml("enddate", Time.getCalFromDate(researcherSurveyDetail01.getEnddate()), "", "")%>
-                <%} else {%>
-                    <font class="normalfont"><%=Time.dateformatcompactwithtime(Time.getCalFromDate(researcherSurveyDetail01.getEnddate()))%></font>
-                <%}%>
-            </td>
+            <tr>
+                <td valign="top">
+                    <font class="formfieldnamefont">End Date</font>
+                </td>
+                <td valign="top">
+                    <%if (researcherSurveyDetail01.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {%>
+                        <%=DateTime.getHtml("enddate", Time.getCalFromDate(researcherSurveyDetail01.getEnddate()), "", "")%>
+                    <%} else {%>
+                        <font class="normalfont"><%=Time.dateformatcompactwithtime(Time.getCalFromDate(researcherSurveyDetail01.getEnddate()))%></font>
+                    <%}%>
+                </td>
+            </tr>
 
         </table>
         
@@ -110,13 +113,13 @@ ResearcherSurveyDetail01 researcherSurveyDetail01 = (ResearcherSurveyDetail01)Pa
         <table cellpadding="0" cellspacing="0" border="0" width="100%">
             <tr>
                 <td valign="top" align="left">
-                    <input type="submit" value="Previous" onclick="document.rsdform.action.value='previous'">
+                    <input type="submit" class="formsubmitbutton" value="Previous" onclick="document.rsdform.action.value='previous'">
                 </td>
                 <td valign="top" align="right">
                     <%if (researcherSurveyDetail01.getSurvey().getStatus()==Survey.STATUS_DRAFT) {%>
-                        <input type="submit" value="Save and Continue Later" onclick="document.rsdform.action.value='saveasdraft'">
+                        <input type="submit" class="formsubmitbutton" value="Save and Continue Later" onclick="document.rsdform.action.value='saveasdraft'">
                     <%}%>
-                    <input type="submit" value="Next Step">
+                    <input type="submit" class="formsubmitbutton" value="Next Step">
                 </td>
             </tr>
         </table>

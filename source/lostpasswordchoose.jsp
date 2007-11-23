@@ -74,7 +74,7 @@ LostPasswordChoose lostPasswordChoose=(LostPasswordChoose) Pagez.getBeanMgr().ge
                 <td valign="top">
                 </td>
                 <td valign="top">
-                    <input type="submit" value="Reset Password">
+                    <input type="submit" class="formsubmitbutton" value="Reset Password">
                 </td>
             <tr>
 

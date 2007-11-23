@@ -123,20 +123,20 @@ SysadminMassemailDetail sysadminMassemailDetail = (SysadminMassemailDetail)Pagez
                     </td>
                 </tr>
              </table>
-             <input type="submit" value="Save and Preview"><br/>
-             <input type="submit" value="Send" onclick="document.rsdform.action.value='send'">
+             <input type="submit" class="formsubmitbutton" value="Save and Preview"><br/>
+             <input type="submit" class="formsubmitbutton" value="Send" onclick="document.rsdform.action.value='send'">
 
 
             <br/><br/>
             <font class="formfieldnamefont">Test-send to this email address:</font>
             <br/>
             <%=Textbox.getHtml("testsendemailaddress", sysadminMassemailDetail.getTestsendemailaddress(), 255, 35, "", "")%>
-            <input type="submit" value="Test Send" onclick="document.rsdform.action.value='testsend'">
+            <input type="submit" class="formsubmitbutton" value="Test Send" onclick="document.rsdform.action.value='testsend'">
 
             <br/><br/>
             <font class="formfieldnamefont">Create a copy of this Mass Email:</font>
             <br/>
-            <input type="submit" value="Copy" onclick="document.rsdform.action.value='copy'">
+            <input type="submit" class="formsubmitbutton" value="Copy" onclick="document.rsdform.action.value='copy'">
 
         </form>
         <br/><br/>

@@ -102,39 +102,39 @@
         <tr>
             <td bgcolor="#dadada" style="text-align: left; vertical-align: middle;" colspan="6" height="25">
                 <%if (navtab.equals("home")){%>
-                    <a href="/publicsurveylist.jsp"><font class="subnavfont" style="padding-left: 15px; color: #000000;">Current Surveys</font></a>
-                    <a href="/publicoldsurveylist.jsp"><font class="subnavfont" style="padding-left: 15px; color: #000000;">Old Surveys</font></a>
-                    <a href="/blog.jsp"><font class="subnavfont" style="padding-left: 15px; color: #000000;">The dNeero Blog</font></a>
-                    <a href="/charity.jsp"><font class="subnavfont" style="padding-left: 15px; color: #000000;">Charity</font></a>
-                    <%if (Pagez.getUserSession().getIsloggedin()){%><a href="/registration.jsp"><font class="subnavfont" style="padding-left: 15px; color: #000000;">Sign Up</font></a><%}%>
-                    <%if (Pagez.getUserSession().getIsloggedin()){%><a href="/login.jsp"><font class="subnavfont" style="padding-left: 15px; color: #000000;">Log In</font></a><%}%>
+                    <a href="/publicsurveylist.jsp"><font class="subnavfont" style="color: #000000;">Current Surveys</font></a>
+                    <a href="/publicoldsurveylist.jsp"><font class="subnavfont" style="color: #000000;">Old Surveys</font></a>
+                    <a href="/blog.jsp"><font class="subnavfont" style="color: #000000;">The dNeero Blog</font></a>
+                    <a href="/charity.jsp"><font class="subnavfont" style="color: #000000;">Charity</font></a>
+                    <%if (!Pagez.getUserSession().getIsloggedin()){%><a href="/registration.jsp"><font class="subnavfont" style="color: #000000;">Sign Up</font></a><%}%>
+                    <%if (!Pagez.getUserSession().getIsloggedin()){%><a href="/login.jsp"><font class="subnavfont" style="color: #000000;">Log In</font></a><%}%>
                 <%}%>
                 <%if (navtab.equals("bloggers")){%>
                     <%if (Pagez.getUserSession().getIsloggedin() && Pagez.getUserSession().getUser().getBloggerid()>0){%>
-                        <a href="/publicsurveylist.jsp"><font class="subnavfont" style="padding-left: 15px; color: #000000;">Find Surveys</font></a>
-                        <a href="/blogger/bloggerearningsrevshare.jsp"><font class="subnavfont" style="padding-left: 15px; color: #000000;">Earn Even More</font></a>
-                        <a href="/blogger/index.jsp"><font class="subnavfont" style="padding-left: 15px; color: #000000;">Earnings from Completed Surveys</font></a>
-                        <a href="/blogger/bloggerdetails.jsp"><font class="subnavfont" style="padding-left: 15px; color: #000000;">Blogger Profile</font></a>
+                        <a href="/publicsurveylist.jsp"><font class="subnavfont" style="color: #000000;">Find Surveys</font></a>
+                        <a href="/blogger/bloggerearningsrevshare.jsp"><font class="subnavfont" style="color: #000000;">Earn Even More</font></a>
+                        <a href="/blogger/index.jsp"><font class="subnavfont" style="color: #000000;">Earnings from Completed Surveys</font></a>
+                        <a href="/blogger/bloggerdetails.jsp"><font class="subnavfont" style="color: #000000;">Blogger Profile</font></a>
                     <%}%>
-                    <a href="/blogger/bloggerfaq.jsp"><font class="subnavfont" style="padding-left: 15px; color: #000000;">Blogger FAQ</font></a>
-                    <a href="/blogger/index.jsp?showmarketingmaterial=1"><font class="subnavfont" style="padding-left: 15px; color: #000000;">Blogger Basics</font></a>
+                    <a href="/blogger/bloggerfaq.jsp"><font class="subnavfont" style="color: #000000;">Blogger FAQ</font></a>
+                    <a href="/blogger/index.jsp?showmarketingmaterial=1"><font class="subnavfont" style="color: #000000;">Blogger Basics</font></a>
                 <%}%>
                 <%if (navtab.equals("researchers")){%>
                     <%if (Pagez.getUserSession().getIsloggedin() && Pagez.getUserSession().getUser().getResearcherid()>0){%>
-                        <a href="/researcher/index.jsp"><font class="subnavfont" style="padding-left: 15px; color: #000000;">My Surveys</font></a>
-                        <a href="/researcher/panels.jsp"><font class="subnavfont" style="padding-left: 15px; color: #000000;">Panels</font></a>
-                        <a href="/researcher/researcherdetails.jsp"><font class="subnavfont" style="padding-left: 15px; color: #000000;">Researcher Details</font></a>
-                        <a href="/researcher/researcherbilling.jsp"><font class="subnavfont" style="padding-left: 15px; color: #000000;">Billing</font></a>
+                        <a href="/researcher/index.jsp"><font class="subnavfont" style="color: #000000;">My Surveys</font></a>
+                        <a href="/researcher/panels.jsp"><font class="subnavfont" style="color: #000000;">Panels</font></a>
+                        <a href="/researcher/researcherdetails.jsp"><font class="subnavfont" style="color: #000000;">Researcher Details</font></a>
+                        <a href="/researcher/researcherbilling.jsp"><font class="subnavfont" style="color: #000000;">Billing</font></a>
                     <%}%>
-                    <a href="/researcher/researcherfaq.jsp"><font class="subnavfont" style="padding-left: 15px; color: #000000;">Researcher FAQ</font></a>
-                    <a href="/researcher/index.jsp?showmarketingmaterial=1"><font class="subnavfont" style="padding-left: 15px; color: #000000;">Researcher Basics</font></a>
+                    <a href="/researcher/researcherfaq.jsp"><font class="subnavfont" style="color: #000000;">Researcher FAQ</font></a>
+                    <a href="/researcher/index.jsp?showmarketingmaterial=1"><font class="subnavfont" style="color: #000000;">Researcher Basics</font></a>
                 <%}%>
                 <%if (navtab.equals("youraccount")){%>
                     <%if (Pagez.getUserSession().getIsloggedin()){%>
-                        <a href="/account/accountbalance.jsp"><font class="subnavfont" style="padding-left: 15px; color: #000000;">Account Balance</font></a>
-                        <a href="/account/accountsettings.jsp"><font class="subnavfont" style="padding-left: 15px; color: #000000;">Account Settings</font></a>
-                        <a href="/account/changepassword.jsp"><font class="subnavfont" style="padding-left: 15px; color: #000000;">Change Password</font></a>
-                        <a href="/account/accountsupportissueslist.jsp"><font class="subnavfont" style="padding-left: 15px; color: #000000;">Help/Support</font></a>
+                        <a href="/account/accountbalance.jsp"><font class="subnavfont" style="color: #000000;">Account Balance</font></a>
+                        <a href="/account/accountsettings.jsp"><font class="subnavfont" style="color: #000000;">Account Settings</font></a>
+                        <a href="/account/changepassword.jsp"><font class="subnavfont" style="color: #000000;">Change Password</font></a>
+                        <a href="/account/accountsupportissueslist.jsp"><font class="subnavfont" style="color: #000000;">Help/Support</font></a>
                     <%}%>
                 <%}%>
                 <%if (navtab.equals("sysadmin")){%>

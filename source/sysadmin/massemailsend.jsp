@@ -36,7 +36,7 @@ SysadminMassemailSend sysadminMassemailSend = (SysadminMassemailSend)Pagez.getBe
         <br/>
         <%=TextboxSecret.getHtml("password", sysadminMassemailSend.getPassword(), 255, 20, "", "")%>
         <br/>
-        <input type="submit" value="Send this Mass Email">
+        <input type="submit" class="formsubmitbutton" value="Send this Mass Email">
 
     </form>
 

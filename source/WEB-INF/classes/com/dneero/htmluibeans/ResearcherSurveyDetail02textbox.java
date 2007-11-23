@@ -120,7 +120,7 @@ public class ResearcherSurveyDetail02textbox implements Serializable {
             survey.refresh();
         }
 
-        Pagez.sendRedirect("/researcher/researchersurveydetail_02.jsp");
+        Pagez.sendRedirect("/researcher/researchersurveydetail_02.jsp?surveyid="+survey.getSurveyid());
         return "";
     }
 

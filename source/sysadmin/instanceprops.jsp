@@ -138,7 +138,7 @@ SysadminInstanceProps sysadminInstanceProps = (SysadminInstanceProps)Pagez.getBe
                 </td>
                 <td valign="top">
                     <br/><br/>
-                    <input type="submit" value="Save Instance Props">
+                    <input type="submit" class="formsubmitbutton" value="Save Instance Props">
                 </td>
             </tr>
 
