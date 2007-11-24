@@ -201,7 +201,7 @@ String acl = "public";
                     </div>
                 </td>
                 <td valign="top">
-                    <h:outputText value="Surveys You've Created" styleClass="largefont" style="color: #cccccc;" escape="false"/>
+                    <font class="largefont" style="color: #cccccc;">Surveys You've Created</font>
                     <%if (researcherSurveyList.getSurveys()==null || researcherSurveyList.getSurveys().size()==0){%>
                         <font class="normalfont">You have not yet created any surveys. <a href="researchersurveydetail_01.jsp">Start a New Survey</a>.</font>
                     <%} else {%>

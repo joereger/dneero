@@ -79,7 +79,6 @@ SysadminMassemailDetail sysadminMassemailDetail = (SysadminMassemailDetail)Pagez
                     </td>
                     <td valign="top">
                         <%=Textbox.getHtml("subject", sysadminMassemailDetail.getMassemail().getSubject(), 255, 35, "", "")%>
-                        <h:inputText value="<%=sysadminMassemailDetail.getMassemail().getSubject()%>" id="subject" required="true" size="60" maxlength="200"></h:inputText>
                     </td>
                 </tr>
                 <tr>

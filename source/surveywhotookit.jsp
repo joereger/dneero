@@ -20,8 +20,6 @@ PublicSurveyWhotookit publicSurveyWhotookit = (PublicSurveyWhotookit)Pagez.getBe
 
     <font class="smallfont"><%=publicSurveyWhotookit.getSurvey().getDescription()%></font><br/><br/><br/>
 
-    <h:messages styleClass="RED"/>
-
     <div id="csstabs">
       <ul>
         <li><a href="/survey.jsp?surveyid=<%=publicSurveyWhotookit.getSurvey().getSurveyid()%>" title="Questions"><span>Questions</span></a></li>

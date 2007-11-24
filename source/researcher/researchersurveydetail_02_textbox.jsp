@@ -60,18 +60,16 @@ ResearcherSurveyDetail02textbox researcherSurveyDetail02textbox = (ResearcherSur
 
             <tr>
                 <td valign="top">
-                    <h:outputText value="Question" styleClass="formfieldnamefont"></h:outputText>
+                    <font class="formfieldnamefont">Question</font>
                 </td>
                 <td valign="top">
-                    <h:inputText value="<%=researcherSurveyDetail02textbox.getQuestion()%>" id="question" required="true">
-                        <f:validateLength minimum="3" maximum="254"></f:validateLength>
-                    </h:inputText>
+                    <%=Textbox.getHtml("question", researcherSurveyDetail02textbox.getQuestion(), 255, 35, "", "")%>
                 </td>
             </tr>
 
             <tr>
                 <td valign="top">
-                    <h:outputText value="Is Required?" styleClass="formfieldnamefont"></h:outputText>
+                    <font class="formfieldnamefont">Is Required?</font>
                 </td>
                 <td valign="top">
                     <%=CheckboxBoolean.getHtml("isrequired", researcherSurveyDetail02textbox.getIsrequired(), "", "")%>

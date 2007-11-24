@@ -78,7 +78,7 @@ AccountSettings accountSettings = (AccountSettings) Pagez.getBeanMgr().get("Acco
                         <font class="tinyfont">Password changes are handled on a separate screen.</font>
                     </td>
                     <td valign="top">
-                        <h:commandLink value="Change Password" action="changepassword"/>
+                        <a href="changepassword.jsp"><font class="smallfont">Change Password</font></a>
                     </td>
                 </tr>
 

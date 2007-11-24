@@ -21,6 +21,7 @@ SysadminBlogpost sysadminBlogpost = (SysadminBlogpost)Pagez.getBeanMgr().get("Sy
             sysadminBlogpost.setBody(Textarea.getValueFromRequest("body", "Body", true));
             sysadminBlogpost.setTitle(Textbox.getValueFromRequest("title", "Title", true, DatatypeString.DATATYPEID));
             sysadminBlogpost.setCategories(Textbox.getValueFromRequest("categories", "Categories", false, DatatypeString.DATATYPEID));
+            sysadminBlogpost.setDate(DateTime.getValueFromRequest("date", "Date", true).getTime());
             sysadminBlogpost.save();
         } catch (ValidationException vex) {
             Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
@@ -48,7 +49,7 @@ SysadminBlogpost sysadminBlogpost = (SysadminBlogpost)Pagez.getBeanMgr().get("Sy
                     <font class="formfieldnamefont">Date</font>
                 </td>
                 <td valign="top">
-                    <t:inputDate value="<%=sysadminBlogpost.getDate()%>" type="both" popupCalendar="true" id="date" required="true"></t:inputDate>
+                    <%=DateTime.getHtml("date", sysadminBlogpost.getDate(), "", "")%>
                 </td>
             </tr>
 
@@ -57,7 +58,7 @@ SysadminBlogpost sysadminBlogpost = (SysadminBlogpost)Pagez.getBeanMgr().get("Sy
                     <font class="formfieldnamefont">Author</font>
                 </td>
                 <td valign="top">
-                    <h:inputText value="<%=sysadminBlogpost.getAuthor()%>" size="45" id="author" required="true"></h:inputText>
+                    <%=Textbox.getHtml("author", sysadminBlogpost.getAuthor(), 255, 35, "", "")%>
                 </td>
             </tr>
 
@@ -66,7 +67,7 @@ SysadminBlogpost sysadminBlogpost = (SysadminBlogpost)Pagez.getBeanMgr().get("Sy
                     <font class="formfieldnamefont">Title</font>
                 </td>
                 <td valign="top">
-                    <h:inputText value="<%=sysadminBlogpost.getTitle()%>" size="75" id="title" required="true"></h:inputText>
+                    <%=Textbox.getHtml("title", sysadminBlogpost.getTitle(), 255, 35, "", "")%>
                 </td>
             </tr>
 
@@ -75,7 +76,7 @@ SysadminBlogpost sysadminBlogpost = (SysadminBlogpost)Pagez.getBeanMgr().get("Sy
                     <font class="formfieldnamefont">Body</font>
                 </td>
                 <td valign="top">
-                    <h:inputTextarea value="<%=sysadminBlogpost.getBody()%>" id="body" required="true" cols="75" rows="10"></h:inputTextarea>
+                    <%=Textarea.getHtml("body", sysadminBlogpost.getBody(), 10, 75, "", "")%>
                 </td>
             </tr>
 
@@ -86,7 +87,7 @@ SysadminBlogpost sysadminBlogpost = (SysadminBlogpost)Pagez.getBeanMgr().get("Sy
                     <font class="smallfont">(comma-separated)</font>
                 </td>
                 <td valign="top">
-                    <h:inputText value="<%=sysadminBlogpost.getCategories()%>" size="75" maxlength="250" id="categories" required="false"></h:inputText>
+                    <%=Textbox.getHtml("categories", sysadminBlogpost.getCategories(), 255, 35, "", "")%>
                 </td>
             </tr>
 

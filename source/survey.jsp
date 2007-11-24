@@ -19,7 +19,6 @@ PublicSurvey publicSurvey = (PublicSurvey)Pagez.getBeanMgr().get("PublicSurvey")
 
     <font class="smallfont"><%=publicSurvey.getSurvey().getDescription()%></font><br/><br/><br/>
 
-    <h:messages styleClass="RED"/>
 
     <div id="csstabs">
       <ul>
@@ -53,8 +52,6 @@ PublicSurvey publicSurvey = (PublicSurvey)Pagez.getBeanMgr().get("PublicSurvey")
         <img src="/images/alert.png" align="left"/>
         There were errors with your response:
         <br/><br/>
-        <h:messages styleClass="RED"/>
-        <br/><br/>
         Use your browser's back button, correct these errors and re-submit.  Thanks.
         </font></div></center>
     <%}%>
@@ -85,7 +82,7 @@ PublicSurvey publicSurvey = (PublicSurvey)Pagez.getBeanMgr().get("PublicSurvey")
                             <div class="rounded" style="background: #ffffff; text-align: center;">
                                 <font class="mediumfont" style="font-weight: bold; color: #666666;">Take this survey to earn up to</font>
                                 <br/>
-                                <h:outputText value="<%=publicSurvey.getSurveyEnhancer().getMinearning()%>" styleClass="largefont" style="font-size: 30px; color: #666666;"/>
+                                <font class="largefont" style="font-size: 30px; color: #666666;"><%=publicSurvey.getSurveyEnhancer().getMinearning()%></font>
                                 <% if (publicSurvey.getSurveytakergavetocharity() || publicSurvey.getSurvey().getIscharityonly()){ %>
                                     <br/>
                                     <font class="mediumfont" style="font-weight: bold; color: #666666;">for charity</font>
@@ -209,7 +206,7 @@ PublicSurvey publicSurvey = (PublicSurvey)Pagez.getBeanMgr().get("PublicSurvey")
                                 <% } %>
                                 <% if (publicSurvey.getLoggedinuserhasalreadytakensurvey()){ %>
                                     <font class="mediumfont">You've already earned</font>
-                                    <h:outputText value="You've already earned" styleClass="mediumfont"/>
+                                    <font class="mediumfont">You've already earned</font>
                                     <br/>
                                     <font class="tinyfont">(pending posting verification)</font>
                                     <br/>

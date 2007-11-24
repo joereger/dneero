@@ -60,18 +60,16 @@ ResearcherSurveyDetail02checkboxes researcherSurveyDetail02checkboxes = (Researc
 
              <tr>
                 <td valign="top">
-                    <h:outputText value="Question" styleClass="formfieldnamefont"></h:outputText>
+                    <font class="formfieldnamefont">Question</font>
                 </td>
                 <td valign="top">
-                    <h:inputText value="<%=researcherSurveyDetail02checkboxes.getQuestion()%>" id="question" required="true">
-                        <f:validateLength minimum="3" maximum="254"></f:validateLength>
-                    </h:inputText>
+                    <%=Textbox.getHtml("question", researcherSurveyDetail02checkboxes.getQuestion(), 255, 35, "", "")%>
                 </td>
             </tr>
 
              <tr>
                 <td valign="top">
-                    <h:outputText value="Is Required?" styleClass="formfieldnamefont"></h:outputText>
+                    <font class="formfieldnamefont">Is Required?</font>
                 </td>
                 <td valign="top">
                     <%=CheckboxBoolean.getHtml("isrequired", researcherSurveyDetail02checkboxes.getIsrequired(), "", "")%>
@@ -80,7 +78,7 @@ ResearcherSurveyDetail02checkboxes researcherSurveyDetail02checkboxes = (Researc
 
             <tr>
                 <td valign="top">
-                    <h:outputText value="Options" styleClass="formfieldnamefont"></h:outputText>
+                    <font class="formfieldnamefont">Options</font>
                 </td>
                 <td valign="top">
                     <font class="smallfont">One option per line.</font><br/>

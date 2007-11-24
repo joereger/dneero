@@ -2,6 +2,7 @@
 <%@ page import="com.dneero.htmluibeans.ResearcherResults" %>
 <%@ page import="com.dneero.dao.Survey" %>
 <%@ page import="com.dneero.htmlui.*" %>
+<%@ page import="com.dneero.util.Str" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "Survey Results";
@@ -83,7 +84,7 @@ String acl = "researcher";
                 <div class="rounded" style="background: #88c99d; text-align: left; padding: 20px;">
                     <a href="results_financial.jsp"><font class="normalfont">Financial Status</font></a>
                     <br/>
-                    <font class="largefont">$<h:outputText value="<%=researcherResults.getSpenttodate()%>" styleClass="largefont"><f:converter converterId="DisplayAsMoneyConverter"/></h:outputText></font>
+                    <font class="largefont">$<font class="largefont"><%=Str.formatForMoney(researcherResults.getSpenttodate())%></font></font>
                     <br/>
                     <font class="smallfont">Has Been Spent to Date</font>
                 </div>

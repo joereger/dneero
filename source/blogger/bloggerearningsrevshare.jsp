@@ -122,23 +122,23 @@ String acl = "blogger";
                     <br/>
                     <table cellpadding="0" cellspacing="0" border="0">
 
-                        <td valign="top"><h:outputText value=" "></h:outputText></td>
-                        <td valign="top"><h:outputText value="You Earn" styleClass="mediumfont"></h:outputText></td>
+                        <td valign="top"> </td>
+                        <td valign="top"><font class="mediumfont">You Earn</font></td>
 
-                        <td valign="top"><h:outputText value="1st Level" styleClass="mediumfont"></h:outputText></td>
-                        <td valign="top"><h:outputText value="<%=bloggerEarningsRevshare.getLevel1percent()%> %"></h:outputText></td>
+                        <td valign="top"><font class="mediumfont">1st Level</font></td>
+                        <td valign="top"><font class="normalfont"><%=bloggerEarningsRevshare.getLevel1percent()%> %</font></td>
 
-                        <td valign="top"><h:outputText value="2nd Level" styleClass="mediumfont"></h:outputText></td>
-                        <td valign="top"><h:outputText value="<%=bloggerEarningsRevshare.getLevel2percent()%> %"></h:outputText></td>
+                        <td valign="top"><font class="mediumfont">2nd Level</font></td>
+                        <td valign="top"><font class="normalfont"><%=bloggerEarningsRevshare.getLevel2percent()%> %</font></td>
 
-                        <td valign="top"><h:outputText value="3rd Level" styleClass="mediumfont"></h:outputText></td>
-                        <td valign="top"><h:outputText value="<%=bloggerEarningsRevshare.getLevel3percent()%> %"></h:outputText></td>
+                        <td valign="top"><font class="mediumfont">3rd Level</font></td>
+                        <td valign="top"><font class="normalfont"><%=bloggerEarningsRevshare.getLevel3percent()%> %</font></td>
 
-                        <td valign="top"><h:outputText value="4th Level" styleClass="mediumfont"></h:outputText></td>
-                        <td valign="top"><h:outputText value="<%=bloggerEarningsRevshare.getLevel4percent()%> %"></h:outputText></td>
+                        <td valign="top"><font class="mediumfont">4th Level</font></td>
+                        <td valign="top"><font class="normalfont"><%=bloggerEarningsRevshare.getLevel4percent()%> %</font></td>
 
-                        <td valign="top"><h:outputText value="5th Level" styleClass="mediumfont"></h:outputText></td>
-                        <td valign="top"><h:outputText value="<%=bloggerEarningsRevshare.getLevel5percent()%> %"></h:outputText></td>
+                        <td valign="top"><font class="mediumfont">5th Level</font></td>
+                        <td valign="top"><font class="normalfont"><%=bloggerEarningsRevshare.getLevel5percent()%> %</font></td>
 
                      </table>
                  </div>

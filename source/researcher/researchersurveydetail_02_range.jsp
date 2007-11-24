@@ -63,18 +63,16 @@ ResearcherSurveyDetail02range researcherSurveyDetail02range = (ResearcherSurveyD
 
             <tr>
                 <td valign="top">
-                    <h:outputText value="Question" styleClass="formfieldnamefont"></h:outputText>
+                    <font class="formfieldnamefont">Question</font>
                 </td>
                 <td valign="top">
-                    <h:inputText value="<%=researcherSurveyDetail02range.getQuestion()%>" id="question" required="true">
-                        <f:validateLength minimum="3" maximum="254"></f:validateLength>
-                    </h:inputText>
+                    <%=Textbox.getHtml("question", researcherSurveyDetail02range.getQuestion(), 255, 35, "", "")%>
                 </td>
             </tr>
 
             <tr>
                 <td valign="top">
-                    <h:outputText value="Is Required?" styleClass="formfieldnamefont"></h:outputText>
+                    <font class="formfieldnamefont">Is Required?</font>
                 </td>
                 <td valign="top">
                     <%=CheckboxBoolean.getHtml("isrequired", researcherSurveyDetail02range.getIsrequired(), "", "")%>
@@ -87,19 +85,19 @@ ResearcherSurveyDetail02range researcherSurveyDetail02range = (ResearcherSurveyD
         <table cellpadding="0" cellspacing="0" border="0">
             <tr>
                 <td valign="top">
-                    <h:outputText value="Min Title" styleClass="formfieldnamefont"></h:outputText>
+                    <font class="formfieldnamefont">Min Title</font>
                 </td>
                 <td valign="top">
-                    <h:outputText value="Min" styleClass="formfieldnamefont"></h:outputText>
+                    <font class="formfieldnamefont">Min</font>
                 </td>
                 <td valign="top">
-                    <h:outputText value="Step" styleClass="formfieldnamefont"></h:outputText>
+                    <font class="formfieldnamefont">Step</font>
                 </td>
                 <td valign="top">
-                    <h:outputText value="Max" styleClass="formfieldnamefont"></h:outputText>
+                    <font class="formfieldnamefont">Max</font>
                 </td>
                 <td valign="top">
-                    <h:outputText value="Max Title" styleClass="formfieldnamefont"></h:outputText>
+                    <font class="formfieldnamefont">Max Title</font>
                 </td>
             </tr>
 

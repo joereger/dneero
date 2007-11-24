@@ -79,11 +79,6 @@ String acl = "sysadmin";
                             options.put("2", "Closed");
                         %>
                         <br/><%=Dropdown.getHtml("status", String.valueOf(sysadminSupportIssueDetail.getStatus()), options, "", "")%>
-                        <h:selectOneMenu value="<%=sysadminSupportIssueDetail.getStatus()%>" id="status" required="true">
-                            <f:selectItem  itemValue="0" itemLabel="Open"></f:selectItem>
-                            <f:selectItem  itemValue="1" itemLabel="Working"></f:selectItem>
-                            <f:selectItem  itemValue="2" itemLabel="Closed"></f:selectItem>
-                        </h:selectOneMenu>
                     </td>
                 </tr>
                 <tr>

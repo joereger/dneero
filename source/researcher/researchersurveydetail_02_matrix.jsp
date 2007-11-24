@@ -59,18 +59,16 @@ ResearcherSurveyDetail02matrix researcherSurveyDetail02matrix = (ResearcherSurve
 
             <tr>
                 <td valign="top">
-                    <h:outputText value="Question" styleClass="formfieldnamefont"></h:outputText>
+                    <font class="formfieldnamefont">Question</font>
                 </td>
                 <td valign="top">
-                    <h:inputText value="<%=researcherSurveyDetail02matrix.getQuestion()%>" id="question" required="true">
-                        <f:validateLength minimum="3" maximum="254"></f:validateLength>
-                    </h:inputText>
+                    <%=Textbox.getHtml("question", researcherSurveyDetail02matrix.getQuestion(), 255, 35, "", "")%>
                 </td>
             </tr>
 
             <tr>
                 <td valign="top">
-                    <h:outputText value="Is Required?" styleClass="formfieldnamefont"></h:outputText>
+                    <font class="formfieldnamefont">Is Required?</font>
                 </td>
                 <td valign="top">
                     <%=CheckboxBoolean.getHtml("isrequired", researcherSurveyDetail02matrix.getIsrequired(), "", "")%>
@@ -79,7 +77,7 @@ ResearcherSurveyDetail02matrix researcherSurveyDetail02matrix = (ResearcherSurve
 
             <tr>
                 <td valign="top">
-                    <h:outputText value="Respondents choose many answers per row?" styleClass="formfieldnamefont"></h:outputText>
+                    <font class="formfieldnamefont">Respondents choose many answers per row?</font>
                 </td>
                 <td valign="top">
                     <%=CheckboxBoolean.getHtml("respondentcanselectmany", researcherSurveyDetail02matrix.getRespondentcanselectmany(), "", "")%>
@@ -88,7 +86,7 @@ ResearcherSurveyDetail02matrix researcherSurveyDetail02matrix = (ResearcherSurve
 
             <tr>
                 <td valign="top">
-                    <h:outputText value="Rows" styleClass="formfieldnamefont"></h:outputText>
+                    <font class="formfieldnamefont">Rows</font>
                 </td>
                 <td valign="top">
                     <font class="tinyfont">One option per line.</font><br/>
@@ -98,7 +96,7 @@ ResearcherSurveyDetail02matrix researcherSurveyDetail02matrix = (ResearcherSurve
 
             <tr>
                 <td valign="top">
-                    <h:outputText value="Columns" styleClass="formfieldnamefont"></h:outputText>
+                    <font class="formfieldnamefont">Columns</font>
                 </td>
                 <td valign="top">
                     <font class="tinyfont">One option per line.</font><br/>

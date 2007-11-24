@@ -128,7 +128,6 @@ String acl = "sysadmin";
                     <tr>
                         <td valign="top">
                             <font class="formfieldnamefont">Spotlight Survey?</font>
-                            <h:outputText value="Spotlight Survey?" styleClass="formfieldnamefont"/>
                         </td>
                         <td valign="top">
                             <%=CheckboxBoolean.getHtml("isspotlight", sysadminSurveyDetail.getSurvey().getIsspotlight(), "", "")%>
@@ -223,7 +222,6 @@ String acl = "sysadmin";
                     <tr>
                         <td valign="top">
                             <font class="formfieldnamefont">Number of Respondents To Date</font>
-                            <h:outputText value="" styleClass="formfieldnamefont"/>
                         </td>
                         <td valign="top">
                             <%=PercentCompleteBar.get(sysadminSurveyDetail.getSurveyEnhancer().getResponsesalreadygotten(), String.valueOf(sysadminSurveyDetail.getSurvey().getNumberofrespondentsrequested()), "", "", "250")%>
@@ -237,7 +235,6 @@ String acl = "sysadmin";
                         </td>
                         <td valign="top">
                             <%=PercentCompleteBar.get(sysadminSurveyDetail.getSurveyEnhancer().getImpressionsalreadygotten(), String.valueOf(sysadminSurveyDetail.getSurvey().getMaxdisplaystotal()), "", "", "250")%>
-                            <d:percentCompleteBar currentvalue="<%=sysadminSurveyDetail.getSurveyEnhancer().getImpressionsalreadygotten()%>" maximumvalue="<%=sysadminSurveyDetail.getSurvey().getMaxdisplaystotal()%>" mintitle="" maxtitle="" widthinpixels="250"></d:percentCompleteBar>
                             <font class="smallfont">We'll pay for the first <%=sysadminSurveyDetail.getSurvey().getMaxdisplaystotal()%> displays in blogs.</font>
                             <br/><br/>
                         </td>
@@ -287,13 +284,12 @@ String acl = "sysadmin";
                             <font class="formfieldnamefont">Max Possible Spend</font>
                         </td>
                         <td valign="top">
-                            <font class="formfieldnamefont"></font>
                             <font class="smallfont"><%=Str.formatForMoney(sysadminSurveyDetail.getSms().getMaxPossibleSpend())%></font>
                         </td>
                     </tr>
                     <tr>
                         <td valign="top">
-                            <h:outputText value="Remaining Possible Spend" styleClass="formfieldnamefont"></h:outputText>
+                            <font class="formfieldnamefont">Remaining Possible Spend</font>
                         </td>
                         <td valign="top">
                             <font class="formfieldnamefont"></font>

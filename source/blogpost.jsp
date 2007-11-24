@@ -95,7 +95,7 @@ PublicBlogPost publicBlogPost = (PublicBlogPost) Pagez.getBeanMgr().get("PublicB
 
             <tr>
                 <td valign="top">
-                    <h:outputText value="Prove You're a Human" styleClass="formfieldnamefont"></h:outputText>
+                    <font class="formfieldnamefont">Prove You're a Human</font>
                 </td>
                 <td valign="top">
                     <div style="border: 1px solid #ccc; padding: 3px;">
