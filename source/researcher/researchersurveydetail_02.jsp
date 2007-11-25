@@ -29,7 +29,7 @@ String acl="researcher";
     ComponentTypes componentTypes = new ComponentTypes();
 %>
 <%
-    if (request.getParameter("action") != null && (request.getParameter("action").equals("next") || request.getParameter("action").equals("save") || request.getParameter("action").equals("previous"))) {
+    if (request.getParameter("action") != null && (request.getParameter("action").equals("next") || request.getParameter("action").equals("saveasdraft") || request.getParameter("action").equals("previous"))) {
         try {
             if (request.getParameter("action").equals("next")) {
                 logger.debug("Next was clicked");

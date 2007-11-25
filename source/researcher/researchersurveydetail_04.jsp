@@ -18,7 +18,7 @@ String acl="researcher";
 ResearcherSurveyDetail04 researcherSurveyDetail04 = (ResearcherSurveyDetail04)Pagez.getBeanMgr().get("ResearcherSurveyDetail04");
 %>
 <%
-    if (request.getParameter("action") != null && (request.getParameter("action").equals("next") || request.getParameter("action").equals("save") || request.getParameter("action").equals("previous"))) {
+    if (request.getParameter("action") != null && (request.getParameter("action").equals("next") || request.getParameter("action").equals("saveasdraft") || request.getParameter("action").equals("previous"))) {
         try {
             researcherSurveyDetail04.setAgemin(Textbox.getIntFromRequest("agemin", "Age Min", true, DatatypeInteger.DATATYPEID));
             researcherSurveyDetail04.setAgemax(Textbox.getIntFromRequest("agemax", "Age Max", true, DatatypeInteger.DATATYPEID));

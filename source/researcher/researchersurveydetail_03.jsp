@@ -28,7 +28,7 @@ ResearcherSurveyDetail03 researcherSurveyDetail03 = (ResearcherSurveyDetail03)Pa
     }
 %>
 <%
-    if (request.getParameter("action") != null && (request.getParameter("action").equals("next") || request.getParameter("action").equals("save") || request.getParameter("action").equals("previous"))) {
+    if (request.getParameter("action") != null && (request.getParameter("action").equals("next") || request.getParameter("action").equals("saveasdraft") || request.getParameter("action").equals("previous"))) {
         try {
             researcherSurveyDetail03.setTemplate((Textbox.getValueFromRequest("template", "Template", false, DatatypeString.DATATYPEID)));
             researcherSurveyDetail03.setEmbedflash(CheckboxBoolean.getValueFromRequest("embedflash"));

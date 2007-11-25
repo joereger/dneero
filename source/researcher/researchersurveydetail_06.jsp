@@ -15,7 +15,7 @@ String acl="researcher";
 ResearcherSurveyDetail06 researcherSurveyDetail06 = (ResearcherSurveyDetail06)Pagez.getBeanMgr().get("ResearcherSurveyDetail06");
 %>
 <%
-    if (request.getParameter("action") != null && (request.getParameter("action").equals("next") || request.getParameter("action").equals("save") || request.getParameter("action").equals("previous"))) {
+    if (request.getParameter("action") != null && (request.getParameter("action").equals("next") || request.getParameter("action").equals("saveasdraft") || request.getParameter("action").equals("previous"))) {
         try {
             researcherSurveyDetail06.setCccity(Textbox.getValueFromRequest("cccity", "City", false, DatatypeString.DATATYPEID));
             researcherSurveyDetail06.setCcexpmo(Textbox.getIntFromRequest("ccexpmo", "Expiration Month", false, DatatypeInteger.DATATYPEID));
@@ -36,12 +36,10 @@ ResearcherSurveyDetail06 researcherSurveyDetail06 = (ResearcherSurveyDetail06)Pa
             } else if (request.getParameter("action").equals("saveasdraft")) {
                 logger.debug("Saveasdraft was clicked");
                 Pagez.getUserSession().setMessage("Your survey has been saved.");
-                researcherSurveyDetail06.saveSurvey();
                 Pagez.sendRedirect("index.jsp");
                 return;
             } else if (request.getParameter("action").equals("previous")) {
                 logger.debug("Previous was clicked");
-                researcherSurveyDetail01.saveSurvey();
                 Pagez.sendRedirect("researchersurveydetail_05.jsp?surveyid="+researcherSurveyDetail06.getSurvey().getSurveyid());
                 return;
             }

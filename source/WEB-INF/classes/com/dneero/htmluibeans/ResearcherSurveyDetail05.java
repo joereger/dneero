@@ -91,8 +91,20 @@ public class ResearcherSurveyDetail05 implements Serializable {
                 } catch (Exception ex){
                     logger.error("",ex);
                 }
+                if (willingtopayperrespondent<.1){
+                    vex.addValidationError("Willing to Pay Per Respondent must be at least $0.10.");
+                }
+                if (numberofrespondentsrequested<100){
+                    vex.addValidationError("Number of Respondents Requested must be at least 100.");
+                }
+                if (willingtopaypercpm<.25){
+                    vex.addValidationError("Willing to Pay Per Thousand Survey Displays on a Blog must be at least $0.25.");
+                }
+                if (maxdisplaysperblog<1000){
+                    vex.addValidationError("Max Survey Displays Per Blog must be at least 1000.");
+                }
                 //Validation return
-                if (haveError){
+                if (vex.getErrors()!=null && vex.getErrors().length>0){
                     throw vex;
                 }
 

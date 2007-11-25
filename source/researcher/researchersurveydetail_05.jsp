@@ -15,7 +15,7 @@ String acl="researcher";
 ResearcherSurveyDetail05 researcherSurveyDetail05 = (ResearcherSurveyDetail05)Pagez.getBeanMgr().get("ResearcherSurveyDetail05");
 %>
 <%
-    if (request.getParameter("action") != null && (request.getParameter("action").equals("next") || request.getParameter("action").equals("save") || request.getParameter("action").equals("previous"))) {
+    if (request.getParameter("action") != null && (request.getParameter("action").equals("next") || request.getParameter("action").equals("saveasdraft") || request.getParameter("action").equals("previous"))) {
         try {
             researcherSurveyDetail05.setIscharityonly(CheckboxBoolean.getValueFromRequest("ischarityonly"));
             researcherSurveyDetail05.setIsresultshidden(CheckboxBoolean.getValueFromRequest("isresultshidden"));
@@ -49,8 +49,8 @@ ResearcherSurveyDetail05 researcherSurveyDetail05 = (ResearcherSurveyDetail05)Pa
 <%@ include file="/template/header.jsp" %>
 
 
-<form action="researchersurveydetail_05.jsp" method="post" id="rsdform" id="action">
-        <input type="hidden" name="action" value="next">
+<form action="researchersurveydetail_05.jsp" method="post" id="rsdform">
+        <input type="hidden" name="action" value="next" id="action">
         <input type="hidden" name="surveyid" value="<%=researcherSurveyDetail05.getSurvey().getSurveyid()%>"/>
 
 
