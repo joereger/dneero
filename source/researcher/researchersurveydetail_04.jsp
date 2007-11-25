@@ -53,7 +53,7 @@ StaticVariables staticVariables = (StaticVariables)Pagez.getBeanMgr().get("Stati
 <%@ include file="/template/header.jsp" %>
 
 <form action="researchersurveydetail_04.jsp" method="post" id="rsdform">
-        <input type="hidden" name="action" value="next">
+        <input type="hidden" name="action" value="next" id="action">
         <input type="hidden" name="surveyid" value="<%=researcherSurveyDetail04.getSurvey().getSurveyid()%>"/>
 
 
@@ -211,11 +211,11 @@ StaticVariables staticVariables = (StaticVariables)Pagez.getBeanMgr().get("Stati
     <table cellpadding="0" cellspacing="0" border="0" width="100%">
         <tr>
             <td valign="top" align="left">
-                <input type="submit" class="formsubmitbutton" value="Previous Step" onclick="document.rsdform.action.value='previous'">
+                <input type="submit" class="formsubmitbutton" value="Previous Step" onclick="document.getElementById('action').value='previous';">
             </td>
             <td valign="top" align="right">
                 <%if (researcherSurveyDetail04.getSurvey().getStatus()==Survey.STATUS_DRAFT) {%>
-                    <input type="submit" class="formsubmitbutton" value="Save and Continue Later" onclick="document.rsdform.action.value='saveasdraft'">
+                    <input type="submit" class="formsubmitbutton" value="Save and Continue Later" onclick="document.getElementById('action').value='saveasdraft';">
                 <%}%>
                 <input type="submit" class="formsubmitbutton" value="Next Step">
             </td>

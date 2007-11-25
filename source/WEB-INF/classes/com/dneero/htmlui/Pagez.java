@@ -33,7 +33,10 @@ public class Pagez {
     public static void sendRedirect(String url){
         Logger logger = Logger.getLogger(Pagez.class);
         url = responseLocal.get().encodeRedirectURL(url);
-        try{responseLocal.get().sendRedirect(url);}catch(Exception ex){logger.error("", ex);}
+        if (!responseLocal.get().isCommitted()){
+            responseLocal.get().reset();
+            try{responseLocal.get().sendRedirect(url);}catch(Exception ex){logger.error("", ex);}
+        }
     }
 
     public static void setUserSessionAndUpdateCache(UserSession userSession){

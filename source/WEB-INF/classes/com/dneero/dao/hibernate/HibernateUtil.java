@@ -15,6 +15,8 @@ import com.dneero.systemprops.InstanceProperties;
 import com.dneero.systemprops.WebAppRootDir;
 import com.dneero.startup.ApplicationStartup;
 
+import javax.naming.NamingException;
+
 public class HibernateUtil {
 
     private static SessionFactory sessionFactory;

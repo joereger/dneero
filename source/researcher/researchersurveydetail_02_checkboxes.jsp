@@ -5,7 +5,7 @@
 <%
 Logger logger=Logger.getLogger(this.getClass().getName());
 String pagetitle="<img src=\"/images/process-train-survey-02.gif\" align=\"right\" width=\"350\" height=\"73\" alt=\"\"/>\n" +
-        "        <font class=\"pagetitlefont\">" + ((ResearcherSurveyDetail02checkboxes) Pagez.getBeanMgr().get("ResearcherSurveyDetail02checkboxes")).getTitle() + "</font>\n" +
+        "        <font class=\"pagetitlefont\">" + ((ResearcherSurveyDetail02checkboxes) Pagez.getBeanMgr().get("ResearcherSurveyDetail02checkboxes")).getSurvey().getTitle() + "</font>\n" +
         "        <br clear=\"all\"/>";
 String navtab="researchers";
 String acl="researcher";

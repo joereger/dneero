@@ -32,6 +32,7 @@ String acl="researcher";
     if (request.getParameter("action") != null && (request.getParameter("action").equals("next") || request.getParameter("action").equals("save") || request.getParameter("action").equals("previous"))) {
         try {
             if (request.getParameter("action").equals("next")) {
+                logger.debug("Next was clicked");
                 researcherSurveyDetail02.saveSurvey();
             } else if (request.getParameter("action").equals("saveasdraft")) {
                 logger.debug("Saveasdraft was clicked");
@@ -44,12 +45,29 @@ String acl="researcher";
             Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
         }
     }
+%><%
+    if (request.getParameter("action") != null && request.getParameter("action").equals("editquestion")) {
+        try {
+            researcherSurveyDetail02.beginEdit();
+        } catch (ValidationException vex) {
+            Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
+        }
+    }
+%>
+<%
+    if (request.getParameter("action") != null && request.getParameter("action").equals("deletequestion")) {
+        try {
+            researcherSurveyDetail02.deleteQuestion();
+        } catch (ValidationException vex) {
+            Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
+        }
+    }
 %>
 <%@ include file="/template/header.jsp" %>
 
 
 <form action="researchersurveydetail_02.jsp" method="post" id="rsdform">
-    <input type="hidden" name="action" value="next">
+    <input type="hidden" name="action" value="next" id="action">
     <input type="hidden" name="surveyid" value="<%=researcherSurveyDetail02.getSurvey().getSurveyid()%>"/>
 
 
@@ -178,11 +196,11 @@ String acl="researcher";
     <table cellpadding="0" cellspacing="0" border="0" width="100%">
         <tr>
             <td valign="top" align="left">
-                <input type="submit" class="formsubmitbutton" value="Previous Step" onclick="document.rsdform.action.value='previous'">
+                <input type="submit" class="formsubmitbutton" value="Previous Step" onclick="document.getElementById('action').value='previous';">
             </td>
             <td valign="top" align="right">
                 <%if (researcherSurveyDetail02.getSurvey().getStatus()==Survey.STATUS_DRAFT) {%>
-                    <input type="submit" class="formsubmitbutton" value="Save and Continue Later" onclick="document.rsdform.action.value='saveasdraft'">
+                    <input type="submit" class="formsubmitbutton" value="Save and Continue Later" onclick="document.getElementById('action').value='saveasdraft';">
                 <%}%>
                 <input type="submit" class="formsubmitbutton" value="Next Step">
             </td>

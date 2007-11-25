@@ -54,7 +54,7 @@ ResearcherSurveyDetail03 researcherSurveyDetail03 = (ResearcherSurveyDetail03)Pa
 
 
 <form action="researchersurveydetail_03.jsp" method="post" id="rsdform">
-        <input type="hidden" name="action" value="next">
+        <input type="hidden" name="action" value="next" id="action">
         <input type="hidden" name="surveyid" value="<%=researcherSurveyDetail03.getSurvey().getSurveyid()%>"/>
 
     <br/><br/>
@@ -265,11 +265,11 @@ ResearcherSurveyDetail03 researcherSurveyDetail03 = (ResearcherSurveyDetail03)Pa
     <table cellpadding="0" cellspacing="0" border="0" width="100%">
         <tr>
             <td valign="top" align="left">
-                <input type="submit" class="formsubmitbutton" value="Previous Step" onclick="document.rsdform.action.value='previous'">
+                <input type="submit" class="formsubmitbutton" value="Previous Step" onclick="document.getElementById('action').value='previous';">
             </td>
             <td valign="top" align="right">
                 <%if (researcherSurveyDetail03.getSurvey().getStatus()==Survey.STATUS_DRAFT) {%>
-                    <input type="submit" class="formsubmitbutton" value="Save and Continue Later" onclick="document.rsdform.action.value='saveasdraft'">
+                    <input type="submit" class="formsubmitbutton" value="Save and Continue Later" onclick="document.getElementById('action').value='saveasdraft';">
                 <%}%>
                 <input type="submit" class="formsubmitbutton" value="Next Step">
             </td>

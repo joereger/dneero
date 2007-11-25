@@ -4,7 +4,7 @@
 <%
 Logger logger=Logger.getLogger(this.getClass().getName());
 String pagetitle="<img src=\"/images/process-train-survey-02.gif\" align=\"right\" width=\"350\" height=\"73\" alt=\"\"/>\n" +
-        "        <font class=\"pagetitlefont\">" + ((ResearcherSurveyDetail02dropdown) Pagez.getBeanMgr().get("ResearcherSurveyDetail02dropdown")).getTitle() + "</font>\n" +
+        "        <font class=\"pagetitlefont\">" + ((ResearcherSurveyDetail02dropdown) Pagez.getBeanMgr().get("ResearcherSurveyDetail02dropdown")).getSurvey().getTitle() + "</font>\n" +
         "        <br clear=\"all\"/>";
 String navtab="researchers";
 String acl="researcher";
@@ -40,7 +40,7 @@ ResearcherSurveyDetail02dropdown researcherSurveyDetail02dropdown = (ResearcherS
 
 
     <!-- Start Bottom -->
-    <form action="researchersurveydetail_02_checkboxes.jsp" method="post">
+    <form action="researchersurveydetail_02_dropdown.jsp" method="post">
         <input type="hidden" name="action" value="save">
         <input type="hidden" name="surveyid" value="<%=Pagez.getUserSession().getCurrentSurveyid()%>"/>
         <input type="hidden" name="questionid" value="<%=researcherSurveyDetail02dropdown.getQuestionid()%>"/>
