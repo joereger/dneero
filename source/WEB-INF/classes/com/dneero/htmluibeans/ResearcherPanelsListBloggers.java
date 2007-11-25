@@ -57,14 +57,13 @@ public class ResearcherPanelsListBloggers implements Serializable {
         }
     }
 
-    public String removeFromPanel() throws ValidationException {
+    public void removeFromPanel() throws ValidationException {
         Logger logger = Logger.getLogger(this.getClass().getName());
         if (Pagez.getRequest().getParameter("panelmembershipid")!=null && Num.isinteger(Pagez.getRequest().getParameter("panelmembershipid"))){
             Panelmembership panelmembership = Panelmembership.get(Integer.parseInt(Pagez.getRequest().getParameter("panelmembershipid")));
             try{panelmembership.delete();}catch(Exception ex){logger.debug(ex);}
             initBean();
         }
-        return "researcherpanelslistbloggersinpanel";
     }
 
 

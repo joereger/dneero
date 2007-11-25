@@ -15,17 +15,20 @@ ResearcherBilling researcherBilling = (ResearcherBilling)Pagez.getBeanMgr().get(
     if (request.getParameter("action") != null && request.getParameter("action").equals("save")) {
         try {
             researcherBilling.setCccity(Textbox.getValueFromRequest("cccity", "City", true, DatatypeString.DATATYPEID));
-            researcherBilling.setCcexpmo(Integer.parseInt(Dropdown.getValueFromRequest("ccexpmo", "Expiration Month", true)));
-            researcherBilling.setCcexpyear(Integer.parseInt(Dropdown.getValueFromRequest("ccexpyear", "Expiration Year", true)));
+            researcherBilling.setCcexpmo(Dropdown.getIntFromRequest("ccexpmo", "Expiration Month", true));
+            researcherBilling.setCcexpyear(Dropdown.getIntFromRequest("ccexpyear", "Expiration Year", true));
             researcherBilling.setCcnum(Textbox.getValueFromRequest("ccnum", "Credit Card Number", true, DatatypeString.DATATYPEID));
             researcherBilling.setCcstate(Textbox.getValueFromRequest("ccstate", "State", true, DatatypeString.DATATYPEID));
-            researcherBilling.setCctype(Integer.parseInt(Dropdown.getValueFromRequest("cctype", "Credit Card Type", true)));
+            researcherBilling.setCctype(Dropdown.getIntFromRequest("cctype", "Credit Card Type", true));
             researcherBilling.setCvv2(Textbox.getValueFromRequest("cvv2", "CVV2", true, DatatypeString.DATATYPEID));
             researcherBilling.setFirstname(Textbox.getValueFromRequest("firstname", "First Name", true, DatatypeString.DATATYPEID));
             researcherBilling.setLastname(Textbox.getValueFromRequest("lastname", "Last Name", true, DatatypeString.DATATYPEID));
             researcherBilling.setPostalcode(Textbox.getValueFromRequest("postalcode", "Zip", true, DatatypeString.DATATYPEID));
             researcherBilling.setStreet(Textbox.getValueFromRequest("street", "Street", true, DatatypeString.DATATYPEID));
             researcherBilling.saveAction();
+            Pagez.getUserSession().setMessage("Billing information saved.");
+            Pagez.sendRedirect("index.jsp");
+            return;
         } catch (ValidationException vex) {
             Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
         } catch (Exception ex){

@@ -32,12 +32,11 @@ public class SysadminErrorList implements Serializable {
         errors = HibernateUtil.getSession().createQuery("from Error where level>='"+minleveltoshow+"' order by errorid desc").setMaxResults(250).list();
     }
 
-    public String markallold() throws ValidationException {
+    public void markallold() throws ValidationException {
         int ers = HibernateUtil.getSession().createQuery("update Error set status= :statusold").setString("statusold", String.valueOf(Error.STATUS_OLD)).executeUpdate();
         initBean();
-        return "sysadminerrorlist";
     }
-    public String deleteall() throws ValidationException {
+    public void deleteall() throws ValidationException {
         Logger logger = Logger.getLogger(this.getClass().getName());
         //int ers = HibernateUtil.getSession().createQuery("delete from Error where errorid>'0'").executeUpdate();
         errors = HibernateUtil.getSession().createQuery("from Error").list();
@@ -46,13 +45,11 @@ public class SysadminErrorList implements Serializable {
             try{error.delete();}catch(Exception ex){logger.error("",ex);}
         }
         initBean();
-        return "sysadminerrorlist";        
     }
 
-    public String onlyerrors() throws ValidationException {
+    public void onlyerrors() throws ValidationException {
         minleveltoshow = Level.ERROR_INT;
         initBean();
-        return "";
     }
 
     public List getErrors() {

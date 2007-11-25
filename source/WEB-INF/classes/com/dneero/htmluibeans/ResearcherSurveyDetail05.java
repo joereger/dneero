@@ -66,27 +66,10 @@ public class ResearcherSurveyDetail05 implements Serializable {
 
     }
 
-    public String saveSurveyAsDraft() throws ValidationException {
-        String save = saveSurvey();
-        if (save!=null){
-            Pagez.sendRedirect("/researcher/index.jsp");
-            return "";
-        } else {
-            return save;
-        }
-    }
 
-    public String previousStep() throws ValidationException {
-        String save = saveSurvey();
-        if (save!=null){
-            Pagez.sendRedirect("/researcher/researchersurveydetail_04.jsp?surveyid="+survey.getSurveyid());
-            return "";
-        } else {
-            return save;
-        }
-    }
 
-    public String saveSurvey() throws ValidationException {
+    public void saveSurvey() throws ValidationException {
+        ValidationException vex = new ValidationException();
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("saveSurvey() called.");
         if (status<=Survey.STATUS_DRAFT){
@@ -101,7 +84,7 @@ public class ResearcherSurveyDetail05 implements Serializable {
                 try{
                     int mindisplays = (numberofrespondentsrequested * maxdisplaysperblog)/4;
                     if (maxdisplaystotal < mindisplays){
-                        Pagez.getUserSession().setMessage("Max Displays Total must be at least 25% of Number of Respondents Requested multiplied by Max Displays Per Blog (in this case it's "+mindisplays+").  We've already adjusted the value accordingly.");
+                        vex.addValidationError("Max Displays Total must be at least 25% of Number of Respondents Requested multiplied by Max Displays Per Blog (in this case it's "+mindisplays+").  We've already adjusted the value accordingly.");
                         maxdisplaystotal = mindisplays;
                         haveError = true;
                     }
@@ -110,7 +93,7 @@ public class ResearcherSurveyDetail05 implements Serializable {
                 }
                 //Validation return
                 if (haveError){
-                    return null;
+                    throw vex;
                 }
 
 
@@ -130,8 +113,8 @@ public class ResearcherSurveyDetail05 implements Serializable {
                 } catch (GeneralException gex){
                     logger.debug("saveSurvey() failed: " + gex.getErrorsAsSingleString());
                     String message = "saveSurvey() save failed: " + gex.getErrorsAsSingleString();
-                    Pagez.getUserSession().setMessage(message);
-                    return null;
+                    vex.addValidationError(message);
+                    throw vex;
                 }
 
                 //Refresh
@@ -139,9 +122,6 @@ public class ResearcherSurveyDetail05 implements Serializable {
                 
             }
         }
-
-        Pagez.sendRedirect("/researcher/researchersurveydetail_06.jsp?surveyid="+survey.getSurveyid());
-        return "";
     }
 
 

@@ -17,7 +17,7 @@ SysadminErrorList sysadminErrorList=(SysadminErrorList) Pagez.getBeanMgr().get("
 <%
     if (request.getParameter("action") != null && request.getParameter("action").equals("refresh")) {
         try {
-            sysadminErrorList.setMinleveltoshow(Integer.parseInt(Dropdown.getValueFromRequest("minleveltoshow", "Min Level to Show", false)));
+            sysadminErrorList.setMinleveltoshow(Dropdown.getIntFromRequest("minleveltoshow", "Min Level to Show", false));
             sysadminErrorList.initBean();
         } catch (ValidationException vex) {
             Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
@@ -28,6 +28,7 @@ SysadminErrorList sysadminErrorList=(SysadminErrorList) Pagez.getBeanMgr().get("
     if (request.getParameter("action") != null && request.getParameter("action").equals("markallold")) {
         try {
             sysadminErrorList.markallold();
+            Pagez.getUserSession().setMessage("Marked old.");
         } catch (ValidationException vex) {
             Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
         }
@@ -37,6 +38,7 @@ SysadminErrorList sysadminErrorList=(SysadminErrorList) Pagez.getBeanMgr().get("
     if (request.getParameter("action") != null && request.getParameter("action").equals("deleteall")) {
         try {
             sysadminErrorList.deleteall();
+            Pagez.getUserSession().setMessage("Deleted.");
         } catch (ValidationException vex) {
             Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
         }

@@ -18,6 +18,7 @@ ResearcherPanelsListBloggers researcherPanelsListBloggers = (ResearcherPanelsLis
     if (request.getParameter("action") != null && request.getParameter("action").equals("remove")) {
         try {
             researcherPanelsListBloggers.removeFromPanel();
+            Pagez.getUserSession().setMessage("User removed from panel.");
         } catch (com.dneero.htmlui.ValidationException vex) {
             Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
         }

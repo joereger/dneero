@@ -19,19 +19,27 @@ ResearcherSurveyDetail05 researcherSurveyDetail05 = (ResearcherSurveyDetail05)Pa
         try {
             researcherSurveyDetail05.setIscharityonly(CheckboxBoolean.getValueFromRequest("ischarityonly"));
             researcherSurveyDetail05.setIsresultshidden(CheckboxBoolean.getValueFromRequest("isresultshidden"));
-            researcherSurveyDetail05.setMaxdisplaysperblog(Integer.parseInt(Textbox.getValueFromRequest("maxdisplaysperblog", "Max Displays Per Blog", true, DatatypeInteger.DATATYPEID)));
-            researcherSurveyDetail05.setMaxdisplaystotal(Integer.parseInt(Textbox.getValueFromRequest("maxdisplaystotal", "Max Displays Total", true, DatatypeInteger.DATATYPEID)));
-            researcherSurveyDetail05.setNumberofrespondentsrequested(Integer.parseInt(Textbox.getValueFromRequest("numberofrespondentsrequested", "Number of RespondentsRequested", true, DatatypeInteger.DATATYPEID)));
-            researcherSurveyDetail05.setWillingtopaypercpm(Integer.parseInt(Textbox.getValueFromRequest("willingtopaypercpm", "Willing to Pay Per 1000 Impressions", true, DatatypeDouble.DATATYPEID)));
-            researcherSurveyDetail05.setWillingtopayperrespondent(Integer.parseInt(Textbox.getValueFromRequest("willingtopayperrespondent", "Willing to Pay Per Respondent", true, DatatypeDouble.DATATYPEID)));
+            researcherSurveyDetail05.setMaxdisplaysperblog(Textbox.getIntFromRequest("maxdisplaysperblog", "Max Displays Per Blog", true, DatatypeInteger.DATATYPEID));
+            researcherSurveyDetail05.setMaxdisplaystotal(Textbox.getIntFromRequest("maxdisplaystotal", "Max Displays Total", true, DatatypeInteger.DATATYPEID));
+            researcherSurveyDetail05.setNumberofrespondentsrequested(Textbox.getIntFromRequest("numberofrespondentsrequested", "Number of RespondentsRequested", true, DatatypeInteger.DATATYPEID));
+            researcherSurveyDetail05.setWillingtopaypercpm(Textbox.getDblFromRequest("willingtopaypercpm", "Willing to Pay Per 1000 Impressions", true, DatatypeDouble.DATATYPEID));
+            researcherSurveyDetail05.setWillingtopayperrespondent(Textbox.getDblFromRequest("willingtopayperrespondent", "Willing to Pay Per Respondent", true, DatatypeDouble.DATATYPEID));
             if (request.getParameter("action").equals("next")) {
+                logger.debug("Next was clicked");
                 researcherSurveyDetail05.saveSurvey();
+                Pagez.sendRedirect("researchersurveydetail_06.jsp?surveyid="+researcherSurveyDetail05.getSurvey().getSurveyid());
+                return;
             } else if (request.getParameter("action").equals("saveasdraft")) {
                 logger.debug("Saveasdraft was clicked");
-                researcherSurveyDetail05.saveSurveyAsDraft();
+                Pagez.getUserSession().setMessage("Your survey has been saved.");
+                researcherSurveyDetail05.saveSurvey();
+                Pagez.sendRedirect("index.jsp");
+                return;
             } else if (request.getParameter("action").equals("previous")) {
                 logger.debug("Previous was clicked");
-                researcherSurveyDetail05.previousStep();
+                researcherSurveyDetail05.saveSurvey();
+                Pagez.sendRedirect("researchersurveydetail_04.jsp?surveyid="+researcherSurveyDetail05.getSurvey().getSurveyid());
+                return;
             }
         } catch (ValidationException vex) {
             Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());

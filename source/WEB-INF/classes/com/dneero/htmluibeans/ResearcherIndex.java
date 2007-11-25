@@ -42,7 +42,8 @@ public class ResearcherIndex implements Serializable {
     }
 
 
-    public String copy() throws ValidationException {
+    public void copy() throws ValidationException {
+        ValidationException vex = new ValidationException();
         Logger logger = Logger.getLogger(this.getClass().getName());
         String tmpSurveyid = Pagez.getRequest().getParameter("surveyid");
         if (com.dneero.util.Num.isinteger(tmpSurveyid)){
@@ -90,8 +91,7 @@ public class ResearcherIndex implements Serializable {
             try{newSurvey.refresh();}catch(Exception ex){logger.error("",ex);}
         }
         initBean();
-        Pagez.getUserSession().setMessage("Survey copied!");
-        return "";
+
     }
 
     public boolean getShowmarketingmaterial() {

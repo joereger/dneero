@@ -17,7 +17,7 @@ AccountSettings accountSettings = (AccountSettings) Pagez.getBeanMgr().get("Acco
         accountSettings.setFirstname(Textbox.getValueFromRequest("firstname", "First Name", true, DatatypeString.DATATYPEID));
         accountSettings.setLastname(Textbox.getValueFromRequest("lastname", "Last Name", true, DatatypeString.DATATYPEID));
         accountSettings.setEmail(Textbox.getValueFromRequest("email", "Email", true, DatatypeString.DATATYPEID));
-        accountSettings.setNotifyofnewsurveysbyemaileveryexdays(Integer.parseInt(Dropdown.getValueFromRequest("notifyofnewsurveysbyemaileveryexdays", "Notify Every X Days", true)));
+        accountSettings.setNotifyofnewsurveysbyemaileveryexdays(Dropdown.getIntFromRequest("notifyofnewsurveysbyemaileveryexdays", "Notify Every X Days", true));
         accountSettings.setAllownoncriticalemails(CheckboxBoolean.getValueFromRequest("allownoncriticalemails"));
         accountSettings.setInstantnotifybyemailison(CheckboxBoolean.getValueFromRequest("instantnotifybyemailison"));
         accountSettings.setInstantnotifybytwitterison(CheckboxBoolean.getValueFromRequest("instantnotifybytwitterison"));
@@ -26,6 +26,7 @@ AccountSettings accountSettings = (AccountSettings) Pagez.getBeanMgr().get("Acco
         accountSettings.setInstantnotifyxmppusername(Textbox.getValueFromRequest("instantnotifyxmppusername", "XMPP/Jabber Username", false, DatatypeString.DATATYPEID));
         accountSettings.setPaymethodpaypaladdress(Textbox.getValueFromRequest("paymethodpaypaladdress", "PayPal Address", false, DatatypeString.DATATYPEID));
         accountSettings.saveAction();
+        Pagez.getUserSession().setMessage("Settings saved.");
     } catch (com.dneero.htmlui.ValidationException vex) {
         Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
     }

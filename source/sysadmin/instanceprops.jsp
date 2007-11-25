@@ -25,6 +25,7 @@ SysadminInstanceProps sysadminInstanceProps = (SysadminInstanceProps)Pagez.getBe
             sysadminInstanceProps.setInstancename(Textbox.getValueFromRequest("instancename", "instancename", true, DatatypeString.DATATYPEID));
             sysadminInstanceProps.setRunScheduledTasksOnThisInstance(Textbox.getValueFromRequest("runScheduledTasksOnThisInstance", "runScheduledTasksOnThisInstance", true, DatatypeString.DATATYPEID));
             sysadminInstanceProps.saveProps();
+            Pagez.getUserSession().setMessage("Props saved.");
         } catch (ValidationException vex) {
             Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
         }

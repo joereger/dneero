@@ -35,15 +35,13 @@ public class SysadminMassemailSend implements Serializable {
 
     }
 
-    public String send() throws ValidationException {
+    public void send() throws ValidationException {
+        ValidationException vex = new ValidationException();
         Logger logger = Logger.getLogger(this.getClass().getName());
         if (password.equals("pupper") && massemail.getStatus()==Massemail.STATUS_NEW){
             massemail.setDate(new Date());
             massemail.setStatus(Massemail.STATUS_PROCESSING);
             try{massemail.save();}catch(Exception ex){logger.error("",ex);}
-            Pagez.getUserSession().setMessage("Mass email scheduled for send! Rock on!");
-            Pagez.sendRedirect("/sysadmin/massemaillist.jsp");
-            return "";
         } else {
             throw new ValidationException("Password fails!");
         }

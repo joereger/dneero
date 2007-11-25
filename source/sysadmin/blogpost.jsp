@@ -23,6 +23,7 @@ SysadminBlogpost sysadminBlogpost = (SysadminBlogpost)Pagez.getBeanMgr().get("Sy
             sysadminBlogpost.setCategories(Textbox.getValueFromRequest("categories", "Categories", false, DatatypeString.DATATYPEID));
             sysadminBlogpost.setDate(DateTime.getValueFromRequest("date", "Date", true).getTime());
             sysadminBlogpost.save();
+            Pagez.getUserSession().setMessage("Blog post added.");
         } catch (ValidationException vex) {
             Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
         }

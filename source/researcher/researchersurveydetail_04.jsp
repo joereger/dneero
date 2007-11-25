@@ -16,34 +16,41 @@ String acl="researcher";
 <%@ include file="/template/auth.jsp" %>
 <%
 ResearcherSurveyDetail04 researcherSurveyDetail04 = (ResearcherSurveyDetail04)Pagez.getBeanMgr().get("ResearcherSurveyDetail04");
-StaticVariables staticVariables = (StaticVariables)Pagez.getBeanMgr().get("StaticVariables");
 %>
 <%
     if (request.getParameter("action") != null && (request.getParameter("action").equals("next") || request.getParameter("action").equals("save") || request.getParameter("action").equals("previous"))) {
         try {
-            researcherSurveyDetail04.setAgemin(Integer.parseInt(Textbox.getValueFromRequest("agemin", "Age Min", true, DatatypeInteger.DATATYPEID)));
-            researcherSurveyDetail04.setAgemax(Integer.parseInt(Textbox.getValueFromRequest("agemax", "Age Max", true, DatatypeInteger.DATATYPEID)));
+            researcherSurveyDetail04.setAgemin(Textbox.getIntFromRequest("agemin", "Age Min", true, DatatypeInteger.DATATYPEID));
+            researcherSurveyDetail04.setAgemax(Textbox.getIntFromRequest("agemax", "Age Max", true, DatatypeInteger.DATATYPEID));
             researcherSurveyDetail04.setBlogfocus(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("blogfocus", "Blog Focus", false)));
-            researcherSurveyDetail04.setBlogquality(Integer.parseInt(Dropdown.getValueFromRequest("blogquality", "Blog Quality", false)));
+            researcherSurveyDetail04.setBlogquality(Dropdown.getIntFromRequest("blogquality", "Blog Quality", false));
             researcherSurveyDetail04.setCity(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("cities", "Cities", false)));
             researcherSurveyDetail04.setEducationlevel(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("educationlevel", "Education Levels", false)));
             researcherSurveyDetail04.setEthnicity(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("ethnicity", "Ethnicity", false)));
             researcherSurveyDetail04.setGender(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("gender", "Genders", false)));
             researcherSurveyDetail04.setIncome(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("income", "Incomes", false)));
             researcherSurveyDetail04.setMaritalstatus(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("maritalstatus", "Marital Statuses", false)));
-            researcherSurveyDetail04.setMinsocialinfluencepercentile(Integer.parseInt(Dropdown.getValueFromRequest("minsocialinfluencepercentile", "Min Social Influence", false)));
+            researcherSurveyDetail04.setMinsocialinfluencepercentile(Dropdown.getIntFromRequest("minsocialinfluencepercentile", "Min Social Influence", false));
             researcherSurveyDetail04.setPanels(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("panels", "Panels", false)));
             researcherSurveyDetail04.setPolitics(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("politics", "Politics", false)));
             researcherSurveyDetail04.setProfession(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("professions", "Professions", false)));
             researcherSurveyDetail04.setState(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("states", "States", false)));
             if (request.getParameter("action").equals("next")) {
+                logger.debug("Next was clicked");
                 researcherSurveyDetail04.saveSurvey();
+                Pagez.sendRedirect("researchersurveydetail_05.jsp?surveyid="+researcherSurveyDetail04.getSurvey().getSurveyid());
+                return;
             } else if (request.getParameter("action").equals("saveasdraft")) {
                 logger.debug("Saveasdraft was clicked");
-                researcherSurveyDetail04.saveSurveyAsDraft();
+                Pagez.getUserSession().setMessage("Your survey has been saved.");
+                researcherSurveyDetail04.saveSurvey();
+                Pagez.sendRedirect("index.jsp");
+                return;
             } else if (request.getParameter("action").equals("previous")) {
                 logger.debug("Previous was clicked");
-                researcherSurveyDetail04.previousStep();
+                researcherSurveyDetail04.saveSurvey();
+                Pagez.sendRedirect("researchersurveydetail_03.jsp?surveyid="+researcherSurveyDetail04.getSurvey().getSurveyid());
+                return;
             }
         } catch (ValidationException vex) {
             Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
@@ -85,7 +92,7 @@ StaticVariables staticVariables = (StaticVariables)Pagez.getBeanMgr().get("Stati
                     <font class="smallfont">Social Influence Rating takes site traffic, survey referrals and a number of other metrics into account to give you some measure of this blogger's influence with his/her readership.</font>
                 </td>
                 <td valign="top">
-                    <%=Dropdown.getHtml("minsocialinfluencepercentile", String.valueOf(researcherSurveyDetail04.getMinsocialinfluencepercentile()), staticVariables.getPercentiles(), "", "")%>
+                    <%=Dropdown.getHtml("minsocialinfluencepercentile", String.valueOf(researcherSurveyDetail04.getMinsocialinfluencepercentile()), StaticVariables.getPercentiles(), "", "")%>
                 </td>
 
 
@@ -95,7 +102,7 @@ StaticVariables staticVariables = (StaticVariables)Pagez.getBeanMgr().get("Stati
                     <font class="smallfont">Blog Quality is determined manually by our administrators visiting each blog post and assigning a general quality rating.</font>
                 </td>
                 <td valign="top">
-                    <%=Dropdown.getHtml("blogquality", String.valueOf(researcherSurveyDetail04.getBlogquality()), staticVariables.getBlogqualities(), "", "")%>
+                    <%=Dropdown.getHtml("blogquality", String.valueOf(researcherSurveyDetail04.getBlogquality()), StaticVariables.getBlogqualities(), "", "")%>
                 </td>
             </tr>
 

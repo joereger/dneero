@@ -9,6 +9,7 @@ import com.dneero.email.EmailSend;
 import com.dneero.email.EmailTemplateProcessor;
 import com.dneero.helpers.UserInputSafe;
 import com.dneero.htmlui.Pagez;
+import com.dneero.htmlui.ValidationException;
 import org.apache.commons.mail.HtmlEmail;
 import org.apache.log4j.Logger;
 
@@ -32,7 +33,8 @@ public class BloggerEarningsRevshareInvite implements Serializable {
 
     }
 
-    public String invite(){
+    public void invite() throws ValidationException {
+        ValidationException vex = new ValidationException();
         User user = Pagez.getUserSession().getUser();
         StringBuffer err = new StringBuffer();
 
@@ -56,13 +58,10 @@ public class BloggerEarningsRevshareInvite implements Serializable {
 
         if (err.length()<=0){
             email = "";
-            Pagez.getUserSession().setMessage("Invitation sent successfully.");
-            Pagez.sendRedirect("/blogger/bloggerearningsrevshare.jsp");
         } else {
-            Pagez.getUserSession().setMessage(err.toString());
-            return null;
+            vex.addValidationError(err.toString());
+            throw vex;
         }
-        return "";
     }
 
     public String getEmail() {

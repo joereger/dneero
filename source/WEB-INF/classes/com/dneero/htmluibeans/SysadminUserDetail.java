@@ -141,7 +141,7 @@ public class SysadminUserDetail implements Serializable {
         }
     }
 
-    public String save() throws ValidationException {
+    public void save() throws ValidationException {
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("save() called");
         logger.debug("userid="+userid);
@@ -157,8 +157,7 @@ public class SysadminUserDetail implements Serializable {
             user.setPaymethodpaypaladdress(paypaladdress);
             try{user.save();}catch (Exception ex){logger.error("",ex);}
         }
-        Pagez.getUserSession().setMessage("User details saved");
-        return "sysadminuserdetail";
+
     }
 
 

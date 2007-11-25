@@ -20,6 +20,7 @@ String acl = "public";
     if (request.getParameter("action") != null && request.getParameter("action").equals("copy")) {
         try {
             researcherIndex.copy();
+            Pagez.getUserSession().setMessage("Survey copied!");
         } catch (ValidationException vex) {
             Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
         }

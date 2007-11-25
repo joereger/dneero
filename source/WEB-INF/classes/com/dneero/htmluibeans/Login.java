@@ -15,6 +15,7 @@ import com.dneero.util.Str;
 import com.dneero.util.Num;
 import com.dneero.htmlui.UserSession;
 import com.dneero.htmlui.Pagez;
+import com.dneero.htmlui.ValidationException;
 import com.dneero.session.PersistentLogin;
 import com.dneero.session.SurveysTakenToday;
 import com.dneero.xmpp.SendXMPPMessage;
@@ -44,14 +45,15 @@ public class Login implements Serializable {
     }
 
 
-    public String login(){
+    public void login() throws ValidationException {
+        ValidationException vex = new ValidationException();
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("login() called.");
         logger.debug("keepmeloggedin="+keepmeloggedin);
         List users = HibernateUtil.getSession().createQuery("FROM User as user WHERE user.email='"+ Str.cleanForSQL(email)+"' AND user.password='"+Str.cleanForSQL(password)+"'").setMaxResults(1).list();
         if (users.size()==0){
-            Pagez.getUserSession().setMessage("Email/password incorrect.");
-            return null;
+            vex.addValidationError("Email/password incorrect.");
+            throw vex;
         }
         for (Iterator it = users.iterator(); it.hasNext(); ) {
             User user = (User)it.next();
@@ -126,28 +128,12 @@ public class Login implements Serializable {
                 //This is where the new UserSession is actually bound to Pagez.getUserSession()
                 Pagez.setUserSession(userSession);
 
-                //Redir if https is on
-                if (SystemProperty.getProp(SystemProperty.PROP_ISSSLON).equals("1")){
-                    try{
-                        logger.debug("redirecting to https - "+BaseUrl.get(true)+"account/index.jsp");
-                        Pagez.sendRedirect(BaseUrl.get(true)+"account/index.jsp");
-                        return null;
-                    } catch (Exception ex){
-                        logger.error("",ex);
-                        Pagez.sendRedirect("/account/index.jsp");
-                        return null;
-                    }
-                } else {
-                    Pagez.sendRedirect("/account/index.jsp");
-                    return null;
-                }
+
             } else {
-                Pagez.getUserSession().setMessage("This account is not active.  Please contact the system administrator if you feel this is an error.");
-                return null;
+                vex.addValidationError("This account is not active.  Please contact the system administrator if you feel this is an error.");
+                throw vex;
             }
         }
-
-        return null;
     }
 
     public String logout(){

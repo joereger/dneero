@@ -6,6 +6,7 @@ import com.dneero.util.GeneralException;
 import com.dneero.dao.User;
 import com.dneero.htmlui.UserSession;
 import com.dneero.htmlui.Pagez;
+import com.dneero.htmlui.ValidationException;
 
 import java.io.Serializable;
 
@@ -28,16 +29,17 @@ public class ChangePassword implements Serializable {
 
     }
 
-    public String saveAction(){
+    public void saveAction() throws ValidationException {
+        ValidationException vex = new ValidationException();
         Logger logger = Logger.getLogger(this.getClass().getName());
         if (!password.equals(passwordverify)){
-            Pagez.getUserSession().setMessage("Password and Verify Password must match.");
-            return null;
+            vex.addValidationError("Password and Verify Password must match.");
+            throw vex;
         }
 
         if (password.length()<6){
-            Pagez.getUserSession().setMessage("Password must be at least six characters long.");
-            return null;
+            vex.addValidationError("Password must be at least six characters long.");
+            throw vex;
         }
 
 
@@ -49,13 +51,10 @@ public class ChangePassword implements Serializable {
                 user.save();
             } catch (GeneralException gex){
                 logger.debug("registerAction failed: " + gex.getErrorsAsSingleString());
-                return null;
+                vex.addValidationError("Sorry, there was an error.");
+                throw vex;
             }
         }
-
-        Pagez.getUserSession().setMessage("Your password has been changed.");
-        Pagez.sendRedirect("/account/index.jsp");
-        return "";
     }
 
 

@@ -18,6 +18,9 @@ LostPasswordChoose lostPasswordChoose=(LostPasswordChoose) Pagez.getBeanMgr().ge
             lostPasswordChoose.setPasswordverify(TextboxSecret.getValueFromRequest("passwordverify", "Password Verify", true, DatatypeString.DATATYPEID));
             lostPasswordChoose.setJ_captcha_response(com.dneero.htmlui.Textbox.getValueFromRequest("j_captcha_response", "Squiggly Letters", true, DatatypeString.DATATYPEID));
             lostPasswordChoose.choosePassword();
+            Pagez.getUserSession().setMessage("Your password has been set.  Store it in a safe place.");
+            Pagez.sendRedirect("/account/index.jsp");
+            return;
         } catch (ValidationException vex) {
             Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
         }

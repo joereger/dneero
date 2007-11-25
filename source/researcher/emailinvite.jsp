@@ -17,8 +17,10 @@ String acl = "researcher";
             researcherEmailinvite.setManuallyenteredemailaddresses(Textbox.getValueFromRequest("manuallyenteredemailaddresses", "Email Addresses", true, DatatypeString.DATATYPEID));
             researcherEmailinvite.setMessage(Textarea.getValueFromRequest("message", "Message", false));
             researcherEmailinvite.setSubject(Textbox.getValueFromRequest("subject", "Subject", false, DatatypeString.DATATYPEID));
-            researcherEmailinvite.setSurveyiduserisinvitedto(Integer.parseInt(Dropdown.getValueFromRequest("surveyiduserisinvitedto", "Survey to Invite To", true)));
+            researcherEmailinvite.setSurveyiduserisinvitedto(Dropdown.getIntFromRequest("surveyiduserisinvitedto", "Survey to Invite To", true));
             researcherEmailinvite.invite();
+            Pagez.sendRedirect("emailinvite-complete.jsp");
+            return;
         } catch (ValidationException vex) {
             Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
         }

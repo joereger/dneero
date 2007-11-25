@@ -17,6 +17,8 @@ LostPassword lostPassword = (LostPassword)Pagez.getBeanMgr().get("LostPassword")
             lostPassword.setEmail(Textbox.getValueFromRequest("email", "Email", true, DatatypeString.DATATYPEID));
             lostPassword.setJ_captcha_response(Textbox.getValueFromRequest("j_captcha_response", "Squiggly Letters", true, DatatypeString.DATATYPEID));
             lostPassword.recoverPassword();
+            Pagez.sendRedirect("lostpasswordsent.jsp");
+            return;
         } catch (ValidationException vex) {
             Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
         }

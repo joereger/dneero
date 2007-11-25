@@ -35,18 +35,19 @@ public class LostPasswordChoose implements Serializable {
 
     }
 
-    public String choosePassword() throws ValidationException {
+    public void choosePassword() throws ValidationException {
+        ValidationException vex = new ValidationException();
         Logger logger = Logger.getLogger(this.getClass().getName());
 
         boolean haveErrors = false;
 
         if (password==null || password.equals("") || password.length()<6){
-            Pagez.getUserSession().setMessage("Password must be at least six characters long.");
+            vex.addValidationError("Password must be at least six characters long.");
             haveErrors = true;
         }
 
         if (!password.equals(passwordverify)){
-            Pagez.getUserSession().setMessage("Password and Verify Password must match.");
+            vex.addValidationError("Password and Verify Password must match.");
             haveErrors = true;
         }
 
@@ -65,7 +66,7 @@ public class LostPasswordChoose implements Serializable {
 
         
         if (haveErrors){
-            return null;
+            throw vex;
         }
 
 
@@ -82,12 +83,9 @@ public class LostPasswordChoose implements Serializable {
 
             Pagez.getUserSession().setIsloggedin(true);
         } else {
-            Pagez.getUserSession().setMessage("Sorry, it doesn't appear that you came to this page from an email link.");
-            return null;
+            vex.addValidationError("Sorry, it doesn't appear that you came to this page from a valid email link.");
+            throw vex;
         }
-
-        Pagez.sendRedirect("/account/index.jsp");
-        return "";
     }
 
 

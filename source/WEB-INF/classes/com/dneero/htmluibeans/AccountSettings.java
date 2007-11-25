@@ -11,6 +11,7 @@ import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.dao.hibernate.NumFromUniqueResult;
 import com.dneero.htmlui.UserSession;
 import com.dneero.htmlui.Pagez;
+import com.dneero.htmlui.ValidationException;
 import com.dneero.email.EmailActivationSend;
 import com.dneero.helpers.UserInputSafe;
 import com.dneero.money.PaymentMethod;
@@ -64,18 +65,16 @@ public class AccountSettings implements Serializable {
         }
     }
 
-    public void saveAction(){
-
+    public void saveAction() throws ValidationException {
+        ValidationException vex = new ValidationException();
         UserSession userSession = Pagez.getUserSession();
         if (userSession.getUser()!=null){
-            boolean haveValidationError = false;
             boolean emailNeedsToBeReactivated = false;
             User user = userSession.getUser();
             if (!user.getEmail().equals(email)){
                 int cnt = NumFromUniqueResult.getInt("select count(*) from User where email='"+Str.cleanForSQL(email)+"' and userid<>'"+userSession.getUser().getUserid()+"'");
                 if (cnt>0){
-                    Pagez.getUserSession().setMessage("The email address ("+email+") is already in use and was not added to your account.");
-                    haveValidationError = true;
+                    vex.addValidationError("The email address ("+email+") is already in use and was not added to your account.");
                     email = user.getEmail();
                 } else {
                     emailNeedsToBeReactivated = true;
@@ -85,9 +84,8 @@ public class AccountSettings implements Serializable {
             if (!user.getPaymethodpaypaladdress().equals(paymethodpaypaladdress)){
                 int cnt = NumFromUniqueResult.getInt("select count(*) from User where paymethodpaypaladdress='"+Str.cleanForSQL(paymethodpaypaladdress)+"' and userid<>'"+userSession.getUser().getUserid()+"' and paymethodpaypaladdress<>'' and paymethodpaypaladdress IS NOT NULL");
                 if (cnt>0){
-                    Pagez.getUserSession().setMessage("That PayPal address is already in use by another user.");
+                    vex.addValidationError("That PayPal address is already in use by another user.");
                     paymethodpaypaladdress = user.getPaymethodpaypaladdress();
-                    haveValidationError = true;
                 }
             }
             user.setFirstname(UserInputSafe.clean(firstname));
@@ -104,8 +102,8 @@ public class AccountSettings implements Serializable {
             try{
                 user.save();
                 userid = user.getUserid();
-                if (!haveValidationError){
-                    Pagez.getUserSession().setMessage("Settings saved!");
+                if (vex.getErrors()!=null && vex.getErrors().length>0){
+                    throw vex;
                 }
             } catch (GeneralException gex){
                 Logger logger = Logger.getLogger(this.getClass().getName());

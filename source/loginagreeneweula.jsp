@@ -16,6 +16,8 @@ LoginAgreeNewEula loginAgreeNewEula = (LoginAgreeNewEula)Pagez.getBeanMgr().get(
         try {
             loginAgreeNewEula.setEula(Textarea.getValueFromRequest("eula", "Eula", true));
             loginAgreeNewEula.agree();
+            Pagez.sendRedirect("/account/index.jsp");
+            return;
         } catch (ValidationException vex) {
             Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
         }

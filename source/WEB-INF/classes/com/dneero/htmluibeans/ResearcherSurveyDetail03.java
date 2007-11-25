@@ -86,22 +86,15 @@ public class ResearcherSurveyDetail03 implements Serializable {
         }
     }
 
-    public String saveSurveyAsDraft(){
-        Pagez.sendRedirect("/researcher/index.jsp");
-        return "";
-    }
 
-    public String previousStep(){
-        Pagez.sendRedirect("/researcher/researchersurveydetail_02.jsp?surveyid="+survey.getSurveyid());
-        return "";
-    }
 
-    public String resetFormatting() throws ValidationException {
+    public void resetFormatting() throws ValidationException {
         template = "";
-        return saveSurvey();
+        saveSurvey();
     }
 
-    public String saveSurvey() throws ValidationException {
+    public void saveSurvey() throws ValidationException {
+        ValidationException vex = new ValidationException();
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("saveSurvey() called.");
         if (status<=Survey.STATUS_DRAFT){
@@ -124,8 +117,8 @@ public class ResearcherSurveyDetail03 implements Serializable {
                 } catch (GeneralException gex){
                     logger.debug("saveSurvey() failed: " + gex.getErrorsAsSingleString());
                     String message = "saveSurvey() save failed: " + gex.getErrorsAsSingleString();
-                    Pagez.getUserSession().setMessage(message);
-                    return null;
+                    vex.addValidationError(message);
+                    throw vex;
                 }
 
                 initBean();
@@ -134,17 +127,8 @@ public class ResearcherSurveyDetail03 implements Serializable {
                 survey.refresh();
             }
         }
-        Pagez.sendRedirect("/researcher/researchersurveydetail_03.jsp?surveyid="+survey.getSurveyid());
-        return "";
     }
 
-    public String continueToNext() throws ValidationException {
-        if(saveSurvey()!=null){
-            Pagez.sendRedirect("/researcher/researchersurveydetail_04.jsp?surveyid="+survey.getSurveyid());
-            return "";
-        }
-        return null;
-    }
 
     public String getTemplate() {
         return template;

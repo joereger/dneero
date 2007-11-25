@@ -18,6 +18,14 @@ String acl = "account";
             researcherDetails.setCompanytype(Dropdown.getValueFromRequest("companytype", "Type", false));
             researcherDetails.setPhone(Textbox.getValueFromRequest("phone", "Phone", false, DatatypeString.DATATYPEID));
             researcherDetails.saveAction();
+            Pagez.getUserSession().setMessage("Researcher profile saved.");
+            if (researcherDetails.getIsnewresearcher()){
+                Pagez.sendRedirect("welcomenewresearcher.jsp");
+                return;
+            } else {
+                Pagez.sendRedirect("index.jsp");
+                return;
+            }
         } catch (ValidationException vex) {
             Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
         }

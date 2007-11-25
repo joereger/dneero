@@ -57,7 +57,8 @@ public class ResearcherEmailinvite implements Serializable {
         }
     }
 
-    public String invite() throws ValidationException {
+    public void invite() throws ValidationException {
+        ValidationException vex = new ValidationException();
         Logger logger = Logger.getLogger(this.getClass().getName());
         TreeMap emailaddresses = new TreeMap();
         //Handle uploaded file
@@ -114,8 +115,7 @@ public class ResearcherEmailinvite implements Serializable {
         Pagez.getUserSession().setEmailinvitemessage(UserInputSafe.clean(message));
         Pagez.getUserSession().setEmailinvitesurveyiduserisinvitedto(surveyiduserisinvitedto);
 
-        Pagez.sendRedirect("/researcher/emailinvite-complete.jsp");
-        return "";
+
     }
 
     public TreeMap<String, String> getSurveyids(){

@@ -10,6 +10,7 @@ import com.dneero.xmpp.SendXMPPMessage;
 import com.dneero.helpers.UserInputSafe;
 import com.dneero.email.EmailTemplateProcessor;
 import com.dneero.htmlui.Pagez;
+import com.dneero.htmlui.ValidationException;
 
 import java.util.Date;
 import java.util.Iterator;
@@ -33,7 +34,8 @@ public class AccountNewSupportIssue implements Serializable {
 
     }
 
-    public String newIssue(){
+    public void newIssue() throws ValidationException {
+        ValidationException vex = new ValidationException();
         Logger logger = Logger.getLogger(this.getClass().getName());
         Supportissue supportissue = new Supportissue();
         supportissue.setStatus(Supportissue.STATUS_OPEN);
@@ -43,10 +45,9 @@ public class AccountNewSupportIssue implements Serializable {
         try{
             supportissue.save();
         } catch (GeneralException gex){
-            Pagez.getUserSession().setMessage("Sorry, there was an error: " + gex.getErrorsAsSingleString());
-            
+            vex.addValidationError("Sorry, there was an error.");
             logger.debug("newIssue failed: " + gex.getErrorsAsSingleString());
-            return null;
+            throw vex;
         }
 
         Supportissuecomm supportissuecomm = new Supportissuecomm();
@@ -58,9 +59,9 @@ public class AccountNewSupportIssue implements Serializable {
         try{
             supportissue.save();
         } catch (GeneralException gex){
-            Pagez.getUserSession().setMessage("Sorry, there was an error: " + gex.getErrorsAsSingleString());
+            vex.addValidationError("Sorry, there was an error.");
             logger.debug("newIssue failed: " + gex.getErrorsAsSingleString());
-            return null;
+            throw vex;
         }
 
         //Notify customer care group
@@ -87,7 +88,6 @@ public class AccountNewSupportIssue implements Serializable {
         } catch (Exception ex){
             logger.error("",ex);
         }
-        return "accountsupportissuenewdone";
     }
 
     public String getSubject() {

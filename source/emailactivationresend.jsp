@@ -17,6 +17,8 @@ EmailActivationResend emailActivationResend = (EmailActivationResend)Pagez.getBe
             emailActivationResend.setEmail(Textbox.getValueFromRequest("email", "Email", true, DatatypeString.DATATYPEID));
             emailActivationResend.setEmail(Textbox.getValueFromRequest("j_captcha_response", "Squiggly Letters", true, DatatypeString.DATATYPEID));
             emailActivationResend.reSendEmail();
+            Pagez.sendRedirect("emailadcivationresendcomplete.jsp");
+            return;
         } catch (ValidationException vex) {
             Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
         }

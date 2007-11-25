@@ -18,24 +18,32 @@ ResearcherSurveyDetail06 researcherSurveyDetail06 = (ResearcherSurveyDetail06)Pa
     if (request.getParameter("action") != null && (request.getParameter("action").equals("next") || request.getParameter("action").equals("save") || request.getParameter("action").equals("previous"))) {
         try {
             researcherSurveyDetail06.setCccity(Textbox.getValueFromRequest("cccity", "City", false, DatatypeString.DATATYPEID));
-            researcherSurveyDetail06.setCcexpmo(Integer.parseInt(Textbox.getValueFromRequest("ccexpmo", "Expiration Month", false, DatatypeInteger.DATATYPEID)));
-            researcherSurveyDetail06.setCcexpyear(Integer.parseInt(Textbox.getValueFromRequest("ccexpyear", "Expiration Year", false, DatatypeInteger.DATATYPEID)));
+            researcherSurveyDetail06.setCcexpmo(Textbox.getIntFromRequest("ccexpmo", "Expiration Month", false, DatatypeInteger.DATATYPEID));
+            researcherSurveyDetail06.setCcexpyear(Textbox.getIntFromRequest("ccexpyear", "Expiration Year", false, DatatypeInteger.DATATYPEID));
             researcherSurveyDetail06.setCcnum(Textbox.getValueFromRequest("ccnum", "Credit Card Number", false, DatatypeString.DATATYPEID));
             researcherSurveyDetail06.setCcstate(Textbox.getValueFromRequest("ccstate", "State", false, DatatypeString.DATATYPEID));
-            researcherSurveyDetail06.setCctype(Integer.parseInt(Dropdown.getValueFromRequest("cctype", "Credit Card Type", false)));
+            researcherSurveyDetail06.setCctype(Dropdown.getIntFromRequest("cctype", "Credit Card Type", false));
             researcherSurveyDetail06.setCvv2(Dropdown.getValueFromRequest("cvv2", "CVV2", false));
             researcherSurveyDetail06.setFirstname(Dropdown.getValueFromRequest("firstname", "First Name", false));
             researcherSurveyDetail06.setLastname(Dropdown.getValueFromRequest("lastname", "Last Name", false));
             researcherSurveyDetail06.setPostalcode(Dropdown.getValueFromRequest("postalcode", "Postal Code", false));
             researcherSurveyDetail06.setStreet(Dropdown.getValueFromRequest("street", "Street", false));
             if (request.getParameter("action").equals("next")) {
+                logger.debug("Next was clicked");
                 researcherSurveyDetail06.saveSurvey();
+                Pagez.sendRedirect("researchersurveydetail_postlaunch.jsp?surveyid="+researcherSurveyDetail06.getSurvey().getSurveyid());
+                return;
             } else if (request.getParameter("action").equals("saveasdraft")) {
                 logger.debug("Saveasdraft was clicked");
-                researcherSurveyDetail06.saveSurveyAsDraft();
+                Pagez.getUserSession().setMessage("Your survey has been saved.");
+                researcherSurveyDetail06.saveSurvey();
+                Pagez.sendRedirect("index.jsp");
+                return;
             } else if (request.getParameter("action").equals("previous")) {
                 logger.debug("Previous was clicked");
-                researcherSurveyDetail06.previousStep();
+                researcherSurveyDetail01.saveSurvey();
+                Pagez.sendRedirect("researchersurveydetail_05.jsp?surveyid="+researcherSurveyDetail06.getSurvey().getSurveyid());
+                return;
             }
         } catch (ValidationException vex) {
             Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
@@ -59,7 +67,7 @@ ResearcherSurveyDetail06 researcherSurveyDetail06 = (ResearcherSurveyDetail06)Pa
                     <font class="formfieldnamefont">Bloggers In System Fulfilling Requirements</font>
                 </td>
                 <td valign="top">
-                    <font class="normalfont"><%=researcherSurveyDetail06.getNumberofbloggersqualifiedforthissurvey()%>"></font>
+                    <font class="normalfont"><%=researcherSurveyDetail06.getNumberofbloggersqualifiedforthissurvey()%></font>
                 </td>
             </tr>
 

@@ -19,6 +19,7 @@ AccountSupportIssueDetail accountSupportIssueDetail = (AccountSupportIssueDetail
         try {
             accountSupportIssueDetail.setNotes(Textarea.getValueFromRequest("notes", "Comments", true));
             accountSupportIssueDetail.newNote();
+            Pagez.getUserSession().setMessage("Thanks, your comments have been added to the issue.");
         } catch (ValidationException vex) {
             Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
         }

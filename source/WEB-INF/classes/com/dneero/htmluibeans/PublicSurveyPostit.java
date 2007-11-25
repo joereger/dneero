@@ -185,7 +185,7 @@ public class PublicSurveyPostit implements Serializable {
 
     }
 
-    public String updateFacebookProfile() throws ValidationException {
+    public void updateFacebookProfile() throws ValidationException {
         Logger logger = Logger.getLogger(this.getClass().getName());
         try{
             //Update Facebook
@@ -201,12 +201,10 @@ public class PublicSurveyPostit implements Serializable {
                     facebookApiWrapper.postSurveyToFacebookMiniFeed(survey, response);
                 }
                 facebookApiWrapper.updateFacebookProfile(Pagez.getUserSession().getUser());
-                Pagez.getUserSession().setMessage("Your Facebook profile should have been updated.");
             }
         } catch (Exception ex){
             logger.error("",ex);
         }
-        return "publicsurveypostit";
     }
 
 

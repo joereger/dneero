@@ -43,8 +43,8 @@ public class EmailActivationResend implements Serializable {
         }
     }
 
-    public String reSendEmail() throws ValidationException {
-
+    public void reSendEmail() throws ValidationException {
+        ValidationException vex = new ValidationException();
         boolean isCaptchaCorrect = false;
         try {
             isCaptchaCorrect = CaptchaServiceSingleton.getInstance().validateResponseForID(Pagez.getRequest().getSession().getId(), j_captcha_response);
@@ -52,21 +52,19 @@ public class EmailActivationResend implements Serializable {
              //should not happen, may be thrown if the id is not valid
         }
         if (!isCaptchaCorrect){
-            Pagez.getUserSession().setMessage("You failed to correctly type the letters into the box.");
-            return null;
+            vex.addValidationError("You failed to correctly type the letters into the box.");
+            throw vex;
         }
 
         List<User> users = HibernateUtil.getSession().createQuery("from User where email='"+ Str.cleanForSQL(email)+"'").list();
         if (email==null || email.equals("") || users.size()<=0){
-            Pagez.getUserSession().setMessage("That email address was not found.");
-            return null;
+            vex.addValidationError("That email address was not found.");
+            throw vex;
         }
         for (Iterator<User> iterator = users.iterator(); iterator.hasNext();) {
             User user = iterator.next();
             EmailActivationSend.sendActivationEmail(user);
         }
-
-        return "emailactivationresendcomplete";
     }
 
 

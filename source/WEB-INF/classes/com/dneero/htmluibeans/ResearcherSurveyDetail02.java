@@ -52,27 +52,9 @@ public class ResearcherSurveyDetail02 implements Serializable {
         }
     }
 
-    public String saveSurveyAsDraft() throws ValidationException {
-        String save = saveSurvey();
-        if (save!=null){
-            Pagez.sendRedirect("/researcher/index.jsp");
-            return "";
-        } else {
-            return save;
-        }
-    }
 
-    public String previousStep() throws ValidationException {
-        String save = saveSurvey();
-        if (save!=null){
-            Pagez.sendRedirect("/researcher/researchersurveydetail_01.jsp?surveyid="+survey.getSurveyid());
-            return "";
-        } else {
-            return save;
-        }
-    }
-
-    public String saveSurvey() throws ValidationException {
+    public void saveSurvey() throws ValidationException {
+        ValidationException vex = new ValidationException();
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("saveSurvey() called.");
         if (status<=Survey.STATUS_DRAFT){
@@ -85,8 +67,8 @@ public class ResearcherSurveyDetail02 implements Serializable {
             }
 
             if (survey.getQuestions()==null || survey.getQuestions().size()==0){
-                Pagez.getUserSession().setMessage("You must add at least one question to continue.");
-                return null;   
+                vex.addValidationError("You must add at least one question to continue.");
+                throw vex;
             }
 
             if (Pagez.getUserSession().getUser()!=null && survey.canEdit(Pagez.getUserSession().getUser())){
@@ -98,8 +80,8 @@ public class ResearcherSurveyDetail02 implements Serializable {
                 } catch (GeneralException gex){
                     logger.debug("saveSurvey() failed: " + gex.getErrorsAsSingleString());
                     String message = "saveSurvey() save failed: " + gex.getErrorsAsSingleString();
-                    Pagez.getUserSession().setMessage(message);
-                    return null;
+                    vex.addValidationError(message);
+                    throw vex;
                 }
 
                 //Refresh
@@ -107,9 +89,6 @@ public class ResearcherSurveyDetail02 implements Serializable {
                 initBean();
             }
         }
-
-        Pagez.sendRedirect("/researcher/researchersurveydetail_03.jsp?surveyid="+survey.getSurveyid());
-        return "";
     }
 
 

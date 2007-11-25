@@ -33,14 +33,15 @@ public class LoginAgreeNewEula implements Serializable {
         eula = EulaHelper.getMostRecentEula().getEula();
     }
 
-    public String agree() throws ValidationException {
+    public void agree() throws ValidationException {
+        ValidationException vex = new ValidationException();
         Logger logger = Logger.getLogger(this.getClass().getName());
         User user = Pagez.getUserSession().getUser();
 
         if (!eula.equals(EulaHelper.getMostRecentEula().getEula())){
-            Pagez.getUserSession().setMessage("The end user license can't be edited.");
+            vex.addValidationError("The end user license can't be edited.");
             eula = EulaHelper.getMostRecentEula().getEula();
-            return null;
+            throw vex;
         }
 
         Usereula usereula = new Usereula();
@@ -53,13 +54,13 @@ public class LoginAgreeNewEula implements Serializable {
         } catch (GeneralException gex){
             logger.error(gex);
             logger.debug("agree failed: " + gex.getErrorsAsSingleString());
-            Pagez.getUserSession().setMessage("Error... please try again.");
-            return null;
+            vex.addValidationError("Error... please try again.");
+            throw vex;
         }
         Pagez.getUserSession().setIseulaok(true);
-        Pagez.sendRedirect("/account/index.jsp");
 
-        return "";
+
+
 
     }
 

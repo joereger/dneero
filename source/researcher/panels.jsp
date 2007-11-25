@@ -18,6 +18,7 @@ String acl = "researcher";
     if (request.getParameter("action") != null && request.getParameter("action").equals("delete")) {
         try {
             researcherPanels.deletePanel();
+            Pagez.getUserSession().setMessage("Panel deleted.");
         } catch (ValidationException vex) {
             Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
         }
@@ -28,6 +29,7 @@ String acl = "researcher";
         try {
             researcherPanels.setNewpanelname(Textbox.getValueFromRequest("newpanelname", "New Panel Name", true, DatatypeString.DATATYPEID));
             researcherPanels.createNewPanel();
+            Pagez.getUserSession().setMessage("Panel created.");
         } catch (ValidationException vex) {
             Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
         }
@@ -35,14 +37,6 @@ String acl = "researcher";
 %>
 <%@ include file="/template/header.jsp" %>
 
-
-    <%if (researcherPanels.getMsg()!=null && !researcherPanels.getMsg().equals("")){%>
-        <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
-        <img src="/images/lightbulb_on.png" alt="" align="right"/>
-        <%=researcherPanels.getMsg()%>
-        <br/><br/></font></div></center>
-        <br/><br/>
-    <%}%>
 
 
         <br/><br/>

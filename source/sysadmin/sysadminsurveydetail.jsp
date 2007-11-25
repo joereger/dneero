@@ -16,18 +16,18 @@ String acl = "sysadmin";
 <%
     if (request.getParameter("action") != null && request.getParameter("action").equals("save")) {
         try {
-            sysadminSurveyDetail.getSurvey().setStatus(Integer.parseInt(Dropdown.getValueFromRequest("status", "Status", true)));
+            sysadminSurveyDetail.getSurvey().setStatus(Dropdown.getIntFromRequest("status", "Status", true));
             sysadminSurveyDetail.getSurvey().setTitle(Textbox.getValueFromRequest("title", "Title", true, DatatypeString.DATATYPEID));
             sysadminSurveyDetail.getSurvey().setDescription(Textarea.getValueFromRequest("description", "Description", true));
             sysadminSurveyDetail.getSurvey().setTemplate(Textarea.getValueFromRequest("template", "Template", false));
             sysadminSurveyDetail.getSurvey().setIsspotlight(CheckboxBoolean.getValueFromRequest("isspotlight"));
             sysadminSurveyDetail.getSurvey().setStartdate(DateTime.getValueFromRequest("startdate", "Start Date", true).getTime());
             sysadminSurveyDetail.getSurvey().setEnddate(DateTime.getValueFromRequest("enddate", "End Date", true).getTime());
-            sysadminSurveyDetail.getSurvey().setWillingtopayperrespondent(Double.parseDouble(Textbox.getValueFromRequest("willingtopayperrespondent", "Willing to Pay Per Respondent", true, DatatypeDouble.DATATYPEID)));
-            sysadminSurveyDetail.getSurvey().setWillingtopaypercpm(Double.parseDouble(Textbox.getValueFromRequest("willingtopaypercpm", "Willing to Pay Per CPM", true, DatatypeDouble.DATATYPEID)));
-            sysadminSurveyDetail.getSurvey().setNumberofrespondentsrequested(Integer.parseInt(Textbox.getValueFromRequest("numberofrespondentsrequested", "Number of Respondents Requested", true, DatatypeInteger.DATATYPEID)));
-            sysadminSurveyDetail.getSurvey().setMaxdisplaysperblog(Integer.parseInt(Textbox.getValueFromRequest("maxdisplaysperblog", "Max Displays Per Blog", true, DatatypeInteger.DATATYPEID)));
-            sysadminSurveyDetail.getSurvey().setMaxdisplaystotal(Integer.parseInt(Textbox.getValueFromRequest("maxdisplaystotal", "Max Displays Total", true, DatatypeInteger.DATATYPEID)));
+            sysadminSurveyDetail.getSurvey().setWillingtopayperrespondent(Textbox.getDblFromRequest("willingtopayperrespondent", "Willing to Pay Per Respondent", true, DatatypeDouble.DATATYPEID));
+            sysadminSurveyDetail.getSurvey().setWillingtopaypercpm(Textbox.getDblFromRequest("willingtopaypercpm", "Willing to Pay Per CPM", true, DatatypeDouble.DATATYPEID));
+            sysadminSurveyDetail.getSurvey().setNumberofrespondentsrequested(Textbox.getIntFromRequest("numberofrespondentsrequested", "Number of Respondents Requested", true, DatatypeInteger.DATATYPEID));
+            sysadminSurveyDetail.getSurvey().setMaxdisplaysperblog(Textbox.getIntFromRequest("maxdisplaysperblog", "Max Displays Per Blog", true, DatatypeInteger.DATATYPEID));
+            sysadminSurveyDetail.getSurvey().setMaxdisplaystotal(Textbox.getIntFromRequest("maxdisplaystotal", "Max Displays Total", true, DatatypeInteger.DATATYPEID));
             sysadminSurveyDetail.saveSurvey();
         } catch (ValidationException vex) {
             Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());

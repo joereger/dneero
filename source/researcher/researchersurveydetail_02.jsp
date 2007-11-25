@@ -34,12 +34,19 @@ String acl="researcher";
             if (request.getParameter("action").equals("next")) {
                 logger.debug("Next was clicked");
                 researcherSurveyDetail02.saveSurvey();
+                Pagez.sendRedirect("researchersurveydetail_03.jsp?surveyid="+researcherSurveyDetail02.getSurvey().getSurveyid());
+                return;
             } else if (request.getParameter("action").equals("saveasdraft")) {
                 logger.debug("Saveasdraft was clicked");
-                researcherSurveyDetail02.saveSurveyAsDraft();
+                Pagez.getUserSession().setMessage("Your survey has been saved.");
+                researcherSurveyDetail02.saveSurvey();
+                Pagez.sendRedirect("index.jsp");
+                return;
             } else if (request.getParameter("action").equals("previous")) {
                 logger.debug("Previous was clicked");
-                researcherSurveyDetail02.previousStep();
+                researcherSurveyDetail02.saveSurvey();
+                Pagez.sendRedirect("researchersurveydetail_01.jsp?surveyid="+researcherSurveyDetail02.getSurvey().getSurveyid());
+                return;
             }
         } catch (ValidationException vex) {
             Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());

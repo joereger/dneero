@@ -169,6 +169,7 @@
                 <font class="pagetitlefont"><%=pagetitle%></font>
                 <br/>
                 <%
+                logger.debug("Pagez.getUserSession().getMessage()="+Pagez.getUserSession().getMessage());
                 if (Pagez.getUserSession().getMessage()!=null && !Pagez.getUserSession().getMessage().equals("")){
                     %>
                     <br/>

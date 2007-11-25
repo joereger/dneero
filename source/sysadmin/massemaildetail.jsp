@@ -23,12 +23,19 @@ SysadminMassemailDetail sysadminMassemailDetail = (SysadminMassemailDetail)Pagez
             sysadminMassemailDetail.setTestsendemailaddress(Textbox.getValueFromRequest("testsendemailaddress", "Test Send Email Address", false, DatatypeString.DATATYPEID));
             if (request.getParameter("action").equals("save")){
                 sysadminMassemailDetail.save();
+                Pagez.getUserSession().setMessage("Saved!");
             } else if (request.getParameter("action").equals("send")){
                 sysadminMassemailDetail.send();
+                Pagez.sendRedirect("massemailsend.jsp");
+                return;
             } else if (request.getParameter("action").equals("testsend")){
                 sysadminMassemailDetail.testSend();
+                Pagez.getUserSession().setMessage("Test send done.");
             } else if (request.getParameter("action").equals("copy")){
                 sysadminMassemailDetail.copy();
+                Pagez.getUserSession().setMessage("Mass Email Copied!");
+                Pagez.sendRedirect("massemaillist.jsp");
+                return;
             }
         } catch (ValidationException vex) {
             Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());

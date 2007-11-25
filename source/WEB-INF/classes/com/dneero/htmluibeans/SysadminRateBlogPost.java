@@ -45,7 +45,7 @@ public class SysadminRateBlogPost implements Serializable {
         }
     }
 
-    public String rateAction() throws ValidationException {
+    public void rateAction() throws ValidationException {
         Logger logger = Logger.getLogger(this.getClass().getName());
         if (impressionid>0){
             Impression impression = Impression.get(impressionid);
@@ -53,7 +53,6 @@ public class SysadminRateBlogPost implements Serializable {
             try{impression.save();} catch (Exception ex){logger.error("",ex);}
         }
         initBean();
-        return "";
     }
 
     public int getImpressionid() {

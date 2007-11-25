@@ -152,7 +152,8 @@ public class Registration implements Serializable {
         //End Facebook shenanigans
     }
 
-    public String registerAction() throws ValidationException {
+    public void registerAction() throws ValidationException {
+        ValidationException vex = new ValidationException();
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("registerAction called:  email="+email+" password="+password+" firstname="+firstname+" lastname="+lastname);
 
@@ -160,28 +161,28 @@ public class Registration implements Serializable {
         boolean haveErrors = false;
 
         if (password==null || password.equals("") || password.length()<6){
-            Pagez.getUserSession().setMessage("Password must be at least six characters long.");
+            vex.addValidationError("Password must be at least six characters long.");
             haveErrors = true;
         }
 
         if (!password.equals(passwordverify)){
-            Pagez.getUserSession().setMessage("Password and Verify Password must match.");
+            vex.addValidationError("Password and Verify Password must match.");
             haveErrors = true;
         }
 
         EmailValidator ev = EmailValidator.getInstance();
         if (!ev.isValid(email)){
-            Pagez.getUserSession().setMessage("Not a valid email address.");
+            vex.addValidationError("Not a valid email address.");
             haveErrors = true;
         }
 
         if (firstname==null || firstname.equals("")){
-            Pagez.getUserSession().setMessage("First Name can't be blank.");
+            vex.addValidationError("First Name can't be blank.");
             haveErrors = true;
         }
 
         if (lastname==null || lastname.equals("")){
-            Pagez.getUserSession().setMessage("Last Name can't be blank.");
+            vex.addValidationError("Last Name can't be blank.");
             haveErrors = true;
         }
 
@@ -190,7 +191,7 @@ public class Registration implements Serializable {
         if (eula==null || !eula.equals(EulaHelper.getMostRecentEula().getEula())){
             //logger.debug("eula="+eula);
             //logger.debug("EulaHelper.getMostRecentEula().getEula()="+EulaHelper.getMostRecentEula().getEula());
-            Pagez.getUserSession().setMessage("The end user license can't be edited.");
+            vex.addValidationError("The end user license can't be edited.");
             eula = EulaHelper.getMostRecentEula().getEula();
             haveErrors = true;
         }
@@ -203,17 +204,17 @@ public class Registration implements Serializable {
              //should not happen, may be thrown if the id is not valid
         }
         if (!isCaptchaCorrect){
-            Pagez.getUserSession().setMessage("You failed to correctly type the letters into the box.");
+            vex.addValidationError("You failed to correctly type the letters into the box.");
             haveErrors = true;
         }
 
         List<User> users = HibernateUtil.getSession().createQuery("from User where email='"+ Str.cleanForSQL(email)+"'").list();
         if (users.size()>0){
-            Pagez.getUserSession().setMessage("That email address is already in use.");
+            vex.addValidationError("That email address is already in use.");
         }
 
         if (haveErrors){
-            return null;
+            throw vex;
         }
 
         //Create the user
@@ -252,7 +253,7 @@ public class Registration implements Serializable {
             userid = user.getUserid();
         } catch (GeneralException gex){
             logger.debug("registerAction failed: " + gex.getErrorsAsSingleString());
-            return null;
+            throw new ValidationException("An internal server error occurred.  Apologies for the trouble.  Please try again.");
         }
 
         //Eula version check
@@ -265,7 +266,7 @@ public class Registration implements Serializable {
             usereula.save();
         } catch (GeneralException gex){
             logger.debug("registerAction failed: " + gex.getErrorsAsSingleString());
-            return null;
+            throw new ValidationException("An internal server error occurred.  Apologies for the trouble.  Please try again.");
         }
         user.getUsereulas().add(usereula);
 
@@ -307,23 +308,6 @@ public class Registration implements Serializable {
             Pagez.getResponse().addCookie(cookies[j]);
         }
         //@todo put userSession object into a cache or something?
-
-        //Redir if https is on
-        if (SystemProperty.getProp(SystemProperty.PROP_ISSSLON).equals("1")){
-            try{
-                logger.debug("redirecting to https - "+ BaseUrl.get(true)+"account/index.jsp");
-                Pagez.sendRedirect(BaseUrl.get(true)+"account/index.jsp");
-                return null;
-            } catch (Exception ex){
-                logger.error("",ex);
-                //@todo setIsfirsttimelogin(true) on AccountIndex bean
-                Pagez.sendRedirect("/account/index.jsp");
-            }
-        } else {
-            //@todo setIsfirsttimelogin(true) on AccountIndex bean
-            Pagez.sendRedirect("/account/index.jsp");
-        }
-        return "";
     }
 
 

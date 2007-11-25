@@ -9,6 +9,7 @@ import com.dneero.dao.User;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.htmlui.UserSession;
 import com.dneero.htmlui.Pagez;
+import com.dneero.htmlui.ValidationException;
 
 import com.dneero.util.GeneralException;
 import com.dneero.xmpp.SendXMPPMessage;
@@ -54,11 +55,12 @@ public class AccountSupportIssueDetail implements Serializable {
         }
     }
 
-    public String newNote(){
+    public void newNote() throws ValidationException {
+        ValidationException vex = new ValidationException();
         Logger logger = Logger.getLogger(this.getClass().getName());
         if(supportissueid<=0){
             logger.debug("supportissueid not found: "+supportissueid);
-            return "";
+            vex.addValidationError("supportissueid not found.");
         } else {
             supportissue = Supportissue.get(supportissueid);
         }
@@ -74,12 +76,12 @@ public class AccountSupportIssueDetail implements Serializable {
         try{
             supportissuecomm.save();
         } catch (GeneralException gex){
-            Pagez.getUserSession().setMessage("Error saving record: "+gex.getErrorsAsSingleString());
+            vex.addValidationError("Sorry, there was an error saving the record.  Please try again.");
             logger.debug("saveAction failed: " + gex.getErrorsAsSingleString());
-            return null;
+            throw vex;
         }
 
-        Pagez.getUserSession().setMessage("Thanks, your comments have been added to the issue.");
+
         initBean();
         
         //Notify sales group
@@ -93,7 +95,6 @@ public class AccountSupportIssueDetail implements Serializable {
         SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_CUSTOMERSUPPORT, "New dNeero Customer Support Comment: "+si.getSubject()+" (supportissueid="+supportissueid+") ("+Pagez.getUserSession().getUser().getEmail()+") "+notes);
         xmpp.send();
 
-        return "";
     }
 
     public int getSupportissueid() {

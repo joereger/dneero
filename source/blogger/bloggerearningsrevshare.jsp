@@ -23,6 +23,10 @@ String acl = "blogger";
         try {
             bloggerEarningsRevshareInvite.setEmail(Textarea.getValueFromRequest("email", "Email", true));
             bloggerEarningsRevshareInvite.setMessage(Textarea.getValueFromRequest("message", "Message", false));
+            bloggerEarningsRevshareInvite.invite();
+            Pagez.getUserSession().setMessage("Invitation sent successfully.");
+            Pagez.sendRedirect("bloggerearningsrevshare.jsp");
+            return;
         } catch (com.dneero.htmlui.ValidationException vex) {
             Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
         }

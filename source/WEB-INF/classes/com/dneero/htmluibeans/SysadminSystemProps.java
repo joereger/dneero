@@ -55,7 +55,7 @@ public class SysadminSystemProps implements Serializable {
         facebook_api_secret = SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_SECRET);
     }
 
-    public String saveProps() throws ValidationException {
+    public void saveProps() throws ValidationException {
         Logger logger = Logger.getLogger(this.getClass().getName());
         try{
             SystemProperty.setProp(SystemProperty.PROP_BASEURL, baseurl);
@@ -73,12 +73,9 @@ public class SysadminSystemProps implements Serializable {
             SystemProperty.setProp(SystemProperty.PROP_FACEBOOK_API_KEY, facebook_api_key);
             SystemProperty.setProp(SystemProperty.PROP_FACEBOOK_API_SECRET, facebook_api_secret);
             BaseUrl.refresh();
-            Pagez.getUserSession().setMessage("Save complete.");
         } catch (Exception ex){
             logger.error("",ex);
         }
-
-        return "sysadminsystemprops";
     }
 
 

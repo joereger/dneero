@@ -28,6 +28,8 @@ public class ResearcherDetails implements Serializable {
     private String companytype;
     private String phone;
 
+    private boolean isnewresearcher;
+
 
     public ResearcherDetails(){
 
@@ -49,7 +51,8 @@ public class ResearcherDetails implements Serializable {
 
     }
 
-    public String saveAction() throws ValidationException {
+    public void saveAction() throws ValidationException {
+        ValidationException vex = new ValidationException();
         Logger logger = Logger.getLogger(this.getClass().getName());
         UserSession userSession = Pagez.getUserSession();
 
@@ -73,9 +76,9 @@ public class ResearcherDetails implements Serializable {
             try{
                 researcher.save();
             } catch (GeneralException gex){
-                Pagez.getUserSession().setMessage("Error saving record: "+gex.getErrorsAsSingleString());
+                vex.addValidationError("Error saving record. ");
                 logger.debug("saveAction failed: " + gex.getErrorsAsSingleString());
-                return null;
+                throw vex;
             }
 
             if (isnewresearcher){
@@ -105,9 +108,9 @@ public class ResearcherDetails implements Serializable {
                 try{
                     role.save();
                 } catch (GeneralException gex){
-                    Pagez.getUserSession().setMessage("Error saving role record: "+gex.getErrorsAsSingleString());
+                    vex.addValidationError("Error saving role record: "+gex.getErrorsAsSingleString());
                     logger.debug("saveAction failed: " + gex.getErrorsAsSingleString());
-                    return null;
+                    throw vex;
                 }
             }
 
@@ -118,24 +121,16 @@ public class ResearcherDetails implements Serializable {
             try{
                 userSession.getUser().save();
             } catch (GeneralException gex){
-                Pagez.getUserSession().setMessage("Error saving record: "+gex.getErrorsAsSingleString());
+                vex.addValidationError("Error saving record: "+gex.getErrorsAsSingleString());
                 logger.debug("saveAction failed: " + gex.getErrorsAsSingleString());
-                return null;
+                throw vex;
             }
 
             userSession.getUser().refresh();
-            Pagez.getUserSession().setMessage("Researcher profile saved.");
 
-            if (isnewresearcher){
-                Pagez.sendRedirect("/researcher/welcomenewresearcher.jsp");
-                return "";
-            } else {
-                Pagez.sendRedirect("/researcher/index.jsp");
-                return "";
-            }
         } else {
-            Pagez.getUserSession().setMessage("UserSession.getUser() is null.  Please log in.");
-            return null;
+            vex.addValidationError("UserSession.getUser() is null.  Please log in.");
+            throw vex;
         }
     }
 
@@ -174,5 +169,13 @@ public class ResearcherDetails implements Serializable {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public boolean getIsnewresearcher() {
+        return isnewresearcher;
+    }
+
+    public void setIsnewresearcher(boolean isnewresearcher) {
+        this.isnewresearcher=isnewresearcher;
     }
 }

@@ -15,6 +15,9 @@ ResearcherSurveyDelete researcherSurveyDelete = (ResearcherSurveyDelete) Pagez.g
     if (request.getParameter("action") != null && request.getParameter("action").equals("delete")) {
         try {
             researcherSurveyDelete.deleteSurvey();
+            Pagez.getUserSession().setMessage("Survey deleted.");
+            Pagez.sendRedirect("index.jsp");
+            return;
         } catch (ValidationException vex) {
             Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
         }

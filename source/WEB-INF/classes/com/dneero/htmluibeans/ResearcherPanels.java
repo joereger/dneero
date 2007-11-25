@@ -52,7 +52,8 @@ public class ResearcherPanels implements Serializable {
         }
     }
 
-    public String createNewPanel() throws ValidationException {
+    public void createNewPanel() throws ValidationException {
+        ValidationException vex = new ValidationException();
         Logger logger = Logger.getLogger(this.getClass().getName());
         if (newpanelname==null || newpanelname.equals("")){
             newpanelname = "My Panel ("+Time.dateformatdate(Calendar.getInstance())+")";
@@ -75,26 +76,24 @@ public class ResearcherPanels implements Serializable {
         panel.setResearcherid(Pagez.getUserSession().getUser().getResearcherid());
         try{panel.save();}catch (Exception ex){logger.error("",ex);}
         initBean();
-        msg = "New panel created.";
-        return "researcherpanels";
     }
 
-    public String deletePanel() throws ValidationException {
+    public void deletePanel() throws ValidationException {
+        ValidationException vex = new ValidationException();
         Logger logger = Logger.getLogger(this.getClass().getName());
         if (Num.isinteger(Pagez.getRequest().getParameter("panelid"))){
             Panel panel = Panel.get(Integer.parseInt(Pagez.getRequest().getParameter("panelid")));
             if (panel.canEdit(Pagez.getUserSession().getUser())){
                 try{
                     panel.delete();
-                    msg = "Panel deleted.";
                     initBean();
                 }catch (Exception ex){
                     logger.error("",ex);
-                    msg="Error deleting panel.";
+                    vex.addValidationError("Error deleting panel.");
+                    throw vex;
                 }
             }
         }
-        return "researcherpanels";
     }
 
 

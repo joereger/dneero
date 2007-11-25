@@ -14,6 +14,7 @@ import com.dneero.email.EmailSendThread;
 import com.dneero.email.EmailSend;
 import com.dneero.scheduledjobs.SendMassemails;
 import com.dneero.htmlui.Pagez;
+import com.dneero.htmlui.ValidationException;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -55,15 +56,15 @@ public class SysadminMassemailDetail implements Serializable {
         calculatePreviews();
     }
 
-    public String save(){
+    public void save() throws ValidationException {
+        ValidationException vex = new ValidationException();
         Logger logger = Logger.getLogger(this.getClass().getName());
         try{massemail.save();}catch(Exception ex){logger.error("",ex);}
         calculatePreviews();
-        Pagez.getUserSession().setMessage("Saved!");
-        return "sysadminmassemaildetail";
     }
 
-    public String testSend(){
+    public void testSend() throws ValidationException {
+        ValidationException vex = new ValidationException();
         Logger logger = Logger.getLogger(this.getClass().getName());
         try{massemail.save();}catch(Exception ex){logger.error("",ex);}
         calculatePreviews();
@@ -79,12 +80,11 @@ public class SysadminMassemailDetail implements Serializable {
             email.setHtmlMsg(htmlPreview);
             email.setTextMsg(txtPreview);
             EmailSend.sendMail(email);
-            Pagez.getUserSession().setMessage("Test email sent to: "+testSentTo+"!");
         } catch (Exception e){
-            Pagez.getUserSession().setMessage("Error on send! " +e.getMessage());
+            vex.addValidationError("Error on send! " +e.getMessage());
             logger.error("", e);
+            throw vex;
         }
-        return "sysadminmassemaildetail";
     }
 
     private void calculatePreviews(){
@@ -103,22 +103,20 @@ public class SysadminMassemailDetail implements Serializable {
         }
     }
 
-    public String send(){
+    public void send() throws ValidationException{
+        ValidationException vex = new ValidationException();
         Logger logger = Logger.getLogger(this.getClass().getName());
         calculatePreviews();
         if (massemail.getStatus()==Massemail.STATUS_NEW){
             try{massemail.save();}catch(Exception ex){logger.error("",ex);}
             //@todo setMassemail on SysadminMassemailSend bean
-            Pagez.sendRedirect("/sysadmin/massemailsend.jsp");
-            return "";
-
         } else {
-            Pagez.getUserSession().setMessage("Sorry, this mass email has already been sent!");
-            return "sysadminmassemaildetail";
+            vex.addValidationError("Sorry, this mass email has already been sent!");
+            throw vex;
         }
     }
 
-    public String copy(){
+    public void copy() throws ValidationException{
         Logger logger = Logger.getLogger(this.getClass().getName());
         Massemail massemailCopy = new Massemail();
         massemailCopy.setDate(new Date());
@@ -131,9 +129,6 @@ public class SysadminMassemailDetail implements Serializable {
         massemailCopy.setSubject(massemail.getSubject());
         massemailCopy.setTxtmessage(massemail.getTxtmessage());
         try{massemailCopy.save();}catch(Exception ex){logger.error("",ex);}
-        Pagez.getUserSession().setMessage("Mass Email Copied!");
-        Pagez.sendRedirect("/sysadmin/massemaillist.jsp");
-        return "";
     }
 
 

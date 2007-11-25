@@ -52,7 +52,8 @@ public class SysadminInstanceProps implements Serializable {
         instancename = InstanceProperties.getInstancename();
     }
 
-    public String saveProps() throws ValidationException {
+    public void saveProps() throws ValidationException {
+        ValidationException vex = new ValidationException();
         Logger logger = Logger.getLogger(this.getClass().getName());
         try{
             //This assumes page-level validation
@@ -73,20 +74,22 @@ public class SysadminInstanceProps implements Serializable {
             try{
                 InstanceProperties.save();
                 if (InstanceProperties.haveValidConfig()){
-                    Pagez.getUserSession().setMessage("Save complete.");
+
                 } else {
-                    Pagez.getUserSession().setMessage("Save failed! Values reset.");
+                    vex.addValidationError("Save failed! Values reset.");
                 }
             } catch (GeneralException gex){
-                Pagez.getUserSession().setMessage("Save failed: " + gex.getErrorsAsSingleString());
+                vex.addValidationError("Save failed: " + gex.getErrorsAsSingleString());
             }
 
         } catch (Exception ex){
             logger.error("",ex);
-            Pagez.getUserSession().setMessage("Save failed: " + ex.getMessage());
+            vex.addValidationError("Save failed: " + ex.getMessage());
         }
 
-        return "sysadmininstanceprops";
+        if (vex.getErrors()!=null && vex.getErrors().length>0){
+            throw vex;
+        }
     }
 
 

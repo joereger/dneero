@@ -54,7 +54,8 @@ public class ResearcherEmailinviteComplete implements Serializable {
         }
     }
     
-    public String complete() throws ValidationException {
+    public void complete() throws ValidationException {
+        ValidationException vex = new ValidationException();
         Logger logger = Logger.getLogger(this.getClass().getName());
         if (Pagez.getUserSession()!=null && Pagez.getUserSession().getEmailinviteaddresses()!=null && Pagez.getUserSession().getEmailinviteaddresses().size()>0){
             //Load the survey user's invited to
@@ -106,9 +107,7 @@ public class ResearcherEmailinviteComplete implements Serializable {
                 Pagez.getUserSession().setEmailinvitesurveyiduserisinvitedto(0);
             }
         }
-        Pagez.getUserSession().setMessage("Invitations sent!");
-        Pagez.sendRedirect("emailinvite-sent.jsp");
-        return "researcheremailinvitesent";
+
     }
 
 

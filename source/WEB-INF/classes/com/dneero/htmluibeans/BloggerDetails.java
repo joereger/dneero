@@ -17,6 +17,7 @@ import com.dneero.dao.User;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.htmlui.UserSession;
 import com.dneero.htmlui.Pagez;
+import com.dneero.htmlui.ValidationException;
 import com.dneero.money.PaymentMethod;
 
 
@@ -39,6 +40,8 @@ public class BloggerDetails implements Serializable {
     private String profession;
     private String blogfocus;
     private String politics;
+
+    private boolean isnewblogger;
 
 
 
@@ -73,11 +76,12 @@ public class BloggerDetails implements Serializable {
 
 
 
-    public String saveAction(){
+    public void saveAction() throws ValidationException {
+        ValidationException vex = new ValidationException();
         Logger logger = Logger.getLogger(this.getClass().getName());
 
         Blogger blogger;
-        boolean isnewblogger = false;
+        isnewblogger = false;
         if (Pagez.getUserSession().getUser()!=null && Pagez.getUserSession().getUser().getBloggerid()>0){
             blogger =  Blogger.get(Pagez.getUserSession().getUser().getBloggerid());
         } else {
@@ -95,15 +99,15 @@ public class BloggerDetails implements Serializable {
             Calendar birthdateCal = Time.getCalFromDate(birthdate);
             logger.debug("birthdateCal="+Time.dateformatfordb(birthdateCal));
             if (birthdateCal.after(Time.subtractYear(Calendar.getInstance(), 13))){
-                Pagez.getUserSession().setMessage("You must be at least 13 years of age to use this system.");
+                vex.addValidationError("You must be at least 13 years of age to use this system.");
                 haveValidationError = true;
             }
             if (birthdateCal.before(Time.subtractYear(Calendar.getInstance(), 110))){
-                Pagez.getUserSession().setMessage("Please check your date and enter the year in YYYY format (i.e. 1975).");
+                vex.addValidationError("Please check your date and enter the year in YYYY format (i.e. 1975).");
                 haveValidationError = true;
             }
             if (haveValidationError){
-                return null;
+                throw vex;
             }
             //End validation
 
@@ -124,9 +128,9 @@ public class BloggerDetails implements Serializable {
             try{
                 blogger.save();
             } catch (GeneralException gex){
-                Pagez.getUserSession().setMessage("Error saving record: "+gex.getErrorsAsSingleString());
+                vex.addValidationError("Error saving record.");
                 logger.debug("saveAction failed: " + gex.getErrorsAsSingleString());
-                return null;
+                throw vex;
             }
 
             if (isnewblogger){
@@ -153,9 +157,9 @@ public class BloggerDetails implements Serializable {
                 try{
                     role.save();
                 } catch (GeneralException gex){
-                    Pagez.getUserSession().setMessage("Error saving role record: "+gex.getErrorsAsSingleString());
+                    vex.addValidationError("Error saving role record: "+gex.getErrorsAsSingleString());
                     logger.debug("saveAction failed: " + gex.getErrorsAsSingleString());
-                    return null;
+                    throw vex;
                 }
             }
 
@@ -164,25 +168,18 @@ public class BloggerDetails implements Serializable {
             try{
                 Pagez.getUserSession().getUser().save();
             } catch (GeneralException gex){
-                Pagez.getUserSession().setMessage("Error saving record: "+gex.getErrorsAsSingleString());
+                vex.addValidationError("Error saving record: "+gex.getErrorsAsSingleString());
                 logger.debug("saveAction failed: " + gex.getErrorsAsSingleString());
-                return null;
+                throw vex;
             }
 
             Pagez.getUserSession().getUser().refresh();
 
-            if (isnewblogger){
-                Pagez.getUserSession().setMessage("Profile Saved Successfully");
-                Pagez.sendRedirect("/blogger/index.jsp");
-            } else {
-                Pagez.getUserSession().setMessage("Profile Saved Successfully");
-                Pagez.sendRedirect("/blogger/index.jsp");
-            }
+
         } else {
-            Pagez.getUserSession().setMessage("UserSession.getUser() is null.  Please log in.");
-            return null;
+            vex.addValidationError("UserSession.getUser() is null.  Please log in.");
+            throw vex;
         }
-        return "";
     }
 
 
@@ -287,6 +284,11 @@ public class BloggerDetails implements Serializable {
     }
 
 
+    public boolean getIsnewblogger() {
+        return isnewblogger;
+    }
 
-    
+    public void setIsnewblogger(boolean isnewblogger) {
+        this.isnewblogger=isnewblogger;
+    }
 }

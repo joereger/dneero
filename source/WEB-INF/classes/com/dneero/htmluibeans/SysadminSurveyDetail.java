@@ -16,6 +16,7 @@ import com.dneero.finders.SurveyCriteriaXML;
 import com.dneero.survey.servlet.SurveyFlashServlet;
 import com.dneero.display.SurveyTakerDisplay;
 import com.dneero.htmlui.Pagez;
+import com.dneero.htmlui.ValidationException;
 
 /**
  * User: Joe Reger Jr
@@ -58,7 +59,8 @@ public class SysadminSurveyDetail implements Serializable {
     }
 
 
-    public String saveSurvey(){
+    public void saveSurvey() throws ValidationException {
+        ValidationException vex = new ValidationException();
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("saveSurvey() called.");
 
@@ -67,7 +69,7 @@ public class SysadminSurveyDetail implements Serializable {
         Calendar beforeMinusDay = Time.xDaysAgoStart(Calendar.getInstance(), 0);
         if (survey.getStartdate().after(survey.getEnddate())){
             isValidData = false;
-            Pagez.getUserSession().setMessage("The End Date must be after the Start Date.");
+            vex.addValidationError("The End Date must be after the Start Date.");
             logger.debug("valdation error - startdate is after end date.");
         }
         if (isValidData){
@@ -79,14 +81,13 @@ public class SysadminSurveyDetail implements Serializable {
             } catch (GeneralException gex){
                 logger.debug("saveSurvey() failed: " + gex.getErrorsAsSingleString());
                 String message = "saveSurvey() save failed: " + gex.getErrorsAsSingleString();
-                Pagez.getUserSession().setMessage(message);
-                return null;
+                vex.addValidationError(message);
+                throw vex;
             }
         } else {
-            Pagez.getUserSession().setMessage("There was an error.");
-            return null;
+            vex.addValidationError("There was an error.");
+            throw vex;
         }
-        return "sysadminsurveydetail";
     }
 
     public TreeMap<String, String> getStatuses(){

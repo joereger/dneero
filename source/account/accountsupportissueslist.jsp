@@ -21,6 +21,7 @@ AccountNewSupportIssue accountNewSupportIssue = (AccountNewSupportIssue) Pagez.g
             accountNewSupportIssue.setSubject(Textbox.getValueFromRequest("subject", "Subject", true, DatatypeString.DATATYPEID));
             accountNewSupportIssue.setNotes(Textarea.getValueFromRequest("notes", "Issue Description", true));
             accountNewSupportIssue.newIssue();
+            Pagez.getUserSession().setMessage("Your issue has been added.");
         } catch (ValidationException vex) {
             Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
         }

@@ -1,6 +1,7 @@
 <%@ page import="org.apache.log4j.Logger" %>
 <%@ page import="com.dneero.htmluibeans.Registration" %>
 <%@ page import="com.dneero.htmlui.*" %>
+<%@ page import="com.dneero.systemprops.SystemProperty" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "Sign Up for a dNeero Account";
@@ -22,6 +23,23 @@ Registration registration = (Registration)Pagez.getBeanMgr().get("Registration")
             registration.setPassword(TextboxSecret.getValueFromRequest("password", "Password", true, DatatypeString.DATATYPEID));
             registration.setPasswordverify(TextboxSecret.getValueFromRequest("passwordverify", "Password Verify", true, DatatypeString.DATATYPEID));
             registration.registerAction();
+            //Redir if https is on
+            if (SystemProperty.getProp(SystemProperty.PROP_ISSSLON).equals("1")) {
+                try {
+                    logger.debug("redirecting to https - " + BaseUrl.get(true) + "account/index.jsp");
+                    Pagez.sendRedirect(BaseUrl.get(true) + "account/index.jsp");
+                    return;
+                } catch (Exception ex) {
+                    logger.error("", ex);
+                    //@todo setIsfirsttimelogin(true) on AccountIndex bean
+                    Pagez.sendRedirect("/account/index.jsp");
+                    return;
+                }
+            } else {
+                //@todo setIsfirsttimelogin(true) on AccountIndex bean
+                Pagez.sendRedirect("/account/index.jsp");
+                return;
+            }
         } catch (ValidationException vex) {
             Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
         }

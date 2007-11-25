@@ -66,7 +66,8 @@ public class SysadminBlogpost implements Serializable {
         }
     }
 
-    public String save() throws ValidationException {
+    public void save() throws ValidationException {
+        ValidationException vex = new ValidationException();
         Logger logger = Logger.getLogger(this.getClass().getName());
         Blogpost blogpost = new Blogpost();
         boolean doPingomatic = true;
@@ -88,10 +89,9 @@ public class SysadminBlogpost implements Serializable {
         } catch (Exception ex){
             logger.error("",ex);
         }
-        return "sysadminblogpost";
     }
 
-    public String delete() throws ValidationException {
+    public void delete() throws ValidationException {
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("blogpostid="+blogpostid);
         if (blogpostid>0){
@@ -99,7 +99,6 @@ public class SysadminBlogpost implements Serializable {
             try{blogpost.delete();}catch(Exception ex){logger.error("",ex);}
         }
         initBean();
-        return "sysadminblogpost";
     }
 
 

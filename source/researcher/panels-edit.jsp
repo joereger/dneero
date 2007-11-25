@@ -16,6 +16,9 @@ ResearcherPanelsEdit researcherPanelsEdit = (ResearcherPanelsEdit)Pagez.getBeanM
         try {
             researcherPanelsEdit.getPanel().setName(Textbox.getValueFromRequest("panelname", "Panel Name", true, DatatypeString.DATATYPEID));
             researcherPanelsEdit.edit();
+            Pagez.getUserSession().setMessage("Panel edited.");
+            Pagez.sendRedirect("panels.jsp");
+            return;
         } catch (ValidationException vex) {
             Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
         }

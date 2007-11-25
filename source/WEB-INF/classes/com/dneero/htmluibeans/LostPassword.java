@@ -35,7 +35,8 @@ public class LostPassword implements Serializable {
 
     }
 
-    public String recoverPassword() throws ValidationException {
+    public void recoverPassword() throws ValidationException {
+        ValidationException vex = new ValidationException();
         Logger logger = Logger.getLogger(this.getClass().getName());
         boolean isCaptchaCorrect = false;
         try {
@@ -45,8 +46,8 @@ public class LostPassword implements Serializable {
              logger.error("", e);
         }
         if (!isCaptchaCorrect){
-            Pagez.getUserSession().setMessage("You failed to correctly type the letters into the box.");
-            return null;
+            vex.addValidationError("You failed to correctly type the letters into the box.");
+            throw vex;
         }
 
         List<User> users = HibernateUtil.getSession().createQuery("from User where email='"+ Str.cleanForSQL(email)+"'").list();
@@ -56,11 +57,10 @@ public class LostPassword implements Serializable {
                 LostPasswordSend.sendLostPasswordEmail(user);
             }
         } else {
-            Pagez.getUserSession().setMessage("Email address not found.");
-            return null;
+            vex.addValidationError("Email address not found.");
+            throw vex;
         }
 
-        return "lostpasswordsent";
     }
 
 

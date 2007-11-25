@@ -37,7 +37,7 @@ public class SysadminEditEula implements Serializable {
         date = Time.dateformatcompactwithtime(Time.getCalFromDate(EulaHelper.getMostRecentEula().getDate()));
     }
 
-    public String edit() throws ValidationException {
+    public void edit() throws ValidationException {
         Logger logger = Logger.getLogger(this.getClass().getName());
         if (!eula.equals(EulaHelper.getMostRecentEula().getEula())){
             Eula eulaObj = new Eula();
@@ -49,11 +49,10 @@ public class SysadminEditEula implements Serializable {
                 logger.error(gex);
                 logger.debug("agree failed: " + gex.getErrorsAsSingleString());
                 Pagez.getUserSession().setMessage("Error... please try again.");
-                return null;
+                throw new ValidationException("Error with db.");
             }
             EulaHelper.refreshMostRecentEula();
         }
-        return "sysadminhome";
     }
 
 

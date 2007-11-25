@@ -9,6 +9,7 @@ import com.dneero.dao.User;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.htmlui.UserSession;
 import com.dneero.htmlui.Pagez;
+import com.dneero.htmlui.ValidationException;
 
 import com.dneero.util.GeneralException;
 import com.dneero.util.Num;
@@ -67,11 +68,13 @@ public class SysadminSupportIssueDetail implements Serializable {
         }
     }
 
-    public String newNote(){
+    public void newNote() throws ValidationException {
+        ValidationException vex = new ValidationException();
         Logger logger = Logger.getLogger(this.getClass().getName());
+        //@todo permissions - make sure user is allowed to submit a note to this issue.
         if(supportissueid<=0){
             logger.debug("supportissueid not found: "+supportissueid);
-            return "";
+            throw new ValidationException("supportissueid not found");
         } else {
             supportissue = Supportissue.get(supportissueid);
         }
@@ -87,9 +90,9 @@ public class SysadminSupportIssueDetail implements Serializable {
         try{
             supportissuecomm.save();
         } catch (GeneralException gex){
-            Pagez.getUserSession().setMessage("Error saving record: "+gex.getErrorsAsSingleString());
+            vex.addValidationError("Error saving record: "+gex.getErrorsAsSingleString());
             logger.debug("saveAction failed: " + gex.getErrorsAsSingleString());
-            return null;
+            throw vex;
         }
 
         if (Num.isinteger(status)){
@@ -101,9 +104,9 @@ public class SysadminSupportIssueDetail implements Serializable {
         try{
             supportissue.save();
         } catch (GeneralException gex){
-            Pagez.getUserSession().setMessage("Error saving record: "+gex.getErrorsAsSingleString());
+            vex.addValidationError("Error saving record: "+gex.getErrorsAsSingleString());
             logger.debug("saveAction failed: " + gex.getErrorsAsSingleString());
-            return null;
+            throw vex;
         }
 
         //Send notification email
@@ -119,8 +122,6 @@ public class SysadminSupportIssueDetail implements Serializable {
         }
         EmailTemplateProcessor.sendMail("dNeero Support Issue: "+ Str.truncateString(supportissue.getSubject(),100), "supportissueresponse", User.get(supportissue.getUserid()), args);
 
-        Pagez.sendRedirect("/sysadmin/sysadminsupportissueslist.jsp");
-        return "";
     }
 
     public int getSupportissueid() {

@@ -17,7 +17,7 @@ String acl = "sysadmin";
 <%
     if (request.getParameter("action") != null && request.getParameter("action").equals("rate")) {
         try {
-            sysadminRateBlogPost.setQuality(Integer.parseInt(Textbox.getValueFromRequest("quality", "Quality", true, DatatypeInteger.DATATYPEID)));
+            sysadminRateBlogPost.setQuality(Textbox.getIntFromRequest("quality", "Quality", true, DatatypeInteger.DATATYPEID));
             sysadminRateBlogPost.rateAction();
         } catch (ValidationException vex) {
             Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());

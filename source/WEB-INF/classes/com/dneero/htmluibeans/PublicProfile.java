@@ -87,7 +87,8 @@ public class PublicProfile implements Serializable {
         }
     }
 
-    public String addToPanel() throws ValidationException {
+    public void addToPanel() throws ValidationException {
+        ValidationException vex = new ValidationException();
         Logger logger = Logger.getLogger(this.getClass().getName());
         int bloggersadded = 0;
         Panel panel;
@@ -118,7 +119,6 @@ public class PublicProfile implements Serializable {
         } else {
             msg = "The Blogger was already in the panel called: "+panel.getName();
         }
-        return "publicprofile";
     }
 
     public TreeMap<String, String> getPanelids(){

@@ -77,19 +77,20 @@ public class PublicSurveyDiscuss implements Serializable {
 
 
 
-    public String newComment() throws ValidationException {
+    public void newComment() throws ValidationException {
+        ValidationException vex = new ValidationException();
         Logger logger = Logger.getLogger(this.getClass().getName());
         boolean haveError = false;
         if (discussSubject==null || discussSubject.equals("")){
             haveError = true;
-            Pagez.getUserSession().setMessage("Oops! Subject is required.");
+            vex.addValidationError("Oops! Subject is required.");
         }
         if (discussComment==null || discussComment.equals("")){
             haveError = true;
-            Pagez.getUserSession().setMessage("Oops! Comment is required.");
+            vex.addValidationError("Oops! Comment is required.");
         }
         if (haveError){
-            return null;
+            throw vex;
         }
         if (Pagez.getUserSession().getIsloggedin()){
             Surveydiscuss surveydiscuss = new Surveydiscuss();
@@ -101,17 +102,13 @@ public class PublicSurveyDiscuss implements Serializable {
             surveydiscuss.setUserid(Pagez.getUserSession().getUser().getUserid());
             try{
                 surveydiscuss.save();
-                Pagez.getUserSession().setMessage("Your comment has been posted!");
             } catch (GeneralException gex){
-                Pagez.getUserSession().setMessage("Sorry, there was an error: " + gex.getErrorsAsSingleString());
+                vex.addValidationError("Sorry, there was an error: " + gex.getErrorsAsSingleString());
                 logger.debug("newIssue failed: " + gex.getErrorsAsSingleString());
-                return null;
+                throw vex;
             }
             //load();
         }
-        //Return from survey new comment in a way that retains the survey url
-        try{Pagez.sendRedirect("/surveydiscuss.jsp?surveyid="+Pagez.getUserSession().getCurrentSurveyid()); return null;}catch(Exception ex){logger.error("",ex);}
-        return "publicsurveydiscuss";
     }
 
 

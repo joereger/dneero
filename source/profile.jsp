@@ -17,7 +17,7 @@ String acl = "public";
 <%
     if (request.getParameter("action") != null && request.getParameter("action").equals("add")) {
         try {
-            publicProfile.setPanelid(Integer.parseInt(Dropdown.getValueFromRequest("panelid", "Panel", true)));
+            publicProfile.setPanelid(Dropdown.getIntFromRequest("panelid", "Panel", true));
             publicProfile.addToPanel();
         } catch (ValidationException vex) {
             Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());

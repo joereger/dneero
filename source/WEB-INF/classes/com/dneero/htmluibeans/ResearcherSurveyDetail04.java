@@ -14,6 +14,7 @@ import com.dneero.util.GeneralException;
 import com.dneero.util.Num;
 import com.dneero.htmlui.UserSession;
 import com.dneero.htmlui.Pagez;
+import com.dneero.htmlui.ValidationException;
 import com.dneero.finders.SurveyCriteriaXML;
 
 /**
@@ -102,27 +103,10 @@ public class ResearcherSurveyDetail04 implements Serializable {
 
 
 
-    public String saveSurveyAsDraft(){
-        String save = saveSurvey();
-        if (save!=null){
-            Pagez.sendRedirect("/researcher/index.jsp");
-            return "";
-        } else {
-            return save;
-        }
-    }
 
-    public String previousStep(){
-        String save = saveSurvey();
-        if (save!=null){
-            Pagez.sendRedirect("/researcher/researchersurveydetail_03.jsp?surveyid="+survey.getSurveyid());
-            return "";
-        } else {
-            return save;
-        }
-    }
 
-    public String saveSurvey(){
+    public void saveSurvey() throws ValidationException {
+        ValidationException vex = new ValidationException();
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("saveSurvey() called.");
         if (status<=Survey.STATUS_DRAFT){
@@ -217,8 +201,8 @@ public class ResearcherSurveyDetail04 implements Serializable {
                 } catch (GeneralException gex){
                     logger.debug("saveSurvey() failed: " + gex.getErrorsAsSingleString());
                     String message = "saveSurvey() save failed: " + gex.getErrorsAsSingleString();
-                    Pagez.getUserSession().setMessage(message);
-                    return null;
+                    vex.addValidationError(message);
+                    throw vex;
                 }
 
                 //Refresh
@@ -226,8 +210,6 @@ public class ResearcherSurveyDetail04 implements Serializable {
             }
 
         }
-        Pagez.sendRedirect("/researcher/researchersurveydetail_05.jsp?surveyid="+survey.getSurveyid());
-        return "";
     }
 
     public TreeMap<String, String> getPanelsavailable(){

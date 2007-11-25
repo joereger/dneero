@@ -1,6 +1,7 @@
 <%@ page import="org.apache.log4j.Logger" %>
 <%@ page import="com.dneero.htmluibeans.Login" %>
 <%@ page import="com.dneero.htmlui.*" %>
+<%@ page import="com.dneero.systemprops.SystemProperty" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "Log In";
@@ -13,15 +14,30 @@ Login login = (Login) Pagez.getBeanMgr().get("Login");
 %>
 <%
     if (request.getParameter("action") != null && request.getParameter("action").equals("login")) {
-    try {
-        login.setEmail(com.dneero.htmlui.Textbox.getValueFromRequest("email", "Email", true, DatatypeString.DATATYPEID));
-        login.setPassword(com.dneero.htmlui.Textbox.getValueFromRequest("password", "Password", true, DatatypeString.DATATYPEID));
-        login.setKeepmeloggedin(CheckboxBoolean.getValueFromRequest("keepmeloggedin"));
-        login.login();
-    } catch (ValidationException vex) {
-        Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
+        try {
+            login.setEmail(com.dneero.htmlui.Textbox.getValueFromRequest("email", "Email", true, DatatypeString.DATATYPEID));
+            login.setPassword(com.dneero.htmlui.Textbox.getValueFromRequest("password", "Password", true, DatatypeString.DATATYPEID));
+            login.setKeepmeloggedin(CheckboxBoolean.getValueFromRequest("keepmeloggedin"));
+            login.login();
+            //Redir if https is on
+            if (SystemProperty.getProp(SystemProperty.PROP_ISSSLON).equals("1")) {
+                try {
+                    logger.debug("redirecting to https - " + BaseUrl.get(true) + "account/index.jsp");
+                    Pagez.sendRedirect(BaseUrl.get(true) + "account/index.jsp");
+                    return;
+                } catch (Exception ex) {
+                    logger.error("", ex);
+                    Pagez.sendRedirect("/account/index.jsp");
+                    return;
+                }
+            } else {
+                Pagez.sendRedirect("/account/index.jsp");
+                return;
+            }
+        } catch (ValidationException vex) {
+            Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
+        }
     }
-}
 %>
 <%@ include file="/template/header.jsp" %>
 

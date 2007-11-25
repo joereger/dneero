@@ -186,17 +186,10 @@ public class ResearcherSurveyDetail06 implements Serializable {
 
     }
 
-    public String saveSurveyAsDraft(){
-        Pagez.sendRedirect("/researcher/index.jsp");
-        return "";
-    }
 
-    public String previousStep(){
-        Pagez.sendRedirect("/researcher/researchersurveydetail_05.jsp?surveyid="+survey.getSurveyid());
-        return "";
-    }
 
-    public String saveSurvey() throws ValidationException {
+    public void saveSurvey() throws ValidationException {
+        ValidationException vex = new ValidationException();
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("saveSurvey() called.");
         if (status<=Survey.STATUS_DRAFT){
@@ -240,7 +233,7 @@ public class ResearcherSurveyDetail06 implements Serializable {
                     } catch (GeneralException gex){
                         Pagez.getUserSession().setMessage("Error saving record: "+gex.getErrorsAsSingleString());
                         logger.debug("saveAction failed: " + gex.getErrorsAsSingleString());
-                        return null;
+                        return;
                     }
 
                     User user = User.get(userSession.getUser().getUserid());
@@ -251,9 +244,9 @@ public class ResearcherSurveyDetail06 implements Serializable {
                         //userSession.getUser().save();
                         user.save();
                     } catch (GeneralException gex){
-                        Pagez.getUserSession().setMessage("Error saving record: "+gex.getErrorsAsSingleString());
+                        vex.addValidationError("Error saving record: "+gex.getErrorsAsSingleString());
                         logger.debug("saveAction failed: " + gex.getErrorsAsSingleString());
-                        return null;
+                        throw vex;
                     }
                     userSession.setUser(user);
                 }
@@ -273,8 +266,8 @@ public class ResearcherSurveyDetail06 implements Serializable {
                 } catch (GeneralException gex){
                     logger.debug("saveSurvey() failed: " + gex.getErrorsAsSingleString());
                     String message = "saveSurvey() save failed: " + gex.getErrorsAsSingleString();
-                    Pagez.getUserSession().setMessage(message);
-                    return null;
+                    vex.addValidationError(message);
+                    throw vex;
                 }
 
                 //Charge the per-survey creation fee
@@ -301,9 +294,6 @@ public class ResearcherSurveyDetail06 implements Serializable {
                 inons.sendNotifications();
             }
         }
-
-        Pagez.sendRedirect("/researcher/researchersurveydetail_postlaunch.jsp?surveyid="+survey.getSurveyid());
-        return "";
     }
 
 

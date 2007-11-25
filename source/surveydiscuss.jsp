@@ -20,6 +20,7 @@ PublicSurveyDiscuss publicSurveyDiscuss = (PublicSurveyDiscuss)Pagez.getBeanMgr(
             publicSurveyDiscuss.setDiscussSubject(Textbox.getValueFromRequest("discusssubject", "Subject", true, DatatypeString.DATATYPEID));
             publicSurveyDiscuss.setDiscussComment(Textarea.getValueFromRequest("discusscomment", "Comment", true));
             publicSurveyDiscuss.newComment();
+            Pagez.getUserSession().setMessage("Your comment has been posted!");
         } catch (ValidationException vex) {
             Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
         }

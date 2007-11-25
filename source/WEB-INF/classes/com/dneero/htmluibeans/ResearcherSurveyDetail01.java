@@ -76,22 +76,16 @@ public class ResearcherSurveyDetail01 implements Serializable {
 
 
 
-    public String saveSurveyAsDraft() throws ValidationException {
-        String save = saveSurvey();
-        if (save!=null){
-            Pagez.sendRedirect("/researcher/index.jsp");
-        } else {
-            return save;
-        }
-        return "";
-    }
 
-    public String saveSurvey() throws ValidationException {
+
+    public void saveSurvey() throws ValidationException {
+        ValidationException vex = new ValidationException();
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("saveSurvey() called.");
         logger.debug("status="+status);
         if (Pagez.getUserSession()==null || Pagez.getUserSession().getUser()==null){
-            return null;   
+            vex.addValidationError("Please log in first.");
+            throw vex;
         }
         if (startdate==null){
             logger.debug("startdate is null");
@@ -125,7 +119,7 @@ public class ResearcherSurveyDetail01 implements Serializable {
 //            }
             if (startdate.after(enddate)){
                 isValidData = false;
-                Pagez.getUserSession().setMessage("The End Date must be after the Start Date.");
+                vex.addValidationError("The End Date must be after the Start Date.");
                 logger.debug("valdation error - startdate is after end date.");
             }
 
@@ -145,8 +139,8 @@ public class ResearcherSurveyDetail01 implements Serializable {
                 } catch (GeneralException gex){
                     logger.debug("saveSurvey() failed: " + gex.getErrorsAsSingleString());
                     String message = "saveSurvey() save failed: " + gex.getErrorsAsSingleString();
-                    Pagez.getUserSession().setMessage(message);
-                    return null;
+                    vex.addValidationError(message);
+                    throw vex;
                 }
 
                 if (isnewsurvey){
@@ -158,13 +152,10 @@ public class ResearcherSurveyDetail01 implements Serializable {
                 //Refresh
                 survey.refresh();
             } else {
-                return null;
+                throw vex;
             }
 
         }
-
-        Pagez.sendRedirect("/researcher/researchersurveydetail_02.jsp?surveyid="+survey.getSurveyid());
-        return "";
     }
 
     public String getTitle() {

@@ -14,18 +14,18 @@ import java.util.TreeMap;
 public class StaticVariables {
 
 
-    public TreeMap<String, String> getPercentiles(){
+    public static TreeMap<String, String> getPercentiles(){
         TreeMap<String, String> out = new TreeMap<String, String>();
-        out.put("Top 1%", String.valueOf(1));
-        out.put("Top 5%", String.valueOf(5));
-        out.put("Top 10%", String.valueOf(10));
-        out.put("Top 25%", String.valueOf(25));
-        out.put("Top 50%", String.valueOf(50));
-        out.put("Everybody", String.valueOf(100));
+        out.put(String.valueOf(1), "Top 1%");
+        out.put(String.valueOf(5), "Top 5%");
+        out.put(String.valueOf(10), "Top 10%");
+        out.put(String.valueOf(25), "Top 25%");
+        out.put(String.valueOf(50), "Top 50%");
+        out.put(String.valueOf(100), "Everybody");
         return out;
     }
 
-    public TreeMap<String, String> getBlogqualities(){
+    public static TreeMap<String, String> getBlogqualities(){
         TreeMap<String, String> out = new TreeMap<String, String>();
         out.put("0", String.valueOf(0));
         out.put("1", String.valueOf(1));

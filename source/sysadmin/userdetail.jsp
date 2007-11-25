@@ -23,8 +23,9 @@ SysadminUserDetail sysadminUserDetail = (SysadminUserDetail)Pagez.getBeanMgr().g
             sysadminUserDetail.setLastname(Textbox.getValueFromRequest("lastname", "Last Name", true, DatatypeString.DATATYPEID));
             sysadminUserDetail.setEmail(Textbox.getValueFromRequest("email", "Email", true, DatatypeString.DATATYPEID));
             sysadminUserDetail.setPaypaladdress(Textbox.getValueFromRequest("paypaladdress", "PayPal Address", false, DatatypeString.DATATYPEID));
-            sysadminUserDetail.setReferredbyuserid(Integer.parseInt(Textbox.getValueFromRequest("referredbyuserid", "Referredbyuserid", false, DatatypeString.DATATYPEID)));
+            sysadminUserDetail.setReferredbyuserid(Textbox.getIntFromRequest("referredbyuserid", "Referredbyuserid", false, DatatypeString.DATATYPEID));
             sysadminUserDetail.save();
+            Pagez.getUserSession().setMessage("User details saved");
         } catch (com.dneero.htmlui.ValidationException vex) {
             Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
         }
@@ -52,7 +53,7 @@ SysadminUserDetail sysadminUserDetail = (SysadminUserDetail)Pagez.getBeanMgr().g
 <%
     if (request.getParameter("action") != null && request.getParameter("action").equals("giveusermoney")) {
         try {
-            sysadminUserDetail.setAmt(Double.parseDouble(Textbox.getValueFromRequest("amt", "Amount", true, DatatypeDouble.DATATYPEID)));
+            sysadminUserDetail.setAmt(Textbox.getDblFromRequest("amt", "Amount", true, DatatypeDouble.DATATYPEID));
             sysadminUserDetail.setReason(Textbox.getValueFromRequest("reason", "Reason", true, DatatypeString.DATATYPEID));
             sysadminUserDetail.giveusermoney();
         } catch (com.dneero.htmlui.ValidationException vex) {
@@ -63,7 +64,7 @@ SysadminUserDetail sysadminUserDetail = (SysadminUserDetail)Pagez.getBeanMgr().g
 <%
     if (request.getParameter("action") != null && request.getParameter("action").equals("takeusermoney")) {
         try {
-            sysadminUserDetail.setAmt(Double.parseDouble(Textbox.getValueFromRequest("amt", "Amount", true, DatatypeDouble.DATATYPEID)));
+            sysadminUserDetail.setAmt(Textbox.getDblFromRequest("amt", "Amount", true, DatatypeDouble.DATATYPEID));
             sysadminUserDetail.setReason(Textbox.getValueFromRequest("reason", "Reason", true, DatatypeString.DATATYPEID));
             sysadminUserDetail.takeusermoney();
         } catch (com.dneero.htmlui.ValidationException vex) {

@@ -32,14 +32,11 @@ public class ResearcherPanelsEdit implements Serializable {
 
 
 
-    public String edit() throws ValidationException {
+    public void edit() throws ValidationException {
         Logger logger = Logger.getLogger(this.getClass().getName());
         if(panel.getName()!=null && !panel.getName().equals("")){
             try{panel.save();}catch(Exception ex){logger.error("",ex);}
         }
-        Pagez.getUserSession().setMessage("Panel edited.");
-        Pagez.sendRedirect("/researcher/panels.jsp");
-        return "";
     }
 
 

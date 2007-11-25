@@ -29,6 +29,15 @@ BloggerDetails bloggerDetails = (BloggerDetails)Pagez.getBeanMgr().get("BloggerD
             bloggerDetails.setState(Dropdown.getValueFromRequest("state", "State", true));
             bloggerDetails.setUserid(Pagez.getUserSession().getUser().getUserid());
             bloggerDetails.saveAction();
+            if (bloggerDetails.getIsnewblogger()){
+                Pagez.getUserSession().setMessage("Profile Saved Successfully");
+                Pagez.sendRedirect("index.jsp");
+                return;
+            } else {
+                Pagez.getUserSession().setMessage("Profile Saved Successfully");
+                Pagez.sendRedirect("index.jsp");
+                return;
+            }
         } catch (com.dneero.htmlui.ValidationException vex) {
             Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
         }

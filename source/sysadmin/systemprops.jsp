@@ -29,6 +29,7 @@ String acl = "sysadmin";
             sysadminSystemProps.setSendxmpp(Textbox.getValueFromRequest("sendxmpp", "sendxmpp", true, DatatypeString.DATATYPEID));
             sysadminSystemProps.setSmtpoutboundserver(Textbox.getValueFromRequest("smtpoutboundserver", "smtpoutboundserver", true, DatatypeString.DATATYPEID));
             sysadminSystemProps.saveProps();
+            Pagez.getUserSession().setMessage("Save complete.");
         } catch (ValidationException vex) {
             Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
         }

@@ -21,6 +21,7 @@ ResearcherSurveyDetail03 researcherSurveyDetail03 = (ResearcherSurveyDetail03)Pa
         try {
             logger.debug("Resetformatting was clicked");
             researcherSurveyDetail03.resetFormatting();
+            Pagez.getUserSession().setMessage("Template reset.");
         } catch (ValidationException vex) {
             Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
         }
@@ -34,16 +35,21 @@ ResearcherSurveyDetail03 researcherSurveyDetail03 = (ResearcherSurveyDetail03)Pa
             researcherSurveyDetail03.setEmbedjavascript(CheckboxBoolean.getValueFromRequest("embedjavascript"));
             researcherSurveyDetail03.setEmbedlink(CheckboxBoolean.getValueFromRequest("embedlink"));
             if (request.getParameter("action").equals("next")) {
-                researcherSurveyDetail03.continueToNext();
-            } else if (request.getParameter("action").equals("savetemplate")) {
-                logger.debug("Savetemplate was clicked");
+                logger.debug("Next was clicked");
                 researcherSurveyDetail03.saveSurvey();
+                Pagez.sendRedirect("researchersurveydetail_04.jsp?surveyid="+researcherSurveyDetail03.getSurvey().getSurveyid());
+                return;
             } else if (request.getParameter("action").equals("saveasdraft")) {
                 logger.debug("Saveasdraft was clicked");
-                researcherSurveyDetail03.saveSurveyAsDraft();
+                Pagez.getUserSession().setMessage("Your survey has been saved.");
+                researcherSurveyDetail03.saveSurvey();
+                Pagez.sendRedirect("index.jsp");
+                return;
             } else if (request.getParameter("action").equals("previous")) {
                 logger.debug("Previous was clicked");
-                researcherSurveyDetail03.previousStep();
+                researcherSurveyDetail03.saveSurvey();
+                Pagez.sendRedirect("researchersurveydetail_02.jsp?surveyid="+researcherSurveyDetail03.getSurvey().getSurveyid());
+                return;
             }
         } catch (ValidationException vex) {
             Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
@@ -181,8 +187,8 @@ ResearcherSurveyDetail03 researcherSurveyDetail03 = (ResearcherSurveyDetail03)Pa
                                     </td>
                                 </tr>
                             </table>
-                            <input type="submit" class="formsubmitbutton" value="Reset" onclick="document.rsdform.action.value='resetformatting'">
-                            <input type="submit" class="formsubmitbutton" value="Save Advanced Formatting" onclick="document.rsdform.action.value='savetemplate'">
+                            <input type="submit" class="formsubmitbutton" value="Reset" onclick="document.getElementById('action').value='resetformatting';">
+                            <input type="submit" class="formsubmitbutton" value="Save Advanced Formatting" onclick="document.getElementById('action').value='savetemplate';">
                         <%}%>
                     </td>
                     <td valign="top">

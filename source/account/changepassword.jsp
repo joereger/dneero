@@ -17,6 +17,9 @@ ChangePassword changePassword = (ChangePassword) Pagez.getBeanMgr().get("ChangeP
         changePassword.setPassword(TextboxSecret.getValueFromRequest("password", "New Password", true, DatatypeString.DATATYPEID));
         changePassword.setPasswordverify(TextboxSecret.getValueFromRequest("passwordverify", "Verify New Password", true, DatatypeString.DATATYPEID));
         changePassword.saveAction();
+        Pagez.getUserSession().setMessage("Your password has been changed.");
+        Pagez.sendRedirect("/account/index.jsp");
+        return;
     } catch (ValidationException vex) {
         Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
     }

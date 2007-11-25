@@ -59,7 +59,8 @@ public class ResearcherSurveyDelete implements Serializable {
 
     }
 
-    public String deleteSurvey() throws ValidationException {
+    public void deleteSurvey() throws ValidationException {
+        ValidationException vex = new ValidationException();
         Logger logger = Logger.getLogger(this.getClass().getName());
         UserSession userSession = Pagez.getUserSession();
         logger.debug("deleteSurvey() called. status="+status + " userSession.getCurrentSurveyid()="+userSession.getCurrentSurveyid());
@@ -71,25 +72,22 @@ public class ResearcherSurveyDelete implements Serializable {
                 try{
                     logger.debug("deleteSurvey() about to delete survey.getSurveyid()=" + survey.getSurveyid());
                     survey.delete();
-                    Pagez.getUserSession().setMessage("Survey deleted.");
                     userSession.setCurrentSurveyid(0);
                     logger.debug("deleteSurvey() done saving survey.getSurveyid()=" + survey.getSurveyid());
                 } catch (Exception gex){
                     logger.error(gex);
                     String message = "deleteSurvey() failed: " + gex.getMessage();
-                    Pagez.getUserSession().setMessage("Sorry, there was an error. Please click the Delete button again.");
-                    return null;
+                    vex.addValidationError("Sorry, there was an error. Please click the Delete button again.");
+                    throw vex;
                 }
             } else {
                 logger.debug("Not deleting because userSession.getCurrentSurveyid() is not less than zero");
             }
         } else {
-            Pagez.getUserSession().setMessage("Survey could not be deleted because it is not in draft mode.");
+            vex.addValidationError("Survey could not be deleted because it is not in draft mode.");
             logger.debug("Not deleting because status!=Survey.STATUS_DRAFT");
+            throw vex;
         }
-
-        Pagez.sendRedirect("/researcher/index.jsp");
-        return "";
     }
 
     public String getTitle() {

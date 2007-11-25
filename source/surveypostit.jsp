@@ -15,6 +15,7 @@ String acl = "public";
     if (request.getParameter("action") != null && request.getParameter("action").equals("updatefacebookprofile")) {
         try {
             publicSurveyPostit.updateFacebookProfile();
+            Pagez.getUserSession().setMessage("Your Facebook profile should have been updated.");
         } catch (com.dneero.htmlui.ValidationException vex) {
             Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
         }

@@ -1,6 +1,7 @@
 package com.dneero.htmlui;
 
 import com.dneero.util.Str;
+import com.dneero.util.Num;
 
 
 /**
@@ -37,6 +38,28 @@ public class Textbox {
             throw new ValidationException(prettyName+" is required.");
         }
         return "";
+    }
+
+    public static int getIntFromRequest(String name, String prettyName, boolean isrequired, int datatypeid) throws ValidationException {
+        String str = getValueFromRequest(name, prettyName, isrequired, datatypeid);
+        if (Num.isinteger(str)){
+            return Integer.parseInt(str);
+        } else {
+            if (Num.isdouble(str)){
+                Double dbl = Double.parseDouble(str);
+                return dbl.intValue();       
+            }
+        }
+        return 0;
+    }
+    
+    public static double getDblFromRequest(String name, String prettyName, boolean isrequired, int datatypeid) throws ValidationException {
+        String str = getValueFromRequest(name, prettyName, isrequired, datatypeid);
+        if (Num.isdouble(str)){
+            Double dbl = Double.parseDouble(str);
+            return dbl;
+        }
+        return 0;
     }
 
 
