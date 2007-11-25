@@ -6,10 +6,13 @@ package com.dneero.htmluibeans;
 import org.apache.log4j.Logger;
 
 
+
 import javax.servlet.http.HttpSession;
 import javax.servlet.ServletContext;
 import java.util.Iterator;
 import java.io.Serializable;
+
+import com.dneero.htmlui.Pagez;
 
 
 /**
@@ -34,8 +37,9 @@ public class SysadminSessions implements Serializable {
             //ServletExternalContextImpl servExtContext = (ServletExternalContextImpl)extContext;
             sessionsashtml = "";
 
-//            Context context = (Context)FacesContext.getCurrentInstance().getExternalContext().getContext();
-//            Session[] sessions = context.getManager().findSessions();
+//            Session[] sessions = Pagez.getRequest().;
+//
+//
 //            for (int i = 0; i < sessions.length; i++) {
 //                Session session = sessions[i];
 //                out.append("<br><br>");

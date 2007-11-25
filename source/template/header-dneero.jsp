@@ -139,19 +139,19 @@
                 <%}%>
                 <%if (navtab.equals("sysadmin")){%>
                     <%if (Pagez.getUserSession().getIsloggedin() && Pagez.getUserSession().getIsSysadmin()){%>
-                        <a href="/sysadmin/errorlist.jsp"><font class="subnavfont" style="padding-left: 10px; color: #000000;">SysLog</font></a>
-                        <a href="/sysadmin/transactions.jsp"><font class="subnavfont" style="padding-left: 10px; color: #000000;">Trans</font></a>
-                        <a href="/sysadmin/userlist.jsp"><font class="subnavfont" style="padding-left: 10px; color: #000000;">Users</font></a>
-                        <a href="/sysadmin/sysadminsurveylist.jsp"><font class="subnavfont" style="padding-left: 10px; color: #000000;">Surveys</font></a>
-                        <a href="/sysadmin/editeula.jsp"><font class="subnavfont" style="padding-left: 10px; color: #000000;">EULA</font></a>
-                        <a href="/sysadmin/sysadminsupportissueslist.jsp"><font class="subnavfont" style="padding-left: 10px; color: #000000;">Support</font></a>
-                        <a href="/sysadmin/rateblogpost.jsp"><font class="subnavfont" style="padding-left: 10px; color: #000000;">Rate</font></a>
-                        <a href="/sysadmin/manuallyrunscheduledtask.jsp"><font class="subnavfont" style="padding-left: 10px; color: #000000;">Scheduled</font></a>
-                        <a href="/sysadmin/systemprops.jsp"><font class="subnavfont" style="padding-left: 10px; color: #000000;">SysProps</font></a>
-                        <a href="/sysadmin/instanceprops.jsp"><font class="subnavfont" style="padding-left: 10px; color: #000000;">InstanceProps</font></a>
-                        <a href="/sysadmin/hibernatecache.jsp"><font class="subnavfont" style="padding-left: 10px; color: #000000;">Cache</font></a>
-                        <a href="/sysadmin/massemaillist.jsp"><font class="subnavfont" style="padding-left: 10px; color: #000000;">MassEmail</font></a>
-                        <a href="/sysadmin/blogpost.jsp"><font class="subnavfont" style="padding-left: 10px; color: #000000;">Blog</font></a>
+                        <a href="/sysadmin/errorlist.jsp"><font class="subnavfont" style=" color: #000000;">SysLog</font></a>
+                        <a href="/sysadmin/transactions.jsp"><font class="subnavfont" style=" color: #000000;">Trans</font></a>
+                        <a href="/sysadmin/userlist.jsp"><font class="subnavfont" style=" color: #000000;">Users</font></a>
+                        <a href="/sysadmin/sysadminsurveylist.jsp"><font class="subnavfont" style=" color: #000000;">Surveys</font></a>
+                        <a href="/sysadmin/editeula.jsp"><font class="subnavfont" style=" color: #000000;">EULA</font></a>
+                        <a href="/sysadmin/sysadminsupportissueslist.jsp"><font class="subnavfont" style=" color: #000000;">Support</font></a>
+                        <a href="/sysadmin/rateblogpost.jsp"><font class="subnavfont" style=" color: #000000;">Rate</font></a>
+                        <a href="/sysadmin/manuallyrunscheduledtask.jsp"><font class="subnavfont" style=" color: #000000;">Scheduled</font></a>
+                        <a href="/sysadmin/systemprops.jsp"><font class="subnavfont" style=" color: #000000;">SysProps</font></a>
+                        <a href="/sysadmin/instanceprops.jsp"><font class="subnavfont" style=" color: #000000;">InstanceProps</font></a>
+                        <a href="/sysadmin/hibernatecache.jsp"><font class="subnavfont" style=" color: #000000;">Cache</font></a>
+                        <a href="/sysadmin/massemaillist.jsp"><font class="subnavfont" style=" color: #000000;">MassEmail</font></a>
+                        <a href="/sysadmin/blogpost.jsp"><font class="subnavfont" style=" color: #000000;">Blog</font></a>
                     <%}%>
                 <%}%>
             </td>

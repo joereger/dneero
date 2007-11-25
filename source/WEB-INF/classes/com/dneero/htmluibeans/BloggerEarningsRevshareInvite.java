@@ -50,7 +50,7 @@ public class BloggerEarningsRevshareInvite implements Serializable {
                     args[0]= UserInputSafe.clean(message);
                     EmailTemplateProcessor.sendMail("dNeero Invitation from "+user.getFirstname()+" "+user.getLastname()+" - Make Money with your Blog!", "inviteblogger", user, args, individualemail, user.getEmail());
                 } else {
-                    err.append("A user with the email address '"+email+"' already exists. ");
+                    //err.append("A user with the email address '"+individualemail+"' already exists. ");
                 }
                 
             }

@@ -6,7 +6,7 @@
 <%@ page import="com.dneero.htmlui.*" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
-String pagetitle = "Error and Debug Log";
+String pagetitle = "SysLog";
 String navtab = "sysadmin";
 String acl = "sysadmin";
 %>
@@ -53,6 +53,25 @@ SysadminErrorList sysadminErrorList=(SysadminErrorList) Pagez.getBeanMgr().get("
         }
     }
 %>
+<%
+    if (request.getParameter("action") != null && request.getParameter("action").equals("sortbytimesseen")) {
+        try {
+            sysadminErrorList.sortbytimesseen();
+        } catch (ValidationException vex) {
+            Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
+        }
+    }
+%>
+<%
+    if (request.getParameter("action") != null && request.getParameter("action").equals("deleteindividual")) {
+        try {
+            sysadminErrorList.deleteindividual();
+            Pagez.getUserSession().setMessage("Error deleted.");
+        } catch (ValidationException vex) {
+            Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
+        }
+    }
+%>
 <%@ include file="/template/header.jsp" %>
 
         <form action="errorlist.jsp" method="post">
@@ -60,9 +79,11 @@ SysadminErrorList sysadminErrorList=(SysadminErrorList) Pagez.getBeanMgr().get("
             <%=Dropdown.getHtml("minleveltoshow", String.valueOf(sysadminErrorList.getMinleveltoshow()), sysadminErrorList.getLevels(), "", "")%>
             <input type="submit" class="formsubmitbutton" value="Refresh">
         </form>
+        <br/>
         <a href="errorlist.jsp?action=markallold"><font class="smallfont">Mark All Old</font></a>
         <a href="errorlist.jsp?action=deleteall"><font class="smallfont">Delete All</font></a>
         <a href="errorlist.jsp?action=onlyerrors"><font class="smallfont">Only Errors</font></a>
+        <a href="errorlist.jsp?action=sortbytimesseen"><font class="smallfont">Most Frequent</font></a>
         <br/><br/>
 
 
@@ -71,9 +92,10 @@ SysadminErrorList sysadminErrorList=(SysadminErrorList) Pagez.getBeanMgr().get("
         <%} else {%>
             <%
                 ArrayList<GridCol> cols=new ArrayList<GridCol>();
-                cols.add(new GridCol("Id", "<$errorid$>", false, "", "tinyfont"));
-                cols.add(new GridCol("Id", "<$date|"+Grid.GRIDCOLRENDERER_DATETIMECOMPACT+"$>", false, "", "tinyfont"));
-                cols.add(new GridCol("Id", "<$error$>", false, "", "smallfont"));
+                cols.add(new GridCol("Id", "<$errorid$><br/><a href=\"errorlist.jsp?action=deleteindividual&errorid=<$errorid$>\">delete</a>", false, "", "tinyfont"));
+                cols.add(new GridCol("", "<$timesseen$>", false, "", "smallfont"));
+                cols.add(new GridCol("Date", "<$date|"+Grid.GRIDCOLRENDERER_DATETIMECOMPACT+"$>", false, "", "tinyfont"));
+                cols.add(new GridCol("Error", "<$error$>", false, "", "smallfont"));
             %>
             <%=Grid.render(sysadminErrorList.getErrors(), cols, 250, "errorlist.jsp", "page")%>
         <%}%>

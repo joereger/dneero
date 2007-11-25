@@ -1,9 +1,11 @@
 package com.dneero.htmluibeans;
 
 import com.dneero.util.SortableList;
+import com.dneero.util.Num;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.dao.Error;
 import com.dneero.htmlui.ValidationException;
+import com.dneero.htmlui.Pagez;
 
 import java.util.*;
 import java.io.Serializable;
@@ -20,6 +22,7 @@ public class SysadminErrorList implements Serializable {
 
     private List errors;
     private int minleveltoshow=0;
+    private boolean sortbytimesseen = false;
 
     public SysadminErrorList() {
 
@@ -29,7 +32,11 @@ public class SysadminErrorList implements Serializable {
         Logger logger = Logger.getLogger(this.getClass().getName());
         //Go get the users from the database
         logger.debug("load() called. minleveltoshow="+minleveltoshow);
-        errors = HibernateUtil.getSession().createQuery("from Error where level>='"+minleveltoshow+"' order by errorid desc").setMaxResults(250).list();
+        String orderbystr =  " order by errorid desc";
+        if (sortbytimesseen){
+            orderbystr = " order by timesseen desc";
+        }
+        errors = HibernateUtil.getSession().createQuery("from Error where level>='"+minleveltoshow+"' "+orderbystr).setMaxResults(250).list();
     }
 
     public void markallold() throws ValidationException {
@@ -47,8 +54,22 @@ public class SysadminErrorList implements Serializable {
         initBean();
     }
 
+    public void deleteindividual() throws ValidationException {
+        Logger logger = Logger.getLogger(this.getClass().getName());
+        if (Pagez.getRequest().getParameter("errorid")!=null && Num.isinteger(Pagez.getRequest().getParameter("errorid"))){
+            Error error = Error.get(Integer.parseInt(Pagez.getRequest().getParameter("errorid")));
+            try{error.delete();}catch(Exception ex){logger.error("",ex);}
+        }
+        initBean();
+    }
+
     public void onlyerrors() throws ValidationException {
         minleveltoshow = Level.ERROR_INT;
+        initBean();
+    }
+
+    public void sortbytimesseen() throws ValidationException {
+        sortbytimesseen = true;
         initBean();
     }
 
@@ -86,5 +107,13 @@ public class SysadminErrorList implements Serializable {
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("setMinleveltoshow() called. minleveltoshow="+minleveltoshow);
         this.minleveltoshow = minleveltoshow;
+    }
+
+    public boolean getSortbytimesseen() {
+        return sortbytimesseen;
+    }
+
+    public void setSortbytimesseen(boolean sortbytimesseen) {
+        this.sortbytimesseen=sortbytimesseen;
     }
 }

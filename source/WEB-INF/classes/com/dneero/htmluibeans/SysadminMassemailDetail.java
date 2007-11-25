@@ -88,6 +88,7 @@ public class SysadminMassemailDetail implements Serializable {
     }
 
     private void calculatePreviews(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         if (massemail!=null){
             String[] args = SendMassemails.getMassemailArgsFromUser(Pagez.getUserSession().getUser());
             String htmlEmailHeader = Io.textFileRead(WebAppRootDir.getWebAppRootPath() + "emailtemplates" + java.io.File.separator + "emailheader.html").toString();

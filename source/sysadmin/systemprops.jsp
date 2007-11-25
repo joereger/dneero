@@ -9,7 +9,7 @@ String acl = "sysadmin";
 %>
 <%@ include file="/template/auth.jsp" %>
 <%
-    SysadminSystemProps sysadminSystemProps=(SysadminSystemProps) Pagez.getBeanMgr().get("SystemProps");
+    SysadminSystemProps sysadminSystemProps=(SysadminSystemProps) Pagez.getBeanMgr().get("SysadminSystemProps");
 %>
 <%
     if (request.getParameter("action") != null && request.getParameter("action").equals("save")) {
@@ -139,6 +139,17 @@ String acl = "sysadmin";
                 </td>
                 <td valign="top">
                     <%=Textbox.getHtml("paypalenvironment", sysadminSystemProps.getPaypalenvironment(), 255, 35, "", "")%>
+                </td>
+            </tr>
+
+            <tr>
+                <td valign="top">
+                    <font class="formfieldnamefont">PaypalEnabled?</font>
+                    <br/>
+                    <font class="tinyfont">0 or 1.  Whether or not PayPal integration is turned on.</font>
+                </td>
+                <td valign="top">
+                    <%=Textbox.getHtml("paypalenabled", sysadminSystemProps.getPaypalenabled(), 255, 35, "", "")%>
                 </td>
             </tr>
 

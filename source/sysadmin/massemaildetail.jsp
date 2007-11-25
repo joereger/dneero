@@ -26,7 +26,7 @@ SysadminMassemailDetail sysadminMassemailDetail = (SysadminMassemailDetail)Pagez
                 Pagez.getUserSession().setMessage("Saved!");
             } else if (request.getParameter("action").equals("send")){
                 sysadminMassemailDetail.send();
-                Pagez.sendRedirect("massemailsend.jsp");
+                Pagez.sendRedirect("massemailsend.jsp?massemailid="+sysadminMassemailDetail.getMassemail().getMassemailid());
                 return;
             } else if (request.getParameter("action").equals("testsend")){
                 sysadminMassemailDetail.testSend();
@@ -46,7 +46,7 @@ SysadminMassemailDetail sysadminMassemailDetail = (SysadminMassemailDetail)Pagez
 
 
     <script language="JavaScript" type="text/javascript">
-      var panels = new Array('panel1', 'panel2', 'panel3');
+      var panels = new Array('panel1', 'panel2', 'panel3', 'panel4');
       var selectedTab = null;
       function showPanel(tab, name)
       {
@@ -75,8 +75,8 @@ SysadminMassemailDetail sysadminMassemailDetail = (SysadminMassemailDetail)Pagez
     </div>
     <div class="panel" id="panel1" style="display: block">
         <img src="/images/clear.gif" width="700" height="1"/><br/>
-        <form action="massemaildetail.jsp" method="post" id="rsdform">
-            <input type="hidden" name="action" value="save">
+        <form action="massemaildetail.jsp" method="post">
+            <input type="hidden" name="action" value="save" id="action">
             <input type="hidden" name="massemailid" value="<%=sysadminMassemailDetail.getMassemail().getMassemailid()%>">
 
             <table cellpadding="0" cellspacing="0" border="0">
@@ -130,19 +130,19 @@ SysadminMassemailDetail sysadminMassemailDetail = (SysadminMassemailDetail)Pagez
                 </tr>
              </table>
              <input type="submit" class="formsubmitbutton" value="Save and Preview"><br/>
-             <input type="submit" class="formsubmitbutton" value="Send" onclick="document.rsdform.action.value='send'">
+             <input type="submit" class="formsubmitbutton" value="Send" onclick="document.getElementById('action').value='send';">
 
 
             <br/><br/>
             <font class="formfieldnamefont">Test-send to this email address:</font>
             <br/>
             <%=Textbox.getHtml("testsendemailaddress", sysadminMassemailDetail.getTestsendemailaddress(), 255, 35, "", "")%>
-            <input type="submit" class="formsubmitbutton" value="Test Send" onclick="document.rsdform.action.value='testsend'">
+            <input type="submit" class="formsubmitbutton" value="Test Send" onclick="document.getElementById('action').value='testsend';">
 
             <br/><br/>
             <font class="formfieldnamefont">Create a copy of this Mass Email:</font>
             <br/>
-            <input type="submit" class="formsubmitbutton" value="Copy" onclick="document.rsdform.action.value='copy'">
+            <input type="submit" class="formsubmitbutton" value="Copy" onclick="document.getElementById('action').value='copy';">
 
         </form>
         <br/><br/>
@@ -164,7 +164,7 @@ SysadminMassemailDetail sysadminMassemailDetail = (SysadminMassemailDetail)Pagez
     </div>
     <div class="panel" id="panel4" style="display: none">
         <img src="/images/clear.gif" width="700" height="1"/><br/>
-        <%=sysadminMassemailDetail.getSubjectPreview()%>
+        <font class="normalfont" style="color: #000000;"><%=sysadminMassemailDetail.getSubjectPreview()%></font>
     </div>
 
 

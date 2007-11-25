@@ -10,6 +10,7 @@ import java.util.Calendar;
 import com.dneero.db.Db;
 import com.dneero.util.Str;
 import com.dneero.util.Time;
+import com.dneero.util.Num;
 import com.dneero.startup.ApplicationStartup;
 import com.dneero.xmpp.SendXMPPMessage;
 import com.dneero.email.EmailTemplateProcessor;
@@ -52,13 +53,31 @@ public class Log4jCustomAppender extends AppenderSkeleton {
             if (ApplicationStartup.getIsappstarted()){
                 if (event.getLevel()==Level.ERROR || event.getLevel()==Level.FATAL){
                     try{
+                        boolean added = false;
                         //-----------------------------------
                         //-----------------------------------
-                        int identity = Db.RunSQLInsert("INSERT INTO error(error, level, status, date) VALUES('"+Str.cleanForSQL(errorMessageAsHtml.toString())+"', '"+event.getLevel().toInt()+"', '"+com.dneero.dao.Error.STATUS_NEW+"', '"+ Time.dateformatfordb(Calendar.getInstance())+"')", false);
+                        String[][] rstErr= Db.RunSQL("SELECT errorid, timesseen FROM error WHERE error='"+Str.cleanForSQL(errorMessageAsHtml.toString())+"'");
                         //-----------------------------------
                         //-----------------------------------
-
-
+                        if (rstErr!=null && rstErr.length>0){
+                            for(int i=0; i<rstErr.length; i++){
+                                if (Num.isinteger(rstErr[i][1])){
+                                    //-----------------------------------
+                                    //-----------------------------------
+                                    int count = Db.RunSQLUpdate("UPDATE error SET timesseen='"+(Integer.parseInt(rstErr[i][1])+1)+"' where errorid='"+rstErr[i][0]+"'");
+                                    //-----------------------------------
+                                    //-----------------------------------
+                                    added=true;
+                                }
+                            }
+                        }
+                        if (!added){
+                            //-----------------------------------
+                            //-----------------------------------
+                            int identity = Db.RunSQLInsert("INSERT INTO error(error, level, status, date, timesseen) VALUES('"+Str.cleanForSQL(errorMessageAsHtml.toString())+"', '"+event.getLevel().toInt()+"', '"+com.dneero.dao.Error.STATUS_NEW+"', '"+ Time.dateformatfordb(Calendar.getInstance())+"', '1')", false);
+                            //-----------------------------------
+                            //-----------------------------------
+                        }
                     } catch (Exception ex){
                         ex.printStackTrace();
                     }

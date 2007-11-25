@@ -26,7 +26,7 @@ SysadminMassemailList sysadminMassemailList = (SysadminMassemailList)Pagez.getBe
             cols.add(new GridCol("Id", "<$massemailid$>", false, "", "tinyfont"));
             cols.add(new GridCol("Date", "<$date|" + Grid.GRIDCOLRENDERER_DATETIMECOMPACT + "$>", false, "", "tinyfont"));
             cols.add(new GridCol("Processed Userid", "<$lastuseridprocessed$>", false, "", "tinyfont"));
-            cols.add(new GridCol("Subject", "<a href=\"sysadminmassemaildetail.jsp?massemailid=<$massemailid$>\"><$subject$></a>", false, "", "tinyfont"));
+            cols.add(new GridCol("Subject", "<a href=\"massemaildetail.jsp?massemailid=<$massemailid$>\"><$subject$></a>", false, "", "tinyfont"));
             cols.add(new GridCol("Status", "<$status$>", false, "", "tinyfont"));
         %>
         <%=Grid.render(sysadminMassemailList.getMassemails(), cols, 200, "massemaillist.jsp", "page")%>

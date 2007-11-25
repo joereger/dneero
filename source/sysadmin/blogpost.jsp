@@ -23,7 +23,9 @@ SysadminBlogpost sysadminBlogpost = (SysadminBlogpost)Pagez.getBeanMgr().get("Sy
             sysadminBlogpost.setCategories(Textbox.getValueFromRequest("categories", "Categories", false, DatatypeString.DATATYPEID));
             sysadminBlogpost.setDate(DateTime.getValueFromRequest("date", "Date", true).getTime());
             sysadminBlogpost.save();
-            Pagez.getUserSession().setMessage("Blog post added.");
+            Pagez.getUserSession().setMessage("Blog post saved.");
+            Pagez.sendRedirect("blogpost.jsp");
+            return;
         } catch (ValidationException vex) {
             Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
         }
@@ -33,6 +35,9 @@ SysadminBlogpost sysadminBlogpost = (SysadminBlogpost)Pagez.getBeanMgr().get("Sy
     if (request.getParameter("action") != null && request.getParameter("action").equals("delete")) {
         try {
             sysadminBlogpost.delete();
+            Pagez.getUserSession().setMessage("Blog post deleted.");
+            Pagez.sendRedirect("blogpost.jsp");
+            return;
         } catch (ValidationException vex) {
             Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
         }
@@ -42,6 +47,7 @@ SysadminBlogpost sysadminBlogpost = (SysadminBlogpost)Pagez.getBeanMgr().get("Sy
 
     <form action="blogpost.jsp" method="post">
         <input type="hidden" name="action" value="save">
+        <input type="hidden" name="blogpostid" value="<%=sysadminBlogpost.getBlogpostid()%>">
 
         <table cellpadding="0" cellspacing="0" border="0">
 
@@ -117,7 +123,7 @@ SysadminBlogpost sysadminBlogpost = (SysadminBlogpost)Pagez.getBeanMgr().get("Sy
         <%
             ArrayList<GridCol> cols=new ArrayList<GridCol>();
             cols.add(new GridCol("Date", "<$date|"+Grid.GRIDCOLRENDERER_DATETIMECOMPACT+"$>", true, "", "smallfont"));
-            cols.add(new GridCol("Title", "<a href=\"blogpost.jsp?blogpostid<$blogpostid$>\"><$title$></a>", true, "", "smallfont"));
+            cols.add(new GridCol("Title", "<a href=\"blogpost.jsp?blogpostid=<$blogpostid$>\"><$title$></a>", true, "", "smallfont"));
             cols.add(new GridCol("Author", "<$author$>", true, "", "smallfont"));
         %>
         <%=Grid.render(sysadminBlogpost.getBlogposts(), cols, 50, "blogpost.jsp", "page")%>

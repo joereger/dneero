@@ -23,6 +23,7 @@ public class Error extends BasePersistentClass implements java.io.Serializable, 
      private int level;
      private Date date;
      private int status;
+     private int timesseen;
 
 
 
@@ -100,5 +101,13 @@ public class Error extends BasePersistentClass implements java.io.Serializable, 
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public int getTimesseen() {
+        return timesseen;
+    }
+
+    public void setTimesseen(int timesseen) {
+        this.timesseen=timesseen;
     }
 }

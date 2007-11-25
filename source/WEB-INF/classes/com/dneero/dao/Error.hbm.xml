@@ -21,7 +21,9 @@
         <property name="error" type="text">
             <column name="error" not-null="true" />
         </property>
-
+        <property name="timesseen" type="int">
+            <column name="timesseen" not-null="true" />
+        </property>
 
     </class>
 </hibernate-mapping>

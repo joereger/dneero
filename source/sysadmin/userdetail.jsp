@@ -297,7 +297,7 @@ SysadminUserDetail sysadminUserDetail = (SysadminUserDetail)Pagez.getBeanMgr().g
         <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
             <font class="mediumfont">Account Balance (Internal Account Money Movement)</font>
             <br/>
-            <%if (sysadminUserDetail.getTransactions()==null || sysadminUserDetail.getTransactions().size()==0){%>
+            <%if (sysadminUserDetail.getBalances()==null || sysadminUserDetail.getBalances().size()==0){%>
                 <font class="normalfont">There are not yet any balance updates.</font>
             <%} else {%>
                 <%
@@ -308,7 +308,7 @@ SysadminUserDetail sysadminUserDetail = (SysadminUserDetail)Pagez.getBeanMgr().g
                     cols.add(new GridCol("Amount", "<$amt$>", true, "", "tinyfont"));
                     cols.add(new GridCol("Balance", "<$currentbalance$>", true, "", "tinyfont"));
                 %>
-                <%=Grid.render(sysadminUserDetail.getTransactions(), cols, 50, "userdetail.jsp?userid="+sysadminUserDetail.getUser().getUserid(), "pagetransactions")%>
+                <%=Grid.render(sysadminUserDetail.getBalances(), cols, 50, "userdetail.jsp?userid="+sysadminUserDetail.getUser().getUserid(), "pagetransactions")%>
             <%}%>
         </div>
 

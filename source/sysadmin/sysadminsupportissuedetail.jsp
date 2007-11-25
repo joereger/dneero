@@ -32,7 +32,7 @@ String acl = "sysadmin";
 <%@ include file="/template/header.jsp" %>
 
 
-            <div class="rounded" style="padding: 0px; margin: 10px; background: #33FF00;">
+            <div class="rounded" style="padding: 10px; margin: 10px; background: #33FF00;">
                 <font class="mediumfont"><%=sysadminSupportIssueDetail.getSupportissue().getSubject()%></font>
             </div>
 
@@ -42,7 +42,7 @@ String acl = "sysadmin";
             for (Iterator<Supportissuecomm> iterator=sysadminSupportIssueDetail.getSupportissuecomms().iterator(); iterator.hasNext();){
                 Supportissuecomm supportissuecomm = iterator.next();
                 %>
-                <div class="rounded" style="padding: 0px; margin: 10px; background: #e6e6e6;">
+                <div class="rounded" style="padding: 10px; margin: 10px; background: #e6e6e6;">
                     <font class="smallfont" style="font-weight: bold;"><%=Time.dateformatcompactwithtime(Time.getCalFromDate(supportissuecomm.getDatetime()))%></font>
                     <br/>
                     <%if (!supportissuecomm.getIsfromdneeroadmin()){%>

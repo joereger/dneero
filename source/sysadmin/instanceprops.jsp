@@ -16,7 +16,7 @@ SysadminInstanceProps sysadminInstanceProps = (SysadminInstanceProps)Pagez.getBe
         try {
             sysadminInstanceProps.setDbConnectionUrl(Textbox.getValueFromRequest("dbConnectionUrl", "dbConnectionUrl", true, DatatypeString.DATATYPEID));
             sysadminInstanceProps.setDbDriverName(Textbox.getValueFromRequest("dbDriverName", "dbDriverName", true, DatatypeString.DATATYPEID));
-            sysadminInstanceProps.setDbMaxActive(Textbox.getValueFromRequest("dbMaxActive(", "dbMaxActive(", true, DatatypeString.DATATYPEID));
+            sysadminInstanceProps.setDbMaxActive(Textbox.getValueFromRequest("dbMaxActive", "dbMaxActive", true, DatatypeString.DATATYPEID));
             sysadminInstanceProps.setDbMaxIdle(Textbox.getValueFromRequest("dbMaxIdle", "dbMaxIdle", true, DatatypeString.DATATYPEID));
             sysadminInstanceProps.setDbMaxWait(Textbox.getValueFromRequest("dbMaxWait", "dbMaxWait", true, DatatypeString.DATATYPEID));
             sysadminInstanceProps.setDbMinIdle(Textbox.getValueFromRequest("dbMinIdle", "dbMinIdle", true, DatatypeString.DATATYPEID));

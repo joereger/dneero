@@ -28,6 +28,7 @@ ResearcherPanelsEdit researcherPanelsEdit = (ResearcherPanelsEdit)Pagez.getBeanM
 
     <form action="panels-edit.jsp" method="post">
         <input type="hidden" name="action" value="edit">
+        <input type="hidden" name="panelid" value="<%=researcherPanelsEdit.getPanel().getPanelid()%>">
 
         <table cellpadding="0" cellspacing="0" border="0">
             <tr>

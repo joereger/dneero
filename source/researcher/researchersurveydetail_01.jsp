@@ -122,7 +122,7 @@ ResearcherSurveyDetail01 researcherSurveyDetail01 = (ResearcherSurveyDetail01)Pa
     <table cellpadding="0" cellspacing="0" border="0" width="100%">
         <tr>
             <td valign="top" align="left">
-                <input type="submit" class="formsubmitbutton" value="Previous Step" onclick="document.getElementById('action').value='previous';">
+                <!--<input type="submit" class="formsubmitbutton" value="Previous Step" onclick="document.getElementById('action').value='previous';">-->
             </td>
             <td valign="top" align="right">
                 <%if (researcherSurveyDetail01.getSurvey().getStatus()==Survey.STATUS_DRAFT) {%>

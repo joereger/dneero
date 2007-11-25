@@ -37,9 +37,9 @@ SysadminHibernateCache sysadminHibernateCache = (SysadminHibernateCache)Pagez.ge
       }
     </script>
     <div id="tabs">
-    <a href="" class="tab" onmousedown="return event.returnValue = showPanel(this, 'panel1');" id="tab1" onclick="return false;">Questions</a>
-    <a href="" class="tab" onmousedown="return event.returnValue = showPanel(this, 'panel2');" onclick="return false;">Preview Your Survey</a>
-    <a href="" class="tab" onmousedown="return event.returnValue = showPanel(this, 'panel3');" onclick="return false;">Question Type Samples</a>
+    <a href="" class="tab" onmousedown="return event.returnValue = showPanel(this, 'panel1');" id="tab1" onclick="return false;">IAOs</a>
+    <a href="" class="tab" onmousedown="return event.returnValue = showPanel(this, 'panel2');" onclick="return false;">Hibernate</a>
+    <a href="" class="tab" onmousedown="return event.returnValue = showPanel(this, 'panel3');" onclick="return false;">Misc Cache</a>
     </div>
     <div class="panel" id="panel1" style="display: block">
         <img src="/images/clear.gif" width="700" height="1"/><br/>

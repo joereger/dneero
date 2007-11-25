@@ -12,7 +12,7 @@ String acl = "sysadmin";
 SysadminMassemailSend sysadminMassemailSend = (SysadminMassemailSend)Pagez.getBeanMgr().get("SysadminMassemailSend");
 %>
 <%
-    if (request.getParameter("action") != null && request.getParameter("action").equals("save")) {
+    if (request.getParameter("action") != null && request.getParameter("action").equals("send")) {
         try {
             sysadminMassemailSend.setPassword(TextboxSecret.getValueFromRequest("password", "Password", true, DatatypeString.DATATYPEID));
             sysadminMassemailSend.send();
@@ -25,13 +25,13 @@ SysadminMassemailSend sysadminMassemailSend = (SysadminMassemailSend)Pagez.getBe
     }
 %>
 <%@ include file="/template/header.jsp" %>
-
+    <br/><br/>
     <form action="massemailsend.jsp" method="post">
         <input type="hidden" name="action" value="send">
         <input type="hidden" name="massemailid" value="<%=sysadminMassemailSend.getMassemail().getMassemailid()%>">
 
 
-        <font class="largefont">
+        <font class="mediumfont">
         Are you sure you want to do this crazy thing?  Have you spell-checked everything?  Are you 100% certain that you didn't screw something up?  We're talking about a lot of outbound email here.
         </font>
         <br/><br/>

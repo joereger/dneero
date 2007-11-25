@@ -24,9 +24,7 @@ String acl = "blogger";
             bloggerEarningsRevshareInvite.setEmail(Textarea.getValueFromRequest("email", "Email", true));
             bloggerEarningsRevshareInvite.setMessage(Textarea.getValueFromRequest("message", "Message", false));
             bloggerEarningsRevshareInvite.invite();
-            Pagez.getUserSession().setMessage("Invitation sent successfully.");
-            Pagez.sendRedirect("bloggerearningsrevshare.jsp");
-            return;
+            Pagez.getUserSession().setMessage("Invitation(s) sent successfully.");
         } catch (com.dneero.htmlui.ValidationException vex) {
             Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
         }
@@ -73,7 +71,7 @@ String acl = "blogger";
                                 <font class="normalfont">One per line</font>
                             </td>
                             <td valign="top">
-                                <%=Textarea.getHtml("email", bloggerEarningsRevshareInvite.getEmail(), 5, 30, "", "")%>
+                                <%=Textarea.getHtml("email", bloggerEarningsRevshareInvite.getEmail(), 5, 25, "", "")%>
                             </td>
                         </tr>
 
@@ -84,7 +82,7 @@ String acl = "blogger";
                                 <font class="smallfont">We'll automatically include a link for your friend to click to easily sign up.</font>
                             </td>
                             <td valign="top">
-                                <%=Textarea.getHtml("message", bloggerEarningsRevshareInvite.getMessage(), 5, 30, "", "")%>
+                                <%=Textarea.getHtml("message", bloggerEarningsRevshareInvite.getMessage(), 5, 25, "", "")%>
                             </td>
                         </tr>
 
@@ -103,7 +101,7 @@ String acl = "blogger";
 
            </td>
            <td valign="top">
-                <div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px; width: 250px;">
+                <div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px; width: 200px;">
                     <font class="mediumfont">Friends</font>
                     <br/>
                     <font class="smallfont">Listed below are the friends that you've invited (and those that they've invited) to make money using their blog:</font>
@@ -119,31 +117,36 @@ String acl = "blogger";
                 </div>
 
                 <br/>
-                <div class="rounded" style="background: #ffffcc; text-align: left; padding: 20px; width: 250px;">
+                <div class="rounded" style="background: #ffffcc; text-align: left; padding: 20px; width: 200px;">
                 <font class="mediumfont">Earn on Your Friend's Friends</font>
                     <br/>
                     <font class="smallfont">You share in the revenue even if your friends do the inviting!  Of course, each level away from you that percentage will be smaller... but those little bits can add up!</font>
                     <br/>
                     <table cellpadding="0" cellspacing="0" border="0">
-
+                        <tr>
                         <td valign="top"> </td>
                         <td valign="top"><font class="mediumfont">You Earn</font></td>
-
+                        </tr>
+                        <tr>
                         <td valign="top"><font class="mediumfont">1st Level</font></td>
                         <td valign="top"><font class="normalfont"><%=bloggerEarningsRevshare.getLevel1percent()%> %</font></td>
-
+                        </tr>
+                        <tr>
                         <td valign="top"><font class="mediumfont">2nd Level</font></td>
                         <td valign="top"><font class="normalfont"><%=bloggerEarningsRevshare.getLevel2percent()%> %</font></td>
-
+                        </tr>
+                        <tr>
                         <td valign="top"><font class="mediumfont">3rd Level</font></td>
                         <td valign="top"><font class="normalfont"><%=bloggerEarningsRevshare.getLevel3percent()%> %</font></td>
-
+                        </tr>
+                        <tr>
                         <td valign="top"><font class="mediumfont">4th Level</font></td>
                         <td valign="top"><font class="normalfont"><%=bloggerEarningsRevshare.getLevel4percent()%> %</font></td>
-
+                        </tr>
+                        <tr>
                         <td valign="top"><font class="mediumfont">5th Level</font></td>
                         <td valign="top"><font class="normalfont"><%=bloggerEarningsRevshare.getLevel5percent()%> %</font></td>
-
+                        </tr>
                      </table>
                  </div>
 

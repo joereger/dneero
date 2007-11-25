@@ -37,7 +37,7 @@ String acl = "sysadmin";
 <%@ include file="/template/header.jsp" %>
 
     <script language="JavaScript" type="text/javascript">
-      var panels = new Array('panel1', 'panel2', 'panel3');
+      var panels = new Array('panel1', 'panel2', 'panel3', 'panel4');
       var selectedTab = null;
       function showPanel(tab, name)
       {
@@ -138,9 +138,7 @@ String acl = "sysadmin";
                             <font class="formfieldnamefont">Start Date</font>
                         </td>
                         <td valign="top">
-                            <td valign="top">
-                                <%=DateTime.getHtml("startdate", sysadminSurveyDetail.getSurvey().getStartdate(), "", "")%>
-                            </td>
+                            <%=DateTime.getHtml("startdate", sysadminSurveyDetail.getSurvey().getStartdate(), "", "")%>
                         </td>
                     </tr>
                     <tr>
