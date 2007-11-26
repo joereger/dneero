@@ -12,11 +12,13 @@ String acl = "public";
 LostPasswordChoose lostPasswordChoose=(LostPasswordChoose) Pagez.getBeanMgr().get("LostPasswordChoose");
 %>
 <%
-    if (request.getParameter("action") != null && request.getParameter("action").equals("go")) {
+    if (request.getParameter("action") != null && request.getParameter("action").equals("choose")) {
         try {
             lostPasswordChoose.setPassword(TextboxSecret.getValueFromRequest("password", "Password", true, DatatypeString.DATATYPEID));
             lostPasswordChoose.setPasswordverify(TextboxSecret.getValueFromRequest("passwordverify", "Password Verify", true, DatatypeString.DATATYPEID));
             lostPasswordChoose.setJ_captcha_response(com.dneero.htmlui.Textbox.getValueFromRequest("j_captcha_response", "Squiggly Letters", true, DatatypeString.DATATYPEID));
+            lostPasswordChoose.setU(request.getParameter("u"));
+            lostPasswordChoose.setK(request.getParameter("k"));
             lostPasswordChoose.choosePassword();
             Pagez.getUserSession().setMessage("Your password has been set.  Store it in a safe place.");
             Pagez.sendRedirect("/account/index.jsp");
@@ -28,16 +30,18 @@ LostPasswordChoose lostPasswordChoose=(LostPasswordChoose) Pagez.getBeanMgr().ge
 %>
 <%@ include file="/template/header.jsp" %>
 
-    <form action="lostpasswordchoose.jsp" method="post">
-        <input type="hidden" name="action" value="go">
-        <table cellpadding="0" cellspacing="0" border="0">
+<form action="lpc.jsp" method="post">
+    <input type="hidden" name="action" value="choose">
+    <input type="hidden" name="u" value="<%=request.getParameter("u")%>">
+    <input type="hidden" name="k" value="<%=request.getParameter("k")%>">
+    <table cellpadding="0" cellspacing="0" border="0">
 
-            <tr>
-                <td valign="top">
-                    <font class="formfieldnamefont">Password</font>
-                </td>
-                <td valign="top">
-                    <%=TextboxSecret.getHtml("password", lostPasswordChoose.getPassword(), 255, 35, "", "")%>
+        <tr>
+            <td valign="top">
+                <font class="formfieldnamefont">Password</font>
+            </td>
+            <td valign="top">
+                <%=TextboxSecret.getHtml("password", lostPasswordChoose.getPassword(), 255, 35, "", "")%>
                 </td>
             </tr>
 

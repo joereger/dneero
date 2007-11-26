@@ -4,11 +4,13 @@ import org.apache.log4j.Logger;
 import com.dneero.util.jcaptcha.CaptchaServiceSingleton;
 
 import com.dneero.util.GeneralException;
+import com.dneero.util.Num;
 import com.dneero.dao.User;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.email.LostPasswordSend;
 import com.dneero.htmlui.Pagez;
 import com.dneero.htmlui.ValidationException;
+import com.dneero.htmlui.UserSession;
 import com.octo.captcha.service.CaptchaServiceException;
 
 import java.util.List;
@@ -26,13 +28,54 @@ public class LostPasswordChoose implements Serializable {
     private String password;
     private String passwordverify;
     private String j_captcha_response;
+    private String u;
+    private String k;
 
     public LostPasswordChoose(){
 
     }
 
     public void initBean(){
+        checkKey();
+    }
 
+    public void checkKey() {
+        Logger logger = Logger.getLogger(this.getClass().getName());
+
+        User user=null;
+        if (Pagez.getRequest().getParameter("u")!=null && Num.isinteger(Pagez.getRequest().getParameter("u"))){
+            user = User.get(Integer.parseInt(Pagez.getRequest().getParameter("u")));
+        }
+
+        String k = "";
+        if (Pagez.getRequest().getParameter("k")!=null && !Pagez.getRequest().getParameter("k").equals("")){
+            k = Pagez.getRequest().getParameter("k");
+        }
+
+        logger.debug("user.getUserid()="+user.getUserid()+" k="+k);
+
+        if (user!=null && user.getEmailactivationkey()!=null && k!=null && user.getEmailactivationkey().trim().equals(k.trim())){
+            user.setIsactivatedbyemail(true);
+            try{
+                user.save();
+            } catch (GeneralException gex){
+                logger.error("registerAction failed: " + gex.getErrorsAsSingleString());
+            }
+
+            //Set the flag in the session that'll allow this user to reset their password
+            if (Pagez.getUserSession()!=null){
+                Pagez.getUserSession().setAllowedToResetPasswordBecauseHasValidatedByEmail(true);
+                Pagez.getUserSession().setUser(user);
+                Pagez.getUserSession().setIsloggedin(false);
+                return;
+            } else {
+                //Pagez.sendRedirect("/lostpassword.jsp");
+                return;
+            }
+        } else {
+            //Pagez.sendRedirect("/lostpassword.jsp");
+            return;
+        }
     }
 
     public void choosePassword() throws ValidationException {
@@ -51,7 +94,6 @@ public class LostPasswordChoose implements Serializable {
             haveErrors = true;
         }
 
-
         boolean isCaptchaCorrect = false;
         try {
             isCaptchaCorrect = CaptchaServiceSingleton.getInstance().validateResponseForID(Pagez.getRequest().getSession().getId(), j_captcha_response);
@@ -68,6 +110,9 @@ public class LostPasswordChoose implements Serializable {
         if (haveErrors){
             throw vex;
         }
+
+        //Checks the key and userid again
+        checkKey();
 
 
         if (Pagez.getUserSession().getIsAllowedToResetPasswordBecauseHasValidatedByEmail()){
@@ -112,5 +157,21 @@ public class LostPasswordChoose implements Serializable {
 
     public void setJ_captcha_response(String j_captcha_response) {
         this.j_captcha_response = j_captcha_response;
+    }
+
+    public String getU() {
+        return u;
+    }
+
+    public void setU(String u) {
+        this.u=u;
+    }
+
+    public String getK() {
+        return k;
+    }
+
+    public void setK(String k) {
+        this.k=k;
     }
 }

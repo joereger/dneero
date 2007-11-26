@@ -1,13 +1,12 @@
 <%@ page import="org.apache.log4j.Logger" %>
 <%@ page import="com.dneero.htmlui.Pagez" %>
-<%@ page import="com.dneero.htmluibeans.PublicProfileAnswers" %>
 <%@ page import="com.dneero.htmluibeans.PublicProfileImpressions" %>
 <%@ page import="com.dneero.dbgrid.Grid" %>
 <%@ page import="com.dneero.dbgrid.GridCol" %>
 <%@ page import="java.util.ArrayList" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
-String pagetitle = "<img src=\"/images/user.png\" align=\"right\" alt=\"\" border=\"0\"/>"+((PublicProfileImpressions) Pagez.getBeanMgr().get("PublicProfileImpressions")).getUser().getFirstname()+" "+ ((PublicProfileAnswers)Pagez.getBeanMgr().get("PublicProfileAnswers")).getUser().getLastname()+"'s Impressions<br/><br clear=\"all\"/>";
+String pagetitle = "<img src=\"/images/user.png\" align=\"right\" alt=\"\" border=\"0\"/>"+((PublicProfileImpressions) Pagez.getBeanMgr().get("PublicProfileImpressions")).getUser().getFirstname()+" "+ ((PublicProfileImpressions)Pagez.getBeanMgr().get("PublicProfileImpressions")).getUser().getLastname()+"'s Impressions<br/><br clear=\"all\"/>";
 String navtab = "home";
 String acl = "public";
 %>
@@ -30,7 +29,7 @@ PublicProfileImpressions publicProfileImpressions = (PublicProfileImpressions) P
             cols.add(new GridCol("Impressions", "<$impressionspaidandtobepaid$>", true, "", "normalfont"));
             cols.add(new GridCol("Quality Rating", "<$impressionquality$>", true, "", "normalfont"));
         %>
-        <%=Grid.render(publicProfileImpressions.getList(), cols, 10, "profile.jsp?responseid="+publicProfileImpressions.getResponse().getResponseid(), "page")%>
+        <%=Grid.render(publicProfileImpressions.getList(), cols, 100, "profileimpressions.jsp?responseid="+publicProfileImpressions.getResponse().getResponseid(), "page")%>
     <%}%>
 
 

@@ -40,9 +40,9 @@ public class PublicProfileImpressions implements Serializable {
             response = Response.get(Integer.parseInt(Pagez.getRequest().getParameter("responseid")));
             blogger = Blogger.get(response.getBloggerid());
             user = User.get(blogger.getUserid());
+            survey = Survey.get(response.getSurveyid());
         }
 
-        survey = Survey.get(Pagez.getUserSession().getCurrentSurveyid());
         list = new ArrayList<ResearcherResultsImpressionsListitem>();
 
         if (response!=null && blogger!=null && survey!=null){
@@ -50,6 +50,8 @@ public class PublicProfileImpressions implements Serializable {
 
                 List<Impression> impressions = HibernateUtil.getSession().createCriteria(Impression.class)
                                    .add( Restrictions.eq("surveyid", survey.getSurveyid()))
+                                   .add( Restrictions.eq("responseid", response.getResponseid()))
+                                   .add( Restrictions.eq("userid", user.getUserid()))
                                    .list();
                 for (Iterator<Impression> iterator1 = impressions.iterator(); iterator1.hasNext();) {
                     Impression impression = iterator1.next();

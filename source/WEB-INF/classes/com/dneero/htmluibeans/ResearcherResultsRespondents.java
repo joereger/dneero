@@ -47,6 +47,7 @@ public class ResearcherResultsRespondents implements Serializable {
                 li.setLastname(user.getLastname());
                 li.setResponsedate(response.getResponsedate());
                 li.setResponseid(response.getResponseid());
+                li.setUser(user);
                 list.add(li);
             }
         }

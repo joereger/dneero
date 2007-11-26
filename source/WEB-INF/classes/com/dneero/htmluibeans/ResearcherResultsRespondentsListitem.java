@@ -1,5 +1,7 @@
 package com.dneero.htmluibeans;
 
+import com.dneero.dao.User;
+
 import java.util.Date;
 import java.io.Serializable;
 
@@ -15,6 +17,7 @@ public class ResearcherResultsRespondentsListitem implements Serializable {
     private Date responsedate;
     private String firstname;
     private String lastname;
+    private User user;
 
     public ResearcherResultsRespondentsListitem(){}
 
@@ -57,5 +60,13 @@ public class ResearcherResultsRespondentsListitem implements Serializable {
 
     public void setFirstname(String firstname) {
         this.firstname = firstname;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user=user;
     }
 }
