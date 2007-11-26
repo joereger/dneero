@@ -21,6 +21,7 @@ PublicSurveyDiscuss publicSurveyDiscuss = (PublicSurveyDiscuss)Pagez.getBeanMgr(
             publicSurveyDiscuss.setDiscussComment(Textarea.getValueFromRequest("discusscomment", "Comment", true));
             publicSurveyDiscuss.newComment();
             Pagez.getUserSession().setMessage("Your comment has been posted!");
+            publicSurveyDiscuss.initBean();
         } catch (ValidationException vex) {
             Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
         }
@@ -74,7 +75,7 @@ PublicSurveyDiscuss publicSurveyDiscuss = (PublicSurveyDiscuss)Pagez.getBeanMgr(
             co.append("<br/>");
             co.append("<font class=\"normalfont\"><$surveydiscuss.subject$></font>");
             co.append("<br/>");
-            co.append("<font class=\"smallfont\"><$surveydiscuss.comment></font>");
+            co.append("<font class=\"smallfont\"><$surveydiscuss.comment$></font>");
             co.append("<br/><br/>");
             ArrayList<GridCol> cols=new ArrayList<GridCol>();
             cols.add(new GridCol("", "<img src=\"/images/user-48.png\" width=\"48\" height=\"48\"/>", false, "", ""));

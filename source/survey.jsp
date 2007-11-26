@@ -14,6 +14,26 @@ String acl = "public";
 <%
 PublicSurvey publicSurvey = (PublicSurvey)Pagez.getBeanMgr().get("PublicSurvey");
 %>
+<%
+    if (request.getParameter("action") != null && request.getParameter("action").equals("takesurvey")) {
+        try {
+            publicSurvey.takeSurvey();
+            if (Pagez.getUserSession().getIsloggedin()){
+                if (Pagez.getUserSession().getUser().getBloggerid()>0){
+                    Pagez.sendRedirect("surveypostit.jsp?surveyid="+publicSurvey.getSurvey().getSurveyid()+"&justcompletedsurvey=1");
+                    return;
+                } else {
+                    Pagez.sendRedirect("/account/index.jsp");
+                    return;
+                }
+            }
+            Pagez.sendRedirect("/registration.jsp");
+            return;
+        } catch (ValidationException vex) {
+            Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
+        }
+    }
+%>
 <%@ include file="/template/header.jsp" %>
 
 
@@ -40,7 +60,7 @@ PublicSurvey publicSurvey = (PublicSurvey)Pagez.getBeanMgr().get("PublicSurvey")
         <br/>
     <%}%>
 
-    <%if (!publicSurvey.getBloggerhastakentoomanysurveysalreadytoday() && !publicSurvey.getLoggedinuserhasalreadytakensurvey()){%>
+    <%if (publicSurvey.getBloggerhastakentoomanysurveysalreadytoday() && !publicSurvey.getLoggedinuserhasalreadytakensurvey()){%>
         <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
             <font class="mediumfont">Sorry, you've already taken the maximum number of surveys today.  Wait until tomorrow (as defined by U.S. EST) and try again.</font>
         </div>
@@ -92,6 +112,10 @@ PublicSurvey publicSurvey = (PublicSurvey)Pagez.getBeanMgr().get("PublicSurvey")
                             </div>
                             <br/>
                         <%}%>
+                        <form action="survey.jsp" method="post">
+                            <input type="hidden" name="action" value="takesurvey">
+                            <input type="hidden" name="surveyid" value="<%=publicSurvey.getSurvey().getSurveyid()%>">
+
                         <div class="rounded" style="background: #e6e6e6; padding: 10px;">
                             <center><font class="smallfont" style="font-weight: bold;">Take the survey by answering the questions below.  Because this is a Social Survey your answers will be available to the public.</font></center><br/><br/>
                             <div class="rounded" style="background: #ffffff; padding: 5px;">
@@ -151,6 +175,7 @@ PublicSurvey publicSurvey = (PublicSurvey)Pagez.getBeanMgr().get("PublicSurvey")
                                 <input type="submit" class="formsubmitbutton" value="Complete the Survey">
                             </center>
                         </div>
+                        </form>
                     <% } %>
                     <% if (publicSurvey.getSurvey().getStatus()!=Survey.STATUS_OPEN && !publicSurvey.getLoggedinuserhasalreadytakensurvey()){ %>
                         <font class="mediumfont">This survey is no longer open for respondents.  However, we still have many other surveys that allow you to make money!  Click the Results tab to see how people answered!</font>

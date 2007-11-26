@@ -14,7 +14,7 @@ public class PaymentMethodBase {
     public String transactionid = "";
     public String correlationid = "";
     public User user;
-    public double amt;
+    public double amt = 0.0;
 
     public PaymentMethodBase(User user, double amt){
         this.user = user;

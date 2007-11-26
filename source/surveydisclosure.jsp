@@ -4,7 +4,7 @@
 <%@ page import="com.dneero.dao.Survey" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
-String pagetitle = ((PublicSurveyDisclosure) Pagez.getBeanMgr().get("PublicSurveyDisclosure")).getSurvey().getTitle()";
+String pagetitle = ((PublicSurveyDisclosure) Pagez.getBeanMgr().get("PublicSurveyDisclosure")).getSurvey().getTitle();
 String navtab = "home";
 String acl = "public";
 %>

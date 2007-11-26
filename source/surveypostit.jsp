@@ -118,7 +118,7 @@ String acl = "public";
                 </div>
             </div>
         <% } %>
-        <% if (Pagez.getUserSession().getIsfacebookui()){ %>
+        <% if (!Pagez.getUserSession().getIsfacebookui()){ %>
             <table cellpadding="3" cellspacing="15" border="0" width="100%">
             <tr>
                 <td valign="top">

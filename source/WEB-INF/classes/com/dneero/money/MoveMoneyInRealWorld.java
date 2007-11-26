@@ -8,6 +8,7 @@ import com.dneero.xmpp.SendXMPPMessage;
 import com.dneero.email.EmailSend;
 import com.dneero.email.EmailTemplateProcessor;
 import com.dneero.util.Time;
+import com.dneero.util.ErrorDissect;
 
 import java.util.Date;
 
@@ -94,7 +95,7 @@ public class MoveMoneyInRealWorld implements Runnable {
             amttogiveuser = 0;
         }
 
-        if(amttogiveuser<0 || amttogiveuser>0){
+        if(user!=null && (amttogiveuser<0 || amttogiveuser>0)){
 
             //Do the transaction
             pm.giveUserThisAmt();
@@ -134,6 +135,7 @@ public class MoveMoneyInRealWorld implements Runnable {
 
             //Always record the transaction itself, even if it fails... this does not affect the account balance
             Balancetransaction balancetransaction = new Balancetransaction();
+            balancetransaction.setUserid(user.getUserid());
             balancetransaction.setAmt(amttogiveuser);
             balancetransaction.setDate(new Date());
             balancetransaction.setDescription(desc);
@@ -144,7 +146,6 @@ public class MoveMoneyInRealWorld implements Runnable {
             } else {
                 balancetransaction.setNotes("");
             }
-            balancetransaction.setUserid(user.getUserid());
             if (pm.getCorrelationid()!=null){
                 balancetransaction.setCorrelationid(pm.getCorrelationid());
             } else {
@@ -156,7 +157,7 @@ public class MoveMoneyInRealWorld implements Runnable {
                 balancetransaction.setTransactionid("");
             }
             try{balancetransaction.save();}catch (Exception ex){
-                EmailTemplateProcessor.sendGenericEmail("joe@joereger.com", "dNeero balancetransaction write failed", "amttogiveuser="+amttogiveuser+" date="+ Time.dateformatcompactwithtime(Time.nowInUserTimezone("EST"))+" error="+ex.getMessage());
+                EmailTemplateProcessor.sendGenericEmail("joe@joereger.com", "dNeero balancetransaction write failed", "amttogiveuser="+amttogiveuser+" date="+ Time.dateformatcompactwithtime(Time.nowInUserTimezone("EST"))+" userid="+user.getUserid()+" error=<br/><br/>\n\n"+ ErrorDissect.dissect(ex));
                 logger.error("",ex);
             }
 
@@ -164,6 +165,10 @@ public class MoveMoneyInRealWorld implements Runnable {
             if (amtremainder!=0){
                 amttogiveuser = amtremainder;
                 giveUserThisAmt();
+            }
+        } else {
+            if (user==null){
+                logger.error("Null user being passed to MoveMoneyInRealWorld.java");
             }
         }
     }
