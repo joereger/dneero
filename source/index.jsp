@@ -17,7 +17,6 @@ PublicIndex publicIndex = (PublicIndex)Pagez.getBeanMgr().get("PublicIndex");
 
 
 
-
     <table cellpadding="0" cellspacing="0" border="0" width="750">
        <tr>
            <td align="center">
