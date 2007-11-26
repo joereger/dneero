@@ -19,20 +19,10 @@ public class Authorization {
     public static boolean check(String acl) {
         Logger logger = Logger.getLogger(Authorization.class);
         logger.debug("check() called");
-
-        //Acl authorization
-        if (!isAuthorized(acl)){
-            UserSession userSession = Pagez.getUserSession();
-            if (userSession!=null && userSession.getUser()!=null && userSession.getIsloggedin()){
-                try{Pagez.sendRedirect("/notauthorized.jsp");}catch(Exception ex){logger.error("",ex);}
-                return false;
-            } else {
-                try{Pagez.sendRedirect("/login.jsp");}catch(Exception ex){logger.error("",ex);}
-                return false;
-            }
+        if (isAuthorized(acl)){
+            return true;
         }
-
-        return true;
+        return false;
     }
 
     private static boolean isAuthorized(String acl) {

@@ -26,6 +26,11 @@ String acl = "public";
         }
     }
 %>
+<%
+if (Pagez.getUserSession().getIsloggedin() && (Pagez.getUserSession().getUser().getResearcherid()==0) && (!researcherIndex.getShowmarketingmaterial())){
+    Pagez.sendRedirect("researcherdetails.jsp");
+}
+%>
 <%@ include file="/template/header.jsp" %>
 
 
@@ -127,17 +132,7 @@ String acl = "public";
         </table>
     <% } %>
 
-    <% if (Pagez.getUserSession().getIsloggedin() && (Pagez.getUserSession().getUser().getResearcherid()==0) && (!researcherIndex.getShowmarketingmaterial())){ %>
-        <center>
-        <div class="rounded" style="padding: 15px; margin: 5px; background: #F2FFBF; width: 65%;">
-            <a href="researcherdetails.jsp"><font class="mediumfont">Quick One-time Researcher Configuration Required</font></a>
-            <br/>
-            <font class="smallfont">Before you can do blogosphere research we need to collect a few pieces of information about you as a researcher.  This will only take a minute or two.</font>
-            <br/><br/><br/>
-            <a href="researcherdetails.jsp"><font class="normalfont">Continue</font></a>
-        </div>
-        </center>
-    <% } %>
+
 
     <% if (Pagez.getUserSession().getIsloggedin() && (Pagez.getUserSession().getUser().getResearcherid()>0) && (!researcherIndex.getShowmarketingmaterial())){ %>
         <%if (researcherIndex.getMsg()!=null && !researcherIndex.getMsg().equals("")){%>
@@ -203,8 +198,9 @@ String acl = "public";
                 </td>
                 <td valign="top">
                     <font class="largefont" style="color: #cccccc;">Surveys You've Created</font>
+                    <br/>
                     <%if (researcherSurveyList.getSurveys()==null || researcherSurveyList.getSurveys().size()==0){%>
-                        <font class="normalfont">You have not yet created any surveys. <a href="researchersurveydetail_01.jsp">Start a New Survey</a>.</font>
+                        <font class="normalfont">You haven't yet created any surveys. <a href="researchersurveydetail_01.jsp">Start a New Survey</a>.</font>
                     <%} else {%>
                         <%
                             ArrayList<GridCol> cols=new ArrayList<GridCol>();

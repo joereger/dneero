@@ -7,7 +7,7 @@
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "Your Profile";
 String navtab = "bloggers";
-String acl = "blogger";
+String acl = "public";
 %>
 <%@ include file="/template/auth.jsp" %>
 <%

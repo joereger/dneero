@@ -307,7 +307,8 @@ public class Registration implements Serializable {
         for (int j = 0; j < cookies.length; j++) {
             Pagez.getResponse().addCookie(cookies[j]);
         }
-        //@todo put userSession object into a cache or something?
+        //Put userSession object into cache
+        Pagez.setUserSessionAndUpdateCache(userSession);
     }
 
 

@@ -39,6 +39,16 @@ Login login = (Login) Pagez.getBeanMgr().get("Login");
         }
     }
 %>
+<%
+    if (request.getParameter("action") != null && request.getParameter("action").equals("logout")) {
+        try {
+            login.logout();
+            Pagez.getUserSession().setMessage("You have been logged out.");
+        } catch (ValidationException vex) {
+            Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
+        }
+    }
+%>
 <%@ include file="/template/header.jsp" %>
 
     <br/><br/>

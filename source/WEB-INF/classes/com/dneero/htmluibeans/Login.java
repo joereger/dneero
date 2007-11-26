@@ -126,7 +126,7 @@ public class Login implements Serializable {
                 xmpp.send();
 
                 //This is where the new UserSession is actually bound to Pagez.getUserSession()
-                Pagez.setUserSession(userSession);
+                Pagez.setUserSessionAndUpdateCache(userSession);
 
 
             } else {
@@ -136,11 +136,11 @@ public class Login implements Serializable {
         }
     }
 
-    public String logout(){
+    public void logout() throws ValidationException{
         Pagez.setUserSession(new UserSession());
+        Pagez.setUserSessionAndUpdateCache(new UserSession());
         //Persistent Logout
         Pagez.getResponse().addCookie(PersistentLogin.createCookieToClearPersistentLogin(Pagez.getRequest()));
-        return "logout_success";
     }
 
     public String getEmail() {

@@ -71,6 +71,8 @@ public class BloggerDetails implements Serializable {
             profession = String.valueOf(blogger.getProfession());
             politics = String.valueOf(blogger.getPolitics());
             blogfocus = blogger.getBlogfocus();
+        } else {
+            birthdate = new Date();
         }
     }
 
