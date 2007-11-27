@@ -7,18 +7,20 @@ import javax.servlet.http.*;
 
 public class Encode4FacebookResponseWrapper extends HttpServletResponseWrapper {
     protected HttpServletResponse origResponse = null;
+    protected HttpServletRequest origRequest = null;
     protected ServletOutputStream stream = null;
     protected PrintWriter writer = null;
     ServletContext sc;
 
-    public Encode4FacebookResponseWrapper(HttpServletResponse response, ServletContext sc) {
+    public Encode4FacebookResponseWrapper(HttpServletRequest request, HttpServletResponse response, ServletContext sc) {
         super(response);
         this.sc = sc;
         origResponse = response;
+        origRequest = request;
     }
 
     public ServletOutputStream createOutputStream() throws IOException {
-        return (new Encode4FacebookResponseStream(origResponse, sc));
+        return (new Encode4FacebookResponseStream(origRequest, origResponse, sc));
     }
 
     public void finishResponse() {

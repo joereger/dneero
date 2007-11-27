@@ -28,6 +28,7 @@ String acl = "sysadmin";
 
         <%if (sysadminRateBlogPost.getHaveposttoreview()){%>
              <form action="rateblogpost.jsp" method="post">
+                <input type="hidden" name="dpage" value="\sysadmin\rateblogpost.jsp">
                 <input type="hidden" name="action" value="rate">
                 <input type="hidden" name="impressionid" value="<%=sysadminRateBlogPost.getImpression().getImpressionid()%>">
 

@@ -31,6 +31,7 @@ String acl = "researcher";
 
 
     <form action="emailinvite.jsp" method="post">
+        <input type="hidden" name="dpage" value="\researcher\emailinvite.jsp">
         <input type="hidden" name="action" value="invite">
 
         <%if (!researcherEmailinvite.getResearcherhasatleastonelivesurvey()){%>
@@ -41,6 +42,7 @@ String acl = "researcher";
         <%}%>
         <%if (researcherEmailinvite.getResearcherhasatleastonelivesurvey()){%>
             <form action="emailinvite.jsp" method="post">
+                <input type="hidden" name="dpage" value="\researcher\emailinvite.jsp">
                 <input type="hidden" name="action" value="invite">
                 <table cellpadding="10" cellspacing="0" border="0">
                     <tr>

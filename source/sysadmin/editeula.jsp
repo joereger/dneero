@@ -32,6 +32,7 @@ SysadminEditEula sysadminEditEula = (SysadminEditEula)Pagez.getBeanMgr().get("Sy
         <br/><br/>
 
          <form action="editeula.jsp" method="post">
+            <input type="hidden" name="dpage" value="\sysadmin\editeula.jsp">
             <input type="hidden" name="action" value="save">
 
             <table cellpadding="0" cellspacing="0" border="0">

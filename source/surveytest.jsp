@@ -32,6 +32,7 @@ if (userSession == null || !userSession.getIsloggedin() || !Authorization.isUser
 
 <body>
 <form action="surveytest.jsp" method="get">
+    <input type="hidden" name="dpage" value="surveytest.jsp">
 <font face="impact" size="+3" color="#00ff00">Crazy Eddie's Blog</font>
 <br>
     <select name="u">

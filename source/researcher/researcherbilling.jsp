@@ -39,6 +39,7 @@ ResearcherBilling researcherBilling = (ResearcherBilling)Pagez.getBeanMgr().get(
 <%@ include file="/template/header.jsp" %>
 
     <form action="researcherbilling.jsp" method="post">
+        <input type="hidden" name="dpage" value="\researcher\researcherbilling.jsp">
         <input type="hidden" name="action" value="save">
            <table cellpadding="0" cellspacing="0" border="0">
                <tr>

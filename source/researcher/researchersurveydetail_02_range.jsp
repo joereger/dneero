@@ -45,6 +45,7 @@ ResearcherSurveyDetail02range researcherSurveyDetail02range = (ResearcherSurveyD
 
     <!-- Start Bottom -->
     <form action="researchersurveydetail_02_range.jsp" method="post">
+        <input type="hidden" name="dpage" value="\researcher\researchersurveydetail_02_range.jsp">
         <input type="hidden" name="action" value="save" id="action">
         <input type="hidden" name="surveyid" value="<%=Pagez.getUserSession().getCurrentSurveyid()%>"/>
         <input type="hidden" name="questionid" value="<%=researcherSurveyDetail02range.getQuestionid()%>"/>

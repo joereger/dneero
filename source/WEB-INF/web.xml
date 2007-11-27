@@ -67,6 +67,15 @@
         <url-pattern>/eas</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>FbCallbackServlet</servlet-name>
+        <servlet-class>com.dneero.facebook.FbCallbackServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>FbCallbackServlet</servlet-name>
+        <url-pattern>/fb/*</url-pattern>
+    </servlet-mapping>
+
 
 
     <servlet>

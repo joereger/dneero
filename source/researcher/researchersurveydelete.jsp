@@ -26,6 +26,7 @@ ResearcherSurveyDelete researcherSurveyDelete = (ResearcherSurveyDelete) Pagez.g
 <%@ include file="/template/header.jsp" %>
 
     <form action="researchersurveydelete.jsp" method="post">
+        <input type="hidden" name="dpage" value="\researcher\researchersurveydelete.jsp">
         <input type="hidden" name="action" value="delete">
         <input type="hidden" name="surveyid" value="<%=researcherSurveyDelete.getSurvey().getSurveyid()%>">
         <font class="mediumfont">Are you sure you want to delete the survey<br/>"<%=((ResearcherSurveyDelete)Pagez.getBeanMgr().get("ResearcherSurveyDelete")).getTitle()%>"?</font>

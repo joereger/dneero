@@ -32,6 +32,7 @@ SysadminUserList sysadminUserList = (SysadminUserList)Pagez.getBeanMgr().get("Sy
 
 
     <form action="userlist.jsp" method="post">
+        <input type="hidden" name="dpage" value="\sysadmin\userlist.jsp">
         <input type="hidden" name="action" value="search">
         
         <table cellpadding="0" cellspacing="0" border="0">

@@ -34,6 +34,7 @@ SysadminInstanceProps sysadminInstanceProps = (SysadminInstanceProps)Pagez.getBe
 <%@ include file="/template/header.jsp" %>
 
     <form action="instanceprops.jsp" method="post">
+        <input type="hidden" name="dpage" value="\sysadmin\instanceprops.jsp">
         <input type="hidden" name="action" value="save">
 
         <table cellpadding="0" cellspacing="0" border="0">

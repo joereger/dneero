@@ -27,6 +27,7 @@ SysadminMassemailSend sysadminMassemailSend = (SysadminMassemailSend)Pagez.getBe
 <%@ include file="/template/header.jsp" %>
     <br/><br/>
     <form action="massemailsend.jsp" method="post">
+        <input type="hidden" name="dpage" value="\sysadmin\massemailsend.jsp">
         <input type="hidden" name="action" value="send">
         <input type="hidden" name="massemailid" value="<%=sysadminMassemailSend.getMassemail().getMassemailid()%>">
 

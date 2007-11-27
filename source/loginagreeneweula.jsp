@@ -27,6 +27,7 @@ LoginAgreeNewEula loginAgreeNewEula = (LoginAgreeNewEula)Pagez.getBeanMgr().get(
 
 
     <form action="loginagreeneweula.jsp" method="post">
+        <input type="hidden" name="dpage" value="loginagreeneweula.jsp">
         <input type="hidden" name="action" value="agree">
         
             <font class="formfieldnamefont">The End User License Agreement has changed.<br/>You must read and agree to it before you can proceed:</font>

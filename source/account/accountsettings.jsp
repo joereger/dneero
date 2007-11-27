@@ -36,6 +36,7 @@ AccountSettings accountSettings = (AccountSettings) Pagez.getBeanMgr().get("Acco
 
     <br/><br/>
     <form action="accountsettings.jsp" method="post">
+        <input type="hidden" name="dpage" value="\account\accountsettings.jsp">
         <input type="hidden" name="action" value="save">
 
             <table cellpadding="3" cellspacing="0" border="0">

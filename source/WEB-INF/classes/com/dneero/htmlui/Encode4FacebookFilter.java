@@ -16,25 +16,34 @@ public class Encode4FacebookFilter implements Filter {
 
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
         Logger logger = Logger.getLogger(this.getClass().getName());
-        logger.debug("+++ doFilter() begin");
-        // check that it is a HTTP request
-        if (req instanceof HttpServletRequest) {
-            HttpServletRequest request = (HttpServletRequest) req;
-            HttpServletResponse response = (HttpServletResponse) res;
-
-            // nonce encode the normal output
-            Encode4FacebookResponseWrapper wrappedResponse = new Encode4FacebookResponseWrapper(response, sc);
-
-            // make sure a session exists
-            HttpSession session = request.getSession(true);
 
 
-            chain.doFilter(req, wrappedResponse);
+            // check that it is a HTTP request
+            if (req instanceof HttpServletRequest) {
+                HttpServletRequest request = (HttpServletRequest) req;
+                HttpServletResponse response = (HttpServletResponse) res;
+                
+                if (Pagez.getUserSession().getIsfacebookui() && request.getRequestURL().indexOf(".jpg")==-1 && request.getRequestURL().indexOf(".css")==-1 && request.getRequestURL().indexOf(".gif")==-1 && request.getRequestURL().indexOf(".png")==-1 && request.getRequestURL().indexOf(".js")==-1 && request.getRequestURL().indexOf(".swf")==-1){    
+                    logger.debug("+++ doFilter() begin");
 
-            // finish the response
-            wrappedResponse.finishResponse();
-        }
-        logger.debug("+++ doFilter() end");
+                    // nonce encode the normal output
+                    Encode4FacebookResponseWrapper wrappedResponse = new Encode4FacebookResponseWrapper(request, response, sc);
+
+                    // make sure a session exists
+                    HttpSession session = request.getSession(true);
+
+                    chain.doFilter(req, wrappedResponse);
+
+                    // finish the response
+                    wrappedResponse.finishResponse();
+                    
+                    logger.debug("+++ doFilter() end");
+                } else {
+                    chain.doFilter(req, res);
+                }
+            } 
+
+
     }
 
     public void init(FilterConfig filterConfig) {

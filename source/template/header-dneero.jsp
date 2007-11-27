@@ -12,24 +12,6 @@
   <link rel="alternate" type="application/rss+xml" title="dNeero Social Surveys Blog" href="http://www.dneero.com/rss.xml" />
   <meta name="description" content="dNeero connects advertisers and market researchers with a large pool of qualified and motivated bloggers. Marketers initiate offers to blog (i.e. We'll pay $2 for a blogged review of our latest movie.), dNeero publishes those offers in a Yahoo-style directory and bloggers earn money (for themselves or for charity) taking surveys and posting their own results to their blogs. " />
   <meta name="keywords" content="market research,survey,blog,web 2.0,startup,money,market intelligence" />
-  <script type="text/javascript">
-    <%if (Pagez.getUserSession().getIsfacebookui()){%>
-    var userSessionIsFacebookui = true;
-    <%}%>
-    <%if (!com.dneero.htmlui.Pagez.getUserSession().getIsfacebookui()){%>
-    var userSessionIsFacebookui = false;
-    <%}%>
-    if (userSessionIsFacebookui) {
-        if (window==top){
-            top.location.href="<%=BaseUrl.get(true)%>facebookexitui.jsp";
-        }
-    } else {
-        if (window!=top){
-            //alert("Your session may have timed out.  If you're using the Facebook App please click your left-hand menu link to restart your session.  Thanks.");
-            top.location.href="<%=BaseUrl.get(true)%>facebookenterui.jsp";
-        }
-    }
-  </script>
   <script type="text/javascript" src="/js/niftycube/niftycube.js"></script>
   <script type="text/javascript">
    NiftyLoad=function(){

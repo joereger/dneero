@@ -42,6 +42,7 @@ ResearcherSurveyDetail02matrix researcherSurveyDetail02matrix = (ResearcherSurve
 
     <!-- Start Bottom -->
      <form action="researchersurveydetail_02_matrix.jsp" method="post">
+        <input type="hidden" name="dpage" value="\researcher\researchersurveydetail_02_matrix.jsp">
         <input type="hidden" name="action" value="save">
         <input type="hidden" name="surveyid" value="<%=Pagez.getUserSession().getCurrentSurveyid()%>"/>
         <input type="hidden" name="questionid" value="<%=researcherSurveyDetail02matrix.getQuestionid()%>"/>

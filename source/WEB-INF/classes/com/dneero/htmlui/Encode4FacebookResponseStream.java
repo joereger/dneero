@@ -5,8 +5,12 @@ import org.apache.log4j.Logger;
 import java.io.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.net.URLEncoder;
 import javax.servlet.*;
 import javax.servlet.http.*;
+
+import com.dneero.systemprops.SystemProperty;
+import com.dneero.session.UrlSplitter;
 
 /**
  *
@@ -21,6 +25,7 @@ public class Encode4FacebookResponseStream extends ServletOutputStream {
 
     // reference to original response
     protected HttpServletResponse response = null;
+    protected HttpServletRequest request = null;
 
     // reference to the output stream to the client's browser
     protected ServletOutputStream output = null;
@@ -30,11 +35,12 @@ public class Encode4FacebookResponseStream extends ServletOutputStream {
 
     ServletContext sc;
 
-    public Encode4FacebookResponseStream(HttpServletResponse response, ServletContext sc) throws IOException {
+    public Encode4FacebookResponseStream(HttpServletRequest request, HttpServletResponse response, ServletContext sc) throws IOException {
         super();
         closed = false;
         this.sc = sc;
         this.response = response;
+        this.request = request;
         this.output = response.getOutputStream();
         bufferedOutput = new ByteArrayOutputStream();
     }
@@ -42,6 +48,7 @@ public class Encode4FacebookResponseStream extends ServletOutputStream {
     public void close() throws IOException {
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("close() called");
+        logger.debug("Pagez.getUserSession().getIsfacebookui()="+Pagez.getUserSession().getIsfacebookui());
         // make up a nonce
         String nonce = Integer.toString((int)(Math.random()*Integer.MAX_VALUE));
         // set the nonce in app scope
@@ -55,27 +62,51 @@ public class Encode4FacebookResponseStream extends ServletOutputStream {
         //logger.debug("pageText= "+pageText);
 
         // use regex to find the links
-        Pattern p = Pattern.compile(" href=\"[^\"]*|action=\"[^\"]*");
+        //Pattern p = Pattern.compile(" href=\"[^\"]*|action=\"[^\"]*");
+        Pattern p = Pattern.compile(" href=\"[^\"]*");
         Matcher m = p.matcher(pageText);
 
         String newText = "";
         int offset = 0;
         while (m.find(offset)) {
-            logger.debug("found a match: "+m.toString());
+            //logger.debug("found a match: "+m.toString());
+
             // update the text
-            newText += pageText.substring(offset, m.start());
+            newText = newText + pageText.substring(offset, m.start());
             // update the offset
             offset = m.end();
             // get the matching string
             String match = pageText.substring(m.start(), m.end());
-            // get the URL
+            //logger.debug("match="+match);
+            // get the URL, between the quotes
             String[] split = match.split("\"");
             String url = split[1];
-            // encode the match
-            String encoded = response.encodeURL(url);
+            //logger.debug("url="+url);
 
+            //I need to separate the script name from the querystring
+            String[] splitUrl = url.split("\\?");
+            String scriptname = splitUrl[0];
+            logger.debug("scriptname="+scriptname);
+
+            //Querystring
+            String queryString = "";
+            if (splitUrl.length>1){
+                queryString = "&" + splitUrl[1];
+            }
+
+            //Convert relative to absolute
+            if (scriptname.length()>0 && !scriptname.substring(0,1).equals("/")){
+                String path = request.getServletPath();
+                logger.debug("path="+path);
+                String justpath = path.substring(0, path.lastIndexOf("/"));
+                logger.debug("justpath="+justpath);
+            }
+
+            //Encode the finalized link
+            String encoded = "/"+ SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_APP_NAME) + "/?dpage="+ URLEncoder.encode(scriptname, "UTF-8")+queryString;
+            
             // add the match to the new text
-            newText += split[0]+"\""+encoded;
+            newText = newText + split[0]+"\""+encoded;
         }
         // add the final text
         newText += pageText.substring(offset, pageText.length());

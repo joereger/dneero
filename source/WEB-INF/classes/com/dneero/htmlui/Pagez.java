@@ -40,7 +40,7 @@ public class Pagez {
     }
 
     public static void setUserSessionAndUpdateCache(UserSession userSession){
-        CacheFactory.getCacheProvider().put(getRequest().getSession().getId(), "userSessionNew", userSession);
+        CacheFactory.getCacheProvider().put(getRequest().getSession().getId(), "userSession", userSession);
         userSessionLocal.set(userSession);
     }
 

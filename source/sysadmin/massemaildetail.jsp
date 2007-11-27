@@ -76,6 +76,7 @@ SysadminMassemailDetail sysadminMassemailDetail = (SysadminMassemailDetail)Pagez
     <div class="panel" id="panel1" style="display: block">
         <img src="/images/clear.gif" width="700" height="1"/><br/>
         <form action="massemaildetail.jsp" method="post">
+            <input type="hidden" name="dpage" value="\sysadmin\massemaildetail.jsp">
             <input type="hidden" name="action" value="save" id="action">
             <input type="hidden" name="massemailid" value="<%=sysadminMassemailDetail.getMassemail().getMassemailid()%>">
 

@@ -113,6 +113,7 @@ PublicSurvey publicSurvey = (PublicSurvey)Pagez.getBeanMgr().get("PublicSurvey")
                             <br/>
                         <%}%>
                         <form action="survey.jsp" method="post">
+                            <input type="hidden" name="dpage" value="survey.jsp">
                             <input type="hidden" name="action" value="takesurvey">
                             <input type="hidden" name="surveyid" value="<%=publicSurvey.getSurvey().getSurveyid()%>">
 

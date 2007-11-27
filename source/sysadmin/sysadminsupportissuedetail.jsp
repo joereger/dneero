@@ -63,6 +63,7 @@ String acl = "sysadmin";
 
 
         <form action="sysadminsupportissuedetail.jsp" method="post">
+            <input type="hidden" name="dpage" value="\sysadmin\sysadminsupportissuedetail.jsp">
             <input type="hidden" name="action" value="save">
             <input type="hidden" name="supportissueid" value="<%=sysadminSupportIssueDetail.getSupportissueid()%>">
 

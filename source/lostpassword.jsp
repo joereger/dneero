@@ -27,6 +27,7 @@ LostPassword lostPassword = (LostPassword)Pagez.getBeanMgr().get("LostPassword")
 <%@ include file="/template/header.jsp" %>
 
     <form action="lostpassword.jsp" method="post">
+        <input type="hidden" name="dpage" value="lostpassword.jsp">
         <input type="hidden" name="action" value="go">
         <table cellpadding="0" cellspacing="0" border="0">
 

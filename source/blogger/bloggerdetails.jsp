@@ -60,6 +60,7 @@ BloggerDetails bloggerDetails = (BloggerDetails)Pagez.getBeanMgr().get("BloggerD
         <tr>
             <td valign="top">
                 <form action="bloggerdetails.jsp" method="post">
+                    <input type="hidden" name="dpage" value="\blogger\bloggerdetails.jsp">
                     <input type="hidden" name="action" value="save">
 
                     <table cellpadding="0" cellspacing="0" border="0">

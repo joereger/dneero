@@ -40,6 +40,7 @@ ResearcherSurveyDetail02essay researcherSurveyDetail02essay = (ResearcherSurveyD
 
     <!-- Start Bottom -->
     <form action="researchersurveydetail_02_essay.jsp" method="post">
+        <input type="hidden" name="dpage" value="\researcher\researchersurveydetail_02_essay.jsp">
         <input type="hidden" name="action" value="save">
         <input type="hidden" name="surveyid" value="<%=Pagez.getUserSession().getCurrentSurveyid()%>"/>
         <input type="hidden" name="questionid" value="<%=researcherSurveyDetail02essay.getQuestionid()%>"/>

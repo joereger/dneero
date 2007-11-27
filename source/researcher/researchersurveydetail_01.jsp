@@ -48,6 +48,7 @@ ResearcherSurveyDetail01 researcherSurveyDetail01 = (ResearcherSurveyDetail01)Pa
 
 
 <form action="researchersurveydetail_01.jsp" method="post" id="rsdform">
+    <input type="hidden" name="dpage" value="\researcher\researchersurveydetail_01.jsp">
     <input type="hidden" name="action" value="next" id="action">
     <input type="hidden" name="surveyid" value="<%=researcherSurveyDetail01.getSurvey().getSurveyid()%>"/>
 

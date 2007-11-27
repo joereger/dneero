@@ -41,6 +41,10 @@ public class FilterMain implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest httpServletRequest = (HttpServletRequest)request;
         HttpServletResponse httpServletResponse = (HttpServletResponse)response;
+        //Set up Pagez
+        Pagez.setRequest(httpServletRequest);
+        Pagez.setResponse(httpServletResponse);
+        Pagez.setBeanMgr(new BeanMgr());
         try{
             if (httpServletRequest.getRequestURL().indexOf("jpg")==-1 && httpServletRequest.getRequestURL().indexOf("css")==-1 && httpServletRequest.getRequestURL().indexOf("gif")==-1 && httpServletRequest.getRequestURL().indexOf("png")==-1){
                 logger.debug("Start FilterMain");
@@ -53,11 +57,8 @@ public class FilterMain implements Filter {
 //                logger.debug("---------------------------START REQUEST: "+httpServletRequest.getRequestURL());
 //                logger.debug("httpServletRequest.getSession().getId()="+httpServletRequest.getSession().getId());
 
-                //Set up Pagez
-                Pagez.setRequest(httpServletRequest);
-                Pagez.setResponse(httpServletResponse);
-                Pagez.setBeanMgr(new BeanMgr());
-                Object obj = CacheFactory.getCacheProvider().get(httpServletRequest.getSession().getId(), "userSessionNew");
+
+                Object obj = CacheFactory.getCacheProvider().get(httpServletRequest.getSession().getId(), "userSession");
                 if (obj!=null && (obj instanceof UserSession)){
                     logger.debug("found a userSession in the cache");
                     Pagez.setUserSession((UserSession)obj);
@@ -193,6 +194,9 @@ public class FilterMain implements Filter {
                 }
         
 
+            } else {
+                //It's an image, js, etc
+                Pagez.setUserSession(new UserSession());
             }
         }catch(Exception ex){logger.error("", ex);}
 

@@ -41,6 +41,7 @@ ResearcherSurveyDetail02textbox researcherSurveyDetail02textbox = (ResearcherSur
 
     <!-- Start Bottom -->
     <form action="researchersurveydetail_02_textbox.jsp" method="post">
+        <input type="hidden" name="dpage" value="\researcher\researchersurveydetail_02_textbox.jsp">
         <input type="hidden" name="action" value="save">
         <input type="hidden" name="surveyid" value="<%=Pagez.getUserSession().getCurrentSurveyid()%>"/>
         <input type="hidden" name="questionid" value="<%=researcherSurveyDetail02textbox.getQuestionid()%>"/>

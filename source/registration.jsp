@@ -75,6 +75,7 @@ Registration registration = (Registration)Pagez.getBeanMgr().get("Registration")
             </div>
         </div>
         <form action="registration.jsp" method="post">
+            <input type="hidden" name="dpage" value="registration.jsp">
             <input type="hidden" name="action" value="register">
             <div class="rounded" style="padding: 15px; margin: 5px; background: #ffffff;">
                 <font class="mediumfont" style="color: #333333">Get started creating and/or taking surveys</font>

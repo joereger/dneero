@@ -60,6 +60,7 @@ PublicBlogPost publicBlogPost = (PublicBlogPost) Pagez.getBeanMgr().get("PublicB
     <%}%>
 
     <form action="blogpost.jsp" method="post">
+        <input type="hidden" name="dpage" value="blogpost.jsp">
         <input type="hidden" name="action" value="addcomment">
         <input type="hidden" name="blogpostid" value="<%=publicBlogPost.getBlogpost().getBlogpostid()%>">
         <br/><br/>

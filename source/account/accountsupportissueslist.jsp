@@ -43,6 +43,7 @@ AccountNewSupportIssue accountNewSupportIssue = (AccountNewSupportIssue) Pagez.g
 
 
     <form action="accountsupportissueslist.jsp" method="post">
+        <input type="hidden" name="dpage" value="\account\accountsupportissueslist.jsp">
         <input type="hidden" name="action" value="save">
             <br/>
             <font class="mediumfont">Ask a Question. Make an Observation. Recommend an Improvement.</font>

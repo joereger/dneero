@@ -10,6 +10,8 @@ import com.dneero.session.SurveysTakenToday;
 import com.dneero.xmpp.SendXMPPMessage;
 import com.dneero.survey.servlet.RecordImpression;
 import com.dneero.htmlui.Pagez;
+import com.dneero.htmlui.UserSession;
+import com.dneero.cache.providers.CacheFactory;
 import com.facebook.api.FacebookRestClient;
 import com.facebook.api.FacebookException;
 
@@ -92,14 +94,18 @@ public class FacebookAuthorizationJsp {
 
             //Pull userSession from cache
             boolean foundSessionInCache = false;
-//            Object obj = CacheFactory.getCacheProvider().get(Pagez.getUserSession().getFacebookSessionKey(), "FacebookUserSession");
-//            if (obj!=null && (obj instanceof UserSession)){
-//                logger.debug("found a userSession in the cache, using it to override whatever crap JSF decided is a session");
-//                Jsf.bindObjectToExpressionLanguage("#{userSession}", (UserSession)obj);
-//                foundSessionInCache = true;
-//            } else {
-//                logger.debug("no userSession in cache");
-//            }
+            //Turn cache on and off easily
+            boolean usecache = true;
+            if (usecache){
+                Object obj = CacheFactory.getCacheProvider().get(Pagez.getUserSession().getFacebookSessionKey(), "FacebookUserSession");
+                if (obj!=null && (obj instanceof UserSession)){
+                    logger.debug("found a userSession in the cache, using it to override whatever crap JSF decided is a session");
+                    Pagez.setUserSessionAndUpdateCache((UserSession)obj);
+                    foundSessionInCache = true;
+                } else {
+                    logger.debug("no userSession in cache");
+                }
+            }
 
             //In general try not to handle request vars below this line
             //I only want to run this stuff when I see a new Facebook session key...
@@ -167,8 +173,9 @@ public class FacebookAuthorizationJsp {
             }
 
             //Save UserSession in Cache
-            //CacheFactory.getCacheProvider().put(Pagez.getUserSession().getFacebookSessionKey(), "FacebookUserSession", Pagez.getUserSession());
-
+            if (usecache){
+                CacheFactory.getCacheProvider().put(Pagez.getUserSession().getFacebookSessionKey(), "FacebookUserSession", Pagez.getUserSession());
+            }
         } catch (Exception ex){
             ex.printStackTrace();
             logger.error("",ex);

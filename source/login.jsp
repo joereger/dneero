@@ -53,6 +53,7 @@ Login login = (Login) Pagez.getBeanMgr().get("Login");
 
     <br/><br/>
     <form action="login.jsp" method="post">
+        <input type="hidden" name="dpage" value="login.jsp">
         <input type="hidden" name="action" value="login">
 
             <table cellpadding="5" cellspacing="0" border="0">

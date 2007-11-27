@@ -66,6 +66,7 @@ String acl = "sysadmin";
     </div>
     <div class="panel" id="panel1" style="display: block">
         <form action="sysadminsurveydetail.jsp" method="post">
+            <input type="hidden" name="dpage" value="\sysadmin\sysadminsurveydetail.jsp">
             <input type="hidden" name="action" value="save">
             <input type="hidden" name="surveyid" value="<%=sysadminSurveyDetail.getSurvey().getSurveyid()%>">
 

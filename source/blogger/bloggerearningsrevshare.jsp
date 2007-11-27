@@ -60,6 +60,7 @@ String acl = "blogger";
                <br/>
                <br/>
                 <form action="bloggerearningsrevshare.jsp" method="post">
+                    <input type="hidden" name="dpage" value="\blogger\bloggerearningsrevshare.jsp">
                     <input type="hidden" name="action" value="invite">
 
                     <table cellpadding="0" cellspacing="0" border="0">

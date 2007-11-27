@@ -92,6 +92,7 @@ PublicSurveyDiscuss publicSurveyDiscuss = (PublicSurveyDiscuss)Pagez.getBeanMgr(
         <font class="mediumfont">Post a Comment!</font>
         <br/><br/>
         <form action="surveydiscuss.jsp" method="post">
+            <input type="hidden" name="dpage" value="surveydiscuss.jsp">
             <input type="hidden" name="action" value="postcomment">
             <input type="hidden" name="surveyid" value="<%=publicSurveyDiscuss.getSurvey().getSurveyid()%>">
 

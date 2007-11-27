@@ -103,6 +103,7 @@ String acl = "public";
 
             <br/><br/>
             <form action="profile.jsp" method="post">
+                <input type="hidden" name="dpage" value="profile.jsp">
                 <input type="hidden" name="action" value="add">
                 <%=com.dneero.htmlui.Dropdown.getHtml("panelid", String.valueOf(publicProfile.getPanelid()), publicProfile.getPanelids(), "", "")%>
                 <input type="submit" class="formsubmitbutton" value="Add Blogger To Panel">

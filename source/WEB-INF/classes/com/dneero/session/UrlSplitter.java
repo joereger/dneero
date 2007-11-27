@@ -3,6 +3,7 @@ package com.dneero.session;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
+import java.util.Enumeration;
 
 public class UrlSplitter {
 
@@ -22,6 +23,7 @@ public class UrlSplitter {
         Logger logger = Logger.getLogger(this.getClass().getName());
         this.request = request;
         logger.debug(">>UrlSplitter Start<<");
+        logger.debug(getReconstructedGetVersionOfRequest());
 
         //Get the host
         rawIncomingServername = request.getServerName();
@@ -71,25 +73,25 @@ public class UrlSplitter {
 
     public String getParametersAsQueryStringQuestionMarkIfRequired(){
         Logger logger = Logger.getLogger(this.getClass().getName());
-        logger.debug("getParametersAsQueryStringQuestionMarkIfRequired() start");
+        //logger.debug("getParametersAsQueryStringQuestionMarkIfRequired() start");
         String getqs = getParametersAsQueryStringNoQuestionMark();
         String qs = "";
         if (!getqs.equals("")){
             qs = "?" + getqs;
         }
-        logger.debug("getParametersAsQueryStringQuestionMarkIfRequired() end");
+        //logger.debug("getParametersAsQueryStringQuestionMarkIfRequired() end");
         return qs;
     }
 
     public String getParametersAsQueryStringNoQuestionMark(){
         Logger logger = Logger.getLogger(this.getClass().getName());
-        logger.debug("getParametersAsQueryStringNoQuestionMark() start");
+        //logger.debug("getParametersAsQueryStringNoQuestionMark() start");
         if (request.getMethod().equals("GET")){
             String qs = "";
             if (querystring!=null && !querystring.equals("")){
                 qs = querystring;
             }
-            logger.debug("getParametersAsQueryStringNoQuestionMark() end");
+            //logger.debug("getParametersAsQueryStringNoQuestionMark() end");
             return qs;
         } else if (request.getMethod().equals("POST")){
             String qs = "";
@@ -105,10 +107,23 @@ public class UrlSplitter {
 //                    qs = qs + namevalue;
 //                }
 //            }
-            logger.debug("getParametersAsQueryStringNoQuestionMark() end");
+
+            for(Enumeration e=request.getParameterNames(); e.hasMoreElements(); ){
+               String name = (String)e.nextElement();
+               logger.debug("name="+name);
+               String[] values = request.getParameterValues(name);
+               for (int i = 0; i < values.length; i++) {
+                    String value = values[i];
+                    logger.debug("value="+value);
+                    String namevalue = name + "=" + value;
+                    qs = qs + "&" + namevalue;
+                }
+            }
+
+            //logger.debug("getParametersAsQueryStringNoQuestionMark() end");
             return qs;
         }
-        logger.debug("getParametersAsQueryStringNoQuestionMark() end");
+        //logger.debug("getParametersAsQueryStringNoQuestionMark() end");
         return "";
     }
 
