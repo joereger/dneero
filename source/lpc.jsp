@@ -30,8 +30,8 @@ LostPasswordChoose lostPasswordChoose=(LostPasswordChoose) Pagez.getBeanMgr().ge
 %>
 <%@ include file="/template/header.jsp" %>
 
-<form action="lpc.jsp" method="post">
-    <input type="hidden" name="dpage" value="lpc.jsp">
+<form action="/lpc.jsp" method="post">
+    <input type="hidden" name="dpage" value="/lpc.jsp">
     <input type="hidden" name="action" value="choose">
     <input type="hidden" name="u" value="<%=request.getParameter("u")%>">
     <input type="hidden" name="k" value="<%=request.getParameter("k")%>">

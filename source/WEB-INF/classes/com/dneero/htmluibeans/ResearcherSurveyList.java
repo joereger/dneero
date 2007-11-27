@@ -54,23 +54,23 @@ public class ResearcherSurveyList implements Serializable {
                     rsli.setStatus("Pending, Waiting for Start Date");
                 }
                 if (srvy.getStatus()==Survey.STATUS_DRAFT){
-                    rsli.setEditorreviewlink("<a href=\"researchersurveydetail_01.jsp?surveyid="+srvy.getSurveyid()+"\">Edit</a>");
+                    rsli.setEditorreviewlink("<a href=\"/researcher/researchersurveydetail_01.jsp?surveyid="+srvy.getSurveyid()+"\">Edit</a>");
                 } else {
-                    rsli.setEditorreviewlink("<a href=\"researchersurveydetail_01.jsp?surveyid="+srvy.getSurveyid()+"\">Review</a>");
+                    rsli.setEditorreviewlink("<a href=\"/researcher/researchersurveydetail_01.jsp?surveyid="+srvy.getSurveyid()+"\">Review</a>");
                 }
                 if (srvy.getStatus()==Survey.STATUS_OPEN){
-                    rsli.setInvitelink("<a href=\"emailinvite.jsp?surveyid="+srvy.getSurveyid()+"\">Invite</a>");
+                    rsli.setInvitelink("<a href=\"/researcher/emailinvite.jsp?surveyid="+srvy.getSurveyid()+"\">Invite</a>");
                 } else {
                     rsli.setInvitelink("");
                 }
                 if (srvy.getStatus()!=Survey.STATUS_DRAFT){
-                    rsli.setResultslink("<a href=\"results.jsp?surveyid="+srvy.getSurveyid()+"\">Results</a>");
+                    rsli.setResultslink("<a href=\"/researcher/results.jsp?surveyid="+srvy.getSurveyid()+"\">Results</a>");
                 } else {
                     rsli.setResultslink("");
                 }
-                rsli.setCopylink("<a href=\"index.jsp?surveyid="+srvy.getSurveyid()+"&action=copy\">Copy</a>");
+                rsli.setCopylink("<a href=\"/researcher/index.jsp?surveyid="+srvy.getSurveyid()+"&action=copy\">Copy</a>");
                 if (srvy.getStatus()==Survey.STATUS_DRAFT){
-                    rsli.setDeletelink("<a href=\"researchersurveydelete.jsp?surveyid="+srvy.getSurveyid()+"\">Delete</a>");
+                    rsli.setDeletelink("<a href=\"/researcher/researchersurveydelete.jsp?surveyid="+srvy.getSurveyid()+"\">Delete</a>");
                 } else {
                     rsli.setDeletelink("");
                 }

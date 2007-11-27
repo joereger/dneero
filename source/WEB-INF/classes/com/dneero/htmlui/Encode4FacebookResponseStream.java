@@ -10,6 +10,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 
 import com.dneero.systemprops.SystemProperty;
+import com.dneero.systemprops.BaseUrl;
 import com.dneero.session.UrlSplitter;
 
 /**
@@ -63,7 +64,9 @@ public class Encode4FacebookResponseStream extends ServletOutputStream {
 
         // use regex to find the links
         //Pattern p = Pattern.compile(" href=\"[^\"]*|action=\"[^\"]*");
-        Pattern p = Pattern.compile(" href=\"[^\"]*");
+        Pattern p = Pattern.compile(" href=\"[^\"]*|src=\"[^\"]*|action=\"[^\"]*");
+        //Pattern p = Pattern.compile(" href=\"[^\"]*|src=\"[^\"]*");
+        //Pattern p = Pattern.compile(" href=\"[^\"]*");
         Matcher m = p.matcher(pageText);
 
         String newText = "";
@@ -78,6 +81,7 @@ public class Encode4FacebookResponseStream extends ServletOutputStream {
             // get the matching string
             String match = pageText.substring(m.start(), m.end());
             //logger.debug("match="+match);
+
             // get the URL, between the quotes
             String[] split = match.split("\"");
             String url = split[1];
@@ -103,8 +107,22 @@ public class Encode4FacebookResponseStream extends ServletOutputStream {
             }
 
             //Encode the finalized link
-            String encoded = "/"+ SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_APP_NAME) + "/?dpage="+ URLEncoder.encode(scriptname, "UTF-8")+queryString;
-            
+            String encoded = url;
+            if (url.indexOf("http:")<=-1){
+                if (split[0].indexOf("href")>-1){
+                    logger.debug("treating as href");
+                    encoded = "/"+ SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_APP_NAME) + "/?dpage="+ URLEncoder.encode(scriptname, "UTF-8")+queryString;
+                } else if (split[0].indexOf("src")>-1) {
+                    logger.debug("treating as src");
+                    encoded = BaseUrl.get(false)+url;
+                } else if (split[0].indexOf("action")>-1) {
+                    logger.debug("treating as action");
+                    encoded = "";
+                } else {
+                    logger.debug("no idea what to treat this as");
+                }
+            }
+
             // add the match to the new text
             newText = newText + split[0]+"\""+encoded;
         }

@@ -26,7 +26,7 @@ String acl = "sysadmin";
             ArrayList<GridCol> cols=new ArrayList<GridCol>();
             cols.add(new GridCol("Id", "<$balancetransactionid$>", true, "", "tinyfont"));
             cols.add(new GridCol("Date", "<$date|"+Grid.GRIDCOLRENDERER_DATETIMECOMPACT+"$>", true, "", "tinyfont", "", "background: #e6e6e6;"));
-            cols.add(new GridCol("User", "<a href=\"userdetail.jsp?userid=<$userid$>\"><$userid$></a>", false, "", "tinyfont"));
+            cols.add(new GridCol("User", "<a href=\"/sysadmin/userdetail.jsp?userid=<$userid$>\"><$userid$></a>", false, "", "tinyfont"));
             cols.add(new GridCol("Successful?", "<$issuccessful$>", true, "", "tinyfont"));
             cols.add(new GridCol("Desc", "<$description$>", false, "", "tinyfont"));
             cols.add(new GridCol("Notes", "<$notes$>", false, "", "tinyfont"));

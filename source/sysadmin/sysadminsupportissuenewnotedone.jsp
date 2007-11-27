@@ -13,7 +13,7 @@ String acl = "sysadmin";
 
         Success!  Your comment has been added.
         <br/><br/>
-        <a href="sysadminsupportissueslist.jsp">Continue</a>
+        <a href="/sysadmin/sysadminsupportissueslist.jsp">Continue</a>
 
 
 

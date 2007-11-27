@@ -29,7 +29,7 @@ SysadminSupportIssuesList sysadminSupportIssuesList = (SysadminSupportIssuesList
 
 
 
-     <a href="sysadminsupportissueslist.jsp?action=showall"><font class="tinyfont">Show All?</font></a>
+     <a href="/sysadmin/sysadminsupportissueslist.jsp?action=showall"><font class="tinyfont">Show All?</font></a>
      <br/>
 
 
@@ -41,7 +41,7 @@ SysadminSupportIssuesList sysadminSupportIssuesList = (SysadminSupportIssuesList
             ArrayList<GridCol> cols=new ArrayList<GridCol>();
             cols.add(new GridCol("Id", "<$supportissueid$>", false, "", "tinyfont"));
             cols.add(new GridCol("", "<$datetime|"+Grid.GRIDCOLRENDERER_DATETIMECOMPACT+"$>", false, "", "tinyfont"));
-            cols.add(new GridCol("", "<a href=\"sysadminsupportissuedetail.jsp?supportissueid=<$supportissueid$>\"><$subject$></a>", false, "", "tinyfont"));
+            cols.add(new GridCol("", "<a href=\"/sysadmin/sysadminsupportissuedetail.jsp?supportissueid=<$supportissueid$>\"><$subject$></a>", false, "", "tinyfont"));
             cols.add(new GridCol("Status", "<$status$>", false, "", "tinyfont"));
         %>
         <%=Grid.render(sysadminSupportIssuesList.getSupportissues(), cols, 200, "sysadminsupportissueslist.jsp", "page")%>

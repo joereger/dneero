@@ -27,8 +27,8 @@ String acl = "sysadmin";
 <%@ include file="/template/header.jsp" %>
 
         <%if (sysadminRateBlogPost.getHaveposttoreview()){%>
-             <form action="rateblogpost.jsp" method="post">
-                <input type="hidden" name="dpage" value="\sysadmin\rateblogpost.jsp">
+             <form action="/sysadmin/rateblogpost.jsp" method="post">
+                <input type="hidden" name="dpage" value="/sysadmin/rateblogpost.jsp">
                 <input type="hidden" name="action" value="rate">
                 <input type="hidden" name="impressionid" value="<%=sysadminRateBlogPost.getImpression().getImpressionid()%>">
 

@@ -44,7 +44,7 @@ ResearcherSurveyDetailPostlaunch researcherSurveyDetailPostlaunch = (ResearcherS
     <br/><br/>
     <font class="smallfont">Invite people to take your survey:</font>
     <br/>
-    <a href="emailinvite.jsp?surveyid=<%=Pagez.getUserSession().getCurrentSurveyid()%>"><font class="normalfont">Invite People to Take this Survey</font></a>
+    <a href="/researcher/emailinvite.jsp?surveyid=<%=Pagez.getUserSession().getCurrentSurveyid()%>"><font class="normalfont">Invite People to Take this Survey</font></a>
 
     <br/><br/>
     <font class="smallfont">Promote your survey:</font>
@@ -56,7 +56,7 @@ ResearcherSurveyDetailPostlaunch researcherSurveyDetailPostlaunch = (ResearcherS
     <br/><br/>
     <font class="smallfont">Or return to your list of surveys:</font>
     <br/>
-    <a href="index.jsp"><font class="mediumfont" style="color: #0000ff;">Return to List of Surveys</font></a>
+    <a href="/researcher/index.jsp"><font class="mediumfont" style="color: #0000ff;">Return to List of Surveys</font></a>
 
     <br/><br/>
 

@@ -74,17 +74,17 @@ SysadminErrorList sysadminErrorList=(SysadminErrorList) Pagez.getBeanMgr().get("
 %>
 <%@ include file="/template/header.jsp" %>
 
-        <form action="errorlist.jsp" method="post">
-            <input type="hidden" name="dpage" value="\sysadmin\errorlist.jsp">
+        <form action="/sysadmin/errorlist.jsp" method="post">
+            <input type="hidden" name="dpage" value="/sysadmin/errorlist.jsp">
             <input type="hidden" name="action" value="refresh">
             <%=Dropdown.getHtml("minleveltoshow", String.valueOf(sysadminErrorList.getMinleveltoshow()), sysadminErrorList.getLevels(), "", "")%>
             <input type="submit" class="formsubmitbutton" value="Refresh">
         </form>
         <br/>
-        <a href="errorlist.jsp?action=markallold"><font class="smallfont">Mark All Old</font></a>
-        <a href="errorlist.jsp?action=deleteall"><font class="smallfont">Delete All</font></a>
-        <a href="errorlist.jsp?action=onlyerrors"><font class="smallfont">Only Errors</font></a>
-        <a href="errorlist.jsp?action=sortbytimesseen"><font class="smallfont">Most Frequent</font></a>
+        <a href="/sysadmin/errorlist.jsp?action=markallold"><font class="smallfont">Mark All Old</font></a>
+        <a href="/sysadmin/errorlist.jsp?action=deleteall"><font class="smallfont">Delete All</font></a>
+        <a href="/sysadmin/errorlist.jsp?action=onlyerrors"><font class="smallfont">Only Errors</font></a>
+        <a href="/sysadmin/errorlist.jsp?action=sortbytimesseen"><font class="smallfont">Most Frequent</font></a>
         <br/><br/>
 
 
@@ -93,7 +93,7 @@ SysadminErrorList sysadminErrorList=(SysadminErrorList) Pagez.getBeanMgr().get("
         <%} else {%>
             <%
                 ArrayList<GridCol> cols=new ArrayList<GridCol>();
-                cols.add(new GridCol("Id", "<$errorid$><br/><a href=\"errorlist.jsp?action=deleteindividual&errorid=<$errorid$>\">delete</a>", false, "", "tinyfont"));
+                cols.add(new GridCol("Id", "<$errorid$><br/><a href=\"/sysadmin/errorlist.jsp?action=deleteindividual&errorid=<$errorid$>\">delete</a>", false, "", "tinyfont"));
                 cols.add(new GridCol("", "<$timesseen$>", false, "", "smallfont"));
                 cols.add(new GridCol("Date", "<$date|"+Grid.GRIDCOLRENDERER_DATETIMECOMPACT+"$>", false, "", "tinyfont"));
                 cols.add(new GridCol("Error", "<$error$>", false, "", "smallfont"));

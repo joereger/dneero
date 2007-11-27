@@ -32,7 +32,7 @@ ResearcherSurveyDetail02textbox researcherSurveyDetail02textbox = (ResearcherSur
     Type a question in the Question box.  Respondents will be able to type a short piece of text as an answer to this question.
     <br/><br/>
     Here's what a Textbox question looks like:
-    <img src="../images/questiontypes/textbox.gif" border="0" alt=""></img>
+    <img src="/images/questiontypes/textbox.gif" border="0" alt=""></img>
     </font></div></center>
 
     <br/><br/>
@@ -40,8 +40,8 @@ ResearcherSurveyDetail02textbox researcherSurveyDetail02textbox = (ResearcherSur
 
 
     <!-- Start Bottom -->
-    <form action="researchersurveydetail_02_textbox.jsp" method="post">
-        <input type="hidden" name="dpage" value="\researcher\researchersurveydetail_02_textbox.jsp">
+    <form action="/researcher/researchersurveydetail_02_textbox.jsp" method="post">
+        <input type="hidden" name="dpage" value="/researcher/researchersurveydetail_02_textbox.jsp">
         <input type="hidden" name="action" value="save">
         <input type="hidden" name="surveyid" value="<%=Pagez.getUserSession().getCurrentSurveyid()%>"/>
         <input type="hidden" name="questionid" value="<%=researcherSurveyDetail02textbox.getQuestionid()%>"/>

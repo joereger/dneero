@@ -46,7 +46,7 @@ String acl = "sysadmin";
                     <font class="smallfont" style="font-weight: bold;"><%=Time.dateformatcompactwithtime(Time.getCalFromDate(supportissuecomm.getDatetime()))%></font>
                     <br/>
                     <%if (!supportissuecomm.getIsfromdneeroadmin()){%>
-                        <a href="userdetail.jsp?userid=<%=sysadminSupportIssueDetail.getFromuser().getUserid()%>"><font class="smallfont" style="font-weight: bold;">From: <%=sysadminSupportIssueDetail.getFromuser().getFirstname()%> <%=sysadminSupportIssueDetail.getFromuser().getLastname()%></font></a>
+                        <a href="/sysadmin/userdetail.jsp?userid=<%=sysadminSupportIssueDetail.getFromuser().getUserid()%>"><font class="smallfont" style="font-weight: bold;">From: <%=sysadminSupportIssueDetail.getFromuser().getFirstname()%> <%=sysadminSupportIssueDetail.getFromuser().getLastname()%></font></a>
                     <%} else {%>
                         <font class="smallfont" style="font-weight: bold;">dNeero Admin</font>
                     <%}%>
@@ -62,8 +62,8 @@ String acl = "sysadmin";
 
 
 
-        <form action="sysadminsupportissuedetail.jsp" method="post">
-            <input type="hidden" name="dpage" value="\sysadmin\sysadminsupportissuedetail.jsp">
+        <form action="/sysadmin/sysadminsupportissuedetail.jsp" method="post">
+            <input type="hidden" name="dpage" value="/sysadmin/sysadminsupportissuedetail.jsp">
             <input type="hidden" name="action" value="save">
             <input type="hidden" name="supportissueid" value="<%=sysadminSupportIssueDetail.getSupportissueid()%>">
 

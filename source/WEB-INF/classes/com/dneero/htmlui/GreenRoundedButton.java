@@ -12,7 +12,7 @@ public class GreenRoundedButton {
         mb.append("<table cellpadding=0 cellspacing=0 width=100% border=0>");
         mb.append("<tr>");
         mb.append("<td valign=\"center\" background='/images/accordion/greenbar-leftcap.gif' align=left width=13>");
-        mb.append("<img src='images/clear.gif' height=41 width=1 border=0>");
+        mb.append("<img src='/images/clear.gif' height=41 width=1 border=0>");
         mb.append("</td>");
         mb.append("<td valign=\"center\" background='/images/accordion/greenbar-center.gif' align=center>");
         mb.append("<div style=\"line-height:41px;\">");

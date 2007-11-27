@@ -14,7 +14,7 @@ String acl = "sysadmin";
     <t:div rendered="#{sysadminFindBloggers.msg ne '' and sysadminFindBloggers.msg ne null}">
         <center>
             <div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
-                <img src="../../images/lightbulb_on.png" alt="" align="right"/>
+                <img src="/images/lightbulb_on.png" alt="" align="right"/>
                 <%=((SysadminFindBloggers)Pagez.getBeanMgr().get("SysadminFindBloggers")).getMsg()%>
         <br/><br/></font></div></center>
         <br/><br/>

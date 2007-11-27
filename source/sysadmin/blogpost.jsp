@@ -45,8 +45,8 @@ SysadminBlogpost sysadminBlogpost = (SysadminBlogpost)Pagez.getBeanMgr().get("Sy
 %>
 <%@ include file="/template/header.jsp" %>
 
-    <form action="blogpost.jsp" method="post">
-        <input type="hidden" name="dpage" value="\sysadmin\blogpost.jsp">
+    <form action="/sysadmin/blogpost.jsp" method="post">
+        <input type="hidden" name="dpage" value="/sysadmin/blogpost.jsp">
         <input type="hidden" name="action" value="save">
         <input type="hidden" name="blogpostid" value="<%=sysadminBlogpost.getBlogpostid()%>">
 
@@ -106,7 +106,7 @@ SysadminBlogpost sysadminBlogpost = (SysadminBlogpost)Pagez.getBeanMgr().get("Sy
                     <input type="submit" class="formsubmitbutton" value="Save!">
                     <%if (sysadminBlogpost.getBlogpostid()>0){%>
                         <br/><br/>
-                        <a href="blogpost.jsp?blogpostid=<%=sysadminBlogpost.getBlogpostid()%>&action=delete"><font class="tinyfont">Delete</font></a>
+                        <a href="/sysadmin/blogpost.jsp?blogpostid=<%=sysadminBlogpost.getBlogpostid()%>&action=delete"><font class="tinyfont">Delete</font></a>
                     <%}%>
                 </td>
             </tr>
@@ -124,7 +124,7 @@ SysadminBlogpost sysadminBlogpost = (SysadminBlogpost)Pagez.getBeanMgr().get("Sy
         <%
             ArrayList<GridCol> cols=new ArrayList<GridCol>();
             cols.add(new GridCol("Date", "<$date|"+Grid.GRIDCOLRENDERER_DATETIMECOMPACT+"$>", true, "", "smallfont"));
-            cols.add(new GridCol("Title", "<a href=\"blogpost.jsp?blogpostid=<$blogpostid$>\"><$title$></a>", true, "", "smallfont"));
+            cols.add(new GridCol("Title", "<a href=\"/sysadmin/blogpost.jsp?blogpostid=<$blogpostid$>\"><$title$></a>", true, "", "smallfont"));
             cols.add(new GridCol("Author", "<$author$>", true, "", "smallfont"));
         %>
         <%=Grid.render(sysadminBlogpost.getBlogposts(), cols, 50, "blogpost.jsp", "page")%>

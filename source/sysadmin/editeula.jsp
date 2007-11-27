@@ -31,8 +31,8 @@ SysadminEditEula sysadminEditEula = (SysadminEditEula)Pagez.getBeanMgr().get("Sy
         <font class="mediumfont">Be careful here... every edit... even the slightest one... causes every user to have to read and accept the new EULA the next time they log in.</font>
         <br/><br/>
 
-         <form action="editeula.jsp" method="post">
-            <input type="hidden" name="dpage" value="\sysadmin\editeula.jsp">
+         <form action="/sysadmin/editeula.jsp" method="post">
+            <input type="hidden" name="dpage" value="/sysadmin/editeula.jsp">
             <input type="hidden" name="action" value="save">
 
             <table cellpadding="0" cellspacing="0" border="0">

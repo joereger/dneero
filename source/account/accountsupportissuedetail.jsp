@@ -50,8 +50,8 @@ AccountSupportIssueDetail accountSupportIssueDetail = (AccountSupportIssueDetail
         }
     %>
 
-    <form action="accountsupportissuedetail.jsp" method="post">
-        <input type="hidden" name="dpage" value="\account\accountsupportissuedetail.jsp">
+    <form action="/account/accountsupportissuedetail.jsp" method="post">
+        <input type="hidden" name="dpage" value="/account/accountsupportissuedetail.jsp">
         <input type="hidden" name="action" value="save">
         <input type="hidden" name="supportissueid" value="<%=accountSupportIssueDetail.getSupportissue().getSupportissueid()%>">
 

@@ -52,7 +52,7 @@ PublicSurveyList publicSurveyList = (PublicSurveyList)Pagez.getBeanMgr().get("Pu
 "                        <table cellpadding=\"0\" border=\"0\" width=\"100%\">\n" +
 "                            <tr>\n" +
 "                                <td>\n" +
-"                                    <a href=\"survey.jsp?surveyid=<$surveyid$>\"><font class=\"normalfont\" style=\"text-decoration: none; font-weight: bold; color: #0000ff;\"><$title$></font></a>\n"+
+"                                    <a href=\"/survey.jsp?surveyid=<$surveyid$>\"><font class=\"normalfont\" style=\"text-decoration: none; font-weight: bold; color: #0000ff;\"><$title$></font></a>\n"+
 "                                    <font class=\"tinyfont\"><$description$></font><br/><br/>\n" +
 "                                    <font class=\"tinyfont\"><b><$daysuntilend$></b></font>\n" +
 "                                </td>\n" +
@@ -103,14 +103,14 @@ PublicSurveyList publicSurveyList = (PublicSurveyList)Pagez.getBeanMgr().get("Pu
                                 for (Iterator<FacebookSurveyThatsBeenTaken> iterator=publicSurveyList.getFacebookSurveyThatsBeenTakens().iterator(); iterator.hasNext();){
                                     FacebookSurveyThatsBeenTaken facebookSurveyThatsBeenTaken=iterator.next();
                                     %>
-                                    <a href="survey.jsp?surveyid=<%=facebookSurveyThatsBeenTaken.getSurvey().getSurveyid()%>"><font class="normalfont" style="font-weight: bold; color: #0000ff;"><%=facebookSurveyThatsBeenTaken.getSurvey().getTitle()%></font></a><br/>
+                                    <a href="/survey.jsp?surveyid=<%=facebookSurveyThatsBeenTaken.getSurvey().getSurveyid()%>"><font class="normalfont" style="font-weight: bold; color: #0000ff;"><%=facebookSurveyThatsBeenTaken.getSurvey().getTitle()%></font></a><br/>
                                     <font class="smallfont">
                                         How they answered:
                                         <%
                                             for (Iterator<FacebookSurveyTaker> iterator1=facebookSurveyThatsBeenTaken.getFacebookSurveyTakers().iterator(); iterator1.hasNext();){
                                                 FacebookSurveyTaker facebookSurveyTaker=iterator1.next();
                                                 %>
-                                                <a href="survey.jsp?surveyid=<%=facebookSurveyThatsBeenTaken.getSurvey().getSurveyid()%>&userid=<%=facebookSurveyTaker.getUserid()%>&responseid=<%=facebookSurveyTaker.getResponseid()%>"><font class=""><%=facebookSurveyTaker.getFacebookUser().getFirst_name()%> <%=facebookSurveyTaker.getFacebookUser().getLast_name()%></font></a>
+                                                <a href="/survey.jsp?surveyid=<%=facebookSurveyThatsBeenTaken.getSurvey().getSurveyid()%>&userid=<%=facebookSurveyTaker.getUserid()%>&responseid=<%=facebookSurveyTaker.getResponseid()%>"><font class=""><%=facebookSurveyTaker.getFacebookUser().getFirst_name()%> <%=facebookSurveyTaker.getFacebookUser().getLast_name()%></font></a>
                                                 <%
                                             }
                                             %>

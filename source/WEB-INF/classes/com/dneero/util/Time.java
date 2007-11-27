@@ -524,7 +524,7 @@ public class Time {
         }
 
 		
-		result = "<img src='images/ago/"+ result +"' border=0>";
+		result = "<img src='/images/ago/"+ result +"' border=0>";
 		
 		//Return the result to the user
 		return result;

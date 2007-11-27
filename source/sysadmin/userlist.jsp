@@ -31,8 +31,8 @@ SysadminUserList sysadminUserList = (SysadminUserList)Pagez.getBeanMgr().get("Sy
 <%@ include file="/template/header.jsp" %>
 
 
-    <form action="userlist.jsp" method="post">
-        <input type="hidden" name="dpage" value="\sysadmin\userlist.jsp">
+    <form action="/sysadmin/userlist.jsp" method="post">
+        <input type="hidden" name="dpage" value="/sysadmin/userlist.jsp">
         <input type="hidden" name="action" value="search">
         
         <table cellpadding="0" cellspacing="0" border="0">
@@ -86,7 +86,7 @@ SysadminUserList sysadminUserList = (SysadminUserList)Pagez.getBeanMgr().get("Sy
         <%} else {%>
             <%
                 ArrayList<GridCol> cols=new ArrayList<GridCol>();
-                cols.add(new GridCol("Userid", "<a href=\"userdetail.jsp?userid=<$userid$>\"><$userid$></a>", false, "", "tinyfont"));
+                cols.add(new GridCol("Userid", "<a href=\"/sysadmin/userdetail.jsp?userid=<$userid$>\"><$userid$></a>", false, "", "tinyfont"));
                 cols.add(new GridCol("Email", "<$email$>", false, "", "tinyfont"));
                 cols.add(new GridCol("Name", "<$firstname$> <$lastname$>", false, "", "tinyfont"));
                 cols.add(new GridCol("Signup Date", "<$createdate|"+Grid.GRIDCOLRENDERER_DATETIMECOMPACT+"$>", false, "", "tinyfont"));

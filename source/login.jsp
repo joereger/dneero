@@ -52,8 +52,8 @@ Login login = (Login) Pagez.getBeanMgr().get("Login");
 <%@ include file="/template/header.jsp" %>
 
     <br/><br/>
-    <form action="login.jsp" method="post">
-        <input type="hidden" name="dpage" value="login.jsp">
+    <form action="/login.jsp" method="post">
+        <input type="hidden" name="dpage" value="/login.jsp">
         <input type="hidden" name="action" value="login">
 
             <table cellpadding="5" cellspacing="0" border="0">
@@ -74,7 +74,7 @@ Login login = (Login) Pagez.getBeanMgr().get("Login");
                     <td valign="top">
                         <%=TextboxSecret.getHtml("password", login.getPassword(), 255, 20, "", "")%>
                         <br/>
-                        <a href="lostpassword.jsp"><font class="tinyfont" style="color: #000000;">Lost your password?</font></a>
+                        <a href="/lostpassword.jsp"><font class="tinyfont" style="color: #000000;">Lost your password?</font></a>
                     </td>
                 </tr>
 

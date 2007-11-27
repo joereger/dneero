@@ -36,7 +36,7 @@ ResearcherSurveyDetail02range researcherSurveyDetail02range = (ResearcherSurveyD
     In a Range question type respondents choose from low to high numbers at some interval.  This is also known as a Lichert Scale.  Choose Min and Max Titles to tell surveytakers what the scale represents.  Then choose the Min and Max values as the lowest and highest possible choices. Finally, choose the Step value which determines the numerical distance between option.  For example, Step of 1 means that the scale will simply step from Min to Max like this: 1, 2, 3, 4, etc.  Step of 2 would give you: 2, 4, 6, 8, etc.
     <br/><br/>
     Here's what a Range question looks like:
-    <center><img src="../images/questiontypes/range.gif" border="0"></img></center>
+    <center><img src="/images/questiontypes/range.gif" border="0"></img></center>
     </font></div></center>
 
     <br/><br/>
@@ -44,8 +44,8 @@ ResearcherSurveyDetail02range researcherSurveyDetail02range = (ResearcherSurveyD
 
 
     <!-- Start Bottom -->
-    <form action="researchersurveydetail_02_range.jsp" method="post">
-        <input type="hidden" name="dpage" value="\researcher\researchersurveydetail_02_range.jsp">
+    <form action="/researcher/researchersurveydetail_02_range.jsp" method="post">
+        <input type="hidden" name="dpage" value="/researcher/researchersurveydetail_02_range.jsp">
         <input type="hidden" name="action" value="save" id="action">
         <input type="hidden" name="surveyid" value="<%=Pagez.getUserSession().getCurrentSurveyid()%>"/>
         <input type="hidden" name="questionid" value="<%=researcherSurveyDetail02range.getQuestionid()%>"/>
@@ -131,7 +131,7 @@ ResearcherSurveyDetail02range researcherSurveyDetail02range = (ResearcherSurveyD
                 </td>
                 <td valign="top">
                     <input type="submit" class="formsubmitbutton" value="Save Question and Continue">
-                    <br/><br/><a href="researchersurveydetail_02.jsp?surveyid=<%=researcherSurveyDetail02range.getSurvey().getSurveyid()%>"><font class="tinyfont">Nevermind, Take me Back</font></a>
+                    <br/><br/><a href="/researcher/researchersurveydetail_02.jsp?surveyid=<%=researcherSurveyDetail02range.getSurvey().getSurveyid()%>"><font class="tinyfont">Nevermind, Take me Back</font></a>
                 </td>
             </tr>
 

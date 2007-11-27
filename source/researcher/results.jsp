@@ -20,11 +20,11 @@ String acl = "researcher";
     <div class="rounded" style="background: #e6e6e6; text-align: center; padding: 15px;">
         <font class="largefont"><%=researcherResults.getSurvey().getTitle()%></font>
         <br/>
-        <a href="results.jsp" style="padding-left: 15px;"><font class="subnavfont">Results Main</font></a>
-        <a href="results_answers.jsp"style="padding-left: 15px;"><font class="subnavfont">Response Report</font></a>
-        <a href="results_impressions.jsp"style="padding-left: 15px;"><font class="subnavfont">Impressions</font></a>
-        <a href="results_respondents.jsp"style="padding-left: 15px;"><font class="subnavfont">Respondents</font></a>
-        <a href="results_financial.jsp"style="padding-left: 15px;"><font class="subnavfont">Financial Status</font></a>
+        <a href="/researcher/results.jsp" style="padding-left: 15px;"><font class="subnavfont">Results Main</font></a>
+        <a href="/researcher/results_answers.jsp"style="padding-left: 15px;"><font class="subnavfont">Response Report</font></a>
+        <a href="/researcher/results_impressions.jsp"style="padding-left: 15px;"><font class="subnavfont">Impressions</font></a>
+        <a href="/researcher/results_respondents.jsp"style="padding-left: 15px;"><font class="subnavfont">Respondents</font></a>
+        <a href="/researcher/results_financial.jsp"style="padding-left: 15px;"><font class="subnavfont">Financial Status</font></a>
     </div>
 
 
@@ -57,7 +57,7 @@ String acl = "researcher";
                     <br/>
                     <font class="largefont"><%=researcherResults.getTotalsurveyresponses()%></font>
                     <br/>
-                    <a href="results_answers.jsp"><font class="normalfont">Response Report</font></a>
+                    <a href="/researcher/results_answers.jsp"><font class="normalfont">Response Report</font></a>
                 </div>
             </td>
             <td width="50%" valign="top">
@@ -66,14 +66,14 @@ String acl = "researcher";
                     <br/>
                     <font class="largefont"><%=researcherResults.getTotalsurveydisplays()%></font>
                     <br/>
-                    <a href="results_impressions.jsp"><font class="normalfont">View Impressions</font></a>
+                    <a href="/researcher/results_impressions.jsp"><font class="normalfont">View Impressions</font></a>
                 </div>
             </td>
         </tr>
         <tr>
             <td width="50%" valign="top">
                 <div class="rounded" style="background: #00ff00; text-align: right; padding: 20px;">
-                    <a href="results_respondents.jsp"><font class="normalfont">See Respondents</font></a>
+                    <a href="/researcher/results_respondents.jsp"><font class="normalfont">See Respondents</font></a>
                     <br/>
                     <font class="largefont"><%=researcherResults.getTotalsurveyresponses()%></font>
                     <br/>
@@ -82,7 +82,7 @@ String acl = "researcher";
             </td>
             <td width="50%" valign="top">
                 <div class="rounded" style="background: #88c99d; text-align: left; padding: 20px;">
-                    <a href="results_financial.jsp"><font class="normalfont">Financial Status</font></a>
+                    <a href="/researcher/results_financial.jsp"><font class="normalfont">Financial Status</font></a>
                     <br/>
                     <font class="largefont">$<font class="largefont"><%=Str.formatForMoney(researcherResults.getSpenttodate())%></font></font>
                     <br/>

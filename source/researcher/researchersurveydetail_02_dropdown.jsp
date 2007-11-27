@@ -32,7 +32,7 @@ ResearcherSurveyDetail02dropdown researcherSurveyDetail02dropdown = (ResearcherS
     Type a question in the Question box.  Next, give respondents options to choose from.  Because this is a Dropdown question type, they'll only be able to choose one option as part of their answer.
     <br/><br/>
     Here's what a Dropdown question looks like:
-    <center><img src="../images/questiontypes/dropdown.gif" border="0"></img></center>
+    <center><img src="/images/questiontypes/dropdown.gif" border="0"></img></center>
     </font></div></center>
 
     <br/><br/>
@@ -40,8 +40,8 @@ ResearcherSurveyDetail02dropdown researcherSurveyDetail02dropdown = (ResearcherS
 
 
     <!-- Start Bottom -->
-    <form action="researchersurveydetail_02_dropdown.jsp" method="post">
-        <input type="hidden" name="dpage" value="\researcher\researchersurveydetail_02_dropdown.jsp">
+    <form action="/researcher/researchersurveydetail_02_dropdown.jsp" method="post">
+        <input type="hidden" name="dpage" value="/researcher/researchersurveydetail_02_dropdown.jsp">
         <input type="hidden" name="action" value="save">
         <input type="hidden" name="surveyid" value="<%=Pagez.getUserSession().getCurrentSurveyid()%>"/>
         <input type="hidden" name="questionid" value="<%=researcherSurveyDetail02dropdown.getQuestionid()%>"/>
@@ -92,7 +92,7 @@ ResearcherSurveyDetail02dropdown researcherSurveyDetail02dropdown = (ResearcherS
                 </td>
                 <td valign="top">
                     <input type="submit" class="formsubmitbutton" value="Save Question and Continue">
-                    <br/><br/><a href="researchersurveydetail_02.jsp?surveyid=<%=researcherSurveyDetail02dropdown.getSurvey().getSurveyid()%>"><font class="tinyfont">Nevermind, Take me Back</font></a>
+                    <br/><br/><a href="/researcher/researchersurveydetail_02.jsp?surveyid=<%=researcherSurveyDetail02dropdown.getSurvey().getSurveyid()%>"><font class="tinyfont">Nevermind, Take me Back</font></a>
                 </td>
             </tr>
 

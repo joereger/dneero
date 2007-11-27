@@ -73,8 +73,8 @@ String acl="researcher";
 <%@ include file="/template/header.jsp" %>
 
 
-<form action="researchersurveydetail_02.jsp" method="post" id="rsdform">
-    <input type="hidden" name="dpage" value="\researcher\researchersurveydetail_02.jsp">
+<form action="/researcher/researchersurveydetail_02.jsp" method="post" id="rsdform">
+    <input type="hidden" name="dpage" value="/researcher/researchersurveydetail_02.jsp">
     <input type="hidden" name="action" value="next" id="action">
     <input type="hidden" name="surveyid" value="<%=researcherSurveyDetail02.getSurvey().getSurveyid()%>"/>
 
@@ -127,10 +127,10 @@ String acl="researcher";
                     cols.add(new GridCol("Question", "<$question$>", false, "", "smallfont"));
                     cols.add(new GridCol("Required?", "<$isrequired$>", false, "", "smallfont"));
                     if (researcherSurveyDetail02.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {
-                        cols.add(new GridCol("", "<a href=\"researchersurveydetail_02.jsp?action=editquestion&questionid=<$questionid$>&componenttype=<$componenttype$>&surveyid="+researcherSurveyDetail02.getSurvey().getSurveyid()+"\">Edit</a>", false, "", "smallfont"));
+                        cols.add(new GridCol("", "<a href=\"/researcher/researchersurveydetail_02.jsp?action=editquestion&questionid=<$questionid$>&componenttype=<$componenttype$>&surveyid="+researcherSurveyDetail02.getSurvey().getSurveyid()+"\">Edit</a>", false, "", "smallfont"));
                     }
                     if (researcherSurveyDetail02.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {
-                        cols.add(new GridCol("", "<a href=\"researchersurveydetail_02.jsp?action=deletequestion&questionid=<$questionid$>&surveyid="+researcherSurveyDetail02.getSurvey().getSurveyid()+"\">Del</a>", false, "", "smallfont"));
+                        cols.add(new GridCol("", "<a href=\"/researcher/researchersurveydetail_02.jsp?action=deletequestion&questionid=<$questionid$>&surveyid="+researcherSurveyDetail02.getSurvey().getSurveyid()+"\">Del</a>", false, "", "smallfont"));
                     }
                 %>
                 <%=Grid.render(researcherSurveyQuestionList.getQuestions(), cols, 50, "researchersurveydetail_02.jsp", "page")%>
@@ -169,7 +169,7 @@ String acl="researcher";
                             url="researchersurveydetail_02_matrix.jsp";
                         }
                         %>
-                        <a href="<%=url%>?isnewquestion=1&surveyid=<%=researcherSurveyDetail02.getSurvey().getSurveyid()%>"><font class="smallfont"><%=value%></font></a><br/>
+                        <a href="/researcher/<%=url%>?isnewquestion=1&surveyid=<%=researcherSurveyDetail02.getSurvey().getSurveyid()%>"><font class="smallfont"><%=value%></font></a><br/>
                         <%
                     }
                 %>
@@ -182,19 +182,19 @@ String acl="researcher";
     <div class="panel" id="panel3" style="display: none">
             <img src="/images/clear.gif" width="700" height="1"/><br/>
             <font class="mediumfont">Question Type: Textbox (Short Text)</font><br/>
-            <img src="../images/questiontypes/textbox.gif" border="0" alt=""></img><br/><br/>
+            <img src="/images/questiontypes/textbox.gif" border="0" alt=""></img><br/><br/>
             <font class="mediumfont">Question Type: Essay (Long Text)</font><br/>
-            <img src="../images/questiontypes/essay.gif" border="0" alt=""></img><br/><br/>
+            <img src="/images/questiontypes/essay.gif" border="0" alt=""></img><br/><br/>
             <font class="mediumfont">Question Type: Dropdown (Choose One)</font><br/>
-            <img src="../images/questiontypes/dropdown.gif" border="0" alt=""></img><br/><br/>
+            <img src="/images/questiontypes/dropdown.gif" border="0" alt=""></img><br/><br/>
             <font class="mediumfont">Question Type: Checkboxes (Choose Multiple)</font><br/>
-            <img src="../images/questiontypes/selectmultiple.gif" border="0" alt=""></img><br/><br/>
+            <img src="/images/questiontypes/selectmultiple.gif" border="0" alt=""></img><br/><br/>
             <font class="mediumfont">Question Type: Range (i.e. 1-10)</font><br/><br/>
-            <img src="../images/questiontypes/range.gif" border="0" alt=""></img><br/><br/>
+            <img src="/images/questiontypes/range.gif" border="0" alt=""></img><br/><br/>
             <font class="mediumfont">Question Type: Matrix (Choose One Per Row)</font><br/>
-            <img src="../images/questiontypes/matrixselectone.gif" border="0" alt=""></img><br/><br/>
+            <img src="/images/questiontypes/matrixselectone.gif" border="0" alt=""></img><br/><br/>
             <font class="mediumfont">Question Type: Matrix (Choose Many Per Row)</font><br/>
-            <img src="../images/questiontypes/matrixselectmany.gif" border="0" alt=""></img><br/><br/>
+            <img src="/images/questiontypes/matrixselectmany.gif" border="0" alt=""></img><br/><br/>
     </div>
 
 

@@ -33,7 +33,7 @@ ResearcherSurveyDetail02matrix researcherSurveyDetail02matrix = (ResearcherSurve
     In a Matrix question type respondents are given a grid of possible answers.   To create this grid enter options for the Rows and the Columns and decide whether respondents can choose many answers per row.
     <br/><br/>
     Here's what a Matrix question looks like:
-    <center><img src="../images/questiontypes/matrixselectone.gif" border="0"></img></center>
+    <center><img src="/images/questiontypes/matrixselectone.gif" border="0"></img></center>
     </font></div></center>
 
     <br/><br/>
@@ -41,8 +41,8 @@ ResearcherSurveyDetail02matrix researcherSurveyDetail02matrix = (ResearcherSurve
 
 
     <!-- Start Bottom -->
-     <form action="researchersurveydetail_02_matrix.jsp" method="post">
-        <input type="hidden" name="dpage" value="\researcher\researchersurveydetail_02_matrix.jsp">
+     <form action="/researcher/researchersurveydetail_02_matrix.jsp" method="post">
+        <input type="hidden" name="dpage" value="/researcher/researchersurveydetail_02_matrix.jsp">
         <input type="hidden" name="action" value="save">
         <input type="hidden" name="surveyid" value="<%=Pagez.getUserSession().getCurrentSurveyid()%>"/>
         <input type="hidden" name="questionid" value="<%=researcherSurveyDetail02matrix.getQuestionid()%>"/>
@@ -110,7 +110,7 @@ ResearcherSurveyDetail02matrix researcherSurveyDetail02matrix = (ResearcherSurve
                 </td>
                 <td valign="top">
                     <input type="submit" class="formsubmitbutton" value="Save Question and Continue">
-                    <br/><br/><a href="researchersurveydetail_02.jsp?surveyid=<%=researcherSurveyDetail02matrix.getSurvey().getSurveyid()%>"><font class="tinyfont">Nevermind, Take me Back</font></a>
+                    <br/><br/><a href="/researcher/researchersurveydetail_02.jsp?surveyid=<%=researcherSurveyDetail02matrix.getSurvey().getSurveyid()%>"><font class="tinyfont">Nevermind, Take me Back</font></a>
                 </td>
             </tr>
 

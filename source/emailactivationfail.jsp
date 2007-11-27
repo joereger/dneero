@@ -11,7 +11,7 @@ String acl = "public";
 
             Email activation failed.
             <br/><br/>
-            <a href="emailactivationresend.jsp">Click here to re-send email activation message.</a>
+            <a href="/emailactivationresend.jsp">Click here to re-send email activation message.</a>
 
 
 <%@ include file="/template/footer.jsp" %>

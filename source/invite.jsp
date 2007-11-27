@@ -17,7 +17,7 @@ String acl = "public";
         <font class="largefont">You've been invited to make money with your blog and/or social network!</font>
     <%}%>
     <br/>
-    <a href="registration.jsp"><font class="mediumfont">Click here to Sign Up!</font></a>
+    <a href="/registration.jsp"><font class="mediumfont">Click here to Sign Up!</font></a>
 
 
 <%@ include file="/template/footer.jsp" %>

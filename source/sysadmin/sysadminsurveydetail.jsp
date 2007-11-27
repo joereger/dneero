@@ -65,8 +65,8 @@ String acl = "sysadmin";
     <a href="" class="tab" onmousedown="return event.returnValue = showPanel(this, 'panel4');" onclick="return false;">Requirements</a>
     </div>
     <div class="panel" id="panel1" style="display: block">
-        <form action="sysadminsurveydetail.jsp" method="post">
-            <input type="hidden" name="dpage" value="\sysadmin\sysadminsurveydetail.jsp">
+        <form action="/sysadmin/sysadminsurveydetail.jsp" method="post">
+            <input type="hidden" name="dpage" value="/sysadmin/sysadminsurveydetail.jsp">
             <input type="hidden" name="action" value="save">
             <input type="hidden" name="surveyid" value="<%=sysadminSurveyDetail.getSurvey().getSurveyid()%>">
 
@@ -77,7 +77,7 @@ String acl = "sysadmin";
                 <br/><br/>
                 <font class="mediumfont">Survey ID: <%=sysadminSurveyDetail.getSurvey().getSurveyid()%></font>
                 <br/><br/>
-                <a href="userdetail.jsp?userid=<%=sysadminSurveyDetail.getUser().getUserid()%>"><font class="mediumfont"><%=sysadminSurveyDetail.getUser().getFirstname()%> <%=sysadminSurveyDetail.getUser().getLastname()%> <%=sysadminSurveyDetail.getUser().getEmail()%></font></a>
+                <a href="/sysadmin/userdetail.jsp?userid=<%=sysadminSurveyDetail.getUser().getUserid()%>"><font class="mediumfont"><%=sysadminSurveyDetail.getUser().getFirstname()%> <%=sysadminSurveyDetail.getUser().getLastname()%> <%=sysadminSurveyDetail.getUser().getEmail()%></font></a>
                 <br/><br/>
                 <div class="rounded" style="background: #e6e6e6; text-align: center; padding: 20px;">
                     <%if (sysadminSurveyDetail.getSurvey().getStatus()==1){%>

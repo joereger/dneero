@@ -102,8 +102,8 @@ String acl = "public";
                 <% if (!publicSurveyPostit.getJustcompletedsurvey()){ %>
                     <div class="rounded" style="background: #e6e6e6;">
                         <font class="smallfont">If you've deleted the survey from your Facebook Mini Feed or Profile and would like to add them back, click below.  Note that if you've turned off the profile box you'll have to turn it back on yourself in the Facebook settings for the dNeero app.</font><br/>
-                        <form action="surveypostit.jsp" method="post">
-                            <input type="hidden" name="dpage" value="surveypostit.jsp">
+                        <form action="/surveypostit.jsp" method="post">
+                            <input type="hidden" name="dpage" value="/surveypostit.jsp">
                             <input type="hidden" name="action" value="updatefacebookprofile">
                             <input type="hidden" name="surveyid" value="<%=publicSurveyPostit.getSurvey().getSurveyid()%>">
                             <input type="submit" class="formsubmitbutton" value="Update Facebook Profile">

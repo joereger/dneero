@@ -67,7 +67,7 @@ public class BloggerIndex implements Serializable {
                     try{
                         SurveyResponseParser srp = new SurveyResponseParser(responsepending.getResponseasstring());
                         createResponse(survey,  srp, Blogger.get(Pagez.getUserSession().getUser().getBloggerid()), responsepending.getReferredbyuserid());
-                        responsependingmsg = responsependingmsg + "You just earned $"+ Str.formatForMoney(survey.getWillingtopayperrespondent())+"! We have successfully committed your response to '"+survey.getTitle()+"'!  But don't forget to post this survey to your blog to earn even more money... click <a href='/survey.jsp?surveyid="+survey.getSurveyid()+"'>here</a>." + "<br/><br/>";
+                        responsependingmsg = responsependingmsg + "You just earned $"+ Str.formatForMoney(survey.getWillingtopayperrespondent())+"! We have successfully committed your response to '"+survey.getTitle()+"'!  But don't forget to post this survey to your blog to earn even more money... click <a href=\"/survey.jsp?surveyid="+survey.getSurveyid()+"\">here</a>." + "<br/><br/>";
                         surveyidtoredirectto = survey.getSurveyid();
                     } catch (ComponentException cex){
                         responsependingmsg = responsependingmsg + "There was an error committing your response to the survey '"+survey.getTitle()+"': " + cex.getErrorsAsSingleString() + "  But don't worry... we're always adding new survey opportunities!<br/><br/>";

@@ -26,8 +26,8 @@ EmailActivationResend emailActivationResend = (EmailActivationResend)Pagez.getBe
 %>
 <%@ include file="/template/header.jsp" %>
 
-        <form action="emailactivationresend.jsp" method="post">
-            <input type="hidden" name="dpage" value="emailactivationresend.jsp">
+        <form action="/emailactivationresend.jsp" method="post">
+            <input type="hidden" name="dpage" value="/emailactivationresend.jsp">
             <input type="hidden" name="action" value="send">
 
             <table cellpadding="0" cellspacing="0" border="0">

@@ -78,8 +78,8 @@ String acl = "public";
                 ArrayList<GridCol> cols=new ArrayList<GridCol>();
                 cols.add(new GridCol("Date", "<$response.responsedate|"+Grid.GRIDCOLRENDERER_DATETIMECOMPACT+"$>", true, "", "tinyfont"));
                 cols.add(new GridCol("Survey Title", "<$survey.title$>", false, "", "normalfont"));
-                cols.add(new GridCol("", "<a href=\"survey.jsp?u="+publicProfile.getUser().getUserid()+"\">Answers</a>", false, "", "smallfont"));
-                cols.add(new GridCol("", "<a href=\"profileimpressions.jsp?responseid=<$response.responseid$>\">Impressions</a>", false, "", "smallfont"));
+                cols.add(new GridCol("", "<a href=\"/survey.jsp?u="+publicProfile.getUser().getUserid()+"\">Answers</a>", false, "", "smallfont"));
+                cols.add(new GridCol("", "<a href=\"/profileimpressions.jsp?responseid=<$response.responseid$>\">Impressions</a>", false, "", "smallfont"));
             %>
             <%=Grid.render(publicProfile.getListitems(), cols, 10, "profile.jsp?userid="+publicProfile.getUser().getUserid(), "pagesurveys")%>
         <%}%>
@@ -102,8 +102,8 @@ String acl = "public";
 
 
             <br/><br/>
-            <form action="profile.jsp" method="post">
-                <input type="hidden" name="dpage" value="profile.jsp">
+            <form action="/profile.jsp" method="post">
+                <input type="hidden" name="dpage" value="/profile.jsp">
                 <input type="hidden" name="action" value="add">
                 <%=com.dneero.htmlui.Dropdown.getHtml("panelid", String.valueOf(publicProfile.getPanelid()), publicProfile.getPanelids(), "", "")%>
                 <input type="submit" class="formsubmitbutton" value="Add Blogger To Panel">

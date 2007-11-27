@@ -31,7 +31,7 @@ ResearcherSurveyDetail02essay researcherSurveyDetail02essay = (ResearcherSurveyD
     Type a question in the Question box.  Because this is an Essay question type, respondents will be able to type a free-text response to this question.
     <br/><br/>
     Here's what an Essay question looks like:
-    <center><img src="../images/questiontypes/essay.gif" border="0"></img></center>
+    <center><img src="/images/questiontypes/essay.gif" border="0"></img></center>
     </font></div></center>
 
     <br/><br/>
@@ -39,8 +39,8 @@ ResearcherSurveyDetail02essay researcherSurveyDetail02essay = (ResearcherSurveyD
 
 
     <!-- Start Bottom -->
-    <form action="researchersurveydetail_02_essay.jsp" method="post">
-        <input type="hidden" name="dpage" value="\researcher\researchersurveydetail_02_essay.jsp">
+    <form action="/researcher/researchersurveydetail_02_essay.jsp" method="post">
+        <input type="hidden" name="dpage" value="/researcher/researchersurveydetail_02_essay.jsp">
         <input type="hidden" name="action" value="save">
         <input type="hidden" name="surveyid" value="<%=Pagez.getUserSession().getCurrentSurveyid()%>"/>
         <input type="hidden" name="questionid" value="<%=researcherSurveyDetail02essay.getQuestionid()%>"/>
@@ -83,7 +83,7 @@ ResearcherSurveyDetail02essay researcherSurveyDetail02essay = (ResearcherSurveyD
                 </td>
                 <td valign="top">
                     <input type="submit" class="formsubmitbutton" value="Save Question and Continue">
-                    <br/><br/><a href="researchersurveydetail_02.jsp?surveyid=<%=researcherSurveyDetail02essay.getSurvey().getSurveyid()%>"><font class="tinyfont">Nevermind, Take me Back</font></a>
+                    <br/><br/><a href="/researcher/researchersurveydetail_02.jsp?surveyid=<%=researcherSurveyDetail02essay.getSurvey().getSurveyid()%>"><font class="tinyfont">Nevermind, Take me Back</font></a>
                 </td>
             </tr>
 

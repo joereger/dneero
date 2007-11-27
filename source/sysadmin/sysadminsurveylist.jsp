@@ -24,7 +24,7 @@ String acl = "sysadmin";
         <%
             ArrayList<GridCol> cols=new ArrayList<GridCol>();
             cols.add(new GridCol("Surveyid", "<$surveyid$>", false, "", "tinyfont"));
-            cols.add(new GridCol("Title", "<a href=\"sysadminsurveydetail.jsp?surveyid=<$surveyid$>\"><$title$></a>", false, "", "tinyfont"));
+            cols.add(new GridCol("Title", "<a href=\"/sysadmin/sysadminsurveydetail.jsp?surveyid=<$surveyid$>\"><$title$></a>", false, "", "tinyfont"));
             cols.add(new GridCol("Displays", "<$publicsurveydisplays$>", false, "", "tinyfont"));
             cols.add(new GridCol("Spotlight?", "<$isspotlight$>", false, "", "tinyfont"));
             cols.add(new GridCol("Status", "<$status$>", false, "", "tinyfont"));

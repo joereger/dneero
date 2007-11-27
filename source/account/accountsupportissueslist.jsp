@@ -36,14 +36,14 @@ AccountNewSupportIssue accountNewSupportIssue = (AccountNewSupportIssue) Pagez.g
             ArrayList<GridCol> cols=new ArrayList<GridCol>();
             cols.add(new GridCol("Id", "<$supportissueid$>", true, "", "tinyfont"));
             cols.add(new GridCol("Date", "<$datetime$>", true, "", "tinyfont", "", "background: #e6e6e6;"));
-            cols.add(new GridCol("Subject", "<a href=\"accountsupportissuedetail.jsp?supportissueid=<$supportissueid$>\"><$subject$></a>", false, "", "tinyfont"));
+            cols.add(new GridCol("Subject", "<a href=\"/account/accountsupportissuedetail.jsp?supportissueid=<$supportissueid$>\"><$subject$></a>", false, "", "tinyfont"));
         %>
         <%=Grid.render(((AccountSupportIssuesList) Pagez.getBeanMgr().get("AccountSupportIssuesList")).getSupportissues(), cols, 10, "accountsupportissueslist.jsp", "page")%>
     <%}%>
 
 
-    <form action="accountsupportissueslist.jsp" method="post">
-        <input type="hidden" name="dpage" value="\account\accountsupportissueslist.jsp">
+    <form action="/account/accountsupportissueslist.jsp" method="post">
+        <input type="hidden" name="dpage" value="/account/accountsupportissueslist.jsp">
         <input type="hidden" name="action" value="save">
             <br/>
             <font class="mediumfont">Ask a Question. Make an Observation. Recommend an Improvement.</font>

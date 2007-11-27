@@ -29,7 +29,7 @@ PublicResultsAnswersDetails publicResultsAnswersDetails = (PublicResultsAnswersD
                     <div class="rounded" style="background: #ffffff; text-align: center;">
                         <center><img src="/images/undo-128.png" width="128" height="128"/></center>
                         <br/>
-                        <a href="surveyresults.jsp?surveyid=<%=publicResultsAnswersDetails.getSurvey().getSurveyid()%>&show=results"><font class="mediumfont">Return to the Survey Results</font></a>
+                        <a href="/surveyresults.jsp?surveyid=<%=publicResultsAnswersDetails.getSurvey().getSurveyid()%>&show=results"><font class="mediumfont">Return to the Survey Results</font></a>
                     </div>
                 </div>
             </td>

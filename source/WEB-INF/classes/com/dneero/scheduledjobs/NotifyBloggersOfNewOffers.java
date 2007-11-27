@@ -87,7 +87,7 @@ public class NotifyBloggersOfNewOffers implements Job {
                                         url = "http://apps.facebook.com/"+ SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_APP_NAME)+"/";
                                     }
                                     //Html
-                                    listofsurveysHtml.append("<br><br><a href='"+url+"'>" + survey.getTitle() + " (Earn up to: " + surveyEnhancer.getMaxearning() + ")</a>");
+                                    listofsurveysHtml.append("<br><br><a href=\""+url+"\">" + survey.getTitle() + " (Earn up to: " + surveyEnhancer.getMaxearning() + ")</a>");
                                     if (!survey.getDescription().equals("")){
                                         listofsurveysHtml.append("<br>"+survey.getDescription());
                                     }

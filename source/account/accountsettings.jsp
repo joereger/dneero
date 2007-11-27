@@ -35,8 +35,8 @@ AccountSettings accountSettings = (AccountSettings) Pagez.getBeanMgr().get("Acco
 <%@ include file="/template/header.jsp" %>
 
     <br/><br/>
-    <form action="accountsettings.jsp" method="post">
-        <input type="hidden" name="dpage" value="\account\accountsettings.jsp">
+    <form action="/account/accountsettings.jsp" method="post">
+        <input type="hidden" name="dpage" value="/account/accountsettings.jsp">
         <input type="hidden" name="action" value="save">
 
             <table cellpadding="3" cellspacing="0" border="0">
@@ -80,7 +80,7 @@ AccountSettings accountSettings = (AccountSettings) Pagez.getBeanMgr().get("Acco
                         <font class="tinyfont">Password changes are handled on a separate screen.</font>
                     </td>
                     <td valign="top">
-                        <a href="changepassword.jsp"><font class="smallfont">Change Password</font></a>
+                        <a href="/account/changepassword.jsp"><font class="smallfont">Change Password</font></a>
                     </td>
                 </tr>
 
@@ -157,7 +157,7 @@ AccountSettings accountSettings = (AccountSettings) Pagez.getBeanMgr().get("Acco
                     <td valign="top">
                         <font class="formfieldnamefont">PayPal Address (Optional)</font>
                         <br/>
-                        <font class="tinyfont">We can't pay you until we have a valid<br/>PayPal address.  You can enter one<br/>at any time.  You don't need to have one<br/>in the system to blog and earn money.<br/>Your PayPal address is the email<br/>address you use to log in<br/>to paypal.com.<br/>Don't have a PayPal account? <br/>Setup is quick, easy and secure.<br/>Click <a href='http://www.paypal.com' target='paypal' class="tinyfont"><font class="tinyfont">here</font></a> to create one.</font>
+                        <font class="tinyfont">We can't pay you until we have a valid<br/>PayPal address.  You can enter one<br/>at any time.  You don't need to have one<br/>in the system to blog and earn money.<br/>Your PayPal address is the email<br/>address you use to log in<br/>to paypal.com.<br/>Don't have a PayPal account? <br/>Setup is quick, easy and secure.<br/>Click <a href="http://www.paypal.com" target="paypal" class="tinyfont"><font class="tinyfont">here</font></a> to create one.</font>
                     </td>
                     <td valign="top">
                         <%=Textbox.getHtml("paymethodpaypaladdress", accountSettings.getPaymethodpaypaladdress(), 255, 20, "", "")%>

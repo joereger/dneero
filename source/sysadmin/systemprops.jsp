@@ -38,8 +38,8 @@ String acl = "sysadmin";
 <%@ include file="/template/header.jsp" %>
 
 
-    <form action="systemprops.jsp" method="post">
-        <input type="hidden" name="dpage" value="\sysadmin\systemprops.jsp">
+    <form action="/sysadmin/systemprops.jsp" method="post">
+        <input type="hidden" name="dpage" value="/sysadmin/systemprops.jsp">
         <input type="hidden" name="action" value="save">
 
         <table cellpadding="0" cellspacing="0" border="0">

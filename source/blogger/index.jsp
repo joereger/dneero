@@ -61,7 +61,7 @@ String acl = "public";
                     <table width="100%">
                         <tr>
                             <td width="50%" align="center">
-                                <div style="width: 200px;"><%=GreenRoundedButton.get("<a href=\"bloggerfaq.jsp\"><font class=\"subnavfont\" style=\"color: #ffffff;\">Read the Blogger FAQ</font></a>")%></div>
+                                <div style="width: 200px;"><%=GreenRoundedButton.get("<a href=\"/blogger/bloggerfaq.jsp\"><font class=\"subnavfont\" style=\"color: #ffffff;\">Read the Blogger FAQ</font></a>")%></div>
                             </td>
                             <td width="50%" align="center">
                                 <%if(!Pagez.getUserSession().getIsloggedin()){%>
@@ -122,7 +122,7 @@ String acl = "public";
                         </div>
                         <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
                             <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-                                <a href="bloggerearningsrevshare.jsp"><font class="mediumfont" style="color: #596697;">Earn Money Inviting Friends</font></a>
+                                <a href="/blogger/bloggerearningsrevshare.jsp"><font class="mediumfont" style="color: #596697;">Earn Money Inviting Friends</font></a>
                             </td></tr>
                             <tr><td valign="top"></td><td valign="top">
                                 <font class="smallfont">Invite friends and earn money when they take surveys!</font>
@@ -130,7 +130,7 @@ String acl = "public";
 
                             <br/><br/>
                             <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-                                <a href="index.jsp"><font class="mediumfont" style="color: #596697;">Earnings from Completed Surveys</font></a>
+                                <a href="/blogger/index.jsp"><font class="mediumfont" style="color: #596697;">Earnings from Completed Surveys</font></a>
                             </td></tr>
                             <tr><td valign="top"></td><td valign="top">
                                 <font class="smallfont">See how much you've earned.</font>
@@ -138,7 +138,7 @@ String acl = "public";
 
                             <br/><br/>
                             <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-                                <a href="bloggerdetails.jsp"><font class="mediumfont" style="color: #596697;">Update Blogger Profile</font></a>
+                                <a href="/blogger/bloggerdetails.jsp"><font class="mediumfont" style="color: #596697;">Update Blogger Profile</font></a>
                             </td></tr>
                             <tr><td valign="top"></td><td valign="top">
                                 <font class="smallfont">Your profile helps us find surveys that fit your interests.  Keep it up to date.</font>
@@ -146,7 +146,7 @@ String acl = "public";
 
                             <br/><br/>
                             <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-                                <a href="bloggerfaq.jsp"><font class="mediumfont" style="color: #596697;">Blogger Frequently Asked Questions</font></a>
+                                <a href="/blogger/bloggerfaq.jsp"><font class="mediumfont" style="color: #596697;">Blogger Frequently Asked Questions</font></a>
                             </td></tr>
                             <tr><td valign="top"></td><td valign="top">
                                 <font class="smallfont">Get your answers here!</font>
@@ -154,7 +154,7 @@ String acl = "public";
 
                             <br/><br/>
                             <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-                                <a href="index.jsp?showmarketingmaterial=1"><font class="mediumfont" style="color: #596697;">Blogger Basic Info</font></a>
+                                <a href="/blogger/index.jsp?showmarketingmaterial=1"><font class="mediumfont" style="color: #596697;">Blogger Basic Info</font></a>
                             </td></tr>
                             <tr><td valign="top"></td><td valign="top">
                                 <font class="smallfont">Basic Blogger information, how the system works, etc.</font>
@@ -202,7 +202,7 @@ String acl = "public";
                                                     </font>
                                                 <% } %>
                                                 <br/>
-                                                <font class="tinyfont" style="font-weight:bold; text-decoration: none;"><a href="impressions.jsp?surveyid=<%=bloggerCompletedsurveysListitem.getSurveyid()%>"><%=bloggerCompletedsurveysListitem.getTotalimpressions()%></a> impressions</font>
+                                                <font class="tinyfont" style="font-weight:bold; text-decoration: none;"><a href="/blogger/impressions.jsp?surveyid=<%=bloggerCompletedsurveysListitem.getSurveyid()%>"><%=bloggerCompletedsurveysListitem.getTotalimpressions()%></a> impressions</font>
                                             </td>
                                             <td valign="top" align="right">
                                                 <%=bloggerCompletedsurveysListitem.getResponse().getResponsestatushtml()%>

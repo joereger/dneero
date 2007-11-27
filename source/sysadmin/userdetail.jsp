@@ -108,8 +108,8 @@ SysadminUserDetail sysadminUserDetail = (SysadminUserDetail)Pagez.getBeanMgr().g
                     <td valign="top" width="50%">
 
                         <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
-                            <form action="userdetail.jsp" method="post">
-                                <input type="hidden" name="dpage" value="\sysadmin\userdetail.jsp">
+                            <form action="/sysadmin/userdetail.jsp" method="post">
+                                <input type="hidden" name="dpage" value="/sysadmin/userdetail.jsp">
                                 <input type="hidden" name="action" value="save">
                                 <input type="hidden" name="userid" value="<%=sysadminUserDetail.getUserid()%>">
                                 <table cellpadding="0" cellspacing="0" border="0">
@@ -173,24 +173,24 @@ SysadminUserDetail sysadminUserDetail = (SysadminUserDetail)Pagez.getBeanMgr().g
                             </form>
                         </div>
                         <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
-                            <form action="userdetail.jsp" method="post">
-                                <input type="hidden" name="dpage" value="\sysadmin\userdetail.jsp">
+                            <form action="/sysadmin/userdetail.jsp" method="post">
+                                <input type="hidden" name="dpage" value="/sysadmin/userdetail.jsp">
                                 <input type="hidden" name="action" value="passwordresetemail">
                                 <input type="hidden" name="userid" value="<%=sysadminUserDetail.getUserid()%>">
                                 <input type="submit" class="formsubmitbutton" value="Send Password Reset Email">
                             </form>
                         </div>
                         <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
-                            <form action="userdetail.jsp" method="post">
-                                <input type="hidden" name="dpage" value="\sysadmin\userdetail.jsp">
+                            <form action="/sysadmin/userdetail.jsp" method="post">
+                                <input type="hidden" name="dpage" value="/sysadmin/userdetail.jsp">
                                 <input type="hidden" name="action" value="reactivationemail">
                                 <input type="hidden" name="userid" value="<%=sysadminUserDetail.getUserid()%>">
                                 <input type="submit" class="formsubmitbutton" value="Force Re-Activation By Email">
                             </form>
                         </div>
                         <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
-                            <form action="userdetail.jsp" method="post">
-                                <input type="hidden" name="dpage" value="\sysadmin\userdetail.jsp">
+                            <form action="/sysadmin/userdetail.jsp" method="post">
+                                <input type="hidden" name="dpage" value="/sysadmin/userdetail.jsp">
                                 <input type="hidden" name="action" value="researcherremainingbalanceoperations">
                                 <input type="hidden" name="userid" value="<%=sysadminUserDetail.getUserid()%>">
                                 <input type="submit" class="formsubmitbutton" value="ResearcherRemainingBalanceOperations">
@@ -199,8 +199,8 @@ SysadminUserDetail sysadminUserDetail = (SysadminUserDetail)Pagez.getBeanMgr().g
                             <font class="tinyfont">This will process account balances, remaining impressions, credit card transfers, etc for only this account.  Only does something if this user has a researcher record.</font>
                         </div>
                         <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
-                            <form action="userdetail.jsp" method="post">
-                                <input type="hidden" name="dpage" value="\sysadmin\userdetail.jsp">
+                            <form action="/sysadmin/userdetail.jsp" method="post">
+                                <input type="hidden" name="dpage" value="/sysadmin/userdetail.jsp">
                                 <input type="hidden" name="action" value="togglesysadmin">
                                 <input type="hidden" name="userid" value="<%=sysadminUserDetail.getUserid()%>">
                                 <%if (sysadminUserDetail.getIssysadmin()){%>
@@ -220,8 +220,8 @@ SysadminUserDetail sysadminUserDetail = (SysadminUserDetail)Pagez.getBeanMgr().g
                     <td valign="top" width="50%">
 
                         <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
-                            <form action="userdetail.jsp" method="post">
-                                <input type="hidden" name="dpage" value="\sysadmin\userdetail.jsp">
+                            <form action="/sysadmin/userdetail.jsp" method="post">
+                                <input type="hidden" name="dpage" value="/sysadmin/userdetail.jsp">
                                 <input type="hidden" name="action" value="toggleisenabled">
                                 <input type="hidden" name="userid" value="<%=sysadminUserDetail.getUserid()%>">
                                 <%if (sysadminUserDetail.getIsenabled()){%>
@@ -237,8 +237,8 @@ SysadminUserDetail sysadminUserDetail = (SysadminUserDetail)Pagez.getBeanMgr().g
                         </div>
 
                         <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
-                            <form action="userdetail.jsp" method="post">
-                                <input type="hidden" name="dpage" value="\sysadmin\userdetail.jsp">
+                            <form action="/sysadmin/userdetail.jsp" method="post">
+                                <input type="hidden" name="dpage" value="/sysadmin/userdetail.jsp">
                                 <input type="hidden" name="action" value="giveusermoney">
                                 <input type="hidden" name="userid" value="<%=sysadminUserDetail.getUserid()%>">
                                 <font class="mediumfont">Give User Money</font>
@@ -259,8 +259,8 @@ SysadminUserDetail sysadminUserDetail = (SysadminUserDetail)Pagez.getBeanMgr().g
 
 
                         <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
-                            <form action="userdetail.jsp" method="post">
-                                <input type="hidden" name="dpage" value="\sysadmin\userdetail.jsp">
+                            <form action="/sysadmin/userdetail.jsp" method="post">
+                                <input type="hidden" name="dpage" value="/sysadmin/userdetail.jsp">
                                 <input type="hidden" name="action" value="takeusermoney">
                                 <input type="hidden" name="userid" value="<%=sysadminUserDetail.getUserid()%>">
                                 <font class="mediumfont">Take Money from User</font>

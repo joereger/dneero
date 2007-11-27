@@ -66,24 +66,24 @@ SysadminManuallyRunScheduledTask sysadminManuallyRunScheduledTask = (SysadminMan
 
 
 
-<br/><a href="manuallyrunscheduledtask.jsp?action=run&task=CloseSurveysByDate"><font class="mediumfont">CloseSurveysByDate</font></a>
-<br/><a href="manuallyrunscheduledtask.jsp?action=run&task=CloseSurveysByNumRespondents"><font class="mediumfont">CloseSurveysByNumRespondents</font></a>
-<br/><a href="manuallyrunscheduledtask.jsp?action=run&task=NotifyBloggersOfNewOffers"><font class="mediumfont">NotifyBloggersOfNewOffers</font></a>
-<br/><a href="manuallyrunscheduledtask.jsp?action=run&task=PendingToOpenSurveys"><font class="mediumfont">PendingToOpenSurveys</font></a>
-<br/><a href="manuallyrunscheduledtask.jsp?action=run&task=QualityAverager"><font class="mediumfont">QualityAverager</font></a>
-<br/><a href="manuallyrunscheduledtask.jsp?action=run&task=MoveMoneyAround"><font class="mediumfont">MoveMoneyAround</font></a>
-<br/><a href="manuallyrunscheduledtask.jsp?action=run&task=ResearcherRemainingBalanceOperations"><font class="mediumfont">ResearcherRemainingBalanceOperations</font></a>
-<br/><a href="manuallyrunscheduledtask.jsp?action=run&task=DeleteOldPersistentlogins"><font class="mediumfont">DeleteOldPersistentlogins</font></a>
-<br/><a href="manuallyrunscheduledtask.jsp?action=run&task=SocialInfluenceRatingUpdate"><font class="mediumfont">SocialInfluenceRatingUpdate</font></a>
-<br/><a href="manuallyrunscheduledtask.jsp?action=run&task=SystemStats"><font class="mediumfont">SystemStats</font></a>
-<br/><a href="manuallyrunscheduledtask.jsp?action=run&task=SendMassemails"><font class="mediumfont">SendMassemails</font></a>
-<br/><a href="manuallyrunscheduledtask.jsp?action=run&task=ImpressionActivityObjectQueue"><font class="mediumfont">ImpressionActivityObjectQueue</font></a>
-<br/><a href="manuallyrunscheduledtask.jsp?action=run&task=CharityCalculateAmountDonated"><font class="mediumfont">CharityCalculateAmountDonated</font></a>
-<br/><a href="manuallyrunscheduledtask.jsp?action=run&task=UpdateResponsePoststatus"><font class="mediumfont">UpdateResponsePoststatus</font></a>
-<br/><a href="manuallyrunscheduledtask.jsp?action=run&task=UpdateResponsePoststatusAll"><font class="mediumfont">UpdateResponsePoststatus(All)</font></a>
-<br/><a href="manuallyrunscheduledtask.jsp?action=run&task=PayForSurveyResponsesOncePosted"><font class="mediumfont">PayForSurveyResponsesOncePosted</font></a>
-<br/><a href="manuallyrunscheduledtask.jsp?action=run&task=ImpressionPayments"><font class="mediumfont">ImpressionPayments</font></a>
-<br/><a href="manuallyrunscheduledtask.jsp?action=run&task=SystemStatsFinancial"><font class="mediumfont">SystemStatsFinancial</font></a>
+<br/><a href="/sysadmin/manuallyrunscheduledtask.jsp?action=run&task=CloseSurveysByDate"><font class="mediumfont">CloseSurveysByDate</font></a>
+<br/><a href="/sysadmin/manuallyrunscheduledtask.jsp?action=run&task=CloseSurveysByNumRespondents"><font class="mediumfont">CloseSurveysByNumRespondents</font></a>
+<br/><a href="/sysadmin/manuallyrunscheduledtask.jsp?action=run&task=NotifyBloggersOfNewOffers"><font class="mediumfont">NotifyBloggersOfNewOffers</font></a>
+<br/><a href="/sysadmin/manuallyrunscheduledtask.jsp?action=run&task=PendingToOpenSurveys"><font class="mediumfont">PendingToOpenSurveys</font></a>
+<br/><a href="/sysadmin/manuallyrunscheduledtask.jsp?action=run&task=QualityAverager"><font class="mediumfont">QualityAverager</font></a>
+<br/><a href="/sysadmin/manuallyrunscheduledtask.jsp?action=run&task=MoveMoneyAround"><font class="mediumfont">MoveMoneyAround</font></a>
+<br/><a href="/sysadmin/manuallyrunscheduledtask.jsp?action=run&task=ResearcherRemainingBalanceOperations"><font class="mediumfont">ResearcherRemainingBalanceOperations</font></a>
+<br/><a href="/sysadmin/manuallyrunscheduledtask.jsp?action=run&task=DeleteOldPersistentlogins"><font class="mediumfont">DeleteOldPersistentlogins</font></a>
+<br/><a href="/sysadmin/manuallyrunscheduledtask.jsp?action=run&task=SocialInfluenceRatingUpdate"><font class="mediumfont">SocialInfluenceRatingUpdate</font></a>
+<br/><a href="/sysadmin/manuallyrunscheduledtask.jsp?action=run&task=SystemStats"><font class="mediumfont">SystemStats</font></a>
+<br/><a href="/sysadmin/manuallyrunscheduledtask.jsp?action=run&task=SendMassemails"><font class="mediumfont">SendMassemails</font></a>
+<br/><a href="/sysadmin/manuallyrunscheduledtask.jsp?action=run&task=ImpressionActivityObjectQueue"><font class="mediumfont">ImpressionActivityObjectQueue</font></a>
+<br/><a href="/sysadmin/manuallyrunscheduledtask.jsp?action=run&task=CharityCalculateAmountDonated"><font class="mediumfont">CharityCalculateAmountDonated</font></a>
+<br/><a href="/sysadmin/manuallyrunscheduledtask.jsp?action=run&task=UpdateResponsePoststatus"><font class="mediumfont">UpdateResponsePoststatus</font></a>
+<br/><a href="/sysadmin/manuallyrunscheduledtask.jsp?action=run&task=UpdateResponsePoststatusAll"><font class="mediumfont">UpdateResponsePoststatus(All)</font></a>
+<br/><a href="/sysadmin/manuallyrunscheduledtask.jsp?action=run&task=PayForSurveyResponsesOncePosted"><font class="mediumfont">PayForSurveyResponsesOncePosted</font></a>
+<br/><a href="/sysadmin/manuallyrunscheduledtask.jsp?action=run&task=ImpressionPayments"><font class="mediumfont">ImpressionPayments</font></a>
+<br/><a href="/sysadmin/manuallyrunscheduledtask.jsp?action=run&task=SystemStatsFinancial"><font class="mediumfont">SystemStatsFinancial</font></a>
 
 
 

@@ -79,7 +79,7 @@ PublicSurveyDiscuss publicSurveyDiscuss = (PublicSurveyDiscuss)Pagez.getBeanMgr(
             co.append("<br/><br/>");
             ArrayList<GridCol> cols=new ArrayList<GridCol>();
             cols.add(new GridCol("", "<img src=\"/images/user-48.png\" width=\"48\" height=\"48\"/>", false, "", ""));
-            cols.add(new GridCol("", "<a href=\"profile.jsp?userid=<$user.userid$>\"><$user.firstname$> <$user.lastname$></a>", false, "", "normalfont", "", "font-weight: bold;"));
+            cols.add(new GridCol("", "<a href=\"/profile.jsp?userid=<$user.userid$>\"><$user.firstname$> <$user.lastname$></a>", false, "", "normalfont", "", "font-weight: bold;"));
             cols.add(new GridCol("", co.toString(), false, "", ""));
         %>
         <%=Grid.render(publicSurveyDiscuss.getSurveydiscusses(), cols, 50, "surveydiscuss.jsp", "page")%>
@@ -91,8 +91,8 @@ PublicSurveyDiscuss publicSurveyDiscuss = (PublicSurveyDiscuss)Pagez.getBeanMgr(
     <% if (Pagez.getUserSession().getIsloggedin()){ %>
         <font class="mediumfont">Post a Comment!</font>
         <br/><br/>
-        <form action="surveydiscuss.jsp" method="post">
-            <input type="hidden" name="dpage" value="surveydiscuss.jsp">
+        <form action="/surveydiscuss.jsp" method="post">
+            <input type="hidden" name="dpage" value="/surveydiscuss.jsp">
             <input type="hidden" name="action" value="postcomment">
             <input type="hidden" name="surveyid" value="<%=publicSurveyDiscuss.getSurvey().getSurveyid()%>">
 

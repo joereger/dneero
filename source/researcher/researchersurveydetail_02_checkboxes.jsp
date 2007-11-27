@@ -34,7 +34,7 @@ ResearcherSurveyDetail02checkboxes researcherSurveyDetail02checkboxes = (Researc
     Type a question in the Question box.  Next, give respondents options to choose from.  Because this is a Checkbox question type, they'll be able to choose multiple options as part of their answer.
     <br/><br/>
     Here's what a Checkboxes question looks like:
-    <center><img src="../images/questiontypes/selectmultiple.gif" border="0"></img></center>
+    <center><img src="/images/questiontypes/selectmultiple.gif" border="0"></img></center>
     </font></div></center>
 
     <br/><br/>
@@ -42,8 +42,8 @@ ResearcherSurveyDetail02checkboxes researcherSurveyDetail02checkboxes = (Researc
 
 
     <!-- Start Bottom -->
-    <form action="researchersurveydetail_02_checkboxes.jsp" method="post">
-        <input type="hidden" name="dpage" value="\researcher\researchersurveydetail_02_checkboxes.jsp">
+    <form action="/researcher/researchersurveydetail_02_checkboxes.jsp" method="post">
+        <input type="hidden" name="dpage" value="/researcher/researchersurveydetail_02_checkboxes.jsp">
         <input type="hidden" name="action" value="save">
         <input type="hidden" name="surveyid" value="<%=Pagez.getUserSession().getCurrentSurveyid()%>"/>
         <input type="hidden" name="questionid" value="<%=researcherSurveyDetail02checkboxes.getQuestionid()%>"/>
@@ -92,7 +92,7 @@ ResearcherSurveyDetail02checkboxes researcherSurveyDetail02checkboxes = (Researc
                 </td>
                 <td valign="top">
                     <input type="submit" class="formsubmitbutton" value="Save Question and Continue">
-                    <br/><br/><a href="researchersurveydetail_02.jsp?surveyid=<%=researcherSurveyDetail02checkboxes.getSurvey().getSurveyid()%>"><font class="tinyfont">Nevermind, Take me Back</font></a>
+                    <br/><br/><a href="/researcher/researchersurveydetail_02.jsp?surveyid=<%=researcherSurveyDetail02checkboxes.getSurvey().getSurveyid()%>"><font class="tinyfont">Nevermind, Take me Back</font></a>
                 </td>
             </tr>
 

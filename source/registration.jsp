@@ -70,12 +70,12 @@ Registration registration = (Registration)Pagez.getBeanMgr().get("Registration")
                 <font class="mediumfont" style="color: #333333">Existing Users</font><br/>
                 <font class="smallfont">If you've already got a dNeero account you can simply log in.</font><br/>
                 <div class="rounded" style="padding: 15px; margin: 5px; background: #ffffff;">
-                    <%=GreenRoundedButton.get("<a href=\"login.jsp\"><font class=\"subnavfont\" style=\"color: #ffffff; font-weight: bold;\">Log In</font></a>")%>
+                    <%=GreenRoundedButton.get("<a href=\"/login.jsp\"><font class=\"subnavfont\" style=\"color: #ffffff; font-weight: bold;\">Log In</font></a>")%>
                 </div>
             </div>
         </div>
-        <form action="registration.jsp" method="post">
-            <input type="hidden" name="dpage" value="registration.jsp">
+        <form action="/registration.jsp" method="post">
+            <input type="hidden" name="dpage" value="/registration.jsp">
             <input type="hidden" name="action" value="register">
             <div class="rounded" style="padding: 15px; margin: 5px; background: #ffffff;">
                 <font class="mediumfont" style="color: #333333">Get started creating and/or taking surveys</font>

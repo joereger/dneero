@@ -26,8 +26,8 @@ ResearcherPanelsEdit researcherPanelsEdit = (ResearcherPanelsEdit)Pagez.getBeanM
 %>
 <%@ include file="/template/header.jsp" %>
 
-    <form action="panels-edit.jsp" method="post">
-        <input type="hidden" name="dpage" value="\researcher\panels-edit.jsp">
+    <form action="/researcher/panels-edit.jsp" method="post">
+        <input type="hidden" name="dpage" value="/researcher/panels-edit.jsp">
         <input type="hidden" name="action" value="edit">
         <input type="hidden" name="panelid" value="<%=researcherPanelsEdit.getPanel().getPanelid()%>">
 

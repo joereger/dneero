@@ -12,7 +12,7 @@ String acl = "public";
             Email activation was successful!  Your account is ready to roll!  You can now log in with the email address and password that you provided when you signed up.
             <br/><br/>
             <%if (!Pagez.getUserSession().getIsloggedin()){%>
-                <a href="login.jsp">Please Log In Now</a>
+                <a href="/login.jsp">Please Log In Now</a>
             <%}%>
 
 

@@ -49,9 +49,9 @@ String acl = "researcher";
                 cols.add(new GridCol("Panel Name", "<$panel.name$>", false, "", "normalfont"));
                 cols.add(new GridCol("Create Date", "<$panel.createdate|"+Grid.GRIDCOLRENDERER_DATETIMECOMPACT+"$>", true, "", "smallfont"));
                 cols.add(new GridCol("Members", "<$numberofmembers$>", true, "", "smallfont"));
-                cols.add(new GridCol("", "<a href=\"panels-listbloggersinpanel.jsp?panelid=<$panel.panelid$>\">View Members</a>", true, "", "smallfont"));
-                cols.add(new GridCol("", "<a href=\"panels-edit.jsp?panelid=<$panel.panelid$>\">Edit</a>", true, "", "smallfont"));
-                cols.add(new GridCol("", "<a href=\"panels.jsp?panelid=<$panel.panelid$>&action=delete\">Delete</a>", true, "", "smallfont"));
+                cols.add(new GridCol("", "<a href=\"/researcher/panels-listbloggersinpanel.jsp?panelid=<$panel.panelid$>\">View Members</a>", true, "", "smallfont"));
+                cols.add(new GridCol("", "<a href=\"/researcher/panels-edit.jsp?panelid=<$panel.panelid$>\">Edit</a>", true, "", "smallfont"));
+                cols.add(new GridCol("", "<a href=\"/researcher/panels.jsp?panelid=<$panel.panelid$>&action=delete\">Delete</a>", true, "", "smallfont"));
             %>
             <%=Grid.render(researcherPanels.getListitems(), cols, 50, "panels.jsp", "page")%>
         <%}%>
@@ -62,8 +62,8 @@ String acl = "researcher";
 
 
         <br/><br/>
-        <form action="panels.jsp" method="post">
-            <input type="hidden" name="dpage" value="\researcher\panels.jsp">
+        <form action="/researcher/panels.jsp" method="post">
+            <input type="hidden" name="dpage" value="/researcher/panels.jsp">
             <input type="hidden" name="action" value="newpanel">
             <%=com.dneero.htmlui.Textbox.getHtml("newpanelname", researcherPanels.getNewpanelname(), 255, 35, "", "")%>
             <input type="submit" class="formsubmitbutton" value="Create a New Panel">

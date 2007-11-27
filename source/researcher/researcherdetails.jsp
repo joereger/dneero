@@ -44,8 +44,8 @@ String acl = "account";
     <%}%>
 
 
-    <form action="researcherdetails.jsp" method="post">
-        <input type="hidden" name="dpage" value="\researcher\researcherdetails.jsp">
+    <form action="/researcher/researcherdetails.jsp" method="post">
+        <input type="hidden" name="dpage" value="/researcher/researcherdetails.jsp">
         <input type="hidden" name="action" value="save">
 
 

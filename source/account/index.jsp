@@ -49,7 +49,7 @@ AccountBalance accountBalance = (AccountBalance) Pagez.getBeanMgr().get("Account
                         </div>
                         <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
                             <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-                                <a href="accountsettings.jsp"><font class="mediumfont" style="color: #596697;">Account Settings</font></a>
+                                <a href="/account/accountsettings.jsp"><font class="mediumfont" style="color: #596697;">Account Settings</font></a>
                             </td></tr>
                             <tr><td valign="top"></td><td valign="top">
                                 <font class="smallfont">Change the name and/or email on your account.</font>
@@ -57,7 +57,7 @@ AccountBalance accountBalance = (AccountBalance) Pagez.getBeanMgr().get("Account
 
                             <br/><br/>
                             <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-                                <a href="changepassword.jsp"><font class="mediumfont" style="color: #596697;">Change Your Password</font></a>
+                                <a href="/account/changepassword.jsp"><font class="mediumfont" style="color: #596697;">Change Your Password</font></a>
                             </td></tr>
                             <tr><td valign="top"></td><td valign="top">
                                 <font class="smallfont">Change the password that you use to log in to your account.</font>
@@ -65,7 +65,7 @@ AccountBalance accountBalance = (AccountBalance) Pagez.getBeanMgr().get("Account
 
                             <br/><br/>
                             <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-                                <a href="accountsupportissueslist.jsp"><font class="mediumfont" style="color: #596697;">Help/Support</font></a>
+                                <a href="/account/accountsupportissueslist.jsp"><font class="mediumfont" style="color: #596697;">Help/Support</font></a>
                             </td></tr>
                             <tr><td valign="top"></td><td valign="top">
                                 <font class="smallfont">Use the built-in issue and question tracking system to get help with your account.  Ask us anything and view our responses quickly and easily.</font>
@@ -85,7 +85,7 @@ AccountBalance accountBalance = (AccountBalance) Pagez.getBeanMgr().get("Account
                         <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
                             <font class="mediumfont">You must enter a PayPal address to get paid.</font>
                             <br/>
-                            <font class="smallfont">Before we can pay you we must have a valid PayPal address.  Enter one: <img src="/images/clear.gif" width="2" height="1"/><a href="accountsettings.jsp">here</a>.</font>
+                            <font class="smallfont">Before we can pay you we must have a valid PayPal address.  Enter one: <img src="/images/clear.gif" width="2" height="1"/><a href="/account/accountsettings.jsp">here</a>.</font>
                         </div>
                    <%}%>
                 </td>
@@ -104,7 +104,7 @@ AccountBalance accountBalance = (AccountBalance) Pagez.getBeanMgr().get("Account
                                 </div>
                             </td>
                             <td width="50%" align="left" valign="top">
-                                <center><a href="/blogger/index.jsp"><img src="/images/statistic-128.png" alt="" border="0" width="128" height="128"/></a></center>
+                                <center><a href="/researcher/index.jsp"><img src="/images/statistic-128.png" alt="" border="0" width="128" height="128"/></a></center>
                                 <div><%=com.dneero.htmlui.GreenRoundedButton.get("<a href=\"/researcher/index.jsp\"><font class=\"mediumfont\" style=\"color: #ffffff;\">Researchers</font></a>")%></div>
                                 <div style="padding: 10px;">
                                     <font class="smallfont"><b>Create and Manage Surveys</b></font>

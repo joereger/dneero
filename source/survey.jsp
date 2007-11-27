@@ -112,8 +112,8 @@ PublicSurvey publicSurvey = (PublicSurvey)Pagez.getBeanMgr().get("PublicSurvey")
                             </div>
                             <br/>
                         <%}%>
-                        <form action="survey.jsp" method="post">
-                            <input type="hidden" name="dpage" value="survey.jsp">
+                        <form action="/survey.jsp" method="post">
+                            <input type="hidden" name="dpage" value="/survey.jsp">
                             <input type="hidden" name="action" value="takesurvey">
                             <input type="hidden" name="surveyid" value="<%=publicSurvey.getSurvey().getSurveyid()%>">
 
@@ -181,7 +181,7 @@ PublicSurvey publicSurvey = (PublicSurvey)Pagez.getBeanMgr().get("PublicSurvey")
                     <% if (publicSurvey.getSurvey().getStatus()!=Survey.STATUS_OPEN && !publicSurvey.getLoggedinuserhasalreadytakensurvey()){ %>
                         <font class="mediumfont">This survey is no longer open for respondents.  However, we still have many other surveys that allow you to make money!  Click the Results tab to see how people answered!</font>
                         <br/><br/>
-                        <a href="publicsurveylist.jsp"><font class="mediumfont">Find Another Survey</font></a>
+                        <a href="/publicsurveylist.jsp"><font class="mediumfont">Find Another Survey</font></a>
                     <% } %>
                     <br/><br/><br/><br/>
                     <font class="smallfont"><%=publicSurvey.getSocialbookmarklinks()%></font>
@@ -201,7 +201,7 @@ PublicSurvey publicSurvey = (PublicSurvey)Pagez.getBeanMgr().get("PublicSurvey")
                                 for (Iterator<PublicSurveyFacebookFriendListitem> iterator=publicSurvey.getFacebookuserswhotooksurvey().iterator(); iterator.hasNext();){
                                     PublicSurveyFacebookFriendListitem publicSurveyFacebookFriendListitem= iterator.next();
                                     %>
-                                    <a href="survey.jsp?surveyid=<%=publicSurvey.getSurvey().getSurveyid()%>&userid=<%=publicSurveyFacebookFriendListitem.getUserid()%>&responseid=<%=publicSurveyFacebookFriendListitem.getResponseid()%>"><font class="tinyfont" style="color: #0000ff;"><%=publicSurveyFacebookFriendListitem.getFacebookUser().getFirst_name()%> <%=publicSurveyFacebookFriendListitem.getFacebookUser().getLast_name()%></font></a><br/>
+                                    <a href="/survey.jsp?surveyid=<%=publicSurvey.getSurvey().getSurveyid()%>&userid=<%=publicSurveyFacebookFriendListitem.getUserid()%>&responseid=<%=publicSurveyFacebookFriendListitem.getResponseid()%>"><font class="tinyfont" style="color: #0000ff;"><%=publicSurveyFacebookFriendListitem.getFacebookUser().getFirst_name()%> <%=publicSurveyFacebookFriendListitem.getFacebookUser().getLast_name()%></font></a><br/>
                                     <%
                                 }
                             %>
@@ -209,7 +209,7 @@ PublicSurvey publicSurvey = (PublicSurvey)Pagez.getBeanMgr().get("PublicSurvey")
                         <%}%>
                         <% if (publicSurvey.getLoggedinuserhasalreadytakensurvey()){ %>
                             <font class="mediumfont" style="color: #cccccc;">You've Taken This Survey:</font><br/>
-                            <a href="survey.jsp??surveyid=<%=publicSurvey.getSurvey().getSurveyid()%>&userid=<%=Pagez.getUserSession().getUser().getUserid()%>"><font class="tinyfont" style="color: #0000ff;">Your Answers</font></a><br/><br/>
+                            <a href="/survey.jsp?surveyid=<%=publicSurvey.getSurvey().getSurveyid()%>&userid=<%=Pagez.getUserSession().getUser().getUserid()%>"><font class="tinyfont" style="color: #0000ff;">Your Answers</font></a><br/><br/>
                             <br/><br/>
                         <%}%>
                         <font class="mediumfont" style="color: #cccccc;">Tell Friends Who Haven't Taken It:</font><br/>
@@ -303,7 +303,7 @@ PublicSurvey publicSurvey = (PublicSurvey)Pagez.getBeanMgr().get("PublicSurvey")
                             This is the real deal.  A simple model that respects your privacy and allows you to control what you blog about and when.  We pay for activity you choose to engage in.
 
                             <br/><br/><b>If you don't like this survey</b><br/>
-                            We have plenty more <a href="publicsurveylist.jsp">surveys</a> for you to choose from.  And all of them pay!
+                            We have plenty more <a href="/publicsurveylist.jsp">surveys</a> for you to choose from.  And all of them pay!
 
                             <br/><br/>
                             <div class="rounded" style="background: #ffffff; padding: 5px; margin: 5px; text-align: left;">

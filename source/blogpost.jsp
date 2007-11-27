@@ -59,8 +59,8 @@ PublicBlogPost publicBlogPost = (PublicBlogPost) Pagez.getBeanMgr().get("PublicB
         <%=Grid.render(Util.setToArrayList(publicBlogPost.getBlogpost().getBlogpostcomments()), cols, 100, "blogpost.jsp?blogpostid" + publicBlogPost.getBlogpost().getBlogpostid(), "page")%>
     <%}%>
 
-    <form action="blogpost.jsp" method="post">
-        <input type="hidden" name="dpage" value="blogpost.jsp">
+    <form action="/blogpost.jsp" method="post">
+        <input type="hidden" name="dpage" value="/blogpost.jsp">
         <input type="hidden" name="action" value="addcomment">
         <input type="hidden" name="blogpostid" value="<%=publicBlogPost.getBlogpost().getBlogpostid()%>">
         <br/><br/>
