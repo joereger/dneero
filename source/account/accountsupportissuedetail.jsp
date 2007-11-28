@@ -44,8 +44,11 @@ AccountSupportIssueDetail accountSupportIssueDetail = (AccountSupportIssueDetail
             }
             body.append("<br/>");
             body.append("<font class=\"normalfont\">"+comm.getNotes()+"</font>");
+
             %>
-            <%=RoundedCornerBox.get(body.toString(), "supportissuecomm-"+comm.getSupportissueid(), "", "500", "", "", "e6e6e6", "", "", "")%>
+            <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
+                <%=body.toString()%>
+            </div>
             <%
         }
     %>

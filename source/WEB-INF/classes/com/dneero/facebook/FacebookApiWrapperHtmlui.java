@@ -253,9 +253,12 @@ public class FacebookApiWrapperHtmlui {
     }
 
     public TreeMap<Integer, FacebookSurveyThatsBeenTaken> getSurveysFriendsHaveTaken(){
+        return getSurveysFriendsHaveTaken(getFriends());
+    }
+
+    public TreeMap<Integer, FacebookSurveyThatsBeenTaken> getSurveysFriendsHaveTaken(ArrayList<FacebookUser> friends){
         Logger logger = Logger.getLogger(this.getClass().getName());
         TreeMap<Integer, FacebookSurveyThatsBeenTaken> out = new TreeMap<Integer, FacebookSurveyThatsBeenTaken>();
-        ArrayList<FacebookUser> friends = getFriends();
         if (friends !=null && friends.size()>0){
             //Create sql based on friends
             StringBuffer sqlWhere = new StringBuffer();

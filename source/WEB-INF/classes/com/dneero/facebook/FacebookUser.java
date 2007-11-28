@@ -10,6 +10,7 @@ import com.dneero.systemprops.SystemProperty;
 import com.dneero.systemprops.BaseUrl;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * User: Joe Reger Jr
@@ -54,6 +55,8 @@ public class FacebookUser implements Serializable {
             ex.printStackTrace();
             logger.error("",ex);
         }
+
+
     }
 
     private void populateFromUserDom(Element userDom){

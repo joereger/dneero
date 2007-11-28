@@ -44,7 +44,7 @@ String acl = "public";
 
     <img src="/images/clear.gif" width="700" height="1" class="survey_tabs_body_width"/><br/>
     <% if (!publicSurveyPostit.isLoggedinuserhasalreadytakensurvey()){ %>
-        <% if (Pagez.getUserSession().getIsfacebookui()){ %>
+        <% if (!Pagez.getUserSession().getIsfacebookui()){ %>
             <table width="100%" cellpadding="5">
                 <tr>
                     <td valign="top" width="450">

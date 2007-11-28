@@ -29,7 +29,7 @@ SysadminMassemailList sysadminMassemailList = (SysadminMassemailList)Pagez.getBe
             cols.add(new GridCol("Subject", "<a href=\"/sysadmin/massemaildetail.jsp?massemailid=<$massemailid$>\"><$subject$></a>", false, "", "tinyfont"));
             cols.add(new GridCol("Status", "<$status$>", false, "", "tinyfont"));
         %>
-        <%=Grid.render(sysadminMassemailList.getMassemails(), cols, 200, "massemaillist.jsp", "page")%>
+        <%=Grid.render(sysadminMassemailList.getMassemails(), cols, 200, "/sysadmin/massemaillist.jsp", "page")%>
     <%}%>
 
 

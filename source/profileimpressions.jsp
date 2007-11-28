@@ -29,7 +29,7 @@ PublicProfileImpressions publicProfileImpressions = (PublicProfileImpressions) P
             cols.add(new GridCol("Impressions", "<$impressionspaidandtobepaid$>", true, "", "normalfont"));
             cols.add(new GridCol("Quality Rating", "<$impressionquality$>", true, "", "normalfont"));
         %>
-        <%=Grid.render(publicProfileImpressions.getList(), cols, 100, "profileimpressions.jsp?responseid="+publicProfileImpressions.getResponse().getResponseid(), "page")%>
+        <%=Grid.render(publicProfileImpressions.getList(), cols, 100, "/profileimpressions.jsp?responseid="+publicProfileImpressions.getResponse().getResponseid(), "page")%>
     <%}%>
 
 

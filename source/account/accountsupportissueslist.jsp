@@ -38,7 +38,7 @@ AccountNewSupportIssue accountNewSupportIssue = (AccountNewSupportIssue) Pagez.g
             cols.add(new GridCol("Date", "<$datetime$>", true, "", "tinyfont", "", "background: #e6e6e6;"));
             cols.add(new GridCol("Subject", "<a href=\"/account/accountsupportissuedetail.jsp?supportissueid=<$supportissueid$>\"><$subject$></a>", false, "", "tinyfont"));
         %>
-        <%=Grid.render(((AccountSupportIssuesList) Pagez.getBeanMgr().get("AccountSupportIssuesList")).getSupportissues(), cols, 10, "accountsupportissueslist.jsp", "page")%>
+        <%=Grid.render(((AccountSupportIssuesList) Pagez.getBeanMgr().get("AccountSupportIssuesList")).getSupportissues(), cols, 10, "/account/accountsupportissueslist.jsp", "page")%>
     <%}%>
 
 

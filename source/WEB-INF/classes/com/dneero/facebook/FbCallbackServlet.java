@@ -6,10 +6,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.ServletException;
+import javax.servlet.RequestDispatcher;
 import java.io.IOException;
+import java.io.File;
 import java.net.URLDecoder;
 
 import com.dneero.systemprops.BaseUrl;
+import com.dneero.systemprops.WebAppRootDir;
 import com.dneero.survey.servlet.SurveyLinkServlet;
 import com.dneero.survey.servlet.RecordImpression;
 import com.dneero.htmlui.Pagez;
@@ -120,20 +123,6 @@ public class FbCallbackServlet extends HttpServlet {
             }
         }
 
-
-        if (Pagez.getRequest().getParameter("dpage")!=null && !Pagez.getRequest().getParameter("dpage").equals("")){
-            String dpage = Pagez.getRequest().getParameter("dpage");
-            String dpagedecoded = URLDecoder.decode(dpage, "UTF-8");
-            logger.debug("dpagedecoded="+dpagedecoded);
-            String[] split = dpagedecoded.split("\\?");
-            String splitZero = split[0];
-            logger.debug("splitZero="+splitZero);
-            request.getRequestDispatcher(splitZero).forward(request, response);
-            return;    
-        }
-
-
-
         //Post add page
         if (Pagez.getRequest().getParameter("addedapp")!=null && Pagez.getRequest().getParameter("addedapp").equals("1")){
             //Notify admins
@@ -151,6 +140,45 @@ public class FbCallbackServlet extends HttpServlet {
             //urltoredirectto = appendFacebookStuff("/publicsurveylist.jsp?addedapp=1");
             //try{Pagez.sendRedirect(urltoredirectto);return;}catch(Exception ex){logger.error("",ex);}
             //return;
+        }
+
+        //If we have a dpage value, forward the request
+        if (Pagez.getRequest().getParameter("dpage")!=null && !Pagez.getRequest().getParameter("dpage").equals("")){
+            String dpage = Pagez.getRequest().getParameter("dpage");
+            String dpagedecoded = URLDecoder.decode(dpage, "UTF-8");
+            logger.debug("dpagedecoded="+dpagedecoded);
+            String[] split = dpagedecoded.split("\\?");
+            String splitZero = split[0];
+            logger.debug("splitZero="+splitZero);
+            //Test to see if file exists
+            boolean fileexists = false;
+            if (splitZero.length()>0 && splitZero.substring(0,1).equals("/")){
+                //Treat search as relative
+                File testFile = new File(WebAppRootDir.getWebAppRootPath()+splitZero);
+                logger.debug("looking for "+testFile.getAbsolutePath());
+                if (testFile.exists()){
+                    fileexists = true;
+                }
+            } else {
+                //Treat search as absolute
+                File testFile = new File(splitZero);
+                logger.debug("looking for "+testFile.getAbsolutePath());
+                if (testFile.exists()){
+                    fileexists = true;
+                }
+            }
+            logger.debug("fileexists="+fileexists);
+            if (fileexists){
+                RequestDispatcher srd = request.getRequestDispatcher(splitZero);
+                if (srd!=null){
+                    srd.forward(request, response);
+                    return;
+                } else {
+                    logger.error("Have dpage="+dpage+" but RequestDispatcher is null.");
+                }
+            } else {
+                logger.error("Have dpage="+dpage+" but file can't be found.");
+            }
         }
 
         //Redirect to the public survey list

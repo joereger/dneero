@@ -49,7 +49,7 @@ public class Encode4FacebookResponseStream extends ServletOutputStream {
     public void close() throws IOException {
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("close() called");
-        logger.debug("Pagez.getUserSession().getIsfacebookui()="+Pagez.getUserSession().getIsfacebookui());
+        
         // make up a nonce
         String nonce = Integer.toString((int)(Math.random()*Integer.MAX_VALUE));
         // set the nonce in app scope
@@ -64,10 +64,11 @@ public class Encode4FacebookResponseStream extends ServletOutputStream {
 
         // use regex to find the links
         //Pattern p = Pattern.compile(" href=\"[^\"]*|action=\"[^\"]*");
-        Pattern p = Pattern.compile(" href=\"[^\"]*|src=\"[^\"]*|action=\"[^\"]*");
-        //Pattern p = Pattern.compile(" href=\"[^\"]*|src=\"[^\"]*");
-        //Pattern p = Pattern.compile(" href=\"[^\"]*");
+        //Pattern p = Pattern.compile(" href=\"[^\"]*|src=\"[^\"]*|action=\"[^\"]*");
+        Pattern p = Pattern.compile(" href=\"[^\"]*|src=\"[^\"]*|action=\"[^\"]*|background:url\\(\"[^\"]*");
         Matcher m = p.matcher(pageText);
+
+
 
         String newText = "";
         int offset = 0;
@@ -84,13 +85,18 @@ public class Encode4FacebookResponseStream extends ServletOutputStream {
 
             // get the URL, between the quotes
             String[] split = match.split("\"");
-            String url = split[1];
+            String url = "";
+            if (split.length>=2){
+                url = split[1];
+            } else {
+                logger.error("split.length<2 match="+match);    
+            }
             //logger.debug("url="+url);
 
             //I need to separate the script name from the querystring
             String[] splitUrl = url.split("\\?");
             String scriptname = splitUrl[0];
-            logger.debug("scriptname="+scriptname);
+            //logger.debug("scriptname="+scriptname);
 
             //Querystring
             String queryString = "";
@@ -98,28 +104,23 @@ public class Encode4FacebookResponseStream extends ServletOutputStream {
                 queryString = "&" + splitUrl[1];
             }
 
-            //Convert relative to absolute
-            if (scriptname.length()>0 && !scriptname.substring(0,1).equals("/")){
-                String path = request.getServletPath();
-                logger.debug("path="+path);
-                String justpath = path.substring(0, path.lastIndexOf("/"));
-                logger.debug("justpath="+justpath);
-            }
-
             //Encode the finalized link
             String encoded = url;
             if (url.indexOf("http:")<=-1){
                 if (split[0].indexOf("href")>-1){
-                    logger.debug("treating as href");
+                    //logger.debug("treating as href");
                     encoded = "/"+ SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_APP_NAME) + "/?dpage="+ URLEncoder.encode(scriptname, "UTF-8")+queryString;
                 } else if (split[0].indexOf("src")>-1) {
-                    logger.debug("treating as src");
-                    encoded = BaseUrl.get(false)+url;
+                    //logger.debug("treating as src");
+                    encoded = BaseUrl.get(false)+url.substring(1, url.length());
+                } else if (split[0].indexOf("background:url(")>-1) {
+                    //logger.debug("treating as background:url(");
+                    encoded = BaseUrl.get(false)+url.substring(1, url.length());
                 } else if (split[0].indexOf("action")>-1) {
-                    logger.debug("treating as action");
+                    //logger.debug("treating as action");
                     encoded = "";
                 } else {
-                    logger.debug("no idea what to treat this as");
+                    //logger.debug("no idea what to treat this as");
                 }
             }
 

@@ -29,7 +29,7 @@ String acl = "sysadmin";
             cols.add(new GridCol("Spotlight?", "<$isspotlight$>", false, "", "tinyfont"));
             cols.add(new GridCol("Status", "<$status$>", false, "", "tinyfont"));
         %>
-        <%=Grid.render(sysadminSurveyList.getSurveys(), cols, 200, "sysadminsurveylist.jsp", "page")%>
+        <%=Grid.render(sysadminSurveyList.getSurveys(), cols, 200, "/sysadmin/sysadminsurveylist.jsp", "page")%>
     <%}%>
 
 

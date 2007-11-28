@@ -56,7 +56,7 @@ PublicBlogPost publicBlogPost = (PublicBlogPost) Pagez.getBeanMgr().get("PublicB
             ArrayList<GridCol> cols=new ArrayList<GridCol>();
             cols.add(new GridCol("", comment.toString(), false, "", ""));
         %>
-        <%=Grid.render(Util.setToArrayList(publicBlogPost.getBlogpost().getBlogpostcomments()), cols, 100, "blogpost.jsp?blogpostid" + publicBlogPost.getBlogpost().getBlogpostid(), "page")%>
+        <%=Grid.render(Util.setToArrayList(publicBlogPost.getBlogpost().getBlogpostcomments()), cols, 100, "/blogpost.jsp?blogpostid" + publicBlogPost.getBlogpost().getBlogpostid(), "page")%>
     <%}%>
 
     <form action="/blogpost.jsp" method="post">

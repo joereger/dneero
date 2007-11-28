@@ -143,7 +143,7 @@ String acl = "public";
     <font class="mediumfont" color="#333333">And how is this not a pyramid scheme?</font>
     <br/>
     <font class="smallfont">
-    According to <a href='http://en.wikipedia.org/wiki/Pyramid_scheme'>Wikipedia</a> a pyramid scheme "is a non-sustainable business model that involves the exchange of money primarily for enrolling other people into the scheme, usually without any product or service being delivered."  Wikipedia then continues: "There are other commercial models using cross-selling such as multi-level marketing (MLM) or party planning which are perfectly legal and sustainable." (Quotes as of Oct 31, 2006)
+    According to <a href="http://en.wikipedia.org/wiki/Pyramid_scheme">Wikipedia</a> a pyramid scheme "is a non-sustainable business model that involves the exchange of money primarily for enrolling other people into the scheme, usually without any product or service being delivered."  Wikipedia then continues: "There are other commercial models using cross-selling such as multi-level marketing (MLM) or party planning which are perfectly legal and sustainable." (Quotes as of Oct 31, 2006)
     <br/><br/>
     dNeero does not charge you to take part in the program.  Pyramid schemes often include a hefty up-front charge with the promise of exponential growth from downstream users.
     <br/><br/>

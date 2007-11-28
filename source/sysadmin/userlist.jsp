@@ -91,7 +91,7 @@ SysadminUserList sysadminUserList = (SysadminUserList)Pagez.getBeanMgr().get("Sy
                 cols.add(new GridCol("Name", "<$firstname$> <$lastname$>", false, "", "tinyfont"));
                 cols.add(new GridCol("Signup Date", "<$createdate|"+Grid.GRIDCOLRENDERER_DATETIMECOMPACT+"$>", false, "", "tinyfont"));
             %>
-            <%=Grid.render(sysadminUserList.getUsers(), cols, 200, "userlist.jsp", "page")%>
+            <%=Grid.render(sysadminUserList.getUsers(), cols, 200, "/sysadmin/userlist.jsp", "page")%>
         <%}%>
 
 

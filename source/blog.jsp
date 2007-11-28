@@ -38,7 +38,7 @@ PublicBlog publicBlog = (PublicBlog)Pagez.getBeanMgr().get("PublicBlog");
         ArrayList<GridCol> cols=new ArrayList<GridCol>();
         cols.add(new GridCol("", post.toString(), false, "", ""));
         %>
-        <%=Grid.render(publicBlog.getBlogposts(), cols, 100, "blog.jsp", "page")%>
+        <%=Grid.render(publicBlog.getBlogposts(), cols, 100, "/blog.jsp", "page")%>
     <%}%>
     <br/><br/> 
 

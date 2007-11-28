@@ -25,7 +25,7 @@ PublicOldSurveyList publicOldSurveyList = (PublicOldSurveyList) Pagez.getBeanMgr
             cols.add(new GridCol("Respondents Earned Up To", "<$maxearning$>", true, "", "smallfont"));
             cols.add(new GridCol("Number of Respondents", "<$numberofrespondents$>", true, "", "smallfont"));
         %>
-        <%=Grid.render(publicOldSurveyList.getSurveys(), cols, 50, "publicoldsurveylist.jsp", "page")%>
+        <%=Grid.render(publicOldSurveyList.getSurveys(), cols, 50, "/publicoldsurveylist.jsp", "page")%>
     <%}%>
 
 <%@ include file="/template/footer.jsp" %>

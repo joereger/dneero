@@ -47,7 +47,7 @@ String acl = "researcher";
             cols.add(new GridCol("Impressions Qualifying", "<$impressionspaidandtobepaid$>", false, "", "tinyfont"));
             cols.add(new GridCol("Quality Rating", "<$impressionquality$>", false, "", "tinyfont"));
         %>
-        <%=Grid.render(researcherResultsImpressions.getResearcherResultsImpressionsListitems(), cols, 50, "results_impressions.jsp?surveyid="+researcherResultsImpressions.getSurvey().getSurveyid(), "page")%>
+        <%=Grid.render(researcherResultsImpressions.getResearcherResultsImpressionsListitems(), cols, 50, "/researcher/results_impressions.jsp?surveyid="+researcherResultsImpressions.getSurvey().getSurveyid(), "page")%>
     <%}%>
 
 

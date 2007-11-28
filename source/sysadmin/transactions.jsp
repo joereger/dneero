@@ -32,7 +32,7 @@ String acl = "sysadmin";
             cols.add(new GridCol("Notes", "<$notes$>", false, "", "tinyfont"));
             cols.add(new GridCol("Amount", "<$amt$>", false, "", "tinyfont"));
         %>
-        <%=Grid.render(sysadminTransactions.getTransactions(), cols, 200, "transactions.jsp", "page")%>
+        <%=Grid.render(sysadminTransactions.getTransactions(), cols, 200, "/sysadmin/transactions.jsp", "page")%>
     <%}%>
 
 

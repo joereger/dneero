@@ -316,7 +316,7 @@ SysadminUserDetail sysadminUserDetail = (SysadminUserDetail)Pagez.getBeanMgr().g
                     cols.add(new GridCol("Amount", "<$amt$>", true, "", "tinyfont"));
                     cols.add(new GridCol("Balance", "<$currentbalance$>", true, "", "tinyfont"));
                 %>
-                <%=Grid.render(sysadminUserDetail.getBalances(), cols, 50, "userdetail.jsp?userid="+sysadminUserDetail.getUser().getUserid(), "pagetransactions")%>
+                <%=Grid.render(sysadminUserDetail.getBalances(), cols, 50, "/sysadmin/userdetail.jsp?userid="+sysadminUserDetail.getUser().getUserid(), "pagetransactions")%>
             <%}%>
         </div>
 
@@ -336,7 +336,7 @@ SysadminUserDetail sysadminUserDetail = (SysadminUserDetail)Pagez.getBeanMgr().g
                     cols.add(new GridCol("Notes", "<$notes$>", false, "", "tinyfont"));
                     cols.add(new GridCol("Amount", "<$amt$>", false, "", "tinyfont"));
                 %>
-                <%=Grid.render(sysadminUserDetail.getTransactions(), cols, 50, "userdetail.jsp?userid="+sysadminUserDetail.getUser().getUserid(), "pagetransactions")%>
+                <%=Grid.render(sysadminUserDetail.getTransactions(), cols, 50, "/sysadmin/userdetail.jsp?userid="+sysadminUserDetail.getUser().getUserid(), "pagetransactions")%>
             <%}%>
         </div>
 

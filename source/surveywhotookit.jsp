@@ -86,7 +86,7 @@ PublicSurveyWhotookit publicSurveyWhotookit = (PublicSurveyWhotookit)Pagez.getBe
                     cols.add(new GridCol("Person", "<a href=\"/profile.jsp?userid=<$user.userid$>\"><font class=\"normalfont\" style=\"font-weight: bold;\"><$user.firstname$> <$user.lastname$></font></a>", false, "", ""));
                     cols.add(new GridCol("", "<a href=\"/survey.jsp?u=<$user.userid$>&p=0&r=<$response.responseid$>\"><font class=\"tinyfont\" style=\"font-weight: bold;\">Answers</font></a>", true, "", ""));
                 %>
-                <%=Grid.render(publicSurveyWhotookit.getRespondents(), cols, 500, "surveywhotookit.jsp?surveyid="+publicSurveyWhotookit.getSurvey().getSurveyid(), "pagewhotookit")%>
+                <%=Grid.render(publicSurveyWhotookit.getRespondents(), cols, 500, "/surveywhotookit.jsp?surveyid="+publicSurveyWhotookit.getSurvey().getSurveyid(), "pagewhotookit")%>
             <%}%>
     </div>
     <div class="panel" id="panel1" style="display: none">
@@ -99,7 +99,7 @@ PublicSurveyWhotookit publicSurveyWhotookit = (PublicSurveyWhotookit)Pagez.getBe
                     cols.add(new GridCol("Web Address", "<a href=\"<$referer$>\"><font class=\"smallfont\" style=\"font-weight: bold;\">See It!</font></a>", true, "", "tinyfont"));
                     cols.add(new GridCol("Impressions", "<$impressionstotal$>", true, "", "smallfont", "", "font-weight: bold;"));
                 %>
-                <%=Grid.render(publicSurveyWhotookit.getImpressions(), cols, 100, "surveywhotookit.jsp?surveyid="+publicSurveyWhotookit.getSurvey().getSurveyid(), "pageimpressions")%>
+                <%=Grid.render(publicSurveyWhotookit.getImpressions(), cols, 100, "/surveywhotookit.jsp?surveyid="+publicSurveyWhotookit.getSurvey().getSurveyid(), "pageimpressions")%>
             <%}%>
     </div>
 

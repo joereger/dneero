@@ -64,10 +64,10 @@ if (request.getParameter("action")!=null && request.getParameter("action").equal
 }
 %>
 
-<a href='hibernate-staticmemory-clustering.jsp'>Refresh</a><br/><br/>
-<a href='hibernate-staticmemory-clustering.jsp?action=loadtomemory'>Load to Memory</a><br/>
-<a href='hibernate-staticmemory-clustering.jsp?action=editlocalinstances'>Edit Local Instance (not objs in memory)</a><br/>
-<a href='hibernate-staticmemory-clustering.jsp?action=saveallinmemory'>Call save() on all in Memory</a><br/>
+<a href="hibernate-staticmemory-clustering.jsp">Refresh</a><br/><br/>
+<a href="hibernate-staticmemory-clustering.jsp?action=loadtomemory">Load to Memory</a><br/>
+<a href="hibernate-staticmemory-clustering.jsp?action=editlocalinstances">Edit Local Instance (not objs in memory)</a><br/>
+<a href="hibernate-staticmemory-clustering.jsp?action=saveallinmemory">Call save() on all in Memory</a><br/>
 
 <%
     out.print("<br/><br/>");

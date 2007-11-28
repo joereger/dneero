@@ -81,7 +81,7 @@ String acl = "public";
                 cols.add(new GridCol("", "<a href=\"/survey.jsp?u="+publicProfile.getUser().getUserid()+"\">Answers</a>", false, "", "smallfont"));
                 cols.add(new GridCol("", "<a href=\"/profileimpressions.jsp?responseid=<$response.responseid$>\">Impressions</a>", false, "", "smallfont"));
             %>
-            <%=Grid.render(publicProfile.getListitems(), cols, 10, "profile.jsp?userid="+publicProfile.getUser().getUserid(), "pagesurveys")%>
+            <%=Grid.render(publicProfile.getListitems(), cols, 10, "/profile.jsp?userid="+publicProfile.getUser().getUserid(), "pagesurveys")%>
         <%}%>
 
 
@@ -97,7 +97,7 @@ String acl = "public";
                     ArrayList<GridCol> cols=new ArrayList<GridCol>();
                     cols.add(new GridCol("Panel Name", "<$name$>", true, "", "smallfont"));
                %>
-                <%=Grid.render(publicProfile.getPanels(), cols, 10, "profile.jsp?userid="+publicProfile.getUser().getUserid(), "pagepanels")%>
+                <%=Grid.render(publicProfile.getPanels(), cols, 10, "/profile.jsp?userid="+publicProfile.getUser().getUserid(), "pagepanels")%>
             <%}%>
 
 

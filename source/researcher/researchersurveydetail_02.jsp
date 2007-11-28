@@ -133,7 +133,7 @@ String acl="researcher";
                         cols.add(new GridCol("", "<a href=\"/researcher/researchersurveydetail_02.jsp?action=deletequestion&questionid=<$questionid$>&surveyid="+researcherSurveyDetail02.getSurvey().getSurveyid()+"\">Del</a>", false, "", "smallfont"));
                     }
                 %>
-                <%=Grid.render(researcherSurveyQuestionList.getQuestions(), cols, 50, "researchersurveydetail_02.jsp", "page")%>
+                <%=Grid.render(researcherSurveyQuestionList.getQuestions(), cols, 50, "/researcher/researchersurveydetail_02.jsp", "page")%>
             <%}%>
 
 

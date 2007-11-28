@@ -38,6 +38,7 @@ public class UserSession implements Serializable {
     private int surveystakentoday = 0;
     private FacebookUser facebookUser = null;
     private String facebookSessionKey = "";
+    private ArrayList<FacebookUser> facebookFriends = null;
     private boolean isfacebookui = false;
     private String message = "";
 
@@ -258,5 +259,13 @@ public class UserSession implements Serializable {
         if (message==null || message.equals("")){
             this.message = "";
         }
+    }
+
+    public ArrayList<FacebookUser> getFacebookFriends() {
+        return facebookFriends;
+    }
+
+    public void setFacebookFriends(ArrayList<FacebookUser> facebookFriends) {
+        this.facebookFriends=facebookFriends;
     }
 }

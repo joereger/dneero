@@ -212,7 +212,7 @@ if (Pagez.getUserSession().getIsloggedin() && (Pagez.getUserSession().getUser().
                             cols.add(new GridCol("", "<$copylink$>", false, "", "smallfont"));
                             cols.add(new GridCol("", "<$deletelink$>", false, "", "smallfont"));
                         %>
-                        <%=Grid.render(researcherSurveyList.getSurveys(), cols, 50, "index.jsp", "page")%>
+                        <%=Grid.render(researcherSurveyList.getSurveys(), cols, 50, "/researcher/index.jsp", "page")%>
                     <%}%>
 
                 </td>

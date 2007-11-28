@@ -49,7 +49,7 @@ PublicCharity publicCharity = (PublicCharity) Pagez.getBeanMgr().get("PublicChar
                                     cols.add(new GridCol("Name", "<a href=\"/profile.jsp?userid=<$user.userid$>\"><$user.firstname$> <$user.lastname$></a>", false, "", "smallfont"));
                                     cols.add(new GridCol("Donations", "<$amtForFcreen$>", false, "", "smallfont"));
                                 %>
-                                <%=Grid.render(publicCharity.getTopdonatingUsers(), cols, 100, "charity.jsp", "pagecharity")%>
+                                <%=Grid.render(publicCharity.getTopdonatingUsers(), cols, 100, "/charity.jsp", "pagecharity")%>
                             <%}%>
                             <br/>
                             <font class="tinyfont" style="color: #999999">(Updated Nightly)</font>
@@ -84,7 +84,7 @@ PublicCharity publicCharity = (PublicCharity) Pagez.getBeanMgr().get("PublicChar
                                 cols.add(new GridCol("Amount", "<$amtForScreen$>", false, "", "smallfont"));
                                 cols.add(new GridCol("Donated To", "<$charitydonation.charityname$>", false, "", "smallfont"));
                             %>
-                            <%=Grid.render(publicCharity.getPublicCharityListItemsMostRecent(), cols, 50, "charity.jsp", "pagedonations")%>
+                            <%=Grid.render(publicCharity.getPublicCharityListItemsMostRecent(), cols, 50, "/charity.jsp", "pagedonations")%>
                         <%}%>
                     </td>
                 </tr>

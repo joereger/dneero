@@ -44,7 +44,7 @@ SysadminSupportIssuesList sysadminSupportIssuesList = (SysadminSupportIssuesList
             cols.add(new GridCol("", "<a href=\"/sysadmin/sysadminsupportissuedetail.jsp?supportissueid=<$supportissueid$>\"><$subject$></a>", false, "", "tinyfont"));
             cols.add(new GridCol("Status", "<$status$>", false, "", "tinyfont"));
         %>
-        <%=Grid.render(sysadminSupportIssuesList.getSupportissues(), cols, 200, "sysadminsupportissueslist.jsp", "page")%>
+        <%=Grid.render(sysadminSupportIssuesList.getSupportissues(), cols, 200, "/sysadmin/sysadminsupportissueslist.jsp", "page")%>
     <%}%>
 
 

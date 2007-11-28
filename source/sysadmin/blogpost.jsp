@@ -127,7 +127,7 @@ SysadminBlogpost sysadminBlogpost = (SysadminBlogpost)Pagez.getBeanMgr().get("Sy
             cols.add(new GridCol("Title", "<a href=\"/sysadmin/blogpost.jsp?blogpostid=<$blogpostid$>\"><$title$></a>", true, "", "smallfont"));
             cols.add(new GridCol("Author", "<$author$>", true, "", "smallfont"));
         %>
-        <%=Grid.render(sysadminBlogpost.getBlogposts(), cols, 50, "blogpost.jsp", "page")%>
+        <%=Grid.render(sysadminBlogpost.getBlogposts(), cols, 50, "/sysadmin/blogpost.jsp", "page")%>
     <%}%>
 
 

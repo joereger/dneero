@@ -135,6 +135,9 @@ public class FacebookAuthorizationJsp {
                     } catch (Exception ex){
                         logger.error("",ex);
                     }
+                    //Get user's friends
+                    FacebookApiWrapperHtmlui faw = new FacebookApiWrapperHtmlui(Pagez.getUserSession());
+                    Pagez.getUserSession().setFacebookFriends(faw.getFriends());
                     //See if we have this facebook user as a dNeero user
                     User user = null;
                     if (Num.isinteger(Pagez.getUserSession().getFacebookUser().getUid())){

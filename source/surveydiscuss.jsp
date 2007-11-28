@@ -56,7 +56,11 @@ PublicSurveyDiscuss publicSurveyDiscuss = (PublicSurveyDiscuss)Pagez.getBeanMgr(
                 </font></div></center>
                 <% if (Pagez.getUserSession().getIsloggedin()){ %>
                     <br/><br/>
-                    <font class="mediumfont">You must be logged-in to take part in the discussion.</font>
+                    <% if (!Pagez.getUserSession().getIsfacebookui()){ %>
+                        <font class="mediumfont">You must be logged-in to take part in the discussion.</font>
+                    <% } else { %>
+                        <font class="mediumfont">You must take at least one survey before you can take part in the discussion.</font>
+                    <% } %>
                 <% } %>
             </td>
             <td valign="top" width="150">
@@ -82,7 +86,7 @@ PublicSurveyDiscuss publicSurveyDiscuss = (PublicSurveyDiscuss)Pagez.getBeanMgr(
             cols.add(new GridCol("", "<a href=\"/profile.jsp?userid=<$user.userid$>\"><$user.firstname$> <$user.lastname$></a>", false, "", "normalfont", "", "font-weight: bold;"));
             cols.add(new GridCol("", co.toString(), false, "", ""));
         %>
-        <%=Grid.render(publicSurveyDiscuss.getSurveydiscusses(), cols, 50, "surveydiscuss.jsp", "page")%>
+        <%=Grid.render(publicSurveyDiscuss.getSurveydiscusses(), cols, 50, "/surveydiscuss.jsp", "page")%>
     <%}%>
 
 

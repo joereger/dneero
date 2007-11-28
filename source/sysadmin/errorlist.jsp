@@ -98,7 +98,7 @@ SysadminErrorList sysadminErrorList=(SysadminErrorList) Pagez.getBeanMgr().get("
                 cols.add(new GridCol("Date", "<$date|"+Grid.GRIDCOLRENDERER_DATETIMECOMPACT+"$>", false, "", "tinyfont"));
                 cols.add(new GridCol("Error", "<$error$>", false, "", "smallfont"));
             %>
-            <%=Grid.render(sysadminErrorList.getErrors(), cols, 250, "errorlist.jsp", "page")%>
+            <%=Grid.render(sysadminErrorList.getErrors(), cols, 250, "/sysadmin/errorlist.jsp", "page")%>
         <%}%>
 
 

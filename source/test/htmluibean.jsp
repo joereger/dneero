@@ -97,7 +97,7 @@ Test test = (Test) Pagez.getBeanMgr().get("Test");
     cols.add(new GridCol("Date", "<$testGridSubobject.cal$>"));
     cols.add(new GridCol("Money", "<a href=\"htmluibean.jsp?id=<$id$>\"><$money|"+Grid.GRIDCOLRENDERER_DOUBLEASMONEY+"$></a>"));
 %>
-<%=Grid.render(rows, cols, 5, "htmluibean.jsp", "page")%>
+<%=Grid.render(rows, cols, 5, "/test/htmluibean.jsp", "page")%>
 
 
 <%@ include file="/template/footer.jsp" %>

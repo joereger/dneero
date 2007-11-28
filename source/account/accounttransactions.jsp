@@ -28,7 +28,7 @@ AccountBalancetransaction accountBalancetransaction = (AccountBalancetransaction
                 cols.add(new GridCol("Notes", "<$notes$>", false, "", "tinyfont"));
                 cols.add(new GridCol("Amount", "<$amt$>", true, "", "tinyfont"));
             %>
-            <%=Grid.render(accountBalancetransaction.getBalances(), cols, 50, "accounttransactions.jsp", "page")%>
+            <%=Grid.render(accountBalancetransaction.getBalances(), cols, 50, "/account/accounttransactions.jsp", "page")%>
         <%}%>
 
 

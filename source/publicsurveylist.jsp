@@ -70,7 +70,7 @@ PublicSurveyList publicSurveyList = (PublicSurveyList)Pagez.getBeanMgr().get("Pu
                         ArrayList<GridCol> cols=new ArrayList<GridCol>();
                         cols.add(new GridCol("", srv.toString(), false, "", "", "background: #ffffff;", ""));
                     %>
-                    <%=Grid.render(publicSurveyList.getSurveys(), cols, 100, "publicsurveylist.jsp", "pagesurveys")%>
+                    <%=Grid.render(publicSurveyList.getSurveys(), cols, 100, "/publicsurveylist.jsp", "pagesurveys")%>
                 <%}%>
                 
             </td>
@@ -94,7 +94,7 @@ PublicSurveyList publicSurveyList = (PublicSurveyList)Pagez.getBeanMgr().get("Pu
 
 
 
-
+                        
                         <font class="mediumfont">Surveys Friends Have Taken:</font><br/>
                         <% if (publicSurveyList.getFacebookSurveyThatsBeenTakens()==null || publicSurveyList.getFacebookSurveyThatsBeenTakens().size()==0){ %>
                             <font class="tinyfont">Your friends haven't taken any surveys yet.</font>
@@ -142,6 +142,8 @@ PublicSurveyList publicSurveyList = (PublicSurveyList)Pagez.getBeanMgr().get("Pu
                                 </tr>
                             </table>
                         <%}%>
+
+
                         <br/>
                         <center><a href="<%=publicSurveyList.getInvitefriendsurl()%>" target="top"><font class="normalfont" style="font-weight: bold; color: #0000ff;">Invite Friends Who Aren't On dNeero</font></a></center>
                         <br/><br/>

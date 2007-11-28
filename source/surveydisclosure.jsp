@@ -46,7 +46,7 @@ PublicSurveyDisclosure publicSurveyDisclosure = (PublicSurveyDisclosure)Pagez.ge
                 A link to this disclosure statement is required (and is automatically posted) with each dNeero survey to protect the integrity of the blogosphere and social networks.
                 </font>
             </td>
-            <% if (Pagez.getUserSession().getIsfacebookui()){ %>
+            <% if (!Pagez.getUserSession().getIsfacebookui()){ %>
                 <td valign="top" align="left">
                     <div class="rounded" style="background: #00ff00;">
                         <div class="rounded" style="background: #ffffff; text-align: center;">

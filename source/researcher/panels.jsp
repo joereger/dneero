@@ -53,7 +53,7 @@ String acl = "researcher";
                 cols.add(new GridCol("", "<a href=\"/researcher/panels-edit.jsp?panelid=<$panel.panelid$>\">Edit</a>", true, "", "smallfont"));
                 cols.add(new GridCol("", "<a href=\"/researcher/panels.jsp?panelid=<$panel.panelid$>&action=delete\">Delete</a>", true, "", "smallfont"));
             %>
-            <%=Grid.render(researcherPanels.getListitems(), cols, 50, "panels.jsp", "page")%>
+            <%=Grid.render(researcherPanels.getListitems(), cols, 50, "/researcher/panels.jsp", "page")%>
         <%}%>
 
 

@@ -33,7 +33,7 @@ String acl = "blogger";
             cols.add(new GridCol("Total Impressions", "<$impressionstotal$>", false, "", "smallfont"));
             cols.add(new GridCol("Quality", "<$quality$>", false, "", "smallfont"));
         %>
-        <%=Grid.render(bloggerImpressions.getList(), cols, 50, "impressions.jsp", "page")%>
+        <%=Grid.render(bloggerImpressions.getList(), cols, 50, "/blogger/impressions.jsp", "page")%>
     <%}%>
 
 <%@ include file="/template/footer.jsp" %>

@@ -17,7 +17,7 @@
 <tr>
 
 <td width=33% valign=top>
-<font face=arial size=-1 color=#cccccc><a href='setup-01.jsp'><b>Yes</b>, the MySql database is setup and configured.  Let's get started.</a></font>
+<font face=arial size=-1 color=#cccccc><a href="setup-01.jsp"><b>Yes</b>, the MySql database is setup and configured.  Let's get started.</a></font>
 </td>
 
 

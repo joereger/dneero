@@ -5,6 +5,7 @@ import com.dneero.cache.providers.CacheFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.ServletOutputStream;
 
 import org.apache.log4j.Logger;
 
@@ -32,10 +33,19 @@ public class Pagez {
 
     public static void sendRedirect(String url){
         Logger logger = Logger.getLogger(Pagez.class);
-        url = responseLocal.get().encodeRedirectURL(url);
-        if (!responseLocal.get().isCommitted()){
-            responseLocal.get().reset();
-            try{responseLocal.get().sendRedirect(url);}catch(Exception ex){logger.error("", ex);}
+        if (!Pagez.getUserSession().getIsfacebookui()){
+            //Web ui
+            url = responseLocal.get().encodeRedirectURL(url);
+            if (!responseLocal.get().isCommitted()){
+                responseLocal.get().reset();
+                try{responseLocal.get().sendRedirect(url);}catch(Exception ex){logger.error("", ex);}
+            }
+        } else {
+            //Facebookui
+            try{
+                ServletOutputStream out = responseLocal.get().getOutputStream();
+                out.print("<fb:redirect url=\""+url+"\"/>");
+            }catch(Exception ex){logger.error("", ex);}
         }
     }
 

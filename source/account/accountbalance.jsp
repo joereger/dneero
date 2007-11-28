@@ -38,7 +38,7 @@ AccountBalance accountBalance = (AccountBalance)Pagez.getBeanMgr().get("AccountB
         cols.add(new GridCol("Amount", "<$amt$>", true, "", "tinyfont"));
         cols.add(new GridCol("Balance", "<$currentbalance$>", true, "", "tinyfont"));
         %>
-        <%=Grid.render(accountBalance.getBalances(), cols, 50, "accountbalance.jsp", "page")%>
+        <%=Grid.render(accountBalance.getBalances(), cols, 50, "/account/accountbalance.jsp", "page")%>
     <%}%>
 
     <br/><br/>

@@ -146,7 +146,7 @@ public class PublicSurveyList implements Serializable {
                 //Get list of friend uids
                 FacebookApiWrapperHtmlui faw = new FacebookApiWrapperHtmlui(Pagez.getUserSession());
                 //Load surveys taken by friends
-                TreeMap<Integer, FacebookSurveyThatsBeenTaken> surveys = faw.getSurveysFriendsHaveTaken();
+                TreeMap<Integer, FacebookSurveyThatsBeenTaken> surveys = faw.getSurveysFriendsHaveTaken(Pagez.getUserSession().getFacebookFriends());
                 //Boil it down to an arraylist
                 facebookSurveyThatsBeenTakens = new ArrayList<FacebookSurveyThatsBeenTaken>();
                 Iterator keyValuePairs = surveys.entrySet().iterator();
@@ -207,8 +207,8 @@ public class PublicSurveyList implements Serializable {
         facebookusersnotaddedapp = new TreeMap<String, String>();
         facebookuserswhoaddedapp = new ArrayList<PublicSurveyFacebookFriendListitem>();
         //Go to facebook and get a list of the logged-in user's friends
-        FacebookApiWrapperHtmlui faw = new FacebookApiWrapperHtmlui(Pagez.getUserSession());
-        ArrayList<FacebookUser> friends = faw.getFriends();
+        //FacebookApiWrapperHtmlui faw = new FacebookApiWrapperHtmlui(Pagez.getUserSession());
+        ArrayList<FacebookUser> friends = Pagez.getUserSession().getFacebookFriends();
         if (friends.size()>0){
             //Build sql to pull up those users that are in the dneero db
 //            StringBuffer sql = new StringBuffer();
