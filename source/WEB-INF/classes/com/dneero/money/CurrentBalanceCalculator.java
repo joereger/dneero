@@ -27,13 +27,7 @@ public class CurrentBalanceCalculator implements Serializable {
 
     public void loadCurrentbalance(){
         currentbalance = 0;
-        //@todo Replace with single sql call sum(amt)
         currentbalance = NumFromUniqueResult.getDouble("select sum(amt) from Balance where userid='"+user.getUserid()+"'");
-//        List results = HibernateUtil.getSession().createQuery("from Balance where userid='"+user.getUserid()+"'").list();
-//        for (Iterator iterator = results.iterator(); iterator.hasNext();) {
-//            Balance balance = (Balance) iterator.next();
-//            currentbalance = currentbalance + balance.getAmt();
-//        }
     }
 
     public void loadPendingearnings(){

@@ -72,10 +72,27 @@ PublicSurveyWhotookit publicSurveyWhotookit = (PublicSurveyWhotookit)Pagez.getBe
       }
     </script>
     <div id="tabs">
-    <a href="" class="tab" onmousedown="return event.returnValue = showPanel(this, 'panel1');" id="tab1" onclick="return false;">Who Took It?</a>
-    <a href="" class="tab" onmousedown="return event.returnValue = showPanel(this, 'panel2');" onclick="return false;">Where It's Been Posted</a>
+    <%
+        String onclick = "onclick=\"return false;\"";
+        if (Pagez.getUserSession().getIsfacebookui()){
+            onclick = "";
+        }
+    %>
+    <a href="/surveywhotookit.jsp?surveyid=<%=publicSurveyWhotookit.getSurvey().getSurveyid()%>&panel=panel1" class="tab" onmousedown="return event.returnValue = showPanel(this, 'panel1');" id="tab1" <%=onclick%>>Who Took It?</a>
+    <%if (!Pagez.getUserSession().getIsfacebookui()){%>
+        <a href="/surveywhotookit.jsp?surveyid=<%=publicSurveyWhotookit.getSurvey().getSurveyid()%>&panel=panel2" class="tab" onmousedown="return event.returnValue = showPanel(this, 'panel2');" <%=onclick%>>Where It's Been Posted</a>
+    <%}%>
     </div>
-    <div class="panel" id="panel1" style="display: block">
+    <%
+    String panel1style = "display: none";
+    if (request.getParameter("panel")!=null && request.getParameter("panel").equals("panel1")){
+        panel1style = "display: block";
+    }
+    if (request.getParameter("panel")==null){
+        panel1style = "display: block";
+    }
+    %>
+    <div class="panel" id="panel1" style="<%=panel1style%>">
             <img src="/images/clear.gif" width="550" height="1"/><br/>
             <%if (publicSurveyWhotookit.getRespondents()==null || publicSurveyWhotookit.getRespondents().size()==0){%>
                 <font class="normalfont">Nobody has taken this survey... yet.</font>
@@ -89,7 +106,13 @@ PublicSurveyWhotookit publicSurveyWhotookit = (PublicSurveyWhotookit)Pagez.getBe
                 <%=Grid.render(publicSurveyWhotookit.getRespondents(), cols, 500, "/surveywhotookit.jsp?surveyid="+publicSurveyWhotookit.getSurvey().getSurveyid(), "pagewhotookit")%>
             <%}%>
     </div>
-    <div class="panel" id="panel1" style="display: none">
+    <%
+    String panel2style = "display: none";
+    if (request.getParameter("panel")!=null && request.getParameter("panel").equals("panel2")){
+        panel2style = "display: block";
+    }
+    %>
+    <div class="panel" id="panel2" style="<%=panel2style%>">
             <img src="/images/clear.gif" width="550" height="1"/><br/>
             <%if (publicSurveyWhotookit.getImpressions()==null || publicSurveyWhotookit.getImpressions().size()==0){%>
                 <font class="normalfont">Not posted anywhere... yet.</font>

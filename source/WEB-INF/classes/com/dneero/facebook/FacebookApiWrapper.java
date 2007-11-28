@@ -12,6 +12,7 @@ import com.dneero.ui.SurveyEnhancer;
 import com.dneero.util.Str;
 import com.dneero.util.Num;
 import com.dneero.htmlui.UserSession;
+import com.dneero.htmlui.Pagez;
 import com.facebook.api.FacebookRestClient;
 import com.facebook.api.FacebookSignatureUtil;
 import org.apache.log4j.Logger;
@@ -33,7 +34,7 @@ import java.net.URLEncoder;
  * Date: Jul 16, 2007
  * Time: 10:41:57 AM
  */
-public class FacebookApiWrapperHtmlui {
+public class FacebookApiWrapper {
 
     private UserSession userSession = null;
     private String facebookSessionKey = "";
@@ -41,7 +42,7 @@ public class FacebookApiWrapperHtmlui {
     
 
 
-    public FacebookApiWrapperHtmlui(UserSession userSession){
+    public FacebookApiWrapper(UserSession userSession){
         Logger logger = Logger.getLogger(this.getClass().getName());
         this.userSession = userSession;
         if (userSession.getFacebookSessionKey()!=null && !userSession.getFacebookSessionKey().trim().equals("")){
@@ -171,6 +172,21 @@ public class FacebookApiWrapperHtmlui {
         ArrayList<Integer> friends = new ArrayList<Integer>();
         if (issessionok){
             try{
+
+                if (Pagez.getRequest().getParameter("fb_sig_friends")!=null){
+                    ArrayList<Integer> out = new ArrayList<Integer>();
+                    String[] splitfriends =  Pagez.getRequest().getParameter("fb_sig_friends").split(",");
+                    for (int i=0; i<splitfriends.length; i++) {
+                        String splitfriend=splitfriends[i];
+                        if (Num.isinteger(splitfriend)){
+                            out.add(Integer.parseInt(splitfriend));
+                        }
+                    }
+                    logger.debug("returning friends from fb_sig_friends");
+                    return out;
+                }
+
+                logger.debug("making an api call to get friends");
                 //Set up the facebook rest client
                 FacebookRestClient facebookRestClient = new FacebookRestClient(SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_KEY), SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_SECRET), facebookSessionKey);
                 //Get a list of uids
@@ -205,7 +221,6 @@ public class FacebookApiWrapperHtmlui {
         ArrayList<FacebookUser> friends = new ArrayList<FacebookUser>();
         if (issessionok){
             try{
-
                 //Set up the facebook rest client
                 FacebookRestClient facebookRestClient = new FacebookRestClient(SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_KEY), SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_SECRET), facebookSessionKey);
                 //Get the list of uids
@@ -452,7 +467,7 @@ public class FacebookApiWrapperHtmlui {
     }
 
     public static void outputChildrenToLogger(Element el, int level){
-        Logger logger = Logger.getLogger(FacebookApiWrapperHtmlui.class);
+        Logger logger = Logger.getLogger(FacebookApiWrapper.class);
         level = level + 1;
         String indent = "";
         for(int i=0; i<level; i++){

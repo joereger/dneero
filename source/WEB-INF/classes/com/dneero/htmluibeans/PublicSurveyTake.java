@@ -22,7 +22,7 @@ import com.dneero.systemprops.BaseUrl;
 import com.dneero.session.SurveysTakenToday;
 import com.dneero.helpers.UserInputSafe;
 import com.dneero.facebook.FacebookUser;
-import com.dneero.facebook.FacebookApiWrapperHtmlui;
+import com.dneero.facebook.FacebookApiWrapper;
 import com.dneero.htmlui.Pagez;
 
 import java.util.*;
@@ -30,8 +30,6 @@ import java.io.Serializable;
 
 import org.apache.log4j.Logger;
 import org.hibernate.criterion.Restrictions;
-
-import javax.servlet.http.HttpServletRequest;
 
 
 /**
@@ -381,7 +379,7 @@ public class PublicSurveyTake implements Serializable {
                 resultsYourFriends = "<font class='mediumfont'>None of your friends have taken this survey... yet.</font>";
             }
             //Invite friends link
-            FacebookApiWrapperHtmlui faw = new FacebookApiWrapperHtmlui(Pagez.getUserSession());
+            FacebookApiWrapper faw = new FacebookApiWrapper(Pagez.getUserSession());
             invitefriendsurl = faw.inviteFriendsToSurvey(survey);
         }
 
@@ -609,7 +607,7 @@ public class PublicSurveyTake implements Serializable {
         try{
             //Update Facebook
             if (Pagez.getUserSession().getUser().getBloggerid()>0){
-                FacebookApiWrapperHtmlui facebookApiWrapper = new FacebookApiWrapperHtmlui(Pagez.getUserSession());
+                FacebookApiWrapper facebookApiWrapper = new FacebookApiWrapper(Pagez.getUserSession());
                 List<Response> responses = HibernateUtil.getSession().createCriteria(Response.class)
                                                    .add(Restrictions.eq("surveyid", survey.getSurveyid()))
                                                    .add(Restrictions.eq("bloggerid", Pagez.getUserSession().getUser().getBloggerid()))

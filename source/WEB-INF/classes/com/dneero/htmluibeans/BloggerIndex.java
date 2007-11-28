@@ -9,22 +9,18 @@ import com.dneero.display.components.def.ComponentException;
 import com.dneero.display.components.def.Component;
 import com.dneero.display.components.def.ComponentTypes;
 import com.dneero.finders.FindSurveysForBlogger;
-import com.dneero.money.MoveMoneyInAccountBalance;
-import com.dneero.money.SurveyMoneyStatus;
 import com.dneero.xmpp.SendXMPPMessage;
 import com.dneero.session.SurveysTakenToday;
-import com.dneero.facebook.FacebookApiWrapperHtmlui;
+import com.dneero.facebook.FacebookApiWrapper;
 import com.dneero.scheduledjobs.UpdateResponsePoststatus;
 import com.dneero.htmlui.Pagez;
 
 import java.util.List;
 import java.util.Iterator;
 import java.util.Date;
-import java.util.ArrayList;
 import java.io.Serializable;
 
 import org.hibernate.criterion.Restrictions;
-import org.hibernate.criterion.Order;
 import org.apache.log4j.Logger;
 
 /**
@@ -255,7 +251,7 @@ public class BloggerIndex implements Serializable {
                 try{UpdateResponsePoststatus.processSingleResponse(response);} catch (Exception ex){logger.error("",ex);};
 
                 //Update Facebook
-                FacebookApiWrapperHtmlui facebookApiWrapper = new FacebookApiWrapperHtmlui(Pagez.getUserSession());
+                FacebookApiWrapper facebookApiWrapper = new FacebookApiWrapper(Pagez.getUserSession());
                 facebookApiWrapper.postSurveyToFacebookMiniFeed(survey, response);
                 facebookApiWrapper.updateFacebookProfile(user);
             }

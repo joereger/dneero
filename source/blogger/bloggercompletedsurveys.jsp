@@ -45,7 +45,7 @@ String acl = "blogger";
                                 </font>
                             <% } %>
                             <br/>
-                            <font class="tinyfont" style="font-weight:bold; text-decoration: none;"><a href="/blogger/impressions.jsp?surveyid=<%=bloggerCompletedsurveysListitem.getSurveyid()%>"><%=bloggerCompletedsurveysListitem.getTotalimpressions()%></a> impressions</font>
+                            <font class="tinyfont" style="font-weight:bold; text-decoration: none;"><a href="/blogger/impressions.jsp?surveyid=<%=bloggerCompletedsurveysListitem.getSurveyid()%>">Impressions</a></font>
                         </td>
                         <td valign="top" width="225">
                             <%=bloggerCompletedsurveysListitem.getResponse().getResponsestatushtml()%>

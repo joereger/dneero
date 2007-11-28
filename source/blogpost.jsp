@@ -33,7 +33,7 @@ PublicBlogPost publicBlogPost = (PublicBlogPost) Pagez.getBeanMgr().get("PublicB
 
     <font class="mediumfont" style="color: #0bae17;"><%=publicBlogPost.getBlogpost().getTitle()%></font>
     <br/>
-    <font class="smallfont"><%=publicBlogPost.getBlogpost().getBody()%>" escape="false"></font>
+    <font class="smallfont"><%=publicBlogPost.getBlogpost().getBody()%></font>
     <br/>
     <font class="tinyfont" style="color: #cccccc;">Posted by: <%=publicBlogPost.getBlogpost().getAuthor()%> at <%=Time.dateformatcompactwithtime(Time.getCalFromDate(publicBlogPost.getBlogpost().getDate()))%></font>
     <br/><br/>

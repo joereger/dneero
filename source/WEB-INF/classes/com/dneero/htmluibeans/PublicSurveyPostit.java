@@ -10,7 +10,7 @@ import com.dneero.util.Num;
 import com.dneero.survey.servlet.*;
 import com.dneero.systemprops.BaseUrl;
 
-import com.dneero.facebook.FacebookApiWrapperHtmlui;
+import com.dneero.facebook.FacebookApiWrapper;
 import com.dneero.htmlui.Pagez;
 import com.dneero.htmlui.ValidationException;
 
@@ -178,7 +178,7 @@ public class PublicSurveyPostit implements Serializable {
         //Special Facebook activities
         if (Pagez.getUserSession().getIsfacebookui()){
             //Invite friends link
-            FacebookApiWrapperHtmlui faw = new FacebookApiWrapperHtmlui(Pagez.getUserSession());
+            FacebookApiWrapper faw = new FacebookApiWrapper(Pagez.getUserSession());
             invitefriendsurl = faw.inviteFriendsToSurvey(survey);
         }
 
@@ -190,7 +190,7 @@ public class PublicSurveyPostit implements Serializable {
         try{
             //Update Facebook
             if (Pagez.getUserSession().getUser().getBloggerid()>0){
-                FacebookApiWrapperHtmlui facebookApiWrapper = new FacebookApiWrapperHtmlui(Pagez.getUserSession());
+                FacebookApiWrapper facebookApiWrapper = new FacebookApiWrapper(Pagez.getUserSession());
                 List<Response> responses = HibernateUtil.getSession().createCriteria(Response.class)
                                                    .add(Restrictions.eq("surveyid", survey.getSurveyid()))
                                                    .add(Restrictions.eq("bloggerid", Pagez.getUserSession().getUser().getBloggerid()))

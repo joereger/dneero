@@ -12,7 +12,13 @@
         </tr>
     </table>
 
-    <fb:google-analytics uacct="UA-208946-2"/>
+    <%
+    String pgFooter = "/";
+    if (request.getParameter("dpage")!=null){
+        pgFooter = request.getParameter("dpage");
+    }
+    %>
+    <fb:google-analytics uacct="UA-208946-2" page="<%=pgFooter%>"/>
 
 </body>
 </html>

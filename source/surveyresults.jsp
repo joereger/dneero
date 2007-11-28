@@ -64,34 +64,68 @@ PublicSurveyResults publicSurveyResults = (PublicSurveyResults)Pagez.getBeanMgr(
                   }
                 </script>
                 <div id="tabs">
-                <a href="" class="tab" onmousedown="return event.returnValue = showPanel(this, 'panel1');" id="tab1" onclick="return false;">Everybody</a>
-                <a href="" class="tab" onmousedown="return event.returnValue = showPanel(this, 'panel2');" onclick="return false;"><%=publicSurveyResults.getResultsfriendstabtext()%></a>
+                <%
+                    String onclick = "onclick=\"return false;\"";
+                    if (Pagez.getUserSession().getIsfacebookui()){
+                        onclick = "";
+                    }
+                %>
+                <a href="/surveyresults.jsp?surveyid=<%=publicSurveyResults.getSurvey().getSurveyid()%>&panel=panel1" class="tab" onmousedown="return event.returnValue = showPanel(this, 'panel1');" id="tab1" <%=onclick%>>Everybody</a>
+                <%if (!Pagez.getUserSession().getIsfacebookui()){%>
+                    <a href="/surveyresults.jsp?surveyid=<%=publicSurveyResults.getSurvey().getSurveyid()%>&panel=panel2" class="tab" onmousedown="return event.returnValue = showPanel(this, 'panel2');" <%=onclick%>><%=publicSurveyResults.getResultsfriendstabtext()%></a>
+                <%}%>
                 <%if (publicSurveyResults.getResultsshowyourfriendstab()){%>
-                    <a href="" class="tab" onmousedown="return event.returnValue = showPanel(this, 'panel3');" onclick="return false;">Your Friends</a>
+                    <a href="/surveyresults.jsp?surveyid=<%=publicSurveyResults.getSurvey().getSurveyid()%>&panel=panel3" class="tab" onmousedown="return event.returnValue = showPanel(this, 'panel3');" <%=onclick%>>Your Friends</a>
                 <%}%>
                 </div>
-                <div class="panel" id="panel1" style="display: block">
+                <%
+                String panel1style = "display: none";
+                if (request.getParameter("panel")!=null && request.getParameter("panel").equals("panel1")){
+                    panel1style = "display: block";
+                }
+                if (request.getParameter("panel")==null){
+                    panel1style = "display: block";    
+                }
+                %>
+                <div class="panel" id="panel1" style="<%=panel1style%>">
                     <img src="/images/clear.gif" width="415" height="1"/><br/>
+                    <font class="mediumfont" style="color: #cccccc;">Everybody</font><br/>
                     <%=publicSurveyResults.getResultsHtml()%>
                 </div>
-                <div class="panel" id="panel2" style="display: none">
-                    <img src="/images/clear.gif" width="415" height="1"/><br/>
-                    <table width="100%" cellpadding="10" cellspacing="0" border="0">
-                        <tr>
-                            <td valign="top">
-                                <%=publicSurveyResults.getResultsHtmlForUserWhoTookSurvey()%>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-                <%if (publicSurveyResults.getResultsshowyourfriendstab()){%>
-                    <div class="panel" id="panel3" style="display: none">
+                <%
+                String panel2style = "display: none";
+                if (request.getParameter("panel")!=null && request.getParameter("panel").equals("panel2")){
+                    panel2style = "display: block";
+                }
+                %>
+                <%if (!Pagez.getUserSession().getIsfacebookui()){%>
+                    <div class="panel" id="panel2" style="<%=panel2style%>">
                         <img src="/images/clear.gif" width="415" height="1"/><br/>
+                        <font class="mediumfont" style="color: #cccccc;"><%=publicSurveyResults.getResultsfriendstabtext()%></font><br/>
+                        <table width="100%" cellpadding="10" cellspacing="0" border="0">
+                            <tr>
+                                <td valign="top">
+                                    <%=publicSurveyResults.getResultsHtmlForUserWhoTookSurvey()%>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                <%}%>
+                <%if (publicSurveyResults.getResultsshowyourfriendstab()){%>
+                    <%
+                    String panel3style = "display: none";
+                    if (request.getParameter("panel")!=null && request.getParameter("panel").equals("panel3")){
+                        panel3style = "display: block";
+                    }
+                    %>
+                    <div class="panel" id="panel3" style="<%=panel3style%>">
+                        <img src="/images/clear.gif" width="415" height="1"/><br/>
+                        <font class="mediumfont" style="color: #cccccc;">Your Friends</font><br/>
                         <%=publicSurveyResults.getResultsYourFriends()%>
                     </div>
                 <%}%>
             </td>
-            <% if (Pagez.getUserSession().getIsfacebookui()){ %>
+            <% if (!Pagez.getUserSession().getIsfacebookui()){ %>
                 <td valign="top" align="left">
                     <div class="rounded" style="background: #00ff00;">
                         <div class="rounded" style="background: #ffffff; text-align: center;">

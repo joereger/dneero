@@ -1,6 +1,12 @@
 <%@ page import="org.apache.log4j.Logger" %>
 <%@ page import="com.dneero.htmluibeans.PublicSurveyPostit" %>
 <%@ page import="com.dneero.htmlui.*" %>
+<%@ page import="com.dneero.systemprops.SystemProperty" %>
+<%@ page import="com.dneero.facebook.FacebookApiWrapper" %>
+<%@ page import="com.dneero.facebook.FacebookUser" %>
+<%@ page import="java.util.TreeSet" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.Iterator" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = ((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getSurvey().getTitle();
@@ -115,7 +121,45 @@ String acl = "public";
                     <br/>
                     <font class="smallfont">They'll be able to see your answers and then take the survey themselves. If your friend hasn't ever used dNeero then <b>we'll pay you for any earnings they generate</b>... and any earnings their friends make... and any earnings their friends make... up to five levels deep!</font>
                     <br/>
-                    <a href="<%=publicSurveyPostit.getInvitefriendsurl()%>" target="top"><font class="mediumfont">Invite Friends to this Survey</font></a>
+                    <!--<a href="<%=publicSurveyPostit.getInvitefriendsurl()%>" target="top"><font class="mediumfont">Invite Friends to this Survey</font></a>-->
+
+
+                    <%
+                        //Will need this throughout the page
+                        ArrayList<FacebookUser> friends=Pagez.getUserSession().getFacebookFriends();
+                        //Create comma-separated list of friends who have app installed
+                        StringBuffer commaSepFriendsAlreadyUsingApp=new StringBuffer();
+                        ArrayList<FacebookUser> friendsUsingApp=new ArrayList<FacebookUser>();
+                        if (friends!=null){
+                            for (Iterator it=friends.iterator(); it.hasNext();) {
+                                FacebookUser facebookUser=(FacebookUser) it.next();
+                                if (facebookUser.getHas_added_app()) {
+                                    friendsUsingApp.add(facebookUser);
+                                    if (commaSepFriendsAlreadyUsingApp.length()>0) {
+                                        commaSepFriendsAlreadyUsingApp.append(",");
+                                    }
+                                    commaSepFriendsAlreadyUsingApp.append(facebookUser.getUid());
+                                }
+                            }
+                        }
+                    %>
+
+                    <fb:request-form
+                        action="http://apps.facebook.com/<%=SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_APP_NAME)%>/?dpage=/surveypostit.jsp&surveyid=<%=publicSurveyPostit.getSurvey().getSurveyid()%>"
+                        method="POST"
+                        invite="true"
+                        type="dNeero Survey"
+                        content="<fb:req-choice url='http://www.facebook.com/add.php?api_key=<%=SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_KEY)%>' label='Check out dNeero!' />
+                    ">
+                        <fb:multi-friend-selector
+                            showborder="false"
+                            actiontext="Invite friends to dNeero."
+                            exclude_ids="<%=commaSepFriendsAlreadyUsingApp.toString()%>"
+                            rows="3"
+                            max="20"
+                            bypass="cancel" />
+                    </fb:request-form>
+
                 </div>
             </div>
         <% } %>

@@ -212,8 +212,6 @@ PublicSurvey publicSurvey = (PublicSurvey)Pagez.getBeanMgr().get("PublicSurvey")
                             <a href="/survey.jsp?surveyid=<%=publicSurvey.getSurvey().getSurveyid()%>&userid=<%=Pagez.getUserSession().getUser().getUserid()%>"><font class="tinyfont" style="color: #0000ff;">Your Answers</font></a><br/><br/>
                             <br/><br/>
                         <%}%>
-                        <font class="mediumfont" style="color: #cccccc;">Tell Friends Who Haven't Taken It:</font><br/>
-                        <a href="<%=publicSurvey.getInvitefriendsurl()%>" target="top">Invite Friends</a>
                     </td>
                 <% } %>
                 <% if (!Pagez.getUserSession().getIsfacebookui()){ %>

@@ -36,8 +36,10 @@ public class BloggerCompletedsurveys implements Serializable {
             for (Iterator<Response> iterator = responses.iterator(); iterator.hasNext();) {
                 Response response = iterator.next();
                 Survey survey = Survey.get(response.getSurveyid());
-                int totalimpressions = UserImpressionFinder.getTotalImpressions(Blogger.get(userSession.getUser().getBloggerid()), survey);
-                int paidandtobepaidimpressions = UserImpressionFinder.getPaidAndToBePaidImpressions(Blogger.get(userSession.getUser().getBloggerid()), survey);
+                //int totalimpressions = UserImpressionFinder.getTotalImpressions(Blogger.get(userSession.getUser().getBloggerid()), survey);
+                int totalimpressions = 0;
+                //int paidandtobepaidimpressions = UserImpressionFinder.getPaidAndToBePaidImpressions(Blogger.get(userSession.getUser().getBloggerid()), survey);
+                int paidandtobepaidimpressions = 0;
                 BloggerCompletedsurveysListitem listitem = new BloggerCompletedsurveysListitem();
                 listitem.setAmtforresponse("$"+Str.formatForMoney(survey.getWillingtopayperrespondent()));
                 listitem.setAmttotal("$"+Str.formatForMoney(survey.getWillingtopayperrespondent() + ((paidandtobepaidimpressions*survey.getWillingtopaypercpm()/1000))));

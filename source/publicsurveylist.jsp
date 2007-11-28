@@ -8,6 +8,9 @@
 <%@ page import="com.dneero.facebook.FacebookSurveyThatsBeenTaken" %>
 <%@ page import="com.dneero.facebook.FacebookSurveyTaker" %>
 <%@ page import="com.dneero.htmluibeans.PublicSurveyFacebookFriendListitem" %>
+<%@ page import="com.dneero.facebook.FacebookApiWrapper" %>
+<%@ page import="com.dneero.facebook.FacebookUser" %>
+<%@ page import="com.dneero.systemprops.SystemProperty" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "Social Surveys";
@@ -81,10 +84,10 @@ PublicSurveyList publicSurveyList = (PublicSurveyList)Pagez.getBeanMgr().get("Pu
                         <% if (1==1 || Pagez.getUserSession().getIsloggedin()){ %>
                             <div class="rounded" style="background: #ffffff; padding: 10px;">
                                 <font class="formfieldnamefont" style="color: #666666;">Current Balance:</font>
-                                <br/><font class="largefont" style="color: #cccccc;"><%=publicSurveyList.getAccountBalance().getCurrentbalance()%></font>
-                                <% if (publicSurveyList.getAccountBalance()!=null){ %>
-                                    <% if (publicSurveyList.getAccountBalance().getPendingearningsDbl()>0){ %>
-                                        <br/><a href="/blogger/bloggercompletedsurveys.jsp"><font class="formfieldnamefont" style="color: #0000ff;">Pending: <%=publicSurveyList.getAccountBalance().getPendingearnings()%></font></a>
+                                <br/><font class="largefont" style="color: #cccccc;"><%=publicSurveyList.getCurrentbalance()%></font>
+                                <% if (publicSurveyList!=null){ %>
+                                    <% if (publicSurveyList.getPendingearningsDbl()>0){ %>
+                                        <br/><a href="/blogger/bloggercompletedsurveys.jsp"><font class="formfieldnamefont" style="color: #0000ff;">Pending: <%=publicSurveyList.getPendingearnings()%></font></a>
                                     <% } %>
                                 <% } %>
                                 <br/><font class="tinyfont" style="color: #666666; font-weight: bold;">(yes, we're talking real world money here)</font>
@@ -145,7 +148,44 @@ PublicSurveyList publicSurveyList = (PublicSurveyList)Pagez.getBeanMgr().get("Pu
 
 
                         <br/>
-                        <center><a href="<%=publicSurveyList.getInvitefriendsurl()%>" target="top"><font class="normalfont" style="font-weight: bold; color: #0000ff;">Invite Friends Who Aren't On dNeero</font></a></center>
+                        <%
+                            //Will need this throughout the page
+                            ArrayList<FacebookUser> friends=Pagez.getUserSession().getFacebookFriends();
+                            //Create comma-separated list of friends who have app installed
+                            StringBuffer commaSepFriendsAlreadyUsingApp=new StringBuffer();
+                            ArrayList<FacebookUser> friendsUsingApp=new ArrayList<FacebookUser>();
+                            if (friends != null) {
+                                for (Iterator it=friends.iterator(); it.hasNext();) {
+                                    FacebookUser facebookUser=(FacebookUser) it.next();
+                                    if (facebookUser.getHas_added_app()) {
+                                        friendsUsingApp.add(facebookUser);
+                                        if (commaSepFriendsAlreadyUsingApp.length()>0) {
+                                            commaSepFriendsAlreadyUsingApp.append(",");
+                                        }
+                                        commaSepFriendsAlreadyUsingApp.append(facebookUser.getUid());
+                                    }
+                                }
+                            }
+                        %>
+
+                    <fb:request-form
+                        action="http://apps.facebook.com/<%=SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_APP_NAME)%>/?dpage=/publicsurveylist.jsp"
+                        method="POST"
+                        invite="true"
+                        type="dNeero Survey"
+                        content="You've been invited to the social survey app called dNeero that allows you to earn real money taking surveys and sharing your answers with your friends. <fb:req-choice url='http://www.facebook.com/add.php?api_key=<%=SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_KEY)%>' label='Check out dNeero!' />
+                    ">
+                        <fb:multi-friend-selector
+                            showborder="false"
+                            actiontext="Invite friends to dNeero."
+                            exclude_ids="<%=commaSepFriendsAlreadyUsingApp.toString()%>"
+                            rows="3"
+                            max="20"
+                            />
+                    </fb:request-form>
+
+
+
                         <br/><br/>
                     </div>
                 </td>

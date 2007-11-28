@@ -8,8 +8,9 @@ import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.finders.FindSurveysForBlogger;
 import com.dneero.facebook.FacebookSurveyThatsBeenTaken;
 import com.dneero.facebook.FacebookUser;
-import com.dneero.facebook.FacebookApiWrapperHtmlui;
+import com.dneero.facebook.FacebookApiWrapper;
 import com.dneero.htmlui.Pagez;
+import com.dneero.money.CurrentBalanceCalculator;
 import org.apache.log4j.Logger;
 
 import java.util.*;
@@ -27,11 +28,14 @@ public class PublicSurveyList implements Serializable {
     private String[] facebookfriendsselected;
     private TreeMap<String, String> facebookusersnotaddedapp = new TreeMap<String, String>();
     private List<PublicSurveyFacebookFriendListitem> facebookuserswhoaddedapp = new ArrayList<PublicSurveyFacebookFriendListitem>();
-    private AccountBalance accountBalance;
     private String rndstr;
     //private ArrayList<BloggerCompletedsurveysListitem> completedsurveys;
     private boolean facebookjustaddedapp = false;
     private String invitefriendsurl = "";
+    private String currentbalance = "$0.00";
+    private String pendingearnings = "$0.00";
+    private double currentbalanceDbl = 0.0;
+    private double pendingearningsDbl = 0.0;
 
     public PublicSurveyList() {
 
@@ -144,7 +148,7 @@ public class PublicSurveyList implements Serializable {
                 //Load which friends are on dNeero and which aren't
                 loadFacebookUsers();
                 //Get list of friend uids
-                FacebookApiWrapperHtmlui faw = new FacebookApiWrapperHtmlui(Pagez.getUserSession());
+                FacebookApiWrapper faw = new FacebookApiWrapper(Pagez.getUserSession());
                 //Load surveys taken by friends
                 TreeMap<Integer, FacebookSurveyThatsBeenTaken> surveys = faw.getSurveysFriendsHaveTaken(Pagez.getUserSession().getFacebookFriends());
                 //Boil it down to an arraylist
@@ -160,36 +164,12 @@ public class PublicSurveyList implements Serializable {
                     }
                 }
                 //Load the account balance
-                AccountBalance accountBalance = new AccountBalance();
-                accountBalance.initBean();
-                this.accountBalance = accountBalance;
-                //Completedsurveys
-//                if (Pagez.getUserSession().getUser()!=null && Pagez.getUserSession().getUser().getBloggerid()>0){
-//                    completedsurveys = new ArrayList();
-//                    List<Response> responses = HibernateUtil.getSession().createCriteria(Response.class)
-//                                               .add(Restrictions.eq("bloggerid", Pagez.getUserSession().getUser().getBloggerid()))
-//                                               .add(Restrictions.eq("ispaid", false))
-//                                               .add(Restrictions.ne("poststatus", Response.POSTATUS_NOTPOSTEDTIMELIMITPASSED))
-//                                               .addOrder(Order.desc("responsedate"))
-//                                               .setCacheable(true)
-//                                               .setMaxResults(60)
-//                                               .list();
-//                    for (Iterator<Response> iterator = responses.iterator(); iterator.hasNext();) {
-//                        Response response = iterator.next();
-//                        Survey survey = Survey.get(response.getSurveyid());
-//                        BloggerCompletedsurveysListitem listitem = new BloggerCompletedsurveysListitem();
-//                        listitem.setAmtforresponse("");
-//                        listitem.setAmttotal("");
-//                        listitem.setTotalimpressions(0);
-//                        listitem.setPaidandtobepaidimpressions(0);
-//                        listitem.setResponsedate(response.getResponsedate());
-//                        listitem.setResponseid(response.getResponseid());
-//                        listitem.setSurveyid(survey.getSurveyid());
-//                        listitem.setSurveytitle(survey.getTitle());
-//                        listitem.setResponse(response);
-//                        completedsurveys.add(listitem);
-//                    }
-//                }
+                CurrentBalanceCalculator cbc = new CurrentBalanceCalculator(Pagez.getUserSession().getUser());
+                currentbalanceDbl = cbc.getCurrentbalance();
+                pendingearningsDbl = cbc.getPendingearnings();
+                currentbalance = "$"+Str.formatForMoney(currentbalanceDbl);
+                pendingearnings = "$"+Str.formatForMoney(pendingearningsDbl);
+
                 //Invite friends link
                 invitefriendsurl = faw.inviteFriendsTodNeero();
 
@@ -308,13 +288,6 @@ public class PublicSurveyList implements Serializable {
         this.facebookuserswhoaddedapp = facebookuserswhoaddedapp;
     }
 
-    public AccountBalance getAccountBalance() {
-        return accountBalance;
-    }
-
-    public void setAccountBalance(AccountBalance accountBalance) {
-        this.accountBalance = accountBalance;
-    }
 
     public String getRndstr() {
         return rndstr;
@@ -340,5 +313,37 @@ public class PublicSurveyList implements Serializable {
 
     public void setInvitefriendsurl(String invitefriendsurl) {
         this.invitefriendsurl=invitefriendsurl;
+    }
+
+    public String getCurrentbalance() {
+        return currentbalance;
+    }
+
+    public void setCurrentbalance(String currentbalance) {
+        this.currentbalance=currentbalance;
+    }
+
+    public String getPendingearnings() {
+        return pendingearnings;
+    }
+
+    public void setPendingearnings(String pendingearnings) {
+        this.pendingearnings=pendingearnings;
+    }
+
+    public double getCurrentbalanceDbl() {
+        return currentbalanceDbl;
+    }
+
+    public void setCurrentbalanceDbl(double currentbalanceDbl) {
+        this.currentbalanceDbl=currentbalanceDbl;
+    }
+
+    public double getPendingearningsDbl() {
+        return pendingearningsDbl;
+    }
+
+    public void setPendingearningsDbl(double pendingearningsDbl) {
+        this.pendingearningsDbl=pendingearningsDbl;
     }
 }
