@@ -2,12 +2,15 @@ package com.dneero.htmlui;
 
 
 import com.dneero.cache.providers.CacheFactory;
+import com.dneero.systemprops.SystemProperty;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.ServletOutputStream;
 
 import org.apache.log4j.Logger;
+
+import java.net.URLEncoder;
 
 /**
  * User: Joe Reger Jr
@@ -44,7 +47,8 @@ public class Pagez {
             //Facebookui
             try{
                 ServletOutputStream out = responseLocal.get().getOutputStream();
-                out.print("<fb:redirect url=\""+url+"\"/>");
+
+                out.print("<fb:redirect url=\"http://apps.facebook.com/"+ SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_APP_NAME)+"/?dpage="+ URLEncoder.encode(url, "UTF-8")+"\"/>");
             }catch(Exception ex){logger.error("", ex);}
         }
     }

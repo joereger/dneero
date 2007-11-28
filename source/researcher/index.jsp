@@ -28,7 +28,7 @@ String acl = "public";
 %>
 <%
 if (Pagez.getUserSession().getIsloggedin() && (Pagez.getUserSession().getUser().getResearcherid()==0) && (!researcherIndex.getShowmarketingmaterial())){
-    Pagez.sendRedirect("researcherdetails.jsp");
+    Pagez.sendRedirect("/researcher/researcherdetails.jsp");
 }
 %>
 <%@ include file="/template/header.jsp" %>

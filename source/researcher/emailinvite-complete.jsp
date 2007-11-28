@@ -16,7 +16,7 @@ ResearcherEmailinviteComplete researcherEmailinviteComplete = (ResearcherEmailin
         try {
             researcherEmailinviteComplete.complete();
             Pagez.getUserSession().setMessage("Invitations sent!");
-            Pagez.sendRedirect("emailinvite-sent.jsp");
+            Pagez.sendRedirect("/researcher/emailinvite-sent.jsp");
             return;
         } catch (ValidationException vex) {
             Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());

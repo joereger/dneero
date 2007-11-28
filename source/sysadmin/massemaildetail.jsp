@@ -26,7 +26,7 @@ SysadminMassemailDetail sysadminMassemailDetail = (SysadminMassemailDetail)Pagez
                 Pagez.getUserSession().setMessage("Saved!");
             } else if (request.getParameter("action").equals("send")){
                 sysadminMassemailDetail.send();
-                Pagez.sendRedirect("massemailsend.jsp?massemailid="+sysadminMassemailDetail.getMassemail().getMassemailid());
+                Pagez.sendRedirect("/sysadmin/massemailsend.jsp?massemailid="+sysadminMassemailDetail.getMassemail().getMassemailid());
                 return;
             } else if (request.getParameter("action").equals("testsend")){
                 sysadminMassemailDetail.testSend();
@@ -34,7 +34,7 @@ SysadminMassemailDetail sysadminMassemailDetail = (SysadminMassemailDetail)Pagez
             } else if (request.getParameter("action").equals("copy")){
                 sysadminMassemailDetail.copy();
                 Pagez.getUserSession().setMessage("Mass Email Copied!");
-                Pagez.sendRedirect("massemaillist.jsp");
+                Pagez.sendRedirect("/sysadmin/massemaillist.jsp");
                 return;
             }
         } catch (ValidationException vex) {

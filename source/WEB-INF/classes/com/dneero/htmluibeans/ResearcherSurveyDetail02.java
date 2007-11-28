@@ -167,27 +167,27 @@ public class ResearcherSurveyDetail02 implements Serializable {
         String tmpQuestionid = Pagez.getRequest().getParameter("questionid");
 
         if (componenttype==Textbox.ID){
-            Pagez.sendRedirect("researchersurveydetail_02_textbox.jsp?surveyid="+survey.getSurveyid()+"&questionid="+tmpQuestionid);
+            Pagez.sendRedirect("/researcher/researchersurveydetail_02_textbox.jsp?surveyid="+survey.getSurveyid()+"&questionid="+tmpQuestionid);
             return;
         }
         if (componenttype==Essay.ID){
-            Pagez.sendRedirect("researchersurveydetail_02_essay.jsp?surveyid="+survey.getSurveyid()+"&questionid="+tmpQuestionid);
+            Pagez.sendRedirect("/researcher/researchersurveydetail_02_essay.jsp?surveyid="+survey.getSurveyid()+"&questionid="+tmpQuestionid);
             return;
         }
         if (componenttype==Dropdown.ID){
-            Pagez.sendRedirect("researchersurveydetail_02_dropdown.jsp?surveyid="+survey.getSurveyid()+"&questionid="+tmpQuestionid);
+            Pagez.sendRedirect("/researcher/researchersurveydetail_02_dropdown.jsp?surveyid="+survey.getSurveyid()+"&questionid="+tmpQuestionid);
             return;
         }
         if (componenttype==Checkboxes.ID){
-            Pagez.sendRedirect("researchersurveydetail_02_checkboxes.jsp?surveyid="+survey.getSurveyid()+"&questionid="+tmpQuestionid);
+            Pagez.sendRedirect("/researcher/researchersurveydetail_02_checkboxes.jsp?surveyid="+survey.getSurveyid()+"&questionid="+tmpQuestionid);
             return;
         }
         if (componenttype==Range.ID){
-            Pagez.sendRedirect("researchersurveydetail_02_range.jsp?surveyid="+survey.getSurveyid()+"&questionid="+tmpQuestionid);
+            Pagez.sendRedirect("/researcher/researchersurveydetail_02_range.jsp?surveyid="+survey.getSurveyid()+"&questionid="+tmpQuestionid);
             return;
         }
         if (componenttype==Matrix.ID){
-            Pagez.sendRedirect("researchersurveydetail_02_matrix.jsp?surveyid="+survey.getSurveyid()+"&questionid="+tmpQuestionid);
+            Pagez.sendRedirect("/researcher/researchersurveydetail_02_matrix.jsp?surveyid="+survey.getSurveyid()+"&questionid="+tmpQuestionid);
             return;
         }
         logger.debug("Couldn't find ComponentType = "+tmpComponenttype);

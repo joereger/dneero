@@ -38,97 +38,98 @@ PublicBlogPost publicBlogPost = (PublicBlogPost) Pagez.getBeanMgr().get("PublicB
     <font class="tinyfont" style="color: #cccccc;">Posted by: <%=publicBlogPost.getBlogpost().getAuthor()%> at <%=Time.dateformatcompactwithtime(Time.getCalFromDate(publicBlogPost.getBlogpost().getDate()))%></font>
     <br/><br/>
 
+     <%if (!Pagez.getUserSession().getIsfacebookui()){%>
+        <%if (publicBlogPost.getBlogpost()==null || publicBlogPost.getBlogpost().getBlogpostcomments()==null || publicBlogPost.getBlogpost().getBlogpostcomments().size()==0){%>
 
-    <%if (publicBlogPost.getBlogpost()==null || publicBlogPost.getBlogpost().getBlogpostcomments()==null || publicBlogPost.getBlogpost().getBlogpostcomments().size()==0){%>
+        <%} else {%>
+            <%
+                StringBuffer comment=new StringBuffer();
+                comment.append("<font class=\"tinyfont\"><$date|"+Grid.GRIDCOLRENDERER_DATETIMECOMPACT+"$></font>\n"+
+    "        <font class=\"smallfont\">Comment by: </font>\n" +
+    "        <a href=\"<$url$>\">\n" +
+    "            <font class=\"smallfont\" style=\"color: #0000ff;\"><$name$></font>\n" +
+    "        </a>\n" +
+    "        <br/>\n" +
+    "        <font class=\"tinyfont\"><$comment$></font>\n" +
+    "        <br/><br/>");
 
-    <%} else {%>
-        <%
-            StringBuffer comment=new StringBuffer();
-            comment.append("<font class=\"tinyfont\"><$date|"+Grid.GRIDCOLRENDERER_DATETIMECOMPACT+"$></font>\n"+
-"        <font class=\"smallfont\">Comment by: </font>\n" +
-"        <a href=\"<$url$>\">\n" +
-"            <font class=\"smallfont\" style=\"color: #0000ff;\"><$name$></font>\n" +
-"        </a>\n" +
-"        <br/>\n" +
-"        <font class=\"tinyfont\"><$comment$></font>\n" +
-"        <br/><br/>");
+                ArrayList<GridCol> cols=new ArrayList<GridCol>();
+                cols.add(new GridCol("", comment.toString(), false, "", ""));
+            %>
+            <%=Grid.render(Util.setToArrayList(publicBlogPost.getBlogpost().getBlogpostcomments()), cols, 100, "/blogpost.jsp?blogpostid" + publicBlogPost.getBlogpost().getBlogpostid(), "page")%>
+        <%}%>
 
-            ArrayList<GridCol> cols=new ArrayList<GridCol>();
-            cols.add(new GridCol("", comment.toString(), false, "", ""));
-        %>
-        <%=Grid.render(Util.setToArrayList(publicBlogPost.getBlogpost().getBlogpostcomments()), cols, 100, "/blogpost.jsp?blogpostid" + publicBlogPost.getBlogpost().getBlogpostid(), "page")%>
-    <%}%>
+        <form action="/blogpost.jsp" method="post">
+            <input type="hidden" name="dpage" value="/blogpost.jsp">
+            <input type="hidden" name="action" value="addcomment">
+            <input type="hidden" name="blogpostid" value="<%=publicBlogPost.getBlogpost().getBlogpostid()%>">
+            <br/><br/>
+            <font class="formfieldnamefont">Post a comment:</font>
+            <br/>
+            <table cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                    <td valign="top">
+                        <font class="formfieldnamefont">Name</font>
+                    </td>
+                    <td valign="top">
+                        <%=Textbox.getHtml("name", publicBlogPost.getName(), 255, 35, "", "")%>
+                    </td>
+                </tr>
 
-    <form action="/blogpost.jsp" method="post">
-        <input type="hidden" name="dpage" value="/blogpost.jsp">
-        <input type="hidden" name="action" value="addcomment">
-        <input type="hidden" name="blogpostid" value="<%=publicBlogPost.getBlogpost().getBlogpostid()%>">
-        <br/><br/>
-        <font class="formfieldnamefont">Post a comment:</font>
-        <br/>
-        <table cellpadding="0" cellspacing="0" border="0">
-            <tr>
-                <td valign="top">
-                    <font class="formfieldnamefont">Name</font>
-                </td>
-                <td valign="top">
-                    <%=Textbox.getHtml("name", publicBlogPost.getName(), 255, 35, "", "")%>
-                </td>
-            </tr>
+                <tr>
+                    <td valign="top">
+                        <font class="formfieldnamefont">Url</font>
+                    </td>
+                    <td valign="top">
+                        <%=Textbox.getHtml("url", publicBlogPost.getUrl(), 255, 35, "", "")%>
+                    </td>
+                </tr>
 
-            <tr>
-                <td valign="top">
-                    <font class="formfieldnamefont">Url</font>
-                </td>
-                <td valign="top">
-                    <%=Textbox.getHtml("url", publicBlogPost.getUrl(), 255, 35, "", "")%>
-                </td>
-            </tr>
+                <tr>
+                    <td valign="top">
+                        <font class="formfieldnamefont">Comment</font>
+                    </td>
+                    <td valign="top">
+                        <%=Textarea.getHtml("comment", publicBlogPost.getComment(), 5, 40, "", "")%>
+                    </td>
+                </tr>
 
-            <tr>
-                <td valign="top">
-                    <font class="formfieldnamefont">Comment</font>
-                </td>
-                <td valign="top">
-                    <%=Textarea.getHtml("comment", publicBlogPost.getComment(), 5, 40, "", "")%>
-                </td>
-            </tr>
+                <tr>
+                    <td valign="top">
+                        <font class="formfieldnamefont">Prove You're a Human</font>
+                    </td>
+                    <td valign="top">
+                        <div style="border: 1px solid #ccc; padding: 3px;">
+                        <%=Textbox.getHtml("j_captcha_response", publicBlogPost.getJ_captcha_response(), 255, 35, "", "")%>
+                        <br/>
+                        <font class="tinyfont">(type the squiggly letters that appear below)</font>
+                        <br/>
+                        <table cellpadding="0" cellspacing="0" border="0">
+                            <tr>
+                                <td><img src="/images/clear.gif" alt="" width="1" height="100"></img></td>
+                                <td style="background: url(/images/loading-captcha.gif);">
+                                    <img src="/images/clear.gif" alt="" width="200" height="1"></img><br/>
+                                    <img src="/jcaptcha" alt=""/>
+                                </td>
+                            </tr>
+                        </table>
+                        </div>
+                    </td>
+                </tr>
 
-            <tr>
-                <td valign="top">
-                    <font class="formfieldnamefont">Prove You're a Human</font>
-                </td>
-                <td valign="top">
-                    <div style="border: 1px solid #ccc; padding: 3px;">
-                    <%=Textbox.getHtml("j_captcha_response", publicBlogPost.getJ_captcha_response(), 255, 35, "", "")%>
-                    <br/>
-                    <font class="tinyfont">(type the squiggly letters that appear below)</font>
-                    <br/>
-                    <table cellpadding="0" cellspacing="0" border="0">
-                        <tr>
-                            <td><img src="/images/clear.gif" alt="" width="1" height="100"></img></td>
-                            <td style="background: url(/images/loading-captcha.gif);">
-                                <img src="/images/clear.gif" alt="" width="200" height="1"></img><br/>
-                                <img src="/jcaptcha" alt=""/>
-                            </td>
-                        </tr>
-                    </table>
-                    </div>
-                </td>
-            </tr>
-
-            <tr>
-                <td valign="top">
-                </td>
-                <td valign="top">
-                    <input type="submit" class="formsubmitbutton" value="Post Comment">
-                </td>
-            </tr>
+                <tr>
+                    <td valign="top">
+                    </td>
+                    <td valign="top">
+                        <input type="submit" class="formsubmitbutton" value="Post Comment">
+                    </td>
+                </tr>
 
 
 
-         </table>
+             </table>
 
-     </form>
+         </form>
+     <%}%>
 
 <%@ include file="/template/footer.jsp" %>

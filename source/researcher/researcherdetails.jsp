@@ -20,10 +20,10 @@ String acl = "account";
             researcherDetails.saveAction();
             Pagez.getUserSession().setMessage("Researcher profile saved.");
             if (researcherDetails.getIsnewresearcher()){
-                Pagez.sendRedirect("welcomenewresearcher.jsp");
+                Pagez.sendRedirect("/researcher/welcomenewresearcher.jsp");
                 return;
             } else {
-                Pagez.sendRedirect("index.jsp");
+                Pagez.sendRedirect("/researcher/index.jsp");
                 return;
             }
         } catch (ValidationException vex) {

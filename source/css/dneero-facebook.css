@@ -2,7 +2,7 @@ body {
     padding:0px;
     margin:0px;
     background:#FFFFFF;
-    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-family:"lucida grande",tahoma,verdana,arial,sans-serif;
     font-size: 12px;
     font-weight: normal;
     color: #000000;
@@ -20,12 +20,12 @@ a, a:link, a:visited, a:active {
 }
 
 .smallfont {
-    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-family:"lucida grande",tahoma,verdana,arial,sans-serif;
     font-size: 10px;
 }
 
 .normalfont {
-    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-family:"lucida grande",tahoma,verdana,arial,sans-serif;
     font-size: 12px;
 }
 
@@ -106,49 +106,6 @@ hr {
     color: #000000;
 }
 
-.af_column_header-text {
-    font-family: Verdana, Arial, Helvetica, sans-serif;
-    font-size: 10px;
-    text-align: left;
-    border-style: solid;
-    border-color: #000000;
-    border-width: 0px 0px 1px 0px;
-    font-weight: bold;
-    color: #666666;
-}
-
-.af_column_sortable-header-text {
-    font-family: Verdana, Arial, Helvetica, sans-serif;
-    font-size: 10px;
-    text-align: left;
-    border-style: solid;
-    border-color: #000000;
-    border-width: 0px 0px 1px 0px;
-    font-weight: bold;
-    color: #0000ff;
-}
-
-.af_column_cell-text, .af_column_cell-text-band {
-    text-align: left;
-    border-style: solid;
-    border-color: #e6e6e6;
-    border-width: 0px 0px 1px 0px;
-    font-size: 12px;
-    color: #000000;
-    vertical-align: top;
-    padding-top: 5px;
-    padding-bottom: 5px;
-}
-
-.af_column_sortable-header-text a{
-    color: #0000ff;
-}
-
-
-.af_table_content {
-    width: 700px;
-}
-
 input, textarea, select{
    color:#050;
    font-family:'trebuchet ms',helvetica,sans-serif;
@@ -197,7 +154,7 @@ input, textarea, select{
    font-family:'trebuchet ms',helvetica,sans-serif;
    font-weight:bold;
    font-size: 14px;
-   background: #f3f668;   
+   background: #f3f668;
 }
 
 .rounded {

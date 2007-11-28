@@ -19,7 +19,7 @@ String acl = "researcher";
             researcherEmailinvite.setSubject(Textbox.getValueFromRequest("subject", "Subject", false, DatatypeString.DATATYPEID));
             researcherEmailinvite.setSurveyiduserisinvitedto(Dropdown.getIntFromRequest("surveyiduserisinvitedto", "Survey to Invite To", true));
             researcherEmailinvite.invite();
-            Pagez.sendRedirect("emailinvite-complete.jsp");
+            Pagez.sendRedirect("/researcher/emailinvite-complete.jsp");
             return;
         } catch (ValidationException vex) {
             Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());

@@ -16,7 +16,7 @@ ResearcherSurveyDelete researcherSurveyDelete = (ResearcherSurveyDelete) Pagez.g
         try {
             researcherSurveyDelete.deleteSurvey();
             Pagez.getUserSession().setMessage("Survey deleted.");
-            Pagez.sendRedirect("index.jsp");
+            Pagez.sendRedirect("/researcher/index.jsp");
             return;
         } catch (ValidationException vex) {
             Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());

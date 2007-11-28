@@ -24,7 +24,7 @@ SysadminBlogpost sysadminBlogpost = (SysadminBlogpost)Pagez.getBeanMgr().get("Sy
             sysadminBlogpost.setDate(DateTime.getValueFromRequest("date", "Date", true).getTime());
             sysadminBlogpost.save();
             Pagez.getUserSession().setMessage("Blog post saved.");
-            Pagez.sendRedirect("blogpost.jsp");
+            Pagez.sendRedirect("/sysadmin/blogpost.jsp");
             return;
         } catch (ValidationException vex) {
             Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
@@ -36,7 +36,7 @@ SysadminBlogpost sysadminBlogpost = (SysadminBlogpost)Pagez.getBeanMgr().get("Sy
         try {
             sysadminBlogpost.delete();
             Pagez.getUserSession().setMessage("Blog post deleted.");
-            Pagez.sendRedirect("blogpost.jsp");
+            Pagez.sendRedirect("/sysadmin/blogpost.jsp");
             return;
         } catch (ValidationException vex) {
             Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());

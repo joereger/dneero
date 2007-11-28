@@ -17,7 +17,7 @@ SysadminMassemailSend sysadminMassemailSend = (SysadminMassemailSend)Pagez.getBe
             sysadminMassemailSend.setPassword(TextboxSecret.getValueFromRequest("password", "Password", true, DatatypeString.DATATYPEID));
             sysadminMassemailSend.send();
             Pagez.getUserSession().setMessage("Mass email scheduled for send! Rock on!");
-            Pagez.sendRedirect("massemaillist.jsp");
+            Pagez.sendRedirect("/sysadmin/massemaillist.jsp");
             return;
         } catch (ValidationException vex) {
             Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());

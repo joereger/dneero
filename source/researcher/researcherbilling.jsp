@@ -27,7 +27,7 @@ ResearcherBilling researcherBilling = (ResearcherBilling)Pagez.getBeanMgr().get(
             researcherBilling.setStreet(Textbox.getValueFromRequest("street", "Street", true, DatatypeString.DATATYPEID));
             researcherBilling.saveAction();
             Pagez.getUserSession().setMessage("Billing information saved.");
-            Pagez.sendRedirect("index.jsp");
+            Pagez.sendRedirect("/researcher/index.jsp");
             return;
         } catch (ValidationException vex) {
             Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());

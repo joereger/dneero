@@ -17,7 +17,7 @@ SysadminEditEula sysadminEditEula = (SysadminEditEula)Pagez.getBeanMgr().get("Sy
             sysadminEditEula.setEula(Textbox.getValueFromRequest("eula", "Eula", false, DatatypeString.DATATYPEID));
             sysadminEditEula.edit();
             Pagez.getUserSession().setMessage("EULA updated.");
-            Pagez.sendRedirect("index.jsp");
+            Pagez.sendRedirect("/sysadmin/index.jsp");
             return;
         } catch (ValidationException vex) {
             Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());

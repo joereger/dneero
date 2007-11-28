@@ -20,7 +20,7 @@ PublicSurvey publicSurvey = (PublicSurvey)Pagez.getBeanMgr().get("PublicSurvey")
             publicSurvey.takeSurvey();
             if (Pagez.getUserSession().getIsloggedin()){
                 if (Pagez.getUserSession().getUser().getBloggerid()>0){
-                    Pagez.sendRedirect("surveypostit.jsp?surveyid="+publicSurvey.getSurvey().getSurveyid()+"&justcompletedsurvey=1");
+                    Pagez.sendRedirect("/surveypostit.jsp?surveyid="+publicSurvey.getSurvey().getSurveyid()+"&justcompletedsurvey=1");
                     return;
                 } else {
                     Pagez.sendRedirect("/account/index.jsp");

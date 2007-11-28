@@ -22,7 +22,7 @@ String acl = "sysadmin";
             sysadminSupportIssueDetail.setStatus(Dropdown.getValueFromRequest("status", "Status", true));
             sysadminSupportIssueDetail.setNotes(Textarea.getValueFromRequest("notes", "Notes", false));
             sysadminSupportIssueDetail.newNote();
-            Pagez.sendRedirect("sysadminsupportissueslist.jsp");
+            Pagez.sendRedirect("/sysadmin/sysadminsupportissueslist.jsp");
             return;
         } catch (com.dneero.htmlui.ValidationException vex) {
             Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
