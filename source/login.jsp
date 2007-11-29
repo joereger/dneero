@@ -20,18 +20,22 @@ Login login = (Login) Pagez.getBeanMgr().get("Login");
             login.setKeepmeloggedin(CheckboxBoolean.getValueFromRequest("keepmeloggedin"));
             login.login();
             //Redir if https is on
+            String keepmeloggedinStr = "";
+            if (login.getKeepmeloggedin()){
+                keepmeloggedinStr = "?keepmeloggedin=1";
+            }
             if (SystemProperty.getProp(SystemProperty.PROP_ISSSLON).equals("1")) {
                 try {
-                    logger.debug("redirecting to https - " + BaseUrl.get(true) + "account/index.jsp");
-                    Pagez.sendRedirect(BaseUrl.get(true) + "account/index.jsp");
+                    logger.debug("redirecting to https - " + BaseUrl.get(true) + "account/index.jsp"+keepmeloggedinStr);
+                    Pagez.sendRedirect(BaseUrl.get(true) + "account/index.jsp"+keepmeloggedinStr);
                     return;
                 } catch (Exception ex) {
                     logger.error("", ex);
-                    Pagez.sendRedirect("/account/index.jsp");
+                    Pagez.sendRedirect("/account/index.jsp"+keepmeloggedinStr);
                     return;
                 }
             } else {
-                Pagez.sendRedirect("/account/index.jsp");
+                Pagez.sendRedirect("/account/index.jsp"+keepmeloggedinStr);
                 return;
             }
         } catch (ValidationException vex) {

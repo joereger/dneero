@@ -6,12 +6,15 @@ import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.htmlui.Pagez;
 import com.dneero.util.Num;
 import com.dneero.util.Str;
+import com.dneero.session.PersistentLogin;
 
 import java.util.List;
 import java.io.Serializable;
 
 import org.hibernate.criterion.Restrictions;
 import org.apache.log4j.Logger;
+
+import javax.servlet.http.Cookie;
 
 /**
  * User: Joe Reger Jr
@@ -34,6 +37,17 @@ public class AccountIndex implements Serializable {
         if(Pagez.getUserSession().getUser()!=null && Num.isinteger(String.valueOf(Pagez.getUserSession().getUser().getUserid()))){
             CurrentBalanceCalculator cbc = new CurrentBalanceCalculator(Pagez.getUserSession().getUser());
             currentbalance = "$"+Str.formatForMoney(cbc.getCurrentbalance());
+
+            //Set persistent login cookie, if necessary
+            if (Pagez.getRequest().getParameter("keepmeloggedin")!=null && Pagez.getRequest().getParameter("keepmeloggedin").equals("1")){
+                //Get all possible cookies to set
+                Cookie[] cookies = PersistentLogin.getPersistentCookies(Pagez.getUserSession().getUser().getUserid(), Pagez.getRequest());
+                //Add a cookies to the response
+                for (int j = 0; j < cookies.length; j++) {
+                    Pagez.getResponse().addCookie(cookies[j]);
+                }
+            }
+
             List<Responsepending> responsependings = HibernateUtil.getSession().createCriteria(Responsepending.class)
                                    .add(Restrictions.eq("userid", Pagez.getUserSession().getUser().getUserid()))
                                    .setCacheable(true)
@@ -43,6 +57,7 @@ public class AccountIndex implements Serializable {
                 Pagez.sendRedirect("/blogger/index.jsp");
             }
         }
+
     }
 
 
