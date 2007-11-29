@@ -45,12 +45,15 @@ public class SysadminErrorList implements Serializable {
     }
     public void deleteall() throws ValidationException {
         Logger logger = Logger.getLogger(this.getClass().getName());
+        logger.debug("delete() called");
         //int ers = HibernateUtil.getSession().createQuery("delete from Error where errorid>'0'").executeUpdate();
-        errors = HibernateUtil.getSession().createQuery("from Error").list();
-        for (Iterator iterator = errors.iterator(); iterator.hasNext();) {
-            Error error = (Error) iterator.next();
-            try{error.delete();}catch(Exception ex){logger.error("",ex);}
-        }
+//        errors = HibernateUtil.getSession().createQuery("from Error").list();
+//        for (Iterator iterator = errors.iterator(); iterator.hasNext();) {
+//            Error error = (Error) iterator.next();
+//            try{error.delete();}catch(Exception ex){logger.error("",ex);}
+//        }
+
+        HibernateUtil.getSession().createQuery("delete Error e where e.errorid>0").executeUpdate();
         initBean();
     }
 
