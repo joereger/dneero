@@ -21,24 +21,30 @@ public class CurrentBalanceCalculator implements Serializable {
 
     public CurrentBalanceCalculator(User user){
         this.user = user;
-        loadCurrentbalance();
-        loadPendingearnings();
+        if (user!=null){
+            loadCurrentbalance();
+            loadPendingearnings();
+        }
     }
 
     public void loadCurrentbalance(){
-        currentbalance = 0;
-        currentbalance = NumFromUniqueResult.getDouble("select sum(amt) from Balance where userid='"+user.getUserid()+"'");
+        if (user!=null){
+            currentbalance = 0;
+            currentbalance = NumFromUniqueResult.getDouble("select sum(amt) from Balance where userid='"+user.getUserid()+"'");
+        }
     }
 
     public void loadPendingearnings(){
         pendingearnings = 0;
-        if (user.getBloggerid()>0){
-            List responses = HibernateUtil.getSession().createQuery("from Response where bloggerid='"+user.getBloggerid()+"' and ispaid=false").list();
-            for (Iterator iterator = responses.iterator(); iterator.hasNext();) {
-                Response response = (Response) iterator.next();
-                if (!response.getIspaid()){
-                    Survey survey = Survey.get(response.getSurveyid());
-                    pendingearnings = pendingearnings + survey.getWillingtopayperrespondent();
+        if (user!=null){
+            if (user.getBloggerid()>0){
+                List responses = HibernateUtil.getSession().createQuery("from Response where bloggerid='"+user.getBloggerid()+"' and ispaid=false").list();
+                for (Iterator iterator = responses.iterator(); iterator.hasNext();) {
+                    Response response = (Response) iterator.next();
+                    if (!response.getIspaid()){
+                        Survey survey = Survey.get(response.getSurveyid());
+                        pendingearnings = pendingearnings + survey.getWillingtopayperrespondent();
+                    }
                 }
             }
         }

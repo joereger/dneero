@@ -33,8 +33,6 @@ public class ImpressionActivityObjectCollated implements Serializable {
         this.userid = userid;
     }
 
- 
-
     public int getResponseid() {
         return responseid;
     }

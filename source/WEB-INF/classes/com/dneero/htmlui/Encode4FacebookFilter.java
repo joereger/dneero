@@ -26,13 +26,17 @@ public class Encode4FacebookFilter implements Filter {
                 if (Pagez.getUserSession().getIsfacebookui() && request.getRequestURL().indexOf(".jpg")==-1 && request.getRequestURL().indexOf(".css")==-1 && request.getRequestURL().indexOf(".gif")==-1 && request.getRequestURL().indexOf(".png")==-1 && request.getRequestURL().indexOf(".js")==-1 && request.getRequestURL().indexOf(".swf")==-1){    
                     logger.debug("+++ doFilter() begin");
 
+
+
                     // nonce encode the normal output
                     Encode4FacebookResponseWrapper wrappedResponse = new Encode4FacebookResponseWrapper(request, response, sc);
 
                     // make sure a session exists
                     HttpSession session = request.getSession(true);
 
-                    chain.doFilter(req, wrappedResponse);
+             
+
+                    chain.doFilter(request, wrappedResponse);
 
                     // finish the response
                     wrappedResponse.finishResponse();

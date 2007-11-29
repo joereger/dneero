@@ -37,19 +37,21 @@ public class FbCallbackServlet extends HttpServlet {
         logger.debug("FbCallbackServlet called to service.");
 
         //Make sure the app responds with the facebook ui
+        //==================================================================================
         Pagez.getUserSession().setIsfacebookui(true);
 
-        logger.debug("into FbCallbackServlet and isfacebookui="+Pagez.getUserSession().getIsfacebookui());
-
+        //Need to record impressions
+        //==================================================================================
         //Note: Facebook only allows me to append a single var to the end of my url so I have to do some splitting crap to make things work.
         //The basic format I'm using is action-var1-var2-var3 where the vars are specific to each action.  It's crap but it works.
-
-        //Need to record impressions
         if (Pagez.getRequest().getParameter("action")!=null && Pagez.getRequest().getParameter("action").indexOf("showsurvey")>-1){
             RecordImpression.record(Pagez.getRequest());
         }
 
         //Need to set referred by userid in the usersession
+        //==================================================================================
+        //Note: Facebook only allows me to append a single var to the end of my url so I have to do some splitting crap to make things work.
+        //The basic format I'm using is action-var1-var2-var3 where the vars are specific to each action.  It's crap but it works.
         try{
             if (Pagez.getRequest().getParameter("action")!=null && Pagez.getRequest().getParameter("action").indexOf("showsurvey")>-1){
                 String[] split = Pagez.getRequest().getParameter("action").split("-");
@@ -63,6 +65,7 @@ public class FbCallbackServlet extends HttpServlet {
         } catch (Exception ex) {logger.error("",ex);}
 
         //Save referral state to the database if we have a facebookuid
+        //==================================================================================
         try{
             if (Pagez.getUserSession().getReferredbyOnlyUsedForSignup()>0){
                 if (Pagez.getUserSession().getFacebookUser()!=null && Num.isinteger(Pagez.getUserSession().getFacebookUser().getUid())){
@@ -71,10 +74,8 @@ public class FbCallbackServlet extends HttpServlet {
             }
         } catch (Exception ex){logger.error("",ex);}
 
-
-
-
         //If we should display a specific survey, do so
+        //==================================================================================
         if (Pagez.getRequest().getParameter("action")!=null && Pagez.getRequest().getParameter("action").indexOf("showsurvey")>-1){
             String[] split = Pagez.getRequest().getParameter("action").split("-");
             if (split.length>=3){
@@ -107,23 +108,18 @@ public class FbCallbackServlet extends HttpServlet {
                 if (Pagez.getUserSession().getIsfacebookui() &&  Pagez.getUserSession().getFacebookUser()!=null && Pagez.getUserSession().getFacebookUser().getHas_added_app()){
                     request.getRequestDispatcher("/survey.jsp?s="+split[1]+"&u="+split[2]+"&p=0").forward(request, response);
                     return;
-                    //urltoredirectto = appendFacebookStuff("/survey.jsp?s="+split[1]+"&u="+split[2]+"&p=0");
-                    //try{Pagez.sendRedirect(urltoredirectto);return;}catch(Exception ex){logger.error("",ex);}
-                    //return;
                 } else {
                     //If we see this code we may be displaying the app add page which means we'll need a link
                     try{
                         request.getRequestDispatcher("/facebookappadd.jsp").forward(request, response);
                         return;
-                        //urltoredirectto = appendFacebookStuff("/facebookappadd.jsp");
-                        //try{Pagez.sendRedirect(urltoredirectto);return;}catch(Exception ex){logger.error("",ex);}
-                        //return;
                     } catch(Exception ex){logger.error("",ex);}
                 }
             }
         }
 
-        //Post add page
+        //Display publicsurveylist.jsp
+        //==================================================================================
         if (Pagez.getRequest().getParameter("addedapp")!=null && Pagez.getRequest().getParameter("addedapp").equals("1")){
             //Notify admins
             if (Pagez.getUserSession().getFacebookUser()!=null){
@@ -137,12 +133,10 @@ public class FbCallbackServlet extends HttpServlet {
             }
             request.getRequestDispatcher("/publicsurveylist.jsp?addedapp=1").forward(request, response);
             return;
-            //urltoredirectto = appendFacebookStuff("/publicsurveylist.jsp?addedapp=1");
-            //try{Pagez.sendRedirect(urltoredirectto);return;}catch(Exception ex){logger.error("",ex);}
-            //return;
         }
 
         //If we have a dpage value, forward the request
+        //==================================================================================
         if (Pagez.getRequest().getParameter("dpage")!=null && !Pagez.getRequest().getParameter("dpage").equals("")){
             String dpage = Pagez.getRequest().getParameter("dpage");
             String dpagedecoded = URLDecoder.decode(dpage, "UTF-8");
@@ -168,6 +162,7 @@ public class FbCallbackServlet extends HttpServlet {
                 }
             }
             logger.debug("fileexists="+fileexists);
+            //If the file exists
             if (fileexists){
                 RequestDispatcher srd = request.getRequestDispatcher(splitZero);
                 if (srd!=null){
@@ -181,16 +176,15 @@ public class FbCallbackServlet extends HttpServlet {
             }
         }
 
-        //Redirect to the public survey list
+        //Redirect to publicsurveylist.jsp if the user has added the app
+        //==================================================================================
         if (Pagez.getUserSession().getIsfacebookui() && Pagez.getUserSession().getFacebookUser()!=null && Pagez.getUserSession().getFacebookUser().getHas_added_app()){
             request.getRequestDispatcher("/publicsurveylist.jsp").forward(request, response);
             return;
-            //urltoredirectto = appendFacebookStuff("/publicsurveylist.jsp");
-            //try{Pagez.sendRedirect(urltoredirectto);return;}catch(Exception ex){logger.error("",ex);}
-            //return;
         }
 
-        //User's gonna see the add app page we generate... just debug notification here
+        //Display the app add page
+        //==================================================================================
         try{
             String referredbyuserid = "";
             String referredtosurveyid = "";
@@ -201,7 +195,6 @@ public class FbCallbackServlet extends HttpServlet {
                     referredtosurveyid = split[1];
                 }
             }
-
             //Notify admins
             logger.debug("Facebook app add page shown to user");
             logger.debug("Pagez.getUserSession().getIsfacebookui():"+Pagez.getUserSession().getIsfacebookui());
@@ -216,13 +209,7 @@ public class FbCallbackServlet extends HttpServlet {
             }
             request.getRequestDispatcher("/facebookappadd.jsp").forward(request, response);
             return;
-            //urltoredirectto = appendFacebookStuff("/facebookappadd.jsp");
-            //try{Pagez.sendRedirect(urltoredirectto);return;}catch(Exception ex){logger.error("",ex);}
-            //return;
         }catch(Exception ex){logger.error("",ex);}
-
-
-
 
     }
 

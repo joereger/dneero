@@ -3,15 +3,30 @@
 <%@ page import="com.dneero.htmluibeans.BloggerCompletedsurveys" %>
 <%@ page import="com.dneero.htmluibeans.BloggerCompletedsurveysListitem" %>
 <%@ page import="java.util.Iterator" %>
+<%@ page import="com.dneero.util.Num" %>
+<%@ page import="com.dneero.dao.Response" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
-String pagetitle = "Earnings from Completed Surveys";
+String pagetitle = "Completed Surveys";
 String navtab = "bloggers";
 String acl = "blogger";
 %>
 <%@ include file="/template/auth.jsp" %>
 <%
     BloggerCompletedsurveys bloggerCompletedsurveys = (BloggerCompletedsurveys) Pagez.getBeanMgr().get("BloggerCompletedsurveys");
+%>
+<%
+    if (request.getParameter("action") != null && request.getParameter("action").equals("refreshresponsehtml")) {
+        try {
+            if (request.getParameter("responseid") != null && Num.isinteger(request.getParameter("responseid"))) {
+                bloggerCompletedsurveys.refreshResponseHtml(Integer.parseInt(request.getParameter("responseid")));
+                Response resp = Response.get(Integer.parseInt(request.getParameter("responseid")));
+                Pagez.getUserSession().setMessage("'"+resp.getSurvey().getTitle()+"' refreshed.  Check it out below.");
+            }
+        } catch (com.dneero.htmlui.ValidationException vex) {
+            Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
+        }
+    }
 %>
 <%@ include file="/template/header.jsp" %>
 
@@ -48,6 +63,7 @@ String acl = "blogger";
                             <font class="tinyfont" style="font-weight:bold; text-decoration: none;"><a href="/blogger/impressions.jsp?surveyid=<%=bloggerCompletedsurveysListitem.getSurveyid()%>">Impressions</a></font>
                         </td>
                         <td valign="top" width="225">
+                            <a href="/blogger/bloggercompletedsurveys.jsp?action=refreshresponsehtml&responseid=<%=bloggerCompletedsurveysListitem.getResponse().getResponseid()%>"><font class="tinyfont">Refresh</font></a><br/>
                             <%=bloggerCompletedsurveysListitem.getResponse().getResponsestatushtml()%>
                         </td>
                     </tr>

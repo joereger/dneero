@@ -71,7 +71,16 @@ public class PublicSurvey implements Serializable {
             surveyid = Integer.parseInt(Pagez.getRequest().getParameter("surveyid"));
         } else if (Num.isinteger(Pagez.getRequest().getParameter("s"))) {
             surveyid = Integer.parseInt(Pagez.getRequest().getParameter("s"));
+        } else if (Pagez.getRequest().getParameter("action")!=null && Pagez.getRequest().getParameter("action").indexOf("showsurvey")>-1){
+            String[] split = Pagez.getRequest().getParameter("action").split("-");
+            if (split.length>=3){
+                if (split[1]!=null && Num.isinteger(split[1])){
+                    surveyid = Integer.parseInt(split[1]);
+                }
+            }
         }
+
+        //Set the currentsurveyid
         Pagez.getUserSession().setCurrentSurveyid(surveyid);
         logger.debug("surveyid found: "+surveyid);
 
@@ -94,7 +103,16 @@ public class PublicSurvey implements Serializable {
             userid = Integer.parseInt(Pagez.getRequest().getParameter("userid"));
         } else if (Num.isinteger(Pagez.getRequest().getParameter("u"))){
             userid = Integer.parseInt(Pagez.getRequest().getParameter("u"));
+        } else if (Pagez.getRequest().getParameter("action")!=null && Pagez.getRequest().getParameter("action").indexOf("showsurvey")>-1){
+            String[] split = Pagez.getRequest().getParameter("action").split("-");
+            if (split.length>=3){
+                if (split[2]!=null && Num.isinteger(split[2])){
+                    userid = Integer.parseInt(split[2]);
+                }
+            }
         }
+
+        //Set userid-based session vars
         Pagez.getUserSession().setPendingSurveyReferredbyuserid(userid);
         Pagez.getUserSession().setReferredbyOnlyUsedForSignup(userid);
 

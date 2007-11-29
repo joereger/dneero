@@ -171,7 +171,7 @@ public class PublicSurveyList implements Serializable {
                 pendingearnings = "$"+Str.formatForMoney(pendingearningsDbl);
 
                 //Invite friends link
-                invitefriendsurl = faw.inviteFriendsTodNeero();
+                //invitefriendsurl = faw.inviteFriendsTodNeero();
 
             }
 

@@ -13,6 +13,7 @@ import com.dneero.survey.servlet.ImpressionActivityObject;
 import com.dneero.survey.servlet.ImpressionActivityObjectCollatedStorage;
 import com.dneero.survey.servlet.ImpressionActivityObjectCollated;
 import com.dneero.survey.servlet.ImpressionActivityObjectStorage;
+import com.dneero.xmpp.SendXMPPMessage;
 
 /**
  * User: Joe Reger Jr
@@ -51,6 +52,9 @@ ImpressionActivityObjectQueue implements Job {
             } catch (Exception ex){
                 logger.debug("Error in top block.");
                 logger.error("",ex);
+                //Notify via XMPP
+                SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_DEBUG, "Error recording impression in ImpressionActivityObjectQueue top block: "+ ex.getMessage());
+                xmpp.send();
             }
 
 
@@ -74,8 +78,11 @@ ImpressionActivityObjectQueue implements Job {
                 }
             } catch (Exception ex){
                 ex.printStackTrace();
-                logger.debug("Error in top block.");
+                logger.debug("Error in bottom block.");
                 logger.error("",ex);
+                //Notify via XMPP
+                SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_DEBUG, "Error recording impression in ImpressionActivityObjectQueue bottom block: "+ ex.getMessage());
+                xmpp.send();
             }
 
         //} else {

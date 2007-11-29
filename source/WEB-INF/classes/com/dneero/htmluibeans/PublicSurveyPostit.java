@@ -55,6 +55,8 @@ public class PublicSurveyPostit implements Serializable {
         logger.debug("PublicSurveyTake instanciated.");
 
         //Surveyid from session or url
+        logger.debug("Pagez.getUserSession().getCurrentSurveyid()="+Pagez.getUserSession().getCurrentSurveyid());
+        logger.debug("Pagez.getRequest().getParameter(\"surveyid\")="+Pagez.getRequest().getParameter("surveyid"));
         int surveyid = Pagez.getUserSession().getCurrentSurveyid();
         if (Num.isinteger(Pagez.getRequest().getParameter("surveyid"))){
             surveyid = Integer.parseInt(Pagez.getRequest().getParameter("surveyid"));
@@ -144,6 +146,7 @@ public class PublicSurveyPostit implements Serializable {
 
         //Justcompletedsurvey
         justcompletedsurvey = false;
+        logger.debug("Pagez.getRequest().getParameter(\"justcompletedsurvey\")="+Pagez.getRequest().getParameter("justcompletedsurvey"));
         if (Pagez.getRequest().getParameter("justcompletedsurvey")!=null && Pagez.getRequest().getParameter("justcompletedsurvey").equals("1")){
             justcompletedsurvey = true;
         }

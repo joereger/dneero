@@ -4,6 +4,7 @@ import com.dneero.dao.*;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.htmlui.UserSession;
 import com.dneero.htmlui.Pagez;
+import com.dneero.htmlui.ValidationException;
 import com.dneero.util.*;
 import com.dneero.money.UserImpressionFinder;
 import com.dneero.scheduledjobs.UpdateResponsePoststatus;
@@ -58,6 +59,13 @@ public class BloggerCompletedsurveys implements Serializable {
                 }
             }
 
+        }
+    }
+
+    public void refreshResponseHtml (int responseid) throws ValidationException {
+        Response response = Response.get(responseid);
+        if (response.getResponseid()>0){
+            UpdateResponsePoststatus.processSingleResponse(response);        
         }
     }
 

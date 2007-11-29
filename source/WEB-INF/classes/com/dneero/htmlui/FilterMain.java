@@ -6,6 +6,7 @@ import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequestWrapper;
 import java.io.IOException;
 import java.util.Calendar;
 
@@ -41,6 +42,8 @@ public class FilterMain implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest httpServletRequest = (HttpServletRequest)request;
         HttpServletResponse httpServletResponse = (HttpServletResponse)response;
+
+
         //Set up Pagez
         Pagez.setRequest(httpServletRequest);
         Pagez.setResponse(httpServletResponse);
@@ -94,9 +97,14 @@ public class FilterMain implements Filter {
 
                 //Facebook start
                 FacebookAuthorizationJsp.doAuth();
+                logger.debug("before persistent login and isfacebookui="+Pagez.getUserSession().getIsfacebookui());
                 //Facebook end
 
-                logger.debug("before persistent login and isfacebookui="+Pagez.getUserSession().getIsfacebookui());
+                //Decide whether to wrap/override the HttpServletRequest
+                if (Pagez.getUserSession().getIsfacebookui()){
+                    httpServletRequest = wrapRequest(httpServletRequest);
+                    Pagez.setRequest(httpServletRequest);
+                }
 
                 //Persistent login start
                 boolean wasAutoLoggedIn = false;
@@ -192,7 +200,6 @@ public class FilterMain implements Filter {
                         return;
                     }
                 }
-        
 
             } else {
                 //It's an image, js, etc
@@ -216,5 +223,58 @@ public class FilterMain implements Filter {
             }
         }catch(Exception ex){logger.error("", ex);}
     }
+
+
+
+    private HttpServletRequest wrapRequest(HttpServletRequest request){
+
+        //Treat dpage vars as real request vars... oy
+        //Start inner class
+        //Basically we override the getParameter() method of HttpServletRequest and parse the dpage param looking for encoded params
+        HttpServletRequestWrapper wrappedRequest = new HttpServletRequestWrapper(request) {
+           public String getParameter(java.lang.String name) {
+              Logger logger = Logger.getLogger(this.getClass().getName());
+              //logger.debug("getParameter("+name+") called");
+              try{
+                  if (super.getParameter("dpage")==null){
+                        //There's no dpage, just return as normal
+                        return super.getParameter(name);
+                  } else {
+                      //There's a dpage
+                      String dpage = super.getParameter("dpage");
+                      String[] dpagesplit = dpage.split("\\?");
+                      if (dpagesplit.length>1){
+                            //We have a dpage with params
+                            String querystring = dpagesplit[1];
+                            String[] nvpair = querystring.split("&");
+                            if (nvpair.length>0){
+                                //Process each pair
+                                for (int i=0; i<nvpair.length; i++) {
+                                    String querynvpair=nvpair[i];
+                                    String[] nvpairsplit = querynvpair.split("=");
+                                    if (nvpairsplit.length>1){
+                                        String nvname = nvpairsplit[0];
+                                        String nvvalue = nvpairsplit[1];
+                                        //Now see if it matches the requested name
+                                        if (nvname.equals(name)){
+                                            return nvvalue;
+                                        }
+                                    }
+                                }
+                            }
+                      }
+                  }
+              } catch (Exception ex){
+                logger.error("", ex);
+              }
+              return super.getParameter(name);
+           }
+        };
+        //End inner class
+        return (HttpServletRequest)wrappedRequest;
+
+    }
+
+
 
 }

@@ -6,6 +6,7 @@ import com.dneero.systemprops.SystemProperty;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpServletRequestWrapper;
 import javax.servlet.ServletOutputStream;
 
 import org.apache.log4j.Logger;
@@ -47,11 +48,18 @@ public class Pagez {
             //Facebookui
             try{
                 ServletOutputStream out = responseLocal.get().getOutputStream();
-
                 out.print("<fb:redirect url=\"http://apps.facebook.com/"+ SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_APP_NAME)+"/?dpage="+ URLEncoder.encode(url, "UTF-8")+"\"/>");
             }catch(Exception ex){logger.error("", ex);}
         }
     }
+
+
+    
+
+
+
+
+
 
     public static void setUserSessionAndUpdateCache(UserSession userSession){
         CacheFactory.getCacheProvider().put(getRequest().getSession().getId(), "userSession", userSession);

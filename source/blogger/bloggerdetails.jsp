@@ -31,16 +31,23 @@ BloggerDetails bloggerDetails = (BloggerDetails)Pagez.getBeanMgr().get("BloggerD
             bloggerDetails.saveAction();
             Pagez.getUserSession().setMessage("Profile Saved Successfully");
             if (Pagez.getUserSession().getIsfacebookui()){
-                Pagez.sendRedirect("/publicsurveylist.jsp");
-                return;
-            }
-            if (bloggerDetails.getIsnewblogger()){
-                Pagez.sendRedirect("/blogger/index.jsp");
-                return;
+                if (bloggerDetails.getIsnewblogger()){
+                    Pagez.sendRedirect("/blogger/index.jsp");
+                    return;
+                } else {
+                    Pagez.sendRedirect("/publicsurveylist.jsp");
+                    return;
+                }
             } else {
-                Pagez.sendRedirect("/blogger/index.jsp");
-                return;
+                if (bloggerDetails.getIsnewblogger()){
+                    Pagez.sendRedirect("/blogger/index.jsp");
+                    return;
+                } else {
+                    Pagez.sendRedirect("/blogger/index.jsp");
+                    return;
+                }
             }
+
         } catch (com.dneero.htmlui.ValidationException vex) {
             Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
         }

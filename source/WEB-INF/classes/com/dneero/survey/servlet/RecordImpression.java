@@ -2,6 +2,10 @@ package com.dneero.survey.servlet;
 
 import com.dneero.scheduledjobs.ImpressionActivityObjectQueue;
 import com.dneero.util.Num;
+import com.dneero.util.ErrorDissect;
+import com.dneero.xmpp.SendXMPPMessage;
+import com.dneero.htmlui.Pagez;
+
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import org.apache.log4j.Logger;
@@ -73,40 +77,38 @@ public class RecordImpression {
         //Debug
         logger.debug("record() called: userid="+userid+" surveyid="+surveyid+" responseid="+responseid+" referer="+referer);
 
-        //Create an IAO
-        ImpressionActivityObject iao = new ImpressionActivityObject();
-        iao.setSurveyid(surveyid);
-        iao.setReferer(referer);
-        iao.setIp(ip);
-        iao.setUserid(userid);
-        iao.setDate(new Date());
-        iao.setResponseid(responseid);
-
-        //Write iao to db
-        //I've already built the iao object so that it's easy to put into a simple memory list and then parse on some interval, writing to the database
-        //ImpressionActivityObjectStorage.store(iao);
         try{
+            //Create an IAO
+            ImpressionActivityObject iao = new ImpressionActivityObject();
+            iao.setSurveyid(surveyid);
+            iao.setReferer(referer);
+            iao.setIp(ip);
+            iao.setUserid(userid);
+            iao.setDate(new Date());
+            iao.setResponseid(responseid);
+
+            //Write iao to db
+            //I've already built the iao object so that it's easy to put into a simple memory list and then parse on some interval, writing to the database
+            //ImpressionActivityObjectStorage.store(iao);
             ImpressionActivityObjectQueue.addIao(iao);
-        } catch (Exception ex){
-            logger.error("",ex);
-        }
 
+            //Create an IAOCollated
+            ImpressionActivityObjectCollated iaoc = new ImpressionActivityObjectCollated();
+            iaoc.setReferer(referer);
+            iaoc.setSurveyid(surveyid);
+            iaoc.setUserid(userid);
+            iaoc.setResponseid(responseid);
+            iaoc.setImpressions(1);
 
-        //Create an IAOCollated
-        ImpressionActivityObjectCollated iaoc = new ImpressionActivityObjectCollated();
-        iaoc.setReferer(referer);
-        iaoc.setSurveyid(surveyid);
-        iaoc.setUserid(userid);
-        iaoc.setResponseid(responseid);
-        iaoc.setImpressions(1);
-
-        //Write iao to db
-        //I've already built the iao object so that it's easy to put into a simple memory list and then parse on some interval, writing to the database
-        //ImpressionActivityObjectStorage.store(iao);
-        try{
+            //Write iao to db
+            //I've already built the iao object so that it's easy to put into a simple memory list and then parse on some interval, writing to the database
+            //ImpressionActivityObjectStorage.store(iao);
             ImpressionActivityObjectQueue.addIaoc(iaoc);
         } catch (Exception ex){
             logger.error("",ex);
+            //Notify via XMPP
+            SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_DEBUG, "Error recording impression in RecordImpression: "+ ex.getMessage());
+            xmpp.send();
         }
 
 

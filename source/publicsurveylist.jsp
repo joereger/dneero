@@ -130,59 +130,29 @@ PublicSurveyList publicSurveyList = (PublicSurveyList)Pagez.getBeanMgr().get("Pu
                             <font class="tinyfont">None, yet.</font><br/>
                         <% } else { %>
                             <table cellpadding="0" cellspacing="0" border="0">
-                                <tr>
                                 <%
+                                    int colsperrow = 4;
+                                    int col = 1;
                                     for (Iterator<PublicSurveyFacebookFriendListitem> iterator=publicSurveyList.getFacebookuserswhoaddedapp().iterator(); iterator.hasNext();){
                                         PublicSurveyFacebookFriendListitem publicSurveyFacebookFriendListitem=iterator.next();
                                         %>
+                                        <%if (col==1){%><tr><%}%>
                                         <td valign="top">
                                             <img src="<%=publicSurveyFacebookFriendListitem.getFacebookUser().getPic_square()%>" width="50" height="50" border="0" align="middle" alt=""/><br/>
                                             <font class="tinyfont" style="font-weight: bold;"><%=publicSurveyFacebookFriendListitem.getFacebookUser().getFirst_name()%> <%=publicSurveyFacebookFriendListitem.getFacebookUser().getLast_name()%></font><br/><br/>
                                         </td>
                                         <%
+                                        if (col==colsperrow){
+                                            %></tr><%
+                                            col = 1;
+                                        }
+                                         col = col + 1;
                                     }
                                 %>
-                                </tr>
                             </table>
                         <%}%>
 
 
-                        <br/>
-                        <%
-                            //Will need this throughout the page
-                            ArrayList<FacebookUser> friends=Pagez.getUserSession().getFacebookFriends();
-                            //Create comma-separated list of friends who have app installed
-                            StringBuffer commaSepFriendsAlreadyUsingApp=new StringBuffer();
-                            ArrayList<FacebookUser> friendsUsingApp=new ArrayList<FacebookUser>();
-                            if (friends != null) {
-                                for (Iterator it=friends.iterator(); it.hasNext();) {
-                                    FacebookUser facebookUser=(FacebookUser) it.next();
-                                    if (facebookUser.getHas_added_app()) {
-                                        friendsUsingApp.add(facebookUser);
-                                        if (commaSepFriendsAlreadyUsingApp.length()>0) {
-                                            commaSepFriendsAlreadyUsingApp.append(",");
-                                        }
-                                        commaSepFriendsAlreadyUsingApp.append(facebookUser.getUid());
-                                    }
-                                }
-                            }
-                        %>
-
-                    <fb:request-form
-                        action="http://apps.facebook.com/<%=SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_APP_NAME)%>/?dpage=/publicsurveylist.jsp"
-                        method="POST"
-                        invite="true"
-                        type="dNeero Survey"
-                        content="You've been invited to the social survey app called dNeero that allows you to earn real money taking surveys and sharing your answers with your friends. <fb:req-choice url='http://www.facebook.com/add.php?api_key=<%=SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_KEY)%>' label='Check out dNeero!' />
-                    ">
-                        <fb:multi-friend-selector
-                            showborder="false"
-                            actiontext="Invite friends to dNeero."
-                            exclude_ids="<%=commaSepFriendsAlreadyUsingApp.toString()%>"
-                            rows="3"
-                            max="20"
-                            />
-                    </fb:request-form>
 
 
 
@@ -193,6 +163,45 @@ PublicSurveyList publicSurveyList = (PublicSurveyList)Pagez.getBeanMgr().get("Pu
 
         </tr>
     </table>
+
+    
+    <br/>
+        <%
+            //Will need this throughout the page
+            ArrayList<FacebookUser> friends=Pagez.getUserSession().getFacebookFriends();
+            //Create comma-separated list of friends who have app installed
+            StringBuffer commaSepFriendsAlreadyUsingApp=new StringBuffer();
+            ArrayList<FacebookUser> friendsUsingApp=new ArrayList<FacebookUser>();
+            if (friends != null) {
+                for (Iterator it=friends.iterator(); it.hasNext();) {
+                    FacebookUser facebookUser=(FacebookUser) it.next();
+                    if (facebookUser.getHas_added_app()) {
+                        friendsUsingApp.add(facebookUser);
+                        if (commaSepFriendsAlreadyUsingApp.length()>0) {
+                            commaSepFriendsAlreadyUsingApp.append(",");
+                        }
+                        commaSepFriendsAlreadyUsingApp.append(facebookUser.getUid());
+                    }
+                }
+            }
+        %>
+
+    <fb:request-form
+        action="http://apps.facebook.com/<%=SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_APP_NAME)%>/?dpage=/publicsurveylist.jsp"
+        method="POST"
+        invite="true"
+        type="dNeero Survey"
+        content="You've been invited to the social survey app called dNeero that allows you to earn real money taking surveys and sharing your answers with your friends. <fb:req-choice url='http://www.facebook.com/add.php?api_key=<%=SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_KEY)%>' label='Check out dNeero!' />
+    ">
+        <fb:multi-friend-selector
+            showborder="false"
+            actiontext="Invite friends to dNeero."
+            exclude_ids="<%=commaSepFriendsAlreadyUsingApp.toString()%>"
+            rows="3"
+            max="20"
+            />
+    </fb:request-form>
+
 
 
 

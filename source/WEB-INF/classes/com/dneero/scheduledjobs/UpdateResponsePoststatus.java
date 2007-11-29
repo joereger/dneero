@@ -152,7 +152,7 @@ public class UpdateResponsePoststatus implements Job {
             statusHtml.append("</td>\n");
             statusHtml.append(  "\t</tr>\n" +
                                 "\t<tr>\n" +
-                                "\t\t<td width=\"10\" colspan=\""+(MAXPOSTINGPERIODINDAYS)+"\" nowrap><font class=\"tinyfont\">"+daysthatqualify+" "+daysqualify+"; "+moreneeded+" More Needed</font></td>\n" +
+                                "\t\t<td colspan=\""+(MAXPOSTINGPERIODINDAYS)+"\" nowrap><font class=\"tinyfont\">"+daysthatqualify+" "+daysqualify+"; "+moreneeded+" More Needed</font></td>\n" +
                                 "\t</tr>\n" +
                                 "</table>");
 
