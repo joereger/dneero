@@ -36,6 +36,10 @@ public class Pagez {
     }
 
     public static void sendRedirect(String url){
+        sendRedirect(url, true);
+    }
+
+    public static void sendRedirect(String url, boolean doFancyDpageStuff){
         Logger logger = Logger.getLogger(Pagez.class);
         if (!Pagez.getUserSession().getIsfacebookui()){
             //Web ui
@@ -48,7 +52,11 @@ public class Pagez {
             //Facebookui
             try{
                 ServletOutputStream out = responseLocal.get().getOutputStream();
-                out.print("<fb:redirect url=\"http://apps.facebook.com/"+ SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_APP_NAME)+"/?dpage="+ URLEncoder.encode(url, "UTF-8")+"\"/>");
+                if (doFancyDpageStuff){
+                    out.print("<fb:redirect url=\"http://apps.facebook.com/"+ SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_APP_NAME)+"/?dpage="+ URLEncoder.encode(url, "UTF-8")+"\"/>");
+                } else {
+                    out.print("<fb:redirect url=\""+url+"\"/>");
+                }
             }catch(Exception ex){logger.error("", ex);}
         }
     }

@@ -29,7 +29,6 @@ String acl = "blogger";
         <%
             ArrayList<GridCol> cols=new ArrayList<GridCol>();
             cols.add(new GridCol("Referer", "<$referer$>", false, "", "smallfont"));
-            cols.add(new GridCol("Paid", "<$impressionspaidandtobepaid$>", false, "", "smallfont"));
             cols.add(new GridCol("Total Impressions", "<$impressionstotal$>", false, "", "smallfont"));
             cols.add(new GridCol("Quality", "<$quality$>", false, "", "smallfont"));
         %>

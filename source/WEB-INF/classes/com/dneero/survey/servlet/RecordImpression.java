@@ -25,6 +25,9 @@ public class RecordImpression {
         if (referer==null){
             referer="";
         }
+        if(Pagez.getUserSession().getIsfacebookui()){
+            referer = "Facebook";    
+        }
         logger.debug("referer=" + referer);
 
         //Find ip address

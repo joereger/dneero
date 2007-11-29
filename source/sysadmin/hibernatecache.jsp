@@ -11,6 +11,16 @@ String acl = "sysadmin";
 <%
 SysadminHibernateCache sysadminHibernateCache = (SysadminHibernateCache)Pagez.getBeanMgr().get("SysadminHibernateCache");
 %>
+<%
+    if (request.getParameter("action") != null && request.getParameter("action").equals("runqueue")) {
+        try {
+            sysadminHibernateCache.runImpressionActivityObjectQueue();
+            Pagez.getUserSession().setMessage("ImpressionActivityObjectQueue run.");
+        } catch (com.dneero.htmlui.ValidationException vex) {
+            Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
+        }
+    }
+%>
 <%@ include file="/template/header.jsp" %>
 
 
@@ -43,6 +53,7 @@ SysadminHibernateCache sysadminHibernateCache = (SysadminHibernateCache)Pagez.ge
     </div>
     <div class="panel" id="panel1" style="display: block">
         <img src="/images/clear.gif" width="700" height="1"/><br/>
+        <a href="/sysadmin/hibernatecache.jsp?action=runqueue"><font class="formfieldnamefont">Process Queue</font></a><br/><br/>
         <%=sysadminHibernateCache.getIaosqueue()%>
     </div>
     <div class="panel" id="panel2" style="display: none">

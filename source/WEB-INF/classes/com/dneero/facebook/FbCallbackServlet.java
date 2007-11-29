@@ -10,9 +10,11 @@ import javax.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.File;
 import java.net.URLDecoder;
+import java.net.URLEncoder;
 
 import com.dneero.systemprops.BaseUrl;
 import com.dneero.systemprops.WebAppRootDir;
+import com.dneero.systemprops.SystemProperty;
 import com.dneero.survey.servlet.SurveyLinkServlet;
 import com.dneero.survey.servlet.RecordImpression;
 import com.dneero.htmlui.Pagez;
@@ -111,8 +113,11 @@ public class FbCallbackServlet extends HttpServlet {
                 } else {
                     //If we see this code we may be displaying the app add page which means we'll need a link
                     try{
-                        request.getRequestDispatcher("/facebookappadd.jsp").forward(request, response);
-                        return;
+                        String next = URLEncoder.encode("&action="+request.getParameter("action"), "UTF-8");
+                        String addurl = "http://www.facebook.com/add.php?api_key="+ SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_KEY) + "&next="+next;
+                        Pagez.sendRedirect(addurl, false);
+                        //request.getRequestDispatcher("/facebookappadd.jsp").forward(request, response);
+                        //return;
                     } catch(Exception ex){logger.error("",ex);}
                 }
             }
@@ -207,8 +212,12 @@ public class FbCallbackServlet extends HttpServlet {
                 SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_DEBUG, "Facebook app add page shown to Unknown:"+Pagez.getUserSession().getFacebookSessionKey()+" referred by userid="+referredbyuserid+" to surveyid="+referredtosurveyid);
                 xmpp.send();
             }
-            request.getRequestDispatcher("/facebookappadd.jsp").forward(request, response);
-            return;
+
+            String next = URLEncoder.encode("&action="+request.getParameter("action"), "UTF-8");
+            String addurl = "http://www.facebook.com/add.php?api_key="+ SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_KEY) + "&next="+next;
+            Pagez.sendRedirect(addurl, false);
+            //request.getRequestDispatcher("/facebookappadd.jsp").forward(request, response);
+            //return;
         }catch(Exception ex){logger.error("",ex);}
 
     }

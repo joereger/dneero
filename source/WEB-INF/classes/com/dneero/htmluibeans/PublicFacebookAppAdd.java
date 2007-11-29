@@ -32,7 +32,7 @@ public class PublicFacebookAppAdd implements Serializable {
     public void initBean(){
         Logger logger = Logger.getLogger(this.getClass().getName());
 
-        //@todo append action to addurl
+        //Append action to addurl
         if (Pagez.getRequest().getParameter("action")!=null && Pagez.getRequest().getParameter("action").indexOf("showsurvey")>-1){
             String[] split = Pagez.getRequest().getParameter("action").split("-");
             if (split.length>=3){

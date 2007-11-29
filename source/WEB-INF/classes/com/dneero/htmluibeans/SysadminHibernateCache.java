@@ -5,6 +5,7 @@ import com.dneero.cache.providers.CacheFactory;
 import com.dneero.survey.servlet.ImpressionActivityObject;
 import com.dneero.survey.servlet.ImpressionActivityObjectCollated;
 import com.dneero.scheduledjobs.ImpressionActivityObjectQueue;
+import com.dneero.htmlui.ValidationException;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -83,12 +84,11 @@ public class SysadminHibernateCache implements Serializable {
 
     }
 
-    public String runImpressionActivityObjectQueue(){
+    public void runImpressionActivityObjectQueue() throws ValidationException {
         Logger logger = Logger.getLogger(this.getClass().getName());
         try{com.dneero.scheduledjobs.ImpressionActivityObjectQueue task = new com.dneero.scheduledjobs.ImpressionActivityObjectQueue();
             task.execute(null);} catch (Exception ex){logger.error("",ex);}
         initBean();
-        return "sysadminhibernatecache";
     }
 
 
