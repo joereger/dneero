@@ -15,6 +15,25 @@ String acl = "public";
 PublicSurvey publicSurvey = (PublicSurvey)Pagez.getBeanMgr().get("PublicSurvey");
 %>
 <%
+    if (request.getParameter("accesscode")!=null && !request.getParameter("accesscode").equals("")) {
+        Pagez.getUserSession().setAccesscode(request.getParameter("accesscode"));
+    }
+%>
+<%
+
+if (request.getParameter("show")!=null && request.getParameter("show").equals("results")){
+    //redirect to results
+    Pagez.sendRedirect("/surveyresults.jsp?surveyid="+request.getParameter("surveyid")+"&userid="+request.getParameter("userid"));
+    return;
+}
+if (request.getParameter("show")!=null && request.getParameter("show").equals("disclosure")){
+    //redirect to disclosure
+    Pagez.sendRedirect("/surveydisclosure.jsp?surveyid="+request.getParameter("surveyid")+"&userid="+request.getParameter("userid"));
+    return;
+}
+
+%>
+<%
     if (request.getParameter("action") != null && request.getParameter("action").equals("takesurvey")) {
         try {
             publicSurvey.takeSurvey();
@@ -119,7 +138,15 @@ PublicSurvey publicSurvey = (PublicSurvey)Pagez.getBeanMgr().get("PublicSurvey")
 
                         <div class="rounded" style="background: #e6e6e6; padding: 10px;">
                             <center><font class="smallfont" style="font-weight: bold;">Take the survey by answering the questions below.  Because this is a Social Survey your answers will be available to the public.</font></center><br/><br/>
-                            <div class="rounded" style="background: #ffffff; padding: 5px;">
+                            <div class="rounded" style="background: #ffffff; padding: 10px;">
+                                <%if (publicSurvey.getSurvey().getIsaccesscodeonly()){%>
+                                    <div class="rounded" style="background: #00ff00;">
+                                        <img src="/images/lock-48.png" alt="" width="48" height="48" align="right"/>
+                                        <font class="mediumfont" style="color: #666666;">This survey requires an Access Code</font>
+                                        <br/>
+                                        <font class="formfieldnamefont" style="color: #666666;">Access Code: </font><%=Textbox.getHtml("accesscode", Pagez.getUserSession().getAccesscode(), 255, 10, "", "")%>
+                                    </div>
+                                <%}%>
                                 <%=publicSurvey.getTakesurveyhtml()%>
                             </div>
                         </div>
@@ -234,6 +261,11 @@ PublicSurvey publicSurvey = (PublicSurvey)Pagez.getBeanMgr().get("PublicSurvey")
                                     <br/>
                                     <font class="tinyfont">(pending posting verification)</font>
                                     <br/>
+                                    <%
+                                    if (publicSurvey.getSurveyEnhancer()==null){
+                                        logger.debug("publicSurvey.getSurveyEnhancer() is null!!!");   
+                                    }
+                                    %>
                                     <font class="largefont" style="font-size: 60px; color: #666666;"><%=publicSurvey.getSurveyEnhancer().getMinearning()%></font>
                                     <% if (publicSurvey.getSurveytakergavetocharity() || publicSurvey.getSurvey().getIscharityonly()){ %>
                                         <br/>

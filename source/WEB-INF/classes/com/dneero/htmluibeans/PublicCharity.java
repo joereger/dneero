@@ -48,7 +48,6 @@ public class PublicCharity implements Serializable {
             pclitd.setAmtforscreen("$"+Str.formatForMoney(user.getCharityamtdonated()));
             topdonatingUsers.add(pclitd);
         }
-
     }
 
 

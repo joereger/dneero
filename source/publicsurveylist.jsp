@@ -1,5 +1,4 @@
 <%@ page import="org.apache.log4j.Logger" %>
-<%@ page import="com.dneero.htmlui.Pagez" %>
 <%@ page import="com.dneero.htmluibeans.PublicSurveyList" %>
 <%@ page import="com.dneero.dbgrid.GridCol" %>
 <%@ page import="com.dneero.dbgrid.Grid" %>
@@ -11,6 +10,8 @@
 <%@ page import="com.dneero.facebook.FacebookApiWrapper" %>
 <%@ page import="com.dneero.facebook.FacebookUser" %>
 <%@ page import="com.dneero.systemprops.SystemProperty" %>
+<%@ page import="com.dneero.htmlui.*" %>
+<%@ page import="com.dneero.htmluibeans.PublicIndex" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "Social Surveys";
@@ -20,6 +21,22 @@ String acl = "public";
 <%@ include file="/template/auth.jsp" %>
 <%
 PublicSurveyList publicSurveyList = (PublicSurveyList)Pagez.getBeanMgr().get("PublicSurveyList");
+%>
+<%
+    if (request.getParameter("accesscode")!=null && !request.getParameter("accesscode").equals("")) {
+        Pagez.getUserSession().setAccesscode(request.getParameter("accesscode"));
+    }
+%>
+<%
+    if (request.getParameter("action") != null && request.getParameter("action").equals("enteraccesscode")) {
+        try {
+            PublicIndex publicIndex=new PublicIndex();
+            publicIndex.enterAccessCode();
+            Pagez.getUserSession().setMessage("Sorry, no surveys were found for that Access Code.");
+        } catch (ValidationException vex) {
+            Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
+        }
+    }
 %>
 <%@ include file="/template/header.jsp" %>
 
@@ -57,7 +74,7 @@ PublicSurveyList publicSurveyList = (PublicSurveyList)Pagez.getBeanMgr().get("Pu
 "                                <td>\n" +
 "                                    <a href=\"/survey.jsp?surveyid=<$surveyid$>\"><font class=\"normalfont\" style=\"text-decoration: none; font-weight: bold; color: #0000ff;\"><$title$></font></a>\n"+
 "                                    <font class=\"normalfont\"><$description$></font><br/><br/>\n" +
-"                                    <font class=\"tinyfont\"><b><$daysuntilend$></b></font>\n" +
+"                                    <$accessonlyhtml$> <font class=\"tinyfont\"><b><$daysuntilend$></b></font>\n" +
 "                                </td>\n" +
 "                                <td width=\"30%\">\n" +
 "                                    <div class=\"rounded\" style=\"background: #ffffff; padding: 10px;\">\n" +
@@ -152,11 +169,15 @@ PublicSurveyList publicSurveyList = (PublicSurveyList)Pagez.getBeanMgr().get("Pu
                             </table>
                         <%}%>
 
-
-
-
-
                         <br/><br/>
+                        <div class="rounded" style="background: #ffffff; padding: 10px;">
+                            <form action="/publicsurveylist.jsp" method="post">
+                                <input type="hidden" name="action" value="enteraccesscode">
+                                <font class="normalfont"><b>Got an Access Code?</b></font>
+                                <%=Textbox.getHtml("accesscode", Pagez.getUserSession().getAccesscode(), 255, 10, "", "")%>
+                                <input type="submit" class="formsubmitbutton" value="Go">
+                            </form>
+                        </div>
                     </div>
                 </td>
             <% } %>

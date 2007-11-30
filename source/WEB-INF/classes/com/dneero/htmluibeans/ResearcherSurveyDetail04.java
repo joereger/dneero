@@ -8,6 +8,7 @@ import java.io.Serializable;
 
 import com.dneero.dao.*;
 import com.dneero.dao.hibernate.HibernateUtil;
+import com.dneero.dao.hibernate.NumFromUniqueResult;
 import com.dneero.util.Str;
 
 import com.dneero.util.GeneralException;
@@ -16,6 +17,7 @@ import com.dneero.htmlui.UserSession;
 import com.dneero.htmlui.Pagez;
 import com.dneero.htmlui.ValidationException;
 import com.dneero.finders.SurveyCriteriaXML;
+import com.dneero.helpers.UserInputSafe;
 
 /**
  * User: Joe Reger Jr
@@ -50,7 +52,8 @@ public class ResearcherSurveyDetail04 implements Serializable {
     private String[] panels;
     private String panelsStr;
 
-
+    private boolean isaccesscodeonly= false;
+    private String accesscode;
 
     public ResearcherSurveyDetail04(){
 
@@ -68,6 +71,8 @@ public class ResearcherSurveyDetail04 implements Serializable {
         if (survey!=null){
             title = survey.getTitle();
             status = survey.getStatus();
+            isaccesscodeonly= survey.getIsaccesscodeonly();
+            accesscode = survey.getAccesscode();
             if (Pagez.getUserSession().getUser()!=null && survey.canEdit(Pagez.getUserSession().getUser())){
                 //Do it with XML
                 SurveyCriteriaXML surveyCriteriaXML = new SurveyCriteriaXML(survey.getCriteriaxml());
@@ -113,6 +118,17 @@ public class ResearcherSurveyDetail04 implements Serializable {
             UserSession userSession = Pagez.getUserSession();
 
             if (Pagez.getUserSession().getUser()!=null && survey.canEdit(Pagez.getUserSession().getUser())){
+
+                //Coupon validation
+                if (isaccesscodeonly && accesscode.equals("")){
+                    throw new ValidationException("If you choose to do a accesscode survey then you must enter a accesscode code.");
+                }
+                if (isaccesscodeonly){
+                    int numsurveyswithsameaccesscode = NumFromUniqueResult.getInt("select count(*) from Survey where accesscode='"+ UserInputSafe.clean(accesscode)+"' and surveyid<>'"+survey.getSurveyid()+"'");
+                    if (numsurveyswithsameaccesscode>0){
+                        throw new ValidationException("Another survey with that Access Code already exists.  Please choose another.");
+                    }
+                }
 
                 //Do it with XML
                 if (true){
@@ -196,6 +212,8 @@ public class ResearcherSurveyDetail04 implements Serializable {
                //Final save
                 try{
                     logger.debug("saveSurvey() about to save (for 2nd time) survey.getSurveyid()=" + survey.getSurveyid());
+                    survey.setIsaccesscodeonly(isaccesscodeonly);
+                    survey.setAccesscode(accesscode);
                     survey.save();
                     logger.debug("saveSurvey() done saving (for 2nd time) survey.getSurveyid()=" + survey.getSurveyid());
                 } catch (GeneralException gex){
@@ -400,5 +418,21 @@ public class ResearcherSurveyDetail04 implements Serializable {
 
     public void setSurvey(Survey survey) {
         this.survey=survey;
+    }
+
+    public boolean getIsaccesscodeonly() {
+        return isaccesscodeonly;
+    }
+
+    public void setIsaccesscodeonly(boolean isaccesscodeonly) {
+        this.isaccesscodeonly=isaccesscodeonly;
+    }
+
+    public String getAccesscode() {
+        return accesscode;
+    }
+
+    public void setAccesscode(String accesscode) {
+        this.accesscode=accesscode;
     }
 }

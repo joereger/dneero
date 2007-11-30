@@ -20,6 +20,7 @@ public class SurveyListItem implements Serializable {
     private String description = "";
     private int numberofrespondents=0;
     private boolean ischarityonly = false;
+    private String accessonlyhtml = "";
 
     public SurveyListItem(){}
 
@@ -110,5 +111,13 @@ public class SurveyListItem implements Serializable {
 
     public void setIsloggedinuserqualified(boolean isloggedinuserqualified) {
         this.isloggedinuserqualified = isloggedinuserqualified;
+    }
+
+    public String getAccessonlyhtml() {
+        return accessonlyhtml;
+    }
+
+    public void setAccessonlyhtml(String accessonlyhtml) {
+        this.accessonlyhtml=accessonlyhtml;
     }
 }

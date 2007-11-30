@@ -4,11 +4,14 @@ import com.dneero.twitter.TwitterUpdate;
 import com.dneero.util.Time;
 import com.dneero.ui.SurveyEnhancer;
 import com.dneero.dao.Survey;
+import com.dneero.dao.hibernate.HibernateUtil;
+import com.dneero.htmlui.ValidationException;
+import com.dneero.htmlui.Pagez;
 
 import java.io.Serializable;
-import java.util.Calendar;
-import java.util.Map;
-import java.util.HashMap;
+import java.util.*;
+
+import org.hibernate.criterion.Restrictions;
 
 
 /**
@@ -40,6 +43,25 @@ public class PublicIndex implements Serializable {
             }
         }
         spotlightsurveyenhancers = com.dneero.scheduledjobs.SystemStats.getSpotlightsurveyenhancers();
+    }
+
+    public void enterAccessCode() throws ValidationException {
+        if (Pagez.getUserSession().getAccesscode()!=null && !Pagez.getUserSession().getAccesscode().equals("")){
+            List<Survey> surveys = HibernateUtil.getSession().createCriteria(Survey.class)
+                                               .add(Restrictions.eq("isaccesscodeonly", true))
+                                               .add(Restrictions.eq("accesscode", Pagez.getUserSession().getAccesscode()))
+                                               .setCacheable(true)
+                                               .list();
+            for (Iterator<Survey> iterator=surveys.iterator(); iterator.hasNext();) {
+                Survey survey=iterator.next();
+                if (survey.getIsaccesscodeonly()){
+                    if (survey.getAccesscode().equals(Pagez.getUserSession().getAccesscode())){
+                        Pagez.sendRedirect("/survey.jsp?surveyid="+survey.getSurveyid());
+                        return;
+                    }
+                }
+            }
+        }
     }
 
 

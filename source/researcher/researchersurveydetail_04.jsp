@@ -35,6 +35,8 @@ ResearcherSurveyDetail04 researcherSurveyDetail04 = (ResearcherSurveyDetail04)Pa
             researcherSurveyDetail04.setPolitics(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("politics", "Politics", false)));
             researcherSurveyDetail04.setProfession(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("professions", "Professions", false)));
             researcherSurveyDetail04.setState(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("states", "States", false)));
+            researcherSurveyDetail04.setIsaccesscodeonly(CheckboxBoolean.getValueFromRequest("isaccesscodeonly"));
+            researcherSurveyDetail04.setAccesscode(Textbox.getValueFromRequest("accesscode", "Access Code", false, DatatypeString.DATATYPEID));
             if (request.getParameter("action").equals("next")) {
                 logger.debug("Next was clicked");
                 researcherSurveyDetail04.saveSurvey();
@@ -208,6 +210,27 @@ ResearcherSurveyDetail04 researcherSurveyDetail04 = (ResearcherSurveyDetail04)Pa
                 </td>
                 <td valign="top">
                     <%=DropdownMultiselect.getHtml("panels", Util.stringArrayToArrayList(researcherSurveyDetail04.getPanels()), researcherSurveyDetail04.getPanelsavailable(), 6, "", "")%>
+                </td>
+            </tr>
+
+            <tr>
+                <td valign="top">
+                    <font class="formfieldnamefont">Access Code Only?</font>
+                    <br/>
+                    <font class="tinyfont">Access Code Only surveys require that everybody who takes the survey first enter an access code that you somehow communicate to them.  In this way you can limit and control who takes your survey.  Great for point-of-sale and real-world ties to the online world.</font>
+                </td>
+                <td valign="top">
+                    <%=CheckboxBoolean.getHtml("isaccesscodeonly", researcherSurveyDetail04.getIsaccesscodeonly(), "", "")%><font class="formfieldnamefont">Yes</font>
+                    <br/>
+                    <font class="normalfont">Access Code</font>
+                    <br/>
+                    <%=Textbox.getHtml("accesscode", researcherSurveyDetail04.getAccesscode(), 255, 10, "", "")%>
+                </td>
+
+                <td valign="top">
+                    <font class="formfieldnamefont"></font>
+                </td>
+                <td valign="top">
                 </td>
             </tr>
 

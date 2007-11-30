@@ -230,8 +230,8 @@
             <group>surveyTriggers</group>
             <job-name>impressionPayments</job-name>
             <job-group>surveyJobs</job-group>
-            <!-- Fire at 10am every day -->
-            <cron-expression>0 0 6 * * ?</cron-expression>
+            <!-- Fire at 6am every SUN -->
+            <cron-expression>0 0 6 ? * SUN</cron-expression>
           </cron>
         </trigger>
     </job>

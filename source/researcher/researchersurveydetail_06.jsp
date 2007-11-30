@@ -321,7 +321,7 @@ ResearcherSurveyDetail06 researcherSurveyDetail06 = (ResearcherSurveyDetail06)Pa
                 <%if (researcherSurveyDetail06.getSurvey().getStatus()==Survey.STATUS_DRAFT) {%>
                     <input type="submit" class="formsubmitbutton" value="Save and Continue Later" onclick="document.getElementById('action').value='saveasdraft';">
                 <%}%>
-                <input type="submit" class="formsubmitbutton" value="Next Step">
+                <input type="submit" class="formsubmitbutton" value="Launch this Survey!">
             </td>
         </tr>
     </table>

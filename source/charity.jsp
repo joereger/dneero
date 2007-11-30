@@ -47,7 +47,7 @@ PublicCharity publicCharity = (PublicCharity) Pagez.getBeanMgr().get("PublicChar
                                 <%
                                     ArrayList<GridCol> cols=new ArrayList<GridCol>();
                                     cols.add(new GridCol("Name", "<a href=\"/profile.jsp?userid=<$user.userid$>\"><$user.firstname$> <$user.lastname$></a>", false, "", "smallfont"));
-                                    cols.add(new GridCol("Donations", "<$amtForScreen$>", false, "", "smallfont"));
+                                    cols.add(new GridCol("Donations", "<$amtforscreen$>", false, "", "smallfont"));
                                 %>
                                 <%=Grid.render(publicCharity.getTopdonatingUsers(), cols, 100, "/charity.jsp", "pagecharity")%>
                             <%}%>

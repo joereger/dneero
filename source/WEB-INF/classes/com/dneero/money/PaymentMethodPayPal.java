@@ -44,7 +44,10 @@ public class PaymentMethodPayPal extends PaymentMethodBase implements PaymentMet
         }
         logger.debug("---------- PayPal Call Start ----------");
         StringBuffer debug = new StringBuffer();
-        debug.append("PaymentMethodPayPal run at: "+Time.dateformatcompactwithtime(Time.nowInUserTimezone("EST"))+"\n\n");
+        debug.append("PaymentMethodPayPal run at: "+Time.dateformatcompactwithtime(Time.nowInUserTimezone("EST"))+"<br/>\n\n");
+        debug.append("user.getUserid()="+user.getUserid()+"<br/>\n");
+        debug.append("user.getFirstname()="+user.getFirstname()+" "+user.getLastname()+"<br/>\n");
+        debug.append("user.getEmail()="+user.getEmail()+"<br/>\n");
         try{
             CallerFactory callerFactory = new CallerFactory();
             CallerServices caller = callerFactory.getCaller();
@@ -53,7 +56,7 @@ public class PaymentMethodPayPal extends PaymentMethodBase implements PaymentMet
             MassPayRequestItemType mprit = new MassPayRequestItemType();
 
             mprit.setReceiverEmail(user.getPaymethodpaypaladdress());
-            debug.append("user.getPaymethodpaypaladdress()="+user.getPaymethodpaypaladdress()+"\n");
+            debug.append("user.getPaymethodpaypaladdress()="+user.getPaymethodpaypaladdress()+"<br/>\n");
 
             BasicAmountType orderTotal = new BasicAmountType();
             orderTotal.setCurrencyID(CurrencyCodeType.USD);
@@ -64,7 +67,7 @@ public class PaymentMethodPayPal extends PaymentMethodBase implements PaymentMet
             }
             orderTotal.set_value(amtAsStr);
             mprit.setAmount(orderTotal);
-            debug.append("amtAsStr="+amtAsStr+"\n");
+            debug.append("amtAsStr="+amtAsStr+"<br/>\n");
 
             MassPayRequestItemType[] mpArray = new MassPayRequestItemType[1];
             mpArray[0] = mprit;
@@ -73,9 +76,9 @@ public class PaymentMethodPayPal extends PaymentMethodBase implements PaymentMet
             try{
                 MassPayResponseType response = (MassPayResponseType) caller.call("MassPay", request);
                 logger.debug("Operation Ack: " + response.getAck());
-                debug.append("response.getAck()="+response.getAck()+"\n");
+                debug.append("response.getAck()="+response.getAck()+"<br/>\n");
                 logger.debug("getCorrelationID(): " + response.getCorrelationID());
-                debug.append("response.getCorrelationID()="+response.getCorrelationID()+"\n");
+                debug.append("response.getCorrelationID()="+response.getCorrelationID()+"<br/>\n");
                 correlationid = response.getCorrelationID();
                 transactionid = "";
                 ErrorType[] errors = response.getErrors();
@@ -83,8 +86,8 @@ public class PaymentMethodPayPal extends PaymentMethodBase implements PaymentMet
                     issuccessful = true;
                     for (int i = 0; i < errors.length; i++) {
                         ErrorType error = errors[i];
-                        debug.append("error["+i+"]="+error.getLongMessage()+"\n");
-                        debug.append("error.getSeverityCode()="+error.getSeverityCode()+"\n");
+                        debug.append("error["+i+"]="+error.getLongMessage()+"<br/>\n");
+                        debug.append("error.getSeverityCode()="+error.getSeverityCode()+"<br/>\n");
                         logger.debug("Error "+i+": userid="+user.getUserid()+" : amtAsStr="+amtAsStr+" : "+error.getLongMessage());
                         if (error.getSeverityCode()==SeverityCodeType.Error){
                             logger.error("PayPal Error: userid="+user.getUserid()+" : amtAsStr="+amtAsStr+" :"+error.getLongMessage());
@@ -100,24 +103,24 @@ public class PaymentMethodPayPal extends PaymentMethodBase implements PaymentMet
                     }
                 } else {
                     issuccessful = true;
-                    debug.append("response.getErrors()==null"+"\n");
+                    debug.append("response.getErrors()==null"+"<br/>\n");
                 }
             } catch (PayPalException ppex){
                 logger.error(ppex);
                 notes = "An internal server error occurred at "+ Time.dateformatcompactwithtime(Calendar.getInstance())+".  No money was exchanged.";
                 issuccessful = false;
-                debug.append("ppex.getMessage()="+ppex.getMessage()+"\n");
+                debug.append("ppex.getMessage()="+ppex.getMessage()+"<br/>\n");
             } catch (Exception ex){
                 logger.error("",ex);
                 notes = "An internal server error occurred at "+ Time.dateformatcompactwithtime(Calendar.getInstance())+".  No money was exchanged.";
                 issuccessful = false;
-                debug.append("ex.getMessage()="+ex.getMessage()+"\n");
+                debug.append("ex.getMessage()="+ex.getMessage()+"<br/>\n");
             }
         } catch (Exception ex){
             logger.error("",ex);
             notes = "An internal server error occurred at "+ Time.dateformatcompactwithtime(Calendar.getInstance())+".  No money was exchanged.";
             issuccessful = false;
-            debug.append("ex.getMessage()="+ex.getMessage()+"\n");
+            debug.append("ex.getMessage()="+ex.getMessage()+"<br/>\n");
         }
         debug.append("End PayPal run."+"\n");
         EmailTemplateProcessor.sendGenericEmail("joe@joereger.com", "dNeero PayPal Transaction", debug.toString());

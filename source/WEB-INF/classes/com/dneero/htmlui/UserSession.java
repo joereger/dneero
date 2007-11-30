@@ -41,6 +41,7 @@ public class UserSession implements Serializable {
     private ArrayList<FacebookUser> facebookFriends = null;
     private boolean isfacebookui = false;
     private String message = "";
+    private String accesscode = "";
 
     public UserSession(){
         Logger logger = Logger.getLogger(this.getClass().getName());
@@ -267,5 +268,13 @@ public class UserSession implements Serializable {
 
     public void setFacebookFriends(ArrayList<FacebookUser> facebookFriends) {
         this.facebookFriends=facebookFriends;
+    }
+
+    public String getAccesscode() {
+        return accesscode;
+    }
+
+    public void setAccesscode(String accesscode) {
+        this.accesscode=accesscode;
     }
 }

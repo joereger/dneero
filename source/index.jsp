@@ -1,8 +1,8 @@
 <%@ page import="org.apache.log4j.Logger" %>
-<%@ page import="com.dneero.htmlui.Pagez" %>
 <%@ page import="com.dneero.htmluibeans.ResearcherIndex" %>
 <%@ page import="com.dneero.htmluibeans.BloggerIndex" %>
 <%@ page import="com.dneero.htmluibeans.PublicIndex" %>
+<%@ page import="com.dneero.htmlui.*" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "";
@@ -12,6 +12,21 @@ String acl = "public";
 <%@ include file="/template/auth.jsp" %>
 <%
 PublicIndex publicIndex = (PublicIndex)Pagez.getBeanMgr().get("PublicIndex");
+%>
+<%
+    if (request.getParameter("accesscode")!=null && !request.getParameter("accesscode").equals("")) {
+        Pagez.getUserSession().setAccesscode(request.getParameter("accesscode"));
+    }
+%>
+<%
+    if (request.getParameter("action") != null && request.getParameter("action").equals("enteraccesscode")) {
+        try {
+            publicIndex.enterAccessCode();
+            Pagez.getUserSession().setMessage("Sorry, no surveys were found for that Access Code.");
+        } catch (ValidationException vex) {
+            Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
+        }
+    }
 %>
 <%@ include file="/template/header.jsp" %>
 
@@ -89,11 +104,22 @@ PublicIndex publicIndex = (PublicIndex)Pagez.getBeanMgr().get("PublicIndex");
        <%}%>
 
        <tr>
-           <td colspan="2" valign="top" align="right">
-                <br/>
-                <a href="/publicsurveylist.jsp"><font class="mediumfont" style="color: #0BAE17; font-weight: bold; text-decoration: none;">See All Surveys</font></a>
+           <td valign="middle" align="center">
+               <a href="/publicsurveylist.jsp"><font class="mediumfont" style="font-weight: bold;">See All Surveys</font></a>
+           </td>
+           <td valign="top" align="right">
+                <div class="rounded" style="background: #e6e6e6; padding: 10px;">
+                    <form action="/index.jsp" method="post">
+                        <input type="hidden" name="action" value="enteraccesscode">
+                        <font class="normalfont"><b>Got an Access Code?</b></font>
+                        <%=Textbox.getHtml("accesscode", Pagez.getUserSession().getAccesscode(), 255, 10, "", "")%>
+                        <input type="submit" class="formsubmitbutton" value="Go">
+                    </form>
+                </div>
            </td>
        </tr>
+
+
 
 
 

@@ -56,7 +56,9 @@ public class NotifyBloggersOfNewOffers implements Job {
                             if (survey.getStartdate().after(user.getNotifyofnewsurveyslastsent())){
                                 if (survey.getStartdate().before(new Date())){
                                     if (survey.getStatus()==Survey.STATUS_OPEN){
-                                        newSurveys.add(survey);
+                                        if (!survey.getIsaccesscodeonly()){
+                                            newSurveys.add(survey);
+                                        }
                                     }
                                 }
                             }

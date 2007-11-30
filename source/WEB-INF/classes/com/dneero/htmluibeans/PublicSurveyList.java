@@ -72,6 +72,12 @@ public class PublicSurveyList implements Serializable {
                 bsli.setIscharityonly(survey.getIscharityonly());
                 //logger.debug("survey: "+survey.getTitle()+" bsli.getIscharityonly()="+bsli.getIscharityonly());
 
+                if (survey.getIsaccesscodeonly()){
+                    bsli.setAccessonlyhtml("<img src=\"/images/lock-16.png\" alt=\"\" width=\"16\" height=\"16\"/><font class=\"tinyfont\"><b>Access Code Required.</b></font>");
+                } else {
+                    bsli.setAccessonlyhtml("");
+                }
+
                 if (survey.getQuestions()!=null){
                     bsli.setNumberofquestions(String.valueOf(survey.getQuestions().size()));
                 } else {

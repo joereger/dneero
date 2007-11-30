@@ -114,12 +114,11 @@ public class MoveMoneyInRealWorld implements Runnable {
                     try{balance.save();}catch (Exception ex){
                         SendXMPPMessage xmpp2 = new SendXMPPMessage(SendXMPPMessage.GROUP_SYSADMINS, "WRITE TO DATABASE FAILED!!! Successful Move Money in Real World: amttogiveuser=$"+amttogiveuser+" to/from userid="+user.getUserid()+" "+ user.getFirstname() + " " + user.getLastname() + " ("+user.getEmail()+")");
                         xmpp2.send();
-                        EmailTemplateProcessor.sendGenericEmail("joe@joereger.com", "dNeero balance write failed", "Successful Move Money in Real World: amttogiveuser=$"+amttogiveuser+" to/from userid="+user.getUserid()+" "+ user.getFirstname() + " " + user.getLastname() + " ("+user.getEmail()+")");
-                        //@todo send failed money transaction database write to sysadmin or accountant
+                        EmailTemplateProcessor.sendGenericEmail("joe@joereger.com", "dNeero balance write failed", "Failed Move Money in Real World: amttogiveuser=$"+amttogiveuser+" to/from userid="+user.getUserid()+" "+ user.getFirstname() + " " + user.getLastname() + " ("+user.getEmail()+") "+ErrorDissect.dissect(ex));
                         logger.error("",ex);
                     }
                     //Notify via XMPP
-                    SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_CUSTOMERSUPPORT, "Successful Move Money in Real World: amttogiveuser=$"+amttogiveuser+" to/from "+ user.getFirstname() + " " + user.getLastname() + " ("+user.getEmail()+")");
+                    SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_CUSTOMERSUPPORT, "Successful Move Money in Real World: amttogiveuser=$"+amttogiveuser+"<br/>\nto/from "+ user.getFirstname() + " " + user.getLastname() + "<br/>\n("+user.getEmail()+")");
                     xmpp.send();
                 } catch (Exception ex){
                     logger.error(ex);
@@ -134,30 +133,32 @@ public class MoveMoneyInRealWorld implements Runnable {
             }
 
             //Always record the transaction itself, even if it fails... this does not affect the account balance
-            Balancetransaction balancetransaction = new Balancetransaction();
-            balancetransaction.setUserid(user.getUserid());
-            balancetransaction.setAmt(amttogiveuser);
-            balancetransaction.setDate(new Date());
-            balancetransaction.setDescription(desc);
-            balancetransaction.setIssuccessful(pm.getIssuccessful());
-            balancetransaction.setPaymentmethod(paymentmethod);
-            if (pm.getNotes()!=null){
-                balancetransaction.setNotes(pm.getNotes());
-            } else {
-                balancetransaction.setNotes("");
-            }
-            if (pm.getCorrelationid()!=null){
-                balancetransaction.setCorrelationid(pm.getCorrelationid());
-            } else {
-                balancetransaction.setCorrelationid("");
-            }
-            if (pm.getTransactionid()!=null){
-                balancetransaction.setTransactionid(pm.getTransactionid());
-            } else {
-                balancetransaction.setTransactionid("");
-            }
-            try{balancetransaction.save();}catch (Exception ex){
-                EmailTemplateProcessor.sendGenericEmail("joe@joereger.com", "dNeero balancetransaction write failed", "amttogiveuser="+amttogiveuser+" date="+ Time.dateformatcompactwithtime(Time.nowInUserTimezone("EST"))+" userid="+user.getUserid()+" error=<br/><br/>\n\n"+ ErrorDissect.dissect(ex));
+            try{
+                Balancetransaction balancetransaction = new Balancetransaction();
+                balancetransaction.setUserid(user.getUserid());
+                balancetransaction.setAmt(amttogiveuser);
+                balancetransaction.setDate(new Date());
+                balancetransaction.setDescription(desc);
+                balancetransaction.setIssuccessful(pm.getIssuccessful());
+                balancetransaction.setPaymentmethod(paymentmethod);
+                if (pm.getNotes()!=null){
+                    balancetransaction.setNotes(pm.getNotes());
+                } else {
+                    balancetransaction.setNotes("");
+                }
+                if (pm.getCorrelationid()!=null){
+                    balancetransaction.setCorrelationid(pm.getCorrelationid());
+                } else {
+                    balancetransaction.setCorrelationid("");
+                }
+                if (pm.getTransactionid()!=null){
+                    balancetransaction.setTransactionid(pm.getTransactionid());
+                } else {
+                    balancetransaction.setTransactionid("");
+                }
+                balancetransaction.save();
+            }catch (Exception ex){
+                EmailTemplateProcessor.sendGenericEmail("joe@joereger.com", "dNeero balancetransaction write failed", "amttogiveuser="+amttogiveuser+"<br/>\ndate="+ Time.dateformatcompactwithtime(Time.nowInUserTimezone("EST"))+"<br/>\nuserid="+user.getUserid()+"<br/>\nname="+user.getFirstname()+" "+user.getLastname()+"<br/>\nemail="+user.getEmail()+" error=<br/><br/>\n\n"+ ErrorDissect.dissect(ex));
                 logger.error("",ex);
             }
 

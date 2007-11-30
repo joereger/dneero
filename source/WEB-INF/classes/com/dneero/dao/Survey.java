@@ -2,7 +2,6 @@ package com.dneero.dao;
 // Generated Apr 17, 2006 3:45:24 PM by Hibernate Tools 3.1.0.beta4
 
 import com.dneero.util.GeneralException;
-import com.dneero.util.Util;
 import com.dneero.dao.hibernate.BasePersistentClass;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.session.AuthControlled;
@@ -14,7 +13,6 @@ import java.util.HashSet;
 
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
-import sun.reflect.Reflection;
 
 
 /**
@@ -52,6 +50,8 @@ public class Survey extends BasePersistentClass implements java.io.Serializable,
      private boolean isspotlight = false;
      private boolean ischarityonly = false;
      private boolean isresultshidden = false;
+     private boolean isaccesscodeonly= false;
+     private String accesscode = "";
 
      private Set<Question> questions = new HashSet<Question>();
      private Set<Response> responses = new HashSet<Response>();
@@ -376,5 +376,22 @@ public class Survey extends BasePersistentClass implements java.io.Serializable,
 
     public void setIsresultshidden(boolean isresultshidden) {
         this.isresultshidden = isresultshidden;
+    }
+
+
+    public boolean getIsaccesscodeonly() {
+        return isaccesscodeonly;
+    }
+
+    public void setIsaccesscodeonly(boolean isaccesscodeonly) {
+        this.isaccesscodeonly=isaccesscodeonly;
+    }
+
+    public String getAccesscode() {
+        return accesscode;
+    }
+
+    public void setAccesscode(String accesscode) {
+        this.accesscode=accesscode;
     }
 }

@@ -11,7 +11,10 @@ import com.dneero.money.CurrentBalanceCalculator;
 import com.dneero.money.MoveMoneyInRealWorld;
 import com.dneero.money.SurveyMoneyStatus;
 import com.dneero.util.Time;
+import com.dneero.util.ErrorDissect;
 import com.dneero.systemprops.InstanceProperties;
+import com.dneero.xmpp.SendXMPPMessage;
+import com.dneero.email.EmailTemplateProcessor;
 
 import java.util.List;
 import java.util.Iterator;
@@ -28,6 +31,7 @@ public class MoveMoneyAround implements Job {
         Logger logger = Logger.getLogger(this.getClass().getName());
         if (InstanceProperties.getRunScheduledTasksOnThisInstance()){
             logger.debug("execute() MoveMoneyAround called");
+            StringBuffer debug = new StringBuffer();
             try{
                 List users = HibernateUtil.getSession().createQuery("from User").list();
                 for (Iterator iterator = users.iterator(); iterator.hasNext();) {
@@ -65,6 +69,7 @@ public class MoveMoneyAround implements Job {
                         //Go pay
                         if (dopay){
                             logger.debug("dopay=true so calling MoveMoneyInRealWorld for user");
+                            debug.append("<br/>$"+currentbalance+" to "+user.getFirstname()+" "+user.getLastname()+" ("+user.getEmail()+")"+"\n\n");
                             MoveMoneyInRealWorld mmirw = new MoveMoneyInRealWorld(user, currentbalance);
                             mmirw.move();
                         }
@@ -72,6 +77,7 @@ public class MoveMoneyAround implements Job {
                     } else if (currentbalance<0){
                         //Need to collect from somebody
                         logger.debug("currentbalance<0 so calling MoveMoneyInRealWorld for user");
+                        debug.append("<br/>$"+currentbalance+" from "+user.getFirstname()+" "+user.getLastname()+" ("+user.getEmail()+")"+"\n\n");
                         MoveMoneyInRealWorld mmirw = new MoveMoneyInRealWorld(user, currentbalance);
                         mmirw.move();
                     }
@@ -81,7 +87,11 @@ public class MoveMoneyAround implements Job {
             } catch (Exception ex){
                 logger.debug("Error in top block.");
                 logger.error("",ex);
+                SendXMPPMessage xmpp2 = new SendXMPPMessage(SendXMPPMessage.GROUP_SYSADMINS, "Error in MoveMoneyAround.java: "+ex.getMessage());
+                xmpp2.send();
+                EmailTemplateProcessor.sendGenericEmail("joe@joereger.com", "Error in MoveMoneyAround", ErrorDissect.dissect(ex));
             }
+            EmailTemplateProcessor.sendGenericEmail("joe@joereger.com", "MoveMoneyAround Scheduled Task Report", Time.dateformatcompactwithtime(Time.nowInUserTimezone("EST"))+"<br/><br>\n\n"+debug.toString());
         } else {
             logger.debug("InstanceProperties.getRunScheduledTasksOnThisInstance() is FALSE for this instance so this task is not being executed.");
         }

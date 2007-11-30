@@ -191,7 +191,7 @@ String acl = "public";
                                                     <br/>
                                                     <font class="tinyfont" style="font-weight:bold;">
                                                         <%if (bloggerCompletedsurveysListitem.getResponse().getPoststatus()==0){%>
-                                                            <a href="/survey.jsp?surveyid=<%=bloggerCompletedsurveysListitem.getSurveyid()%>">Needs to be Posted</a>
+                                                            <a href="/surveypostit.jsp?surveyid=<%=bloggerCompletedsurveysListitem.getSurveyid()%>">Needs to be Posted</a>
                                                         <%} else if (bloggerCompletedsurveysListitem.getResponse().getPoststatus()==1){%>
                                                             Posted at Least Once
                                                         <%} else if (bloggerCompletedsurveysListitem.getResponse().getPoststatus()==2){%>

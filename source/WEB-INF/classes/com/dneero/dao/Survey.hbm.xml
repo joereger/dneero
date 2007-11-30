@@ -100,5 +100,11 @@
         <property name="isresultshidden" type="boolean">
             <column name="isresultshidden" />
         </property>
+        <property name="isaccesscodeonly" type="boolean">
+            <column name="isaccesscodeonly" />
+        </property>
+        <property name="accesscode" type="text">
+            <column name="accesscode" not-null="true" />
+        </property>
     </class>
 </hibernate-mapping>

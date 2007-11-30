@@ -84,13 +84,15 @@ public class PublicSurvey implements Serializable {
         Pagez.getUserSession().setCurrentSurveyid(surveyid);
         logger.debug("surveyid found: "+surveyid);
 
-        //If we don't have a surveyid, shouldn't be on this page
-        if (surveyid<=0){
-            try{Pagez.sendRedirect("/publicsurveylist.jsp"); return;}catch(Exception ex){logger.error("",ex);}
-        }
+
 
         //Load up the survey
         survey = Survey.get(surveyid);
+
+        //If we don't have a surveyid, shouldn't be on this page
+        if (surveyid<=0 || survey==null || survey.getTitle()==null){
+            try{Pagez.sendRedirect("/publicsurveylist.jsp"); return;}catch(Exception ex){logger.error("",ex);}
+        }
 
         //If the survey is draft or waiting
         if (survey.getStatus()<Survey.STATUS_OPEN){
@@ -183,14 +185,7 @@ public class PublicSurvey implements Serializable {
             //redirect to postit
             //try{Pagez.sendRedirect("/surveypostit.jsp?surveyid="+surveyid); return;}catch(Exception ex){logger.error("",ex);}
         }
-        if (Pagez.getRequest().getParameter("show")!=null && Pagez.getRequest().getParameter("show").equals("results")){
-            //redirect to results
-            try{Pagez.sendRedirect("/surveyresults.jsp?surveyid="+surveyid+"&userid="+userid); return;}catch(Exception ex){logger.error("",ex);}
-        }
-        if (Pagez.getRequest().getParameter("show")!=null && Pagez.getRequest().getParameter("show").equals("disclosure")){
-            //redirect to disclosure
-            try{Pagez.sendRedirect("/surveydisclosure.jsp?surveyid="+surveyid); return;}catch(Exception ex){logger.error("",ex);}
-        }
+        
 
 
         //Find charity status
@@ -214,6 +209,7 @@ public class PublicSurvey implements Serializable {
         socialbookmarklinks = SocialBookmarkLinks.getSocialBookmarkLinks(survey);
 
         //Survey enhancer
+        logger.debug("calling new SurveyEnhancer(survey) from PublicSurvey");
         surveyEnhancer = new SurveyEnhancer(survey);
 
 
@@ -308,6 +304,12 @@ public class PublicSurvey implements Serializable {
         //If the user's already taken too many surveys
         if (Pagez.getUserSession().getSurveystakentoday()>SurveysTakenToday.MAXSURVEYSPERDAY){
             vex.addValidationError("Sorry, you've already taken the maximum number of surveys today ("+SurveysTakenToday.MAXSURVEYSPERDAY+").  Wait until tomorrow (defined in U.S. Eastern Standard Time) and try again.");
+            throw vex;
+        }
+
+        //If the survey requires an accesscode
+        if (survey.getIsaccesscodeonly() && (Pagez.getUserSession().getAccesscode()==null || !Pagez.getUserSession().getAccesscode().equals(survey.getAccesscode()))){
+            vex.addValidationError("Sorry, this survey requires an Access Code.");
             throw vex;
         }
 
