@@ -161,9 +161,9 @@ PublicSurveyList publicSurveyList = (PublicSurveyList)Pagez.getBeanMgr().get("Pu
                                         <%
                                         if (col==colsperrow){
                                             %></tr><%
-                                            col = 1;
+                                            col = 0;
                                         }
-                                         col = col + 1;
+                                        col = col + 1;
                                     }
                                 %>
                             </table>
