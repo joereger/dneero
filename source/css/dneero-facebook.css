@@ -21,12 +21,12 @@ a, a:link, a:visited, a:active {
 
 .smallfont {
     font-family:"lucida grande",tahoma,verdana,arial,sans-serif;
-    font-size: 10px;
+    font-size: 9px;
 }
 
 .normalfont {
     font-family:"lucida grande",tahoma,verdana,arial,sans-serif;
-    font-size: 12px;
+    font-size: 11px;
 }
 
 .subnavfont, .subnavfont a, .subnavfont a:link, .subnavfont a:visited, .subnavfont a:active {

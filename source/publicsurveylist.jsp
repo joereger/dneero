@@ -56,10 +56,10 @@ PublicSurveyList publicSurveyList = (PublicSurveyList)Pagez.getBeanMgr().get("Pu
 "                            <tr>\n" +
 "                                <td>\n" +
 "                                    <a href=\"/survey.jsp?surveyid=<$surveyid$>\"><font class=\"normalfont\" style=\"text-decoration: none; font-weight: bold; color: #0000ff;\"><$title$></font></a>\n"+
-"                                    <font class=\"tinyfont\"><$description$></font><br/><br/>\n" +
+"                                    <font class=\"normalfont\"><$description$></font><br/><br/>\n" +
 "                                    <font class=\"tinyfont\"><b><$daysuntilend$></b></font>\n" +
 "                                </td>\n" +
-"                                <td width=\"25%\">\n" +
+"                                <td width=\"30%\">\n" +
 "                                    <div class=\"rounded\" style=\"background: #ffffff; padding: 10px;\">\n" +
 "                                        <center>\n" +
 "                                            <font class=\"tinyfont\"><b>Earn Up To</b></font><br/>\n" +
@@ -79,7 +79,7 @@ PublicSurveyList publicSurveyList = (PublicSurveyList)Pagez.getBeanMgr().get("Pu
             </td>
 
             <% if (Pagez.getUserSession().getIsfacebookui()){ %>
-                <td valign="top" width="50%" style="padding-top: 6px;">
+                <td valign="top" width="50%" style="padding-top: 5px;">
                     <div class="rounded" style="background: #e6e6e6; padding: 10px;">
                         <% if (1==1 || Pagez.getUserSession().getIsloggedin()){ %>
                             <div class="rounded" style="background: #ffffff; padding: 10px;">

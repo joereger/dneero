@@ -25,15 +25,17 @@
 
     <table width="100%" cellspacing="0" border="0" cellpadding="0">
         <tr>
-            <td bgcolor="#dadada" style="text-align: left; vertical-align: middle; border-bottom: 1px solid #666666;" colspan="5" height="25">
-                <a href="/publicsurveylist.jsp"><font class="subnavfont" style="padding-left: 12px; padding-right: 12px; padding-top: 3px; padding-bottom: 3px; color: #000000; font-size: 12px; background: #ffffff;">Surveys You Can Take</font></a>
-                <%if (Pagez.getUserSession().getIsloggedin() && Pagez.getUserSession().getUser().getBloggerid()>0){%><a href="/blogger/bloggercompletedsurveys.jsp"><font class="subnavfont" style="padding-left: 12px; color: #000000;">Completed Surveys</font></a><%}%>
-                <%if (Pagez.getUserSession().getIsloggedin() && Pagez.getUserSession().getUser().getBloggerid()>0){%><a href="/blogger/bloggerdetails.jsp"><font class="subnavfont" style="padding-left: 12px; color: #000000;">Demographic</font></a><%}%>
-                <%if (Pagez.getUserSession().getIsloggedin()){%><a href="/account/accountbalance.jsp"><font class="subnavfont" style="padding-left: 12px; color: #000000;">Balance</font></a><%}%>
-                <%if (Pagez.getUserSession().getIsloggedin()){%><a href="/account/accountsettings.jsp"><font class="subnavfont" style="padding-left: 12px; color: #000000;">Account Settings</font></a><%}%>
-                <a href="/blog.jsp"><font class="subnavfont" style="padding-left: 12px; color: #000000;">Blog</font></a>
-                <a href="/blogger/facebookfaq.jsp"><font class="subnavfont" style="padding-left: 12px; color: #000000;">FAQ</font></a>
-                <%if (Pagez.getUserSession().getIsloggedin()){%><a href="/account/accountsupportissueslist.jsp"><font class="subnavfont" style="padding-left: 12px; color: #000000;">Help</font></a><%}%>
+            <td bgcolor="#dadada" style="text-align: left; vertical-align: bottom; border-bottom: 1px solid #666666;" colspan="5" height="45">
+                <div width="100%" style="background: #cccccc">
+                    <a href="/publicsurveylist.jsp"><font class="subnavfont" style="padding-left: 12px; padding-right: 12px; color: #000000; font-size: 12px; background: #00ff00;">Surveys You Can Take</font></a>
+                    <%if (Pagez.getUserSession().getIsloggedin() && Pagez.getUserSession().getUser().getBloggerid()>0){%><a href="/blogger/bloggercompletedsurveys.jsp"><font class="subnavfont" style="padding-left: 12px; color: #000000; background: #cccccc;">Completed Surveys</font></a><%}%>
+                    <%if (Pagez.getUserSession().getIsloggedin() && Pagez.getUserSession().getUser().getBloggerid()>0){%><a href="/blogger/bloggerdetails.jsp"><font class="subnavfont" style="padding-left: 12px; color: #000000; background: #cccccc;">Demographic</font></a><%}%>
+                    <%if (Pagez.getUserSession().getIsloggedin()){%><a href="/account/accountbalance.jsp"><font class="subnavfont" style="padding-left: 12px; color: #000000; background: #cccccc;">Balance</font></a><%}%>
+                    <%if (Pagez.getUserSession().getIsloggedin()){%><a href="/account/accountsettings.jsp"><font class="subnavfont" style="padding-left: 12px; color: #000000; background: #cccccc;">Account Settings</font></a><%}%>
+                    <a href="/blog.jsp"><font class="subnavfont" style="padding-left: 12px; color: #000000; background: #cccccc;">Blog</font></a>
+                    <a href="/blogger/facebookfaq.jsp"><font class="subnavfont" style="padding-left: 12px; color: #000000; background: #cccccc;">FAQ</font></a>
+                    <%if (Pagez.getUserSession().getIsloggedin()){%><a href="/account/accountsupportissueslist.jsp"><font class="subnavfont" style="padding-left: 12px; color: #000000; background: #cccccc;">Help</font></a><%}%>
+                </div>
             </td>
         </tr>
         <!--<tr>
@@ -43,7 +45,7 @@
             <tr>
                 <td bgcolor="#ffffff" style="text-align: right; vertical-align: top;" colspan="5" height="15">
                     <div style="padding: 0px; text-align: right;">
-                        <font class="subnavfont">Hi, <%=Pagez.getUserSession().getUser().getFirstname()%> <%=Pagez.getUserSession().getUser().getLastname()%>! <%if (Pagez.getUserSession().getUser().getPaymethodpaypaladdress().equals("")){%><img src="/images/clear.gif" width="5" height="1"/>We <a href="/account/accountsettings.jsp">need</a> a PayPal address before we can pay you.<%}%><img src="/images/clear.gif" width="5" height="1"/></font>
+                        <font class="subnavfont">Hi, <%=Pagez.getUserSession().getUser().getFirstname()%> <%=Pagez.getUserSession().getUser().getLastname()%>! <%if (Pagez.getUserSession().getUser().getPaymethodpaypaladdress().equals("")){%><img src="/images/clear.gif" width="5" height="1"/>We <a href="/account/accountsettings.jsp">need</a> a PayPal address before we can pay you.<%}%><img src="/images/clear.gif" width="15" height="1"/></font>
                     </div>
                 </td>
             </tr>
@@ -69,7 +71,7 @@
                  if (Pagez.getUserSession().getMessage()!=null && !Pagez.getUserSession().getMessage().equals("")){
                     %>
                     <br/>
-                    <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="formfieldfont"><%=Pagez.getUserSession().getMessage()%></font></div></center>
+                    <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="formfieldnamefont"><%=Pagez.getUserSession().getMessage()%></font></div></center>
                     <br/><br/>
                     <%
                     //Clear the message since it's been displayed

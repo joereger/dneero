@@ -1,4 +1,5 @@
 <%@ page import="com.dneero.htmlui.Pagez" %>
+<%@ page import="com.dneero.systemprops.InstanceProperties" %>
 <!-- End Body -->
             </td>
         </tr>
@@ -32,7 +33,7 @@
         </tr>
         <tr>
             <td valign="top" align="right">
-                <font class="tinyfont" style="color: #cccccc; padding-right: 10px">At Your Service is a Server Called: INSTANCENAME</font>
+                <font class="tinyfont" style="color: #cccccc; padding-right: 10px;">At Your Service is a Server Called: <%=InstanceProperties.getInstancename()%> which built this page in: <%=Pagez.getElapsedTime()%> milliseconds</font>
             </td>
         </tr>
     </table>

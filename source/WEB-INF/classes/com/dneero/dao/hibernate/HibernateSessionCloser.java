@@ -5,6 +5,9 @@ import org.apache.log4j.Logger;
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.Date;
+
+import com.dneero.htmlui.Pagez;
 
 /**
  * User: Joe Reger Jr
@@ -27,6 +30,7 @@ public class HibernateSessionCloser implements Filter {
         HttpServletRequest httpServletRequest = (HttpServletRequest)request;
         try{
             if (httpServletRequest.getRequestURL().indexOf("jpg")==-1 && httpServletRequest.getRequestURL().indexOf("css")==-1 && httpServletRequest.getRequestURL().indexOf("gif")==-1 && httpServletRequest.getRequestURL().indexOf("png")==-1){
+                Pagez.setStartTime(new Date().getTime());
                 logger.debug("");
                 logger.debug("");
                 logger.debug("");
@@ -52,7 +56,7 @@ public class HibernateSessionCloser implements Filter {
         try{
             if (httpServletRequest.getRequestURL().indexOf("jpg")==-1 && httpServletRequest.getRequestURL().indexOf("css")==-1 && httpServletRequest.getRequestURL().indexOf("gif")==-1 && httpServletRequest.getRequestURL().indexOf("png")==-1){
                 logger.debug("---------------------------END REQUEST: "+httpServletRequest.getRequestURL());
-                logger.debug("-------------");
+                logger.debug("-------------: "+Pagez.getElapsedTime()+" millis");
                 logger.debug("------");
                 logger.debug("");
                 logger.debug("");

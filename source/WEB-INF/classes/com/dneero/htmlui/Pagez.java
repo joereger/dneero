@@ -12,6 +12,7 @@ import javax.servlet.ServletOutputStream;
 import org.apache.log4j.Logger;
 
 import java.net.URLEncoder;
+import java.util.*;
 
 /**
  * User: Joe Reger Jr
@@ -24,7 +25,7 @@ public class Pagez {
     private static ThreadLocal<HttpServletResponse> responseLocal = new ThreadLocal<HttpServletResponse>();
     private static ThreadLocal<UserSession> userSessionLocal = new ThreadLocal<UserSession>();
     private static ThreadLocal<BeanMgr> beanMgrLocal = new ThreadLocal<BeanMgr>();
-
+    private static ThreadLocal<Long> startTime = new ThreadLocal<Long>();
 
 
     public static void setRequest(HttpServletRequest request){
@@ -61,14 +62,6 @@ public class Pagez {
         }
     }
 
-
-    
-
-
-
-
-
-
     public static void setUserSessionAndUpdateCache(UserSession userSession){
         CacheFactory.getCacheProvider().put(getRequest().getSession().getId(), "userSession", userSession);
         userSessionLocal.set(userSession);
@@ -98,5 +91,18 @@ public class Pagez {
         return beanMgrLocal.get();
     }
 
+    public static void setStartTime(Long time){
+        startTime.set(time);
+    }
+
+    public static Long getStartTime(){
+        return startTime.get();
+    }
+
+    public static long getElapsedTime(){
+        long timeend = new java.util.Date().getTime();
+        long elapsedtime = timeend - startTime.get();
+        return elapsedtime;
+    }
 
 }
