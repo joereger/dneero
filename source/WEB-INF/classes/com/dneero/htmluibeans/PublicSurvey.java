@@ -84,19 +84,17 @@ public class PublicSurvey implements Serializable {
         Pagez.getUserSession().setCurrentSurveyid(surveyid);
         logger.debug("surveyid found: "+surveyid);
 
-
-
         //Load up the survey
         survey = Survey.get(surveyid);
 
         //If we don't have a surveyid, shouldn't be on this page
         if (surveyid<=0 || survey==null || survey.getTitle()==null){
-            try{Pagez.sendRedirect("/publicsurveylist.jsp"); return;}catch(Exception ex){logger.error("",ex);}
+            return;
         }
 
         //If the survey is draft or waiting
         if (survey.getStatus()<Survey.STATUS_OPEN){
-            try{Pagez.sendRedirect("/surveynotopen.jsp"); return;}catch(Exception ex){logger.error("",ex);}
+            return;
         }
 
         //Userid from url

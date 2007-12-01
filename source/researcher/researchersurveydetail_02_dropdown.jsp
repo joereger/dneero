@@ -20,6 +20,7 @@ ResearcherSurveyDetail02dropdown researcherSurveyDetail02dropdown = (ResearcherS
             researcherSurveyDetail02dropdown.setIsrequired(CheckboxBoolean.getValueFromRequest("isrequired"));
             researcherSurveyDetail02dropdown.setOptions(Textarea.getValueFromRequest("options", "Options", true));
             researcherSurveyDetail02dropdown.saveQuestion();
+            Pagez.sendRedirect("/researcher/researchersurveydetail_02.jsp?surveyid="+researcherSurveyDetail02dropdown.getSurvey().getSurveyid());
         } catch (ValidationException vex) {
             Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
         }
@@ -64,7 +65,7 @@ ResearcherSurveyDetail02dropdown researcherSurveyDetail02dropdown = (ResearcherS
                     <font class="formfieldnamefont">Question</font>
                 </td>
                 <td valign="top">
-                    <%=Textbox.getHtml("question", researcherSurveyDetail02dropdown.getQuestion(), 255, 35, "", "")%>
+                    <%=Textbox.getHtml("question", researcherSurveyDetail02dropdown.getQuestion(), 250, 35, "", "")%>
                 </td>
             </tr>
 

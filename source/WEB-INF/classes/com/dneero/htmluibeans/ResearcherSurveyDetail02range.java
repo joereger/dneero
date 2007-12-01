@@ -8,6 +8,7 @@ import com.dneero.dao.Survey;
 import com.dneero.dao.Questionconfig;
 import com.dneero.htmlui.UserSession;
 import com.dneero.htmlui.Pagez;
+import com.dneero.htmlui.ValidationException;
 
 import com.dneero.util.GeneralException;
 import com.dneero.util.Num;
@@ -100,15 +101,16 @@ public class ResearcherSurveyDetail02range implements Serializable {
         }
     }
 
-    public String saveQuestion(){
+    public void saveQuestion() throws ValidationException {
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("saveQuestion() called. - questionid="+questionid);
 
-        UserSession userSession = Pagez.getUserSession();
-
-
-
         if (Pagez.getUserSession().getUser()!=null && survey.canEdit(Pagez.getUserSession().getUser())){
+
+            if (this.question!=null  && this.question.length()>250){
+                throw new ValidationException("The Question is too long.  Please choose a shorter one.");
+            }
+
             Question question = new Question();
             if (questionid>0){
                 question = Question.get(questionid);
@@ -138,7 +140,7 @@ public class ResearcherSurveyDetail02range implements Serializable {
                 logger.debug("saveSurvey() failed: " + gex.getErrorsAsSingleString());
                 String message = "saveSurvey() save failed: " + gex.getErrorsAsSingleString();
                 Pagez.getUserSession().setMessage(message);
-                return null;
+                return;
             }
 
             for (Iterator<Questionconfig> iterator = question.getQuestionconfigs().iterator(); iterator.hasNext();) {
@@ -184,15 +186,14 @@ public class ResearcherSurveyDetail02range implements Serializable {
                 logger.debug("saveSurvey() failed: " + gex.getErrorsAsSingleString());
                 String message = "saveSurvey() save failed: " + gex.getErrorsAsSingleString();
                 Pagez.getUserSession().setMessage(message);
-                return null;
+                return;
             }
 
             //Refresh
             survey.refresh();
         }
 
-        Pagez.sendRedirect("/researcher/researchersurveydetail_02.jsp?surveyid="+survey.getSurveyid());
-        return "";
+        return;
     }
 
 

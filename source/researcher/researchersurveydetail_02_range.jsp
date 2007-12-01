@@ -24,6 +24,7 @@ ResearcherSurveyDetail02range researcherSurveyDetail02range = (ResearcherSurveyD
             researcherSurveyDetail02range.setMax(Textbox.getValueFromRequest("max", "Max", true, DatatypeString.DATATYPEID));
             researcherSurveyDetail02range.setMaxtitle(Textbox.getValueFromRequest("maxtitle", "Max Title", true, DatatypeString.DATATYPEID));
             researcherSurveyDetail02range.saveQuestion();
+            Pagez.sendRedirect("/researcher/researchersurveydetail_02.jsp?surveyid="+researcherSurveyDetail02range.getSurvey().getSurveyid());
         } catch (ValidationException vex) {
             Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
         }
@@ -67,7 +68,7 @@ ResearcherSurveyDetail02range researcherSurveyDetail02range = (ResearcherSurveyD
                     <font class="formfieldnamefont">Question</font>
                 </td>
                 <td valign="top">
-                    <%=Textbox.getHtml("question", researcherSurveyDetail02range.getQuestion(), 255, 35, "", "")%>
+                    <%=Textbox.getHtml("question", researcherSurveyDetail02range.getQuestion(), 250, 35, "", "")%>
                 </td>
             </tr>
 

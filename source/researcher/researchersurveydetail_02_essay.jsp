@@ -19,6 +19,7 @@ ResearcherSurveyDetail02essay researcherSurveyDetail02essay = (ResearcherSurveyD
             researcherSurveyDetail02essay.setQuestion(Textbox.getValueFromRequest("question", "Question", true, com.dneero.htmlui.DatatypeString.DATATYPEID));
             researcherSurveyDetail02essay.setIsrequired(CheckboxBoolean.getValueFromRequest("isrequired"));
             researcherSurveyDetail02essay.saveQuestion();
+            Pagez.sendRedirect("/researcher/researchersurveydetail_02.jsp?surveyid="+researcherSurveyDetail02essay.getSurvey().getSurveyid());
         } catch (ValidationException vex) {
             Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
         }
@@ -63,7 +64,7 @@ ResearcherSurveyDetail02essay researcherSurveyDetail02essay = (ResearcherSurveyD
                     <font class="formfieldnamefont">Question</font>
                 </td>
                 <td valign="top">
-                    <%=Textbox.getHtml("question", researcherSurveyDetail02essay.getQuestion(), 255, 35, "", "")%>
+                    <%=Textbox.getHtml("question", researcherSurveyDetail02essay.getQuestion(), 250, 35, "", "")%>
                 </td>
             </tr>
 

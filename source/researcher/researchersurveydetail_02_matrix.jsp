@@ -21,6 +21,7 @@ ResearcherSurveyDetail02matrix researcherSurveyDetail02matrix = (ResearcherSurve
             researcherSurveyDetail02matrix.setRows(Textarea.getValueFromRequest("rows", "Rows", true));
             researcherSurveyDetail02matrix.setCols(Textarea.getValueFromRequest("cols", "Cols", true));
             researcherSurveyDetail02matrix.saveQuestion();
+            Pagez.sendRedirect("/researcher/researchersurveydetail_02.jsp?surveyid="+researcherSurveyDetail02matrix.getSurvey().getSurveyid());
         } catch (ValidationException vex) {
             Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
         }
@@ -63,7 +64,7 @@ ResearcherSurveyDetail02matrix researcherSurveyDetail02matrix = (ResearcherSurve
                     <font class="formfieldnamefont">Question</font>
                 </td>
                 <td valign="top">
-                    <%=Textbox.getHtml("question", researcherSurveyDetail02matrix.getQuestion(), 255, 35, "", "")%>
+                    <%=Textbox.getHtml("question", researcherSurveyDetail02matrix.getQuestion(), 250, 35, "", "")%>
                 </td>
             </tr>
 

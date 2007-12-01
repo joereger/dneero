@@ -151,6 +151,8 @@ public class ResearcherSurveyDetail01 implements Serializable {
 
                 //Refresh
                 survey.refresh();
+
+                this.survey = survey;
             } else {
                 throw vex;
             }

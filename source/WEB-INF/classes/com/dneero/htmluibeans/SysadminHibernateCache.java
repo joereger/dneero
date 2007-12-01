@@ -10,6 +10,8 @@ import com.dneero.htmlui.ValidationException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Collections;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 
@@ -33,9 +35,10 @@ public class SysadminHibernateCache implements Serializable {
     public void initBean(){
         cacheashtml = HibernateCacheStats.getCacheDump();
         misccacheashtml = CacheFactory.getCacheProvider().getCacheStatsAsHtml();
+        iaosqueue = "";
 
         StringBuffer iaosqueueSb = new StringBuffer();
-        ArrayList<ImpressionActivityObjectCollated> iaocs= ImpressionActivityObjectQueue.getIaocs();
+        List<ImpressionActivityObjectCollated> iaocs= ImpressionActivityObjectQueue.getIaocs();
         if (iaocs !=null){
             iaosqueueSb.append("<font class=\"mediumfont\">iaocs in queue: "+ iaocs.size()+"</font>");
             iaosqueueSb.append("<br>");

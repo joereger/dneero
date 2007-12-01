@@ -20,7 +20,16 @@ PublicSurvey publicSurvey = (PublicSurvey)Pagez.getBeanMgr().get("PublicSurvey")
     }
 %>
 <%
-
+//If we don't have a surveyid, shouldn't be on this page
+if (publicSurvey.getSurvey()==null || publicSurvey.getSurvey().getTitle()==null || publicSurvey.getSurvey().getSurveyid()<=0){
+    Pagez.sendRedirect("/publicsurveylist.jsp");
+    return;
+}
+//If the survey is draft or waiting
+if (publicSurvey.getSurvey().getStatus()<Survey.STATUS_OPEN){
+    Pagez.sendRedirect("/surveynotopen.jsp");
+    return;
+}
 if (request.getParameter("show")!=null && request.getParameter("show").equals("results")){
     //redirect to results
     Pagez.sendRedirect("/surveyresults.jsp?surveyid="+request.getParameter("surveyid")+"&userid="+request.getParameter("userid"));
@@ -31,7 +40,6 @@ if (request.getParameter("show")!=null && request.getParameter("show").equals("d
     Pagez.sendRedirect("/surveydisclosure.jsp?surveyid="+request.getParameter("surveyid")+"&userid="+request.getParameter("userid"));
     return;
 }
-
 %>
 <%
     if (request.getParameter("action") != null && request.getParameter("action").equals("takesurvey")) {

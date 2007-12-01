@@ -28,13 +28,17 @@ ResearcherSurveyDetail03 researcherSurveyDetail03 = (ResearcherSurveyDetail03)Pa
     }
 %>
 <%
-    if (request.getParameter("action") != null && (request.getParameter("action").equals("next") || request.getParameter("action").equals("saveasdraft") || request.getParameter("action").equals("previous"))) {
+    if (request.getParameter("action")!=null && (request.getParameter("action").equals("savetemplate") || request.getParameter("action").equals("next") || request.getParameter("action").equals("saveasdraft") || request.getParameter("action").equals("previous"))) {
         try {
             researcherSurveyDetail03.setTemplate((Textbox.getValueFromRequest("template", "Template", false, DatatypeString.DATATYPEID)));
             researcherSurveyDetail03.setEmbedflash(CheckboxBoolean.getValueFromRequest("embedflash"));
             researcherSurveyDetail03.setEmbedjavascript(CheckboxBoolean.getValueFromRequest("embedjavascript"));
             researcherSurveyDetail03.setEmbedlink(CheckboxBoolean.getValueFromRequest("embedlink"));
-            if (request.getParameter("action").equals("next")) {
+            if (request.getParameter("action").equals("savetemplate")) {
+                logger.debug("Savetemplate was clicked");
+                researcherSurveyDetail03.saveSurvey();
+                Pagez.getUserSession().setMessage("Your survey has been saved.");
+            } else if (request.getParameter("action").equals("next")) {
                 logger.debug("Next was clicked");
                 researcherSurveyDetail03.saveSurvey();
                 Pagez.sendRedirect("/researcher/researchersurveydetail_04.jsp?surveyid="+researcherSurveyDetail03.getSurvey().getSurveyid());

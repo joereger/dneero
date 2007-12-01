@@ -21,6 +21,7 @@ ResearcherSurveyDetail02checkboxes researcherSurveyDetail02checkboxes = (Researc
             researcherSurveyDetail02checkboxes.setIsrequired(CheckboxBoolean.getValueFromRequest("isrequired"));
             researcherSurveyDetail02checkboxes.setOptions(Textarea.getValueFromRequest("options", "Options", true));
             researcherSurveyDetail02checkboxes.saveQuestion();
+            Pagez.sendRedirect("/researcher/researchersurveydetail_02.jsp?surveyid="+researcherSurveyDetail02checkboxes.getSurvey().getSurveyid());
         } catch (ValidationException vex) {
             Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
         }
@@ -64,7 +65,7 @@ ResearcherSurveyDetail02checkboxes researcherSurveyDetail02checkboxes = (Researc
                     <font class="formfieldnamefont">Question</font>
                 </td>
                 <td valign="top">
-                    <%=Textbox.getHtml("question", researcherSurveyDetail02checkboxes.getQuestion(), 255, 35, "", "")%>
+                    <%=Textbox.getHtml("question", researcherSurveyDetail02checkboxes.getQuestion(), 250, 35, "", "")%>
                 </td>
             </tr>
 

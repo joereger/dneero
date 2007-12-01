@@ -8,6 +8,8 @@ import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Collections;
 
 import com.dneero.survey.servlet.ImpressionActivityObject;
 import com.dneero.survey.servlet.ImpressionActivityObjectCollatedStorage;
@@ -20,17 +22,15 @@ import com.dneero.xmpp.SendXMPPMessage;
  * Date: May 1, 2007
  * Time: 11:30:22 PM
  */
-public class
-ImpressionActivityObjectQueue implements Job {
+public class ImpressionActivityObjectQueue implements Job {
 
-    private static ArrayList<ImpressionActivityObject> iaos;
-    private static ArrayList<ImpressionActivityObjectCollated> iaocs;
+    private static List<ImpressionActivityObject> iaos;
+    private static List<ImpressionActivityObjectCollated> iaocs;
 
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
         Logger logger = Logger.getLogger(this.getClass().getName());
         //if (InstanceProperties.getRunScheduledTasksOnThisInstance()){
             logger.debug("execute() ImpressionActivityObjectQueue called");
-
 
             //Handle the iaos
             try{
@@ -92,14 +92,14 @@ ImpressionActivityObjectQueue implements Job {
 
     public static void addIao(ImpressionActivityObject iao){
         if (iaos==null){
-            iaos = new ArrayList<ImpressionActivityObject>();
+            iaos = Collections.synchronizedList(new ArrayList<ImpressionActivityObject>());
         }
         synchronized(iaos){
             iaos.add(iao);
         }
     }
 
-    public static ArrayList<ImpressionActivityObject> getIaos() {
+    public static List<ImpressionActivityObject> getIaos() {
         if(iaos!=null){
             synchronized(iaos){
                 return iaos;
@@ -110,32 +110,35 @@ ImpressionActivityObjectQueue implements Job {
 
     public static void addIaoc(ImpressionActivityObjectCollated iaoc){
         if (iaocs==null){
-            iaocs = new ArrayList<ImpressionActivityObjectCollated>();
+            iaocs = Collections.synchronizedList(new ArrayList<ImpressionActivityObjectCollated>());
         }
         //This is where the collation happens
-        synchronized(iaocs){
-            //Iterate iaocs and see if we have this already
-            int currentimpressions = 0;
-            for (Iterator<ImpressionActivityObjectCollated> iterator=iaocs.iterator(); iterator.hasNext();) {
-                ImpressionActivityObjectCollated iaocTmp=iterator.next();
-                if (iaocTmp.getSurveyid()==iaoc.getSurveyid()){
-                    if (iaocTmp.getUserid()==iaoc.getUserid()){
-                        if (iaocTmp.getResponseid()==iaoc.getResponseid()){
-                            if (iaocTmp.getReferer().trim().equals(iaoc.getReferer().trim())){
-                                currentimpressions = currentimpressions + iaocTmp.getImpressions();
+        //Iterate iaocs and see if we have this already
+        int currentimpressions = 0;
+        for (Iterator<ImpressionActivityObjectCollated> iterator=iaocs.iterator(); iterator.hasNext();) {
+            ImpressionActivityObjectCollated iaocTmp=iterator.next();
+            if (iaocTmp.getSurveyid()==iaoc.getSurveyid()){
+                if (iaocTmp.getUserid()==iaoc.getUserid()){
+                    if (iaocTmp.getResponseid()==iaoc.getResponseid()){
+                        if (iaocTmp.getReferer().trim().equals(iaoc.getReferer().trim())){
+                            currentimpressions = currentimpressions + iaocTmp.getImpressions();
+                            synchronized(iaocs){
                                 iterator.remove();
                             }
                         }
                     }
                 }
             }
-            //Add it
-            iaoc.setImpressions(iaoc.getImpressions() + currentimpressions);
+        }
+        //Add it
+        iaoc.setImpressions(iaoc.getImpressions() + currentimpressions);
+        synchronized(iaocs){
             iaocs.add(iaoc);
         }
+
     }
 
-    public static ArrayList<ImpressionActivityObjectCollated> getIaocs() {
+    public static List<ImpressionActivityObjectCollated> getIaocs() {
         if(iaocs!=null){
             synchronized(iaocs){
                 return iaocs;
