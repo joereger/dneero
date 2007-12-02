@@ -64,7 +64,7 @@ PublicSurveyList publicSurveyList = (PublicSurveyList)Pagez.getBeanMgr().get("Pu
         <tr>
             <td valign="top">
                 <%if (publicSurveyList.getSurveys()==null || publicSurveyList.getSurveys().size()==0){%>
-                    <font class="normalfont">There are currently no surveys listed.  Please check back soon as we're always adding new ones!</font>
+                    <font class="normalfont">We've got nothin' for ya!  Please check back soon... we're always adding new surveys!</font>
                 <%} else {%>
                     <%
                         StringBuffer srv = new StringBuffer();

@@ -110,9 +110,8 @@ String acl = "blogger";
                     <%
                         for (Iterator it=bloggerEarningsRevshareTreeHandler.getTree().iterator(); it.hasNext();) {
                             BloggerEarningsRevshareTreeNode bertn = (BloggerEarningsRevshareTreeNode) it.next();
-                            %>
-                            <br/><font class="tinyfont"><%=bertn.getDescription()%> ($<%=Str.formatForMoney(bertn.getAmtEarnedFromThisBloggerAllTime())%>)</font>
-                            <%
+                            String indent = "<img src=\"/images/clear.gif\" width=\""+(bertn.getLevel()*10)+"\" height=\"1\" alt=\"\"/>";
+                            %><br/><%=indent%><font class="tinyfont"><a href="/profile.jsp?userid=<%=bertn.getIdentifier()%>"><%=bertn.getDescription()%></a> ($<%=Str.formatForMoney(bertn.getAmtEarnedFromThisBloggerAllTime())%>)</font><%
                         }
                     %>
                 </div>

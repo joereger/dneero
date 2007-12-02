@@ -41,9 +41,12 @@ public class SysadminUserDetail implements Serializable {
     private List transactions;
     private ArrayList<BloggerCompletedsurveysListitem> responses;
     private ArrayList<BloggerCompletedsurveysListitem> recentresponses;
+    private List<Impression> impressions;
     private boolean isenabled = true;
     private User user;
     private Researcher researcher;
+    private boolean onlyshowsuccessfultransactions = false;
+    private boolean onlyshownegativeamountbalance = false;
 
 
     public SysadminUserDetail(){
@@ -78,7 +81,11 @@ public class SysadminUserDetail implements Serializable {
             }
 
             //Load balance info
-            List bals = HibernateUtil.getSession().createQuery("from Balance where userid='"+userid+"' order by balanceid desc").setMaxResults(50).list();
+            String negamtSql = "";
+            if (onlyshownegativeamountbalance){
+                negamtSql = " and amt<0 ";
+            }
+            List bals = HibernateUtil.getSession().createQuery("from Balance where userid='"+userid+"' "+negamtSql+" order by balanceid desc").setMaxResults(50).list();
             balances = new ArrayList<AccountBalanceListItem>();
             for (Iterator iterator = bals.iterator(); iterator.hasNext();) {
                 Balance balance = (Balance) iterator.next();
@@ -93,7 +100,11 @@ public class SysadminUserDetail implements Serializable {
             }
 
             //Load transaction info
-            List trans = HibernateUtil.getSession().createQuery("from Balancetransaction where userid='"+userid+"' order by balancetransactionid desc").setMaxResults(50).list();
+            String issuccessfulSql = "";
+            if (onlyshowsuccessfultransactions){
+                issuccessfulSql = " and issuccessful=true ";
+            }
+            List trans = HibernateUtil.getSession().createQuery("from Balancetransaction where userid='"+userid+"' "+issuccessfulSql+" order by balancetransactionid desc").setMaxResults(50).list();
             transactions = new ArrayList<AccountBalancetransactionListItem>();
             for (Iterator iterator = trans.iterator(); iterator.hasNext();) {
                 Balancetransaction transaction = (Balancetransaction) iterator.next();
@@ -136,6 +147,9 @@ public class SysadminUserDetail implements Serializable {
                     }
                 }
             }
+
+            //Load impressions
+            impressions = HibernateUtil.getSession().createQuery("from Impression where userid='"+userid+"' order by impressionid desc").setMaxResults(500).list();
 
 
         }
@@ -416,5 +430,29 @@ public class SysadminUserDetail implements Serializable {
 
     public void setReferredbyuserid(int referredbyuserid) {
         this.referredbyuserid=referredbyuserid;
+    }
+
+    public List<Impression> getImpressions() {
+        return impressions;
+    }
+
+    public void setImpressions(List<Impression> impressions) {
+        this.impressions=impressions;
+    }
+
+    public boolean getOnlyshowsuccessfultransactions() {
+        return onlyshowsuccessfultransactions;
+    }
+
+    public void setOnlyshowsuccessfultransactions(boolean onlyshowsuccessfultransactions) {
+        this.onlyshowsuccessfultransactions=onlyshowsuccessfultransactions;
+    }
+
+    public boolean getOnlyshownegativeamountbalance() {
+        return onlyshownegativeamountbalance;
+    }
+
+    public void setOnlyshownegativeamountbalance(boolean onlyshownegativeamountbalance) {
+        this.onlyshownegativeamountbalance=onlyshownegativeamountbalance;
     }
 }

@@ -99,6 +99,26 @@ SysadminUserDetail sysadminUserDetail = (SysadminUserDetail)Pagez.getBeanMgr().g
         }
     }
 %>
+<%
+    if (request.getParameter("onlyshowsuccessfultransactions") != null && request.getParameter("onlyshowsuccessfultransactions").equals("1")) {
+        try {
+            sysadminUserDetail.setOnlyshowsuccessfultransactions(true);
+            sysadminUserDetail.initBean();
+        } catch (Exception vex) {
+            Pagez.getUserSession().setMessage(vex.getMessage());
+        }
+    }
+%>
+<%
+    if (request.getParameter("onlyshownegativeamountbalance")!=null && request.getParameter("onlyshownegativeamountbalance").equals("1")) {
+        try {
+            sysadminUserDetail.setOnlyshownegativeamountbalance(true);
+            sysadminUserDetail.initBean();
+        } catch (Exception vex) {
+            Pagez.getUserSession().setMessage(vex.getMessage());
+        }
+    }
+%>
 <%@ include file="/template/header.jsp" %>
 
 
@@ -305,6 +325,8 @@ SysadminUserDetail sysadminUserDetail = (SysadminUserDetail)Pagez.getBeanMgr().g
         <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
             <font class="mediumfont">Account Balance (Internal Account Money Movement)</font>
             <br/>
+            <a href="/sysadmin/userdetail.jsp?userid=<%=sysadminUserDetail.getUser().getUserid()%>&onlyshownegativeamountbalance=1"><font class="tinyfont">Only Show Negative Amts</font></a>
+            <br/>
             <%if (sysadminUserDetail.getBalances()==null || sysadminUserDetail.getBalances().size()==0){%>
                 <font class="normalfont">There are not yet any balance updates.</font>
             <%} else {%>
@@ -316,13 +338,15 @@ SysadminUserDetail sysadminUserDetail = (SysadminUserDetail)Pagez.getBeanMgr().g
                     cols.add(new GridCol("Amount", "<$amt$>", true, "", "tinyfont"));
                     cols.add(new GridCol("Balance", "<$currentbalance$>", true, "", "tinyfont"));
                 %>
-                <%=Grid.render(sysadminUserDetail.getBalances(), cols, 50, "/sysadmin/userdetail.jsp?userid="+sysadminUserDetail.getUser().getUserid(), "pagetransactions")%>
+                <%=Grid.render(sysadminUserDetail.getBalances(), cols, 50, "/sysadmin/userdetail.jsp?userid="+sysadminUserDetail.getUser().getUserid()+"&onlyshownegativeamountbalance="+request.getParameter("onlyshownegativeamountbalance"), "pagetransactions")%>
             <%}%>
         </div>
 
 
         <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
             <font class="mediumfont">Account Transactions (Real World Money Movement)</font>
+            <br/>
+            <a href="/sysadmin/userdetail.jsp?userid=<%=sysadminUserDetail.getUser().getUserid()%>&onlyshowsuccessfultransactions=1"><font class="tinyfont">Only Show Successful Transactions</font></a>
             <br/>
             <%if (sysadminUserDetail.getTransactions()==null || sysadminUserDetail.getTransactions().size()==0){%>
                 <font class="normalfont">There are not yet any financial transactions.</font>
@@ -336,7 +360,29 @@ SysadminUserDetail sysadminUserDetail = (SysadminUserDetail)Pagez.getBeanMgr().g
                     cols.add(new GridCol("Notes", "<$notes$>", false, "", "tinyfont"));
                     cols.add(new GridCol("Amount", "<$amt$>", false, "", "tinyfont"));
                 %>
-                <%=Grid.render(sysadminUserDetail.getTransactions(), cols, 50, "/sysadmin/userdetail.jsp?userid="+sysadminUserDetail.getUser().getUserid(), "pagetransactions")%>
+                <%=Grid.render(sysadminUserDetail.getTransactions(), cols, 50, "/sysadmin/userdetail.jsp?userid="+sysadminUserDetail.getUser().getUserid()+"&onlyshowsuccessfultransactions="+request.getParameter("onlyshowsuccessfultransactions"), "pagetransactions")%>
+            <%}%>
+        </div>
+
+        <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
+            <font class="mediumfont">Impressions</font>
+            <br/>
+            <%if (sysadminUserDetail.getImpressions()==null || sysadminUserDetail.getImpressions().size()==0){%>
+                <font class="normalfont">There are not yet any impressions.</font>
+            <%} else {%>
+                <%
+                    ArrayList<GridCol> cols=new ArrayList<GridCol>();
+                    cols.add(new GridCol("Id", "<$impressionid$>", true, "", "tinyfont"));
+                    cols.add(new GridCol("Survey", "<$surveyid$>", false, "", "tinyfont"));
+                    cols.add(new GridCol("Response", "<$responseid$>", false, "", "tinyfont"));
+                    cols.add(new GridCol("Date", "<$firstseen|"+Grid.GRIDCOLRENDERER_DATETIMECOMPACT+"$>", true, "", "tinyfont", "", "background: #e6e6e6;"));
+                    cols.add(new GridCol("Total Impr", "<$impressionstotal$>", false, "", "tinyfont"));
+                    cols.add(new GridCol("Impr To Be Paid", "<$impressionstobepaid$>", false, "", "tinyfont"));
+                    cols.add(new GridCol("Impr Paid", "<$impressionspaid$>", false, "", "tinyfont"));
+                    cols.add(new GridCol("Impr By Day", "<textarea rows=\"1\" cols=\"30\" style=\"font-size: 9px; border 0px solid #cccccc;\"><$impressionsbyday$></textarea>", false, "", "tinyfont"));
+                    cols.add(new GridCol("Referer", "<textarea rows=\"1\" cols=\"14\" style=\"font-size: 9px; border 0px solid #cccccc;\"><$referer$></textarea>", false, "", "tinyfont"));
+                %>
+                <%=Grid.render(sysadminUserDetail.getImpressions(), cols, 50, "/sysadmin/userdetail.jsp?userid="+sysadminUserDetail.getUser().getUserid(), "pageimpressions")%>
             <%}%>
         </div>
 

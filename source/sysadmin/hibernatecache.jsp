@@ -58,11 +58,17 @@ SysadminHibernateCache sysadminHibernateCache = (SysadminHibernateCache)Pagez.ge
     </div>
     <div class="panel" id="panel2" style="display: none">
         <img src="/images/clear.gif" width="700" height="1"/><br/>
-        <%=sysadminHibernateCache.getCacheashtml()%>
+        <a href="/sysadmin/hibernatecache.jsp?action=showhibernate"><font class="formfieldnamefont">Show Hibernate Cache</font></a><br/><br/>
+        <%if (request.getParameter("action")!=null && request.getParameter("action").equals("showhibernate")){%>
+            <%=sysadminHibernateCache.getCacheashtml()%>
+        <%}%>
     </div>
     <div class="panel" id="panel3" style="display: none">
         <img src="/images/clear.gif" width="700" height="1"/><br/>
-        <%=sysadminHibernateCache.getMisccacheashtml()%>
+        <a href="/sysadmin/hibernatecache.jsp?action=showmisc"><font class="formfieldnamefont">Show Misc Cache</font></a><br/><br/>
+        <%if (request.getParameter("action")!=null && request.getParameter("action").equals("showmisc")){%>
+            <%=sysadminHibernateCache.getMisccacheashtml()%>
+        <%}%>
     </div>
 
   

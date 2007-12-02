@@ -23,8 +23,8 @@ import java.io.Serializable;
  */
 public class BloggerEarningsRevshareInvite implements Serializable {
 
-    private String email;
-    private String message;
+    private String email = "";
+    private String message = "";
 
     public BloggerEarningsRevshareInvite(){}
 

@@ -38,7 +38,8 @@ public class CurrentBalanceCalculator implements Serializable {
         pendingearnings = 0;
         if (user!=null){
             if (user.getBloggerid()>0){
-                List responses = HibernateUtil.getSession().createQuery("from Response where bloggerid='"+user.getBloggerid()+"' and ispaid=false").list();
+                //List those surveys that are ispaid=false and are not too late to post
+                List responses = HibernateUtil.getSession().createQuery("from Response where bloggerid='"+user.getBloggerid()+"' and poststatus<"+Response.POSTATUS_NOTPOSTEDTIMELIMITPASSED+" and ispaid=false").list();
                 for (Iterator iterator = responses.iterator(); iterator.hasNext();) {
                     Response response = (Response) iterator.next();
                     if (!response.getIspaid()){

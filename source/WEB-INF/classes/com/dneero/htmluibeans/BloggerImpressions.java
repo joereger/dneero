@@ -6,6 +6,7 @@ import com.dneero.dao.Survey;
 import com.dneero.dao.Blogger;
 import com.dneero.money.UserImpressionFinder;
 import com.dneero.htmlui.Pagez;
+import com.dneero.util.Str;
 
 import java.util.*;
 import java.io.Serializable;
@@ -44,7 +45,7 @@ public class BloggerImpressions  implements Serializable {
                     BloggerImpressionsListItem listitem = new BloggerImpressionsListItem();
                     listitem.setImpressionid(impression.getImpressionid());
                     listitem.setQuality(impression.getQuality());
-                    listitem.setReferer(impression.getReferer());
+                    listitem.setReferer(Str.truncateString(impression.getReferer(), 70));
                     listitem.setImpressionspaidandtobepaid(impression.getImpressionspaid() +  impression.getImpressionstobepaid());
                     listitem.setImpressionstotal(impression.getImpressionstotal());
                     list.add(listitem);

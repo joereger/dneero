@@ -151,7 +151,7 @@ public class ImpressionActivityObjectCollatedStorage {
                     //Update the impressionsbyday string
                     int dayssincetakingsurvey = DateDiff.dateDiff("day", Time.getCalFromDate(new Date()), Time.getCalFromDate(response.getResponsedate()));
                     ImpressionsByDayUtil ibdu = new ImpressionsByDayUtil(impression.getImpressionsbyday());
-                    ibdu.add(1, dayssincetakingsurvey);
+                    ibdu.add(iao.getImpressions(), dayssincetakingsurvey);
                     impression.setImpressionsbyday(ibdu.getAsString());
                     //logger.debug("about to call impression.save()");
                     try{impression.save();} catch (GeneralException gex){logger.error(gex);}
