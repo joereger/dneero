@@ -4,6 +4,7 @@
 <%@ page import="com.dneero.dbgrid.Grid" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.dneero.htmlui.*" %>
+<%@ page import="com.dneero.dao.Survey" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = ((PublicSurveyDiscuss) Pagez.getBeanMgr().get("PublicSurveyDiscuss")).getSurvey().getTitle();
@@ -13,6 +14,18 @@ String acl = "public";
 <%@ include file="/template/auth.jsp" %>
 <%
 PublicSurveyDiscuss publicSurveyDiscuss = (PublicSurveyDiscuss)Pagez.getBeanMgr().get("PublicSurveyDiscuss");
+%>
+<%
+    //If we don't have a surveyid, shouldn't be on this page
+    if (publicSurveyDiscuss.getSurvey() == null || publicSurveyDiscuss.getSurvey().getTitle() == null || publicSurveyDiscuss.getSurvey().getSurveyid()<=0) {
+        Pagez.sendRedirect("/publicsurveylist.jsp");
+        return;
+    }
+//If the survey is draft or waiting
+    if (publicSurveyDiscuss.getSurvey().getStatus()<Survey.STATUS_OPEN) {
+        Pagez.sendRedirect("/surveynotopen.jsp");
+        return;
+    }
 %>
 <%
     if (request.getParameter("action") != null && request.getParameter("action").equals("postcomment")) {

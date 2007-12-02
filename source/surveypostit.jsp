@@ -7,6 +7,7 @@
 <%@ page import="java.util.TreeSet" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.Iterator" %>
+<%@ page import="com.dneero.dao.Survey" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = ((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getSurvey().getTitle();
@@ -16,6 +17,18 @@ String acl = "public";
 <%@ include file="/template/auth.jsp" %>
 <%
     PublicSurveyPostit publicSurveyPostit=(PublicSurveyPostit) Pagez.getBeanMgr().get("PublicSurveyPostit");
+%>
+<%
+    //If we don't have a surveyid, shouldn't be on this page
+    if (publicSurveyPostit.getSurvey() == null || publicSurveyPostit.getSurvey().getTitle() == null || publicSurveyPostit.getSurvey().getSurveyid()<=0) {
+        Pagez.sendRedirect("/publicsurveylist.jsp");
+        return;
+    }
+//If the survey is draft or waiting
+    if (publicSurveyPostit.getSurvey().getStatus()<Survey.STATUS_OPEN) {
+        Pagez.sendRedirect("/surveynotopen.jsp");
+        return;
+    }
 %>
 <%
     if (request.getParameter("action") != null && request.getParameter("action").equals("updatefacebookprofile")) {

@@ -12,6 +12,18 @@ String acl = "public";
 <%
 PublicSurveyResults publicSurveyResults = (PublicSurveyResults)Pagez.getBeanMgr().get("PublicSurveyResults");
 %>
+<%
+    //If we don't have a surveyid, shouldn't be on this page
+    if (publicSurveyResults.getSurvey() == null || publicSurveyResults.getSurvey().getTitle() == null || publicSurveyResults.getSurvey().getSurveyid()<=0) {
+        Pagez.sendRedirect("/publicsurveylist.jsp");
+        return;
+    }
+    //If the survey is draft or waiting
+    if (publicSurveyResults.getSurvey().getStatus()<Survey.STATUS_OPEN) {
+        Pagez.sendRedirect("/surveynotopen.jsp");
+        return;
+    }
+%>
 <%@ include file="/template/header.jsp" %>
 
 

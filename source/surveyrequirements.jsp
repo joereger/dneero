@@ -1,6 +1,7 @@
 <%@ page import="org.apache.log4j.Logger" %>
 <%@ page import="com.dneero.htmlui.Pagez" %>
 <%@ page import="com.dneero.htmluibeans.PublicSurveyRequirements" %>
+<%@ page import="com.dneero.dao.Survey" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = ((PublicSurveyRequirements)Pagez.getBeanMgr().get("PublicSurveyRequirements")).getSurvey().getTitle();
@@ -10,6 +11,18 @@ String acl = "public";
 <%@ include file="/template/auth.jsp" %>
 <%
 PublicSurveyRequirements publicSurveyRequirements = (PublicSurveyRequirements)Pagez.getBeanMgr().get("PublicSurveyRequirements");
+%>
+<%
+    //If we don't have a surveyid, shouldn't be on this page
+    if (publicSurveyRequirements.getSurvey() == null || publicSurveyRequirements.getSurvey().getTitle() == null || publicSurveyRequirements.getSurvey().getSurveyid()<=0) {
+        Pagez.sendRedirect("/publicsurveylist.jsp");
+        return;
+    }
+    //If the survey is draft or waiting
+    if (publicSurveyRequirements.getSurvey().getStatus()<Survey.STATUS_OPEN) {
+        Pagez.sendRedirect("/surveynotopen.jsp");
+        return;
+    }
 %>
 <%@ include file="/template/header.jsp" %>
 

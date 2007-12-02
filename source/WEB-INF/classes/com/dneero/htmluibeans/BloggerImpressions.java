@@ -54,7 +54,7 @@ public class BloggerImpressions  implements Serializable {
 
 
         } else {
-            logger.debug("survey's null, user's null or can't read... survey.canRead(Pagez.getUserSession().getUser()="+survey.canRead(Pagez.getUserSession().getUser()));
+            logger.debug("survey's null, user's null or can't read.");
         }
     }
 

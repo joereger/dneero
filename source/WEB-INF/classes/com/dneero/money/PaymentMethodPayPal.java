@@ -90,14 +90,14 @@ public class PaymentMethodPayPal extends PaymentMethodBase implements PaymentMet
                         debug.append("error.getSeverityCode()="+error.getSeverityCode()+"<br/>\n");
                         logger.debug("Error "+i+": userid="+user.getUserid()+" : amtAsStr="+amtAsStr+" : "+error.getLongMessage());
                         if (error.getSeverityCode()==SeverityCodeType.Error){
-                            logger.error("PayPal Error: userid="+user.getUserid()+" : amtAsStr="+amtAsStr+" :"+error.getLongMessage());
+                            logger.warn("PayPal Error: userid="+user.getUserid()+" : amtAsStr="+amtAsStr+" :"+error.getLongMessage());
                             notes =  notes + "PayPal Error: "+user.getUserid()+" : amtAsStr="+amtAsStr+" : "+error.getLongMessage()+" ";
                             issuccessful = false;
                         } else if (error.getSeverityCode()==SeverityCodeType.Warning){
-                            logger.error("PayPal Warning: userid="+user.getUserid()+" : amt="+amt+" :"+error.getLongMessage());
+                            logger.warn("PayPal Warning: userid="+user.getUserid()+" : amt="+amt+" :"+error.getLongMessage());
                             notes =  notes + "PayPal Warning: userid="+user.getUserid()+" : amt="+amt+" : "+error.getLongMessage()+" ";
                         }  else if (error.getSeverityCode()==SeverityCodeType.CustomCode){
-                            logger.error("PayPal Custom Code Error: userid="+user.getUserid()+" : amt="+amt+" :"+error.getLongMessage());
+                            logger.warn("PayPal Custom Code Error: userid="+user.getUserid()+" : amt="+amt+" :"+error.getLongMessage());
                             notes =  notes + "PayPal Custom Code Error: userid="+user.getUserid()+" : amt="+amt+" : "+error.getLongMessage()+" ";
                         }
                     }

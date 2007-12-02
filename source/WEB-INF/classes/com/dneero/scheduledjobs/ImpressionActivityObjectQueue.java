@@ -108,27 +108,32 @@ public class ImpressionActivityObjectQueue implements Job {
         return null;
     }
 
-    public static void addIaoc(ImpressionActivityObjectCollated iaoc){
+    public static synchronized void addIaoc(ImpressionActivityObjectCollated iaoc){
+        Logger logger = Logger.getLogger(ImpressionActivityObjectQueue.class);
         if (iaocs==null){
             iaocs = Collections.synchronizedList(new ArrayList<ImpressionActivityObjectCollated>());
         }
         //This is where the collation happens
         //Iterate iaocs and see if we have this already
         int currentimpressions = 0;
-        for (Iterator<ImpressionActivityObjectCollated> iterator=iaocs.iterator(); iterator.hasNext();) {
-            ImpressionActivityObjectCollated iaocTmp=iterator.next();
-            if (iaocTmp.getSurveyid()==iaoc.getSurveyid()){
-                if (iaocTmp.getUserid()==iaoc.getUserid()){
-                    if (iaocTmp.getResponseid()==iaoc.getResponseid()){
-                        if (iaocTmp.getReferer().trim().equals(iaoc.getReferer().trim())){
-                            currentimpressions = currentimpressions + iaocTmp.getImpressions();
-                            synchronized(iaocs){
-                                iterator.remove();
+        try{
+            for (Iterator<ImpressionActivityObjectCollated> iterator=iaocs.iterator(); iterator.hasNext();) {
+                ImpressionActivityObjectCollated iaocTmp=iterator.next();
+                if (iaocTmp.getSurveyid()==iaoc.getSurveyid()){
+                    if (iaocTmp.getUserid()==iaoc.getUserid()){
+                        if (iaocTmp.getResponseid()==iaoc.getResponseid()){
+                            if (iaocTmp.getReferer().trim().equals(iaoc.getReferer().trim())){
+                                currentimpressions = currentimpressions + iaocTmp.getImpressions();
+                                synchronized(iaocs){
+                                    iterator.remove();
+                                }
                             }
                         }
                     }
                 }
             }
+        } catch (Exception ex){
+            logger.error("", ex);
         }
         //Add it
         iaoc.setImpressions(iaoc.getImpressions() + currentimpressions);

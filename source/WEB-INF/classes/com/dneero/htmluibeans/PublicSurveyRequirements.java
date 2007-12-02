@@ -45,7 +45,6 @@ public class PublicSurveyRequirements implements Serializable {
 
         //If we don't have a surveyid, shouldn't be on this page
         if (surveyid<=0){
-            Pagez.sendRedirect("/publicsurveylist.jsp");
             return;
         }
 
@@ -54,7 +53,6 @@ public class PublicSurveyRequirements implements Serializable {
 
         //If the survey is draft or waiting
         if (survey.getStatus()<Survey.STATUS_OPEN){
-            Pagez.sendRedirect("/surveynotopen.jsp");
             return;
         }
 

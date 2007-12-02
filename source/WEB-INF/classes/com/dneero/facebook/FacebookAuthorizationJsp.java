@@ -69,7 +69,7 @@ public class FacebookAuthorizationJsp {
                         foundanewfacebooksessionkey = true;
                     }
                 } catch (Exception ex) {
-                    logger.error("failed to convert auth_token to facebooksessionkey",ex);
+                    logger.warn("failed to convert auth_token to facebooksessionkey",ex);
                 }
             }
             //No auth_token was sent (it's only sent for new apps and new logins, etc) so look to session_key
