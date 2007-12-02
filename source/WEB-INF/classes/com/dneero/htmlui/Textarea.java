@@ -17,7 +17,7 @@ public class Textarea {
         if (style!=null && !style.equals("")){
             style = "style=\""+style+"\"";
         }
-        out.append("<textarea name=\""+Str.cleanForHtml(name)+"\" "+styleclass+" "+style+" rows=\""+rows+"\" cols=\""+cols+"\">"+ Str.cleanForHtml(value)+"</textarea>");
+        out.append("<textarea name=\""+Str.cleanForHtml(name)+"\" "+styleclass+" "+style+" rows=\""+rows+"\" cols=\""+cols+"\" wrap=\"soft\">"+ value+"</textarea>");
 
         return out.toString();
     }

@@ -188,12 +188,13 @@ public class Registration implements Serializable {
 
 
 
-        if (eula==null || !eula.equals(EulaHelper.getMostRecentEula().getEula())){
+        if (eula==null || !eula.trim().equals(EulaHelper.getMostRecentEula().getEula().trim())){
+            //@todo Registration EULA validation
             //logger.debug("eula="+eula);
             //logger.debug("EulaHelper.getMostRecentEula().getEula()="+EulaHelper.getMostRecentEula().getEula());
-            vex.addValidationError("The end user license can't be edited.");
-            eula = EulaHelper.getMostRecentEula().getEula();
-            haveErrors = true;
+            //vex.addValidationError("The end user license can't be edited.");
+            //eula = EulaHelper.getMostRecentEula().getEula();
+            //haveErrors = true;
         }
 
         boolean isCaptchaCorrect = false;
