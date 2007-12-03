@@ -40,9 +40,7 @@ public class ImpressionActivityObjectQueue implements Job {
                             ImpressionActivityObject iao = (ImpressionActivityObject)it.next();
                             try{
                                 ImpressionActivityObjectStorage.store(iao);
-                                synchronized(it){
-                                    it.remove();
-                                }
+                                it.remove();
                             } catch (Exception ex){
                                 logger.error("",ex);
                             }
@@ -66,9 +64,7 @@ public class ImpressionActivityObjectQueue implements Job {
                             ImpressionActivityObjectCollated iaoc = (ImpressionActivityObjectCollated)it.next();
                             try{
                                 ImpressionActivityObjectCollatedStorage.store(iaoc);
-                                synchronized(it){
-                                    it.remove();
-                                }
+                                it.remove();
                             } catch (Exception ex){
                                 ex.printStackTrace();
                                 logger.error("",ex);
@@ -117,14 +113,14 @@ public class ImpressionActivityObjectQueue implements Job {
         //Iterate iaocs and see if we have this already
         int currentimpressions = 0;
         try{
-            for (Iterator<ImpressionActivityObjectCollated> iterator=iaocs.iterator(); iterator.hasNext();) {
-                ImpressionActivityObjectCollated iaocTmp=iterator.next();
-                if (iaocTmp.getSurveyid()==iaoc.getSurveyid()){
-                    if (iaocTmp.getUserid()==iaoc.getUserid()){
-                        if (iaocTmp.getResponseid()==iaoc.getResponseid()){
-                            if (iaocTmp.getReferer().trim().equals(iaoc.getReferer().trim())){
-                                currentimpressions = currentimpressions + iaocTmp.getImpressions();
-                                synchronized(iaocs){
+            synchronized(iaocs){
+                for (Iterator<ImpressionActivityObjectCollated> iterator=iaocs.iterator(); iterator.hasNext();) {
+                    ImpressionActivityObjectCollated iaocTmp=iterator.next();
+                    if (iaocTmp.getSurveyid()==iaoc.getSurveyid()){
+                        if (iaocTmp.getUserid()==iaoc.getUserid()){
+                            if (iaocTmp.getResponseid()==iaoc.getResponseid()){
+                                if (iaocTmp.getReferer().trim().equals(iaoc.getReferer().trim())){
+                                    currentimpressions = currentimpressions + iaocTmp.getImpressions();
                                     iterator.remove();
                                 }
                             }

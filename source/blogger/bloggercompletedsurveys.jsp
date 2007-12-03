@@ -54,7 +54,7 @@ String acl = "blogger";
                     <tr>
                         <td valign="top">
                             <font class="tinyfont"><%=bloggerCompletedsurveysListitem.getResponsedate()%></font><br/>
-                            <font class="normalfont" style="font-weight: bold; color: #0000ff;"><a href="/survey.jsp?surveyid=<%=bloggerCompletedsurveysListitem.getSurveyid()%>"><%=bloggerCompletedsurveysListitem.getSurveytitle()%></a></font><br/>
+                            <font class="normalfont" style="font-weight: bold; color: #0000ff;"><a href="/surveypostit.jsp?surveyid=<%=bloggerCompletedsurveysListitem.getSurveyid()%>"><%=bloggerCompletedsurveysListitem.getSurveytitle()%></a></font><br/>
                             <font class="tinyfont" style="font-weight: bold;">Est earnings: <%=bloggerCompletedsurveysListitem.getAmttotal()%></font>
                             <% if (!Pagez.getUserSession().getIsfacebookui()){ %>
                                 <br/>

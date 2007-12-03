@@ -116,7 +116,7 @@ public class BloggerIndex implements Serializable {
     }
 
     public static void createResponse(Survey survey, SurveyResponseParser srp, Blogger blogger, int referredbyuserid) throws ComponentException{
-        Logger logger = Logger.getLogger(PublicSurveyTake.class);
+        Logger logger = Logger.getLogger(BloggerIndex.class);
         ComponentException allCex = new ComponentException();
         //Make sure blogger hasn't taken already
         List<Response> responses = HibernateUtil.getSession().createCriteria(Response.class)
@@ -217,6 +217,7 @@ public class BloggerIndex implements Serializable {
 
             //Create the response
             if (allCex.getErrors().length<=0){
+                logger.debug("start saving the response");
                 Response response = new Response();
                 response.setBloggerid(blogger.getBloggerid());
                 response.setResponsedate(new Date());
@@ -231,21 +232,30 @@ public class BloggerIndex implements Serializable {
                 try{
                     response.save();
                     responseid = response.getResponseid();
-                    survey.refresh();
+                    //survey.refresh();
                 } catch (Exception ex){
                     logger.error("",ex);
                     allCex.addValidationError(ex.getMessage());
                 }
+                logger.debug("end saving the response");
+                logger.debug("start processing each question");
                 //Process each question
                 if (allCex.getErrors().length<=0){
                     for (Iterator<Question> iterator = survey.getQuestions().iterator(); iterator.hasNext();) {
                         Question question = iterator.next();
+                        logger.debug("start processing questionid="+question.getQuestionid()+" "+question.getQuestion());
                         Component component = ComponentTypes.getComponentByID(question.getComponenttype(), question, blogger);
                         try{component.processAnswer(srp, response);} catch (ComponentException cex){allCex.addErrorsFromAnotherGeneralException(cex);}
+                        logger.debug("end processing questionid="+question.getQuestionid()+" "+question.getQuestion());
                     }
                 }
+                logger.debug("done processing each question");
+                logger.debug("saving blogger");
                 //Refresh blogger
-                try{blogger.save();} catch (Exception ex){logger.error("",ex);};
+                try{blogger.save();} catch (Exception ex){logger.error("",ex);}
+                //logger.debug("refreshing survey");
+                //Refresh survey
+                //try{survey.refresh();} catch (Exception ex){logger.error("",ex);}
 
                 //Process the statusHtml for the response
                 try{UpdateResponsePoststatus.processSingleResponse(response);} catch (Exception ex){logger.error("",ex);};

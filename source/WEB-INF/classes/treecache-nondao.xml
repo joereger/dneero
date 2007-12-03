@@ -144,6 +144,10 @@
                   <attribute name="maxNodes">25000</attribute>
                   <attribute name="timeToLiveSeconds">0</attribute>
               </region>
+
+              <region name="/FacebookUserSession">
+                  <attribute name="timeToLiveSeconds">1200</attribute>
+              </region>
            </config>
         </attribute>
 

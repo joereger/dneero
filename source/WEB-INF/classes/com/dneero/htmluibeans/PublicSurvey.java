@@ -63,7 +63,7 @@ public class PublicSurvey implements Serializable {
     public void initBean(){
         //Set up logger
         Logger logger = Logger.getLogger(this.getClass().getName());
-        logger.debug("PublicSurveyTake instanciated.");
+        logger.debug("Instanciated.");
 
         //Surveyid from session or url
         int surveyid = Pagez.getUserSession().getCurrentSurveyid();
@@ -344,6 +344,8 @@ public class PublicSurvey implements Serializable {
             Blogger blogger = Blogger.get(Pagez.getUserSession().getUser().getBloggerid());
             try{
                 BloggerIndex.storeResponseInDb(survey, srp, blogger, Pagez.getUserSession().getPendingSurveyReferredbyuserid());
+                Pagez.getUserSession().setPendingSurveyResponseSurveyid(0);
+                Pagez.getUserSession().setPendingSurveyResponseAsString("");
             }catch (ComponentException cex){
                 haveerror = true;
                 vex.addValidationError(cex.getErrorsAsSingleString());

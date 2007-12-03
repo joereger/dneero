@@ -102,19 +102,19 @@ public class Textbox implements Component {
                 questionresponse.setName("response");
                 questionresponse.setValue(requestParam);
                 questionresponse.setResponseid(response.getResponseid());
-
-                question.getQuestionresponses().add(questionresponse);
+                //question.getQuestionresponses().add(questionresponse);
+                try{questionresponse.save();}catch(Exception ex){logger.error("", ex);}
                 addedAResponse = true;
             }
-            if (addedAResponse){
-                try{
-                    logger.debug("processAnswer() about to save question.getQuestionid()=" + question.getQuestionid());
-                    question.save();
-                    logger.debug("processAnswer() done saving question.getQuestionid()=" + question.getQuestionid());
-                } catch (GeneralException gex){
-                    logger.debug("processAnswer() failed: " + gex.getErrorsAsSingleString());
-                }
-            }
+//            if (addedAResponse){
+//                try{
+//                    logger.debug("processAnswer() about to save question.getQuestionid()=" + question.getQuestionid());
+//                    question.save();
+//                    logger.debug("processAnswer() done saving question.getQuestionid()=" + question.getQuestionid());
+//                } catch (GeneralException gex){
+//                    logger.debug("processAnswer() failed: " + gex.getErrorsAsSingleString());
+//                }
+//            }
         }
     }
 

@@ -85,7 +85,7 @@ public class Login implements Serializable {
                 }
 
                 //Pending survey save
-                //Note: this code also on Resitration and PublicSurveyTake
+                //Note: this code also on Resitration and PublicSurvey
                 if (Pagez.getUserSession().getPendingSurveyResponseSurveyid()>0){
                     if (!Pagez.getUserSession().getPendingSurveyResponseAsString().equals("")){
                         Responsepending responsepending = new Responsepending();

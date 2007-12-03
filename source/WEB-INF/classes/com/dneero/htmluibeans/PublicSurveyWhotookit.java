@@ -32,7 +32,7 @@ public class PublicSurveyWhotookit implements Serializable {
     public void initBean(){
         //Set up logger
         Logger logger = Logger.getLogger(this.getClass().getName());
-        logger.debug("PublicSurveyTake instanciated.");
+        logger.debug("Instanciated.");
 
         //Surveyid from session or url
         int surveyid = Pagez.getUserSession().getCurrentSurveyid();

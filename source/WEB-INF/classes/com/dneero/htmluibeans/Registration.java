@@ -121,7 +121,7 @@ public class Registration implements Serializable {
                     }
                 }
                 //Pending survey save
-                //Note: this code also on Login and PublicSurveyTake
+                //Note: this code also on Login and PublicSurvey
                 if (Pagez.getUserSession().getPendingSurveyResponseSurveyid()>0){
                     if (!Pagez.getUserSession().getPendingSurveyResponseAsString().equals("")){
                         Responsepending responsepending = new Responsepending();
@@ -272,7 +272,7 @@ public class Registration implements Serializable {
         user.getUsereulas().add(usereula);
 
         //Pending survey save
-        //Note: this code also on Login and PublicSurveyTake
+        //Note: this code also on Login and PublicSurvey
         if (Pagez.getUserSession().getPendingSurveyResponseSurveyid()>0){
             if (!Pagez.getUserSession().getPendingSurveyResponseAsString().equals("")){
                 Responsepending responsepending = new Responsepending();
