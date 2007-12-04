@@ -6,13 +6,6 @@
 <%@ page import="com.dneero.htmlui.*" %>
 <%@ page import="com.dneero.dao.Survey" %>
 <%
-Logger logger = Logger.getLogger(this.getClass().getName());
-String pagetitle = ((PublicSurveyDiscuss) Pagez.getBeanMgr().get("PublicSurveyDiscuss")).getSurvey().getTitle();
-String navtab = "home";
-String acl = "public";
-%>
-<%@ include file="/template/auth.jsp" %>
-<%
 PublicSurveyDiscuss publicSurveyDiscuss = (PublicSurveyDiscuss)Pagez.getBeanMgr().get("PublicSurveyDiscuss");
 %>
 <%
@@ -27,6 +20,13 @@ PublicSurveyDiscuss publicSurveyDiscuss = (PublicSurveyDiscuss)Pagez.getBeanMgr(
         return;
     }
 %>
+<%
+Logger logger = Logger.getLogger(this.getClass().getName());
+String pagetitle = ((PublicSurveyDiscuss) Pagez.getBeanMgr().get("PublicSurveyDiscuss")).getSurvey().getTitle();
+String navtab = "home";
+String acl = "public";
+%>
+<%@ include file="/template/auth.jsp" %>
 <%
     if (request.getParameter("action") != null && request.getParameter("action").equals("postcomment")) {
         try {

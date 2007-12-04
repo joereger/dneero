@@ -9,13 +9,6 @@
 <%@ page import="java.util.Iterator" %>
 <%@ page import="com.dneero.dao.Survey" %>
 <%
-Logger logger = Logger.getLogger(this.getClass().getName());
-String pagetitle = ((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getSurvey().getTitle();
-String navtab = "home";
-String acl = "public";
-%>
-<%@ include file="/template/auth.jsp" %>
-<%
     PublicSurveyPostit publicSurveyPostit=(PublicSurveyPostit) Pagez.getBeanMgr().get("PublicSurveyPostit");
 %>
 <%
@@ -24,12 +17,19 @@ String acl = "public";
         Pagez.sendRedirect("/publicsurveylist.jsp");
         return;
     }
-//If the survey is draft or waiting
+    //If the survey is draft or waiting
     if (publicSurveyPostit.getSurvey().getStatus()<Survey.STATUS_OPEN) {
         Pagez.sendRedirect("/surveynotopen.jsp");
         return;
     }
 %>
+<%
+Logger logger = Logger.getLogger(this.getClass().getName());
+String pagetitle = ((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getSurvey().getTitle();
+String navtab = "home";
+String acl = "public";
+%>
+<%@ include file="/template/auth.jsp" %>
 <%
     if (request.getParameter("action") != null && request.getParameter("action").equals("updatefacebookprofile")) {
         try {

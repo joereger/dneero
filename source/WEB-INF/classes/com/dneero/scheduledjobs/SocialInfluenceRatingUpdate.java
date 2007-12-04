@@ -41,7 +41,7 @@ public class SocialInfluenceRatingUpdate implements Job {
                     Blogger blogger = (Blogger)iterator.next();
                     User user = User.get(blogger.getUserid());
                     blogger.setSocialinfluencerating(SocialInfluenceRating.calculateSocialInfluenceRating(user));
-                    blogger.setSocialinfluencerating90days(SocialInfluenceRating.calculateSocialInfluenceRating90days(user));
+                    //blogger.setSocialinfluencerating90days(SocialInfluenceRating.calculateSocialInfluenceRating90days(user));
                     try{blogger.save();}catch(Exception ex){logger.error("",ex);}
                 }
             }
@@ -59,16 +59,16 @@ public class SocialInfluenceRatingUpdate implements Job {
             }
 
             //Update blogger ranking numbers 90 days
-            if (true){
-                List bloggers = HibernateUtil.getSession().createQuery("from Blogger order by socialinfluencerating90days desc").list();
-                int i = 0;
-                for (Iterator iterator = bloggers.iterator(); iterator.hasNext();) {
-                    Blogger blogger = (Blogger)iterator.next();
-                    i = i + 1;
-                    blogger.setSocialinfluenceratingranking90days(i);
-                    try{blogger.save();}catch(Exception ex){logger.error("",ex);}
-                }
-            }
+//            if (true){
+//                List bloggers = HibernateUtil.getSession().createQuery("from Blogger order by socialinfluencerating90days desc").list();
+//                int i = 0;
+//                for (Iterator iterator = bloggers.iterator(); iterator.hasNext();) {
+//                    Blogger blogger = (Blogger)iterator.next();
+//                    i = i + 1;
+//                    blogger.setSocialinfluenceratingranking90days(i);
+//                    try{blogger.save();}catch(Exception ex){logger.error("",ex);}
+//                }
+//            }
 
         } else {
             logger.debug("InstanceProperties.getRunScheduledTasksOnThisInstance() is FALSE for this instance so this task is not being executed.");

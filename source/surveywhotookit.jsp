@@ -6,13 +6,6 @@
 <%@ page import="com.dneero.dbgrid.Grid" %>
 <%@ page import="com.dneero.dao.Survey" %>
 <%
-Logger logger = Logger.getLogger(this.getClass().getName());
-String pagetitle = ((PublicSurveyWhotookit) Pagez.getBeanMgr().get("PublicSurveyWhotookit")).getSurvey().getTitle();
-String navtab="home";
-String acl="public";
-%>
-<%@ include file="/template/auth.jsp" %>
-<%
 PublicSurveyWhotookit publicSurveyWhotookit = (PublicSurveyWhotookit)Pagez.getBeanMgr().get("PublicSurveyWhotookit");
 %>
 <%
@@ -27,6 +20,13 @@ PublicSurveyWhotookit publicSurveyWhotookit = (PublicSurveyWhotookit)Pagez.getBe
         return;
     }
 %>
+<%
+Logger logger = Logger.getLogger(this.getClass().getName());
+String pagetitle = ((PublicSurveyWhotookit) Pagez.getBeanMgr().get("PublicSurveyWhotookit")).getSurvey().getTitle();
+String navtab="home";
+String acl="public";
+%>
+<%@ include file="/template/auth.jsp" %>
 <%@ include file="/template/header.jsp" %>
 
 

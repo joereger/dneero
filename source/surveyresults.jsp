@@ -3,13 +3,6 @@
 <%@ page import="com.dneero.htmluibeans.PublicSurveyResults" %>
 <%@ page import="com.dneero.dao.Survey" %>
 <%
-Logger logger = Logger.getLogger(this.getClass().getName());
-String pagetitle = ((PublicSurveyResults)Pagez.getBeanMgr().get("PublicSurveyResults")).getSurvey().getTitle();
-String navtab = "home";
-String acl = "public";
-%>
-<%@ include file="/template/auth.jsp" %>
-<%
 PublicSurveyResults publicSurveyResults = (PublicSurveyResults)Pagez.getBeanMgr().get("PublicSurveyResults");
 %>
 <%
@@ -24,6 +17,13 @@ PublicSurveyResults publicSurveyResults = (PublicSurveyResults)Pagez.getBeanMgr(
         return;
     }
 %>
+<%
+Logger logger = Logger.getLogger(this.getClass().getName());
+String pagetitle = ((PublicSurveyResults)Pagez.getBeanMgr().get("PublicSurveyResults")).getSurvey().getTitle();
+String navtab = "home";
+String acl = "public";
+%>
+<%@ include file="/template/auth.jsp" %>
 <%@ include file="/template/header.jsp" %>
 
 

@@ -5,19 +5,7 @@
 <%@ page import="com.dneero.htmluibeans.PublicSurveyFacebookFriendListitem" %>
 <%@ page import="com.dneero.htmlui.*" %>
 <%
-Logger logger = Logger.getLogger(this.getClass().getName());
-String pagetitle = ((PublicSurvey) Pagez.getBeanMgr().get("PublicSurvey")).getSurvey().getTitle();
-String navtab = "home";
-String acl = "public";
-%>
-<%@ include file="/template/auth.jsp" %>
-<%
 PublicSurvey publicSurvey = (PublicSurvey)Pagez.getBeanMgr().get("PublicSurvey");
-%>
-<%
-    if (request.getParameter("accesscode")!=null && !request.getParameter("accesscode").equals("")) {
-        Pagez.getUserSession().setAccesscode(request.getParameter("accesscode"));
-    }
 %>
 <%
 //If we don't have a surveyid, shouldn't be on this page
@@ -40,6 +28,18 @@ if (request.getParameter("show")!=null && request.getParameter("show").equals("d
     Pagez.sendRedirect("/surveydisclosure.jsp?surveyid="+request.getParameter("surveyid")+"&userid="+request.getParameter("userid"));
     return;
 }
+%>
+<%
+Logger logger = Logger.getLogger(this.getClass().getName());
+String pagetitle = ((PublicSurvey) Pagez.getBeanMgr().get("PublicSurvey")).getSurvey().getTitle();
+String navtab = "home";
+String acl = "public";
+%>
+<%@ include file="/template/auth.jsp" %>
+<%
+    if (request.getParameter("accesscode")!=null && !request.getParameter("accesscode").equals("")) {
+        Pagez.getUserSession().setAccesscode(request.getParameter("accesscode"));
+    }
 %>
 <%
     if (request.getParameter("action") != null && request.getParameter("action").equals("takesurvey")) {
