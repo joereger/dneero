@@ -9,6 +9,8 @@ import com.dneero.survey.servlet.SurveydisplayActivityObjectStorage;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * User: Joe Reger Jr
@@ -17,7 +19,7 @@ import java.util.Iterator;
  */
 public class SurveydisplayActivityObjectQueue implements Job {
 
-    public static ArrayList<SurveydisplayActivityObject> sdaos;
+    public static List<SurveydisplayActivityObject> sdaos;
 
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
         Logger logger = Logger.getLogger(this.getClass().getName());
@@ -25,13 +27,15 @@ public class SurveydisplayActivityObjectQueue implements Job {
             logger.debug("execute() SurveydisplayActivityObjectQueue called");
             try{
                 if (sdaos !=null){
-                    for (Iterator it = sdaos.iterator(); it.hasNext(); ) {
-                        SurveydisplayActivityObject sdao = (SurveydisplayActivityObject)it.next();
-                        try{
-                            SurveydisplayActivityObjectStorage.store(sdao);
-                            it.remove();
-                        } catch (Exception ex){
-                            logger.error("",ex);
+                    synchronized(sdaos){
+                        for (Iterator it = sdaos.iterator(); it.hasNext(); ) {
+                            SurveydisplayActivityObject sdao = (SurveydisplayActivityObject)it.next();
+                            try{
+                                SurveydisplayActivityObjectStorage.store(sdao);
+                                it.remove();
+                            } catch (Exception ex){
+                                logger.error("",ex);
+                            }
                         }
                     }
                 }
@@ -48,15 +52,17 @@ public class SurveydisplayActivityObjectQueue implements Job {
         Logger logger = Logger.getLogger(SurveydisplayActivityObject.class);
         try{
             if (sdaos ==null){
-                sdaos = new ArrayList<SurveydisplayActivityObject>();
+                sdaos = Collections.synchronizedList(new ArrayList<SurveydisplayActivityObject>());
             }
-            sdaos.add(sdao);
+            synchronized(sdaos){
+                sdaos.add(sdao);
+            }
         } catch (Exception ex){
             logger.error("",ex);
         }
     }
 
-    public static ArrayList<SurveydisplayActivityObject> getSdaos() {
+    public static List<SurveydisplayActivityObject> getSdaos() {
         return sdaos;
     }
 }
