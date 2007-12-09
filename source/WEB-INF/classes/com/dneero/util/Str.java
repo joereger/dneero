@@ -192,4 +192,8 @@ public class Str {
         return "";
     }
 
+    public static CharSequence getCharSequence(String str){
+        return str.subSequence(0, str.length());
+    }
+
 }

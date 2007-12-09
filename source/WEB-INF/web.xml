@@ -97,6 +97,15 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>SurveyFlashFacebookServlet</servlet-name>
+        <servlet-class>com.dneero.survey.servlet.SurveyFlashFacebookServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SurveyFlashFacebookServlet</servlet-name>
+        <url-pattern>/flashviewer/dneerosurveyfacebook.swf</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>SurveyImagelinkServlet</servlet-name>
         <servlet-class>com.dneero.survey.servlet.SurveyImageServlet</servlet-class>
     </servlet>

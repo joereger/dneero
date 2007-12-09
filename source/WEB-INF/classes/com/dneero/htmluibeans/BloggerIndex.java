@@ -1,7 +1,6 @@
 package com.dneero.htmluibeans;
 
 
-import com.dneero.util.Str;
 import com.dneero.dao.*;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.display.SurveyResponseParser;
@@ -262,8 +261,8 @@ public class BloggerIndex implements Serializable {
 
                 //Update Facebook
                 FacebookApiWrapper facebookApiWrapper = new FacebookApiWrapper(Pagez.getUserSession());
-                facebookApiWrapper.postSurveyToFacebookMiniFeed(survey, response);
-                facebookApiWrapper.updateFacebookProfile(user);
+                facebookApiWrapper.postToFeed(survey, response);
+                facebookApiWrapper.updateProfile(user);
             }
         } catch (Exception ex){
             logger.error("",ex);

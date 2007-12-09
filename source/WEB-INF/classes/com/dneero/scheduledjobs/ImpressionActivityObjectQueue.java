@@ -86,7 +86,7 @@ public class ImpressionActivityObjectQueue implements Job {
         //}
     }
 
-    public static void addIao(ImpressionActivityObject iao){
+    public static synchronized void addIao(ImpressionActivityObject iao){
         if (iaos==null){
             iaos = Collections.synchronizedList(new ArrayList<ImpressionActivityObject>());
         }

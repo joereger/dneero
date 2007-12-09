@@ -13,8 +13,10 @@ import com.dneero.util.Str;
 import com.dneero.util.Num;
 import com.dneero.htmlui.UserSession;
 import com.dneero.htmlui.Pagez;
+import com.dneero.survey.servlet.SurveyFlashFacebookServlet;
 import com.facebook.api.FacebookRestClient;
 import com.facebook.api.FacebookSignatureUtil;
+import com.facebook.api.TemplatizedAction;
 import org.apache.log4j.Logger;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.criterion.Order;
@@ -23,11 +25,9 @@ import org.jdom.input.DOMBuilder;
 import org.jdom.output.XMLOutputter;
 import org.jdom.Element;
 
-import java.util.List;
-import java.util.Iterator;
-import java.util.ArrayList;
-import java.util.TreeMap;
+import java.util.*;
 import java.net.URLEncoder;
+import java.net.URL;
 
 /**
  * User: Joe Reger Jr
@@ -72,7 +72,7 @@ public class FacebookApiWrapper {
         }
     }
 
-    public void postSurveyToFacebookMiniFeed(Survey survey, Response response){
+    public void postSurveyToFacebookMiniFeedOld(Survey survey, Response response){
         Logger logger = Logger.getLogger(this.getClass().getName());
         if (issessionok){
             try{
@@ -100,7 +100,46 @@ public class FacebookApiWrapper {
         } else {logger.debug("Can't execute because issessionok = false");}
     }
 
-    public void updateFacebookProfile(User user){
+
+    public void postToFeed(Survey survey, Response response){
+        Logger logger = Logger.getLogger(this.getClass().getName());
+        if (issessionok){
+            try{
+                SurveyEnhancer surveyEnhancer = new SurveyEnhancer(survey);
+                String forcharity =  "";
+                String charitybody = "";
+                if (response.getIsforcharity()){
+                    forcharity = " for charity";
+                    charitybody = " Earnings from this survey were donated to <i>"+response.getCharityname()+"</i>.";
+                }
+                String earnings = surveyEnhancer.getWillingtopayforresponse();
+                int userid = Blogger.get(response.getBloggerid()).getUserid();
+                String answerslink = "<a href='http://apps.facebook.com/"+SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_APP_NAME)+"/?action=showsurvey-"+survey.getSurveyid()+"-"+userid+"'> answers</a>";
+
+                StringBuffer titleTemplate = new StringBuffer();
+                titleTemplate.append("{actor} earned {earnings}{forcharity} by taking a survey.");
+
+                StringBuffer bodyTemplate = new StringBuffer();
+                bodyTemplate.append("See {actor}'s {answerslink} to <i>{surveytitle}</i> and take the survey for yourself!{charitybody}");
+
+                TemplatizedAction action = new TemplatizedAction(titleTemplate.toString(), bodyTemplate.toString());
+                action.addTitleParam("earnings", earnings);
+                action.addTitleParam("forcharity", forcharity);
+                action.addBodyParam("answerslink", answerslink);
+                action.addBodyParam("surveytitle", survey.getTitle());
+                action.addBodyParam("surveyid", String.valueOf(survey.getSurveyid()));
+                action.addBodyParam("userid", String.valueOf(userid));
+                action.addBodyParam("charitybody", charitybody);
+
+                FacebookRestClient facebookRestClient = new FacebookRestClient(SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_KEY), SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_SECRET), facebookSessionKey);
+                facebookRestClient.feed_PublishTemplatizedAction(action);
+            } catch (Exception ex){logger.error("",ex);}
+        } else {logger.debug("Can't execute because issessionok = false");}
+    }
+
+
+
+    public void updateProfile(User user){
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("Starting to create FBML for profile");
         if (issessionok){
@@ -109,10 +148,12 @@ public class FacebookApiWrapper {
                     StringBuffer fbml = new StringBuffer();
                     double totalearnings = 0;
                     int count = 0;
-                    fbml.append("<b>Most Recent Surveys I've Taken</b>");
+                    fbml.append("<center>");
+                    fbml.append("<font style=\"font-size: 14px; color: #cccccc; font-weight: bold;\">");
+                    fbml.append("Most Recent Surveys I've Taken");
+                    fbml.append("</font>");
+                    fbml.append("</center>");
                     fbml.append("<br/>");
-                    fbml.append("<hr style=\"border: 0; color:  #cccccc; background: #cccccc; height: 1px;\">");
-                    fbml.append("<table>");
 
                     List<Response> responses = HibernateUtil.getSession().createCriteria(Response.class)
                                                .add(Restrictions.eq("bloggerid", user.getBloggerid()))
@@ -122,10 +163,10 @@ public class FacebookApiWrapper {
                                                .setCacheable(false)
                                                .setMaxResults(60)
                                                .list();
+
                     for (Iterator<Response> iterator = responses.iterator(); iterator.hasNext();) {
                         Response response = iterator.next();
                         Survey survey = Survey.get(response.getSurveyid());
-                        totalearnings = totalearnings + survey.getWillingtopayperrespondent();
                         String forcharity =  "";
                         if (response.getIsforcharity()){
                             forcharity = " for charity";
@@ -135,26 +176,53 @@ public class FacebookApiWrapper {
                             dotdotdot = "...";
                         }
                         SurveyEnhancer surveyEnhancer = new SurveyEnhancer(survey);
-                        fbml.append("<tr>");
-                            fbml.append("<td>");
+                        fbml.append("<div style=\"border: 2px solid #e6e6e6;\">");
+//                            fbml.append("<table width=\"100%\">");
+//                            fbml.append("<tr>");
+//                            fbml.append("<td valign=\"top\">");
                                 fbml.append("<a href=\"http://apps.facebook.com/"+SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_APP_NAME)+"?action=showsurvey"+"-"+survey.getSurveyid()+"-"+user.getUserid()+"\">");
-                                fbml.append("<img src=\""+ BaseUrl.getNoHttp() +"/images/dneero-favicon.png\" alt=\"\" width=\"16\" height=\"16\">");
-                                fbml.append(" "+Str.truncateString(survey.getTitle(), 40)+dotdotdot);
+                                fbml.append("<img src=\""+ BaseUrl.getNoHttp() +"/images/dneero-favicon.png\" alt=\"\" width=\"16\" height=\"16\" border=\"0\">");
+                                fbml.append("<font style=\"font-size: 12px; color: #3B5998; font-weight: bold;\">");
+                                fbml.append(survey.getTitle());
+                                fbml.append("</font>");
+                                fbml.append("</a>");
+//                            fbml.append("</td>");
+//                            fbml.append("<td valign=\"top\" align=\"right\" style=\"text-align: right;\">");
+//                                fbml.append("<br/>");
+//                                fbml.append("<img src=\""+ BaseUrl.getNoHttp() +"/images/clear.gif\" alt=\"\" width=\"16\" height=\"1\" border=\"0\">");
+//                                fbml.append("<font style=\"font-size: 9px; color: #666666;\">I'm Earning "+surveyEnhancer.getWillingtopayforresponse()+forcharity+" from this survey.</font>");
+//                                fbml.append("<br/>");
+//                            fbml.append("</td>");
+//                            fbml.append("</tr>");
+//                            fbml.append("</table>");
+
+
+                            fbml.append(SurveyFlashFacebookServlet.getFBMLSyntax(BaseUrl.get(false), survey.getSurveyid(), user.getUserid(), response.getResponseid(), false, true, false));
+                            fbml.append("<table width=\"100%\">");
+                            fbml.append("<tr>");
+                            fbml.append("<td valign=\"top\">");
+                                fbml.append("<font style=\"font-size: 9px; color: #666666;\">I'm earning "+surveyEnhancer.getWillingtopayforresponse()+forcharity+" from this survey.</font>");
+                            fbml.append("</td>");
+                            fbml.append("<td valign=\"top\" align=\"right\" style=\"text-align: right;\">");
+                                fbml.append("<a href=\"http://apps.facebook.com/"+SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_APP_NAME)+"/?dpage=%2Fsurvey.jsp&surveyid="+survey.getSurveyid()+"&userid="+user.getUserid()+"&responseid="+response.getResponseid()+"\">");
+                                fbml.append("<font style=\"font-size: 9px; color: #3B5998; font-weight: bold;\">");
+                                fbml.append("How would you answer?");
+                                fbml.append("</font>");
                                 fbml.append("</a>");
                             fbml.append("</td>");
-                            fbml.append("<td>");
-                                fbml.append(" (I earned "+surveyEnhancer.getWillingtopayforresponse()+forcharity+"."+")");
-                            fbml.append("</td>");
-                        fbml.append("</tr>");
+                            fbml.append("</tr>");
+                            fbml.append("</table>");
+
+
+                        fbml.append("</div>");
+                        fbml.append("<img src=\""+ BaseUrl.getNoHttp() +"/images/clear.gif\" alt=\"\" width=\"1\" height=\"2\" border=\"0\">");
                     }
-                    fbml.append("</table>");
-                    fbml.append("<hr style=\"border: 0; color:  #cccccc; background: #cccccc; height: 1px;\">");
-                    //@todo this facebook profile earnings number doesn't represent full earnings... impressions aren't included.
-                    fbml.append("<b>My Total dNeero Earnings: "+"$"+ Str.formatForMoney(totalearnings)+"</b>");
+                    fbml.append("<br/>");
+
 
                     CharSequence cs = fbml.subSequence(0, fbml.length());
                     FacebookRestClient facebookRestClient = new FacebookRestClient(SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_KEY), SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_SECRET), facebookSessionKey);
-                    boolean success = facebookRestClient.profile_setFBML(cs, user.getFacebookuserid());
+                    boolean success = facebookRestClient.profile_setFBML(cs, Long.parseLong(String.valueOf(user.getFacebookuserid())));
                     if (success){
                         logger.debug("Apparently the setFBML was successful.");
                     } else {
@@ -331,127 +399,37 @@ public class FacebookApiWrapper {
 
 
 
-    public String inviteFriendsToSurvey(Survey survey){
+    
+
+    public String inviteFriendsTodNeero(ArrayList<Long> uids){
         Logger logger = Logger.getLogger(this.getClass().getName());
-        SurveyEnhancer surveyEnhancer = new SurveyEnhancer(survey);
-        String forcharity =  "";
-        if (survey.getIscharityonly()){
-            forcharity = " for charity";
-        }
-        String type = "social survey";
-        String actionText = "Invite your friends to dNeero";
-        String action = "http://apps.facebook.com/"+SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_APP_NAME)+"/?action=friendsinvited";
-        StringBuffer content = new StringBuffer();
-        content.append("You've been invited to the social survey: "+survey.getTitle());
-        content.append(" ");
-        content.append("Earn up to "+surveyEnhancer.getWillingtopayforresponse()+forcharity);
-        int userid = 0;
-        if(userSession.getUser()!=null){
-            userid = userSession.getUser().getUserid();
-        }
-        content.append("<fb:req-choice url=\"http://apps.facebook.com/"+SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_APP_NAME)+"?action=showsurvey"+"-"+survey.getSurveyid()+"-"+userid+"\" label=\"Check it Out\" />");
-        try{
-            ArrayList<String> params = new ArrayList();
-            params.add("action="+action);
-            params.add("actiontext="+actionText);
-            params.add("api_key="+SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_KEY));
-            params.add("content="+content.toString());
-            params.add("type="+type);
-            String sig = FacebookSignatureUtil.generateSignature(params, SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_SECRET));
-
-            StringBuffer url = new StringBuffer();
-            url.append("http://www.facebook.com/multi_friend_selector.php");
-            url.append("?");
-            url.append("api_key="+ URLEncoder.encode(SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_KEY), "UTF-8"));
-            url.append("&");
-            url.append("content="+URLEncoder.encode(content.toString(), "UTF-8"));
-            url.append("&");
-            url.append("type="+URLEncoder.encode(type, "UTF-8"));
-            url.append("&");
-            url.append("action="+URLEncoder.encode(action, "UTF-8"));
-            url.append("&");
-            url.append("actiontext="+URLEncoder.encode(actionText, "UTF-8"));
-            url.append("&");
-            url.append("sig="+URLEncoder.encode(sig, "UTF-8"));
-            logger.debug("url="+url.toString());
-            //Redirect the user
-            //Jsf.redirectResponse(url.toString());
-            return url.toString();
-        } catch (Exception ex){
-            logger.error("",ex);
-        }
-        return "";
-    }
-
-//    public void inviteFriendsTodNeeroOld(ArrayList<Integer> uids){
-//        Logger logger = Logger.getLogger(this.getClass().getName());
-//        FacebookRestClient facebookRestClient = new FacebookRestClient(SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_KEY), SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_SECRET), facebookSessionKey);
-//        String type = "dNeero";
-//        CharSequence typeChars = type.subSequence(0, type.length());
-//        StringBuffer content = new StringBuffer();
-//        content.append("You've been invited to the social survey app called dNeero that allows you to earn real money taking surveys and sharing your answers with your friends.");
-//        content.append("<fb:req-choice url=\"http://apps.facebook.com/"+SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_APP_NAME)+"\" label=\"Check it Out\" />");
-//        CharSequence contentChars = content.subSequence(0, content.length());
-//        URL imgUrl = null;
-//        try{
-//            imgUrl = new URL("http", SystemProperty.getProp(SystemProperty.PROP_BASEURL), "/images/dneero-logo-100x100.png");
-//        } catch (Exception ex){
-//            logger.error("",ex);
-//        }
-//        try{
-//            URL url = facebookRestClient.notifications_sendRequest(uids, typeChars, contentChars, imgUrl, true);
-//            if (url!=null){
-//                logger.debug("FacebookAPI returned: " + url.toString());
-//                //String redirUrl = "/redirectoutofframe.jsp?url="+ URLEncoder.encode(url.toString(), "UTF-8");
-//                Jsf.redirectResponse(url.toString());
-//                return;
-//            }
-//
-//        } catch (Exception ex){
-//            logger.error("",ex);
-//        }
-//    }
-
-    public String inviteFriendsTodNeero(){
-        Logger logger = Logger.getLogger(this.getClass().getName());
+        FacebookRestClient facebookRestClient = new FacebookRestClient(SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_KEY), SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_SECRET), facebookSessionKey);
         String type = "dNeero";
-        String actionText = "Invite your friends to dNeero";
-        String action = "http://apps.facebook.com/"+SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_APP_NAME)+"/?action=friendsinvited";
+        CharSequence typeChars = type.subSequence(0, type.length());
         StringBuffer content = new StringBuffer();
         content.append("You've been invited to the social survey app called dNeero that allows you to earn real money taking surveys and sharing your answers with your friends.");
         content.append("<fb:req-choice url=\"http://apps.facebook.com/"+SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_APP_NAME)+"\" label=\"Check it Out\" />");
+        CharSequence contentChars = content.subSequence(0, content.length());
+        URL imgUrl = null;
         try{
-            ArrayList<String> params = new ArrayList();
-            params.add("action="+action);
-            params.add("actiontext="+actionText);
-            params.add("api_key="+SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_KEY));
-            params.add("content="+content.toString());
-            params.add("type="+type);
-            String sig = FacebookSignatureUtil.generateSignature(params, SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_SECRET));
+            imgUrl = new URL("http", SystemProperty.getProp(SystemProperty.PROP_BASEURL), "/images/dneero-logo-100x100.png");
+        } catch (Exception ex){
+            logger.error("",ex);
+        }
+        try{
+            URL url = facebookRestClient.notifications_sendRequest(uids, typeChars, contentChars, imgUrl, true);
+            if (url!=null){
+                logger.debug("FacebookAPI returned: " + url.toString());
+                return url.toString();
+            }
 
-            StringBuffer url = new StringBuffer();
-            url.append("http://www.facebook.com/multi_friend_selector.php");
-            url.append("?");
-            url.append("api_key="+URLEncoder.encode(SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_KEY), "UTF-8"));
-            url.append("&");
-            url.append("content="+URLEncoder.encode(content.toString(), "UTF-8"));
-            url.append("&");
-            url.append("type="+URLEncoder.encode(type, "UTF-8"));
-            url.append("&");
-            url.append("action="+URLEncoder.encode(action, "UTF-8"));
-            url.append("&");
-            url.append("actiontext="+URLEncoder.encode(actionText, "UTF-8"));
-            url.append("&");
-            url.append("sig="+URLEncoder.encode(sig, "UTF-8"));
-            logger.debug("url="+url.toString());
-            //Redirect the user
-            //Jsf.redirectResponse(url.toString());
-            return url.toString();
         } catch (Exception ex){
             logger.error("",ex);
         }
         return "";
     }
+
+
 
 
 

@@ -31,7 +31,6 @@ public class PublicSurveyList implements Serializable {
     private String rndstr;
     //private ArrayList<BloggerCompletedsurveysListitem> completedsurveys;
     private boolean facebookjustaddedapp = false;
-    private String invitefriendsurl = "";
     private String currentbalance = "$0.00";
     private String pendingearnings = "$0.00";
     private double currentbalanceDbl = 0.0;
@@ -176,8 +175,6 @@ public class PublicSurveyList implements Serializable {
                 currentbalance = "$"+Str.formatForMoney(currentbalanceDbl);
                 pendingearnings = "$"+Str.formatForMoney(pendingearningsDbl);
 
-                //Invite friends link
-                //invitefriendsurl = faw.inviteFriendsTodNeero();
 
             }
 
@@ -313,13 +310,7 @@ public class PublicSurveyList implements Serializable {
         this.facebookjustaddedapp = facebookjustaddedapp;
     }
 
-    public String getInvitefriendsurl() {
-        return invitefriendsurl;
-    }
 
-    public void setInvitefriendsurl(String invitefriendsurl) {
-        this.invitefriendsurl=invitefriendsurl;
-    }
 
     public String getCurrentbalance() {
         return currentbalance;

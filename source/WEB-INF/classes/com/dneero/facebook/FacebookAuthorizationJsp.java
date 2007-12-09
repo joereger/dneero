@@ -116,7 +116,12 @@ public class FacebookAuthorizationJsp {
                 FacebookRestClient facebookRestClient = null;
                 try {
                     facebookRestClient = new FacebookRestClient(SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_KEY), SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_SECRET), Pagez.getUserSession().getFacebookSessionKey());
-                    Pagez.getUserSession().setFacebookUser(new FacebookUser(facebookRestClient.users_getLoggedInUser(), Pagez.getUserSession().getFacebookSessionKey()));
+                    int loggedinfacebookuid = 0;
+                    Long loggedinfacebookuidLong = facebookRestClient.users_getLoggedInUser();
+                    if (Num.isinteger(String.valueOf(loggedinfacebookuidLong))){
+                        loggedinfacebookuid = Integer.parseInt(String.valueOf(loggedinfacebookuidLong));
+                    }
+                    Pagez.getUserSession().setFacebookUser(new FacebookUser(loggedinfacebookuid, Pagez.getUserSession().getFacebookSessionKey()));
                 } catch (FacebookException fex) {
                     logger.error("Facebook Error fex", fex);
                 }

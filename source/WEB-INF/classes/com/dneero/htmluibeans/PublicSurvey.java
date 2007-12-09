@@ -51,7 +51,6 @@ public class PublicSurvey implements Serializable {
     private String DNEERO_REQUEST_PARAM_IDENTIFIER = SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER;
     private boolean surveytakergavetocharity = false;
     private String charityname = "";
-    private String invitefriendsurl = "";
     private String surveyResponseHtml;
     private String surveyResponseFlashEmbed;
 
@@ -268,9 +267,6 @@ public class PublicSurvey implements Serializable {
             //Load facebook users
             loadFacebookUsers();
 
-            //Invite friends link
-            FacebookApiWrapper faw = new FacebookApiWrapper(Pagez.getUserSession());
-            invitefriendsurl = faw.inviteFriendsToSurvey(survey);
         }
 
 
@@ -587,13 +583,7 @@ public class PublicSurvey implements Serializable {
         this.charityname=charityname;
     }
 
-    public String getInvitefriendsurl() {
-        return invitefriendsurl;
-    }
 
-    public void setInvitefriendsurl(String invitefriendsurl) {
-        this.invitefriendsurl=invitefriendsurl;
-    }
 
 
     public String getSurveyResponseHtml() {

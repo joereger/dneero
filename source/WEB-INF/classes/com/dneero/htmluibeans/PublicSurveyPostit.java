@@ -43,7 +43,6 @@ public class PublicSurveyPostit implements Serializable {
     private String htmltoposttoblogimagelink = "";
     private String htmltoposttobloglink = "";
     private boolean justcompletedsurvey = false;
-    private String invitefriendsurl = "";
 
     public PublicSurveyPostit(){
 
@@ -178,9 +177,7 @@ public class PublicSurveyPostit implements Serializable {
 
         //Special Facebook activities
         if (Pagez.getUserSession().getIsfacebookui()){
-            //Invite friends link
-            FacebookApiWrapper faw = new FacebookApiWrapper(Pagez.getUserSession());
-            invitefriendsurl = faw.inviteFriendsToSurvey(survey);
+
         }
 
 
@@ -199,9 +196,9 @@ public class PublicSurveyPostit implements Serializable {
                                                    .list();
                 for (Iterator<Response> iterator=responses.iterator(); iterator.hasNext();) {
                     Response response=iterator.next();
-                    facebookApiWrapper.postSurveyToFacebookMiniFeed(survey, response);
+                    facebookApiWrapper.postToFeed(survey, response);
                 }
-                facebookApiWrapper.updateFacebookProfile(Pagez.getUserSession().getUser());
+                facebookApiWrapper.updateProfile(Pagez.getUserSession().getUser());
             }
         } catch (Exception ex){
             logger.error("",ex);
@@ -314,11 +311,5 @@ public class PublicSurveyPostit implements Serializable {
         this.justcompletedsurvey=justcompletedsurvey;
     }
 
-    public String getInvitefriendsurl() {
-        return invitefriendsurl;
-    }
 
-    public void setInvitefriendsurl(String invitefriendsurl) {
-        this.invitefriendsurl=invitefriendsurl;
-    }
 }
