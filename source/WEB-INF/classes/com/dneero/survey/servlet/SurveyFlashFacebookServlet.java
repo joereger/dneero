@@ -18,6 +18,8 @@ import com.dneero.cache.providers.CacheFactory;
 import com.dneero.systemprops.WebAppRootDir;
 import com.dneero.systemprops.BaseUrl;
 import com.dneero.util.RandomString;
+import com.dneero.xmpp.SendXMPPMessage;
+import com.dneero.htmlui.Pagez;
 import com.flagstone.transform.*;
 
 /**
@@ -174,6 +176,18 @@ public class SurveyFlashFacebookServlet extends HttpServlet {
             outStream.close();
         } catch (Exception e){
             logger.error("Error getting survey from cache");
+        }
+        
+        //Notify debug group
+        if (survey!=null && user!=null){
+            SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_DEBUG, "Facebook Flash Click: "+ survey.getTitle()+" (surveyid="+survey.getSurveyid()+") from "+user.getFirstname()+" "+user.getLastname()+"'s profile");
+            xmpp.send();
+        } else if (survey!=null) {
+            SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_DEBUG, "Facebook Flash Click: "+ survey.getTitle()+" (surveyid="+survey.getSurveyid()+")");
+            xmpp.send();
+        } else {
+            SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_DEBUG, "Facebook Flash Click: unknown survey or user");
+            xmpp.send();
         }
     }
 
