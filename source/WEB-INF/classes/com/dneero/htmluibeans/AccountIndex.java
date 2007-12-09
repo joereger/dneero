@@ -54,7 +54,6 @@ public class AccountIndex implements Serializable {
                                    .list();
             if (responsependings.size()>0){
                 userhasresponsependings = true;
-                Pagez.sendRedirect("/blogger/index.jsp");
             }
         }
 
@@ -70,7 +69,7 @@ public class AccountIndex implements Serializable {
     }
 
 
-    public boolean isUserhasresponsependings() {
+    public boolean getUserhasresponsependings() {
         return userhasresponsependings;
     }
 

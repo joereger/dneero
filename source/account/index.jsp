@@ -8,11 +8,17 @@ String pagetitle = "Your Account";
 String navtab = "youraccount";
 String acl = "account";
 %>
-<%@ include file="/template/auth.jsp" %>
 <%
 AccountIndex accountIndex = (AccountIndex) Pagez.getBeanMgr().get("AccountIndex");
 AccountBalance accountBalance = (AccountBalance) Pagez.getBeanMgr().get("AccountBalance");
 %>
+<%
+if (accountIndex.getUserhasresponsependings()){
+    Pagez.sendRedirect("/blogger/index.jsp");
+    return;
+}
+%>
+<%@ include file="/template/auth.jsp" %>
 <%@ include file="/template/header.jsp" %>
 
 
