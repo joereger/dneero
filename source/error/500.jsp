@@ -25,7 +25,7 @@
 </blockquote></blockquote>
 <br>
 <%
-if (1==1){
+if (1==2){
     String errorAsString = ErrorDissect.dissect(exception);
     %>
         <blockquote><blockquote><%=errorAsString%></blockquote></blockquote>

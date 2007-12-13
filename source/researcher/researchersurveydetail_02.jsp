@@ -31,6 +31,15 @@ String acl="researcher";
 <%
     if (request.getParameter("action") != null && (request.getParameter("action").equals("next") || request.getParameter("action").equals("saveasdraft") || request.getParameter("action").equals("previous"))) {
         try {
+            if (researcherSurveyDetail02.getSurvey().getStatus()>Survey.STATUS_DRAFT){
+                if (request.getParameter("action").equals("previous")){
+                    Pagez.sendRedirect("/researcher/researchersurveydetail_01.jsp?surveyid="+researcherSurveyDetail02.getSurvey().getSurveyid());
+                    return;
+                } else {
+                    Pagez.sendRedirect("/researcher/researchersurveydetail_03.jsp?surveyid="+researcherSurveyDetail02.getSurvey().getSurveyid());
+                    return;
+                }
+            }
             if (request.getParameter("action").equals("next")) {
                 logger.debug("Next was clicked");
                 researcherSurveyDetail02.saveSurvey();

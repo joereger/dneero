@@ -17,6 +17,15 @@ ResearcherSurveyDetail06 researcherSurveyDetail06 = (ResearcherSurveyDetail06)Pa
 <%
     if (request.getParameter("action") != null && (request.getParameter("action").equals("next") || request.getParameter("action").equals("saveasdraft") || request.getParameter("action").equals("previous"))) {
         try {
+            if (researcherSurveyDetail06.getSurvey().getStatus()>Survey.STATUS_DRAFT){
+                if (request.getParameter("action").equals("previous")){
+                    Pagez.sendRedirect("/researcher/researchersurveydetail_05.jsp?surveyid="+researcherSurveyDetail06.getSurvey().getSurveyid());
+                    return;
+                } else {
+                    Pagez.sendRedirect("/researcher/researchersurveydetail_postlaunch.jsp?surveyid="+researcherSurveyDetail06.getSurvey().getSurveyid());
+                    return;
+                }
+            }
             researcherSurveyDetail06.setCccity(Textbox.getValueFromRequest("cccity", "City", false, DatatypeString.DATATYPEID));
             researcherSurveyDetail06.setCcexpmo(Textbox.getIntFromRequest("ccexpmo", "Expiration Month", false, DatatypeInteger.DATATYPEID));
             researcherSurveyDetail06.setCcexpyear(Textbox.getIntFromRequest("ccexpyear", "Expiration Year", false, DatatypeInteger.DATATYPEID));
@@ -320,8 +329,10 @@ ResearcherSurveyDetail06 researcherSurveyDetail06 = (ResearcherSurveyDetail06)Pa
             <td valign="top" align="right">
                 <%if (researcherSurveyDetail06.getSurvey().getStatus()==Survey.STATUS_DRAFT) {%>
                     <input type="submit" class="formsubmitbutton" value="Save and Continue Later" onclick="document.getElementById('action').value='saveasdraft';">
+                    <input type="submit" class="formsubmitbutton" value="Launch this Survey!">
+                <%} else {%>
+                    <input type="submit" class="formsubmitbutton" value="Next Step">
                 <%}%>
-                <input type="submit" class="formsubmitbutton" value="Launch this Survey!">
             </td>
         </tr>
     </table>

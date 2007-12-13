@@ -23,7 +23,7 @@ public class Encode4FacebookFilter implements Filter {
                 HttpServletRequest request = (HttpServletRequest) req;
                 HttpServletResponse response = (HttpServletResponse) res;
                 
-                if (Pagez.getUserSession().getIsfacebookui() && request.getRequestURL().indexOf(".jpg")==-1 && request.getRequestURL().indexOf(".css")==-1 && request.getRequestURL().indexOf(".gif")==-1 && request.getRequestURL().indexOf(".png")==-1 && request.getRequestURL().indexOf(".js")==-1 && request.getRequestURL().indexOf(".swf")==-1){    
+                if (Pagez.getUserSession()!=null && Pagez.getUserSession().getIsfacebookui() && request.getRequestURL().indexOf(".jpg")==-1 && request.getRequestURL().indexOf(".css")==-1 && request.getRequestURL().indexOf(".gif")==-1 && request.getRequestURL().indexOf(".png")==-1 && request.getRequestURL().indexOf(".js")==-1 && request.getRequestURL().indexOf(".swf")==-1){    
                     logger.debug("+++ doFilter() begin");
 
 

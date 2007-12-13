@@ -101,6 +101,9 @@ public class Log4jCustomAppender extends AppenderSkeleton {
 
     //Allows me to filter out annoying framework-based errors that can't be fixed otherwise
     public boolean shouldRecordThis(String err){
+        if (err.indexOf("Feed action request limit reached")>-1){
+            return false;
+        }
         return true;
     }
 
