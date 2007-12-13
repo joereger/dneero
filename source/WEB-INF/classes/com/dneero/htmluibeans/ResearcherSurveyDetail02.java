@@ -190,6 +190,10 @@ public class ResearcherSurveyDetail02 implements Serializable {
             Pagez.sendRedirect("/researcher/researchersurveydetail_02_matrix.jsp?surveyid="+survey.getSurveyid()+"&questionid="+tmpQuestionid);
             return;
         }
+        if (componenttype==TestQuestion.ID){
+            Pagez.sendRedirect("/researcher/researchersurveydetail_02_testquestion.jsp?surveyid="+survey.getSurveyid()+"&questionid="+tmpQuestionid);
+            return;
+        }
         logger.debug("Couldn't find ComponentType = "+tmpComponenttype);
     }
 

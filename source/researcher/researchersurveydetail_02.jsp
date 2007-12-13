@@ -168,8 +168,11 @@ String acl="researcher";
                         if (key.equals(String.valueOf(com.dneero.display.components.Matrix.ID))) {
                             url="researchersurveydetail_02_matrix.jsp";
                         }
+                        if (key.equals(String.valueOf(com.dneero.display.components.TestQuestion.ID))) {
+                            url="researchersurveydetail_02_testquestion.jsp";
+                        }
                         %>
-                        <a href="/researcher/<%=url%>?isnewquestion=1&surveyid=<%=researcherSurveyDetail02.getSurvey().getSurveyid()%>"><font class="smallfont"><%=value%></font></a><br/>
+                        <font class="formfieldnamefont"><a href="/researcher/<%=url%>?isnewquestion=1&surveyid=<%=researcherSurveyDetail02.getSurvey().getSurveyid()%>"><%=value%></a></font><br/>
                         <%
                     }
                 %>

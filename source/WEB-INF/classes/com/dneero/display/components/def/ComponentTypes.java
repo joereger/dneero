@@ -44,6 +44,9 @@ public class ComponentTypes {
         if (ID== Matrix.ID){
             return new Matrix(question, blogger);
         }
+        if (ID== TestQuestion.ID){
+            return new TestQuestion(question, blogger);
+        }
         return null;
     }
 
@@ -56,6 +59,7 @@ public class ComponentTypes {
             typesaslinkedhashmap.put(Checkboxes.NAME, Checkboxes.ID);
             typesaslinkedhashmap.put(Range.NAME, Range.ID);
             typesaslinkedhashmap.put(Matrix.NAME, Matrix.ID);
+            typesaslinkedhashmap.put(TestQuestion.NAME, TestQuestion.ID);
         }
         return typesaslinkedhashmap;
     }
