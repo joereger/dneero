@@ -2,6 +2,7 @@
 <%@ page import="com.dneero.htmluibeans.Registration" %>
 <%@ page import="com.dneero.htmlui.*" %>
 <%@ page import="com.dneero.systemprops.SystemProperty" %>
+<%@ page import="com.dneero.util.RandomString" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "Sign Up for a dNeero Account";
@@ -19,6 +20,7 @@ Registration registration = (Registration)Pagez.getBeanMgr().get("Registration")
             registration.setEula(Textarea.getValueFromRequest("eula", "Eula", true));
             registration.setFirstname(Textbox.getValueFromRequest("firstname", "First Name", true, DatatypeString.DATATYPEID));
             registration.setJ_captcha_response(Textbox.getValueFromRequest("j_captcha_response", "Squiggly Letters", true, DatatypeString.DATATYPEID));
+            registration.setCaptchaId(request.getParameter("captchaId"));
             registration.setLastname(Textbox.getValueFromRequest("lastname", "Last Name", true, DatatypeString.DATATYPEID));
             registration.setPassword(TextboxSecret.getValueFromRequest("password", "Password", true, DatatypeString.DATATYPEID));
             registration.setPasswordverify(TextboxSecret.getValueFromRequest("passwordverify", "Password Verify", true, DatatypeString.DATATYPEID));
@@ -44,6 +46,9 @@ Registration registration = (Registration)Pagez.getBeanMgr().get("Registration")
             Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
         }
     }
+%>
+<%
+    String captchaId=RandomString.randomAlphanumeric(10);
 %>
 <%@ include file="/template/header.jsp" %>
 
@@ -77,6 +82,7 @@ Registration registration = (Registration)Pagez.getBeanMgr().get("Registration")
         <form action="/registration.jsp" method="post">
             <input type="hidden" name="dpage" value="/registration.jsp">
             <input type="hidden" name="action" value="register">
+            <input type="hidden" name="captchaId" value="<%=captchaId%>">
             <div class="rounded" style="padding: 15px; margin: 5px; background: #ffffff;">
                 <font class="mediumfont" style="color: #333333">Get started creating and/or taking surveys</font>
                 <br/>
@@ -145,7 +151,7 @@ Registration registration = (Registration)Pagez.getBeanMgr().get("Registration")
                                     <td><img src="/images/clear.gif" alt="" width="1" height="100"></img></td>
                                     <td style="background: url(/images/loading-captcha.gif);">
                                         <img src="/images/clear.gif" alt="" width="200" height="1"></img><br/>
-                                        <img src="/jcaptcha" width="200" height="100"/>
+                                        <img src="/jcaptcha?captchaId=<%=captchaId%>" width="200" height="100"/>
                                     </td>
                                 </tr>
                             </table>

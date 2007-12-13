@@ -6,6 +6,7 @@
 <%@ page import="com.dneero.dbgrid.Grid" %>
 <%@ page import="com.dneero.util.Util" %>
 <%@ page import="com.dneero.htmlui.*" %>
+<%@ page import="com.dneero.util.RandomString" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "";
@@ -23,11 +24,15 @@ PublicBlogPost publicBlogPost = (PublicBlogPost) Pagez.getBeanMgr().get("PublicB
             publicBlogPost.setUrl(Textbox.getValueFromRequest("url", "Url", false, DatatypeString.DATATYPEID));
             publicBlogPost.setComment(Textarea.getValueFromRequest("comment", "Comment", true));
             publicBlogPost.setJ_captcha_response(Textbox.getValueFromRequest("j_captcha_response", "Squiggly Letters", false, DatatypeString.DATATYPEID));
+            publicBlogPost.setCaptchaId(request.getParameter("captchaId"));
             publicBlogPost.postComment();
         } catch (ValidationException vex) {
             Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
         }
     }
+%>
+<%
+    String captchaId=RandomString.randomAlphanumeric(10);
 %>
 <%@ include file="/template/header.jsp" %>
 
@@ -63,6 +68,7 @@ PublicBlogPost publicBlogPost = (PublicBlogPost) Pagez.getBeanMgr().get("PublicB
             <input type="hidden" name="dpage" value="/blogpost.jsp">
             <input type="hidden" name="action" value="addcomment">
             <input type="hidden" name="blogpostid" value="<%=publicBlogPost.getBlogpost().getBlogpostid()%>">
+            <input type="hidden" name="captchaId" value="<%=captchaId%>">
             <br/><br/>
             <font class="formfieldnamefont">Post a comment:</font>
             <br/>
@@ -109,7 +115,7 @@ PublicBlogPost publicBlogPost = (PublicBlogPost) Pagez.getBeanMgr().get("PublicB
                                 <td><img src="/images/clear.gif" alt="" width="1" height="100"></img></td>
                                 <td style="background: url(/images/loading-captcha.gif);">
                                     <img src="/images/clear.gif" alt="" width="200" height="1"></img><br/>
-                                    <img src="/jcaptcha" alt=""/>
+                                    <img src="/jcaptcha?captchaId=<%=captchaId%>" alt=""/>
                                 </td>
                             </tr>
                         </table>

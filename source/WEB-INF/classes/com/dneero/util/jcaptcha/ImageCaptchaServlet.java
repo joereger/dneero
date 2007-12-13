@@ -41,6 +41,9 @@ public class ImageCaptchaServlet extends HttpServlet {
                 // get the session id that will identify the generated captcha.
                 //the same id must be used to validate the response, the session id is a good candidate!
                 String captchaId = httpServletRequest.getSession().getId();
+                if (httpServletRequest.getParameter("captchaId")!=null){
+                    captchaId = httpServletRequest.getParameter("captchaId");   
+                }
 
                 // call the ImageCaptchaService getChallenge method
                 BufferedImage challenge = CaptchaServiceSingleton.getInstance().getImageChallengeForID(captchaId, httpServletRequest.getLocale());

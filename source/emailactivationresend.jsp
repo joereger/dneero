@@ -1,6 +1,7 @@
 <%@ page import="org.apache.log4j.Logger" %>
 <%@ page import="com.dneero.htmluibeans.EmailActivationResend" %>
 <%@ page import="com.dneero.htmlui.*" %>
+<%@ page import="com.dneero.util.RandomString" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "Email Activation Re-Send";
@@ -16,6 +17,7 @@ EmailActivationResend emailActivationResend = (EmailActivationResend)Pagez.getBe
         try {
             emailActivationResend.setEmail(Textbox.getValueFromRequest("email", "Email", true, DatatypeString.DATATYPEID));
             emailActivationResend.setJ_captcha_response(Textbox.getValueFromRequest("j_captcha_response", "Squiggly Letters", true, DatatypeString.DATATYPEID));
+            emailActivationResend.setCaptchaId(request.getParameter("captchaId"));
             emailActivationResend.reSendEmail();
             Pagez.sendRedirect("/emailactivationresendcomplete.jsp");
             return;
@@ -24,11 +26,15 @@ EmailActivationResend emailActivationResend = (EmailActivationResend)Pagez.getBe
         }
     }
 %>
+<%
+    String captchaId=RandomString.randomAlphanumeric(10);
+%>
 <%@ include file="/template/header.jsp" %>
 
         <form action="/emailactivationresend.jsp" method="post">
             <input type="hidden" name="dpage" value="/emailactivationresend.jsp">
             <input type="hidden" name="action" value="send">
+            <input type="hidden" name="captchaId" value="<%=captchaId%>">
 
             <table cellpadding="0" cellspacing="0" border="0">
                 <tr>
@@ -55,7 +61,7 @@ EmailActivationResend emailActivationResend = (EmailActivationResend)Pagez.getBe
                                 <td><img src="/images/clear.gif" alt="" width="1" height="100"/></td>
                                 <td style="background: url(/images/loading-captcha.gif);">
                                     <img src="/images/clear.gif" alt="" width="200" height="1"/><br/>
-                                    <img src="/jcaptcha" alt=""/>
+                                    <img src="/jcaptcha?captchaId=<%=captchaId%>" alt=""/>
                                 </td>
                             </tr>
                         </table>

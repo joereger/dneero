@@ -31,6 +31,7 @@ public class EmailActivationResend implements Serializable {
     //Form props
     private String email;
     private String j_captcha_response;
+    private String captchaId;
 
     public EmailActivationResend(){
 
@@ -47,7 +48,7 @@ public class EmailActivationResend implements Serializable {
         ValidationException vex = new ValidationException();
         boolean isCaptchaCorrect = false;
         try {
-            isCaptchaCorrect = CaptchaServiceSingleton.getInstance().validateResponseForID(Pagez.getRequest().getSession().getId(), j_captcha_response);
+            isCaptchaCorrect = CaptchaServiceSingleton.getInstance().validateResponseForID(captchaId, j_captcha_response);
         } catch (CaptchaServiceException e) {
              //should not happen, may be thrown if the id is not valid
         }
@@ -86,5 +87,13 @@ public class EmailActivationResend implements Serializable {
 
     public void setJ_captcha_response(String j_captcha_response) {
         this.j_captcha_response = j_captcha_response;
+    }
+
+    public String getCaptchaId() {
+        return captchaId;
+    }
+
+    public void setCaptchaId(String captchaId) {
+        this.captchaId=captchaId;
     }
 }

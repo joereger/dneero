@@ -39,6 +39,7 @@ public class Registration implements Serializable {
     private String firstname;
     private String lastname;
     private String j_captcha_response;
+    private String captchaId;
     private String eula;
     private boolean displaytempresponsesavedmessage;
 
@@ -200,7 +201,7 @@ public class Registration implements Serializable {
         boolean isCaptchaCorrect = false;
         logger.debug("sessionid="+Pagez.getRequest().getSession().getId());
         try {
-            isCaptchaCorrect = CaptchaServiceSingleton.getInstance().validateResponseForID(Pagez.getRequest().getSession().getId(), j_captcha_response);
+            isCaptchaCorrect = CaptchaServiceSingleton.getInstance().validateResponseForID(captchaId, j_captcha_response);
         } catch (CaptchaServiceException e) {
              //should not happen, may be thrown if the id is not valid
         }
@@ -371,6 +372,14 @@ public class Registration implements Serializable {
         this.j_captcha_response = j_captcha_response;
     }
 
+
+    public String getCaptchaId() {
+        return captchaId;
+    }
+
+    public void setCaptchaId(String captchaId) {
+        this.captchaId=captchaId;
+    }
 
     public String getEula() {
         return eula;

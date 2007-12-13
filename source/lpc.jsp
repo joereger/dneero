@@ -1,6 +1,7 @@
 <%@ page import="org.apache.log4j.Logger" %>
 <%@ page import="com.dneero.htmluibeans.LostPasswordChoose" %>
 <%@ page import="com.dneero.htmlui.*" %>
+<%@ page import="com.dneero.util.RandomString" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "Reset Password";
@@ -19,6 +20,7 @@ LostPasswordChoose lostPasswordChoose=(LostPasswordChoose) Pagez.getBeanMgr().ge
             lostPasswordChoose.setJ_captcha_response(com.dneero.htmlui.Textbox.getValueFromRequest("j_captcha_response", "Squiggly Letters", true, DatatypeString.DATATYPEID));
             lostPasswordChoose.setU(request.getParameter("u"));
             lostPasswordChoose.setK(request.getParameter("k"));
+            lostPasswordChoose.setCaptchaId(request.getParameter("captchaId"));
             lostPasswordChoose.choosePassword();
             Pagez.getUserSession().setMessage("Your password has been set.  Store it in a safe place.");
             Pagez.sendRedirect("/account/index.jsp");
@@ -28,6 +30,9 @@ LostPasswordChoose lostPasswordChoose=(LostPasswordChoose) Pagez.getBeanMgr().ge
         }
     }
 %>
+<%
+    String captchaId=RandomString.randomAlphanumeric(10);
+%>
 <%@ include file="/template/header.jsp" %>
 
 <form action="/lpc.jsp" method="post">
@@ -35,6 +40,7 @@ LostPasswordChoose lostPasswordChoose=(LostPasswordChoose) Pagez.getBeanMgr().ge
     <input type="hidden" name="action" value="choose">
     <input type="hidden" name="u" value="<%=request.getParameter("u")%>">
     <input type="hidden" name="k" value="<%=request.getParameter("k")%>">
+    <input type="hidden" name="captchaId" value="<%=captchaId%>">
     <table cellpadding="0" cellspacing="0" border="0">
 
         <tr>
@@ -70,7 +76,7 @@ LostPasswordChoose lostPasswordChoose=(LostPasswordChoose) Pagez.getBeanMgr().ge
                             <td><img src="/images/clear.gif" alt="" width="1" height="100"></img></td>
                             <td style="background: url(/images/loading-captcha.gif);">
                                 <img src="/images/clear.gif" alt="" width="200" height="1"></img><br/>
-                                <img src="/jcaptcha"/>
+                                <img src="/jcaptcha?captchaId=<%=captchaId%>"/>
                             </td>
                         </tr>
                     </table>

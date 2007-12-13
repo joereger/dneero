@@ -30,6 +30,7 @@ public class LostPasswordChoose implements Serializable {
     private String j_captcha_response;
     private String u;
     private String k;
+    private String captchaId;
 
     public LostPasswordChoose(){
 
@@ -96,7 +97,7 @@ public class LostPasswordChoose implements Serializable {
 
         boolean isCaptchaCorrect = false;
         try {
-            isCaptchaCorrect = CaptchaServiceSingleton.getInstance().validateResponseForID(Pagez.getRequest().getSession().getId(), j_captcha_response);
+            isCaptchaCorrect = CaptchaServiceSingleton.getInstance().validateResponseForID(captchaId, j_captcha_response);
         } catch (CaptchaServiceException e) {
              //should not happen, may be thrown if the id is not valid
              logger.error("", e);
@@ -173,5 +174,13 @@ public class LostPasswordChoose implements Serializable {
 
     public void setK(String k) {
         this.k=k;
+    }
+
+    public String getCaptchaId() {
+        return captchaId;
+    }
+
+    public void setCaptchaId(String captchaId) {
+        this.captchaId=captchaId;
     }
 }
