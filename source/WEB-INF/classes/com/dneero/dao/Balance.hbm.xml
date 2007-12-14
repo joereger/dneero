@@ -27,6 +27,11 @@
         <property name="optionalresponseid" type="int">
             <column name="optionalresponseid" not-null="false" />
         </property>
-
+        <property name="isresearchermoney" type="boolean">
+            <column name="isresearchermoney" not-null="true" />
+        </property>
+        <property name="isbloggermoney" type="boolean">
+            <column name="isbloggermoney" not-null="true" />
+        </property>
     </class>
 </hibernate-mapping>

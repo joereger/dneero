@@ -107,7 +107,7 @@ public class ResearcherRemainingBalanceOperations implements Job {
                 //Move the money
                 logger.debug("amttocharge:"+amttocharge+" to userid="+user.getUserid());
                 if (amttocharge>0){
-                    MoveMoneyInRealWorld mmirw = new MoveMoneyInRealWorld(user, (-1)*amttocharge);
+                    MoveMoneyInRealWorld mmirw = new MoveMoneyInRealWorld(user, (-1)*amttocharge, true, false);
                     mmirw.move();
                     //@todo email researcher telling them that their card has been charged by incremental
                 }

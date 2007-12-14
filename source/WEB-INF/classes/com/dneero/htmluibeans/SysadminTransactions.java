@@ -9,14 +9,8 @@ import java.util.ArrayList;
 
 
 import com.dneero.util.Str;
-import com.dneero.dao.User;
-import com.dneero.dao.Userrole;
-import com.dneero.dao.Balance;
 import com.dneero.dao.Balancetransaction;
 import com.dneero.dao.hibernate.HibernateUtil;
-import com.dneero.email.LostPasswordSend;
-import com.dneero.email.EmailActivationSend;
-import com.dneero.money.MoveMoneyInAccountBalance;
 
 /**
  * User: Joe Reger Jr

@@ -27,10 +27,14 @@ public class MoveMoneyInRealWorld implements Runnable {
 
     private User user;
     private double amttogiveuser;
+    private boolean isresearchermoney;
+    private boolean isbloggermoney;
 
-    public MoveMoneyInRealWorld(User user, double amttogiveuser){
+    public MoveMoneyInRealWorld(User user, double amttogiveuser, boolean isresearchermoney, boolean isbloggermoney){
         this.user = user;
         this.amttogiveuser = amttogiveuser;
+        this.isresearchermoney = isresearchermoney;
+        this.isbloggermoney = isbloggermoney;
     }
 
     public void run(){
@@ -123,6 +127,8 @@ public class MoveMoneyInRealWorld implements Runnable {
                 balance.setAmt((-1)*amttogiveuser);
                 balance.setDate(new Date());
                 balance.setDescription(desc);
+                balance.setIsbloggermoney(isbloggermoney);
+                balance.setIsresearchermoney(isresearchermoney);
                 CurrentBalanceCalculator cbc;
                 try{
                     debug.append("about to run CurrentBalanceCalculator"+"<br/>\n");

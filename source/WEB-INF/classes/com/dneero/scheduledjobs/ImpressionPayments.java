@@ -97,7 +97,7 @@ public class ImpressionPayments implements Job {
                         double amttocharge = amtResearcherOwes + (amtResearcherOwes*(SurveyMoneyStatus.DNEEROMARKUPPERCENT/100));
                         Researcher researcher = Researcher.get(survey.getResearcherid());
                         User user = User.get(researcher.getUserid());
-                        MoveMoneyInAccountBalance.charge(user, amttocharge, "Charge for blog impressions on survey '"+survey.getTitle()+"'");
+                        MoveMoneyInAccountBalance.charge(user, amttocharge, "Charge for blog impressions on survey '"+survey.getTitle()+"'", true, false);
                     }
 
                     //Pay bloggers if we have any UserPayUnits to consider
@@ -121,7 +121,7 @@ public class ImpressionPayments implements Job {
                                     } catch (Exception ex){
                                         logger.error("",ex);
                                     }
-                                    MoveMoneyInAccountBalance.pay(user, ipupu.getAmt(), "Pay for impressions" + amtWithDec, true, false, "", 0);
+                                    MoveMoneyInAccountBalance.pay(user, ipupu.getAmt(), "Pay for impressions" + amtWithDec, true, false, "", 0, false, true);
                                 }
                                 //If there are charity donations to pay
                                 if (ipupu.getCharityDonations()!=null && ipupu.getCharityDonations().size()>0){
@@ -131,7 +131,7 @@ public class ImpressionPayments implements Job {
                                             Map.Entry mapentry2 = (Map.Entry) keyValuePairs2.next();
                                             String charityname = (String)mapentry2.getKey();
                                             double amtCharity = Double.parseDouble(String.valueOf(mapentry2.getValue()));
-                                            MoveMoneyInAccountBalance.pay(user, amtCharity, "Pay charity for blog impressions", false, true, charityname, 0);
+                                            MoveMoneyInAccountBalance.pay(user, amtCharity, "Pay charity for impressions", false, true, charityname, 0, false, true);
                                         }
                                     } catch (Exception ex){
                                         logger.error("Error in charity payment code.", ex);

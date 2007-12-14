@@ -23,6 +23,8 @@ public class Balance extends BasePersistentClass implements java.io.Serializable
      private double currentbalance;
      private String description;
      private int optionalresponseid;
+     private boolean isresearchermoney;
+     private boolean isbloggermoney;
 
     public static Balance get(int id) {
         Logger logger = Logger.getLogger("com.dneero.dao.Balance");
@@ -117,5 +119,22 @@ public class Balance extends BasePersistentClass implements java.io.Serializable
 
     public void setOptionalresponseid(int optionalresponseid) {
         this.optionalresponseid = optionalresponseid;
+    }
+
+
+    public boolean getIsresearchermoney() {
+        return isresearchermoney;
+    }
+
+    public void setIsresearchermoney(boolean isresearchermoney) {
+        this.isresearchermoney=isresearchermoney;
+    }
+
+    public boolean getIsbloggermoney() {
+        return isbloggermoney;
+    }
+
+    public void setIsbloggermoney(boolean isbloggermoney) {
+        this.isbloggermoney=isbloggermoney;
     }
 }

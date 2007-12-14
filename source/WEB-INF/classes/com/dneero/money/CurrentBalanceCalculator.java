@@ -17,6 +17,8 @@ public class CurrentBalanceCalculator implements Serializable {
 
     private double currentbalance = 0;
     private double pendingearnings = 0;
+    private double currentbalanceresearcher = 0;
+    private double currentbalanceblogger = 0;
     private User user;
 
     public CurrentBalanceCalculator(User user){
@@ -31,6 +33,8 @@ public class CurrentBalanceCalculator implements Serializable {
         if (user!=null){
             currentbalance = 0;
             currentbalance = NumFromUniqueResult.getDouble("select sum(amt) from Balance where userid='"+user.getUserid()+"'");
+            currentbalanceblogger = NumFromUniqueResult.getDouble("select sum(amt) from Balance where userid='"+user.getUserid()+"' and isbloggermoney=true");
+            currentbalanceresearcher = NumFromUniqueResult.getDouble("select sum(amt) from Balance where userid='"+user.getUserid()+"' and isresearchermoney=true");
         }
     }
 
@@ -74,5 +78,22 @@ public class CurrentBalanceCalculator implements Serializable {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+
+    public double getCurrentbalanceresearcher() {
+        return currentbalanceresearcher;
+    }
+
+    public void setCurrentbalanceresearcher(double currentbalanceresearcher) {
+        this.currentbalanceresearcher=currentbalanceresearcher;
+    }
+
+    public double getCurrentbalanceblogger() {
+        return currentbalanceblogger;
+    }
+
+    public void setCurrentbalanceblogger(double currentbalanceblogger) {
+        this.currentbalanceblogger=currentbalanceblogger;
     }
 }

@@ -24,6 +24,8 @@ public class GridColRendererFactory {
             return new GridColRendererDatetimecompact();
         } else if (colObj instanceof Integer){
             return new GridColRendererString();
+        } else if (colObj instanceof Boolean){
+            return new GridColRendererString();
         }
         if (colObj!=null && colObj.getClass()!=null){
             logger.debug("GridColRenderer not found for colObj.getClass().getName()="+colObj.getClass().getName());

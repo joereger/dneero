@@ -60,16 +60,16 @@ public class PublicBlogPost implements Serializable {
         if (url==null || url.equals("")){
             url = "#";
         }
-        boolean isCaptchaCorrect = false;
-        try {
-            isCaptchaCorrect = CaptchaServiceSingleton.getInstance().validateResponseForID(captchaId, j_captcha_response);
-        } catch (CaptchaServiceException e) {
-            //should not happen, may be thrown if the id is not valid
-        }
-        if (!isCaptchaCorrect){
-            Pagez.getUserSession().setMessage("You failed to correctly type the letters into the box.");
-            return null;
-        }
+//        boolean isCaptchaCorrect = false;
+//        try {
+//            isCaptchaCorrect = CaptchaServiceSingleton.getInstance().validateResponseForID(captchaId, j_captcha_response);
+//        } catch (CaptchaServiceException e) {
+//            //should not happen, may be thrown if the id is not valid
+//        }
+//        if (!isCaptchaCorrect){
+//            Pagez.getUserSession().setMessage("You failed to correctly type the letters into the box.");
+//            return null;
+//        }
        if (comment!=null && !comment.equals("")){
             Blogpostcomment blogpostcomment = new Blogpostcomment();
             blogpostcomment.setBlogpostid(blogpost.getBlogpostid());

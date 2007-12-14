@@ -6,6 +6,7 @@
 <%@ page import="com.dneero.dbgrid.Grid" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.dneero.htmlui.*" %>
+<%@ page import="com.dneero.money.CurrentBalanceCalculator" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "User: "+((SysadminUserDetail) Pagez.getBeanMgr().get("SysadminUserDetail")).getEmail();
@@ -121,7 +122,9 @@ SysadminUserDetail sysadminUserDetail = (SysadminUserDetail)Pagez.getBeanMgr().g
 %>
 <%@ include file="/template/header.jsp" %>
 
-
+        <%
+            CurrentBalanceCalculator cbc=new CurrentBalanceCalculator(sysadminUserDetail.getUser());
+        %>
 
         <table cellpadding="0" cellspacing="0" border="0">
                 <tr>
@@ -179,6 +182,30 @@ SysadminUserDetail sysadminUserDetail = (SysadminUserDetail)Pagez.getBeanMgr().g
                                         </td>
                                         <td valign="top">
                                             <font class="smallfont"><%=sysadminUserDetail.getUser().getFacebookuserid()%></font>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td valign="top">
+                                            <font class="formfieldnamefont">Currentbalance</font>
+                                        </td>
+                                        <td valign="top">
+                                            <font class="smallfont">$<%=cbc.getCurrentbalance()%></font>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td valign="top">
+                                            <font class="formfieldnamefont">Currentbalanceresearcher</font>
+                                        </td>
+                                        <td valign="top">
+                                            <font class="smallfont">$<%=cbc.getCurrentbalanceresearcher()%></font>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td valign="top">
+                                            <font class="formfieldnamefont">Currentbalanceblogger</font>
+                                        </td>
+                                        <td valign="top">
+                                            <font class="smallfont">$<%=cbc.getCurrentbalanceblogger()%></font>
                                         </td>
                                     </tr>
                                     <tr>
@@ -335,6 +362,8 @@ SysadminUserDetail sysadminUserDetail = (SysadminUserDetail)Pagez.getBeanMgr().g
                     cols.add(new GridCol("Id", "<$balanceid$>", true, "", "tinyfont"));
                     cols.add(new GridCol("Date", "<$date|"+Grid.GRIDCOLRENDERER_DATETIMECOMPACT+"$>", true, "", "tinyfont", "", "background: #e6e6e6;"));
                     cols.add(new GridCol("Description", "<$description$>", false, "", "tinyfont"));
+                    cols.add(new GridCol("Rsrc?", "<$isresearchermoney$>", false, "", "tinyfont"));
+                    cols.add(new GridCol("Blgr?", "<$isbloggermoney$>", false, "", "tinyfont"));
                     cols.add(new GridCol("Amount", "<$amt$>", true, "", "tinyfont"));
                     cols.add(new GridCol("Balance", "<$currentbalance$>", true, "", "tinyfont"));
                 %>

@@ -96,6 +96,8 @@ public class SysadminUserDetail implements Serializable {
                 abli.setDate(balance.getDate());
                 abli.setDescription(balance.getDescription());
                 abli.setUserid(balance.getUserid());
+                abli.setIsresearchermoney(balance.getIsresearchermoney());
+                abli.setIsbloggermoney(balance.getIsbloggermoney());
                 balances.add(abli);
             }
 
@@ -274,7 +276,8 @@ public class SysadminUserDetail implements Serializable {
     public String giveusermoney() throws ValidationException {
         User user = User.get(userid);
         if (user!=null && user.getUserid()>0){
-            MoveMoneyInAccountBalance.pay(user, amt, "Manual transaction: "+reason, false, false, "");
+            //@todo allow sysadmin to specify
+            MoveMoneyInAccountBalance.pay(user, amt, "Manual transaction: "+reason, false, false, "", false, true);
         }
         initBean();
         Pagez.getUserSession().setMessage("$" + Str.formatForMoney(amt) + " given to user account balance.");
@@ -284,7 +287,7 @@ public class SysadminUserDetail implements Serializable {
     public String takeusermoney() throws ValidationException {
         User user = User.get(userid);
         if (user!=null && user.getUserid()>0){
-            MoveMoneyInAccountBalance.charge(user, amt, "Manual transaction: "+reason);
+            MoveMoneyInAccountBalance.charge(user, amt, "Manual transaction: "+reason, false, true);
         }
         initBean();
         Pagez.getUserSession().setMessage("$"+ Str.formatForMoney(amt)+" taken from user account balance");

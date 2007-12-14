@@ -39,17 +39,17 @@ public class LostPassword implements Serializable {
     public void recoverPassword() throws ValidationException {
         ValidationException vex = new ValidationException();
         Logger logger = Logger.getLogger(this.getClass().getName());
-        boolean isCaptchaCorrect = false;
-        try {
-            isCaptchaCorrect = CaptchaServiceSingleton.getInstance().validateResponseForID(captchaId, j_captcha_response);
-        } catch (CaptchaServiceException e) {
-             //should not happen, may be thrown if the id is not valid
-             logger.error("", e);
-        }
-        if (!isCaptchaCorrect){
-            vex.addValidationError("You failed to correctly type the letters into the box.");
-            throw vex;
-        }
+//        boolean isCaptchaCorrect = false;
+//        try {
+//            isCaptchaCorrect = CaptchaServiceSingleton.getInstance().validateResponseForID(captchaId, j_captcha_response);
+//        } catch (CaptchaServiceException e) {
+//             //should not happen, may be thrown if the id is not valid
+//             logger.error("", e);
+//        }
+//        if (!isCaptchaCorrect){
+//            vex.addValidationError("You failed to correctly type the letters into the box.");
+//            throw vex;
+//        }
 
         List<User> users = HibernateUtil.getSession().createQuery("from User where email='"+ Str.cleanForSQL(email)+"'").list();
         if (users.size()>0){

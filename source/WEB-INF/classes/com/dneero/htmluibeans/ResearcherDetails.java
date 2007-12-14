@@ -13,8 +13,6 @@ import com.dneero.htmlui.ValidationException;
 
 import com.dneero.util.GeneralException;
 import com.dneero.dao.*;
-import com.dneero.systemprops.SystemProperty;
-import com.dneero.money.MoveMoneyInAccountBalance;
 import com.dneero.helpers.UserInputSafe;
 
 /**
@@ -85,11 +83,6 @@ public class ResearcherDetails implements Serializable {
                 userSession.getUser().setResearcherid(researcher.getResearcherid());
                 try{userSession.getUser().save();}catch(Exception ex){logger.error("",ex);}
             }
-
-            //Beta mode cash to researcher
-            //if (isnewresearcher && SystemProperty.getProp(SystemProperty.PROP_ISBETA).equals("1")){
-                //MoveMoneyInAccountBalance.pay(userSession.getUser(), 100000, "Beta mode researcher startup cash.", false);
-            //}
 
             boolean hasroleassigned = false;
             if (userSession.getUser()!=null && userSession.getUser().getUserroles()!=null){

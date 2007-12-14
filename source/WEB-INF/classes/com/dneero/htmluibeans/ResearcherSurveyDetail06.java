@@ -271,11 +271,11 @@ public class ResearcherSurveyDetail06 implements Serializable {
                 }
 
                 //Charge the per-survey creation fee
-                MoveMoneyInAccountBalance.charge(userSession.getUser(), SurveyMoneyStatus.PERSURVEYCREATIONFEE, "Survey creation fee for '"+survey.getTitle()+"'");
+                MoveMoneyInAccountBalance.charge(userSession.getUser(), SurveyMoneyStatus.PERSURVEYCREATIONFEE, "Survey creation fee for '"+survey.getTitle()+"'", true, false);
 
                 //Charge the hide results fee, if applicable
                 if (survey.getIsresultshidden() && sms.getHidesurveyfee()>0){
-                    MoveMoneyInAccountBalance.charge(userSession.getUser(), sms.getHidesurveyfee(), "Hide overall aggregate results fee for '"+survey.getTitle()+"'");
+                    MoveMoneyInAccountBalance.charge(userSession.getUser(), sms.getHidesurveyfee(), "Hide overall aggregate results fee for '"+survey.getTitle()+"'", true, false);
                 }
 
                 //Make sure user has enough in their account by running the remaining balance algorithm for just this researcher
