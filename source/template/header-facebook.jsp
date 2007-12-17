@@ -2,11 +2,11 @@
 <%@ page import="com.dneero.systemprops.BaseUrl" %>
 <%@ page import="com.dneero.util.Io" %>
 <%@ page import="com.dneero.systemprops.WebAppRootDir" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html>
-<head>
-  <title>dNeero Social Surveys</title>
+<!--<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"-->
+          <!--"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">-->
+<!--<html>-->
+<!--<head>-->
+  <!--<title>dNeero Social Surveys</title>-->
   <style type="text/css"><%=Io.textFileRead(WebAppRootDir.getWebAppRootPath()+"/css/basic.css").toString()%></style>
   <!--<link rel="stylesheet" type="text/css" href="/css/basic.css" />-->
   <style type="text/css"><%=Io.textFileRead(WebAppRootDir.getWebAppRootPath()+"/css/dneero-facebook.css").toString()%></style>
@@ -19,8 +19,8 @@
        Nifty("div.rounded","big");
    }
   </script>-->
-</head>
-<body>
+<!--</head>-->
+<!--<body>-->
           
 
     <table width="100%" cellspacing="0" border="0" cellpadding="0">

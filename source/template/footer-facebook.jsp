@@ -22,5 +22,5 @@
     %>
     <fb:google-analytics uacct="UA-208946-2" page="<%=pgFooter%>"/>
 
-</body>
-</html>
+<!--</body>-->
+<!--</html>-->

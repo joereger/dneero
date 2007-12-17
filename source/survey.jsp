@@ -344,7 +344,7 @@ String acl = "public";
                             We have plenty more <a href="/publicsurveylist.jsp">surveys</a> for you to choose from.  And all of them pay!
 
                             <br/><br/>
-                            <div class="rounded" style="background: #ffffff; padding: 5px; margin: 5px; text-align: left;">
+                            <div class="rounded" style="background: #ffffff; padding: 10px; margin: 5px; text-align: left;">
                                 <table cellpadding="0" cellspacing="0" border="0">
 
 
