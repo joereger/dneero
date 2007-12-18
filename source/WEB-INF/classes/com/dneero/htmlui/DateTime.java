@@ -115,7 +115,7 @@ public class DateTime {
         //StartMin
         out.append("<td align=left valign=top>");
         out.append("<select name='"+name+"min' "+styleclass+" "+style+">");
-        for(int i=1; i<=12; i++){
+        for(int i=1; i<=60; i++){
             out.append("<option value='" + i + "' ");
             if (i==min) {
                 out.append("selected");
