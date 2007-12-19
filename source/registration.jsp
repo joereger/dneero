@@ -14,6 +14,12 @@ String acl = "public";
 Registration registration = (Registration)Pagez.getBeanMgr().get("Registration");
 %>
 <%
+if (Pagez.getUserSession().getIsfacebookui()){
+    Pagez.sendRedirect("/account/index.jsp");
+    return;
+}
+%>
+<%
     if (request.getParameter("action") != null && request.getParameter("action").equals("register")) {
         try {
             registration.setEmail(Textbox.getValueFromRequest("email", "Email", true, DatatypeString.DATATYPEID));

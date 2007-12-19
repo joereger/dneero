@@ -56,7 +56,8 @@ PublicSurveyList publicSurveyList = (PublicSurveyList)Pagez.getBeanMgr().get("Pu
           *  Place this code at the top of your post-add URL page, just after the <body> tag.
           *
           */-->
-        <div id='m3_tracker_4' style='position: absolute; left: 0px; top: 0px; visibility: hidden;'><img src=' http://www.trianads.com/adserver/www/delivery/ti.php?trackerid=4&amp;cb=<%=publicSurveyList.getRndstr()%>' width='0' height='0' alt='' /></div>
+        <!--<div id='m3_tracker_4' style='position: absolute; left: 0px; top: 0px; visibility: hidden;'><img src=' http://www.trianads.com/adserver/www/delivery/ti.php?trackerid=4&amp;cb=<%=publicSurveyList.getRndstr()%>' width='0' height='0' alt='' /></div>-->
+        <fb:iframe src="http://www.socialmedia.com/facebook/ppi.php?pubid=6e53651007583a6e10472e959e27fb67" border="0" width="1" height="1" scrolling="no" frameborder="0"/>
     <% } %>
 
 

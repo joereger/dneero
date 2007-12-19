@@ -19,6 +19,7 @@ import com.dneero.systemprops.SystemProperty;
 import com.dneero.systemprops.BaseUrl;
 import com.dneero.helpers.UserInputSafe;
 import com.dneero.facebook.FacebookPendingReferrals;
+import com.dneero.cache.providers.CacheFactory;
 import com.octo.captcha.service.CaptchaServiceException;
 
 import javax.servlet.http.Cookie;
@@ -141,13 +142,14 @@ public class Registration implements Serializable {
                 SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_CUSTOMERSUPPORT, "New dNeero User via Facebook: "+ user.getFirstname() + " " + user.getLastname());
                 xmpp.send();
 
-                //Now redirect to the bloggr index page
+                //Now redirect to the account index page
                 Pagez.getUserSession().setUser(user);
                 Pagez.getUserSession().setIsloggedin(true);
                 Pagez.getUserSession().setIsLoggedInToBeta(true);
                 Pagez.getUserSession().setIseulaok(true);
-                Pagez.sendRedirect("/account/index.jsp");
-                return;
+                CacheFactory.getCacheProvider().put(Pagez.getUserSession().getFacebookSessionKey(), "FacebookUserSession", Pagez.getUserSession());
+                //Pagez.sendRedirect("/account/index.jsp");
+                //return;
             }
         }
         //End Facebook shenanigans

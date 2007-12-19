@@ -41,7 +41,32 @@ public class Login implements Serializable {
     }
 
     public void initBean(){
-
+        //Facebook
+        //If app is added and we have a facebookid but it's not stored with the account
+        
+//        if (Pagez.getUserSession().getIsfacebookui()){
+//            if (Pagez.getUserSession().getFacebookUser()!=null && Pagez.getUserSession().getFacebookUser().getUid()!=null && Pagez.getUserSession().getFacebookUser().getUid().length()>0){
+//                if (Num.isinteger(Pagez.getUserSession().getFacebookUser().getUid())){
+//                    List<User> userswiththisfacebookid = HibernateUtil.getSession().createCriteria(User.class)
+//                                           .add(Restrictions.eq("facebookuserid", Integer.parseInt(Pagez.getUserSession().getFacebookUser().getUid())))
+//                                           .setCacheable(true)
+//                                           .list();
+//                    //If no other account has this facebookid in use, save it
+//                    if (userswiththisfacebookid.size()==0){
+//
+//                        user.setFacebookuserid(Integer.parseInt(Pagez.getUserSession().getFacebookUser().getUid()));
+//                        try{user.save();}catch(Exception ex){logger.error("",ex);}
+//                    } else {
+//                        logger.error("User logged-on but we already have that facebookuid("+Pagez.getUserSession().getFacebookUser().getUid()+") in the database.");
+//                        for (Iterator<User> iterator=userswiththisfacebookid.iterator(); iterator.hasNext();) {
+//                            User user1=iterator.next();
+//
+//                        }
+//                    }
+//
+//                }
+//            }
+//        }
     }
 
 
@@ -97,27 +122,6 @@ public class Login implements Serializable {
                         Pagez.getUserSession().setPendingSurveyResponseSurveyid(0);
                         Pagez.getUserSession().setPendingSurveyReferredbyuserid(0);
                         Pagez.getUserSession().setPendingSurveyResponseAsString("");
-                    }
-                }
-
-                //Facebook
-                //If login is successful, app is added and we have a facebookid but it's not stored with the account
-                if (Pagez.getUserSession().getIsfacebookui()){
-                    if (Pagez.getUserSession().getFacebookUser()!=null && Pagez.getUserSession().getFacebookUser().getUid()!=null && Pagez.getUserSession().getFacebookUser().getUid().length()>0){
-                        if (Num.isinteger(Pagez.getUserSession().getFacebookUser().getUid()) && Integer.parseInt(Pagez.getUserSession().getFacebookUser().getUid())!=user.getFacebookuserid()){
-                            List<User> userswiththisfacebookid = HibernateUtil.getSession().createCriteria(User.class)
-                                                   .add(Restrictions.eq("facebookuserid", Integer.parseInt(Pagez.getUserSession().getFacebookUser().getUid())))
-                                                   .setCacheable(false)
-                                                   .list();
-                            //If no other account has this facebookid in use, save it
-                            if (userswiththisfacebookid.size()==0){
-                                user.setFacebookuserid(Integer.parseInt(Pagez.getUserSession().getFacebookUser().getUid()));
-                                try{user.save();}catch(Exception ex){logger.error("",ex);}
-                            } else {
-                                //@todo What to do here?
-                                logger.error("User logged-on but we already have that facebookuid("+Pagez.getUserSession().getFacebookUser().getUid()+") in the database.");
-                            }
-                        }
                     }
                 }
 

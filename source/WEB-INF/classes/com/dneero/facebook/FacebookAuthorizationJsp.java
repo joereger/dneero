@@ -176,13 +176,12 @@ public class FacebookAuthorizationJsp {
                 } else {
                     logger.debug("userSession.getFacebookUser() is empty after calling facebook api");
                 }
+                //Save UserSession in Cache
+                if (usecache){
+                    CacheFactory.getCacheProvider().put(Pagez.getUserSession().getFacebookSessionKey(), "FacebookUserSession", Pagez.getUserSession());
+                }
             } else {
                 logger.debug("didn't find a new facebooksessionkey so didn't make api call to load facebook user");
-            }
-
-            //Save UserSession in Cache
-            if (usecache){
-                CacheFactory.getCacheProvider().put(Pagez.getUserSession().getFacebookSessionKey(), "FacebookUserSession", Pagez.getUserSession());
             }
         } catch (Exception ex){
             ex.printStackTrace();

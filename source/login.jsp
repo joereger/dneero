@@ -10,6 +10,13 @@ String acl = "public";
 %>
 <%@ include file="/template/auth.jsp" %>
 <%
+if (Pagez.getUserSession().getIsfacebookui()){
+    Pagez.sendRedirect("/registration.jsp");
+    return;
+}
+%>
+
+<%
 Login login = (Login) Pagez.getBeanMgr().get("Login");
 %>
 <%
