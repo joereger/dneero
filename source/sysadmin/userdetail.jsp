@@ -22,9 +22,10 @@ SysadminUserDetail sysadminUserDetail = (SysadminUserDetail)Pagez.getBeanMgr().g
         try {
             sysadminUserDetail.setFirstname(Textbox.getValueFromRequest("firstname", "First Name", true, DatatypeString.DATATYPEID));
             sysadminUserDetail.setLastname(Textbox.getValueFromRequest("lastname", "Last Name", true, DatatypeString.DATATYPEID));
-            sysadminUserDetail.setEmail(Textbox.getValueFromRequest("email", "Email", true, DatatypeString.DATATYPEID));
+            sysadminUserDetail.setEmail(Textbox.getValueFromRequest("email", "Email", false, DatatypeString.DATATYPEID));
             sysadminUserDetail.setPaypaladdress(Textbox.getValueFromRequest("paypaladdress", "PayPal Address", false, DatatypeString.DATATYPEID));
             sysadminUserDetail.setReferredbyuserid(Textbox.getIntFromRequest("referredbyuserid", "Referredbyuserid", false, DatatypeString.DATATYPEID));
+            sysadminUserDetail.setFacebookuid(Textbox.getValueFromRequest("facebookuserid", "Facebookuserid", false, DatatypeString.DATATYPEID));
             sysadminUserDetail.save();
             Pagez.getUserSession().setMessage("User details saved");
         } catch (com.dneero.htmlui.ValidationException vex) {
@@ -37,6 +38,18 @@ SysadminUserDetail sysadminUserDetail = (SysadminUserDetail)Pagez.getBeanMgr().g
         try {
             sysadminUserDetail.setActivitypin(Textbox.getValueFromRequest("activitypin", "Activity Pin", false, DatatypeString.DATATYPEID));
             sysadminUserDetail.togglesysadminprivs();
+        } catch (com.dneero.htmlui.ValidationException vex) {
+            Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
+        }
+    }
+%>
+<%
+    if (request.getParameter("action") != null && request.getParameter("action").equals("deleteuser")) {
+        try {
+            sysadminUserDetail.setActivitypin(Textbox.getValueFromRequest("activitypin", "Activity Pin", false, DatatypeString.DATATYPEID));
+            sysadminUserDetail.deleteuser();
+            Pagez.getUserSession().setMessage("User deleted");
+            Pagez.sendRedirect("/sysadmin/userlist.jsp");
         } catch (com.dneero.htmlui.ValidationException vex) {
             Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
         }
@@ -181,7 +194,7 @@ SysadminUserDetail sysadminUserDetail = (SysadminUserDetail)Pagez.getBeanMgr().g
                                             <font class="formfieldnamefont">Facebook uid</font>
                                         </td>
                                         <td valign="top">
-                                            <font class="smallfont"><%=sysadminUserDetail.getUser().getFacebookuserid()%></font>
+                                            <%=Textbox.getHtml("facebookuserid", String.valueOf(sysadminUserDetail.getFacebookuid()), 255, 35, "", "")%>
                                         </td>
                                     </tr>
                                     <tr>
@@ -257,6 +270,18 @@ SysadminUserDetail sysadminUserDetail = (SysadminUserDetail)Pagez.getBeanMgr().g
                                 <%}%>
                                 <br/>
                                 <input type="submit" class="formsubmitbutton" value="Toggle Sysadmin Privileges">
+                                <%=Textbox.getHtml("activitypin", String.valueOf(sysadminUserDetail.getActivitypin()), 255, 25, "", "")%>
+                                <br/>
+                                <font class="tinyfont">You must type "yes, i want to do this" in the box to make this happen</font>
+                            </form>
+                        </div>
+                        <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
+                            <form action="/sysadmin/userdetail.jsp" method="post">
+                                <input type="hidden" name="dpage" value="/sysadmin/userdetail.jsp">
+                                <input type="hidden" name="action" value="deleteuser">
+                                <input type="hidden" name="userid" value="<%=sysadminUserDetail.getUserid()%>">
+                                <br/>
+                                <input type="submit" class="formsubmitbutton" value="Delete User">
                                 <%=Textbox.getHtml("activitypin", String.valueOf(sysadminUserDetail.getActivitypin()), 255, 25, "", "")%>
                                 <br/>
                                 <font class="tinyfont">You must type "yes, i want to do this" in the box to make this happen</font>

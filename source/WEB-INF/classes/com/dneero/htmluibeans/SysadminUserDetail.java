@@ -4,16 +4,19 @@ package com.dneero.htmluibeans;
 import com.dneero.util.Str;
 import com.dneero.util.DateDiff;
 import com.dneero.util.Time;
+import com.dneero.util.Num;
 import com.dneero.dao.*;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.email.EmailActivationSend;
 import com.dneero.email.LostPasswordSend;
 import com.dneero.money.MoveMoneyInAccountBalance;
 import com.dneero.money.UserImpressionFinder;
+import com.dneero.money.CurrentBalanceCalculator;
 import com.dneero.scheduledjobs.ResearcherRemainingBalanceOperations;
 import com.dneero.scheduledjobs.UpdateResponsePoststatus;
 import com.dneero.htmlui.Pagez;
 import com.dneero.htmlui.ValidationException;
+import com.dneero.helpers.DeleteUser;
 
 import java.util.*;
 import java.io.Serializable;
@@ -33,6 +36,7 @@ public class SysadminUserDetail implements Serializable {
     private String email;
     private String paypaladdress="";
     private int referredbyuserid=0;
+    private String facebookuid="";
     private boolean issysadmin = false;
     private String activitypin;
     private double amt;
@@ -70,6 +74,7 @@ public class SysadminUserDetail implements Serializable {
             paypaladdress = user.getPaymethodpaypaladdress();
             isenabled = user.getIsenabled();
             issysadmin = false;
+            facebookuid = String.valueOf(user.getFacebookuserid());
             for (Iterator<Userrole> iterator = user.getUserroles().iterator(); iterator.hasNext();) {
                 Userrole userrole = iterator.next();
                 if (userrole.getRoleid()== Userrole.SYSTEMADMIN){
@@ -171,6 +176,9 @@ public class SysadminUserDetail implements Serializable {
             user.setEmail(email);
             user.setReferredbyuserid(referredbyuserid);
             user.setPaymethodpaypaladdress(paypaladdress);
+            if (Num.isinteger(facebookuid)){
+                user.setFacebookuserid(Integer.parseInt(facebookuid));
+            }
             try{user.save();}catch (Exception ex){logger.error("",ex);}
         }
 
@@ -257,6 +265,19 @@ public class SysadminUserDetail implements Serializable {
             Pagez.getUserSession().setMessage("Activity Pin Not Correct.");
         }
         return "sysadminuserdetail";
+    }
+
+    public void deleteuser() throws ValidationException {
+        Logger logger = Logger.getLogger(this.getClass().getName());
+        logger.debug("deleteuser()");
+        if (activitypin.equals("yes, i want to do this")){
+            activitypin = "";
+            User user = User.get(userid);
+            DeleteUser.delete(user);
+        } else {
+            Pagez.getUserSession().setMessage("Activity Pin Not Correct.");
+        }
+
     }
 
     public String runResearcherRemainingBalanceOperations() throws ValidationException {
@@ -457,5 +478,13 @@ public class SysadminUserDetail implements Serializable {
 
     public void setOnlyshownegativeamountbalance(boolean onlyshownegativeamountbalance) {
         this.onlyshownegativeamountbalance=onlyshownegativeamountbalance;
+    }
+
+    public String getFacebookuid() {
+        return facebookuid;
+    }
+
+    public void setFacebookuid(String facebookuid) {
+        this.facebookuid=facebookuid;
     }
 }
