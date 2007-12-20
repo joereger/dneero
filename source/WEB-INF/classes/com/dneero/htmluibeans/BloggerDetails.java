@@ -140,8 +140,6 @@ public class BloggerDetails implements Serializable {
                 try{Pagez.getUserSession().getUser().save();}catch(Exception ex){logger.error("",ex);}
             }
 
-
-
             boolean hasroleassigned = false;
             if (Pagez.getUserSession().getUser()!=null && Pagez.getUserSession().getUser().getUserroles()!=null){
                 for (Iterator iterator = Pagez.getUserSession().getUser().getUserroles().iterator(); iterator.hasNext();) {

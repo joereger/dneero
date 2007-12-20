@@ -11,20 +11,27 @@ import com.dneero.display.components.def.Component;
 import com.dneero.display.components.def.ComponentTypes;
 
 import com.dneero.util.Num;
+import com.dneero.util.RandomString;
+import com.dneero.util.GeneralException;
 import com.dneero.survey.servlet.*;
 import com.dneero.finders.FindSurveysForBlogger;
 import com.dneero.session.SurveysTakenToday;
 import com.dneero.facebook.FacebookUser;
 import com.dneero.facebook.FacebookApiWrapper;
+import com.dneero.facebook.FacebookPendingReferrals;
 import com.dneero.scheduledjobs.SurveydisplayActivityObjectQueue;
 import com.dneero.helpers.UserInputSafe;
 import com.dneero.htmlui.Pagez;
 import com.dneero.htmlui.ValidationException;
+import com.dneero.money.PaymentMethod;
+import com.dneero.xmpp.SendXMPPMessage;
+import com.dneero.cache.providers.CacheFactory;
 
 import java.io.Serializable;
 import java.util.*;
 
 import org.apache.log4j.Logger;
+import org.hibernate.criterion.Restrictions;
 
 
 /**
@@ -320,6 +327,9 @@ public class PublicSurvey implements Serializable {
             throw vex;
         }
 
+        //Do Facebook stuff
+        createFacebookUserIfNecessary();
+
         //If the user is logged-in but has not created a blogger profile, store a pending response
         if (Pagez.getUserSession().getIsloggedin() && Pagez.getUserSession().getUser()!=null && Pagez.getUserSession().getUser().getBloggerid()<=0){
             //Pending survey save
@@ -383,6 +393,83 @@ public class PublicSurvey implements Serializable {
         if (allCex.getErrors().length>0){
             throw allCex;
         }
+    }
+
+    private void createFacebookUserIfNecessary(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
+        //Start Facebook shenanigans
+        if (Pagez.getUserSession().getIsfacebookui()){
+            int facebookuserid = 0;
+            if (Pagez.getUserSession().getFacebookUser()!=null && Num.isinteger(Pagez.getUserSession().getFacebookUser().getUid())){
+                facebookuserid = Integer.parseInt(Pagez.getUserSession().getFacebookUser().getUid());
+            }
+            if (facebookuserid>0){
+                User user = new User();
+                //Check to see if we already have this facebookuserid in the database
+                List<User> usersWithSameFacebookid = HibernateUtil.getSession().createCriteria(User.class)
+                                                   .add(Restrictions.eq("facebookuserid", facebookuserid))
+                                                   .setCacheable(true)
+                                                   .list();
+                //Just a little runtime error logging
+                if (usersWithSameFacebookid!=null && usersWithSameFacebookid.size()>1){
+                    logger.error("More than one user with facebookuserid="+facebookuserid);
+                }
+                //Find the user or create them
+                if (usersWithSameFacebookid!=null && usersWithSameFacebookid.size()>0){
+                    //Grab the first user in the list
+                    user = usersWithSameFacebookid.get(0);
+                } else {
+                    //No user exists so I need to auto-create one
+                    user.setEmail("");
+                    user.setPassword("");
+                    user.setFirstname(UserInputSafe.clean(Pagez.getUserSession().getFacebookUser().getFirst_name()));
+                    user.setLastname(UserInputSafe.clean(Pagez.getUserSession().getFacebookUser().getLast_name()));
+                    user.setIsactivatedbyemail(true);  //Auto-activated by email... done because user will have to enter email in account settings
+                    user.setIsqualifiedforrevshare(false);
+                    user.setReferredbyuserid(FacebookPendingReferrals.getReferredbyUserid(facebookuserid));
+                    user.setEmailactivationkey(RandomString.randomAlphanumeric(5));
+                    user.setEmailactivationlastsent(new Date());
+                    user.setCreatedate(new Date());
+                    user.setPaymethodpaypaladdress("");
+                    user.setPaymethod(PaymentMethod.PAYMENTMETHODPAYPAL);
+                    user.setChargemethod(PaymentMethod.PAYMENTMETHODCREDITCARD);
+                    user.setPaymethodcreditcardid(0);
+                    user.setChargemethodcreditcardid(0);
+                    user.setBloggerid(0);
+                    user.setResearcherid(0);
+                    user.setNotifyofnewsurveysbyemaileveryexdays(1);
+                    user.setNotifyofnewsurveyslastsent(new Date());
+                    user.setAllownoncriticalemails(true);
+                    user.setInstantnotifybyemailison(false);
+                    user.setInstantnotifybytwitterison(false);
+                    user.setInstantnotifytwitterusername("");
+                    user.setInstantnotifyxmppison(false);
+                    user.setInstantnotifyxmppusername("");
+                    user.setIsenabled(true);
+                    user.setFacebookuserid(facebookuserid);
+                    user.setFacebookappremoveddate(new Date());
+                    user.setIsfacebookappremoved(false);
+                    try{
+                        user.save();
+                    } catch (GeneralException gex){
+                        logger.debug("Facebook auto-register failed: " + gex.getErrorsAsSingleString());
+                        return;
+                    }
+
+                    //Notify customer care group
+                    SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_CUSTOMERSUPPORT, "New dNeero User via Facebook: "+ user.getFirstname() + " " + user.getLastname());
+                    xmpp.send();
+                }
+
+                //Setup the userSession to be logged in now
+                Pagez.getUserSession().setUser(user);
+                Pagez.getUserSession().setIsloggedin(true);
+                Pagez.getUserSession().setIsLoggedInToBeta(true);
+                Pagez.getUserSession().setIseulaok(true);
+                Pagez.setUserSessionAndUpdateCache(Pagez.getUserSession());
+            }
+        }
+        //End Facebook shenanigans
     }
 
 

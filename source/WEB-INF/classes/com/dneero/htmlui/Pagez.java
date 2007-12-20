@@ -63,6 +63,9 @@ public class Pagez {
     }
 
     public static void setUserSessionAndUpdateCache(UserSession userSession){
+        if (userSession!=null && userSession.getIsfacebookui()){
+            CacheFactory.getCacheProvider().put(userSession.getFacebookSessionKey(), "FacebookUserSession", userSession);
+        }
         CacheFactory.getCacheProvider().put(getRequest().getSession().getId(), "userSession", userSession);
         userSessionLocal.set(userSession);
     }

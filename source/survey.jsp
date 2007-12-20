@@ -45,16 +45,15 @@ String acl = "public";
     if (request.getParameter("action") != null && request.getParameter("action").equals("takesurvey")) {
         try {
             publicSurvey.takeSurvey();
-            if (Pagez.getUserSession().getIsloggedin()){
-                if (Pagez.getUserSession().getUser().getBloggerid()>0){
-                    Pagez.sendRedirect("/surveypostit.jsp?surveyid="+publicSurvey.getSurvey().getSurveyid()+"&justcompletedsurvey=1");
-                    return;
-                } else {
-                    Pagez.sendRedirect("/account/index.jsp");
-                    return;
-                }
+            if (Pagez.getUserSession().getIsloggedin() && Pagez.getUserSession().getUser()!=null && Pagez.getUserSession().getUser().getBloggerid()<=0){
+                Pagez.sendRedirect("/blogger/bloggerdetails.jsp");
+                return;
             }
-            Pagez.sendRedirect("/registration.jsp");
+            if (!Pagez.getUserSession().getIsfacebookui() && !Pagez.getUserSession().getIsloggedin()){
+                Pagez.sendRedirect("/registration.jsp");
+                return;
+            }
+            Pagez.sendRedirect("/surveypostit.jsp?surveyid="+publicSurvey.getSurvey().getSurveyid()+"&justcompletedsurvey=1");
             return;
         } catch (ValidationException vex) {
             Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());

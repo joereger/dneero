@@ -31,29 +31,6 @@ String acl = "public";
     <br/><br/><br/>
     <!-- End FAQ Question -->
 
-    <!-- Start FAQ Question -->
-    <font class="mediumfont" color="#333333">Sometimes I'm using the dNeero Facebook App and I find myself outside of Facebook and on dNeero.com... what's that all about?</font>
-    <br/>
-    <font class="smallfont">
-    Sometimes it's just that you left the dNeero Facebook App on your screen for a while without clicking anything.  But sometimes it just happens randomly.  This random behavior drives us nuts.  It appears to be an issue with the way that Internet Explorer handles cookies in iFrames.  It's often exacerbated if you have an account at dNeero.com and have the Keep Me Logged In checked.  To remedy this situation (or at least make it somewhat better):
-    <ul>
-        <li>Go to http://www.dneero.com</li>
-        <li>If you're logged-in, click Log Out (upper right)</li>
-        <li>Go back to http://www.facebook.com and re-enter the dNeero Facebook App</li>
-    </ul>
-    We're sorry for this issue... like we said... it drives us nuts too.  We've tried many things to fix it automatically for you but somehow it just seems to creep back into the mix.
-    </font>
-    <br/><br/><br/>
-    <!-- End FAQ Question -->
-
-    <!-- Start FAQ Question -->
-    <font class="mediumfont" color="#333333">Sometimes I click something and it takes me back to the main page... what's that all about?</font>
-    <br/>
-    <font class="smallfont">
-    Same as the question above.  It drives us nuts and we've done a lot to try to prevent it but some browsers just do this from time to time.  We'll keep working on it.  Apologies for the inconvenience.
-    </font>
-    <br/><br/><br/>
-    <!-- End FAQ Question -->
 
     <!-- Start FAQ Question -->
     <font class="mediumfont" color="#333333">Do I need to have friends take the survey to get paid?</font>

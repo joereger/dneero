@@ -178,6 +178,7 @@ public class FacebookAuthorizationJsp {
                 }
                 //Save UserSession in Cache
                 if (usecache){
+                    //Pagez.setUserSessionAndUpdateCache(Pagez.getUserSession());
                     CacheFactory.getCacheProvider().put(Pagez.getUserSession().getFacebookSessionKey(), "FacebookUserSession", Pagez.getUserSession());
                 }
             } else {
