@@ -133,10 +133,10 @@ public class Registration implements Serializable {
         //Create the user
         //@todo Use http://www.jasypt.org/ to encrypt password
         User user = new User();
-        user.setEmail(UserInputSafe.clean(email));
+        user.setEmail(email);
         user.setPassword(password);
-        user.setFirstname(UserInputSafe.clean(firstname));
-        user.setLastname(UserInputSafe.clean(lastname));
+        user.setFirstname(firstname);
+        user.setLastname(lastname);
         user.setIsactivatedbyemail(false);
         user.setIsqualifiedforrevshare(false);
         user.setReferredbyuserid(Pagez.getUserSession().getReferredbyOnlyUsedForSignup());

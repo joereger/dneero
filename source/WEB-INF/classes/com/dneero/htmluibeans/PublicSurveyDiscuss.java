@@ -96,8 +96,8 @@ public class PublicSurveyDiscuss implements Serializable {
             Surveydiscuss surveydiscuss = new Surveydiscuss();
             surveydiscuss.setSurveyid(survey.getSurveyid());
             surveydiscuss.setIsapproved(true);
-            surveydiscuss.setSubject(UserInputSafe.clean(discussSubject));
-            surveydiscuss.setComment(UserInputSafe.clean(discussComment));
+            surveydiscuss.setSubject(discussSubject);
+            surveydiscuss.setComment(discussComment);
             surveydiscuss.setDate(new Date());
             surveydiscuss.setUserid(Pagez.getUserSession().getUser().getUserid());
             try{

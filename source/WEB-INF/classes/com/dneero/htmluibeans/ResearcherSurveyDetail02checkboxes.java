@@ -104,7 +104,7 @@ public class ResearcherSurveyDetail02checkboxes implements Serializable {
             }
 
             question.setSurveyid(survey.getSurveyid());
-            question.setQuestion(UserInputSafe.clean(this.question));
+            question.setQuestion(this.question);
             question.setIsrequired(isrequired);
             question.setComponenttype(Checkboxes.ID);
 
@@ -136,7 +136,7 @@ public class ResearcherSurveyDetail02checkboxes implements Serializable {
             Questionconfig qc1 = new Questionconfig();
             qc1.setQuestionid(question.getQuestionid());
             qc1.setName("options");
-            qc1.setValue(UserInputSafe.clean(options));
+            qc1.setValue(options);
             question.getQuestionconfigs().add(qc1);
 
             try{

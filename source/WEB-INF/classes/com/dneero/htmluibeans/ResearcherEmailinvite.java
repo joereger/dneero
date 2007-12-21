@@ -111,8 +111,8 @@ public class ResearcherEmailinvite implements Serializable {
         }
         Pagez.getUserSession().setEmailinviteaddresses(em);
         //Put subject and others into memory
-        Pagez.getUserSession().setEmailinvitesubject(UserInputSafe.clean(subject));
-        Pagez.getUserSession().setEmailinvitemessage(UserInputSafe.clean(message));
+        Pagez.getUserSession().setEmailinvitesubject(subject);
+        Pagez.getUserSession().setEmailinvitemessage(message);
         Pagez.getUserSession().setEmailinvitesurveyiduserisinvitedto(surveyiduserisinvitedto);
 
 

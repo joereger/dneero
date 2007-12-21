@@ -422,8 +422,8 @@ public class PublicSurvey implements Serializable {
                     //No user exists so I need to auto-create one
                     user.setEmail("");
                     user.setPassword("");
-                    user.setFirstname(UserInputSafe.clean(Pagez.getUserSession().getFacebookUser().getFirst_name()));
-                    user.setLastname(UserInputSafe.clean(Pagez.getUserSession().getFacebookUser().getLast_name()));
+                    user.setFirstname(Pagez.getUserSession().getFacebookUser().getFirst_name());
+                    user.setLastname(Pagez.getUserSession().getFacebookUser().getLast_name());
                     user.setIsactivatedbyemail(true);  //Auto-activated by email... done because user will have to enter email in account settings
                     user.setIsqualifiedforrevshare(false);
                     user.setReferredbyuserid(FacebookPendingReferrals.getReferredbyUserid(facebookuserid));

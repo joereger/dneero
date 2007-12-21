@@ -88,15 +88,15 @@ public class AccountSettings implements Serializable {
                     paymethodpaypaladdress = user.getPaymethodpaypaladdress();
                 }
             }
-            user.setFirstname(UserInputSafe.clean(firstname));
-            user.setLastname(UserInputSafe.clean(lastname));
+            user.setFirstname(firstname);
+            user.setLastname(lastname);
             user.setNotifyofnewsurveysbyemaileveryexdays(notifyofnewsurveysbyemaileveryexdays);
             user.setAllownoncriticalemails(allownoncriticalemails);
             user.setInstantnotifybyemailison(instantnotifybyemailison);
             user.setInstantnotifybytwitterison(instantnotifybytwitterison);
-            user.setInstantnotifytwitterusername(UserInputSafe.clean(instantnotifytwitterusername));
+            user.setInstantnotifytwitterusername(instantnotifytwitterusername);
             user.setInstantnotifyxmppison(instantnotifyxmppison);
-            user.setInstantnotifyxmppusername(UserInputSafe.clean(instantnotifyxmppusername));
+            user.setInstantnotifyxmppusername(instantnotifyxmppusername);
             user.setPaymethod(PaymentMethod.PAYMENTMETHODPAYPAL);
             user.setPaymethodpaypaladdress(paymethodpaypaladdress);
             try{

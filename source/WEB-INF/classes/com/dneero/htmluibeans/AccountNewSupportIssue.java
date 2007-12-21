@@ -39,7 +39,7 @@ public class AccountNewSupportIssue implements Serializable {
         Logger logger = Logger.getLogger(this.getClass().getName());
         Supportissue supportissue = new Supportissue();
         supportissue.setStatus(Supportissue.STATUS_OPEN);
-        supportissue.setSubject(UserInputSafe.clean(subject));
+        supportissue.setSubject(subject);
         supportissue.setDatetime(new Date());
         supportissue.setUserid(Pagez.getUserSession().getUser().getUserid());
         try{
@@ -54,7 +54,7 @@ public class AccountNewSupportIssue implements Serializable {
         supportissuecomm.setSupportissueid(supportissue.getSupportissueid());
         supportissuecomm.setDatetime(new Date());
         supportissuecomm.setIsfromdneeroadmin(false);
-        supportissuecomm.setNotes(UserInputSafe.clean(notes));
+        supportissuecomm.setNotes(notes);
         supportissue.getSupportissuecomms().add(supportissuecomm);
         try{
             supportissue.save();

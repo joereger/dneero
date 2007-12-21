@@ -91,7 +91,7 @@ public class ResearcherSurveyDetail02essay implements Serializable {
             }
 
             question.setSurveyid(survey.getSurveyid());
-            question.setQuestion(UserInputSafe.clean(this.question));
+            question.setQuestion(this.question);
             question.setIsrequired(isrequired);
             question.setComponenttype(Essay.ID);
 

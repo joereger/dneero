@@ -69,7 +69,7 @@ public class AccountSupportIssueDetail implements Serializable {
         supportissuecomm.setSupportissueid(supportissueid);
         supportissuecomm.setDatetime(new Date());
         supportissuecomm.setIsfromdneeroadmin(false);
-        supportissuecomm.setNotes(UserInputSafe.clean(notes));
+        supportissuecomm.setNotes(notes);
 
         supportissue.getSupportissuecomms().add(supportissuecomm);
 

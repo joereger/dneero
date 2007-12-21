@@ -103,7 +103,7 @@ public class ResearcherSurveyDetail02testquestion implements Serializable {
             }
 
             question.setSurveyid(survey.getSurveyid());
-            question.setQuestion(UserInputSafe.clean(this.question));
+            question.setQuestion(this.question);
             question.setIsrequired(isrequired);
             question.setComponenttype(TestQuestion.ID);
 
@@ -135,7 +135,7 @@ public class ResearcherSurveyDetail02testquestion implements Serializable {
             Questionconfig qc1 = new Questionconfig();
             qc1.setQuestionid(question.getQuestionid());
             qc1.setName("answermustcontain");
-            qc1.setValue(UserInputSafe.clean(answermustcontain));
+            qc1.setValue(answermustcontain);
             question.getQuestionconfigs().add(qc1);
 
             try{

@@ -67,9 +67,9 @@ public class ResearcherDetails implements Serializable {
 
 
             researcher.setUserid(userSession.getUser().getUserid());
-            researcher.setCompanyname(UserInputSafe.clean(companyname));
-            researcher.setCompanytype(UserInputSafe.clean(companytype));
-            researcher.setPhone(UserInputSafe.clean(phone));
+            researcher.setCompanyname(companyname);
+            researcher.setCompanytype(companytype);
+            researcher.setPhone(phone);
 
             try{
                 researcher.save();

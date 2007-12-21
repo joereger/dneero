@@ -95,7 +95,7 @@ public class ResearcherSurveyDetail02textbox implements Serializable {
             }
 
             question.setSurveyid(survey.getSurveyid());
-            question.setQuestion(UserInputSafe.clean(this.question));
+            question.setQuestion(this.question);
             question.setIsrequired(isrequired);
             question.setComponenttype(Textbox.ID);
 

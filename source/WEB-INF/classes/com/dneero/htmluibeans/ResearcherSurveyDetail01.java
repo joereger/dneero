@@ -126,8 +126,8 @@ public class ResearcherSurveyDetail01 implements Serializable {
             if (isValidData && Pagez.getUserSession().getUser()!=null && survey.canEdit(Pagez.getUserSession().getUser())){
 
                 survey.setResearcherid(userSession.getUser().getResearcherid());
-                survey.setTitle(UserInputSafe.clean(title));
-                survey.setDescription(UserInputSafe.clean(description));
+                survey.setTitle(title);
+                survey.setDescription(description);
                 survey.setStartdate(startdate);
                 survey.setEnddate(enddate);
 

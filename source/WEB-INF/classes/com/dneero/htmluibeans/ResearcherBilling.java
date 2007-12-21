@@ -101,15 +101,15 @@ public class ResearcherBilling implements Serializable {
             cc.setCcexpyear(ccexpyear);
             cc.setCcnum(ccnum);
             cc.setCctype(cctype);
-            cc.setCity(UserInputSafe.clean(cccity));
+            cc.setCity(cccity);
             cc.setCvv2(cvv2);
-            cc.setFirstname(UserInputSafe.clean(firstname));
+            cc.setFirstname(firstname);
             cc.setIpaddress(Pagez.getRequest().getRemoteAddr());
-            cc.setLastname(UserInputSafe.clean(lastname));
+            cc.setLastname(lastname);
             cc.setMerchantsessionid(Pagez.getRequest().getSession().getId());
             cc.setPostalcode(postalcode);
-            cc.setState(UserInputSafe.clean(ccstate));
-            cc.setStreet(UserInputSafe.clean(street));
+            cc.setState(ccstate);
+            cc.setStreet(street);
             cc.setUserid(userSession.getUser().getUserid());
             try{
                 cc.save();
