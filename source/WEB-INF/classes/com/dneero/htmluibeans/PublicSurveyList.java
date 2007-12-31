@@ -60,7 +60,7 @@ public class PublicSurveyList implements Serializable {
 
 
             surveys = new ArrayList<SurveyListItem>();
-            List results = HibernateUtil.getSession().createQuery("from Survey where status='"+Survey.STATUS_OPEN+"' order by willingtopayperrespondent desc").list();
+            List results = HibernateUtil.getSession().createQuery("from Survey where status='"+Survey.STATUS_OPEN+"' order by surveyid desc").list();
             for (Iterator iterator = results.iterator(); iterator.hasNext();) {
                 Survey survey = (Survey) iterator.next();
 

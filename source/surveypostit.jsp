@@ -8,6 +8,7 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.Iterator" %>
 <%@ page import="com.dneero.dao.Survey" %>
+<%@ page import="com.dneero.util.Str" %>
 <%
     PublicSurveyPostit publicSurveyPostit=(PublicSurveyPostit) Pagez.getBeanMgr().get("PublicSurveyPostit");
 %>
@@ -139,7 +140,7 @@ String acl = "public";
                         method="POST"
                         invite="true"
                         type="dNeero Survey"
-                        content="<%=publicSurveyPostit.getSurvey().getTitle()%> - <%=publicSurveyPostit.getSurvey().getDescription()%><fb:req-choice url='http://apps.facebook.com/<%=SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_APP_NAME)%>/?action=showsurvey-<%=publicSurveyPostit.getSurvey().getSurveyid()%>-<%=Pagez.getUserSession().getUser().getUserid()%>' label='Check out this dNeero Survey!' />
+                        content="<%=Str.cleanForHtml(publicSurveyPostit.getSurvey().getTitle())%> - <%=Str.cleanForHtml(publicSurveyPostit.getSurvey().getDescription())%><fb:req-choice url='http://apps.facebook.com/<%=SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_APP_NAME)%>/?action=showsurvey-<%=publicSurveyPostit.getSurvey().getSurveyid()%>-<%=Pagez.getUserSession().getUser().getUserid()%>' label='Check out this dNeero Survey!' />
                     ">
                         <fb:multi-friend-selector
                             showborder="false"

@@ -39,6 +39,8 @@ public class GridColRendererFactory {
             return new GridColRendererString();
         } else if (id==Grid.GRIDCOLRENDERER_DATETIMECOMPACT){
             return new GridColRendererDatetimecompact();
+        } else if (id==Grid.GRIDCOLRENDERER_DATETIMEAGOTEXT){
+            return new GridColRendererDatetimeagotext();
         } else if (id==Grid.GRIDCOLRENDERER_DOUBLEASMONEY){
             return new GridColRendererDoubleAsMoney();
         }

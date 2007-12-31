@@ -72,6 +72,7 @@ public class JbossTreeCacheAOPProvider implements CacheProvider {
 
     public void put(String key, String group, Object obj) {
         try{
+            logger.debug("put("+key+" , "+group+") called");
             Fqn fqn = Fqn.fromString("/"+group);
             JbossTreeCacheAOPProvider.getTreeCache().put(fqn, key, obj);
         }catch (Exception e){
@@ -163,7 +164,7 @@ public class JbossTreeCacheAOPProvider implements CacheProvider {
     public String getCacheStatsAsHtml() {
         StringBuffer mb = new StringBuffer();
         mb.append("JbossCacheAOPProvider<br>");
-        mb.append(com.dneero.cache.providers.jboss.CacheDumper.getHtml("/", 5));
+        mb.append(com.dneero.cache.providers.jboss.CacheDumper.getHtml("/", 10));
         String[] keys = getKeys("");
         for (int i = 0; i < keys.length; i++) {
             String key = keys[i];

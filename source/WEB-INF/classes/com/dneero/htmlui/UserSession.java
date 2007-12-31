@@ -7,6 +7,7 @@ import com.dneero.dao.Userrole;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Calendar;
 
 import org.apache.log4j.Logger;
 
@@ -42,11 +43,13 @@ public class UserSession implements Serializable {
     private boolean isfacebookui = false;
     private String message = "";
     private String accesscode = "";
+    private Calendar createdate = Calendar.getInstance();
 
     public UserSession(){
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("New UserSession created.");
         try{
+            createdate = Calendar.getInstance();
             logger.debug("trying to set isfacebookui in UserSession");
             //Set the userSession var isfacebookui if we see anything that remotely resembles facebook activity
             if (Pagez.getRequest().getParameter("auth_token")!=null){
@@ -276,5 +279,13 @@ public class UserSession implements Serializable {
 
     public void setAccesscode(String accesscode) {
         this.accesscode=accesscode;
+    }
+
+    public Calendar getCreatedate() {
+        return createdate;
+    }
+
+    public void setCreatedate(Calendar createdate) {
+        this.createdate=createdate;
     }
 }

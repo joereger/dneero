@@ -23,6 +23,7 @@ public class Grid {
     public static int GRIDCOLRENDERER_STRING= 1;
     public static int GRIDCOLRENDERER_DATETIMECOMPACT= 2;
     public static int GRIDCOLRENDERER_DOUBLEASMONEY= 3;
+    public static int GRIDCOLRENDERER_DATETIMEAGOTEXT= 4;
 
     public static String render(List rows, ArrayList<GridCol> cols, int rowsperpage, String pagename, String currentpageVar){
         Logger logger = Logger.getLogger(Grid.class);

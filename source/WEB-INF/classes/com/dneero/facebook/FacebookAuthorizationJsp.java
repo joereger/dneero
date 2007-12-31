@@ -3,6 +3,8 @@ package com.dneero.facebook;
 import org.apache.log4j.Logger;
 import org.hibernate.criterion.Restrictions;
 import com.dneero.util.Num;
+import com.dneero.util.Time;
+import com.dneero.util.DateDiff;
 import com.dneero.systemprops.SystemProperty;
 import com.dneero.dao.User;
 import com.dneero.dao.hibernate.HibernateUtil;
@@ -17,6 +19,7 @@ import com.facebook.api.FacebookException;
 
 import java.util.List;
 import java.util.Iterator;
+import java.util.Calendar;
 
 /**
  * User: Joe Reger Jr
@@ -24,6 +27,8 @@ import java.util.Iterator;
  * Time: 10:26:53 PM
  */
 public class FacebookAuthorizationJsp {
+
+    public static int MAXSESSIONAGEINSECONDS = 3600; //One hour = 3600
 
     public static void doAuth(){
 
@@ -99,8 +104,15 @@ public class FacebookAuthorizationJsp {
             if (usecache){
                 Object obj = CacheFactory.getCacheProvider().get(Pagez.getUserSession().getFacebookSessionKey(), "FacebookUserSession");
                 if (obj!=null && (obj instanceof UserSession)){
-                    logger.debug("found a userSession in the cache, using it to override whatever crap JSF decided is a session");
-                    Pagez.setUserSessionAndUpdateCache((UserSession)obj);
+                    UserSession userSession = (UserSession)obj;
+                    int secondsOld = 0;
+                    secondsOld=DateDiff.dateDiff("second", Calendar.getInstance(), userSession.getCreatedate());
+                    logger.debug("session in cache is "+secondsOld+" seconds old");
+                    if (secondsOld>MAXSESSIONAGEINSECONDS){
+                        refreshSomeTimeSensitiveElementsOfUserSession(userSession);
+                    }
+                    logger.debug("found a userSession in the cache");
+                    Pagez.setUserSessionAndUpdateCache(userSession);
                     foundSessionInCache = true;
                 } else {
                     logger.debug("no userSession in cache");
@@ -225,6 +237,31 @@ public class FacebookAuthorizationJsp {
         }
         logger.debug("returning null user for facebookid="+facebookuserid);
         return null;
+    }
+
+    private static void refreshSomeTimeSensitiveElementsOfUserSession(UserSession userSession){
+        if (userSession!=null){
+            User user = null;
+            //Find the user
+            if (Num.isinteger(userSession.getFacebookUser().getUid())){
+                user = getdNeeroUserFromFacebookUserid(Integer.parseInt(userSession.getFacebookUser().getUid()));
+            }
+            //If there is a user
+            if (user!=null && user.getUserid()>0){
+                //Surveystakentoday
+                Pagez.getUserSession().setSurveystakentoday(SurveysTakenToday.getNumberOfSurveysTakenToday(user));
+                //Friends
+                FacebookApiWrapper faw = new FacebookApiWrapper(userSession);
+                userSession.setFacebookFriends(faw.getFriends());
+            }
+            //Reset the create date
+            userSession.setCreatedate(Calendar.getInstance());
+            if (userSession.getFacebookUser()!=null){
+                //Notify via XMPP
+                SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_DEBUG, "Facebook user '"+userSession.getFacebookUser().getFirst_name()+" "+userSession.getFacebookUser().getLast_name()+"' had session refreshed after "+MAXSESSIONAGEINSECONDS+" seconds of usage.");
+                xmpp.send();
+            }
+        }
     }
 
 

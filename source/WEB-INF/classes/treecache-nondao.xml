@@ -148,6 +148,10 @@
               <region name="/FacebookUserSession">
                   <attribute name="timeToLiveSeconds">1200</attribute>
               </region>
+
+              <region name="FacebookUserSession">
+                  <attribute name="timeToLiveSeconds">1200</attribute>
+              </region>
            </config>
         </attribute>
 

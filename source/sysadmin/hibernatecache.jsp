@@ -46,30 +46,29 @@ SysadminHibernateCache sysadminHibernateCache = (SysadminHibernateCache)Pagez.ge
         return false;
       }
     </script>
-    <div id="tabs">
-    <a href="" class="tab" onmousedown="return event.returnValue = showPanel(this, 'panel1');" id="tab1" onclick="return false;">IAOs</a>
-    <a href="" class="tab" onmousedown="return event.returnValue = showPanel(this, 'panel2');" onclick="return false;">Hibernate</a>
-    <a href="" class="tab" onmousedown="return event.returnValue = showPanel(this, 'panel3');" onclick="return false;">Misc Cache</a>
-    </div>
-    <div class="panel" id="panel1" style="display: block">
-        <img src="/images/clear.gif" width="700" height="1"/><br/>
-        <a href="/sysadmin/hibernatecache.jsp?action=runqueue"><font class="formfieldnamefont">Process Queue</font></a><br/><br/>
-        <%=sysadminHibernateCache.getIaosqueue()%>
-    </div>
-    <div class="panel" id="panel2" style="display: none">
-        <img src="/images/clear.gif" width="700" height="1"/><br/>
-        <a href="/sysadmin/hibernatecache.jsp?action=showhibernate"><font class="formfieldnamefont">Show Hibernate Cache</font></a><br/><br/>
+
+    <a href="/sysadmin/hibernatecache.jsp"><font class="formfieldnamefont">Show IAOs Cache</font></a><br/>
+    <a href="/sysadmin/hibernatecache.jsp?action=runqueue"><font class="formfieldnamefont">Run IAOs Queue</font></a><br/>
+    <a href="/sysadmin/hibernatecache.jsp?action=showmisc"><font class="formfieldnamefont">Show Misc Cache</font></a><br/>
+    <a href="/sysadmin/hibernatecache.jsp?action=showhibernate"><font class="formfieldnamefont">Show Hibernate Cache</font></a><br/>
+    <br/>
+
+
+        <%if (request.getParameter("action")==null || (request.getParameter("action")!=null && request.getParameter("action").equals("runqueue"))){%>
+            <font style="font-size: 15px;">IAOs Cache</font><br/>
+            <%=sysadminHibernateCache.getIaosqueue()%>
+        <%}%>
+
         <%if (request.getParameter("action")!=null && request.getParameter("action").equals("showhibernate")){%>
+            <font style="font-size: 15px;">Hibernate Cache</font><br/>
             <%=sysadminHibernateCache.getCacheashtml()%>
         <%}%>
-    </div>
-    <div class="panel" id="panel3" style="display: none">
-        <img src="/images/clear.gif" width="700" height="1"/><br/>
-        <a href="/sysadmin/hibernatecache.jsp?action=showmisc"><font class="formfieldnamefont">Show Misc Cache</font></a><br/><br/>
+
         <%if (request.getParameter("action")!=null && request.getParameter("action").equals("showmisc")){%>
+            <font style="font-size: 15px;">Misc Cache</font><br/>
             <%=sysadminHibernateCache.getMisccacheashtml()%>
         <%}%>
-    </div>
+
 
   
 

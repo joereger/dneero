@@ -38,8 +38,8 @@ public class HibernateCacheStats {
                     Object value = mapentry.getValue();
                     mb.append("<br>");
                     mb.append("<font face=arial size=-2>");
-                    mb.append("Key:"+key.toString());
-                    mb.append(" Value:"+value.toString());
+                    mb.append("<b>Key:"+key.toString()+"</b>");
+                    mb.append(" Value:"+value.toString().replaceAll("<", "&lt;"));
                     mb.append("</font>");
                 }
             } else {
