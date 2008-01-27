@@ -11,7 +11,7 @@ PublicSurvey publicSurvey = (PublicSurvey)Pagez.getBeanMgr().get("PublicSurvey")
 %>
 <%
 //If we don't have a surveyid, shouldn't be on this page
-if (publicSurvey.getSurvey()==null || publicSurvey.getSurvey().getTitle()==null || publicSurvey.getSurvey().getSurveyid()<=0){
+if (publicSurvey==null || publicSurvey.getSurvey()==null || publicSurvey.getSurvey().getTitle()==null || publicSurvey.getSurvey().getSurveyid()<=0){
     Pagez.sendRedirect("/publicsurveylist.jsp");
     return;
 }

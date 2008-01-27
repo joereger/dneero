@@ -155,6 +155,7 @@
                         <a href="/sysadmin/instanceprops.jsp"><font class="subnavfont" style=" color: #000000;">InstanceProps</font></a>
                         <a href="/sysadmin/hibernatecache.jsp"><font class="subnavfont" style=" color: #000000;">Cache</font></a>
                         <a href="/sysadmin/massemaillist.jsp"><font class="subnavfont" style=" color: #000000;">MassEmail</font></a>
+                        <a href="/sysadmin/charityreport.jsp"><font class="subnavfont" style=" color: #000000;">Charity</font></a>
                         <a href="/sysadmin/blogpost.jsp"><font class="subnavfont" style=" color: #000000;">Blog</font></a>
                     <%}%>
                 <%}%>
