@@ -5,15 +5,22 @@
 <%@ page import="com.dneero.dbgrid.Grid" %>
 <%@ page import="com.dneero.htmlui.*" %>
 <%
+    PublicProfile publicProfile=(PublicProfile) Pagez.getBeanMgr().get("PublicProfile");
+%>
+<%
+if (publicProfile==null || publicProfile.getUser()==null || publicProfile.getUser().getUserid()==0 || !publicProfile.getUser().getIsenabled()){
+    Pagez.sendRedirect("/notauthorized.jsp");
+    return;
+}
+%>
+<%
 Logger logger = Logger.getLogger(this.getClass().getName());
-String pagetitle = ((PublicProfile) Pagez.getBeanMgr().get("PublicProfile")).getUser().getFirstname()+" "+((PublicProfile) Pagez.getBeanMgr().get("PublicProfile")).getUser().getLastname()+"'s Profile";
+String pagetitle = publicProfile.getUser().getFirstname()+" "+publicProfile.getUser().getLastname()+"'s Profile";
 String navtab = "home";
 String acl = "public";
 %>
 <%@ include file="/template/auth.jsp" %>
-<%
-    PublicProfile publicProfile=(PublicProfile) Pagez.getBeanMgr().get("PublicProfile");
-%>
+
 <%
     if (request.getParameter("action") != null && request.getParameter("action").equals("add")) {
         try {

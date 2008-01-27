@@ -57,6 +57,10 @@ public class PublicProfile implements Serializable {
             }
         }
 
+        if (user==null){
+            return;    
+        }
+
         charityamtdonatedForscreen = "$"+Str.formatForMoney(user.getCharityamtdonated());
 
         listitems = new ArrayList<PublicProfileListitem>();

@@ -31,7 +31,7 @@ if (request.getParameter("show")!=null && request.getParameter("show").equals("d
 %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
-String pagetitle = ((PublicSurvey) Pagez.getBeanMgr().get("PublicSurvey")).getSurvey().getTitle();
+String pagetitle = publicSurvey.getSurvey().getTitle();
 String navtab = "home";
 String acl = "public";
 %>

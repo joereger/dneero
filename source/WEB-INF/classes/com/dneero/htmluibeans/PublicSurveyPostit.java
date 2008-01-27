@@ -202,6 +202,7 @@ public class PublicSurveyPostit implements Serializable {
             }
         } catch (Exception ex){
             logger.error("",ex);
+            throw new ValidationException("The Facebook server returned some sort of error... please try again or contact dNeero support.  We apologize for the inconvenience.");
         }
     }
 

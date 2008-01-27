@@ -5,15 +5,22 @@
 <%@ page import="com.dneero.dbgrid.GridCol" %>
 <%@ page import="java.util.ArrayList" %>
 <%
+PublicProfileImpressions publicProfileImpressions = (PublicProfileImpressions) Pagez.getBeanMgr().get("PublicProfileImpressions");
+%>
+<%
+if (publicProfileImpressions==null || publicProfileImpressions.getUser()==null || publicProfileImpressions.getUser().getUserid()==0 || !publicProfileImpressions.getUser().getIsenabled()){
+    Pagez.sendRedirect("/notauthorized.jsp");
+    return;
+}
+%>
+<%
 Logger logger = Logger.getLogger(this.getClass().getName());
-String pagetitle = "<img src=\"/images/user.png\" align=\"right\" alt=\"\" border=\"0\"/>"+((PublicProfileImpressions) Pagez.getBeanMgr().get("PublicProfileImpressions")).getUser().getFirstname()+" "+ ((PublicProfileImpressions)Pagez.getBeanMgr().get("PublicProfileImpressions")).getUser().getLastname()+"'s Impressions<br/><br clear=\"all\"/>";
+String pagetitle = "<img src=\"/images/user.png\" align=\"right\" alt=\"\" border=\"0\"/>"+publicProfileImpressions.getUser().getFirstname()+" "+ publicProfileImpressions.getUser().getLastname()+"'s Impressions<br/><br clear=\"all\"/>";
 String navtab = "home";
 String acl = "public";
 %>
 <%@ include file="/template/auth.jsp" %>
-<%
-PublicProfileImpressions publicProfileImpressions = (PublicProfileImpressions) Pagez.getBeanMgr().get("PublicProfileImpressions");
-%>
+
 <%@ include file="/template/header.jsp" %>
 
 

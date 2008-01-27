@@ -126,13 +126,15 @@ public class PublicSurvey implements Serializable {
         userwhotooksurvey = null;
         if (userid>0){
             User userTmp = User.get(userid);
-            if (userTmp.getBloggerid()>0){
-                Blogger blogger = Blogger.get(userTmp.getBloggerid());
-                for (Iterator<Response> iterator = blogger.getResponses().iterator(); iterator.hasNext();) {
-                    Response response = iterator.next();
-                    if (response.getSurveyid()==survey.getSurveyid()){
-                        userwhotooksurvey = userTmp;
-                        break;
+            if (userwhotooksurvey.getIsenabled()){
+                if (userTmp.getBloggerid()>0){
+                    Blogger blogger = Blogger.get(userTmp.getBloggerid());
+                    for (Iterator<Response> iterator = blogger.getResponses().iterator(); iterator.hasNext();) {
+                        Response response = iterator.next();
+                        if (response.getSurveyid()==survey.getSurveyid()){
+                            userwhotooksurvey = userTmp;
+                            break;
+                        }
                     }
                 }
             }

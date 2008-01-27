@@ -68,10 +68,13 @@ public class PublicSurveyWhotookit implements Serializable {
         List resp = HibernateUtil.getSession().createQuery("from Response where surveyid='"+survey.getSurveyid()+"' order by responseid desc").setCacheable(true).list();
         for (Iterator iterator = resp.iterator(); iterator.hasNext();) {
             Response response = (Response) iterator.next();
-            PublicSurveyRespondentsListitem psrli = new PublicSurveyRespondentsListitem();
-            psrli.setResponse(response);
-            psrli.setUser(User.get(Blogger.get(response.getBloggerid()).getUserid()));
-            respondents.add(psrli);
+            User user = User.get(Blogger.get(response.getBloggerid()).getUserid());
+            if (user.getIsenabled()){
+                PublicSurveyRespondentsListitem psrli = new PublicSurveyRespondentsListitem();
+                psrli.setResponse(response);
+                psrli.setUser(user);
+                respondents.add(psrli);
+            }
         }
 
     }
