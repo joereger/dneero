@@ -37,6 +37,11 @@ public class InstantNotifyOfNewSurvey implements Runnable {
 
         Survey survey = Survey.get(surveyid);
 
+        //If it's not open, don't notify
+        if (survey.getStatus()!=Survey.STATUS_OPEN){
+            return;
+        }
+
         //Vars to hold our strings in the email
         double possibleearnings = 0;
         StringBuffer listofsurveysHtml = new StringBuffer();

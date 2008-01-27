@@ -2,14 +2,11 @@ package com.dneero.finders;
 
 import org.jdom.Document;
 import org.jdom.Element;
-import org.jdom.Content;
 import org.jdom.Text;
 import org.jdom.input.SAXBuilder;
 import org.jdom.output.XMLOutputter;
-import org.jdom.output.Format;
 import org.apache.log4j.Logger;
 
-import java.io.OutputStream;
 import java.io.ByteArrayOutputStream;
 import java.util.*;
 
@@ -32,6 +29,9 @@ public class SurveyCriteriaXML {
     private int blogquality90days = 0;
     private int minsocialinfluencepercentile = 100;
     private int minsocialinfluencepercentile90days = 100;
+    private int dayssincelastsurvey = 0;
+    private int totalsurveystakenatleast = 0;
+    private int totalsurveystakenatmost = 100000;
     private String[] gender;
     private String[] ethnicity;
     private String[] maritalstatus;
@@ -42,6 +42,8 @@ public class SurveyCriteriaXML {
     private String[] profession;
     private String[] blogfocus;
     private String[] politics;
+    private String[] dneerousagemethods; //Facebook, dneero.com, etc.
+
 
     private Document doc;
 
@@ -77,6 +79,15 @@ public class SurveyCriteriaXML {
         if (Num.isinteger(loadValueOfStringFromXML("minsocialinfluencepercentile90days"))){
             minsocialinfluencepercentile90days = Integer.parseInt(loadValueOfStringFromXML("minsocialinfluencepercentile90days"));
         }
+        if (Num.isinteger(loadValueOfStringFromXML("dayssincelastsurvey"))){
+            dayssincelastsurvey = Integer.parseInt(loadValueOfStringFromXML("dayssincelastsurvey"));
+        }
+        if (Num.isinteger(loadValueOfStringFromXML("totalsurveystakenatleast"))){
+            totalsurveystakenatleast = Integer.parseInt(loadValueOfStringFromXML("totalsurveystakenatleast"));
+        }
+        if (Num.isinteger(loadValueOfStringFromXML("totalsurveystakenatmost"))){
+            totalsurveystakenatmost = Integer.parseInt(loadValueOfStringFromXML("totalsurveystakenatmost"));
+        }
         String[] tmpArray;
         tmpArray = loadValueOfArrayFromXML("gender");
         if (tmpArray!=null){ gender = tmpArray; }
@@ -98,6 +109,8 @@ public class SurveyCriteriaXML {
         if (tmpArray!=null){ blogfocus = tmpArray; }
         tmpArray = loadValueOfArrayFromXML("politics");
         if (tmpArray!=null){ politics = tmpArray; }
+        tmpArray = loadValueOfArrayFromXML("dneerousagemethods");
+        if (tmpArray!=null){ dneerousagemethods = tmpArray; }
         
     }
 
@@ -112,6 +125,7 @@ public class SurveyCriteriaXML {
         profession = convertToArray(Professions.get());
         blogfocus = convertToArray(Blogfocuses.get());
         politics = convertToArray(Politics.get());
+        dneerousagemethods = convertToArray(Dneerousagemethods.get());
     }
 
     public static String[] convertToArray(TreeMap tmap){
@@ -182,6 +196,9 @@ public class SurveyCriteriaXML {
         setValueOfSimpleStringNode("blogquality90days", String.valueOf(blogquality90days));
         setValueOfSimpleStringNode("minsocialinfluencepercentile", String.valueOf(minsocialinfluencepercentile));
         setValueOfSimpleStringNode("minsocialinfluencepercentile90days", String.valueOf(minsocialinfluencepercentile90days));
+        setValueOfSimpleStringNode("dayssincelastsurvey", String.valueOf(dayssincelastsurvey));
+        setValueOfSimpleStringNode("totalsurveystakenatleast", String.valueOf(totalsurveystakenatleast));
+        setValueOfSimpleStringNode("totalsurveystakenatmost", String.valueOf(totalsurveystakenatmost));
         setValueOfArrayNode("gender", gender);
         setValueOfArrayNode("ethnicity", ethnicity);
         setValueOfArrayNode("maritalstatus", maritalstatus);
@@ -192,6 +209,7 @@ public class SurveyCriteriaXML {
         setValueOfArrayNode("profession", profession);
         setValueOfArrayNode("blogfocus", blogfocus);
         setValueOfArrayNode("politics", politics);
+        setValueOfArrayNode("dneerousagemethods", dneerousagemethods);
         try {
             XMLOutputter serializer = new XMLOutputter();
             ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -334,6 +352,45 @@ public class SurveyCriteriaXML {
         out.append("<td valign=\"top\">");
         out.append("<font class=\"smallfont\">");
         out.append(100-minsocialinfluencepercentile90days);
+        out.append("</font>");
+        out.append("</td>");
+        out.append("</tr>");
+
+        out.append("<tr>");
+        out.append("<td valign=\"top\">");
+        out.append("<font class=\"formfieldnamefont\">");
+        out.append("Days Since Taking Last Survey");
+        out.append("</font>");
+        out.append("</td>");
+        out.append("<td valign=\"top\">");
+        out.append("<font class=\"smallfont\">");
+        out.append(dayssincelastsurvey);
+        out.append("</font>");
+        out.append("</td>");
+        out.append("</tr>");
+
+        out.append("<tr>");
+        out.append("<td valign=\"top\">");
+        out.append("<font class=\"formfieldnamefont\">");
+        out.append("Total Surveys Taken of at Least");
+        out.append("</font>");
+        out.append("</td>");
+        out.append("<td valign=\"top\">");
+        out.append("<font class=\"smallfont\">");
+        out.append(totalsurveystakenatleast);
+        out.append("</font>");
+        out.append("</td>");
+        out.append("</tr>");
+
+        out.append("<tr>");
+        out.append("<td valign=\"top\">");
+        out.append("<font class=\"formfieldnamefont\">");
+        out.append("Total Surveys Taken of at Most");
+        out.append("</font>");
+        out.append("</td>");
+        out.append("<td valign=\"top\">");
+        out.append("<font class=\"smallfont\">");
+        out.append(totalsurveystakenatmost);
         out.append("</font>");
         out.append("</td>");
         out.append("</tr>");
@@ -498,6 +555,22 @@ public class SurveyCriteriaXML {
         out.append("</td>");
         out.append("</tr>");
 
+        out.append("<tr>");
+        out.append("<td valign=\"top\">");
+        out.append("<font class=\"formfieldnamefont\">");
+        out.append("dNeero Usage Methods");
+        out.append("</font>");
+        out.append("</td>");
+        out.append("<td valign=\"top\">");
+        out.append("<font class=\"smallfont\">");
+        for (int i = 0; i < dneerousagemethods.length; i++) {
+            out.append(dneerousagemethods[i]);
+            if (dneerousagemethods.length>(i+1)){out.append(", ");}
+        }
+        out.append("</font>");
+        out.append("</td>");
+        out.append("</tr>");
+
         out.append("</table>");
         return out.toString();
     }
@@ -630,5 +703,37 @@ public class SurveyCriteriaXML {
 
     public void setMinsocialinfluencepercentile90days(int minsocialinfluencepercentile90days) {
         this.minsocialinfluencepercentile90days = minsocialinfluencepercentile90days;
+    }
+
+    public String[] getDneerousagemethods() {
+        return dneerousagemethods;
+    }
+
+    public void setDneerousagemethods(String[] dneerousagemethods) {
+        this.dneerousagemethods = dneerousagemethods;
+    }
+
+    public int getDayssincelastsurvey() {
+        return dayssincelastsurvey;
+    }
+
+    public void setDayssincelastsurvey(int dayssincelastsurvey) {
+        this.dayssincelastsurvey = dayssincelastsurvey;
+    }
+
+    public int getTotalsurveystakenatleast() {
+        return totalsurveystakenatleast;
+    }
+
+    public void setTotalsurveystakenatleast(int totalsurveystakenatleast) {
+        this.totalsurveystakenatleast = totalsurveystakenatleast;
+    }
+
+    public int getTotalsurveystakenatmost() {
+        return totalsurveystakenatmost;
+    }
+
+    public void setTotalsurveystakenatmost(int totalsurveystakenatmost) {
+        this.totalsurveystakenatmost = totalsurveystakenatmost;
     }
 }

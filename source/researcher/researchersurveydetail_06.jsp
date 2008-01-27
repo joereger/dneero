@@ -70,14 +70,16 @@ ResearcherSurveyDetail06 researcherSurveyDetail06 = (ResearcherSurveyDetail06)Pa
     <div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;">
         <table cellpadding="0" cellspacing="0" border="0">
 
+            <!--
             <tr>
                 <td valign="top">
                     <font class="formfieldnamefont">Bloggers In System Fulfilling Requirements</font>
                 </td>
                 <td valign="top">
-                    <font class="normalfont"><%=researcherSurveyDetail06.getNumberofbloggersqualifiedforthissurvey()%></font>
+                    <font class="normalfont"><%//=researcherSurveyDetail06.getNumberofbloggersqualifiedforthissurvey()%></font>
                 </td>
             </tr>
+            -->
 
             <tr>
                 <td valign="top">

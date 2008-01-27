@@ -260,9 +260,13 @@ public class BloggerIndex implements Serializable {
                 try{UpdateResponsePoststatus.processSingleResponse(response);} catch (Exception ex){logger.error("",ex);};
 
                 //Update Facebook
-                FacebookApiWrapper facebookApiWrapper = new FacebookApiWrapper(Pagez.getUserSession());
-                facebookApiWrapper.postToFeed(survey, response);
-                facebookApiWrapper.updateProfile(user);
+                try{
+                    FacebookApiWrapper facebookApiWrapper = new FacebookApiWrapper(Pagez.getUserSession());
+                    facebookApiWrapper.postToFeed(survey, response);
+                    facebookApiWrapper.updateProfile(user);
+                } catch (Exception ex){
+                    logger.error(ex);
+                }
             }
         } catch (Exception ex){
             logger.error("",ex);

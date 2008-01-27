@@ -4,8 +4,10 @@ import com.dneero.dao.*;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.util.Util;
 import com.dneero.util.Time;
+import com.dneero.util.DateDiff;
 import com.dneero.sir.SocialInfluenceRatingPercentile;
 import com.dneero.scheduledjobs.SystemStats;
+import com.dneero.constants.Dneerousagemethods;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -37,7 +39,7 @@ public class FindSurveysForBlogger {
         this.surveys = new ArrayList();
         HibernateUtil.getSession().saveOrUpdate(blogger);
         this.blogger = blogger;
-
+        User user = User.get(blogger.getUserid());
 
 
         //The idea here is that I'm not doing an actual XML query.
@@ -160,8 +162,56 @@ public class FindSurveysForBlogger {
                     logger.debug("survey not included because of socialinfluenceranking90days.  maxranking90days="+maxranking90days+" blogger.getSocialinfluenceratingranking90days()="+blogger.getSocialinfluenceratingranking90days());
                 }
             }
-   
 
+            //dneerousagemethod qualification
+            if (user.getFacebookuserid()>0){
+                //This is a facebook user
+                if(!Util.arrayContains(scXml.getDneerousagemethods(), Dneerousagemethods.FACEBOOKAPPUSERS)){
+                    surveyfitsblogger = false;
+                    logger.debug("survey not included because of dneerousagemethod... survey's not for facebook app users");
+                }
+            } else {
+                //This is a dNeero.com user
+                if(!Util.arrayContains(scXml.getDneerousagemethods(), Dneerousagemethods.DNEERODOTCOMUSERS)){
+                    surveyfitsblogger = false;
+                    logger.debug("survey not included because of dneerousagemethod... survey's not for dneero.com users");
+                }
+            }
+            //Iterate all responses to collect some data for next few qualifications
+            Response mostrecentresponse = null;
+            int surveystaken = 0;
+            for (Iterator<Response> iterator1 = blogger.getResponses().iterator(); iterator1.hasNext();) {
+                Response response = iterator1.next();
+                //Fill most recent response
+                if (mostrecentresponse==null || mostrecentresponse.getResponsedate().before(response.getResponsedate())){
+                    mostrecentresponse = response;
+                }
+                //Count surveys taken
+                surveystaken = surveystaken + 1;
+            }
+            //Calculate dayssincelastsurvey
+            int dayssincelastsurvey = Integer.MAX_VALUE;
+            if (mostrecentresponse!=null){
+                dayssincelastsurvey = DateDiff.dateDiff("day", Calendar.getInstance(), Time.getCalFromDate(mostrecentresponse.getResponsedate()));
+                logger.debug("bloggerid="+blogger.getBloggerid()+" dayssincelastsurvey="+dayssincelastsurvey);
+            }
+            //DaysSinceLastSurvey
+            if (scXml.getDayssincelastsurvey()>0 && dayssincelastsurvey<scXml.getDayssincelastsurvey()){
+                surveyfitsblogger = false;
+                logger.debug("survey not included because of dayssincelastsurvey");
+            }
+            //Total surveys taken of at least
+            if (scXml.getTotalsurveystakenatleast()>0 && surveystaken<scXml.getTotalsurveystakenatleast()){
+                surveyfitsblogger = false;
+                logger.debug("survey not included because of totalsurveystakenatleast");
+            }
+            //Total surveys taken of at most
+            if (surveystaken>scXml.getTotalsurveystakenatmost()){
+                surveyfitsblogger = false;
+                logger.debug("survey not included because of totalsurveystakenatmost");
+            }
+            
+            //-----------------------------------------------------
             //If it hasn't been booted by now, keep it
             if (surveyfitsblogger){
                 this.surveys.add(survey);

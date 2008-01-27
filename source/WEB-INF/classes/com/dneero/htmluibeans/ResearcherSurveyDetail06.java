@@ -94,8 +94,8 @@ public class ResearcherSurveyDetail06 implements Serializable {
                 numberofquestions = survey.getQuestions().size();
 
                 //Find bloggers qualified for this survey
-                FindBloggersForSurvey fb = new FindBloggersForSurvey(survey);
-                numberofbloggersqualifiedforthissurvey = fb.getBloggers().size();
+                //FindBloggersForSurvey fb = new FindBloggersForSurvey(survey);
+                //numberofbloggersqualifiedforthissurvey = fb.getBloggers().size();
 
                 //Calculate the financials of the survey
                 SurveyMoneyStatus sms = new SurveyMoneyStatus(survey);
@@ -153,7 +153,10 @@ public class ResearcherSurveyDetail06 implements Serializable {
                             Creditcard cc = Creditcard.get(Pagez.getUserSession().getUser().getChargemethodcreditcardid());
                             ccnum = cc.getCcnum();
                             String ccnumStr = String.valueOf(cc.getCcnum());
-                            String lastFour = ccnumStr.substring(ccnumStr.length()-4, ccnumStr.length());
+                            String lastFour = "";
+                            if (ccnumStr.length()>=4){
+                                lastFour = ccnumStr.substring(ccnumStr.length()-4, ccnumStr.length());
+                            }
                             ccnumfordisplayonscreen = "************" + lastFour;
                             cctype = cc.getCctype();
                             cvv2 = cc.getCvv2();
@@ -207,58 +210,99 @@ public class ResearcherSurveyDetail06 implements Serializable {
                 CurrentBalanceCalculator cbc = new CurrentBalanceCalculator(Pagez.getUserSession().getUser());
                 double currentbalance = cbc.getCurrentbalance();
 
-                //Only worry about the credit carc stuff if there's not enough in the account currently
-                if(currentbalance<(sms.getMaxPossibleSpend()*(ResearcherRemainingBalanceOperations.INCREMENTALPERCENTTOCHARGE/100))){
-                    //Save credit card info and set creditcardid for user charge method
-                    Creditcard cc = new Creditcard();
-                    if(userSession.getUser().getChargemethodcreditcardid()>0){
-                        cc = Creditcard.get(userSession.getUser().getChargemethodcreditcardid());
+                //See if there's enough in the account
+                boolean enoughinaccountnow = true;
+                if (currentbalance<(sms.getMaxPossibleSpend()*(ResearcherRemainingBalanceOperations.INCREMENTALPERCENTTOCHARGE/100))){
+                    enoughinaccountnow = false;
+                }
+                //Only worry about the credit card stuff if there's not enough in the account currently
+                boolean ccinfolooksok = true;
+                if(!enoughinaccountnow){
+                    //Validate
+                    if (firstname==null || firstname.equals("")){
+                        ccinfolooksok = false;
                     }
-                    cc.setCcexpmo(ccexpmo);
-                    cc.setCcexpyear(ccexpyear);
-                    cc.setCcnum(ccnum);
-                    cc.setCctype(cctype);
-                    cc.setCity(cccity);
-                    cc.setCvv2(cvv2);
-                    cc.setFirstname(firstname);
-                    cc.setIpaddress(Pagez.getRequest().getRemoteAddr());
-                    cc.setLastname(lastname);
-                    cc.setMerchantsessionid(Pagez.getRequest().getSession().getId());
-                    cc.setPostalcode(postalcode);
-                    cc.setState(ccstate);
-                    cc.setStreet(street);
-                    cc.setUserid(userSession.getUser().getUserid());
-                    try{
-                        cc.save();
-                    } catch (GeneralException gex){
-                        Pagez.getUserSession().setMessage("Error saving record: "+gex.getErrorsAsSingleString());
-                        logger.debug("saveAction failed: " + gex.getErrorsAsSingleString());
-                        return;
+                    if (ccnum==null || ccnum.equals("")){
+                        ccinfolooksok = false;
                     }
+                    if (cccity==null || cccity.equals("")){
+                        ccinfolooksok = false;
+                    }
+                    if (cvv2==null || cvv2.equals("")){
+                        ccinfolooksok = false;
+                    }
+                    if (lastname==null || lastname.equals("")){
+                        ccinfolooksok = false;
+                    }
+                    if (postalcode==null || postalcode.equals("")){
+                        ccinfolooksok = false;
+                    }
+                    if (ccstate==null || ccstate.equals("")){
+                        ccinfolooksok = false;
+                    }
+                    if (street==null || street.equals("")){
+                        ccinfolooksok = false;
+                    }
+                    if (!ccinfolooksok){
+                        throw new ValidationException("Credit Card information is not complete.");
+                    }
+                    //If the cc info looks ok on initial inspection
+                    if (!ccinfolooksok){
+                        //Save credit card info and set creditcardid for user charge method
+                        Creditcard cc = new Creditcard();
+                        if(userSession.getUser().getChargemethodcreditcardid()>0){
+                            cc = Creditcard.get(userSession.getUser().getChargemethodcreditcardid());
+                        }
+                        cc.setCcexpmo(ccexpmo);
+                        cc.setCcexpyear(ccexpyear);
+                        cc.setCcnum(ccnum);
+                        cc.setCctype(cctype);
+                        cc.setCity(cccity);
+                        cc.setCvv2(cvv2);
+                        cc.setFirstname(firstname);
+                        cc.setIpaddress(Pagez.getRequest().getRemoteAddr());
+                        cc.setLastname(lastname);
+                        cc.setMerchantsessionid(Pagez.getRequest().getSession().getId());
+                        cc.setPostalcode(postalcode);
+                        cc.setState(ccstate);
+                        cc.setStreet(street);
+                        cc.setUserid(userSession.getUser().getUserid());
+                        try{
+                            cc.save();
+                        } catch (GeneralException gex){
+                            Pagez.getUserSession().setMessage("Error saving record: "+gex.getErrorsAsSingleString());
+                            logger.debug("saveAction failed: " + gex.getErrorsAsSingleString());
+                            return;
+                        }
 
-                    User user = User.get(userSession.getUser().getUserid());
-                    user.setChargemethod(PaymentMethod.PAYMENTMETHODCREDITCARD);
-                    user.setChargemethodcreditcardid(cc.getCreditcardid());
+                        User user = User.get(userSession.getUser().getUserid());
+                        user.setChargemethod(PaymentMethod.PAYMENTMETHODCREDITCARD);
+                        user.setChargemethodcreditcardid(cc.getCreditcardid());
 
-                    try{
-                        //userSession.getUser().save();
-                        user.save();
-                    } catch (GeneralException gex){
-                        vex.addValidationError("Error saving record: "+gex.getErrorsAsSingleString());
-                        logger.debug("saveAction failed: " + gex.getErrorsAsSingleString());
-                        throw vex;
+                        try{
+                            user.save();
+                        } catch (GeneralException gex){
+                            vex.addValidationError("Error saving record: "+gex.getErrorsAsSingleString());
+                            logger.debug("saveAction failed: " + gex.getErrorsAsSingleString());
+                            throw vex;
+                        }
+                        userSession.setUser(user);
                     }
-                    userSession.setUser(user);
                 }
 
-                //Manage the status as it relates to the startdate
-                if (startdate.before(now)){
-                    survey.setStatus(Survey.STATUS_OPEN);
-                    survey.setStartdate(new Date());
+                //Manage the status
+                if (enoughinaccountnow){
+                    if (startdate.before(now)){
+                        survey.setStatus(Survey.STATUS_OPEN);
+                        survey.setStartdate(new Date());
+                    } else {
+                        survey.setStatus(Survey.STATUS_WAITINGFORSTARTDATE);
+                    }
                 } else {
-                    survey.setStatus(Survey.STATUS_WAITINGFORSTARTDATE);
+                    survey.setStatus(Survey.STATUS_WAITINGFORFUNDS);
                 }
 
+                //Save the survey
                 try{
                     logger.debug("saveSurvey() about to save survey.getSurveyid()=" + survey.getSurveyid());
                     survey.save();
@@ -301,10 +345,10 @@ public class ResearcherSurveyDetail06 implements Serializable {
 
     public TreeMap<String, String> getCreditcardtypes(){
         TreeMap<String, String> out = new TreeMap<String, String>();
-        out.put("Visa", String.valueOf(Creditcard.CREDITCARDTYPE_VISA));
-        out.put("Master Card", String.valueOf(Creditcard.CREDITCARDTYPE_MASTERCARD));
-        out.put("American Express", String.valueOf(Creditcard.CREDITCARDTYPE_AMEX));
-        out.put("Discover", String.valueOf(Creditcard.CREDITCARDTYPE_DISCOVER));
+        out.put(String.valueOf(Creditcard.CREDITCARDTYPE_VISA), "Visa");
+        out.put(String.valueOf(Creditcard.CREDITCARDTYPE_MASTERCARD), "Master Card");
+        out.put(String.valueOf(Creditcard.CREDITCARDTYPE_AMEX), "American Express");
+        out.put(String.valueOf(Creditcard.CREDITCARDTYPE_DISCOVER), "Discover");
         return out;
     }
 
@@ -327,7 +371,6 @@ public class ResearcherSurveyDetail06 implements Serializable {
 
     public TreeMap<String, String> getYearsForCreditcard(){
         TreeMap<String, String> out = new TreeMap<String, String>();
-        out.put("2007", "2007");
         out.put("2008", "2008");
         out.put("2009", "2009");
         out.put("2010", "2010");

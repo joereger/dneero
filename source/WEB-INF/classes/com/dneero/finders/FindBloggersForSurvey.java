@@ -13,8 +13,11 @@ import java.util.Calendar;
 import com.dneero.dao.*;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.util.Time;
+import com.dneero.util.Util;
+import com.dneero.util.DateDiff;
 import com.dneero.sir.SocialInfluenceRatingPercentile;
 import com.dneero.scheduledjobs.SystemStats;
+import com.dneero.constants.Dneerousagemethods;
 
 /**
  * User: Joe Reger Jr
@@ -55,6 +58,58 @@ public class FindBloggersForSurvey {
             }
         }
         logger.debug("bloggers.size() after panels=" + bloggers.size());
+        //Iterate all bloggers, removing some
+        for (Iterator iterator = bloggers.iterator(); iterator.hasNext();) {
+            Blogger blogger = (Blogger) iterator.next();
+            User user = User.get(blogger.getUserid());
+            //dneerousagemethod qualification
+            if (user.getFacebookuserid()>0){
+                //This is a facebook user
+                if(!Util.arrayContains(scXml.getDneerousagemethods(), Dneerousagemethods.FACEBOOKAPPUSERS)){
+                    iterator.remove();
+                    continue;
+                }
+            } else {
+                //This is a dNeero.com user
+                if(!Util.arrayContains(scXml.getDneerousagemethods(), Dneerousagemethods.DNEERODOTCOMUSERS)){
+                    iterator.remove();
+                    continue;
+                }
+            }
+            //Iterate all responses to collect some data for next few qualifications
+            Response mostrecentresponse = null;
+            int surveystaken = 0;
+            for (Iterator<Response> iterator1 = blogger.getResponses().iterator(); iterator1.hasNext();) {
+                Response response = iterator1.next();
+                //Fill most recent response
+                if (mostrecentresponse==null || mostrecentresponse.getResponsedate().before(response.getResponsedate())){
+                    mostrecentresponse = response;
+                }
+                //Count surveys taken
+                surveystaken = surveystaken + 1;
+            }
+            //Calculate dayssincelastsurvey
+            int dayssincelastsurvey = Integer.MAX_VALUE;
+            if (mostrecentresponse!=null){
+                dayssincelastsurvey = DateDiff.dateDiff("day", Calendar.getInstance(), Time.getCalFromDate(mostrecentresponse.getResponsedate()));
+                logger.debug("bloggerid="+blogger.getBloggerid()+" dayssincelastsurvey="+dayssincelastsurvey);
+            }
+            //DaysSinceLastSurvey
+            if (scXml.getDayssincelastsurvey()>0 && dayssincelastsurvey<scXml.getDayssincelastsurvey()){
+                iterator.remove();
+                continue;
+            }
+            //Total surveys taken of at least
+            if (scXml.getTotalsurveystakenatleast()>0 && surveystaken<scXml.getTotalsurveystakenatleast()){
+                iterator.remove();
+                continue;
+            }
+            //Total surveys taken of at most
+            if (surveystaken>scXml.getTotalsurveystakenatmost()){
+                iterator.remove();
+                continue;
+            }
+        }
     }
 
     public FindBloggersForSurvey(SurveyCriteriaXML scXml){

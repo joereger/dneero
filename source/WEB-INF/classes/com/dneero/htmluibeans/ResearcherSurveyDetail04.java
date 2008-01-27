@@ -38,6 +38,9 @@ public class ResearcherSurveyDetail04 implements Serializable {
     private int blogquality90days = 0;
     private int minsocialinfluencepercentile = 100;
     private int minsocialinfluencepercentile90days = 100;
+    private int dayssincelastsurvey = 0;
+    private int totalsurveystakenatleast = 0;
+    private int totalsurveystakenatmost = 100000;
     private String[] gender;
     private String[] ethnicity;
     private String[] maritalstatus;
@@ -48,6 +51,7 @@ public class ResearcherSurveyDetail04 implements Serializable {
     private String[] profession;
     private String[] blogfocus;
     private String[] politics;
+    private String[] dneerousagemethods;
 
     private String[] panels;
     private String panelsStr;
@@ -83,6 +87,9 @@ public class ResearcherSurveyDetail04 implements Serializable {
                 blogquality90days = surveyCriteriaXML.getBlogquality90days();
                 minsocialinfluencepercentile = surveyCriteriaXML.getMinsocialinfluencepercentile();
                 minsocialinfluencepercentile90days = surveyCriteriaXML.getMinsocialinfluencepercentile90days();
+                dayssincelastsurvey = surveyCriteriaXML.getDayssincelastsurvey();
+                totalsurveystakenatleast = surveyCriteriaXML.getTotalsurveystakenatleast();
+                totalsurveystakenatmost = surveyCriteriaXML.getTotalsurveystakenatmost();
                 gender = surveyCriteriaXML.getGender();
                 ethnicity = surveyCriteriaXML.getEthnicity();
                 maritalstatus = surveyCriteriaXML.getMaritalstatus();
@@ -92,6 +99,7 @@ public class ResearcherSurveyDetail04 implements Serializable {
                 city = surveyCriteriaXML.getCity();
                 profession = surveyCriteriaXML.getProfession();
                 politics = surveyCriteriaXML.getPolitics();
+                dneerousagemethods = surveyCriteriaXML.getDneerousagemethods();
                 blogfocus = surveyCriteriaXML.getBlogfocus();
                 //Load panels
                 List results = HibernateUtil.getSession().createQuery("from Surveypanel where surveyid='"+Pagez.getUserSession().getCurrentSurveyid()+"'").list();
@@ -139,6 +147,9 @@ public class ResearcherSurveyDetail04 implements Serializable {
                     surveyCriteriaXML.setBlogquality90days(blogquality90days);
                     surveyCriteriaXML.setMinsocialinfluencepercentile(minsocialinfluencepercentile);
                     surveyCriteriaXML.setMinsocialinfluencepercentile90days(minsocialinfluencepercentile90days);
+                    surveyCriteriaXML.setDayssincelastsurvey(dayssincelastsurvey);
+                    surveyCriteriaXML.setTotalsurveystakenatleast(totalsurveystakenatleast);
+                    surveyCriteriaXML.setTotalsurveystakenatmost(totalsurveystakenatmost);
                     surveyCriteriaXML.setGender(gender);
                     surveyCriteriaXML.setEthnicity(ethnicity);
                     surveyCriteriaXML.setMaritalstatus(maritalstatus);
@@ -149,6 +160,7 @@ public class ResearcherSurveyDetail04 implements Serializable {
                     surveyCriteriaXML.setProfession(profession);
                     surveyCriteriaXML.setBlogfocus(blogfocus);
                     surveyCriteriaXML.setPolitics(politics);
+                    surveyCriteriaXML.setDneerousagemethods(dneerousagemethods);
 
                     survey.setCriteriaxml(surveyCriteriaXML.getSurveyCriteriaAsString());
 
@@ -434,5 +446,37 @@ public class ResearcherSurveyDetail04 implements Serializable {
 
     public void setAccesscode(String accesscode) {
         this.accesscode=accesscode;
+    }
+
+    public int getDayssincelastsurvey() {
+        return dayssincelastsurvey;
+    }
+
+    public void setDayssincelastsurvey(int dayssincelastsurvey) {
+        this.dayssincelastsurvey = dayssincelastsurvey;
+    }
+
+    public int getTotalsurveystakenatleast() {
+        return totalsurveystakenatleast;
+    }
+
+    public void setTotalsurveystakenatleast(int totalsurveystakenatleast) {
+        this.totalsurveystakenatleast = totalsurveystakenatleast;
+    }
+
+    public int getTotalsurveystakenatmost() {
+        return totalsurveystakenatmost;
+    }
+
+    public void setTotalsurveystakenatmost(int totalsurveystakenatmost) {
+        this.totalsurveystakenatmost = totalsurveystakenatmost;
+    }
+
+    public String[] getDneerousagemethods() {
+        return dneerousagemethods;
+    }
+
+    public void setDneerousagemethods(String[] dneerousagemethods) {
+        this.dneerousagemethods = dneerousagemethods;
     }
 }

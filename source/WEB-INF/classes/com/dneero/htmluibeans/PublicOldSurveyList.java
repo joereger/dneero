@@ -39,10 +39,10 @@ public class PublicOldSurveyList implements Serializable {
 //        } else {
 
 
-            FindSurveysForBlogger fsfb = null;
-            if (Pagez.getUserSession().getIsloggedin() && Pagez.getUserSession().getUser()!=null && Pagez.getUserSession().getUser().getBloggerid()>0){
-                fsfb = new FindSurveysForBlogger(Blogger.get(Pagez.getUserSession().getUser().getBloggerid()));
-            }
+//            FindSurveysForBlogger fsfb = null;
+//            if (Pagez.getUserSession().getIsloggedin() && Pagez.getUserSession().getUser()!=null && Pagez.getUserSession().getUser().getBloggerid()>0){
+//                fsfb = new FindSurveysForBlogger(Blogger.get(Pagez.getUserSession().getUser().getBloggerid()));
+//            }
 
 
             surveys = new ArrayList<SurveyListItem>();

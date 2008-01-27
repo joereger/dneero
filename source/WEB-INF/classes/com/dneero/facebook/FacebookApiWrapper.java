@@ -124,12 +124,12 @@ public class FacebookApiWrapper {
 
                 TemplatizedAction action = new TemplatizedAction(titleTemplate.toString(), bodyTemplate.toString());
                 action.addTitleParam("earnings", earnings);
-                action.addTitleParam("forcharity", forcharity);
+                action.addTitleParam("forcharity", fbApiClean(forcharity));
                 action.addBodyParam("answerslink", answerslink);
-                action.addBodyParam("surveytitle", survey.getTitle());
+                action.addBodyParam("surveytitle", fbApiClean(survey.getTitle()));
                 action.addBodyParam("surveyid", String.valueOf(survey.getSurveyid()));
                 action.addBodyParam("userid", String.valueOf(userid));
-                action.addBodyParam("charitybody", charitybody);
+                action.addBodyParam("charitybody", fbApiClean(charitybody));
 
                 FacebookRestClient facebookRestClient = new FacebookRestClient(SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_KEY), SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_SECRET), facebookSessionKey);
                 facebookRestClient.feed_PublishTemplatizedAction(action);
@@ -137,7 +137,10 @@ public class FacebookApiWrapper {
         } else {logger.debug("Can't execute because issessionok = false");}
     }
 
-
+    private String fbApiClean(String in){
+        //For some reason FB doesn't allow "message" in a feed story
+        return in.replaceAll("message", "m3ssage");
+    }
 
     public void updateProfile(User user){
         Logger logger = Logger.getLogger(this.getClass().getName());

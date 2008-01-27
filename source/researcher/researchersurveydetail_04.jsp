@@ -40,8 +40,12 @@ ResearcherSurveyDetail04 researcherSurveyDetail04 = (ResearcherSurveyDetail04)Pa
             researcherSurveyDetail04.setIncome(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("income", "Incomes", false)));
             researcherSurveyDetail04.setMaritalstatus(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("maritalstatus", "Marital Statuses", false)));
             researcherSurveyDetail04.setMinsocialinfluencepercentile(Dropdown.getIntFromRequest("minsocialinfluencepercentile", "Min Social Influence", false));
+            researcherSurveyDetail04.setDayssincelastsurvey(Textbox.getIntFromRequest("dayssincelastsurvey", "Days Since Last Survey", true, DatatypeInteger.DATATYPEID));
+            researcherSurveyDetail04.setTotalsurveystakenatleast(Textbox.getIntFromRequest("totalsurveystakenatleast", "Total Surveys Taken of At Least", true, DatatypeInteger.DATATYPEID));
+            researcherSurveyDetail04.setTotalsurveystakenatmost(Textbox.getIntFromRequest("totalsurveystakenatmost", "Total Surveys Taken of At Most", true, DatatypeInteger.DATATYPEID));
             researcherSurveyDetail04.setPanels(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("panels", "Panels", false)));
             researcherSurveyDetail04.setPolitics(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("politics", "Politics", false)));
+            researcherSurveyDetail04.setDneerousagemethods(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("dneerousagemethods", "dNeero Usage Methods", false)));
             researcherSurveyDetail04.setProfession(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("professions", "Professions", false)));
             researcherSurveyDetail04.setState(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("states", "States", false)));
             researcherSurveyDetail04.setIsaccesscodeonly(CheckboxBoolean.getValueFromRequest("isaccesscodeonly"));
@@ -94,7 +98,7 @@ ResearcherSurveyDetail04 researcherSurveyDetail04 = (ResearcherSurveyDetail04)Pa
     <%}%>
 
     <%if (researcherSurveyDetail04.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {%>
-        <table cellpadding="0" cellspacing="0" border="0">
+        <table cellpadding="5" cellspacing="0" border="0">
 
 
             <tr>
@@ -118,6 +122,29 @@ ResearcherSurveyDetail04 researcherSurveyDetail04 = (ResearcherSurveyDetail04)Pa
                 </td>
             </tr>
 
+
+
+            <tr>
+                <td valign="top">
+                    <font class="formfieldnamefont">Number of Surveys Taken</font>
+                    <br/>
+                    <font class="smallfont">Reflects the experience level of the respondent.  Enter a minimum and maximum number of surveys that qualified respondents are allowed to have taken.</font>
+                </td>
+                <td valign="top">
+                    <%=Textbox.getHtml("totalsurveystakenatleast", String.valueOf(researcherSurveyDetail04.getTotalsurveystakenatleast()), 5, 4, "", "")%>
+                    -
+                    <%=Textbox.getHtml("totalsurveystakenatmost", String.valueOf(researcherSurveyDetail04.getTotalsurveystakenatmost()), 5, 4, "", "")%>
+                </td>
+
+                <td valign="top">
+                    <font class="formfieldnamefont">Days Since Taking Last Survey of At Least</font>
+                    <br/>
+                    <font class="smallfont">A qualifying respondent must have not taken another survey in at least this many days.</font>
+                </td>
+                <td valign="top">
+                    <%=Textbox.getHtml("dayssincelastsurvey", String.valueOf(researcherSurveyDetail04.getDayssincelastsurvey()), 5, 3, "", "")%>
+                </td>
+            </tr>
 
 
 
@@ -237,9 +264,12 @@ ResearcherSurveyDetail04 researcherSurveyDetail04 = (ResearcherSurveyDetail04)Pa
                 </td>
 
                 <td valign="top">
-                    <font class="formfieldnamefont"></font>
+                    <font class="formfieldnamefont">dNeero Usage Method</font>
+                    <br/>
+                    <font class="tinyfont">There are multiple ways that users can access dNeero social surveys.  This control allows you to target each access method individually.</font>
                 </td>
                 <td valign="top">
+                    <%=DropdownMultiselect.getHtml("dneerousagemethods", Util.stringArrayToArrayList(researcherSurveyDetail04.getDneerousagemethods()), Util.treeSetToTreeMap(Dneerousagemethods.get()), 3, "", "")%>
                 </td>
             </tr>
 

@@ -13,6 +13,38 @@ import java.io.Serializable;
  * Time: 1:00:05 PM
  */
 public class ResearcherSurveyDetail06BalancecheckThread implements Runnable, Serializable {
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //Note: not in use any more, uncomment this if it ever gets put back into service
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     private Researcher researcher;
     private static ThreadPool tp;
 
