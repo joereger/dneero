@@ -27,7 +27,10 @@ ResearcherSurveyDetail05 researcherSurveyDetail05 = (ResearcherSurveyDetail05)Pa
                 }
             }
             researcherSurveyDetail05.setIscharityonly(CheckboxBoolean.getValueFromRequest("ischarityonly"));
+            researcherSurveyDetail05.setCharityonlyallowcustom(CheckboxBoolean.getValueFromRequest("charityonlyallowcustom"));
             researcherSurveyDetail05.setIsresultshidden(CheckboxBoolean.getValueFromRequest("isresultshidden"));
+            researcherSurveyDetail05.setCharitycustom(Textbox.getValueFromRequest("charitycustom", "Charity Name", false, DatatypeString.DATATYPEID));
+            researcherSurveyDetail05.setCharitycustomurl(Textbox.getValueFromRequest("charitycustomurl", "Charity Url", false, DatatypeString.DATATYPEID));
             researcherSurveyDetail05.setMaxdisplaysperblog(Textbox.getIntFromRequest("maxdisplaysperblog", "Max Displays Per Blog", true, DatatypeInteger.DATATYPEID));
             researcherSurveyDetail05.setMaxdisplaystotal(Textbox.getIntFromRequest("maxdisplaystotal", "Max Displays Total", true, DatatypeInteger.DATATYPEID));
             researcherSurveyDetail05.setNumberofrespondentsrequested(Textbox.getIntFromRequest("numberofrespondentsrequested", "Number of RespondentsRequested", true, DatatypeInteger.DATATYPEID));
@@ -77,7 +80,7 @@ ResearcherSurveyDetail05 researcherSurveyDetail05 = (ResearcherSurveyDetail05)Pa
 
     <br/><br/>
 
-    <table cellpadding="0" cellspacing="0" border="0">
+    <table cellpadding="5" cellspacing="0" border="0">
 
         <tr>
             <td valign="top">
@@ -178,7 +181,7 @@ ResearcherSurveyDetail05 researcherSurveyDetail05 = (ResearcherSurveyDetail05)Pa
         <tr>
             <td valign="top">
                 <br/><br/>
-                <font class="mediumfont">Charity Only Option</font>
+                <font class="mediumfont">Charity Options</font>
             </td>
             <td valign="top">
             </td>
@@ -197,6 +200,45 @@ ResearcherSurveyDetail05 researcherSurveyDetail05 = (ResearcherSurveyDetail05)Pa
                     <font class="normalfont"><%=researcherSurveyDetail05.getIscharityonly()%></font>
                 <%}%>
                 <font class="formfieldnamefont">Yes, Only Charitable Bloggers</font>
+            </td>
+        </tr>
+
+        <tr>
+            <td valign="top">
+                <font class="formfieldnamefont">Add Your Own Custom Charity</font>
+                <br/>
+                <font class="smallfont">Add your own charity for bloggers to choose from.  You must provide a charity name and a URL where respondents can learn about the charity.  At that URL dNeero administrators must be able to easily find information that allows them to make donations to the charity.  If such information is not easily available dNeero will donate the funds to a charity of its choosing.</font>
+            </td>
+            <td valign="top">
+                <font class="smallfont">Charity Name:</font><br/>
+                <%if (researcherSurveyDetail05.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {%>
+                    <%=Textbox.getHtml("charitycustom", String.valueOf(researcherSurveyDetail05.getCharitycustom()), 255, 35, "", "")%>
+                <%} else {%>
+                    <font class="normalfont"><%=researcherSurveyDetail05.getCharitycustom()%></font>
+                <%}%>
+                <font class="smallfont">Charity URL:</font><br/>
+                <font class="tinyfont">(example: http://www.mycharity.com)</font><br/>
+                <%if (researcherSurveyDetail05.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {%>
+                    <%=Textbox.getHtml("charitycustomurl", String.valueOf(researcherSurveyDetail05.getCharitycustomurl()), 255, 35, "", "")%>
+                <%} else {%>
+                    <font class="normalfont"><%=researcherSurveyDetail05.getCharitycustomurl()%></font>
+                <%}%>
+            </td>
+        </tr>
+
+        <tr>
+            <td valign="top">
+                <font class="formfieldnamefont">Only list your custom charity?</font>
+                <br/>
+                <font class="smallfont">By checking this box dNeero will list your custom charity as the only option for bloggers to choose from.</font>
+            </td>
+            <td valign="top">
+                <%if (researcherSurveyDetail05.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {%>
+                    <%=CheckboxBoolean.getHtml("charityonlyallowcustom", researcherSurveyDetail05.getCharityonlyallowcustom(), "", "")%>
+                 <%} else {%>
+                    <font class="normalfont"><%=researcherSurveyDetail05.getCharityonlyallowcustom()%></font>
+                <%}%>
+                <font class="smallfont">Only Show My Custom Charity</font>
             </td>
         </tr>
 

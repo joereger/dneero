@@ -106,5 +106,14 @@
         <property name="accesscode" type="text">
             <column name="accesscode" not-null="true" />
         </property>
+        <property name="charitycustom" type="text">
+            <column name="charitycustom" not-null="true" />
+        </property>
+        <property name="charitycustomurl" type="text">
+            <column name="charitycustomurl" not-null="true" />
+        </property>
+        <property name="charityonlyallowcustom" type="boolean">
+            <column name="charityonlyallowcustom" />
+        </property>
     </class>
 </hibernate-mapping>

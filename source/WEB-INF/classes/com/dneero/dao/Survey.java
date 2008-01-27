@@ -52,6 +52,9 @@ public class Survey extends BasePersistentClass implements java.io.Serializable,
      private boolean isresultshidden = false;
      private boolean isaccesscodeonly= false;
      private String accesscode = "";
+     private String charitycustom = "";
+     private String charitycustomurl = "";
+     private boolean charityonlyallowcustom=false;
 
      private Set<Question> questions = new HashSet<Question>();
      private Set<Response> responses = new HashSet<Response>();
@@ -393,5 +396,29 @@ public class Survey extends BasePersistentClass implements java.io.Serializable,
 
     public void setAccesscode(String accesscode) {
         this.accesscode=accesscode;
+    }
+
+    public boolean getCharityonlyallowcustom() {
+        return charityonlyallowcustom;
+    }
+
+    public void setCharityonlyallowcustom(boolean charityonlyallowcustom) {
+        this.charityonlyallowcustom = charityonlyallowcustom;
+    }
+
+    public String getCharitycustom() {
+        return charitycustom;
+    }
+
+    public void setCharitycustom(String charitycustom) {
+        this.charitycustom = charitycustom;
+    }
+
+    public String getCharitycustomurl() {
+        return charitycustomurl;
+    }
+
+    public void setCharitycustomurl(String charitycustomurl) {
+        this.charitycustomurl = charitycustomurl;
     }
 }

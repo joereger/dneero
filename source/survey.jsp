@@ -4,6 +4,8 @@
 <%@ page import="java.util.Iterator" %>
 <%@ page import="com.dneero.htmluibeans.PublicSurveyFacebookFriendListitem" %>
 <%@ page import="com.dneero.htmlui.*" %>
+<%@ page import="com.dneero.util.Util" %>
+<%@ page import="com.dneero.util.Str" %>
 <%
 PublicSurvey publicSurvey = (PublicSurvey)Pagez.getBeanMgr().get("PublicSurvey");
 %>
@@ -179,12 +181,17 @@ String acl = "public";
                                             <% } %>
                                             <br/>
                                             <select name="<%=publicSurvey.getDNEERO_REQUEST_PARAM_IDENTIFIER()%>charity-charityname">
-                                                <option value="Habitat for Humanity">Habitat for Humanity</option>
-                                                <option value="Make-A-Wish Foundation">Make-A-Wish Foundation</option>
-                                                <option value="American Cancer Society">American Cancer Society</option>
-                                                <option value="PetSmart Charities">PetSmart Charities</option>
-                                                <option value="Wikimedia Foundation">Wikimedia Foundation</option>
-                                                <option value="The Conservation Fund">The Conservation Fund</option>
+                                                <% if (!publicSurvey.getSurvey().getCharityonlyallowcustom()){ %>
+                                                    <option value="Habitat for Humanity">Habitat for Humanity</option>
+                                                    <option value="Make-A-Wish Foundation">Make-A-Wish Foundation</option>
+                                                    <option value="American Cancer Society">American Cancer Society</option>
+                                                    <option value="PetSmart Charities">PetSmart Charities</option>
+                                                    <option value="Wikimedia Foundation">Wikimedia Foundation</option>
+                                                    <option value="The Conservation Fund">The Conservation Fund</option>
+                                                <%}%>
+                                                <% if (!publicSurvey.getSurvey().getCharitycustom().equals("")){ %>
+                                                    <option value="<%=Str.cleanForHtml(publicSurvey.getSurvey().getCharitycustom())%>"><%=publicSurvey.getSurvey().getCharitycustom()%></option>
+                                                <%}%>
                                             </select>
                                             <br/>
                                             <font class="tinyfont">
@@ -194,12 +201,17 @@ String acl = "public";
                                         <td valign="top" align="left">
                                             <font class="tinyfont">
                                             Learn about each of the charities:
-                                            <br/><a href="http://www.habitat.org/" target="charity">Habitat for Humanity</a>
-                                            <br/><a href="http://www.wish.org/" target="charity">Make-A-Wish Foundation</a>
-                                            <br/><a href="http://www.cancer.org/" target="charity">American Cancer Society</a>
-                                            <br/><a href="http://www.petsmartcharities.org/" target="charity">PetSmart Charities</a>
-                                            <br/><a href="http://en.wikipedia.org/wiki/Wikimedia_Foundation" target="charity">Wikimedia Foundation</a>
-                                            <br/><a href="http://www.conservationfund.org/" target="charity">The Conservation Fund</a>
+                                            <% if (!publicSurvey.getSurvey().getCharityonlyallowcustom()){ %>
+                                                <br/><a href="http://www.habitat.org/" target="charity">Habitat for Humanity</a>
+                                                <br/><a href="http://www.wish.org/" target="charity">Make-A-Wish Foundation</a>
+                                                <br/><a href="http://www.cancer.org/" target="charity">American Cancer Society</a>
+                                                <br/><a href="http://www.petsmartcharities.org/" target="charity">PetSmart Charities</a>
+                                                <br/><a href="http://en.wikipedia.org/wiki/Wikimedia_Foundation" target="charity">Wikimedia Foundation</a>
+                                                <br/><a href="http://www.conservationfund.org/" target="charity">The Conservation Fund</a>
+                                            <%}%>
+                                            <% if (!publicSurvey.getSurvey().getCharitycustom().equals("")){ %>
+                                                <br/><a href="<%=Str.cleanForHtml(publicSurvey.getSurvey().getCharitycustom())%>" target="charity"><%=publicSurvey.getSurvey().getCharitycustom()%></a>
+                                            <%}%>
                                             </font>
                                         </td>
                                     </tr>

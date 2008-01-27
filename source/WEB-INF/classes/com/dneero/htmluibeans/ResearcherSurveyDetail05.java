@@ -22,6 +22,7 @@ import com.dneero.htmlui.ValidationException;
  */
 public class ResearcherSurveyDetail05 implements Serializable {
 
+    private Survey survey;
     private String title;
 
     private double willingtopayperrespondent = 2.5;
@@ -32,7 +33,9 @@ public class ResearcherSurveyDetail05 implements Serializable {
     private int status;
     private boolean ischarityonly = false;
     private boolean isresultshidden = false;
-    private Survey survey;
+    private String charitycustom = "";
+    private String charitycustomurl = "";
+    private boolean charityonlyallowcustom=false;
 
     public ResearcherSurveyDetail05(){
 
@@ -60,6 +63,9 @@ public class ResearcherSurveyDetail05 implements Serializable {
                 status = survey.getStatus();
                 ischarityonly = survey.getIscharityonly();
                 isresultshidden = survey.getIsresultshidden();
+                charitycustom = survey.getCharitycustom();
+                charitycustomurl = survey.getCharitycustomurl();
+                charityonlyallowcustom = survey.getCharityonlyallowcustom();
             }
 
         }
@@ -103,6 +109,21 @@ public class ResearcherSurveyDetail05 implements Serializable {
                 if (maxdisplaysperblog<1000){
                     vex.addValidationError("Max Survey Displays Per Blog must be at least 1000.");
                 }
+                if (charityonlyallowcustom){
+                    if (charitycustom==null || charitycustom.equals("") || charitycustomurl==null || charitycustomurl.equals("")){
+                        vex.addValidationError("You've specified that respondents can only choose from your custom charity but that custom charity is not properly specified.");
+                    }
+                }
+                if (charitycustom!=null && !charitycustom.equals("")){
+                    if (charitycustomurl==null || charitycustomurl.equals("")){
+                        vex.addValidationError("You've specified a custom charity but no url where respondents can learn about it.");
+                    }
+                }
+                if (charitycustomurl!=null && !charitycustomurl.equals("")){
+                    if (charitycustom==null || charitycustom.equals("")){
+                        vex.addValidationError("You've specified a custom charity url but no charity name.");
+                    }
+                }
                 //Validation return
                 if (vex.getErrors()!=null && vex.getErrors().length>0){
                     throw vex;
@@ -117,6 +138,9 @@ public class ResearcherSurveyDetail05 implements Serializable {
                 survey.setMaxdisplaystotal(maxdisplaystotal);
                 survey.setIscharityonly(ischarityonly);
                 survey.setIsresultshidden(isresultshidden);
+                survey.setCharitycustom(charitycustom);
+                survey.setCharitycustomurl(charitycustomurl);
+                survey.setCharityonlyallowcustom(charityonlyallowcustom);
 
                 try{
                     logger.debug("saveSurvey() about to save survey.getSurveyid()=" + survey.getSurveyid());
@@ -216,5 +240,29 @@ public class ResearcherSurveyDetail05 implements Serializable {
 
     public void setSurvey(Survey survey) {
         this.survey=survey;
+    }
+
+    public String getCharitycustom() {
+        return charitycustom;
+    }
+
+    public void setCharitycustom(String charitycustom) {
+        this.charitycustom = charitycustom;
+    }
+
+    public String getCharitycustomurl() {
+        return charitycustomurl;
+    }
+
+    public void setCharitycustomurl(String charitycustomurl) {
+        this.charitycustomurl = charitycustomurl;
+    }
+
+    public boolean getCharityonlyallowcustom() {
+        return charityonlyallowcustom;
+    }
+
+    public void setCharityonlyallowcustom(boolean charityonlyallowcustom) {
+        this.charityonlyallowcustom = charityonlyallowcustom;
     }
 }
