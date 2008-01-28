@@ -210,7 +210,7 @@ String acl = "public";
                                                 <br/><a href="http://www.conservationfund.org/" target="charity">The Conservation Fund</a>
                                             <%}%>
                                             <% if (!publicSurvey.getSurvey().getCharitycustom().equals("")){ %>
-                                                <br/><a href="<%=Str.cleanForHtml(publicSurvey.getSurvey().getCharitycustom())%>" target="charity"><%=publicSurvey.getSurvey().getCharitycustom()%></a>
+                                                <br/><a href="<%=Str.cleanForHtml(publicSurvey.getSurvey().getCharitycustomurl())%>" target="charity"><%=publicSurvey.getSurvey().getCharitycustom()%></a>
                                             <%}%>
                                             </font>
                                         </td>

@@ -4,6 +4,7 @@
 <%@ page import="com.dneero.dbgrid.GridCol" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.dneero.dbgrid.Grid" %>
+<%@ page import="com.dneero.charity.CharityReport" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "<img src=\"/images/charity-128.png\" alt=\"\" border=\"0\" width=\"128\" height=\"128\" align=\"right\"/>Make (Real) Change<br/><font class=\"mediumfont\">Make great content and great contributions -- at the same time!</font>";
@@ -16,7 +17,7 @@ PublicCharity publicCharity = (PublicCharity) Pagez.getBeanMgr().get("PublicChar
 %>
 <%@ include file="/template/header.jsp" %>
 
-            <br/><br/><br/><br/>
+            <br/><br/><br/><br/><br/>
             <table cellpadding="10" cellspacing="3" border="0">
                 <tr>                                                                    
                     <td valign="top"  width="50%">
@@ -35,6 +36,21 @@ PublicCharity publicCharity = (PublicCharity) Pagez.getBeanMgr().get("PublicChar
                         <font class="mediumfont" style="color: #999999">Researchers and Marketers: Do Some Good</font>
                         <br/>
                         When you create a survey you can mark it as Charity Only which means that only bloggers who are willing to have their earnings donated to charity will be able to take it.
+                        <br/><br/><br/>
+                        <font class="mediumfont" style="color: #999999">Most Recent Donations</font>
+                        <br/>
+                        <%if (publicCharity.getTopdonatingUsers()==null || publicCharity.getTopdonatingUsers().size()==0){%>
+                            <font class="normalfont">There haven't yet been any charitable donations... yet.</font>
+                        <%} else {%>
+                            <%
+                                ArrayList<GridCol> cols=new ArrayList<GridCol>();
+                                cols.add(new GridCol("Donator", "<a href=\"/profile.jsp?userid=<$user.userid$>\"><$user.firstname$> <$user.lastname$></a>", false, "", "smallfont"));
+                                //cols.add(new GridCol("What was donated.", "<$charitydonation.description$>", false, "", "smallfont"));
+                                //cols.add(new GridCol("Amount", "<$amtForScreen$>", false, "", "smallfont"));
+                                cols.add(new GridCol("Donated To", "<$charitydonation.charityname$>", false, "", "smallfont"));
+                            %>
+                            <%=Grid.render(publicCharity.getPublicCharityListItemsMostRecent(), cols, 50, "/charity.jsp", "pagedonations")%>
+                        <%}%>
                     </td>
                     <td valign="top">
                         <center>
@@ -54,38 +70,33 @@ PublicCharity publicCharity = (PublicCharity) Pagez.getBeanMgr().get("PublicChar
                             <br/>
                             <font class="tinyfont" style="color: #999999">(Updated Nightly)</font>
                         </div>
-                        <br/><br/>
 
                         <br/><br/>
                         <div class="rounded" style="background: #e6e6e6; text-align: left; padding: 20px;">
                             <font class="mediumfont" style="color: #999999">Available Charities</font>
                             <br/>These are the charities that are currently available for you to choose from:
-                            <br/><a href="http://www.habitat.org/" target="charity">Habitat for Humanity</a>
+                            <blockquote><a href="http://www.habitat.org/" target="charity">Habitat for Humanity</a>
                             <br/><a href="http://www.wish.org/" target="charity">Make-A-Wish Foundation</a>
                             <br/><a href="http://www.cancer.org/" target="charity">American Cancer Society</a>
                             <br/><a href="http://www.petsmartcharities.org/" target="charity">PetSmart Charities</a>
                             <br/><a href="http://en.wikipedia.org/wiki/Wikimedia_Foundation" target="charity">Wikimedia Foundation</a>
                             <br/><a href="http://www.conservationfund.org/" target="charity">The Conservation Fund</a>
+                            </blockquote>
+                            And you can add your own favorite charity when you create a dNeero social survey!
                         </div>
+
+                        <br/><br/>
+                        <div class="rounded" style="background: #e6e6e6; text-align: left; padding: 20px;">
+                            <font class="mediumfont" style="color: #999999">Quarterly Progress Reports</font>
+                            <%=CharityReport.getFullreport()%>
+                        </div>
+                            
                         </center>
                     </td>
                 </tr>
                 <tr>
                     <td valign="top" colspan="2">
-                        <font class="mediumfont" style="color: #999999">Most Recent Donations</font>
-                        <br/>
-                        <%if (publicCharity.getTopdonatingUsers()==null || publicCharity.getTopdonatingUsers().size()==0){%>
-                            <font class="normalfont">There haven't yet been any charitable donations... yet.</font>
-                        <%} else {%>
-                            <%
-                                ArrayList<GridCol> cols=new ArrayList<GridCol>();
-                                cols.add(new GridCol("Donator", "<a href=\"/profile.jsp?userid=<$user.userid$>\"><$user.firstname$> <$user.lastname$></a>", false, "", "smallfont"));
-                                cols.add(new GridCol("What was donated.", "<$charitydonation.description$>", false, "", "smallfont"));
-                                cols.add(new GridCol("Amount", "<$amtForScreen$>", false, "", "smallfont"));
-                                cols.add(new GridCol("Donated To", "<$charitydonation.charityname$>", false, "", "smallfont"));
-                            %>
-                            <%=Grid.render(publicCharity.getPublicCharityListItemsMostRecent(), cols, 50, "/charity.jsp", "pagedonations")%>
-                        <%}%>
+
                     </td>
                 </tr>
 

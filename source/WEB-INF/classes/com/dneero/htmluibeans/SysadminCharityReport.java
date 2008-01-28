@@ -9,6 +9,7 @@ import com.dneero.htmlui.Pagez;
 import com.dneero.dao.Eula;
 import com.dneero.charity.CharityUtil;
 import com.dneero.charity.CharityCalculator;
+import com.dneero.charity.CharityReport;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -34,28 +35,7 @@ public class SysadminCharityReport implements Serializable {
 
 
     public void initBean(){
-        StringBuffer out = new StringBuffer();
-        ArrayList<String> charitynames = CharityUtil.getUniqueCharities();
-        out.append("<table cellpadding='5' cellspacing='0' border='0'>");
-        for(int yyyy=2007; yyyy<=2010; yyyy++){
-            for(int quarter=1; quarter<=4; quarter++){
-                out.append("<tr>");
-                out.append("<td colspan='2'><b>"+yyyy+" Q"+quarter+"</b></td>");
-                out.append("</tr>");
-                for (Iterator<String> iterator = charitynames.iterator(); iterator.hasNext();) {
-                    String charityname = iterator.next();
-                    double donations = CharityCalculator.getDonations(charityname, yyyy, quarter);
-                    if (donations>0){
-                        out.append("<tr>");
-                        out.append("<td>"+charityname+"</td>");
-                        out.append("<td>$"+Str.formatForMoney(donations)+"</td>");
-                        out.append("</tr>");
-                    }
-                }
-            }
-        }
-        out.append("</table>");
-        report = out.toString();
+        report = CharityReport.getFullreport();
     }
 
 

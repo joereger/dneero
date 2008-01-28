@@ -2,10 +2,9 @@ package com.dneero.charity;
 
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.util.Time;
+import com.dneero.util.Str;
 
-import java.util.Calendar;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * User: Joe Reger Jr
@@ -44,11 +43,13 @@ public class CharityUtil {
 
     public static ArrayList<String> getUniqueCharities(){
         ArrayList<String> out = new ArrayList<String>();
-        List charitynames = HibernateUtil.getSession().createQuery("select distinct charityname from Charitydonation").list();
+        List charitynames = HibernateUtil.getSession().createQuery("select distinct charityname from Charitydonation order by charityname asc").list();
         if (charitynames!=null){
             out = (ArrayList<String>)charitynames;
         }
         return out;
     }
+
+    
 
 }
