@@ -24,6 +24,7 @@ String acl = "researcher";
         <a href="/researcher/results_answers.jsp"style="padding-left: 15px;"><font class="subnavfont">Response Report</font></a>
         <a href="/researcher/results_impressions.jsp"style="padding-left: 15px;"><font class="subnavfont">Impressions</font></a>
         <a href="/researcher/results_respondents.jsp"style="padding-left: 15px;"><font class="subnavfont">Respondents</font></a>
+        <a href="/researcher/results_demographics.jsp"style="padding-left: 15px;"><font class="subnavfont">Demographics</font></a>
         <a href="/researcher/results_financial.jsp"style="padding-left: 15px;"><font class="subnavfont">Financial Status</font></a>
     </div>
 
@@ -88,6 +89,24 @@ String acl = "researcher";
                     <br/>
                     <font class="smallfont">Has Been Spent to Date</font>
                 </div>
+            </td>
+        </tr>
+        <tr>
+            <td width="50%" valign="top">
+                <div class="rounded" style="background: #88c99d; text-align: right; padding: 20px;">
+                    <font class="smallfont">Respondent Demographics</font>
+                    <br/>
+                    <a href="/researcher/results_demographics.jsp"><font class="normalfont">Demographics Report</font></a>
+                </div>
+            </td>
+            <td width="50%" valign="top">
+                <!--<div class="rounded" style="background: #00ff00; text-align: left; padding: 20px;">
+                    <font class="smallfont">Impressions on Blogs Qualifying for Payment</font>
+                    <br/>
+                    <font class="largefont"><%=researcherResults.getTotalsurveydisplays()%></font>
+                    <br/>
+                    <a href="/researcher/results_impressions.jsp"><font class="normalfont">View Impressions</font></a>
+                </div>-->
             </td>
         </tr>
         <tr>

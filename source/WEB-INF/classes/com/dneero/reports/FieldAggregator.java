@@ -9,13 +9,14 @@ import java.util.ArrayList;
 import java.util.TreeMap;
 import java.util.Iterator;
 import java.util.Calendar;
+import java.io.Serializable;
 
 /**
  * User: Joe Reger Jr
  * Date: Jan 28, 2008
  * Time: 2:10:47 PM
  */
-public class FieldAggregator {
+public class FieldAggregator implements Serializable {
 
     private ArrayList<Blogger> bloggers;
 
