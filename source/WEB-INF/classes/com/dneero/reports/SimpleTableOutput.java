@@ -18,31 +18,60 @@ public class SimpleTableOutput {
 
     public SimpleTableOutput(FieldAggregator fa){
         this.fa = fa;
-        process();
+        process("");
     }
 
-    private void process(){
+    public SimpleTableOutput(FieldAggregator fa, String onlyshow){
+        this.fa = fa;
+        process(onlyshow);
+    }
+
+    private void process(String onlyshow){
         StringBuffer out = new StringBuffer();
 
         out.append("<table cellpadding='3' cellspacing='0' border='0'>");
-
-        out.append(getHtmlForField(fa.getDneerousagemethods(), "dNeero Usage Method"));
-        out.append(getHtmlForField(fa.getGender(), "Gender"));
-        out.append(getHtmlForField(fa.getAge(), "Age"));
-        out.append(getHtmlForField(fa.getEducationlevel(), "Education Level"));
-        out.append(getHtmlForField(fa.getEthnicity(), "Ethnicity"));
-        out.append(getHtmlForField(fa.getIncome(), "Income"));
-        out.append(getHtmlForField(fa.getMaritalstatus(), "Marital Status"));
-        out.append(getHtmlForField(fa.getPolitics(), "Politics"));
-        out.append(getHtmlForField(fa.getBlogfocus(), "Blog Focus"));
-        out.append(getHtmlForField(fa.getProfession(), "Profession"));
-        out.append(getHtmlForField(fa.getCity(), "City"));
-        out.append(getHtmlForField(fa.getState(), "State"));
+        if (onlyshow.equals("")||onlyshow.equals("dneerousagemethod")){
+            out.append(getHtmlForField(fa.getDneerousagemethods(), "dNeero Usage Method"));
+        }
+        if (onlyshow.equals("")||onlyshow.equals("gender")){
+            out.append(getHtmlForField(fa.getGender(), "Gender"));
+        }
+        if (onlyshow.equals("")||onlyshow.equals("age")){
+            out.append(getHtmlForField(fa.getAge(), "Age"));
+        }
+        if (onlyshow.equals("")||onlyshow.equals("educationlevel")){
+            out.append(getHtmlForField(fa.getEducationlevel(), "Education Level"));
+        }
+        if (onlyshow.equals("")||onlyshow.equals("ethnicity")){
+            out.append(getHtmlForField(fa.getEthnicity(), "Ethnicity"));
+        }
+        if (onlyshow.equals("")||onlyshow.equals("income")){
+            out.append(getHtmlForField(fa.getIncome(), "Income"));
+        }
+        if (onlyshow.equals("")||onlyshow.equals("maritalstatus")){
+            out.append(getHtmlForField(fa.getMaritalstatus(), "Marital Status"));
+        }
+        if (onlyshow.equals("")||onlyshow.equals("politics")){
+            out.append(getHtmlForField(fa.getPolitics(), "Politics"));
+        }
+        if (onlyshow.equals("")||onlyshow.equals("blogfocus")){
+            out.append(getHtmlForField(fa.getBlogfocus(), "Blog Focus"));
+        }
+        if (onlyshow.equals("")||onlyshow.equals("profession")){
+            out.append(getHtmlForField(fa.getProfession(), "Profession"));
+        }
+        if (onlyshow.equals("")||onlyshow.equals("city")){
+            out.append(getHtmlForField(fa.getCity(), "City"));
+        }
+        if (onlyshow.equals("")||onlyshow.equals("state")){
+            out.append(getHtmlForField(fa.getState(), "State"));
+        }
 
         out.append("</table>");
 
         html = out.toString();
     }
+
 
     private String getHtmlForField(TreeMap<String, Integer> map, String fieldname){
         StringBuffer out = new StringBuffer();

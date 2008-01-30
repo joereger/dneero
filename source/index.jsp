@@ -3,6 +3,10 @@
 <%@ page import="com.dneero.htmluibeans.BloggerIndex" %>
 <%@ page import="com.dneero.htmluibeans.PublicIndex" %>
 <%@ page import="com.dneero.htmlui.*" %>
+<%@ page import="com.dneero.cachedstuff.RecentSurveyResponses" %>
+<%@ page import="com.dneero.cachedstuff.GetCachedStuff" %>
+<%@ page import="com.dneero.util.Time" %>
+<%@ page import="com.dneero.cachedstuff.*" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "";
@@ -42,66 +46,7 @@ PublicIndex publicIndex = (PublicIndex)Pagez.getBeanMgr().get("PublicIndex");
            </td>
        </tr>
 
-       <%if (publicIndex.getSpotlightsurveys()!=null && publicIndex.getSpotlightsurveys().get(0)!=null && publicIndex.getSpotlightsurveys().get(1)!=null && publicIndex.getSpotlightsurveys().get(2)!=null && publicIndex.getSpotlightsurveys().get(3)!=null){%>
-       <tr>
-           <td colspan="2" valign="top" align="center">
-                <br/><br/>
-                <table cellpadding="0" cellspacing="0" border="0" width="95%">
-                    <tr>
-                        <td valign="top" width="25%" style="padding: 0px 8px 0px 8px;">
-                            <font class="smallfont" style="color: #666666; font-weight: bold;">Survey Opportunity:</font><br/>
-                            <font class="mediumfont"><a href="/survey.jsp?surveyid=<%=publicIndex.getSpotlightsurveys().get(0).getSurveyid()%>" style="color: #0BAE17; font-weight: bold;"><%=publicIndex.getSpotlightsurveys().get(0).getTitle()%></a></font><br/>
-                        </td>
-                        <td valign="top" width="25%" style="padding: 0px 8px 0px 8px;">
-                            <font class="smallfont" style="color: #666666; font-weight: bold;">Survey Opportunity:</font><br/>
-                            <font class="mediumfont"><a href="/survey.jsp?surveyid=<%=publicIndex.getSpotlightsurveys().get(1).getSurveyid()%>" style="color: #0BAE17; font-weight: bold;"><%=publicIndex.getSpotlightsurveys().get(1).getTitle()%></a></font><br/>
-                        </td>
-                        <td valign="top" width="25%" style="padding: 0px 8px 0px 8px;">
-                            <font class="smallfont" style="color: #666666; font-weight: bold;">Survey Opportunity:</font><br/>
-                            <font class="mediumfont"><a href="/survey.jsp?surveyid=<%=publicIndex.getSpotlightsurveys().get(2).getSurveyid()%>" style="color: #0BAE17; font-weight: bold;"><%=publicIndex.getSpotlightsurveys().get(2).getTitle()%></a></font>
-                        </td>
-                        <td valign="top" width="25%" style="padding: 0px 8px 0px 8px;">
-                            <font class="smallfont" style="color: #666666; font-weight: bold;">Survey Opportunity:</font><br/>
-                            <font class="mediumfont"><a href="/survey.jsp?surveyid=<%=publicIndex.getSpotlightsurveys().get(3).getSurveyid()%>" style="color: #0BAE17; font-weight: bold;"><%=publicIndex.getSpotlightsurveys().get(3).getTitle()%></a></font><br/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td valign="top" width="25%" style="padding: 0px 8px 0px 8px;">
-                            <font class="tinyfont"><%=publicIndex.getSpotlightsurveyenhancers().get(0).getDescriptiontruncated()%>...</font><br/>
-                        </td>
-                        <td valign="top" width="25%" style="padding: 0px 8px 0px 8px;">
-                            <font class="tinyfont"><%=publicIndex.getSpotlightsurveyenhancers().get(1).getDescriptiontruncated()%>...</font><br/>
-                        </td>
-                        <td valign="top" width="25%" style="padding: 0px 8px 0px 8px;">
-                            <font class="tinyfont"><%=publicIndex.getSpotlightsurveyenhancers().get(2).getDescriptiontruncated()%>...</font><br/>
-                        </td>
-                        <td valign="top" width="25%" style="padding: 0px 8px 0px 8px;">
-                            <font class="tinyfont"><%=publicIndex.getSpotlightsurveyenhancers().get(3).getDescriptiontruncated()%>...</font><br/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td valign="top" width="25%" style="padding: 0px 8px 0px 8px;">
-                            <font class="mediumfont" style="color: #cccccc;">earn up to:</font><br/>
-                            <font class="largefont" style="color: #cccccc;"><%=publicIndex.getSpotlightsurveyenhancers().get(0).getMaxearning()%></font>
-                        </td>
-                        <td valign="top" width="25%" style="padding: 0px 8px 0px 8px;">
-                            <font class="mediumfont" style="color: #cccccc;">earn up to:</font><br/>
-                            <font class="largefont" style="color: #cccccc;"><%=publicIndex.getSpotlightsurveyenhancers().get(1).getMaxearning()%></font>
-                        </td>
-                        <td valign="top" width="25%" style="padding: 0px 8px 0px 8px;">
-                            <font class="mediumfont" style="color: #cccccc;">earn up to:</font><br/>
-                            <font class="largefont" style="color: #cccccc;"><%=publicIndex.getSpotlightsurveyenhancers().get(2).getMaxearning()%></font>
-                        </td>
-                        <td valign="top" width="25%" style="padding: 0px 8px 0px 8px;">
-                            <font class="mediumfont" style="color: #cccccc;">earn up to:</font><br/>
-                            <font class="largefont" style="color: #cccccc;"><%=publicIndex.getSpotlightsurveyenhancers().get(3).getMaxearning()%></font>
-                        </td>
-                    </tr>
-                </table>
-                <br/>
-           </td>
-       </tr>
-       <%}%>
+
 
        <tr>
            <td valign="middle" align="center">
@@ -124,6 +69,92 @@ PublicIndex publicIndex = (PublicIndex)Pagez.getBeanMgr().get("PublicIndex");
 
 
     </table>
+
+<br clear="all"/>
+
+<%//---------------%>
+<br/><br/>
+<%
+    ActiveSurveys as = (ActiveSurveys) GetCachedStuff.get(new ActiveSurveys());
+%>
+Active Surveys:
+<br/>
+<%=as.getHtml()%>
+
+
+<%//---------------%>
+<br/><br/>
+<%
+    DonationsToCharityMiniReport dtcmr = (DonationsToCharityMiniReport) GetCachedStuff.get(new DonationsToCharityMiniReport());
+%>
+DonationsToCharityMiniReport:
+<br/>
+<%=dtcmr.getHtml()%>
+
+
+<%//---------------%>
+<br/><br/>
+<%
+    MostActiveImpressionLocations mail = (MostActiveImpressionLocations) GetCachedStuff.get(new MostActiveImpressionLocations());
+%>
+MostActiveImpressionLocations:
+<br/>
+<%=mail.getHtml()%>
+
+<%//---------------%>
+<br/><br/>
+<%
+    MostActiveUsersByTotalSurveysTaken maubtst = (MostActiveUsersByTotalSurveysTaken) GetCachedStuff.get(new MostActiveUsersByTotalSurveysTaken());
+%>
+MostActiveUsersByTotalSurveysTaken:
+<br/>
+<%=maubtst.getHtml()%>
+
+<%//---------------%>
+<br/><br/>
+<%
+    MostRecentPaidInBalance mrpib = (MostRecentPaidInBalance) GetCachedStuff.get(new MostRecentPaidInBalance());
+%>
+MostRecentPaidInBalance:
+<br/>
+<%=mrpib.getHtml()%>
+
+<%//---------------%>
+<br/><br/>
+<%
+    NewestUsers nu = (NewestUsers) GetCachedStuff.get(new NewestUsers());
+%>
+NewestUsers:
+<br/>
+<%=nu.getHtml()%>
+
+<%//---------------%>
+<br/><br/>
+<%
+    RecentSurveyResponses rsr = (RecentSurveyResponses) GetCachedStuff.get(new RecentSurveyResponses());
+%>
+Recent Survey Responses:
+<br/>
+<%=rsr.getHtml()%>
+
+<%//---------------%>
+<br/><br/>
+<%
+    TotalImpressions ti = (TotalImpressions) GetCachedStuff.get(new TotalImpressions());
+%>
+TotalImpressions:
+<br/>
+<%=ti.getHtml()%>
+
+<%//---------------%>
+<br/><br/>
+<%
+    TotalSurveysTaken tst = (TotalSurveysTaken) GetCachedStuff.get(new TotalSurveysTaken());
+%>
+TotalSurveysTaken:
+<br/>
+<%=tst.getHtml()%>
+
 
 
 

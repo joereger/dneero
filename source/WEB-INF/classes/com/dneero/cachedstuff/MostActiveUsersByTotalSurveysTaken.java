@@ -1,0 +1,94 @@
+package com.dneero.cachedstuff;
+
+import com.dneero.dao.User;
+import com.dneero.dao.Blogger;
+import com.dneero.dao.hibernate.HibernateUtil;
+
+import java.io.Serializable;
+import java.util.*;
+
+import org.hibernate.criterion.Restrictions;
+import org.hibernate.criterion.Order;
+import org.hibernate.Query;
+
+/**
+ * User: Joe Reger Jr
+ * Date: Jan 29, 2008
+ * Time: 2:03:07 PM
+ */
+public class MostActiveUsersByTotalSurveysTaken implements CachedStuff, Serializable {
+
+    private Calendar refreshedTimestamp;
+    private String html;
+
+    public String getKey() {
+        return "MostActiveUsersByTotalSurveysTaken";
+    }
+
+    public void refresh() {
+        StringBuffer out = new StringBuffer();
+
+        //Put userid, surveystaken into a treemap
+        TreeMap tm = new TreeMap();
+        int numberadded = 0;
+        List objectlist = HibernateUtil.getSession().createQuery("select bloggerid, sum(1) from Response group by bloggerid").setMaxResults(100).list();
+        for (Iterator iterator = objectlist.iterator(); iterator.hasNext();) {
+            Object[] row = (Object[]) iterator.next();
+            Blogger blogger = Blogger.get((Integer)row[0]);
+            User user = User.get(blogger.getUserid());
+            if (numberadded<=25 && user!=null && user.getIsenabled()){
+                long surveystaken = (Long)row[1];
+                numberadded = numberadded + 1;
+                //Put into the TreeMap
+                tm.put(user.getUserid(), surveystaken);
+            }
+        }
+
+        //Create a sorting TreeSet and add everything from the TreeMap to it
+        TreeSet set = new TreeSet(new Comparator() {
+            public int compare(Object obj, Object obj1) {
+                return ((Comparable) ((Map.Entry) obj1).getValue()).compareTo(((Map.Entry) obj).getValue());
+            }
+        });
+        set.addAll(tm.entrySet());
+
+        //Output the TreeSet as html
+        out.append("<table cellpadding='3' cellspacing='0' border='0'>");
+        for (Iterator i = set.iterator(); i.hasNext();) {
+            Map.Entry entry = (Map.Entry) i.next();
+            int userid = (Integer)entry.getKey();
+            long surveystaken = (Long)entry.getValue();
+            User user = User.get(userid);
+            out.append("<tr>");
+            out.append("<td>");
+            out.append("<a href='/profile.jsp?userid="+user.getUserid()+"'>");
+            out.append("<font class='tinyfont'>");
+            out.append(user.getFirstname()+" "+user.getLastname());
+            out.append("</font>");
+            out.append("</a>");
+            out.append("</td>");
+            out.append("<td>");
+            out.append("<font class='tinyfont'>");
+            out.append(surveystaken + " surveys");
+            out.append("</font>");
+            out.append("</td>");
+            out.append("</tr>");
+        }
+        out.append("</table>");
+
+        html = out.toString();
+        refreshedTimestamp = Calendar.getInstance();
+    }
+
+    public Calendar refreshedTimestamp() {
+        return refreshedTimestamp;
+    }
+
+    public int maxAgeInMinutes() {
+        return 5;
+    }
+
+    public String getHtml() {
+        return html;
+    }
+}

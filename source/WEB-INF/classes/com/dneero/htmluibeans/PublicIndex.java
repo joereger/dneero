@@ -2,11 +2,15 @@ package com.dneero.htmluibeans;
 
 import com.dneero.twitter.TwitterUpdate;
 import com.dneero.util.Time;
+import com.dneero.util.DateDiff;
 import com.dneero.ui.SurveyEnhancer;
 import com.dneero.dao.Survey;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.htmlui.ValidationException;
 import com.dneero.htmlui.Pagez;
+import com.dneero.cache.providers.CacheFactory;
+import com.dneero.cachedstuff.RecentSurveyResponses;
+import com.dneero.cachedstuff.GetCachedStuff;
 
 import java.io.Serializable;
 import java.util.*;
@@ -21,8 +25,6 @@ import org.hibernate.criterion.Restrictions;
  */
 public class PublicIndex implements Serializable {
 
-    private Map<String, Survey> spotlightsurveys;
-    private Map<String, SurveyEnhancer> spotlightsurveyenhancers;
 
     public PublicIndex(){
 
@@ -31,18 +33,11 @@ public class PublicIndex implements Serializable {
 
 
     public void initBean(){
-        spotlightsurveys = new HashMap<String, Survey>();
-        int[] spotlightsurveyids = com.dneero.scheduledjobs.SystemStats.getSpotlightsurveys();
-        for (int i = 0; i < spotlightsurveyids.length; i++) {
-            int surveyid = spotlightsurveyids[i];
-            if (surveyid>0){
-                Survey survey = Survey.get(surveyid);
-                spotlightsurveys.put(String.valueOf(i), survey);
-            } else {
-                spotlightsurveys.put(String.valueOf(i), new Survey());
-            }
-        }
-        spotlightsurveyenhancers = com.dneero.scheduledjobs.SystemStats.getSpotlightsurveyenhancers();
+
+
+        
+
+
     }
 
     public void enterAccessCode() throws ValidationException {
@@ -64,20 +59,23 @@ public class PublicIndex implements Serializable {
         }
     }
 
-
-    public Map<String, Survey> getSpotlightsurveys() {
-        return spotlightsurveys;
+    public void refreshSpotlightSurveys(){
+        Map<String, Survey> spotlightsurveys;
+        Map<String, SurveyEnhancer> spotlightsurveyenhancers;
+        spotlightsurveys = new HashMap<String, Survey>();
+        int[] spotlightsurveyids = com.dneero.scheduledjobs.SystemStats.getSpotlightsurveys();
+        for (int i = 0; i < spotlightsurveyids.length; i++) {
+            int surveyid = spotlightsurveyids[i];
+            if (surveyid>0){
+                Survey survey = Survey.get(surveyid);
+                spotlightsurveys.put(String.valueOf(i), survey);
+            } else {
+                spotlightsurveys.put(String.valueOf(i), new Survey());
+            }
+        }
+        spotlightsurveyenhancers = com.dneero.scheduledjobs.SystemStats.getSpotlightsurveyenhancers();
     }
 
-    public void setSpotlightsurveys(Map<String, Survey> spotlightsurveys) {
-        this.spotlightsurveys = spotlightsurveys;
-    }
 
-    public Map<String, SurveyEnhancer> getSpotlightsurveyenhancers() {
-        return spotlightsurveyenhancers;
-    }
 
-    public void setSpotlightsurveyenhancers(Map<String, SurveyEnhancer> spotlightsurveyenhancers) {
-        this.spotlightsurveyenhancers = spotlightsurveyenhancers;
-    }
 }
