@@ -80,9 +80,9 @@ public class CharityReport {
                 fullreportSb.append("<tr>");
                 fullreportSb.append("<td colspan='2'><b>Totals</b></td>");
                 fullreportSb.append("</tr>");
-                totalsreportSb.append("<tr>");
-                totalsreportSb.append("<td colspan='2'><b>Totals</b></td>");
-                totalsreportSb.append("</tr>");
+//                totalsreportSb.append("<tr>");
+//                totalsreportSb.append("<td colspan='2'><b>Totals</b></td>");
+//                totalsreportSb.append("</tr>");
                 Iterator keyValuePairs = donationTotalsByCharity.entrySet().iterator();
                 for (int i = 0; i < donationTotalsByCharity.size(); i++){
                     Map.Entry mapentry = (Map.Entry) keyValuePairs.next();

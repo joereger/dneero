@@ -1,30 +1,36 @@
 package com.dneero.cachedstuff;
 
-import com.dneero.dao.hibernate.NumFromUniqueResult;
+import com.dneero.htmluibeans.SurveyListItem;
+import com.dneero.dao.hibernate.HibernateUtil;
+import com.dneero.dao.Survey;
+import com.dneero.util.DateDiff;
+import com.dneero.util.Time;
+import com.dneero.util.Str;
 
 import java.io.Serializable;
 import java.util.Calendar;
-import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Iterator;
 
 /**
  * User: Joe Reger Jr
  * Date: Jan 29, 2008
  * Time: 2:03:07 PM
  */
-public class TotalImpressions implements CachedStuff, Serializable {
+public class EmptyStuff implements CachedStuff, Serializable {
 
     private Calendar refreshedTimestamp;
     private String html;
 
     public String getKey() {
-        return "TotalImpressions";
+        return "EmptyStuff";
     }
 
     public void refresh() {
-        int totalimpressions = NumFromUniqueResult.getInt("select sum(impressionstotal) from Impression");
-        DecimalFormat formatter = new DecimalFormat();
-        formatter.applyPattern("###,###,###,###");
-        html = formatter.format(Double.parseDouble(String.valueOf(totalimpressions)));
+        StringBuffer out = new StringBuffer();
+
+        html = out.toString();
         refreshedTimestamp = Calendar.getInstance();
     }
 

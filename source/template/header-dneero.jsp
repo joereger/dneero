@@ -172,8 +172,10 @@
     <table width="775" cellspacing="0" border="0" cellpadding="20">
         <tr>
             <td valign="top">
-                <font class="pagetitlefont"><%=pagetitle%></font>
-                <br/>
+                <%if (pagetitle!=null && !pagetitle.equals("")){%>
+                    <font class="pagetitlefont"><%=pagetitle%></font>
+                    <br/>
+                <%}%>
                 <%
                 logger.debug("Pagez.getUserSession().getMessage()="+Pagez.getUserSession().getMessage());
                 if (Pagez.getUserSession().getMessage()!=null && !Pagez.getUserSession().getMessage().equals("")){

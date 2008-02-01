@@ -30,7 +30,7 @@ public class ActiveSurveys implements CachedStuff, Serializable {
     public void refresh() {
         StringBuffer out = new StringBuffer();
 
-        out.append("<table cellpadding='3' cellspacing='0' border='0'>");
+        out.append("<table cellpadding='3' cellspacing='0' border='0' width='100%'>");
         ArrayList<SurveyListItem> surveys = new ArrayList<SurveyListItem>();
         List results = HibernateUtil.getSession().createQuery("from Survey where status='"+ Survey.STATUS_OPEN+"' order by surveyid desc").list();
         for (Iterator iterator = results.iterator(); iterator.hasNext();) {
@@ -56,14 +56,14 @@ public class ActiveSurveys implements CachedStuff, Serializable {
             out.append("</font>");
             out.append("</a>");
             out.append("</td>");
-            out.append("<td>");
+            out.append("<td width='100'>");
             out.append("<font class='tinyfont'>");
             out.append(daysleftStr);
             out.append("</font>");
             out.append("</td>");
-            out.append("<td>");
+            out.append("<td width='100'>");
             out.append("<font class='tinyfont'>");
-            out.append("$"+Str.formatForMoney(maxearningNum));
+            out.append("Earn Up To $"+Str.formatForMoney(maxearningNum));
             out.append("</font>");
             out.append("</td>");
             out.append("</tr>");

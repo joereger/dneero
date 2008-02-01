@@ -53,7 +53,7 @@ public class MostActiveUsersByTotalSurveysTaken implements CachedStuff, Serializ
         set.addAll(tm.entrySet());
 
         //Output the TreeSet as html
-        out.append("<table cellpadding='3' cellspacing='0' border='0'>");
+        out.append("<table cellpadding='3' cellspacing='0' border='0' width='100%'>");
         for (Iterator i = set.iterator(); i.hasNext();) {
             Map.Entry entry = (Map.Entry) i.next();
             int userid = (Integer)entry.getKey();
@@ -67,7 +67,7 @@ public class MostActiveUsersByTotalSurveysTaken implements CachedStuff, Serializ
             out.append("</font>");
             out.append("</a>");
             out.append("</td>");
-            out.append("<td>");
+            out.append("<td width='35%'>");
             out.append("<font class='tinyfont'>");
             out.append(surveystaken + " surveys");
             out.append("</font>");

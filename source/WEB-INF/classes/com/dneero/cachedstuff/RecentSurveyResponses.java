@@ -5,6 +5,7 @@ import com.dneero.dao.Response;
 import com.dneero.dao.User;
 import com.dneero.dao.Blogger;
 import com.dneero.dao.Survey;
+import com.dneero.util.Time;
 
 import java.util.Calendar;
 import java.util.List;
@@ -42,20 +43,19 @@ public class RecentSurveyResponses implements CachedStuff, Serializable {
             Blogger blogger = Blogger.get(response.getBloggerid());
             User user = User.get(blogger.getUserid());
             Survey survey = Survey.get(response.getSurveyid());
+            String ago = Time.agoText(Time.getCalFromDate(response.getResponsedate()));
             out.append("<tr>");
             out.append("<td>");
+            out.append("<font class='tinyfont'>");
             out.append("<a href='/profile.jsp?userid="+user.getUserid()+"'>");
-            out.append("<font class='tinyfont'>");
             out.append(user.getFirstname()+" "+user.getLastname());
-            out.append("</font>");
             out.append("</a>");
-            out.append("</td>");
-            out.append("<td>");
-            out.append("<a href='/survey.jsp?surveyid="+survey.getSurveyid()+"'>");
-            out.append("<font class='tinyfont'>");
+            out.append(" responded to ");
+            out.append("<a href='/survey.jsp?surveyid="+survey.getSurveyid()+"&userid="+user.getUserid()+"'>");
             out.append(survey.getTitle());
-            out.append("</font>");
             out.append("</a>");
+            out.append(" "+ago);
+            out.append("</font>");
             out.append("</td>");
             out.append("</tr>");
         }

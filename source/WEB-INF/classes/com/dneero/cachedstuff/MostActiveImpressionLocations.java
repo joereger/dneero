@@ -35,6 +35,8 @@ public class MostActiveImpressionLocations implements CachedStuff, Serializable 
         out.append("<table cellpadding='3' cellspacing='0' border='0'>");
         List<Impression> impressions = HibernateUtil.getSession().createCriteria(Impression.class)
                                            .add(Restrictions.gt("impressionstotal", 25))
+                                           .add(Restrictions.ne("referer", "Facebook"))
+                                           .add(Restrictions.ne("referer", ""))
                                            .addOrder(Order.desc("impressionid"))
                                            .setCacheable(true)
                                            .setMaxResults(200)

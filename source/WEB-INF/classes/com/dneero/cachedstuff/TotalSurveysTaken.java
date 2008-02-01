@@ -4,6 +4,7 @@ import com.dneero.dao.hibernate.NumFromUniqueResult;
 
 import java.io.Serializable;
 import java.util.Calendar;
+import java.text.DecimalFormat;
 
 /**
  * User: Joe Reger Jr
@@ -21,7 +22,9 @@ public class TotalSurveysTaken implements CachedStuff, Serializable {
 
     public void refresh() {
         int totalsurveystaken = NumFromUniqueResult.getInt("select count(*) from Response");
-        html = String.valueOf(totalsurveystaken);
+        DecimalFormat formatter = new DecimalFormat();
+        formatter.applyPattern("###,###,###,###");
+        html = formatter.format(Double.parseDouble(String.valueOf(totalsurveystaken)));
         refreshedTimestamp = Calendar.getInstance();
     }
 

@@ -6,6 +6,8 @@ import com.dneero.util.DateDiff;
 
 import java.util.Calendar;
 
+import org.apache.log4j.Logger;
+
 /**
  * User: Joe Reger Jr
  * Date: Jan 29, 2008
@@ -14,25 +16,30 @@ import java.util.Calendar;
 public class GetCachedStuff {
 
     public static CachedStuff get(CachedStuff cs){
+        Logger logger = Logger.getLogger(CachedStuff.class);
         String key = cs.getKey();
         String group = "CachedStuff";
-
-        Object obj = CacheFactory.getCacheProvider().get(key, group);
-        if (obj!=null && (obj instanceof CachedStuff)){
-            CachedStuff cachedCs = (CachedStuff)obj;
-            int minago = DateDiff.dateDiff("minute", Calendar.getInstance(), cachedCs.refreshedTimestamp());
-            if (minago>cs.maxAgeInMinutes()){
+        try{
+            Object obj = CacheFactory.getCacheProvider().get(key, group);
+            if (obj!=null && (obj instanceof CachedStuff)){
+                CachedStuff cachedCs = (CachedStuff)obj;
+                int minago = DateDiff.dateDiff("minute", Calendar.getInstance(), cachedCs.refreshedTimestamp());
+                if (minago>cs.maxAgeInMinutes()){
+                    cs.refresh();
+                    CacheFactory.getCacheProvider().put(key, group, cs);
+                    return cs;
+                } else {
+                    return cachedCs;
+                }
+            } else {
                 cs.refresh();
                 CacheFactory.getCacheProvider().put(key, group, cs);
                 return cs;
-            } else {
-                return cachedCs;
             }
-        } else {
-            cs.refresh();
-            CacheFactory.getCacheProvider().put(key, group, cs);
-            return cs;
+        } catch (Exception ex){
+            logger.error("", ex);
         }
+        return cs;
     }
 
 }
