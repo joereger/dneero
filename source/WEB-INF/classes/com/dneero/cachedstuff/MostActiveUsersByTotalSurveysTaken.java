@@ -30,17 +30,14 @@ public class MostActiveUsersByTotalSurveysTaken implements CachedStuff, Serializ
 
         //Put userid, surveystaken into a treemap
         TreeMap tm = new TreeMap();
-        int numberadded = 0;
-        List objectlist = HibernateUtil.getSession().createQuery("select bloggerid, sum(1) from Response group by bloggerid").setMaxResults(100).list();
+        List objectlist = HibernateUtil.getSession().createQuery("select bloggerid, sum(1) from Response group by bloggerid").list();
         for (Iterator iterator = objectlist.iterator(); iterator.hasNext();) {
             Object[] row = (Object[]) iterator.next();
             Blogger blogger = Blogger.get((Integer)row[0]);
-            User user = User.get(blogger.getUserid());
-            if (numberadded<=25 && user!=null && user.getIsenabled()){
-                long surveystaken = (Long)row[1];
-                numberadded = numberadded + 1;
-                //Put into the TreeMap
-                tm.put(user.getUserid(), surveystaken);
+            long surveystaken = (Long)row[1];
+            //Put into the TreeMap
+            if (surveystaken>=25){
+                tm.put(blogger.getBloggerid(), surveystaken);
             }
         }
 
@@ -53,26 +50,33 @@ public class MostActiveUsersByTotalSurveysTaken implements CachedStuff, Serializ
         set.addAll(tm.entrySet());
 
         //Output the TreeSet as html
+        int numberadded = 0;
         out.append("<table cellpadding='3' cellspacing='0' border='0' width='100%'>");
         for (Iterator i = set.iterator(); i.hasNext();) {
             Map.Entry entry = (Map.Entry) i.next();
-            int userid = (Integer)entry.getKey();
+            int bloggerid = (Integer)entry.getKey();
             long surveystaken = (Long)entry.getValue();
-            User user = User.get(userid);
-            out.append("<tr>");
-            out.append("<td>");
-            out.append("<a href='/profile.jsp?userid="+user.getUserid()+"'>");
-            out.append("<font class='tinyfont'>");
-            out.append(user.getFirstname()+" "+user.getLastname());
-            out.append("</font>");
-            out.append("</a>");
-            out.append("</td>");
-            out.append("<td width='35%'>");
-            out.append("<font class='tinyfont'>");
-            out.append(surveystaken + " surveys");
-            out.append("</font>");
-            out.append("</td>");
-            out.append("</tr>");
+            if (numberadded<=20){
+                Blogger blogger = Blogger.get(bloggerid);
+                User user = User.get(blogger.getUserid());
+                if (user!=null && user.getIsenabled()){
+                    numberadded = numberadded + 1;
+                    out.append("<tr>");
+                    out.append("<td>");
+                    out.append("<a href='/profile.jsp?userid="+user.getUserid()+"'>");
+                    out.append("<font class='tinyfont'>");
+                    out.append(user.getFirstname()+" "+user.getLastname());
+                    out.append("</font>");
+                    out.append("</a>");
+                    out.append("</td>");
+                    out.append("<td width='35%'>");
+                    out.append("<font class='tinyfont'>");
+                    out.append(surveystaken + " surveys");
+                    out.append("</font>");
+                    out.append("</td>");
+                    out.append("</tr>");
+                }
+            }
         }
         out.append("</table>");
 
@@ -85,7 +89,7 @@ public class MostActiveUsersByTotalSurveysTaken implements CachedStuff, Serializ
     }
 
     public int maxAgeInMinutes() {
-        return 5;
+        return 500;
     }
 
     public String getHtml() {

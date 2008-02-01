@@ -41,7 +41,9 @@ public class MostRecentPaidInBalance implements CachedStuff, Serializable {
         for (Iterator<Balance> iterator = balances.iterator(); iterator.hasNext();) {
             Balance balance = iterator.next();
             User user = User.get(balance.getUserid());
-            String ago = Time.agoText(Time.getCalFromDate(balance.getDate()));
+            Calendar cal = Time.getCalFromDate(balance.getDate());
+            cal = Time.convertFromOneTimeZoneToAnother(cal, cal.getTimeZone().getID(), "GMT");
+            String ago = Time.agoText(cal);
             out.append("<tr>");
             out.append("<td>");
             out.append("<font class='tinyfont'>");

@@ -43,7 +43,9 @@ public class RecentSurveyResponses implements CachedStuff, Serializable {
             Blogger blogger = Blogger.get(response.getBloggerid());
             User user = User.get(blogger.getUserid());
             Survey survey = Survey.get(response.getSurveyid());
-            String ago = Time.agoText(Time.getCalFromDate(response.getResponsedate()));
+            Calendar cal = Time.getCalFromDate(response.getResponsedate());
+            cal = Time.convertFromOneTimeZoneToAnother(cal, cal.getTimeZone().getID(), "GMT");
+            String ago = Time.agoText(cal);
             out.append("<tr>");
             out.append("<td>");
             out.append("<font class='tinyfont'>");

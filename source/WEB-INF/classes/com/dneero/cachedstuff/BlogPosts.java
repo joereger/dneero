@@ -38,7 +38,9 @@ public class BlogPosts implements CachedStuff, Serializable {
             Blogpost blogpost = blogposts.get(i);
             //String bodyTmp = blogpost.getBody().replaceAll( PublicBlog.CARRIAGERETURN + PublicBlog.LINEBREAK, "<br>");
             //blogpost.setBody(bodyTmp);
-            String ago = Time.agoText(Time.getCalFromDate(blogpost.getDate()));
+            Calendar cal = Time.getCalFromDate(blogpost.getDate());
+            cal = Time.convertFromOneTimeZoneToAnother(cal, cal.getTimeZone().getID(), "GMT");
+            String ago = Time.agoText(cal);
             out.append("<tr>");
             out.append("<td>");
             out.append("<font class='tinyfont'>");
@@ -65,7 +67,7 @@ public class BlogPosts implements CachedStuff, Serializable {
     }
 
     public int maxAgeInMinutes() {
-        return 30;
+        return 120;
     }
 
     public String getHtml() {
