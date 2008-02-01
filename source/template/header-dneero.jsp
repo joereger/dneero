@@ -85,7 +85,7 @@
             <td bgcolor="#dadada" style="text-align: left; vertical-align: middle;" colspan="6" height="25">
                 <%if (navtab.equals("home")){%>
                     <img src="/images/clear.gif" alt="" width="10" height="1"/>
-                    <a href="/publicsurveylist.jsp"><font class="subnavfont" style="color: #000000;">Current Surveys</font></a>
+                    <a href="/publicsurveylist.jsp"><font class="subnavfont" style="color: #000000;">Active Surveys</font></a>
                     <img src="/images/clear.gif" alt="" width="10" height="1"/>
                     <a href="/publicoldsurveylist.jsp"><font class="subnavfont" style="color: #000000;">Old Surveys</font></a>
                     <img src="/images/clear.gif" alt="" width="10" height="1"/>

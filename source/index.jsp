@@ -169,8 +169,7 @@ function rButtonImgInact(){
            </td>
            <td>
                 <div class="rounded" style="background: #e6e6e6; padding: 10px;">
-                    <% ActiveSurveys as = (ActiveSurveys) GetCachedStuff.get(new ActiveSurveys());%>
-                    <font class="mediumfont" style="color: #999999;">Active Surveys</font><br/>
+                    <% RecentSurveys as = (RecentSurveys) GetCachedStuff.get(new RecentSurveys());%>
                     <%=as.getHtml()%>
                 </div>
 

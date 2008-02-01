@@ -36,7 +36,7 @@ public class MostActiveUsersByTotalSurveysTaken implements CachedStuff, Serializ
             Blogger blogger = Blogger.get((Integer)row[0]);
             long surveystaken = (Long)row[1];
             //Put into the TreeMap
-            if (surveystaken>=25){
+            if (surveystaken>=75){
                 tm.put(blogger.getBloggerid(), surveystaken);
             }
         }

@@ -13,6 +13,10 @@ import org.apache.log4j.Logger;
 public class PercentCompleteBar {
 
     public static String get(String currentvalue, String maximumvalue, String mintitle, String maxtitle, String widthinpixels){
+        return PercentCompleteBar.get(currentvalue, maximumvalue, mintitle, maxtitle, widthinpixels, 10, true);
+    }
+
+    public static String get(String currentvalue, String maximumvalue, String mintitle, String maxtitle, String widthinpixels, int height, boolean shownumbersbelow){
         Logger logger = Logger.getLogger(PercentCompleteBar.class);
         StringBuffer mb = new StringBuffer();
 
@@ -47,14 +51,23 @@ public class PercentCompleteBar {
         double leftwidthinpixels = (currentvalueNum/maxvalueNum)*Double.parseDouble(String.valueOf(widthinpixelsNum));
         double rightwidthinpixels = widthinpixelsNum - leftwidthinpixels;
 
+        if (leftwidthinpixels>widthinpixelsNum){
+            leftwidthinpixels = widthinpixelsNum;
+            rightwidthinpixels = 0;
+        } else if (rightwidthinpixels>widthinpixelsNum){
+            leftwidthinpixels = 0;
+            rightwidthinpixels = widthinpixelsNum;
+        }
+
 
         mb.append("<table cellpadding=\"0\" cellspacing=\"0\" border=\"0\" width=\""+widthinpixels+"\">\n" +
                 "<tr>\n" +
                 "<td colspan=\"3\" nowrap>\n" +
-                "<img src=\"/images/bar_green-blend.gif\" width=\""+leftwidthinpixels+"\" height=\"10\" border=\"0\"><img src=\"/images/bar_ltgrey-blend.gif\" width=\""+rightwidthinpixels+"\" height=\"10\" border=\"0\">\n" +
+                "<img src=\"/images/bar_green-blend.gif\" width=\""+leftwidthinpixels+"\" height=\""+height+"\" border=\"0\"><img src=\"/images/bar_ltgrey-blend.gif\" width=\""+rightwidthinpixels+"\" height=\""+height+"\" border=\"0\">\n" +
                 "</td>\n" +
-                "</tr>\n" +
-                "<tr>\n" +
+                "</tr>\n");
+        if (shownumbersbelow){
+            mb.append("<tr>\n" +
                 "<td valign=\"top\" align=\"left\">\n" +
                 "<font class=\"tinyfont\">"+mintitle+"</font>\n" +
                 "</td>\n" +
@@ -64,8 +77,9 @@ public class PercentCompleteBar {
                 "<td valign=\"top\" align=\"right\">\n" +
                 "<font class=\"tinyfont\">"+maxtitle+"</font>\n" +
                 "</td>\n" +
-                "</tr>\n" +
-                "</table>");
+                "</tr>\n");
+        }
+        mb.append("</table>");
 
          return mb.toString();
     }
