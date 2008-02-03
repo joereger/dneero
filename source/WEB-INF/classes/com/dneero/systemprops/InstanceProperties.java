@@ -113,72 +113,91 @@ public class InstanceProperties {
         logger.debug("haveNewConfigToTest="+haveNewConfigToTest);
         if (!haveNewConfigToTest){
             Properties properties = new Properties();
-            try {
-                //Make sure we test the next time around
-                haveNewConfigToTest = true;
-                
-                if (dbConnectionUrl!=null){
-                    properties.setProperty("dbConnectionUrl", dbConnectionUrl);
-                }
-                if (dbUsername!=null){
-                    properties.setProperty("dbUsername", dbUsername);
-                }
-                if (dbPassword!=null){
-                    //DesEncrypter encrypter2 = new DesEncrypter(passPhrase);
-                    //String encDbPassword = encrypter2.encrypt(dbPassword);
-                    //properties.setProperty("dbPassword", encDbPassword);
-                    properties.setProperty("dbPassword", dbPassword);
-                }
-                if (dbMaxActive!=null){
-                    properties.setProperty("dbMaxActive", dbMaxActive);
-                }
-                if (dbMaxIdle!=null){
-                    properties.setProperty("dbMaxIdle", dbMaxIdle);
-                }
-                if (dbMinIdle!=null){
-                    properties.setProperty("dbMinIdle", dbMinIdle);
-                }
-                if (dbMaxWait!=null){
-                    properties.setProperty("dbMaxWait", dbMaxWait);
-                }
-                if (dbDriverName!=null){
-                    properties.setProperty("dbDriverName", dbDriverName);
-                }
-                if (runScheduledTasksOnThisInstance!=null){
-                    properties.setProperty("runScheduledTasksOnThisInstance", runScheduledTasksOnThisInstance);
-                }
-                if (instancename!=null){
-                    properties.setProperty("instancename", instancename);
-                }
+            //Make sure we test the next time around
+            haveNewConfigToTest = true;
 
-                if (testConfig()){
-                    logger.debug("passed testConfig()");
+            if (dbConnectionUrl!=null){
+                properties.setProperty("dbConnectionUrl", dbConnectionUrl);
+            }
+            if (dbUsername!=null){
+                properties.setProperty("dbUsername", dbUsername);
+            }
+            if (dbPassword!=null){
+                //DesEncrypter encrypter2 = new DesEncrypter(passPhrase);
+                //String encDbPassword = encrypter2.encrypt(dbPassword);
+                //properties.setProperty("dbPassword", encDbPassword);
+                properties.setProperty("dbPassword", dbPassword);
+            }
+            if (dbMaxActive!=null){
+                properties.setProperty("dbMaxActive", dbMaxActive);
+            }
+            if (dbMaxIdle!=null){
+                properties.setProperty("dbMaxIdle", dbMaxIdle);
+            }
+            if (dbMinIdle!=null){
+                properties.setProperty("dbMinIdle", dbMinIdle);
+            }
+            if (dbMaxWait!=null){
+                properties.setProperty("dbMaxWait", dbMaxWait);
+            }
+            if (dbDriverName!=null){
+                properties.setProperty("dbDriverName", dbDriverName);
+            }
+            if (runScheduledTasksOnThisInstance!=null){
+                properties.setProperty("runScheduledTasksOnThisInstance", runScheduledTasksOnThisInstance);
+            }
+            if (instancename!=null){
+                properties.setProperty("instancename", instancename);
+            }
+
+            if (testConfig()){
+                logger.debug("passed testConfig()");
+                boolean savedsuccessfully = false;
+                String saveiomsg = "";
+                try{
                     //Save to the file system in the conf directory
                     File fil = new File(dbPropsInternalFilename);
+                    if (!fil.exists()){
+                        fil.createNewFile();   
+                    }
                     FileOutputStream fos = new FileOutputStream(fil);
                     properties.store(fos, "InstanceProperties");
                     fos.close();
                     fil = null;
                     fos = null;
+                    savedsuccessfully = true;
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    saveiomsg = saveiomsg + e.getMessage();
+                }
 
+                try{
                     //Store to default system location
                     File fil2 = new File("", dbPropsExternalFilename);
+                    if (!fil2.exists()){
+                        fil2.createNewFile();   
+                    }
                     FileOutputStream fos2 = new FileOutputStream(fil2);
                     properties.store(fos2, "InstanceProperties for " + WebAppRootDir.getUniqueContextId());
                     fos2.close();
                     fil2 = null;
                     fos2 = null;
-                } else {
-                    haveAttemptedToLoadDefaultPropsFile = false;
-                    load();
-                    //Failed validation
-                    GeneralException gex = new GeneralException("The new properties failed validation.");
-                    throw gex;
+                    savedsuccessfully = true;
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    saveiomsg = saveiomsg + e.getMessage();
                 }
 
-            } catch (IOException e) {
-                e.printStackTrace();
-                GeneralException gex = new GeneralException("The new properties failed validation: "+e.getMessage());
+                //If neither save worked, alert
+                if (!savedsuccessfully){
+                    GeneralException gex = new GeneralException("File save failed: "+saveiomsg);
+                    throw gex;
+                }
+            } else {
+                haveAttemptedToLoadDefaultPropsFile = false;
+                load();
+                //Failed validation
+                GeneralException gex = new GeneralException("The new properties failed validation.");
                 throw gex;
             }
         }

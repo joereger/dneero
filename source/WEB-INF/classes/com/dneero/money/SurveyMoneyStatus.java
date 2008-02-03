@@ -1,13 +1,12 @@
 package com.dneero.money;
 
 import com.dneero.dao.Survey;
-import com.dneero.dao.Impression;
-import com.dneero.dao.hibernate.HibernateUtil;
+import com.dneero.dao.User;
+import com.dneero.dao.Researcher;
 import com.dneero.dao.hibernate.NumFromUniqueResult;
 import com.dneero.util.Time;
 import com.dneero.util.DateDiff;
 
-import java.util.Iterator;
 import java.util.Calendar;
 import java.io.Serializable;
 
@@ -19,7 +18,7 @@ import java.io.Serializable;
 public class SurveyMoneyStatus implements Serializable {
 
     public static double PERSURVEYCREATIONFEE = 5.00;
-    public static double DNEEROMARKUPPERCENT = 25;
+    public static double DEFAULTDNEEROMARKUPPERCENT = 25;
     public static int DAYSAFTERCLOSEOFSURVEYWECOLLECTFORIMPRESSIONS = 30;
     public static double HIDESURVEYFEEPERCENT = 5;
 
@@ -38,32 +37,30 @@ public class SurveyMoneyStatus implements Serializable {
     private double spentToDateIncludingdNeeroFee = 0;
     private double remainingPossibleSpend = 0;
     private double hidesurveyfee = 0;
+    private double dneeromarkuppercent = DEFAULTDNEEROMARKUPPERCENT;
 
 
     public SurveyMoneyStatus(Survey survey){
+        dneeromarkuppercent = survey.getDneeromarkuppercent();
         maxPossiblePayoutForResponses = (survey.getWillingtopayperrespondent() * survey.getNumberofrespondentsrequested());
         maxPossiblePayoutForImpressions = ((survey.getWillingtopaypercpm()*survey.getMaxdisplaystotal())/1000);
         maxPossiblePayoutToUsers = maxPossiblePayoutForResponses + maxPossiblePayoutForImpressions;
-        maxPossibledNeeroFee = maxPossiblePayoutToUsers * (DNEEROMARKUPPERCENT/100);
+        maxPossibledNeeroFee = maxPossiblePayoutToUsers * (dneeromarkuppercent /100);
         if(survey.getIsresultshidden()){
             hidesurveyfee = maxPossiblePayoutToUsers * (HIDESURVEYFEEPERCENT/100);
         }
         maxPossibleSpend = maxPossiblePayoutToUsers + maxPossibledNeeroFee + hidesurveyfee + PERSURVEYCREATIONFEE;
         responsesToDate = survey.getResponses().size();
         spentOnResponsesToDate = survey.getWillingtopayperrespondent() * responsesToDate;
-        spentOnResponsesToDateIncludingdNeeroFee = spentOnResponsesToDate + (spentOnResponsesToDate * (DNEEROMARKUPPERCENT/100));
+        spentOnResponsesToDateIncludingdNeeroFee = spentOnResponsesToDate + (spentOnResponsesToDate * (dneeromarkuppercent /100));
         impressionsToDate = 0;
         int impressionspaid  = NumFromUniqueResult.getInt("select sum(impressionspaid) from Impression where surveyid='"+survey.getSurveyid()+"'");
         int impressionstobepaid  = NumFromUniqueResult.getInt("select sum(impressionstobepaid) from Impression where surveyid='"+survey.getSurveyid()+"'");
         impressionsToDate = impressionsToDate + (impressionspaid + impressionstobepaid);
-//        for (Iterator<Impression> iterator2 = survey.getImpressions().iterator(); iterator2.hasNext();) {
-//            Impression impression = iterator2.next();
-//            impressionsToDate = impressionsToDate + (impression.getImpressionspaid() + impression.getImpressionstobepaid());
-//        }
         spentOnImpressionsToDate = (Double.parseDouble(String.valueOf(impressionsToDate)) * survey.getWillingtopaypercpm())/1000;
-        spentOnImpressionsToDateIncludingdNeeroFee = spentOnImpressionsToDate + (spentOnImpressionsToDate * (DNEEROMARKUPPERCENT/100));
+        spentOnImpressionsToDateIncludingdNeeroFee = spentOnImpressionsToDate + (spentOnImpressionsToDate * (dneeromarkuppercent /100));
         spentToDate = spentOnResponsesToDate + spentOnImpressionsToDate;
-        spentToDateIncludingdNeeroFee = spentToDate + (spentToDate * (DNEEROMARKUPPERCENT/100)) + PERSURVEYCREATIONFEE + hidesurveyfee;
+        spentToDateIncludingdNeeroFee = spentToDate + (spentToDate * (dneeromarkuppercent /100)) + PERSURVEYCREATIONFEE + hidesurveyfee;
 
         //When calculating remainingPossibleSpend I must take survey status into account
         if (survey.getStatus()!=Survey.STATUS_CLOSED){
@@ -83,8 +80,23 @@ public class SurveyMoneyStatus implements Serializable {
         }
     }
 
- 
+    //Calculates total amt to charge including upcharge
+    public static double calculateAmtToChargeResearcher(double amt, Survey survey){
+        double upcharge = calculatedNeeroUpcharge(amt, survey);
+        double amttocharge = amt + upcharge;
+        return amttocharge;
+    }
 
+    //Calculates upcharge
+    private static double calculatedNeeroUpcharge(double amt, Survey survey){
+        double upcharge = amt*(survey.getDneeromarkuppercent()/100);
+        return upcharge;
+    }
+
+
+    public double getDneeromarkuppercent() {
+        return dneeromarkuppercent;
+    }
 
     public double getMaxPossiblePayoutForResponses() {
         return maxPossiblePayoutForResponses;

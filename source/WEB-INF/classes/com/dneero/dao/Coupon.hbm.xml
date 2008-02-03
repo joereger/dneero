@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 17, 2006 3:45:28 PM by Hibernate Tools 3.1.0.beta4 -->
+<hibernate-mapping>
+    <class name="com.dneero.dao.Coupon" table="coupon">
+        <cache usage="transactional"/>
+        <id name="couponid" type="int">
+            <column name="couponid" />
+            <generator class="native" />
+        </id>
+        <property name="name" type="string">
+            <column name="name" not-null="true" />
+        </property>
+        <property name="description" type="text">
+            <column name="description" not-null="true" />
+        </property>
+        <property name="couponcode" type="string">
+            <column name="couponcode" not-null="true" />
+        </property>
+        <property name="discountpercent" type="double">
+            <column name="discountpercent" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="startdate" type="timestamp">
+            <column name="startdate" not-null="true" />
+        </property>
+        <property name="enddate" type="timestamp">
+            <column name="enddate" not-null="true" />
+        </property>
+        <property name="timescanberedeemed" type="int">
+            <column name="timescanberedeemed" not-null="true" />
+        </property>
+        <property name="commaseplistofuserids" type="text">
+            <column name="commaseplistofuserids" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

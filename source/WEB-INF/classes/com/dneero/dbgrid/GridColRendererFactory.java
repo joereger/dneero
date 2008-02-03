@@ -26,6 +26,8 @@ public class GridColRendererFactory {
             return new GridColRendererString();
         } else if (colObj instanceof Boolean){
             return new GridColRendererString();
+        } else if (colObj instanceof Double){
+            return new GridColRendererDoubleTwoDecimalPlaces();
         }
         if (colObj!=null && colObj.getClass()!=null){
             logger.debug("GridColRenderer not found for colObj.getClass().getName()="+colObj.getClass().getName());
@@ -43,6 +45,8 @@ public class GridColRendererFactory {
             return new GridColRendererDatetimeagotext();
         } else if (id==Grid.GRIDCOLRENDERER_DOUBLEASMONEY){
             return new GridColRendererDoubleAsMoney();
+        }  else if (id==Grid.GRIDCOLRENDERER_DOUBLETWODECIMALPLACES){
+            return new GridColRendererDoubleTwoDecimalPlaces();
         }
         logger.debug("GridColRenderer not found for id="+id);
         return new GridColRendererString();

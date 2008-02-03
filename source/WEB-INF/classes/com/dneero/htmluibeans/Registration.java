@@ -99,6 +99,7 @@ public class Registration implements Serializable {
             haveErrors = true;
         }
 
+        //@todo need to check for lcase(firstname), lcase(lastname), email in the database... people are changing caps on name and creating another account.
 
 
         if (eula==null || !eula.trim().equals(EulaHelper.getMostRecentEula().getEula().trim())){

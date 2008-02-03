@@ -6,6 +6,7 @@ import com.dneero.dao.hibernate.BasePersistentClass;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.session.AuthControlled;
 import com.dneero.cache.providers.CacheFactory;
+import com.dneero.money.SurveyMoneyStatus;
 
 import java.util.Date;
 import java.util.Set;
@@ -55,6 +56,7 @@ public class Survey extends BasePersistentClass implements java.io.Serializable,
      private String charitycustom = "";
      private String charitycustomurl = "";
      private boolean charityonlyallowcustom=false;
+     private double dneeromarkuppercent= SurveyMoneyStatus.DEFAULTDNEEROMARKUPPERCENT;
 
      private Set<Question> questions = new HashSet<Question>();
      private Set<Response> responses = new HashSet<Response>();
@@ -420,5 +422,13 @@ public class Survey extends BasePersistentClass implements java.io.Serializable,
 
     public void setCharitycustomurl(String charitycustomurl) {
         this.charitycustomurl = charitycustomurl;
+    }
+
+    public double getDneeromarkuppercent() {
+        return dneeromarkuppercent;
+    }
+
+    public void setDneeromarkuppercent(double dneeromarkuppercent) {
+        this.dneeromarkuppercent = dneeromarkuppercent;
     }
 }

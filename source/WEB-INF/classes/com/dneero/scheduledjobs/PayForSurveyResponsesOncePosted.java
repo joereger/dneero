@@ -16,8 +16,6 @@ import com.dneero.email.EmailTemplateProcessor;
 
 import java.util.List;
 import java.util.Iterator;
-import java.util.Date;
-import java.io.PrintWriter;
 
 /**
  * User: Joe Reger Jr
@@ -47,7 +45,7 @@ public class PayForSurveyResponsesOncePosted implements Job {
                         //Affect balance for blogger
                         MoveMoneyInAccountBalance.pay(user, survey.getWillingtopayperrespondent(), "Pay for taking survey: '"+survey.getTitle()+"'", true, response.getIsforcharity(), response.getCharityname(), response.getResponseid(), false, true);
                         //Affect balance for researcher
-                        MoveMoneyInAccountBalance.charge(User.get(Researcher.get(survey.getResearcherid()).getUserid()), (survey.getWillingtopayperrespondent()+(survey.getWillingtopayperrespondent()*(SurveyMoneyStatus.DNEEROMARKUPPERCENT/100))), "User "+user.getFirstname()+" "+user.getLastname()+" responds to survey '"+survey.getTitle()+"'", true, false);
+                        MoveMoneyInAccountBalance.charge(User.get(Researcher.get(survey.getResearcherid()).getUserid()), (SurveyMoneyStatus.calculateAmtToChargeResearcher(survey.getWillingtopayperrespondent(), survey)), "User "+user.getFirstname()+" "+user.getLastname()+" responds to survey '"+survey.getTitle()+"'", true, false);
                     } catch (Exception ex){
                         logger.error("",ex);
                         ex.printStackTrace();

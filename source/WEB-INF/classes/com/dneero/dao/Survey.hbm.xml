@@ -115,5 +115,8 @@
         <property name="charityonlyallowcustom" type="boolean">
             <column name="charityonlyallowcustom" />
         </property>
+        <property name="dneeromarkuppercent" type="double">
+            <column name="dneeromarkuppercent" precision="22" scale="0" not-null="true" />
+        </property>
     </class>
 </hibernate-mapping>

@@ -156,6 +156,7 @@
                         <a href="/sysadmin/hibernatecache.jsp"><font class="subnavfont" style=" color: #000000;">Cache</font></a>
                         <a href="/sysadmin/massemaillist.jsp"><font class="subnavfont" style=" color: #000000;">MassEmail</font></a>
                         <a href="/sysadmin/charityreport.jsp"><font class="subnavfont" style=" color: #000000;">Charity</font></a>
+                        <a href="/sysadmin/couponlist.jsp"><font class="subnavfont" style=" color: #000000;">Coupons</font></a>
                         <a href="/sysadmin/demographicreport.jsp"><font class="subnavfont" style=" color: #000000;">Demographic</font></a>
                         <a href="/sysadmin/blogpost.jsp"><font class="subnavfont" style=" color: #000000;">Blog</font></a>
                     <%}%>

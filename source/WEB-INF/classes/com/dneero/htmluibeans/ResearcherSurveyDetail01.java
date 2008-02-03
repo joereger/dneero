@@ -11,6 +11,7 @@ import com.dneero.htmlui.Pagez;
 import com.dneero.htmlui.ValidationException;
 import com.dneero.xmpp.SendXMPPMessage;
 import com.dneero.helpers.UserInputSafe;
+import com.dneero.money.SurveyMoneyStatus;
 import org.apache.log4j.Logger;
 
 
@@ -70,6 +71,7 @@ public class ResearcherSurveyDetail01 implements Serializable {
         survey.setStartdate(startdate);
         enddate = Time.AddOneMonth(Calendar.getInstance()).getTime();
         survey.setEnddate(enddate);
+        survey.setDneeromarkuppercent(SurveyMoneyStatus.DEFAULTDNEEROMARKUPPERCENT);
     }
 
 

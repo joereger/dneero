@@ -10,7 +10,6 @@ import com.dneero.dao.*;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.money.MoveMoneyInAccountBalance;
 import com.dneero.money.SurveyMoneyStatus;
-import com.dneero.util.DateDiff;
 import com.dneero.util.Time;
 
 import java.util.*;
@@ -55,7 +54,8 @@ public class ImpressionPayments implements Job {
                     //Collect a map of UserPayUnits
                     HashMap<Integer, ImpressionPaymentsUserPayUnit> userPayUnits = new HashMap<Integer, ImpressionPaymentsUserPayUnit>();
                     //Increment a total researcher charge
-                    double amtResearcherOwes = 0;
+                    double amtSpentOnBehalfOfResearcher = 0;
+                    double amtToChargeResearcher = 0;
                     for (Iterator<Impression> iterator1 = impressions.iterator(); iterator1.hasNext();) {
                         Impression impression = iterator1.next();
                         //Get the response that this impression relates to
@@ -67,7 +67,9 @@ public class ImpressionPayments implements Job {
                                 User user = User.get(blogger.getUserid());
                                 if (user!=null && user.getUserid()>0){
                                     //Increment researcher amount
-                                    amtResearcherOwes = amtResearcherOwes + (survey.getWillingtopaypercpm()/1000);
+                                    double amtSpentOnThisUserForThisSurvey = survey.getWillingtopaypercpm()/1000;
+                                    amtSpentOnBehalfOfResearcher = amtSpentOnBehalfOfResearcher + amtSpentOnThisUserForThisSurvey;
+                                    amtToChargeResearcher = amtToChargeResearcher + SurveyMoneyStatus.calculateAmtToChargeResearcher(amtSpentOnThisUserForThisSurvey, survey);
                                     //Get a UserPayUnit to work with
                                     ImpressionPaymentsUserPayUnit ipupu = new ImpressionPaymentsUserPayUnit();
                                     if (userPayUnits.containsKey(user.getUserid())){
@@ -92,12 +94,11 @@ public class ImpressionPayments implements Job {
                         }
                     }
 
-                    //Charge the researcher, applying the dNeero markup
-                    if (amtResearcherOwes>0){
-                        double amttocharge = amtResearcherOwes + (amtResearcherOwes*(SurveyMoneyStatus.DNEEROMARKUPPERCENT/100));
+                    //Charge the researcher
+                    if (amtToChargeResearcher>0){
                         Researcher researcher = Researcher.get(survey.getResearcherid());
                         User user = User.get(researcher.getUserid());
-                        MoveMoneyInAccountBalance.charge(user, amttocharge, "Charge for blog impressions on survey '"+survey.getTitle()+"'", true, false);
+                        MoveMoneyInAccountBalance.charge(user, amtToChargeResearcher, "Charge for blog impressions on survey '"+survey.getTitle()+"'", true, false);
                     }
 
                     //Pay bloggers if we have any UserPayUnits to consider
