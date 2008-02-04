@@ -1,6 +1,7 @@
 package com.dneero.htmluibeans;
 
 import com.dneero.dao.*;
+import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.util.GeneralException;
 
 import com.dneero.util.Str;
@@ -13,6 +14,7 @@ import com.dneero.xmpp.SendXMPPMessage;
 import com.dneero.helpers.UserInputSafe;
 import com.dneero.money.SurveyMoneyStatus;
 import org.apache.log4j.Logger;
+import org.hibernate.criterion.Restrictions;
 
 
 import java.util.*;
@@ -31,6 +33,7 @@ public class ResearcherSurveyDetail01 implements Serializable {
     private Date enddate;
     private int status;
     private Survey survey;
+
 
 
     public ResearcherSurveyDetail01(){
@@ -57,6 +60,10 @@ public class ResearcherSurveyDetail01 implements Serializable {
             }
         }
     }
+
+
+
+
 
     public void beginViewNewSurvey(){
         Logger logger = Logger.getLogger(this.getClass().getName());
@@ -162,6 +169,9 @@ public class ResearcherSurveyDetail01 implements Serializable {
         }
     }
 
+
+
+
     public String getTitle() {
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("setTitle() called:"+title);
@@ -213,4 +223,6 @@ public class ResearcherSurveyDetail01 implements Serializable {
     public void setSurvey(Survey survey) {
         this.survey=survey;
     }
+
+    
 }

@@ -1,15 +1,14 @@
 package com.dneero.htmluibeans;
 
 import org.apache.log4j.Logger;
+import org.hibernate.criterion.Restrictions;
 
 
-import java.util.Calendar;
-import java.util.LinkedHashMap;
-import java.util.Date;
-import java.util.TreeMap;
+import java.util.*;
 import java.io.Serializable;
 
 import com.dneero.dao.*;
+import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.util.*;
 import com.dneero.htmlui.UserSession;
 import com.dneero.htmlui.Pagez;
@@ -51,6 +50,7 @@ public class ResearcherSurveyDetail06 implements Serializable {
     private boolean warningdonthaveccinfo = false;
 
 
+
     private String ccnumfordisplayonscreen;
     private String ccnum;
     private int cctype;
@@ -65,6 +65,9 @@ public class ResearcherSurveyDetail06 implements Serializable {
     private String lastname;
     private String ipaddress;
     private String merchantsessionid;
+
+    private ArrayList<Coupon> coupons = new ArrayList<Coupon>();
+    private String couponcode="";
 
 
     public ResearcherSurveyDetail06(){
@@ -140,6 +143,9 @@ public class ResearcherSurveyDetail06 implements Serializable {
                     warningnoquestions = true;   
                 }
 
+                //Load coupons
+                loadCoupons(survey);
+
                 //Only worry about the credit carc stuff if there's not enough in the account currently
                 logger.debug("currentbalance: "+currentbalance);
                 logger.debug("sms.getMaxPossibleSpend()*(ResearcherRemainingBalanceOperations.INCREMENTALPERCENTTOCHARGE/100): "+(sms.getMaxPossibleSpend()*(ResearcherRemainingBalanceOperations.INCREMENTALPERCENTTOCHARGE/100)));
@@ -184,6 +190,7 @@ public class ResearcherSurveyDetail06 implements Serializable {
                         warningdonthaveccinfo = true;
                     }
                 }
+
             }
         }
 
@@ -340,7 +347,67 @@ public class ResearcherSurveyDetail06 implements Serializable {
         }
     }
 
+    private void loadCoupons(Survey survey){
+        coupons = new ArrayList<Coupon>();
+        List<Couponredemption> couponredemptions = HibernateUtil.getSession().createCriteria(Couponredemption.class)
+                                           .add(Restrictions.eq("surveyid", survey.getSurveyid()))
+                                           .setCacheable(true)
+                                           .list();
+        if (couponredemptions!=null && couponredemptions.size()>0){
+            for (Iterator<Couponredemption> iterator = couponredemptions.iterator(); iterator.hasNext();) {
+                Couponredemption couponredemption = iterator.next();
+                Coupon coupon = Coupon.get(couponredemption.getCouponid());
+                coupons.add(coupon);
+            }
+        }
+    }
 
+    public void applyCoupon() throws ValidationException {
+        ValidationException vex = new ValidationException();
+        Logger logger = Logger.getLogger(this.getClass().getName());
+        boolean couponfound = false;
+        List<Coupon> coupons = HibernateUtil.getSession().createCriteria(Coupon.class)
+                                           .add(Restrictions.eq("couponcode", couponcode.toUpperCase()))
+                                           .setCacheable(true)
+                                           .list();
+        for (Iterator<Coupon> iterator = coupons.iterator(); iterator.hasNext();) {
+            Coupon coupon =  iterator.next();
+            couponfound = true;
+            //Make sure it's not already redeemed
+            boolean hasbeenappliedalready=false;
+            List<Couponredemption> redemptions = HibernateUtil.getSession().createCriteria(Couponredemption.class)
+                                               .add(Restrictions.eq("surveyid", survey.getSurveyid()))
+                                               .add(Restrictions.eq("couponid", coupon.getCouponid()))
+                                               .setCacheable(true)
+                                               .list();
+            if (redemptions!=null && redemptions.size()>0){
+                hasbeenappliedalready = true;
+            }
+            //If it hasn't been redeemed
+            if (!hasbeenappliedalready){
+                //Create and save the coupon redemption
+                Couponredemption couponredemption = new Couponredemption();
+                couponredemption.setCouponid(coupon.getCouponid());
+                couponredemption.setDate(new Date());
+                couponredemption.setSurveyid(survey.getSurveyid());
+                couponredemption.setUserid(Pagez.getUserSession().getUser().getUserid());
+                try{
+                    couponredemption.save();
+                } catch (Exception ex){
+                    logger.error(ex);
+                }
+            }
+        }
+        if (couponfound){
+            initBean();
+            Pagez.getUserSession().setMessage("Your coupon has been applied.");
+        } else {
+            Pagez.getUserSession().setMessage("Sorry, no coupon was found for that code.");
+        }
+
+
+
+    }
 
 
     public TreeMap<String, String> getCreditcardtypes(){
@@ -666,5 +733,21 @@ public class ResearcherSurveyDetail06 implements Serializable {
 
     public void setSurvey(Survey survey) {
         this.survey=survey;
+    }
+
+    public ArrayList<Coupon> getCoupons() {
+        return coupons;
+    }
+
+    public void setCoupons(ArrayList<Coupon> coupons) {
+        this.coupons = coupons;
+    }
+
+    public String getCouponcode() {
+        return couponcode;
+    }
+
+    public void setCouponcode(String couponcode) {
+        this.couponcode = couponcode;
     }
 }

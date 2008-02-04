@@ -2,6 +2,9 @@
 <%@ page import="com.dneero.htmluibeans.ResearcherSurveyDetail06" %>
 <%@ page import="com.dneero.dao.Survey" %>
 <%@ page import="com.dneero.htmlui.*" %>
+<%@ page import="com.dneero.dbgrid.GridCol" %>
+<%@ page import="com.dneero.dbgrid.Grid" %>
+<%@ page import="java.util.ArrayList" %>
 <%
 Logger logger=Logger.getLogger(this.getClass().getName());
 String pagetitle="<img src=\"/images/process-train-survey-06.gif\" align=\"right\" width=\"350\" height=\"73\" alt=\"\"/>\n" +
@@ -57,6 +60,21 @@ ResearcherSurveyDetail06 researcherSurveyDetail06 = (ResearcherSurveyDetail06)Pa
         }
     }
 %>
+<%
+    if (request.getParameter("action") != null && (request.getParameter("action").equals("applycoupon"))) {
+        try {
+            if (researcherSurveyDetail06.getSurvey().getStatus()==Survey.STATUS_DRAFT){
+                researcherSurveyDetail06.setCouponcode(Textbox.getValueFromRequest("couponcode", "Coupon Code", true, DatatypeString.DATATYPEID));
+                logger.debug("Apply Coupon was clicked");
+                researcherSurveyDetail06.applyCoupon();
+            } else {
+                Pagez.getUserSession().setMessage("Coupons can only be applied to surveys in the draft state... before they launch.");
+            }
+        } catch (ValidationException vex) {
+            Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
+        }
+    }
+%>
 <%@ include file="/template/header.jsp" %>
 
 
@@ -68,6 +86,7 @@ ResearcherSurveyDetail06 researcherSurveyDetail06 = (ResearcherSurveyDetail06)Pa
 
 
     <div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;">
+        <font class="mediumfont" style="color: #666666;">Financial Summary</font><br/>
         <table cellpadding="0" cellspacing="0" border="0">
 
             <!--
@@ -305,22 +324,57 @@ ResearcherSurveyDetail06 researcherSurveyDetail06 = (ResearcherSurveyDetail06)Pa
 
 
     <br/><br/>
-    <font class="mediumfont">
-        <ul>
-            <li>I understand that by launching this survey I am committing to spending up to <%=researcherSurveyDetail06.getMaxpossiblespend()%> (Max Possible Spend.)</li>
-            <li>Actual charges will be based only on the activities of survey completion and impressions (i.e. viewing of your survey on blogs.)</li>
-            <li>I understand that my account balance must be sufficient to support activities:
-                <ul>
-                    <li>20% of the <%=researcherSurveyDetail06.getMaxpossiblespend()%> will be charged now.</li>
-                    <li>Whenever my account balance falls below 10% of the sum of the Max Possible Spends for all of my live (open) surveys, additional charges will be made to attain the 20% balance.</li>
-                    <li>If my account balance falls below 5% of the sum of the Max Possible Spends for all of my live (open) surveys, then all my surveys will be put on hold until my account balance is increased.</li>
-                    <li>However, if my account balance is sufficient to complete the activities I have requested, my live (open) surveys will not be put on hold. </li>
-                </ul>
-            </li>
-            <li>Impressions on blogs will be paid for during a period extending 30 days from the end date of the survey, not to exceed the limits on impressions that you've set with your survey.  As such, dNeero will refund money after this period when the max number of surveys is not reached.</li>
-        </ul>
-    </font>
+    <table cellpadding="0" cellspacing="0" border="0">
+            <tr>
+                <td valign="top">
+                    <font class="mediumfont">
+                        <ul>
+                            <li>I understand that by launching this survey I am committing to spending up to <%=researcherSurveyDetail06.getMaxpossiblespend()%> (Max Possible Spend.)</li>
+                            <li>Actual charges will be based only on the activities of survey completion and impressions (i.e. viewing of your survey on blogs.)</li>
+                            <li>I understand that my account balance must be sufficient to support activities:
+                                <ul>
+                                    <li>20% of the <%=researcherSurveyDetail06.getMaxpossiblespend()%> will be charged now.</li>
+                                    <li>Whenever my account balance falls below 10% of the sum of the Max Possible Spends for all of my live (open) surveys, additional charges will be made to attain the 20% balance.</li>
+                                    <li>If my account balance falls below 5% of the sum of the Max Possible Spends for all of my live (open) surveys, then all my surveys will be put on hold until my account balance is increased.</li>
+                                    <li>However, if my account balance is sufficient to complete the activities I have requested, my live (open) surveys will not be put on hold. </li>
+                                </ul>
+                            </li>
+                            <li>Impressions on blogs will be paid for during a period extending 30 days from the end date of the survey, not to exceed the limits on impressions that you've set with your survey.  As such, dNeero will refund money after this period when the max number of surveys is not reached.</li>
+                        </ul>
+                    </font>
+                </td>
+                <td valign="top" width="35%">
+                    <div class="rounded" style="background: #e6e6e6; text-align: left; padding: 20px;">
 
+                        <font class="smallfont">
+                            <%if (researcherSurveyDetail06.getCoupons()==null || researcherSurveyDetail06.getCoupons().size()==0){%>
+                                <!--<font class="tinyfont" style="color: #cccccc;">None.</font>-->
+                            <%} else {%>
+                                <font class="mediumfont" style="color: #666666;">Coupons</font>
+                                <br/>
+                                <%
+                                    ArrayList<GridCol> cols = new ArrayList<GridCol>();
+                                    cols.add(new GridCol("", "<b><$name$></b><br/><$description$>", false, "", "tinyfont"));
+                                    cols.add(new GridCol("Code", "<$couponcode$>", false, "", "tinyfont"));
+                                    cols.add(new GridCol("Discount Percent", "<$discountpercent$>", false, "", "tinyfont"));
+                                    cols.add(new GridCol("Start/End Date", "<$startdate|" + Grid.GRIDCOLRENDERER_DATETIMECOMPACT + "$><br/><$enddate|" + Grid.GRIDCOLRENDERER_DATETIMECOMPACT + "$>", false, "", "tinyfont"));
+                                %>
+                                <%=Grid.render(researcherSurveyDetail06.getCoupons(), cols, 50, "/sysadmin/researchersurveydetail_06.jsp?surveyid="+researcherSurveyDetail06.getSurvey().getSurveyid(), "page")%>
+                            <%}%>
+                        </font>
+                        <div class="rounded" style="background: #ffffff; text-align: left; padding: 20px;">
+                            <center>
+                            <font class="formfieldnamefont">Coupon Code:</font>
+                            <br/>
+                            <%=Textbox.getHtml("couponcode", "", 50, 15, "", "font-size: 10px;")%>
+                            <br/>
+                            <input type="submit" class="formsubmitbutton" value="Apply Coupon" onclick="document.getElementById('action').value='applycoupon';" style="font-size: 10px;">
+                            </center>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
     <br/><br/>
     <!-- Start Bottom Nav -->
     <table cellpadding="0" cellspacing="0" border="0" width="100%">

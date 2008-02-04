@@ -45,7 +45,9 @@ public class SysadminCouponDetail implements Serializable {
         ValidationException vex = new ValidationException();
         Logger logger = Logger.getLogger(this.getClass().getName());
 
-        //@todo validation
+        //@todo validation... discount can't be greater than default
+
+        //@todo validation... can't use an already-used coupon code
 
         if (coupon.getCouponcode()!=null){
             coupon.setCouponcode(coupon.getCouponcode().toUpperCase());    

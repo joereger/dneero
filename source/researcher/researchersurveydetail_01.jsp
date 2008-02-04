@@ -3,6 +3,9 @@
 <%@ page import="com.dneero.htmlui.*" %>
 <%@ page import="com.dneero.util.Time" %>
 <%@ page import="com.dneero.dao.Survey" %>
+<%@ page import="com.dneero.dbgrid.GridCol" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="com.dneero.dbgrid.Grid" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "<img src=\"/images/process-train-survey-01.gif\" align=\"right\" width=\"350\" height=\"73\" alt=\"\"/>\n" +
@@ -48,6 +51,7 @@ ResearcherSurveyDetail01 researcherSurveyDetail01 = (ResearcherSurveyDetail01)Pa
         }
     }
 %>
+
 <%@ include file="/template/header.jsp" %>
 
 
@@ -63,62 +67,66 @@ ResearcherSurveyDetail01 researcherSurveyDetail01 = (ResearcherSurveyDetail01)Pa
         </font></div></center>
 
         <br/><br/>
-
         <table cellpadding="0" cellspacing="0" border="0">
             <tr>
                 <td valign="top">
-                    <font class="formfieldnamefont">Survey Title</font>
+
+                    <table cellpadding="0" cellspacing="0" border="0">
+                        <tr>
+                            <td valign="top">
+                                <font class="formfieldnamefont">Survey Title</font>
+                            </td>
+                            <td valign="top">
+                                <%if (researcherSurveyDetail01.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {%>
+                                    <%=Textbox.getHtml("title", researcherSurveyDetail01.getTitle(), 255, 50, "", "")%>
+                                <%} else {%>
+                                    <font class="smallfont"><%=researcherSurveyDetail01.getTitle()%></font>
+                                <%}%>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td valign="top">
+                                <font class="formfieldnamefont">Description</font>
+                            </td>
+                            <td valign="top">
+                                <%if (researcherSurveyDetail01.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {%>
+                                    <%=Textarea.getHtml("description", researcherSurveyDetail01.getDescription(), 3, 45, "", "")%>
+                                <%} else {%>
+                                    <font class="normalfont"><%=researcherSurveyDetail01.getDescription()%></font>
+                                <%}%>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td valign="top">
+                                <font class="formfieldnamefont">Start Date</font>
+                            </td>
+                            <td valign="top">
+                                <%if (researcherSurveyDetail01.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {%>
+                                    <%=DateTime.getHtml("startdate", Time.getCalFromDate(researcherSurveyDetail01.getStartdate()), "", "")%>
+                                <%} else {%>
+                                    <font class="normalfont"><%=Time.dateformatcompactwithtime(Time.getCalFromDate(researcherSurveyDetail01.getStartdate()))%></font>
+                                <%}%>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td valign="top">
+                                <font class="formfieldnamefont">End Date</font>
+                            </td>
+                            <td valign="top">
+                                <%if (researcherSurveyDetail01.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {%>
+                                    <%=DateTime.getHtml("enddate", Time.getCalFromDate(researcherSurveyDetail01.getEnddate()), "", "")%>
+                                <%} else {%>
+                                    <font class="normalfont"><%=Time.dateformatcompactwithtime(Time.getCalFromDate(researcherSurveyDetail01.getEnddate()))%></font>
+                                <%}%>
+                            </td>
+                        </tr>
+                    </table>
+
                 </td>
                 <td valign="top">
-                    <%if (researcherSurveyDetail01.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {%>
-                        <%=Textbox.getHtml("title", researcherSurveyDetail01.getTitle(), 255, 50, "", "")%>
-                    <%} else {%>
-                        <font class="smallfont"><%=researcherSurveyDetail01.getTitle()%></font>
-                    <%}%>
+                    <!-- Right Side placeholder -->
                 </td>
             </tr>
-
-
-
-            <tr>
-                <td valign="top">
-                    <font class="formfieldnamefont">Description</font>
-                </td>
-                <td valign="top">
-                    <%if (researcherSurveyDetail01.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {%>
-                        <%=Textarea.getHtml("description", researcherSurveyDetail01.getDescription(), 3, 45, "", "")%>
-                    <%} else {%>
-                        <font class="normalfont"><%=researcherSurveyDetail01.getDescription()%></font>
-                    <%}%>
-                </td>
-            </tr>
-
-            <tr>
-                <td valign="top">
-                    <font class="formfieldnamefont">Start Date</font>
-                </td>
-                <td valign="top">
-                    <%if (researcherSurveyDetail01.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {%>
-                        <%=DateTime.getHtml("startdate", Time.getCalFromDate(researcherSurveyDetail01.getStartdate()), "", "")%>
-                    <%} else {%>
-                        <font class="normalfont"><%=Time.dateformatcompactwithtime(Time.getCalFromDate(researcherSurveyDetail01.getStartdate()))%></font>
-                    <%}%>
-                </td>
-            </tr>
-
-            <tr>
-                <td valign="top">
-                    <font class="formfieldnamefont">End Date</font>
-                </td>
-                <td valign="top">
-                    <%if (researcherSurveyDetail01.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {%>
-                        <%=DateTime.getHtml("enddate", Time.getCalFromDate(researcherSurveyDetail01.getEnddate()), "", "")%>
-                    <%} else {%>
-                        <font class="normalfont"><%=Time.dateformatcompactwithtime(Time.getCalFromDate(researcherSurveyDetail01.getEnddate()))%></font>
-                    <%}%>
-                </td>
-            </tr>
-
         </table>
         
         <br/><br/>

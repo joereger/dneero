@@ -1,14 +1,17 @@
 package com.dneero.money;
 
-import com.dneero.dao.Survey;
-import com.dneero.dao.User;
-import com.dneero.dao.Researcher;
+import com.dneero.dao.*;
 import com.dneero.dao.hibernate.NumFromUniqueResult;
+import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.util.Time;
 import com.dneero.util.DateDiff;
 
 import java.util.Calendar;
+import java.util.List;
+import java.util.Iterator;
 import java.io.Serializable;
+
+import org.hibernate.criterion.Restrictions;
 
 /**
  * User: Joe Reger Jr
@@ -41,26 +44,26 @@ public class SurveyMoneyStatus implements Serializable {
 
 
     public SurveyMoneyStatus(Survey survey){
-        dneeromarkuppercent = survey.getDneeromarkuppercent();
+        //Note that coupon is applied below each calculation into the same variable
         maxPossiblePayoutForResponses = (survey.getWillingtopayperrespondent() * survey.getNumberofrespondentsrequested());
         maxPossiblePayoutForImpressions = ((survey.getWillingtopaypercpm()*survey.getMaxdisplaystotal())/1000);
         maxPossiblePayoutToUsers = maxPossiblePayoutForResponses + maxPossiblePayoutForImpressions;
-        maxPossibledNeeroFee = maxPossiblePayoutToUsers * (dneeromarkuppercent /100);
+        maxPossibledNeeroFee = calculatedNeeroUpcharge(maxPossiblePayoutToUsers, survey) - calculateCouponAmt(maxPossiblePayoutToUsers, survey);
         if(survey.getIsresultshidden()){
             hidesurveyfee = maxPossiblePayoutToUsers * (HIDESURVEYFEEPERCENT/100);
         }
         maxPossibleSpend = maxPossiblePayoutToUsers + maxPossibledNeeroFee + hidesurveyfee + PERSURVEYCREATIONFEE;
         responsesToDate = survey.getResponses().size();
         spentOnResponsesToDate = survey.getWillingtopayperrespondent() * responsesToDate;
-        spentOnResponsesToDateIncludingdNeeroFee = spentOnResponsesToDate + (spentOnResponsesToDate * (dneeromarkuppercent /100));
+        spentOnResponsesToDateIncludingdNeeroFee = calculateAmtToChargeResearcher(spentOnResponsesToDate, survey);
         impressionsToDate = 0;
         int impressionspaid  = NumFromUniqueResult.getInt("select sum(impressionspaid) from Impression where surveyid='"+survey.getSurveyid()+"'");
         int impressionstobepaid  = NumFromUniqueResult.getInt("select sum(impressionstobepaid) from Impression where surveyid='"+survey.getSurveyid()+"'");
         impressionsToDate = impressionsToDate + (impressionspaid + impressionstobepaid);
         spentOnImpressionsToDate = (Double.parseDouble(String.valueOf(impressionsToDate)) * survey.getWillingtopaypercpm())/1000;
-        spentOnImpressionsToDateIncludingdNeeroFee = spentOnImpressionsToDate + (spentOnImpressionsToDate * (dneeromarkuppercent /100));
+        spentOnImpressionsToDateIncludingdNeeroFee = calculateAmtToChargeResearcher(spentOnImpressionsToDate, survey);
         spentToDate = spentOnResponsesToDate + spentOnImpressionsToDate;
-        spentToDateIncludingdNeeroFee = spentToDate + (spentToDate * (dneeromarkuppercent /100)) + PERSURVEYCREATIONFEE + hidesurveyfee;
+        spentToDateIncludingdNeeroFee = calculateAmtToChargeResearcher(spentToDate, survey) + PERSURVEYCREATIONFEE + hidesurveyfee;
 
         //When calculating remainingPossibleSpend I must take survey status into account
         if (survey.getStatus()!=Survey.STATUS_CLOSED){
@@ -80,10 +83,11 @@ public class SurveyMoneyStatus implements Serializable {
         }
     }
 
-    //Calculates total amt to charge including upcharge
+    //Calculates total amt to charge including upcharge and coupons
     public static double calculateAmtToChargeResearcher(double amt, Survey survey){
+        double couponamt = calculateCouponAmt(amt, survey);
         double upcharge = calculatedNeeroUpcharge(amt, survey);
-        double amttocharge = amt + upcharge;
+        double amttocharge = amt + upcharge - couponamt;
         return amttocharge;
     }
 
@@ -91,6 +95,34 @@ public class SurveyMoneyStatus implements Serializable {
     private static double calculatedNeeroUpcharge(double amt, Survey survey){
         double upcharge = amt*(survey.getDneeromarkuppercent()/100);
         return upcharge;
+    }
+
+    //Calculates coupon discount amount
+    private static double calculateCouponAmt(double amt, Survey survey){
+        double couponamt = 0.0;
+        List<Couponredemption> couponredemptions = HibernateUtil.getSession().createCriteria(Couponredemption.class)
+                                           .add(Restrictions.eq("surveyid", survey.getSurveyid()))
+                                           .setCacheable(true)
+                                           .list();
+        if (couponredemptions!=null && couponredemptions.size()>0){
+            //Only apply the coupon with the highest discount... what can I say... we're kind.
+            Coupon coupon = null;
+            for (Iterator<Couponredemption> iterator = couponredemptions.iterator(); iterator.hasNext();) {
+                Couponredemption couponredemption = iterator.next();
+                Coupon tmpcoupon = Coupon.get(couponredemption.getCouponid());
+                //Check start date and end date of coupon against survey launch date
+                if (survey.getStartdate().after(tmpcoupon.getStartdate()) && survey.getStartdate().before(tmpcoupon.getEnddate())){
+                    if (coupon==null || tmpcoupon.getDiscountpercent()>coupon.getDiscountpercent()){
+                        coupon = tmpcoupon;
+                    }
+                }
+            }
+            //If we have a coupon, apply it
+            if (coupon!=null){
+                couponamt = amt*(coupon.getDiscountpercent()/100);
+            }
+        }
+        return couponamt;
     }
 
 
