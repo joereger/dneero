@@ -154,6 +154,8 @@ String acl = "public";
                                         <font class="mediumfont" style="color: #666666;">This survey requires an Access Code</font>
                                         <br/>
                                         <font class="formfieldnamefont" style="color: #666666;">Access Code: </font><%=Textbox.getHtml("accesscode", Pagez.getUserSession().getAccesscode(), 255, 10, "", "")%>
+                                        <br/>
+                                        <font class="tinyfont" style="color: #666666;">Access Codes are used by survey creators to limit the pool of survey respondents in some way.  Sometimes Access Codes are handed out at an event.  Or at a point of sale.  Or sent out to a select group via email.  Generally speaking, if you don't have the Access Code, this survey isn't for you.</font>
                                     </div>
                                 <%}%>
                                 <%=publicSurvey.getTakesurveyhtml()%>

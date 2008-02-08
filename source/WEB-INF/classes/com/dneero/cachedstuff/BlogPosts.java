@@ -67,7 +67,7 @@ public class BlogPosts implements CachedStuff, Serializable {
     }
 
     public int maxAgeInMinutes() {
-        return 120;
+        return 30;
     }
 
     public String getHtml() {

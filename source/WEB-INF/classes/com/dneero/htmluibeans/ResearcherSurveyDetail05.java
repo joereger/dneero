@@ -100,8 +100,8 @@ public class ResearcherSurveyDetail05 implements Serializable {
                 if (willingtopayperrespondent<.1){
                     vex.addValidationError("Willing to Pay Per Respondent must be at least $0.10.");
                 }
-                if (numberofrespondentsrequested<100){
-                    vex.addValidationError("Number of Respondents Requested must be at least 100.");
+                if (numberofrespondentsrequested<1){
+                    vex.addValidationError("Number of Respondents Requested must be at least 1.");
                 }
                 if (willingtopaypercpm<.25){
                     vex.addValidationError("Willing to Pay Per Thousand Survey Displays on a Blog must be at least $0.25.");

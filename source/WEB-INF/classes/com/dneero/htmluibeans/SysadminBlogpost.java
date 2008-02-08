@@ -18,6 +18,7 @@ import com.dneero.systemprops.BaseUrl;
 import com.dneero.htmlui.Pagez;
 import com.dneero.htmlui.ValidationException;
 import com.dneero.cachedstuff.BlogPosts;
+import com.dneero.cachedstuff.GetCachedStuff;
 
 /**
  * User: Joe Reger Jr
@@ -83,8 +84,8 @@ public class SysadminBlogpost implements Serializable {
         blogpost.setCategories(categories);
         try{blogpost.save();}catch(Exception ex){logger.error("",ex);}
         initBean();
-        BlogPosts bp = new BlogPosts();
-        bp.refresh();
+        //Refresh the blog posts on the homepage
+        GetCachedStuff.refresh(new BlogPosts());
         try{
             if (doPingomatic && BaseUrl.get(false).indexOf("localhost")<=-1){
                 Pingomatic.ping("dNeero Social Surveys Blog", BaseUrl.get(false)+"blog.jsp", BaseUrl.get(false)+"rss.xml");

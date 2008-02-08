@@ -42,6 +42,11 @@ public class InstantNotifyOfNewSurvey implements Runnable {
             return;
         }
 
+        //If it's Access Code only, don't notify
+        if (survey.getIsaccesscodeonly()){
+            return;
+        }
+
         //Vars to hold our strings in the email
         double possibleearnings = 0;
         StringBuffer listofsurveysHtml = new StringBuffer();
