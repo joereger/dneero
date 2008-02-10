@@ -24,6 +24,7 @@ public class SurveyMoneyStatus implements Serializable {
     public static double DEFAULTDNEEROMARKUPPERCENT = 25;
     public static int DAYSAFTERCLOSEOFSURVEYWECOLLECTFORIMPRESSIONS = 30;
     public static double HIDESURVEYFEEPERCENT = 5;
+    public static double RESELLERPERCENTDEFAULT = 10;
 
     private double maxPossiblePayoutForResponses = 0;
     private double maxPossiblePayoutForImpressions = 0;
@@ -41,6 +42,7 @@ public class SurveyMoneyStatus implements Serializable {
     private double remainingPossibleSpend = 0;
     private double hidesurveyfee = 0;
     private double dneeromarkuppercent = DEFAULTDNEEROMARKUPPERCENT;
+    private double couponDiscountAmt = 0.0;
 
 
     public SurveyMoneyStatus(Survey survey){
@@ -48,11 +50,12 @@ public class SurveyMoneyStatus implements Serializable {
         maxPossiblePayoutForResponses = (survey.getWillingtopayperrespondent() * survey.getNumberofrespondentsrequested());
         maxPossiblePayoutForImpressions = ((survey.getWillingtopaypercpm()*survey.getMaxdisplaystotal())/1000);
         maxPossiblePayoutToUsers = maxPossiblePayoutForResponses + maxPossiblePayoutForImpressions;
-        maxPossibledNeeroFee = calculatedNeeroUpcharge(maxPossiblePayoutToUsers, survey) - calculateCouponAmt(maxPossiblePayoutToUsers, survey);
+        couponDiscountAmt = calculateCouponAmt(maxPossiblePayoutToUsers, survey);
+        maxPossibledNeeroFee = calculatedNeeroUpcharge(maxPossiblePayoutToUsers, survey);
         if(survey.getIsresultshidden()){
             hidesurveyfee = maxPossiblePayoutToUsers * (HIDESURVEYFEEPERCENT/100);
         }
-        maxPossibleSpend = maxPossiblePayoutToUsers + maxPossibledNeeroFee + hidesurveyfee + PERSURVEYCREATIONFEE;
+        maxPossibleSpend = maxPossiblePayoutToUsers + maxPossibledNeeroFee + hidesurveyfee + PERSURVEYCREATIONFEE - couponDiscountAmt;
         responsesToDate = survey.getResponses().size();
         spentOnResponsesToDate = survey.getWillingtopayperrespondent() * responsesToDate;
         spentOnResponsesToDateIncludingdNeeroFee = calculateAmtToChargeResearcher(spentOnResponsesToDate, survey);
@@ -123,6 +126,16 @@ public class SurveyMoneyStatus implements Serializable {
             }
         }
         return couponamt;
+    }
+
+    //Calculates reseller amt
+    public static double calculateResellerAmt(double amt, User user){
+        double resellerpercent = RESELLERPERCENTDEFAULT;
+        if (user.getResellerpercent()>0){
+            resellerpercent = user.getResellerpercent();
+        }
+        double reselleramt = amt*(resellerpercent/100);
+        return reselleramt;
     }
 
 
@@ -205,5 +218,13 @@ public class SurveyMoneyStatus implements Serializable {
 
     public void setHidesurveyfee(double hidesurveyfee) {
         this.hidesurveyfee = hidesurveyfee;
+    }
+
+    public double getCouponDiscountAmt() {
+        return couponDiscountAmt;
+    }
+
+    public void setCouponDiscountAmt(double couponDiscountAmt) {
+        this.couponDiscountAmt = couponDiscountAmt;
     }
 }

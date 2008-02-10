@@ -9,6 +9,7 @@ import com.dneero.systemprops.InstanceProperties;
 import com.dneero.dao.*;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.util.ErrorDissect;
+import com.dneero.util.Str;
 import com.dneero.money.MoveMoneyInAccountBalance;
 import com.dneero.money.SurveyMoneyStatus;
 import com.dneero.xmpp.SendXMPPMessage;
@@ -46,6 +47,25 @@ public class PayForSurveyResponsesOncePosted implements Job {
                         MoveMoneyInAccountBalance.pay(user, survey.getWillingtopayperrespondent(), "Pay for taking survey: '"+survey.getTitle()+"'", true, response.getIsforcharity(), response.getCharityname(), response.getResponseid(), false, true);
                         //Affect balance for researcher
                         MoveMoneyInAccountBalance.charge(User.get(Researcher.get(survey.getResearcherid()).getUserid()), (SurveyMoneyStatus.calculateAmtToChargeResearcher(survey.getWillingtopayperrespondent(), survey)), "User "+user.getFirstname()+" "+user.getLastname()+" responds to survey '"+survey.getTitle()+"'", true, false);
+                        //Affect balance for reseller
+                        if (survey.getResellercode()!=null && !survey.getResellercode().equals("")){
+                            //Find the user with this resellercode
+                            List<User> userResellers = HibernateUtil.getSession().createCriteria(User.class)
+                                                               .add(Restrictions.eq("resellercode", survey.getResellercode()))
+                                                               .setCacheable(true)
+                                                               .setMaxResults(1)
+                                                               .list();
+                            if (userResellers!=null && userResellers.size()>0){
+                                User userReseller = userResellers.get(0);
+                                if (userReseller!=null){
+                                    //Pay them the correct amount... remember, their pay is based on the amount paid to the bloggers
+                                    double amtToPayReseller = SurveyMoneyStatus.calculateResellerAmt(survey.getWillingtopayperrespondent(), userReseller);
+                                    if (amtToPayReseller>0){
+                                        MoveMoneyInAccountBalance.pay(userReseller, amtToPayReseller, "Reseller pay for survey response to '"+Str.truncateString(survey.getTitle(), 20)+"'", false, false, "", 0, false, true);
+                                    }
+                                }
+                            }
+                        }
                     } catch (Exception ex){
                         logger.error("",ex);
                         ex.printStackTrace();

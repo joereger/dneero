@@ -79,6 +79,7 @@ public class ResearcherSurveyDetail01 implements Serializable {
         enddate = Time.AddOneMonth(Calendar.getInstance()).getTime();
         survey.setEnddate(enddate);
         survey.setDneeromarkuppercent(SurveyMoneyStatus.DEFAULTDNEEROMARKUPPERCENT);
+        survey.setResellercode("");
     }
 
 

@@ -50,6 +50,8 @@ public class User extends BasePersistentClass implements java.io.Serializable, A
      private int facebookuserid;
      private boolean isfacebookappremoved;
      private Date facebookappremoveddate;
+     private String resellercode;
+     private double resellerpercent;
 
      //Association
     private Set<Userrole> userroles = new HashSet<Userrole>();
@@ -391,5 +393,21 @@ public class User extends BasePersistentClass implements java.io.Serializable, A
 
     public void setFacebookappremoveddate(Date facebookappremoveddate) {
         this.facebookappremoveddate = facebookappremoveddate;
+    }
+
+    public String getResellercode() {
+        return resellercode;
+    }
+
+    public void setResellercode(String resellercode) {
+        this.resellercode = resellercode;
+    }
+
+    public double getResellerpercent() {
+        return resellerpercent;
+    }
+
+    public void setResellerpercent(double resellerpercent) {
+        this.resellerpercent = resellerpercent;
     }
 }

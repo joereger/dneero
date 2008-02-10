@@ -93,6 +93,8 @@
                     <img src="/images/clear.gif" alt="" width="10" height="1"/>
                     <a href="/charity.jsp"><font class="subnavfont" style="color: #000000;">Charity</font></a>
                     <img src="/images/clear.gif" alt="" width="10" height="1"/>
+                    <a href="/reseller.jsp"><font class="subnavfont" style="color: #000000;">Reseller Program</font></a>
+                    <img src="/images/clear.gif" alt="" width="10" height="1"/>
                     <%if (!Pagez.getUserSession().getIsloggedin()){%><a href="/registration.jsp"><font class="subnavfont" style="color: #000000;">Sign Up</font></a><%}%>
                     <img src="/images/clear.gif" alt="" width="10" height="1"/>
                     <%if (!Pagez.getUserSession().getIsloggedin()){%><a href="/login.jsp"><font class="subnavfont" style="color: #000000;">Log In</font></a><%}%>
@@ -137,6 +139,8 @@
                         <a href="/account/accountsettings.jsp"><font class="subnavfont" style="color: #000000;">Account Settings</font></a>
                         <img src="/images/clear.gif" alt="" width="10" height="1"/>
                         <a href="/account/changepassword.jsp"><font class="subnavfont" style="color: #000000;">Change Password</font></a>
+                        <img src="/images/clear.gif" alt="" width="10" height="1"/>
+                        <a href="/account/reseller.jsp"><font class="subnavfont" style="color: #000000;">Reseller Program</font></a>
                         <img src="/images/clear.gif" alt="" width="10" height="1"/>
                         <a href="/account/accountsupportissueslist.jsp"><font class="subnavfont" style="color: #000000;">Help/Support</font></a>
                     <%}%>

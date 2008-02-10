@@ -91,6 +91,11 @@ public class RandomString {
         return random(count, true, true);
     }
 
+    public static String randomAlphanumericAllUpperCaseNoOsOrZeros(int count) {
+        String setOfChars = "ABCDEFGHIJKLMNPQRSTUVWXYZ123456789";
+        return random(count, setOfChars);
+    }
+
     /**
      * <p>Creates a random string whose length is the number of characters
      * specified.</p>

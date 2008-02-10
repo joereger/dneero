@@ -30,6 +30,8 @@ public class ResearcherSurveyDetail06 implements Serializable {
     private String title;
     private Survey survey;
 
+    private SurveyMoneyStatus sms;
+
     private int status;
     private int numberofbloggersqualifiedforthissurvey = 0;
     private int daysinsurveyperiod = 0;
@@ -48,6 +50,8 @@ public class ResearcherSurveyDetail06 implements Serializable {
     private boolean warningtoomanyquestions = false;
     private boolean warningnoquestions = false;
     private boolean warningdonthaveccinfo = false;
+    private String coupondiscountamt = "0";
+    private String resellercode = "";
 
 
 
@@ -95,19 +99,21 @@ public class ResearcherSurveyDetail06 implements Serializable {
                 startdate = Time.dateformatcompactwithtime(Time.getCalFromDate(survey.getStartdate()));
                 enddate = Time.dateformatcompactwithtime(Time.getCalFromDate(survey.getEnddate()));
                 numberofquestions = survey.getQuestions().size();
+                resellercode = survey.getResellercode();
 
                 //Find bloggers qualified for this survey
                 //FindBloggersForSurvey fb = new FindBloggersForSurvey(survey);
                 //numberofbloggersqualifiedforthissurvey = fb.getBloggers().size();
 
                 //Calculate the financials of the survey
-                SurveyMoneyStatus sms = new SurveyMoneyStatus(survey);
+                sms = new SurveyMoneyStatus(survey);
                 maxrespondentpayments = "$"+Str.formatForMoney(sms.getMaxPossiblePayoutForResponses());
                 maximpressionpayments = "$"+Str.formatForMoney(sms.getMaxPossiblePayoutForImpressions());
                 maxincentive = "$"+Str.formatForMoney(sms.getMaxPossiblePayoutForResponses() + sms.getMaxPossiblePayoutForImpressions());
                 dneerofee = "$"+Str.formatForMoney(sms.getMaxPossibledNeeroFee());
                 maxpossiblespend = "$"+Str.formatForMoney(sms.getMaxPossibleSpend());
                 hideresultsfee = "$"+Str.formatForMoney(sms.getHidesurveyfee());
+                coupondiscountamt = "$"+Str.formatForMoney(sms.getCouponDiscountAmt());
 
                 //The user's current account balance
                 CurrentBalanceCalculator cbc = new CurrentBalanceCalculator(Pagez.getUserSession().getUser());
@@ -309,6 +315,9 @@ public class ResearcherSurveyDetail06 implements Serializable {
                     survey.setStatus(Survey.STATUS_WAITINGFORFUNDS);
                 }
 
+                //Set the reseller code
+                survey.setResellercode(resellercode);
+
                 //Save the survey
                 try{
                     logger.debug("saveSurvey() about to save survey.getSurveyid()=" + survey.getSurveyid());
@@ -362,6 +371,45 @@ public class ResearcherSurveyDetail06 implements Serializable {
         }
     }
 
+    public void applyResellerCode() throws ValidationException {
+        ValidationException vex = new ValidationException();
+        Logger logger = Logger.getLogger(this.getClass().getName());
+        boolean resellerfound = false;
+        String resellername = "";
+        if (resellercode!=null && !resellercode.equals("")){
+            //Force upper case
+            resellercode = resellercode.toUpperCase();
+            //Find the user with this resellercode
+            List<User> userResellers = HibernateUtil.getSession().createCriteria(User.class)
+                                               .add(Restrictions.eq("resellercode", resellercode))
+                                               .setCacheable(true)
+                                               .setMaxResults(1)
+                                               .list();
+            if (userResellers!=null && userResellers.size()>0){
+                User userReseller = userResellers.get(0);
+                if (userReseller!=null){
+                    //We have a reseller, save
+                    resellerfound = true;
+                    resellername = userReseller.getFirstname()+" "+userReseller.getLastname();
+                    survey.setResellercode(resellercode);
+                    try{
+                        survey.save();
+                    } catch (GeneralException gex){
+                        logger.debug("saveSurvey() failed: " + gex.getErrorsAsSingleString());
+                        resellerfound = false;
+                        throw vex;
+                    }
+                }
+            }
+        }
+        if (resellerfound){
+            //initBean();
+            Pagez.getUserSession().setMessage("Your reseller code has been applied and '"+resellername+"' will now earn a commission.  Thanks!");
+        } else {
+            Pagez.getUserSession().setMessage("Sorry, no reseller was found for that code.");
+        }
+    }
+
     public void applyCoupon() throws ValidationException {
         ValidationException vex = new ValidationException();
         Logger logger = Logger.getLogger(this.getClass().getName());
@@ -404,8 +452,6 @@ public class ResearcherSurveyDetail06 implements Serializable {
         } else {
             Pagez.getUserSession().setMessage("Sorry, no coupon was found for that code.");
         }
-
-
 
     }
 
@@ -749,5 +795,21 @@ public class ResearcherSurveyDetail06 implements Serializable {
 
     public void setCouponcode(String couponcode) {
         this.couponcode = couponcode;
+    }
+
+    public String getCoupondiscountamt() {
+        return coupondiscountamt;
+    }
+
+    public void setCoupondiscountamt(String coupondiscountamt) {
+        this.coupondiscountamt = coupondiscountamt;
+    }
+
+    public String getResellercode() {
+        return resellercode;
+    }
+
+    public void setResellercode(String resellercode) {
+        this.resellercode = resellercode;
     }
 }

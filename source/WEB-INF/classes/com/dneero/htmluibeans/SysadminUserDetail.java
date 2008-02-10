@@ -51,6 +51,7 @@ public class SysadminUserDetail implements Serializable {
     private Researcher researcher;
     private boolean onlyshowsuccessfultransactions = false;
     private boolean onlyshownegativeamountbalance = false;
+    private double resellerpercent;
 
 
     public SysadminUserDetail(){
@@ -315,6 +316,18 @@ public class SysadminUserDetail implements Serializable {
         return "sysadminuserdetail";
     }
 
+    public String updateresellerpercent() throws ValidationException {
+        Logger logger = Logger.getLogger(this.getClass().getName());
+        User user = User.get(userid);
+        if (user!=null && user.getUserid()>0){
+            user.setResellerpercent(resellerpercent);
+            try{user.save();} catch (Exception ex){logger.error("",ex);}
+        }
+        initBean();
+        Pagez.getUserSession().setMessage("Reseller Percent updated.");
+        return "sysadminuserdetail";
+    }
+
 
     public String getFirstname() {
         return firstname;
@@ -486,5 +499,13 @@ public class SysadminUserDetail implements Serializable {
 
     public void setFacebookuid(String facebookuid) {
         this.facebookuid=facebookuid;
+    }
+
+    public double getResellerpercent() {
+        return resellerpercent;
+    }
+
+    public void setResellerpercent(double resellerpercent) {
+        this.resellerpercent = resellerpercent;
     }
 }

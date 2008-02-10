@@ -118,5 +118,8 @@
         <property name="dneeromarkuppercent" type="double">
             <column name="dneeromarkuppercent" precision="22" scale="0" not-null="true" />
         </property>
+        <property name="resellercode" type="string">
+            <column name="resellercode" />
+        </property>
     </class>
 </hibernate-mapping>

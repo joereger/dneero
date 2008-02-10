@@ -7,6 +7,7 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.dneero.htmlui.*" %>
 <%@ page import="com.dneero.money.CurrentBalanceCalculator" %>
+<%@ page import="com.dneero.money.SurveyMoneyStatus" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "User: "+((SysadminUserDetail) Pagez.getBeanMgr().get("SysadminUserDetail")).getEmail();
@@ -38,6 +39,16 @@ SysadminUserDetail sysadminUserDetail = (SysadminUserDetail)Pagez.getBeanMgr().g
         try {
             sysadminUserDetail.setActivitypin(Textbox.getValueFromRequest("activitypin", "Activity Pin", false, DatatypeString.DATATYPEID));
             sysadminUserDetail.togglesysadminprivs();
+        } catch (com.dneero.htmlui.ValidationException vex) {
+            Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
+        }
+    }
+%>
+<%
+    if (request.getParameter("action") != null && request.getParameter("action").equals("updateresellerpercent")) {
+        try {
+            sysadminUserDetail.setResellerpercent(Textbox.getDblFromRequest("resellerpercent", "Reseller Percent", true, DatatypeDouble.DATATYPEID));
+            sysadminUserDetail.updateresellerpercent();
         } catch (com.dneero.htmlui.ValidationException vex) {
             Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
         }
@@ -199,6 +210,22 @@ SysadminUserDetail sysadminUserDetail = (SysadminUserDetail)Pagez.getBeanMgr().g
                                     </tr>
                                     <tr>
                                         <td valign="top">
+                                            <font class="formfieldnamefont">Reseller Code</font>
+                                        </td>
+                                        <td valign="top">
+                                            <font class="smallfont"><%=sysadminUserDetail.getUser().getResellercode()%></font>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td valign="top">
+                                            <font class="formfieldnamefont">Reseller Percent</font>
+                                        </td>
+                                        <td valign="top">
+                                            <font class="smallfont"><%=sysadminUserDetail.getUser().getResellerpercent()%>%</font>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td valign="top">
                                             <font class="formfieldnamefont">Currentbalance</font>
                                         </td>
                                         <td valign="top">
@@ -348,6 +375,23 @@ SysadminUserDetail sysadminUserDetail = (SysadminUserDetail)Pagez.getBeanMgr().g
                                 <%=Textbox.getHtml("reason", sysadminUserDetail.getReason(), 255, 25, "", "")%>
                                 <br/>
                                 <input type="submit" class="formsubmitbutton" value="Take User Money">
+                            </form>
+                        </div>
+
+                        <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
+                            <form action="/sysadmin/userdetail.jsp" method="post">
+                                <input type="hidden" name="dpage" value="/sysadmin/userdetail.jsp">
+                                <input type="hidden" name="action" value="updateresellerpercent">
+                                <input type="hidden" name="userid" value="<%=sysadminUserDetail.getUserid()%>">
+                                <font class="mediumfont">Reseller Percent</font>
+                                <br/>
+                                <font class="formfieldnamefont">Percent this person earns from reselling:</font>
+                                <br/>
+                                <%=Textbox.getHtml("resellerpercent", String.valueOf(sysadminUserDetail.getAmt()), 255, 25, "", "")%>
+                                <br/>
+                                <font class="tinyfont">Leave at 0 to use default value of <%=SurveyMoneyStatus.RESELLERPERCENTDEFAULT%></font>
+                                <br/>
+                                <input type="submit" class="formsubmitbutton" value="Update">
                             </form>
                         </div>
                    

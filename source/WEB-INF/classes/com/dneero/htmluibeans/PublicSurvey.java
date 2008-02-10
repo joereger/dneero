@@ -451,6 +451,8 @@ public class PublicSurvey implements Serializable {
                     user.setFacebookuserid(facebookuserid);
                     user.setFacebookappremoveddate(new Date());
                     user.setIsfacebookappremoved(false);
+                    user.setResellercode(RandomString.randomAlphanumericAllUpperCaseNoOsOrZeros(7));
+                    user.setResellerpercent(0.0);
                     try{
                         user.save();
                     } catch (GeneralException gex){

@@ -11,6 +11,7 @@ import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.money.MoveMoneyInAccountBalance;
 import com.dneero.money.SurveyMoneyStatus;
 import com.dneero.util.Time;
+import com.dneero.util.Str;
 
 import java.util.*;
 import java.text.NumberFormat;
@@ -101,6 +102,29 @@ public class ImpressionPayments implements Job {
                         MoveMoneyInAccountBalance.charge(user, amtToChargeResearcher, "Charge for blog impressions on survey '"+survey.getTitle()+"'", true, false);
                     }
 
+                    //Affect balance for reseller
+                    if (amtSpentOnBehalfOfResearcher>0){
+                        //If there's a resellercode entered for this survey
+                        if (survey.getResellercode()!=null && !survey.getResellercode().equals("")){
+                            //Find the user with this resellercode
+                            List<User> userResellers = HibernateUtil.getSession().createCriteria(User.class)
+                                                               .add(Restrictions.eq("resellercode", survey.getResellercode()))
+                                                               .setCacheable(true)
+                                                               .setMaxResults(1)
+                                                               .list();
+                            if (userResellers!=null && userResellers.size()>0){
+                                User userReseller = userResellers.get(0);
+                                if (userReseller!=null){
+                                    //Pay them the correct amount... remember, their pay is based on the amount paid to the bloggers
+                                    double amtToPayReseller = SurveyMoneyStatus.calculateResellerAmt(amtSpentOnBehalfOfResearcher, userReseller);
+                                    if (amtToPayReseller>0){
+                                        MoveMoneyInAccountBalance.pay(userReseller, amtToPayReseller, "Reseller pay for impressions on '"+Str.truncateString(survey.getTitle(), 20)+"'", false, false, "", 0, false, true);
+                                    }
+                                }
+                            }
+                        }      
+                    }
+
                     //Pay bloggers if we have any UserPayUnits to consider
                     if (userPayUnits!=null && userPayUnits.size()>0){
 
@@ -122,7 +146,7 @@ public class ImpressionPayments implements Job {
                                     } catch (Exception ex){
                                         logger.error("",ex);
                                     }
-                                    MoveMoneyInAccountBalance.pay(user, ipupu.getAmt(), "Pay for impressions" + amtWithDec, true, false, "", 0, false, true);
+                                    MoveMoneyInAccountBalance.pay(user, ipupu.getAmt(), "Pay for impressions on '"+ Str.truncateString(survey.getTitle(), 20) +"': "+ amtWithDec, true, false, "", 0, false, true);
                                 }
                                 //If there are charity donations to pay
                                 if (ipupu.getCharityDonations()!=null && ipupu.getCharityDonations().size()>0){
@@ -132,7 +156,7 @@ public class ImpressionPayments implements Job {
                                             Map.Entry mapentry2 = (Map.Entry) keyValuePairs2.next();
                                             String charityname = (String)mapentry2.getKey();
                                             double amtCharity = Double.parseDouble(String.valueOf(mapentry2.getValue()));
-                                            MoveMoneyInAccountBalance.pay(user, amtCharity, "Pay charity for impressions", false, true, charityname, 0, false, true);
+                                            MoveMoneyInAccountBalance.pay(user, amtCharity, "Pay charity for impressions on '"+Str.truncateString(survey.getTitle(), 20)+"'", false, true, charityname, 0, false, true);
                                         }
                                     } catch (Exception ex){
                                         logger.error("Error in charity payment code.", ex);

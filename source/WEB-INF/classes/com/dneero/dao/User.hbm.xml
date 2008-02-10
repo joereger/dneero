@@ -131,6 +131,11 @@
         <property name="facebookappremoveddate" type="timestamp">
             <column name="facebookappremoveddate" not-null="true" />
         </property>
-
+        <property name="resellercode" type="string">
+            <column name="resellercode" />
+        </property>
+        <property name="resellerpercent" type="double">
+            <column name="resellerpercent" precision="22" scale="0" not-null="true" />
+        </property>
     </class>
 </hibernate-mapping>

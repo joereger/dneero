@@ -75,6 +75,20 @@ ResearcherSurveyDetail06 researcherSurveyDetail06 = (ResearcherSurveyDetail06)Pa
         }
     }
 %>
+<%
+    if (request.getParameter("action") != null && (request.getParameter("action").equals("applyresellercode"))) {
+        try {
+            if (researcherSurveyDetail06.getSurvey().getStatus()==Survey.STATUS_DRAFT){
+                researcherSurveyDetail06.setResellercode(Textbox.getValueFromRequest("resellercode", "Reseller Code", false, DatatypeString.DATATYPEID));
+                researcherSurveyDetail06.applyResellerCode();
+            } else {
+                Pagez.getUserSession().setMessage("Reseller Codes can only be applied to surveys in the draft state... before they launch.");
+            }
+        } catch (ValidationException vex) {
+            Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
+        }
+    }
+%>
 <%@ include file="/template/header.jsp" %>
 
 
@@ -100,14 +114,6 @@ ResearcherSurveyDetail06 researcherSurveyDetail06 = (ResearcherSurveyDetail06)Pa
             </tr>
             -->
 
-            <tr>
-                <td valign="top">
-                    <font class="formfieldnamefont">Number of Questions in Survey</font>
-                </td>
-                <td valign="top">
-                    <font class="normalfont"><%=researcherSurveyDetail06.getNumberofquestions()%></font>
-                </td>
-            </tr>
 
             <tr>
                 <td valign="top">
@@ -163,12 +169,22 @@ ResearcherSurveyDetail06 researcherSurveyDetail06 = (ResearcherSurveyDetail06)Pa
                 </td>
             </tr>
 
+
             <tr>
                 <td valign="top">
                     <font class="formfieldnamefont">Max Possible dNeero Fee</font>
                 </td>
                 <td valign="top">
-                    <font class="normalfont"><%=researcherSurveyDetail06.getDneerofee()%></font>
+                    <font class="normalfont"><%=researcherSurveyDetail06.getDneerofee()%></font><font class="normalfont"></font>
+                </td>
+            </tr>
+
+            <tr>
+                <td valign="top">
+                    <font class="formfieldnamefont">Coupon Discount (Applied to Max)</font>
+                </td>
+                <td valign="top">
+                    <font class="normalfont"><%=researcherSurveyDetail06.getCoupondiscountamt()%></font>
                 </td>
             </tr>
 
@@ -177,7 +193,7 @@ ResearcherSurveyDetail06 researcherSurveyDetail06 = (ResearcherSurveyDetail06)Pa
                     <font class="formfieldnamefont">Max Possible Spend</font>
                 </td>
                 <td valign="top">
-                    <font class="normalfont"><%=researcherSurveyDetail06.getMaxpossiblespend()%></font>
+                    <font class="normalfont"><b><%=researcherSurveyDetail06.getMaxpossiblespend()%></b></font>
                 </td>
             </tr>
 
@@ -327,7 +343,7 @@ ResearcherSurveyDetail06 researcherSurveyDetail06 = (ResearcherSurveyDetail06)Pa
     <table cellpadding="0" cellspacing="0" border="0">
             <tr>
                 <td valign="top">
-                    <font class="mediumfont">
+                    <font class="normalfont">
                         <ul>
                             <li>I understand that by launching this survey I am committing to spending up to <%=researcherSurveyDetail06.getMaxpossiblespend()%> (Max Possible Spend.)</li>
                             <li>Actual charges will be based only on the activities of survey completion and impressions (i.e. viewing of your survey on blogs.)</li>
@@ -345,19 +361,33 @@ ResearcherSurveyDetail06 researcherSurveyDetail06 = (ResearcherSurveyDetail06)Pa
                 </td>
                 <td valign="top" width="35%">
                     <div class="rounded" style="background: #e6e6e6; text-align: left; padding: 20px;">
+                        <div class="rounded" style="background: #ffffff; text-align: left; padding: 20px;">
+                            <center>
+                            <font class="formfieldnamefont">Reseller Code:</font>
+                            <br/>
+                            <%=Textbox.getHtml("resellercode", researcherSurveyDetail06.getResellercode(), 50, 15, "", "font-size: 10px;")%>
+                            <br/>
+                            <input type="submit" class="formsubmitbutton" value="Apply Reseller Code" onclick="document.getElementById('action').value='applyresellercode';" style="font-size: 10px;">
+                            <br/>
+                            <font class="tinyfont">Enter Reseller Code so that resellers paid for their efforts.  This will not affect your pricing.</font>
+                            </center>
+                        </div>
+                    </div>
+                    <br/><br/>
+                    <div class="rounded" style="background: #e6e6e6; text-align: left; padding: 20px;">
 
                         <font class="smallfont">
                             <%if (researcherSurveyDetail06.getCoupons()==null || researcherSurveyDetail06.getCoupons().size()==0){%>
                                 <!--<font class="tinyfont" style="color: #cccccc;">None.</font>-->
                             <%} else {%>
-                                <font class="mediumfont" style="color: #666666;">Coupons</font>
-                                <br/>
+                                <!--<font class="mediumfont" style="color: #666666;">Coupon</font>
+                                <br/> -->
                                 <%
                                     ArrayList<GridCol> cols = new ArrayList<GridCol>();
                                     cols.add(new GridCol("", "<b><$name$></b><br/><$description$>", false, "", "tinyfont"));
-                                    cols.add(new GridCol("Code", "<$couponcode$>", false, "", "tinyfont"));
-                                    cols.add(new GridCol("Discount Percent", "<$discountpercent$>", false, "", "tinyfont"));
-                                    cols.add(new GridCol("Start/End Date", "<$startdate|" + Grid.GRIDCOLRENDERER_DATETIMECOMPACT + "$><br/><$enddate|" + Grid.GRIDCOLRENDERER_DATETIMECOMPACT + "$>", false, "", "tinyfont"));
+                                    //cols.add(new GridCol("Code", "<$couponcode$>", false, "", "tinyfont"));
+                                    cols.add(new GridCol("", "<$discountpercent$>%", false, "", "tinyfont"));
+                                    //cols.add(new GridCol("Start/End", "<$startdate|" + Grid.GRIDCOLRENDERER_DATETIMECOMPACT + "$><br/><$enddate|" + Grid.GRIDCOLRENDERER_DATETIMECOMPACT + "$>", false, "", "tinyfont"));
                                 %>
                                 <%=Grid.render(researcherSurveyDetail06.getCoupons(), cols, 50, "/sysadmin/researchersurveydetail_06.jsp?surveyid="+researcherSurveyDetail06.getSurvey().getSurveyid(), "page")%>
                             <%}%>
