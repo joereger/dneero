@@ -104,7 +104,7 @@
                         <img src="/images/clear.gif" alt="" width="10" height="1"/>
                         <a href="/publicsurveylist.jsp"><font class="subnavfont" style="color: #000000;">Find Surveys</font></a>
                         <img src="/images/clear.gif" alt="" width="10" height="1"/>
-                        <a href="/blogger/bloggerearningsrevshare.jsp"><font class="subnavfont" style="color: #000000;">Earn Even More</font></a>
+                        <a href="/blogger/bloggerearningsrevshare.jsp"><font class="subnavfont" style="color: #000000;">Referral Program</font></a>
                         <img src="/images/clear.gif" alt="" width="10" height="1"/>
                         <a href="/blogger/index.jsp"><font class="subnavfont" style="color: #000000;">Earnings from Completed Surveys</font></a>
                         <img src="/images/clear.gif" alt="" width="10" height="1"/>
@@ -149,6 +149,7 @@
                     <%if (Pagez.getUserSession().getIsloggedin() && Pagez.getUserSession().getIsSysadmin()){%>
                         <a href="/sysadmin/errorlist.jsp"><font class="subnavfont" style=" color: #000000;">SysLog</font></a>
                         <a href="/sysadmin/transactions.jsp"><font class="subnavfont" style=" color: #000000;">Trans</font></a>
+                        <a href="/sysadmin/balance.jsp"><font class="subnavfont" style=" color: #000000;">Balance</font></a>
                         <a href="/sysadmin/userlist.jsp"><font class="subnavfont" style=" color: #000000;">Users</font></a>
                         <a href="/sysadmin/sysadminsurveylist.jsp"><font class="subnavfont" style=" color: #000000;">Surveys</font></a>
                         <a href="/sysadmin/editeula.jsp"><font class="subnavfont" style=" color: #000000;">EULA</font></a>

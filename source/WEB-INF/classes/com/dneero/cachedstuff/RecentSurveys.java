@@ -79,13 +79,13 @@ public class RecentSurveys implements CachedStuff, Serializable {
         out.append("<tr>");
         out.append("<td>");
         if (survey.getStatus()==Survey.STATUS_OPEN){
-            out.append("<a href='/survey.jsp?surveyid="+survey.getSurveyid()+"'>");
+            out.append("<a href=\"/survey.jsp?surveyid="+survey.getSurveyid()+"\">");
             out.append("<font class='tinyfont'>");
             out.append(survey.getTitle());
             out.append("</font>");
             out.append("</a>");
         } else {
-            out.append("<a href='/surveyresults.jsp?surveyid="+survey.getSurveyid()+"'>");
+            out.append("<a href=\"/surveyresults.jsp?surveyid="+survey.getSurveyid()+"\">");
             out.append("<font class='tinyfont'>");
             out.append(survey.getTitle());
             out.append("</font>");

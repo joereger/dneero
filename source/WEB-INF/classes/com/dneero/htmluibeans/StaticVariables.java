@@ -25,6 +25,15 @@ public class StaticVariables {
         return out;
     }
 
+    public static TreeMap<String, String> getFundsTypes(){
+        TreeMap<String, String> out = new TreeMap<String, String>();
+        out.put(String.valueOf(1), "Blogger Funds");
+        out.put(String.valueOf(2), "Researcher Funds");
+        out.put(String.valueOf(3), "Referral Funds");
+        out.put(String.valueOf(4), "Reseller Funds");
+        return out;
+    }
+
     public static TreeMap<String, String> getBlogqualities(){
         TreeMap<String, String> out = new TreeMap<String, String>();
         out.put("0", "0 - Undefined");

@@ -14,7 +14,7 @@
 <%@ page import="com.dneero.htmluibeans.PublicIndex" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
-String pagetitle = "Active Social Surveys";
+String pagetitle = "Social Surveys";
 String navtab = "home";
 String acl = "public";
 %>
@@ -110,12 +110,16 @@ PublicSurveyList publicSurveyList = (PublicSurveyList)Pagez.getBeanMgr().get("Pu
                                 <% } %>
                                 <br/><font class="tinyfont" style="color: #666666; font-weight: bold;">(yes, we're talking real world money here)</font>
                             </div>
-                            <br/><br/>
+                            <br/>
                         <% } %>
 
+                        <div class="rounded" style="background: #ffffff; padding: 10px;">
+                            <font class="formfieldnamefont" style="color: #666666;"><b>Don't Miss the Reseller Program!</b></font>
+                            <br/>
+                            <font class="smallfont" style="color: #666666;"><b>The <a href="/account/reseller.jsp">Reseller Program</a> allows you to earn big bucks selling Social Surveys!  Put on your sales hats people!</b></font>
+                        </div>
 
-
-                        
+                        <br/><br/>
                         <font class="mediumfont">Surveys Friends Have Taken:</font><br/>
                         <% if (publicSurveyList.getFacebookSurveyThatsBeenTakens()==null || publicSurveyList.getFacebookSurveyThatsBeenTakens().size()==0){ %>
                             <font class="tinyfont">Your friends haven't taken any surveys yet.</font>

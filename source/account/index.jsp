@@ -71,6 +71,14 @@ if (accountIndex.getUserhasresponsependings()){
 
                             <br/><br/>
                             <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
+                                <a href="/account/reseller.jsp"><font class="mediumfont" style="color: #596697;">Reseller Program</font></a>
+                            </td></tr>
+                            <tr><td valign="top"></td><td valign="top">
+                                <font class="smallfont">Sell dNeero Social Surveys and make money!</font>
+                            </td></tr></table>
+
+                            <br/><br/>
+                            <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
                                 <a href="/account/accountsupportissueslist.jsp"><font class="mediumfont" style="color: #596697;">Help/Support</font></a>
                             </td></tr>
                             <tr><td valign="top"></td><td valign="top">
@@ -96,6 +104,14 @@ if (accountIndex.getUserhasresponsependings()){
                    <%}%>
                 </td>
                 <td valign="top">
+
+                    <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
+                        <font class="mediumfont" style="color: #666666;"><b>Don't Miss the Reseller Program!</b></font>
+                        <br/>
+                        <font class="smallfont" style="color: #666666;"><b>The <a href="/account/reseller.jsp">Reseller Program</a> allows you to earn big bucks selling Social Surveys!  Put on your sales hats people!</b></font>
+                    </div>
+                    <br/>
+
                     <table cellpadding="20" cellspacing="0" border="0" width="100%">
                         <tr>
                             <td width="50%" align="left" valign="top">
@@ -122,6 +138,7 @@ if (accountIndex.getUserhasresponsependings()){
                             </td>
                         </tr>
                     </table>
+
 
                     
                 </td>

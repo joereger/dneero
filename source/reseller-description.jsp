@@ -1,23 +1,36 @@
 <font class="mediumfont" style="color: #999999;">What is the Reseller Program?</font>
 <br/><font class="normalfont" style="color: #666666;">
-The dNeero Reseller Program allows you to sell Social Surveys to organizations and earn a percentage of whatever they spend on the survey.  For example, if they do a survey and pay $1000 to bloggers and social people through it then you'll earn $100.
+The dNeero Reseller Program allows you to sell Social Surveys to organizations and earn 10% of whatever they spend on the survey.  For example, if they do a survey and pay $1000 to bloggers and social people through it then you'll earn $100.
 </font>
 
 <br/><br/>
-<font class="mediumfont" style="color: #999999;">How does it work?</font>
+<font class="mediumfont" style="color: #999999;">What do I need to do?</font>
 <br/><font class="normalfont" style="color: #666666;">
 The program is very simple for you to use.
 <ol>
-    <li><b>Tell organizations about dNeero.com</b>. Send them email.  Call them on the phone.  Hand out fliers on the street.</li>
+    <li><b>Tell organizations about dNeero.com</b>. Send them email.  Call them on the phone.  Hand out fliers on the street.  Create a viral video and post it to YouTube.  Think outside the box.</li>
+    <li><b>Convince them to create a survey</b> of their own.  They may want to generate awareness about a product or service.  Or they may want to learn about their market.  You need to convince them to use dNeero to run a Social Survey where they pay bloggers and social networkers to respond to their questions.</li>
     <li><b>Give the business your Reseller Code</b> and tell them to apply it in the last step of survey creation.  Of course, they'll need a dNeero.com account.</li>
     <li><b>Sit back and relax</b>... any time the organization pays a blogger or social person through the survey you'll earn money.  You'll see the amounts added to your dNeero balance automatically.</li>
 </ol>
+</font>
+
+<br/>
+<font class="mediumfont" style="color: #999999;">How much do I get paid?</font>
+<br/><font class="normalfont" style="color: #666666;">
+You get paid 10% of whatever the surveys pay to bloggers and social people.  For example, if you sell a survey that pays bloggers and other social people a total of $1000 you earn $100.
 </font>
 
 <br/><br/>
 <font class="mediumfont" style="color: #999999;">Sounds good... how do I sign up?</font>
 <br/><font class="normalfont" style="color: #666666;">
 All you need is a dNeero account.  Anybody can join the Reseller Program!  Once you have a dNeero account you need to log in, click Account and find the Reseller Program link.  On that page you'll learn what your Reseller Code is.
+</font>
+
+<br/><br/>
+<font class="mediumfont" style="color: #999999;">How is this different than the 'normal' dNeero where I make money?</font>
+<br/><font class="normalfont" style="color: #666666;">
+As a user of dNeero you normally make money taking surveys and posting them to your blog or social network profile.  With the Reseller Program you make money by getting organizations to pay to launch their own surveys.
 </font>
 
 <br/><br/>
@@ -35,7 +48,7 @@ As the organization pays bloggers and social people we'll add cash to your dNeer
 <br/><br/>
 <font class="mediumfont" style="color: #999999;">How do I sell surveys?</font>
 <br/><font class="normalfont" style="color: #666666;">
-Start by reading the <a href='/researcher/index.jsp?showmarketingmaterial=1'>Researcher Basics</a> page.  It describes the benefits of a survey for organizations looking to use them.  Then explain to them what your experience has been with dNeero.
+Start by reading the <a href="/researcher/index.jsp?showmarketingmaterial=1">Researcher Basics</a> page.  It describes the benefits of a survey for organizations looking to use them.  Then explain to them what your experience has been with dNeero.
 <br/><br/>
 Next, get in touch with some businesses.  Use the phone book.  Go to networking events.  Talk to your friends and family.
 </font>
@@ -49,7 +62,13 @@ A survey can cost as little as $100.
 <br/><br/>
 <font class="mediumfont" style="color: #999999;">Can this be my full time/part time job?</font>
 <br/><font class="normalfont" style="color: #666666;">
-Absolutely!  All we're really doing here is paying a sales commission to people who bring in sales.  Working at many companies as a salesperson you won't make that much, especially on media sales like this.  If you want to make $5000 each month you have to generate $50,000 in sales.  Some months that may happen as a single sale to a big marketing firm.  Other months that may happen as a bunch of smaller sales.
+Absolutely!  All we're really doing here is paying a sales commission to people who bring in sales.  Working at many companies as a salesperson you won't make the percentage we're willing to pay, especially on media sales like this.  If you want to make $5000 each month you have to generate $50,000 in sales.  Some months that may happen as a single sale to a big marketing firm.  Other months that may happen as a bunch of smaller sales.
+</font>
+
+<br/><br/>
+<font class="mediumfont" style="color: #999999;">What if I'm an interactive firm/marketer?</font>
+<br/><font class="normalfont" style="color: #666666;">
+No problem.  You can get paid the same commission.  Call us if you have clients requiring surveys over $100,000... we may be able to work out bigger commissions for you.
 </font>
 
 <br/><br/>

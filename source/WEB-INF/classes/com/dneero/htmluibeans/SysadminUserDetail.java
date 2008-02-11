@@ -11,7 +11,6 @@ import com.dneero.email.EmailActivationSend;
 import com.dneero.email.LostPasswordSend;
 import com.dneero.money.MoveMoneyInAccountBalance;
 import com.dneero.money.UserImpressionFinder;
-import com.dneero.money.CurrentBalanceCalculator;
 import com.dneero.scheduledjobs.ResearcherRemainingBalanceOperations;
 import com.dneero.scheduledjobs.UpdateResponsePoststatus;
 import com.dneero.htmlui.Pagez;
@@ -41,6 +40,7 @@ public class SysadminUserDetail implements Serializable {
     private String activitypin;
     private double amt;
     private String reason;
+    private int fundstype=1;
     private List balances;
     private List transactions;
     private ArrayList<BloggerCompletedsurveysListitem> responses;
@@ -102,8 +102,20 @@ public class SysadminUserDetail implements Serializable {
                 abli.setDate(balance.getDate());
                 abli.setDescription(balance.getDescription());
                 abli.setUserid(balance.getUserid());
-                abli.setIsresearchermoney(balance.getIsresearchermoney());
-                abli.setIsbloggermoney(balance.getIsbloggermoney());
+                StringBuffer fundstype = new StringBuffer();
+                if (balance.getIsbloggermoney()){
+                    fundstype.append("Blogger");
+                }
+                if (balance.getIsresearchermoney()){
+                    fundstype.append("Researcher");
+                }
+                if (balance.getIsreferralmoney()){
+                    fundstype.append("Referral");
+                }
+                if (balance.getIsresellermoney()){
+                    fundstype.append("Reseller");
+                }
+                abli.setFundstype(fundstype.toString());
                 balances.add(abli);
             }
 
@@ -298,8 +310,34 @@ public class SysadminUserDetail implements Serializable {
     public String giveusermoney() throws ValidationException {
         User user = User.get(userid);
         if (user!=null && user.getUserid()>0){
-            //@todo allow sysadmin to specify
-            MoveMoneyInAccountBalance.pay(user, amt, "Manual transaction: "+reason, false, false, "", false, true);
+            //Specify funds type
+            boolean isbloggermoney = false;
+            boolean isresearchermoney = false;
+            boolean isreferralmoney = false;
+            boolean isresellermoney = false;
+            if (fundstype==1){
+                isbloggermoney = true;
+                isresearchermoney = false;
+                isreferralmoney = false;
+                isresellermoney = false;
+            } else if (fundstype==2){
+                isbloggermoney = false;
+                isresearchermoney = true;
+                isreferralmoney = false;
+                isresellermoney = false;
+            } else if (fundstype==3){
+                isbloggermoney = false;
+                isresearchermoney = false;
+                isreferralmoney = true;
+                isresellermoney = false;
+            } else if (fundstype==4){
+                isbloggermoney = false;
+                isresearchermoney = false;
+                isreferralmoney = false;
+                isresellermoney = true;
+            }
+            //Move it
+            MoveMoneyInAccountBalance.pay(user, amt, "Manual transaction: "+reason, false, false, "", isresearchermoney, isbloggermoney, isreferralmoney, isresellermoney);
         }
         initBean();
         Pagez.getUserSession().setMessage("$" + Str.formatForMoney(amt) + " given to user account balance.");
@@ -309,7 +347,34 @@ public class SysadminUserDetail implements Serializable {
     public String takeusermoney() throws ValidationException {
         User user = User.get(userid);
         if (user!=null && user.getUserid()>0){
-            MoveMoneyInAccountBalance.charge(user, amt, "Manual transaction: "+reason, false, true);
+            //Specify funds type
+            boolean isbloggermoney = false;
+            boolean isresearchermoney = false;
+            boolean isreferralmoney = false;
+            boolean isresellermoney = false;
+            if (fundstype==1){
+                isbloggermoney = true;
+                isresearchermoney = false;
+                isreferralmoney = false;
+                isresellermoney = false;
+            } else if (fundstype==2){
+                isbloggermoney = false;
+                isresearchermoney = true;
+                isreferralmoney = false;
+                isresellermoney = false;
+            } else if (fundstype==3){
+                isbloggermoney = false;
+                isresearchermoney = false;
+                isreferralmoney = true;
+                isresellermoney = false;
+            } else if (fundstype==4){
+                isbloggermoney = false;
+                isresearchermoney = false;
+                isreferralmoney = false;
+                isresellermoney = true;
+            }
+            //Move it
+            MoveMoneyInAccountBalance.charge(user, amt, "Manual transaction: "+reason, isresearchermoney, isbloggermoney, isreferralmoney, isresellermoney);
         }
         initBean();
         Pagez.getUserSession().setMessage("$"+ Str.formatForMoney(amt)+" taken from user account balance");
@@ -507,5 +572,13 @@ public class SysadminUserDetail implements Serializable {
 
     public void setResellerpercent(double resellerpercent) {
         this.resellerpercent = resellerpercent;
+    }
+
+    public int getFundstype() {
+        return fundstype;
+    }
+
+    public void setFundstype(int fundstype) {
+        this.fundstype = fundstype;
     }
 }

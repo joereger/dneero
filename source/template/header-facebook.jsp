@@ -27,12 +27,12 @@
         <tr>
             <td bgcolor="#dadada" style="text-align: left; vertical-align: bottom; border-bottom: 1px solid #666666;" colspan="5" height="45">
                 <div width="100%" style="background: #cccccc">
-                    <a href="/publicsurveylist.jsp"><font class="subnavfont" style="padding-left: 12px; padding-right: 12px; color: #000000; font-size: 12px; background: #00ff00;">Surveys You Can Take</font></a>
+                    <a href="/publicsurveylist.jsp"><font class="subnavfont" style="padding-left: 12px; padding-right: 12px; color: #000000; font-size: 12px; background: #00ff00;">Surveys For You</font></a>
                     <%if (Pagez.getUserSession().getIsloggedin() && Pagez.getUserSession().getUser().getBloggerid()>0){%><a href="/blogger/bloggercompletedsurveys.jsp"><font class="subnavfont" style="padding-left: 12px; color: #000000; background: #cccccc;">Completed Surveys</font></a><%}%>
                     <%if (Pagez.getUserSession().getIsloggedin() && Pagez.getUserSession().getUser().getBloggerid()>0){%><a href="/blogger/bloggerdetails.jsp"><font class="subnavfont" style="padding-left: 12px; color: #000000; background: #cccccc;">Demographic</font></a><%}%>
                     <%if (Pagez.getUserSession().getIsloggedin()){%><a href="/account/accountbalance.jsp"><font class="subnavfont" style="padding-left: 12px; color: #000000; background: #cccccc;">Balance</font></a><%}%>
-                    <%if (Pagez.getUserSession().getIsloggedin()){%><a href="/account/accountsettings.jsp"><font class="subnavfont" style="padding-left: 12px; color: #000000; background: #cccccc;">Account Settings</font></a><%}%>
-                    <%if (Pagez.getUserSession().getIsloggedin()){%><a href="/account/reseller.jsp"><font class="subnavfont" style="padding-left: 12px; color: #000000; background: #cccccc;">Reseller Program</font></a><%}%>
+                    <%if (Pagez.getUserSession().getIsloggedin()){%><a href="/account/accountsettings.jsp"><font class="subnavfont" style="padding-left: 12px; color: #000000; background: #cccccc;">Settings</font></a><%}%>
+                    <%if (Pagez.getUserSession().getIsloggedin()){%><a href="/account/reseller.jsp"><font class="subnavfont" style="padding-left: 12px; color: #000000; background: #cccccc;">Reseller</font></a><%}%>
                     <a href="/blog.jsp"><font class="subnavfont" style="padding-left: 12px; color: #000000; background: #cccccc;">Blog</font></a>
                     <a href="/blogger/facebookfaq.jsp"><font class="subnavfont" style="padding-left: 12px; color: #000000; background: #cccccc;">FAQ</font></a>
                     <%if (Pagez.getUserSession().getIsloggedin()){%><a href="/account/accountsupportissueslist.jsp"><font class="subnavfont" style="padding-left: 12px; color: #000000; background: #cccccc;">Help</font></a><%}%>

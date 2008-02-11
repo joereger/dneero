@@ -114,7 +114,7 @@ public class FacebookApiWrapper {
                 }
                 String earnings = surveyEnhancer.getWillingtopayforresponse();
                 int userid = Blogger.get(response.getBloggerid()).getUserid();
-                String answerslink = "<a href='http://apps.facebook.com/"+SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_APP_NAME)+"/?action=showsurvey-"+survey.getSurveyid()+"-"+userid+"'> answers</a>";
+                String answerslink = "<a href=\"http://apps.facebook.com/"+SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_APP_NAME)+"/?action=showsurvey-"+survey.getSurveyid()+"-"+userid+"\"> answers</a>";
 
                 StringBuffer titleTemplate = new StringBuffer();
                 titleTemplate.append("{actor} earned {earnings}{forcharity} by taking a survey.");
@@ -338,12 +338,15 @@ public class FacebookApiWrapper {
         return friends;
     }
 
-    public TreeMap<Integer, FacebookSurveyThatsBeenTaken> getSurveysFriendsHaveTaken(){
-        return getSurveysFriendsHaveTaken(getFriends());
+    public TreeMap<Integer, FacebookSurveyThatsBeenTaken> getSurveysFriendsHaveTaken(int onlylookatlastxresponses){
+        return getSurveysFriendsHaveTaken(getFriends(), onlylookatlastxresponses);
     }
 
-    public TreeMap<Integer, FacebookSurveyThatsBeenTaken> getSurveysFriendsHaveTaken(ArrayList<FacebookUser> friends){
+    public TreeMap<Integer, FacebookSurveyThatsBeenTaken> getSurveysFriendsHaveTaken(ArrayList<FacebookUser> friends, int onlylookatlastxresponses){
         Logger logger = Logger.getLogger(this.getClass().getName());
+        if (onlylookatlastxresponses<=0){
+            onlylookatlastxresponses = 500;   
+        }
         TreeMap<Integer, FacebookSurveyThatsBeenTaken> out = new TreeMap<Integer, FacebookSurveyThatsBeenTaken>();
         if (friends !=null && friends.size()>0){
             //Create sql based on friends
@@ -364,7 +367,13 @@ public class FacebookApiWrapper {
                 //Find surveys
                 if (user.getBloggerid()>0){
                     Blogger blogger = Blogger.get(user.getBloggerid());
-                    for (Iterator<Response> iterator1 = blogger.getResponses().iterator(); iterator1.hasNext();) {
+                    List<Response> responses = HibernateUtil.getSession().createCriteria(Response.class)
+                                                       .add(Restrictions.eq("bloggerid", blogger.getBloggerid()))
+                                                       .addOrder(Order.desc("responseid"))
+                                                       .setMaxResults(5)
+                                                       .setCacheable(true)
+                                                       .list();
+                    for (Iterator<Response> iterator1 = responses.iterator(); iterator1.hasNext();) {
                         Response response = iterator1.next();
                         //Set up the taker
                         FacebookSurveyTaker facebookSurveyTaker = new FacebookSurveyTaker();

@@ -45,7 +45,7 @@ public class MoveMoneyAround implements Job {
                         if (cbc.getCurrentbalanceblogger()>=20){
                             logger.debug("dopay=true so calling MoveMoneyInRealWorld for user");
                             debug.append("<br/>$"+cbc.getCurrentbalanceblogger()+" to "+user.getFirstname()+" "+user.getLastname()+" ("+user.getEmail()+")"+"\n\n");
-                            MoveMoneyInRealWorld mmirw = new MoveMoneyInRealWorld(user, cbc.getCurrentbalanceblogger(), false, true);
+                            MoveMoneyInRealWorld mmirw = new MoveMoneyInRealWorld(user, cbc.getCurrentbalanceblogger(), false, true, false, false);
                             mmirw.move();
                         }
                     } else if (cbc.getCurrentbalanceblogger()<0){
@@ -77,7 +77,7 @@ public class MoveMoneyAround implements Job {
                             if (dopayresearcher){
                                 logger.debug("dopayresearcher=true so calling MoveMoneyInRealWorld for user");
                                 debug.append("<br/>$"+cbc.getCurrentbalanceresearcher()+" to "+user.getFirstname()+" "+user.getLastname()+" ("+user.getEmail()+")"+"\n\n");
-                                MoveMoneyInRealWorld mmirw = new MoveMoneyInRealWorld(user, cbc.getCurrentbalanceresearcher(), true, false);
+                                MoveMoneyInRealWorld mmirw = new MoveMoneyInRealWorld(user, cbc.getCurrentbalanceresearcher(), true, false, false, false);
                                 mmirw.move();
                             }
                         }
@@ -85,7 +85,7 @@ public class MoveMoneyAround implements Job {
                         //Need to collect from a researcher
                         logger.debug("currentbalance<0 so calling MoveMoneyInRealWorld for user");
                         debug.append("<br/>$"+cbc.getCurrentbalanceresearcher()+" from "+user.getFirstname()+" "+user.getLastname()+" ("+user.getEmail()+")"+"\n\n");
-                        MoveMoneyInRealWorld mmirw = new MoveMoneyInRealWorld(user, cbc.getCurrentbalanceresearcher(), true, false);
+                        MoveMoneyInRealWorld mmirw = new MoveMoneyInRealWorld(user, cbc.getCurrentbalanceresearcher(), true, false, false, false);
                         mmirw.move();
                     }
 

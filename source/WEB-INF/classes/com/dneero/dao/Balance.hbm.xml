@@ -33,5 +33,11 @@
         <property name="isbloggermoney" type="boolean">
             <column name="isbloggermoney" not-null="true" />
         </property>
+        <property name="isreferralmoney" type="boolean">
+            <column name="isreferralmoney" not-null="true" />
+        </property>
+        <property name="isresellermoney" type="boolean">
+            <column name="isresellermoney" not-null="true" />
+        </property>
     </class>
 </hibernate-mapping>

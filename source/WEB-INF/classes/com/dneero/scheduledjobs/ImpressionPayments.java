@@ -99,7 +99,7 @@ public class ImpressionPayments implements Job {
                     if (amtToChargeResearcher>0){
                         Researcher researcher = Researcher.get(survey.getResearcherid());
                         User user = User.get(researcher.getUserid());
-                        MoveMoneyInAccountBalance.charge(user, amtToChargeResearcher, "Charge for blog impressions on survey '"+survey.getTitle()+"'", true, false);
+                        MoveMoneyInAccountBalance.charge(user, amtToChargeResearcher, "Charge for blog impressions on survey '"+survey.getTitle()+"'", true, false, false, false);
                     }
 
                     //Affect balance for reseller
@@ -118,7 +118,7 @@ public class ImpressionPayments implements Job {
                                     //Pay them the correct amount... remember, their pay is based on the amount paid to the bloggers
                                     double amtToPayReseller = SurveyMoneyStatus.calculateResellerAmt(amtSpentOnBehalfOfResearcher, userReseller);
                                     if (amtToPayReseller>0){
-                                        MoveMoneyInAccountBalance.pay(userReseller, amtToPayReseller, "Reseller pay for impressions on '"+Str.truncateString(survey.getTitle(), 20)+"'", false, false, "", 0, false, true);
+                                        MoveMoneyInAccountBalance.pay(userReseller, amtToPayReseller, "Reseller pay for impressions on '"+Str.truncateString(survey.getTitle(), 20)+"'", false, false, "", 0, false, false, false, true);
                                     }
                                 }
                             }
@@ -146,7 +146,7 @@ public class ImpressionPayments implements Job {
                                     } catch (Exception ex){
                                         logger.error("",ex);
                                     }
-                                    MoveMoneyInAccountBalance.pay(user, ipupu.getAmt(), "Pay for impressions on '"+ Str.truncateString(survey.getTitle(), 20) +"': "+ amtWithDec, true, false, "", 0, false, true);
+                                    MoveMoneyInAccountBalance.pay(user, ipupu.getAmt(), "Pay for impressions on '"+ Str.truncateString(survey.getTitle(), 20) +"': "+ amtWithDec, true, false, "", 0, false, true, false, false);
                                 }
                                 //If there are charity donations to pay
                                 if (ipupu.getCharityDonations()!=null && ipupu.getCharityDonations().size()>0){
@@ -156,7 +156,7 @@ public class ImpressionPayments implements Job {
                                             Map.Entry mapentry2 = (Map.Entry) keyValuePairs2.next();
                                             String charityname = (String)mapentry2.getKey();
                                             double amtCharity = Double.parseDouble(String.valueOf(mapentry2.getValue()));
-                                            MoveMoneyInAccountBalance.pay(user, amtCharity, "Pay charity for impressions on '"+Str.truncateString(survey.getTitle(), 20)+"'", false, true, charityname, 0, false, true);
+                                            MoveMoneyInAccountBalance.pay(user, amtCharity, "Pay charity for impressions on '"+Str.truncateString(survey.getTitle(), 20)+"'", false, true, charityname, 0, false, true, false, false);
                                         }
                                     } catch (Exception ex){
                                         logger.error("Error in charity payment code.", ex);

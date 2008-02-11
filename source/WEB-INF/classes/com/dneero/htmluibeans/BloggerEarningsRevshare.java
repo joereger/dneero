@@ -1,12 +1,14 @@
 package com.dneero.htmluibeans;
 
 import com.dneero.util.SortableList;
+import com.dneero.util.Str;
 
 import com.dneero.htmlui.UserSession;
 import com.dneero.htmlui.Pagez;
 import com.dneero.dao.Revshare;
 import com.dneero.dao.Blogger;
 import com.dneero.dao.User;
+import com.dneero.dao.Balance;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.money.RevshareLevelPercentageCalculator;
 
@@ -23,6 +25,7 @@ import org.apache.log4j.Logger;
 public class BloggerEarningsRevshare implements Serializable {
 
     private ArrayList<BloggerEarningsRevshareListRevshares> list;
+    private List balances;
 
     private double level1percent=RevshareLevelPercentageCalculator.getPercentToShare(1);
     private double level1amt=RevshareLevelPercentageCalculator.getAmountToShare(500, 1);
@@ -55,6 +58,34 @@ public class BloggerEarningsRevshare implements Serializable {
                 listitem.setAmt(revshare.getAmt());
                 listitem.setUsername(sourceuser.getFirstname()+" "+sourceuser.getLastname());
                 list.add(listitem);
+            }
+
+            List bals = HibernateUtil.getSession().createQuery("from Balance where userid='"+userSession.getUser().getUserid()+"' and isreferralmoney=true order by balanceid desc").setCacheable(true).list();
+            balances = new ArrayList<AccountBalanceListItem>();
+            for (Iterator iterator = bals.iterator(); iterator.hasNext();) {
+                Balance balance = (Balance) iterator.next();
+                AccountBalanceListItem abli = new AccountBalanceListItem();
+                abli.setAmt("$"+ Str.formatForMoney(balance.getAmt()));
+                abli.setBalanceid(balance.getBalanceid());
+                abli.setCurrentbalance("$"+ Str.formatForMoney(balance.getCurrentbalance()));
+                abli.setDate(balance.getDate());
+                abli.setDescription(balance.getDescription());
+                abli.setUserid(balance.getUserid());
+                StringBuffer fundstype = new StringBuffer();
+                if (balance.getIsbloggermoney()){
+                    fundstype.append("Blogger");
+                }
+                if (balance.getIsresearchermoney()){
+                    fundstype.append("Researcher");
+                }
+                if (balance.getIsreferralmoney()){
+                    fundstype.append("Referral");
+                }
+                if (balance.getIsresellermoney()){
+                    fundstype.append("Reseller");
+                }
+                abli.setFundstype(fundstype.toString());
+                balances.add(abli);
             }
         }
 
@@ -195,5 +226,13 @@ public class BloggerEarningsRevshare implements Serializable {
 
     public void setMsg(String msg) {
         this.msg = msg;
+    }
+
+    public List getBalances() {
+        return balances;
+    }
+
+    public void setBalances(List balances) {
+        this.balances = balances;
     }
 }

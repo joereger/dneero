@@ -155,7 +155,7 @@ public class PublicSurveyList implements Serializable {
                 //Get list of friend uids
                 FacebookApiWrapper faw = new FacebookApiWrapper(Pagez.getUserSession());
                 //Load surveys taken by friends
-                TreeMap<Integer, FacebookSurveyThatsBeenTaken> surveys = faw.getSurveysFriendsHaveTaken(Pagez.getUserSession().getFacebookFriends());
+                TreeMap<Integer, FacebookSurveyThatsBeenTaken> surveys = faw.getSurveysFriendsHaveTaken(Pagez.getUserSession().getFacebookFriends(), 5);
                 //Boil it down to an arraylist
                 facebookSurveyThatsBeenTakens = new ArrayList<FacebookSurveyThatsBeenTaken>();
                 Iterator keyValuePairs = surveys.entrySet().iterator();

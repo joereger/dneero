@@ -49,11 +49,11 @@ public class RecentSurveyResponses implements CachedStuff, Serializable {
             out.append("<tr>");
             out.append("<td>");
             out.append("<font class='tinyfont'>");
-            out.append("<a href='/profile.jsp?userid="+user.getUserid()+"'>");
+            out.append("<a href=\"/profile.jsp?userid="+user.getUserid()+"\">");
             out.append(user.getFirstname()+" "+user.getLastname());
             out.append("</a>");
             out.append(" responded to ");
-            out.append("<a href='/survey.jsp?surveyid="+survey.getSurveyid()+"&userid="+user.getUserid()+"'>");
+            out.append("<a href=\"/survey.jsp?surveyid="+survey.getSurveyid()+"&userid="+user.getUserid()+"\">");
             out.append(survey.getTitle());
             out.append("</a>");
             out.append(" "+ago);

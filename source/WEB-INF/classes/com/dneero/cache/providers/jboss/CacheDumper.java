@@ -79,7 +79,7 @@ public class CacheDumper {
                                         }
                                         if (userSession.getIsloggedin()){
                                             if (userSession.getUser()!=null){
-                                                out.append("<br/>"+nestStr+nestStr+"<font style=\"font-size: 9px;\"><a href='userdetail.jsp?userid="+userSession.getUser().getUserid()+"'>"+userSession.getUser().getFirstname()+" "+userSession.getUser().getLastname()+"</a> (email="+userSession.getUser().getEmail()+")</font>");
+                                                out.append("<br/>"+nestStr+nestStr+"<font style=\"font-size: 9px;\"><a href=\"userdetail.jsp?userid="+userSession.getUser().getUserid()+"\">"+userSession.getUser().getFirstname()+" "+userSession.getUser().getLastname()+"</a> (email="+userSession.getUser().getEmail()+")</font>");
                                             }
                                         }
                                         int secondsOld=DateDiff.dateDiff("second", Calendar.getInstance(), userSession.getCreatedate());

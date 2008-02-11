@@ -44,9 +44,9 @@ public class PayForSurveyResponsesOncePosted implements Job {
                     User user = User.get(Blogger.get(response.getBloggerid()).getUserid());
                     try{
                         //Affect balance for blogger
-                        MoveMoneyInAccountBalance.pay(user, survey.getWillingtopayperrespondent(), "Pay for taking survey: '"+survey.getTitle()+"'", true, response.getIsforcharity(), response.getCharityname(), response.getResponseid(), false, true);
+                        MoveMoneyInAccountBalance.pay(user, survey.getWillingtopayperrespondent(), "Pay for taking survey: '"+survey.getTitle()+"'", true, response.getIsforcharity(), response.getCharityname(), response.getResponseid(), false, true, false, false);
                         //Affect balance for researcher
-                        MoveMoneyInAccountBalance.charge(User.get(Researcher.get(survey.getResearcherid()).getUserid()), (SurveyMoneyStatus.calculateAmtToChargeResearcher(survey.getWillingtopayperrespondent(), survey)), "User "+user.getFirstname()+" "+user.getLastname()+" responds to survey '"+survey.getTitle()+"'", true, false);
+                        MoveMoneyInAccountBalance.charge(User.get(Researcher.get(survey.getResearcherid()).getUserid()), (SurveyMoneyStatus.calculateAmtToChargeResearcher(survey.getWillingtopayperrespondent(), survey)), "User "+user.getFirstname()+" "+user.getLastname()+" responds to survey '"+survey.getTitle()+"'", true, false, false, false);
                         //Affect balance for reseller
                         if (survey.getResellercode()!=null && !survey.getResellercode().equals("")){
                             //Find the user with this resellercode
@@ -61,7 +61,7 @@ public class PayForSurveyResponsesOncePosted implements Job {
                                     //Pay them the correct amount... remember, their pay is based on the amount paid to the bloggers
                                     double amtToPayReseller = SurveyMoneyStatus.calculateResellerAmt(survey.getWillingtopayperrespondent(), userReseller);
                                     if (amtToPayReseller>0){
-                                        MoveMoneyInAccountBalance.pay(userReseller, amtToPayReseller, "Reseller pay for survey response to '"+Str.truncateString(survey.getTitle(), 20)+"'", false, false, "", 0, false, true);
+                                        MoveMoneyInAccountBalance.pay(userReseller, amtToPayReseller, "Reseller pay for survey response to '"+Str.truncateString(survey.getTitle(), 20)+"'", false, false, "", 0, false, false, false, true);
                                     }
                                 }
                             }

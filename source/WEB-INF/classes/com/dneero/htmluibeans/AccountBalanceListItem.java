@@ -17,8 +17,8 @@ public class AccountBalanceListItem implements Serializable {
      private String amt;
      private String currentbalance;
      private String description;
-     private boolean isresearchermoney;
-     private boolean isbloggermoney;
+     private String fundstype = "";
+     private String username = "";
 
 
     public AccountBalanceListItem(){}
@@ -73,19 +73,19 @@ public class AccountBalanceListItem implements Serializable {
     }
 
 
-    public boolean getIsresearchermoney() {
-        return isresearchermoney;
+    public String getFundstype() {
+        return fundstype;
     }
 
-    public void setIsresearchermoney(boolean isresearchermoney) {
-        this.isresearchermoney=isresearchermoney;
+    public void setFundstype(String fundstype) {
+        this.fundstype = fundstype;
     }
 
-    public boolean getIsbloggermoney() {
-        return isbloggermoney;
+    public String getUsername() {
+        return username;
     }
 
-    public void setIsbloggermoney(boolean isbloggermoney) {
-        this.isbloggermoney=isbloggermoney;
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

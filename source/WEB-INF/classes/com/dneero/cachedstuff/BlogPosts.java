@@ -49,7 +49,7 @@ public class BlogPosts implements CachedStuff, Serializable {
             out.append("</td>");
             out.append("<td>");
             out.append("<font class='tinyfont'>");
-            out.append("<a href='/blogpost.jsp?blogpostid="+blogpost.getBlogpostid()+"'>");
+            out.append("<a href=\"/blogpost.jsp?blogpostid="+blogpost.getBlogpostid()+"\">");
             out.append(blogpost.getTitle());
             out.append("</a>");
             out.append("</font>");

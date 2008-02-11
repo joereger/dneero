@@ -50,7 +50,7 @@ public class ActiveSurveys implements CachedStuff, Serializable {
 
             out.append("<tr>");
             out.append("<td>");
-            out.append("<a href='/survey.jsp?userid="+survey.getSurveyid()+"'>");
+            out.append("<a href=\"/survey.jsp?userid="+survey.getSurveyid()+"\">");
             out.append("<font class='tinyfont'>");
             out.append(survey.getTitle());
             out.append("</font>");

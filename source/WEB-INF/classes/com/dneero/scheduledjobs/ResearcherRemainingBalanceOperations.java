@@ -7,7 +7,6 @@ import org.apache.log4j.Logger;
 import com.dneero.dao.*;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.util.GeneralException;
-import com.dneero.util.Str;
 import com.dneero.util.DateDiff;
 import com.dneero.util.Time;
 import com.dneero.money.CurrentBalanceCalculator;
@@ -107,7 +106,7 @@ public class ResearcherRemainingBalanceOperations implements Job {
                 //Move the money
                 logger.debug("amttocharge:"+amttocharge+" to userid="+user.getUserid());
                 if (amttocharge>0){
-                    MoveMoneyInRealWorld mmirw = new MoveMoneyInRealWorld(user, (-1)*amttocharge, true, false);
+                    MoveMoneyInRealWorld mmirw = new MoveMoneyInRealWorld(user, (-1)*amttocharge, true, false, false, false);
                     mmirw.move();
                     //@todo email researcher telling them that their card has been charged by incremental
                 }

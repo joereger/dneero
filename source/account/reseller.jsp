@@ -3,6 +3,9 @@
 <%@ page import="com.dneero.htmlui.*" %>
 <%@ page import="com.dneero.htmluibeans.AccountReseller" %>
 <%@ page import="com.dneero.money.SurveyMoneyStatus" %>
+<%@ page import="com.dneero.dbgrid.GridCol" %>
+<%@ page import="com.dneero.dbgrid.Grid" %>
+<%@ page import="java.util.ArrayList" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "dNeero Reseller Program";
@@ -37,14 +40,14 @@ String acl = "account";
 
 <br/><br/>
 
-<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<table cellpadding="10" cellspacing="0" border="0" width="100%">
 
     <tr>
         <td valign="top">
             <%@ include file="/reseller-description.jsp" %>   
         </td>
-        <td valign="top" width="35%">
-            <div class="rounded" style="background: #cccccc; text-align: left; padding: 15px;">
+        <td valign="top" width="37%">
+            <div class="rounded" style="background: #0bae17; text-align: left; padding: 15px;">
                 <center>
                 <div class="rounded" style="background: #ffffff; text-align: left; padding: 15px;">
                     <center>
@@ -59,12 +62,57 @@ String acl = "account";
                 </div>
                 </center>
             </div>
+
+            <br/>
+            <div class="rounded" style="background: #e6e6e6; text-align: left; padding: 15px;">
+                <font class="mediumfont" style="color: #666666;"><b>Surveys</b></font>
+                <br/>
+                <%if (accountReseller.getSurveys()==null || accountReseller.getSurveys().size()==0){%>
+                    <font class="smallfont" style="color: #666666;"><b>No surveys have been created using your Reseller Code.</b></font>
+                <%} else {%>
+                    <font class="smallfont" style="color: #666666;"><b>These are the surveys that were created with your Reseller Code.</b></font>
+                    <br/>
+                    <%
+                        ArrayList<GridCol> cols = new ArrayList<GridCol>();
+                        cols.add(new GridCol("", "<b><a href=\"/survey.jsp?surveyid=<$surveyid$>\"><$title$></a>", false, "", "tinyfont", "", ""));
+                    %>
+                    <%=Grid.render(accountReseller.getSurveys(), cols, 20, "/account/reseller.jsp", "pagesurveys")%>
+                <%}%>
+            </div>
+
+            <br/>
+            <div class="rounded" style="background: #e6e6e6; text-align: left; padding: 15px;">
+                <font class="mediumfont" style="color: #666666;"><b>Reseller Earnings</b></font>
+                <br/>
+                <%if (accountReseller.getBalances()==null || accountReseller.getBalances().size()==0){%>
+                    <font class="smallfont" style="color: #666666;"><b>You haven't yet earned anything from the Reseller Program.</b></font>
+                <%} else {%>
+                    <%
+                        ArrayList<GridCol> cols = new ArrayList<GridCol>();
+                        cols.add(new GridCol("", "<b><$date|" + Grid.GRIDCOLRENDERER_DATETIMECOMPACT + "$></b><br/><$description$>", false, "", "tinyfont", "", ""));
+                        cols.add(new GridCol("", "<$amt$>", true, "", "tinyfont"));
+                    %>
+                    <%=Grid.render(accountReseller.getBalances(), cols, 50, "/account/reseller.jsp", "pagebalances")%>
+                <%}%>
+            </div>
+
+            <br/>
+            <div class="rounded" style="background: #e6e6e6; text-align: left; padding: 15px;">
+                <font class="mediumfont" style="color: #666666;"><b>Work Together</b></font>
+                <br/>
+                <font class="smallfont" style="color: #666666;"><b>We recently set up a <a href="http://www.facebook.com/group.php?gid=8641922193">dNeero Social Survey Resellers Group</a> on Facebook where you can meet others using the program.  Ask questions, share sales strategies, learn more.</b></font>
+            </div>
+
+            <br/>
+            <div class="rounded" style="background: #e6e6e6; text-align: left; padding: 15px;">
+                <font class="mediumfont" style="color: #666666;"><b>Ask a Question</b></font>
+                <br/>
+                <font class="smallfont" style="color: #666666;"><b>You can always use the <a href="/account/accountsupportissueslist.jsp">Help System</a> to ask us a question.</b></font>
+            </div>
+
+
         </td>
     </tr>
-
-
-
-
 
 </table>
 

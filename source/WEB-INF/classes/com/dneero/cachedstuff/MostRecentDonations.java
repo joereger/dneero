@@ -40,7 +40,7 @@ public class MostRecentDonations implements CachedStuff, Serializable {
 
             out.append("<tr>");
             out.append("<td>");
-            out.append("<a href='/profile.jsp?userid="+user.getUserid()+"'>");
+            out.append("<a href=\"/profile.jsp?userid="+user.getUserid()+"\">");
             out.append("<font class='tinyfont'>");
             out.append(user.getFirstname()+" "+user.getLastname());
             out.append("</font>");

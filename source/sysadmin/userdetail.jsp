@@ -8,6 +8,7 @@
 <%@ page import="com.dneero.htmlui.*" %>
 <%@ page import="com.dneero.money.CurrentBalanceCalculator" %>
 <%@ page import="com.dneero.money.SurveyMoneyStatus" %>
+<%@ page import="com.dneero.htmluibeans.StaticVariables" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "User: "+((SysadminUserDetail) Pagez.getBeanMgr().get("SysadminUserDetail")).getEmail();
@@ -80,6 +81,7 @@ SysadminUserDetail sysadminUserDetail = (SysadminUserDetail)Pagez.getBeanMgr().g
         try {
             sysadminUserDetail.setAmt(Textbox.getDblFromRequest("amt", "Amount", true, DatatypeDouble.DATATYPEID));
             sysadminUserDetail.setReason(Textbox.getValueFromRequest("reason", "Reason", true, DatatypeString.DATATYPEID));
+            sysadminUserDetail.setFundstype(Dropdown.getIntFromRequest("fundstype", "Funds Type", true));
             sysadminUserDetail.giveusermoney();
         } catch (com.dneero.htmlui.ValidationException vex) {
             Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
@@ -91,6 +93,7 @@ SysadminUserDetail sysadminUserDetail = (SysadminUserDetail)Pagez.getBeanMgr().g
         try {
             sysadminUserDetail.setAmt(Textbox.getDblFromRequest("amt", "Amount", true, DatatypeDouble.DATATYPEID));
             sysadminUserDetail.setReason(Textbox.getValueFromRequest("reason", "Reason", true, DatatypeString.DATATYPEID));
+            sysadminUserDetail.setFundstype(Dropdown.getIntFromRequest("fundstype", "Funds Type", true));
             sysadminUserDetail.takeusermoney();
         } catch (com.dneero.htmlui.ValidationException vex) {
             Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
@@ -346,9 +349,10 @@ SysadminUserDetail sysadminUserDetail = (SysadminUserDetail)Pagez.getBeanMgr().g
                                 <br/>
                                 <%=Textbox.getHtml("amt", String.valueOf(sysadminUserDetail.getAmt()), 255, 25, "", "")%>
                                 <br/>
-                                <font class="formfieldnamefont">Detailed Reason:</font>
+                                <%=Dropdown.getHtml("fundstype", String.valueOf(sysadminUserDetail.getFundstype()), StaticVariables.getFundsTypes(), "", "")%>
                                 <br/>
-                                <font class="tinyfont">(user will see reason)</font>
+                                <font class="formfieldnamefont">Detailed Reason:</font>
+                                <font class="tinyfont">(user will see)</font>
                                 <br/>
                                 <%=Textbox.getHtml("reason", sysadminUserDetail.getReason(), 255, 25, "", "")%>
                                 <br/>
@@ -368,9 +372,10 @@ SysadminUserDetail sysadminUserDetail = (SysadminUserDetail)Pagez.getBeanMgr().g
                                 <br/>
                                 <%=Textbox.getHtml("amt", String.valueOf(sysadminUserDetail.getAmt()), 255, 25, "", "")%>
                                 <br/>
-                                <font class="formfieldnamefont">Detailed Reason:</font>
+                                <%=Dropdown.getHtml("fundstype", String.valueOf(sysadminUserDetail.getFundstype()), StaticVariables.getFundsTypes(), "", "")%>
                                 <br/>
-                                <font class="tinyfont">(user will see reason)</font>
+                                <font class="formfieldnamefont">Detailed Reason:</font>
+                                <font class="tinyfont">(user will see)</font>
                                 <br/>
                                 <%=Textbox.getHtml("reason", sysadminUserDetail.getReason(), 255, 25, "", "")%>
                                 <br/>
@@ -431,8 +436,7 @@ SysadminUserDetail sysadminUserDetail = (SysadminUserDetail)Pagez.getBeanMgr().g
                     cols.add(new GridCol("Id", "<$balanceid$>", true, "", "tinyfont"));
                     cols.add(new GridCol("Date", "<$date|"+Grid.GRIDCOLRENDERER_DATETIMECOMPACT+"$>", true, "", "tinyfont", "", "background: #e6e6e6;"));
                     cols.add(new GridCol("Description", "<$description$>", false, "", "tinyfont"));
-                    cols.add(new GridCol("Rsrc?", "<$isresearchermoney$>", false, "", "tinyfont"));
-                    cols.add(new GridCol("Blgr?", "<$isbloggermoney$>", false, "", "tinyfont"));
+                    cols.add(new GridCol("Funds", "<$fundstype$>", false, "", "tinyfont"));
                     cols.add(new GridCol("Amount", "<$amt$>", true, "", "tinyfont"));
                     cols.add(new GridCol("Balance", "<$currentbalance$>", true, "", "tinyfont"));
                 %>

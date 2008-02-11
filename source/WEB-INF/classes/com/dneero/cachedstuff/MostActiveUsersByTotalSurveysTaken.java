@@ -63,7 +63,7 @@ public class MostActiveUsersByTotalSurveysTaken implements CachedStuff, Serializ
                     numberadded = numberadded + 1;
                     out.append("<tr>");
                     out.append("<td>");
-                    out.append("<a href='/profile.jsp?userid="+user.getUserid()+"'>");
+                    out.append("<a href=\"/profile.jsp?userid="+user.getUserid()+"\">");
                     out.append("<font class='tinyfont'>");
                     out.append(user.getFirstname()+" "+user.getLastname());
                     out.append("</font>");

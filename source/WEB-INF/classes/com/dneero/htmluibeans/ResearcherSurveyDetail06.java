@@ -13,7 +13,6 @@ import com.dneero.util.*;
 import com.dneero.htmlui.UserSession;
 import com.dneero.htmlui.Pagez;
 import com.dneero.htmlui.ValidationException;
-import com.dneero.finders.FindBloggersForSurvey;
 import com.dneero.money.*;
 import com.dneero.scheduledjobs.ResearcherRemainingBalanceOperations;
 import com.dneero.instantnotify.InstantNotifyOfNewSurvey;
@@ -331,11 +330,11 @@ public class ResearcherSurveyDetail06 implements Serializable {
                 }
 
                 //Charge the per-survey creation fee
-                MoveMoneyInAccountBalance.charge(userSession.getUser(), SurveyMoneyStatus.PERSURVEYCREATIONFEE, "Survey creation fee for '"+survey.getTitle()+"'", true, false);
+                MoveMoneyInAccountBalance.charge(userSession.getUser(), SurveyMoneyStatus.PERSURVEYCREATIONFEE, "Survey creation fee for '"+survey.getTitle()+"'", true, false, false, false);
 
                 //Charge the hide results fee, if applicable
                 if (survey.getIsresultshidden() && sms.getHidesurveyfee()>0){
-                    MoveMoneyInAccountBalance.charge(userSession.getUser(), sms.getHidesurveyfee(), "Hide overall aggregate results fee for '"+survey.getTitle()+"'", true, false);
+                    MoveMoneyInAccountBalance.charge(userSession.getUser(), sms.getHidesurveyfee(), "Hide overall aggregate results fee for '"+survey.getTitle()+"'", true, false, false, false);
                 }
 
                 //Make sure user has enough in their account by running the remaining balance algorithm for just this researcher
@@ -388,6 +387,11 @@ public class ResearcherSurveyDetail06 implements Serializable {
             if (userResellers!=null && userResellers.size()>0){
                 User userReseller = userResellers.get(0);
                 if (userReseller!=null){
+                    //Can't apply your own code
+                    if (userReseller.getUserid()==Pagez.getUserSession().getUser().getUserid()){
+                        vex.addValidationError("Sorry, you can't use your own Reseller Code.");
+                        throw vex;
+                    }
                     //We have a reseller, save
                     resellerfound = true;
                     resellername = userReseller.getFirstname()+" "+userReseller.getLastname();

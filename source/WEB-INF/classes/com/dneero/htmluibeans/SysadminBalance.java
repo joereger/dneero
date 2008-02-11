@@ -6,7 +6,7 @@ import com.dneero.money.CurrentBalanceCalculator;
 import com.dneero.util.Str;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.dao.Balance;
-import com.dneero.dao.Survey;
+import com.dneero.dao.User;
 
 import java.io.Serializable;
 import java.util.List;
@@ -18,13 +18,13 @@ import java.util.Iterator;
  * Date: Jun 8, 2006
  * Time: 10:16:03 AM
  */
-public class AccountReseller implements Serializable {
+public class SysadminBalance implements Serializable {
+
 
     private List balances;
-    private List surveys;
 
 
-    public AccountReseller() {
+    public SysadminBalance() {
 
     }
 
@@ -33,9 +33,7 @@ public class AccountReseller implements Serializable {
         UserSession userSession = Pagez.getUserSession();
         if (userSession!=null && userSession.getUser()!=null){
 
-            surveys = HibernateUtil.getSession().createQuery("from Survey where resellercode='"+userSession.getUser().getResellercode()+"' and status>='"+ Survey.STATUS_OPEN +"' order by surveyid desc").setCacheable(true).list();
-
-            List bals = HibernateUtil.getSession().createQuery("from Balance where userid='"+userSession.getUser().getUserid()+"' and isresellermoney=true order by balanceid desc").setCacheable(true).list();
+            List bals = HibernateUtil.getSession().createQuery("from Balance order by balanceid desc").setMaxResults(2500).setCacheable(true).list();
             balances = new ArrayList<AccountBalanceListItem>();
             for (Iterator iterator = bals.iterator(); iterator.hasNext();) {
                 Balance balance = (Balance) iterator.next();
@@ -46,6 +44,8 @@ public class AccountReseller implements Serializable {
                 abli.setDate(balance.getDate());
                 abli.setDescription(balance.getDescription());
                 abli.setUserid(balance.getUserid());
+                User user = User.get(balance.getUserid());
+                abli.setUsername(user.getFirstname()+" "+user.getLastname());
                 StringBuffer fundstype = new StringBuffer();
                 if (balance.getIsbloggermoney()){
                     fundstype.append("Blogger");
@@ -62,8 +62,19 @@ public class AccountReseller implements Serializable {
                 abli.setFundstype(fundstype.toString());
                 balances.add(abli);
             }
+
         }
     }
+
+
+
+    protected boolean isDefaultAscending(String sortColumn) {
+        return false;
+    }
+
+
+
+
 
 
     public List getBalances() {
@@ -75,11 +86,5 @@ public class AccountReseller implements Serializable {
     }
 
 
-    public List getSurveys() {
-        return surveys;
-    }
 
-    public void setSurveys(List surveys) {
-        this.surveys = surveys;
-    }
 }

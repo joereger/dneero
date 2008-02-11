@@ -51,14 +51,14 @@ public class MostActiveImpressionLocations implements CachedStuff, Serializable 
                 User user = User.get(impression.getUserid());
                 out.append("<tr>");
                 out.append("<td>");
-                out.append("<a href='"+impression.getReferer()+"'>");
+                out.append("<a href=\""+impression.getReferer()+"\">");
                 out.append("<font class='tinyfont'>");
                 out.append(Str.truncateString(impression.getReferer(), 15)+"...");
                 out.append("</font>");
                 out.append("</a>");
                 out.append("</td>");
                 out.append("<td>");
-                out.append("<a href='/profile.jsp?userid="+user.getUserid()+"'>");
+                out.append("<a href=\"/profile.jsp?userid="+user.getUserid()+"\">");
                 out.append("<font class='tinyfont'>");
                 out.append(user.getFirstname()+" "+user.getLastname());
                 out.append("</font>");

@@ -16,11 +16,11 @@ import java.util.Date;
  */
 public class MoveMoneyInAccountBalance {
 
-    public static void pay(User user, double amt, String desc, boolean qualifiesforrevsharedistribution, boolean isforcharity, String charityname, boolean isresearchermoney, boolean isbloggermoney){
-        pay(user, amt, desc, qualifiesforrevsharedistribution, isforcharity, charityname, 0, isresearchermoney, isbloggermoney);
+    public static void pay(User user, double amt, String desc, boolean qualifiesforrevsharedistribution, boolean isforcharity, String charityname, boolean isresearchermoney, boolean isbloggermoney, boolean isreferralmoney, boolean isresellermoney){
+        pay(user, amt, desc, qualifiesforrevsharedistribution, isforcharity, charityname, 0, isresearchermoney, isbloggermoney, isreferralmoney, isresellermoney);
     }
 
-    public static void pay(User user, double amt, String desc, boolean qualifiesforrevsharedistribution, boolean isforcharity, String charityname, int optionalresponseid, boolean isresearchermoney, boolean isbloggermoney){
+    public static void pay(User user, double amt, String desc, boolean qualifiesforrevsharedistribution, boolean isforcharity, String charityname, int optionalresponseid, boolean isresearchermoney, boolean isbloggermoney, boolean isreferralmoney, boolean isresellermoney){
         Logger logger = Logger.getLogger(MoveMoneyInAccountBalance.class);
 
         double originalAmt = amt;
@@ -42,6 +42,8 @@ public class MoveMoneyInAccountBalance {
         balance.setOptionalresponseid(optionalresponseid);
         balance.setIsbloggermoney(isbloggermoney);
         balance.setIsresearchermoney(isresearchermoney);
+        balance.setIsreferralmoney(isreferralmoney);
+        balance.setIsresellermoney(isresellermoney);
         try{balance.save();}catch (Exception ex){logger.error("",ex);}
 
         if (isforcharity){
@@ -83,7 +85,7 @@ public class MoveMoneyInAccountBalance {
                             try{revshare.save();} catch (Exception ex){logger.error("",ex);}
                             //Transfer the actual revshare
                             //Very important: note that qualifiesforrevsharedistribution=false on revshare distributions
-                            MoveMoneyInAccountBalance.pay(userToPayRevshareTo, amttoshare, "Revenue share from "+userToPayRevshareTo.getFirstname()+" "+userToPayRevshareTo.getLastname()+"("+userToPayRevshareTo.getEmail()+")", false, false, "", isresearchermoney, isbloggermoney);
+                            MoveMoneyInAccountBalance.pay(userToPayRevshareTo, amttoshare, "Revenue share from "+userToPayRevshareTo.getFirstname()+" "+userToPayRevshareTo.getLastname()+"("+userToPayRevshareTo.getEmail()+")", false, false, "", isresearchermoney, isbloggermoney, true, false);
                             //@todo Email the recipient of the revshare to tell them that their peeps are making them money!
                         }
                     }
@@ -94,7 +96,7 @@ public class MoveMoneyInAccountBalance {
 
 
 
-    public static void charge(User user, double amt, String desc, boolean isresearchermoney, boolean isbloggermoney){
+    public static void charge(User user, double amt, String desc, boolean isresearchermoney, boolean isbloggermoney, boolean isreferralmoney, boolean isresellermoney){
         Logger logger = Logger.getLogger(MoveMoneyInAccountBalance.class);
         Balance balance = new Balance();
         balance.setAmt((-1)*amt);
@@ -105,6 +107,8 @@ public class MoveMoneyInAccountBalance {
         balance.setUserid(user.getUserid());
         balance.setIsbloggermoney(isbloggermoney);
         balance.setIsresearchermoney(isresearchermoney);
+        balance.setIsreferralmoney(isreferralmoney);
+        balance.setIsresellermoney(isresellermoney);
         try{balance.save();}catch (Exception ex){logger.error("",ex);}
     }
 

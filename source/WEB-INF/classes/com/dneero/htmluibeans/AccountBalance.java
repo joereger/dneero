@@ -50,6 +50,20 @@ public class AccountBalance implements Serializable {
                 abli.setDate(balance.getDate());
                 abli.setDescription(balance.getDescription());
                 abli.setUserid(balance.getUserid());
+                StringBuffer fundstype = new StringBuffer();
+                if (balance.getIsbloggermoney()){
+                    fundstype.append("Blogger");
+                }
+                if (balance.getIsresearchermoney()){
+                    fundstype.append("Researcher");
+                }
+                if (balance.getIsreferralmoney()){
+                    fundstype.append("Referral");
+                }
+                if (balance.getIsresellermoney()){
+                    fundstype.append("Reseller");
+                }
+                abli.setFundstype(fundstype.toString());
                 balances.add(abli);
             }
 
