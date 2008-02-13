@@ -488,7 +488,7 @@ public class PublicSurvey implements Serializable {
             //Go to facebook and get a list of the logged-in user's friends
             //FacebookApiWrapperHtmlui faw = new FacebookApiWrapperHtmlui(Pagez.getUserSession());
             ArrayList<FacebookUser> friends = Pagez.getUserSession().getFacebookFriends();
-            if (friends.size()>0){
+            if (friends!=null && friends.size()>0){
                 //Build sql to pull up those users that are in the dneero db
                 StringBuffer sql = new StringBuffer();
                 sql.append(" ( ");
