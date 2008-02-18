@@ -44,7 +44,7 @@ String acl = "public";
     }
 %>
 <%
-    if (request.getParameter("action") != null && request.getParameter("action").equals("takesurvey")) {
+    if (request.getParameter("actionfrompage") != null && request.getParameter("actionfrompage").equals("takesurvey")) {
         try {
             publicSurvey.takeSurvey();
             if (Pagez.getUserSession().getIsloggedin() && Pagez.getUserSession().getUser()!=null && Pagez.getUserSession().getUser().getBloggerid()<=0){
@@ -142,22 +142,30 @@ String acl = "public";
                         <%}%>
                         <form action="/survey.jsp" method="post">
                             <input type="hidden" name="dpage" value="/survey.jsp">
-                            <input type="hidden" name="action" value="takesurvey">
+                            <input type="hidden" name="actionfrompage" value="takesurvey">
                             <input type="hidden" name="surveyid" value="<%=publicSurvey.getSurvey().getSurveyid()%>">
 
                         <div class="rounded" style="background: #e6e6e6; padding: 10px;">
                             <center><font class="smallfont" style="font-weight: bold;">Take the survey by answering the questions below.  Because this is a Social Survey your answers will be available to the public.</font></center><br/><br/>
                             <div class="rounded" style="background: #ffffff; padding: 10px;">
                                 <%if (publicSurvey.getSurvey().getIsaccesscodeonly()){%>
-                                    <div class="rounded" style="background: #00ff00;">
+                                    <div class="rounded" style="background: #cccccc;">
                                         <img src="/images/lock-48.png" alt="" width="48" height="48" align="right"/>
                                         <font class="mediumfont" style="color: #666666;">This survey requires an Access Code</font>
                                         <br/>
                                         <font class="formfieldnamefont" style="color: #666666;">Access Code: </font><%=Textbox.getHtml("accesscode", Pagez.getUserSession().getAccesscode(), 255, 10, "", "")%>
                                         <br/>
                                         <font class="tinyfont" style="color: #666666;">Access Codes are used by survey creators to limit the pool of survey respondents in some way.  Sometimes Access Codes are handed out at an event.  Or at a point of sale.  Or sent out to a select group via email.  Generally speaking, if you don't have the Access Code, this survey isn't for you.</font>
-                                    </div>
+                                    </div><br/>
                                 <%}%>
+                                <% if (publicSurvey.getSurvey().getIscharityonly()){ %>
+                                    <div class="rounded" style="background: #cccccc;">
+                                        <img src="/images/charity-32.png" alt="For Charity" width="32" height="32" align="right"/>
+                                        <font class="formfieldnamefont" style="color: #666666;">This is a Charity Only survey.</font>
+                                        <br/>
+                                        <font class="tinyfont" style="color: #666666;">The survey creator has decided that all earnings from this survey must be given to charity.</font>
+                                    </div><br/>
+                                <% } %>
                                 <%=publicSurvey.getTakesurveyhtml()%>
                             </div>
                         </div>
