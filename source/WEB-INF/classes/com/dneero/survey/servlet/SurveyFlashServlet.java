@@ -138,7 +138,7 @@ public class SurveyFlashServlet extends HttpServlet {
                         logger.debug("Start TransformSWF");
                         //Get the movie from the file system
                         FSMovie movie = new FSMovie(WebAppRootDir.getWebAppRootPath() + "flashviewer/dneeroflashviewer.swf");
-                        //List the objects in the movie that are of type DoAction
+                        //List the allobjects in the movie that are of type DoAction
                         ArrayList objects = movie.getObjectsOfType(FSMovieObject.DoAction);
                         for (Iterator it = objects.iterator(); it.hasNext(); ) {
                             FSDoAction obj = (FSDoAction)it.next();
@@ -150,6 +150,24 @@ public class SurveyFlashServlet extends HttpServlet {
                             actions.add(FSAction.InitVariable());
                             obj.setActions(actions);
                         }
+                        //Get all allobjects
+                        logger.debug("Start Listing All Objects");
+                        ArrayList allobjects = movie.getObjects();
+                        for (Iterator it = allobjects.iterator(); it.hasNext(); ) {
+                            FSMovieObject obj = (FSMovieObject)it.next();
+                            logger.debug("allobject found: obj.name()="+obj.name());
+                            if (obj.getType()==FSMovieObject.DefineTextField){
+                                FSDefineTextField textfield = (FSDefineTextField)obj;
+                                logger.debug("found text field: textfield.getVariableName()="+textfield.getVariableName());
+                                if (textfield.getVariableName().equals("searchenginetext_var")){
+                                    logger.debug("Setting the text of the search engine textbox");
+                                    textfield.setHTML(true);
+                                    //Set the search engine text... note that this is using surveyashtml to avoid all the wrapper xml/doc stuff
+                                    textfield.setInitialText("This is a <h1><a href=\"http://www.dneero.com/survey.jsp?surveyid="+surveyid+"\">dNeero Social Survey</a></h1>.<br/><br/>"+surveyashtml);
+                                }
+                            }
+                        }
+                        logger.debug("End Listing All Objects");
                         //Encode the swf and put its bytes into memory
                         bytes = movie.encode();
                         //Put bytes into cache

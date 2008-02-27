@@ -8,6 +8,7 @@ var DENG_SWF_URL = unescape(baseurl) + "deng.swf";
 //var DOCUMENT_URL = "http://localhost/f?s=1&u=1&ispreview=1"
 //This XmlSource is loaded from FlashVars
 //var SURVEY_AS_HTML = unescape(surveyashtml);
+var SURVEY_AS_HTML = "Hey there testing.";
 //SURVEY_AS_HTML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\" \"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\"><html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\" lang=\"en\"><head><title>dNeero Survey</title></head><body><p><p style=\"font-family: Arial Black, Arial Black, Gadget, sans-serif; font-size: 12px; font-weight: bold;\">Why?</p><p style=\"font-family: Arial, Arial, Helvetica, sans-serif; font-size: 12px;\">Not answered.</p></p></body></html>";
 //SURVEY_AS_HTML = unescape("%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22%3F%3E%3C%21DOCTYPE+html+PUBLIC+%22-%2F%2FW3C%2F%2FDTD+XHTML+1.1%2F%2FEN%22+%22http%3A%2F%2Fwww.w3.org%2FTR%2Fxhtml11%2FDTD%2Fxhtml11.dtd%22%3E%3Chtml+xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxhtml%22+xml%3Alang%3D%22en%22+lang%3D%22en%22%3E%3Chead%3E%3Ctitle%3EdNeero+Survey%3C%2Ftitle%3E%3C%2Fhead%3E%3Cbody%3E%3Cp%3E%3Cp+style%3D%22font-family%3A+Arial+Black%2C+Arial+Black%2C+Gadget%2C+sans-serif%3B+font-size%3A+12px%3B+font-weight%3A+bold%3B%22%3EWhy%3F%3C%2Fp%3E%3Cp+style%3D%22font-family%3A+Arial%2C+Arial%2C+Helvetica%2C+sans-serif%3B+font-size%3A+12px%3B%22%3E%3Cp%3ENot+answered+dude.%3C%2Fp%3E%3C%2Fp%3E%3C%2Fp%3E%3C%2Fbody%3E%3C%2Fhtml%3E");
 

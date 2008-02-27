@@ -54,9 +54,13 @@ String acl = "public";
                                 <font class="formfieldnamefont">Social Influence Rating (TM)</font>
                             </td>
                             <td valign="top" width="50%">
-                                <font class="smallfont"><%=publicProfile.getBlogger().getSocialinfluencerating()%></font>
-                                <br/>
-                                <font class="smallfont">Rank: <%=publicProfile.getBlogger().getSocialinfluenceratingranking()%></font>
+                                <%if (publicProfile.getBlogger()!=null){%>
+                                    <font class="smallfont"><%=publicProfile.getBlogger().getSocialinfluencerating()%></font>
+                                    <br/>
+                                    <font class="smallfont">Rank: <%=publicProfile.getBlogger().getSocialinfluenceratingranking()%></font>
+                                <%} else {%>
+                                    <font class="smallfont">na</font>
+                                <%}%>
                             </td>
                         </tr>
                         <tr>
