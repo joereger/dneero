@@ -2,6 +2,7 @@ package com.dneero.money;
 
 import com.dneero.dao.*;
 import com.dneero.dao.hibernate.HibernateUtil;
+import com.dneero.dao.hibernate.NumFromUniqueResult;
 
 import java.util.*;
 
@@ -25,6 +26,7 @@ public class UserImpressionFinder {
         } else {
             logger.debug("survey is not null... surveyid="+survey.getSurveyid());
         }
+        //@todo is this saveOrUpdate() really necessary?
         HibernateUtil.getSession().saveOrUpdate(blogger);
         ArrayList<Impression> out = new ArrayList();
         if (survey!=null && survey.getSurveyid()>0){
@@ -54,8 +56,48 @@ public class UserImpressionFinder {
         return out;
     }
 
+    public static int getTotalImpressionsForSurvey(Blogger blogger, Survey survey){
+        Logger logger = Logger.getLogger(UserImpressionFinder.class);
+        logger.debug("getTotalImpressionsForSurvey called for bloggerid="+blogger.getBloggerid());
+        //@todo is this saveOrUpdate() really necessary?
+        //HibernateUtil.getSession().saveOrUpdate(blogger);
+        if (survey!=null && survey.getSurveyid()>0){
+            int totalimpressions = NumFromUniqueResult.getInt("select sum(impressionstotal) from Impression where userid='"+blogger.getUserid()+"' and surveyid='"+survey.getSurveyid()+"'");
+            return totalimpressions;
+        } else {
+            int totalimpressions = NumFromUniqueResult.getInt("select sum(impressionstotal) from Impression where userid='"+blogger.getUserid()+"'");
+            return totalimpressions;
+        }
+    }
 
-    //@todo can these be sped up with sum() queries like sum(impressionstotal) from impression where userid='X' and surveyid='X'?
+    public static int getTotalImpressionsPaidForSurvey(Blogger blogger, Survey survey){
+        Logger logger = Logger.getLogger(UserImpressionFinder.class);
+        logger.debug("getTotalImpressionsForSurvey called for bloggerid="+blogger.getBloggerid());
+        //@todo is this saveOrUpdate() really necessary?
+        //HibernateUtil.getSession().saveOrUpdate(blogger);
+        if (survey!=null && survey.getSurveyid()>0){
+            int totalimpressions = NumFromUniqueResult.getInt("select sum(impressionspaid) from Impression where userid='"+blogger.getUserid()+"' and surveyid='"+survey.getSurveyid()+"'");
+            return totalimpressions;
+        } else {
+            int totalimpressions = NumFromUniqueResult.getInt("select sum(impressionspaid) from Impression where userid='"+blogger.getUserid()+"'");
+            return totalimpressions;
+        }
+    }
+
+    public static int getTotalImpressionsToBePaidForSurvey(Blogger blogger, Survey survey){
+        Logger logger = Logger.getLogger(UserImpressionFinder.class);
+        logger.debug("getTotalImpressionsForSurvey called for bloggerid="+blogger.getBloggerid());
+        //@todo is this saveOrUpdate() really necessary?
+        //HibernateUtil.getSession().saveOrUpdate(blogger);
+        if (survey!=null && survey.getSurveyid()>0){
+            int totalimpressions = NumFromUniqueResult.getInt("select sum(impressionstobepaid) from Impression where userid='"+blogger.getUserid()+"' and surveyid='"+survey.getSurveyid()+"'");
+            return totalimpressions;
+        } else {
+            int totalimpressions = NumFromUniqueResult.getInt("select sum(impressionstobepaid) from Impression where userid='"+blogger.getUserid()+"'");
+            return totalimpressions;
+        }
+    }
+
 
     public static int getTotalImpressions(User user, Survey survey){
         if (user!=null && user.getBloggerid()>0){
@@ -65,13 +107,7 @@ public class UserImpressionFinder {
     }
 
     public static int getTotalImpressions(Blogger blogger, Survey survey){
-        int out = 0;
-        ArrayList<Impression> impressions = getAllImpressionsForSurvey(blogger, survey);
-        for (Iterator<Impression> iterator = impressions.iterator(); iterator.hasNext();) {
-            Impression impression = iterator.next();
-            out = out + impression.getImpressionstotal();
-        }
-        return out;
+        return getTotalImpressionsForSurvey(blogger, survey);
     }
 
     public static int getPaidImpressions(User user, Survey survey){
@@ -82,13 +118,7 @@ public class UserImpressionFinder {
     }
 
     public static int getPaidImpressions(Blogger blogger, Survey survey){
-        int out = 0;
-        ArrayList<Impression> impressions = getAllImpressionsForSurvey(blogger, survey);
-        for (Iterator<Impression> iterator = impressions.iterator(); iterator.hasNext();) {
-            Impression impression = iterator.next();
-            out = out + impression.getImpressionspaid();
-        }
-        return out;
+        return getTotalImpressionsPaidForSurvey(blogger, survey);
     }
 
     public static int getToBePaidImpressions(User user, Survey survey){
@@ -99,13 +129,7 @@ public class UserImpressionFinder {
     }
 
     public static int getToBePaidImpressions(Blogger blogger, Survey survey){
-        int out = 0;
-        ArrayList<Impression> impressions = getAllImpressionsForSurvey(blogger, survey);
-        for (Iterator<Impression> iterator = impressions.iterator(); iterator.hasNext();) {
-            Impression impression = iterator.next();
-            out = out + impression.getImpressionstobepaid();
-        }
-        return out;
+        return getTotalImpressionsToBePaidForSurvey(blogger, survey);
     }
 
     public static int getPaidAndToBePaidImpressions(User user, Survey survey){
@@ -116,13 +140,9 @@ public class UserImpressionFinder {
     }
 
     public static int getPaidAndToBePaidImpressions(Blogger blogger, Survey survey){
-        int out = 0;
-        ArrayList<Impression> impressions = getAllImpressionsForSurvey(blogger, survey);
-        for (Iterator<Impression> iterator = impressions.iterator(); iterator.hasNext();) {
-            Impression impression = iterator.next();
-            out = out + impression.getImpressionspaid() + impression.getImpressionstobepaid();
-        }
-        return out;
+        int paid = getTotalImpressionsPaidForSurvey(blogger, survey);
+        int tobepaid = getTotalImpressionsToBePaidForSurvey(blogger, survey);
+        return paid + tobepaid;
     }
 
 
