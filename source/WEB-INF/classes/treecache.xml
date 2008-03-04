@@ -142,7 +142,7 @@
               <attribute name="wakeUpIntervalSeconds">5</attribute>
               <!-- Cache wide default -->
               <region name="/_default_">
-                  <attribute name="maxNodes">25000</attribute>
+                  <attribute name="maxNodes">30000</attribute>
                   <attribute name="timeToLiveSeconds">0</attribute>
               </region>
               <region name="/com/dneero/dao/Impression">

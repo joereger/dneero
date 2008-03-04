@@ -6,6 +6,7 @@ import com.dneero.survey.servlet.ImpressionActivityObject;
 import com.dneero.survey.servlet.ImpressionActivityObjectCollated;
 import com.dneero.scheduledjobs.ImpressionActivityObjectQueue;
 import com.dneero.htmlui.ValidationException;
+import com.dneero.htmlui.Pagez;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -33,8 +34,21 @@ public class SysadminHibernateCache implements Serializable {
 
 
     public void initBean(){
-        cacheashtml = HibernateCacheStats.getCacheDump();
-        misccacheashtml = CacheFactory.getCacheProvider().getCacheStatsAsHtml();
+        if (Pagez.getRequest().getParameter("action")!=null && Pagez.getRequest().getParameter("action").equals("showhibernate")){
+
+            if (Pagez.getRequest().getParameter("region")!=null){
+                cacheashtml = HibernateCacheStats.getEntriesForARegion(Pagez.getRequest().getParameter("region"), true);    
+            } else {
+                cacheashtml = HibernateCacheStats.getCacheDump();
+            }
+        }
+        if (Pagez.getRequest().getParameter("action")!=null && Pagez.getRequest().getParameter("action").equals("showmisc")){
+            misccacheashtml = CacheFactory.getCacheProvider().getCacheStatsAsHtml();
+        }
+        loadIaos();
+    }
+
+    private void loadIaos(){
         iaosqueue = "";
 
         StringBuffer iaosqueueSb = new StringBuffer();
@@ -84,7 +98,6 @@ public class SysadminHibernateCache implements Serializable {
         }
 
         iaosqueue = iaosqueueSb.toString();
-
     }
 
     public void runImpressionActivityObjectQueue() throws ValidationException {

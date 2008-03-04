@@ -125,6 +125,7 @@ public class Registration implements Serializable {
         List<User> users = HibernateUtil.getSession().createQuery("from User where email='"+ Str.cleanForSQL(email)+"'").list();
         if (users.size()>0){
             vex.addValidationError("That email address is already in use.");
+            haveErrors = true;
         }
 
         if (haveErrors){
