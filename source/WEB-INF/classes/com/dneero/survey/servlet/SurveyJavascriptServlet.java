@@ -96,6 +96,7 @@ public class SurveyJavascriptServlet extends HttpServlet {
                 logger.debug("rebuilding string and putting it into cache");
                 try{
                     String surveyashtml = SurveyAsHtml.getHtml(survey, user, makeHttpsIfSSLIsOn);
+                    //logger.debug(surveyashtml);
                     StringBuffer scrollablediv = new StringBuffer();
                     scrollablediv.append("<div style=\"background : #ffffff; padding: 5px; width: 405px; height: 215px; overflow : auto; text-align: left;\">"+"\n");
                     scrollablediv.append(surveyashtml);
