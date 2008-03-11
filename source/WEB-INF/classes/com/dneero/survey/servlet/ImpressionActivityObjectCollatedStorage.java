@@ -43,6 +43,7 @@ public class ImpressionActivityObjectCollatedStorage {
         }
 
         //Find the survey
+        //@todo optimize by storing surveyimpressionspaidandtobepaid in the Survey object
         Survey survey = null;
         int surveyimpressionspaidandtobepaid = 0;
         if (iao.getSurveyid()>0){

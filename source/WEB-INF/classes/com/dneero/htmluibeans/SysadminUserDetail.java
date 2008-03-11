@@ -91,7 +91,7 @@ public class SysadminUserDetail implements Serializable {
             if (onlyshownegativeamountbalance){
                 negamtSql = " and amt<0 ";
             }
-            List bals = HibernateUtil.getSession().createQuery("from Balance where userid='"+userid+"' "+negamtSql+" order by balanceid desc").setMaxResults(50).list();
+            List bals = HibernateUtil.getSession().createQuery("from Balance where userid='"+userid+"' "+negamtSql+" order by balanceid desc").setMaxResults(200).list();
             balances = new ArrayList<AccountBalanceListItem>();
             for (Iterator iterator = bals.iterator(); iterator.hasNext();) {
                 Balance balance = (Balance) iterator.next();

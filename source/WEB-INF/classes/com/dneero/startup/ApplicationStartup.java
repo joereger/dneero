@@ -7,6 +7,7 @@ import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.dao.hibernate.HibernateSessionQuartzCloser;
 import com.dneero.xmpp.SendXMPPMessage;
 import com.dneero.scheduledjobs.SystemStats;
+import com.dneero.pageperformance.PagePerformanceUtil;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServlet;
@@ -90,6 +91,8 @@ public class ApplicationStartup implements ServletContextListener {
         //Record the last of the impressions dude
         try{com.dneero.scheduledjobs.ImpressionActivityObjectQueue task = new com.dneero.scheduledjobs.ImpressionActivityObjectQueue();
             task.execute(null);} catch (Exception ex){logger.error("",ex);}
+        //Record last of pageperformance numbers
+        try{PagePerformanceUtil.recordAndFlush();}catch(Exception ex){logger.error("", ex);}
         //Notify sysadmins
         SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_SYSADMINS, "dNeero Application shut down! ("+WebAppRootDir.getUniqueContextId()+")");
         xmpp.send();

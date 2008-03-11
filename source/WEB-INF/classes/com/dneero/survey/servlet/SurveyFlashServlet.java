@@ -10,14 +10,18 @@ import javax.servlet.ServletOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Date;
 import java.net.URLEncoder;
 
 import com.dneero.dao.Survey;
 import com.dneero.dao.User;
 import com.dneero.systemprops.WebAppRootDir;
 import com.dneero.systemprops.BaseUrl;
+import com.dneero.systemprops.InstanceProperties;
 import com.dneero.cache.providers.CacheFactory;
 import com.dneero.util.RandomString;
+import com.dneero.pageperformance.PagePerformanceUtil;
+import com.dneero.htmlui.Pagez;
 import com.flagstone.transform.*;
 
 /**
@@ -35,6 +39,7 @@ public class SurveyFlashServlet extends HttpServlet {
 
     public void doPost (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Logger logger = Logger.getLogger(this.getClass().getName());
+        long timestart = new java.util.Date().getTime();
         logger.debug("Looking for flash survey via servlet");
         logger.debug("request.getParameter(\"s\")="+request.getParameter("s"));
         logger.debug("request.getParameter(\"u\")="+request.getParameter("u"));
@@ -192,6 +197,15 @@ public class SurveyFlashServlet extends HttpServlet {
             outStream.close();
         } catch (Exception e){
             logger.error("Error getting survey from cache");
+        }
+
+        //Performance recording
+        try {
+            long timeend = new java.util.Date().getTime();
+            long elapsedtime = timeend - timestart;
+            PagePerformanceUtil.add("/dneerosurvey.swf", InstanceProperties.getInstancename(), elapsedtime);
+        } catch (Exception ex) {
+            logger.error("", ex);
         }
     }
 

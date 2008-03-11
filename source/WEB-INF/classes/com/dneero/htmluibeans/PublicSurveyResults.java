@@ -11,6 +11,7 @@ import com.dneero.facebook.FacebookUser;
 
 import com.dneero.helpers.UserInputSafe;
 import com.dneero.htmlui.Pagez;
+import com.dneero.cache.html.HtmlCache;
 
 import java.io.Serializable;
 import java.util.*;
@@ -102,7 +103,13 @@ public class PublicSurveyResults implements Serializable {
 
         //Results main tab
         if (!survey.getIsresultshidden()){
-            resultsHtml = SurveyResultsDisplay.getHtmlForResults(survey, null, 0, new ArrayList<Integer>());
+            String resultsHtmlKey = "surveyresults.jsp-resultsHtml-surveyid"+survey.getSurveyid();
+            if (HtmlCache.isStale(resultsHtmlKey, 600)){
+                resultsHtml = SurveyResultsDisplay.getHtmlForResults(survey, null, 0, new ArrayList<Integer>());
+                HtmlCache.updateCache(resultsHtmlKey, 600, resultsHtml);
+            } else {
+                resultsHtml = HtmlCache.getFromCache(resultsHtmlKey);
+            }
         } else {
             resultsHtml = "<font class=\"smallfont\">The researcher who created this survey has chosen to hide overall aggregate results.  However, dNeero does not allow researchers to hide aggregate results from individual blogs so those results are still available.  To see such results, find a blog that's posted this survey and click the See How Others Voted link... you'll see how others from that blog answered.</font>";
         }
@@ -116,7 +123,13 @@ public class PublicSurveyResults implements Serializable {
 
         //Set the results for userwhotooksurvey
         if (userwhotooksurvey!=null){
-            resultsHtmlForUserWhoTookSurvey = SurveyResultsDisplay.getHtmlForResults(survey, null, userwhotooksurvey.getUserid(), new ArrayList<Integer>());
+            String resultsHtmlForUserWhoTookSurveyKey = "surveyresults.jsp-resultsHtmlForUserWhoTookSurvey-surveyid"+survey.getSurveyid()+"-userid"+userwhotooksurvey.getUserid();
+            if (HtmlCache.isStale(resultsHtmlForUserWhoTookSurveyKey, 6000)){
+                resultsHtmlForUserWhoTookSurvey = SurveyResultsDisplay.getHtmlForResults(survey, null, userwhotooksurvey.getUserid(), new ArrayList<Integer>());
+                HtmlCache.updateCache(resultsHtmlForUserWhoTookSurveyKey, 6000, resultsHtmlForUserWhoTookSurvey);
+            } else {
+                resultsHtmlForUserWhoTookSurvey = HtmlCache.getFromCache(resultsHtmlForUserWhoTookSurveyKey);
+            }
         } else {
             //resultsHtmlForUserWhoTookSurvey = "<font class='mediumfont'>Nobody who learned of this survey from "+userwhotooksurvey.getFirstname()+" "+userwhotooksurvey.getLastname()+" has answered... yet.  You could be the first!</font>";
             resultsHtmlForUserWhoTookSurvey = "";
@@ -130,34 +143,44 @@ public class PublicSurveyResults implements Serializable {
 
         //Special Facebook activities
         if (Pagez.getUserSession().getIsfacebookui()){
-
-            //Load facebook users
-            loadFacebookUsers();
-            //Generate results
-            resultsshowyourfriendstab = true;
-            //FacebookApiWrapperHtmlui faw = new FacebookApiWrapperHtmlui(Pagez.getUserSession());
-            ArrayList<FacebookUser> friends = Pagez.getUserSession().getFacebookFriends();
-            if (friends!=null && friends.size()>0){
-                StringBuffer facebookquery = new StringBuffer();
-                facebookquery.append(" ( ");
-                for (Iterator it = friends.iterator(); it.hasNext(); ) {
-                    FacebookUser facebookUser = (FacebookUser)it.next();
-                    facebookquery.append("facebookuserid="+facebookUser.getUid());
-                    if (it.hasNext()){
-                        facebookquery.append(" OR ");
+            
+            String resultsYourFriendsKey = "surveyresults.jsp-resultsYourFriendsKey-surveyid"+survey.getSurveyid()+"-facebookuid"+Pagez.getUserSession().getFacebookUser().getUid();
+            if (HtmlCache.isStale(resultsYourFriendsKey, 1200)){
+                //Load facebook users
+                loadFacebookUsers();
+                //Generate results
+                resultsshowyourfriendstab = true;
+                //FacebookApiWrapperHtmlui faw = new FacebookApiWrapperHtmlui(Pagez.getUserSession());
+                ArrayList<FacebookUser> friends = Pagez.getUserSession().getFacebookFriends();
+                if (friends!=null && friends.size()>0){
+                    StringBuffer facebookquery = new StringBuffer();
+                    facebookquery.append(" ( ");
+                    for (Iterator it = friends.iterator(); it.hasNext(); ) {
+                        FacebookUser facebookUser = (FacebookUser)it.next();
+                        facebookquery.append("facebookuserid="+facebookUser.getUid());
+                        if (it.hasNext()){
+                            facebookquery.append(" OR ");
+                        }
                     }
+                    facebookquery.append(" ) ");
+                    ArrayList<Integer> onlyincluderesponsesfromtheseuserids = new ArrayList<Integer>();
+                    List fbusers = HibernateUtil.getSession().createQuery("from User WHERE "+facebookquery.toString()).list();
+                    for (Iterator iterator = fbusers.iterator(); iterator.hasNext();) {
+                        User fbuser = (User) iterator.next();
+                        onlyincluderesponsesfromtheseuserids.add(fbuser.getUserid());
+                    }
+                    resultsYourFriends = SurveyResultsDisplay.getHtmlForResults(survey, null, 0, onlyincluderesponsesfromtheseuserids);
+                } else {
+                    resultsYourFriends = "<font class='mediumfont'>None of your friends have taken this survey... yet.</font>";
                 }
-                facebookquery.append(" ) ");
-                ArrayList<Integer> onlyincluderesponsesfromtheseuserids = new ArrayList<Integer>();
-                List fbusers = HibernateUtil.getSession().createQuery("from User WHERE "+facebookquery.toString()).list();
-                for (Iterator iterator = fbusers.iterator(); iterator.hasNext();) {
-                    User fbuser = (User) iterator.next();
-                    onlyincluderesponsesfromtheseuserids.add(fbuser.getUserid());
-                }
-                resultsYourFriends = SurveyResultsDisplay.getHtmlForResults(survey, null, 0, onlyincluderesponsesfromtheseuserids);
+                //Update the cache
+                HtmlCache.updateCache(resultsYourFriendsKey, 1200, resultsYourFriends);
             } else {
-                resultsYourFriends = "<font class='mediumfont'>None of your friends have taken this survey... yet.</font>";
+                resultsYourFriends = HtmlCache.getFromCache(resultsYourFriendsKey);
             }
+
+
+
         }
 
 

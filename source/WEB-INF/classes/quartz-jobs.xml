@@ -298,7 +298,7 @@
             <job-name>impressionActivityObjectQueue</job-name>            
             <job-group>surveyJobs</job-group>
             <!-- every x minutes -->
-            <cron-expression>0 0/5 * * * ?</cron-expression>
+            <cron-expression>0 0/30 * * * ?</cron-expression>
           </cron>
         </trigger>
     </job>
@@ -320,7 +320,7 @@
             <job-name>surveydisplayActivityObjectQueue</job-name>
             <job-group>surveyJobs</job-group>
             <!-- every x minutes -->
-            <cron-expression>0 0/10 * * * ?</cron-expression>
+            <cron-expression>0 0/30 * * * ?</cron-expression>
           </cron>
         </trigger>
     </job>
@@ -342,7 +342,7 @@
             <job-name>refreshSystemProperties</job-name>
             <job-group>surveyJobs</job-group>
             <!-- every x minutes -->
-            <cron-expression>0 0/5 * * * ?</cron-expression>
+            <cron-expression>0 0/15 * * * ?</cron-expression>
           </cron>
         </trigger>
     </job>
@@ -431,6 +431,50 @@
             <job-group>surveyJobs</job-group>
             <!-- Fire at 4am every day -->
             <cron-expression>0 0 6 * * ?</cron-expression>
+          </cron>
+        </trigger>
+    </job>
+
+    <job>
+        <job-detail>
+          <name>htmlCachePurgeStaleItems</name>
+          <group>surveyJobs</group>
+          <job-class>com.dneero.scheduledjobs.HtmlCachePurgeStaleItems</job-class>
+          <volatility>false</volatility>
+          <durability>false</durability>
+          <recover>false</recover>
+        </job-detail>
+        <trigger>
+          <!-- Sample cron triggers: http://www.opensymphony.com/quartz/wikidocs/TutorialLesson6.html -->
+          <cron>
+            <name>htmlCachePurgeStaleItemsTrigger</name>
+            <group>surveyTriggers</group>
+            <job-name>htmlCachePurgeStaleItems</job-name>
+            <job-group>surveyJobs</job-group>
+            <!-- every x minutes -->
+            <cron-expression>0 0/5 * * * ?</cron-expression>
+          </cron>
+        </trigger>
+    </job>
+
+    <job>
+        <job-detail>
+          <name>pagePerformanceRecordAndFlush</name>
+          <group>surveyJobs</group>
+          <job-class>com.dneero.scheduledjobs.PagePerformanceRecordAndFlush</job-class>
+          <volatility>false</volatility>
+          <durability>false</durability>
+          <recover>false</recover>
+        </job-detail>
+        <trigger>
+          <!-- Sample cron triggers: http://www.opensymphony.com/quartz/wikidocs/TutorialLesson6.html -->
+          <cron>
+            <name>pagePerformanceRecordAndFlushTrigger</name>
+            <group>surveyTriggers</group>
+            <job-name>pagePerformanceRecordAndFlush</job-name>
+            <job-group>surveyJobs</job-group>
+            <!-- every 6 hours -->
+            <cron-expression>0 0 0/6 * * ?</cron-expression>
           </cron>
         </trigger>
     </job>

@@ -58,22 +58,7 @@ public class HtmlCache {
         return false;
     }
 
-    public static String getKeyFromRequest(HttpServletRequest request, boolean includedomain){
-        String out = "";
-        if (includedomain){
-            out = request.getRequestURL().toString();
-        } else {
-            out = request.getRequestURI();
-        }
-        if (request.getQueryString()!=null && !request.getQueryString().equals("")){
-            out = out + "?" + request.getQueryString();
-        }
-        return out;
-    }
-
-    public static String getKeyFromRequest(HttpServletRequest request){
-        return getKeyFromRequest(request, true);
-    }
+    
 
     public static void updateCache(String cachekey, int refreshintervalinseconds , String html){
         if (htmlCache==null){

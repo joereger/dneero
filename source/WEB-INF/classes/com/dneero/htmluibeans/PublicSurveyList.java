@@ -151,23 +151,23 @@ public class PublicSurveyList implements Serializable {
             }
             if (Pagez.getUserSession().getIsfacebookui()){
                 //Load which friends are on dNeero and which aren't
-                loadFacebookUsers();
+                //loadFacebookUsers();
                 //Get list of friend uids
-                FacebookApiWrapper faw = new FacebookApiWrapper(Pagez.getUserSession());
-                //Load surveys taken by friends
-                TreeMap<Integer, FacebookSurveyThatsBeenTaken> surveys = faw.getSurveysFriendsHaveTaken(Pagez.getUserSession().getFacebookFriends(), 5);
-                //Boil it down to an arraylist
-                facebookSurveyThatsBeenTakens = new ArrayList<FacebookSurveyThatsBeenTaken>();
-                Iterator keyValuePairs = surveys.entrySet().iterator();
-                for (int i = 0; i < surveys.size(); i++){
-                    Map.Entry mapentry = (Map.Entry) keyValuePairs.next();
-                    Integer surveyid = (Integer)mapentry.getKey();
-                    FacebookSurveyThatsBeenTaken facebookSurveyThatsBeenTaken = (FacebookSurveyThatsBeenTaken)mapentry.getValue();
-                    //Limit to 10 for now
-                    if (i<10){
-                        facebookSurveyThatsBeenTakens.add(facebookSurveyThatsBeenTaken);
-                    }
-                }
+//                FacebookApiWrapper faw = new FacebookApiWrapper(Pagez.getUserSession());
+//                //Load surveys taken by friends
+//                TreeMap<Integer, FacebookSurveyThatsBeenTaken> surveys = faw.getSurveysFriendsHaveTaken(Pagez.getUserSession().getFacebookFriends(), 5);
+//                //Boil it down to an arraylist
+//                facebookSurveyThatsBeenTakens = new ArrayList<FacebookSurveyThatsBeenTaken>();
+//                Iterator keyValuePairs = surveys.entrySet().iterator();
+//                for (int i = 0; i < surveys.size(); i++){
+//                    Map.Entry mapentry = (Map.Entry) keyValuePairs.next();
+//                    Integer surveyid = (Integer)mapentry.getKey();
+//                    FacebookSurveyThatsBeenTaken facebookSurveyThatsBeenTaken = (FacebookSurveyThatsBeenTaken)mapentry.getValue();
+//                    //Limit to 10 for now
+//                    if (i<10){
+//                        facebookSurveyThatsBeenTakens.add(facebookSurveyThatsBeenTaken);
+//                    }
+//                }
                 //Load the account balance
                 CurrentBalanceCalculator cbc = new CurrentBalanceCalculator(Pagez.getUserSession().getUser());
                 currentbalanceDbl = cbc.getCurrentbalance();

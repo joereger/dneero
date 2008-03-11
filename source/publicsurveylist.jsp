@@ -119,60 +119,60 @@ PublicSurveyList publicSurveyList = (PublicSurveyList)Pagez.getBeanMgr().get("Pu
                             <font class="smallfont" style="color: #666666;"><b>The <a href="/account/reseller.jsp">Reseller Program</a> allows you to earn big bucks selling Social Surveys!  Put on your sales hats people!</b></font>
                         </div>
 
-                        <br/><br/>
-                        <font class="mediumfont">Surveys Friends Have Taken:</font><br/>
-                        <% if (publicSurveyList.getFacebookSurveyThatsBeenTakens()==null || publicSurveyList.getFacebookSurveyThatsBeenTakens().size()==0){ %>
-                            <font class="tinyfont">Your friends haven't taken any surveys yet.</font>
-                        <% } else { %>
-                            <%
-                                for (Iterator<FacebookSurveyThatsBeenTaken> iterator=publicSurveyList.getFacebookSurveyThatsBeenTakens().iterator(); iterator.hasNext();){
-                                    FacebookSurveyThatsBeenTaken facebookSurveyThatsBeenTaken=iterator.next();
-                                    %>
-                                    <a href="/survey.jsp?surveyid=<%=facebookSurveyThatsBeenTaken.getSurvey().getSurveyid()%>"><font class="normalfont" style="font-weight: bold; color: #0000ff;"><%=facebookSurveyThatsBeenTaken.getSurvey().getTitle()%></font></a><br/>
-                                    <font class="smallfont">
-                                        How they answered:
-                                        <%
-                                            for (Iterator<FacebookSurveyTaker> iterator1=facebookSurveyThatsBeenTaken.getFacebookSurveyTakers().iterator(); iterator1.hasNext();){
-                                                FacebookSurveyTaker facebookSurveyTaker=iterator1.next();
-                                                %>
-                                                <a href="/survey.jsp?surveyid=<%=facebookSurveyThatsBeenTaken.getSurvey().getSurveyid()%>&userid=<%=facebookSurveyTaker.getUserid()%>&responseid=<%=facebookSurveyTaker.getResponseid()%>"><font class=""><%=facebookSurveyTaker.getFacebookUser().getFirst_name()%> <%=facebookSurveyTaker.getFacebookUser().getLast_name()%></font></a>
-                                                <%
-                                            }
-                                            %>
-                                    </font><br/><br/>
-                                    <%
-                                }
+                        <%--<br/><br/>--%>
+                        <%--<font class="mediumfont">Surveys Friends Have Taken:</font><br/>--%>
+                        <%--<% if (publicSurveyList.getFacebookSurveyThatsBeenTakens()==null || publicSurveyList.getFacebookSurveyThatsBeenTakens().size()==0){ %>--%>
+                            <%--<font class="tinyfont">Your friends haven't taken any surveys yet.</font>--%>
+                        <%--<% } else { %>--%>
+                            <%--<%--%>
+                                <%--for (Iterator<FacebookSurveyThatsBeenTaken> iterator=publicSurveyList.getFacebookSurveyThatsBeenTakens().iterator(); iterator.hasNext();){--%>
+                                    <%--FacebookSurveyThatsBeenTaken facebookSurveyThatsBeenTaken=iterator.next();--%>
+                                    <%--%>--%>
+                                    <%--<a href="/survey.jsp?surveyid=<%=facebookSurveyThatsBeenTaken.getSurvey().getSurveyid()%>"><font class="normalfont" style="font-weight: bold; color: #0000ff;"><%=facebookSurveyThatsBeenTaken.getSurvey().getTitle()%></font></a><br/>--%>
+                                    <%--<font class="smallfont">--%>
+                                        <%--How they answered:--%>
+                                        <%--<%--%>
+                                            <%--for (Iterator<FacebookSurveyTaker> iterator1=facebookSurveyThatsBeenTaken.getFacebookSurveyTakers().iterator(); iterator1.hasNext();){--%>
+                                                <%--FacebookSurveyTaker facebookSurveyTaker=iterator1.next();--%>
+                                                <%--%>--%>
+                                                <%--<a href="/survey.jsp?surveyid=<%=facebookSurveyThatsBeenTaken.getSurvey().getSurveyid()%>&userid=<%=facebookSurveyTaker.getUserid()%>&responseid=<%=facebookSurveyTaker.getResponseid()%>"><font class=""><%=facebookSurveyTaker.getFacebookUser().getFirst_name()%> <%=facebookSurveyTaker.getFacebookUser().getLast_name()%></font></a>--%>
+                                                <%--<%--%>
+                                            <%--}--%>
+                                            <%--%>--%>
+                                    <%--</font><br/><br/>--%>
+                                    <%--<%--%>
+                                <%--}--%>
 
-                            %>
-                        <%}%>
+                            <%--%>--%>
+                        <%--<%}%>--%>
 
-                        <br/><br/>
-                        <font class="mediumfont">Friends on dNeero:</font><br/>
-                        <% if (publicSurveyList.getFacebookuserswhoaddedapp()==null || publicSurveyList.getFacebookuserswhoaddedapp().size()==0){ %>
-                            <font class="tinyfont">None, yet.</font><br/>
-                        <% } else { %>
-                            <table cellpadding="0" cellspacing="0" border="0">
-                                <%
-                                    int colsperrow = 4;
-                                    int col = 1;
-                                    for (Iterator<PublicSurveyFacebookFriendListitem> iterator=publicSurveyList.getFacebookuserswhoaddedapp().iterator(); iterator.hasNext();){
-                                        PublicSurveyFacebookFriendListitem publicSurveyFacebookFriendListitem=iterator.next();
-                                        %>
-                                        <%if (col==1){%><tr><%}%>
-                                        <td valign="top">
-                                            <img src="<%=publicSurveyFacebookFriendListitem.getFacebookUser().getPic_square()%>" width="50" height="50" border="0" align="middle" alt=""/><br/>
-                                            <font class="tinyfont" style="font-weight: bold;"><%=publicSurveyFacebookFriendListitem.getFacebookUser().getFirst_name()%> <%=publicSurveyFacebookFriendListitem.getFacebookUser().getLast_name()%></font><br/><br/>
-                                        </td>
-                                        <%
-                                        if (col==colsperrow){
-                                            %></tr><%
-                                            col = 0;
-                                        }
-                                        col = col + 1;
-                                    }
-                                %>
-                            </table>
-                        <%}%>
+                        <%--<br/><br/>--%>
+                        <%--<font class="mediumfont">Friends on dNeero:</font><br/>--%>
+                        <%--<% if (publicSurveyList.getFacebookuserswhoaddedapp()==null || publicSurveyList.getFacebookuserswhoaddedapp().size()==0){ %>--%>
+                            <%--<font class="tinyfont">None, yet.</font><br/>--%>
+                        <%--<% } else { %>--%>
+                            <%--<table cellpadding="0" cellspacing="0" border="0">--%>
+                                <%--<%--%>
+                                    <%--int colsperrow = 4;--%>
+                                    <%--int col = 1;--%>
+                                    <%--for (Iterator<PublicSurveyFacebookFriendListitem> iterator=publicSurveyList.getFacebookuserswhoaddedapp().iterator(); iterator.hasNext();){--%>
+                                        <%--PublicSurveyFacebookFriendListitem publicSurveyFacebookFriendListitem=iterator.next();--%>
+                                        <%--%>--%>
+                                        <%--<%if (col==1){%><tr><%}%>--%>
+                                        <%--<td valign="top">--%>
+                                            <%--<img src="<%=publicSurveyFacebookFriendListitem.getFacebookUser().getPic_square()%>" width="50" height="50" border="0" align="middle" alt=""/><br/>--%>
+                                            <%--<font class="tinyfont" style="font-weight: bold;"><%=publicSurveyFacebookFriendListitem.getFacebookUser().getFirst_name()%> <%=publicSurveyFacebookFriendListitem.getFacebookUser().getLast_name()%></font><br/><br/>--%>
+                                        <%--</td>--%>
+                                        <%--<%--%>
+                                        <%--if (col==colsperrow){--%>
+                                            <%--%></tr><%--%>
+                                            <%--col = 0;--%>
+                                        <%--}--%>
+                                        <%--col = col + 1;--%>
+                                    <%--}--%>
+                                <%--%>--%>
+                            <%--</table>--%>
+                        <%--<%}%>--%>
 
                         <br/><br/>
                         <div class="rounded" style="background: #ffffff; padding: 10px;">
@@ -191,42 +191,42 @@ PublicSurveyList publicSurveyList = (PublicSurveyList)Pagez.getBeanMgr().get("Pu
     </table>
 
     
-    <br/>
-        <%
-            //Will need this throughout the page
-            ArrayList<FacebookUser> friends=Pagez.getUserSession().getFacebookFriends();
-            //Create comma-separated list of friends who have app installed
-            StringBuffer commaSepFriendsAlreadyUsingApp=new StringBuffer();
-            ArrayList<FacebookUser> friendsUsingApp=new ArrayList<FacebookUser>();
-            if (friends != null) {
-                for (Iterator it=friends.iterator(); it.hasNext();) {
-                    FacebookUser facebookUser=(FacebookUser) it.next();
-                    if (facebookUser.getHas_added_app()) {
-                        friendsUsingApp.add(facebookUser);
-                        if (commaSepFriendsAlreadyUsingApp.length()>0) {
-                            commaSepFriendsAlreadyUsingApp.append(",");
-                        }
-                        commaSepFriendsAlreadyUsingApp.append(facebookUser.getUid());
-                    }
-                }
-            }
-        %>
+    <%--<br/>--%>
+        <%--<%--%>
+            <%--//Will need this throughout the page--%>
+            <%--ArrayList<FacebookUser> friends=Pagez.getUserSession().getFacebookFriends();--%>
+            <%--//Create comma-separated list of friends who have app installed--%>
+            <%--StringBuffer commaSepFriendsAlreadyUsingApp=new StringBuffer();--%>
+            <%--ArrayList<FacebookUser> friendsUsingApp=new ArrayList<FacebookUser>();--%>
+            <%--if (friends != null) {--%>
+                <%--for (Iterator it=friends.iterator(); it.hasNext();) {--%>
+                    <%--FacebookUser facebookUser=(FacebookUser) it.next();--%>
+                    <%--if (facebookUser.getHas_added_app()) {--%>
+                        <%--friendsUsingApp.add(facebookUser);--%>
+                        <%--if (commaSepFriendsAlreadyUsingApp.length()>0) {--%>
+                            <%--commaSepFriendsAlreadyUsingApp.append(",");--%>
+                        <%--}--%>
+                        <%--commaSepFriendsAlreadyUsingApp.append(facebookUser.getUid());--%>
+                    <%--}--%>
+                <%--}--%>
+            <%--}--%>
+        <%--%>--%>
 
-    <fb:request-form
-        action="http://apps.facebook.com/<%=SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_APP_NAME)%>/?dpage=/publicsurveylist.jsp"
-        method="POST"
-        invite="true"
-        type="dNeero Survey"
-        content="You've been invited to the social survey app called dNeero that allows you to earn real money taking surveys and sharing your answers with your friends. <fb:req-choice url='http://www.facebook.com/add.php?api_key=<%=SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_KEY)%>' label='Check out dNeero!' />
-    ">
-        <fb:multi-friend-selector
-            showborder="false"
-            actiontext="Invite friends to dNeero."
-            exclude_ids="<%=commaSepFriendsAlreadyUsingApp.toString()%>"
-            rows="3"
-            max="20"
-            />
-    </fb:request-form>
+    <%--<fb:request-form--%>
+        <%--action="http://apps.facebook.com/<%=SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_APP_NAME)%>/?dpage=/publicsurveylist.jsp"--%>
+        <%--method="POST"--%>
+        <%--invite="true"--%>
+        <%--type="dNeero Survey"--%>
+        <%--content="You've been invited to the social survey app called dNeero that allows you to earn real money taking surveys and sharing your answers with your friends. <fb:req-choice url='http://www.facebook.com/add.php?api_key=<%=SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_API_KEY)%>' label='Check out dNeero!' />--%>
+    <%--">--%>
+        <%--<fb:multi-friend-selector--%>
+            <%--showborder="false"--%>
+            <%--actiontext="Invite friends to dNeero."--%>
+            <%--exclude_ids="<%=commaSepFriendsAlreadyUsingApp.toString()%>"--%>
+            <%--rows="3"--%>
+            <%--max="20"--%>
+            <%--/>--%>
+    <%--</fb:request-form>--%>
 
 
 

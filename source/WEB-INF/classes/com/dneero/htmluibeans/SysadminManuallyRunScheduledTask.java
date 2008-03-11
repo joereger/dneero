@@ -156,4 +156,11 @@ public class SysadminManuallyRunScheduledTask implements Serializable {
         return "sysadminmanuallyrunscheduledtask";
     }
 
+    public String runPagePerformanceRecordAndFlush(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
+        try{PagePerformanceRecordAndFlush task = new com.dneero.scheduledjobs.PagePerformanceRecordAndFlush();
+            task.execute(null);} catch (Exception ex){logger.error("",ex);}
+        return "sysadminmanuallyrunscheduledtask";
+    }
+
 }
