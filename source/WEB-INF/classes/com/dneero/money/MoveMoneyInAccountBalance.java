@@ -61,6 +61,7 @@ public class MoveMoneyInAccountBalance {
         //Give out a revshare if this payment requires it
         if (qualifiesforrevsharedistribution){
             //Start with the userToPayRevshareTo who's getting paid
+            //Start with the current user and then move down their tree
             User userToPayRevshareTo = user;
             int sourceBloggerid = 0;
             if (user!=null && user.getBloggerid()>0){

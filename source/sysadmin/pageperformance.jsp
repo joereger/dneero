@@ -19,6 +19,17 @@ String acl = "sysadmin";
 <%
     SysadminPagePerformance sysadminPagePerformance = (SysadminPagePerformance) Pagez.getBeanMgr().get("SysadminPagePerformance");
 %>
+<%
+    if (request.getParameter("action") != null && request.getParameter("action").equals("find")) {
+        try {
+            sysadminPagePerformance.setStartDate(com.dneero.htmlui.Date.getValueFromRequest("startdate", "Start Date", true));
+            sysadminPagePerformance.setEndDate(com.dneero.htmlui.Date.getValueFromRequest("enddate", "End Date", true));
+            sysadminPagePerformance.find();
+        } catch (ValidationException vex) {
+            Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
+        }
+    }
+%>
 <%@ include file="/template/header.jsp" %>
 
         <%
@@ -57,6 +68,7 @@ String acl = "sysadmin";
                 double avgLoadtime = pagePerformance.getTotaltime()/pagePerformance.getTotalpageloads();
                 %>
                 <tr>
+                    <td valign="top"><font class="tinyfont">Hr:<%=pagePerformance.getPartofday()%></font></td>
                     <td valign="top"><font class="tinyfont"><%=pagePerformance.getPageid()%></font></td>
                     <td valign="top"><font class="tinyfont"><%=pagePerformance.getTotalpageloads()%></font></td>
                     <td valign="top"><font class="tinyfont"><%=pagePerformance.getTotaltime()%></font></td>
@@ -69,6 +81,14 @@ String acl = "sysadmin";
 
         <br/><br/>
         <font class="mediumfont">Recent PagePerformance DB Entries</font><br/><br/>
+        <form action="/sysadmin/pageperformance.jsp" method="post">
+            <input type="hidden" name="dpage" value="/sysadmin/pageperformance.jsp">
+            <input type="hidden" name="action" value="find">
+            <%=com.dneero.htmlui.Date.getHtml("startdate", sysadminPagePerformance.getStartDate(), "", "")%>
+            <%=com.dneero.htmlui.Date.getHtml("enddate", sysadminPagePerformance.getEndDate(), "", "")%>
+            <br/>
+            <input type="submit" value="Find">
+        </form>
         <%if (sysadminPagePerformance.getPps()==null || sysadminPagePerformance.getPps().size()==0){%>
             <font class="normalfont">No pps found dude.</font>
         <%} else {%>

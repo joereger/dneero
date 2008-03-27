@@ -5,6 +5,9 @@
 <%@ page import="java.util.Iterator" %>
 <%@ page import="com.dneero.util.Num" %>
 <%@ page import="com.dneero.dao.Response" %>
+<%@ page import="com.dneero.dbgrid.GridCol" %>
+<%@ page import="com.dneero.dbgrid.Grid" %>
+<%@ page import="java.util.ArrayList" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "Completed Surveys";
@@ -45,7 +48,7 @@ String acl = "blogger";
     </div>
     <br/><br/>
     <%
-    if (bloggerCompletedsurveys.getList() != null && bloggerCompletedsurveys.getList().size()>0) {
+    if (1==2 && bloggerCompletedsurveys.getList() != null && bloggerCompletedsurveys.getList().size()>0) {
         for (Iterator<BloggerCompletedsurveysListitem> iterator=bloggerCompletedsurveys.getList().iterator(); iterator.hasNext();){
             BloggerCompletedsurveysListitem bloggerCompletedsurveysListitem= iterator.next();
             %>
@@ -85,6 +88,45 @@ String acl = "blogger";
         }
     }
     %>
+
+    <%
+        StringBuffer template = new StringBuffer();
+        template.append("<div class=\"rounded\" style=\"background: #e6e6e6; padding: 10px;\">\n" +
+"            <table cellpadding=\"2\" cellspacing=\"0\" border=\"0\" width=\"100%\">\n" +
+"                <tr>\n" +
+"                    <td valign=\"top\">\n" +
+"                        <font class=\"tinyfont\"><$responsedate$></font><br/>\n" +
+"                        <font class=\"normalfont\" style=\"font-weight: bold; color: #0000ff;\"><a href=\"/surveypostit.jsp?surveyid=<$surveyid$>\"><$surveytitle$></a></font><br/>\n" +
+"                        <font class=\"tinyfont\" style=\"font-weight: bold;\">Est earnings: <$amttotal$></font>\n" +
+"                        <br/>\n" +
+"                        <font class=\"tinyfont\" style=\"font-weight:bold; text-decoration: none;\"><a href=\"/blogger/impressions.jsp?surveyid=<$surveyid$>\">Impressions</a></font>\n" +
+"                    </td>\n" +
+"                    <td valign=\"top\" width=\"225\">\n" +
+"                        <a href=\"/blogger/bloggercompletedsurveys.jsp?action=refreshresponsehtml&responseid=<$response.responseid$>&page="+Pagez.getRequest().getParameter("page")+"\"><font class=\"tinyfont\">Refresh</font></a><br/>\n" +
+"                        <$response.responsestatushtml$>\n" +
+"                    </td>\n" +
+"                </tr>\n" +
+"            </table>\n" +
+"        </div>");
+    %>
+
+
+
+    <%if (bloggerCompletedsurveys.getList()==null || bloggerCompletedsurveys.getList().size()==0){%>
+        <font class="normalfont">You haven't yet taken any surveys!</font>
+    <%} else {%>
+        <%
+            ArrayList<GridCol> cols = new ArrayList<GridCol>();
+            cols.add(new GridCol("", template.toString(), true, "", "tinyfont", "background: #ffffff;", ""));
+        %>
+        <%=Grid.render(bloggerCompletedsurveys.getList(), cols, 10, "/blogger/bloggercompletedsurveys.jsp", "page")%>
+    <%}%>
+
+
+
+
+
+
 
 
     <br/><br/>

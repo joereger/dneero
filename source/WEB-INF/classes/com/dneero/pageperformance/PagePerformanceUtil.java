@@ -56,16 +56,17 @@ public class PagePerformanceUtil {
     public static String getPartOfDay(Calendar cal){
         //Could return simply the hour_of_day... could reduce db records by going to quarter of days
         int hour = cal.get(Calendar.HOUR_OF_DAY);
-        if (hour<=6){
-            return "0-6";
-        } else if (hour>6 && hour<=12){
-            return "7-12";
-        } else if (hour>12 && hour<=18){
-            return "13-18";
-        } else if (hour>18){
-            return "19-24";
-        }
-        return "na";
+        return String.valueOf(hour);
+//        if (hour<=6){
+//            return "0-6";
+//        } else if (hour>6 && hour<=12){
+//            return "7-12";
+//        } else if (hour>12 && hour<=18){
+//            return "13-18";
+//        } else if (hour>18){
+//            return "19-24";
+//        }
+//        return "na";
     }
 
 

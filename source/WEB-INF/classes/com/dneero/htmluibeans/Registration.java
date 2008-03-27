@@ -140,7 +140,7 @@ public class Registration implements Serializable {
         user.setFirstname(firstname);
         user.setLastname(lastname);
         user.setIsactivatedbyemail(false);
-        user.setIsqualifiedforrevshare(false);
+        user.setIsqualifiedforrevshare(true);
         user.setReferredbyuserid(Pagez.getUserSession().getReferredbyOnlyUsedForSignup());
         user.setEmailactivationkey(RandomString.randomAlphanumeric(5));
         user.setEmailactivationlastsent(new Date());

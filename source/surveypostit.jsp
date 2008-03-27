@@ -269,6 +269,17 @@ String acl = "public";
                         </ol>
                     </font>
 
+                    <br/><br/>
+                    <font class="mediumfont">FaceBook</font>
+                    <br/>
+                    <font class="smallfont">
+                        <ol>
+                            <li>Use the <a href="http://apps.facebook.com/dneerosocialsurveys/">dNeero Facebook App</a>!</li>
+                            <li>dNeero is deeply integrated into Facebook... there's no need for you to post anything... we'll automatically add surveys to your profile!</li>
+                            <li>Adding the app will create you a new Facebook-focused dNeero account... you'll need to move your PayPal address from your current account (if you have already entered it).</li>
+                        </ol>
+                    </font>
+
 
                     <br/><br/>
                     <font class="mediumfont">WordPress</font>
@@ -339,14 +350,14 @@ String acl = "public";
                                 <textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><%=publicSurveyPostit.getHtmltoposttoblogimagelink()%></textarea>
                             <%}%>
                             </li>
-                            <li>Login to Blogger and click on the "New Post" link on the top of the page.</li>
-                            <li>The next page should contain the create post text boxes and the "Edit HTML" tab should be open ... if this is true, skip to step 6., otherwise proceed to step.</li>
-                            <li>Click on the "Create" link under the "Posting" tab</li>
-                            <li>Click on the "Edit HTML" tab.</li>
-                            <li>Add a title in the "Title" textbox.</li>
-                            <li>Paste the code into the big HTML textbox (Right click and choose Paste or hit Control-V)</li>
-                            <li>Either in the Edit HTML or the Compose textboxes, you can add your add text where it says "Enter text here" ... if you are not going to add text just delete the two instances of "Enter text here".</li>
-                            <li>Click "Publish" and you're done!</li>
+                            <li>Login to Blogger and click on the "New Post" link on the top of the page. </li>
+                            <li>The next page should contain the create post text boxes and the "Edit HTML" tab should be open ... if this is true, skip to step 6., otherwise proceed to step 4.</li>
+                            <li>Click on the "Create" link under the "Posting" tab </li>
+                            <li>Click on the "Edit HTML" tab. </li>
+                            <li>Add a title in the "Title" textbox. </li>
+                            <li>Paste the code into the big HTML textbox (Right click and choose Paste or hit Control-V) </li>
+                            <li>Either in the Edit HTML or the Compose textboxes, you can add your text. </li>
+                            <li>Click "Publish Post" and you're done!</li>
                         </ol>
                     </font>
 

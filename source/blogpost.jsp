@@ -42,8 +42,8 @@ PublicBlogPost publicBlogPost = (PublicBlogPost) Pagez.getBeanMgr().get("PublicB
     <br/>
     <font class="tinyfont" style="color: #cccccc;">Posted by: <%=publicBlogPost.getBlogpost().getAuthor()%> at <%=Time.dateformatcompactwithtime(Time.getCalFromDate(publicBlogPost.getBlogpost().getDate()))%></font>
     <br/><br/>
-
-     <%if (!Pagez.getUserSession().getIsfacebookui()){%>
+     <%//@todo turn comments back on%>
+     <%if (1==2 && !Pagez.getUserSession().getIsfacebookui()){%>
         <%if (publicBlogPost.getBlogpost()==null || publicBlogPost.getBlogpost().getBlogpostcomments()==null || publicBlogPost.getBlogpost().getBlogpostcomments().size()==0){%>
 
         <%} else {%>

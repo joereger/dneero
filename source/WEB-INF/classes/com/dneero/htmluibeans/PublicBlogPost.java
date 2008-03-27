@@ -60,6 +60,11 @@ public class PublicBlogPost implements Serializable {
         if (url==null || url.equals("")){
             url = "#";
         }
+
+        //@todo fix captcha systemwide
+        throw new ValidationException("Sorry, comments have been turned off because one person was abusing them.  We'll get them back online shortly.");
+
+
 //        boolean isCaptchaCorrect = false;
 //        try {
 //            isCaptchaCorrect = CaptchaServiceSingleton.getInstance().validateResponseForID(captchaId, j_captcha_response);
@@ -70,24 +75,25 @@ public class PublicBlogPost implements Serializable {
 //            Pagez.getUserSession().setMessage("You failed to correctly type the letters into the box.");
 //            return null;
 //        }
-       if (comment!=null && !comment.equals("")){
-            Blogpostcomment blogpostcomment = new Blogpostcomment();
-            blogpostcomment.setBlogpostid(blogpost.getBlogpostid());
-            blogpostcomment.setDate(new Date());
-            blogpostcomment.setName(name);
-            blogpostcomment.setUrl(url);
-            blogpostcomment.setComment(comment);
-            blogpostcomment.setIsapproved(true);
-            try{blogpostcomment.save();}catch(Exception ex){logger.error("",ex);}
-            blogpost.getBlogpostcomments().add(blogpostcomment);
-            try{blogpost.save();}catch(Exception ex){logger.error("",ex);}
-        }
-        //Notify via XMPP
-        SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_CUSTOMERSUPPORT, "dNeero Blog Comment: "+ name + ": " + comment + " (http://dneero.com/blogpost.jsp?blogpostid="+blogpost.getBlogpostid()+")");
-        xmpp.send();
-        //load();
-        Pagez.sendRedirect("/blogpost.jsp?blogpostid="+blogpost.getBlogpostid());
-        return null;
+
+//       if (comment!=null && !comment.equals("")){
+//            Blogpostcomment blogpostcomment = new Blogpostcomment();
+//            blogpostcomment.setBlogpostid(blogpost.getBlogpostid());
+//            blogpostcomment.setDate(new Date());
+//            blogpostcomment.setName(name);
+//            blogpostcomment.setUrl(url);
+//            blogpostcomment.setComment(comment);
+//            blogpostcomment.setIsapproved(true);
+//            try{blogpostcomment.save();}catch(Exception ex){logger.error("",ex);}
+//            blogpost.getBlogpostcomments().add(blogpostcomment);
+//            try{blogpost.save();}catch(Exception ex){logger.error("",ex);}
+//        }
+//        //Notify via XMPP
+//        SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_CUSTOMERSUPPORT, "dNeero Blog Comment: "+ name + ": " + comment + " (http://dneero.com/blogpost.jsp?blogpostid="+blogpost.getBlogpostid()+")");
+//        xmpp.send();
+//        //load();
+//        Pagez.sendRedirect("/blogpost.jsp?blogpostid="+blogpost.getBlogpostid());
+//        return null;
 
 
     }

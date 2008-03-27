@@ -39,7 +39,7 @@ public class SysadminMassemailDetail implements Serializable {
         Logger logger = Logger.getLogger(this.getClass().getName());
         //logger.debug("beginView called:");
         String tmpMassemailid = Pagez.getRequest().getParameter("massemailid");
-        if (com.dneero.util.Num.isinteger(tmpMassemailid)){
+        if (com.dneero.util.Num.isinteger(tmpMassemailid) && Integer.parseInt(tmpMassemailid)>0){
             logger.debug("beginView called: found massemailid in request param="+tmpMassemailid);
             load(Integer.parseInt(tmpMassemailid));
         } else {

@@ -62,45 +62,47 @@ String acl = "blogger";
 
                <br/>
                <br/>
-                <form action="/blogger/bloggerearningsrevshare.jsp" method="post">
-                    <input type="hidden" name="dpage" value="/blogger/bloggerearningsrevshare.jsp">
-                    <input type="hidden" name="action" value="invite">
+                <%if (!Pagez.getUserSession().getIsfacebookui()){%>
+                    <form action="/blogger/bloggerearningsrevshare.jsp" method="post">
+                        <input type="hidden" name="dpage" value="/blogger/bloggerearningsrevshare.jsp">
+                        <input type="hidden" name="action" value="invite">
 
-                    <table cellpadding="0" cellspacing="0" border="0">
+                        <table cellpadding="0" cellspacing="0" border="0">
 
-                        <tr>
-                            <td valign="top">
-                                <font class="formfieldnamefont">Email Addresses</font>
-                                <br/>
-                                <font class="normalfont">One per line</font>
-                            </td>
-                            <td valign="top">
-                                <%=Textarea.getHtml("email", bloggerEarningsRevshareInvite.getEmail(), 5, 25, "", "")%>
-                            </td>
-                        </tr>
+                            <tr>
+                                <td valign="top">
+                                    <font class="formfieldnamefont">Email Addresses</font>
+                                    <br/>
+                                    <font class="normalfont">One per line</font>
+                                </td>
+                                <td valign="top">
+                                    <%=Textarea.getHtml("email", bloggerEarningsRevshareInvite.getEmail(), 5, 25, "", "")%>
+                                </td>
+                            </tr>
 
-                        <tr>
-                            <td valign="top">
-                                <font class="formfieldnamefont">Optional Message</font>
-                                <br/>
-                                <font class="smallfont">We'll automatically include a link for your friend to click to easily sign up.</font>
-                            </td>
-                            <td valign="top">
-                                <%=Textarea.getHtml("message", bloggerEarningsRevshareInvite.getMessage(), 5, 25, "", "")%>
-                            </td>
-                        </tr>
+                            <tr>
+                                <td valign="top">
+                                    <font class="formfieldnamefont">Optional Message</font>
+                                    <br/>
+                                    <font class="smallfont">We'll automatically include a link for your friend to click to easily sign up.</font>
+                                </td>
+                                <td valign="top">
+                                    <%=Textarea.getHtml("message", bloggerEarningsRevshareInvite.getMessage(), 5, 25, "", "")%>
+                                </td>
+                            </tr>
 
-                        <tr>
-                            <td valign="top">
-                            </td>
-                            <td valign="top">
-                                <input type="submit" class="formsubmitbutton" value="Invite Friends">
-                            </td>
-                        </tr>
+                            <tr>
+                                <td valign="top">
+                                </td>
+                                <td valign="top">
+                                    <input type="submit" class="formsubmitbutton" value="Invite Friends">
+                                </td>
+                            </tr>
 
-                    </table>
+                        </table>
 
-                </form>
+                    </form>
+                <%}%>
             </div>
 
            </td>

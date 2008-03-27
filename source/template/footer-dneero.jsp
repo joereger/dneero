@@ -33,7 +33,7 @@
         </tr>
         <tr>
             <td valign="top" align="right">
-                <font class="tinyfont" style="color: #cccccc; padding-right: 10px;">At Your Service is a Server Called: <%=InstanceProperties.getInstancename()%> which built this page in: <%=Pagez.getElapsedTime()%> milliseconds</font>
+                <font class="tinyfont" style="color: #cccccc; padding-right: 10px;">At Your Service is a Server Called: <%=InstanceProperties.getInstancename()%> which built this page in: <a href="/pageperformance.jsp" style="color: #cccccc;"><%=Pagez.getElapsedTime()%> milliseconds</a></font>
             </td>
         </tr>
     </table>

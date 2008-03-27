@@ -427,7 +427,7 @@ public class PublicSurvey implements Serializable {
                     user.setFirstname(Pagez.getUserSession().getFacebookUser().getFirst_name());
                     user.setLastname(Pagez.getUserSession().getFacebookUser().getLast_name());
                     user.setIsactivatedbyemail(true);  //Auto-activated by email... done because user will have to enter email in account settings
-                    user.setIsqualifiedforrevshare(false);
+                    user.setIsqualifiedforrevshare(true);
                     user.setReferredbyuserid(FacebookPendingReferrals.getReferredbyUserid(facebookuserid));
                     user.setEmailactivationkey(RandomString.randomAlphanumeric(5));
                     user.setEmailactivationlastsent(new Date());

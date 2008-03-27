@@ -474,7 +474,7 @@
             <job-name>pagePerformanceRecordAndFlush</job-name>
             <job-group>surveyJobs</job-group>
             <!-- every 6 hours -->
-            <cron-expression>0 0 0/6 * * ?</cron-expression>
+            <cron-expression>0 0 0/1 * * ?</cron-expression>
           </cron>
         </trigger>
     </job>

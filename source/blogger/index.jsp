@@ -6,6 +6,9 @@
 <%@ page import="com.dneero.htmluibeans.BloggerCompletedsurveys" %>
 <%@ page import="java.util.Iterator" %>
 <%@ page import="com.dneero.htmluibeans.BloggerCompletedsurveysListitem" %>
+<%@ page import="com.dneero.dbgrid.GridCol" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="com.dneero.dbgrid.Grid" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "<img src=\"/images/user.png\" alt=\"\" border=\"0\" width=\"128\" height=\"128\" align=\"right\"/>For Bloggers<br/><br clear=\"all\"/>";
@@ -176,7 +179,7 @@ String acl = "public";
                     <%}%>
 
                     <%
-                        if (bloggerCompletedsurveys.getList() != null && bloggerCompletedsurveys.getList().size()>0) {
+                        if (1==2 && bloggerCompletedsurveys.getList() != null && bloggerCompletedsurveys.getList().size()>0) {
                             for (Iterator<BloggerCompletedsurveysListitem> iterator=bloggerCompletedsurveys.getList().iterator(); iterator.hasNext();){
                                 BloggerCompletedsurveysListitem bloggerCompletedsurveysListitem= iterator.next();
                                 %>
@@ -215,6 +218,39 @@ String acl = "public";
                             }
                         }
                     %>
+
+
+                    <%
+                            StringBuffer template = new StringBuffer();
+                            template.append("<div class=\"rounded\" style=\"background: #e6e6e6; padding: 10px;\">\n" +
+                    "            <table cellpadding=\"2\" cellspacing=\"0\" border=\"0\" width=\"100%\">\n" +
+                    "                <tr>\n" +
+                    "                    <td valign=\"top\">\n" +
+                    "                        <font class=\"tinyfont\"><$responsedate$></font><br/>\n" +
+                    "                        <font class=\"normalfont\" style=\"font-weight: bold; color: #0000ff;\"><a href=\"/surveypostit.jsp?surveyid=<$surveyid$>\"><$surveytitle$></a></font><br/>\n" +
+                    "                        <font class=\"tinyfont\" style=\"font-weight: bold;\">Est earnings: <$amttotal$></font>\n" +
+                    "                        <br/>\n" +
+                    "                        <font class=\"tinyfont\" style=\"font-weight:bold; text-decoration: none;\"><a href=\"/blogger/impressions.jsp?surveyid=<$surveyid$>\">Impressions</a></font>\n" +
+                    "                    </td>\n" +
+                    "                    <td valign=\"top\" width=\"225\">\n" +
+                    "                        <$response.responsestatushtml$>\n" +
+                    "                    </td>\n" +
+                    "                </tr>\n" +
+                    "            </table>\n" +
+                    "        </div>");
+                        %>
+
+
+
+                        <%if (bloggerCompletedsurveys.getList()==null || bloggerCompletedsurveys.getList().size()==0){%>
+                            <font class="normalfont">You haven't yet taken any surveys!</font>
+                        <%} else {%>
+                            <%
+                                ArrayList<GridCol> cols = new ArrayList<GridCol>();
+                                cols.add(new GridCol("", template.toString(), false, "", "tinyfont", "background: #ffffff;", ""));
+                            %>
+                            <%=Grid.render(bloggerCompletedsurveys.getList(), cols, 10, "/blogger/index.jsp", "page")%>
+                        <%}%>
 
 
                     <font class="tinyfont" style="color: #666666;">Survey statuses update nightly. Remember, you must leave the survey on your mini-feed and profile to generate clicks for 5 days in the 10 after you take it to get paid.  Days that qualify are marked green.</font>
