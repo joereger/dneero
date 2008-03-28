@@ -34,6 +34,11 @@ PublicBlogPost publicBlogPost = (PublicBlogPost) Pagez.getBeanMgr().get("PublicB
 <%
     String captchaId=RandomString.randomAlphanumeric(10);
 %>
+<%
+if (publicBlogPost==null || publicBlogPost.getBlogpost()==null || publicBlogPost.getBlogpost().getBlogpostid()==0){
+    Pagez.sendRedirect("/index.jsp");
+}
+%>
 <%@ include file="/template/header.jsp" %>
 
     <font class="mediumfont" style="color: #0bae17;"><%=publicBlogPost.getBlogpost().getTitle()%></font>

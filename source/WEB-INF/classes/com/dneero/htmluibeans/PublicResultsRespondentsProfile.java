@@ -29,7 +29,11 @@ public class PublicResultsRespondentsProfile {
             Response response = Response.get(Integer.parseInt(Pagez.getRequest().getParameter("responseid")));
             logger.debug("responseid found: "+Pagez.getRequest().getParameter("responseid"));
             Blogger blogger = Blogger.get(response.getBloggerid());
-            try{Pagez.sendRedirect("/profile.jsp?userid="+blogger.getUserid()); return;}catch(Exception ex){logger.error("",ex);}
+            if (blogger!=null){
+                try{Pagez.sendRedirect("/profile.jsp?userid="+blogger.getUserid()); return;}catch(Exception ex){logger.error("",ex);}
+            } else {
+                try{Pagez.sendRedirect("/index.jsp"); return;}catch(Exception ex){logger.error("",ex);}        
+            }
         }
         logger.debug("Should never get to this point.");
         //return "publicsurvey";
