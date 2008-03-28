@@ -18,6 +18,7 @@ import com.dneero.dao.User;
 import com.dneero.util.Time;
 import com.dneero.systemprops.SystemProperty;
 import com.dneero.systemprops.BaseUrl;
+import com.dneero.systemprops.InstanceProperties;
 import com.dneero.facebook.FacebookAuthorizationJsp;
 import com.dneero.eula.EulaHelper;
 import com.dneero.xmpp.SendXMPPMessage;
@@ -44,6 +45,8 @@ public class FilterMain implements Filter {
         HttpServletResponse httpServletResponse = (HttpServletResponse)response;
 
 
+
+
         //Set up Pagez
         Pagez.setRequest(httpServletRequest);
         Pagez.setResponse(httpServletResponse);
@@ -60,147 +63,157 @@ public class FilterMain implements Filter {
 //                logger.debug("---------------------------START REQUEST: "+httpServletRequest.getRequestURL());
 //                logger.debug("httpServletRequest.getSession().getId()="+httpServletRequest.getSession().getId());
 
+                //If the database is ready
+                if (InstanceProperties.haveValidConfig()){
 
-                Object obj = CacheFactory.getCacheProvider().get(httpServletRequest.getSession().getId(), "userSession");
-                if (obj!=null && (obj instanceof UserSession)){
-                    logger.debug("found a userSession in the cache");
-                    Pagez.setUserSession((UserSession)obj);
-                } else {
-                    logger.debug("no userSession in cache");
-                    UserSession userSession = new UserSession();
-                    Pagez.setUserSessionAndUpdateCache(userSession);
-                }
-
-                //Production redirect to www.dneero.com for https
-                //@todo make this configurable... i.e. no hard-coded urls
-                UrlSplitter urlSplitter = new UrlSplitter(httpServletRequest);
-                if (urlSplitter.getRawIncomingServername().equals("dneero.com")){
-                    if (urlSplitter.getMethod().equals("GET")){
-                        httpServletResponse.sendRedirect(urlSplitter.getScheme()+"://"+"www.dneero.com"+urlSplitter.getServletPath()+urlSplitter.getParametersAsQueryStringQuestionMarkIfRequired());
-                        return;
+                    Object obj = CacheFactory.getCacheProvider().get(httpServletRequest.getSession().getId(), "userSession");
+                    if (obj!=null && (obj instanceof UserSession)){
+                        logger.debug("found a userSession in the cache");
+                        Pagez.setUserSession((UserSession)obj);
                     } else {
-                        httpServletResponse.sendRedirect(urlSplitter.getScheme()+"://"+"www.dneero.com/");
-                        return;
+                        logger.debug("no userSession in cache");
+                        UserSession userSession = new UserSession();
+                        Pagez.setUserSessionAndUpdateCache(userSession);
                     }
-                }
 
-                //Redirect login page to https
-                if (SystemProperty.getProp(SystemProperty.PROP_ISSSLON).equals("1") && urlSplitter.getScheme().equals("http") && urlSplitter.getServletPath().equals("login.jsp")){
-                    try{
-                        httpServletResponse.sendRedirect(BaseUrl.get(true)+"login.jsp");
-                        return;
-                    } catch (Exception ex){
-                        logger.error("",ex);
-                        return;
+                    //Production redirect to www.dneero.com for https
+                    //@todo make this configurable... i.e. no hard-coded urls
+                    UrlSplitter urlSplitter = new UrlSplitter(httpServletRequest);
+                    if (urlSplitter.getRawIncomingServername().equals("dneero.com")){
+                        if (urlSplitter.getMethod().equals("GET")){
+                            httpServletResponse.sendRedirect(urlSplitter.getScheme()+"://"+"www.dneero.com"+urlSplitter.getServletPath()+urlSplitter.getParametersAsQueryStringQuestionMarkIfRequired());
+                            return;
+                        } else {
+                            httpServletResponse.sendRedirect(urlSplitter.getScheme()+"://"+"www.dneero.com/");
+                            return;
+                        }
                     }
-                }
 
-                //Facebook start
-                FacebookAuthorizationJsp.doAuth();
-                logger.debug("before persistent login and isfacebookui="+Pagez.getUserSession().getIsfacebookui());
-                //Facebook end
+                    //Redirect login page to https
+                    if (SystemProperty.getProp(SystemProperty.PROP_ISSSLON).equals("1") && urlSplitter.getScheme().equals("http") && urlSplitter.getServletPath().equals("login.jsp")){
+                        try{
+                            httpServletResponse.sendRedirect(BaseUrl.get(true)+"login.jsp");
+                            return;
+                        } catch (Exception ex){
+                            logger.error("",ex);
+                            return;
+                        }
+                    }
 
-                //Decide whether to wrap/override the HttpServletRequest
-                if (Pagez.getUserSession().getIsfacebookui()){
-                    httpServletRequest = wrapRequest(httpServletRequest);
-                    Pagez.setRequest(httpServletRequest);
-                }
+                    //Facebook start
+                    FacebookAuthorizationJsp.doAuth();
+                    logger.debug("before persistent login and isfacebookui="+Pagez.getUserSession().getIsfacebookui());
+                    //Facebook end
 
-                //Persistent login start
-                boolean wasAutoLoggedIn = false;
-                if (!Pagez.getUserSession().getIsfacebookui()){
-                    if (!Pagez.getUserSession().getIsloggedin()){
-                        //See if the incoming request has a persistent login cookie
-                        Cookie[] cookies = httpServletRequest.getCookies();
-                        logger.debug("looking for cookies");
-                        if (cookies!=null && cookies.length>0){
-                            logger.debug("cookies found.");
-                            for (int i = 0; i < cookies.length; i++) {
-                                if (cookies[i].getName().equals(PersistentLogin.cookieName)){
-                                    logger.debug("persistent cookie found.");
-                                    int useridFromCookie = PersistentLogin.checkPersistentLogin(cookies[i]);
-                                    if (useridFromCookie>-1){
-                                        logger.debug("setting userid="+useridFromCookie);
-                                        User user = User.get(useridFromCookie);
-                                        if (user!=null && user.getUserid()>0 && user.getIsenabled()){
-                                            UserSession newUserSession = new UserSession();
-                                            newUserSession.setUser(user);
-                                            newUserSession.setIsloggedin(true);
-                                            newUserSession.setIsLoggedInToBeta(true);
-                                            newUserSession.setPendingSurveyReferredbyuserid(Pagez.getUserSession().getPendingSurveyReferredbyuserid());
-                                            newUserSession.setPendingSurveyResponseAsString(Pagez.getUserSession().getPendingSurveyResponseAsString());
-                                            newUserSession.setPendingSurveyResponseSurveyid(Pagez.getUserSession().getPendingSurveyResponseSurveyid());
-                                            newUserSession.setCurrentSurveyid(Pagez.getUserSession().getCurrentSurveyid());
-                                            newUserSession.setSurveystakentoday(SurveysTakenToday.getNumberOfSurveysTakenToday(user));
-                                            //Check the eula
-                                            if (!EulaHelper.isUserUsingMostRecentEula(user)){
-                                                newUserSession.setIseulaok(false);
-                                            } else {
-                                                newUserSession.setIseulaok(true);
+                    //Decide whether to wrap/override the HttpServletRequest
+                    if (Pagez.getUserSession().getIsfacebookui()){
+                        httpServletRequest = wrapRequest(httpServletRequest);
+                        Pagez.setRequest(httpServletRequest);
+                    }
+
+                    //Persistent login start
+                    boolean wasAutoLoggedIn = false;
+                    if (!Pagez.getUserSession().getIsfacebookui()){
+                        if (!Pagez.getUserSession().getIsloggedin()){
+                            //See if the incoming request has a persistent login cookie
+                            Cookie[] cookies = httpServletRequest.getCookies();
+                            logger.debug("looking for cookies");
+                            if (cookies!=null && cookies.length>0){
+                                logger.debug("cookies found.");
+                                for (int i = 0; i < cookies.length; i++) {
+                                    if (cookies[i].getName().equals(PersistentLogin.cookieName)){
+                                        logger.debug("persistent cookie found.");
+                                        int useridFromCookie = PersistentLogin.checkPersistentLogin(cookies[i]);
+                                        if (useridFromCookie>-1){
+                                            logger.debug("setting userid="+useridFromCookie);
+                                            User user = User.get(useridFromCookie);
+                                            if (user!=null && user.getUserid()>0 && user.getIsenabled()){
+                                                UserSession newUserSession = new UserSession();
+                                                newUserSession.setUser(user);
+                                                newUserSession.setIsloggedin(true);
+                                                newUserSession.setIsLoggedInToBeta(true);
+                                                newUserSession.setPendingSurveyReferredbyuserid(Pagez.getUserSession().getPendingSurveyReferredbyuserid());
+                                                newUserSession.setPendingSurveyResponseAsString(Pagez.getUserSession().getPendingSurveyResponseAsString());
+                                                newUserSession.setPendingSurveyResponseSurveyid(Pagez.getUserSession().getPendingSurveyResponseSurveyid());
+                                                newUserSession.setCurrentSurveyid(Pagez.getUserSession().getCurrentSurveyid());
+                                                newUserSession.setSurveystakentoday(SurveysTakenToday.getNumberOfSurveysTakenToday(user));
+                                                //Check the eula
+                                                if (!EulaHelper.isUserUsingMostRecentEula(user)){
+                                                    newUserSession.setIseulaok(false);
+                                                } else {
+                                                    newUserSession.setIseulaok(true);
+                                                }
+                                                Pagez.setUserSessionAndUpdateCache(newUserSession);
+                                                wasAutoLoggedIn = true;
+                                                //Notify via XMPP
+                                                SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_SALES, "dNeero User Auto-Login: "+ user.getFirstname() + " " + user.getLastname() + " ("+user.getEmail()+")");
+                                                xmpp.send();
+                                                break;
+                                                //Now dispatch request to the same page so that header is changed to reflect logged-in status
+    //                                            if (wasAutoLoggedIn){
+    //                                                try{
+    //                                                    if (SystemProperty.getProp(SystemProperty.PROP_ISSSLON).equals("1")){
+    //                                                        try{
+    //                                                            httpServletResponse.sendRedirect(BaseUrl.get(true)+"account/index.jsp?msg=autologin");
+    //                                                            return;
+    //                                                        } catch (Exception ex){
+    //                                                            logger.error("",ex);
+    //                                                            httpServletResponse.sendRedirect("/account/index.jsp?msg=autologin");
+    //                                                            return;
+    //                                                        }
+    //                                                    } else {
+    //                                                        httpServletResponse.sendRedirect("/account/index.jsp?msg=autologin");
+    //                                                        return;
+    //                                                    }
+    //                                                } catch (Exception ex){
+    //                                                    logger.error("",ex);
+    //                                                    ex.printStackTrace();
+    //                                                    httpServletResponse.sendRedirect("/index.jsp");
+    //                                                    return;
+    //                                                }
+    //                                            }
                                             }
-                                            Pagez.setUserSessionAndUpdateCache(newUserSession);
-                                            wasAutoLoggedIn = true;
-                                            //Notify via XMPP
-                                            SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_SALES, "dNeero User Auto-Login: "+ user.getFirstname() + " " + user.getLastname() + " ("+user.getEmail()+")");
-                                            xmpp.send();
-                                            break;
-                                            //Now dispatch request to the same page so that header is changed to reflect logged-in status
-//                                            if (wasAutoLoggedIn){
-//                                                try{
-//                                                    if (SystemProperty.getProp(SystemProperty.PROP_ISSSLON).equals("1")){
-//                                                        try{
-//                                                            httpServletResponse.sendRedirect(BaseUrl.get(true)+"account/index.jsp?msg=autologin");
-//                                                            return;
-//                                                        } catch (Exception ex){
-//                                                            logger.error("",ex);
-//                                                            httpServletResponse.sendRedirect("/account/index.jsp?msg=autologin");
-//                                                            return;
-//                                                        }
-//                                                    } else {
-//                                                        httpServletResponse.sendRedirect("/account/index.jsp?msg=autologin");
-//                                                        return;
-//                                                    }
-//                                                } catch (Exception ex){
-//                                                    logger.error("",ex);
-//                                                    ex.printStackTrace();
-//                                                    httpServletResponse.sendRedirect("/index.jsp");
-//                                                    return;
-//                                                }
-//                                            }
                                         }
                                     }
                                 }
                             }
                         }
                     }
-                }
-                //Persistent login end
+                    //Persistent login end
 
-                logger.debug("after persistent login and isfacebookui="+Pagez.getUserSession().getIsfacebookui());
+                    logger.debug("after persistent login and isfacebookui="+Pagez.getUserSession().getIsfacebookui());
 
 
-                //Account activation
-                if (Pagez.getUserSession().getUser()!=null && !Pagez.getUserSession().getUser().getIsactivatedbyemail()){
-                    //User isn't activated but they get a grace period
-                    int daysInGracePeriod = 3;
-                    Calendar startOfGracePeriod = Time.xDaysAgoStart(Calendar.getInstance(), daysInGracePeriod);
-                    if (Pagez.getUserSession().getUser().getCreatedate().before(startOfGracePeriod.getTime())){
-                        if (urlSplitter.getRequestUrl().indexOf("emailactivation")==-1 && urlSplitter.getRequestUrl().indexOf("lpc.jsp")==-1 && urlSplitter.getRequestUrl().indexOf("jcaptcha")==-1 && urlSplitter.getRequestUrl().indexOf("eas")==-1){
-                            httpServletResponse.sendRedirect("/emailactivationwaiting.jsp");
+                    //Account activation
+                    if (Pagez.getUserSession().getUser()!=null && !Pagez.getUserSession().getUser().getIsactivatedbyemail()){
+                        //User isn't activated but they get a grace period
+                        int daysInGracePeriod = 3;
+                        Calendar startOfGracePeriod = Time.xDaysAgoStart(Calendar.getInstance(), daysInGracePeriod);
+                        if (Pagez.getUserSession().getUser().getCreatedate().before(startOfGracePeriod.getTime())){
+                            if (urlSplitter.getRequestUrl().indexOf("emailactivation")==-1 && urlSplitter.getRequestUrl().indexOf("lpc.jsp")==-1 && urlSplitter.getRequestUrl().indexOf("jcaptcha")==-1 && urlSplitter.getRequestUrl().indexOf("eas")==-1){
+                                httpServletResponse.sendRedirect("/emailactivationwaiting.jsp");
+                                return;
+                            }
+                        }
+                    }
+
+                    //Now check the eula
+                    if (Pagez.getUserSession().getIsloggedin() && !Pagez.getUserSession().getIseulaok()){
+                        System.out.println("redirecting to force eula accept");
+                        if (urlSplitter.getRequestUrl().indexOf("loginagreeneweula.jsp")==-1){
+                            httpServletResponse.sendRedirect("/loginagreeneweula.jsp");
                             return;
                         }
                     }
-                }
 
-                //Now check the eula
-                if (Pagez.getUserSession().getIsloggedin() && !Pagez.getUserSession().getIseulaok()){
-                    System.out.println("redirecting to force eula accept");
-                    if (urlSplitter.getRequestUrl().indexOf("loginagreeneweula.jsp")==-1){
-                        httpServletResponse.sendRedirect("/loginagreeneweula.jsp");
+                } else {
+                    //Database isn't ready
+                    if (httpServletRequest.getRequestURL().indexOf("/setup/")==-1){
+                        httpServletResponse.sendRedirect("/setup/setup-00.jsp");
                         return;
                     }
                 }
-
+                         
             } else {
                 //It's an image, js, etc
                 Pagez.setUserSession(new UserSession());

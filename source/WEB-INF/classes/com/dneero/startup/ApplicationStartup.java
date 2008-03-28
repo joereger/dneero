@@ -68,18 +68,23 @@ public class ApplicationStartup implements ServletContextListener {
         } else {
             logger.info("InstanceProperties.haveValidConfig()=false");
         }
-        //Load SystemProps
-        SystemProperty.refreshAllProps();
-        //Refresh SystemStats
-        SystemStats ss = new SystemStats();
-        try{ss.execute(null);}catch(Exception ex){logger.error("",ex);}
-        //Initialize Quartz
-        initQuartz(cse.getServletContext());
-        //Add Quartz listener
-        try{
-            SchedulerFactory schedFact = new StdSchedulerFactory();
-            schedFact.getScheduler().addGlobalJobListener(new HibernateSessionQuartzCloser());
-        } catch (Exception ex){logger.error("",ex);}
+        //If the database is running
+        if (isdatabasereadyforapprun){
+            //Load SystemProps
+            SystemProperty.refreshAllProps();
+            //Refresh SystemStats
+            SystemStats ss = new SystemStats();
+            try{ss.execute(null);}catch(Exception ex){logger.error("",ex);}
+            //Initialize Quartz
+            initQuartz(cse.getServletContext());
+            //Add Quartz listener
+            try{
+                SchedulerFactory schedFact = new StdSchedulerFactory();
+                schedFact.getScheduler().addGlobalJobListener(new HibernateSessionQuartzCloser());
+            } catch (Exception ex){logger.error("",ex);}
+        } else {
+            logger.info("Database not ready.");    
+        }
         //Report to log and XMPP
         logger.info("WebAppRootDir = " + WebAppRootDir.getWebAppRootPath());
         logger.info("dNeero Application Started!  Let's make some dinero!");

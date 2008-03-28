@@ -43,12 +43,13 @@ public class Db {
             String driverClass = InstanceProperties.getDbDriverName();
             String driverUrl = InstanceProperties.getDbConnectionUrl();
             String url = "proxool." + alias + ":" + driverClass + ":" + driverUrl;
+            System.out.println("dNeero:"+alias+": Ds driverClass="+driverClass);
+            System.out.println("dNeero:"+alias+": Ds url="+url);
             ProxoolFacade.registerConnectionPool(url, info);
 
             //Set the driver flag first
             driverHasBeenConfigured = true;
             System.out.println("dNeero:"+alias+": Ds setup appears successful.");
-            System.out.println("dNeero:"+alias+": Ds url="+url);
 
         } catch (Exception e){
                 System.out.println("dNeero:"+alias+": Error configuring proxool connection.");

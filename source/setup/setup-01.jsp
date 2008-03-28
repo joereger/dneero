@@ -1,9 +1,20 @@
 <%@ page import="com.dneero.systemprops.InstanceProperties"%>
 <%@ page import="com.dneero.util.GeneralException" %>
+<%@ page import="java.util.List" %>
+<%@ page import="org.hibernate.criterion.Restrictions" %>
+<%@ page import="com.dneero.dao.hibernate.HibernateUtil" %>
+<%@ page import="com.dneero.dao.User" %>
+<%@ page import="com.dneero.htmlui.Pagez" %>
+<%@ page import="com.dneero.util.RandomString" %>
+<%@ page import="java.util.Date" %>
+<%@ page import="com.dneero.money.PaymentMethod" %>
+<%@ page import="com.dneero.htmlui.ValidationException" %>
+<%@ page import="com.dneero.dao.Userrole" %>
+<%@ page import="org.apache.log4j.Logger" %>
 <%
     //Only do this page if we have an invalid database connection.
-//Otherwise, anybody's going to be able to reset the database
-//configuration whenever they want. Which isn't cool.
+    //Otherwise, anybody's going to be able to reset the database
+    //configuration whenever they want. Which isn't cool.
     if (InstanceProperties.haveValidConfig()) {
         response.sendRedirect("setup-02.jsp");
         return;
@@ -13,6 +24,7 @@
     //Save the properties, test them
     String errortext = "";
     if (request.getParameter("action") != null && request.getParameter("action").equals("save")) {
+        Logger logger = Logger.getLogger(this.getClass().getName());
         if (!InstanceProperties.haveNewConfigToTest()) {
             if (request.getParameter("dbserver") != null && request.getParameter("dbport") != null && request.getParameter("dbname") != null) {
                 String dbConnUrl = "jdbc:mysql://" + request.getParameter("dbserver") + ":" + request.getParameter("dbport") + "/" + request.getParameter("dbname") + "?autoReconnect=true";
@@ -44,6 +56,11 @@
             } else {
                 InstanceProperties.setDbMaxWait("10000");
             }
+            if (request.getParameter("dbdrivername") != null) {
+                InstanceProperties.setDbDriverName(request.getParameter("dbdrivername"));
+            } else {
+                InstanceProperties.setDbDriverName("com.mysql.jdbc.Driver");
+            }
             if (request.getParameter("runscheduledtasksonthisinstance") != null && request.getParameter("runscheduledtasksonthisinstance").equals("1")) {
                 InstanceProperties.setRunScheduledTasksOnThisInstance(true);
             } else {
@@ -53,6 +70,62 @@
             try {
                 InstanceProperties.save();
                 if (InstanceProperties.haveValidConfig()) {
+                    //Check for the admin account
+                    List<User> users = HibernateUtil.getSession().createCriteria(User.class)
+                            .add(Restrictions.eq("email", request.getParameter("email")))
+                            .setCacheable(true)
+                            .list();
+                    if (users == null || users.size() == 0) {
+                        //Create admin acct
+                        User user = new User();
+                        user.setEmail(request.getParameter("email"));
+                        user.setPassword(request.getParameter("password"));
+                        user.setFirstname(request.getParameter("firstname"));
+                        user.setLastname(request.getParameter("lastname"));
+                        user.setIsactivatedbyemail(true);
+                        user.setIsqualifiedforrevshare(true);
+                        user.setReferredbyuserid(0);
+                        user.setEmailactivationkey(RandomString.randomAlphanumeric(5));
+                        user.setEmailactivationlastsent(new Date());
+                        user.setCreatedate(new Date());
+                        user.setPaymethodpaypaladdress("");
+                        user.setPaymethod(PaymentMethod.PAYMENTMETHODPAYPAL);
+                        user.setChargemethod(PaymentMethod.PAYMENTMETHODCREDITCARD);
+                        user.setPaymethodcreditcardid(0);
+                        user.setChargemethodcreditcardid(0);
+                        user.setBloggerid(0);
+                        user.setResearcherid(0);
+                        user.setNotifyofnewsurveysbyemaileveryexdays(1);
+                        user.setNotifyofnewsurveyslastsent(new Date());
+                        user.setAllownoncriticalemails(true);
+                        user.setInstantnotifybyemailison(false);
+                        user.setInstantnotifybytwitterison(false);
+                        user.setInstantnotifytwitterusername("");
+                        user.setInstantnotifyxmppison(false);
+                        user.setInstantnotifyxmppusername("");
+                        user.setIsenabled(true);
+                        user.setFacebookappremoveddate(new Date());
+                        user.setIsfacebookappremoved(false);
+                        user.setResellercode(RandomString.randomAlphanumericAllUpperCaseNoOsOrZeros(7));
+                        user.setResellerpercent(0.0);
+                        try {
+                            user.save();
+                        } catch (Exception ex) {
+                            logger.error("", ex);
+                        }
+                        //Grant SysAdmin Privs
+                        Userrole role = new Userrole();
+                        role.setUserid(user.getUserid());
+                        role.setRoleid(Userrole.SYSTEMADMIN);
+                        user.getUserroles().add(role);
+                        try {
+                            role.save();
+                            user.save();
+                        } catch (Exception ex) {
+                            logger.error("", ex);
+                        }
+                    }
+
                     response.sendRedirect("setup-02.jsp");
                     return;
                 } else {
@@ -148,7 +221,7 @@ if (!errortext.equals("")){
         <tr>
         <td valign=top align=left>
         <font face=arial size=-1>
-        <input type=text name=dbname value="reger" size=45 maxlength=255>
+        <input type=text name=dbname value="dneero" size=45 maxlength=255>
         </font>
         </td>
         <td valign=top align=left>
@@ -214,12 +287,100 @@ if (!errortext.equals("")){
         <tr>
         <td valign=top align=left>
         <font face=arial size=-1>
-        <input type=text name=runscheduledtasksonthisinstance value="0" size=45 maxlength=255>
+        <input type=text name=runscheduledtasksonthisinstance value="1" size=45 maxlength=255>
         </font>
         </td>
         <td valign=top align=left>
         <font face=arial size=-1>
         Whether or not scheduled tasks will be run on this instance.  If in production, chances are there's already an instance responsible for running them.  If in development, set this to '1'
+        </font>
+        </td>
+        </tr>
+        <!-- End Prop -->
+
+        <!-- Begin Prop -->
+        <tr>
+        <td valign=top align=left colspan=2>
+        <font face=arial size=+2 color=#cccccc>
+        Your Email
+        </font>
+        </td>
+        </tr>
+        <tr>
+        <td valign=top align=left>
+        <font face=arial size=-1>
+        <input type=text name=email value="you@domain.com" size=45 maxlength=255>
+        </font>
+        </td>
+        <td valign=top align=left>
+        <font face=arial size=-1>
+        You'll use this to log in to the system.
+        </font>
+        </td>
+        </tr>
+        <!-- End Prop -->
+
+        <!-- Begin Prop -->
+        <tr>
+        <td valign=top align=left colspan=2>
+        <font face=arial size=+2 color=#cccccc>
+        Choose a Password
+        </font>
+        </td>
+        </tr>
+        <tr>
+        <td valign=top align=left>
+        <font face=arial size=-1>
+        <input type=password name=password value="" size=45 maxlength=255>
+        </font>
+        </td>
+        <td valign=top align=left>
+        <font face=arial size=-1>
+        Choose a password for your dNeero account.  No, we're not verifying it.  Because we're lazy.  Type carefully.
+        </font>
+        </td>
+        </tr>
+        <!-- End Prop -->
+
+        <!-- Begin Prop -->
+        <tr>
+        <td valign=top align=left colspan=2>
+        <font face=arial size=+2 color=#cccccc>
+        Your First Name
+        </font>
+        </td>
+        </tr>
+        <tr>
+        <td valign=top align=left>
+        <font face=arial size=-1>
+        <input type=text name=firstname value="John" size=45 maxlength=255>
+        </font>
+        </td>
+        <td valign=top align=left>
+        <font face=arial size=-1>
+        The first name for your account.
+        </font>
+        </td>
+        </tr>
+        <!-- End Prop -->
+
+        <!-- Begin Prop -->
+        <tr>
+        <td valign=top align=left colspan=2>
+        <font face=arial size=+2 color=#cccccc>
+        Your Last Name
+        </font>
+        </td>
+        </tr>
+        <tr>
+        <td valign=top align=left>
+        <font face=arial size=-1>
+        <input type=text name=lastname value="Doe" size=45 maxlength=255>
+        </font>
+        </td>
+        <td valign=top align=left>
+        <font face=arial size=-1>
+        The last name for your account.
         </font>
         </td>
         </tr>
@@ -326,11 +487,12 @@ if (!errortext.equals("")){
         <tr>
         <td valign=top align=left colspan=2>
         <font face=arial size=+2 color=#cccccc>
-        <input type=submit value="Save Database Configuration">
+            <input type=submit value="Save Database Configuration"/>
         </font>
         </form>
         </td>
         </tr>
+
 
 
         </table>
