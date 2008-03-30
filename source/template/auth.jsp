@@ -1,5 +1,4 @@
 <%@ page import="com.dneero.htmlui.Authorization" %>
-<%@ page import="com.dneero.htmlui.Pagez" %>
 <%
     boolean isauthorised=Authorization.check(acl);
     if (!isauthorised){

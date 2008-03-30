@@ -1,5 +1,3 @@
-<%@ page import="com.dneero.htmlui.Pagez" %>
-<%@ page import="com.dneero.systemprops.BaseUrl" %>
 <%@ page import="com.dneero.util.Io" %>
 <%@ page import="com.dneero.systemprops.WebAppRootDir" %>
 <!--<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"-->

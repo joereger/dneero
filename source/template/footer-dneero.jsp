@@ -1,4 +1,3 @@
-<%@ page import="com.dneero.htmlui.Pagez" %>
 <%@ page import="com.dneero.systemprops.InstanceProperties" %>
 <!-- End Body -->
             </td>
