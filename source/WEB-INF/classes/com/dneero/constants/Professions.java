@@ -13,6 +13,7 @@ public class Professions {
         TreeSet ts = new TreeSet();
         ts.add("Accountant");
         ts.add("Admin Assistant");
+        ts.add("Advertising");
         ts.add("Analyst");
         ts.add("Architect");
         ts.add("Artist/musician/entertainer");
@@ -34,9 +35,11 @@ public class Professions {
         ts.add("Homemaker");
         ts.add("Lawyer/judge");
         ts.add("Manager");
+        ts.add("Marketing");
         ts.add("Military Officer");
         ts.add("Other");
         ts.add("Partner/principal/owner");
+        ts.add("Public Relations");
         ts.add("Researcher");
         ts.add("Retired");
         ts.add("Sales");

@@ -80,7 +80,7 @@ ResearcherSurveyDetail02dropdown researcherSurveyDetail02dropdown = (ResearcherS
 
             <tr>
                 <td valign="top">
-                    <font class="formfieldnamefont">Optiona</font>
+                    <font class="formfieldnamefont">Options</font>
                </td>
                 <td valign="top">
                     <font class="tinyfont">One option per line.</font><br/>
