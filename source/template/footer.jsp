@@ -1,4 +1,3 @@
-<%@ page import="com.dneero.htmlui.Pagez" %>
 <%@ page import="com.dneero.pageperformance.PagePerformanceUtil" %>
 <% if (!Pagez.getUserSession().getIsfacebookui()) { %>
     <%@ include file="footer-dneero.jsp" %>

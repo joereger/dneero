@@ -2,11 +2,9 @@ package com.dneero.htmluibeans;
 
 import org.apache.log4j.Logger;
 import com.dneero.dao.Survey;
-import com.dneero.dao.Blogger;
 
 import com.dneero.display.SurveyResultsDisplay;
 import com.dneero.htmlui.Pagez;
-import com.dneero.htmlui.UserSession;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -34,7 +32,7 @@ public class ResearcherResultsAnswers implements Serializable {
             survey = Survey.get((Integer.parseInt(Pagez.getRequest().getParameter("surveyid"))));
         }
         if (survey!=null){
-            results = SurveyResultsDisplay.getHtmlForResults(survey, null, 0, new ArrayList<Integer>());
+            results = SurveyResultsDisplay.getHtmlForResults(survey, null, 0, new ArrayList<Integer>(), null);
         }
     }
 

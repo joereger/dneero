@@ -1,17 +1,24 @@
 package com.dneero.finders;
 
+import com.dneero.constants.*;
+import com.dneero.dao.Blogger;
+import com.dneero.dao.User;
+import com.dneero.dao.Response;
+import com.dneero.util.Num;
+import com.dneero.util.Util;
+import com.dneero.util.Time;
+import com.dneero.util.DateDiff;
+import com.dneero.sir.SocialInfluenceRatingPercentile;
+import com.dneero.scheduledjobs.SystemStats;
+import org.apache.log4j.Logger;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.Text;
 import org.jdom.input.SAXBuilder;
 import org.jdom.output.XMLOutputter;
-import org.apache.log4j.Logger;
 
 import java.io.ByteArrayOutputStream;
 import java.util.*;
-
-import com.dneero.util.Num;
-import com.dneero.constants.*;
 
 /**
  * User: Joe Reger Jr
@@ -112,6 +119,172 @@ public class SurveyCriteriaXML {
         tmpArray = loadValueOfArrayFromXML("dneerousagemethods");
         if (tmpArray!=null){ dneerousagemethods = tmpArray; }
         
+    }
+
+    //Determine whether a particular user qualifies for this criteria
+    public boolean isUserQualified(User user){
+        Logger logger = Logger.getLogger(this.getClass().getName());
+        if (user==null){
+            return false;
+        }
+        if (user.getBloggerid()==0){
+            return false;
+        }
+        Blogger blogger = Blogger.get(user.getBloggerid());
+        if (blogger==null || blogger.getBloggerid()==0){
+            return false;
+        }
+        if (blogger!=null){
+            boolean surveyfitsblogger = true;
+            if (surveyfitsblogger && !Util.arrayContains(gender, blogger.getGender())){
+                surveyfitsblogger = false;
+                logger.debug("does not qualify because of gender.");
+            }
+            if (surveyfitsblogger && !Util.arrayContains(ethnicity, blogger.getEthnicity())){
+                surveyfitsblogger = false;
+                logger.debug("does not qualify because of ethnicity.");
+            }
+            if (surveyfitsblogger && !Util.arrayContains(maritalstatus, blogger.getMaritalstatus())){
+                surveyfitsblogger = false;
+                logger.debug("does not qualify because of maritalstatus.");
+            }
+            if (surveyfitsblogger && !Util.arrayContains(income, blogger.getIncomerange())){
+                surveyfitsblogger = false;
+                logger.debug("does not qualify because of incomerange.");
+            }
+            if (surveyfitsblogger && !Util.arrayContains(educationlevel, blogger.getEducationlevel())){
+                surveyfitsblogger = false;
+                logger.debug("does not qualify because of educationlevel.");
+            }
+            if (surveyfitsblogger && !Util.arrayContains(state, blogger.getState())){
+                surveyfitsblogger = false;
+                logger.debug("does not qualify because of state.");
+            }
+            if (surveyfitsblogger && !Util.arrayContains(city, blogger.getCity())){
+                surveyfitsblogger = false;
+                logger.debug("does not qualify because of city.");
+            }
+            if (surveyfitsblogger && !Util.arrayContains(profession, blogger.getProfession())){
+                surveyfitsblogger = false;
+                logger.debug("does not qualify because of profession.");
+            }
+            if (surveyfitsblogger && !Util.arrayContains(politics, blogger.getPolitics())){
+                surveyfitsblogger = false;
+                logger.debug("does not qualify because of politics.");
+            }
+            if (surveyfitsblogger && !Util.arrayContains(blogfocus, blogger.getBlogfocus())){
+                surveyfitsblogger = false;
+                logger.debug("does not qualify because of blogfocus.");
+            }
+
+            //Now check the age requirements
+            if (surveyfitsblogger && blogger.getBirthdate().before(   Time.subtractYear(Calendar.getInstance(), agemax).getTime()    )){
+                surveyfitsblogger = false;
+                logger.debug("does not qualify because birthdate is before.");
+            }
+            if (surveyfitsblogger && blogger.getBirthdate().after(   Time.subtractYear(Calendar.getInstance(), agemin).getTime()    )){
+                surveyfitsblogger = false;
+                logger.debug("does not qualify because birthdate is after.");
+            }
+
+            //Quality
+            if (surveyfitsblogger && blogger.getQuality()<blogquality){
+                surveyfitsblogger = false;
+                logger.debug("does not qualify because of blog quality.");
+            }
+
+            //Quality 90 days
+            if (surveyfitsblogger && blogger.getQuality90days()<blogquality90days){
+                surveyfitsblogger = false;
+                logger.debug("does not qualify because of blog quality 90 days.");
+            }
+
+
+            //Social Influence Rating
+            if (surveyfitsblogger){
+                int maxranking = SocialInfluenceRatingPercentile.getRankingOfGivenPercentile(SystemStats.getTotalbloggers(), minsocialinfluencepercentile);
+                if (blogger.getSocialinfluenceratingranking()>maxranking){
+                    surveyfitsblogger = false;
+                    logger.debug("does not qualify because of socialinfluenceranking.  maxranking="+maxranking+" blogger.getSocialinfluenceratingranking()="+blogger.getSocialinfluenceratingranking());
+                }
+            }
+
+            //Social Influence Rating 90 days
+            if (surveyfitsblogger){
+                int maxranking90days = SocialInfluenceRatingPercentile.getRankingOfGivenPercentile(SystemStats.getTotalbloggers(), minsocialinfluencepercentile90days);
+                if (blogger.getSocialinfluenceratingranking90days()>maxranking90days){
+                    surveyfitsblogger = false;
+                    logger.debug("does not qualify because of socialinfluenceranking90days.  maxranking90days="+maxranking90days+" blogger.getSocialinfluenceratingranking90days()="+blogger.getSocialinfluenceratingranking90days());
+                }
+            }
+
+            //dneerousagemethod qualification
+            if (user.getFacebookuserid()>0){
+                //This is a facebook user
+                if(!Util.arrayContains(dneerousagemethods, Dneerousagemethods.FACEBOOKAPPUSERS)){
+                    surveyfitsblogger = false;
+                    logger.debug("does not qualify because of dneerousagemethod... survey's not for facebook app users");
+                }
+            } else {
+                //This is a dNeero.com user
+                if(!Util.arrayContains(dneerousagemethods, Dneerousagemethods.DNEERODOTCOMUSERS)){
+                    surveyfitsblogger = false;
+                    logger.debug("does not qualify because of dneerousagemethod... survey's not for dneero.com users");
+                }
+            }
+
+            //This next stuff is very database-heavy
+            boolean needtodoexpensiveresponsecalculations = false;
+            if (dayssincelastsurvey>0){
+                needtodoexpensiveresponsecalculations = true;
+            }
+            if (totalsurveystakenatleast>0){
+                needtodoexpensiveresponsecalculations = true;
+            }
+            if (totalsurveystakenatmost!=10000){
+                needtodoexpensiveresponsecalculations = true;
+            }
+            if (needtodoexpensiveresponsecalculations){
+                //Iterate all responses to collect some data for next few qualifications
+                Response mostrecentresponse = null;
+                int surveystaken = 0;
+                for (Iterator<Response> iterator1 = blogger.getResponses().iterator(); iterator1.hasNext();) {
+                    Response response = iterator1.next();
+                    //Fill most recent response
+                    if (mostrecentresponse==null || mostrecentresponse.getResponsedate().before(response.getResponsedate())){
+                        mostrecentresponse = response;
+                    }
+                    //Count surveys taken
+                    surveystaken = surveystaken + 1;
+                }
+                //Calculate dayssincelastsurvey
+                int dayssincelastsurvey = Integer.MAX_VALUE;
+                if (mostrecentresponse!=null){
+                    dayssincelastsurvey = DateDiff.dateDiff("day", Calendar.getInstance(), Time.getCalFromDate(mostrecentresponse.getResponsedate()));
+                    logger.debug("bloggerid="+blogger.getBloggerid()+" dayssincelastsurvey="+dayssincelastsurvey);
+                }
+                //DaysSinceLastSurvey
+                if (dayssincelastsurvey>0 && dayssincelastsurvey<this.dayssincelastsurvey){
+                    surveyfitsblogger = false;
+                    logger.debug("does not qualify because of dayssincelastsurvey");
+                }
+                //Total surveys taken of at least
+                if (totalsurveystakenatleast>0 && surveystaken<totalsurveystakenatleast){
+                    surveyfitsblogger = false;
+                    logger.debug("does not qualify because of totalsurveystakenatleast");
+                }
+                //Total surveys taken of at most
+                if (surveystaken>totalsurveystakenatmost){
+                    surveyfitsblogger = false;
+                    logger.debug("does not qualify because of totalsurveystakenatmost");
+                }
+            }
+            //If it's still in, return true
+            if (surveyfitsblogger){
+                return true;
+            }
+        }
+        return false;
     }
 
     private void preSelectAll(){

@@ -105,7 +105,7 @@ public class PublicSurveyResults implements Serializable {
         if (!survey.getIsresultshidden()){
             String resultsHtmlKey = "surveyresults.jsp-resultsHtml-surveyid"+survey.getSurveyid();
             if (HtmlCache.isStale(resultsHtmlKey, 600)){
-                resultsHtml = SurveyResultsDisplay.getHtmlForResults(survey, null, 0, new ArrayList<Integer>());
+                resultsHtml = SurveyResultsDisplay.getHtmlForResults(survey, null, 0, new ArrayList<Integer>(), null);
                 HtmlCache.updateCache(resultsHtmlKey, 600, resultsHtml);
             } else {
                 resultsHtml = HtmlCache.getFromCache(resultsHtmlKey);
@@ -125,7 +125,7 @@ public class PublicSurveyResults implements Serializable {
         if (userwhotooksurvey!=null){
             String resultsHtmlForUserWhoTookSurveyKey = "surveyresults.jsp-resultsHtmlForUserWhoTookSurvey-surveyid"+survey.getSurveyid()+"-userid"+userwhotooksurvey.getUserid();
             if (HtmlCache.isStale(resultsHtmlForUserWhoTookSurveyKey, 6000)){
-                resultsHtmlForUserWhoTookSurvey = SurveyResultsDisplay.getHtmlForResults(survey, null, userwhotooksurvey.getUserid(), new ArrayList<Integer>());
+                resultsHtmlForUserWhoTookSurvey = SurveyResultsDisplay.getHtmlForResults(survey, null, userwhotooksurvey.getUserid(), new ArrayList<Integer>(), null);
                 HtmlCache.updateCache(resultsHtmlForUserWhoTookSurveyKey, 6000, resultsHtmlForUserWhoTookSurvey);
             } else {
                 resultsHtmlForUserWhoTookSurvey = HtmlCache.getFromCache(resultsHtmlForUserWhoTookSurveyKey);
@@ -169,7 +169,7 @@ public class PublicSurveyResults implements Serializable {
                         User fbuser = (User) iterator.next();
                         onlyincluderesponsesfromtheseuserids.add(fbuser.getUserid());
                     }
-                    resultsYourFriends = SurveyResultsDisplay.getHtmlForResults(survey, null, 0, onlyincluderesponsesfromtheseuserids);
+                    resultsYourFriends = SurveyResultsDisplay.getHtmlForResults(survey, null, 0, onlyincluderesponsesfromtheseuserids, null);
                 } else {
                     resultsYourFriends = "<font class='mediumfont'>None of your friends have taken this survey... yet.</font>";
                 }
