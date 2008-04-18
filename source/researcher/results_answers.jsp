@@ -21,7 +21,7 @@ ResearcherResultsAnswers researcherResultsAnswers = (ResearcherResultsAnswers) P
         <font class="largefont"><%=researcherResultsAnswers.getSurvey().getTitle()%></font>
         <br/>
         <a href="/researcher/results.jsp" style="padding-left: 15px;"><font class="subnavfont">Results Main</font></a>
-        <a href="/researcher/results_answers.jsp"style="padding-left: 15px;"><font class="subnavfont">Response Report</font></a>
+        <a href="/researcher/results_answers.jsp"style="padding-left: 15px;"><font class="subnavfont">Results</font></a>
         <a href="/researcher/results_answers_advanced.jsp"style="padding-left: 15px;"><font class="subnavfont">Filter Results</font></a>
         <a href="/researcher/results_impressions.jsp"style="padding-left: 15px;"><font class="subnavfont">Impressions</font></a>
         <a href="/researcher/results_respondents.jsp"style="padding-left: 15px;"><font class="subnavfont">Respondents</font></a>
@@ -29,7 +29,10 @@ ResearcherResultsAnswers researcherResultsAnswers = (ResearcherResultsAnswers) P
         <a href="/researcher/results_financial.jsp"style="padding-left: 15px;"><font class="subnavfont">Financial Status</font></a>
     </div>
     <br/><br/>
-
+    <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
+    This screen shows survey results for all respondents.  You can also <a href="/researcher/results_answers_advanced.jsp?surveyid=<%=researcherResultsAnswers.getSurvey().getSurveyid()%>">create filters</a> or <a href="/researcher/panels-addpeople.jsp?surveyid=<%=researcherResultsAnswers.getSurvey().getSurveyid()%>">add these respondents to a panel</a>.
+    </font></div></center>
+    <br/>
     <%=researcherResultsAnswers.getResults()%>
     
     <br/><br/>

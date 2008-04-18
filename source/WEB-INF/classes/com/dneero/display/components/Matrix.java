@@ -8,6 +8,7 @@ import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.util.GeneralException;
 import com.dneero.util.Str;
 import com.dneero.util.Util;
+import com.dneero.rank.RankUnit;
 import org.apache.log4j.Logger;
 
 import java.util.*;
@@ -441,6 +442,11 @@ public class Matrix implements Component {
         String[] tmpOut = new String[1];
         tmpOut[0]=tmp.toString();
         return tmpOut;
+    }
+
+    public ArrayList<RankUnit> calculateRankPoints(Rank rank, Response response) {
+        ArrayList<RankUnit> rankUnits = new ArrayList<RankUnit>();
+        return rankUnits;
     }
 
 }

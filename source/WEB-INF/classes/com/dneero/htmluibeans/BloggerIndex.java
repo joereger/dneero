@@ -245,6 +245,7 @@ public class BloggerIndex implements Serializable {
                         logger.debug("start processing questionid="+question.getQuestionid()+" "+question.getQuestion());
                         Component component = ComponentTypes.getComponentByID(question.getComponenttype(), question, blogger);
                         try{component.processAnswer(srp, response);} catch (ComponentException cex){allCex.addErrorsFromAnotherGeneralException(cex);}
+                        //@todo insert rating processing here
                         logger.debug("end processing questionid="+question.getQuestionid()+" "+question.getQuestion());
                     }
                 }

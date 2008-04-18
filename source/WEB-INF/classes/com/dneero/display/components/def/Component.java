@@ -1,11 +1,13 @@
 package com.dneero.display.components.def;
 
-import com.dneero.dao.Response;
 import com.dneero.dao.Questionresponse;
+import com.dneero.dao.Rank;
+import com.dneero.dao.Response;
 import com.dneero.display.SurveyResponseParser;
+import com.dneero.rank.RankUnit;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.ArrayList;
 
 /**
  * User: Joe Reger Jr
@@ -25,5 +27,6 @@ public interface Component {
     public void processAnswer(SurveyResponseParser srp, Response response) throws ComponentException;
     public int columnsInCsvOutput();
     public String[] getCsvForResult();
+    public ArrayList<RankUnit> calculateRankPoints(Rank rank, Response response);
 
 }

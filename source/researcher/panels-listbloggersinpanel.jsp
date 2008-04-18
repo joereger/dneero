@@ -6,7 +6,7 @@
 <%@ page import="com.dneero.htmlui.*" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
-String pagetitle = "Bloggers in Panel";
+String pagetitle = "People in Panel";
 String navtab = "researchers";
 String acl = "researcher";
 %>

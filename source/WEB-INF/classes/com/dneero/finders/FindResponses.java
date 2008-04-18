@@ -16,17 +16,17 @@ import java.util.Iterator;
  */
 public class FindResponses {
 
-    public static ArrayList<Response> find(Survey survey, SurveyCriteriaXML filterCriteriaXml){
+    public static ArrayList<Response> find(Survey surveyTheyTook, SurveyCriteriaXML filterCriteriaXml){
         Logger logger = Logger.getLogger(FindResponses.class);
         ArrayList<Response> out = new ArrayList<Response>();
-        for (Iterator<Response> iterator = survey.getResponses().iterator(); iterator.hasNext();) {
+        for (Iterator<Response> iterator = surveyTheyTook.getResponses().iterator(); iterator.hasNext();) {
             Response response = iterator.next();
             if (filterCriteriaXml!=null){
                 Blogger blogger = Blogger.get(response.getBloggerid());
                 if (blogger!=null && blogger.getBloggerid()>0){
                     User user = User.get(blogger.getUserid());
                     if (user!=null && user.getUserid()>0){
-                        //If they're qualified according to the survey criteria
+                        //If they're qualified according to the surveyTheyTook criteria
                         if (filterCriteriaXml.isUserQualified(user)){
                             out.add(response);
                         }

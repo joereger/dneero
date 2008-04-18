@@ -1,14 +1,19 @@
 package com.dneero.htmluibeans;
 
+import com.dneero.dao.Respondentfilter;
 import com.dneero.dao.Survey;
+import com.dneero.dao.hibernate.HibernateUtil;
+import com.dneero.display.SurveyResultsDisplay;
 import com.dneero.finders.SurveyCriteriaXML;
 import com.dneero.htmlui.Pagez;
 import com.dneero.htmlui.ValidationException;
-import com.dneero.display.SurveyResultsDisplay;
 import org.apache.log4j.Logger;
+import org.hibernate.criterion.Restrictions;
+import org.hibernate.criterion.Order;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * User: Joe Reger Jr
@@ -20,6 +25,9 @@ public class ResearcherResultsAnswersAdvanced implements Serializable {
     private Survey survey;
     private String results;
     private String surveyCriteriaAsHtml;
+    private ArrayList<Respondentfilter> respondentfilters;
+    private String filtername="";
+    private Respondentfilter respondentfilter;
 
     private int agemin = 13;
     private int agemax = 100;
@@ -54,39 +62,54 @@ public class ResearcherResultsAnswersAdvanced implements Serializable {
             Pagez.getUserSession().setCurrentSurveyid(Integer.parseInt(Pagez.getRequest().getParameter("surveyid")));
             survey = Survey.get((Integer.parseInt(Pagez.getRequest().getParameter("surveyid"))));
         }
+        String criteriaToPrePopulateWith = "";
+        //See if the survey has criteria
         if (survey!=null){
-            //results = SurveyResultsDisplay.getHtmlForResults(survey, null, 0, new ArrayList<Integer>());
-            if (Pagez.getUserSession().getUser()!=null && survey.canEdit(Pagez.getUserSession().getUser())){
-                //Get the survey's default criteria
-                SurveyCriteriaXML surveyCriteriaXML = new SurveyCriteriaXML(survey.getCriteriaxml());
-                surveyCriteriaAsHtml = surveyCriteriaXML.getAsHtml();
-                agemin = surveyCriteriaXML.getAgemin();
-                agemax = surveyCriteriaXML.getAgemax();
-                blogquality = surveyCriteriaXML.getBlogquality();
-                blogquality90days = surveyCriteriaXML.getBlogquality90days();
-                minsocialinfluencepercentile = surveyCriteriaXML.getMinsocialinfluencepercentile();
-                minsocialinfluencepercentile90days = surveyCriteriaXML.getMinsocialinfluencepercentile90days();
-                dayssincelastsurvey = surveyCriteriaXML.getDayssincelastsurvey();
-                totalsurveystakenatleast = surveyCriteriaXML.getTotalsurveystakenatleast();
-                totalsurveystakenatmost = surveyCriteriaXML.getTotalsurveystakenatmost();
-                gender = surveyCriteriaXML.getGender();
-                ethnicity = surveyCriteriaXML.getEthnicity();
-                maritalstatus = surveyCriteriaXML.getMaritalstatus();
-                income = surveyCriteriaXML.getIncome();
-                educationlevel = surveyCriteriaXML.getEducationlevel();
-                state = surveyCriteriaXML.getState();
-                city = surveyCriteriaXML.getCity();
-                profession = surveyCriteriaXML.getProfession();
-                politics = surveyCriteriaXML.getPolitics();
-                dneerousagemethods = surveyCriteriaXML.getDneerousagemethods();
-                blogfocus = surveyCriteriaXML.getBlogfocus();
-            }
+            criteriaToPrePopulateWith = survey.getCriteriaxml();
         }
+        //Override with a selected filter
+        if (com.dneero.util.Num.isinteger(Pagez.getRequest().getParameter("respondentfilterid"))){
+            Respondentfilter respondentfilter = Respondentfilter.get((Integer.parseInt(Pagez.getRequest().getParameter("respondentfilterid"))));
+            criteriaToPrePopulateWith = respondentfilter.getCriteriaxml();
+            filtername = respondentfilter.getName();
+            this.respondentfilter = respondentfilter;
+        }
+        //Pre-pop
+        SurveyCriteriaXML surveyCriteriaXML = new SurveyCriteriaXML(criteriaToPrePopulateWith);
+        surveyCriteriaAsHtml = surveyCriteriaXML.getAsHtml();
+        agemin = surveyCriteriaXML.getAgemin();
+        agemax = surveyCriteriaXML.getAgemax();
+        blogquality = surveyCriteriaXML.getBlogquality();
+        blogquality90days = surveyCriteriaXML.getBlogquality90days();
+        minsocialinfluencepercentile = surveyCriteriaXML.getMinsocialinfluencepercentile();
+        minsocialinfluencepercentile90days = surveyCriteriaXML.getMinsocialinfluencepercentile90days();
+        dayssincelastsurvey = surveyCriteriaXML.getDayssincelastsurvey();
+        totalsurveystakenatleast = surveyCriteriaXML.getTotalsurveystakenatleast();
+        totalsurveystakenatmost = surveyCriteriaXML.getTotalsurveystakenatmost();
+        gender = surveyCriteriaXML.getGender();
+        ethnicity = surveyCriteriaXML.getEthnicity();
+        maritalstatus = surveyCriteriaXML.getMaritalstatus();
+        income = surveyCriteriaXML.getIncome();
+        educationlevel = surveyCriteriaXML.getEducationlevel();
+        state = surveyCriteriaXML.getState();
+        city = surveyCriteriaXML.getCity();
+        profession = surveyCriteriaXML.getProfession();
+        politics = surveyCriteriaXML.getPolitics();
+        dneerousagemethods = surveyCriteriaXML.getDneerousagemethods();
+        blogfocus = surveyCriteriaXML.getBlogfocus();
+        //Load the filters for this user
+        respondentfilters = (ArrayList<Respondentfilter>)HibernateUtil.getSession().createCriteria(Respondentfilter.class)
+                           .add(Restrictions.eq("userid", Pagez.getUserSession().getUser().getUserid()))
+                           .addOrder(Order.desc("respondentfilterid"))
+                           .setCacheable(true)
+                           .list();
+
     }
 
 
-    public void find() throws ValidationException {
-        //Create a criteria to use with the results
+    public void viewThroughFilter() throws ValidationException {
+        Logger logger = Logger.getLogger(this.getClass().getName());
+        //Create a criteria to use with the results, start with survey as default values
         SurveyCriteriaXML surveyCriteriaXML = new SurveyCriteriaXML(survey.getCriteriaxml());
         surveyCriteriaXML.setAgemin(agemin);
         surveyCriteriaXML.setAgemax(agemax);
@@ -109,8 +132,39 @@ public class ResearcherResultsAnswersAdvanced implements Serializable {
         surveyCriteriaXML.setPolitics(politics);
         surveyCriteriaXML.setDneerousagemethods(dneerousagemethods);
         surveyCriteriaAsHtml = surveyCriteriaXML.getAsHtml();
-        //Now do something
+        //Save Filter
+        if (filtername!=null && !filtername.equals("")){
+            if (respondentfilter==null){
+                respondentfilter = new Respondentfilter();
+            }
+            respondentfilter.setName(filtername);
+            respondentfilter.setCriteriaxml(surveyCriteriaXML.getSurveyCriteriaAsString());
+            respondentfilter.setUserid(Pagez.getUserSession().getUser().getUserid());
+            try{respondentfilter.save();}catch(Exception ex){logger.error(ex);}
+        }
+        //Generate the results
         results = SurveyResultsDisplay.getHtmlForResults(survey, null, 0, new ArrayList<Integer>(), surveyCriteriaXML);
+    }
+
+    public void deleteFilter() throws ValidationException {
+        Logger logger = Logger.getLogger(this.getClass().getName());
+        if (com.dneero.util.Num.isinteger(Pagez.getRequest().getParameter("respondentfilterid"))){
+            Respondentfilter respondentfilter = Respondentfilter.get((Integer.parseInt(Pagez.getRequest().getParameter("respondentfilterid"))));
+            if (respondentfilter!=null && respondentfilter.canEdit(Pagez.getUserSession().getUser())){
+                try{respondentfilter.delete();}catch(Exception ex){logger.error(ex);}
+                initBean();
+            }
+        }
+    }
+
+    public void showResults() throws ValidationException {
+        if (com.dneero.util.Num.isinteger(Pagez.getRequest().getParameter("respondentfilterid"))){
+            Respondentfilter respondentfilter = Respondentfilter.get((Integer.parseInt(Pagez.getRequest().getParameter("respondentfilterid"))));
+            SurveyCriteriaXML surveyCriteriaXML = new SurveyCriteriaXML(respondentfilter.getCriteriaxml());
+            filtername = respondentfilter.getName();
+            this.respondentfilter = respondentfilter;
+            results = SurveyResultsDisplay.getHtmlForResults(survey, null, 0, new ArrayList<Integer>(), surveyCriteriaXML);
+        }
     }
 
 
@@ -297,5 +351,29 @@ public class ResearcherResultsAnswersAdvanced implements Serializable {
 
     public void setDneerousagemethods(String[] dneerousagemethods) {
         this.dneerousagemethods = dneerousagemethods;
+    }
+    
+    public ArrayList<Respondentfilter> getRespondentfilters() {
+        return respondentfilters;
+    }
+
+    public void setRespondentfilters(ArrayList<Respondentfilter> respondentfilters) {
+        this.respondentfilters = respondentfilters;
+    }
+
+    public String getFiltername() {
+        return filtername;
+    }
+
+    public void setFiltername(String filtername) {
+        this.filtername = filtername;
+    }
+
+    public Respondentfilter getRespondentfilter() {
+        return respondentfilter;
+    }
+
+    public void setRespondentfilter(Respondentfilter respondentfilter) {
+        this.respondentfilter = respondentfilter;
     }
 }

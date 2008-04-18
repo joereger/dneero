@@ -36,7 +36,8 @@ PublicBlogPost publicBlogPost = (PublicBlogPost) Pagez.getBeanMgr().get("PublicB
 %>
 <%
 if (publicBlogPost==null || publicBlogPost.getBlogpost()==null || publicBlogPost.getBlogpost().getBlogpostid()==0){
-    Pagez.sendRedirect("/index.jsp");
+    Pagez.sendRedirect("/blog.jsp");
+    return;
 }
 %>
 <%@ include file="/template/header.jsp" %>

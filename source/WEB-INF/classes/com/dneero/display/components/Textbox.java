@@ -1,15 +1,13 @@
 package com.dneero.display.components;
 
-import com.dneero.dao.Question;
-import com.dneero.dao.Blogger;
-import com.dneero.dao.Questionresponse;
-import com.dneero.dao.Response;
+import com.dneero.dao.*;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.util.GeneralException;
 import com.dneero.util.Str;
 import com.dneero.display.components.def.Component;
 import com.dneero.display.components.def.ComponentException;
 import com.dneero.display.SurveyResponseParser;
+import com.dneero.rank.RankUnit;
 
 import java.util.*;
 import java.text.NumberFormat;
@@ -305,6 +303,11 @@ public class Textbox implements Component {
         String[] tmpOut = new String[1];
         tmpOut[0]=tmp.toString();
         return tmpOut;
+    }
+
+    public ArrayList<RankUnit> calculateRankPoints(Rank rank, Response response) {
+        ArrayList<RankUnit> rankUnits = new ArrayList<RankUnit>();
+        return rankUnits;
     }
 
 }

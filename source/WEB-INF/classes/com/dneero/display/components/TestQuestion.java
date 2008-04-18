@@ -5,12 +5,10 @@ import com.dneero.display.components.def.ComponentException;
 import com.dneero.display.SurveyResponseParser;
 import com.dneero.dao.*;
 import com.dneero.dao.hibernate.HibernateUtil;
+import com.dneero.rank.RankUnit;
 import org.apache.log4j.Logger;
 
-import java.util.List;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 import java.text.NumberFormat;
 import java.text.DecimalFormat;
 
@@ -312,6 +310,11 @@ public class TestQuestion implements Component {
 //        tmpOut[0]=tmp.toString();
 //        return tmpOut;
         return new String[0];
+    }
+
+    public ArrayList<RankUnit> calculateRankPoints(Rank rank, Response response) {
+        ArrayList<RankUnit> rankUnits = new ArrayList<RankUnit>();
+        return rankUnits;
     }
 
 }

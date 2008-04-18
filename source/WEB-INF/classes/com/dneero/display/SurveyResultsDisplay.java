@@ -89,11 +89,16 @@ public class SurveyResultsDisplay {
 
 
             //Find all responses to this question
-            List<Questionresponse>  questionresponses = HibernateUtil.getSession().createCriteria(Questionresponse.class)
+            List<Questionresponse>  questionresponses = new ArrayList<Questionresponse>();
+            try{
+                questionresponses = HibernateUtil.getSession().createCriteria(Questionresponse.class)
                    .add(Restrictions.eq("questionid", question.getQuestionid()))
                    .add(Restrictions.in("responseid", responseidstodisplay))
                    .setCacheable(true)
                    .list();
+            } catch (Exception ex){
+                logger.error("", ex);
+            }
 
 
 //            //Find all responses to this question

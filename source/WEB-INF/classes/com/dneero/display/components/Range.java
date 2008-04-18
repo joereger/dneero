@@ -6,11 +6,9 @@ import com.dneero.util.GeneralException;
 import com.dneero.display.components.def.Component;
 import com.dneero.display.components.def.ComponentException;
 import com.dneero.display.SurveyResponseParser;
+import com.dneero.rank.RankUnit;
 
-import java.util.Iterator;
-import java.util.List;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 import java.text.NumberFormat;
 import java.text.DecimalFormat;
 
@@ -381,6 +379,11 @@ public class Range implements Component {
         String[] tmpOut = new String[1];
         tmpOut[0]=tmp.toString();
         return tmpOut;
+    }
+
+    public ArrayList<RankUnit> calculateRankPoints(Rank rank, Response response) {
+        ArrayList<RankUnit> rankUnits = new ArrayList<RankUnit>();
+        return rankUnits;
     }
 
 }

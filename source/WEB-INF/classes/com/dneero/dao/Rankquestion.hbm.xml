@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 17, 2006 3:45:28 PM by Hibernate Tools 3.1.0.beta4 -->
+<hibernate-mapping>
+    <class name="com.dneero.dao.Rankquestion" table="rankquestion">
+        <cache usage="transactional"/>
+        <id name="rankquestionid" type="int">
+            <column name="rankquestionid" />
+            <generator class="native" />
+        </id>
+        <property name="rankid" type="int">
+            <column name="rankid" not-null="true" />
+        </property>
+        <property name="questionid" type="int">
+            <column name="questionid" not-null="true" />
+        </property>
+        <property name="answer" type="string">
+            <column name="answer" not-null="true" />
+        </property>
+        <property name="points" type="int">
+            <column name="points" not-null="true" />
+        </property>
+        <property name="opt1" type="string">
+            <column name="opt1" not-null="true" />
+        </property>
+        <property name="opt2" type="string">
+            <column name="opt2" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

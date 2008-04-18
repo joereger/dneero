@@ -28,7 +28,7 @@ public class DropdownMultiselect {
             size=1;    
         }
 
-        out.append("<select name=\""+ Str.cleanForHtml(name)+"\" multiple size=\""+size+"\">");
+        out.append("<select name=\""+ Str.cleanForHtml(name)+"\" multiple size=\""+size+"\" "+styleclass+" "+style+">");
         out.append("<option value=\"\"></option>");
         Iterator keyValuePairs = options.entrySet().iterator();
         for (int i = 0; i < options.size(); i++){

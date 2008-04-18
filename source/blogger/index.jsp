@@ -37,7 +37,7 @@ String acl = "public";
                         <br/>
                         dNeero helps bloggers make money filling out surveys and posting their answers to their blogs.
                         <br/><br/>
-                        After filling out a survey here at dNeero.com you've already made some money.  But you can make more by posting your answers to your blog (all you have to do is copy-and-paste a single line of code).  Your blog readers will see your answers along with any other thoughts you had about the survey.  Your readers can then complete the survey, or see how others from your blog answered. If they complete the survey, we pay you a recruitment fee based on what they earn.
+                        After filling out a survey here at dNeero.com you've already reserved some money for your effort.  To capture that money all you have to do is post your answers to your blog and generate some traffic for a few days (all you have to do is copy-and-paste a single line of code).  Your blog readers will see your answers along with any other thoughts you had about the survey.  Your readers can then complete the survey, or see how others from your blog answered. If they complete the survey, we pay you a recruitment fee based on what they earn.
                         <br/><br/><br/>
                         <font class="mediumfont" style="color: #999999">How it Works for Bloggers</font>
                         <br/>

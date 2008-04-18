@@ -6,12 +6,15 @@ import com.dneero.util.GeneralException;
 import com.dneero.display.components.def.Component;
 import com.dneero.display.components.def.ComponentException;
 import com.dneero.display.SurveyResponseParser;
+import com.dneero.rank.RankUnit;
+import com.dneero.rank.NormalizedpointsUtil;
 
 import java.util.*;
 import java.text.NumberFormat;
 import java.text.DecimalFormat;
 
 import org.apache.log4j.Logger;
+import org.hibernate.criterion.Restrictions;
 
 /**
  * User: Joe Reger Jr
@@ -202,11 +205,13 @@ public class Checkboxes implements Component {
             }
         }
 
+        int counttotal = 0;
         Iterator keyValuePairs = answers.entrySet().iterator();
         for (int i = 0; i < answers.size(); i++){
             Map.Entry mapentry = (Map.Entry) keyValuePairs.next();
             String answer = (String)mapentry.getKey();
             int count = (Integer)mapentry.getValue();
+            counttotal = counttotal + count;
 
             double percentage = 0;
             if (count>0 && questionresponses!=null && questionresponses.size()>0){
@@ -234,10 +239,10 @@ public class Checkboxes implements Component {
 
         out.append("<tr>");
         out.append("<td valign=\"top\" align=\"right\" bgcolor=\"#ffffff\" colspan=\"3\">");
-        out.append("<b>Total Respondents</b>");
+        out.append("<b>Total Selections</b>");
         out.append("</td>");
         out.append("<td valign=\"top\" bgcolor=\"#e6e6e6\">");
-        out.append(questionresponses.size());
+        out.append(counttotal);
         out.append("</td>");
         out.append("</tr>");
 
@@ -275,6 +280,11 @@ public class Checkboxes implements Component {
         String[] tmpOut = new String[1];
         tmpOut[0]=tmp.toString();
         return tmpOut;
+    }
+
+    public ArrayList<RankUnit> calculateRankPoints(Rank rank, Response response) {
+        ArrayList<RankUnit> rankUnits = new ArrayList<RankUnit>();
+        return rankUnits;
     }
 
 }

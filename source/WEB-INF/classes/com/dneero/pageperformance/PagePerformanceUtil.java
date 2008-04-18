@@ -20,36 +20,41 @@ public class PagePerformanceUtil {
     private static Map<String,PagePerformance> pagePerformances = Collections.synchronizedMap(new TreeMap<String,PagePerformance>());
 
     public static void add(String pageid, String servername, long pageloadtime){
-        if (pagePerformances==null){
-            pagePerformances = Collections.synchronizedMap(new TreeMap<String,PagePerformance>());
-        }
-        //Create the key for this object in the local/temp cache... performance-important uniqueness
-        Calendar cal = Calendar.getInstance();
-        String partofday = getPartOfDay(cal);
-        String key = pageid+"-"+servername+"-"+cal.get(Calendar.YEAR)+"-"+cal.get(Calendar.MONTH)+"-"+cal.get(Calendar.DAY_OF_MONTH)+"-"+partofday;
-        //See if it exists
-        if (pagePerformances.containsKey(key)){
-            //Pageid exists already, increment values
-            PagePerformance pp = pagePerformances.get(key);
-            pp.setTotaltime(pp.getTotaltime()+pageloadtime);
-            pp.setTotalpageloads(pp.getTotalpageloads()+1);
-            synchronized(pagePerformances){
-                pagePerformances.put(key, pp);
+        Logger logger = Logger.getLogger(PagePerformanceUtil.class);
+        try{
+            if (pagePerformances==null){
+                pagePerformances = Collections.synchronizedMap(new TreeMap<String,PagePerformance>());
             }
-        } else {
-            //Pageid doesn't exist, create a new one
-            PagePerformance pp = new PagePerformance();
-            pp.setPageid(pageid);
-            pp.setYear(cal.get(Calendar.YEAR));
-            pp.setMonth(cal.get(Calendar.MONTH));
-            pp.setDay(cal.get(Calendar.DAY_OF_MONTH));
-            pp.setPartofday(partofday);
-            pp.setServername(InstanceProperties.getInstancename());
-            pp.setTotalpageloads(1);
-            pp.setTotaltime(pageloadtime);
-            synchronized(pagePerformances){
-                pagePerformances.put(key, pp);
+            //Create the key for this object in the local/temp cache... performance-important uniqueness
+            Calendar cal = Calendar.getInstance();
+            String partofday = getPartOfDay(cal);
+            String key = pageid+"-"+servername+"-"+cal.get(Calendar.YEAR)+"-"+cal.get(Calendar.MONTH)+"-"+cal.get(Calendar.DAY_OF_MONTH)+"-"+partofday;
+            //See if it exists
+            if (pagePerformances.containsKey(key)){
+                //Pageid exists already, increment values
+                PagePerformance pp = pagePerformances.get(key);
+                pp.setTotaltime(pp.getTotaltime()+pageloadtime);
+                pp.setTotalpageloads(pp.getTotalpageloads()+1);
+                synchronized(pagePerformances){
+                    pagePerformances.put(key, pp);
+                }
+            } else {
+                //Pageid doesn't exist, create a new one
+                PagePerformance pp = new PagePerformance();
+                pp.setPageid(pageid);
+                pp.setYear(cal.get(Calendar.YEAR));
+                pp.setMonth(cal.get(Calendar.MONTH));
+                pp.setDay(cal.get(Calendar.DAY_OF_MONTH));
+                pp.setPartofday(partofday);
+                pp.setServername(InstanceProperties.getInstancename());
+                pp.setTotalpageloads(1);
+                pp.setTotaltime(pageloadtime);
+                synchronized(pagePerformances){
+                    pagePerformances.put(key, pp);
+                }
             }
+        } catch (Exception ex){
+            logger.error("", ex);
         }
     }
 

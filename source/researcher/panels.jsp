@@ -50,6 +50,7 @@ String acl = "researcher";
                 cols.add(new GridCol("Create Date", "<$panel.createdate|"+Grid.GRIDCOLRENDERER_DATETIMECOMPACT+"$>", true, "", "smallfont"));
                 cols.add(new GridCol("Members", "<$numberofmembers$>", true, "", "smallfont"));
                 cols.add(new GridCol("", "<a href=\"/researcher/panels-listbloggersinpanel.jsp?panelid=<$panel.panelid$>\">View Members</a>", true, "", "smallfont"));
+                cols.add(new GridCol("", "<a href=\"/researcher/panels-addpeople.jsp?panelid=<$panel.panelid$>\">Add People</a>", true, "", "smallfont"));
                 cols.add(new GridCol("", "<a href=\"/researcher/panels-edit.jsp?panelid=<$panel.panelid$>\">Edit</a>", true, "", "smallfont"));
                 cols.add(new GridCol("", "<a href=\"/researcher/panels.jsp?panelid=<$panel.panelid$>&action=delete\">Delete</a>", true, "", "smallfont"));
             %>

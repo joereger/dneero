@@ -2,16 +2,17 @@ package com.dneero.display.components;
 
 import com.dneero.dao.*;
 import com.dneero.dao.hibernate.HibernateUtil;
-import com.dneero.util.GeneralException;
+import com.dneero.display.SurveyResponseParser;
 import com.dneero.display.components.def.Component;
 import com.dneero.display.components.def.ComponentException;
-import com.dneero.display.SurveyResponseParser;
-
-import java.util.*;
-import java.text.NumberFormat;
-import java.text.DecimalFormat;
-
+import com.dneero.rank.NormalizedpointsUtil;
+import com.dneero.rank.RankUnit;
 import org.apache.log4j.Logger;
+import org.hibernate.criterion.Restrictions;
+
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.util.*;
 
 /**
  * User: Joe Reger Jr
@@ -298,5 +299,41 @@ public class Dropdown implements Component {
         tmpOut[0]=tmp.toString();
         return tmpOut;
     }
+
+    public ArrayList<RankUnit> calculateRankPoints(Rank rank, Response response) {
+        ArrayList<RankUnit> rankUnits = new ArrayList<RankUnit>();
+        int maxpoints = NormalizedpointsUtil.determineMaxPoints(question.getQuestionid(), rank.getRankid());
+        //Find rankings for this question
+        List<Rankquestion> rankquestions = HibernateUtil.getSession().createCriteria(Rankquestion.class)
+                               .add(Restrictions.eq("questionid", question.getQuestionid()))
+                               .add(Restrictions.eq("rankid", rank.getRankid()))
+                               .setCacheable(true)
+                               .list();
+        for (Iterator<Rankquestion> rankquestionIterator = rankquestions.iterator(); rankquestionIterator.hasNext();){
+            Rankquestion rankquestion = rankquestionIterator.next();
+            //This may create performance issues
+            List<Questionresponse> questionresponses = HibernateUtil.getSession().createCriteria(Questionresponse.class)
+               .add(Restrictions.eq("questionid", question.getQuestionid()))
+               .add(Restrictions.eq("responseid", response.getResponseid()))
+               .setCacheable(true)
+               .list();
+            for (Iterator<Questionresponse> questionresponseIterator = questionresponses.iterator(); questionresponseIterator.hasNext();){
+                Questionresponse questionresponse = questionresponseIterator.next();
+                //If the user answered in a way that gets points
+                if (rankquestion.getAnswer().equalsIgnoreCase(questionresponse.getValue())){
+                    //Hold ranking in a RankUnit object
+                    RankUnit rankUnit = new RankUnit();
+                    rankUnit.setPoints(rankquestion.getPoints());
+                    rankUnit.setRankquestionid(rankquestion.getRankquestionid());
+                    rankUnit.setResponseid(response.getResponseid());
+                    rankUnit.setNormalizedpoints(NormalizedpointsUtil.calculateNormalizedPoints(rankquestion.getPoints(), maxpoints));
+                    //Add to the array
+                    rankUnits.add(rankUnit);
+                }
+            }
+        } 
+        return rankUnits;
+    }
+
 
 }

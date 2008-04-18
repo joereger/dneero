@@ -121,6 +121,8 @@
                         <img src="/images/clear.gif" alt="" width="10" height="1"/>
                         <a href="/researcher/panels.jsp"><font class="subnavfont" style="color: #000000;">Panels</font></a>
                         <img src="/images/clear.gif" alt="" width="10" height="1"/>
+                        <a href="/researcher/rank-list.jsp"><font class="subnavfont" style="color: #000000;">Rankings</font></a>
+                        <img src="/images/clear.gif" alt="" width="10" height="1"/>
                         <a href="/researcher/researcherdetails.jsp"><font class="subnavfont" style="color: #000000;">Researcher Details</font></a>
                         <img src="/images/clear.gif" alt="" width="10" height="1"/>
                         <a href="/researcher/researcherbilling.jsp"><font class="subnavfont" style="color: #000000;">Billing</font></a>
