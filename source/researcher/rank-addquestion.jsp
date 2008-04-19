@@ -1,4 +1,7 @@
+<%@ page import="com.dneero.dao.Question" %>
+<%@ page import="com.dneero.dao.Survey" %>
 <%@ page import="com.dneero.dao.hibernate.HibernateUtil" %>
+<%@ page import="com.dneero.display.components.def.Component" %>
 <%@ page import="com.dneero.htmlui.Pagez" %>
 <%@ page import="com.dneero.htmlui.ValidationException" %>
 <%@ page import="com.dneero.htmluibeans.ResearcherRankAddquestion" %>
@@ -6,10 +9,11 @@
 <%@ page import="org.hibernate.criterion.Order" %>
 <%@ page import="org.hibernate.criterion.Restrictions" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.Iterator" %>
 <%@ page import="java.util.List" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
-String pagetitle = "Custom Rankings";
+String pagetitle = "Rankings";
 String navtab = "researchers";
 String acl = "researcher";
 %>
@@ -26,6 +30,21 @@ String acl = "researcher";
             Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
         }
     }
+%>
+<%
+if (researcherRankAddquestion.getRank()!=null && researcherRankAddquestion.getSurvey()!=null && researcherRankAddquestion.getQuestion()!=null){
+    Question question = researcherRankAddquestion.getQuestion();
+    String postfix = "";
+    if (question.getComponenttype()==com.dneero.display.components.Dropdown.ID){
+        postfix = "dropdown";
+    } else if (question.getComponenttype()==com.dneero.display.components.Checkboxes.ID){
+        postfix = "checkboxes";
+    }
+    if (!postfix.equals("")){
+        Pagez.sendRedirect("/researcher/rank-addquestion-"+postfix+".jsp?rankid="+researcherRankAddquestion.getRank().getRankid()+"&questionid="+researcherRankAddquestion.getQuestion().getQuestionid()+"&surveyid="+researcherRankAddquestion.getSurvey().getSurveyid());
+        return;
+    }
+}
 %>
 <%@ include file="/template/header.jsp" %>
 
@@ -50,8 +69,10 @@ String acl = "researcher";
         }
     %>
 <%} else {%>
-   Please choose the question to add:
-   <br/>
+    <font class="mediumfont">From the Survey: <%=researcherRankAddquestion.getSurvey().getTitle()%></font>
+    <br/>
+    <font class="normalfont">Please choose the question to add (only certain question types are currently supported):</font>
+    <br/><br/>
     <%
     List<Question> questions = HibernateUtil.getSession().createCriteria(Question.class)
                                        .add(Restrictions.eq("surveyid", researcherRankAddquestion.getSurvey().getSurveyid()))
@@ -60,10 +81,13 @@ String acl = "researcher";
                                        .list();
         for (Iterator<Question> qIterator = questions.iterator(); qIterator.hasNext();) {
             Question question = qIterator.next();
-            %>
-            <a href="/researcher/rank-addquestion.jsp?rankid=<%=researcherRankAddquestion.getRank().getRankid()%>&surveyid=<%=researcherRankAddquestion.getSurvey().getSurveyid()%>&questionid=<%=question.getQuestionid()%>"><%=question.getQuestion()%></a>
-            <br/><br/>
-            <%
+            Component cpt =  ComponentTypes.getComponentByID(question.getComponenttype(), question, null);
+            if (cpt.supportsRank()){
+                %>
+                <a href="/researcher/rank-addquestion.jsp?rankid=<%=researcherRankAddquestion.getRank().getRankid()%>&surveyid=<%=researcherRankAddquestion.getSurvey().getSurveyid()%>&questionid=<%=question.getQuestionid()%>"><%=question.getQuestion()%></a>
+                <br/>
+                <%
+            }
         }
     %>
 

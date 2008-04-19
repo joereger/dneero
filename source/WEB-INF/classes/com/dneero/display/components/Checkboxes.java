@@ -282,6 +282,10 @@ public class Checkboxes implements Component {
         return tmpOut;
     }
 
+    public boolean supportsRank(){
+        return false;
+    }
+
     public ArrayList<RankUnit> calculateRankPoints(Rank rank, Response response) {
         ArrayList<RankUnit> rankUnits = new ArrayList<RankUnit>();
         return rankUnits;

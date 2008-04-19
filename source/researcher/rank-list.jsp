@@ -6,7 +6,7 @@
 <%@ page import="com.dneero.htmlui.*" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
-String pagetitle = "Custom Rankings";
+String pagetitle = "Rankings";
 String navtab = "researchers";
 String acl = "researcher";
 %>
@@ -39,7 +39,7 @@ String acl = "researcher";
                 <%} else {%>
                     <%
                         ArrayList<GridCol> cols=new ArrayList<GridCol>();
-                        cols.add(new GridCol("", "<a href=\"/researcher/rank-detail.jsp?rankid=<$rankid$>\"><$name$></a>", false, "", "normalfont"));
+                        cols.add(new GridCol("", "<a href=\"/researcher/rank-detail.jsp?rankid=<$rankid$>\"><$name$></a>", false, "", "mediumfont"));
                     %>
                     <%=Grid.render(researcherRankList.getRanks(), cols, 50, "/researcher/rank-list.jsp", "page")%>
                 <%}%>

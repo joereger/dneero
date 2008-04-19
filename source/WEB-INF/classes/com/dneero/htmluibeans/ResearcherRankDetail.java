@@ -26,6 +26,7 @@ public class ResearcherRankDetail implements Serializable {
 
     private ArrayList<ResearcherRankDetailListitem> rdlis = new ArrayList<ResearcherRankDetailListitem>();
     private Rank rank;
+    private ArrayList<Question> questions = new ArrayList<Question>();
 
     public ResearcherRankDetail(){
 
@@ -50,6 +51,9 @@ public class ResearcherRankDetail implements Serializable {
                 Question question = Question.get(rankquestion.getQuestionid());
                 Survey survey = Survey.get(question.getSurveyid());
 
+                if (!questions.contains(question)){
+                    questions.add(question);
+                }
 
                 ResearcherRankDetailListitem rdli = new ResearcherRankDetailListitem();
                 rdli.getRankquestions().add(rankquestion);
@@ -82,5 +86,13 @@ public class ResearcherRankDetail implements Serializable {
 
     public void setRank(Rank rank) {
         this.rank = rank;
+    }
+
+    public ArrayList<Question> getQuestions() {
+        return questions;
+    }
+
+    public void setQuestions(ArrayList<Question> questions) {
+        this.questions = questions;
     }
 }

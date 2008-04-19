@@ -300,6 +300,10 @@ public class Dropdown implements Component {
         return tmpOut;
     }
 
+    public boolean supportsRank(){
+        return true;
+    }
+
     public ArrayList<RankUnit> calculateRankPoints(Rank rank, Response response) {
         ArrayList<RankUnit> rankUnits = new ArrayList<RankUnit>();
         int maxpoints = NormalizedpointsUtil.determineMaxPoints(question.getQuestionid(), rank.getRankid());

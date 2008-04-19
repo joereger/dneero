@@ -4,23 +4,23 @@ package com.dneero.htmluibeans;
 import com.dneero.dao.*;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.display.SurveyResponseParser;
-import com.dneero.display.components.def.ComponentException;
 import com.dneero.display.components.def.Component;
+import com.dneero.display.components.def.ComponentException;
 import com.dneero.display.components.def.ComponentTypes;
-import com.dneero.finders.FindSurveysForBlogger;
-import com.dneero.xmpp.SendXMPPMessage;
-import com.dneero.session.SurveysTakenToday;
 import com.dneero.facebook.FacebookApiWrapper;
-import com.dneero.scheduledjobs.UpdateResponsePoststatus;
+import com.dneero.finders.FindSurveysForBlogger;
 import com.dneero.htmlui.Pagez;
-
-import java.util.List;
-import java.util.Iterator;
-import java.util.Date;
-import java.io.Serializable;
-
-import org.hibernate.criterion.Restrictions;
+import com.dneero.rank.RankForResponse;
+import com.dneero.scheduledjobs.UpdateResponsePoststatus;
+import com.dneero.session.SurveysTakenToday;
+import com.dneero.xmpp.SendXMPPMessage;
 import org.apache.log4j.Logger;
+import org.hibernate.criterion.Restrictions;
+
+import java.io.Serializable;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * User: Joe Reger Jr
@@ -256,6 +256,9 @@ public class BloggerIndex implements Serializable {
                 //logger.debug("refreshing survey");
                 //Refresh survey
                 //try{survey.refresh();} catch (Exception ex){logger.error("",ex);}
+
+                //Handle rankings
+                try{RankForResponse.processAndSave(response);} catch (Exception ex){logger.error("",ex);};
 
                 //Process the statusHtml for the response
                 try{UpdateResponsePoststatus.processSingleResponse(response);} catch (Exception ex){logger.error("",ex);};

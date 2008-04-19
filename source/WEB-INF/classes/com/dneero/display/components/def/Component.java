@@ -27,6 +27,7 @@ public interface Component {
     public void processAnswer(SurveyResponseParser srp, Response response) throws ComponentException;
     public int columnsInCsvOutput();
     public String[] getCsvForResult();
+    public boolean supportsRank();
     public ArrayList<RankUnit> calculateRankPoints(Rank rank, Response response);
 
 }

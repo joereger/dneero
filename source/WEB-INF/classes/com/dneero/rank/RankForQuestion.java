@@ -39,6 +39,27 @@ public class RankForQuestion {
         }
     }
 
+    public static void processAndSave(Question question){
+        //Find unique responses
+        ArrayList<Integer> responseids = new ArrayList<Integer>();
+        List<Questionresponse> questionresponses = HibernateUtil.getSession().createCriteria(Questionresponse.class)
+                                           .add(Restrictions.eq("questionid", question.getQuestionid()))
+                                           .setCacheable(true)
+                                           .list();
+        for (Iterator<Questionresponse> questionresponseIterator = questionresponses.iterator(); questionresponseIterator.hasNext();){
+            Questionresponse questionresponse = questionresponseIterator.next();
+            if (!responseids.contains(questionresponse.getResponseid())){
+                responseids.add(questionresponse.getResponseid());
+            }
+        }
+        //Iterate all unique responses
+        for (Iterator it = responseids.iterator(); it.hasNext(); ) {
+            Integer responseid = (Integer)it.next();
+            Response response = Response.get(responseid);
+            processAndSave(question, response);
+        }
+    }
+
     public static ArrayList<RankUnit> calculatePointsForSpecificRank(Rank rank, Question question, Response response){
         Blogger blogger = Blogger.get(response.getBloggerid());
         Component qComp = ComponentTypes.getComponentByID(question.getComponenttype(), question, blogger);
