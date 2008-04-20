@@ -10,7 +10,7 @@ import com.dneero.display.components.def.ComponentTypes;
 import com.dneero.facebook.FacebookApiWrapper;
 import com.dneero.finders.FindSurveysForBlogger;
 import com.dneero.htmlui.Pagez;
-import com.dneero.rank.RankForResponse;
+import com.dneero.rank.RankForResponseThread;
 import com.dneero.scheduledjobs.UpdateResponsePoststatus;
 import com.dneero.session.SurveysTakenToday;
 import com.dneero.xmpp.SendXMPPMessage;
@@ -257,8 +257,11 @@ public class BloggerIndex implements Serializable {
                 //Refresh survey
                 //try{survey.refresh();} catch (Exception ex){logger.error("",ex);}
 
-                //Handle rankings
-                try{RankForResponse.processAndSave(response);} catch (Exception ex){logger.error("",ex);};
+                //Handle rankings in a thread
+                try{
+                    RankForResponseThread qThread = new RankForResponseThread(response);
+                    qThread.startThread();
+                } catch (Exception ex){logger.error("",ex);};
 
                 //Process the statusHtml for the response
                 try{UpdateResponsePoststatus.processSingleResponse(response);} catch (Exception ex){logger.error("",ex);};

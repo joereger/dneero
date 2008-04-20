@@ -21,25 +21,36 @@ public class RankForQuestion {
     public static void processAndSave(Question question, Response response){
         Blogger blogger = Blogger.get(response.getBloggerid());
         Component qComp = ComponentTypes.getComponentByID(question.getComponenttype(), question, blogger);
-        //Find rankings for this question
-        List<Rankquestion> rankquestions = HibernateUtil.getSession().createCriteria(Rankquestion.class)
-                               .add(Restrictions.eq("questionid", question.getQuestionid()))
-                               .setCacheable(true)
-                               .list();
-        for (Iterator<Rankquestion> rankquestionIterator = rankquestions.iterator(); rankquestionIterator.hasNext();){
-            Rankquestion rankquestion = rankquestionIterator.next();
-            Rank rank = Rank.get(rankquestion.getRankid());
-            //Save/update the ranking
-            ArrayList<RankUnit> rankUnits = qComp.calculateRankPoints(rank, response);
-            for (Iterator<RankUnit> rankUnitIterator = rankUnits.iterator(); rankUnitIterator.hasNext();) {
-                RankUnit rankUnit = rankUnitIterator.next();
-                //Handle Storage
-                RankUnitStorage.store(rank, response, rankUnit);
+        if (qComp.supportsRank()){
+            //Find rankings for this question
+            ArrayList<Integer> rankids = new ArrayList<Integer>();
+            List<Rankquestion> rankquestions = HibernateUtil.getSession().createCriteria(Rankquestion.class)
+                                   .add(Restrictions.eq("questionid", question.getQuestionid()))
+                                   .setCacheable(true)
+                                   .list();
+            for (Iterator<Rankquestion> rankquestionIterator = rankquestions.iterator(); rankquestionIterator.hasNext();){
+                Rankquestion rankquestion = rankquestionIterator.next();
+                if (!rankids.contains(rankquestion.getRankid())){
+                    rankids.add(rankquestion.getRankid());
+                }
+            }
+            //Iterate rankids that need to be processed
+            for (Iterator it = rankids.iterator(); it.hasNext(); ) {
+                Integer rankid = (Integer)it.next();
+                Rank rank = Rank.get(rankid);
+                //Save/update the ranking
+                ArrayList<RankUnit> rankUnits = qComp.calculateRankPoints(rank, response);
+                for (Iterator<RankUnit> rankUnitIterator = rankUnits.iterator(); rankUnitIterator.hasNext();) {
+                    RankUnit rankUnit = rankUnitIterator.next();
+                    //Handle Storage
+                    RankUnitStorage.store(rank, response, rankUnit);
+                }
             }
         }
     }
 
     public static void processAndSave(Question question){
+        Logger logger = Logger.getLogger(RankForQuestion.class);
         //Find unique responses
         ArrayList<Integer> responseids = new ArrayList<Integer>();
         List<Questionresponse> questionresponses = HibernateUtil.getSession().createCriteria(Questionresponse.class)
@@ -56,6 +67,7 @@ public class RankForQuestion {
         for (Iterator it = responseids.iterator(); it.hasNext(); ) {
             Integer responseid = (Integer)it.next();
             Response response = Response.get(responseid);
+            logger.debug("iterating responses... found responseid="+response.getResponseid());
             processAndSave(question, response);
         }
     }

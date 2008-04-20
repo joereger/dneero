@@ -5,14 +5,14 @@
 <%@ page import="com.dneero.htmlui.ValidationException" %>
 <%@ page import="com.dneero.htmluibeans.ResearcherRankAddquestionDropdown" %>
 <%@ page import="com.dneero.htmluibeans.ResearcherRankAddquestionDropdownListitem" %>
-<%@ page import="com.dneero.rank.RankForQuestion" %>
+<%@ page import="com.dneero.rank.RankForSurveyThread" %>
 <%@ page import="com.dneero.util.Num" %>
 <%@ page import="org.hibernate.criterion.Restrictions" %>
 <%@ page import="java.util.Iterator" %>
 <%@ page import="java.util.List" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
-String pagetitle = "Rankings";
+String pagetitle = "Ranking";
 String navtab = "researchers";
 String acl = "researcher";
 %>
@@ -23,21 +23,23 @@ String acl = "researcher";
 <%
     if (request.getParameter("action") != null && request.getParameter("action").equals("saveaction")) {
         try {
-
+            //First, delete any existing rankquestions
+            HibernateUtil.getSession().createQuery("delete Rankquestion rq where rq.rankid="+researcherRankAddquestionDropdown.getRank().getRankid()+" and rq.questionid="+researcherRankAddquestionDropdown.getQuestion().getQuestionid()).executeUpdate();
             //Iterate all possible answers
             for (Iterator<ResearcherRankAddquestionDropdownListitem> iterator = researcherRankAddquestionDropdown.getPossibleanswers().iterator(); iterator.hasNext();){
                 ResearcherRankAddquestionDropdownListitem rraqdli = iterator.next();
                 //If the researcher has assigned points for this answer
-                if (Num.isinteger(request.getParameter("points-"+rraqdli.getId()))) {
-                    int points = Integer.parseInt(request.getParameter("points-"+rraqdli.getId()));
+                if (Num.isdouble(request.getParameter("points-"+rraqdli.getId()))) {
+                    Double pointsDbl = Double.parseDouble(request.getParameter("points-"+rraqdli.getId()));
+                    int points = pointsDbl.intValue();
                     //If the points aren't zero
                     if (points!=0){
                         Rankquestion rankquestion = null;
-                        if (rraqdli.getRankquestion()!=null && rraqdli.getRankquestion().getAnswer().equals(rraqdli.getPossibleanswer())){
-                            rankquestion = rraqdli.getRankquestion();
-                        } else {
+//                        if (rraqdli.getRankquestion()!=null && rraqdli.getRankquestion().getAnswer().equals(rraqdli.getPossibleanswer())){
+//                            rankquestion = rraqdli.getRankquestion();
+//                        } else {
                             rankquestion = new Rankquestion();
-                        }
+//                        }
                         rankquestion.setAnswer(rraqdli.getPossibleanswer());
                         rankquestion.setPoints(points);
                         rankquestion.setQuestionid(researcherRankAddquestionDropdown.getQuestion().getQuestionid());
@@ -64,8 +66,11 @@ String acl = "researcher";
             researcherRankAddquestionDropdown.saveAction();
             researcherRankAddquestionDropdown.initBean();
 
-            //Re-process the rankings for this question
-            try{RankForQuestion.processAndSave(researcherRankAddquestionDropdown.getQuestion());} catch (Exception ex){logger.error("",ex);};
+            //Re-process the rankings for this question, but do so in a thread so that the ui is responsive
+            try{
+                RankForSurveyThread qThread = new RankForSurveyThread(researcherRankAddquestionDropdown.getSurvey());
+                qThread.startThread();
+            } catch (Exception ex){logger.error("",ex);};
 
             Pagez.getUserSession().setMessage("Points saved.");
             Pagez.sendRedirect("/researcher/rank-detail.jsp?rankid="+researcherRankAddquestionDropdown.getRank().getRankid());
@@ -83,7 +88,10 @@ String acl = "researcher";
 <br/><br/>
 <font class="mediumfont">Question: <%=researcherRankAddquestionDropdown.getQuestion().getQuestion()%></font>
 <br/><br/>
-
+<div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
+    <font class="formfieldnamefont">You now assign points to possible answers.  Points can either enhance the respondent's correlation to the ranking or decrease it (if you enter negative numbers).  All points must be integers and can be as large or as small as you like.</font>
+</div>
+<br/><br/>
 
     <form action="/researcher/rank-addquestion-dropdown.jsp" method="post">
         <input type="hidden" name="dpage" value="/researcher/rank-addquestion-dropdown.jsp">
@@ -98,7 +106,7 @@ String acl = "researcher";
                     <font class="formfieldnamefont">Possible Answer</font>
                 </td>
                 <td valign="top" bgcolor="#e6e6e6">
-                    <font class="formfieldnamefont">Points to Assign</font>
+                    <font class="formfieldnamefont">Points to Assign (Positive or Negative Integers)</font>
                 </td>
             </tr>
             <%

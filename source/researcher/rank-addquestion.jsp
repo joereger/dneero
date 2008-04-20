@@ -13,7 +13,7 @@
 <%@ page import="java.util.List" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
-String pagetitle = "Rankings";
+String pagetitle = "Ranking";
 String navtab = "researchers";
 String acl = "researcher";
 %>
@@ -52,8 +52,10 @@ if (researcherRankAddquestion.getRank()!=null && researcherRankAddquestion.getSu
 <br/><br/>
 
 <%if (researcherRankAddquestion.getSurvey()==null){%>
-    Please choose a survey to pull the question from:
-    <br/>
+    <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
+        <font class="formfieldnamefont">Please choose a survey to pull the question from.</font>
+    </div>
+    <br/><br/>
     <%
     List<Survey> surveys = HibernateUtil.getSession().createCriteria(Survey.class)
                                        .add(Restrictions.eq("researcherid", Pagez.getUserSession().getUser().getResearcherid()))
@@ -63,15 +65,17 @@ if (researcherRankAddquestion.getRank()!=null && researcherRankAddquestion.getSu
         for (Iterator<Survey> surveyIterator = surveys.iterator(); surveyIterator.hasNext();) {
             Survey survey = surveyIterator.next();
             %>
-            <a href="/researcher/rank-addquestion.jsp?rankid=<%=researcherRankAddquestion.getRank().getRankid()%>&surveyid=<%=survey.getSurveyid()%>"><%=survey.getTitle()%></a>
-            <br/><br/>
+            Survey: <a href="/researcher/rank-addquestion.jsp?rankid=<%=researcherRankAddquestion.getRank().getRankid()%>&surveyid=<%=survey.getSurveyid()%>"><%=survey.getTitle()%></a>
+            <br/>
             <%
         }
     %>
 <%} else {%>
-    <font class="mediumfont">From the Survey: <%=researcherRankAddquestion.getSurvey().getTitle()%></font>
-    <br/>
-    <font class="normalfont">Please choose the question to add (only certain question types are currently supported):</font>
+    <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
+        <font class="formfieldnamefont">From the Survey: <%=researcherRankAddquestion.getSurvey().getTitle()%></font>
+        <br/>
+        <font class="formfieldnamefont">Please choose the question to add. (<b>only certain question types are currently supported</b>)</font>
+    </div>
     <br/><br/>
     <%
     List<Question> questions = HibernateUtil.getSession().createCriteria(Question.class)
@@ -84,14 +88,12 @@ if (researcherRankAddquestion.getRank()!=null && researcherRankAddquestion.getSu
             Component cpt =  ComponentTypes.getComponentByID(question.getComponenttype(), question, null);
             if (cpt.supportsRank()){
                 %>
-                <a href="/researcher/rank-addquestion.jsp?rankid=<%=researcherRankAddquestion.getRank().getRankid()%>&surveyid=<%=researcherRankAddquestion.getSurvey().getSurveyid()%>&questionid=<%=question.getQuestionid()%>"><%=question.getQuestion()%></a>
+                Question: <a href="/researcher/rank-addquestion.jsp?rankid=<%=researcherRankAddquestion.getRank().getRankid()%>&surveyid=<%=researcherRankAddquestion.getSurvey().getSurveyid()%>&questionid=<%=question.getQuestionid()%>"><%=question.getQuestion()%></a>
                 <br/>
                 <%
             }
         }
     %>
-
-
 
 
 <%}%>

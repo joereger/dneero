@@ -39,30 +39,33 @@ String acl = "researcher";
                 <%} else {%>
                     <%
                         ArrayList<GridCol> cols=new ArrayList<GridCol>();
-                        cols.add(new GridCol("", "<a href=\"/researcher/rank-detail.jsp?rankid=<$rankid$>\"><$name$></a>", false, "", "mediumfont"));
+                        cols.add(new GridCol("", "<a href=\"/researcher/rank-detail.jsp?rankid=<$rankid$>\"><$name$></a>", false, "", "mediumfont", "background: #ffffff;", ""));
                     %>
                     <%=Grid.render(researcherRankList.getRanks(), cols, 50, "/researcher/rank-list.jsp", "page")%>
                 <%}%>
                 <br/><br/>
-                <form action="/researcher/rank-list.jsp" method="post">
-                    <input type="hidden" name="dpage" value="/researcher/rank-list.jsp">
-                    <input type="hidden" name="action" value="newrank">
-
-                    <table cellpadding="0" cellspacing="0" border="0">
-                        <tr>
-                            <td valign="top">
-                                <%=Textbox.getHtml("newrankname", researcherRankList.getNewrankname(), 255, 35, "", "")%>
-                                <br/>
-                                <font class="tinyfont">Enter a new ranking name.</font>
-                            </td>
-                            <td valign="top">
-                                <input type="submit" class="formsubmitbutton" value="Create a New Ranking">
-                            </td>
-                        </tr>
-                    </table>
-                </form>
             </td>
-            <td valign="top">
+            <td valign="top" width="33%">
+                <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
+                    <form action="/researcher/rank-list.jsp" method="post">
+                        <input type="hidden" name="dpage" value="/researcher/rank-list.jsp">
+                        <input type="hidden" name="action" value="newrank">
+
+                        <table cellpadding="0" cellspacing="0" border="0">
+                            <tr>
+                                <td valign="top">
+                                    <font class="tinyfont">Enter a new ranking name:</font><br/>
+                                    <%=Textbox.getHtml("newrankname", researcherRankList.getNewrankname(), 255, 25, "", "")%>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td valign="top">
+                                    <input type="submit" class="formsubmitbutton" value="Create a New Ranking">
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+                </div>
                 <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
                     <font class="mediumfont">What are Rankings?</font>
                     <br/>

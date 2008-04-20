@@ -19,24 +19,28 @@ public class RankUnitStorage {
         Logger logger = Logger.getLogger(RankForQuestion.class);
         Blogger blogger = Blogger.get(response.getBloggerid());
         User user = User.get(blogger.getUserid());
-        List<Rankuser> rankusers = HibernateUtil.getSession().createCriteria(Rankuser.class)
-                                    .add(Restrictions.eq("rankid", rank.getRankid()))
-                                    .add(Restrictions.eq("userid", user.getUserid()))
-                                    .add(Restrictions.eq("responseid", response.getResponseid()))
-                                    .setCacheable(true)
-                                    .list();
-        if (rankusers!=null && rankusers.size()>0){
-            //Update points for this record (should only be one)
-            for (Iterator<Rankuser> rankuserIterator = rankusers.iterator(); rankuserIterator.hasNext();) {
-                Rankuser rankuser = rankuserIterator.next();
-                //Only update if it's actually different
-                if (rankuser.getPoints()!=rankUnit.getPoints() || rankuser.getNormalizedpoints()!=rankUnit.getNormalizedpoints()){
-                    rankuser.setPoints(rankUnit.getPoints());
-                    rankuser.setNormalizedpoints(rankUnit.getNormalizedpoints());
-                    try{rankuser.save();}catch(Exception ex){logger.error("", ex);}
-                }
-            }
-        } else {
+
+        //First, delete any existing entries
+        HibernateUtil.getSession().createQuery("delete Rankuser ru where ru.rankid="+rank.getRankid()+" and ru.userid="+user.getUserid()+" and ru.responseid="+response.getResponseid()).executeUpdate();
+
+//        List<Rankuser> rankusers = HibernateUtil.getSession().createCriteria(Rankuser.class)
+//                                    .add(Restrictions.eq("rankid", rank.getRankid()))
+//                                    .add(Restrictions.eq("userid", user.getUserid()))
+//                                    .add(Restrictions.eq("responseid", response.getResponseid()))
+//                                    .setCacheable(true)
+//                                    .list();
+//        if (rankusers!=null && rankusers.size()>0){
+//            //Update points for this record (should not be one though)
+//            for (Iterator<Rankuser> rankuserIterator = rankusers.iterator(); rankuserIterator.hasNext();) {
+//                Rankuser rankuser = rankuserIterator.next();
+//                //Only update if it's actually different
+//                if (rankuser.getPoints()!=rankUnit.getPoints() || rankuser.getNormalizedpoints()!=rankUnit.getNormalizedpoints()){
+//                    rankuser.setPoints(rankUnit.getPoints());
+//                    rankuser.setNormalizedpoints(rankUnit.getNormalizedpoints());
+//                    try{rankuser.save();}catch(Exception ex){logger.error("", ex);}
+//                }
+//            }
+//        } else {
             //Create a new rankuser entry
             Rankuser rankuser = new Rankuser();
             rankuser.setRankid(rank.getRankid());
@@ -46,7 +50,7 @@ public class RankUnitStorage {
             rankuser.setNormalizedpoints(rankUnit.getNormalizedpoints());
             rankuser.setDate(response.getResponsedate());
             try{rankuser.save();}catch(Exception ex){logger.error("", ex);}
-        }
+//        }
     }
 
 }

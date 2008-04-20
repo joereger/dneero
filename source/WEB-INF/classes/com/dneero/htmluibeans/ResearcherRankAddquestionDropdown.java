@@ -55,7 +55,7 @@ public class ResearcherRankAddquestionDropdown implements Serializable {
             String[] optionsSplit = options.split("\\n");
             int id = 0;
             for (int i = 0; i < optionsSplit.length; i++) {
-                String possans = optionsSplit[i];
+                String possans = optionsSplit[i].trim();
                 //Is there a rankquestion for this answer?
                 Rankquestion rankquestionTmp = null;
                 List<Rankquestion> rankquestions = HibernateUtil.getSession().createCriteria(Rankquestion.class)
@@ -70,7 +70,7 @@ public class ResearcherRankAddquestionDropdown implements Serializable {
                 }
                 //Build the list item
                 ResearcherRankAddquestionDropdownListitem rraqdl = new ResearcherRankAddquestionDropdownListitem();
-                rraqdl.setPossibleanswer(possans);
+                rraqdl.setPossibleanswer(possans.trim());
                 rraqdl.setRankquestion(rankquestionTmp);
                 id = id + 1;
                 rraqdl.setId(id);

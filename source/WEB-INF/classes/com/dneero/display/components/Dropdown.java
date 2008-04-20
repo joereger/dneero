@@ -305,6 +305,8 @@ public class Dropdown implements Component {
     }
 
     public ArrayList<RankUnit> calculateRankPoints(Rank rank, Response response) {
+        Logger logger = Logger.getLogger(this.getClass().getName());
+        logger.debug("start processing responseid="+response.getResponseid());
         ArrayList<RankUnit> rankUnits = new ArrayList<RankUnit>();
         int maxpoints = NormalizedpointsUtil.determineMaxPoints(question.getQuestionid(), rank.getRankid());
         //Find rankings for this question
@@ -324,7 +326,7 @@ public class Dropdown implements Component {
             for (Iterator<Questionresponse> questionresponseIterator = questionresponses.iterator(); questionresponseIterator.hasNext();){
                 Questionresponse questionresponse = questionresponseIterator.next();
                 //If the user answered in a way that gets points
-                if (rankquestion.getAnswer().equalsIgnoreCase(questionresponse.getValue())){
+                if (rankquestion.getAnswer().trim().equalsIgnoreCase(questionresponse.getValue().trim())){
                     //Hold ranking in a RankUnit object
                     RankUnit rankUnit = new RankUnit();
                     rankUnit.setPoints(rankquestion.getPoints());
@@ -335,7 +337,8 @@ public class Dropdown implements Component {
                     rankUnits.add(rankUnit);
                 }
             }
-        } 
+        }
+        logger.debug("end processing responseid="+response.getResponseid());
         return rankUnits;
     }
 
