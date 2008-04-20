@@ -3,6 +3,7 @@ package com.dneero.htmluibeans;
 import com.dneero.dao.Panel;
 import com.dneero.dao.Respondentfilter;
 import com.dneero.dao.Survey;
+import com.dneero.dao.Rank;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.htmlui.Pagez;
 import com.dneero.htmlui.ValidationException;
@@ -27,12 +28,12 @@ public class ResearcherPanelsAddpeople implements Serializable {
     private int panelid=0;
     private int surveyid=0;
     private int respondentfilterid=0;
+    private int rankid=0;
+    private int rankpercentofatleast=0;
 
     public ResearcherPanelsAddpeople(){
 
     }
-
-
 
     public void initBean(){
         if (Pagez.getRequest().getParameter("panelid")!=null && Num.isinteger(Pagez.getRequest().getParameter("panelid"))){
@@ -43,6 +44,12 @@ public class ResearcherPanelsAddpeople implements Serializable {
         }
         if (Pagez.getRequest().getParameter("respondentfilterid")!=null && Num.isinteger(Pagez.getRequest().getParameter("respondentfilterid"))){
             respondentfilterid = Integer.parseInt(Pagez.getRequest().getParameter("respondentfilterid"));
+        }
+        if (Pagez.getRequest().getParameter("rankid")!=null && Num.isinteger(Pagez.getRequest().getParameter("rankid"))){
+            rankid = Integer.parseInt(Pagez.getRequest().getParameter("rankid"));
+        }
+        if (Pagez.getRequest().getParameter("rankpercentofatleast")!=null && Num.isinteger(Pagez.getRequest().getParameter("rankpercentofatleast"))){
+            rankpercentofatleast = Integer.parseInt(Pagez.getRequest().getParameter("rankpercentofatleast"));
         }
     }
 
@@ -84,6 +91,32 @@ public class ResearcherPanelsAddpeople implements Serializable {
         return out;
     }
 
+    public TreeMap<String, String> getRanks(){
+        TreeMap<String, String> out = new TreeMap<String, String>();
+        //out.put("0", "0 - Undefined");
+        List<Rank> ranks = HibernateUtil.getSession().createCriteria(Rank.class)
+                                           .add(Restrictions.eq("userid", Pagez.getUserSession().getUser().getUserid()))
+                                           .addOrder(Order.desc("rankid"))
+                                           .setCacheable(true)
+                                           .list();
+        for (Iterator<Rank> panelIterator = ranks.iterator(); panelIterator.hasNext();) {
+            Rank rank = panelIterator.next();
+            out.put(String.valueOf(rank.getRankid()), Str.truncateString(rank.getName(), 60));
+        }
+        return out;
+    }
+
+    public TreeMap<String, String> getRankpercentofatleastOptions(){
+        TreeMap<String, String> out = new TreeMap<String, String>();
+        out.put(String.valueOf(0), "All People with Positive Ranking");
+        out.put(String.valueOf(10), "Top 10% of Ranked People");
+        out.put(String.valueOf(25), "Top 25% of Ranked People");
+        out.put(String.valueOf(50), "Top 50% of Ranked People");
+        out.put(String.valueOf(75), "Top 75% of Ranked People");
+        out.put(String.valueOf(90), "Top 90% of Ranked People");
+        return out;
+    }
+
     public TreeMap<String, String> getRespondentfilters(){
         TreeMap<String, String> out = new TreeMap<String, String>();
         out.put("0", "Apply no Filter, Use All");
@@ -121,5 +154,21 @@ public class ResearcherPanelsAddpeople implements Serializable {
 
     public void setRespondentfilterid(int respondentfilterid) {
         this.respondentfilterid = respondentfilterid;
+    }
+
+    public int getRankid() {
+        return rankid;
+    }
+
+    public void setRankid(int rankid) {
+        this.rankid = rankid;
+    }
+
+    public int getRankpercentofatleast() {
+        return rankpercentofatleast;
+    }
+
+    public void setRankpercentofatleast(int rankpercentofatleast) {
+        this.rankpercentofatleast = rankpercentofatleast;
     }
 }
