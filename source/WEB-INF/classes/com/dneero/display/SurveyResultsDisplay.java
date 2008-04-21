@@ -91,11 +91,15 @@ public class SurveyResultsDisplay {
             //Find all responses to this question
             List<Questionresponse>  questionresponses = new ArrayList<Questionresponse>();
             try{
-                questionresponses = HibernateUtil.getSession().createCriteria(Questionresponse.class)
-                   .add(Restrictions.eq("questionid", question.getQuestionid()))
-                   .add(Restrictions.in("responseid", responseidstodisplay))
-                   .setCacheable(true)
-                   .list();
+                logger.debug("About to execute SurveyResultsDisplay questionresponses query");
+                if (responseidstodisplay!=null && responseidstodisplay.size()>0){
+                    questionresponses = HibernateUtil.getSession().createCriteria(Questionresponse.class)
+                       .add(Restrictions.eq("questionid", question.getQuestionid()))
+                       .add(Restrictions.in("responseid", responseidstodisplay))
+                       .setCacheable(true)
+                       .list();
+                }
+                logger.debug("Done executing SurveyResultsDisplay questionresponses query");
             } catch (Exception ex){
                 logger.error("", ex);
             }
