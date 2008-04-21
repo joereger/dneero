@@ -13,4 +13,6 @@
     <br/>
     <a href="/researcher/about-charity.jsp"><font class="smallfont" style="font-weight: bold;">Charity Capabilities</font></a>
     <br/>
+    <a href="/researcher/about-ranking.jsp"><font class="smallfont" style="font-weight: bold;">Custom Rankings</font></a>
+    <br/>
 </div>

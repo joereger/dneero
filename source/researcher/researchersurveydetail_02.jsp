@@ -197,7 +197,7 @@ String acl="researcher";
             <img src="/images/questiontypes/textbox.gif" border="0" alt=""></img><br/><br/>
             <font class="mediumfont">Question Type: Essay (Long Text)</font><br/>
             <img src="/images/questiontypes/essay.gif" border="0" alt=""></img><br/><br/>
-            <font class="mediumfont">Question Type: Dropdown (Choose One)</font><br/>
+            <font class="mediumfont">Question Type: Dropdown (Choose One) *Rankings-compatible</font><br/>
             <img src="/images/questiontypes/dropdown.gif" border="0" alt=""></img><br/><br/>
             <font class="mediumfont">Question Type: Checkboxes (Choose Multiple)</font><br/>
             <img src="/images/questiontypes/selectmultiple.gif" border="0" alt=""></img><br/><br/>
