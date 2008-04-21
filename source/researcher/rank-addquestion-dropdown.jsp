@@ -68,7 +68,7 @@ String acl = "researcher";
 
             //Re-process the rankings for this question, but do so in a thread so that the ui is responsive
             try{
-                RankForSurveyThread qThread = new RankForSurveyThread(researcherRankAddquestionDropdown.getSurvey());
+                RankForSurveyThread qThread = new RankForSurveyThread(researcherRankAddquestionDropdown.getSurvey().getSurveyid());
                 qThread.startThread();
             } catch (Exception ex){logger.error("",ex);};
 

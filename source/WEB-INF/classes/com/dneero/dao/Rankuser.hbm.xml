@@ -9,6 +9,8 @@
             <column name="rankuserid" />
             <generator class="native" />
         </id>
+        <many-to-one name="user" column="userid" not-null="true" insert="false" update="false"/>
+
         <property name="rankid" type="int">
             <column name="rankid" not-null="true" />
         </property>

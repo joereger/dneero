@@ -99,7 +99,7 @@ ResearcherResultsAnswersAdvanced researcherResultsAnswersAdvanced = (ResearcherR
                 <font class="tinyfont" style="color: #666666;">
                     <a href="/researcher/results_answers_advanced.jsp">Reset Filter or Choose Another</a>
                 <%if (researcherResultsAnswersAdvanced.getRespondentfilter()!=null){%>
-                    | <a href="/researcher/panels-addpeople.jsp?surveyid=<%=researcherResultsAnswersAdvanced.getSurvey().getSurveyid()%>&respondentfilterid=<%=researcherResultsAnswersAdvanced.getRespondentfilter().getRespondentfilterid()%>">Add These People to a Panel</a>
+                    | <a href="/researcher/panels-addpeople.jsp?surveyid=<%=researcherResultsAnswersAdvanced.getSurvey().getSurveyid()%>&respondentfilterid=<%=researcherResultsAnswersAdvanced.getRespondentfilter().getRespondentfilterid()%>&showonly=addbysurvey">Add These People to a Panel</a>
                 <%}%>
                 </font>
             </div>

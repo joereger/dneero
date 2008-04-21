@@ -39,7 +39,7 @@ String acl = "researcher";
                 <%} else {%>
                     <%
                         ArrayList<GridCol> cols=new ArrayList<GridCol>();
-                        cols.add(new GridCol("", "<a href=\"/researcher/rank-detail.jsp?rankid=<$rankid$>\"><$name$></a>", false, "", "mediumfont", "background: #ffffff;", ""));
+                        cols.add(new GridCol("", "<img src=\"/images/activity_32.gif\" align=\"middle\" border=\"0\" width=\"32\" height=\"32\"><a href=\"/researcher/rank-detail.jsp?rankid=<$rankid$>\"><$name$></a>", false, "", "mediumfont", "background: #ffffff;", ""));
                     %>
                     <%=Grid.render(researcherRankList.getRanks(), cols, 50, "/researcher/rank-list.jsp", "page")%>
                 <%}%>
@@ -69,7 +69,11 @@ String acl = "researcher";
                 <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
                     <font class="mediumfont">What are Rankings?</font>
                     <br/>
-                    <font class="smallfont">Rankings allow you to choose certain questions as indicators of a quality that you want to track.  You can use Rankings across surveys.  When a person answers a question in a certain way they score ranking points.</font>
+                    <font class="smallfont">
+                        Rankings allow you to choose certain questions as indicators of a quality that you want to track.  For example, you could create an "Environmentally Friendly" Ranking and when people answer the question "Do you care about the environment?" with a "Yes" you assign them 50 points.
+                        <br/><br/>You can use Rankings to measure across many surveys.  In this way you get a sense of how a person responds over time to many different things.
+                        <br/><br/>As people score points you can skim those in the top 10% of Ranking score and put them into a Panel which allows you to create surveys that only they can see and take.  In this way you're not only targeting but engaging your audience.
+                    </font>
                 </div>
             </td>
         </tr>

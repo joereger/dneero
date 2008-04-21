@@ -2,6 +2,7 @@ package com.dneero.rank;
 
 import com.dneero.dao.Question;
 import com.dneero.dao.Survey;
+import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.threadpool.ThreadPool;
 import org.apache.log4j.Logger;
 
@@ -15,20 +16,25 @@ import java.io.Serializable;
 public class RankForSurveyThread implements Runnable, Serializable {
 
 
-    private Survey survey;
+    private int surveyid;
     private static ThreadPool tp;
 
-    public RankForSurveyThread(Survey survey){
-        if (survey!=null){
-            this.survey = survey;
-        }
+    public RankForSurveyThread(int surveyid){
+        this.surveyid = surveyid;
     }
 
 
     public void run(){
         Logger logger = Logger.getLogger(this.getClass().getName());
+        Survey survey = Survey.get(surveyid);
         if (survey!=null){
             RankForSurvey.processAndSave(survey);
+        }
+        try{
+            HibernateUtil.closeSession();
+        } catch (Exception ex){
+            logger.debug("Error closing hibernate session at end of thread");
+            logger.error("",ex);
         }
     }
 

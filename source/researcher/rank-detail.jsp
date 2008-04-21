@@ -109,6 +109,16 @@ String acl = "researcher";
                 </div>
                 <br/>
                 <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
+                    <form action="/researcher/panels-addpeople.jsp" method="get">
+                        <input type="hidden" name="dpage" value="/researcher/panels-addpeople.jsp">
+                        <input type="hidden" name="showonly" value="addbyrankingpercent">
+                        <input type="hidden" name="rankid" value="<%=researcherRankDetail.getRank().getRankid()%>">
+                        <input type="submit" class="formsubmitbutton" value="Add Ranked to Panel">
+                    </form>
+                    <font class="tinyfont">Add all or some or these people to Panels of respondents.  On the next screen you can apply filters to only add the top 90%, for example.</font>
+                </div>
+                <br/>
+                <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
                     <form action="/researcher/rank-detail.jsp" method="post">
                         <input type="hidden" name="dpage" value="/researcher/rank-detail.jsp">
                         <input type="hidden" name="action" value="editranking">
@@ -118,7 +128,7 @@ String acl = "researcher";
                         <input type="submit" class="formsubmitbutton" value="Edit Ranking">
                     </form>
                 </div>
-                <br/>
+
             </td>
         </tr>
     </table>

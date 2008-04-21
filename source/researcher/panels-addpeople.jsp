@@ -19,6 +19,7 @@ if (researcherPanelsAddpeople.getPanelid()<=0){
 <%@ include file="/template/header.jsp" %>
 
 <br/><br/>
+<%if (request.getParameter("showonly")==null || (request.getParameter("showonly")!=null && request.getParameter("showonly").equals("addbysurvey"))){%>
 <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
     <font class="mediumfont">Add By Survey Respondents</font>
     <br/>
@@ -73,7 +74,9 @@ if (researcherPanelsAddpeople.getPanelid()<=0){
 
     </form>
 </div>
+<%}%>
 
+<%if (request.getParameter("showonly")==null || (request.getParameter("showonly")!=null && request.getParameter("showonly").equals("addbyrankingpercent"))){%>
 <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
     <font class="mediumfont">Add By Ranking Percentage</font>
     <br/>
@@ -138,6 +141,7 @@ if (researcherPanelsAddpeople.getPanelid()<=0){
 
     </form>
 </div>
+<%}%>
 
 <%@ include file="/template/footer.jsp" %>
 

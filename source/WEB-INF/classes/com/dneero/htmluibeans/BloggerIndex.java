@@ -259,7 +259,7 @@ public class BloggerIndex implements Serializable {
 
                 //Handle rankings in a thread
                 try{
-                    RankForResponseThread qThread = new RankForResponseThread(response);
+                    RankForResponseThread qThread = new RankForResponseThread(response.getResponseid());
                     qThread.startThread();
                 } catch (Exception ex){logger.error("",ex);};
 

@@ -23,6 +23,7 @@ public class Rankuser extends BasePersistentClass implements java.io.Serializabl
     private int responseid;
     private int points;
     private double normalizedpoints;
+    private User user;
 
 
     public static Rankuser get(int id) {
@@ -119,5 +120,13 @@ public class Rankuser extends BasePersistentClass implements java.io.Serializabl
 
     public void setNormalizedpoints(double normalizedpoints) {
         this.normalizedpoints = normalizedpoints;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

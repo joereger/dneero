@@ -9,7 +9,7 @@ String acl = "researcher";
 %>
 <%@ include file="/template/auth.jsp" %>
 <%
-ResearcherPanelsAddpeopleconfirm researcherPanelsAddpeopleconfirm = (ResearcherPanelsAddpeopleconfirm)Pagez.getBeanMgr().get("ResearcherPanelsAddpeopleconfirm");
+ResearcherPanelsAddpeopleByRankconfirm researcherPanelsAddpeopleconfirm = (ResearcherPanelsAddpeopleByRankconfirm)Pagez.getBeanMgr().get("ResearcherPanelsAddpeopleByRankconfirm");
 %>
 <%
     if (request.getParameter("action") != null && request.getParameter("action").equals("addconfirm")) {
@@ -31,22 +31,12 @@ ResearcherPanelsAddpeopleconfirm researcherPanelsAddpeopleconfirm = (ResearcherP
         <input type="hidden" name="dpage" value="/researcher/panels-addpeoplebyrankconfirm.jsp">
         <input type="hidden" name="action" value="addconfirm">
         <input type="hidden" name="panelid" value="<%=researcherPanelsAddpeopleconfirm.getPanelid()%>">
-        <input type="hidden" name="surveyid" value="<%=researcherPanelsAddpeopleconfirm.getSurveyid()%>">
         <input type="hidden" name="respondentfilterid" value="<%=researcherPanelsAddpeopleconfirm.getRespondentfilterid()%>">
         <input type="hidden" name="bloggeridstoaddcommasep" value="<%=researcherPanelsAddpeopleconfirm.getBloggeridstoaddcommasep()%>">
 
         <table cellpadding="5" cellspacing="0" border="0">
 
-            <tr>
-                <td valign="top">
-                    <font class="formfieldnamefont">Total People in Selection</font>
-                    <br/>
-                    <font class="tinyfont">The total number of people from the survey and filter selected.</font>
-                </td>
-                <td valign="top">
-                    <font class="mediumfont"><%=researcherPanelsAddpeopleconfirm.getNumberofrespondents()%></font>
-                </td>
-            </tr>
+
 
             <tr>
                 <td valign="top">
@@ -67,7 +57,7 @@ ResearcherPanelsAddpeopleconfirm researcherPanelsAddpeopleconfirm = (ResearcherP
                     <br/>
                     <font class="tinyfont">People will be added to the panel '<%=researcherPanelsAddpeopleconfirm.getPanel().getName()%>'</font>
                     <br/>
-                    <a href="/researcher/panels-addpeople.jsp?surveyid=<%=researcherPanelsAddpeopleconfirm.getSurveyid()%>&respondentfilterid=<%=researcherPanelsAddpeopleconfirm.getRespondentfilterid()%>&panelid=<%=researcherPanelsAddpeopleconfirm.getPanelid()%>"><font class="tinyfont">Nevermind, Take me Back</font></a>
+                    <a href="/researcher/panels-addpeople.jsp?respondentfilterid=<%=researcherPanelsAddpeopleconfirm.getRespondentfilterid()%>&rankid=<%=researcherPanelsAddpeopleconfirm.getRankid()%>&panelid=<%=researcherPanelsAddpeopleconfirm.getPanelid()%>&rankpercentofatleast=<%=researcherPanelsAddpeopleconfirm.getRankpercentofatleast()%>"><font class="tinyfont">Nevermind, Take me Back</font></a>
                 </td>
                 <td valign="top">
 
