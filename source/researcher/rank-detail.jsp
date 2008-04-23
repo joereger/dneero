@@ -67,7 +67,7 @@ String acl = "researcher";
                                                        .list();
                                 for (Iterator<Rankquestion> rankquestionIterator = rankquestions.iterator(); rankquestionIterator.hasNext();){
                                     Rankquestion rankquestion = rankquestionIterator.next();
-                                    int numberWhoAnsweredLikeThis = NumFromUniqueResult.getInt("SELECT count(*) from Questionresponse where questionid="+question.getQuestionid()+" and value='"+Str.cleanForSQL(rankquestion.getAnswer())+"'");
+                                    int numberWhoAnsweredLikeThis = NumFromUniqueResult.getInt("SELECT count(*) from Rankuser where rankquestionid="+rankquestion.getRankquestionid()+" and rankid='"+rankquestion.getRankid()+"'");
                                     %>
                                     <br/><img src="/images/clear.gif" alt="" width="35" height="1"><font class="tinyfont"><%=rankquestion.getAnswer()%> = <%=rankquestion.getPoints()%> points (<%=numberWhoAnsweredLikeThis%> people)</font>
                                     <%
@@ -116,6 +116,15 @@ String acl = "researcher";
                         <input type="submit" class="formsubmitbutton" value="Add Ranked to Panel">
                     </form>
                     <font class="tinyfont">Add all or some or these people to Panels of respondents.  On the next screen you can apply filters to only add the top 90%, for example.</font>
+                </div>
+                <br/>
+                <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
+                    <form action="/researcher/rank-demographics.jsp" method="get">
+                        <input type="hidden" name="dpage" value="/researcher/rank-demographics.jsp">
+                        <input type="hidden" name="rankid" value="<%=researcherRankDetail.getRank().getRankid()%>">
+                        <input type="submit" class="formsubmitbutton" value="Ranking Demographics">
+                    </form>
+                    <font class="tinyfont">Age, gender, etc for members of this Ranking.</font>
                 </div>
                 <br/>
                 <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">

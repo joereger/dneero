@@ -11,6 +11,9 @@
         </id>
         <many-to-one name="user" column="userid" not-null="true" insert="false" update="false"/>
 
+        <property name="rankquestionid" type="int">
+            <column name="rankquestionid" not-null="true" />
+        </property>
         <property name="rankid" type="int">
             <column name="rankid" not-null="true" />
         </property>

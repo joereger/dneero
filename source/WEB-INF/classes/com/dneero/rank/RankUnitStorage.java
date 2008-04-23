@@ -21,7 +21,7 @@ public class RankUnitStorage {
         User user = User.get(blogger.getUserid());
 
         //First, delete any existing entries
-        HibernateUtil.getSession().createQuery("delete Rankuser ru where ru.rankid="+rank.getRankid()+" and ru.userid="+user.getUserid()+" and ru.responseid="+response.getResponseid()).executeUpdate();
+        HibernateUtil.getSession().createQuery("delete Rankuser ru where ru.rankid="+rank.getRankid()+" and ru.userid="+user.getUserid()+" and ru.responseid="+response.getResponseid()+" and ru.rankquestionid="+rankUnit.getRankquestionid()).executeUpdate();
 
 //        List<Rankuser> rankusers = HibernateUtil.getSession().createCriteria(Rankuser.class)
 //                                    .add(Restrictions.eq("rankid", rank.getRankid()))
@@ -43,6 +43,7 @@ public class RankUnitStorage {
 //        } else {
             //Create a new rankuser entry
             Rankuser rankuser = new Rankuser();
+            rankuser.setRankquestionid(rankUnit.getRankquestionid());
             rankuser.setRankid(rank.getRankid());
             rankuser.setUserid(user.getUserid());
             rankuser.setResponseid(response.getResponseid());
