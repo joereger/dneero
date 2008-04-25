@@ -27,6 +27,9 @@ public class AccountIndex implements Serializable {
     private boolean userhasresponsependings = false;
     private String msg = "";
     private boolean isfirsttimelogin = false;
+    private String pendingearnings = "$0.00";
+    private double currentbalanceDbl = 0.0;
+    private double pendingearningsDbl = 0.0;
 
     public AccountIndex(){
 
@@ -36,7 +39,10 @@ public class AccountIndex implements Serializable {
         Logger logger = Logger.getLogger(this.getClass().getName());
         if(Pagez.getUserSession().getUser()!=null && Num.isinteger(String.valueOf(Pagez.getUserSession().getUser().getUserid()))){
             CurrentBalanceCalculator cbc = new CurrentBalanceCalculator(Pagez.getUserSession().getUser());
+            currentbalanceDbl = cbc.getCurrentbalance();
             currentbalance = "$"+Str.formatForMoney(cbc.getCurrentbalance());
+            pendingearningsDbl = cbc.getPendingearnings();
+            pendingearnings = "$"+Str.formatForMoney(pendingearningsDbl);
 
             //Set persistent login cookie, if necessary
             if (Pagez.getRequest().getParameter("keepmeloggedin")!=null && Pagez.getRequest().getParameter("keepmeloggedin").equals("1")){
@@ -93,5 +99,27 @@ public class AccountIndex implements Serializable {
         this.isfirsttimelogin = isfirsttimelogin;
     }
 
- 
+    public String getPendingearnings() {
+        return pendingearnings;
+    }
+
+    public void setPendingearnings(String pendingearnings) {
+        this.pendingearnings = pendingearnings;
+    }
+
+    public double getCurrentbalanceDbl() {
+        return currentbalanceDbl;
+    }
+
+    public void setCurrentbalanceDbl(double currentbalanceDbl) {
+        this.currentbalanceDbl = currentbalanceDbl;
+    }
+
+    public double getPendingearningsDbl() {
+        return pendingearningsDbl;
+    }
+
+    public void setPendingearningsDbl(double pendingearningsDbl) {
+        this.pendingearningsDbl = pendingearningsDbl;
+    }
 }

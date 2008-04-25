@@ -20,7 +20,7 @@ String acl = "public";
     if (request.getParameter("action") != null && request.getParameter("action").equals("copy")) {
         try {
             researcherIndex.copy();
-            Pagez.getUserSession().setMessage("Survey copied!");
+            Pagez.getUserSession().setMessage("Conversation copied!");
         } catch (ValidationException vex) {
             Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
         }
@@ -138,7 +138,7 @@ if (Pagez.getUserSession().getIsloggedin() && (Pagez.getUserSession().getUser().
                     <div class="rounded" style="padding: 5px; margin: 5px; background: #e6e6e6;">
                         <div class="rounded" style="padding: 15px; margin: 5px; background: #ffffff;">
                             <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-                                <a href="/researcher/researchersurveydetail_01.jsp"><font class="mediumfont" style="color: #596697;">Start a New Survey</font></a>
+                                <a href="/researcher/researchersurveydetail_01.jsp"><font class="mediumfont" style="color: #596697;">Start a New Conversation</font></a>
                             </td></tr>
                             <tr><td valign="top"></td><td valign="top">
                                 <font class="smallfont">Create a new survey for bloggers. This step-by-step wizard will guide you through the process.  Your survey can be up and running in a matter of minutes.</font>
@@ -196,10 +196,10 @@ if (Pagez.getUserSession().getIsloggedin() && (Pagez.getUserSession().getUser().
                     </div>
                 </td>
                 <td valign="top">
-                    <font class="largefont" style="color: #cccccc;">Surveys You've Created</font>
+                    <font class="largefont" style="color: #cccccc;">Conversations You've Created</font>
                     <br/>
                     <%if (researcherSurveyList.getSurveys()==null || researcherSurveyList.getSurveys().size()==0){%>
-                        <font class="normalfont">You haven't yet created any surveys. <a href="/researcher/researchersurveydetail_01.jsp">Start a New Survey</a>.</font>
+                        <font class="normalfont">You haven't yet created any conversations. <a href="/researcher/researchersurveydetail_01.jsp">Start a New Survey</a>.</font>
                     <%} else {%>
                         <%
                             ArrayList<GridCol> cols=new ArrayList<GridCol>();

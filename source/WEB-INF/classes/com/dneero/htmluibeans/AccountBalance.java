@@ -19,7 +19,6 @@ import java.io.Serializable;
  */
 public class AccountBalance implements Serializable {
 
-
     private List balances;
     private String currentbalance = "$0.00";
     private String pendingearnings = "$0.00";

@@ -4,7 +4,7 @@
 <html>
 <head>
   <meta http-equiv="Content-Type" content="text/html;CHARSET=iso-8859-1" />
-  <title>dNeero Social Surveys</title>
+  <title>dNeero: True Social Network Currency</title>
   <link rel="stylesheet" type="text/css" href="/css/basic.css" />
   <link rel="stylesheet" type="text/css" href="/css/dneero.css" />
   <link rel="stylesheet" type="text/css" href="/js/niftycube/niftyCorners.css" />
@@ -55,14 +55,14 @@
             </td>
             <td valign="top" background="/images/navtabs2/mainbar_bg.gif">
                 <a href="/blogger/index.jsp">
-                <%if (!navtab.equals("bloggers")){%><img src="/images/navtabs2/bloggers_off.gif" width="138" height="70" border="0"/><%}%>
-                <%if (navtab.equals("bloggers")){%><img src="/images/navtabs2/bloggers_on.gif" width="138" height="70" border="0"/><%}%>
+                <%if (!navtab.equals("bloggers")){%><img src="/images/navtabs2/socialpeople_off.gif" width="138" height="70" border="0"/><%}%>
+                <%if (navtab.equals("bloggers")){%><img src="/images/navtabs2/socialpeople_on.gif" width="138" height="70" border="0"/><%}%>
                 </a>
             </td>
             <td valign="top" background="/images/navtabs2/mainbar_bg.gif">
                 <a href="/researcher/index.jsp">
-                <%if (!navtab.equals("researchers")){%><img src="/images/navtabs2/researchers_off.gif" width="138" height="70" border="0"/><%}%>
-                <%if (navtab.equals("researchers")){%><img src="/images/navtabs2/researchers_on.gif" width="138" height="70" border="0"/><%}%>
+                <%if (!navtab.equals("researchers")){%><img src="/images/navtabs2/conversationigniters_off.gif" width="138" height="70" border="0"/><%}%>
+                <%if (navtab.equals("researchers")){%><img src="/images/navtabs2/conversationigniters_on.gif" width="138" height="70" border="0"/><%}%>
                 </a>
             </td>
             <td valign="top" background="/images/navtabs2/mainbar_bg.gif">
@@ -84,9 +84,9 @@
             <td bgcolor="#dadada" style="text-align: left; vertical-align: middle;" colspan="6" height="25">
                 <%if (navtab.equals("home")){%>
                     <img src="/images/clear.gif" alt="" width="10" height="1"/>
-                    <a href="/publicsurveylist.jsp"><font class="subnavfont" style="color: #000000;">Active Surveys</font></a>
+                    <a href="/publicsurveylist.jsp"><font class="subnavfont" style="color: #000000;">Active Conversations</font></a>
                     <img src="/images/clear.gif" alt="" width="10" height="1"/>
-                    <a href="/publicoldsurveylist.jsp"><font class="subnavfont" style="color: #000000;">Old Surveys</font></a>
+                    <a href="/publicoldsurveylist.jsp"><font class="subnavfont" style="color: #000000;">Old Conversations</font></a>
                     <img src="/images/clear.gif" alt="" width="10" height="1"/>
                     <a href="/blog.jsp"><font class="subnavfont" style="color: #000000;">The dNeero Blog</font></a>
                     <img src="/images/clear.gif" alt="" width="10" height="1"/>
@@ -101,36 +101,36 @@
                 <%if (navtab.equals("bloggers")){%>
                     <%if (Pagez.getUserSession().getIsloggedin() && Pagez.getUserSession().getUser().getBloggerid()>0){%>
                         <img src="/images/clear.gif" alt="" width="10" height="1"/>
-                        <a href="/publicsurveylist.jsp"><font class="subnavfont" style="color: #000000;">Find Surveys</font></a>
+                        <a href="/publicsurveylist.jsp"><font class="subnavfont" style="color: #000000;">Find Conversations</font></a>
                         <img src="/images/clear.gif" alt="" width="10" height="1"/>
                         <a href="/blogger/bloggerearningsrevshare.jsp"><font class="subnavfont" style="color: #000000;">Referral Program</font></a>
                         <img src="/images/clear.gif" alt="" width="10" height="1"/>
-                        <a href="/blogger/index.jsp"><font class="subnavfont" style="color: #000000;">Earnings from Completed Surveys</font></a>
+                        <a href="/blogger/index.jsp"><font class="subnavfont" style="color: #000000;">Earnings from Completed</font></a>
                         <img src="/images/clear.gif" alt="" width="10" height="1"/>
-                        <a href="/blogger/bloggerdetails.jsp"><font class="subnavfont" style="color: #000000;">Blogger Profile</font></a>
+                        <a href="/blogger/bloggerdetails.jsp"><font class="subnavfont" style="color: #000000;">Profile</font></a>
                     <%}%>
                     <img src="/images/clear.gif" alt="" width="10" height="1"/>
-                    <a href="/blogger/bloggerfaq.jsp"><font class="subnavfont" style="color: #000000;">Blogger FAQ</font></a>
+                    <a href="/blogger/bloggerfaq.jsp"><font class="subnavfont" style="color: #000000;">Social People FAQ</font></a>
                     <img src="/images/clear.gif" alt="" width="10" height="1"/>
-                    <a href="/blogger/index.jsp?showmarketingmaterial=1"><font class="subnavfont" style="color: #000000;">Blogger Basics</font></a>
+                    <a href="/blogger/index.jsp?showmarketingmaterial=1"><font class="subnavfont" style="color: #000000;">Social People Basics</font></a>
                 <%}%>
                 <%if (navtab.equals("researchers")){%>
                     <%if (Pagez.getUserSession().getIsloggedin() && Pagez.getUserSession().getUser().getResearcherid()>0){%>
                         <img src="/images/clear.gif" alt="" width="10" height="1"/>
-                        <a href="/researcher/index.jsp"><font class="subnavfont" style="color: #000000;">My Surveys</font></a>
+                        <a href="/researcher/index.jsp"><font class="subnavfont" style="color: #000000;">My Conversations</font></a>
                         <img src="/images/clear.gif" alt="" width="10" height="1"/>
                         <a href="/researcher/panels.jsp"><font class="subnavfont" style="color: #000000;">Panels</font></a>
                         <img src="/images/clear.gif" alt="" width="10" height="1"/>
                         <a href="/researcher/rank-list.jsp"><font class="subnavfont" style="color: #000000;">Rankings</font></a>
                         <img src="/images/clear.gif" alt="" width="10" height="1"/>
-                        <a href="/researcher/researcherdetails.jsp"><font class="subnavfont" style="color: #000000;">Researcher Details</font></a>
+                        <a href="/researcher/researcherdetails.jsp"><font class="subnavfont" style="color: #000000;">Igniter Details</font></a>
                         <img src="/images/clear.gif" alt="" width="10" height="1"/>
                         <a href="/researcher/researcherbilling.jsp"><font class="subnavfont" style="color: #000000;">Billing</font></a>
                     <%}%>
                     <img src="/images/clear.gif" alt="" width="10" height="1"/>
-                    <a href="/researcher/researcherfaq.jsp"><font class="subnavfont" style="color: #000000;">Researcher FAQ</font></a>
+                    <a href="/researcher/researcherfaq.jsp"><font class="subnavfont" style="color: #000000;">Igniter FAQ</font></a>
                     <img src="/images/clear.gif" alt="" width="10" height="1"/>
-                    <a href="/researcher/index.jsp?showmarketingmaterial=1"><font class="subnavfont" style="color: #000000;">Researcher Basics</font></a>
+                    <a href="/researcher/index.jsp?showmarketingmaterial=1"><font class="subnavfont" style="color: #000000;">Igniter Basics</font></a>
                 <%}%>
                 <%if (navtab.equals("youraccount")){%>
                     <%if (Pagez.getUserSession().getIsloggedin()){%>

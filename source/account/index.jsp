@@ -10,7 +10,6 @@ String acl = "account";
 %>
 <%
 AccountIndex accountIndex = (AccountIndex) Pagez.getBeanMgr().get("AccountIndex");
-AccountBalance accountBalance = (AccountBalance) Pagez.getBeanMgr().get("AccountBalance");
 %>
 <%
 if (accountIndex.getUserhasresponsependings()){
@@ -46,9 +45,9 @@ if (accountIndex.getUserhasresponsependings()){
                             <tr><td valign="top"></td><td valign="top">
                                 <font class="smallfont">See the earnings and charges made to your account.  View financial transactions including failed attempts to charge credit cards or pay you.</font>
                                 <br/><br/><font class="formfieldnamefont" style="color: #666666;">Current Balance:</font>
-                                <br/><font class="largefont" style="color: #cccccc;"><%=accountBalance.getCurrentbalance()%></font>
-                                <% if (accountBalance.getPendingearningsDbl()>0){ %>
-                                    <br/><font class="formfieldnamefont" style="color: #666666;">Pending: <%=accountBalance.getPendingearnings()%></font>
+                                <br/><font class="largefont" style="color: #cccccc;"><%=accountIndex.getCurrentbalance()%></font>
+                                <% if (accountIndex.getPendingearningsDbl()>0){ %>
+                                    <br/><font class="formfieldnamefont" style="color: #666666;">Pending: <%=accountIndex.getPendingearnings()%></font>
                                     <br/><font class="tinyfont" style="color: #666666;">Remember, your surveys must generate impressions for 10 days after you take them to get paid.</font>
                                 <% } %>
                             </td></tr></table>
@@ -104,13 +103,6 @@ if (accountIndex.getUserhasresponsependings()){
                    <%}%>
                 </td>
                 <td valign="top">
-
-                    <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
-                        <font class="mediumfont" style="color: #666666;"><b>Don't Miss the Reseller Program!</b></font>
-                        <br/>
-                        <font class="smallfont" style="color: #666666;"><b>The <a href="/account/reseller.jsp">Reseller Program</a> allows you to earn big bucks selling Social Surveys!  Put on your sales hats people!</b></font>
-                    </div>
-                    <br/>
 
                     <table cellpadding="20" cellspacing="0" border="0" width="100%">
                         <tr>

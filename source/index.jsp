@@ -114,7 +114,7 @@ function rButtonImgInact(){
 
                <div class="rounded" style="background: #e6e6e6; padding: 10px;">
                     <%TotalSurveysTaken tst = (TotalSurveysTaken) GetCachedStuff.get(new TotalSurveysTaken());%>
-                    <font class="mediumfont" style="color: #999999;">Surveys Taken</font><br/>
+                    <font class="mediumfont" style="color: #999999;">Conversation Engagements</font><br/>
                     <font class="largefont" style="color: #666666;"><%=tst.getHtml()%></font>
                </div>
 
@@ -122,7 +122,7 @@ function rButtonImgInact(){
 
                <div class="rounded" style="background: #e6e6e6; padding: 10px;">
                     <% TotalImpressions ti = (TotalImpressions) GetCachedStuff.get(new TotalImpressions());%>
-                    <font class="mediumfont" style="color: #999999;">Survey Embeds</font><br/>
+                    <font class="mediumfont" style="color: #999999;">Conversation Embeds</font><br/>
                     <font class="largefont" style="color: #666666;"><%=ti.getHtml()%></font><br/>
                     <font class="tinyfont">Times a survey's been displayed while embedded in a blog or social media profile.</font><br/>
                </div>
@@ -178,7 +178,7 @@ function rButtonImgInact(){
                 <div class="rounded" style="background: #e6e6e6; padding: 10px;">
                     <div style="text-align: right; float: right; width: 100px;"><font class="tinyfont" style="color: #999999;">updated every 5 min</font></div>
                     <% RecentSurveyResponses rsr = (RecentSurveyResponses) GetCachedStuff.get(new RecentSurveyResponses()); %>
-                    <font class="mediumfont" style="color: #999999;">Recent Survey Responses</font><br/>
+                    <font class="mediumfont" style="color: #999999;">Recent Conversation Ignitions</font><br/>
                     <%=rsr.getHtml()%>
                 </div>
 

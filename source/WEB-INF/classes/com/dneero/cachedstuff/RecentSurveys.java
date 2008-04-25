@@ -34,7 +34,7 @@ public class RecentSurveys implements CachedStuff, Serializable {
 
         out.append("<table cellpadding='2' cellspacing='1' border='0' width='100%'>");
         out.append("<tr>");
-        out.append("<td><font class=\"mediumfont\" style=\"color: #999999;\">Surveys</font></td>");
+        out.append("<td><font class=\"mediumfont\" style=\"color: #999999;\">Conversations</font></td>");
         out.append("<td bgcolor='#cccccc' nowrap><font class='tinyfont' style='color: #666666;'>Ends In</font></td>");
         out.append("<td bgcolor='#cccccc' nowrap><font class='tinyfont' style='color: #666666;'>Earn</font></td>");
         out.append("<td bgcolor='#cccccc' nowrap><font class='tinyfont' style='color: #666666;'>Slots Available</font></td>");
