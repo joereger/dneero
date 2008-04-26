@@ -11,7 +11,7 @@
 <%@ page import="com.dneero.dbgrid.Grid" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
-String pagetitle = "<img src=\"/images/user.png\" alt=\"\" border=\"0\" width=\"128\" height=\"128\" align=\"right\"/>For Bloggers<br/><br clear=\"all\"/>";
+String pagetitle = "<img src=\"/images/user.png\" alt=\"\" border=\"0\" width=\"128\" height=\"128\" align=\"right\"/>Social People<br/><br clear=\"all\"/>";
 String navtab = "bloggers";
 String acl = "public";
 %>
