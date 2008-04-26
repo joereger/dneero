@@ -78,26 +78,26 @@ String acl = "public";
                                 <br/>
                                 <img src="/images/info-128.png" width="128" height="128"/>
                                 <br/>
-                                <font class="mediumfont">It's how this survey looks in your blog!</font>
+                                <font class="mediumfont">It's how this conversation looks in your blog!</font>
                                 <br/>
                                 <font class="smallfont">(of course, we'll put your actual answers in there)</font>
                             </div>
                             <br/>
                             <font class="smallfont">
                             <br/><br/><b>How do I add it to my blog?</b><br/>
-                            We'll make it incredibly easy.  After you take the survey we'll give you a line of code that you copy and paste into a blog post.  That's it!
+                            We'll make it incredibly easy.  After you answer the questions we'll give you a line of code that you copy and paste into a blog post.  That's it!
 
                             <br/><br/><b>What will appear on my blog?</b><br/>
-                            The survey with your answers.  This is an opportunity to show your readers what you think.
+                            The questions with your answers.  This is an opportunity to show your readers what you think.
 
                             <br/><br/><b>How big is it?</b><br/>
-                            Smaller than a YouTube embed.  It's 425 pixels wide by 250 pixels tall.  That's it.  If the survey is long it'll scroll automatically.
+                            Smaller than a YouTube embed.  It's 425 pixels wide by 250 pixels tall.  That's it.  If the questions/answers are long it'll scroll automatically.
 
                             <br/><br/><b>Can people who read my blog answer the questions?</b><br/>
-                            Absolutely!  At the bottom of the survey there's a link where they can provide their own answers and then post them to their own blog.
+                            Absolutely!  At the bottom of the conversation there's a link where they can provide their own answers and then post them to their own blog.
 
                             <br/><br/><b>Will I see how others answered?</b><br/>
-                            Yep!  This is the cool part!  When you click the See How Others Answered link at the bottom of the survey you'll see how those people who clicked from your blog answered.  Then you can quickly compare your readers to all bloggers who took the survey!
+                            Yep!  This is the cool part!  When you click the See How Others Answered link at the bottom of the conversation you'll see how those people who clicked from your blog answered.  Then you can quickly compare your readers to all bloggers who joined the conversation!
                             </font>
                         </div>
                     </td>
@@ -107,7 +107,7 @@ String acl = "public";
         <% if (Pagez.getUserSession().getIsfacebookui()){ %>
             <div class="rounded" style="background: #e6e6e6;">
                 <font class="normalfont">
-                <b>Once you take the survey we'll post a link to your Facebook feed and profile box.  When friends click that link they'll see your answers and be able to answer for themselves.</b><br/>
+                <b>Once you join the conversation we'll post a link to your Facebook feed and profile box.  When friends click that link they'll see your answers and be able to answer for themselves.</b><br/>
                 </font>
             </div>
         <% } %>
@@ -116,12 +116,12 @@ String acl = "public";
         <% if (Pagez.getUserSession().getIsfacebookui()){ %>
             <div class="rounded" style="background: #e6e6e6;">
                 <img src="/images/ok-64.png" width="64" height="64" align="left"/>
-                <font class="mediumfont"><b>Your survey response has been accepted!</b></font>
+                <font class="mediumfont"><b>Your response has been accepted!</b></font>
                 <br/>
-                <font class="smallfont">A link to your survey has been posted to your Facebook feed (which qualifies as a blog, for payment purposes).  Keep the links on your mini-feed and profile because to get paid you must have somebody view your answers on 5 of the 10 days following when you took the survey.</font><br/><br/>
+                <font class="smallfont">A link to your answers has been posted to your Facebook feed (which qualifies as a blog, for payment purposes).  Keep the links on your mini-feed and profile because to get paid you must have somebody view your answers on 5 of the 10 days following when you joined the conversation.</font><br/><br/>
                 <% if (!publicSurveyPostit.getJustcompletedsurvey()){ %>
                     <div class="rounded" style="background: #e6e6e6;">
-                        <font class="smallfont">If you've deleted the survey from your Facebook Mini Feed or Profile and would like to add them back, click below.  Note that if you've turned off the profile box you'll have to turn it back on yourself in the Facebook settings for the dNeero app.</font><br/>
+                        <font class="smallfont">If you've deleted the conversation from your Facebook Mini Feed or Profile and would like to add them back, click below.  Note that if you've turned off the profile box you'll have to turn it back on yourself in the Facebook settings for the dNeero app.</font><br/>
                         <form action="/surveypostit.jsp" method="post">
                             <input type="hidden" name="dpage" value="/surveypostit.jsp">
                             <input type="hidden" name="action" value="updatefacebookprofile">
@@ -131,9 +131,9 @@ String acl = "public";
                     </div>
                 <% } %>
                 <div class="rounded" style="background: #ffffff;">
-                    <font class="formfieldnamefont"><b>Now earn even more... tell friends about this survey:</b></font>
+                    <font class="formfieldnamefont"><b>Now earn even more... tell friends about this conversation:</b></font>
                     <br/>
-                    <font class="smallfont">They'll be able to see your answers and then take the survey themselves. If your friend hasn't ever used dNeero then <b>we'll pay you for any earnings they generate</b>... and any earnings their friends make... and any earnings their friends make... up to five levels deep!</font>
+                    <font class="smallfont">They'll be able to see your answers and then join the conversation themselves. If your friend hasn't ever used dNeero then <b>we'll pay you for any earnings they generate</b>... and any earnings their friends make... and any earnings their friends make... up to five levels deep!</font>
                     <br/>
                     <fb:request-form
                         action="http://apps.facebook.com/<%=SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_APP_NAME)%>/?dpage=/surveypostit.jsp&surveyid=<%=publicSurveyPostit.getSurvey().getSurveyid()%>"
@@ -144,7 +144,7 @@ String acl = "public";
                     ">
                         <fb:multi-friend-selector
                             showborder="false"
-                            actiontext="Invite friends to see your answers for this survey."
+                            actiontext="Invite friends to see your answers for this conversation."
                             rows="3"
                             max="20"
                             bypass="skip" />
@@ -165,7 +165,7 @@ String acl = "public";
                             <br/>
                             <font class="mediumfont">Now post your answers to your blog!</font>
                             <br/>
-                            <font class="smallfont">(instructions to the right... the survey must appear on your blog for 5 of 10 days from when you took the survey to be paid)</font>
+                            <font class="smallfont">(instructions to the right... the conversation must appear on your blog for 5 of 10 days from when you joined the conversation to be paid)</font>
                         </div>
                         <br/>
                         <div class="rounded" style="background: #ffffff; text-align: center;">
@@ -191,9 +191,9 @@ String acl = "public";
                             <div class="rounded" style="background: #e6e6e6; text-align: center;">
                                 <img src="/images/charity-128.png" alt="For Charity" width="128" height="128"/>
                                 <br/>
-                                <font class="mediumfont">This is a Charity Only survey.</font>
+                                <font class="mediumfont">This is a Charity Only conversation.</font>
                                 <br/>
-                                <font class="tinyfont">The creator of the survey requires that dNeero donate all of your earnings from the survey to a charity of your choice.  It's a chance to do some good!</font>
+                                <font class="tinyfont">The conversation igniter requires that dNeero donate all of your earnings from the conversation to a charity of your choice.  It's a chance to do some good!</font>
                             </div>
                         <% } %>
 
@@ -202,16 +202,16 @@ String acl = "public";
                         We've made it incredibly easy.  Click the Show link next to your blogging or social networking tool (right of this screen) and follow the instructions.  It usually boils down to copying and pasting a single line of code into a blog post.  That's it!
 
                         <br/><br/><b>What will appear on my blog?</b><br/>
-                        The survey with your answers.  This is an opportunity to show your readers what you think.
+                        The conversation with your answers.  This is an opportunity to show your readers what you think.
 
                         <br/><br/><b>How big is it?</b><br/>
-                        Smaller than a YouTube embed.  It's 425 pixels wide by 250 pixels tall.  That's it.  If the survey is long it'll scroll automatically.
+                        Smaller than a YouTube embed.  It's 425 pixels wide by 250 pixels tall.  That's it.  If the conversation is long it'll scroll automatically.
 
                         <br/><br/><b>Can people who read my blog answer the questions?</b><br/>
-                        Absolutely!  At the bottom of the survey there's a link where they can provide their own answers and then post them to their own blog.
+                        Absolutely!  At the bottom of the conversation there's a link where they can provide their own answers and then post them to their own blog.
 
                         <br/><br/><b>Will I see how others answered?</b><br/>
-                        Yep!  This is the cool part!  When you click the See How Others Answered link at the bottom of the survey you'll see how those people who clicked from your blog answered.  Then you can quickly compare your readers to all bloggers who took the survey!
+                        Yep!  This is the cool part!  When you click the See How Others Answered link at the bottom of the conversation you'll see how those people who clicked from your blog answered.  Then you can quickly compare your readers to all bloggers who took the survey!
                         </font>
 
                         <br/><br/>
@@ -224,7 +224,7 @@ String acl = "public";
                 </td>
                 <td valign="top" class="posttoblog_tabs_tablewidth">
                     <center><div class="rounded" style="background: #e6e6e6; text-align: left; padding: 20px;"><font class="smallfont">
-                    Instructions for posting your survey answers to various blogs and social networks.  Need <a href="/account/accountsupportissueslist.jsp"><font class="smallfont">help</font></a> posting to your blog?
+                    Instructions for posting your conversation answers to various blogs and social networks.  Need <a href="/account/accountsupportissueslist.jsp"><font class="smallfont">help</font></a> posting to your blog?
                     </font></div></center>
 
                     <br/><br/>
@@ -263,7 +263,7 @@ String acl = "public";
                             <li>Log in to LiveJournal and click the "Post" link at the top of the page. NOTE: If you go to your journal first (e.g., [YourJournal].livejournal.com) and login from there, you should click the "Post to Journal" link at the top of the page.</li>
                             <li>On the "Rich text" tab, click the "Embed Media" link (it's a round disk in the center of the Rich Text editor's menu bar). We recommend that you not use the HTML tab. </li>
                             <li>Paste the code in the "Insert Embedded Content" box and click the "Insert" button.</li>
-                            <li>If you want to add text do so at the blinking cursor ... you'll see it beneath the survey window.</li>
+                            <li>If you want to add text do so at the blinking cursor ... you'll see it beneath the conversation window.</li>
                             <li>Write a subject for your post.</li>
                             <li>Click the "Post to YourJournal" button at the bottom of the page and you're done!</li>
                         </ol>
@@ -275,7 +275,7 @@ String acl = "public";
                     <font class="smallfont">
                         <ol>
                             <li>Use the <a href="http://apps.facebook.com/dneerosocialsurveys/">dNeero Facebook App</a>!</li>
-                            <li>dNeero is deeply integrated into Facebook... there's no need for you to post anything... we'll automatically add surveys to your profile!</li>
+                            <li>dNeero is deeply integrated into Facebook... there's no need for you to post anything... we'll automatically add conversations to your profile!</li>
                             <li>Adding the app will create you a new Facebook-focused dNeero account... you'll need to move your PayPal address from your current account (if you have already entered it).</li>
                         </ol>
                     </font>
@@ -389,7 +389,7 @@ String acl = "public";
                             <textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><%=publicSurveyPostit.getHtmltoposttoblogimagelink()%></textarea>
                             </li>
                             <li>Login into Friendster, go to Blogs, then "My Blog Home", then under Shortcuts click "Create a Post"</li>
-                            <li>Type in some text like "To see my most recent dNeero survey [click here].</li>
+                            <li>Type in some text like "To see my most recent dNeero conversation [click here].</li>
                             <li>Highlight "click here" (or any other text or image that you have in the Post Body, and the click the "Insert Link" icon ... a popup will appear ... delete "http://" ... paste the dNeero code ... Click "OK"</li>
                             <li>Enter a title.</li>
                             <li>Scroll down to the bottom of the page and click the "Save" button and you're done!</li>
@@ -413,7 +413,7 @@ String acl = "public";
                             </li>
                             <li>Login into Friendster, go to Blogs, then "My Blog Home", then under Shortcuts click "Create a Post"</li>
                             <li>Click the "Edit HTML" tab. </li>
-                            <li>Paste the dNeero survey code onto the Post Body window. You can paste either by Ctrl+v or right click in the Post Body window and choose Paste.</li>
+                            <li>Paste the dNeero conversation code onto the Post Body window. You can paste either by Ctrl+v or right click in the Post Body window and choose Paste.</li>
                             <li>Enter a title.</li>
                             <li>Scroll down to the bottom of the page and click the "Save" button and you're done!</li>
                         </ol>
@@ -492,7 +492,7 @@ String acl = "public";
                                 <textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><%=publicSurveyPostit.getHtmltoposttobloglink()%></textarea>
                             </li>
                             <li>Login into Zimbio, go to "My Dashboard", then "My Articles", then "Write Article"</li>
-                            <li>Type in some text like "To see my most recent dNeero survey [click here]." </li>
+                            <li>Type in some text like "To see my most recent dNeero conversation [click here]." </li>
                             <li>Highlight "click here" (or any other text or image that you have in the main window), and the click the "Insert/edit Link" icon ... a popup will appear ...</li>
                             <li>Paste the dNeero code in the "Link URL" box and click the "Insert" button. (Left-click in the "Link URL" text box and either hit Ctrl+V, or Right-click and choose Paste.)</li>
                             <li>Enter a Tiltle and any other text/images.</li>
@@ -509,7 +509,7 @@ String acl = "public";
                             <%if (publicSurveyPostit.getSurvey().getEmbedflash()){%>
                                 <textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><%=publicSurveyPostit.getHtmltoposttoblogflash()%></textarea>
                             <%} else {%>
-                                Sorry, this survey does not allow Flash embedding.
+                                Sorry, this conversation does not allow Flash embedding.
                             <%}%>
                             </li>
                             <li>Login into your publishing tool of choice.</li>
@@ -532,7 +532,7 @@ String acl = "public";
                             <%if (publicSurveyPostit.getSurvey().getEmbedjavascript()) {%>
                                 <textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><%=publicSurveyPostit.getHtmltoposttoblog()%></textarea>
                             <%} else {%>
-                                Sorry, this survey does not allow Javascript embedding.
+                                Sorry, this conversation does not allow Javascript embedding.
                             <%}%>
                             </li>
                             <li>Login into your publishing tool of choice.</li>

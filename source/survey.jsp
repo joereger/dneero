@@ -83,14 +83,14 @@ String acl = "public";
 
     <%if (!publicSurvey.getQualifiesforsurvey() && publicSurvey.getSurvey().getStatus()!=Survey.STATUS_CLOSED){%>
         <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
-            <font class="mediumfont">Sorry, you're not qualified to take this survey.  Your qualification is determined by your Blogger Profile.  Researchers determine their intended audience when they create a survey.</font>
+            <font class="mediumfont">Sorry, you're not qualified to join this conversation.  Your qualification is determined by your Profile.  Researchers determine their intended audience when they ignite a conversation.</font>
         </div>
         <br/>
     <%}%>
 
     <%if (publicSurvey.getBloggerhastakentoomanysurveysalreadytoday() && !publicSurvey.getLoggedinuserhasalreadytakensurvey()){%>
         <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
-            <font class="mediumfont">Sorry, you've already taken the maximum number of surveys today.  Wait until tomorrow (as defined by U.S. EST) and try again.</font>
+            <font class="mediumfont">Sorry, you've already taken the maximum number of conversations today.  Wait until tomorrow (as defined by U.S. EST) and try again.</font>
         </div>
         <br/>
     <%}%>
@@ -128,7 +128,7 @@ String acl = "public";
                    <% if (publicSurvey.getSurvey().getStatus()==Survey.STATUS_OPEN && !publicSurvey.getLoggedinuserhasalreadytakensurvey() && ((Pagez.getUserSession().getFacebookUser()!=null && Pagez.getUserSession().getFacebookUser().getHas_added_app()) || !Pagez.getUserSession().getIsfacebookui())){ %>
                         <%if (Pagez.getUserSession().getIsfacebookui() && !publicSurvey.getLoggedinuserhasalreadytakensurvey()){%>
                             <div class="rounded" style="background: #ffffff; text-align: center;">
-                                <font class="mediumfont" style="font-weight: bold; color: #666666;">Take this survey to earn up to</font>
+                                <font class="mediumfont" style="font-weight: bold; color: #666666;">Join this conversation to earn up to</font>
                                 <br/>
                                 <font class="largefont" style="font-size: 30px; color: #666666;"><%=publicSurvey.getSurveyEnhancer().getMinearning()%></font>
                                 <% if (publicSurvey.getSurveytakergavetocharity() || publicSurvey.getSurvey().getIscharityonly()){ %>
@@ -146,24 +146,24 @@ String acl = "public";
                             <input type="hidden" name="surveyid" value="<%=publicSurvey.getSurvey().getSurveyid()%>">
 
                         <div class="rounded" style="background: #e6e6e6; padding: 10px;">
-                            <center><font class="smallfont" style="font-weight: bold;">Take the survey by answering the questions below.  Because this is a Social Survey your answers will be available to the public.</font></center><br/><br/>
+                            <center><font class="smallfont" style="font-weight: bold;">Join the conversation by answering the questions below.  Because this is a dNeero conversation your answers will be available to the public.</font></center><br/><br/>
                             <div class="rounded" style="background: #ffffff; padding: 10px;">
                                 <%if (publicSurvey.getSurvey().getIsaccesscodeonly()){%>
                                     <div class="rounded" style="background: #cccccc;">
                                         <img src="/images/lock-48.png" alt="" width="48" height="48" align="right"/>
-                                        <font class="mediumfont" style="color: #666666;">This survey requires an Access Code</font>
+                                        <font class="mediumfont" style="color: #666666;">This conversation requires an Access Code</font>
                                         <br/>
                                         <font class="formfieldnamefont" style="color: #666666;">Access Code: </font><%=Textbox.getHtml("accesscode", Pagez.getUserSession().getAccesscode(), 255, 10, "", "")%>
                                         <br/>
-                                        <font class="tinyfont" style="color: #666666;">Access Codes are used by survey creators to limit the pool of survey respondents in some way.  Sometimes Access Codes are handed out at an event.  Or at a point of sale.  Or sent out to a select group via email.  Generally speaking, if you don't have the Access Code, this survey isn't for you.</font>
+                                        <font class="tinyfont" style="color: #666666;">Access Codes are used by conversation igniters to limit the pool of respondents in some way.  Sometimes Access Codes are handed out at an event.  Or at a point of sale.  Or sent out to a select group via email.  Generally speaking, if you don't have the Access Code, this survey isn't for you.</font>
                                     </div><br/>
                                 <%}%>
                                 <% if (publicSurvey.getSurvey().getIscharityonly()){ %>
                                     <div class="rounded" style="background: #cccccc;">
                                         <img src="/images/charity-32.png" alt="For Charity" width="32" height="32" align="right"/>
-                                        <font class="formfieldnamefont" style="color: #666666;">This is a Charity Only survey.</font>
+                                        <font class="formfieldnamefont" style="color: #666666;">This is a Charity Only conversation.</font>
                                         <br/>
-                                        <font class="tinyfont" style="color: #666666;">The survey creator has decided that all earnings from this survey must be given to charity.</font>
+                                        <font class="tinyfont" style="color: #666666;">The conversation igniter has decided that all earnings from this conversation must be given to charity.</font>
                                     </div><br/>
                                 <% } %>
                                 <%=publicSurvey.getTakesurveyhtml()%>
@@ -187,7 +187,7 @@ String acl = "public";
                                                 <font class="formfieldnamefont">Don't Pay Me. Give My Earnings to this Charity:</font>
                                             <% } %>
                                             <% if (publicSurvey.getSurvey().getIscharityonly()){ %>
-                                                <font class="formfieldnamefont">Earnings From This Survey Must be Given to Charity:</font>
+                                                <font class="formfieldnamefont">Earnings From This Conversation Must be Given to Charity:</font>
                                             <% } %>
                                             <br/>
                                             <select name="<%=publicSurvey.getDNEERO_REQUEST_PARAM_IDENTIFIER()%>charity-charityname">
@@ -205,7 +205,7 @@ String acl = "public";
                                             </select>
                                             <br/>
                                             <font class="tinyfont">
-                                                If you check the box we'll donate all of your earnings for this survey to the charity of your choice.
+                                                If you check the box we'll donate all of your earnings for this conversation to the charity of your choice.
                                             </font>
                                         </td>
                                         <td valign="top" align="left">
@@ -235,7 +235,7 @@ String acl = "public";
                         </form>
                     <% } %>
                     <% if (publicSurvey.getSurvey().getStatus()!=Survey.STATUS_OPEN && !publicSurvey.getLoggedinuserhasalreadytakensurvey()){ %>
-                        <font class="mediumfont">This survey is no longer open for respondents.  However, we still have many other surveys that allow you to make money!  Click the Results tab to see how people answered!</font>
+                        <font class="mediumfont">This conversation is no longer open for respondents.  However, we still have many other conversations that allow you to make money!  Click the Results tab to see how people answered!</font>
                         <br/><br/>
                         <a href="/publicsurveylist.jsp"><font class="mediumfont">Find Another Survey</font></a>
                     <% } %>
@@ -247,7 +247,7 @@ String acl = "public";
                         <%if (publicSurvey.getUserwhotooksurvey()!=null && publicSurvey.getUserwhotooksurvey().getUserid()>0 && publicSurvey.getSurveytakergavetocharity()){%>
                             <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
                                 <center>
-                                    <font class="tinyfont" style="font-weight: bold;"><%=publicSurvey.getUserwhotooksurvey().getFirstname()%> <%=publicSurvey.getUserwhotooksurvey().getLastname()%> had dNeero donate all earnings from this survey to <%=publicSurvey.getCharityname()%>.</font>
+                                    <font class="tinyfont" style="font-weight: bold;"><%=publicSurvey.getUserwhotooksurvey().getFirstname()%> <%=publicSurvey.getUserwhotooksurvey().getLastname()%> had dNeero donate all earnings from this conversation to <%=publicSurvey.getCharityname()%>.</font>
                                 </center>
                             </div>
                         <%}%>
@@ -280,7 +280,7 @@ String acl = "public";
                                     <div class="rounded" style="background: #cccccc; text-align: center;">
                                         <center><img src="/images/stop-alt-48.png" width="48" height="48"/></center>
                                         <br/>
-                                        <font class="mediumfont">This survey is closed.</font>
+                                        <font class="mediumfont">This conversation is closed.</font>
                                     </div>
                                     <br/>
                                 <% } %>
@@ -308,7 +308,7 @@ String acl = "public";
                                     <font class="mediumfont">and can earn up to <%=publicSurvey.getSurveyEnhancer().getMaxearning()%> total by posting it to your blog!</font>
                                 <% } %>
                                 <% if (!publicSurvey.getLoggedinuserhasalreadytakensurvey() && publicSurvey.getSurvey().getStatus()<=Survey.STATUS_OPEN){ %>
-                                    <font class="mediumfont">Take this survey and earn</font>
+                                    <font class="mediumfont">Join this conversation and earn</font>
                                     <br/>
                                     <font class="largefont" style="font-size: 60px; color: #666666;"><%=publicSurvey.getSurveyEnhancer().getMinearning()%></font>
                                     <% if (publicSurvey.getSurveytakergavetocharity() || publicSurvey.getSurvey().getIscharityonly()){ %>
@@ -318,10 +318,10 @@ String acl = "public";
                                     <br/>
                                     <font class="mediumfont">or up to <%=publicSurvey.getSurveyEnhancer().getMaxearning()%> when you post it to your blog!</font>
                                     <br/><br/>
-                                    <font class="smallfont">(just answer the questions to the left and click Complete the Survey... easy!)</font>
+                                    <font class="smallfont">(just answer the questions to the left and click Join the Conversation... easy!)</font>
                                 <% } %>
                                 <% if (!publicSurvey.getLoggedinuserhasalreadytakensurvey() && publicSurvey.getSurvey().getStatus()>=Survey.STATUS_CLOSED){ %>
-                                    <font class="mediumfont">People who took this survey earned</font>
+                                    <font class="mediumfont">People who joined this conversation earned</font>
                                     <br/>
                                     <font class="largefont" style="font-size: 60px; color: #666666;"><%=publicSurvey.getSurveyEnhancer().getMinearning()%></font>
                                     <br/>
@@ -334,7 +334,7 @@ String acl = "public";
                                         <br/>
                                         <font class="mediumfont">This is a Charity Only survey</font>
                                         <br/>
-                                        <font class="tinyfont">The creator of the survey requires that dNeero donate all of your earnings from the survey to a charity of your choice.  It's a chance to do some good!</font>
+                                        <font class="tinyfont">The conversation igniter requires that dNeero donate all of your earnings from the conversation to a charity of your choice.  It's a chance to do some good!</font>
                                     </div>
                                 <% } %>
                             </div>
@@ -344,13 +344,13 @@ String acl = "public";
 
 
                             <br/><br/><b>Get paid to blog.</b><br/>
-                            dNeero pays bloggers to fill out surveys and post their answers to their blog.
+                            dNeero pays bloggers to fill out conversations and post their answers to their peers.
 
                             <br/><br/><b>Your answers appear on your blog</b><br/>
                             However you answer, your blog readers will see it.  Express yourself!
 
                             <br/><br/><b>You need to register and qualify to get paid</b><br/>
-                            Once you fill out the survey you'll need to register and fill out a short blogger profile that asks some basic demographic questions.  If you qualify for this survey then you'll get paid.
+                            Once you answer the questions you'll need to register and fill out a short profile that asks some basic demographic questions.  If you qualify for this conversation then you'll get paid.
 
                             <br/><br/><b>You need to be honest</b><br/>
                             We aren't paying you for any particular opinion.  We're paying you for your time and for the exposure on your blog.  If you don't like a product or service you need to be honest about that fact.
@@ -389,12 +389,12 @@ String acl = "public";
 
                                     <tr>
                                         <td valign="top">
-                                            <font class="formfieldnamefont">Possible Pay for Survey Response</font>
+                                            <font class="formfieldnamefont">Possible Pay for Conversation Response</font>
                                         </td>
                                         <td valign="top">
                                             <font class="smallfont"><%=publicSurvey.getSurveyEnhancer().getWillingtopayforresponse()%></font>
                                             <br/>
-                                            <font class="tinyfont">Assuming you post your survey and it qualifies.</font>
+                                            <font class="tinyfont">Assuming you post your conversation and it qualifies.</font>
                                         </td>
                                     </tr>
 
@@ -414,7 +414,7 @@ String acl = "public";
                                         </td>
                                         <td valign="top">
                                             <%=PercentCompleteBar.get(String.valueOf(publicSurvey.getSurveyEnhancer().getResponsesalreadygotten()), String.valueOf(publicSurvey.getSurvey().getNumberofrespondentsrequested()), "", "", "75")%>
-                                            <font class="smallfont">Up to <%=publicSurvey.getSurvey().getNumberofrespondentsrequested()%> people may complete this survey for pay.</font>
+                                            <font class="smallfont">Up to <%=publicSurvey.getSurvey().getNumberofrespondentsrequested()%> people may join this conversation for pay.</font>
                                             <br/><br/>
                                         </td>
                                     </tr>

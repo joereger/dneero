@@ -21,7 +21,7 @@ if (researcherPanelsAddpeople.getPanelid()<=0){
 <br/><br/>
 <%if (request.getParameter("showonly")==null || (request.getParameter("showonly")!=null && request.getParameter("showonly").equals("addbysurvey"))){%>
 <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
-    <font class="mediumfont">Add By Survey Respondents</font>
+    <font class="mediumfont">Add By Conversation Participants</font>
     <br/>
     <form action="/researcher/panels-addpeopleconfirm.jsp" method="post">
         <input type="hidden" name="dpage" value="/researcher/panels-addpeopleconfirm.jsp">
@@ -43,7 +43,7 @@ if (researcherPanelsAddpeople.getPanelid()<=0){
                 <td valign="top">
                     <font class="formfieldnamefont">Survey to Add From</font>
                     <br/>
-                    <font class="smallfont">The survey you'd like to pull respondents from.</font>
+                    <font class="smallfont">The conversation you'd like to pull respondents from.</font>
                 </td>
                 <td valign="top">
                     <%=Dropdown.getHtml("surveyid", String.valueOf(researcherPanelsAddpeople.getSurveyid()), researcherPanelsAddpeople.getSurveys(), "", "")%>
@@ -53,7 +53,7 @@ if (researcherPanelsAddpeople.getPanelid()<=0){
                 <td valign="top">
                     <font class="formfieldnamefont">Filter to Apply</font>
                     <br/>
-                    <font class="smallfont">Choose a filter to pull a subset of respondents.</font>
+                    <font class="smallfont">Choose a filter to pull a subset of participants.</font>
                 </td>
                 <td valign="top">
                     <%=Dropdown.getHtml("respondentfilterid", String.valueOf(researcherPanelsAddpeople.getRespondentfilterid()), researcherPanelsAddpeople.getRespondentfilters(), "", "")%>

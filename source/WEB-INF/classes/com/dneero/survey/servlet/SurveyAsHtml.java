@@ -24,7 +24,7 @@ public class SurveyAsHtml {
             out.append(stp.getSurveyForDisplay(makeHttpsIfSSLIsOn));
         } else {
             out = new StringBuffer();
-            out.append("This embedded survey link is not correctly formatted.");
+            out.append("This embedded conversation link is not correctly formatted.");
         }
         return out.toString();
     }

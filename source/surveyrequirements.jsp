@@ -47,7 +47,7 @@ String acl = "public";
 
     <img src="/images/clear.gif" width="700" height="1" class="survey_tabs_body_width"/><br/>
     <center><div class="rounded" style="background: #e6e6e6; text-align: left; padding: 20px;"><font class="smallfont">
-    To take this survey and get paid for it you must fulfill these demographic requirements.  If you take the survey before logging in and/or signing up and then do not fulfill these requirements we will discard your answers.
+    To join this conversation and get paid for it you must fulfill these demographic requirements.  If you answer the questions before logging in and/or signing up and then do not fulfill these requirements we will discard your answers.
     </font></div></center>
     <%=publicSurveyRequirements.getSurveyCriteriaAsHtml()%>
 

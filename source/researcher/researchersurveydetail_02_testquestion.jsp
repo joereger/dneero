@@ -32,15 +32,15 @@ String acl="researcher";
 
     <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
     <img src="/images/lightbulb_on.png" alt="" align="right"/>
-    <b>A Qualifying Question is a unique type of question that the survey taker must answer correctly to qualify to complete the survey.</b>  This may come in handy in the following scenarios:
+    <b>A Qualifying Question is a unique type of question that the conversation participant must answer correctly to qualify to join in.</b>  This may come in handy in the following scenarios:
     <ul>
-        <li><b>You want people to visit your site</b> before taking the survey.  Include a link to your site in your survey and then use a Test Question to ask them something like 'On our homepage what color is the button on the far right'.  If they answer 'blue' then they can take the survey.</li>
+        <li><b>You want people to visit your site</b> before joining the conversation.  Include a link to your site in your conversation and then use a Test Question to ask them something like 'On our homepage what color is the button on the far right'.  If they answer 'blue' then they can join in.</li>
         <li><b>You want people to prove some membership in a group.</b>  Ask a question like 'Who is the president of the East Bay Elk's Club?'</li>
         <li><b>You want people to prove some skill or knowledge.</b>  Ask a question like 'What set of nerves reside close to the corpus collosum in the brain?'</li>
     </ul>
     Type a question in the Question box.  In the 'Respondent's Answer Must Contain' box type a word or phrase that must be included in what the respondent types as their answer.  They'll have to include an <b>exact match</b> of what you type so the answer that you choose should be simple and most anybody who knows the answer should type it.  For example, if you ask 'what color is the sky?' you should enter an answer like 'blue'.  You should not enter an answer like 'the sky is blue' because people will not likely type that exactly.
     <br/><br/>
-    <b>If a survey taker can't answer your question correctly they'll be told that they can't take the survey.</b>  Note that this test question will not be included in the survey results or in the widget that people embed into their blogs/social networks.
+    <b>If a conversation participant can't answer your question correctly they'll be told that they can't join the conversation.</b>  Note that this test question will not be included in the conversation results or in the widget that people embed into their blogs/social networks.
     </font></div></center>
 
     <br/><br/>

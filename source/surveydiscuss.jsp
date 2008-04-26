@@ -65,14 +65,14 @@ String acl = "public";
         <tr>
             <td valign="top">
                 <center><div class="rounded" style="background: #e6e6e6; text-align: left; padding: 20px;"><font class="smallfont">
-                Discuss this survey here.  Thoughts on the results?  Thoughts on the financial incentive?  Thoughts on the people who are posting it to their blogs?  Thoughts on the questions asked?  Thoughts on anything else related to this survey?
+                Discuss this conversation here.  Thoughts on the results?  Thoughts on the financial incentive?  Thoughts on the people who are posting it to their blogs?  Thoughts on the questions asked?  Thoughts on anything else related to this survey?
                 </font></div></center>
                 <% if (!Pagez.getUserSession().getIsloggedin()){ %>
                     <br/><br/>
                     <% if (!Pagez.getUserSession().getIsfacebookui()){ %>
                         <font class="mediumfont">You must be logged-in to take part in the discussion.</font>
                     <% } else { %>
-                        <font class="mediumfont">You must take at least one survey before you can take part in the discussion.</font>
+                        <font class="mediumfont">You must join at least one conversation before you can take part in the discussion.</font>
                     <% } %>
                 <% } %>
             </td>

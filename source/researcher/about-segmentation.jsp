@@ -19,7 +19,7 @@ String acl = "public";
         <td valign="top">
             <font class="mediumfont" style="color: #999999">It's Easy to Target Your Survey</font>
             <br/>
-            When people sign up to take surveys they tell us a number of things about themselves.  When you create a survey you can limit it to certain demographics.  People who don't fit your target can't take it.  The current list of demographic fields is:
+            When people sign up to join conversations they tell us a number of things about themselves.  When you create a conversation you can limit it to certain demographics.  People who don't fit your target can't take it.  The current list of demographic fields is:
             <ul>
                 <li>Age</li>
                 <li>Gender</li>
@@ -36,7 +36,7 @@ String acl = "public";
 
             <font class="mediumfont" style="color: #999999">Access Code</font>
             <br/>
-            Access Code Only surveys require that everybody who takes the survey first enter an access code that you somehow communicate to them. In this way you can limit and control who takes your survey. Great for point-of-sale and real-world ties to the online world.
+            Access Code Only conversations require that everybody who takes the conversation first enter an access code that you somehow communicate to them. In this way you can limit and control who join your conversation. Great for point-of-sale and real-world ties to the online world.
             <br clear="all"/><br/><br/>
 
             <font class="mediumfont" style="color: #999999">Standing Panels for Longitudinal Studies</font>

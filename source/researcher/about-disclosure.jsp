@@ -21,7 +21,7 @@ String acl = "public";
             <font class="mediumfont" style="color: #999999">Out in the Open</font>
             <br/>
             <img src="/images/redbutton-disclosure.gif" align="right"/>
-            All blog posts must disclose the fact that the blogger was paid to take the survey.  This ensures that the balance of trust in the blogosphere remains controlled by bloggers and their readers.  dNeero is dedicated to a free, excited and motivated blogosphere.  We want to bring researchers and marketers to the party and we want them to thrive, but we need to make sure they don't burn the couch before they go.
+            All peer postings must disclose the fact that the blogger was paid to join the conversation.  This ensures that the balance of trust in the blogosphere remains controlled by bloggers and their readers.  dNeero is dedicated to a free, excited and motivated blogosphere.  We want to bring researchers and marketers to the party and we want them to thrive, but we need to make sure they don't burn the couch before they go.
             <br/><br/><br clear="all"/>
 
             <font class="mediumfont" style="color: #999999">We Work to Reduce Bias</font>

@@ -32,7 +32,7 @@ PublicSurveyList publicSurveyList = (PublicSurveyList)Pagez.getBeanMgr().get("Pu
         try {
             PublicIndex publicIndex=new PublicIndex();
             publicIndex.enterAccessCode();
-            Pagez.getUserSession().setMessage("Sorry, no surveys were found for that Access Code.");
+            Pagez.getUserSession().setMessage("Sorry, no conversations were found for that Access Code.");
         } catch (ValidationException vex) {
             Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
         }
@@ -122,7 +122,7 @@ PublicSurveyList publicSurveyList = (PublicSurveyList)Pagez.getBeanMgr().get("Pu
                         <%--<br/><br/>--%>
                         <%--<font class="mediumfont">Surveys Friends Have Taken:</font><br/>--%>
                         <%--<% if (publicSurveyList.getFacebookSurveyThatsBeenTakens()==null || publicSurveyList.getFacebookSurveyThatsBeenTakens().size()==0){ %>--%>
-                            <%--<font class="tinyfont">Your friends haven't taken any surveys yet.</font>--%>
+                            <%--<font class="tinyfont">Your friends haven't joined any conversations yet.</font>--%>
                         <%--<% } else { %>--%>
                             <%--<%--%>
                                 <%--for (Iterator<FacebookSurveyThatsBeenTaken> iterator=publicSurveyList.getFacebookSurveyThatsBeenTakens().iterator(); iterator.hasNext();){--%>

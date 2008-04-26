@@ -87,9 +87,9 @@ AccountSettings accountSettings = (AccountSettings) Pagez.getBeanMgr().get("Acco
 
                 <tr>
                     <td valign="top">
-                        <font class="formfieldnamefont">Notification of New Surveys<br/>Every X Days</font>
+                        <font class="formfieldnamefont">Notification of New Conversations<br/>Every X Days</font>
                         <br/>
-                        <font class="tinyfont">Learn about new surveys before others.<br/>Of course we'll only disturb your inbox<br/>if there's actually a new survey<br/>that you qualify for.</font>
+                        <font class="tinyfont">Learn about new conversations before others.<br/>Of course we'll only disturb your inbox<br/>if there's actually a new conversation<br/>that you qualify for.</font>
                     </td>
                     <td valign="top">
                         <%=Dropdown.getHtml("notifyofnewsurveysbyemaileveryexdays",String.valueOf(accountSettings.getNotifyofnewsurveysbyemaileveryexdays()), ((AccountSettings)Pagez.getBeanMgr().get("AccountSettings")).getNotificationFrequencies(), "","")%>
@@ -112,7 +112,7 @@ AccountSettings accountSettings = (AccountSettings) Pagez.getBeanMgr().get("Acco
                     <td valign="top">
                         <font class="formfieldnamefont">Email Instant Notify</font>
                         <br/>
-                        <font class="tinyfont">If you like we can instantly notify<br/>you of new surveys by email.  No need to wait<br/>for the once a day message!</font>
+                        <font class="tinyfont">If you like we can instantly notify<br/>you of new conversations by email.  No need to wait<br/>for the once a day message!</font>
                     </td>
                     <td valign="top">
                         <%=CheckboxBoolean.getHtml("instantnotifybyemailison", accountSettings.getInstantnotifybyemailison(), "", "")%>
@@ -124,7 +124,7 @@ AccountSettings accountSettings = (AccountSettings) Pagez.getBeanMgr().get("Acco
                     <td valign="top">
                         <font class="formfieldnamefont">Twitter Instant Notify</font>
                         <br/>
-                        <font class="tinyfont">If you like we can also instantly notify<br/>you of new surveys via Twitter.</font>
+                        <font class="tinyfont">If you like we can also instantly notify<br/>you of new conversations via Twitter.</font>
                     </td>
                     <td valign="top">
                         <%=CheckboxBoolean.getHtml("instantnotifybytwitterison", accountSettings.getInstantnotifybytwitterison(), "", "")%>
@@ -140,7 +140,7 @@ AccountSettings accountSettings = (AccountSettings) Pagez.getBeanMgr().get("Acco
                     <td valign="top">
                         <font class="formfieldnamefont">XMPP/Jabber Instant Notify</font>
                         <br/>
-                        <font class="tinyfont">If you like we can also instantly notify<br/>you of new surveys via XMPP/Jabber.<br/>This works with a Google Chat account<br/>or other Jabber servers.</font>
+                        <font class="tinyfont">If you like we can also instantly notify<br/>you of new conversations via XMPP/Jabber.<br/>This works with a Google Chat account<br/>or other Jabber servers.</font>
                     </td>
                     <td valign="top">
                         <%=CheckboxBoolean.getHtml("instantnotifyxmppison", accountSettings.getInstantnotifyxmppison(), "", "")%>

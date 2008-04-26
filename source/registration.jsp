@@ -60,8 +60,8 @@ Registration registration = (Registration)Pagez.getBeanMgr().get("Registration")
                             <img src="/images/redo-64.png" width="64" height="64" alt="" align="left"/>
                         </td>
                         <td valign="top">
-                            <font class="mediumfont">Almost done... we've temporarily saved your survey response.</font><br/>
-                            <font class="smallfont">We can't pay you until you log in or sign up and qualify by being in the correct demographic for this survey.  If you do neither of these, we won't be able to use your survey response.  If you close your browser the survey response will be discarded too.  Sign up is quick, painless and free.</font><br/>
+                            <font class="mediumfont">Almost done... we've temporarily saved your response.</font><br/>
+                            <font class="smallfont">We can't pay you until you log in or sign up and qualify by being in the correct demographic for this conversation.  If you do neither of these, we won't be able to use your response.  If you close your browser the response will be discarded too.  Sign up is quick, painless and free.</font><br/>
                             <font class="smallfont"><b>Please log in or sign up below.</b></font>
                         </td>
                     </tr>
@@ -86,7 +86,7 @@ Registration registration = (Registration)Pagez.getBeanMgr().get("Registration")
             <div class="rounded" style="padding: 15px; margin: 5px; background: #ffffff;">
                 <font class="mediumfont" style="color: #333333">Get started creating and/or taking surveys</font>
                 <br/>
-                <font class="smallfont">Sign Up is free.  On this page we collect some basic information.  After this you'll start working immediately to create and/or take surveys (all accounts can do both functions).  You have three days (during which you can use your account) to activate by clicking a link that we send to your email address.  Your account is completely free to set up and explore.</font><br/><br/>
+                <font class="smallfont">Sign Up is free.  On this page we collect some basic information.  After this you'll start working immediately to ignite and/or join conversations (all accounts can do both functions).  You have three days (during which you can use your account) to activate by clicking a link that we send to your email address.  Your account is completely free to set up and explore.</font><br/><br/>
 
                 <table cellpadding="0" cellspacing="0" border="0">
 

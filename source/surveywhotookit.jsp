@@ -55,7 +55,7 @@ String acl="public";
             </td>
             <td valign="top">
                 <center><div class="rounded" style="background: #e6e6e6; text-align: left; padding: 20px;"><font class="smallfont">
-                People who took the survey and where it's been posted.
+                People who joined the conversation and where it's been posted.
                 </font></div></center>
             </td>
         </tr>
@@ -108,7 +108,7 @@ String acl="public";
     <div class="panel" id="panel1" style="<%=panel1style%>">
             <img src="/images/clear.gif" width="550" height="1"/><br/>
             <%if (publicSurveyWhotookit.getRespondents()==null || publicSurveyWhotookit.getRespondents().size()==0){%>
-                <font class="normalfont">Nobody has taken this survey... yet.</font>
+                <font class="normalfont">Nobody has joined this conversation... yet.</font>
             <%} else {%>
                 <%
                     ArrayList<GridCol> cols=new ArrayList<GridCol>();

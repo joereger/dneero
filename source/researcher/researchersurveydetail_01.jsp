@@ -36,7 +36,7 @@ ResearcherSurveyDetail01 researcherSurveyDetail01 = (ResearcherSurveyDetail01)Pa
                 return;
             } else if (request.getParameter("action").equals("saveasdraft")) {
                 logger.debug("Saveasdraft was clicked");
-                Pagez.getUserSession().setMessage("Your survey has been saved.");
+                Pagez.getUserSession().setMessage("Your conversation has been saved.");
                 researcherSurveyDetail01.saveSurvey();
                 Pagez.sendRedirect("/researcher/index.jsp");
                 return;
@@ -63,7 +63,7 @@ ResearcherSurveyDetail01 researcherSurveyDetail01 = (ResearcherSurveyDetail01)Pa
 
         <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
         <img src="/images/lightbulb_on.png" alt="" align="right"/>
-        On this page you set the very general parameters for the survey.  Choose a title that'll get people interested.  Give enough information in the description for them to understand what you're trying to understand.  Your start date must be today or in the future.  You want to keep the survey open long enough to attract bloggers and have them fill out the survey... a month is a good starting point.
+        On this page you set the very general parameters for the conversation.  Choose a title that'll get people interested.  Give enough information in the description for them to understand what you're trying to understand.  Your start date must be today or in the future.  You want to keep the conversation open long enough to attract bloggers and have them join the conversation... a month is a good starting point.
         </font></div></center>
 
         <br/><br/>

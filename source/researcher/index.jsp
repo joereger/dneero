@@ -41,7 +41,7 @@ if (Pagez.getUserSession().getIsloggedin() && (Pagez.getUserSession().getUser().
                     <div style="margin: 15px;">
                         <font class="mediumfont" style="color: #999999">Executive Summary</font>
                         <br/>
-                        dNeero allows you to create multi-question surveys and pay bloggers to both respond to it and post their answers on their blogs.  You can include images, video and rich html in your survey for product photos, diagrams and whatever else you'd like the blogger to see and post to their blog.  The power in this approach is that respondents know that their answers will be viewed by their peers, a much more powerful force in their lives.  Results from dNeero's methodology give you a better sense of how a concept is portrayed in modern social networks.  dNeero also provides a means to track the movement of responses through small-scale social networks.  It's a new tool in the struggle to understand human behavior.
+                        dNeero allows you to create multi-question conversations and pay bloggers to both respond to it and post their answers on their blogs.  You can include images, video and rich html in your conversation for product photos, diagrams and whatever else you'd like the blogger to see and post to their blog.  The power in this approach is that respondents know that their answers will be viewed by their peers, a much more powerful force in their lives.  Results from dNeero's methodology give you a better sense of how a concept is portrayed in modern social networks.  dNeero also provides a means to track the movement of responses through small-scale social networks.  It's a new tool in the struggle to understand human behavior.
                         <br/><br/><br/>
                         <font class="mediumfont" style="color: #999999">Major Benefits</font>
                         <br/>
@@ -55,15 +55,15 @@ if (Pagez.getUserSession().getIsloggedin() && (Pagez.getUserSession().getUser().
                         <br/><br/>
                         <b>Full disclosure</b> that the blogger has been paid avoids misrepresentation and other ethical snafus
                         <br/><br/>
-                        Customize the look of the survey to <b>include logos, product pictures, clickable links</b>, etc... survey taking meets guerilla marketing
+                        Customize the look of the conversation to <b>include logos, product pictures, clickable links</b>, etc... concersations meet guerilla marketing
                         <br/><br/><br/>
                         <font class="mediumfont" style="color: #999999">How it Works for Researchers</font>
                         <ol>
                         <li><b>Create a survey</b> composed of various question types (Text, Essay, Likert Scale, Matrix, Multiple Choice, etc.)</li>
                         <li><b>Define your target blogger demographic</b> by birthdate, gender, ethnicity, marital status, income, education, state, city, profession and politics.</li>
-                        <li><b>Define how much you'll pay</b> for a survey response and how much you'll pay for 1000 posts of that survey response to a blog (CPM).  There are many incentive strategies you can implement.</li>
-                        <li><b>dNeero will publicize your survey</b> and find bloggers who want to respond to it. You'll pay for only those responses and survey displays that happen.</li>
-                        <li><b>dNeero tracks survey responses and blog impressions</b>, providing you with simple billing and results data</li>
+                        <li><b>Define how much you'll pay</b> for a conversation response and how much you'll pay for 1000 posts of that conversation response to a blog (CPM).  There are many incentive strategies you can implement.</li>
+                        <li><b>dNeero will publicize your survey</b> and find bloggers who want to respond to it. You'll pay for only those responses and conversation displays that happen.</li>
+                        <li><b>dNeero tracks conversation responses and blog impressions</b>, providing you with simple billing and results data</li>
                         </ol>
                         <br/>
                         <font class="mediumfont" style="color: #999999">dNeero Targets the Thought Leaders... the Outliers</font>
@@ -72,7 +72,7 @@ if (Pagez.getUserSession().getIsloggedin() && (Pagez.getUserSession().getUser().
                         <br/><br/><br/>
                         <font class="mediumfont" style="color: #999999">Frame the Conversation to Get the Data You Need</font>
                         <br/>
-                        Other tools like Umbria and BuzzMetrics are great at finding out what people are saying about your product.  But this approach makes it difficult to see how people feel about something in particular.  Often you need to drill down or focus on a specific point.  With dNeero you're able to frame the conversation in the form of a survey.  This gets a base set of feedback from all bloggers who respond to it.
+                        Other tools like Umbria and BuzzMetrics are great at finding out what people are saying about your product.  But this approach makes it difficult to see how people feel about something in particular.  Often you need to drill down or focus on a specific point.  With dNeero you're able to frame the conversation with questions.  This gets a base set of feedback from all social people who respond to it.
                         <br/><br/><br/>
                         <font class="mediumfont" style="color: #999999">Two Birds with One Stone</font>
                         <br/>
@@ -84,23 +84,23 @@ if (Pagez.getUserSession().getIsloggedin() && (Pagez.getUserSession().getUser().
                         <br/><br/><br/>
                         <font class="mediumfont" style="color: #999999">Include Images in Surveys</font>
                         <br/>
-                        Images allow survey takers to answer questions about a new product design, etc.  And by including an image in the survey you are actually putting that image onto many blog sites at once.
+                        Images allow conversation participants to answer questions about a new product design, etc.  And by including an image in the conversation you are actually putting that image onto many blog sites at once.
                         <br/><br/><br/>
                         <font class="mediumfont" style="color: #999999">Social Influence Rating (TM)</font>
                         <br/>
-                        Bloggers post their survey answers to their blogs.  Their readers are given the opportunity to take the same survey.  We track this influence and incorporate blog traffic with the amount of skewing that the first blogger's answers resulted in (against the norm for the survey) and create a Social Influence Rating.  This helps you zero in on those bloggers that are effective in your space.
+                        Bloggers post their answers to their blogs.  Their readers are given the opportunity to join the same conversation.  We track this influence and incorporate blog traffic with the amount of skewing that the first blogger's answers resulted in (against the norm for the survey) and create a Social Influence Rating.  This helps you zero in on those bloggers that are effective in your space.
                         <br/><br/><br/>
                         <font class="mediumfont" style="color: #999999">Standing Panels of Bloggers for Longitudinal Studies</font>
                         <br/>
-                        Create a panel of bloggers and approach them with surveys over time to do longitudinal research in the blogosphere.
+                        Create a panel of bloggers and approach them with conversations over time to do longitudinal research in the blogosphere.
                         <br/><br/><br/>
                         <font class="mediumfont" style="color: #999999">The Charity Only Option</font>
                         <br/>
-                        With a single check box you can designate a survey as Charity Only.  Doing so means that only bloggers who agree to have all of their earnings from the survey donated to a charity will be able to take it. Learn more about the program <a href="/charity.jsp">here</a>.
+                        With a single check box you can designate a conversation as Charity Only.  Doing so means that only bloggers who agree to have all of their earnings from the conversation donated to a charity will be able to take it. Learn more about the program <a href="/charity.jsp">here</a>.
                         <br/><br/><br/>
                         <font class="mediumfont" style="color: #999999">Get Started Now, Low Commitment</font>
                         <br/>
-                        It's easy to create an account and build a survey.  You won't be charged until you launch a survey, at which point it will be obvious that you're about to be charged.  Log in. Explore.  Ask us questions.  It's a new concept and we're excited to see how you apply it!
+                        It's easy to create an account and ignite a conversation.  You won't be charged until you ignite a conversation, at which point it will be obvious that you're about to be charged.  Log in. Explore.  Ask us questions.  It's a new concept and we're excited to see how you apply it!
                     </div>
                     <table width="100%">
                         <tr>
@@ -141,7 +141,7 @@ if (Pagez.getUserSession().getIsloggedin() && (Pagez.getUserSession().getUser().
                                 <a href="/researcher/researchersurveydetail_01.jsp"><font class="mediumfont" style="color: #596697;">Start a New Conversation</font></a>
                             </td></tr>
                             <tr><td valign="top"></td><td valign="top">
-                                <font class="smallfont">Create a new survey for bloggers. This step-by-step wizard will guide you through the process.  Your survey can be up and running in a matter of minutes.</font>
+                                <font class="smallfont">Ignite a new conversation. This step-by-step wizard will guide you through the process.  Your conversation can be up and running in a matter of minutes.</font>
                             </td></tr></table>
                         </div>
                         <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">

@@ -17,7 +17,7 @@ PublicOldSurveyList publicOldSurveyList = (PublicOldSurveyList) Pagez.getBeanMgr
 <%@ include file="/template/header.jsp" %>
 
     <%if (publicOldSurveyList.getSurveys()==null || publicOldSurveyList.getSurveys().size()==0){%>
-        <font class="normalfont">No old surveys listed right now... check back soon.</font>
+        <font class="normalfont">No old conversations listed right now... check back soon.</font>
     <%} else {%>
         <%
             ArrayList<GridCol> cols=new ArrayList<GridCol>();

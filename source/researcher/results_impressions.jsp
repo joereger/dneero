@@ -34,7 +34,7 @@ String acl = "researcher";
 
     <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
     <img src="/images/lightbulb_on.png" alt="" align="right"/>
-    On this page you see a list of blogs that your survey has been posted to along with the number of times it has been viewed by that blog's readers.  You can visit each blog by clicking on the Specific Page link.
+    On this page you see a list of blogs that your conversation has been posted to along with the number of times it has been viewed by that blog's readers.  You can visit each blog by clicking on the Specific Page link.
     <br/><br/><br/>
     </font></div></center>
 

@@ -8,8 +8,8 @@
   <link rel="stylesheet" type="text/css" href="/css/basic.css" />
   <link rel="stylesheet" type="text/css" href="/css/dneero.css" />
   <link rel="stylesheet" type="text/css" href="/js/niftycube/niftyCorners.css" />
-  <link rel="alternate" type="application/rss+xml" title="dNeero Social Surveys Blog" href="http://www.dneero.com/rss.xml" />
-  <meta name="description" content="dNeero connects advertisers and market researchers with a large pool of qualified and motivated bloggers. Marketers initiate offers to blog (i.e. We'll pay $2 for a blogged review of our latest movie.), dNeero publishes those offers in a Yahoo-style directory and bloggers earn money (for themselves or for charity) taking surveys and posting their own results to their blogs. " />
+  <link rel="alternate" type="application/rss+xml" title="dNeero Conversations Blog" href="http://www.dneero.com/rss.xml" />
+  <meta name="description" content="dNeero connects advertisers and market researchers with a large pool of qualified and motivated bloggers. Marketers initiate offers to blog (i.e. We'll pay $2 for a blogged review of our latest movie.), dNeero publishes those offers in a Yahoo-style directory and social people earn money (for themselves or for charity) joining conversations and posting their own results to their blogs. " />
   <meta name="keywords" content="market research,survey,blog,web 2.0,startup,money,market intelligence" />
   <script type="text/javascript" src="/js/niftycube/niftycube.js"></script>
   <script type="text/javascript">

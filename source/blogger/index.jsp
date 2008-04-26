@@ -35,9 +35,9 @@ String acl = "public";
                     <div style="margin: 15px;">
                         <font class="mediumfont" style="color: #999999">Quick Summary</font>
                         <br/>
-                        dNeero helps bloggers make money filling out surveys and posting their answers to their blogs.
+                        dNeero helps social people make money joining conversations and posting their opinions where their peers can join in.
                         <br/><br/>
-                        After filling out a survey here at dNeero.com you've already reserved some money for your effort.  To capture that money all you have to do is post your answers to your blog and generate some traffic for a few days (all you have to do is copy-and-paste a single line of code).  Your blog readers will see your answers along with any other thoughts you had about the survey.  Your readers can then complete the survey, or see how others from your blog answered. If they complete the survey, we pay you a recruitment fee based on what they earn.
+                        After filling out a questions here at dNeero.com you've already reserved some money for your effort... but haven't earned it yet.  To capture that money all you have to do is post your answers to your blog and generate some traffic for a few days (all you have to do is copy-and-paste a single line of code).  Your blog readers will see your answers along with any other thoughts you had about the conversation.  Your readers can then join the conversation, or see how others from your blog answered. If they join the conversation and get paid, we pay you a recruitment fee based on what they earn.
                         <br/><br/><br/>
                         <font class="mediumfont" style="color: #999999">How it Works for Bloggers</font>
                         <br/>
@@ -47,7 +47,7 @@ String acl = "public";
                         <br/><br/><br/>
                         <font class="mediumfont" style="color: #999999">Blogs and Surveys: So Happy Together</font>
                         <br/>
-                        To post a survey to your blog you just copy-and-paste a single line of code.  Here's the result:
+                        To post a conversation to your blog you just copy-and-paste a single line of code.  Here's the result:
                         <br/>
                         <img src="/images/survey-in-blog.gif" width="475" height="555" border="0"></img>
                         <br/><br/><br/>
@@ -55,11 +55,11 @@ String acl = "public";
                         <br/>
                         One of the big concerns from bloggers is that the money in this model presents possible bias, and that your readers will not want to feel 'monetized'. Thanks to open and sharing people like <a href="http://www.ck-blog.com/">CK</a> we decided to make donating to charity a way to shed this concern -- now you can give any of the earnings to a good cause, avoid bias... and increase the features within your posts!
                         <br/><br/>
-                        With a single click you can direct earnings from any survey to a charity of your choosing.  Learn more about the program <a href="/charity.jsp">here</a>.
+                        With a single click you can direct earnings from any conversation to a charity of your choosing.  Learn more about the program <a href="/charity.jsp">here</a>.
                         <br/><br/><br/>
                         <font class="mediumfont" style="color: #999999">How to Get Started</font>
                         <br/>
-                        Sign Up is free.  We collect some basics like email and password and then send you an email message to activate your account.  After your first log in we'll collect some basic demographic information (age, gender, location, etc.) so that we can find the best opportunities for you.  We'll present you a list of survey opportunities, you'll complete surveys of your choosing and within minutes you'll see an account balance.  We pay your PayPal account whenever you accrue $20 in your account... no waiting unitl the end of calendar quarters!
+                        Sign Up is free.  We collect some basics like email and password and then send you an email message to activate your account.  After your first log in we'll collect some basic demographic information (age, gender, location, etc.) so that we can find the best opportunities for you.  We'll present you a list of conversation opportunities, you'll join conversations of your choosing and within minutes you'll see an account balance.  We pay your PayPal account whenever you accrue $20 in your account... no waiting unitl the end of calendar quarters!
                     </div>
                     <table width="100%">
                         <tr>
@@ -117,10 +117,10 @@ String acl = "public";
                     <div class="rounded" style="padding: 5px; margin: 5px; background: #e6e6e6;">
                         <div class="rounded" style="padding: 15px; margin: 5px; background: #ffffff;">
                             <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-                                <a href="/publicsurveylist.jsp"><font class="mediumfont" style="color: #596697;">Find Surveys to Take</font></a>
+                                <a href="/publicsurveylist.jsp"><font class="mediumfont" style="color: #596697;">Find Conversations to Join</font></a>
                             </td></tr>
                             <tr><td valign="top"></td><td valign="top">
-                                <font class="smallfont">Make money taking surveys and posting your answers to your blog.</font>
+                                <font class="smallfont">Make money joining conversations and posting your opinions where your peers can join in too.</font>
                             </td></tr></table>
                         </div>
                         <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
@@ -144,7 +144,7 @@ String acl = "public";
                                 <a href="/blogger/bloggerdetails.jsp"><font class="mediumfont" style="color: #596697;">Update Blogger Profile</font></a>
                             </td></tr>
                             <tr><td valign="top"></td><td valign="top">
-                                <font class="smallfont">Your profile helps us find surveys that fit your interests.  Keep it up to date.</font>
+                                <font class="smallfont">Your profile helps us find conversations that fit your interests.  Keep it up to date.</font>
                             </td></tr></table>
 
                             <br/><br/>
@@ -172,7 +172,7 @@ String acl = "public";
                         <div class="rounded" style="padding: 15px; margin: 5px; background: #F2FFBF;">
                             <font class="smallfont">
                                 You haven't yet completed any surveys.
-                                <a href="/publicsurveylist.jsp"><font style="font-weight: bold; color: #0000ff;">Find Surveys to Take</font></a>
+                                <a href="/publicsurveylist.jsp"><font style="font-weight: bold; color: #0000ff;">Find Conversations to Join</font></a>
                             </font>
                         </div>
                         <br/><br/>
@@ -253,7 +253,7 @@ String acl = "public";
                         <%}%>
 
 
-                    <font class="tinyfont" style="color: #666666;">Survey statuses update nightly. Remember, you must leave the survey on your mini-feed and profile to generate clicks for 5 days in the 10 after you take it to get paid.  Days that qualify are marked green.</font>
+                    <font class="tinyfont" style="color: #666666;">Survey statuses update nightly. Remember, you must leave the conversation on your mini-feed and profile to generate clicks for 5 days in the 10 after you take it to get paid.  Days that qualify are marked green.</font>
 
 
                     <%if (bloggerCompletedsurveys.getList()!=null && bloggerCompletedsurveys.getList().size()>0){%>

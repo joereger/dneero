@@ -19,7 +19,7 @@ String acl = "blogger";
     
     <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
     <img src="/images/lightbulb_on.png" alt="" align="right"/>
-    This page lists blog displays/impressions of a survey.  Note that in the calculation of earnings some impressions may not be included because the researcher can set a maximum number of paid blog displays per blog.
+    This page lists blog displays/impressions of a conversation.  Note that in the calculation of earnings some impressions may not be included because the researcher can set a maximum number of paid blog displays per blog.
     <br/><br/><br/>
     </font></div></center>
 

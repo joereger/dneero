@@ -99,7 +99,7 @@ public class ImpressionPayments implements Job {
                     if (amtToChargeResearcher>0){
                         Researcher researcher = Researcher.get(survey.getResearcherid());
                         User user = User.get(researcher.getUserid());
-                        MoveMoneyInAccountBalance.charge(user, amtToChargeResearcher, "Charge for blog impressions on survey '"+survey.getTitle()+"'", true, false, false, false);
+                        MoveMoneyInAccountBalance.charge(user, amtToChargeResearcher, "Charge for impressions on conversation '"+survey.getTitle()+"'", true, false, false, false);
                     }
 
                     //Affect balance for reseller

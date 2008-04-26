@@ -23,7 +23,7 @@ PublicCharity publicCharity = (PublicCharity) Pagez.getBeanMgr().get("PublicChar
                     <td valign="top"  width="50%">
                         <font class="mediumfont" style="color: #999999">We'll Give Your Earnings to Charity</font>
                         <br/>
-                        dNeero will, if you so choose, donate your earnings to charity.  Each time you take a survey you'll be able to choose whether to donate and which charity to donate to.  We currently have a number of charitable options and will look to add more in the future.
+                        dNeero will, if you so choose, donate your earnings to charity.  Each time you join a conversation you'll be able to choose whether to donate and which charity to donate to.  We currently have a number of charitable options and will look to add more in the future.
                         <br/><br/><br/>
                         <font class="mediumfont" style="color: #999999">Results</font>
                         <br/>
@@ -35,7 +35,7 @@ PublicCharity publicCharity = (PublicCharity) Pagez.getBeanMgr().get("PublicChar
                         <br/><br/><br/>
                         <font class="mediumfont" style="color: #999999">Researchers and Marketers: Do Some Good</font>
                         <br/>
-                        When you create a survey you can mark it as Charity Only which means that only bloggers who are willing to have their earnings donated to charity will be able to take it.
+                        When you ignite a conversation you can mark it as Charity Only which means that only bloggers who are willing to have their earnings donated to charity will be able to take it.
                         <br/><br/><br/>
                         <font class="mediumfont" style="color: #999999">Most Recent Donations</font>
                         <br/>

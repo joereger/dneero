@@ -15,10 +15,10 @@ String acl = "public";
             <center>
                 <img src="/images/info-128.png" alt="" width="128" height="128"/>
                 <br/>
-                <font class="mediumfont">The survey you've selected isn't available.  It may not have launched yet.  Or it may be closed.</font>
+                <font class="mediumfont">The conversation you've selected isn't available.  It may not have launched yet.  Or it may be closed.</font>
                 <br/><br/>
                 <div class="rounded" style="background: #e6e6e6; text-align: center;">
-                    <a href="/publicsurveylist.jsp"><font class="mediumfont" style="padding-left: 15px; color: #0000ff;">Find Surveys to Take</font></a>
+                    <a href="/publicsurveylist.jsp"><font class="mediumfont" style="padding-left: 15px; color: #0000ff;">Find Conversations to Join</font></a>
                 </div>
             </center>
         </div>

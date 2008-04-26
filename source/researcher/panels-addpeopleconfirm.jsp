@@ -41,7 +41,7 @@ ResearcherPanelsAddpeopleconfirm researcherPanelsAddpeopleconfirm = (ResearcherP
                 <td valign="top">
                     <font class="formfieldnamefont">Total People in Selection</font>
                     <br/>
-                    <font class="tinyfont">The total number of people from the survey and filter selected.</font>
+                    <font class="tinyfont">The total number of people from the conversation and filter selected.</font>
                 </td>
                 <td valign="top">
                     <font class="mediumfont"><%=researcherPanelsAddpeopleconfirm.getNumberofrespondents()%></font>

@@ -80,7 +80,7 @@ String acl = "sysadmin";
         <td valign="top">
             <h:outputText value="Social Influence Rating (TM)" styleClass="formfieldnamefont"></h:outputText>
             <br/>
-            <h:outputText value="Social Influence Rating takes site traffic, survey referrals and a number of other metrics into account to give you some measure of this blogger's influence with his/her readership." styleClass="smallfont"></h:outputText>
+            <h:outputText value="Social Influence Rating takes site traffic, conversation referrals and a number of other metrics into account to give you some measure of this blogger's influence with his/her readership." styleClass="smallfont"></h:outputText>
             <br/>
             <h:message for="minsocialinfluencepercentile" styleClass="RED"></h:message>
         </td>

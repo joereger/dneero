@@ -104,10 +104,10 @@ public class ResearcherSurveyDetail05 implements Serializable {
                     vex.addValidationError("Number of Respondents Requested must be at least 1.");
                 }
                 if (willingtopaypercpm<.25){
-                    vex.addValidationError("Willing to Pay Per Thousand Survey Displays on a Blog must be at least $0.25.");
+                    vex.addValidationError("Willing to Pay Per Thousand Displays to Peers must be at least $0.25.");
                 }
                 if (maxdisplaysperblog<1000){
-                    vex.addValidationError("Max Survey Displays Per Blog must be at least 1000.");
+                    vex.addValidationError("Max Displays Per Account must be at least 1000.");
                 }
                 if (charityonlyallowcustom){
                     if (charitycustom==null || charitycustom.equals("") || charitycustomurl==null || charitycustomurl.equals("")){

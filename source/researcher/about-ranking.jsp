@@ -23,11 +23,11 @@ String acl = "public";
             <br/><br/><br/>
             <font class="mediumfont" style="color: #999999">Identify Users Across Many Surveys</font>
             <br/>
-            You can use Rankings to measure across many surveys.  A survey here generates a few points... a survey there a few. In this way you get a sense of how a person responds over time to many different things.  You're using your dialog to learn.  And you're using the Ranking to quantify. 
+            You can use Rankings to measure across many conversations.  A conversation here generates a few points... a conversation there a few. In this way you get a sense of how a person responds over time to many different things.  You're using your dialog to learn.  And you're using the Ranking to quantify.
             <br/><br/><br/>
             <font class="mediumfont" style="color: #999999">Build Panels with Rankings</font>
             <br/>
-            As people score points you can skim those in the top 10% of Ranking score and put them into a Panel which allows you to create surveys that only they can see and take. In this way you're not only targeting but engaging your audience.
+            As people score points you can skim those in the top 10% of Ranking score and put them into a Panel which allows you to ignite conversations that only they can see and take. In this way you're not only targeting but engaging your audience.
             <br/><br/><br/>
             <font class="mediumfont" style="color: #999999">Ranking Strength = Average Normalized Points</font>
             <br/>

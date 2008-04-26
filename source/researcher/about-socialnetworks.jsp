@@ -20,7 +20,7 @@ String acl = "public";
 
             <font class="mediumfont" style="color: #999999">It's Not Just About Blogging</font>
             <br/>
-            dNeero reaches deep into the rich world of social networks.  We support posting surveys into MySpace, Facebook and others.  We have a deeply-integrated Facebook App.
+            dNeero reaches deep into the rich world of social networks.  We support posting conversations into MySpace, Facebook and others.  We have a deeply-integrated Facebook App.
             <br clear="all"/><br/><br/>
 
             <font class="mediumfont" style="color: #999999">The Hard-to-reach Facebook Profile</font>

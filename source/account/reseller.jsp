@@ -68,9 +68,9 @@ String acl = "account";
                 <font class="mediumfont" style="color: #666666;"><b>Surveys</b></font>
                 <br/>
                 <%if (accountReseller.getSurveys()==null || accountReseller.getSurveys().size()==0){%>
-                    <font class="smallfont" style="color: #666666;"><b>No surveys have been created using your Reseller Code.</b></font>
+                    <font class="smallfont" style="color: #666666;"><b>No conversations have been created using your Reseller Code.</b></font>
                 <%} else {%>
-                    <font class="smallfont" style="color: #666666;"><b>These are the surveys that were created with your Reseller Code.</b></font>
+                    <font class="smallfont" style="color: #666666;"><b>These are the conversations that were created with your Reseller Code.</b></font>
                     <br/>
                     <%
                         ArrayList<GridCol> cols = new ArrayList<GridCol>();
@@ -100,7 +100,7 @@ String acl = "account";
             <div class="rounded" style="background: #e6e6e6; text-align: left; padding: 15px;">
                 <font class="mediumfont" style="color: #666666;"><b>Work Together</b></font>
                 <br/>
-                <font class="smallfont" style="color: #666666;"><b>We recently set up a <a href="http://www.facebook.com/group.php?gid=8641922193">dNeero Social Survey Resellers Group</a> on Facebook where you can meet others using the program.  Ask questions, share sales strategies, learn more.</b></font>
+                <font class="smallfont" style="color: #666666;"><b>We recently set up a <a href="http://www.facebook.com/group.php?gid=8641922193">dNeero Conversation Resellers Group</a> on Facebook where you can meet others using the program.  Ask questions, share sales strategies, learn more.</b></font>
             </div>
 
             <br/>

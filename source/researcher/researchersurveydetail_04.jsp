@@ -41,8 +41,8 @@ ResearcherSurveyDetail04 researcherSurveyDetail04 = (ResearcherSurveyDetail04)Pa
             researcherSurveyDetail04.setMaritalstatus(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("maritalstatus", "Marital Statuses", false)));
             researcherSurveyDetail04.setMinsocialinfluencepercentile(Dropdown.getIntFromRequest("minsocialinfluencepercentile", "Min Social Influence", false));
             researcherSurveyDetail04.setDayssincelastsurvey(Textbox.getIntFromRequest("dayssincelastsurvey", "Days Since Last Survey", true, DatatypeInteger.DATATYPEID));
-            researcherSurveyDetail04.setTotalsurveystakenatleast(Textbox.getIntFromRequest("totalsurveystakenatleast", "Total Surveys Taken of At Least", true, DatatypeInteger.DATATYPEID));
-            researcherSurveyDetail04.setTotalsurveystakenatmost(Textbox.getIntFromRequest("totalsurveystakenatmost", "Total Surveys Taken of At Most", true, DatatypeInteger.DATATYPEID));
+            researcherSurveyDetail04.setTotalsurveystakenatleast(Textbox.getIntFromRequest("totalsurveystakenatleast", "Total Conversations Joined of At Least", true, DatatypeInteger.DATATYPEID));
+            researcherSurveyDetail04.setTotalsurveystakenatmost(Textbox.getIntFromRequest("totalsurveystakenatmost", "Total Conversations Joined of At Most", true, DatatypeInteger.DATATYPEID));
             researcherSurveyDetail04.setPanels(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("panels", "Panels", false)));
             researcherSurveyDetail04.setPolitics(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("politics", "Politics", false)));
             researcherSurveyDetail04.setDneerousagemethods(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("dneerousagemethods", "dNeero Usage Methods", false)));
@@ -57,7 +57,7 @@ ResearcherSurveyDetail04 researcherSurveyDetail04 = (ResearcherSurveyDetail04)Pa
                 return;
             } else if (request.getParameter("action").equals("saveasdraft")) {
                 logger.debug("Saveasdraft was clicked");
-                Pagez.getUserSession().setMessage("Your survey has been saved.");
+                Pagez.getUserSession().setMessage("Your conversation has been saved.");
                 researcherSurveyDetail04.saveSurvey();
                 Pagez.sendRedirect("/researcher/index.jsp");
                 return;
@@ -82,7 +82,7 @@ ResearcherSurveyDetail04 researcherSurveyDetail04 = (ResearcherSurveyDetail04)Pa
 
     <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
     <img src="/images/lightbulb_on.png" alt="" align="right"/>
-    Target your survey to the correct demographic.   Be careful not to cast too narrow a net.  In the final step we'll tell you how many bloggers fulfill your criteria and you'll have the opportunity to widen the search.
+    Target your conversation to the correct demographic.   Be careful not to cast too narrow a net.  In the final step we'll tell you how many bloggers fulfill your criteria and you'll have the opportunity to widen the search.
     <br/><br/><br/>
     </font></div></center>
 
@@ -105,7 +105,7 @@ ResearcherSurveyDetail04 researcherSurveyDetail04 = (ResearcherSurveyDetail04)Pa
                 <td valign="top">
                     <font class="formfieldnamefont">Social Influence Rating (TM)</font>
                     <br/>
-                    <font class="smallfont">Social Influence Rating takes site traffic, survey referrals and a number of other metrics into account to give you some measure of this blogger's influence with his/her readership.</font>
+                    <font class="smallfont">Social Influence Rating takes site traffic, conversation referrals and a number of other metrics into account to give you some measure of this social person's influence with his/her readership.</font>
                 </td>
                 <td valign="top">
                     <%=Dropdown.getHtml("minsocialinfluencepercentile", String.valueOf(researcherSurveyDetail04.getMinsocialinfluencepercentile()), StaticVariables.getPercentiles(), "", "")%>
@@ -126,9 +126,9 @@ ResearcherSurveyDetail04 researcherSurveyDetail04 = (ResearcherSurveyDetail04)Pa
 
             <tr>
                 <td valign="top">
-                    <font class="formfieldnamefont">Number of Surveys Taken</font>
+                    <font class="formfieldnamefont">Number of Conversations Joined</font>
                     <br/>
-                    <font class="smallfont">Reflects the experience level of the respondent.  Enter a minimum and maximum number of surveys that qualified respondents are allowed to have taken.</font>
+                    <font class="smallfont">Reflects the experience level of the respondent.  Enter a minimum and maximum number of conversations that qualified respondents are allowed to have joined.</font>
                 </td>
                 <td valign="top">
                     <%=Textbox.getHtml("totalsurveystakenatleast", String.valueOf(researcherSurveyDetail04.getTotalsurveystakenatleast()), 5, 4, "", "")%>
@@ -137,9 +137,9 @@ ResearcherSurveyDetail04 researcherSurveyDetail04 = (ResearcherSurveyDetail04)Pa
                 </td>
 
                 <td valign="top">
-                    <font class="formfieldnamefont">Days Since Taking Last Survey of At Least</font>
+                    <font class="formfieldnamefont">Days Since Taking Last Conversation of At Least</font>
                     <br/>
-                    <font class="smallfont">A qualifying respondent must have not taken another survey in at least this many days.</font>
+                    <font class="smallfont">A qualifying respondent must have not taken another conversation in at least this many days.</font>
                 </td>
                 <td valign="top">
                     <%=Textbox.getHtml("dayssincelastsurvey", String.valueOf(researcherSurveyDetail04.getDayssincelastsurvey()), 5, 3, "", "")%>
@@ -253,7 +253,7 @@ ResearcherSurveyDetail04 researcherSurveyDetail04 = (ResearcherSurveyDetail04)Pa
                 <td valign="top">
                     <font class="formfieldnamefont">Access Code Only?</font>
                     <br/>
-                    <font class="tinyfont">Access Code Only surveys require that everybody who takes the survey first enter an access code that you somehow communicate to them.  In this way you can limit and control who takes your survey.  Great for point-of-sale and real-world ties to the online world.</font>
+                    <font class="tinyfont">Access Code Only conversations require that everybody who takes the conversation first enter an access code that you somehow communicate to them.  In this way you can limit and control who joins your conversation.  Great for point-of-sale and real-world ties to the online world.</font>
                 </td>
                 <td valign="top">
                     <%=CheckboxBoolean.getHtml("isaccesscodeonly", researcherSurveyDetail04.getIsaccesscodeonly(), "", "")%><font class="formfieldnamefont">Yes</font>

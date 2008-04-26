@@ -27,7 +27,7 @@ String acl = "public";
                             </div>
                         </td>
                         <td>
-                            <font class="normalfont" style="font-weight: bold;">You need to <a href="<%=((PublicFacebookAppAdd)Pagez.getBeanMgr().get("PublicFacebookAppAdd")).getAddurl()%>" target="_top">add the dNeero Facebook application</a> before you can take part in social surveys.  Social surveys allow you to earn real money taking surveys and posting links to your answers on your profile.  There are no gimmicks, tricks or abusive processes to follow.</font><br/>
+                            <font class="normalfont" style="font-weight: bold;">You need to <a href="<%=((PublicFacebookAppAdd)Pagez.getBeanMgr().get("PublicFacebookAppAdd")).getAddurl()%>" target="_top">add the dNeero Facebook application</a> before you can take part in social surveys.  dNeero conversations allow you to earn real money joining conversations and posting links to your answers on your profile.  There are no gimmicks, tricks or abusive processes to follow.</font><br/>
                         </td>
                         </tr>
                         </table>

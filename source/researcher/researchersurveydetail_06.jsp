@@ -47,7 +47,7 @@ ResearcherSurveyDetail06 researcherSurveyDetail06 = (ResearcherSurveyDetail06)Pa
                 return;
             } else if (request.getParameter("action").equals("saveasdraft")) {
                 logger.debug("Saveasdraft was clicked");
-                Pagez.getUserSession().setMessage("Your survey has been saved.");
+                Pagez.getUserSession().setMessage("Your conversation has been saved.");
                 Pagez.sendRedirect("/researcher/index.jsp");
                 return;
             } else if (request.getParameter("action").equals("previous")) {
@@ -68,7 +68,7 @@ ResearcherSurveyDetail06 researcherSurveyDetail06 = (ResearcherSurveyDetail06)Pa
                 logger.debug("Apply Coupon was clicked");
                 researcherSurveyDetail06.applyCoupon();
             } else {
-                Pagez.getUserSession().setMessage("Coupons can only be applied to surveys in the draft state... before they launch.");
+                Pagez.getUserSession().setMessage("Coupons can only be applied to conversations in the draft state... before they launch.");
             }
         } catch (ValidationException vex) {
             Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
@@ -82,7 +82,7 @@ ResearcherSurveyDetail06 researcherSurveyDetail06 = (ResearcherSurveyDetail06)Pa
                 researcherSurveyDetail06.setResellercode(Textbox.getValueFromRequest("resellercode", "Reseller Code", false, DatatypeString.DATATYPEID));
                 researcherSurveyDetail06.applyResellerCode();
             } else {
-                Pagez.getUserSession().setMessage("Reseller Codes can only be applied to surveys in the draft state... before they launch.");
+                Pagez.getUserSession().setMessage("Reseller Codes can only be applied to conversations in the draft state... before they launch.");
             }
         } catch (ValidationException vex) {
             Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
@@ -135,7 +135,7 @@ ResearcherSurveyDetail06 researcherSurveyDetail06 = (ResearcherSurveyDetail06)Pa
 
             <tr>
                 <td valign="top">
-                    <font class="formfieldnamefont">Max Possible Payment for Survey Responses</font>
+                    <font class="formfieldnamefont">Max Possible Payment for Responses</font>
                 </td>
                 <td valign="top">
                     <font class="normalfont"><%=researcherSurveyDetail06.getMaxrespondentpayments()%></font>
@@ -144,7 +144,7 @@ ResearcherSurveyDetail06 researcherSurveyDetail06 = (ResearcherSurveyDetail06)Pa
 
             <tr>
                 <td valign="top">
-                    <font class="formfieldnamefont">Max Possible Payment for Survey Displays on Blogs</font>
+                    <font class="formfieldnamefont">Max Possible Payment for Displays to Peers</font>
                 </td>
                 <td valign="top">
                     <font class="normalfont"><%=researcherSurveyDetail06.getMaximpressionpayments()%></font>
@@ -162,7 +162,7 @@ ResearcherSurveyDetail06 researcherSurveyDetail06 = (ResearcherSurveyDetail06)Pa
 
             <tr>
                 <td valign="top">
-                    <font class="formfieldnamefont">Hide Survey Overall Aggregate Results Fee</font>
+                    <font class="formfieldnamefont">Hide Overall Aggregate Results Fee</font>
                 </td>
                 <td valign="top">
                     <font class="normalfont"><%=researcherSurveyDetail06.getHideresultsfee()%></font>
@@ -206,16 +206,16 @@ ResearcherSurveyDetail06 researcherSurveyDetail06 = (ResearcherSurveyDetail06)Pa
         <%if (researcherSurveyDetail06.getWarningnumberofbloggerslessthanrequested()){%>
             <img src="/images/lightbulb_on.png"/>
             <font class="smallfont">
-            Warning: You've requested a number of survey respondents that is larger than the current number of bloggers in the system that fulfill your targeting criteria.  This may or may not be a problem.  Surveys often attract new bloggers to the system... you are in no way limited to the bloggers already signed-up.
+            Warning: You've requested a number of respondents that is larger than the current number of bloggers in the system that fulfill your targeting criteria.  This may or may not be a problem.  Conversations often attract new people to the system... you are in no way limited to the bloggers already signed-up.
             <br/><h:commandLink value="Possible Remedy: Relax the Targeting Criteria" styleClass="smallfont" action="researchersurveydetail_04" immediate="true"/>
-            <br/><h:commandLink value="Idea: Increase Your Incentive to Attract New Bloggers" styleClass="smallfont" action="researchersurveydetail_05" immediate="true"/>
+            <br/><h:commandLink value="Idea: Increase Your Incentive to Attract New People" styleClass="smallfont" action="researchersurveydetail_05" immediate="true"/>
             </font>
         <%}%>
 
         <%if (researcherSurveyDetail06.getWarningnumberrequestedratiotoobig()){%>
             <img src="/images/lightbulb_on.png"/>
             <font class="smallfont">
-            Warning: The ratio of the number of respondents you've requested to the number of bloggers that qualify for your criteria is a little high meaning that it may be difficult to attract enough respondents. This may or may not be a problem.  Surveys often attract new bloggers to the system... you are in no way limited to the bloggers already signed-up.
+            Warning: The ratio of the number of respondents you've requested to the number of bloggers that qualify for your criteria is a little high meaning that it may be difficult to attract enough respondents. This may or may not be a problem.  Conversations often attract new bloggers to the system... you are in no way limited to the bloggers already signed-up.
             <br/><h:commandLink value="Possible Remedy: Relax the Targeting Criteria" styleClass="smallfont" action="researchersurveydetail_04" immediate="true"/>
             <br/><h:commandLink value="Idea: Increase Your Incentive to Attract New Bloggers" styleClass="smallfont" action="researchersurveydetail_05" immediate="true"/>
             </font>
@@ -224,15 +224,15 @@ ResearcherSurveyDetail06 researcherSurveyDetail06 = (ResearcherSurveyDetail06)Pa
         <%if (researcherSurveyDetail06.getWarningtoomanyquestions()){%>
             <img src="/images/lightbulb_on.png"/>
             <font class="smallfont">
-            Warning: You seem to have a large number of questions in your survey.  There is nothing wrong with this.  But large surveys and blogs may not be the best fit.  First, bloggers are a quick bunch, always having a lot to do. Second, you're asking them to post the survey to their blogs... large surveys may take over a blog at which point the blogger will take the survey down.  This may not be a problem for you, but we did want you to know about the possible issue.
-            <br/><h:commandLink value="Possible Remedy: Adjust the Questions of Your Survey" styleClass="smallfont" action="researchersurveydetail_02" immediate="true"/>
+            Warning: You seem to have a large number of questions in your conversation.  There is nothing wrong with this.  But large conversations and blogs may not be the best fit.  First, bloggers are a quick bunch, always having a lot to do. Second, you're asking them to post the conversation to their peers... large surveys may take over a blog at which point the blogger will take the conversation down.  This may not be a problem for you, but we did want you to know about the possible issue.
+            <br/><h:commandLink value="Possible Remedy: Adjust the Questions of Your Conversation" styleClass="smallfont" action="researchersurveydetail_02" immediate="true"/>
             </font>
         <%}%>
 
         <%if (researcherSurveyDetail06.getWarningnoquestions()){%>
             <img src="/images/lightbulb_on.png"/>
             <font class="smallfont">
-            Warning: This survey has no questions.  You may be trying to use the system as an advertising placement tool (which is fine) but we thought that you may have accidentally skipped the question page.
+            Warning: This conversation has no questions.  You may be trying to use the system as an advertising placement tool (which is fine) but we thought that you may have accidentally skipped the question page.
             <br/><h:commandLink value="Possible Remedy: Add Questions to Your Survey" styleClass="smallfont" action="researchersurveydetail_02" immediate="true"/>
             </font>
         <%}%>
@@ -240,7 +240,7 @@ ResearcherSurveyDetail06 researcherSurveyDetail06 = (ResearcherSurveyDetail06)Pa
         <%if (researcherSurveyDetail06.getWarningtimeperiodtooshort()){%>
             <img src="/images/lightbulb_on.png"/>
             <font class="smallfont">
-            Warning: The survey time period is rather short.  You may have very good reasons for doing so but we did want to note that surveys take some time to be publicized, signed up for, posted, etc.  30 days is a good safe period of time for a survey.
+            Warning: The conversation time period is rather short.  You may have very good reasons for doing so but we did want to note that surveys take some time to be publicized, signed up for, posted, etc.  30 days is a good safe period of time for a conversation.
             <br/><h:commandLink value="Possible Remedy: Adjust the Start and End Dates" styleClass="smallfont" action="researchersurveydetail_01" immediate="true"/>
             </font>
         <%}%>
@@ -345,17 +345,17 @@ ResearcherSurveyDetail06 researcherSurveyDetail06 = (ResearcherSurveyDetail06)Pa
                 <td valign="top">
                     <font class="normalfont">
                         <ul>
-                            <li>I understand that by launching this survey I am committing to spending up to <%=researcherSurveyDetail06.getMaxpossiblespend()%> (Max Possible Spend.)</li>
-                            <li>Actual charges will be based only on the activities of survey completion and impressions (i.e. viewing of your survey on blogs.)</li>
+                            <li>I understand that by igniting this conversation I am committing to spending up to <%=researcherSurveyDetail06.getMaxpossiblespend()%> (Max Possible Spend.)</li>
+                            <li>Actual charges will be based only on the activities of conversation completion and impressions (i.e. viewing of your conversation on the web.)</li>
                             <li>I understand that my account balance must be sufficient to support activities:
                                 <ul>
                                     <li>20% of the <%=researcherSurveyDetail06.getMaxpossiblespend()%> will be charged now.</li>
-                                    <li>Whenever my account balance falls below 10% of the sum of the Max Possible Spends for all of my live (open) surveys, additional charges will be made to attain the 20% balance.</li>
-                                    <li>If my account balance falls below 5% of the sum of the Max Possible Spends for all of my live (open) surveys, then all my surveys will be put on hold until my account balance is increased.</li>
-                                    <li>However, if my account balance is sufficient to complete the activities I have requested, my live (open) surveys will not be put on hold. </li>
+                                    <li>Whenever my account balance falls below 10% of the sum of the Max Possible Spends for all of my live (open) conversations, additional charges will be made to attain the 20% balance.</li>
+                                    <li>If my account balance falls below 5% of the sum of the Max Possible Spends for all of my live (open) conversations, then all my conversations will be put on hold until my account balance is increased.</li>
+                                    <li>However, if my account balance is sufficient to complete the activities I have requested, my live (open) conversations will not be put on hold. </li>
                                 </ul>
                             </li>
-                            <li>Impressions on blogs will be paid for during a period extending 30 days from the end date of the survey, not to exceed the limits on impressions that you've set with your survey.  As such, dNeero will refund money after this period when the max number of surveys is not reached.</li>
+                            <li>Impressions on blogs will be paid for during a period extending 30 days from the end date of the conversation, not to exceed the limits on impressions that you've set with your conversation.  As such, dNeero will refund money after this period when the max number of conversations is not reached.</li>
                         </ul>
                     </font>
                 </td>
@@ -415,7 +415,7 @@ ResearcherSurveyDetail06 researcherSurveyDetail06 = (ResearcherSurveyDetail06)Pa
             <td valign="top" align="right">
                 <%if (researcherSurveyDetail06.getSurvey().getStatus()==Survey.STATUS_DRAFT) {%>
                     <input type="submit" class="formsubmitbutton" value="Save and Continue Later" onclick="document.getElementById('action').value='saveasdraft';">
-                    <input type="submit" class="formsubmitbutton" value="Launch this Survey!">
+                    <input type="submit" class="formsubmitbutton" value="Ignite this Conversation!">
                 <%} else {%>
                     <input type="submit" class="formsubmitbutton" value="Next Step">
                 <%}%>

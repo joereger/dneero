@@ -37,10 +37,10 @@ String acl = "blogger";
         <font class="formfieldnamefont" style="color: #666666">A few notes about completed surveys:</font>
         <font class="smallfont" style="color: #666666;">
             <ul>
-                <li><b>You get paid for surveys when you generate clicks/displays for surveys in the days after you take it.</b>  The little squares represent days you have to generate clicks.  Underneath the squares is a summary of your status.</li>
+                <li><b>You get paid for conversations when you generate clicks/displays for conversations in the days after you take it.</b>  The little squares represent days you have to generate clicks.  Underneath the squares is a summary of your status.</li>
                 <li><b>Red squares</b> are days where you didn't generate enough clicks.  <b>Green squares</b> are days that you did.</li>
                 <li><b>Once you can no longer generate clicks</b> to qualify for payment your squares may turn all grey.</li>
-                <li><b>The square on the left represents the day that you take the survey.</b>  Squares to the right of that square are the days after that.</li>
+                <li><b>The square on the left represents the day that you join the conversation.</b>  Squares to the right of that square are the days after that.</li>
                 <li><b>All survey status boxes will automatically update overnight.</b>  Or, you can click the Refresh button to update whenever you'd like to check your status.</li>
                 <li><b>Clicks/displays are recorded once every five minutes.</b>  Keep this in mind when you click the Refresh button.</li>
             </ul>
@@ -133,7 +133,7 @@ String acl = "blogger";
     <% if (!Pagez.getUserSession().getIsfacebookui()){ %>
         <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
         <img src="/images/lightbulb_on.png" alt="" align="right"/>
-        Your blog posting script: Click on any survey title to access the script that you'll use to post the survey to your blog.  You must do this to make money on your blog traffic impressions.
+        Your blog posting script: Click on any conversation title to access the script that you'll use to post the conversation to your blog.  You must do this to make money on your blog traffic impressions.
         <br/><br/>
         Note: Earnings calculations are not final.   Final payment notification and calculation can be found on <a href="/account/accountbalance.jsp"><font class="smallfont">Your Account Balance</font></a> page.
         </font></div></center>

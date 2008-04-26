@@ -67,7 +67,7 @@ public class InstantNotifyOfNewSurvey implements Runnable {
         }
         listofsurveysTxt.append("\n" + url);
         //Instant messaging text
-        String instantmessage = "dNeero.com: Earn up to " + surveyEnhancer.getMaxearning() + " on Survey: \"" + Str.truncateString(survey.getDescription(), 50)+ "\" at Url: " + url;
+        String instantmessage = "dNeero.com: Earn up to " + surveyEnhancer.getMaxearning() + " on Conversation: \"" + Str.truncateString(survey.getDescription(), 50)+ "\" at Url: " + url;
         //Create the args array to hold the dynamic stuff
         String[] args = new String[10];
         args[0] = "$"+Str.formatForMoney(possibleearnings);
@@ -82,7 +82,7 @@ public class InstantNotifyOfNewSurvey implements Runnable {
             User user = User.get(blogger.getUserid());
             if (user.getInstantnotifybyemailison()){
                 //Send email
-                EmailTemplateProcessor.sendMail("Instant Notification: New dNeero Survey for "+user.getFirstname(), "bloggernotifyofnewsurveys", user, args);
+                EmailTemplateProcessor.sendMail("Instant Notification: New dNeero Conversation for "+user.getFirstname(), "bloggernotifyofnewsurveys", user, args);
             }
             if (user.getInstantnotifybytwitterison() && !user.getInstantnotifytwitterusername().equals("")){
                 //Send Twitter

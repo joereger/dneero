@@ -545,7 +545,7 @@ public class SurveyCriteriaXML {
         out.append("<tr>");
         out.append("<td valign=\"top\">");
         out.append("<font class=\"formfieldnamefont\">");
-        out.append("Total Surveys Taken of at Least");
+        out.append("Total Conversations Joined of at Least");
         out.append("</font>");
         out.append("</td>");
         out.append("<td valign=\"top\">");
@@ -558,7 +558,7 @@ public class SurveyCriteriaXML {
         out.append("<tr>");
         out.append("<td valign=\"top\">");
         out.append("<font class=\"formfieldnamefont\">");
-        out.append("Total Surveys Taken of at Most");
+        out.append("Total Conversations Joined of at Most");
         out.append("</font>");
         out.append("</td>");
         out.append("<td valign=\"top\">");

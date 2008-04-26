@@ -61,7 +61,7 @@ public class SurveyLinkServlet extends HttpServlet {
 
         out = ""+
               "<a href=\""+urlofsurvey+"\">" +
-              "Click Here for Survey Answers" +
+              "Click Here for Answers" +
               "</a>"+
               "";
 

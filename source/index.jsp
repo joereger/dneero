@@ -154,7 +154,7 @@ function rButtonImgInact(){
                     <%=dtcmr.getHtml()%>
                     <br/>
                    <div class="rounded" style="background: #ffffff; padding: 10px;">
-                        <font class="tinyfont">dNeero allows you to donate your earnings to charity with a single click!  And as a researcher you can create surveys that require people to donate.  We even give you the ability to add your own charity.<br/><a href="/charity.jsp">Learn more.</a></font><br/>
+                        <font class="tinyfont">dNeero allows you to donate your earnings to charity with a single click!  And as a researcher you can ignite conversations that require people to donate.  We even give you the ability to add your own charity.<br/><a href="/charity.jsp">Learn more.</a></font><br/>
                    </div>
                </div>
 

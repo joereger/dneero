@@ -110,17 +110,17 @@ public class FacebookApiWrapper {
                 String charitybody = "";
                 if (response.getIsforcharity()){
                     forcharity = " for charity";
-                    charitybody = " Earnings from this survey were donated to <i>"+response.getCharityname()+"</i>.";
+                    charitybody = " Earnings from this conversation were donated to <i>"+response.getCharityname()+"</i>.";
                 }
                 String earnings = surveyEnhancer.getWillingtopayforresponse();
                 int userid = Blogger.get(response.getBloggerid()).getUserid();
                 String answerslink = "<a href=\"http://apps.facebook.com/"+SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_APP_NAME)+"/?action=showsurvey-"+survey.getSurveyid()+"-"+userid+"\"> answers</a>";
 
                 StringBuffer titleTemplate = new StringBuffer();
-                titleTemplate.append("{actor} earned {earnings}{forcharity} by taking a survey.");
+                titleTemplate.append("{actor} earned {earnings}{forcharity} by joining a conversation.");
 
                 StringBuffer bodyTemplate = new StringBuffer();
-                bodyTemplate.append("See {actor}'s {answerslink} to <i>{surveytitle}</i> and take the survey for yourself!{charitybody}");
+                bodyTemplate.append("See {actor}'s {answerslink} to <i>{surveytitle}</i> and join the conversation!{charitybody}");
 
                 TemplatizedAction action = new TemplatizedAction(titleTemplate.toString(), bodyTemplate.toString());
                 action.addTitleParam("earnings", earnings);
@@ -153,7 +153,7 @@ public class FacebookApiWrapper {
                     int count = 0;
                     fbml.append("<center>");
                     fbml.append("<font style=\"font-size: 14px; color: #cccccc; font-weight: bold;\">");
-                    fbml.append("Most Recent Surveys I've Taken");
+                    fbml.append("Most Recent Conversations I've Joined");
                     fbml.append("</font>");
                     fbml.append("</center>");
                     fbml.append("<br/>");
@@ -204,7 +204,7 @@ public class FacebookApiWrapper {
                             fbml.append("<table width=\"100%\">");
                             fbml.append("<tr>");
                             fbml.append("<td valign=\"top\">");
-                                fbml.append("<font style=\"font-size: 9px; color: #666666;\">I'm earning "+surveyEnhancer.getWillingtopayforresponse()+forcharity+" from this survey.</font>");
+                                fbml.append("<font style=\"font-size: 9px; color: #666666;\">I'm earning "+surveyEnhancer.getWillingtopayforresponse()+forcharity+" from this conversation.</font>");
                             fbml.append("</td>");
                             fbml.append("<td valign=\"top\" align=\"right\" style=\"text-align: right;\">");
                                 fbml.append("<a href=\"http://apps.facebook.com/"+SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_APP_NAME)+"/?dpage=%2Fsurvey.jsp&surveyid="+survey.getSurveyid()+"&userid="+user.getUserid()+"&responseid="+response.getResponseid()+"\">");
@@ -419,7 +419,7 @@ public class FacebookApiWrapper {
         String type = "dNeero";
         CharSequence typeChars = type.subSequence(0, type.length());
         StringBuffer content = new StringBuffer();
-        content.append("You've been invited to the social survey app called dNeero that allows you to earn real money taking surveys and sharing your answers with your friends.");
+        content.append("You've been invited to the conversation app called dNeero that allows you to earn real money joining conversations and sharing your opinions with your friends.");
         content.append("<fb:req-choice url=\"http://apps.facebook.com/"+SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_APP_NAME)+"\" label=\"Check it Out\" />");
         CharSequence contentChars = content.subSequence(0, content.length());
         URL imgUrl = null;

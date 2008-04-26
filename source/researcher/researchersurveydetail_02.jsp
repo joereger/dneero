@@ -47,7 +47,7 @@ String acl="researcher";
                 return;
             } else if (request.getParameter("action").equals("saveasdraft")) {
                 logger.debug("Saveasdraft was clicked");
-                Pagez.getUserSession().setMessage("Your survey has been saved.");
+                Pagez.getUserSession().setMessage("Your conversation has been saved.");
                 researcherSurveyDetail02.saveSurvey();
                 Pagez.sendRedirect("/researcher/index.jsp");
                 return;
@@ -91,7 +91,7 @@ String acl="researcher";
 
     <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
     <img src="/images/lightbulb_on.png" alt="" align="right"/>
-    Add questions to your survey on this page.  Choose from the Question Type dropdown box and then click Add Question.  You'll quickly build a list of questions.  Click Preview the Survey to see what these questions look like to somebody taking the survey.  When you're done, click Next Step.
+    Add questions to your conversation on this page.  Choose from the Question Type dropdown box and then click Add Question.  You'll quickly build a list of questions.  Click Preview the Conversation to see what these questions look like to somebody taking the survey.  When you're done, click Next Step.
     <br/><br/>
     </font></div></center>
 
@@ -121,14 +121,14 @@ String acl="researcher";
     </script>
     <div id="tabs">
     <a href="" class="tab" onmousedown="return event.returnValue = showPanel(this, 'panel1');" id="tab1" onclick="return false;">Questions</a>
-    <a href="" class="tab" onmousedown="return event.returnValue = showPanel(this, 'panel2');" onclick="return false;">Preview Your Survey</a>
+    <a href="" class="tab" onmousedown="return event.returnValue = showPanel(this, 'panel2');" onclick="return false;">Preview Your Conversation</a>
     <a href="" class="tab" onmousedown="return event.returnValue = showPanel(this, 'panel3');" onclick="return false;">Question Type Samples</a>
     </div>
     <div class="panel" id="panel1" style="display: block">
             <img src="/images/clear.gif" width="700" height="1"/><br/>
 
             <%if (researcherSurveyQuestionList.getQuestions()==null || researcherSurveyQuestionList.getQuestions().size()==0){%>
-                <font class="normalfont">This survey contains no questions... you need to add one to continue.</font>
+                <font class="normalfont">This conversation contains no questions... you need to add one to continue.</font>
             <%} else {%>
                 <%
                     ArrayList<GridCol> cols=new ArrayList<GridCol>();

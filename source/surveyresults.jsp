@@ -147,7 +147,7 @@ String acl = "public";
                                 <div class="rounded" style="background: #cccccc; text-align: center;">
                                     <center><img src="/images/stop-alt-48.png" width="48" height="48"/></center>
                                     <br/>
-                                    <font class="mediumfont">This survey is closed.</font>
+                                    <font class="mediumfont">This conversation is closed.</font>
                                 </div>
                                 <br/>
                             <% } %>
@@ -156,9 +156,9 @@ String acl = "public";
                                 <div class="rounded" style="background: #e6e6e6; text-align: center;">
                                     <img src="/images/charity-128.png" alt="For Charity" width="128" height="128"/>
                                     <br/>
-                                    <font class="mediumfont">This is a Charity Only survey.</font>
+                                    <font class="mediumfont">This is a Charity Only conversation.</font>
                                     <br/>
-                                    <font class="tinyfont">The creator of the survey requires that dNeero donate all of your earnings from the survey to a charity of your choice.  It's a chance to do some good!</font>
+                                    <font class="tinyfont">The conversation igniter requires that dNeero donate all of your earnings from the conversation to a charity of your choice.  It's a chance to do some good!</font>
                                 </div>
                             <% } %>
                         </div>

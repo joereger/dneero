@@ -65,7 +65,7 @@ public class BloggerIndex implements Serializable {
                         responsependingmsg = responsependingmsg + "We've successfully committed your response to '"+survey.getTitle()+"'!" + "<br/><br/>";
                         surveyidtoredirectto = survey.getSurveyid();
                     } catch (ComponentException cex){
-                        responsependingmsg = responsependingmsg + "There was an error committing your response to the survey '"+survey.getTitle()+"': " + cex.getErrorsAsSingleString() + "  But don't worry... we're always adding new survey opportunities!<br/><br/>";
+                        responsependingmsg = responsependingmsg + "There was an error committing your response to '"+survey.getTitle()+"': " + cex.getErrorsAsSingleString() + "  But don't worry... we're always adding new conversations opportunities!<br/><br/>";
                     }
                     //Delete the responsepending, now that it's been handled
                     responsepending.delete();
@@ -125,12 +125,12 @@ public class BloggerIndex implements Serializable {
         for (Iterator<Response> iterator = responses.iterator(); iterator.hasNext();) {
             Response response = iterator.next();
             if (response.getSurveyid()==survey.getSurveyid()){
-                allCex.addValidationError("You have already taken this survey before.  Each survey can only be answered once.");
+                allCex.addValidationError("You have already joined this conversation.");
             }
         }
         //Make sure blogger is qualified to take
         if (!FindSurveysForBlogger.isBloggerQualifiedToTakeSurvey(blogger, survey)){
-            allCex.addValidationError("Sorry, you're not qualified to take this survey.  Your qualification is determined by your Blogger Profile.  Researchers determine their intended audience when they create a survey.");
+            allCex.addValidationError("Sorry, you're not qualified to join this conversation.  Your qualification is determined by your Profile.  Conversation igniters determine their intended audience when they create a conversation.");
         }
         //Make sure each component is validated
         for (Iterator<Question> iterator = survey.getQuestions().iterator(); iterator.hasNext();) {
@@ -151,7 +151,7 @@ public class BloggerIndex implements Serializable {
                 //Not logged-in... store this response in memory for now
                 Pagez.getUserSession().setPendingSurveyResponseSurveyid(survey.getSurveyid());
                 Pagez.getUserSession().setPendingSurveyResponseAsString(srp.getAsString());
-                logger.debug("Storing survey response in memory: surveyid="+survey.getSurveyid()+" : srp.getAsString()="+srp.getAsString());
+                logger.debug("Storing response in memory: surveyid="+survey.getSurveyid()+" : srp.getAsString()="+srp.getAsString());
             } else {
                 storeResponseInDb(survey, srp, blogger, referredbyuserid);
             }
@@ -175,12 +175,12 @@ public class BloggerIndex implements Serializable {
         for (Iterator<Response> iterator = responses.iterator(); iterator.hasNext();) {
             Response response = iterator.next();
             if (response.getSurveyid()==survey.getSurveyid()){
-                allCex.addValidationError("You have already taken this survey before.  Each survey can only be answered once.");
+                allCex.addValidationError("You have already joined this conversation.");
             }
         }
         //Make sure blogger is qualified to take
         if (!FindSurveysForBlogger.isBloggerQualifiedToTakeSurvey(blogger, survey)){
-            allCex.addValidationError("Sorry, you're not qualified to take this survey.  Your qualification is determined by your Blogger Profile.  Researchers determine their intended audience when they create a survey.");
+            allCex.addValidationError("Sorry, you're not qualified to join this conversation.  Your qualification is determined by your Profile.  Conversation igniters determine their intended audience when they create a conversation.");
         }
         //Create Response
         int responseid = 0;
@@ -282,7 +282,7 @@ public class BloggerIndex implements Serializable {
         //Notify
         if (allCex.getErrors().length<=0){
             //Notify debug group
-            SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_CUSTOMERSUPPORT, "dNeero Survey Taken: "+ survey.getTitle()+" (surveyid="+survey.getSurveyid()+") by "+Pagez.getUserSession().getUser().getFirstname()+" "+Pagez.getUserSession().getUser().getLastname()+" ("+Pagez.getUserSession().getUser().getEmail()+")");
+            SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_CUSTOMERSUPPORT, "dNeero Conversation Joined: "+ survey.getTitle()+" (surveyid="+survey.getSurveyid()+") by "+Pagez.getUserSession().getUser().getFirstname()+" "+Pagez.getUserSession().getUser().getLastname()+" ("+Pagez.getUserSession().getUser().getEmail()+")");
             xmpp.send();
         } else {
             throw allCex;

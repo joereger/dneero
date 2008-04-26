@@ -50,11 +50,11 @@ public class BlogRss extends HttpServlet {
         feed.setFeedType("rss_2.0");
 
         //Channel Title
-        String channelTitle = "dNeero.com Social Surveys Blog";
+        String channelTitle = "dNeero.com Conversations Blog";
         feed.setTitle(channelTitle);
 
         //Channel Description
-        String channelDesc = "This is the official dNeero Social Surveys Blog.";
+        String channelDesc = "This is the official dNeero Conversations Blog.";
         feed.setDescription(channelDesc);
 
         //Channel Link

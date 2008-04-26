@@ -53,7 +53,7 @@ if (researcherRankAddquestion.getRank()!=null && researcherRankAddquestion.getSu
 
 <%if (researcherRankAddquestion.getSurvey()==null){%>
     <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
-        <font class="formfieldnamefont">Please choose a survey to pull the question from.</font>
+        <font class="formfieldnamefont">Please choose a conversation to pull the question from.</font>
     </div>
     <br/><br/>
     <%

@@ -22,7 +22,7 @@ String acl = "public";
             <div class="rounded" style="background: #e6e6e6; text-align: left; padding: 15px;">
                 <font class="mediumfont" style="color: #666666;"><b>Work Together</b></font>
                 <br/>
-                <font class="smallfont" style="color: #666666;"><b>We recently set up a <a href="http://www.facebook.com/group.php?gid=8641922193">dNeero Social Survey Resellers Group</a> on Facebook where you can meet others using the program.  Ask questions, share sales strategies, learn more.</b></font>
+                <font class="smallfont" style="color: #666666;"><b>We recently set up a <a href="http://www.facebook.com/group.php?gid=8641922193">dNeero Conversation Resellers Group</a> on Facebook where you can meet others using the program.  Ask questions, share sales strategies, learn more.</b></font>
             </div>
 
             <br/><br/>

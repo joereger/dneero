@@ -83,7 +83,7 @@ public class ResearcherResultsDemographics implements Serializable {
                 ResearcherResultsDemographicsCacheitem ci = new ResearcherResultsDemographicsCacheitem(sto.getHtml(), Calendar.getInstance());
                 CacheFactory.getCacheProvider().put(key, group, ci);
             } else {
-                html = "Only "+bloggers.size()+" people have taken this survey.  We don't display demographics until at least 10 have taken it.  This is done to protect the demographic information of individuals.";
+                html = "Only "+bloggers.size()+" people have joined this conversation.  We don't display demographics until at least 10 have joined.  This is done to protect the demographic information of individuals.";
             }
         }
     }

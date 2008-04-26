@@ -40,7 +40,7 @@ public class SurveyFlashFacebookServlet extends HttpServlet {
     public void doPost (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Logger logger = Logger.getLogger(this.getClass().getName());
         long timestart = new java.util.Date().getTime();
-        logger.debug("Looking for flash survey via servlet");
+        logger.debug("Looking for flash conversation via servlet");
         logger.debug("request.getParameter(\"s\")="+request.getParameter("s"));
         logger.debug("request.getParameter(\"u\")="+request.getParameter("u"));
         logger.debug("request.getParameter(\"p\")="+request.getParameter("p"));
@@ -109,7 +109,7 @@ public class SurveyFlashFacebookServlet extends HttpServlet {
         } else {
             logger.debug("rebuilding bytes and putting them into cache");
             try{
-                String surveyashtml = "Sorry.  Survey not found. Surveyid="+request.getParameter("s");
+                String surveyashtml = "Sorry.  Not found. Surveyid="+request.getParameter("s");
                 if (survey!=null && survey.getSurveyid()>0){
                     surveyashtml = SurveyAsHtml.getHtml(survey, user, false);
                 }
@@ -165,7 +165,7 @@ public class SurveyFlashFacebookServlet extends HttpServlet {
                     }
                 }
             } catch (Exception ex){
-                logger.error("Error getting survey from cache", ex);
+                logger.error("Error getting conversation from cache", ex);
             }
         }
 
@@ -178,7 +178,7 @@ public class SurveyFlashFacebookServlet extends HttpServlet {
             outStream.write(bytes);
             outStream.close();
         } catch (Exception e){
-            logger.error("Error getting survey from cache");
+            logger.error("Error getting conversation from cache");
         }
 
         //Performance recording
@@ -198,7 +198,7 @@ public class SurveyFlashFacebookServlet extends HttpServlet {
             SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_DEBUG, "Facebook Flash Click: "+ survey.getTitle()+" (surveyid="+survey.getSurveyid()+")");
             xmpp.send();
         } else {
-            SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_DEBUG, "Facebook Flash Click: unknown survey or user");
+            SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_DEBUG, "Facebook Flash Click: unknown conversation or user");
             xmpp.send();
         }
     }

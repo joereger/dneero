@@ -113,7 +113,7 @@ public class SurveyJavascriptServlet extends HttpServlet {
                 }
             }
         } else {
-            output = "Sorry.  Survey not found.  Surveyid="+request.getParameter("s");
+            output = "Sorry.  Not found.  Surveyid="+request.getParameter("s");
             output = "document.write(\""+output+"\");"+"\n";
         }
         //Output to client

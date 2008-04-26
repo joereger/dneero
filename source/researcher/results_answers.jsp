@@ -30,7 +30,7 @@ ResearcherResultsAnswers researcherResultsAnswers = (ResearcherResultsAnswers) P
     </div>
     <br/><br/>
     <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
-    This screen shows survey results for all respondents.  You can also <a href="/researcher/results_answers_advanced.jsp?surveyid=<%=researcherResultsAnswers.getSurvey().getSurveyid()%>">create filters</a> or <a href="/researcher/panels-addpeople.jsp?surveyid=<%=researcherResultsAnswers.getSurvey().getSurveyid()%>&showonly=addbysurvey">add these respondents to a panel</a>.
+    This screen shows results for all respondents.  You can also <a href="/researcher/results_answers_advanced.jsp?surveyid=<%=researcherResultsAnswers.getSurvey().getSurveyid()%>">create filters</a> or <a href="/researcher/panels-addpeople.jsp?surveyid=<%=researcherResultsAnswers.getSurvey().getSurveyid()%>&showonly=addbysurvey">add these respondents to a panel</a>.
     </font></div></center>
     <br/>
     <%=researcherResultsAnswers.getResults()%>

@@ -40,7 +40,7 @@ String acl = "public";
     <font class="mediumfont" color="#333333">What actually gets posted to my blog?</font>
     <br/>
     <font class="smallfont">
-    A widget, no wider or taller than a YouTube widget, includes your survey answers and links for your readers to take the survey for themselves.
+    A widget, no wider or taller than a YouTube widget, includes your answers and links for your readers to join the conversation for themselves.
     </font>
     <br/><br/><br/>
     <!-- End FAQ Question -->
@@ -49,7 +49,7 @@ String acl = "public";
     <font class="mediumfont" color="#333333">How long does my post need to stay up?</font>
     <br/>
     <font class="smallfont">
-    To get paid for a survey you must accrue at least one impression (one person needs to see your blog with the survey in it) for 5 of the first 10 days following the date that you take the survey.   Of course, you want to keep your survey up at all times because the more impressions you get the more money you make.  We also reserve the right to not pay you if we believe that you're gaming the system, only putting surveys up once a day, automating impressions, etc.  By taking money for a survey you're committing to posting it to your blog.
+    To get paid for a conversation you must accrue some impressions (people to see your blog with the conversation in it) for 5 of the first 10 days following the date that you join the conversation.   Of course, you want to keep your conversation up at all times because the more impressions you get the more money you make.  We also reserve the right to not pay you if we believe that you're gaming the system, only putting conversations up once a day, automating impressions, etc.  By taking money for a conversation you're committing to posting it where your peers can see it.
     </font>
     <br/><br/><br/>
     <!-- End FAQ Question -->
@@ -58,7 +58,7 @@ String acl = "public";
     <font class="mediumfont" color="#333333">Will my blog readers know I was paid?</font>
     <br/>
     <font class="smallfont">
-    Yes, they will.  Disclosure is an important element of the blogosphere that dNeero is committed to.  When you post your survey answers to your blog we'll include an unobtrusive but clear note that this survey was paid for.  Of course, you can also have us give your earnings to charity which removes any concerns over money.
+    Yes, they will.  Disclosure is an important element of the blogosphere that dNeero is committed to.  When you post your conversation answers to your blog we'll include an unobtrusive but clear note that this survey was sponsored.  Of course, you can also have us give your earnings to charity which removes any concerns over money.
     </font>
     <br/><br/><br/>
     <!-- End FAQ Question -->
@@ -78,19 +78,19 @@ String acl = "public";
     <!-- End FAQ Question -->
 
     <!-- Start FAQ Question -->
-    <font class="mediumfont" color="#333333">Can I post anything else with my survey answers?</font>
+    <font class="mediumfont" color="#333333">Can I post anything else with my conversation answers?</font>
     <br/>
     <font class="smallfont">
-    Absolutely!  The survey is just a starting point.  Think of it as a way for advertisers and market researchers to start the conversation with you... and as a way for you to start a conversation with your readers.  Go beyond the survey.  Discuss other thoughts you have about the product, concept, etc.  The more you share with your readers the happier we are.
+    Absolutely!  The questions are just a starting point.  Think of it as a way for advertisers and market researchers to start the conversation with you... and as a way for you to start a conversation with your readers.  Go beyond the questions.  Discuss other thoughts you have about the product, concept, etc.  The more you share with your readers the happier we are.
     </font>
     <br/><br/><br/>
     <!-- End FAQ Question -->
 
     <!-- Start FAQ Question -->
-    <font class="mediumfont" color="#333333">Ok, but am I required to post any words with my survey?</font>
+    <font class="mediumfont" color="#333333">Ok, but am I required to post any words with my answers?</font>
     <br/>
     <font class="smallfont">
-    No, if you choose to you can simply fill out the survey and post the html we provide to your blog.
+    No, if you choose to you can simply fill out the questions and post the html we provide to your blog.
     </font>
     <br/><br/><br/>
     <!-- End FAQ Question -->
@@ -144,7 +144,7 @@ String acl = "public";
     <!-- End FAQ Question -->
 
     <!-- Start FAQ Question -->
-    <font class="mediumfont" color="#333333">Does dNeero pay me for my friends' survey responses and blog impressions?</font>
+    <font class="mediumfont" color="#333333">Does dNeero pay me for my friends' conversations and impressions?</font>
     <br/>
     <font class="smallfont">
     All of it.
@@ -180,16 +180,16 @@ String acl = "public";
     <!-- End FAQ Question -->
 
     <!-- Start FAQ Question -->
-    <font class="mediumfont" color="#333333">Sometimes I see surveys on the dNeero homepage but then when I log in they're not listed.  What's up with that?</font>
+    <font class="mediumfont" color="#333333">Sometimes I see conversations on the dNeero homepage but then when I log in they're not listed.  What's up with that?</font>
     <br/>
     <font class="smallfont">
-    On the homepage we list all surveys... for anybody.  Once you log in we know about you and we can show you only the surveys for which you qualify.  Researchers can target surveys by geographic area, age, etc.
+    On the homepage we list all surveys... for anybody.  Once you log in we know about you and we can show you only the conversations for which you qualify.  Conversation igniters can target conversations by geographic area, age, etc.
     </font>
     <br/><br/><br/>
     <!-- End FAQ Question -->
 
     <!-- Start FAQ Question -->
-    <font class="mediumfont" color="#333333">How do I get notified of new survey opportunities?</font>
+    <font class="mediumfont" color="#333333">How do I get notified of new conversation opportunities?</font>
     <br/>
     <font class="smallfont">
     We'll tell you about them.  In your Account Settings you can turn on notifications via email, Twitter and/or XMPP/Jabber.
@@ -225,7 +225,7 @@ String acl = "public";
     <!-- End FAQ Question -->
 
     <!-- Start FAQ Question -->
-    <font class="mediumfont" color="#333333">How many surveys a day can I take?</font>
+    <font class="mediumfont" color="#333333">How many conversations a day can I join?</font>
     <br/>
     <font class="smallfont">
     Five.
@@ -234,10 +234,10 @@ String acl = "public";
     <!-- End FAQ Question -->
 
     <!-- Start FAQ Question -->
-    <font class="mediumfont" color="#333333">How long do I get paid for survey displays in my blog?</font>
+    <font class="mediumfont" color="#333333">How long do I get paid for conversation displays in my blog?</font>
     <br/>
     <font class="smallfont">
-    You get paid until you reach the limit set by the survey creator (shown when you decide whether to take the survey).  Or until 30 days have elapsed since the end of the survey (also listed on the survey).
+    You get paid until you reach the limit set by the conversation igniter (shown when you decide whether to take the survey).  Or until 30 days have elapsed since the end of the conversation (also listed on the conversation).
     </font>
     <br/><br/><br/>
     <!-- End FAQ Question -->

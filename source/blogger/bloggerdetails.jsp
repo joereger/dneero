@@ -62,7 +62,7 @@ BloggerDetails bloggerDetails = (BloggerDetails)Pagez.getBeanMgr().get("BloggerD
         <div class="rounded" style="padding: 15px; margin: 5px; background: #F2FFBF;">
             <font class="mediumfont">Quick One-time Configuration Required</font>
             <br/>
-            <font class="smallfont">Before you can make money we need to collect a few pieces of information about you.  This will only take a minute or two and you won't have to do it again on future visits.  You'll be filling out surveys, posting them socially and making money in no time! We must take your profile so that we can find offers that fit you.  This is a one-time step.  You can edit your answers later on.</font>
+            <font class="smallfont">Before you can make money we need to collect a few pieces of information about you.  This will only take a minute or two and you won't have to do it again on future visits.  You'll be joining conversations, posting them socially and making money in no time! We must take your profile so that we can find offers that fit you.  This is a one-time step.  You can edit your answers later on.</font>
         </div>
     <%}%>
 
@@ -204,13 +204,13 @@ BloggerDetails bloggerDetails = (BloggerDetails)Pagez.getBeanMgr().get("BloggerD
                     </div>
                     <font class="smallfont">
                         <br/><br/><b>Why do you collect this information?</b><br/>
-                        For two reasons. First, to present you with the most relevant surveys.  Second, because market researchers need to be able to target surveys to particular demographics
+                        For two reasons. First, to present you with the most relevant surveys.  Second, because market researchers need to be able to target conversations to particular demographics
 
                         <br/><br/><b>Will this data ever be made available to others?</b><br/>
-                        It will not be made available in a way that can be tied back to you.  However, we may create aggregate results on surveys that say things like "people aged 23-25 answered this way."  When we do this we're using the information from this page but it's in a way that your particular identity isn't shared.
+                        It will not be made available in a way that can be tied back to you.  However, we may create aggregate results on conversations that say things like "people aged 23-25 answered this way."  When we do this we're using the information from this page but it's in a way that your particular identity isn't shared.
 
-                        <br/><br/><b>Check the survey criteria</b><br/>
-                        If a survey has a sufficiently limited demographic target it's possible that survey readers can infer demographic data about you.  For example, if a researcher creates a survey targeted only to individuals with an income of between $30,000 and $40,000 per year and you take the survey then people can infer what your salary is.  When a survey is displayed both the criteria and who took the survey are visible.  Take this into account and if you're not comfortable with the scope of the demographic criteria that the researcher has chosen, tell them... they may choose to widen it.
+                        <br/><br/><b>Check the conversation criteria</b><br/>
+                        If a conversation has a sufficiently limited demographic target it's possible that conversation readers can infer demographic data about you.  For example, if somebode ignites a conversation targeted only to individuals with an income of between $30,000 and $40,000 per year and you join the conversation then people can infer what your salary is.  When a conversation is displayed both the criteria and who joined in are visible.  Take this into account and if you're not comfortable with the scope of the demographic criteria that the researcher has chosen, tell them... they may choose to widen it.
                     </font>
                     <br/><br/>
                 </div>

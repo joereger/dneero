@@ -51,7 +51,7 @@ String acl = "researcher";
 
                 </div>
                 <div class="rounded" style="background: #88c99d; text-align: left; padding: 20px;">
-                    <font class="smallfont">Total Survey Responses</font>
+                    <font class="smallfont">Total Responses</font>
                     <br/>
                     <font class="largefont"><%=researcherResults.getTotalsurveyresponses()%></font>
                     <br/>

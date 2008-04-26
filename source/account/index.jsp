@@ -48,7 +48,7 @@ if (accountIndex.getUserhasresponsependings()){
                                 <br/><font class="largefont" style="color: #cccccc;"><%=accountIndex.getCurrentbalance()%></font>
                                 <% if (accountIndex.getPendingearningsDbl()>0){ %>
                                     <br/><font class="formfieldnamefont" style="color: #666666;">Pending: <%=accountIndex.getPendingearnings()%></font>
-                                    <br/><font class="tinyfont" style="color: #666666;">Remember, your surveys must generate impressions for 10 days after you take them to get paid.</font>
+                                    <br/><font class="tinyfont" style="color: #666666;">Remember, your conversations must generate impressions for 10 days after you take them to get paid.</font>
                                 <% } %>
                             </td></tr></table>
                         </div>
@@ -73,7 +73,7 @@ if (accountIndex.getUserhasresponsependings()){
                                 <a href="/account/reseller.jsp"><font class="mediumfont" style="color: #596697;">Reseller Program</font></a>
                             </td></tr>
                             <tr><td valign="top"></td><td valign="top">
-                                <font class="smallfont">Sell dNeero Social Surveys and make money!</font>
+                                <font class="smallfont">Sell dNeero conversations and make money!</font>
                             </td></tr></table>
 
                             <br/><br/>
@@ -112,9 +112,9 @@ if (accountIndex.getUserhasresponsependings()){
                                 <div style="padding: 10px;">
                                     <font class="smallfont"><b>Take Surveys</b></font>
                                     <br/>
-                                    <font class="smallfont">You're a blogger or publisher interested in taking surveys, posting your answers to your blog and making money.</font>
+                                    <font class="smallfont">You're a blogger or publisher interested in joining conversations, posting your answers to your blog and making money.</font>
                                     <br/>
-                                    <a href="/blogger/index.jsp"><font class="subnavfont" style="color: #596697;">Continue as a Blogger</font></a>
+                                    <a href="/blogger/index.jsp"><font class="subnavfont" style="color: #596697;">Continue as a Social Person</font></a>
                                 </div>
                             </td>
                             <td width="50%" align="left" valign="top">
@@ -123,9 +123,9 @@ if (accountIndex.getUserhasresponsependings()){
                                 <div style="padding: 10px;">
                                     <font class="smallfont"><b>Create and Manage Surveys</b></font>
                                     <br/>
-                                    <font class="smallfont">You're a researcher interested in creating surveys, finding bloggers to respond to them and generating buzz for your product or service.</font>
+                                    <font class="smallfont">You're a researcher interested in igniting conversations, finding social people to respond to them and generating buzz for your product or service.</font>
                                     <br/>
-                                    <a href="/researcher/index.jsp"><font class="subnavfont" style="color: #596697;">Continue as a Researcher</font></a>
+                                    <a href="/researcher/index.jsp"><font class="subnavfont" style="color: #596697;">Continue as a Conversation Igniter</font></a>
                                 </div>
                             </td>
                         </tr>

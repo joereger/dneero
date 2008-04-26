@@ -61,7 +61,7 @@ public class PayForSurveyResponsesOncePosted implements Job {
                                     //Pay them the correct amount... remember, their pay is based on the amount paid to the bloggers
                                     double amtToPayReseller = SurveyMoneyStatus.calculateResellerAmt(survey.getWillingtopayperrespondent(), userReseller);
                                     if (amtToPayReseller>0){
-                                        MoveMoneyInAccountBalance.pay(userReseller, amtToPayReseller, "Reseller pay for survey response to '"+Str.truncateString(survey.getTitle(), 20)+"'", false, false, "", 0, false, false, false, true);
+                                        MoveMoneyInAccountBalance.pay(userReseller, amtToPayReseller, "Reseller pay for response to '"+Str.truncateString(survey.getTitle(), 20)+"'", false, false, "", 0, false, false, false, true);
                                     }
                                 }
                             }
