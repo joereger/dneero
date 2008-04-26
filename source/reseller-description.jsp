@@ -1,6 +1,6 @@
 <font class="mediumfont" style="color: #999999;">What is the Reseller Program?</font>
 <br/><font class="normalfont" style="color: #666666;">
-The dNeero Reseller Program allows you to sell dNeero conversations to organizations and earn 10% of whatever they spend to ignite the conversation.  For example, if they join a conversation and pay $1000 to social people through it then you'll earn $100.
+The dNeero Reseller Program allows you to sell dNeero conversations to organizations and earn 5% of whatever they spend to ignite the conversation.  For example, if they join a conversation and pay $1000 to social people through it then you'll earn $100.
 </font>
 
 <br/><br/>
@@ -18,7 +18,7 @@ The program is very simple for you to use.
 <br/>
 <font class="mediumfont" style="color: #999999;">How much do I get paid?</font>
 <br/><font class="normalfont" style="color: #666666;">
-You get paid 10% of whatever the conversations pay to bloggers and social people.  For example, if you sell a conversation that pays social people a total of $1000 you earn $100.
+You get paid 5% of whatever the conversations pay to bloggers and social people.  For example, if you sell a conversation that pays social people a total of $1000 you earn $50.
 </font>
 
 <br/><br/>

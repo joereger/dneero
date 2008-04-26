@@ -33,17 +33,19 @@ String acl = "public";
            <tr>
                <td valign="top" width="70%">
                     <div style="margin: 15px;">
+                        <font class="mediumfont" style="color: #999999">What're Social People?</font>
+                        <br/>
+                        Anybody who engages in social activity online.  Bloggers, Facebookers, Myspacers and other social network participants.  Social People is a catch-all term.
+                        <br/><br/><br/>
                         <font class="mediumfont" style="color: #999999">Quick Summary</font>
                         <br/>
                         dNeero helps social people make money joining conversations and posting their opinions where their peers can join in.
                         <br/><br/>
                         After filling out a questions here at dNeero.com you've already reserved some money for your effort... but haven't earned it yet.  To capture that money all you have to do is post your answers to your blog and generate some traffic for a few days (all you have to do is copy-and-paste a single line of code).  Your blog readers will see your answers along with any other thoughts you had about the conversation.  Your readers can then join the conversation, or see how others from your blog answered. If they join the conversation and get paid, we pay you a recruitment fee based on what they earn.
                         <br/><br/><br/>
-                        <font class="mediumfont" style="color: #999999">How it Works for Bloggers</font>
+                        <font class="mediumfont" style="color: #999999">How it Works for Social People</font>
                         <br/>
-                        The process is quick and easy.  We guide you through each step with wizards that tell you what to do next.  Here are the steps:
-                        <br/><br/>
-                        <img src="/images/blogger-diagram.gif" width="475" height="403" border="0"></img>
+                        You find conversations that interest you.  You answer a set of questions honestly.  You post your answers in a place where your peers can see them (we have a widget that's a simple copy and paste).  Your friends engage in the conversation.  You get paid. 
                         <br/><br/><br/>
                         <font class="mediumfont" style="color: #999999">Blogs and Conversations: So Happy Together</font>
                         <br/>
@@ -75,15 +77,7 @@ String acl = "public";
                     </table>
                </td>
                <td valign="top" width="30%">
-                    <center>
-                    <a href="/publicsurveylist.jsp"><img src="/images/blogger-check-out-opps.gif" width="190" height="132" border="0"/></a>
-                    </center>
-                    <br/><br/>
-                    <div class="rounded" style="background: #eeeeee;">
-                        <font class="largefont">$<%=Str.formatForMoney(systemStats.getDollarsavailabletobloggers())%></font>
-                        <br/>
-                        <font class="mediumfont">waiting to be earned by bloggers!</font>
-                    </div>
+
                </td>
            </tr>
         </table>

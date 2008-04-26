@@ -24,7 +24,7 @@ public class SurveyMoneyStatus implements Serializable {
     public static double DEFAULTDNEEROMARKUPPERCENT = 25;
     public static int DAYSAFTERCLOSEOFSURVEYWECOLLECTFORIMPRESSIONS = 30;
     public static double HIDESURVEYFEEPERCENT = 5;
-    public static double RESELLERPERCENTDEFAULT = 10;
+    public static double RESELLERPERCENTDEFAULT = 5;
 
     private double maxPossiblePayoutForResponses = 0;
     private double maxPossiblePayoutForImpressions = 0;
