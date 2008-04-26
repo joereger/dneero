@@ -65,7 +65,7 @@ String acl = "account";
 
             <br/>
             <div class="rounded" style="background: #e6e6e6; text-align: left; padding: 15px;">
-                <font class="mediumfont" style="color: #666666;"><b>Surveys</b></font>
+                <font class="mediumfont" style="color: #666666;"><b>Conversations</b></font>
                 <br/>
                 <%if (accountReseller.getSurveys()==null || accountReseller.getSurveys().size()==0){%>
                     <font class="smallfont" style="color: #666666;"><b>No conversations have been created using your Reseller Code.</b></font>

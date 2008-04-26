@@ -59,10 +59,10 @@ if (Pagez.getUserSession().getIsloggedin() && (Pagez.getUserSession().getUser().
                         <br/><br/><br/>
                         <font class="mediumfont" style="color: #999999">How it Works for Researchers</font>
                         <ol>
-                        <li><b>Create a survey</b> composed of various question types (Text, Essay, Likert Scale, Matrix, Multiple Choice, etc.)</li>
+                        <li><b>Create a conversation</b> composed of various question types (Text, Essay, Likert Scale, Matrix, Multiple Choice, etc.)</li>
                         <li><b>Define your target blogger demographic</b> by birthdate, gender, ethnicity, marital status, income, education, state, city, profession and politics.</li>
                         <li><b>Define how much you'll pay</b> for a conversation response and how much you'll pay for 1000 posts of that conversation response to a blog (CPM).  There are many incentive strategies you can implement.</li>
-                        <li><b>dNeero will publicize your survey</b> and find bloggers who want to respond to it. You'll pay for only those responses and conversation displays that happen.</li>
+                        <li><b>dNeero will publicize your conversation</b> and find bloggers who want to respond to it. You'll pay for only those responses and conversation displays that happen.</li>
                         <li><b>dNeero tracks conversation responses and blog impressions</b>, providing you with simple billing and results data</li>
                         </ol>
                         <br/>
@@ -82,13 +82,13 @@ if (Pagez.getUserSession().getIsloggedin() && (Pagez.getUserSession().getUser().
                         <br/>
                         Research data gained through dNeero is more reflective of how people actually act in their peer group because the answers they provide will be shared on their blog or social network.  In many traditional forms of market research the subject is apt to provide an answer that seems appropriate to the researcher but is not the actual answer that they'll use with their peers.  As a researcher you're much more interested in how they present their beliefs and views to their peers because these views drive market adoption and purchasing decisions.
                         <br/><br/><br/>
-                        <font class="mediumfont" style="color: #999999">Include Images in Surveys</font>
+                        <font class="mediumfont" style="color: #999999">Include Images in Conversations</font>
                         <br/>
                         Images allow conversation participants to answer questions about a new product design, etc.  And by including an image in the conversation you are actually putting that image onto many blog sites at once.
                         <br/><br/><br/>
                         <font class="mediumfont" style="color: #999999">Social Influence Rating (TM)</font>
                         <br/>
-                        Bloggers post their answers to their blogs.  Their readers are given the opportunity to join the same conversation.  We track this influence and incorporate blog traffic with the amount of skewing that the first blogger's answers resulted in (against the norm for the survey) and create a Social Influence Rating.  This helps you zero in on those bloggers that are effective in your space.
+                        Bloggers post their answers to their blogs.  Their readers are given the opportunity to join the same conversation.  We track this influence and incorporate blog traffic with the amount of skewing that the first blogger's answers resulted in (against the norm for the conversation) and create a Social Influence Rating.  This helps you zero in on those bloggers that are effective in your space.
                         <br/><br/><br/>
                         <font class="mediumfont" style="color: #999999">Standing Panels of Bloggers for Longitudinal Studies</font>
                         <br/>
@@ -157,7 +157,7 @@ if (Pagez.getUserSession().getIsloggedin() && (Pagez.getUserSession().getUser().
                                 <a href="/researcher/rank-list.jsp"><font class="mediumfont" style="color: #596697;">Rankings</font></a>
                             </td></tr>
                             <tr><td valign="top"></td><td valign="top">
-                                <font class="smallfont">Create your own ranking index and use it to define/track people across multiple surveys.</font>
+                                <font class="smallfont">Create your own ranking index and use it to define/track people across multiple conversations.</font>
                             </td></tr></table>
 
                             <br/><br/>
@@ -199,7 +199,7 @@ if (Pagez.getUserSession().getIsloggedin() && (Pagez.getUserSession().getUser().
                     <font class="largefont" style="color: #cccccc;">Conversations You've Created</font>
                     <br/>
                     <%if (researcherSurveyList.getSurveys()==null || researcherSurveyList.getSurveys().size()==0){%>
-                        <font class="normalfont">You haven't yet created any conversations. <a href="/researcher/researchersurveydetail_01.jsp">Start a New Survey</a>.</font>
+                        <font class="normalfont">You haven't yet created any conversations. <a href="/researcher/researchersurveydetail_01.jsp">Ignite a New Conversation</a>.</font>
                     <%} else {%>
                         <%
                             ArrayList<GridCol> cols=new ArrayList<GridCol>();

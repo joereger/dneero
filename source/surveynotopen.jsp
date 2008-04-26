@@ -2,7 +2,7 @@
 <%@ page import="com.dneero.htmlui.Pagez" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
-String pagetitle = "Survey Not Available";
+String pagetitle = "Conversation Not Available";
 String navtab = "home";
 String acl = "public";
 %>

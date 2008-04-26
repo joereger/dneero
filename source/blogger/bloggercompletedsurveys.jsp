@@ -10,7 +10,7 @@
 <%@ page import="java.util.ArrayList" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
-String pagetitle = "Completed Surveys";
+String pagetitle = "Joined Conversations";
 String navtab = "bloggers";
 String acl = "blogger";
 %>
@@ -34,14 +34,14 @@ String acl = "blogger";
 <%@ include file="/template/header.jsp" %>
 
     <div class="rounded" style="background: #e6e6e6; padding: 10px;">
-        <font class="formfieldnamefont" style="color: #666666">A few notes about completed surveys:</font>
+        <font class="formfieldnamefont" style="color: #666666">A few notes about joined conversations:</font>
         <font class="smallfont" style="color: #666666;">
             <ul>
                 <li><b>You get paid for conversations when you generate clicks/displays for conversations in the days after you take it.</b>  The little squares represent days you have to generate clicks.  Underneath the squares is a summary of your status.</li>
                 <li><b>Red squares</b> are days where you didn't generate enough clicks.  <b>Green squares</b> are days that you did.</li>
                 <li><b>Once you can no longer generate clicks</b> to qualify for payment your squares may turn all grey.</li>
                 <li><b>The square on the left represents the day that you join the conversation.</b>  Squares to the right of that square are the days after that.</li>
-                <li><b>All survey status boxes will automatically update overnight.</b>  Or, you can click the Refresh button to update whenever you'd like to check your status.</li>
+                <li><b>All conversation status boxes will automatically update overnight.</b>  Or, you can click the Refresh button to update whenever you'd like to check your status.</li>
                 <li><b>Clicks/displays are recorded once every five minutes.</b>  Keep this in mind when you click the Refresh button.</li>
             </ul>
         </font>
@@ -113,7 +113,7 @@ String acl = "blogger";
 
 
     <%if (bloggerCompletedsurveys.getList()==null || bloggerCompletedsurveys.getList().size()==0){%>
-        <font class="normalfont">You haven't yet taken any surveys!</font>
+        <font class="normalfont">You haven't yet joined any conversations!</font>
     <%} else {%>
         <%
             ArrayList<GridCol> cols = new ArrayList<GridCol>();

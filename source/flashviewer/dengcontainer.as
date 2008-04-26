@@ -77,8 +77,8 @@ function onLoadXML(success, status) {
 		default: _err = "An unknown error occured (" + status + ")"; break;
 	}
 	if (_err!=""){
-		this.displayStatus("We're Sorry!\n\nFailure to Render the Survey:\n" + _err + "\n\nHTML:\n"+SURVEY_AS_HTML);
-		//deng.setXmlSource("<p>We're Sorry!!!\n\nThere was a Failure to Render the Survey:\n" + _err + "\n\nHTML:\n<pre>"+SURVEY_AS_HTML+"<pre></p>");
+		this.displayStatus("We're Sorry!\n\nFailure to Render the Conversation:\n" + _err + "\n\nHTML:\n"+SURVEY_AS_HTML);
+		//deng.setXmlSource("<p>We're Sorry!!!\n\nThere was a Failure to Render the Conversation:\n" + _err + "\n\nHTML:\n<pre>"+SURVEY_AS_HTML+"<pre></p>");
 		//deng.render();
 	}
 	this.onResize();

@@ -29,7 +29,7 @@ ResearcherEmailinviteComplete researcherEmailinviteComplete = (ResearcherEmailin
         <form action="/researcher/emailinvite-complete.jsp" method="post">
             <input type="hidden" name="dpage" value="/researcher/emailinvite-complete.jsp">
             <input type="hidden" name="action" value="invite">
-            <font class="formfieldnamefont">Survey to invite people to: <%=researcherEmailinviteComplete.getSurvey().getTitle()%></font>
+            <font class="formfieldnamefont">Conversation to invite people to: <%=researcherEmailinviteComplete.getSurvey().getTitle()%></font>
 
             <br/><br/>
             <font class="formfieldnamefont">Valid email addresses: <%=researcherEmailinviteComplete.getNumberofrecipients()%></font>

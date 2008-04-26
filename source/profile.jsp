@@ -80,7 +80,7 @@ String acl = "public";
 
 
        <br/><br/>
-       <font class="mediumfont" style="color: #cccccc;">Surveys Taken</font>
+       <font class="mediumfont" style="color: #cccccc;">Conversations Joined</font>
        <br/>
        <%if (publicProfile.getListitems()==null || publicProfile.getListitems().size()==0){%>
             <font class="normalfont">None... yet.</font>
@@ -88,7 +88,7 @@ String acl = "public";
             <%
                 ArrayList<GridCol> cols=new ArrayList<GridCol>();
                 cols.add(new GridCol("Date", "<$response.responsedate|"+Grid.GRIDCOLRENDERER_DATETIMECOMPACT+"$>", true, "", "tinyfont"));
-                cols.add(new GridCol("Survey Title", "<$survey.title$>", false, "", "normalfont"));
+                cols.add(new GridCol("Conversation Title", "<$survey.title$>", false, "", "normalfont"));
                 cols.add(new GridCol("", "<a href=\"/survey.jsp?u="+publicProfile.getUser().getUserid()+"\">Answers</a>", false, "", "smallfont"));
                 cols.add(new GridCol("", "<a href=\"/profileimpressions.jsp?responseid=<$response.responseid$>\">Impressions</a>", false, "", "smallfont"));
             %>

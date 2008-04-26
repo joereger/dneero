@@ -6,7 +6,7 @@
 <%@ page import="java.util.ArrayList" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
-String pagetitle = "Survey Results";
+String pagetitle = "Results";
 String navtab = "researchers";
 String acl = "researcher";
 %>

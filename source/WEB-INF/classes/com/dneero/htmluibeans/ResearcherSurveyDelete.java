@@ -84,7 +84,7 @@ public class ResearcherSurveyDelete implements Serializable {
                 logger.debug("Not deleting because userSession.getCurrentSurveyid() is not less than zero");
             }
         } else {
-            vex.addValidationError("Survey could not be deleted because it is not in draft mode.");
+            vex.addValidationError("Conversation could not be deleted because it is not in draft mode.");
             logger.debug("Not deleting because status!=Survey.STATUS_DRAFT");
             throw vex;
         }

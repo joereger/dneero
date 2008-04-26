@@ -74,7 +74,7 @@ ResearcherSurveyDetail01 researcherSurveyDetail01 = (ResearcherSurveyDetail01)Pa
                     <table cellpadding="0" cellspacing="0" border="0">
                         <tr>
                             <td valign="top">
-                                <font class="formfieldnamefont">Survey Title</font>
+                                <font class="formfieldnamefont">Conversation Title</font>
                             </td>
                             <td valign="top">
                                 <%if (researcherSurveyDetail01.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {%>

@@ -71,7 +71,7 @@ public class SurveyHtmlpageServlet extends HttpServlet {
     }
 
     public static String getEmbedSyntax(String baseurl, int surveyid, int userid, int responseid, boolean ispreview){
-        return getEmbedSyntax(baseurl, surveyid, userid, responseid, ispreview, "Show Survey");
+        return getEmbedSyntax(baseurl, surveyid, userid, responseid, ispreview, "Show Conversation");
     }
 
     public static String getEmbedSyntax(String baseurl, int surveyid, int userid, int responseid, boolean ispreview, String linktext){

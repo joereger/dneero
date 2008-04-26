@@ -65,7 +65,7 @@ String acl = "public";
         <tr>
             <td valign="top">
                 <center><div class="rounded" style="background: #e6e6e6; text-align: left; padding: 20px;"><font class="smallfont">
-                Discuss this conversation here.  Thoughts on the results?  Thoughts on the financial incentive?  Thoughts on the people who are posting it to their blogs?  Thoughts on the questions asked?  Thoughts on anything else related to this survey?
+                Discuss this conversation here.  Thoughts on the results?  Thoughts on the financial incentive?  Thoughts on the people who are posting it to their blogs?  Thoughts on the questions asked?  Thoughts on anything else related to this conversation?
                 </font></div></center>
                 <% if (!Pagez.getUserSession().getIsloggedin()){ %>
                     <br/><br/>

@@ -19,7 +19,7 @@ SysadminMassemailList sysadminMassemailList = (SysadminMassemailList)Pagez.getBe
 
 
     <%if (sysadminMassemailList.getMassemails()==null || sysadminMassemailList.getMassemails().size()==0){%>
-        <font class="normalfont">No surveys!</font>
+        <font class="normalfont">No mass emails!</font>
     <%} else {%>
         <%
             ArrayList<GridCol> cols=new ArrayList<GridCol>();

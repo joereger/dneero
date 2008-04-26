@@ -57,7 +57,7 @@ String acl = "researcher";
                         <tr>
                             <td valign="top">
                                 <font class="normalfont" style="font-weight: bold;"><a href="/researcher/rank-addquestion.jsp?rankid=<%=researcherRankDetail.getRank().getRankid()%>&questionid=<%=question.getQuestionid()%>&surveyid=<%=survey.getSurveyid()%>"><%=question.getQuestion()%></a></font>
-                                <br/><img src="/images/clear.gif" alt="" width="25" height="1"><font class="tinyfont">From survey: <a href="/researcher/rank-addquestion.jsp?rankid=<%=researcherRankDetail.getRank().getRankid()%>&surveyid=<%=survey.getSurveyid()%>"><%=survey.getTitle()%></a></font>
+                                <br/><img src="/images/clear.gif" alt="" width="25" height="1"><font class="tinyfont">From conversation: <a href="/researcher/rank-addquestion.jsp?rankid=<%=researcherRankDetail.getRank().getRankid()%>&surveyid=<%=survey.getSurveyid()%>"><%=survey.getTitle()%></a></font>
                                 <%
                                 List<Rankquestion> rankquestions = HibernateUtil.getSession().createCriteria(Rankquestion.class)
                                                        .add(Restrictions.eq("rankid", researcherRankDetail.getRank().getRankid()))

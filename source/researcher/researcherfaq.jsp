@@ -33,13 +33,13 @@ String acl = "public";
     <font class="mediumfont" color="#333333">How much does it cost to get started?</font>
     <br/>
     <font class="smallfont">
-    You can create surveys for less than $100 by choosing low incentives and low numbers of required respondents.
+    You can create conversations for less than $100 by choosing low incentives and low numbers of required respondents.
     </font>
     <br/><br/><br/>
     <!-- End FAQ Question -->
 
     <!-- Start FAQ Question -->
-    <font class="mediumfont" color="#333333">What if nobody takes my survey?</font>
+    <font class="mediumfont" color="#333333">What if nobody joins my conversation?</font>
     <br/>
     <font class="smallfont">
     You don't pay.  This is a low-risk technology.  If you want to, you can try again with a higher payment incentive for bloggers.  You only pay for the activity that your conversation generates.
@@ -48,7 +48,7 @@ String acl = "public";
     <!-- End FAQ Question -->
 
     <!-- Start FAQ Question -->
-    <font class="mediumfont" color="#333333">Can I embed product images into my survey?</font>
+    <font class="mediumfont" color="#333333">Can I embed product images into my conversation?</font>
     <br/>
     <font class="smallfont">
     Yes.  This is a very powerful concept in our technology.  You can add a product photo (or many) that will appear when social people join your conversation and when they post it to their blog.  Imagine having 5000 blogs spread a picture of your product along with their opinion on it.
@@ -78,7 +78,7 @@ String acl = "public";
     <font class="mediumfont" color="#333333">Can everybody see the results?</font>
     <br/>
     <font class="smallfont">
-    Yes, these are social surveys!  The network effect is embraced.  People affect one another all the time in the real world.
+    Yes!  The network effect is embraced.  People affect one another all the time in the real world.
     </font>
     <br/><br/><br/>
     <!-- End FAQ Question -->
@@ -117,7 +117,7 @@ String acl = "public";
     You're always in control of what's happening with your account.  When you ignite a conversation you cap the maximum amount that you can be charged.  Before you commit to any spend you are shown a clear breakdown of the maximum spending scenario.  Within the bounds that you design, here's what we do:
     <ul>
     <li>When you ignite your conversation you're charged 20% of the total possible value of the conversation.  This means 20% of the Max Possible Spend if you get as many respondents as you like and as many blog displays as you like.</li>
-    <li>Additional charges will be made in 20% increments whenever your account balance falls below 10% of the sum of Max Possible Spend for all open surveys.  </li>
+    <li>Additional charges will be made in 20% increments whenever your account balance falls below 10% of the sum of Max Possible Spend for all open conversations.  </li>
     <li>If your balance falls below 5% of the sum of Max Possible Spend values for all open conversations, then all conversations will be put on hold until your balance is increased.</li>
     </ul>
     </font>

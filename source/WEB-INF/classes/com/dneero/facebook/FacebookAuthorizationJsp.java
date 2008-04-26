@@ -179,7 +179,7 @@ public class FacebookAuthorizationJsp {
                         //Is not a dNeero user yet... make sure there's no user in the session
                         Pagez.getUserSession().setUser(null);
                         Pagez.getUserSession().setIsloggedin(false);
-                        logger.debug("Facebook user added app, considering taking surveys.  facebookSessionKey="+Pagez.getUserSession().getFacebookSessionKey());
+                        logger.debug("Facebook user added app, considering joining conversations.  facebookSessionKey="+Pagez.getUserSession().getFacebookSessionKey());
                         //Notify via XMPP
                         SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_DEBUG, "Facebook user '"+Pagez.getUserSession().getFacebookUser().getFirst_name()+" "+Pagez.getUserSession().getFacebookUser().getLast_name()+"' starts session.  Not yet a dNeero user.");
                         xmpp.send();

@@ -82,7 +82,7 @@ PublicCharity publicCharity = (PublicCharity) Pagez.getBeanMgr().get("PublicChar
                             <br/><a href="http://en.wikipedia.org/wiki/Wikimedia_Foundation" target="charity">Wikimedia Foundation</a>
                             <br/><a href="http://www.conservationfund.org/" target="charity">The Conservation Fund</a>
                             </blockquote>
-                            And you can add your own favorite charity when you create a dNeero social survey!
+                            And you can add your own favorite charity when you create a dNeero conversation!
                         </div>
 
                         <br/><br/>

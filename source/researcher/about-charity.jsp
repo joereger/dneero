@@ -21,7 +21,7 @@ String acl = "public";
             <br/>
             Money introduces the argument that responses are biased.  While we require full disclosure and argue that since people are posting their answers in front of their peers the bias is limited, we do understand that for some campaigns you simply can't have any questionable bias.
             <br/><br/><br/>
-            <font class="mediumfont" style="color: #999999">Charity Only Surveys</font>
+            <font class="mediumfont" style="color: #999999">Charity Only Conversations</font>
             <br/>
             With a single check box you can designate a conversation as Charity Only.  Doing so means that only bloggers who agree to have all of their earnings from the conversation donated to a charity will be able to take it. Learn more about the program <a href="/charity.jsp">here</a>.
             <br/><br/><br/>

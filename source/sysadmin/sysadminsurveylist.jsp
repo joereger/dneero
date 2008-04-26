@@ -6,7 +6,7 @@
 <%@ page import="com.dneero.htmluibeans.SysadminSurveyList" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
-String pagetitle = "Surveys";
+String pagetitle = "Conversations";
 String navtab = "sysadmin";
 String acl = "sysadmin";
 %>
@@ -19,7 +19,7 @@ String acl = "sysadmin";
 
 
     <%if (sysadminSurveyList.getSurveys()==null || sysadminSurveyList.getSurveys().size()==0){%>
-        <font class="normalfont">No surveys!</font>
+        <font class="normalfont">No conversations!</font>
     <%} else {%>
         <%
             ArrayList<GridCol> cols=new ArrayList<GridCol>();

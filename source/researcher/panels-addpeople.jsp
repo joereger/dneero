@@ -41,7 +41,7 @@ if (researcherPanelsAddpeople.getPanelid()<=0){
             </tr>
             <tr>
                 <td valign="top">
-                    <font class="formfieldnamefont">Survey to Add From</font>
+                    <font class="formfieldnamefont">Conversation to Add From</font>
                     <br/>
                     <font class="smallfont">The conversation you'd like to pull respondents from.</font>
                 </td>

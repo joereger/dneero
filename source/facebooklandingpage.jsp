@@ -3,7 +3,7 @@
 <%@ page import="com.dneero.htmluibeans.PublicFacebookLandingPage" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
-String pagetitle = "Social Surveys";
+String pagetitle = "dNeero Conversations";
 String navtab = "home";
 String acl = "public";
 %>

@@ -4,7 +4,7 @@
 <%@ page import="com.dneero.htmluibeans.ResearcherResultsAnswersCsv" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
-String pagetitle = "Survey Results";
+String pagetitle = "Results";
 String navtab = "researchers";
 String acl = "researcher";
 %>

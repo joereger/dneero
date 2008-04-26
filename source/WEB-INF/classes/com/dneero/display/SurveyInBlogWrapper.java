@@ -21,15 +21,15 @@ public class SurveyInBlogWrapper {
             userid = user.getUserid();
         }
         String baseurl = BaseUrl.get(makeHttpsIfSSLIsOn);
-        out.append("<!-- Start dNeero Survey -->\n" +
+        out.append("<!-- Start dNeero Conversation -->\n" +
                 "<div style=\"border: 5px solid #cccccc; width: 415px\">"+
                 "<table cellpadding=\"0\" cellspacing=\"0\" border=\"0\" bgcolor=\"#ffffff\" width=\"415\">\n" +
                 "\t<tr>\n" +
                 "\t\t<td valign=\"top\" align=\"left\" colspan=\"7\" height=\"215\">\n" +
-                "\t\t\t<!-- Start Survey Questions -->\n" +
+                "\t\t\t<!-- Start Conversation Questions -->\n" +
                 in +
                 "\n" +
-                "\t\t\t<!-- End Survey Questions -->\n" +
+                "\t\t\t<!-- End Conversation Questions -->\n" +
                 "\t\t</td>\n" +
                 "\t</tr>\n");
          if(includeFooter){
@@ -47,7 +47,7 @@ public class SurveyInBlogWrapper {
         }
         out.append("</table>\n" +
                 "</div>"+
-                "<!-- End dNeero Survey -->");
+                "<!-- End dNeero Conversation -->");
 
          return out.toString();
     }

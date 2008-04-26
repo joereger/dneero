@@ -306,7 +306,7 @@ public class PublicSurvey implements Serializable {
 
         //If the user's already taken too many surveys
         if (Pagez.getUserSession().getSurveystakentoday()>SurveysTakenToday.MAXSURVEYSPERDAY){
-            vex.addValidationError("Sorry, you've already taken the maximum number of conversations today ("+SurveysTakenToday.MAXSURVEYSPERDAY+").  Wait until tomorrow (defined in U.S. Eastern Standard Time) and try again.");
+            vex.addValidationError("Sorry, you've already joined the maximum number of conversations today ("+SurveysTakenToday.MAXSURVEYSPERDAY+").  Wait until tomorrow (defined in U.S. Eastern Standard Time) and try again.");
             throw vex;
         }
 

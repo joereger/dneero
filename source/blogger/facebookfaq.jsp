@@ -17,7 +17,7 @@ String acl = "public";
     <font class="mediumfont" color="#333333">Is this thing for real?</font>
     <br/>
     <font class="smallfont">
-    It is.  We're transparent about what we're asking you to do to get paid.  Other pay-for-survey companies dangle an always-vanishing carrot in front of you and ask you to do a ton of crazy stuff.  We pay people daily.  Most people who review us say something like "one of the only things I tried that actually pays."
+    It is.  We're transparent about what we're asking you to do to get paid.  Other pay-for-doing stuff companies dangle an always-vanishing carrot in front of you and ask you to do a ton of crazy stuff.  We pay people daily.  Most people who review us say something like "one of the only things I tried that actually pays."
     </font>
     <br/><br/><br/>
     <!-- End FAQ Question -->
@@ -54,7 +54,7 @@ String acl = "public";
     <font class="mediumfont" color="#333333">What actually gets posted to my profile?</font>
     <br/>
     <font class="smallfont">
-    A link to your mini-feed that says something like "Joe Reger joined the conversation 'Some Cool Survey' and earned $3.45."  We also list your conversations in a profile box.
+    A link to your mini-feed that says something like "Joe Reger joined the conversation 'Some Cool Conversation' and earned $3.45."  We also list your conversations in a profile box.
     </font>
     <br/><br/><br/>
     <!-- End FAQ Question -->

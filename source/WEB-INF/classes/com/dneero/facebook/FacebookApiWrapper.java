@@ -193,7 +193,7 @@ public class FacebookApiWrapper {
 //                            fbml.append("<td valign=\"top\" align=\"right\" style=\"text-align: right;\">");
 //                                fbml.append("<br/>");
 //                                fbml.append("<img src=\""+ BaseUrl.getNoHttp() +"/images/clear.gif\" alt=\"\" width=\"16\" height=\"1\" border=\"0\">");
-//                                fbml.append("<font style=\"font-size: 9px; color: #666666;\">I'm Earning "+surveyEnhancer.getWillingtopayforresponse()+forcharity+" from this survey.</font>");
+//                                fbml.append("<font style=\"font-size: 9px; color: #666666;\">I'm Earning "+surveyEnhancer.getWillingtopayforresponse()+forcharity+" from this conversation.</font>");
 //                                fbml.append("<br/>");
 //                            fbml.append("</td>");
 //                            fbml.append("</tr>");

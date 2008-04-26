@@ -27,7 +27,7 @@ if (userSession == null || !userSession.getIsloggedin() || !Authorization.isUser
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
-	<title>Survey Test</title>
+	<title>Test</title>
 </head>
 
 <body>

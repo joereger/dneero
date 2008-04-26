@@ -6,7 +6,7 @@
 <%@ page import="com.dneero.dbgrid.Grid" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
-String pagetitle = "Old Surveys";
+String pagetitle = "Old Conversations";
 String navtab = "home";
 String acl = "public";
 %>

@@ -9,7 +9,7 @@ The dNeero Reseller Program allows you to sell dNeero conversations to organizat
 The program is very simple for you to use.
 <ol>
     <li><b>Tell organizations about dNeero.com</b>. Send them email.  Call them on the phone.  Hand out fliers on the street.  Create a viral video and post it to YouTube.  Think outside the box.</li>
-    <li><b>Convince them to create a survey</b> of their own.  They may want to generate awareness about a product or service.  Or they may want to learn about their market.  You need to convince them to use dNeero to ignite conversations.</li>
+    <li><b>Convince them to ignite a conversation</b> of their own.  They may want to generate awareness about a product or service.  Or they may want to learn about their market.  You need to convince them to use dNeero to ignite conversations.</li>
     <li><b>Give the business your Reseller Code</b> and tell them to apply it in the last step of conversation creation.  Of course, they'll need a dNeero.com account.</li>
     <li><b>Sit back and relax</b>... any time the organization pays a social person through the conversation you'll earn money.  You'll see the amounts added to your dNeero balance automatically.</li>
 </ol>
@@ -30,7 +30,7 @@ All you need is a dNeero account.  Anybody can join the Reseller Program!  Once 
 <br/><br/>
 <font class="mediumfont" style="color: #999999;">How is this different than the 'normal' dNeero where I make money?</font>
 <br/><font class="normalfont" style="color: #666666;">
-As a user of dNeero you normally make money joining conversations and posting them to your blog or social network profile.  With the Reseller Program you make money by getting organizations to pay to launch their own surveys.
+As a user of dNeero you normally make money joining conversations and posting them to your blog or social network profile.  With the Reseller Program you make money by getting organizations to pay to launch their own conversations.
 </font>
 
 <br/><br/>
@@ -46,7 +46,7 @@ As the organization pays bloggers and social people we'll add cash to your dNeer
 </font>
 
 <br/><br/>
-<font class="mediumfont" style="color: #999999;">How do I sell surveys?</font>
+<font class="mediumfont" style="color: #999999;">How do I sell conversations?</font>
 <br/><font class="normalfont" style="color: #666666;">
 Start by reading the <a href="/researcher/index.jsp?showmarketingmaterial=1">Conversation Igniter Basics</a> page.  It describes the benefits of igniting conversations for organizations looking to use them.  Then explain to them what your experience has been with dNeero.
 <br/><br/>
@@ -74,11 +74,11 @@ No problem.  You can get paid the same commission.  Call us if you have clients 
 <br/><br/>
 <font class="mediumfont" style="color: #999999;">What sort of businesses should I contact?</font>
 <br/><font class="normalfont" style="color: #666666;">
-We've found that most businesses can use Social Surveys. Consumer goods work well.  Products and services targeted to the youth/college/young adult demographic work well.
+We've found that most businesses can use dNeero conversations. Consumer goods work well.  Products and services targeted to the youth/college/young adult demographic work well.
 </font>
 
 <br/><br/>
-<font class="mediumfont" style="color: #999999;">What if nobody takes the survey?</font>
+<font class="mediumfont" style="color: #999999;">What if nobody joins the conversation?</font>
 <br/><font class="normalfont" style="color: #666666;">
 You don't get paid.  But don't worry, most of our conversations are selling out right now.  As long as the conversation has a reasonably open target demographic and isn't looking for 8 billion respondents (because there aren't that many people on the planet) you should get paid.  The key here is that you get paid whenever a social person is paid through the conversation that you sold.
 </font>

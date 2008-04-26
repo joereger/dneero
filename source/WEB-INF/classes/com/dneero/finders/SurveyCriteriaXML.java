@@ -532,7 +532,7 @@ public class SurveyCriteriaXML {
         out.append("<tr>");
         out.append("<td valign=\"top\">");
         out.append("<font class=\"formfieldnamefont\">");
-        out.append("Days Since Taking Last Survey");
+        out.append("Days Since Last Conversation Participation");
         out.append("</font>");
         out.append("</td>");
         out.append("<td valign=\"top\">");

@@ -104,7 +104,7 @@ String acl = "sysadmin";
                     </tr>
                     <tr>
                         <td valign="top">
-                            <font class="formfieldnamefont">Survey Title</font>
+                            <font class="formfieldnamefont">Title</font>
                         </td>
                         <td valign="top">
                             <%=Textbox.getHtml("title", sysadminSurveyDetail.getSurvey().getTitle(), 255, 35, "", "")%>
@@ -128,7 +128,7 @@ String acl = "sysadmin";
                     </tr>
                     <tr>
                         <td valign="top">
-                            <font class="formfieldnamefont">Spotlight Survey?</font>
+                            <font class="formfieldnamefont">Spotlight?</font>
                         </td>
                         <td valign="top">
                             <%=CheckboxBoolean.getHtml("isspotlight", sysadminSurveyDetail.getSurvey().getIsspotlight(), "", "")%>
@@ -175,7 +175,7 @@ String acl = "sysadmin";
                         <td valign="top">
                             <font class="formfieldnamefont">Willing to Pay Per Thousand Displays on a Blog (CPM) ($USD)</font>
                             <br/>
-                            <font class="smallfont">Once conversations are taken they are posted to a person's peers.  With this value you determine what you're willing to pay for 1000 displays (CPM) of your conversation.  This value must be at least $1 to cover bandwidth costs and can go as high as $1000 ($1000 would be equivalent to $1 per display).  The more you pay the more you attract bloggers who will display your survey prominently on their blog.</font>
+                            <font class="smallfont">Once conversations are taken they are posted to a person's peers.  With this value you determine what you're willing to pay for 1000 displays (CPM) of your conversation.  This value must be at least $1 to cover bandwidth costs and can go as high as $1000 ($1000 would be equivalent to $1 per display).  The more you pay the more you attract bloggers who will display your conversation prominently to their peers.</font>
                         </td>
                         <td valign="top">
                             <%=Textbox.getHtml("willingtopaypercpm", String.valueOf(sysadminSurveyDetail.getSurvey().getWillingtopaypercpm()), 255, 35, "", "")%>

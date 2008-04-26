@@ -26,7 +26,7 @@ PublicIndex publicIndex = (PublicIndex)Pagez.getBeanMgr().get("PublicIndex");
     if (request.getParameter("action") != null && request.getParameter("action").equals("enteraccesscode")) {
         try {
             publicIndex.enterAccessCode();
-            Pagez.getUserSession().setMessage("Sorry, no surveys were found for that Access Code.");
+            Pagez.getUserSession().setMessage("Sorry, no conversations were found for that Access Code.");
         } catch (ValidationException vex) {
             Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
         }
@@ -124,7 +124,7 @@ function rButtonImgInact(){
                     <% TotalImpressions ti = (TotalImpressions) GetCachedStuff.get(new TotalImpressions());%>
                     <font class="mediumfont" style="color: #999999;">Conversation Embeds</font><br/>
                     <font class="largefont" style="color: #666666;"><%=ti.getHtml()%></font><br/>
-                    <font class="tinyfont">Times a survey's been displayed while embedded in a blog or social media profile.</font><br/>
+                    <font class="tinyfont">Times a conversation's been displayed while embedded in a blog or social media profile.</font><br/>
                </div>
 
                <br/>

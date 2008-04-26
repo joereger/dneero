@@ -91,7 +91,7 @@ String acl="researcher";
 
     <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
     <img src="/images/lightbulb_on.png" alt="" align="right"/>
-    Add questions to your conversation on this page.  Choose from the Question Type dropdown box and then click Add Question.  You'll quickly build a list of questions.  Click Preview the Conversation to see what these questions look like to somebody taking the survey.  When you're done, click Next Step.
+    Add questions to your conversation on this page.  Choose from the Question Type dropdown box and then click Add Question.  You'll quickly build a list of questions.  Click Preview the Conversation to see what these questions look like to somebody joining the conversation.  When you're done, click Next Step.
     <br/><br/>
     </font></div></center>
 

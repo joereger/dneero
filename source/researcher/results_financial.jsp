@@ -4,7 +4,7 @@
 <%@ page import="com.dneero.util.Str" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
-String pagetitle = "Survey Results";
+String pagetitle = "Results";
 String navtab = "researchers";
 String acl = "researcher";
 %>
@@ -34,7 +34,7 @@ String acl = "researcher";
     <table cellpadding="0" cellspacing="0" border="0">
         <tr>
             <td valign="top">
-                <font class="formfieldnamefont">Survey Responses to Date</font>
+                <font class="formfieldnamefont">Responses to Date</font>
             </td>
             <td valign="top">
                 <font class="normalfont"><%=researcherResultsFinancial.getSms().getResponsesToDate()%></font>

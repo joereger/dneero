@@ -10,7 +10,7 @@
   <link rel="stylesheet" type="text/css" href="/js/niftycube/niftyCorners.css" />
   <link rel="alternate" type="application/rss+xml" title="dNeero Conversations Blog" href="http://www.dneero.com/rss.xml" />
   <meta name="description" content="dNeero connects advertisers and market researchers with a large pool of qualified and motivated bloggers. Marketers initiate offers to blog (i.e. We'll pay $2 for a blogged review of our latest movie.), dNeero publishes those offers in a Yahoo-style directory and social people earn money (for themselves or for charity) joining conversations and posting their own results to their blogs. " />
-  <meta name="keywords" content="market research,survey,blog,web 2.0,startup,money,market intelligence" />
+  <meta name="keywords" content="conversation,market research,survey,blog,web 2.0,startup,money,market intelligence" />
   <script type="text/javascript" src="/js/niftycube/niftycube.js"></script>
   <script type="text/javascript">
    NiftyLoad=function(){
@@ -152,7 +152,7 @@
                         <a href="/sysadmin/transactions.jsp"><font class="subnavfont" style=" color: #000000;">Trans</font></a>
                         <a href="/sysadmin/balance.jsp"><font class="subnavfont" style=" color: #000000;">Balance</font></a>
                         <a href="/sysadmin/userlist.jsp"><font class="subnavfont" style=" color: #000000;">Users</font></a>
-                        <a href="/sysadmin/sysadminsurveylist.jsp"><font class="subnavfont" style=" color: #000000;">Surveys</font></a>
+                        <a href="/sysadmin/sysadminsurveylist.jsp"><font class="subnavfont" style=" color: #000000;">Convos</font></a>
                         <a href="/sysadmin/editeula.jsp"><font class="subnavfont" style=" color: #000000;">Eula</font></a>
                         <a href="/sysadmin/sysadminsupportissueslist.jsp"><font class="subnavfont" style=" color: #000000;">Support</font></a>
                         <a href="/sysadmin/rateblogpost.jsp"><font class="subnavfont" style=" color: #000000;">Rate</font></a>

@@ -58,7 +58,7 @@ String acl = "public";
     <font class="mediumfont" color="#333333">Will my blog readers know I was paid?</font>
     <br/>
     <font class="smallfont">
-    Yes, they will.  Disclosure is an important element of the blogosphere that dNeero is committed to.  When you post your conversation answers to your blog we'll include an unobtrusive but clear note that this survey was sponsored.  Of course, you can also have us give your earnings to charity which removes any concerns over money.
+    Yes, they will.  Disclosure is an important element of the blogosphere that dNeero is committed to.  When you post your conversation answers to your blog we'll include an unobtrusive but clear note that this conversation was sponsored.  Of course, you can also have us give your earnings to charity which removes any concerns over money.
     </font>
     <br/><br/><br/>
     <!-- End FAQ Question -->
@@ -183,7 +183,7 @@ String acl = "public";
     <font class="mediumfont" color="#333333">Sometimes I see conversations on the dNeero homepage but then when I log in they're not listed.  What's up with that?</font>
     <br/>
     <font class="smallfont">
-    On the homepage we list all surveys... for anybody.  Once you log in we know about you and we can show you only the conversations for which you qualify.  Conversation igniters can target conversations by geographic area, age, etc.
+    On the homepage we list all conversations... for anybody.  Once you log in we know about you and we can show you only the conversations for which you qualify.  Conversation igniters can target conversations by geographic area, age, etc.
     </font>
     <br/><br/><br/>
     <!-- End FAQ Question -->
@@ -237,7 +237,7 @@ String acl = "public";
     <font class="mediumfont" color="#333333">How long do I get paid for conversation displays in my blog?</font>
     <br/>
     <font class="smallfont">
-    You get paid until you reach the limit set by the conversation igniter (shown when you decide whether to take the survey).  Or until 30 days have elapsed since the end of the conversation (also listed on the conversation).
+    You get paid until you reach the limit set by the conversation igniter (shown when you decide whether to join the conversation).  Or until 30 days have elapsed since the end of the conversation (also listed on the conversation).
     </font>
     <br/><br/><br/>
     <!-- End FAQ Question -->

@@ -84,7 +84,7 @@ String acl = "researcher";
 
 <font class="mediumfont">Add a question to: <%=researcherRankAddquestionDropdown.getRank().getName()%></font>
 <br/><br/>
-<font class="mediumfont">From the Survey: <%=researcherRankAddquestionDropdown.getSurvey().getTitle()%></font>
+<font class="mediumfont">From the Conversation: <%=researcherRankAddquestionDropdown.getSurvey().getTitle()%></font>
 <br/><br/>
 <font class="mediumfont">Question: <%=researcherRankAddquestionDropdown.getQuestion().getQuestion()%></font>
 <br/><br/>

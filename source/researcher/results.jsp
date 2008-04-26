@@ -38,15 +38,15 @@ String acl = "researcher";
             <td width="50%" valign="top">
                 <div class="rounded" style="background: #00ff00; text-align: center; padding: 20px;">
                     <%if (researcherResults.getStatus() == Survey.STATUS_DRAFT) {%>
-                        <font class="mediumfont">Survey Status: Draft</font>
+                        <font class="mediumfont">Conversation Status: Draft</font>
                     <%} else if (researcherResults.getStatus() == Survey.STATUS_WAITINGFORFUNDS){%>
-                        <font class="mediumfont">Survey Status: Waiting for Funds</font>
+                        <font class="mediumfont">Conversation Status: Waiting for Funds</font>
                     <%} else if (researcherResults.getStatus() == Survey.STATUS_WAITINGFORSTARTDATE){%>
-                        <font class="mediumfont">Survey Status: Waiting for Start Date</font>
+                        <font class="mediumfont">Conversation Status: Waiting for Start Date</font>
                     <%} else if (researcherResults.getStatus() == Survey.STATUS_OPEN){%>
-                        <font class="mediumfont">Survey Status: Open</font>
+                        <font class="mediumfont">Conversation Status: Open</font>
                     <%} else if (researcherResults.getStatus() == Survey.STATUS_CLOSED){%>
-                        <font class="mediumfont">Survey Status: Closed</font>
+                        <font class="mediumfont">Conversation Status: Closed</font>
                     <%}%>
 
                 </div>
@@ -69,7 +69,7 @@ String acl = "researcher";
                     <br/>
                     <font class="largefont"><%=researcherResults.getTotalsurveyresponses()%></font>
                     <br/>
-                    <font class="smallfont">People Have Taken the Survey</font>
+                    <font class="smallfont">People Have Joined the Conversation</font>
                 </div>
                 <div class="rounded" style="background: #00ff00; text-align: left; padding: 20px;">
                     <a href="/researcher/results_financial.jsp"><font class="normalfont">Financial Status</font></a>
@@ -86,10 +86,10 @@ String acl = "researcher";
             </td>
             <td width="50%" valign="top">
                 <div class="rounded" style="background: #ffffff; text-align: left; padding: 20px;">
-                    <font class="mediumfont" style="color: #333333;">Survey Responses</font>
+                    <font class="mediumfont" style="color: #333333;">Responses</font>
                     <%=PercentCompleteBar.get(String.valueOf(researcherResults.getTotalsurveyresponses()), String.valueOf(researcherResults.getMaxsurveyresponses()), "", "", String.valueOf(300))%>
                     <br/><br/>
-                    <font class="mediumfont" style="color: #333333;">Survey Impressions on Blogs</font>
+                    <font class="mediumfont" style="color: #333333;">Impressions</font>
                     <%=PercentCompleteBar.get(String.valueOf(researcherResults.getTotalsurveydisplays()), String.valueOf(researcherResults.getMaxsurveydisplays()), "", "", String.valueOf(300))%>
                     <br/><br/>
                     <font class="mediumfont" style="color: #333333;">Possible Spend</font>

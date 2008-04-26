@@ -14,7 +14,7 @@
 <%@ page import="com.dneero.htmluibeans.PublicIndex" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
-String pagetitle = "Social Surveys";
+String pagetitle = "dNeero Conversations";
 String navtab = "home";
 String acl = "public";
 %>
@@ -65,7 +65,7 @@ PublicSurveyList publicSurveyList = (PublicSurveyList)Pagez.getBeanMgr().get("Pu
         <tr>
             <td valign="top">
                 <%if (publicSurveyList.getSurveys()==null || publicSurveyList.getSurveys().size()==0){%>
-                    <font class="normalfont">We've got nothin' for ya!  Please check back soon... we're always adding new surveys!</font>
+                    <font class="normalfont">We've got nothin' for ya!  Please check back soon... we're always adding new conversations!</font>
                 <%} else {%>
                     <%
                         StringBuffer srv = new StringBuffer();
@@ -116,7 +116,7 @@ PublicSurveyList publicSurveyList = (PublicSurveyList)Pagez.getBeanMgr().get("Pu
                         <div class="rounded" style="background: #ffffff; padding: 10px;">
                             <font class="formfieldnamefont" style="color: #666666;"><b>Don't Miss the Reseller Program!</b></font>
                             <br/>
-                            <font class="smallfont" style="color: #666666;"><b>The <a href="/account/reseller.jsp">Reseller Program</a> allows you to earn big bucks selling Social Surveys!  Put on your sales hats people!</b></font>
+                            <font class="smallfont" style="color: #666666;"><b>The <a href="/account/reseller.jsp">Reseller Program</a> allows you to earn big bucks selling dNeero conversations!  Put on your sales hats people!</b></font>
                         </div>
 
                         <%--<br/><br/>--%>

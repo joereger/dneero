@@ -45,7 +45,7 @@ String acl = "public";
                         <br/><br/>
                         <img src="/images/blogger-diagram.gif" width="475" height="403" border="0"></img>
                         <br/><br/><br/>
-                        <font class="mediumfont" style="color: #999999">Blogs and Surveys: So Happy Together</font>
+                        <font class="mediumfont" style="color: #999999">Blogs and Conversations: So Happy Together</font>
                         <br/>
                         To post a conversation to your blog you just copy-and-paste a single line of code.  Here's the result:
                         <br/>
@@ -128,12 +128,12 @@ String acl = "public";
                                 <a href="/blogger/bloggerearningsrevshare.jsp"><font class="mediumfont" style="color: #596697;">Earn Money Inviting Friends</font></a>
                             </td></tr>
                             <tr><td valign="top"></td><td valign="top">
-                                <font class="smallfont">Invite friends and earn money when they take surveys!</font>
+                                <font class="smallfont">Invite friends and earn money when they join conversations!</font>
                             </td></tr></table>
 
                             <br/><br/>
                             <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-                                <a href="/blogger/index.jsp"><font class="mediumfont" style="color: #596697;">Earnings from Completed Surveys</font></a>
+                                <a href="/blogger/index.jsp"><font class="mediumfont" style="color: #596697;">Earnings from Joined Conversations</font></a>
                             </td></tr>
                             <tr><td valign="top"></td><td valign="top">
                                 <font class="smallfont">See how much you've earned.</font>
@@ -141,7 +141,7 @@ String acl = "public";
 
                             <br/><br/>
                             <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-                                <a href="/blogger/bloggerdetails.jsp"><font class="mediumfont" style="color: #596697;">Update Blogger Profile</font></a>
+                                <a href="/blogger/bloggerdetails.jsp"><font class="mediumfont" style="color: #596697;">Update Profile</font></a>
                             </td></tr>
                             <tr><td valign="top"></td><td valign="top">
                                 <font class="smallfont">Your profile helps us find conversations that fit your interests.  Keep it up to date.</font>
@@ -167,11 +167,11 @@ String acl = "public";
                 </td>
                 <td valign="top">
                     
-                    <font class="largefont" style="color: #cccccc;">Surveys You've Completed</font>
+                    <font class="largefont" style="color: #cccccc;">Joined Conversations</font>
                     <%if (bloggerCompletedsurveys.getList()==null || bloggerCompletedsurveys.getList().size()==0){%>
                         <div class="rounded" style="padding: 15px; margin: 5px; background: #F2FFBF;">
                             <font class="smallfont">
-                                You haven't yet completed any surveys.
+                                You haven't yet joined any conversations.
                                 <a href="/publicsurveylist.jsp"><font style="font-weight: bold; color: #0000ff;">Find Conversations to Join</font></a>
                             </font>
                         </div>
@@ -243,7 +243,7 @@ String acl = "public";
 
 
                         <%if (bloggerCompletedsurveys.getList()==null || bloggerCompletedsurveys.getList().size()==0){%>
-                            <font class="normalfont">You haven't yet taken any surveys!</font>
+                            <font class="normalfont">You haven't yet joined any conversations!</font>
                         <%} else {%>
                             <%
                                 ArrayList<GridCol> cols = new ArrayList<GridCol>();
@@ -253,7 +253,7 @@ String acl = "public";
                         <%}%>
 
 
-                    <font class="tinyfont" style="color: #666666;">Survey statuses update nightly. Remember, you must leave the conversation on your mini-feed and profile to generate clicks for 5 days in the 10 after you take it to get paid.  Days that qualify are marked green.</font>
+                    <font class="tinyfont" style="color: #666666;">Conversation statuses update nightly. Remember, you must leave the conversation on your mini-feed and profile to generate clicks for 5 days in the 10 after you take it to get paid.  Days that qualify are marked green.</font>
 
 
                     <%if (bloggerCompletedsurveys.getList()!=null && bloggerCompletedsurveys.getList().size()>0){%>

@@ -100,7 +100,7 @@ public class ResearcherResultsAnswersCsv implements Serializable {
         //This is another important attribute for the header of the response
         //Here fileName, is a String with the name that you will suggest as a name to save as
         //I use the same name as it is stored in the file system of the server.
-        response.setHeader("Content-Disposition", "attachment;filename=\"" + "dNeeroSurveyResultAsCsv.txt" + "\"");
+        response.setHeader("Content-Disposition", "attachment;filename=\"" + "dNeeroResultAsCsv.txt" + "\"");
 
         try{
             //First we load the file in our InputStream

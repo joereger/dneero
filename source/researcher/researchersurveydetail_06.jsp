@@ -224,7 +224,7 @@ ResearcherSurveyDetail06 researcherSurveyDetail06 = (ResearcherSurveyDetail06)Pa
         <%if (researcherSurveyDetail06.getWarningtoomanyquestions()){%>
             <img src="/images/lightbulb_on.png"/>
             <font class="smallfont">
-            Warning: You seem to have a large number of questions in your conversation.  There is nothing wrong with this.  But large conversations and blogs may not be the best fit.  First, bloggers are a quick bunch, always having a lot to do. Second, you're asking them to post the conversation to their peers... large surveys may take over a blog at which point the blogger will take the conversation down.  This may not be a problem for you, but we did want you to know about the possible issue.
+            Warning: You seem to have a large number of questions in your conversation.  There is nothing wrong with this.  But large conversations and blogs may not be the best fit.  First, bloggers are a quick bunch, always having a lot to do. Second, you're asking them to post the conversation to their peers... large conversations may take over a blog at which point the blogger will take the conversation down.  This may not be a problem for you, but we did want you to know about the possible issue.
             <br/><h:commandLink value="Possible Remedy: Adjust the Questions of Your Conversation" styleClass="smallfont" action="researchersurveydetail_02" immediate="true"/>
             </font>
         <%}%>
@@ -233,14 +233,14 @@ ResearcherSurveyDetail06 researcherSurveyDetail06 = (ResearcherSurveyDetail06)Pa
             <img src="/images/lightbulb_on.png"/>
             <font class="smallfont">
             Warning: This conversation has no questions.  You may be trying to use the system as an advertising placement tool (which is fine) but we thought that you may have accidentally skipped the question page.
-            <br/><h:commandLink value="Possible Remedy: Add Questions to Your Survey" styleClass="smallfont" action="researchersurveydetail_02" immediate="true"/>
+            <br/><h:commandLink value="Possible Remedy: Add Questions to Your Conversation" styleClass="smallfont" action="researchersurveydetail_02" immediate="true"/>
             </font>
         <%}%>
 
         <%if (researcherSurveyDetail06.getWarningtimeperiodtooshort()){%>
             <img src="/images/lightbulb_on.png"/>
             <font class="smallfont">
-            Warning: The conversation time period is rather short.  You may have very good reasons for doing so but we did want to note that surveys take some time to be publicized, signed up for, posted, etc.  30 days is a good safe period of time for a conversation.
+            Warning: The conversation time period is rather short.  You may have very good reasons for doing so but we did want to note that conversations take some time to be publicized, signed up for, posted, etc.  30 days is a good safe period of time for a conversation.
             <br/><h:commandLink value="Possible Remedy: Adjust the Start and End Dates" styleClass="smallfont" action="researchersurveydetail_01" immediate="true"/>
             </font>
         <%}%>

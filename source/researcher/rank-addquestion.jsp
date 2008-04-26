@@ -72,7 +72,7 @@ if (researcherRankAddquestion.getRank()!=null && researcherRankAddquestion.getSu
     %>
 <%} else {%>
     <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
-        <font class="formfieldnamefont">From the Survey: <%=researcherRankAddquestion.getSurvey().getTitle()%></font>
+        <font class="formfieldnamefont">From the Conversation: <%=researcherRankAddquestion.getSurvey().getTitle()%></font>
         <br/>
         <font class="formfieldnamefont">Please choose the question to add. (<b>only certain question types are currently supported</b>)</font>
     </div>

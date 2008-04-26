@@ -27,7 +27,7 @@ import com.dneero.systemprops.BaseUrl;
 public class ResearcherEmailinvite implements Serializable {
 
 
-    private String subject = "You've Been Invited to Take a Paid Survey";
+    private String subject = "You've Been Invited to Join a Sponsored Conversation";
     private String message;
     private String manuallyenteredemailaddresses;
     private int surveyiduserisinvitedto;

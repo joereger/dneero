@@ -42,21 +42,21 @@ ResearcherSurveyDetailPostlaunch researcherSurveyDetailPostlaunch = (ResearcherS
     <font class="smallfont">We appreciate your business!  If you have any questions, you can use the <a href="/account/accountsupportissueslist.jsp">Help/Support Ticket</a> system.</font>
 
     <br/><br/>
-    <font class="smallfont">Invite people to take your survey:</font>
+    <font class="smallfont">Invite people to join your conversation:</font>
     <br/>
-    <a href="/researcher/emailinvite.jsp?surveyid=<%=Pagez.getUserSession().getCurrentSurveyid()%>"><font class="normalfont">Invite People to Take this Survey</font></a>
+    <a href="/researcher/emailinvite.jsp?surveyid=<%=Pagez.getUserSession().getCurrentSurveyid()%>"><font class="normalfont">Invite People to Join this Conversation</font></a>
 
     <br/><br/>
-    <font class="smallfont">Promote your survey:</font>
+    <font class="smallfont">Promote your conversation:</font>
     <br/>
     <font class="smallfont"><%=researcherSurveyDetailPostlaunch.getSocialbookmarklinks()%></font>
 
 
 
     <br/><br/>
-    <font class="smallfont">Or return to your list of surveys:</font>
+    <font class="smallfont">Or return to your list of conversations:</font>
     <br/>
-    <a href="/researcher/index.jsp"><font class="mediumfont" style="color: #0000ff;">Return to List of Surveys</font></a>
+    <a href="/researcher/index.jsp"><font class="mediumfont" style="color: #0000ff;">Return to List of Conversations</font></a>
 
     <br/><br/>
 

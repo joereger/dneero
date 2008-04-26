@@ -155,7 +155,7 @@ String acl = "public";
                                         <br/>
                                         <font class="formfieldnamefont" style="color: #666666;">Access Code: </font><%=Textbox.getHtml("accesscode", Pagez.getUserSession().getAccesscode(), 255, 10, "", "")%>
                                         <br/>
-                                        <font class="tinyfont" style="color: #666666;">Access Codes are used by conversation igniters to limit the pool of respondents in some way.  Sometimes Access Codes are handed out at an event.  Or at a point of sale.  Or sent out to a select group via email.  Generally speaking, if you don't have the Access Code, this survey isn't for you.</font>
+                                        <font class="tinyfont" style="color: #666666;">Access Codes are used by conversation igniters to limit the pool of respondents in some way.  Sometimes Access Codes are handed out at an event.  Or at a point of sale.  Or sent out to a select group via email.  Generally speaking, if you don't have the Access Code, this conversation isn't for you.</font>
                                     </div><br/>
                                 <%}%>
                                 <% if (publicSurvey.getSurvey().getIscharityonly()){ %>
@@ -229,7 +229,7 @@ String acl = "public";
                             </div>
                             <br/>
                             <center>
-                                <input type="submit" class="formsubmitbutton" value="Complete the Survey">
+                                <input type="submit" class="formsubmitbutton" value="Join the Conversation">
                             </center>
                         </div>
                         </form>
@@ -237,7 +237,7 @@ String acl = "public";
                     <% if (publicSurvey.getSurvey().getStatus()!=Survey.STATUS_OPEN && !publicSurvey.getLoggedinuserhasalreadytakensurvey()){ %>
                         <font class="mediumfont">This conversation is no longer open for respondents.  However, we still have many other conversations that allow you to make money!  Click the Results tab to see how people answered!</font>
                         <br/><br/>
-                        <a href="/publicsurveylist.jsp"><font class="mediumfont">Find Another Survey</font></a>
+                        <a href="/publicsurveylist.jsp"><font class="mediumfont">Find Another Conversation</font></a>
                     <% } %>
                     <br/><br/><br/><br/>
                     <font class="smallfont"><%=publicSurvey.getSocialbookmarklinks()%></font>
@@ -264,7 +264,7 @@ String acl = "public";
                             <br/><br/>
                         <%}%>
                         <% if (publicSurvey.getLoggedinuserhasalreadytakensurvey()){ %>
-                            <font class="mediumfont" style="color: #cccccc;">You've Taken This Survey:</font><br/>
+                            <font class="mediumfont" style="color: #cccccc;">You've Joined this Conversation:</font><br/>
                             <a href="/survey.jsp?surveyid=<%=publicSurvey.getSurvey().getSurveyid()%>&userid=<%=Pagez.getUserSession().getUser().getUserid()%>"><font class="tinyfont" style="color: #0000ff;">Your Answers</font></a><br/><br/>
                             <br/><br/>
                         <%}%>
@@ -332,7 +332,7 @@ String acl = "public";
                                     <div class="rounded" style="background: #e6e6e6; text-align: center;">
                                         <img src="/images/charity-128.png" alt="For Charity" width="128" height="128"/>
                                         <br/>
-                                        <font class="mediumfont">This is a Charity Only survey</font>
+                                        <font class="mediumfont">This is a Charity Only conversation</font>
                                         <br/>
                                         <font class="tinyfont">The conversation igniter requires that dNeero donate all of your earnings from the conversation to a charity of your choice.  It's a chance to do some good!</font>
                                     </div>
@@ -361,8 +361,8 @@ String acl = "public";
                             <br/><br/><b>No gimmicks.</b><br/>
                             This is the real deal.  A simple model that respects your privacy and allows you to control what you blog about and when.  We pay for activity you choose to engage in.
 
-                            <br/><br/><b>If you don't like this survey</b><br/>
-                            We have plenty more <a href="/publicsurveylist.jsp">surveys</a> for you to choose from.  And all of them pay!
+                            <br/><br/><b>If you don't like this conversation</b><br/>
+                            We have plenty more <a href="/publicsurveylist.jsp">conversations</a> for you to choose from.  And all of them pay!
 
                             <br/><br/>
                             <div class="rounded" style="background: #ffffff; padding: 10px; margin: 5px; text-align: left;">
@@ -441,7 +441,7 @@ String acl = "public";
 
                                     <tr>
                                         <td valign="top">
-                                            <font class="formfieldnamefont">SurveyID</font>
+                                            <font class="formfieldnamefont">ID</font>
                                         </td>
                                         <td valign="top">
                                             <font class="smallfont"><%=publicSurvey.getSurvey().getSurveyid()%></font>

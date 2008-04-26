@@ -21,7 +21,7 @@ String acl = "public";
             <br/>
              Rankings allow you to choose certain questions as indicators of a quality that you want to track. For example, you could create an "Environmentally Friendly" Ranking and when people answer the question "Do you care about the environment?" with a "Yes" you assign them 50 points. 
             <br/><br/><br/>
-            <font class="mediumfont" style="color: #999999">Identify Users Across Many Surveys</font>
+            <font class="mediumfont" style="color: #999999">Identify Users Across Many Conversations</font>
             <br/>
             You can use Rankings to measure across many conversations.  A conversation here generates a few points... a conversation there a few. In this way you get a sense of how a person responds over time to many different things.  You're using your dialog to learn.  And you're using the Ranking to quantify.
             <br/><br/><br/>

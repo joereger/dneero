@@ -17,7 +17,7 @@ String acl = "public";
 <table cellpadding="10" cellspacing="2" border="0" width="100%">
     <tr>
         <td valign="top">
-            <font class="mediumfont" style="color: #999999">It's Easy to Target Your Survey</font>
+            <font class="mediumfont" style="color: #999999">It's Easy to Target Your Conversation</font>
             <br/>
             When people sign up to join conversations they tell us a number of things about themselves.  When you create a conversation you can limit it to certain demographics.  People who don't fit your target can't take it.  The current list of demographic fields is:
             <ul>
@@ -41,7 +41,7 @@ String acl = "public";
 
             <font class="mediumfont" style="color: #999999">Standing Panels for Longitudinal Studies</font>
             <br/>
-            It's easy to build a panel of people to do repeated surveys.  In this way you can measure a fixed group's opinion over time.
+            It's easy to build a panel of people to join repeated conversations.  In this way you can measure a fixed group's opinion over time.
             <br clear="all"/><br/><br/>
 
             <font class="mediumfont" style="color: #999999">Target Facebook Only, Blogger Only or Both</font>

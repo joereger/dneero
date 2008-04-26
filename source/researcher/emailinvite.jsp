@@ -3,7 +3,7 @@
 <%@ page import="com.dneero.htmlui.*" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
-String pagetitle = "Invite People to Take Your Survey";
+String pagetitle = "Invite People to Join Your Conversation";
 String navtab = "researchers";
 String acl = "researcher";
 %>
@@ -17,7 +17,7 @@ String acl = "researcher";
             researcherEmailinvite.setManuallyenteredemailaddresses(Textbox.getValueFromRequest("manuallyenteredemailaddresses", "Email Addresses", true, DatatypeString.DATATYPEID));
             researcherEmailinvite.setMessage(Textarea.getValueFromRequest("message", "Message", false));
             researcherEmailinvite.setSubject(Textbox.getValueFromRequest("subject", "Subject", false, DatatypeString.DATATYPEID));
-            researcherEmailinvite.setSurveyiduserisinvitedto(Dropdown.getIntFromRequest("surveyiduserisinvitedto", "Survey to Invite To", true));
+            researcherEmailinvite.setSurveyiduserisinvitedto(Dropdown.getIntFromRequest("surveyiduserisinvitedto", "Conversation to Invite To", true));
             researcherEmailinvite.invite();
             Pagez.sendRedirect("/researcher/emailinvite-complete.jsp");
             return;
@@ -53,7 +53,7 @@ String acl = "researcher";
 
 
 
-                                   <font class="formfieldnamefont">Surveys that are Live now:</font>
+                                   <font class="formfieldnamefont">Conversations that are Live now:</font>
                                    <br/>
                                    <%=Dropdown.getHtml("surveyiduserisinvitedto", String.valueOf(researcherEmailinvite.getSurveyiduserisinvitedto()), researcherEmailinvite.getSurveyids(), "","")%>
                                    <br/><br/>
@@ -62,7 +62,7 @@ String acl = "researcher";
                                    <%=Textbox.getHtml("subject", researcherEmailinvite.getSubject(), 255, 35, "", "")%>
 
                                    <br/><br/>
-                                   <font class="formfieldnamefont">Message (we'll add links to the survey):</font>
+                                   <font class="formfieldnamefont">Message (we'll add links to the conversation):</font>
                                    <br/>
                                    <%=Textarea.getHtml("message", researcherEmailinvite.getMessage(), 3, 35, "", "")%>
 

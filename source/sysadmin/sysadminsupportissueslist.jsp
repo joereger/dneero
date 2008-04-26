@@ -35,7 +35,7 @@ SysadminSupportIssuesList sysadminSupportIssuesList = (SysadminSupportIssuesList
 
 
     <%if (sysadminSupportIssuesList.getSupportissues()==null || sysadminSupportIssuesList.getSupportissues().size()==0){%>
-        <font class="normalfont">No surveys!</font>
+        <font class="normalfont">No issues!</font>
     <%} else {%>
         <%
             ArrayList<GridCol> cols=new ArrayList<GridCol>();

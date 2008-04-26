@@ -110,9 +110,9 @@ if (accountIndex.getUserhasresponsependings()){
                                 <center><a href="/blogger/index.jsp"><img src="/images/user.png" alt="" border="0" width="128" height="128"/></a></center>
                                 <div><%=com.dneero.htmlui.GreenRoundedButton.get("<a href=\"/blogger/index.jsp\"><font class=\"mediumfont\" style=\"color: #ffffff;\">Bloggers</font></a>")%></div>
                                 <div style="padding: 10px;">
-                                    <font class="smallfont"><b>Take Surveys</b></font>
+                                    <font class="smallfont"><b>Join Conversations</b></font>
                                     <br/>
-                                    <font class="smallfont">You're a blogger or publisher interested in joining conversations, posting your answers to your blog and making money.</font>
+                                    <font class="smallfont">You're a social person interested in joining conversations, posting your answers to your blog and making money.</font>
                                     <br/>
                                     <a href="/blogger/index.jsp"><font class="subnavfont" style="color: #596697;">Continue as a Social Person</font></a>
                                 </div>
@@ -121,7 +121,7 @@ if (accountIndex.getUserhasresponsependings()){
                                 <center><a href="/researcher/index.jsp"><img src="/images/statistic-128.png" alt="" border="0" width="128" height="128"/></a></center>
                                 <div><%=com.dneero.htmlui.GreenRoundedButton.get("<a href=\"/researcher/index.jsp\"><font class=\"mediumfont\" style=\"color: #ffffff;\">Researchers</font></a>")%></div>
                                 <div style="padding: 10px;">
-                                    <font class="smallfont"><b>Create and Manage Surveys</b></font>
+                                    <font class="smallfont"><b>Ignite and Manage Conversations</b></font>
                                     <br/>
                                     <font class="smallfont">You're a researcher interested in igniting conversations, finding social people to respond to them and generating buzz for your product or service.</font>
                                     <br/>

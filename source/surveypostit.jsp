@@ -139,8 +139,8 @@ String acl = "public";
                         action="http://apps.facebook.com/<%=SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_APP_NAME)%>/?dpage=/surveypostit.jsp&surveyid=<%=publicSurveyPostit.getSurvey().getSurveyid()%>"
                         method="POST"
                         invite="true"
-                        type="dNeero Survey"
-                        content="<%=Str.cleanForHtml(publicSurveyPostit.getSurvey().getTitle())%> - <%=Str.cleanForHtml(publicSurveyPostit.getSurvey().getDescription())%><fb:req-choice url='http://apps.facebook.com/<%=SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_APP_NAME)%>/?action=showsurvey-<%=publicSurveyPostit.getSurvey().getSurveyid()%>-<%=Pagez.getUserSession().getUser().getUserid()%>' label='Check out this dNeero Survey!' />
+                        type="dNeero Conversation"
+                        content="<%=Str.cleanForHtml(publicSurveyPostit.getSurvey().getTitle())%> - <%=Str.cleanForHtml(publicSurveyPostit.getSurvey().getDescription())%><fb:req-choice url='http://apps.facebook.com/<%=SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_APP_NAME)%>/?action=showsurvey-<%=publicSurveyPostit.getSurvey().getSurveyid()%>-<%=Pagez.getUserSession().getUser().getUserid()%>' label='Check out this dNeero Conversation!' />
                     ">
                         <fb:multi-friend-selector
                             showborder="false"
@@ -159,7 +159,7 @@ String acl = "public";
                 <td valign="top">
                     <div class="rounded" style="background: #00ff00;">
                         <div class="rounded" style="background: #ffffff; text-align: center;">
-                            <font class="mediumfont">You've Completed this Survey!</font>
+                            <font class="mediumfont">You've Joined this Conversation!</font>
                             <br/>
                             <img src="/images/ok-128.png" width="128" height="128"/>
                             <br/>
@@ -211,7 +211,7 @@ String acl = "public";
                         Absolutely!  At the bottom of the conversation there's a link where they can provide their own answers and then post them to their own blog.
 
                         <br/><br/><b>Will I see how others answered?</b><br/>
-                        Yep!  This is the cool part!  When you click the See How Others Answered link at the bottom of the conversation you'll see how those people who clicked from your blog answered.  Then you can quickly compare your readers to all bloggers who took the survey!
+                        Yep!  This is the cool part!  When you click the See How Others Answered link at the bottom of the conversation you'll see how those people who clicked from your blog answered.  Then you can quickly compare your readers to all bloggers who joined the conversation!
                         </font>
 
                         <br/><br/>

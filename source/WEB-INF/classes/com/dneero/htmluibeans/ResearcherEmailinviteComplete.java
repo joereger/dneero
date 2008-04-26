@@ -65,7 +65,7 @@ public class ResearcherEmailinviteComplete implements Serializable {
                 //Get vars from session
                 String subject = Pagez.getUserSession().getEmailinvitesubject();
                 if (subject==null || subject.equals("")){
-                    subject = "You've Been Invited to Take a Paid Survey";
+                    subject = "You've Been Invited to Join a Sponsored Conversation";
                 }
                 String message = Pagez.getUserSession().getEmailinvitemessage();
                 if (message==null){
