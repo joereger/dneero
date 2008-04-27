@@ -106,6 +106,8 @@ public class ResearcherSurveyDetail02testquestion implements Serializable {
             question.setQuestion(this.question);
             question.setIsrequired(isrequired);
             question.setComponenttype(TestQuestion.ID);
+            question.setIsuserquestion(false);
+            question.setUserid(0);
 
             for (Iterator<Question> iterator = survey.getQuestions().iterator(); iterator.hasNext();) {
                 Question question1 = iterator.next();

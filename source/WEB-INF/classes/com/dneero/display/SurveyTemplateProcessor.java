@@ -31,7 +31,6 @@ public class SurveyTemplateProcessor {
     Logger logger = Logger.getLogger(this.getClass().getName());
 
     public SurveyTemplateProcessor(Survey survey, Blogger blogger){
-        //@todo refactor to delete this SurveyTemplateProcessor constructor... possible ambiguity of responseid
         this.survey = survey;
         this.blogger = blogger;
         if (survey!=null && blogger!=null){
@@ -90,6 +89,9 @@ public class SurveyTemplateProcessor {
         } catch (Exception e){
             //Do nothing... just null pointer
         }
+        //@todo Add Userquestion stuff for taking
+
+
         return "<div style=\"background : #ffffff; border: 0px solid #ffffff; padding : 5px; width : 425px; overflow : auto;\">"+out.toString()+"</div>";
     }
 
@@ -119,6 +121,8 @@ public class SurveyTemplateProcessor {
         } catch (Exception e){
             //Do nothing... just null pointer
         }
+        //@todo Add Userquestion stuff for display
+
         return out.toString().trim();
     }
 
@@ -129,9 +133,11 @@ public class SurveyTemplateProcessor {
         HibernateUtil.getSession().saveOrUpdate(survey);
         for (Iterator<Question> iterator = survey.getQuestions().iterator(); iterator.hasNext();) {
             Question question = iterator.next();
-            out.append("\n"+"<p>");
-            out.append("<$question_"+question.getQuestionid()+"$>");
-            out.append("</p>");
+            if (!question.getIsuserquestion()){
+                out.append("\n"+"<p>");
+                out.append("<$question_"+question.getQuestionid()+"$>");
+                out.append("</p>");
+            }
         }
         return out.toString();
     }
@@ -144,11 +150,13 @@ public class SurveyTemplateProcessor {
         }
         for (Iterator<Question> iterator = survey.getQuestions().iterator(); iterator.hasNext();) {
             Question question = iterator.next();
-            String qtag = "<$question_"+question.getQuestionid()+"$>";
-            if (currentTemplate==null || currentTemplate.indexOf(qtag)<0){
-                out.append("\n"+"<p>");
-                out.append("<$question_"+question.getQuestionid()+"$>");
-                out.append("</p>");
+            if (!question.getIsuserquestion()){
+                String qtag = "<$question_"+question.getQuestionid()+"$>";
+                if (currentTemplate==null || currentTemplate.indexOf(qtag)<0){
+                    out.append("\n"+"<p>");
+                    out.append("<$question_"+question.getQuestionid()+"$>");
+                    out.append("</p>");
+                }
             }
         }
         return out.toString();

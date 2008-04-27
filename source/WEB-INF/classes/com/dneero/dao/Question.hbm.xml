@@ -31,7 +31,12 @@
         <property name="isrequired" type="boolean">
             <column name="isrequired" />
         </property>
-
+        <property name="isuserquestion" type="boolean">
+            <column name="isuserquestion" />
+        </property>
+        <property name="userid" type="int">
+            <column name="userid" not-null="true" />
+        </property>
 
 
     </class>

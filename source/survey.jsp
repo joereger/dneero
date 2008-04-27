@@ -169,6 +169,57 @@ String acl = "public";
                                 <%=publicSurvey.getTakesurveyhtml()%>
                             </div>
                         </div>
+                            <br/>
+                            <div class="rounded" style="background: #e6e6e6; text-align: center; padding: 10px;">
+                                <center><font class="smallfont"><b>Your friend wants to know:</b></font></center><br/><br/>
+                                <div class="rounded" style="background: #ffffff; padding: 10px;">
+                                    
+                                </div>
+                            </div>
+                        <br/>
+                        <div class="rounded" style="background: #e6e6e6; text-align: center; padding: 10px;">
+                            <center><font class="smallfont"><b>You need to add a question to the conversation.</b>  Anybody who joins the conversation after reading your answers will have to answer the question you ask.  What else (related to the current conversation, of course) do you want to know?</font></center><br/>
+                            <div class="rounded" style="background: #ffffff; padding: 10px;">
+                                <link rel="stylesheet" type="text/css" href="/js/dhtmltabs/tabcontent.css" />
+                                <script type="text/javascript" src="/js/dhtmltabs/tabcontent.js"></script>
+
+                                <div style="border:1px solid gray; width:400px; height: 200px; background-color: #e6e6e6; padding: 5px">
+                                    <div id="tcontent1" class="tabcontent">
+                                    Tab content 1 here<br />Tab content 1 here<br />
+                                    </div>
+
+                                    <div id="tcontent2" class="tabcontent">
+                                    Tab content 2 here<br />Tab content 2 here<br />
+                                    </div>
+
+                                    <div id="tcontent3" class="tabcontent">
+                                    Tab content 3 here<br />Tab content 3 here<br />
+                                    </div>
+
+                                    <div id="tcontent4" class="tabcontent">
+                                    Tab content 4 here<br />Tab content 4 here<br />
+                                    </div>
+                                </div>
+
+                                <div id="flowertabs" class="modernbricksmenu2">
+                                    <ul>
+                                    <li><a href="#" rel="tcontent1" class="selected">Short Text</a></li>
+                                    <li><a href="#" rel="tcontent2">Long Text</a></li>
+                                    <li><a href="#" rel="tcontent3">Select One</a></li>
+                                    <li><a href="#" rel="tcontent4">Select Many</a></li>
+
+                                    </ul>
+                                </div>
+                                <br style="clear: left" />
+
+                                <script type="text/javascript">
+                                    var myflowers=new ddtabcontent("flowertabs")
+                                    myflowers.setpersist(true)
+                                    myflowers.setselectedClassTarget("link") //"link" or "linkparent"
+                                    myflowers.init()
+                                </script>
+                            </div>
+                        </div>
                         <br/>
                         <div class="rounded" style="background: #e6e6e6; text-align: center; padding: 10px;">
                             <div class="rounded" style="background: #ffffff; padding: 5px;">
@@ -343,11 +394,11 @@ String acl = "public";
                             <font class="smallfont">
 
 
-                            <br/><br/><b>Get paid to blog.</b><br/>
-                            dNeero pays bloggers to fill out conversations and post their answers to their peers.
+                            <br/><br/><b>Get paid to share your opinion.</b><br/>
+                            dNeero pays people to fill out conversations and post their answers to their peers.
 
                             <br/><br/><b>Your answers appear on your blog</b><br/>
-                            However you answer, your blog readers will see it.  Express yourself!
+                            However you answer, your friends will see it.  Express yourself!
 
                             <br/><br/><b>You need to register and qualify to get paid</b><br/>
                             Once you answer the questions you'll need to register and fill out a short profile that asks some basic demographic questions.  If you qualify for this conversation then you'll get paid.

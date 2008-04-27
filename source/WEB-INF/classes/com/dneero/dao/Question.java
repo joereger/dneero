@@ -21,6 +21,8 @@ public class Question extends BasePersistentClass implements java.io.Serializabl
      private String question;
      private int componenttype;
      private boolean isrequired;
+     private boolean isuserquestion;
+     private int userid;
      private Set<Questionconfig> questionconfigs = new HashSet<Questionconfig>();
      private Set<Questionresponse> questionresponses = new HashSet<Questionresponse>();
 
@@ -119,5 +121,21 @@ public class Question extends BasePersistentClass implements java.io.Serializabl
 
     public void setQuestionresponses(Set<Questionresponse> questionresponses) {
         this.questionresponses = questionresponses;
+    }
+
+    public boolean getIsuserquestion() {
+        return isuserquestion;
+    }
+
+    public void setIsuserquestion(boolean isuserquestion) {
+        this.isuserquestion=isuserquestion;
+    }
+
+    public int getUserid() {
+        return userid;
+    }
+
+    public void setUserid(int userid) {
+        this.userid=userid;
     }
 }
