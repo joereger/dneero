@@ -140,10 +140,11 @@ String acl = "public";
                             </div>
                             <br/>
                         <%}%>
-                        <form action="/survey.jsp" method="post" name="surveyform">
+                        <form action="/survey.jsp" method="post" name="surveyform" style="margin: 0px; padding: 0px;">
                             <input type="hidden" name="dpage" value="/survey.jsp">
                             <input type="hidden" name="actionfrompage" value="takesurvey">
                             <input type="hidden" name="surveyid" value="<%=publicSurvey.getSurvey().getSurveyid()%>">
+                            <input type="hidden" name="referredbyuserid" value="<%=publicSurvey.getReferredbyuserid()%>">
 
                         <div class="rounded" style="background: #e6e6e6; padding: 10px;">
                             <center><font class="smallfont" style="font-weight: bold;">Join the conversation by answering the questions below.  Because this is a dNeero conversation your answers will be available to the public.</font></center><br/><br/>
@@ -178,6 +179,9 @@ String acl = "public";
                                             PublicSurveyUserquestionListitem psli=iterator.next();
                                             %><font class="smallfont" style="font-weight: bold;"><%=psli.getUser().getFirstname()%> <%=psli.getUser().getLastname()%> wants to know:</font><br/><%
                                             %><%=psli.getComponent().getHtmlForInput()%><%
+                                            if (iterator.hasNext()){
+                                                %><br/><br/><%
+                                            }
                                         }
                                     %>
                                 </div>
@@ -502,6 +506,15 @@ String acl = "public";
                                         </td>
                                         <td valign="top">
                                             <font class="smallfont"><%=publicSurvey.getSurvey().getSurveyid()%></font>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td valign="top">
+                                            <font class="formfieldnamefont">Referred by</font>
+                                        </td>
+                                        <td valign="top">
+                                            <font class="smallfont"><%=Pagez.getUserSession().getPendingSurveyReferredbyuserid()%></font>
                                         </td>
                                     </tr>
 

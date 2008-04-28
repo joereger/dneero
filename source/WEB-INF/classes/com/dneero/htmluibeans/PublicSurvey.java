@@ -2,36 +2,36 @@ package com.dneero.htmluibeans;
 
 import com.dneero.dao.*;
 import com.dneero.dao.hibernate.HibernateUtil;
-import com.dneero.ui.SurveyEnhancer;
-import com.dneero.ui.SocialBookmarkLinks;
 import com.dneero.display.SurveyResponseParser;
 import com.dneero.display.SurveyTakerDisplay;
-import com.dneero.display.components.def.ComponentException;
 import com.dneero.display.components.def.Component;
+import com.dneero.display.components.def.ComponentException;
 import com.dneero.display.components.def.ComponentTypes;
-
-import com.dneero.util.Num;
-import com.dneero.util.RandomString;
-import com.dneero.util.GeneralException;
-import com.dneero.survey.servlet.*;
-import com.dneero.finders.FindSurveysForBlogger;
-import com.dneero.session.SurveysTakenToday;
-import com.dneero.facebook.FacebookUser;
-import com.dneero.facebook.FacebookApiWrapper;
 import com.dneero.facebook.FacebookPendingReferrals;
-import com.dneero.scheduledjobs.SurveydisplayActivityObjectQueue;
+import com.dneero.facebook.FacebookUser;
+import com.dneero.finders.FindSurveysForBlogger;
+import com.dneero.helpers.StoreResponse;
 import com.dneero.helpers.UserInputSafe;
 import com.dneero.htmlui.Pagez;
 import com.dneero.htmlui.ValidationException;
 import com.dneero.money.PaymentMethod;
+import com.dneero.scheduledjobs.SurveydisplayActivityObjectQueue;
+import com.dneero.session.SurveysTakenToday;
+import com.dneero.survey.servlet.RecordImpression;
+import com.dneero.survey.servlet.SurveyAsHtml;
+import com.dneero.survey.servlet.SurveyFlashServlet;
+import com.dneero.survey.servlet.SurveydisplayActivityObject;
+import com.dneero.ui.SocialBookmarkLinks;
+import com.dneero.ui.SurveyEnhancer;
+import com.dneero.util.GeneralException;
+import com.dneero.util.Num;
+import com.dneero.util.RandomString;
 import com.dneero.xmpp.SendXMPPMessage;
-import com.dneero.cache.providers.CacheFactory;
+import org.apache.log4j.Logger;
+import org.hibernate.criterion.Restrictions;
 
 import java.io.Serializable;
 import java.util.*;
-
-import org.apache.log4j.Logger;
-import org.hibernate.criterion.Restrictions;
 
 
 /**
@@ -41,7 +41,7 @@ import org.hibernate.criterion.Restrictions;
  */
 public class PublicSurvey implements Serializable {
 
-
+    private int referredbyuserid = 0;
     private String takesurveyhtml;
     private boolean haveerror = false;
     private Survey survey;
@@ -109,20 +109,33 @@ public class PublicSurvey implements Serializable {
         int userid = 0;
         if (Num.isinteger(Pagez.getRequest().getParameter("userid"))){
             userid = Integer.parseInt(Pagez.getRequest().getParameter("userid"));
+            Pagez.getUserSession().setPendingSurveyReferredbyuserid(userid);
+            Pagez.getUserSession().setReferredbyOnlyUsedForSignup(userid);
         } else if (Num.isinteger(Pagez.getRequest().getParameter("u"))){
             userid = Integer.parseInt(Pagez.getRequest().getParameter("u"));
+            Pagez.getUserSession().setPendingSurveyReferredbyuserid(userid);
+            Pagez.getUserSession().setReferredbyOnlyUsedForSignup(userid);
         } else if (Pagez.getRequest().getParameter("action")!=null && Pagez.getRequest().getParameter("action").indexOf("showsurvey")>-1){
             String[] split = Pagez.getRequest().getParameter("action").split("-");
             if (split.length>=3){
                 if (split[2]!=null && Num.isinteger(split[2])){
                     userid = Integer.parseInt(split[2]);
+                    Pagez.getUserSession().setPendingSurveyReferredbyuserid(userid);
+                    Pagez.getUserSession().setReferredbyOnlyUsedForSignup(userid);
                 }
             }
         }
 
-        //Set userid-based session vars
-        Pagez.getUserSession().setPendingSurveyReferredbyuserid(userid);
-        Pagez.getUserSession().setReferredbyOnlyUsedForSignup(userid);
+        //This is essentially an override and backup for userid referrals
+        if (Num.isinteger(Pagez.getRequest().getParameter("referredbyuserid"))){
+            referredbyuserid = Integer.parseInt(Pagez.getRequest().getParameter("referredbyuserid"));
+            if (referredbyuserid>0){
+                Pagez.getUserSession().setPendingSurveyReferredbyuserid(userid);
+                Pagez.getUserSession().setReferredbyOnlyUsedForSignup(userid);
+            }
+        }
+
+
 
         //Set userwhotooksurvey, first verifying that they've actually taken the survey
         userwhotooksurvey = null;
@@ -286,7 +299,7 @@ public class PublicSurvey implements Serializable {
             userquestionsthatmustbeanswered = findUserQuestionsFor(userwhotooksurvey);
             for (Iterator<Question> uqIter=userquestionsthatmustbeanswered.iterator(); uqIter.hasNext();) {
                 Question question=uqIter.next();
-                if (question.getUserid()>0){
+                if (question.getIsuserquestion() && question.getUserid()>0){
                     PublicSurveyUserquestionListitem psli = new PublicSurveyUserquestionListitem();
                     psli.setQuestion(question);
                     psli.setUser(User.get(question.getUserid()));
@@ -359,7 +372,6 @@ public class PublicSurvey implements Serializable {
             responsepending.setSurveyid(Pagez.getUserSession().getPendingSurveyResponseSurveyid());
             try{responsepending.save();}catch(Exception ex){logger.error("",ex);}
             Pagez.getUserSession().setPendingSurveyResponseSurveyid(0);
-            Pagez.getUserSession().setPendingSurveyReferredbyuserid(0);
             Pagez.getUserSession().setPendingSurveyResponseAsString("");
         }
 
@@ -367,7 +379,7 @@ public class PublicSurvey implements Serializable {
         if (Pagez.getUserSession().getIsloggedin() && Pagez.getUserSession().getUser()!=null && Pagez.getUserSession().getUser().getBloggerid()>0){
             Blogger blogger = Blogger.get(Pagez.getUserSession().getUser().getBloggerid());
             try{
-                BloggerIndex.storeResponseInDb(survey, srp, blogger, Pagez.getUserSession().getPendingSurveyReferredbyuserid());
+                StoreResponse.storeResponseInDb(survey, srp, blogger, Pagez.getUserSession().getPendingSurveyReferredbyuserid());
                 Pagez.getUserSession().setPendingSurveyResponseSurveyid(0);
                 Pagez.getUserSession().setPendingSurveyResponseAsString("");
             }catch (ComponentException cex){
@@ -562,16 +574,21 @@ public class PublicSurvey implements Serializable {
     }
 
     private ArrayList<Question> findUserQuestionsFor(User user){
+        Logger logger = Logger.getLogger(this.getClass().getName());
+        logger.debug("findUserQuestionsFor(userid="+user.getUserid()+")");
+        ArrayList<Question> userquestionsthatmustbeanswered = new ArrayList<Question>();
         for (Iterator<Question> iterator=survey.getQuestions().iterator(); iterator.hasNext();) {
             Question question=iterator.next();
             if (question.getIsuserquestion()){
                 if (user.getUserid()==question.getUserid()){
+                    logger.debug("adding questionid="+question.getQuestionid()+" ");
                     userquestionsthatmustbeanswered.add(question);
                     //Go up the chain
                     List<Response> responses = HibernateUtil.getSession().createCriteria(Response.class)
                                                        .add(Restrictions.eq("bloggerid", user.getBloggerid()))
-                                                        .add(Restrictions.eq("surveyid", survey.getSurveyid()))
-                                                        .setCacheable(true)
+                                                       .add(Restrictions.eq("surveyid", survey.getSurveyid()))
+                                                       .add(Restrictions.gt("referredbyuserid", 0))
+                                                       .setCacheable(true)
                                                        .list();
                     for (Iterator<Response> responseIterator=responses.iterator(); responseIterator.hasNext();) {
                         Response response=responseIterator.next();
@@ -748,5 +765,13 @@ public class PublicSurvey implements Serializable {
 
     public void setUserquestionlistitems(ArrayList<PublicSurveyUserquestionListitem> userquestionlistitems) {
         this.userquestionlistitems=userquestionlistitems;
+    }
+
+    public int getReferredbyuserid() {
+        return referredbyuserid;
+    }
+
+    public void setReferredbyuserid(int referredbyuserid) {
+        this.referredbyuserid=referredbyuserid;
     }
 }
