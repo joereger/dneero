@@ -48,7 +48,7 @@ public class SysadminSurveyDetail implements Serializable {
         if (survey!=null && survey.getSurveyid()>0){
             surveyOnBlogPreview = SurveyFlashServlet.getEmbedSyntax("/", survey.getSurveyid(), 0, 0, true, true, false);
             surveyEnhancer = new SurveyEnhancer(survey);
-            surveyForTakers = SurveyTakerDisplay.getHtmlForSurveyTaking(survey, new Blogger(), true);
+            surveyForTakers = SurveyTakerDisplay.getHtmlForSurveyTaking(survey, new Blogger(), true, null);
             sms = new SurveyMoneyStatus(survey);
             researcher = Researcher.get(survey.getResearcherid());
             user = User.get(researcher.getUserid());

@@ -60,6 +60,8 @@ public class PublicSurvey implements Serializable {
     private String charityname = "";
     private String surveyResponseHtml;
     private String surveyResponseFlashEmbed;
+    private ArrayList<Question> userquestionsthatmustbeanswered = new ArrayList<Question>();
+    private ArrayList<PublicSurveyUserquestionListitem> userquestionlistitems = new ArrayList<PublicSurveyUserquestionListitem>();
 
 
     public PublicSurvey(){
@@ -238,7 +240,7 @@ public class PublicSurvey implements Serializable {
 
         //To display to those looking to take survey
         if (!loggedinuserhasalreadytakensurvey){
-            takesurveyhtml = SurveyTakerDisplay.getHtmlForSurveyTaking(survey, new Blogger(), true);
+            takesurveyhtml = SurveyTakerDisplay.getHtmlForSurveyTaking(survey, new Blogger(), true, userwhotooksurvey);
         } else {
             takesurveyhtml = "";
         }
@@ -278,7 +280,21 @@ public class PublicSurvey implements Serializable {
 
         }
 
-
+        //Get userquestions
+        userquestionlistitems = new ArrayList<PublicSurveyUserquestionListitem>();
+        if (userwhotooksurvey!=null){
+            userquestionsthatmustbeanswered = findUserQuestionsFor(userwhotooksurvey);
+            for (Iterator<Question> uqIter=userquestionsthatmustbeanswered.iterator(); uqIter.hasNext();) {
+                Question question=uqIter.next();
+                if (question.getUserid()>0){
+                    PublicSurveyUserquestionListitem psli = new PublicSurveyUserquestionListitem();
+                    psli.setQuestion(question);
+                    psli.setUser(User.get(question.getUserid()));
+                    psli.setComponent(ComponentTypes.getComponentByID(question.getComponenttype(), question, null));
+                    userquestionlistitems.add(psli);
+                }
+            }
+        }
 
 
         //Record the survey display using the display cache
@@ -545,6 +561,31 @@ public class PublicSurvey implements Serializable {
         }
     }
 
+    private ArrayList<Question> findUserQuestionsFor(User user){
+        for (Iterator<Question> iterator=survey.getQuestions().iterator(); iterator.hasNext();) {
+            Question question=iterator.next();
+            if (question.getIsuserquestion()){
+                if (user.getUserid()==question.getUserid()){
+                    userquestionsthatmustbeanswered.add(question);
+                    //Go up the chain
+                    List<Response> responses = HibernateUtil.getSession().createCriteria(Response.class)
+                                                       .add(Restrictions.eq("bloggerid", user.getBloggerid()))
+                                                        .add(Restrictions.eq("surveyid", survey.getSurveyid()))
+                                                        .setCacheable(true)
+                                                       .list();
+                    for (Iterator<Response> responseIterator=responses.iterator(); responseIterator.hasNext();) {
+                        Response response=responseIterator.next();
+                        if (response.getReferredbyuserid()>0){
+                            User userwhoreferred = User.get(response.getReferredbyuserid());
+                            userquestionsthatmustbeanswered.addAll(findUserQuestionsFor(userwhoreferred));
+                        }
+                    }
+                }
+            }
+        }
+        return userquestionsthatmustbeanswered;
+    }
+
 
     public String getTakesurveyhtml() {
         return takesurveyhtml;
@@ -693,5 +734,19 @@ public class PublicSurvey implements Serializable {
         this.surveyResponseFlashEmbed=surveyResponseFlashEmbed;
     }
 
-    
+    public ArrayList<Question> getUserquestionsthatmustbeanswered() {
+        return userquestionsthatmustbeanswered;
+    }
+
+    public void setUserquestionsthatmustbeanswered(ArrayList<Question> userquestionsthatmustbeanswered) {
+        this.userquestionsthatmustbeanswered=userquestionsthatmustbeanswered;
+    }
+
+    public ArrayList<PublicSurveyUserquestionListitem> getUserquestionlistitems() {
+        return userquestionlistitems;
+    }
+
+    public void setUserquestionlistitems(ArrayList<PublicSurveyUserquestionListitem> userquestionlistitems) {
+        this.userquestionlistitems=userquestionlistitems;
+    }
 }

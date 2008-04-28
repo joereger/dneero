@@ -4,6 +4,9 @@ package com.dneero.htmluibeans;
 import com.dneero.dao.*;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.display.SurveyResponseParser;
+import com.dneero.display.components.Dropdown;
+import com.dneero.display.components.Essay;
+import com.dneero.display.components.Textbox;
 import com.dneero.display.components.def.Component;
 import com.dneero.display.components.def.ComponentException;
 import com.dneero.display.components.def.ComponentTypes;
@@ -14,6 +17,7 @@ import com.dneero.rank.RankForResponseThread;
 import com.dneero.scheduledjobs.UpdateResponsePoststatus;
 import com.dneero.session.SurveysTakenToday;
 import com.dneero.xmpp.SendXMPPMessage;
+import com.dneero.util.GeneralException;
 import org.apache.log4j.Logger;
 import org.hibernate.criterion.Restrictions;
 
@@ -182,6 +186,43 @@ public class BloggerIndex implements Serializable {
         if (!FindSurveysForBlogger.isBloggerQualifiedToTakeSurvey(blogger, survey)){
             allCex.addValidationError("Sorry, you're not qualified to join this conversation.  Your qualification is determined by your Profile.  Conversation igniters determine their intended audience when they create a conversation.");
         }
+        //Userquestion validation
+        if (srp.getNameValuePairs().get(SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"userquestion-question")!=null){
+            String[] uqArr =(String[]) srp.getNameValuePairs().get(SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"userquestion-question");
+            if (uqArr[0].equals("")){
+                allCex.addValidationError("You must add your own question to the conversation.");
+            }
+            if (srp.getNameValuePairs().get(SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"userquestion-componenttype")!=null){
+                String[] uqctArr =(String[]) srp.getNameValuePairs().get(SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"userquestion-componenttype");
+                if (uqctArr[0].equals("MultipleChoice")){
+                    //Need to val options
+                    if (srp.getNameValuePairs().get(SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"userquestion-predefinedanswer")!=null){
+                        String[] uqmcArr =(String[]) srp.getNameValuePairs().get(SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"userquestion-predefinedanswer");
+                        int numberofanswers = 0;
+                        for (int i=0; i<uqmcArr.length; i++) {
+                            String s=uqmcArr[i];
+                            if (s!=null && !s.trim().equals("")){
+                                numberofanswers++;
+                            }
+                        }
+                        if (numberofanswers<=1){
+                            allCex.addValidationError("You need to create at least two possible answers to your question.");    
+                        }
+                    } else {
+                        allCex.addValidationError("You need to create possible answers to your question.");
+                    }
+                } else if (uqctArr[0].equals("ShortText")){
+                    //No more val needed
+                } else if (uqctArr[0].equals("LongText")){
+                    //No more val needed
+                }
+            } else {
+                allCex.addValidationError("You must tell us how people can answer the question you added to the conversation.");
+            }
+        } else {
+            allCex.addValidationError("You must add your own question to the conversation.");
+        }
+
         //Create Response
         int responseid = 0;
         boolean isforcharity = false;
@@ -245,7 +286,6 @@ public class BloggerIndex implements Serializable {
                         logger.debug("start processing questionid="+question.getQuestionid()+" "+question.getQuestion());
                         Component component = ComponentTypes.getComponentByID(question.getComponenttype(), question, blogger);
                         try{component.processAnswer(srp, response);} catch (ComponentException cex){allCex.addErrorsFromAnotherGeneralException(cex);}
-                        //@todo insert rating processing here
                         logger.debug("end processing questionid="+question.getQuestionid()+" "+question.getQuestion());
                     }
                 }
@@ -256,6 +296,54 @@ public class BloggerIndex implements Serializable {
                 //logger.debug("refreshing survey");
                 //Refresh survey
                 //try{survey.refresh();} catch (Exception ex){logger.error("",ex);}
+                
+
+                //Userquestion processing
+                if (srp.getNameValuePairs().get(SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"userquestion-question")!=null){
+                    String[] uqArr =(String[]) srp.getNameValuePairs().get(SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"userquestion-question");
+                    if (srp.getNameValuePairs().get(SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"userquestion-componenttype")!=null){
+                        String[] uqctArr =(String[]) srp.getNameValuePairs().get(SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"userquestion-componenttype");
+                        int componenttype = 0;
+                        if (uqctArr[0].equals("MultipleChoice")){
+                            componenttype = Dropdown.ID;
+                        } else if (uqctArr[0].equals("ShortText")){
+                            componenttype = Textbox.ID;
+                        } else if (uqctArr[0].equals("LongText")){
+                            componenttype = Essay.ID;
+                        }
+
+                        Question question = new Question();
+                        question.setSurveyid(survey.getSurveyid());
+                        question.setQuestion(uqArr[0]);
+                        question.setIsrequired(false);
+                        question.setComponenttype(componenttype);
+                        question.setIsuserquestion(true);
+                        question.setUserid(blogger.getUserid());
+
+                        survey.getQuestions().add(question);
+                        try{survey.save();} catch (Exception ex){logger.error("", ex);}
+
+                        if (componenttype==Dropdown.ID){
+                            if (srp.getNameValuePairs().get(SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"userquestion-predefinedanswer")!=null){
+                                StringBuffer options = new StringBuffer();
+                                String[] uqmcArr =(String[]) srp.getNameValuePairs().get(SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"userquestion-predefinedanswer");
+                                for (int i=0; i<uqmcArr.length; i++) {
+                                    String s=uqmcArr[i];
+                                    if (s!=null && !s.trim().equals("")){
+                                        options.append(s.trim());
+                                        options.append("\n");
+                                    }
+                                }
+                                Questionconfig qc1 = new Questionconfig();
+                                qc1.setQuestionid(question.getQuestionid());
+                                qc1.setName("options");
+                                qc1.setValue(options.toString());
+                                question.getQuestionconfigs().add(qc1);
+                                try{survey.save();} catch (Exception ex){logger.error("", ex);}
+                            }
+                        }
+                    }
+                }
 
                 //Handle rankings in a thread
                 try{

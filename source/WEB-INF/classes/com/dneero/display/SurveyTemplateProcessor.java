@@ -1,21 +1,17 @@
 package com.dneero.display;
 
-import com.dneero.dao.Survey;
-import com.dneero.dao.Question;
-import com.dneero.dao.Blogger;
-import com.dneero.dao.Response;
+import com.dneero.dao.*;
 import com.dneero.dao.hibernate.HibernateUtil;
-import com.dneero.util.Str;
 import com.dneero.display.components.def.Component;
 import com.dneero.display.components.def.ComponentTypes;
-import com.dneero.systemprops.BaseUrl;
+import com.dneero.util.Str;
+import org.apache.log4j.Logger;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.util.Iterator;
 import java.util.List;
-
-import org.apache.log4j.Logger;
+import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * User: Joe Reger Jr
@@ -89,9 +85,6 @@ public class SurveyTemplateProcessor {
         } catch (Exception e){
             //Do nothing... just null pointer
         }
-        //@todo Add Userquestion stuff for taking
-
-
         return "<div style=\"background : #ffffff; border: 0px solid #ffffff; padding : 5px; width : 425px; overflow : auto;\">"+out.toString()+"</div>";
     }
 
@@ -121,7 +114,28 @@ public class SurveyTemplateProcessor {
         } catch (Exception e){
             //Do nothing... just null pointer
         }
-        //@todo Add Userquestion stuff for display
+        //Add Userquestion stuff for display
+        List<Questionresponse> responses = new ArrayList<Questionresponse>();
+        if (blogger!=null && response!=null){
+            responses = HibernateUtil.getSession().createQuery("from Questionresponse where bloggerid='"+blogger.getBloggerid()+"' and responseid='"+response.getResponseid()+"'").list();
+            if (responses!=null){
+                logger.debug("responses.size()="+responses.size());
+                for (Iterator<Questionresponse> qrIt=responses.iterator(); qrIt.hasNext();) {
+                    Questionresponse questionresponse=qrIt.next();
+                    Question question = Question.get(questionresponse.getQuestionid());
+                    if (question.getIsuserquestion()){
+                        Component component = ComponentTypes.getComponentByID(question.getComponenttype(), question, blogger);
+                        User userwhocreatedquestion = User.get(question.getUserid());
+                        out.append("<p>");
+                        out.append(userwhocreatedquestion.getFirstname()+" "+userwhocreatedquestion.getLastname()+" asked:");
+                        out.append("</p>");
+                        out.append("<p>");
+                        out.append(component.getHtmlForDisplay(response));
+                        out.append("</p>");
+                    }
+                }
+            }
+        }
 
         return out.toString().trim();
     }

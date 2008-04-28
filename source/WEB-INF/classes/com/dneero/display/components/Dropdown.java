@@ -103,6 +103,8 @@ public class Dropdown implements Component {
             logger.debug("responses == null");
         }
 
+
+
         String options = "";
         for (Iterator<Questionconfig> iterator = question.getQuestionconfigs().iterator(); iterator.hasNext();) {
             Questionconfig questionconfig = iterator.next();

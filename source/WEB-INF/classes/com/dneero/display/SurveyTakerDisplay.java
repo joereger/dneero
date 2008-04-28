@@ -1,8 +1,8 @@
 package com.dneero.display;
 
-import com.dneero.dao.Survey;
 import com.dneero.dao.Blogger;
-
+import com.dneero.dao.Survey;
+import com.dneero.dao.User;
 import org.apache.log4j.Logger;
 
 /**
@@ -12,7 +12,7 @@ import org.apache.log4j.Logger;
  */
 public class SurveyTakerDisplay {
 
-    public static String getHtmlForSurveyTaking(Survey survey, Blogger blogger, boolean makeHttpsIfSSLIsOn){
+    public static String getHtmlForSurveyTaking(Survey survey, Blogger blogger, boolean makeHttpsIfSSLIsOn, User userwhoreferred){
         Logger logger = Logger.getLogger(SurveyTakerDisplay.class);
         SurveyTemplateProcessor stp = new SurveyTemplateProcessor(survey, blogger);
         return stp.getSurveyForTaking(makeHttpsIfSSLIsOn);

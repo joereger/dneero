@@ -1,11 +1,11 @@
-<%@ page import="org.apache.log4j.Logger" %>
-<%@ page import="com.dneero.htmluibeans.PublicSurvey" %>
-<%@ page import="com.dneero.dao.Survey" %>
-<%@ page import="java.util.Iterator" %>
-<%@ page import="com.dneero.htmluibeans.PublicSurveyFacebookFriendListitem" %>
-<%@ page import="com.dneero.htmlui.*" %>
-<%@ page import="com.dneero.util.Util" %>
-<%@ page import="com.dneero.util.Str" %>
+<%@ page import="com.dneero.dao.*" %>
+<%@ page import="com.dneero.dao.hibernate.HibernateUtil" %>
+<%@ page import="com.dneero.dao.hibernate.NumFromUniqueResult" %>
+<%@ page import="com.dneero.display.SurveyResponseParser" %>
+<%@ page import="com.dneero.display.components.def.Component" %>
+<%@ page import="com.dneero.rank.RankForSurveyThread" %>
+<%@ page import="org.hibernate.criterion.Order" %>
+<%@ page import="org.hibernate.criterion.Restrictions" %>
 <%
 PublicSurvey publicSurvey = (PublicSurvey)Pagez.getBeanMgr().get("PublicSurvey");
 %>
@@ -111,7 +111,7 @@ String acl = "public";
                 <% if (publicSurvey.getUserwhotooksurvey()!=null){ %>
                      <% if (publicSurvey.getUserwhotooksurvey().getUserid()>0){ %>
                             <center>
-                            <div class="rounded" style="width: 400px; padding: 15px; margin: 5px; background: #e6e6e6;">
+                            <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
                                 <center>
                                     <font class="mediumfont"><%=publicSurvey.getUserwhotooksurvey().getFirstname()%> <%=publicSurvey.getUserwhotooksurvey().getLastname()%>'s answers.</font><br/>
                                     <% if (!publicSurvey.getLoggedinuserhasalreadytakensurvey()){ %>
@@ -140,7 +140,7 @@ String acl = "public";
                             </div>
                             <br/>
                         <%}%>
-                        <form action="/survey.jsp" method="post">
+                        <form action="/survey.jsp" method="post" name="surveyform">
                             <input type="hidden" name="dpage" value="/survey.jsp">
                             <input type="hidden" name="actionfrompage" value="takesurvey">
                             <input type="hidden" name="surveyid" value="<%=publicSurvey.getSurvey().getSurveyid()%>">
@@ -169,55 +169,61 @@ String acl = "public";
                                 <%=publicSurvey.getTakesurveyhtml()%>
                             </div>
                         </div>
+                        <%if (publicSurvey.getUserquestionlistitems()!=null && publicSurvey.getUserquestionlistitems().size()>0){%>
                             <br/>
                             <div class="rounded" style="background: #e6e6e6; text-align: center; padding: 10px;">
-                                <center><font class="smallfont"><b>Your friend wants to know:</b></font></center><br/><br/>
-                                <div class="rounded" style="background: #ffffff; padding: 10px;">
-                                    
+                                <div class="rounded" style="background: #ffffff; padding: 10px; text-align: left;">
+                                    <%
+                                        for (Iterator<PublicSurveyUserquestionListitem> iterator=publicSurvey.getUserquestionlistitems().iterator(); iterator.hasNext();){
+                                            PublicSurveyUserquestionListitem psli=iterator.next();
+                                            %><font class="smallfont" style="font-weight: bold;"><%=psli.getUser().getFirstname()%> <%=psli.getUser().getLastname()%> wants to know:</font><br/><%
+                                            %><%=psli.getComponent().getHtmlForInput()%><%
+                                        }
+                                    %>
                                 </div>
                             </div>
+                        <%}%>
                         <br/>
                         <div class="rounded" style="background: #e6e6e6; text-align: center; padding: 10px;">
-                            <center><font class="smallfont"><b>You need to add a question to the conversation.</b>  Anybody who joins the conversation after reading your answers will have to answer the question you ask.  What else (related to the current conversation, of course) do you want to know?</font></center><br/>
-                            <div class="rounded" style="background: #ffffff; padding: 10px;">
-                                <link rel="stylesheet" type="text/css" href="/js/dhtmltabs/tabcontent.css" />
-                                <script type="text/javascript" src="/js/dhtmltabs/tabcontent.js"></script>
+                            <div class="rounded" style="background: #ffffff; padding: 10px; text-align: left;">
+                                <font class="formfieldnamefont">What else do you want to know?</font><br/><font class="tinyfont">You can ask anything related to this conversation (unrelated/vulgar questions will be rejected). People who join the conversation after reading your answers will have to answer the question you ask.</font><br/>
+                                <input type="text" name="<%=SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER%>userquestion-question" size="50" maxlength="250"/>
+                                <br/><br/><font class="formfieldnamefont">How do people answer your question?</font><br/>
 
-                                <div style="border:1px solid gray; width:400px; height: 200px; background-color: #e6e6e6; padding: 5px">
-                                    <div id="tcontent1" class="tabcontent">
-                                    Tab content 1 here<br />Tab content 1 here<br />
-                                    </div>
+                                <table cellspacing="0" cellpadding="0" border="0">
+                                    <tr>
+                                        <td rowspan="2" valign="top"><input type="radio" name="<%=SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER%>userquestion-componenttype" value="MultipleChoice" checked="true"></td>
+                                        <td rowspan="2" valign="top">
+                                            <img src="/images/clear.gif" alt="" width="1" height="3"><br/><font class="smallfont" style="font-weight: bold;">Multiple Choice (recommended)</font><br/><font class="tinyfont">People can choose from one of the answers you define below.  Type up to eight possible answers.  Leave the rest blank.</font><br/>
+                                            <table cellspacing="1" cellpadding="0" border="0">
+                                            <tr>
+                                                <td><input type="text" name="<%=SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER%>userquestion-predefinedanswer" size="20" maxlength="50" style="font-size: 9px;"/></td>
+                                                <td><input type="text" name="<%=SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER%>userquestion-predefinedanswer" size="20" maxlength="50" style="font-size: 9px;"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td><input type="text" name="<%=SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER%>userquestion-predefinedanswer" size="20" maxlength="50" style="font-size: 9px;"/></td>
+                                                <td><input type="text" name="<%=SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER%>userquestion-predefinedanswer" size="20" maxlength="50" style="font-size: 9px;"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td><input type="text" name="<%=SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER%>userquestion-predefinedanswer" size="20" maxlength="50" style="font-size: 9px;"/></td>
+                                                <td><input type="text" name="<%=SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER%>userquestion-predefinedanswer" size="20" maxlength="50" style="font-size: 9px;"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td><input type="text" name="<%=SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER%>userquestion-predefinedanswer" size="20" maxlength="50" style="font-size: 9px;"/></td>
+                                                <td><input type="text" name="<%=SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER%>userquestion-predefinedanswer" size="20" maxlength="50" style="font-size: 9px;"/></td>
+                                            </tr>
+                                            </table>
+                                        </td>
+                                        <td valign="top"><input type="radio" name="<%=SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER%>userquestion-componenttype" value="ShortText"></td>
+                                        <td valign="top"><img src="/images/clear.gif" alt="" width="1" height="3"><br/><font class="smallfont" style="font-weight: bold;">Short Text</font><br/><font class="tinyfont">People can answer whatever they want but it must be shorter than 250 characters.</font></td>
 
-                                    <div id="tcontent2" class="tabcontent">
-                                    Tab content 2 here<br />Tab content 2 here<br />
-                                    </div>
-
-                                    <div id="tcontent3" class="tabcontent">
-                                    Tab content 3 here<br />Tab content 3 here<br />
-                                    </div>
-
-                                    <div id="tcontent4" class="tabcontent">
-                                    Tab content 4 here<br />Tab content 4 here<br />
-                                    </div>
-                                </div>
-
-                                <div id="flowertabs" class="modernbricksmenu2">
-                                    <ul>
-                                    <li><a href="#" rel="tcontent1" class="selected">Short Text</a></li>
-                                    <li><a href="#" rel="tcontent2">Long Text</a></li>
-                                    <li><a href="#" rel="tcontent3">Select One</a></li>
-                                    <li><a href="#" rel="tcontent4">Select Many</a></li>
-
-                                    </ul>
-                                </div>
-                                <br style="clear: left" />
-
-                                <script type="text/javascript">
-                                    var myflowers=new ddtabcontent("flowertabs")
-                                    myflowers.setpersist(true)
-                                    myflowers.setselectedClassTarget("link") //"link" or "linkparent"
-                                    myflowers.init()
-                                </script>
+                                    </tr>
+                                    <tr>
+                                        <td valign="top"><input type="radio" name="<%=SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER%>userquestion-componenttype" value="LongText"></td>
+                                        <td valign="top"><img src="/images/clear.gif" alt="" width="1" height="3"><br/><font class="smallfont" style="font-weight: bold;">Long Text</font><br/><font class="tinyfont">People can answer whatever they want in a long essay format.</font></td>
+                                    </tr>
+                                    </table>
+                                
                             </div>
                         </div>
                         <br/>
@@ -227,10 +233,10 @@ String acl = "public";
                                     <tr>
                                         <td valign="top" align="left" width="20">
                                             <% if (!publicSurvey.getSurvey().getIscharityonly()){ %>
-                                                <input type="checkbox" name="<%=publicSurvey.getDNEERO_REQUEST_PARAM_IDENTIFIER()%>charity-isforcharity" value="1"></input>
+                                                <input type="checkbox" name="<%=publicSurvey.getDNEERO_REQUEST_PARAM_IDENTIFIER()%>charity-isforcharity" value="1"/>
                                             <% } %>
                                             <% if (publicSurvey.getSurvey().getIscharityonly()){ %>
-                                                <input type="hidden" name="<%=publicSurvey.getDNEERO_REQUEST_PARAM_IDENTIFIER()%>charity-isforcharity" value="1"></input>
+                                                <input type="hidden" name="<%=publicSurvey.getDNEERO_REQUEST_PARAM_IDENTIFIER()%>charity-isforcharity" value="1"/>
                                             <% } %>
                                         </td>
                                         <td valign="top" width="155" align="left">
