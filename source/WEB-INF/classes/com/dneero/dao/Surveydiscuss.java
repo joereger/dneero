@@ -19,11 +19,13 @@ public class Surveydiscuss extends BasePersistentClass implements java.io.Serial
      private int surveydiscussid;
      private int surveyid;
      private Date date;
-     private boolean isapproved;
      private String subject;
      private String comment;
      private int userid;
-
+     private boolean isresearcherreviewed;
+     private boolean issysadminreviewed;
+     private boolean isresearcherrejected;
+     private boolean issysadminrejected;
 
 
     public static Surveydiscuss get(int id) {
@@ -89,13 +91,6 @@ public class Surveydiscuss extends BasePersistentClass implements java.io.Serial
         this.date = date;
     }
 
-    public boolean getIsapproved() {
-        return isapproved;
-    }
-
-    public void setIsapproved(boolean isapproved) {
-        this.isapproved = isapproved;
-    }
 
     public String getSubject() {
         return subject;
@@ -119,5 +114,37 @@ public class Surveydiscuss extends BasePersistentClass implements java.io.Serial
 
     public void setUserid(int userid) {
         this.userid = userid;
+    }
+
+    public boolean getIsresearcherreviewed() {
+        return isresearcherreviewed;
+    }
+
+    public void setIsresearcherreviewed(boolean isresearcherreviewed) {
+        this.isresearcherreviewed=isresearcherreviewed;
+    }
+
+    public boolean getIssysadminreviewed() {
+        return issysadminreviewed;
+    }
+
+    public void setIssysadminreviewed(boolean issysadminreviewed) {
+        this.issysadminreviewed=issysadminreviewed;
+    }
+
+    public boolean getIsresearcherrejected() {
+        return isresearcherrejected;
+    }
+
+    public void setIsresearcherrejected(boolean isresearcherrejected) {
+        this.isresearcherrejected=isresearcherrejected;
+    }
+
+    public boolean getIssysadminrejected() {
+        return issysadminrejected;
+    }
+
+    public void setIssysadminrejected(boolean issysadminrejected) {
+        this.issysadminrejected=issysadminrejected;
     }
 }

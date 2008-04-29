@@ -15,9 +15,6 @@
         <property name="userid" type="int">
             <column name="userid" not-null="true" />
         </property>
-        <property name="isapproved" type="boolean">
-            <column name="isapproved" />
-        </property>
         <property name="date" type="timestamp">
             <column name="date" not-null="true" />
         </property>
@@ -26,6 +23,19 @@
         </property>
         <property name="comment" type="text">
             <column name="comment"/>
+        </property>
+
+        <property name="isresearcherreviewed" type="boolean">
+            <column name="isresearcherreviewed" not-null="true" />
+        </property>
+        <property name="issysadminreviewed" type="boolean">
+            <column name="issysadminreviewed" not-null="true" />
+        </property>
+        <property name="isresearcherrejected" type="boolean">
+            <column name="isresearcherrejected" not-null="true" />
+        </property>
+        <property name="issysadminrejected" type="boolean">
+            <column name="issysadminrejected" not-null="true" />
         </property>
     </class>
 </hibernate-mapping>

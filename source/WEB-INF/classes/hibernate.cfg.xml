@@ -35,6 +35,7 @@
         <mapping resource="com/dneero/dao/Respondentfilter.hbm.xml" />
         <mapping resource="com/dneero/dao/Response.hbm.xml" />
         <mapping resource="com/dneero/dao/Responsepending.hbm.xml" />
+        <mapping resource="com/dneero/dao/Review.hbm.xml" />
         <mapping resource="com/dneero/dao/Revshare.hbm.xml" />
         <mapping resource="com/dneero/dao/Supportissue.hbm.xml" />
         <mapping resource="com/dneero/dao/Supportissuecomm.hbm.xml" />

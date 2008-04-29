@@ -131,6 +131,8 @@
                         <img src="/images/clear.gif" alt="" width="10" height="1"/>
                         <a href="/researcher/rank-list.jsp"><font class="subnavfont" style="color: #000000;">Rankings</font></a>
                         <img src="/images/clear.gif" alt="" width="10" height="1"/>
+                        <a href="/researcher/reviewables.jsp"><font class="subnavfont" style="color: #000000;">Reviewable Items</font></a>        
+                        <img src="/images/clear.gif" alt="" width="10" height="1"/>
                         <a href="/researcher/researcherdetails.jsp"><font class="subnavfont" style="color: #000000;">Igniter Details</font></a>
                         <img src="/images/clear.gif" alt="" width="10" height="1"/>
                         <a href="/researcher/researcherbilling.jsp"><font class="subnavfont" style="color: #000000;">Billing</font></a>
@@ -156,7 +158,8 @@
                 <%}%>
                 <%if (navtab.equals("customercare")){%>
                     <%if (Pagez.getUserSession().getIsloggedin() && Pagez.getUserSession().getIsCustomerCare()){%>
-                        <a href="/customercare/sysadminsupportissueslist.jsp"><font class="subnavfont" style=" color: #000000;">Support Issues</font></a>                      
+                        <a href="/customercare/sysadminsupportissueslist.jsp"><font class="subnavfont" style=" color: #000000;">Support Issues</font></a>
+                        <a href="/customercare/reviewables.jsp"><font class="subnavfont" style=" color: #000000;">Reviewable Items</font></a>
                         <a href="/customercare/userlist.jsp"><font class="subnavfont" style=" color: #000000;">Users</font></a>
                         <a href="/customercare/sysadminsurveylist.jsp"><font class="subnavfont" style=" color: #000000;">Conversations</font></a>
                         <a href="/customercare/charityreport.jsp"><font class="subnavfont" style=" color: #000000;">Charity</font></a>

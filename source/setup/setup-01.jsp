@@ -114,15 +114,30 @@
                             logger.error("", ex);
                         }
                         //Grant SysAdmin Privs
-                        Userrole role = new Userrole();
-                        role.setUserid(user.getUserid());
-                        role.setRoleid(Userrole.SYSTEMADMIN);
-                        user.getUserroles().add(role);
-                        try {
-                            role.save();
-                            user.save();
-                        } catch (Exception ex) {
-                            logger.error("", ex);
+                        if (1==1){
+                            Userrole role = new Userrole();
+                            role.setUserid(user.getUserid());
+                            role.setRoleid(Userrole.SYSTEMADMIN);
+                            user.getUserroles().add(role);
+                            try {
+                                role.save();
+                                user.save();
+                            } catch (Exception ex) {
+                                logger.error("", ex);
+                            }
+                        }
+                        //Grant Cust care Privs
+                        if (1==1){
+                            Userrole role = new Userrole();
+                            role.setUserid(user.getUserid());
+                            role.setRoleid(Userrole.CUSTOMERCARE);
+                            user.getUserroles().add(role);
+                            try {
+                                role.save();
+                                user.save();
+                            } catch (Exception ex) {
+                                logger.error("", ex);
+                            }
                         }
                     }
 

@@ -65,7 +65,7 @@ public class PublicSurveyDiscuss implements Serializable {
 
         //Load discussion items
         surveydiscusses = new ArrayList();
-        List sds = HibernateUtil.getSession().createQuery("from Surveydiscuss where surveyid='"+survey.getSurveyid()+"' and isapproved=true order by surveydiscussid asc").setCacheable(true).list();
+        List sds = HibernateUtil.getSession().createQuery("from Surveydiscuss where surveyid='"+survey.getSurveyid()+"' and isrejected=false order by surveydiscussid asc").setCacheable(true).list();
         for (Iterator iterator = sds.iterator(); iterator.hasNext();) {
             Surveydiscuss surveydiscuss = (Surveydiscuss) iterator.next();
             PublicSurveyDiscussListitem psdli = new PublicSurveyDiscussListitem();
@@ -95,11 +95,14 @@ public class PublicSurveyDiscuss implements Serializable {
         if (Pagez.getUserSession().getIsloggedin()){
             Surveydiscuss surveydiscuss = new Surveydiscuss();
             surveydiscuss.setSurveyid(survey.getSurveyid());
-            surveydiscuss.setIsapproved(true);
             surveydiscuss.setSubject(discussSubject);
             surveydiscuss.setComment(discussComment);
             surveydiscuss.setDate(new Date());
             surveydiscuss.setUserid(Pagez.getUserSession().getUser().getUserid());
+            surveydiscuss.setIsresearcherrejected(false);
+            surveydiscuss.setIssysadminrejected(false);
+            surveydiscuss.setIsresearcherreviewed(false);
+            surveydiscuss.setIssysadminreviewed(false);
             try{
                 surveydiscuss.save();
             } catch (GeneralException gex){

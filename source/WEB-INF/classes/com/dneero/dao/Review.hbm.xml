@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 17, 2006 3:45:28 PM by Hibernate Tools 3.1.0.beta4 -->
+<hibernate-mapping>
+    <class name="com.dneero.dao.Review" table="review">
+        <cache usage="transactional"/>
+        <id name="reviewid" type="int">
+            <column name="reviewid" />
+            <generator class="native" />
+        </id>
+        <property name="dateofcreation" type="timestamp">
+            <column name="dateofcreation" not-null="true" />
+        </property>
+        <property name="datelastupdated" type="timestamp">
+            <column name="datelastupdated" not-null="true" />
+        </property>
+        <property name="type" type="int">
+            <column name="type" not-null="true" />
+        </property>
+        <property name="id" type="int">
+            <column name="id" not-null="true" />
+        </property>
+        <property name="researchernotes" type="text">
+            <column name="researchernotes" not-null="true" />
+        </property>
+        <property name="sysadminnotes" type="text">
+            <column name="sysadminnotes" not-null="true" />
+        </property>
+        <property name="useridofcontentcreator" type="int">
+            <column name="useridofcontentcreator" not-null="true" />
+        </property>
+        <property name="useridofresearcher" type="int">
+            <column name="useridofresearcher" not-null="true" />
+        </property>
+        <property name="isresearcherreviewed" type="boolean">
+            <column name="isresearcherreviewed" not-null="true" />
+        </property>
+        <property name="issysadminreviewed" type="boolean">
+            <column name="issysadminreviewed" not-null="true" />
+        </property>
+        <property name="isresearcherrejected" type="boolean">
+            <column name="isresearcherrejected" not-null="true" />
+        </property>
+        <property name="issysadminrejected" type="boolean">
+            <column name="issysadminrejected" not-null="true" />
+        </property>
+        <property name="isresearcherwarned" type="boolean">
+            <column name="isresearcherwarned" not-null="true" />
+        </property>
+        <property name="issysadminwarned" type="boolean">
+            <column name="issysadminwarned" not-null="true" />
+        </property>
+
+    </class>
+</hibernate-mapping>
