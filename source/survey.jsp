@@ -71,12 +71,12 @@ String acl = "public";
     <div id="csstabs">
       <ul>
         <li><a href="/survey.jsp?surveyid=<%=publicSurvey.getSurvey().getSurveyid()%>" title="Questions"><span>Questions</span></a></li>
-        <li><a href="/surveypostit.jsp?surveyid=<%=publicSurvey.getSurvey().getSurveyid()%>" title="Post It"><span>Post It</span></a></li>
-        <li><a href="/surveyresults.jsp?surveyid=<%=publicSurvey.getSurvey().getSurveyid()%>" title="Results"><span>Results</span></a></li>
-        <li><a href="/surveywhotookit.jsp?surveyid=<%=publicSurvey.getSurvey().getSurveyid()%>" title="Who Took It?"><span>Who Took It?</span></a></li>
+        <li><a href="/surveypostit.jsp?surveyid=<%=publicSurvey.getSurvey().getSurveyid()%>" title="Share It"><span>Share It</span></a></li>
+        <li><a href="/surveyresults.jsp?surveyid=<%=publicSurvey.getSurvey().getSurveyid()%>" title="Answers"><span>Answers</span></a></li>
+        <li><a href="/surveywhotookit.jsp?surveyid=<%=publicSurvey.getSurvey().getSurveyid()%>" title="Who's In?"><span>Who's In?</span></a></li>
         <li><a href="/surveydiscuss.jsp?surveyid=<%=publicSurvey.getSurvey().getSurveyid()%>" title="Discuss"><span>Discuss</span></a></li>
         <li><a href="/surveyrequirements.jsp?surveyid=<%=publicSurvey.getSurvey().getSurveyid()%>" title="Requirements"><span>Requirements</span></a></li>
-        <li><a href="/surveydisclosure.jsp?surveyid=<%=publicSurvey.getSurvey().getSurveyid()%>" title="LDisclosure"><span>Disclosure</span></a></li>
+        <li><a href="/surveydisclosure.jsp?surveyid=<%=publicSurvey.getSurvey().getSurveyid()%>" title="Disclosure"><span>Disclosure</span></a></li>
       </ul>
     </div>
     <br/><br/><br/>
@@ -190,7 +190,7 @@ String acl = "public";
                         <br/>
                         <div class="rounded" style="background: #e6e6e6; text-align: center; padding: 10px;">
                             <div class="rounded" style="background: #ffffff; padding: 10px; text-align: left;">
-                                <font class="formfieldnamefont">What else do you want to know?</font><br/><font class="tinyfont">You can ask anything related to this conversation (unrelated/vulgar questions will be rejected). People who join the conversation after reading your answers will have to answer the question you ask.</font><br/>
+                                <font class="formfieldnamefont">What else do you want to know?</font><font class="formfieldnamefont" style="color: #ff0000;">(Required)</font><br/><font class="tinyfont">You can ask anything related to this conversation (unrelated/vulgar questions will be rejected). People who join the conversation after reading your answers will have to answer the question you ask.</font><br/>
                                 <input type="text" name="<%=SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER%>userquestion-question" size="50" maxlength="250"/>
                                 <br/><br/><font class="formfieldnamefont">How do people answer your question?</font><br/>
 

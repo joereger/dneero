@@ -13,7 +13,6 @@ import org.hibernate.criterion.Order;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * User: Joe Reger Jr
@@ -143,7 +142,7 @@ public class ResearcherResultsAnswersAdvanced implements Serializable {
             try{respondentfilter.save();}catch(Exception ex){logger.error(ex);}
         }
         //Generate the results
-        results = SurveyResultsDisplay.getHtmlForResults(survey, null, 0, new ArrayList<Integer>(), surveyCriteriaXML);
+        results = SurveyResultsDisplay.getHtmlForResults(survey, null, 0, new ArrayList<Integer>(), surveyCriteriaXML, true, false);
     }
 
     public void deleteFilter() throws ValidationException {
@@ -163,7 +162,7 @@ public class ResearcherResultsAnswersAdvanced implements Serializable {
             SurveyCriteriaXML surveyCriteriaXML = new SurveyCriteriaXML(respondentfilter.getCriteriaxml());
             filtername = respondentfilter.getName();
             this.respondentfilter = respondentfilter;
-            results = SurveyResultsDisplay.getHtmlForResults(survey, null, 0, new ArrayList<Integer>(), surveyCriteriaXML);
+            results = SurveyResultsDisplay.getHtmlForResults(survey, null, 0, new ArrayList<Integer>(), surveyCriteriaXML, true, false);
         }
     }
 

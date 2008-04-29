@@ -30,6 +30,7 @@ public class PublicSurveyResults implements Serializable {
     private Survey survey;
     private User userwhotooksurvey = null;
     private String resultsHtml = "";
+    private String resultsUserquestionsHtml = "";
     private String resultsHtmlForUserWhoTookSurvey = "";
     private String resultsYourFriends = "";
     private String resultsfriendstabtext = "People from site you were at";
@@ -105,13 +106,24 @@ public class PublicSurveyResults implements Serializable {
         if (!survey.getIsresultshidden()){
             String resultsHtmlKey = "surveyresults.jsp-resultsHtml-surveyid"+survey.getSurveyid();
             if (HtmlCache.isStale(resultsHtmlKey, 600)){
-                resultsHtml = SurveyResultsDisplay.getHtmlForResults(survey, null, 0, new ArrayList<Integer>(), null);
+                resultsHtml = SurveyResultsDisplay.getHtmlForResults(survey, null, 0, new ArrayList<Integer>(), null, true, false);
                 HtmlCache.updateCache(resultsHtmlKey, 600, resultsHtml);
             } else {
                 resultsHtml = HtmlCache.getFromCache(resultsHtmlKey);
             }
         } else {
             resultsHtml = "<font class=\"smallfont\">The conversation igniter has chosen to hide overall aggregate results.  However, dNeero does not allow researchers to hide aggregate results from individual blogs so those results are still available.  To see such results, find a place where this conversation is posted and click the See How Others Voted link... you'll see how others from that blog answered.</font>";
+        }
+
+        //Results main tab
+        if (1==1){
+            String resultsHtmlKey = "surveyresults.jsp-resultsUserquestionsHtml-surveyid"+survey.getSurveyid();
+            if (HtmlCache.isStale(resultsHtmlKey, 600)){
+                resultsUserquestionsHtml = SurveyResultsDisplay.getHtmlForResults(survey, null, 0, new ArrayList<Integer>(), null, false, true);
+                HtmlCache.updateCache(resultsHtmlKey, 600, resultsUserquestionsHtml);
+            } else {
+                resultsUserquestionsHtml = HtmlCache.getFromCache(resultsHtmlKey);
+            }
         }
 
         //Determine which of the results tabs is on
@@ -125,7 +137,7 @@ public class PublicSurveyResults implements Serializable {
         if (userwhotooksurvey!=null){
             String resultsHtmlForUserWhoTookSurveyKey = "surveyresults.jsp-resultsHtmlForUserWhoTookSurvey-surveyid"+survey.getSurveyid()+"-userid"+userwhotooksurvey.getUserid();
             if (HtmlCache.isStale(resultsHtmlForUserWhoTookSurveyKey, 6000)){
-                resultsHtmlForUserWhoTookSurvey = SurveyResultsDisplay.getHtmlForResults(survey, null, userwhotooksurvey.getUserid(), new ArrayList<Integer>(), null);
+                resultsHtmlForUserWhoTookSurvey = SurveyResultsDisplay.getHtmlForResults(survey, null, userwhotooksurvey.getUserid(), new ArrayList<Integer>(), null, true, false);
                 HtmlCache.updateCache(resultsHtmlForUserWhoTookSurveyKey, 6000, resultsHtmlForUserWhoTookSurvey);
             } else {
                 resultsHtmlForUserWhoTookSurvey = HtmlCache.getFromCache(resultsHtmlForUserWhoTookSurveyKey);
@@ -169,7 +181,7 @@ public class PublicSurveyResults implements Serializable {
                         User fbuser = (User) iterator.next();
                         onlyincluderesponsesfromtheseuserids.add(fbuser.getUserid());
                     }
-                    resultsYourFriends = SurveyResultsDisplay.getHtmlForResults(survey, null, 0, onlyincluderesponsesfromtheseuserids, null);
+                    resultsYourFriends = SurveyResultsDisplay.getHtmlForResults(survey, null, 0, onlyincluderesponsesfromtheseuserids, null, true, false);
                 } else {
                     resultsYourFriends = "<font class='mediumfont'>None of your friends have joined this conversation... yet.</font>";
                 }
@@ -335,5 +347,13 @@ public class PublicSurveyResults implements Serializable {
 
     public void setResultstabselectedindex(int resultstabselectedindex) {
         this.resultstabselectedindex=resultstabselectedindex;
+    }
+
+    public String getResultsUserquestionsHtml() {
+        return resultsUserquestionsHtml;
+    }
+
+    public void setResultsUserquestionsHtml(String resultsUserquestionsHtml) {
+        this.resultsUserquestionsHtml=resultsUserquestionsHtml;
     }
 }

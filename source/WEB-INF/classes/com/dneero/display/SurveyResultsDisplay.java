@@ -22,7 +22,7 @@ public class SurveyResultsDisplay {
 
 
 
-    public static String getHtmlForResults(Survey survey, Blogger blogger, int referredbyuserid, ArrayList<Integer> onlyincluderesponsesfromtheseuserids, SurveyCriteriaXML filterCriteriaXML){
+    public static String getHtmlForResults(Survey survey, Blogger blogger, int referredbyuserid, ArrayList<Integer> onlyincluderesponsesfromtheseuserids, SurveyCriteriaXML filterCriteriaXML, boolean includeMainquestions, boolean includeUserquestions){
         StringBuffer out = new StringBuffer();
         Logger logger = Logger.getLogger(SurveyResultsDisplay.class);
 
@@ -71,84 +71,54 @@ public class SurveyResultsDisplay {
         //Iterate each question now
         for (Iterator<Question> iterator = survey.getQuestions().iterator(); iterator.hasNext();) {
             Question question = iterator.next();
-            logger.debug("found question.getQuestionid()="+question.getQuestionid());
-            Component component = ComponentTypes.getComponentByID(question.getComponenttype(), question, blogger);
-            logger.debug("found component.getName()="+component.getName());
-            out.append("<br><br>");
-            out.append("<table width=100% cellpadding=0 cellspacing=0 border=0>");
-            out.append("<tr>");
-            out.append("<td valign=top bgcolor=#e6e6e6>");
-            out.append("<b>"+question.getQuestion()+"</b>");
-            out.append("</td>");
-            out.append("</tr>");
-            out.append("</table>");
-            out.append("<table width=100% cellpadding=0 cellspacing=0 border=0>");
-            out.append("<tr>");
-            out.append("<td valign=top>");
-
-
-
-            //Find all responses to this question
-            List<Questionresponse>  questionresponses = new ArrayList<Questionresponse>();
-            try{
-                logger.debug("About to execute SurveyResultsDisplay questionresponses query");
-                if (responseidstodisplay!=null && responseidstodisplay.size()>0){
-                    questionresponses = HibernateUtil.getSession().createCriteria(Questionresponse.class)
-                       .add(Restrictions.eq("questionid", question.getQuestionid()))
-                       .add(Restrictions.in("responseid", responseidstodisplay))
-                       .setCacheable(true)
-                       .list();
+            if ((!question.getIsuserquestion()&&includeMainquestions)||(question.getIsuserquestion()&&includeUserquestions)){
+                logger.debug("found question.getQuestionid()="+question.getQuestionid());
+                Component component = ComponentTypes.getComponentByID(question.getComponenttype(), question, blogger);
+                logger.debug("found component.getName()="+component.getName());
+                out.append("<br><br>");
+                out.append("<table width=100% cellpadding=0 cellspacing=0 border=0>");
+                if (question.getIsuserquestion()){
+                    User user = User.get(question.getUserid());
+                    out.append("<tr>");
+                    out.append("<td valign=top bgcolor=#e9e9e9>");
+                    out.append("<font class=\"smallfont\"><b><a href=\"/profile.jsp?userid="+user.getUserid()+"\">"+user.getFirstname()+" "+user.getLastname()+"</a> wanted to know:</b></font>");
+                    out.append("</td>");
+                    out.append("</tr>");
                 }
-                logger.debug("Done executing SurveyResultsDisplay questionresponses query");
-            } catch (Exception ex){
-                logger.error("", ex);
+                out.append("<tr>");
+                out.append("<td valign=top bgcolor=#e6e6e6>");
+                out.append("<b>"+question.getQuestion()+"</b>");
+                out.append("</td>");
+                out.append("</tr>");
+                out.append("</table>");
+                out.append("<table width=100% cellpadding=0 cellspacing=0 border=0>");
+                out.append("<tr>");
+                out.append("<td valign=top>");
+
+
+    
+                //Find all responses to this question
+                List<Questionresponse>  questionresponses = new ArrayList<Questionresponse>();
+                try{
+                    logger.debug("About to execute SurveyResultsDisplay questionresponses query");
+                    if (responseidstodisplay!=null && responseidstodisplay.size()>0){
+                        questionresponses = HibernateUtil.getSession().createCriteria(Questionresponse.class)
+                           .add(Restrictions.eq("questionid", question.getQuestionid()))
+                           .add(Restrictions.in("responseid", responseidstodisplay))
+                           .setCacheable(true)
+                           .list();
+                    }
+                    logger.debug("Done executing SurveyResultsDisplay questionresponses query");
+                } catch (Exception ex){
+                    logger.error("", ex);
+                }
+
+                //Create the result for this question
+                out.append(component.getHtmlForResult(questionresponses));
+                out.append("</td>");
+                out.append("</tr>");
+                out.append("</table>");
             }
-
-
-//            //Find all responses to this question
-//            List<Questionresponse>  questionresponses = HibernateUtil.getSession().createCriteria(Questionresponse.class)
-//                   .add(Restrictions.eq("questionid", question.getQuestionid()))
-//                   .setCacheable(true)
-//                   .list();
-//            //If referredbyuserid is included, filter out those not referred by this userid
-//            if (referredbyuserid>0){
-//                List<Questionresponse> responsesTmp = new ArrayList<Questionresponse>();
-//                for (Iterator<Questionresponse> iterator1 = questionresponses.iterator(); iterator1.hasNext();) {
-//                    Questionresponse questionresponse = iterator1.next();
-//                    Response response = Response.get(questionresponse.getResponseid());
-//                    if (response.getReferredbyuserid()==referredbyuserid){
-//                        responsesTmp.add(questionresponse);
-//                    }
-//                }
-//                questionresponses = responsesTmp;
-//            }
-//            //If onlyincluderesponsesfromtheseuserids filter out those not in the list
-//            if (onlyincluderesponsesfromtheseuserids!=null && onlyincluderesponsesfromtheseuserids.size()>0){
-//                List<Questionresponse> responsesTmp = new ArrayList<Questionresponse>();
-//                for (Iterator<Questionresponse> iterator1 = questionresponses.iterator(); iterator1.hasNext();) {
-//                    Questionresponse questionresponse = iterator1.next();
-//                    Response response = Response.get(questionresponse.getResponseid());
-//                    int userid = Blogger.get(response.getBloggerid()).getUserid();
-//                    boolean isinlistofuserids = false;
-//                    for (Iterator it = onlyincluderesponsesfromtheseuserids.iterator(); it.hasNext(); ) {
-//                        int onlyincluderesponsesfromtheseuserid = (Integer)it.next();
-//                        if (userid==onlyincluderesponsesfromtheseuserid){
-//                            isinlistofuserids = true;
-//                            break;
-//                        }
-//                    }
-//                    if (isinlistofuserids){
-//                        responsesTmp.add(questionresponse);
-//                    }
-//                }
-//                questionresponses = responsesTmp;
-//            }
-
-            //Create the result for this question
-            out.append(component.getHtmlForResult(questionresponses));
-            out.append("</td>");
-            out.append("</tr>");
-            out.append("</table>");
         }
         return out.toString();
     }

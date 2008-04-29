@@ -33,12 +33,12 @@ String acl = "public";
     <div id="csstabs">
       <ul>
         <li><a href="/survey.jsp?surveyid=<%=publicSurveyResults.getSurvey().getSurveyid()%>" title="Questions"><span>Questions</span></a></li>
-        <li><a href="/surveypostit.jsp?surveyid=<%=publicSurveyResults.getSurvey().getSurveyid()%>" title="Post It"><span>Post It</span></a></li>
-        <li><a href="/surveyresults.jsp?surveyid=<%=publicSurveyResults.getSurvey().getSurveyid()%>" title="Results"><span>Results</span></a></li>
-        <li><a href="/surveywhotookit.jsp?surveyid=<%=publicSurveyResults.getSurvey().getSurveyid()%>" title="Who Took It?"><span>Who Took It?</span></a></li>
+        <li><a href="/surveypostit.jsp?surveyid=<%=publicSurveyResults.getSurvey().getSurveyid()%>" title="Share It"><span>Share It</span></a></li>
+        <li><a href="/surveyresults.jsp?surveyid=<%=publicSurveyResults.getSurvey().getSurveyid()%>" title="Answers"><span>Answers</span></a></li>
+        <li><a href="/surveywhotookit.jsp?surveyid=<%=publicSurveyResults.getSurvey().getSurveyid()%>" title="Who's In?"><span>Who's In?</span></a></li>
         <li><a href="/surveydiscuss.jsp?surveyid=<%=publicSurveyResults.getSurvey().getSurveyid()%>" title="Discuss"><span>Discuss</span></a></li>
         <li><a href="/surveyrequirements.jsp?surveyid=<%=publicSurveyResults.getSurvey().getSurveyid()%>" title="Requirements"><span>Requirements</span></a></li>
-        <li><a href="/surveydisclosure.jsp?surveyid=<%=publicSurveyResults.getSurvey().getSurveyid()%>" title="LDisclosure"><span>Disclosure</span></a></li>
+        <li><a href="/surveydisclosure.jsp?surveyid=<%=publicSurveyResults.getSurvey().getSurveyid()%>" title="Disclosure"><span>Disclosure</span></a></li>
       </ul>
     </div>
     <br/><br/><br/>
@@ -51,9 +51,9 @@ String acl = "public";
 
                 <script language="JavaScript" type="text/javascript">
                   <%if (publicSurveyResults.getResultsshowyourfriendstab()){%>
-                    var panels = new Array('panel1', 'panel2', 'panel3');
+                    var panels = new Array('panel1', 'panel1a', 'panel2', 'panel3');
                   <%} else {%>
-                    var panels = new Array('panel1', 'panel2');
+                    var panels = new Array('panel1', 'panel1a', 'panel2');
                   <%}%>
                   var selectedTab = null;
                   function showPanel(tab, name)
@@ -82,7 +82,8 @@ String acl = "public";
                         onclick = "";
                     }
                 %>
-                <a href="/surveyresults.jsp?surveyid=<%=publicSurveyResults.getSurvey().getSurveyid()%>&panel=panel1" class="tab" onmousedown="return event.returnValue = showPanel(this, 'panel1');" id="tab1" <%=onclick%>>Everybody</a>
+                <a href="/surveyresults.jsp?surveyid=<%=publicSurveyResults.getSurvey().getSurveyid()%>&panel=panel1" class="tab" onmousedown="return event.returnValue = showPanel(this, 'panel1');" id="tab1" <%=onclick%>>Main Questions</a>
+                    <a href="/surveyresults.jsp?surveyid=<%=publicSurveyResults.getSurvey().getSurveyid()%>&panel=panel1a" class="tab" onmousedown="return event.returnValue = showPanel(this, 'panel1a');" id="tab1a" <%=onclick%>>User Questions</a>
                 <%if (!Pagez.getUserSession().getIsfacebookui()){%>
                     <a href="/surveyresults.jsp?surveyid=<%=publicSurveyResults.getSurvey().getSurveyid()%>&panel=panel2" class="tab" onmousedown="return event.returnValue = showPanel(this, 'panel2');" <%=onclick%>><%=publicSurveyResults.getResultsfriendstabtext()%></a>
                 <%}%>
@@ -101,8 +102,19 @@ String acl = "public";
                 %>
                 <div class="panel" id="panel1" style="<%=panel1style%>">
                     <img src="/images/clear.gif" width="415" height="1"/><br/>
-                    <font class="mediumfont" style="color: #cccccc;">Everybody</font><br/>
+                    <font class="mediumfont" style="color: #cccccc;">Main Questions</font><br/>
                     <%=publicSurveyResults.getResultsHtml()%>
+                </div>
+                <%
+                String panel1astyle = "display: none";
+                if (request.getParameter("panel")!=null && request.getParameter("panel").equals("panel1a")){
+                    panel1astyle = "display: block";
+                }
+                %>
+                <div class="panel" id="panel1a" style="<%=panel1astyle%>">
+                    <img src="/images/clear.gif" width="415" height="1"/><br/>
+                    <font class="mediumfont" style="color: #cccccc;">User Questions</font><br/>
+                    <%=publicSurveyResults.getResultsUserquestionsHtml()%>
                 </div>
                 <%
                 String panel2style = "display: none";
