@@ -23,7 +23,7 @@ import com.dneero.htmlui.ValidationException;
  * Date: Apr 21, 2006
  * Time: 10:38:03 AM
  */
-public class SysadminSurveyDetail implements Serializable {
+public class CustomercareSurveyDetail implements Serializable {
 
     private Survey survey;
     private SurveyEnhancer surveyEnhancer;
@@ -35,7 +35,7 @@ public class SysadminSurveyDetail implements Serializable {
     private String surveyCriteriaAsHtml;
     private int dayssinceclose = 0;
 
-    public SysadminSurveyDetail(){
+    public CustomercareSurveyDetail(){
 
     }
 

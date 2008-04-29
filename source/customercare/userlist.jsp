@@ -1,5 +1,5 @@
 <%@ page import="org.apache.log4j.Logger" %>
-<%@ page import="com.dneero.htmluibeans.SysadminUserList" %>
+<%@ page import="com.dneero.htmluibeans.CustomercareUserList" %>
 <%@ page import="com.dneero.dbgrid.GridCol" %>
 <%@ page import="com.dneero.dbgrid.Grid" %>
 <%@ page import="java.util.ArrayList" %>
@@ -7,22 +7,22 @@
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "Users";
-String navtab = "sysadmin";
-String acl = "sysadmin";
+String navtab = "customercare";
+String acl = "customercare";
 %>
 <%@ include file="/template/auth.jsp" %>
 <%
-SysadminUserList sysadminUserList = (SysadminUserList)Pagez.getBeanMgr().get("SysadminUserList");
+CustomercareUserList customercareUserListList= (CustomercareUserList)Pagez.getBeanMgr().get("CustomercareUserList");
 %>
 <%
     if (request.getParameter("action") != null && request.getParameter("action").equals("search")) {
         try {
-            sysadminUserList.setSearchemail(Textbox.getValueFromRequest("searchemail", "Email", false, DatatypeString.DATATYPEID));
-            sysadminUserList.setSearchfacebookers(CheckboxBoolean.getValueFromRequest("searchfacebookers"));
-            sysadminUserList.setSearchfirstname(Textbox.getValueFromRequest("searchfirstname", "Firstname", false, DatatypeString.DATATYPEID));
-            sysadminUserList.setSearchlastname(Textbox.getValueFromRequest("searchlastname", "Lastname", false, DatatypeString.DATATYPEID));
-            sysadminUserList.setSearchuserid(Textbox.getValueFromRequest("searchuserid", "Userid", false, DatatypeString.DATATYPEID));
-            sysadminUserList.initBean();
+            customercareUserListList.setSearchemail(Textbox.getValueFromRequest("searchemail", "Email", false, DatatypeString.DATATYPEID));
+            customercareUserListList.setSearchfacebookers(CheckboxBoolean.getValueFromRequest("searchfacebookers"));
+            customercareUserListList.setSearchfirstname(Textbox.getValueFromRequest("searchfirstname", "Firstname", false, DatatypeString.DATATYPEID));
+            customercareUserListList.setSearchlastname(Textbox.getValueFromRequest("searchlastname", "Lastname", false, DatatypeString.DATATYPEID));
+            customercareUserListList.setSearchuserid(Textbox.getValueFromRequest("searchuserid", "Userid", false, DatatypeString.DATATYPEID));
+            customercareUserListList.initBean();
         } catch (com.dneero.htmlui.ValidationException vex) {
             Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
         }
@@ -31,8 +31,8 @@ SysadminUserList sysadminUserList = (SysadminUserList)Pagez.getBeanMgr().get("Sy
 <%@ include file="/template/header.jsp" %>
 
 
-    <form action="/sysadmin/userlist.jsp" method="post">
-        <input type="hidden" name="dpage" value="/sysadmin/userlist.jsp">
+    <form action="/customercare/userlist.jsp" method="post">
+        <input type="hidden" name="dpage" value="/customercare/userlist.jsp">
         <input type="hidden" name="action" value="search">
         
         <table cellpadding="0" cellspacing="0" border="0">
@@ -58,19 +58,19 @@ SysadminUserList sysadminUserList = (SysadminUserList)Pagez.getBeanMgr().get("Sy
             </tr>
             <tr>
                 <td valign="top">
-                    <%=Textbox.getHtml("searchuserrid", sysadminUserList.getSearchuserid(), 255, 5, "", "")%>
+                    <%=Textbox.getHtml("searchuserrid", customercareUserListList.getSearchuserid(), 255, 5, "", "")%>
                 </td>
                 <td valign="top">
-                    <%=Textbox.getHtml("searchfirstname", sysadminUserList.getSearchfirstname(), 255, 5, "", "")%>
+                    <%=Textbox.getHtml("searchfirstname", customercareUserListList.getSearchfirstname(), 255, 5, "", "")%>
                 </td>
                 <td valign="top">
-                    <%=Textbox.getHtml("searchlastname", sysadminUserList.getSearchlastname(), 255, 5, "", "")%>
+                    <%=Textbox.getHtml("searchlastname", customercareUserListList.getSearchlastname(), 255, 5, "", "")%>
                 </td>
                 <td valign="top">
-                    <%=Textbox.getHtml("searchemail", sysadminUserList.getSearchemail(), 255, 5, "", "")%>
+                    <%=Textbox.getHtml("searchemail", customercareUserListList.getSearchemail(), 255, 5, "", "")%>
                 </td>
                 <td valign="top">
-                    <%=CheckboxBoolean.getHtml("searchfacebookers", sysadminUserList.getSearchfacebookers(), "", "")%>
+                    <%=CheckboxBoolean.getHtml("searchfacebookers", customercareUserListList.getSearchfacebookers(), "", "")%>
                 </td>
                 <td valign="top">
                     <input type="submit" class="formsubmitbutton" value="Search">
@@ -81,12 +81,12 @@ SysadminUserList sysadminUserList = (SysadminUserList)Pagez.getBeanMgr().get("Sy
 
         <br/>
 
-        <%if (sysadminUserList.getUsers()==null || sysadminUserList.getUsers().size()==0){%>
+        <%if (customercareUserListList.getUsers()==null || customercareUserListList.getUsers().size()==0){%>
             <font class="normalfont">No users!</font>
         <%} else {%>
             <%
                 ArrayList<GridCol> cols=new ArrayList<GridCol>();
-                cols.add(new GridCol("Userid", "<a href=\"/sysadmin/userdetail.jsp?userid=<$userid$>\"><$userid$></a>", false, "", "tinyfont"));
+                cols.add(new GridCol("Userid", "<a href=\"/customercare/userdetail.jsp?userid=<$userid$>\"><$userid$></a>", false, "", "tinyfont"));
                 cols.add(new GridCol("Bloggerid", "<$bloggerid$>", false, "", "tinyfont"));
                 cols.add(new GridCol("Researcherid", "<$researcherid$>", false, "", "tinyfont"));
                 cols.add(new GridCol("Facebookuid", "<$facebookuserid$>", false, "", "tinyfont"));
@@ -94,7 +94,7 @@ SysadminUserList sysadminUserList = (SysadminUserList)Pagez.getBeanMgr().get("Sy
                 cols.add(new GridCol("Email", "<$email$>", false, "", "tinyfont"));
                 cols.add(new GridCol("Signup Date", "<$createdate|"+Grid.GRIDCOLRENDERER_DATETIMECOMPACT+"$>", false, "", "tinyfont"));
             %>
-            <%=Grid.render(sysadminUserList.getUsers(), cols, 200, "/sysadmin/userlist.jsp", "page")%>
+            <%=Grid.render(customercareUserListList.getUsers(), cols, 200, "/customercare/userlist.jsp", "page")%>
         <%}%>
 
 

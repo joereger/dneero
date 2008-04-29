@@ -13,13 +13,13 @@ import java.io.Serializable;
  * Date: Jun 8, 2006
  * Time: 10:16:03 AM
  */
-public class SysadminSupportIssuesList implements Serializable {
+public class CustomercareSupportIssuesList implements Serializable {
 
     private List supportissues = new ArrayList();
     private boolean showall= false;
 
 
-    public SysadminSupportIssuesList() {
+    public CustomercareSupportIssuesList() {
 
     }
 

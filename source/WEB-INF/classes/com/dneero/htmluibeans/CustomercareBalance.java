@@ -18,13 +18,13 @@ import java.util.Iterator;
  * Date: Jun 8, 2006
  * Time: 10:16:03 AM
  */
-public class SysadminBalance implements Serializable {
+public class CustomercareBalance implements Serializable {
 
 
     private List balances;
 
 
-    public SysadminBalance() {
+    public CustomercareBalance() {
 
     }
 

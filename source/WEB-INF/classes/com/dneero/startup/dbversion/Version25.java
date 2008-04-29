@@ -43,6 +43,7 @@ public class Version25 implements UpgradeDatabaseOneVersion {
                 //-----------------------------------
             }
         }
+       
 
         logger.debug("doPostHibernateUpgrade() finish");
     }

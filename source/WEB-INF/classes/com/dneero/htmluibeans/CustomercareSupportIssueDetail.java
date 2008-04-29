@@ -27,7 +27,7 @@ import java.io.Serializable;
  * Date: Apr 21, 2006
  * Time: 10:38:03 AM
  */
-public class SysadminSupportIssueDetail implements Serializable {
+public class CustomercareSupportIssueDetail implements Serializable {
 
     private int supportissueid;
     private String notes;
@@ -39,7 +39,7 @@ public class SysadminSupportIssueDetail implements Serializable {
 
 
 
-    public SysadminSupportIssueDetail(){
+    public CustomercareSupportIssueDetail(){
         
     }
 

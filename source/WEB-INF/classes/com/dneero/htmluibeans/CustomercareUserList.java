@@ -20,7 +20,7 @@ import org.apache.log4j.Logger;
  * Date: Jun 8, 2006
  * Time: 10:16:03 AM
  */
-public class SysadminUserList implements Serializable {
+public class CustomercareUserList implements Serializable {
 
     private List users;
     private String searchuserid="";
@@ -29,7 +29,7 @@ public class SysadminUserList implements Serializable {
     private String searchemail="";
     private boolean searchfacebookers=false;
 
-    public SysadminUserList() {
+    public CustomercareUserList() {
 
     }
 

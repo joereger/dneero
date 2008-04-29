@@ -26,7 +26,7 @@
                 <img src="/images/clear.gif" width="10" height="1" align="left"/>
                 <a href="/"><img src="/images/dneero-logo.gif" width="200" height="92" border="0"/></a>
             </td>
-            <td valign="top" style="text-align: right;" colspan="4">
+            <td valign="top" style="text-align: right;" colspan="5">
                 <%if (!Pagez.getUserSession().getIsloggedin()){%>
                     <div style="padding: 10px; text-align: right;">
                     <font class="subnavfont">Already have an account?<img src="/images/clear.gif" width="20" height="1"/><a href="/login.jsp">Log In</a></font>
@@ -72,16 +72,24 @@
                 <%if (navtab.equals("youraccount") && !Pagez.getUserSession().getIsloggedin()){%><a href="/registration.jsp"><img src="/images/navtabs2/youraccount_on.gif" alt="" width="138" height="70" border="0"/></a><%}%>
             </td>
             <td valign="top" background="/images/navtabs2/mainbar_bg.gif">
+                 <%if (Pagez.getUserSession().getIsCustomerCare()){%>
+                    <a href="/customercare/index.jsp">
+                    <%if (!navtab.equals("customercare")){%><img src="/images/navtabs2/customercare_off.gif" width="138" height="70" border="0"/><%}%>
+                    <%if (navtab.equals("customercare")){%><img src="/images/navtabs2/customercare_on.gif" width="138" height="70" border="0"/><%}%>
+                    </a>
+                <%}%>
+            </td>
+            <td valign="top" background="/images/navtabs2/mainbar_bg.gif">
                  <%if (Pagez.getUserSession().getIsSysadmin()){%>
                     <a href="/sysadmin/index.jsp">
-                    <%if (!navtab.equals("sysadmin")){%><img src="/images/navtabs2/sysadmin_off.gif" width="138" height="70" border="0"/><%}%>
-                    <%if (navtab.equals("sysadmin")){%><img src="/images/navtabs2/sysadmin_on.gif" width="138" height="70" border="0"/><%}%>
+                    <%if (!navtab.equals("sysadmin")){%><img src="/images/navtabs2/sysadmin_off.gif" width="66" height="70" border="0"/><%}%>
+                    <%if (navtab.equals("sysadmin")){%><img src="/images/navtabs2/sysadmin_on.gif" width="66" height="70" border="0"/><%}%>
                     </a>
                 <%}%>
             </td>
         </tr>
         <tr>
-            <td bgcolor="#dadada" style="text-align: left; vertical-align: middle;" colspan="6" height="25">
+            <td bgcolor="#dadada" style="text-align: left; vertical-align: middle;" colspan="7" height="25">
                 <%if (navtab.equals("home")){%>
                     <img src="/images/clear.gif" alt="" width="10" height="1"/>
                     <a href="/publicsurveylist.jsp"><font class="subnavfont" style="color: #000000;">Active Conversations</font></a>
@@ -146,23 +154,27 @@
                         <a href="/account/accountsupportissueslist.jsp"><font class="subnavfont" style="color: #000000;">Help/Support</font></a>
                     <%}%>
                 <%}%>
+                <%if (navtab.equals("customercare")){%>
+                    <%if (Pagez.getUserSession().getIsloggedin() && Pagez.getUserSession().getIsCustomerCare()){%>
+                        <a href="/customercare/sysadminsupportissueslist.jsp"><font class="subnavfont" style=" color: #000000;">Support Issues</font></a>                      
+                        <a href="/customercare/userlist.jsp"><font class="subnavfont" style=" color: #000000;">Users</font></a>
+                        <a href="/customercare/sysadminsurveylist.jsp"><font class="subnavfont" style=" color: #000000;">Conversations</font></a>
+                        <a href="/customercare/charityreport.jsp"><font class="subnavfont" style=" color: #000000;">Charity</font></a>
+                        <a href="/customercare/couponlist.jsp"><font class="subnavfont" style=" color: #000000;">Coupons</font></a>
+                        <a href="/customercare/transactions.jsp"><font class="subnavfont" style=" color: #000000;">Real-World Transactions</font></a>
+                        <a href="/customercare/balance.jsp"><font class="subnavfont" style=" color: #000000;">Balance Updates</font></a>
+                    <%}%>
+                <%}%>
                 <%if (navtab.equals("sysadmin")){%>
                     <%if (Pagez.getUserSession().getIsloggedin() && Pagez.getUserSession().getIsSysadmin()){%>
                         <a href="/sysadmin/errorlist.jsp"><font class="subnavfont" style=" color: #000000;">Log</font></a>
-                        <a href="/sysadmin/transactions.jsp"><font class="subnavfont" style=" color: #000000;">Trans</font></a>
-                        <a href="/sysadmin/balance.jsp"><font class="subnavfont" style=" color: #000000;">Balance</font></a>
-                        <a href="/sysadmin/userlist.jsp"><font class="subnavfont" style=" color: #000000;">Users</font></a>
-                        <a href="/sysadmin/sysadminsurveylist.jsp"><font class="subnavfont" style=" color: #000000;">Convos</font></a>
                         <a href="/sysadmin/editeula.jsp"><font class="subnavfont" style=" color: #000000;">Eula</font></a>
-                        <a href="/sysadmin/sysadminsupportissueslist.jsp"><font class="subnavfont" style=" color: #000000;">Support</font></a>
                         <a href="/sysadmin/rateblogpost.jsp"><font class="subnavfont" style=" color: #000000;">Rate</font></a>
                         <a href="/sysadmin/manuallyrunscheduledtask.jsp"><font class="subnavfont" style=" color: #000000;">Scheds</font></a>
                         <a href="/sysadmin/systemprops.jsp"><font class="subnavfont" style=" color: #000000;">SysProps</font></a>
                         <a href="/sysadmin/instanceprops.jsp"><font class="subnavfont" style=" color: #000000;">InsProps</font></a>
                         <a href="/sysadmin/hibernatecache.jsp"><font class="subnavfont" style=" color: #000000;">Cache</font></a>
                         <a href="/sysadmin/massemaillist.jsp"><font class="subnavfont" style=" color: #000000;">Email</font></a>
-                        <a href="/sysadmin/charityreport.jsp"><font class="subnavfont" style=" color: #000000;">Charity</font></a>
-                        <a href="/sysadmin/couponlist.jsp"><font class="subnavfont" style=" color: #000000;">Coupons</font></a>
                         <a href="/sysadmin/demographicreport.jsp"><font class="subnavfont" style=" color: #000000;">Demogrs</font></a>
                         <a href="/sysadmin/pageperformance.jsp"><font class="subnavfont" style=" color: #000000;">Perf</font></a>
                         <a href="/sysadmin/blogpost.jsp"><font class="subnavfont" style=" color: #000000;">Blog</font></a>
@@ -171,7 +183,7 @@
             </td>
         </tr>
         <tr>
-            <td background="/images/navtabs2/linedots.gif" colspan="6"><img src="/images/clear.gif" width="1" height="1"/></td>
+            <td background="/images/navtabs2/linedots.gif" colspan="7"><img src="/images/clear.gif" width="1" height="1"/></td>
         </tr>
     </table>
     <br/>

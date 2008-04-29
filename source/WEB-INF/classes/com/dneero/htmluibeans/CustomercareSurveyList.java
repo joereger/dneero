@@ -13,11 +13,11 @@ import java.io.Serializable;
  * Date: Jun 8, 2006
  * Time: 10:16:03 AM
  */
-public class SysadminSurveyList implements Serializable {
+public class CustomercareSurveyList implements Serializable {
 
     private List surveys;
 
-    public SysadminSurveyList() {
+    public CustomercareSurveyList() {
 
 
 

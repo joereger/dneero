@@ -24,11 +24,11 @@ import org.apache.log4j.Logger;
  * Date: Nov 10, 2006
  * Time: 3:02:56 PM
  */
-public class SysadminCharityReport implements Serializable {
+public class CustomercareCharityReport implements Serializable {
 
     private String report="";
 
-    public SysadminCharityReport(){
+    public CustomercareCharityReport(){
         //initBean();
     }
 

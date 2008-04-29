@@ -17,12 +17,12 @@ import com.dneero.dao.hibernate.HibernateUtil;
  * Date: Apr 21, 2006
  * Time: 10:38:03 AM
  */
-public class SysadminTransactions implements Serializable {
+public class CustomercareTransactions implements Serializable {
 
     private List transactions;
 
 
-    public SysadminTransactions(){
+    public CustomercareTransactions(){
 
 
     }

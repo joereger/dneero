@@ -27,6 +27,7 @@ public class UserSession implements Serializable {
     private boolean isAllowedToResetPasswordBecauseHasValidatedByEmail = false;
     private int referredbyOnlyUsedForSignup = 0;
     private boolean isSysadmin = false;
+    private boolean isCustomerCare = false;
     private boolean isLoggedInToBeta = false;
     private int pendingSurveyResponseSurveyid = 0;
     private String pendingSurveyResponseAsString = "";
@@ -94,6 +95,9 @@ public class UserSession implements Serializable {
                 Userrole userrole = iterator.next();
                 if (userrole.getRoleid()== Userrole.SYSTEMADMIN){
                     isSysadmin = true;
+                }
+                if (userrole.getRoleid()== Userrole.CUSTOMERCARE){
+                    isCustomerCare = true;
                 }
             }
         } else {
@@ -287,5 +291,13 @@ public class UserSession implements Serializable {
 
     public void setCreatedate(Calendar createdate) {
         this.createdate=createdate;
+    }
+
+    public boolean getIsCustomerCare() {
+        return isCustomerCare;
+    }
+
+    public void setIsCustomerCare(boolean customerCare) {
+        isCustomerCare=customerCare;
     }
 }

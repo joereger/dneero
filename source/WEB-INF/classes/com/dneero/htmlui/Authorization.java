@@ -55,6 +55,17 @@ public class Authorization {
                 return false;
             }
 
+            if (acl!=null && acl.equals("customercare")){
+                for (Iterator<Userrole> iterator = Pagez.getUserSession().getUser().getUserroles().iterator(); iterator.hasNext();) {
+                    Userrole userrole = iterator.next();
+                    if (userrole.getRoleid()== Userrole.CUSTOMERCARE){
+                        logger.debug("Customer care rep authorized.");
+                        return true;
+                    }
+                }
+                return false;
+            }
+
             if (acl!=null && acl.equals("sysadmin")){
                 return isUserSysadmin(Pagez.getUserSession().getUser());
             }

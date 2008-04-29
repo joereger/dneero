@@ -3,8 +3,8 @@
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "Support Note Submitted";
-String navtab = "sysadmin";
-String acl = "sysadmin";
+String navtab = "customercare";
+String acl = "customercare";
 %>
 <%@ include file="/template/auth.jsp" %>
 <%@ include file="/template/header.jsp" %>
@@ -13,7 +13,7 @@ String acl = "sysadmin";
 
         Success!  Your comment has been added.
         <br/><br/>
-        <a href="/sysadmin/sysadminsupportissueslist.jsp">Continue</a>
+        <a href="/customercare/sysadminsupportissueslist.jsp">Continue</a>
 
 
 

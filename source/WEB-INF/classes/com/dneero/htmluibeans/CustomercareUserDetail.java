@@ -27,7 +27,7 @@ import org.apache.log4j.Logger;
  * Date: Apr 21, 2006
  * Time: 10:38:03 AM
  */
-public class SysadminUserDetail implements Serializable {
+public class CustomercareUserDetail implements Serializable {
 
     private int userid;
     private String firstname;
@@ -37,6 +37,7 @@ public class SysadminUserDetail implements Serializable {
     private int referredbyuserid=0;
     private String facebookuid="";
     private boolean issysadmin = false;
+    private boolean iscustomercare = false;
     private String activitypin;
     private double amt;
     private String reason;
@@ -54,7 +55,7 @@ public class SysadminUserDetail implements Serializable {
     private double resellerpercent;
 
 
-    public SysadminUserDetail(){
+    public CustomercareUserDetail(){
 
     }
 
@@ -80,6 +81,9 @@ public class SysadminUserDetail implements Serializable {
                 Userrole userrole = iterator.next();
                 if (userrole.getRoleid()== Userrole.SYSTEMADMIN){
                     issysadmin = true;
+                }
+                if (userrole.getRoleid()== Userrole.CUSTOMERCARE){
+                    iscustomercare = true;
                 }
             }
             if (user.getResearcherid()>0){
@@ -271,6 +275,52 @@ public class SysadminUserDetail implements Serializable {
                     try{role.save();} catch (Exception ex){logger.error("",ex);}
                     issysadmin = true;
                     Pagez.getUserSession().setMessage("User is now a sysadmin");
+                }
+                initBean();
+            }
+        } else {
+            Pagez.getUserSession().setMessage("Activity Pin Not Correct.");
+        }
+        return "sysadminuserdetail";
+    }
+
+    public String togglecustomercareprivs() throws ValidationException {
+        Logger logger = Logger.getLogger(this.getClass().getName());
+        logger.debug("togglecustomercareprivs()");
+        if (activitypin.equals("yes, i want to do this")){
+            activitypin = "";
+            User user = User.get(userid);
+            if (user!=null && user.getUserid()>0){
+                iscustomercare = false;
+                for (Iterator<Userrole> iterator = user.getUserroles().iterator(); iterator.hasNext();) {
+                    Userrole userrole = iterator.next();
+                    if (userrole.getRoleid()== Userrole.CUSTOMERCARE){
+                        iscustomercare = true;
+                    }
+                }
+                if (iscustomercare){
+                    logger.debug("is a sysadmin");
+                    //@todo revoke customercare privs doesn't work
+                    //int userroleidtodelete=0;
+                    for (Iterator<Userrole> iterator = user.getUserroles().iterator(); iterator.hasNext();) {
+                        Userrole userrole = iterator.next();
+                        logger.debug("found roleid="+userrole.getRoleid());
+                        if (userrole.getRoleid()==Userrole.CUSTOMERCARE){
+                            logger.debug("removing it from iterator");
+                            iterator.remove();
+                        }
+                    }
+                    try{user.save();} catch (Exception ex){logger.error("",ex);}
+                    iscustomercare = false;
+                    Pagez.getUserSession().setMessage("User is no longer a customer care rep");
+                } else {
+                    Userrole role = new Userrole();
+                    role.setUserid(user.getUserid());
+                    role.setRoleid(Userrole.CUSTOMERCARE);
+                    user.getUserroles().add(role);
+                    try{role.save();} catch (Exception ex){logger.error("",ex);}
+                    iscustomercare = true;
+                    Pagez.getUserSession().setMessage("User is now a customer care rep");
                 }
                 initBean();
             }
@@ -580,5 +630,13 @@ public class SysadminUserDetail implements Serializable {
 
     public void setFundstype(int fundstype) {
         this.fundstype = fundstype;
+    }
+
+    public boolean getIscustomercare() {
+        return iscustomercare;
+    }
+
+    public void setIscustomercare(boolean iscustomercare) {
+        this.iscustomercare=iscustomercare;
     }
 }

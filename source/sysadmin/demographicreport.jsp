@@ -1,7 +1,7 @@
 <%@ page import="org.apache.log4j.Logger" %>
 <%@ page import="com.dneero.htmluibeans.SysadminEditEula" %>
 <%@ page import="com.dneero.htmlui.*" %>
-<%@ page import="com.dneero.htmluibeans.SysadminCharityReport" %>
+<%@ page import="com.dneero.htmluibeans.CustomercareCharityReport" %>
 <%@ page import="com.dneero.htmluibeans.SysadminDemographicReport" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());

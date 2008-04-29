@@ -16,11 +16,11 @@ import com.dneero.util.GeneralException;
  * Date: Jun 8, 2006
  * Time: 10:16:03 AM
  */
-public class SysadminCouponDetail implements Serializable {
+public class CustomercareCouponDetail implements Serializable {
 
     private Coupon coupon;
 
-    public SysadminCouponDetail() {
+    public CustomercareCouponDetail() {
 
     }
 

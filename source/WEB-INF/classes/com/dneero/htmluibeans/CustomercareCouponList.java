@@ -21,14 +21,14 @@ import com.dneero.util.Num;
  * Date: Jun 8, 2006
  * Time: 10:16:03 AM
  */
-public class SysadminCouponList implements Serializable {
+public class CustomercareCouponList implements Serializable {
 
     private List<Coupon> coupons;
     private List<Coupon> activecoupons;
     private List<Coupon> upcomingcoupons;
     private List<Couponredemption> couponredemptions;
 
-    public SysadminCouponList() {
+    public CustomercareCouponList() {
 
     }
 
