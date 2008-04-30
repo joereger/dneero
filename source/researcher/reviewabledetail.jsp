@@ -185,12 +185,14 @@ String acl = "researcher";
         </div>
     <%}%>
 
-   <br/><br/>
-   <div style="width: 750px; overflow: auto;">
+   
+   <div class="rounded" style="padding: 5px; margin: 10px; background: #e6e6e6;">
+   <div class="rounded" style="padding: 5px; margin: 10px; background: #ffffff;">
+   <div style="width: 670px; overflow: auto;">
        <%=customercareReviewDetail.getReviewable().getFullSummary()%>   
    </div>
-
-
+   </div>
+   </div>
 
 </form>
 
