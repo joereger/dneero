@@ -65,7 +65,7 @@ public class PublicSurveyDiscuss implements Serializable {
 
         //Load discussion items
         surveydiscusses = new ArrayList();
-        List sds = HibernateUtil.getSession().createQuery("from Surveydiscuss where surveyid='"+survey.getSurveyid()+"' and isrejected=false order by surveydiscussid asc").setCacheable(true).list();
+        List sds = HibernateUtil.getSession().createQuery("from Surveydiscuss where surveyid='"+survey.getSurveyid()+"' and issysadminrejected=false order by surveydiscussid asc").setCacheable(true).list();
         for (Iterator iterator = sds.iterator(); iterator.hasNext();) {
             Surveydiscuss surveydiscuss = (Surveydiscuss) iterator.next();
             PublicSurveyDiscussListitem psdli = new PublicSurveyDiscussListitem();
