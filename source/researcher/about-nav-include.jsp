@@ -15,4 +15,8 @@
     <br/>
     <a href="/researcher/about-ranking.jsp"><font class="smallfont" style="font-weight: bold;">Custom Rankings</font></a>
     <br/>
+    <a href="/researcher/about-userquestions.jsp"><font class="smallfont" style="font-weight: bold;">User Questions</font></a>
+    <br/>
+    <a href="/researcher/about-review.jsp"><font class="smallfont" style="font-weight: bold;">Content Review</font></a>
+    <br/>
 </div>
