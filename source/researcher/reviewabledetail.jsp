@@ -147,9 +147,9 @@ String acl = "researcher";
            </tr>
            <tr>
                <td valign="top">
-                   <font class="smallfont" style="font-weight: bold;">Notes (Read Only)</font><br/>
+                   <font class="smallfont" style="font-weight: bold;">Notes (Only Required for Reject and Warn)</font><br/>
                    <%=Textarea.getHtml("researchernotes", review.getResearchernotes(), 3, 65, "", "font-size: 9px;")%>
-                   <br/><font class="tinyfont" style="font-weight: bold;">Notes will be seen by customer care and users.</font>
+                   <br/><font class="tinyfont" style="font-weight: bold;">Notes will be seen by customer care and users.  You need to explain and justify your Rejection or Warning action.</font>
                </td>
                <td valign="top">
                    <%if (review.getSysadminnotes()!=null && !review.getSysadminnotes().equals("")){%>
