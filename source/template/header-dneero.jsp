@@ -22,11 +22,11 @@
           
     <table width="786" cellspacing="0" border="0" cellpadding="0">
         <tr>
-            <td valign="top" colspan="2">
+            <td valign="top" colspan="3">
                 <img src="/images/clear.gif" width="10" height="1" align="left"/>
                 <a href="/"><img src="/images/dneero-logo.gif" width="200" height="92" border="0"/></a>
             </td>
-            <td valign="top" style="text-align: right;" colspan="5">
+            <td valign="top" style="text-align: right;" colspan="4">
                 <%if (!Pagez.getUserSession().getIsloggedin()){%>
                     <div style="padding: 10px; text-align: right;">
                     <font class="subnavfont">Already have an account?<img src="/images/clear.gif" width="20" height="1"/><a href="/login.jsp">Log In</a></font>
@@ -45,7 +45,7 @@
         </tr>
         <tr>
             <td valign="top" background="/images/navtabs2/mainbar_bg.gif" width="234">
-                <img src="/images/clear.gif" width="1" height="85"/>
+                <img src="/images/clear.gif" width="1" height="5"/>
             </td>
             <td valign="top" background="/images/navtabs2/mainbar_bg.gif">
                 <a href="/index.jsp">
