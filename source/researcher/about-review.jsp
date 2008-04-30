@@ -27,7 +27,16 @@ String acl = "public";
             <br/><br/><br/>
             <font class="mediumfont" style="color: #999999">Rejection Guidelines</font>
             <br/>
-            We're working on our guidelines now.  So far we haven't had many problems.  Because people have to post their conversations where their peers can see them we find that they do so respectfully and in good faith.  Still, we need to create a framework for the evaluation of content that gets rejected.  Spam, vulgar hate stuff, porn... it'll all come down.  Negative product reviews, things your company doesn't want to hear, a slam of your recent press release... it'll all stay up.  It's the grey area where somebody likens your product to a Nazi hooker that creates the grey zone... what's free speech and what's vulgar?  We need to flesh this out more but we do hope it's clear that we will almost always fall on the side of the social people, not on the side of companies.  Yes, we'll lose sales because of this.  And then we'll win them back when they realize we're about integrity.  Side note: we're open to the idea of a third party mediating the content... somebody like Chilling Effects for content... if you're in that arena let us know.
+            There are only a few reasons that content will be rejected:
+            <ul>
+                <li>Illegal content</li>
+                <li>Copyright violations</li>
+                <li>Abusive posts based on race, religion, gender, sexual orientation or other personal attributes</li>
+                <li>Spam or junk postings</li>
+                <li>Threats of physical abuse</li>
+                <li>Other obviously inappropriate material</li>
+            </ul>
+            Spam, vulgar hate stuff, porn... it'll all come down.  Negative product reviews, things your company doesn't want to hear, a slam of your recent press release... it'll all stay up.  It's the grey area where somebody likens your product to a Nazi hooker that creates issues... what's free speech and what's vulgar?  We need to flesh this out more but we do hope it's clear that we will almost always fall on the side of the social people, not on the side of companies.  Yes, we'll lose sales because of this.  And then we'll win them back when they realize we're about integrity.  Side note: we're open to the idea of a third party mediating the review process... somebody like Chilling Effects... if you're in that arena let us know.
         </td>
         <td valign="top" width="30%">
             <%@ include file="/researcher/about-nav-include.jsp" %>

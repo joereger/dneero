@@ -144,6 +144,22 @@ String acl = "researcher";
                     <input type="submit" class="formsubmitbutton" value="Reject" onclick="document.getElementById('action').value='reject';">
                     <input type="submit" class="formsubmitbutton" value="Warn" onclick="document.getElementById('action').value='warn';">
                </td>
+               <td valign="top" rowspan="2">
+                    <div class="rounded" style="padding: 10px; margin: 10px; background: #ffffff;">
+                        <font class="mediumfont">There are only a few reasons to reject or warn:</font>
+                        <font class="smallfont" style="font-weight: bold;">
+                            <ul>
+                                <li>Illegal content</li>
+                                <li>Copyright violations</li>
+                                <li>Abusive posts based on race, religion, gender, sexual orientation or other personal attributes</li>
+                                <li>Spam or junk postings</li>
+                                <li>Threats of physical abuse</li>
+                                <li>Other obviously inappropriate material</li>
+                            </ul>
+                        </font>
+                        <font class="smallfont">You can't use this feature to censor content you don't like.  dNeero will only reject content when it it obviously inappropriate.  dNeero will generally side with content creators when grey areas arise.</font>
+                    </div>
+               </td>
            </tr>
            <tr>
                <td valign="top">
@@ -151,15 +167,23 @@ String acl = "researcher";
                    <%=Textarea.getHtml("researchernotes", review.getResearchernotes(), 3, 65, "", "font-size: 9px;")%>
                    <br/><font class="tinyfont" style="font-weight: bold;">Notes will be seen by customer care and users.  You need to explain and justify your Rejection or Warning action.</font>
                </td>
-               <td valign="top">
-                   <%if (review.getSysadminnotes()!=null && !review.getSysadminnotes().equals("")){%>
-                       <font class="smallfont" style="font-weight: bold;">Customer Care Notes (Read Only)</font><br/>
-                       <%=Textarea.getHtml("notes", review.getSysadminnotes(), 3, 65, "", "font-size: 9px;")%>
-                   <%}%>
-               </td>
+
            </tr>
        </table>
     </div>
+
+    <%if (review.getSysadminnotes()!=null && !review.getSysadminnotes().equals("")){%>
+        <div class="rounded" style="padding: 10px; margin: 10px; background: #e6e6e6;">
+           <table cellpadding="0" cellspacing="0" border="0">
+               <tr>
+                   <td valign="top">
+                       <font class="smallfont" style="font-weight: bold;">Customer Care Notes (Read Only)</font><br/>
+                       <%=Textarea.getHtml("notes", review.getSysadminnotes(), 3, 65, "", "font-size: 9px;")%>
+                   </td>
+               </tr>
+           </table>
+        </div>
+    <%}%>
 
    <br/><br/>
    <div style="width: 750px; overflow: auto;">
