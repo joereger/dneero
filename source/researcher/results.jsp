@@ -5,7 +5,7 @@
 <%@ page import="com.dneero.util.Str" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
-String pagetitle = "Survey Results";
+String pagetitle = "Conversation Results";
 String navtab = "researchers";
 String acl = "researcher";
 %>

@@ -14,14 +14,14 @@ String acl = "customercare";
 %>
 <%@ include file="/template/auth.jsp" %>
 <%
-    CustomercareSupportIssueDetail customercareSupportIssueDetailtail=(CustomercareSupportIssueDetail) Pagez.getBeanMgr().get("CustomercareSupportIssueDetail");
+    CustomercareSupportIssueDetail customercareSupportIssueDetail=(CustomercareSupportIssueDetail) Pagez.getBeanMgr().get("CustomercareSupportIssueDetail");
 %>
 <%
     if (request.getParameter("action") != null && request.getParameter("action").equals("save")) {
         try {
-            customercareSupportIssueDetailtail.setStatus(Dropdown.getValueFromRequest("status", "Status", true));
-            customercareSupportIssueDetailtail.setNotes(Textarea.getValueFromRequest("notes", "Notes", false));
-            customercareSupportIssueDetailtail.newNote();
+            customercareSupportIssueDetail.setStatus(Dropdown.getValueFromRequest("status", "Status", true));
+            customercareSupportIssueDetail.setNotes(Textarea.getValueFromRequest("notes", "Notes", false));
+            customercareSupportIssueDetail.newNote();
             Pagez.sendRedirect("/customercare/sysadminsupportissueslist.jsp");
             return;
         } catch (com.dneero.htmlui.ValidationException vex) {
@@ -33,24 +33,24 @@ String acl = "customercare";
 
 
             <div class="rounded" style="padding: 10px; margin: 10px; background: #33FF00;">
-                <font class="mediumfont"><%=customercareSupportIssueDetailtail.getSupportissue().getSubject()%></font>
+                <font class="mediumfont"><%=customercareSupportIssueDetail.getSupportissue().getSubject()%></font>
             </div>
 
 
 
             <%
-            for (Iterator<Supportissuecomm> iterator=customercareSupportIssueDetailtail.getSupportissuecomms().iterator(); iterator.hasNext();){
+            for (Iterator<Supportissuecomm> iterator=customercareSupportIssueDetail.getSupportissuecomms().iterator(); iterator.hasNext();){
                 Supportissuecomm supportissuecomm = iterator.next();
                 %>
                 <div class="rounded" style="padding: 10px; margin: 10px; background: #e6e6e6;">
                     <font class="smallfont" style="font-weight: bold;"><%=Time.dateformatcompactwithtime(Time.getCalFromDate(supportissuecomm.getDatetime()))%></font>
                     <br/>
                     <%if (!supportissuecomm.getIsfromdneeroadmin()){%>
-                        <a href="/customercare/userdetail.jsp?userid=<%=customercareSupportIssueDetailtail.getFromuser().getUserid()%>"><font class="smallfont" style="font-weight: bold;">From: <%=customercareSupportIssueDetailtail.getFromuser().getFirstname()%> <%=customercareSupportIssueDetailtail.getFromuser().getLastname()%></font></a>
+                        <a href="/customercare/userdetail.jsp?userid=<%=customercareSupportIssueDetail.getFromuser().getUserid()%>"><font class="smallfont" style="font-weight: bold;">From: <%=customercareSupportIssueDetail.getFromuser().getFirstname()%> <%=customercareSupportIssueDetail.getFromuser().getLastname()%></font></a>
                     <%} else {%>
                         <font class="smallfont" style="font-weight: bold;">dNeero Admin</font>
                     <%}%>
-                    <% if (customercareSupportIssueDetailtail.getFromuser().getFacebookuserid()>0){ %>
+                    <% if (customercareSupportIssueDetail.getFromuser().getFacebookuserid()>0){ %>
                         <font class="smallfont" style="font-weight: bold;">(Facebook User)</font>
                     <% } %>
                     <br/>
@@ -65,12 +65,12 @@ String acl = "customercare";
         <form action="/customercare/sysadminsupportissuedetail.jsp" method="post">
             <input type="hidden" name="dpage" value="/customercare/sysadminsupportissuedetail.jsp">
             <input type="hidden" name="action" value="save">
-            <input type="hidden" name="supportissueid" value="<%=customercareSupportIssueDetailtail.getSupportissueid()%>">
+            <input type="hidden" name="supportissueid" value="<%=customercareSupportIssueDetail.getSupportissueid()%>">
 
             <table cellpadding="0" cellspacing="0" border="0">
                 <tr>
                     <td valign="top">
-                        <%=Textarea.getHtml("notes", customercareSupportIssueDetailtail.getNotes(), 8, 72, "", "")%>
+                        <%=Textarea.getHtml("notes", customercareSupportIssueDetail.getNotes(), 8, 72, "", "")%>
                     </td>
                 </tr>
                 <tr>
@@ -81,7 +81,7 @@ String acl = "customercare";
                             options.put("1", "Working");
                             options.put("2", "Closed");
                         %>
-                        <br/><%=Dropdown.getHtml("status", String.valueOf(customercareSupportIssueDetailtail.getStatus()), options, "", "")%>
+                        <br/><%=Dropdown.getHtml("status", String.valueOf(customercareSupportIssueDetail.getStatus()), options, "", "")%>
                     </td>
                 </tr>
                 <tr>

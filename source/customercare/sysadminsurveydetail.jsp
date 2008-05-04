@@ -11,24 +11,24 @@ String acl = "customercare";
 %>
 <%@ include file="/template/auth.jsp" %>
 <%
-    CustomercareSurveyDetail customercareSurveyDetailtail=(CustomercareSurveyDetail) Pagez.getBeanMgr().get("CustomercareSurveyDetail");
+    CustomercareSurveyDetail customercareSurveyDetail=(CustomercareSurveyDetail) Pagez.getBeanMgr().get("CustomercareSurveyDetail");
 %>
 <%
     if (request.getParameter("action") != null && request.getParameter("action").equals("save")) {
         try {
-            customercareSurveyDetailtail.getSurvey().setStatus(Dropdown.getIntFromRequest("status", "Status", true));
-            customercareSurveyDetailtail.getSurvey().setTitle(Textbox.getValueFromRequest("title", "Title", true, DatatypeString.DATATYPEID));
-            customercareSurveyDetailtail.getSurvey().setDescription(Textarea.getValueFromRequest("description", "Description", true));
-            customercareSurveyDetailtail.getSurvey().setTemplate(Textarea.getValueFromRequest("template", "Template", false));
-            customercareSurveyDetailtail.getSurvey().setIsspotlight(CheckboxBoolean.getValueFromRequest("isspotlight"));
-            customercareSurveyDetailtail.getSurvey().setStartdate(DateTime.getValueFromRequest("startdate", "Start Date", true).getTime());
-            customercareSurveyDetailtail.getSurvey().setEnddate(DateTime.getValueFromRequest("enddate", "End Date", true).getTime());
-            customercareSurveyDetailtail.getSurvey().setWillingtopayperrespondent(Textbox.getDblFromRequest("willingtopayperrespondent", "Willing to Pay Per Respondent", true, DatatypeDouble.DATATYPEID));
-            customercareSurveyDetailtail.getSurvey().setWillingtopaypercpm(Textbox.getDblFromRequest("willingtopaypercpm", "Willing to Pay Per CPM", true, DatatypeDouble.DATATYPEID));
-            customercareSurveyDetailtail.getSurvey().setNumberofrespondentsrequested(Textbox.getIntFromRequest("numberofrespondentsrequested", "Number of Respondents Requested", true, DatatypeInteger.DATATYPEID));
-            customercareSurveyDetailtail.getSurvey().setMaxdisplaysperblog(Textbox.getIntFromRequest("maxdisplaysperblog", "Max Displays Per Blog", true, DatatypeInteger.DATATYPEID));
-            customercareSurveyDetailtail.getSurvey().setMaxdisplaystotal(Textbox.getIntFromRequest("maxdisplaystotal", "Max Displays Total", true, DatatypeInteger.DATATYPEID));
-            customercareSurveyDetailtail.saveSurvey();
+            customercareSurveyDetail.getSurvey().setStatus(Dropdown.getIntFromRequest("status", "Status", true));
+            customercareSurveyDetail.getSurvey().setTitle(Textbox.getValueFromRequest("title", "Title", true, DatatypeString.DATATYPEID));
+            customercareSurveyDetail.getSurvey().setDescription(Textarea.getValueFromRequest("description", "Description", true));
+            customercareSurveyDetail.getSurvey().setTemplate(Textarea.getValueFromRequest("template", "Template", false));
+            customercareSurveyDetail.getSurvey().setIsspotlight(CheckboxBoolean.getValueFromRequest("isspotlight"));
+            customercareSurveyDetail.getSurvey().setStartdate(DateTime.getValueFromRequest("startdate", "Start Date", true).getTime());
+            customercareSurveyDetail.getSurvey().setEnddate(DateTime.getValueFromRequest("enddate", "End Date", true).getTime());
+            customercareSurveyDetail.getSurvey().setWillingtopayperrespondent(Textbox.getDblFromRequest("willingtopayperrespondent", "Willing to Pay Per Respondent", true, DatatypeDouble.DATATYPEID));
+            customercareSurveyDetail.getSurvey().setWillingtopaypercpm(Textbox.getDblFromRequest("willingtopaypercpm", "Willing to Pay Per CPM", true, DatatypeDouble.DATATYPEID));
+            customercareSurveyDetail.getSurvey().setNumberofrespondentsrequested(Textbox.getIntFromRequest("numberofrespondentsrequested", "Number of Respondents Requested", true, DatatypeInteger.DATATYPEID));
+            customercareSurveyDetail.getSurvey().setMaxdisplaysperblog(Textbox.getIntFromRequest("maxdisplaysperblog", "Max Displays Per Blog", true, DatatypeInteger.DATATYPEID));
+            customercareSurveyDetail.getSurvey().setMaxdisplaystotal(Textbox.getIntFromRequest("maxdisplaystotal", "Max Displays Total", true, DatatypeInteger.DATATYPEID));
+            customercareSurveyDetail.saveSurvey();
         } catch (ValidationException vex) {
             Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
         }
@@ -68,27 +68,27 @@ String acl = "customercare";
         <form action="/customercare/sysadminsurveydetail.jsp" method="post">
             <input type="hidden" name="dpage" value="/customercare/sysadminsurveydetail.jsp">
             <input type="hidden" name="action" value="save">
-            <input type="hidden" name="surveyid" value="<%=customercareSurveyDetailtail.getSurvey().getSurveyid()%>">
+            <input type="hidden" name="surveyid" value="<%=customercareSurveyDetail.getSurvey().getSurveyid()%>">
 
                 <img src="/images/clear.gif" width="700" height="1"/><br/>
-                <font class="largefont"><%=customercareSurveyDetailtail.getSurvey().getTitle()%></font>
+                <font class="largefont"><%=customercareSurveyDetail.getSurvey().getTitle()%></font>
                 <br/>
-                <font class="smallfont"><%=customercareSurveyDetailtail.getSurvey().getDescription()%></font>
+                <font class="smallfont"><%=customercareSurveyDetail.getSurvey().getDescription()%></font>
                 <br/><br/>
-                <font class="mediumfont">Survey ID: <%=customercareSurveyDetailtail.getSurvey().getSurveyid()%></font>
+                <font class="mediumfont">Survey ID: <%=customercareSurveyDetail.getSurvey().getSurveyid()%></font>
                 <br/><br/>
-                <a href="/customercare/userdetail.jsp?userid=<%=customercareSurveyDetailtail.getUser().getUserid()%>"><font class="mediumfont"><%=customercareSurveyDetailtail.getUser().getFirstname()%> <%=customercareSurveyDetailtail.getUser().getLastname()%> <%=customercareSurveyDetailtail.getUser().getEmail()%></font></a>
+                <a href="/customercare/userdetail.jsp?userid=<%=customercareSurveyDetail.getUser().getUserid()%>"><font class="mediumfont"><%=customercareSurveyDetail.getUser().getFirstname()%> <%=customercareSurveyDetail.getUser().getLastname()%> <%=customercareSurveyDetail.getUser().getEmail()%></font></a>
                 <br/><br/>
                 <div class="rounded" style="background: #e6e6e6; text-align: center; padding: 20px;">
-                    <%if (customercareSurveyDetailtail.getSurvey().getStatus()==1){%>
+                    <%if (customercareSurveyDetail.getSurvey().getStatus()==1){%>
                         <font class="mediumfont">Survey Status: Draft</font>
-                    <%} else if (customercareSurveyDetailtail.getSurvey().getStatus()==2){%>
+                    <%} else if (customercareSurveyDetail.getSurvey().getStatus()==2){%>
                         <font class="mediumfont">Survey Status: Waiting for Funds</font>
-                    <%} else if (customercareSurveyDetailtail.getSurvey().getStatus()==3){%>
+                    <%} else if (customercareSurveyDetail.getSurvey().getStatus()==3){%>
                         <font class="mediumfont">Survey Status: Waiting for Start Date</font>
-                    <%} else if (customercareSurveyDetailtail.getSurvey().getStatus()==4){%>
+                    <%} else if (customercareSurveyDetail.getSurvey().getStatus()==4){%>
                         <font class="mediumfont">Survey Status: Open</font>
-                    <%} else if (customercareSurveyDetailtail.getSurvey().getStatus()==5){%>
+                    <%} else if (customercareSurveyDetail.getSurvey().getStatus()==5){%>
                         <font class="mediumfont">Survey Status: Closed</font>
                     <%}%>
                 </div>
@@ -99,7 +99,7 @@ String acl = "customercare";
                             <font class="formfieldnamefont">Status</font>
                         </td>
                         <td valign="top">
-                            <%=Dropdown.getHtml("status",String.valueOf(customercareSurveyDetailtail.getSurvey().getStatus()), customercareSurveyDetailtail.getStatuses(), "","")%>
+                            <%=Dropdown.getHtml("status",String.valueOf(customercareSurveyDetail.getSurvey().getStatus()), customercareSurveyDetail.getStatuses(), "","")%>
                         </td>
                     </tr>
                     <tr>
@@ -107,7 +107,7 @@ String acl = "customercare";
                             <font class="formfieldnamefont">Title</font>
                         </td>
                         <td valign="top">
-                            <%=Textbox.getHtml("title", customercareSurveyDetailtail.getSurvey().getTitle(), 255, 35, "", "")%>
+                            <%=Textbox.getHtml("title", customercareSurveyDetail.getSurvey().getTitle(), 255, 35, "", "")%>
                         </td>
                     </tr>
                      <tr>
@@ -115,7 +115,7 @@ String acl = "customercare";
                             <font class="formfieldnamefont">Description</font>
                         </td>
                         <td valign="top">
-                            <%=Textarea.getHtml("description", customercareSurveyDetailtail.getSurvey().getDescription(), 3, 35, "", "")%>
+                            <%=Textarea.getHtml("description", customercareSurveyDetail.getSurvey().getDescription(), 3, 35, "", "")%>
                         </td>
                     </tr>
                     <tr>
@@ -123,7 +123,7 @@ String acl = "customercare";
                             <font class="formfieldnamefont">Template</font>
                         </td>
                         <td valign="top">
-                            <%=Textarea.getHtml("template", customercareSurveyDetailtail.getSurvey().getTemplate(), 3, 35, "", "")%>
+                            <%=Textarea.getHtml("template", customercareSurveyDetail.getSurvey().getTemplate(), 3, 35, "", "")%>
                         </td>
                     </tr>
                     <tr>
@@ -131,7 +131,7 @@ String acl = "customercare";
                             <font class="formfieldnamefont">Spotlight?</font>
                         </td>
                         <td valign="top">
-                            <%=CheckboxBoolean.getHtml("isspotlight", customercareSurveyDetailtail.getSurvey().getIsspotlight(), "", "")%>
+                            <%=CheckboxBoolean.getHtml("isspotlight", customercareSurveyDetail.getSurvey().getIsspotlight(), "", "")%>
                         </td>
                     </tr>
                     <tr>
@@ -139,7 +139,7 @@ String acl = "customercare";
                             <font class="formfieldnamefont">Start Date</font>
                         </td>
                         <td valign="top">
-                            <%=DateTime.getHtml("startdate", customercareSurveyDetailtail.getSurvey().getStartdate(), "", "")%>
+                            <%=DateTime.getHtml("startdate", customercareSurveyDetail.getSurvey().getStartdate(), "", "")%>
                         </td>
                     </tr>
                     <tr>
@@ -147,8 +147,8 @@ String acl = "customercare";
                             <font class="formfieldnamefont">End Date</font>
                         </td>
                         <td valign="top">
-                            <%=DateTime.getHtml("enddate", customercareSurveyDetailtail.getSurvey().getEnddate(), "", "")%><br/>
-                            <font class="tinyfont">Days since close: <%=customercareSurveyDetailtail.getDayssinceclose()%></font>
+                            <%=DateTime.getHtml("enddate", customercareSurveyDetail.getSurvey().getEnddate(), "", "")%><br/>
+                            <font class="tinyfont">Days since close: <%=customercareSurveyDetail.getDayssinceclose()%></font>
                         </td>
                     </tr>
                     <tr>
@@ -158,7 +158,7 @@ String acl = "customercare";
                             <font class="smallfont">Amount to pay to a person who fulfills the targeting criteria and successfully fills out the conversation.  Paying more will attract more people.  The minimum is $.25.  A good starting point is $2.50.</font>
                         </td>
                         <td valign="top">
-                            <%=Textbox.getHtml("willingtopayperrespondent", String.valueOf(customercareSurveyDetailtail.getSurvey().getWillingtopayperrespondent()), 255, 35, "", "")%>
+                            <%=Textbox.getHtml("willingtopayperrespondent", String.valueOf(customercareSurveyDetail.getSurvey().getWillingtopayperrespondent()), 255, 35, "", "")%>
                         </td>
                     </tr>
                     <tr>
@@ -168,7 +168,7 @@ String acl = "customercare";
                             <font class="smallfont">The number of people that you would like to have join the conversation and post to their peers.  Once this number is reached no more people can join the conversation.  The minimum is 100.</font>
                         </td>
                         <td valign="top">
-                            <%=Textbox.getHtml("numberofrespondentsrequested", String.valueOf(customercareSurveyDetailtail.getSurvey().getNumberofrespondentsrequested()), 255, 35, "", "")%>
+                            <%=Textbox.getHtml("numberofrespondentsrequested", String.valueOf(customercareSurveyDetail.getSurvey().getNumberofrespondentsrequested()), 255, 35, "", "")%>
                         </td>
                     </tr>
                     <tr>
@@ -178,7 +178,7 @@ String acl = "customercare";
                             <font class="smallfont">Once conversations are taken they are posted to a person's peers.  With this value you determine what you're willing to pay for 1000 displays (CPM) of your conversation.  This value must be at least $1 to cover bandwidth costs and can go as high as $1000 ($1000 would be equivalent to $1 per display).  The more you pay the more you attract bloggers who will display your conversation prominently to their peers.</font>
                         </td>
                         <td valign="top">
-                            <%=Textbox.getHtml("willingtopaypercpm", String.valueOf(customercareSurveyDetailtail.getSurvey().getWillingtopaypercpm()), 255, 35, "", "")%>
+                            <%=Textbox.getHtml("willingtopaypercpm", String.valueOf(customercareSurveyDetail.getSurvey().getWillingtopaypercpm()), 255, 35, "", "")%>
                         </td>
                     </tr>
                     <tr>
@@ -188,7 +188,7 @@ String acl = "customercare";
                             <font class="smallfont">You may want to cap the maximum number of displays that a blogger can get paid for.  Your survey will continue to be displayed if the blog is visited over this number of times but you won't be charged for it.  It is tempting to set this number low, but be cautious... bloggers will quickly realize that they don't stand to make money by displaying your conversation... so they won't.  The minimum value is 1000.</font>
                         </td>
                         <td valign="top">
-                            <%=Textbox.getHtml("maxdisplaysperblog", String.valueOf(customercareSurveyDetailtail.getSurvey().getMaxdisplaysperblog()), 255, 35, "", "")%>
+                            <%=Textbox.getHtml("maxdisplaysperblog", String.valueOf(customercareSurveyDetail.getSurvey().getMaxdisplaysperblog()), 255, 35, "", "")%>
                         </td>
                     </tr>
                     <tr>
@@ -198,7 +198,7 @@ String acl = "customercare";
                             <font class="smallfont">This is a safety check that allows you to cap the total number of displays that you're willing to pay for.  Note that this value is not simply the number of respondents requested multiplied by the max conversations per account... many bloggers have multiple blogs and can get paid on each one separately.  The minimum value is 1000.</font>
                         </td>
                         <td valign="top">
-                            <%=Textbox.getHtml("maxdisplaystotal", String.valueOf(customercareSurveyDetailtail.getSurvey().getMaxdisplaystotal()), 255, 35, "", "")%>
+                            <%=Textbox.getHtml("maxdisplaystotal", String.valueOf(customercareSurveyDetail.getSurvey().getMaxdisplaystotal()), 255, 35, "", "")%>
                         </td>
                     </tr>
                     <tr>
@@ -213,7 +213,7 @@ String acl = "customercare";
                             <font class="formfieldnamefont">Displays</font>
                         </td>
                         <td valign="top">
-                            <font class="smallfont"><%=customercareSurveyDetailtail.getSurvey().getPublicsurveydisplays()%></font>
+                            <font class="smallfont"><%=customercareSurveyDetail.getSurvey().getPublicsurveydisplays()%></font>
                             <br/>
                             <font class="tinyfont">Times somebody's looked at the conversation, considering whether or not to join it.</font>
                         </td>
@@ -223,8 +223,8 @@ String acl = "customercare";
                             <font class="formfieldnamefont">Number of Respondents To Date</font>
                         </td>
                         <td valign="top">
-                            <%=PercentCompleteBar.get(customercareSurveyDetailtail.getSurveyEnhancer().getResponsesalreadygotten(), String.valueOf(customercareSurveyDetailtail.getSurvey().getNumberofrespondentsrequested()), "", "", "250")%>
-                            <font class="smallfont">Up to <%=customercareSurveyDetailtail.getSurvey().getNumberofrespondentsrequested()%> people may complete this survey for pay.</font>
+                            <%=PercentCompleteBar.get(customercareSurveyDetail.getSurveyEnhancer().getResponsesalreadygotten(), String.valueOf(customercareSurveyDetail.getSurvey().getNumberofrespondentsrequested()), "", "", "250")%>
+                            <font class="smallfont">Up to <%=customercareSurveyDetail.getSurvey().getNumberofrespondentsrequested()%> people may complete this survey for pay.</font>
                             <br/><br/>
                         </td>
                     </tr>
@@ -233,8 +233,8 @@ String acl = "customercare";
                             <font class="formfieldnamefont">Number of Blog Displays To Date</font>
                         </td>
                         <td valign="top">
-                            <%=PercentCompleteBar.get(customercareSurveyDetailtail.getSurveyEnhancer().getImpressionsalreadygotten(), String.valueOf(customercareSurveyDetailtail.getSurvey().getMaxdisplaystotal()), "", "", "250")%>
-                            <font class="smallfont">We'll pay for the first <%=customercareSurveyDetailtail.getSurvey().getMaxdisplaystotal()%> displays in blogs.</font>
+                            <%=PercentCompleteBar.get(customercareSurveyDetail.getSurveyEnhancer().getImpressionsalreadygotten(), String.valueOf(customercareSurveyDetail.getSurvey().getMaxdisplaystotal()), "", "", "250")%>
+                            <font class="smallfont">We'll pay for the first <%=customercareSurveyDetail.getSurvey().getMaxdisplaystotal()%> displays in blogs.</font>
                             <br/><br/>
                         </td>
                     </tr>
@@ -243,7 +243,7 @@ String acl = "customercare";
                             <font class="formfieldnamefont">Survey Responses to Date</font>
                         </td>
                         <td valign="top">
-                            <font class="smallfont"><%=customercareSurveyDetailtail.getSms().getResponsesToDate()%></font>
+                            <font class="smallfont"><%=customercareSurveyDetail.getSms().getResponsesToDate()%></font>
                         </td>
                     </tr>
                     <tr>
@@ -251,7 +251,7 @@ String acl = "customercare";
                             <font class="formfieldnamefont">Spent on Responses to Date</font>
                         </td>
                         <td valign="top">
-                            <font class="smallfont">$<%=Str.formatForMoney(customercareSurveyDetailtail.getSms().getSpentOnResponsesToDateIncludingdNeeroFee())%></font>
+                            <font class="smallfont">$<%=Str.formatForMoney(customercareSurveyDetail.getSms().getSpentOnResponsesToDateIncludingdNeeroFee())%></font>
                         </td>
                     </tr>
                     <tr>
@@ -259,7 +259,7 @@ String acl = "customercare";
                             <font class="formfieldnamefont">Blog Impressions to Date</font>
                         </td>
                         <td valign="top">
-                            <font class="smallfont"><%=customercareSurveyDetailtail.getSms().getImpressionsToDate()%></font>
+                            <font class="smallfont"><%=customercareSurveyDetail.getSms().getImpressionsToDate()%></font>
                         </td>
                     </tr>
                     <tr>
@@ -267,7 +267,7 @@ String acl = "customercare";
                             <font class="formfieldnamefont">Spent on Impressions to Date</font>
                         </td>
                         <td valign="top">
-                            <font class="smallfont"><%=Str.formatForMoney(customercareSurveyDetailtail.getSms().getSpentOnImpressionsToDateIncludingdNeeroFee())%></font>
+                            <font class="smallfont"><%=Str.formatForMoney(customercareSurveyDetail.getSms().getSpentOnImpressionsToDateIncludingdNeeroFee())%></font>
                         </td>
                     </tr>
                     <tr>
@@ -275,7 +275,7 @@ String acl = "customercare";
                             <font class="formfieldnamefont">Total Spent to Date</font>
                         </td>
                         <td valign="top">
-                            <font class="smallfont"><%=Str.formatForMoney(customercareSurveyDetailtail.getSms().getSpentToDateIncludingdNeeroFee())%></font>
+                            <font class="smallfont"><%=Str.formatForMoney(customercareSurveyDetail.getSms().getSpentToDateIncludingdNeeroFee())%></font>
                         </td>
                     </tr>
                     <tr>
@@ -283,7 +283,7 @@ String acl = "customercare";
                             <font class="formfieldnamefont">Max Possible Spend</font>
                         </td>
                         <td valign="top">
-                            <font class="smallfont"><%=Str.formatForMoney(customercareSurveyDetailtail.getSms().getMaxPossibleSpend())%></font>
+                            <font class="smallfont"><%=Str.formatForMoney(customercareSurveyDetail.getSms().getMaxPossibleSpend())%></font>
                         </td>
                     </tr>
                     <tr>
@@ -292,7 +292,7 @@ String acl = "customercare";
                         </td>
                         <td valign="top">
                             <font class="formfieldnamefont"></font>
-                            <font class="smallfont"><%=Str.formatForMoney(customercareSurveyDetailtail.getSms().getRemainingPossibleSpend())%></font>
+                            <font class="smallfont"><%=Str.formatForMoney(customercareSurveyDetail.getSms().getRemainingPossibleSpend())%></font>
                         </td>
                     </tr>
                 </table>
@@ -302,15 +302,15 @@ String acl = "customercare";
         </div>
         <div class="panel" id="panel2" style="display: none">
             <img src="/images/clear.gif" width="700" height="1"/><br/>
-            <%=customercareSurveyDetailtail.getSurveyForTakers()%>
+            <%=customercareSurveyDetail.getSurveyForTakers()%>
         </div>
         <div class="panel" id="panel3" style="display: none">
             <img src="/images/clear.gif" width="700" height="1"/><br/>
-            <font class="smallfont"><%=customercareSurveyDetailtail.getSurveyOnBlogPreview()%></font>
+            <font class="smallfont"><%=customercareSurveyDetail.getSurveyOnBlogPreview()%></font>
         </div>
         <div class="panel" id="panel4" style="display: none">
             <img src="/images/clear.gif" width="700" height="1"/><br/>
-            <%=customercareSurveyDetailtail.getSurveyCriteriaAsHtml()%>
+            <%=customercareSurveyDetail.getSurveyCriteriaAsHtml()%>
         </div>
     
 

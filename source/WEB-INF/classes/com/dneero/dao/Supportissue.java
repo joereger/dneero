@@ -56,7 +56,7 @@ public class Supportissue extends BasePersistentClass implements java.io.Seriali
 
 
     public boolean canRead(User user){
-        if (user.getUserid()==userid || Authorization.isUserSysadmin(user)){
+        if (user.getUserid()==userid || Authorization.isUserSysadmin(user) || Authorization.isUserCustomercare(user)){
             return true;
         }
         return false;

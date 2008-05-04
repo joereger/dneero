@@ -30,15 +30,21 @@ public class PagePerformanceUtil {
             String partofday = getPartOfDay(cal);
             String key = pageid+"-"+servername+"-"+cal.get(Calendar.YEAR)+"-"+cal.get(Calendar.MONTH)+"-"+cal.get(Calendar.DAY_OF_MONTH)+"-"+partofday;
             //See if it exists
+            boolean foundone = false;
             if (pagePerformances.containsKey(key)){
                 //Pageid exists already, increment values
                 PagePerformance pp = pagePerformances.get(key);
-                pp.setTotaltime(pp.getTotaltime()+pageloadtime);
-                pp.setTotalpageloads(pp.getTotalpageloads()+1);
-                synchronized(pagePerformances){
-                    pagePerformances.put(key, pp);
+                if (pp!=null){
+                    foundone = true;
+                    pp.setTotaltime(pp.getTotaltime()+pageloadtime);
+                    pp.setTotalpageloads(pp.getTotalpageloads()+1);
+                    synchronized(pagePerformances){
+                        pagePerformances.put(key, pp);
+                    }
                 }
-            } else {
+            }
+            //None found
+            if (!foundone){
                 //Pageid doesn't exist, create a new one
                 PagePerformance pp = new PagePerformance();
                 pp.setPageid(pageid);
