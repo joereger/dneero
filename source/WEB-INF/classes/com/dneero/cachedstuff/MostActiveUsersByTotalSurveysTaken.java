@@ -71,7 +71,7 @@ public class MostActiveUsersByTotalSurveysTaken implements CachedStuff, Serializ
                     out.append("</td>");
                     out.append("<td width='35%'>");
                     out.append("<font class='tinyfont'>");
-                    out.append(surveystaken + " conversations");
+                    out.append(surveystaken + " convos");
                     out.append("</font>");
                     out.append("</td>");
                     out.append("</tr>");

@@ -29,9 +29,9 @@ PublicCharity publicCharity = (PublicCharity) Pagez.getBeanMgr().get("PublicChar
                         <br/>
                         Every quarter we'll write checks to the charities that you've chosen for the amounts that you've deferred.  We'll list your donations on this page.  When somebody clicks to dNeero from your blog we'll tell them that you donated your earnings to charity.
                         <br/><br/><br/>
-                        <font class="mediumfont" style="color: #999999">Bloggers: Avoid Losing Any Credibility... and Support a Great Cause!</font>
+                        <font class="mediumfont" style="color: #999999">Social People: Avoid Losing Any Credibility... and Support a Great Cause!</font>
                         <br/>
-                        One of the big concerns from bloggers is that the money in this model presents possible bias, and that your readers will not want to feel 'monetized'. Thanks to open and sharing people like <a href="http://www.ck-blog.com/cks_blog/2007/07/new-models-new-.html">CK</a> we decided to make donating to charity a way to shed this concern -- now you can give any of the earnings to a good cause, avoid bias... and increase the features within your posts!
+                        One of the big concerns from social people is that the money in this model presents possible bias, and that your readers will not want to feel 'monetized'. Thanks to open and sharing people like <a href="http://www.ck-blog.com/cks_blog/2007/07/new-models-new-.html">CK</a> we decided to make donating to charity a way to shed this concern -- now you can give any of the earnings to a good cause, avoid bias... and increase the features within your posts!
                         <br/><br/><br/>
                         <font class="mediumfont" style="color: #999999">Researchers and Marketers: Do Some Good</font>
                         <br/>
