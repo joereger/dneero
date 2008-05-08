@@ -41,7 +41,6 @@ import java.util.*;
  */
 public class PublicSurvey implements Serializable {
 
-    private int referredbyuserid = 0;
     private String takesurveyhtml;
     private boolean haveerror = false;
     private Survey survey;
@@ -62,6 +61,8 @@ public class PublicSurvey implements Serializable {
     private String surveyResponseFlashEmbed;
     private ArrayList<Question> userquestionsthatmustbeanswered = new ArrayList<Question>();
     private ArrayList<PublicSurveyUserquestionListitem> userquestionlistitems = new ArrayList<PublicSurveyUserquestionListitem>();
+    private ArrayList<Question> optionaluserquestions = new ArrayList<Question>();
+    private ArrayList<PublicSurveyUserquestionListitem> optionaluserquestionlistitems = new ArrayList<PublicSurveyUserquestionListitem>();
 
 
     public PublicSurvey(){
@@ -125,17 +126,6 @@ public class PublicSurvey implements Serializable {
                 }
             }
         }
-
-        //This is essentially an override and backup for userid referrals
-        if (Num.isinteger(Pagez.getRequest().getParameter("referredbyuserid"))){
-            referredbyuserid = Integer.parseInt(Pagez.getRequest().getParameter("referredbyuserid"));
-            if (referredbyuserid>0){
-                Pagez.getUserSession().setPendingSurveyReferredbyuserid(userid);
-                Pagez.getUserSession().setReferredbyOnlyUsedForSignup(userid);
-            }
-        }
-
-
 
         //Set userwhotooksurvey, first verifying that they've actually taken the survey
         userwhotooksurvey = null;
@@ -308,6 +298,21 @@ public class PublicSurvey implements Serializable {
                 }
             }
         }
+
+        //Get optional userquestions
+        optionaluserquestionlistitems = new ArrayList<PublicSurveyUserquestionListitem>();
+        optionaluserquestions = findOptionalUserQuestionsFor(userquestionsthatmustbeanswered);
+        for (Iterator<Question> uqIter=optionaluserquestions.iterator(); uqIter.hasNext();) {
+            Question question=uqIter.next();
+            if (question.getIsuserquestion() && question.getUserid()>0){
+                PublicSurveyUserquestionListitem psli = new PublicSurveyUserquestionListitem();
+                psli.setQuestion(question);
+                psli.setUser(User.get(question.getUserid()));
+                psli.setComponent(ComponentTypes.getComponentByID(question.getComponenttype(), question, null));
+                optionaluserquestionlistitems.add(psli);
+            }
+        }
+
 
 
         //Record the survey display using the display cache
@@ -603,6 +608,33 @@ public class PublicSurvey implements Serializable {
         return userquestionsthatmustbeanswered;
     }
 
+    private ArrayList<Question> findOptionalUserQuestionsFor(ArrayList<Question> excludethesequestions){
+        Logger logger = Logger.getLogger(this.getClass().getName());
+        ArrayList<Question> optionaluserquestions = new ArrayList<Question>();
+        for (Iterator<Question> iterator=survey.getQuestions().iterator(); iterator.hasNext();) {
+            Question question=iterator.next();
+            if (question.getIsuserquestion()){
+                boolean includequestion = true;
+                if (excludethesequestions!=null){
+                    for (Iterator<Question> iterator1=excludethesequestions.iterator(); iterator1.hasNext();) {
+                        Question exclQuest=iterator1.next();
+                        if (exclQuest.getQuestionid()==question.getQuestionid()){
+                            includequestion = false;
+                        }
+                    }
+                }
+                //incl
+                if (includequestion){
+                    optionaluserquestions.add(question);
+                    logger.debug("including questionid="+question.getQuestionid());
+                } else {
+                    logger.debug("not including questionid="+question.getQuestionid());
+                }
+            }
+        }
+        return optionaluserquestions;
+    }
+
 
     public String getTakesurveyhtml() {
         return takesurveyhtml;
@@ -767,11 +799,22 @@ public class PublicSurvey implements Serializable {
         this.userquestionlistitems=userquestionlistitems;
     }
 
-    public int getReferredbyuserid() {
-        return referredbyuserid;
+    public ArrayList<PublicSurveyUserquestionListitem> getOptionaluserquestionlistitems() {
+        return optionaluserquestionlistitems;
     }
 
-    public void setReferredbyuserid(int referredbyuserid) {
-        this.referredbyuserid=referredbyuserid;
+    public void setOptionaluserquestionlistitems(ArrayList<PublicSurveyUserquestionListitem> optionaluserquestionlistitems) {
+        this.optionaluserquestionlistitems=optionaluserquestionlistitems;
     }
+
+
+    public ArrayList<Question> getOptionaluserquestions() {
+        return optionaluserquestions;
+    }
+
+    public void setOptionaluserquestions(ArrayList<Question> optionaluserquestions) {
+        this.optionaluserquestions=optionaluserquestions;
+    }
+
+
 }

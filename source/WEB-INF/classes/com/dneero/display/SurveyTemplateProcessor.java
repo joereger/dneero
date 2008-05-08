@@ -85,7 +85,7 @@ public class SurveyTemplateProcessor {
         } catch (Exception e){
             //Do nothing... just null pointer
         }
-        return "<div style=\"background : #ffffff; border: 0px solid #ffffff; padding : 5px; width : 425px; overflow : auto;\">"+out.toString()+"</div>";
+        return "<div style=\"background : #ffffff; border: 0px solid #ffffff; padding : 5px; width : 400px; overflow : auto;\">"+out.toString()+"</div>";
     }
 
 

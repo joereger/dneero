@@ -51,6 +51,7 @@ public class StoreResponse {
             allCex.addValidationError("Sorry, you're not qualified to join this conversation.  Your qualification is determined by your Profile.  Conversation igniters determine their intended audience when they create a conversation.");
         }
         //Userquestion validation
+        //@todo One problem with user question validation is that there really isn't any requirement to answer... test it... ignore some user questions... it'll let you... this code only kicks in on questions that are answered but fail somehow
         if (srp.getNameValuePairs().get(SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"userquestion-question")!=null){
             String[] uqArr =(String[]) srp.getNameValuePairs().get(SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"userquestion-question");
             if (uqArr[0].equals("")){

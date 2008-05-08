@@ -1,9 +1,15 @@
 package com.dneero.display;
 
-import com.dneero.dao.Blogger;
-import com.dneero.dao.Survey;
-import com.dneero.dao.User;
+import com.dneero.dao.*;
+import com.dneero.dao.hibernate.HibernateUtil;
+import com.dneero.display.components.def.Component;
+import com.dneero.display.components.def.ComponentTypes;
 import org.apache.log4j.Logger;
+import org.hibernate.criterion.Restrictions;
+
+import java.util.Iterator;
+import java.util.List;
+import java.util.ArrayList;
 
 /**
  * User: Joe Reger Jr
@@ -17,6 +23,8 @@ public class SurveyTakerDisplay {
         SurveyTemplateProcessor stp = new SurveyTemplateProcessor(survey, blogger);
         return stp.getSurveyForTaking(makeHttpsIfSSLIsOn);
     }
+
+    
 
 
 }

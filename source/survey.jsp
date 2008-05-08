@@ -115,7 +115,7 @@ String acl = "public";
                                 <center>
                                     <font class="mediumfont"><%=publicSurvey.getUserwhotooksurvey().getFirstname()%> <%=publicSurvey.getUserwhotooksurvey().getLastname()%>'s answers.</font><br/>
                                     <% if (!publicSurvey.getLoggedinuserhasalreadytakensurvey()){ %>
-                                        <font class="tinyfont">(you can answer below)</font>
+                                        <a href="#joinconvo"><font class="tinyfont">How would you answer?</font></a>
                                     <% } %>
                                 </center>
                                 <br/>
@@ -140,14 +140,16 @@ String acl = "public";
                             </div>
                             <br/>
                         <%}%>
+                        <a name="joinconvo"></a>
                         <form action="/survey.jsp" method="post" name="surveyform" style="margin: 0px; padding: 0px;">
                             <input type="hidden" name="dpage" value="/survey.jsp">
                             <input type="hidden" name="actionfrompage" value="takesurvey">
                             <input type="hidden" name="surveyid" value="<%=publicSurvey.getSurvey().getSurveyid()%>">
-                            <input type="hidden" name="referredbyuserid" value="<%=publicSurvey.getReferredbyuserid()%>">
+                            <input type="hidden" name="userid" value="<%=request.getParameter("userid")%>">
+                            <input type="hidden" name="referredbyuserid" value="<%=request.getParameter("referredbyuserid")%>">
 
                         <div class="rounded" style="background: #e6e6e6; padding: 10px;">
-                            <center><font class="smallfont" style="font-weight: bold;">Join the conversation by answering the questions below.  Because this is a dNeero conversation your answers will be available to the public.</font></center><br/><br/>
+                            <center><font class="mediumfont" style="font-weight: bold;">Join the Conversation</font><br/><font class="smallfont" style="font-weight: bold;">This is a conversation so your answers will be visible to the public.</font></center><br/><br/>
                             <div class="rounded" style="background: #ffffff; padding: 10px;">
                                 <%if (publicSurvey.getSurvey().getIsaccesscodeonly()){%>
                                     <div class="rounded" style="background: #cccccc;">
@@ -171,9 +173,9 @@ String acl = "public";
                             </div>
                         </div>
                         <%if (publicSurvey.getUserquestionlistitems()!=null && publicSurvey.getUserquestionlistitems().size()>0){%>
-                            <br/>
                             <div class="rounded" style="background: #e6e6e6; text-align: center; padding: 10px;">
                                 <div class="rounded" style="background: #ffffff; padding: 10px; text-align: left;">
+                                    <font class="formfieldnamefont">Answer these questions from your friends:</font> <font class="formfieldnamefont" style="color: #ff0000;">(Required)</font><br/><br/>
                                     <%
                                         for (Iterator<PublicSurveyUserquestionListitem> iterator=publicSurvey.getUserquestionlistitems().iterator(); iterator.hasNext();){
                                             PublicSurveyUserquestionListitem psli=iterator.next();
@@ -187,10 +189,57 @@ String acl = "public";
                                 </div>
                             </div>
                         <%}%>
-                        <br/>
+                        <%if (publicSurvey.getOptionaluserquestionlistitems()!=null && publicSurvey.getOptionaluserquestionlistitems().size()>0){%>
+                            <div class="rounded" style="background: #e6e6e6; text-align: center; padding: 10px;">
+                                <div class="rounded" style="background: #ffffff; padding: 10px; text-align: left;">
+                                    <font class="formfieldnamefont">Answer other questions that interest you:</font> <font class="formfieldnamefont" style="color: #ff0000;">(Optional)</font><br/><br/>
+                                    <div style="background : #ffffff; border: 0px solid #ffffff; padding : 5px; width : 400px; height: 150px; overflow : auto;">
+                                    <%
+                                        try{
+                                            //Don't want to pull up all questions so use a random offset
+                                            int numbertodisplay = 26;
+                                            int minIndexToDisplay = 0;
+                                            int maxIndexToDisplay = publicSurvey.getOptionaluserquestionlistitems().size();
+                                            if (publicSurvey.getOptionaluserquestionlistitems().size()>numbertodisplay){
+                                                int extras = publicSurvey.getOptionaluserquestionlistitems().size() - numbertodisplay;
+                                                logger.debug("extras="+extras);
+                                                if (extras<1){
+                                                    extras = 0;
+                                                }
+                                                if (extras>publicSurvey.getOptionaluserquestionlistitems().size()){
+                                                    extras = 0;
+                                                }
+                                                logger.debug("extras="+extras);
+                                                minIndexToDisplay = Num.randomInt(extras);
+                                                maxIndexToDisplay = minIndexToDisplay + numbertodisplay;
+                                                if (maxIndexToDisplay>publicSurvey.getOptionaluserquestionlistitems().size()){
+                                                    maxIndexToDisplay = publicSurvey.getOptionaluserquestionlistitems().size();
+                                                }
+                                            }
+                                            logger.debug("minIndexToDisplay="+minIndexToDisplay+" maxIndexToDisplay="+maxIndexToDisplay);
+                                            int indexCurrentlyShowing = 0;
+                                            for (Iterator<PublicSurveyUserquestionListitem> iterator=publicSurvey.getOptionaluserquestionlistitems().iterator(); iterator.hasNext();){
+                                                PublicSurveyUserquestionListitem psli=iterator.next();
+                                                indexCurrentlyShowing = indexCurrentlyShowing + 1;
+                                                if (indexCurrentlyShowing>minIndexToDisplay && indexCurrentlyShowing<maxIndexToDisplay){
+                                                    %><font class="smallfont" style="font-weight: bold;"><%=psli.getUser().getFirstname()%> <%=psli.getUser().getLastname()%> wants to know:</font><br/><%
+                                                    %><%=psli.getComponent().getHtmlForInput()%><%
+                                                    if (iterator.hasNext()){
+                                                        %><br/><br/><%
+                                                    }
+                                                }
+                                            }
+                                        } catch (Exception ex){
+                                            logger.error("", ex);
+                                        }
+                                    %>
+                                    </div>
+                                </div>
+                            </div>
+                        <%}%>
                         <div class="rounded" style="background: #e6e6e6; text-align: center; padding: 10px;">
                             <div class="rounded" style="background: #ffffff; padding: 10px; text-align: left;">
-                                <font class="formfieldnamefont">What else do you want to know?</font><font class="formfieldnamefont" style="color: #ff0000;">(Required)</font><br/><font class="tinyfont">You can ask anything related to this conversation (unrelated/vulgar questions will be rejected). People who join the conversation after reading your answers will have to answer the question you ask.</font><br/>
+                                <font class="formfieldnamefont">What do you want to know?</font><font class="formfieldnamefont" style="color: #ff0000;">(Required)</font><br/><font class="tinyfont">You can ask anything related to this conversation (unrelated/vulgar questions will be rejected). People who join the conversation after reading your answers will have to answer the question you ask.</font><br/>
                                 <input type="text" name="<%=SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER%>userquestion-question" size="50" maxlength="250"/>
                                 <br/><br/><font class="formfieldnamefont">How do people answer your question?</font><br/>
 
@@ -201,20 +250,20 @@ String acl = "public";
                                             <img src="/images/clear.gif" alt="" width="1" height="3"><br/><font class="smallfont" style="font-weight: bold;">Multiple Choice (recommended)</font><br/><font class="tinyfont">People can choose from one of the answers you define below.  Type up to eight possible answers.  Leave the rest blank.</font><br/>
                                             <table cellspacing="1" cellpadding="0" border="0">
                                             <tr>
-                                                <td><input type="text" name="<%=SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER%>userquestion-predefinedanswer" size="20" maxlength="50" style="font-size: 9px;"/></td>
-                                                <td><input type="text" name="<%=SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER%>userquestion-predefinedanswer" size="20" maxlength="50" style="font-size: 9px;"/></td>
+                                                <td><input type="text" name="<%=SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER%>userquestion-predefinedanswer" size="20" maxlength="30" style="font-size: 9px;"/></td>
+                                                <td><input type="text" name="<%=SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER%>userquestion-predefinedanswer" size="20" maxlength="30" style="font-size: 9px;"/></td>
                                             </tr>
                                             <tr>
-                                                <td><input type="text" name="<%=SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER%>userquestion-predefinedanswer" size="20" maxlength="50" style="font-size: 9px;"/></td>
-                                                <td><input type="text" name="<%=SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER%>userquestion-predefinedanswer" size="20" maxlength="50" style="font-size: 9px;"/></td>
+                                                <td><input type="text" name="<%=SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER%>userquestion-predefinedanswer" size="20" maxlength="30" style="font-size: 9px;"/></td>
+                                                <td><input type="text" name="<%=SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER%>userquestion-predefinedanswer" size="20" maxlength="30" style="font-size: 9px;"/></td>
                                             </tr>
                                             <tr>
-                                                <td><input type="text" name="<%=SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER%>userquestion-predefinedanswer" size="20" maxlength="50" style="font-size: 9px;"/></td>
-                                                <td><input type="text" name="<%=SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER%>userquestion-predefinedanswer" size="20" maxlength="50" style="font-size: 9px;"/></td>
+                                                <td><input type="text" name="<%=SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER%>userquestion-predefinedanswer" size="20" maxlength="30" style="font-size: 9px;"/></td>
+                                                <td><input type="text" name="<%=SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER%>userquestion-predefinedanswer" size="20" maxlength="30" style="font-size: 9px;"/></td>
                                             </tr>
                                             <tr>
-                                                <td><input type="text" name="<%=SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER%>userquestion-predefinedanswer" size="20" maxlength="50" style="font-size: 9px;"/></td>
-                                                <td><input type="text" name="<%=SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER%>userquestion-predefinedanswer" size="20" maxlength="50" style="font-size: 9px;"/></td>
+                                                <td><input type="text" name="<%=SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER%>userquestion-predefinedanswer" size="20" maxlength="30" style="font-size: 9px;"/></td>
+                                                <td><input type="text" name="<%=SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER%>userquestion-predefinedanswer" size="20" maxlength="30" style="font-size: 9px;"/></td>
                                             </tr>
                                             </table>
                                         </td>
@@ -230,7 +279,6 @@ String acl = "public";
                                 
                             </div>
                         </div>
-                        <br/>
                         <div class="rounded" style="background: #e6e6e6; text-align: center; padding: 10px;">
                             <div class="rounded" style="background: #ffffff; padding: 5px;">
                                 <table cellpadding="5" cellspacing="0" border="0">

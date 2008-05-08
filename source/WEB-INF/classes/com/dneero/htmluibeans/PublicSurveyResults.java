@@ -115,7 +115,7 @@ public class PublicSurveyResults implements Serializable {
             resultsHtml = "<font class=\"smallfont\">The conversation igniter has chosen to hide overall aggregate results.  However, dNeero does not allow researchers to hide aggregate results from individual blogs so those results are still available.  To see such results, find a place where this conversation is posted and click the See How Others Voted link... you'll see how others from that blog answered.</font>";
         }
 
-        //Results main tab
+        //Results user questions html
         if (1==1){
             String resultsHtmlKey = "surveyresults.jsp-resultsUserquestionsHtml-surveyid"+survey.getSurveyid();
             if (HtmlCache.isStale(resultsHtmlKey, 600)){
