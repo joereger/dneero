@@ -100,6 +100,37 @@ public class Util {
         return out;
     }
 
+    public static String[] appendToEndOfStringArray(String[] in, ArrayList<String> append){
+        Logger logger = Logger.getLogger(Util.class);
+        int outlength = 0;
+        if (in!=null){
+            outlength = outlength + in.length;
+        }
+        if (append!=null){
+            outlength = outlength + append.size();
+        }
+        String[] out = new String[outlength];
+        int outindex = 0;
+        if (in!=null){
+            for (int i = 0; i < in.length; i++) {
+                out[outindex]=in[i];
+                outindex = outindex + 1;
+            }
+        }
+        if (append!=null){
+            for (Iterator<String> iterator=append.iterator(); iterator.hasNext();) {
+                try{
+                    String s=iterator.next();
+                    out[outindex]=s;
+                    outindex = outindex + 1;
+                } catch (Exception ex){
+                    logger.error("", ex);
+                }
+            }
+        }
+        return out;
+    }
+
 
     public static String truncateString(String instring, int maxlength){
         String outstring="";

@@ -2,10 +2,7 @@ package com.dneero.display;
 
 import org.apache.log4j.Logger;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Enumeration;
-import java.util.Iterator;
+import java.util.*;
 import java.io.Serializable;
 
 import com.dneero.util.Util;
@@ -111,10 +108,15 @@ public class SurveyResponseParser {
             String[] values = (String[])mapentry.getValue();
             if (name.indexOf("questionid_"+questionid)>-1){
                 //Trim all values and hold in valuesTmp
-                String[] valuesTmp = new String[values.length];
+                ArrayList<String> valuesTmp = new ArrayList<String>();
                 for (int j = 0; j < values.length; j++) {
                     String s = values[j];
-                    valuesTmp[j] = s.trim();
+                    if (s!=null && s.length()>0){
+                        String sTrimmed = s.trim();
+                        if (sTrimmed!=null && s.length()>0){
+                            valuesTmp.add(sTrimmed);
+                        }
+                    }
                 }
                 //Add valuesTmp
                 out = Util.appendToEndOfStringArray(out, valuesTmp);

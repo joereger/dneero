@@ -23,6 +23,7 @@ AccountBalance accountBalance = (AccountBalance)Pagez.getBeanMgr().get("AccountB
         <%} else if (accountBalance.getCurrentbalanceDbl()<0){%>
             <font class="smallfont" style="color: #000000;">(You owe us money.)</font>
         <%}%>
+        <br/><font class="tinyfont" style="color: #666666;"><a href="/account/balancefaq.jsp">Balance Questions?</a></font>
     </div>
     <br/><br/>
     

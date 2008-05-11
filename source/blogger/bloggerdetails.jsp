@@ -73,14 +73,14 @@ BloggerDetails bloggerDetails = (BloggerDetails)Pagez.getBeanMgr().get("BloggerD
                     <input type="hidden" name="dpage" value="/blogger/bloggerdetails.jsp">
                     <input type="hidden" name="action" value="save">
 
-                    <table cellpadding="0" cellspacing="0" border="0">
+                    <table cellpadding="3" cellspacing="0" border="0">
 
                         <tr>
                             <td valign="top">
                                 <font class="formfieldnamefont">Birthdate</font>
                             </td>
                             <td valign="top">
-                                <%=DateTime.getHtml("birthdate", bloggerDetails.getBirthdate(), "", "")%>
+                                <%=Date.getHtml("birthdate", bloggerDetails.getBirthdate(), "", "")%>
                             </td>
                         </tr>
 
@@ -136,6 +136,7 @@ BloggerDetails bloggerDetails = (BloggerDetails)Pagez.getBeanMgr().get("BloggerD
                             </td>
                             <td valign="top">
                                 <%=Dropdown.getHtml("city", bloggerDetails.getCity(), Util.treeSetToTreeMap(Cities.get()), "", "")%>
+                                <br/><font class="tinyfont">Make your best guess.  International users choose Non-US.</font>
                             </td>
                         </tr>
 
@@ -145,6 +146,7 @@ BloggerDetails bloggerDetails = (BloggerDetails)Pagez.getBeanMgr().get("BloggerD
                             </td>
                             <td valign="top">
                                 <%=Dropdown.getHtml("state", bloggerDetails.getState(), Util.treeSetToTreeMap(States.get()), "", "")%>
+                                <br/><font class="tinyfont">International users choose Non-US.</font>
                             </td>
                         </tr>
 
@@ -209,8 +211,13 @@ BloggerDetails bloggerDetails = (BloggerDetails)Pagez.getBeanMgr().get("BloggerD
                         <br/><br/><b>Will this data ever be made available to others?</b><br/>
                         It will not be made available in a way that can be tied back to you.  However, we may create aggregate results on conversations that say things like "people aged 23-25 answered this way."  When we do this we're using the information from this page but it's in a way that your particular identity isn't shared.
 
+                        <br/><br/><b>Are international users welcome?</b><br/>
+                        Of course!  We love you!  Please join the conversation!
+
                         <br/><br/><b>Check the conversation criteria</b><br/>
                         If a conversation has a sufficiently limited demographic target it's possible that conversation readers can infer demographic data about you.  For example, if somebode ignites a conversation targeted only to individuals with an income of between $30,000 and $40,000 per year and you join the conversation then people can infer what your salary is.  When a conversation is displayed both the criteria and who joined in are visible.  Take this into account and if you're not comfortable with the scope of the demographic criteria that the researcher has chosen, tell them... they may choose to widen it.
+
+
                     </font>
                     <br/><br/>
                 </div>

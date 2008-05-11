@@ -109,15 +109,10 @@ PublicSurveyList publicSurveyList = (PublicSurveyList)Pagez.getBeanMgr().get("Pu
                                     <% } %>
                                 <% } %>
                                 <br/><font class="tinyfont" style="color: #666666; font-weight: bold;">(yes, we're talking real world money here)</font>
+                                <br/><font class="tinyfont" style="color: #666666;"><a href="/account/balancefaq.jsp">Balance Questions?</a></font>
                             </div>
                             <br/>
                         <% } %>
-
-                        <div class="rounded" style="background: #ffffff; padding: 10px;">
-                            <font class="formfieldnamefont" style="color: #666666;"><b>Don't Miss the Reseller Program!</b></font>
-                            <br/>
-                            <font class="smallfont" style="color: #666666;"><b>The <a href="/account/reseller.jsp">Reseller Program</a> allows you to earn big bucks selling dNeero conversations!  Put on your sales hats people!</b></font>
-                        </div>
 
                         <%--<br/><br/>--%>
                         <%--<font class="mediumfont">Surveys Friends Have Taken:</font><br/>--%>

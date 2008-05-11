@@ -43,13 +43,15 @@ if (accountIndex.getUserhasresponsependings()){
                                 <a href="/account/accountbalance.jsp"><font class="mediumfont" style="color: #596697;">Account Balance</font></a>
                             </td></tr>
                             <tr><td valign="top"></td><td valign="top">
-                                <font class="smallfont">See the earnings and charges made to your account.  View financial transactions including failed attempts to charge credit cards or pay you.</font>
-                                <br/><br/><font class="formfieldnamefont" style="color: #666666;">Current Balance:</font>
+                                <font class="smallfont">See the earnings and charges for your account.</font><br/>
+                                <br/><font class="formfieldnamefont" style="color: #666666;">Current Balance:</font>
                                 <br/><font class="largefont" style="color: #cccccc;"><%=accountIndex.getCurrentbalance()%></font>
                                 <% if (accountIndex.getPendingearningsDbl()>0){ %>
                                     <br/><font class="formfieldnamefont" style="color: #666666;">Pending: <%=accountIndex.getPendingearnings()%></font>
-                                    <br/><font class="tinyfont" style="color: #666666;">Remember, your conversations must generate impressions for 10 days after you take them to get paid.</font>
+                                    <br/><font class="tinyfont" style="color: #666666;">Remember, your conversations must generate impressions for 10 days after you take them to get paid.</font><br/>
                                 <% } %>
+                                <br/><font class="tinyfont" style="color: #666666;"><a href="/account/balancefaq.jsp">Balance Questions?</a></font>
+
                             </td></tr></table>
                         </div>
                         <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
