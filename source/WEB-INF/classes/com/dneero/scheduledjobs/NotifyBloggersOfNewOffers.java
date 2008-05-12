@@ -6,6 +6,7 @@ import org.quartz.JobExecutionException;
 import org.apache.log4j.Logger;
 import com.dneero.dao.*;
 import com.dneero.dao.hibernate.HibernateUtil;
+import com.dneero.dao.hibernate.NumFromUniqueResult;
 import com.dneero.finders.FindSurveysForBlogger;
 import com.dneero.email.EmailTemplateProcessor;
 import com.dneero.systemprops.InstanceProperties;
@@ -89,9 +90,9 @@ public class NotifyBloggersOfNewOffers implements Job {
                                         url = "http://apps.facebook.com/"+ SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_APP_NAME)+"/";
                                     }
                                     //Html
-                                    listofsurveysHtml.append("<br><br><a href=\""+url+"\">" + survey.getTitle() + " (Earn up to: " + surveyEnhancer.getMaxearning() + ")</a>");
+                                    listofsurveysHtml.append("<br><br><a href=\""+url+"\"><font style=\"font-size: 14px;\"><b>" + survey.getTitle() + "</b> (Earn up to: " + surveyEnhancer.getMaxearning() + ")</font></a>");
                                     if (!survey.getDescription().equals("")){
-                                        listofsurveysHtml.append("<br>"+survey.getDescription());
+                                        listofsurveysHtml.append("<br><font style=\"font-size: 9px;\">"+survey.getDescription()+"</font>");
                                     }
                                     //Txt
                                     listofsurveysTxt.append("\n\n" + survey.getTitle() + " (Earn up to: " + surveyEnhancer.getMaxearning()+")");
@@ -101,12 +102,39 @@ public class NotifyBloggersOfNewOffers implements Job {
                                     listofsurveysTxt.append("\n" + url);
                                 }
                             }
+                            //Collect number of people who've answered this person's last user question
+                            StringBuffer userquestionsansweredHtml = new StringBuffer();
+                            StringBuffer userquestionsansweredTxt = new StringBuffer();
+                            if (atleastonenewsurveyforblogger){
+                                try{
+                                    int questionsAnswered = NumFromUniqueResult.getInt("select count(*) from Question as question left join question.questionresponses as questionresponses where question.userid='"+user.getUserid()+"' and questionresponses.response.responsedate>'"+Time.dateformatfordb(Time.getCalFromDate(user.getNotifyofnewsurveyslastsent()))+"'");
+                                    if (questionsAnswered>0){
+                                        userquestionsansweredHtml.append("<br/><br/>"+questionsAnswered+" people answered your questions ");   
+                                        userquestionsansweredTxt.append(questionsAnswered + " people answered your questions ");
+                                        int dayssincelastsend = DateDiff.dateDiff("day", Calendar.getInstance(), Time.getCalFromDate(user.getNotifyofnewsurveyslastsent()));
+                                        if (dayssincelastsend<=0){
+
+                                        } else if (dayssincelastsend==1){
+                                            userquestionsansweredHtml.append("since yesterday");
+                                            userquestionsansweredTxt.append("since yesterday");
+                                        } else if (dayssincelastsend>1){
+                                            userquestionsansweredHtml.append("in the last "+dayssincelastsend+" days");
+                                            userquestionsansweredTxt.append("in the last "+dayssincelastsend+" days");
+                                        }
+                                    }
+                                } catch (Exception ex){
+                                    logger.error("", ex);
+                                }
+                            }
+                            //Do the sending
                             if (atleastonenewsurveyforblogger){
                                 //Create the args array to hold the dynamic stuff
                                 String[] args = new String[10];
                                 args[0] = "$"+Str.formatForMoney(possibleearnings);
                                 args[1] = listofsurveysHtml.toString();
                                 args[2] = listofsurveysTxt.toString();
+                                args[3] = userquestionsansweredHtml.toString();
+                                args[4] = userquestionsansweredTxt.toString();
                                 //Send the email
                                 EmailTemplateProcessor.sendMail("New dNeero Conversations for "+user.getFirstname(), "bloggernotifyofnewsurveys", user, args);
                                 //Update blogger last sent date

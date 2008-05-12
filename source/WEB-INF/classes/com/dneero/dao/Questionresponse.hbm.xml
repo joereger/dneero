@@ -9,6 +9,9 @@
             <column name="questionresponseid" />
             <generator class="native" />
         </id>
+
+        <many-to-one name="response" column="responseid" not-null="true" insert="false" update="false"/>
+
         <property name="questionid" type="int">
             <column name="questionid" not-null="true" />
         </property>
