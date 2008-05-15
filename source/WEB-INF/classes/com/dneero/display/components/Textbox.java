@@ -172,7 +172,7 @@ public class Textbox implements Component {
             out.append(answer);
             out.append("</td>");
             out.append("<td valign=\"top\" bgcolor=\"#ffffff\" width=\"300\">");
-            out.append("<img src=\"/images/bar_dkgrey-blend.gif\" width=\""+percentage+"%\" height=\"10\" border=\"0\">");
+            out.append("<img src=\"/images/bar_green-blend.gif\" width=\""+percentage+"%\" height=\"10\" border=\"0\">");
             out.append("</td>");
             out.append("<td valign=\"top\" bgcolor=\"#e6e6e6\">");
             out.append(String.valueOf(formatter.format(percentage)) + "%");
@@ -252,7 +252,7 @@ public class Textbox implements Component {
             out.append(answer);
             out.append("</td>");
             out.append("<td valign=\"top\" bgcolor=\"#ffffff\" width=\"300\">");
-            out.append("<img src=\"/images/bar_dkgrey-blend.gif\" width=\""+percentage+"%\" height=\"10\" border=\"0\">");
+            out.append("<img src=\"/images/bar_green-blend.gif\" width=\""+percentage+"%\" height=\"10\" border=\"0\">");
             out.append("</td>");
             out.append("<td valign=\"top\" bgcolor=\"#e6e6e6\">");
             out.append(String.valueOf(formatter.format(percentage)) + "%");

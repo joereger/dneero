@@ -89,8 +89,8 @@
             <group>surveyTriggers</group>
             <job-name>socialInfluenceRatingUpdate</job-name>
             <job-group>surveyJobs</job-group>
-            <!-- Fire at 2am every day -->
-            <cron-expression>0 0 2 * * ?</cron-expression>
+            <!-- Fire at 9am every SUN -->
+            <cron-expression>0 0 9 ? * MON</cron-expression>
           </cron>
         </trigger>
     </job>
@@ -185,7 +185,7 @@
             <group>surveyTriggers</group>
             <job-name>moveMoneyAround</job-name>
             <job-group>surveyJobs</job-group>
-            <!-- Fire at 12pm (noon) every day -->
+            <!-- Fire at 5am every day -->
             <cron-expression>0 0 5 * * ?</cron-expression>
           </cron>
         </trigger>
@@ -207,8 +207,8 @@
             <group>surveyTriggers</group>
             <job-name>qualityAverager</job-name>
             <job-group>surveyJobs</job-group>
-            <!-- Fire at 3am every day -->
-            <cron-expression>0 0 4 * * ?</cron-expression>
+            <!-- Fire at 11am every SUN -->
+            <cron-expression>0 0 11 ? * MON</cron-expression>
           </cron>
         </trigger>
     </job>
@@ -253,8 +253,8 @@
             <group>surveyTriggers</group>
             <job-name>notifyBloggersOfNewOffers</job-name>
             <job-group>surveyJobs</job-group>
-            <!-- Fire at 10am every day -->
-            <cron-expression>0 0 10 * * ?</cron-expression>
+            <!-- Fire at 2am every day -->
+            <cron-expression>0 0 2 * * ?</cron-expression>
           </cron>
         </trigger>
     </job>
