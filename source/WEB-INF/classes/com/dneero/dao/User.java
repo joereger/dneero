@@ -52,6 +52,9 @@ public class User extends BasePersistentClass implements java.io.Serializable, A
      private Date facebookappremoveddate;
      private String resellercode;
      private double resellerpercent;
+     private double currentbalance;
+     private double currentbalanceblogger;
+     private double currentbalanceresearcher;
 
      //Association
     private Set<Userrole> userroles = new HashSet<Userrole>();
@@ -409,5 +412,29 @@ public class User extends BasePersistentClass implements java.io.Serializable, A
 
     public void setResellerpercent(double resellerpercent) {
         this.resellerpercent = resellerpercent;
+    }
+
+    public double getCurrentbalance() {
+        return currentbalance;
+    }
+
+    public void setCurrentbalance(double currentbalance) {
+        this.currentbalance=currentbalance;
+    }
+
+    public double getCurrentbalanceblogger() {
+        return currentbalanceblogger;
+    }
+
+    public void setCurrentbalanceblogger(double currentbalanceblogger) {
+        this.currentbalanceblogger=currentbalanceblogger;
+    }
+
+    public double getCurrentbalanceresearcher() {
+        return currentbalanceresearcher;
+    }
+
+    public void setCurrentbalanceresearcher(double currentbalanceresearcher) {
+        this.currentbalanceresearcher=currentbalanceresearcher;
     }
 }

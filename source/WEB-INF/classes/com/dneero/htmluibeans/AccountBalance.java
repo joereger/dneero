@@ -1,16 +1,18 @@
 package com.dneero.htmluibeans;
 
 
-import com.dneero.util.Str;
-import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.dao.Balance;
-import com.dneero.money.CurrentBalanceCalculator;
+import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.htmlui.Pagez;
 import com.dneero.htmlui.UserSession;
-import org.apache.log4j.Logger;
+import com.dneero.money.CurrentBalanceCalculator;
+import com.dneero.money.PendingBalanceCalculator;
+import com.dneero.util.Str;
 
-import java.util.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * User: Joe Reger Jr
@@ -33,9 +35,9 @@ public class AccountBalance implements Serializable {
     public void initBean(){
         UserSession userSession = Pagez.getUserSession();
         if (userSession!=null && userSession.getUser()!=null && userSession.getUser().getBloggerid()>0){
-            CurrentBalanceCalculator cbc = new CurrentBalanceCalculator(Pagez.getUserSession().getUser());
-            currentbalanceDbl = cbc.getCurrentbalance();
-            pendingearningsDbl = cbc.getPendingearnings();
+            PendingBalanceCalculator pbc = new PendingBalanceCalculator(Pagez.getUserSession().getUser());
+            currentbalanceDbl = Pagez.getUserSession().getUser().getCurrentbalance();
+            pendingearningsDbl = pbc.getPendingearnings();
             currentbalance = "$"+Str.formatForMoney(currentbalanceDbl);
             pendingearnings = "$"+Str.formatForMoney(pendingearningsDbl);
             List bals = HibernateUtil.getSession().createQuery("from Balance where userid='"+userSession.getUser().getUserid()+"' order by balanceid desc").setCacheable(true).list();

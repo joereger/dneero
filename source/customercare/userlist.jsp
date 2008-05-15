@@ -1,9 +1,11 @@
-<%@ page import="org.apache.log4j.Logger" %>
-<%@ page import="com.dneero.htmluibeans.CustomercareUserList" %>
-<%@ page import="com.dneero.dbgrid.GridCol" %>
-<%@ page import="com.dneero.dbgrid.Grid" %>
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="com.dneero.htmlui.*" %>
+<%@ page import="com.dneero.dao.*" %>
+<%@ page import="com.dneero.dao.hibernate.HibernateUtil" %>
+<%@ page import="com.dneero.dao.hibernate.NumFromUniqueResult" %>
+<%@ page import="com.dneero.display.SurveyResponseParser" %>
+<%@ page import="com.dneero.display.components.def.Component" %>
+<%@ page import="com.dneero.rank.RankForSurveyThread" %>
+<%@ page import="org.hibernate.criterion.Order" %>
+<%@ page import="org.hibernate.criterion.Restrictions" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "Users";
@@ -23,6 +25,10 @@ CustomercareUserList customercareUserListList= (CustomercareUserList)Pagez.getBe
             customercareUserListList.setSearchlastname(Textbox.getValueFromRequest("searchlastname", "Lastname", false, DatatypeString.DATATYPEID));
             customercareUserListList.setSearchuserid(Textbox.getValueFromRequest("searchuserid", "Userid", false, DatatypeString.DATATYPEID));
             customercareUserListList.initBean();
+            if (customercareUserListList.getUsers()!=null && customercareUserListList.getUsers().size()==1){
+                User user = customercareUserListList.getUsers().get(0);
+                Pagez.sendRedirect("/customercare/userdetail.jsp?userid="+user.getUserid());
+            }
         } catch (com.dneero.htmlui.ValidationException vex) {
             Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
         }
@@ -58,7 +64,7 @@ CustomercareUserList customercareUserListList= (CustomercareUserList)Pagez.getBe
             </tr>
             <tr>
                 <td valign="top">
-                    <%=Textbox.getHtml("searchuserrid", customercareUserListList.getSearchuserid(), 255, 5, "", "")%>
+                    <%=Textbox.getHtml("searchuserid", customercareUserListList.getSearchuserid(), 255, 5, "", "")%>
                 </td>
                 <td valign="top">
                     <%=Textbox.getHtml("searchfirstname", customercareUserListList.getSearchfirstname(), 255, 5, "", "")%>

@@ -1,6 +1,7 @@
 package com.dneero.htmluibeans;
 
 import com.dneero.money.CurrentBalanceCalculator;
+import com.dneero.money.PendingBalanceCalculator;
 import com.dneero.dao.Responsepending;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.htmlui.Pagez;
@@ -38,10 +39,10 @@ public class AccountIndex implements Serializable {
     public void initBean(){
         Logger logger = Logger.getLogger(this.getClass().getName());
         if(Pagez.getUserSession().getUser()!=null && Num.isinteger(String.valueOf(Pagez.getUserSession().getUser().getUserid()))){
-            CurrentBalanceCalculator cbc = new CurrentBalanceCalculator(Pagez.getUserSession().getUser());
-            currentbalanceDbl = cbc.getCurrentbalance();
-            currentbalance = "$"+Str.formatForMoney(cbc.getCurrentbalance());
-            pendingearningsDbl = cbc.getPendingearnings();
+            PendingBalanceCalculator pbc = new PendingBalanceCalculator(Pagez.getUserSession().getUser());
+            currentbalanceDbl = Pagez.getUserSession().getUser().getCurrentbalance();
+            pendingearningsDbl = pbc.getPendingearnings();
+            currentbalance = "$"+Str.formatForMoney(currentbalanceDbl);
             pendingearnings = "$"+Str.formatForMoney(pendingearningsDbl);
 
             //Set persistent login cookie, if necessary

@@ -165,6 +165,9 @@ public class Registration implements Serializable {
         user.setIsfacebookappremoved(false);
         user.setResellercode(RandomString.randomAlphanumericAllUpperCaseNoOsOrZeros(7));
         user.setResellerpercent(0.0);
+        user.setCurrentbalance(0.0);
+        user.setCurrentbalanceblogger(0.0);
+        user.setCurrentbalanceresearcher(0.0);
         try{
             user.save();
             userid = user.getUserid();

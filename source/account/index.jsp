@@ -110,7 +110,7 @@ if (accountIndex.getUserhasresponsependings()){
                         <tr>
                             <td width="50%" align="left" valign="top">
                                 <center><a href="/blogger/index.jsp"><img src="/images/user.png" alt="" border="0" width="128" height="128"/></a></center>
-                                <div><%=com.dneero.htmlui.GreenRoundedButton.get("<a href=\"/blogger/index.jsp\"><font class=\"mediumfont\" style=\"color: #ffffff;\">People</font></a>")%></div>
+                                <div><%=com.dneero.htmlui.GreenRoundedButton.get("<a href=\"/blogger/index.jsp\"><font class=\"mediumfont\" style=\"color: #ffffff;\">Social People</font></a>")%></div>
                                 <div style="padding: 10px;">
                                     <font class="smallfont"><b>Join Conversations</b></font>
                                     <br/>

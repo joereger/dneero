@@ -22,7 +22,7 @@ import org.apache.log4j.Logger;
  */
 public class CustomercareUserList implements Serializable {
 
-    private List users;
+    private List<User> users;
     private String searchuserid="";
     private String searchfirstname="";
     private String searchlastname="";
@@ -59,19 +59,17 @@ public class CustomercareUserList implements Serializable {
         if(searchfacebookers){
             crit.add(Restrictions.gt("facebookuserid", 0));
         }
-        users = crit.addOrder(Order.desc("userid")).list();
+        users = (List<User>)crit.addOrder(Order.desc("userid")).list();
+
     }
-    
 
 
-    public List getUsers() {
-        //logger.debug("getListitems");
+    public List<User> getUsers() {
         return users;
     }
 
-    public void setUsers(List users) {
-        //logger.debug("setListitems");
-        this.users = users;
+    public void setUsers(List<User> users) {
+        this.users=users;
     }
 
     protected boolean isDefaultAscending(String sortColumn) {

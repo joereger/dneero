@@ -11,6 +11,7 @@ import com.dneero.facebook.FacebookUser;
 import com.dneero.facebook.FacebookApiWrapper;
 import com.dneero.htmlui.Pagez;
 import com.dneero.money.CurrentBalanceCalculator;
+import com.dneero.money.PendingBalanceCalculator;
 import org.apache.log4j.Logger;
 
 import java.util.*;
@@ -169,9 +170,9 @@ public class PublicSurveyList implements Serializable {
 //                    }
 //                }
                 //Load the account balance
-                CurrentBalanceCalculator cbc = new CurrentBalanceCalculator(Pagez.getUserSession().getUser());
-                currentbalanceDbl = cbc.getCurrentbalance();
-                pendingearningsDbl = cbc.getPendingearnings();
+                PendingBalanceCalculator pbc = new PendingBalanceCalculator(Pagez.getUserSession().getUser());
+                currentbalanceDbl = Pagez.getUserSession().getUser().getCurrentbalance();
+                pendingearningsDbl = pbc.getPendingearnings();
                 currentbalance = "$"+Str.formatForMoney(currentbalanceDbl);
                 pendingearnings = "$"+Str.formatForMoney(pendingearningsDbl);
 

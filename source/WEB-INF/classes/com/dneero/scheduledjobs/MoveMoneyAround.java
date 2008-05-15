@@ -38,104 +38,70 @@ public class MoveMoneyAround implements Job {
                     User user = (User) iterator.next();
                     logger.debug("===");
                     logger.debug("Start User "+user.getUserid()+" "+user.getFirstname()+" "+user.getLastname());
-                    CurrentBalanceCalculator cbc = new CurrentBalanceCalculator(user);
 
-                    //Handle Blogger Balances
-                    if (cbc.getCurrentbalanceblogger()>0){
-                        if (cbc.getCurrentbalanceblogger()>=20){
-                            logger.debug("dopay=true so calling MoveMoneyInRealWorld for user");
-                            debug.append("<br/>$"+cbc.getCurrentbalanceblogger()+" to "+user.getFirstname()+" "+user.getLastname()+" ("+user.getEmail()+")"+"\n\n");
-                            MoveMoneyInRealWorld mmirw = new MoveMoneyInRealWorld(user, cbc.getCurrentbalanceblogger(), false, true, false, false);
-                            mmirw.move();
+                    //Handle Blogger Balances, only check User obj for performance
+                    if (user.getCurrentbalanceblogger()>0){
+                        if (user.getCurrentbalanceblogger()>=20){
+                            //Now the expensive realtime calculation, just to be sure
+                            CurrentBalanceCalculator cbc = new CurrentBalanceCalculator(user);
+                            if (cbc.getCurrentbalanceblogger()>0){
+                                if (cbc.getCurrentbalanceblogger()>=20){
+                                    logger.debug("dopay=true so calling MoveMoneyInRealWorld for user");
+                                    debug.append("<br/>$"+cbc.getCurrentbalanceblogger()+" to "+user.getFirstname()+" "+user.getLastname()+" ("+user.getEmail()+")"+"\n\n");
+                                    MoveMoneyInRealWorld mmirw = new MoveMoneyInRealWorld(user, cbc.getCurrentbalanceblogger(), false, true, false, false);
+                                    mmirw.move();
+                                }
+                            }
                         }
-                    } else if (cbc.getCurrentbalanceblogger()<0){
+                    } else if (user.getCurrentbalanceblogger()<0){
                         //How does a blogger balance go less than zero?
-                        logger.error("user has negative balanceblogger... how does that happen? userid="+user.getUserid()+" cbc.getCurrentbalanceblogger()="+cbc.getCurrentbalanceblogger());
-                        EmailTemplateProcessor.sendGenericEmail("joe@joereger.com", "dNeero Currentbalanceblogger<0", "user has negative balanceblogger... how does that happen? userid="+user.getUserid()+" cbc.getCurrentbalanceblogger()="+cbc.getCurrentbalanceblogger());
+                        logger.error("user has negative balanceblogger... how does that happen? userid="+user.getUserid()+" user.getCurrentbalanceblogger()="+user.getCurrentbalanceblogger());
+                        EmailTemplateProcessor.sendGenericEmail("joe@joereger.com", "dNeero Currentbalanceblogger<0", "user has negative balanceblogger... how does that happen? userid="+user.getUserid()+" user.getCurrentbalanceblogger()="+user.getCurrentbalanceblogger());
                     }
 
-                    //Handle Researcher Balances
-                    if (cbc.getCurrentbalanceresearcher()>0){
+                    //Handle Researcher Balances, only looking at User first for performance
+                    if (user.getCurrentbalanceresearcher()>0){
                         //Don't pay researchers if they have any open surveys or closed surveys where we can still collect impression revenue
                         boolean dopayresearcher = true;
                         if (user.getResearcherid()>0){
-                            Calendar closeDateForSurveysNoLongerCollectingImpressionRevenue = Time.xDaysAgoEnd(Calendar.getInstance(), SurveyMoneyStatus.DAYSAFTERCLOSEOFSURVEYWECOLLECTFORIMPRESSIONS);
-                            logger.debug("researcherid="+user.getResearcherid());
-                            logger.debug("closeDateForSurveysNoLongerCollectingImpressionRevenue="+Time.dateformatfordb(closeDateForSurveysNoLongerCollectingImpressionRevenue));
-                            List surveys = HibernateUtil.getSession().createQuery("from Survey where researcherid='"+user.getResearcherid()+"' "+
-                                                                                  " and ("+
-                                                                                  "status='"+Survey.STATUS_OPEN+"'"+
-                                                                                  "or status='"+Survey.STATUS_WAITINGFORFUNDS+"'"+
-                                                                                  "or status='"+Survey.STATUS_WAITINGFORSTARTDATE+"'"+
-                                                                                  "or status='"+Survey.STATUS_DRAFT+"'"+
-                                                                                  "or (status='"+Survey.STATUS_CLOSED+"' and enddate>'"+Time.dateformatfordb(closeDateForSurveysNoLongerCollectingImpressionRevenue)+"')" +
-                                                                                  ")").list();
-                            if (surveys.size()>0){
-                                logger.debug("setting dopay=false because surveys were found to be active or closed but not ending before "+Time.dateformatfordb(closeDateForSurveysNoLongerCollectingImpressionRevenue));
-                                dopayresearcher=false;
+                            //Now the expensive realtime calculation, just to be sure
+                            CurrentBalanceCalculator cbc = new CurrentBalanceCalculator(user);
+                            if (cbc.getCurrentbalanceresearcher()>0){
+                                Calendar closeDateForSurveysNoLongerCollectingImpressionRevenue = Time.xDaysAgoEnd(Calendar.getInstance(), SurveyMoneyStatus.DAYSAFTERCLOSEOFSURVEYWECOLLECTFORIMPRESSIONS);
+                                logger.debug("researcherid="+user.getResearcherid());
+                                logger.debug("closeDateForSurveysNoLongerCollectingImpressionRevenue="+Time.dateformatfordb(closeDateForSurveysNoLongerCollectingImpressionRevenue));
+                                List surveys = HibernateUtil.getSession().createQuery("from Survey where researcherid='"+user.getResearcherid()+"' "+
+                                                                                      " and ("+
+                                                                                      "status='"+Survey.STATUS_OPEN+"'"+
+                                                                                      "or status='"+Survey.STATUS_WAITINGFORFUNDS+"'"+
+                                                                                      "or status='"+Survey.STATUS_WAITINGFORSTARTDATE+"'"+
+                                                                                      "or status='"+Survey.STATUS_DRAFT+"'"+
+                                                                                      "or (status='"+Survey.STATUS_CLOSED+"' and enddate>'"+Time.dateformatfordb(closeDateForSurveysNoLongerCollectingImpressionRevenue)+"')" +
+                                                                                      ")").list();
+                                if (surveys.size()>0){
+                                    logger.debug("setting dopay=false because surveys were found to be active or closed but not ending before "+Time.dateformatfordb(closeDateForSurveysNoLongerCollectingImpressionRevenue));
+                                    dopayresearcher=false;
+                                }
+                                if (dopayresearcher){
+                                    logger.debug("dopayresearcher=true so calling MoveMoneyInRealWorld for user");
+                                    debug.append("<br/>$"+cbc.getCurrentbalanceresearcher()+" to "+user.getFirstname()+" "+user.getLastname()+" ("+user.getEmail()+")"+"\n\n");
+                                    MoveMoneyInRealWorld mmirw = new MoveMoneyInRealWorld(user, cbc.getCurrentbalanceresearcher(), true, false, false, false);
+                                    mmirw.move();
+                                }
                             }
-                            if (dopayresearcher){
-                                logger.debug("dopayresearcher=true so calling MoveMoneyInRealWorld for user");
-                                debug.append("<br/>$"+cbc.getCurrentbalanceresearcher()+" to "+user.getFirstname()+" "+user.getLastname()+" ("+user.getEmail()+")"+"\n\n");
+                        }
+                    } else if (user.getCurrentbalanceresearcher()<0){
+                        //Now the expensive realtime calculation, just to be sure
+                            CurrentBalanceCalculator cbc = new CurrentBalanceCalculator(user);
+                            if (cbc.getCurrentbalanceresearcher()<0){
+                                //Need to collect from a researcher
+                                logger.debug("currentbalance<0 so calling MoveMoneyInRealWorld for user");
+                                debug.append("<br/>$"+cbc.getCurrentbalanceresearcher()+" from "+user.getFirstname()+" "+user.getLastname()+" ("+user.getEmail()+")"+"\n\n");
                                 MoveMoneyInRealWorld mmirw = new MoveMoneyInRealWorld(user, cbc.getCurrentbalanceresearcher(), true, false, false, false);
                                 mmirw.move();
                             }
-                        }
-                    } else if (cbc.getCurrentbalanceresearcher()<0){
-                        //Need to collect from a researcher
-                        logger.debug("currentbalance<0 so calling MoveMoneyInRealWorld for user");
-                        debug.append("<br/>$"+cbc.getCurrentbalanceresearcher()+" from "+user.getFirstname()+" "+user.getLastname()+" ("+user.getEmail()+")"+"\n\n");
-                        MoveMoneyInRealWorld mmirw = new MoveMoneyInRealWorld(user, cbc.getCurrentbalanceresearcher(), true, false, false, false);
-                        mmirw.move();
                     }
 
-
-
-
-
-
-//                    double currentbalance = cbc.getCurrentbalance();
-//                    if (currentbalance>0){
-//                        boolean dopay = true;
-//                        //Don't pay researchers if they have any open surveys or closed surveys where we can still collect impression revenue
-//                        if (user.getResearcherid()>0){
-//                            Calendar closeDateForSurveysNoLongerCollectingImpressionRevenue = Time.xDaysAgoEnd(Calendar.getInstance(), SurveyMoneyStatus.DAYSAFTERCLOSEOFSURVEYWECOLLECTFORIMPRESSIONS);
-//                            logger.debug("researcherid="+user.getResearcherid());
-//                            logger.debug("closeDateForSurveysNoLongerCollectingImpressionRevenue="+Time.dateformatfordb(closeDateForSurveysNoLongerCollectingImpressionRevenue));
-//                            List surveys = HibernateUtil.getSession().createQuery("from Survey where researcherid='"+user.getResearcherid()+"' "+
-//                                                                                  " and ("+
-//                                                                                  "status='"+Survey.STATUS_OPEN+"'"+
-//                                                                                  "or status='"+Survey.STATUS_WAITINGFORFUNDS+"'"+
-//                                                                                  "or status='"+Survey.STATUS_WAITINGFORSTARTDATE+"'"+
-//                                                                                  "or status='"+Survey.STATUS_DRAFT+"'"+
-//                                                                                  "or (status='"+Survey.STATUS_CLOSED+"' and enddate>'"+Time.dateformatfordb(closeDateForSurveysNoLongerCollectingImpressionRevenue)+"')" +
-//                                                                                  ")").list();
-//                            if (surveys.size()>0){
-//                                logger.debug("setting dopay=false because surveys were found to be active or closed but not ending before "+Time.dateformatfordb(closeDateForSurveysNoLongerCollectingImpressionRevenue));
-//                                dopay=false;
-//                            }
-//                        }
-//                        //Don't pay anything less than $20
-//                        if (currentbalance<20){
-//                            logger.debug("setting dopay=false because less than $20");
-//                            dopay=false;
-//                        }
-//
-//                        //Go pay
-//                        if (dopay){
-//                            logger.debug("dopay=true so calling MoveMoneyInRealWorld for user");
-//                            debug.append("<br/>$"+currentbalance+" to "+user.getFirstname()+" "+user.getLastname()+" ("+user.getEmail()+")"+"\n\n");
-//                            MoveMoneyInRealWorld mmirw = new MoveMoneyInRealWorld(user, currentbalance);
-//                            mmirw.move();
-//                        }
-//
-//                    } else if (currentbalance<0){
-//                        //Need to collect from somebody
-//                        logger.debug("currentbalance<0 so calling MoveMoneyInRealWorld for user");
-//                        debug.append("<br/>$"+currentbalance+" from "+user.getFirstname()+" "+user.getLastname()+" ("+user.getEmail()+")"+"\n\n");
-//                        MoveMoneyInRealWorld mmirw = new MoveMoneyInRealWorld(user, currentbalance);
-//                        mmirw.move();
-//                    }
                     logger.debug("End User "+user.getUserid()+" "+user.getFirstname()+" "+user.getLastname());
                     logger.debug("===");
                 }

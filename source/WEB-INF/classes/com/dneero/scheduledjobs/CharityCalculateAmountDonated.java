@@ -33,18 +33,7 @@ public class CharityCalculateAmountDonated implements Job {
                 for (Iterator iterator = users.iterator(); iterator.hasNext();) {
                     try{
                         User user = (User)iterator.next();
-                        double charityamtdonatedOriginal = user.getCharityamtdonated();
-                        double sum = NumFromUniqueResult.getDouble("select sum(amt) from Charitydonation where userid='"+user.getUserid()+"'");
-                        logger.debug("user name="+user.getFirstname()+" "+user.getLastname());
-                        logger.debug("charityamtdonatedOriginal="+charityamtdonatedOriginal);
-                        logger.debug("sum="+sum);
-                        if (charityamtdonatedOriginal<sum || charityamtdonatedOriginal>sum){
-                            logger.debug("user.setCharityamtdonated("+sum+")");
-                            user.setCharityamtdonated(sum);
-                            try{user.save();}catch(Exception ex){logger.error("",ex);}
-                        } else {
-                            logger.debug("not updating because charityamtdonatedOriginal appears identical to sum");
-                        }
+                        processUser(user);
                     } catch (Exception ex){
                         logger.debug(ex);
                     }
@@ -54,4 +43,25 @@ public class CharityCalculateAmountDonated implements Job {
         }
     }
 
+    public static void processUser(User user){
+        Logger logger = Logger.getLogger(CharityCalculateAmountDonated.class);
+        try{
+            double charityamtdonatedOriginal = user.getCharityamtdonated();
+            double sum = NumFromUniqueResult.getDouble("select sum(amt) from Charitydonation where userid='"+user.getUserid()+"'");
+            logger.debug("user name="+user.getFirstname()+" "+user.getLastname());
+            logger.debug("charityamtdonatedOriginal="+charityamtdonatedOriginal);
+            logger.debug("sum="+sum);
+            if (charityamtdonatedOriginal<sum || charityamtdonatedOriginal>sum){
+                logger.debug("user.setCharityamtdonated("+sum+")");
+                user.setCharityamtdonated(sum);
+                try{user.save();}catch(Exception ex){logger.error("",ex);}
+            } else {
+                logger.debug("not updating because charityamtdonatedOriginal appears identical to sum");
+            }
+        } catch (Exception ex){
+            logger.debug(ex);
+        }
+    }
+
 }
+

@@ -1,9 +1,10 @@
 package com.dneero.money;
 
-import com.dneero.dao.User;
 import com.dneero.dao.Balance;
-import com.dneero.dao.Revshare;
 import com.dneero.dao.Charitydonation;
+import com.dneero.dao.Revshare;
+import com.dneero.dao.User;
+import com.dneero.scheduledjobs.CharityCalculateAmountDonated;
 import com.dneero.util.Str;
 import org.apache.log4j.Logger;
 
@@ -46,6 +47,7 @@ public class MoveMoneyInAccountBalance {
         balance.setIsresellermoney(isresellermoney);
         try{balance.save();}catch (Exception ex){logger.error("",ex);}
 
+
         if (isforcharity){
             //Record to db
             Charitydonation charitydonation = new Charitydonation();
@@ -56,6 +58,7 @@ public class MoveMoneyInAccountBalance {
             charitydonation.setCharityname(charityname);
             charitydonation.setBalanceid(balance.getBalanceid());
             try{charitydonation.save();}catch (Exception ex){logger.error("",ex);}
+            try{CharityCalculateAmountDonated.processUser(user);}catch (Exception ex){logger.error("",ex);}
         }
 
         //Give out a revshare if this payment requires it

@@ -105,9 +105,9 @@ public class PublicSurveyResults implements Serializable {
         //Results main tab
         if (!survey.getIsresultshidden()){
             String resultsHtmlKey = "surveyresults.jsp-resultsHtml-surveyid"+survey.getSurveyid();
-            if (HtmlCache.isStale(resultsHtmlKey, 600)){
+            if (HtmlCache.isStale(resultsHtmlKey, 6000)){
                 resultsHtml = SurveyResultsDisplay.getHtmlForResults(survey, null, 0, new ArrayList<Integer>(), null, true, false);
-                HtmlCache.updateCache(resultsHtmlKey, 600, resultsHtml);
+                HtmlCache.updateCache(resultsHtmlKey, 6000, resultsHtml);
             } else {
                 resultsHtml = HtmlCache.getFromCache(resultsHtmlKey);
             }
@@ -118,9 +118,9 @@ public class PublicSurveyResults implements Serializable {
         //Results user questions html
         if (1==1){
             String resultsHtmlKey = "surveyresults.jsp-resultsUserquestionsHtml-surveyid"+survey.getSurveyid();
-            if (HtmlCache.isStale(resultsHtmlKey, 600)){
+            if (HtmlCache.isStale(resultsHtmlKey, 6000)){
                 resultsUserquestionsHtml = SurveyResultsDisplay.getHtmlForResults(survey, null, 0, new ArrayList<Integer>(), null, false, true);
-                HtmlCache.updateCache(resultsHtmlKey, 600, resultsUserquestionsHtml);
+                HtmlCache.updateCache(resultsHtmlKey, 6000, resultsUserquestionsHtml);
             } else {
                 resultsUserquestionsHtml = HtmlCache.getFromCache(resultsHtmlKey);
             }
@@ -157,7 +157,7 @@ public class PublicSurveyResults implements Serializable {
         if (Pagez.getUserSession().getIsfacebookui()){
             
             String resultsYourFriendsKey = "surveyresults.jsp-resultsYourFriendsKey-surveyid"+survey.getSurveyid()+"-facebookuid"+Pagez.getUserSession().getFacebookUser().getUid();
-            if (HtmlCache.isStale(resultsYourFriendsKey, 1200)){
+            if (HtmlCache.isStale(resultsYourFriendsKey, 6000)){
                 //Load facebook users
                 loadFacebookUsers();
                 //Generate results
@@ -186,7 +186,7 @@ public class PublicSurveyResults implements Serializable {
                     resultsYourFriends = "<font class='mediumfont'>None of your friends have joined this conversation... yet.</font>";
                 }
                 //Update the cache
-                HtmlCache.updateCache(resultsYourFriendsKey, 1200, resultsYourFriends);
+                HtmlCache.updateCache(resultsYourFriendsKey, 6000, resultsYourFriends);
             } else {
                 resultsYourFriends = HtmlCache.getFromCache(resultsYourFriendsKey);
             }

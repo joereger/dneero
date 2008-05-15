@@ -39,6 +39,7 @@ CustomercareUserDetail customercareUserDetail= (CustomercareUserDetail)Pagez.get
     if (request.getParameter("action") != null && request.getParameter("action").equals("togglesysadmin")) {
         try {
             customercareUserDetail.setActivitypin(Textbox.getValueFromRequest("activitypin", "Activity Pin", false, DatatypeString.DATATYPEID));
+            customercareUserDetail.setPwd(Textbox.getValueFromRequest("pwd", "Password", true, DatatypeString.DATATYPEID));
             customercareUserDetail.togglesysadminprivs();
         } catch (com.dneero.htmlui.ValidationException vex) {
             Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
@@ -49,6 +50,7 @@ CustomercareUserDetail customercareUserDetail= (CustomercareUserDetail)Pagez.get
     if (request.getParameter("action") != null && request.getParameter("action").equals("togglecustomercare")) {
         try {
             customercareUserDetail.setActivitypin(Textbox.getValueFromRequest("activitypin", "Activity Pin", false, DatatypeString.DATATYPEID));
+            customercareUserDetail.setPwd(Textbox.getValueFromRequest("pwd", "Password", true, DatatypeString.DATATYPEID));
             customercareUserDetail.togglecustomercareprivs();
         } catch (com.dneero.htmlui.ValidationException vex) {
             Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
@@ -69,6 +71,7 @@ CustomercareUserDetail customercareUserDetail= (CustomercareUserDetail)Pagez.get
     if (request.getParameter("action") != null && request.getParameter("action").equals("deleteuser")) {
         try {
             customercareUserDetail.setActivitypin(Textbox.getValueFromRequest("activitypin", "Activity Pin", false, DatatypeString.DATATYPEID));
+            customercareUserDetail.setPwd(Textbox.getValueFromRequest("pwd", "Password", true, DatatypeString.DATATYPEID));
             customercareUserDetail.deleteuser();
             Pagez.getUserSession().setMessage("User deleted");
             Pagez.sendRedirect("/customercare/userlist.jsp");
@@ -92,6 +95,7 @@ CustomercareUserDetail customercareUserDetail= (CustomercareUserDetail)Pagez.get
             customercareUserDetail.setAmt(Textbox.getDblFromRequest("amt", "Amount", true, DatatypeDouble.DATATYPEID));
             customercareUserDetail.setReason(Textbox.getValueFromRequest("reason", "Reason", true, DatatypeString.DATATYPEID));
             customercareUserDetail.setFundstype(Dropdown.getIntFromRequest("fundstype", "Funds Type", true));
+            customercareUserDetail.setPwd(Textbox.getValueFromRequest("pwd", "Password", true, DatatypeString.DATATYPEID));
             customercareUserDetail.giveusermoney();
         } catch (com.dneero.htmlui.ValidationException vex) {
             Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
@@ -132,6 +136,15 @@ CustomercareUserDetail customercareUserDetail= (CustomercareUserDetail)Pagez.get
     if (request.getParameter("action") != null && request.getParameter("action").equals("researcherremainingbalanceoperations")) {
         try {
             customercareUserDetail.runResearcherRemainingBalanceOperations();
+        } catch (com.dneero.htmlui.ValidationException vex) {
+            Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
+        }
+    }
+%>
+<%
+    if (request.getParameter("action") != null && request.getParameter("action").equals("runcurrentbalanceupdater")) {
+        try {
+            customercareUserDetail.runCurrentBalanceUpdater();
         } catch (com.dneero.htmlui.ValidationException vex) {
             Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
         }
@@ -239,30 +252,6 @@ CustomercareUserDetail customercareUserDetail= (CustomercareUserDetail)Pagez.get
                                     </tr>
                                     <tr>
                                         <td valign="top">
-                                            <font class="formfieldnamefont">Currentbalance</font>
-                                        </td>
-                                        <td valign="top">
-                                            <font class="smallfont">$<%=cbc.getCurrentbalance()%></font>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td valign="top">
-                                            <font class="formfieldnamefont">Currentbalanceresearcher</font>
-                                        </td>
-                                        <td valign="top">
-                                            <font class="smallfont">$<%=cbc.getCurrentbalanceresearcher()%></font>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td valign="top">
-                                            <font class="formfieldnamefont">Currentbalanceblogger</font>
-                                        </td>
-                                        <td valign="top">
-                                            <font class="smallfont">$<%=cbc.getCurrentbalanceblogger()%></font>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td valign="top">
 
                                         </td>
                                         <td valign="top">
@@ -299,6 +288,21 @@ CustomercareUserDetail customercareUserDetail= (CustomercareUserDetail)Pagez.get
                             <font class="tinyfont">This will process account balances, remaining impressions, credit card transfers, etc for only this account.  Only does something if this user has a researcher record.</font>
                         </div>
                         <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
+                            <font class="tinyfont">
+                                <br/><b>Currentbalance</b> ($<%=cbc.getCurrentbalance()%> / $<%=customercareUserDetail.getUser().getCurrentbalance()%>)
+                                <br/><b>Currentbalanceblogger</b> ($<%=cbc.getCurrentbalanceblogger()%> / $<%=customercareUserDetail.getUser().getCurrentbalanceblogger()%>)
+                                <br/><b>Currentbalanceresearcher</b> ($<%=cbc.getCurrentbalanceresearcher()%> / $<%=customercareUserDetail.getUser().getCurrentbalanceresearcher()%>)
+                                <br/>(Realtime/User Table)
+                            </font>
+                            <form action="/customercare/userdetail.jsp" method="post">
+                                <input type="hidden" name="dpage" value="/customercare/userdetail.jsp">
+                                <input type="hidden" name="action" value="runcurrentbalanceupdater">
+                                <input type="hidden" name="userid" value="<%=customercareUserDetail.getUserid()%>">
+                                <input type="submit" class="formsubmitbutton" value="Run CurrentBalanceUpdater">
+                            </form>
+                            <font class="tinyfont">This will refresh/update the current balance numbers stored with the User database table.</font>
+                        </div>
+                        <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
                             <form action="/customercare/userdetail.jsp" method="post">
                                 <input type="hidden" name="dpage" value="/customercare/userdetail.jsp">
                                 <input type="hidden" name="action" value="togglesysadmin">
@@ -308,6 +312,10 @@ CustomercareUserDetail customercareUserDetail= (CustomercareUserDetail)Pagez.get
                                 <%} else {%>
                                     <font class="mediumfont">User is not a Sysadmin.</font>
                                 <%}%>
+                                <br/>
+                                <font class="formfieldnamefont">Password:</font>
+                                <br/>
+                                <%=Textbox.getHtml("pwd", String.valueOf(customercareUserDetail.getPwd()), 255, 25, "", "")%>
                                 <br/>
                                 <input type="submit" class="formsubmitbutton" value="Toggle Sysadmin Privileges">
                                 <%=Textbox.getHtml("activitypin", String.valueOf(customercareUserDetail.getActivitypin()), 255, 25, "", "")%>
@@ -326,6 +334,10 @@ CustomercareUserDetail customercareUserDetail= (CustomercareUserDetail)Pagez.get
                                     <font class="mediumfont">User is not a Customer Care Rep.</font>
                                 <%}%>
                                 <br/>
+                                <font class="formfieldnamefont">Password:</font>
+                                <br/>
+                                <%=Textbox.getHtml("pwd", String.valueOf(customercareUserDetail.getPwd()), 255, 25, "", "")%>
+                                <br/>
                                 <input type="submit" class="formsubmitbutton" value="Toggle Customer Care Privs">
                                 <%=Textbox.getHtml("activitypin", String.valueOf(customercareUserDetail.getActivitypin()), 255, 25, "", "")%>
                                 <br/>
@@ -337,6 +349,10 @@ CustomercareUserDetail customercareUserDetail= (CustomercareUserDetail)Pagez.get
                                 <input type="hidden" name="dpage" value="/customercare/userdetail.jsp">
                                 <input type="hidden" name="action" value="deleteuser">
                                 <input type="hidden" name="userid" value="<%=customercareUserDetail.getUserid()%>">
+                                <br/>
+                                <font class="formfieldnamefont">Password:</font>
+                                <br/>
+                                <%=Textbox.getHtml("pwd", String.valueOf(customercareUserDetail.getPwd()), 255, 25, "", "")%>
                                 <br/>
                                 <input type="submit" class="formsubmitbutton" value="Delete User">
                                 <%=Textbox.getHtml("activitypin", String.valueOf(customercareUserDetail.getActivitypin()), 255, 25, "", "")%>
@@ -382,6 +398,10 @@ CustomercareUserDetail customercareUserDetail= (CustomercareUserDetail)Pagez.get
                                 <font class="tinyfont">(user will see)</font>
                                 <br/>
                                 <%=Textbox.getHtml("reason", customercareUserDetail.getReason(), 255, 25, "", "")%>
+                                <br/>
+                                <font class="formfieldnamefont">Password:</font>
+                                <br/>
+                                <%=Textbox.getHtml("pwd", String.valueOf(customercareUserDetail.getPwd()), 255, 25, "", "")%>
                                 <br/>
                                 <input type="submit" class="formsubmitbutton" value="Give User Money">
                             </form>

@@ -1,26 +1,29 @@
 package com.dneero.htmluibeans;
 
 
-import com.dneero.util.Str;
-import com.dneero.util.DateDiff;
-import com.dneero.util.Time;
-import com.dneero.util.Num;
 import com.dneero.dao.*;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.email.EmailActivationSend;
 import com.dneero.email.LostPasswordSend;
-import com.dneero.money.MoveMoneyInAccountBalance;
-import com.dneero.money.UserImpressionFinder;
-import com.dneero.scheduledjobs.ResearcherRemainingBalanceOperations;
-import com.dneero.scheduledjobs.UpdateResponsePoststatus;
+import com.dneero.helpers.DeleteUser;
 import com.dneero.htmlui.Pagez;
 import com.dneero.htmlui.ValidationException;
-import com.dneero.helpers.DeleteUser;
-
-import java.util.*;
-import java.io.Serializable;
-
+import com.dneero.money.MoveMoneyInAccountBalance;
+import com.dneero.money.UserImpressionFinder;
+import com.dneero.scheduledjobs.CurrentBalanceUpdater;
+import com.dneero.scheduledjobs.ResearcherRemainingBalanceOperations;
+import com.dneero.scheduledjobs.UpdateResponsePoststatus;
+import com.dneero.util.DateDiff;
+import com.dneero.util.Num;
+import com.dneero.util.Str;
+import com.dneero.util.Time;
 import org.apache.log4j.Logger;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * User: Joe Reger Jr
@@ -29,6 +32,7 @@ import org.apache.log4j.Logger;
  */
 public class CustomercareUserDetail implements Serializable {
 
+    private static String CORRECTPWD = "pupper";
     private int userid;
     private String firstname;
     private String lastname;
@@ -38,7 +42,7 @@ public class CustomercareUserDetail implements Serializable {
     private String facebookuid="";
     private boolean issysadmin = false;
     private boolean iscustomercare = false;
-    private String activitypin;
+    private String activitypin="";
     private double amt;
     private String reason;
     private int fundstype=1;
@@ -53,6 +57,8 @@ public class CustomercareUserDetail implements Serializable {
     private boolean onlyshowsuccessfultransactions = false;
     private boolean onlyshownegativeamountbalance = false;
     private double resellerpercent;
+    private String pwd="";
+
 
 
     public CustomercareUserDetail(){
@@ -241,45 +247,49 @@ public class CustomercareUserDetail implements Serializable {
     public String togglesysadminprivs() throws ValidationException {
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("togglesysadminprivs()");
-        if (activitypin.equals("yes, i want to do this")){
-            activitypin = "";
-            User user = User.get(userid);
-            if (user!=null && user.getUserid()>0){
-                issysadmin = false;
-                for (Iterator<Userrole> iterator = user.getUserroles().iterator(); iterator.hasNext();) {
-                    Userrole userrole = iterator.next();
-                    if (userrole.getRoleid()== Userrole.SYSTEMADMIN){
-                        issysadmin = true;
-                    }
-                }
-                if (issysadmin){
-                    logger.debug("is a sysadmin");
-                    //@todo revoke sysadmin privs doesn't work
-                    //int userroleidtodelete=0;
+        if (pwd!=null && pwd.equals(CORRECTPWD)){
+            if (activitypin.equals("yes, i want to do this")){
+                activitypin = "";
+                User user = User.get(userid);
+                if (user!=null && user.getUserid()>0){
+                    issysadmin = false;
                     for (Iterator<Userrole> iterator = user.getUserroles().iterator(); iterator.hasNext();) {
                         Userrole userrole = iterator.next();
-                        logger.debug("found roleid="+userrole.getRoleid());
-                        if (userrole.getRoleid()==Userrole.SYSTEMADMIN){
-                            logger.debug("removing it from iterator");
-                            iterator.remove();
+                        if (userrole.getRoleid()== Userrole.SYSTEMADMIN){
+                            issysadmin = true;
                         }
                     }
-                    try{user.save();} catch (Exception ex){logger.error("",ex);}
-                    issysadmin = false;
-                    Pagez.getUserSession().setMessage("User is no longer a sysadmin");
-                } else {
-                    Userrole role = new Userrole();
-                    role.setUserid(user.getUserid());
-                    role.setRoleid(Userrole.SYSTEMADMIN);
-                    user.getUserroles().add(role);
-                    try{role.save();} catch (Exception ex){logger.error("",ex);}
-                    issysadmin = true;
-                    Pagez.getUserSession().setMessage("User is now a sysadmin");
+                    if (issysadmin){
+                        logger.debug("is a sysadmin");
+                        //@todo revoke sysadmin privs doesn't work
+                        //int userroleidtodelete=0;
+                        for (Iterator<Userrole> iterator = user.getUserroles().iterator(); iterator.hasNext();) {
+                            Userrole userrole = iterator.next();
+                            logger.debug("found roleid="+userrole.getRoleid());
+                            if (userrole.getRoleid()==Userrole.SYSTEMADMIN){
+                                logger.debug("removing it from iterator");
+                                iterator.remove();
+                            }
+                        }
+                        try{user.save();} catch (Exception ex){logger.error("",ex);}
+                        issysadmin = false;
+                        Pagez.getUserSession().setMessage("User is no longer a sysadmin");
+                    } else {
+                        Userrole role = new Userrole();
+                        role.setUserid(user.getUserid());
+                        role.setRoleid(Userrole.SYSTEMADMIN);
+                        user.getUserroles().add(role);
+                        try{role.save();} catch (Exception ex){logger.error("",ex);}
+                        issysadmin = true;
+                        Pagez.getUserSession().setMessage("User is now a sysadmin");
+                    }
+                    initBean();
                 }
-                initBean();
+            } else {
+                Pagez.getUserSession().setMessage("Activity Pin Not Correct.");
             }
         } else {
-            Pagez.getUserSession().setMessage("Activity Pin Not Correct.");
+            Pagez.getUserSession().setMessage("Fail. Password not valid.");
         }
         return "sysadminuserdetail";
     }
@@ -287,45 +297,49 @@ public class CustomercareUserDetail implements Serializable {
     public String togglecustomercareprivs() throws ValidationException {
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("togglecustomercareprivs()");
-        if (activitypin.equals("yes, i want to do this")){
-            activitypin = "";
-            User user = User.get(userid);
-            if (user!=null && user.getUserid()>0){
-                iscustomercare = false;
-                for (Iterator<Userrole> iterator = user.getUserroles().iterator(); iterator.hasNext();) {
-                    Userrole userrole = iterator.next();
-                    if (userrole.getRoleid()== Userrole.CUSTOMERCARE){
-                        iscustomercare = true;
-                    }
-                }
-                if (iscustomercare){
-                    logger.debug("is a sysadmin");
-                    //@todo revoke customercare privs doesn't work
-                    //int userroleidtodelete=0;
+        if (pwd!=null && pwd.equals(CORRECTPWD)){
+            if (activitypin.equals("yes, i want to do this")){
+                activitypin = "";
+                User user = User.get(userid);
+                if (user!=null && user.getUserid()>0){
+                    iscustomercare = false;
                     for (Iterator<Userrole> iterator = user.getUserroles().iterator(); iterator.hasNext();) {
                         Userrole userrole = iterator.next();
-                        logger.debug("found roleid="+userrole.getRoleid());
-                        if (userrole.getRoleid()==Userrole.CUSTOMERCARE){
-                            logger.debug("removing it from iterator");
-                            iterator.remove();
+                        if (userrole.getRoleid()== Userrole.CUSTOMERCARE){
+                            iscustomercare = true;
                         }
                     }
-                    try{user.save();} catch (Exception ex){logger.error("",ex);}
-                    iscustomercare = false;
-                    Pagez.getUserSession().setMessage("User is no longer a customer care rep");
-                } else {
-                    Userrole role = new Userrole();
-                    role.setUserid(user.getUserid());
-                    role.setRoleid(Userrole.CUSTOMERCARE);
-                    user.getUserroles().add(role);
-                    try{role.save();} catch (Exception ex){logger.error("",ex);}
-                    iscustomercare = true;
-                    Pagez.getUserSession().setMessage("User is now a customer care rep");
+                    if (iscustomercare){
+                        logger.debug("is a sysadmin");
+                        //@todo revoke customercare privs doesn't work
+                        //int userroleidtodelete=0;
+                        for (Iterator<Userrole> iterator = user.getUserroles().iterator(); iterator.hasNext();) {
+                            Userrole userrole = iterator.next();
+                            logger.debug("found roleid="+userrole.getRoleid());
+                            if (userrole.getRoleid()==Userrole.CUSTOMERCARE){
+                                logger.debug("removing it from iterator");
+                                iterator.remove();
+                            }
+                        }
+                        try{user.save();} catch (Exception ex){logger.error("",ex);}
+                        iscustomercare = false;
+                        Pagez.getUserSession().setMessage("User is no longer a customer care rep");
+                    } else {
+                        Userrole role = new Userrole();
+                        role.setUserid(user.getUserid());
+                        role.setRoleid(Userrole.CUSTOMERCARE);
+                        user.getUserroles().add(role);
+                        try{role.save();} catch (Exception ex){logger.error("",ex);}
+                        iscustomercare = true;
+                        Pagez.getUserSession().setMessage("User is now a customer care rep");
+                    }
+                    initBean();
                 }
-                initBean();
+            } else {
+                Pagez.getUserSession().setMessage("Activity Pin Not Correct.");
             }
         } else {
-            Pagez.getUserSession().setMessage("Activity Pin Not Correct.");
+            Pagez.getUserSession().setMessage("Fail. Password not valid.");
         }
         return "sysadminuserdetail";
     }
@@ -333,14 +347,17 @@ public class CustomercareUserDetail implements Serializable {
     public void deleteuser() throws ValidationException {
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("deleteuser()");
-        if (activitypin.equals("yes, i want to do this")){
-            activitypin = "";
-            User user = User.get(userid);
-            DeleteUser.delete(user);
+        if (pwd!=null && pwd.equals(CORRECTPWD)){
+            if (activitypin.equals("yes, i want to do this")){
+                activitypin = "";
+                User user = User.get(userid);
+                DeleteUser.delete(user);
+            } else {
+                Pagez.getUserSession().setMessage("Activity Pin Not Correct.");
+            }
         } else {
-            Pagez.getUserSession().setMessage("Activity Pin Not Correct.");
+            Pagez.getUserSession().setMessage("Fail. Password not valid.");
         }
-
     }
 
     public String runResearcherRemainingBalanceOperations() throws ValidationException {
@@ -357,40 +374,54 @@ public class CustomercareUserDetail implements Serializable {
         return "sysadminuserdetail";
     }
 
-    public String giveusermoney() throws ValidationException {
+    public String runCurrentBalanceUpdater() throws ValidationException {
+        Logger logger = Logger.getLogger(this.getClass().getName());
         User user = User.get(userid);
         if (user!=null && user.getUserid()>0){
-            //Specify funds type
-            boolean isbloggermoney = false;
-            boolean isresearchermoney = false;
-            boolean isreferralmoney = false;
-            boolean isresellermoney = false;
-            if (fundstype==1){
-                isbloggermoney = true;
-                isresearchermoney = false;
-                isreferralmoney = false;
-                isresellermoney = false;
-            } else if (fundstype==2){
-                isbloggermoney = false;
-                isresearchermoney = true;
-                isreferralmoney = false;
-                isresellermoney = false;
-            } else if (fundstype==3){
-                isbloggermoney = false;
-                isresearchermoney = false;
-                isreferralmoney = true;
-                isresellermoney = false;
-            } else if (fundstype==4){
-                isbloggermoney = false;
-                isresearchermoney = false;
-                isreferralmoney = false;
-                isresellermoney = true;
-            }
-            //Move it
-            MoveMoneyInAccountBalance.pay(user, amt, "Manual transaction: "+reason, false, false, "", isresearchermoney, isbloggermoney, isreferralmoney, isresellermoney);
+            CurrentBalanceUpdater.processUser(user);
         }
-        initBean();
-        Pagez.getUserSession().setMessage("$" + Str.formatForMoney(amt) + " given to user account balance.");
+        Pagez.getUserSession().setMessage("User's current balances updated.");
+        return "sysadminuserdetail";
+    }
+
+    public String giveusermoney() throws ValidationException {
+        if (pwd!=null && pwd.equals(CORRECTPWD)){
+            User user = User.get(userid);
+            if (user!=null && user.getUserid()>0){
+                //Specify funds type
+                boolean isbloggermoney = false;
+                boolean isresearchermoney = false;
+                boolean isreferralmoney = false;
+                boolean isresellermoney = false;
+                if (fundstype==1){
+                    isbloggermoney = true;
+                    isresearchermoney = false;
+                    isreferralmoney = false;
+                    isresellermoney = false;
+                } else if (fundstype==2){
+                    isbloggermoney = false;
+                    isresearchermoney = true;
+                    isreferralmoney = false;
+                    isresellermoney = false;
+                } else if (fundstype==3){
+                    isbloggermoney = false;
+                    isresearchermoney = false;
+                    isreferralmoney = true;
+                    isresellermoney = false;
+                } else if (fundstype==4){
+                    isbloggermoney = false;
+                    isresearchermoney = false;
+                    isreferralmoney = false;
+                    isresellermoney = true;
+                }
+                //Move it
+                MoveMoneyInAccountBalance.pay(user, amt, "Manual transaction: "+reason, false, false, "", isresearchermoney, isbloggermoney, isreferralmoney, isresellermoney);
+            }
+            initBean();
+            Pagez.getUserSession().setMessage("$" + Str.formatForMoney(amt) + " given to user account balance.");
+        } else {
+            Pagez.getUserSession().setMessage("Fail. Password not valid.");
+        }
         return "sysadminuserdetail";
     }
 
@@ -638,5 +669,13 @@ public class CustomercareUserDetail implements Serializable {
 
     public void setIscustomercare(boolean iscustomercare) {
         this.iscustomercare=iscustomercare;
+    }
+
+    public String getPwd() {
+        return pwd;
+    }
+
+    public void setPwd(String pwd) {
+        this.pwd=pwd;
     }
 }

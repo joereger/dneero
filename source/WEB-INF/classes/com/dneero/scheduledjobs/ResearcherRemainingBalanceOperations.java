@@ -60,8 +60,6 @@ public class ResearcherRemainingBalanceOperations implements Job {
             User user = User.get(researcher.getUserid());
             //Collect data on this researcher
             List surveys = HibernateUtil.getSession().createQuery("from Survey where researcherid='"+researcher.getResearcherid()+"'").setCacheable(false).list();
-            CurrentBalanceCalculator cbc = new CurrentBalanceCalculator(user);
-            double currentbalance = cbc.getCurrentbalance();
             double totalremainingpossiblespendforallsurveys = 0;
             double totalmaxpossiblespendforallsurveys = 0;
             logger.debug("userid="+user.getUserid()+ " ("+user.getFirstname() + " "+user.getLastname()+")");
@@ -84,13 +82,16 @@ public class ResearcherRemainingBalanceOperations implements Job {
                     }
                 }
             }
+
+
             logger.debug("end iterating surveys for researcherid="+researcher.getResearcherid());
-            logger.debug("currentbalance="+currentbalance);
             logger.debug("totalremainingpossiblespendforallsurveys="+totalremainingpossiblespendforallsurveys);
             logger.debug("totalmaxpossiblespendforallsurveys="+totalmaxpossiblespendforallsurveys);
 
             //Now operate on surveys
             double amttocharge = 0.0;
+            //CurrentBalanceCalculator cbc = new CurrentBalanceCalculator(user);
+            double currentbalance = user.getCurrentbalance();
             if (currentbalance < ((MINPERCENTOFTOTALVALUEAVAILASBALANCE/100) * totalmaxpossiblespendforallsurveys)){
                 logger.debug("current balance is less than MINPERCENTOFTOTALVALUEAVAILASBALANCE of totalmaxpossiblespendforallsurveys ("+((MINPERCENTOFTOTALVALUEAVAILASBALANCE/100) * totalmaxpossiblespendforallsurveys)+")");
                 //The current balance is less than 10% of the total value of all surveys so I need to know how much to charge them

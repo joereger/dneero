@@ -192,7 +192,8 @@ String acl = "public";
                         <%if (publicSurvey.getOptionaluserquestionlistitems()!=null && publicSurvey.getOptionaluserquestionlistitems().size()>0){%>
                             <div class="rounded" style="background: #e6e6e6; text-align: center; padding: 10px;">
                                 <div class="rounded" style="background: #ffffff; padding: 10px; text-align: left;">
-                                    <font class="formfieldnamefont">Answer other questions that interest you:</font> <font class="formfieldnamefont" style="color: #ff0000;">(Optional)</font><br/><br/>
+                                    <font class="formfieldnamefont">Answer other questions that interest you:</font> <font class="formfieldnamefont" style="color: #ff0000;">(Optional)</font><br/>
+                                    <font class="tinyfont">(These questions are from other users.)</font><br/><br/>
                                     <div style="background : #ffffff; border: 0px solid #ffffff; padding : 5px; width : 400px; height: 150px; overflow : auto;">
                                     <%
                                         try{

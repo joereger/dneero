@@ -137,5 +137,14 @@
         <property name="resellerpercent" type="double">
             <column name="resellerpercent" precision="22" scale="0" not-null="true" />
         </property>
+        <property name="currentbalance" type="double">
+            <column name="currentbalance" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="currentbalanceblogger" type="double">
+            <column name="currentbalanceblogger" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="currentbalanceresearcher" type="double">
+            <column name="currentbalanceresearcher" precision="22" scale="0" not-null="true" />
+        </property>
     </class>
 </hibernate-mapping>

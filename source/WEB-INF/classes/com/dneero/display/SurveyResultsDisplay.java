@@ -75,25 +75,27 @@ public class SurveyResultsDisplay {
                 logger.debug("found question.getQuestionid()="+question.getQuestionid());
                 Component component = ComponentTypes.getComponentByID(question.getComponenttype(), question, blogger);
                 logger.debug("found component.getName()="+component.getName());
-                out.append("<br><br>");
-                out.append("<table width=100% cellpadding=0 cellspacing=0 border=0>");
+                out.append("<br/><br/>");
+                //out.append("<table width=100% cellpadding=0 cellspacing=0 border=0>");
                 if (question.getIsuserquestion()){
                     User user = User.get(question.getUserid());
-                    out.append("<tr>");
-                    out.append("<td valign=top bgcolor=#e9e9e9>");
+                    //out.append("<tr>");
+                    //out.append("<td valign=top bgcolor=#e9e9e9>");
                     out.append("<font class=\"smallfont\"><b><a href=\"/profile.jsp?userid="+user.getUserid()+"\">"+user.getFirstname()+" "+user.getLastname()+"</a> wanted to know:</b></font>");
-                    out.append("</td>");
-                    out.append("</tr>");
+                    out.append("<br/>");
+                    //out.append("</td>");
+                    //out.append("</tr>");
                 }
-                out.append("<tr>");
-                out.append("<td valign=top bgcolor=#e6e6e6>");
+                //out.append("<tr>");
+                //out.append("<td valign=top bgcolor=#e6e6e6>");
                 out.append("<b>"+question.getQuestion()+"</b>");
-                out.append("</td>");
-                out.append("</tr>");
-                out.append("</table>");
-                out.append("<table width=100% cellpadding=0 cellspacing=0 border=0>");
-                out.append("<tr>");
-                out.append("<td valign=top>");
+                out.append("<br/>");
+                //out.append("</td>");
+                //out.append("</tr>");
+                //out.append("</table>");
+                //out.append("<table width=100% cellpadding=0 cellspacing=0 border=0>");
+                //out.append("<tr>");
+                //out.append("<td valign=top>");
 
 
     
@@ -115,9 +117,9 @@ public class SurveyResultsDisplay {
 
                 //Create the result for this question
                 out.append(component.getHtmlForResult(questionresponses));
-                out.append("</td>");
-                out.append("</tr>");
-                out.append("</table>");
+                //out.append("</td>");
+                //out.append("</tr>");
+                //out.append("</table>");
             }
         }
         return out.toString();

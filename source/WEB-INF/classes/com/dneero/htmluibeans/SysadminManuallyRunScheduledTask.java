@@ -163,4 +163,11 @@ public class SysadminManuallyRunScheduledTask implements Serializable {
         return "sysadminmanuallyrunscheduledtask";
     }
 
+    public String runCurrentBalanceUpdater(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
+        try{CurrentBalanceUpdater task = new com.dneero.scheduledjobs.CurrentBalanceUpdater();
+            task.execute(null);} catch (Exception ex){logger.error("",ex);}
+        return "sysadminmanuallyrunscheduledtask";
+    }
+
 }
