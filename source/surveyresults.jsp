@@ -113,9 +113,9 @@ String acl = "public";
                 %>
                 <div class="panel" id="panel1a" style="<%=panel1astyle%>">
                     <img src="/images/clear.gif" width="415" height="1"/><br/>
-                    <font class="mediumfont" style="color: #cccccc;">User Questions</font><br/>
+                    <font class="mediumfont" style="color: #cccccc;">User Questions</font><br/><br/>
                     <div class="rounded" style="background: #e6e6e6; padding: 10px; text-align: left;">
-                        <font class="smallfont" style="font-weight: bold;">All the questions on this page were added by social people involved in the conversation.  Their question appears when somebody visits their blog or social network and then joins in the conversation.  Depending on the dynamic of the social network and the time that the conversation has been going there may be a lot of answers or no answers at all.  It takes time for people to join, post and get their friends involved.</font>
+                        <font class="smallfont" style="font-weight: bold;">All the questions on this page were added by social people involved in the conversation.  Their question appears when somebody visits their blog or social network and then joins in the conversation.</font>
                     </div>
                     <br/>
                     <%=publicSurveyResults.getResultsUserquestionsHtml()%>

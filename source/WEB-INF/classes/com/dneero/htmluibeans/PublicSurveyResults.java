@@ -1,22 +1,28 @@
 package com.dneero.htmluibeans;
 
-import com.dneero.dao.*;
+import com.dneero.cache.html.HtmlCache;
+import com.dneero.dao.Blogger;
+import com.dneero.dao.Response;
+import com.dneero.dao.Survey;
+import com.dneero.dao.User;
 import com.dneero.dao.hibernate.HibernateUtil;
-
+import com.dneero.dbgrid.Grid;
+import com.dneero.dbgrid.GridCol;
 import com.dneero.display.SurveyResultsDisplay;
-
-import com.dneero.util.Num;
-import com.dneero.util.Str;
+import com.dneero.display.SurveyResultsUserQuestions;
+import com.dneero.display.SurveyResultsUserQuestionsListitem;
 import com.dneero.facebook.FacebookUser;
-
 import com.dneero.helpers.UserInputSafe;
 import com.dneero.htmlui.Pagez;
-import com.dneero.cache.html.HtmlCache;
+import com.dneero.util.Num;
+import com.dneero.util.Str;
+import org.apache.log4j.Logger;
 
 import java.io.Serializable;
-import java.util.*;
-
-import org.apache.log4j.Logger;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.TreeMap;
 
 /**
  * User: Joe Reger Jr
@@ -117,9 +123,28 @@ public class PublicSurveyResults implements Serializable {
 
         //Results user questions html
         if (1==1){
-            String resultsHtmlKey = "surveyresults.jsp-resultsUserquestionsHtml-surveyid"+survey.getSurveyid();
+            int userquestionspage = 1;
+            if (Pagez.getRequest().getParameter("userquestionspage")!=null && Num.isinteger(Pagez.getRequest().getParameter("userquestionspage"))){
+                userquestionspage = Integer.parseInt(Pagez.getRequest().getParameter("userquestionspage"));
+            }
+            String resultsHtmlKey = "surveyresults.jsp-resultsUserquestionsHtml-surveyid"+survey.getSurveyid()+"-userquestionspage"+userquestionspage;
             if (HtmlCache.isStale(resultsHtmlKey, 6000)){
-                resultsUserquestionsHtml = SurveyResultsDisplay.getHtmlForResults(survey, null, 0, new ArrayList<Integer>(), null, false, true);
+                //Go get all results for user questions
+                ArrayList<SurveyResultsUserQuestionsListitem> sruqli = SurveyResultsUserQuestions.getUserQuestionResults(survey, null, 0, new ArrayList<Integer>(), null);
+                //Create a template for the display
+                StringBuffer template = new StringBuffer();
+                template.append("<font class=\"smallfont\"><b><a href=\"/profile.jsp?userid=<$user.userid$>\"><$user.firstname$> <$user.lastname$></a> wanted to know:</b></font>");
+                template.append("<br/>");
+                template.append("<b><$question.question$></b>");
+                template.append("<br/>");
+                template.append("<$htmlForResult$>");
+                template.append("<br/>");
+                template.append("<br/>");
+                //Create a Grid rendering
+                ArrayList<GridCol> cols=new ArrayList<GridCol>();
+                cols.add(new GridCol("", template.toString(), false, "", "", "background: #ffffff;", ""));
+                resultsUserquestionsHtml = Grid.render(sruqli, cols, 25, "/surveyresults.jsp?surveyid="+survey.getSurveyid()+"&panel=panel1a", "userquestionspage");
+                //Store it in the cache
                 HtmlCache.updateCache(resultsHtmlKey, 6000, resultsUserquestionsHtml);
             } else {
                 resultsUserquestionsHtml = HtmlCache.getFromCache(resultsHtmlKey);

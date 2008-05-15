@@ -54,25 +54,25 @@ public class PublicOldSurveyList implements Serializable {
                 bsli.setSurveyid(survey.getSurveyid());
                 bsli.setTitle(survey.getTitle());
                 bsli.setDescription(survey.getDescription());
-                bsli.setNumberofrespondents(survey.getResponses().size());
+                //bsli.setNumberofrespondents(survey.getResponses().size());
 
                 if (survey.getQuestions()!=null){
-                    bsli.setNumberofquestions(String.valueOf(survey.getQuestions().size()));
+                    //bsli.setNumberofquestions(String.valueOf(survey.getQuestions().size()));
                 } else {
-                    bsli.setNumberofquestions("0");
+                    //bsli.setNumberofquestions("0");
                 }
 
-                double maxearningNum = survey.getWillingtopayperrespondent()  +   ( (survey.getWillingtopaypercpm()*survey.getMaxdisplaysperblog())/1000 );
-                bsli.setMaxearning("$"+ Str.formatForMoney(maxearningNum));
+                //double maxearningNum = survey.getWillingtopayperrespondent()  +   ( (survey.getWillingtopaypercpm()*survey.getMaxdisplaysperblog())/1000 );
+                //bsli.setMaxearning("$"+ Str.formatForMoney(maxearningNum));
 
-                int daysleft = DateDiff.dateDiff("day", Time.getCalFromDate(survey.getEnddate()), Calendar.getInstance());
-                if (daysleft==0){
-                    bsli.setDaysuntilend("Ends today!");
-                } else if (daysleft==1){
-                    bsli.setDaysuntilend("One day left!");
-                } else {
-                    bsli.setDaysuntilend(daysleft + " days left!");
-                }
+//                int daysleft = DateDiff.dateDiff("day", Time.getCalFromDate(survey.getEnddate()), Calendar.getInstance());
+//                if (daysleft==0){
+//                    bsli.setDaysuntilend("Ends today!");
+//                } else if (daysleft==1){
+//                    bsli.setDaysuntilend("One day left!");
+//                } else {
+//                    bsli.setDaysuntilend(daysleft + " days left!");
+//                }
 
                 //See if user has taken survey
 //                bsli.setLoggedinuserhasalreadytakensurvey(false);
