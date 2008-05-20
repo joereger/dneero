@@ -49,8 +49,9 @@ public class HibernateUtil {
 
                     //Misc
                     //conf.setProperty("hibernate.current_session_context_class", "thread");
-                    conf.setProperty("hibernate.show_sql", "true");
-                    conf.setProperty("hibernate.generate_statistics", "true");                    
+                    //@todo how to turn on hibernate show_sql programatically?
+                    conf.setProperty("hibernate.show_sql", "false");
+                    conf.setProperty("hibernate.generate_statistics", "false");                    
 
                     //Connection pool
                     conf.setProperty("hibernate.c3p0.min_size", String.valueOf(InstanceProperties.getDbMinIdle()));

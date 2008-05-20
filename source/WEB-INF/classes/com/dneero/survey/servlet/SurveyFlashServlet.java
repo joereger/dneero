@@ -39,6 +39,7 @@ public class SurveyFlashServlet extends HttpServlet {
 
     public void doPost (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Logger logger = Logger.getLogger(this.getClass().getName());
+
         long timestart = new java.util.Date().getTime();
         logger.debug("Looking for flash survey via servlet");
         logger.debug("request.getParameter(\"s\")="+request.getParameter("s"));
