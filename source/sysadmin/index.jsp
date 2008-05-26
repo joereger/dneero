@@ -17,7 +17,6 @@ String acl = "sysadmin";
 <%@ include file="/template/header.jsp" %>
 
 
-
     <div class="rounded" style="padding: 0px; margin: 10px; background: #33FF00;">
         <table cellpadding="0" cellspacing="0" border="0" width="100%">
            <tr>
