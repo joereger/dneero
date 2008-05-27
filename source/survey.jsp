@@ -7,6 +7,18 @@
 <%@ page import="org.hibernate.criterion.Order" %>
 <%@ page import="org.hibernate.criterion.Restrictions" %>
 <%
+if (request.getParameter("show")!=null && request.getParameter("show").equals("results")){
+    //redirect to results
+    Pagez.sendRedirect("/surveyresults.jsp?surveyid="+request.getParameter("surveyid")+"&userid="+request.getParameter("userid"));
+    return;
+}
+if (request.getParameter("show")!=null && request.getParameter("show").equals("disclosure")){
+    //redirect to disclosure
+    Pagez.sendRedirect("/surveydisclosure.jsp?surveyid="+request.getParameter("surveyid")+"&userid="+request.getParameter("userid"));
+    return;
+}
+%>
+<%
 PublicSurvey publicSurvey = (PublicSurvey)Pagez.getBeanMgr().get("PublicSurvey");
 %>
 <%
@@ -18,16 +30,6 @@ if (publicSurvey==null || publicSurvey.getSurvey()==null || publicSurvey.getSurv
 //If the survey is draft or waiting
 if (publicSurvey.getSurvey().getStatus()<Survey.STATUS_OPEN){
     Pagez.sendRedirect("/surveynotopen.jsp");
-    return;
-}
-if (request.getParameter("show")!=null && request.getParameter("show").equals("results")){
-    //redirect to results
-    Pagez.sendRedirect("/surveyresults.jsp?surveyid="+request.getParameter("surveyid")+"&userid="+request.getParameter("userid"));
-    return;
-}
-if (request.getParameter("show")!=null && request.getParameter("show").equals("disclosure")){
-    //redirect to disclosure
-    Pagez.sendRedirect("/surveydisclosure.jsp?surveyid="+request.getParameter("surveyid")+"&userid="+request.getParameter("userid"));
     return;
 }
 %>

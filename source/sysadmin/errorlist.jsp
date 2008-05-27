@@ -85,6 +85,7 @@ SysadminErrorList sysadminErrorList=(SysadminErrorList) Pagez.getBeanMgr().get("
         <a href="/sysadmin/errorlist.jsp?action=deleteall"><font class="smallfont">Delete All</font></a>
         <a href="/sysadmin/errorlist.jsp?action=onlyerrors"><font class="smallfont">Only Errors</font></a>
         <a href="/sysadmin/errorlist.jsp?action=sortbytimesseen"><font class="smallfont">Most Frequent</font></a>
+        <a href="/sysadmin/errorlist-logging.jsp"><font class="smallfont">Config Logging</font></a>        
         <br/><br/>
 
 

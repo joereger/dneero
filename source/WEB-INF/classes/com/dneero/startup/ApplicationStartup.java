@@ -85,6 +85,8 @@ public class ApplicationStartup implements ServletContextListener {
         } else {
             logger.info("Database not ready.");    
         }
+        //Set logging levels
+        Log4jLevels.setLevels();
         //Report to log and XMPP
         logger.info("WebAppRootDir = " + WebAppRootDir.getWebAppRootPath());
         logger.info("dNeero Application Started!  Let's make some dinero!");

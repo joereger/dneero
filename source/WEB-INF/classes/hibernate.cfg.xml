@@ -18,6 +18,7 @@
         <mapping resource="com/dneero/dao/Emailinvitebatch.hbm.xml" />
         <mapping resource="com/dneero/dao/Emailinvitebatchaddress.hbm.xml" />
         <mapping resource="com/dneero/dao/Error.hbm.xml" />
+        <mapping resource="com/dneero/dao/Errorlogging.hbm.xml" />
         <mapping resource="com/dneero/dao/Eula.hbm.xml" />
         <mapping resource="com/dneero/dao/Facebookpendingreferredby.hbm.xml" />
         <mapping resource="com/dneero/dao/Impression.hbm.xml" />

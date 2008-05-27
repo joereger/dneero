@@ -24,6 +24,7 @@ SysadminInstanceProps sysadminInstanceProps = (SysadminInstanceProps)Pagez.getBe
             sysadminInstanceProps.setDbUsername(Textbox.getValueFromRequest("dbUsername", "dbUsername", true, DatatypeString.DATATYPEID));
             sysadminInstanceProps.setInstancename(Textbox.getValueFromRequest("instancename", "instancename", true, DatatypeString.DATATYPEID));
             sysadminInstanceProps.setRunScheduledTasksOnThisInstance(Textbox.getValueFromRequest("runScheduledTasksOnThisInstance", "runScheduledTasksOnThisInstance", true, DatatypeString.DATATYPEID));
+            sysadminInstanceProps.setHibernateShowSql(Textbox.getValueFromRequest("hibernateShowSql", "hibernateShowSql", true, DatatypeString.DATATYPEID));
             sysadminInstanceProps.saveProps();
             Pagez.getUserSession().setMessage("Props saved.");
         } catch (ValidationException vex) {
@@ -131,6 +132,17 @@ SysadminInstanceProps sysadminInstanceProps = (SysadminInstanceProps)Pagez.getBe
                 </td>
                 <td valign="top">
                     <%=Textbox.getHtml("runScheduledTasksOnThisInstance", sysadminInstanceProps.getRunScheduledTasksOnThisInstance(), 255, 35, "", "")%>
+                </td>
+            </tr>
+
+            <tr>
+                <td valign="top">
+                    <font class="formfieldnamefont">hibernateShowSql</font>
+                    <br/>
+                    <font class="tinyfont">0 or 1</font>
+                </td>
+                <td valign="top">
+                    <%=Textbox.getHtml("hibernateShowSql", sysadminInstanceProps.getHibernateShowSql(), 255, 35, "", "")%>
                 </td>
             </tr>
 

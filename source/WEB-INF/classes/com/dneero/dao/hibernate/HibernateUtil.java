@@ -49,8 +49,12 @@ public class HibernateUtil {
 
                     //Misc
                     //conf.setProperty("hibernate.current_session_context_class", "thread");
-                    //@todo how to turn on hibernate show_sql programatically?
-                    conf.setProperty("hibernate.show_sql", "false");
+                    //Turn on by setting instance prop hibernateShowSql="1"
+                    if (InstanceProperties.getHibernateShowSql()){
+                        conf.setProperty("hibernate.show_sql", "true");
+                    } else {
+                        conf.setProperty("hibernate.show_sql", "false");
+                    }
                     conf.setProperty("hibernate.generate_statistics", "false");                    
 
                     //Connection pool
@@ -82,6 +86,7 @@ public class HibernateUtil {
                     }
                     // Create the SessionFactory
                     sessionFactory = conf.buildSessionFactory();
+
                     logger.info("HibernateUtil Session Initialized. Let's rock some data abstration!");
                     logger.info("HibernateUtil: username:"+ InstanceProperties.getDbUsername());
                 } catch (Throwable ex) {

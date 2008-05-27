@@ -29,7 +29,7 @@ public class InstanceProperties {
     private static String dbDriverName;
     private static String runScheduledTasksOnThisInstance;
     private static String instancename;
-
+    private static String hibernateShowSql;
 
 
 
@@ -97,6 +97,7 @@ public class InstanceProperties {
             dbDriverName = properties.getProperty("dbDriverName", "com.mysql.jdbc.Driver");
             runScheduledTasksOnThisInstance = properties.getProperty("runScheduledTasksOnThisInstance", "0");
             instancename = properties.getProperty("instancename", "InstanceNotNamed");
+            hibernateShowSql = properties.getProperty("hibernateShowSql", "0");
 
             haveAttemptedToLoadDefaultPropsFile = true;
             haveNewConfigToTest = true;
@@ -148,6 +149,9 @@ public class InstanceProperties {
             }
             if (instancename!=null){
                 properties.setProperty("instancename", instancename);
+            }
+            if (hibernateShowSql!=null){
+                properties.setProperty("hibernateShowSql", hibernateShowSql);
             }
 
             if (testConfig()){
@@ -357,4 +361,21 @@ public class InstanceProperties {
     public static void setInstancename(String instancename) {
         InstanceProperties.instancename = instancename;
     }
+
+    public static boolean getHibernateShowSql(){
+        load();
+        if (hibernateShowSql!=null && hibernateShowSql.equals("1")){
+            return true;
+        }
+        return false;
+    }
+
+    public static void setHibernateShowSql(boolean hibernateShowSql){
+        if (hibernateShowSql){
+            InstanceProperties.hibernateShowSql = "1";
+        } else {
+            InstanceProperties.hibernateShowSql = "0";
+        }
+    }
+
 }

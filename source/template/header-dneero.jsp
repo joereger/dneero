@@ -170,7 +170,8 @@
                 <%}%>
                 <%if (navtab.equals("sysadmin")){%>
                     <%if (Pagez.getUserSession().getIsloggedin() && Pagez.getUserSession().getIsSysadmin()){%>
-                        <a href="/sysadmin/errorlist.jsp"><font class="subnavfont" style=" color: #000000;">Log</font></a>
+                        <a href="/sysadmin/errorlist.jsp"><font class="subnavfont" style=" color: #000000;">System Log</font></a>
+                        <a href="/sysadmin/errorlist-logging.jsp"><font class="subnavfont" style=" color: #000000;">LogConfig</font></a>        
                         <a href="/sysadmin/editeula.jsp"><font class="subnavfont" style=" color: #000000;">Eula</font></a>
                         <a href="/sysadmin/rateblogpost.jsp"><font class="subnavfont" style=" color: #000000;">Rate</font></a>
                         <a href="/sysadmin/manuallyrunscheduledtask.jsp"><font class="subnavfont" style=" color: #000000;">Scheds</font></a>

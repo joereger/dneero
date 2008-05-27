@@ -28,6 +28,7 @@ public class SysadminInstanceProps implements Serializable {
     private String dbDriverName;
     private String runScheduledTasksOnThisInstance;
     private String instancename;
+    private String hibernateShowSql;
 
     public SysadminInstanceProps(){
 
@@ -50,6 +51,11 @@ public class SysadminInstanceProps implements Serializable {
             runScheduledTasksOnThisInstance = "0";
         }
         instancename = InstanceProperties.getInstancename();
+        if (InstanceProperties.getHibernateShowSql()){
+            hibernateShowSql = "1";
+        } else {
+            hibernateShowSql = "0";
+        }
     }
 
     public void saveProps() throws ValidationException {
@@ -65,12 +71,17 @@ public class SysadminInstanceProps implements Serializable {
             InstanceProperties.setDbMinIdle(String.valueOf(dbMinIdle));
             InstanceProperties.setDbMaxWait(String.valueOf(dbMaxWait));
             InstanceProperties.setDbDriverName(dbDriverName);
-            if (runScheduledTasksOnThisInstance.equals("1")){
+            if (runScheduledTasksOnThisInstance!=null && runScheduledTasksOnThisInstance.equals("1")){
                 InstanceProperties.setRunScheduledTasksOnThisInstance(true);
             } else {
                 InstanceProperties.setRunScheduledTasksOnThisInstance(false);
             }
             InstanceProperties.setInstancename(instancename);
+            if (hibernateShowSql!=null && hibernateShowSql.equals("1")){
+                InstanceProperties.setHibernateShowSql(true);
+            } else {
+                InstanceProperties.setHibernateShowSql(false);
+            }
             try{
                 InstanceProperties.save();
                 if (InstanceProperties.haveValidConfig()){
@@ -171,5 +182,13 @@ public class SysadminInstanceProps implements Serializable {
 
     public void setInstancename(String instancename) {
         this.instancename = instancename;
+    }
+
+    public String getHibernateShowSql() {
+        return hibernateShowSql;
+    }
+
+    public void setHibernateShowSql(String hibernateShowSql) {
+        this.hibernateShowSql=hibernateShowSql;
     }
 }
