@@ -58,6 +58,9 @@ public class Survey extends BasePersistentClass implements java.io.Serializable,
      private boolean charityonlyallowcustom=false;
      private double dneeromarkuppercent= SurveyMoneyStatus.DEFAULTDNEEROMARKUPPERCENT;
      private String resellercode;
+     private int impressionstotal;
+     private int impressionspaid;
+     private int impressionstobepaid;
 
      private Set<Question> questions = new HashSet<Question>();
      private Set<Response> responses = new HashSet<Response>();
@@ -439,5 +442,29 @@ public class Survey extends BasePersistentClass implements java.io.Serializable,
 
     public void setResellercode(String resellercode) {
         this.resellercode = resellercode;
+    }
+
+    public int getImpressionspaid() {
+        return impressionspaid;
+    }
+
+    public void setImpressionspaid(int impressionspaid) {
+        this.impressionspaid=impressionspaid;
+    }
+
+    public int getImpressionstobepaid() {
+        return impressionstobepaid;
+    }
+
+    public void setImpressionstobepaid(int impressionstobepaid) {
+        this.impressionstobepaid=impressionstobepaid;
+    }
+
+    public int getImpressionstotal() {
+        return impressionstotal;
+    }
+
+    public void setImpressionstotal(int impressionstotal) {
+        this.impressionstotal=impressionstotal;
     }
 }

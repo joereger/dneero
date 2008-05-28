@@ -80,6 +80,9 @@ public class ResearcherSurveyDetail01 implements Serializable {
         survey.setEnddate(enddate);
         survey.setDneeromarkuppercent(SurveyMoneyStatus.DEFAULTDNEEROMARKUPPERCENT);
         survey.setResellercode("");
+        survey.setImpressionstotal(0);
+        survey.setImpressionspaid(0);
+        survey.setImpressionstobepaid(0);
     }
 
 
@@ -112,6 +115,9 @@ public class ResearcherSurveyDetail01 implements Serializable {
             survey.setStatus(Survey.STATUS_DRAFT);
             survey.setPublicsurveydisplays(0);
             survey.setIsresultshidden(false);
+            survey.setImpressionstotal(0);
+            survey.setImpressionspaid(0);
+            survey.setImpressionstobepaid(0);
             boolean isnewsurvey = true;
             if (userSession.getCurrentSurveyid()>0){
                 logger.debug("saveSurvey() called: going to get Survey.get(surveyid)="+userSession.getCurrentSurveyid());

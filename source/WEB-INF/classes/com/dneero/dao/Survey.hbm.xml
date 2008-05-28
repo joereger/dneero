@@ -121,5 +121,14 @@
         <property name="resellercode" type="string">
             <column name="resellercode" />
         </property>
+        <property name="impressionstotal" type="int">
+            <column name="impressionstotal" not-null="true" />
+        </property>
+        <property name="impressionspaid" type="int">
+            <column name="impressionspaid" not-null="true" />
+        </property>
+        <property name="impressionstobepaid" type="int">
+            <column name="impressionstobepaid" not-null="true" />
+        </property>
     </class>
 </hibernate-mapping>

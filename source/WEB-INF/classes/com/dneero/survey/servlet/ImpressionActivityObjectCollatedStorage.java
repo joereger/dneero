@@ -43,14 +43,15 @@ public class ImpressionActivityObjectCollatedStorage {
         }
 
         //Find the survey
-        //@todo optimize by storing surveyimpressionspaidandtobepaid in the Survey object
         Survey survey = null;
         int surveyimpressionspaidandtobepaid = 0;
         if (iao.getSurveyid()>0){
             survey = Survey.get(iao.getSurveyid());
             if (survey!=null && survey.getSurveyid()>0){
-                int impressionspaid = NumFromUniqueResult.getInt("select sum(impressionspaid) from Impression where surveyid='"+survey.getSurveyid()+"'");
-                int impressionstobepaid = NumFromUniqueResult.getInt("select sum(impressionstobepaid) from Impression where surveyid='"+survey.getSurveyid()+"'");
+                //int impressionspaid = NumFromUniqueResult.getInt("select sum(impressionspaid) from Impression where surveyid='"+survey.getSurveyid()+"'");
+                //int impressionstobepaid = NumFromUniqueResult.getInt("select sum(impressionstobepaid) from Impression where surveyid='"+survey.getSurveyid()+"'");
+                int impressionspaid = survey.getImpressionspaid();
+                int impressionstobepaid = survey.getImpressionstobepaid();
                 //Sum them
                 surveyimpressionspaidandtobepaid = impressionspaid + impressionstobepaid;
             } else {

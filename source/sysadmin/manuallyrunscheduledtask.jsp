@@ -63,6 +63,8 @@ SysadminManuallyRunScheduledTask sysadminManuallyRunScheduledTask = (SysadminMan
                     sysadminManuallyRunScheduledTask.runPagePerformanceRecordAndFlush();
                 } else if (request.getParameter("task").equals("CurrentBalanceUpdater")){
                     sysadminManuallyRunScheduledTask.runCurrentBalanceUpdater();
+                } else if (request.getParameter("task").equals("UpdateSurveyImpressionsPaid")){
+                    sysadminManuallyRunScheduledTask.runUpdateSurveyImpressionsPaid();
                 } else {
                     throw new ValidationException("task not found.");    
                 }
@@ -126,6 +128,7 @@ SysadminManuallyRunScheduledTask sysadminManuallyRunScheduledTask = (SysadminMan
                 <br/><a href="/sysadmin/manuallyrunscheduledtask.jsp?action=run&task=SystemStatsFinancial"><font class="tinyfont">SystemStatsFinancial</font></a>
                 <br/><a href="/sysadmin/manuallyrunscheduledtask.jsp?action=run&task=PagePerformanceRecordAndFlush"><font class="tinyfont">PagePerformanceRecordAndFlush</font></a>
                 <br/><a href="/sysadmin/manuallyrunscheduledtask.jsp?action=run&task=CurrentBalanceUpdater"><font class="tinyfont">CurrentBalanceUpdater</font></a>
+                <br/><a href="/sysadmin/manuallyrunscheduledtask.jsp?action=run&task=UpdateSurveyImpressionsPaid"><font class="tinyfont">UpdateSurveyImpressionsPaid</font></a>
             </div>
         </td>
     </tr>

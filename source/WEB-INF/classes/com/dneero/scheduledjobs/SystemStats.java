@@ -48,7 +48,7 @@ public class SystemStats implements Job {
             totalbloggers = NumFromUniqueResult.getInt("select count(*) from Blogger");
             totalresearchers = NumFromUniqueResult.getInt("select count(*) from Researcher");
             totalsurveystaken = NumFromUniqueResult.getInt("select count(*) from Response");
-            totalimpressions = NumFromUniqueResult.getInt("select sum(impressionstotal) from Impression");
+            totalimpressions = NumFromUniqueResult.getInt("select sum(impressionstotal) from Survey");
             numberofsurveysopen = NumFromUniqueResult.getInt("select count(*) from Survey where status='"+Survey.STATUS_OPEN+"'");
 
 
