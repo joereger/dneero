@@ -12,7 +12,7 @@ public class NumFromUniqueResult {
 
     public static int getInt(String query){
         Logger logger = Logger.getLogger(NumFromUniqueResult.class.getName());
-        Object obj = HibernateUtil.getSession().createQuery(query).uniqueResult();
+        Object obj = HibernateUtil.getSession().createQuery(query).setCacheable(true).uniqueResult();
         if (obj!=null && obj instanceof Long){
             try{
                 Long lng =  (Long)obj;
@@ -27,7 +27,7 @@ public class NumFromUniqueResult {
 
     public static double getDouble(String query){
         Logger logger = Logger.getLogger(NumFromUniqueResult.class.getName());
-        Object obj = HibernateUtil.getSession().createQuery(query).uniqueResult();
+        Object obj = HibernateUtil.getSession().createQuery(query).setCacheable(true).uniqueResult();
         if (obj!=null && obj instanceof Double){
             try{
                 Double dbl =  (Double)obj;

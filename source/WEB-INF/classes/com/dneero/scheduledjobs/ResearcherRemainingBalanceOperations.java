@@ -25,14 +25,11 @@ import java.util.Calendar;
  */
 public class ResearcherRemainingBalanceOperations implements Job {
 
-
-
     public static double MINAVAILABLEBALANCEBEFORECLOSINGSURVEYS = 5;
     public static double MINPERCENTOFTOTALVALUEAVAILASBALANCE = 10;
     public static double INCREMENTALPERCENTTOCHARGE = 20;
 
     private int researcherid = 0;
-
 
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
         Logger logger = Logger.getLogger(this.getClass().getName());
@@ -59,7 +56,8 @@ public class ResearcherRemainingBalanceOperations implements Job {
             logger.debug("--------------");
             User user = User.get(researcher.getUserid());
             //Collect data on this researcher
-            List surveys = HibernateUtil.getSession().createQuery("from Survey where researcherid='"+researcher.getResearcherid()+"'").setCacheable(false).list();
+            //Warning: this query must include Survey.STATUS_WAITINGFORFUNDS because surveys is used in two sections of this code
+            List surveys = HibernateUtil.getSession().createQuery("from Survey where researcherid='"+researcher.getResearcherid()+"' and status<>'"+Survey.STATUS_DRAFT+"'").setCacheable(true).list();
             double totalremainingpossiblespendforallsurveys = 0;
             double totalmaxpossiblespendforallsurveys = 0;
             logger.debug("userid="+user.getUserid()+ " ("+user.getFirstname() + " "+user.getLastname()+")");
@@ -70,19 +68,18 @@ public class ResearcherRemainingBalanceOperations implements Job {
                 Survey survey = (Survey) iterator1.next();
                 logger.debug("found survey for researcher... surveyid="+survey.getSurveyid());
                 if (survey.getStatus()!=Survey.STATUS_DRAFT){
-                    logger.debug("surveyid="+survey.getSurveyid()+" survey is not draft");
-                    SurveyMoneyStatus sms = new SurveyMoneyStatus(survey);
-                    logger.debug("surveyid="+survey.getSurveyid()+" sms.getRemainingPossibleSpend()="+sms.getRemainingPossibleSpend());
-                    logger.debug("surveyid="+survey.getSurveyid()+" sms.getMaxPossibleSpend()="+sms.getMaxPossibleSpend());
-                    //If we're no longer paying out
+                    //If we're still paying out
                     int dayssinceclose = DateDiff.dateDiff("day", Calendar.getInstance(), Time.getCalFromDate(survey.getEnddate()));
                     if (dayssinceclose<=SurveyMoneyStatus.DAYSAFTERCLOSEOFSURVEYWECOLLECTFORIMPRESSIONS){
+                        logger.debug("surveyid="+survey.getSurveyid()+" survey is not draft");
+                        SurveyMoneyStatus sms = new SurveyMoneyStatus(survey);
+                        logger.debug("surveyid="+survey.getSurveyid()+" sms.getRemainingPossibleSpend()="+sms.getRemainingPossibleSpend());
+                        logger.debug("surveyid="+survey.getSurveyid()+" sms.getMaxPossibleSpend()="+sms.getMaxPossibleSpend());
                         totalremainingpossiblespendforallsurveys = totalremainingpossiblespendforallsurveys + sms.getRemainingPossibleSpend();
                         totalmaxpossiblespendforallsurveys = totalmaxpossiblespendforallsurveys + sms.getMaxPossibleSpend();
                     }
                 }
             }
-
 
             logger.debug("end iterating surveys for researcherid="+researcher.getResearcherid());
             logger.debug("totalremainingpossiblespendforallsurveys="+totalremainingpossiblespendforallsurveys);
@@ -138,7 +135,9 @@ public class ResearcherRemainingBalanceOperations implements Job {
                 logger.debug("current balance is greater than MINPERCENTOFTOTALVALUEAVAILASBALANCE of totalmaxpossiblespendforallsurveys("+((MINPERCENTOFTOTALVALUEAVAILASBALANCE/100) * totalmaxpossiblespendforallsurveys)+")");
                 //Make sure this researcher has no surveys with status = STATUS_WAITINGFORFUNDS
                 logger.debug("making sure there are no surveys in status=STATUS_WAITINGFORFUNDS for researcherid="+researcher.getResearcherid());
-                List surveysWaiting = HibernateUtil.getSession().createQuery("from Survey where researcherid='"+researcher.getResearcherid()+"'").setCacheable(false).list();
+                //List surveysWaiting = HibernateUtil.getSession().createQuery("from Survey where researcherid='"+researcher.getResearcherid()+"' and status='"+Survey.STATUS_WAITINGFORFUNDS+"'").setCacheable(false).list();
+                //Just use list of surveys from above
+                List surveysWaiting = surveys;
                 logger.debug("surveysWaiting.size()="+surveysWaiting.size());
                 for (Iterator iterator1 = surveysWaiting.iterator(); iterator1.hasNext();) {
                     Survey survey = (Survey) iterator1.next();
@@ -154,10 +153,6 @@ public class ResearcherRemainingBalanceOperations implements Job {
                 }
             }
             //Update researcher nums
-            researcher.setNotaccurateamttocharge(amttocharge);
-            researcher.setNotaccuratecurrbalance(currentbalance);
-            researcher.setNotaccuratemaxpossspend(totalmaxpossiblespendforallsurveys);
-            researcher.setNotaccurateremainingpossspend(totalremainingpossiblespendforallsurveys);
             double percentofmax = 0;
             try{
                 if (totalmaxpossiblespendforallsurveys>0){
@@ -166,11 +161,40 @@ public class ResearcherRemainingBalanceOperations implements Job {
             } catch (Exception ex){
                 logger.error("",ex);
             }
-            researcher.setNotaccuratepercentofmax(percentofmax);
-            try{researcher.save();}catch(Exception ex){logger.error("",ex);}
+            //Determine whether I should save by manually checking vars
+            boolean shouldsave = false;
+            if (researcher.getNotaccurateamttocharge()!=amttocharge){
+                shouldsave = true;
+            }
+            if (researcher.getNotaccuratecurrbalance()!=currentbalance){
+                shouldsave = true;
+            }
+            if (researcher.getNotaccuratemaxpossspend()!=totalmaxpossiblespendforallsurveys){
+                shouldsave = true;
+            }
+            if (researcher.getNotaccurateremainingpossspend()!=totalremainingpossiblespendforallsurveys){
+                shouldsave = true;
+            }
+            if (researcher.getNotaccuratepercentofmax()!=percentofmax){
+                shouldsave = true;
+            }
+            //Only save if necessary
+            if (shouldsave){
+                logger.debug("will call researcher.save()");
+                researcher.setNotaccurateamttocharge(amttocharge);
+                researcher.setNotaccuratecurrbalance(currentbalance);
+                researcher.setNotaccuratemaxpossspend(totalmaxpossiblespendforallsurveys);
+                researcher.setNotaccurateremainingpossspend(totalremainingpossiblespendforallsurveys);
+                researcher.setNotaccuratepercentofmax(percentofmax);
+                try{researcher.save();}catch(Exception ex){logger.error("",ex);}
+            } else {
+                logger.debug("will not call researcher.save() because nothing changed");
+            }
             logger.debug("--------------");
         }
     }
+
+    
 
     public int getResearcherid() {
         return researcherid;

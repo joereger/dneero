@@ -59,10 +59,9 @@ public class SurveyMoneyStatus implements Serializable {
         responsesToDate = survey.getResponses().size();
         spentOnResponsesToDate = survey.getWillingtopayperrespondent() * responsesToDate;
         spentOnResponsesToDateIncludingdNeeroFee = calculateAmtToChargeResearcher(spentOnResponsesToDate, survey);
-        impressionsToDate = 0;
         int impressionspaid  = NumFromUniqueResult.getInt("select sum(impressionspaid) from Impression where surveyid='"+survey.getSurveyid()+"'");
         int impressionstobepaid  = NumFromUniqueResult.getInt("select sum(impressionstobepaid) from Impression where surveyid='"+survey.getSurveyid()+"'");
-        impressionsToDate = impressionsToDate + (impressionspaid + impressionstobepaid);
+        impressionsToDate = impressionspaid + impressionstobepaid;
         spentOnImpressionsToDate = (Double.parseDouble(String.valueOf(impressionsToDate)) * survey.getWillingtopaypercpm())/1000;
         spentOnImpressionsToDateIncludingdNeeroFee = calculateAmtToChargeResearcher(spentOnImpressionsToDate, survey);
         spentToDate = spentOnResponsesToDate + spentOnImpressionsToDate;
