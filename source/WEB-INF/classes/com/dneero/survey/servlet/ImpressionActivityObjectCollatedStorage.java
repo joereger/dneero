@@ -8,12 +8,10 @@ import com.dneero.money.SurveyMoneyStatus;
 import com.dneero.money.UserImpressionFinder;
 import com.dneero.helpers.UserInputSafe;
 
-import java.util.List;
-import java.util.Iterator;
-import java.util.Calendar;
-import java.util.Date;
+import java.util.*;
 
 import org.apache.log4j.Logger;
+import org.hibernate.criterion.Restrictions;
 
 /**
  * User: Joe Reger Jr
@@ -21,6 +19,8 @@ import org.apache.log4j.Logger;
  * Time: 2:14:00 PM
  */
 public class ImpressionActivityObjectCollatedStorage {
+
+    private static HashMap<String, Integer> impressionsbyuser;
 
     public static void store(ImpressionActivityObjectCollated iao){
         Logger logger = Logger.getLogger(ImpressionActivityObjectCollatedStorage.class);
@@ -106,9 +106,10 @@ public class ImpressionActivityObjectCollatedStorage {
             if (user!=null && user.getUserid()>0){
                 if (survey!=null && survey.getSurveyid()>0){
 
-
                     //Find number of impressions on this blog qualify for payment
-                    int blogimpressionspaidandtobepaid = UserImpressionFinder.getPaidAndToBePaidImpressions(user, survey);
+                    //@todo optimize... this is the main performance hog in this code
+                    //int blogimpressionspaidandtobepaid = UserImpressionFinder.getPaidAndToBePaidImpressions(user, survey);
+                    int blogimpressionspaidandtobepaid = getTotalImpressionsPaidAndToBePaid(survey, user);
 
                     //See if this impression qualifies for payment
                     int impressionsqualifyingforpayment = iao.getImpressions();
@@ -133,7 +134,15 @@ public class ImpressionActivityObjectCollatedStorage {
 
                     //See if there's an existing impression to append this to, if not create one
                     Impression impression = null;
-                    List<Impression> impressions = HibernateUtil.getSession().createQuery("from Impression where surveyid='"+iao.getSurveyid()+"' and userid='"+iao.getUserid()+"' and referer='"+ UserInputSafe.clean(iao.getReferer().trim())+"' and responseid='"+responseid+"'").list();
+                    //List<Impression> impressions = HibernateUtil.getSession().createQuery("from Impression where surveyid='"+iao.getSurveyid()+"' and userid='"+iao.getUserid()+"' and referer='"+ UserInputSafe.clean(iao.getReferer().trim())+"' and responseid='"+responseid+"'").list();
+                    List<Impression> impressions = HibernateUtil.getSession().createCriteria(Impression.class)
+                           .add(Restrictions.eq("surveyid", iao.getSurveyid()))
+                           .add(Restrictions.eq("userid", iao.getUserid()))
+                           .add(Restrictions.eq("responseid", responseid))
+                           .add(Restrictions.eq("referer", iao.getReferer().trim()))
+                           .setCacheable(true)
+                           .list();
+                    logger.debug("impressions.size()="+impressions.size());
                     if (impressions.size()>0){
                         for (Iterator it = impressions.iterator(); it.hasNext(); ) {
                             impression = (Impression)it.next();
@@ -150,18 +159,56 @@ public class ImpressionActivityObjectCollatedStorage {
                         impression.setImpressionstotal(iao.getImpressions());
                         impression.setReferer(iao.getReferer());
                     }
+                    //Update the internal perf cache
+                    addImp(survey, user, impressionsqualifyingforpayment);
                     //Update the impressionsbyday string
                     int dayssincetakingsurvey = DateDiff.dateDiff("day", Time.getCalFromDate(new Date()), Time.getCalFromDate(response.getResponsedate()));
                     ImpressionsByDayUtil ibdu = new ImpressionsByDayUtil(impression.getImpressionsbyday());
                     ibdu.add(iao.getImpressions(), dayssincetakingsurvey);
                     impression.setImpressionsbyday(ibdu.getAsString());
-                    //logger.debug("about to call impression.save()");
+                    logger.debug("about to call impression.save()");
                     try{impression.save();} catch (GeneralException gex){logger.error(gex);}
-                    //logger.debug("done with impression.save()");
+                    logger.debug("done with impression.save()");
                 }
             }
         }
 
+    }
+
+    private static int getTotalImpressionsPaidAndToBePaid(Survey survey, User user){
+        Logger logger = Logger.getLogger(ImpressionActivityObjectCollatedStorage.class);
+        if (impressionsbyuser==null){
+            impressionsbyuser = new HashMap<String, Integer>();
+        }
+        String key = "userid"+user.getUserid()+"-surveyid"+survey.getSurveyid();
+        int totimp = 0;
+        if (impressionsbyuser.containsKey(key)){
+            totimp = impressionsbyuser.get(key);
+        } else {
+            totimp = UserImpressionFinder.getPaidAndToBePaidImpressions(user, survey);
+        }
+        impressionsbyuser.put(key, totimp);
+        logger.debug("returning totimp="+totimp);
+        return totimp;
+    }
+
+    private static void addImp(Survey survey, User user, int impressions){
+        if (impressionsbyuser==null){
+            impressionsbyuser = new HashMap<String, Integer>();
+        }
+        String key = "userid"+user.getUserid()+"-surveyid"+survey.getSurveyid();
+        int totimp = 0;
+        if (impressionsbyuser.containsKey(key)){
+            totimp = impressions + impressionsbyuser.get(key);
+            impressionsbyuser.put(key, totimp);
+        } else {
+            totimp = impressions + UserImpressionFinder.getPaidAndToBePaidImpressions(user, survey);
+            impressionsbyuser.put(key, totimp);
+        }
+    }
+
+    public static void resetImpCache(){
+        impressionsbyuser = null;
     }
 
 

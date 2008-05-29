@@ -60,6 +60,7 @@ public class ImpressionActivityObjectQueue implements Job {
             try{
                 if (iaocs!=null){
                     synchronized(iaocs){
+                        ImpressionActivityObjectCollatedStorage.resetImpCache();
                         for (Iterator it = iaocs.iterator(); it.hasNext(); ) {
                             ImpressionActivityObjectCollated iaoc = (ImpressionActivityObjectCollated)it.next();
                             try{
@@ -70,6 +71,7 @@ public class ImpressionActivityObjectQueue implements Job {
                                 logger.error("",ex);
                             }
                         }
+                        ImpressionActivityObjectCollatedStorage.resetImpCache();
                     }
                 }
             } catch (Exception ex){
