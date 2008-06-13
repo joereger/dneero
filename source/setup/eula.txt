@@ -76,7 +76,7 @@ dNeero is intended solely for the use by persons 13 years of age or older.  All 
 
 TERMINATION
 
-If, at any time, we, dNeero, believe you are in breach of any of the terms and conditions contained in this agreement, dNeero may immediately terminate this agreement without liability.
+If, at any time, we, dNeero, believe you are in breach of any of the terms and conditions contained in this agreement, dNeero may immediately terminate this agreement without liability.  If you do not log into the system for a period greater than one year this agreement may be terminated and any funds in your account forfeited.
 
 NO WARRANTIES
 

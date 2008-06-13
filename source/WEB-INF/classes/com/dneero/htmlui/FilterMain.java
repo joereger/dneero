@@ -76,6 +76,9 @@ public class FilterMain implements Filter {
                         Pagez.setUserSessionAndUpdateCache(userSession);
                     }
 
+                    //Update the lastaccessdate
+                    Pagez.getUserSession().setLastaccesseddate(Calendar.getInstance());
+
                     //Production redirect to www.dneero.com for https
                     //@todo make this configurable... i.e. no hard-coded urls
                     UrlSplitter urlSplitter = new UrlSplitter(httpServletRequest);

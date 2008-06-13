@@ -45,6 +45,7 @@ public class UserSession implements Serializable {
     private String message = "";
     private String accesscode = "";
     private Calendar createdate = Calendar.getInstance();
+    private Calendar lastaccesseddate = Calendar.getInstance();
 
     public UserSession(){
         Logger logger = Logger.getLogger(this.getClass().getName());
@@ -299,5 +300,13 @@ public class UserSession implements Serializable {
 
     public void setIsCustomerCare(boolean customerCare) {
         isCustomerCare=customerCare;
+    }
+
+    public Calendar getLastaccesseddate() {
+        return lastaccesseddate;
+    }
+
+    public void setLastaccesseddate(Calendar lastaccesseddate) {
+        this.lastaccesseddate=lastaccesseddate;
     }
 }

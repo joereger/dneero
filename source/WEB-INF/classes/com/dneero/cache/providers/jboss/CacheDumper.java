@@ -83,7 +83,9 @@ public class CacheDumper {
                                             }
                                         }
                                         int secondsOld=DateDiff.dateDiff("second", Calendar.getInstance(), userSession.getCreatedate());
+                                        int lastaccessedSecondsAgo=DateDiff.dateDiff("second", Calendar.getInstance(), userSession.getLastaccesseddate());
                                         out.append("<br/>"+nestStr+nestStr+"<font style=\"font-size: 9px;\">secondsold="+secondsOld+"</font>");
+                                        out.append("<br/>"+nestStr+nestStr+"<font style=\"font-size: 9px;\">lastaccessed="+lastaccessedSecondsAgo+" seconds ago</font>");
                                         out.append("<br/>"+nestStr+nestStr+"<font style=\"font-size: 9px;\">isloggedin="+userSession.getIsloggedin()+"</font>");
                                         out.append("<br/>"+nestStr+nestStr+"<font style=\"font-size: 9px;\">isfacebookui="+userSession.getIsfacebookui()+"</font>");
                                         out.append("<br/>"+nestStr+nestStr+"<font style=\"font-size: 9px;\">surveystakentoday="+userSession.getSurveystakentoday()+"</font>");
@@ -94,6 +96,7 @@ public class CacheDumper {
                                                 out.append("<br/>"+nestStr+nestStr+"<font style=\"font-size: 9px;\">facebooksessionkey="+userSession.getFacebookSessionKey()+"</font>");
                                             }
                                         }
+                                        out.append("<br/>"+nestStr+nestStr+"<font style=\"font-size: 9px;\">fqnFull="+fqnFull+"</font>");
                                         out.append("<br clear='all'/>");
                                     }
                                 }

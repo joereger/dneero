@@ -18,6 +18,11 @@ Include conf/mod-jk.conf
 
 7) Modify apache/conf/httpd.conf virtual hosts
 
+7) Modify apache/conf/httpd.conf - Note that on windows systems I must set these directives in httpd.conf to prevent Windows socket issues:
+EnableMMAP off
+EnableSendfile off
+Win32DisableAcceptEx
+
 7) Create a file apache/conf/mod-jk.conf with the following contents:
 
 # Load mod_jk module

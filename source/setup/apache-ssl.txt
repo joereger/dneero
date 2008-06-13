@@ -96,3 +96,8 @@ c. If you are using a different location and different certificate file names, y
    SSLCertificateChainFile /etc/ssl/crt/yourSERVERNAME.ca-bundle
 
 d. Save your 'config' file and restart Apache.
+
+** Note that on windows systems I must set these directives in httpd.conf to prevent Windows socket issues:
+EnableMMAP off
+EnableSendfile off
+Win32DisableAcceptEx
