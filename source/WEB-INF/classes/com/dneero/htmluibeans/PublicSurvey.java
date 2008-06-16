@@ -583,13 +583,13 @@ public class PublicSurvey implements Serializable {
 
     private ArrayList<Question> findUserQuestionsFor(User user){
         Logger logger = Logger.getLogger(this.getClass().getName());
-        logger.debug("findUserQuestionsFor(userid="+user.getUserid()+")");
+        logger.debug("findUserQuestionsFor(userid="+user.getUserid()+" name="+user.getFirstname()+" "+user.getLastname()+")");
         ArrayList<Question> userquestionsthatmustbeanswered = new ArrayList<Question>();
         for (Iterator<Question> iterator=survey.getQuestions().iterator(); iterator.hasNext();) {
             Question question=iterator.next();
             if (question.getIsuserquestion()){
                 if (user.getUserid()==question.getUserid()){
-                    logger.debug("adding questionid="+question.getQuestionid()+" ");
+                    logger.debug("adding questionid="+question.getQuestionid()+" from userid="+user.getUserid()+" name="+user.getFirstname()+" "+user.getLastname()+"");
                     userquestionsthatmustbeanswered.add(question);
                     //Go up the chain
                     List<Response> responses = HibernateUtil.getSession().createCriteria(Response.class)
