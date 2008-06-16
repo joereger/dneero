@@ -54,7 +54,7 @@ public class SystemProperty {
         props.put(PROP_PAYPALENABLED, "1");
         props.put(PROP_ISSSLON, "0");
         props.put(PROP_ISBETA, "1");
-        props.put(PROP_FACEBOOK_APP_NAME, "joestest");
+        props.put(PROP_FACEBOOK_APP_NAME, "dneerotest");
         props.put(PROP_FACEBOOK_API_KEY, "dece0e9c9bc48fa1078cbc5a0680cea3");
         props.put(PROP_FACEBOOK_API_SECRET, "fde4c4950c909948fe3ada5676a19d2a");
     }

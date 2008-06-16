@@ -38,7 +38,7 @@ String acl = "sysadmin";
                 <div class="rounded" style="padding: 15px; margin: 8px; background: #BFFFBF;">
                     <font class="largefont"><%=systemStats.getTotalsurveystaken()%></font>
                     <br/>
-                    <font class="mediumfont">conversations joined by users</font>
+                    <font class="mediumfont">conversations joined</font>
                 </div>
                </td>
                <td valign="top" width="25%">

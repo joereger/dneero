@@ -42,7 +42,7 @@ PublicSurveyList publicSurveyList = (PublicSurveyList)Pagez.getBeanMgr().get("Pu
 
 
 
-    <% if (Pagez.getUserSession().getIsfacebookui() && publicSurveyList.isFacebookjustaddedapp()){ %>
+    <% if (Pagez.getUserSession()!=null && Pagez.getUserSession().getIsfacebookui() && publicSurveyList.isFacebookjustaddedapp()){ %>
         <!--/*
           *
           *  If this tag is being served on a secure (SSL) page, you must replace
@@ -96,7 +96,7 @@ PublicSurveyList publicSurveyList = (PublicSurveyList)Pagez.getBeanMgr().get("Pu
                 
             </td>
 
-            <% if (Pagez.getUserSession().getIsfacebookui()){ %>
+            <% if (Pagez.getUserSession()!=null && Pagez.getUserSession().getIsfacebookui()){ %>
                 <td valign="top" width="50%" style="padding-top: 5px;">
                     <div class="rounded" style="background: #e6e6e6; padding: 10px;">
                         <% if (1==1 || Pagez.getUserSession().getIsloggedin()){ %>

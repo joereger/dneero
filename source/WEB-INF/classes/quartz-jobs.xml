@@ -407,7 +407,7 @@
             <group>surveyTriggers</group>
             <job-name>payForSurveyResponsesOncePosted</job-name>
             <job-group>surveyJobs</job-group>
-            <!-- Fire at 4am every day -->
+            <!-- Fire at 7am every day -->
             <cron-expression>0 0 7 * * ?</cron-expression>
           </cron>
         </trigger>

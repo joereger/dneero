@@ -596,11 +596,12 @@ public class PublicSurvey implements Serializable {
                                                        .add(Restrictions.eq("bloggerid", user.getBloggerid()))
                                                        .add(Restrictions.eq("surveyid", survey.getSurveyid()))
                                                        .add(Restrictions.gt("referredbyuserid", 0))
+                                                       .add(Restrictions.ne("referredbyuserid", user.getUserid()))
                                                        .setCacheable(true)
                                                        .list();
                     for (Iterator<Response> responseIterator=responses.iterator(); responseIterator.hasNext();) {
                         Response response=responseIterator.next();
-                        if (response.getReferredbyuserid()>0){
+                        if (response.getReferredbyuserid()>0 && response.getReferredbyuserid()!=user.getUserid()){
                             User userwhoreferred = User.get(response.getReferredbyuserid());
                             userquestionsthatmustbeanswered.addAll(findUserQuestionsFor(userwhoreferred));
                         }
@@ -610,6 +611,8 @@ public class PublicSurvey implements Serializable {
         }
         return userquestionsthatmustbeanswered;
     }
+
+    
 
     private ArrayList<Question> findOptionalUserQuestionsFor(ArrayList<Question> excludethesequestions){
         Logger logger = Logger.getLogger(this.getClass().getName());

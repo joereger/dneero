@@ -170,11 +170,13 @@ public class PublicSurveyList implements Serializable {
 //                    }
 //                }
                 //Load the account balance
-                PendingBalanceCalculator pbc = new PendingBalanceCalculator(Pagez.getUserSession().getUser());
-                currentbalanceDbl = Pagez.getUserSession().getUser().getCurrentbalance();
-                pendingearningsDbl = pbc.getPendingearnings();
-                currentbalance = "$"+Str.formatForMoney(currentbalanceDbl);
-                pendingearnings = "$"+Str.formatForMoney(pendingearningsDbl);
+                if (Pagez.getUserSession()!=null && Pagez.getUserSession().getUser()!=null){
+                    PendingBalanceCalculator pbc = new PendingBalanceCalculator(Pagez.getUserSession().getUser());
+                    currentbalanceDbl = Pagez.getUserSession().getUser().getCurrentbalance();
+                    pendingearningsDbl = pbc.getPendingearnings();
+                    currentbalance = "$"+Str.formatForMoney(currentbalanceDbl);
+                    pendingearnings = "$"+Str.formatForMoney(pendingearningsDbl);
+                } 
 
 
             }
