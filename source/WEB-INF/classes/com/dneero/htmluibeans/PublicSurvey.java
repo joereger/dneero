@@ -63,6 +63,7 @@ public class PublicSurvey implements Serializable {
     private ArrayList<PublicSurveyUserquestionListitem> userquestionlistitems = new ArrayList<PublicSurveyUserquestionListitem>();
     private ArrayList<Question> optionaluserquestions = new ArrayList<Question>();
     private ArrayList<PublicSurveyUserquestionListitem> optionaluserquestionlistitems = new ArrayList<PublicSurveyUserquestionListitem>();
+    private ArrayList<Integer> useridswhohavebeencheckedforuserquestions = new ArrayList<Integer>();
 
 
     public PublicSurvey(){
@@ -601,8 +602,14 @@ public class PublicSurvey implements Serializable {
                                                        .list();
                     for (Iterator<Response> responseIterator=responses.iterator(); responseIterator.hasNext();) {
                         Response response=responseIterator.next();
-                        if (response.getReferredbyuserid()>0 && response.getReferredbyuserid()!=user.getUserid()){
+                        if (!hasUseridBeenChecked(response.getReferredbyuserid()) &&  response.getReferredbyuserid()>0 && response.getReferredbyuserid()!=user.getUserid()){
                             User userwhoreferred = User.get(response.getReferredbyuserid());
+                            //Update the list of ones that've been checked already to prevent infinite loops
+                            if(useridswhohavebeencheckedforuserquestions==null){
+                                useridswhohavebeencheckedforuserquestions = new ArrayList<Integer>();
+                            }
+                            useridswhohavebeencheckedforuserquestions.add(user.getUserid());
+                            //Find and add questions, making this function recursive
                             userquestionsthatmustbeanswered.addAll(findUserQuestionsFor(userwhoreferred));
                         }
                     }
@@ -610,6 +617,18 @@ public class PublicSurvey implements Serializable {
             }
         }
         return userquestionsthatmustbeanswered;
+    }
+
+    private boolean hasUseridBeenChecked(int userid){
+        if (useridswhohavebeencheckedforuserquestions!=null){
+            for (Iterator it = useridswhohavebeencheckedforuserquestions.iterator(); it.hasNext(); ) {
+                int alreadyCheckedUserid = (Integer)it.next();
+                if (alreadyCheckedUserid==userid){
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     
