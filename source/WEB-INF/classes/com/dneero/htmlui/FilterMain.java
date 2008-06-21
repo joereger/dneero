@@ -1,27 +1,28 @@
 package com.dneero.htmlui;
 
+import com.dneero.cache.providers.CacheFactory;
+import com.dneero.dao.Pl;
+import com.dneero.dao.User;
+import com.dneero.eula.EulaHelper;
+import com.dneero.facebook.FacebookAuthorizationJsp;
+import com.dneero.session.PersistentLogin;
+import com.dneero.session.SurveysTakenToday;
+import com.dneero.session.UrlSplitter;
+import com.dneero.systemprops.BaseUrl;
+import com.dneero.systemprops.InstanceProperties;
+import com.dneero.systemprops.SystemProperty;
+import com.dneero.util.Time;
+import com.dneero.xmpp.SendXMPPMessage;
+import com.dneero.privatelabel.PlFinder;
 import org.apache.log4j.Logger;
 
 import javax.servlet.*;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Calendar;
-
-import com.dneero.cache.providers.CacheFactory;
-import com.dneero.session.UrlSplitter;
-import com.dneero.session.PersistentLogin;
-import com.dneero.session.SurveysTakenToday;
-import com.dneero.dao.User;
-import com.dneero.util.Time;
-import com.dneero.systemprops.SystemProperty;
-import com.dneero.systemprops.BaseUrl;
-import com.dneero.systemprops.InstanceProperties;
-import com.dneero.facebook.FacebookAuthorizationJsp;
-import com.dneero.eula.EulaHelper;
-import com.dneero.xmpp.SendXMPPMessage;
 
 /**
  * User: Joe Reger Jr
@@ -43,9 +44,6 @@ public class FilterMain implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest httpServletRequest = (HttpServletRequest)request;
         HttpServletResponse httpServletResponse = (HttpServletResponse)response;
-
-
-
 
         //Set up Pagez
         Pagez.setRequest(httpServletRequest);
@@ -102,6 +100,10 @@ public class FilterMain implements Filter {
                             return;
                         }
                     }
+
+                    //Set Private Label (Pl)
+                    Pl pl = PlFinder.find(httpServletRequest);
+                    Pagez.getUserSession().setPl(pl);
 
                     //Facebook start
                     FacebookAuthorizationJsp.doAuth();

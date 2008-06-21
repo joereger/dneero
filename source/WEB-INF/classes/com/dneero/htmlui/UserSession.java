@@ -1,15 +1,15 @@
 package com.dneero.htmlui;
 
-import com.dneero.facebook.FacebookUser;
+import com.dneero.dao.Pl;
 import com.dneero.dao.User;
 import com.dneero.dao.Userrole;
+import com.dneero.facebook.FacebookUser;
+import org.apache.log4j.Logger;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Calendar;
-
-import org.apache.log4j.Logger;
+import java.util.Iterator;
 
 /**
  * User: Joe Reger Jr
@@ -46,6 +46,7 @@ public class UserSession implements Serializable {
     private String accesscode = "";
     private Calendar createdate = Calendar.getInstance();
     private Calendar lastaccesseddate = Calendar.getInstance();
+    private int plid = 1;
 
     public UserSession(){
         Logger logger = Logger.getLogger(this.getClass().getName());
@@ -104,6 +105,14 @@ public class UserSession implements Serializable {
         } else {
             userid = 0;
         }
+    }
+
+    public Pl getPl() {
+        return Pl.get(plid);
+    }
+
+    public void setPl(Pl pl) {
+        this.plid=pl.getPlid();
     }
 
     public boolean getIsloggedin() {

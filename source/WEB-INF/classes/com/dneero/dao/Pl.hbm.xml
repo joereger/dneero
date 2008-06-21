@@ -12,6 +12,9 @@
         <property name="name" type="string">
             <column name="name" not-null="true" />
         </property>
+        <property name="nameforui" type="string">
+            <column name="nameforui" not-null="true" />
+        </property>
         <property name="subdomain" type="string">
             <column name="subdomain" not-null="true" />
         </property>

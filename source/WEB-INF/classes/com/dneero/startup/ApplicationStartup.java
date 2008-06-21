@@ -1,28 +1,28 @@
 package com.dneero.startup;
 
-import com.dneero.systemprops.WebAppRootDir;
+import com.dneero.dao.Pl;
+import com.dneero.dao.hibernate.HibernateSessionQuartzCloser;
+import com.dneero.dao.hibernate.HibernateUtil;
+import com.dneero.pageperformance.PagePerformanceUtil;
+import com.dneero.scheduledjobs.SystemStats;
 import com.dneero.systemprops.InstanceProperties;
 import com.dneero.systemprops.SystemProperty;
-import com.dneero.dao.hibernate.HibernateUtil;
-import com.dneero.dao.hibernate.HibernateSessionQuartzCloser;
+import com.dneero.systemprops.WebAppRootDir;
 import com.dneero.xmpp.SendXMPPMessage;
-import com.dneero.scheduledjobs.SystemStats;
-import com.dneero.pageperformance.PagePerformanceUtil;
+import org.apache.log4j.Logger;
+import org.quartz.Scheduler;
+import org.quartz.SchedulerFactory;
+import org.quartz.impl.StdSchedulerFactory;
 
-import javax.servlet.*;
-import javax.servlet.http.HttpServlet;
 import javax.management.MBeanServer;
 import javax.management.MBeanServerFactory;
 import javax.management.ObjectName;
-
-import org.apache.log4j.Logger;
-import org.quartz.SchedulerFactory;
-import org.quartz.Scheduler;
-import org.quartz.impl.StdSchedulerFactory;
-
-
+import javax.servlet.ServletContext;
+import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -63,13 +63,13 @@ public class ApplicationStartup implements ServletContextListener {
                 isdatabasereadyforapprun = true;
                 isappstarted = true;
             }
-            //Configure Log4j
-            //Logger.getRootLogger().setLevel();
         } else {
             logger.info("InstanceProperties.haveValidConfig()=false");
         }
         //If the database is running
         if (isdatabasereadyforapprun){
+            //Make sure we have at least one PL
+            guaranteeAtLeastOnePlExists();
             //Load SystemProps
             SystemProperty.refreshAllProps();
             //Refresh SystemStats
@@ -208,6 +208,24 @@ public class ApplicationStartup implements ServletContextListener {
             }
         } catch (Exception ex){
             logger.error("",ex);
+        }
+    }
+
+    private static void guaranteeAtLeastOnePlExists(){
+        Logger logger = Logger.getLogger(ApplicationStartup.class);
+        List pls = HibernateUtil.getSession().createQuery("from Pl").list();
+        if (pls==null || pls.size()<=0){
+            Pl pl = new Pl();
+            pl.setName("dNeero.com");
+            pl.setSubdomain("");
+            pl.setCustomdomain1("");
+            pl.setCustomdomain2("");
+            pl.setCustomdomain3("");
+            pl.setEmailhtmlfooter("");
+            pl.setEmailhtmlheader("");
+            pl.setWebhtmlfooter("");
+            pl.setWebhtmlheader("");
+            try{pl.save();}catch(Exception ex){logger.error(ex);}
         }
     }
 
