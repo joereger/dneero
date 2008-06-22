@@ -49,7 +49,7 @@ public class ResearcherEmailinvite implements Serializable {
         if (com.dneero.util.Num.isinteger(tmpSurveyid) && Integer.parseInt(tmpSurveyid)>0){
             surveyiduserisinvitedto = Integer.parseInt(tmpSurveyid);
             survey = Survey.get(surveyiduserisinvitedto);
-            url = BaseUrl.get(false) + "survey.jsp?surveyid="+survey.getSurveyid();
+            url = BaseUrl.get(false, survey.getPlid()) + "survey.jsp?surveyid="+survey.getSurveyid();
         }
         List results = HibernateUtil.getSession().createQuery("from Survey where researcherid='"+Pagez.getUserSession().getUser().getResearcherid()+"' and status='"+Survey.STATUS_OPEN+"'").list();
         if (results==null || results.size()<=0){

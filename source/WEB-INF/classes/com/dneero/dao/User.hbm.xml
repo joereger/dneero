@@ -50,6 +50,9 @@
         <property name="researcherid" type="int">
             <column name="researcherid" not-null="true" />
         </property>
+        <property name="plid" type="int">
+            <column name="plid" not-null="true" />
+        </property>
         <property name="referredbyuserid" type="int">
             <column name="referredbyuserid" not-null="true" />
         </property>

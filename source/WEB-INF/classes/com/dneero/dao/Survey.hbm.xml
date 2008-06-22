@@ -43,6 +43,9 @@
         <property name="researcherid" type="int">
             <column name="researcherid" not-null="true" />
         </property>
+        <property name="plid" type="int">
+            <column name="plid" not-null="true" />
+        </property>
         <property name="status" type="int">
             <column name="status" not-null="true" />
         </property>

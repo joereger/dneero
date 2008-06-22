@@ -1,8 +1,9 @@
 package com.dneero.display;
 
-import com.dneero.systemprops.BaseUrl;
+import com.dneero.dao.Pl;
 import com.dneero.dao.Survey;
 import com.dneero.dao.User;
+import com.dneero.systemprops.BaseUrl;
 
 /**
  * User: Joe Reger Jr
@@ -20,7 +21,11 @@ public class SurveyInBlogWrapper {
         if (user!=null){
             userid = user.getUserid();
         }
-        String baseurl = BaseUrl.get(makeHttpsIfSSLIsOn);
+        Pl pl = null;
+        if (user!=null){
+            pl = Pl.get(user.getPlid());
+        }
+        String baseurl = BaseUrl.get(makeHttpsIfSSLIsOn, pl);
         out.append("<!-- Start dNeero Conversation -->\n" +
                 "<div style=\"border: 5px solid #cccccc; width: 415px\">"+
                 "<table cellpadding=\"0\" cellspacing=\"0\" border=\"0\" bgcolor=\"#ffffff\" width=\"415\">\n" +

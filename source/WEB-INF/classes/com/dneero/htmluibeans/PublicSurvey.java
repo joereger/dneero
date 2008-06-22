@@ -251,7 +251,7 @@ public class PublicSurvey implements Serializable {
 
         //The main survey flash embed
         if (userwhotooksurvey!=null){
-            surveyResponseFlashEmbed = SurveyFlashServlet.getEmbedSyntax("/", survey.getSurveyid(), userwhotooksurvey.getUserid(), responseid, true, true, false);
+            surveyResponseFlashEmbed = SurveyFlashServlet.getEmbedSyntax("/", survey.getSurveyid(), userwhotooksurvey.getUserid(), responseid, survey.getPlid(), true, true, false);
         }
 
         //surveyResponseHtml
@@ -457,6 +457,7 @@ public class PublicSurvey implements Serializable {
                 } else {
                     //No user exists so I need to auto-create one
                     user.setEmail("");
+                    user.setPlid(Pagez.getUserSession().getPl().getPlid());
                     user.setPassword("");
                     user.setFirstname(Pagez.getUserSession().getFacebookUser().getFirst_name());
                     user.setLastname(Pagez.getUserSession().getFacebookUser().getLast_name());

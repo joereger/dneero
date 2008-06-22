@@ -225,6 +225,7 @@ public class ApplicationStartup implements ServletContextListener {
             pl.setEmailhtmlheader("");
             pl.setWebhtmlfooter("");
             pl.setWebhtmlheader("");
+            pl.setIshttpson(false);
             try{pl.save();}catch(Exception ex){logger.error(ex);}
         }
     }

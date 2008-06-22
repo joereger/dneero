@@ -184,7 +184,7 @@ public class FacebookApiWrapper {
 //                            fbml.append("<tr>");
 //                            fbml.append("<td valign=\"top\">");
                                 fbml.append("<a href=\"http://apps.facebook.com/"+SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_APP_NAME)+"?action=showsurvey"+"-"+survey.getSurveyid()+"-"+user.getUserid()+"\">");
-                                fbml.append("<img src=\""+ BaseUrl.getNoHttp() +"/images/dneero-favicon.png\" alt=\"\" width=\"16\" height=\"16\" border=\"0\">");
+                                fbml.append("<img src=\""+ BaseUrl.get(false, survey.getPlid()) +"/images/dneero-favicon.png\" alt=\"\" width=\"16\" height=\"16\" border=\"0\">");
                                 fbml.append("<font style=\"font-size: 12px; color: #3B5998; font-weight: bold;\">");
                                 fbml.append(survey.getTitle());
                                 fbml.append("</font>");
@@ -200,7 +200,7 @@ public class FacebookApiWrapper {
 //                            fbml.append("</table>");
 
 
-                            fbml.append(SurveyFlashFacebookServlet.getFBMLSyntax(BaseUrl.get(false), survey.getSurveyid(), user.getUserid(), response.getResponseid(), false, true, false));
+                            fbml.append(SurveyFlashFacebookServlet.getFBMLSyntax(BaseUrl.get(false, survey.getPlid()), survey.getSurveyid(), user.getUserid(), response.getResponseid(), false, true, false));
                             fbml.append("<table width=\"100%\">");
                             fbml.append("<tr>");
                             fbml.append("<td valign=\"top\">");
@@ -218,7 +218,7 @@ public class FacebookApiWrapper {
 
 
                         fbml.append("</div>");
-                        fbml.append("<img src=\""+ BaseUrl.getNoHttp() +"/images/clear.gif\" alt=\"\" width=\"1\" height=\"2\" border=\"0\">");
+                        fbml.append("<img src=\""+ BaseUrl.get(false, survey.getPlid()) +"/images/clear.gif\" alt=\"\" width=\"1\" height=\"2\" border=\"0\">");
                     }
                     fbml.append("<br/>");
 

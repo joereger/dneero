@@ -54,7 +54,7 @@ public class InstantNotifyOfNewSurvey implements Runnable {
         //Create text for email
         SurveyEnhancer surveyEnhancer = new SurveyEnhancer(survey);
         possibleearnings = possibleearnings + surveyEnhancer.getMaxearningDbl();
-        String url = BaseUrl.get(false) + "survey.jsp?surveyid="+survey.getSurveyid();
+        String url = BaseUrl.get(false, survey.getPlid()) + "survey.jsp?surveyid="+survey.getSurveyid();
         //Html
         listofsurveysHtml.append("<br><br><a href=\""+url+"\">" + survey.getTitle() + " (Earn up to: " + surveyEnhancer.getMaxearning() + ")</a>");
         if (!survey.getDescription().equals("")){

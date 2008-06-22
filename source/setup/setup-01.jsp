@@ -78,6 +78,7 @@
                     if (users == null || users.size() == 0) {
                         //Create admin acct
                         User user = new User();
+                        user.setPlid(1);
                         user.setEmail(request.getParameter("email"));
                         user.setPassword(request.getParameter("password"));
                         user.setFirstname(request.getParameter("firstname"));

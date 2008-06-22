@@ -23,6 +23,7 @@ public class User extends BasePersistentClass implements java.io.Serializable, A
      private boolean isenabled;
      private int bloggerid;
      private int researcherid;
+     private int plid;
      private int referredbyuserid;
      private boolean isqualifiedforrevshare;
      private String email;
@@ -118,6 +119,14 @@ public class User extends BasePersistentClass implements java.io.Serializable, A
     
     public void setUserid(int userid) {
         this.userid = userid;
+    }
+
+    public int getPlid() {
+        return plid;
+    }
+
+    public void setPlid(int plid) {
+        this.plid=plid;
     }
 
     public boolean getIsenabled() {

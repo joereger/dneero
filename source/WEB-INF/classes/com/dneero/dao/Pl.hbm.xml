@@ -39,5 +39,8 @@
         <property name="emailhtmlfooter" type="text">
             <column name="emailhtmlfooter" not-null="true" />
         </property>
+        <property name="ishttpson" type="boolean">
+            <column name="ishttpson" />
+        </property>
     </class>
 </hibernate-mapping>

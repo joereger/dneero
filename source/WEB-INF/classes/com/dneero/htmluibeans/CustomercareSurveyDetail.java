@@ -46,7 +46,7 @@ public class CustomercareSurveyDetail implements Serializable {
             survey = Survey.get((Integer.parseInt(Pagez.getRequest().getParameter("surveyid"))));
         }
         if (survey!=null && survey.getSurveyid()>0){
-            surveyOnBlogPreview = SurveyFlashServlet.getEmbedSyntax("/", survey.getSurveyid(), 0, 0, true, true, false);
+            surveyOnBlogPreview = SurveyFlashServlet.getEmbedSyntax("/", survey.getSurveyid(), 0, 0, survey.getPlid(), true, true, false);
             surveyEnhancer = new SurveyEnhancer(survey);
             surveyForTakers = SurveyTakerDisplay.getHtmlForSurveyTaking(survey, new Blogger(), true, null);
             sms = new SurveyMoneyStatus(survey);

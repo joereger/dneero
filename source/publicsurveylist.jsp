@@ -14,7 +14,7 @@
 <%@ page import="com.dneero.htmluibeans.PublicIndex" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
-String pagetitle = "dNeero Conversations";
+String pagetitle = "Conversations";
 String navtab = "home";
 String acl = "public";
 %>

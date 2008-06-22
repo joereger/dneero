@@ -71,7 +71,7 @@ public class ResearcherSurveyDetail03 implements Serializable {
                 embedflash = survey.getEmbedflash();
                 embedlink = survey.getEmbedlink();
                 embedjavascriptsyntax = SurveyJavascriptServlet.getEmbedSyntax("/", survey.getSurveyid(), Pagez.getUserSession().getUser().getUserid(), 0, true, true, true, true);
-                embedflashsyntax = SurveyFlashServlet.getEmbedSyntax("/", survey.getSurveyid(), Pagez.getUserSession().getUser().getUserid(), 0, true, false, true);
+                embedflashsyntax = SurveyFlashServlet.getEmbedSyntax("/", survey.getSurveyid(), Pagez.getUserSession().getUser().getUserid(), 0, survey.getPlid(), true, false, true);
                 embedimagesyntax = SurveyImageServlet.getEmbedSyntax("/", survey.getSurveyid(), Pagez.getUserSession().getUser().getUserid(), 0, true);
                 embedlinksyntax = SurveyLinkServlet.getEmbedSyntax("/", survey.getSurveyid(), Pagez.getUserSession().getUser().getUserid(), 0, true);
                 status = survey.getStatus();

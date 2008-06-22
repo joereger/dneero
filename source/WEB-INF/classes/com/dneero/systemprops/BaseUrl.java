@@ -1,5 +1,8 @@
 package com.dneero.systemprops;
 
+import com.dneero.dao.Pl;
+import com.dneero.htmlui.Pagez;
+
 /**
  * User: Joe Reger Jr
  * Date: Sep 10, 2006
@@ -13,18 +16,70 @@ public class BaseUrl {
         baseUrl = null;
     }
 
-    public static String getNoHttp() {
+    private static String getNoHttp() {
+        //If there's a valid Pl in the userSession
+        if (Pagez.getUserSession()!=null && Pagez.getUserSession().getPl()!=null){
+            if (Pagez.getUserSession().getPl().getPlid()>0){
+                return getNoHttp(Pagez.getUserSession().getPl());
+            }
+        }
+        return getNoHttp(null);
+    }
+
+    private static String getNoHttp(Pl pl) {
         if (baseUrl ==null){
             baseUrl = SystemProperty.getProp(SystemProperty.PROP_BASEURL);
         }
+        //See if the Pl has anything to offer
+        if (pl!=null && pl.getPlid()>0){
+            //Rip through the customdomains
+            if (!Pagez.getUserSession().getPl().getCustomdomain1().equals("")){
+                return Pagez.getUserSession().getPl().getCustomdomain1();
+            }
+            if (!Pagez.getUserSession().getPl().getCustomdomain2().equals("")){
+                return Pagez.getUserSession().getPl().getCustomdomain2();
+            }
+            if (!Pagez.getUserSession().getPl().getCustomdomain3().equals("")){
+                return Pagez.getUserSession().getPl().getCustomdomain3();
+            }
+        }
+        //Otherwise just return the default/system value
         return baseUrl;
     }
 
     public static String get(boolean makeHttpsIfSSLIsOn){
-        if (makeHttpsIfSSLIsOn && SystemProperty.getProp(SystemProperty.PROP_ISSSLON).equals("1")){
-            return "https://" + getNoHttp() + "/";
+        //If there's a valid Pl in the userSession
+        if (Pagez.getUserSession()!=null && Pagez.getUserSession().getPl()!=null){
+            if (Pagez.getUserSession().getPl().getPlid()>0){
+                return get(makeHttpsIfSSLIsOn, Pagez.getUserSession().getPl());
+            }
+        }
+        return get(makeHttpsIfSSLIsOn, null);
+    }
+
+    public static String get(boolean makeHttpsIfSSLIsOn, int plid){
+        Pl pl = Pl.get(plid);
+        return get(makeHttpsIfSSLIsOn, pl);
+    }
+
+    public static String get(boolean makeHttpsIfSSLIsOn, Pl pl){
+        boolean returnwithhttps = false;
+        //If there's a PL in the usersession and it has https turned on
+        if (pl!=null && pl.getPlid()>0){
+            if (makeHttpsIfSSLIsOn && pl.getIshttpson()){
+                returnwithhttps = true;
+            }
+        //Else look to the system for guidance
         } else {
-            return "http://" + getNoHttp() + "/";
+            if (makeHttpsIfSSLIsOn && SystemProperty.getProp(SystemProperty.PROP_ISSSLON).equals("1")){
+                returnwithhttps = true;
+            }
+        }
+        //Return the proper baseurl
+        if (returnwithhttps){
+            return "https://" + getNoHttp(pl) + "/";
+        } else {
+            return "http://" + getNoHttp(pl) + "/";
         }
     }
 

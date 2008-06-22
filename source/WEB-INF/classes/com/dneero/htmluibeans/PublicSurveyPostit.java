@@ -157,16 +157,16 @@ public class PublicSurveyPostit implements Serializable {
         if (loggedinuserhasalreadytakensurvey){
             surveyOnBlogPreview = "";
         } else {
-            surveyOnBlogPreview = SurveyFlashServlet.getEmbedSyntax("/", survey.getSurveyid(), 0, 0, true, true, false);
+            surveyOnBlogPreview = SurveyFlashServlet.getEmbedSyntax("/", survey.getSurveyid(), 0, 0, survey.getPlid(), true, true, false);
         }
 
         //If blogger has taken the survey already
         if (loggedinuserhasalreadytakensurvey){
-            htmltoposttoblog = SurveyJavascriptServlet.getEmbedSyntax(BaseUrl.get(false), survey.getSurveyid(), Pagez.getUserSession().getUser().getUserid(), responseidOfLoggedinUser, false, false, true, false);
-            htmltoposttoblogflash = SurveyFlashServlet.getEmbedSyntax(BaseUrl.get(false), survey.getSurveyid(), Pagez.getUserSession().getUser().getUserid(), responseidOfLoggedinUser, false, true, false);
-            htmltoposttoblogflashwithembedandobjecttag = SurveyFlashServlet.getEmbedSyntaxWithObjectTag(BaseUrl.get(false), survey.getSurveyid(), Pagez.getUserSession().getUser().getUserid(), responseidOfLoggedinUser, false, true, false);
-            htmltoposttoblogimagelink = SurveyImageServlet.getEmbedSyntax(BaseUrl.get(false), survey.getSurveyid(), Pagez.getUserSession().getUser().getUserid(), responseidOfLoggedinUser, false);
-            htmltoposttobloglink = SurveyLinkServlet.getEmbedSyntax(BaseUrl.get(false), survey.getSurveyid(), Pagez.getUserSession().getUser().getUserid(), responseidOfLoggedinUser, false);
+            htmltoposttoblog = SurveyJavascriptServlet.getEmbedSyntax(BaseUrl.get(false, survey.getPlid()), survey.getSurveyid(), Pagez.getUserSession().getUser().getUserid(), responseidOfLoggedinUser, false, false, true, false);
+            htmltoposttoblogflash = SurveyFlashServlet.getEmbedSyntax(BaseUrl.get(false, survey.getPlid()), survey.getSurveyid(), Pagez.getUserSession().getUser().getUserid(), responseidOfLoggedinUser, survey.getPlid(), false, true, false);
+            htmltoposttoblogflashwithembedandobjecttag = SurveyFlashServlet.getEmbedSyntaxWithObjectTag(BaseUrl.get(false, survey.getPlid()), survey.getSurveyid(), Pagez.getUserSession().getUser().getUserid(), responseidOfLoggedinUser, survey.getPlid(), false, true, false);
+            htmltoposttoblogimagelink = SurveyImageServlet.getEmbedSyntax(BaseUrl.get(false, survey.getPlid()), survey.getSurveyid(), Pagez.getUserSession().getUser().getUserid(), responseidOfLoggedinUser, false);
+            htmltoposttobloglink = SurveyLinkServlet.getEmbedSyntax(BaseUrl.get(false, survey.getPlid()), survey.getSurveyid(), Pagez.getUserSession().getUser().getUserid(), responseidOfLoggedinUser, false);
         } else {
             htmltoposttoblog = "";
             htmltoposttoblogflash = "";

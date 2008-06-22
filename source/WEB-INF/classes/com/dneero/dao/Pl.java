@@ -28,6 +28,7 @@ public class Pl extends BasePersistentClass implements java.io.Serializable, Aut
     private String webhtmlfooter;
     private String emailhtmlheader;
     private String emailhtmlfooter;
+    private boolean ishttpson;
 
 
 
@@ -174,5 +175,13 @@ public class Pl extends BasePersistentClass implements java.io.Serializable, Aut
 
     public void setNameforui(String nameforui) {
         this.nameforui=nameforui;
+    }
+
+    public boolean getIshttpson() {
+        return ishttpson;
+    }
+
+    public void setIshttpson(boolean ishttpson) {
+        this.ishttpson=ishttpson;
     }
 }

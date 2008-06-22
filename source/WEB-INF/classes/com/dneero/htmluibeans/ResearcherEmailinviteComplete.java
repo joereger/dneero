@@ -82,7 +82,7 @@ public class ResearcherEmailinviteComplete implements Serializable {
                 //Iterate email addresses and send
                 for (Iterator it = Pagez.getUserSession().getEmailinviteaddresses().iterator(); it.hasNext(); ) {
                     String emailaddress = (String)it.next();
-                    String url = BaseUrl.get(false) + "survey.jsp?surveyid="+survey.getSurveyid();
+                    String url = BaseUrl.get(false, survey.getPlid()) + "survey.jsp?surveyid="+survey.getSurveyid();
                     //Create the args array to hold the dynamic portions of the email
                     String[] args = new String[10];
                     args[0] = sh.getMaxearning();

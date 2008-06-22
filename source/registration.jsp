@@ -5,7 +5,7 @@
 <%@ page import="com.dneero.util.RandomString" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
-String pagetitle = "Sign Up for a dNeero Account";
+String pagetitle = "Sign Up for an Account";
 String navtab = "youraccount";
 String acl = "public";
 %>
@@ -73,7 +73,7 @@ Registration registration = (Registration)Pagez.getBeanMgr().get("Registration")
         <div style="width: 250px; float: right; padding-left: 20px;">
             <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
                 <font class="mediumfont" style="color: #333333">Existing Users</font><br/>
-                <font class="smallfont">If you've already got a dNeero account you can simply log in.</font><br/>
+                <font class="smallfont">If you've already got an account you can simply log in.</font><br/>
                 <div class="rounded" style="padding: 15px; margin: 5px; background: #ffffff;">
                     <%=GreenRoundedButton.get("<a href=\"/login.jsp\"><font class=\"subnavfont\" style=\"color: #ffffff; font-weight: bold;\">Log In</font></a>")%>
                 </div>

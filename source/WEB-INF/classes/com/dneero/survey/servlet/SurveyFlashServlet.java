@@ -10,7 +10,6 @@ import javax.servlet.ServletOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Date;
 import java.net.URLEncoder;
 
 import com.dneero.dao.Survey;
@@ -21,7 +20,6 @@ import com.dneero.systemprops.InstanceProperties;
 import com.dneero.cache.providers.CacheFactory;
 import com.dneero.util.RandomString;
 import com.dneero.pageperformance.PagePerformanceUtil;
-import com.dneero.htmlui.Pagez;
 import com.flagstone.transform.*;
 
 /**
@@ -66,13 +64,9 @@ public class SurveyFlashServlet extends HttpServlet {
             }
         }
 
-        User user = null;
         int userid = 0;
         if (request.getParameter("u")!=null && com.dneero.util.Num.isinteger(request.getParameter("u"))){
-            user = User.get(Integer.parseInt(request.getParameter("u")));
-            if (user!=null){
-                userid = user.getUserid();
-            }
+            userid = Integer.parseInt(request.getParameter("u"));
         }
 
         boolean ispreview = false;
@@ -112,6 +106,7 @@ public class SurveyFlashServlet extends HttpServlet {
             try{
                 String surveyashtml = "Sorry.  Not found. Surveyid="+request.getParameter("s");
                 if (survey!=null && survey.getSurveyid()>0){
+                    User user = User.get(Integer.parseInt(request.getParameter("u")));
                     surveyashtml = SurveyAsHtml.getHtml(survey, user, false);
                 }
                 StringBuffer surveyasxhtml = new StringBuffer();
@@ -211,7 +206,7 @@ public class SurveyFlashServlet extends HttpServlet {
     }
 
 
-    private static String getUrlOfMovie(String baseurl, int surveyid, int userid, int responseid, boolean ispreview, boolean cache, boolean appendrandomstringtoforcebrowserrefresh){
+    private static String getUrlOfMovie(String baseurl, int surveyid, int userid, int responseid, int plid, boolean ispreview, boolean cache, boolean appendrandomstringtoforcebrowserrefresh){
         Logger logger = Logger.getLogger(SurveyFlashServlet.class);
         String ispreviewStr = "0";
         if (ispreview){
@@ -221,6 +216,10 @@ public class SurveyFlashServlet extends HttpServlet {
         if (cache){
             cacheStr = "1";
         }
+        String hdlStr = "0";
+        if (plid!=1){
+            hdlStr = "1";
+        }
         if (baseurl.equals("")){
             baseurl = "/";
         }
@@ -229,25 +228,25 @@ public class SurveyFlashServlet extends HttpServlet {
             randomStr = "&rnd="+ RandomString.randomAlphanumeric(5);
         }
 
-        String baseurlencoded = BaseUrl.get(false);
-        try{baseurlencoded = URLEncoder.encode(baseurlencoded, "UTF-8");}catch(Exception ex){logger.error("",ex); baseurlencoded = BaseUrl.get(false);}
+        String baseurlencoded = BaseUrl.get(false, plid);
+        try{baseurlencoded = URLEncoder.encode(baseurlencoded, "UTF-8");}catch(Exception ex){logger.error("",ex); baseurlencoded = BaseUrl.get(false, plid);}
 
-        String urlofmovie = baseurl+"flashviewer/dneerosurvey.swf?s="+surveyid+"&u="+userid+"&p="+ispreviewStr+"&c="+cacheStr+"&r="+responseid+"&baseurl="+baseurlencoded+randomStr;
+        String urlofmovie = baseurl+"flashviewer/dneerosurvey.swf?s="+surveyid+"&u="+userid+"&p="+ispreviewStr+"&c="+cacheStr+"&r="+responseid+"&hdl="+hdlStr+"&baseurl="+baseurlencoded+randomStr;
         return urlofmovie;
     }
 
 
 
-    public static String getEmbedSyntax(String baseurl, int surveyid, int userid, int responseid, boolean ispreview, boolean cache, boolean appendrandomstringtoforcebrowserrefresh){
-        String urlofmovie = getUrlOfMovie(baseurl, surveyid, userid, responseid, ispreview, cache, appendrandomstringtoforcebrowserrefresh);
+    public static String getEmbedSyntax(String baseurl, int surveyid, int userid, int responseid, int plid, boolean ispreview, boolean cache, boolean appendrandomstringtoforcebrowserrefresh){
+        String urlofmovie = getUrlOfMovie(baseurl, surveyid, userid, responseid, plid, ispreview, cache, appendrandomstringtoforcebrowserrefresh);
         String out = ""+
               "<embed src=\""+urlofmovie+"\" wmode=\"transparent\" quality=\"high\" bgcolor=\"#ffffff\" width=\"425\" height=\"250\" name=\"dneeroflashviewer\" align=\"middle\" type=\"application/x-shockwave-flash\" pluginspage=\"http://www.macromedia.com/go/getflashplayer\"></embed>" +
               "";
         return out;
     }
 
-    public static String getEmbedSyntaxWithObjectTag(String baseurl, int surveyid, int userid, int responseid, boolean ispreview, boolean cache, boolean appendrandomstringtoforcebrowserrefresh){
-        String urlofmovie = getUrlOfMovie(baseurl, surveyid, userid, responseid, ispreview, cache, appendrandomstringtoforcebrowserrefresh);
+    public static String getEmbedSyntaxWithObjectTag(String baseurl, int surveyid, int userid, int responseid, int plid, boolean ispreview, boolean cache, boolean appendrandomstringtoforcebrowserrefresh){
+        String urlofmovie = getUrlOfMovie(baseurl, surveyid, userid, responseid, plid, ispreview, cache, appendrandomstringtoforcebrowserrefresh);
         String out = "<object type=\"application/x-shockwave-flash\" allowScriptAccess=\"never\" allowNetworking=\"internal\" width=\"425\" height=\"250\" align=\"middle\" data=\""+urlofmovie+"\">" +
                      "<param name=\"allowScriptAccess\" value=\"never\" />" +
                      "<param name=\"allowNetworking\" value=\"internal\" />" +

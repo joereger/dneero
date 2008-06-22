@@ -83,6 +83,7 @@ public class ResearcherSurveyDetail01 implements Serializable {
         survey.setImpressionstotal(0);
         survey.setImpressionspaid(0);
         survey.setImpressionstobepaid(0);
+        survey.setPlid(Pagez.getUserSession().getPl().getPlid());
     }
 
 

@@ -13,11 +13,14 @@ String acl = "sysadmin";
 <%
     String defaultWebHeader = Io.textFileRead(WebAppRootDir.getWebAppRootPath()+"template/header-dneero.vm").toString();
     String defaultWebFooter = Io.textFileRead(WebAppRootDir.getWebAppRootPath()+"template/footer-dneero.vm").toString();
+    String defaultEmailHeader = Io.textFileRead(WebAppRootDir.getWebAppRootPath()+"emailtemplates/emailheader.html").toString();
+    String defaultEmailFooter = Io.textFileRead(WebAppRootDir.getWebAppRootPath()+"emailtemplates/emailfooter.html").toString();
 %>
 <%
     Pl pl = new Pl();
     pl.setWebhtmlheader(defaultWebHeader);
     pl.setWebhtmlfooter(defaultWebFooter);
+    pl.setIshttpson(false);
     if (request.getParameter("plid")!=null && Num.isinteger(request.getParameter("plid"))){
         pl = Pl.get(Integer.parseInt(request.getParameter("plid")));
     }
@@ -36,6 +39,7 @@ String acl = "sysadmin";
                 pl.setWebhtmlfooter(Textarea.getValueFromRequest("webhtmlfooter", "Web Html Footer", false));
                 pl.setEmailhtmlheader(Textarea.getValueFromRequest("emailhtmlheader", "Email Html Header", false));
                 pl.setEmailhtmlfooter(Textarea.getValueFromRequest("emailhtmlfooter", "Email Html Footer", false));
+                pl.setIshttpson(CheckboxBoolean.getValueFromRequest("ishttpson"));
                 //Validate data
                 if (PlVerification.isValid(pl)){
                     pl.save();
@@ -87,6 +91,42 @@ String acl = "sysadmin";
         }
     }
 %>
+<%
+    if (request.getParameter("action") != null) {
+        try {
+            if (request.getParameter("action").equals("setemailhtmlheadertodefault")){
+                pl.setEmailhtmlheader(defaultEmailHeader);
+                //Validate data
+                if (PlVerification.isValid(pl)){
+                    pl.save();
+                    Pagez.getUserSession().setMessage("Done!");
+                } else {
+                    Pagez.getUserSession().setMessage("Pl Fails Validation!");
+                }
+            }
+        } catch (Exception vex) {
+            Pagez.getUserSession().setMessage(vex.toString());
+        }
+    }
+%>
+<%
+    if (request.getParameter("action") != null) {
+        try {
+            if (request.getParameter("action").equals("setemailhtmlfootertodefault")){
+                pl.setEmailhtmlfooter(defaultEmailFooter);
+                //Validate data
+                if (PlVerification.isValid(pl)){
+                    pl.save();
+                    Pagez.getUserSession().setMessage("Done!");
+                } else {
+                    Pagez.getUserSession().setMessage("Pl Fails Validation!");
+                }
+            }
+        } catch (Exception vex) {
+            Pagez.getUserSession().setMessage(vex.toString());
+        }
+    }
+%>
 <%@ include file="/template/header.jsp" %>
 
 
@@ -112,6 +152,14 @@ String acl = "sysadmin";
                     </td>
                     <td valign="top">
                         <%=Textbox.getHtml("nameforui", pl.getNameforui(), 255, 35, "", "")%>
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top">
+                        <font class="formfieldnamefont">Ishttpson?</font>
+                    </td>
+                    <td valign="top">
+                        <%=CheckboxBoolean.getHtml("ishttpson", pl.getIshttpson(), "", "")%>
                     </td>
                 </tr>
                 <tr>
@@ -172,6 +220,8 @@ String acl = "sysadmin";
                 <tr>
                     <td valign="top">
                         <font class="formfieldnamefont">Email Html Header</font>
+                        <br/><font class="tinyfont"><a href="/sysadmin/privatelabeledit.jsp?plid=<%=pl.getPlid()%>&action=setemailhtmlheadertodefault">Set to Default</a></font>
+                        <br/><font class="tinyfont">(Set to blank to always use system default)</font>
                     </td>
                     <td valign="top">
                         <%=Textarea.getHtml("emailhtmlheader", pl.getEmailhtmlheader(), 8, 80, "", "")%>
@@ -180,6 +230,8 @@ String acl = "sysadmin";
                 <tr>
                     <td valign="top">
                         <font class="formfieldnamefont">Email Html Footer</font>
+                        <br/><font class="tinyfont"><a href="/sysadmin/privatelabeledit.jsp?plid=<%=pl.getPlid()%>&action=setemailhtmlfootertodefault">Set to Default</a></font>
+                        <br/><font class="tinyfont">(Set to blank to always use system default)</font>
                     </td>
                     <td valign="top">
                         <%=Textarea.getHtml("emailhtmlfooter", pl.getEmailhtmlfooter(), 8, 80, "", "")%>

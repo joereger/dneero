@@ -1,16 +1,17 @@
 package com.dneero.email;
 
+import com.dneero.dao.Pl;
 import com.dneero.dao.User;
-import com.dneero.util.*;
-import com.dneero.systemprops.SystemProperty;
-import com.dneero.systemprops.WebAppRootDir;
 import com.dneero.systemprops.BaseUrl;
-
-import java.util.regex.Pattern;
-import java.util.regex.Matcher;
-
+import com.dneero.systemprops.WebAppRootDir;
+import com.dneero.util.Io;
+import com.dneero.util.Num;
+import com.dneero.util.Str;
 import org.apache.commons.mail.HtmlEmail;
 import org.apache.log4j.Logger;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * User: Joe Reger Jr
@@ -45,8 +46,20 @@ public class EmailTemplateProcessor {
 
     public static void sendMail(String subject, String htmlTemplate, String txtTemplate, User userTo, String[] args, String toaddress, String fromaddress){
         Logger logger = Logger.getLogger(EmailTemplateProcessor.class);
-        String htmlEmailHeader = Io.textFileRead(WebAppRootDir.getWebAppRootPath() + "emailtemplates" + java.io.File.separator + "emailheader.html").toString();
-        String htmlEmailFooter = Io.textFileRead(WebAppRootDir.getWebAppRootPath() + "emailtemplates" + java.io.File.separator + "emailfooter.html").toString();
+        String htmlEmailHeader = "";
+        String htmlEmailFooter = "";
+        //Use Pl email headers/footers
+        if (userTo!=null && userTo.getPlid()>0){
+            Pl pl = Pl.get(userTo.getPlid());
+            htmlEmailHeader = pl.getEmailhtmlheader();
+            htmlEmailFooter = pl.getEmailhtmlfooter();
+        }
+        //Default to system values if *both* are blank
+        if (htmlEmailHeader.equals("") && htmlEmailFooter.equals("")){
+            htmlEmailHeader = Io.textFileRead(WebAppRootDir.getWebAppRootPath() + "emailtemplates" + java.io.File.separator + "emailheader.html").toString();
+            htmlEmailFooter = Io.textFileRead(WebAppRootDir.getWebAppRootPath() + "emailtemplates" + java.io.File.separator + "emailfooter.html").toString();
+        }
+        //Process templates to create the message
         String htmlMessage = processTemplate(htmlTemplate, userTo, args);
         String txtMessage = processTemplate(txtTemplate, userTo, args);
         htmlMessage = translateImageLinks(htmlMessage);
@@ -137,7 +150,12 @@ public class EmailTemplateProcessor {
                 return "";
             }
         } else if (tag.equals("<$baseUrl.includinghttp$>")){
-            return BaseUrl.get(false);
+            if (user!=null){
+                Pl pl = Pl.get(user.getPlid());
+                return BaseUrl.get(false, pl);
+            } else {
+                return BaseUrl.get(false);
+            }
         }
 
 
@@ -176,6 +194,7 @@ public class EmailTemplateProcessor {
                 if (m.group(1)!=null){
                     openquote = m.group(1);
                 }
+                //@todo All email images must be called from dNeero folder because of this line
                 String replacement = "img src="+openquote+BaseUrl.get(false)+"emailtemplates/images";
                 logger.debug("replacement ="+replacement);
                 m.appendReplacement(out, Str.cleanForAppendreplacement(replacement));

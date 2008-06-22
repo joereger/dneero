@@ -17,7 +17,7 @@ public class SocialBookmarkLinks {
     public static String getSocialBookmarkLinks(Survey survey){
         try{
             SurveyEnhancer se = new SurveyEnhancer(survey);
-            String url = URLEncoder.encode(BaseUrl.get(false)+"survey.jsp?surveyid="+survey.getSurveyid(), "UTF-8");
+            String url = URLEncoder.encode(BaseUrl.get(false, survey.getPlid())+"survey.jsp?surveyid="+survey.getSurveyid(), "UTF-8");
             String title = URLEncoder.encode(Str.truncateString(survey.getTitle(), 50)+" (Earn up to "+se.getMaxearning()+")", "UTF-8");
             return getSocialBookmarkLinks(url, title);
         } catch (Exception ex){

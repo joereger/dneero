@@ -85,7 +85,7 @@ public class NotifyBloggersOfNewOffers implements Job {
                                     atleastonenewsurveyforblogger = true;
                                     SurveyEnhancer surveyEnhancer = new SurveyEnhancer(survey);
                                     possibleearnings = possibleearnings + surveyEnhancer.getMaxearningDbl();
-                                    String url = BaseUrl.get(false) + "survey.jsp?surveyid="+survey.getSurveyid();
+                                    String url = BaseUrl.get(false, survey.getPlid()) + "survey.jsp?surveyid="+survey.getSurveyid();
                                     if (user.getFacebookuserid()>0){
                                         url = "http://apps.facebook.com/"+ SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_APP_NAME)+"/";
                                     }

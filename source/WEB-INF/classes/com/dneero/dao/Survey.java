@@ -32,6 +32,7 @@ public class Survey extends BasePersistentClass implements java.io.Serializable,
      // Fields
      private int surveyid;
      private int researcherid;
+     private int plid = 1;
      private String title;
      private String description;
      private String criteriaxml;
@@ -466,5 +467,13 @@ public class Survey extends BasePersistentClass implements java.io.Serializable,
 
     public void setImpressionstotal(int impressionstotal) {
         this.impressionstotal=impressionstotal;
+    }
+
+    public int getPlid() {
+        return plid;
+    }
+
+    public void setPlid(int plid) {
+        this.plid=plid;
     }
 }
