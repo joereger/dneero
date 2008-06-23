@@ -2,6 +2,7 @@ package com.dneero.privatelabel;
 
 import com.dneero.dao.Pl;
 import com.dneero.dao.hibernate.HibernateUtil;
+import com.dneero.htmlui.Pagez;
 import org.hibernate.criterion.Restrictions;
 
 import java.util.List;
@@ -30,9 +31,11 @@ public class PlVerification {
         List<Pl> pls = HibernateUtil.getSession().createCriteria(Pl.class)
                                            .add(Restrictions.ne("plid", pl.getPlid()))
                                            .add(Restrictions.eq("subdomain", pl.getSubdomain().toLowerCase()))
+                                           .add(Restrictions.ne("subdomain", ""))
                                            .setCacheable(true)
                                            .list();
         if (pls!=null && pls.size()>0){
+            Pagez.getUserSession().setMessage("Subdomain not unique.");
             return false;
         }
         return true;
@@ -40,12 +43,15 @@ public class PlVerification {
 
     private static boolean isCustomdomain1Unique(Pl pl){
         if (!isSpecificCustomdomainUnique(pl, pl.getCustomdomain1())){
+            Pagez.getUserSession().setMessage("Customdomain1 not unique.");
             return false;
         }
         if (!isSpecificCustomdomainUnique(pl, pl.getCustomdomain2())){
+            Pagez.getUserSession().setMessage("Customdomain2 not unique.");
             return false;
         }
         if (!isSpecificCustomdomainUnique(pl, pl.getCustomdomain3())){
+            Pagez.getUserSession().setMessage("Customdomain3 not unique.");
             return false;
         }
         return true;

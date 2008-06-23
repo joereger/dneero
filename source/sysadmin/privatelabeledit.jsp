@@ -1,4 +1,6 @@
+<%@ page import="com.dneero.cache.providers.CacheFactory" %>
 <%@ page import="com.dneero.dao.Pl" %>
+<%@ page import="com.dneero.privatelabel.PlFinder" %>
 <%@ page import="com.dneero.privatelabel.PlVerification" %>
 <%@ page import="com.dneero.util.Num" %>
 <%@ page import="java.util.ArrayList" %>
@@ -43,6 +45,7 @@ String acl = "sysadmin";
                 //Validate data
                 if (PlVerification.isValid(pl)){
                     pl.save();
+                    CacheFactory.getCacheProvider().flush(PlFinder.CACHEGROUP);
                     Pagez.getUserSession().setMessage("Saved!");
                     Pagez.sendRedirect("/sysadmin/privatelabels.jsp");
                     return;
@@ -63,6 +66,7 @@ String acl = "sysadmin";
                 //Validate data
                 if (PlVerification.isValid(pl)){
                     pl.save();
+                    CacheFactory.getCacheProvider().flush(PlFinder.CACHEGROUP);
                     Pagez.getUserSession().setMessage("Done!");
                 } else {
                     Pagez.getUserSession().setMessage("Pl Fails Validation!");
@@ -81,6 +85,7 @@ String acl = "sysadmin";
                 //Validate data
                 if (PlVerification.isValid(pl)){
                     pl.save();
+                    CacheFactory.getCacheProvider().flush(PlFinder.CACHEGROUP);
                     Pagez.getUserSession().setMessage("Done!");
                 } else {
                     Pagez.getUserSession().setMessage("Pl Fails Validation!");
@@ -99,6 +104,7 @@ String acl = "sysadmin";
                 //Validate data
                 if (PlVerification.isValid(pl)){
                     pl.save();
+                    CacheFactory.getCacheProvider().flush(PlFinder.CACHEGROUP);
                     Pagez.getUserSession().setMessage("Done!");
                 } else {
                     Pagez.getUserSession().setMessage("Pl Fails Validation!");
@@ -117,6 +123,7 @@ String acl = "sysadmin";
                 //Validate data
                 if (PlVerification.isValid(pl)){
                     pl.save();
+                    CacheFactory.getCacheProvider().flush(PlFinder.CACHEGROUP);
                     Pagez.getUserSession().setMessage("Done!");
                 } else {
                     Pagez.getUserSession().setMessage("Pl Fails Validation!");

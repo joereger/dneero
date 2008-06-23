@@ -18,7 +18,7 @@ String acl = "public";
 <%@ include file="/template/header.jsp" %>
 
         <font class="mediumfont">Recent Metrics</font><br/>
-        <font class="smallfont">Use this page to get a peek into the technical world of dNeero.  Here you can see how long, on average, it takes each of the pages on the site to load.  This gives you a sense of the computational challenge required to build each page.  Load Times are in milliseconds... 1000 ms = 1 second.  Pages with a pre-pended [FB] are pages served into the dNeero Facebook App. </font><br/><br/>
+        <font class="smallfont">Use this page to get a peek into the technical world of this site.  Here you can see how long, on average, it takes each of the pages on the site to load.  This gives you a sense of the computational challenge required to build each page.  Load Times are in milliseconds... 1000 ms = 1 second.  Pages with a pre-pended [FB] are pages served into the Facebook App. </font><br/><br/>
 
 
         <% if (publicPagePerformance.getPageid()!=null){ %>

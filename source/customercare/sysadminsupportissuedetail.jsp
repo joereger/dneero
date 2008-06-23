@@ -48,7 +48,7 @@ String acl = "customercare";
                     <%if (!supportissuecomm.getIsfromdneeroadmin()){%>
                         <a href="/customercare/userdetail.jsp?userid=<%=customercareSupportIssueDetail.getFromuser().getUserid()%>"><font class="smallfont" style="font-weight: bold;">From: <%=customercareSupportIssueDetail.getFromuser().getFirstname()%> <%=customercareSupportIssueDetail.getFromuser().getLastname()%></font></a>
                     <%} else {%>
-                        <font class="smallfont" style="font-weight: bold;">dNeero Admin</font>
+                        <font class="smallfont" style="font-weight: bold;">System Admin</font>
                     <%}%>
                     <% if (customercareSupportIssueDetail.getFromuser().getFacebookuserid()>0){ %>
                         <font class="smallfont" style="font-weight: bold;">(Facebook User)</font>

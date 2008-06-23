@@ -51,11 +51,11 @@ String acl = "public";
                 <font class="largefont" style="color: #666666;">Sponsored Conversation Disclosure</font>
                 <br/><br/>
                 <font class="normalfont">
-                dNeero sponsored this conversation.  dNeero did not and does not encourage the blogger/social networker to post any particular opinion or answers.  dNeero encourages the blogger/social networker to simply tell the truth.
+                This is a sponsored conversation.  The sponsor did not and does not encourage the blogger/social networker to post any particular opinion or answers.  The sponsor encourages the blogger/social networker to simply tell the truth.
                 <br/><br/>
-                dNeero pays the blogger/social networker for their time to respond to the conversation and for the number of times that the conversation is displayed on his or her blog or social network profile.
+                The sponsor pays the blogger/social networker for their time to respond to the conversation and for the number of times that the conversation is displayed on his or her blog or social network profile.
                 <br/><br/>
-                A link to this disclosure statement is required (and is automatically posted) with each dNeero conversation to protect the integrity of the blogosphere and social networks.
+                A link to this disclosure statement is required (and is automatically posted) with each conversation to protect the integrity of the blogosphere and social networks.
                 </font>
             </td>
             <% if (!Pagez.getUserSession().getIsfacebookui()){ %>
@@ -79,7 +79,7 @@ String acl = "public";
                                     <br/>
                                     <font class="mediumfont">This is a Charity Only conversation.</font>
                                     <br/>
-                                    <font class="tinyfont">The conversation igniter requires that dNeero donate all of your earnings from the conversation to a charity of your choice.  It's a chance to do some good!</font>
+                                    <font class="tinyfont">The conversation sponsor requires that we donate all of your earnings from the conversation to a charity of your choice.  It's a chance to do some good!</font>
                                 </div>
                             <% } %>
                         </div>

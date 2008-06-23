@@ -39,9 +39,9 @@ String acl = "public";
                         <br/><br/><br/>
                         <font class="mediumfont" style="color: #999999">Quick Summary</font>
                         <br/>
-                        dNeero helps social people make money joining conversations and posting their opinions where their peers can join in.
+                        We help social people make money joining conversations and posting their opinions where their peers can join in.
                         <br/><br/>
-                        After filling out a questions here at dNeero.com you've already reserved some money for your effort... but haven't earned it yet.  To capture that money all you have to do is post your answers to your blog and generate some traffic for a few days (all you have to do is copy-and-paste a single line of code).  Your blog readers will see your answers along with any other thoughts you had about the conversation.  Your readers can then join the conversation, or see how others from your blog answered. If they join the conversation and get paid, we pay you a recruitment fee based on what they earn.
+                        After filling out a questions here at this site you've already reserved some money for your effort... but haven't earned it yet.  To capture that money all you have to do is post your answers to your blog and generate some traffic for a few days (all you have to do is copy-and-paste a single line of code).  Your blog readers will see your answers along with any other thoughts you had about the conversation.  Your readers can then join the conversation, or see how others from your blog answered. If they join the conversation and get paid, we pay you a recruitment fee based on what they earn.
                         <br/><br/><br/>
                         <font class="mediumfont" style="color: #999999">How it Works for Social People</font>
                         <br/>

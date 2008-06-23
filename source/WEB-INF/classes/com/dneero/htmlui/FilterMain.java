@@ -63,13 +63,18 @@ public class FilterMain implements Filter {
 
                 //If the database is ready
                 if (InstanceProperties.haveValidConfig()){
-
-                    Object obj = CacheFactory.getCacheProvider().get(httpServletRequest.getSession().getId(), "userSession");
-                    if (obj!=null && (obj instanceof UserSession)){
-                        logger.debug("found a userSession in the cache");
-                        Pagez.setUserSession((UserSession)obj);
-                    } else {
-                        logger.debug("no userSession in cache");
+                    try{
+                        Object obj = CacheFactory.getCacheProvider().get(httpServletRequest.getSession().getId(), "userSession");
+                        if (obj!=null && (obj instanceof UserSession)){
+                            logger.debug("found a userSession in the cache");
+                            Pagez.setUserSession((UserSession)obj);
+                        } else {
+                            logger.debug("no userSession in cache");
+                            UserSession userSession = new UserSession();
+                            Pagez.setUserSessionAndUpdateCache(userSession);
+                        }
+                    } catch (Exception ex){
+                        logger.error("", ex);
                         UserSession userSession = new UserSession();
                         Pagez.setUserSessionAndUpdateCache(userSession);
                     }

@@ -83,7 +83,7 @@ Registration registration = (Registration)Pagez.getBeanMgr().get("Registration")
                 <font class="mediumfont" style="color: #333333">Facebook Users</font><br/>
                 <font class="smallfont">We've got a Facebook App for you inside of Facebook.</font><br/>
                 <div class="rounded" style="padding: 15px; margin: 5px; background: #ffffff;">
-                    <%=GreenRoundedButton.get("<a href=\"http://apps.facebook.com/dneerosocialsurveys/\"><font class=\"subnavfont\" style=\"color: #ffffff; font-weight: bold;\">dNeero Facebook App</font></a>")%>
+                    <%=GreenRoundedButton.get("<a href=\"http://apps.facebook.com/dneerosocialsurveys/\"><font class=\"subnavfont\" style=\"color: #ffffff; font-weight: bold;\">The Facebook App</font></a>")%>
                 </div>
             </div>
         </div>

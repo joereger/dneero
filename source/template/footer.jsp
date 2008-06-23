@@ -1,5 +1,6 @@
 <%@ page import="com.dneero.pageperformance.PagePerformanceUtil" %>
 <% if (!Pagez.getUserSession().getIsfacebookui()) { %>
+    </div>
     <%
     String templateName = "";
     String template = "";

@@ -19,7 +19,7 @@ String acl = "account";
     <font class="mediumfont" color="#333333">How do I get paid?</font>
     <br/>
     <font class="smallfont">
-    For security and ease-of-use we pay your PayPal account.  Setting up a <a href="http://www.paypal.com" target="paypal">PayPal account</a> takes minutes.  Once you have a PayPal account you simply enter your PayPal address (usually your email address) into the dNeero system on your account settings page so that we can send you money.
+    For security and ease-of-use we pay your PayPal account.  Setting up a <a href="http://www.paypal.com" target="paypal">PayPal account</a> takes minutes.  Once you have a PayPal account you simply enter your PayPal address (usually your email address) into the system on your account settings page so that we can send you money.
     </font>
     <br/><br/><br/>
     <!-- End FAQ Question -->

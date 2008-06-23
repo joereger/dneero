@@ -3,7 +3,7 @@
 <%@ page import="com.dneero.htmluibeans.InviteLandingPage" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
-String pagetitle = "Welcome to dNeero!";
+String pagetitle = "Welcome!";
 String navtab = "home";
 String acl = "public";
 %>

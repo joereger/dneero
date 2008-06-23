@@ -121,7 +121,7 @@ String acl = "public";
                 <font class="smallfont">A link to your answers has been posted to your Facebook feed (which qualifies as a blog, for payment purposes).  Keep the links on your mini-feed and profile because to get paid you must have somebody view your answers on 5 of the 10 days following when you joined the conversation.</font><br/><br/>
                 <% if (!publicSurveyPostit.getJustcompletedsurvey()){ %>
                     <div class="rounded" style="background: #e6e6e6;">
-                        <font class="smallfont">If you've deleted the conversation from your Facebook Mini Feed or Profile and would like to add them back, click below.  Note that if you've turned off the profile box you'll have to turn it back on yourself in the Facebook settings for the dNeero app.</font><br/>
+                        <font class="smallfont">If you've deleted the conversation from your Facebook Mini Feed or Profile and would like to add them back, click below.  Note that if you've turned off the profile box you'll have to turn it back on yourself in the Facebook settings for the app.</font><br/>
                         <form action="/surveypostit.jsp" method="post">
                             <input type="hidden" name="dpage" value="/surveypostit.jsp">
                             <input type="hidden" name="action" value="updatefacebookprofile">
@@ -133,7 +133,7 @@ String acl = "public";
                 <div class="rounded" style="background: #ffffff;">
                     <font class="formfieldnamefont"><b>Now earn even more... tell friends about this conversation:</b></font>
                     <br/>
-                    <font class="smallfont">They'll be able to see your answers and then join the conversation themselves. If your friend hasn't ever used dNeero then <b>we'll pay you for any earnings they generate</b>... and any earnings their friends make... and any earnings their friends make... up to five levels deep!</font>
+                    <font class="smallfont">They'll be able to see your answers and then join the conversation themselves. If your friend hasn't ever used this site then <b>we'll pay you for any earnings they generate</b>... and any earnings their friends make... and any earnings their friends make... up to five levels deep!</font>
                     <br/>
                     <fb:request-form
                         action="http://apps.facebook.com/<%=SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_APP_NAME)%>/?dpage=/surveypostit.jsp&surveyid=<%=publicSurveyPostit.getSurvey().getSurveyid()%>"
@@ -193,7 +193,7 @@ String acl = "public";
                                 <br/>
                                 <font class="mediumfont">This is a Charity Only conversation.</font>
                                 <br/>
-                                <font class="tinyfont">The conversation igniter requires that dNeero donate all of your earnings from the conversation to a charity of your choice.  It's a chance to do some good!</font>
+                                <font class="tinyfont">The conversation igniter requires that we donate all of your earnings from the conversation to a charity of your choice.  It's a chance to do some good!</font>
                             </div>
                         <% } %>
 
@@ -274,9 +274,9 @@ String acl = "public";
                     <br/>
                     <font class="smallfont">
                         <ol>
-                            <li>Use the <a href="http://apps.facebook.com/dneerosocialsurveys/">dNeero Facebook App</a>!</li>
-                            <li>dNeero is deeply integrated into Facebook... there's no need for you to post anything... we'll automatically add conversations to your profile!</li>
-                            <li>Adding the app will create you a new Facebook-focused dNeero account... you'll need to move your PayPal address from your current account (if you have already entered it).</li>
+                            <li>Use the <a href="http://apps.facebook.com/dneerosocialsurveys/">The Facebook App</a>!</li>
+                            <li>This site is deeply integrated into Facebook... there's no need for you to post anything... we'll automatically add conversations to your profile!</li>
+                            <li>Adding the app will create you a new Facebook-focused account... you'll need to move your PayPal address from your current account (if you have already entered it).</li>
                         </ol>
                     </font>
 
@@ -290,11 +290,11 @@ String acl = "public";
                                 <textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><%=publicSurveyPostit.getHtmltoposttoblogimagelink()%></textarea>
                             </li>
                             <li>Login into your WordPress.com blog and click on the "New Post" link at the top of the page. </li>
-                            <li>Enter a "Title", and paste the dNeero code into the "Post" box (right click in the box and choose Paste, or left click in the box and hit Ctrl+V)</li>
+                            <li>Enter a "Title", and paste the code into the "Post" box (right click in the box and choose Paste, or left click in the box and hit Ctrl+V)</li>
                             <li>Space down down and enter any additional text you wish.</li>
                             <li>Click the "Publish" button and you're done!</li>
                         </ol>
-                        Note: If are using a hosted blog from Wordpress.org, you can use <a href="http://kimili.com/plugins/kimili-flash-embed-for-wordpress">Kimli Flash Embed for Wordpress</a> to embed a flash object. You'll need to install the plugin, get the dNeero flash embed url from the flash embed tab and then create a blog post according to Kimili's syntax. It's a little complex but may be worth it!
+                        Note: If are using a hosted blog from Wordpress.org, you can use <a href="http://kimili.com/plugins/kimili-flash-embed-for-wordpress">Kimli Flash Embed for Wordpress</a> to embed a flash object. You'll need to install the plugin, get the flash embed url from the flash embed tab and then create a blog post according to Kimili's syntax. It's a little complex but may be worth it!
                     </font>
 
                     <br/><br/>
@@ -389,8 +389,8 @@ String acl = "public";
                             <textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><%=publicSurveyPostit.getHtmltoposttoblogimagelink()%></textarea>
                             </li>
                             <li>Login into Friendster, go to Blogs, then "My Blog Home", then under Shortcuts click "Create a Post"</li>
-                            <li>Type in some text like "To see my most recent dNeero conversation [click here].</li>
-                            <li>Highlight "click here" (or any other text or image that you have in the Post Body, and the click the "Insert Link" icon ... a popup will appear ... delete "http://" ... paste the dNeero code ... Click "OK"</li>
+                            <li>Type in some text like "To see my most recent conversation [click here].</li>
+                            <li>Highlight "click here" (or any other text or image that you have in the Post Body, and the click the "Insert Link" icon ... a popup will appear ... delete "http://" ... paste the code ... Click "OK"</li>
                             <li>Enter a title.</li>
                             <li>Scroll down to the bottom of the page and click the "Save" button and you're done!</li>
                         </ol>
@@ -413,7 +413,7 @@ String acl = "public";
                             </li>
                             <li>Login into Friendster, go to Blogs, then "My Blog Home", then under Shortcuts click "Create a Post"</li>
                             <li>Click the "Edit HTML" tab. </li>
-                            <li>Paste the dNeero conversation code onto the Post Body window. You can paste either by Ctrl+v or right click in the Post Body window and choose Paste.</li>
+                            <li>Paste the conversation code onto the Post Body window. You can paste either by Ctrl+v or right click in the Post Body window and choose Paste.</li>
                             <li>Enter a title.</li>
                             <li>Scroll down to the bottom of the page and click the "Save" button and you're done!</li>
                         </ol>
@@ -478,7 +478,7 @@ String acl = "public";
                             <li>Log in to Xanga and click on the "New Entry" link. (Make sure you're in the "Dash" tab.)</li>
                             <li>If your blog is set to Rich Text, proceed to step 4, otherwise click on the "settings" link, which is near the top right of the Weblog Entry page. You may have to login again, and then under "Basic Editor Setting" choose "Rich Text - default" from the dropdown box. Scroll to bottom of page and and click the "Save Changes" button.</li>
                             <li>Enter a "Title" and in the "Main Entry" box write your blog entry.</li>
-                            <li>Click the "Edit HTML" check box, and paste the dNeero code into the "Main Entry" text box. (Left-click at the bottom of the "Main Entry" text box and either hit Ctrl+V, or Right-click and choose Paste.)</li>
+                            <li>Click the "Edit HTML" check box, and paste the code into the "Main Entry" text box. (Left-click at the bottom of the "Main Entry" text box and either hit Ctrl+V, or Right-click and choose Paste.)</li>
                             <li>Click the "Save Changes" button at the bottom of the page and you're done! </li>
                         </ol>
                     </font>
@@ -492,9 +492,9 @@ String acl = "public";
                                 <textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><%=publicSurveyPostit.getHtmltoposttobloglink()%></textarea>
                             </li>
                             <li>Login into Zimbio, go to "My Dashboard", then "My Articles", then "Write Article"</li>
-                            <li>Type in some text like "To see my most recent dNeero conversation [click here]." </li>
+                            <li>Type in some text like "To see my most recent conversation [click here]." </li>
                             <li>Highlight "click here" (or any other text or image that you have in the main window), and the click the "Insert/edit Link" icon ... a popup will appear ...</li>
-                            <li>Paste the dNeero code in the "Link URL" box and click the "Insert" button. (Left-click in the "Link URL" text box and either hit Ctrl+V, or Right-click and choose Paste.)</li>
+                            <li>Paste the code in the "Link URL" box and click the "Insert" button. (Left-click in the "Link URL" text box and either hit Ctrl+V, or Right-click and choose Paste.)</li>
                             <li>Enter a Tiltle and any other text/images.</li>
                             <li>Click the "Save" button and you're done!</li>
                         </ol>

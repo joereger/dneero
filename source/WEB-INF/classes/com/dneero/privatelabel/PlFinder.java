@@ -46,13 +46,16 @@ public class PlFinder {
 
         //Search via subdomain
         String subdomain = "";
-        String[] servernameSplit = request.getServerName().split(".");
+        String[] servernameSplit = request.getServerName().split("\\.");
+        logger.debug("servernameSplit.length="+servernameSplit.length);
         if (servernameSplit!=null && servernameSplit.length>0 && servernameSplit[0]!=null){
             subdomain = servernameSplit[0];
+            logger.debug("subdomain="+subdomain);
             List<Pl> plsSubdomain = HibernateUtil.getSession().createCriteria(Pl.class)
                            .add(Restrictions.eq("subdomain", subdomain.toLowerCase()))
                            .setCacheable(true)
                            .list();
+            logger.debug("plsSubdomain.size()="+plsSubdomain.size());
             if (plsSubdomain!=null && plsSubdomain.size()>1){
                 logger.error("More than one dNeero pl with subdomain="+subdomain);
             }

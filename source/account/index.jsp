@@ -75,7 +75,7 @@ if (accountIndex.getUserhasresponsependings()){
                                 <a href="/account/reseller.jsp"><font class="mediumfont" style="color: #596697;">Reseller Program</font></a>
                             </td></tr>
                             <tr><td valign="top"></td><td valign="top">
-                                <font class="smallfont">Sell dNeero conversations and make money!</font>
+                                <font class="smallfont">Sell conversations and make money!</font>
                             </td></tr></table>
 
                             <br/><br/>

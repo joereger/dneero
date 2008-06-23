@@ -38,7 +38,7 @@ AccountSupportIssueDetail accountSupportIssueDetail = (AccountSupportIssueDetail
             body.append("<font class=\"tinyfont\">"+comm.getDatetime()+"</font>");
             body.append("<br/>");
             if (comm.getIsfromdneeroadmin()){
-                body.append("<font class=\"normalfont\" style=\"font-weight: bold;\">From: dNeero Admin</font>");
+                body.append("<font class=\"normalfont\" style=\"font-weight: bold;\">From: Admin</font>");
             } else {
                 body.append("<font class=\"normalfont\" style=\"font-weight: bold;\">From: You</font>");
             }

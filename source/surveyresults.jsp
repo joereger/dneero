@@ -174,7 +174,7 @@ String acl = "public";
                                     <br/>
                                     <font class="mediumfont">This is a Charity Only conversation.</font>
                                     <br/>
-                                    <font class="tinyfont">The conversation igniter requires that dNeero donate all of your earnings from the conversation to a charity of your choice.  It's a chance to do some good!</font>
+                                    <font class="tinyfont">The conversation igniter requires that we donate all of your earnings from the conversation to a charity of your choice.  It's a chance to do some good!</font>
                                 </div>
                             <% } %>
                         </div>

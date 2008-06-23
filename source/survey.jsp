@@ -359,7 +359,7 @@ String acl = "public";
                         <%if (publicSurvey.getUserwhotooksurvey()!=null && publicSurvey.getUserwhotooksurvey().getUserid()>0 && publicSurvey.getSurveytakergavetocharity()){%>
                             <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
                                 <center>
-                                    <font class="tinyfont" style="font-weight: bold;"><%=publicSurvey.getUserwhotooksurvey().getFirstname()%> <%=publicSurvey.getUserwhotooksurvey().getLastname()%> had dNeero donate all earnings from this conversation to <%=publicSurvey.getCharityname()%>.</font>
+                                    <font class="tinyfont" style="font-weight: bold;"><%=publicSurvey.getUserwhotooksurvey().getFirstname()%> <%=publicSurvey.getUserwhotooksurvey().getLastname()%> had us donate all earnings from this conversation to <%=publicSurvey.getCharityname()%>.</font>
                                 </center>
                             </div>
                         <%}%>
@@ -446,7 +446,7 @@ String acl = "public";
                                         <br/>
                                         <font class="mediumfont">This is a Charity Only conversation</font>
                                         <br/>
-                                        <font class="tinyfont">The conversation igniter requires that dNeero donate all of your earnings from the conversation to a charity of your choice.  It's a chance to do some good!</font>
+                                        <font class="tinyfont">The conversation igniter requires that we donate all of your earnings from the conversation to a charity of your choice.  It's a chance to do some good!</font>
                                     </div>
                                 <% } %>
                             </div>
@@ -456,7 +456,7 @@ String acl = "public";
 
 
                             <br/><br/><b>Get paid to share your opinion.</b><br/>
-                            dNeero pays people to fill out conversations and post their answers to their peers.
+                            We pay people to fill out conversations and post their answers to their peers.
 
                             <br/><br/><b>Your answers appear on your blog</b><br/>
                             However you answer, your friends will see it.  Express yourself!
