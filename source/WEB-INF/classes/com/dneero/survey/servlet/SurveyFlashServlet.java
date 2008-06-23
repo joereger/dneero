@@ -106,7 +106,7 @@ public class SurveyFlashServlet extends HttpServlet {
             try{
                 String surveyashtml = "Sorry.  Not found. Surveyid="+request.getParameter("s");
                 if (survey!=null && survey.getSurveyid()>0){
-                    User user = User.get(Integer.parseInt(request.getParameter("u")));
+                    User user = User.get(userid);
                     surveyashtml = SurveyAsHtml.getHtml(survey, user, false);
                 }
                 StringBuffer surveyasxhtml = new StringBuffer();

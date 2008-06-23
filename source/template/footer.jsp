@@ -2,14 +2,14 @@
 <% if (!Pagez.getUserSession().getIsfacebookui()) { %>
     </div>
     <%
-    String templateName = "";
-    String template = "";
+    String templateFName = "";
+    String templateF= "";
     if (Pagez.getUserSession().getPl()!=null && Pagez.getUserSession().getPl().getWebhtmlfooter()!=null && Pagez.getUserSession().getPl().getWebhtmlfooter().length()>0){
-        template = Pagez.getUserSession().getPl().getWebhtmlfooter();
-        templateName = "pageheader-plid-"+Pagez.getUserSession().getPl().getPlid();
+        templateF= Pagez.getUserSession().getPl().getWebhtmlfooter();
+        templateFName = "pageheader-plid-"+Pagez.getUserSession().getPl().getPlid();
     } else {
-        template = Io.textFileRead(WebAppRootDir.getWebAppRootPath()+"template/footer-dneero.vm").toString();
-        templateName = "pagefooter-plid-default";
+        templateF= Io.textFileRead(WebAppRootDir.getWebAppRootPath()+"template/footer-dneero.vm").toString();
+        templateFName = "pagefooter-plid-default";
     }
     VelocityContext velocityContext = new VelocityContext();
     velocityContext.put("pagetitle", pagetitle);
@@ -17,7 +17,7 @@
     velocityContext.put("acl", acl);
     velocityContext.put("instancename", InstanceProperties.getInstancename());
     velocityContext.put("elapsedTime", Pagez.getElapsedTime());
-    String footer = TemplateProcessor.process(templateName, template, velocityContext);
+    String footer = TemplateProcessor.process(templateFName, templateF, velocityContext);
     %>
     <%=footer%>
 <% } else { %>

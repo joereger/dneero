@@ -33,20 +33,20 @@
 <%@ page import="java.util.*" %>
 <% if (!Pagez.getUserSession().getIsfacebookui()) { %>
     <%
-    String templateName = "";
-    String template = "";
+    String templateHName = "";
+    String templateH= "";
     if (Pagez.getUserSession().getPl()!=null && Pagez.getUserSession().getPl().getWebhtmlheader()!=null && Pagez.getUserSession().getPl().getWebhtmlheader().length()>0){
-        template = Pagez.getUserSession().getPl().getWebhtmlheader();
-        templateName = "pageheader-plid-"+Pagez.getUserSession().getPl().getPlid();
+        templateH= Pagez.getUserSession().getPl().getWebhtmlheader();
+        templateHName = "pageheader-plid-"+Pagez.getUserSession().getPl().getPlid();
     } else {
-        template = Io.textFileRead(WebAppRootDir.getWebAppRootPath()+"template/header-dneero.vm").toString();
-        templateName = "pageheader-plid-default";
+        templateH= Io.textFileRead(WebAppRootDir.getWebAppRootPath()+"template/header-dneero.vm").toString();
+        templateHName = "pageheader-plid-default";
     }
     VelocityContext velocityContext = new VelocityContext();
     velocityContext.put("pagetitle", pagetitle);
     velocityContext.put("navtab", navtab);
     velocityContext.put("acl", acl);
-    String header = TemplateProcessor.process(templateName, template, velocityContext);
+    String header = TemplateProcessor.process(templateHName, templateH, velocityContext);
     %>
     <%=header%>
     <%Pagez.getUserSession().setMessage("");%>
