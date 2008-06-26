@@ -75,18 +75,20 @@ public class HibernateSessionQuartzCloser implements JobListener {
     private void recordExecution(String taskname, int millistoexecute){
         Logger logger = Logger.getLogger(this.getClass().getName());
         try{
-            Schedextime schedextime = new Schedextime();
-            schedextime.setDate(new Date());
-            schedextime.setMillistoexecute(Integer.parseInt(String.valueOf(millistoexecute)));
-            schedextime.setServername(InstanceProperties.getInstancename());
-            schedextime.setTaskname(taskname);
-            schedextime.save();
-            //Now delete old entries
-            int daysago = 7;
-            int hoursago = daysago * 24;
-            int minutesago = hoursago * 60;
-            Calendar xcal = Time.xMinutesAgoStart(Calendar.getInstance(), minutesago);
-            HibernateUtil.getSession().createQuery("delete Schedextime s where s.date>'"+xcal.getTime()+"'").executeUpdate();
+            if (millistoexecute>0){
+                Schedextime schedextime = new Schedextime();
+                schedextime.setDate(new Date());
+                schedextime.setMillistoexecute(Integer.parseInt(String.valueOf(millistoexecute)));
+                schedextime.setServername(InstanceProperties.getInstancename());
+                schedextime.setTaskname(taskname);
+                schedextime.save();
+                //Now delete old entries
+                int daysago = 7;
+                int hoursago = daysago * 24;
+                int minutesago = hoursago * 60;
+                Calendar xcal = Time.xMinutesAgoStart(Calendar.getInstance(), minutesago);
+                HibernateUtil.getSession().createQuery("delete Schedextime s where s.date>'"+xcal.getTime()+"'").executeUpdate();
+            }
         } catch (Exception ex){
             logger.error("", ex);
         }
