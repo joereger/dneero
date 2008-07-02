@@ -52,6 +52,8 @@ SysadminInstanceProps sysadminInstanceProps = (SysadminInstanceProps)Pagez.getBe
             <tr>
                 <td valign="top">
                     <font class="formfieldnamefont">dbConnectionUrl</font>
+                    <font class="tinyfont">jdbc:mysql://localhost:3306/dneero?autoReconnect=true</font><br/>
+                    <font class="tinyfont">lbpool:com.mysql.jdbc.Driver:localhost:dneero</font><br/>
                 </td>
                 <td valign="top">
                     <%=Textbox.getHtml("dbConnectionUrl", sysadminInstanceProps.getDbConnectionUrl(), 255, 35, "", "")%>
@@ -117,7 +119,9 @@ SysadminInstanceProps sysadminInstanceProps = (SysadminInstanceProps)Pagez.getBe
 
             <tr>
                 <td valign="top">
-                    <font class="formfieldnamefont">dbDriverName</font>
+                    <font class="formfieldnamefont">dbDriverName</font><br/>
+                    <font class="tinyfont">com.mysql.jdbc.Driver</font><br/>
+                    <font class="tinyfont">com.tailrank.lbpool.LBDriver</font><br/>
                 </td>
                 <td valign="top">
                     <%=Textbox.getHtml("dbDriverName", sysadminInstanceProps.getDbDriverName(), 255, 35, "", "")%>
