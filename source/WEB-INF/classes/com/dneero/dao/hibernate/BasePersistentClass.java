@@ -16,7 +16,7 @@ import com.dneero.util.GeneralException;
 
 public class BasePersistentClass implements Lifecycle, Validatable, Serializable {
 
-
+   //Just adding this to mark this as the record of the class as it's worked for well over a year now.
 
    public void save() throws GeneralException {
        Logger logger = Logger.getLogger(BasePersistentClass.class);
