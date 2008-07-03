@@ -23,17 +23,14 @@ public class BasePersistentClass implements Lifecycle, Validatable, Serializable
        logger.debug("save() called on "+this.getClass().getName());
        Session hsession = HibernateUtil.getSession();
        try{
-            logger.debug("Start validation in save()");
-            logger.debug("End validation in save()");
-            hsession.beginTransaction();
+            //hsession.beginTransaction();
             hsession.saveOrUpdate(this);
-            hsession.getTransaction().commit();
-            hsession.refresh(this);
+            //hsession.getTransaction().commit();
+            //hsession.refresh(this);
         } catch (HibernateException hex){
             logger.debug("HibernateException found in save()");
             logger.error("HibernateException", hex);
             hsession.getTransaction().rollback();
-            //hsession.evict(this);
             HibernateUtil.closeSession();
             GeneralException vex = new GeneralException();
             vex.addValidationError("Hibernate error saving "+this.getClass().getName());
@@ -58,9 +55,9 @@ public class BasePersistentClass implements Lifecycle, Validatable, Serializable
         Logger logger = Logger.getLogger(BasePersistentClass.class);
         logger.debug("delete() called on "+this.getClass().getName());
         Session hsession = HibernateUtil.getSession();
-        hsession.beginTransaction();
+        //hsession.beginTransaction();
         hsession.delete(this);
-        hsession.getTransaction().commit();
+        //hsession.getTransaction().commit();
    }
    public void refresh() throws HibernateException {
         Logger logger = Logger.getLogger(BasePersistentClass.class);

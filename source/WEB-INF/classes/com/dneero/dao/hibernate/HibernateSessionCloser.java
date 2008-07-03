@@ -1,6 +1,8 @@
 package com.dneero.dao.hibernate;
 
 import org.apache.log4j.Logger;
+import org.hibernate.Session;
+import org.hibernate.HibernateException;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -8,6 +10,7 @@ import java.io.IOException;
 import java.util.Date;
 
 import com.dneero.htmlui.Pagez;
+import com.dneero.util.GeneralException;
 
 /**
  * User: Joe Reger Jr
@@ -39,6 +42,8 @@ public class HibernateSessionCloser implements Filter {
                 logger.debug("-------------");
                 logger.debug("---------------------------START REQUEST: "+httpServletRequest.getRequestURL());
                 logger.debug("httpServletRequest.getSession().getId()="+httpServletRequest.getSession().getId());
+                //Start Hibernate Session
+                HibernateUtil.startSession();
             }
         }catch(Exception ex){logger.error("", ex);}
 
@@ -46,15 +51,17 @@ public class HibernateSessionCloser implements Filter {
         chain.doFilter(request, response);
 
         //Close the Hibernate session
-        try{
-            HibernateUtil.closeSession();
-        } catch (Exception ex){
-            logger.debug("Error closing hibernate session at end of request.");
-            logger.error("",ex);
-        }
+//        try{
+//            HibernateUtil.closeSession();
+//        } catch (Exception ex){
+//            logger.debug("Error closing hibernate session at end of request.");
+//            logger.error("",ex);
+//        }
 
         try{
             if (httpServletRequest.getRequestURL().indexOf("jpg")==-1 && httpServletRequest.getRequestURL().indexOf("css")==-1 && httpServletRequest.getRequestURL().indexOf("gif")==-1 && httpServletRequest.getRequestURL().indexOf("png")==-1){
+                //End Hibernate Session
+                HibernateUtil.endSession();
                 logger.debug("---------------------------END REQUEST: "+httpServletRequest.getRequestURL());
                 logger.debug("-------------: "+Pagez.getElapsedTime()+" millis");
                 logger.debug("------");

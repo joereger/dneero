@@ -4,10 +4,12 @@ import com.dneero.dao.Schedextime;
 import com.dneero.systemprops.InstanceProperties;
 import com.dneero.util.Num;
 import com.dneero.util.Time;
+import com.dneero.util.GeneralException;
 import org.apache.log4j.Logger;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.quartz.JobListener;
+import org.hibernate.HibernateException;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -43,6 +45,8 @@ public class HibernateSessionQuartzCloser implements JobListener {
             }
             //Track start time
             millisatstart = new Date().getTime();
+            //Start Hibernate Session
+            HibernateUtil.startSession();
         }
     }
 
@@ -64,12 +68,13 @@ public class HibernateSessionQuartzCloser implements JobListener {
             logger.error("",ex);
         }
         //Close the Hibernate Session
-        try{
-            HibernateUtil.closeSession();
-        } catch (Exception ex){
-            logger.debug("Error closing hibernate session at end of quartz session");
-            logger.error("",ex);
-        }
+//        try{
+//            HibernateUtil.closeSession();
+//        } catch (Exception ex){
+//            logger.debug("Error closing hibernate session at end of quartz session");
+//            logger.error("",ex);
+//        }
+            HibernateUtil.endSession();
     }
 
     private void recordExecution(String taskname, int millistoexecute){

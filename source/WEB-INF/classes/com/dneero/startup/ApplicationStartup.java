@@ -68,6 +68,8 @@ public class ApplicationStartup implements ServletContextListener {
         }
         //If the database is running
         if (isdatabasereadyforapprun){
+            //Start Hibernate session
+            HibernateUtil.startSession();
             //Make sure we have at least one PL
             guaranteeAtLeastOnePlExists();
             //Load SystemProps
@@ -75,9 +77,13 @@ public class ApplicationStartup implements ServletContextListener {
             //Refresh SystemStats
             SystemStats ss = new SystemStats();
             try{ss.execute(null);}catch(Exception ex){logger.error("",ex);}
-            //Initialize Quartz
+            //Set logging levels
+            Log4jLevels.setLevels();
+            //End Hibernate session
+            HibernateUtil.endSession();
+            //Init Quartz
             initQuartz(cse.getServletContext());
-            //Add Quartz listener
+            //Init Quartz listener
             try{
                 SchedulerFactory schedFact = new StdSchedulerFactory();
                 schedFact.getScheduler().addGlobalJobListener(new HibernateSessionQuartzCloser());
@@ -85,13 +91,12 @@ public class ApplicationStartup implements ServletContextListener {
         } else {
             logger.info("Database not ready.");    
         }
-        //Set logging levels
-        Log4jLevels.setLevels();
         //Report to log and XMPP
         logger.info("WebAppRootDir = " + WebAppRootDir.getWebAppRootPath());
         logger.info("dNeero Application Started!  Let's make some dinero!");
         SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_SYSADMINS, "dNeero Application started! ("+WebAppRootDir.getUniqueContextId()+")");
         xmpp.send();
+
     }
 
     public void contextDestroyed(ServletContextEvent cse) {

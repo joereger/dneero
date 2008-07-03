@@ -150,4 +150,22 @@ public class HibernateUtil {
     public static SessionFactory getSessionFactory() {
         return sessionFactory;
     }
+
+    public static void startSession(){
+        HibernateUtil.getSession().beginTransaction();
+    }
+
+    public static void endSession(){
+        Logger logger = Logger.getLogger(HibernateUtil.class);
+        //End Hibernate Session
+        try{
+            HibernateUtil.getSession().getTransaction().commit();
+            HibernateUtil.closeSession();
+        } catch (HibernateException hex){
+            logger.debug("HibernateException found in save()");
+            logger.error("HibernateException", hex);
+            HibernateUtil.getSession().getTransaction().rollback();
+            HibernateUtil.closeSession();
+        }
+    }
 }
