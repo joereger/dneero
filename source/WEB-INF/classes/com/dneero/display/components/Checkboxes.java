@@ -46,7 +46,7 @@ public class Checkboxes implements Component {
 
 
 
-    public String getHtmlForInput() {
+    public String getHtmlForInput(Response response) {
         StringBuffer out = new StringBuffer();
         out.append("<font class=\"formfieldnamefont\">"+question.getQuestion()+"</font>");
         if (question.getIsrequired()){
@@ -54,6 +54,11 @@ public class Checkboxes implements Component {
             out.append("<font class=\"formfieldnamefont\" style=\"color: #ff0000;\">(Required)</font>");
         }
         out.append("<br/>");
+
+        List<Questionresponse> responses = new ArrayList<Questionresponse>();
+        if (blogger!=null && response!=null){
+            responses = HibernateUtil.getSession().createQuery("from Questionresponse where questionid='"+question.getQuestionid()+"' and bloggerid='"+blogger.getBloggerid()+"' and responseid='"+response.getResponseid()+"'").list();
+        }
 
         String options = "";
         for (Iterator<Questionconfig> iterator = question.getQuestionconfigs().iterator(); iterator.hasNext();) {
@@ -66,7 +71,23 @@ public class Checkboxes implements Component {
         //@todo test checkbox because i don't think that the hashmap holding the values properly handles multiple values for the same name
         for (int i = 0; i < optionsSplit.length; i++) {
             String s = optionsSplit[i];
-            out.append("<input type=\"checkbox\" name=\""+ SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"questionid_"+question.getQuestionid()+"\" value=\""+com.dneero.util.Str.cleanForHtml(s)+"\">" + s);
+
+            boolean isSelected = false;
+            if (responses!=null && responses.size()>0){
+                for (Iterator<Questionresponse> iterator = responses.iterator(); iterator.hasNext();) {
+                    Questionresponse questionresponse = iterator.next();
+                    if (questionresponse.getValue().trim().equals(s.trim())){
+                        isSelected = true;
+                    }
+                }
+            }
+
+            String checked = "";
+            if (isSelected){
+                checked = " checked=\"yes\"";
+            }
+
+            out.append("<input type=\"checkbox\" name=\""+ SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"questionid_"+question.getQuestionid()+"\" value=\""+com.dneero.util.Str.cleanForHtml(s)+"\" "+checked+">" + s);
             if (optionsSplit.length>i+1){
                 out.append("<br/>");
             }

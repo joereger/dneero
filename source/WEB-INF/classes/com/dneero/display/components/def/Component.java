@@ -19,7 +19,7 @@ public interface Component {
 
     public String getName();
     public int getID();
-    public String getHtmlForInput();
+    public String getHtmlForInput(Response response);
     public String getHtmlForDisplay(Response response);
     public String getHtmlForResult(List<Questionresponse> questionresponses);
     public String getHtmlForResultDetail(List<Questionresponse> questionresponses);

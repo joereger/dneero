@@ -127,7 +127,7 @@ String acl = "public";
                             <br/><br/>
                        <% } %>
                    <% } %>
-                   <% if (publicSurvey.getSurvey().getStatus()==Survey.STATUS_OPEN && !publicSurvey.getLoggedinuserhasalreadytakensurvey() && ((Pagez.getUserSession().getFacebookUser()!=null && Pagez.getUserSession().getFacebookUser().getHas_added_app()) || !Pagez.getUserSession().getIsfacebookui())){ %>
+                   <% if ((publicSurvey.getSurvey().getStatus()==Survey.STATUS_OPEN || (publicSurvey.getSurvey().getStatus()==Survey.STATUS_CLOSED && publicSurvey.getLoggedinuserhasalreadytakensurvey())) && ((Pagez.getUserSession().getFacebookUser()!=null && Pagez.getUserSession().getFacebookUser().getHas_added_app()) || !Pagez.getUserSession().getIsfacebookui())){ %>
                         <%if (Pagez.getUserSession().getIsfacebookui() && !publicSurvey.getLoggedinuserhasalreadytakensurvey()){%>
                             <div class="rounded" style="background: #ffffff; text-align: center;">
                                 <font class="mediumfont" style="font-weight: bold; color: #666666;">Join this conversation to earn up to</font>
@@ -182,7 +182,7 @@ String acl = "public";
                                         for (Iterator<PublicSurveyUserquestionListitem> iterator=publicSurvey.getUserquestionlistitems().iterator(); iterator.hasNext();){
                                             PublicSurveyUserquestionListitem psli=iterator.next();
                                             %><font class="smallfont" style="font-weight: bold;"><%=psli.getUser().getFirstname()%> <%=psli.getUser().getLastname()%> wants to know:</font><br/><%
-                                            %><%=psli.getComponent().getHtmlForInput()%><%
+                                            %><%=psli.getComponent().getHtmlForInput(publicSurvey.getResponse())%><%
                                             if (iterator.hasNext()){
                                                 %><br/><br/><%
                                             }
@@ -226,7 +226,7 @@ String acl = "public";
                                                 indexCurrentlyShowing = indexCurrentlyShowing + 1;
                                                 if (indexCurrentlyShowing>minIndexToDisplay && indexCurrentlyShowing<maxIndexToDisplay){
                                                     %><font class="smallfont" style="font-weight: bold;"><%=psli.getUser().getFirstname()%> <%=psli.getUser().getLastname()%> wants to know:</font><br/><%
-                                                    %><%=psli.getComponent().getHtmlForInput()%><%
+                                                    %><%=psli.getComponent().getHtmlForInput(publicSurvey.getResponse())%><%
                                                     if (iterator.hasNext()){
                                                         %><br/><br/><%
                                                     }

@@ -41,7 +41,7 @@ public class Essay implements Component {
         return Essay.ID;
     }
 
-    public String getHtmlForInput() {
+    public String getHtmlForInput(Response response) {
         StringBuffer out = new StringBuffer();
         out.append("<font class=\"formfieldnamefont\">"+question.getQuestion()+"</font>");
         if (question.getIsrequired()){
@@ -50,7 +50,16 @@ public class Essay implements Component {
         }
         out.append("<br/>");
 
-        out.append("<textarea cols=\"40\" rows=\"3\" name=\""+ SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"questionid_"+question.getQuestionid()+"\"></textarea>");
+        String value = "";
+        if (blogger!=null && response!=null){
+            List<Questionresponse> responses = HibernateUtil.getSession().createQuery("from Questionresponse where questionid='"+question.getQuestionid()+"' and bloggerid='"+blogger.getBloggerid()+"' and responseid='"+response.getResponseid()+"'").list();
+            for (Iterator<Questionresponse> iterator = responses.iterator(); iterator.hasNext();) {
+                Questionresponse questionresponse = iterator.next();
+                value = questionresponse.getValue();
+            }
+        }
+
+        out.append("<textarea cols=\"40\" rows=\"3\" name=\""+ SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"questionid_"+question.getQuestionid()+"\">"+value+"</textarea>");
 
         return out.toString();
     }

@@ -41,7 +41,7 @@ public class Range implements Component {
         return Range.ID;
     }
 
-    public String getHtmlForInput() {
+    public String getHtmlForInput(Response response) {
         StringBuffer out = new StringBuffer();
         out.append("<font class=\"formfieldnamefont\">"+question.getQuestion()+"</font>");
         if (question.getIsrequired()){
@@ -49,6 +49,16 @@ public class Range implements Component {
             out.append("<font class=\"formfieldnamefont\" style=\"color: #ff0000;\">(Required)</font>");
         }
         out.append("<br/>");
+
+        List<Questionresponse> responses = new ArrayList<Questionresponse>();
+        double responseValue = 0;
+        if (blogger!=null && response!=null){
+            responses = HibernateUtil.getSession().createQuery("from Questionresponse where questionid='"+question.getQuestionid()+"' and bloggerid='"+blogger.getBloggerid()+"' and responseid='"+response.getResponseid()+"'").list();
+            for (Iterator<Questionresponse> iterator = responses.iterator(); iterator.hasNext();) {
+                Questionresponse questionresponse = iterator.next();
+                responseValue = Double.parseDouble(questionresponse.getValue());
+            }
+        }
 
 
         String mintitle = "Low";
@@ -81,16 +91,24 @@ public class Range implements Component {
             if (i==max){
                 createdExactlyMaxRadio = true;
             }
+            String checked = "";
+            if (responseValue==i){
+                checked = " checked ";
+            }
             //@todo Stop 0 from appearing as 0.0
             out.append("<td align=\"center\" valign=\"top\">");
-            out.append("<input type=\"radio\" name=\""+ SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"questionid_"+question.getQuestionid()+"\" value=\""+i+"\">");
+            out.append("<input type=\"radio\" "+checked+" name=\""+ SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"questionid_"+question.getQuestionid()+"\" value=\""+i+"\">");
             out.append("<br>");
             out.append(i);
             out.append("</td>");
         }
         if (!createdExactlyMaxRadio){
+            String checked = "";
+            if (responseValue==max){
+                checked = " checked ";
+            }
             out.append("<td align=\"center\" valign=\"top\">");
-            out.append("<input type=\"radio\" name=\""+ SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"questionid_"+question.getQuestionid()+"\" value=\""+max+"\">");
+            out.append("<input type=\"radio\" "+checked+" name=\""+ SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"questionid_"+question.getQuestionid()+"\" value=\""+max+"\">");
             out.append("<br>");
             out.append(max);
             out.append("</td>");

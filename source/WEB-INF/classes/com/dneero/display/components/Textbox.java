@@ -42,7 +42,7 @@ public class Textbox implements Component {
         return ID;
     }
 
-    public String getHtmlForInput() {
+    public String getHtmlForInput(Response response) {
         StringBuffer out = new StringBuffer();
         out.append("<font class=\"formfieldnamefont\">"+question.getQuestion()+"</font>");
         if (question.getIsrequired()){
@@ -51,7 +51,16 @@ public class Textbox implements Component {
         }
         out.append("<br/>");
 
-        out.append("<input type=\"text\" size=\"20\" maxlength=\"255\" name=\""+ SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"questionid_"+question.getQuestionid()+"\">");
+        String value = "";
+        if (blogger!=null && response!=null){
+            List<Questionresponse> responses = HibernateUtil.getSession().createQuery("from Questionresponse where questionid='"+question.getQuestionid()+"' and bloggerid='"+blogger.getBloggerid()+"' and responseid='"+response.getResponseid()+"'").list();
+            for (Iterator<Questionresponse> iterator = responses.iterator(); iterator.hasNext();) {
+                Questionresponse questionresponse = iterator.next();
+                value = questionresponse.getValue();
+            }
+        }
+
+        out.append("<input type=\"text\" size=\"20\" maxlength=\"255\" name=\""+ SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"questionid_"+question.getQuestionid()+"\" value=\""+Str.cleanForHtml(value)+"\">");
 
         return out.toString();
     }

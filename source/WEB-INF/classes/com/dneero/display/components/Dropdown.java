@@ -7,6 +7,7 @@ import com.dneero.display.components.def.Component;
 import com.dneero.display.components.def.ComponentException;
 import com.dneero.rank.NormalizedpointsUtil;
 import com.dneero.rank.RankUnit;
+import com.dneero.util.Str;
 import org.apache.log4j.Logger;
 import org.hibernate.criterion.Restrictions;
 
@@ -41,7 +42,7 @@ public class Dropdown implements Component {
         return Dropdown.ID;
     }
 
-    public String getHtmlForInput() {
+    public String getHtmlForInput(Response response) {
         StringBuffer out = new StringBuffer();
         out.append("<font class=\"formfieldnamefont\">"+question.getQuestion()+"</font>");
         if (question.getIsrequired()){
@@ -49,6 +50,11 @@ public class Dropdown implements Component {
             out.append("<font class=\"formfieldnamefont\" style=\"color: #ff0000;\">(Required)</font>");
         }
         out.append("<br/>");
+
+        List<Questionresponse> responses = new ArrayList<Questionresponse>();
+        if (blogger!=null && response!=null){
+            responses = HibernateUtil.getSession().createQuery("from Questionresponse where questionid='"+question.getQuestionid()+"' and bloggerid='"+blogger.getBloggerid()+"' and responseid='"+response.getResponseid()+"'").list();
+        }
 
         String options = "";
         for (Iterator<Questionconfig> iterator = question.getQuestionconfigs().iterator(); iterator.hasNext();) {
@@ -63,7 +69,26 @@ public class Dropdown implements Component {
         out.append("<option value=\"\"></option>");
         for (int i = 0; i < optionsSplit.length; i++) {
             String s = optionsSplit[i];
-            out.append("<option value=\""+com.dneero.util.Str.cleanForHtml(s)+"\">" + s + "</option>");
+
+            boolean isSelected = false;
+            if (responses!=null && responses.size()>0){
+                for (Iterator<Questionresponse> iterator = responses.iterator(); iterator.hasNext();) {
+                    Questionresponse questionresponse = iterator.next();
+                    logger.debug("questionresponse.getValue()="+questionresponse.getValue());
+                    logger.debug("s="+s);
+                    if (questionresponse.getValue().trim().equals(s.trim())){
+                        isSelected = true;
+                    }
+                    logger.debug("isSelected="+isSelected);
+                }
+            }
+
+            String selected = "";
+            if (isSelected){
+                selected = "selected";    
+            }
+
+            out.append("<option "+selected+" value=\""+ Str.cleanForHtml(s.trim())+"\">" + s.trim() + "</option>");
         }
         out.append("</select>");
 

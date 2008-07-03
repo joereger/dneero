@@ -44,7 +44,7 @@ public class Matrix implements Component {
         return Matrix.ID;
     }
 
-    public String getHtmlForInput() {
+    public String getHtmlForInput(Response response) {
         StringBuffer out = new StringBuffer();
         out.append("<font class=\"formfieldnamefont\">"+question.getQuestion()+"</font>");
         if (question.getIsrequired()){
@@ -52,6 +52,17 @@ public class Matrix implements Component {
             out.append("<font class=\"formfieldnamefont\" style=\"color: #ff0000;\">(Required)</font>");
         }
         out.append("<br/>");
+
+        List<Questionresponse> responses = new ArrayList<Questionresponse>();
+        ArrayList<String> checkedboxes = new ArrayList<String>();
+        if (blogger!=null && response!=null){
+            responses = HibernateUtil.getSession().createQuery("from Questionresponse where questionid='"+question.getQuestionid()+"' and bloggerid='"+blogger.getBloggerid()+"' and responseid='"+response.getResponseid()+"'").list();
+            checkedboxes = new ArrayList<String>();
+            for (Iterator<Questionresponse> iterator = responses.iterator(); iterator.hasNext();) {
+                Questionresponse questionresponse = iterator.next();
+                checkedboxes.add(questionresponse.getValue());
+            }
+        }
 
         //Get config params
         String rowsStr = "";
@@ -101,11 +112,25 @@ public class Matrix implements Component {
             out.append("</td>");
             for (int j = 0; j < cols.length; j++) {
                 String col = cols[j].trim();
+
+                boolean thiswaschecked = false;
+                if (checkedboxes.contains(row+DELIM+col)){
+                    thiswaschecked=true;
+                }
+
                 out.append("<td align=\"center\" valign=\"top\">");
                 if (respondentcanselectmany){
-                    out.append("<input type=\"checkbox\" name=\""+ SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"questionid_"+question.getQuestionid()+"_row_"+Str.cleanForHtml(row)+"\" value=\""+com.dneero.util.Str.cleanForHtml(row+DELIM+col)+"\">");
+                    String checked = "";
+                    if (thiswaschecked){
+                        checked = " checked ";
+                    }
+                    out.append("<input type=\"checkbox\" "+checked+" name=\""+ SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"questionid_"+question.getQuestionid()+"_row_"+Str.cleanForHtml(row)+"\" value=\""+com.dneero.util.Str.cleanForHtml(row+DELIM+col)+"\">");
                 } else {
-                    out.append("<input type=\"radio\" name=\""+ SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"questionid_"+question.getQuestionid()+"_row_"+Str.cleanForHtml(row)+"\" value=\""+com.dneero.util.Str.cleanForHtml(row+DELIM+col)+"\">");
+                    String checked = "";
+                    if (thiswaschecked){
+                        checked = " checked ";
+                    }
+                    out.append("<input type=\"radio\" "+checked+" name=\""+ SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"questionid_"+question.getQuestionid()+"_row_"+Str.cleanForHtml(row)+"\" value=\""+com.dneero.util.Str.cleanForHtml(row+DELIM+col)+"\">");
                 }
                 out.append("</td>");
             }

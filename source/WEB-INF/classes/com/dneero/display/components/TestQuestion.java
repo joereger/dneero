@@ -1,16 +1,17 @@
 package com.dneero.display.components;
 
-import com.dneero.display.components.def.Component;
-import com.dneero.display.components.def.ComponentException;
-import com.dneero.display.SurveyResponseParser;
 import com.dneero.dao.*;
 import com.dneero.dao.hibernate.HibernateUtil;
+import com.dneero.display.SurveyResponseParser;
+import com.dneero.display.components.def.Component;
+import com.dneero.display.components.def.ComponentException;
 import com.dneero.rank.RankUnit;
+import com.dneero.util.Str;
 import org.apache.log4j.Logger;
 
-import java.util.*;
-import java.text.NumberFormat;
-import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * User: Joe Reger Jr
@@ -39,15 +40,25 @@ public class TestQuestion implements Component {
         return ID;
     }
 
-    public String getHtmlForInput() {
+    public String getHtmlForInput(Response response) {
         StringBuffer out = new StringBuffer();
+
+        String value = "";
+        if (blogger!=null && response!=null){
+            List<Questionresponse> responses = HibernateUtil.getSession().createQuery("from Questionresponse where questionid='"+question.getQuestionid()+"' and bloggerid='"+blogger.getBloggerid()+"' and responseid='"+response.getResponseid()+"'").list();
+            for (Iterator<Questionresponse> iterator = responses.iterator(); iterator.hasNext();) {
+                Questionresponse questionresponse = iterator.next();
+                value = questionresponse.getValue();
+            }
+        }
+
         out.append("<font class=\"formfieldnamefont\">"+question.getQuestion()+"</font>");
         out.append(" ");
         out.append("<font class=\"formfieldnamefont\" style=\"color: #ff0000;\">(Required)</font>");
         out.append("<br/>");
         out.append("<font class=\"tinyfont\" style=\"color: #ff0000;\">You must answer this question correctly to qualify for this conversation.</font>");
         out.append("<br/>");
-        out.append("<input type=\"text\" size=\"20\" maxlength=\"255\" name=\""+ SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"questionid_"+question.getQuestionid()+"\">");
+        out.append("<input type=\"text\" size=\"20\" maxlength=\"255\" name=\""+ SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"questionid_"+question.getQuestionid()+"\" value=\""+ Str.cleanForHtml(value)+"\">");
 
         return out.toString();
     }

@@ -64,7 +64,7 @@ public class PublicSurvey implements Serializable {
     private ArrayList<Question> optionaluserquestions = new ArrayList<Question>();
     private ArrayList<PublicSurveyUserquestionListitem> optionaluserquestionlistitems = new ArrayList<PublicSurveyUserquestionListitem>();
     private ArrayList<Integer> useridswhohavebeencheckedforuserquestions = new ArrayList<Integer>();
-
+    private Response response = null;
 
     public PublicSurvey(){
 
@@ -176,10 +176,22 @@ public class PublicSurvey implements Serializable {
 
         //Responseid
         int responseid = 0;
+
+        //Responseid from userwhotooksurvey
+        if(userwhotooksurvey!=null && loggedinuserhasalreadytakensurvey){
+            responseid = responseidOfLoggedinUser;
+        }
+
+        //Responseid from url line
         if (Num.isinteger(Pagez.getRequest().getParameter("responseid"))){
             responseid=Integer.parseInt(Pagez.getRequest().getParameter("responseid"));
         } else if (Num.isinteger(Pagez.getRequest().getParameter("r"))){
             responseid=Integer.parseInt(Pagez.getRequest().getParameter("r"));
+        }
+
+        //Load the response
+        if (responseid>0){
+            response = Response.get(responseid);
         }
 
         //Record the impression if we have enough info for it
@@ -224,8 +236,6 @@ public class PublicSurvey implements Serializable {
         logger.debug("calling new SurveyEnhancer(survey) from PublicSurvey");
         surveyEnhancer = new SurveyEnhancer(survey);
 
-
-
         //Max surveys per day
         if (Pagez.getUserSession().getSurveystakentoday()>SurveysTakenToday.MAXSURVEYSPERDAY){
             bloggerhastakentoomanysurveysalreadytoday = true;
@@ -246,7 +256,7 @@ public class PublicSurvey implements Serializable {
         if (!loggedinuserhasalreadytakensurvey){
             takesurveyhtml = SurveyTakerDisplay.getHtmlForSurveyTaking(survey, new Blogger(), true, userwhotooksurvey);
         } else {
-            takesurveyhtml = "";
+            takesurveyhtml = SurveyTakerDisplay.getHtmlForSurveyTaking(survey, Blogger.get(userwhotooksurvey.getBloggerid()), true, userwhotooksurvey);
         }
 
         //The main survey flash embed
@@ -842,5 +852,11 @@ public class PublicSurvey implements Serializable {
         this.optionaluserquestions=optionaluserquestions;
     }
 
+    public Response getResponse() {
+        return response;
+    }
 
+    public void setResponse(Response response) {
+        this.response=response;
+    }
 }
