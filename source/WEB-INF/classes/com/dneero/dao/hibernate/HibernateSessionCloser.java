@@ -43,7 +43,7 @@ public class HibernateSessionCloser implements Filter {
                 logger.debug("---------------------------START REQUEST: "+httpServletRequest.getRequestURL());
                 logger.debug("httpServletRequest.getSession().getId()="+httpServletRequest.getSession().getId());
                 //Start Hibernate Session
-                HibernateUtil.startSession();
+                //HibernateUtil.startSession();
             }
         }catch(Exception ex){logger.error("", ex);}
 
@@ -51,17 +51,17 @@ public class HibernateSessionCloser implements Filter {
         chain.doFilter(request, response);
 
         //Close the Hibernate session
-//        try{
-//            HibernateUtil.closeSession();
-//        } catch (Exception ex){
-//            logger.debug("Error closing hibernate session at end of request.");
-//            logger.error("",ex);
-//        }
+        try{
+            HibernateUtil.closeSession();
+        } catch (Exception ex){
+            logger.debug("Error closing hibernate session at end of request.");
+            logger.error("",ex);
+        }
 
         try{
             if (httpServletRequest.getRequestURL().indexOf("jpg")==-1 && httpServletRequest.getRequestURL().indexOf("css")==-1 && httpServletRequest.getRequestURL().indexOf("gif")==-1 && httpServletRequest.getRequestURL().indexOf("png")==-1){
                 //End Hibernate Session
-                HibernateUtil.endSession();
+                //HibernateUtil.endSession();
                 logger.debug("---------------------------END REQUEST: "+httpServletRequest.getRequestURL());
                 logger.debug("-------------: "+Pagez.getElapsedTime()+" millis");
                 logger.debug("------");

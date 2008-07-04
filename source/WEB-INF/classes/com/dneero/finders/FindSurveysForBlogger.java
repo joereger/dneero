@@ -266,6 +266,7 @@ public class FindSurveysForBlogger {
         if (blogger==null){
             return false;
         }
+        //Find current surveys
         FindSurveysForBlogger fsfb = new FindSurveysForBlogger(blogger);
         for (Iterator iterator = fsfb.getSurveys().iterator(); iterator.hasNext();) {
             Survey tmpSurvey = (Survey) iterator.next();
@@ -273,6 +274,14 @@ public class FindSurveysForBlogger {
                 return true;
             }
         }
+        //See if they've already taken it
+        for (Iterator<Response> iterator=blogger.getResponses().iterator(); iterator.hasNext();) {
+            Response response=iterator.next();
+            if (response.getSurveyid()==survey.getSurveyid()){
+                return true;
+            }
+        }
+        //Otherwise, return false... sorry pal, not qualified
         return false;
     }
 

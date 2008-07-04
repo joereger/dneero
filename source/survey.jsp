@@ -84,10 +84,12 @@ String acl = "public";
     <br/><br/><br/>
 
     <%if (!publicSurvey.getQualifiesforsurvey() && publicSurvey.getSurvey().getStatus()!=Survey.STATUS_CLOSED){%>
-        <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
-            <font class="mediumfont">Sorry, you're not qualified to join this conversation.  Your qualification is determined by your Profile.  Researchers determine their intended audience when they ignite a conversation.</font>
-        </div>
-        <br/>
+        <%if (!publicSurvey.getLoggedinuserhasalreadytakensurvey()){%>
+            <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
+                <font class="mediumfont">Sorry, you're not qualified to join this conversation.  Your qualification is determined by your Profile.  Conversation igniters determine their intended audience when they ignite a conversation.</font>
+            </div>
+            <br/>
+        <%}%>
     <%}%>
 
     <%if (publicSurvey.getBloggerhastakentoomanysurveysalreadytoday() && !publicSurvey.getLoggedinuserhasalreadytakensurvey()){%>
@@ -112,6 +114,7 @@ String acl = "public";
                 <td valign="top" width="450">
                 <% if (publicSurvey.getUserwhotooksurvey()!=null){ %>
                      <% if (publicSurvey.getUserwhotooksurvey().getUserid()>0){ %>
+                        <%if (!publicSurvey.getLoggedinuserhasalreadytakensurvey()){%>
                             <center>
                             <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
                                 <center>
@@ -125,6 +128,7 @@ String acl = "public";
                             </div>
                             </center>
                             <br/><br/>
+                          <% } %>
                        <% } %>
                    <% } %>
                    <% if ((publicSurvey.getSurvey().getStatus()==Survey.STATUS_OPEN || (publicSurvey.getSurvey().getStatus()==Survey.STATUS_CLOSED && publicSurvey.getLoggedinuserhasalreadytakensurvey())) && ((Pagez.getUserSession().getFacebookUser()!=null && Pagez.getUserSession().getFacebookUser().getHas_added_app()) || !Pagez.getUserSession().getIsfacebookui())){ %>
@@ -148,10 +152,19 @@ String acl = "public";
                             <input type="hidden" name="actionfrompage" value="takesurvey">
                             <input type="hidden" name="surveyid" value="<%=publicSurvey.getSurvey().getSurveyid()%>">
                             <input type="hidden" name="userid" value="<%=request.getParameter("userid")%>">
+                            <%if (publicSurvey.getResponse()!=null){%>
+                                <input type="hidden" name="responseid" value="<%=publicSurvey.getResponse().getResponseid()%>">
+                            <%}%>
                             <input type="hidden" name="referredbyuserid" value="<%=request.getParameter("referredbyuserid")%>">
 
                         <div class="rounded" style="background: #e6e6e6; padding: 10px;">
-                            <center><font class="mediumfont" style="font-weight: bold;">Join the Conversation</font><br/><font class="smallfont" style="font-weight: bold;">This is a conversation so your answers will be visible to the public.</font></center><br/><br/>
+                            <center>
+                            <%if (!publicSurvey.getLoggedinuserhasalreadytakensurvey()){%>
+                                <font class="mediumfont" style="font-weight: bold;">Join the Conversation</font>
+                            <%}else{%>
+                                <font class="mediumfont" style="font-weight: bold;">Edit your Answers</font>
+                            <%}%>
+                            <br/><font class="smallfont" style="font-weight: bold;">This is a conversation so your answers will be visible to the public.</font></center><br/><br/>
                             <div class="rounded" style="background: #ffffff; padding: 10px;">
                                 <%if (publicSurvey.getSurvey().getIsaccesscodeonly()){%>
                                     <div class="rounded" style="background: #cccccc;">
@@ -243,39 +256,66 @@ String acl = "public";
                         <div class="rounded" style="background: #e6e6e6; text-align: center; padding: 10px;">
                             <div class="rounded" style="background: #ffffff; padding: 10px; text-align: left;">
                                 <font class="formfieldnamefont">What do you want to know?</font><font class="formfieldnamefont" style="color: #ff0000;">(Required)</font><br/><font class="tinyfont">You can ask anything related to this conversation (unrelated/vulgar questions will be rejected). People who join the conversation after reading your answers will have to answer the question you ask.</font><br/>
-                                <input type="text" name="<%=SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER%>userquestion-question" size="50" maxlength="250"/>
+                                <input type="text" name="<%=SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER%>userquestion-question" size="50" value="<%=Str.cleanForHtml(publicSurvey.getYourquestion())%>" maxlength="250"/>
                                 <br/><br/><font class="formfieldnamefont">How do people answer your question?</font><br/>
 
                                 <table cellspacing="0" cellpadding="0" border="0">
                                     <tr>
-                                        <td rowspan="2" valign="top"><input type="radio" name="<%=SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER%>userquestion-componenttype" value="MultipleChoice" checked="true"></td>
+                                        <%
+                                        String ismultchoice = "";
+                                        if (publicSurvey.getYourquestionismultiplechoice()){
+                                            ismultchoice = " checked=\"true\"";
+                                        }
+                                        %>
+                                        <td rowspan="2" valign="top"><input type="radio" <%=ismultchoice%> name="<%=SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER%>userquestion-componenttype" value="MultipleChoice"></td>
                                         <td rowspan="2" valign="top">
                                             <img src="/images/clear.gif" alt="" width="1" height="3"><br/><font class="smallfont" style="font-weight: bold;">Multiple Choice (recommended)</font><br/><font class="tinyfont">People can choose from one of the answers you define below.  Type up to eight possible answers.  Leave the rest blank.</font><br/>
                                             <table cellspacing="1" cellpadding="0" border="0">
                                             <tr>
-                                                <td><input type="text" name="<%=SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER%>userquestion-predefinedanswer" size="20" maxlength="30" style="font-size: 9px;"/></td>
-                                                <td><input type="text" name="<%=SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER%>userquestion-predefinedanswer" size="20" maxlength="30" style="font-size: 9px;"/></td>
+                                                <%String tmp = "";%>
+                                                <%if (publicSurvey.getYourquestionmultiplechoiceoptions()!=null && publicSurvey.getYourquestionmultiplechoiceoptions().size()>0){tmp = publicSurvey.getYourquestionmultiplechoiceoptions().get(0);} else {tmp="";}%>
+                                                <td><input type="text" name="<%=SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER%>userquestion-predefinedanswer" value="<%=Str.cleanForHtml(tmp)%>" size="20" maxlength="30" style="font-size: 9px;"/></td>
+                                                <%if (publicSurvey.getYourquestionmultiplechoiceoptions()!=null && publicSurvey.getYourquestionmultiplechoiceoptions().size()>1){tmp = publicSurvey.getYourquestionmultiplechoiceoptions().get(1);} else {tmp="";}%>
+                                                <td><input type="text" name="<%=SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER%>userquestion-predefinedanswer" value="<%=Str.cleanForHtml(tmp)%>" size="20" maxlength="30" style="font-size: 9px;"/></td>
                                             </tr>
                                             <tr>
-                                                <td><input type="text" name="<%=SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER%>userquestion-predefinedanswer" size="20" maxlength="30" style="font-size: 9px;"/></td>
-                                                <td><input type="text" name="<%=SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER%>userquestion-predefinedanswer" size="20" maxlength="30" style="font-size: 9px;"/></td>
+                                                <%if (publicSurvey.getYourquestionmultiplechoiceoptions()!=null && publicSurvey.getYourquestionmultiplechoiceoptions().size()>2){tmp = publicSurvey.getYourquestionmultiplechoiceoptions().get(2);} else {tmp="";}%>
+                                                <td><input type="text" name="<%=SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER%>userquestion-predefinedanswer" value="<%=Str.cleanForHtml(tmp)%>" size="20" maxlength="30" style="font-size: 9px;"/></td>
+                                                <%if (publicSurvey.getYourquestionmultiplechoiceoptions()!=null && publicSurvey.getYourquestionmultiplechoiceoptions().size()>3){tmp = publicSurvey.getYourquestionmultiplechoiceoptions().get(3);} else {tmp="";}%>
+                                                <td><input type="text" name="<%=SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER%>userquestion-predefinedanswer" value="<%=Str.cleanForHtml(tmp)%>" size="20" maxlength="30" style="font-size: 9px;"/></td>
                                             </tr>
                                             <tr>
-                                                <td><input type="text" name="<%=SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER%>userquestion-predefinedanswer" size="20" maxlength="30" style="font-size: 9px;"/></td>
-                                                <td><input type="text" name="<%=SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER%>userquestion-predefinedanswer" size="20" maxlength="30" style="font-size: 9px;"/></td>
+                                                <%if (publicSurvey.getYourquestionmultiplechoiceoptions()!=null && publicSurvey.getYourquestionmultiplechoiceoptions().size()>4){tmp = publicSurvey.getYourquestionmultiplechoiceoptions().get(4);} else {tmp="";}%>
+                                                <td><input type="text" name="<%=SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER%>userquestion-predefinedanswer" value="<%=Str.cleanForHtml(tmp)%>" size="20" maxlength="30" style="font-size: 9px;"/></td>
+                                                <%if (publicSurvey.getYourquestionmultiplechoiceoptions()!=null && publicSurvey.getYourquestionmultiplechoiceoptions().size()>5){tmp = publicSurvey.getYourquestionmultiplechoiceoptions().get(5);} else {tmp="";}%>
+                                                <td><input type="text" name="<%=SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER%>userquestion-predefinedanswer" value="<%=Str.cleanForHtml(tmp)%>" size="20" maxlength="30" style="font-size: 9px;"/></td>
                                             </tr>
                                             <tr>
-                                                <td><input type="text" name="<%=SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER%>userquestion-predefinedanswer" size="20" maxlength="30" style="font-size: 9px;"/></td>
-                                                <td><input type="text" name="<%=SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER%>userquestion-predefinedanswer" size="20" maxlength="30" style="font-size: 9px;"/></td>
+                                                <%if (publicSurvey.getYourquestionmultiplechoiceoptions()!=null && publicSurvey.getYourquestionmultiplechoiceoptions().size()>6){tmp = publicSurvey.getYourquestionmultiplechoiceoptions().get(6);} else {tmp="";}%>
+                                                <td><input type="text" name="<%=SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER%>userquestion-predefinedanswer" value="<%=Str.cleanForHtml(tmp)%>" size="20" maxlength="30" style="font-size: 9px;"/></td>
+                                                <%if (publicSurvey.getYourquestionmultiplechoiceoptions()!=null && publicSurvey.getYourquestionmultiplechoiceoptions().size()>7){tmp = publicSurvey.getYourquestionmultiplechoiceoptions().get(7);} else {tmp="";}%>
+                                                <td><input type="text" name="<%=SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER%>userquestion-predefinedanswer" value="<%=Str.cleanForHtml(tmp)%>" size="20" maxlength="30" style="font-size: 9px;"/></td>
                                             </tr>
                                             </table>
                                         </td>
-                                        <td valign="top"><input type="radio" name="<%=SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER%>userquestion-componenttype" value="ShortText"></td>
+                                        <%
+                                        String isshorttext = "";
+                                        if (publicSurvey.getYourquestionisshorttext()){
+                                            isshorttext = " checked=\"true\"";
+                                        }
+                                        %>
+                                        <td valign="top"><input type="radio" <%=isshorttext%> name="<%=SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER%>userquestion-componenttype" value="ShortText"></td>
                                         <td valign="top"><img src="/images/clear.gif" alt="" width="1" height="3"><br/><font class="smallfont" style="font-weight: bold;">Short Text</font><br/><font class="tinyfont">People can answer whatever they want but it must be shorter than 250 characters.</font></td>
 
                                     </tr>
                                     <tr>
-                                        <td valign="top"><input type="radio" name="<%=SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER%>userquestion-componenttype" value="LongText"></td>
+                                        <%
+                                        String islongtext = "";
+                                        if (publicSurvey.getYourquestionislongtext()){
+                                            islongtext = " checked=\"true\"";
+                                        }
+                                        %>
+                                        <td valign="top"><input type="radio" <%=islongtext%> name="<%=SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER%>userquestion-componenttype" value="LongText"></td>
                                         <td valign="top"><img src="/images/clear.gif" alt="" width="1" height="3"><br/><font class="smallfont" style="font-weight: bold;">Long Text</font><br/><font class="tinyfont">People can answer whatever they want in a long essay format.</font></td>
                                     </tr>
                                     </table>
@@ -386,7 +426,6 @@ String acl = "public";
                     <td valign="top" align="left">
                         <div class="rounded" style="background: #00ff00;">
                             <div class="rounded" style="background: #ffffff; text-align: center;">
-                                <center><img src="/images/paste-128.png" width="128" height="128"/></center>
                                 <br/>
                                 <% if (publicSurvey.getSurvey().getStatus()>=Survey.STATUS_CLOSED){ %>
                                     <div class="rounded" style="background: #cccccc; text-align: center;">
@@ -397,8 +436,7 @@ String acl = "public";
                                     <br/>
                                 <% } %>
                                 <% if (publicSurvey.getLoggedinuserhasalreadytakensurvey()){ %>
-                                    <font class="mediumfont">You've already earned</font>
-                                    <font class="mediumfont">You've already earned</font>
+                                    <font class="mediumfont">You're on your way to earning</font>
                                     <br/>
                                     <font class="tinyfont">(pending posting verification)</font>
                                     <br/>

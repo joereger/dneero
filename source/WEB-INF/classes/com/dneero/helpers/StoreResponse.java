@@ -35,15 +35,18 @@ public class StoreResponse {
         Logger logger = Logger.getLogger(StoreResponse.class);
         ComponentException allCex = new ComponentException();
         User user = User.get(blogger.getUserid());
-        //Make sure blogger hasn't taken already
+        Response response = new Response();
+        //If user has taken already, get that response
         List<Response> responses = HibernateUtil.getSession().createCriteria(Response.class)
                                            .add(Restrictions.eq("bloggerid", blogger.getBloggerid()))
                                            .setCacheable(false)
                                            .list();
         for (Iterator<Response> iterator = responses.iterator(); iterator.hasNext();) {
-            Response response = iterator.next();
-            if (response.getSurveyid()==survey.getSurveyid()){
-                allCex.addValidationError("You have already joined this conversation.");
+            Response rsp = iterator.next();
+            if (rsp.getSurveyid()==survey.getSurveyid()){
+                //allCex.addValidationError("You have already joined this conversation.");
+                //Person's already joined the convo... so use that response
+                response = rsp;
             }
         }
         //Make sure blogger is qualified to take
@@ -123,16 +126,21 @@ public class StoreResponse {
             //Create the response
             if (allCex.getErrors().length<=0){
                 logger.debug("start saving the response");
-                Response response = new Response();
+                if (response.getResponseid()<=0){
+                    //This is a new response so set some first-time stuff
+                    response.setResponsedate(new Date());
+                    response.setReferredbyuserid(referredbyuserid);
+                    response.setIspaid(false);
+                    response.setResponsestatushtml("");
+                    response.setPoststatus(Response.POSTATUS_NOTPOSTED);
+                    //Can't change charity info when editing answers
+                    response.setIsforcharity(isforcharity);
+                    response.setCharityname(charityname);
+                }
                 response.setBloggerid(blogger.getBloggerid());
-                response.setResponsedate(new Date());
                 response.setSurveyid(survey.getSurveyid());
-                response.setReferredbyuserid(referredbyuserid);
-                response.setIsforcharity(isforcharity);
-                response.setCharityname(charityname);
-                response.setPoststatus(Response.POSTATUS_NOTPOSTED);
-                response.setIspaid(false);
-                response.setResponsestatushtml("");
+
+
                 //survey.getResponses().add(response);
                 try{
                     response.save();
@@ -144,6 +152,8 @@ public class StoreResponse {
                 }
                 logger.debug("end saving the response");
                 logger.debug("start processing each question");
+                //Delete any existing question responses
+                HibernateUtil.getSession().createQuery("delete Questionresponse q where q.bloggerid='"+blogger.getBloggerid()+"' and q.responseid='"+response.getResponseid()+"'").executeUpdate();
                 //Process each question
                 if (allCex.getErrors().length<=0){
                     for (Iterator<Question> iterator = survey.getQuestions().iterator(); iterator.hasNext();) {
@@ -176,16 +186,44 @@ public class StoreResponse {
                         } else if (uqctArr[0].equals("LongText")){
                             componenttype = Essay.ID;
                         }
-
+                        //See if user already has a question out there
                         Question question = new Question();
+                        boolean userhadquestionalready = false;
+                        boolean userchangedquestion = false;
+                        List<Question> uqs = HibernateUtil.getSession().createCriteria(Question.class)
+                                           .add(Restrictions.eq("surveyid", survey.getSurveyid()))
+                                           .add(Restrictions.eq("userid", blogger.getUserid()))
+                                           .add(Restrictions.eq("isuserquestion", true))
+                                           .setCacheable(true)
+                                           .list();
+                        for (Iterator<Question> iterator = uqs.iterator(); iterator.hasNext();) {
+                            Question q = iterator.next();
+                            userhadquestionalready = true;
+                            //Determine whether or not question was edited
+                            if (!q.getQuestion().equals(String.valueOf(uqArr[0]))){
+                                userchangedquestion = true;
+                            }
+                            if (q.getComponenttype()!=componenttype){
+                                userchangedquestion = true;
+                            }
+                            //Use this question
+                            question = q;
+                        }
+                        //Delete existing answers if user changed
+                        if (userchangedquestion){
+                            survey.getQuestions().remove(question);
+                            try{question.delete();}catch(Exception ex){logger.error("", ex);}
+                            question = new Question();
+                        }
                         question.setSurveyid(survey.getSurveyid());
                         question.setQuestion(uqArr[0]);
                         question.setIsrequired(false);
                         question.setComponenttype(componenttype);
                         question.setIsuserquestion(true);
                         question.setUserid(blogger.getUserid());
-
-                        survey.getQuestions().add(question);
+                        //if (!userhadquestionalready){
+                            survey.getQuestions().add(question);
+                        //}
                         try{survey.save();} catch (Exception ex){logger.error("", ex);}
 
                         if (componenttype==Dropdown.ID){
@@ -199,14 +237,29 @@ public class StoreResponse {
                                         options.append("\n");
                                     }
                                 }
+                                //See if user already has a questionconfig out there
                                 Questionconfig qc1 = new Questionconfig();
+                                boolean userhadquestionconfigalready = false;
+                                List<Questionconfig> uqc = HibernateUtil.getSession().createCriteria(Questionconfig.class)
+                                                   .add(Restrictions.eq("questionid", question.getQuestionid()))
+                                                   .add(Restrictions.eq("name", "options"))
+                                                   .setCacheable(true)
+                                                   .list();
+                                for (Iterator<Questionconfig> iterator = uqc.iterator(); iterator.hasNext();) {
+                                    Questionconfig qc = iterator.next();
+                                    qc1 = qc;
+                                    userhadquestionconfigalready = true;
+                                }
                                 qc1.setQuestionid(question.getQuestionid());
                                 qc1.setName("options");
                                 qc1.setValue(options.toString());
-                                question.getQuestionconfigs().add(qc1);
+                                if (!userhadquestionconfigalready){
+                                    question.getQuestionconfigs().add(qc1);
+                                }
                                 try{survey.save();} catch (Exception ex){logger.error("", ex);}
                             }
                         }
+
                     }
                 }
 
@@ -217,8 +270,7 @@ public class StoreResponse {
                 } catch (Exception ex){logger.error("",ex);};
 
                 //Process the statusHtml for the response
-                try{
-                    UpdateResponsePoststatus.processSingleResponse(response);} catch (Exception ex){logger.error("",ex);};
+                try{UpdateResponsePoststatus.processSingleResponse(response);} catch (Exception ex){logger.error("",ex);};
 
                 //Update Facebook
                 try{

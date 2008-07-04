@@ -46,7 +46,7 @@ public class HibernateSessionQuartzCloser implements JobListener {
             //Track start time
             millisatstart = new Date().getTime();
             //Start Hibernate Session
-            HibernateUtil.startSession();
+            //HibernateUtil.startSession();
         }
     }
 
@@ -68,13 +68,13 @@ public class HibernateSessionQuartzCloser implements JobListener {
             logger.error("",ex);
         }
         //Close the Hibernate Session
-//        try{
-//            HibernateUtil.closeSession();
-//        } catch (Exception ex){
-//            logger.debug("Error closing hibernate session at end of quartz session");
-//            logger.error("",ex);
-//        }
-            HibernateUtil.endSession();
+        try{
+            HibernateUtil.closeSession();
+        } catch (Exception ex){
+            logger.debug("Error closing hibernate session at end of quartz session");
+            logger.error("",ex);
+        }
+            //HibernateUtil.endSession();
     }
 
     private void recordExecution(String taskname, int millistoexecute){

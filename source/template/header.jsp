@@ -50,7 +50,7 @@
     %>
     <%=header%>
     <%Pagez.getUserSession().setMessage("");%>
-    <div style="width: 735px; overflow: auto;">
+    <div style="width: 755px; overflow: auto;">
 <% } else { %>
     <%@ include file="header-facebook.jsp" %>
 <% }%>

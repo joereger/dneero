@@ -247,8 +247,8 @@ public class Matrix implements Component {
     public void processAnswer(SurveyResponseParser srp, Response response) throws ComponentException {
         logger.debug("made it to processAnswer");
         String[] requestParams = srp.getParamsForQuestion(question.getQuestionid());
+        //HibernateUtil.getSession().createQuery("delete Questionresponse q where q.questionid='"+question.getQuestionid()+"' and q.bloggerid='"+blogger.getBloggerid()+"' and q.responseid='"+response.getResponseid()+"'").executeUpdate();
         if (requestParams!=null && requestParams.length>0){
-            boolean addedAResponse = false;
             for (int i = 0; i < requestParams.length; i++) {
                 String requestParam = requestParams[i];
                 Questionresponse questionresponse = new Questionresponse();
@@ -258,18 +258,7 @@ public class Matrix implements Component {
                 questionresponse.setValue(requestParam.trim());
                 questionresponse.setResponseid(response.getResponseid());
                 try{questionresponse.save();}catch(Exception ex){logger.error("", ex);}
-                //question.getQuestionresponses().add(questionresponse);
-                addedAResponse = true;
             }
-//            if (addedAResponse){
-//                try{
-//                    logger.debug("processAnswer() about to save question.getQuestionid()=" + question.getQuestionid());
-//                    question.save();
-//                    logger.debug("processAnswer() done saving question.getQuestionid()=" + question.getQuestionid());
-//                } catch (GeneralException gex){
-//                    logger.debug("processAnswer() failed: " + gex.getErrorsAsSingleString());
-//                }
-//            }
         }
     }
 

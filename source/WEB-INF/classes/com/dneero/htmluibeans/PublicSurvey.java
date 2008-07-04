@@ -4,6 +4,9 @@ import com.dneero.dao.*;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.display.SurveyResponseParser;
 import com.dneero.display.SurveyTakerDisplay;
+import com.dneero.display.components.Checkboxes;
+import com.dneero.display.components.Essay;
+import com.dneero.display.components.Textbox;
 import com.dneero.display.components.def.Component;
 import com.dneero.display.components.def.ComponentException;
 import com.dneero.display.components.def.ComponentTypes;
@@ -65,6 +68,11 @@ public class PublicSurvey implements Serializable {
     private ArrayList<PublicSurveyUserquestionListitem> optionaluserquestionlistitems = new ArrayList<PublicSurveyUserquestionListitem>();
     private ArrayList<Integer> useridswhohavebeencheckedforuserquestions = new ArrayList<Integer>();
     private Response response = null;
+    private String yourquestion = "";
+    private boolean yourquestionismultiplechoice = true;
+    private boolean yourquestionisshorttext= false;
+    private boolean yourquestionislongtext = false;
+    private ArrayList<String> yourquestionmultiplechoiceoptions = new ArrayList<String>();
 
     public PublicSurvey(){
 
@@ -304,7 +312,11 @@ public class PublicSurvey implements Serializable {
                     PublicSurveyUserquestionListitem psli = new PublicSurveyUserquestionListitem();
                     psli.setQuestion(question);
                     psli.setUser(User.get(question.getUserid()));
-                    psli.setComponent(ComponentTypes.getComponentByID(question.getComponenttype(), question, null));
+                    Blogger blogger = null;
+                    if (Pagez.getUserSession().getUser()!=null && Pagez.getUserSession().getUser().getBloggerid()>0){
+                        blogger = Blogger.get(Pagez.getUserSession().getUser().getBloggerid());
+                    }
+                    psli.setComponent(ComponentTypes.getComponentByID(question.getComponenttype(), question, blogger));
                     userquestionlistitems.add(psli);
                 }
             }
@@ -319,12 +331,17 @@ public class PublicSurvey implements Serializable {
                 PublicSurveyUserquestionListitem psli = new PublicSurveyUserquestionListitem();
                 psli.setQuestion(question);
                 psli.setUser(User.get(question.getUserid()));
-                psli.setComponent(ComponentTypes.getComponentByID(question.getComponenttype(), question, null));
+                Blogger blogger = null;
+                if (Pagez.getUserSession().getUser()!=null && Pagez.getUserSession().getUser().getBloggerid()>0){
+                    blogger = Blogger.get(Pagez.getUserSession().getUser().getBloggerid());
+                }
+                psli.setComponent(ComponentTypes.getComponentByID(question.getComponenttype(), question, blogger));
                 optionaluserquestionlistitems.add(psli);
             }
         }
 
-
+        //Prepop your user question
+        prePopulateYourQuestion();
 
         //Record the survey display using the display cache
         SurveydisplayActivityObject sdao = new SurveydisplayActivityObject();
@@ -332,6 +349,49 @@ public class PublicSurvey implements Serializable {
         SurveydisplayActivityObjectQueue.addSdao(sdao);
 
 
+    }
+
+    private void prePopulateYourQuestion(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
+        logger.debug("start prePopulateYourQuestion()");
+        if (loggedinuserhasalreadytakensurvey){
+            for (Iterator<Question> iterator=survey.getQuestions().iterator(); iterator.hasNext();) {
+                Question question=iterator.next();
+                if (question.getIsuserquestion()){
+                    if (Pagez.getUserSession().getUser().getUserid()==question.getUserid()){
+                        //Get the main question
+                        yourquestion = question.getQuestion();
+                        logger.debug("question.getComponenttype()="+question.getComponenttype());
+                        //If it's multiple choice
+                        if (question.getComponenttype()==Checkboxes.ID){
+                            yourquestionismultiplechoice =  true;
+                            yourquestionmultiplechoiceoptions = new ArrayList<String>();
+                            String options = "";
+                            for (Iterator<Questionconfig> it = question.getQuestionconfigs().iterator(); it.hasNext();) {
+                                Questionconfig questionconfig = it.next();
+                                if (questionconfig.getName().equals("options")){
+                                    options = questionconfig.getValue();
+                                }
+                            }
+                            String[] optionsSplit = options.split("\\n");
+                            for (int i = 0; i < optionsSplit.length; i++) {
+                                String s = optionsSplit[i];
+                                yourquestionmultiplechoiceoptions.add(s.trim());
+                            }
+                        }
+                        //If it's a short text
+                        if (question.getComponenttype()==Textbox.ID){
+                            yourquestionisshorttext =  true;
+                        }
+                        //If it's a long text
+                        if (question.getComponenttype()==Essay.ID){
+                            yourquestionislongtext =  true;
+                        }
+                    }
+                }
+            }
+        }
+        logger.debug("end prePopulateYourQuestion()");
     }
 
 
@@ -350,15 +410,21 @@ public class PublicSurvey implements Serializable {
         }
 
         //If the user's already taken too many surveys
-        if (Pagez.getUserSession().getSurveystakentoday()>SurveysTakenToday.MAXSURVEYSPERDAY){
+        if (!loggedinuserhasalreadytakensurvey && Pagez.getUserSession().getSurveystakentoday()>SurveysTakenToday.MAXSURVEYSPERDAY){
             vex.addValidationError("Sorry, you've already joined the maximum number of conversations today ("+SurveysTakenToday.MAXSURVEYSPERDAY+").  Wait until tomorrow (defined in U.S. Eastern Standard Time) and try again.");
             throw vex;
         }
 
         //If the survey requires an accesscode
-        if (survey.getIsaccesscodeonly() && (Pagez.getUserSession().getAccesscode()==null || !Pagez.getUserSession().getAccesscode().equals(survey.getAccesscode()))){
-            vex.addValidationError("Sorry, this conversation requires an Access Code.");
-            throw vex;
+        if (survey.getIsaccesscodeonly()){
+            //If this is the first take
+            if (!loggedinuserhasalreadytakensurvey){
+                //If the access code isn't there
+                if (Pagez.getUserSession().getAccesscode()==null || !Pagez.getUserSession().getAccesscode().equals(survey.getAccesscode())){
+                    vex.addValidationError("Sorry, this conversation requires an Access Code.");
+                    throw vex;
+                }
+            }
         }
 
 
@@ -858,5 +924,45 @@ public class PublicSurvey implements Serializable {
 
     public void setResponse(Response response) {
         this.response=response;
+    }
+
+    public String getYourquestion() {
+        return yourquestion;
+    }
+
+    public void setYourquestion(String yourquestion) {
+        this.yourquestion=yourquestion;
+    }
+
+    public boolean getYourquestionismultiplechoice() {
+        return yourquestionismultiplechoice;
+    }
+
+    public void setYourquestionismultiplechoice(boolean yourquestionismultiplechoice) {
+        this.yourquestionismultiplechoice=yourquestionismultiplechoice;
+    }
+
+    public boolean getYourquestionisshorttext() {
+        return yourquestionisshorttext;
+    }
+
+    public void setYourquestionisshorttext(boolean yourquestionisshorttext) {
+        this.yourquestionisshorttext=yourquestionisshorttext;
+    }
+
+    public boolean getYourquestionislongtext() {
+        return yourquestionislongtext;
+    }
+
+    public void setYourquestionislongtext(boolean yourquestionislongtext) {
+        this.yourquestionislongtext=yourquestionislongtext;
+    }
+
+    public ArrayList<String> getYourquestionmultiplechoiceoptions() {
+        return yourquestionmultiplechoiceoptions;
+    }
+
+    public void setYourquestionmultiplechoiceoptions(ArrayList<String> yourquestionmultiplechoiceoptions) {
+        this.yourquestionmultiplechoiceoptions=yourquestionmultiplechoiceoptions;
     }
 }
