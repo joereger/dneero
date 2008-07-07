@@ -1,9 +1,11 @@
 <%@ page import="com.dneero.dao.Review" %>
-<%@ page import="com.dneero.dao.hibernate.HibernateUtil" %>
 <%@ page import="com.dneero.htmlui.Pagez" %>
 <%@ page import="com.dneero.htmlui.Textarea" %>
 <%@ page import="com.dneero.htmluibeans.CustomercareReviewDetail" %>
-<%@ page import="org.hibernate.criterion.Restrictions" %>
+<%@ page import="com.dneero.review.Reviewable" %>
+<%@ page import="com.dneero.review.ReviewableUtil" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.Iterator" %>
 <%@ page import="java.util.List" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
@@ -45,6 +47,16 @@ String acl = "researcher";
     }
 %>
 <%
+    //This block just calculates the next issue that we should redir to
+    Reviewable nxtRvw = null;
+    int remainingRvws = 0;
+    ArrayList<Reviewable> nxtRvws = ReviewableUtil.getPendingForResearcherSorted(Pagez.getUserSession().getUser().getResearcherid());
+    if (nxtRvws!=null && nxtRvws.size()>0){
+        nxtRvw = nxtRvws.get(1); // Index 0 is currently on screen
+        remainingRvws = nxtRvws.size()-1;
+    }
+%>
+<%
     if (request.getParameter("action") != null && request.getParameter("action").equals("reject")) {
         try {
             //Record notes
@@ -65,8 +77,14 @@ String acl = "researcher";
             }
             //Change the underlying Reviewable object
             customercareReviewDetail.getReviewable().rejectByResearcher();
-            Pagez.sendRedirect("/researcher/reviewables.jsp");
-            return;
+            Pagez.getUserSession().setMessage("Done. "+remainingRvws+" remaining reviews.");
+            if (nxtRvw==null){
+                Pagez.sendRedirect("/researcher/reviewables.jsp");
+                return;
+            } else {
+                Pagez.sendRedirect("/researcher/reviewabledetail.jsp?id="+nxtRvw.getId()+"&type="+nxtRvw.getType());
+                return;
+            }
         } catch (com.dneero.htmlui.ValidationException vex) {
             Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
         }
@@ -92,8 +110,14 @@ String acl = "researcher";
             }
             //Change the underlying Reviewable object
             customercareReviewDetail.getReviewable().approveByResearcher();
-            Pagez.sendRedirect("/researcher/reviewables.jsp");
-            return;
+            Pagez.getUserSession().setMessage("Done. "+remainingRvws+" remaining reviews.");
+            if (nxtRvw==null){
+                Pagez.sendRedirect("/researcher/reviewables.jsp");
+                return;
+            } else {
+                Pagez.sendRedirect("/researcher/reviewabledetail.jsp?id="+nxtRvw.getId()+"&type="+nxtRvw.getType());
+                return;
+            }
         } catch (com.dneero.htmlui.ValidationException vex) {
             Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
         }
@@ -119,8 +143,14 @@ String acl = "researcher";
             }
             //Change the underlying Reviewable object
             customercareReviewDetail.getReviewable().approveByResearcher();
-            Pagez.sendRedirect("/researcher/reviewables.jsp");
-            return;
+            Pagez.getUserSession().setMessage("Done. "+remainingRvws+" remaining reviews.");
+            if (nxtRvw==null){
+                Pagez.sendRedirect("/researcher/reviewables.jsp");
+                return;
+            } else {
+                Pagez.sendRedirect("/researcher/reviewabledetail.jsp?id="+nxtRvw.getId()+"&type="+nxtRvw.getType());
+                return;
+            }
         } catch (com.dneero.htmlui.ValidationException vex) {
             Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
         }

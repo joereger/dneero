@@ -114,6 +114,15 @@ PublicSurveyList publicSurveyList = (PublicSurveyList)Pagez.getBeanMgr().get("Pu
                             <br/>
                         <% } %>
 
+                        <% if (Pagez.getUserSession().getUser()!=null){
+                           long openReviewItems = NumFromUniqueResult.getInt("select count(*) from Review where useridofcontentcreator='"+Pagez.getUserSession().getUser().getUserid()+"' and (isresearcherrejected=true or isresearcherwarned=true or issysadminwarned=true or issysadminrejected=true)");
+                           if (openReviewItems>0){%>
+                            <div class="rounded" style="background: #e6e6e6; padding: 10px;">
+                                <font class="mediumfont"><a href="/account/reviewables.jsp"><%=openReviewItems%> of your items</a> are flagged.</font>
+                            </div>
+                            <br/>
+                       <%}}%>
+
                         <%--<br/><br/>--%>
                         <%--<font class="mediumfont">Surveys Friends Have Taken:</font><br/>--%>
                         <%--<% if (publicSurveyList.getFacebookSurveyThatsBeenTakens()==null || publicSurveyList.getFacebookSurveyThatsBeenTakens().size()==0){ %>--%>

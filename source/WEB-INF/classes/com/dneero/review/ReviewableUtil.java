@@ -3,12 +3,14 @@ package com.dneero.review;
 import com.dneero.dao.Researcher;
 import com.dneero.dao.Review;
 import com.dneero.dao.hibernate.HibernateUtil;
+import com.dneero.htmluibeans.ResearcherRankPeopleComparatorPoints;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Collections;
 
 /**
  * User: Joe Reger Jr
@@ -38,6 +40,12 @@ public class ReviewableUtil {
             Reviewable reviewable=iterator.next();
             out.addAll(reviewable.getPendingForResearcher(researcherid));
         }
+        return out;
+    }
+
+    public static ArrayList<Reviewable> getPendingForResearcherSorted(int researcherid){
+        ArrayList<Reviewable> out = getPendingForResearcher(researcherid);
+        Collections.sort(out, new ReviewableDateComparator());
         return out;
     }
 

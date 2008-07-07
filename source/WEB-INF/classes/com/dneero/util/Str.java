@@ -37,6 +37,14 @@ public class Str {
         return "";
     }
 
+    public static String removeLeftBrackets(String instring){
+        if (instring!=null){
+            instring=instring.replaceAll("<", "&lt;");
+            return instring;
+        }
+        return "";
+    }
+
     public static String cleanForSQL(String instring){
         if (instring!=null && !instring.equals("")) {
             instring=instring.replaceAll("'", "''");

@@ -3,7 +3,7 @@
 <%@ page import="com.dneero.review.ReviewableFactory" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
-String pagetitle = "Content Review";
+String pagetitle = "Flagged Content";
 String navtab = "youraccount";
 String acl = "account";
 %>
@@ -15,7 +15,7 @@ String acl = "account";
     }
     if (review==null){
         Pagez.sendRedirect("/account/reviewables.jsp");
-        Pagez.getUserSession().setMessage("That review was not found.");
+        Pagez.getUserSession().setMessage("That flagged content was not found.");
         return;
     }
     Reviewable reviewable = null;
@@ -28,7 +28,7 @@ String acl = "account";
 
     <font class="mediumfont"><%=reviewable.getShortSummary()%></font><br/>
 
-    <table cellpadding="5" cellspacing="0" border="0" width="100%">
+    <table cellpadding="0" cellspacing="0" border="0" width="100%">
         <tr>
             <td valign="top">
                 <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
@@ -56,7 +56,7 @@ String acl = "account";
             </td>
             <td valign="top">
                 <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
-                    <font class="mediumfont">dPolice</font><br/>
+                    <font class="mediumfont">dPolice (The dNeero Content Police)</font><br/>
                     <div class="rounded" style="padding: 15px; margin: 5px; background: #ffffff;">
                         <%
                         String dpStatus = "Not Yet Reviewed";
@@ -73,7 +73,7 @@ String acl = "account";
                         <center><font class="mediumfont" style="color: #cccccc;"><%=dpStatus%></font></center>
                     </div>
                     <%if (review.getResearchernotes().length()>0){%>
-                        <font class="normalfont" style="font-weight: bold;">dpStatus Comments:</font><br/>
+                        <font class="normalfont" style="font-weight: bold;">dPolice Comments:</font><br/>
                         <font class="tinyfont"><%=review.getSysadminnotes()%></font><br/>
                     <%}%>
                 </div>
@@ -88,7 +88,9 @@ String acl = "account";
 
     <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
         <font class="mediumfont" style="font-weight: bold;">Detail of Content in Question:</font><br/>
-        <%=reviewable.getFullSummary()%>
+        <div class="rounded" style="padding: 15px; margin: 5px; background: #ffffff;">
+            <%=reviewable.getFullSummary()%>
+        </div>
     </div>
 
 

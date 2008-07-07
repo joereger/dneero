@@ -44,7 +44,7 @@ public class Dropdown implements Component {
 
     public String getHtmlForInput(Response response) {
         StringBuffer out = new StringBuffer();
-        out.append("<font class=\"formfieldnamefont\">"+question.getQuestion()+"</font>");
+        out.append("<font class=\"formfieldnamefont\">"+Str.removeLeftBrackets(question.getQuestion())+"</font>");
         if (question.getIsrequired()){
             out.append(" ");
             out.append("<font class=\"formfieldnamefont\" style=\"color: #ff0000;\">(Required)</font>");
@@ -158,12 +158,12 @@ public class Dropdown implements Component {
             if (isSelected){
                 out.append("<p class=\"answer_highlight\">");
                 out.append("&nbsp;&nbsp;&gt;");
-                out.append(s);
+                out.append(Str.removeLeftBrackets(s));
                 out.append("</p>");
             } else {
                 out.append("<p class=\"answer\">");
                 out.append("&nbsp;&nbsp;&nbsp;&nbsp;");
-                out.append(s);
+                out.append(Str.removeLeftBrackets(s));
                 out.append("</p>");
             }
         }

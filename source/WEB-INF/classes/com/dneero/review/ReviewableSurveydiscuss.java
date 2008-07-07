@@ -13,6 +13,7 @@ import org.hibernate.criterion.Restrictions;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Date;
 
 public class ReviewableSurveydiscuss implements Reviewable {
 
@@ -41,6 +42,10 @@ public class ReviewableSurveydiscuss implements Reviewable {
         return TYPENAME;
     }
 
+    public Date getDate(){
+        return surveydiscuss.getDate();
+    }
+
     public String getTypeDescription(){
         StringBuffer out = new StringBuffer();
         out.append("This is an issue a comment made on a survey.  There is no remedy for this.  Content is simply removed.");
@@ -65,7 +70,7 @@ public class ReviewableSurveydiscuss implements Reviewable {
 
     public String getShortSummary() {
         StringBuffer out = new StringBuffer();
-        out.append("Survey Comment: "+Str.truncateString(Str.cleanForHtml(surveydiscuss.getSubject()), 30));
+        out.append("Survey Comment: "+Str.truncateString(Str.cleanForHtml(surveydiscuss.getSubject()), 50));
         return out.toString();
     }
 

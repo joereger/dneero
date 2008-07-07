@@ -52,7 +52,7 @@ public class TestQuestion implements Component {
             }
         }
 
-        out.append("<font class=\"formfieldnamefont\">"+question.getQuestion()+"</font>");
+        out.append("<font class=\"formfieldnamefont\">"+Str.removeLeftBrackets(question.getQuestion())+"</font>");
         out.append(" ");
         out.append("<font class=\"formfieldnamefont\" style=\"color: #ff0000;\">(Required)</font>");
         out.append("<br/>");

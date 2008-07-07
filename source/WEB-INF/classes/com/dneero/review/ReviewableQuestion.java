@@ -5,13 +5,13 @@ import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.display.components.def.Component;
 import com.dneero.display.components.def.ComponentTypes;
 import com.dneero.htmlui.ValidationException;
-import com.dneero.survey.servlet.SurveyAsHtml;
 import com.dneero.util.Str;
 import org.apache.log4j.Logger;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -48,6 +48,25 @@ public class ReviewableQuestion implements Reviewable {
         return TYPENAME;
     }
 
+    public Date getDate(){
+        if (question.getIsuserquestion() && question.getUserid()>0){
+            User user = User.get(question.getUserid());
+            List<Response> responses = HibernateUtil.getSession().createCriteria(Response.class)
+                    .add(Restrictions.eq("bloggerid", user.getBloggerid()))
+                    .add(Restrictions.eq("surveyid", question.getSurveyid()))
+                    .setCacheable(true)
+                    .list();
+            for (Iterator<Response> responseIterator=responses.iterator(); responseIterator.hasNext();) {
+                Response response=responseIterator.next();
+                return response.getResponsedate();
+            }
+        } else {
+            Survey survey = Survey.get(question.getSurveyid());
+            return survey.getStartdate();
+        }
+        return new Date();
+    }
+
     public int getUseridofcontentcreator() {
         if (question!=null){
             if (question.getUserid()>0){
@@ -71,7 +90,7 @@ public class ReviewableQuestion implements Reviewable {
 
     public String getShortSummary() {
         StringBuffer out = new StringBuffer();
-        out.append("Question: "+Str.truncateString(Str.cleanForHtml(question.getQuestion()), 30));
+        out.append("Question: "+Str.truncateString(Str.cleanForHtml(question.getQuestion()), 50));
         return out.toString();
     }
 

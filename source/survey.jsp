@@ -166,7 +166,7 @@ String acl = "public";
                             <%}%>
                             <br/><font class="smallfont" style="font-weight: bold;">This is a conversation so your answers will be visible to the public.</font></center><br/><br/>
                             <div class="rounded" style="background: #ffffff; padding: 10px;">
-                                <%if (publicSurvey.getSurvey().getIsaccesscodeonly()){%>
+                                <%if (publicSurvey.getSurvey().getIsaccesscodeonly() && !publicSurvey.getLoggedinuserhasalreadytakensurvey()){%>
                                     <div class="rounded" style="background: #cccccc;">
                                         <img src="/images/lock-48.png" alt="" width="48" height="48" align="right"/>
                                         <font class="mediumfont" style="color: #666666;">This conversation requires an Access Code</font>

@@ -46,7 +46,7 @@ public class Matrix implements Component {
 
     public String getHtmlForInput(Response response) {
         StringBuffer out = new StringBuffer();
-        out.append("<font class=\"formfieldnamefont\">"+question.getQuestion()+"</font>");
+        out.append("<font class=\"formfieldnamefont\">"+Str.removeLeftBrackets(question.getQuestion())+"</font>");
         if (question.getIsrequired()){
             out.append(" ");
             out.append("<font class=\"formfieldnamefont\" style=\"color: #ff0000;\">(Required)</font>");

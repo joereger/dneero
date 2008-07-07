@@ -3,6 +3,7 @@ package com.dneero.display.components;
 import com.dneero.dao.*;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.util.GeneralException;
+import com.dneero.util.Str;
 import com.dneero.display.components.def.Component;
 import com.dneero.display.components.def.ComponentException;
 import com.dneero.display.SurveyResponseParser;
@@ -48,7 +49,7 @@ public class Checkboxes implements Component {
 
     public String getHtmlForInput(Response response) {
         StringBuffer out = new StringBuffer();
-        out.append("<font class=\"formfieldnamefont\">"+question.getQuestion()+"</font>");
+        out.append("<font class=\"formfieldnamefont\">"+ Str.removeLeftBrackets(question.getQuestion())+"</font>");
         if (question.getIsrequired()){
             out.append(" ");
             out.append("<font class=\"formfieldnamefont\" style=\"color: #ff0000;\">(Required)</font>");
@@ -87,7 +88,7 @@ public class Checkboxes implements Component {
                 checked = " checked=\"yes\"";
             }
 
-            out.append("<input type=\"checkbox\" name=\""+ SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"questionid_"+question.getQuestionid()+"\" value=\""+com.dneero.util.Str.cleanForHtml(s)+"\" "+checked+">" + s);
+            out.append("<input type=\"checkbox\" name=\""+ SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"questionid_"+question.getQuestionid()+"\" value=\""+com.dneero.util.Str.cleanForHtml(s)+"\" "+checked+">" + Str.removeLeftBrackets(s));
             if (optionsSplit.length>i+1){
                 out.append("<br/>");
             }

@@ -11,6 +11,7 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -37,6 +38,10 @@ public class ReviewableResponse implements Reviewable {
             return response.getResponseid();
         }
         return 0;
+    }
+
+    public Date getDate(){
+        return response.getResponsedate();
     }
 
     public int getType() {
@@ -67,7 +72,7 @@ public class ReviewableResponse implements Reviewable {
     public String getShortSummary() {
         StringBuffer out = new StringBuffer();
         Survey survey = Survey.get(response.getSurveyid());
-        out.append("Response to: "+Str.truncateString(Str.cleanForHtml(survey.getTitle()), 30));
+        out.append("Response to: "+Str.truncateString(Str.cleanForHtml(survey.getTitle()), 50));
         return out.toString();
     }
 
@@ -84,7 +89,18 @@ public class ReviewableResponse implements Reviewable {
         out.append("From Survey: "+Str.cleanForHtml(survey.getTitle()));
         out.append("</b></font>");
         out.append("<br/>");
-        out.append(SurveyAsHtml.getHtml(survey, user, true));
+        out.append("<style>");
+        out.append(".questiontitle{");
+        out.append("font-family: Arial, Arial, Helvetica, sans-serif; font-size: 13px; font-weight: bold; margin: 0px; border: 0px solid #8d8d8d; padding: 0px; text-align: left; background: #e6e6e6;");
+        out.append("}");
+        out.append(".answer{");
+        out.append("font-family: Arial, Arial, Helvetica, sans-serif; font-size: 11px; width: 95%; margin: 0px;  padding: 0px; text-align: left;");
+        out.append("}");
+        out.append(".answer_highlight{");
+        out.append("font-family: Arial, Arial, Helvetica, sans-serif; font-size: 11px; width: 95%; font-weight: bold; border: 0px solid #c1c1c1; margin: 0px;  padding: 0px; text-align: left; background: #ffffff;");
+        out.append("}");
+        out.append("</style>");
+        out.append(SurveyAsHtml.getHtml(survey, user, true, true));
         return out.toString();
     }
 

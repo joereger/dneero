@@ -3,6 +3,7 @@ package com.dneero.display.components;
 import com.dneero.dao.*;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.util.GeneralException;
+import com.dneero.util.Str;
 import com.dneero.display.components.def.Component;
 import com.dneero.display.components.def.ComponentException;
 import com.dneero.display.SurveyResponseParser;
@@ -43,7 +44,7 @@ public class Essay implements Component {
 
     public String getHtmlForInput(Response response) {
         StringBuffer out = new StringBuffer();
-        out.append("<font class=\"formfieldnamefont\">"+question.getQuestion()+"</font>");
+        out.append("<font class=\"formfieldnamefont\">"+ Str.removeLeftBrackets(question.getQuestion())+"</font>");
         if (question.getIsrequired()){
             out.append(" ");
             out.append("<font class=\"formfieldnamefont\" style=\"color: #ff0000;\">(Required)</font>");
@@ -75,7 +76,7 @@ public class Essay implements Component {
             List<Questionresponse> responses = HibernateUtil.getSession().createQuery("from Questionresponse where questionid='"+question.getQuestionid()+"' and bloggerid='"+blogger.getBloggerid()+"' and responseid='"+response.getResponseid()+"'").list();
             for (Iterator<Questionresponse> iterator = responses.iterator(); iterator.hasNext();) {
                 Questionresponse questionresponse = iterator.next();
-                out.append(questionresponse.getValue());
+                out.append(Str.removeLeftBrackets(questionresponse.getValue()));
             }
         } else {
             out.append("Not answered.");

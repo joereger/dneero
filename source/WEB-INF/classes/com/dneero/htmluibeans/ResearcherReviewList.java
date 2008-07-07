@@ -20,7 +20,7 @@ public class ResearcherReviewList implements Serializable {
     }
 
     public void initBean(){
-        reviewables = ReviewableUtil.getPendingForResearcher(Pagez.getUserSession().getUser().getResearcherid());
+        reviewables = ReviewableUtil.getPendingForResearcherSorted(Pagez.getUserSession().getUser().getResearcherid());
     }
 
     public ArrayList<Reviewable> getReviewables() {

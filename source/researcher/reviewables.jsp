@@ -17,15 +17,39 @@ String acl = "researcher";
 <%@ include file="/template/header.jsp" %>
 
 
-
+    <br/><br/>
+    <font class="mediumfont">Pending Review Items</font><br/>
     <%if (researcherReviewList.getReviewables()==null || researcherReviewList.getReviewables().size()==0){%>
-        <font class="normalfont">No reviewables are waiting.</font>
+        <font class="normalfont">No new reviewables are waiting.</font>
     <%} else {%>
         <%
             ArrayList<GridCol> cols=new ArrayList<GridCol>();
-            cols.add(new GridCol("Summary", "<a href=\"/researcher/reviewabledetail.jsp?type=<$type$>&id=<$id$>\"><$shortSummary$></a>", false, "", "tinyfont"));
+            cols.add(new GridCol("Type", "<$typeName$>", false, "", "tinyfont"));
+            cols.add(new GridCol("", "<a href=\"/researcher/reviewabledetail.jsp?type=<$type$>&id=<$id$>\"><$shortSummary$></a>", false, "", "tinyfont"));
+            cols.add(new GridCol("Date", "<$date|"+Grid.GRIDCOLRENDERER_DATETIMEAGOTEXT+"$>", true, "", "tinyfont", "", ""));
         %>
-        <%=Grid.render(researcherReviewList.getReviewables(), cols, 100, "/researcher/reviewables.jsp", "page")%>
+        <%=Grid.render(researcherReviewList.getReviewables(), cols, 15, "/researcher/reviewables.jsp", "page")%>
+    <%}%>
+
+    <br/><br/>
+    <font class="mediumfont">Previous Review Items</font><br/>
+    <%
+    List<Review> reviews = HibernateUtil.getSession().createCriteria(Review.class)
+                                           .add(Restrictions.eq("useridofresearcher", Pagez.getUserSession().getUser().getResearcherid()))
+                                           .addOrder(Order.asc("datelastupdated"))
+                                           .setCacheable(true)
+                                           .list();
+    %>
+    <%if (reviews==null || reviews.size()==0){%>
+        <font class="normalfont">No previous reviewables exist.</font>
+    <%} else {%>
+        <%
+            ArrayList<GridCol> cols=new ArrayList<GridCol>();
+            cols.add(new GridCol("Summary", "<a href=\"/researcher/reviewabledetail.jsp?type=<$type$>&id=<$id$>\">View</a>", false, "", "tinyfont"));
+            cols.add(new GridCol("Created", "<$dateofcreation|"+Grid.GRIDCOLRENDERER_DATETIMECOMPACT+"$>", true, "", "tinyfont", "", ""));
+            cols.add(new GridCol("Last Updated", "<$datelastupdated|"+Grid.GRIDCOLRENDERER_DATETIMEAGOTEXT+"$>", true, "", "tinyfont", "", ""));
+        %>
+        <%=Grid.render(reviews, cols, 25, "/researcher/reviewables.jsp", "pageold")%>
     <%}%>
 
 

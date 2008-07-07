@@ -3,6 +3,7 @@ package com.dneero.review;
 import com.dneero.htmlui.ValidationException;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * User: Joe Reger Jr
@@ -31,4 +32,5 @@ public interface Reviewable {
     public boolean getIssysadminreviewed();
     public boolean getIsresearcherrejected();
     public boolean getIssysadminrejected();
+    public Date getDate();
 }

@@ -7,13 +7,16 @@
 <%@ page import="com.dneero.htmlui.*" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
-String pagetitle = "Content Reviews";
+String pagetitle = "Flagged Content";
 String navtab = "youraccount";
 String acl = "account";
 %>
 <%@ include file="/template/auth.jsp" %>
 <%@ include file="/template/header.jsp" %>
-    <br/><br/>
+    <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
+        <font class="smallfont">Content is not flagged because you post a specific opinion that somebody disagrees with.  Content is flagged for being illegal, hateful, incomplete, etc.  You have a responsibility to answer honestly and in good faith.  Entering "sdfghj" into an answer box doesn't cut it.  Asking off-topic questions doesn't cut it.  Check each flagged issue... some may simply be warnings.  Nothing happens to your account until dPolice (dNeero's content police) looks at it... this protects you from an unruly conversation igniter (not that we've had any of those.)  Content flagging is done to protect the quality of conversations.  Which protects you.  Nobody wants to be associated with low quality web junk.</font>
+    </div>
+    <br/>
     <%
 
     List<Review> reviews = HibernateUtil.getSession().createCriteria(Review.class)
@@ -21,15 +24,13 @@ String acl = "account";
                                        .addOrder(Order.desc("datelastupdated"))
                                        .setCacheable(true)
                                        .list();
-
-
     if (reviews==null || reviews.size()==0) {
-        %><font class="normalfont">You have no review issues... this is a good thing.</font><%
+        %><font class="normalfont">You have no flagged content... this is a good thing.</font><%
     } else {
             ArrayList<GridCol> cols=new ArrayList<GridCol>();
-            cols.add(new GridCol("Created", "<$dateofcreation|"+Grid.GRIDCOLRENDERER_DATETIMECOMPACT+"$>", true, "", "tinyfont", "", "background: #e6e6e6;"));
-            cols.add(new GridCol("Last Updated", "<$datelastupdated|"+Grid.GRIDCOLRENDERER_DATETIMEAGOTEXT+"$>", true, "", "tinyfont", "", "background: #e6e6e6;"));
-            cols.add(new GridCol("Summary", "<a href=\"/account/reviewabledetail.jsp?reviewid=<$reviewid$>\">View</a>", false, "", "tinyfont"));
+            cols.add(new GridCol("", "<a href=\"/account/reviewabledetail.jsp?reviewid=<$reviewid$>\">View</a>", false, "", "tinyfont"));
+            cols.add(new GridCol("Created", "<$dateofcreation|"+Grid.GRIDCOLRENDERER_DATETIMECOMPACT+"$>", true, "", "tinyfont", "", ""));
+            cols.add(new GridCol("Last Updated", "<$datelastupdated|"+Grid.GRIDCOLRENDERER_DATETIMEAGOTEXT+"$>", true, "", "tinyfont", "", ""));
         %>
         <%=Grid.render(reviews, cols, 25, "/account/reviewables.jsp", "page")%>
     <%}%>

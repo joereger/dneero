@@ -34,6 +34,8 @@ if (accountIndex.getUserhasresponsependings()){
             </div>
        <%}%>
 
+
+
        <table cellpadding="10" cellspacing="0" border="0" width="100%">
             <tr>
                 <td width="250" valign="top">
@@ -105,6 +107,13 @@ if (accountIndex.getUserhasresponsependings()){
                    <%}%>
                 </td>
                 <td valign="top">
+
+                    <%  long openReviewItems = NumFromUniqueResult.getInt("select count(*) from Review where useridofcontentcreator='"+Pagez.getUserSession().getUser().getUserid()+"' and (isresearcherrejected=true or isresearcherwarned=true or issysadminwarned=true or issysadminrejected=true)");
+                       if (openReviewItems>0){%>
+                        <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
+                            <font class="smallfont"><a href="/account/reviewables.jsp"><%=openReviewItems%> of your items</a> are flagged.</font>
+                        </div>
+                   <%}%>
 
                     <table cellpadding="20" cellspacing="0" border="0" width="100%">
                         <tr>

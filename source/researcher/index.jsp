@@ -1,10 +1,9 @@
-<%@ page import="org.apache.log4j.Logger" %>
-<%@ page import="com.dneero.htmluibeans.ResearcherIndex" %>
-<%@ page import="com.dneero.dbgrid.GridCol" %>
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="com.dneero.dbgrid.Grid" %>
-<%@ page import="com.dneero.htmluibeans.ResearcherSurveyList" %>
-<%@ page import="com.dneero.htmlui.*" %>
+<%@ page import="com.dneero.cache.providers.CacheFactory" %>
+<%@ page import="com.dneero.privatelabel.PlFinder" %>
+<%@ page import="com.dneero.privatelabel.PlVerification" %>
+<%@ page import="com.dneero.review.Reviewable" %>
+<%@ page import="com.dneero.review.ReviewableFactory" %>
+<%@ page import="com.dneero.review.ReviewableUtil" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "<img src=\"/images/statistic-128.png\" alt=\"\" border=\"0\" width=\"128\" height=\"128\" align=\"right\"/>Conversation Igniters<br/><br clear=\"all\"/>";
@@ -196,6 +195,14 @@ if (Pagez.getUserSession().getIsloggedin() && (Pagez.getUserSession().getUser().
                     </div>
                 </td>
                 <td valign="top">
+
+                    <% ArrayList<Reviewable> reviewables = ReviewableUtil.getPendingForResearcher(Pagez.getUserSession().getUser().getResearcherid());
+                       if (reviewables!=null && reviewables.size()>0){%>
+                        <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
+                            <font class="smallfont">There are currently <a href="/researcher/reviewables.jsp"><%=reviewables.size()%> pending</a> items for review.</font>
+                        </div>
+                   <%}%>
+
                     <font class="largefont" style="color: #cccccc;">Conversations You've Created</font>
                     <br/>
                     <%if (researcherSurveyList.getSurveys()==null || researcherSurveyList.getSurveys().size()==0){%>
