@@ -114,7 +114,7 @@ String acl = "customercare";
                 try{review.save();}catch(Exception ex){logger.error("", ex);}
             }
             //Change the underlying Reviewable object
-            customercareReviewDetail.getReviewable().approveByResearcher();
+            customercareReviewDetail.getReviewable().approveBySysadmin();
             Pagez.sendRedirect("/customercare/reviewables.jsp");
             return;
         } catch (com.dneero.htmlui.ValidationException vex) {

@@ -99,7 +99,7 @@ String acl = "blogger";
 "                        <font class=\"normalfont\" style=\"font-weight: bold; color: #0000ff;\"><a href=\"/surveypostit.jsp?surveyid=<$surveyid$>\"><$surveytitle$></a></font><br/>\n" +
 "                        <font class=\"tinyfont\" style=\"font-weight: bold;\">Est earnings: <$amttotal$></font>\n" +
 "                        <br/>\n" +
-"                        <font class=\"tinyfont\" style=\"font-weight:bold; text-decoration: none;\"><a href=\"/blogger/impressions.jsp?surveyid=<$surveyid$>\">Impressions</a></font>\n" +
+"                        <font class=\"tinyfont\" style=\"font-weight:bold; text-decoration: none;\"><a href=\"/blogger/impressions.jsp?surveyid=<$surveyid$>\">Impressions</a> | <a href=\"/survey.jsp?surveyid=<$surveyid$>\">Edit Answers</a></font>\n" +
 "                    </td>\n" +
 "                    <td valign=\"top\" width=\"225\">\n" +
 "                        <a href=\"/blogger/bloggercompletedsurveys.jsp?action=refreshresponsehtml&responseid=<$response.responseid$>&page="+Pagez.getRequest().getParameter("page")+"\"><font class=\"tinyfont\">Refresh</font></a><br/>\n" +

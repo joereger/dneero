@@ -3,25 +3,26 @@ package com.dneero.helpers;
 import com.dneero.dao.*;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.display.SurveyResponseParser;
-import com.dneero.display.components.def.ComponentException;
-import com.dneero.display.components.def.Component;
-import com.dneero.display.components.def.ComponentTypes;
 import com.dneero.display.components.Dropdown;
-import com.dneero.display.components.Textbox;
 import com.dneero.display.components.Essay;
+import com.dneero.display.components.Textbox;
+import com.dneero.display.components.def.Component;
+import com.dneero.display.components.def.ComponentException;
+import com.dneero.display.components.def.ComponentTypes;
+import com.dneero.facebook.FacebookApiWrapper;
 import com.dneero.finders.FindSurveysForBlogger;
+import com.dneero.htmlui.Pagez;
 import com.dneero.rank.RankForResponseThread;
 import com.dneero.scheduledjobs.UpdateResponsePoststatus;
-import com.dneero.facebook.FacebookApiWrapper;
-import com.dneero.htmlui.Pagez;
-import com.dneero.xmpp.SendXMPPMessage;
 import com.dneero.session.SurveysTakenToday;
+import com.dneero.survey.servlet.EmbedCacheFlusher;
+import com.dneero.xmpp.SendXMPPMessage;
 import org.apache.log4j.Logger;
 import org.hibernate.criterion.Restrictions;
 
-import java.util.List;
-import java.util.Iterator;
 import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * User: Joe Reger Jr
@@ -139,7 +140,11 @@ public class StoreResponse {
                 }
                 response.setBloggerid(blogger.getBloggerid());
                 response.setSurveyid(survey.getSurveyid());
-
+                //Reset all content flags so that it gets checked by researcher again
+                response.setIsresearcherreviewed(false);
+                response.setIssysadminreviewed(false);
+                response.setIsresearcherrejected(false);
+                response.setIssysadminrejected(false);
 
                 //survey.getResponses().add(response);
                 try{
@@ -221,6 +226,13 @@ public class StoreResponse {
                         question.setComponenttype(componenttype);
                         question.setIsuserquestion(true);
                         question.setUserid(blogger.getUserid());
+                        //Reset all review flags if it's been edited or if it's new
+                        if (userchangedquestion || question.getQuestionid()<=0){
+                            question.setIsresearcherreviewed(false);
+                            question.setIssysadminreviewed(false);
+                            question.setIsresearcherrejected(false);
+                            question.setIssysadminrejected(false);
+                        }
                         //if (!userhadquestionalready){
                             survey.getQuestions().add(question);
                         //}
@@ -300,6 +312,14 @@ public class StoreResponse {
             logger.error("",ex);
         }
 
+        //Flush the embed cache
+        try{
+            if (survey!=null && blogger!=null){
+                EmbedCacheFlusher.flushCache(survey.getSurveyid(), blogger.getUserid());
+            }
+        } catch (Exception ex){
+            logger.error("", ex);
+        }
 
     }
 

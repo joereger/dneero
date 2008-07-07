@@ -133,5 +133,7 @@
         <property name="impressionstobepaid" type="int">
             <column name="impressionstobepaid" not-null="true" />
         </property>
+
+
     </class>
 </hibernate-mapping>

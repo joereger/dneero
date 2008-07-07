@@ -32,6 +32,17 @@ public class SurveyResultsUserQuestions {
         ArrayList<Response> allresponses = FindResponses.find(survey, filterCriteriaXML);
         //Starting set to display is all responses, then we'll remove some
         ArrayList<Response> responsestodisplay = allresponses;
+        //Filter out rejected content from the results
+        if (1==1){
+            ArrayList<Response> responsesTmp = new ArrayList<Response>();
+            for (Iterator<Response> iterator1 = responsestodisplay.iterator(); iterator1.hasNext();) {
+                Response tmpResponse = iterator1.next();
+                if (!tmpResponse.getIssysadminrejected()){
+                    responsesTmp.add(tmpResponse);
+                }
+            }
+            responsestodisplay = responsesTmp;
+        }
         //If referredbyuserid is included, filter out those not referred by this userid
         if (referredbyuserid>0){
             ArrayList<Response> responsesTmp = new ArrayList<Response>();

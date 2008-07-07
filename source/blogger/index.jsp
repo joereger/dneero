@@ -199,7 +199,7 @@ String acl = "public";
                                                     </font>
                                                 <% } %>
                                                 <br/>
-                                                <font class="tinyfont" style="font-weight:bold; text-decoration: none;"><a href="/blogger/impressions.jsp?surveyid=<%=bloggerCompletedsurveysListitem.getSurveyid()%>">Impressions</a></font>
+                                                <font class="tinyfont" style="font-weight:bold; text-decoration: none;"><a href="/blogger/impressions.jsp?surveyid=<%=bloggerCompletedsurveysListitem.getSurveyid()%>">Impressions</a> | <a href="/blogger/survey.jsp?surveyid=<%=bloggerCompletedsurveysListitem.getSurveyid()%>">Edit Answers</a></font>
                                             </td>
                                             <td valign="top" align="right">
                                                 <%=bloggerCompletedsurveysListitem.getResponse().getResponsestatushtml()%>
@@ -224,7 +224,7 @@ String acl = "public";
                     "                        <font class=\"normalfont\" style=\"font-weight: bold; color: #0000ff;\"><a href=\"/surveypostit.jsp?surveyid=<$surveyid$>\"><$surveytitle$></a></font><br/>\n" +
                     "                        <font class=\"tinyfont\" style=\"font-weight: bold;\">Est earnings: <$amttotal$></font>\n" +
                     "                        <br/>\n" +
-                    "                        <font class=\"tinyfont\" style=\"font-weight:bold; text-decoration: none;\"><a href=\"/blogger/impressions.jsp?surveyid=<$surveyid$>\">Impressions</a></font>\n" +
+                    "                        <font class=\"tinyfont\" style=\"font-weight:bold; text-decoration: none;\"><a href=\"/blogger/impressions.jsp?surveyid=<$surveyid$>\">Impressions</a> | <a href=\"/survey.jsp?surveyid=<$surveyid$>\">Edit Answers</a></font>\n" +
                     "                    </td>\n" +
                     "                    <td valign=\"top\" width=\"225\">\n" +
                     "                        <$response.responsestatushtml$>\n" +

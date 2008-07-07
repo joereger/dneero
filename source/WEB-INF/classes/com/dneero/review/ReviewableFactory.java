@@ -13,12 +13,20 @@ public class ReviewableFactory {
         if (type==ReviewableSurveydiscuss.TYPE){
             return new ReviewableSurveydiscuss(id);
         }
+        if (type==ReviewableQuestion.TYPE){
+            return new ReviewableQuestion(id);
+        }
+        if (type==ReviewableResponse.TYPE){
+            return new ReviewableResponse(id);
+        }
         return null;
     }
 
     public static ArrayList<Reviewable> getAllTypes(){
         ArrayList<Reviewable> types = new ArrayList<Reviewable>();
         types.add(new ReviewableSurveydiscuss(0));
+        types.add(new ReviewableQuestion(0));
+        types.add(new ReviewableResponse(0));
         return types;
     }
 

@@ -323,6 +323,7 @@ String acl = "public";
                             </div>
                         </div>
                         <div class="rounded" style="background: #e6e6e6; text-align: center; padding: 10px;">
+                            <% if (!publicSurvey.getLoggedinuserhasalreadytakensurvey()){%>
                             <div class="rounded" style="background: #ffffff; padding: 5px;">
                                 <table cellpadding="5" cellspacing="0" border="0">
                                     <tr>
@@ -379,9 +380,14 @@ String acl = "public";
                                     </tr>
                                 </table>
                             </div>
+                            <%}%>
                             <br/>
                             <center>
-                                <input type="submit" class="formsubmitbutton" value="Join the Conversation">
+                                <% if (!publicSurvey.getLoggedinuserhasalreadytakensurvey()){%>
+                                    <input type="submit" class="formsubmitbutton" value="Join the Conversation">
+                                <%}else{%>
+                                    <input type="submit" class="formsubmitbutton" value="Edit Your Answers">
+                                <%}%>
                             </center>
                         </div>
                         </form>

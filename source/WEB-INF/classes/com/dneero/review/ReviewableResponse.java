@@ -1,10 +1,10 @@
 package com.dneero.review;
 
-import com.dneero.dao.Researcher;
-import com.dneero.dao.Survey;
-import com.dneero.dao.Surveydiscuss;
+import com.dneero.dao.*;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.htmlui.ValidationException;
+import com.dneero.survey.servlet.EmbedCacheFlusher;
+import com.dneero.survey.servlet.SurveyAsHtml;
 import com.dneero.util.Str;
 import org.apache.log4j.Logger;
 import org.hibernate.criterion.Order;
@@ -14,21 +14,27 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class ReviewableSurveydiscuss implements Reviewable {
+public class ReviewableResponse implements Reviewable {
 
-    public static int TYPE = 1;
-    public static String TYPENAME = "Conversation Comment";
-    public Surveydiscuss surveydiscuss;
+    public static int TYPE = 2;
+    public static String TYPENAME = "Conversation Response";
+    public Response response;
 
-    public ReviewableSurveydiscuss(int id){
+    public ReviewableResponse(int id){
         if (id>0){
-            surveydiscuss =Surveydiscuss.get(id);
+            response = Response.get(id);
         }
     }
 
+    public String getTypeDescription(){
+        StringBuffer out = new StringBuffer();
+        out.append("This is an issue with the content you've added to the conversation.  Answers must be relevant to the conversation and required questions must be answered thoughtfully. If your content is flagged you will not accrue impressions or be able to earn any money for this conversation until it is fixed.  This sort of issue can be resolved by editing the question that you added to the conversation.  Do this by editing your conversation answers.  Once you save your edits the content will automatically be placed into the queue for approval.");
+        return out.toString();
+    }
+
     public int getId() {
-        if (surveydiscuss!=null){
-            return surveydiscuss.getSurveydiscussid();
+        if (response!=null){
+            return response.getResponseid();
         }
         return 0;
     }
@@ -41,22 +47,17 @@ public class ReviewableSurveydiscuss implements Reviewable {
         return TYPENAME;
     }
 
-    public String getTypeDescription(){
-        StringBuffer out = new StringBuffer();
-        out.append("This is an issue a comment made on a survey.  There is no remedy for this.  Content is simply removed.");
-        return out.toString();
-    }
-
     public int getUseridofcontentcreator() {
-        if (surveydiscuss!=null){
-            return surveydiscuss.getUserid();
+        if (response!=null){
+            Blogger blogger = Blogger.get(response.getBloggerid());
+            return blogger.getUserid();
         }
         return 0;
     }
 
     public int getUseridofresearcher() {
-        if (surveydiscuss!=null){
-            Survey survey = Survey.get(surveydiscuss.getSurveyid());
+        if (response!=null){
+            Survey survey = Survey.get(response.getSurveyid());
             Researcher researcher = Researcher.get(survey.getResearcherid());
             return researcher.getUserid();
         }
@@ -65,55 +66,56 @@ public class ReviewableSurveydiscuss implements Reviewable {
 
     public String getShortSummary() {
         StringBuffer out = new StringBuffer();
-        out.append("Survey Comment: "+Str.truncateString(Str.cleanForHtml(surveydiscuss.getSubject()), 30));
+        Survey survey = Survey.get(response.getSurveyid());
+        out.append("Response to: "+Str.truncateString(Str.cleanForHtml(survey.getTitle()), 30));
         return out.toString();
     }
 
     public String getFullSummary() {
         StringBuffer out = new StringBuffer();
-        Survey survey = Survey.get(surveydiscuss.getSurveyid());
+        Survey survey = Survey.get(response.getSurveyid());
+        Blogger blogger = Blogger.get(response.getBloggerid());
+        User user = User.get(blogger.getUserid());
         out.append("<font class=\"mediumfont\">");
-        out.append("This is a comment made on a survey discussion.");
+        out.append("This is a response to a survey.");
         out.append("</font>");
-        out.append("<br/>");
-        out.append("<font class=\"smallfont\"><b>");
-        out.append("Subject: "+Str.cleanForHtml(surveydiscuss.getSubject()));
-        out.append("</b></font>");
         out.append("<br/>");
         out.append("<font class=\"tinyfont\"><b>");
         out.append("From Survey: "+Str.cleanForHtml(survey.getTitle()));
         out.append("</b></font>");
         out.append("<br/>");
-        out.append(Str.cleanForHtml(surveydiscuss.getComment()));
+        out.append(SurveyAsHtml.getHtml(survey, user, true));
         return out.toString();
     }
 
     public void rejectByResearcher() throws ValidationException {
         Logger logger = Logger.getLogger(this.getClass().getName());
-        surveydiscuss.setIsresearcherrejected(true);
-        surveydiscuss.setIsresearcherreviewed(true);
-        try{surveydiscuss.save();}catch(Exception ex){logger.error("", ex);}
+        response.setIsresearcherrejected(true);
+        response.setIsresearcherreviewed(true);
+        try{response.save();}catch(Exception ex){logger.error("", ex);}
     }
 
     public void rejectBySysadmin() throws ValidationException {
         Logger logger = Logger.getLogger(this.getClass().getName());
-        surveydiscuss.setIssysadminrejected(true);
-        surveydiscuss.setIssysadminreviewed(true);
-        try{surveydiscuss.save();}catch(Exception ex){logger.error("", ex);}
+        response.setIssysadminrejected(true);
+        response.setIssysadminreviewed(true);
+        try{response.save();}catch(Exception ex){logger.error("", ex);}
+        EmbedCacheFlusher.flushCache(response.getSurveyid(), getUseridofcontentcreator());
     }
 
     public void approveByResearcher() throws ValidationException {
         Logger logger = Logger.getLogger(this.getClass().getName());
-        surveydiscuss.setIsresearcherrejected(false);
-        surveydiscuss.setIsresearcherreviewed(true);
-        try{surveydiscuss.save();}catch(Exception ex){logger.error("", ex);}
+        response.setIsresearcherrejected(false);
+        response.setIsresearcherreviewed(true);
+        try{response.save();}catch(Exception ex){logger.error("", ex);}
     }
 
     public void approveBySysadmin() throws ValidationException {
         Logger logger = Logger.getLogger(this.getClass().getName());
-        surveydiscuss.setIssysadminrejected(false);
-        surveydiscuss.setIssysadminreviewed(true);
-        try{surveydiscuss.save();}catch(Exception ex){logger.error("", ex);}
+        response.setIssysadminrejected(false);
+        response.setIssysadminreviewed(true);
+        try{response.save();}catch(Exception ex){logger.error("", ex);}
+        EmbedCacheFlusher.flushCache(response.getSurveyid(), getUseridofcontentcreator());
     }
 
 
@@ -122,17 +124,17 @@ public class ReviewableSurveydiscuss implements Reviewable {
         logger.debug("researcherid="+researcherid);
         ArrayList<Reviewable> out = new ArrayList<Reviewable>();
         //@todo optimize with a single hql call
-        List<Surveydiscuss> objs = (ArrayList)HibernateUtil.getSession().createCriteria(Surveydiscuss.class)
+        List<Response> objs = (ArrayList)HibernateUtil.getSession().createCriteria(Response.class)
                                    .add(Restrictions.eq("isresearcherreviewed", false))
-                                   .addOrder(Order.desc("surveydiscussid"))
+                                   .addOrder(Order.desc("responseid"))
                                    .setCacheable(true)
                                    .list();
-        for (Iterator<Surveydiscuss> it=objs.iterator(); it.hasNext();) {
-            Surveydiscuss obj = it.next();
+        for (Iterator<Response> it=objs.iterator(); it.hasNext();) {
+            Response obj = it.next();
             Survey survey = Survey.get(obj.getSurveyid());
             logger.debug("surveyid="+survey.getSurveyid()+" survey.getResearcherid()="+survey.getResearcherid()+" researcherid="+researcherid);
             if (survey.getResearcherid()==researcherid){
-                ReviewableSurveydiscuss reviewable = new ReviewableSurveydiscuss(obj.getSurveydiscussid());
+                ReviewableResponse reviewable = new ReviewableResponse(obj.getResponseid());
                 out.add(reviewable);
             }
         }
@@ -141,16 +143,16 @@ public class ReviewableSurveydiscuss implements Reviewable {
 
     public ArrayList<Reviewable> getPendingForSysadmin() {
         ArrayList<Reviewable> out = new ArrayList<Reviewable>();
-        List<Surveydiscuss> objs = (ArrayList)HibernateUtil.getSession().createCriteria(Surveydiscuss.class)
+        List<Response> objs = (ArrayList)HibernateUtil.getSession().createCriteria(Response.class)
                                            .add(Restrictions.eq("isresearcherreviewed", true))
                                            .add(Restrictions.eq("issysadminreviewed", false))
                                            .add(Restrictions.eq("isresearcherrejected", true))
-                                           .addOrder(Order.desc("surveydiscussid"))
+                                           .addOrder(Order.desc("responseid"))
                                            .setCacheable(true)
                                            .list();
-        for (Iterator<Surveydiscuss> it=objs.iterator(); it.hasNext();) {
-            Surveydiscuss obj = it.next();
-            ReviewableSurveydiscuss reviewable = new ReviewableSurveydiscuss(obj.getSurveydiscussid());
+        for (Iterator<Response> it=objs.iterator(); it.hasNext();) {
+            Response obj = it.next();
+            ReviewableResponse reviewable = new ReviewableResponse(obj.getResponseid());
             out.add(reviewable);
         }
         return out;
@@ -159,16 +161,16 @@ public class ReviewableSurveydiscuss implements Reviewable {
     public ArrayList<Reviewable> getRejectedByResearcher(int researcherid) {
         ArrayList<Reviewable> out = new ArrayList<Reviewable>();
         //@todo optimize with a single hql call
-        List<Surveydiscuss> objs = (ArrayList)HibernateUtil.getSession().createCriteria(Surveydiscuss.class)
+        List<Response> objs = (ArrayList)HibernateUtil.getSession().createCriteria(Response.class)
                                            .add(Restrictions.eq("isresearcherrejected", true))
-                                           .addOrder(Order.desc("surveydiscussid"))
+                                           .addOrder(Order.desc("responseid"))
                                            .setCacheable(true)
                                            .list();
-        for (Iterator<Surveydiscuss> it=objs.iterator(); it.hasNext();) {
-            Surveydiscuss obj = it.next();
+        for (Iterator<Response> it=objs.iterator(); it.hasNext();) {
+            Response obj = it.next();
             Survey survey = Survey.get(obj.getSurveyid());
             if (survey.getResearcherid()==researcherid){
-                ReviewableSurveydiscuss reviewable = new ReviewableSurveydiscuss(obj.getSurveydiscussid());
+                ReviewableResponse reviewable = new ReviewableResponse(obj.getResponseid());
                 out.add(reviewable);
             }
         }
@@ -177,43 +179,43 @@ public class ReviewableSurveydiscuss implements Reviewable {
 
     public ArrayList<Reviewable> getRejectedBySysadmin() {
         ArrayList<Reviewable> out = new ArrayList<Reviewable>();
-        List<Surveydiscuss> objs = (ArrayList)HibernateUtil.getSession().createCriteria(Surveydiscuss.class)
+        List<Response> objs = (ArrayList)HibernateUtil.getSession().createCriteria(Response.class)
                                            .add(Restrictions.eq("issysadminrejected", true))
-                                           .addOrder(Order.desc("surveydiscussid"))
+                                           .addOrder(Order.desc("responseid"))
                                            .setCacheable(true)
                                            .list();
-        for (Iterator<Surveydiscuss> it=objs.iterator(); it.hasNext();) {
-            Surveydiscuss obj = it.next();
-            ReviewableSurveydiscuss reviewable = new ReviewableSurveydiscuss(obj.getSurveydiscussid());
+        for (Iterator<Response> it=objs.iterator(); it.hasNext();) {
+            Response obj = it.next();
+            ReviewableResponse reviewable = new ReviewableResponse(obj.getResponseid());
             out.add(reviewable);
         }
         return out;
     }
 
     public boolean getIsresearcherreviewed() {
-        if (surveydiscuss!=null){
-            return surveydiscuss.getIsresearcherreviewed();
+        if (response!=null){
+            return response.getIsresearcherreviewed();
         }
         return true;
     }
 
     public boolean getIssysadminreviewed() {
-        if (surveydiscuss!=null){
-            return surveydiscuss.getIssysadminreviewed();
+        if (response!=null){
+            return response.getIssysadminreviewed();
         }
         return true;
     }
 
     public boolean getIsresearcherrejected() {
-        if (surveydiscuss!=null){
-            return surveydiscuss.getIsresearcherrejected();
+        if (response!=null){
+            return response.getIsresearcherrejected();
         }
         return false;
     }
 
     public boolean getIssysadminrejected() {
-        if (surveydiscuss!=null){
-            return surveydiscuss.getIssysadminrejected();
+        if (response!=null){
+            return response.getIssysadminrejected();
         }
         return false;
     }

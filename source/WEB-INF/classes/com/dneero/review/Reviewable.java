@@ -16,6 +16,7 @@ public interface Reviewable {
     public int getUseridofcontentcreator();
     public int getUseridofresearcher();
     public String getTypeName();
+    public String getTypeDescription();
     public String getShortSummary();
     public String getFullSummary();
     public void rejectByResearcher() throws ValidationException;

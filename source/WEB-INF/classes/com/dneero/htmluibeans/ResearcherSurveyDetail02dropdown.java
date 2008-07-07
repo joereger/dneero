@@ -109,6 +109,10 @@ public class ResearcherSurveyDetail02dropdown implements Serializable {
             question.setComponenttype(Dropdown.ID);
             question.setIsuserquestion(false);
             question.setUserid(0);
+            question.setIsresearcherreviewed(true);
+            question.setIssysadminreviewed(false);
+            question.setIsresearcherrejected(false);
+            question.setIssysadminrejected(false);
 
             for (Iterator<Question> iterator = survey.getQuestions().iterator(); iterator.hasNext();) {
                 Question question1 = iterator.next();

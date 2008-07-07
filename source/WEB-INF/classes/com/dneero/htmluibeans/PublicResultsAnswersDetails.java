@@ -42,7 +42,12 @@ public class PublicResultsAnswersDetails implements Serializable {
                 logger.debug("beginView called: found tmpQuestionid in request param="+tmpQuestionid);
                 Question question = Question.get(Integer.parseInt(tmpQuestionid));
                 Component component = ComponentTypes.getComponentByID(question.getComponenttype(), question, new Blogger());
-                results = "<font class=\"mediumfont\">Answers to the question: "+question.getQuestion()+"</font><br/><br/>"+component.getHtmlForResultDetail(Util.setToArrayList(question.getQuestionresponses()));
+                try{
+                    results = "<font class=\"mediumfont\">Answers to the question: "+question.getQuestion()+"</font><br/><br/>"+component.getHtmlForResultDetail(Util.setToArrayList(question.getQuestionresponses()));
+                } catch (Exception ex){
+                    logger.error("", ex);
+                    results = "";
+                }
             }
         }
     }

@@ -30,6 +30,10 @@ public class Response extends BasePersistentClass implements java.io.Serializabl
      private int poststatus;
      private boolean ispaid;
      private String responsestatushtml;
+     private boolean isresearcherreviewed;
+     private boolean issysadminreviewed;
+     private boolean isresearcherrejected;
+     private boolean issysadminrejected;
 
 
 
@@ -160,5 +164,37 @@ public class Response extends BasePersistentClass implements java.io.Serializabl
 
     public void setResponsestatushtml(String responsestatushtml) {
         this.responsestatushtml = responsestatushtml;
+    }
+
+    public boolean getIssysadminrejected() {
+        return issysadminrejected;
+    }
+
+    public void setIssysadminrejected(boolean issysadminrejected) {
+        this.issysadminrejected=issysadminrejected;
+    }
+
+    public boolean getIsresearcherreviewed() {
+        return isresearcherreviewed;
+    }
+
+    public void setIsresearcherreviewed(boolean isresearcherreviewed) {
+        this.isresearcherreviewed=isresearcherreviewed;
+    }
+
+    public boolean getIssysadminreviewed() {
+        return issysadminreviewed;
+    }
+
+    public void setIssysadminreviewed(boolean issysadminreviewed) {
+        this.issysadminreviewed=issysadminreviewed;
+    }
+
+    public boolean getIsresearcherrejected() {
+        return isresearcherrejected;
+    }
+
+    public void setIsresearcherrejected(boolean isresearcherrejected) {
+        this.isresearcherrejected=isresearcherrejected;
     }
 }

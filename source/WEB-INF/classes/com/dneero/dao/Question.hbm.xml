@@ -37,7 +37,18 @@
         <property name="userid" type="int">
             <column name="userid" not-null="true" />
         </property>
-
+        <property name="isresearcherreviewed" type="boolean">
+            <column name="isresearcherreviewed" not-null="true" />
+        </property>
+        <property name="issysadminreviewed" type="boolean">
+            <column name="issysadminreviewed" not-null="true" />
+        </property>
+        <property name="isresearcherrejected" type="boolean">
+            <column name="isresearcherrejected" not-null="true" />
+        </property>
+        <property name="issysadminrejected" type="boolean">
+            <column name="issysadminrejected" not-null="true" />
+        </property>
 
     </class>
 </hibernate-mapping>

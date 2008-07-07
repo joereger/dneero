@@ -89,8 +89,18 @@ public class SurveyTemplateProcessor {
     }
 
 
-    public String getSurveyForDisplay(boolean makeHttpsIfSSLIsOn){
+    public String getSurveyForDisplay(boolean makeHttpsIfSSLIsOn, boolean displayEvenIfSysadminRejected){
         StringBuffer out = new StringBuffer();
+
+        //If this response is rejected, don't allow display
+        if (!displayEvenIfSysadminRejected){
+            if (blogger!=null && response!=null){
+                if (response.getIssysadminrejected()){
+                    return "<p>This conversation is not currently available.</p>";
+                }
+            }
+        }
+
         String template = survey.getTemplate();
         if (template==null){
             template = "";

@@ -128,6 +128,10 @@ public class ImpressionActivityObjectCollatedStorage {
                     if (dayssinceclose>SurveyMoneyStatus.DAYSAFTERCLOSEOFSURVEYWECOLLECTFORIMPRESSIONS){
                         impressionsqualifyingforpayment = 0;
                     }
+                    //This must also be last... if the response is rejected, impressions don't count for payment
+                    if (response.getIssysadminrejected()){
+                        impressionsqualifyingforpayment = 0;
+                    }
 
                     //logger.debug("iao.getDate()="+iao.getDate().toString());
                     //logger.debug("iao.getDate()="+ Time.dateformatfordb(Time.getCalFromDate(iao.getDate())));
@@ -161,11 +165,13 @@ public class ImpressionActivityObjectCollatedStorage {
                     }
                     //Update the internal perf cache
                     addImp(survey, user, impressionsqualifyingforpayment);
-                    //Update the impressionsbyday string
-                    int dayssincetakingsurvey = DateDiff.dateDiff("day", Time.getCalFromDate(new Date()), Time.getCalFromDate(response.getResponsedate()));
-                    ImpressionsByDayUtil ibdu = new ImpressionsByDayUtil(impression.getImpressionsbyday());
-                    ibdu.add(iao.getImpressions(), dayssincetakingsurvey);
-                    impression.setImpressionsbyday(ibdu.getAsString());
+                    //Update the impressionsbyday string, but only if this isn't rejected by sysadmin
+                    if (!response.getIssysadminrejected()){
+                        int dayssincetakingsurvey = DateDiff.dateDiff("day", Time.getCalFromDate(new Date()), Time.getCalFromDate(response.getResponsedate()));
+                        ImpressionsByDayUtil ibdu = new ImpressionsByDayUtil(impression.getImpressionsbyday());
+                        ibdu.add(iao.getImpressions(), dayssincetakingsurvey);
+                        impression.setImpressionsbyday(ibdu.getAsString());
+                    }
                     logger.debug("about to call impression.save()");
                     try{impression.save();} catch (GeneralException gex){logger.error(gex);}
                     logger.debug("done with impression.save()");

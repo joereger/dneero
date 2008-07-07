@@ -63,9 +63,9 @@ public class PublicSurveyWhotookit implements Serializable {
         impressions = HibernateUtil.getSession().createQuery("from Impression where surveyid='"+survey.getSurveyid()+"' and referer<>'' order by impressionstotal desc").setCacheable(true).list();
 
 
-        //Load respondents
+        //Load respondents, not including those whose content was rejected
         respondents = new ArrayList();
-        List resp = HibernateUtil.getSession().createQuery("from Response where surveyid='"+survey.getSurveyid()+"' order by responseid desc").setCacheable(true).list();
+        List resp = HibernateUtil.getSession().createQuery("from Response where surveyid='"+survey.getSurveyid()+"' and issysadminrejected=false order by responseid desc").setCacheable(true).list();
         for (Iterator iterator = resp.iterator(); iterator.hasNext();) {
             Response response = (Response) iterator.next();
             User user = User.get(Blogger.get(response.getBloggerid()).getUserid());

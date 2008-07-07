@@ -103,7 +103,6 @@ String acl = "researcher";
     if (request.getParameter("action") != null && request.getParameter("action").equals("warn")) {
         try {
             //Record notes
-            //Record notes
             if (review!=null){
                 String notes = Textarea.getValueFromRequest("researchernotes", "Notes", true);
                 review.setDatelastupdated(new java.util.Date());

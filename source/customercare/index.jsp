@@ -22,6 +22,7 @@ String acl = "customercare";
 
 <%
     long openSupportIssues = NumFromUniqueResult.getInt("select count(*) from Supportissue where (status='"+ Supportissue.STATUS_DNEEROWORKING+"' or status='"+Supportissue.STATUS_OPEN+"')");
+    long openReviewItems = NumFromUniqueResult.getInt("select count(*) from Review where (isresearcherrejected=true or isresearcherwarned=true) and issysadminreviewed=false");
 %>
 
 <div class="rounded" style="padding: 0px; margin: 10px; background: #33FF00;">
@@ -32,6 +33,13 @@ String acl = "customercare";
                     <font class="largefont"><%=openSupportIssues%></font>
                     <br/>
                     <font class="mediumfont">open <a href="/customercare/sysadminsupportissueslist.jsp">support issues</a></font>
+                </div>
+               </td>
+               <td valign="top" width="25%">
+                <div class="rounded" style="padding: 15px; margin: 8px; background: #BFFFBF;">
+                    <font class="largefont"><%=openReviewItems%></font>
+                    <br/>
+                    <font class="mediumfont">items for <a href="/customercare/reviewables.jsp">review</a></font>
                 </div>
                </td>
            </tr>

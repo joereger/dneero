@@ -23,6 +23,10 @@ public class Question extends BasePersistentClass implements java.io.Serializabl
      private boolean isrequired;
      private boolean isuserquestion;
      private int userid;
+     private boolean isresearcherreviewed;
+     private boolean issysadminreviewed;
+     private boolean isresearcherrejected;
+     private boolean issysadminrejected;
      private Set<Questionconfig> questionconfigs = new HashSet<Questionconfig>();
      private Set<Questionresponse> questionresponses = new HashSet<Questionresponse>();
 
@@ -137,5 +141,37 @@ public class Question extends BasePersistentClass implements java.io.Serializabl
 
     public void setUserid(int userid) {
         this.userid=userid;
+    }
+
+    public boolean getIsresearcherreviewed() {
+        return isresearcherreviewed;
+    }
+
+    public void setIsresearcherreviewed(boolean isresearcherreviewed) {
+        this.isresearcherreviewed=isresearcherreviewed;
+    }
+
+    public boolean getIssysadminreviewed() {
+        return issysadminreviewed;
+    }
+
+    public void setIssysadminreviewed(boolean issysadminreviewed) {
+        this.issysadminreviewed=issysadminreviewed;
+    }
+
+    public boolean getIsresearcherrejected() {
+        return isresearcherrejected;
+    }
+
+    public void setIsresearcherrejected(boolean isresearcherrejected) {
+        this.isresearcherrejected=isresearcherrejected;
+    }
+
+    public boolean getIssysadminrejected() {
+        return issysadminrejected;
+    }
+
+    public void setIssysadminrejected(boolean issysadminrejected) {
+        this.issysadminrejected=issysadminrejected;
     }
 }

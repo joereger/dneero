@@ -123,6 +123,10 @@ public class ResearcherSurveyDetail02range implements Serializable {
             question.setComponenttype(Range.ID);
             question.setIsuserquestion(false);
             question.setUserid(0);
+            question.setIsresearcherreviewed(true);
+            question.setIssysadminreviewed(false);
+            question.setIsresearcherrejected(false);
+            question.setIssysadminrejected(false);
 
 
             for (Iterator<Question> iterator = survey.getQuestions().iterator(); iterator.hasNext();) {
