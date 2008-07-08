@@ -264,7 +264,7 @@ String acl = "public";
                                         <%
                                         String ismultchoice = "";
                                         if (publicSurvey.getYourquestionismultiplechoice()){
-                                            ismultchoice = " checked=\"true\"";
+                                            ismultchoice = " checked";
                                         }
                                         %>
                                         <td rowspan="2" valign="top"><input type="radio" <%=ismultchoice%> name="<%=SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER%>userquestion-componenttype" value="MultipleChoice"></td>
@@ -301,7 +301,7 @@ String acl = "public";
                                         <%
                                         String isshorttext = "";
                                         if (publicSurvey.getYourquestionisshorttext()){
-                                            isshorttext = " checked=\"true\"";
+                                            isshorttext = " checked";
                                         }
                                         %>
                                         <td valign="top"><input type="radio" <%=isshorttext%> name="<%=SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER%>userquestion-componenttype" value="ShortText"></td>
@@ -312,7 +312,7 @@ String acl = "public";
                                         <%
                                         String islongtext = "";
                                         if (publicSurvey.getYourquestionislongtext()){
-                                            islongtext = " checked=\"true\"";
+                                            islongtext = " checked";
                                         }
                                         %>
                                         <td valign="top"><input type="radio" <%=islongtext%> name="<%=SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER%>userquestion-componenttype" value="LongText"></td>

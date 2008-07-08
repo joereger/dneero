@@ -4,7 +4,7 @@ import com.dneero.dao.*;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.display.SurveyResponseParser;
 import com.dneero.display.SurveyTakerDisplay;
-import com.dneero.display.components.Checkboxes;
+import com.dneero.display.components.Dropdown;
 import com.dneero.display.components.Essay;
 import com.dneero.display.components.Textbox;
 import com.dneero.display.components.def.Component;
@@ -363,7 +363,7 @@ public class PublicSurvey implements Serializable {
                         yourquestion = question.getQuestion();
                         logger.debug("question.getComponenttype()="+question.getComponenttype());
                         //If it's multiple choice
-                        if (question.getComponenttype()==Checkboxes.ID){
+                        if (question.getComponenttype()==Dropdown.ID){
                             yourquestionismultiplechoice =  true;
                             yourquestionmultiplechoiceoptions = new ArrayList<String>();
                             String options = "";
@@ -378,14 +378,21 @@ public class PublicSurvey implements Serializable {
                                 String s = optionsSplit[i];
                                 yourquestionmultiplechoiceoptions.add(s.trim());
                             }
+                        } else {
+                            yourquestionismultiplechoice =  false;
+                            yourquestionmultiplechoiceoptions = new ArrayList<String>();
                         }
                         //If it's a short text
                         if (question.getComponenttype()==Textbox.ID){
                             yourquestionisshorttext =  true;
+                        } else {
+                            yourquestionisshorttext =  false;
                         }
                         //If it's a long text
                         if (question.getComponenttype()==Essay.ID){
                             yourquestionislongtext =  true;
+                        } else {
+                            yourquestionislongtext =  false;
                         }
                     }
                 }

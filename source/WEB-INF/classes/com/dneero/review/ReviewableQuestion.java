@@ -29,7 +29,7 @@ public class ReviewableQuestion implements Reviewable {
 
     public String getTypeDescription(){
         StringBuffer out = new StringBuffer();
-        out.append("This is an issue with a question added to the conversation.  Questions must be relevant to the conversation at hand.  This is specified when conversations are joined and questions are added.  If your content is flagged you will not accrue impressions or be able to earn any money for this conversation until it is fixed.  This sort of issue can be resolved by editing the question that you added to the conversation.  Do this by editing your conversation answers... on that screen you'll also be able to edit your question.  Once you edit the content will automatically be placed into the queue for approval.");
+        out.append("This is an issue with a question added to the conversation.  Questions must be relevant to the conversation at hand.  This is specified when conversations are joined and questions are added.  If your content is flagged you will not accrue impressions or be able to earn any money for this conversation until it is fixed. Warnings do not affect earnings but should be fixed.  This sort of issue can be resolved by editing the question that you added to the conversation.  Do this by editing your conversation answers... on that screen you'll also be able to edit your question.  Once you edit the content will automatically be placed into the queue for approval.");
         return out.toString();
     }
 

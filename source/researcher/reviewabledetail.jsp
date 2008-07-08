@@ -51,7 +51,7 @@ String acl = "researcher";
     Reviewable nxtRvw = null;
     int remainingRvws = 0;
     ArrayList<Reviewable> nxtRvws = ReviewableUtil.getPendingForResearcherSorted(Pagez.getUserSession().getUser().getResearcherid());
-    if (nxtRvws!=null && nxtRvws.size()>0){
+    if (nxtRvws!=null && nxtRvws.size()>1){
         nxtRvw = nxtRvws.get(1); // Index 0 is currently on screen
         remainingRvws = nxtRvws.size()-1;
     }
@@ -218,7 +218,8 @@ String acl = "researcher";
    <div class="rounded" style="padding: 5px; margin: 10px; background: #e6e6e6;">
    <div class="rounded" style="padding: 5px; margin: 10px; background: #ffffff;">
    <div style="width: 670px; overflow: auto;">
-       <%=customercareReviewDetail.getReviewable().getFullSummary()%>   
+       <%=customercareReviewDetail.getReviewable().getFullSummary()%> 
+       <br/><br/>
    </div>
    </div>
    </div>

@@ -19,7 +19,7 @@ public class ReviewableDateComparator implements Comparator {
         Reviewable rrpli2 = (Reviewable)obj2;
         Long t1 = rrpli1.getDate().getTime();
         Long t2 = rrpli2.getDate().getTime();
-        return t1.intValue() - t2.intValue();
+        return t2.intValue() - t1.intValue();
     }
 
 }
