@@ -166,12 +166,13 @@ public class ImpressionActivityObjectCollatedStorage {
                     //Update the internal perf cache
                     addImp(survey, user, impressionsqualifyingforpayment);
                     //Update the impressionsbyday string, but only if this isn't rejected by sysadmin
+                    ImpressionsByDayUtil ibdu = new ImpressionsByDayUtil(impression.getImpressionsbyday());
                     if (!response.getIssysadminrejected()){
                         int dayssincetakingsurvey = DateDiff.dateDiff("day", Time.getCalFromDate(new Date()), Time.getCalFromDate(response.getResponsedate()));
-                        ImpressionsByDayUtil ibdu = new ImpressionsByDayUtil(impression.getImpressionsbyday());
                         ibdu.add(iao.getImpressions(), dayssincetakingsurvey);
-                        impression.setImpressionsbyday(ibdu.getAsString());
                     }
+                    impression.setImpressionsbyday(ibdu.getAsString());
+
                     logger.debug("about to call impression.save()");
                     try{impression.save();} catch (GeneralException gex){logger.error(gex);}
                     logger.debug("done with impression.save()");

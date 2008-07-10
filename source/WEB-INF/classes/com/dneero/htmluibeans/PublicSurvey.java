@@ -260,17 +260,19 @@ public class PublicSurvey implements Serializable {
             }
         }
 
-        //To display to those looking to take survey
-        if (!loggedinuserhasalreadytakensurvey){
-            takesurveyhtml = SurveyTakerDisplay.getHtmlForSurveyTaking(survey, new Blogger(), true, userwhotooksurvey);
-        } else {
-            takesurveyhtml = SurveyTakerDisplay.getHtmlForSurveyTaking(survey, Blogger.get(userwhotooksurvey.getBloggerid()), true, userwhotooksurvey);
-        }
-
         //The main survey flash embed
         if (userwhotooksurvey!=null){
             surveyResponseFlashEmbed = SurveyFlashServlet.getEmbedSyntax("/", survey.getSurveyid(), userwhotooksurvey.getUserid(), responseid, survey.getPlid(), true, true, false);
         }
+
+        //To display to those looking to take survey
+        if (!loggedinuserhasalreadytakensurvey){
+            takesurveyhtml = SurveyTakerDisplay.getHtmlForSurveyTaking(survey, new Blogger(), true, userwhotooksurvey);
+        } else if (Pagez.getUserSession().getUser()!=null) {
+            takesurveyhtml = SurveyTakerDisplay.getHtmlForSurveyTaking(survey, Blogger.get(Pagez.getUserSession().getUser().getBloggerid()), true, userwhotooksurvey);
+        }
+
+
 
         //surveyResponseHtml
         if (userwhotooksurvey!=null){

@@ -45,7 +45,7 @@ public class PublicResultsAnswersDetails implements Serializable {
                 try{
                     results = "<font class=\"mediumfont\">Answers to the question: "+question.getQuestion()+"</font><br/><br/>"+component.getHtmlForResultDetail(Util.setToArrayList(question.getQuestionresponses()));
                 } catch (Exception ex){
-                    logger.error("", ex);
+                    logger.debug("", ex);
                     results = "";
                 }
             }
