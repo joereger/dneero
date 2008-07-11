@@ -18,6 +18,8 @@ String acl = "researcher";
     CustomercareReviewDetail customercareReviewDetail=(CustomercareReviewDetail) Pagez.getBeanMgr().get("CustomercareReviewDetail");
 %>
 <%
+    //@todo security: verify this researcher has permission to see/affect this reviewable
+
     //Create a base review with default values
     Review review = new Review();
     review.setDateofcreation(new java.util.Date());

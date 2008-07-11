@@ -18,7 +18,7 @@ String acl = "researcher";
 
 
     <br/><br/>
-    <font class="mediumfont">Pending Review Items</font><br/>
+    <font class="mediumfont">Pending Review Items</font> <font class="smallfont">(Or, use <a href="/researcher/reviewables-turbo.jsp">Turbo Reviewer</a>)</font><br/>
     <%if (researcherReviewList.getReviewables()==null || researcherReviewList.getReviewables().size()==0){%>
         <font class="normalfont">No new reviewables are waiting.</font>
     <%} else {%>
