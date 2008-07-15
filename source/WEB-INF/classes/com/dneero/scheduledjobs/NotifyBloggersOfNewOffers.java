@@ -31,22 +31,32 @@ public class NotifyBloggersOfNewOffers implements Job {
         Logger logger = Logger.getLogger(this.getClass().getName());
         if (InstanceProperties.getRunScheduledTasksOnThisInstance()){
             logger.debug("execute() NotifyBloggersOfNewOffers called");
+            StringBuffer debug = new StringBuffer();
 
             List<Blogger> bloggers = HibernateUtil.getSession().createQuery("from Blogger").list();
 
             for (Iterator<Blogger> iterator = bloggers.iterator(); iterator.hasNext();) {
                 Blogger blogger = iterator.next();
                 User user = User.get(blogger.getUserid());
+                debug.append("<br/><br/>userid="+user.getUserid()+" bloggerid="+blogger.getBloggerid()+" name="+user.getFirstname()+" "+user.getLastname());
+                logger.debug("userid="+user.getUserid()+" bloggerid="+blogger.getBloggerid()+" name="+user.getFirstname()+" "+user.getLastname());
+
                 if (user.getIsenabled()){
                     boolean shouldSendUserNotifications = false;
                     if (user.getNotifyofnewsurveysbyemaileveryexdays()>0){
                         Calendar lastsenton = Time.getCalFromDate(user.getNotifyofnewsurveyslastsent());
                         int dayssincelastsend = DateDiff.dateDiff("day", Calendar.getInstance(), lastsenton);
+                        debug.append("<br/>dayssincelastsend="+dayssincelastsend+" user.getNotifyofnewsurveysbyemaileveryexdays()="+user.getNotifyofnewsurveysbyemaileveryexdays());
+                        logger.debug("dayssincelastsend="+dayssincelastsend+" user.getNotifyofnewsurveysbyemaileveryexdays()="+user.getNotifyofnewsurveysbyemaileveryexdays());
                         if (dayssincelastsend>=user.getNotifyofnewsurveysbyemaileveryexdays()){
                             shouldSendUserNotifications = true;
                         }
+                    } else {
+                        debug.append("<br/>user.getNotifyofnewsurveysbyemaileveryexdays() less than or equal to zero");
+                        logger.debug("user.getNotifyofnewsurveysbyemaileveryexdays() less than or equal to zero");
                     }
-
+                    debug.append("<br/>shouldSendUserNotifications="+shouldSendUserNotifications+" after date check");
+                    logger.debug("shouldSendUserNotifications="+shouldSendUserNotifications+" after date check");
                     if (shouldSendUserNotifications){
                         FindSurveysForBlogger finder = new FindSurveysForBlogger(blogger);
                         List allSurveys = finder.getSurveys();
@@ -59,9 +69,21 @@ public class NotifyBloggersOfNewOffers implements Job {
                                     if (survey.getStatus()==Survey.STATUS_OPEN){
                                         if (!survey.getIsaccesscodeonly()){
                                             newSurveys.add(survey);
+                                        } else {
+                                            debug.append("<br/>!survey.getIsaccesscodeonly()");
+                                            logger.debug("!survey.getIsaccesscodeonly()");
                                         }
+                                    } else {
+                                        debug.append("<br/>!survey.getStatus()==Survey.STATUS_OPEN");
+                                        logger.debug("!survey.getStatus()==Survey.STATUS_OPEN");
                                     }
+                                } else {
+                                    debug.append("<br/>!survey.getStartdate().before(new Date())");
+                                    logger.debug("!survey.getStartdate().before(new Date())");
                                 }
+                            } else {
+                                debug.append("<br/>!survey.getStartdate().after(user.getNotifyofnewsurveyslastsent())");
+                                logger.debug("!survey.getStartdate().after(user.getNotifyofnewsurveyslastsent())");
                             }
                         }
                         //If we have any new ones
@@ -81,6 +103,8 @@ public class NotifyBloggersOfNewOffers implements Job {
                                         bloggerhastakensurvey = true;
                                     }
                                 }
+                                debug.append("<br/>bloggerhastakensurvey="+bloggerhastakensurvey);
+                                logger.debug("bloggerhastakensurvey="+bloggerhastakensurvey);
                                 if (!bloggerhastakensurvey){
                                     atleastonenewsurveyforblogger = true;
                                     SurveyEnhancer surveyEnhancer = new SurveyEnhancer(survey);
@@ -127,6 +151,8 @@ public class NotifyBloggersOfNewOffers implements Job {
                                 }
                             }
                             //Do the sending
+                            debug.append("<br/>atleastonenewsurveyforblogger="+atleastonenewsurveyforblogger);
+                            logger.debug("atleastonenewsurveyforblogger="+atleastonenewsurveyforblogger);
                             if (atleastonenewsurveyforblogger){
                                 //Create the args array to hold the dynamic stuff
                                 String[] args = new String[10];
@@ -141,10 +167,15 @@ public class NotifyBloggersOfNewOffers implements Job {
                                 user.setNotifyofnewsurveyslastsent(new Date());
                                 try{user.save();}catch(Exception ex){logger.error("",ex);}
                             }
+                        } else {
+                            debug.append("<br/>No new surveys for this user");
+                            logger.debug("No new surveys for this user");
                         }
                     }
                 }
             }
+
+            EmailTemplateProcessor.sendGenericEmail("joe@joereger.com", "NotifyBloggersOfNewOffers Daily Report", debug.toString());
         } else {
             logger.debug("InstanceProperties.getRunScheduledTasksOnThisInstance() is FALSE for this instance so this task is not being executed.");
         }

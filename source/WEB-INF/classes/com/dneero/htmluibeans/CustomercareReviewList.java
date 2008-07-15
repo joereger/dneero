@@ -2,6 +2,7 @@ package com.dneero.htmluibeans;
 
 import com.dneero.review.Reviewable;
 import com.dneero.review.ReviewableUtil;
+import com.dneero.dao.hibernate.HibernateUtil;
 
 import java.io.Serializable;
 import java.util.ArrayList;

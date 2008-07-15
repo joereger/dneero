@@ -6,6 +6,7 @@ import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.htmluibeans.ResearcherRankPeopleComparatorPoints;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
+import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -20,6 +21,7 @@ import java.util.Collections;
 public class ReviewableUtil {
 
     public static ArrayList<Reviewable> getPendingForSysadmin(){
+        Logger logger = Logger.getLogger(ReviewableUtil.class);
         ArrayList<Reviewable> out = new ArrayList<Reviewable>();
         List<Review> reviews = HibernateUtil.getSession().createCriteria(Review.class)
                                            .add(Restrictions.eq("issysadminreviewed", false))
@@ -29,7 +31,11 @@ public class ReviewableUtil {
         for (Iterator<Review> reviewIterator=reviews.iterator(); reviewIterator.hasNext();) {
             Review review=reviewIterator.next();
             Reviewable reviewable = ReviewableFactory.get(review.getId(), review.getType());
-            out.add(reviewable);
+            if (reviewable!=null && reviewable.getId()>0){
+                out.add(reviewable);
+            } else {
+                try{review.delete();}catch(Exception ex){logger.error("", ex);}
+            }
         }
         return out;
     }
@@ -50,6 +56,7 @@ public class ReviewableUtil {
     }
 
     public static ArrayList<Reviewable> getRejectedByResearcher(int researcherid){
+        Logger logger = Logger.getLogger(ReviewableUtil.class);
         ArrayList<Reviewable> out = new ArrayList<Reviewable>();
         Researcher researcher = Researcher.get(researcherid);
         List<Review> reviews = HibernateUtil.getSession().createCriteria(Review.class)
@@ -62,12 +69,17 @@ public class ReviewableUtil {
         for (Iterator<Review> reviewIterator=reviews.iterator(); reviewIterator.hasNext();) {
             Review review=reviewIterator.next();
             Reviewable reviewable = ReviewableFactory.get(review.getId(), review.getType());
-            out.add(reviewable);
+            if (reviewable!=null && reviewable.getId()>0){
+                out.add(reviewable);
+            } else {
+                try{review.delete();}catch(Exception ex){logger.error("", ex);}
+            }
         }
         return out;
     }
 
     public static ArrayList<Reviewable> getRejectedBySysadmin(){
+        Logger logger = Logger.getLogger(ReviewableUtil.class);
         ArrayList<Reviewable> out = new ArrayList<Reviewable>();
         List<Review> reviews = HibernateUtil.getSession().createCriteria(Review.class)
                                            .add(Restrictions.eq("issysadminrejected", true))
@@ -77,7 +89,11 @@ public class ReviewableUtil {
         for (Iterator<Review> reviewIterator=reviews.iterator(); reviewIterator.hasNext();) {
             Review review=reviewIterator.next();
             Reviewable reviewable = ReviewableFactory.get(review.getId(), review.getType());
-            out.add(reviewable);
+            if (reviewable!=null && reviewable.getId()>0){
+                out.add(reviewable);
+            } else {
+                try{review.delete();}catch(Exception ex){logger.error("", ex);}
+            }
         }
         return out;
     }

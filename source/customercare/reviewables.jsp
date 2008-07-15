@@ -12,6 +12,7 @@ String acl = "customercare";
 %>
 <%@ include file="/template/auth.jsp" %>
 <%
+
     CustomercareReviewList customercareReviewList=(CustomercareReviewList) Pagez.getBeanMgr().get("CustomercareReviewList");
 %>
 <%@ include file="/template/header.jsp" %>
