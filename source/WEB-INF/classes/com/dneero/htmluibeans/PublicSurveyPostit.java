@@ -108,13 +108,21 @@ public class PublicSurveyPostit implements Serializable {
         int responseidOfLoggedinUser = 0;
         if (Pagez.getUserSession().getIsloggedin() && Pagez.getUserSession().getUser()!=null && Pagez.getUserSession().getUser().getBloggerid()>0){
             Blogger blogger = Blogger.get(Pagez.getUserSession().getUser().getBloggerid());
+            logger.debug("got a blogger... bloggerid="+blogger.getBloggerid());
             for (Iterator<Response> iterator = blogger.getResponses().iterator(); iterator.hasNext();) {
                 Response response = iterator.next();
+                logger.debug("--- found a response responseid="+response.getResponseid());
                 if (response.getSurveyid()==survey.getSurveyid()){
-                    loggedinuserhasalreadytakensurvey = true;
+                    loggedinuserhasalreadytakensurvey=true;
                     responseidOfLoggedinUser = response.getResponseid();
+                    logger.debug("success: response.getSurveyid()("+response.getSurveyid()+")==survey.getSurveyid()("+survey.getSurveyid()+")");
+                    logger.debug("loggedinuserhasalreadytakensurvey=true");
+                } else {
+                    logger.debug("response.getSurveyid()("+response.getSurveyid()+")!=survey.getSurveyid()("+survey.getSurveyid()+")");
                 }
             }
+        } else {
+            logger.debug("Not logged in or user==null or user.bloggerid<=0");
         }
 
         //If we don't have a userwhotooksurvey yet but the logged-in user has, use the logged-in user

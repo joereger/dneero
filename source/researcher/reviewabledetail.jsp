@@ -1,4 +1,6 @@
 <%@ page import="com.dneero.dao.Review" %>
+<%@ page import="com.dneero.dao.User" %>
+<%@ page import="com.dneero.email.EmailTemplateProcessor" %>
 <%@ page import="com.dneero.htmlui.Pagez" %>
 <%@ page import="com.dneero.htmlui.Textarea" %>
 <%@ page import="com.dneero.htmluibeans.CustomercareReviewDetail" %>

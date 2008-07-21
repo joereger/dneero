@@ -1,0 +1,14 @@
+You've had content rejected.
+==========
+The content rejected:
+<$args.0$>
+
+The Conversation Igniter said:
+<$args.1$>
+
+The System Administrator said:
+<$args.2$>
+
+What now?
+===========
+Log on to your account.  You'll see a link to Flagged Items.  Read the details of the flagging, including how to remedy the situation.  While items are flagged they can't earn money so you need to get them fixed as quickly as possible.  Once you edit the item it'll go up for review again.

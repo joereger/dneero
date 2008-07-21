@@ -5,6 +5,7 @@
 <%@ page import="com.dneero.htmluibeans.CustomercareReviewDetail" %>
 <%@ page import="org.hibernate.criterion.Restrictions" %>
 <%@ page import="java.util.List" %>
+<%@ page import="com.dneero.email.EmailTemplateProcessor" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "";
@@ -63,6 +64,15 @@ String acl = "customercare";
             }
             //Change the underlying Reviewable object
             customercareReviewDetail.getReviewable().rejectBySysadmin();
+            //Create the args array to hold the dynamic stuff
+            String[] args = new String[10];
+            args[0] = customercareReviewDetail.getReviewable().getShortSummary();
+            args[1] = review.getResearchernotes();
+            args[2] = review.getSysadminnotes();
+            //Send the email
+            User userWhoCreatedContent = User.get(customercareReviewDetail.getReviewable().getUseridofcontentcreator());
+            EmailTemplateProcessor.sendMail("Content Flagging: Rejected Content", "reviewable-rejection", userWhoCreatedContent, args);
+            //Redir
             Pagez.sendRedirect("/customercare/reviewables.jsp");
             return;
         } catch (com.dneero.htmlui.ValidationException vex) {
@@ -115,6 +125,15 @@ String acl = "customercare";
             }
             //Change the underlying Reviewable object
             customercareReviewDetail.getReviewable().approveBySysadmin();
+            //Create the args array to hold the dynamic stuff
+            String[] args = new String[10];
+            args[0] = customercareReviewDetail.getReviewable().getShortSummary();
+            args[1] = review.getResearchernotes();
+            args[2] = review.getSysadminnotes();
+            //Send the email
+            User userWhoCreatedContent = User.get(customercareReviewDetail.getReviewable().getUseridofcontentcreator());
+            EmailTemplateProcessor.sendMail("Content Flagging: Warning", "reviewable-warning", userWhoCreatedContent, args);
+            //Redir
             Pagez.sendRedirect("/customercare/reviewables.jsp");
             return;
         } catch (com.dneero.htmlui.ValidationException vex) {

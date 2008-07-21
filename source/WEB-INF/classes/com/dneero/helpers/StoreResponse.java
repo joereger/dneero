@@ -172,7 +172,7 @@ public class StoreResponse {
                 logger.debug("done processing each question");
                 logger.debug("saving blogger");
                 //Refresh blogger
-                try{blogger.save();} catch (Exception ex){logger.error("",ex);}
+                try{blogger.save(); blogger.refresh();} catch (Exception ex){logger.error("",ex);}
                 //logger.debug("refreshing survey");
                 //Refresh survey
                 //try{survey.refresh();} catch (Exception ex){logger.error("",ex);}
