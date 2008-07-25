@@ -144,6 +144,8 @@ public class SurveyFlashServlet extends HttpServlet {
                         for (Iterator it = objects.iterator(); it.hasNext(); ) {
                             FSDoAction obj = (FSDoAction)it.next();
                             logger.debug("object found: obj.name()="+obj.name());
+                            logger.debug("object found: obj.toString()="+obj.toString());
+
                             //Add the var to all DoAction blocks
                             ArrayList actions = obj.getActions();
                             actions.add(new FSPush("SURVEY_AS_HTML"));
@@ -164,7 +166,13 @@ public class SurveyFlashServlet extends HttpServlet {
                                     logger.debug("Setting the text of the search engine textbox");
                                     textfield.setHTML(true);
                                     //Set the search engine text... note that this is using surveyashtml to avoid all the wrapper xml/doc stuff
-                                    textfield.setInitialText("This is a <h1><a href=\"http://www.dneero.com/survey.jsp?surveyid="+surveyid+"\">dNeero Social Survey</a></h1>.<br/><br/>"+surveyashtml);
+                                    textfield.setInitialText("This is a <h1><a href=\"http://www.dneero.com/survey.jsp?surveyid="+surveyid+"\">dNeero Conversation</a></h1>.<br/><br/>"+surveyashtml);
+                                }
+                                if (textfield.getVariableName().equals("flashhtmlvar")){
+                                    logger.debug("Setting the text of the html textbox");
+                                    textfield.setHTML(true);
+                                    //Set the search engine text... note that this is using surveyashtml to avoid all the wrapper xml/doc stuff
+                                    textfield.setInitialText(surveyashtmlencoded);
                                 }
                             }
                         }

@@ -44,7 +44,11 @@ public class Range implements Component {
 
     public String getHtmlForInput(Response response) {
         StringBuffer out = new StringBuffer();
-        out.append("<font class=\"formfieldnamefont\">"+ Str.removeLeftBrackets(question.getQuestion())+"</font>");
+        String questionStr = question.getQuestion();
+        if (question.getIsuserquestion()){
+            questionStr = Str.removeLeftBrackets(question.getQuestion());
+        }
+        out.append("<font class=\"formfieldnamefont\">"+questionStr+"</font>");
         if (question.getIsrequired()){
             out.append(" ");
             out.append("<font class=\"formfieldnamefont\" style=\"color: #ff0000;\">(Required)</font>");
