@@ -31,12 +31,12 @@ public class ActiveSurveys implements CachedStuff, Serializable {
         StringBuffer out = new StringBuffer();
 
         out.append("<table cellpadding='3' cellspacing='0' border='0' width='100%'>");
-        ArrayList<SurveyListItem> surveys = new ArrayList<SurveyListItem>();
+        //ArrayList<SurveyListItem> surveys = new ArrayList<SurveyListItem>();
         List results = HibernateUtil.getSession().createQuery("from Survey where status='"+ Survey.STATUS_OPEN+"' order by surveyid desc").list();
         for (Iterator iterator = results.iterator(); iterator.hasNext();) {
             Survey survey = (Survey) iterator.next();
 
-            double maxearningNum = survey.getWillingtopayperrespondent()  +   ( (survey.getWillingtopaypercpm()*survey.getMaxdisplaysperblog())/1000 );
+            double maxearningNum = survey.getIncentive().getBloggerEarningsPerResponse()  +   ( (survey.getWillingtopaypercpm()*survey.getMaxdisplaysperblog())/1000 );
 
             String daysleftStr = "";
             int daysleft = DateDiff.dateDiff("day", Time.getCalFromDate(survey.getEnddate()), Calendar.getInstance());

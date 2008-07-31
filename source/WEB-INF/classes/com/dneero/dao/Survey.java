@@ -1,19 +1,22 @@
 package com.dneero.dao;
 // Generated Apr 17, 2006 3:45:24 PM by Hibernate Tools 3.1.0.beta4
 
-import com.dneero.util.GeneralException;
+import com.dneero.cache.providers.CacheFactory;
 import com.dneero.dao.hibernate.BasePersistentClass;
 import com.dneero.dao.hibernate.HibernateUtil;
-import com.dneero.session.AuthControlled;
-import com.dneero.cache.providers.CacheFactory;
+import com.dneero.incentive.Incentive;
+import com.dneero.incentive.IncentiveCash;
+import com.dneero.incentive.IncentiveFactory;
 import com.dneero.money.SurveyMoneyStatus;
-
-import java.util.Date;
-import java.util.Set;
-import java.util.HashSet;
-
+import com.dneero.session.AuthControlled;
+import com.dneero.util.GeneralException;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
+
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
 
 /**
@@ -68,7 +71,9 @@ public class Survey extends BasePersistentClass implements java.io.Serializable,
      private Set<Impression> impressions = new HashSet<Impression>();
      private Set<Surveypanel> surveypanels = new HashSet<Surveypanel>();
      private Set<Surveydiscuss> surveydiscusses = new HashSet<Surveydiscuss>();
+     private Set<Surveyincentive> surveyincentives = new HashSet<Surveyincentive>();
 
+     private Incentive incentive;
 
     public static Survey get(int id) {
         Logger logger = Logger.getLogger("com.dneero.dao.Survey");
@@ -167,6 +172,31 @@ public class Survey extends BasePersistentClass implements java.io.Serializable,
         this.numberofrespondentsrequested = numberofrespondentsrequested;
         this.startdate = startdate;
         this.enddate = enddate;
+    }
+
+    public Incentive getIncentive(){
+        //It's been called already for this object so let's just use the one we got last time
+        if (incentive!=null){
+            return incentive;
+        }
+        //Gonna have to find one
+        Incentive incentiveOut = null;
+        if (surveyincentives!=null && surveyincentives.size()>0){
+            //Just get last.
+            //@todo Could add Surveyincentive.isactive flag at some point
+            Surveyincentive si = null;
+            for (Iterator<Surveyincentive> siIterator=surveyincentives.iterator(); siIterator.hasNext();) {
+                Surveyincentive surveyincentive=siIterator.next();
+                if (si==null || surveyincentive.getSurveyincentiveid()>si.getSurveyincentiveid()){
+                    si = surveyincentive;
+                }
+            }
+            incentiveOut = IncentiveFactory.getById(si.getType(), si);
+        }
+        if (incentiveOut==null){
+            incentiveOut =IncentiveFactory.getDefaultIncentive();
+        }
+        return incentiveOut;
     }
 
 
@@ -475,5 +505,13 @@ public class Survey extends BasePersistentClass implements java.io.Serializable,
 
     public void setPlid(int plid) {
         this.plid=plid;
+    }
+
+    public Set<Surveyincentive> getSurveyincentives() {
+        return surveyincentives;
+    }
+
+    public void setSurveyincentives(Set<Surveyincentive> surveyincentives) {
+        this.surveyincentives=surveyincentives;
     }
 }

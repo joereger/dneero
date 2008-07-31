@@ -160,8 +160,6 @@ public class CustomercareUserDetail implements Serializable {
                     int totalimpressions = UserImpressionFinder.getTotalImpressions(Blogger.get(user.getBloggerid()), survey);
                     int paidandtobepaidimpressions = UserImpressionFinder.getPaidAndToBePaidImpressions(Blogger.get(user.getBloggerid()), survey);
                     BloggerCompletedsurveysListitem listitem = new BloggerCompletedsurveysListitem();
-                    listitem.setAmtforresponse("$"+Str.formatForMoney(survey.getWillingtopayperrespondent()));
-                    listitem.setAmttotal("$"+Str.formatForMoney(survey.getWillingtopayperrespondent() + ((paidandtobepaidimpressions*survey.getWillingtopaypercpm()/1000))));
                     listitem.setTotalimpressions(totalimpressions);
                     listitem.setPaidandtobepaidimpressions(paidandtobepaidimpressions);
                     listitem.setResponsedate(response.getResponsedate());

@@ -24,7 +24,6 @@ public class ResearcherSurveyDetailPostlaunch implements Serializable {
     private String enddate;
     private String maxpossiblespend = "0";
     private String initialcharge = "0";
-    private String willingtopayperrespondent = "0";
     private String socialbookmarklinks = "";
     private Survey survey;
 
@@ -54,7 +53,6 @@ public class ResearcherSurveyDetailPostlaunch implements Serializable {
 
                 startdate = Time.dateformatcompactwithtime(Time.getCalFromDate(survey.getStartdate()));
                 enddate = Time.dateformatcompactwithtime(Time.getCalFromDate(survey.getEnddate()));
-                willingtopayperrespondent = "$"+Str.formatForMoney(survey.getWillingtopayperrespondent());
 
                 SurveyMoneyStatus sms = new SurveyMoneyStatus(survey);
                 maxpossiblespend = "$"+Str.formatForMoney(sms.getMaxPossibleSpend());
@@ -119,13 +117,6 @@ public class ResearcherSurveyDetailPostlaunch implements Serializable {
     }
 
 
-    public String getWillingtopayperrespondent() {
-        return willingtopayperrespondent;
-    }
-
-    public void setWillingtopayperrespondent(String willingtopayperrespondent) {
-        this.willingtopayperrespondent = willingtopayperrespondent;
-    }
 
     public String getSocialbookmarklinks() {
         return socialbookmarklinks;

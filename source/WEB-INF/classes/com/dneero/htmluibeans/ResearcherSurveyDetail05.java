@@ -1,19 +1,17 @@
 package com.dneero.htmluibeans;
 
-import org.apache.log4j.Logger;
-
-import java.util.Date;
-import java.util.Iterator;
-import java.io.Serializable;
-
-import com.dneero.dao.*;
-import com.dneero.util.Str;
-
+import com.dneero.dao.Survey;
+import com.dneero.dao.Surveyincentive;
+import com.dneero.htmlui.Pagez;
+import com.dneero.htmlui.UserSession;
+import com.dneero.htmlui.ValidationException;
+import com.dneero.incentive.IncentiveCash;
+import com.dneero.incentive.IncentiveOptionsUtil;
 import com.dneero.util.GeneralException;
 import com.dneero.util.Num;
-import com.dneero.htmlui.UserSession;
-import com.dneero.htmlui.Pagez;
-import com.dneero.htmlui.ValidationException;
+import org.apache.log4j.Logger;
+
+import java.io.Serializable;
 
 /**
  * User: Joe Reger Jr
@@ -55,7 +53,7 @@ public class ResearcherSurveyDetail05 implements Serializable {
             logger.debug("Found survey in db: survey.getSurveyid()="+survey.getSurveyid()+" survey.getTitle()="+survey.getTitle());
             title = survey.getTitle();
             if (Pagez.getUserSession().getUser()!=null && survey.canEdit(Pagez.getUserSession().getUser())){
-                willingtopayperrespondent = survey.getWillingtopayperrespondent();
+                willingtopayperrespondent = survey.getIncentive().getBloggerEarningsPerResponse();
                 numberofrespondentsrequested = survey.getNumberofrespondentsrequested();
                 willingtopaypercpm = survey.getWillingtopaypercpm();
                 maxdisplaysperblog = survey.getMaxdisplaysperblog();
@@ -153,7 +151,26 @@ public class ResearcherSurveyDetail05 implements Serializable {
                     throw vex;
                 }
 
-                //Refresh
+                //Save the incentive
+                Surveyincentive si = survey.getIncentive().getSurveyincentive();
+                if (si==null){
+                    si = new Surveyincentive();
+                    logger.debug("Had to create a new Surveyincentive()");
+                } else {
+                    logger.debug("Surveyincentive() already existed for Survey");
+                }
+                if (1==1){
+                    //IncentiveCash
+                    si.setType(IncentiveCash.ID);
+                    si.setSurveyid(survey.getSurveyid());
+                    try{si.save();}catch(Exception ex){logger.error("", ex);}
+                    IncentiveOptionsUtil.saveValue(si, IncentiveCash.WILLINGTOPAYPERRESPONSE, String.valueOf(willingtopayperrespondent));
+                } else if (1==2){
+                    //IncentiveCoupon
+                }
+                
+
+                //Refresh the survey
                 survey.refresh();
                 
             }

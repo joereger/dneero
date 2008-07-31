@@ -44,6 +44,8 @@
         <mapping resource="com/dneero/dao/Supportissuecomm.hbm.xml" />
         <mapping resource="com/dneero/dao/Survey.hbm.xml" />
         <mapping resource="com/dneero/dao/Surveydiscuss.hbm.xml" />
+        <mapping resource="com/dneero/dao/Surveyincentive.hbm.xml" />
+        <mapping resource="com/dneero/dao/Surveyincentiveoption.hbm.xml" />
         <mapping resource="com/dneero/dao/Surveypanel.hbm.xml" />
         <mapping resource="com/dneero/dao/Systemprop.hbm.xml" />
         <mapping resource="com/dneero/dao/User.hbm.xml" />

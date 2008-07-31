@@ -43,7 +43,7 @@ public class SystemStatsFinancial implements Job {
             for (Iterator<Response> iterator=responses.iterator(); iterator.hasNext();) {
                 Response response=iterator.next();
                 Survey survey = Survey.get(response.getSurveyid());
-                unpaidresponsesamt= unpaidresponsesamt + survey.getWillingtopayperrespondent();
+                unpaidresponsesamt= unpaidresponsesamt + survey.getIncentive().getBloggerEarningsPerResponse();
 
                 //Get the impressions by day for this response
                 ImpressionsByDayUtil ibdu = new ImpressionsByDayUtil("");
@@ -69,9 +69,9 @@ public class SystemStatsFinancial implements Job {
                 }
                 //Add it to the hashmap keyed by day
                 if (amtpendingbynumberofdayswithimpressions.containsKey(numberofdayswithimpressions)){
-                    amtpendingbynumberofdayswithimpressions.put(numberofdayswithimpressions, amtpendingbynumberofdayswithimpressions.get(numberofdayswithimpressions)+survey.getWillingtopayperrespondent());
+                    amtpendingbynumberofdayswithimpressions.put(numberofdayswithimpressions, amtpendingbynumberofdayswithimpressions.get(numberofdayswithimpressions)+survey.getIncentive().getBloggerEarningsPerResponse());
                 } else {
-                    amtpendingbynumberofdayswithimpressions.put(numberofdayswithimpressions, survey.getWillingtopayperrespondent());    
+                    amtpendingbynumberofdayswithimpressions.put(numberofdayswithimpressions, survey.getIncentive().getBloggerEarningsPerResponse());    
                 }
                 //@todo expand this to include impression pay reporting
             }

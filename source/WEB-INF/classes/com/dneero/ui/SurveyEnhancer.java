@@ -40,7 +40,7 @@ public class SurveyEnhancer implements Serializable {
             responsesalreadygotten = String.valueOf(survey.getResponses().size());
             impressionsalreadygotten = String.valueOf(NumFromUniqueResult.getInt("select sum(impressionstotal) from Impression where surveyid='"+survey.getSurveyid()+"'"));
 
-            willingtopayforresponse = "$"+ Str.formatForMoney(survey.getWillingtopayperrespondent());
+            willingtopayforresponse = survey.getIncentive().getShortSummary();
 
             willingtopayforcpm = "$"+ Str.formatForMoney(survey.getWillingtopaypercpm());
 
@@ -53,10 +53,10 @@ public class SurveyEnhancer implements Serializable {
                 daysuntilend = daysleft + " days left!";
             }
 
-            minearningDbl = survey.getWillingtopayperrespondent();
+            minearningDbl = survey.getIncentive().getBloggerEarningsPerResponse();
             minearning = "$"+Str.formatForMoney(minearningDbl);
 
-            maxearningDbl = survey.getWillingtopayperrespondent()  +   ( (survey.getWillingtopaypercpm()*survey.getMaxdisplaysperblog())/1000 );
+            maxearningDbl = survey.getIncentive().getBloggerEarningsPerResponse()  +   ( (survey.getWillingtopaypercpm()*survey.getMaxdisplaysperblog())/1000 );
             maxearning = "$"+Str.formatForMoney(maxearningDbl);
 
             if (survey.getQuestions()!=null){

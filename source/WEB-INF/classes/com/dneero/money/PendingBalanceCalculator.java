@@ -37,7 +37,7 @@ public class PendingBalanceCalculator implements Serializable {
                     Response response = (Response) iterator.next();
                     if (!response.getIspaid()){
                         Survey survey = Survey.get(response.getSurveyid());
-                        pendingearnings = pendingearnings + survey.getWillingtopayperrespondent();
+                        pendingearnings = pendingearnings + survey.getIncentive().getBloggerEarningsPerResponse();
                     }
                 }
             }

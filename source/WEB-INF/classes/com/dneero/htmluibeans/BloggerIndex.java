@@ -88,8 +88,6 @@ public class BloggerIndex implements Serializable {
 //                Response response = iterator.next();
 //                Survey survey = Survey.get(response.getSurveyid());
 //                BloggerCompletedsurveysListitem listitem = new BloggerCompletedsurveysListitem();
-//                listitem.setAmtforresponse("");
-//                listitem.setAmttotal("");
 //                listitem.setTotalimpressions(0);
 //                listitem.setPaidandtobepaidimpressions(0);
 //                listitem.setResponsedate(response.getResponsedate());

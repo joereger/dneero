@@ -47,29 +47,11 @@ public class PayForSurveyResponsesOncePosted implements Job {
                     try{
                         //One extra check to make sure this isn't rejected
                         if (!response.getIssysadminrejected()){
-                            //Affect balance for blogger
-                            MoveMoneyInAccountBalance.pay(user, survey.getWillingtopayperrespondent(), "Pay for responding to: '"+survey.getTitle()+"'", true, response.getIsforcharity(), response.getCharityname(), response.getResponseid(), false, true, false, false);
-                            //Affect balance for researcher
-                            MoveMoneyInAccountBalance.charge(User.get(Researcher.get(survey.getResearcherid()).getUserid()), (SurveyMoneyStatus.calculateAmtToChargeResearcher(survey.getWillingtopayperrespondent(), survey)), "User "+user.getFirstname()+" "+user.getLastname()+" responds to '"+survey.getTitle()+"'", true, false, false, false);
-                            //Affect balance for reseller
-                            if (survey.getResellercode()!=null && !survey.getResellercode().equals("")){
-                                //Find the user with this resellercode
-                                List<User> userResellers = HibernateUtil.getSession().createCriteria(User.class)
-                                                                   .add(Restrictions.eq("resellercode", survey.getResellercode()))
-                                                                   .setCacheable(true)
-                                                                   .setMaxResults(1)
-                                                                   .list();
-                                if (userResellers!=null && userResellers.size()>0){
-                                    User userReseller = userResellers.get(0);
-                                    if (userReseller!=null){
-                                        //Pay them the correct amount... remember, their pay is based on the amount paid to the bloggers
-                                        double amtToPayReseller = SurveyMoneyStatus.calculateResellerAmt(survey.getWillingtopayperrespondent(), userReseller);
-                                        if (amtToPayReseller>0){
-                                            MoveMoneyInAccountBalance.pay(userReseller, amtToPayReseller, "Reseller pay for response to '"+Str.truncateString(survey.getTitle(), 20)+"'", false, false, "", 0, false, false, false, true);
-                                        }
-                                    }
-                                }
-                            }
+                            //Award the incentive
+                            //Award the incentive
+                            //Award the incentive
+                            //Award the incentive
+                            survey.getIncentive().awardIncentive(response);
                         }
                     } catch (Exception ex){
                         logger.error("",ex);

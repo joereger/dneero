@@ -39,6 +39,11 @@
             <one-to-many class="com.dneero.dao.Surveydiscuss" not-found="ignore"></one-to-many>
         </set>
 
+        <set name="surveyincentives" inverse="true" cascade="all-delete-orphan">
+            <cache usage="transactional"/>
+            <key column="surveyid"></key>
+            <one-to-many class="com.dneero.dao.Surveyincentive" not-found="ignore"></one-to-many>
+        </set>
 
         <property name="researcherid" type="int">
             <column name="researcherid" not-null="true" />

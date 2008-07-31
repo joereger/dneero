@@ -29,7 +29,7 @@ ResearcherSurveyDetailPostlaunch researcherSurveyDetailPostlaunch = (ResearcherS
         <li>We'll verify that your account balance has at least <%=researcherSurveyDetailPostlaunch.getInitialcharge()%> which represents 20% of the maximum possible spend, <%=researcherSurveyDetailPostlaunch.getMaxpossiblespend()%>, for your conversation.</li>
         <li>Social people will see your conversation and join in.</li>
             <ul>
-                <li>Each time a social person joins the conversation your account balance will be debited by <%=researcherSurveyDetailPostlaunch.getWillingtopayperrespondent()%>.</li>
+                <li>Each time a social person joins the conversation your account balance will be debited according to the incentive that you've set.</li>
                 <li>We will close your conversation either when the end date is reached or when the maximum number of respondents has been reached.</li>
                 <li>Social people will post the conversation to their peers.</li>
             </ul>

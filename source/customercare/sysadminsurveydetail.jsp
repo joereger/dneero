@@ -23,7 +23,6 @@ String acl = "customercare";
             customercareSurveyDetail.getSurvey().setIsspotlight(CheckboxBoolean.getValueFromRequest("isspotlight"));
             customercareSurveyDetail.getSurvey().setStartdate(DateTime.getValueFromRequest("startdate", "Start Date", true).getTime());
             customercareSurveyDetail.getSurvey().setEnddate(DateTime.getValueFromRequest("enddate", "End Date", true).getTime());
-            customercareSurveyDetail.getSurvey().setWillingtopayperrespondent(Textbox.getDblFromRequest("willingtopayperrespondent", "Willing to Pay Per Respondent", true, DatatypeDouble.DATATYPEID));
             customercareSurveyDetail.getSurvey().setWillingtopaypercpm(Textbox.getDblFromRequest("willingtopaypercpm", "Willing to Pay Per CPM", true, DatatypeDouble.DATATYPEID));
             customercareSurveyDetail.getSurvey().setNumberofrespondentsrequested(Textbox.getIntFromRequest("numberofrespondentsrequested", "Number of Respondents Requested", true, DatatypeInteger.DATATYPEID));
             customercareSurveyDetail.getSurvey().setMaxdisplaysperblog(Textbox.getIntFromRequest("maxdisplaysperblog", "Max Displays Per Blog", true, DatatypeInteger.DATATYPEID));
@@ -149,16 +148,6 @@ String acl = "customercare";
                         <td valign="top">
                             <%=DateTime.getHtml("enddate", customercareSurveyDetail.getSurvey().getEnddate(), "", "")%><br/>
                             <font class="tinyfont">Days since close: <%=customercareSurveyDetail.getDayssinceclose()%></font>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td valign="top">
-                            <font class="formfieldnamefont">Willing to Pay Per Respondent ($USD)</font>
-                            <br/>
-                            <font class="smallfont">Amount to pay to a person who fulfills the targeting criteria and successfully fills out the conversation.  Paying more will attract more people.  The minimum is $.25.  A good starting point is $2.50.</font>
-                        </td>
-                        <td valign="top">
-                            <%=Textbox.getHtml("willingtopayperrespondent", String.valueOf(customercareSurveyDetail.getSurvey().getWillingtopayperrespondent()), 255, 35, "", "")%>
                         </td>
                     </tr>
                     <tr>

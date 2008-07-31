@@ -57,7 +57,7 @@ public class SystemStats implements Job {
             if (opensurveys!=null){
                 for (Iterator iterator = opensurveys.iterator(); iterator.hasNext();) {
                     Survey survey = (Survey) iterator.next();
-                    dollarsavailabletobloggers = dollarsavailabletobloggers + (survey.getWillingtopayperrespondent() * survey.getNumberofrespondentsrequested()) + ((survey.getWillingtopaypercpm() * survey.getMaxdisplaystotal())/1000);
+                    dollarsavailabletobloggers = dollarsavailabletobloggers + (survey.getIncentive().getBloggerEarningsPerResponse() * survey.getNumberofrespondentsrequested()) + ((survey.getWillingtopaypercpm() * survey.getMaxdisplaystotal())/1000);
                 }
             }
 
@@ -81,7 +81,7 @@ public class SystemStats implements Job {
             //Fill up the rest with surveys
             if (surveyindex<numberofsurveystostore){
                 int needtoaddthismanysurveys = numberofsurveystostore-surveyindex;
-                List addlsurveys = HibernateUtil.getSession().createQuery("from Survey where isspotlight=false and status='"+Survey.STATUS_OPEN+"' order by willingtopayperrespondent desc").setMaxResults(needtoaddthismanysurveys).list();
+                List addlsurveys = HibernateUtil.getSession().createQuery("from Survey where isspotlight=false and status='"+Survey.STATUS_OPEN+"' order by surveyid desc").setMaxResults(needtoaddthismanysurveys).list();
                 for (Iterator iterator = addlsurveys.iterator(); iterator.hasNext();) {
                     Survey survey = (Survey) iterator.next();
                     SurveyEnhancer surveyenhancer = new SurveyEnhancer(survey);
