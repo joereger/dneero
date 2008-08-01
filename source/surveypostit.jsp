@@ -165,25 +165,10 @@ String acl = "public";
                             <br/>
                             <font class="mediumfont">Now post your answers to your blog!</font>
                             <br/>
-                            <font class="smallfont">(instructions to the right... the conversation must appear on your blog for 5 of 10 days from when you joined the conversation to be paid)</font>
+                            <font class="smallfont">(instructions to the right... the conversation must appear on your blog for 5 of 10 days from when you joined the conversation to earn your reward)</font>
                         </div>
                         <br/>
                         <div class="rounded" style="background: #ffffff; text-align: center;">
-                            <font class="mediumfont">You've already earned</font>
-                            <br/>
-                            <font class="tinyfont">(pending posting verification)</font>
-                            <br/>
-                            <font class="largefont" style="font-size: 60px; color: #666666;"><%=publicSurveyPostit.getSurveyEnhancer().getMinearning()%></font>
-                            <% if (publicSurveyPostit.getSurveytakergavetocharity() || publicSurveyPostit.getSurvey().getIscharityonly()){ %>
-                                <br/>
-                                <font class="mediumfont">for charity</font>
-                            <% } %>
-                            <% if (publicSurveyPostit.getSurveytakergavetocharity()){ %>
-                                <br/>
-                                <font class="mediumfont">(<%=publicSurveyPostit.getCharityname()%>)</font>
-                            <% } %>
-                            <br/>
-                            <font class="mediumfont">and can earn up to <%=publicSurveyPostit.getSurveyEnhancer().getMaxearning()%> total by posting it to your blog!</font>
                         </div>
                         <br/>
                         <% if (publicSurveyPostit.getSurvey().getIscharityonly()){ %>
@@ -223,6 +208,13 @@ String acl = "public";
                     </div>
                 </td>
                 <td valign="top" class="posttoblog_tabs_tablewidth">
+
+                    <%if (publicSurveyPostit.getPostresponseinstructions()!=null && !publicSurveyPostit.getPostresponseinstructions().equals("")){%>
+                        <div class="rounded" style="background: #00ff00;">
+                            <font class="mediumfont"><%=publicSurveyPostit.getPostresponseinstructions()%></font>
+                        </div>
+                    <%}%>
+
                     <center><div class="rounded" style="background: #e6e6e6; text-align: left; padding: 20px;"><font class="smallfont">
                     Instructions for posting your conversation answers to various blogs and social networks.  Need <a href="/account/accountsupportissueslist.jsp"><font class="smallfont">help</font></a> posting to your blog?
                     </font></div></center>

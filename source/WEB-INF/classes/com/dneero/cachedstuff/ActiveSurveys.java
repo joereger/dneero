@@ -36,7 +36,8 @@ public class ActiveSurveys implements CachedStuff, Serializable {
         for (Iterator iterator = results.iterator(); iterator.hasNext();) {
             Survey survey = (Survey) iterator.next();
 
-            double maxearningNum = survey.getIncentive().getBloggerEarningsPerResponse()  +   ( (survey.getWillingtopaypercpm()*survey.getMaxdisplaysperblog())/1000 );
+            double maxEarningsCPM = (survey.getWillingtopaypercpm()*survey.getMaxdisplaysperblog())/1000;
+            double maxearningNum = survey.getIncentive().getEstimatedMaxValueOfEarnings()  +   maxEarningsCPM;
 
             String daysleftStr = "";
             int daysleft = DateDiff.dateDiff("day", Time.getCalFromDate(survey.getEnddate()), Calendar.getInstance());
@@ -64,6 +65,9 @@ public class ActiveSurveys implements CachedStuff, Serializable {
             out.append("<td width='100'>");
             out.append("<font class='tinyfont'>");
             out.append("Earn Up To $"+Str.formatForMoney(maxearningNum));
+//            if (maxEarningsCPM>0){
+//                out.append(" ($"+maxEarningsCPM+" from displays)");
+//            }
             out.append("</font>");
             out.append("</td>");
             out.append("</tr>");

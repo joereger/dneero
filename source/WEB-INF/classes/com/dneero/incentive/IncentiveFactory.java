@@ -9,9 +9,15 @@ import com.dneero.dao.Surveyincentive;
  */
 public class IncentiveFactory {
 
+    public static Incentive getBySurveyIncentive(Surveyincentive surveyincentive){
+        return getById(surveyincentive.getType(), surveyincentive);
+    }
+
     public static Incentive getById(int id, Surveyincentive surveyincentive){
         if (id==IncentiveCash.ID){
             return new IncentiveCash(surveyincentive);
+        } else if (id==IncentiveCoupon.ID){
+            return new IncentiveCoupon(surveyincentive);
         }
         return null;
     }

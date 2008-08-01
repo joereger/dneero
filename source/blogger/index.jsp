@@ -183,7 +183,6 @@ String acl = "public";
                                             <td valign="top">
                                                 <font class="tinyfont"><%=bloggerCompletedsurveysListitem.getResponsedate()%></font><br/>
                                                 <font class="normalfont" style="font-weight: bold; color: #0000ff;"><a href="/survey.jsp?surveyid=<%=bloggerCompletedsurveysListitem.getSurveyid()%>"><%=bloggerCompletedsurveysListitem.getSurveytitle()%></a></font><br/>
-                                                <font class="tinyfont" style="font-weight: bold;">Est earnings: <%=bloggerCompletedsurveysListitem.getAmttotal()%></font>
                                                 <% if (!Pagez.getUserSession().getIsfacebookui()){ %>
                                                     <br/>
                                                     <font class="tinyfont" style="font-weight:bold;">
@@ -222,7 +221,6 @@ String acl = "public";
                     "                    <td valign=\"top\">\n" +
                     "                        <font class=\"tinyfont\"><$responsedate$></font><br/>\n" +
                     "                        <font class=\"normalfont\" style=\"font-weight: bold; color: #0000ff;\"><a href=\"/surveypostit.jsp?surveyid=<$surveyid$>\"><$surveytitle$></a></font><br/>\n" +
-                    "                        <font class=\"tinyfont\" style=\"font-weight: bold;\">Est earnings: <$amttotal$></font>\n" +
                     "                        <br/>\n" +
                     "                        <font class=\"tinyfont\" style=\"font-weight:bold; text-decoration: none;\"><a href=\"/blogger/impressions.jsp?surveyid=<$surveyid$>\">Impressions</a> | <a href=\"/survey.jsp?surveyid=<$surveyid$>\">Edit Answers</a></font>\n" +
                     "                    </td>\n" +

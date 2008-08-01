@@ -36,6 +36,16 @@ ResearcherSurveyDetail05 researcherSurveyDetail05 = (ResearcherSurveyDetail05)Pa
             researcherSurveyDetail05.setNumberofrespondentsrequested(Textbox.getIntFromRequest("numberofrespondentsrequested", "Number of RespondentsRequested", true, DatatypeInteger.DATATYPEID));
             researcherSurveyDetail05.setWillingtopaypercpm(Textbox.getDblFromRequest("willingtopaypercpm", "Willing to Pay Per 1000 Impressions", true, DatatypeDouble.DATATYPEID));
             researcherSurveyDetail05.setWillingtopayperrespondent(Textbox.getDblFromRequest("willingtopayperrespondent", "Willing to Pay Per Respondent", true, DatatypeDouble.DATATYPEID));
+
+            researcherSurveyDetail05.setIncentivetype(Textbox.getIntFromRequest("incentivetype", "Incentive Type", true, DatatypeInteger.DATATYPEID));
+
+            researcherSurveyDetail05.setCoupontitle(Textbox.getValueFromRequest("coupontitle", "Coupon Title", false, DatatypeString.DATATYPEID));
+            researcherSurveyDetail05.setCoupondescription(Textbox.getValueFromRequest("coupondescription", "Coupon Description", false, DatatypeString.DATATYPEID));
+            researcherSurveyDetail05.setCouponinstructions(Textbox.getValueFromRequest("couponinstructions", "Coupon Instructions", false, DatatypeString.DATATYPEID));
+            researcherSurveyDetail05.setCouponcodeprefix(Textbox.getValueFromRequest("couponcodeprefix", "Coupon Code Prefix", false, DatatypeString.DATATYPEID));
+            researcherSurveyDetail05.setCouponcodeaddrandompostfix(Textbox.getValueFromRequest("couponcodeaddrandompostfix", "Coupon Code Add Random Prefix", false, DatatypeString.DATATYPEID));
+            researcherSurveyDetail05.setCouponestimatedcashvalue(Textbox.getDblFromRequest("coupontitle", "Coupon Estimated Cash Value", false, DatatypeDouble.DATATYPEID));
+
             if (request.getParameter("action").equals("next")) {
                 logger.debug("Next was clicked");
                 researcherSurveyDetail05.saveSurvey();
@@ -93,13 +103,61 @@ ResearcherSurveyDetail05 researcherSurveyDetail05 = (ResearcherSurveyDetail05)Pa
 
         <tr>
             <td valign="top">
-                <font class="formfieldnamefont">Willing to Pay Per Respondent ($USD)</font>
+                <font class="formfieldnamefont">Incentive Per Respondent</font>
                 <br/>
-                <font class="smallfont">Amount to pay to a person who fulfills the targeting criteria and successfully joins the conversation.  Paying more will attract more people.  The minimum is $.10.  A good starting point is $2.50.</font>
+                <font class="smallfont">Amount to award a person who fulfills the targeting criteria and successfully joins the conversation.  Awarding more will attract more people.</font>
             </td>
             <td valign="top">
                 <%if (researcherSurveyDetail05.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {%>
-                    <%=Textbox.getHtml("willingtopayperrespondent", String.valueOf(researcherSurveyDetail05.getWillingtopayperrespondent()), 255, 35, "", "")%>
+                    <table cellpadding="2" cellspacing="0" border="0">
+                        <tr>
+                            <td valign="top"><%=RADIO HERE%></td>
+                            <td valign="top">
+                                <div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;">
+                                    <font class="mediumfont">Cash Incentive</font><br/>
+                                    <%=Textbox.getHtml("willingtopayperrespondent", String.valueOf(researcherSurveyDetail05.getWillingtopayperrespondent()), 255, 35, "", "")%>
+                                    <br/>
+                                    <font class="tinyfont">Amount you'll pay per respondent... i.e. 2.50.  Minimum is 0.10.</font>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td valign="top"><%=RADIO HERE%></td>
+                            <td valign="top">
+                                <div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;">
+                                    <font class="mediumfont">Coupon Incentive</font><br/>
+                                    <%=Textbox.getHtml("coupontitle", String.valueOf(researcherSurveyDetail05.getCoupontitle()), 50, 50, "", "")%>
+                                    <br/>
+                                    <font class="tinyfont">A title for your coupon.  Short and sweet.</font>
+                                    <br/><br/>
+                                    <%=Textbox.getHtml("coupondescription", String.valueOf(researcherSurveyDetail05.getCoupondescription()), 255, 255, "", "")%>
+                                    <br/>
+                                    <font class="tinyfont">A full description of what the respondent gets with the coupon, where they can redeem it, etc.</font>
+                                    <br/><br/>
+                                    <%=Textbox.getHtml("couponinstructions", String.valueOf(researcherSurveyDetail05.getCouponinstructions()), 255, 255, "", "")%>
+                                    <br/>
+                                    <font class="tinyfont">A set of redemption instructions that the user will see after they're awarded the coupon.</font>
+                                    <br/><br/>
+                                    <%=Textbox.getHtml("couponcodeprefix", String.valueOf(researcherSurveyDetail05.getCouponcodeprefix()), 10, 10, "", "")%>
+                                    <br/>
+                                    <font class="tinyfont">The first characters of a coupon code.  No spaces.  Example: "MYCOUPON"</font>
+                                    <br/><br/>
+                                    <%=Textbox.getHtml("couponestimatedcashvalue", String.valueOf(researcherSurveyDetail05.getCouponestimatedcashvalue()), 10, 10, "", "")%>
+                                    <br/>
+                                    <font class="tinyfont">The estimated cash value of your coupon.  Doesn't have to be exact but should accurately reflect what they'll get.</font>
+                                    <br/><br/>
+                                    <%=Textbox.getHtml("couponcodeaddrandompostfix", String.valueOf(researcherSurveyDetail05.getCouponcodeaddrandompostfix()), 10, 10, "", "")%>
+                                    <br/>
+                                    <font class="tinyfont">Whether to include a random alphanumeric postfix with the coupon code.  For example: MYCOUPONAXYTNR</font>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+
+
+
+
+
                 <%} else {%>
                     <font class="normalfont"><%=researcherSurveyDetail05.getWillingtopayperrespondent()%></font>
                 <%}%>

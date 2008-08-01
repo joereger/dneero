@@ -80,8 +80,8 @@ PublicSurveyList publicSurveyList = (PublicSurveyList)Pagez.getBeanMgr().get("Pu
 "                                <td width=\"30%\">\n" +
 "                                    <div class=\"rounded\" style=\"background: #ffffff; padding: 10px;\">\n" +
 "                                        <center>\n" +
-"                                            <font class=\"tinyfont\"><b>Earn Up To</b></font><br/>\n" +
-"                                            <font class=\"mediumfont\"><$maxearning$></font>\n" +
+"                                            <font class=\"tinyfont\"><b>Earn</b></font><br/>\n" +
+"                                            <font class=\"mediumfont\"><$earn$></font><br/>\n" +
 "                                        </center>\n" +
 "                                    </div>\n" +
 "                                </td>\n" +
@@ -110,6 +110,7 @@ PublicSurveyList publicSurveyList = (PublicSurveyList)Pagez.getBeanMgr().get("Pu
                                 <% } %>
                                 <br/><font class="tinyfont" style="color: #666666; font-weight: bold;">(yes, we're talking real world money here)</font>
                                 <br/><font class="tinyfont" style="color: #666666;"><a href="/account/balancefaq.jsp">Balance Questions?</a></font>
+                                <br/><font class="tinyfont" style="color: #666666;"><a href="/account/awards.jsp">Your Awards</a></font>
                             </div>
                             <br/>
                         <% } %>

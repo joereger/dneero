@@ -85,7 +85,7 @@ public class ResearcherEmailinviteComplete implements Serializable {
                     String url = BaseUrl.get(false, survey.getPlid()) + "survey.jsp?surveyid="+survey.getSurveyid();
                     //Create the args array to hold the dynamic portions of the email
                     String[] args = new String[10];
-                    args[0] = sh.getMaxearning();
+                    args[0] = "";
                     args[1] = "<a href=\""+url+"\">"+survey.getTitle()+"</a>";
                     args[2] = message;
                     args[3] = url;

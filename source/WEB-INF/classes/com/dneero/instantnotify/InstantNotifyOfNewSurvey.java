@@ -48,29 +48,27 @@ public class InstantNotifyOfNewSurvey implements Runnable {
         }
 
         //Vars to hold our strings in the email
-        double possibleearnings = 0;
         StringBuffer listofsurveysHtml = new StringBuffer();
         StringBuffer listofsurveysTxt = new StringBuffer();
         //Create text for email
         SurveyEnhancer surveyEnhancer = new SurveyEnhancer(survey);
-        possibleearnings = possibleearnings + surveyEnhancer.getMaxearningDbl();
         String url = BaseUrl.get(false, survey.getPlid()) + "survey.jsp?surveyid="+survey.getSurveyid();
         //Html
-        listofsurveysHtml.append("<br><br><a href=\""+url+"\">" + survey.getTitle() + " (Earn up to: " + surveyEnhancer.getMaxearning() + ")</a>");
+        listofsurveysHtml.append("<br><br><a href=\""+url+"\">" + survey.getTitle() + "</a>");
         if (!survey.getDescription().equals("")){
             listofsurveysHtml.append("<br>"+survey.getDescription());
         }
         //Txt
-        listofsurveysTxt.append("\n\n" + survey.getTitle() + " (Earn up to: " + surveyEnhancer.getMaxearning()+")");
+        listofsurveysTxt.append("\n\n" + survey.getTitle());
         if (!survey.getDescription().equals("")){
             listofsurveysTxt.append("\n" + survey.getDescription());
         }
         listofsurveysTxt.append("\n" + url);
         //Instant messaging text
-        String instantmessage = "dNeero.com: Earn up to " + surveyEnhancer.getMaxearning() + " on Conversation: \"" + Str.truncateString(survey.getDescription(), 50)+ "\" at Url: " + url;
+        String instantmessage = "dNeero.com: Earn on Conversation: \"" + Str.truncateString(survey.getDescription(), 50)+ "\" at Url: " + url;
         //Create the args array to hold the dynamic stuff
         String[] args = new String[10];
-        args[0] = "$"+Str.formatForMoney(possibleearnings);
+        args[0] = "";
         args[1] = listofsurveysHtml.toString();
         args[2] = listofsurveysTxt.toString();
 

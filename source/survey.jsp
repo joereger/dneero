@@ -135,15 +135,18 @@ String acl = "public";
                         <%if((publicSurvey.getLoggedinuserhasalreadytakensurvey() && publicSurvey.getIsuserwhotooksurveysameasloggedinuser()) || !publicSurvey.getLoggedinuserhasalreadytakensurvey()){%>
                             <%if (Pagez.getUserSession().getIsfacebookui() && !publicSurvey.getLoggedinuserhasalreadytakensurvey()){%>
                                 <div class="rounded" style="background: #ffffff; text-align: center;">
-                                    <font class="mediumfont" style="font-weight: bold; color: #666666;">Join this conversation to earn up to</font>
+                                    <font class="mediumfont" style="font-weight: bold; color: #666666;">Join this conversation to earn</font>
                                     <br/>
-                                    <font class="largefont" style="font-size: 30px; color: #666666;"><%=publicSurvey.getSurveyEnhancer().getMinearning()%></font>
+                                    <font class="largefont" style="font-size: 20px; color: #666666;"><%=publicSurvey.getSurvey().getIncentive().getFullSummary()%></font>
                                     <% if (publicSurvey.getSurveytakergavetocharity() || publicSurvey.getSurvey().getIscharityonly()){ %>
                                         <br/>
                                         <font class="mediumfont" style="font-weight: bold; color: #666666;">for charity</font>
                                     <% } %>
                                     <br/>
-                                    <font class="smallfont" style="font-weight: bold; color: #666666;">or up to <%=publicSurvey.getSurveyEnhancer().getMaxearning()%> depending on your profile traffic. Links to your answers must appear on your profile for at least five days and somebody needs to click them each day to get paid... usually your friends will take care of this on their own. (And yes, we're talking real world money here... we'll pay your PayPal account when you accrue a balance of $20.)</font>
+                                    <% if (publicSurvey.getSurveyEnhancer().getMaxEarningCPMDbl()>0){ %>
+                                        <font class="smallfont" style="font-weight: bold; color: #666666;">You'll also earn up to an additional <%=publicSurvey.getSurveyEnhancer().getMaxEarningCPM()%> depending on your profile traffic.</font>
+                                    <%}%>
+                                    <br/><font class="smallfont" style="font-weight: bold; color: #666666;">Links to your answers must appear on your profile for at least five days and somebody needs to click them each day to get paid... usually your friends will take care of this on their own.</font>
                                 </div>
                                 <br/>
                             <%}%>
@@ -454,7 +457,7 @@ String acl = "public";
                                         logger.debug("publicSurvey.getSurveyEnhancer() is null!!!");   
                                     }
                                     %>
-                                    <font class="largefont" style="font-size: 60px; color: #666666;"><%=publicSurvey.getSurveyEnhancer().getMinearning()%></font>
+                                    <font class="largefont" style="font-size: 24px; color: #666666;"><%=publicSurvey.getSurvey().getIncentive().getFullSummary()%></font>
                                     <% if (publicSurvey.getSurveytakergavetocharity() || publicSurvey.getSurvey().getIscharityonly()){ %>
                                         <br/>
                                         <font class="mediumfont">for charity</font>
@@ -464,27 +467,30 @@ String acl = "public";
                                         <font class="mediumfont">(<%=publicSurvey.getCharityname()%>)</font>
                                     <% } %>
                                     <br/>
-                                    <font class="mediumfont">and can earn up to <%=publicSurvey.getSurveyEnhancer().getMaxearning()%> total by posting it to your blog!</font>
+                                    <% if (publicSurvey.getSurveyEnhancer().getMaxEarningCPMDbl()>0){ %>
+                                        <font class="smallfont" style="font-weight: bold; color: #666666;">You'll also earn up to an additional <%=publicSurvey.getSurveyEnhancer().getMaxEarningCPM()%> depending on your blog traffic.</font>
+                                    <% } %>
                                 <% } %>
                                 <% if (!publicSurvey.getLoggedinuserhasalreadytakensurvey() && publicSurvey.getSurvey().getStatus()<=Survey.STATUS_OPEN){ %>
                                     <font class="mediumfont">Join this conversation and earn</font>
                                     <br/>
-                                    <font class="largefont" style="font-size: 60px; color: #666666;"><%=publicSurvey.getSurveyEnhancer().getMinearning()%></font>
+                                    <font class="largefont" style="font-size: 24px; color: #666666;"><%=publicSurvey.getSurvey().getIncentive().getFullSummary()%></font>
                                     <% if (publicSurvey.getSurveytakergavetocharity() || publicSurvey.getSurvey().getIscharityonly()){ %>
-                                        <br/>
-                                        <font class="mediumfont">for charity</font>
+                                        <br/><font class="mediumfont">for charity</font>
                                     <% } %>
-                                    <br/>
-                                    <font class="mediumfont">or up to <%=publicSurvey.getSurveyEnhancer().getMaxearning()%> when you post it to your blog!</font>
+                                    <% if (publicSurvey.getSurveyEnhancer().getMaxEarningCPMDbl()>0){ %>
+                                        <br/><font class="smallfont" style="font-weight: bold; color: #666666;">You'll also earn up to an additional <%=publicSurvey.getSurveyEnhancer().getMaxEarningCPM()%> depending on your blog traffic.</font>
+                                    <% } %>
                                     <br/><br/>
                                     <font class="smallfont">(just answer the questions to the left and click Join the Conversation... easy!)</font>
                                 <% } %>
                                 <% if (!publicSurvey.getLoggedinuserhasalreadytakensurvey() && publicSurvey.getSurvey().getStatus()>=Survey.STATUS_CLOSED){ %>
                                     <font class="mediumfont">People who joined this conversation earned</font>
                                     <br/>
-                                    <font class="largefont" style="font-size: 60px; color: #666666;"><%=publicSurvey.getSurveyEnhancer().getMinearning()%></font>
-                                    <br/>
-                                    <font class="mediumfont">and then earned up to <%=publicSurvey.getSurveyEnhancer().getMaxearning()%> total by posting it to their blogs!</font>
+                                    <font class="largefont" style="font-size: 24px; color: #666666;"><%=publicSurvey.getSurvey().getIncentive().getFullSummary()%></font>
+                                    <% if (publicSurvey.getSurveyEnhancer().getMaxEarningCPMDbl()>0){ %>
+                                        <br/><font class="smallfont" style="font-weight: bold; color: #666666;">They also earned up to an additional <%=publicSurvey.getSurveyEnhancer().getMaxEarningCPM()%> depending on their blog traffic.</font>
+                                    <% } %>
                                 <% } %>
                                 <% if (publicSurvey.getSurvey().getIscharityonly()){ %>
                                     <br/><br/>

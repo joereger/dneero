@@ -24,10 +24,8 @@ public class SurveyEnhancer implements Serializable {
     private String willingtopayforresponse;
     private String willingtopayforcpm;
     private String daysuntilend;
-    private double minearningDbl;
-    private String minearning;
-    private double maxearningDbl;
-    private String maxearning;
+    private double maxEarningCPMDbl;
+    private String maxEarningCPM;
     private String numberofquestions;
     private String descriptiontruncated;
 
@@ -53,11 +51,10 @@ public class SurveyEnhancer implements Serializable {
                 daysuntilend = daysleft + " days left!";
             }
 
-            minearningDbl = survey.getIncentive().getBloggerEarningsPerResponse();
-            minearning = "$"+Str.formatForMoney(minearningDbl);
 
-            maxearningDbl = survey.getIncentive().getBloggerEarningsPerResponse()  +   ( (survey.getWillingtopaypercpm()*survey.getMaxdisplaysperblog())/1000 );
-            maxearning = "$"+Str.formatForMoney(maxearningDbl);
+
+            maxEarningCPMDbl = (survey.getWillingtopaypercpm()*survey.getMaxdisplaysperblog())/1000;
+            maxEarningCPM = "$"+Str.formatForMoney(maxEarningCPMDbl);
 
             if (survey.getQuestions()!=null){
                 numberofquestions = String.valueOf(survey.getQuestions().size());
@@ -114,22 +111,6 @@ public class SurveyEnhancer implements Serializable {
         this.daysuntilend = daysuntilend;
     }
 
-    public String getMinearning() {
-        return minearning;
-    }
-
-    public void setMinearning(String minearning) {
-        this.minearning = minearning;
-    }
-
-    public String getMaxearning() {
-        return maxearning;
-    }
-
-    public void setMaxearning(String maxearning) {
-        this.maxearning = maxearning;
-    }
-
     public String getResponsesalreadygotten() {
         return responsesalreadygotten;
     }
@@ -154,21 +135,20 @@ public class SurveyEnhancer implements Serializable {
         this.numberofquestions = numberofquestions;
     }
 
-
-    public double getMinearningDbl() {
-        return minearningDbl;
+    public double getMaxEarningCPMDbl() {
+        return maxEarningCPMDbl;
     }
 
-    public void setMinearningDbl(double minearningDbl) {
-        this.minearningDbl = minearningDbl;
+    public void setMaxEarningCPMDbl(double maxEarningCPMDbl) {
+        this.maxEarningCPMDbl=maxEarningCPMDbl;
     }
 
-    public double getMaxearningDbl() {
-        return maxearningDbl;
+    public String getMaxEarningCPM() {
+        return maxEarningCPM;
     }
 
-    public void setMaxearningDbl(double maxearningDbl) {
-        this.maxearningDbl = maxearningDbl;
+    public void setMaxEarningCPM(String maxEarningCPM) {
+        this.maxEarningCPM=maxEarningCPM;
     }
 
     public String getDescriptiontruncated() {

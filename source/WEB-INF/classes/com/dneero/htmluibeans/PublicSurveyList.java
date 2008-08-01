@@ -84,8 +84,10 @@ public class PublicSurveyList implements Serializable {
                     bsli.setNumberofquestions("0");
                 }
 
-                double maxearningNum = survey.getIncentive().getBloggerEarningsPerResponse()  +   ( (survey.getWillingtopaypercpm()*survey.getMaxdisplaysperblog())/1000 );
-                bsli.setMaxearning("$"+ Str.formatForMoney(maxearningNum));
+                double maxearningCPM = (survey.getWillingtopaypercpm()*survey.getMaxdisplaysperblog())/1000;
+                bsli.setMaxearningCPM("$"+ Str.formatForMoney(maxearningCPM));
+
+                bsli.setEarn(survey.getIncentive().getShortSummary());
 
                 int daysleft = DateDiff.dateDiff("day", Time.getCalFromDate(survey.getEnddate()), Calendar.getInstance());
                 if (daysleft==0){

@@ -6,6 +6,7 @@ import com.dneero.htmlui.Pagez;
 import com.dneero.htmlui.UserSession;
 import com.dneero.htmlui.ValidationException;
 import com.dneero.incentive.IncentiveCash;
+import com.dneero.incentive.IncentiveCoupon;
 import com.dneero.incentive.IncentiveOptionsUtil;
 import com.dneero.util.GeneralException;
 import com.dneero.util.Num;
@@ -34,6 +35,13 @@ public class ResearcherSurveyDetail05 implements Serializable {
     private String charitycustom = "";
     private String charitycustomurl = "";
     private boolean charityonlyallowcustom=false;
+    private int incentivetype = 1;
+    private String coupontitle = "";
+    private String coupondescription = "";
+    private String couponinstructions = "";
+    private String couponcodeprefix = "";
+    private String couponcodeaddrandompostfix = "";
+    private double couponestimatedcashvalue = 0.0;
 
     public ResearcherSurveyDetail05(){
 
@@ -53,7 +61,31 @@ public class ResearcherSurveyDetail05 implements Serializable {
             logger.debug("Found survey in db: survey.getSurveyid()="+survey.getSurveyid()+" survey.getTitle()="+survey.getTitle());
             title = survey.getTitle();
             if (Pagez.getUserSession().getUser()!=null && survey.canEdit(Pagez.getUserSession().getUser())){
-                willingtopayperrespondent = survey.getIncentive().getBloggerEarningsPerResponse();
+                if (survey.getIncentive().getID()==IncentiveCash.ID){
+                    if (Num.isdouble(IncentiveOptionsUtil.getValue(survey.getIncentive().getSurveyincentive(), IncentiveCash.WILLINGTOPAYPERRESPONSE))){
+                        willingtopayperrespondent = Double.parseDouble(IncentiveOptionsUtil.getValue(survey.getIncentive().getSurveyincentive(), IncentiveCash.WILLINGTOPAYPERRESPONSE));
+                    } else {
+                        willingtopayperrespondent = 2.5;
+                    }
+                    coupontitle = "";
+                    couponcodeaddrandompostfix = "";
+                    couponcodeprefix = "";
+                    coupondescription = "";
+                    couponestimatedcashvalue = 0.0;
+                    couponinstructions = "";
+                } else if (survey.getIncentive().getID()==IncentiveCoupon.ID){
+                    willingtopayperrespondent = 0.0;
+                    coupontitle = IncentiveOptionsUtil.getValue(survey.getIncentive().getSurveyincentive(), IncentiveCoupon.COUPONTITLE);
+                    couponcodeaddrandompostfix = IncentiveOptionsUtil.getValue(survey.getIncentive().getSurveyincentive(), IncentiveCoupon.COUPONCODEADDRANDOMPOSTFIX);
+                    couponcodeprefix = IncentiveOptionsUtil.getValue(survey.getIncentive().getSurveyincentive(), IncentiveCoupon.COUPONCODEPREFIX);
+                    coupondescription = IncentiveOptionsUtil.getValue(survey.getIncentive().getSurveyincentive(), IncentiveCoupon.COUPONDESCRIPTION);
+                    if (Num.isdouble(IncentiveOptionsUtil.getValue(survey.getIncentive().getSurveyincentive(), IncentiveCoupon.COUPONESTIMATEDCASHVALUE))){
+                        couponestimatedcashvalue = Double.parseDouble(IncentiveOptionsUtil.getValue(survey.getIncentive().getSurveyincentive(), IncentiveCoupon.COUPONESTIMATEDCASHVALUE));
+                    } else {
+                        couponestimatedcashvalue = 0.0;
+                    }
+                    couponinstructions = IncentiveOptionsUtil.getValue(survey.getIncentive().getSurveyincentive(), IncentiveCoupon.COUPONINSTRUCTIONS);
+                }
                 numberofrespondentsrequested = survey.getNumberofrespondentsrequested();
                 willingtopaypercpm = survey.getWillingtopaypercpm();
                 maxdisplaysperblog = survey.getMaxdisplaysperblog();
@@ -95,15 +127,11 @@ public class ResearcherSurveyDetail05 implements Serializable {
                 } catch (Exception ex){
                     logger.error("",ex);
                 }
-                if (willingtopayperrespondent<.1){
-                    vex.addValidationError("Willing to Pay Per Respondent must be at least $0.10.");
-                }
+
                 if (numberofrespondentsrequested<1){
                     vex.addValidationError("Number of Respondents Requested must be at least 1.");
                 }
-                if (willingtopaypercpm<.25){
-                    vex.addValidationError("Willing to Pay Per Thousand Displays to Peers must be at least $0.25.");
-                }
+
                 if (maxdisplaysperblog<1000){
                     vex.addValidationError("Max Displays Per Account must be at least 1000.");
                 }
@@ -120,6 +148,30 @@ public class ResearcherSurveyDetail05 implements Serializable {
                 if (charitycustomurl!=null && !charitycustomurl.equals("")){
                     if (charitycustom==null || charitycustom.equals("")){
                         vex.addValidationError("You've specified a custom charity url but no charity name.");
+                    }
+                }
+                if (incentivetype==IncentiveCash.ID){
+                    if (willingtopayperrespondent<.1){
+                        vex.addValidationError("Willing to Pay Per Respondent must be at least $0.10.");
+                    }
+                    if (willingtopaypercpm<.25){
+                        vex.addValidationError("Willing to Pay Per Thousand Displays to Peers must be at least $0.25.");
+                    }
+                } else if (incentivetype==IncentiveCoupon.ID){
+                    if (coupontitle==null || coupontitle.equals("")){
+                        vex.addValidationError("You must provide a coupon title.");
+                    }
+                    if (coupondescription==null || coupondescription.equals("")){
+                        vex.addValidationError("You must provide a coupon description.");
+                    }
+                    if (couponinstructions==null || couponinstructions.equals("")){
+                        vex.addValidationError("You must provide coupon redemption instructions.");
+                    }
+                    if (couponestimatedcashvalue<0){
+                        vex.addValidationError("The coupon estimated cash value must be a positive number.");
+                    }
+                    if (couponcodeprefix==null || couponcodeprefix.equals("") || couponcodeprefix.length()>10){
+                        vex.addValidationError("You must provide coupon code prefix.");
                     }
                 }
                 //Validation return
@@ -159,16 +211,24 @@ public class ResearcherSurveyDetail05 implements Serializable {
                 } else {
                     logger.debug("Surveyincentive() already existed for Survey");
                 }
-                if (1==1){
+                if (incentivetype==IncentiveCash.ID){
                     //IncentiveCash
                     si.setType(IncentiveCash.ID);
                     si.setSurveyid(survey.getSurveyid());
                     try{si.save();}catch(Exception ex){logger.error("", ex);}
                     IncentiveOptionsUtil.saveValue(si, IncentiveCash.WILLINGTOPAYPERRESPONSE, String.valueOf(willingtopayperrespondent));
-                } else if (1==2){
+                } else if (incentivetype==IncentiveCoupon.ID){
                     //IncentiveCoupon
+                    si.setType(IncentiveCoupon.ID);
+                    si.setSurveyid(survey.getSurveyid());
+                    try{si.save();}catch(Exception ex){logger.error("", ex);}
+                    IncentiveOptionsUtil.saveValue(si, IncentiveCoupon.COUPONTITLE, coupontitle);
+                    IncentiveOptionsUtil.saveValue(si, IncentiveCoupon.COUPONDESCRIPTION, coupondescription);
+                    IncentiveOptionsUtil.saveValue(si, IncentiveCoupon.COUPONINSTRUCTIONS, couponinstructions);
+                    IncentiveOptionsUtil.saveValue(si, IncentiveCoupon.COUPONCODEPREFIX, couponcodeprefix);
+                    IncentiveOptionsUtil.saveValue(si, IncentiveCoupon.COUPONCODEADDRANDOMPOSTFIX, couponcodeaddrandompostfix);
+                    IncentiveOptionsUtil.saveValue(si, IncentiveCoupon.COUPONESTIMATEDCASHVALUE, String.valueOf(couponestimatedcashvalue));
                 }
-                
 
                 //Refresh the survey
                 survey.refresh();
@@ -281,5 +341,61 @@ public class ResearcherSurveyDetail05 implements Serializable {
 
     public void setCharityonlyallowcustom(boolean charityonlyallowcustom) {
         this.charityonlyallowcustom = charityonlyallowcustom;
+    }
+
+    public int getIncentivetype() {
+        return incentivetype;
+    }
+
+    public void setIncentivetype(int incentivetype) {
+        this.incentivetype=incentivetype;
+    }
+
+    public String getCoupontitle() {
+        return coupontitle;
+    }
+
+    public void setCoupontitle(String coupontitle) {
+        this.coupontitle=coupontitle;
+    }
+
+    public String getCoupondescription() {
+        return coupondescription;
+    }
+
+    public void setCoupondescription(String coupondescription) {
+        this.coupondescription=coupondescription;
+    }
+
+    public String getCouponinstructions() {
+        return couponinstructions;
+    }
+
+    public void setCouponinstructions(String couponinstructions) {
+        this.couponinstructions=couponinstructions;
+    }
+
+    public String getCouponcodeprefix() {
+        return couponcodeprefix;
+    }
+
+    public void setCouponcodeprefix(String couponcodeprefix) {
+        this.couponcodeprefix=couponcodeprefix;
+    }
+
+    public String getCouponcodeaddrandompostfix() {
+        return couponcodeaddrandompostfix;
+    }
+
+    public void setCouponcodeaddrandompostfix(String couponcodeaddrandompostfix) {
+        this.couponcodeaddrandompostfix=couponcodeaddrandompostfix;
+    }
+
+    public double getCouponestimatedcashvalue() {
+        return couponestimatedcashvalue;
+    }
+
+    public void setCouponestimatedcashvalue(double couponestimatedcashvalue) {
+        this.couponestimatedcashvalue=couponestimatedcashvalue;
     }
 }

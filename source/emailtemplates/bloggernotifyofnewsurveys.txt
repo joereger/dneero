@@ -1,4 +1,4 @@
-You have new conversations allowing you to earn up to <$args.0$>!
+New conversations have been ignited!
 
 <$args.2$>
 <$args.4$>

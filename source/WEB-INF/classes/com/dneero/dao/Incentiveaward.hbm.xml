@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 17, 2006 3:45:28 PM by Hibernate Tools 3.1.0.beta4 -->
+<hibernate-mapping>
+    <class name="com.dneero.dao.Incentiveaward" table="incentiveaward">
+        <cache usage="transactional"/>
+        <id name="incentiveawardid" type="int">
+            <column name="incentiveawardid" />
+            <generator class="native" />
+        </id>
+        <property name="surveyincentiveid" type="int">
+            <column name="surveyincentiveid" not-null="true" />
+        </property>
+        <property name="userid" type="int">
+            <column name="userid" not-null="true" />
+        </property>
+        <property name="responseid" type="int">
+            <column name="responseid" not-null="true" />
+        </property>
+        <property name="date" type="timestamp">
+            <column name="date" not-null="true" />
+        </property>
+        <property name="isvalid" type="boolean">
+            <column name="isvalid" />
+        </property>
+
+        <property name="misc1" type="text">
+            <column name="misc1" />
+        </property>
+        <property name="misc2" type="text">
+            <column name="misc2" />
+        </property>
+        <property name="misc3" type="text">
+            <column name="misc3" />
+        </property>
+        <property name="misc4" type="text">
+            <column name="misc4" />
+        </property>
+        <property name="misc5" type="text">
+            <column name="misc5" />
+        </property>
+
+
+    </class>
+</hibernate-mapping>

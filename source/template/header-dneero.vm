@@ -165,6 +165,8 @@
                         <img src="/images/clear.gif" alt="" width="10" height="1"/>
                         <a href="/account/accountsettings.jsp"><font class="subnavfont" style="color: #000000;">Account Settings</font></a>
                         <img src="/images/clear.gif" alt="" width="10" height="1"/>
+                        <a href="/account/awards.jsp"><font class="subnavfont" style="color: #000000;">Awards</font></a>
+                        <img src="/images/clear.gif" alt="" width="10" height="1"/>
                         <a href="/account/changepassword.jsp"><font class="subnavfont" style="color: #000000;">Change Password</font></a>
                         <img src="/images/clear.gif" alt="" width="10" height="1"/>
                         <a href="/account/reviewables.jsp"><font class="subnavfont" style="color: #000000;">Flagged Content</font></a>

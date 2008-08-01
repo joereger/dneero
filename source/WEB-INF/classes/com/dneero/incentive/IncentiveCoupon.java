@@ -19,14 +19,21 @@ import java.util.Iterator;
  * Date: Jul 29, 2008
  * Time: 1:39:06 PM
  */
-public class IncentiveCash implements Incentive {
+public class IncentiveCoupon implements Incentive {
 
-    public static int ID = 1;
-    public static String name = "Cash Incentive";
+    public static int ID = 2;
+    public static String name = "Coupon Incentive";
     private Surveyincentive surveyincentive;
-    public static String WILLINGTOPAYPERRESPONSE="willingtopayperresponse";
+    public static String COUPONTITLE="coupontitle";
+    public static String COUPONDESCRIPTION="coupondescription";
+    public static String COUPONINSTRUCTIONS="couponinstructions";
+    public static String COUPONCODEPREFIX="couponcodeprefix";
+    public static String COUPONCODEADDRANDOMPOSTFIX="couponcodeaddrandompostfix";
+    public static String COUPONESTIMATEDCASHVALUE="couponestimatedcashvalue";
+    public static String RESEARCHERCOSTPERCOUPON = "researchercostpercoupon";
+    public static double DEFAULTRESEARCHERCOSTPERCOUPON = 0.25;
 
-    public IncentiveCash(Surveyincentive surveyincentive){
+    public IncentiveCoupon(Surveyincentive surveyincentive){
         this.surveyincentive = surveyincentive;
     }
 
@@ -39,8 +46,8 @@ public class IncentiveCash implements Incentive {
     }
 
     public double getResearcherCostPerResponse() {
-        double out = 0.0;
-        String val =  IncentiveOptionsUtil.getValue(surveyincentive, WILLINGTOPAYPERRESPONSE);
+        double out = DEFAULTRESEARCHERCOSTPERCOUPON;
+        String val =  IncentiveOptionsUtil.getValue(surveyincentive, RESEARCHERCOSTPERCOUPON);
         if (val!=null && !val.equals("") && Num.isdouble(val)){
             out = Double.parseDouble(val);
         }
@@ -49,16 +56,12 @@ public class IncentiveCash implements Incentive {
 
     public double getBloggerEarningsPerResponse() {
         double out = 0.0;
-        String val =  IncentiveOptionsUtil.getValue(surveyincentive, WILLINGTOPAYPERRESPONSE);
-        if (val!=null && !val.equals("") && Num.isdouble(val)){
-            out = Double.parseDouble(val);
-        }
         return out;
     }
 
     public double getEstimatedMaxValueOfEarnings(){
         double out = 0.0;
-        String val =  IncentiveOptionsUtil.getValue(surveyincentive, WILLINGTOPAYPERRESPONSE);
+        String val =  IncentiveOptionsUtil.getValue(surveyincentive, COUPONESTIMATEDCASHVALUE);
         if (val!=null && !val.equals("") && Num.isdouble(val)){
             out = Double.parseDouble(val);
         }
@@ -71,7 +74,7 @@ public class IncentiveCash implements Incentive {
         Blogger blogger = Blogger.get(response.getBloggerid());
         User user = User.get(blogger.getUserid());
         //Affect balance for blogger
-        MoveMoneyInAccountBalance.pay(user, getBloggerEarningsPerResponse(), "Pay for responding to: '"+survey.getTitle()+"'", true, response.getIsforcharity(), response.getCharityname(), response.getResponseid(), false, true, false, false);
+        //MoveMoneyInAccountBalance.pay(user, getBloggerEarningsPerResponse(), "Pay for responding to: '"+survey.getTitle()+"'", true, response.getIsforcharity(), response.getCharityname(), response.getResponseid(), false, true, false, false);
         //Affect balance for researcher
         MoveMoneyInAccountBalance.charge(User.get(Researcher.get(survey.getResearcherid()).getUserid()), (SurveyMoneyStatus.calculateAmtToChargeResearcher(getResearcherCostPerResponse(), survey)), "User "+user.getFirstname()+" "+user.getLastname()+" responds to '"+survey.getTitle()+"'", true, false, false, false);
         //Affect balance for reseller
@@ -93,6 +96,20 @@ public class IncentiveCash implements Incentive {
                 }
             }
         }
+        //Generate postfix
+        String prefix = "COUPON";
+        String prefixStr =  IncentiveOptionsUtil.getValue(surveyincentive, COUPONCODEPREFIX);
+        if (prefixStr!=null && !prefixStr.equals("")){
+            prefix = prefixStr;
+        }
+        //Generate postfix
+        String postfix = "";
+        String dopostfixStr =  IncentiveOptionsUtil.getValue(surveyincentive, COUPONCODEADDRANDOMPOSTFIX);
+        if (dopostfixStr!=null && dopostfixStr.equals("1")){
+            postfix = RandomString.randomAlphanumericAllUpperCaseNoOsOrZeros(6);
+        }
+        //Generate coupon code
+        String couponcode = prefix + postfix;
         //Create Incentiveaward
         Incentiveaward ia = new Incentiveaward();
         ia.setDate(new Date());
@@ -100,7 +117,7 @@ public class IncentiveCash implements Incentive {
         ia.setResponseid(response.getResponseid());
         ia.setSurveyincentiveid(surveyincentive.getSurveyincentiveid());
         ia.setUserid(user.getUserid());
-        ia.setMisc1("");
+        ia.setMisc1(couponcode);
         ia.setMisc2("");
         ia.setMisc3("");
         ia.setMisc4("");
@@ -114,7 +131,7 @@ public class IncentiveCash implements Incentive {
         Blogger blogger = Blogger.get(response.getBloggerid());
         User user = User.get(blogger.getUserid());
         //Affect balance for blogger
-        MoveMoneyInAccountBalance.charge(user, getBloggerEarningsPerResponse(), "Charge for award to: '"+survey.getTitle()+"' being removed", false, true, false, false);
+        //MoveMoneyInAccountBalance.charge(user, getBloggerEarningsPerResponse(), "Charge for award to: '"+survey.getTitle()+"' being removed", false, true, false, false);
         //Affect balance for researcher
         MoveMoneyInAccountBalance.pay(User.get(Researcher.get(survey.getResearcherid()).getUserid()), (SurveyMoneyStatus.calculateAmtToChargeResearcher(getResearcherCostPerResponse(), survey)), "User "+user.getFirstname()+" "+user.getLastname()+" responds to '"+survey.getTitle()+"' had award removed", false, false, "", true, false, false, false);
         //Affect balance for reseller
@@ -152,26 +169,39 @@ public class IncentiveCash implements Incentive {
 
     public String getShortSummary() {
         StringBuffer out = new StringBuffer();
-        double bloggerEarningsPerResponse = getBloggerEarningsPerResponse();
-        out.append("$"+Str.formatForMoney(bloggerEarningsPerResponse));
+        String val =  IncentiveOptionsUtil.getValue(surveyincentive, COUPONTITLE);
+        if (val!=null && !val.equals("")){
+            out.append(val);
+        } else {
+            out.append("Coupon");
+        }
         return out.toString();
     }
 
     public String getFullSummary() {
         StringBuffer out = new StringBuffer();
-        double bloggerEarningsPerResponse = getBloggerEarningsPerResponse();
-        out.append("$"+Str.formatForMoney(bloggerEarningsPerResponse));
+        String val =  IncentiveOptionsUtil.getValue(surveyincentive, COUPONDESCRIPTION);
+        if (val!=null && !val.equals("")){
+            out.append(val);
+        } else {
+            out.append("Coupon");
+        }
         return out.toString();
     }
 
     public String getInstructions() {
         StringBuffer out = new StringBuffer();
-        out.append("Upon successful joining of the conversation and posting to your social space (blog or social network) we'll credit your account balance with the earnings amount.");
+        String val =  IncentiveOptionsUtil.getValue(surveyincentive, COUPONINSTRUCTIONS);
+        if (val!=null && !val.equals("")){
+            out.append(val);
+        } else {
+            out.append("Contact the conversation igniter for instructions on how to redeem the coupon.");
+        }
         return out.toString();
     }
 
     public Surveyincentive getSurveyincentive() {
-        return this.surveyincentive;  
+        return this.surveyincentive;
     }
 
     public void doImmediatelyAfterResponse(Response response) {
@@ -183,6 +213,6 @@ public class IncentiveCash implements Incentive {
     }
 
     public String getInstructionsAfterAward(Response response) {
-        return "Your account balance has been affected by $"+Str.formatForMoney(getBloggerEarningsPerResponse())+".  Whenever your balance goes above $20 we'll automatically pay your PayPal account within 24-48 hours.";
+        return getInstructions();
     }
 }

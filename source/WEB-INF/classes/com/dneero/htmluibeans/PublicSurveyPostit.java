@@ -43,6 +43,8 @@ public class PublicSurveyPostit implements Serializable {
     private String htmltoposttoblogimagelink = "";
     private String htmltoposttobloglink = "";
     private boolean justcompletedsurvey = false;
+    private String postresponseinstructions = "";
+
 
     public PublicSurveyPostit(){
 
@@ -123,6 +125,13 @@ public class PublicSurveyPostit implements Serializable {
             }
         } else {
             logger.debug("Not logged in or user==null or user.bloggerid<=0");
+        }
+
+        //Set the post-response instructions
+        if (loggedinuserhasalreadytakensurvey && responseidOfLoggedinUser>0){
+            postresponseinstructions = survey.getIncentive().getInstructionsAfterResponse(Response.get(responseidOfLoggedinUser));
+        } else {
+            postresponseinstructions = "";
         }
 
         //If we don't have a userwhotooksurvey yet but the logged-in user has, use the logged-in user
@@ -320,5 +329,11 @@ public class PublicSurveyPostit implements Serializable {
         this.justcompletedsurvey=justcompletedsurvey;
     }
 
+    public String getPostresponseinstructions() {
+        return postresponseinstructions;
+    }
 
+    public void setPostresponseinstructions(String postresponseinstructions) {
+        this.postresponseinstructions=postresponseinstructions;
+    }
 }

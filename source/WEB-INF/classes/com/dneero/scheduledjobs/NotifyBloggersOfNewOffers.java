@@ -108,18 +108,17 @@ public class NotifyBloggersOfNewOffers implements Job {
                                 if (!bloggerhastakensurvey){
                                     atleastonenewsurveyforblogger = true;
                                     SurveyEnhancer surveyEnhancer = new SurveyEnhancer(survey);
-                                    possibleearnings = possibleearnings + surveyEnhancer.getMaxearningDbl();
                                     String url = BaseUrl.get(false, survey.getPlid()) + "survey.jsp?surveyid="+survey.getSurveyid();
                                     if (user.getFacebookuserid()>0){
                                         url = "http://apps.facebook.com/"+ SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_APP_NAME)+"/";
                                     }
                                     //Html
-                                    listofsurveysHtml.append("<br><br><a href=\""+url+"\"><font style=\"font-size: 14px;\"><b>" + survey.getTitle() + "</b> (Earn up to: " + surveyEnhancer.getMaxearning() + ")</font></a>");
+                                    listofsurveysHtml.append("<br><br><a href=\""+url+"\"><font style=\"font-size: 14px;\"><b>" + survey.getTitle() + "</b></font></a>");
                                     if (!survey.getDescription().equals("")){
                                         listofsurveysHtml.append("<br><font style=\"font-size: 9px;\">"+survey.getDescription()+"</font>");
                                     }
                                     //Txt
-                                    listofsurveysTxt.append("\n\n" + survey.getTitle() + " (Earn up to: " + surveyEnhancer.getMaxearning()+")");
+                                    listofsurveysTxt.append("\n\n" + survey.getTitle());
                                     if (!survey.getDescription().equals("")){
                                         listofsurveysTxt.append("\n" + survey.getDescription());
                                     }

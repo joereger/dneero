@@ -279,7 +279,7 @@ public class StoreResponse {
                 try{
                     RankForResponseThread qThread = new RankForResponseThread(response.getResponseid());
                     qThread.startThread();
-                } catch (Exception ex){logger.error("",ex);};
+                } catch (Exception ex){logger.error("",ex);}
 
                 //Process the statusHtml for the response
                 try{UpdateResponsePoststatus.processSingleResponse(response);} catch (Exception ex){logger.error("",ex);};
@@ -292,6 +292,11 @@ public class StoreResponse {
                 } catch (Exception ex){
                     logger.error(ex);
                 }
+
+                //Do the Incentive hook call
+                try{
+                    survey.getIncentive().doImmediatelyAfterResponse(response);
+                } catch (Exception ex){logger.error("",ex);};
             }
         } catch (Exception ex){
             logger.error("",ex);

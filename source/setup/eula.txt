@@ -1,34 +1,30 @@
 DNEERO END USER LICENSE AGREEMENT AND PRIVACY STATEMENT
 
-dNeero provides online survey hosting and other survey services.
+dNeero provides online conversation hosting and other conversation services.
 
 There are two primary roles within the dNeero system: 1) Blogger and 2) Researcher.  Each dNeero account can be used in either role or both roles.
 
 BLOGGERS
 
-Bloggers take surveys and post them to their blogs.
+Bloggers take surveys and post them to their blogs or social networks.  The term Blogger refers to both users of blogs and users of social networking tools.
 
-Bloggers must claim their blog in the account section prior to posting surveys they've taken to it.  Survey impressions will not begin to accrue until after any particular blog has been claimed.
-
-Bloggers may only claim blogs that they have the legal right to claim.
-
-Blogs must contain original content and can not exist for the sole purpose of taking surveys.
+Blogs must contain original content and can not exist for the sole purpose of joining conversations.
 
 Blogs must in general be active.  This is defined as having at least one post per week.
 
 Bloggers may not use software to automatically create blog posts to fulfill blog requirements.
 
-Bloggers may not use the blogger invitation tools for outbound communications not related to surveys.
+Bloggers may not use the blogger invitation tools for outbound communications not related to conversations.
 
-Bloggers acknowledge that from time to time dNeero must update the manner in which it embeds surveys into blogs.  At times this will involve changing the way that surveys look or act when embedded inside a blog.
+Bloggers acknowledge that from time to time dNeero must update the manner in which it embeds conversations into blogs.  At times this will involve changing the way that conversations look or act when embedded inside a blog.
 
-Bloggers must embed a survey into their blogs using the unedited code provided by dNeero for the purpose of embedding.
+Bloggers must embed a conversations into their blogs using the unedited code provided by dNeero for the purpose of embedding.
 
-Blogger agrees that all survey response data collected is owned by dNeero, who provides it to the Researcher for unlimited, non-exclusive use.  Transmission of survey response data will include information in the blogger's blogger profile (demographic information).  It will not include passwords or PayPal addresses.
+Blogger agrees that all conversation response data collected is owned by dNeero, who provides it to the Researcher for unlimited, non-exclusive use.  Transmission of conversation response data will include information in the blogger's blogger profile (demographic information).  It will not include passwords or PayPal addresses.
 
-In order to compensate bloggers for the amount of traffic to their blogs dNeero will collect blog traffic data.  This data is visible to the researchers of surveys that the blogger takes.
+In order to compensate bloggers for the amount of traffic to their blogs dNeero will collect blog traffic data.  This data is visible to the researchers of conversations that the blogger takes.
 
-dNeero may engage in secondary sales of data collected from survey responses, blogger profiles, blog traffic data, login data and any other data collected in the due course of business.  Secondary data sales do not include the core business model of taking surveys and posting them to blogs.  Secondary sales may include aggregated depersonalized data or personally identifiable data.  dNeero commits to the following, in order to put bloggers in control of their data:
+dNeero may engage in secondary sales of data collected from conversation responses, blogger profiles, blog traffic data, login data and any other data collected in the due course of business.  Secondary data sales do not include the core business model of joining conversations and posting them to blogs.  Secondary sales may include aggregated depersonalized data or personally identifiable data.  dNeero commits to the following, in order to put bloggers in control of their data:
 
 1) dNeero will give bloggers notice before including their data in any secondary data sale.  Notification may be via email and/or the blogger's private dNeero account section.  So that the blogger may make an informed decision notification must include: who is purchasing the data and how the data will be used.
 
@@ -42,19 +38,19 @@ As of April 20th, 2007 dNeero has no plans to sell secondary data and will focus
 
 RESEARCHERS
 
-Researchers create surveys for bloggers to take.
+Researchers create conversations for Bloggers to join.
 
-Researchers may not use the survey invitation tools for outbound communications not related surveys.
+Researchers may not use the conversation invitation tools for outbound communications not related conversations.
 
-Once a survey is launched it can not be edited, modified or ended until the pre-defined ending date as defined by the researcher.
+Once a conversation is launched it can not be edited, modified or ended until the pre-defined ending date as defined by the researcher.
 
-Launching a survey implies willingness to pay for activity generated.
+Launching a conversation implies willingness to pay for activity generated.
 
-Researchers acknowledge that surveys will be published publicly.  
+Researchers acknowledge that conversation will be published publicly.
 
-Researchers acknowledge that survey results will be published publicly.
+Researchers acknowledge that conversation results will be published publicly.
 
-Researchers agree to pay for services in advance. Researchers agree that submission of credit card information to dNeero constitutes authorization to bill the specified credit card for all fees owed by researcher to dNeero.  If such credit card charges are not accepted by the credit card processor, dNeero will place the researcher's account on hold. An ‘On-Hold’ status results in suspension of all dNeero services including survey services.
+Researchers agree to pay for services in advance. Researchers agree that submission of credit card information to dNeero constitutes authorization to bill the specified credit card for all fees owed by researcher to dNeero.  If such credit card charges are not accepted by the credit card processor, dNeero will place the researcher's account on hold. An ‘On-Hold’ status results in suspension of all dNeero services including conversation services.
 
 ALL USERS
 
@@ -76,7 +72,7 @@ dNeero is intended solely for the use by persons 13 years of age or older.  All 
 
 TERMINATION
 
-If, at any time, we, dNeero, believe you are in breach of any of the terms and conditions contained in this agreement, dNeero may immediately terminate this agreement without liability.  If you do not log into the system for a period greater than one year this agreement may be terminated and any funds in your account forfeited.
+If, at any time, we, dNeero, believe you are in breach of any of the terms and conditions contained in this agreement or if you have not logged into your dNeero account within six months, dNeero may immediately terminate this agreement without liability, recovering any balance remaining in your account at the time.  If you do not log into the system for a period greater than six months this agreement may be terminated by dNeero and any funds in your account forfeited.
 
 NO WARRANTIES
 
@@ -98,4 +94,4 @@ The Web site and the materials on it are owned by or licensed to Reger, Incorpor
 
 CHANGES TO THIS POLICY
 
-We may change this document from time to time.  We will post changes publicly and upon login to the system after a change you will be asked to agree to the changes.  If you do not agree you account may be suspended.
+We may change this document from time to time.  We will post changes publicly and upon login to the system after a change you will be asked to agree to the changes.  If you do not agree you account may not be used.

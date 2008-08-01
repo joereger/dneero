@@ -9,9 +9,6 @@ import com.dneero.systemprops.InstanceProperties;
 import com.dneero.dao.*;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.util.ErrorDissect;
-import com.dneero.util.Str;
-import com.dneero.money.MoveMoneyInAccountBalance;
-import com.dneero.money.SurveyMoneyStatus;
 import com.dneero.xmpp.SendXMPPMessage;
 import com.dneero.email.EmailTemplateProcessor;
 
@@ -51,7 +48,7 @@ public class PayForSurveyResponsesOncePosted implements Job {
                             //Award the incentive
                             //Award the incentive
                             //Award the incentive
-                            survey.getIncentive().awardIncentive(response);
+                            survey.getIncentive().doAwardIncentive(response);
                         }
                     } catch (Exception ex){
                         logger.error("",ex);

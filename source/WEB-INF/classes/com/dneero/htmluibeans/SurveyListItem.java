@@ -11,7 +11,8 @@ public class SurveyListItem implements Serializable {
 
     private int surveyid;
     private String title;
-    private String maxearning;
+    private String earn;
+    private String maxearningCPM;
     private String daysuntilend;
     private String numberofquestions;
     private boolean loggedinuserhasalreadytakensurvey = false;
@@ -40,12 +41,20 @@ public class SurveyListItem implements Serializable {
         this.title = title;
     }
 
-    public String getMaxearning() {
-        return maxearning;
+    public String getEarn() {
+        return earn;
     }
 
-    public void setMaxearning(String maxearning) {
-        this.maxearning = maxearning;
+    public void setEarn(String earn) {
+        this.earn=earn;
+    }
+
+    public String getMaxearningCPM() {
+        return maxearningCPM;
+    }
+
+    public void setMaxearningCPM(String maxearningCPM) {
+        this.maxearningCPM=maxearningCPM;
     }
 
     public String getDaysuntilend() {

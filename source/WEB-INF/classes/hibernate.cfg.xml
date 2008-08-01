@@ -22,6 +22,7 @@
         <mapping resource="com/dneero/dao/Eula.hbm.xml" />
         <mapping resource="com/dneero/dao/Facebookpendingreferredby.hbm.xml" />
         <mapping resource="com/dneero/dao/Impression.hbm.xml" />
+        <mapping resource="com/dneero/dao/Incentiveaward.hbm.xml" />
         <mapping resource="com/dneero/dao/Massemail.hbm.xml" />
         <mapping resource="com/dneero/dao/Pageperformance.hbm.xml" />
         <mapping resource="com/dneero/dao/Panel.hbm.xml" />

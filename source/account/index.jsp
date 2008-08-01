@@ -53,7 +53,7 @@ if (accountIndex.getUserhasresponsependings()){
                                     <br/><font class="tinyfont" style="color: #666666;">Remember, your conversations must generate impressions for 10 days after you take them to get paid.</font><br/>
                                 <% } %>
                                 <br/><font class="tinyfont" style="color: #666666;"><a href="/account/balancefaq.jsp">Balance Questions?</a></font>
-
+                                <br/><font class="tinyfont" style="color: #666666;"><a href="/account/awards.jsp">Your Awards</a></font>
                             </td></tr></table>
                         </div>
                         <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
@@ -62,6 +62,14 @@ if (accountIndex.getUserhasresponsependings()){
                             </td></tr>
                             <tr><td valign="top"></td><td valign="top">
                                 <font class="smallfont">Change the name and/or email on your account.</font>
+                            </td></tr></table>
+
+                            <br/><br/>
+                            <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
+                                <a href="/account/awards.jsp"><font class="mediumfont" style="color: #596697;">Awards</font></a>
+                            </td></tr>
+                            <tr><td valign="top"></td><td valign="top">
+                                <font class="smallfont">See the things you've been awarded.</font>
                             </td></tr></table>
 
                             <br/><br/>

@@ -18,8 +18,6 @@ public class BloggerCompletedsurveysListitem implements Serializable {
     private Date responsedate;
     private int totalimpressions;
     private int paidandtobepaidimpressions;
-    private String amtforresponse;
-    private String amttotal;
     private Response response;
 
     public BloggerCompletedsurveysListitem(){}
@@ -46,23 +44,6 @@ public class BloggerCompletedsurveysListitem implements Serializable {
 
     public void setResponsedate(Date responsedate) {
         this.responsedate = responsedate;
-    }
-
-
-    public String getAmtforresponse() {
-        return amtforresponse;
-    }
-
-    public void setAmtforresponse(String amtforresponse) {
-        this.amtforresponse = amtforresponse;
-    }
-
-    public String getAmttotal() {
-        return amttotal;
-    }
-
-    public void setAmttotal(String amttotal) {
-        this.amttotal = amttotal;
     }
 
 

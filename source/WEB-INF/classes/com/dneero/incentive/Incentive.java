@@ -11,14 +11,17 @@ import com.dneero.dao.Surveyincentive;
 public interface Incentive {
 
     public int getID();
-    public String  getName();
+    public String  getSystemName();
     public double getResearcherCostPerResponse();
     public double getBloggerEarningsPerResponse();
-    public void awardIncentive(Response response);
-    public void undoIncentiveForResponse(Response response);
+    public double getEstimatedMaxValueOfEarnings();
+    public void doImmediatelyAfterResponse(Response response);
+    public String getInstructionsAfterResponse(Response response);
+    public void doAwardIncentive(Response response);
+    public void doRemoveIncentive(Response response);
     public String getShortSummary();
     public String getFullSummary();
-    public String getInstructions();
+    public String getInstructionsAfterAward(Response response);
     public Surveyincentive getSurveyincentive();
 
 }
