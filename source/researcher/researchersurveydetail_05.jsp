@@ -146,6 +146,7 @@ ResearcherSurveyDetail05 researcherSurveyDetail05 = (ResearcherSurveyDetail05)Pa
                             </td>
                             <td valign="top" colspan="2">
                                     <font class="formfieldnamefont">Cash Incentive  (You define cost/person)</font><br/>
+                                    <font class="tinyfont">Amount you'll pay per respondent... i.e. 2.50.  Minimum is 0.10.</font><br/>
                             </td>
                         </tr>
                         <tr>
@@ -153,7 +154,7 @@ ResearcherSurveyDetail05 researcherSurveyDetail05 = (ResearcherSurveyDetail05)Pa
 
                             </td>
                             <td valign="top" width="40%">
-                                <font class="tinyfont">Amount you'll pay per respondent... i.e. 2.50.  Minimum is 0.10.</font><br/>
+                                <font class="formfieldnamefont">$</font>
                                 <%=Textbox.getHtml("willingtopayperrespondent", String.valueOf(researcherSurveyDetail05.getWillingtopayperrespondent()), 255, 10, "", "")%>
                                 <br/><br/>
                             </td>
@@ -212,6 +213,7 @@ ResearcherSurveyDetail05 researcherSurveyDetail05 = (ResearcherSurveyDetail05)Pa
                                     <font class="tinyfont">The estimated cash value of your coupon.  Doesn't have to be exact but should accurately reflect what they'll get.</font>
                             </td>
                             <td valign="top">
+                                    <font class="formfieldnamefont">$</font>
                                     <%=Textbox.getHtml("couponestimatedcashvalue", String.valueOf(researcherSurveyDetail05.getCouponestimatedcashvalue()), 10, 10, "", "font-size: 9px;")%>
                             </td>
                         </tr>
@@ -268,8 +270,10 @@ ResearcherSurveyDetail05 researcherSurveyDetail05 = (ResearcherSurveyDetail05)Pa
             </td>
             <td valign="top">
                 <%if (researcherSurveyDetail05.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {%>
-                    <%=Textbox.getHtml("willingtopaypercpm", String.valueOf(researcherSurveyDetail05.getWillingtopaypercpm()), 255, 35, "", "")%>
+                    <font class="formfieldnamefont">$</font>    
+                    <%=Textbox.getHtml("willingtopaypercpm", String.valueOf(researcherSurveyDetail05.getWillingtopaypercpm()), 255, 9, "", "")%>
                 <%} else {%>
+                    <font class="formfieldnamefont">$</font>
                     <font class="normalfont"><%=researcherSurveyDetail05.getWillingtopaypercpm()%></font>
                 <%}%>
             </td>
@@ -283,7 +287,7 @@ ResearcherSurveyDetail05 researcherSurveyDetail05 = (ResearcherSurveyDetail05)Pa
             </td>
             <td valign="top">
                 <%if (researcherSurveyDetail05.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {%>
-                    <%=Textbox.getHtml("maxdisplaysperblog", String.valueOf(researcherSurveyDetail05.getMaxdisplaysperblog()), 255, 35, "", "")%>
+                    <%=Textbox.getHtml("maxdisplaysperblog", String.valueOf(researcherSurveyDetail05.getMaxdisplaysperblog()), 255, 10, "", "")%>
                 <%} else {%>
                     <font class="normalfont"><%=researcherSurveyDetail05.getMaxdisplaysperblog()%></font>
                 <%}%>
@@ -298,7 +302,7 @@ ResearcherSurveyDetail05 researcherSurveyDetail05 = (ResearcherSurveyDetail05)Pa
             </td>
             <td valign="top">
                 <%if (researcherSurveyDetail05.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {%>
-                    <%=Textbox.getHtml("maxdisplaystotal", String.valueOf(researcherSurveyDetail05.getMaxdisplaystotal()), 255, 35, "", "")%>
+                    <%=Textbox.getHtml("maxdisplaystotal", String.valueOf(researcherSurveyDetail05.getMaxdisplaystotal()), 255, 10, "", "")%>
                 <%} else {%>
                     <font class="normalfont"><%=researcherSurveyDetail05.getMaxdisplaystotal()%></font>
                 <%}%>

@@ -1,0 +1,21 @@
+Congratulations, you've been awarded a coupon for joining the conversation "<$args.4$>"!
+
+Coupon:
+================
+<$args.2$>
+
+Details:
+================
+<$args.3$>
+
+Instructions:
+================
+<$args.1$>
+
+Coupon Code:
+================
+<$args.0$>
+
+You can also view these details online inside of your account by clicking "Awards."
+
+Please let us know if you have any questions.

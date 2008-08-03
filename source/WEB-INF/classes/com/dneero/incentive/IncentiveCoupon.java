@@ -7,6 +7,7 @@ import com.dneero.money.SurveyMoneyStatus;
 import com.dneero.util.Num;
 import com.dneero.util.RandomString;
 import com.dneero.util.Str;
+import com.dneero.email.EmailTemplateProcessor;
 import org.hibernate.criterion.Restrictions;
 import org.apache.log4j.Logger;
 
@@ -123,6 +124,16 @@ public class IncentiveCoupon implements Incentive {
         ia.setMisc4("");
         ia.setMisc5("");
         try{ia.save();}catch(Exception ex){logger.error("", ex);}
+        //Notify the recipient
+        //Create the args array to hold the dynamic stuff
+        String[] args = new String[10];
+        args[0] = couponcode;
+        args[1] = getInstructionsAfterAward(response);
+        args[2] = getShortSummary();
+        args[3] = getFullSummary();
+        args[4] = survey.getTitle();
+        //Send the email
+        EmailTemplateProcessor.sendMail("dNeero Coupon Award for "+user.getFirstname(), "incentiveaward-coupon", user, args);
     }
 
     public void doRemoveIncentive(Response response) {
