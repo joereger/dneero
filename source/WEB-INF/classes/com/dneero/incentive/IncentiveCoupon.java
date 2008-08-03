@@ -191,11 +191,35 @@ public class IncentiveCoupon implements Incentive {
 
     public String getFullSummary() {
         StringBuffer out = new StringBuffer();
+        String valTitle =  IncentiveOptionsUtil.getValue(surveyincentive, COUPONTITLE);
+        if (valTitle!=null && !valTitle.equals("")){
+            out.append(valTitle);
+            out.append(": ");
+        }
         String val =  IncentiveOptionsUtil.getValue(surveyincentive, COUPONDESCRIPTION);
         if (val!=null && !val.equals("")){
             out.append(val);
         } else {
             out.append("Coupon");
+        }
+        return out.toString();
+    }
+
+    public String getFullSummaryHtml() {
+        StringBuffer out = new StringBuffer();
+        String valTitle =  IncentiveOptionsUtil.getValue(surveyincentive, COUPONTITLE);
+        if (valTitle!=null && !valTitle.equals("")){
+            out.append("<font style=\"font-size: 20px; font-weight: bold; font-family: Verdana, Arial, Helvetica, sans-serif;\">"+valTitle+"</font>");
+            out.append("<br/>");
+        } else {
+            out.append("<font style=\"font-size: 20px; font-weight: bold; font-family: Verdana, Arial, Helvetica, sans-serif;\">Coupon</font>");
+            out.append("<br/>");
+        }
+        String val =  IncentiveOptionsUtil.getValue(surveyincentive, COUPONDESCRIPTION);
+        if (val!=null && !val.equals("")){
+            out.append("<font style=\"font-size: 11px; font-weight: bold;\">"+val+"</font>");
+        } else {
+            out.append("");
         }
         return out.toString();
     }

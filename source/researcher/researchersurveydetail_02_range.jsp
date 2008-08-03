@@ -68,7 +68,7 @@ ResearcherSurveyDetail02range researcherSurveyDetail02range = (ResearcherSurveyD
                     <font class="formfieldnamefont">Question</font>
                 </td>
                 <td valign="top">
-                    <%=Textbox.getHtml("question", researcherSurveyDetail02range.getQuestion(), 250, 35, "", "")%>
+                    <%=Textbox.getHtml("question", researcherSurveyDetail02range.getQuestion(), 1000, 60, "", "")%>
                 </td>
             </tr>
 

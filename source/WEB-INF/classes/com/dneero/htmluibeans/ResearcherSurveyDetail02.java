@@ -1,20 +1,22 @@
 package com.dneero.htmluibeans;
 
-import org.apache.log4j.Logger;
-
+import com.dneero.dao.Blogger;
+import com.dneero.dao.Question;
+import com.dneero.dao.Survey;
+import com.dneero.dao.hibernate.HibernateUtil;
+import com.dneero.display.SurveyTakerDisplay;
+import com.dneero.display.components.*;
+import com.dneero.htmlui.Pagez;
+import com.dneero.htmlui.UserSession;
+import com.dneero.htmlui.ValidationException;
 import com.dneero.util.GeneralException;
 import com.dneero.util.Num;
-import com.dneero.dao.Survey;
-import com.dneero.dao.Question;
-import com.dneero.dao.Blogger;
-import com.dneero.htmlui.UserSession;
-import com.dneero.htmlui.Pagez;
-import com.dneero.htmlui.ValidationException;
-import com.dneero.display.components.*;
-import com.dneero.display.SurveyTakerDisplay;
+import org.apache.log4j.Logger;
+import org.hibernate.criterion.Restrictions;
 
-import java.util.Iterator;
 import java.io.Serializable;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * User: Joe Reger Jr
@@ -237,4 +239,6 @@ public class ResearcherSurveyDetail02 implements Serializable {
     public void setSurvey(Survey survey) {
         this.survey=survey;
     }
+
+
 }

@@ -172,6 +172,12 @@ public class IncentiveCash implements Incentive {
         return out.toString();
     }
 
+    public String getFullSummaryHtml() {
+        StringBuffer out = new StringBuffer();
+        out.append(getFullSummary());
+        return out.toString();
+    }
+
     public String getInstructions() {
         StringBuffer out = new StringBuffer();
         out.append("Upon successful joining of the conversation and posting to your social space (blog or social network) we'll credit your account balance with the earnings amount.");

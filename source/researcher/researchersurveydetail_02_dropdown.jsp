@@ -65,7 +65,7 @@ ResearcherSurveyDetail02dropdown researcherSurveyDetail02dropdown = (ResearcherS
                     <font class="formfieldnamefont">Question</font>
                 </td>
                 <td valign="top">
-                    <%=Textbox.getHtml("question", researcherSurveyDetail02dropdown.getQuestion(), 250, 35, "", "")%>
+                    <%=Textbox.getHtml("question", researcherSurveyDetail02dropdown.getQuestion(), 1000, 60, "", "")%>
                 </td>
             </tr>
 

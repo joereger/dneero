@@ -21,6 +21,7 @@ public interface Incentive {
     public void doRemoveIncentive(Response response);
     public String getShortSummary();
     public String getFullSummary();
+    public String getFullSummaryHtml();
     public String getInstructionsAfterAward(Response response);
     public Surveyincentive getSurveyincentive();
 

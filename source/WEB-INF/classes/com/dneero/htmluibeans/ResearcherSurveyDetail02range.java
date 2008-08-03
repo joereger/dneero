@@ -107,7 +107,7 @@ public class ResearcherSurveyDetail02range implements Serializable {
 
         if (Pagez.getUserSession().getUser()!=null && survey.canEdit(Pagez.getUserSession().getUser())){
 
-            if (this.question!=null  && this.question.length()>250){
+            if (this.question!=null  && this.question.length()>1000){
                 throw new ValidationException("The Question is too long.  Please choose a shorter one.");
             }
 

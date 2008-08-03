@@ -137,7 +137,7 @@ String acl = "public";
                                 <div class="rounded" style="background: #ffffff; text-align: center;">
                                     <font class="mediumfont" style="font-weight: bold; color: #666666;">Join this conversation to earn</font>
                                     <br/>
-                                    <font class="largefont" style="font-size: 20px; color: #666666;"><%=publicSurvey.getSurvey().getIncentive().getFullSummary()%></font>
+                                    <font class="largefont" style="font-size: 20px; color: #666666;"><%=publicSurvey.getSurvey().getIncentive().getFullSummaryHtml()%></font>
                                     <% if (publicSurvey.getSurveytakergavetocharity() || publicSurvey.getSurvey().getIscharityonly()){ %>
                                         <br/>
                                         <font class="mediumfont" style="font-weight: bold; color: #666666;">for charity</font>
@@ -457,7 +457,7 @@ String acl = "public";
                                         logger.debug("publicSurvey.getSurveyEnhancer() is null!!!");   
                                     }
                                     %>
-                                    <font class="largefont" style="font-size: 24px; color: #666666;"><%=publicSurvey.getSurvey().getIncentive().getFullSummary()%></font>
+                                    <font class="largefont" style="font-size: 24px; color: #666666;"><%=publicSurvey.getSurvey().getIncentive().getFullSummaryHtml()%></font>
                                     <% if (publicSurvey.getSurveytakergavetocharity() || publicSurvey.getSurvey().getIscharityonly()){ %>
                                         <br/>
                                         <font class="mediumfont">for charity</font>
@@ -474,7 +474,7 @@ String acl = "public";
                                 <% if (!publicSurvey.getLoggedinuserhasalreadytakensurvey() && publicSurvey.getSurvey().getStatus()<=Survey.STATUS_OPEN){ %>
                                     <font class="mediumfont">Join this conversation and earn</font>
                                     <br/>
-                                    <font class="largefont" style="font-size: 24px; color: #666666;"><%=publicSurvey.getSurvey().getIncentive().getFullSummary()%></font>
+                                    <font class="largefont" style="font-size: 24px; color: #666666;"><%=publicSurvey.getSurvey().getIncentive().getFullSummaryHtml()%></font>
                                     <% if (publicSurvey.getSurveytakergavetocharity() || publicSurvey.getSurvey().getIscharityonly()){ %>
                                         <br/><font class="mediumfont">for charity</font>
                                     <% } %>
@@ -487,7 +487,7 @@ String acl = "public";
                                 <% if (!publicSurvey.getLoggedinuserhasalreadytakensurvey() && publicSurvey.getSurvey().getStatus()>=Survey.STATUS_CLOSED){ %>
                                     <font class="mediumfont">People who joined this conversation earned</font>
                                     <br/>
-                                    <font class="largefont" style="font-size: 24px; color: #666666;"><%=publicSurvey.getSurvey().getIncentive().getFullSummary()%></font>
+                                    <font class="largefont" style="font-size: 24px; color: #666666;"><%=publicSurvey.getSurvey().getIncentive().getFullSummaryHtml()%></font>
                                     <% if (publicSurvey.getSurveyEnhancer().getMaxEarningCPMDbl()>0){ %>
                                         <br/><font class="smallfont" style="font-weight: bold; color: #666666;">They also earned up to an additional <%=publicSurvey.getSurveyEnhancer().getMaxEarningCPM()%> depending on their blog traffic.</font>
                                     <% } %>

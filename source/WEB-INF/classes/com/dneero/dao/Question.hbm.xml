@@ -22,7 +22,7 @@
         <property name="surveyid" type="int">
             <column name="surveyid" not-null="true" />
         </property>
-        <property name="question" type="string">
+        <property name="question" type="text">
             <column name="question" not-null="true" />
         </property>
         <property name="componenttype" type="int">
