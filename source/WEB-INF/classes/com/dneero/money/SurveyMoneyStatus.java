@@ -47,7 +47,7 @@ public class SurveyMoneyStatus implements Serializable {
 
     public SurveyMoneyStatus(Survey survey){
         //Note that coupon is applied below each calculation into the same variable
-        maxPossiblePayoutForResponses = (survey.getIncentive().getBloggerEarningsPerResponse() * survey.getNumberofrespondentsrequested());
+        maxPossiblePayoutForResponses = (survey.getIncentive().getResearcherCostPerResponse() * survey.getNumberofrespondentsrequested());
         maxPossiblePayoutForImpressions = ((survey.getWillingtopaypercpm()*survey.getMaxdisplaystotal())/1000);
         maxPossiblePayoutToUsers = maxPossiblePayoutForResponses + maxPossiblePayoutForImpressions;
         couponDiscountAmt = calculateCouponAmt(maxPossiblePayoutToUsers, survey);
@@ -57,7 +57,7 @@ public class SurveyMoneyStatus implements Serializable {
         }
         maxPossibleSpend = maxPossiblePayoutToUsers + maxPossibledNeeroFee + hidesurveyfee + PERSURVEYCREATIONFEE - couponDiscountAmt;
         responsesToDate = survey.getResponses().size();
-        spentOnResponsesToDate = survey.getIncentive().getBloggerEarningsPerResponse() * responsesToDate;
+        spentOnResponsesToDate = survey.getIncentive().getResearcherCostPerResponse() * responsesToDate;
         spentOnResponsesToDateIncludingdNeeroFee = calculateAmtToChargeResearcher(spentOnResponsesToDate, survey);
         int impressionspaid  = NumFromUniqueResult.getInt("select sum(impressionspaid) from Impression where surveyid='"+survey.getSurveyid()+"'");
         int impressionstobepaid  = NumFromUniqueResult.getInt("select sum(impressionstobepaid) from Impression where surveyid='"+survey.getSurveyid()+"'");

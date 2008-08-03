@@ -40,7 +40,7 @@ public class ResearcherSurveyDetail05 implements Serializable {
     private String coupondescription = "";
     private String couponinstructions = "";
     private String couponcodeprefix = "";
-    private String couponcodeaddrandompostfix = "";
+    private boolean couponcodeaddrandompostfix = true;
     private double couponestimatedcashvalue = 0.0;
 
     public ResearcherSurveyDetail05(){
@@ -62,21 +62,29 @@ public class ResearcherSurveyDetail05 implements Serializable {
             title = survey.getTitle();
             if (Pagez.getUserSession().getUser()!=null && survey.canEdit(Pagez.getUserSession().getUser())){
                 if (survey.getIncentive().getID()==IncentiveCash.ID){
+                    incentivetype = IncentiveCash.ID;
                     if (Num.isdouble(IncentiveOptionsUtil.getValue(survey.getIncentive().getSurveyincentive(), IncentiveCash.WILLINGTOPAYPERRESPONSE))){
                         willingtopayperrespondent = Double.parseDouble(IncentiveOptionsUtil.getValue(survey.getIncentive().getSurveyincentive(), IncentiveCash.WILLINGTOPAYPERRESPONSE));
                     } else {
                         willingtopayperrespondent = 2.5;
                     }
                     coupontitle = "";
-                    couponcodeaddrandompostfix = "";
+                    couponcodeaddrandompostfix = true;
                     couponcodeprefix = "";
                     coupondescription = "";
                     couponestimatedcashvalue = 0.0;
                     couponinstructions = "";
+
                 } else if (survey.getIncentive().getID()==IncentiveCoupon.ID){
+                    incentivetype = IncentiveCoupon.ID;
                     willingtopayperrespondent = 0.0;
                     coupontitle = IncentiveOptionsUtil.getValue(survey.getIncentive().getSurveyincentive(), IncentiveCoupon.COUPONTITLE);
-                    couponcodeaddrandompostfix = IncentiveOptionsUtil.getValue(survey.getIncentive().getSurveyincentive(), IncentiveCoupon.COUPONCODEADDRANDOMPOSTFIX);
+                    String couponcodeaddrandompostfixStr = IncentiveOptionsUtil.getValue(survey.getIncentive().getSurveyincentive(), IncentiveCoupon.COUPONCODEADDRANDOMPOSTFIX);
+                    if (couponcodeaddrandompostfixStr.equals("1")){
+                        couponcodeaddrandompostfix = true;
+                    } else {
+                        couponcodeaddrandompostfix = false;
+                    }
                     couponcodeprefix = IncentiveOptionsUtil.getValue(survey.getIncentive().getSurveyincentive(), IncentiveCoupon.COUPONCODEPREFIX);
                     coupondescription = IncentiveOptionsUtil.getValue(survey.getIncentive().getSurveyincentive(), IncentiveCoupon.COUPONDESCRIPTION);
                     if (Num.isdouble(IncentiveOptionsUtil.getValue(survey.getIncentive().getSurveyincentive(), IncentiveCoupon.COUPONESTIMATEDCASHVALUE))){
@@ -181,7 +189,7 @@ public class ResearcherSurveyDetail05 implements Serializable {
 
 
                 //Save
-                survey.setWillingtopayperrespondent(willingtopayperrespondent);
+                //survey.setWillingtopayperrespondent(willingtopayperrespondent);
                 survey.setNumberofrespondentsrequested(numberofrespondentsrequested);
                 survey.setWillingtopaypercpm(willingtopaypercpm);
                 survey.setMaxdisplaysperblog(maxdisplaysperblog);
@@ -226,7 +234,11 @@ public class ResearcherSurveyDetail05 implements Serializable {
                     IncentiveOptionsUtil.saveValue(si, IncentiveCoupon.COUPONDESCRIPTION, coupondescription);
                     IncentiveOptionsUtil.saveValue(si, IncentiveCoupon.COUPONINSTRUCTIONS, couponinstructions);
                     IncentiveOptionsUtil.saveValue(si, IncentiveCoupon.COUPONCODEPREFIX, couponcodeprefix);
-                    IncentiveOptionsUtil.saveValue(si, IncentiveCoupon.COUPONCODEADDRANDOMPOSTFIX, couponcodeaddrandompostfix);
+                    String couponcodeaddrandompostfixStr = "0";
+                    if (couponcodeaddrandompostfix){
+                        couponcodeaddrandompostfixStr = "1";
+                    }
+                    IncentiveOptionsUtil.saveValue(si, IncentiveCoupon.COUPONCODEADDRANDOMPOSTFIX, couponcodeaddrandompostfixStr);
                     IncentiveOptionsUtil.saveValue(si, IncentiveCoupon.COUPONESTIMATEDCASHVALUE, String.valueOf(couponestimatedcashvalue));
                 }
 
@@ -383,11 +395,11 @@ public class ResearcherSurveyDetail05 implements Serializable {
         this.couponcodeprefix=couponcodeprefix;
     }
 
-    public String getCouponcodeaddrandompostfix() {
+    public boolean getCouponcodeaddrandompostfix() {
         return couponcodeaddrandompostfix;
     }
 
-    public void setCouponcodeaddrandompostfix(String couponcodeaddrandompostfix) {
+    public void setCouponcodeaddrandompostfix(boolean couponcodeaddrandompostfix) {
         this.couponcodeaddrandompostfix=couponcodeaddrandompostfix;
     }
 

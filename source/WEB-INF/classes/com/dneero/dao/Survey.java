@@ -39,7 +39,7 @@ public class Survey extends BasePersistentClass implements java.io.Serializable,
      private String title;
      private String description;
      private String criteriaxml;
-     private double willingtopayperrespondent = 2.5;
+     private double willingtopayperrespondent = 0;
      private int numberofrespondentsrequested  = 1000;
      private double willingtopaypercpm = 10;
      private int maxdisplaysperblog = 1000;
@@ -122,6 +122,7 @@ public class Survey extends BasePersistentClass implements java.io.Serializable,
         //}
         //End Experimental
         flushSurveyEmbeddingCache();
+        willingtopayperrespondent = 0.0;
         super.save();
     }
 
@@ -153,22 +154,13 @@ public class Survey extends BasePersistentClass implements java.io.Serializable,
 
 
 
-    /** minimal constructor */
-    public Survey(int surveyid, String title, double willingtopayperrespondent, int numberofrespondentsrequested, Date startdate, Date enddate) {
-        this.surveyid = surveyid;
-        this.title = title;
-        this.willingtopayperrespondent = willingtopayperrespondent;
-        this.numberofrespondentsrequested = numberofrespondentsrequested;
-        this.startdate = startdate;
-        this.enddate = enddate;
-    }
+
 
     /** full constructor */
     public Survey(int surveyid, String title, String description, double willingtopayperrespondent, int numberofrespondentsrequested, Date startdate, Date enddate) {
         this.surveyid = surveyid;
         this.title = title;
         this.description = description;
-        this.willingtopayperrespondent = willingtopayperrespondent;
         this.numberofrespondentsrequested = numberofrespondentsrequested;
         this.startdate = startdate;
         this.enddate = enddate;
