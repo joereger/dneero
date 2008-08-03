@@ -233,11 +233,11 @@ ResearcherSurveyDetail05 researcherSurveyDetail05 = (ResearcherSurveyDetail05)Pa
 
                             </td>
                             <td valign="top">
-                                    <font class="tinyfont">Yes, include a random alphanumeric postfix with the coupon code.  For example, if MYCOUPON is the prefix, coupons will look like: MYCOUPONFGHGD and MYCOUPONHJHY.  This makes each coupon unique and trackable.</font>
+                                    <font class="tinyfont">Include a random alphanumeric postfix with the coupon code?  For example, if MYCOUPON is the prefix, coupons will look like: MYCOUPONFGHGD and MYCOUPONHJHY.  This makes each coupon unique and trackable.</font>
                             </td>
                             <td valign="top">
 
-                                    <%=CheckboxBoolean.getHtml("couponcodeaddrandompostfix", researcherSurveyDetail05.getCouponcodeaddrandompostfix(), "", "")%>
+                                    <%=CheckboxBoolean.getHtml("couponcodeaddrandompostfix", researcherSurveyDetail05.getCouponcodeaddrandompostfix(), "", "")%> <font class="tinyfont">Yes, include a random alphanumeric postfix.</font>
                                     <%//=Textbox.getHtml("couponcodeaddrandompostfix", String.valueOf(researcherSurveyDetail05.getCouponcodeaddrandompostfix()), 10, 10, "", "font-size: 9px;")%>
                             </td>
                         </tr>

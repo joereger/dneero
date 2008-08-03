@@ -1,0 +1,7 @@
+Congratulations, you've been awarded cash for joining the conversation "<$args.1$>"!
+
+Amount: <$args.0$>
+
+You can check your current balance by logging in to your account.
+
+Please let us know if you have any questions.

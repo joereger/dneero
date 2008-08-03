@@ -7,6 +7,7 @@ import com.dneero.money.SurveyMoneyStatus;
 import com.dneero.util.Num;
 import com.dneero.util.RandomString;
 import com.dneero.util.Str;
+import com.dneero.email.EmailTemplateProcessor;
 import org.hibernate.criterion.Restrictions;
 import org.apache.log4j.Logger;
 
@@ -106,6 +107,13 @@ public class IncentiveCash implements Incentive {
         ia.setMisc4("");
         ia.setMisc5("");
         try{ia.save();}catch(Exception ex){logger.error("", ex);}
+        //Notify the recipient
+        //Create the args array to hold the dynamic stuff
+        String[] args = new String[10];
+        args[0] = "$"+Str.formatForMoney(getBloggerEarningsPerResponse());
+        args[1] = survey.getTitle();
+        //Send the email
+        EmailTemplateProcessor.sendMail("dNeero Cash Award for "+user.getFirstname(), "incentiveaward-cash", user, args);
     }
 
     public void doRemoveIncentive(Response response) {
