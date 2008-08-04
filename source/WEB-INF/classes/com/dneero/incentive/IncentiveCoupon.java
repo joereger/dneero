@@ -71,6 +71,7 @@ public class IncentiveCoupon implements Incentive {
 
     public void doAwardIncentive(Response response) {
         Logger logger = Logger.getLogger(this.getClass().getName());
+        logger.debug("doAwardIncentive called!");
         Survey survey = Survey.get(response.getSurveyid());
         Blogger blogger = Blogger.get(response.getBloggerid());
         User user = User.get(blogger.getUserid());
@@ -248,6 +249,16 @@ public class IncentiveCoupon implements Incentive {
     }
 
     public String getInstructionsAfterAward(Response response) {
-        return getInstructions();
+        String couponcode = "";
+        List<Incentiveaward> incentiveawards = HibernateUtil.getSession().createCriteria(Incentiveaward.class)
+                                           .add(Restrictions.eq("responseid", response.getResponseid()))
+                                           .setCacheable(true)
+                                           .list();
+        for (Iterator<Incentiveaward> incentiveawardIterator=incentiveawards.iterator(); incentiveawardIterator.hasNext();){
+            Incentiveaward incentiveaward=incentiveawardIterator.next();
+            couponcode = incentiveaward.getMisc1();
+        }
+
+        return "Your coupon code is: "+couponcode+". "+getInstructions();
     }
 }

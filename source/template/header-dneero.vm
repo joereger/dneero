@@ -203,6 +203,7 @@
                         <a href="/sysadmin/pageperformance.jsp"><font class="subnavfont" style=" color: #000000;">Perf</font></a>
                         <a href="/sysadmin/blogpost.jsp"><font class="subnavfont" style=" color: #000000;">Blog</font></a>
                         <a href="/sysadmin/privatelabels.jsp"><font class="subnavfont" style=" color: #000000;">PrivateLabels</font></a>
+                        <a href="/sysadmin/impressionsbyday.jsp"><font class="subnavfont" style=" color: #000000;">ImpByDay</font></a>
                     #end
                 #end
             </td>

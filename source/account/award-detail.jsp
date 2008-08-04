@@ -43,7 +43,7 @@ Incentive incentive = IncentiveFactory.getById(si.getType(), si);
 
 <font class="mediumfont"><b>Award:</b> <%=incentive.getShortSummary()%></font>
 <%if (incentive.getShortSummary().length()<incentive.getFullSummary().length()){%>
-    <br/><font class="smallfont"><b>Full Summary:</b> <%=incentive.getFullSummary()%></font>
+    <br/><br/><font class="smallfont"><b>Full Summary:</b> <%=incentive.getFullSummary()%></font>
 <%}%>
 <br/><br/>
 <font class="smallfont"><b>Instructions:</b> <%=incentive.getInstructionsAfterAward(resp)%></font>
