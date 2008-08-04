@@ -13,6 +13,10 @@
         <property name="surveyid" type="int">
             <column name="surveyid" not-null="true" />
         </property>
+        <many-to-one name="surveyincentive" column="surveyincentiveid" not-null="true" insert="false" update="false"/>
+        <property name="surveyincentiveid" type="int">
+            <column name="surveyincentiveid" not-null="true" />
+        </property>
         <property name="bloggerid" type="int">
             <column name="bloggerid" not-null="true" />
         </property>

@@ -1,16 +1,11 @@
 package com.dneero.startup.dbversion;
 
-import com.dneero.dao.Survey;
-import com.dneero.dao.Surveyincentive;
-import com.dneero.dao.Surveyincentiveoption;
-import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.db.Db;
 import com.dneero.incentive.IncentiveCash;
 import com.dneero.startup.UpgradeDatabaseOneVersion;
 import org.apache.log4j.Logger;
 
-import java.util.Iterator;
-import java.util.List;
+import java.util.HashMap;
 
 /**
  * User: Joe Reger Jr
@@ -57,6 +52,8 @@ public class Version45 implements UpgradeDatabaseOneVersion {
 //            logger.error("  ");
 //        }
 
+        HashMap<Integer, Integer> surveyToIncentives = new HashMap<Integer, Integer>();
+
         //-----------------------------------
         //-----------------------------------
         String[][] rstSrv= Db.RunSQL("SELECT surveyid, willingtopayperrespondent FROM survey");
@@ -74,6 +71,10 @@ public class Version45 implements UpgradeDatabaseOneVersion {
                 //-----------------------------------
                 //-----------------------------------
 
+                //Storing (surveyid, surveyincentiveid)
+                System.out.println("surveyToIncentives.put("+rstSrv[i][0]+", "+identity+")");
+                surveyToIncentives.put(Integer.parseInt(rstSrv[i][0]), identity);
+
                 //-----------------------------------
                 //-----------------------------------
                 int identtty = Db.RunSQLInsert("INSERT INTO surveyincentiveoption(surveyincentiveid, name, value) VALUES('"+identity+"', '"+IncentiveCash.WILLINGTOPAYPERRESPONSE+"', '"+rstSrv[i][1]+"')");
@@ -85,6 +86,35 @@ public class Version45 implements UpgradeDatabaseOneVersion {
                 logger.error("  ");
             }
         }
+
+        //-----------------------------------
+        //-----------------------------------
+        String[][] rstResp= Db.RunSQL("SELECT responseid, surveyid FROM response ORDER BY responseid asc");
+        //-----------------------------------
+        //-----------------------------------
+        if (rstResp!=null && rstResp.length>0){
+            for(int i=0; i<rstResp.length; i++){
+                logger.error("Start processing responseid="+rstResp[i][0]);
+                int responseid = Integer.parseInt(rstResp[i][0]);
+                int surveyid = Integer.parseInt(rstResp[i][1]);
+                int surveyincentiveid = 0;
+                if (surveyToIncentives.containsKey(surveyid)){
+                    surveyincentiveid = surveyToIncentives.get(surveyid);
+                } else {
+                    logger.error("No surveyincentiveid found in surveyToIncentives for surveyid="+surveyid);
+                }
+
+                //-----------------------------------
+                //-----------------------------------
+                int count = Db.RunSQLUpdate("UPDATE response SET surveyincentiveid='"+surveyincentiveid+"' WHERE responseid='"+responseid+"'");
+                //-----------------------------------
+                //-----------------------------------
+
+                logger.error("End processing responseid="+rstResp[i][0]);
+            }
+        }
+
+
 
 
 

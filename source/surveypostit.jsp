@@ -168,9 +168,6 @@ String acl = "public";
                             <font class="smallfont">(instructions to the right... the conversation must appear on your blog for 5 of 10 days from when you joined the conversation to earn your reward)</font>
                         </div>
                         <br/>
-                        <div class="rounded" style="background: #ffffff; text-align: center;">
-                        </div>
-                        <br/>
                         <% if (publicSurveyPostit.getSurvey().getIscharityonly()){ %>
                             <br/><br/>
                             <div class="rounded" style="background: #e6e6e6; text-align: center;">

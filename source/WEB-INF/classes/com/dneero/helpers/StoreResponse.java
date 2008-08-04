@@ -128,6 +128,7 @@ public class StoreResponse {
             if (allCex.getErrors().length<=0){
                 logger.debug("start saving the response");
                 if (response.getResponseid()<=0){
+                    logger.debug("it's a new response because responseid<=0");
                     //This is a new response so set some first-time stuff
                     response.setResponsedate(new Date());
                     response.setReferredbyuserid(referredbyuserid);
@@ -137,6 +138,11 @@ public class StoreResponse {
                     //Can't change charity info when editing answers
                     response.setIsforcharity(isforcharity);
                     response.setCharityname(charityname);
+                    //Set the surveyincentiveid... note that this is the most current one associated with the survey but if this is an edit then the old one will be used.
+                    response.setSurveyincentiveid(survey.getIncentive().getSurveyincentive().getSurveyincentiveid());
+                    response.setSurveyincentive(survey.getIncentive().getSurveyincentive());
+                    logger.debug("response.getSurveyincentiveid()="+response.getSurveyincentiveid());
+                    logger.debug("response.getSurveyincentive().getSurveyincentiveid()="+response.getSurveyincentive().getSurveyincentiveid());
                 }
                 response.setBloggerid(blogger.getBloggerid());
                 response.setSurveyid(survey.getSurveyid());

@@ -429,7 +429,7 @@ public class PublicSurvey implements Serializable {
             //If this is the first take
             if (!loggedinuserhasalreadytakensurvey){
                 //If the access code isn't there
-                if (Pagez.getUserSession().getAccesscode()==null || !Pagez.getUserSession().getAccesscode().equals(survey.getAccesscode())){
+                if (Pagez.getUserSession().getAccesscode()==null || !Pagez.getUserSession().getAccesscode().equalsIgnoreCase(survey.getAccesscode())){
                     vex.addValidationError("Sorry, this conversation requires an Access Code.");
                     throw vex;
                 }

@@ -34,8 +34,8 @@ public class Response extends BasePersistentClass implements java.io.Serializabl
      private boolean issysadminreviewed;
      private boolean isresearcherrejected;
      private boolean issysadminrejected;
-
-
+     private int surveyincentiveid;
+     private Surveyincentive surveyincentive;
 
 
     public static Response get(int id) {
@@ -196,5 +196,21 @@ public class Response extends BasePersistentClass implements java.io.Serializabl
 
     public void setIsresearcherrejected(boolean isresearcherrejected) {
         this.isresearcherrejected=isresearcherrejected;
+    }
+
+    public int getSurveyincentiveid() {
+        return surveyincentiveid;
+    }
+
+    public void setSurveyincentiveid(int surveyincentiveid) {
+        this.surveyincentiveid=surveyincentiveid;
+    }
+
+    public Surveyincentive getSurveyincentive() {
+        return surveyincentive;
+    }
+
+    public void setSurveyincentive(Surveyincentive surveyincentive) {
+        this.surveyincentive=surveyincentive;
     }
 }
