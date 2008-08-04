@@ -43,13 +43,7 @@ public class Surveyincentive extends BasePersistentClass implements java.io.Seri
         }
     }
 
-    public void save() throws GeneralException {
 
-    }
-
-    public void delete() throws HibernateException {
-
-    }
 
     // Constructors
 

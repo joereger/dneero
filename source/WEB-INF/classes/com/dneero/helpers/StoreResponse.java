@@ -301,7 +301,7 @@ public class StoreResponse {
 
                 //Do the Incentive hook call
                 try{
-                    survey.getIncentive().doImmediatelyAfterResponse(response);
+                    response.getIncentive().doImmediatelyAfterResponse(response);
                 } catch (Exception ex){logger.error("",ex);};
             }
         } catch (Exception ex){

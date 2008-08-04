@@ -220,12 +220,14 @@ public class ResearcherSurveyDetail05 implements Serializable {
                     logger.debug("Surveyincentive() already existed for Survey");
                 }
                 if (incentivetype==IncentiveCash.ID){
+                    logger.debug("incentivetype==IncentiveCash.ID");
                     //IncentiveCash
                     si.setType(IncentiveCash.ID);
                     si.setSurveyid(survey.getSurveyid());
                     try{si.save();}catch(Exception ex){logger.error("", ex);}
                     IncentiveOptionsUtil.saveValue(si, IncentiveCash.WILLINGTOPAYPERRESPONSE, String.valueOf(willingtopayperrespondent));
                 } else if (incentivetype==IncentiveCoupon.ID){
+                    logger.debug("incentivetype==IncentiveCoupon.ID");
                     //IncentiveCoupon
                     si.setType(IncentiveCoupon.ID);
                     si.setSurveyid(survey.getSurveyid());

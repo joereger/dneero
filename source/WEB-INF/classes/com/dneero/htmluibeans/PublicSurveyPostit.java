@@ -129,7 +129,8 @@ public class PublicSurveyPostit implements Serializable {
 
         //Set the post-response instructions
         if (loggedinuserhasalreadytakensurvey && responseidOfLoggedinUser>0){
-            postresponseinstructions = survey.getIncentive().getInstructionsAfterResponse(Response.get(responseidOfLoggedinUser));
+            Response response = Response.get(responseidOfLoggedinUser);
+            postresponseinstructions = response.getIncentive().getInstructionsAfterResponse(Response.get(responseidOfLoggedinUser));
         } else {
             postresponseinstructions = "";
         }

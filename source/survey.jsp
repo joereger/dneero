@@ -572,6 +572,15 @@ String acl = "public";
                                         </td>
                                     </tr>
 
+                                    <tr>
+                                        <td valign="top">
+                                            <font class="formfieldnamefont">Max Paid Hits on Your Blog</font>
+                                        </td>
+                                        <td valign="top">
+                                            <font class="smallfont"><%=publicSurvey.getSurvey().getMaxdisplaysperblog()%></font>
+                                        </td>
+                                    </tr>
+
 
                                      <tr>
                                         <td valign="top">

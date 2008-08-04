@@ -39,7 +39,7 @@ public class PayForSurveyResponsesOncePosted implements Job {
                 logger.debug("response.getResponseid()="+response.getResponseid());
 
                 try{
-                    Survey survey = Survey.get(response.getSurveyid());
+                    //Survey survey = Survey.get(response.getSurveyid());
                     User user = User.get(Blogger.get(response.getBloggerid()).getUserid());
                     try{
                         //One extra check to make sure this isn't rejected
@@ -48,7 +48,7 @@ public class PayForSurveyResponsesOncePosted implements Job {
                             //Award the incentive
                             //Award the incentive
                             //Award the incentive
-                            survey.getIncentive().doAwardIncentive(response);
+                            response.getIncentive().doAwardIncentive(response);
                         }
                     } catch (Exception ex){
                         logger.error("",ex);

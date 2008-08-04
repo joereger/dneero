@@ -12,6 +12,8 @@ import com.dneero.facebook.FacebookApiWrapper;
 import com.dneero.htmlui.Pagez;
 import com.dneero.money.CurrentBalanceCalculator;
 import com.dneero.money.PendingBalanceCalculator;
+import com.dneero.incentive.IncentiveCash;
+import com.dneero.incentive.IncentiveCoupon;
 import org.apache.log4j.Logger;
 
 import java.util.*;
@@ -87,7 +89,20 @@ public class PublicSurveyList implements Serializable {
                 double maxearningCPM = (survey.getWillingtopaypercpm()*survey.getMaxdisplaysperblog())/1000;
                 bsli.setMaxearningCPM("$"+ Str.formatForMoney(maxearningCPM));
 
-                bsli.setEarn(survey.getIncentive().getShortSummary());
+                StringBuffer earn = new StringBuffer();
+                if(survey.getIncentive().getSurveyincentive().getType()==IncentiveCash.ID){
+                    earn.append(survey.getIncentive().getShortSummary());
+                } else if (survey.getIncentive().getSurveyincentive().getType()==IncentiveCoupon.ID){
+                    earn.append("Coupon: "+survey.getIncentive().getShortSummary());
+                } else {
+                    earn.append(survey.getIncentive().getShortSummary());
+                }
+                if (survey.getWillingtopaypercpm()>0){
+                    earn.append("<br/><font class=\"tinyfont\">plus $"+Str.formatForMoney(survey.getWillingtopaypercpm())+" per 1000 displays,<br/>max "+survey.getMaxdisplaysperblog()+" displays</font>");   
+                }
+                bsli.setEarn(earn.toString());
+
+
 
                 int daysleft = DateDiff.dateDiff("day", Time.getCalFromDate(survey.getEnddate()), Calendar.getInstance());
                 if (daysleft==0){

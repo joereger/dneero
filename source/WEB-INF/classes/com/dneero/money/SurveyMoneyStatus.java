@@ -57,6 +57,7 @@ public class SurveyMoneyStatus implements Serializable {
         }
         maxPossibleSpend = maxPossiblePayoutToUsers + maxPossibledNeeroFee + hidesurveyfee + PERSURVEYCREATIONFEE - couponDiscountAmt;
         responsesToDate = survey.getResponses().size();
+        //@todo At some point this should take into account any Responses that have a different Surveyincentive attached to them
         spentOnResponsesToDate = survey.getIncentive().getResearcherCostPerResponse() * responsesToDate;
         spentOnResponsesToDateIncludingdNeeroFee = calculateAmtToChargeResearcher(spentOnResponsesToDate, survey);
         int impressionspaid  = NumFromUniqueResult.getInt("select sum(impressionspaid) from Impression where surveyid='"+survey.getSurveyid()+"'");

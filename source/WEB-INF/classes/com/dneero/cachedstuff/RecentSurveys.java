@@ -1,19 +1,19 @@
 package com.dneero.cachedstuff;
 
-import com.dneero.htmluibeans.SurveyListItem;
-import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.dao.Survey;
-import com.dneero.util.DateDiff;
-import com.dneero.util.Time;
-import com.dneero.util.Str;
-import com.dneero.ui.SurveyEnhancer;
+import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.htmlui.PercentCompleteBar;
+import com.dneero.incentive.IncentiveCash;
+import com.dneero.incentive.IncentiveCoupon;
+import com.dneero.ui.SurveyEnhancer;
+import com.dneero.util.DateDiff;
+import com.dneero.util.Str;
+import com.dneero.util.Time;
 
 import java.io.Serializable;
 import java.util.Calendar;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * User: Joe Reger Jr
@@ -99,7 +99,13 @@ public class RecentSurveys implements CachedStuff, Serializable {
         out.append("</td>");
         out.append("<td nowrap>");
         out.append("<font class='tinyfont'>");
-        out.append("<b>$"+ Str.formatForMoney(surveyEnhancer.getMaxearningDbl())+"</b>");
+        if(survey.getIncentive().getSurveyincentive().getType()==IncentiveCash.ID){
+            out.append("<b>"+ survey.getIncentive().getShortSummary()+"</b>");
+        } else if (survey.getIncentive().getSurveyincentive().getType()==IncentiveCoupon.ID){
+            out.append("<b>Coupon</b>");
+        } else {
+            out.append("");
+        }
         out.append("</font>");
         out.append("</td>");
         out.append("<td width='75' valign='middle'>");
