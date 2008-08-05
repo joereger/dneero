@@ -587,7 +587,7 @@ String acl = "public";
                                             <font class="formfieldnamefont">Respondents to Date</font>
                                         </td>
                                         <td valign="top">
-                                            <%=PercentCompleteBar.get(String.valueOf(publicSurvey.getSurveyEnhancer().getResponsesalreadygotten()), String.valueOf(publicSurvey.getSurvey().getNumberofrespondentsrequested()), "", "", "75")%>
+                                            <%=PercentCompleteBar.get(String.valueOf(publicSurvey.getSurveyEnhancer().getSlotsremaining()), String.valueOf(publicSurvey.getSurvey().getNumberofrespondentsrequested()), "", "", "75")%>
                                             <font class="smallfont">Up to <%=publicSurvey.getSurvey().getNumberofrespondentsrequested()%> people may join this conversation for pay.</font>
                                             <br/><br/>
                                         </td>

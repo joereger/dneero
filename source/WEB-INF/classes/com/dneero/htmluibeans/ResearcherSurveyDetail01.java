@@ -84,6 +84,7 @@ public class ResearcherSurveyDetail01 implements Serializable {
         survey.setImpressionspaid(0);
         survey.setImpressionstobepaid(0);
         survey.setPlid(Pagez.getUserSession().getPl().getPlid());
+        survey.setIsaggressiveslotreclamationon(false);
     }
 
 
@@ -119,6 +120,7 @@ public class ResearcherSurveyDetail01 implements Serializable {
             survey.setImpressionstotal(0);
             survey.setImpressionspaid(0);
             survey.setImpressionstobepaid(0);
+            survey.setIsaggressiveslotreclamationon(false);
             boolean isnewsurvey = true;
             if (userSession.getCurrentSurveyid()>0){
                 logger.debug("saveSurvey() called: going to get Survey.get(surveyid)="+userSession.getCurrentSurveyid());

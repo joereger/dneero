@@ -65,6 +65,7 @@ public class Survey extends BasePersistentClass implements java.io.Serializable,
      private int impressionstotal;
      private int impressionspaid;
      private int impressionstobepaid;
+     private boolean isaggressiveslotreclamationon = false;
 
      private Set<Question> questions = new HashSet<Question>();
      private Set<Response> responses = new HashSet<Response>();
@@ -505,5 +506,13 @@ public class Survey extends BasePersistentClass implements java.io.Serializable,
 
     public void setSurveyincentives(Set<Surveyincentive> surveyincentives) {
         this.surveyincentives=surveyincentives;
+    }
+
+    public boolean getIsaggressiveslotreclamationon() {
+        return isaggressiveslotreclamationon;
+    }
+
+    public void setIsaggressiveslotreclamationon(boolean isaggressiveslotreclamationon) {
+        this.isaggressiveslotreclamationon=isaggressiveslotreclamationon;
     }
 }

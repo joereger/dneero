@@ -2,12 +2,12 @@ package com.dneero.cachedstuff;
 
 import com.dneero.dao.Survey;
 import com.dneero.dao.hibernate.HibernateUtil;
+import com.dneero.helpers.SlotsRemainingInConvo;
 import com.dneero.htmlui.PercentCompleteBar;
 import com.dneero.incentive.IncentiveCash;
 import com.dneero.incentive.IncentiveCoupon;
 import com.dneero.ui.SurveyEnhancer;
 import com.dneero.util.DateDiff;
-import com.dneero.util.Str;
 import com.dneero.util.Time;
 
 import java.io.Serializable;
@@ -111,9 +111,8 @@ public class RecentSurveys implements CachedStuff, Serializable {
         out.append("<td width='75' valign='middle'>");
         out.append("<img src=\"/images/clear.gif\" width=\"1\" height=\"3\"><br/>");
         out.append("<font class='tinyfont'>");
-        int responsestodate = survey.getResponses().size();
         int responsesrequested = survey.getNumberofrespondentsrequested();
-        int remainingslots = responsesrequested - responsestodate;
+        int remainingslots = SlotsRemainingInConvo.getSlotsRemaining(survey);
         if (remainingslots<0){
             remainingslots = 0;   
         }

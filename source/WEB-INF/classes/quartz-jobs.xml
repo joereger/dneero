@@ -190,6 +190,7 @@
         </trigger>
     </job>
 
+
     <job>
         <job-detail>
           <name>systemStats</name>
@@ -251,6 +252,27 @@
             <job-group>surveyJobs</job-group>
             <!-- every 15 minutes  -->
             <cron-expression>0 0/15 7-23 * * ?</cron-expression>
+          </cron>
+        </trigger>
+    </job>
+
+    <job>
+        <job-detail>
+          <name>reopenSurveysByNumRespondents</name>
+          <group>surveyJobs</group>
+          <job-class>com.dneero.scheduledjobs.ReopenSurveysByNumRespondents</job-class>
+          <volatility>false</volatility>
+          <durability>false</durability>
+          <recover>false</recover>
+        </job-detail>
+        <trigger>
+          <cron>
+            <name>reopenSurveysByNumRespondentsTrigger</name>
+            <group>surveyTriggers</group>
+            <job-name>reopenSurveysByNumRespondents</job-name>
+            <job-group>surveyJobs</job-group>
+            <!-- every 3 hours on 47th minute  -->
+            <cron-expression>0 47 0/3 * * ?</cron-expression>
           </cron>
         </trigger>
     </job>

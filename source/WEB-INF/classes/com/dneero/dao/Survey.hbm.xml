@@ -138,7 +138,9 @@
         <property name="impressionstobepaid" type="int">
             <column name="impressionstobepaid" not-null="true" />
         </property>
-
+        <property name="isaggressiveslotreclamationon" type="boolean">
+            <column name="isaggressiveslotreclamationon" />
+        </property>
 
     </class>
 </hibernate-mapping>

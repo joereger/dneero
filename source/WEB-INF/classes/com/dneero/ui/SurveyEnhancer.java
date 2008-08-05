@@ -1,11 +1,11 @@
 package com.dneero.ui;
 
 import com.dneero.dao.Survey;
-import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.dao.hibernate.NumFromUniqueResult;
 import com.dneero.util.Time;
 import com.dneero.util.Str;
 import com.dneero.util.DateDiff;
+import com.dneero.helpers.SlotsRemainingInConvo;
 
 import java.util.Calendar;
 import java.io.Serializable;
@@ -19,7 +19,7 @@ public class SurveyEnhancer implements Serializable {
 
     private String startdate;
     private String enddate;
-    private String responsesalreadygotten;
+    private String slotsremaining;
     private String impressionsalreadygotten;
     private String willingtopayforresponse;
     private String willingtopayforcpm;
@@ -35,7 +35,7 @@ public class SurveyEnhancer implements Serializable {
 
             enddate = Time.dateformatcompactwithtime(Time.getCalFromDate(survey.getEnddate()));
 
-            responsesalreadygotten = String.valueOf(survey.getResponses().size());
+            slotsremaining= String.valueOf(SlotsRemainingInConvo.getSlotsRemaining(survey));
             impressionsalreadygotten = String.valueOf(NumFromUniqueResult.getInt("select sum(impressionstotal) from Impression where surveyid='"+survey.getSurveyid()+"'"));
 
             willingtopayforresponse = survey.getIncentive().getShortSummary();
@@ -111,12 +111,12 @@ public class SurveyEnhancer implements Serializable {
         this.daysuntilend = daysuntilend;
     }
 
-    public String getResponsesalreadygotten() {
-        return responsesalreadygotten;
+    public String getSlotsremaining() {
+        return slotsremaining;
     }
 
-    public void setResponsesalreadygotten(String responsesalreadygotten) {
-        this.responsesalreadygotten = responsesalreadygotten;
+    public void setSlotsremaining(String slotsremaining) {
+        this.slotsremaining=slotsremaining;
     }
 
     public String getImpressionsalreadygotten() {

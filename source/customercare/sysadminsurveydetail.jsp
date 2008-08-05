@@ -21,6 +21,7 @@ String acl = "customercare";
             customercareSurveyDetail.getSurvey().setDescription(Textarea.getValueFromRequest("description", "Description", true));
             customercareSurveyDetail.getSurvey().setTemplate(Textarea.getValueFromRequest("template", "Template", false));
             customercareSurveyDetail.getSurvey().setIsspotlight(CheckboxBoolean.getValueFromRequest("isspotlight"));
+            customercareSurveyDetail.getSurvey().setIsaggressiveslotreclamationon(CheckboxBoolean.getValueFromRequest("isaggressiveslotreclamationon"));
             customercareSurveyDetail.getSurvey().setStartdate(DateTime.getValueFromRequest("startdate", "Start Date", true).getTime());
             customercareSurveyDetail.getSurvey().setEnddate(DateTime.getValueFromRequest("enddate", "End Date", true).getTime());
             customercareSurveyDetail.getSurvey().setWillingtopaypercpm(Textbox.getDblFromRequest("willingtopaypercpm", "Willing to Pay Per CPM", true, DatatypeDouble.DATATYPEID));
@@ -135,6 +136,14 @@ String acl = "customercare";
                     </tr>
                     <tr>
                         <td valign="top">
+                            <font class="formfieldnamefont">Is Aggressive Slot Reclamation On?</font>
+                        </td>
+                        <td valign="top">
+                            <%=CheckboxBoolean.getHtml("isaggressiveslotreclamationon", customercareSurveyDetail.getSurvey().getIsaggressiveslotreclamationon(), "", "")%>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td valign="top">
                             <font class="formfieldnamefont">Start Date</font>
                         </td>
                         <td valign="top">
@@ -212,7 +221,7 @@ String acl = "customercare";
                             <font class="formfieldnamefont">Number of Respondents To Date</font>
                         </td>
                         <td valign="top">
-                            <%=PercentCompleteBar.get(customercareSurveyDetail.getSurveyEnhancer().getResponsesalreadygotten(), String.valueOf(customercareSurveyDetail.getSurvey().getNumberofrespondentsrequested()), "", "", "250")%>
+                            <%=PercentCompleteBar.get(customercareSurveyDetail.getSurveyEnhancer().getSlotsremaining(), String.valueOf(customercareSurveyDetail.getSurvey().getNumberofrespondentsrequested()), "", "", "250")%>
                             <font class="smallfont">Up to <%=customercareSurveyDetail.getSurvey().getNumberofrespondentsrequested()%> people may complete this survey for pay.</font>
                             <br/><br/>
                         </td>
