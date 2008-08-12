@@ -65,9 +65,13 @@ public class Io {
         }
 
         public static void writeTextToFile(File file, String text){
+            writeTextToFile(file, text, false);
+        }
+
+        public static void writeTextToFile(File file, String text, boolean append){
             //file = new File("c:/temp/testwritetofile.txt");
             try {
-                BufferedWriter out = new BufferedWriter(new FileWriter(file));
+                BufferedWriter out = new BufferedWriter(new FileWriter(file, append));
                 out.write(text);
                 out.close();
             } catch (IOException e) {

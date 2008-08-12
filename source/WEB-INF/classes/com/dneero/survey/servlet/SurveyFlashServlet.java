@@ -183,11 +183,11 @@ public class SurveyFlashServlet extends HttpServlet {
                         CacheFactory.getCacheProvider().put(nameInCache, cacheGroup, bytes);
                         logger.debug("End TransformSWF");
                     } catch (Exception ex){
-                        logger.error("",ex);
+                        logger.error("Error with transform in bottom section",ex);
                     }
                 }
             } catch (Exception ex){
-                logger.error("Error getting survey from cache", ex);
+                logger.error("Error getting survey from cache: ex.getMessage()="+ex.getMessage(), ex);
             }
         }
 
@@ -199,8 +199,10 @@ public class SurveyFlashServlet extends HttpServlet {
             response.setContentType("application/x-shockwave-flash");
             outStream.write(bytes);
             outStream.close();
+        } catch (java.net.SocketException sex){
+            logger.debug("Trouble writing survey to browser", sex);
         } catch (Exception e){
-            logger.error("Error getting survey from cache");
+            logger.error("Error writing survey to browser", e);
         }
 
         //Performance recording

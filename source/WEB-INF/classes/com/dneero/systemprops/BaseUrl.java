@@ -33,14 +33,14 @@ public class BaseUrl {
         //See if the Pl has anything to offer
         if (pl!=null && pl.getPlid()>0){
             //Rip through the customdomains
-            if (!Pagez.getUserSession().getPl().getCustomdomain1().equals("")){
-                return Pagez.getUserSession().getPl().getCustomdomain1();
+            if (!pl.getCustomdomain1().equals("")){
+                return pl.getCustomdomain1();
             }
-            if (!Pagez.getUserSession().getPl().getCustomdomain2().equals("")){
-                return Pagez.getUserSession().getPl().getCustomdomain2();
+            if (!pl.getCustomdomain2().equals("")){
+                return pl.getCustomdomain2();
             }
-            if (!Pagez.getUserSession().getPl().getCustomdomain3().equals("")){
-                return Pagez.getUserSession().getPl().getCustomdomain3();
+            if (!pl.getCustomdomain3().equals("")){
+                return pl.getCustomdomain3();
             }
         }
         //Otherwise just return the default/system value
