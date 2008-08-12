@@ -122,7 +122,7 @@ public class PublicSurveyResults implements Serializable {
         }
 
         //Results user questions html
-        if (1==1){
+        if (!survey.getIsresultshidden()){
             int userquestionspage = 1;
             if (Pagez.getRequest().getParameter("userquestionspage")!=null && Num.isinteger(Pagez.getRequest().getParameter("userquestionspage"))){
                 userquestionspage = Integer.parseInt(Pagez.getRequest().getParameter("userquestionspage"));
@@ -149,6 +149,8 @@ public class PublicSurveyResults implements Serializable {
             } else {
                 resultsUserquestionsHtml = HtmlCache.getFromCache(resultsHtmlKey);
             }
+        }  else {
+            resultsUserquestionsHtml = "<font class=\"smallfont\">The conversation igniter has chosen to hide overall aggregate results.  However, dNeero does not allow researchers to hide aggregate results from individual blogs so those results are still available.  To see such results, find a place where this conversation is posted and click the See How Others Voted link... you'll see how others from that blog answered.</font>";
         }
 
         //Determine which of the results tabs is on
