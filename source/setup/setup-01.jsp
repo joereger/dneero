@@ -11,11 +11,12 @@
 <%@ page import="com.dneero.htmlui.ValidationException" %>
 <%@ page import="com.dneero.dao.Userrole" %>
 <%@ page import="org.apache.log4j.Logger" %>
+<%@ page import="com.dneero.db.Db" %>
 <%
     //Only do this page if we have an invalid database connection.
     //Otherwise, anybody's going to be able to reset the database
     //configuration whenever they want. Which isn't cool.
-    if (InstanceProperties.haveValidConfig()) {
+    if (Db.getHaveValidConfig()) {
         response.sendRedirect("setup-02.jsp");
         return;
     }
@@ -25,7 +26,7 @@
     String errortext = "";
     if (request.getParameter("action") != null && request.getParameter("action").equals("save")) {
         Logger logger = Logger.getLogger(this.getClass().getName());
-        if (!InstanceProperties.haveNewConfigToTest()) {
+        if (!InstanceProperties.getHaveNewConfigToTest()) {
             if (request.getParameter("dbserver") != null && request.getParameter("dbport") != null && request.getParameter("dbname") != null) {
                 String dbConnUrl = "jdbc:mysql://" + request.getParameter("dbserver") + ":" + request.getParameter("dbport") + "/" + request.getParameter("dbname") + "?autoReconnect=true";
                 InstanceProperties.setDbConnectionUrl(dbConnUrl);
@@ -69,7 +70,7 @@
             //Save if it passes the connection test
             try {
                 InstanceProperties.save();
-                if (InstanceProperties.haveValidConfig()) {
+                if (Db.getHaveValidConfig()) {
                     //Check for the admin account
                     List<User> users = HibernateUtil.getSession().createCriteria(User.class)
                             .add(Restrictions.eq("email", request.getParameter("email")))
@@ -175,7 +176,7 @@ if (!errortext.equals("")){
 %>
 
     <%
-        if (!InstanceProperties.haveNewConfigToTest()) {
+        if (!InstanceProperties.getHaveNewConfigToTest()) {
     %>
 
         <center>

@@ -13,14 +13,14 @@ public class EmbedCacheFlusher {
     public static void flushCache(int surveyid, int userid){
         Logger logger = Logger.getLogger(EmbedCacheFlusher.class);
 
-        CacheFactory.getCacheProvider().flush("surveyflashservlet-s"+surveyid+"-u"+userid+"-ispreview"+false, "embeddedsurveycache"+"/"+"surveyid-"+surveyid);
-        CacheFactory.getCacheProvider().flush("surveyflashservlet-s"+surveyid+"-u"+userid+"-ispreview"+true,  "embeddedsurveycache"+"/"+"surveyid-"+surveyid);
-        CacheFactory.getCacheProvider().flush("surveyjavascriptservlet-s"+surveyid+"-u"+userid+"-ispreview"+true+"-makeHttpsIfSSLIsOn"+true,   "embeddedsurveycache"+"/"+"surveyid-"+surveyid);
-        CacheFactory.getCacheProvider().flush("surveyjavascriptservlet-s"+surveyid+"-u"+userid+"-ispreview"+true+"-makeHttpsIfSSLIsOn"+false,  "embeddedsurveycache"+"/"+"surveyid-"+surveyid);
-        CacheFactory.getCacheProvider().flush("surveyjavascriptservlet-s"+surveyid+"-u"+userid+"-ispreview"+false+"-makeHttpsIfSSLIsOn"+true,  "embeddedsurveycache"+"/"+"surveyid-"+surveyid);
-        CacheFactory.getCacheProvider().flush("surveyjavascriptservlet-s"+surveyid+"-u"+userid+"-ispreview"+false+"-makeHttpsIfSSLIsOn"+false, "embeddedsurveycache"+"/"+"surveyid-"+surveyid);
-        CacheFactory.getCacheProvider().flush("surveyflashfacebookservlet-s"+surveyid+"-u"+userid+"-ispreview"+false, "embeddedsurveycache"+"/"+"surveyid-"+surveyid);
-        CacheFactory.getCacheProvider().flush("surveyflashfacebookservlet-s"+surveyid+"-u"+userid+"-ispreview"+true,  "embeddedsurveycache"+"/"+"surveyid-"+surveyid);
+        CacheFactory.getCacheProvider("DbcacheProvider").flush("surveyflashservlet-s"+surveyid+"-u"+userid+"-ispreview"+false, "embeddedsurveycache"+"/"+"surveyid-"+surveyid);
+        CacheFactory.getCacheProvider("DbcacheProvider").flush("surveyflashservlet-s"+surveyid+"-u"+userid+"-ispreview"+true,  "embeddedsurveycache"+"/"+"surveyid-"+surveyid);
+        CacheFactory.getCacheProvider("DbcacheProvider").flush("surveyjavascriptservlet-s"+surveyid+"-u"+userid+"-ispreview"+true+"-makeHttpsIfSSLIsOn"+true,   "embeddedsurveycache"+"/"+"surveyid-"+surveyid);
+        CacheFactory.getCacheProvider("DbcacheProvider").flush("surveyjavascriptservlet-s"+surveyid+"-u"+userid+"-ispreview"+true+"-makeHttpsIfSSLIsOn"+false,  "embeddedsurveycache"+"/"+"surveyid-"+surveyid);
+        CacheFactory.getCacheProvider("DbcacheProvider").flush("surveyjavascriptservlet-s"+surveyid+"-u"+userid+"-ispreview"+false+"-makeHttpsIfSSLIsOn"+true,  "embeddedsurveycache"+"/"+"surveyid-"+surveyid);
+        CacheFactory.getCacheProvider("DbcacheProvider").flush("surveyjavascriptservlet-s"+surveyid+"-u"+userid+"-ispreview"+false+"-makeHttpsIfSSLIsOn"+false, "embeddedsurveycache"+"/"+"surveyid-"+surveyid);
+        CacheFactory.getCacheProvider("DbcacheProvider").flush("surveyflashfacebookservlet-s"+surveyid+"-u"+userid+"-ispreview"+false, "embeddedsurveycache"+"/"+"surveyid-"+surveyid);
+        CacheFactory.getCacheProvider("DbcacheProvider").flush("surveyflashfacebookservlet-s"+surveyid+"-u"+userid+"-ispreview"+true,  "embeddedsurveycache"+"/"+"surveyid-"+surveyid);
       
 
     }

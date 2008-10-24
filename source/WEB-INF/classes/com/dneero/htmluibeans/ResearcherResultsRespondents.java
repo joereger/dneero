@@ -1,10 +1,13 @@
 package com.dneero.htmluibeans;
 
 import org.apache.log4j.Logger;
+import org.hibernate.criterion.Restrictions;
+import org.hibernate.criterion.Order;
 import com.dneero.dao.Survey;
 import com.dneero.dao.Response;
 import com.dneero.dao.Blogger;
 import com.dneero.dao.User;
+import com.dneero.dao.hibernate.HibernateUtil;
 
 import com.dneero.util.SortableList;
 import com.dneero.htmlui.Pagez;
@@ -37,18 +40,26 @@ public class ResearcherResultsRespondents implements Serializable {
         }
         list = new ArrayList<ResearcherResultsRespondentsListitem>();
         if (survey!=null && survey.getSurveyid()>0){
-            for (Iterator<Response> iterator = survey.getResponses().iterator(); iterator.hasNext();) {
-                Response response = iterator.next();
-                Blogger blogger = Blogger.get(response.getBloggerid());
-                User user = User.get(blogger.getUserid());
-                ResearcherResultsRespondentsListitem li = new ResearcherResultsRespondentsListitem();
-                li.setBloggerid(blogger.getBloggerid());
-                li.setFirstname(user.getFirstname());
-                li.setLastname(user.getLastname());
-                li.setResponsedate(response.getResponsedate());
-                li.setResponseid(response.getResponseid());
-                li.setUser(user);
-                list.add(li);
+            List<Response> rsps = HibernateUtil.getSession().createCriteria(Response.class)
+                                               .add(Restrictions.eq("surveyid", survey.getSurveyid()))
+                                               .addOrder(Order.desc("responsedate"))
+                                               .setCacheable(true)
+                                               .list();
+            if (rsps!=null){
+                for (Iterator<Response> iterator = rsps.iterator(); iterator.hasNext();) {
+                //for (Iterator<Response> iterator = survey.getResponses().iterator(); iterator.hasNext();) {
+                    Response response = iterator.next();
+                    Blogger blogger = Blogger.get(response.getBloggerid());
+                    User user = User.get(blogger.getUserid());
+                    ResearcherResultsRespondentsListitem li = new ResearcherResultsRespondentsListitem();
+                    li.setBloggerid(blogger.getBloggerid());
+                    li.setFirstname(user.getFirstname());
+                    li.setLastname(user.getLastname());
+                    li.setResponsedate(response.getResponsedate());
+                    li.setResponseid(response.getResponseid());
+                    li.setUser(user);
+                    list.add(li);
+                }
             }
         }
         logger.debug("list.size()="+list.size());

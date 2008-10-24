@@ -3,12 +3,14 @@ package com.dneero.startup;
 import com.dneero.dao.Pl;
 import com.dneero.dao.hibernate.HibernateSessionQuartzCloser;
 import com.dneero.dao.hibernate.HibernateUtil;
+import com.dneero.dao.hibernate.HibernateUtilDbcache;
 import com.dneero.pageperformance.PagePerformanceUtil;
 import com.dneero.scheduledjobs.SystemStats;
 import com.dneero.systemprops.InstanceProperties;
 import com.dneero.systemprops.SystemProperty;
 import com.dneero.systemprops.WebAppRootDir;
 import com.dneero.xmpp.SendXMPPMessage;
+import com.dneero.db.Db;
 import org.apache.log4j.Logger;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerFactory;
@@ -47,27 +49,43 @@ public class ApplicationStartup implements ServletContextListener {
        //Configure some dir stuff
         WebAppRootDir ward = new WebAppRootDir(cse.getServletContext());
         iswabapprooddirdiscovered = true;
+        //Init Ha JDBC
+        //System.out.println("DNEERO: Will call HAJDBCInit.init()");
+        //try{HAJDBCInit.init();} catch (Exception ex){logger.error("", ex);}
+        //Run pre-hibernate db upgrades
+        System.out.println("DNEERO: Start with DbVersion PreHibernate Check");
+        DbVersionCheck dbvcPre = new DbVersionCheck();
+        dbvcPre.doCheck(DbVersionCheck.EXECUTE_PREHIBERNATE);
+        System.out.println("DNEERO: End with DbVersion PreHibernate Check");
+        //Test the database config
+        System.out.println("DNEERO: Will test the database config");
+        Db.testConfig();
+        System.out.println("DNEERO: Done testing the database config");
         //Connect to database
-        if (InstanceProperties.haveValidConfig()){
-            //Run pre-hibernate db upgrades
-            DbVersionCheck dbvcPre = new DbVersionCheck();
-            dbvcPre.doCheck(DbVersionCheck.EXECUTE_PREHIBERNATE);
+        //3,600,000,000
+        if (Db.getHaveValidConfig()){
             //Set up hibernate
+            System.out.println("DNEERO: Will Initialize Hibernate");
             HibernateUtil.getSession();
+            System.out.println("DNEERO: Will Initialize HibernateEC");
+            HibernateUtilDbcache.getSession();
             ishibernateinitialized = true;
+            System.out.println("DNEERO: Done initializing Hibernate");
             //Run post-hibernate db upgrades
             DbVersionCheck dbvcPost = new DbVersionCheck();
             dbvcPost.doCheck(DbVersionCheck.EXECUTE_POSTHIBERNATE);
+            System.out.println("DNEERO: Done with DbVersion PostHibernate Check");
             //Check to make sure we're good to go
             if (RequiredDatabaseVersion.getHavecorrectversion()){
                 isdatabasereadyforapprun = true;
                 isappstarted = true;
             }
         } else {
-            logger.info("InstanceProperties.haveValidConfig()=false");
+            logger.info("InstanceProperties.getHaveValidConfig()=false");
         }
         //If the database is running
         if (isdatabasereadyforapprun){
+            System.out.println("DNEERO: isdatabasereadyforapprun=true");
             //Start Hibernate session
             HibernateUtil.startSession();
             //Make sure we have at least one PL
@@ -89,6 +107,7 @@ public class ApplicationStartup implements ServletContextListener {
                 schedFact.getScheduler().addGlobalJobListener(new HibernateSessionQuartzCloser());
             } catch (Exception ex){logger.error("",ex);}
         } else {
+            System.out.println("DNEERO: isdatabasereadyforapprun=false");
             logger.info("Database not ready.");    
         }
         //Report to log and XMPP

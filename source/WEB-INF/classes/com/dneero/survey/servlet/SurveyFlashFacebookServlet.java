@@ -102,7 +102,7 @@ public class SurveyFlashFacebookServlet extends HttpServlet {
         byte[] bytes = null;
         String nameInCache = "surveyflashfacebookservlet-s"+surveyid+"-u"+userid+"-ispreview"+ispreview;
         String cacheGroup =  "embeddedsurveycache"+"/"+"surveyid-"+surveyid;
-        Object fromCache = CacheFactory.getCacheProvider().get(nameInCache, cacheGroup);
+        Object fromCache = CacheFactory.getCacheProvider("DbcacheProvider").get(nameInCache, cacheGroup);
         if (fromCache!=null && cache){
             logger.debug("returning bytes from cache");
             bytes = (byte[])fromCache;
@@ -158,7 +158,7 @@ public class SurveyFlashFacebookServlet extends HttpServlet {
                         //Encode the swf and put its bytes into memory
                         bytes = movie.encode();
                         //Put bytes into cache
-                        CacheFactory.getCacheProvider().put(nameInCache, cacheGroup, bytes);
+                        CacheFactory.getCacheProvider("DbcacheProvider").put(nameInCache, cacheGroup, bytes);
                         logger.debug("End TransformSWF");
                     } catch (Exception ex){
                         logger.error("",ex);

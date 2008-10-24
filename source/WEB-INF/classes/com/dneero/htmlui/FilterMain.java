@@ -9,11 +9,11 @@ import com.dneero.session.PersistentLogin;
 import com.dneero.session.SurveysTakenToday;
 import com.dneero.session.UrlSplitter;
 import com.dneero.systemprops.BaseUrl;
-import com.dneero.systemprops.InstanceProperties;
 import com.dneero.systemprops.SystemProperty;
 import com.dneero.util.Time;
 import com.dneero.xmpp.SendXMPPMessage;
 import com.dneero.privatelabel.PlFinder;
+import com.dneero.db.Db;
 import org.apache.log4j.Logger;
 
 import javax.servlet.*;
@@ -62,7 +62,7 @@ public class FilterMain implements Filter {
 //                logger.debug("httpServletRequest.getSession().getId()="+httpServletRequest.getSession().getId());
 
                 //If the database is ready
-                if (InstanceProperties.haveValidConfig()){
+                if (Db.getHaveValidConfig()){
                     try{
                         Object obj = CacheFactory.getCacheProvider().get(httpServletRequest.getSession().getId(), "userSession");
                         if (obj!=null && (obj instanceof UserSession)){

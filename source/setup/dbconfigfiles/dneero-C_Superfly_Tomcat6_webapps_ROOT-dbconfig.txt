@@ -1,0 +1,76 @@
+#InstanceProperties for C_Superfly_Tomcat6_webapps_ROOT
+#Mon Aug 04 10:40:42 EDT 2008
+
+#APP-SPECIFIC CONFIGS
+hibernateShowSql=1
+runScheduledTasksOnThisInstance=1
+
+#GENERAL DATABASE CONFIG
+instancename=XPS
+dbMaxIdle=20
+dbMaxWait=10000
+dbMinIdle=10
+dbMaxActive=20
+
+#STANDARD MYSQL CONFIG FOR MAIN DB
+dbConnectionUrl=jdbc\:mysql\://localhost\:3306/dneero?autoReconnect\=true
+dbDriverName=com.mysql.jdbc.Driver
+dbUsername=root
+dbPassword=password
+
+#STANDARD MYSQL CONFIG FOR EMBEDCACHE DB
+dbConnectionUrlDbcache=jdbc\:mysql\://localhost\:3306/dneerodbcache?autoReconnect\=true
+dbDriverNameDbcache=com.mysql.jdbc.Driver
+dbUsernameDbcache=root
+dbPasswordDbcache=password
+
+
+
+
+#SEQUOIA CONFIG
+#dbConnectionUrl=jdbc\:sequoia\://192.168.1.75\:25322/dneero?debugLevel=debug
+#dbDriverName=org.continuent.sequoia.driver.Driver
+#dbUsername=user
+#dbPassword=physics
+
+
+###############START HA-JDBC STUFF############################
+#
+ishajdbcon=1
+#
+#dbConnectionUrl=jdbc\:ha-jdbc\:cluster1
+#dbDriverName=net.sf.hajdbc.sql.Driver
+#dbUsername=root
+#dbPassword=password
+#
+#
+#dbIsActive1=1
+#dbConnectionUrl1=jdbc\:mysql\://localhost\:3306/dneero?autoReconnect\=true
+#dbDriverName1=com.mysql.jdbc.Driver
+#dbUsername1=root
+#dbPassword1=password
+#
+#dbIsActive2=1
+#dbConnectionUrl2=jdbc\:mysql\://localhost\:3306/dneero2?autoReconnect\=true
+#dbDriverName2=com.mysql.jdbc.Driver
+#dbUsername2=root
+#dbPassword2=password
+#
+#dbIsActive3=0
+#dbConnectionUrl3=jdbc\:mysql\://localhost\:3306/dneero?autoReconnect\=true
+#dbDriverName3=com.mysql.jdbc.Driver
+#dbUsername3=root
+#dbPassword3=password
+#
+#dbIsActive4=0
+#dbConnectionUrl4=jdbc\:mysql\://localhost\:3306/dneero?autoReconnect\=true
+#dbDriverName4=com.mysql.jdbc.Driver
+#dbUsername4=root
+#dbPassword4=password
+#
+###############END HA-JDBC STUFF##############################
+
+
+
+
+

@@ -14,8 +14,7 @@ import java.io.Serializable;
 import com.dneero.systemprops.InstanceProperties;
 import com.dneero.systemprops.WebAppRootDir;
 import com.dneero.startup.ApplicationStartup;
-
-import javax.naming.NamingException;
+import com.dneero.db.Db;
 
 public class HibernateUtil {
 
@@ -29,7 +28,7 @@ public class HibernateUtil {
         Logger logger = Logger.getLogger(HibernateUtil.class);
         logger.info("Starting HibernateUtil.initializeSession()");
         if (ApplicationStartup.getIswabapprooddirdiscovered()){
-            if (InstanceProperties.haveValidConfig()){
+            if (Db.getHaveValidConfig()){
                 try {
                     //Create a configuration object
                     Configuration conf = new Configuration();

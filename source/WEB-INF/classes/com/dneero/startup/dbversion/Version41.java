@@ -4,7 +4,7 @@ import com.dneero.startup.UpgradeDatabaseOneVersion;
 import com.dneero.db.Db;
 import com.dneero.util.RandomString;
 import org.apache.log4j.Logger;
-
+import com.dneero.db.DbConfig;
 /**
  * User: Joe Reger Jr
  * Date: Nov 26, 2006
@@ -14,7 +14,7 @@ public class Version41 implements UpgradeDatabaseOneVersion {
 
     Logger logger = Logger.getLogger(this.getClass().getName());
 
-    public void doPreHibernateUpgrade(){
+    public void doPreHibernateUpgrade(DbConfig dbConfig){
         logger.debug("doPreHibernateUpgrade() start");
 
 
@@ -22,7 +22,7 @@ public class Version41 implements UpgradeDatabaseOneVersion {
         logger.debug("doPreHibernateUpgrade() finish");
     }
 
-    public void doPostHibernateUpgrade(){
+    public void doPostHibernateUpgrade(DbConfig dbConfig){
         logger.debug("doPostHibernateUpgrade() start");
 
 

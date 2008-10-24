@@ -88,7 +88,7 @@ public class SurveyJavascriptServlet extends HttpServlet {
         if (survey!=null && survey.getSurveyid()>0){
             String nameInCache = "surveyjavascriptservlet-s"+surveyid+"-u"+userid+"-ispreview"+ispreview+"-makeHttpsIfSSLIsOn"+makeHttpsIfSSLIsOn;
             String cacheGroup = "embeddedsurveycache"+"/"+"surveyid-"+surveyid;
-            Object fromCache = CacheFactory.getCacheProvider().get(nameInCache, cacheGroup);
+            Object fromCache = CacheFactory.getCacheProvider("DbcacheProvider").get(nameInCache, cacheGroup);
             if (fromCache!=null && cache){
                 logger.debug("returning string from cache");
                 output = (String)fromCache;
@@ -107,7 +107,7 @@ public class SurveyJavascriptServlet extends HttpServlet {
                     output = output.replaceAll("\\r", "\"+\\\n\"");
                     output = "document.write(\""+output+"\");"+"\n";
                     //Put bytes into cache
-                    CacheFactory.getCacheProvider().put(nameInCache, cacheGroup, output);
+                    CacheFactory.getCacheProvider("DbcacheProvider").put(nameInCache, cacheGroup, output);
                 } catch (Exception ex){
                     logger.error("",ex);
                 }

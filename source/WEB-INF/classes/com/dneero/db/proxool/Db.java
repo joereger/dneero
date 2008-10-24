@@ -1,33 +1,49 @@
 package com.dneero.db.proxool;
 
 
-import java.sql.*;
-import java.util.Vector;
-import java.util.Properties;
-
+import com.dneero.db.DbConfig;
+import com.dneero.db.DbImplementation;
 import com.dneero.systemprops.InstanceProperties;
 import com.dneero.util.RandomString;
-import org.logicalcobwebs.proxool.ProxoolFacade;
-import org.logicalcobwebs.proxool.admin.StatisticsIF;
-import org.logicalcobwebs.proxool.admin.SnapshotIF;
 import org.apache.log4j.Logger;
+import org.logicalcobwebs.proxool.ProxoolFacade;
+import org.logicalcobwebs.proxool.admin.SnapshotIF;
+import org.logicalcobwebs.proxool.admin.StatisticsIF;
 
-public class Db {
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.Properties;
+import java.util.Vector;
 
+public class Db implements DbImplementation {
+
+  public static final String name = "proxool";
   public static final int defaultRecordstoreturn=50000;
-  public static boolean driverHasBeenConfigured = false;
-  public static String alias = "dneero-"+ RandomString.randomAlphabetic(4);
-  public static int configCount = 0;
 
+  private boolean driverHasBeenConfigured = false;
+  private String alias = "dneero-"+ RandomString.randomAlphabetic(4);
+  private int configCount = 0;
+  private DbConfig dbConfig;
 
-    public static void setupDataSource(){
+  public Db(DbConfig dbConfig){
+    this.dbConfig = dbConfig;
+    setupDataSource();
+  }
+
+  public String getName(){
+      return name;
+  }
+
+    public void setupDataSource(){
         configCount = configCount + 1;
         System.out.println("dNeero:"+alias+": Start proxool configuration configCount="+configCount);
         try{
 
             try{
-                System.out.println("dNeero:"+alias+": Shutting down all pools.");
-                ProxoolFacade.shutdown(0);
+                //System.out.println("dNeero:"+alias+": Shutting down all pools.");
+                //ProxoolFacade.shutdown(0);
             } catch (Exception e){
                 System.out.println("dNeero:"+alias+": Error shutting down pool.");
                 e.printStackTrace();
@@ -38,10 +54,10 @@ public class Db {
             info.setProperty("proxool.maximum-connection-count", String.valueOf(InstanceProperties.getDbMaxActive()));
             info.setProperty("proxool.minimum-connection-count", String.valueOf(InstanceProperties.getDbMinIdle()));
             info.setProperty("proxool.house-keeping-test-sql", "select CURRENT_DATE");
-            info.setProperty("user", InstanceProperties.getDbUsername());
-            info.setProperty("password", InstanceProperties.getDbPassword());
-            String driverClass = InstanceProperties.getDbDriverName();
-            String driverUrl = InstanceProperties.getDbConnectionUrl();
+            info.setProperty("user", dbConfig.getUsername());
+            info.setProperty("password", dbConfig.getPassword());
+            String driverClass = dbConfig.getDriver();
+            String driverUrl = dbConfig.getUrl();
             String url = "proxool." + alias + ":" + driverClass + ":" + driverUrl;
             System.out.println("dNeero:"+alias+": Ds driverClass="+driverClass);
             System.out.println("dNeero:"+alias+": Ds url="+url);
@@ -49,21 +65,21 @@ public class Db {
 
             //Set the driver flag first
             driverHasBeenConfigured = true;
-            System.out.println("dNeero:"+alias+": Ds setup appears successful.");
+            System.out.println("dNeero:"+alias+": Proxool setup appears successful.");
 
         } catch (Exception e){
                 System.out.println("dNeero:"+alias+": Error configuring proxool connection.");
                 e.printStackTrace();
         }
-        System.out.println("dNeero:"+alias+": End ds setup.");
+        System.out.println("dNeero:"+alias+": End Proxool setup.");
     }
 
   /**
    * Get a connection object.
    */
-  public static Connection getConnection(){
+  public Connection getConnection(){
         try{
-            if (!driverHasBeenConfigured || InstanceProperties.haveNewConfigToTest()){
+            if (!driverHasBeenConfigured || InstanceProperties.getHaveNewConfigToTest()){
                 System.out.println("dNeero:"+alias+": proxool driverHasBeenConfigured is false or we have a new dbconfig to test.");
                 setupDataSource();
             }
@@ -83,11 +99,11 @@ public class Db {
 
   }
 
-  public static void shutdownDriver() {
+  public void shutdownDriver() {
 
-    }
+  }
 
-  public static String printDriverStats() throws Exception {
+  public String printDriverStats() throws Exception {
         StringBuffer mb = new StringBuffer();
         mb.append("<br><br>");
 
@@ -202,7 +218,7 @@ public class Db {
   /*
   * Run SQL, return a String Array
   */
-  public static String[][] RunSQL(String sql, int recordstoreturn) {
+  public String[][] RunSQL(String sql, int recordstoreturn) {
     Logger logger = Logger.getLogger("com.dneero.db.proxool.Db");
     //reger.core.Util.logtodb("SQL: " + sql);
     //System.out.println("Reger.com: RunSql called: " + sql);
@@ -272,14 +288,14 @@ public class Db {
   /**
   * Overload to allow just sql, with no specification of # records to return
   */
-  public static String[][] RunSQL(String sql) {
+  public String[][] RunSQL(String sql) {
           return RunSQL(sql, defaultRecordstoreturn);
   }
 
 
 
   //Run Update SQL, return the number of rows affected
-  public static int RunSQLUpdate(String sql){
+  public int RunSQLUpdate(String sql){
      Logger logger = Logger.getLogger("com.dneero.db.proxool.Db");
 
       int count=0;
@@ -314,14 +330,14 @@ public class Db {
   }
 
 
-  public static int RunSQLInsert(String sql){
+  public int RunSQLInsert(String sql){
     return RunSQLInsert(sql, true);
   }
 
 
 
   //Run Insert SQL, return the unique autonumber of the row inserted
-  public static int RunSQLInsert(String sql, boolean loggingison){
+  public int RunSQLInsert(String sql, boolean loggingison){
       Logger logger = Logger.getLogger("com.dneero.db.proxool.Db");
       int count=0;
     int myidentity=0;

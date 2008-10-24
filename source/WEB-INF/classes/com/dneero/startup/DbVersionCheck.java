@@ -1,10 +1,12 @@
 package com.dneero.startup;
 
-import org.apache.log4j.Logger;
 import com.dneero.db.Db;
+import com.dneero.db.DbConfig;
+import com.dneero.systemprops.InstanceProperties;
 import com.dneero.util.ErrorDissect;
 import com.dneero.util.Num;
 import com.dneero.util.Time;
+import org.apache.log4j.Logger;
 
 import java.util.Calendar;
 
@@ -21,7 +23,42 @@ public class DbVersionCheck {
     public static int EXECUTE_POSTHIBERNATE = 1;
 
     public void doCheck(int execute_pre_or_post){
+        Logger logger = Logger.getLogger(this.getClass().getName());
+        if (InstanceProperties.getIshajdbcon()!=null && InstanceProperties.getIshajdbcon().equals("1")){
+            //HA-JDBC is in the hizzle so check all four databases individually
+            System.out.println("DNEERO: Checking Db1");
+            if (InstanceProperties.getDbIsActive1()!=null && InstanceProperties.getDbIsActive1().equals("1")){
+                DbConfig dbConfig = new DbConfig(InstanceProperties.getDbConnectionUrl1(), InstanceProperties.getDbDriverName1(), InstanceProperties.getDbUsername1(), InstanceProperties.getDbPassword1());
+                doCheckSingleDbConfig(execute_pre_or_post, dbConfig);
+            }
+            System.out.println("DNEERO: Checking Db2");
+            if (InstanceProperties.getDbIsActive2()!=null && InstanceProperties.getDbIsActive2().equals("1")){
+                DbConfig dbConfig = new DbConfig(InstanceProperties.getDbConnectionUrl2(), InstanceProperties.getDbDriverName2(), InstanceProperties.getDbUsername2(), InstanceProperties.getDbPassword2());
+                doCheckSingleDbConfig(execute_pre_or_post, dbConfig);
+            }
+            System.out.println("DNEERO: Checking Db3");
+            if (InstanceProperties.getDbIsActive3()!=null && InstanceProperties.getDbIsActive3().equals("1")){
+                DbConfig dbConfig = new DbConfig(InstanceProperties.getDbConnectionUrl3(), InstanceProperties.getDbDriverName3(), InstanceProperties.getDbUsername3(), InstanceProperties.getDbPassword3());
+                doCheckSingleDbConfig(execute_pre_or_post, dbConfig);
+            }
+            System.out.println("DNEERO: Checking Db4");
+            if (InstanceProperties.getDbIsActive4()!=null && InstanceProperties.getDbIsActive4().equals("1")){
+                DbConfig dbConfig = new DbConfig(InstanceProperties.getDbConnectionUrl4(), InstanceProperties.getDbDriverName4(), InstanceProperties.getDbUsername4(), InstanceProperties.getDbPassword4());
+                doCheckSingleDbConfig(execute_pre_or_post, dbConfig);
+            }
+        } else {
+            //Single database so pass null and the DbFactory will pull default DbConfig from InstanceProperties
+            doCheckSingleDbConfig(execute_pre_or_post, null);
+        }
+    }
 
+    public void doCheckSingleDbConfig(int execute_pre_or_post, DbConfig dbConfig){
+            Logger logger = Logger.getLogger(this.getClass().getName());
+            if (dbConfig!=null){
+                logger.debug("doCheckSingleDbConfig(execute_pre_or_post="+execute_pre_or_post+", dbConfig="+dbConfig.toString()+")");
+            } else {
+                logger.debug("doCheckSingleDbConfig(execute_pre_or_post="+execute_pre_or_post+", dbConfig=null(will use default from DbFactory)))");
+            }
             //Calculate the max version that exists in the code classes
             int maxVer = 0;
             while(true){
@@ -44,12 +81,12 @@ public class DbVersionCheck {
             RequiredDatabaseVersion.setMaxversion(maxVer);
 
             //Make sure we have the database table to support the database version status
-            if (!checkThatDatabaseVersionTableExists()){
-                createDbVersionTable();
+            if (!checkThatDatabaseVersionTableExists(dbConfig)){
+                createDbVersionTable(dbConfig);
             }
 
             //Get the highest version stored in the database version table
-            int currentDatabaseVersion = getMaxVersionFromDatabase();
+            int currentDatabaseVersion = getMaxVersionFromDatabase(dbConfig);
 
             //Boolean to keep working
             boolean keepWorking = true;
@@ -62,12 +99,12 @@ public class DbVersionCheck {
                     UpgradeDatabaseOneVersion upg = (UpgradeDatabaseOneVersion)(Class.forName("com.dneero.startup.dbversion.Version"+ (currentDatabaseVersion+1)).newInstance());
                     System.out.println("Start upgrade database to version " + (currentDatabaseVersion+1));
                     if (execute_pre_or_post==EXECUTE_PREHIBERNATE){
-                        upg.doPreHibernateUpgrade();
+                        upg.doPreHibernateUpgrade(dbConfig);
                         //updateDatabase((currentDatabaseVersion+1));
                     } else {
-                        upg.doPostHibernateUpgrade();
+                        upg.doPostHibernateUpgrade(dbConfig);
                         //Note that I only update the database version in the post-hibernate run
-                        updateDatabase((currentDatabaseVersion+1));
+                        updateDatabase((currentDatabaseVersion+1), dbConfig);
                     }
                     System.out.println("End upgrade database to version " + (currentDatabaseVersion+1));
                 } catch (ClassNotFoundException ex){
@@ -79,7 +116,7 @@ public class DbVersionCheck {
                     //logger.debug("Error: Upgrade database to version " + (currentDatabaseVersion+1) + ".  Class not found.");
                 } catch (Exception e){
                     //Some other sort of error
-                    System.out.println("Reger.com UpgradeCheckAtStartup.java: Error upgrading Db:" + e.getMessage());
+                    System.out.println("dNeero UpgradeCheckAtStartup.java: Error upgrading Db:" + e.getMessage());
                     e.printStackTrace();
                     logger.error("", e);
                     keepWorking = false;
@@ -103,12 +140,12 @@ public class DbVersionCheck {
 
 
 
-        private static void updateDatabase(int version){
+        private static void updateDatabase(int version, DbConfig dbConfig){
             try{
                 //Update the database version
                 //-----------------------------------
                 //-----------------------------------
-                int identity = Db.RunSQLInsert("INSERT INTO databaseversion(version, date) VALUES('"+version+"', '"+ Time.dateformatfordb(Calendar.getInstance())+"')");
+                int identity = Db.RunSQLInsert("INSERT INTO databaseversion(version, date) VALUES('"+version+"', '"+ Time.dateformatfordb(Calendar.getInstance())+"')", dbConfig);
                 //-----------------------------------
                 //-----------------------------------
             } catch (Exception e){
@@ -116,12 +153,12 @@ public class DbVersionCheck {
             }
         }
 
-        private static int getMaxVersionFromDatabase(){
+        private static int getMaxVersionFromDatabase(DbConfig dbConfig){
             try{
                 //Go to the database and see what we've got.
                 //-----------------------------------
                 //-----------------------------------
-                String[][] rstVersion= Db.RunSQL("SELECT max(version) FROM databaseversion");
+                String[][] rstVersion= Db.RunSQL("SELECT max(version) FROM databaseversion", dbConfig);
                 //-----------------------------------
                 //-----------------------------------
                 if (rstVersion!=null && rstVersion.length>0){
@@ -137,11 +174,11 @@ public class DbVersionCheck {
             return -1;
         }
 
-        private static boolean checkThatDatabaseVersionTableExists(){
+        private static boolean checkThatDatabaseVersionTableExists(DbConfig dbConfig){
             try{
                 //-----------------------------------
                 //-----------------------------------
-                String[][] rstT = Db.RunSQL("SELECT COUNT(*) FROM databaseversion");
+                String[][] rstT = Db.RunSQL("SELECT COUNT(*) FROM databaseversion", dbConfig);
                 //-----------------------------------
                 //-----------------------------------
                 if (rstT!=null && rstT.length>0){
@@ -153,11 +190,11 @@ public class DbVersionCheck {
             }
         }
 
-        private static void createDbVersionTable(){
+        private static void createDbVersionTable(DbConfig dbConfig){
             try{
                 //-----------------------------------
                 //-----------------------------------
-                int count = Db.RunSQLUpdate("CREATE TABLE `databaseversion` (`databaseversionid` int(11) NOT NULL auto_increment, `version` int(11) NOT NULL default '0', `date` datetime default null, PRIMARY KEY  (`databaseversionid`)) ENGINE=MyISAM DEFAULT CHARSET=latin1;");
+                int count = Db.RunSQLUpdate("CREATE TABLE `databaseversion` (`databaseversionid` int(11) NOT NULL auto_increment, `version` int(11) NOT NULL default '0', `date` datetime default null, PRIMARY KEY  (`databaseversionid`)) ENGINE=MyISAM DEFAULT CHARSET=latin1;", dbConfig);
                 //-----------------------------------
                 //-----------------------------------
             } catch (Exception e){

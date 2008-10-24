@@ -1,13 +1,11 @@
 package com.dneero.htmluibeans;
 
 import org.apache.log4j.Logger;
-import com.dneero.systemprops.SystemProperty;
-import com.dneero.systemprops.BaseUrl;
 import com.dneero.systemprops.InstanceProperties;
 
 import com.dneero.util.GeneralException;
-import com.dneero.htmlui.Pagez;
 import com.dneero.htmlui.ValidationException;
+import com.dneero.db.Db;
 
 import java.io.Serializable;
 
@@ -84,7 +82,7 @@ public class SysadminInstanceProps implements Serializable {
             }
             try{
                 InstanceProperties.save();
-                if (InstanceProperties.haveValidConfig()){
+                if (Db.getHaveValidConfig()){
 
                 } else {
                     vex.addValidationError("Save failed! Values reset.");

@@ -101,7 +101,7 @@ public class Survey extends BasePersistentClass implements java.io.Serializable,
     public void flushSurveyEmbeddingCache(){
         Logger logger = Logger.getLogger(this.getClass().getName());
         String cacheGroup = "embeddedsurveycache";
-        CacheFactory.getCacheProvider().flush(cacheGroup+"/"+"surveyid-"+surveyid);
+        CacheFactory.getCacheProvider("DbcacheProvider").flush(cacheGroup+"/"+"surveyid-"+surveyid);
     }
 
     public void save() throws GeneralException {

@@ -70,6 +70,7 @@ public class HibernateSessionQuartzCloser implements JobListener {
         //Close the Hibernate Session
         try{
             HibernateUtil.closeSession();
+            HibernateUtilDbcache.closeSession();
         } catch (Exception ex){
             logger.debug("Error closing hibernate session at end of quartz session");
             logger.error("",ex);

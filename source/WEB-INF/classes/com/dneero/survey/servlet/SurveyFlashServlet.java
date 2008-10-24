@@ -14,6 +14,7 @@ import java.net.URLEncoder;
 
 import com.dneero.dao.Survey;
 import com.dneero.dao.User;
+import com.dneero.dao.Dbcache;
 import com.dneero.systemprops.WebAppRootDir;
 import com.dneero.systemprops.BaseUrl;
 import com.dneero.systemprops.InstanceProperties;
@@ -97,10 +98,16 @@ public class SurveyFlashServlet extends HttpServlet {
         byte[] bytes = null;
         String nameInCache = "surveyflashservlet-s"+surveyid+"-u"+userid+"-ispreview"+ispreview;
         String cacheGroup =  "embeddedsurveycache"+"/"+"surveyid-"+surveyid;
-        Object fromCache = CacheFactory.getCacheProvider().get(nameInCache, cacheGroup);
+        Object fromCache = CacheFactory.getCacheProvider("DbcacheProvider").get(nameInCache, cacheGroup);
         if (fromCache!=null && cache){
             logger.debug("returning bytes from cache");
+
+            //String value = (String)fromCache;
+            //logger.debug("value="+value);
+            //bytes = value.getBytes("utf-8");
+
             bytes = (byte[])fromCache;
+            logger.debug("bytes.length="+bytes.length);
         } else {
             logger.debug("rebuilding bytes and putting them into cache");
             try{
@@ -180,7 +187,7 @@ public class SurveyFlashServlet extends HttpServlet {
                         //Encode the swf and put its bytes into memory
                         bytes = movie.encode();
                         //Put bytes into cache
-                        CacheFactory.getCacheProvider().put(nameInCache, cacheGroup, bytes);
+                        CacheFactory.getCacheProvider("DbcacheProvider").put(nameInCache, cacheGroup, bytes);
                         logger.debug("End TransformSWF");
                     } catch (Exception ex){
                         logger.error("Error with transform in bottom section",ex);

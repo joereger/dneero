@@ -1,5 +1,6 @@
 package com.dneero.startup.dbversion;
 
+import com.dneero.db.DbConfig;
 import com.dneero.startup.UpgradeDatabaseOneVersion;
 import org.apache.log4j.Logger;
 
@@ -12,13 +13,13 @@ public class Version0 implements UpgradeDatabaseOneVersion {
 
     Logger logger = Logger.getLogger(this.getClass().getName());
 
-    public void doPreHibernateUpgrade(){
+    public void doPreHibernateUpgrade(DbConfig dbConfig){
         logger.debug("doPreHibernateUpgrade() start");
         logger.debug("Not really doing anything... Version0 is a placeholder class.");
         logger.debug("doPreHibernateUpgrade() finish");  
     }
 
-    public void doPostHibernateUpgrade(){
+    public void doPostHibernateUpgrade(DbConfig dbConfig){
         logger.debug("doPostHibernateUpgrade() start");
         logger.debug("Not really doing anything... Version0 is a placeholder class.");
         logger.debug("doPostHibernateUpgrade() finish");

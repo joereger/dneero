@@ -1,0 +1,37 @@
+<ha-jdbc>
+
+  <sync id="differential" class="net.sf.hajdbc.sync.FullSynchronizationStrategy">
+          <property name="fetchSize">5000</property>
+          <property name="maxBatchSize">500</property>
+  </sync>
+
+  <!-- auto-activate-schedule="0 * * ? * *" -->
+
+  <cluster balancer="random" dialect="mysql" default-sync="differential" transaction-mode="serial" meta-data-cache="eager" failure-detect-schedule="0 * * ? * *" detect-identity-columns="true">
+    <database id="database1">
+      <driver>com.mysql.jdbc.Driver</driver>
+      <url>jdbc:mysql://localhost:3306/dneero?autoReconnect=true</url>
+      <user>root</user>
+      <password>password</password>
+    </database>
+    <database id="database2">
+      <driver>com.mysql.jdbc.Driver</driver>
+      <url>jdbc:mysql://localhost:3306/dneero2?autoReconnect=true</url>
+      <user>root</user>
+      <password>password</password>
+    </database>
+    <database id="database3">
+      <driver>com.mysql.jdbc.Driver</driver>
+      <url>jdbc:mysql://localhost:3306/dneero?autoReconnect=true</url>
+      <user>root</user>
+      <password>password</password>
+    </database>
+    <database id="database4">
+      <driver>com.mysql.jdbc.Driver</driver>
+      <url>jdbc:mysql://localhost:3306/dneero?autoReconnect=true</url>
+      <user>root</user>
+      <password>password</password>
+    </database>
+  </cluster>
+    
+</ha-jdbc>
