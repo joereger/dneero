@@ -1,6 +1,7 @@
 package com.dneero.survey.servlet;
 
 import org.apache.log4j.Logger;
+import org.apache.catalina.connector.ClientAbortException;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -177,6 +178,8 @@ public class SurveyFlashFacebookServlet extends HttpServlet {
             response.setContentType("application/x-shockwave-flash");
             outStream.write(bytes);
             outStream.close();
+        } catch (ClientAbortException cex){
+            logger.debug("Client aborted", cex);
         } catch (Exception e){
             logger.error("Error getting conversation from cache");
         }

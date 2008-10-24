@@ -1,6 +1,7 @@
 package com.dneero.survey.servlet;
 
 import org.apache.log4j.Logger;
+import org.apache.catalina.connector.ClientAbortException;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;

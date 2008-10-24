@@ -1,6 +1,7 @@
 package com.dneero.survey.servlet;
 
 import org.apache.log4j.Logger;
+import org.apache.catalina.connector.ClientAbortException;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -198,7 +199,7 @@ public class SurveyFlashServlet extends HttpServlet {
             }
         }
 
-        try{logger.debug("bytes="+bytes.toString());}catch(Exception ex){logger.error("",ex);}
+        //try{logger.debug("bytes="+bytes.toString());}catch(Exception ex){logger.error("",ex);}
 
         try{
             //Get servlet outputstream, set content type and send swf to browser client
@@ -206,6 +207,8 @@ public class SurveyFlashServlet extends HttpServlet {
             response.setContentType("application/x-shockwave-flash");
             outStream.write(bytes);
             outStream.close();
+        } catch (ClientAbortException cex){
+            logger.debug("Client aborted", cex);
         } catch (java.net.SocketException sex){
             logger.debug("Trouble writing survey to browser", sex);
         } catch (Exception e){

@@ -53,5 +53,11 @@ public class DbFactory {
         return dbConfig;
     }
 
+    public static DbConfig getDefaultDbConfigForDbcache(){
+        //Pull config from InstancePropertiesDbcache
+        DbConfig dbConfig = new DbConfig(InstanceProperties.getDbConnectionUrlDbcache(), InstanceProperties.getDbDriverNameDbcache(), InstanceProperties.getDbUsernameDbcache(), InstanceProperties.getDbPasswordDbcache());
+        return dbConfig;
+    }
+
 
 }

@@ -6,6 +6,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.tool.hbm2ddl.SchemaUpdate;
 import org.hibernate.cfg.Configuration;
 import org.apache.log4j.Logger;
+import org.jboss.cache.transaction.DummyTransactionManager;
 
 import java.io.File;
 import java.io.Serializable;
@@ -15,6 +16,8 @@ import com.dneero.systemprops.InstanceProperties;
 import com.dneero.systemprops.WebAppRootDir;
 import com.dneero.startup.ApplicationStartup;
 import com.dneero.db.Db;
+
+import javax.naming.NamingException;
 
 public class HibernateUtil {
 

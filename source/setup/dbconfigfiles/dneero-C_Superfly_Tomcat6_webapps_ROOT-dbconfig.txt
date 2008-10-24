@@ -36,7 +36,7 @@ dbPasswordDbcache=password
 
 ###############START HA-JDBC STUFF############################
 #
-ishajdbcon=1
+ishajdbcon=0
 #
 #dbConnectionUrl=jdbc\:ha-jdbc\:cluster1
 #dbDriverName=net.sf.hajdbc.sql.Driver

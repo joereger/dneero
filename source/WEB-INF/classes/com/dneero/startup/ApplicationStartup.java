@@ -65,12 +65,13 @@ public class ApplicationStartup implements ServletContextListener {
         //3,600,000,000
         if (Db.getHaveValidConfig()){
             //Set up hibernate
-            System.out.println("DNEERO: Will Initialize Hibernate");
+            System.out.println("DNEERO: Start Initialize Hibernate");
             HibernateUtil.getSession();
-            System.out.println("DNEERO: Will Initialize HibernateEC");
+            System.out.println("DNEERO: End Initialize Hibernate");
+            System.out.println("DNEERO: Start Initialize HibernateDbcache");
             HibernateUtilDbcache.getSession();
+            System.out.println("DNEERO: Done initializing HibernateDbcache");
             ishibernateinitialized = true;
-            System.out.println("DNEERO: Done initializing Hibernate");
             //Run post-hibernate db upgrades
             DbVersionCheck dbvcPost = new DbVersionCheck();
             dbvcPost.doCheck(DbVersionCheck.EXECUTE_POSTHIBERNATE);

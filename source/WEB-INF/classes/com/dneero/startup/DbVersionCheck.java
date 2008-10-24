@@ -2,6 +2,7 @@ package com.dneero.startup;
 
 import com.dneero.db.Db;
 import com.dneero.db.DbConfig;
+import com.dneero.db.DbFactory;
 import com.dneero.systemprops.InstanceProperties;
 import com.dneero.util.ErrorDissect;
 import com.dneero.util.Num;
@@ -24,35 +25,39 @@ public class DbVersionCheck {
 
     public void doCheck(int execute_pre_or_post){
         Logger logger = Logger.getLogger(this.getClass().getName());
+        //START HA-JDBC CRAP...  IGNORE
         if (InstanceProperties.getIshajdbcon()!=null && InstanceProperties.getIshajdbcon().equals("1")){
             //HA-JDBC is in the hizzle so check all four databases individually
             System.out.println("DNEERO: Checking Db1");
             if (InstanceProperties.getDbIsActive1()!=null && InstanceProperties.getDbIsActive1().equals("1")){
                 DbConfig dbConfig = new DbConfig(InstanceProperties.getDbConnectionUrl1(), InstanceProperties.getDbDriverName1(), InstanceProperties.getDbUsername1(), InstanceProperties.getDbPassword1());
-                doCheckSingleDbConfig(execute_pre_or_post, dbConfig);
+                doCheckSingleDbConfig(execute_pre_or_post, dbConfig, "com.dneero.startup.dbversion.");
             }
             System.out.println("DNEERO: Checking Db2");
             if (InstanceProperties.getDbIsActive2()!=null && InstanceProperties.getDbIsActive2().equals("1")){
                 DbConfig dbConfig = new DbConfig(InstanceProperties.getDbConnectionUrl2(), InstanceProperties.getDbDriverName2(), InstanceProperties.getDbUsername2(), InstanceProperties.getDbPassword2());
-                doCheckSingleDbConfig(execute_pre_or_post, dbConfig);
+                doCheckSingleDbConfig(execute_pre_or_post, dbConfig, "com.dneero.startup.dbversion.");
             }
             System.out.println("DNEERO: Checking Db3");
             if (InstanceProperties.getDbIsActive3()!=null && InstanceProperties.getDbIsActive3().equals("1")){
                 DbConfig dbConfig = new DbConfig(InstanceProperties.getDbConnectionUrl3(), InstanceProperties.getDbDriverName3(), InstanceProperties.getDbUsername3(), InstanceProperties.getDbPassword3());
-                doCheckSingleDbConfig(execute_pre_or_post, dbConfig);
+                doCheckSingleDbConfig(execute_pre_or_post, dbConfig, "com.dneero.startup.dbversion.");
             }
             System.out.println("DNEERO: Checking Db4");
             if (InstanceProperties.getDbIsActive4()!=null && InstanceProperties.getDbIsActive4().equals("1")){
                 DbConfig dbConfig = new DbConfig(InstanceProperties.getDbConnectionUrl4(), InstanceProperties.getDbDriverName4(), InstanceProperties.getDbUsername4(), InstanceProperties.getDbPassword4());
-                doCheckSingleDbConfig(execute_pre_or_post, dbConfig);
+                doCheckSingleDbConfig(execute_pre_or_post, dbConfig, "com.dneero.startup.dbversion.");
             }
+        //END HA-JDBC CRAP...  IGNORE
         } else {
-            //Single database so pass null and the DbFactory will pull default DbConfig from InstanceProperties
-            doCheckSingleDbConfig(execute_pre_or_post, null);
+            //First check the default database using the main version stuff
+            doCheckSingleDbConfig(execute_pre_or_post, DbFactory.getDefaultDbConfig(), "com.dneero.startup.dbversion.");
+            //Now do the Dbcache database
+            doCheckSingleDbConfig(execute_pre_or_post, DbFactory.getDefaultDbConfigForDbcache(), "com.dneero.startup.dbversiondbcache.");
         }
     }
 
-    public void doCheckSingleDbConfig(int execute_pre_or_post, DbConfig dbConfig){
+    private void doCheckSingleDbConfig(int execute_pre_or_post, DbConfig dbConfig, String packagename){
             Logger logger = Logger.getLogger(this.getClass().getName());
             if (dbConfig!=null){
                 logger.debug("doCheckSingleDbConfig(execute_pre_or_post="+execute_pre_or_post+", dbConfig="+dbConfig.toString()+")");
@@ -64,7 +69,7 @@ public class DbVersionCheck {
             while(true){
                 try{
                     //Try to create an object
-                    UpgradeDatabaseOneVersion upg = (UpgradeDatabaseOneVersion)(Class.forName("com.dneero.startup.dbversion.Version"+maxVer).newInstance());
+                    UpgradeDatabaseOneVersion upg = (UpgradeDatabaseOneVersion)(Class.forName(packagename+"Version"+maxVer).newInstance());
                 } catch (ClassNotFoundException ex){
                     //If class isn't found, break, but be sure to decrement the maxVer
                     //logger.debug("No class found: Class.forName(\"com.dneero.startup.dbversion.Version"+maxVer+")");
@@ -96,7 +101,7 @@ public class DbVersionCheck {
             while (currentDatabaseVersion<=RequiredDatabaseVersion.getMaxversion() && keepWorking) {
                 try{
                     //Do the upgrade
-                    UpgradeDatabaseOneVersion upg = (UpgradeDatabaseOneVersion)(Class.forName("com.dneero.startup.dbversion.Version"+ (currentDatabaseVersion+1)).newInstance());
+                    UpgradeDatabaseOneVersion upg = (UpgradeDatabaseOneVersion)(Class.forName(packagename+"Version"+ (currentDatabaseVersion+1)).newInstance());
                     System.out.println("Start upgrade database to version " + (currentDatabaseVersion+1));
                     if (execute_pre_or_post==EXECUTE_PREHIBERNATE){
                         upg.doPreHibernateUpgrade(dbConfig);
