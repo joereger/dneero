@@ -74,7 +74,11 @@ public class PurgeOldUserSessions {
                                         if (lastaccessedSecondsAgo>MAXUSERSESSIONAGEINSECONDS){
                                             logger.debug("going to purge o.toString()="+o.toString());
                                             out.add(o.toString());
+                                        } else {
+                                            logger.debug("will not purge o.toString()="+o.toString());
                                         }
+                                    } else {
+                                        logger.debug("not sure what type of Object it is o.toString()="+o.toString());   
                                     }
                                 }
                             }

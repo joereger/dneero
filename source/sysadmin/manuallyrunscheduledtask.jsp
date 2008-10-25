@@ -65,6 +65,8 @@ SysadminManuallyRunScheduledTask sysadminManuallyRunScheduledTask = (SysadminMan
                     sysadminManuallyRunScheduledTask.runCurrentBalanceUpdater();
                 } else if (request.getParameter("task").equals("UpdateSurveyImpressionsPaid")){
                     sysadminManuallyRunScheduledTask.runUpdateSurveyImpressionsPaid();
+                } else if (request.getParameter("task").equals("PurgeDeadUserSessions")){
+                    sysadminManuallyRunScheduledTask.runPurgeDeadUserSessions();
                 } else {
                     throw new ValidationException("task not found.");    
                 }
@@ -129,6 +131,7 @@ SysadminManuallyRunScheduledTask sysadminManuallyRunScheduledTask = (SysadminMan
                 <br/><a href="/sysadmin/manuallyrunscheduledtask.jsp?action=run&task=PagePerformanceRecordAndFlush"><font class="tinyfont">PagePerformanceRecordAndFlush</font></a>
                 <br/><a href="/sysadmin/manuallyrunscheduledtask.jsp?action=run&task=CurrentBalanceUpdater"><font class="tinyfont">CurrentBalanceUpdater</font></a>
                 <br/><a href="/sysadmin/manuallyrunscheduledtask.jsp?action=run&task=UpdateSurveyImpressionsPaid"><font class="tinyfont">UpdateSurveyImpressionsPaid</font></a>
+                <br/><a href="/sysadmin/manuallyrunscheduledtask.jsp?action=run&task=PurgeDeadUserSessions"><font class="tinyfont">PurgeDeadUserSessions</font></a>
             </div>
         </td>
     </tr>

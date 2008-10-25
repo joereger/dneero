@@ -177,4 +177,11 @@ public class SysadminManuallyRunScheduledTask implements Serializable {
         return "sysadminmanuallyrunscheduledtask";
     }
 
+    public String runPurgeDeadUserSessions(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
+        try{PurgeDeadUserSessions task = new com.dneero.scheduledjobs.PurgeDeadUserSessions();
+            task.execute(null);} catch (Exception ex){logger.error("",ex);}
+        return "sysadminmanuallyrunscheduledtask";
+    }
+
 }
