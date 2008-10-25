@@ -9,6 +9,7 @@ import com.dneero.htmlui.Pagez;
 import com.dneero.htmlui.ValidationException;
 import com.dneero.helpers.UserInputSafe;
 import com.dneero.display.components.TestQuestion;
+import com.dneero.survey.servlet.EmbedCacheFlusher;
 
 import java.io.Serializable;
 import java.util.Iterator;
@@ -125,6 +126,7 @@ public class ResearcherSurveyDetail02testquestion implements Serializable {
             try{
                 logger.debug("saveSurvey() about to save survey.getSurveyid()=" + survey.getSurveyid());
                 survey.save();
+                EmbedCacheFlusher.flushCache(survey.getSurveyid());
                 logger.debug("saveSurvey() done saving survey.getSurveyid()=" + survey.getSurveyid());
             } catch (GeneralException gex){
                 logger.debug("saveSurvey() failed: " + gex.getErrorsAsSingleString());
@@ -147,6 +149,7 @@ public class ResearcherSurveyDetail02testquestion implements Serializable {
             try{
                 logger.debug("saveSurvey() about to save survey.getSurveyid()=" + survey.getSurveyid());
                 survey.save();
+                EmbedCacheFlusher.flushCache(survey.getSurveyid());
                 logger.debug("saveSurvey() done saving survey.getSurveyid()=" + survey.getSurveyid());
             } catch (GeneralException gex){
                 logger.debug("saveSurvey() failed: " + gex.getErrorsAsSingleString());

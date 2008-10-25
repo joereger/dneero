@@ -13,6 +13,7 @@ import com.dneero.htmlui.ValidationException;
 import com.dneero.xmpp.SendXMPPMessage;
 import com.dneero.helpers.UserInputSafe;
 import com.dneero.money.SurveyMoneyStatus;
+import com.dneero.survey.servlet.EmbedCacheFlusher;
 import org.apache.log4j.Logger;
 import org.hibernate.criterion.Restrictions;
 
@@ -153,6 +154,7 @@ public class ResearcherSurveyDetail01 implements Serializable {
                 try{
                     logger.debug("saveSurvey() about to save survey.getSurveyid()=" + survey.getSurveyid());
                     survey.save();
+                    EmbedCacheFlusher.flushCache(survey.getSurveyid());
                     userSession.setCurrentSurveyid(survey.getSurveyid());
                     logger.debug("saveSurvey() done saving survey.getSurveyid()=" + survey.getSurveyid());
                 } catch (GeneralException gex){

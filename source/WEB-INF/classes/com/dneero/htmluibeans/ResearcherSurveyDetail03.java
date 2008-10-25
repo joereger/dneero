@@ -10,10 +10,7 @@ import com.dneero.htmlui.UserSession;
 import com.dneero.htmlui.Pagez;
 import com.dneero.htmlui.ValidationException;
 import com.dneero.display.SurveyTemplateProcessor;
-import com.dneero.survey.servlet.SurveyFlashServlet;
-import com.dneero.survey.servlet.SurveyJavascriptServlet;
-import com.dneero.survey.servlet.SurveyImageServlet;
-import com.dneero.survey.servlet.SurveyLinkServlet;
+import com.dneero.survey.servlet.*;
 import com.dneero.helpers.UserInputSafe;
 
 import java.io.Serializable;
@@ -113,6 +110,7 @@ public class ResearcherSurveyDetail03 implements Serializable {
                 try{
                     logger.debug("saveSurvey() about to save survey.getSurveyid()=" + survey.getSurveyid());
                     survey.save();
+                    EmbedCacheFlusher.flushCache(survey.getSurveyid());
                     logger.debug("saveSurvey() done saving survey.getSurveyid()=" + survey.getSurveyid());
                 } catch (GeneralException gex){
                     logger.debug("saveSurvey() failed: " + gex.getErrorsAsSingleString());

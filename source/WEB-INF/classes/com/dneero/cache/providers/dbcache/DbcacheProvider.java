@@ -106,7 +106,7 @@ public class DbcacheProvider implements CacheProvider {
     public void flush(String key, String group) {
         Logger logger = Logger.getLogger(this.getClass().getName());
         try{
-            HibernateUtilDbcache.getSession().createQuery("delete Dbcache d where d.dbcacheid>0 and d.grp='"+group+"' and keyname='"+key+"'").executeUpdate();
+            HibernateUtilDbcache.getSession().createQuery("delete Dbcache d where d.dbcacheid>0 and d.grp='"+group+"' and d.keyname='"+key+"'").executeUpdate();
         } catch (Exception ex){
             logger.error("", ex);
         }

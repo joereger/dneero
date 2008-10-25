@@ -242,7 +242,7 @@ public class StoreResponse {
                         //if (!userhadquestionalready){
                             survey.getQuestions().add(question);
                         //}
-                        try{survey.save();} catch (Exception ex){logger.error("", ex);}
+                        try{survey.save();EmbedCacheFlusher.flushCache(survey.getSurveyid(), blogger.getUserid());} catch (Exception ex){logger.error("", ex);}
 
                         if (componenttype==Dropdown.ID){
                             if (srp.getNameValuePairs().get(SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"userquestion-predefinedanswer")!=null){
@@ -274,7 +274,7 @@ public class StoreResponse {
                                 if (!userhadquestionconfigalready){
                                     question.getQuestionconfigs().add(qc1);
                                 }
-                                try{survey.save();} catch (Exception ex){logger.error("", ex);}
+                                try{survey.save();EmbedCacheFlusher.flushCache(survey.getSurveyid(), blogger.getUserid());} catch (Exception ex){logger.error("", ex);}
                             }
                         }
 

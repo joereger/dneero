@@ -14,6 +14,7 @@ import com.dneero.util.GeneralException;
 import com.dneero.util.Num;
 import com.dneero.display.components.Checkboxes;
 import com.dneero.helpers.UserInputSafe;
+import com.dneero.survey.servlet.EmbedCacheFlusher;
 
 import java.util.Iterator;
 import java.io.Serializable;
@@ -126,6 +127,7 @@ public class ResearcherSurveyDetail02checkboxes implements Serializable {
             try{
                 logger.debug("saveSurvey() about to save survey.getSurveyid()=" + survey.getSurveyid());
                 survey.save();
+                EmbedCacheFlusher.flushCache(survey.getSurveyid());
                 logger.debug("saveSurvey() done saving survey.getSurveyid()=" + survey.getSurveyid());
             } catch (GeneralException gex){
                 logger.debug("saveSurvey() failed: " + gex.getErrorsAsSingleString());
@@ -148,6 +150,7 @@ public class ResearcherSurveyDetail02checkboxes implements Serializable {
             try{
                 logger.debug("saveSurvey() about to save survey.getSurveyid()=" + survey.getSurveyid());
                 survey.save();
+                EmbedCacheFlusher.flushCache(survey.getSurveyid());
                 logger.debug("saveSurvey() done saving survey.getSurveyid()=" + survey.getSurveyid());
             } catch (GeneralException gex){
                 logger.debug("saveSurvey() failed: " + gex.getErrorsAsSingleString());

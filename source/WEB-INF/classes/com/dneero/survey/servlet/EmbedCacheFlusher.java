@@ -21,8 +21,12 @@ public class EmbedCacheFlusher {
         CacheFactory.getCacheProvider("DbcacheProvider").flush("surveyjavascriptservlet-s"+surveyid+"-u"+userid+"-ispreview"+false+"-makeHttpsIfSSLIsOn"+false, "embeddedsurveycache"+"/"+"surveyid-"+surveyid);
         CacheFactory.getCacheProvider("DbcacheProvider").flush("surveyflashfacebookservlet-s"+surveyid+"-u"+userid+"-ispreview"+false, "embeddedsurveycache"+"/"+"surveyid-"+surveyid);
         CacheFactory.getCacheProvider("DbcacheProvider").flush("surveyflashfacebookservlet-s"+surveyid+"-u"+userid+"-ispreview"+true,  "embeddedsurveycache"+"/"+"surveyid-"+surveyid);
-      
 
+    }
+
+    public static void flushCache(int surveyid){
+        Logger logger = Logger.getLogger(EmbedCacheFlusher.class);
+        CacheFactory.getCacheProvider("DbcacheProvider").flush("embeddedsurveycache"+"/"+"surveyid-"+surveyid);
     }
 
 }

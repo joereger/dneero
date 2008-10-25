@@ -14,6 +14,7 @@ import com.dneero.money.SurveyMoneyStatus;
 import com.dneero.ui.SurveyEnhancer;
 import com.dneero.finders.SurveyCriteriaXML;
 import com.dneero.survey.servlet.SurveyFlashServlet;
+import com.dneero.survey.servlet.EmbedCacheFlusher;
 import com.dneero.display.SurveyTakerDisplay;
 import com.dneero.htmlui.Pagez;
 import com.dneero.htmlui.ValidationException;
@@ -76,6 +77,8 @@ public class CustomercareSurveyDetail implements Serializable {
             try{
                 logger.debug("saveSurvey() about to save survey.getSurveyid()=" + survey.getSurveyid());
                 survey.save();
+                //Flush the entire cache for this survey...  expensive!
+                EmbedCacheFlusher.flushCache(survey.getSurveyid());
                 Pagez.getUserSession().setMessage("Survey saved!");
                 logger.debug("saveSurvey() done saving survey.getSurveyid()=" + survey.getSurveyid());
             } catch (GeneralException gex){

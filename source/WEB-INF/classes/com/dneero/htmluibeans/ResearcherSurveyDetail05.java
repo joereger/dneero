@@ -10,6 +10,7 @@ import com.dneero.incentive.IncentiveCoupon;
 import com.dneero.incentive.IncentiveOptionsUtil;
 import com.dneero.util.GeneralException;
 import com.dneero.util.Num;
+import com.dneero.survey.servlet.EmbedCacheFlusher;
 import org.apache.log4j.Logger;
 
 import java.io.Serializable;
@@ -203,6 +204,7 @@ public class ResearcherSurveyDetail05 implements Serializable {
                 try{
                     logger.debug("saveSurvey() about to save survey.getSurveyid()=" + survey.getSurveyid());
                     survey.save();
+                    EmbedCacheFlusher.flushCache(survey.getSurveyid());
                     logger.debug("saveSurvey() done saving survey.getSurveyid()=" + survey.getSurveyid());
                 } catch (GeneralException gex){
                     logger.debug("saveSurvey() failed: " + gex.getErrorsAsSingleString());

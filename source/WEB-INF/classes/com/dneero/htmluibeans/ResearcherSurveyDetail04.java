@@ -18,6 +18,7 @@ import com.dneero.htmlui.Pagez;
 import com.dneero.htmlui.ValidationException;
 import com.dneero.finders.SurveyCriteriaXML;
 import com.dneero.helpers.UserInputSafe;
+import com.dneero.survey.servlet.EmbedCacheFlusher;
 
 /**
  * User: Joe Reger Jr
@@ -227,6 +228,7 @@ public class ResearcherSurveyDetail04 implements Serializable {
                     survey.setIsaccesscodeonly(isaccesscodeonly);
                     survey.setAccesscode(accesscode);
                     survey.save();
+                    EmbedCacheFlusher.flushCache(survey.getSurveyid());
                     logger.debug("saveSurvey() done saving (for 2nd time) survey.getSurveyid()=" + survey.getSurveyid());
                 } catch (GeneralException gex){
                     logger.debug("saveSurvey() failed: " + gex.getErrorsAsSingleString());

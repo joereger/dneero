@@ -11,6 +11,7 @@ import com.dneero.htmlui.UserSession;
 import com.dneero.htmlui.ValidationException;
 import com.dneero.util.GeneralException;
 import com.dneero.util.Num;
+import com.dneero.survey.servlet.EmbedCacheFlusher;
 import org.apache.log4j.Logger;
 import org.hibernate.criterion.Restrictions;
 
@@ -78,6 +79,7 @@ public class ResearcherSurveyDetail02 implements Serializable {
                 try{
                     logger.debug("saveSurvey() about to save survey.getSurveyid()=" + survey.getSurveyid());
                     survey.save();
+                    EmbedCacheFlusher.flushCache(survey.getSurveyid());
                     logger.debug("saveSurvey() done saving survey.getSurveyid()=" + survey.getSurveyid());
                 } catch (GeneralException gex){
                     logger.debug("saveSurvey() failed: " + gex.getErrorsAsSingleString());
@@ -142,6 +144,7 @@ public class ResearcherSurveyDetail02 implements Serializable {
         try{
             logger.debug("deleteQuestion() about to save survey.getSurveyid()=" + survey.getSurveyid());
             survey.save();
+            EmbedCacheFlusher.flushCache(survey.getSurveyid());
             logger.debug("deleteQuestion() done saving survey.getSurveyid()=" + survey.getSurveyid());
         } catch (GeneralException gex){
             logger.debug("saveSurvey() failed: " + gex.getErrorsAsSingleString());

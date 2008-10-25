@@ -5,11 +5,11 @@ import com.dneero.cache.providers.CacheFactory;
 import com.dneero.dao.hibernate.BasePersistentClass;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.incentive.Incentive;
-import com.dneero.incentive.IncentiveCash;
 import com.dneero.incentive.IncentiveFactory;
 import com.dneero.money.SurveyMoneyStatus;
 import com.dneero.session.AuthControlled;
 import com.dneero.util.GeneralException;
+import com.dneero.survey.servlet.EmbedCacheFlusher;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 
@@ -97,13 +97,7 @@ public class Survey extends BasePersistentClass implements java.io.Serializable,
     /** default constructor */
     public Survey() {
     }
-
-    public void flushSurveyEmbeddingCache(){
-        Logger logger = Logger.getLogger(this.getClass().getName());
-        String cacheGroup = "embeddedsurveycache";
-        CacheFactory.getCacheProvider("DbcacheProvider").flush(cacheGroup+"/"+"surveyid-"+surveyid);
-    }
-
+    
     public void save() throws GeneralException {
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("save() called and is accessing Survey.java");
@@ -122,7 +116,7 @@ public class Survey extends BasePersistentClass implements java.io.Serializable,
         //    logger.debug( "Survey.save() called by: " + e.getStackTrace()[1].getClassName() + "." +e.getStackTrace()[1].getMethodName() + "()" );
         //}
         //End Experimental
-        flushSurveyEmbeddingCache();
+        //EmbedCacheFlusher.flushCache(surveyid);
         willingtopayperrespondent = 0.0;
         super.save();
     }
@@ -130,14 +124,14 @@ public class Survey extends BasePersistentClass implements java.io.Serializable,
     public void delete() throws HibernateException {
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("delete() called and is accessing Survey.java");
-        flushSurveyEmbeddingCache();
+        EmbedCacheFlusher.flushCache(surveyid);
         super.delete();
     }
 
     public void refresh() throws HibernateException {
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("refresh() called and is accessing Survey.java");
-        flushSurveyEmbeddingCache();
+        //EmbedCacheFlusher.flushCache(surveyid);
         super.refresh();
     }
 

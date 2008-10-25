@@ -87,6 +87,7 @@ public class ResearcherIndex implements Serializable {
                 newSurveypanel.setSurveyid(newSurvey.getSurveyid());
                 try{newSurveypanel.save();}catch(Exception ex){logger.error("",ex);}
             }
+            //@todo don't copy user questions
             //Refresh the survey
             try{newSurvey.refresh();}catch(Exception ex){logger.error("",ex);}
         }
