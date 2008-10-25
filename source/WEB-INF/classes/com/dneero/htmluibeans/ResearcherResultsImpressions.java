@@ -5,6 +5,7 @@ import org.hibernate.criterion.Restrictions;
 import com.dneero.dao.Survey;
 import com.dneero.dao.Impression;
 import com.dneero.dao.hibernate.HibernateUtil;
+import com.dneero.dao.hibernate.HibernateUtilImpressions;
 
 import com.dneero.util.Str;
 import com.dneero.htmlui.Pagez;
@@ -42,7 +43,7 @@ public class ResearcherResultsImpressions implements Serializable {
         researcherResultsImpressionsListitems = new ArrayList<ResearcherResultsImpressionsListitem>();
         if (survey!=null){
             if (Pagez.getUserSession().getUser()!=null && survey.canEdit(Pagez.getUserSession().getUser())){
-                List<Impression> impressions = HibernateUtil.getSession().createCriteria(Impression.class)
+                List<Impression> impressions = HibernateUtilImpressions.getSession().createCriteria(Impression.class)
                                    .add( Restrictions.eq("surveyid", survey.getSurveyid()))
                                    .list();
                 for (Iterator<Impression> iterator1 = impressions.iterator(); iterator1.hasNext();) {

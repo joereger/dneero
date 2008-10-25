@@ -4,6 +4,7 @@ import org.apache.log4j.Logger;
 import org.hibernate.criterion.Restrictions;
 import com.dneero.dao.*;
 import com.dneero.dao.hibernate.HibernateUtil;
+import com.dneero.dao.hibernate.HibernateUtilImpressions;
 
 import com.dneero.util.Str;
 import com.dneero.htmlui.Pagez;
@@ -48,7 +49,7 @@ public class PublicProfileImpressions implements Serializable {
         if (response!=null && blogger!=null && survey!=null){
 
 
-                List<Impression> impressions = HibernateUtil.getSession().createCriteria(Impression.class)
+                List<Impression> impressions = HibernateUtilImpressions.getSession().createCriteria(Impression.class)
                                    .add( Restrictions.eq("surveyid", survey.getSurveyid()))
                                    .add( Restrictions.eq("responseid", response.getResponseid()))
                                    .add( Restrictions.eq("userid", user.getUserid()))

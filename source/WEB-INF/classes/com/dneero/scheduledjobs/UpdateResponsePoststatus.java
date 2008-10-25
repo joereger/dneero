@@ -9,6 +9,7 @@ import com.dneero.systemprops.InstanceProperties;
 import com.dneero.dao.Response;
 import com.dneero.dao.Impression;
 import com.dneero.dao.hibernate.HibernateUtil;
+import com.dneero.dao.hibernate.HibernateUtilImpressions;
 import com.dneero.util.Time;
 import com.dneero.util.DateDiff;
 import com.dneero.survey.servlet.ImpressionsByDayUtil;
@@ -70,7 +71,7 @@ public class UpdateResponsePoststatus implements Job {
 
             //Get a single ImpressionsByDayUtil that holds all impression by day data
             ImpressionsByDayUtil ibdus = new ImpressionsByDayUtil("");
-            List<Impression> impressions = HibernateUtil.getSession().createCriteria(Impression.class)
+            List<Impression> impressions = HibernateUtilImpressions.getSession().createCriteria(Impression.class)
                                                .add(Restrictions.eq("responseid", response.getResponseid()))
                                                .setCacheable(true)
                                                .list();

@@ -3,6 +3,7 @@ package com.dneero.htmluibeans;
 
 import com.dneero.dao.*;
 import com.dneero.dao.hibernate.HibernateUtil;
+import com.dneero.dao.hibernate.HibernateUtilImpressions;
 import com.dneero.email.EmailActivationSend;
 import com.dneero.email.LostPasswordSend;
 import com.dneero.helpers.DeleteUser;
@@ -177,7 +178,7 @@ public class CustomercareUserDetail implements Serializable {
             }
 
             //Load impressions
-            impressions = HibernateUtil.getSession().createQuery("from Impression where userid='"+userid+"' order by impressionid desc").setMaxResults(500).list();
+            impressions = HibernateUtilImpressions.getSession().createQuery("from Impression where userid='"+userid+"' order by impressionid desc").setMaxResults(500).list();
 
 
         }

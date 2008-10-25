@@ -121,4 +121,6 @@ public class Blogpost extends BasePersistentClass implements java.io.Serializabl
     public void setBlogpostcomments(Set<Blogpostcomment> blogpostcomments) {
         this.blogpostcomments = blogpostcomments;
     }
+
+
 }

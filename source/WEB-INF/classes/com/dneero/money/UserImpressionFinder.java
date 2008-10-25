@@ -3,6 +3,8 @@ package com.dneero.money;
 import com.dneero.dao.*;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.dao.hibernate.NumFromUniqueResult;
+import com.dneero.dao.hibernate.HibernateUtilImpressions;
+import com.dneero.dao.hibernate.NumFromUniqueResultImpressions;
 
 import java.util.*;
 
@@ -30,7 +32,7 @@ public class UserImpressionFinder {
         HibernateUtil.getSession().saveOrUpdate(blogger);
         ArrayList<Impression> out = new ArrayList();
         if (survey!=null && survey.getSurveyid()>0){
-            List<Impression> impressionsfromdb = HibernateUtil.getSession().createCriteria(Impression.class)
+            List<Impression> impressionsfromdb = HibernateUtilImpressions.getSession().createCriteria(Impression.class)
                                                .add(Restrictions.eq("userid", blogger.getUserid()))
                                                .add(Restrictions.eq("surveyid", survey.getSurveyid()))
                                                .setCacheable(true)
@@ -42,7 +44,7 @@ public class UserImpressionFinder {
             }
             out.addAll((ArrayList)impressionsfromdb);
         } else {
-            List<Impression> impressionsfromdb = HibernateUtil.getSession().createCriteria(Impression.class)
+            List<Impression> impressionsfromdb = HibernateUtilImpressions.getSession().createCriteria(Impression.class)
                                                .add(Restrictions.eq("userid", blogger.getUserid()))
                                                .setCacheable(true)
                                                .list();
@@ -62,10 +64,10 @@ public class UserImpressionFinder {
         //@todo is this saveOrUpdate() really necessary?
         //HibernateUtil.getSession().saveOrUpdate(blogger);
         if (survey!=null && survey.getSurveyid()>0){
-            int totalimpressions = NumFromUniqueResult.getInt("select sum(impressionstotal) from Impression where userid='"+blogger.getUserid()+"' and surveyid='"+survey.getSurveyid()+"'");
+            int totalimpressions = NumFromUniqueResultImpressions.getInt("select sum(impressionstotal) from Impression where userid='"+blogger.getUserid()+"' and surveyid='"+survey.getSurveyid()+"'");
             return totalimpressions;
         } else {
-            int totalimpressions = NumFromUniqueResult.getInt("select sum(impressionstotal) from Impression where userid='"+blogger.getUserid()+"'");
+            int totalimpressions = NumFromUniqueResultImpressions.getInt("select sum(impressionstotal) from Impression where userid='"+blogger.getUserid()+"'");
             return totalimpressions;
         }
     }
@@ -76,10 +78,10 @@ public class UserImpressionFinder {
         //@todo is this saveOrUpdate() really necessary?
         //HibernateUtil.getSession().saveOrUpdate(blogger);
         if (survey!=null && survey.getSurveyid()>0){
-            int totalimpressions = NumFromUniqueResult.getInt("select sum(impressionspaid) from Impression where userid='"+blogger.getUserid()+"' and surveyid='"+survey.getSurveyid()+"'");
+            int totalimpressions = NumFromUniqueResultImpressions.getInt("select sum(impressionspaid) from Impression where userid='"+blogger.getUserid()+"' and surveyid='"+survey.getSurveyid()+"'");
             return totalimpressions;
         } else {
-            int totalimpressions = NumFromUniqueResult.getInt("select sum(impressionspaid) from Impression where userid='"+blogger.getUserid()+"'");
+            int totalimpressions = NumFromUniqueResultImpressions.getInt("select sum(impressionspaid) from Impression where userid='"+blogger.getUserid()+"'");
             return totalimpressions;
         }
     }
@@ -90,10 +92,10 @@ public class UserImpressionFinder {
         //@todo is this saveOrUpdate() really necessary?
         //HibernateUtil.getSession().saveOrUpdate(blogger);
         if (survey!=null && survey.getSurveyid()>0){
-            int totalimpressions = NumFromUniqueResult.getInt("select sum(impressionstobepaid) from Impression where userid='"+blogger.getUserid()+"' and surveyid='"+survey.getSurveyid()+"'");
+            int totalimpressions = NumFromUniqueResultImpressions.getInt("select sum(impressionstobepaid) from Impression where userid='"+blogger.getUserid()+"' and surveyid='"+survey.getSurveyid()+"'");
             return totalimpressions;
         } else {
-            int totalimpressions = NumFromUniqueResult.getInt("select sum(impressionstobepaid) from Impression where userid='"+blogger.getUserid()+"'");
+            int totalimpressions = NumFromUniqueResultImpressions.getInt("select sum(impressionstobepaid) from Impression where userid='"+blogger.getUserid()+"'");
             return totalimpressions;
         }
     }

@@ -4,6 +4,7 @@ import com.dneero.dao.Balancetransaction;
 import com.dneero.dao.User;
 import com.dneero.dao.Impression;
 import com.dneero.dao.hibernate.HibernateUtil;
+import com.dneero.dao.hibernate.HibernateUtilImpressions;
 import com.dneero.util.Str;
 
 import java.io.Serializable;
@@ -33,7 +34,7 @@ public class MostActiveImpressionLocations implements CachedStuff, Serializable 
         StringBuffer out = new StringBuffer();
 
         out.append("<table cellpadding='3' cellspacing='0' border='0'>");
-        List<Impression> impressions = HibernateUtil.getSession().createCriteria(Impression.class)
+        List<Impression> impressions = HibernateUtilImpressions.getSession().createCriteria(Impression.class)
                                            .add(Restrictions.gt("impressionstotal", 25))
                                            .add(Restrictions.ne("referer", "Facebook"))
                                            .add(Restrictions.ne("referer", ""))

@@ -6,7 +6,9 @@ import org.hibernate.HibernateException;
 import org.hibernate.tool.hbm2ddl.SchemaUpdate;
 import org.hibernate.cfg.Configuration;
 import org.apache.log4j.Logger;
-import org.jboss.cache.transaction.DummyTransactionManager;
+import org.jboss.cache.transaction.GenericTransactionManagerLookup;
+import org.jboss.cache.transaction.DummyTransactionManagerLookup;
+
 
 import java.io.File;
 import java.io.Serializable;
@@ -16,8 +18,6 @@ import com.dneero.systemprops.InstanceProperties;
 import com.dneero.systemprops.WebAppRootDir;
 import com.dneero.startup.ApplicationStartup;
 import com.dneero.db.Db;
-
-import javax.naming.NamingException;
 
 public class HibernateUtil {
 
@@ -49,6 +49,8 @@ public class HibernateUtil {
                     conf.setProperty("hibernate.connection.password", InstanceProperties.getDbPassword());
                     conf.setProperty("hibernate.connection.driver_class", InstanceProperties.getDbDriverName());
 
+                
+
                     //Misc
                     //conf.setProperty("hibernate.current_session_context_class", "thread");
                     //Turn on by setting instance prop hibernateShowSql="1"
@@ -66,15 +68,25 @@ public class HibernateUtil {
                     conf.setProperty("hibernate.c3p0.max_statements", "50");
 
 
+
                     //Second level cache
                     conf.setProperty("hibernate.cache.use_second_level_cache", "true");
-                    //@If on jboss use cache.provider_class=org.jboss.ejb3.entity.TreeCacheProviderHook - see http://docs.jboss.com/jbossas/guides/clusteringguide/r2/en/html_single/#clustering-intro 1.4.2.2
-                    //conf.setProperty("hibernate.cache.provider_class", "org.hibernate.cache.OSCacheProvider");
-                    conf.setProperty("hibernate.cache.provider_class", "org.hibernate.cache.TreeCacheProvider");
-                    //conf.setProperty("hibernate.cache.provider_class", "org.jboss.ejb3.entity.TreeCacheProviderHook");
+                    conf.setProperty("hibernate.cache.region.factory_class", "org.hibernate.cache.jbc2.MultiplexedJBossCacheRegionFactory");
+                    conf.setProperty("hibernate.cache.region.jbc2.configs", "jbc2-configs-dneero.xml");
+                    conf.setProperty("hibernate.cache.region.jbc2.cfg.entity", "optimistic-entity");
+                    conf.setProperty("hibernate.cache.region.jbc2.cfg.collection", "optimistic-entity");
+                    conf.setProperty("hibernate.cache.region.jbc2.cfg.ts", "timestamps-cache");
+                    conf.setProperty("hibernate.cache.region.jbc2.cfg.query", "optimistic-entity");
+                    conf.setProperty("hibernate.cache.region.jbc2.cfg.multiplexer.stacks", "jgroups-stacks-dneero.xml");
                     conf.setProperty("hibernate.cache.use_structured_entries", "true");
                     conf.setProperty("hibernate.cache.use_query_cache", "true");
                     conf.setProperty("hibernate.cache.usage", "transactional");
+
+                    //Transactions
+                    conf.setProperty("hibernate.transaction.manager_lookup_class", "com.atomikos.icatch.jta.hibernate3.TransactionManagerLookup");
+                    //conf.setProperty("hibernate.transaction.factory_class", "org.hibernate.transaction.JTATransactionFactory");
+                    conf.setProperty("hibernate.transaction.factory_class", "com.atomikos.icatch.jta.hibernate3.AtomikosJTATransactionFactory");
+                    //conf.setProperty("hibernate.connection.release_mode", "auto");
 
                     //Session context mgr
                     //conf.setProperty("hibernate.current_session_context_class", "thread");

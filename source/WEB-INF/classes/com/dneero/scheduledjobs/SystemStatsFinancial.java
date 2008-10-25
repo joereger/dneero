@@ -7,6 +7,7 @@ import org.apache.log4j.Logger;
 import org.hibernate.criterion.Restrictions;
 import com.dneero.dao.*;
 import com.dneero.dao.hibernate.HibernateUtil;
+import com.dneero.dao.hibernate.HibernateUtilImpressions;
 import com.dneero.survey.servlet.ImpressionsByDayUtil;
 
 import java.util.*;
@@ -47,7 +48,7 @@ public class SystemStatsFinancial implements Job {
 
                 //Get the impressions by day for this response
                 ImpressionsByDayUtil ibdu = new ImpressionsByDayUtil("");
-                List<Impression> impressions = HibernateUtil.getSession().createCriteria(Impression.class)
+                List<Impression> impressions = HibernateUtilImpressions.getSession().createCriteria(Impression.class)
                                                    .add(Restrictions.eq("responseid", response.getResponseid()))
                                                    .setCacheable(true)
                                                    .list();

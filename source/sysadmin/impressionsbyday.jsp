@@ -3,6 +3,7 @@
 <%@ page import="java.util.HashMap" %>
 <%@ page import="java.util.Iterator" %>
 <%@ page import="java.util.List" %>
+<%@ page import="com.dneero.dao.hibernate.*" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "Impressions by Days Since Response";
@@ -27,7 +28,7 @@ String acl = "sysadmin";
     }
 
     //Get all impressions, big sql call
-    List<Impression> impressions = HibernateUtil.getSession().createCriteria(Impression.class)
+    List<Impression> impressions = HibernateUtilImpressions.getSession().createCriteria(Impression.class)
                                    .setCacheable(true)
                                    .list();
     for (Iterator<Impression> impressionIterator=impressions.iterator(); impressionIterator.hasNext();) {

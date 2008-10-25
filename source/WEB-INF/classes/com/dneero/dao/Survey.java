@@ -4,6 +4,8 @@ package com.dneero.dao;
 import com.dneero.cache.providers.CacheFactory;
 import com.dneero.dao.hibernate.BasePersistentClass;
 import com.dneero.dao.hibernate.HibernateUtil;
+import com.dneero.dao.hibernate.HibernateUtilDbcache;
+import com.dneero.dao.hibernate.HibernateUtilImpressions;
 import com.dneero.incentive.Incentive;
 import com.dneero.incentive.IncentiveFactory;
 import com.dneero.money.SurveyMoneyStatus;
@@ -69,7 +71,7 @@ public class Survey extends BasePersistentClass implements java.io.Serializable,
 
      private Set<Question> questions = new HashSet<Question>();
      private Set<Response> responses = new HashSet<Response>();
-     private Set<Impression> impressions = new HashSet<Impression>();
+     //private Set<Impression> impressions = new HashSet<Impression>();
      private Set<Surveypanel> surveypanels = new HashSet<Surveypanel>();
      private Set<Surveydiscuss> surveydiscusses = new HashSet<Surveydiscuss>();
      private Set<Surveyincentive> surveyincentives = new HashSet<Surveyincentive>();
@@ -125,9 +127,15 @@ public class Survey extends BasePersistentClass implements java.io.Serializable,
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("delete() called and is accessing Survey.java");
         EmbedCacheFlusher.flushCache(surveyid);
+        try{
+            HibernateUtilImpressions.getSession().createQuery("delete Impression i where i.impressionid>0 and i.surveyid='"+surveyid+"'").executeUpdate();
+        } catch (Exception ex){
+            logger.error("", ex);
+        }
         super.delete();
     }
 
+    
     public void refresh() throws HibernateException {
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("refresh() called and is accessing Survey.java");
@@ -310,13 +318,13 @@ public class Survey extends BasePersistentClass implements java.io.Serializable,
         this.responses = responses;
     }
 
-    public Set<Impression> getImpressions() {
-        return impressions;
-    }
-
-    public void setImpressions(Set<Impression> impressions) {
-        this.impressions = impressions;
-    }
+//    public Set<Impression> getImpressions() {
+//        return impressions;
+//    }
+//
+//    public void setImpressions(Set<Impression> impressions) {
+//        this.impressions = impressions;
+//    }
 
     public int getStatus() {
         return status;

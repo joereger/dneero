@@ -43,7 +43,7 @@ public class QualityAverager implements Job {
             }
 
 //            //Iterate impressions to collect averaging data
-//            List<Impression> impressions = HibernateUtil.getSession().createQuery("from Impression").list();
+//            List<Impression> impressions = HibernateUtilImpressions.getSession().createQuery("from Impression").list();
 //            for (Iterator<Impression> iterator = impressions.iterator(); iterator.hasNext();) {
 //                Impression impression = iterator.next();
 //                Blogger blogger;

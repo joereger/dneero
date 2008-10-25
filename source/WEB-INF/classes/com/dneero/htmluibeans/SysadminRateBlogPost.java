@@ -3,6 +3,8 @@ package com.dneero.htmluibeans;
 import com.dneero.dao.Impression;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.dao.hibernate.NumFromUniqueResult;
+import com.dneero.dao.hibernate.HibernateUtilImpressions;
+import com.dneero.dao.hibernate.NumFromUniqueResultImpressions;
 import com.dneero.htmlui.ValidationException;
 import org.apache.log4j.Logger;
 
@@ -29,8 +31,8 @@ public class SysadminRateBlogPost implements Serializable {
 
 
     public void initBean(){
-        remainingtoreview = NumFromUniqueResult.getInt("select count(*) from Impression where quality='0'");
-        List<Impression> impressions = HibernateUtil.getSession().createQuery("from Impression where quality='0'").setMaxResults(1).list();
+        remainingtoreview = NumFromUniqueResultImpressions.getInt("select count(*) from Impression where quality='0'");
+        List<Impression> impressions = HibernateUtilImpressions.getSession().createQuery("from Impression where quality='0'").setMaxResults(1).list();
         if (impressions.size()>0){
             impression = impressions.get(0);
             impressionid = impression.getImpressionid();

@@ -24,7 +24,7 @@ public class PurgeOldUserSessions {
         Logger logger = Logger.getLogger(PurgeOldUserSessions.class);
         logger.debug("PurgeOldUserSessions.purge("+fqn+", "+levelsToDisplay+") called");
         try{
-            Set childrenNames = JbossTreeCacheAOPProvider.getTreeCache().getChildrenNames(fqn);
+            Set childrenNames = JbossTreeCacheAOPProvider.getCache().getNode(fqn).getChildrenNames();
             ArrayList<String> toPurge = dumpMap(childrenNames, 0, fqn, levelsToDisplay);
             for (Iterator<String> stringIterator=toPurge.iterator(); stringIterator.hasNext();) {
                 String key = stringIterator.next();
@@ -52,7 +52,7 @@ public class PurgeOldUserSessions {
 
                 //UserSession Special Output
                 try{
-                    Object objInCache = (Object)JbossTreeCacheAOPProvider.getTreeCache().get(fqnFull);
+                    Object objInCache = (Object)JbossTreeCacheAOPProvider.getCache().getNode(fqnFull);
                     if (objInCache!=null){
                         Class c = objInCache.getClass();
                         String s = c.getName();
@@ -60,12 +60,12 @@ public class PurgeOldUserSessions {
                         if (objInCache instanceof Node){
                             Node node = (Node)objInCache;
                             Fqn fqn = node.getFqn();
-                            logger.debug("fqn.getName()="+fqn.getName());
-                            Set keys = node.getDataKeys();
+                            //logger.debug("fqn.getName()="+fqn.getName());
+                            Set keys = node.getKeys();
                             for (Iterator iterator=keys.iterator(); iterator.hasNext();) {
                                 Object o=iterator.next();
                                 logger.debug("o.toString()="+o.toString());
-                                Object nodeObj = JbossTreeCacheAOPProvider.getTreeCache().get(fqnFull, o);
+                                Object nodeObj = JbossTreeCacheAOPProvider.getCache().get(fqnFull, o);
                                 if (nodeObj!=null){
                                     //UserSession
                                     if (nodeObj instanceof UserSession){
@@ -89,7 +89,7 @@ public class PurgeOldUserSessions {
 
                 try{
                     if (nestinglevel<=levelsToDisplay){
-                        Set cNames = JbossTreeCacheAOPProvider.getTreeCache().getChildrenNames(fqnFull);
+                        Set cNames = JbossTreeCacheAOPProvider.getCache().getNode(fqnFull).getChildrenNames();
                         if (cNames!=null){
                             logger.debug("cNames.size()="+cNames.size()+" fqnFull="+fqnFull);
                         } else {

@@ -27,6 +27,11 @@ public class InstanceProperties {
     private static String dbUsernameDbcache;
     private static String dbPasswordDbcache;
 
+    private static String dbDriverNameImpressions;
+    private static String dbConnectionUrlImpressions;
+    private static String dbUsernameImpressions;
+    private static String dbPasswordImpressions;
+
     private static String dbIsActive1;
     private static String dbDriverName1;
     private static String dbConnectionUrl1;
@@ -130,6 +135,13 @@ public class InstanceProperties {
             dbPasswordDbcache= properties.getProperty("dbPasswordDbcache", "password");
             dbDriverNameDbcache= properties.getProperty("dbDriverNameDbcache", "com.mysql.jdbc.Driver");
 
+            dbConnectionUrlImpressions= properties.getProperty("dbConnectionUrlImpressions", "jdbc:mysql://localhost:3306/dneeroimpressions?autoReconnect=true");
+            dbUsernameImpressions= properties.getProperty("dbUsernameImpressions", "username");
+            //DesEncrypter encrypter2 = new DesEncrypter(passPhrase);
+            //dbPasswordImpressions = encrypter2.decrypt(properties.getProperty("dbPasswordImpressions", "password"));
+            dbPasswordImpressions= properties.getProperty("dbPasswordImpressions", "password");
+            dbDriverNameImpressions= properties.getProperty("dbDriverNameImpressions", "com.mysql.jdbc.Driver");
+
             dbIsActive1 = properties.getProperty("dbIsActive1", "0");
             dbConnectionUrl1 = properties.getProperty("dbConnectionUrl1", "jdbc:mysql://localhost:3306/dneero?autoReconnect=true");
             dbUsername1 = properties.getProperty("dbUsername1", "username");
@@ -219,12 +231,29 @@ public class InstanceProperties {
         }
         if (dbPasswordDbcache!=null){
             //DesEncrypter encrypter2 = new DesEncrypter(passPhrase);
-            //String encDbPasswordEmbedcache = encrypter2.encrypt(dbPasswordDbcache);
+            //String encDbPasswordDbcache = encrypter2.encrypt(dbPasswordDbcache);
             //properties.setProperty("dbPasswordDbcache", encDbPasswordDbcache);
             properties.setProperty("dbPasswordDbcache", dbPasswordDbcache);
         }
         if (dbDriverNameDbcache!=null){
             properties.setProperty("dbDriverNameDbcache", dbDriverNameDbcache);
+        }
+
+        //DB Impressions
+        if (dbConnectionUrlImpressions!=null){
+            properties.setProperty("dbConnectionUrlImpressions", dbConnectionUrlImpressions);
+        }
+        if (dbUsernameImpressions!=null){
+            properties.setProperty("dbUsernameImpressions", dbUsernameImpressions);
+        }
+        if (dbPasswordImpressions!=null){
+            //DesEncrypter encrypter2 = new DesEncrypter(passPhrase);
+            //String encDbPasswordImpressions = encrypter2.encrypt(dbPasswordImpressions);
+            //properties.setProperty("dbPasswordImpressions", encDbPasswordImpressions);
+            properties.setProperty("dbPasswordImpressions", dbPasswordImpressions);
+        }
+        if (dbDriverNameImpressions!=null){
+            properties.setProperty("dbDriverNameImpressions", dbDriverNameImpressions);
         }
 
         //DB1
@@ -459,6 +488,43 @@ public class InstanceProperties {
 
     public static void setDbDriverNameDbcache(String dbDriverNameDbcache) {
         InstanceProperties.dbDriverNameDbcache=dbDriverNameDbcache;
+    }
+
+    //DB Impressions
+    public static String getDbConnectionUrlImpressions() {
+        load();
+        return dbConnectionUrlImpressions;
+    }
+
+    public static void setDbConnectionUrlImpressions(String dbConnectionUrlImpressions) {
+        InstanceProperties.dbConnectionUrlImpressions=dbConnectionUrlImpressions;
+    }
+
+    public static String getDbUsernameImpressions() {
+        load();
+        return dbUsernameImpressions;
+    }
+
+    public static void setDbUsernameImpressions(String dbUsernameImpressions) {
+        InstanceProperties.dbUsernameImpressions=dbUsernameImpressions;
+    }
+
+    public static String getDbPasswordImpressions() {
+        load();
+        return dbPasswordImpressions;
+    }
+
+    public static void setDbPasswordImpressions(String dbPasswordImpressions) {
+        InstanceProperties.dbPasswordImpressions=dbPasswordImpressions;
+    }
+
+    public static String getDbDriverNameImpressions(){
+        load();
+        return dbDriverNameImpressions;
+    }
+
+    public static void setDbDriverNameImpressions(String dbDriverNameImpressions) {
+        InstanceProperties.dbDriverNameImpressions=dbDriverNameImpressions;
     }
 
 

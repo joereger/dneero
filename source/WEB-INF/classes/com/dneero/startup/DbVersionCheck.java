@@ -54,6 +54,8 @@ public class DbVersionCheck {
             doCheckSingleDbConfig(execute_pre_or_post, DbFactory.getDefaultDbConfig(), "com.dneero.startup.dbversion.");
             //Now do the Dbcache database
             doCheckSingleDbConfig(execute_pre_or_post, DbFactory.getDefaultDbConfigForDbcache(), "com.dneero.startup.dbversiondbcache.");
+            //Now do the Impressions database
+            doCheckSingleDbConfig(execute_pre_or_post, DbFactory.getDefaultDbConfigForImpressions(), "com.dneero.startup.dbversionimpressions.");
         }
     }
 

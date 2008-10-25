@@ -1,7 +1,6 @@
 <%@ page import="com.dneero.cachedstuff.*" %>
 <%@ page import="com.dneero.charity.CharityReport" %>
 <%@ page import="com.dneero.constants.*" %>
-<%@ page import="com.dneero.dao.hibernate.HibernateCacheStats" %>
 <%@ page import="com.dneero.dbgrid.Grid" %>
 <%@ page import="com.dneero.dbgrid.GridCol" %>
 <%@ page import="com.dneero.display.components.def.ComponentTypes" %>

@@ -40,5 +40,6 @@
             <column name="impressionsbyday" not-null="true" />
         </property>
 
+
     </class>
 </hibernate-mapping>

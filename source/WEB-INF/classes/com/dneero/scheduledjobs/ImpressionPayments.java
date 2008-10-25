@@ -8,6 +8,7 @@ import org.hibernate.criterion.Restrictions;
 import com.dneero.systemprops.InstanceProperties;
 import com.dneero.dao.*;
 import com.dneero.dao.hibernate.HibernateUtil;
+import com.dneero.dao.hibernate.HibernateUtilImpressions;
 import com.dneero.money.MoveMoneyInAccountBalance;
 import com.dneero.money.SurveyMoneyStatus;
 import com.dneero.util.Time;
@@ -44,7 +45,7 @@ public class ImpressionPayments implements Job {
                 logger.debug("Begin surveyid="+survey.getSurveyid()+" - "+survey.getTitle());
 
                 //Find impressions for this survey
-                List<Impression> impressions = HibernateUtil.getSession().createCriteria(Impression.class)
+                List<Impression> impressions = HibernateUtilImpressions.getSession().createCriteria(Impression.class)
                                            .add( Restrictions.eq("surveyid", survey.getSurveyid()))
                                            .add( Restrictions.gt("impressionstobepaid", 0))
                                            .list();

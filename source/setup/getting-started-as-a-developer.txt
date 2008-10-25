@@ -12,7 +12,7 @@
 
 1) Download and install a Java SDK.  I'm using 1.6.
 
-2) Download and install MySQL. Create a database called "dneero" and an account username/pass.
+2) Download and install MySQL. Create three databases called "dneero", "dneerodbcache", "dneeroimpressions" and an account username/pass.
 
 3) Download Tomcat version 5.5.x or version 6.x
     - Install to C:/Superfly/Tomcat/

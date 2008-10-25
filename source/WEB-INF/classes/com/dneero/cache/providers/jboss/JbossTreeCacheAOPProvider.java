@@ -2,20 +2,15 @@ package com.dneero.cache.providers.jboss;
 
 import com.dneero.cache.providers.CacheProvider;
 import com.dneero.systemprops.WebAppRootDir;
-import com.dneero.startup.ApplicationStartup;
-import org.jboss.cache.aop.TreeCacheAop;
-import org.jboss.cache.PropertyConfigurator;
-import org.jboss.cache.CacheException;
-import org.jboss.cache.TreeCache;
 import org.jboss.cache.Fqn;
-import org.jboss.cache.config.Option;
+import org.jboss.cache.Cache;
+import org.jboss.cache.DefaultCacheFactory;
+import org.jboss.cache.CacheFactory;
 import org.apache.log4j.Logger;
+import org.hibernate.cache.TreeCache;
 
-import javax.management.ObjectName;
-import javax.management.MBeanServer;
-import java.util.HashSet;
 import java.util.Iterator;
-import java.lang.management.ManagementFactory;
+import java.util.HashSet;
 
 /**
  * Implementation of the jbosscache
@@ -24,7 +19,7 @@ public class JbossTreeCacheAOPProvider implements CacheProvider {
 
     Logger logger = Logger.getLogger(this.getClass().getName());
 
-    private static TreeCache treeCacheAop;
+    private static Cache cache;
 
     public JbossTreeCacheAOPProvider(){
 
@@ -38,33 +33,30 @@ public class JbossTreeCacheAOPProvider implements CacheProvider {
         Logger logger = Logger.getLogger("com.dneero.cache.providers.jboss.JbossTreeCacheAOPProvider");
         try{
 
-            //Create the treecache
-            treeCacheAop = new TreeCache();
-            PropertyConfigurator config = new PropertyConfigurator();
-            config.configure(treeCacheAop, WebAppRootDir.getWebAppRootPath()+"WEB-INF"+java.io.File.separator+"classes"+java.io.File.separator+"treecache-nondao.xml");
-            treeCacheAop.startService();
+            CacheFactory factory = new DefaultCacheFactory();
+            cache = factory.createCache(WebAppRootDir.getWebAppRootPath()+"WEB-INF"+java.io.File.separator+"classes"+java.io.File.separator+"jbc2-cache-configuration-nondao.xml");
 
-            logger.debug("JBossCache Cache created: "+treeCacheAop.getClusterName());
+            logger.debug("JBossCache Cache NonDAO Created");
         } catch (Exception e){
-            logger.error("Error setting up cache.", e);
+            logger.error("Error setting up NonDAO cache.", e);
         }
     }
 
-    public static TreeCache getTreeCache(){
-        if (treeCacheAop == null){
+    public static Cache getCache(){
+        if (cache == null){
             synchronized (JbossTreeCacheAOPProvider.class){
                 setupCache();
             }
         }
-        return treeCacheAop;
+        return cache;
     }
 
     public Object get(String key, String group) {
         Logger logger = Logger.getLogger("com.dneero.cache.providers.jboss.JbossTreeCacheAOPProvider");
         try{
             Fqn fqn = Fqn.fromString("/"+group);
-            return JbossTreeCacheAOPProvider.getTreeCache().get(fqn, key);
-        } catch (CacheException ex){
+            return JbossTreeCacheAOPProvider.getCache().get(fqn, key);
+        } catch (Exception ex){
             logger.debug("Object not found in cache. key="+key);
             return null;
         }
@@ -74,7 +66,7 @@ public class JbossTreeCacheAOPProvider implements CacheProvider {
         try{
             logger.debug("put("+key+" , "+group+") called");
             Fqn fqn = Fqn.fromString("/"+group);
-            JbossTreeCacheAOPProvider.getTreeCache().put(fqn, key, obj);
+            JbossTreeCacheAOPProvider.getCache().put(fqn, key, obj);
         }catch (Exception e){
             Logger logger = Logger.getLogger("com.dneero.cache.providers.jboss.JbossTreeCacheAOPProvider");
             logger.error("Error putting to cache", e);
@@ -84,7 +76,7 @@ public class JbossTreeCacheAOPProvider implements CacheProvider {
     public void flush() {
         try{
             Fqn fqn = Fqn.fromString("/");
-            JbossTreeCacheAOPProvider.getTreeCache().remove(fqn);
+            JbossTreeCacheAOPProvider.getCache().removeNode(fqn);
         }catch (Exception e){
             Logger logger = Logger.getLogger("com.dneero.cache.providers.jboss.JbossTreeCacheAOPProvider");
             logger.error("Error flushing from cache", e);
@@ -95,9 +87,9 @@ public class JbossTreeCacheAOPProvider implements CacheProvider {
         try{
             logger.debug("flush("+group+") called");
             Fqn fqn = Fqn.fromString("/"+group);
-            logger.debug("pre-remove() - JbossTreeCacheAOPProvider.getTreeCache().exists("+group+")="+JbossTreeCacheAOPProvider.getTreeCache().exists(fqn));
-            JbossTreeCacheAOPProvider.getTreeCache().remove(fqn);
-            logger.debug("post-remove() - JbossTreeCacheAOPProvider.getTreeCache().exists("+group+")="+JbossTreeCacheAOPProvider.getTreeCache().exists(fqn));
+            //logger.debug("pre-remove() - JbossTreeCacheAOPProvider.getTreeCache().exists("+group+")="+JbossTreeCacheAOPProvider.getCache().exists(fqn));
+            JbossTreeCacheAOPProvider.getCache().removeNode(fqn);
+            //logger.debug("post-remove() - JbossTreeCacheAOPProvider.getTreeCache().exists("+group+")="+JbossTreeCacheAOPProvider.getCache().exists(fqn));
         }catch (Exception e){
             Logger logger = Logger.getLogger("com.dneero.cache.providers.jboss.JbossTreeCacheAOPProvider");
             logger.error("Error flushing from cache", e);
@@ -109,20 +101,20 @@ public class JbossTreeCacheAOPProvider implements CacheProvider {
         try{
             logger.debug("flush("+key+", "+group+") called");
             Fqn fqn = Fqn.fromString("/"+group);
-            logger.debug("pre-remove() - JbossTreeCacheAOPProvider.getTreeCache().exists("+group+")="+JbossTreeCacheAOPProvider.getTreeCache().exists(fqn));
-            logger.debug("pre-remove() - JbossTreeCacheAOPProvider.getTreeCache().exists("+key+", "+group+")="+JbossTreeCacheAOPProvider.getTreeCache().exists(fqn, key));
-            JbossTreeCacheAOPProvider.getTreeCache().remove(fqn, key);
-            logger.debug("post-remove() - JbossTreeCacheAOPProvider.getTreeCache().exists("+group+")="+JbossTreeCacheAOPProvider.getTreeCache().exists(fqn));
-            logger.debug("post-remove() - JbossTreeCacheAOPProvider.getTreeCache().exists("+key+", "+group+")="+JbossTreeCacheAOPProvider.getTreeCache().exists(fqn, key));
+            //logger.debug("pre-remove() - JbossTreeCacheAOPProvider.getTreeCache().exists("+group+")="+JbossTreeCacheAOPProvider.getCache().exists(fqn));
+            //logger.debug("pre-remove() - JbossTreeCacheAOPProvider.getTreeCache().exists("+key+", "+group+")="+JbossTreeCacheAOPProvider.getCache().exists(fqn, key));
+            JbossTreeCacheAOPProvider.getCache().remove(fqn, key);
+            //logger.debug("post-remove() - JbossTreeCacheAOPProvider.getTreeCache().exists("+group+")="+JbossTreeCacheAOPProvider.getCache().exists(fqn));
+            //logger.debug("post-remove() - JbossTreeCacheAOPProvider.getTreeCache().exists("+key+", "+group+")="+JbossTreeCacheAOPProvider.getCache().exists(fqn, key));
         }catch (Exception e){
             logger.error("Error flushing from cache", e);
         }
     }
 
     public String[] getKeys(){
-        if (JbossTreeCacheAOPProvider.getTreeCache()!=null){
+        if (JbossTreeCacheAOPProvider.getCache()!=null){
             try{
-                HashSet hm = (HashSet)JbossTreeCacheAOPProvider.getTreeCache().getKeys("/");
+                HashSet hm = (HashSet)JbossTreeCacheAOPProvider.getCache().getKeys("/");
                 String[] out = new String[hm.size()];
                 int i = 0;
                 for (Iterator iterator = hm.iterator(); iterator.hasNext();) {
@@ -131,8 +123,6 @@ public class JbossTreeCacheAOPProvider implements CacheProvider {
                     i=i+1;
                 }
                 return out;
-            } catch (CacheException ex){
-                return new String[0];
             } catch (Exception ex){
                 return new String[0];
             }
@@ -141,9 +131,9 @@ public class JbossTreeCacheAOPProvider implements CacheProvider {
     }
 
     public String[] getKeys(String group){
-        if (JbossTreeCacheAOPProvider.getTreeCache()!=null){
+        if (JbossTreeCacheAOPProvider.getCache()!=null){
             try{
-                HashSet hm = (HashSet)JbossTreeCacheAOPProvider.getTreeCache().getKeys("/"+group);
+                HashSet hm = (HashSet)JbossTreeCacheAOPProvider.getCache().getKeys("/"+group);
                 String[] out = new String[hm.size()];
                 int i = 0;
                 for (Iterator iterator = hm.iterator(); iterator.hasNext();) {
@@ -152,8 +142,6 @@ public class JbossTreeCacheAOPProvider implements CacheProvider {
                     i=i+1;
                 }
                 return out;
-            } catch (CacheException ex){
-                return new String[0];
             } catch (Exception ex){
                 return new String[0];
             }

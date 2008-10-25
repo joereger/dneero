@@ -6,6 +6,7 @@ import com.dneero.dao.Survey;
 import com.dneero.dao.Impression;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.dao.hibernate.NumFromUniqueResult;
+import com.dneero.dao.hibernate.NumFromUniqueResultImpressions;
 
 import com.dneero.htmlui.UserSession;
 import com.dneero.htmlui.Pagez;
@@ -56,7 +57,7 @@ public class ResearcherResults implements Serializable {
                     totalsurveyresponses = survey.getResponses().size();
                     maxsurveyresponses = survey.getNumberofrespondentsrequested();
                     maxsurveydisplays = survey.getMaxdisplaystotal();
-                    totalsurveydisplays = NumFromUniqueResult.getInt("select sum(impressionstotal) from Impression where surveyid='"+survey.getSurveyid()+"'");
+                    totalsurveydisplays = NumFromUniqueResultImpressions.getInt("select sum(impressionstotal) from Impression where surveyid='"+survey.getSurveyid()+"'");
                     status = survey.getStatus();
                     totalsurveydisplays = sms.getImpressionsToDate();
                 } catch (Exception ex){

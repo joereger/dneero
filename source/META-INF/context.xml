@@ -1,7 +1,10 @@
 <Context path="" docBase="/ROOT" debug="1" reloadable="true" crossContext="true">
 
-  <!--<Resource name="jdbc/cluster" type="javax.sql.DataSource"-->
-            <!--username="root" password="password" driverClassName="net.sf.hajdbc.sql.Driver"-->
-            <!--url="jdbc:ha-jdbc:cluster1"/>-->
+   
+
+      <Transaction factory="com.atomikos.icatch.jta.UserTransactionFactory" />
+
+
+
 
 </Context>

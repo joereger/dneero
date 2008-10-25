@@ -2,6 +2,7 @@ package com.dneero.survey.servlet;
 
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.dao.hibernate.NumFromUniqueResult;
+import com.dneero.dao.hibernate.HibernateUtilImpressions;
 import com.dneero.dao.*;
 import com.dneero.util.*;
 import com.dneero.money.SurveyMoneyStatus;
@@ -138,8 +139,8 @@ public class ImpressionActivityObjectCollatedStorage {
 
                     //See if there's an existing impression to append this to, if not create one
                     Impression impression = null;
-                    //List<Impression> impressions = HibernateUtil.getSession().createQuery("from Impression where surveyid='"+iao.getSurveyid()+"' and userid='"+iao.getUserid()+"' and referer='"+ UserInputSafe.clean(iao.getReferer().trim())+"' and responseid='"+responseid+"'").list();
-                    List<Impression> impressions = HibernateUtil.getSession().createCriteria(Impression.class)
+                    //List<Impression> impressions = HibernateUtilImpressions.getSession().createQuery("from Impression where surveyid='"+iao.getSurveyid()+"' and userid='"+iao.getUserid()+"' and referer='"+ UserInputSafe.clean(iao.getReferer().trim())+"' and responseid='"+responseid+"'").list();
+                    List<Impression> impressions = HibernateUtilImpressions.getSession().createCriteria(Impression.class)
                            .add(Restrictions.eq("surveyid", iao.getSurveyid()))
                            .add(Restrictions.eq("userid", iao.getUserid()))
                            .add(Restrictions.eq("responseid", responseid))

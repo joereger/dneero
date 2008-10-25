@@ -8,6 +8,7 @@ import org.hibernate.criterion.Restrictions;
 import com.dneero.dao.Survey;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.dao.hibernate.NumFromUniqueResult;
+import com.dneero.dao.hibernate.NumFromUniqueResultImpressions;
 import com.dneero.util.GeneralException;
 import com.dneero.util.Time;
 import com.dneero.systemprops.InstanceProperties;
@@ -33,9 +34,9 @@ public class UpdateSurveyImpressionsPaid implements Job {
                                    .list();
             for (Iterator<Survey> iterator = surveys.iterator(); iterator.hasNext();) {
                 Survey survey = iterator.next();
-                int impressionstotal = NumFromUniqueResult.getInt("select sum(impressionstotal) from Impression where surveyid='"+survey.getSurveyid()+"'");
-                int impressionspaid = NumFromUniqueResult.getInt("select sum(impressionspaid) from Impression where surveyid='"+survey.getSurveyid()+"'");
-                int impressionstobepaid = NumFromUniqueResult.getInt("select sum(impressionstobepaid) from Impression where surveyid='"+survey.getSurveyid()+"'");
+                int impressionstotal = NumFromUniqueResultImpressions.getInt("select sum(impressionstotal) from Impression where surveyid='"+survey.getSurveyid()+"'");
+                int impressionspaid = NumFromUniqueResultImpressions.getInt("select sum(impressionspaid) from Impression where surveyid='"+survey.getSurveyid()+"'");
+                int impressionstobepaid = NumFromUniqueResultImpressions.getInt("select sum(impressionstobepaid) from Impression where surveyid='"+survey.getSurveyid()+"'");
                 //Only call save() if something's changed
                 boolean shouldsave = false;
                 if (survey.getImpressionstotal()!=impressionstotal){

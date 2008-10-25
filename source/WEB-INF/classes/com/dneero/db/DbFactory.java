@@ -59,5 +59,11 @@ public class DbFactory {
         return dbConfig;
     }
 
+    public static DbConfig getDefaultDbConfigForImpressions(){
+        //Pull config from InstancePropertiesImpressions
+        DbConfig dbConfig = new DbConfig(InstanceProperties.getDbConnectionUrlImpressions(), InstanceProperties.getDbDriverNameImpressions(), InstanceProperties.getDbUsernameImpressions(), InstanceProperties.getDbPasswordImpressions());
+        return dbConfig;
+    }
+
 
 }

@@ -3,8 +3,12 @@
 
     <description>web.xml</description>
 
+    <listener>
+        <listener-class>com.dneero.startup.AtomikosContextListener</listener-class>
+      </listener>
 
 
+    
 
     <error-page>
         <error-code>500</error-code>

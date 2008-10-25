@@ -2,6 +2,7 @@ package com.dneero.ui;
 
 import com.dneero.dao.Survey;
 import com.dneero.dao.hibernate.NumFromUniqueResult;
+import com.dneero.dao.hibernate.NumFromUniqueResultImpressions;
 import com.dneero.util.Time;
 import com.dneero.util.Str;
 import com.dneero.util.DateDiff;
@@ -36,7 +37,7 @@ public class SurveyEnhancer implements Serializable {
             enddate = Time.dateformatcompactwithtime(Time.getCalFromDate(survey.getEnddate()));
 
             slotsremaining= String.valueOf(SlotsRemainingInConvo.getSlotsRemaining(survey));
-            impressionsalreadygotten = String.valueOf(NumFromUniqueResult.getInt("select sum(impressionstotal) from Impression where surveyid='"+survey.getSurveyid()+"'"));
+            impressionsalreadygotten = String.valueOf(NumFromUniqueResultImpressions.getInt("select sum(impressionstotal) from Impression where surveyid='"+survey.getSurveyid()+"'"));
 
             willingtopayforresponse = survey.getIncentive().getShortSummary();
 

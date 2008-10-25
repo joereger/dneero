@@ -1,6 +1,7 @@
 package com.dneero.cachedstuff;
 
 import com.dneero.dao.hibernate.NumFromUniqueResult;
+import com.dneero.dao.hibernate.NumFromUniqueResultImpressions;
 
 import java.io.Serializable;
 import java.util.Calendar;
@@ -21,7 +22,7 @@ public class TotalImpressions implements CachedStuff, Serializable {
     }
 
     public void refresh() {
-        int totalimpressions = NumFromUniqueResult.getInt("select sum(impressionstotal) from Impression");
+        int totalimpressions = NumFromUniqueResultImpressions.getInt("select sum(impressionstotal) from Impression");
         DecimalFormat formatter = new DecimalFormat();
         formatter.applyPattern("###,###,###,###");
         html = formatter.format(Double.parseDouble(String.valueOf(totalimpressions)));

@@ -3,6 +3,7 @@ package com.dneero.money;
 import com.dneero.dao.*;
 import com.dneero.dao.hibernate.NumFromUniqueResult;
 import com.dneero.dao.hibernate.HibernateUtil;
+import com.dneero.dao.hibernate.NumFromUniqueResultImpressions;
 import com.dneero.util.Time;
 import com.dneero.util.DateDiff;
 
@@ -60,8 +61,8 @@ public class SurveyMoneyStatus implements Serializable {
         //@todo At some point this should take into account any Responses that have a different Surveyincentive attached to them
         spentOnResponsesToDate = survey.getIncentive().getResearcherCostPerResponse() * responsesToDate;
         spentOnResponsesToDateIncludingdNeeroFee = calculateAmtToChargeResearcher(spentOnResponsesToDate, survey);
-        int impressionspaid  = NumFromUniqueResult.getInt("select sum(impressionspaid) from Impression where surveyid='"+survey.getSurveyid()+"'");
-        int impressionstobepaid  = NumFromUniqueResult.getInt("select sum(impressionstobepaid) from Impression where surveyid='"+survey.getSurveyid()+"'");
+        int impressionspaid  = NumFromUniqueResultImpressions.getInt("select sum(impressionspaid) from Impression where surveyid='"+survey.getSurveyid()+"'");
+        int impressionstobepaid  = NumFromUniqueResultImpressions.getInt("select sum(impressionstobepaid) from Impression where surveyid='"+survey.getSurveyid()+"'");
         impressionsToDate = impressionspaid + impressionstobepaid;
         spentOnImpressionsToDate = (Double.parseDouble(String.valueOf(impressionsToDate)) * survey.getWillingtopaypercpm())/1000;
         spentOnImpressionsToDateIncludingdNeeroFee = calculateAmtToChargeResearcher(spentOnImpressionsToDate, survey);

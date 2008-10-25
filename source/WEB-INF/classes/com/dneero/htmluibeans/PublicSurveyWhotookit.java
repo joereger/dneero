@@ -2,6 +2,7 @@ package com.dneero.htmluibeans;
 
 import com.dneero.dao.*;
 import com.dneero.dao.hibernate.HibernateUtil;
+import com.dneero.dao.hibernate.HibernateUtilImpressions;
 
 
 import com.dneero.util.Num;
@@ -60,7 +61,7 @@ public class PublicSurveyWhotookit implements Serializable {
 
 
         //Load impressions
-        impressions = HibernateUtil.getSession().createQuery("from Impression where surveyid='"+survey.getSurveyid()+"' and referer<>'' order by impressionstotal desc").setCacheable(true).list();
+        impressions = HibernateUtilImpressions.getSession().createQuery("from Impression where surveyid='"+survey.getSurveyid()+"' and referer<>'' order by impressionstotal desc").setCacheable(true).list();
 
 
         //Load respondents, not including those whose content was rejected

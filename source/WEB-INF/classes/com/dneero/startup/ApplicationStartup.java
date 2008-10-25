@@ -4,6 +4,7 @@ import com.dneero.dao.Pl;
 import com.dneero.dao.hibernate.HibernateSessionQuartzCloser;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.dao.hibernate.HibernateUtilDbcache;
+import com.dneero.dao.hibernate.HibernateUtilImpressions;
 import com.dneero.pageperformance.PagePerformanceUtil;
 import com.dneero.scheduledjobs.SystemStats;
 import com.dneero.systemprops.InstanceProperties;
@@ -12,6 +13,7 @@ import com.dneero.systemprops.WebAppRootDir;
 import com.dneero.xmpp.SendXMPPMessage;
 import com.dneero.db.Db;
 import org.apache.log4j.Logger;
+import org.apache.log4j.Level;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerFactory;
 import org.quartz.impl.StdSchedulerFactory;
@@ -71,6 +73,9 @@ public class ApplicationStartup implements ServletContextListener {
             System.out.println("DNEERO: Start Initialize HibernateDbcache");
             HibernateUtilDbcache.getSession();
             System.out.println("DNEERO: Done initializing HibernateDbcache");
+            System.out.println("DNEERO: Start Initialize HibernateImpressions");
+            HibernateUtilImpressions.getSession();
+            System.out.println("DNEERO: Done initializing HibernateImpressions");
             ishibernateinitialized = true;
             //Run post-hibernate db upgrades
             DbVersionCheck dbvcPost = new DbVersionCheck();
@@ -89,6 +94,8 @@ public class ApplicationStartup implements ServletContextListener {
             System.out.println("DNEERO: isdatabasereadyforapprun=true");
             //Start Hibernate session
             HibernateUtil.startSession();
+            HibernateUtilDbcache.startSession();
+            HibernateUtilImpressions.startSession();
             //Make sure we have at least one PL
             guaranteeAtLeastOnePlExists();
             //Load SystemProps
@@ -97,7 +104,11 @@ public class ApplicationStartup implements ServletContextListener {
             SystemStats ss = new SystemStats();
             try{ss.execute(null);}catch(Exception ex){logger.error("",ex);}
             //Set logging levels
-            Log4jLevels.setLevels();
+            //Log4jLevels.setLevels();
+            Logger lgr = Logger.getLogger("com.atomikos");
+            lgr.setLevel(Level.ERROR);
+            Logger lgr2 = Logger.getLogger("com.hibernate");
+            lgr2.setLevel(Level.ERROR);
             //End Hibernate session
             HibernateUtil.endSession();
             //Init Quartz
@@ -132,6 +143,14 @@ public class ApplicationStartup implements ServletContextListener {
         try{
             HibernateUtil.closeSession();
             HibernateUtil.killSessionFactory();
+        } catch (Exception ex){logger.error("",ex);}
+        try{
+            HibernateUtilDbcache.closeSession();
+            HibernateUtilDbcache.killSessionFactory();
+        } catch (Exception ex){logger.error("",ex);}
+        try{
+            HibernateUtilImpressions.closeSession();
+            HibernateUtilImpressions.killSessionFactory();
         } catch (Exception ex){logger.error("",ex);}
         //Shut down MBeans
         shutdownCacheMBean();

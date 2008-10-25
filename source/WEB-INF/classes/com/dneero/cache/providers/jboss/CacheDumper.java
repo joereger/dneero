@@ -3,10 +3,14 @@ package com.dneero.cache.providers.jboss;
 import org.apache.log4j.Logger;
 import org.jboss.cache.Node;
 import org.jboss.cache.Fqn;
+import org.jgroups.Address;
+import org.jgroups.protocols.JMS;
+import org.jgroups.stack.IpAddress;
 
 import java.util.Iterator;
 import java.util.Set;
 import java.util.Calendar;
+import java.util.List;
 
 import com.dneero.htmlui.UserSession;
 import com.dneero.util.Str;
@@ -19,13 +23,35 @@ public class CacheDumper {
 
     public static String getHtml(String fqn, int levelsToDisplay){
         Logger logger = Logger.getLogger(CacheDumper.class);
+        StringBuffer out = new StringBuffer();
         try{
-            Set childrenNames = JbossTreeCacheAOPProvider.getTreeCache().getChildrenNames(fqn);
-            return dumpMap(childrenNames, 0, fqn, levelsToDisplay).toString();
+            Set childrenNames = JbossTreeCacheAOPProvider.getCache().getNode(fqn).getChildrenNames();
+            List<Address> members = JbossTreeCacheAOPProvider.getCache().getMembers();
+            if (members==null){
+                out.append("Members: none.");
+            } else {
+                out.append("Members: ");
+                for (Iterator<Address> addressIterator=members.iterator(); addressIterator.hasNext();) {
+                    Address address=addressIterator.next();
+                    if (address instanceof IpAddress){
+                        IpAddress ipaddress = (IpAddress)address;
+                        out.append("ip="+ipaddress.getIpAddress().toString());
+                    } else if (address instanceof JMS.JMSAddress){
+                        JMS.JMSAddress jmsaddress = (JMS.JMSAddress)address;
+                        out.append("jms="+jmsaddress.getAddress());
+                    } 
+                    if (addressIterator.hasNext()){
+                        out.append(", ");
+                    }
+                }
+            }
+            out.append("<br/><br/>");
+            out.append(dumpMap(childrenNames, 0, fqn, levelsToDisplay).toString());
         } catch (Exception ex){
             logger.debug(ex);
             return "Error retrieving cache: " + ex.getMessage();
         }
+        return out.toString();
     }
 
 
@@ -53,7 +79,7 @@ public class CacheDumper {
 
                 //UserSession Special Output
                 try{
-                    Object objInCache = (Object)JbossTreeCacheAOPProvider.getTreeCache().get(fqnFull);
+                    Object objInCache = (Object)JbossTreeCacheAOPProvider.getCache().getNode(fqnFull);
                     if (objInCache!=null){
                         Class c = objInCache.getClass();
                         String s = c.getName();
@@ -61,13 +87,13 @@ public class CacheDumper {
                         if (objInCache instanceof Node){
                             Node node = (Node)objInCache;
                             Fqn fqn = node.getFqn();
-                            logger.debug("fqn.getName()="+fqn.getName());
-                            Set keys = node.getDataKeys();
+                            //logger.debug("fqn.getName()="+fqn.getName());
+                            Set keys = node.getKeys();
                             for (Iterator iterator=keys.iterator(); iterator.hasNext();) {
                                 Object o=iterator.next();
                                 logger.debug("o.toString()="+o.toString());
                                 out.append("<br/>"+nestStr+nestStr+"<font style=\"font-size: 9px; font-weight: bold;\">Key="+ Str.truncateString(o.toString(), 100)+"</font>");
-                                Object nodeObj = JbossTreeCacheAOPProvider.getTreeCache().get(fqnFull, o);
+                                Object nodeObj = JbossTreeCacheAOPProvider.getCache().get(fqnFull, o);
                                 if (nodeObj!=null){
                                     //UserSession
                                     if (nodeObj instanceof UserSession){
@@ -112,7 +138,7 @@ public class CacheDumper {
 
                 try{
                     if (nestinglevel<=levelsToDisplay){
-                        Set cNames = JbossTreeCacheAOPProvider.getTreeCache().getChildrenNames(fqnFull);
+                        Set cNames = JbossTreeCacheAOPProvider.getCache().getNode(fqnFull).getChildrenNames();
                         if (cNames!=null){
                             logger.debug("cNames.size()="+cNames.size()+" fqnFull="+fqnFull);
                         } else {
