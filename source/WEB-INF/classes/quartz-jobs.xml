@@ -76,6 +76,27 @@
 
     <job>
         <job-detail>
+          <name>dbcacheexpirableCachePurgeStaleItems</name>
+          <group>surveyJobs</group>
+          <job-class>com.dneero.scheduledjobs.DbcacheexpirableCachePurgeStaleItems</job-class>
+          <volatility>false</volatility>
+          <durability>false</durability>
+          <recover>false</recover>
+        </job-detail>
+        <trigger>
+          <cron>
+            <name>dbcacheexpirableCachePurgeStaleItemsTrigger</name>
+            <group>surveyTriggers</group>
+            <job-name>dbcacheexpirableCachePurgeStaleItems</job-name>
+            <job-group>surveyJobs</job-group>
+            <!-- Fire at 3am every day -->
+            <cron-expression>0 0 3 * * ?</cron-expression>
+          </cron>
+        </trigger>
+    </job>
+
+    <job>
+        <job-detail>
           <name>payForSurveyResponsesOncePosted</name>
           <group>surveyJobs</group>
           <job-class>com.dneero.scheduledjobs.PayForSurveyResponsesOncePosted</job-class>
@@ -158,6 +179,8 @@
           </cron>
         </trigger>
     </job>
+
+
 
 
     <!-- End Once Daily/Overnight Tasks   -->
@@ -404,6 +427,31 @@
           </cron>
         </trigger>
     </job>
+
+    <job>
+        <job-detail>
+          <name>htmlCacheFromDbcachePurgeStaleItems</name>
+          <group>surveyJobs</group>
+          <job-class>com.dneero.scheduledjobs.HtmlCacheFromDbcachePurgeStaleItems</job-class>
+          <volatility>false</volatility>
+          <durability>false</durability>
+          <recover>false</recover>
+        </job-detail>
+        <trigger>
+          <cron>
+            <name>htmlCacheFromDbcachePurgeStaleItemsTrigger</name>
+            <group>surveyTriggers</group>
+            <job-name>htmlCacheFromDbcachePurgeStaleItems</job-name>
+            <job-group>surveyJobs</job-group>
+            <!-- every x minutes -->
+            <cron-expression>0 0/15 * * * ?</cron-expression>
+          </cron>
+        </trigger>
+    </job>
+
+
+
+
 
     <job>
         <job-detail>

@@ -107,17 +107,7 @@ String acl="public";
     %>
     <div class="panel" id="panel1" style="<%=panel1style%>">
             <img src="/images/clear.gif" width="550" height="1"/><br/>
-            <%if (publicSurveyWhotookit.getRespondents()==null || publicSurveyWhotookit.getRespondents().size()==0){%>
-                <font class="normalfont">Nobody has joined this conversation... yet.</font>
-            <%} else {%>
-                <%
-                    ArrayList<GridCol> cols=new ArrayList<GridCol>();
-                    cols.add(new GridCol("Date", "<$response.responsedate|"+Grid.GRIDCOLRENDERER_DATETIMECOMPACT+"$>", true, "", "tinyfont"));
-                    cols.add(new GridCol("Person", "<a href=\"/profile.jsp?userid=<$user.userid$>\"><font class=\"normalfont\" style=\"font-weight: bold;\"><$user.firstname$> <$user.lastname$></font></a>", false, "", ""));
-                    cols.add(new GridCol("", "<a href=\"/survey.jsp?u=<$user.userid$>&p=0&r=<$response.responseid$>\"><font class=\"tinyfont\" style=\"font-weight: bold;\">Answers</font></a>", true, "", ""));
-                %>
-                <%=Grid.render(publicSurveyWhotookit.getRespondents(), cols, 500, "/surveywhotookit.jsp?surveyid="+publicSurveyWhotookit.getSurvey().getSurveyid(), "pagewhotookit")%>
-            <%}%>
+            <%=publicSurveyWhotookit.getWhotookitHtml()%>
     </div>
     <%
     String panel2style = "display: none";
@@ -127,16 +117,7 @@ String acl="public";
     %>
     <div class="panel" id="panel2" style="<%=panel2style%>">
             <img src="/images/clear.gif" width="550" height="1"/><br/>
-            <%if (publicSurveyWhotookit.getImpressions()==null || publicSurveyWhotookit.getImpressions().size()==0){%>
-                <font class="normalfont">Not posted anywhere... yet.</font>
-            <%} else {%>
-                <%
-                    ArrayList<GridCol> cols=new ArrayList<GridCol>();
-                    cols.add(new GridCol("Web Address", "<a href=\"<$referer$>\"><font class=\"smallfont\" style=\"font-weight: bold;\">See It!</font></a>", true, "", "tinyfont"));
-                    cols.add(new GridCol("Impressions", "<$impressionstotal$>", true, "", "smallfont", "", "font-weight: bold;"));
-                %>
-                <%=Grid.render(publicSurveyWhotookit.getImpressions(), cols, 100, "/surveywhotookit.jsp?surveyid="+publicSurveyWhotookit.getSurvey().getSurveyid(), "pageimpressions")%>
-            <%}%>
+            <%=publicSurveyWhotookit.getImpressionsHtml()%>
     </div>
 
 

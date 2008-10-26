@@ -7,6 +7,10 @@ import com.dneero.dao.hibernate.HibernateUtilImpressions;
 
 import com.dneero.util.Num;
 import com.dneero.htmlui.Pagez;
+import com.dneero.dbgrid.Grid;
+import com.dneero.dbgrid.GridCol;
+import com.dneero.cache.html.DbcacheexpirableCache;
+import com.dneero.display.SurveyResultsDisplay;
 
 import java.io.Serializable;
 import java.util.*;
@@ -22,8 +26,8 @@ import org.apache.log4j.Logger;
 public class PublicSurveyWhotookit implements Serializable {
 
     private Survey survey;
-    private List<Impression> impressions;
-    private List<PublicSurveyRespondentsListitem> respondents;
+    private String whotookitHtml;
+    private String impressionsHtml;
 
 
     public PublicSurveyWhotookit(){
@@ -58,14 +62,45 @@ public class PublicSurveyWhotookit implements Serializable {
             return;
         }
 
+        //WhotookitHtml
+        if (1==1){
+            String key = "surveywhotookit.jsp-whotookitHtml-surveyid"+survey.getSurveyid();
+            String group = "PublicSurveyWhotookit.java-surveyid-"+survey.getSurveyid();
+            Object fromCache = DbcacheexpirableCache.get(key, group);
+            if (fromCache!=null){
+                try{whotookitHtml = (String)fromCache;}catch(Exception ex){logger.error("", ex);}
+            } else {
+                whotookitHtml = generateWhotookitHtml();
+                DbcacheexpirableCache.put(key, group, whotookitHtml, DbcacheexpirableCache.expireSurveyInXHrs(survey, 3));
+            }
+        }
+
+        //ImpressionsHtml
+        if (1==1){
+            int pageimpressions = 1;
+            if (Pagez.getRequest().getParameter("pageimpressions")!=null && Num.isinteger(Pagez.getRequest().getParameter("pageimpressions"))){
+                pageimpressions = Integer.parseInt(Pagez.getRequest().getParameter("pageimpressions"));
+            }
+            String key = "surveywhotookit.jsp-impressionsHtml-surveyid"+survey.getSurveyid()+"-pageimpressions"+pageimpressions;
+            String group = "PublicSurveyWhotookit.java-surveyid-"+survey.getSurveyid();
+            Object fromCache = DbcacheexpirableCache.get(key, group);
+            if (fromCache!=null){
+                try{impressionsHtml = (String)fromCache;}catch(Exception ex){logger.error("", ex);}
+            } else {
+                impressionsHtml = generateImpressionsHtml();
+                DbcacheexpirableCache.put(key, group, impressionsHtml, DbcacheexpirableCache.expireSurveyInXHrs(survey, 12));
+            }
+        }
 
 
-        //Load impressions
-        impressions = HibernateUtilImpressions.getSession().createQuery("from Impression where surveyid='"+survey.getSurveyid()+"' and referer<>'' order by impressionstotal desc").setCacheable(true).list();
 
+    }
 
+    private String generateWhotookitHtml(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
+        StringBuffer out = new StringBuffer();
         //Load respondents, not including those whose content was rejected
-        respondents = new ArrayList();
+        List<PublicSurveyRespondentsListitem> respondents = new ArrayList();
         List resp = HibernateUtil.getSession().createQuery("from Response where surveyid='"+survey.getSurveyid()+"' and issysadminrejected=false order by responseid desc").setCacheable(true).list();
         for (Iterator iterator = resp.iterator(); iterator.hasNext();) {
             Response response = (Response) iterator.next();
@@ -77,9 +112,50 @@ public class PublicSurveyWhotookit implements Serializable {
                 respondents.add(psrli);
             }
         }
-
+        if (respondents==null || respondents.size()==0){
+                out.append("<font class=\"normalfont\">Nobody has joined this conversation... yet.</font>");
+            } else {
+                ArrayList<GridCol> cols=new ArrayList<GridCol>();
+                cols.add(new GridCol("Date", "<$response.responsedate|"+ Grid.GRIDCOLRENDERER_DATETIMECOMPACT+"$>", true, "", "tinyfont"));
+                cols.add(new GridCol("Person", "<a href=\"/profile.jsp?userid=<$user.userid$>\"><font class=\"normalfont\" style=\"font-weight: bold;\"><$user.firstname$> <$user.lastname$></font></a>", false, "", ""));
+                cols.add(new GridCol("", "<a href=\"/survey.jsp?u=<$user.userid$>&p=0&r=<$response.responseid$>\"><font class=\"tinyfont\" style=\"font-weight: bold;\">Answers</font></a>", true, "", ""));
+                out.append(Grid.render(respondents, cols, 500, "/surveywhotookit.jsp?surveyid="+survey.getSurveyid(), "pagewhotookit"));
+            }
+        return out.toString();
     }
 
+    private String generateImpressionsHtml(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
+        StringBuffer out = new StringBuffer();
+        //Load impressions
+        List<Impression> impressions = HibernateUtilImpressions.getSession().createQuery("from Impression where surveyid='"+survey.getSurveyid()+"' and referer<>'' order by impressionstotal desc").setCacheable(true).list();
+
+        if (impressions==null || impressions.size()==0){
+            out.append("<font class=\"normalfont\">Not posted anywhere... yet.</font>");
+        } else {
+            ArrayList<GridCol> cols=new ArrayList<GridCol>();
+            cols.add(new GridCol("Web Address", "<a href=\"<$referer$>\"><font class=\"smallfont\" style=\"font-weight: bold;\">See It!</font></a>", true, "", "tinyfont"));
+            cols.add(new GridCol("Impressions", "<$impressionstotal$>", true, "", "smallfont", "", "font-weight: bold;"));
+            out.append(Grid.render(impressions, cols, 100, "/surveywhotookit.jsp?surveyid="+survey.getSurveyid(), "pageimpressions"));
+        }
+        return out.toString();
+    }
+
+    public String getWhotookitHtml() {
+        return whotookitHtml;
+    }
+
+    public void setWhotookitHtml(String whotookitHtml) {
+        this.whotookitHtml=whotookitHtml;
+    }
+
+    public String getImpressionsHtml() {
+        return impressionsHtml;
+    }
+
+    public void setImpressionsHtml(String impressionsHtml) {
+        this.impressionsHtml=impressionsHtml;
+    }
 
     public Survey getSurvey() {
         return survey;
@@ -89,19 +165,5 @@ public class PublicSurveyWhotookit implements Serializable {
         this.survey=survey;
     }
 
-    public List<Impression> getImpressions() {
-        return impressions;
-    }
 
-    public void setImpressions(List<Impression> impressions) {
-        this.impressions=impressions;
-    }
-
-    public List<PublicSurveyRespondentsListitem> getRespondents() {
-        return respondents;
-    }
-
-    public void setRespondents(List<PublicSurveyRespondentsListitem> respondents) {
-        this.respondents=respondents;
-    }
 }

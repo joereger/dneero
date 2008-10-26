@@ -184,4 +184,13 @@ public class SysadminManuallyRunScheduledTask implements Serializable {
         return "sysadminmanuallyrunscheduledtask";
     }
 
+    public String runHtmlCacheFromDbcachePurgeStaleItems(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
+        try{HtmlCacheFromDbcachePurgeStaleItems task = new com.dneero.scheduledjobs.HtmlCacheFromDbcachePurgeStaleItems();
+            task.execute(null);} catch (Exception ex){logger.error("",ex);}
+        return "sysadminmanuallyrunscheduledtask";
+    }
+
+
+
 }

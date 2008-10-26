@@ -10,6 +10,13 @@ import java.util.*;
 import org.apache.log4j.Logger;
 
 /**
+ * GENERALLY DEPRECATED... USES LOCAL IN-MEMORY MANUAL TRACKING... UGLY.
+ *
+ * USE HtmlCacheFromDbcache instead.
+ *
+ */
+
+/**
  * A very simple html cache.  Should only be applied to html sections that do not
  * require any logon.
  *
@@ -27,6 +34,17 @@ import org.apache.log4j.Logger;
  *     HtmlCache.updateCache(cachekey, request, refreshintervalinseconds, html);
  * }
  */
+
+
+
+/**
+ * GENERALLY DEPRECATED... USES LOCAL IN-MEMORY MANUAL TRACKING... UGLY.
+ *
+ * USE HtmlCacheFromDbcache instead.
+ *
+ */
+
+
 public class HtmlCache {
 
     Logger logger = Logger.getLogger(this.getClass().getName());

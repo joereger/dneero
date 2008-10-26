@@ -6,7 +6,7 @@
     <session-factory>
 
         <mapping resource="com/dneero/dao/Dbcache.hbm.xml" />
-
+        <mapping resource="com/dneero/dao/Dbcacheexpirable.hbm.xml" />
 
     </session-factory>
 </hibernate-configuration>

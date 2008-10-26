@@ -8,9 +8,9 @@ import com.dneero.display.SurveyResultsUserQuestionsListitem;
 import com.dneero.display.SurveyResultsUserQuestions;
 import com.dneero.htmlui.Pagez;
 import com.dneero.util.Num;
-import com.dneero.cache.html.HtmlCache;
 import com.dneero.dbgrid.GridCol;
 import com.dneero.dbgrid.Grid;
+import com.dneero.cache.html.DbcacheexpirableCache;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -45,7 +45,11 @@ public class ResearcherResultsAnswersUserquestions implements Serializable {
                 userquestionspage = Integer.parseInt(Pagez.getRequest().getParameter("userquestionspage"));
             }
             String resultsHtmlKey = "results_answers_userquestions.jsp-resultsUserquestionsHtml-surveyid"+survey.getSurveyid()+"-userquestionspage"+userquestionspage;
-            if (HtmlCache.isStale(resultsHtmlKey, 6000)){
+            String group = "ResearcherResultsAnswersUserquestions.java-surveyid-"+survey.getSurveyid();
+            Object fromCache = DbcacheexpirableCache.get(resultsHtmlKey, group);
+            if (fromCache!=null){
+                try{results = (String)fromCache;}catch(Exception ex){logger.error("", ex);}
+            } else {
                 //Go get all results for user questions
                 ArrayList<SurveyResultsUserQuestionsListitem> sruqli = SurveyResultsUserQuestions.getUserQuestionResults(survey, null, 0, new ArrayList<Integer>(), null);
                 //Create a template for the display
@@ -62,10 +66,29 @@ public class ResearcherResultsAnswersUserquestions implements Serializable {
                 cols.add(new GridCol("", template.toString(), false, "", "", "background: #ffffff;", ""));
                 results = Grid.render(sruqli, cols, 50, "/researcher/results_answers_userquestions.jsp?surveyid="+survey.getSurveyid(), "userquestionspage");
                 //Store it in the cache
-                HtmlCache.updateCache(resultsHtmlKey, 6000, results);
-            } else {
-                results = HtmlCache.getFromCache(resultsHtmlKey);
+                DbcacheexpirableCache.put(resultsHtmlKey, group, results, DbcacheexpirableCache.expireSurveyInXHrs(survey, 3));
             }
+//            if (HtmlCache.isStale(resultsHtmlKey, 6000)){
+//                //Go get all results for user questions
+//                ArrayList<SurveyResultsUserQuestionsListitem> sruqli = SurveyResultsUserQuestions.getUserQuestionResults(survey, null, 0, new ArrayList<Integer>(), null);
+//                //Create a template for the display
+//                StringBuffer template = new StringBuffer();
+//                template.append("<font class=\"smallfont\"><b><a href=\"/profile.jsp?userid=<$user.userid$>\"><$user.firstname$> <$user.lastname$></a> wanted to know:</b></font>");
+//                template.append("<br/>");
+//                template.append("<b><$question.question$></b>");
+//                template.append("<br/>");
+//                template.append("<$htmlForResult$>");
+//                template.append("<br/>");
+//                template.append("<br/>");
+//                //Create a Grid rendering
+//                ArrayList<GridCol> cols=new ArrayList<GridCol>();
+//                cols.add(new GridCol("", template.toString(), false, "", "", "background: #ffffff;", ""));
+//                results = Grid.render(sruqli, cols, 50, "/researcher/results_answers_userquestions.jsp?surveyid="+survey.getSurveyid(), "userquestionspage");
+//                //Store it in the cache
+//                HtmlCache.updateCache(resultsHtmlKey, 6000, results);
+//            } else {
+//                results = HtmlCache.getFromCache(resultsHtmlKey);
+//            }
 
         }
     }

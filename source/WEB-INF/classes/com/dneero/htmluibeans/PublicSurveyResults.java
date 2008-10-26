@@ -1,6 +1,7 @@
 package com.dneero.htmluibeans;
 
-import com.dneero.cache.html.HtmlCache;
+
+import com.dneero.cache.html.DbcacheexpirableCache;
 import com.dneero.dao.Blogger;
 import com.dneero.dao.Response;
 import com.dneero.dao.Survey;
@@ -111,12 +112,20 @@ public class PublicSurveyResults implements Serializable {
         //Results main tab
         if (!survey.getIsresultshidden()){
             String resultsHtmlKey = "surveyresults.jsp-resultsHtml-surveyid"+survey.getSurveyid();
-            if (HtmlCache.isStale(resultsHtmlKey, 6000)){
-                resultsHtml = SurveyResultsDisplay.getHtmlForResults(survey, null, 0, new ArrayList<Integer>(), null, true, false);
-                HtmlCache.updateCache(resultsHtmlKey, 6000, resultsHtml);
+            String group = "PublicSurveyResults.java-surveyid-"+survey.getSurveyid();
+            Object fromCache = DbcacheexpirableCache.get(resultsHtmlKey, group);
+            if (fromCache!=null){
+                try{resultsHtml = (String)fromCache;}catch(Exception ex){logger.error("", ex);}
             } else {
-                resultsHtml = HtmlCache.getFromCache(resultsHtmlKey);
+                resultsHtml = SurveyResultsDisplay.getHtmlForResults(survey, null, 0, new ArrayList<Integer>(), null, true, false);
+                DbcacheexpirableCache.put(resultsHtmlKey, group, resultsHtml, DbcacheexpirableCache.expireSurveyInXHrs(survey, 3));
             }
+//            if (HtmlCache.isStale(resultsHtmlKey, 6000)){
+//                resultsHtml = SurveyResultsDisplay.getHtmlForResults(survey, null, 0, new ArrayList<Integer>(), null, true, false);
+//                HtmlCache.updateCache(resultsHtmlKey, 6000, resultsHtml);
+//            } else {
+//                resultsHtml = HtmlCache.getFromCache(resultsHtmlKey);
+//            }
         } else {
             resultsHtml = "<font class=\"smallfont\">The conversation igniter has chosen to hide overall aggregate results.  However, dNeero does not allow researchers to hide aggregate results from individual blogs so those results are still available.  To see such results, find a place where this conversation is posted and click the See How Others Voted link... you'll see how others from that blog answered.</font>";
         }
@@ -128,7 +137,11 @@ public class PublicSurveyResults implements Serializable {
                 userquestionspage = Integer.parseInt(Pagez.getRequest().getParameter("userquestionspage"));
             }
             String resultsHtmlKey = "surveyresults.jsp-resultsUserquestionsHtml-surveyid"+survey.getSurveyid()+"-userquestionspage"+userquestionspage;
-            if (HtmlCache.isStale(resultsHtmlKey, 6000)){
+            String group = "PublicSurveyResults.java-surveyid-"+survey.getSurveyid();
+            Object fromCache = DbcacheexpirableCache.get(resultsHtmlKey, group);
+            if (fromCache!=null){
+                try{resultsUserquestionsHtml = (String)fromCache;}catch(Exception ex){logger.error("", ex);}
+            } else {
                 //Go get all results for user questions
                 ArrayList<SurveyResultsUserQuestionsListitem> sruqli = SurveyResultsUserQuestions.getUserQuestionResults(survey, null, 0, new ArrayList<Integer>(), null);
                 //Create a template for the display
@@ -144,11 +157,30 @@ public class PublicSurveyResults implements Serializable {
                 ArrayList<GridCol> cols=new ArrayList<GridCol>();
                 cols.add(new GridCol("", template.toString(), false, "", "", "background: #ffffff;", ""));
                 resultsUserquestionsHtml = Grid.render(sruqli, cols, 25, "/surveyresults.jsp?surveyid="+survey.getSurveyid()+"&panel=panel1a", "userquestionspage");
-                //Store it in the cache
-                HtmlCache.updateCache(resultsHtmlKey, 6000, resultsUserquestionsHtml);
-            } else {
-                resultsUserquestionsHtml = HtmlCache.getFromCache(resultsHtmlKey);
+                //Put into cache
+                DbcacheexpirableCache.put(resultsHtmlKey, group, resultsUserquestionsHtml, DbcacheexpirableCache.expireSurveyInXHrs(survey, 3));
             }
+//            if (HtmlCache.isStale(resultsHtmlKey, 6000)){
+//                //Go get all results for user questions
+//                ArrayList<SurveyResultsUserQuestionsListitem> sruqli = SurveyResultsUserQuestions.getUserQuestionResults(survey, null, 0, new ArrayList<Integer>(), null);
+//                //Create a template for the display
+//                StringBuffer template = new StringBuffer();
+//                template.append("<font class=\"smallfont\"><b><a href=\"/profile.jsp?userid=<$user.userid$>\"><$user.firstname$> <$user.lastname$></a> wanted to know:</b></font>");
+//                template.append("<br/>");
+//                template.append("<b><$question.question$></b>");
+//                template.append("<br/>");
+//                template.append("<$htmlForResult$>");
+//                template.append("<br/>");
+//                template.append("<br/>");
+//                //Create a Grid rendering
+//                ArrayList<GridCol> cols=new ArrayList<GridCol>();
+//                cols.add(new GridCol("", template.toString(), false, "", "", "background: #ffffff;", ""));
+//                resultsUserquestionsHtml = Grid.render(sruqli, cols, 25, "/surveyresults.jsp?surveyid="+survey.getSurveyid()+"&panel=panel1a", "userquestionspage");
+//                //Store it in the cache
+//                HtmlCache.updateCache(resultsHtmlKey, 6000, resultsUserquestionsHtml);
+//            } else {
+//                resultsUserquestionsHtml = HtmlCache.getFromCache(resultsHtmlKey);
+//            }
         }  else {
             resultsUserquestionsHtml = "<font class=\"smallfont\">The conversation igniter has chosen to hide overall aggregate results.  However, dNeero does not allow researchers to hide aggregate results from individual blogs so those results are still available.  To see such results, find a place where this conversation is posted and click the See How Others Voted link... you'll see how others from that blog answered.</font>";
         }
@@ -163,12 +195,20 @@ public class PublicSurveyResults implements Serializable {
         //Set the results for userwhotooksurvey
         if (userwhotooksurvey!=null){
             String resultsHtmlForUserWhoTookSurveyKey = "surveyresults.jsp-resultsHtmlForUserWhoTookSurvey-surveyid"+survey.getSurveyid()+"-userid"+userwhotooksurvey.getUserid();
-            if (HtmlCache.isStale(resultsHtmlForUserWhoTookSurveyKey, 6000)){
-                resultsHtmlForUserWhoTookSurvey = SurveyResultsDisplay.getHtmlForResults(survey, null, userwhotooksurvey.getUserid(), new ArrayList<Integer>(), null, true, false);
-                HtmlCache.updateCache(resultsHtmlForUserWhoTookSurveyKey, 6000, resultsHtmlForUserWhoTookSurvey);
+            String group = "PublicSurveyResults.java-surveyid-"+survey.getSurveyid();
+            Object fromCache = DbcacheexpirableCache.get(resultsHtmlForUserWhoTookSurveyKey, group);
+            if (fromCache!=null){
+                try{resultsHtmlForUserWhoTookSurvey = (String)fromCache;}catch(Exception ex){logger.error("", ex);}
             } else {
-                resultsHtmlForUserWhoTookSurvey = HtmlCache.getFromCache(resultsHtmlForUserWhoTookSurveyKey);
+                resultsHtmlForUserWhoTookSurvey = SurveyResultsDisplay.getHtmlForResults(survey, null, userwhotooksurvey.getUserid(), new ArrayList<Integer>(), null, true, false);
+                DbcacheexpirableCache.put(resultsHtmlForUserWhoTookSurveyKey, group, resultsHtmlForUserWhoTookSurvey, DbcacheexpirableCache.expireSurveyInXHrs(survey, 3));
             }
+//            if (HtmlCache.isStale(resultsHtmlForUserWhoTookSurveyKey, 6000)){
+//                resultsHtmlForUserWhoTookSurvey = SurveyResultsDisplay.getHtmlForResults(survey, null, userwhotooksurvey.getUserid(), new ArrayList<Integer>(), null, true, false);
+//                HtmlCache.updateCache(resultsHtmlForUserWhoTookSurveyKey, 6000, resultsHtmlForUserWhoTookSurvey);
+//            } else {
+//                resultsHtmlForUserWhoTookSurvey = HtmlCache.getFromCache(resultsHtmlForUserWhoTookSurveyKey);
+//            }
         } else {
             //resultsHtmlForUserWhoTookSurvey = "<font class='mediumfont'>Nobody who learned of this conversation from "+userwhotooksurvey.getFirstname()+" "+userwhotooksurvey.getLastname()+" has answered... yet.  You could be the first!</font>";
             resultsHtmlForUserWhoTookSurvey = "";
@@ -182,9 +222,12 @@ public class PublicSurveyResults implements Serializable {
 
         //Special Facebook activities
         if (Pagez.getUserSession().getIsfacebookui()){
-            
             String resultsYourFriendsKey = "surveyresults.jsp-resultsYourFriendsKey-surveyid"+survey.getSurveyid()+"-facebookuid"+Pagez.getUserSession().getFacebookUser().getUid();
-            if (HtmlCache.isStale(resultsYourFriendsKey, 6000)){
+            String group = "PublicSurveyResults.java-surveyid-"+survey.getSurveyid();
+            Object fromCache = DbcacheexpirableCache.get(resultsYourFriendsKey, group);
+            if (fromCache!=null){
+                try{resultsYourFriends = (String)fromCache;}catch(Exception ex){logger.error("", ex);}
+            } else {
                 //Load facebook users
                 loadFacebookUsers();
                 //Generate results
@@ -212,11 +255,42 @@ public class PublicSurveyResults implements Serializable {
                 } else {
                     resultsYourFriends = "<font class='mediumfont'>None of your friends have joined this conversation... yet.</font>";
                 }
-                //Update the cache
-                HtmlCache.updateCache(resultsYourFriendsKey, 6000, resultsYourFriends);
-            } else {
-                resultsYourFriends = HtmlCache.getFromCache(resultsYourFriendsKey);
+                //Update cache
+                DbcacheexpirableCache.put(resultsYourFriendsKey, group, resultsYourFriends, DbcacheexpirableCache.expireSurveyInXHrs(survey, 3));
             }
+//            if (HtmlCache.isStale(resultsYourFriendsKey, 6000)){
+//                //Load facebook users
+//                loadFacebookUsers();
+//                //Generate results
+//                resultsshowyourfriendstab = true;
+//                //FacebookApiWrapperHtmlui faw = new FacebookApiWrapperHtmlui(Pagez.getUserSession());
+//                ArrayList<FacebookUser> friends = Pagez.getUserSession().getFacebookFriends();
+//                if (friends!=null && friends.size()>0){
+//                    StringBuffer facebookquery = new StringBuffer();
+//                    facebookquery.append(" ( ");
+//                    for (Iterator it = friends.iterator(); it.hasNext(); ) {
+//                        FacebookUser facebookUser = (FacebookUser)it.next();
+//                        facebookquery.append("facebookuserid="+facebookUser.getUid());
+//                        if (it.hasNext()){
+//                            facebookquery.append(" OR ");
+//                        }
+//                    }
+//                    facebookquery.append(" ) ");
+//                    ArrayList<Integer> onlyincluderesponsesfromtheseuserids = new ArrayList<Integer>();
+//                    List fbusers = HibernateUtil.getSession().createQuery("from User WHERE "+facebookquery.toString()).list();
+//                    for (Iterator iterator = fbusers.iterator(); iterator.hasNext();) {
+//                        User fbuser = (User) iterator.next();
+//                        onlyincluderesponsesfromtheseuserids.add(fbuser.getUserid());
+//                    }
+//                    resultsYourFriends = SurveyResultsDisplay.getHtmlForResults(survey, null, 0, onlyincluderesponsesfromtheseuserids, null, true, false);
+//                } else {
+//                    resultsYourFriends = "<font class='mediumfont'>None of your friends have joined this conversation... yet.</font>";
+//                }
+//                //Update the cache
+//                HtmlCache.updateCache(resultsYourFriendsKey, 6000, resultsYourFriends);
+//            } else {
+//                resultsYourFriends = HtmlCache.getFromCache(resultsYourFriendsKey);
+//            }
 
 
 
