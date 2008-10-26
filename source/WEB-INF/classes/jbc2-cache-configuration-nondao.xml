@@ -65,7 +65,7 @@
       -->
       <attribute name="ClusterConfig">
          <config>
-            <UDP mcast_addr="228.1.2.3"
+            <UDP mcast_addr="228.1.2.6"
                  mcast_port="41333"
                  tos="8"
                  ucast_recv_buf_size="20000000"

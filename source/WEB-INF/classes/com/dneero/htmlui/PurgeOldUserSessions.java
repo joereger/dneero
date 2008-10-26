@@ -18,7 +18,7 @@ import java.util.Set;
  */
 public class PurgeOldUserSessions {
 
-    public static int MAXUSERSESSIONAGEINSECONDS = 2400;
+    public static int MAXUSERSESSIONAGEINSECONDS = 1200;
 
     public static void purge(String fqn, int levelsToDisplay){
         Logger logger = Logger.getLogger(PurgeOldUserSessions.class);

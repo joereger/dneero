@@ -64,7 +64,6 @@ public class ApplicationStartup implements ServletContextListener {
         Db.testConfig();
         System.out.println("DNEERO: Done testing the database config");
         //Connect to database
-        //3,600,000,000
         if (Db.getHaveValidConfig()){
             //Set up hibernate
             System.out.println("DNEERO: Start Initialize Hibernate");
@@ -78,6 +77,7 @@ public class ApplicationStartup implements ServletContextListener {
             System.out.println("DNEERO: Done initializing HibernateImpressions");
             ishibernateinitialized = true;
             //Run post-hibernate db upgrades
+            System.out.println("DNEERO: Start DbVersion PostHibernate Check");
             DbVersionCheck dbvcPost = new DbVersionCheck();
             dbvcPost.doCheck(DbVersionCheck.EXECUTE_POSTHIBERNATE);
             System.out.println("DNEERO: Done with DbVersion PostHibernate Check");
@@ -92,39 +92,61 @@ public class ApplicationStartup implements ServletContextListener {
         //If the database is running
         if (isdatabasereadyforapprun){
             System.out.println("DNEERO: isdatabasereadyforapprun=true");
-            //Start Hibernate session
+            //Start Main DB Hibernate session
+            System.out.println("DNEERO: Will Start Main DB Hibernate Session");
             HibernateUtil.startSession();
-            HibernateUtilDbcache.startSession();
-            HibernateUtilImpressions.startSession();
+            System.out.println("DNEERO: Started Main DB Hibernate Sessions");
             //Make sure we have at least one PL
             guaranteeAtLeastOnePlExists();
             //Load SystemProps
             SystemProperty.refreshAllProps();
+            System.out.println("DNEERO: SystemProperties loaded");
             //Refresh SystemStats
             SystemStats ss = new SystemStats();
             try{ss.execute(null);}catch(Exception ex){logger.error("",ex);}
+            System.out.println("DNEERO: SystemStats refreshed");
             //Set logging levels
-            //Log4jLevels.setLevels();
-            Logger lgr = Logger.getLogger("com.atomikos");
-            lgr.setLevel(Level.ERROR);
-            Logger lgr2 = Logger.getLogger("com.hibernate");
-            lgr2.setLevel(Level.ERROR);
-            //End Hibernate session
+            Log4jLevels.setLevels();
+            System.out.println("DNEERO: Log4jLevels set");
+            System.out.println("DNEERO: Will Close Main Db Hibernate Session");
             HibernateUtil.endSession();
+            System.out.println("DNEERO: Closed Main Db Hibernate Session");
+            //End Main DB Hibernate session
+
+            //Start DbCache DB Hibernate session
+            System.out.println("DNEERO: Will Start DbCache DB Hibernate Session");
+            HibernateUtilDbcache.startSession();
+            System.out.println("DNEERO: Started DbCache DB Hibernate Sessions");
+            System.out.println("DNEERO: Will Close DbCache Db Hibernate Session");
+            HibernateUtilDbcache.endSession();
+            System.out.println("DNEERO: Closed DbCache Db Hibernate Session");
+            //End DbCache DB Hibernate session
+
+            //Start Impressions DB Hibernate session
+            System.out.println("DNEERO: Will Start Impressions DB Hibernate Session");
+            HibernateUtilImpressions.startSession();
+            System.out.println("DNEERO: Started Impressions DB Hibernate Sessions");
+            System.out.println("DNEERO: Will Close Impressions Db Hibernate Session");
+            HibernateUtilImpressions.endSession();
+            System.out.println("DNEERO: Closed Impressions Db Hibernate Session");
+            //End Impressions DB Hibernate session
+
             //Init Quartz
+            System.out.println("DNEERO: Start Init Quartz");
             initQuartz(cse.getServletContext());
             //Init Quartz listener
             try{
                 SchedulerFactory schedFact = new StdSchedulerFactory();
                 schedFact.getScheduler().addGlobalJobListener(new HibernateSessionQuartzCloser());
             } catch (Exception ex){logger.error("",ex);}
+            System.out.println("DNEERO: Done Init Quartz");
         } else {
             System.out.println("DNEERO: isdatabasereadyforapprun=false");
             logger.info("Database not ready.");    
         }
         //Report to log and XMPP
-        logger.info("WebAppRootDir = " + WebAppRootDir.getWebAppRootPath());
-        logger.info("dNeero Application Started!  Let's make some dinero!");
+        System.out.println("DNEERO: WebAppRootDir = " + WebAppRootDir.getWebAppRootPath());
+        System.out.println("DNEERO: Application Started!  Let's make some dinero... because computers suck!");
         SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_SYSADMINS, "dNeero Application started! ("+WebAppRootDir.getUniqueContextId()+")");
         xmpp.send();
 

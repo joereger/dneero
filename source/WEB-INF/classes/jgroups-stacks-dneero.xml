@@ -34,7 +34,7 @@
            description="Default: IP multicast based stack, with flow control and message bundling">
         <config>
             <UDP
-                 mcast_addr="${jgroups.udp.mcast_addr:228.10.10.10}"
+                 mcast_addr="${jgroups.udp.mcast_addr:228.10.10.11}"
                  mcast_port="${jgroups.udp.mcast_port:45588}"
                  tos="8"
                  ucast_recv_buf_size="20000000"
@@ -103,7 +103,7 @@
             run out of memory">
         <config>
             <UDP
-                 mcast_addr="${jgroups.udp.mcast_addr:229.10.10.10}"
+                 mcast_addr="${jgroups.udp.mcast_addr:229.10.10.11}"
                  mcast_port="${jgroups.udp.mcast_port:45599}"
                  tos="8"
                  ucast_recv_buf_size="20000000"
