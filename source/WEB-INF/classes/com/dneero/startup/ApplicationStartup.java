@@ -12,6 +12,7 @@ import com.dneero.systemprops.SystemProperty;
 import com.dneero.systemprops.WebAppRootDir;
 import com.dneero.xmpp.SendXMPPMessage;
 import com.dneero.db.Db;
+import com.dneero.cache.providers.CacheFactory;
 import org.apache.log4j.Logger;
 import org.apache.log4j.Level;
 import org.quartz.Scheduler;
@@ -101,10 +102,6 @@ public class ApplicationStartup implements ServletContextListener {
             //Load SystemProps
             SystemProperty.refreshAllProps();
             System.out.println("DNEERO: SystemProperties loaded");
-            //Refresh SystemStats
-            SystemStats ss = new SystemStats();
-            try{ss.execute(null);}catch(Exception ex){logger.error("",ex);}
-            System.out.println("DNEERO: SystemStats refreshed");
             //Set logging levels
             Log4jLevels.setLevels();
             System.out.println("DNEERO: Log4jLevels set");
@@ -112,6 +109,12 @@ public class ApplicationStartup implements ServletContextListener {
             HibernateUtil.endSession();
             System.out.println("DNEERO: Closed Main Db Hibernate Session");
             //End Main DB Hibernate session
+
+            //Refresh SystemStats
+            System.out.println("DNEERO: Start SystemStats refresh");
+            SystemStats ss = new SystemStats();
+            try{ss.execute(null);}catch(Exception ex){logger.error("",ex);}
+            System.out.println("DNEERO: Done SystemStats refresh");
 
             //Start DbCache DB Hibernate session
             System.out.println("DNEERO: Will Start DbCache DB Hibernate Session");
@@ -130,6 +133,12 @@ public class ApplicationStartup implements ServletContextListener {
             HibernateUtilImpressions.endSession();
             System.out.println("DNEERO: Closed Impressions Db Hibernate Session");
             //End Impressions DB Hibernate session
+
+            //Init nondao cache
+            System.out.println("DNEERO: Start init CacheFactory");
+            try{CacheFactory.getCacheProvider().get("", "");}catch(Exception ex){logger.error("",ex);}
+            System.out.println("DNEERO: End init CacheFactory");
+            //End init nondao cache
 
             //Init Quartz
             System.out.println("DNEERO: Start Init Quartz");
