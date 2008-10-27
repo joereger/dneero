@@ -169,11 +169,14 @@ public class DbcacheexpirableCache {
             //Figure out whether there's still activity
             int daysold = DateDiff.dateDiff("day", Calendar.getInstance(), Time.getCalFromDate(survey.getEnddate()));
             logger.debug("daysold="+daysold);
-            if (daysold>SurveyMoneyStatus.DAYSAFTERCLOSEOFSURVEYWECOLLECTFORIMPRESSIONS){
+            if (daysold>(SurveyMoneyStatus.DAYSAFTERCLOSEOFSURVEYWECOLLECTFORIMPRESSIONS+1)){
                 logger.debug("surveyid="+survey.getSurveyid()+"It's past the date that we collect/pay for impressions so set expiration way in the future");
                 return Time.xYearsAgoEnd(Calendar.getInstance(), -10).getTime();
+            } else if (daysold>3){
+                logger.debug("surveyid="+survey.getSurveyid()+"It's past the date that we collect/pay for impressions but only recently so I'll expire in 24 hours");
+                return Time.xHoursAgoEnd(Calendar.getInstance(), -24).getTime();
             } else {
-                //It's still within the update zone
+                //It's still within the update zone... i.e. within 3 days of the closing date
                 logger.debug("surveyid="+survey.getSurveyid()+"It's not open but still within the update zone so will expire in xmin");
                 return xmin;
             }
