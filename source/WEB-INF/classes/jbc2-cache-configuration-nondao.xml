@@ -25,7 +25,8 @@
           Configure the TransactionManager
       -->
       <!--<attribute name="TransactionManagerLookupClass">org.jboss.cache.transaction.GenericTransactionManagerLookup</attribute>-->
-      <attribute name="TransactionManagerLookupClass">org.jboss.cache.transaction.DummyTransactionManagerLookup</attribute>
+      <attribute name="TransactionManagerLookupClass">com.dneero.startup.AtomikosTransactionManagerLookup</attribute>
+      <!--<attribute name="TransactionManagerLookupClass">org.jboss.cache.transaction.DummyTransactionManagerLookup</attribute>-->
       
 
       <!--

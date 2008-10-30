@@ -27,34 +27,33 @@ public class BasePersistentClassImpressions implements Lifecycle, Validatable, S
             hsession.beginTransaction();
             hsession.getTransaction().setTimeout(120);
             hsession.saveOrUpdate(this);
-            hsession.getTransaction().commit();
+            if (!hsession.getTransaction().wasRolledBack()){
+                hsession.getTransaction().commit();
+            }
             //hsession.refresh(this);
         } catch (HibernateException hex){
-            logger.debug("HibernateException found in save()");
             logger.error("HibernateException", hex);
             if (hsession.getTransaction().isActive()){
                 hsession.getTransaction().rollback();
             }
             HibernateUtilImpressions.closeSession();
-            GeneralException vex = new GeneralException();
-            vex.addValidationError("Hibernate error saving "+this.getClass().getName());
-            throw vex;
+//            GeneralException vex = new GeneralException();
+//            vex.addValidationError("Hibernate error saving "+this.getClass().getName());
+//            throw vex;
         } catch (Exception ex){
             try{
                 if (hsession.getTransaction().isActive()){
                     hsession.getTransaction().rollback();
                 }
             } catch (Exception ex2){
-                logger.debug("Exception found in save()'s exception block");
                 logger.error("Error rolling back exception", ex2);
             }
             //hsession.evict(this);
             HibernateUtilImpressions.closeSession();
-            logger.debug("Exception found in save()");
             logger.error("Error in BasePersistentClass", ex);
-            GeneralException vex = new GeneralException();
-            vex.addValidationError("General exception error saving "+this.getClass().getName());
-            throw vex;
+//            GeneralException vex = new GeneralException();
+//            vex.addValidationError("General exception error saving "+this.getClass().getName());
+//            throw vex;
         }
    }
    public void delete() throws HibernateException {
