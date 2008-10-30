@@ -168,12 +168,16 @@ public class HibernateUtilDbcache {
         Logger logger = Logger.getLogger(HibernateUtilDbcache.class);
         //End Hibernate Session
         try{
-            HibernateUtilDbcache.getSession().getTransaction().commit();
+            if (HibernateUtilDbcache.getSession().getTransaction().isActive()){
+                HibernateUtilDbcache.getSession().getTransaction().commit();
+            }
             HibernateUtilDbcache.closeSession();
         } catch (HibernateException hex){
             logger.debug("HibernateException found in save()");
             logger.error("HibernateException", hex);
-            HibernateUtilDbcache.getSession().getTransaction().rollback();
+            if (HibernateUtilDbcache.getSession().getTransaction().wasCommitted()){
+                HibernateUtilDbcache.getSession().getTransaction().rollback();
+            }
             HibernateUtilDbcache.closeSession();
         }
     }

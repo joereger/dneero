@@ -6,8 +6,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.tool.hbm2ddl.SchemaUpdate;
 import org.hibernate.cfg.Configuration;
 import org.apache.log4j.Logger;
-import org.jboss.cache.transaction.GenericTransactionManagerLookup;
-import org.jboss.cache.transaction.DummyTransactionManagerLookup;
+
 
 
 import java.io.File;
@@ -173,12 +172,16 @@ public class HibernateUtil {
         Logger logger = Logger.getLogger(HibernateUtil.class);
         //End Hibernate Session
         try{
-            HibernateUtil.getSession().getTransaction().commit();
+            if (HibernateUtil.getSession().getTransaction().isActive()){
+                HibernateUtil.getSession().getTransaction().commit();
+            }
             HibernateUtil.closeSession();
         } catch (HibernateException hex){
             logger.debug("HibernateException found in save()");
             logger.error("HibernateException", hex);
-            HibernateUtil.getSession().getTransaction().rollback();
+            if (HibernateUtil.getSession().getTransaction().wasCommitted()){
+                HibernateUtil.getSession().getTransaction().rollback();
+            }
             HibernateUtil.closeSession();
         }
     }

@@ -23,21 +23,27 @@ public class BasePersistentClass implements Lifecycle, Validatable, Serializable
        logger.debug("save() called on "+this.getClass().getName());
        Session hsession = HibernateUtil.getSession();
        try{
+            hsession.getTransaction().setTimeout(120);
             hsession.beginTransaction();
+            hsession.getTransaction().setTimeout(120);
             hsession.saveOrUpdate(this);
             hsession.getTransaction().commit();
             //hsession.refresh(this);
         } catch (HibernateException hex){
             logger.debug("HibernateException found in save()");
             logger.error("HibernateException", hex);
-            hsession.getTransaction().rollback();
+            if (hsession.getTransaction().isActive()){
+                hsession.getTransaction().rollback();
+            }
             HibernateUtil.closeSession();
             GeneralException vex = new GeneralException();
             vex.addValidationError("Hibernate error saving "+this.getClass().getName());
             throw vex;
         } catch (Exception ex){
             try{
-                hsession.getTransaction().rollback();
+                if (hsession.getTransaction().isActive()){
+                    hsession.getTransaction().rollback();
+                }
             } catch (Exception ex2){
                 logger.debug("Exception found in save()'s exception block");
                 logger.error("Error rolling back exception", ex2);
@@ -55,7 +61,9 @@ public class BasePersistentClass implements Lifecycle, Validatable, Serializable
         Logger logger = Logger.getLogger(BasePersistentClass.class);
         logger.debug("delete() called on "+this.getClass().getName());
         Session hsession = HibernateUtil.getSession();
+        hsession.getTransaction().setTimeout(120);
         hsession.beginTransaction();
+        hsession.getTransaction().setTimeout(120);
         hsession.delete(this);
         hsession.getTransaction().commit();
    }

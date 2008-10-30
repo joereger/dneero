@@ -168,12 +168,16 @@ public class HibernateUtilImpressions {
         Logger logger = Logger.getLogger(HibernateUtilImpressions.class);
         //End Hibernate Session
         try{
-            HibernateUtilImpressions.getSession().getTransaction().commit();
+            if (HibernateUtilImpressions.getSession().getTransaction().isActive()){
+                HibernateUtilImpressions.getSession().getTransaction().commit();
+            }
             HibernateUtilImpressions.closeSession();
         } catch (HibernateException hex){
             logger.debug("HibernateException found in save()");
             logger.error("HibernateException", hex);
-            HibernateUtilImpressions.getSession().getTransaction().rollback();
+            if (HibernateUtilImpressions.getSession().getTransaction().wasCommitted()){
+                HibernateUtilImpressions.getSession().getTransaction().rollback();
+            }
             HibernateUtilImpressions.closeSession();
         }
     }
