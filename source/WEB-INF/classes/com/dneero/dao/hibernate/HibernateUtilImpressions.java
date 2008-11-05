@@ -57,6 +57,7 @@ public class HibernateUtilImpressions {
                     conf.setProperty("hibernate.generate_statistics", "false");
 
                     //Connection pool
+                    conf.setProperty("hibernate.connection.provider_class", "org.hibernate.connection.C3P0ConnectionProvider");
                     conf.setProperty("hibernate.c3p0.min_size", String.valueOf(InstanceProperties.getDbMinIdle()));
                     conf.setProperty("hibernate.c3p0.max_size", String.valueOf(InstanceProperties.getDbMaxActive()));
                     conf.setProperty("hibernate.c3p0.timeout", String.valueOf(InstanceProperties.getDbMaxWait()));
