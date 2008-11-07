@@ -28,7 +28,7 @@ String acl = "account";
     <font class="mediumfont" color="#333333">When do I get paid?</font>
     <br/>
     <font class="smallfont">
-    When your balance reaches $20 or more.  We pay people early in the morning (Eastern Standard Time, US) every other day.  Once your balance reaches $20, look for it in your PayPal account.  If you don't see it, send us a note and we'll track it down for you!
+    When your balance reaches $20 or more.  We pay people early in the morning (Eastern Standard Time, US) every few days.  Once your balance reaches $20 expect to be paid in 2-5 days. Look for it in your PayPal account.  If you don't see it, send us a note and we'll track it down for you!
     </font>
     <br/><br/><br/>
     <!-- End FAQ Question -->

@@ -5,6 +5,7 @@
 <%@ page import="com.dneero.dbgrid.Grid" %>
 <%@ page import="com.dneero.htmluibeans.AccountNewSupportIssue" %>
 <%@ page import="com.dneero.htmlui.*" %>
+<%@ page import="com.dneero.dao.hibernate.HibernateUtil" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "Flagged Content";

@@ -2,6 +2,7 @@
 <%@ page import="com.dneero.htmluibeans.AccountIndex" %>
 <%@ page import="com.dneero.htmluibeans.AccountBalance" %>
 <%@ page import="com.dneero.htmlui.*" %>
+<%@ page import="com.dneero.dao.hibernate.NumFromUniqueResult" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "Your Account";

@@ -201,7 +201,7 @@ String acl = "public";
     <font class="mediumfont" color="#333333">When do I get paid in the real world?</font>
     <br/>
     <font class="smallfont">
-    We check account balances every day.  If your account balance is over $20 we will pay you. Simple.
+    We check account balances every day.  If your account balance is over $20 we will pay you in 2-5 days.  Simple.
     </font>
     <br/><br/><br/>
     <!-- End FAQ Question -->

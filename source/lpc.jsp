@@ -73,9 +73,9 @@ LostPasswordChoose lostPasswordChoose=(LostPasswordChoose) Pagez.getBeanMgr().ge
                     <br/>
                     <table cellpadding="0" cellspacing="0" border="0">
                         <tr>
-                            <td><img src="/images/clear.gif" alt="" width="1" height="100"></img></td>
+                            <td><img src="/images/clear.gif" alt="" width="1" height="100"/></td>
                             <td style="background: url(/images/loading-captcha.gif);">
-                                <img src="/images/clear.gif" alt="" width="200" height="1"></img><br/>
+                                <img src="/images/clear.gif" alt="" width="200" height="1"/><br/>
                                 <img src="/jcaptcha?captchaId=<%=captchaId%>"/>
                             </td>
                         </tr>

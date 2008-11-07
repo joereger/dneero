@@ -17,6 +17,7 @@
 <%@ page import="com.dneero.systemprops.WebAppRootDir" %>
 <%@ page import="com.dneero.util.*" %>
 <%@ page import="org.apache.log4j.Logger" %>
+<%@ page import="com.dneero.dao.hibernate.*" %>
 <%@ page import="java.util.*" %>
 <%
     boolean isauthorised= Authorization.check(acl);
