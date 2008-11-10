@@ -11,10 +11,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Collections;
 
-import com.dneero.survey.servlet.ImpressionActivityObject;
 import com.dneero.survey.servlet.ImpressionActivityObjectCollatedStorage;
 import com.dneero.survey.servlet.ImpressionActivityObjectCollated;
-import com.dneero.survey.servlet.ImpressionActivityObjectStorage;
 import com.dneero.xmpp.SendXMPPMessage;
 
 /**
@@ -24,7 +22,6 @@ import com.dneero.xmpp.SendXMPPMessage;
  */
 public class ImpressionActivityObjectQueue implements Job {
 
-    private static List<ImpressionActivityObject> iaos;
     private static List<ImpressionActivityObjectCollated> iaocs;
 
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
@@ -32,35 +29,13 @@ public class ImpressionActivityObjectQueue implements Job {
         //if (InstanceProperties.getRunScheduledTasksOnThisInstance()){
             logger.debug("execute() ImpressionActivityObjectQueue called");
 
-            //Handle the iaos
-            try{
-                if (iaos!=null){
-                    synchronized(iaos){
-                        for (Iterator it = iaos.iterator(); it.hasNext(); ) {
-                            ImpressionActivityObject iao = (ImpressionActivityObject)it.next();
-                            try{
-                                ImpressionActivityObjectStorage.store(iao);
-                                it.remove();
-                            } catch (Exception ex){
-                                logger.error("",ex);
-                            }
-                        }
-                    }
-                }
-            } catch (Exception ex){
-                logger.debug("Error in top block.");
-                logger.error("",ex);
-                //Notify via XMPP
-                SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_DEBUG, "Error recording impression in ImpressionActivityObjectQueue top block: "+ ex.getMessage());
-                xmpp.send();
-            }
 
 
             //Handle the iaocs
             try{
                 if (iaocs!=null){
                     synchronized(iaocs){
-                        ImpressionActivityObjectCollatedStorage.resetImpCache();
+                        //ImpressionActivityObjectCollatedStorage.resetImpCache();
                         for (Iterator it = iaocs.iterator(); it.hasNext(); ) {
                             ImpressionActivityObjectCollated iaoc = (ImpressionActivityObjectCollated)it.next();
                             try{
@@ -71,7 +46,7 @@ public class ImpressionActivityObjectQueue implements Job {
                                 logger.error("",ex);
                             }
                         }
-                        ImpressionActivityObjectCollatedStorage.resetImpCache();
+                        //ImpressionActivityObjectCollatedStorage.resetImpCache();
                     }
                 }
             } catch (Exception ex){
@@ -88,23 +63,9 @@ public class ImpressionActivityObjectQueue implements Job {
         //}
     }
 
-    public static synchronized void addIao(ImpressionActivityObject iao){
-        if (iaos==null){
-            iaos = Collections.synchronizedList(new ArrayList<ImpressionActivityObject>());
-        }
-        synchronized(iaos){
-            iaos.add(iao);
-        }
-    }
 
-    public static List<ImpressionActivityObject> getIaos() {
-        if(iaos!=null){
-            synchronized(iaos){
-                return iaos;
-            }
-        }
-        return null;
-    }
+
+
 
     public static synchronized void addIaoc(ImpressionActivityObjectCollated iaoc){
         Logger logger = Logger.getLogger(ImpressionActivityObjectQueue.class);

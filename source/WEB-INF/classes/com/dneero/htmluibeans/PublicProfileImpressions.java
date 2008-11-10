@@ -56,14 +56,15 @@ public class PublicProfileImpressions implements Serializable {
                                    .list();
                 for (Iterator<Impression> iterator1 = impressions.iterator(); iterator1.hasNext();) {
                     Impression impression = iterator1.next();
-
-                    ResearcherResultsImpressionsListitem robj = new ResearcherResultsImpressionsListitem();
-                    robj.setImpressionspaidandtobepaid(impression.getImpressionspaid() + impression.getImpressionstobepaid());
-                    robj.setReferer(impression.getReferer());
-                    robj.setReferertruncated(Str.truncateString(impression.getReferer(), 45));
-                    robj.setImpressionquality(String.valueOf(impression.getQuality()));
-                    list.add(robj);
-
+                    if (impression.getResponseid()>0){
+                        Response response = Response.get(impression.getResponseid());
+                        ResearcherResultsImpressionsListitem robj = new ResearcherResultsImpressionsListitem();
+                        robj.setImpressionspaidandtobepaid(response.getImpressionspaid() + response.getImpressionstobepaid());
+                        robj.setReferer(impression.getReferer());
+                        robj.setReferertruncated(Str.truncateString(impression.getReferer(), 45));
+                        robj.setImpressionquality(String.valueOf(impression.getQuality()));
+                        list.add(robj);
+                    }
                 }
 
         }

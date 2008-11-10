@@ -6,7 +6,6 @@ import com.dneero.htmlui.UserSession;
 import com.dneero.htmlui.Pagez;
 import com.dneero.htmlui.ValidationException;
 import com.dneero.util.*;
-import com.dneero.money.UserImpressionFinder;
 import com.dneero.scheduledjobs.UpdateResponsePoststatus;
 
 import java.util.*;

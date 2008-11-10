@@ -3,7 +3,6 @@ package com.dneero.htmluibeans;
 import org.apache.log4j.Logger;
 import org.hibernate.criterion.Restrictions;
 import com.dneero.dao.Survey;
-import com.dneero.dao.Impression;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.dao.hibernate.NumFromUniqueResult;
 import com.dneero.dao.hibernate.NumFromUniqueResultImpressions;

@@ -7,9 +7,7 @@ import org.apache.log4j.Logger;
 import org.hibernate.criterion.Restrictions;
 import com.dneero.systemprops.InstanceProperties;
 import com.dneero.dao.Response;
-import com.dneero.dao.Impression;
 import com.dneero.dao.hibernate.HibernateUtil;
-import com.dneero.dao.hibernate.HibernateUtilImpressions;
 import com.dneero.util.Time;
 import com.dneero.util.DateDiff;
 import com.dneero.survey.servlet.ImpressionsByDayUtil;
@@ -70,16 +68,19 @@ public class UpdateResponsePoststatus implements Job {
         try{
 
             //Get a single ImpressionsByDayUtil that holds all impression by day data
-            ImpressionsByDayUtil ibdus = new ImpressionsByDayUtil("");
-            List<Impression> impressions = HibernateUtilImpressions.getSession().createCriteria(Impression.class)
-                                               .add(Restrictions.eq("responseid", response.getResponseid()))
-                                               .setCacheable(true)
-                                               .list();
-            for (Iterator<Impression> iterator2 = impressions.iterator(); iterator2.hasNext();) {
-                Impression impression = iterator2.next();
-                ImpressionsByDayUtil ibdu = new ImpressionsByDayUtil(impression.getImpressionsbyday());
-                ibdus.add(ibdu);
-            }
+//            ImpressionsByDayUtil ibdus = new ImpressionsByDayUtil("");
+//            List<Impression> impressions = HibernateUtilImpressions.getSession().createCriteria(Impression.class)
+//                                               .add(Restrictions.eq("responseid", response.getResponseid()))
+//                                               .setCacheable(true)
+//                                               .list();
+//            for (Iterator<Impression> iterator2 = impressions.iterator(); iterator2.hasNext();) {
+//                Impression impression = iterator2.next();
+//                ImpressionsByDayUtil ibdu = new ImpressionsByDayUtil(impression.getImpressionsbyday());
+//                ibdus.add(ibdu);
+//            }
+
+            //Get a single ImpressionsByDayUtil that holds all impression by day data
+            ImpressionsByDayUtil ibdus = new ImpressionsByDayUtil(response.getImpressionsbyday());
 
             //If the time period for evaluating impressions has passed, set that status too
             Calendar responseDateAsCal = Time.getCalFromDate(response.getResponsedate());

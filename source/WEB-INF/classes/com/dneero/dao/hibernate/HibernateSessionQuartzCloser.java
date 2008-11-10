@@ -93,7 +93,7 @@ public class HibernateSessionQuartzCloser implements JobListener {
                 int hoursago = daysago * 24;
                 int minutesago = hoursago * 60;
                 Calendar xcal = Time.xMinutesAgoStart(Calendar.getInstance(), minutesago);
-                HibernateUtil.getSession().createQuery("delete Schedextime s where s.date>'"+xcal.getTime()+"'").executeUpdate();
+                HibernateUtil.getSession().createQuery("delete Schedextime s where s.date<'"+Time.dateformatfordb(xcal)+"'").executeUpdate();
             }
         } catch (Exception ex){
             logger.error("", ex);

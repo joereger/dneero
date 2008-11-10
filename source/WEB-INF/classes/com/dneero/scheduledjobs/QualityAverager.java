@@ -4,13 +4,9 @@ import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.apache.log4j.Logger;
-import com.dneero.dao.Impression;
 import com.dneero.dao.Blogger;
-import com.dneero.dao.User;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.dao.hibernate.NumFromUniqueResult;
-import com.dneero.util.Time;
-import com.dneero.util.DateDiff;
 import com.dneero.systemprops.InstanceProperties;
 
 import java.util.*;

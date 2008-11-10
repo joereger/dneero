@@ -15,9 +15,7 @@
         <property name="firstseen" type="timestamp">
             <column name="firstseen" not-null="true" />
         </property>
-        <property name="impressionstotal" type="int">
-            <column name="impressionstotal" not-null="true" />
-        </property>
+
         <property name="quality" type="int">
             <column name="quality" not-null="true" />
         </property>
@@ -29,6 +27,10 @@
         </property>
         <property name="responseid" type="int">
             <column name="responseid" not-null="true" />
+        </property>
+
+        <property name="impressionstotal" type="int">
+            <column name="impressionstotal" not-null="true" />
         </property>
         <property name="impressionspaid" type="int">
             <column name="impressionspaid" not-null="true" />

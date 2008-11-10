@@ -47,16 +47,17 @@ public class SystemStatsFinancial implements Job {
                 unpaidresponsesamt= unpaidresponsesamt + response.getIncentive().getBloggerEarningsPerResponse();
 
                 //Get the impressions by day for this response
-                ImpressionsByDayUtil ibdu = new ImpressionsByDayUtil("");
-                List<Impression> impressions = HibernateUtilImpressions.getSession().createCriteria(Impression.class)
-                                                   .add(Restrictions.eq("responseid", response.getResponseid()))
-                                                   .setCacheable(true)
-                                                   .list();
-                for (Iterator<Impression> iterator1=impressions.iterator(); iterator1.hasNext();) {
-                    Impression impression=iterator1.next();
-                    ImpressionsByDayUtil ibduTmp = new ImpressionsByDayUtil(impression.getImpressionsbyday());
-                    ibdu.add(ibduTmp);
-                }
+//                ImpressionsByDayUtil ibdu = new ImpressionsByDayUtil("");
+//                List<Impression> impressions = HibernateUtilImpressions.getSession().createCriteria(Impression.class)
+//                                                   .add(Restrictions.eq("responseid", response.getResponseid()))
+//                                                   .setCacheable(true)
+//                                                   .list();
+//                for (Iterator<Impression> iterator1=impressions.iterator(); iterator1.hasNext();) {
+//                    Impression impression=iterator1.next();
+//                    ImpressionsByDayUtil ibduTmp = new ImpressionsByDayUtil(impression.getImpressionsbyday());
+//                    ibdu.add(ibduTmp);
+//                }
+                ImpressionsByDayUtil ibdu = new ImpressionsByDayUtil(response.getImpressionsbyday());
                 //Calculate the number of days with impressions within the allotted impression period
                 int numberofdayswithimpressions = 0;
                 for(int i=0; i<UpdateResponsePoststatus.MAXPOSTINGPERIODINDAYS; i++){

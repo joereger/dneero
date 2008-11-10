@@ -27,7 +27,6 @@ public class ResearcherSurveyList implements Serializable {
 
     }
 
-
     public void initBean(){
         Logger logger = Logger.getLogger(this.getClass().getName());
 

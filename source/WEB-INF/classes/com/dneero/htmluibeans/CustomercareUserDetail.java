@@ -10,7 +10,6 @@ import com.dneero.helpers.DeleteUser;
 import com.dneero.htmlui.Pagez;
 import com.dneero.htmlui.ValidationException;
 import com.dneero.money.MoveMoneyInAccountBalance;
-import com.dneero.money.UserImpressionFinder;
 import com.dneero.scheduledjobs.CurrentBalanceUpdater;
 import com.dneero.scheduledjobs.ResearcherRemainingBalanceOperations;
 import com.dneero.scheduledjobs.UpdateResponsePoststatus;
@@ -158,8 +157,10 @@ public class CustomercareUserDetail implements Serializable {
                 for (Iterator<Response> iterator = responses.iterator(); iterator.hasNext();) {
                     Response response = iterator.next();
                     Survey survey = Survey.get(response.getSurveyid());
-                    int totalimpressions = UserImpressionFinder.getTotalImpressions(Blogger.get(user.getBloggerid()), survey);
-                    int paidandtobepaidimpressions = UserImpressionFinder.getPaidAndToBePaidImpressions(Blogger.get(user.getBloggerid()), survey);
+                    //int totalimpressions = UserImpressionFinder.getTotalImpressions(Blogger.get(user.getBloggerid()), survey);
+                    //int paidandtobepaidimpressions = UserImpressionFinder.getPaidAndToBePaidImpressions(Blogger.get(user.getBloggerid()), survey);
+                    int totalimpressions = response.getImpressionstotal();
+                    int paidandtobepaidimpressions = response.getImpressionspaid() + response.getImpressionstobepaid();
                     BloggerCompletedsurveysListitem listitem = new BloggerCompletedsurveysListitem();
                     listitem.setTotalimpressions(totalimpressions);
                     listitem.setPaidandtobepaidimpressions(paidandtobepaidimpressions);

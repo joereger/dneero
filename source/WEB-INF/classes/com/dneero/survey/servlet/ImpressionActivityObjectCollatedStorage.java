@@ -6,7 +6,6 @@ import com.dneero.dao.hibernate.HibernateUtilImpressions;
 import com.dneero.dao.*;
 import com.dneero.util.*;
 import com.dneero.money.SurveyMoneyStatus;
-import com.dneero.money.UserImpressionFinder;
 import com.dneero.helpers.UserInputSafe;
 
 import java.util.*;
@@ -21,7 +20,7 @@ import org.hibernate.criterion.Restrictions;
  */
 public class ImpressionActivityObjectCollatedStorage {
 
-    private static HashMap<String, Integer> impressionsbyuser;
+    //private static HashMap<String, Integer> impressionsbyuser;
 
     public static void store(ImpressionActivityObjectCollated iao){
         Logger logger = Logger.getLogger(ImpressionActivityObjectCollatedStorage.class);
@@ -102,15 +101,15 @@ public class ImpressionActivityObjectCollatedStorage {
                 logger.debug("responseid=0 but can't calculate it because user==null and/or survey==null");
             }
         }
-        //Make sure we have a response
+        //Make sure we have a response, user and survey
         if (response!=null && response.getResponseid()>0){
             if (user!=null && user.getUserid()>0){
                 if (survey!=null && survey.getSurveyid()>0){
 
                     //Find number of impressions on this blog qualify for payment
-                    //@todo optimize... this is the main performance hog in this code
                     //int blogimpressionspaidandtobepaid = UserImpressionFinder.getPaidAndToBePaidImpressions(user, survey);
-                    int blogimpressionspaidandtobepaid = getTotalImpressionsPaidAndToBePaid(survey, user);
+                    //int blogimpressionspaidandtobepaid = getTotalImpressionsPaidAndToBePaid(survey, user);
+                    int blogimpressionspaidandtobepaid = response.getImpressionspaid() + response.getImpressionstobepaid();
 
                     //See if this impression qualifies for payment
                     int impressionsqualifyingforpayment = iao.getImpressions();
@@ -140,6 +139,7 @@ public class ImpressionActivityObjectCollatedStorage {
                     //See if there's an existing impression to append this to, if not create one
                     Impression impression = null;
                     //List<Impression> impressions = HibernateUtilImpressions.getSession().createQuery("from Impression where surveyid='"+iao.getSurveyid()+"' and userid='"+iao.getUserid()+"' and referer='"+ UserInputSafe.clean(iao.getReferer().trim())+"' and responseid='"+responseid+"'").list();
+                    //@todo convert referer to a field with length so I can index it in MySQL for performance gains
                     List<Impression> impressions = HibernateUtilImpressions.getSession().createCriteria(Impression.class)
                            .add(Restrictions.eq("surveyid", iao.getSurveyid()))
                            .add(Restrictions.eq("userid", iao.getUserid()))
@@ -160,12 +160,13 @@ public class ImpressionActivityObjectCollatedStorage {
                         impression.setSurveyid(iao.getSurveyid());
                         impression.setUserid(iao.getUserid());
                         impression.setResponseid(responseid);
+                        impression.setImpressionspaid(0);
                         impression.setImpressionstobepaid(impressionsqualifyingforpayment);
                         impression.setImpressionstotal(iao.getImpressions());
                         impression.setReferer(iao.getReferer());
                     }
                     //Update the internal perf cache
-                    addImp(survey, user, impressionsqualifyingforpayment);
+                    //addImp(survey, user, impressionsqualifyingforpayment);
                     //Update the impressionsbyday string, but only if this isn't rejected by sysadmin
                     ImpressionsByDayUtil ibdu = new ImpressionsByDayUtil(impression.getImpressionsbyday());
                     if (!response.getIssysadminrejected()){
@@ -173,9 +174,16 @@ public class ImpressionActivityObjectCollatedStorage {
                         ibdu.add(iao.getImpressions(), dayssincetakingsurvey);
                     }
                     impression.setImpressionsbyday(ibdu.getAsString());
-
+                    //Save the impression
                     logger.debug("about to call impression.save()");
                     try{impression.save();} catch (GeneralException gex){logger.error(gex);}
+
+                    //Now update the Response
+                    response.setImpressionstotal(response.getImpressionstotal() + iao.getImpressions());
+                    response.setImpressionstobepaid(impression.getImpressionstobepaid() + impressionsqualifyingforpayment);
+                    response.setImpressionsbyday(ibdu.getAsString());
+                    try{response.save();} catch (GeneralException gex){logger.error(gex);}
+
                     logger.debug("done with impression.save()");
                 }
             }
@@ -183,41 +191,41 @@ public class ImpressionActivityObjectCollatedStorage {
 
     }
 
-    private static int getTotalImpressionsPaidAndToBePaid(Survey survey, User user){
-        Logger logger = Logger.getLogger(ImpressionActivityObjectCollatedStorage.class);
-        if (impressionsbyuser==null){
-            impressionsbyuser = new HashMap<String, Integer>();
-        }
-        String key = "userid"+user.getUserid()+"-surveyid"+survey.getSurveyid();
-        int totimp = 0;
-        if (impressionsbyuser.containsKey(key)){
-            totimp = impressionsbyuser.get(key);
-        } else {
-            totimp = UserImpressionFinder.getPaidAndToBePaidImpressions(user, survey);
-        }
-        impressionsbyuser.put(key, totimp);
-        logger.debug("returning totimp="+totimp);
-        return totimp;
-    }
+//    private static int getTotalImpressionsPaidAndToBePaid(Survey survey, User user){
+//        Logger logger = Logger.getLogger(ImpressionActivityObjectCollatedStorage.class);
+//        if (impressionsbyuser==null){
+//            impressionsbyuser = new HashMap<String, Integer>();
+//        }
+//        String key = "userid"+user.getUserid()+"-surveyid"+survey.getSurveyid();
+//        int totimp = 0;
+//        if (impressionsbyuser.containsKey(key)){
+//            totimp = impressionsbyuser.get(key);
+//        } else {
+//            totimp = UserImpressionFinder.getPaidAndToBePaidImpressions(user, survey);
+//        }
+//        impressionsbyuser.put(key, totimp);
+//        logger.debug("returning totimp="+totimp);
+//        return totimp;
+//    }
 
-    private static void addImp(Survey survey, User user, int impressions){
-        if (impressionsbyuser==null){
-            impressionsbyuser = new HashMap<String, Integer>();
-        }
-        String key = "userid"+user.getUserid()+"-surveyid"+survey.getSurveyid();
-        int totimp = 0;
-        if (impressionsbyuser.containsKey(key)){
-            totimp = impressions + impressionsbyuser.get(key);
-            impressionsbyuser.put(key, totimp);
-        } else {
-            totimp = impressions + UserImpressionFinder.getPaidAndToBePaidImpressions(user, survey);
-            impressionsbyuser.put(key, totimp);
-        }
-    }
-
-    public static void resetImpCache(){
-        impressionsbyuser = null;
-    }
+//    private static void addImp(Survey survey, User user, int impressions){
+//        if (impressionsbyuser==null){
+//            impressionsbyuser = new HashMap<String, Integer>();
+//        }
+//        String key = "userid"+user.getUserid()+"-surveyid"+survey.getSurveyid();
+//        int totimp = 0;
+//        if (impressionsbyuser.containsKey(key)){
+//            totimp = impressions + impressionsbyuser.get(key);
+//            impressionsbyuser.put(key, totimp);
+//        } else {
+//            totimp = impressions + UserImpressionFinder.getPaidAndToBePaidImpressions(user, survey);
+//            impressionsbyuser.put(key, totimp);
+//        }
+//    }
+//
+//    public static void resetImpCache(){
+//        impressionsbyuser = null;
+//    }
 
 
 

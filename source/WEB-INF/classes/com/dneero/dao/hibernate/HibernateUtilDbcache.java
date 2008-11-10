@@ -60,7 +60,9 @@ public class HibernateUtilDbcache {
                     conf.setProperty("hibernate.connection.provider_class", "org.hibernate.connection.C3P0ConnectionProvider");
                     conf.setProperty("hibernate.c3p0.min_size", String.valueOf(InstanceProperties.getDbMinIdle()));
                     conf.setProperty("hibernate.c3p0.max_size", String.valueOf(InstanceProperties.getDbMaxActive()));
-                    conf.setProperty("hibernate.c3p0.timeout", String.valueOf(InstanceProperties.getDbMaxWait()));
+                    //conf.setProperty("hibernate.c3p0.timeout", String.valueOf(InstanceProperties.getDbMaxWait()));
+                    conf.setProperty("hibernate.c3p0.timeout", String.valueOf(600));
+                    conf.setProperty("hibernate.c3p0.idle_test_period", String.valueOf(120));
                     conf.setProperty("hibernate.c3p0.max_statements", "50");
 
 

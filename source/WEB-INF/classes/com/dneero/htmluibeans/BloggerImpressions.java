@@ -4,6 +4,7 @@ package com.dneero.htmluibeans;
 import com.dneero.dao.Impression;
 import com.dneero.dao.Survey;
 import com.dneero.dao.Blogger;
+import com.dneero.dao.Response;
 import com.dneero.money.UserImpressionFinder;
 import com.dneero.htmlui.Pagez;
 import com.dneero.util.Str;
@@ -42,13 +43,16 @@ public class BloggerImpressions  implements Serializable {
                 logger.debug("impressions.size()="+impressions.size());
                 for (Iterator<Impression> iterator1 = impressions.iterator(); iterator1.hasNext();) {
                     Impression impression = iterator1.next();
-                    BloggerImpressionsListItem listitem = new BloggerImpressionsListItem();
-                    listitem.setImpressionid(impression.getImpressionid());
-                    listitem.setQuality(impression.getQuality());
-                    listitem.setReferer(Str.truncateString(impression.getReferer(), 70));
-                    listitem.setImpressionspaidandtobepaid(impression.getImpressionspaid() +  impression.getImpressionstobepaid());
-                    listitem.setImpressionstotal(impression.getImpressionstotal());
-                    list.add(listitem);
+                    if (impression.getResponseid()>0){
+                        Response response = Response.get(impression.getResponseid());
+                        BloggerImpressionsListItem listitem = new BloggerImpressionsListItem();
+                        listitem.setImpressionid(impression.getImpressionid());
+                        listitem.setQuality(impression.getQuality());
+                        listitem.setReferer(Str.truncateString(impression.getReferer(), 70));
+                        listitem.setImpressionspaidandtobepaid(response.getImpressionspaid() +  response.getImpressionstobepaid());
+                        listitem.setImpressionstotal(response.getImpressionstotal());
+                        list.add(listitem);
+                    }
                 }
 
 

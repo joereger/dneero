@@ -32,7 +32,8 @@ public class SysadminRateBlogPost implements Serializable {
 
     public void initBean(){
         remainingtoreview = NumFromUniqueResultImpressions.getInt("select count(*) from Impression where quality='0'");
-        List<Impression> impressions = HibernateUtilImpressions.getSession().createQuery("from Impression where quality='0'").setMaxResults(1).list();
+        String nothing = "";
+        List<Impression> impressions = HibernateUtilImpressions.getSession().createQuery("from Impression where quality='0'"+nothing).setMaxResults(1).list();
         if (impressions.size()>0){
             impression = impressions.get(0);
             impressionid = impression.getImpressionid();

@@ -55,5 +55,23 @@
             <column name="issysadminrejected" not-null="true" />
         </property>
 
+
+        <property name="impressionstotal" type="int">
+            <column name="impressionstotal" not-null="true" />
+        </property>
+        <property name="impressionspaid" type="int">
+            <column name="impressionspaid" not-null="true" />
+        </property>
+        <property name="impressionstobepaid" type="int">
+            <column name="impressionstobepaid" not-null="true" />
+        </property>
+        <property name="impressionsbyday" type="text">
+            <column name="impressionsbyday" not-null="true" />
+        </property>
+        
+        <property name="isdatamigrated" type="boolean">
+            <column name="isdatamigrated" />
+        </property>
+
     </class>
 </hibernate-mapping>

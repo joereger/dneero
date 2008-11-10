@@ -45,24 +45,21 @@ public class ImpressionPayments implements Job {
                 logger.debug("Begin surveyid="+survey.getSurveyid()+" - "+survey.getTitle());
 
                 //Find impressions for this survey
-                List<Impression> impressions = HibernateUtilImpressions.getSession().createCriteria(Impression.class)
+                List<Response> responses = HibernateUtil.getSession().createCriteria(Response.class)
                                            .add( Restrictions.eq("surveyid", survey.getSurveyid()))
                                            .add( Restrictions.gt("impressionstobepaid", 0))
                                            .list();
-                logger.debug(impressions.size() + " impressions found.");
+                logger.debug(responses.size() + " responses with impressionstobepaid>0 found.");
 
                 //If we've found any impressions
-                if (impressions.size()>0){
+                if (responses.size()>0){
                     //Collect a map of UserPayUnits
                     HashMap<Integer, ImpressionPaymentsUserPayUnit> userPayUnits = new HashMap<Integer, ImpressionPaymentsUserPayUnit>();
                     //Increment a total researcher charge
                     double amtSpentOnBehalfOfResearcher = 0;
                     double amtToChargeResearcher = 0;
-                    for (Iterator<Impression> iterator1 = impressions.iterator(); iterator1.hasNext();) {
-                        Impression impression = iterator1.next();
-                        //Get the response that this impression relates to
-                        Response response = Response.get(impression.getResponseid());
-                        if (response!=null && response.getResponseid()>0){
+                    for (Iterator<Response> iterator1 = responses.iterator(); iterator1.hasNext();) {
+                        Response response = iterator1.next();
                             //Figure out who's gettin' paid for this impression
                             Blogger blogger = Blogger.get(response.getBloggerid());
                             if (blogger!=null && blogger.getBloggerid()>0){
@@ -88,11 +85,10 @@ public class ImpressionPayments implements Job {
                                     //Put back into main hashmap of UserPayUnits
                                     userPayUnits.put(user.getUserid(), ipupu);
                                     //Move paid impressions over, resetting the paid clock
-                                    impression.setImpressionspaid(impression.getImpressionspaid()+impression.getImpressionstobepaid());
-                                    impression.setImpressionstobepaid(0);
-                                    try{impression.save();}catch(Exception ex){logger.error("",ex);}
+                                    response.setImpressionspaid(response.getImpressionspaid()+response.getImpressionstobepaid());
+                                    response.setImpressionstobepaid(0);
+                                    try{response.save();}catch(Exception ex){logger.error("",ex);}
                                 }
-                            }
                         }
                     }
 

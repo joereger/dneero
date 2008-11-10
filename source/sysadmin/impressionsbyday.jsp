@@ -28,20 +28,20 @@ String acl = "sysadmin";
     }
 
     //Get all impressions, big sql call
-    List<Impression> impressions = HibernateUtilImpressions.getSession().createCriteria(Impression.class)
+    List<Response> rsps = HibernateUtil.getSession().createCriteria(Response.class)
                                    .setCacheable(true)
                                    .list();
-    for (Iterator<Impression> impressionIterator=impressions.iterator(); impressionIterator.hasNext();) {
-        Impression impression=impressionIterator.next();
+    for (Iterator<Response> rspsIterator=rsps.iterator(); rspsIterator.hasNext();) {
+        Response rsp=rspsIterator.next();
         //Get impressionsbyday for this impression
-        ImpressionsByDayUtil ibdu = new ImpressionsByDayUtil(impression.getImpressionsbyday());
+        ImpressionsByDayUtil ibdu = new ImpressionsByDayUtil(rsp.getImpressionsbyday());
         //Combine these impressions into the responses hashmap
-        if (responses.containsKey(impression.getResponseid())){
-            ImpressionsByDayUtil ibduAlreadyThere = responses.get(impression.getResponseid());
+        if (responses.containsKey(rsp.getResponseid())){
+            ImpressionsByDayUtil ibduAlreadyThere = responses.get(rsp.getResponseid());
             ibduAlreadyThere.add(ibdu);
-            responses.put(impression.getResponseid(), ibduAlreadyThere);
+            responses.put(rsp.getResponseid(), ibduAlreadyThere);
         } else {
-            responses.put(impression.getResponseid(), ibdu);
+            responses.put(rsp.getResponseid(), ibdu);
         }
     }
 

@@ -16,6 +16,7 @@ import com.dneero.rank.RankForResponseThread;
 import com.dneero.scheduledjobs.UpdateResponsePoststatus;
 import com.dneero.session.SurveysTakenToday;
 import com.dneero.survey.servlet.EmbedCacheFlusher;
+import com.dneero.survey.servlet.ImpressionsByDayUtil;
 import com.dneero.xmpp.SendXMPPMessage;
 import org.apache.log4j.Logger;
 import org.hibernate.criterion.Restrictions;
@@ -135,6 +136,11 @@ public class StoreResponse {
                     response.setIspaid(false);
                     response.setResponsestatushtml("");
                     response.setPoststatus(Response.POSTATUS_NOTPOSTED);
+                    response.setImpressionstotal(0);
+                    response.setImpressionstobepaid(0);
+                    response.setImpressionspaid(0);
+                    response.setImpressionsbyday(new ImpressionsByDayUtil("").getAsString());
+                    response.setIsdatamigrated(true);
                     //Can't change charity info when editing answers
                     response.setIsforcharity(isforcharity);
                     response.setCharityname(charityname);

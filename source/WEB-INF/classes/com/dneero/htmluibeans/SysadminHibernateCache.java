@@ -2,7 +2,6 @@ package com.dneero.htmluibeans;
 
 import com.dneero.dao.hibernate.HibernateCacheStats;
 import com.dneero.cache.providers.CacheFactory;
-import com.dneero.survey.servlet.ImpressionActivityObject;
 import com.dneero.survey.servlet.ImpressionActivityObjectCollated;
 import com.dneero.scheduledjobs.ImpressionActivityObjectQueue;
 import com.dneero.htmlui.ValidationException;

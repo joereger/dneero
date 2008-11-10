@@ -81,19 +81,7 @@ public class RecordImpression {
         logger.debug("record() called: userid="+userid+" surveyid="+surveyid+" responseid="+responseid+" referer="+referer);
 
         try{
-            //Create an IAO
-            ImpressionActivityObject iao = new ImpressionActivityObject();
-            iao.setSurveyid(surveyid);
-            iao.setReferer(referer);
-            iao.setIp(ip);
-            iao.setUserid(userid);
-            iao.setDate(new Date());
-            iao.setResponseid(responseid);
-
-            //Write iao to db
-            //I've already built the iao object so that it's easy to put into a simple memory list and then parse on some interval, writing to the database
-            //ImpressionActivityObjectStorage.store(iao);
-            ImpressionActivityObjectQueue.addIao(iao);
+            
 
             //Create an IAOCollated
             ImpressionActivityObjectCollated iaoc = new ImpressionActivityObjectCollated();
@@ -105,7 +93,6 @@ public class RecordImpression {
 
             //Write iao to db
             //I've already built the iao object so that it's easy to put into a simple memory list and then parse on some interval, writing to the database
-            //ImpressionActivityObjectStorage.store(iao);
             ImpressionActivityObjectQueue.addIaoc(iaoc);
         } catch (Exception ex){
             logger.error("",ex);

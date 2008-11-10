@@ -38,6 +38,11 @@ public class Response extends BasePersistentClass implements java.io.Serializabl
      private boolean isresearcherrejected;
      private boolean issysadminrejected;
      private int surveyincentiveid;
+     private int impressionstotal;
+     private int impressionstobepaid;
+     private int impressionspaid;
+     private boolean isdatamigrated;
+     private String impressionsbyday;
      private Surveyincentive surveyincentive;
 
 
@@ -226,5 +231,45 @@ public class Response extends BasePersistentClass implements java.io.Serializabl
 
     public void setSurveyincentive(Surveyincentive surveyincentive) {
         this.surveyincentive=surveyincentive;
+    }
+
+    public String getImpressionsbyday() {
+        return impressionsbyday;
+    }
+
+    public void setImpressionsbyday(String impressionsbyday) {
+        this.impressionsbyday=impressionsbyday;
+    }
+
+    public int getImpressionstotal() {
+        return impressionstotal;
+    }
+
+    public void setImpressionstotal(int impressionstotal) {
+        this.impressionstotal=impressionstotal;
+    }
+
+    public int getImpressionstobepaid() {
+        return impressionstobepaid;
+    }
+
+    public void setImpressionstobepaid(int impressionstobepaid) {
+        this.impressionstobepaid=impressionstobepaid;
+    }
+
+    public int getImpressionspaid() {
+        return impressionspaid;
+    }
+
+    public void setImpressionspaid(int impressionspaid) {
+        this.impressionspaid=impressionspaid;
+    }
+
+    public boolean getIsdatamigrated() {
+        return isdatamigrated;
+    }
+
+    public void setIsdatamigrated(boolean isdatamigrated) {
+        this.isdatamigrated=isdatamigrated;
     }
 }

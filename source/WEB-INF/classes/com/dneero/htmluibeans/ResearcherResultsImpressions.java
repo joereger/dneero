@@ -4,6 +4,7 @@ import org.apache.log4j.Logger;
 import org.hibernate.criterion.Restrictions;
 import com.dneero.dao.Survey;
 import com.dneero.dao.Impression;
+import com.dneero.dao.Response;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.dao.hibernate.HibernateUtilImpressions;
 
@@ -48,14 +49,17 @@ public class ResearcherResultsImpressions implements Serializable {
                                    .list();
                 for (Iterator<Impression> iterator1 = impressions.iterator(); iterator1.hasNext();) {
                     Impression impression = iterator1.next();
-                    logger.debug("impressionid="+impression.getImpressionid()+" referer="+impression.getReferer() + " impressionspaid="+impression.getImpressionspaid()+" impressionstobepaid="+impression.getImpressionstobepaid());
-                    ResearcherResultsImpressionsListitem robj = new ResearcherResultsImpressionsListitem();
-                    robj.setImpressionid(impression.getImpressionid());
-                    robj.setImpressionspaidandtobepaid(impression.getImpressionspaid() + impression.getImpressionstobepaid());
-                    robj.setReferer(impression.getReferer());
-                    robj.setReferertruncated(Str.truncateString(impression.getReferer(), 35));
-                    robj.setImpressionquality(String.valueOf(impression.getQuality()));
-                    researcherResultsImpressionsListitems.add(robj);
+                    if (impression.getResponseid()>0){
+                        Response response = Response.get(impression.getResponseid());
+                        logger.debug("impressionid="+impression.getImpressionid()+" referer="+impression.getReferer() + " impressionspaid="+response.getImpressionspaid()+" impressionstobepaid="+response.getImpressionstobepaid());
+                        ResearcherResultsImpressionsListitem robj = new ResearcherResultsImpressionsListitem();
+                        robj.setImpressionid(impression.getImpressionid());
+                        robj.setImpressionspaidandtobepaid(response.getImpressionspaid() + response.getImpressionstobepaid());
+                        robj.setReferer(impression.getReferer());
+                        robj.setReferertruncated(Str.truncateString(impression.getReferer(), 35));
+                        robj.setImpressionquality(String.valueOf(impression.getQuality()));
+                        researcherResultsImpressionsListitems.add(robj);
+                    }
                 }
             }
             logger.debug("done loading survey");
