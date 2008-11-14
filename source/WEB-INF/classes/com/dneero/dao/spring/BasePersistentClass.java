@@ -4,7 +4,7 @@ package com.dneero.dao.spring;
 
 import org.apache.log4j.Logger;
 import org.hibernate.SessionFactory;
-import org.springframework.orm.hibernate3.HibernateTemplate;
+//import org.springframework.orm.hibernate3.HibernateTemplate;
 
 
 import java.io.Serializable;
@@ -12,16 +12,16 @@ import java.io.Serializable;
 
 public class BasePersistentClass implements Serializable {
 
-    protected HibernateTemplate hibernateTemplate;
-
-
-    public void setHibernateTemplate(HibernateTemplate hibernateTemplate){
-        this.hibernateTemplate = hibernateTemplate;
-    }
-
-    public HibernateTemplate getHibernateTemplate(){
-        return hibernateTemplate;
-    }
+//    protected HibernateTemplate hibernateTemplate;
+//
+//
+//    public void setHibernateTemplate(HibernateTemplate hibernateTemplate){
+//        this.hibernateTemplate = hibernateTemplate;
+//    }
+//
+//    public HibernateTemplate getHibernateTemplate(){
+//        return hibernateTemplate;
+//    }
     
 //  protected TransactionTemplate transactionTemplate;
 //    public void setTransactionManager(PlatformTransactionManager transactionManager) {

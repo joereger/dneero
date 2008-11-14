@@ -6,8 +6,6 @@ import org.hibernate.HibernateException;
 import org.hibernate.tool.hbm2ddl.SchemaUpdate;
 import org.hibernate.cfg.Configuration;
 import org.apache.log4j.Logger;
-import org.springframework.orm.hibernate3.LocalSessionFactoryBean;
-import org.springframework.beans.factory.BeanFactory;
 
 
 import java.io.File;

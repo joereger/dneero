@@ -54,6 +54,7 @@ public class HibernateSessionCloser implements Filter {
         try{
             HibernateUtil.closeSession();
             HibernateUtilDbcache.closeSession();
+            HibernateUtilImpressions.closeSession();
         } catch (Exception ex){
             logger.error("Error closing hibernate session at end of request.",ex);
         }
