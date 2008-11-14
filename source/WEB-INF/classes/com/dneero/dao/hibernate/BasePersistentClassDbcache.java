@@ -16,12 +16,20 @@ import com.dneero.util.GeneralException;
 
 public class BasePersistentClassDbcache implements Lifecycle, Validatable, Serializable {
 
-   //Just adding this to mark this as the record of the class as it's worked for well over a year now.
+   private Session getSession(){
+        return HibernateUtilDbcache.getSession();
+   }
+
+   private void closeSession(){
+       HibernateUtilDbcache.closeSession();
+   }
+
+   //Below this line should be identical in all BasePersistentClasses
 
    public void save() throws GeneralException {
-       Logger logger = Logger.getLogger(BasePersistentClassDbcache.class);
+       Logger logger = Logger.getLogger(BasePersistentClass.class);
        logger.debug("save() called on "+this.getClass().getName());
-       Session hsession = HibernateUtilDbcache.getSession();
+       Session hsession = getSession();
        try{
             hsession.getTransaction().setTimeout(120);
             hsession.beginTransaction();
@@ -30,68 +38,70 @@ public class BasePersistentClassDbcache implements Lifecycle, Validatable, Seria
             if (!hsession.getTransaction().wasRolledBack()){
                 hsession.getTransaction().commit();
             }
-            //hsession.refresh(this);
-        } catch (HibernateException hex){
-            logger.error("HibernateException", hex);
-            if (hsession.getTransaction().isActive()){
-                hsession.getTransaction().rollback();
-            }
-            HibernateUtilDbcache.closeSession();
-//            GeneralException vex = new GeneralException();
-//            vex.addValidationError("Hibernate error saving "+this.getClass().getName());
-//            throw vex;
         } catch (Exception ex){
+            logger.error("", ex);
             try{
                 if (hsession.getTransaction().isActive()){
                     hsession.getTransaction().rollback();
                 }
             } catch (Exception ex2){
-                logger.error("Error rolling back exception", ex2);
+                logger.error("", ex2);
             }
-            //hsession.evict(this);
-            HibernateUtilDbcache.closeSession();
-            logger.error("Error in BasePersistentClass", ex);
-//            GeneralException vex = new GeneralException();
-//            vex.addValidationError("General exception error saving "+this.getClass().getName());
-//            throw vex;
+            closeSession();
         }
    }
    public void delete() throws HibernateException {
-        Logger logger = Logger.getLogger(BasePersistentClassDbcache.class);
-        logger.debug("delete() called on "+this.getClass().getName());
-        Session hsession = HibernateUtilDbcache.getSession();
-        hsession.getTransaction().setTimeout(120);
-        hsession.beginTransaction();
-        hsession.getTransaction().setTimeout(120);
-        hsession.delete(this);
-        hsession.getTransaction().commit();
+       Logger logger = Logger.getLogger(BasePersistentClass.class);
+       Session hsession = getSession();
+       try{
+            hsession.getTransaction().setTimeout(120);
+            hsession.beginTransaction();
+            hsession.getTransaction().setTimeout(120);
+            hsession.delete(this);
+            hsession.getTransaction().commit();
+       } catch (Exception ex){
+            logger.error("", ex);
+            try{
+                if (hsession.getTransaction().isActive()){
+                    hsession.getTransaction().rollback();
+                }
+            } catch (Exception ex2){
+                logger.error("", ex2);
+            }
+            closeSession();
+       }
    }
+
    public void refresh() throws HibernateException {
-        Logger logger = Logger.getLogger(BasePersistentClassDbcache.class);
+        Logger logger = Logger.getLogger(BasePersistentClass.class);
         logger.debug("Refresh called on "+this.getClass().getName());
-        if (HibernateUtilDbcache.getSession().contains(this)){
+        if (getSession().contains(this)){
             logger.debug("    Refreshing from hibernate");
-            HibernateUtilDbcache.getSession().refresh(this);
+            getSession().refresh(this);
         } else {
             //logger.debug("    Loading from hibernate");
-            //HibernateUtilDbcache.getSession().load(this, _id);
+            //getSession().load(this, _id);
         }
    }
+
    public void lock() throws HibernateException, SQLException {
-      HibernateUtilDbcache.getSession().lock(this, LockMode.UPGRADE);
+      getSession().lock(this, LockMode.UPGRADE);
    }
 
    public boolean onSave(Session s) throws CallbackException {
       return NO_VETO;
    }
+
    public boolean onDelete(Session s) throws CallbackException {
       return NO_VETO;
    }
+
    public boolean onUpdate(Session s) throws CallbackException {
       return NO_VETO;
    }
+
    public void onLoad(Session s, Serializable id) {
-      Logger logger = Logger.getLogger(BasePersistentClassDbcache.class);
+      Logger logger = Logger.getLogger(BasePersistentClass.class);
       logger.debug("onLoad() called _id="+id);
    }
 

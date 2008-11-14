@@ -88,7 +88,8 @@ public class DbcacheProvider implements CacheProvider {
     public void flush() {
         Logger logger = Logger.getLogger(this.getClass().getName());
         try{
-            HibernateUtilDbcache.getSession().createQuery("delete Dbcache d where d.dbcacheid>0").executeUpdate();
+            String emptystring = "";
+            HibernateUtilDbcache.getSession().createQuery("delete Dbcache d where d.dbcacheid>0"+emptystring).executeUpdate();
         } catch (Exception ex){
             logger.error("", ex);
         }

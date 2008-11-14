@@ -50,7 +50,7 @@ public class BloggerImpressions  implements Serializable {
                         listitem.setQuality(impression.getQuality());
                         listitem.setReferer(Str.truncateString(impression.getReferer(), 70));
                         listitem.setImpressionspaidandtobepaid(response.getImpressionspaid() +  response.getImpressionstobepaid());
-                        listitem.setImpressionstotal(response.getImpressionstotal());
+                        listitem.setImpressionstotal(impression.getImpressionstotal());
                         list.add(listitem);
                     }
                 }

@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 17, 2006 3:45:28 PM by Hibernate Tools 3.1.0.beta4 -->
+<hibernate-mapping>
+    <class name="com.dneero.dao.Springtest" table="springtest">
+        <cache usage="transactional"/>
+        <id name="springtestid" type="int">
+            <column name="springtestid" />
+            <generator class="native" />
+        </id>
+        <property name="foo" type="string">
+            <column name="foo" not-null="true" />
+        </property>
+
+        <property name="bar" type="string">
+            <column name="bar" not-null="true" />
+        </property>
+
+    </class>
+</hibernate-mapping>

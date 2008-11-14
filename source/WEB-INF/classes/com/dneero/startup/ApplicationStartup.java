@@ -47,6 +47,7 @@ public class ApplicationStartup implements ServletContextListener {
 
     public void contextInitialized(ServletContextEvent cse) {
        System.out.println("DNEERO: Application initialized");
+        printBug();
        //Shut down mbeans, if they're running
        shutdownCacheMBean();
        //Configure some dir stuff
@@ -321,6 +322,49 @@ public class ApplicationStartup implements ServletContextListener {
 
     public static boolean getIsappstarted() {
         return isappstarted;
+    }
+
+    public static void printBug(){
+        StringBuffer out = new StringBuffer();
+        out.append("\n\n\n"+"           ,  .'''''.  ...    ''''',  .'           \n" +
+                "            ','     ,.MMMM;.;'      '.             \n" +
+                "             ;;    ;MMMMMMMMM;     ;;'             \n" +
+                "            :'M:  ;MMMMM  MMMM;.  :M':             \n" +
+                "            : M:  MMMMM   MMMMM:  :M  .           \n" +
+                "           .' M:  MMMMM  MMMMMM:  :M. ;           \n" +
+                "           ; :M'  :MMMMMMMMMMMM'  'M: :           \n" +
+                "           : :M: .;\"MMMMMMMMM\":;. ,M: :           \n" +
+                "           :  ::,MMM;.M\":::M.;MMM ::' :           \n" +
+                "         ,.;    ;MMMMMM;:MMMMMMMM:    :,.         \n" +
+                "         MMM.;.,MMMMMMMM;MMMMMMMM;.,;.MMM         \n" +
+                "         M':''':MMMMMMMMM;MMMMMMMM: \"': M         \n" +
+                "         M.:   ;MMMMMMMMMMMMMMMMMM;   : M         \n" +
+                "         :::   MMMMMMMMMMM;MMMMMMMM   ::M         \n" +
+                "        ,'';   MMMMMMMMMMMM:MMMMMMM   :'\".         \n" +
+                "      ,'   :   MMMMMMMMMMMM:MMMMMMM   :   '.       \n" +
+                "     '     :  'MMMMMMMMMMMMM:MMMMMM   ;     '     \n" +
+                "     ,.....;.. MMMMMMMMMMMMM:MMMMMM ..:....;.     \n" +
+                "     :MMMMMMMM MMMMMMMMMMMMM:MMMMMM MMMMMMMM:     \n" +
+                "     :MM\"\"\":\"\" MMMMMMMMMMMMM:MMMMMM \"\": \"'MM:     \n" +
+                "      MM:   :  MMMMMMMMMMMMM:MMMMMM  ,'  :MM       \n" +
+                "      'MM   :  :MMMMMMMMMMMM:MMMMM:  :   ;M:       \n" +
+                "       :M;  :  'MMMMMMMMMMMMMMMMMM'  :  ;MM       \n" +
+                "       :MM. :   :MMMMMMMMMM;MMMMM:   :  MM:       \n" +
+                "        :M: :    MMMMMMMMM'MMMMMM'   : :MM'       \n" +
+                "        'MM :    \"MMMMMMM:;MMMMM\"   ,' ;M\"         \n" +
+                "         'M  :    \"\"\"\"\":;;;\"\"\"\"\"    :  M:         \n" +
+                "         ;'  :     \"MMMMMMMM;.\"     :  \"\".         \n" +
+                "       ,;    :      :MMMMMMM:;.     :    '.       \n" +
+                "      :'     :    ,MM''\"\"\"\"'':M:    :     ';       \n" +
+                "     ;'      :    ;M'         MM.   :       ;.     \n" +
+                "   ,'        :    \"            \"'   :        '.   \n" +
+                "   '        :'                       '        ''   \n" +
+                " .          :                        '          ' \n" +
+                "'          ;                          ;          ' \n" +
+                "          ;                            ' "+"\n\n\n");
+        out.append("dNeero: PACKED WITH BUGS TO KEEP YOU UP LATE!"+"\n\n\n");
+
+        System.out.print(out.toString());
     }
 
 

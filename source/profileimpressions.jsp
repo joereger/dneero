@@ -34,7 +34,6 @@ String acl = "public";
             ArrayList<GridCol> cols=new ArrayList<GridCol>();
             cols.add(new GridCol("Specific Page", "<$referertruncated$>", true, "", "normalfont"));
             cols.add(new GridCol("Impressions", "<$impressionspaidandtobepaid$>", true, "", "normalfont"));
-            cols.add(new GridCol("Quality Rating", "<$impressionquality$>", true, "", "normalfont"));
         %>
         <%=Grid.render(publicProfileImpressions.getList(), cols, 100, "/profileimpressions.jsp?responseid="+publicProfileImpressions.getResponse().getResponseid(), "page")%>
     <%}%>

@@ -30,7 +30,6 @@ String acl = "blogger";
             ArrayList<GridCol> cols=new ArrayList<GridCol>();
             cols.add(new GridCol("Referer", "<$referer$>", false, "", "smallfont"));
             cols.add(new GridCol("Total Impressions", "<$impressionstotal$>", false, "", "smallfont"));
-            cols.add(new GridCol("Quality", "<$quality$>", false, "", "smallfont"));
         %>
         <%=Grid.render(bloggerImpressions.getList(), cols, 50, "/blogger/impressions.jsp", "page")%>
     <%}%>

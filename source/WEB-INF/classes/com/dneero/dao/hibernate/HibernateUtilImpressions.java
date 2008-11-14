@@ -61,7 +61,7 @@ public class HibernateUtilImpressions {
                     conf.setProperty("hibernate.c3p0.min_size", String.valueOf(InstanceProperties.getDbMinIdle()));
                     conf.setProperty("hibernate.c3p0.max_size", String.valueOf(InstanceProperties.getDbMaxActive()));
                     //conf.setProperty("hibernate.c3p0.timeout", String.valueOf(InstanceProperties.getDbMaxWait()));
-                    conf.setProperty("hibernate.c3p0.timeout", String.valueOf(600));
+                    conf.setProperty("hibernate.c3p0.timeout", String.valueOf(120));
                     conf.setProperty("hibernate.c3p0.idle_test_period", String.valueOf(120));
                     conf.setProperty("hibernate.c3p0.max_statements", "50");
 
@@ -69,12 +69,13 @@ public class HibernateUtilImpressions {
                     //Second level cache
                     conf.setProperty("hibernate.cache.use_second_level_cache", "true");
                     conf.setProperty("hibernate.cache.region.factory_class", "org.hibernate.cache.jbc2.MultiplexedJBossCacheRegionFactory");
+                    conf.setProperty("hibernate.cache.region_prefix", "impressions");
                     conf.setProperty("hibernate.cache.region.jbc2.configs", "jbc2-configs-dneero.xml");
-                    conf.setProperty("hibernate.cache.region.jbc2.cfg.entity", "optimistic-entity");
-                    conf.setProperty("hibernate.cache.region.jbc2.cfg.collection", "optimistic-entity");
-                    conf.setProperty("hibernate.cache.region.jbc2.cfg.ts", "timestamps-cache");
-                    conf.setProperty("hibernate.cache.region.jbc2.cfg.query", "optimistic-entity");
-                    conf.setProperty("hibernate.cache.region.jbc2.cfg.multiplexer.stacks", "jgroups-stacks-dneero.xml");
+                    conf.setProperty("hibernate.cache.region.jbc2.cfg.entity", "optimistic-entity-impressions");
+                    conf.setProperty("hibernate.cache.region.jbc2.cfg.collection", "optimistic-entity-impressions");
+                    conf.setProperty("hibernate.cache.region.jbc2.cfg.ts", "timestamps-cache-impressions");
+                    conf.setProperty("hibernate.cache.region.jbc2.cfg.query", "optimistic-entity-impressions");
+                    conf.setProperty("hibernate.cache.region.jbc2.cfg.multiplexer.stacks", "jgroups-stacks-dneeroXXX.xml");
                     conf.setProperty("hibernate.cache.use_structured_entries", "true");
                     conf.setProperty("hibernate.cache.use_query_cache", "true");
                     conf.setProperty("hibernate.cache.usage", "transactional");
@@ -83,7 +84,7 @@ public class HibernateUtilImpressions {
                     conf.setProperty("hibernate.transaction.manager_lookup_class", "com.atomikos.icatch.jta.hibernate3.TransactionManagerLookup");
                     //conf.setProperty("hibernate.transaction.factory_class", "org.hibernate.transaction.JTATransactionFactory");
                     conf.setProperty("hibernate.transaction.factory_class", "com.atomikos.icatch.jta.hibernate3.AtomikosJTATransactionFactory");
-                    //conf.setProperty("hibernate.connection.release_mode", "auto");
+                    conf.setProperty("hibernate.connection.release_mode", "auto");
 
                     
                     //Session context mgr
