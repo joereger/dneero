@@ -63,68 +63,68 @@ public class Springtest extends BasePersistentClass implements java.io.Serializa
 //    }
      
 
-    public static Springtest get(int id) {
-        Logger logger = Logger.getLogger("com.dneero.dao.Springtest");
-        try {
-            logger.error("Springtest.get(" + id + ") called.");
-            //@todo Can't call this xml loader each time
-            Resource resource = new FileSystemResource(WebAppRootDir.getWebAppRootPath()+"/WEB-INF/classes/spring-hibernate.xml");
-            BeanFactory factory = new XmlBeanFactory(resource);
-            Springtest springtest = (Springtest)factory.getBean("Springtest");
-            return springtest.get(String.valueOf(id));
-        } catch (Exception ex) {
-            logger.error("com.dneero.dao.Springtest", ex);
-            return null;
-        }
-    }
-
-    public static Springtest getNew(){
-        Logger logger = Logger.getLogger("com.dneero.dao.Springtest");
-        try {
-            logger.error("Springtest.get() called.");
-            //@todo Can't call this xml loader each time
-            Resource resource = new FileSystemResource(WebAppRootDir.getWebAppRootPath()+"/WEB-INF/classes/spring-hibernate.xml");
-            BeanFactory factory = new XmlBeanFactory(resource);
-            Springtest springtest = (Springtest)factory.getBean("Springtest");
-            return springtest;
-        } catch (Exception ex) {
-            logger.error("com.dneero.dao.Springtest", ex);
-            return null;
-        }
-    }
-
-
-    public Springtest get(final String id){
-        HibernateCallback callback = new HibernateCallback() {
-            public Object doInHibernate(Session session)
-                throws HibernateException, SQLException {
-                return session.load(Springtest.class, id);
-            }
-        };
-        return (Springtest)hibernateTemplate.execute(callback);
-    }
-
-    public void save(final Springtest springtest){
-        HibernateCallback callback = new HibernateCallback() {
-            public Object doInHibernate(Session session)
-                throws HibernateException,SQLException {
-                session.saveOrUpdate(springtest);
-                return null;
-            }
-        };
-        hibernateTemplate.execute(callback);
-    }
-
-    public void save(){
-        HibernateCallback callback = new HibernateCallback() {
-            public Object doInHibernate(Session session)
-                throws HibernateException,SQLException {
-                session.saveOrUpdate(this);
-                return null;
-            }
-        };
-        hibernateTemplate.execute(callback);
-    }
+//    public static Springtest get(int id) {
+//        Logger logger = Logger.getLogger("com.dneero.dao.Springtest");
+//        try {
+//            logger.error("Springtest.get(" + id + ") called.");
+//            //@todo Can't call this xml loader each time
+//            Resource resource = new FileSystemResource(WebAppRootDir.getWebAppRootPath()+"/WEB-INF/classes/spring-hibernate.xml");
+//            BeanFactory factory = new XmlBeanFactory(resource);
+//            Springtest springtest = (Springtest)factory.getBean("Springtest");
+//            return springtest.get(String.valueOf(id));
+//        } catch (Exception ex) {
+//            logger.error("com.dneero.dao.Springtest", ex);
+//            return null;
+//        }
+//    }
+//
+//    public static Springtest getNew(){
+//        Logger logger = Logger.getLogger("com.dneero.dao.Springtest");
+//        try {
+//            logger.error("Springtest.get() called.");
+//            //@todo Can't call this xml loader each time
+//            Resource resource = new FileSystemResource(WebAppRootDir.getWebAppRootPath()+"/WEB-INF/classes/spring-hibernate.xml");
+//            BeanFactory factory = new XmlBeanFactory(resource);
+//            Springtest springtest = (Springtest)factory.getBean("Springtest");
+//            return springtest;
+//        } catch (Exception ex) {
+//            logger.error("com.dneero.dao.Springtest", ex);
+//            return null;
+//        }
+//    }
+//
+//
+//    public Springtest get(final String id){
+//        HibernateCallback callback = new HibernateCallback() {
+//            public Object doInHibernate(Session session)
+//                throws HibernateException, SQLException {
+//                return session.load(Springtest.class, id);
+//            }
+//        };
+//        return (Springtest)hibernateTemplate.execute(callback);
+//    }
+//
+//    public void save(final Springtest springtest){
+//        HibernateCallback callback = new HibernateCallback() {
+//            public Object doInHibernate(Session session)
+//                throws HibernateException,SQLException {
+//                session.saveOrUpdate(springtest);
+//                return null;
+//            }
+//        };
+//        hibernateTemplate.execute(callback);
+//    }
+//
+//    public void save(){
+//        HibernateCallback callback = new HibernateCallback() {
+//            public Object doInHibernate(Session session)
+//                throws HibernateException,SQLException {
+//                session.saveOrUpdate(this);
+//                return null;
+//            }
+//        };
+//        hibernateTemplate.execute(callback);
+//    }
 
 
 

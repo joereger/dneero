@@ -156,7 +156,7 @@ public class ApplicationStartup implements ServletContextListener {
         }
         //Report to log and XMPP
         System.out.println("DNEERO: WebAppRootDir = " + WebAppRootDir.getWebAppRootPath());
-        System.out.println("DNEERO: App iz started!  Letz make some dinero... cuz computers suck and I need a vacation!  Not kidding.");
+        System.out.println("DNEERO: App started!  Letz make sum dinero... cos we needs teh vacation!");
         SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_SYSADMINS, "dNeero Application started! ("+WebAppRootDir.getUniqueContextId()+")");
         xmpp.send();
 
@@ -361,8 +361,8 @@ public class ApplicationStartup implements ServletContextListener {
                 "   '        :'                       '        ''   \n" +
                 " .          :                        '          ' \n" +
                 "'          ;                          ;          ' \n" +
-                "          ;                            ' "+"\n\n\n");
-        out.append("dNeero: PACKED WITH BUGS TO KEEP YOU UP LATE!"+"\n\n\n");
+                "          ;                            ' "+"\n\n\n\n");
+        out.append("dNeero: NEW AND IMPROVED... NOW WITH MORE BUGS!"+"\n\n\n");
 
         System.out.print(out.toString());
     }
