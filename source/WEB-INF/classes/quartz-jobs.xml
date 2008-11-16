@@ -359,7 +359,7 @@
             <group>surveyTriggers</group>
             <job-name>impressionActivityObjectQueue</job-name>
             <job-group>surveyJobs</job-group>
-            <!-- on 21rd and 47th minutes of the hour -->
+            <!-- on 21st and 47th minutes of the hour -->
             <cron-expression>0 21,47 * * * ?</cron-expression>
           </cron>
         </trigger>

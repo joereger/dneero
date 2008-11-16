@@ -95,17 +95,17 @@ public class LostPasswordChoose implements Serializable {
             haveErrors = true;
         }
 
-        boolean isCaptchaCorrect = false;
-        try {
-            isCaptchaCorrect = CaptchaServiceSingleton.getInstance().validateResponseForID(captchaId, j_captcha_response);
-        } catch (CaptchaServiceException e) {
-             //should not happen, may be thrown if the id is not valid
-             logger.error("", e);
-        }
-        if (!isCaptchaCorrect){
-            Pagez.getUserSession().setMessage("You failed to correctly type the letters into the box.");
-            haveErrors = true;
-        }
+//        boolean isCaptchaCorrect = false;
+//        try {
+//            isCaptchaCorrect = CaptchaServiceSingleton.getInstance().validateResponseForID(captchaId, j_captcha_response);
+//        } catch (CaptchaServiceException e) {
+//             //should not happen, may be thrown if the id is not valid
+//             logger.error("", e);
+//        }
+//        if (!isCaptchaCorrect){
+//            Pagez.getUserSession().setMessage("You failed to correctly type the letters into the box.");
+//            haveErrors = true;
+//        }
 
         
         if (haveErrors){

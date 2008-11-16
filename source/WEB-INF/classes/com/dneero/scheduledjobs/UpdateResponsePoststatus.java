@@ -66,6 +66,7 @@ public class UpdateResponsePoststatus implements Job {
     public static void processSingleResponse(Response response){
         Logger logger = Logger.getLogger(UpdateResponsePoststatus.class);
         try{
+            logger.debug("----Start responseid="+response.getResponseid());
 
             //Get a single ImpressionsByDayUtil that holds all impression by day data
 //            ImpressionsByDayUtil ibdus = new ImpressionsByDayUtil("");
@@ -80,15 +81,18 @@ public class UpdateResponsePoststatus implements Job {
 //            }
 
             //Get a single ImpressionsByDayUtil that holds all impression by day data
+            logger.debug("response.getImpressionsbyday()="+response.getImpressionsbyday());
             ImpressionsByDayUtil ibdus = new ImpressionsByDayUtil(response.getImpressionsbyday());
 
             //If the time period for evaluating impressions has passed, set that status too
             Calendar responseDateAsCal = Time.getCalFromDate(response.getResponsedate());
             int daysold = DateDiff.dateDiff("day", Calendar.getInstance(), responseDateAsCal);
+            logger.debug("daysold="+daysold);
             boolean toolate = false;
             if (daysold>MAXPOSTINGPERIODINDAYS ){
                 toolate = true;
             }
+            logger.debug("toolate="+toolate);
 
             //Create response payment status html and store it in the db
             StringBuffer statusHtml = new StringBuffer();
@@ -101,17 +105,21 @@ public class UpdateResponsePoststatus implements Job {
             for (int i = 0; i < MAXPOSTINGPERIODINDAYS; i++){
                 //If this box represents a day in the future
                 if(i<=dayssinceresponsefortoday){
+                    logger.debug("i<=dayssinceresponsefortoday");
                     //If there are impressions on this day
                     if(ibdus.getImpressionsForParticularDay(i)>0){
+                        logger.debug("ibdus.getImpressionsForParticularDay(i)>0 so daysthatqualify +1");
                         daysthatqualify = daysthatqualify + 1;
                     }
                 }
             }
             //Output the html
             for (int i = 0; i < MAXPOSTINGPERIODINDAYS; i++){
+                logger.debug("start processing day i="+i);
                 String boxColor = "#cccccc";
                 //If this box represents a day in the future
                 if(i<=dayssinceresponsefortoday){
+                    logger.debug("i<=dayssinceresponsefortoday");
                     //If there are impressions on this day
                     if(ibdus.getImpressionsForParticularDay(i)>0){
                         boxColor = "#00ff00";
@@ -121,22 +129,28 @@ public class UpdateResponsePoststatus implements Job {
                 }
                 //Override color and set to grey when posting limit has passed
                 if (toolate && !response.getIspaid()){
+                    logger.debug("toolate && !response.getIspaid()");
                     boxColor = "#cccccc";
                 }
+                logger.debug("boxColor="+boxColor);
                 statusHtml.append("\t\t<td width=\"10\" bgcolor=\""+boxColor+"\" class=\"surveystatusbar\"><img src=\"/images/clear.gif\" width=\"1\" height=\"15\" border=\"0\"></td>\n");
+                logger.debug("end processing day i="+i);
             }
             statusHtml.append("\t\t<td width=\"10\" rowspan=\"2\" nowrap>");
             statusHtml.append("<center>");
             if (toolate && !response.getIspaid()){
+                logger.debug("toolate && !response.getIspaid()");
                 statusHtml.append("<img src=\"/images/delete-alt-16.png\" width=\"16\" height=\"16\" border=\"0\">");
                 statusHtml.append("<br/>");
                 statusHtml.append("<font class=\"smallfont\" style=\"color: #999999; font-weight: bold;\">Too Late</font>");
             } else {
                 if (response.getIspaid()){
+                    logger.debug("response.getIspaid()");
                     statusHtml.append("<img src=\"/images/ok-16.png\" width=\"16\" height=\"16\" border=\"0\">");
                     statusHtml.append("<br/>");
                     statusHtml.append("<font class=\"smallfont\" style=\"color: #999999; font-weight: bold;\">Paid</font>");
                 } else {
+                    logger.debug("!response.getIspaid()");
                     statusHtml.append("<img src=\"/images/clock-16.png\" width=\"16\" height=\"16\" border=\"0\">");
                     statusHtml.append("<br/>");
                     statusHtml.append("<font class=\"smallfont\" style=\"color: #999999; font-weight: bold;\">Pending</font>");
@@ -158,19 +172,23 @@ public class UpdateResponsePoststatus implements Job {
                                 "\t</tr>\n" +
                                 "</table>");
 
-                 
+            logger.debug("statusHtml="+statusHtml.toString());
             //Store it in the database for the response
             try{
                 if (daysthatqualify>=1){
+                    logger.debug("response.setPoststatus(Response.POSTATUS_POSTEDATLEASTONCE)");
                     response.setPoststatus(Response.POSTATUS_POSTEDATLEASTONCE);
                 }
                 if (daysthatqualify>=DAYSWITHIMPRESSIONREQUIREDINSIDEPOSTINGPERIOD){
+                    logger.debug("response.setPoststatus(Response.POSTATUS_POSTED)");
                     response.setPoststatus(Response.POSTATUS_POSTED);
                 }
                 if (toolate && daysthatqualify<DAYSWITHIMPRESSIONREQUIREDINSIDEPOSTINGPERIOD){
+                    logger.debug("response.setPoststatus(Response.POSTATUS_NOTPOSTEDTIMELIMITPASSED)");
                     response.setPoststatus(Response.POSTATUS_NOTPOSTEDTIMELIMITPASSED);
                 }
                 if (response.getIspaid()){
+                    logger.debug("response.setPoststatus(Response.POSTATUS_POSTED)");
                     response.setPoststatus(Response.POSTATUS_POSTED);
                 }
                 response.setResponsestatushtml(statusHtml.toString());
@@ -180,5 +198,6 @@ public class UpdateResponsePoststatus implements Job {
         } catch (Exception ex){
             logger.error("",ex);
         }
+        logger.debug("----End responseid="+response.getResponseid());
     }
 }

@@ -7,21 +7,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
-import javax.servlet.ServletOutputStream;
 import java.io.IOException;
-import java.io.ByteArrayOutputStream;
 import java.io.PrintWriter;
-import java.awt.image.BufferedImage;
 
-import com.dneero.util.jcaptcha.CaptchaServiceSingleton;
-import com.dneero.util.GeneralException;
-import com.dneero.dao.Survey;
 import com.dneero.dao.User;
 import com.dneero.systemprops.SystemProperty;
 import com.dneero.htmlui.Pagez;
-import com.sun.image.codec.jpeg.JPEGImageEncoder;
-import com.sun.image.codec.jpeg.JPEGCodec;
-import com.octo.captcha.service.CaptchaServiceException;
+
 
 /**
  * Serves a captcha image
