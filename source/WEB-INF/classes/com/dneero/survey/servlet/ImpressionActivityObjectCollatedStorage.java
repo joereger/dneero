@@ -52,7 +52,6 @@ public class ImpressionActivityObjectCollatedStorage {
                 //int impressionstobepaid = NumFromUniqueResult.getInt("select sum(impressionstobepaid) from Impression where surveyid='"+survey.getSurveyid()+"'");
                 int impressionspaid = survey.getImpressionspaid();
                 int impressionstobepaid = survey.getImpressionstobepaid();
-                //Sum them
                 surveyimpressionspaidandtobepaid = impressionspaid + impressionstobepaid;
             } else {
                 //Error, survey not found, don't record
@@ -178,12 +177,18 @@ public class ImpressionActivityObjectCollatedStorage {
                     logger.debug("about to call impression.save()");
                     try{impression.save();} catch (GeneralException gex){logger.error(gex);}
 
+                    //Update the impressionsbyday string for the Response, but only if this isn't rejected by sysadmin
+                    ImpressionsByDayUtil ibduResponse = new ImpressionsByDayUtil(response.getImpressionsbyday());
+                    if (!response.getIssysadminrejected()){
+                        int dayssincetakingsurvey = DateDiff.dateDiff("day", Time.getCalFromDate(new Date()), Time.getCalFromDate(response.getResponsedate()));
+                        ibduResponse.add(iao.getImpressions(), dayssincetakingsurvey);
+                    }
+                    response.setImpressionsbyday(ibduResponse.getAsString());
+
                     //Now update the Response
                     response.setImpressionstotal(response.getImpressionstotal() + iao.getImpressions());
                     response.setImpressionstobepaid(impression.getImpressionstobepaid() + impressionsqualifyingforpayment);
-                    response.setImpressionsbyday(ibdu.getAsString());
                     try{response.save();} catch (GeneralException gex){logger.error(gex);}
-
                     logger.debug("done with impression.save()");
                 }
             }

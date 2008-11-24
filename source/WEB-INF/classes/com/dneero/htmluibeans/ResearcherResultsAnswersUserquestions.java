@@ -38,7 +38,7 @@ public class ResearcherResultsAnswersUserquestions implements Serializable {
             survey = Survey.get((Integer.parseInt(Pagez.getRequest().getParameter("surveyid"))));
         }
         if (survey!=null){
-            results = SurveyResultsDisplay.getHtmlForResults(survey, null, 0, new ArrayList<Integer>(), null, true, false);
+            //results = SurveyResultsDisplay.getHtmlForResults(survey, null, 0, new ArrayList<Integer>(), null, true, false);
 
             int userquestionspage = 1;
             if (Pagez.getRequest().getParameter("userquestionspage")!=null && Num.isinteger(Pagez.getRequest().getParameter("userquestionspage"))){
@@ -66,29 +66,9 @@ public class ResearcherResultsAnswersUserquestions implements Serializable {
                 cols.add(new GridCol("", template.toString(), false, "", "", "background: #ffffff;", ""));
                 results = Grid.render(sruqli, cols, 50, "/researcher/results_answers_userquestions.jsp?surveyid="+survey.getSurveyid(), "userquestionspage");
                 //Store it in the cache
-                DbcacheexpirableCache.put(resultsHtmlKey, group, results, DbcacheexpirableCache.expireSurveyInXHrs(survey, 3));
+                DbcacheexpirableCache.put(resultsHtmlKey, group, results, DbcacheexpirableCache.expireSurveyInXHrs(survey, 1));
             }
-//            if (HtmlCache.isStale(resultsHtmlKey, 6000)){
-//                //Go get all results for user questions
-//                ArrayList<SurveyResultsUserQuestionsListitem> sruqli = SurveyResultsUserQuestions.getUserQuestionResults(survey, null, 0, new ArrayList<Integer>(), null);
-//                //Create a template for the display
-//                StringBuffer template = new StringBuffer();
-//                template.append("<font class=\"smallfont\"><b><a href=\"/profile.jsp?userid=<$user.userid$>\"><$user.firstname$> <$user.lastname$></a> wanted to know:</b></font>");
-//                template.append("<br/>");
-//                template.append("<b><$question.question$></b>");
-//                template.append("<br/>");
-//                template.append("<$htmlForResult$>");
-//                template.append("<br/>");
-//                template.append("<br/>");
-//                //Create a Grid rendering
-//                ArrayList<GridCol> cols=new ArrayList<GridCol>();
-//                cols.add(new GridCol("", template.toString(), false, "", "", "background: #ffffff;", ""));
-//                results = Grid.render(sruqli, cols, 50, "/researcher/results_answers_userquestions.jsp?surveyid="+survey.getSurveyid(), "userquestionspage");
-//                //Store it in the cache
-//                HtmlCache.updateCache(resultsHtmlKey, 6000, results);
-//            } else {
-//                results = HtmlCache.getFromCache(resultsHtmlKey);
-//            }
+
 
         }
     }

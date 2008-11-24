@@ -4,10 +4,12 @@ import com.dneero.util.SortableList;
 import com.dneero.util.Num;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.dao.User;
+import com.dneero.htmlui.Pagez;
 
 import java.util.List;
 import java.util.Comparator;
 import java.util.Collections;
+import java.util.ArrayList;
 import java.io.Serializable;
 
 import org.hibernate.Criteria;
@@ -41,25 +43,30 @@ public class CustomercareUserList implements Serializable {
         logger.debug("searchfirstname="+searchfirstname);
         logger.debug("searchlastname="+searchlastname);
         logger.debug("searchemail="+searchemail);
-        Criteria crit = HibernateUtil.getSession().createCriteria(User.class);
-        if (searchuserid!=null && !searchuserid.equals("") && Num.isinteger(searchuserid)){
-            crit.add(Restrictions.eq("userid", Integer.parseInt(searchuserid)));
+        if (Pagez.getRequest().getParameter("action")!=null && !Pagez.getRequest().getParameter("action").equals("")){
+
+            Criteria crit = HibernateUtil.getSession().createCriteria(User.class);
+            if (searchuserid!=null && !searchuserid.equals("") && Num.isinteger(searchuserid)){
+                crit.add(Restrictions.eq("userid", Integer.parseInt(searchuserid)));
+            } else {
+                crit.add(Restrictions.gt("userid", 0));
+            }
+            if (searchfirstname!=null && !searchfirstname.equals("")){
+                crit.add(Restrictions.like("firstname", "%"+searchfirstname+"%"));
+            }
+            if (searchlastname!=null && !searchlastname.equals("")){
+                crit.add(Restrictions.like("lastname", "%"+searchlastname+"%"));
+            }
+            if (searchemail!=null && !searchemail.equals("")){
+                crit.add(Restrictions.like("email", "%"+searchemail+"%"));
+            }
+            if(searchfacebookers){
+                crit.add(Restrictions.gt("facebookuserid", 0));
+            }
+            users = (List<User>)crit.addOrder(Order.desc("userid")).list();
         } else {
-            crit.add(Restrictions.gt("userid", 0));
+            users = new ArrayList<User>();
         }
-        if (searchfirstname!=null && !searchfirstname.equals("")){
-            crit.add(Restrictions.like("firstname", "%"+searchfirstname+"%"));
-        }
-        if (searchlastname!=null && !searchlastname.equals("")){
-            crit.add(Restrictions.like("lastname", "%"+searchlastname+"%"));
-        }
-        if (searchemail!=null && !searchemail.equals("")){
-            crit.add(Restrictions.like("email", "%"+searchemail+"%"));
-        }
-        if(searchfacebookers){
-            crit.add(Restrictions.gt("facebookuserid", 0));
-        }
-        users = (List<User>)crit.addOrder(Order.desc("userid")).list();
 
     }
 
