@@ -150,7 +150,6 @@ public class ImpressionActivityObjectCollatedStorage {
                     if (impressions.size()>0){
                         for (Iterator it = impressions.iterator(); it.hasNext(); ) {
                             impression = (Impression)it.next();
-                            impression.setImpressionstobepaid(impression.getImpressionstobepaid()+impressionsqualifyingforpayment);
                             impression.setImpressionstotal(impression.getImpressionstotal()+iao.getImpressions());
                         }
                     } else {
@@ -159,20 +158,9 @@ public class ImpressionActivityObjectCollatedStorage {
                         impression.setSurveyid(iao.getSurveyid());
                         impression.setUserid(iao.getUserid());
                         impression.setResponseid(responseid);
-                        impression.setImpressionspaid(0);
-                        impression.setImpressionstobepaid(impressionsqualifyingforpayment);
                         impression.setImpressionstotal(iao.getImpressions());
                         impression.setReferer(iao.getReferer());
                     }
-                    //Update the internal perf cache
-                    //addImp(survey, user, impressionsqualifyingforpayment);
-                    //Update the impressionsbyday string, but only if this isn't rejected by sysadmin
-                    ImpressionsByDayUtil ibdu = new ImpressionsByDayUtil(impression.getImpressionsbyday());
-                    if (!response.getIssysadminrejected()){
-                        int dayssincetakingsurvey = DateDiff.dateDiff("day", Time.getCalFromDate(new Date()), Time.getCalFromDate(response.getResponsedate()));
-                        ibdu.add(iao.getImpressions(), dayssincetakingsurvey);
-                    }
-                    impression.setImpressionsbyday(ibdu.getAsString());
                     //Save the impression
                     logger.debug("about to call impression.save()");
                     try{impression.save();} catch (GeneralException gex){logger.error(gex);}
@@ -187,7 +175,7 @@ public class ImpressionActivityObjectCollatedStorage {
 
                     //Now update the Response
                     response.setImpressionstotal(response.getImpressionstotal() + iao.getImpressions());
-                    response.setImpressionstobepaid(impression.getImpressionstobepaid() + impressionsqualifyingforpayment);
+                    response.setImpressionstobepaid(response.getImpressionstobepaid() + impressionsqualifyingforpayment);
                     try{response.save();} catch (GeneralException gex){logger.error(gex);}
                     logger.debug("done with impression.save()");
                 }

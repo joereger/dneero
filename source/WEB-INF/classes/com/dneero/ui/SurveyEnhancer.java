@@ -37,7 +37,7 @@ public class SurveyEnhancer implements Serializable {
             enddate = Time.dateformatcompactwithtime(Time.getCalFromDate(survey.getEnddate()));
 
             slotsremaining= String.valueOf(SlotsRemainingInConvo.getSlotsRemaining(survey));
-            impressionsalreadygotten = String.valueOf(NumFromUniqueResultImpressions.getInt("select sum(impressionstotal) from Impression where surveyid='"+survey.getSurveyid()+"'"));
+            impressionsalreadygotten = String.valueOf(NumFromUniqueResult.getInt("select sum(impressionstotal) from Response where surveyid='"+survey.getSurveyid()+"'"));
 
             willingtopayforresponse = survey.getIncentive().getShortSummary();
 

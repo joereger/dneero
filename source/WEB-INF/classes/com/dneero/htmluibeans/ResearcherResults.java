@@ -56,7 +56,7 @@ public class ResearcherResults implements Serializable {
                     totalsurveyresponses = survey.getResponses().size();
                     maxsurveyresponses = survey.getNumberofrespondentsrequested();
                     maxsurveydisplays = survey.getMaxdisplaystotal();
-                    totalsurveydisplays = NumFromUniqueResultImpressions.getInt("select sum(impressionstotal) from Impression where surveyid='"+survey.getSurveyid()+"'");
+                    totalsurveydisplays = NumFromUniqueResult.getInt("select sum(impressionstotal) from Response where surveyid='"+survey.getSurveyid()+"'");
                     status = survey.getStatus();
                     totalsurveydisplays = sms.getImpressionsToDate();
                 } catch (Exception ex){

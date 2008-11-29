@@ -44,8 +44,12 @@ public class SocialInfluenceRating {
     Impressions are a simple one-point-per
      */
     private static int getImpressions(User user){
-        int out = NumFromUniqueResultImpressions.getInt("select sum(impressionstotal) from Impression where userid='"+user.getUserid()+"'");
-        return out;
+        if (user!=null && user.getBloggerid()>0){
+            int out = NumFromUniqueResult.getInt("select sum(impressionstotal) from Response where bloggerid='"+user.getBloggerid()+"'");
+            return out;
+        } else {
+            return 0;
+        }
     }
 
     private static int getImpressions90days(User user){

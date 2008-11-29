@@ -41,7 +41,6 @@ public class Response extends BasePersistentClass implements java.io.Serializabl
      private int impressionstotal;
      private int impressionstobepaid;
      private int impressionspaid;
-     private boolean isdatamigrated;
      private String impressionsbyday;
      private Surveyincentive surveyincentive;
 
@@ -265,11 +264,4 @@ public class Response extends BasePersistentClass implements java.io.Serializabl
         this.impressionspaid=impressionspaid;
     }
 
-    public boolean getIsdatamigrated() {
-        return isdatamigrated;
-    }
-
-    public void setIsdatamigrated(boolean isdatamigrated) {
-        this.isdatamigrated=isdatamigrated;
-    }
 }

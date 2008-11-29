@@ -69,18 +69,6 @@ public class UpdateResponsePoststatus implements Job {
             logger.debug("----Start responseid="+response.getResponseid());
 
             //Get a single ImpressionsByDayUtil that holds all impression by day data
-//            ImpressionsByDayUtil ibdus = new ImpressionsByDayUtil("");
-//            List<Impression> impressions = HibernateUtilImpressions.getSession().createCriteria(Impression.class)
-//                                               .add(Restrictions.eq("responseid", response.getResponseid()))
-//                                               .setCacheable(true)
-//                                               .list();
-//            for (Iterator<Impression> iterator2 = impressions.iterator(); iterator2.hasNext();) {
-//                Impression impression = iterator2.next();
-//                ImpressionsByDayUtil ibdu = new ImpressionsByDayUtil(impression.getImpressionsbyday());
-//                ibdus.add(ibdu);
-//            }
-
-            //Get a single ImpressionsByDayUtil that holds all impression by day data
             logger.debug("response.getImpressionsbyday()="+response.getImpressionsbyday());
             ImpressionsByDayUtil ibdus = new ImpressionsByDayUtil(response.getImpressionsbyday());
 

@@ -69,9 +69,7 @@
             <column name="impressionsbyday" not-null="true" />
         </property>
         
-        <property name="isdatamigrated" type="boolean">
-            <column name="isdatamigrated" />
-        </property>
+
 
     </class>
 </hibernate-mapping>

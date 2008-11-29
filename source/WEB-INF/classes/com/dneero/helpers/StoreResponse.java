@@ -140,7 +140,6 @@ public class StoreResponse {
                     response.setImpressionstobepaid(0);
                     response.setImpressionspaid(0);
                     response.setImpressionsbyday(new ImpressionsByDayUtil("").getAsString());
-                    response.setIsdatamigrated(true);
                     //Can't change charity info when editing answers
                     response.setIsforcharity(isforcharity);
                     response.setCharityname(charityname);

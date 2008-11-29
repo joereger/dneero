@@ -34,9 +34,9 @@ public class UpdateSurveyImpressionsPaid implements Job {
                                    .list();
             for (Iterator<Survey> iterator = surveys.iterator(); iterator.hasNext();) {
                 Survey survey = iterator.next();
-                int impressionstotal = NumFromUniqueResultImpressions.getInt("select sum(impressionstotal) from Impression where surveyid='"+survey.getSurveyid()+"'");
-                int impressionspaid = NumFromUniqueResultImpressions.getInt("select sum(impressionspaid) from Impression where surveyid='"+survey.getSurveyid()+"'");
-                int impressionstobepaid = NumFromUniqueResultImpressions.getInt("select sum(impressionstobepaid) from Impression where surveyid='"+survey.getSurveyid()+"'");
+                int impressionstotal = NumFromUniqueResult.getInt("select sum(impressionstotal) from Response where surveyid='"+survey.getSurveyid()+"'");
+                int impressionspaid = NumFromUniqueResult.getInt("select sum(impressionspaid) from Response where surveyid='"+survey.getSurveyid()+"'");
+                int impressionstobepaid = NumFromUniqueResult.getInt("select sum(impressionstobepaid) from Response where surveyid='"+survey.getSurveyid()+"'");
                 //Only call save() if something's changed
                 boolean shouldsave = false;
                 if (survey.getImpressionstotal()!=impressionstotal){

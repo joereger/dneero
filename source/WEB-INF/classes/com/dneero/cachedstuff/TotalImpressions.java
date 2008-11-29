@@ -22,7 +22,7 @@ public class TotalImpressions implements CachedStuff, Serializable {
     }
 
     public void refresh() {
-        int totalimpressions = NumFromUniqueResultImpressions.getInt("select sum(impressionstotal) from Impression");
+        int totalimpressions = NumFromUniqueResult.getInt("select sum(impressionstotal) from Response");
         DecimalFormat formatter = new DecimalFormat();
         formatter.applyPattern("###,###,###,###");
         html = formatter.format(Double.parseDouble(String.valueOf(totalimpressions)));

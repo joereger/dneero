@@ -23,9 +23,6 @@ public class Impression extends BasePersistentClassImpressions implements java.i
      private int surveyid;
      private String referer;
      private int impressionstotal;
-     private int impressionstobepaid;
-     private int impressionspaid;
-     private String impressionsbyday;
      private int quality;
      private Date firstseen;
 
@@ -136,30 +133,6 @@ public class Impression extends BasePersistentClassImpressions implements java.i
 
     public void setResponseid(int responseid) {
         this.responseid = responseid;
-    }
-
-    public int getImpressionstobepaid() {
-        return impressionstobepaid;
-    }
-
-    public void setImpressionstobepaid(int impressionstobepaid) {
-        this.impressionstobepaid=impressionstobepaid;
-    }
-
-    public int getImpressionspaid() {
-        return impressionspaid;
-    }
-
-    public void setImpressionspaid(int impressionspaid) {
-        this.impressionspaid=impressionspaid;
-    }
-
-    public String getImpressionsbyday() {
-        return impressionsbyday;
-    }
-
-    public void setImpressionsbyday(String impressionsbyday) {
-        this.impressionsbyday=impressionsbyday;
     }
 
 
