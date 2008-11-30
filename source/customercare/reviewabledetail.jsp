@@ -6,6 +6,10 @@
 <%@ page import="org.hibernate.criterion.Restrictions" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.dneero.email.EmailTemplateProcessor" %>
+<%@ page import="com.dneero.mail.MailtypeSimple" %>
+<%@ page import="com.dneero.mail.MailtypeReviewableRejection" %>
+<%@ page import="com.dneero.mail.MailNotify" %>
+<%@ page import="com.dneero.mail.MailtypeReviewableWarning" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "";
@@ -64,14 +68,29 @@ String acl = "customercare";
             }
             //Change the underlying Reviewable object
             customercareReviewDetail.getReviewable().rejectBySysadmin();
-            //Create the args array to hold the dynamic stuff
-            String[] args = new String[10];
-            args[0] = customercareReviewDetail.getReviewable().getShortSummary();
-            args[1] = review.getResearchernotes();
-            args[2] = review.getSysadminnotes();
-            //Send the email
+            //Get user
             User userWhoCreatedContent = User.get(customercareReviewDetail.getReviewable().getUseridofcontentcreator());
-            EmailTemplateProcessor.sendMail("Content Flagging: Rejected Content", "reviewable-rejection", userWhoCreatedContent, args);
+            //Create an inbox item
+            Mail mail = new Mail();
+            mail.setIsflaggedforcustomercare(false);
+            mail.setSubject("Content Rejection");
+            mail.setDate(new java.util.Date());
+            mail.setUserid(userWhoCreatedContent.getUserid());
+            mail.setIsread(true);
+            try{mail.save();} catch (Exception ex){logger.error("", ex);}
+            Mailchild mailchild = new Mailchild();
+            mailchild.setMailid(mail.getMailid());
+            mailchild.setDate(new java.util.Date());
+            mailchild.setIsfromcustomercare(true);
+            mailchild.setMailtypeid(MailtypeReviewableRejection.TYPEID);
+            mailchild.setVar1(customercareReviewDetail.getReviewable().getShortSummary());
+            mailchild.setVar2(review.getResearchernotes());
+            mailchild.setVar3(review.getSysadminnotes());
+            mailchild.setVar4(String.valueOf(review.getReviewid()));
+            mailchild.setVar5("");
+            try{mailchild.save();} catch (Exception ex){logger.error("", ex);}
+            //Send email
+            MailNotify.notify(mail);
             //Redir
             Pagez.sendRedirect("/customercare/reviewables.jsp");
             return;
@@ -125,14 +144,29 @@ String acl = "customercare";
             }
             //Change the underlying Reviewable object
             customercareReviewDetail.getReviewable().approveBySysadmin();
-            //Create the args array to hold the dynamic stuff
-            String[] args = new String[10];
-            args[0] = customercareReviewDetail.getReviewable().getShortSummary();
-            args[1] = review.getResearchernotes();
-            args[2] = review.getSysadminnotes();
-            //Send the email
+            //Get user
             User userWhoCreatedContent = User.get(customercareReviewDetail.getReviewable().getUseridofcontentcreator());
-            EmailTemplateProcessor.sendMail("Content Flagging: Warning", "reviewable-warning", userWhoCreatedContent, args);
+            //Create an inbox item
+            Mail mail = new Mail();
+            mail.setIsflaggedforcustomercare(false);
+            mail.setSubject("Content Warning");
+            mail.setDate(new java.util.Date());
+            mail.setUserid(userWhoCreatedContent.getUserid());
+            mail.setIsread(true);
+            try{mail.save();} catch (Exception ex){logger.error("", ex);}
+            Mailchild mailchild = new Mailchild();
+            mailchild.setMailid(mail.getMailid());
+            mailchild.setDate(new java.util.Date());
+            mailchild.setIsfromcustomercare(true);
+            mailchild.setMailtypeid(MailtypeReviewableWarning.TYPEID);
+            mailchild.setVar1(customercareReviewDetail.getReviewable().getShortSummary());
+            mailchild.setVar2(review.getResearchernotes());
+            mailchild.setVar3(review.getSysadminnotes());
+            mailchild.setVar4(String.valueOf(review.getReviewid()));
+            mailchild.setVar5("");
+            try{mailchild.save();} catch (Exception ex){logger.error("", ex);}
+            //Send email
+            MailNotify.notify(mail);
             //Redir
             Pagez.sendRedirect("/customercare/reviewables.jsp");
             return;

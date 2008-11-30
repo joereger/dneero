@@ -32,7 +32,7 @@ public class MailNotify {
                 asText.append("You Said:\n");
                 asHtml.append("You Said:<br/>");
             }
-            asText.append(mailchild.getVar1());
+            asText.append(mt.renderToText(mailchild));
             asText.append("\n\n");
             asHtml.append(mt.renderToHtml(mailchild));
             asHtml.append("<br/><br/>");
@@ -42,7 +42,7 @@ public class MailNotify {
         args[0]=mail.getSubject();
         args[1]=asHtml.toString();
         args[2]=asText.toString();
-        EmailTemplateProcessor.sendMail("dNeero Message: "+ Str.truncateString(mail.getSubject(),100), "supportissueresponse", User.get(mail.getUserid()), args);
+        EmailTemplateProcessor.sendMail("dNeero Message: "+ Str.truncateString(mail.getSubject(),100), "inboxmessage", User.get(mail.getUserid()), args);
     }
 
 }

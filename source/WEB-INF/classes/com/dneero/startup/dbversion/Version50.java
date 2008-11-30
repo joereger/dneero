@@ -20,6 +20,7 @@ import com.dneero.util.Time;
 import com.dneero.util.DateDiff;
 import com.dneero.survey.servlet.ImpressionsByDayUtil;
 import com.dneero.helpers.UserInputSafe;
+import com.dneero.mail.MailtypeSimple;
 
 /**
  * User: Joe Reger Jr
@@ -79,7 +80,7 @@ public class Version50 implements UpgradeDatabaseOneVersion {
 
                         //-----------------------------------
                         //-----------------------------------
-                        int mailchildid = Db.RunSQLInsert("INSERT INTO mailchild(mailid, mailtypeid, date, isfromcustomercare, var1, var2, var3, var4, var5) VALUES('"+mailid+"', '1', '"+Time.dateformatfordb(datetimeComm)+"', "+isfromdneeroadmin+", '"+UserInputSafe.clean(notes)+"', '', '', '', '')", DbFactory.getDefaultDbConfig());
+                        int mailchildid = Db.RunSQLInsert("INSERT INTO mailchild(mailid, mailtypeid, date, isfromcustomercare, var1, var2, var3, var4, var5) VALUES('"+mailid+"', '"+MailtypeSimple.TYPEID+"', '"+Time.dateformatfordb(datetimeComm)+"', "+isfromdneeroadmin+", '"+UserInputSafe.clean(notes)+"', '', '', '', '')", DbFactory.getDefaultDbConfig());
                         //-----------------------------------
                         //-----------------------------------
                          

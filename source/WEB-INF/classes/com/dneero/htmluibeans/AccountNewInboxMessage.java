@@ -15,6 +15,7 @@ import com.dneero.htmlui.Pagez;
 import com.dneero.htmlui.ValidationException;
 import com.dneero.mail.Mailtype;
 import com.dneero.mail.MailtypeFactory;
+import com.dneero.mail.MailtypeSimple;
 
 import java.util.Date;
 import java.util.Iterator;
@@ -59,7 +60,7 @@ public class AccountNewInboxMessage implements Serializable {
         mailchild.setMailid(mail.getMailid());
         mailchild.setDate(new Date());
         mailchild.setIsfromcustomercare(false);
-        mailchild.setMailtypeid(1);
+        mailchild.setMailtypeid(MailtypeSimple.TYPEID);
         mailchild.setVar1(notes);
         mailchild.setVar2("");
         mailchild.setVar3("");

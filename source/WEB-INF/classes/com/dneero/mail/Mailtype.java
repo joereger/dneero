@@ -12,6 +12,6 @@ public interface Mailtype {
 
     public int getMailtypeid();
     public String renderToHtml(Mailchild mailchild);
-
+    public String renderToText(Mailchild mailchild);
 
 }

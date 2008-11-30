@@ -13,6 +13,7 @@ import com.dneero.util.Num;
 import com.dneero.util.Str;
 import com.dneero.email.EmailTemplateProcessor;
 import com.dneero.mail.MailNotify;
+import com.dneero.mail.MailtypeSimple;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -55,9 +56,9 @@ public class CustomercareSupportIssueDetail implements Serializable {
                 this.mail= mail;
                 this.mailid= mail.getMailid();
                 mailchildren = HibernateUtil.getSession().createQuery("from Mailchild where mailid='"+mailid+"' order by mailchildid asc").list();
-
+                this.mail.setIsflaggedforcustomercare(false);
+                try{this.mail.save();}catch(Exception ex){logger.error("", ex);}
             }
-
         } else {
             logger.debug("beginView called: NOT found mailid in param="+tmpMailid);
         }
@@ -78,7 +79,7 @@ public class CustomercareSupportIssueDetail implements Serializable {
         mailchild.setMailid(mailid);
         mailchild.setDate(new Date());
         mailchild.setIsfromcustomercare(true);
-        mailchild.setMailtypeid(1);
+        mailchild.setMailtypeid(MailtypeSimple.TYPEID);
         mailchild.setVar1(notes);
         mailchild.setVar2("");
         mailchild.setVar3("");
@@ -109,8 +110,10 @@ public class CustomercareSupportIssueDetail implements Serializable {
             throw vex;
         }
 
-        //Send notification email
-        MailNotify.notify(mail);
+        //Send notification email but only if there are notes
+        if (notes!=null && !notes.equals("")){
+            MailNotify.notify(mail);
+        }
     }
 
     public int getMailid() {

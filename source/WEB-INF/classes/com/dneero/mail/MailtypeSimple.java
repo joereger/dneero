@@ -10,11 +10,17 @@ import com.dneero.dao.Mailchild;
  */
 public class MailtypeSimple implements Mailtype {
 
+    public static int TYPEID = 1;
+
     public int getMailtypeid() {
-        return 1;
+        return TYPEID;
     }
 
     public String renderToHtml(Mailchild mailchild) {
+        return mailchild.getVar1();
+    }
+
+    public String renderToText(Mailchild mailchild) {
         return mailchild.getVar1();
     }
 }

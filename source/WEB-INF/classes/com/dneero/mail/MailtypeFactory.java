@@ -8,8 +8,12 @@ package com.dneero.mail;
 public class MailtypeFactory {
 
     public static Mailtype get(int mailtypeid){
-        if (mailtypeid==1){
+        if (mailtypeid==MailtypeSimple.TYPEID){
             return new MailtypeSimple();
+        } else if (mailtypeid==MailtypeReviewableRejection.TYPEID){
+            return new MailtypeReviewableRejection();
+        } else if (mailtypeid==MailtypeReviewableWarning.TYPEID){
+            return new MailtypeReviewableWarning();
         } else {
             return new MailtypeSimple();
         }

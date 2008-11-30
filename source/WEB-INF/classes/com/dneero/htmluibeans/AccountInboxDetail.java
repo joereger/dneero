@@ -13,6 +13,7 @@ import com.dneero.htmlui.ValidationException;
 
 import com.dneero.util.GeneralException;
 import com.dneero.xmpp.SendXMPPMessage;
+import com.dneero.mail.MailtypeSimple;
 
 import java.util.*;
 import java.io.Serializable;
@@ -73,7 +74,7 @@ public class AccountInboxDetail implements Serializable {
         mailchild.setMailid(mailid);
         mailchild.setDate(new Date());
         mailchild.setIsfromcustomercare(false);
-        mailchild.setMailtypeid(1);
+        mailchild.setMailtypeid(MailtypeSimple.TYPEID);
         mailchild.setVar1(notes);
         mailchild.setVar2("");
         mailchild.setVar3("");

@@ -15,6 +15,7 @@ import com.dneero.scheduledjobs.ResearcherRemainingBalanceOperations;
 import com.dneero.scheduledjobs.UpdateResponsePoststatus;
 import com.dneero.util.*;
 import com.dneero.mail.MailNotify;
+import com.dneero.mail.MailtypeSimple;
 import org.apache.log4j.Logger;
 
 import java.io.Serializable;
@@ -138,7 +139,7 @@ public class CustomercareUserDetail implements Serializable {
         mailchild.setMailid(mail.getMailid());
         mailchild.setDate(new Date());
         mailchild.setIsfromcustomercare(true);
-        mailchild.setMailtypeid(1);
+        mailchild.setMailtypeid(MailtypeSimple.TYPEID);
         mailchild.setVar1(messagetouser);
         mailchild.setVar2("");
         mailchild.setVar3("");

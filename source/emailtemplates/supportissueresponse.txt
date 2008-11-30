@@ -1,9 +1,0 @@
-Hello <$user.firstname$>.
-
-Subject: <$args.0$>
-
-<$args.2$>
-
-You can view the complete issue with its complete communications history by logging in to your account.
-
-The Support Team
