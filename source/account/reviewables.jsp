@@ -1,9 +1,9 @@
 <%@ page import="org.apache.log4j.Logger" %>
-<%@ page import="com.dneero.htmluibeans.AccountSupportIssuesList" %>
+<%@ page import="com.dneero.htmluibeans.AccountInbox" %>
 <%@ page import="com.dneero.dbgrid.GridCol" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.dneero.dbgrid.Grid" %>
-<%@ page import="com.dneero.htmluibeans.AccountNewSupportIssue" %>
+<%@ page import="com.dneero.htmluibeans.AccountNewInboxMessage" %>
 <%@ page import="com.dneero.htmlui.*" %>
 <%@ page import="com.dneero.dao.hibernate.HibernateUtil" %>
 <%

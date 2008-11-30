@@ -107,7 +107,7 @@ String acl = "account";
             <div class="rounded" style="background: #e6e6e6; text-align: left; padding: 15px;">
                 <font class="mediumfont" style="color: #666666;"><b>Ask a Question</b></font>
                 <br/>
-                <font class="smallfont" style="color: #666666;"><b>You can always use the <a href="/account/accountsupportissueslist.jsp">Help System</a> to ask us a question.</b></font>
+                <font class="smallfont" style="color: #666666;"><b>You can always use the <a href="/account/inbox.jsp">Help System</a> to ask us a question.</b></font>
             </div>
 
 

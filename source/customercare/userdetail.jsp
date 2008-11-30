@@ -20,6 +20,18 @@ String acl = "customercare";
 CustomercareUserDetail customercareUserDetail= (CustomercareUserDetail)Pagez.getBeanMgr().get("CustomercareUserDetail");
 %>
 <%
+    if (request.getParameter("action") != null && request.getParameter("action").equals("sendmessagetouser")) {
+        try {
+            customercareUserDetail.setMessagetouser(Textbox.getValueFromRequest("messagetouser", "Message", true, DatatypeString.DATATYPEID));
+            customercareUserDetail.setMessagetousersubject(Textbox.getValueFromRequest("messagetousersubject", "Subject", true, DatatypeString.DATATYPEID));
+            customercareUserDetail.sendusermessage();
+            Pagez.getUserSession().setMessage("Message Sent!");
+        } catch (com.dneero.htmlui.ValidationException vex) {
+            Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
+        }
+    }
+%>
+<%
     if (request.getParameter("action") != null && request.getParameter("action").equals("save")) {
         try {
             customercareUserDetail.setFirstname(Textbox.getValueFromRequest("firstname", "First Name", true, DatatypeString.DATATYPEID));
@@ -358,6 +370,25 @@ CustomercareUserDetail customercareUserDetail= (CustomercareUserDetail)Pagez.get
                                     <br/>
                                     <input type="submit" class="formsubmitbutton" value="Enable Account">
                                 <%}%>
+                            </form>
+                        </div>
+
+                        <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
+                            <form action="/customercare/userdetail.jsp" method="post">
+                                <input type="hidden" name="dpage" value="/customercare/userdetail.jsp">
+                                <input type="hidden" name="action" value="sendmessagetouser">
+                                <input type="hidden" name="userid" value="<%=customercareUserDetail.getUserid()%>">
+                                <font class="mediumfont">Send User a Message</font>
+                                <br/>
+                                <font class="formfieldnamefont">Subject:</font>
+                                <br/>
+                                <%=Textbox.getHtml("messagetousersubject", String.valueOf(customercareUserDetail.getMessagetousersubject()), 255, 25, "", "")%>
+                                <br/>
+                                <font class="formfieldnamefont">Message:</font>
+                                <br/>
+                                <%=Textarea.getHtml("messagetouser", customercareUserDetail.getMessagetouser(), 5, 25, "", "")%>
+                                <br/>
+                                <input type="submit" class="formsubmitbutton" value="Send">
                             </form>
                         </div>
 

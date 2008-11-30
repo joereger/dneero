@@ -13,17 +13,12 @@ import com.dneero.money.MoveMoneyInAccountBalance;
 import com.dneero.scheduledjobs.CurrentBalanceUpdater;
 import com.dneero.scheduledjobs.ResearcherRemainingBalanceOperations;
 import com.dneero.scheduledjobs.UpdateResponsePoststatus;
-import com.dneero.util.DateDiff;
-import com.dneero.util.Num;
-import com.dneero.util.Str;
-import com.dneero.util.Time;
+import com.dneero.util.*;
+import com.dneero.mail.MailNotify;
 import org.apache.log4j.Logger;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 /**
  * User: Joe Reger Jr
@@ -53,6 +48,8 @@ public class CustomercareUserDetail implements Serializable {
     private boolean onlyshownegativeamountbalance = false;
     private double resellerpercent;
     private String pwd="";
+    private String messagetousersubject="";
+    private String messagetouser="";
 
 
 
@@ -118,6 +115,46 @@ public class CustomercareUserDetail implements Serializable {
             try{user.save();}catch (Exception ex){logger.error("",ex);}
         }
 
+    }
+
+    public String sendusermessage() throws ValidationException {
+        ValidationException vex = new ValidationException();
+        Logger logger = Logger.getLogger(this.getClass().getName());
+        Mail mail = new Mail();
+        mail.setIsflaggedforcustomercare(false);
+        mail.setSubject(messagetousersubject);
+        mail.setDate(new Date());
+        mail.setUserid(user.getUserid());
+        mail.setIsread(false);
+        try{
+            mail.save();
+        } catch (GeneralException gex){
+            vex.addValidationError("Sorry, there was an error.");
+            logger.debug("newIssue failed: " + gex.getErrorsAsSingleString());
+            throw vex;
+        }
+
+        Mailchild mailchild = new Mailchild();
+        mailchild.setMailid(mail.getMailid());
+        mailchild.setDate(new Date());
+        mailchild.setIsfromcustomercare(true);
+        mailchild.setMailtypeid(1);
+        mailchild.setVar1(messagetouser);
+        mailchild.setVar2("");
+        mailchild.setVar3("");
+        mailchild.setVar4("");
+        mailchild.setVar5("");
+        try{
+            mailchild.save();
+        } catch (GeneralException gex){
+            vex.addValidationError("Sorry, there was an error.");
+            logger.debug("newIssue failed: " + gex.getErrorsAsSingleString());
+            throw vex;
+        }
+        //Send notification
+        MailNotify.notify(mail);
+        //Pagez.getUserSession().setMessage("Message sent to user.");
+        return "sysadminuserdetail";
     }
 
 
@@ -554,5 +591,21 @@ public class CustomercareUserDetail implements Serializable {
 
     public void setPwd(String pwd) {
         this.pwd=pwd;
+    }
+
+    public String getMessagetousersubject() {
+        return messagetousersubject;
+    }
+
+    public void setMessagetousersubject(String messagetousersubject) {
+        this.messagetousersubject=messagetousersubject;
+    }
+
+    public String getMessagetouser() {
+        return messagetouser;
+    }
+
+    public void setMessagetouser(String messagetouser) {
+        this.messagetouser=messagetouser;
     }
 }

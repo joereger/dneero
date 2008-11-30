@@ -20,7 +20,7 @@
                 <a href="/evil.jsp"><font class="tinyfont">oh, btw, we're evil.</font></a>
                 <%if (Pagez.getUserSession().getIsloggedin()) {%>
                     |
-                    <a href="/account/accountsupportissueslist.jsp"><font class="tinyfont">need help?</font></a>
+                    <a href="/account/inbox.jsp"><font class="tinyfont">need help?</font></a>
                 <%}%>
                 <img src="/images/clear.gif" width="10" height="1"/>
             </td>

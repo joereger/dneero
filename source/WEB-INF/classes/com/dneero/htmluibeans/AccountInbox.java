@@ -1,8 +1,5 @@
 package com.dneero.htmluibeans;
 
-import com.dneero.util.SortableList;
-
-import com.dneero.util.GeneralException;
 import com.dneero.dao.*;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.htmlui.Pagez;
@@ -16,12 +13,12 @@ import java.io.Serializable;
  * Date: Jun 8, 2006
  * Time: 10:16:03 AM
  */
-public class AccountSupportIssuesList implements Serializable {
+public class AccountInbox implements Serializable {
 
-    private List<Supportissue> supportissues;
+    private List<Mail> inboxmessages;
 
 
-    public AccountSupportIssuesList() {
+    public AccountInbox() {
 
     }
 
@@ -32,16 +29,16 @@ public class AccountSupportIssuesList implements Serializable {
         logger.debug("load called");
         User user = Pagez.getUserSession().getUser();
         if (user!=null){
-            supportissues = HibernateUtil.getSession().createQuery("from Supportissue where userid='"+user.getUserid()+"' order by supportissueid desc").list();
+            inboxmessages= HibernateUtil.getSession().createQuery("from Mail where userid='"+user.getUserid()+"' order by mailid desc").list();
         }
     }
 
-    public List getSupportissues() {
-        return supportissues;
+    public List getInboxmessages() {
+        return inboxmessages;
     }
 
-    public void setSupportissues(List supportissues) {
-        this.supportissues = (ArrayList)supportissues;
+    public void setInboxmessages(List inboxmessages) {
+        this.inboxmessages= (ArrayList) inboxmessages;
     }
 
     protected boolean isDefaultAscending(String sortColumn) {

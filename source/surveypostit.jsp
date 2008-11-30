@@ -199,7 +199,7 @@ String acl = "public";
                         <br/><br/>
                         <% if (Pagez.getUserSession().getIsloggedin() && publicSurveyPostit.isLoggedinuserhasalreadytakensurvey()){ %>
                             <div class="rounded" style="background: #ffffff; text-align: center;">
-                                <a href="/account/accountsupportissueslist.jsp"><font class="mediumfont">Need Help?</font></a>
+                                <a href="/account/inbox.jsp"><font class="mediumfont">Need Help?</font></a>
                             </div>
                         <% } %>
                     </div>
@@ -213,7 +213,7 @@ String acl = "public";
                     <%}%>
 
                     <center><div class="rounded" style="background: #e6e6e6; text-align: left; padding: 20px;"><font class="smallfont">
-                    Instructions for posting your conversation answers to various blogs and social networks.  Need <a href="/account/accountsupportissueslist.jsp"><font class="smallfont">help</font></a> posting to your blog?
+                    Instructions for posting your conversation answers to various blogs and social networks.  Need <a href="/account/inbox.jsp"><font class="smallfont">help</font></a> posting to your blog?
                     </font></div></center>
 
                     <br/><br/>

@@ -140,7 +140,7 @@
                         <img src="/images/clear.gif" alt="" width="10" height="1"/>
                         <a href="/account/reseller.jsp"><font class="subnavfont" style="color: #000000;">Reseller Program</font></a>
                         <img src="/images/clear.gif" alt="" width="10" height="1"/>
-                        <a href="/account/accountsupportissueslist.jsp"><font class="subnavfont" style="color: #000000;">Help/Support</font></a>
+                        <a href="/account/inbox.jsp"><font class="subnavfont" style="color: #000000;">Help/Support</font></a>
                     <%}%>
                 <%}%>
                 <%if (navtab.equals("customercare")){%>
@@ -213,7 +213,7 @@
                     <%if (Pagez.getUserSession().getIsloggedin()){%>
                         <font class="subnavfont">Hi, <%=Pagez.getUserSession().getUser().getFirstname()%> <%=Pagez.getUserSession().getUser().getLastname()%>! <a href="/login.jsp?action=logout">Log Out</a></font>
                         <br/>
-                        <font class="subnavfont">Need <a href="/account/accountsupportissueslist.jsp">Help?</a></font>
+                        <font class="subnavfont">Need <a href="/account/inbox.jsp">Help?</a></font>
 
                     <%}%>
                 </div>

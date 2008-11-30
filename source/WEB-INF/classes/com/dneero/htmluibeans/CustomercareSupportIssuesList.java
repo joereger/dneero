@@ -25,11 +25,11 @@ public class CustomercareSupportIssuesList implements Serializable {
 
     public void initBean(){
         supportissues = new ArrayList();
-        String whereSql = " where (status='"+Supportissue.STATUS_DNEEROWORKING+"' or status='"+Supportissue.STATUS_OPEN+"') ";
+        String whereSql = " where (isflaggedforcustomercare=true) ";
         if (showall){
             whereSql = "";
         }
-        supportissues = HibernateUtil.getSession().createQuery("from Supportissue "+whereSql+" order by supportissueid desc").list();
+        supportissues = HibernateUtil.getSession().createQuery("from Mail "+whereSql+" order by mailid desc").list();
 
 
 

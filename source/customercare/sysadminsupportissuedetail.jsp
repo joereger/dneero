@@ -6,6 +6,8 @@
 <%@ page import="com.dneero.util.Time" %>
 <%@ page import="java.util.TreeMap" %>
 <%@ page import="com.dneero.htmlui.*" %>
+<%@ page import="com.dneero.mail.Mailtype" %>
+<%@ page import="com.dneero.mail.MailtypeFactory" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "Support Issue Detail";
@@ -19,8 +21,8 @@ String acl = "customercare";
 <%
     if (request.getParameter("action") != null && request.getParameter("action").equals("save")) {
         try {
-            customercareSupportIssueDetail.setStatus(Dropdown.getValueFromRequest("status", "Status", true));
             customercareSupportIssueDetail.setNotes(Textarea.getValueFromRequest("notes", "Notes", false));
+            customercareSupportIssueDetail.setKeepflaggedforcustomercare(CheckboxBoolean.getValueFromRequest("keepflaggedforcustomercare"));
             customercareSupportIssueDetail.newNote();
             Pagez.sendRedirect("/customercare/sysadminsupportissueslist.jsp");
             return;
@@ -33,31 +35,34 @@ String acl = "customercare";
 
 
             <div class="rounded" style="padding: 10px; margin: 10px; background: #33FF00;">
-                <font class="mediumfont"><%=customercareSupportIssueDetail.getSupportissue().getSubject()%></font>
+                <font class="mediumfont"><%=customercareSupportIssueDetail.getMail().getSubject()%></font>
             </div>
 
 
 
             <%
-            for (Iterator<Supportissuecomm> iterator=customercareSupportIssueDetail.getSupportissuecomms().iterator(); iterator.hasNext();){
-                Supportissuecomm supportissuecomm = iterator.next();
-                %>
-                <div class="rounded" style="padding: 10px; margin: 10px; background: #e6e6e6;">
-                    <font class="smallfont" style="font-weight: bold;"><%=Time.dateformatcompactwithtime(Time.getCalFromDate(supportissuecomm.getDatetime()))%></font>
-                    <br/>
-                    <%if (!supportissuecomm.getIsfromdneeroadmin()){%>
-                        <a href="/customercare/userdetail.jsp?userid=<%=customercareSupportIssueDetail.getFromuser().getUserid()%>"><font class="smallfont" style="font-weight: bold;">From: <%=customercareSupportIssueDetail.getFromuser().getFirstname()%> <%=customercareSupportIssueDetail.getFromuser().getLastname()%></font></a>
-                    <%} else {%>
-                        <font class="smallfont" style="font-weight: bold;">System Admin</font>
-                    <%}%>
-                    <% if (customercareSupportIssueDetail.getFromuser().getFacebookuserid()>0){ %>
-                        <font class="smallfont" style="font-weight: bold;">(Facebook User)</font>
-                    <% } %>
-                    <br/>
-                    <font class="smallfont"><%=supportissuecomm.getNotes()%></font>
-                </div>
-                <%
-            }
+            List<Mailchild> mailchildren = HibernateUtil.getSession().createQuery("from Mailchild where mailid='"+customercareSupportIssueDetail.getMail().getMailid()+"' order by mailchildid asc").list();
+                for (Iterator<Mailchild> mailchildIterator=mailchildren.iterator(); mailchildIterator.hasNext();) {
+                    Mailchild mailchild=mailchildIterator.next();
+                    Mailtype mt = MailtypeFactory.get(mailchild.getMailtypeid());
+                    %>
+                    <div class="rounded" style="padding: 10px; margin: 10px; background: #e6e6e6;">
+                        <font class="smallfont" style="font-weight: bold;"><%=Time.dateformatcompactwithtime(Time.getCalFromDate(mailchild.getDate()))%></font>
+                        <br/>
+                        <%if (!mailchild.getIsfromcustomercare()){%>
+                            <a href="/customercare/userdetail.jsp?userid=<%=customercareSupportIssueDetail.getFromuser().getUserid()%>"><font class="smallfont" style="font-weight: bold;">From: <%=customercareSupportIssueDetail.getFromuser().getFirstname()%> <%=customercareSupportIssueDetail.getFromuser().getLastname()%></font></a>
+                        <%} else {%>
+                            <font class="smallfont" style="font-weight: bold;">System Admin</font>
+                        <%}%>
+                        <% if (customercareSupportIssueDetail.getFromuser().getFacebookuserid()>0){ %>
+                            <font class="smallfont" style="font-weight: bold;">(Facebook User)</font>
+                        <% } %>
+                        <br/>
+                        <font class="smallfont"><%=mt.renderToHtml(mailchild)%></font>
+                    </div>
+                    <%
+                }
+
             %>
 
 
@@ -65,7 +70,7 @@ String acl = "customercare";
         <form action="/customercare/sysadminsupportissuedetail.jsp" method="post">
             <input type="hidden" name="dpage" value="/customercare/sysadminsupportissuedetail.jsp">
             <input type="hidden" name="action" value="save">
-            <input type="hidden" name="supportissueid" value="<%=customercareSupportIssueDetail.getSupportissueid()%>">
+            <input type="hidden" name="mailid" value="<%=customercareSupportIssueDetail.getMailid()%>">
 
             <table cellpadding="0" cellspacing="0" border="0">
                 <tr>
@@ -73,20 +78,20 @@ String acl = "customercare";
                         <%=Textarea.getHtml("notes", customercareSupportIssueDetail.getNotes(), 8, 72, "", "")%>
                     </td>
                 </tr>
+
+
                 <tr>
                     <td valign="top">
-                        <%
-                            TreeMap<String, String> options=new TreeMap<String, String>();
-                            options.put("0", "Open");
-                            options.put("1", "Working");
-                            options.put("2", "Closed");
-                        %>
-                        <br/><%=Dropdown.getHtml("status", String.valueOf(customercareSupportIssueDetail.getStatus()), options, "", "")%>
+                        <%=CheckboxBoolean.getHtml("keepflaggedforcustomercare", false, "", "")%>
+                        <font class="formfieldnamefont">Keep Flagged for Customer Care</font>
                     </td>
                 </tr>
+
+
+
                 <tr>
                     <td valign="top">
-                        <input type="submit" class="formsubmitbutton" value="Add a Comment">
+                        <input type="submit" class="formsubmitbutton" value="Add Comment">
                     </td>
                 </tr>
 

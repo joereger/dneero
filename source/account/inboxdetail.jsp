@@ -1,25 +1,27 @@
 <%@ page import="org.apache.log4j.Logger" %>
-<%@ page import="com.dneero.htmluibeans.AccountSupportIssueDetail" %>
+<%@ page import="com.dneero.htmluibeans.AccountInboxDetail" %>
 <%@ page import="com.dneero.dao.Supportissuecomm" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.Iterator" %>
 <%@ page import="com.dneero.htmlui.*" %>
+<%@ page import="com.dneero.mail.Mailtype" %>
+<%@ page import="com.dneero.mail.MailtypeFactory" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
-String pagetitle = "Support: Issue Detail";
+String pagetitle = "Inbox";
 String navtab = "youraccount";
 String acl = "account";
 %>
 <%@ include file="/template/auth.jsp" %>
 <%
-AccountSupportIssueDetail accountSupportIssueDetail = (AccountSupportIssueDetail)Pagez.getBeanMgr().get("AccountSupportIssueDetail");
+AccountInboxDetail accountInboxDetail = (AccountInboxDetail)Pagez.getBeanMgr().get("AccountInboxDetail");
 %>
 <%
     if (request.getParameter("action") != null && request.getParameter("action").equals("save")) {
         try {
-            accountSupportIssueDetail.setNotes(Textarea.getValueFromRequest("notes", "Comments", true));
-            accountSupportIssueDetail.newNote();
-            Pagez.getUserSession().setMessage("Thanks, your comments have been added to the issue.");
+            accountInboxDetail.setNotes(Textarea.getValueFromRequest("notes", "Comments", true));
+            accountInboxDetail.newNote();
+            Pagez.getUserSession().setMessage("Thanks, your comments have been added.");
         } catch (ValidationException vex) {
             Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
         }
@@ -27,23 +29,25 @@ AccountSupportIssueDetail accountSupportIssueDetail = (AccountSupportIssueDetail
 %>
 <%@ include file="/template/header.jsp" %>
 
-    <font class="mediumfont"><%=accountSupportIssueDetail.getSupportissue().getSubject()%></font>
+    <font class="mediumfont"><%=accountInboxDetail.getMail().getSubject()%></font>
 
 
     <%
-        ArrayList<Supportissuecomm> issues=accountSupportIssueDetail.getSupportissuecomms();
+        ArrayList<Mailchild> issues=accountInboxDetail.getInboxdetails();
         for (Iterator it=issues.iterator(); it.hasNext();) {
-            Supportissuecomm comm=(Supportissuecomm) it.next();
+            Mailchild comm=(Mailchild) it.next();
             StringBuffer body = new StringBuffer();
-            body.append("<font class=\"tinyfont\">"+comm.getDatetime()+"</font>");
+            body.append("<font class=\"tinyfont\">"+Time.dateformatcompactwithtime(Time.getCalFromDate(comm.getDate()))+"</font>");
             body.append("<br/>");
-            if (comm.getIsfromdneeroadmin()){
+            if (comm.getIsfromcustomercare()){
                 body.append("<font class=\"normalfont\" style=\"font-weight: bold;\">From: Admin</font>");
             } else {
                 body.append("<font class=\"normalfont\" style=\"font-weight: bold;\">From: You</font>");
             }
             body.append("<br/>");
-            body.append("<font class=\"normalfont\">"+comm.getNotes()+"</font>");
+
+            Mailtype mt = MailtypeFactory.get(comm.getMailtypeid());
+            body.append("<font class=\"normalfont\">"+mt.renderToHtml(comm)+"</font>");
 
             %>
             <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
@@ -53,10 +57,10 @@ AccountSupportIssueDetail accountSupportIssueDetail = (AccountSupportIssueDetail
         }
     %>
 
-    <form action="/account/accountsupportissuedetail.jsp" method="post">
-        <input type="hidden" name="dpage" value="/account/accountsupportissuedetail.jsp">
+    <form action="/account/inboxdetail.jsp" method="post">
+        <input type="hidden" name="dpage" value="/account/inboxdetail.jsp">
         <input type="hidden" name="action" value="save">
-        <input type="hidden" name="supportissueid" value="<%=accountSupportIssueDetail.getSupportissue().getSupportissueid()%>">
+        <input type="hidden" name="mailid" value="<%=accountInboxDetail.getMailid()%>">
 
             <table cellpadding="0" cellspacing="0" border="0">
 
@@ -64,7 +68,7 @@ AccountSupportIssueDetail accountSupportIssueDetail = (AccountSupportIssueDetail
                     <td valign="top">
                     </td>
                     <td valign="top">
-                        <%=Textarea.getHtml("notes", accountSupportIssueDetail.getNotes(), 3, 35, "", "")%>
+                        <%=Textarea.getHtml("notes", accountInboxDetail.getNotes(), 3, 35, "", "")%>
                     </td>
                 </tr>
 
@@ -72,7 +76,7 @@ AccountSupportIssueDetail accountSupportIssueDetail = (AccountSupportIssueDetail
                     <td valign="top">
                     </td>
                     <td valign="top">
-                        <input type="submit" class="formsubmitbutton" value="Add Comment to this Issue">
+                        <input type="submit" class="formsubmitbutton" value="Add Comment">
                     </td>
                 </tr>
 

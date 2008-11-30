@@ -35,7 +35,7 @@
                     <%if (Pagez.getUserSession().getIsloggedin()){%><a href="/account/reseller.jsp"><font class="subnavfont" style="padding-left: 5px; color: #000000; background: #cccccc;">Reseller</font></a><%}%>
                     <a href="/blog.jsp"><font class="subnavfont" style="padding-left: 5px; color: #000000; background: #cccccc;">Blog</font></a>
                     <a href="/blogger/facebookfaq.jsp"><font class="subnavfont" style="padding-left: 5px; color: #000000; background: #cccccc;">FAQ</font></a>
-                    <%if (Pagez.getUserSession().getIsloggedin()){%><a href="/account/accountsupportissueslist.jsp"><font class="subnavfont" style="padding-left: 5px; color: #000000; background: #cccccc;">Help</font></a><%}%>
+                    <%if (Pagez.getUserSession().getIsloggedin()){%><a href="/account/inbox.jsp"><font class="subnavfont" style="padding-left: 5px; color: #000000; background: #cccccc;">Inbox</font></a><%}%>
                 </div>
             </td>
         </tr>

@@ -21,7 +21,7 @@ String acl = "customercare";
 
 
 <%
-    long openSupportIssues = NumFromUniqueResult.getInt("select count(*) from Supportissue where (status='"+ Supportissue.STATUS_DNEEROWORKING+"' or status='"+Supportissue.STATUS_OPEN+"')");
+    long openSupportIssues = NumFromUniqueResult.getInt("select count(*) from Mail where isflaggedforcustomercare=true");
     long openReviewItems = NumFromUniqueResult.getInt("select count(*) from Review where (isresearcherrejected=true or isresearcherwarned=true) and issysadminreviewed=false");
 %>
 

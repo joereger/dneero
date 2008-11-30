@@ -35,11 +35,26 @@ if (accountIndex.getUserhasresponsependings()){
             </div>
        <%}%>
 
+        <%
+        long unreadInboxItems = NumFromUniqueResult.getInt("select count(*) from Mail where userid='"+Pagez.getUserSession().getUser().getUserid()+"' and isread=false");
+        if (unreadInboxItems>0){%>
+            <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
+                <font class="smallfont"><a href="/account/inbox.jsp"><%=unreadInboxItems%> unread messages</a> are waiting for you.</font>
+            </div>
+       <%}%>
+
+        <%  long openReviewItems = NumFromUniqueResult.getInt("select count(*) from Review where useridofcontentcreator='"+Pagez.getUserSession().getUser().getUserid()+"' and (isresearcherrejected=true or isresearcherwarned=true or issysadminwarned=true or issysadminrejected=true)");
+               if (openReviewItems>0){%>
+                <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
+                    <font class="smallfont"><a href="/account/reviewables.jsp"><%=openReviewItems%> of your items</a> are flagged.</font>
+                </div>
+           <%}%>
+
 
 
        <table cellpadding="10" cellspacing="0" border="0" width="100%">
             <tr>
-                <td width="250" valign="top">
+                <td width="33%" valign="top">
                     <div class="rounded" style="padding: 5px; margin: 5px; background: #e6e6e6;">
                         <div class="rounded" style="padding: 15px; margin: 5px; background: #ffffff;">
                             <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
@@ -91,10 +106,10 @@ if (accountIndex.getUserhasresponsependings()){
 
                             <br/><br/>
                             <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-                                <a href="/account/accountsupportissueslist.jsp"><font class="mediumfont" style="color: #596697;">Help/Support</font></a>
+                                <a href="/account/inbox.jsp"><font class="mediumfont" style="color: #596697;">Inbox</font></a>
                             </td></tr>
                             <tr><td valign="top"></td><td valign="top">
-                                <font class="smallfont">Use the built-in issue and question tracking system to get help with your account.  Ask us anything and view our responses quickly and easily.</font>
+                                <font class="smallfont">Use the Inbox messaging system to get help with your account.  Ask us anything and view our responses quickly and easily.</font>
                             </td></tr></table>
                         </div>
                     </div>
@@ -115,45 +130,145 @@ if (accountIndex.getUserhasresponsependings()){
                         </div>
                    <%}%>
                 </td>
-                <td valign="top">
-
-                    <%  long openReviewItems = NumFromUniqueResult.getInt("select count(*) from Review where useridofcontentcreator='"+Pagez.getUserSession().getUser().getUserid()+"' and (isresearcherrejected=true or isresearcherwarned=true or issysadminwarned=true or issysadminrejected=true)");
-                       if (openReviewItems>0){%>
-                        <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
-                            <font class="smallfont"><a href="/account/reviewables.jsp"><%=openReviewItems%> of your items</a> are flagged.</font>
-                        </div>
-                   <%}%>
-
-                    <table cellpadding="20" cellspacing="0" border="0" width="100%">
-                        <tr>
-                            <td width="50%" align="left" valign="top">
-                                <center><a href="/blogger/index.jsp"><img src="/images/user.png" alt="" border="0" width="128" height="128"/></a></center>
+                <td width="33%" valign="top">
+                    <div class="rounded" style="padding: 5px; margin: 5px; background: #e6e6e6;">
+                        <div class="rounded" style="padding: 15px; margin: 5px; background: #ffffff;">
+                            <center><a href="/blogger/index.jsp"><img src="/images/user.png" alt="" border="0" width="128" height="128"/></a></center>
                                 <div><%=com.dneero.htmlui.GreenRoundedButton.get("<a href=\"/blogger/index.jsp\"><font class=\"mediumfont\" style=\"color: #ffffff;\">Social People</font></a>")%></div>
-                                <div style="padding: 10px;">
-                                    <font class="smallfont"><b>Join Conversations</b></font>
-                                    <br/>
-                                    <font class="smallfont">You're a social person interested in joining conversations, posting your answers to your blog and making money.</font>
-                                    <br/>
-                                    <a href="/blogger/index.jsp"><font class="subnavfont" style="color: #596697;">Continue as a Social Person</font></a>
-                                </div>
-                            </td>
-                            <td width="50%" align="left" valign="top">
-                                <center><a href="/researcher/index.jsp"><img src="/images/statistic-128.png" alt="" border="0" width="128" height="128"/></a></center>
-                                <div><%=com.dneero.htmlui.GreenRoundedButton.get("<a href=\"/researcher/index.jsp\"><font class=\"mediumfont\" style=\"color: #ffffff;\">Igniters</font></a>")%></div>
-                                <div style="padding: 10px;">
-                                    <font class="smallfont"><b>Ignite and Manage Conversations</b></font>
-                                    <br/>
-                                    <font class="smallfont">You're a researcher interested in igniting conversations, finding social people to respond to them and generating buzz for your product or service.</font>
-                                    <br/>
-                                    <a href="/researcher/index.jsp"><font class="subnavfont" style="color: #596697;">Continue as a Conversation Igniter</font></a>
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
+                                <%--<div style="padding: 10px;">--%>
+                                    <%--<font class="smallfont"><b>Join Conversations</b></font>--%>
+                                    <%--<br/>--%>
+                                    <%--<font class="smallfont">You're a social person interested in joining conversations, posting your answers to your blog and making money.</font>--%>
+                                    <%--<br/>--%>
+                                    <%--<a href="/blogger/index.jsp"><font class="subnavfont" style="color: #596697;">Continue as a Social Person</font></a>--%>
+                                <%--</div>--%>
+                        </div>
+                        <div class="rounded" style="padding: 15px; margin: 5px; background: #eeeeee;">
+                            <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
+                                <a href="/publicsurveylist.jsp"><font class="mediumfont" style="color: #596697;">Find Conversations to Join</font></a>
+                            </td></tr>
+                            <tr><td valign="top"></td><td valign="top">
+                                <font class="smallfont">Make money joining conversations and posting your opinions where your peers can join in too.</font>
+                            </td></tr></table>
+                        </div>
+                        <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
+                            <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
+                                <a href="/blogger/bloggerearningsrevshare.jsp"><font class="mediumfont" style="color: #596697;">Earn Money Inviting Friends</font></a>
+                            </td></tr>
+                            <tr><td valign="top"></td><td valign="top">
+                                <font class="smallfont">Invite friends and earn money when they join conversations!</font>
+                            </td></tr></table>
 
+                            <br/><br/>
+                            <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
+                                <a href="/blogger/index.jsp"><font class="mediumfont" style="color: #596697;">Earnings from Joined Conversations</font></a>
+                            </td></tr>
+                            <tr><td valign="top"></td><td valign="top">
+                                <font class="smallfont">See how much you've earned.</font>
+                            </td></tr></table>
 
-                    
+                            <br/><br/>
+                            <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
+                                <a href="/blogger/bloggerdetails.jsp"><font class="mediumfont" style="color: #596697;">Update Profile</font></a>
+                            </td></tr>
+                            <tr><td valign="top"></td><td valign="top">
+                                <font class="smallfont">Your profile helps us find conversations that fit your interests.  Keep it up to date.</font>
+                            </td></tr></table>
+
+                            <br/><br/>
+                            <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
+                                <a href="/blogger/bloggerfaq.jsp"><font class="mediumfont" style="color: #596697;">Blogger Frequently Asked Questions</font></a>
+                            </td></tr>
+                            <tr><td valign="top"></td><td valign="top">
+                                <font class="smallfont">Get your answers here!</font>
+                            </td></tr></table>
+
+                            <br/><br/>
+                            <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
+                                <a href="/blogger/index.jsp?showmarketingmaterial=1"><font class="mediumfont" style="color: #596697;">Blogger Basic Info</font></a>
+                            </td></tr>
+                            <tr><td valign="top"></td><td valign="top">
+                                <font class="smallfont">Basic Blogger information, how the system works, etc.</font>
+                            </td></tr></table>
+                        </div>
+                    </div>
                 </td>
+                <td width="33%" valign="top">
+                    <div class="rounded" style="padding: 5px; margin: 5px; background: #e6e6e6;">
+                        <div class="rounded" style="padding: 15px; margin: 5px; background: #ffffff;">
+                            <center><a href="/researcher/index.jsp"><img src="/images/statistic-128.png" alt="" border="0" width="128" height="128"/></a></center>
+                            <div><%=com.dneero.htmlui.GreenRoundedButton.get("<a href=\"/researcher/index.jsp\"><font class=\"mediumfont\" style=\"color: #ffffff;\">Igniters</font></a>")%></div>
+                            <%--<div style="padding: 10px;">--%>
+                                <%--<font class="smallfont"><b>Ignite and Manage Conversations</b></font>--%>
+                                <%--<br/>--%>
+                                <%--<font class="smallfont">You're a researcher interested in igniting conversations, finding social people to respond to them and generating buzz for your product or service.</font>--%>
+                                <%--<br/>--%>
+                                <%--<a href="/researcher/index.jsp"><font class="subnavfont" style="color: #596697;">Continue as a Conversation Igniter</font></a>--%>
+                            <%--</div>--%>
+                        </div>
+                        <div class="rounded" style="padding: 15px; margin: 5px; background: #eeeeee;">
+                            <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
+                                <a href="/researcher/researchersurveydetail_01.jsp"><font class="mediumfont" style="color: #596697;">Start a New Conversation</font></a>
+                            </td></tr>
+                            <tr><td valign="top"></td><td valign="top">
+                                <font class="smallfont">Ignite a new conversation. This step-by-step wizard will guide you through the process.  Your conversation can be up and running in minutes.</font>
+                            </td></tr></table>
+                        </div>
+                        <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
+                            <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
+                                <a href="/researcher/panels.jsp"><font class="mediumfont" style="color: #596697;">Panels</font></a>
+                            </td></tr>
+                            <tr><td valign="top"></td><td valign="top">
+                                <font class="smallfont">Create and manage standing panels of bloggers for longitudinal studies.</font>
+                            </td></tr></table>
+
+                            <br/><br/>
+                            <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
+                                <a href="/researcher/rank-list.jsp"><font class="mediumfont" style="color: #596697;">Rankings</font></a>
+                            </td></tr>
+                            <tr><td valign="top"></td><td valign="top">
+                                <font class="smallfont">Create your own ranking index and use it to define/track people across multiple conversations.</font>
+                            </td></tr></table>
+
+                            <br/><br/>
+                            <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
+                                <a href="/researcher/researcherdetails.jsp"><font class="mediumfont" style="color: #596697;">Update My Researcher Profile</font></a>
+                             </td></tr>
+                            <tr><td valign="top"></td><td valign="top">
+                                <font class="smallfont">Help us understand your needs so that we can serve you better.</font>
+                            </td></tr></table>
+
+                            <br/><br/>
+                            <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
+                                <a href="/researcher/researcherbilling.jsp"><font class="mediumfont" style="color: #596697;">Billing Info</font></a>
+                            </td></tr>
+                            <tr><td valign="top"></td><td valign="top">
+                                <font class="smallfont">Update your billing information on this screen.</font>
+                            </td></tr></table>
+
+
+                            <br/><br/>
+                            <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
+                                <a href="/researcher/researcherfaq.jsp"><font class="mediumfont" style="color: #596697;">Researcher Frequently Asked Questions</font></a>
+                            </td></tr>
+                            <tr><td valign="top"></td><td valign="top">
+                                <font class="smallfont">Get your answers here!</font>
+                            </td></tr></table>
+
+                            <br/><br/>
+                            <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
+                                <a href="/researcher/index.jsp?showmarketingmaterial=1"><font class="mediumfont" style="color: #596697;">Researcher Basic Info</font></a>
+                            </td></tr>
+                            <tr><td valign="top"></td><td valign="top">
+                                <font class="smallfont">Basic Researcher information, how the system works, etc.</font>
+                            </td></tr></table>
+                        </div>
+                    </div>
+                </td>
+
+
+
+
             </tr>
         </table>
 

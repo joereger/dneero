@@ -39,10 +39,9 @@ CustomercareSupportIssuesList customercareSupportIssuesListList= (CustomercareSu
     <%} else {%>
         <%
             ArrayList<GridCol> cols=new ArrayList<GridCol>();
-            cols.add(new GridCol("Id", "<$supportissueid$>", false, "", "tinyfont"));
-            cols.add(new GridCol("", "<$datetime|"+Grid.GRIDCOLRENDERER_DATETIMECOMPACT+"$>", false, "", "tinyfont"));
-            cols.add(new GridCol("", "<a href=\"/customercare/sysadminsupportissuedetail.jsp?supportissueid=<$supportissueid$>\"><$subject$></a>", false, "", "tinyfont"));
-            cols.add(new GridCol("Status", "<$status$>", false, "", "tinyfont"));
+            cols.add(new GridCol("Id", "<$mailid$>", false, "", "tinyfont"));
+            cols.add(new GridCol("", "<$date|"+Grid.GRIDCOLRENDERER_DATETIMECOMPACT+"$>", false, "", "tinyfont", "width:150px;", ""));
+            cols.add(new GridCol("", "<a href=\"/customercare/sysadminsupportissuedetail.jsp?mailid=<$mailid$>\"><$subject$></a>", false, "", "tinyfont"));
         %>
         <%=Grid.render(customercareSupportIssuesListList.getSupportissues(), cols, 200, "/customercare/sysadminsupportissueslist.jsp", "page")%>
     <%}%>

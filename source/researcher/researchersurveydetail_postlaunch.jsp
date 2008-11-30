@@ -39,7 +39,7 @@ ResearcherSurveyDetailPostlaunch researcherSurveyDetailPostlaunch = (ResearcherS
 
     </ul>
 
-    <font class="smallfont">We appreciate your business!  If you have any questions, you can use the <a href="/account/accountsupportissueslist.jsp">Help/Support Ticket</a> system.</font>
+    <font class="smallfont">We appreciate your business!  If you have any questions, you can use the <a href="/account/inbox.jsp">Help/Support Ticket</a> system.</font>
 
     <br/><br/>
     <font class="smallfont">Invite people to join your conversation:</font>

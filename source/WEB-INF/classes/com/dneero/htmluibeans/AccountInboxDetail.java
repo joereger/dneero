@@ -3,21 +3,18 @@ package com.dneero.htmluibeans;
 import org.apache.log4j.Logger;
 
 
-import com.dneero.dao.*;
+import com.dneero.dao.Supportissue;
+import com.dneero.dao.Supportissuecomm;
+import com.dneero.dao.Mail;
+import com.dneero.dao.Mailchild;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.htmlui.Pagez;
 import com.dneero.htmlui.ValidationException;
 
 import com.dneero.util.GeneralException;
-import com.dneero.util.Num;
-import com.dneero.util.Str;
-import com.dneero.email.EmailTemplateProcessor;
-import com.dneero.mail.MailNotify;
+import com.dneero.xmpp.SendXMPPMessage;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.io.Serializable;
 
 /**
@@ -25,23 +22,16 @@ import java.io.Serializable;
  * Date: Apr 21, 2006
  * Time: 10:38:03 AM
  */
-public class CustomercareSupportIssueDetail implements Serializable {
+public class AccountInboxDetail implements Serializable {
 
     private int mailid;
     private String notes;
-    private List<Mailchild> mailchildren;
+    private ArrayList<Mailchild> inboxdetails;
     private Mail mail;
-    private String status;
-    private User fromuser;
-    private boolean keepflaggedforcustomercare = false;
 
+    public AccountInboxDetail(){
 
-
-
-    public CustomercareSupportIssueDetail(){
-        
     }
-
 
     public void initBean(){
         Logger logger = Logger.getLogger(this.getClass().getName());
@@ -50,14 +40,19 @@ public class CustomercareSupportIssueDetail implements Serializable {
         if (com.dneero.util.Num.isinteger(tmpMailid)){
             logger.debug("beginView called: found mailid in param="+tmpMailid);
             Mail mail = Mail.get(Integer.parseInt(tmpMailid));
-            fromuser = User.get(mail.getUserid());
             if (Pagez.getUserSession().getUser()!=null && mail.canEdit(Pagez.getUserSession().getUser())){
                 this.mail= mail;
                 this.mailid= mail.getMailid();
-                mailchildren = HibernateUtil.getSession().createQuery("from Mailchild where mailid='"+mailid+"' order by mailchildid asc").list();
-
+                inboxdetails= new ArrayList<Mailchild>();
+                List<Mailchild> inboxchildren = HibernateUtil.getSession().createQuery("from Mailchild where mailid='"+mailid+"' order by mailchildid asc").list();
+                for (Iterator<Mailchild> mailchildIterator=inboxchildren.iterator(); mailchildIterator.hasNext();) {
+                    Mailchild mailchild=mailchildIterator.next();
+                    inboxdetails.add(mailchild);
+                }
+                //Mark as new again
+                this.mail.setIsread(true);
+                try{this.mail.save();}catch(Exception ex){logger.error("",ex);}
             }
-
         } else {
             logger.debug("beginView called: NOT found mailid in param="+tmpMailid);
         }
@@ -66,10 +61,10 @@ public class CustomercareSupportIssueDetail implements Serializable {
     public void newNote() throws ValidationException {
         ValidationException vex = new ValidationException();
         Logger logger = Logger.getLogger(this.getClass().getName());
-        //@todo permissions - make sure user is allowed to submit a note to this issue.
         if(mailid<=0){
             logger.debug("mailid not found: "+ mailid);
             vex.addValidationError("mailid not found.");
+            throw vex;
         } else {
             mail= Mail.get(mailid);
         }
@@ -77,7 +72,7 @@ public class CustomercareSupportIssueDetail implements Serializable {
         Mailchild mailchild = new Mailchild();
         mailchild.setMailid(mailid);
         mailchild.setDate(new Date());
-        mailchild.setIsfromcustomercare(true);
+        mailchild.setIsfromcustomercare(false);
         mailchild.setMailtypeid(1);
         mailchild.setVar1(notes);
         mailchild.setVar2("");
@@ -93,24 +88,16 @@ public class CustomercareSupportIssueDetail implements Serializable {
         }
 
         //Mark as new again
-        mail.setIsread(false);
-        if (!keepflaggedforcustomercare){
-            mail.setIsflaggedforcustomercare(false);
-        } else {
-            mail.setIsflaggedforcustomercare(true);   
-        }
+        mail.setIsflaggedforcustomercare(true);
         try{mail.save();}catch(Exception ex){logger.error("",ex);}
 
-        try{
-            mail.save();
-        } catch (GeneralException gex){
-            vex.addValidationError("Error saving record: "+gex.getErrorsAsSingleString());
-            logger.debug("saveAction failed: " + gex.getErrorsAsSingleString());
-            throw vex;
-        }
+        //Send xmpp message
+        SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_CUSTOMERSUPPORT, "New dNeero Customer Support Comment: "+mail.getSubject()+" (mailid="+ mailid +") ("+Pagez.getUserSession().getUser().getEmail()+") "+notes);
+        xmpp.send();
 
-        //Send notification email
-        MailNotify.notify(mail);
+        //Refresh the bean
+        initBean();
+
     }
 
     public int getMailid() {
@@ -129,12 +116,12 @@ public class CustomercareSupportIssueDetail implements Serializable {
         this.notes=notes;
     }
 
-    public List<Mailchild> getMailchildren() {
-        return mailchildren;
+    public ArrayList<Mailchild> getInboxdetails() {
+        return inboxdetails;
     }
 
-    public void setMailchildren(List<Mailchild> mailchildren) {
-        this.mailchildren=mailchildren;
+    public void setInboxdetails(ArrayList<Mailchild> inboxdetails) {
+        this.inboxdetails=inboxdetails;
     }
 
     public Mail getMail() {
@@ -143,29 +130,5 @@ public class CustomercareSupportIssueDetail implements Serializable {
 
     public void setMail(Mail mail) {
         this.mail=mail;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status=status;
-    }
-
-    public User getFromuser() {
-        return fromuser;
-    }
-
-    public void setFromuser(User fromuser) {
-        this.fromuser=fromuser;
-    }
-
-    public boolean getKeepflaggedforcustomercare() {
-        return keepflaggedforcustomercare;
-    }
-
-    public void setKeepflaggedforcustomercare(boolean keepflaggedforcustomercare) {
-        this.keepflaggedforcustomercare=keepflaggedforcustomercare;
     }
 }
