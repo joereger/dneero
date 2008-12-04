@@ -4,6 +4,8 @@ import com.dneero.util.Num;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.log4j.Logger;
+
 /**
  * User: Joe Reger Jr
  * Date: Dec 3, 2008
@@ -23,7 +25,25 @@ public class IpAddressParser {
     }
 
     public IpAddressParser(HttpServletRequest request){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         this.ipaddress = request.getRemoteAddr();
+        //mod_proxy makes things trickier
+        try{
+            if (request.getHeader("X-Forwarded-For")!=null && !request.getHeader("X-Forwarded-For").equals("")){
+                String xforwardedfor = request.getHeader("X-Forwarded-For");
+                this.ipaddress = xforwardedfor;
+                //If it's comma-sep list of ips
+                if (xforwardedfor.indexOf(",")>-1){
+                    String[] split = xforwardedfor.split(",");
+                    if (split.length>=1){
+                        this.ipaddress = split[0];
+                    }
+                }
+            }
+        } catch (Exception ex){
+            logger.error("", ex);
+            this.ipaddress = request.getRemoteAddr();
+        }
         parse();
     }
 
