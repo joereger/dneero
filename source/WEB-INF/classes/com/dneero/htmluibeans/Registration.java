@@ -20,6 +20,8 @@ import com.dneero.systemprops.BaseUrl;
 import com.dneero.helpers.UserInputSafe;
 import com.dneero.facebook.FacebookPendingReferrals;
 import com.dneero.cache.providers.CacheFactory;
+import com.dneero.iptrack.RecordIptrackUtil;
+import com.dneero.iptrack.Activitytype;
 import com.octo.captcha.service.CaptchaServiceException;
 
 import javax.servlet.http.Cookie;
@@ -230,6 +232,9 @@ public class Registration implements Serializable {
         }
         //Put userSession object into cache
         Pagez.setUserSessionAndUpdateCache(userSession);
+
+        //Record Iptrack Activity
+        RecordIptrackUtil.record(Pagez.getRequest(), Pagez.getUserSession().getUser().getUserid(), Activitytype.SIGNUP);
     }
 
 

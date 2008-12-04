@@ -120,12 +120,6 @@ public class PublicSurveyResults implements Serializable {
                 resultsHtml = SurveyResultsDisplay.getHtmlForResults(survey, null, 0, new ArrayList<Integer>(), null, true, false);
                 DbcacheexpirableCache.put(resultsHtmlKey, group, resultsHtml, DbcacheexpirableCache.expireSurveyInXHrs(survey, 3));
             }
-//            if (HtmlCache.isStale(resultsHtmlKey, 6000)){
-//                resultsHtml = SurveyResultsDisplay.getHtmlForResults(survey, null, 0, new ArrayList<Integer>(), null, true, false);
-//                HtmlCache.updateCache(resultsHtmlKey, 6000, resultsHtml);
-//            } else {
-//                resultsHtml = HtmlCache.getFromCache(resultsHtmlKey);
-//            }
         } else {
             resultsHtml = "<font class=\"smallfont\">The conversation igniter has chosen to hide overall aggregate results.  However, dNeero does not allow researchers to hide aggregate results from individual blogs so those results are still available.  To see such results, find a place where this conversation is posted and click the See How Others Voted link... you'll see how others from that blog answered.</font>";
         }

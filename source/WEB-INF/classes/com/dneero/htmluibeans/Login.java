@@ -22,6 +22,8 @@ import com.dneero.xmpp.SendXMPPMessage;
 import com.dneero.eula.EulaHelper;
 import com.dneero.systemprops.SystemProperty;
 import com.dneero.systemprops.BaseUrl;
+import com.dneero.iptrack.RecordIptrackUtil;
+import com.dneero.iptrack.Activitytype;
 
 import javax.servlet.http.Cookie;
 
@@ -131,6 +133,9 @@ public class Login implements Serializable {
 
                 //This is where the new UserSession is actually bound to Pagez.getUserSession()
                 Pagez.setUserSessionAndUpdateCache(userSession);
+
+                //Record Iptrack Activity
+                RecordIptrackUtil.record(Pagez.getRequest(), Pagez.getUserSession().getUser().getUserid(), Activitytype.LOGIN);
 
 
             } else {

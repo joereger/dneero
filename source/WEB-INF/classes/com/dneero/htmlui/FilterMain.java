@@ -14,6 +14,8 @@ import com.dneero.util.Time;
 import com.dneero.xmpp.SendXMPPMessage;
 import com.dneero.privatelabel.PlFinder;
 import com.dneero.db.Db;
+import com.dneero.iptrack.RecordIptrackUtil;
+import com.dneero.iptrack.Activitytype;
 import org.apache.log4j.Logger;
 
 import javax.servlet.*;
@@ -153,11 +155,15 @@ public class FilterMain implements Filter {
                                                 } else {
                                                     newUserSession.setIseulaok(true);
                                                 }
+                                                //Setup the userSession
                                                 Pagez.setUserSessionAndUpdateCache(newUserSession);
                                                 wasAutoLoggedIn = true;
                                                 //Notify via XMPP
                                                 SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_SALES, "dNeero User Auto-Login: "+ user.getFirstname() + " " + user.getLastname() + " ("+user.getEmail()+")");
                                                 xmpp.send();
+                                                //Record Iptrack Activity
+                                                RecordIptrackUtil.record(Pagez.getRequest(), Pagez.getUserSession().getUser().getUserid(), Activitytype.PERSISTENTLOGIN);
+                                                //Get the hell outta there
                                                 break;
                                                 //Now dispatch request to the same page so that header is changed to reflect logged-in status
     //                                            if (wasAutoLoggedIn){

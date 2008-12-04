@@ -180,6 +180,29 @@
         </trigger>
     </job>
 
+    <job>
+        <job-detail>
+          <name>deleteOldIptrack</name>
+          <group>surveyJobs</group>
+          <job-class>com.dneero.scheduledjobs.DeleteOldIptrack</job-class>
+          <volatility>false</volatility>
+          <durability>false</durability>
+          <recover>false</recover>
+        </job-detail>
+        <trigger>
+          <cron>
+            <name>deleteOldIptrackTrigger</name>
+            <group>surveyTriggers</group>
+            <job-name>deleteOldIptrack</job-name>
+            <job-group>surveyJobs</job-group>
+            <!-- Fire at 8am every day -->
+            <cron-expression>0 0 8 * * ?</cron-expression>
+          </cron>
+        </trigger>
+    </job>
+
+
+
 
 
 

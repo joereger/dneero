@@ -30,6 +30,7 @@ public class CustomercareUserList implements Serializable {
     private String searchlastname="";
     private String searchemail="";
     private boolean searchfacebookers=false;
+    private String searchreferredbyuserid="";
 
     public CustomercareUserList() {
 
@@ -62,6 +63,9 @@ public class CustomercareUserList implements Serializable {
             }
             if(searchfacebookers){
                 crit.add(Restrictions.gt("facebookuserid", 0));
+            }
+            if (searchreferredbyuserid!=null && !searchreferredbyuserid.equals("") && Num.isinteger(searchreferredbyuserid)){
+                crit.add(Restrictions.eq("referredbyuserid", Integer.parseInt(searchreferredbyuserid)));
             }
             users = (List<User>)crit.addOrder(Order.desc("userid")).list();
         } else {
@@ -124,5 +128,13 @@ public class CustomercareUserList implements Serializable {
 
     public void setSearchfacebookers(boolean searchfacebookers) {
         this.searchfacebookers = searchfacebookers;
+    }
+
+    public String getSearchreferredbyuserid() {
+        return searchreferredbyuserid;
+    }
+
+    public void setSearchreferredbyuserid(String searchreferredbyuserid) {
+        this.searchreferredbyuserid=searchreferredbyuserid;
     }
 }

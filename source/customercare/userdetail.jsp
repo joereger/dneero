@@ -393,6 +393,18 @@ CustomercareUserDetail customercareUserDetail= (CustomercareUserDetail)Pagez.get
                         </div>
 
                         <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
+                            <a href="/customercare/userdetailextended.jsp?userid=<%=customercareUserDetail.getUser().getUserid()%>"><b>User's extended detail screen.</b></a>
+                        </div>
+
+                        <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
+                            <a href="/customercare/iptrack.jsp?action=search&searchuserid=<%=customercareUserDetail.getUserid()%>"><b>Ip Track data for this user.</b></a>
+                        </div>
+
+                        <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
+                            <a href="/customercare/userlist.jsp?action=search&searchreferredbyuserid=<%=customercareUserDetail.getUserid()%>"><b>Users referred by this userid.</b></a>
+                        </div>
+
+                        <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
                             <form action="/customercare/userdetail.jsp" method="post">
                                 <input type="hidden" name="dpage" value="/customercare/userdetail.jsp">
                                 <input type="hidden" name="action" value="giveusermoney">
@@ -483,8 +495,6 @@ CustomercareUserDetail customercareUserDetail= (CustomercareUserDetail)Pagez.get
 
         
 
-        <br/><br/>
-        <a href="/customercare/userdetailextended.jsp?userid=<%=customercareUserDetail.getUser().getUserid()%>"><font class="mediumfont">Go to <%=customercareUserDetail.getFirstname()%> <%=customercareUserDetail.getLastname()%>'s Extended User Screen</font></a>
 
 
 

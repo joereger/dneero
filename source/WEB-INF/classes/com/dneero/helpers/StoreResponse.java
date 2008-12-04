@@ -18,6 +18,9 @@ import com.dneero.session.SurveysTakenToday;
 import com.dneero.survey.servlet.EmbedCacheFlusher;
 import com.dneero.survey.servlet.ImpressionsByDayUtil;
 import com.dneero.xmpp.SendXMPPMessage;
+import com.dneero.iptrack.RecordIptrackUtil;
+import com.dneero.iptrack.Activitytype;
+import com.dneero.util.Str;
 import org.apache.log4j.Logger;
 import org.hibernate.criterion.Restrictions;
 
@@ -308,6 +311,9 @@ public class StoreResponse {
                 try{
                     response.getIncentive().doImmediatelyAfterResponse(response);
                 } catch (Exception ex){logger.error("",ex);};
+
+                //Record Iptrack Activity
+                RecordIptrackUtil.record(Pagez.getRequest(), user.getUserid(), Activitytype.CONVOJOIN, Str.truncateString(survey.getTitle(), 100));
             }
         } catch (Exception ex){
             logger.error("",ex);

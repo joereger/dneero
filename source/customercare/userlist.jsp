@@ -24,6 +24,7 @@ CustomercareUserList customercareUserListList= (CustomercareUserList)Pagez.getBe
             customercareUserListList.setSearchfirstname(Textbox.getValueFromRequest("searchfirstname", "Firstname", false, DatatypeString.DATATYPEID));
             customercareUserListList.setSearchlastname(Textbox.getValueFromRequest("searchlastname", "Lastname", false, DatatypeString.DATATYPEID));
             customercareUserListList.setSearchuserid(Textbox.getValueFromRequest("searchuserid", "Userid", false, DatatypeString.DATATYPEID));
+            customercareUserListList.setSearchreferredbyuserid(Textbox.getValueFromRequest("searchreferredbyuserid", "Referred By Userid", false, DatatypeString.DATATYPEID));
             customercareUserListList.initBean();
             if (customercareUserListList.getUsers()!=null && customercareUserListList.getUsers().size()==1){
                 User user = customercareUserListList.getUsers().get(0);
@@ -56,6 +57,9 @@ CustomercareUserList customercareUserListList= (CustomercareUserList)Pagez.getBe
                     <font class="tinyfont">Email</font>
                 </td>
                 <td valign="top">
+                    <font class="tinyfont">Referred By Userid</font>
+                </td>
+                <td valign="top">
                     <font class="tinyfont">Facebook?</font>
                 </td>
                 <td valign="top">
@@ -74,6 +78,9 @@ CustomercareUserList customercareUserListList= (CustomercareUserList)Pagez.getBe
                 </td>
                 <td valign="top">
                     <%=Textbox.getHtml("searchemail", customercareUserListList.getSearchemail(), 255, 5, "", "")%>
+                </td>
+                <td valign="top">
+                    <%=Textbox.getHtml("searchreferredbyuserid", customercareUserListList.getSearchreferredbyuserid(), 255, 5, "", "")%>
                 </td>
                 <td valign="top">
                     <%=CheckboxBoolean.getHtml("searchfacebookers", customercareUserListList.getSearchfacebookers(), "", "")%>
@@ -99,6 +106,7 @@ CustomercareUserList customercareUserListList= (CustomercareUserList)Pagez.getBe
                 cols.add(new GridCol("Name", "<$firstname$> <$lastname$>", false, "", "tinyfont"));
                 cols.add(new GridCol("Email", "<$email$>", false, "", "tinyfont"));
                 cols.add(new GridCol("Signup Date", "<$createdate|"+Grid.GRIDCOLRENDERER_DATETIMECOMPACT+"$>", false, "", "tinyfont"));
+                cols.add(new GridCol("Referred By Userid", "<a href=\"/customercare/userdetail.jsp?userid=<$referredbyuserid$>\"><$referredbyuserid$></a>", false, "", "tinyfont"));
             %>
             <%=Grid.render(customercareUserListList.getUsers(), cols, 200, "/customercare/userlist.jsp", "page")%>
         <%}%>

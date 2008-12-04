@@ -6,6 +6,8 @@
 <%@ page import="com.dneero.rank.RankForSurveyThread" %>
 <%@ page import="org.hibernate.criterion.Order" %>
 <%@ page import="org.hibernate.criterion.Restrictions" %>
+<%@ page import="com.dneero.cache.html.DbcacheexpirableCache" %>
+<%@ page import="com.dneero.iptrack.IptrackAnalyzer" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "Customer Care";
@@ -25,21 +27,44 @@ String acl = "customercare";
     long openReviewItems = NumFromUniqueResult.getInt("select count(*) from Review where (isresearcherrejected=true or isresearcherwarned=true) and issysadminreviewed=false");
 %>
 
+<%
+
+        Integer questionableIps = 0;
+        String resultsHtmlKey = "customercare-index.jsp-questionableIps";
+        String group = "customercare-index.jsp-questionableIps";
+        Object fromCache = DbcacheexpirableCache.get(resultsHtmlKey, group);
+        if (fromCache!=null){
+            try{questionableIps = (Integer)fromCache;}catch(Exception ex){logger.error("", ex);}
+        } else {
+            questionableIps = 0;
+            HashMap<String, Integer> ips = IptrackAnalyzer.analyze(2);
+            questionableIps = ips.size();
+            DbcacheexpirableCache.put(resultsHtmlKey, group, questionableIps, Time.xMinutesAgoEnd(Calendar.getInstance(), -15).getTime());
+        }
+    %>
+
 <div class="rounded" style="padding: 0px; margin: 10px; background: #33FF00;">
         <table cellpadding="0" cellspacing="0" border="0" width="100%">
            <tr>
-               <td valign="top" width="25%">
+               <td valign="top" width="33%">
                 <div class="rounded" style="padding: 15px; margin: 8px; background: #BFFFBF;">
                     <font class="largefont"><%=openSupportIssues%></font>
                     <br/>
                     <font class="mediumfont">open <a href="/customercare/sysadminsupportissueslist.jsp">support issues</a></font>
                 </div>
                </td>
-               <td valign="top" width="25%">
+               <td valign="top" width="33%">
                 <div class="rounded" style="padding: 15px; margin: 8px; background: #BFFFBF;">
                     <font class="largefont"><%=openReviewItems%></font>
                     <br/>
                     <font class="mediumfont">items for <a href="/customercare/reviewables.jsp">review</a></font>
+                </div>
+               </td>
+               <td valign="top" width="33%">
+                <div class="rounded" style="padding: 15px; margin: 8px; background: #BFFFBF;">
+                    <font class="largefont"><%=questionableIps%></font>
+                    <br/>
+                    <font class="mediumfont">questionable <a href="/customercare/iptrack.jsp">ips</a></font>
                 </div>
                </td>
            </tr>
