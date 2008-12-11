@@ -63,14 +63,14 @@ CustomercareIptrack customercareIptrack = (CustomercareIptrack)Pagez.getBeanMgr(
                 }
             }
             qipsStr = qips.toString();
-            DbcacheexpirableCache.put(resultsHtmlKey, group, qipsStr, Time.xMinutesAgoEnd(Calendar.getInstance(), -15).getTime());
+            DbcacheexpirableCache.put(resultsHtmlKey, group, qipsStr, Time.xMinutesAgoEnd(Calendar.getInstance(), -90).getTime());
         }
     %>
         <div class="rounded" style="padding: 15px; margin: 8px; background: #BFFFBF;">
             <font class="normalfont" style="font-weight:bold;">Questionable IPs</font>
             <br/>
             <font class="tinyfont">
-            Refreshes every 15 min.
+            Refreshes every 90 min.
             </font>
             <br/>
             <font class="tinyfont">

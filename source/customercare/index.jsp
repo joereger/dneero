@@ -27,21 +27,6 @@ String acl = "customercare";
     long openReviewItems = NumFromUniqueResult.getInt("select count(*) from Review where (isresearcherrejected=true or isresearcherwarned=true) and issysadminreviewed=false");
 %>
 
-<%
-
-        Integer questionableIps = 0;
-        String resultsHtmlKey = "customercare-index.jsp-questionableIps";
-        String group = "customercare-index.jsp-questionableIps";
-        Object fromCache = DbcacheexpirableCache.get(resultsHtmlKey, group);
-        if (fromCache!=null){
-            try{questionableIps = (Integer)fromCache;}catch(Exception ex){logger.error("", ex);}
-        } else {
-            questionableIps = 0;
-            HashMap<String, Integer> ips = IptrackAnalyzer.analyze(2);
-            questionableIps = ips.size();
-            DbcacheexpirableCache.put(resultsHtmlKey, group, questionableIps, Time.xMinutesAgoEnd(Calendar.getInstance(), -15).getTime());
-        }
-    %>
 
 <div class="rounded" style="padding: 0px; margin: 10px; background: #33FF00;">
         <table cellpadding="0" cellspacing="0" border="0" width="100%">
@@ -62,7 +47,7 @@ String acl = "customercare";
                </td>
                <td valign="top" width="33%">
                 <div class="rounded" style="padding: 15px; margin: 8px; background: #BFFFBF;">
-                    <font class="largefont"><%=questionableIps%></font>
+                    <font class="largefont">??</font>
                     <br/>
                     <font class="mediumfont">questionable <a href="/customercare/iptrack.jsp">ips</a></font>
                 </div>

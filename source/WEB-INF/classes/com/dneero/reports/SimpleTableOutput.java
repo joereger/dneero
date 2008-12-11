@@ -66,6 +66,9 @@ public class SimpleTableOutput {
         if (onlyshow.equals("")||onlyshow.equals("state")){
             out.append(getHtmlForField(fa.getState(), "State"));
         }
+        if (onlyshow.equals("")||onlyshow.equals("country")){
+            out.append(getHtmlForField(fa.getState(), "Country"));
+        }
 
         out.append("</table>");
 

@@ -14,6 +14,8 @@ import com.dneero.survey.servlet.RecordImpression;
 import com.dneero.htmlui.Pagez;
 import com.dneero.htmlui.UserSession;
 import com.dneero.cache.providers.CacheFactory;
+import com.dneero.eula.EulaHelper;
+import com.dneero.finders.UserProfileCompletenessChecker;
 import com.facebook.api.FacebookRestClient;
 import com.facebook.api.FacebookException;
 
@@ -165,6 +167,18 @@ public class FacebookAuthorizationJsp {
                         Pagez.getUserSession().setUser(user);
                         Pagez.getUserSession().setIsloggedin(true);
                         Pagez.getUserSession().setSurveystakentoday(SurveysTakenToday.getNumberOfSurveysTakenToday(user));
+                        //Check the eula
+                        if (!EulaHelper.isUserUsingMostRecentEula(user)){
+                            Pagez.getUserSession().setIseulaok(false);
+                        } else {
+                            Pagez.getUserSession().setIseulaok(true);
+                        }
+                        //Check the profile completeness
+                        if (!UserProfileCompletenessChecker.isProfileComplete(user)){
+                            Pagez.getUserSession().setIsbloggerprofileok(false);
+                        } else {
+                            Pagez.getUserSession().setIsbloggerprofileok(true);
+                        }
                         logger.debug("dNeero Facebook Login: "+ user.getFirstname() + " " + user.getLastname() + " ("+user.getEmail()+") (Facebook.userid="+user.getFacebookuserid()+")");
                         //If their account is marked as having removed the app but facebook says they've got it added, update the User object
                         if (Pagez.getUserSession().getFacebookUser().getHas_added_app() && user.getIsfacebookappremoved()){

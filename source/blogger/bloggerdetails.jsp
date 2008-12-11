@@ -27,9 +27,10 @@ BloggerDetails bloggerDetails = (BloggerDetails)Pagez.getBeanMgr().get("BloggerD
             bloggerDetails.setPolitics(Dropdown.getValueFromRequest("politics", "Politics", true));
             bloggerDetails.setProfession(Dropdown.getValueFromRequest("profession", "Profession", true));
             bloggerDetails.setState(Dropdown.getValueFromRequest("state", "State", true));
+            bloggerDetails.setCountry(Dropdown.getValueFromRequest("country", "Country", true));
             bloggerDetails.setUserid(Pagez.getUserSession().getUser().getUserid());
             bloggerDetails.saveAction();
-            Pagez.getUserSession().setMessage("Profile Saved Successfully");
+            Pagez.getUserSession().setMessage("Profile Saved Successfully!");
             if (Pagez.getUserSession().getIsfacebookui()){
                 if (bloggerDetails.getIsnewblogger()){
                     Pagez.sendRedirect("/blogger/index.jsp");
@@ -99,6 +100,7 @@ BloggerDetails bloggerDetails = (BloggerDetails)Pagez.getBeanMgr().get("BloggerD
                             </td>
                             <td valign="top">
                                 <%=Dropdown.getHtml("ethnicity", bloggerDetails.getEthnicity(), Util.treeSetToTreeMap(Ethnicities.get()), "", "")%>
+                                <br/><font class="tinyfont">Or choose Not Specified.</font>
                             </td>
                         </tr>
 
@@ -147,6 +149,15 @@ BloggerDetails bloggerDetails = (BloggerDetails)Pagez.getBeanMgr().get("BloggerD
                             <td valign="top">
                                 <%=Dropdown.getHtml("state", bloggerDetails.getState(), Util.treeSetToTreeMap(States.get()), "", "")%>
                                 <br/><font class="tinyfont">International users choose Non-US.</font>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td valign="top">
+                                <font class="formfieldnamefont">Country</font>
+                            </td>
+                            <td valign="top">
+                                <%=Dropdown.getHtml("country", bloggerDetails.getCountry(), Util.treeSetToTreeMap(Countries.get()), "", "")%>
                             </td>
                         </tr>
 

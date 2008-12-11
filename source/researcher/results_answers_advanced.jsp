@@ -28,6 +28,7 @@ ResearcherResultsAnswersAdvanced researcherResultsAnswersAdvanced = (ResearcherR
             researcherResultsAnswersAdvanced.setBlogfocus(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("blogfocus", "Blog Focus", false)));
             researcherResultsAnswersAdvanced.setBlogquality(Dropdown.getIntFromRequest("blogquality", "Blog Quality", false));
             researcherResultsAnswersAdvanced.setCity(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("cities", "Cities", false)));
+            researcherResultsAnswersAdvanced.setCountry(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("countries", "Countries", false)));
             researcherResultsAnswersAdvanced.setEducationlevel(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("educationlevel", "Education Levels", false)));
             researcherResultsAnswersAdvanced.setEthnicity(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("ethnicity", "Ethnicity", false)));
             researcherResultsAnswersAdvanced.setGender(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("gender", "Genders", false)));
@@ -255,6 +256,21 @@ ResearcherResultsAnswersAdvanced researcherResultsAnswersAdvanced = (ResearcherR
                             </td>
                             <td valign="top">
                                 <%=DropdownMultiselect.getHtml("cities", Util.stringArrayToArrayList(researcherResultsAnswersAdvanced.getCity()), Util.treeSetToTreeMap(Cities.get()), 6, "", "font-size: 8px;")%>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td valign="top">
+                                <font class="formfieldnamefont">Country</font>
+                            </td>
+                            <td valign="top">
+                                <%=DropdownMultiselect.getHtml("countries", Util.stringArrayToArrayList(researcherResultsAnswersAdvanced.getCountry()), Util.treeSetToTreeMap(Countries.get()), 6, "", "font-size: 8px;")%>
+                            </td>
+
+                            <td valign="top">
+                                <font class="formfieldnamefont"></font>
+                            </td>
+                            <td valign="top">
                             </td>
                         </tr>
 

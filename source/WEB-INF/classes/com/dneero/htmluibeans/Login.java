@@ -24,6 +24,7 @@ import com.dneero.systemprops.SystemProperty;
 import com.dneero.systemprops.BaseUrl;
 import com.dneero.iptrack.RecordIptrackUtil;
 import com.dneero.iptrack.Activitytype;
+import com.dneero.finders.UserProfileCompletenessChecker;
 
 import javax.servlet.http.Cookie;
 
@@ -93,14 +94,18 @@ public class Login implements Serializable {
                 userSession.setSurveystakentoday(SurveysTakenToday.getNumberOfSurveysTakenToday(user));
                 userSession.setIsfacebookui(Pagez.getUserSession().getIsfacebookui());
                 userSession.setFacebookSessionKey(Pagez.getUserSession().getFacebookSessionKey());
-
                 //Check the eula
                 if (!EulaHelper.isUserUsingMostRecentEula(user)){
                     userSession.setIseulaok(false);
                 } else {
                     userSession.setIseulaok(true);
                 }
-
+                //Check the profile completeness
+                if (!UserProfileCompletenessChecker.isProfileComplete(user)){
+                    userSession.setIsbloggerprofileok(false);
+                } else {
+                    userSession.setIsbloggerprofileok(true);
+                }
                 //Set persistent login cookie, if necessary
                 if (keepmeloggedin){
                     //Get all possible cookies to set

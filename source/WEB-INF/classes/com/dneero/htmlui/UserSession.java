@@ -33,6 +33,7 @@ public class UserSession implements Serializable {
     private String pendingSurveyResponseAsString = "";
     private int pendingSurveyReferredbyuserid = 0;
     private boolean iseulaok = true;
+    private boolean isbloggerprofileok = true;
     private int emailinvitesurveyiduserisinvitedto = 0;
     private String emailinvitesubject = "";
     private String emailinvitemessage = "";
@@ -317,5 +318,13 @@ public class UserSession implements Serializable {
 
     public void setLastaccesseddate(Calendar lastaccesseddate) {
         this.lastaccesseddate=lastaccesseddate;
+    }
+
+    public boolean getIsbloggerprofileok() {
+        return isbloggerprofileok;
+    }
+
+    public void setIsbloggerprofileok(boolean isbloggerprofileok) {
+        this.isbloggerprofileok=isbloggerprofileok;
     }
 }

@@ -136,6 +136,8 @@ public class FindBloggersForSurvey {
         crit.add( Property.forName("state").in( scXml.getState() ) );
         //City
         crit.add( Property.forName("city").in( scXml.getCity() ) );
+        //Country
+        crit.add( Property.forName("country").in( scXml.getCountry() ) );
         //Profession
         crit.add( Property.forName("profession").in( scXml.getProfession() ) );
         //Politics

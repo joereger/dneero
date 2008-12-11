@@ -28,6 +28,7 @@ public class FieldAggregator implements Serializable {
     private TreeMap<String, Integer> educationlevel = new TreeMap<String, Integer>();
     private TreeMap<String, Integer> state = new TreeMap<String, Integer>();
     private TreeMap<String, Integer> city = new TreeMap<String, Integer>();
+    private TreeMap<String, Integer> country = new TreeMap<String, Integer>();
     private TreeMap<String, Integer> profession = new TreeMap<String, Integer>();
     private TreeMap<String, Integer> blogfocus = new TreeMap<String, Integer>();
     private TreeMap<String, Integer> politics = new TreeMap<String, Integer>();
@@ -51,6 +52,7 @@ public class FieldAggregator implements Serializable {
             addData(educationlevel, blogger.getEducationlevel());
             addData(state, blogger.getState());
             addData(city, blogger.getCity());
+            addData(country, blogger.getCountry());
             addData(profession, blogger.getProfession());
             addData(blogfocus, blogger.getBlogfocus());
             addData(politics, blogger.getPolitics());
@@ -128,5 +130,13 @@ public class FieldAggregator implements Serializable {
 
     public TreeMap<String, Integer> getAge() {
         return age;
+    }
+
+    public TreeMap<String, Integer> getCountry() {
+        return country;
+    }
+
+    public void setCountry(TreeMap<String, Integer> country) {
+        this.country=country;
     }
 }

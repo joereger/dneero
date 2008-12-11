@@ -19,6 +19,7 @@ import com.dneero.htmlui.UserSession;
 import com.dneero.htmlui.Pagez;
 import com.dneero.htmlui.ValidationException;
 import com.dneero.money.PaymentMethod;
+import com.dneero.finders.UserProfileCompletenessChecker;
 
 
 /**
@@ -40,6 +41,7 @@ public class BloggerDetails implements Serializable {
     private String profession;
     private String blogfocus;
     private String politics;
+    private String country;
 
     private boolean isnewblogger;
 
@@ -71,6 +73,7 @@ public class BloggerDetails implements Serializable {
             profession = String.valueOf(blogger.getProfession());
             politics = String.valueOf(blogger.getPolitics());
             blogfocus = blogger.getBlogfocus();
+            country = blogger.getCountry();
         } else {
             birthdate = new Date();
         }
@@ -126,6 +129,7 @@ public class BloggerDetails implements Serializable {
             blogger.setProfession(profession);
             blogger.setPolitics(politics);
             blogger.setBlogfocus(blogfocus);
+            blogger.setCountry(country);
 
             try{
                 blogger.save();
@@ -174,6 +178,12 @@ public class BloggerDetails implements Serializable {
             }
 
             Pagez.getUserSession().getUser().refresh();
+
+            if (!UserProfileCompletenessChecker.isProfileComplete(Pagez.getUserSession().getUser())){
+                Pagez.getUserSession().setIsbloggerprofileok(false);
+            } else {
+                Pagez.getUserSession().setIsbloggerprofileok(true);
+            }
 
 
         } else {
@@ -290,5 +300,13 @@ public class BloggerDetails implements Serializable {
 
     public void setIsnewblogger(boolean isnewblogger) {
         this.isnewblogger=isnewblogger;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country=country;
     }
 }

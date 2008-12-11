@@ -16,6 +16,7 @@ import com.dneero.privatelabel.PlFinder;
 import com.dneero.db.Db;
 import com.dneero.iptrack.RecordIptrackUtil;
 import com.dneero.iptrack.Activitytype;
+import com.dneero.finders.UserProfileCompletenessChecker;
 import org.apache.log4j.Logger;
 
 import javax.servlet.*;
@@ -54,14 +55,14 @@ public class FilterMain implements Filter {
         try{
             if (httpServletRequest.getRequestURL().indexOf("jpg")==-1 && httpServletRequest.getRequestURL().indexOf("css")==-1 && httpServletRequest.getRequestURL().indexOf("gif")==-1 && httpServletRequest.getRequestURL().indexOf("png")==-1){
                 logger.debug("Start FilterMain");
-//                logger.debug("");
-//                logger.debug("");
-//                logger.debug("");
-//                logger.debug("");
-//                logger.debug("------");
-//                logger.debug("-------------");
-//                logger.debug("---------------------------START REQUEST: "+httpServletRequest.getRequestURL());
-//                logger.debug("httpServletRequest.getSession().getId()="+httpServletRequest.getSession().getId());
+                logger.debug("");
+                logger.debug("");
+                logger.debug("");
+                logger.debug("");
+                logger.debug("------");
+                logger.debug("-------------");
+                logger.debug("---------------------------START REQUEST: "+httpServletRequest.getRequestURL());
+                logger.debug("httpServletRequest.getSession().getId()="+httpServletRequest.getSession().getId());
 
                 //If the database is ready
                 if (Db.getHaveValidConfig()){
@@ -155,6 +156,12 @@ public class FilterMain implements Filter {
                                                 } else {
                                                     newUserSession.setIseulaok(true);
                                                 }
+                                                //Check the profile completeness
+                                                if (!UserProfileCompletenessChecker.isProfileComplete(user)){
+                                                    newUserSession.setIsbloggerprofileok(false);
+                                                } else {
+                                                    newUserSession.setIsbloggerprofileok(true);
+                                                }
                                                 //Setup the userSession
                                                 Pagez.setUserSessionAndUpdateCache(newUserSession);
                                                 wasAutoLoggedIn = true;
@@ -195,9 +202,10 @@ public class FilterMain implements Filter {
                             }
                         }
                     }
+                    logger.debug("after persistent login and isfacebookui="+Pagez.getUserSession().getIsfacebookui());
                     //Persistent login end
 
-                    logger.debug("after persistent login and isfacebookui="+Pagez.getUserSession().getIsfacebookui());
+
 
 
                     //Account activation
@@ -214,11 +222,29 @@ public class FilterMain implements Filter {
                     }
 
                     //Now check the eula
-                    if (Pagez.getUserSession().getIsloggedin() && !Pagez.getUserSession().getIseulaok()){
+                    boolean isOnEulaPage = false;
+                    if (Pagez.getUserSession().getIsloggedin() && Pagez.getUserSession().getUser()!=null && Pagez.getUserSession().getUser().getUserid()>0 && !Pagez.getUserSession().getIseulaok()){
                         System.out.println("redirecting to force eula accept");
-                        if (urlSplitter.getRequestUrl().indexOf("loginagreeneweula.jsp")==-1){
-                            httpServletResponse.sendRedirect("/loginagreeneweula.jsp");
+                        if (urlSplitter.getRequestUrl().indexOf("loginagreeneweula.jsp")==-1 && (Pagez.getRequest().getParameter("dpage")==null || Pagez.getRequest().getParameter("dpage").indexOf("loginagreeneweula.jsp")==-1)){
+                            isOnEulaPage = false;
+                            Pagez.sendRedirect("/loginagreeneweula.jsp");
                             return;
+                        } else {
+                            isOnEulaPage = true;
+                        }
+                    }
+
+                    //Now check the profile completeness
+                    boolean isOnBloggerProfilePage = false;
+                    if (!isOnEulaPage && Pagez.getUserSession().getIsloggedin() && !Pagez.getUserSession().getIsbloggerprofileok()){
+                        System.out.println("redirecting to complete blogger profile");
+                        if (urlSplitter.getRequestUrl().indexOf("bloggerdetails.jsp")==-1 && (Pagez.getRequest().getParameter("dpage")==null || Pagez.getRequest().getParameter("dpage").indexOf("bloggerdetails.jsp")==-1)){
+                            isOnBloggerProfilePage = false;
+                            Pagez.getUserSession().setMessage("Please verify that your profile is up to date and accurate before continuing.");
+                            Pagez.sendRedirect("/blogger/bloggerdetails.jsp");
+                            return;
+                        } else {
+                            isOnBloggerProfilePage = true;   
                         }
                     }
 
@@ -241,13 +267,13 @@ public class FilterMain implements Filter {
 
         try{
             if (httpServletRequest.getRequestURL().indexOf("jpg")==-1 && httpServletRequest.getRequestURL().indexOf("css")==-1 && httpServletRequest.getRequestURL().indexOf("gif")==-1 && httpServletRequest.getRequestURL().indexOf("png")==-1){
-//                logger.debug("---------------------------END REQUEST: "+httpServletRequest.getRequestURL());
-//                logger.debug("-------------");
-//                logger.debug("------");
-//                logger.debug("");
-//                logger.debug("");
-//                logger.debug("");
-//                logger.debug("");
+                logger.debug("---------------------------END REQUEST: "+httpServletRequest.getRequestURL());
+                logger.debug("-------------");
+                logger.debug("------");
+                logger.debug("");
+                logger.debug("");
+                logger.debug("");
+                logger.debug("");
                 logger.debug("End FilterMain");
             }
         }catch(Exception ex){logger.error("", ex);}

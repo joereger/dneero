@@ -33,6 +33,7 @@ public class Blogger extends BasePersistentClass implements java.io.Serializable
      private String profession;
      private String politics;
      private String blogfocus;
+     private String country;
      private double quality;
      private double quality90days;
      private double socialinfluencerating;
@@ -247,5 +248,13 @@ public class Blogger extends BasePersistentClass implements java.io.Serializable
 
     public void setBlogfocus(String blogfocus) {
         this.blogfocus = blogfocus;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country=country;
     }
 }

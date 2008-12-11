@@ -34,6 +34,7 @@ ResearcherSurveyDetail04 researcherSurveyDetail04 = (ResearcherSurveyDetail04)Pa
             researcherSurveyDetail04.setBlogfocus(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("blogfocus", "Blog Focus", false)));
             researcherSurveyDetail04.setBlogquality(Dropdown.getIntFromRequest("blogquality", "Blog Quality", false));
             researcherSurveyDetail04.setCity(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("cities", "Cities", false)));
+            researcherSurveyDetail04.setCountry(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("countries", "Countries", false)));
             researcherSurveyDetail04.setEducationlevel(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("educationlevel", "Education Levels", false)));
             researcherSurveyDetail04.setEthnicity(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("ethnicity", "Ethnicity", false)));
             researcherSurveyDetail04.setGender(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("gender", "Genders", false)));
@@ -212,6 +213,21 @@ ResearcherSurveyDetail04 researcherSurveyDetail04 = (ResearcherSurveyDetail04)Pa
                 </td>
                 <td valign="top">
                     <%=DropdownMultiselect.getHtml("cities", Util.stringArrayToArrayList(researcherSurveyDetail04.getCity()), Util.treeSetToTreeMap(Cities.get()), 6, "", "")%>
+                </td>
+            </tr>
+
+            <tr>
+                <td valign="top">
+                    <font class="formfieldnamefont">Country</font>
+                </td>
+                <td valign="top">
+                    <%=DropdownMultiselect.getHtml("countries", Util.stringArrayToArrayList(researcherSurveyDetail04.getCountry()), Util.treeSetToTreeMap(Countries.get()), 6, "", "")%>
+                </td>
+
+                <td valign="top">
+                    <font class="formfieldnamefont"></font>
+                </td>
+                <td valign="top">
                 </td>
             </tr>
 

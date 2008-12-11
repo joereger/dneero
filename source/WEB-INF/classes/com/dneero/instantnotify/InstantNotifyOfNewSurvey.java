@@ -78,19 +78,21 @@ public class InstantNotifyOfNewSurvey implements Runnable {
         for (Iterator<Blogger> iterator = bloggers.iterator(); iterator.hasNext();) {
             Blogger blogger = iterator.next();
             User user = User.get(blogger.getUserid());
-            if (user.getInstantnotifybyemailison()){
-                //Send email
-                EmailTemplateProcessor.sendMail("Instant Notification: New dNeero Conversation for "+user.getFirstname(), "bloggernotifyofnewsurveys", user, args);
-            }
-            if (user.getInstantnotifybytwitterison() && !user.getInstantnotifytwitterusername().equals("")){
-                //Send Twitter
-                TwitterNewDirectMessage tndm = new TwitterNewDirectMessage(user.getInstantnotifytwitterusername(), instantmessage);
-                tndm.sendDirectMessage();
-            }
-            if (user.getInstantnotifyxmppison() && !user.getInstantnotifyxmppusername().equals("")){
-                //Send XMPP
-                SendXMPPMessage sxmppmsg = new SendXMPPMessage(user.getInstantnotifyxmppusername(), instantmessage);
-                sxmppmsg.send();
+            if (user.getIsenabled()){
+                if (user.getInstantnotifybyemailison()){
+                    //Send email
+                    EmailTemplateProcessor.sendMail("Instant Notification: New dNeero Conversation for "+user.getFirstname(), "bloggernotifyofnewsurveys", user, args);
+                }
+                if (user.getInstantnotifybytwitterison() && !user.getInstantnotifytwitterusername().equals("")){
+                    //Send Twitter
+                    TwitterNewDirectMessage tndm = new TwitterNewDirectMessage(user.getInstantnotifytwitterusername(), instantmessage);
+                    tndm.sendDirectMessage();
+                }
+                if (user.getInstantnotifyxmppison() && !user.getInstantnotifyxmppusername().equals("")){
+                    //Send XMPP
+                    SendXMPPMessage sxmppmsg = new SendXMPPMessage(user.getInstantnotifyxmppusername(), instantmessage);
+                    sxmppmsg.send();
+                }
             }
         }
         logger.debug("done processing");

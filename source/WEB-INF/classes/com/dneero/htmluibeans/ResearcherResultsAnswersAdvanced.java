@@ -44,6 +44,7 @@ public class ResearcherResultsAnswersAdvanced implements Serializable {
     private String[] educationlevel;
     private String[] state;
     private String[] city;
+    private String[] country;
     private String[] profession;
     private String[] blogfocus;
     private String[] politics;
@@ -92,6 +93,7 @@ public class ResearcherResultsAnswersAdvanced implements Serializable {
         educationlevel = surveyCriteriaXML.getEducationlevel();
         state = surveyCriteriaXML.getState();
         city = surveyCriteriaXML.getCity();
+        country = surveyCriteriaXML.getCountry();
         profession = surveyCriteriaXML.getProfession();
         politics = surveyCriteriaXML.getPolitics();
         dneerousagemethods = surveyCriteriaXML.getDneerousagemethods();
@@ -126,6 +128,7 @@ public class ResearcherResultsAnswersAdvanced implements Serializable {
         surveyCriteriaXML.setEducationlevel(educationlevel);
         surveyCriteriaXML.setState(state);
         surveyCriteriaXML.setCity(city);
+        surveyCriteriaXML.setCountry(country);
         surveyCriteriaXML.setProfession(profession);
         surveyCriteriaXML.setBlogfocus(blogfocus);
         surveyCriteriaXML.setPolitics(politics);
@@ -374,5 +377,13 @@ public class ResearcherResultsAnswersAdvanced implements Serializable {
 
     public void setRespondentfilter(Respondentfilter respondentfilter) {
         this.respondentfilter = respondentfilter;
+    }
+
+    public String[] getCountry() {
+        return country;
+    }
+
+    public void setCountry(String[] country) {
+        this.country=country;
     }
 }

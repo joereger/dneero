@@ -56,6 +56,9 @@
         <property name="blogfocus" type="string">
             <column name="blogfocus" not-null="true" />
         </property>
+        <property name="country" type="string">
+            <column name="country" not-null="true" />
+        </property>
         <property name="quality" type="double">
             <column name="quality" precision="22" scale="0" not-null="true" />
         </property>

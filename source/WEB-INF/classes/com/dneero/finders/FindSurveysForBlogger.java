@@ -52,175 +52,42 @@ public class FindSurveysForBlogger {
         Criteria crit = HibernateUtil.getSession().createCriteria(Survey.class);
         //Status
         crit.add(Restrictions.eq("status", Survey.STATUS_OPEN));
-        //Gender
-        crit.add(Restrictions.like("criteriaxml", "%"+blogger.getGender()+"%"));
-        //Ethnicity
-        crit.add(Restrictions.like("criteriaxml", "%"+blogger.getEthnicity()+"%"));
-        //Marital Status
-        crit.add(Restrictions.like("criteriaxml", "%"+blogger.getMaritalstatus()+"%"));
-        //Income Range
-        crit.add(Restrictions.like("criteriaxml", "%"+blogger.getIncomerange()+"%"));
-        //Education Level
-        crit.add(Restrictions.like("criteriaxml", "%"+blogger.getEducationlevel()+"%"));
-        //State
-        crit.add(Restrictions.like("criteriaxml", "%"+blogger.getState()+"%"));
-        //City
-        crit.add(Restrictions.like("criteriaxml", "%"+blogger.getCity()+"%"));
-        //Profession
-        crit.add(Restrictions.like("criteriaxml", "%"+blogger.getProfession()+"%"));
-        //Politics
-        crit.add(Restrictions.like("criteriaxml", "%"+blogger.getPolitics()+"%"));
+
+        //The checks below were an attempt to force less inspection at the app server level.
+        //I was mostly worried about 1000's of surveys being live and was looking for a way to manually go through less of them.
+        //But the reality is that many fewer are live at any point in time.
+        //And this is already checked manually in scXml.isUserQualified() below
+//        //Gender
+//        crit.add(Restrictions.like("criteriaxml", "%"+blogger.getGender()+"%"));
+//        //Ethnicity
+//        crit.add(Restrictions.like("criteriaxml", "%"+blogger.getEthnicity()+"%"));
+//        //Marital Status
+//        crit.add(Restrictions.like("criteriaxml", "%"+blogger.getMaritalstatus()+"%"));
+//        //Income Range
+//        crit.add(Restrictions.like("criteriaxml", "%"+blogger.getIncomerange()+"%"));
+//        //Education Level
+//        crit.add(Restrictions.like("criteriaxml", "%"+blogger.getEducationlevel()+"%"));
+//        //State
+//        crit.add(Restrictions.like("criteriaxml", "%"+blogger.getState()+"%"));
+//        //City
+//        crit.add(Restrictions.like("criteriaxml", "%"+blogger.getCity()+"%"));
+//        //Country
+//        crit.add(Restrictions.like("criteriaxml", "%"+blogger.getCountry()+"%"));
+//        //Profession
+//        crit.add(Restrictions.like("criteriaxml", "%"+blogger.getProfession()+"%"));
+//        //Politics
+//        crit.add(Restrictions.like("criteriaxml", "%"+blogger.getPolitics()+"%"));
 
         //Run the query and get the preliminary results
-        List<Survey> surveys = crit.list();
+        List<Survey> surveys = crit.setCacheable(true).list();
         logger.debug("initial list from db: surveys.size()=" + surveys.size());
         for (Iterator it = surveys.iterator(); it.hasNext(); ) {
             Survey survey = (Survey)it.next();
             logger.debug("Seeing if surveyid="+survey.getSurveyid()+" works for this blogger.");
-//            boolean surveyfitsblogger = true;
-//
             SurveyCriteriaXML scXml = new SurveyCriteriaXML(survey.getCriteriaxml());
             if (scXml.isUserQualified(User.get(blogger.getUserid()))){
                 this.surveys.add(survey);
             }
-//
-//            if (surveyfitsblogger && !Util.arrayContains(scXml.getGender(), blogger.getGender())){
-//                surveyfitsblogger = false;
-//                logger.debug("survey not included because of gender.");
-//            }
-//            if (surveyfitsblogger && !Util.arrayContains(scXml.getEthnicity(), blogger.getEthnicity())){
-//                surveyfitsblogger = false;
-//                logger.debug("survey not included because of ethnicity.");
-//            }
-//            if (surveyfitsblogger && !Util.arrayContains(scXml.getMaritalstatus(), blogger.getMaritalstatus())){
-//                surveyfitsblogger = false;
-//                logger.debug("survey not included because of maritalstatus.");
-//            }
-//            if (surveyfitsblogger && !Util.arrayContains(scXml.getIncome(), blogger.getIncomerange())){
-//                surveyfitsblogger = false;
-//                logger.debug("survey not included because of incomerange.");
-//            }
-//            if (surveyfitsblogger && !Util.arrayContains(scXml.getEducationlevel(), blogger.getEducationlevel())){
-//                surveyfitsblogger = false;
-//                logger.debug("survey not included because of educationlevel.");
-//            }
-//            if (surveyfitsblogger && !Util.arrayContains(scXml.getState(), blogger.getState())){
-//                surveyfitsblogger = false;
-//                logger.debug("survey not included because of state.");
-//            }
-//            if (surveyfitsblogger && !Util.arrayContains(scXml.getCity(), blogger.getCity())){
-//                surveyfitsblogger = false;
-//                logger.debug("survey not included because of city.");
-//            }
-//            if (surveyfitsblogger && !Util.arrayContains(scXml.getProfession(), blogger.getProfession())){
-//                surveyfitsblogger = false;
-//                logger.debug("survey not included because of profession.");
-//            }
-//            if (surveyfitsblogger && !Util.arrayContains(scXml.getPolitics(), blogger.getPolitics())){
-//                surveyfitsblogger = false;
-//                logger.debug("survey not included because of politics.");
-//            }
-//            if (surveyfitsblogger && !Util.arrayContains(scXml.getBlogfocus(), blogger.getBlogfocus())){
-//                surveyfitsblogger = false;
-//                logger.debug("survey not included because of blogfocus.");
-//            }
-//
-//            //Now check the age requirements
-//            if (surveyfitsblogger && blogger.getBirthdate().before(   Time.subtractYear(Calendar.getInstance(), scXml.getAgemax()).getTime()    )){
-//                surveyfitsblogger = false;
-//                logger.debug("survey not included because birthdate is before.");
-//            }
-//            if (surveyfitsblogger && blogger.getBirthdate().after(   Time.subtractYear(Calendar.getInstance(), scXml.getAgemin()).getTime()    )){
-//                surveyfitsblogger = false;
-//                logger.debug("survey not included because birthdate is after.");
-//            }
-//
-//            //Quality
-//            if (surveyfitsblogger && blogger.getQuality()<scXml.getBlogquality()){
-//                surveyfitsblogger = false;
-//                logger.debug("survey not included because of blog quality.");
-//            }
-//
-//            //Quality 90 days
-//            if (surveyfitsblogger && blogger.getQuality90days()<scXml.getBlogquality90days()){
-//                surveyfitsblogger = false;
-//                logger.debug("survey not included because of blog quality 90 days.");
-//            }
-//
-//
-//            //Social Influence Rating
-//            if (surveyfitsblogger){
-//                int maxranking = SocialInfluenceRatingPercentile.getRankingOfGivenPercentile(SystemStats.getTotalbloggers(), scXml.getMinsocialinfluencepercentile());
-//                if (blogger.getSocialinfluenceratingranking()>maxranking){
-//                    surveyfitsblogger = false;
-//                    logger.debug("survey not included because of socialinfluenceranking.  maxranking="+maxranking+" blogger.getSocialinfluenceratingranking()="+blogger.getSocialinfluenceratingranking());
-//                }
-//            }
-//
-//            //Social Influence Rating 90 days
-//            if (surveyfitsblogger){
-//                int maxranking90days = SocialInfluenceRatingPercentile.getRankingOfGivenPercentile(SystemStats.getTotalbloggers(), scXml.getMinsocialinfluencepercentile90days());
-//                if (blogger.getSocialinfluenceratingranking90days()>maxranking90days){
-//                    surveyfitsblogger = false;
-//                    logger.debug("survey not included because of socialinfluenceranking90days.  maxranking90days="+maxranking90days+" blogger.getSocialinfluenceratingranking90days()="+blogger.getSocialinfluenceratingranking90days());
-//                }
-//            }
-//
-//            //dneerousagemethod qualification
-//            if (user.getFacebookuserid()>0){
-//                //This is a facebook user
-//                if(!Util.arrayContains(scXml.getDneerousagemethods(), Dneerousagemethods.FACEBOOKAPPUSERS)){
-//                    surveyfitsblogger = false;
-//                    logger.debug("survey not included because of dneerousagemethod... survey's not for facebook app users");
-//                }
-//            } else {
-//                //This is a dNeero.com user
-//                if(!Util.arrayContains(scXml.getDneerousagemethods(), Dneerousagemethods.DNEERODOTCOMUSERS)){
-//                    surveyfitsblogger = false;
-//                    logger.debug("survey not included because of dneerousagemethod... survey's not for dneero.com users");
-//                }
-//            }
-//
-//            //Iterate all responses to collect some data for next few qualifications
-//            Response mostrecentresponse = null;
-//            int surveystaken = 0;
-//            for (Iterator<Response> iterator1 = blogger.getResponses().iterator(); iterator1.hasNext();) {
-//                Response response = iterator1.next();
-//                //Fill most recent response
-//                if (mostrecentresponse==null || mostrecentresponse.getResponsedate().before(response.getResponsedate())){
-//                    mostrecentresponse = response;
-//                }
-//                //Count surveys taken
-//                surveystaken = surveystaken + 1;
-//            }
-//            //Calculate dayssincelastsurvey
-//            int dayssincelastsurvey = Integer.MAX_VALUE;
-//            if (mostrecentresponse!=null){
-//                dayssincelastsurvey = DateDiff.dateDiff("day", Calendar.getInstance(), Time.getCalFromDate(mostrecentresponse.getResponsedate()));
-//                logger.debug("bloggerid="+blogger.getBloggerid()+" dayssincelastsurvey="+dayssincelastsurvey);
-//            }
-//            //DaysSinceLastSurvey
-//            if (scXml.getDayssincelastsurvey()>0 && dayssincelastsurvey<scXml.getDayssincelastsurvey()){
-//                surveyfitsblogger = false;
-//                logger.debug("survey not included because of dayssincelastsurvey");
-//            }
-//            //Total surveys taken of at least
-//            if (scXml.getTotalsurveystakenatleast()>0 && surveystaken<scXml.getTotalsurveystakenatleast()){
-//                surveyfitsblogger = false;
-//                logger.debug("survey not included because of totalsurveystakenatleast");
-//            }
-//            //Total surveys taken of at most
-//            if (surveystaken>scXml.getTotalsurveystakenatmost()){
-//                surveyfitsblogger = false;
-//                logger.debug("survey not included because of totalsurveystakenatmost");
-//            }
-//
-//            //-----------------------------------------------------
-//            //If it hasn't been booted by now, keep it
-//            if (surveyfitsblogger){
-//                this.surveys.add(survey);
-//            }
-
         }
 
         //Add surveys that blogger is on panel for

@@ -46,6 +46,7 @@ public class SurveyCriteriaXML {
     private String[] educationlevel;
     private String[] state;
     private String[] city;
+    private String[] country;
     private String[] profession;
     private String[] blogfocus;
     private String[] politics;
@@ -57,6 +58,9 @@ public class SurveyCriteriaXML {
     Logger logger = Logger.getLogger(this.getClass().getName());
 
     public SurveyCriteriaXML(String criteriaxml){
+
+        logger.debug("SurveyCriteriaXML instanciated");
+
         preSelectAll();
 
         if (criteriaxml!=null && !criteriaxml.equals("")){
@@ -110,6 +114,8 @@ public class SurveyCriteriaXML {
         if (tmpArray!=null){ state = tmpArray; }
         tmpArray = loadValueOfArrayFromXML("city");
         if (tmpArray!=null){ city = tmpArray; }
+        tmpArray = loadValueOfArrayFromXML("country");
+        if (tmpArray!=null){ country = tmpArray; }
         tmpArray = loadValueOfArrayFromXML("profession");
         if (tmpArray!=null){ profession = tmpArray; }
         tmpArray = loadValueOfArrayFromXML("blogfocus");
@@ -163,6 +169,10 @@ public class SurveyCriteriaXML {
             if (surveyfitsblogger && !Util.arrayContains(city, blogger.getCity())){
                 surveyfitsblogger = false;
                 logger.debug("does not qualify because of city.");
+            }
+            if (surveyfitsblogger && !Util.arrayContains(country, blogger.getCountry())){
+                surveyfitsblogger = false;
+                logger.debug("does not qualify because of country.");
             }
             if (surveyfitsblogger && !Util.arrayContains(profession, blogger.getProfession())){
                 surveyfitsblogger = false;
@@ -295,6 +305,7 @@ public class SurveyCriteriaXML {
         educationlevel = convertToArray(Educationlevels.get());
         state = convertToArray(States.get());
         city = convertToArray(Cities.get());
+        country = convertToArray(Countries.get());
         profession = convertToArray(Professions.get());
         blogfocus = convertToArray(Blogfocuses.get());
         politics = convertToArray(Politics.get());
@@ -379,6 +390,7 @@ public class SurveyCriteriaXML {
         setValueOfArrayNode("educationlevel", educationlevel);
         setValueOfArrayNode("state", state);
         setValueOfArrayNode("city", city);
+        setValueOfArrayNode("country", country);
         setValueOfArrayNode("profession", profession);
         setValueOfArrayNode("blogfocus", blogfocus);
         setValueOfArrayNode("politics", politics);
@@ -683,6 +695,22 @@ public class SurveyCriteriaXML {
         out.append("<tr>");
         out.append("<td valign=\"top\">");
         out.append("<font class=\"formfieldnamefont\">");
+        out.append("Country");
+        out.append("</font>");
+        out.append("</td>");
+        out.append("<td valign=\"top\">");
+        out.append("<font class=\"smallfont\">");
+        for (int i = 0; i < country.length; i++) {
+            out.append(country[i]);
+            if (country.length>(i+1)){out.append(", ");}
+        }
+        out.append("</font>");
+        out.append("</td>");
+        out.append("</tr>");
+
+        out.append("<tr>");
+        out.append("<td valign=\"top\">");
+        out.append("<font class=\"formfieldnamefont\">");
         out.append("Profession");
         out.append("</font>");
         out.append("</td>");
@@ -908,5 +936,13 @@ public class SurveyCriteriaXML {
 
     public void setTotalsurveystakenatmost(int totalsurveystakenatmost) {
         this.totalsurveystakenatmost = totalsurveystakenatmost;
+    }
+
+    public String[] getCountry() {
+        return country;
+    }
+
+    public void setCountry(String[] country) {
+        this.country=country;
     }
 }
