@@ -105,6 +105,7 @@ public class ReviewableVenue implements Reviewable {
         Blogger blogger = Blogger.get(venue.getBloggerid());
         venue.setIssysadminrejected(true);
         venue.setIssysadminreviewed(true);
+        venue.setIsdueforreview(false);
         try{venue.save();blogger.refresh();}catch(Exception ex){logger.error("", ex);}
     }
 
@@ -121,6 +122,7 @@ public class ReviewableVenue implements Reviewable {
         Blogger blogger = Blogger.get(venue.getBloggerid());
         venue.setIssysadminrejected(false);
         venue.setIssysadminreviewed(true);
+        venue.setIsdueforreview(false);
         try{venue.save();blogger.refresh();}catch(Exception ex){logger.error("", ex);}
     }
 

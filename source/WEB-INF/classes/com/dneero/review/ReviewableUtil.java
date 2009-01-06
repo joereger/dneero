@@ -64,6 +64,12 @@ public class ReviewableUtil {
         return out;
     }
 
+    public static ArrayList<Reviewable> getPendingForSysadminSorted(){
+        ArrayList<Reviewable> out = getPendingForSysadmin();
+        Collections.sort(out, new ReviewableDateComparator());
+        return out;
+    }
+
     public static ArrayList<Reviewable> getRejectedByResearcher(int researcherid){
         Logger logger = Logger.getLogger(ReviewableUtil.class);
         ArrayList<Reviewable> out = new ArrayList<Reviewable>();

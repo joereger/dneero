@@ -18,7 +18,7 @@ String acl = "customercare";
 <%@ include file="/template/header.jsp" %>
 
 
-
+        <font class="mediumfont">Pending Review Items</font> <font class="smallfont">(Or, use <a href="/customercare/reviewables-turbo.jsp">Turbo Reviewer</a>)</font><br/>
     <%if (customercareReviewList.getReviewables()==null || customercareReviewList.getReviewables().size()==0){%>
         <font class="normalfont">No reviewables.  Go grab a beer and wait 32 seconds for the next reviewable item to come along.</font>
     <%} else {%>
