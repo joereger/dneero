@@ -184,8 +184,10 @@ public class FacebookAuthorizationJsp {
                         if (Pagez.getUserSession().getFacebookUser().getHas_added_app() && user.getIsfacebookappremoved()){
                             user.setIsfacebookappremoved(false);
                             user.setFacebookappremoveddate(user.getCreatedate());
-                            try {user.save();} catch (Exception ex) {logger.error("",ex);}
                         }
+                        //Save last login date
+                        user.setLastlogindate(new java.util.Date());
+                        try {user.save();} catch (Exception ex) {logger.error("",ex);}
                         //Notify via XMPP
                         SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_DEBUG, "Facebook Login: "+ user.getFirstname() + " " + user.getLastname() + " (email="+user.getEmail()+") (facebook.uid="+user.getFacebookuserid()+")");
                         xmpp.send();

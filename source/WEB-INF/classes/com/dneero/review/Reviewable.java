@@ -33,4 +33,7 @@ public interface Reviewable {
     public boolean getIsresearcherrejected();
     public boolean getIssysadminrejected();
     public Date getDate();
+
+
+
 }

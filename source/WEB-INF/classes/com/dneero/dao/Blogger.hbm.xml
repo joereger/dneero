@@ -19,6 +19,11 @@
             <key column="bloggerid"></key>
             <one-to-many class="com.dneero.dao.Panelmembership" not-found="ignore"></one-to-many>
         </set>
+        <set name="venues" inverse="true" cascade="save-update">
+            <cache usage="transactional"/>
+            <key column="bloggerid"></key>
+            <one-to-many class="com.dneero.dao.Venue" not-found="ignore"></one-to-many>
+        </set>
 
         <property name="userid" type="int">
             <column name="userid" not-null="true" />

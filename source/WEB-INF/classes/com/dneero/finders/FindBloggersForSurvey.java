@@ -4,11 +4,9 @@ import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.criterion.Property;
+import org.hibernate.criterion.Disjunction;
 
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Calendar;
+import java.util.*;
 
 import com.dneero.dao.*;
 import com.dneero.dao.hibernate.HibernateUtil;
@@ -76,7 +74,33 @@ public class FindBloggersForSurvey {
                     continue;
                 }
             }
+
+            //Only look at focus for non-facebook users
+            if (user.getFacebookuserid()<=0){
+                //Look at blogfocuses but don't worry about it if all focuses are selected
+                if (!scXml.areAllBlogfocusesSelected()){
+                    //@todo eventually will want to remove this if/then loop because enough people will have logged in and setup their blogs
+                    if (blogger.getVenues()!=null && blogger.getVenues().size()>0){
+                        boolean fulfillsfocusreqs = false;
+                        for (Iterator<Venue> iterator1=blogger.getVenues().iterator(); iterator1.hasNext();) {
+                            Venue venue=iterator1.next();
+                            //Does at least one blog from this user fall within the
+                            if (Util.arrayContains(scXml.getBlogfocus(), venue.getFocus())){
+                                fulfillsfocusreqs = true;
+                                break;
+                            }
+                        }
+                        if (!fulfillsfocusreqs){
+                            iterator.remove();
+                            continue;
+                        }
+                    }
+                }
+            }
+
+
             //Iterate all responses to collect some data for next few qualifications
+            //@todo optimize this by storing mostrecentresponsedate and surveystaken in the user or blogger table at time of convo join
             Response mostrecentresponse = null;
             int surveystaken = 0;
             for (Iterator<Response> iterator1 = blogger.getResponses().iterator(); iterator1.hasNext();) {
@@ -118,7 +142,7 @@ public class FindBloggersForSurvey {
     }
 
     private List getBloggersForParticularCriteria(SurveyCriteriaXML scXml){
-        List out;
+
         //Create the criteria
         Criteria crit = HibernateUtil.getSession().createCriteria(Blogger.class);
 
@@ -158,9 +182,23 @@ public class FindBloggersForSurvey {
         crit.add(Restrictions.ge("birthdate", Time.subtractYear(Calendar.getInstance(), scXml.getAgemax()).getTime() ));
         crit.add(Restrictions.le("birthdate", Time.subtractYear(Calendar.getInstance(), scXml.getAgemin()).getTime() ));
 
-        //Run the query and get the preliminary results
-        out = crit.list();
+        List out = crit.list();
 
+//        //Check the venues for focus requirements... create new criteria from current one
+//        Criteria crit2 = crit.createCriteria("venues");
+//        crit2.add(Property.forName("focus").in( scXml.getBlogfocus() ));
+//        crit2.add(Restrictions.eq("isactive",true));
+//
+//        //Run the query and get the preliminary results
+//        List outTmp = crit2.list();
+//        //Remove duplicates
+//        Collection result = new LinkedHashSet( outTmp );
+//        //Put back into a list
+//        ArrayList<Blogger> out = new ArrayList<Blogger>();
+//        for (Iterator bloggerIterator=result.iterator(); bloggerIterator.hasNext();) {
+//            Blogger blogger=(Blogger) bloggerIterator.next();
+//            out.add(blogger);
+//        }
         return out;
     }
 

@@ -4,6 +4,7 @@ import com.dneero.constants.*;
 import com.dneero.dao.Blogger;
 import com.dneero.dao.User;
 import com.dneero.dao.Response;
+import com.dneero.dao.Venue;
 import com.dneero.util.Num;
 import com.dneero.util.Util;
 import com.dneero.util.Time;
@@ -50,7 +51,7 @@ public class SurveyCriteriaXML {
     private String[] profession;
     private String[] blogfocus;
     private String[] politics;
-    private String[] dneerousagemethods; //Facebook, dneero.com, etc.
+    private String[] dneerousagemethods;
 
 
     private Document doc;
@@ -182,10 +183,7 @@ public class SurveyCriteriaXML {
                 surveyfitsblogger = false;
                 logger.debug("does not qualify because of politics.");
             }
-            if (surveyfitsblogger && !Util.arrayContains(blogfocus, blogger.getBlogfocus())){
-                surveyfitsblogger = false;
-                logger.debug("does not qualify because of blogfocus.");
-            }
+
 
             //Now check the age requirements
             if (surveyfitsblogger && blogger.getBirthdate().before(   Time.subtractYear(Calendar.getInstance(), agemax).getTime()    )){
@@ -243,6 +241,31 @@ public class SurveyCriteriaXML {
                 }
             }
 
+            if (surveyfitsblogger){
+                //Only consider focus for non-facebook users
+                if (user.getFacebookuserid()<=0){
+                    //Only do this check if not all of the focuses are selected
+                    if (!areAllBlogfocusesSelected()){
+                        //@todo eventually will want to remove this if/then loop because enough people will have logged in and setup their venues
+                        if (blogger.getVenues()!=null && blogger.getVenues().size()>0){
+                            boolean fulfillsfocusreqs = false;
+                            for (Iterator<Venue> iterator1=blogger.getVenues().iterator(); iterator1.hasNext();) {
+                                Venue venue=iterator1.next();
+                                //Does at least one blog from this user fall within the
+                                if (Util.arrayContains(getBlogfocus(), venue.getFocus())){
+                                    fulfillsfocusreqs = true;
+                                    break;
+                                }
+                            }
+                            if (!fulfillsfocusreqs){
+                                surveyfitsblogger = false;
+                                logger.debug("does not qualify because of focus.");
+                            }
+                        }
+                    }
+                }
+            }
+
             //This next stuff is very database-heavy
             boolean needtodoexpensiveresponsecalculations = false;
             if (dayssincelastsurvey>0){
@@ -295,6 +318,28 @@ public class SurveyCriteriaXML {
             }
         }
         return false;
+    }
+
+    public boolean areAllBlogfocusesSelected(){
+        return areAllOfSomethingSelected(convertToArray(Blogfocuses.get()), blogfocus);
+    }
+
+    private boolean areAllOfSomethingSelected(String[] allvalues, String[] selectedvalues){
+        if (selectedvalues==null && allvalues!=null){
+            return false;
+        }
+        if (selectedvalues==null && allvalues==null){
+            return true;
+        }
+        if (selectedvalues!=null && allvalues!=null){
+            for (int i=0; i<allvalues.length; i++) {
+                String allvalue=allvalues[i];
+                if (!Util.arrayContains(selectedvalues, allvalue)){
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     private void preSelectAll(){
@@ -727,7 +772,7 @@ public class SurveyCriteriaXML {
         out.append("<tr>");
         out.append("<td valign=\"top\">");
         out.append("<font class=\"formfieldnamefont\">");
-        out.append("Blog Focus");
+        out.append("Focus");
         out.append("</font>");
         out.append("</td>");
         out.append("<td valign=\"top\">");
@@ -759,7 +804,7 @@ public class SurveyCriteriaXML {
         out.append("<tr>");
         out.append("<td valign=\"top\">");
         out.append("<font class=\"formfieldnamefont\">");
-        out.append("dNeero Usage Methods");
+        out.append("Usage Methods");
         out.append("</font>");
         out.append("</td>");
         out.append("<td valign=\"top\">");

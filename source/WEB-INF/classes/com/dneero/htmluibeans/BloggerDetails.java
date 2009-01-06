@@ -14,12 +14,14 @@ import com.dneero.util.Time;
 import com.dneero.dao.Blogger;
 import com.dneero.dao.Userrole;
 import com.dneero.dao.User;
+import com.dneero.dao.Venue;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.htmlui.UserSession;
 import com.dneero.htmlui.Pagez;
 import com.dneero.htmlui.ValidationException;
 import com.dneero.money.PaymentMethod;
 import com.dneero.finders.UserProfileCompletenessChecker;
+import com.dneero.helpers.VenueUtils;
 
 
 /**
@@ -42,6 +44,8 @@ public class BloggerDetails implements Serializable {
     private String blogfocus;
     private String politics;
     private String country;
+    private String venueurl;
+    private String venuefocus;
 
     private boolean isnewblogger;
 
@@ -74,6 +78,8 @@ public class BloggerDetails implements Serializable {
             politics = String.valueOf(blogger.getPolitics());
             blogfocus = blogger.getBlogfocus();
             country = blogger.getCountry();
+            venueurl = "";
+            venuefocus = "";
         } else {
             birthdate = new Date();
         }
@@ -111,11 +117,25 @@ public class BloggerDetails implements Serializable {
                 vex.addValidationError("Please check your date and enter the year in YYYY format (i.e. 1975).");
                 haveValidationError = true;
             }
+            if (Pagez.getUserSession().getUser().getFacebookuserid()<=0){
+                int venuecount = 0;
+                if (blogger.getVenues()!=null && blogger.getVenues().size()>0){
+                    venuecount = blogger.getVenues().size();
+                }
+                if (venuecount==0 && venueurl.equals("") || venuefocus.equals("")){
+                    vex.addValidationError("You must provide at least one posting venue url and focus.");
+                    haveValidationError = true;
+                }
+                if (VenueUtils.isVenueUrlInUse(venueurl)){
+                    vex.addValidationError("The new venue url you provided is already in use.");
+                    haveValidationError = true;
+                }
+            }
+            //Throw the error
             if (haveValidationError){
                 throw vex;
             }
             //End validation
-
 
             blogger.setUserid(Pagez.getUserSession().getUser().getUserid());
             blogger.setBirthdate(birthdate);
@@ -167,7 +187,38 @@ public class BloggerDetails implements Serializable {
                 }
             }
 
-
+            if (!venueurl.equals("")){
+                //Go get a new venue object or one that's inactive.
+                Venue venue = VenueUtils.getNewOrInactive(venueurl);
+                //When a blogger takes over another blogger's url (extremely rare) we need to refresh that blogger
+                int currentbloggerid = venue.getBloggerid();
+                Blogger bloggerOther = null;
+                if (currentbloggerid!=blogger.getBloggerid()){
+                    bloggerOther = Blogger.get(currentbloggerid);
+                }
+                venue.setBloggerid(blogger.getBloggerid());
+                venue.setUrl(VenueUtils.cleanForSaveToDb(venueurl));
+                venue.setFocus(venuefocus);
+                venue.setIsdueforreview(true);
+                venue.setIsresearcherrejected(false);
+                venue.setIsresearcherreviewed(false);
+                venue.setIssysadminrejected(false);
+                venue.setIssysadminreviewed(false);
+                venue.setLastsysadminreviewdate(new Date());
+                venue.setScore(0);
+                venue.setIsactive(true);
+                try{
+                    venue.save();
+                    blogger.refresh();
+                    if (bloggerOther!=null){
+                        bloggerOther.refresh();
+                    }
+                } catch (GeneralException gex){
+                    vex.addValidationError("Error saving venue record: "+gex.getErrorsAsSingleString());
+                    logger.debug("saveAction failed: " + gex.getErrorsAsSingleString());
+                    throw vex;
+                }
+            }
            
             try{
                 Pagez.getUserSession().getUser().save();
@@ -308,5 +359,21 @@ public class BloggerDetails implements Serializable {
 
     public void setCountry(String country) {
         this.country=country;
+    }
+
+    public String getVenueurl() {
+        return venueurl;
+    }
+
+    public void setVenueurl(String venueurl) {
+        this.venueurl=venueurl;
+    }
+
+    public String getVenuefocus() {
+        return venuefocus;
+    }
+
+    public void setVenuefocus(String venuefocus) {
+        this.venuefocus=venuefocus;
     }
 }

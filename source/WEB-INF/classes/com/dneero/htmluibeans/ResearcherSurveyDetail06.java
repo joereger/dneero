@@ -17,6 +17,7 @@ import com.dneero.money.*;
 import com.dneero.scheduledjobs.ResearcherRemainingBalanceOperations;
 import com.dneero.instantnotify.InstantNotifyOfNewSurvey;
 import com.dneero.survey.servlet.EmbedCacheFlusher;
+import com.dneero.finders.FindBloggersForSurvey;
 
 
 /**

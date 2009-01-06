@@ -115,7 +115,9 @@ public class Login implements Serializable {
                         Pagez.getResponse().addCookie(cookies[j]);
                     }
                 }
-
+                //Save last login date
+                user.setLastlogindate(new java.util.Date());
+                try {user.save();} catch (Exception ex) {logger.error("",ex);}
                 //Pending survey save
                 //Note: this code also on Resitration and PublicSurvey
                 if (Pagez.getUserSession().getPendingSurveyResponseSurveyid()>0){

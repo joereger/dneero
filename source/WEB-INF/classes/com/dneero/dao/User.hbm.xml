@@ -149,5 +149,8 @@
         <property name="currentbalanceresearcher" type="double">
             <column name="currentbalanceresearcher" precision="22" scale="0" not-null="true" />
         </property>
+        <property name="lastlogindate" type="timestamp">
+            <column name="lastlogindate" not-null="true" />
+        </property>
     </class>
 </hibernate-mapping>

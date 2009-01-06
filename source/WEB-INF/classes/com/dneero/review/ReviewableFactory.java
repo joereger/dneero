@@ -19,6 +19,9 @@ public class ReviewableFactory {
         if (type==ReviewableResponse.TYPE){
             return new ReviewableResponse(id);
         }
+        if (type==ReviewableVenue.TYPE){
+            return new ReviewableVenue(id);
+        }
         return null;
     }
 
@@ -27,6 +30,7 @@ public class ReviewableFactory {
         types.add(new ReviewableSurveydiscuss(0));
         types.add(new ReviewableQuestion(0));
         types.add(new ReviewableResponse(0));
+        types.add(new ReviewableVenue(0));
         return types;
     }
 

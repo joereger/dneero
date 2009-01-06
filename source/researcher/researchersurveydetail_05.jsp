@@ -36,9 +36,7 @@ ResearcherSurveyDetail05 researcherSurveyDetail05 = (ResearcherSurveyDetail05)Pa
             researcherSurveyDetail05.setNumberofrespondentsrequested(Textbox.getIntFromRequest("numberofrespondentsrequested", "Number of RespondentsRequested", true, DatatypeInteger.DATATYPEID));
             researcherSurveyDetail05.setWillingtopaypercpm(Textbox.getDblFromRequest("willingtopaypercpm", "Willing to Pay Per 1000 Impressions", true, DatatypeDouble.DATATYPEID));
             researcherSurveyDetail05.setWillingtopayperrespondent(Textbox.getDblFromRequest("willingtopayperrespondent", "Willing to Pay Per Respondent", false, DatatypeDouble.DATATYPEID));
-
             researcherSurveyDetail05.setIncentivetype(Radio.getIntFromRequest("incentivetype", "Incentive Type", true, DatatypeInteger.DATATYPEID));
-
             researcherSurveyDetail05.setCoupontitle(Textbox.getValueFromRequest("coupontitle", "Coupon Title", false, DatatypeString.DATATYPEID));
             researcherSurveyDetail05.setCoupondescription(Textbox.getValueFromRequest("coupondescription", "Coupon Description", false, DatatypeString.DATATYPEID));
             researcherSurveyDetail05.setCouponinstructions(Textbox.getValueFromRequest("couponinstructions", "Coupon Instructions", false, DatatypeString.DATATYPEID));
@@ -347,10 +345,11 @@ ResearcherSurveyDetail05 researcherSurveyDetail05 = (ResearcherSurveyDetail05)Pa
                 <%} else {%>
                     <font class="normalfont"><%=researcherSurveyDetail05.getCharitycustom()%></font>
                 <%}%>
+                <br/>
                 <font class="smallfont">Charity URL:</font><br/>
-                <font class="tinyfont">(example: http://www.mycharity.com)</font><br/>
                 <%if (researcherSurveyDetail05.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {%>
                     <%=Textbox.getHtml("charitycustomurl", String.valueOf(researcherSurveyDetail05.getCharitycustomurl()), 255, 35, "", "")%>
+                    <br/><font class="tinyfont">(example: http://www.mycharity.com)</font>
                 <%} else {%>
                     <font class="normalfont"><%=researcherSurveyDetail05.getCharitycustomurl()%></font>
                 <%}%>

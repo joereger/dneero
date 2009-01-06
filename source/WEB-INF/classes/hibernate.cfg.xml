@@ -55,6 +55,7 @@
         <mapping resource="com/dneero/dao/Usereula.hbm.xml" />
         <mapping resource="com/dneero/dao/Userpersistentlogin.hbm.xml" />
         <mapping resource="com/dneero/dao/Userrole.hbm.xml" />
+        <mapping resource="com/dneero/dao/Venue.hbm.xml" />
 
     </session-factory>
 </hibernate-configuration>

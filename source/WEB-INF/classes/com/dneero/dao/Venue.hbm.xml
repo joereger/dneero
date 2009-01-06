@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 17, 2006 3:45:28 PM by Hibernate Tools 3.1.0.beta4 -->
+<hibernate-mapping>
+    <class name="com.dneero.dao.Venue" table="venue">
+        <cache usage="transactional"/>
+        <id name="venueid" type="int">
+            <column name="venueid" />
+            <generator class="native" />
+        </id>
+
+        <property name="bloggerid" type="int">
+            <column name="bloggerid" not-null="true" />
+        </property>
+        <property name="url" type="text">
+            <column name="url" />
+        </property>
+        <property name="focus" type="string">
+            <column name="focus" not-null="true" />
+        </property>
+        <property name="isresearcherreviewed" type="boolean">
+            <column name="isresearcherreviewed" not-null="true" />
+        </property>
+        <property name="issysadminreviewed" type="boolean">
+            <column name="issysadminreviewed" not-null="true" />
+        </property>
+        <property name="isresearcherrejected" type="boolean">
+            <column name="isresearcherrejected" not-null="true" />
+        </property>
+        <property name="issysadminrejected" type="boolean">
+            <column name="issysadminrejected" not-null="true" />
+        </property>
+        <property name="lastsysadminreviewdate" type="timestamp">
+            <column name="lastsysadminreviewdate" not-null="true" />
+        </property>
+        <property name="isdueforreview" type="boolean">
+            <column name="isdueforreview" not-null="true" />
+        </property>
+        <property name="score" type="int">
+            <column name="score" not-null="true" />
+        </property>
+        <property name="isactive" type="boolean">
+            <column name="isactive" not-null="true" />
+        </property>
+
+        
+
+
+    </class>
+</hibernate-mapping>

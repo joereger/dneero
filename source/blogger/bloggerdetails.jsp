@@ -3,6 +3,7 @@
 <%@ page import="com.dneero.htmlui.*" %>
 <%@ page import="com.dneero.util.Util" %>
 <%@ page import="com.dneero.constants.*" %>
+<%@ page import="com.dneero.finders.UserProfileCompletenessChecker" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "Your Profile";
@@ -17,7 +18,6 @@ BloggerDetails bloggerDetails = (BloggerDetails)Pagez.getBeanMgr().get("BloggerD
     if (request.getParameter("action") != null && request.getParameter("action").equals("save")) {
         try {
             bloggerDetails.setBirthdate(DateTime.getValueFromRequest("birthdate", "Birth Date", true).getTime());
-            bloggerDetails.setBlogfocus(Dropdown.getValueFromRequest("blogfocus", "Your Focus", true));
             bloggerDetails.setCity(Dropdown.getValueFromRequest("city", "City", true));
             bloggerDetails.setEducationlevel(Dropdown.getValueFromRequest("educationlevel", "Education Level", true));
             bloggerDetails.setEthnicity(Dropdown.getValueFromRequest("ethnicity", "Ethnicity", true));
@@ -29,6 +29,8 @@ BloggerDetails bloggerDetails = (BloggerDetails)Pagez.getBeanMgr().get("BloggerD
             bloggerDetails.setState(Dropdown.getValueFromRequest("state", "State", true));
             bloggerDetails.setCountry(Dropdown.getValueFromRequest("country", "Country", true));
             bloggerDetails.setUserid(Pagez.getUserSession().getUser().getUserid());
+            bloggerDetails.setVenueurl(Textbox.getValueFromRequest("venueurl", "Venue URL", false, DatatypeString.DATATYPEID));
+            bloggerDetails.setVenuefocus(Dropdown.getValueFromRequest("venuefocus", "Venue Focus", false));
             bloggerDetails.saveAction();
             Pagez.getUserSession().setMessage("Profile Saved Successfully!");
             if (Pagez.getUserSession().getIsfacebookui()){
@@ -51,6 +53,31 @@ BloggerDetails bloggerDetails = (BloggerDetails)Pagez.getBeanMgr().get("BloggerD
 
         } catch (com.dneero.htmlui.ValidationException vex) {
             Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
+        }
+    }
+%>
+<%
+    if (request.getParameter("action") != null && request.getParameter("action").equals("deletevenue")) {
+        try {
+            if (request.getParameter("venueid")!=null && Num.isinteger(request.getParameter("venueid"))){
+                int venueid = Integer.parseInt(request.getParameter("venueid"));
+                Venue venue = Venue.get(venueid);
+                if (venue.getBloggerid()==Pagez.getUserSession().getUser().getBloggerid()){
+                    venue.setIsactive(false);
+                    venue.save();
+                    Blogger blogger = Blogger.get(Pagez.getUserSession().getUser().getBloggerid());
+                    blogger.refresh();
+                    if (!UserProfileCompletenessChecker.isProfileComplete(Pagez.getUserSession().getUser())){
+                        Pagez.getUserSession().setIsbloggerprofileok(false);
+                    } else {
+                        Pagez.getUserSession().setIsbloggerprofileok(true);
+                    }
+                }
+            }
+            Pagez.getUserSession().setMessage("Venue deleted!");
+        } catch (Exception ex) {
+            Pagez.getUserSession().setMessage("Sorry, there was an error.");
+            logger.error("", ex);
         }
     }
 %>
@@ -180,22 +207,61 @@ BloggerDetails bloggerDetails = (BloggerDetails)Pagez.getBeanMgr().get("BloggerD
                             </td>
                         </tr>
 
-                        <tr>
-                            <td valign="top">
-                                <font class="formfieldnamefont">Your Focus</font>
-                                <br/>
-                                <font class="tinyfont">The most accurate description of what<br/>you blog about or discuss on<br/>social networks.</font>
-                            </td>
-                            <td valign="top">
-                                <%=Dropdown.getHtml("blogfocus", bloggerDetails.getBlogfocus(), Util.treeSetToTreeMap(Blogfocuses.get()), "", "")%>
-                            </td>
-                        </tr>
+                        <%if (!Pagez.getUserSession().getIsfacebookui()){%>
+                            <tr>
+                                <td valign="top" colspan="2">
+                                    <br/><br/>
+                                    <font class="formfieldnamefont">Posting Venues</font>
+                                    <br/>
+                                    <font class="tinyfont">A place to post conversations.  Blog, profile page, website, etc.  You can only accrue impressions from posting venues that you claim here.</font>
+                                    <table cellpadding="3" cellspacing="0" border="0">
+                                        <tr>
+                                            <td valign="top">
+                                                <font class="formfieldnamefont">URL of Venue</font>
+                                            </td>
+                                            <td valign="top">
+                                                <font class="formfieldnamefont">Focus</font>
+                                            </td>
+                                        </tr>
+                                        <%
+                                            Blogger blogger = Blogger.get(Pagez.getUserSession().getUser().getBloggerid());
+                                            for (Iterator<Venue> iterator=blogger.getVenues().iterator(); iterator.hasNext();) {
+                                                Venue venue=iterator.next();
+                                                if (venue.getIsactive()){
+                                                    %>
+                                                    <tr>
+                                                        <td valign="top">
+                                                            <font class="tinyfont">http://<%=Str.truncateString(venue.getUrl(), 40)%> <a href="/blogger/bloggerdetails.jsp?action=deletevenue&venueid=<%=venue.getVenueid()%>">delete</a></font>
+                                                        </td>
+                                                        <td valign="top">
+                                                            <font class="tinyfont"><%=venue.getFocus()%></font>
+                                                        </td>
+                                                    </tr>
+                                                    <%
+                                                }
+                                            }
+                                        %>
+                                        <tr>
+                                            <td valign="top">
+                                                <%=Textbox.getHtml("venueurl", bloggerDetails.getVenueurl(), 255, 25, "", "")%><br/>
+                                                <font class="tinyfont">ex: www.myblog.com</font>
+                                            </td>
+                                            <td valign="top">
+                                                <%=Dropdown.getHtml("venuefocus", bloggerDetails.getVenuefocus(), Util.treeSetToTreeMap(Blogfocuses.get()), "", "")%>
+                                            </td>
+                                        </tr>
+                                    </table>
+
+                                </td>
+                            </tr>
+                        <%}%>
 
 
                         <tr>
                             <td valign="top">
                             </td>
                             <td valign="top">
+                               <br/><br/>
                                <input type="submit" class="formsubmitbutton" value="Save Profile">
                             </td>
                         </tr>

@@ -120,7 +120,7 @@ public class LostPasswordChoose implements Serializable {
 
             User user = Pagez.getUserSession().getUser();
             user.setPassword(password);
-
+            user.setLastlogindate(new java.util.Date());
             try{
                 user.save();
             } catch (GeneralException gex){

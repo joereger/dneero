@@ -42,6 +42,7 @@ public class Blogger extends BasePersistentClass implements java.io.Serializable
      private int socialinfluenceratingranking90days;
      private Set<Response> responses = new HashSet<Response>();
      private Set<Panelmembership> panelmemberships = new HashSet<Panelmembership>();
+     private Set<Venue> venues = new HashSet<Venue>();
 
     public static Blogger get(int id) {
         Logger logger = Logger.getLogger("com.dneero.dao.Blogger");
@@ -256,5 +257,13 @@ public class Blogger extends BasePersistentClass implements java.io.Serializable
 
     public void setCountry(String country) {
         this.country=country;
+    }
+
+    public Set<Venue> getVenues() {
+        return venues;
+    }
+
+    public void setVenues(Set<Venue> venues) {
+        this.venues=venues;
     }
 }

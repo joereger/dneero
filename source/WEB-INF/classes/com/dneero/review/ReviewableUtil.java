@@ -22,7 +22,7 @@ public class ReviewableUtil {
 
     public static ArrayList<Reviewable> getPendingForSysadmin(){
         Logger logger = Logger.getLogger(ReviewableUtil.class);
-        ArrayList<Reviewable> out = new ArrayList<Reviewable>();
+        //ArrayList<Reviewable> out = new ArrayList<Reviewable>();
         List<Review> reviews = HibernateUtil.getSession().createCriteria(Review.class)
                                            .add(Restrictions.eq("issysadminreviewed", false))
                                            .addOrder(Order.asc("datelastupdated"))
@@ -32,12 +32,21 @@ public class ReviewableUtil {
             Review review=reviewIterator.next();
             Reviewable reviewable = ReviewableFactory.get(review.getId(), review.getType());
             if (reviewable!=null && reviewable.getId()>0){
-                out.add(reviewable);
+                //out.add(reviewable);
             } else {
                 try{review.delete();}catch(Exception ex){logger.error("", ex);}
             }
         }
+        //return out;
+
+
+        ArrayList<Reviewable> out = new ArrayList<Reviewable>();
+        for (Iterator<Reviewable> iterator=ReviewableFactory.getAllTypes().iterator(); iterator.hasNext();) {
+            Reviewable reviewable=iterator.next();
+            out.addAll(reviewable.getPendingForSysadmin());
+        }
         return out;
+
     }
 
     public static ArrayList<Reviewable> getPendingForResearcher(int researcherid){
