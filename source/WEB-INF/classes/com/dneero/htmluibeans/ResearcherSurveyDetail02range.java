@@ -128,6 +128,8 @@ public class ResearcherSurveyDetail02range implements Serializable {
             question.setIssysadminreviewed(false);
             question.setIsresearcherrejected(false);
             question.setIssysadminrejected(false);
+            question.setScorebyresearcher(0);
+            question.setScorebysysadmin(0);
 
 
             for (Iterator<Question> iterator = survey.getQuestions().iterator(); iterator.hasNext();) {

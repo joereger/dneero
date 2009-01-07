@@ -27,6 +27,8 @@ public class Question extends BasePersistentClass implements java.io.Serializabl
      private boolean issysadminreviewed;
      private boolean isresearcherrejected;
      private boolean issysadminrejected;
+     private int scorebyresearcher;
+     private int scorebysysadmin;
      private Set<Questionconfig> questionconfigs = new HashSet<Questionconfig>();
      private Set<Questionresponse> questionresponses = new HashSet<Questionresponse>();
 
@@ -173,5 +175,21 @@ public class Question extends BasePersistentClass implements java.io.Serializabl
 
     public void setIssysadminrejected(boolean issysadminrejected) {
         this.issysadminrejected=issysadminrejected;
+    }
+
+    public int getScorebyresearcher() {
+        return scorebyresearcher;
+    }
+
+    public void setScorebyresearcher(int scorebyresearcher) {
+        this.scorebyresearcher=scorebyresearcher;
+    }
+
+    public int getScorebysysadmin() {
+        return scorebysysadmin;
+    }
+
+    public void setScorebysysadmin(int scorebysysadmin) {
+        this.scorebysysadmin=scorebysysadmin;
     }
 }

@@ -199,7 +199,7 @@ if (Pagez.getUserSession().getIsloggedin() && (Pagez.getUserSession().getUser().
                     <% ArrayList<Reviewable> reviewables = ReviewableUtil.getPendingForResearcher(Pagez.getUserSession().getUser().getResearcherid());
                        if (reviewables!=null && reviewables.size()>0){%>
                         <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
-                            <font class="smallfont">There are currently <a href="/researcher/reviewables.jsp"><%=reviewables.size()%> pending items</a> for review.</font>
+                            <font class="smallfont">There are currently <a href="/researcher/reviewables-turbo.jsp"><%=reviewables.size()%> pending items</a> for review.</font>
                         </div>
                    <%}%>
 

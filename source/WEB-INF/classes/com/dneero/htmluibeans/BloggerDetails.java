@@ -205,7 +205,7 @@ public class BloggerDetails implements Serializable {
                 venue.setIssysadminrejected(false);
                 venue.setIssysadminreviewed(false);
                 venue.setLastsysadminreviewdate(new Date());
-                venue.setScore(0);
+                venue.setScorebysysadmin(0);
                 venue.setIsactive(true);
                 try{
                     venue.save();

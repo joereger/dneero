@@ -24,7 +24,7 @@ String acl = "customercare";
     <%} else {%>
         <%
             ArrayList<GridCol> cols=new ArrayList<GridCol>();
-            cols.add(new GridCol("Summary", "<a href=\"/customercare/reviewabledetail.jsp?type=<$type$>&id=<$id$>\"><$shortSummary$></a>", false, "", "tinyfont"));
+            cols.add(new GridCol("Summary", "<a href=\"/customercare/reviewables-turbo.jsp?type=<$type$>&id=<$id$>\"><$shortSummary$></a>", false, "", "tinyfont"));
             cols.add(new GridCol("Researcher Reviewed?", "<$isresearcherreviewed$>", false, "", "tinyfont"));
             cols.add(new GridCol("Sysadmin Reviewed?", "<$issysadminreviewed$>", false, "", "tinyfont"));
             cols.add(new GridCol("Researcher Rejected?", "<$isresearcherrejected$>", false, "", "tinyfont"));

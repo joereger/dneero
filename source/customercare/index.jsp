@@ -40,9 +40,9 @@ String acl = "customercare";
                </td>
                <td valign="top" width="33%">
                 <div class="rounded" style="padding: 15px; margin: 8px; background: #BFFFBF;">
-                    <font class="largefont"><%=openReviewItems%></font>
+                    <font class="largefont">~<%=openReviewItems%></font>
                     <br/>
-                    <font class="mediumfont">items for <a href="/customercare/reviewables.jsp">review</a></font>
+                    <font class="mediumfont">items for <a href="/customercare/reviewables-turbo.jsp">review</a></font>
                 </div>
                </td>
                <td valign="top" width="33%">

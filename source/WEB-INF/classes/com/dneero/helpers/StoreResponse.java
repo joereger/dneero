@@ -142,6 +142,8 @@ public class StoreResponse {
                     response.setImpressionstotal(0);
                     response.setImpressionstobepaid(0);
                     response.setImpressionspaid(0);
+                    response.setScorebyresearcher(0);
+                    response.setScorebysysadmin(0);
                     response.setImpressionsbyday(new ImpressionsByDayUtil("").getAsString());
                     //Can't change charity info when editing answers
                     response.setIsforcharity(isforcharity);
@@ -246,6 +248,8 @@ public class StoreResponse {
                             question.setIssysadminreviewed(false);
                             question.setIsresearcherrejected(false);
                             question.setIssysadminrejected(false);
+                            question.setScorebyresearcher(0);
+                            question.setScorebysysadmin(0);
                         }
                         //if (!userhadquestionalready){
                             survey.getQuestions().add(question);

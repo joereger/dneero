@@ -222,4 +222,20 @@ public class ReviewableSurveydiscuss implements Reviewable {
         }
         return false;
     }
+
+    public boolean supportsScoringByResearcher() {
+        return false;
+    }
+
+    public boolean supportsScoringBySysadmin() {
+        return false;
+    }
+
+    public void scoreByResearcher(int score) {
+
+    }
+
+    public void scoreBySysadmin(int score) {
+
+    }
 }

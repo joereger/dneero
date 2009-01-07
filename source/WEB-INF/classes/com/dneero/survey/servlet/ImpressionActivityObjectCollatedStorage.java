@@ -7,6 +7,7 @@ import com.dneero.dao.*;
 import com.dneero.util.*;
 import com.dneero.money.SurveyMoneyStatus;
 import com.dneero.helpers.UserInputSafe;
+import com.dneero.helpers.VenueUtils;
 
 import java.util.*;
 
@@ -131,6 +132,51 @@ public class ImpressionActivityObjectCollatedStorage {
                     if (response.getIssysadminrejected()){
                         impressionsqualifyingforpayment = 0;
                     }
+                    //This must also be last... lol... venue/url validation
+                    try{
+                        String referer = iao.getReferer();
+                        logger.error("START referer="+referer);
+                        boolean isvalidurl = false;
+                        if (user.getFacebookuserid()<=0){
+                            logger.error("not facebook");
+                            if (referer!=null && !referer.equals("")){
+                                logger.error("referer not null");
+                                Blogger blogger = Blogger.get(user.getBloggerid());
+                                if (blogger!=null && blogger.getBloggerid()>0){
+                                    logger.error("blogger not null");
+                                    for (Iterator<Venue> iterator=blogger.getVenues().iterator(); iterator.hasNext();) {
+                                        Venue venue=iterator.next();
+                                        logger.error("found venue url="+venue.getUrl());
+                                        if (venue.getIsactive() && !venue.getIssysadminrejected()){
+                                            logger.error("venue is active and venue is not sysadminrejected");
+                                            if (referer.indexOf(VenueUtils.stringToMatchForImpressions(venue.getUrl()))>-1){
+                                                isvalidurl = true;
+                                                logger.error("PASS VALID     referer="+referer+" venue.getUrl()="+venue.getUrl()+"");
+                                                break;
+                                            } else {
+                                                logger.error("FAIL NOT VALID referer="+referer+" venue.getUrl()="+venue.getUrl()+"");
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        } else {
+                            //It's a facebook user
+                            isvalidurl = true;
+                        }
+                        Calendar startChecking = Time.dbstringtocalendar("2009-03-01 00:00:00");
+                        if (Calendar.getInstance().after(startChecking)){
+                            if (!isvalidurl){
+                                impressionsqualifyingforpayment = 0;
+                            }
+                        } else {
+                            //Just record/note it in logs
+                            logger.error("FINAL isvalidurl="+isvalidurl);
+                        }
+                    } catch (Exception ex){
+                        logger.error("", ex);
+                    }
+                    //End of venue/url validation
 
                     //logger.debug("iao.getDate()="+iao.getDate().toString());
                     //logger.debug("iao.getDate()="+ Time.dateformatfordb(Time.getCalFromDate(iao.getDate())));

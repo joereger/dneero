@@ -43,6 +43,8 @@ public class Response extends BasePersistentClass implements java.io.Serializabl
      private int impressionspaid;
      private String impressionsbyday;
      private Surveyincentive surveyincentive;
+     private int scorebyresearcher;
+     private int scorebysysadmin;
 
 
     public static Response get(int id) {
@@ -264,4 +266,19 @@ public class Response extends BasePersistentClass implements java.io.Serializabl
         this.impressionspaid=impressionspaid;
     }
 
+    public int getScorebyresearcher() {
+        return scorebyresearcher;
+    }
+
+    public void setScorebyresearcher(int scorebyresearcher) {
+        this.scorebyresearcher=scorebyresearcher;
+    }
+
+    public int getScorebysysadmin() {
+        return scorebysysadmin;
+    }
+
+    public void setScorebysysadmin(int scorebysysadmin) {
+        this.scorebysysadmin=scorebysysadmin;
+    }
 }

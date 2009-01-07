@@ -37,8 +37,8 @@
         <property name="isdueforreview" type="boolean">
             <column name="isdueforreview" not-null="true" />
         </property>
-        <property name="score" type="int">
-            <column name="score" not-null="true" />
+        <property name="scorebysysadmin" type="int">
+            <column name="scorebysysadmin" not-null="true" />
         </property>
         <property name="isactive" type="boolean">
             <column name="isactive" not-null="true" />

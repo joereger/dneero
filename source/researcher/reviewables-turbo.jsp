@@ -6,6 +6,7 @@
 <%@ page import="com.dneero.htmluibeans.CustomercareSurveyList" %>
 <%@ page import="com.dneero.review.ReviewableUtil" %>
 <%@ page import="com.dneero.review.Reviewable" %>
+<%@ page import="com.dneero.review.ReviewableFactory" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "Turbo Reviewer";
@@ -21,7 +22,23 @@ if (Num.isinteger(request.getParameter("numOnPage"))){
 
 %>
 <%
-    ArrayList<Reviewable> reviewables = ReviewableUtil.getPendingForResearcherSorted(Pagez.getUserSession().getUser().getResearcherid());
+    ArrayList<Reviewable> reviewables = new ArrayList<Reviewable>();
+    int id = 0;
+    if (com.dneero.util.Num.isinteger(request.getParameter("id"))){
+        id = Integer.parseInt(request.getParameter("id"));
+    }
+    int type = 0;
+    if (com.dneero.util.Num.isinteger(request.getParameter("type"))){
+        type = Integer.parseInt(request.getParameter("type"));
+    }
+    if (id>0 && type>0){
+        Reviewable reviewable = ReviewableFactory.get(id, type);
+        if (reviewable!=null){
+            reviewables.add(reviewable);
+        }
+    } else {
+        reviewables = ReviewableUtil.getPendingForResearcherSorted(Pagez.getUserSession().getUser().getResearcherid());
+    }
 %>
 <%
 if (request.getParameter("action")!=null && request.getParameter("action").equals("dostuff")){
@@ -138,6 +155,15 @@ if (request.getParameter("action")!=null && request.getParameter("action").equal
                 //Do nothing!?!?
                 //Skip End
             }
+            //Handle Scoring
+            if (request.getParameter(prefix+"score")!=null){
+                if (Num.isinteger(request.getParameter(prefix+"score"))){
+                    int score = Integer.parseInt(request.getParameter(prefix+"score"));
+                    if (score>=0 && score<=5){
+                        reviewable.scoreByResearcher(score);
+                    }
+                }
+            }
         }
     }
     Pagez.getUserSession().setMessage("Reviews saved.");
@@ -210,6 +236,26 @@ if (request.getParameter("action")!=null && request.getParameter("action").equal
                                <div style="width: 550px; overflow: auto;">
                                    <%=reviewable.getFullSummary()%>
                                    <br/><br/>
+                                   <%if (reviewable.supportsScoringByResearcher()){%>
+                                        <table cellpadding="2" cellspacing="0" border="0">
+                                            <tr>
+                                                <td valign="top"><center><input type="radio" name="<%=prefix%>score" value="0" checked></center></td>
+                                                <td valign="top"><center><input type="radio" name="<%=prefix%>score" value="1"></center></td>
+                                                <td valign="top"><center><input type="radio" name="<%=prefix%>score" value="2"></center></td>
+                                                <td valign="top"><center><input type="radio" name="<%=prefix%>score" value="3"></center></td>
+                                                <td valign="top"><center><input type="radio" name="<%=prefix%>score" value="4"></center></td>
+                                                <td valign="top"><center><input type="radio" name="<%=prefix%>score" value="5"></center></td>
+                                            </tr>
+                                            <tr>
+                                                <td valign="top"><center><font class="tinyfont">Not Scored</font></center></td>
+                                                <td valign="top"><center><font class="tinyfont">Horrible</font></center></td>
+                                                <td valign="top"><center><font class="tinyfont">Pretty Bad</font></center></td>
+                                                <td valign="top"><center><font class="tinyfont">Average</font></center></td>
+                                                <td valign="top"><center><font class="tinyfont">Pretty Good</font></center></td>
+                                                <td valign="top"><center><font class="tinyfont">Great</font></center></td>
+                                            </tr>
+                                        </table>
+                                   <%}%>
                                </div>
                            </div>
                         </div>

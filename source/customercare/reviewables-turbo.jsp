@@ -12,6 +12,10 @@
 <%@ page import="com.dneero.htmluibeans.CustomercareSurveyList" %>
 <%@ page import="com.dneero.review.ReviewableUtil" %>
 <%@ page import="com.dneero.review.Reviewable" %>
+<%@ page import="com.dneero.mail.MailtypeReviewableRejection" %>
+<%@ page import="com.dneero.mail.MailNotify" %>
+<%@ page import="com.dneero.mail.MailtypeReviewableWarning" %>
+<%@ page import="com.dneero.review.ReviewableFactory" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "Reviewable Items";
@@ -27,7 +31,23 @@ if (Num.isinteger(request.getParameter("numOnPage"))){
 
 %>
 <%
-    ArrayList<Reviewable> reviewables = ReviewableUtil.getPendingForSysadminSorted();
+    ArrayList<Reviewable> reviewables = new ArrayList<Reviewable>();
+    int id = 0;
+    if (com.dneero.util.Num.isinteger(request.getParameter("id"))){
+        id = Integer.parseInt(request.getParameter("id"));
+    }
+    int type = 0;
+    if (com.dneero.util.Num.isinteger(request.getParameter("type"))){
+        type = Integer.parseInt(request.getParameter("type"));
+    }
+    if (id>0 && type>0){
+        Reviewable reviewable = ReviewableFactory.get(id, type);
+        if (reviewable!=null){
+            reviewables.add(reviewable);
+        }
+    } else {
+        reviewables = ReviewableUtil.getPendingForSysadminSorted();
+    }
 %>
 <%
 if (request.getParameter("action")!=null && request.getParameter("action").equals("dostuff")){
@@ -117,6 +137,27 @@ if (request.getParameter("action")!=null && request.getParameter("action").equal
                     }
                     //Change the underlying Reviewable object
                     reviewable.rejectBySysadmin();
+                    //Create an inbox item
+                    User userWhoCreatedContent = User.get(reviewable.getUseridofcontentcreator());
+                    Mail mail = new Mail();
+                    mail.setIsflaggedforcustomercare(false);
+                    mail.setSubject("Content Rejection");
+                    mail.setDate(new java.util.Date());
+                    mail.setUserid(userWhoCreatedContent.getUserid());
+                    mail.setIsread(true);
+                    try{mail.save();} catch (Exception ex){logger.error("", ex);}
+                    Mailchild mailchild = new Mailchild();
+                    mailchild.setMailid(mail.getMailid());
+                    mailchild.setDate(new java.util.Date());
+                    mailchild.setIsfromcustomercare(true);
+                    mailchild.setMailtypeid(MailtypeReviewableRejection.TYPEID);
+                    mailchild.setVar1(reviewable.getShortSummary());
+                    mailchild.setVar2(review.getResearchernotes());
+                    mailchild.setVar3(review.getSysadminnotes());
+                    mailchild.setVar4(String.valueOf(review.getReviewid()));
+                    mailchild.setVar5("");
+                    try{mailchild.save();} catch (Exception ex){logger.error("", ex);}
+                    MailNotify.notify(mail);
                 }  else {
                     Pagez.getUserSession().setMessage("When you reject you must provide notes so a rejection was ignored.");
                 }
@@ -141,6 +182,27 @@ if (request.getParameter("action")!=null && request.getParameter("action").equal
                     }
                     //Change the underlying Reviewable object
                     reviewable.approveBySysadmin();
+                    //Create an inbox item
+                    User userWhoCreatedContent = User.get(reviewable.getUseridofcontentcreator());
+                    Mail mail = new Mail();
+                    mail.setIsflaggedforcustomercare(false);
+                    mail.setSubject("Content Warning");
+                    mail.setDate(new java.util.Date());
+                    mail.setUserid(userWhoCreatedContent.getUserid());
+                    mail.setIsread(true);
+                    try{mail.save();} catch (Exception ex){logger.error("", ex);}
+                    Mailchild mailchild = new Mailchild();
+                    mailchild.setMailid(mail.getMailid());
+                    mailchild.setDate(new java.util.Date());
+                    mailchild.setIsfromcustomercare(true);
+                    mailchild.setMailtypeid(MailtypeReviewableWarning.TYPEID);
+                    mailchild.setVar1(reviewable.getShortSummary());
+                    mailchild.setVar2(review.getResearchernotes());
+                    mailchild.setVar3(review.getSysadminnotes());
+                    mailchild.setVar4(String.valueOf(review.getReviewid()));
+                    mailchild.setVar5("");
+                    try{mailchild.save();} catch (Exception ex){logger.error("", ex);}
+                    MailNotify.notify(mail);
                 }  else {
                     Pagez.getUserSession().setMessage("When you warn you must provide notes so a warning was ignored.");
                 }
@@ -149,6 +211,15 @@ if (request.getParameter("action")!=null && request.getParameter("action").equal
                 //Skip Start
                 //Do nothing!?!?
                 //Skip End
+            }
+            //Handle Scoring
+            if (request.getParameter(prefix+"score")!=null){
+                if (Num.isinteger(request.getParameter(prefix+"score"))){
+                    int score = Integer.parseInt(request.getParameter(prefix+"score"));
+                    if (score>=0 && score<=5){
+                        reviewable.scoreBySysadmin(score);
+                    }
+                }
             }
         }
     }
@@ -242,6 +313,26 @@ if (request.getParameter("action")!=null && request.getParameter("action").equal
                                <div style="width: 550px; overflow: auto;">
                                    <%=reviewable.getFullSummary()%>
                                    <br/><br/>
+                                   <%if (reviewable.supportsScoringBySysadmin()){%>
+                                        <table cellpadding="2" cellspacing="0" border="0">
+                                            <tr>
+                                                <td valign="top"><center><input type="radio" name="<%=prefix%>score" value="0" checked></center></td>
+                                                <td valign="top"><center><input type="radio" name="<%=prefix%>score" value="1"></center></td>
+                                                <td valign="top"><center><input type="radio" name="<%=prefix%>score" value="2"></center></td>
+                                                <td valign="top"><center><input type="radio" name="<%=prefix%>score" value="3"></center></td>
+                                                <td valign="top"><center><input type="radio" name="<%=prefix%>score" value="4"></center></td>
+                                                <td valign="top"><center><input type="radio" name="<%=prefix%>score" value="5"></center></td>
+                                            </tr>
+                                            <tr>
+                                                <td valign="top"><center><font class="tinyfont">Not Scored</font></center></td>
+                                                <td valign="top"><center><font class="tinyfont">Horrible</font></center></td>
+                                                <td valign="top"><center><font class="tinyfont">Pretty Bad</font></center></td>
+                                                <td valign="top"><center><font class="tinyfont">Average</font></center></td>
+                                                <td valign="top"><center><font class="tinyfont">Pretty Good</font></center></td>
+                                                <td valign="top"><center><font class="tinyfont">Great</font></center></td>
+                                            </tr>
+                                        </table>
+                                   <%}%>
                                </div>
                            </div>
                         </div>

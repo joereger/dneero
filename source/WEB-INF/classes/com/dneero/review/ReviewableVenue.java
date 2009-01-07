@@ -77,13 +77,17 @@ public class ReviewableVenue implements Reviewable {
         Blogger blogger = Blogger.get(venue.getBloggerid());
         User user = User.get(blogger.getUserid());
         out.append("<font class=\"mediumfont\">");
-        out.append("This is a Posting Venue");
+        out.append("Posting Venue:");
         out.append("</font>");
         out.append("<br/><br/>");
         out.append("<font class=\"formfieldnamefont\">");
         out.append("<a href=\"http://"+venue.getUrl()+"\" target=\"newwindow"+ RandomString.randomAlphabetic(5) +"\">");
         out.append("http://"+venue.getUrl());
         out.append("</a>");
+        out.append("</font>");
+        out.append("<br/>");
+        out.append("<font class=\"smallfont\">");
+        out.append("Click the link to review in a new window.");
         out.append("</font>");
         out.append("<br/><br/>");
         out.append("<font class=\"smallfont\">");
@@ -199,5 +203,26 @@ public class ReviewableVenue implements Reviewable {
             return venue.getIssysadminrejected();
         }
         return false;
+    }
+
+    public boolean supportsScoringByResearcher() {
+        return false;
+    }
+
+    public boolean supportsScoringBySysadmin() {
+        return true;
+    }
+
+    public void scoreByResearcher(int score) {
+
+    }
+
+    public void scoreBySysadmin(int score) {
+        Logger logger = Logger.getLogger(this.getClass().getName());
+        if (venue!=null){
+            Blogger blogger = Blogger.get(venue.getBloggerid());
+            venue.setScorebysysadmin(score);
+            try{venue.save();blogger.refresh();}catch(Exception ex){logger.error("", ex);}
+        }    
     }
 }

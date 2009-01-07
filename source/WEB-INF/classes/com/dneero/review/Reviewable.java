@@ -33,6 +33,10 @@ public interface Reviewable {
     public boolean getIsresearcherrejected();
     public boolean getIssysadminrejected();
     public Date getDate();
+    public boolean supportsScoringByResearcher();
+    public boolean supportsScoringBySysadmin();
+    public void scoreByResearcher(int score);
+    public void scoreBySysadmin(int score);
 
 
 

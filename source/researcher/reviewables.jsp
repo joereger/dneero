@@ -25,7 +25,7 @@ String acl = "researcher";
         <%
             ArrayList<GridCol> cols=new ArrayList<GridCol>();
             cols.add(new GridCol("Type", "<$typeName$>", false, "", "tinyfont"));
-            cols.add(new GridCol("", "<a href=\"/researcher/reviewabledetail.jsp?type=<$type$>&id=<$id$>\"><$shortSummary$></a>", false, "", "tinyfont"));
+            cols.add(new GridCol("", "<a href=\"/researcher/reviewables-turbo.jsp?type=<$type$>&id=<$id$>\"><$shortSummary$></a>", false, "", "tinyfont"));
             cols.add(new GridCol("Date", "<$date|"+Grid.GRIDCOLRENDERER_DATETIMEAGOTEXT+"$>", true, "", "tinyfont", "", ""));
         %>
         <%=Grid.render(researcherReviewList.getReviewables(), cols, 15, "/researcher/reviewables.jsp", "page")%>
@@ -45,7 +45,7 @@ String acl = "researcher";
     <%} else {%>
         <%
             ArrayList<GridCol> cols=new ArrayList<GridCol>();
-            cols.add(new GridCol("Summary", "<a href=\"/researcher/reviewabledetail.jsp?type=<$type$>&id=<$id$>\">View</a>", false, "", "tinyfont"));
+            cols.add(new GridCol("Summary", "<a href=\"/researcher/reviewables-turbo.jsp?type=<$type$>&id=<$id$>\">View</a>", false, "", "tinyfont"));
             cols.add(new GridCol("Created", "<$dateofcreation|"+Grid.GRIDCOLRENDERER_DATETIMECOMPACT+"$>", true, "", "tinyfont", "", ""));
             cols.add(new GridCol("Last Updated", "<$datelastupdated|"+Grid.GRIDCOLRENDERER_DATETIMEAGOTEXT+"$>", true, "", "tinyfont", "", ""));
         %>

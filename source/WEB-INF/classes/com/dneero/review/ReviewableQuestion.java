@@ -253,4 +253,29 @@ public class ReviewableQuestion implements Reviewable {
         }
         return false;
     }
+
+
+    public boolean supportsScoringByResearcher() {
+        return true;
+    }
+
+    public boolean supportsScoringBySysadmin() {
+        return true;
+    }
+
+    public void scoreByResearcher(int score) {
+        Logger logger = Logger.getLogger(this.getClass().getName());
+        if (question!=null){
+            question.setScorebyresearcher(score);
+            try{question.save();}catch(Exception ex){logger.error("", ex);}
+        }
+    }
+
+    public void scoreBySysadmin(int score) {
+        Logger logger = Logger.getLogger(this.getClass().getName());
+        if (question!=null){
+            question.setScorebysysadmin(score);
+            try{question.save();}catch(Exception ex){logger.error("", ex);}
+        }
+    }
 }
