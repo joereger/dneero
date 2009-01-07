@@ -159,6 +159,11 @@ String acl = "public";
                 <td valign="top">
                     <div class="rounded" style="background: #00ff00;">
                         <div class="rounded" style="background: #ffffff; text-align: center;">
+                            <font class="mediumfont">New: Posting Venues!</font>
+                            <br/>
+                            <font class="smallfont">You can now specify where you'll post your conversations in <a href="/blogger/bloggerdetails.jsp">your profile</a>. On March 1st, 2009 we'll start to only accept impressions from the posting venues you specify.  We do this to increase the overall quality of the system for those of you already playing by the rules.</font>
+                        </div>
+                        <div class="rounded" style="background: #ffffff; text-align: center;">
                             <font class="mediumfont">You've Joined this Conversation!</font>
                             <br/>
                             <img src="/images/ok-128.png" width="128" height="128"/>

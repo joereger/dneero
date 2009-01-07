@@ -81,6 +81,11 @@ BloggerDetails bloggerDetails = (BloggerDetails)Pagez.getBeanMgr().get("BloggerD
         }
     }
 %>
+<%
+if (!Pagez.getUserSession().getIsbloggerprofileok()){
+    Pagez.getUserSession().setMessage("Please verify that your profile is up to date and accurate before continuing.");
+}
+%>
 <%@ include file="/template/header.jsp" %>
 
 
@@ -213,16 +218,8 @@ BloggerDetails bloggerDetails = (BloggerDetails)Pagez.getBeanMgr().get("BloggerD
                                     <br/><br/>
                                     <font class="formfieldnamefont">Posting Venues</font>
                                     <br/>
-                                    <font class="tinyfont">A place to post conversations.  Blog, profile page, website, etc.  You can only accrue impressions from posting venues that you claim here.</font>
+                                    <font class="tinyfont">You need a place to post conversations.  Blog, profile page, website, etc.  You can only accrue impressions from posting venues that you claim here (starting March 1st, 2009.)</font>
                                     <table cellpadding="3" cellspacing="0" border="0">
-                                        <tr>
-                                            <td valign="top">
-                                                <font class="formfieldnamefont">URL of Venue</font>
-                                            </td>
-                                            <td valign="top">
-                                                <font class="formfieldnamefont">Focus</font>
-                                            </td>
-                                        </tr>
                                         <%
                                             Blogger blogger = Blogger.get(Pagez.getUserSession().getUser().getBloggerid());
                                             for (Iterator<Venue> iterator=blogger.getVenues().iterator(); iterator.hasNext();) {
@@ -231,10 +228,10 @@ BloggerDetails bloggerDetails = (BloggerDetails)Pagez.getBeanMgr().get("BloggerD
                                                     %>
                                                     <tr>
                                                         <td valign="top">
-                                                            <font class="tinyfont">http://<%=Str.truncateString(venue.getUrl(), 40)%> <a href="/blogger/bloggerdetails.jsp?action=deletevenue&venueid=<%=venue.getVenueid()%>">delete</a></font>
+                                                            <font class="normalfont" style="font-weight: bold;"><a href="/blogger/bloggerdetails.jsp?action=deletevenue&venueid=<%=venue.getVenueid()%>">delete</a> http://<%=Str.truncateString(venue.getUrl(), 40)%></font>
                                                         </td>
                                                         <td valign="top">
-                                                            <font class="tinyfont"><%=venue.getFocus()%></font>
+                                                            <font class="normalfont"><%=venue.getFocus()%></font>
                                                         </td>
                                                     </tr>
                                                     <%
@@ -244,10 +241,24 @@ BloggerDetails bloggerDetails = (BloggerDetails)Pagez.getBeanMgr().get("BloggerD
                                         <tr>
                                             <td valign="top">
                                                 <%=Textbox.getHtml("venueurl", bloggerDetails.getVenueurl(), 255, 25, "", "")%><br/>
-                                                <font class="tinyfont">ex: www.myblog.com</font>
+
                                             </td>
                                             <td valign="top">
                                                 <%=Dropdown.getHtml("venuefocus", bloggerDetails.getVenuefocus(), Util.treeSetToTreeMap(Blogfocuses.get()), "", "")%>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td valign="top">
+                                                <font class="tinyfont" style="font-weight: bold;">URL of Venue</font>
+                                                <br/>
+                                                <font class="tinyfont">The main or home page.</font>
+                                                <br/>
+                                                <font class="tinyfont">ex: www.myblog.com</font>
+                                            </td>
+                                            <td valign="top">
+                                                <font class="tinyfont" style="font-weight: bold;">Focus</font>
+                                                <br/>
+                                                <font class="tinyfont">The primary topic covered.</font>
                                             </td>
                                         </tr>
                                     </table>

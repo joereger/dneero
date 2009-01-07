@@ -9,6 +9,7 @@
 <%@ page import="com.dneero.money.CurrentBalanceCalculator" %>
 <%@ page import="com.dneero.money.SurveyMoneyStatus" %>
 <%@ page import="com.dneero.htmluibeans.StaticVariables" %>
+<%@ page import="com.dneero.review.ReviewableVenue" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "User: "+((CustomercareUserDetail) Pagez.getBeanMgr().get("CustomercareUserDetail")).getEmail();
@@ -254,6 +255,17 @@ CustomercareUserDetail customercareUserDetail= (CustomercareUserDetail)Pagez.get
                             </form>
                         </div>
                         <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
+                            <a href="/customercare/userdetailextended.jsp?userid=<%=customercareUserDetail.getUser().getUserid()%>"><b>User's extended detail screen.</b></a>
+                        </div>
+
+                        <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
+                            <a href="/customercare/iptrack.jsp?action=search&searchuserid=<%=customercareUserDetail.getUserid()%>"><b>Ip Track data for this user.</b></a>
+                        </div>
+
+                        <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
+                            <a href="/customercare/userlist.jsp?action=search&searchreferredbyuserid=<%=customercareUserDetail.getUserid()%>"><b>Users referred by this userid.</b></a>
+                        </div>
+                        <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
                             <form action="/customercare/userdetail.jsp" method="post">
                                 <input type="hidden" name="dpage" value="/customercare/userdetail.jsp">
                                 <input type="hidden" name="action" value="passwordresetemail">
@@ -362,15 +374,74 @@ CustomercareUserDetail customercareUserDetail= (CustomercareUserDetail)Pagez.get
                                 <input type="hidden" name="action" value="toggleisenabled">
                                 <input type="hidden" name="userid" value="<%=customercareUserDetail.getUserid()%>">
                                 <%if (customercareUserDetail.getIsenabled()){%>
-                                    <font class="mediumfont">This Account is Currently Enabled.</font>
+                                    <font class="mediumfont">This Account is Currently Enabled</font>
                                     <br/>
                                     <input type="submit" class="formsubmitbutton" value="Disable Account">
                                 <%} else {%>
-                                    <font class="mediumfont">This Account is Currently Disabled.</font>
+                                    <font class="mediumfont">This Account is Currently Disabled</font>
                                     <br/>
                                     <input type="submit" class="formsubmitbutton" value="Enable Account">
                                 <%}%>
                             </form>
+                        </div>
+
+                        <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
+                            <font class="mediumfont">Posting Venues</font>
+                            <br/>
+                            <%
+                            if (customercareUserDetail.getUser().getBloggerid()>0){
+                                Blogger blogger = Blogger.get(customercareUserDetail.getUser().getBloggerid());
+                                if (blogger!=null && blogger.getBloggerid()>0){
+                                    %>
+                                    <table cellpadding="3" cellspacing="0" border="0">
+                                        <%
+                                            for (Iterator<Venue> iterator=blogger.getVenues().iterator(); iterator.hasNext();) {
+                                                Venue venue=iterator.next();
+                                                if (venue.getIsactive()){
+                                                    %>
+                                                    <tr>
+                                                        <td valign="top">
+                                                            <font class="tinyfont" style="font-weight: bold;"><a href="/customercare/reviewables-turbo.jsp?type=<%=ReviewableVenue.TYPE%>&id=<%=venue.getVenueid()%>">review</a> http://<%=Str.truncateString(venue.getUrl(), 40)%></font>
+                                                        </td>
+                                                        <td valign="top">
+                                                            <font class="tinyfont"><%=venue.getFocus()%></font>
+                                                        </td>
+                                                    </tr>
+                                                    <%
+                                                }
+                                            }
+                                        %>
+                                    </table>
+                                    <%
+                                }
+                            }
+                            %>
+                        </div>
+
+                        <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
+                            <font class="mediumfont">Flaggings</font>
+                            <br/>
+                            <%
+                            List<Review> reviews = HibernateUtil.getSession().createCriteria(Review.class)
+                                                               .add(Restrictions.eq("useridofcontentcreator", customercareUserDetail.getUser().getUserid()))
+                                                               .addOrder(Order.asc("reviewid"))
+                                                               .setCacheable(true)
+                                                               .list();
+                            %>
+                            <table cellpadding="3" cellspacing="0" border="0">
+                                <%
+                                    for (Iterator<Review> iterator=reviews.iterator(); iterator.hasNext();) {
+                                        Review review=iterator.next();
+                                        %>
+                                        <tr>
+                                            <td valign="top">
+                                                <font class="tinyfont" style="font-weight: bold;"><a href="/customercare/reviewables-turbo.jsp?type=<%=review.getType()%>&id=<%=review.getId()%>">review</a> <%=Str.truncateString(review.getSysadminnotes(), 80)%></font>
+                                            </td>
+                                        </tr>
+                                        <%
+                                    }
+                                %>
+                            </table>
                         </div>
 
                         <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
@@ -392,17 +463,7 @@ CustomercareUserDetail customercareUserDetail= (CustomercareUserDetail)Pagez.get
                             </form>
                         </div>
 
-                        <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
-                            <a href="/customercare/userdetailextended.jsp?userid=<%=customercareUserDetail.getUser().getUserid()%>"><b>User's extended detail screen.</b></a>
-                        </div>
 
-                        <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
-                            <a href="/customercare/iptrack.jsp?action=search&searchuserid=<%=customercareUserDetail.getUserid()%>"><b>Ip Track data for this user.</b></a>
-                        </div>
-
-                        <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
-                            <a href="/customercare/userlist.jsp?action=search&searchreferredbyuserid=<%=customercareUserDetail.getUserid()%>"><b>Users referred by this userid.</b></a>
-                        </div>
 
                         <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
                             <form action="/customercare/userdetail.jsp" method="post">

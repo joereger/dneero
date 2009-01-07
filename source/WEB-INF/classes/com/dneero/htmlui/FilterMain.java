@@ -243,7 +243,6 @@ public class FilterMain implements Filter {
                         System.out.println("redirecting to complete blogger profile");
                         if (urlSplitter.getRequestUrl().indexOf("bloggerdetails.jsp")==-1 && (Pagez.getRequest().getParameter("dpage")==null || Pagez.getRequest().getParameter("dpage").indexOf("bloggerdetails.jsp")==-1)){
                             isOnBloggerProfilePage = false;
-                            Pagez.getUserSession().setMessage("Please verify that your profile is up to date and accurate before continuing.");
                             Pagez.sendRedirect("/blogger/bloggerdetails.jsp");
                             return;
                         } else {

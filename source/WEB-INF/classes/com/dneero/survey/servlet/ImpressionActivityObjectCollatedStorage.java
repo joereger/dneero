@@ -133,10 +133,11 @@ public class ImpressionActivityObjectCollatedStorage {
                         impressionsqualifyingforpayment = 0;
                     }
                     //This must also be last... lol... venue/url validation
+                    boolean isvalidurl = false;
+                    int venueid = 0;
                     try{
                         String referer = iao.getReferer();
                         logger.error("START referer="+referer);
-                        boolean isvalidurl = false;
                         if (user.getFacebookuserid()<=0){
                             logger.error("not facebook");
                             if (referer!=null && !referer.equals("")){
@@ -151,6 +152,7 @@ public class ImpressionActivityObjectCollatedStorage {
                                             logger.error("venue is active and venue is not sysadminrejected");
                                             if (referer.indexOf(VenueUtils.stringToMatchForImpressions(venue.getUrl()))>-1){
                                                 isvalidurl = true;
+                                                venueid = venue.getVenueid();
                                                 logger.error("PASS VALID     referer="+referer+" venue.getUrl()="+venue.getUrl()+"");
                                                 break;
                                             } else {
@@ -172,6 +174,8 @@ public class ImpressionActivityObjectCollatedStorage {
                         } else {
                             //Just record/note it in logs
                             logger.error("FINAL isvalidurl="+isvalidurl);
+                            //Now just force it to be true until Mar 1st
+                            isvalidurl = true;
                         }
                     } catch (Exception ex){
                         logger.error("", ex);
@@ -215,7 +219,10 @@ public class ImpressionActivityObjectCollatedStorage {
                     ImpressionsByDayUtil ibduResponse = new ImpressionsByDayUtil(response.getImpressionsbyday());
                     if (!response.getIssysadminrejected()){
                         int dayssincetakingsurvey = DateDiff.dateDiff("day", Time.getCalFromDate(new Date()), Time.getCalFromDate(response.getResponsedate()));
-                        ibduResponse.add(iao.getImpressions(), dayssincetakingsurvey);
+                        //Only save to response day-by-day if it's a valid url... critical because response status (paid, pending, etc) depends on this and we don't want bad venues to accrue impressions that help the response
+                        if (isvalidurl){
+                            ibduResponse.add(iao.getImpressions(), dayssincetakingsurvey);
+                        }
                     }
                     response.setImpressionsbyday(ibduResponse.getAsString());
 

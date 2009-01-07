@@ -148,7 +148,7 @@ public class BloggerDetails implements Serializable {
             blogger.setCity(city);
             blogger.setProfession(profession);
             blogger.setPolitics(politics);
-            blogger.setBlogfocus(blogfocus);
+            blogger.setBlogfocus("");
             blogger.setCountry(country);
 
             try{
@@ -207,8 +207,11 @@ public class BloggerDetails implements Serializable {
                 venue.setLastsysadminreviewdate(new Date());
                 venue.setScorebysysadmin(0);
                 venue.setIsactive(true);
+                //Also set the blogger focus to the last used venuefocus... something of a hack but works for now
+                blogger.setBlogfocus(venuefocus);
                 try{
                     venue.save();
+                    blogger.save();
                     blogger.refresh();
                     if (bloggerOther!=null){
                         bloggerOther.refresh();

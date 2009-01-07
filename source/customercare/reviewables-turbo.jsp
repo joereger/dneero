@@ -311,8 +311,6 @@ if (request.getParameter("action")!=null && request.getParameter("action").equal
 
                            <div class="rounded" style="padding: 5px; margin: 10px; background: #ffffff;">
                                <div style="width: 550px; overflow: auto;">
-                                   <%=reviewable.getFullSummary()%>
-                                   <br/><br/>
                                    <%if (reviewable.supportsScoringBySysadmin()){%>
                                         <table cellpadding="2" cellspacing="0" border="0">
                                             <tr>
@@ -332,7 +330,9 @@ if (request.getParameter("action")!=null && request.getParameter("action").equal
                                                 <td valign="top"><center><font class="tinyfont">Great</font></center></td>
                                             </tr>
                                         </table>
+                                        <br/><br/>
                                    <%}%>
+                                   <%=reviewable.getFullSummary()%>
                                </div>
                            </div>
                         </div>
