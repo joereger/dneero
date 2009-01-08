@@ -25,10 +25,13 @@ CustomercareUserList customercareUserListList= (CustomercareUserList)Pagez.getBe
             customercareUserListList.setSearchlastname(Textbox.getValueFromRequest("searchlastname", "Lastname", false, DatatypeString.DATATYPEID));
             customercareUserListList.setSearchuserid(Textbox.getValueFromRequest("searchuserid", "Userid", false, DatatypeString.DATATYPEID));
             customercareUserListList.setSearchreferredbyuserid(Textbox.getValueFromRequest("searchreferredbyuserid", "Referred By Userid", false, DatatypeString.DATATYPEID));
-            customercareUserListList.initBean();
+            customercareUserListList.setSearchsignedupafter(Date.getValueFromRequest("searchsignedupafter", "Signed Up After", false).getTime());
+            customercareUserListList.setSearchsignedupbefore(Date.getValueFromRequest("searchsignedupbefore", "Signed Up Before", false).getTime());
+            logger.error("calling search() from jsp");
+            customercareUserListList.search();
             if (customercareUserListList.getUsers()!=null && customercareUserListList.getUsers().size()==1){
-                User user = customercareUserListList.getUsers().get(0);
-                Pagez.sendRedirect("/customercare/userdetail.jsp?userid="+user.getUserid());
+                CustomercareUserListItem cculi = customercareUserListList.getUsers().get(0);
+                Pagez.sendRedirect("/customercare/userdetail.jsp?userid="+cculi.getUser().getUserid());
             }
         } catch (com.dneero.htmlui.ValidationException vex) {
             Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
@@ -57,13 +60,16 @@ CustomercareUserList customercareUserListList= (CustomercareUserList)Pagez.getBe
                     <font class="tinyfont">Email</font>
                 </td>
                 <td valign="top">
-                    <font class="tinyfont">Referred By Userid</font>
+                    <font class="tinyfont">Referred By</font>
+                </td>
+                <td valign="top">
+                    <font class="tinyfont">Signed up After</font>
+                </td>
+                <td valign="top">
+                    <font class="tinyfont">Signed up Before</font>
                 </td>
                 <td valign="top">
                     <font class="tinyfont">Facebook?</font>
-                </td>
-                <td valign="top">
-
                 </td>
             </tr>
             <tr>
@@ -83,9 +89,17 @@ CustomercareUserList customercareUserListList= (CustomercareUserList)Pagez.getBe
                     <%=Textbox.getHtml("searchreferredbyuserid", customercareUserListList.getSearchreferredbyuserid(), 255, 5, "", "")%>
                 </td>
                 <td valign="top">
-                    <%=CheckboxBoolean.getHtml("searchfacebookers", customercareUserListList.getSearchfacebookers(), "", "")%>
+                    <%=Date.getHtml("searchsignedupafter", customercareUserListList.getSearchsignedupafter(), "", "font-size: 9px;")%>
                 </td>
                 <td valign="top">
+                    <%=Date.getHtml("searchsignedupbefore", customercareUserListList.getSearchsignedupbefore(), "", "font-size: 9px;")%>
+                </td>
+                <td valign="top">
+                    <%=CheckboxBoolean.getHtml("searchfacebookers", customercareUserListList.getSearchfacebookers(), "", "")%>
+                </td>
+            </tr>
+            <tr>
+                <td valign="top" colspan="5">
                     <input type="submit" class="formsubmitbutton" value="Search">
                 </td>
             </tr>
@@ -99,14 +113,15 @@ CustomercareUserList customercareUserListList= (CustomercareUserList)Pagez.getBe
         <%} else {%>
             <%
                 ArrayList<GridCol> cols=new ArrayList<GridCol>();
-                cols.add(new GridCol("Userid", "<a href=\"/customercare/userdetail.jsp?userid=<$userid$>\"><$userid$></a>", false, "", "tinyfont"));
-                cols.add(new GridCol("Bloggerid", "<$bloggerid$>", false, "", "tinyfont"));
-                cols.add(new GridCol("Researcherid", "<$researcherid$>", false, "", "tinyfont"));
-                cols.add(new GridCol("Facebookuid", "<$facebookuserid$>", false, "", "tinyfont"));
-                cols.add(new GridCol("Name", "<$firstname$> <$lastname$>", false, "", "tinyfont"));
-                cols.add(new GridCol("Email", "<$email$>", false, "", "tinyfont"));
-                cols.add(new GridCol("Signup Date", "<$createdate|"+Grid.GRIDCOLRENDERER_DATETIMECOMPACT+"$>", false, "", "tinyfont"));
-                cols.add(new GridCol("Referred By Userid", "<a href=\"/customercare/userdetail.jsp?userid=<$referredbyuserid$>\"><$referredbyuserid$></a>", false, "", "tinyfont"));
+                cols.add(new GridCol("Userid", "<a href=\"/customercare/userdetail.jsp?userid=<$user.userid$>\"><$user.userid$></a>", false, "", "tinyfont"));
+                cols.add(new GridCol("Facebookuid", "<$user.facebookuserid$>", false, "", "tinyfont"));
+                cols.add(new GridCol("Name", "<$user.firstname$> <$user.lastname$>", false, "", "tinyfont"));
+                cols.add(new GridCol("Email", "<$user.email$>", false, "", "tinyfont"));
+                cols.add(new GridCol("Signup Date", "<$user.createdate|"+Grid.GRIDCOLRENDERER_DATETIMECOMPACT+"$>", false, "", "tinyfont"));
+                cols.add(new GridCol("Referred By Userid", "<a href=\"/customercare/userdetail.jsp?userid=<$user.referredbyuserid$>\"><$user.referredbyuserid$></a>", false, "", "tinyfont"));
+                cols.add(new GridCol("City", "<$city$>", false, "", "tinyfont"));
+                cols.add(new GridCol("State", "<$state$>", false, "", "tinyfont"));
+                cols.add(new GridCol("Country", "<$country$>", false, "", "tinyfont"));
             %>
             <%=Grid.render(customercareUserListList.getUsers(), cols, 200, "/customercare/userlist.jsp", "page")%>
         <%}%>
