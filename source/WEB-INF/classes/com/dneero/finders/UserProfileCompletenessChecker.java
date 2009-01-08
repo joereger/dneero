@@ -62,10 +62,10 @@ public class UserProfileCompletenessChecker {
                 logger.debug("returning false because Profession not a valid value");
                 return false;
             }
-            if (blogger.getBlogfocus()==null || !Blogfocuses.get().contains(blogger.getBlogfocus())){
-                logger.debug("returning false because Blog Focus not a valid value");
-                return false;
-            }
+//            if (blogger.getBlogfocus()==null || !Blogfocuses.get().contains(blogger.getBlogfocus())){
+//                logger.debug("returning false because Blog Focus not a valid value");
+//                return false;
+//            }
             if (user.getFacebookuserid()<=0){
                 int venuecount = 0;
                 if (blogger.getVenues()!=null && blogger.getVenues().size()>0){

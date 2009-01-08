@@ -69,7 +69,7 @@ public class VenueUtils {
     private static String removeSlash(String url){
         Logger logger = Logger.getLogger(VenueUtils.class);
         String out = url;
-        if (url!=null){
+        if (url!=null && url.length()>0){
             url = url.trim();
             logger.debug("url="+url);
             logger.debug("url.substring(url.length()-1, url.length())="+url.substring(url.length()-1, url.length()));

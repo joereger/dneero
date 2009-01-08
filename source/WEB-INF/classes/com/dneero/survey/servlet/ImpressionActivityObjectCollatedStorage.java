@@ -137,26 +137,26 @@ public class ImpressionActivityObjectCollatedStorage {
                     int venueid = 0;
                     try{
                         String referer = iao.getReferer();
-                        logger.error("START referer="+referer);
+                        logger.debug("START referer="+referer);
                         if (user.getFacebookuserid()<=0){
-                            logger.error("not facebook");
+                            logger.debug("not facebook");
                             if (referer!=null && !referer.equals("")){
-                                logger.error("referer not null");
+                                logger.debug("referer not null");
                                 Blogger blogger = Blogger.get(user.getBloggerid());
                                 if (blogger!=null && blogger.getBloggerid()>0){
-                                    logger.error("blogger not null");
+                                    logger.debug("blogger not null");
                                     for (Iterator<Venue> iterator=blogger.getVenues().iterator(); iterator.hasNext();) {
                                         Venue venue=iterator.next();
-                                        logger.error("found venue url="+venue.getUrl());
+                                        logger.debug("found venue url="+venue.getUrl());
                                         if (venue.getIsactive() && !venue.getIssysadminrejected()){
-                                            logger.error("venue is active and venue is not sysadminrejected");
+                                            logger.debug("venue is active and venue is not sysadminrejected");
                                             if (referer.indexOf(VenueUtils.stringToMatchForImpressions(venue.getUrl()))>-1){
                                                 isvalidurl = true;
                                                 venueid = venue.getVenueid();
-                                                logger.error("PASS VALID     referer="+referer+" venue.getUrl()="+venue.getUrl()+"");
+                                                logger.debug("PASS VALID     referer="+referer+" venue.getUrl()="+venue.getUrl()+"");
                                                 break;
                                             } else {
-                                                logger.error("FAIL NOT VALID referer="+referer+" venue.getUrl()="+venue.getUrl()+"");
+                                                logger.debug("FAIL NOT VALID referer="+referer+" venue.getUrl()="+venue.getUrl()+"");
                                             }
                                         }
                                     }
@@ -173,7 +173,7 @@ public class ImpressionActivityObjectCollatedStorage {
                             }
                         } else {
                             //Just record/note it in logs
-                            logger.error("FINAL isvalidurl="+isvalidurl);
+                            logger.debug("FINAL isvalidurl="+isvalidurl);
                             //Now just force it to be true until Mar 1st
                             isvalidurl = true;
                         }

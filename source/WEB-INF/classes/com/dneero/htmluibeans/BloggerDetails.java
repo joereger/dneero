@@ -46,6 +46,7 @@ public class BloggerDetails implements Serializable {
     private String country;
     private String venueurl;
     private String venuefocus;
+    private int venuecount = 0;
 
     private boolean isnewblogger;
 
@@ -80,6 +81,15 @@ public class BloggerDetails implements Serializable {
             country = blogger.getCountry();
             venueurl = "";
             venuefocus = "";
+            venuecount = 0;
+            if (blogger.getVenues()!=null && blogger.getVenues().size()>0){
+                for (Iterator<Venue> iterator=blogger.getVenues().iterator(); iterator.hasNext();) {
+                    Venue venue=iterator.next();
+                    if (venue.getIsactive()){
+                        venuecount = venuecount + 1;
+                    }
+                }
+            }
         } else {
             birthdate = new Date();
         }
@@ -118,17 +128,28 @@ public class BloggerDetails implements Serializable {
                 haveValidationError = true;
             }
             if (Pagez.getUserSession().getUser().getFacebookuserid()<=0){
-                int venuecount = 0;
+                venuecount = 0;
                 if (blogger.getVenues()!=null && blogger.getVenues().size()>0){
-                    venuecount = blogger.getVenues().size();
+                    for (Iterator<Venue> iterator=blogger.getVenues().iterator(); iterator.hasNext();) {
+                        Venue venue=iterator.next();
+                        if (venue.getIsactive()){
+                            venuecount = venuecount + 1;
+                        }
+                    }
                 }
-                if (venuecount==0 && venueurl.equals("") || venuefocus.equals("")){
+                if (venuecount==0 && (venueurl.equals("") || venuefocus.equals(""))){
                     vex.addValidationError("You must provide at least one posting venue url and focus.");
                     haveValidationError = true;
                 }
                 if (VenueUtils.isVenueUrlInUse(venueurl)){
                     vex.addValidationError("The new venue url you provided is already in use.");
                     haveValidationError = true;
+                }
+                if(venueurl!=null && !venueurl.equals("") && venuefocus!=null && !venuefocus.equals("")){
+                    if (venuecount==5){
+                        vex.addValidationError("Sorry, you can have at most 5 posting venues.");
+                        haveValidationError = true;
+                    }
                 }
             }
             //Throw the error
@@ -378,5 +399,13 @@ public class BloggerDetails implements Serializable {
 
     public void setVenuefocus(String venuefocus) {
         this.venuefocus=venuefocus;
+    }
+
+    public int getVenuecount() {
+        return venuecount;
+    }
+
+    public void setVenuecount(int venuecount) {
+        this.venuecount=venuecount;
     }
 }

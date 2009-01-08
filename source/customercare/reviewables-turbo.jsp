@@ -241,7 +241,10 @@ if (request.getParameter("action")!=null && request.getParameter("action").equal
         <form action="/customercare/reviewables-turbo.jsp" method="post">
             <input type="hidden" name="dpage" value="/customercare/reviewables-turbo.jsp">
             <input type="hidden" id="action" name="action" value="dostuff">
-
+            <%if (id>0 && type>0){%>
+                <input type="hidden" name="id" value="<%=id%>">
+                <input type="hidden" name="type" value="<%=type%>">
+            <%}%>
 
         <font class="mediumfont" style="color: #cccccc;"><%=reviewables.size()%> reviewables remain.</font><br/><br/>
 

@@ -32,7 +32,11 @@ BloggerDetails bloggerDetails = (BloggerDetails)Pagez.getBeanMgr().get("BloggerD
             bloggerDetails.setVenueurl(Textbox.getValueFromRequest("venueurl", "Venue URL", false, DatatypeString.DATATYPEID));
             bloggerDetails.setVenuefocus(Dropdown.getValueFromRequest("venuefocus", "Venue Focus", false));
             bloggerDetails.saveAction();
-            Pagez.getUserSession().setMessage("Profile Saved Successfully!");
+            if (Pagez.getUserSession().getIsfacebookui()){
+                Pagez.getUserSession().setMessage("Profile Saved Successfully. <a href=\"/blogger/bloggerdetails.jsp\">Edit again?</a>");
+            } else {
+                Pagez.getUserSession().setMessage("Profile Saved Successfully. <a href=\"/blogger/bloggerdetails.jsp\">Edit again or add more Posting Venues.</a>");
+            }
             if (Pagez.getUserSession().getIsfacebookui()){
                 if (bloggerDetails.getIsnewblogger()){
                     Pagez.sendRedirect("/blogger/index.jsp");
@@ -67,6 +71,7 @@ BloggerDetails bloggerDetails = (BloggerDetails)Pagez.getBeanMgr().get("BloggerD
                     venue.save();
                     Blogger blogger = Blogger.get(Pagez.getUserSession().getUser().getBloggerid());
                     blogger.refresh();
+                    bloggerDetails.initBean();
                     if (!UserProfileCompletenessChecker.isProfileComplete(Pagez.getUserSession().getUser())){
                         Pagez.getUserSession().setIsbloggerprofileok(false);
                     } else {
@@ -225,19 +230,28 @@ if (!Pagez.getUserSession().getIsbloggerprofileok()){
                                             for (Iterator<Venue> iterator=blogger.getVenues().iterator(); iterator.hasNext();) {
                                                 Venue venue=iterator.next();
                                                 if (venue.getIsactive()){
+                                                    String sysadminrejected = "";
+                                                    if (venue.getIssysadminrejected()){
+                                                        sysadminrejected = "<a href=\"/account/reviewables.jsp\"><img src=\"/images/alert-16.png\" alt=\"Rejected\" border=\"0\"></a>";
+                                                    } else {
+                                                        if (venue.getIssysadminreviewed() && !venue.getIssysadminrejected()){
+                                                            sysadminrejected = "<img src=\"/images/ok-16.png\" alt=\"Approved\" border=\"0\">";
+                                                        }
+                                                    }
                                                     %>
                                                     <tr>
                                                         <td valign="top">
-                                                            <font class="normalfont" style="font-weight: bold;"><a href="/blogger/bloggerdetails.jsp?action=deletevenue&venueid=<%=venue.getVenueid()%>">delete</a> http://<%=Str.truncateString(venue.getUrl(), 40)%></font>
+                                                            <font class="tinyfont" style="font-weight: bold;"><a href="/blogger/bloggerdetails.jsp?action=deletevenue&venueid=<%=venue.getVenueid()%>"><img src="/images/delete-16.png" alt="Delete" border="0"></a> http://<%=Str.truncateString(venue.getUrl(), 40)%><%=sysadminrejected%></font>
                                                         </td>
                                                         <td valign="top">
-                                                            <font class="normalfont"><%=venue.getFocus()%></font>
+                                                            <font class="tinyfont"><%=venue.getFocus()%></font>
                                                         </td>
                                                     </tr>
                                                     <%
                                                 }
                                             }
                                         %>
+                                        <%if (bloggerDetails.getVenuecount()<=4){%>
                                         <tr>
                                             <td valign="top">
                                                 <%=Textbox.getHtml("venueurl", bloggerDetails.getVenueurl(), 255, 25, "", "")%><br/>
@@ -261,6 +275,7 @@ if (!Pagez.getUserSession().getIsbloggerprofileok()){
                                                 <font class="tinyfont">The primary topic covered.</font>
                                             </td>
                                         </tr>
+                                        <%}%>
                                     </table>
 
                                 </td>

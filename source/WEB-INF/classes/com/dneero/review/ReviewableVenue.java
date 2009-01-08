@@ -106,6 +106,7 @@ public class ReviewableVenue implements Reviewable {
 
     public void rejectBySysadmin() throws ValidationException {
         Logger logger = Logger.getLogger(this.getClass().getName());
+        logger.debug("rejecting venueid="+venue.getVenueid()+" by sysadmin");
         Blogger blogger = Blogger.get(venue.getBloggerid());
         venue.setIssysadminrejected(true);
         venue.setIssysadminreviewed(true);
