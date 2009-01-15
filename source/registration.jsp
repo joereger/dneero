@@ -24,6 +24,7 @@ Registration registration = (Registration)Pagez.getBeanMgr().get("Registration")
             registration.setLastname(Textbox.getValueFromRequest("lastname", "Last Name", true, DatatypeString.DATATYPEID));
             registration.setPassword(TextboxSecret.getValueFromRequest("password", "Password", true, DatatypeString.DATATYPEID));
             registration.setPasswordverify(TextboxSecret.getValueFromRequest("passwordverify", "Password Verify", true, DatatypeString.DATATYPEID));
+            registration.setNickname(Textbox.getValueFromRequest("nickname", "Nickname", true, DatatypeString.DATATYPEID));
             registration.registerAction();
             //Redir if https is on
             if (SystemProperty.getProp(SystemProperty.PROP_ISSSLON).equals("1")) {
@@ -113,6 +114,17 @@ Registration registration = (Registration)Pagez.getBeanMgr().get("Registration")
                         </td>
                         <td valign="top">
                             <%=Textbox.getHtml("lastname", registration.getLastname(), 255, 35, "", "")%>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td valign="top">
+                            <font class="formfieldnamefont">Nickname</font>
+                            <br/>
+                            <font class="tinyfont">Only letters and numbers, no spaces.  This will be your public name that others can see.</font>
+                        </td>
+                        <td valign="top">
+                            <%=Textbox.getHtml("nickname", registration.getNickname(), 255, 35, "", "")%>
                         </td>
                     </tr>
 

@@ -14,6 +14,7 @@ import com.dneero.display.SurveyResultsUserQuestions;
 import com.dneero.display.SurveyResultsUserQuestionsListitem;
 import com.dneero.facebook.FacebookUser;
 import com.dneero.helpers.UserInputSafe;
+import com.dneero.helpers.NicknameHelper;
 import com.dneero.htmlui.Pagez;
 import com.dneero.util.Num;
 import com.dneero.util.Str;
@@ -210,7 +211,7 @@ public class PublicSurveyResults implements Serializable {
 
         //Set results friends tab text
         if (userwhotooksurvey!=null){
-            resultsfriendstabtext = Str.truncateString(userwhotooksurvey.getFirstname(), 15)+"'s Friends";
+            resultsfriendstabtext = Str.truncateString(NicknameHelper.getNameOrNickname(userwhotooksurvey), 15)+"'s Friends";
         }
 
 

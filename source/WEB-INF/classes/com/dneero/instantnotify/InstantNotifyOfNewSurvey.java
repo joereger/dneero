@@ -11,6 +11,7 @@ import com.dneero.ui.SurveyEnhancer;
 import com.dneero.systemprops.BaseUrl;
 import com.dneero.email.EmailTemplateProcessor;
 import com.dneero.xmpp.SendXMPPMessage;
+import com.dneero.helpers.NicknameHelper;
 import org.apache.log4j.Logger;
 
 import java.util.List;
@@ -81,7 +82,7 @@ public class InstantNotifyOfNewSurvey implements Runnable {
             if (user.getIsenabled()){
                 if (user.getInstantnotifybyemailison()){
                     //Send email
-                    EmailTemplateProcessor.sendMail("Instant Notification: New dNeero Conversation for "+user.getFirstname(), "bloggernotifyofnewsurveys", user, args);
+                    EmailTemplateProcessor.sendMail("Instant Notification: New dNeero Conversation for "+ NicknameHelper.getNameOrNickname(user), "bloggernotifyofnewsurveys", user, args);
                 }
                 if (user.getInstantnotifybytwitterison() && !user.getInstantnotifytwitterusername().equals("")){
                     //Send Twitter

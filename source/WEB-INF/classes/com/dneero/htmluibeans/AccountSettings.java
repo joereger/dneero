@@ -14,6 +14,7 @@ import com.dneero.htmlui.Pagez;
 import com.dneero.htmlui.ValidationException;
 import com.dneero.email.EmailActivationSend;
 import com.dneero.helpers.UserInputSafe;
+import com.dneero.helpers.NicknameHelper;
 import com.dneero.money.PaymentMethod;
 
 import java.io.Serializable;
@@ -38,7 +39,7 @@ public class AccountSettings implements Serializable {
     private boolean instantnotifyxmppison = false;
     private String instantnotifyxmppusername = "";
     private String paymethodpaypaladdress;
-    
+    private String nickname="";
 
     //Other props
     private int userid;
@@ -62,6 +63,7 @@ public class AccountSettings implements Serializable {
             instantnotifyxmppison = user.getInstantnotifyxmppison();
             instantnotifyxmppusername =  user.getInstantnotifyxmppusername();
             paymethodpaypaladdress = user.getPaymethodpaypaladdress();
+            nickname = user.getNickname();
         }
     }
 
@@ -88,6 +90,17 @@ public class AccountSettings implements Serializable {
                     paymethodpaypaladdress = user.getPaymethodpaypaladdress();
                 }
             }
+            if (nickname!=null && !nickname.equals("")){
+                nickname = Str.onlyKeepLettersAndDigits(nickname);
+                nickname = nickname.toLowerCase();
+                if (!nickname.equals(user.getNickname())){
+                    if (NicknameHelper.nicknameExistsAlready(nickname)){
+                        vex.addValidationError("Sorry, that nickname already exists.");
+                    }
+                }
+            } else {
+                nickname = "";
+            }
             user.setFirstname(firstname);
             user.setLastname(lastname);
             user.setNotifyofnewsurveysbyemaileveryexdays(notifyofnewsurveysbyemaileveryexdays);
@@ -99,6 +112,7 @@ public class AccountSettings implements Serializable {
             user.setInstantnotifyxmppusername(instantnotifyxmppusername);
             user.setPaymethod(PaymentMethod.PAYMENTMETHODPAYPAL);
             user.setPaymethodpaypaladdress(paymethodpaypaladdress);
+            user.setNickname(nickname);
             try{
                 user.save();
                 userid = user.getUserid();
@@ -224,5 +238,13 @@ public class AccountSettings implements Serializable {
 
     public void setPaymethodpaypaladdress(String paymethodpaypaladdress) {
         this.paymethodpaypaladdress = paymethodpaypaladdress;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname=nickname;
     }
 }

@@ -3,6 +3,7 @@ package com.dneero.cachedstuff;
 import com.dneero.dao.User;
 import com.dneero.dao.Blogger;
 import com.dneero.dao.hibernate.HibernateUtil;
+import com.dneero.helpers.NicknameHelper;
 
 import java.io.Serializable;
 import java.util.*;
@@ -65,7 +66,7 @@ public class MostActiveUsersByTotalSurveysTaken implements CachedStuff, Serializ
                     out.append("<td>");
                     out.append("<a href=\"/profile.jsp?userid="+user.getUserid()+"\">");
                     out.append("<font class='tinyfont'>");
-                    out.append(user.getFirstname()+" "+user.getLastname());
+                    out.append(NicknameHelper.getNameOrNickname(user));
                     out.append("</font>");
                     out.append("</a>");
                     out.append("</td>");

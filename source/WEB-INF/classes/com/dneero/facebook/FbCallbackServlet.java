@@ -22,6 +22,7 @@ import com.dneero.util.Num;
 import com.dneero.dao.User;
 import com.dneero.dao.Survey;
 import com.dneero.xmpp.SendXMPPMessage;
+import com.dneero.helpers.NicknameHelper;
 
 /**
  * User: Joe Reger Jr
@@ -87,7 +88,7 @@ public class FbCallbackServlet extends HttpServlet {
                     String referredbyname = "";
                     if (split[2]!=null && Num.isinteger(split[2])){
                         User userReferer = User.get(Integer.parseInt(split[2]));
-                        referredbyname = userReferer.getFirstname()+" "+userReferer.getLastname();
+                        referredbyname = NicknameHelper.getNameOrNickname(userReferer);
                     }
                     String surveytitle = "";
                     if (split[1]!=null && Num.isinteger(split[1])){

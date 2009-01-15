@@ -5,6 +5,7 @@ import com.dneero.dao.Balance;
 import com.dneero.dao.Balancetransaction;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.util.Str;
+import com.dneero.helpers.NicknameHelper;
 
 import java.io.Serializable;
 import java.util.Calendar;
@@ -46,7 +47,7 @@ public class MostRecentPaidInRealWorld implements CachedStuff, Serializable {
             out.append("<td>");
             out.append("<a href=\"/profile.jsp?userid="+user.getUserid()+"\">");
             out.append("<font class='tinyfont'>");
-            out.append(user.getFirstname()+" "+user.getLastname());
+            out.append(NicknameHelper.getNameOrNickname(user));
             out.append("</font>");
             out.append("</a>");
             out.append("</td>");

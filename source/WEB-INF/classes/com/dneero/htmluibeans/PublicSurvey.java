@@ -577,6 +577,7 @@ public class PublicSurvey implements Serializable {
                     user.setCurrentbalanceblogger(0.0);
                     user.setCurrentbalanceresearcher(0.0);
                     user.setLastlogindate(new java.util.Date());
+                    user.setNickname("");
                     try{
                         user.save();
                     } catch (GeneralException gex){

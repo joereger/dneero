@@ -8,6 +8,7 @@ import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.dao.Revshare;
 import com.dneero.dao.Blogger;
 import com.dneero.dao.User;
+import com.dneero.helpers.NicknameHelper;
 
 import java.util.*;
 import java.io.Serializable;
@@ -63,7 +64,7 @@ public class BloggerEarningsRevshareTreeHandler implements Serializable {
             }
             //Create the node
             //if (amtEarnedFromThisBloggerAllTime>0){
-                BloggerEarningsRevshareTreeNode newnode = new BloggerEarningsRevshareTreeNode(child.getFirstname()+" "+child.getLastname(), String.valueOf(child.getUserid()), level, amtEarnedFromThisBloggerAllTime, amtEarnedFromThisBlogger90Days);
+                BloggerEarningsRevshareTreeNode newnode = new BloggerEarningsRevshareTreeNode(NicknameHelper.getNameOrNickname(child), String.valueOf(child.getUserid()), level, amtEarnedFromThisBloggerAllTime, amtEarnedFromThisBlogger90Days);
                 out.add(newnode);
                 //logger.debug("adding newnode: "+newnode.getDescription()+" level="+level);
             //}

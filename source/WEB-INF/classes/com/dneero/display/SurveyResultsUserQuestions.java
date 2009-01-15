@@ -89,7 +89,7 @@ public class SurveyResultsUserQuestions {
                 Component component = ComponentTypes.getComponentByID(question.getComponenttype(), question, blogger);
                 logger.debug("found component.getName()="+component.getName());
                 User user = User.get(question.getUserid());
-//                out.append("<font class=\"smallfont\"><b><a href=\"/profile.jsp?userid="+user.getUserid()+"\">"+user.getFirstname()+" "+user.getLastname()+"</a> wanted to know:</b></font>");
+//                out.append("<font class=\"smallfont\"><b><a href=\"/profile.jsp?userid="+NicknameHelper.getNameOrNickname(user)+" "+user.getLastname()+"</a> wanted to know:</b></font>");
 //                out.append("<br/>");
 //                out.append("<b>"+question.getQuestion()+"</b>");
 //                out.append("<br/>");

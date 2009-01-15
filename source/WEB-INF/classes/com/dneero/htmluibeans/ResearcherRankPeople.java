@@ -5,6 +5,7 @@ import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.htmlui.Pagez;
 import com.dneero.htmlui.ValidationException;
 import com.dneero.util.Num;
+import com.dneero.helpers.NicknameHelper;
 import org.apache.log4j.Logger;
 
 import java.io.Serializable;
@@ -50,7 +51,7 @@ public class ResearcherRankPeople implements Serializable {
                 ResearcherRankPeopleListitem rrpli = new ResearcherRankPeopleListitem();
                 rrpli.setAvgnormalizedpoints(avgnormalizedpointsMult);
                 rrpli.setAvgnormalizedpointsStr(avgnormalizedpointsMult.intValue()+"/100 Ranking Strength");
-                rrpli.setName(user.getFirstname()+" "+user.getLastname());
+                rrpli.setName(NicknameHelper.getNameOrNickname(user));
                 rrpli.setPoints(Integer.parseInt(String.valueOf(points)));
                 rrpli.setUserid(user.getUserid());
                 rrplis.add(rrpli);

@@ -4,6 +4,7 @@
 <%@ page import="com.dneero.dbgrid.Grid" %>
 <%@ page import="com.dneero.dbgrid.GridCol" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="com.dneero.helpers.NicknameHelper" %>
 <%
 PublicProfileImpressions publicProfileImpressions = (PublicProfileImpressions) Pagez.getBeanMgr().get("PublicProfileImpressions");
 %>
@@ -15,7 +16,7 @@ if (publicProfileImpressions==null || publicProfileImpressions.getUser()==null |
 %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
-String pagetitle = "<img src=\"/images/user.png\" align=\"right\" alt=\"\" border=\"0\"/>"+publicProfileImpressions.getUser().getFirstname()+" "+ publicProfileImpressions.getUser().getLastname()+"'s Impressions<br/><br clear=\"all\"/>";
+String pagetitle = "<img src=\"/images/user.png\" align=\"right\" alt=\"\" border=\"0\"/>"+ NicknameHelper.getNameOrNickname(publicProfileImpressions.getUser())+"'s Impressions<br/><br clear=\"all\"/>";
 String navtab = "home";
 String acl = "public";
 %>

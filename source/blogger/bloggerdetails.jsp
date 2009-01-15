@@ -312,7 +312,7 @@ if (!Pagez.getUserSession().getIsbloggerprofileok()){
                         For two reasons. First, to present you with the most relevant conversations.  Second, because market researchers need to be able to target conversations to particular demographics
 
                         <br/><br/><b>Will this data ever be made available to others?</b><br/>
-                        It will not be made available in a way that can be tied back to you.  However, we may create aggregate results on conversations that say things like "people aged 23-25 answered this way."  When we do this we're using the information from this page but it's in a way that your particular identity isn't shared.
+                        Posting Venues and geographic information will be shared on your profile.  Other information will not be made available in a way that can be tied back to you.  However, we may create aggregate results on conversations that say things like "people aged 23-25 answered this way."  When we do this we're using the information from this page but it's in a way that your particular identity isn't shared.
 
                         <br/><br/><b>Are international users welcome?</b><br/>
                         Of course!  We love you!  Please join the conversation!

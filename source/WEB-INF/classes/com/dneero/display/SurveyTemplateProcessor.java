@@ -5,6 +5,7 @@ import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.display.components.def.Component;
 import com.dneero.display.components.def.ComponentTypes;
 import com.dneero.util.Str;
+import com.dneero.helpers.NicknameHelper;
 import org.apache.log4j.Logger;
 
 import java.util.Iterator;
@@ -137,7 +138,7 @@ public class SurveyTemplateProcessor {
                         Component component = ComponentTypes.getComponentByID(question.getComponenttype(), question, blogger);
                         User userwhocreatedquestion = User.get(question.getUserid());
                         out.append("<p>");
-                        out.append(userwhocreatedquestion.getFirstname()+" "+userwhocreatedquestion.getLastname()+" asked:");
+                        out.append(NicknameHelper.getNameOrNickname(userwhocreatedquestion)+" asked:");
                         out.append("</p>");
                         out.append("<p>");
                         out.append(component.getHtmlForDisplay(response));

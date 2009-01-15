@@ -4,18 +4,19 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.dneero.dbgrid.Grid" %>
 <%@ page import="com.dneero.htmlui.*" %>
+<%@ page import="com.dneero.helpers.NicknameHelper" %>
 <%
     PublicProfile publicProfile=(PublicProfile) Pagez.getBeanMgr().get("PublicProfile");
 %>
 <%
-if (publicProfile==null || publicProfile.getUser()==null || publicProfile.getUser().getUserid()==0 || !publicProfile.getUser().getIsenabled()){
+if (publicProfile==null || publicProfile.getUser()==null || publicProfile.getUser().getUserid()==0 || publicProfile.getUser().getBloggerid()==0 || !publicProfile.getUser().getIsenabled()){
     Pagez.sendRedirect("/notauthorized.jsp");
     return;
 }
 %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
-String pagetitle = publicProfile.getUser().getFirstname()+" "+publicProfile.getUser().getLastname()+"'s Profile";
+String pagetitle = NicknameHelper.getNameOrNickname(publicProfile.getUser());
 String navtab = "home";
 String acl = "public";
 %>
@@ -44,7 +45,7 @@ String acl = "public";
     <table cellpadding="10" cellspacing="0" border="0" width="100%">
         <tr>
             <td valign="top" width="50%">
-                <img src="/images/user.png" alt="" border="0" width="128" height="128"/>
+                
             </td>
             <td valign="top">
                 <div class="rounded" style="background: #ffffff; text-align: left; padding: 15px;">
@@ -80,16 +81,16 @@ String acl = "public";
 
 
        <br/><br/>
-       <font class="mediumfont" style="color: #cccccc;">Conversations Joined</font>
+       <font class="mediumfont" style="color: #cccccc;">Conversations <%=NicknameHelper.getNameOrNickname(publicProfile.getUser())%> Joined</font>
        <br/>
        <%if (publicProfile.getListitems()==null || publicProfile.getListitems().size()==0){%>
             <font class="normalfont">None... yet.</font>
        <%} else {%>
             <%
                 ArrayList<GridCol> cols=new ArrayList<GridCol>();
-                cols.add(new GridCol("Date", "<$response.responsedate|"+Grid.GRIDCOLRENDERER_DATETIMECOMPACT+"$>", true, "", "tinyfont"));
-                cols.add(new GridCol("Conversation Title", "<$survey.title$>", false, "", "normalfont"));
-                cols.add(new GridCol("", "<a href=\"/survey.jsp?u="+publicProfile.getUser().getUserid()+"\">Answers</a>", false, "", "smallfont"));
+                //cols.add(new GridCol("Date", "<$response.responsedate|"+Grid.GRIDCOLRENDERER_DATETIMECOMPACT+"$>", true, "", "tinyfont"));
+                cols.add(new GridCol("", "<b><$survey.title$></b>", false, "", "normalfont"));
+                cols.add(new GridCol("", "<a href=\"/survey.jsp?s=<$response.surveyid$>&u="+publicProfile.getUser().getUserid()+"\">"+NicknameHelper.getNameOrNickname(publicProfile.getUser())+"'s Answers</a>", false, "", "smallfont"));
                 cols.add(new GridCol("", "<a href=\"/profileimpressions.jsp?responseid=<$response.responseid$>\">Impressions</a>", false, "", "smallfont"));
             %>
             <%=Grid.render(publicProfile.getListitems(), cols, 10, "/profile.jsp?userid="+publicProfile.getUser().getUserid(), "pagesurveys")%>

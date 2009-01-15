@@ -9,6 +9,7 @@ import com.dneero.dao.Survey;
 import com.dneero.facebook.FacebookPendingReferrals;
 import com.dneero.survey.servlet.RecordImpression;
 import com.dneero.htmlui.Pagez;
+import com.dneero.helpers.NicknameHelper;
 
 import java.io.Serializable;
 
@@ -82,7 +83,7 @@ public class PublicFacebookLandingPage implements Serializable {
                     String referredbyname = "";
                     if (split[2]!=null && Num.isinteger(split[2])){
                         User userReferer = User.get(Integer.parseInt(split[2]));
-                        referredbyname = userReferer.getFirstname()+" "+userReferer.getLastname();
+                        referredbyname = NicknameHelper.getNameOrNickname(userReferer);
                     }
                     String surveytitle = "";
                     if (split[1]!=null && Num.isinteger(split[1])){

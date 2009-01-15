@@ -18,6 +18,7 @@ import com.dneero.eula.EulaHelper;
 import com.dneero.systemprops.SystemProperty;
 import com.dneero.systemprops.BaseUrl;
 import com.dneero.helpers.UserInputSafe;
+import com.dneero.helpers.NicknameHelper;
 import com.dneero.facebook.FacebookPendingReferrals;
 import com.dneero.cache.providers.CacheFactory;
 import com.dneero.iptrack.RecordIptrackUtil;
@@ -45,6 +46,7 @@ public class Registration implements Serializable {
     private String captchaId;
     private String eula;
     private boolean displaytempresponsesavedmessage;
+    private String nickname;
 
 
     //private String temp;
@@ -99,6 +101,18 @@ public class Registration implements Serializable {
         if (lastname==null || lastname.equals("")){
             vex.addValidationError("Last Name can't be blank.");
             haveErrors = true;
+        }
+
+
+        if (nickname!=null && !nickname.equals("")){
+            nickname = Str.onlyKeepLettersAndDigits(nickname);
+            nickname =  nickname.toLowerCase();
+            if (NicknameHelper.nicknameExistsAlready(nickname)){
+                vex.addValidationError("Sorry, that nickname already exists.");
+                haveErrors = true;
+            }
+        } else {
+            nickname = "";
         }
 
         //@todo need to check for lcase(firstname), lcase(lastname), email in the database... people are changing caps on name and creating another account.
@@ -172,6 +186,7 @@ public class Registration implements Serializable {
         user.setCurrentbalanceblogger(0.0);
         user.setCurrentbalanceresearcher(0.0);
         user.setLastlogindate(new java.util.Date());
+        user.setNickname(nickname);
         try{
             user.save();
             userid = user.getUserid();
@@ -321,5 +336,13 @@ public class Registration implements Serializable {
 
     public void setDisplaytempresponsesavedmessage(boolean displaytempresponsesavedmessage) {
         this.displaytempresponsesavedmessage = displaytempresponsesavedmessage;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname=nickname;
     }
 }

@@ -6,6 +6,7 @@
 <%@ page import="com.dneero.rank.RankForSurveyThread" %>
 <%@ page import="org.hibernate.criterion.Order" %>
 <%@ page import="org.hibernate.criterion.Restrictions" %>
+<%@ page import="com.dneero.helpers.NicknameHelper" %>
 <%
 if (request.getParameter("show")!=null && request.getParameter("show").equals("results")){
     //redirect to results
@@ -118,7 +119,7 @@ String acl = "public";
                             <center>
                             <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
                                 <center>
-                                    <font class="mediumfont"><%=publicSurvey.getUserwhotooksurvey().getFirstname()%> <%=publicSurvey.getUserwhotooksurvey().getLastname()%>'s answers.</font><br/>
+                                    <font class="mediumfont"><%=NicknameHelper.getNameOrNickname(publicSurvey.getUserwhotooksurvey())%>'s answers.</font><br/>
                                     <% if (!publicSurvey.getLoggedinuserhasalreadytakensurvey()){ %>
                                         <a href="#joinconvo"><font class="tinyfont">How would you answer?</font></a>
                                     <% } %>
@@ -199,7 +200,7 @@ String acl = "public";
                                         <%
                                             for (Iterator<PublicSurveyUserquestionListitem> iterator=publicSurvey.getUserquestionlistitems().iterator(); iterator.hasNext();){
                                                 PublicSurveyUserquestionListitem psli=iterator.next();
-                                                %><font class="smallfont" style="font-weight: bold;"><%=psli.getUser().getFirstname()%> <%=psli.getUser().getLastname()%> wants to know:</font><br/><%
+                                                %><font class="smallfont" style="font-weight: bold;"><%=NicknameHelper.getNameOrNickname(psli.getUser())%> wants to know:</font><br/><%
                                                 %><%=psli.getComponent().getHtmlForInput(publicSurvey.getResponse())%><%
                                                 if (iterator.hasNext()){
                                                     %><br/><br/><%
@@ -243,7 +244,7 @@ String acl = "public";
                                                     PublicSurveyUserquestionListitem psli=iterator.next();
                                                     indexCurrentlyShowing = indexCurrentlyShowing + 1;
                                                     if (indexCurrentlyShowing>minIndexToDisplay && indexCurrentlyShowing<maxIndexToDisplay){
-                                                        %><font class="smallfont" style="font-weight: bold;"><%=psli.getUser().getFirstname()%> <%=psli.getUser().getLastname()%> wants to know:</font><br/><%
+                                                        %><font class="smallfont" style="font-weight: bold;"><%=NicknameHelper.getNameOrNickname(psli.getUser())%> wants to know:</font><br/><%
                                                         %><%=psli.getComponent().getHtmlForInput(publicSurvey.getResponse())%><%
                                                         if (iterator.hasNext()){
                                                             %><br/><br/><%
@@ -411,7 +412,7 @@ String acl = "public";
                         <%if (publicSurvey.getUserwhotooksurvey()!=null && publicSurvey.getUserwhotooksurvey().getUserid()>0 && publicSurvey.getSurveytakergavetocharity()){%>
                             <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
                                 <center>
-                                    <font class="tinyfont" style="font-weight: bold;"><%=publicSurvey.getUserwhotooksurvey().getFirstname()%> <%=publicSurvey.getUserwhotooksurvey().getLastname()%> had us donate all earnings from this conversation to <%=publicSurvey.getCharityname()%>.</font>
+                                    <font class="tinyfont" style="font-weight: bold;"><%=NicknameHelper.getNameOrNickname(publicSurvey.getUserwhotooksurvey())%> had us donate all earnings from this conversation to <%=publicSurvey.getCharityname()%>.</font>
                                 </center>
                             </div>
                         <%}%>

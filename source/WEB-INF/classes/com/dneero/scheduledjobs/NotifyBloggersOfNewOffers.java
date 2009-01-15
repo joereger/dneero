@@ -16,6 +16,7 @@ import com.dneero.util.DateDiff;
 import com.dneero.util.Io;
 import com.dneero.util.Str;
 import com.dneero.util.Time;
+import com.dneero.helpers.NicknameHelper;
 import org.apache.log4j.Logger;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
@@ -177,7 +178,7 @@ public class NotifyBloggersOfNewOffers implements Job {
                                         args[3] = userquestionsansweredHtml.toString();
                                         args[4] = userquestionsansweredTxt.toString();
                                         //Send the email
-                                        EmailTemplateProcessor.sendMail("New dNeero Conversations for "+user.getFirstname(), "bloggernotifyofnewsurveys", user, args);
+                                        EmailTemplateProcessor.sendMail("New dNeero Conversations for "+ NicknameHelper.getNameOrNickname(user), "bloggernotifyofnewsurveys", user, args);
                                         debug.append("\n"+"email sent to "+user.getFirstname()+" "+user.getLastname());
                                         //Update blogger last sent date
                                         user.setNotifyofnewsurveyslastsent(new Date());

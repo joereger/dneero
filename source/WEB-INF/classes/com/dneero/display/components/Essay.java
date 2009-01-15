@@ -8,6 +8,7 @@ import com.dneero.display.components.def.Component;
 import com.dneero.display.components.def.ComponentException;
 import com.dneero.display.SurveyResponseParser;
 import com.dneero.rank.RankUnit;
+import com.dneero.helpers.NicknameHelper;
 
 import java.util.*;
 import java.text.NumberFormat;
@@ -225,7 +226,7 @@ public class Essay implements Component {
                 i = i + 1;
                 Blogger blogger = Blogger.get(questionresponse.getBloggerid());
                 User user = User.get(blogger.getUserid());
-                out.append("<b>Response from: <a href=\"/results_respondents_profile.jsp?responseid="+questionresponse.getResponseid()+"\">"+user.getFirstname()+" "+user.getLastname()+"</a></b>");
+                out.append("<b>Response from: <a href=\"/results_respondents_profile.jsp?responseid="+questionresponse.getResponseid()+"\">"+ NicknameHelper.getNameOrNickname(user)+"</a></b>");
                 out.append("<br/>");
                 out.append(questionresponse.getValue());
                 out.append("<br/>");

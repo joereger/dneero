@@ -11,6 +11,7 @@ import com.dneero.dao.hibernate.HibernateUtil;
 
 import com.dneero.util.SortableList;
 import com.dneero.htmlui.Pagez;
+import com.dneero.helpers.NicknameHelper;
 
 import java.util.*;
 import java.io.Serializable;
@@ -53,8 +54,8 @@ public class ResearcherResultsRespondents implements Serializable {
                     User user = User.get(blogger.getUserid());
                     ResearcherResultsRespondentsListitem li = new ResearcherResultsRespondentsListitem();
                     li.setBloggerid(blogger.getBloggerid());
-                    li.setFirstname(user.getFirstname());
-                    li.setLastname(user.getLastname());
+                    li.setFirstname(NicknameHelper.getNameOrNickname(user));
+                    li.setLastname(NicknameHelper.getNameOrNickname(user));
                     li.setResponsedate(response.getResponsedate());
                     li.setResponseid(response.getResponseid());
                     li.setUser(user);

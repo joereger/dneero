@@ -152,5 +152,8 @@
         <property name="lastlogindate" type="timestamp">
             <column name="lastlogindate" not-null="true" />
         </property>
+        <property name="nickname" type="string">
+            <column name="nickname" not-null="true" />
+        </property>
     </class>
 </hibernate-mapping>

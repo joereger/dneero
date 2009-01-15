@@ -11,6 +11,7 @@ import com.dneero.dao.User;
 import com.dneero.dao.Balance;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.money.RevshareLevelPercentageCalculator;
+import com.dneero.helpers.NicknameHelper;
 
 import java.util.*;
 import java.io.Serializable;
@@ -56,7 +57,7 @@ public class BloggerEarningsRevshare implements Serializable {
                 User sourceuser = User.get(sourceblogger.getUserid());
                 BloggerEarningsRevshareListRevshares listitem = new BloggerEarningsRevshareListRevshares();
                 listitem.setAmt(revshare.getAmt());
-                listitem.setUsername(sourceuser.getFirstname()+" "+sourceuser.getLastname());
+                listitem.setUsername(NicknameHelper.getNameOrNickname(sourceuser));
                 list.add(listitem);
             }
 

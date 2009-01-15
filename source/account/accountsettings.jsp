@@ -25,6 +25,7 @@ AccountSettings accountSettings = (AccountSettings) Pagez.getBeanMgr().get("Acco
         accountSettings.setInstantnotifyxmppison(CheckboxBoolean.getValueFromRequest("instantnotifyxmppison"));
         accountSettings.setInstantnotifyxmppusername(Textbox.getValueFromRequest("instantnotifyxmppusername", "XMPP/Jabber Username", false, DatatypeString.DATATYPEID));
         accountSettings.setPaymethodpaypaladdress(Textbox.getValueFromRequest("paymethodpaypaladdress", "PayPal Address", false, DatatypeString.DATATYPEID));
+        accountSettings.setNickname(Textbox.getValueFromRequest("nickname", "Nickname", true, DatatypeString.DATATYPEID));
         accountSettings.saveAction();
         Pagez.getUserSession().setMessage("Settings saved.");
     } catch (com.dneero.htmlui.ValidationException vex) {
@@ -58,6 +59,17 @@ AccountSettings accountSettings = (AccountSettings) Pagez.getBeanMgr().get("Acco
                         <%=Textbox.getHtml("lastname", accountSettings.getLastname(), 255, 20, "", "")%>
                     </td>
                 </tr>
+
+                <tr>
+                        <td valign="top">
+                            <font class="formfieldnamefont">Nickname</font>
+                            <br/>
+                            <font class="tinyfont">Only letters and numbers, no spaces.  This will be your public name that others can see.</font>
+                        </td>
+                        <td valign="top">
+                            <%=Textbox.getHtml("nickname", accountSettings.getNickname(), 255, 20, "", "")%>
+                        </td>
+                    </tr>
 
                 <tr>
                     <td valign="top">

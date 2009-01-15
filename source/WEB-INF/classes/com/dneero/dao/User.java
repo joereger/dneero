@@ -57,6 +57,7 @@ public class User extends BasePersistentClass implements java.io.Serializable, A
      private double currentbalanceblogger;
      private double currentbalanceresearcher;
      private Date lastlogindate;
+     private String nickname;
 
      //Association
     private Set<Userrole> userroles = new HashSet<Userrole>();
@@ -454,5 +455,13 @@ public class User extends BasePersistentClass implements java.io.Serializable, A
 
     public void setLastlogindate(Date lastlogindate) {
         this.lastlogindate=lastlogindate;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname=nickname;
     }
 }
