@@ -25,6 +25,7 @@ public class CustomercarePanelsAddpeople implements Serializable {
 
     private int panelid=0;
     private int surveyid=0;
+    private int panelidtoaddfrom=0;
     private int respondentfilterid=0;
     private int rankid=0;
     private int rankpercentofatleast=0;
@@ -36,6 +37,9 @@ public class CustomercarePanelsAddpeople implements Serializable {
     public void initBean(){
         if (Pagez.getRequest().getParameter("panelid")!=null && Num.isinteger(Pagez.getRequest().getParameter("panelid"))){
             panelid = Integer.parseInt(Pagez.getRequest().getParameter("panelid"));
+        }
+        if (Pagez.getRequest().getParameter("panelidtoaddfrom")!=null && Num.isinteger(Pagez.getRequest().getParameter("panelidtoaddfrom"))){
+            panelidtoaddfrom = Integer.parseInt(Pagez.getRequest().getParameter("panelidtoaddfrom"));
         }
         if (Pagez.getRequest().getParameter("surveyid")!=null && Num.isinteger(Pagez.getRequest().getParameter("surveyid"))){
             surveyid = Integer.parseInt(Pagez.getRequest().getParameter("surveyid"));
@@ -86,6 +90,22 @@ public class CustomercarePanelsAddpeople implements Serializable {
         for (Iterator<Panel> panelIterator = panels.iterator(); panelIterator.hasNext();) {
             Panel panel = panelIterator.next();
             out.put(String.valueOf(panel.getPanelid()), Str.truncateString(panel.getName(), 70));
+        }
+        return out;
+    }
+
+    public TreeMap<String, String> getPanelsToAddFrom(){
+        TreeMap<String, String> out = new TreeMap<String, String>();
+        //out.put("0", "0 - Undefined");
+        List<Panel> panels = HibernateUtil.getSession().createCriteria(Panel.class)
+                                           .addOrder(Order.desc("panelid"))
+                                           .setCacheable(true)
+                                           .list();
+        for (Iterator<Panel> panelIterator = panels.iterator(); panelIterator.hasNext();) {
+            Panel panel = panelIterator.next();
+            Researcher researcher = Researcher.get(panel.getResearcherid());
+            User user = User.get(researcher.getUserid());
+            out.put(String.valueOf(panel.getPanelid()), Str.truncateString(NicknameHelper.getNameOrNickname(user), 10)+":"+Str.truncateString(panel.getName(), 70));
         }
         return out;
     }
@@ -170,5 +190,13 @@ public class CustomercarePanelsAddpeople implements Serializable {
 
     public void setRankpercentofatleast(int rankpercentofatleast) {
         this.rankpercentofatleast = rankpercentofatleast;
+    }
+
+    public int getPanelidtoaddfrom() {
+        return panelidtoaddfrom;
+    }
+
+    public void setPanelidtoaddfrom(int panelidtoaddfrom) {
+        this.panelidtoaddfrom=panelidtoaddfrom;
     }
 }

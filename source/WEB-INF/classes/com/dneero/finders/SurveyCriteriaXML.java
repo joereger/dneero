@@ -212,7 +212,7 @@ public class SurveyCriteriaXML {
                 }
                 if (!isuserinpanel){
                     surveyfitsblogger = false;
-                    logger.debug("does not qualify because of panelid.");
+                    logger.debug("does not qualify because of superpanelid.");
                 }
             }
             //Now check the age requirements
@@ -434,7 +434,7 @@ public class SurveyCriteriaXML {
             doc.addContent(crit);
         }
         if (!doc.getRootElement().getName().equals("surveycriteria")){
-            logger.error("Root element was not surveycriteria, overwriting document.");
+            logger.debug("Root element was not surveycriteria, overwriting document.");
             doc = new Document();
             Element crit = new Element("surveycriteria");
             doc.addContent(crit);
@@ -472,7 +472,7 @@ public class SurveyCriteriaXML {
             serializer.output(doc, out);
             return out.toString();
         } catch (Exception ex) {
-            logger.error("",ex);
+            logger.debug("",ex);
         }
         return "";
     }
