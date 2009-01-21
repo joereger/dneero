@@ -278,4 +278,8 @@ public class ReviewableQuestion implements Reviewable {
             try{question.save();}catch(Exception ex){logger.error("", ex);}
         }
     }
+
+    public boolean isMailCreated() {
+        return true;
+    }
 }

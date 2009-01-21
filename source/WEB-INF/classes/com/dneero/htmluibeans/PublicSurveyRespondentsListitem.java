@@ -14,6 +14,7 @@ public class PublicSurveyRespondentsListitem implements Serializable {
 
     private User user;
     private Response response;
+    private String nameornickname;
 
     public PublicSurveyRespondentsListitem(){
 
@@ -34,5 +35,13 @@ public class PublicSurveyRespondentsListitem implements Serializable {
 
     public void setResponse(Response response) {
         this.response = response;
+    }
+
+    public String getNameornickname() {
+        return nameornickname;
+    }
+
+    public void setNameornickname(String nameornickname) {
+        this.nameornickname=nameornickname;
     }
 }

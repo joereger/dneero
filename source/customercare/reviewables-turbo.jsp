@@ -138,26 +138,28 @@ if (request.getParameter("action")!=null && request.getParameter("action").equal
                     //Change the underlying Reviewable object
                     reviewable.rejectBySysadmin();
                     //Create an inbox item
-                    User userWhoCreatedContent = User.get(reviewable.getUseridofcontentcreator());
-                    Mail mail = new Mail();
-                    mail.setIsflaggedforcustomercare(false);
-                    mail.setSubject("Content Rejection");
-                    mail.setDate(new java.util.Date());
-                    mail.setUserid(userWhoCreatedContent.getUserid());
-                    mail.setIsread(true);
-                    try{mail.save();} catch (Exception ex){logger.error("", ex);}
-                    Mailchild mailchild = new Mailchild();
-                    mailchild.setMailid(mail.getMailid());
-                    mailchild.setDate(new java.util.Date());
-                    mailchild.setIsfromcustomercare(true);
-                    mailchild.setMailtypeid(MailtypeReviewableRejection.TYPEID);
-                    mailchild.setVar1(reviewable.getShortSummary());
-                    mailchild.setVar2(review.getResearchernotes());
-                    mailchild.setVar3(review.getSysadminnotes());
-                    mailchild.setVar4(String.valueOf(review.getReviewid()));
-                    mailchild.setVar5("");
-                    try{mailchild.save();} catch (Exception ex){logger.error("", ex);}
-                    MailNotify.notify(mail);
+                    if (reviewable.getIsMailCreated()){
+                        User userWhoCreatedContent = User.get(reviewable.getUseridofcontentcreator());
+                        Mail mail = new Mail();
+                        mail.setIsflaggedforcustomercare(false);
+                        mail.setSubject("Content Rejection");
+                        mail.setDate(new java.util.Date());
+                        mail.setUserid(userWhoCreatedContent.getUserid());
+                        mail.setIsread(true);
+                        try{mail.save();} catch (Exception ex){logger.error("", ex);}
+                        Mailchild mailchild = new Mailchild();
+                        mailchild.setMailid(mail.getMailid());
+                        mailchild.setDate(new java.util.Date());
+                        mailchild.setIsfromcustomercare(true);
+                        mailchild.setMailtypeid(MailtypeReviewableRejection.TYPEID);
+                        mailchild.setVar1(reviewable.getShortSummary());
+                        mailchild.setVar2(review.getResearchernotes());
+                        mailchild.setVar3(review.getSysadminnotes());
+                        mailchild.setVar4(String.valueOf(review.getReviewid()));
+                        mailchild.setVar5("");
+                        try{mailchild.save();} catch (Exception ex){logger.error("", ex);}
+                        MailNotify.notify(mail);
+                    }
                 }  else {
                     Pagez.getUserSession().setMessage("When you reject you must provide notes so a rejection was ignored.");
                 }

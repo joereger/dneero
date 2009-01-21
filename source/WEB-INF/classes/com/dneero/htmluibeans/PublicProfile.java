@@ -3,6 +3,7 @@ package com.dneero.htmluibeans;
 import org.apache.log4j.Logger;
 import com.dneero.dao.*;
 import com.dneero.dao.hibernate.HibernateUtil;
+import com.dneero.dao.hibernate.NumFromUniqueResult;
 
 import com.dneero.util.Str;
 import com.dneero.util.Time;
@@ -31,8 +32,9 @@ public class PublicProfile implements Serializable {
     private int superpanelid;
     private String msg;
     private int socialinfluenceratingpercentile;
-    private int socialinfluenceratingpercentile90days;
+    private String socialinfluenceratingforscreen;
     private String charityamtdonatedForscreen;
+    private int convosjoined = 0;
 
     public PublicProfile(){
 
@@ -66,14 +68,28 @@ public class PublicProfile implements Serializable {
 
         charityamtdonatedForscreen = "$"+Str.formatForMoney(user.getCharityamtdonated());
 
+        if (blogger!=null && blogger.getBloggerid()>0){
+            convosjoined = NumFromUniqueResult.getInt("select count(*) from Response where bloggerid='"+blogger.getBloggerid()+"'");
+        } else {
+            convosjoined =  0;
+        }
+
         listitems = new ArrayList<PublicProfileListitem>();
         if (blogger!=null && blogger.getResponses()!=null){
             for (Iterator<Response> iterator = blogger.getResponses().iterator(); iterator.hasNext();) {
                 Response response1 = iterator.next();
                 Survey survey = Survey.get(response1.getSurveyid());
+                Question question = new Question();
+                for (Iterator<Question> iterator2 = survey.getQuestions().iterator(); iterator2.hasNext();) {
+                    Question quest = iterator2.next();
+                    if (quest.getIsuserquestion() && quest.getUserid()==user.getUserid()){
+                        question = quest;
+                    }
+                }
                 PublicProfileListitem li = new PublicProfileListitem();
                 li.setSurvey(survey);
                 li.setResponse(response1);
+                li.setUserquestion(question);
                 listitems.add(li);
             }
         }
@@ -92,10 +108,14 @@ public class PublicProfile implements Serializable {
 
         if (blogger!=null && blogger.getBloggerid()>0){
             socialinfluenceratingpercentile = SocialInfluenceRatingPercentile.getPercentileOfRanking(SystemStats.getTotalbloggers(), blogger.getSocialinfluenceratingranking());
-            socialinfluenceratingpercentile90days = SocialInfluenceRatingPercentile.getPercentileOfRanking(SystemStats.getTotalbloggers(), blogger.getSocialinfluenceratingranking90days());
-        } else {
-            socialinfluenceratingpercentile = 0;
-            socialinfluenceratingpercentile90days = 0;
+            logger.error("socialinfluenceratingpercentile="+socialinfluenceratingpercentile);
+            if (socialinfluenceratingpercentile>=50){
+                socialinfluenceratingforscreen = "Top "+(100-socialinfluenceratingpercentile)+"%";
+            } else {
+                socialinfluenceratingforscreen = "Bottom "+(socialinfluenceratingpercentile)+"%";
+            }
+
+
         }
     }
 
@@ -244,14 +264,6 @@ public class PublicProfile implements Serializable {
         this.socialinfluenceratingpercentile = socialinfluenceratingpercentile;
     }
 
-    public int getSocialinfluenceratingpercentile90days() {
-        return socialinfluenceratingpercentile90days;
-    }
-
-    public void setSocialinfluenceratingpercentile90days(int socialinfluenceratingpercentile90days) {
-        this.socialinfluenceratingpercentile90days = socialinfluenceratingpercentile90days;
-    }
-
     public String getMsg() {
         return msg;
     }
@@ -282,5 +294,22 @@ public class PublicProfile implements Serializable {
 
     public void setSuperpanelid(int superpanelid) {
         this.superpanelid=superpanelid;
+    }
+
+    public int getConvosjoined() {
+        return convosjoined;
+    }
+
+    public void setConvosjoined(int convosjoined) {
+        this.convosjoined=convosjoined;
+    }
+
+
+    public String getSocialinfluenceratingforscreen() {
+        return socialinfluenceratingforscreen;
+    }
+
+    public void setSocialinfluenceratingforscreen(String socialinfluenceratingforscreen) {
+        this.socialinfluenceratingforscreen=socialinfluenceratingforscreen;
     }
 }

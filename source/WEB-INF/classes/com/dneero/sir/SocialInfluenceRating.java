@@ -27,7 +27,6 @@ public class SocialInfluenceRating {
     public static double calculateSocialInfluenceRating(User user){
         int impressionscore = getImpressions(user);
         int referralsscore = getSurveyReferralsFromUser(user);
-        //@todo Incorporate survey scoring influence
         double finalscore = impressionscore + (referralsscore*referralsscoremultiplier);
         return finalscore;
     }
@@ -35,7 +34,6 @@ public class SocialInfluenceRating {
     public static double calculateSocialInfluenceRating90days(User user){
         int impressionscore = getImpressions90days(user);
         int referralsscore = getSurveyReferralsFromUser90days(user);
-        //@todo Incorporate survey scoring influence
         double finalscore = impressionscore + (referralsscore*referralsscoremultiplier);
         return finalscore;
     }

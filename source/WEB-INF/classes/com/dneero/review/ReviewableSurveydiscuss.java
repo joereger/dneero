@@ -238,4 +238,8 @@ public class ReviewableSurveydiscuss implements Reviewable {
     public void scoreBySysadmin(int score) {
 
     }
+
+    public boolean isMailCreated() {
+        return true;
+    }
 }

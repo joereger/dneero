@@ -2,6 +2,7 @@ package com.dneero.htmluibeans;
 
 import com.dneero.dao.Survey;
 import com.dneero.dao.Response;
+import com.dneero.dao.Question;
 
 import java.io.Serializable;
 
@@ -14,6 +15,7 @@ public class PublicProfileListitem implements Serializable {
 
     private Survey survey;
     private Response response;
+    private Question userquestion;
 
     public PublicProfileListitem(){}
 
@@ -32,5 +34,13 @@ public class PublicProfileListitem implements Serializable {
 
     public void setResponse(Response response) {
         this.response = response;
+    }
+
+    public Question getUserquestion() {
+        return userquestion;
+    }
+
+    public void setUserquestion(Question userquestion) {
+        this.userquestion=userquestion;
     }
 }

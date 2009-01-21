@@ -259,4 +259,8 @@ public class ReviewableResponse implements Reviewable {
             try{response.save();}catch(Exception ex){logger.error("", ex);}
         }
     }
+
+    public boolean isMailCreated() {
+        return true;
+    }
 }

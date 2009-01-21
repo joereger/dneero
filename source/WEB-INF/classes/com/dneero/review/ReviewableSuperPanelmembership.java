@@ -129,7 +129,7 @@ public class ReviewableSuperPanelmembership implements Reviewable {
         Blogger blogger = Blogger.get(panelmembership.getBloggerid());
         panelmembership.setIssysadminrejected(true);
         panelmembership.setIssysadminreviewed(true);
-        try{panelmembership.save();blogger.refresh();}catch(Exception ex){logger.error("", ex);}
+        try{panelmembership.delete();blogger.refresh();}catch(Exception ex){logger.error("", ex);}
     }
 
     public void approveByResearcher() throws ValidationException {
@@ -224,5 +224,9 @@ public class ReviewableSuperPanelmembership implements Reviewable {
     public void scoreBySysadmin(int score) {
         Logger logger = Logger.getLogger(this.getClass().getName());
 
+    }
+
+    public boolean isMailCreated() {
+        return false;
     }
 }

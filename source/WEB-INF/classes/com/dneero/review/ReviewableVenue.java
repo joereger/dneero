@@ -226,4 +226,8 @@ public class ReviewableVenue implements Reviewable {
             try{venue.save();blogger.refresh();}catch(Exception ex){logger.error("", ex);}
         }    
     }
+
+    public boolean isMailCreated() {
+        return true;
+    }
 }

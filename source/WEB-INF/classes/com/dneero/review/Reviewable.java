@@ -37,7 +37,7 @@ public interface Reviewable {
     public boolean supportsScoringBySysadmin();
     public void scoreByResearcher(int score);
     public void scoreBySysadmin(int score);
-
+    public boolean isMailCreated();
 
 
 }

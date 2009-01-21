@@ -11,6 +11,7 @@ import com.dneero.dbgrid.Grid;
 import com.dneero.dbgrid.GridCol;
 import com.dneero.cache.html.DbcacheexpirableCache;
 import com.dneero.display.SurveyResultsDisplay;
+import com.dneero.helpers.NicknameHelper;
 
 import java.io.Serializable;
 import java.util.*;
@@ -109,6 +110,7 @@ public class PublicSurveyWhotookit implements Serializable {
                 PublicSurveyRespondentsListitem psrli = new PublicSurveyRespondentsListitem();
                 psrli.setResponse(response);
                 psrli.setUser(user);
+                psrli.setNameornickname(NicknameHelper.getNameOrNickname(user));
                 respondents.add(psrli);
             }
         }
@@ -117,8 +119,8 @@ public class PublicSurveyWhotookit implements Serializable {
             } else {
                 ArrayList<GridCol> cols=new ArrayList<GridCol>();
                 cols.add(new GridCol("Date", "<$response.responsedate|"+ Grid.GRIDCOLRENDERER_DATETIMECOMPACT+"$>", true, "", "tinyfont"));
-                cols.add(new GridCol("Person", "<a href=\"/profile.jsp?userid=<$user.userid$>\"><font class=\"normalfont\" style=\"font-weight: bold;\"><$user.firstname$> <$user.lastname$></font></a>", false, "", ""));
-                cols.add(new GridCol("", "<a href=\"/survey.jsp?u=<$user.userid$>&p=0&r=<$response.responseid$>\"><font class=\"tinyfont\" style=\"font-weight: bold;\">Answers</font></a>", true, "", ""));
+                cols.add(new GridCol("Person", "<a href=\"/profile.jsp?userid=<$user.userid$>\"><font class=\"normalfont\" style=\"font-weight: bold;\"><$nameornickname$></font></a>", false, "", ""));
+                cols.add(new GridCol("", "<a href=\"/survey.jsp?u=<$user.userid$>&p=0&r=<$response.responseid$>\"><font class=\"tinyfont\" style=\"font-weight: bold;\"><$nameornickname$>'s Answers</font></a>", true, "", ""));
                 out.append(Grid.render(respondents, cols, 500, "/surveywhotookit.jsp?surveyid="+survey.getSurveyid(), "pagewhotookit"));
             }
         return out.toString();
