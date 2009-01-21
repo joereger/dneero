@@ -1,6 +1,5 @@
 <%@ page import="org.apache.log4j.Logger" %>
 <%@ page import="com.dneero.htmluibeans.AccountInboxDetail" %>
-<%@ page import="com.dneero.dao.Supportissuecomm" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.Iterator" %>
 <%@ page import="com.dneero.htmlui.*" %>

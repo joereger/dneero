@@ -1,10 +1,7 @@
 package com.dneero.finders;
 
 import com.dneero.constants.*;
-import com.dneero.dao.Blogger;
-import com.dneero.dao.User;
-import com.dneero.dao.Response;
-import com.dneero.dao.Venue;
+import com.dneero.dao.*;
 import com.dneero.util.Num;
 import com.dneero.util.Util;
 import com.dneero.util.Time;
@@ -52,7 +49,8 @@ public class SurveyCriteriaXML {
     private String[] blogfocus;
     private String[] politics;
     private String[] dneerousagemethods;
-
+    private String[] panelids;
+    private String[] superpanelids;
 
     private Document doc;
 
@@ -125,6 +123,10 @@ public class SurveyCriteriaXML {
         if (tmpArray!=null){ politics = tmpArray; }
         tmpArray = loadValueOfArrayFromXML("dneerousagemethods");
         if (tmpArray!=null){ dneerousagemethods = tmpArray; }
+        tmpArray = loadValueOfArrayFromXML("panelids");
+        if (tmpArray!=null){ panelids = tmpArray; }
+        tmpArray = loadValueOfArrayFromXML("superpanelids");
+        if (tmpArray!=null){ superpanelids = tmpArray; }
         
     }
 
@@ -183,8 +185,36 @@ public class SurveyCriteriaXML {
                 surveyfitsblogger = false;
                 logger.debug("does not qualify because of politics.");
             }
-
-
+            //Panel
+            if (surveyfitsblogger && panelids!=null && panelids.length>0){
+                boolean isuserinpanel = false;
+                for (Iterator<Panelmembership> iterator = blogger.getPanelmemberships().iterator(); iterator.hasNext();) {
+                    Panelmembership panelmembership = iterator.next();
+                    if (Util.arrayContains(panelids, String.valueOf(panelmembership.getPanelid()))){
+                        isuserinpanel = true;
+                        break;
+                    }
+                }
+                if (!isuserinpanel){
+                    surveyfitsblogger = false;
+                    logger.debug("does not qualify because of panelid.");
+                }
+            }
+            //SuperPanel
+            if (surveyfitsblogger && superpanelids!=null && superpanelids.length>0){
+                boolean isuserinpanel = false;
+                for (Iterator<Panelmembership> iterator = blogger.getPanelmemberships().iterator(); iterator.hasNext();) {
+                    Panelmembership panelmembership = iterator.next();
+                    if (Util.arrayContains(superpanelids, String.valueOf(panelmembership.getPanelid()))){
+                        isuserinpanel = true;
+                        break;
+                    }
+                }
+                if (!isuserinpanel){
+                    surveyfitsblogger = false;
+                    logger.debug("does not qualify because of panelid.");
+                }
+            }
             //Now check the age requirements
             if (surveyfitsblogger && blogger.getBirthdate().before(   Time.subtractYear(Calendar.getInstance(), agemax).getTime()    )){
                 surveyfitsblogger = false;
@@ -194,20 +224,16 @@ public class SurveyCriteriaXML {
                 surveyfitsblogger = false;
                 logger.debug("does not qualify because birthdate is after.");
             }
-
             //Quality
             if (surveyfitsblogger && blogger.getQuality()<blogquality){
                 surveyfitsblogger = false;
                 logger.debug("does not qualify because of blog quality.");
             }
-
             //Quality 90 days
             if (surveyfitsblogger && blogger.getQuality90days()<blogquality90days){
                 surveyfitsblogger = false;
                 logger.debug("does not qualify because of blog quality 90 days.");
             }
-
-
             //Social Influence Rating
             if (surveyfitsblogger){
                 int maxranking = SocialInfluenceRatingPercentile.getRankingOfGivenPercentile(SystemStats.getTotalbloggers(), minsocialinfluencepercentile);
@@ -216,7 +242,6 @@ public class SurveyCriteriaXML {
                     logger.debug("does not qualify because of socialinfluenceranking.  maxranking="+maxranking+" blogger.getSocialinfluenceratingranking()="+blogger.getSocialinfluenceratingranking());
                 }
             }
-
             //Social Influence Rating 90 days
             if (surveyfitsblogger){
                 int maxranking90days = SocialInfluenceRatingPercentile.getRankingOfGivenPercentile(SystemStats.getTotalbloggers(), minsocialinfluencepercentile90days);
@@ -225,7 +250,6 @@ public class SurveyCriteriaXML {
                     logger.debug("does not qualify because of socialinfluenceranking90days.  maxranking90days="+maxranking90days+" blogger.getSocialinfluenceratingranking90days()="+blogger.getSocialinfluenceratingranking90days());
                 }
             }
-
             //dneerousagemethod qualification
             if (user.getFacebookuserid()>0){
                 //This is a facebook user
@@ -240,7 +264,7 @@ public class SurveyCriteriaXML {
                     logger.debug("does not qualify because of dneerousagemethod... survey's not for dneero.com users");
                 }
             }
-
+            //Venue focus
             if (surveyfitsblogger){
                 //Only consider focus for non-facebook users
                 if (user.getFacebookuserid()<=0){
@@ -265,7 +289,6 @@ public class SurveyCriteriaXML {
                     }
                 }
             }
-
             //This next stuff is very database-heavy
             boolean needtodoexpensiveresponsecalculations = false;
             if (dayssincelastsurvey>0){
@@ -279,6 +302,7 @@ public class SurveyCriteriaXML {
             }
             if (needtodoexpensiveresponsecalculations){
                 //Iterate all responses to collect some data for next few qualifications
+                //@todo optimize this by storing mostrecentresponsedate and surveystaken in the user or blogger table at time of convo join
                 Response mostrecentresponse = null;
                 int surveystaken = 0;
                 for (Iterator<Response> iterator1 = blogger.getResponses().iterator(); iterator1.hasNext();) {
@@ -440,6 +464,8 @@ public class SurveyCriteriaXML {
         setValueOfArrayNode("blogfocus", blogfocus);
         setValueOfArrayNode("politics", politics);
         setValueOfArrayNode("dneerousagemethods", dneerousagemethods);
+        setValueOfArrayNode("panelids", panelids);
+        setValueOfArrayNode("superpanelids", superpanelids);
         try {
             XMLOutputter serializer = new XMLOutputter();
             ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -817,6 +843,8 @@ public class SurveyCriteriaXML {
         out.append("</td>");
         out.append("</tr>");
 
+        //@todo add panel and superpanel to requirements output as text
+
         out.append("</table>");
         return out.toString();
     }
@@ -989,5 +1017,21 @@ public class SurveyCriteriaXML {
 
     public void setCountry(String[] country) {
         this.country=country;
+    }
+
+    public String[] getPanelids() {
+        return panelids;
+    }
+
+    public void setPanelids(String[] panelids) {
+        this.panelids=panelids;
+    }
+
+    public String[] getSuperpanelids() {
+        return superpanelids;
+    }
+
+    public void setSuperpanelids(String[] superpanelids) {
+        this.superpanelids=superpanelids;
     }
 }

@@ -17,7 +17,7 @@ import java.util.Iterator;
  * Date: Feb 17, 2007
  * Time: 9:32:33 AM
  */
-public class ResearcherPanelsAddpeopleconfirm implements Serializable {
+public class CustomercarePanelsAddpeopleconfirm implements Serializable {
 
     private int panelid;
     private int surveyid;
@@ -28,7 +28,7 @@ public class ResearcherPanelsAddpeopleconfirm implements Serializable {
     private String bloggeridstoaddcommasep="";
     private ArrayList<Response> responses;
 
-    public ResearcherPanelsAddpeopleconfirm(){
+    public CustomercarePanelsAddpeopleconfirm(){
 
     }
 
@@ -113,7 +113,7 @@ public class ResearcherPanelsAddpeopleconfirm implements Serializable {
                     panelmembership.setBloggerid(bloggerid);
                     panelmembership.setPanelid(panelid);
                     panelmembership.setIssysadminrejected(false);
-                    panelmembership.setIssysadminreviewed(true);
+                    panelmembership.setIssysadminreviewed(false);
                     try{panelmembership.save();}catch(Exception ex){logger.error("", ex);}
                 }
             }

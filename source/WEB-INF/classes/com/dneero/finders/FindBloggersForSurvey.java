@@ -33,119 +33,11 @@ public class FindBloggersForSurvey {
         this.bloggers = new ArrayList();
         this.survey = survey;
         //Get the surveycriteria in xml form
+        //Goal here is to get a subset of all users, not to be hyper-specific
+        //If I can do more with a single HQL query, I should... but I need to be careful to not knock out any possible qualifying bloggers
         SurveyCriteriaXML scXml = new SurveyCriteriaXML(survey.getCriteriaxml());
-        bloggers = getBloggersForParticularCriteria(scXml);
-        logger.debug("bloggers.size() before panels=" + bloggers.size());
-        //Incorporate panels
-        for (Iterator<Surveypanel> iterator = survey.getSurveypanels().iterator(); iterator.hasNext();) {
-            Surveypanel surveypanel = iterator.next();
-            Panel panel = Panel.get(surveypanel.getPanelid());
-            for (Iterator<Panelmembership> iterator1 = panel.getPanelmemberships().iterator(); iterator1.hasNext();) {
-                Panelmembership panelmembership = iterator1.next();
-                Blogger blogger = Blogger.get(panelmembership.getBloggerid());
-                boolean alreadyInList = false;
-                for (Iterator<Blogger> iterator2 = bloggers.iterator(); iterator2.hasNext();) {
-                    Blogger blogger1 = iterator2.next();
-                    if (blogger.getBloggerid()==blogger1.getBloggerid()){
-                        alreadyInList = true;
-                    }
-                }
-                if (!alreadyInList){
-                    this.bloggers.add(blogger);
-                }
-            }
-        }
-        logger.debug("bloggers.size() after panels=" + bloggers.size());
-        //Iterate all bloggers, removing some
-        for (Iterator iterator = bloggers.iterator(); iterator.hasNext();) {
-            Blogger blogger = (Blogger) iterator.next();
-            User user = User.get(blogger.getUserid());
-            //dneerousagemethod qualification
-            if (user.getFacebookuserid()>0){
-                //This is a facebook user
-                if(!Util.arrayContains(scXml.getDneerousagemethods(), Dneerousagemethods.FACEBOOKAPPUSERS)){
-                    iterator.remove();
-                    continue;
-                }
-            } else {
-                //This is a dNeero.com user
-                if(!Util.arrayContains(scXml.getDneerousagemethods(), Dneerousagemethods.DNEERODOTCOMUSERS)){
-                    iterator.remove();
-                    continue;
-                }
-            }
-
-            //Only look at focus for non-facebook users
-            if (user.getFacebookuserid()<=0){
-                //Look at blogfocuses but don't worry about it if all focuses are selected
-                if (!scXml.areAllBlogfocusesSelected()){
-                    //@todo eventually will want to remove this if/then loop because enough people will have logged in and setup their blogs
-                    if (blogger.getVenues()!=null && blogger.getVenues().size()>0){
-                        boolean fulfillsfocusreqs = false;
-                        for (Iterator<Venue> iterator1=blogger.getVenues().iterator(); iterator1.hasNext();) {
-                            Venue venue=iterator1.next();
-                            //Does at least one blog from this user fall within the
-                            if (Util.arrayContains(scXml.getBlogfocus(), venue.getFocus())){
-                                fulfillsfocusreqs = true;
-                                break;
-                            }
-                        }
-                        if (!fulfillsfocusreqs){
-                            iterator.remove();
-                            continue;
-                        }
-                    }
-                }
-            }
-
-
-            //Iterate all responses to collect some data for next few qualifications
-            //@todo optimize this by storing mostrecentresponsedate and surveystaken in the user or blogger table at time of convo join
-            Response mostrecentresponse = null;
-            int surveystaken = 0;
-            for (Iterator<Response> iterator1 = blogger.getResponses().iterator(); iterator1.hasNext();) {
-                Response response = iterator1.next();
-                //Fill most recent response
-                if (mostrecentresponse==null || mostrecentresponse.getResponsedate().before(response.getResponsedate())){
-                    mostrecentresponse = response;
-                }
-                //Count surveys taken
-                surveystaken = surveystaken + 1;
-            }
-            //Calculate dayssincelastsurvey
-            int dayssincelastsurvey = Integer.MAX_VALUE;
-            if (mostrecentresponse!=null){
-                dayssincelastsurvey = DateDiff.dateDiff("day", Calendar.getInstance(), Time.getCalFromDate(mostrecentresponse.getResponsedate()));
-                logger.debug("bloggerid="+blogger.getBloggerid()+" dayssincelastsurvey="+dayssincelastsurvey);
-            }
-            //DaysSinceLastSurvey
-            if (scXml.getDayssincelastsurvey()>0 && dayssincelastsurvey<scXml.getDayssincelastsurvey()){
-                iterator.remove();
-                continue;
-            }
-            //Total surveys taken of at least
-            if (scXml.getTotalsurveystakenatleast()>0 && surveystaken<scXml.getTotalsurveystakenatleast()){
-                iterator.remove();
-                continue;
-            }
-            //Total surveys taken of at most
-            if (surveystaken>scXml.getTotalsurveystakenatmost()){
-                iterator.remove();
-                continue;
-            }
-        }
-    }
-
-    public FindBloggersForSurvey(SurveyCriteriaXML scXml){
-        bloggers = getBloggersForParticularCriteria(scXml);
-        logger.debug("bloggers.size()=" + bloggers.size()+" (this constructor does not incorporate panel membership)");
-    }
-
-    private List getBloggersForParticularCriteria(SurveyCriteriaXML scXml){
-
         //Create the criteria
         Criteria crit = HibernateUtil.getSession().createCriteria(Blogger.class);
-
         //Gender
         crit.add( Property.forName("gender").in( scXml.getGender() ) );
         //Ethnicity
@@ -181,26 +73,19 @@ public class FindBloggersForSurvey {
         //Birthdate
         crit.add(Restrictions.ge("birthdate", Time.subtractYear(Calendar.getInstance(), scXml.getAgemax()).getTime() ));
         crit.add(Restrictions.le("birthdate", Time.subtractYear(Calendar.getInstance(), scXml.getAgemin()).getTime() ));
-
-        List out = crit.list();
-
-//        //Check the venues for focus requirements... create new criteria from current one
-//        Criteria crit2 = crit.createCriteria("venues");
-//        crit2.add(Property.forName("focus").in( scXml.getBlogfocus() ));
-//        crit2.add(Restrictions.eq("isactive",true));
-//
-//        //Run the query and get the preliminary results
-//        List outTmp = crit2.list();
-//        //Remove duplicates
-//        Collection result = new LinkedHashSet( outTmp );
-//        //Put back into a list
-//        ArrayList<Blogger> out = new ArrayList<Blogger>();
-//        for (Iterator bloggerIterator=result.iterator(); bloggerIterator.hasNext();) {
-//            Blogger blogger=(Blogger) bloggerIterator.next();
-//            out.add(blogger);
-//        }
-        return out;
+        //Run the query to get the initial list of bloggers
+        bloggers = crit.list();
+        //Iterate all bloggers, removing those that specifically don't qualify
+        for (Iterator iterator = bloggers.iterator(); iterator.hasNext();) {
+            Blogger blogger = (Blogger) iterator.next();
+            User user = User.get(blogger.getUserid());
+            if (!scXml.isUserQualified(user)){
+                iterator.remove();
+                continue;
+            }
+        }
     }
+
 
     public List getBloggers() {
         return bloggers;

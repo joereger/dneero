@@ -1,7 +1,5 @@
 package com.dneero.htmluibeans;
 
-import com.dneero.dao.Supportissue;
-import com.dneero.dao.Supportissuecomm;
 import com.dneero.dao.Mail;
 import com.dneero.dao.Mailchild;
 

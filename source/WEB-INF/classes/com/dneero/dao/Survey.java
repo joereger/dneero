@@ -34,14 +34,13 @@ public class Survey extends BasePersistentClass implements java.io.Serializable,
     public static int STATUS_CLOSED = 5;
 
 
-     // Fields
+     //Fields
      private int surveyid;
      private int researcherid;
      private int plid = 1;
      private String title;
      private String description;
      private String criteriaxml;
-     private double willingtopayperrespondent = 0;
      private int numberofrespondentsrequested  = 1000;
      private double willingtopaypercpm = 10;
      private int maxdisplaysperblog = 1000;
@@ -71,8 +70,6 @@ public class Survey extends BasePersistentClass implements java.io.Serializable,
 
      private Set<Question> questions = new HashSet<Question>();
      private Set<Response> responses = new HashSet<Response>();
-     //private Set<Impression> impressions = new HashSet<Impression>();
-     private Set<Surveypanel> surveypanels = new HashSet<Surveypanel>();
      private Set<Surveydiscuss> surveydiscusses = new HashSet<Surveydiscuss>();
      private Set<Surveyincentive> surveyincentives = new HashSet<Surveyincentive>();
 
@@ -119,7 +116,6 @@ public class Survey extends BasePersistentClass implements java.io.Serializable,
         //}
         //End Experimental
         //EmbedCacheFlusher.flushCache(surveyid);
-        willingtopayperrespondent = 0.0;
         super.save();
     }
 
@@ -159,15 +155,6 @@ public class Survey extends BasePersistentClass implements java.io.Serializable,
 
 
 
-    /** full constructor */
-    public Survey(int surveyid, String title, String description, double willingtopayperrespondent, int numberofrespondentsrequested, Date startdate, Date enddate) {
-        this.surveyid = surveyid;
-        this.title = title;
-        this.description = description;
-        this.numberofrespondentsrequested = numberofrespondentsrequested;
-        this.startdate = startdate;
-        this.enddate = enddate;
-    }
 
     public Incentive getIncentive(){
         //It's been called already for this object so let's just use the one we got last time
@@ -238,13 +225,6 @@ public class Survey extends BasePersistentClass implements java.io.Serializable,
         this.criteriaxml = criteriaxml;
     }
 
-    public double getWillingtopayperrespondent() {
-        return this.willingtopayperrespondent;
-    }
-
-    public void setWillingtopayperrespondent(double willingtopayperrespondent) {
-        this.willingtopayperrespondent = willingtopayperrespondent;
-    }
 
     public int getNumberofrespondentsrequested() {
         return this.numberofrespondentsrequested;
@@ -318,14 +298,6 @@ public class Survey extends BasePersistentClass implements java.io.Serializable,
         this.responses = responses;
     }
 
-//    public Set<Impression> getImpressions() {
-//        return impressions;
-//    }
-//
-//    public void setImpressions(Set<Impression> impressions) {
-//        this.impressions = impressions;
-//    }
-
     public int getStatus() {
         return status;
     }
@@ -357,15 +329,6 @@ public class Survey extends BasePersistentClass implements java.io.Serializable,
 
     public void setEmbedlink(boolean embedlink) {
         this.embedlink = embedlink;
-    }
-
-
-    public Set<Surveypanel> getSurveypanels() {
-        return surveypanels;
-    }
-
-    public void setSurveypanels(Set<Surveypanel> surveypanels) {
-        this.surveypanels = surveypanels;
     }
 
 

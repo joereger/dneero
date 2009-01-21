@@ -43,7 +43,6 @@ public class DeleteUser {
                 deleteObj(Impression.class, "userid", user.getUserid());
                 deleteObj(Researcher.class, "userid", user.getUserid());
                 deleteObj(Responsepending.class, "userid", user.getUserid());
-                deleteObj(Supportissue.class, "userid", user.getUserid());
                 deleteObj(Userpersistentlogin.class, "userid", user.getUserid());
                 deleteObj(Facebookpendingreferredby.class, "referredbyuserid", user.getUserid());
 

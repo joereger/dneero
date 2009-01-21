@@ -17,6 +17,8 @@ public class Panelmembership extends BasePersistentClass implements java.io.Seri
      private int panelmembershipid;
      private int panelid;
      private int bloggerid;
+     private boolean issysadminreviewed;
+     private boolean issysadminrejected;
 
 
 
@@ -80,5 +82,21 @@ public class Panelmembership extends BasePersistentClass implements java.io.Seri
 
     public void setBloggerid(int bloggerid) {
         this.bloggerid = bloggerid;
+    }
+
+    public boolean getIssysadminreviewed() {
+        return issysadminreviewed;
+    }
+
+    public void setIssysadminreviewed(boolean issysadminreviewed) {
+        this.issysadminreviewed=issysadminreviewed;
+    }
+
+    public boolean getIssysadminrejected() {
+        return issysadminrejected;
+    }
+
+    public void setIssysadminrejected(boolean issysadminrejected) {
+        this.issysadminrejected=issysadminrejected;
     }
 }

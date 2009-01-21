@@ -22,6 +22,8 @@ public class Panel extends BasePersistentClass implements java.io.Serializable, 
      private int researcherid;
      private String name;
      private Date createdate;
+     private boolean issystempanel;
+     private String description;
      
      private Set<Panelmembership> panelmemberships = new HashSet<Panelmembership>();
 
@@ -104,5 +106,21 @@ public class Panel extends BasePersistentClass implements java.io.Serializable, 
 
     public void setPanelmemberships(Set<Panelmembership> panelmemberships) {
         this.panelmemberships = panelmemberships;
+    }
+
+    public boolean getIssystempanel() {
+        return issystempanel;
+    }
+
+    public void setIssystempanel(boolean issystempanel) {
+        this.issystempanel=issystempanel;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description=description;
     }
 }

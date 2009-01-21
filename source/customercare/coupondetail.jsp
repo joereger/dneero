@@ -1,7 +1,6 @@
 <%@ page import="org.apache.log4j.Logger" %>
 <%@ page import="com.dneero.htmluibeans.CustomercareSupportIssueDetail" %>
 <%@ page import="java.util.Iterator" %>
-<%@ page import="com.dneero.dao.Supportissuecomm" %>
 <%@ page import="com.dneero.util.Str" %>
 <%@ page import="com.dneero.util.Time" %>
 <%@ page import="java.util.TreeMap" %>

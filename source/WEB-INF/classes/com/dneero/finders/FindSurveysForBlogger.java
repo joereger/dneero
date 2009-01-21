@@ -89,30 +89,6 @@ public class FindSurveysForBlogger {
                 this.surveys.add(survey);
             }
         }
-
-        //Add surveys that blogger is on panel for
-        for (Iterator<Panelmembership> iterator = blogger.getPanelmemberships().iterator(); iterator.hasNext();) {
-            Panelmembership panelmembership = iterator.next();
-            List results = HibernateUtil.getSession().createQuery("from Surveypanel where panelid='"+panelmembership.getPanelid()+"'").list();
-            for (Iterator iterator1 = results.iterator(); iterator1.hasNext();) {
-                Surveypanel surveypanel = (Surveypanel) iterator1.next();
-                Survey survey = Survey.get(surveypanel.getSurveyid());
-                if (survey.getStatus()==Survey.STATUS_OPEN){
-                    boolean alreadyInList = false;
-                    for (Iterator<Survey> iterator2 = surveys.iterator(); iterator2.hasNext();) {
-                        Survey survey1 = iterator2.next();
-                        if (survey.getSurveyid()==survey1.getSurveyid()){
-                            alreadyInList = true;
-                        }
-                    }
-                    if (!alreadyInList){
-                        this.surveys.add(survey);
-                    }
-                }
-            }
-        }
-
-
     }
 
     public static boolean isUserQualifiedToTakeSurvey(User user, Survey survey){

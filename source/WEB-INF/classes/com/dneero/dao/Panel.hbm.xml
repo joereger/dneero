@@ -23,7 +23,12 @@
         <property name="createdate" type="timestamp">
             <column name="createdate" not-null="true" />
         </property>
-
+        <property name="issystempanel" type="boolean">
+            <column name="issystempanel" />
+        </property>
+        <property name="description" type="text">
+            <column name="description" not-null="true" />
+        </property>
 
     </class>
 </hibernate-mapping>

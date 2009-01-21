@@ -21,18 +21,6 @@
             <one-to-many class="com.dneero.dao.Response" not-found="ignore"></one-to-many>
         </set>
 
-        <!--<set name="impressions" inverse="true" order-by="impressionid asc" cascade="all-delete-orphan">-->
-            <!--<cache usage="transactional"/>-->
-            <!--<key column="surveyid"></key>-->
-            <!--<one-to-many class="com.dneero.dao.Impression" not-found="ignore"></one-to-many>-->
-        <!--</set>-->
-
-        <set name="surveypanels" inverse="true" cascade="all-delete-orphan">
-            <cache usage="transactional"/>
-            <key column="surveyid"></key>
-            <one-to-many class="com.dneero.dao.Surveypanel" not-found="ignore"></one-to-many>
-        </set>
-
         <set name="surveydiscusses" inverse="true" cascade="all-delete-orphan">
             <cache usage="transactional"/>
             <key column="surveyid"></key>
@@ -62,9 +50,6 @@
         </property>
         <property name="criteriaxml" type="text">
             <column name="criteriaxml"/>
-        </property>
-        <property name="willingtopayperrespondent" type="double">
-            <column name="willingtopayperrespondent" precision="22" scale="0" not-null="true" />
         </property>
         <property name="numberofrespondentsrequested" type="int">
             <column name="numberofrespondentsrequested" not-null="true" />

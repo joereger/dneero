@@ -5,7 +5,6 @@ import com.dneero.util.Time;
 import com.dneero.dao.Survey;
 import com.dneero.dao.Question;
 import com.dneero.dao.Questionconfig;
-import com.dneero.dao.Surveypanel;
 import com.dneero.dao.hibernate.CopyHibernateObject;
 import com.dneero.htmlui.Pagez;
 import com.dneero.htmlui.ValidationException;
@@ -76,16 +75,6 @@ public class ResearcherIndex implements Serializable {
                     newQuestionconfig.setQuestionid(newQuestion.getQuestionid());
                     try{newQuestionconfig.save();}catch(Exception ex){logger.error("",ex);}
                 }
-            }
-            //Copy the surveypanels
-            for (Iterator<Surveypanel> iterator = origSurvey.getSurveypanels().iterator(); iterator.hasNext();) {
-                Surveypanel origSurveypanel = iterator.next();
-                Surveypanel newSurveypanel = new Surveypanel();
-                ArrayList fieldstoignore1 = new ArrayList();
-                fieldstoignore1.add("surveypanelid");
-                newSurveypanel = (Surveypanel) CopyHibernateObject.shallowCopyIgnoreCertainFields(origSurveypanel, newSurveypanel, fieldstoignore1);
-                newSurveypanel.setSurveyid(newSurvey.getSurveyid());
-                try{newSurveypanel.save();}catch(Exception ex){logger.error("",ex);}
             }
             //@todo don't copy user questions
             //Refresh the survey

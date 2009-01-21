@@ -20,14 +20,14 @@ import com.dneero.htmlui.ValidationException;
  * Date: Feb 8, 2007
  * Time: 12:22:24 PM
  */
-public class ResearcherPanels implements Serializable {
+public class CustomercarePanels implements Serializable {
 
 
     private List listitems;
-    private String newpanelname = "My Panel";
+    private String newpanelname = "New System Panel";
     private String msg = "";
 
-    public ResearcherPanels() {
+    public CustomercarePanels() {
 
     }
 
@@ -37,10 +37,11 @@ public class ResearcherPanels implements Serializable {
     public void initBean(){
         Logger logger = Logger.getLogger(this.getClass().getName());
         if (Pagez.getUserSession()!=null && Pagez.getUserSession().getUser()!=null && Pagez.getUserSession().getUser().getResearcherid()>0){
+            String emptyStr = "";
             logger.debug("userSession, user and researcher not null");
             logger.debug("into loop for userSession.getUser().getResearcher().getResearcherid()="+Pagez.getUserSession().getUser().getResearcherid());
             listitems = new ArrayList<ResearcherPanelsListitem>();
-            List items = HibernateUtil.getSession().createQuery("from Panel where researcherid='"+Pagez.getUserSession().getUser().getResearcherid()+"' order by panelid asc").list();
+            List items = HibernateUtil.getSession().createQuery("from Panel where issystempanel=true order by panelid asc"+emptyStr).list();
             for (Iterator iterator = items.iterator(); iterator.hasNext();) {
                 Panel panel = (Panel) iterator.next();
                 ResearcherPanelsListitem li = new ResearcherPanelsListitem();
@@ -74,8 +75,8 @@ public class ResearcherPanels implements Serializable {
         panel.setCreatedate(new Date());
         panel.setName(newpanelname);
         panel.setDescription("");
-        panel.setIssystempanel(false);
-        panel.setResearcherid(Pagez.getUserSession().getUser().getResearcherid());
+        panel.setIssystempanel(true);
+        panel.setResearcherid(0);
         try{panel.save();}catch (Exception ex){logger.error("",ex);}
         initBean();
     }

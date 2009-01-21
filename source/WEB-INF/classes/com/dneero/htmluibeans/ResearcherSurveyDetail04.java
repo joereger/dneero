@@ -54,10 +54,10 @@ public class ResearcherSurveyDetail04 implements Serializable {
     private String[] blogfocus;
     private String[] politics;
     private String[] dneerousagemethods;
-
     private String[] panels;
     private String panelsStr;
-
+    private String[] superpanels;
+    private String superpanelsStr;
     private boolean isaccesscodeonly= false;
     private String accesscode;
 
@@ -104,15 +104,8 @@ public class ResearcherSurveyDetail04 implements Serializable {
                 politics = surveyCriteriaXML.getPolitics();
                 dneerousagemethods = surveyCriteriaXML.getDneerousagemethods();
                 blogfocus = surveyCriteriaXML.getBlogfocus();
-                //Load panels
-                List results = HibernateUtil.getSession().createQuery("from Surveypanel where surveyid='"+Pagez.getUserSession().getCurrentSurveyid()+"'").list();
-                panels = new String[results.size()];
-                int i = 0;
-                for (Iterator iterator = results.iterator(); iterator.hasNext();) {
-                    Surveypanel surveypanel = (Surveypanel) iterator.next();
-                    panels[i]=String.valueOf(surveypanel.getPanelid());
-                    i=i+1;
-                }
+                panels = surveyCriteriaXML.getPanelids();
+                superpanels = surveyCriteriaXML.getSuperpanelids();
             }
         }
     }
@@ -165,66 +158,12 @@ public class ResearcherSurveyDetail04 implements Serializable {
                     surveyCriteriaXML.setBlogfocus(blogfocus);
                     surveyCriteriaXML.setPolitics(politics);
                     surveyCriteriaXML.setDneerousagemethods(dneerousagemethods);
-
+                    surveyCriteriaXML.setPanelids(panels);
+                    surveyCriteriaXML.setSuperpanelids(superpanels);
+                    //Put into survey
                     survey.setCriteriaxml(surveyCriteriaXML.getSurveyCriteriaAsString());
-
                     surveyCriteriaAsHtml = surveyCriteriaXML.getAsHtml();
                 }
-
-                //Save panels
-                if (true){
-                    //Delete those that aren't in the
-                    ArrayList<Integer> surveypanelstodelete = new ArrayList<Integer>();
-                    List surveypanels = HibernateUtil.getSession().createQuery("from Surveypanel where surveyid='"+Pagez.getUserSession().getCurrentSurveyid()+"'").list();
-                    for (Iterator iterator = surveypanels.iterator(); iterator.hasNext();) {
-                        Surveypanel surveypanel = (Surveypanel) iterator.next();
-                        //Iterate panels chosen on UI
-                        boolean ischosen = false;
-                        if (panels!=null){
-                            for (int i = 0; i < panels.length; i++) {
-                                String p = panels[i];
-                                if (Num.isinteger(p)){
-                                    if (Integer.parseInt(p)==surveypanel.getPanelid()){
-                                        ischosen = true;
-                                    }
-                                }
-                            }
-                        }
-                        if (!ischosen){
-                            surveypanelstodelete.add(surveypanel.getSurveypanelid());
-                        }
-                    }
-                    //Do the deleting
-                    for (Iterator<Integer> iterator = surveypanelstodelete.iterator(); iterator.hasNext();) {
-                        Integer surveypanelid = iterator.next();
-                        try{Surveypanel.get(surveypanelid).delete();}catch(Exception ex){logger.error("",ex);}
-                    }
-                    //Find panelids to add
-                    ArrayList<Integer> panelstoadd = new ArrayList<Integer>();
-                    if (panels!=null){
-                        for (int i = 0; i < panels.length; i++) {
-                            String p = panels[i];
-                            if (Num.isinteger(p)){
-                                //Search database for this listing
-                                List sps = HibernateUtil.getSession().createQuery("from Surveypanel where surveyid='"+Pagez.getUserSession().getCurrentSurveyid()+"' and panelid='"+p+"'").list();
-                                if (sps!=null && sps.size()>0){
-
-                                } else {
-                                    panelstoadd.add(Integer.parseInt(p));
-                                }
-                            }
-                        }
-                    }
-                    //Do the adding
-                    for (Iterator<Integer> iterator = panelstoadd.iterator(); iterator.hasNext();) {
-                        Integer panelid = iterator.next();
-                        Surveypanel sp = new Surveypanel();
-                        sp.setSurveyid(Pagez.getUserSession().getCurrentSurveyid());
-                        sp.setPanelid(panelid);
-                        try{sp.save();}catch(Exception ex){logger.error("",ex);}
-                    }
-                }
-
                //Final save
                 try{
                     logger.debug("saveSurvey() about to save (for 2nd time) survey.getSurveyid()=" + survey.getSurveyid());
@@ -250,6 +189,17 @@ public class ResearcherSurveyDetail04 implements Serializable {
     public TreeMap<String, String> getPanelsavailable(){
         TreeMap<String, String> out = new TreeMap<String, String>();
         List results = HibernateUtil.getSession().createQuery("from Panel where researcherid='"+Pagez.getUserSession().getUser().getResearcherid()+"'").list();
+        for (Iterator iterator = results.iterator(); iterator.hasNext();) {
+            Panel panel = (Panel) iterator.next();
+            out.put(String.valueOf(panel.getPanelid()), Str.truncateString(panel.getName(), 40));
+        }
+        return out;
+    }
+
+    public TreeMap<String, String> getSuperpanelsavailable(){
+        String emptyStr = "";
+        TreeMap<String, String> out = new TreeMap<String, String>();
+        List results = HibernateUtil.getSession().createQuery("from Panel where issystempanel=true"+emptyStr).list();
         for (Iterator iterator = results.iterator(); iterator.hasNext();) {
             Panel panel = (Panel) iterator.next();
             out.put(String.valueOf(panel.getPanelid()), Str.truncateString(panel.getName(), 40));
@@ -491,5 +441,21 @@ public class ResearcherSurveyDetail04 implements Serializable {
 
     public void setCountry(String[] country) {
         this.country=country;
+    }
+
+    public String[] getSuperpanels() {
+        return superpanels;
+    }
+
+    public void setSuperpanels(String[] superpanels) {
+        this.superpanels=superpanels;
+    }
+
+    public String getSuperpanelsStr() {
+        return superpanelsStr;
+    }
+
+    public void setSuperpanelsStr(String superpanelsStr) {
+        this.superpanelsStr=superpanelsStr;
     }
 }

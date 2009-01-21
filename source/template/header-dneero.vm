@@ -187,6 +187,7 @@
                         <a href="/customercare/transactions.jsp"><font class="subnavfont" style=" color: #000000;">Real-World Transactions</font></a>
                         <a href="/customercare/balance.jsp"><font class="subnavfont" style=" color: #000000;">Balance Updates</font></a>
                         <a href="/customercare/iptrack.jsp"><font class="subnavfont" style=" color: #000000;">Ip Track</font></a>
+                        <a href="/customercare/panels.jsp"><font class="subnavfont" style=" color: #000000;">SuperPanels</font></a>
                     #end
                 #end
                 #if ($navtab == "sysadmin")

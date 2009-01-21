@@ -336,6 +336,8 @@ if (request.getParameter("action")!=null && request.getParameter("action").equal
                                         <br/><br/>
                                    <%}%>
                                    <%=reviewable.getFullSummary()%>
+                                   <br/>
+                                   <a href="/customercare/reviewables-turbo.jsp?type=<%=reviewable.getType()%>&id=<%=reviewable.getId()%>"><font class="tinyfont">Review this Alone</font></a>
                                </div>
                            </div>
                         </div>

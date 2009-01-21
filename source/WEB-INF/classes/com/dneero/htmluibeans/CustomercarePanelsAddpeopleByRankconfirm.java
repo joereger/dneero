@@ -18,7 +18,7 @@ import java.util.Iterator;
  * Date: Feb 17, 2007
  * Time: 9:32:33 AM
  */
-public class ResearcherPanelsAddpeopleByRankconfirm implements Serializable {
+public class CustomercarePanelsAddpeopleByRankconfirm implements Serializable {
 
     private int panelid=0;
     private int rankid=0;
@@ -28,7 +28,7 @@ public class ResearcherPanelsAddpeopleByRankconfirm implements Serializable {
     private int numberofnewrespondents;
     private String bloggeridstoaddcommasep="";
 
-    public ResearcherPanelsAddpeopleByRankconfirm(){
+    public CustomercarePanelsAddpeopleByRankconfirm(){
 
     }
 
@@ -55,7 +55,6 @@ public class ResearcherPanelsAddpeopleByRankconfirm implements Serializable {
             if (!rank.canEdit(Pagez.getUserSession().getUser())){
                 return;
             }
-
             ArrayList<Object[]> stats = (ArrayList<Object[]>) HibernateUtil.getSession().createQuery("select userid, sum(points) as summ, avg(normalizedpoints) from Rankuser where rankid='"+rank.getRankid()+"' group by userid").list();
             //Iterate through and get max/min points
             int maxpoints = 0;
@@ -142,7 +141,7 @@ public class ResearcherPanelsAddpeopleByRankconfirm implements Serializable {
                     bloggeridstoaddcommasep = bloggeridstoaddcommasep + user.getBloggerid();
                 }
             }
-            
+
         }
     }
 
@@ -159,9 +158,6 @@ public class ResearcherPanelsAddpeopleByRankconfirm implements Serializable {
     }
 
 
-
-
-
     public void add() throws ValidationException {
         Logger logger = Logger.getLogger(this.getClass().getName());
         String[] bloggerids = bloggeridstoaddcommasep.split(",");
@@ -175,7 +171,7 @@ public class ResearcherPanelsAddpeopleByRankconfirm implements Serializable {
                     panelmembership.setBloggerid(bloggerid);
                     panelmembership.setPanelid(panelid);
                     panelmembership.setIssysadminrejected(false);
-                    panelmembership.setIssysadminreviewed(true);
+                    panelmembership.setIssysadminreviewed(false);
                     try{panelmembership.save();}catch(Exception ex){logger.error("", ex);}
                 }
             }
@@ -207,8 +203,6 @@ public class ResearcherPanelsAddpeopleByRankconfirm implements Serializable {
         this.respondentfilterid = respondentfilterid;
     }
 
-
-
     public String getBloggeridstoaddcommasep() {
         return bloggeridstoaddcommasep;
     }
@@ -216,8 +210,6 @@ public class ResearcherPanelsAddpeopleByRankconfirm implements Serializable {
     public void setBloggeridstoaddcommasep(String bloggeridstoaddcommasep) {
         this.bloggeridstoaddcommasep = bloggeridstoaddcommasep;
     }
-
-
 
     public int getNumberofnewrespondents() {
         return numberofnewrespondents;

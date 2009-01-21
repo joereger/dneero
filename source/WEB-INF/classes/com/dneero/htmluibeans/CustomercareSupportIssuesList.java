@@ -1,6 +1,6 @@
 package com.dneero.htmluibeans;
 
-import com.dneero.dao.Supportissue;
+
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.htmlui.ValidationException;
 import org.apache.log4j.Logger;

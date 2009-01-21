@@ -3,8 +3,7 @@ package com.dneero.htmluibeans;
 import org.apache.log4j.Logger;
 
 
-import com.dneero.dao.Supportissue;
-import com.dneero.dao.Supportissuecomm;
+
 import com.dneero.dao.Mail;
 import com.dneero.dao.Mailchild;
 import com.dneero.dao.hibernate.HibernateUtil;

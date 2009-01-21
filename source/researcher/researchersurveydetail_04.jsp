@@ -45,6 +45,7 @@ ResearcherSurveyDetail04 researcherSurveyDetail04 = (ResearcherSurveyDetail04)Pa
             researcherSurveyDetail04.setTotalsurveystakenatleast(Textbox.getIntFromRequest("totalsurveystakenatleast", "Total Conversations Joined of At Least", true, DatatypeInteger.DATATYPEID));
             researcherSurveyDetail04.setTotalsurveystakenatmost(Textbox.getIntFromRequest("totalsurveystakenatmost", "Total Conversations Joined of At Most", true, DatatypeInteger.DATATYPEID));
             researcherSurveyDetail04.setPanels(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("panels", "Panels", false)));
+            researcherSurveyDetail04.setSuperpanels(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("superpanels", "SuperPanels", false)));
             researcherSurveyDetail04.setPolitics(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("politics", "Politics", false)));
             researcherSurveyDetail04.setDneerousagemethods(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("dneerousagemethods", "dNeero Usage Methods", false)));
             researcherSurveyDetail04.setProfession(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("professions", "Professions", false)));
@@ -96,6 +97,9 @@ ResearcherSurveyDetail04 researcherSurveyDetail04 = (ResearcherSurveyDetail04)Pa
         <br/>
         <b>Panels:</b>
         <%=researcherSurveyDetail04.getPanelsStr()%>
+        <br/>
+        <b>SuperPanels:</b>
+        <%=researcherSurveyDetail04.getSuperpanelsStr()%>
     <%}%>
 
     <%if (researcherSurveyDetail04.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {%>
@@ -225,9 +229,10 @@ ResearcherSurveyDetail04 researcherSurveyDetail04 = (ResearcherSurveyDetail04)Pa
                 </td>
 
                 <td valign="top">
-                    <font class="formfieldnamefont"></font>
+                    <font class="formfieldnamefont">Politics</font>
                 </td>
                 <td valign="top">
+                    <%=DropdownMultiselect.getHtml("politics", Util.stringArrayToArrayList(researcherSurveyDetail04.getPolitics()), Util.treeSetToTreeMap(Politics.get()), 6, "", "")%>
                 </td>
             </tr>
 
@@ -251,21 +256,15 @@ ResearcherSurveyDetail04 researcherSurveyDetail04 = (ResearcherSurveyDetail04)Pa
 
             <tr>
                 <td valign="top">
-                    <font class="formfieldnamefont">Politics</font>
+                    <font class="formfieldnamefont">dNeero Usage Method</font>
+                    <br/>
+                    <font class="tinyfont">There are multiple ways that users can access dNeero social surveys.  This control allows you to target each access method individually.</font>
                 </td>
                 <td valign="top">
-                    <%=DropdownMultiselect.getHtml("politics", Util.stringArrayToArrayList(researcherSurveyDetail04.getPolitics()), Util.treeSetToTreeMap(Politics.get()), 6, "", "")%>
+                    <%=DropdownMultiselect.getHtml("dneerousagemethods", Util.stringArrayToArrayList(researcherSurveyDetail04.getDneerousagemethods()), Util.treeSetToTreeMap(Dneerousagemethods.get()), 3, "", "")%>
                 </td>
 
-                <td valign="top">
-                    <font class="formfieldnamefont">Panel Membership</font>
-                </td>
-                <td valign="top">
-                    <%=DropdownMultiselect.getHtml("panels", Util.stringArrayToArrayList(researcherSurveyDetail04.getPanels()), researcherSurveyDetail04.getPanelsavailable(), 6, "", "")%>
-                </td>
-            </tr>
 
-            <tr>
                 <td valign="top">
                     <font class="formfieldnamefont">Access Code Only?</font>
                     <br/>
@@ -278,14 +277,25 @@ ResearcherSurveyDetail04 researcherSurveyDetail04 = (ResearcherSurveyDetail04)Pa
                     <br/>
                     <%=Textbox.getHtml("accesscode", researcherSurveyDetail04.getAccesscode(), 255, 10, "", "")%>
                 </td>
+            </tr>
 
+            <tr>
                 <td valign="top">
-                    <font class="formfieldnamefont">dNeero Usage Method</font>
+                    <font class="formfieldnamefont">Panel Membership</font>
                     <br/>
-                    <font class="tinyfont">There are multiple ways that users can access dNeero social surveys.  This control allows you to target each access method individually.</font>
+                    <font class="tinyfont">If you select a panel then this convo will only apply to people in that panel that also fulfill other demographic requirements.</font>
                 </td>
                 <td valign="top">
-                    <%=DropdownMultiselect.getHtml("dneerousagemethods", Util.stringArrayToArrayList(researcherSurveyDetail04.getDneerousagemethods()), Util.treeSetToTreeMap(Dneerousagemethods.get()), 3, "", "")%>
+                    <%=DropdownMultiselect.getHtml("panels", Util.stringArrayToArrayList(researcherSurveyDetail04.getPanels()), researcherSurveyDetail04.getPanelsavailable(), 6, "", "")%>
+                </td>
+
+                <td valign="top">
+                    <font class="formfieldnamefont">SuperPanel Membership</font>
+                    <br/>
+                    <font class="tinyfont">If you select a panel then this convo will only apply to people in that panel that also fulfill other demographic requirements.</font>
+                </td>
+                <td valign="top">
+                    <%=DropdownMultiselect.getHtml("superpanels", Util.stringArrayToArrayList(researcherSurveyDetail04.getSuperpanels()), researcherSurveyDetail04.getSuperpanelsavailable(), 6, "", "")%>
                 </td>
             </tr>
 

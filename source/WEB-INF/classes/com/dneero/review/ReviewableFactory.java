@@ -22,6 +22,9 @@ public class ReviewableFactory {
         if (type==ReviewableVenue.TYPE){
             return new ReviewableVenue(id);
         }
+        if (type==ReviewableSuperPanelmembership.TYPE){
+            return new ReviewableSuperPanelmembership(id);
+        }
         return null;
     }
 
@@ -31,6 +34,7 @@ public class ReviewableFactory {
         types.add(new ReviewableQuestion(0));
         types.add(new ReviewableResponse(0));
         types.add(new ReviewableVenue(0));
+        types.add(new ReviewableSuperPanelmembership(0));
         return types;
     }
 
