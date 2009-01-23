@@ -28,7 +28,6 @@ public class SiRRankUpdate implements Job {
         Logger logger = Logger.getLogger(this.getClass().getName());
         if (InstanceProperties.getRunScheduledTasksOnThisInstance()){
             logger.debug("execute() SiRRankUpdate called");
-
             //Update sir ranking numbers
             if (true){
                 List users = HibernateUtil.getSession().createQuery("from User order by sirpoints desc").list();
@@ -40,11 +39,9 @@ public class SiRRankUpdate implements Job {
                     try{user.save();}catch(Exception ex){logger.error("",ex);}
                 }
             }
-
         } else {
             logger.debug("InstanceProperties.getRunScheduledTasksOnThisInstance() is FALSE for this instance so this task is not being executed.");
         }
-
 
     }
 
