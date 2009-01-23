@@ -47,6 +47,10 @@ public class HibernateUtil {
                     conf.setProperty("hibernate.connection.password", InstanceProperties.getDbPassword());
                     conf.setProperty("hibernate.connection.driver_class", InstanceProperties.getDbDriverName());
 
+                    conf.setProperty("hibernate.jdbc.batch_size", "200");
+
+
+
 
                     //Misc
                     //conf.setProperty("hibernate.current_session_context_class", "thread");
