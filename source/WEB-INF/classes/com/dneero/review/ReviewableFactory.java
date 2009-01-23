@@ -25,6 +25,9 @@ public class ReviewableFactory {
         if (type==ReviewableSuperPanelmembership.TYPE){
             return new ReviewableSuperPanelmembership(id);
         }
+        if (type==ReviewablePanelapplication.TYPE){
+            return new ReviewablePanelapplication(id);
+        }
         return null;
     }
 
@@ -35,6 +38,7 @@ public class ReviewableFactory {
         types.add(new ReviewableResponse(0));
         types.add(new ReviewableVenue(0));
         types.add(new ReviewableSuperPanelmembership(0));
+        types.add(new ReviewablePanelapplication(0));
         return types;
     }
 

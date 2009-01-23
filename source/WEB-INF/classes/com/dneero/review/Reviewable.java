@@ -38,6 +38,9 @@ public interface Reviewable {
     public void scoreByResearcher(int score);
     public void scoreBySysadmin(int score);
     public boolean isMailCreated();
+    public boolean isApproveSupported();
+    public boolean isWarnSupported();
+    public boolean isRejectSupported();
 
 
 }

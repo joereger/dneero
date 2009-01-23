@@ -138,7 +138,7 @@ if (request.getParameter("action")!=null && request.getParameter("action").equal
                     //Change the underlying Reviewable object
                     reviewable.rejectBySysadmin();
                     //Create an inbox item
-                    if (reviewable.getIsMailCreated()){
+                    if (reviewable.isMailCreated()){
                         User userWhoCreatedContent = User.get(reviewable.getUseridofcontentcreator());
                         Mail mail = new Mail();
                         mail.setIsflaggedforcustomercare(false);
@@ -280,9 +280,9 @@ if (request.getParameter("action")!=null && request.getParameter("action").equal
                                 <td valign="top" colspan="4"><img src="/images/clear.gif" alt="" width="1" height="10"/></td>
                             </tr>
                             <tr>
-                                <td valign="top"><center><input type="radio" name="<%=prefix%>radios" value="approve" checked></center></td>
-                                <td valign="top"><center><input type="radio" name="<%=prefix%>radios" value="reject"></center></td>
-                                <td valign="top"><center><input type="radio" name="<%=prefix%>radios" value="warn"></center></td>
+                                <td valign="top"><center><%if(reviewable.isApproveSupported()){%><input type="radio" name="<%=prefix%>radios" value="approve" checked><%}%></center></td>
+                                <td valign="top"><center><%if(reviewable.isRejectSupported()){%><input type="radio" name="<%=prefix%>radios" value="reject"><%}%></center></td>
+                                <td valign="top"><center><%if(reviewable.isWarnSupported()){%><input type="radio" name="<%=prefix%>radios" value="warn"><%}%></center></td>
                                 <td valign="top"><center><input type="radio" name="<%=prefix%>radios" value="skip"></center></td>
                             </tr>
                             <tr>

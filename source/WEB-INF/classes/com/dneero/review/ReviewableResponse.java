@@ -263,4 +263,16 @@ public class ReviewableResponse implements Reviewable {
     public boolean isMailCreated() {
         return true;
     }
+
+    public boolean isApproveSupported() {
+        return true;
+    }
+
+    public boolean isWarnSupported() {
+        return true;
+    }
+
+    public boolean isRejectSupported() {
+        return true;
+    }
 }

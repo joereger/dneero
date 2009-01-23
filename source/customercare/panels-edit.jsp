@@ -15,6 +15,7 @@ CustomercarePanelsEdit customercarePanelsEdit= (CustomercarePanelsEdit)Pagez.get
     if (request.getParameter("action") != null && request.getParameter("action").equals("edit")) {
         try {
             customercarePanelsEdit.getPanel().setName(Textbox.getValueFromRequest("panelname", "Panel Name", true, DatatypeString.DATATYPEID));
+            customercarePanelsEdit.getPanel().setDescription(Textarea.getValueFromRequest("paneldescription", "Panel Description", true));
             customercarePanelsEdit.edit();
             Pagez.getUserSession().setMessage("Panel edited.");
             Pagez.sendRedirect("/customercare/panels.jsp");
@@ -41,12 +42,21 @@ CustomercarePanelsEdit customercarePanelsEdit= (CustomercarePanelsEdit)Pagez.get
                 </td>
             </tr>
 
+            <tr>
+                <td valign="top">
+                    <font class="formfieldnamefont">Description</font>
+                </td>
+                <td valign="top">
+                    <%=Textarea.getHtml("paneldescription", customercarePanelsEdit.getPanel().getDescription(), 5, 45, "", "")%>
+                </td>
+            </tr>
+
 
              <tr>
                 <td valign="top">
                 </td>
                 <td valign="top">
-                    <input type="submit" class="formsubmitbutton" value="Edit Panel">
+                    <input type="submit" class="formsubmitbutton" value="Edit SuperPanel">
                 </td>
             </tr>
 

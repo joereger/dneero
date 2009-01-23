@@ -18,32 +18,35 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
-public class ReviewableSuperPanelmembership implements Reviewable {
+public class ReviewablePanelapplication implements Reviewable {
 
-    public static int TYPE = 5;
-    public static String TYPENAME = "SuperPanel Membership";
-    public Panelmembership panelmembership;
+    public static int TYPE = 6;
+    public static String TYPENAME = "SuperPanel Application for Membership";
+    public Panelapplication panelapplication;
 
-    public ReviewableSuperPanelmembership(int id){
+    public ReviewablePanelapplication(int id){
         if (id>0){
-            panelmembership = Panelmembership.get(id);
+            panelapplication = Panelapplication.get(id);
         }
     }
 
     public String getTypeDescription(){
         StringBuffer out = new StringBuffer();
-        out.append("Somebody wants you on a SuperPanel.");
+        out.append("Application for membership to a Panel.");
         return out.toString();
     }
 
     public int getId() {
-        if (panelmembership!=null){
-            return panelmembership.getPanelmembershipid();
+        if (panelapplication!=null){
+            return panelapplication.getPanelapplicationid();
         }
         return 0;
     }
 
     public Date getDate(){
+        if (panelapplication!=null){
+            return panelapplication.getApplicationdate();
+        }
         return new Date();
     }
 
@@ -56,9 +59,8 @@ public class ReviewableSuperPanelmembership implements Reviewable {
     }
 
     public int getUseridofcontentcreator() {
-        if (panelmembership!=null){
-            Blogger blogger = Blogger.get(panelmembership.getBloggerid());
-            return blogger.getUserid();
+        if (panelapplication!=null){
+            return panelapplication.getUserid();
         }
         return 0;
     }
@@ -69,24 +71,34 @@ public class ReviewableSuperPanelmembership implements Reviewable {
 
     public String getShortSummary() {
         StringBuffer out = new StringBuffer();
-        Blogger blogger = Blogger.get(panelmembership.getBloggerid());
-        User user = User.get(blogger.getUserid());
-        out.append("SuperPanel Membership: "+Str.truncateString(Str.cleanForHtml(NicknameHelper.getNameOrNickname(user)), 50));
+        User user = User.get(panelapplication.getUserid());
+        Panel panel = Panel.get(panelapplication.getPanelid());
+        out.append(panel.getName()+" SuperPanel Application: "+Str.truncateString(Str.cleanForHtml(NicknameHelper.getNameOrNickname(user)), 50));
         return out.toString();
     }
 
     public String getFullSummary() {
         StringBuffer out = new StringBuffer();
-        Blogger blogger = Blogger.get(panelmembership.getBloggerid());
-        User user = User.get(blogger.getUserid());
+        User user = User.get(panelapplication.getUserid());
+        Blogger blogger = Blogger.get(user.getBloggerid());
+        Panel panel = Panel.get(panelapplication.getPanelid());
         out.append("<font class=\"mediumfont\">");
-        out.append("SuperPanel Membership:");
+        out.append("SuperPanel Application for Membership: "+panel.getName());
         out.append("</font>");
         out.append("<br/><br/>");
 
         out.append("<font class=\"smallfont\">");
         out.append("User: <a href=\"/profile.jsp?userid="+user.getUserid()+"\" target=\"newwindow"+ RandomString.randomAlphabetic(5) +"\">"+user.getFirstname()+" "+user.getLastname()+"</a>");
         out.append("</font>");
+        out.append("<br/>");
+        out.append("<br/>");
+
+        out.append("<font class=\"smallfont\">");
+        out.append("<b>Why they think they're qualified:</b>");
+        out.append("<br/>");
+        out.append(panelapplication.getApplication());
+        out.append("</font>");
+        out.append("<br/>");
         out.append("<br/>");
 
         for (Iterator<Venue> iterator=blogger.getVenues().iterator(); iterator.hasNext();) {
@@ -126,10 +138,11 @@ public class ReviewableSuperPanelmembership implements Reviewable {
 
     public void rejectBySysadmin() throws ValidationException {
         Logger logger = Logger.getLogger(this.getClass().getName());
-        Blogger blogger = Blogger.get(panelmembership.getBloggerid());
-        panelmembership.setIssysadminrejected(true);
-        panelmembership.setIssysadminreviewed(true);
-        try{panelmembership.delete();blogger.refresh();}catch(Exception ex){logger.error("", ex);}
+        User user = User.get(panelapplication.getUserid());
+        Blogger blogger = Blogger.get(user.getBloggerid());
+        panelapplication.setIssysadminrejected(true);
+        panelapplication.setIssysadminreviewed(true);
+        try{panelapplication.delete();blogger.refresh();}catch(Exception ex){logger.error("", ex);}
     }
 
     public void approveByResearcher() throws ValidationException {
@@ -138,10 +151,17 @@ public class ReviewableSuperPanelmembership implements Reviewable {
 
     public void approveBySysadmin() throws ValidationException {
         Logger logger = Logger.getLogger(this.getClass().getName());
-        Blogger blogger = Blogger.get(panelmembership.getBloggerid());
+        User user = User.get(panelapplication.getUserid());
+        Blogger blogger = Blogger.get(user.getBloggerid());
+        panelapplication.setIssysadminrejected(false);
+        panelapplication.setIssysadminreviewed(true);
+        try{panelapplication.save();blogger.refresh();}catch(Exception ex){logger.error("", ex);}
+        Panelmembership panelmembership = new Panelmembership();
+        panelmembership.setBloggerid(blogger.getBloggerid());
+        panelmembership.setPanelid(panelapplication.getPanelid());
         panelmembership.setIssysadminrejected(false);
         panelmembership.setIssysadminreviewed(true);
-        try{panelmembership.save();blogger.refresh();}catch(Exception ex){logger.error("", ex);}
+        try{panelmembership.save();}catch(Exception ex){logger.error("", ex);}
     }
 
 
@@ -154,14 +174,14 @@ public class ReviewableSuperPanelmembership implements Reviewable {
 
     public ArrayList<Reviewable> getPendingForSysadmin() {
         ArrayList<Reviewable> out = new ArrayList<Reviewable>();
-        List<Panelmembership> objs = (ArrayList)HibernateUtil.getSession().createCriteria(Panelmembership.class)
+        List<Panelapplication> objs = (ArrayList)HibernateUtil.getSession().createCriteria(Panelapplication.class)
                                            .add(Restrictions.eq("issysadminreviewed", false))
-                                           .addOrder(Order.desc("panelmembershipid"))
+                                           .addOrder(Order.desc("panelapplicationid"))
                                            .setCacheable(true)
                                            .list();
-        for (Iterator<Panelmembership> it=objs.iterator(); it.hasNext();) {
-            Panelmembership obj = it.next();
-            ReviewableSuperPanelmembership reviewable = new ReviewableSuperPanelmembership(obj.getPanelmembershipid());
+        for (Iterator<Panelapplication> it=objs.iterator(); it.hasNext();) {
+            Panelapplication obj = it.next();
+            ReviewablePanelapplication reviewable = new ReviewablePanelapplication(obj.getPanelapplicationid());
             out.add(reviewable);
         }
         return out;
@@ -174,14 +194,14 @@ public class ReviewableSuperPanelmembership implements Reviewable {
 
     public ArrayList<Reviewable> getRejectedBySysadmin() {
         ArrayList<Reviewable> out = new ArrayList<Reviewable>();
-        List<Panelmembership> objs = (ArrayList)HibernateUtil.getSession().createCriteria(Panelmembership.class)
+        List<Panelapplication> objs = (ArrayList)HibernateUtil.getSession().createCriteria(Panelapplication.class)
                                            .add(Restrictions.eq("issysadminrejected", true))
-                                           .addOrder(Order.desc("panelmembershipid"))
+                                           .addOrder(Order.desc("panelapplicationid"))
                                            .setCacheable(true)
                                            .list();
-        for (Iterator<Panelmembership> it=objs.iterator(); it.hasNext();) {
-            Panelmembership obj = it.next();
-            ReviewableSuperPanelmembership reviewable = new ReviewableSuperPanelmembership(obj.getPanelmembershipid());
+        for (Iterator<Panelapplication> it=objs.iterator(); it.hasNext();) {
+            Panelapplication obj = it.next();
+            ReviewablePanelapplication reviewable = new ReviewablePanelapplication(obj.getPanelapplicationid());
             out.add(reviewable);
         }
         return out;
@@ -192,8 +212,8 @@ public class ReviewableSuperPanelmembership implements Reviewable {
     }
 
     public boolean getIssysadminreviewed() {
-        if (panelmembership!=null){
-            return panelmembership.getIssysadminreviewed();
+        if (panelapplication!=null){
+            return panelapplication.getIssysadminreviewed();
         }
         return true;
     }
@@ -203,8 +223,8 @@ public class ReviewableSuperPanelmembership implements Reviewable {
     }
 
     public boolean getIssysadminrejected() {
-        if (panelmembership!=null){
-            return panelmembership.getIssysadminrejected();
+        if (panelapplication!=null){
+            return panelapplication.getIssysadminrejected();
         }
         return false;
     }
@@ -227,7 +247,7 @@ public class ReviewableSuperPanelmembership implements Reviewable {
     }
 
     public boolean isMailCreated() {
-        return false;
+        return true;
     }
 
     public boolean isApproveSupported() {

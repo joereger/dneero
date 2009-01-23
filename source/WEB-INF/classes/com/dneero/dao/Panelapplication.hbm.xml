@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 17, 2006 3:45:28 PM by Hibernate Tools 3.1.0.beta4 -->
+<hibernate-mapping>
+    <class name="com.dneero.dao.Panelapplication" table="panelapplication">
+        <cache usage="transactional"/>
+        <id name="panelapplicationid" type="int">
+            <column name="panelapplicationid" />
+            <generator class="native" />
+        </id>
+        <property name="panelid" type="int">
+            <column name="panelid" not-null="true" />
+        </property>
+        <property name="userid" type="int">
+            <column name="userid" not-null="true" />
+        </property>
+        <property name="applicationdate" type="timestamp">
+            <column name="applicationdate" not-null="true" />
+        </property>
+        <property name="issysadminreviewed" type="boolean">
+            <column name="issysadminreviewed" />
+        </property>
+        <property name="issysadminrejected" type="boolean">
+            <column name="issysadminrejected" />
+        </property>
+        <property name="application" type="text">
+            <column name="application" not-null="true" />
+        </property>
+        <property name="sysadmincomments" type="text">
+            <column name="sysadmincomments" not-null="true" />
+        </property>
+
+    </class>
+</hibernate-mapping>

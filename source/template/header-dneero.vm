@@ -114,6 +114,8 @@
                     <img src="/images/clear.gif" alt="" width="10" height="1"/>
                     <a href="/reseller.jsp"><font class="subnavfont" style="color: #000000;">Reseller Program</font></a>
                     <img src="/images/clear.gif" alt="" width="10" height="1"/>
+                    <a href="/superpanels.jsp"><font class="subnavfont" style="color: #000000;">SuperPanels</font></a>
+                    <img src="/images/clear.gif" alt="" width="10" height="1"/>
                     #if (!$userSession.isloggedin)
                         <a href="/registration.jsp"><font class="subnavfont" style="color: #000000;">Sign Up</font></a>
                     #end
@@ -127,9 +129,9 @@
                         <img src="/images/clear.gif" alt="" width="10" height="1"/>
                         <a href="/publicsurveylist.jsp"><font class="subnavfont" style="color: #000000;">Find Conversations</font></a>
                         <img src="/images/clear.gif" alt="" width="10" height="1"/>
-                        <a href="/blogger/bloggerearningsrevshare.jsp"><font class="subnavfont" style="color: #000000;">Referral Program</font></a>
+                        <a href="/superpanels.jsp"><font class="subnavfont" style="color: #000000;">SuperPanels</font></a>
                         <img src="/images/clear.gif" alt="" width="10" height="1"/>
-                        <a href="/blogger/index.jsp"><font class="subnavfont" style="color: #000000;">Earnings from Completed</font></a>
+                        <a href="/blogger/bloggerearningsrevshare.jsp"><font class="subnavfont" style="color: #000000;">Referral Program</font></a>
                         <img src="/images/clear.gif" alt="" width="10" height="1"/>
                         <a href="/blogger/bloggerdetails.jsp"><font class="subnavfont" style="color: #000000;">Profile</font></a>
                     #end

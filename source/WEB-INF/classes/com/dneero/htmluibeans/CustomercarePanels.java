@@ -25,6 +25,7 @@ public class CustomercarePanels implements Serializable {
 
     private List listitems;
     private String newpanelname = "New System Panel";
+    private String newpaneldescription = "";
     private String msg = "";
 
     public CustomercarePanels() {
@@ -74,7 +75,7 @@ public class CustomercarePanels implements Serializable {
         Panel panel = new Panel();
         panel.setCreatedate(new Date());
         panel.setName(newpanelname);
-        panel.setDescription("");
+        panel.setDescription(newpaneldescription);
         panel.setIssystempanel(true);
         panel.setResearcherid(0);
         try{panel.save();}catch (Exception ex){logger.error("",ex);}
@@ -160,4 +161,11 @@ public class CustomercarePanels implements Serializable {
         this.msg = msg;
     }
 
+    public String getNewpaneldescription() {
+        return newpaneldescription;
+    }
+
+    public void setNewpaneldescription(String newpaneldescription) {
+        this.newpaneldescription=newpaneldescription;
+    }
 }

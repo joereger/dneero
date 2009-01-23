@@ -28,6 +28,7 @@
         <mapping resource="com/dneero/dao/Massemail.hbm.xml" />
         <mapping resource="com/dneero/dao/Pageperformance.hbm.xml" />
         <mapping resource="com/dneero/dao/Panel.hbm.xml" />
+        <mapping resource="com/dneero/dao/Panelapplication.hbm.xml" />
         <mapping resource="com/dneero/dao/Panelmembership.hbm.xml" />
         <mapping resource="com/dneero/dao/Pl.hbm.xml" />
         <mapping resource="com/dneero/dao/Question.hbm.xml" />

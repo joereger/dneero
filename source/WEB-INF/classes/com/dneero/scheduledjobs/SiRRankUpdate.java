@@ -53,7 +53,7 @@ public class SiRRankUpdate implements Job {
                     user.setSirrank(i);
                     try{
                         HibernateUtil.getSession().saveOrUpdate(user);
-                        logger.debug("saved i="+i+" userid="+user.getUserid());
+                        //logger.debug("saved i="+i+" userid="+user.getUserid());
                         if ( i % 200 == 0 ) { //same as the JDBC batch size
                             //logger.debug("flushing");
                             HibernateUtil.getSession().flush();
