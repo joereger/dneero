@@ -58,6 +58,11 @@ public class User extends BasePersistentClass implements java.io.Serializable, A
      private double currentbalanceresearcher;
      private Date lastlogindate;
      private String nickname;
+     private double sirpoints;
+     private int sirrank;
+     private Date sirdate;
+     private String sirdebug;
+     private int siralgorithm;
 
      //Association
     private Set<Userrole> userroles = new HashSet<Userrole>();
@@ -463,5 +468,47 @@ public class User extends BasePersistentClass implements java.io.Serializable, A
 
     public void setNickname(String nickname) {
         this.nickname=nickname;
+    }
+
+
+
+    public int getSirrank() {
+        return sirrank;
+    }
+
+    public void setSirrank(int sirrank) {
+        this.sirrank=sirrank;
+    }
+
+    public Date getSirdate() {
+        return sirdate;
+    }
+
+    public void setSirdate(Date sirdate) {
+        this.sirdate=sirdate;
+    }
+
+    public String getSirdebug() {
+        return sirdebug;
+    }
+
+    public void setSirdebug(String sirdebug) {
+        this.sirdebug=sirdebug;
+    }
+
+    public int getSiralgorithm() {
+        return siralgorithm;
+    }
+
+    public void setSiralgorithm(int siralgorithm) {
+        this.siralgorithm=siralgorithm;
+    }
+
+    public double getSirpoints() {
+        return sirpoints;
+    }
+
+    public void setSirpoints(double sirpoints) {
+        this.sirpoints=sirpoints;
     }
 }

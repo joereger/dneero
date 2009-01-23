@@ -30,10 +30,7 @@ public class SurveyCriteriaXML {
 
     private int agemin = 13;
     private int agemax = 100;
-    private int blogquality = 0;
-    private int blogquality90days = 0;
     private int minsocialinfluencepercentile = 100;
-    private int minsocialinfluencepercentile90days = 100;
     private int dayssincelastsurvey = 0;
     private int totalsurveystakenatleast = 0;
     private int totalsurveystakenatmost = 100000;
@@ -77,17 +74,8 @@ public class SurveyCriteriaXML {
         if (Num.isinteger(loadValueOfStringFromXML("agemax"))){
             agemax = Integer.parseInt(loadValueOfStringFromXML("agemax"));
         }
-        if (Num.isinteger(loadValueOfStringFromXML("blogquality"))){
-            blogquality = Integer.parseInt(loadValueOfStringFromXML("blogquality"));
-        }
-        if (Num.isinteger(loadValueOfStringFromXML("blogquality90days"))){
-            blogquality90days = Integer.parseInt(loadValueOfStringFromXML("blogquality90days"));
-        }
         if (Num.isinteger(loadValueOfStringFromXML("minsocialinfluencepercentile"))){
             minsocialinfluencepercentile = Integer.parseInt(loadValueOfStringFromXML("minsocialinfluencepercentile"));
-        }
-        if (Num.isinteger(loadValueOfStringFromXML("minsocialinfluencepercentile90days"))){
-            minsocialinfluencepercentile90days = Integer.parseInt(loadValueOfStringFromXML("minsocialinfluencepercentile90days"));
         }
         if (Num.isinteger(loadValueOfStringFromXML("dayssincelastsurvey"))){
             dayssincelastsurvey = Integer.parseInt(loadValueOfStringFromXML("dayssincelastsurvey"));
@@ -224,30 +212,12 @@ public class SurveyCriteriaXML {
                 surveyfitsblogger = false;
                 logger.debug("does not qualify because birthdate is after.");
             }
-            //Quality
-            if (surveyfitsblogger && blogger.getQuality()<blogquality){
-                surveyfitsblogger = false;
-                logger.debug("does not qualify because of blog quality.");
-            }
-            //Quality 90 days
-            if (surveyfitsblogger && blogger.getQuality90days()<blogquality90days){
-                surveyfitsblogger = false;
-                logger.debug("does not qualify because of blog quality 90 days.");
-            }
             //Social Influence Rating
             if (surveyfitsblogger){
-                int maxranking = SocialInfluenceRatingPercentile.getRankingOfGivenPercentile(SystemStats.getTotalbloggers(), minsocialinfluencepercentile);
-                if (blogger.getSocialinfluenceratingranking()>maxranking){
+                int maxranking = SocialInfluenceRatingPercentile.getRankingOfGivenPercentile(SystemStats.getTotalusers(), minsocialinfluencepercentile);
+                if (user.getSirrank()>maxranking){
                     surveyfitsblogger = false;
-                    logger.debug("does not qualify because of socialinfluenceranking.  maxranking="+maxranking+" blogger.getSocialinfluenceratingranking()="+blogger.getSocialinfluenceratingranking());
-                }
-            }
-            //Social Influence Rating 90 days
-            if (surveyfitsblogger){
-                int maxranking90days = SocialInfluenceRatingPercentile.getRankingOfGivenPercentile(SystemStats.getTotalbloggers(), minsocialinfluencepercentile90days);
-                if (blogger.getSocialinfluenceratingranking90days()>maxranking90days){
-                    surveyfitsblogger = false;
-                    logger.debug("does not qualify because of socialinfluenceranking90days.  maxranking90days="+maxranking90days+" blogger.getSocialinfluenceratingranking90days()="+blogger.getSocialinfluenceratingranking90days());
+                    logger.debug("does not qualify because of socialinfluenceranking.  maxranking="+maxranking+" user.getSirrank()="+user.getSirrank());
                 }
             }
             //dneerousagemethod qualification
@@ -445,10 +415,7 @@ public class SurveyCriteriaXML {
         nullDocCheck();
         setValueOfSimpleStringNode("agemin", String.valueOf(agemin));
         setValueOfSimpleStringNode("agemax", String.valueOf(agemax));
-        setValueOfSimpleStringNode("blogquality", String.valueOf(blogquality));
-        setValueOfSimpleStringNode("blogquality90days", String.valueOf(blogquality90days));
         setValueOfSimpleStringNode("minsocialinfluencepercentile", String.valueOf(minsocialinfluencepercentile));
-        setValueOfSimpleStringNode("minsocialinfluencepercentile90days", String.valueOf(minsocialinfluencepercentile90days));
         setValueOfSimpleStringNode("dayssincelastsurvey", String.valueOf(dayssincelastsurvey));
         setValueOfSimpleStringNode("totalsurveystakenatleast", String.valueOf(totalsurveystakenatleast));
         setValueOfSimpleStringNode("totalsurveystakenatmost", String.valueOf(totalsurveystakenatmost));
@@ -560,36 +527,12 @@ public class SurveyCriteriaXML {
         out.append("</td>");
         out.append("</tr>");
 
-        out.append("<tr>");
-        out.append("<td valign=\"top\">");
-        out.append("<font class=\"formfieldnamefont\">");
-        out.append("Blog Quality Of At Least");
-        out.append("</font>");
-        out.append("</td>");
-        out.append("<td valign=\"top\">");
-        out.append("<font class=\"smallfont\">");
-        out.append(blogquality);
-        out.append("</font>");
-        out.append("</td>");
-        out.append("</tr>");
+
 
         out.append("<tr>");
         out.append("<td valign=\"top\">");
         out.append("<font class=\"formfieldnamefont\">");
-        out.append("Blog Quality Last 90 Days Of At Least");
-        out.append("</font>");
-        out.append("</td>");
-        out.append("<td valign=\"top\">");
-        out.append("<font class=\"smallfont\">");
-        out.append(blogquality90days);
-        out.append("</font>");
-        out.append("</td>");
-        out.append("</tr>");
-
-        out.append("<tr>");
-        out.append("<td valign=\"top\">");
-        out.append("<font class=\"formfieldnamefont\">");
-        out.append("Minimum Social Influence Rating");
+        out.append("Minimum Social Influence Percentile");
         out.append("</font>");
         out.append("</td>");
         out.append("<td valign=\"top\">");
@@ -599,18 +542,6 @@ public class SurveyCriteriaXML {
         out.append("</td>");
         out.append("</tr>");
 
-        out.append("<tr>");
-        out.append("<td valign=\"top\">");
-        out.append("<font class=\"formfieldnamefont\">");
-        out.append("Minimum Social Influence Rating 90 Days");
-        out.append("</font>");
-        out.append("</td>");
-        out.append("<td valign=\"top\">");
-        out.append("<font class=\"smallfont\">");
-        out.append(100-minsocialinfluencepercentile90days);
-        out.append("</font>");
-        out.append("</td>");
-        out.append("</tr>");
 
         out.append("<tr>");
         out.append("<td valign=\"top\">");
@@ -947,21 +878,7 @@ public class SurveyCriteriaXML {
         this.politics = politics;
     }
 
-    public int getBlogquality() {
-        return blogquality;
-    }
 
-    public void setBlogquality(int blogquality) {
-        this.blogquality = blogquality;
-    }
-
-    public int getBlogquality90days() {
-        return blogquality90days;
-    }
-
-    public void setBlogquality90days(int blogquality90days) {
-        this.blogquality90days = blogquality90days;
-    }
 
     public int getMinsocialinfluencepercentile() {
         return minsocialinfluencepercentile;
@@ -971,13 +888,7 @@ public class SurveyCriteriaXML {
         this.minsocialinfluencepercentile = minsocialinfluencepercentile;
     }
 
-    public int getMinsocialinfluencepercentile90days() {
-        return minsocialinfluencepercentile90days;
-    }
 
-    public void setMinsocialinfluencepercentile90days(int minsocialinfluencepercentile90days) {
-        this.minsocialinfluencepercentile90days = minsocialinfluencepercentile90days;
-    }
 
     public String[] getDneerousagemethods() {
         return dneerousagemethods;

@@ -23,6 +23,7 @@ import com.dneero.facebook.FacebookPendingReferrals;
 import com.dneero.cache.providers.CacheFactory;
 import com.dneero.iptrack.RecordIptrackUtil;
 import com.dneero.iptrack.Activitytype;
+import com.dneero.sir.SocialInfluenceRating;
 import com.octo.captcha.service.CaptchaServiceException;
 
 import javax.servlet.http.Cookie;
@@ -187,6 +188,11 @@ public class Registration implements Serializable {
         user.setCurrentbalanceresearcher(0.0);
         user.setLastlogindate(new java.util.Date());
         user.setNickname(nickname);
+        user.setSiralgorithm(SocialInfluenceRating.ALGORITHM);
+        user.setSirdate(new Date());
+        user.setSirdebug("");
+        user.setSirpoints(0.0);
+        user.setSirrank(0);
         try{
             user.save();
             userid = user.getUserid();

@@ -31,16 +31,16 @@ SysadminManuallyRunScheduledTask sysadminManuallyRunScheduledTask = (SysadminMan
                     sysadminManuallyRunScheduledTask.runNotifyBloggersOfNewOffers();
                 } else if (request.getParameter("task").equals("PendingToOpenSurveys")){
                     sysadminManuallyRunScheduledTask.runPendingToOpenSurveys();
-                } else if (request.getParameter("task").equals("QualityAverager")){
-                    sysadminManuallyRunScheduledTask.runQualityAverager();
                 } else if (request.getParameter("task").equals("MoveMoneyAround")){
                     sysadminManuallyRunScheduledTask.runMoveMoneyAround();
                 } else if (request.getParameter("task").equals("ResearcherRemainingBalanceOperations")){
                     sysadminManuallyRunScheduledTask.runResearcherRemainingBalanceOperations();
                 } else if (request.getParameter("task").equals("DeleteOldPersistentlogins")){
                     sysadminManuallyRunScheduledTask.runDeleteOldPersistentlogins();
-                } else if (request.getParameter("task").equals("SocialInfluenceRatingUpdate")){
-                    sysadminManuallyRunScheduledTask.runSocialInfluenceRatingUpdate();
+                } else if (request.getParameter("task").equals("SiRRankUpdate")){
+                    sysadminManuallyRunScheduledTask.runSiRRankUpdate();
+                } else if (request.getParameter("task").equals("SiRPointsUpdate")){
+                    sysadminManuallyRunScheduledTask.runSiRPointsUpdate();
                 } else if (request.getParameter("task").equals("SystemStats")){
                     sysadminManuallyRunScheduledTask.runSystemStats();
                 } else if (request.getParameter("task").equals("SendMassemails")){
@@ -116,11 +116,11 @@ SysadminManuallyRunScheduledTask sysadminManuallyRunScheduledTask = (SysadminMan
                 <br/><a href="/sysadmin/manuallyrunscheduledtask.jsp?action=run&task=CloseSurveysByNumRespondents"><font class="tinyfont">CloseSurveysByNumRespondents</font></a>
                 <br/><a href="/sysadmin/manuallyrunscheduledtask.jsp?action=run&task=NotifyBloggersOfNewOffers"><font class="tinyfont">NotifyBloggersOfNewOffers</font></a>
                 <br/><a href="/sysadmin/manuallyrunscheduledtask.jsp?action=run&task=PendingToOpenSurveys"><font class="tinyfont">PendingToOpenSurveys</font></a>
-                <br/><a href="/sysadmin/manuallyrunscheduledtask.jsp?action=run&task=QualityAverager"><font class="tinyfont">QualityAverager</font></a>
                 <br/><a href="/sysadmin/manuallyrunscheduledtask.jsp?action=run&task=MoveMoneyAround"><font class="tinyfont">MoveMoneyAround</font></a>
                 <br/><a href="/sysadmin/manuallyrunscheduledtask.jsp?action=run&task=ResearcherRemainingBalanceOperations"><font class="tinyfont">ResearcherRemainingBalanceOperations</font></a>
                 <br/><a href="/sysadmin/manuallyrunscheduledtask.jsp?action=run&task=DeleteOldPersistentlogins"><font class="tinyfont">DeleteOldPersistentlogins</font></a>
-                <br/><a href="/sysadmin/manuallyrunscheduledtask.jsp?action=run&task=SocialInfluenceRatingUpdate"><font class="tinyfont">SocialInfluenceRatingUpdate</font></a>
+                <br/><a href="/sysadmin/manuallyrunscheduledtask.jsp?action=run&task=SiRRankUpdate"><font class="tinyfont">SiRRankUpdate</font></a>
+                <br/><a href="/sysadmin/manuallyrunscheduledtask.jsp?action=run&task=SiRPointsUpdate"><font class="tinyfont">SiRPointsUpdate</font></a>
                 <br/><a href="/sysadmin/manuallyrunscheduledtask.jsp?action=run&task=SystemStats"><font class="tinyfont">SystemStats</font></a>
                 <br/><a href="/sysadmin/manuallyrunscheduledtask.jsp?action=run&task=SendMassemails"><font class="tinyfont">SendMassemails</font></a>
                 <br/><a href="/sysadmin/manuallyrunscheduledtask.jsp?action=run&task=ImpressionActivityObjectQueue"><font class="tinyfont">ImpressionActivityObjectQueue</font></a>

@@ -34,12 +34,6 @@ public class Blogger extends BasePersistentClass implements java.io.Serializable
      private String politics;
      private String blogfocus;
      private String country;
-     private double quality;
-     private double quality90days;
-     private double socialinfluencerating;
-     private double socialinfluencerating90days;
-     private int socialinfluenceratingranking;
-     private int socialinfluenceratingranking90days;
      private Set<Response> responses = new HashSet<Response>();
      private Set<Panelmembership> panelmemberships = new HashSet<Panelmembership>();
      private Set<Venue> venues = new HashSet<Venue>();
@@ -186,21 +180,7 @@ public class Blogger extends BasePersistentClass implements java.io.Serializable
         this.responses = responses;
     }
 
-    public double getQuality() {
-        return quality;
-    }
 
-    public void setQuality(double quality) {
-        this.quality = quality;
-    }
-
-    public double getQuality90days() {
-        return quality90days;
-    }
-
-    public void setQuality90days(double quality90days) {
-        this.quality90days = quality90days;
-    }
 
     public Set<Panelmembership> getPanelmemberships() {
         return panelmemberships;
@@ -211,37 +191,8 @@ public class Blogger extends BasePersistentClass implements java.io.Serializable
     }
 
 
-    public double getSocialinfluencerating() {
-        return socialinfluencerating;
-    }
 
-    public void setSocialinfluencerating(double socialinfluencerating) {
-        this.socialinfluencerating = socialinfluencerating;
-    }
 
-    public double getSocialinfluencerating90days() {
-        return socialinfluencerating90days;
-    }
-
-    public void setSocialinfluencerating90days(double socialinfluencerating90days) {
-        this.socialinfluencerating90days = socialinfluencerating90days;
-    }
-
-    public int getSocialinfluenceratingranking() {
-        return socialinfluenceratingranking;
-    }
-
-    public void setSocialinfluenceratingranking(int socialinfluenceratingranking) {
-        this.socialinfluenceratingranking = socialinfluenceratingranking;
-    }
-
-    public int getSocialinfluenceratingranking90days() {
-        return socialinfluenceratingranking90days;
-    }
-
-    public void setSocialinfluenceratingranking90days(int socialinfluenceratingranking90days) {
-        this.socialinfluenceratingranking90days = socialinfluenceratingranking90days;
-    }
 
     public String getBlogfocus() {
         return blogfocus;

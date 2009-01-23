@@ -10,6 +10,8 @@
 <%@ page import="com.dneero.money.SurveyMoneyStatus" %>
 <%@ page import="com.dneero.htmluibeans.StaticVariables" %>
 <%@ page import="com.dneero.review.ReviewableVenue" %>
+<%@ page import="com.dneero.sir.SocialInfluenceRatingPercentile" %>
+<%@ page import="com.dneero.scheduledjobs.*" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "User: "+((CustomercareUserDetail) Pagez.getBeanMgr().get("CustomercareUserDetail")).getEmail();
@@ -529,6 +531,30 @@ CustomercareUserDetail customercareUserDetail= (CustomercareUserDetail)Pagez.get
                                 <br/>
                                 <input type="submit" class="formsubmitbutton" value="Update">
                             </form>
+                        </div>
+
+                        <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
+                            <font class="mediumfont">Social Influence Rating</font>
+                            <br/>
+                            <br/>
+                            <%
+                            String socialinfluenceratingforscreen = "";
+                            double socialinfluenceratingpercentile = SocialInfluenceRatingPercentile.getPercentileOfRanking(com.dneero.scheduledjobs.SystemStats.getTotalusers(), customercareUserDetail.getUser().getSirrank());
+                            if (socialinfluenceratingpercentile>=50){
+                                socialinfluenceratingforscreen = "Top "+(100-socialinfluenceratingpercentile)+"%";
+                            } else {
+                                socialinfluenceratingforscreen = "Bottom "+(socialinfluenceratingpercentile)+"%";
+                            }
+                            %>
+                            <font class="formfieldnamefont">SiR: <%=socialinfluenceratingforscreen%></font>
+                            <br/>
+                            <font class="formfieldnamefont">SiR Points: <%=customercareUserDetail.getUser().getSirpoints()%></font>
+                            <br/>
+                            <font class="formfieldnamefont">SiR Date: <%=Time.dateformatcompactwithtime(Time.getCalFromDate(customercareUserDetail.getUser().getSirdate()))%></font>
+                            <br/>
+                            <font class="formfieldnamefont">SiR Algorithm: <%=customercareUserDetail.getUser().getSiralgorithm()%></font>
+                            <br/>
+                            <font class="formfieldnamefont">SiR Breakdown:</font><font class="tinyfont"><%=customercareUserDetail.getUser().getSirdebug().replaceAll("\\\n", "<br/>")%></font>
                         </div>
                    
                     </td>

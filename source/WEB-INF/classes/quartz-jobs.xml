@@ -118,6 +118,27 @@
 
     <job>
         <job-detail>
+          <name>siRPointsUpdate</name>
+          <group>surveyJobs</group>
+          <job-class>com.dneero.scheduledjobs.SiRPointsUpdate</job-class>
+          <volatility>false</volatility>
+          <durability>false</durability>
+          <recover>false</recover>
+        </job-detail>
+        <trigger>
+          <cron>
+            <name>siRPointsUpdateTrigger</name>
+            <group>surveyTriggers</group>
+            <job-name>siRPointsUpdate</job-name>
+            <job-group>surveyJobs</job-group>
+            <!-- Fire at 4:30am every day -->
+            <cron-expression>0 30 4 * * ?</cron-expression>
+          </cron>
+        </trigger>
+    </job>
+
+    <job>
+        <job-detail>
           <name>moveMoneyAround</name>
           <group>surveyJobs</group>
           <job-class>com.dneero.scheduledjobs.MoveMoneyAround</job-class>
@@ -158,6 +179,8 @@
           </cron>
         </trigger>
     </job>
+
+
 
     <job>
         <job-detail>
@@ -555,18 +578,18 @@
 
     <job>
         <job-detail>
-          <name>socialInfluenceRatingUpdate</name>
+          <name>siRRankUpdate</name>
           <group>surveyJobs</group>
-          <job-class>com.dneero.scheduledjobs.SocialInfluenceRatingUpdate</job-class>
+          <job-class>com.dneero.scheduledjobs.SiRRankUpdate</job-class>
           <volatility>false</volatility>
           <durability>false</durability>
           <recover>false</recover>
         </job-detail>
         <trigger>
           <cron>
-            <name>socialInfluenceRatingUpdateTrigger</name>
+            <name>siRRankUpdateTrigger</name>
             <group>surveyTriggers</group>
-            <job-name>socialInfluenceRatingUpdate</job-name>
+            <job-name>siRRankUpdate</job-name>
             <job-group>surveyJobs</job-group>
             <!-- Fire at 9am every SUN -->
             <cron-expression>0 0 9 ? * MON</cron-expression>
@@ -575,26 +598,9 @@
     </job>
 
 
-    <job>
-        <job-detail>
-          <name>qualityAverager</name>
-          <group>surveyJobs</group>
-          <job-class>com.dneero.scheduledjobs.QualityAverager</job-class>
-          <volatility>false</volatility>
-          <durability>false</durability>
-          <recover>false</recover>
-        </job-detail>
-        <trigger>
-          <cron>
-            <name>qualityAveragerTrigger</name>
-            <group>surveyTriggers</group>
-            <job-name>qualityAverager</job-name>
-            <job-group>surveyJobs</job-group>
-            <!-- Fire at 11am every SUN -->
-            <cron-expression>0 0 11 ? * MON</cron-expression>
-          </cron>
-        </trigger>
-    </job>
+
+
+
 
    
     <job>

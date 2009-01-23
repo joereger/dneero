@@ -32,7 +32,6 @@ ResearcherSurveyDetail04 researcherSurveyDetail04 = (ResearcherSurveyDetail04)Pa
             researcherSurveyDetail04.setAgemin(Textbox.getIntFromRequest("agemin", "Age Min", true, DatatypeInteger.DATATYPEID));
             researcherSurveyDetail04.setAgemax(Textbox.getIntFromRequest("agemax", "Age Max", true, DatatypeInteger.DATATYPEID));
             researcherSurveyDetail04.setBlogfocus(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("blogfocus", "Blog Focus", false)));
-            researcherSurveyDetail04.setBlogquality(Dropdown.getIntFromRequest("blogquality", "Blog Quality", false));
             researcherSurveyDetail04.setCity(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("cities", "Cities", false)));
             researcherSurveyDetail04.setCountry(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("countries", "Countries", false)));
             researcherSurveyDetail04.setEducationlevel(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("educationlevel", "Education Levels", false)));
@@ -118,12 +117,12 @@ ResearcherSurveyDetail04 researcherSurveyDetail04 = (ResearcherSurveyDetail04)Pa
 
 
                 <td valign="top">
-                    <font class="formfieldnamefont">Blog Quality of At Least</font>
+                    <font class="formfieldnamefont">dNeero Usage Method</font>
                     <br/>
-                    <font class="smallfont">Blog Quality is determined manually by our administrators visiting each blog post and assigning a general quality rating.</font>
+                    <font class="tinyfont">There are multiple ways that users can access dNeero social surveys.  This control allows you to target each access method individually.</font>
                 </td>
                 <td valign="top">
-                    <%=Dropdown.getHtml("blogquality", String.valueOf(researcherSurveyDetail04.getBlogquality()), StaticVariables.getBlogqualities(), "", "")%>
+                    <%=DropdownMultiselect.getHtml("dneerousagemethods", Util.stringArrayToArrayList(researcherSurveyDetail04.getDneerousagemethods()), Util.treeSetToTreeMap(Dneerousagemethods.get()), 3, "", "")%>
                 </td>
             </tr>
 
@@ -254,30 +253,7 @@ ResearcherSurveyDetail04 researcherSurveyDetail04 = (ResearcherSurveyDetail04)Pa
             </tr>
 
 
-            <tr>
-                <td valign="top">
-                    <font class="formfieldnamefont">dNeero Usage Method</font>
-                    <br/>
-                    <font class="tinyfont">There are multiple ways that users can access dNeero social surveys.  This control allows you to target each access method individually.</font>
-                </td>
-                <td valign="top">
-                    <%=DropdownMultiselect.getHtml("dneerousagemethods", Util.stringArrayToArrayList(researcherSurveyDetail04.getDneerousagemethods()), Util.treeSetToTreeMap(Dneerousagemethods.get()), 3, "", "")%>
-                </td>
 
-
-                <td valign="top">
-                    <font class="formfieldnamefont">Access Code Only?</font>
-                    <br/>
-                    <font class="tinyfont">Access Code Only conversations require that everybody who takes the conversation first enter an access code that you somehow communicate to them.  In this way you can limit and control who joins your conversation.  Great for point-of-sale and real-world ties to the online world.</font>
-                </td>
-                <td valign="top">
-                    <%=CheckboxBoolean.getHtml("isaccesscodeonly", researcherSurveyDetail04.getIsaccesscodeonly(), "", "")%><font class="formfieldnamefont">Yes</font>
-                    <br/>
-                    <font class="normalfont">Access Code</font>
-                    <br/>
-                    <%=Textbox.getHtml("accesscode", researcherSurveyDetail04.getAccesscode(), 255, 10, "", "")%>
-                </td>
-            </tr>
 
             <tr>
                 <td valign="top">
@@ -296,6 +272,26 @@ ResearcherSurveyDetail04 researcherSurveyDetail04 = (ResearcherSurveyDetail04)Pa
                 </td>
                 <td valign="top">
                     <%=DropdownMultiselect.getHtml("superpanels", Util.stringArrayToArrayList(researcherSurveyDetail04.getSuperpanels()), researcherSurveyDetail04.getSuperpanelsavailable(), 6, "", "")%>
+                </td>
+            </tr>
+
+            <tr>
+                <td valign="top">
+                    <font class="formfieldnamefont">Access Code Only?</font>
+                    <br/>
+                    <font class="tinyfont">Access Code Only conversations require that everybody who takes the conversation first enter an access code that you somehow communicate to them.  In this way you can limit and control who joins your conversation.  Great for point-of-sale and real-world ties to the online world.</font>
+                </td>
+                <td valign="top">
+                    <%=CheckboxBoolean.getHtml("isaccesscodeonly", researcherSurveyDetail04.getIsaccesscodeonly(), "", "")%><font class="formfieldnamefont">Yes</font>
+                    <br/>
+                    <font class="normalfont">Access Code</font>
+                    <br/>
+                    <%=Textbox.getHtml("accesscode", researcherSurveyDetail04.getAccesscode(), 255, 10, "", "")%>
+                </td>
+
+                <td valign="top">
+                </td>
+                <td valign="top">
                 </td>
             </tr>
 

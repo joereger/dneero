@@ -35,6 +35,7 @@ public class PublicProfile implements Serializable {
     private String socialinfluenceratingforscreen;
     private String charityamtdonatedForscreen;
     private int convosjoined = 0;
+    private int peoplereferred = 0;
 
     public PublicProfile(){
 
@@ -74,6 +75,8 @@ public class PublicProfile implements Serializable {
             convosjoined =  0;
         }
 
+        peoplereferred = NumFromUniqueResult.getInt("select count(*) from User where referredbyuserid='"+blogger.getUserid()+"'");
+
         listitems = new ArrayList<PublicProfileListitem>();
         if (blogger!=null && blogger.getResponses()!=null){
             for (Iterator<Response> iterator = blogger.getResponses().iterator(); iterator.hasNext();) {
@@ -107,15 +110,13 @@ public class PublicProfile implements Serializable {
 
 
         if (blogger!=null && blogger.getBloggerid()>0){
-            socialinfluenceratingpercentile = SocialInfluenceRatingPercentile.getPercentileOfRanking(SystemStats.getTotalbloggers(), blogger.getSocialinfluenceratingranking());
-            logger.error("socialinfluenceratingpercentile="+socialinfluenceratingpercentile);
+            socialinfluenceratingpercentile = SocialInfluenceRatingPercentile.getPercentileOfRanking(SystemStats.getTotalusers(), user.getSirrank());
+            logger.debug("socialinfluenceratingpercentile="+socialinfluenceratingpercentile);
             if (socialinfluenceratingpercentile>=50){
                 socialinfluenceratingforscreen = "Top "+(100-socialinfluenceratingpercentile)+"%";
             } else {
                 socialinfluenceratingforscreen = "Bottom "+(socialinfluenceratingpercentile)+"%";
             }
-
-
         }
     }
 
@@ -311,5 +312,13 @@ public class PublicProfile implements Serializable {
 
     public void setSocialinfluenceratingforscreen(String socialinfluenceratingforscreen) {
         this.socialinfluenceratingforscreen=socialinfluenceratingforscreen;
+    }
+
+    public int getPeoplereferred() {
+        return peoplereferred;
+    }
+
+    public void setPeoplereferred(int peoplereferred) {
+        this.peoplereferred=peoplereferred;
     }
 }

@@ -163,6 +163,19 @@ public class Str {
         }
     }
 
+    public static String format(double in, int decimalplaces){
+        Logger logger = Logger.getLogger(Str.class);
+        try{
+            NumberFormat formatter = DecimalFormat.getInstance();
+            formatter.setMinimumFractionDigits(decimalplaces);
+            formatter.setMaximumFractionDigits(decimalplaces);
+            return formatter.format(in);
+        } catch (Exception ex){
+            logger.error("",ex);
+            return "";
+        }
+    }
+
     public static String formatForFinancialTransactionsNoCommas(double in){
         Logger logger = Logger.getLogger(Str.class);
         try{

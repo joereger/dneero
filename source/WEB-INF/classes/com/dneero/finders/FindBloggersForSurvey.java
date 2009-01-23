@@ -58,18 +58,6 @@ public class FindBloggersForSurvey {
         crit.add( Property.forName("profession").in( scXml.getProfession() ) );
         //Politics
         crit.add( Property.forName("politics").in( scXml.getPolitics() ) );
-        //Quality
-        crit.add(Restrictions.ge("quality", Double.parseDouble(String.valueOf(scXml.getBlogquality()))));
-        //Quality90days
-        crit.add(Restrictions.ge("quality90days", Double.parseDouble(String.valueOf(scXml.getBlogquality90days()))));
-        //Social Influence Rating
-        int maxranking = SocialInfluenceRatingPercentile.getRankingOfGivenPercentile(SystemStats.getTotalbloggers(), scXml.getMinsocialinfluencepercentile());
-        logger.debug("maxranking="+maxranking+" Double.parseDouble(String.valueOf(maxranking)))="+Double.parseDouble(String.valueOf(maxranking)));
-        crit.add(Restrictions.le("socialinfluenceratingranking", maxranking));
-        //Social Influence Rating 90 days
-        int maxranking90days = SocialInfluenceRatingPercentile.getRankingOfGivenPercentile(SystemStats.getTotalbloggers(), scXml.getMinsocialinfluencepercentile90days());
-        logger.debug("maxranking90days="+maxranking90days+" Double.parseDouble(String.valueOf(maxranking90days)))="+Double.parseDouble(String.valueOf(maxranking90days)));
-        crit.add(Restrictions.le("socialinfluenceratingranking90days", maxranking90days));
         //Birthdate
         crit.add(Restrictions.ge("birthdate", Time.subtractYear(Calendar.getInstance(), scXml.getAgemax()).getTime() ));
         crit.add(Restrictions.le("birthdate", Time.subtractYear(Calendar.getInstance(), scXml.getAgemin()).getTime() ));

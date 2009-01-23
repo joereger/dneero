@@ -12,6 +12,7 @@
 <%@ page import="com.dneero.dao.Userrole" %>
 <%@ page import="org.apache.log4j.Logger" %>
 <%@ page import="com.dneero.db.Db" %>
+<%@ page import="com.dneero.sir.SocialInfluenceRating" %>
 <%
     //Only do this page if we have an invalid database connection.
     //Otherwise, anybody's going to be able to reset the database
@@ -115,6 +116,11 @@
                         user.setCurrentbalanceresearcher(0.0);
                         user.setLastlogindate(new java.util.Date());
                         user.setNickname("");
+                        user.setSiralgorithm(SocialInfluenceRating.ALGORITHM);
+                        user.setSirdate(new Date());
+                        user.setSirdebug("");
+                        user.setSirpoints(0.0);
+                        user.setSirrank(0);
                         try {
                             user.save();
                         } catch (Exception ex) {

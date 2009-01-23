@@ -30,10 +30,7 @@ public class ResearcherResultsAnswersAdvanced implements Serializable {
 
     private int agemin = 13;
     private int agemax = 100;
-    private int blogquality = 0;
-    private int blogquality90days = 0;
     private int minsocialinfluencepercentile = 100;
-    private int minsocialinfluencepercentile90days = 100;
     private int dayssincelastsurvey = 0;
     private int totalsurveystakenatleast = 0;
     private int totalsurveystakenatmost = 100000;
@@ -79,10 +76,7 @@ public class ResearcherResultsAnswersAdvanced implements Serializable {
         surveyCriteriaAsHtml = surveyCriteriaXML.getAsHtml();
         agemin = surveyCriteriaXML.getAgemin();
         agemax = surveyCriteriaXML.getAgemax();
-        blogquality = surveyCriteriaXML.getBlogquality();
-        blogquality90days = surveyCriteriaXML.getBlogquality90days();
         minsocialinfluencepercentile = surveyCriteriaXML.getMinsocialinfluencepercentile();
-        minsocialinfluencepercentile90days = surveyCriteriaXML.getMinsocialinfluencepercentile90days();
         dayssincelastsurvey = surveyCriteriaXML.getDayssincelastsurvey();
         totalsurveystakenatleast = surveyCriteriaXML.getTotalsurveystakenatleast();
         totalsurveystakenatmost = surveyCriteriaXML.getTotalsurveystakenatmost();
@@ -114,10 +108,7 @@ public class ResearcherResultsAnswersAdvanced implements Serializable {
         SurveyCriteriaXML surveyCriteriaXML = new SurveyCriteriaXML(survey.getCriteriaxml());
         surveyCriteriaXML.setAgemin(agemin);
         surveyCriteriaXML.setAgemax(agemax);
-        surveyCriteriaXML.setBlogquality(blogquality);
-        surveyCriteriaXML.setBlogquality90days(blogquality90days);
         surveyCriteriaXML.setMinsocialinfluencepercentile(minsocialinfluencepercentile);
-        surveyCriteriaXML.setMinsocialinfluencepercentile90days(minsocialinfluencepercentile90days);
         surveyCriteriaXML.setDayssincelastsurvey(dayssincelastsurvey);
         surveyCriteriaXML.setTotalsurveystakenatleast(totalsurveystakenatleast);
         surveyCriteriaXML.setTotalsurveystakenatmost(totalsurveystakenatmost);
@@ -211,21 +202,7 @@ public class ResearcherResultsAnswersAdvanced implements Serializable {
         this.agemax = agemax;
     }
 
-    public int getBlogquality() {
-        return blogquality;
-    }
 
-    public void setBlogquality(int blogquality) {
-        this.blogquality = blogquality;
-    }
-
-    public int getBlogquality90days() {
-        return blogquality90days;
-    }
-
-    public void setBlogquality90days(int blogquality90days) {
-        this.blogquality90days = blogquality90days;
-    }
 
     public int getMinsocialinfluencepercentile() {
         return minsocialinfluencepercentile;
@@ -235,13 +212,7 @@ public class ResearcherResultsAnswersAdvanced implements Serializable {
         this.minsocialinfluencepercentile = minsocialinfluencepercentile;
     }
 
-    public int getMinsocialinfluencepercentile90days() {
-        return minsocialinfluencepercentile90days;
-    }
-
-    public void setMinsocialinfluencepercentile90days(int minsocialinfluencepercentile90days) {
-        this.minsocialinfluencepercentile90days = minsocialinfluencepercentile90days;
-    }
+   
 
     public int getDayssincelastsurvey() {
         return dayssincelastsurvey;

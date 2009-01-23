@@ -107,8 +107,6 @@ public class BloggerDetails implements Serializable {
             blogger =  Blogger.get(Pagez.getUserSession().getUser().getBloggerid());
         } else {
             blogger = new Blogger();
-            blogger.setQuality(0);
-            blogger.setQuality90days(0);
             isnewblogger = true;
         }
 

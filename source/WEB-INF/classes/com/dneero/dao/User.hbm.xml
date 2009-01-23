@@ -155,5 +155,20 @@
         <property name="nickname" type="string">
             <column name="nickname" not-null="true" />
         </property>
+        <property name="sirpoints" type="double">
+            <column name="sirpoints" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="sirrank" type="int">
+            <column name="sirrank" not-null="true" />
+        </property>
+        <property name="siralgorithm" type="int">
+            <column name="siralgorithm" not-null="true" />
+        </property>
+        <property name="sirdate" type="timestamp">
+            <column name="sirdate" not-null="true" />
+        </property>
+        <property name="sirdebug" type="text">
+            <column name="sirdebug" not-null="true" />
+        </property>
     </class>
 </hibernate-mapping>

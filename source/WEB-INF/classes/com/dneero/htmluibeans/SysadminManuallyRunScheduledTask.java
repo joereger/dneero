@@ -53,12 +53,6 @@ public class SysadminManuallyRunScheduledTask implements Serializable {
         return "sysadminmanuallyrunscheduledtask";
     }
 
-    public String runQualityAverager(){
-        Logger logger = Logger.getLogger(this.getClass().getName());
-        try{QualityAverager task = new QualityAverager();
-            task.execute(null);} catch (Exception ex){logger.error("",ex);}
-        return "sysadminmanuallyrunscheduledtask";
-    }
 
     
     
@@ -87,9 +81,18 @@ public class SysadminManuallyRunScheduledTask implements Serializable {
         return "sysadminmanuallyrunscheduledtask";
     }
 
-    public String runSocialInfluenceRatingUpdate(){
+    public String runSiRRankUpdate(){
         Logger logger = Logger.getLogger(this.getClass().getName());
-        try{SocialInfluenceRatingUpdate task = new SocialInfluenceRatingUpdate();
+        try{
+            SiRRankUpdate task = new SiRRankUpdate();
+            task.execute(null);} catch (Exception ex){logger.error("",ex);}
+        return "sysadminmanuallyrunscheduledtask";
+    }
+
+    public String runSiRPointsUpdate(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
+        try{
+            SiRPointsUpdate task = new SiRPointsUpdate();
             task.execute(null);} catch (Exception ex){logger.error("",ex);}
         return "sysadminmanuallyrunscheduledtask";
     }

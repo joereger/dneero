@@ -30,6 +30,7 @@ import com.dneero.util.GeneralException;
 import com.dneero.util.Num;
 import com.dneero.util.RandomString;
 import com.dneero.xmpp.SendXMPPMessage;
+import com.dneero.sir.SocialInfluenceRating;
 import org.apache.log4j.Logger;
 import org.hibernate.criterion.Restrictions;
 
@@ -578,6 +579,11 @@ public class PublicSurvey implements Serializable {
                     user.setCurrentbalanceresearcher(0.0);
                     user.setLastlogindate(new java.util.Date());
                     user.setNickname("");
+                    user.setSiralgorithm(SocialInfluenceRating.ALGORITHM);
+                    user.setSirdate(new Date());
+                    user.setSirdebug("");
+                    user.setSirpoints(0.0);
+                    user.setSirrank(0);
                     try{
                         user.save();
                     } catch (GeneralException gex){

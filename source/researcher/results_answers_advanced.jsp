@@ -26,7 +26,6 @@ ResearcherResultsAnswersAdvanced researcherResultsAnswersAdvanced = (ResearcherR
             researcherResultsAnswersAdvanced.setAgemin(Textbox.getIntFromRequest("agemin", "Age Min", true, DatatypeInteger.DATATYPEID));
             researcherResultsAnswersAdvanced.setAgemax(Textbox.getIntFromRequest("agemax", "Age Max", true, DatatypeInteger.DATATYPEID));
             researcherResultsAnswersAdvanced.setBlogfocus(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("blogfocus", "Blog Focus", false)));
-            researcherResultsAnswersAdvanced.setBlogquality(Dropdown.getIntFromRequest("blogquality", "Blog Quality", false));
             researcherResultsAnswersAdvanced.setCity(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("cities", "Cities", false)));
             researcherResultsAnswersAdvanced.setCountry(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("countries", "Countries", false)));
             researcherResultsAnswersAdvanced.setEducationlevel(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("educationlevel", "Education Levels", false)));
@@ -154,12 +153,8 @@ ResearcherResultsAnswersAdvanced researcherResultsAnswersAdvanced = (ResearcherR
 
 
                             <td valign="top">
-                                <font class="formfieldnamefont">Blog Quality of At Least</font>
-                                <br/>
-                                <font class="smallfont"></font>
                             </td>
                             <td valign="top">
-                                <%=Dropdown.getHtml("blogquality", String.valueOf(researcherResultsAnswersAdvanced.getBlogquality()), StaticVariables.getBlogqualities(), "", "")%>
                             </td>
                         </tr>
 

@@ -128,6 +128,14 @@ String acl = "public";
                         </tr>
                         <tr>
                             <td valign="top" align="right">
+                                <font class="formfieldnamefont">People Referred</font>
+                            </td>
+                            <td valign="top">
+                                <font class="smallfont"><%=publicProfile.getPeoplereferred()%></font>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td valign="top" align="right">
                                 <font class="formfieldnamefont">SuperPanels</font>
                             </td>
                             <td valign="top">
@@ -221,6 +229,15 @@ String acl = "public";
                 <%=com.dneero.htmlui.Dropdown.getHtml("superpanelid", String.valueOf(publicProfile.getSuperpanelid()), publicProfile.getSuperPanelids(), "", "")%>
                 <input type="submit" class="formsubmitbutton" value="Add Blogger To SuperPanel">
             </form>
+        <%}%>
+
+        <% if (Pagez.getUserSession().getIsloggedin() && Pagez.getUserSession().getIsCustomerCare()){ %>
+            <br/><br/>
+            <font class="mediumfont" style="color: #cccccc;">Social Influence Rating Breakdown</font>
+            <br/>
+            <font class="smallfont">
+            <%=publicProfile.getUser().getSirdebug().replaceAll("\\\n", "<br/>")%>
+            </font>
         <%}%>
 
     
