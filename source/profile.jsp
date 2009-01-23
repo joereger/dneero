@@ -136,7 +136,7 @@ String acl = "public";
                         </tr>
                         <tr>
                             <td valign="top" align="right">
-                                <font class="formfieldnamefont">SuperPanels</font>
+                                <a href="/superpanels.jsp"><font class="formfieldnamefont">SuperPanels</font></a>
                             </td>
                             <td valign="top">
                                 <%if (publicProfile.getSuperpanels()==null || publicProfile.getSuperpanels().size()==0){%>

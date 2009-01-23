@@ -56,7 +56,7 @@ if (accountIndex.getUserhasresponsependings()){
 
                         <%if (Pagez.getRequest().getParameter("msg")!=null && Pagez.getRequest().getParameter("msg").equals("autologin")){%>
                             <div class="rounded" style="padding: 10px; margin: 5px; background: #ffffff;">
-                                <font class="mediumfont">Your previous session timed out so you've been logged-in automatically!</font>
+                                <font class="smallfont">Your previous session timed out so you've been logged-in automatically!</font>
                             </div>
                        <%}%>
 
@@ -88,6 +88,13 @@ if (accountIndex.getUserhasresponsependings()){
                                 <font class="smallfont" style="font-weight: bold;">Enter a PayPal address.</font>
                                 <br/>
                                 <font class="smallfont">Before we can pay you we must have a valid PayPal address.<br/><a href="/account/accountsettings.jsp">Enter it Here</a></font>
+                            </div>
+                       <%}%>
+
+                        <%if (Pagez.getUserSession().getUser()!=null){%>
+                            <div class="rounded" style="padding: 10px; margin: 5px; background: #ffffff;">
+                                <a href="/profile.jsp?userid=<%=Pagez.getUserSession().getUser().getUserid()%>"><font class="mediumfont"><b>Your Public Profile</b></font></a>
+                                <br/><font class="smallfont">You can <a href="/account/accountsettings.jsp">choose a nickname</a> or <a href="/blogger/bloggerdetails.jsp">edit posting venues</a></font>
                             </div>
                        <%}%>
 
@@ -134,6 +141,8 @@ if (accountIndex.getUserhasresponsependings()){
                     </div>
                 </td>
                 <td width="66%" valign="top">
+                    <%--<div class="rounded" style="padding: 5px; margin: 5px; background: #e6e6e6;">--%>
+                    <%--<div class="rounded" style="padding: 15px; margin: 5px; background: #ffffff;">--%>
                     <%if (Pagez.getUserSession().getUser().getBloggerid()>0){%>
                         <font class="largefont" style="color: #cccccc;">Conversations for You</font>
                         <br/>
@@ -171,9 +180,14 @@ if (accountIndex.getUserhasresponsependings()){
                         <font class="largefont" style="color: #cccccc;">Conversations for You</font>
                         <br/><a href="/blogger/index.jsp"><font class="smallfont" style="font-weight: bold;">Get Started as a Social Person</font></a>
                     <%}%>
+                    <!--</div>-->
+                    <!--</div>-->
 
                     <%if (Pagez.getUserSession().getUser().getBloggerid()>0){%>
-                        <br/><br/><br/><font class="largefont" style="color: #cccccc;">Conversations You've Joined</font>
+                        <br/><br/><br/>
+                        <%--<div class="rounded" style="padding: 5px; margin: 5px; background: #e6e6e6;">--%>
+                        <%--<div class="rounded" style="padding: 15px; margin: 5px; background: #ffffff;">--%>
+                        <font class="largefont" style="color: #cccccc;">Conversations You've Joined</font>
                         <br/>
                         <%
                             BloggerCompletedsurveys bloggerCompletedsurveys = new BloggerCompletedsurveys();
@@ -187,7 +201,7 @@ if (accountIndex.getUserhasresponsependings()){
                         "     <font class=\"normalfont\" style=\"font-weight: bold;\"><a href=\"/surveypostit.jsp?surveyid=<$surveyid$>\"><$surveytitle$></a></font><br/>\n" +
                         "     <font class=\"tinyfont\" style=\"font-weight:bold; text-decoration: none;\"><a href=\"/blogger/impressions.jsp?surveyid=<$surveyid$>\">Impressions</a> | <a href=\"/survey.jsp?surveyid=<$surveyid$>\">Edit Answers</a></font>\n" +
                         "                    </td>\n" +
-                        "                    <td valign=\"top\" width=\"225\">\n" +
+                        "                    <td valign=\"top\" width=\"200\">\n" +
                         "     <$response.responsestatushtml$>\n" +
                         "                    </td>\n" +
                         "                </tr>\n" +
@@ -204,11 +218,15 @@ if (accountIndex.getUserhasresponsependings()){
                             <%=Grid.render(bloggerCompletedsurveys.getList(), cols, 3, "/account/index.jsp", "pageyourconvos")%>
                             <br/><a href="/blogger/index.jsp"><font class="smallfont" style="font-weight: bold;">See All Conversations You've Joined</font></a>
                         <%}%>
-
+                        <!--</div>-->
+                        <!--</div>-->
                     <%}%>
 
+                    <%--<div class="rounded" style="padding: 5px; margin: 5px; background: #e6e6e6;">--%>
+                    <%--<div class="rounded" style="padding: 15px; margin: 5px; background: #ffffff;">--%>
+                    <br/><br/><br/>
                     <%if (Pagez.getUserSession().getUser().getResearcherid()>0){%>
-                        <br/><br/><br/><font class="largefont" style="color: #cccccc;">Conversations You've Ignited</font>
+                        <font class="largefont" style="color: #cccccc;">Conversations You've Ignited</font>
                         <br/>
                         <%
                         ResearcherSurveyList researcherSurveyList = new ResearcherSurveyList();
@@ -232,9 +250,11 @@ if (accountIndex.getUserhasresponsependings()){
                             <br/><a href="/researcher/index.jsp"><font class="smallfont" style="font-weight: bold;">See All Conversations You've Ignited</font></a>
                         <%}%>
                     <%} else {%>
-                        <br/><br/><br/><font class="largefont" style="color: #cccccc;">Conversations You've Ignited</font>
+                        <font class="largefont" style="color: #cccccc;">Conversations You've Ignited</font>
                         <br/><a href="/researcher/index.jsp"><font class="smallfont" style="font-weight: bold;">Get Started as a Researcher</font></a>
                     <%}%>
+                    <!--</div>-->
+                    <!--</div>-->
                 </td>
             </tr>
         </table>
