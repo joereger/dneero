@@ -38,6 +38,7 @@ public class PublicSurveyList implements Serializable {
     private String pendingearnings = "$0.00";
     private double currentbalanceDbl = 0.0;
     private double pendingearningsDbl = 0.0;
+    private int maxtodisplay = 10000;
 
     public PublicSurveyList() {
 
@@ -47,6 +48,7 @@ public class PublicSurveyList implements Serializable {
     public void initBean(){
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("instanciating PublicSurveyList");
+        int recordsadded = 0;
         //If user is logged-in only show them their surveys
 //        if (Pagez.getUserSession().getIsloggedin()){
 //
@@ -90,17 +92,22 @@ public class PublicSurveyList implements Serializable {
                 bsli.setMaxearningCPM("$"+ Str.formatForMoney(maxearningCPM));
 
                 StringBuffer earn = new StringBuffer();
+                StringBuffer earncompact = new StringBuffer();
                 if(survey.getIncentive().getSurveyincentive().getType()==IncentiveCash.ID){
                     earn.append(survey.getIncentive().getShortSummary());
+                    earncompact.append(survey.getIncentive().getShortSummary());
                 } else if (survey.getIncentive().getSurveyincentive().getType()==IncentiveCoupon.ID){
                     earn.append("Coupon: "+survey.getIncentive().getShortSummary());
+                    earncompact.append("Coupon");
                 } else {
                     earn.append(survey.getIncentive().getShortSummary());
+                    earncompact.append("");
                 }
                 if (survey.getWillingtopaypercpm()>0){
                     earn.append("<br/><font class=\"tinyfont\">plus $"+Str.formatForMoney(survey.getWillingtopaypercpm())+" per 1000 displays,<br/>max "+survey.getMaxdisplaysperblog()+" displays</font>");   
                 }
                 bsli.setEarn(earn.toString());
+                bsli.setEarncompact(earncompact.toString());
 
 
 
@@ -158,7 +165,11 @@ public class PublicSurveyList implements Serializable {
                 }
                 
                 //Only add if user qualifies or if it's unknown if they qualify (i.e. they're not logged-in)
-                if (bloggerqualifies || bloggerqualifiesisunknown){
+                if (recordsadded>=maxtodisplay){
+                    break;
+                }
+                if ((bloggerqualifies || bloggerqualifiesisunknown) && recordsadded<maxtodisplay){
+                    recordsadded = recordsadded + 1;
                     surveys.add(bsli);
                 }
             }
@@ -362,5 +373,13 @@ public class PublicSurveyList implements Serializable {
 
     public void setPendingearningsDbl(double pendingearningsDbl) {
         this.pendingearningsDbl=pendingearningsDbl;
+    }
+
+    public int getMaxtodisplay() {
+        return maxtodisplay;
+    }
+
+    public void setMaxtodisplay(int maxtodisplay) {
+        this.maxtodisplay=maxtodisplay;
     }
 }

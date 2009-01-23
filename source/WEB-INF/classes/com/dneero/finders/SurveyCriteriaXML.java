@@ -174,7 +174,7 @@ public class SurveyCriteriaXML {
                 logger.debug("does not qualify because of politics.");
             }
             //Panel
-            if (surveyfitsblogger && panelids!=null && panelids.length>0){
+            if (surveyfitsblogger && panelids!=null && panelids.length>0 && Util.stringArrayContainsInteger(panelids)){
                 boolean isuserinpanel = false;
                 for (Iterator<Panelmembership> iterator = blogger.getPanelmemberships().iterator(); iterator.hasNext();) {
                     Panelmembership panelmembership = iterator.next();
@@ -185,11 +185,11 @@ public class SurveyCriteriaXML {
                 }
                 if (!isuserinpanel){
                     surveyfitsblogger = false;
-                    logger.debug("does not qualify because of panelid.");
+                    logger.debug("does not qualify because of panelid="+Util.stringArrayAsString(panelids));
                 }
             }
             //SuperPanel
-            if (surveyfitsblogger && superpanelids!=null && superpanelids.length>0){
+            if (surveyfitsblogger && superpanelids!=null && superpanelids.length>0 && Util.stringArrayContainsInteger(superpanelids)){
                 boolean isuserinpanel = false;
                 for (Iterator<Panelmembership> iterator = blogger.getPanelmemberships().iterator(); iterator.hasNext();) {
                     Panelmembership panelmembership = iterator.next();
@@ -200,7 +200,7 @@ public class SurveyCriteriaXML {
                 }
                 if (!isuserinpanel){
                     surveyfitsblogger = false;
-                    logger.debug("does not qualify because of superpanelid.");
+                    logger.debug("does not qualify because of superpanelid="+Util.stringArrayAsString(superpanelids));
                 }
             }
             //Now check the age requirements

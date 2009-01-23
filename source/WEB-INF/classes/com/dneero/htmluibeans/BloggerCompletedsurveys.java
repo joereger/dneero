@@ -20,6 +20,7 @@ public class BloggerCompletedsurveys implements Serializable {
 
     private ArrayList<BloggerCompletedsurveysListitem> list;
     private ArrayList<BloggerCompletedsurveysListitem> listrecent;
+    private int maxtodisplay = 10000;
 
     public BloggerCompletedsurveys(){
 
@@ -32,7 +33,7 @@ public class BloggerCompletedsurveys implements Serializable {
             list = new ArrayList();
             listrecent = new ArrayList();
             //HibernateUtil.getSession().saveOrUpdate(Blogger.get(userSession.getUser().getBloggerid()));
-            List<Response> responses = HibernateUtil.getSession().createQuery("from Response where bloggerid='"+userSession.getUser().getBloggerid()+"' order by responseid desc").setCacheable(true).list();
+            List<Response> responses = HibernateUtil.getSession().createQuery("from Response where bloggerid='"+userSession.getUser().getBloggerid()+"' order by responseid desc").setMaxResults(maxtodisplay).setCacheable(true).list();
             for (Iterator<Response> iterator = responses.iterator(); iterator.hasNext();) {
                 Response response = iterator.next();
                 Survey survey = Survey.get(response.getSurveyid());
@@ -110,5 +111,13 @@ public class BloggerCompletedsurveys implements Serializable {
 
     public void setListrecent(ArrayList<BloggerCompletedsurveysListitem> listrecent) {
         this.listrecent = listrecent;
+    }
+
+    public int getMaxtodisplay() {
+        return maxtodisplay;
+    }
+
+    public void setMaxtodisplay(int maxtodisplay) {
+        this.maxtodisplay=maxtodisplay;
     }
 }

@@ -12,6 +12,7 @@ public class SurveyListItem implements Serializable {
     private int surveyid;
     private String title;
     private String earn;
+    private String earncompact;
     private String maxearningCPM;
     private String daysuntilend;
     private String numberofquestions;
@@ -128,5 +129,13 @@ public class SurveyListItem implements Serializable {
 
     public void setAccessonlyhtml(String accessonlyhtml) {
         this.accessonlyhtml=accessonlyhtml;
+    }
+
+    public String getEarncompact() {
+        return earncompact;
+    }
+
+    public void setEarncompact(String earncompact) {
+        this.earncompact=earncompact;
     }
 }

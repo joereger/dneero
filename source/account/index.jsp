@@ -29,26 +29,7 @@ if (accountIndex.getUserhasresponsependings()){
             </div>
        <%}%>
 
-       <%if (Pagez.getRequest().getParameter("msg")!=null && Pagez.getRequest().getParameter("msg").equals("autologin")){%>
-            <div class="rounded" style="padding: 15px; margin: 5px; background: #F2FFBF;">
-                <font class="mediumfont">Your previous session timed out so you've been logged-in automatically!</font>
-            </div>
-       <%}%>
 
-        <%
-        long unreadInboxItems = NumFromUniqueResult.getInt("select count(*) from Mail where userid='"+Pagez.getUserSession().getUser().getUserid()+"' and isread=false");
-        if (unreadInboxItems>0){%>
-            <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
-                <font class="smallfont"><a href="/account/inbox.jsp"><%=unreadInboxItems%> unread messages</a> are waiting for you.</font>
-            </div>
-       <%}%>
-
-        <%  long openReviewItems = NumFromUniqueResult.getInt("select count(*) from Review where useridofcontentcreator='"+Pagez.getUserSession().getUser().getUserid()+"' and (isresearcherrejected=true or isresearcherwarned=true or issysadminwarned=true or issysadminrejected=true)");
-               if (openReviewItems>0){%>
-                <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
-                    <font class="smallfont"><a href="/account/reviewables.jsp"><%=openReviewItems%> of your items</a> are flagged.</font>
-                </div>
-           <%}%>
 
 
 
@@ -72,6 +53,44 @@ if (accountIndex.getUserhasresponsependings()){
                                 <br/><font class="tinyfont" style="color: #666666;"><a href="/account/awards.jsp">Your Awards</a></font>
                             </td></tr></table>
                         </div>
+
+                        <%if (Pagez.getRequest().getParameter("msg")!=null && Pagez.getRequest().getParameter("msg").equals("autologin")){%>
+                            <div class="rounded" style="padding: 10px; margin: 5px; background: #ffffff;">
+                                <font class="mediumfont">Your previous session timed out so you've been logged-in automatically!</font>
+                            </div>
+                       <%}%>
+
+                        <%if (!Pagez.getUserSession().getUser().getIsactivatedbyemail()){%>
+                            <div class="rounded" style="padding: 10px; margin: 5px; background: #ffffff;">
+                                <font class="smallfont" style="font-weight: bold;">Your account has not yet been activated by email.</font>
+                                <br/>
+                                <font class="smallfont">You must activate within 3 days of signup.  Check your email inbox for an activation message.  If you've lost that message... no problem: <a href="/emailactivationresend.jsp">re-send it</a>.</font>
+                            </div>
+                       <%}%>
+
+                        <%
+                        long unreadInboxItems = NumFromUniqueResult.getInt("select count(*) from Mail where userid='"+Pagez.getUserSession().getUser().getUserid()+"' and isread=false");
+                        if (unreadInboxItems>0){%>
+                            <div class="rounded" style="padding: 10px; margin: 5px; background: #ffffff;">
+                                <font class="smallfont"><a href="/account/inbox.jsp"><%=unreadInboxItems%> unread messages</a></font>
+                            </div>
+                       <%}%>
+
+                        <%long openReviewItems = NumFromUniqueResult.getInt("select count(*) from Review where useridofcontentcreator='"+Pagez.getUserSession().getUser().getUserid()+"' and (isresearcherrejected=true or isresearcherwarned=true or issysadminwarned=true or issysadminrejected=true)");
+                               if (openReviewItems>0){%>
+                                <div class="rounded" style="padding: 10px; margin: 5px; background: #ffffff;">
+                                    <font class="smallfont"><a href="/account/reviewables.jsp"><%=openReviewItems%> of your items</a> were flagged.</font>
+                                </div>
+                        <%}%>
+
+                        <%if (!Pagez.getUserSession().getUser().getPaymethodpaypaladdress().equals("")){%>
+                            <div class="rounded" style="padding: 10px; margin: 5px; background: #ffffff;">
+                                <font class="smallfont" style="font-weight: bold;">Enter a PayPal address.</font>
+                                <br/>
+                                <font class="smallfont">Before we can pay you we must have a valid PayPal address.<br/><a href="/account/accountsettings.jsp">Enter it Here</a></font>
+                            </div>
+                       <%}%>
+
                         <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
                             <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
                                 <a href="/account/accountsettings.jsp"><font class="mediumfont" style="color: #596697;">Account Settings</font></a>
@@ -113,162 +132,110 @@ if (accountIndex.getUserhasresponsependings()){
                             </td></tr></table>
                         </div>
                     </div>
-
-                    <br/>
-                    <%if (!Pagez.getUserSession().getUser().getIsactivatedbyemail()){%>
-                        <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
-                            <font class="mediumfont">Your account has not yet been activated by email.</font>
-                            <br/>
-                            <font class="smallfont">You must activate within 3 days of signup.  Check your email inbox for an activation message.  If you've lost that message... no problem: <img src="/images/clear.gif" width="2" height="1"/><a href="/emailactivationresend.jsp">re-send it</a>.</font>
-                        </div>
-                   <%}%>
-                   <%if (!Pagez.getUserSession().getUser().getPaymethodpaypaladdress().equals("")){%>
-                        <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
-                            <font class="mediumfont">You must enter a PayPal address to get paid.</font>
-                            <br/>
-                            <font class="smallfont">Before we can pay you we must have a valid PayPal address.  Enter one: <img src="/images/clear.gif" width="2" height="1"/><a href="/account/accountsettings.jsp">here</a>.</font>
-                        </div>
-                   <%}%>
                 </td>
-                <td width="33%" valign="top">
-                    <div class="rounded" style="padding: 5px; margin: 5px; background: #e6e6e6;">
-                        <div class="rounded" style="padding: 15px; margin: 5px; background: #ffffff;">
-                            <center><a href="/blogger/index.jsp"><img src="/images/user.png" alt="" border="0" width="128" height="128"/></a></center>
-                                <div><%=com.dneero.htmlui.GreenRoundedButton.get("<a href=\"/blogger/index.jsp\"><font class=\"mediumfont\" style=\"color: #ffffff;\">Social People</font></a>")%></div>
-                                <%--<div style="padding: 10px;">--%>
-                                    <%--<font class="smallfont"><b>Join Conversations</b></font>--%>
-                                    <%--<br/>--%>
-                                    <%--<font class="smallfont">You're a social person interested in joining conversations, posting your answers to your blog and making money.</font>--%>
-                                    <%--<br/>--%>
-                                    <%--<a href="/blogger/index.jsp"><font class="subnavfont" style="color: #596697;">Continue as a Social Person</font></a>--%>
-                                <%--</div>--%>
-                        </div>
-                        <div class="rounded" style="padding: 15px; margin: 5px; background: #eeeeee;">
-                            <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-                                <a href="/publicsurveylist.jsp"><font class="mediumfont" style="color: #596697;">Find Conversations to Join</font></a>
-                            </td></tr>
-                            <tr><td valign="top"></td><td valign="top">
-                                <font class="smallfont">Make money joining conversations and posting your opinions where your peers can join in too.</font>
-                            </td></tr></table>
-                        </div>
-                        <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
-                            <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-                                <a href="/blogger/bloggerearningsrevshare.jsp"><font class="mediumfont" style="color: #596697;">Earn Money Inviting Friends</font></a>
-                            </td></tr>
-                            <tr><td valign="top"></td><td valign="top">
-                                <font class="smallfont">Invite friends and earn money when they join conversations!</font>
-                            </td></tr></table>
+                <td width="66%" valign="top">
+                    <%if (Pagez.getUserSession().getUser().getBloggerid()>0){%>
+                        <font class="largefont" style="color: #cccccc;">Conversations for You</font>
+                        <br/>
+                        <%
+                        PublicSurveyList publicSurveyList = new PublicSurveyList();
+                        publicSurveyList.setMaxtodisplay(3);
+                        publicSurveyList.initBean();
+                        %>
+                        <%if (publicSurveyList.getSurveys()==null || publicSurveyList.getSurveys().size()==0){%>
+                            <font class="smallfont">We've got nothin' for ya!  Please check back soon... we're always adding new conversations!</font>
+                        <%} else {%>
+                            <%
+                                StringBuffer srv = new StringBuffer();
+                                srv.append("" +
+                                "     <table cellpadding=\"0\" border=\"0\" width=\"100%\">\n" +
+                                "         <tr>\n" +
+                                "             <td valign=\"top\">\n" +
+                                "                 <a href=\"/survey.jsp?surveyid=<$surveyid$>\"><font class=\"normalfont\" style=\"text-decoration: none; font-weight: bold;\"><$title$></font></a>\n"+
+                                "                 <br/><font class=\"tinyfont\"><$description$></font>\n" +
+                                "                 <br/><$accessonlyhtml$> <font class=\"tinyfont\"><b><$daysuntilend$></b></font>\n" +
+                                "             </td>\n" +
+                                "             <td valign=\"top\" style=\"text-align: right;\">\n" +
+                                "                 <font class=\"normalfont\"><b><$earncompact$></b></font>\n" +
+                                "             </td>\n" +
+                                "         </tr>\n" +
+                                "     </table>\n" +
+                                "                    ");
+                                ArrayList<GridCol> cols=new ArrayList<GridCol>();
+                                cols.add(new GridCol("", srv.toString(), false, "", "", "background: #ffffff;", ""));
+                            %>
+                            <%=Grid.render(publicSurveyList.getSurveys(), cols, 100, "/account/index.jsp", "pagesurveys")%>
+                            <br/><a href="/publicsurveylist.jsp"><font class="smallfont" style="font-weight: bold;">See All Conversations for You</font></a>
+                        <%}%>
+                    <%} else {%>
+                        <font class="largefont" style="color: #cccccc;">Conversations for You</font>
+                        <br/><a href="/blogger/index.jsp"><font class="smallfont" style="font-weight: bold;">Get Started as a Social Person</font></a>
+                    <%}%>
 
-                            <br/><br/>
-                            <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-                                <a href="/blogger/index.jsp"><font class="mediumfont" style="color: #596697;">Earnings from Joined Conversations</font></a>
-                            </td></tr>
-                            <tr><td valign="top"></td><td valign="top">
-                                <font class="smallfont">See how much you've earned.</font>
-                            </td></tr></table>
+                    <%if (Pagez.getUserSession().getUser().getBloggerid()>0){%>
+                        <br/><br/><br/><font class="largefont" style="color: #cccccc;">Conversations You've Joined</font>
+                        <br/>
+                        <%
+                            BloggerCompletedsurveys bloggerCompletedsurveys = new BloggerCompletedsurveys();
+                            bloggerCompletedsurveys.setMaxtodisplay(3);
+                            bloggerCompletedsurveys.initBean();
+                            StringBuffer template = new StringBuffer();
+                            template.append("" +
+                        "            <table cellpadding=\"2\" cellspacing=\"0\" border=\"0\" width=\"100%\">\n" +
+                        "                <tr>\n" +
+                        "                    <td valign=\"top\">\n" +
+                        "     <font class=\"normalfont\" style=\"font-weight: bold;\"><a href=\"/surveypostit.jsp?surveyid=<$surveyid$>\"><$surveytitle$></a></font><br/>\n" +
+                        "     <font class=\"tinyfont\" style=\"font-weight:bold; text-decoration: none;\"><a href=\"/blogger/impressions.jsp?surveyid=<$surveyid$>\">Impressions</a> | <a href=\"/survey.jsp?surveyid=<$surveyid$>\">Edit Answers</a></font>\n" +
+                        "                    </td>\n" +
+                        "                    <td valign=\"top\" width=\"225\">\n" +
+                        "     <$response.responsestatushtml$>\n" +
+                        "                    </td>\n" +
+                        "                </tr>\n" +
+                        "            </table>\n");
+                        %>
+                        <%if (bloggerCompletedsurveys.getList()==null || bloggerCompletedsurveys.getList().size()==0){%>
+                            <font class="smallfont">You haven't joined any conversations.</font>
+                            <br/><a href="/publicsurveylist.jsp"><font class="smallfont" style="font-weight: bold;">Find Conversations to Join</font></a>
+                        <%} else {%>
+                            <%
+                                ArrayList<GridCol> cols = new ArrayList<GridCol>();
+                                cols.add(new GridCol("", template.toString(), false, "", "tinyfont", "background: #ffffff;", ""));
+                            %>
+                            <%=Grid.render(bloggerCompletedsurveys.getList(), cols, 3, "/account/index.jsp", "pageyourconvos")%>
+                            <br/><a href="/blogger/index.jsp"><font class="smallfont" style="font-weight: bold;">See All Conversations You've Joined</font></a>
+                        <%}%>
 
-                            <br/><br/>
-                            <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-                                <a href="/blogger/bloggerdetails.jsp"><font class="mediumfont" style="color: #596697;">Update Profile</font></a>
-                            </td></tr>
-                            <tr><td valign="top"></td><td valign="top">
-                                <font class="smallfont">Your profile helps us find conversations that fit your interests.  Keep it up to date.</font>
-                            </td></tr></table>
+                    <%}%>
 
-                            <br/><br/>
-                            <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-                                <a href="/blogger/bloggerfaq.jsp"><font class="mediumfont" style="color: #596697;">Blogger Frequently Asked Questions</font></a>
-                            </td></tr>
-                            <tr><td valign="top"></td><td valign="top">
-                                <font class="smallfont">Get your answers here!</font>
-                            </td></tr></table>
-
-                            <br/><br/>
-                            <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-                                <a href="/blogger/index.jsp?showmarketingmaterial=1"><font class="mediumfont" style="color: #596697;">Blogger Basic Info</font></a>
-                            </td></tr>
-                            <tr><td valign="top"></td><td valign="top">
-                                <font class="smallfont">Basic Blogger information, how the system works, etc.</font>
-                            </td></tr></table>
-                        </div>
-                    </div>
+                    <%if (Pagez.getUserSession().getUser().getResearcherid()>0){%>
+                        <br/><br/><br/><font class="largefont" style="color: #cccccc;">Conversations You've Ignited</font>
+                        <br/>
+                        <%
+                        ResearcherSurveyList researcherSurveyList = new ResearcherSurveyList();
+                        researcherSurveyList.setMaxtodisplay(3);
+                        researcherSurveyList.initBean();
+                        %>
+                        <%if (researcherSurveyList.getSurveys()==null || researcherSurveyList.getSurveys().size()==0){%>
+                            <font class="smallfont">You haven't yet ignited any conversations.</font>
+                        <%} else {%>
+                            <%
+                                ArrayList<GridCol> cols=new ArrayList<GridCol>();
+                                cols.add(new GridCol("", "<a href=\"/survey.jsp?surveyid=<$survey.surveyid$>\"><font style=\"font-weight:bold;\"><$survey.title$></font></a>", false, "background: #ffffff;", "normalfont"));
+                                cols.add(new GridCol("", "<$status$>", false, "", "smallfont", "background: #ffffff;", ""));
+                                cols.add(new GridCol("", "<$editorreviewlink$>", false, "background: #ffffff;", "smallfont"));
+                                cols.add(new GridCol("", "<$invitelink$>", false, "background: #ffffff;", "smallfont"));
+                                cols.add(new GridCol("", "<$resultslink$>", false, "background: #ffffff;", "smallfont"));
+                                cols.add(new GridCol("", "<$copylink$>", false, "background: #ffffff;", "smallfont"));
+                                cols.add(new GridCol("", "<$deletelink$>", false, "background: #ffffff;", "smallfont"));
+                            %>
+                            <%=Grid.render(researcherSurveyList.getSurveys(), cols, 50, "/account/index.jsp", "pageresearcherconvos")%>
+                            <br/><a href="/researcher/index.jsp"><font class="smallfont" style="font-weight: bold;">See All Conversations You've Ignited</font></a>
+                        <%}%>
+                    <%} else {%>
+                        <br/><br/><br/><font class="largefont" style="color: #cccccc;">Conversations You've Ignited</font>
+                        <br/><a href="/researcher/index.jsp"><font class="smallfont" style="font-weight: bold;">Get Started as a Researcher</font></a>
+                    <%}%>
                 </td>
-                <td width="33%" valign="top">
-                    <div class="rounded" style="padding: 5px; margin: 5px; background: #e6e6e6;">
-                        <div class="rounded" style="padding: 15px; margin: 5px; background: #ffffff;">
-                            <center><a href="/researcher/index.jsp"><img src="/images/statistic-128.png" alt="" border="0" width="128" height="128"/></a></center>
-                            <div><%=com.dneero.htmlui.GreenRoundedButton.get("<a href=\"/researcher/index.jsp\"><font class=\"mediumfont\" style=\"color: #ffffff;\">Igniters</font></a>")%></div>
-                            <%--<div style="padding: 10px;">--%>
-                                <%--<font class="smallfont"><b>Ignite and Manage Conversations</b></font>--%>
-                                <%--<br/>--%>
-                                <%--<font class="smallfont">You're a researcher interested in igniting conversations, finding social people to respond to them and generating buzz for your product or service.</font>--%>
-                                <%--<br/>--%>
-                                <%--<a href="/researcher/index.jsp"><font class="subnavfont" style="color: #596697;">Continue as a Conversation Igniter</font></a>--%>
-                            <%--</div>--%>
-                        </div>
-                        <div class="rounded" style="padding: 15px; margin: 5px; background: #eeeeee;">
-                            <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-                                <a href="/researcher/researchersurveydetail_01.jsp"><font class="mediumfont" style="color: #596697;">Start a New Conversation</font></a>
-                            </td></tr>
-                            <tr><td valign="top"></td><td valign="top">
-                                <font class="smallfont">Ignite a new conversation. This step-by-step wizard will guide you through the process.  Your conversation can be up and running in minutes.</font>
-                            </td></tr></table>
-                        </div>
-                        <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
-                            <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-                                <a href="/researcher/panels.jsp"><font class="mediumfont" style="color: #596697;">Panels</font></a>
-                            </td></tr>
-                            <tr><td valign="top"></td><td valign="top">
-                                <font class="smallfont">Create and manage standing panels of bloggers for longitudinal studies.</font>
-                            </td></tr></table>
-
-                            <br/><br/>
-                            <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-                                <a href="/researcher/rank-list.jsp"><font class="mediumfont" style="color: #596697;">Rankings</font></a>
-                            </td></tr>
-                            <tr><td valign="top"></td><td valign="top">
-                                <font class="smallfont">Create your own ranking index and use it to define/track people across multiple conversations.</font>
-                            </td></tr></table>
-
-                            <br/><br/>
-                            <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-                                <a href="/researcher/researcherdetails.jsp"><font class="mediumfont" style="color: #596697;">Update My Researcher Profile</font></a>
-                             </td></tr>
-                            <tr><td valign="top"></td><td valign="top">
-                                <font class="smallfont">Help us understand your needs so that we can serve you better.</font>
-                            </td></tr></table>
-
-                            <br/><br/>
-                            <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-                                <a href="/researcher/researcherbilling.jsp"><font class="mediumfont" style="color: #596697;">Billing Info</font></a>
-                            </td></tr>
-                            <tr><td valign="top"></td><td valign="top">
-                                <font class="smallfont">Update your billing information on this screen.</font>
-                            </td></tr></table>
-
-
-                            <br/><br/>
-                            <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-                                <a href="/researcher/researcherfaq.jsp"><font class="mediumfont" style="color: #596697;">Researcher Frequently Asked Questions</font></a>
-                            </td></tr>
-                            <tr><td valign="top"></td><td valign="top">
-                                <font class="smallfont">Get your answers here!</font>
-                            </td></tr></table>
-
-                            <br/><br/>
-                            <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-                                <a href="/researcher/index.jsp?showmarketingmaterial=1"><font class="mediumfont" style="color: #596697;">Researcher Basic Info</font></a>
-                            </td></tr>
-                            <tr><td valign="top"></td><td valign="top">
-                                <font class="smallfont">Basic Researcher information, how the system works, etc.</font>
-                            </td></tr></table>
-                        </div>
-                    </div>
-                </td>
-
-
-
-
             </tr>
         </table>
 

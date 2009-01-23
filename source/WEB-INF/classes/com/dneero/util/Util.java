@@ -61,7 +61,31 @@ public class Util {
         return out;
     }
 
+    public static String stringArrayAsString(String[] array){
+        StringBuffer out = new StringBuffer();
+        if (array!=null){
+            for (int i = 0; i < array.length; i++) {
+                String s = array[i];
+                out.append(s);
+                if (i<array.length){
+                    out.append(", ");
+                }
+            }
+        }
+        return out.toString();
+    }
 
+    public static boolean stringArrayContainsInteger(String[] array){
+        if (array!=null){
+            for (int i = 0; i < array.length; i++) {
+                String s = array[i];
+                if (Num.isinteger(s)){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 
     public static boolean arrayContains(String[] array, String value){
         if (array!=null){

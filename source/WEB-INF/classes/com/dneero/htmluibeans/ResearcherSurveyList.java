@@ -22,6 +22,7 @@ import org.apache.log4j.Logger;
 public class ResearcherSurveyList implements Serializable {
 
     private List<ResearcherSurveyListitem> surveys;
+    private int maxtodisplay = 10000;
 
     public ResearcherSurveyList() {
 
@@ -36,7 +37,7 @@ public class ResearcherSurveyList implements Serializable {
         if (userSession!=null && userSession.getUser()!=null && userSession.getUser().getResearcherid()>0){
             logger.debug("userSession, user and researcher not null");
             logger.debug("into loop for userSession.getUser().getResearcher().getResearcherid()="+userSession.getUser().getResearcherid());
-            List srvys = HibernateUtil.getSession().createQuery("from Survey where researcherid='"+userSession.getUser().getResearcherid()+"' order by surveyid desc").setCacheable(true).list();
+            List srvys = HibernateUtil.getSession().createQuery("from Survey where researcherid='"+userSession.getUser().getResearcherid()+"' order by surveyid desc").setMaxResults(maxtodisplay).setCacheable(true).list();
             for (Iterator iterator=srvys.iterator(); iterator.hasNext();) {
                 Survey srvy =(Survey) iterator.next();
                 ResearcherSurveyListitem rsli = new ResearcherSurveyListitem();
@@ -94,7 +95,11 @@ public class ResearcherSurveyList implements Serializable {
     }
 
 
+    public int getMaxtodisplay() {
+        return maxtodisplay;
+    }
 
-
-
+    public void setMaxtodisplay(int maxtodisplay) {
+        this.maxtodisplay=maxtodisplay;
+    }
 }
