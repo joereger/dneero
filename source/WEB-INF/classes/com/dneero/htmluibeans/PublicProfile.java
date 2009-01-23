@@ -110,12 +110,18 @@ public class PublicProfile implements Serializable {
 
 
         if (blogger!=null && blogger.getBloggerid()>0){
-            socialinfluenceratingpercentile = SocialInfluenceRatingPercentile.getPercentileOfRanking(SystemStats.getTotalusers(), user.getSirrank());
-            logger.debug("socialinfluenceratingpercentile="+socialinfluenceratingpercentile);
-            if (socialinfluenceratingpercentile>=50){
-                socialinfluenceratingforscreen = "Top "+(100-socialinfluenceratingpercentile)+"%";
+            if (user.getSirrank()>0){
+                socialinfluenceratingpercentile = SocialInfluenceRatingPercentile.getPercentileOfRanking(SystemStats.getTotalusers(), user.getSirrank());
+                logger.debug("socialinfluenceratingpercentile="+socialinfluenceratingpercentile);
+                if (socialinfluenceratingpercentile>=50){
+                    socialinfluenceratingforscreen = "Top "+(100-socialinfluenceratingpercentile)+"%";
+                } else if (socialinfluenceratingpercentile<=1) {
+                    socialinfluenceratingforscreen = "Not Yet Calculated";
+                } else {
+                    socialinfluenceratingforscreen = "Bottom "+(socialinfluenceratingpercentile)+"%";
+                }
             } else {
-                socialinfluenceratingforscreen = "Bottom "+(socialinfluenceratingpercentile)+"%";
+                socialinfluenceratingforscreen = "Not Yet Calculated";
             }
         }
     }

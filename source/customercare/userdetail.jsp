@@ -12,6 +12,7 @@
 <%@ page import="com.dneero.review.ReviewableVenue" %>
 <%@ page import="com.dneero.sir.SocialInfluenceRatingPercentile" %>
 <%@ page import="com.dneero.scheduledjobs.*" %>
+<%@ page import="com.dneero.scheduledjobs.SystemStats" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "User: "+((CustomercareUserDetail) Pagez.getBeanMgr().get("CustomercareUserDetail")).getEmail();
@@ -539,11 +540,15 @@ CustomercareUserDetail customercareUserDetail= (CustomercareUserDetail)Pagez.get
                             <br/>
                             <%
                             String socialinfluenceratingforscreen = "";
-                            double socialinfluenceratingpercentile = SocialInfluenceRatingPercentile.getPercentileOfRanking(com.dneero.scheduledjobs.SystemStats.getTotalusers(), customercareUserDetail.getUser().getSirrank());
-                            if (socialinfluenceratingpercentile>=50){
-                                socialinfluenceratingforscreen = "Top "+(100-socialinfluenceratingpercentile)+"%";
+                            if (customercareUserDetail.getUser().getSirrank()>0){
+                                double socialinfluenceratingpercentile = SocialInfluenceRatingPercentile.getPercentileOfRanking(com.dneero.scheduledjobs.SystemStats.getTotalusers(), customercareUserDetail.getUser().getSirrank());
+                                if (socialinfluenceratingpercentile>=50){
+                                    socialinfluenceratingforscreen = "Top "+(100-socialinfluenceratingpercentile)+"%";
+                                } else {
+                                    socialinfluenceratingforscreen = "Bottom "+(socialinfluenceratingpercentile)+"%";
+                                }
                             } else {
-                                socialinfluenceratingforscreen = "Bottom "+(socialinfluenceratingpercentile)+"%";
+                                socialinfluenceratingforscreen = "Not Yet Calculated";
                             }
                             %>
                             <font class="formfieldnamefont">SiR: <%=socialinfluenceratingforscreen%></font>

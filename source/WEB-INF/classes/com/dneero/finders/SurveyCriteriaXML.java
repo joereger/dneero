@@ -215,7 +215,7 @@ public class SurveyCriteriaXML {
             //Social Influence Rating
             if (surveyfitsblogger){
                 int maxranking = SocialInfluenceRatingPercentile.getRankingOfGivenPercentile(SystemStats.getTotalusers(), minsocialinfluencepercentile);
-                if (user.getSirrank()>maxranking){
+                if (user.getSirrank()>maxranking || user.getSirrank()==0){
                     surveyfitsblogger = false;
                     logger.debug("does not qualify because of socialinfluenceranking.  maxranking="+maxranking+" user.getSirrank()="+user.getSirrank());
                 }

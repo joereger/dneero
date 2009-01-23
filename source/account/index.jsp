@@ -5,7 +5,7 @@
 <%@ page import="com.dneero.dao.hibernate.NumFromUniqueResult" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
-String pagetitle = "Your Account";
+String pagetitle = "";
 String navtab = "youraccount";
 String acl = "account";
 %>
@@ -247,11 +247,11 @@ if (accountIndex.getUserhasresponsependings()){
                                 cols.add(new GridCol("", "<$deletelink$>", false, "background: #ffffff;", "smallfont"));
                             %>
                             <%=Grid.render(researcherSurveyList.getSurveys(), cols, 50, "/account/index.jsp", "pageresearcherconvos")%>
-                            <br/><a href="/researcher/index.jsp"><font class="smallfont" style="font-weight: bold;">See All Conversations You've Ignited</font></a>
+                            <br/><a href="/researcher/index.jsp"><font class="smallfont" style="font-weight: bold;">See All Conversations You've Ignited</font></a><font class="smallfont"> or </font><a href="/researcher/researchersurveydetail_01.jsp"><font class="smallfont" style="font-weight: bold;">Ignite a New One</font></a>
                         <%}%>
                     <%} else {%>
                         <font class="largefont" style="color: #cccccc;">Conversations You've Ignited</font>
-                        <br/><a href="/researcher/index.jsp"><font class="smallfont" style="font-weight: bold;">Get Started as a Researcher</font></a>
+                        <br/><a href="/researcher/index.jsp"><font class="smallfont" style="font-weight: bold;">Get Started as a Conversation Igniter</font></a>
                     <%}%>
                     <!--</div>-->
                     <!--</div>-->
