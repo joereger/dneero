@@ -37,7 +37,7 @@ public class SocialInfluenceRatingPercentile {
         Logger logger = Logger.getLogger(SocialInfluenceRatingPercentile.class);
         int out = 1;
         try{
-            double rnkPct = (((Integer)ranking).doubleValue() / ((Integer)max).doubleValue()) * 100;
+            double rnkPct = (new Double(ranking) / new Double(max)) * 100;
             out = (new Double(rnkPct)).intValue();
         } catch (Exception ex){
             logger.error("",ex);

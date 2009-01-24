@@ -1,6 +1,8 @@
 package com.dneero.htmluibeans;
 
 import org.apache.log4j.Logger;
+import org.hibernate.criterion.Restrictions;
+import org.hibernate.criterion.Order;
 import com.dneero.dao.*;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.dao.hibernate.NumFromUniqueResult;
@@ -12,6 +14,7 @@ import com.dneero.scheduledjobs.SystemStats;
 import com.dneero.htmlui.Pagez;
 import com.dneero.htmlui.ValidationException;
 import com.dneero.helpers.IsBloggerInPanel;
+import com.dneero.helpers.FastGetUserStuff;
 
 import java.util.*;
 import java.io.Serializable;
@@ -36,11 +39,12 @@ public class PublicProfile implements Serializable {
     private String charityamtdonatedForscreen;
     private int convosjoined = 0;
     private int peoplereferred = 0;
+    private ArrayList<Question> userquestions;
+    private ArrayList<Survey> surveys;
 
     public PublicProfile(){
 
     }
-    
 
 
     public void initBean(){
@@ -77,23 +81,59 @@ public class PublicProfile implements Serializable {
  
         peoplereferred = NumFromUniqueResult.getInt("select count(*) from User where referredbyuserid='"+user.getUserid()+"'");
 
+
+        userquestions = new ArrayList<Question>();
+        List<Question> questions = HibernateUtil.getSession().createCriteria(Question.class)
+                                           .add(Restrictions.eq("userid", blogger.getUserid()))
+                                           .add(Restrictions.eq("isuserquestion", true))
+                                           .add(Restrictions.eq("issysadminrejected", false))
+                                           .setCacheable(true)
+                                           .list();
+        if (questions!=null && questions.size()>0){
+            for (Iterator<Question> questionIterator=questions.iterator(); questionIterator.hasNext();) {
+                Question question=questionIterator.next();
+                userquestions.add(question);
+            }
+        }
+
+
+
+        surveys = FastGetUserStuff.getSurveys(user);
+
+
+
         listitems = new ArrayList<PublicProfileListitem>();
         if (blogger!=null && blogger.getResponses()!=null){
-            for (Iterator<Response> iterator = blogger.getResponses().iterator(); iterator.hasNext();) {
+            List<Response> rsps = HibernateUtil.getSession().createCriteria(Response.class)
+                                           .add(Restrictions.eq("bloggerid", blogger.getBloggerid()))
+                                           .add(Restrictions.eq("issysadminrejected", false))
+                                           .addOrder(Order.desc("responseid"))
+                                           .setCacheable(true)
+                                           .list();
+            for (Iterator<Response> iterator = rsps.iterator(); iterator.hasNext();) {
                 Response response1 = iterator.next();
-                Survey survey = Survey.get(response1.getSurveyid());
-                Question question = new Question();
-                for (Iterator<Question> iterator2 = survey.getQuestions().iterator(); iterator2.hasNext();) {
-                    Question quest = iterator2.next();
-                    if (quest.getIsuserquestion() && quest.getUserid()==user.getUserid()){
-                        question = quest;
+                Survey survey = null;
+                for (Iterator<Survey> svIt=surveys.iterator(); svIt.hasNext();) {
+                    Survey s1=svIt.next();
+                    if (s1.getSurveyid()==response1.getSurveyid()){
+                        survey=s1;
+                        break;
                     }
                 }
-                PublicProfileListitem li = new PublicProfileListitem();
-                li.setSurvey(survey);
-                li.setResponse(response1);
-                li.setUserquestion(question);
-                listitems.add(li);
+                if (survey!=null){
+                    Question question = new Question();
+                    for (Iterator<Question> questionIterator=userquestions.iterator(); questionIterator.hasNext();) {
+                        Question q1=questionIterator.next();
+                        if (q1.getSurveyid()==response1.getSurveyid()){
+                            question = q1;
+                        }
+                    }
+                    PublicProfileListitem li = new PublicProfileListitem();
+                    li.setSurvey(survey);
+                    li.setResponse(response1);
+                    li.setUserquestion(question);
+                    listitems.add(li);
+                }
             }
         }
 
@@ -121,13 +161,13 @@ public class PublicProfile implements Serializable {
         if (blogger!=null && blogger.getBloggerid()>0){
             if (user.getSirrank()>0){
                 socialinfluenceratingpercentile = SocialInfluenceRatingPercentile.getPercentileOfRanking(SystemStats.getTotalusers(), user.getSirrank());
-                logger.debug("socialinfluenceratingpercentile="+socialinfluenceratingpercentile);
-                if (socialinfluenceratingpercentile>=50){
-                    socialinfluenceratingforscreen = "Top "+(100-socialinfluenceratingpercentile)+"%";
-                } else if (socialinfluenceratingpercentile<=1) {
-                    socialinfluenceratingforscreen = "Not Yet Calculated";
+                if (socialinfluenceratingpercentile<1){
+                    socialinfluenceratingpercentile = 1;
+                }
+                if (socialinfluenceratingpercentile<=50){
+                    socialinfluenceratingforscreen = "Top "+(socialinfluenceratingpercentile)+"%";
                 } else {
-                    socialinfluenceratingforscreen = "Bottom "+(socialinfluenceratingpercentile)+"%";
+                    socialinfluenceratingforscreen = "Bottom "+(100-socialinfluenceratingpercentile)+"%";
                 }
             } else {
                 socialinfluenceratingforscreen = "Not Yet Calculated";
@@ -336,4 +376,22 @@ public class PublicProfile implements Serializable {
     public void setPeoplereferred(int peoplereferred) {
         this.peoplereferred=peoplereferred;
     }
+
+    public ArrayList<Question> getUserquestions() {
+        return userquestions;
+    }
+
+    public void setUserquestions(ArrayList<Question> userquestions) {
+        this.userquestions=userquestions;
+    }
+
+    public ArrayList<Survey> getSurveys() {
+        return surveys;
+    }
+
+    public void setSurveys(ArrayList<Survey> surveys) {
+        this.surveys=surveys;
+    }
+
+
 }

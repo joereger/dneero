@@ -541,11 +541,14 @@ CustomercareUserDetail customercareUserDetail= (CustomercareUserDetail)Pagez.get
                             <%
                             String socialinfluenceratingforscreen = "";
                             if (customercareUserDetail.getUser().getSirrank()>0){
-                                double socialinfluenceratingpercentile = SocialInfluenceRatingPercentile.getPercentileOfRanking(com.dneero.scheduledjobs.SystemStats.getTotalusers(), customercareUserDetail.getUser().getSirrank());
-                                if (socialinfluenceratingpercentile>=50){
-                                    socialinfluenceratingforscreen = "Top "+(100-socialinfluenceratingpercentile)+"%";
+                                int socialinfluenceratingpercentile = SocialInfluenceRatingPercentile.getPercentileOfRanking(SystemStats.getTotalusers(), customercareUserDetail.getUser().getSirrank());
+                                if (socialinfluenceratingpercentile<1){
+                                    socialinfluenceratingpercentile = 1;
+                                }
+                                if (socialinfluenceratingpercentile<=50){
+                                    socialinfluenceratingforscreen = "Top "+(socialinfluenceratingpercentile)+"%";
                                 } else {
-                                    socialinfluenceratingforscreen = "Bottom "+(socialinfluenceratingpercentile)+"%";
+                                    socialinfluenceratingforscreen = "Bottom "+(100-socialinfluenceratingpercentile)+"%";
                                 }
                             } else {
                                 socialinfluenceratingforscreen = "Not Yet Calculated";

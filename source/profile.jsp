@@ -178,7 +178,7 @@ String acl = "public";
                 cols.add(new GridCol("", "<a href=\"/surveyresults.jsp?s=<$response.surveyid$>\">Results</a>", false, "", "smallfont"));
                 //cols.add(new GridCol("", "<a href=\"/profileimpressions.jsp?responseid=<$response.responseid$>\">Impressions</a>", false, "", "smallfont"));
             %>
-            <%=Grid.render(publicProfile.getListitems(), cols, 20, "/profile.jsp?userid="+publicProfile.getUser().getUserid(), "pagesurveys")%>
+            <%=Grid.render(publicProfile.getListitems(), cols, 50, "/profile.jsp?userid="+publicProfile.getUser().getUserid(), "pagesurveys")%>
         <%}%>
 
 
