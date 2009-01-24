@@ -320,11 +320,11 @@ if (request.getParameter("action")!=null && request.getParameter("action").equal
                                         <table cellpadding="2" cellspacing="0" border="0">
                                             <tr>
                                                 <td valign="top"><center><input type="radio" name="<%=prefix%>score" value="0" checked></center></td>
+                                                <td valign="top"><center><input type="radio" name="<%=prefix%>score" value="-3"></center></td>
+                                                <td valign="top"><center><input type="radio" name="<%=prefix%>score" value="-1"></center></td>
+                                                <td valign="top"><center><input type="radio" name="<%=prefix%>score" value="0"></center></td>
                                                 <td valign="top"><center><input type="radio" name="<%=prefix%>score" value="1"></center></td>
-                                                <td valign="top"><center><input type="radio" name="<%=prefix%>score" value="2"></center></td>
                                                 <td valign="top"><center><input type="radio" name="<%=prefix%>score" value="3"></center></td>
-                                                <td valign="top"><center><input type="radio" name="<%=prefix%>score" value="4"></center></td>
-                                                <td valign="top"><center><input type="radio" name="<%=prefix%>score" value="5"></center></td>
                                             </tr>
                                             <tr>
                                                 <td valign="top"><center><font class="tinyfont">Not Scored</font></center></td>

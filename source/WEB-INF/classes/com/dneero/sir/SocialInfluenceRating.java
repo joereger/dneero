@@ -71,10 +71,10 @@ public class SocialInfluenceRating {
         double impressionstotalNrml = normalizeNum(impressionstotal, 10000);
         double responsereferralsNrml = normalizeNum(responsereferrals, 5);
         double avgvenueratingNrml = normalizeNum(avgvenuerating, 5);
-        double avgquestionratingbysysadminNrml = normalizeNum(avgquestionratingbysysadmin, 5);
-        double avgquestionratingbyresearcherNrml = normalizeNum(avgquestionratingbyresearcher, 5);
-        double avgresponseratingbysysadminNrml = normalizeNum(avgresponseratingbysysadmin, 5);
-        double avgresponseratingbyresearcherNrml = normalizeNum(avgresponseratingbyresearcher, 5);
+        double avgquestionratingbysysadminNrml = avgquestionratingbysysadmin;
+        double avgquestionratingbyresearcherNrml = avgquestionratingbyresearcher;
+        double avgresponseratingbysysadminNrml = avgresponseratingbysysadmin;
+        double avgresponseratingbyresearcherNrml = avgresponseratingbyresearcher;
         double peoplereferredNrml = normalizeNum(peoplereferred, 3);
         double superpanelsNrml = normalizeNum(superpanels, 1);
         double responsestouserquestionsNrml = normalizeNum(responsestouserquestions, 20);

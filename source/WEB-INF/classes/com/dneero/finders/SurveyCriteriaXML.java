@@ -214,10 +214,12 @@ public class SurveyCriteriaXML {
             }
             //Social Influence Rating
             if (surveyfitsblogger){
-                int maxranking = SocialInfluenceRatingPercentile.getRankingOfGivenPercentile(SystemStats.getTotalusers(), minsocialinfluencepercentile);
-                if (user.getSirrank()>maxranking || user.getSirrank()==0){
-                    surveyfitsblogger = false;
-                    logger.debug("does not qualify because of socialinfluenceranking.  maxranking="+maxranking+" user.getSirrank()="+user.getSirrank());
+                if (minsocialinfluencepercentile<100){
+                    int maxranking = SocialInfluenceRatingPercentile.getRankingOfGivenPercentile(SystemStats.getTotalusers(), minsocialinfluencepercentile);
+                    if (user.getSirrank()>maxranking || user.getSirrank()==0){
+                        surveyfitsblogger = false;
+                        logger.debug("does not qualify because of socialinfluenceranking. minsocialinfluencepercentile="+minsocialinfluencepercentile+"  maxranking="+maxranking+" user.getSirrank()="+user.getSirrank());
+                    }
                 }
             }
             //dneerousagemethod qualification

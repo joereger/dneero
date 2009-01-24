@@ -5,6 +5,7 @@
 <%@ page import="com.dneero.dbgrid.Grid" %>
 <%@ page import="com.dneero.htmlui.*" %>
 <%@ page import="com.dneero.helpers.NicknameHelper" %>
+<%@ page import="com.dneero.helpers.IsBloggerInPanel" %>
 <%
     PublicProfile publicProfile=(PublicProfile) Pagez.getBeanMgr().get("PublicProfile");
 %>

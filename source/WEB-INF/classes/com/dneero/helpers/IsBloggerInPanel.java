@@ -17,7 +17,13 @@ public class IsBloggerInPanel {
         for (Iterator<Panelmembership> iterator = panel.getPanelmemberships().iterator(); iterator.hasNext();) {
             Panelmembership panelmembership = iterator.next();
             if (panelmembership.getBloggerid()==blogger.getBloggerid()){
-                return true;
+                if (panel.getIssystempanel()){
+                    if (panelmembership.getIssysadminreviewed() && !panelmembership.getIssysadminrejected()){
+                        return true;
+                    }
+                } else {
+                    return true;
+                }
             }
         }
         return false;

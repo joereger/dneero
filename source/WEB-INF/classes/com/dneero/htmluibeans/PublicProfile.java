@@ -74,8 +74,8 @@ public class PublicProfile implements Serializable {
         } else {
             convosjoined =  0;
         }
-
-        peoplereferred = NumFromUniqueResult.getInt("select count(*) from User where referredbyuserid='"+blogger.getUserid()+"'");
+ 
+        peoplereferred = NumFromUniqueResult.getInt("select count(*) from User where referredbyuserid='"+user.getUserid()+"'");
 
         listitems = new ArrayList<PublicProfileListitem>();
         if (blogger!=null && blogger.getResponses()!=null){
@@ -105,8 +105,17 @@ public class PublicProfile implements Serializable {
             }
         }
 
-        String emptyStr = "";
-        superpanels = HibernateUtil.getSession().createQuery("from Panel where issystempanel=true order by panelid desc"+emptyStr).list();
+        if (blogger!=null && blogger.getPanelmemberships()!=null){
+            String emptyStr = "";
+            superpanels = new ArrayList<Panel>();
+            List sps = HibernateUtil.getSession().createQuery("from Panel where issystempanel=true order by panelid desc"+emptyStr).list();
+            for (Iterator iterator=sps.iterator(); iterator.hasNext();) {
+                Panel panel = (Panel)iterator.next();
+                if (IsBloggerInPanel.isBloggerInPanel(panel, blogger)){
+                    superpanels.add(panel);
+                }
+            }
+        }
 
 
         if (blogger!=null && blogger.getBloggerid()>0){
