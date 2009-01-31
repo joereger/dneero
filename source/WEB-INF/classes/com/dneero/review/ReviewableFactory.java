@@ -28,6 +28,12 @@ public class ReviewableFactory {
         if (type==ReviewablePanelapplication.TYPE){
             return new ReviewablePanelapplication(id);
         }
+        if (type==ReviewableTwitanswer.TYPE){
+            return new ReviewableTwitanswer(id);
+        }
+        if (type==ReviewableTwitask.TYPE){
+            return new ReviewableTwitask(id);
+        }
         return null;
     }
 
@@ -39,6 +45,8 @@ public class ReviewableFactory {
         types.add(new ReviewableVenue(0));
         types.add(new ReviewableSuperPanelmembership(0));
         types.add(new ReviewablePanelapplication(0));
+        types.add(new ReviewableTwitanswer(0));
+        types.add(new ReviewableTwitask(0));
         return types;
     }
 

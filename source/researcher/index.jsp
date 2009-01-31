@@ -143,6 +143,14 @@ if (Pagez.getUserSession().getIsloggedin() && (Pagez.getUserSession().getUser().
                                 <font class="smallfont">Ignite a new conversation. This step-by-step wizard will guide you through the process.  Your conversation can be up and running in a matter of minutes.</font>
                             </td></tr></table>
                         </div>
+                        <div class="rounded" style="padding: 15px; margin: 5px; background: #ffffff;">
+                            <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
+                                <a href="/researcher/researchertwitaskdetail_01.jsp"><font class="mediumfont" style="color: #596697;">Start a New TwitterAsk</font></a>
+                            </td></tr>
+                            <tr><td valign="top"></td><td valign="top">
+                                <font class="smallfont">As Twitter users a question. This step-by-step wizard will guide you through the process.  Your TwitterAsk can be ready to roll in minutes.</font>
+                            </td></tr></table>
+                        </div>
                         <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
                             <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
                                 <a href="/researcher/panels.jsp"><font class="mediumfont" style="color: #596697;">Panels</font></a>

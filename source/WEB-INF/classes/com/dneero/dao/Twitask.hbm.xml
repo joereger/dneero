@@ -1,0 +1,92 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 17, 2006 3:45:28 PM by Hibernate Tools 3.1.0.beta4 -->
+<hibernate-mapping>
+    <class name="com.dneero.dao.Twitask" table="twitask">
+        <cache usage="transactional"/>
+        <id name="twitaskid" type="int">
+            <column name="twitaskid" />
+            <generator class="native" />
+        </id>
+
+
+        <set name="twitanswers" inverse="true" cascade="all-delete-orphan">
+            <cache usage="transactional"/>
+            <key column="twitaskid"></key>
+            <one-to-many class="com.dneero.dao.Twitanswer" not-found="ignore"></one-to-many>
+        </set>
+
+        <set name="twitaskincentives" inverse="true" cascade="all-delete-orphan">
+            <cache usage="transactional"/>
+            <key column="twitaskid"></key>
+            <one-to-many class="com.dneero.dao.Twitaskincentive" not-found="ignore"></one-to-many>
+        </set>
+
+
+        <property name="userid" type="int">
+            <column name="userid" not-null="true" />
+        </property>
+        <property name="plid" type="int">
+            <column name="plid" not-null="true" />
+        </property>
+        <property name="status" type="int">
+            <column name="status" not-null="true" />
+        </property>
+        <property name="question" type="text">
+            <column name="question" not-null="true" />
+        </property>
+        <property name="criteriaxml" type="text">
+            <column name="criteriaxml"/>
+        </property>
+        <property name="numberofrespondentsrequested" type="int">
+            <column name="numberofrespondentsrequested" not-null="true" />
+        </property>
+        <property name="willingtopaypertwit" type="double">
+            <column name="willingtopaypertwit" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="startdate" type="timestamp">
+            <column name="startdate" not-null="true" />
+        </property>
+        <property name="senttotwitterdate" type="timestamp">
+            <column name="senttotwitterdate" not-null="true" />
+        </property>
+        <property name="closedintwitterdate" type="timestamp">
+            <column name="closedintwitterdate" not-null="true" />
+        </property>
+        <property name="ischarityonly" type="boolean">
+            <column name="ischarityonly" />
+        </property>
+        <property name="isresultshidden" type="boolean">
+            <column name="isresultshidden" />
+        </property>
+        <property name="charitycustom" type="text">
+            <column name="charitycustom" not-null="true" />
+        </property>
+        <property name="charitycustomurl" type="text">
+            <column name="charitycustomurl" not-null="true" />
+        </property>
+        <property name="charityonlyallowcustom" type="boolean">
+            <column name="charityonlyallowcustom" />
+        </property>
+        <property name="dneeromarkuppercent" type="double">
+            <column name="dneeromarkuppercent" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="resellercode" type="string">
+            <column name="resellercode" />
+        </property>
+        <property name="issysadminreviewed" type="boolean">
+            <column name="issysadminreviewed" not-null="true" />
+        </property>
+        <property name="issysadminrejected" type="boolean">
+            <column name="issysadminrejected" not-null="true" />
+        </property>
+        <property name="scorebysysadmin" type="int">
+            <column name="scorebysysadmin" not-null="true" />
+        </property>
+        <property name="twitterid" type="java.lang.Long">
+            <column name="twitterid" not-null="true" />
+        </property>
+
+    </class>
+</hibernate-mapping>

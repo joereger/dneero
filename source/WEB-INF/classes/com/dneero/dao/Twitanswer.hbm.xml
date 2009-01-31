@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 17, 2006 3:45:28 PM by Hibernate Tools 3.1.0.beta4 -->
+<hibernate-mapping>
+    <class name="com.dneero.dao.Twitanswer" table="twitanswer">
+        <cache usage="transactional"/>
+        <id name="twitanswerid" type="int">
+            <column name="twitanswerid" />
+            <generator class="native" />
+        </id>
+        <many-to-one name="twitask" column="twitaskid" not-null="true" insert="false" update="false"/>
+        <property name="twitaskid" type="int">
+            <column name="twitaskid" not-null="true" />
+        </property>
+        <property name="userid" type="int">
+            <column name="userid" not-null="true" />
+        </property>
+        <property name="responsedate" type="timestamp">
+            <column name="responsedate" not-null="true" />
+        </property>
+        <property name="answer" type="text">
+            <column name="answer" not-null="true" />
+        </property>
+        <property name="isforcharity" type="boolean">
+            <column name="isforcharity" />
+        </property>
+        <property name="charityname" type="text">
+            <column name="charityname" not-null="true" />
+        </property>
+        <property name="status" type="int">
+            <column name="status" not-null="true" />
+        </property>
+        <property name="ispaid" type="boolean">
+            <column name="ispaid" />
+        </property>
+        <property name="isresearcherreviewed" type="boolean">
+            <column name="isresearcherreviewed" not-null="true" />
+        </property>
+        <property name="issysadminreviewed" type="boolean">
+            <column name="issysadminreviewed" not-null="true" />
+        </property>
+        <property name="isresearcherrejected" type="boolean">
+            <column name="isresearcherrejected" not-null="true" />
+        </property>
+        <property name="issysadminrejected" type="boolean">
+            <column name="issysadminrejected" not-null="true" />
+        </property>
+        <property name="scorebyresearcher" type="int">
+            <column name="scorebyresearcher" not-null="true" />
+        </property>
+        <property name="scorebysysadmin" type="int">
+            <column name="scorebysysadmin" not-null="true" />
+        </property>
+        <property name="twitterusername" type="text">
+            <column name="twitterusername" not-null="true" />
+        </property>
+        <property name="twitterid" type="java.lang.Long">
+            <column name="twitterid" not-null="true" />
+        </property>
+        <property name="twitterinreplytostatusid" type="java.lang.Long">
+            <column name="twitterinreplytostatusid" not-null="true" />
+        </property>
+        <property name="twittertext" type="text">
+            <column name="twittertext" not-null="true" />
+        </property>
+        <property name="twittercreatedat" type="timestamp">
+            <column name="twittercreatedat" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

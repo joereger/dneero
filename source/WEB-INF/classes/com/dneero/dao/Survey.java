@@ -72,7 +72,6 @@ public class Survey extends BasePersistentClass implements java.io.Serializable,
      private Set<Response> responses = new HashSet<Response>();
      private Set<Surveydiscuss> surveydiscusses = new HashSet<Surveydiscuss>();
      private Set<Surveyincentive> surveyincentives = new HashSet<Surveyincentive>();
-
      private Incentive incentive;
 
     public static Survey get(int id) {

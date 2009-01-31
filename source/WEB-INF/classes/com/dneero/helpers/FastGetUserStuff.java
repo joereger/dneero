@@ -31,14 +31,16 @@ public class FastGetUserStuff {
                 Response response=rspsIt.next();
                 surveyids.add(response.getSurveyid());
             }
-            List<Survey> svys = HibernateUtil.getSession().createCriteria(Survey.class)
-                                               .add(Restrictions.in("surveyid", surveyids))
-                                               .setCacheable(true)
-                                               .list();
-            if (svys!=null && svys.size()>0){
-                for (Iterator<Survey> svysIt=svys.iterator(); svysIt.hasNext();) {
-                    Survey survey=svysIt.next();
-                    surveys.add(survey);
+            if (surveyids!=null && surveyids.size()>0){
+                List<Survey> svys = HibernateUtil.getSession().createCriteria(Survey.class)
+                                                   .add(Restrictions.in("surveyid", surveyids))
+                                                   .setCacheable(true)
+                                                   .list();
+                if (svys!=null && svys.size()>0){
+                    for (Iterator<Survey> svysIt=svys.iterator(); svysIt.hasNext();) {
+                        Survey survey=svysIt.next();
+                        surveys.add(survey);
+                    }
                 }
             }
         }

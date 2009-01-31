@@ -84,7 +84,7 @@ public class PublicProfile implements Serializable {
 
         userquestions = new ArrayList<Question>();
         List<Question> questions = HibernateUtil.getSession().createCriteria(Question.class)
-                                           .add(Restrictions.eq("userid", blogger.getUserid()))
+                                           .add(Restrictions.eq("userid", user.getUserid()))
                                            .add(Restrictions.eq("isuserquestion", true))
                                            .add(Restrictions.eq("issysadminrejected", false))
                                            .setCacheable(true)

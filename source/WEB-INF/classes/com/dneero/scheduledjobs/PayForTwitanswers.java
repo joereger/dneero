@@ -20,14 +20,14 @@ import java.util.Iterator;
  * Date: Jul 19, 2006
  * Time: 2:22:28 PM
  */
-public class PayForSurveyResponsesOncePosted implements Job {
+public class PayForTwitanswers implements Job {
 
- 
+
 
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
         Logger logger = Logger.getLogger(this.getClass().getName());
         if (InstanceProperties.getRunScheduledTasksOnThisInstance()){
-            logger.debug("execute() PayForSurveyResponsesOncePosted called");
+            logger.debug("execute() CloseSurveysByDate called");
             List<Response> responses = HibernateUtil.getSession().createCriteria(Response.class)
                                    .add(Restrictions.eq("poststatus", Response.POSTATUS_POSTED))
                                    .add(Restrictions.ne("issysadminrejected", true))
@@ -64,7 +64,7 @@ public class PayForSurveyResponsesOncePosted implements Job {
                         try{response.save();}catch(Exception ex){logger.error("",ex);}
                         //@todo Notify user via email that they've been paid... thank them for their effort
                         if (user.getEmail()!=null && !user.getEmail().equals("")){
-                                
+
                         }
                         //Update responsehtml
                         UpdateResponsePoststatus.processSingleResponse(response);

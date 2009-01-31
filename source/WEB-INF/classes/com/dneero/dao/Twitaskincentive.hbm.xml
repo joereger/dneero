@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 17, 2006 3:45:28 PM by Hibernate Tools 3.1.0.beta4 -->
+<hibernate-mapping>
+    <class name="com.dneero.dao.Twitaskincentive" table="twitaskincentive">
+        <cache usage="transactional"/>
+        <id name="twitaskincentiveid" type="int">
+            <column name="twitaskincentiveid" />
+            <generator class="native" />
+        </id>
+
+        <set name="twitaskincentiveoptions" inverse="true" cascade="all-delete-orphan">
+            <cache usage="transactional"/>
+            <key column="twitaskincentiveid"></key>
+            <one-to-many class="com.dneero.dao.Twitaskincentiveoption" not-found="ignore"></one-to-many>
+        </set>
+
+        <property name="twitaskid" type="int">
+            <column name="twitaskid" not-null="true" />
+        </property>
+
+        <property name="type" type="int">
+            <column name="type" not-null="true" />
+        </property>
+        
+    </class>
+</hibernate-mapping>

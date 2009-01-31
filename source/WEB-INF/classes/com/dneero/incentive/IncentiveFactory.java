@@ -1,6 +1,7 @@
 package com.dneero.incentive;
 
 import com.dneero.dao.Surveyincentive;
+import com.dneero.dao.Twitaskincentive;
 
 /**
  * User: Joe Reger Jr
@@ -21,6 +22,7 @@ public class IncentiveFactory {
         }
         return null;
     }
+
 
     public static Incentive getDefaultIncentive(){
         return new IncentiveCash(null);    

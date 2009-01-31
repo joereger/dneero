@@ -139,6 +139,27 @@
 
     <job>
         <job-detail>
+          <name>payForTwitanswers</name>
+          <group>surveyJobs</group>
+          <job-class>com.dneero.scheduledjobs.PayForTwitanswers</job-class>
+          <volatility>false</volatility>
+          <durability>false</durability>
+          <recover>false</recover>
+        </job-detail>
+        <trigger>
+          <cron>
+            <name>payForTwitanswersTrigger</name>
+            <group>surveyTriggers</group>
+            <job-name>payForTwitanswers</job-name>
+            <job-group>surveyJobs</job-group>
+            <!-- Fire at 4:45am every day -->
+            <cron-expression>0 45 4 * * ?</cron-expression>
+          </cron>
+        </trigger>
+    </job>
+
+    <job>
+        <job-detail>
           <name>moveMoneyAround</name>
           <group>surveyJobs</group>
           <job-class>com.dneero.scheduledjobs.MoveMoneyAround</job-class>
@@ -259,6 +280,48 @@
         </trigger>
     </job>
 
+    <job>
+        <job-detail>
+          <name>pendingToOpenTwitasks</name>
+          <group>surveyJobs</group>
+          <job-class>com.dneero.scheduledjobs.PendingToOpenTwitasks</job-class>
+          <volatility>false</volatility>
+          <durability>false</durability>
+          <recover>false</recover>
+        </job-detail>
+        <trigger>
+          <cron>
+            <name>pendingToOpenTwitasksTrigger</name>
+            <group>surveyTriggers</group>
+            <job-name>pendingToOpenTwitasks</job-name>
+            <job-group>surveyJobs</job-group>
+            <!-- every x minutes-->
+            <cron-expression>0 20 * * * ?</cron-expression>
+          </cron>
+        </trigger>
+    </job>
+
+    <job>
+        <job-detail>
+          <name>closeTwitasks</name>
+          <group>surveyJobs</group>
+          <job-class>com.dneero.scheduledjobs.CloseTwitasks</job-class>
+          <volatility>false</volatility>
+          <durability>false</durability>
+          <recover>false</recover>
+        </job-detail>
+        <trigger>
+          <cron>
+            <name>closeTwitasksTrigger</name>
+            <group>surveyTriggers</group>
+            <job-name>closeTwitasks</job-name>
+            <job-group>surveyJobs</job-group>
+            <!-- every x minutes-->
+            <cron-expression>0 20 * * * ?</cron-expression>
+          </cron>
+        </trigger>
+    </job>
+
 
     <job>
         <job-detail>
@@ -277,6 +340,27 @@
             <job-group>surveyJobs</job-group>
             <!-- on 40th minute at specified hours -->
             <cron-expression>0 40 8,10,12,14,16,18,20,22 * * ?</cron-expression>
+          </cron>
+        </trigger>
+    </job>
+
+    <job>
+        <job-detail>
+          <name>collectTwitterAnswers</name>
+          <group>surveyJobs</group>
+          <job-class>com.dneero.scheduledjobs.CollectTwitterAnswers</job-class>
+          <volatility>false</volatility>
+          <durability>false</durability>
+          <recover>false</recover>
+        </job-detail>
+        <trigger>
+          <cron>
+            <name>collectTwitterAnswersTrigger</name>
+            <group>collectTwitterAnswers</group>
+            <job-name>systemStats</job-name>
+            <job-group>surveyJobs</job-group>
+            <!-- on 40th minute at specified hours -->
+            <cron-expression>0 56 8,10,12,14,16,18,20,22 * * ?</cron-expression>
           </cron>
         </trigger>
     </job>
@@ -368,6 +452,8 @@
           </cron>
         </trigger>
     </job>
+
+
 
     <job>
         <job-detail>
