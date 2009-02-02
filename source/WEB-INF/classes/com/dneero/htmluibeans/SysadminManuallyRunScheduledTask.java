@@ -196,4 +196,33 @@ public class SysadminManuallyRunScheduledTask implements Serializable {
 
 
 
+
+    public String runCloseTwitasks(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
+        try{CloseTwitasks task = new CloseTwitasks();
+            task.execute(null);} catch (Exception ex){logger.error("",ex);}
+        return "sysadminmanuallyrunscheduledtask";
+    }
+
+    public String runCollectTwitterAnswers(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
+        try{CollectTwitterAnswers task = new CollectTwitterAnswers();
+            task.execute(null);} catch (Exception ex){logger.error("",ex);}
+        return "sysadminmanuallyrunscheduledtask";
+    }
+
+    public String runPayForTwitanswers(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
+        try{PayForTwitanswers task = new PayForTwitanswers();
+            task.execute(null);} catch (Exception ex){logger.error("",ex);}
+        return "sysadminmanuallyrunscheduledtask";
+    }
+
+    public String runPendingToOpenTwitasks(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
+        try{PendingToOpenTwitasks task = new PendingToOpenTwitasks();
+            task.execute(null);} catch (Exception ex){logger.error("",ex);}
+        return "sysadminmanuallyrunscheduledtask";
+    }
+
 }

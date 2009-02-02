@@ -151,14 +151,14 @@ ResearcherSurveyDetail06 researcherSurveyDetail06 = (ResearcherSurveyDetail06)Pa
                 </td>
             </tr>
 
-            <tr>
-                <td valign="top">
-                    <font class="formfieldnamefont">Survey Creation Fee</font>
-                </td>
-                <td valign="top">
-                    <font class="normalfont">$5.00</font>
-                </td>
-            </tr>
+            <!--<tr>-->
+                <!--<td valign="top">-->
+                    <!--<font class="formfieldnamefont">Survey Creation Fee</font>-->
+                <!--</td>-->
+                <!--<td valign="top">-->
+                    <!--<font class="normalfont">$5.00</font>-->
+                <!--</td>-->
+            <!--</tr>-->
 
             <tr>
                 <td valign="top">

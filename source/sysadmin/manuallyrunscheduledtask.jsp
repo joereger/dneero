@@ -69,6 +69,14 @@ SysadminManuallyRunScheduledTask sysadminManuallyRunScheduledTask = (SysadminMan
                     sysadminManuallyRunScheduledTask.runPurgeDeadUserSessions();
                 } else if (request.getParameter("task").equals("HtmlCacheFromDbcachePurgeStaleItems")){
                     sysadminManuallyRunScheduledTask.runHtmlCacheFromDbcachePurgeStaleItems();
+                } else if (request.getParameter("task").equals("CloseTwitasks")){
+                    sysadminManuallyRunScheduledTask.runCloseTwitasks();
+                } else if (request.getParameter("task").equals("CollectTwitterAnswers")){
+                    sysadminManuallyRunScheduledTask.runCollectTwitterAnswers();
+                } else if (request.getParameter("task").equals("PayForTwitanswers")){
+                    sysadminManuallyRunScheduledTask.runPayForTwitanswers();
+                } else if (request.getParameter("task").equals("PendingToOpenTwitasks")){
+                    sysadminManuallyRunScheduledTask.runPendingToOpenTwitasks();
                 } else {
                     throw new ValidationException("task not found.");    
                 }
@@ -135,6 +143,10 @@ SysadminManuallyRunScheduledTask sysadminManuallyRunScheduledTask = (SysadminMan
                 <br/><a href="/sysadmin/manuallyrunscheduledtask.jsp?action=run&task=UpdateSurveyImpressionsPaid"><font class="tinyfont">UpdateSurveyImpressionsPaid</font></a>
                 <br/><a href="/sysadmin/manuallyrunscheduledtask.jsp?action=run&task=PurgeDeadUserSessions"><font class="tinyfont">PurgeDeadUserSessions</font></a>
                 <br/><a href="/sysadmin/manuallyrunscheduledtask.jsp?action=run&task=HtmlCacheFromDbcachePurgeStaleItems"><font class="tinyfont">HtmlCacheFromDbcachePurgeStaleItems</font></a>
+                <br/><a href="/sysadmin/manuallyrunscheduledtask.jsp?action=run&task=CloseTwitasks"><font class="tinyfont">CloseTwitasks</font></a>
+                <br/><a href="/sysadmin/manuallyrunscheduledtask.jsp?action=run&task=CollectTwitterAnswers"><font class="tinyfont">CollectTwitterAnswers</font></a>
+                <br/><a href="/sysadmin/manuallyrunscheduledtask.jsp?action=run&task=PayForTwitanswers"><font class="tinyfont">PayForTwitanswers</font></a>
+                <br/><a href="/sysadmin/manuallyrunscheduledtask.jsp?action=run&task=PendingToOpenTwitasks"><font class="tinyfont">PendingToOpenTwitasks</font></a>
             </div>
         </td>
     </tr>

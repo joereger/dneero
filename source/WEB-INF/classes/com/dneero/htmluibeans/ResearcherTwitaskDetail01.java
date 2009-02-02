@@ -43,7 +43,7 @@ public class ResearcherTwitaskDetail01 implements Serializable {
         if (Num.isinteger(Pagez.getRequest().getParameter("twitaskid"))){
             twitask = Twitask.get((Integer.parseInt(Pagez.getRequest().getParameter("twitaskid"))));
         }
-        if (twitask==null|| twitask.getTwitaskid()==0){
+        if (twitask==null || twitask.getTwitaskid()==0){
             beginViewNewSurvey();
         }
         if (twitask!=null){
@@ -106,7 +106,7 @@ public class ResearcherTwitaskDetail01 implements Serializable {
 
             UserSession userSession = Pagez.getUserSession();
 
-            Twitask twitask = new Twitask();
+            //Twitask twitask = new Twitask();
             twitask.setUserid(userSession.getUser().getUserid());
             twitask.setStatus(Twitask.STATUS_DRAFT);
             twitask.setCharitycustom("");
@@ -120,7 +120,6 @@ public class ResearcherTwitaskDetail01 implements Serializable {
             twitask.setNumberofrespondentsrequested(500);
             twitask.setPlid(Pagez.getUserSession().getPl().getPlid());
             twitask.setResellercode("");
-            twitask.setWillingtopaypertwit(0.0);
             twitask.setScorebysysadmin(0);
             twitask.setSenttotwitterdate(Time.xYearsAgoEnd(Calendar.getInstance(), 20).getTime());
             twitask.setClosedintwitterdate(Time.xYearsAgoEnd(Calendar.getInstance(), 20).getTime());

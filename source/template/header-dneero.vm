@@ -143,13 +143,13 @@
                 #if ($navtab == "researchers")
                     #if ($userSession.isloggedin && $userSession.user.researcherid>0)
                         <img src="/images/clear.gif" alt="" width="10" height="1"/>
-                        <a href="/researcher/index.jsp"><font class="subnavfont" style="color: #000000;">My Conversations</font></a>
+                        <a href="/researcher/index.jsp"><font class="subnavfont" style="color: #000000;">Main</font></a>
                         <img src="/images/clear.gif" alt="" width="10" height="1"/>
                         <a href="/researcher/panels.jsp"><font class="subnavfont" style="color: #000000;">Panels</font></a>
                         <img src="/images/clear.gif" alt="" width="10" height="1"/>
                         <a href="/researcher/rank-list.jsp"><font class="subnavfont" style="color: #000000;">Rankings</font></a>
                         <img src="/images/clear.gif" alt="" width="10" height="1"/>
-                        <a href="/researcher/reviewables.jsp"><font class="subnavfont" style="color: #000000;">Reviewable Items</font></a>        
+                        <a href="/researcher/reviewables.jsp"><font class="subnavfont" style="color: #000000;">Reviewables</font></a>        
                         <img src="/images/clear.gif" alt="" width="10" height="1"/>
                         <a href="/researcher/researcherdetails.jsp"><font class="subnavfont" style="color: #000000;">Igniter Details</font></a>
                         <img src="/images/clear.gif" alt="" width="10" height="1"/>

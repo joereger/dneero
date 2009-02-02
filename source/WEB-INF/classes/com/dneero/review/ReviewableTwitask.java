@@ -3,9 +3,11 @@ package com.dneero.review;
 import com.dneero.dao.*;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.htmlui.ValidationException;
+import com.dneero.htmlui.Pagez;
 import com.dneero.survey.servlet.EmbedCacheFlusher;
 import com.dneero.survey.servlet.SurveyAsHtml;
 import com.dneero.util.Str;
+import com.dneero.scheduledjobs.ResearcherRemainingBalanceOperations;
 import org.apache.log4j.Logger;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
@@ -78,11 +80,11 @@ public class ReviewableTwitask implements Reviewable {
         out.append("<font class=\"mediumfont\">");
         out.append("This is a new Twitter Question campaign.");
         out.append("</font>");
-        out.append("<br/>");
-        out.append("<font class=\"tinyfont\"><b>");
+        out.append("<br/><br/>");
+        out.append("<font class=\"mediumfont\"><b>");
         out.append("Question: "+Str.cleanForHtml(twitask.getQuestion()));
         out.append("</b></font>");
-        out.append("<br/>");
+        out.append("<br/><br/>");
         out.append("<font class=\"tinyfont\"><b>");
         out.append("If you approve this a new Twitter Question campaign will be launched.");
         out.append("</b></font>");
@@ -97,6 +99,7 @@ public class ReviewableTwitask implements Reviewable {
         Logger logger = Logger.getLogger(this.getClass().getName());
         twitask.setIssysadminrejected(true);
         twitask.setIssysadminreviewed(true);
+        twitask.setStatus(Twitask.STATUS_DRAFT);
         try{twitask.save();}catch(Exception ex){logger.error("", ex);}
     }
 
@@ -106,9 +109,14 @@ public class ReviewableTwitask implements Reviewable {
 
     public void approveBySysadmin() throws ValidationException {
         Logger logger = Logger.getLogger(this.getClass().getName());
+        //Set to waiting for funds
         twitask.setIssysadminrejected(false);
         twitask.setIssysadminreviewed(true);
+        twitask.setStatus(Twitask.STATUS_WAITINGFORFUNDS);
         try{twitask.save();}catch(Exception ex){logger.error("", ex);}
+        //Process researcher money
+        User user = User.get(twitask.getUserid());
+        ResearcherRemainingBalanceOperations.processResearcher(Researcher.get(user.getResearcherid()));
     }
 
 
@@ -124,6 +132,7 @@ public class ReviewableTwitask implements Reviewable {
         ArrayList<Reviewable> out = new ArrayList<Reviewable>();
         List<Twitask> objs = (ArrayList)HibernateUtil.getSession().createCriteria(Twitask.class)
                                            .add(Restrictions.eq("issysadminreviewed", false))
+                                           .add(Restrictions.eq("status", Twitask.STATUS_WAITINGFORAPPROVAL))
                                            .addOrder(Order.desc("twitaskid"))
                                            .setCacheable(true)
                                            .list();

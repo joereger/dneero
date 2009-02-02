@@ -8,6 +8,7 @@ import org.hibernate.criterion.Restrictions;
 import org.hibernate.criterion.Order;
 import com.dneero.dao.Survey;
 import com.dneero.dao.Twitask;
+import com.dneero.dao.Twitanswer;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.dao.hibernate.NumFromUniqueResult;
 import com.dneero.util.GeneralException;
@@ -41,10 +42,12 @@ public class CloseTwitasks implements Job {
                                    .list();
             for (Iterator<Twitask> iterator = twitasks.iterator(); iterator.hasNext();) {
                 Twitask twitask = iterator.next();
-                int respondentssofar = NumFromUniqueResult.getInt("select count(*) from twitanswer where twitaskid='"+twitask.getTwitaskid()+"'");
-                if (respondentssofar>twitask.getNumberofrespondentsrequested()){
-                    closeTwitask(twitask);    
+                int respondentssofar = NumFromUniqueResult.getInt("select count(*) from Twitanswer where twitaskid='"+twitask.getTwitaskid()+"' and status='"+Twitanswer.STATUS_APPROVED+"'");
+                if (respondentssofar>=twitask.getNumberofrespondentsrequested()){
+                    closeTwitask(twitask);
+                    continue;
                 }
+
             }
         } else {
             logger.debug("InstanceProperties.getRunScheduledTasksOnThisInstance() is FALSE for this instance so this task is not being executed.");

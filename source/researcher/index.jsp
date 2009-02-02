@@ -145,10 +145,10 @@ if (Pagez.getUserSession().getIsloggedin() && (Pagez.getUserSession().getUser().
                         </div>
                         <div class="rounded" style="padding: 15px; margin: 5px; background: #ffffff;">
                             <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-                                <a href="/researcher/researchertwitaskdetail_01.jsp"><font class="mediumfont" style="color: #596697;">Start a New TwitterAsk</font></a>
+                                <a href="/researcher/researchertwitaskdetail_01.jsp"><font class="mediumfont" style="color: #596697;">Ask a Twitter Question</font></a>
                             </td></tr>
                             <tr><td valign="top"></td><td valign="top">
-                                <font class="smallfont">As Twitter users a question. This step-by-step wizard will guide you through the process.  Your TwitterAsk can be ready to roll in minutes.</font>
+                                <font class="smallfont">Ask Twitter users a question. This step-by-step wizard will guide you through the process.  Your Twitter Question can be ready to roll in minutes.</font>
                             </td></tr></table>
                         </div>
                         <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
@@ -226,7 +226,24 @@ if (Pagez.getUserSession().getIsloggedin() && (Pagez.getUserSession().getUser().
                             cols.add(new GridCol("", "<$copylink$>", false, "", "smallfont"));
                             cols.add(new GridCol("", "<$deletelink$>", false, "", "smallfont"));
                         %>
-                        <%=Grid.render(researcherSurveyList.getSurveys(), cols, 50, "/researcher/index.jsp", "page")%>
+                        <%=Grid.render(researcherSurveyList.getSurveys(), cols, 15, "/researcher/index.jsp", "page")%>
+                    <%}%>
+
+                    <br/><br/>
+                    <font class="largefont" style="color: #cccccc;">Twitter Questions You've Asked</font>
+                    <br/>
+                    <%if (researcherSurveyList.getSurveys()==null || researcherSurveyList.getSurveys().size()==0){%>
+                        <font class="normalfont">You haven't yet created any Twitter Questions. <a href="/researcher/researchertwitaskdetail_01.jsp">Ignite a New Conversation</a>.</font>
+                    <%} else {%>
+                        <%
+                            ArrayList<GridCol> cols=new ArrayList<GridCol>();
+                            cols.add(new GridCol("Title", "<a href=\"/twitask.jsp?twitaskid=<$twitask.twitaskid$>\"><font style=\"font-weight:bold;\"><$twitask.question$></font></a>", false, "", "normalfont"));
+                            cols.add(new GridCol("Status", "<$status$>", false, "", "smallfont", "", ""));
+                            cols.add(new GridCol("", "<$editorreviewlink$>", false, "", "smallfont"));
+                            cols.add(new GridCol("", "<$resultslink$>", false, "", "smallfont"));
+                            cols.add(new GridCol("", "<$deletelink$>", false, "", "smallfont"));
+                        %>
+                        <%=Grid.render(researcherSurveyList.getTwitasks(), cols, 15, "/researcher/index.jsp", "pagetwitask")%>
                     <%}%>
 
                 </td>

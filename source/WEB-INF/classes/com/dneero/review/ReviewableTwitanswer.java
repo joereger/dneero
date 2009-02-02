@@ -2,6 +2,7 @@ package com.dneero.review;
 
 import com.dneero.dao.*;
 import com.dneero.dao.hibernate.HibernateUtil;
+import com.dneero.dao.hibernate.NumFromUniqueResult;
 import com.dneero.htmlui.ValidationException;
 import com.dneero.survey.servlet.EmbedCacheFlusher;
 import com.dneero.survey.servlet.SurveyAsHtml;
@@ -82,7 +83,7 @@ public class ReviewableTwitanswer implements Reviewable {
         out.append("This is a Twitter Answer.");
         out.append("</font>");
         out.append("<br/>");
-        out.append("<font class=\"tinyfont\"><b>");
+        out.append("<font class=\"mediumfont\"><b>");
         out.append("Question: "+Str.cleanForHtml(twitask.getQuestion()));
         out.append("<br/>");
         out.append("Answer: "+Str.cleanForHtml(twitanswer.getAnswer()));
@@ -94,6 +95,7 @@ public class ReviewableTwitanswer implements Reviewable {
         Logger logger = Logger.getLogger(this.getClass().getName());
         twitanswer.setIsresearcherrejected(true);
         twitanswer.setIsresearcherreviewed(true);
+        twitanswer.setIssysadminreviewed(false);
         try{twitanswer.save();}catch(Exception ex){logger.error("", ex);}
     }
 
@@ -101,6 +103,7 @@ public class ReviewableTwitanswer implements Reviewable {
         Logger logger = Logger.getLogger(this.getClass().getName());
         twitanswer.setIssysadminrejected(true);
         twitanswer.setIssysadminreviewed(true);
+        twitanswer.setStatus(Twitanswer.STATUS_REJECTED);
         try{twitanswer.save();}catch(Exception ex){logger.error("", ex);}
     }
 
@@ -113,8 +116,20 @@ public class ReviewableTwitanswer implements Reviewable {
 
     public void approveBySysadmin() throws ValidationException {
         Logger logger = Logger.getLogger(this.getClass().getName());
+        Twitask twitask = Twitask.get(twitanswer.getTwitaskid());
+        //See if it's too late
+        boolean istoolate = false;
+        int respondentssofar = NumFromUniqueResult.getInt("select count(*) from Twitanswer where twitaskid='"+twitask.getTwitaskid()+"' and status='"+Twitanswer.STATUS_APPROVED+"'");
+        if (respondentssofar>=twitask.getNumberofrespondentsrequested()){
+            istoolate = true;
+        }
+        //Record approval
         twitanswer.setIssysadminrejected(false);
         twitanswer.setIssysadminreviewed(true);
+        twitanswer.setStatus(Twitanswer.STATUS_APPROVED);
+        if (istoolate){
+            twitanswer.setStatus(Twitanswer.STATUS_TOOLATE);
+        }
         try{twitanswer.save();}catch(Exception ex){logger.error("", ex);}
     }
 
@@ -127,6 +142,7 @@ public class ReviewableTwitanswer implements Reviewable {
         //@todo optimize with a single hql call
         List<Twitanswer> objs = (ArrayList)HibernateUtil.getSession().createCriteria(Twitanswer.class)
                                    .add(Restrictions.eq("isresearcherreviewed", false))
+                                   .add(Restrictions.eq("status", Twitanswer.STATUS_PENDINGREVIEW))
                                    .addOrder(Order.desc("twitanswerid"))
                                    .setCacheable(true)
                                    .list();
@@ -144,9 +160,8 @@ public class ReviewableTwitanswer implements Reviewable {
     public ArrayList<Reviewable> getPendingForSysadmin() {
         ArrayList<Reviewable> out = new ArrayList<Reviewable>();
         List<Twitanswer> objs = (ArrayList)HibernateUtil.getSession().createCriteria(Twitanswer.class)
-                                           .add(Restrictions.eq("isresearcherreviewed", true))
                                            .add(Restrictions.eq("issysadminreviewed", false))
-                                           .add(Restrictions.eq("isresearcherrejected", true))
+                                           .add(Restrictions.eq("status", Twitanswer.STATUS_PENDINGREVIEW))
                                            .addOrder(Order.desc("twitanswerid"))
                                            .setCacheable(true)
                                            .list();

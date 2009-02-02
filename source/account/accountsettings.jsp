@@ -40,10 +40,10 @@ AccountSettings accountSettings = (AccountSettings) Pagez.getBeanMgr().get("Acco
         <input type="hidden" name="dpage" value="/account/accountsettings.jsp">
         <input type="hidden" name="action" value="save">
 
-            <table cellpadding="3" cellspacing="0" border="0">
+            <table cellpadding="8" cellspacing="0" border="0">
 
                 <tr>
-                    <td valign="top">
+                    <td valign="top" width="35%">
                         <font class="formfieldnamefont">First Name</font>
                     </td>
                     <td valign="top">
@@ -101,7 +101,7 @@ AccountSettings accountSettings = (AccountSettings) Pagez.getBeanMgr().get("Acco
                     <td valign="top">
                         <font class="formfieldnamefont">Notification of New Conversations<br/>Every X Days</font>
                         <br/>
-                        <font class="tinyfont">Learn about new conversations before others.<br/>Of course we'll only disturb your inbox<br/>if there's actually a new conversation<br/>that you qualify for.</font>
+                        <font class="tinyfont">Learn about new conversations before others. Of course we'll only disturb your inbox if there's actually a new conversation that you qualify for.</font>
                     </td>
                     <td valign="top">
                         <%=Dropdown.getHtml("notifyofnewsurveysbyemaileveryexdays",String.valueOf(accountSettings.getNotifyofnewsurveysbyemaileveryexdays()), ((AccountSettings)Pagez.getBeanMgr().get("AccountSettings")).getNotificationFrequencies(), "","")%>
@@ -112,7 +112,7 @@ AccountSettings accountSettings = (AccountSettings) Pagez.getBeanMgr().get("Acco
                     <td valign="top">
                         <font class="formfieldnamefont">Non Critical Email</font>
                         <br/>
-                        <font class="tinyfont">We only send messages that we believe<br/>you'll want to see.  However, you can opt<br/>out of everything but the most critical<br/>account-related and legal messages.</font>
+                        <font class="tinyfont">We only send messages that we believe you'll want to see.  However, you can opt out of everything but the most critical account-related and legal messages.</font>
                     </td>
                     <td valign="top">
                         <%=CheckboxBoolean.getHtml("allownoncriticalemails", accountSettings.getAllownoncriticalemails(), "", "")%>
@@ -124,7 +124,7 @@ AccountSettings accountSettings = (AccountSettings) Pagez.getBeanMgr().get("Acco
                     <td valign="top">
                         <font class="formfieldnamefont">Email Instant Notify</font>
                         <br/>
-                        <font class="tinyfont">If you like we can instantly notify<br/>you of new conversations by email.  No need to wait<br/>for the once a day message!</font>
+                        <font class="tinyfont">If you like we can instantly notify you of new conversations by email.  No need to wait for the once a day message!</font>
                     </td>
                     <td valign="top">
                         <%=CheckboxBoolean.getHtml("instantnotifybyemailison", accountSettings.getInstantnotifybyemailison(), "", "")%>
@@ -134,33 +134,35 @@ AccountSettings accountSettings = (AccountSettings) Pagez.getBeanMgr().get("Acco
 
                 <tr>
                     <td valign="top">
-                        <font class="formfieldnamefont">Twitter Instant Notify</font>
+                        <font class="formfieldnamefont">Twitter Username (Optional)</font>
                         <br/>
-                        <font class="tinyfont">If you like we can also instantly notify<br/>you of new conversations via Twitter.</font>
+                        <font class="tinyfont">Allows you to reply to Twitter Questions and if you like we can also instantly notify you of new conversations via Twitter. Follow us <a href="http://twitter.com/dNeero">here</a>.</font>
                     </td>
                     <td valign="top">
+                        <%=Textbox.getHtml("instantnotifytwitterusername", accountSettings.getInstantnotifytwitterusername(), 255, 20, "", "")%>
+                        <br/>
+                        <font class="tinyfont">Note: this should be something like "joereger" and not your email address.</font>
+                        <br/>
                         <%=CheckboxBoolean.getHtml("instantnotifybytwitterison", accountSettings.getInstantnotifybytwitterison(), "", "")%>
                         <font class="formfieldnamefont">Instantly notify me via Twitter</font>
                         <br/>
-                        <%=Textbox.getHtml("instantnotifytwitterusername", accountSettings.getInstantnotifytwitterusername(), 255, 20, "", "")%>
-                        <br/>
-                        <font class="tinyfont">Twitter Username.<br/>Note: this should be something like "joereger"<br/>and not your email address.<br/>Note: You must add info@dneero.com as a friend<br/>in your Twitter account or your notifications<br/>will not arrive.</font>
+
+
                     </td>
                 </tr>
 
                 <tr>
                     <td valign="top">
-                        <font class="formfieldnamefont">XMPP/Jabber Instant Notify</font>
+                        <font class="formfieldnamefont">XMPP/Jabber Address (Optional)</font>
                         <br/>
-                        <font class="tinyfont">If you like we can also instantly notify<br/>you of new conversations via XMPP/Jabber.<br/>This works with a Google Chat account<br/>or other Jabber servers.</font>
+                        <font class="tinyfont">If you like we can also instantly notify you of new conversations via XMPP/Jabber. This works with a Google Chat account or other Jabber servers.</font>
                     </td>
                     <td valign="top">
+                        <%=Textbox.getHtml("instantnotifyxmppusername", accountSettings.getInstantnotifyxmppusername(), 255, 20, "", "")%>
+                        <br/>
                         <%=CheckboxBoolean.getHtml("instantnotifyxmppison", accountSettings.getInstantnotifyxmppison(), "", "")%>
                         <font class="formfieldnamefont">Instantly notify me via XMPP/Jabber</font>
                         <br/>
-                        <%=Textbox.getHtml("instantnotifyxmppusername", accountSettings.getInstantnotifyxmppusername(), 255, 20, "", "")%>
-                        <br/>
-                        <font class="tinyfont">Jabber Address</font>
                     </td>
                 </tr>
 

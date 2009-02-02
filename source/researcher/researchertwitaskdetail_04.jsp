@@ -81,7 +81,7 @@ ResearcherTwitaskDetail04 researcherTwitaskDetail04= (ResearcherTwitaskDetail04)
 
     <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
     <img src="/images/lightbulb_on.png" alt="" align="right"/>
-    Target your conversation to the correct demographic.   Be careful not to cast too narrow a net.  In the final step we'll tell you how many bloggers fulfill your criteria and you'll have the opportunity to widen the search.
+    Target your Twitter Question to the correct demographic.   Be careful not to cast too narrow a net.  Often it's best to start with campaigns open to all... or all U.S., for example.
     <br/><br/><br/>
     </font></div></center>
 

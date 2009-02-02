@@ -42,9 +42,6 @@
         <property name="numberofrespondentsrequested" type="int">
             <column name="numberofrespondentsrequested" not-null="true" />
         </property>
-        <property name="willingtopaypertwit" type="double">
-            <column name="willingtopaypertwit" precision="22" scale="0" not-null="true" />
-        </property>
         <property name="startdate" type="timestamp">
             <column name="startdate" not-null="true" />
         </property>
@@ -56,9 +53,6 @@
         </property>
         <property name="ischarityonly" type="boolean">
             <column name="ischarityonly" />
-        </property>
-        <property name="isresultshidden" type="boolean">
-            <column name="isresultshidden" />
         </property>
         <property name="charitycustom" type="text">
             <column name="charitycustom" not-null="true" />

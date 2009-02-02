@@ -18,6 +18,8 @@ import org.apache.log4j.Level;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerFactory;
 import org.quartz.impl.StdSchedulerFactory;
+import org.slf4j.LoggerFactory;
+
 
 import javax.management.MBeanServer;
 import javax.management.MBeanServerFactory;
@@ -29,6 +31,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+
 
 /**
  * User: Joe Reger Jr
@@ -48,9 +51,9 @@ public class ApplicationStartup implements ServletContextListener {
     public void contextInitialized(ServletContextEvent cse) {
        System.out.println("DNEERO: Application initialized");
         printBug();
-       //Shut down mbeans, if they're running
-       shutdownCacheMBean();
-       //Configure some dir stuff
+        //Shut down mbeans, if they're running
+        shutdownCacheMBean();
+        //Configure some dir stuff
         WebAppRootDir ward = new WebAppRootDir(cse.getServletContext());
         iswabapprooddirdiscovered = true;
         //Init Ha JDBC

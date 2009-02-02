@@ -103,7 +103,7 @@ ResearcherTwitaskDetail06 researcherTwitaskDetail06= (ResearcherTwitaskDetail06)
 
             <tr>
                 <td valign="top">
-                    <font class="formfieldnamefont">Survey Start Date/Time</font>
+                    <font class="formfieldnamefont">Approximate Start Date/Time</font>
                 </td>
                 <td valign="top">
                     <font class="normalfont"><%=researcherTwitaskDetail06.getStartdate()%></font>
@@ -121,14 +121,14 @@ ResearcherTwitaskDetail06 researcherTwitaskDetail06= (ResearcherTwitaskDetail06)
             </tr>
 
 
-            <tr>
-                <td valign="top">
-                    <font class="formfieldnamefont">TwitterAsk Creation Fee</font>
-                </td>
-                <td valign="top">
-                    <font class="normalfont">$5.00</font>
-                </td>
-            </tr>
+            <!--<tr>-->
+                <!--<td valign="top">-->
+                    <!--<font class="formfieldnamefont">TwitterAsk Creation Fee</font>-->
+                <!--</td>-->
+                <!--<td valign="top">-->
+                    <!--<font class="normalfont">$5.00</font>-->
+                <!--</td>-->
+            <!--</tr>-->
 
 
 
@@ -258,17 +258,16 @@ ResearcherTwitaskDetail06 researcherTwitaskDetail06= (ResearcherTwitaskDetail06)
                 <td valign="top">
                     <font class="normalfont">
                         <ul>
-                            <li>I understand that by igniting this conversation I am committing to spending up to <%=researcherTwitaskDetail06.getMaxpossiblespend()%> (Max Possible Spend.)</li>
-                            <li>Actual charges will be based only on the activities of conversation completion and impressions (i.e. viewing of your conversation on the web.)</li>
+                            <li>I understand that by igniting this Twitter Question I am committing to spending up to <%=researcherTwitaskDetail06.getMaxpossiblespend()%> (Max Possible Spend.)</li>
+                            <li>Actual charges will be based only on the activities of Twitter Question completion.</li>
                             <li>I understand that my account balance must be sufficient to support activities:
                                 <ul>
                                     <li>20% of the <%=researcherTwitaskDetail06.getMaxpossiblespend()%> will be charged now.</li>
-                                    <li>Whenever my account balance falls below 10% of the sum of the Max Possible Spends for all of my live (open) conversations, additional charges will be made to attain the 20% balance.</li>
-                                    <li>If my account balance falls below 5% of the sum of the Max Possible Spends for all of my live (open) conversations, then all my conversations will be put on hold until my account balance is increased.</li>
-                                    <li>However, if my account balance is sufficient to complete the activities I have requested, my live (open) conversations will not be put on hold. </li>
+                                    <li>Whenever my account balance falls below 10% of the sum of the Max Possible Spends for all of my live (open) Twitter Questions, additional charges will be made to attain the 20% balance.</li>
+                                    <li>If my account balance falls below 5% of the sum of the Max Possible Spends for all of my live (open) Twitter Questions, then all my Twitter Questions will be put on hold until my account balance is increased.</li>
+                                    <li>However, if my account balance is sufficient to complete the activities I have requested, my live (open) Twitter Questions will not be put on hold. </li>
                                 </ul>
                             </li>
-                            <li>Impressions on blogs will be paid for during a period extending 30 days from the end date of the conversation, not to exceed the limits on impressions that you've set with your conversation.  As such, dNeero will refund money after this period when the max number of conversations is not reached.</li>
                         </ul>
                     </font>
                 </td>
@@ -299,7 +298,7 @@ ResearcherTwitaskDetail06 researcherTwitaskDetail06= (ResearcherTwitaskDetail06)
             <td valign="top" align="right">
                 <%if (researcherTwitaskDetail06.getTwitask().getStatus()==Twitask.STATUS_DRAFT) {%>
                     <input type="submit" class="formsubmitbutton" value="Save and Continue Later" onclick="document.getElementById('action').value='saveasdraft';">
-                    <input type="submit" class="formsubmitbutton" value="Ignite this Conversation!">
+                    <input type="submit" class="formsubmitbutton" value="Ignite this Twitter Question!">
                 <%} else {%>
                     <input type="submit" class="formsubmitbutton" value="Next Step">
                 <%}%>

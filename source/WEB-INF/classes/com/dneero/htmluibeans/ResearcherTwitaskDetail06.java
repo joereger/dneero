@@ -254,14 +254,7 @@ public class ResearcherTwitaskDetail06 implements Serializable {
 
                 //Manage the status
                 if (enoughinaccountnow){
-                    if (startdate.before(now)){
-                        twitask.setStatus(twitask.STATUS_OPEN);
-                        twitask.setStartdate(new Date());
-                    } else {
-                        twitask.setStatus(twitask.STATUS_WAITINGFORSTARTDATE);
-                    }
-                } else {
-                    twitask.setStatus(twitask.STATUS_WAITINGFORFUNDS);
+                    twitask.setStatus(Twitask.STATUS_WAITINGFORAPPROVAL);
                 }
 
                 //Set the reseller code
@@ -271,7 +264,6 @@ public class ResearcherTwitaskDetail06 implements Serializable {
                 try{
                     logger.debug("save() about to save twitask.getTwitaskid()=" + twitask.getTwitaskid());
                     twitask.save();
-                    EmbedCacheFlusher.flushCache(twitask.getTwitaskid());
                     logger.debug("save() done saving twitask.getTwitaskid()=" + twitask.getTwitaskid());
                 } catch (GeneralException gex){
                     logger.debug("save() failed: " + gex.getErrorsAsSingleString());
@@ -281,16 +273,16 @@ public class ResearcherTwitaskDetail06 implements Serializable {
                 }
 
                 //Charge the per-survey creation fee
-                MoveMoneyInAccountBalance.charge(userSession.getUser(), TwitaskMoneyStatus.PERTWITASKCREATIONFEE, "TwitAsk creation fee for '"+twitask.getQuestion()+"'", true, false, false, false);
+                //MoveMoneyInAccountBalance.charge(userSession.getUser(), TwitaskMoneyStatus.PERTWITASKCREATIONFEE, "TwitAsk creation fee for '"+twitask.getQuestion()+"'", true, false, false, false);
 
 
                 //Make sure user has enough in their account by running the remaining balance algorithm for just this researcher
-                if (Pagez.getUserSession().getUser()!=null){
+                //if (Pagez.getUserSession().getUser()!=null){
                     //Run in its own thread so that the user's screen progresses
                     //ResearcherSurveyDetail06BalancecheckThread thr = new ResearcherSurveyDetail06BalancecheckThread(Researcher.get(Pagez.getUserSession().getUser().getResearcherid()));
                     //thr.startThread();
-                    ResearcherRemainingBalanceOperations.processResearcher(Researcher.get(Pagez.getUserSession().getUser().getResearcherid()));
-                }
+                    //ResearcherRemainingBalanceOperations.processResearcher(Researcher.get(Pagez.getUserSession().getUser().getResearcherid()));
+                //}
 
                 //Refresh
                 twitask.refresh();

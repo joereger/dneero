@@ -3,6 +3,8 @@ package com.dneero.dao;
 import com.dneero.dao.hibernate.BasePersistentClass;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.session.AuthControlled;
+import com.dneero.incentivetwit.Incentivetwit;
+import com.dneero.incentivetwit.IncentivetwitFactory;
 import org.apache.log4j.Logger;
 import java.util.Date;
 
@@ -42,6 +44,10 @@ public class Twitanswer extends BasePersistentClass implements java.io.Serializa
      private long twitterinreplytostatusid;
      private Date twittercreatedate;
      private String twittertext;
+     private String twitterprofileimageurl;
+     private Twitaskincentive twitaskincentive;
+     private int twitaskincentiveid;
+     private boolean iscriteriaxmlqualified;
 
 
     public static Twitanswer get(int id) {
@@ -76,10 +82,27 @@ public class Twitanswer extends BasePersistentClass implements java.io.Serializa
     }
 
 
-
+    public Incentivetwit getIncentive(){
+        Incentivetwit incentiveOut = null;
+        if (getTwitaskincentive()!=null && getTwitaskincentive().getTwitaskincentiveid()>0){
+            incentiveOut = IncentivetwitFactory.getById(getTwitaskincentive().getType(), getTwitaskincentive());
+        }
+        if (incentiveOut==null){
+            incentiveOut =IncentivetwitFactory.getDefaultIncentive();
+        }
+        return incentiveOut;
+    }
 
 
     // Property accessors
+
+    public Twitaskincentive getTwitaskincentive() {
+        return twitaskincentive;
+    }
+
+    public void setTwitaskincentive(Twitaskincentive twitaskincentive) {
+        this.twitaskincentive=twitaskincentive;
+    }
 
     public int getTwitanswerid() {
         return twitanswerid;
@@ -247,5 +270,29 @@ public class Twitanswer extends BasePersistentClass implements java.io.Serializa
 
     public void setTwittertext(String twittertext) {
         this.twittertext=twittertext;
+    }
+
+    public int getTwitaskincentiveid() {
+        return twitaskincentiveid;
+    }
+
+    public void setTwitaskincentiveid(int twitaskincentiveid) {
+        this.twitaskincentiveid=twitaskincentiveid;
+    }
+
+    public boolean getIscriteriaxmlqualified() {
+        return iscriteriaxmlqualified;
+    }
+
+    public void setIscriteriaxmlqualified(boolean iscriteriaxmlqualified) {
+        this.iscriteriaxmlqualified=iscriteriaxmlqualified;
+    }
+
+    public String getTwitterprofileimageurl() {
+        return twitterprofileimageurl;
+    }
+
+    public void setTwitterprofileimageurl(String twitterprofileimageurl) {
+        this.twitterprofileimageurl=twitterprofileimageurl;
     }
 }

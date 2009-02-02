@@ -27,7 +27,7 @@ public class ResearcherTwitaskDetail05 implements Serializable {
     private Twitask twitask;
     private String title;
 
-    private double willingtopaypertwit = 0.10;
+    private double willingtopaypertwit = 0.05;
     private int numberofrespondentsrequested = 1000;
     private int status;
     private boolean ischarityonly = false;
@@ -63,9 +63,12 @@ public class ResearcherTwitaskDetail05 implements Serializable {
                 if (twitask.getIncentive().getID()==IncentivetwitCash.ID){
                     incentivetype = IncentivetwitCash.ID;
                     if (Num.isdouble(IncentivetwitOptionsUtil.getValue(twitask.getIncentive().getTwitaskincentive(), IncentivetwitCash.WILLINGTOPAYPERTWIT))){
+                        logger.debug("It's a double");
                         willingtopaypertwit = Double.parseDouble(IncentivetwitOptionsUtil.getValue(twitask.getIncentive().getTwitaskincentive(), IncentivetwitCash.WILLINGTOPAYPERTWIT));
+                        logger.debug("willingtopaypertwit="+willingtopaypertwit);
                     } else {
-                        willingtopaypertwit = 0.10;
+                        logger.debug("It's not a double... defaulting to .05");
+                        willingtopaypertwit = 0.05;
                     }
                     coupontitle = "";
                     couponcodeaddrandompostfix = true;
@@ -93,7 +96,6 @@ public class ResearcherTwitaskDetail05 implements Serializable {
                     couponinstructions = IncentivetwitOptionsUtil.getValue(twitask.getIncentive().getTwitaskincentive(), IncentivetwitCoupon.COUPONINSTRUCTIONS);
                 }
                 numberofrespondentsrequested = twitask.getNumberofrespondentsrequested();
-                willingtopaypertwit = twitask.getWillingtopaypertwit();
                 status = twitask.getStatus();
                 ischarityonly = twitask.getIscharityonly();
                 charitycustom = twitask.getCharitycustom();
@@ -139,8 +141,8 @@ public class ResearcherTwitaskDetail05 implements Serializable {
                     }
                 }
                 if (incentivetype==IncentivetwitCash.ID){
-                    if (willingtopaypertwit<.05){
-                        vex.addValidationError("Willing to Pay Per Respondent must be at least $0.05.");
+                    if (willingtopaypertwit<.01){
+                        vex.addValidationError("Cash Incentive must be at least $0.01.");
                     }
                 } else if (incentivetype==IncentivetwitCoupon.ID){
                     if (coupontitle==null || coupontitle.equals("")){
@@ -168,7 +170,6 @@ public class ResearcherTwitaskDetail05 implements Serializable {
                 //Save
                 //survey.setWillingtopayperrespondent(willingtopayperrespondent);
                 twitask.setNumberofrespondentsrequested(numberofrespondentsrequested);
-                twitask.setWillingtopaypertwit(willingtopaypertwit);
                 twitask.setIscharityonly(ischarityonly);
                 twitask.setCharitycustom(charitycustom);
                 twitask.setCharitycustomurl(charitycustomurl);

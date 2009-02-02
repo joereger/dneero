@@ -333,7 +333,7 @@ public class ResearcherSurveyDetail06 implements Serializable {
                 }
 
                 //Charge the per-survey creation fee
-                MoveMoneyInAccountBalance.charge(userSession.getUser(), SurveyMoneyStatus.PERSURVEYCREATIONFEE, "Survey creation fee for '"+survey.getTitle()+"'", true, false, false, false);
+                //MoveMoneyInAccountBalance.charge(userSession.getUser(), SurveyMoneyStatus.PERSURVEYCREATIONFEE, "Survey creation fee for '"+survey.getTitle()+"'", true, false, false, false);
 
                 //Charge the hide results fee, if applicable
                 if (survey.getIsresultshidden() && sms.getHidesurveyfee()>0){

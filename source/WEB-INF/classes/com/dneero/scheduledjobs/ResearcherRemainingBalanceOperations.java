@@ -9,9 +9,9 @@ import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.util.GeneralException;
 import com.dneero.util.DateDiff;
 import com.dneero.util.Time;
-import com.dneero.money.CurrentBalanceCalculator;
 import com.dneero.money.SurveyMoneyStatus;
 import com.dneero.money.MoveMoneyInRealWorld;
+import com.dneero.money.TwitaskMoneyStatus;
 import com.dneero.xmpp.SendXMPPMessage;
 import com.dneero.systemprops.InstanceProperties;
 import com.dneero.instantnotify.InstantNotifyOfNewSurvey;
@@ -80,10 +80,44 @@ public class ResearcherRemainingBalanceOperations implements Job {
                     }
                 }
             }
-
             logger.debug("end iterating surveys for researcherid="+researcher.getResearcherid());
             logger.debug("totalremainingpossiblespendforallsurveys="+totalremainingpossiblespendforallsurveys);
             logger.debug("totalmaxpossiblespendforallsurveys="+totalmaxpossiblespendforallsurveys);
+
+            //Collect TwitAsk data on this researcher
+            //Warning: this query must include Survey.STATUS_WAITINGFORFUNDS because surveys is used in two sections of this code
+            List twitasks = HibernateUtil.getSession().createQuery("from Twitask where userid='"+researcher.getUserid()+"' and status<>'"+Twitask.STATUS_DRAFT+"'").setCacheable(true).list();
+            double totalremainingpossiblespendforalltwitasks = 0;
+            double totalmaxpossiblespendforalltwitasks = 0;
+            logger.debug("userid="+user.getUserid()+ " ("+user.getFirstname() + " "+user.getLastname()+")");
+            logger.debug("researcherid="+researcher.getResearcherid());
+            logger.debug("twitasks.size()="+twitasks.size());
+            logger.debug("start iterating twitasks for researcherid="+researcher.getResearcherid());
+            for (Iterator iterator1 = twitasks.iterator(); iterator1.hasNext();) {
+                Twitask twitask= (Twitask) iterator1.next();
+                logger.debug("found twitask for researcher... twitaskid="+ twitask.getTwitaskid());
+                if (twitask.getStatus()!=Twitask.STATUS_DRAFT){
+                    //If we're still paying out
+                    int dayssinceclose = DateDiff.dateDiff("day", Calendar.getInstance(), Time.getCalFromDate(twitask.getClosedintwitterdate()));
+                    if (dayssinceclose<=5){
+                        logger.debug("twitaskid="+ twitask.getTwitaskid()+" twitask is not draft");
+                        TwitaskMoneyStatus sms = new TwitaskMoneyStatus(twitask);
+                        logger.debug("twitaskid="+ twitask.getTwitaskid()+" sms.getRemainingPossibleSpend()="+sms.getRemainingPossibleSpend());
+                        logger.debug("twitaskid="+ twitask.getTwitaskid()+" sms.getMaxPossibleSpend()="+sms.getMaxPossibleSpend());
+                        totalremainingpossiblespendforalltwitasks = totalremainingpossiblespendforalltwitasks + sms.getRemainingPossibleSpend();
+                        totalmaxpossiblespendforalltwitasks = totalmaxpossiblespendforalltwitasks + sms.getMaxPossibleSpend();
+                    }
+                }
+            }
+            logger.debug("end iterating twitasks for researcherid="+researcher.getResearcherid());
+            logger.debug("totalremainingpossiblespendforalltwitasks="+totalremainingpossiblespendforalltwitasks);
+            logger.debug("totalmaxpossiblespendforalltwitasks="+totalmaxpossiblespendforalltwitasks);
+
+
+            //Now add the Twitask stuff to the Survey stuff
+            totalremainingpossiblespendforallsurveys = totalremainingpossiblespendforallsurveys + totalremainingpossiblespendforalltwitasks;
+            totalmaxpossiblespendforallsurveys = totalmaxpossiblespendforallsurveys + totalmaxpossiblespendforalltwitasks;
+
 
             //Now operate on surveys
             double amttocharge = 0.0;
@@ -124,21 +158,41 @@ public class ResearcherRemainingBalanceOperations implements Job {
                                 try{survey.save();} catch (GeneralException ex){logger.error("",ex);}
                             }
                         }
+                        //Shut down Twitasks
+                        List twitasksOpen = HibernateUtil.getSession().createQuery("from Twitask where userid='"+researcher.getUserid()+"'").setCacheable(true).list();
+                        boolean shutDownATwitask = false;
+                        for (Iterator iterator1 = twitasksOpen.iterator(); iterator1.hasNext();) {
+                            Twitask twitask = (Twitask) iterator1.next();
+                            if (twitask.getStatus()==Twitask.STATUS_OPEN){
+                                shutDownATwitask = true;
+                                logger.debug("operating on twitaskid="+twitask.getTwitaskid());
+                                twitask.setStatus(Twitask.STATUS_WAITINGFORFUNDS);
+                                try{twitask.save();} catch (GeneralException ex){logger.error("",ex);}
+                            }
+                        }
+                        //Notify
                         if (shutDownASurvey){
                             logger.debug("Setting survey status=STATUS_WAITINGFORFUNDS for researcherid="+researcher.getResearcherid());
                             SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_SALES, "All surveys are being put into STATUS_WAITINGFORFUNDS for Researcher.researcherid="+researcher.getResearcherid()+" User: "+ user.getFirstname() + " " + user.getLastname() + "("+user.getEmail()+") due to a lack of funds.");
                             xmpp.send();
                         }
+                        if (shutDownATwitask){
+                            logger.debug("Setting twitask status=STATUS_WAITINGFORFUNDS for researcherid="+researcher.getResearcherid());
+                            SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_SALES, "All twitasks are being put into STATUS_WAITINGFORFUNDS for Researcher.researcherid="+researcher.getResearcherid()+" User: "+ user.getFirstname() + " " + user.getLastname() + "("+user.getEmail()+") due to a lack of funds.");
+                            xmpp.send();
+                        }
                     }
+
+
                 }
             } else {
                 logger.debug("current balance is greater than MINPERCENTOFTOTALVALUEAVAILASBALANCE of totalmaxpossiblespendforallsurveys("+((MINPERCENTOFTOTALVALUEAVAILASBALANCE/100) * totalmaxpossiblespendforallsurveys)+")");
                 //Make sure this researcher has no surveys with status = STATUS_WAITINGFORFUNDS
                 logger.debug("making sure there are no surveys in status=STATUS_WAITINGFORFUNDS for researcherid="+researcher.getResearcherid());
-                //List surveysWaiting = HibernateUtil.getSession().createQuery("from Survey where researcherid='"+researcher.getResearcherid()+"' and status='"+Survey.STATUS_WAITINGFORFUNDS+"'").setCacheable(false).list();
+                //List twitasksWaiting = HibernateUtil.getSession().createQuery("from Survey where researcherid='"+researcher.getResearcherid()+"' and status='"+Survey.STATUS_WAITINGFORFUNDS+"'").setCacheable(false).list();
                 //Just use list of surveys from above
                 List surveysWaiting = surveys;
-                logger.debug("surveysWaiting.size()="+surveysWaiting.size());
+                logger.debug("twitasksWaiting.size()="+surveysWaiting.size());
                 for (Iterator iterator1 = surveysWaiting.iterator(); iterator1.hasNext();) {
                     Survey survey = (Survey) iterator1.next();
                     logger.debug("found surveyid="+survey.getSurveyid());
@@ -149,6 +203,18 @@ public class ResearcherRemainingBalanceOperations implements Job {
                         //InstantNotify
                         InstantNotifyOfNewSurvey inons = new InstantNotifyOfNewSurvey(survey.getSurveyid());
                         inons.sendNotifications();
+                    }
+                }
+                //Open Twitasks
+                List twitasksWaiting= twitasks;
+                logger.debug("twitasksWaiting.size()="+ twitasksWaiting.size());
+                for (Iterator iterator1 = twitasksWaiting.iterator(); iterator1.hasNext();) {
+                    Twitask twitask = (Twitask) iterator1.next();
+                    logger.debug("found twitaskid="+twitask.getTwitaskid());
+                    if (twitask.getStatus()==Twitask.STATUS_WAITINGFORFUNDS){
+                        logger.debug("operating on twitaskid="+twitask.getTwitaskid());
+                        twitask.setStatus(Twitask.STATUS_WAITINGFORSTARTDATE);
+                        try{twitask.save();} catch (GeneralException ex){logger.error("",ex);}
                     }
                 }
             }

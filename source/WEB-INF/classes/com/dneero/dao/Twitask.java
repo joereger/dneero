@@ -45,7 +45,6 @@ public class Twitask extends BasePersistentClass implements java.io.Serializable
      private String question;
      private String criteriaxml;
      private int numberofrespondentsrequested  = 1000;
-     private double willingtopaypertwit = .10;
      private Date startdate;
      private Date senttotwitterdate;
      private Date closedintwitterdate;
@@ -181,13 +180,6 @@ public class Twitask extends BasePersistentClass implements java.io.Serializable
         this.numberofrespondentsrequested=numberofrespondentsrequested;
     }
 
-    public double getWillingtopaypertwit() {
-        return willingtopaypertwit;
-    }
-
-    public void setWillingtopaypertwit(double willingtopaypertwit) {
-        this.willingtopaypertwit=willingtopaypertwit;
-    }
 
     public Date getStartdate() {
         return startdate;

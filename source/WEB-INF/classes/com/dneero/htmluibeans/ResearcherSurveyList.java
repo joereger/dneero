@@ -4,6 +4,7 @@ import com.dneero.util.SortableList;
 
 import com.dneero.util.Time;
 import com.dneero.dao.Survey;
+import com.dneero.dao.Twitask;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.dao.hibernate.CopyHibernateObject;
 import com.dneero.htmlui.UserSession;
@@ -22,6 +23,7 @@ import org.apache.log4j.Logger;
 public class ResearcherSurveyList implements Serializable {
 
     private List<ResearcherSurveyListitem> surveys;
+    private List<ResearcherTwitaskListitem> twitasks;
     private int maxtodisplay = 10000;
 
     public ResearcherSurveyList() {
@@ -76,6 +78,47 @@ public class ResearcherSurveyList implements Serializable {
                 }
                 surveys.add(rsli);
             }
+
+            twitasks = new ArrayList<ResearcherTwitaskListitem>();
+            List twitaskslist = HibernateUtil.getSession().createQuery("from Twitask where userid='"+userSession.getUser().getUserid()+"' order by twitaskid desc").setMaxResults(maxtodisplay).setCacheable(true).list();
+            for (Iterator iterator=twitaskslist.iterator(); iterator.hasNext();) {
+                Twitask twitask =(Twitask) iterator.next();
+                ResearcherTwitaskListitem rsli = new ResearcherTwitaskListitem();
+                rsli.setTwitask(twitask);
+                if (twitask.getStatus()==Twitask.STATUS_DRAFT){
+                    rsli.setStatus("Draft");
+                } else if (twitask.getStatus()==Twitask.STATUS_CLOSED){
+                    rsli.setStatus("Closed");
+                } else if (twitask.getStatus()==Twitask.STATUS_OPEN){
+                    rsli.setStatus("Live");
+                } else if (twitask.getStatus()==Twitask.STATUS_WAITINGFORFUNDS){
+                    rsli.setStatus("Waiting for Funds");
+                } else if (twitask.getStatus()==Twitask.STATUS_WAITINGFORSTARTDATE){
+                    rsli.setStatus("Waiting for Start Date");
+                } else if (twitask.getStatus()==Twitask.STATUS_WAITINGFORAPPROVAL){
+                    rsli.setStatus("Pending Approval");
+                } else if (twitask.getStatus()==Twitask.STATUS_REJECTED){
+                    rsli.setStatus("Not Approved");
+                }
+                if (twitask.getStatus()==Survey.STATUS_DRAFT){
+                    rsli.setEditorreviewlink("<a href=\"/researcher/researchertwitaskdetail_01.jsp?twitaskid="+twitask.getTwitaskid()+"\">Edit</a>");
+                } else {
+                    rsli.setEditorreviewlink("<a href=\"/researcher/researchertwitaskdetail_01.jsp?twitaskid="+twitask.getTwitaskid()+"\">Review</a>");
+                }
+                if (twitask.getStatus()!=Survey.STATUS_DRAFT){
+                    rsli.setResultslink("<a href=\"/researcher/resultstwitask.jsp?twitaskid="+twitask.getTwitaskid()+"\">Results</a>");
+                    rsli.setResultslink("");
+                } else {
+                    rsli.setResultslink("");
+                }
+                rsli.setCopylink("<a href=\"/researcher/index.jsp?surveyid="+twitask.getTwitaskid()+"&action=copy\">Copy</a>");
+                if (twitask.getStatus()==Survey.STATUS_DRAFT){
+                    rsli.setDeletelink("<a href=\"/researcher/researchertwitaskdelete.jsp?twitaskid="+twitask.getTwitaskid()+"\">Delete</a>");
+                } else {
+                    rsli.setDeletelink("");
+                }
+                twitasks.add(rsli);
+            }
         }
     }
 
@@ -101,5 +144,13 @@ public class ResearcherSurveyList implements Serializable {
 
     public void setMaxtodisplay(int maxtodisplay) {
         this.maxtodisplay=maxtodisplay;
+    }
+
+    public List<ResearcherTwitaskListitem> getTwitasks() {
+        return twitasks;
+    }
+
+    public void setTwitasks(List<ResearcherTwitaskListitem> twitasks) {
+        this.twitasks=twitasks;
     }
 }

@@ -9,6 +9,10 @@
             <column name="twitanswerid" />
             <generator class="native" />
         </id>
+        <many-to-one name="twitaskincentive" column="twitaskincentiveid" not-null="true" insert="false" update="false"/>
+        <property name="twitaskincentiveid" type="int">
+            <column name="twitaskincentiveid" not-null="true" />
+        </property>
         <many-to-one name="twitask" column="twitaskid" not-null="true" insert="false" update="false"/>
         <property name="twitaskid" type="int">
             <column name="twitaskid" not-null="true" />
@@ -64,8 +68,15 @@
         <property name="twittertext" type="text">
             <column name="twittertext" not-null="true" />
         </property>
-        <property name="twittercreatedat" type="timestamp">
-            <column name="twittercreatedat" not-null="true" />
+        <property name="twitterprofileimageurl" type="text">
+            <column name="twitterprofileimageurl" not-null="true" />
         </property>
+        <property name="twittercreatedate" type="timestamp">
+            <column name="twittercreatedate" not-null="true" />
+        </property>
+        <property name="iscriteriaxmlqualified" type="boolean">
+            <column name="iscriteriaxmlqualified" not-null="true" />
+        </property>
+
     </class>
 </hibernate-mapping>

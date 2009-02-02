@@ -28,27 +28,28 @@ public class PayForTwitanswers implements Job {
         Logger logger = Logger.getLogger(this.getClass().getName());
         if (InstanceProperties.getRunScheduledTasksOnThisInstance()){
             logger.debug("execute() CloseSurveysByDate called");
-            List<Response> responses = HibernateUtil.getSession().createCriteria(Response.class)
-                                   .add(Restrictions.eq("poststatus", Response.POSTATUS_POSTED))
+            List<Twitanswer> twitanswers = HibernateUtil.getSession().createCriteria(Twitanswer.class)
+                                   .add(Restrictions.eq("poststatus", Twitanswer.STATUS_APPROVED))
                                    .add(Restrictions.ne("issysadminrejected", true))
+                                   .add(Restrictions.ne("iscriteriaxmlqualified", true))
                                    .add(Restrictions.eq("ispaid", false))
                                    .setCacheable(false)
                                    .list();
-            for (Iterator<Response> iterator = responses.iterator(); iterator.hasNext();) {
-                Response response = iterator.next();
-                logger.debug("response.getResponseid()="+response.getResponseid());
+            for (Iterator<Twitanswer> iterator = twitanswers.iterator(); iterator.hasNext();) {
+                Twitanswer twitanswer= iterator.next();
+                logger.debug("twitanswer.getTwitanswerid()="+ twitanswer.getTwitanswerid());
 
                 try{
-                    //Survey survey = Survey.get(response.getSurveyid());
-                    User user = User.get(Blogger.get(response.getBloggerid()).getUserid());
+                    //Survey survey = Survey.get(twitanswer.getSurveyid());
+                    User user = User.get(twitanswer.getUserid());
                     try{
                         //One extra check to make sure this isn't rejected
-                        if (!response.getIssysadminrejected()){
+                        if (!twitanswer.getIssysadminrejected()){
                             //Award the incentive
                             //Award the incentive
                             //Award the incentive
                             //Award the incentive
-                            response.getIncentive().doAwardIncentive(response);
+                            twitanswer.getIncentive().doAwardIncentive(twitanswer);
                         }
                     } catch (Exception ex){
                         logger.error("",ex);
@@ -60,14 +61,13 @@ public class PayForTwitanswers implements Job {
                         EmailTemplateProcessor.sendGenericEmail("joe@joereger.com", "dNeero Error paying "+user.getFirstname()+" "+user.getLastname()+" userid="+user.getUserid(), ErrorDissect.dissect(ex));
                     } finally {
                         //Update paid status
-                        response.setIspaid(true);
-                        try{response.save();}catch(Exception ex){logger.error("",ex);}
+                        twitanswer.setIspaid(true);
+                        try{
+                            twitanswer.save();}catch(Exception ex){logger.error("",ex);}
                         //@todo Notify user via email that they've been paid... thank them for their effort
                         if (user.getEmail()!=null && !user.getEmail().equals("")){
 
                         }
-                        //Update responsehtml
-                        UpdateResponsePoststatus.processSingleResponse(response);
                     }
                 } catch (Exception ex){
                     logger.error("",ex);

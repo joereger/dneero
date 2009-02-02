@@ -20,6 +20,7 @@ String acl = "public";
     BloggerIndex bloggerIndex=(BloggerIndex) Pagez.getBeanMgr().get("BloggerIndex");
     SystemStats systemStats=((SystemStats) Pagez.getBeanMgr().get("SystemStats"));
     BloggerCompletedsurveys bloggerCompletedsurveys = (BloggerCompletedsurveys) Pagez.getBeanMgr().get("BloggerCompletedsurveys");
+    BloggerCompletedTwitasks bloggerCompletedTwitasks = (BloggerCompletedTwitasks) Pagez.getBeanMgr().get("BloggerCompletedTwitasks");
 %>
 <%@ include file="/template/header.jsp" %>
 
@@ -127,10 +128,18 @@ String acl = "public";
 
                             <br/><br/>
                             <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-                                <a href="/blogger/index.jsp"><font class="mediumfont" style="color: #596697;">Earnings from Joined Conversations</font></a>
+                                <a href="/blogger/index.jsp"><font class="mediumfont" style="color: #596697;">Joined Conversations</font></a>
                             </td></tr>
                             <tr><td valign="top"></td><td valign="top">
                                 <font class="smallfont">See how much you've earned.</font>
+                            </td></tr></table>
+
+                            <br/><br/>
+                            <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
+                                <a href="/blogger/bloggercompletedtwitasks.jsp"><font class="mediumfont" style="color: #596697;">Answered Twitter Questions</font></a>
+                            </td></tr>
+                            <tr><td valign="top"></td><td valign="top">
+                                <font class="smallfont">Check the status of Twitter Questions.</font>
                             </td></tr></table>
 
                             <br/><br/>
@@ -172,45 +181,7 @@ String acl = "public";
                         <br/><br/>
                     <%}%>
 
-                    <%
-                        if (1==2 && bloggerCompletedsurveys.getList() != null && bloggerCompletedsurveys.getList().size()>0) {
-                            for (Iterator<BloggerCompletedsurveysListitem> iterator=bloggerCompletedsurveys.getList().iterator(); iterator.hasNext();){
-                                BloggerCompletedsurveysListitem bloggerCompletedsurveysListitem= iterator.next();
-                                %>
-                                <div class="rounded" style="background: #e6e6e6; padding: 10px;">
-                                    <table cellpadding="2" cellspacing="0" border="0" width="100%">
-                                        <tr>
-                                            <td valign="top">
-                                                <font class="tinyfont"><%=bloggerCompletedsurveysListitem.getResponsedate()%></font><br/>
-                                                <font class="normalfont" style="font-weight: bold; color: #0000ff;"><a href="/survey.jsp?surveyid=<%=bloggerCompletedsurveysListitem.getSurveyid()%>"><%=bloggerCompletedsurveysListitem.getSurveytitle()%></a></font><br/>
-                                                <% if (!Pagez.getUserSession().getIsfacebookui()){ %>
-                                                    <br/>
-                                                    <font class="tinyfont" style="font-weight:bold;">
-                                                        <%if (bloggerCompletedsurveysListitem.getResponse().getPoststatus()==0){%>
-                                                            <a href="/surveypostit.jsp?surveyid=<%=bloggerCompletedsurveysListitem.getSurveyid()%>">Needs to be Posted</a>
-                                                        <%} else if (bloggerCompletedsurveysListitem.getResponse().getPoststatus()==1){%>
-                                                            Posted at Least Once
-                                                        <%} else if (bloggerCompletedsurveysListitem.getResponse().getPoststatus()==2){%>
-                                                            Posted Successfully
-                                                        <%} else if (bloggerCompletedsurveysListitem.getResponse().getPoststatus()==3){%>
-                                                            Too Late to Post
-                                                        <%}%>
-                                                    </font>
-                                                <% } %>
-                                                <br/>
-                                                <font class="tinyfont" style="font-weight:bold; text-decoration: none;"><a href="/blogger/impressions.jsp?surveyid=<%=bloggerCompletedsurveysListitem.getSurveyid()%>">Impressions</a> | <a href="/blogger/survey.jsp?surveyid=<%=bloggerCompletedsurveysListitem.getSurveyid()%>">Edit Answers</a></font>
-                                            </td>
-                                            <td valign="top" align="right">
-                                                <%=bloggerCompletedsurveysListitem.getResponse().getResponsestatushtml()%>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </div>
-                                <br/>
-                                <%
-                            }
-                        }
-                    %>
+
 
 
                     <%
@@ -245,6 +216,33 @@ String acl = "public";
                         <%}%>
 
 
+                    <%
+                            StringBuffer taTemplate = new StringBuffer();
+                            taTemplate.append("<div class=\"rounded\" style=\"background: #e6e6e6; padding: 10px;\">\n" +
+                    "            <table cellpadding=\"2\" cellspacing=\"0\" border=\"0\" width=\"100%\">\n" +
+                    "                <tr>\n" +
+                    "                    <td valign=\"top\">\n" +
+                    "                        <font class=\"tinyfont\"><$twitanswer.twittercreatedate|"+Grid.GRIDCOLRENDERER_DATETIMECOMPACT+"$></font><br/>\n" +
+                    "                        <font class=\"normalfont\" style=\"font-weight: bold; color: #0000ff;\"><a href=\"/twitask.jsp?twitaskid=<$twitask.twitaskid$>\"><$twitask.question$></a></font><br/>\n" +
+                    "                    </td>\n" +
+                    "                </tr>\n" +
+                    "            </table>\n" +
+                    "        </div>");
+                        %>
+
+                        <br/><br/><br/>
+                        <font class="largefont" style="color: #cccccc;">Twitter Questions Answered</font>
+                        <%if (bloggerCompletedTwitasks.getTwitanswers()==null || bloggerCompletedTwitasks.getTwitanswers().size()==0){%>
+                            <br/><font class="normalfont">You haven't yet responded to any Twitter Questions!  <ol><li>Add your <a href="http://twitter.com">Twitter</a> username to <a href="/account/accountsettings.jsp">your account</a></li><li>follow us at <a href="http://twitter.com/dNeero">http://twitter.com/dNeero</a></li><li>reply to questions you see us ask</li></ol></font>
+                        <%} else {%>
+                            <%
+                                ArrayList<GridCol> cols = new ArrayList<GridCol>();
+                                cols.add(new GridCol("", taTemplate.toString(), false, "", "tinyfont", "background: #ffffff;", ""));
+                            %>
+                            <%=Grid.render(bloggerCompletedTwitasks.getTwitanswers(), cols, 10, "/blogger/index.jsp", "pagetwitanswers")%>
+                        <%}%>
+
+                    <br/><br/><br/>
                     <font class="tinyfont" style="color: #666666;">Conversation statuses update nightly. Remember, you must leave the conversation on your mini-feed and profile to generate clicks for 5 days in the 10 after you take it to get paid.  Days that qualify are marked green.</font>
 
 

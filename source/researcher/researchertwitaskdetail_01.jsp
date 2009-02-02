@@ -25,7 +25,7 @@ ResearcherTwitaskDetail01 researcherTwitaskDetail01= (ResearcherTwitaskDetail01)
                 Pagez.sendRedirect("/researcher/researchertwitaskdetail_04.jsp?twitaskid="+ researcherTwitaskDetail01.getTwitask().getTwitaskid());
                 return;
             }
-            researcherTwitaskDetail01.setQuestion(Textbox.getValueFromRequest("question", "Question", true, DatatypeString.DATATYPEID));
+            researcherTwitaskDetail01.setQuestion(Textarea.getValueFromRequest("question", "Question", true));
             researcherTwitaskDetail01.setStartdate(DateTime.getValueFromRequest("startdate", "Start Date", true).getTime());
             if (request.getParameter("action").equals("next")) {
                 logger.debug("Next was clicked");
@@ -59,34 +59,52 @@ ResearcherTwitaskDetail01 researcherTwitaskDetail01= (ResearcherTwitaskDetail01)
     <input type="hidden" name="twitaskid" value="<%=researcherTwitaskDetail01.getTwitask().getTwitaskid()%>"/>
 
 
-        <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
-        <img src="/images/lightbulb_on.png" alt="" align="right"/>
-        On this page you set the very general parameters for the conversation.  Choose a title that'll get people interested.  Give enough information in the description for them to understand what you're trying to understand.  Your start date must be today or in the future.  You want to keep the conversation open long enough to attract bloggers and have them join the conversation... a month is a good starting point.
-        </font></div></center>
+        <%--<center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">--%>
+        <%----%>
+        <%--</font></div></center>--%>
 
         <br/><br/>
         <table cellpadding="0" cellspacing="0" border="0">
             <tr>
                 <td valign="top">
 
+                    <script type="text/javascript">
+                        function textCounter( field, countfield, maxlimit ) {
+                          if ( field.value.length > maxlimit ){
+                            field.value = field.value.substring( 0, maxlimit );
+                            return false;
+                          } else {
+                            countfield.value = maxlimit - field.value.length;
+                          }
+                        }
+                    </script>
+
                     <table cellpadding="0" cellspacing="0" border="0">
                         <tr>
-                            <td valign="top">
-                                <font class="formfieldnamefont">Conversation Title</font>
+                            <td valign="top" colspan="2">
+                                <font class="formfieldnamefont">What do you want to ask Twitter users?</font>
                             </td>
-                            <td valign="top">
+                        </tr>
+                        <tr>
+                            <td valign="top" colspan="2">
                                 <%if (researcherTwitaskDetail01.getTwitask().getStatus()<=Twitask.STATUS_DRAFT) {%>
-                                    <%=Textbox.getHtml("title", researcherTwitaskDetail01.getQuestion(), 255, 50, "", "")%>
+                                    <%int maxchars = 120;%>
+                                    <textarea name="question" rows="3" cols="40" style="width: 100%; font-size: 25px;" onkeypress="textCounter(this,this.form.counter,<%=maxchars%>);"><%=researcherTwitaskDetail01.getQuestion()%></textarea>
+                                    <br/><font class="tinyfont">ex: "Do you like old Michael Jackson videos?" or "On a scale of 1-10 (10 being highest) do you care about the environment?"</font>
+                                    <br/><input type="text" name="counter" id="counter" maxlength="3" size="3" style="font-size: 8px;" value="<%=maxchars%>" onblur="textCounter(this.form.question,this,<%=maxchars%>);"><font class="tinyfont"> chars left</font>
+                                    <br/><br/><br/>
                                 <%} else {%>
                                     <font class="smallfont"><%=researcherTwitaskDetail01.getQuestion()%></font>
                                 <%}%>
                             </td>
                         </tr>
                         <tr>
-                            <td valign="top">
-                                <font class="formfieldnamefont">Start Date</font>
+                            <td valign="top" colspan="2">
+                                <font class="formfieldnamefont">About when should your question be asked?</font>
                             </td>
-                            <td valign="top">
+                        </tr>
+                        <tr>
+                            <td valign="top" colspan="2">
                                 <%if (researcherTwitaskDetail01.getTwitask().getStatus()<=Twitask.STATUS_DRAFT) {%>
                                     <%=DateTime.getHtml("startdate", Time.getCalFromDate(researcherTwitaskDetail01.getStartdate()), "", "")%>
                                 <%} else {%>
