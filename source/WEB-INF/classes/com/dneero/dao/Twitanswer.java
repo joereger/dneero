@@ -14,12 +14,14 @@ import java.util.Date;
 
 public class Twitanswer extends BasePersistentClass implements java.io.Serializable, AuthControlled {
 
-    public static int STATUS_NEW = 0;
-    public static int STATUS_PENDINGREVIEW = 1;
-    public static int STATUS_TOOLATE = 2;
-    public static int STATUS_DOESNTQUALIFY = 3;
-    public static int STATUS_REJECTED = 4;
-    public static int STATUS_APPROVED = 5;
+    public static int STATUS_TOOLATE = 1;
+    public static int STATUS_DOESNTQUALIFY = 2;
+    public static int STATUS_NOBLOGGER = 3;
+    public static int STATUS_ALREADYANSWERED = 4;
+    public static int STATUS_PENDINGREVIEW = 5;
+    public static int STATUS_REJECTED = 6;
+    public static int STATUS_APPROVED = 7;
+    public static int STATUS_NOTWITASK = 8;
 
 
     // Fields

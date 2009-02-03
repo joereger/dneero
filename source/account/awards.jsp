@@ -9,6 +9,8 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.Iterator" %>
 <%@ page import="java.util.List" %>
+<%@ page import="com.dneero.incentivetwit.Incentivetwit" %>
+<%@ page import="com.dneero.incentivetwit.IncentivetwitFactory" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "Awards";
@@ -25,8 +27,8 @@ String acl = "account";
     <br/><br/>
 
     <%
-    ArrayList<AccountAwardsListitem> awas = new ArrayList<AccountAwardsListitem>();
-    List<Incentiveaward> ias = HibernateUtil.getSession().createCriteria(Incentiveaward.class)
+        ArrayList<AccountAwardsListitem> awas = new ArrayList<AccountAwardsListitem>();
+        List<Incentiveaward> ias = HibernateUtil.getSession().createCriteria(Incentiveaward.class)
                                        .add(Restrictions.eq("userid", Pagez.getUserSession().getUser().getUserid()))
                                        .add(Restrictions.eq("isvalid", true))
                                        .setCacheable(true)
@@ -58,6 +60,45 @@ String acl = "account";
         cols.add(new GridCol("From Survey", "<$survey.title$>", false, "", "tinyfont"));
         %>
         <%=Grid.render(awas, cols, 50, "/account/awards.jsp", "page")%>
+    <%}%>
+
+
+    <%
+    ArrayList<AccountAwardsTwitListitem> aatlis= new ArrayList<AccountAwardsTwitListitem>();
+    List<Incentivetwitaward> iats= HibernateUtil.getSession().createCriteria(Incentivetwitaward.class)
+                                       .add(Restrictions.eq("userid", Pagez.getUserSession().getUser().getUserid()))
+                                       .add(Restrictions.eq("isvalid", true))
+                                       .setCacheable(true)
+                                       .list();
+        for (Iterator<Incentivetwitaward> iaIt=iats.iterator(); iaIt.hasNext();) {
+            Incentivetwitaward incentiveaward=iaIt.next();
+            Twitanswer twitanswer = Twitanswer.get(incentiveaward.getTwitanswerid());
+            Twitask twitask = Twitask.get(twitanswer.getTwitaskid());
+            Twitaskincentive si = Twitaskincentive.get(incentiveaward.getTwitaskincentiveid());
+            Incentivetwit incentive = IncentivetwitFactory.getById(si.getType(), si);
+            User user = User.get(incentiveaward.getUserid());
+
+            AccountAwardsTwitListitem awa = new AccountAwardsTwitListitem();
+            awa.setIncentivetwitaward(incentiveaward);
+            awa.setIncentivetwit(incentive);
+            awa.setTwitanswer(twitanswer);
+            awa.setTwitask(twitask);
+            awa.setTwitaskincentive(si);
+            awa.setUser(user);
+            aatlis.add(awa);
+        }
+    %>
+
+    <%if (aatlis==null || aatlis.size()==0){%>
+        <font class="normalfont">No awards have been granted yet.</font>
+    <%} else {%>
+        <%
+        ArrayList<GridCol> cols=new ArrayList<GridCol>();
+        cols.add(new GridCol("Amount", "<a href=\"/account/awardtwit_detail.jsp?incentivetwitawardid=<$incentivetwitaward.incentivetwitawardid$>\">Details</a>", true, "", "tinyfont"));
+        cols.add(new GridCol("Date", "<$incentivetwitaward.date|"+Grid.GRIDCOLRENDERER_DATETIMECOMPACT+"$>", true, "", "tinyfont", "", "background: #e6e6e6;"));
+        cols.add(new GridCol("From Twitter Question", "<$twitask.question$>", false, "", "tinyfont"));
+        %>
+        <%=Grid.render(aatlis, cols, 50, "/account/awards.jsp", "pagetwit")%>
     <%}%>
 
 

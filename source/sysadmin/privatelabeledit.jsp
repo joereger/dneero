@@ -23,6 +23,8 @@ String acl = "sysadmin";
     pl.setWebhtmlheader(defaultWebHeader);
     pl.setWebhtmlfooter(defaultWebFooter);
     pl.setIshttpson(false);
+    pl.setTwitterusername("");
+    pl.setTwitterpassword("");
     if (request.getParameter("plid")!=null && Num.isinteger(request.getParameter("plid"))){
         pl = Pl.get(Integer.parseInt(request.getParameter("plid")));
     }
@@ -42,6 +44,8 @@ String acl = "sysadmin";
                 pl.setEmailhtmlheader(Textarea.getValueFromRequest("emailhtmlheader", "Email Html Header", false));
                 pl.setEmailhtmlfooter(Textarea.getValueFromRequest("emailhtmlfooter", "Email Html Footer", false));
                 pl.setIshttpson(CheckboxBoolean.getValueFromRequest("ishttpson"));
+                pl.setTwitterusername(Textbox.getValueFromRequest("twitterusername", "Twitter Username", false, DatatypeString.DATATYPEID));
+                pl.setTwitterpassword(Textbox.getValueFromRequest("twitterpassword", "Twitter Password", false, DatatypeString.DATATYPEID));
                 //Validate data
                 if (PlVerification.isValid(pl)){
                     pl.save();
@@ -201,6 +205,22 @@ String acl = "sysadmin";
                     </td>
                     <td valign="top">
                         <%=Textbox.getHtml("customdomain3", pl.getCustomdomain3(), 255, 35, "", "")%>
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top">
+                        <font class="formfieldnamefont">Twitter Username</font>
+                    </td>
+                    <td valign="top">
+                        <%=Textbox.getHtml("twitterusername", pl.getTwitterusername(), 255, 35, "", "")%>
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top">
+                        <font class="formfieldnamefont">Twitter Password</font>
+                    </td>
+                    <td valign="top">
+                        <%=Textbox.getHtml("twitterpassword", pl.getTwitterpassword(), 255, 35, "", "")%>
                     </td>
                 </tr>
                 <tr>

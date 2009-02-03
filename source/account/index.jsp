@@ -223,7 +223,7 @@ if (accountIndex.getUserhasresponsependings()){
                     <%}%>
 
 
-                    <%if (Pagez.getUserSession().getUser().getBloggerid()>0){%>
+                    <%if (1==1){%>
                         <br/><br/><br/>
                         <%--<div class="rounded" style="padding: 5px; margin: 5px; background: #e6e6e6;">--%>
                         <%--<div class="rounded" style="padding: 15px; margin: 5px; background: #ffffff;">--%>
@@ -241,15 +241,15 @@ if (accountIndex.getUserhasresponsependings()){
                             "     <font class=\"normalfont\" style=\"font-weight: bold;\"><a href=\"/twitask.jsp?twitaskid=<$twitask.twitaskid$>\"><$twitask.question$></a></font><br/>\n" +
                             "     <font class=\"tinyfont\" style=\"font-weight:bold; text-decoration: none;\"><$twitanswer.answer$></font>\n" +
                             "                    </td>\n" +
-                            "                    <td valign=\"top\" width=\"200\">\n" +
-                            "     <!--response.responsestatushtml-->\n" +
+                            "                    <td valign=\"top\" width=\"40%\">\n" +
+                            "     \n" +
                             "                    </td>\n" +
                             "                </tr>\n" +
                             "            </table>\n");
                             
                         %>
                         <%if (bloggerCompletedTwitasks.getTwitanswers()==null || bloggerCompletedTwitasks.getTwitanswers().size()==0){%>
-                            <font class="smallfont">You haven't responded to any Twitter Questions!  <ol><li>Add your <a href="http://twitter.com">Twitter</a> username to <a href="/account/accountsettings.jsp">your account</a></li><li>follow us at <a href="http://twitter.com/dNeero">http://twitter.com/dNeero</a></li><li>reply to questions you see us ask</li></ol></font>
+                            <font class="smallfont">You haven't answered any Twitter Questions!  <ol><li>Add your <a href="http://twitter.com">Twitter</a> username to <a href="/account/accountsettings.jsp">your account</a></li><li>follow us at <a href="http://twitter.com/dNeero">http://twitter.com/dNeero</a></li><li>reply to questions you see us ask</li><li>make sure your social person <a href="/blogger/bloggerdetails.jsp">profile</a> is active</li></ol></font>
                         <%} else {%>
                             <%
                                 ArrayList<GridCol> cols = new ArrayList<GridCol>();
@@ -257,6 +257,7 @@ if (accountIndex.getUserhasresponsependings()){
                             %>
                             <%=Grid.render(bloggerCompletedTwitasks.getTwitanswers(), cols, 5, "/account/index.jsp", "pagetwitasks")%>
                             <br/><a href="/blogger/bloggercompletedtwitasks.jsp"><font class="smallfont" style="font-weight: bold;">See All Twitter Questions You've Answered</font></a>
+                            <br/><br/><font class="tinyfont" style="font-weight: bold;">Congratulations!  Special Access Code: dtwitrks01</font>
                         <%}%>
                         <!--</div>-->
                         <!--</div>-->

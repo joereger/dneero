@@ -48,7 +48,7 @@ public class PublicTwitask implements Serializable {
         twitanswers = new ArrayList<PublicTwitaskListitem>();
         List<Twitanswer> tans = HibernateUtil.getSession().createCriteria(Twitanswer.class)
                                            .add(Restrictions.eq("twitaskid", twitask.getTwitaskid()))
-                                           .add(Restrictions.eq("status", Twitanswer.STATUS_APPROVED))
+                                           .add(Restrictions.eq("issysadminrejected", false))
                                            .addOrder(Order.desc("twittercreatedate"))
                                            .setCacheable(true)
                                            .list();

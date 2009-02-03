@@ -15,6 +15,7 @@ import com.dneero.htmlui.ValidationException;
 import com.dneero.email.EmailActivationSend;
 import com.dneero.helpers.UserInputSafe;
 import com.dneero.helpers.NicknameHelper;
+import com.dneero.helpers.TwitanswerFinderAfterAccountInfoChange;
 import com.dneero.money.PaymentMethod;
 
 import java.io.Serializable;
@@ -124,10 +125,12 @@ public class AccountSettings implements Serializable {
                 logger.debug("saveAction failed: " + gex.getErrorsAsSingleString());
                 return;
             }
-
+            //Send react email
             if (emailNeedsToBeReactivated){
                 EmailActivationSend.sendActivationEmail(user);
             }
+            //Find any Twitanswers
+            TwitanswerFinderAfterAccountInfoChange.findAndChangeUseridOfTwitanswers(user);
         }
     }
 

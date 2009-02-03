@@ -17,6 +17,7 @@ Registration registration = (Registration)Pagez.getBeanMgr().get("Registration")
     if (request.getParameter("action") != null && request.getParameter("action").equals("register")) {
         try {
             registration.setEmail(Textbox.getValueFromRequest("email", "Email", true, DatatypeString.DATATYPEID));
+            registration.setTwitterusername(Textbox.getValueFromRequest("twitterusername", "Twitter Username", false, DatatypeString.DATATYPEID));
             registration.setEula(Textarea.getValueFromRequest("eula", "Eula", true));
             registration.setFirstname(Textbox.getValueFromRequest("firstname", "First Name", true, DatatypeString.DATATYPEID));
             registration.setJ_captcha_response(Textbox.getValueFromRequest("j_captcha_response", "Squiggly Letters", true, DatatypeString.DATATYPEID));
@@ -152,6 +153,16 @@ Registration registration = (Registration)Pagez.getBeanMgr().get("Registration")
                         </td>
                         <td valign="top">
                             <%=TextboxSecret.getHtml("passwordverify", registration.getPasswordverify(), 255, 35, "", "")%>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td valign="top">
+                            <font class="formfieldnamefont">Twitter User Name (Optional)</font>
+                            <font class="tinyfont">e.x. "joereger" or "timsmith"</font>
+                        </td>
+                        <td valign="top">
+                            <%=Textbox.getHtml("twitterusername", registration.getTwitterusername(), 255, 35, "", "")%>
                         </td>
                     </tr>
 

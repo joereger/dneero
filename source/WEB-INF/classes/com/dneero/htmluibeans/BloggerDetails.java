@@ -22,6 +22,7 @@ import com.dneero.htmlui.ValidationException;
 import com.dneero.money.PaymentMethod;
 import com.dneero.finders.UserProfileCompletenessChecker;
 import com.dneero.helpers.VenueUtils;
+import com.dneero.helpers.TwitanswerFinderAfterAccountInfoChange;
 
 
 /**
@@ -257,6 +258,9 @@ public class BloggerDetails implements Serializable {
             } else {
                 Pagez.getUserSession().setIsbloggerprofileok(true);
             }
+
+            //Find Twitanswers with no blogger status
+            TwitanswerFinderAfterAccountInfoChange.findNoBloggerStatusTwitanswers(Pagez.getUserSession().getUser());
 
 
         } else {

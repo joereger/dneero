@@ -28,7 +28,10 @@ String acl = "blogger";
     "                <tr>\n" +
     "                    <td valign=\"top\">\n" +
     "                        <font class=\"tinyfont\"><$twitanswer.twittercreatedate|"+Grid.GRIDCOLRENDERER_DATETIMECOMPACT+"$></font><br/>\n" +
-    "                        <font class=\"normalfont\" style=\"font-weight: bold; color: #0000ff;\"><a href=\"/twitask.jsp?twitaskid=<$twitask.twitaskid$>\"><$twitask.question$></a></font><br/>\n" +
+    "                        <font class=\"mediumfont\" style=\"font-weight: bold; color: #00ff00;\"><a href=\"/twitask.jsp?twitaskid=<$twitask.twitaskid$>\"><$twitask.question$></a></font><br/>\n" +
+    "                        <font class=\"normalfont\" style=\"font-weight: bold;\">Your Answer: <$twitanswer.answer$></font><br/>\n" +
+    "                        <font class=\"tinyfont\" style=\"font-weight:bold;\">Incentive: <$earningsTxt$></font><br/>\n" +
+    "                        <font class=\"tinyfont\" style=\"font-weight:bold;\">Status: <$statusTxt$></font><br/>\n" +
     "                    </td>\n" +
     "                </tr>\n" +
     "            </table>\n" +

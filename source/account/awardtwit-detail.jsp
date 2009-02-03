@@ -8,6 +8,8 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.Iterator" %>
 <%@ page import="java.util.List" %>
+<%@ page import="com.dneero.incentivetwit.Incentivetwit" %>
+<%@ page import="com.dneero.incentivetwit.IncentivetwitFactory" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "Award Detail";
@@ -16,9 +18,9 @@ String acl = "account";
 %>
 <%@ include file="/template/auth.jsp" %>
 <%
-    Incentiveaward incentiveaward = null;
-    if (Num.isinteger(request.getParameter("incentiveawardid"))){
-        incentiveaward = Incentiveaward.get(Integer.parseInt(request.getParameter("incentiveawardid")));
+    Incentivetwitaward incentivetwitaward= null;
+    if (Num.isinteger(request.getParameter("incentivetwitawardid"))){
+        incentivetwitaward= Incentivetwitaward.get(Integer.parseInt(request.getParameter("incentivetwitawardid")));
     } else {
         Pagez.getUserSession().setMessage("That award was not found.");
         Pagez.sendRedirect("/account/awards.jsp");
@@ -28,10 +30,10 @@ String acl = "account";
 <%@ include file="/template/header.jsp" %>
 
 <%
-Response resp = Response.get(incentiveaward.getResponseid());
-Survey survey = Survey.get(resp.getSurveyid());
-Surveyincentive si = Surveyincentive.get(incentiveaward.getSurveyincentiveid());
-Incentive incentive = IncentiveFactory.getById(si.getType(), si);
+Twitanswer twitanswer= Twitanswer.get(incentivetwitaward.getTwitanswerid());
+Twitask twitask= Twitask.get(twitanswer.getTwitaskid());
+Twitaskincentive si = Twitaskincentive.get(incentivetwitaward.getTwitaskincentiveid());
+Incentivetwit incentive = IncentivetwitFactory.getById(si.getType(), si);
 %>
 
 
@@ -45,10 +47,10 @@ Incentive incentive = IncentiveFactory.getById(si.getType(), si);
     <br/><br/><font class="smallfont"><b>Full Summary:</b> <%=incentive.getFullSummary()%></font>
 <%}%>
 <br/><br/>
-<font class="smallfont"><b>Instructions:</b> <%=incentive.getInstructionsAfterAward(resp)%></font>
+<font class="smallfont"><b>Instructions:</b> <%=incentive.getInstructionsAfterAward(twitanswer)%></font>
 <br/><br/>
-<br/><font class="tinyfont"><b>From Survey:</b> <%=survey.getTitle()%></font>
-<br/><font class="tinyfont"><b>Date:</b> <%=Time.dateformatcompactwithtime(Time.getCalFromDate(incentiveaward.getDate()))%></font>
+<br/><font class="tinyfont"><b>From Twitter Question:</b> <%=twitask.getQuestion()%></font>
+<br/><font class="tinyfont"><b>Date:</b> <%=Time.dateformatcompactwithtime(Time.getCalFromDate(incentivetwitaward.getDate()))%></font>
 
 
 <%@ include file="/template/footer.jsp" %>

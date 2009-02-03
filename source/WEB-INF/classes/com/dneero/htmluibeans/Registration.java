@@ -19,6 +19,7 @@ import com.dneero.systemprops.SystemProperty;
 import com.dneero.systemprops.BaseUrl;
 import com.dneero.helpers.UserInputSafe;
 import com.dneero.helpers.NicknameHelper;
+import com.dneero.helpers.TwitanswerFinderAfterAccountInfoChange;
 import com.dneero.facebook.FacebookPendingReferrals;
 import com.dneero.cache.providers.CacheFactory;
 import com.dneero.iptrack.RecordIptrackUtil;
@@ -48,6 +49,7 @@ public class Registration implements Serializable {
     private String eula;
     private boolean displaytempresponsesavedmessage;
     private String nickname;
+    private String twitterusername="";
 
 
     //private String temp;
@@ -175,7 +177,7 @@ public class Registration implements Serializable {
         user.setAllownoncriticalemails(true);
         user.setInstantnotifybyemailison(false);
         user.setInstantnotifybytwitterison(false);
-        user.setInstantnotifytwitterusername("");
+        user.setInstantnotifytwitterusername(twitterusername);
         user.setInstantnotifyxmppison(false);
         user.setInstantnotifyxmppusername("");
         user.setIsenabled(true);
@@ -254,7 +256,8 @@ public class Registration implements Serializable {
         }
         //Put userSession object into cache
         Pagez.setUserSessionAndUpdateCache(userSession);
-
+        //Find any Twitanswers
+        TwitanswerFinderAfterAccountInfoChange.findAndChangeUseridOfTwitanswers(user);
         //Record Iptrack Activity
         RecordIptrackUtil.record(Pagez.getRequest(), Pagez.getUserSession().getUser().getUserid(), Activitytype.SIGNUP);
     }
@@ -350,5 +353,13 @@ public class Registration implements Serializable {
 
     public void setNickname(String nickname) {
         this.nickname=nickname;
+    }
+
+    public String getTwitterusername() {
+        return twitterusername;
+    }
+
+    public void setTwitterusername(String twitterusername) {
+        this.twitterusername=twitterusername;
     }
 }

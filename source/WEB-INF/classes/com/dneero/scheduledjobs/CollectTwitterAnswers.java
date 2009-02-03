@@ -6,10 +6,7 @@ import org.quartz.JobExecutionException;
 import org.apache.log4j.Logger;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.criterion.Order;
-import com.dneero.dao.Survey;
-import com.dneero.dao.Twitask;
-import com.dneero.dao.Twitanswer;
-import com.dneero.dao.User;
+import com.dneero.dao.*;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.dao.hibernate.NumFromUniqueResult;
 import com.dneero.util.GeneralException;
@@ -28,6 +25,7 @@ import java.util.Calendar;
 import twitter4j.Twitter;
 import twitter4j.Status;
 import twitter4j.DirectMessage;
+import twitter4j.RateLimitStatus;
 
 /**
  * User: Joe Reger Jr
@@ -43,17 +41,25 @@ public class CollectTwitterAnswers implements Job {
         Logger logger = Logger.getLogger(this.getClass().getName());
         if (InstanceProperties.getRunScheduledTasksOnThisInstance()){
             logger.debug("execute() PendingToOpenSurveys called");
-            collectReplies();
+            List<Pl> pls = HibernateUtil.getSession().createCriteria(Pl.class)
+                                               .addOrder(Order.asc("plid"))
+                                               .setCacheable(true)
+                                               .list();
+            for (Iterator<Pl> plIterator=pls.iterator(); plIterator.hasNext();) {
+                Pl pl=plIterator.next();
+                if (pl.getTwitterusername()!=null && pl.getTwitterusername().length()>0 && pl.getTwitterpassword()!=null && pl.getTwitterpassword().length()>0){
+                    collectReplies(pl);
+                }
+            }
         } else {
             logger.debug("InstanceProperties.getRunScheduledTasksOnThisInstance() is FALSE for this instance so this task is not being executed.");
         }
     }
 
-    public static void collectReplies(){
+    public static void collectReplies(Pl pl){
         Logger logger = Logger.getLogger(CollectTwitterAnswers.class);
         try{
-            //@todo hold twitter credentials in private label
-            Twitter twitter = new Twitter("dneero","physics");
+            Twitter twitter = new Twitter(pl.getTwitterusername(),pl.getTwitterpassword());
             for(int i=1; i<100; i++){
                 logger.debug("i="+i);
                 List<Status> statuses = twitter.getRepliesByPage(i);
@@ -80,6 +86,9 @@ public class CollectTwitterAnswers implements Job {
                     break;
                 }
             }
+            //Report on RateLimitStatus
+            RateLimitStatus rls = twitter.rateLimitStatus();
+            logger.debug("Twitter RateLimitStatus: hourlylimit="+rls.getHourlyLimit()+" remaininghits="+rls.getRemainingHits()+" resettimeinseconds="+rls.getResetTimeInSeconds()+" datetime="+Time.dateformatcompactwithtime(Time.getCalFromDate(rls.getDateTime())));
         } catch (Exception ex) {
             logger.error("", ex);
         }
@@ -114,6 +123,12 @@ public class CollectTwitterAnswers implements Job {
             if (respondentssofar>=twitask.getNumberofrespondentsrequested()){
                 istoolate = true;
             }
+            //See if it's alreadyanswered
+            boolean isalreadyanswered = false;
+            int answers = NumFromUniqueResult.getInt("select count(*) from Twitanswer where twitaskid='"+twitask.getTwitaskid()+"' and status='"+Twitanswer.STATUS_APPROVED+"' and userid='"+userid+"'");
+            if (answers>0){
+                isalreadyanswered = true;
+            }
             //Record the answer
             Twitanswer twitanswer = new Twitanswer();
             twitanswer.setUserid(userid);
@@ -133,8 +148,17 @@ public class CollectTwitterAnswers implements Job {
             if (istoolate){
                 twitanswer.setStatus(Twitanswer.STATUS_TOOLATE);
             }
+            if (isalreadyanswered){
+                twitanswer.setStatus(Twitanswer.STATUS_ALREADYANSWERED);
+            }
             if (!iscriteriaxmlqualified){
                 twitanswer.setStatus(Twitanswer.STATUS_DOESNTQUALIFY);
+            }
+            if (user!=null && user.getUserid()>0 && user.getBloggerid()==0){
+                twitanswer.setStatus(Twitanswer.STATUS_NOBLOGGER);
+            }
+            if (twitaskid==0){
+                twitanswer.setStatus(Twitanswer.STATUS_NOTWITASK);
             }
             twitanswer.setTwitaskid(twitaskid);
             twitanswer.setTwittercreatedate(status.getCreatedAt());
@@ -145,16 +169,8 @@ public class CollectTwitterAnswers implements Job {
             twitanswer.setTwitterusername(status.getUser().getScreenName());
             twitanswer.setTwitaskincentiveid(twitask.getIncentive().getTwitaskincentive().getTwitaskincentiveid());
             try{twitanswer.save();}catch(Exception ex){logger.error("", ex);}
-            //Send direct message acknowledging
-            try{
-                Twitter twitter = new Twitter("dneero","physics");
-                String dotdotdot = "";
-                if (twitask.getQuestion().length()>50){
-                    dotdotdot = "...";
-                }
-                String msg = "Thanks for answering: \""+ Str.truncateString(twitask.getQuestion(), 50)+dotdotdot+"\" Check or create your http://dNeero.com account for status.";
-                DirectMessage message = twitter.sendDirectMessage(status.getUser().getScreenName(), msg);
-            } catch (Exception ex){ logger.error("",ex); }
+            //Send status messages
+            sentTwitterDMAAfterCollect(twitanswer);
         }
     }
 
@@ -194,6 +210,82 @@ public class CollectTwitterAnswers implements Job {
         } else {
             return null;
         }
+    }
+
+    public static void sentTwitterDMAAfterCollect(Twitanswer twitanswer){
+        Logger logger = Logger.getLogger(CollectTwitterAnswers.class);
+        if (twitanswer.getUserid()==0){
+            //Send msg that they need to create a dNeero account
+            String msg = "Thanks for answering! We don't have your twitter account on record. Please go to http://dNeero.com and sign up.";
+            sendTwitterDM(twitanswer.getTwitterusername(), msg, null);
+            return;
+        }
+
+        if (twitanswer.getTwitaskid()==0){
+            //Send msg that they need to reply to a specific question
+            String msg = "Thanks for answering... but we can't use your response... you need to Reply to a specific question.";
+            sendTwitterDM(twitanswer.getTwitterusername(), msg, null);
+            return;
+        }
+
+        if (twitanswer.getStatus()==Twitanswer.STATUS_PENDINGREVIEW){
+            Twitask twitask = Twitask.get(twitanswer.getTwitaskid());
+            User user = User.get(twitask.getUserid());
+            Pl pl = Pl.get(user.getPlid());
+            String dotdotdot = "";
+            if (twitask.getQuestion().length()>50){ dotdotdot = "..."; }
+            String msg = "Thanks for answering: \""+ Str.truncateString(twitask.getQuestion(), 50)+dotdotdot+"\" It's pending review. Log in to your http://dNeero.com account for status.";
+            sendTwitterDM(twitanswer.getTwitterusername(), msg, pl);
+            return;
+        }
+
+        if (twitanswer.getStatus()==Twitanswer.STATUS_DOESNTQUALIFY){
+            Twitask twitask = Twitask.get(twitanswer.getTwitaskid());
+            User user = User.get(twitask.getUserid());
+            Pl pl = Pl.get(user.getPlid());
+            String dotdotdot = "";
+            if (twitask.getQuestion().length()>50){ dotdotdot = "..."; }
+            String msg = "Sorry, you didn't qualify for: \""+ Str.truncateString(twitask.getQuestion(), 50)+dotdotdot+"\" Check http://dNeero.com for status.";
+            sendTwitterDM(twitanswer.getTwitterusername(), msg, pl);
+            return;
+        }
+
+        if (twitanswer.getStatus()==Twitanswer.STATUS_ALREADYANSWERED){
+            Twitask twitask = Twitask.get(twitanswer.getTwitaskid());
+            User user = User.get(twitask.getUserid());
+            Pl pl = Pl.get(user.getPlid());
+            String dotdotdot = "";
+            if (twitask.getQuestion().length()>50){ dotdotdot = "..."; }
+            String msg = "Sorry, you've already answered: \""+ Str.truncateString(twitask.getQuestion(), 50)+dotdotdot+"\" Check http://dNeero.com for status.";
+            sendTwitterDM(twitanswer.getTwitterusername(), msg, pl);
+            return;
+        }
+
+        if (twitanswer.getStatus()==Twitanswer.STATUS_TOOLATE){
+            Twitask twitask = Twitask.get(twitanswer.getTwitaskid());
+            User user = User.get(twitask.getUserid());
+            Pl pl = Pl.get(user.getPlid());
+            String dotdotdot = "";
+            if (twitask.getQuestion().length()>50){ dotdotdot = "..."; }
+            String msg = "Sorry, question closed already: \""+ Str.truncateString(twitask.getQuestion(), 50)+dotdotdot+"\" Check http://dNeero.com for status.";
+            sendTwitterDM(twitanswer.getTwitterusername(), msg, pl);
+            return;
+        }
+
+
+    }
+
+    public static void sendTwitterDM(String twitterusername, String msg, Pl pl){
+        Logger logger = Logger.getLogger(CollectTwitterAnswers.class);
+        try{
+            if (pl==null || pl.getPlid()==0){
+                pl = Pl.get(1);
+            }
+            Twitter twitter = new Twitter(pl.getTwitterusername(),pl.getTwitterpassword());
+            RateLimitStatus rls = twitter.rateLimitStatus();
+            logger.debug("Twitter RateLimitStatus: hourlylimit="+rls.getHourlyLimit()+" remaininghits="+rls.getRemainingHits()+" resettimeinseconds="+rls.getResetTimeInSeconds()+" datetime="+Time.dateformatcompactwithtime(Time.getCalFromDate(rls.getDateTime())));
+            DirectMessage message = twitter.sendDirectMessage(twitterusername, msg);
+        } catch (Exception ex){ logger.error("",ex); }
     }
 
 }

@@ -73,7 +73,7 @@ public class IncentivetwitCash implements Incentivetwit {
         User user = User.get(twitanswer.getUserid());
         Blogger blogger = Blogger.get(user.getBloggerid());
         //Affect balance for blogger
-        MoveMoneyInAccountBalance.pay(user, getBloggerEarningsPerResponse(), "Pay for responding to: '"+twitask.getQuestion()+"'", true, twitanswer.getIsforcharity(), twitanswer.getCharityname(), 0, false, true, false, false);
+        MoveMoneyInAccountBalance.pay(user, getBloggerEarningsPerResponse(), "Pay for Twitter Answer: '"+twitask.getQuestion()+"'", true, twitanswer.getIsforcharity(), twitanswer.getCharityname(), 0, false, true, false, false);
         //Affect balance for researcher
         MoveMoneyInAccountBalance.charge(user, (TwitaskMoneyStatus.calculateAmtToChargeResearcher(getResearcherCostPerResponse(), twitask)), "User "+user.getFirstname()+" "+user.getLastname()+" responds to '"+twitask.getQuestion()+"'", true, false, false, false);
         //Affect balance for reseller

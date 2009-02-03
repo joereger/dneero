@@ -171,18 +171,6 @@ String acl = "public";
                 <td valign="top">
                     
                     <font class="largefont" style="color: #cccccc;">Joined Conversations</font>
-                    <%if (bloggerCompletedsurveys.getList()==null || bloggerCompletedsurveys.getList().size()==0){%>
-                        <div class="rounded" style="padding: 15px; margin: 5px; background: #F2FFBF;">
-                            <font class="smallfont">
-                                You haven't yet joined any conversations.
-                                <a href="/publicsurveylist.jsp"><font style="font-weight: bold; color: #0000ff;">Find Conversations to Join</font></a>
-                            </font>
-                        </div>
-                        <br/><br/>
-                    <%}%>
-
-
-
 
                     <%
                             StringBuffer template = new StringBuffer();
@@ -206,7 +194,7 @@ String acl = "public";
 
 
                         <%if (bloggerCompletedsurveys.getList()==null || bloggerCompletedsurveys.getList().size()==0){%>
-                            <font class="normalfont">You haven't yet joined any conversations!</font>
+                            <font class="normalfont">You haven't yet joined any conversations... <a href="/publicsurveylist.jsp">find some!</a></font>
                         <%} else {%>
                             <%
                                 ArrayList<GridCol> cols = new ArrayList<GridCol>();
@@ -240,6 +228,7 @@ String acl = "public";
                                 cols.add(new GridCol("", taTemplate.toString(), false, "", "tinyfont", "background: #ffffff;", ""));
                             %>
                             <%=Grid.render(bloggerCompletedTwitasks.getTwitanswers(), cols, 10, "/blogger/index.jsp", "pagetwitanswers")%>
+                            <br/><a href="/blogger/bloggercompletedtwitasks.jsp"><font class="smallfont" style="font-weight: bold;">See All Twitter Questions You've Answered</font></a>
                         <%}%>
 
                     <br/><br/><br/>

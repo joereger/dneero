@@ -42,5 +42,11 @@
         <property name="ishttpson" type="boolean">
             <column name="ishttpson" />
         </property>
+        <property name="twitterusername" type="text">
+            <column name="twitterusername" not-null="true" />
+        </property>
+        <property name="twitterpassword" type="text">
+            <column name="twitterpassword" not-null="true" />
+        </property>
     </class>
 </hibernate-mapping>

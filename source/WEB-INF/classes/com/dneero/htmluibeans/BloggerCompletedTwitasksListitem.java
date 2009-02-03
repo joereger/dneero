@@ -16,6 +16,8 @@ public class BloggerCompletedTwitasksListitem implements Serializable {
 
     private Twitask twitask;
     private Twitanswer twitanswer;
+    private String statusTxt;
+    private String earningsTxt;
 
 
     public BloggerCompletedTwitasksListitem(){}
@@ -34,5 +36,21 @@ public class BloggerCompletedTwitasksListitem implements Serializable {
 
     public void setTwitanswer(Twitanswer twitanswer) {
         this.twitanswer=twitanswer;
+    }
+
+    public String getStatusTxt() {
+        return statusTxt;
+    }
+
+    public void setStatusTxt(String statusTxt) {
+        this.statusTxt=statusTxt;
+    }
+
+    public String getEarningsTxt() {
+        return earningsTxt;
+    }
+
+    public void setEarningsTxt(String earningsTxt) {
+        this.earningsTxt=earningsTxt;
     }
 }

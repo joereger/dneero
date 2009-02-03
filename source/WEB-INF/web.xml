@@ -82,7 +82,14 @@
         <url-pattern>/fb/*</url-pattern>
     </servlet-mapping>
 
-
+    <servlet>
+        <servlet-name>TwitterQuestion</servlet-name>
+        <servlet-class>com.dneero.twitter.TwitterQuestionServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>TwitterQuestion</servlet-name>
+        <url-pattern>/tq/*</url-pattern>
+    </servlet-mapping>
 
     <servlet>
         <servlet-name>SurveyJavascriptServlet</servlet-name>

@@ -306,6 +306,8 @@ public class ApplicationStartup implements ServletContextListener {
             pl.setWebhtmlheader("");
             pl.setIshttpson(false);
             pl.setNameforui("dNeero.com");
+            pl.setTwitterusername("");
+            pl.setTwitterpassword("");
             try{pl.save();}catch(Exception ex){logger.error(ex);}
         }
     }

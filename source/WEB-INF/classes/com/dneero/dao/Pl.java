@@ -27,6 +27,8 @@ public class Pl extends BasePersistentClass implements java.io.Serializable, Aut
     private String emailhtmlheader;
     private String emailhtmlfooter;
     private boolean ishttpson;
+    private String twitterusername;
+    private String twitterpassword;
 
 
 
@@ -181,5 +183,21 @@ public class Pl extends BasePersistentClass implements java.io.Serializable, Aut
 
     public void setIshttpson(boolean ishttpson) {
         this.ishttpson=ishttpson;
+    }
+
+    public String getTwitterusername() {
+        return twitterusername;
+    }
+
+    public void setTwitterusername(String twitterusername) {
+        this.twitterusername=twitterusername;
+    }
+
+    public String getTwitterpassword() {
+        return twitterpassword;
+    }
+
+    public void setTwitterpassword(String twitterpassword) {
+        this.twitterpassword=twitterpassword;
     }
 }

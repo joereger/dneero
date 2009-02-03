@@ -6,12 +6,14 @@ import org.quartz.JobExecutionException;
 import org.apache.log4j.Logger;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.criterion.Order;
-import com.dneero.dao.Survey;
-import com.dneero.dao.Twitask;
+import com.dneero.dao.*;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.util.GeneralException;
 import com.dneero.systemprops.InstanceProperties;
 import com.dneero.instantnotify.InstantNotifyOfNewSurvey;
+import com.dneero.incentivetwit.Incentivetwit;
+import com.dneero.incentivetwit.IncentivetwitCash;
+import com.dneero.incentivetwit.IncentivetwitCoupon;
 
 import java.util.List;
 import java.util.Date;
@@ -55,9 +57,27 @@ public class PendingToOpenTwitasks implements Job {
     public static void openTwitask(Twitask twitask){
         Logger logger = Logger.getLogger(PendingToOpenTwitasks.class);
         try{
-            Twitter twitter = new Twitter("dneero","physics");
+            User user = User.get(twitask.getUserid());
+            Pl pl = Pl.get(user.getPlid());
+            Incentivetwit incentivetwit = twitask.getIncentive();
+
+
+            StringBuffer statusTxt = new StringBuffer();
+            statusTxt.append("Q:");
+            if (incentivetwit.getTwitaskincentive().getType()==IncentivetwitCash.ID){
+                statusTxt.append(incentivetwit.getShortSummary());
+            } else if (incentivetwit.getTwitaskincentive().getType()==IncentivetwitCoupon.ID){
+                statusTxt.append("COUPON");
+            }
+            if (twitask.getIscharityonly()){
+                statusTxt.append("->CHARITY");
+            }
+            statusTxt.append(": ");
+            statusTxt.append(twitask.getQuestion());
+            //Send update
+            Twitter twitter = new Twitter(pl.getTwitterusername(),pl.getTwitterpassword());
             twitter.setSource("dNeero.com");
-            Status status = twitter.update(twitask.getQuestion());
+            Status status = twitter.update(statusTxt.toString());
             twitask.setTwitterid(status.getId());
             twitask.setStatus(Twitask.STATUS_OPEN);
             twitask.setSenttotwitterdate(new Date());

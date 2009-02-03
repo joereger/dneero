@@ -123,12 +123,21 @@ public class ReviewableTwitanswer implements Reviewable {
         if (respondentssofar>=twitask.getNumberofrespondentsrequested()){
             istoolate = true;
         }
+        //See if it's alreadyanswered
+        boolean isalreadyanswered = false;
+        int answers = NumFromUniqueResult.getInt("select count(*) from Twitanswer where twitaskid='"+twitask.getTwitaskid()+"' and status='"+Twitanswer.STATUS_APPROVED+"' and userid='"+twitanswer.getUserid()+"'");
+        if (answers>0){
+            isalreadyanswered = true;
+        }
         //Record approval
         twitanswer.setIssysadminrejected(false);
         twitanswer.setIssysadminreviewed(true);
         twitanswer.setStatus(Twitanswer.STATUS_APPROVED);
         if (istoolate){
             twitanswer.setStatus(Twitanswer.STATUS_TOOLATE);
+        }
+        if (isalreadyanswered){
+            twitanswer.setStatus(Twitanswer.STATUS_ALREADYANSWERED);
         }
         try{twitanswer.save();}catch(Exception ex){logger.error("", ex);}
     }
