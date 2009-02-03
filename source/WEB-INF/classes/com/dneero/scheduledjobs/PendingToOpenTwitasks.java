@@ -56,6 +56,7 @@ public class PendingToOpenTwitasks implements Job {
         Logger logger = Logger.getLogger(PendingToOpenTwitasks.class);
         try{
             Twitter twitter = new Twitter("dneero","physics");
+            twitter.setSource("dNeero.com");
             Status status = twitter.update(twitask.getQuestion());
             twitask.setTwitterid(status.getId());
             twitask.setStatus(Twitask.STATUS_OPEN);

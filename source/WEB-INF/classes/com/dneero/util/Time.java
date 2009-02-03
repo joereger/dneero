@@ -358,7 +358,7 @@ public class Time {
         //Get time on the physical server (probably in Atlanta)
         Calendar now = Calendar.getInstance();
         //Convert from server (not GMT... server in Atlanta) time to gmt timezone.
-        now = Time.convertFromOneTimeZoneToAnother(now, now.getTimeZone().getID(), "GMT");
+        //now = Time.convertFromOneTimeZoneToAnother(now, now.getTimeZone().getID(), "GMT");
 
 		
 		//Calculate datediff at various units

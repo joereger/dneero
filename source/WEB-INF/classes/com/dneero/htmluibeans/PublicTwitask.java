@@ -49,7 +49,7 @@ public class PublicTwitask implements Serializable {
         List<Twitanswer> tans = HibernateUtil.getSession().createCriteria(Twitanswer.class)
                                            .add(Restrictions.eq("twitaskid", twitask.getTwitaskid()))
                                            .add(Restrictions.eq("status", Twitanswer.STATUS_APPROVED))
-                                           .addOrder(Order.desc("twitaskid"))
+                                           .addOrder(Order.desc("twittercreatedate"))
                                            .setCacheable(true)
                                            .list();
         for (Iterator<Twitanswer> twitanswerIterator=tans.iterator(); twitanswerIterator.hasNext();) {
