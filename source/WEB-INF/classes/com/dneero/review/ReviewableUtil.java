@@ -20,6 +20,10 @@ import java.util.Collections;
  */
 public class ReviewableUtil {
 
+    public static ArrayList<Reviewable> getPendingForSysadmin(){
+        return getPendingForSysadmin(0);
+    }
+
     public static ArrayList<Reviewable> getPendingForSysadmin(int type){
         Logger logger = Logger.getLogger(ReviewableUtil.class);
         //ArrayList<Reviewable> out = new ArrayList<Reviewable>();
@@ -50,6 +54,10 @@ public class ReviewableUtil {
         }
         return out;
 
+    }
+
+    public static ArrayList<Reviewable> getPendingForResearcher(int researcherid){
+        return getPendingForResearcher(researcherid, 0);
     }
 
     public static ArrayList<Reviewable> getPendingForResearcher(int researcherid, int type){

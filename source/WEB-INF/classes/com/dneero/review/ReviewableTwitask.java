@@ -88,6 +88,7 @@ public class ReviewableTwitask implements Reviewable {
         out.append("<font class=\"tinyfont\"><b>");
         out.append("If you approve this a new Twitter Question campaign will be launched.");
         out.append("</b></font>");
+        out.append("<br/><br/>");
         return out.toString();
     }
 

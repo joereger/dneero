@@ -7,6 +7,7 @@ import com.dneero.htmlui.ValidationException;
 import com.dneero.survey.servlet.EmbedCacheFlusher;
 import com.dneero.survey.servlet.SurveyAsHtml;
 import com.dneero.util.Str;
+import com.dneero.util.RandomString;
 import org.apache.log4j.Logger;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
@@ -82,12 +83,17 @@ public class ReviewableTwitanswer implements Reviewable {
         out.append("<font class=\"mediumfont\">");
         out.append("This is a Twitter Answer.");
         out.append("</font>");
-        out.append("<br/>");
-        out.append("<font class=\"mediumfont\"><b>");
+        out.append("<br/><br/>");
+        out.append("<font class=\"mediumfont\" style=\"color: #cccccc;\">");
         out.append("Question: "+Str.cleanForHtml(twitask.getQuestion()));
-        out.append("<br/>");
-        out.append("Answer: "+Str.cleanForHtml(twitanswer.getAnswer()));
-        out.append("</b></font>");
+        out.append("</font>");
+        out.append("<br/><br/>");
+        out.append("<font class=\"mediumfont\">");
+        out.append("Answer: <b>"+Str.cleanForHtml(twitanswer.getAnswer())+"</b>");
+        out.append("</font>");
+        out.append("<br/><br/>");
+        out.append("Answer by <a href=\"http://twitter.com/"+twitanswer.getTwitterusername()+"\" target=\""+ RandomString.randomAlphabetic(5) +"\">http://twitter.com/"+twitanswer.getTwitterusername()+"</a>");
+        out.append("<br/><br/>");
         return out.toString();
     }
 
