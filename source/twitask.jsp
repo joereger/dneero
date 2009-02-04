@@ -36,14 +36,23 @@ String acl = "public";
 <%@ include file="/template/header.jsp" %>
 
 
-
+        <%
+        int peoplewhoanswered = 0;
+        if (publicTwitask.getTwitanswers()!=null){
+            peoplewhoanswered = publicTwitask.getTwitanswers().size();
+        }
+        %>
+        <%
+        int followersexposed = NumFromUniqueResult.getInt("select sum(twitterfollowerscount) from Twitanswer where twitaskid='"+publicTwitask.getTwitask().getTwitaskid()+"'");
+        %>
 
 
         <table cellpadding="10" cellspacing="0" border="0" width="100%">
             <tr>
                 <td valign="top">
                     <%--<div class="rounded" style="background: #e6e6e6; text-align: left; padding: 10px;">--%>
-                    <font class="mediumfont" style="color: #666666; font-size: 30px; font-weight: bold;"><%=publicTwitask.getTwitask().getQuestion()%></font>
+                    <div style="padding: 4px; background: #e6e6e6;"><font class="normalfont" style="color: #000000; font-size: 10px; font-weight: bold;"><font style="background: #ffffff; padding: 4px; font-size: 12px; color: #666666;"><%=peoplewhoanswered%></font> people answered <font style="background: #ffffff; margin: 4px; padding: 4px;  font-size: 12px; color: #666666;"><%=followersexposed%></font> Twitter followers saw it</font></div>
+                    <br/><font class="mediumfont" style="color: #666666; font-size: 30px; font-weight: bold;"><%=publicTwitask.getTwitask().getQuestion()%></font>
                     <!--</div>-->
                     <br/><br/><br/>
                     <%if (publicTwitask.getTwitanswers()==null || publicTwitask.getTwitanswers().size()==0){%>

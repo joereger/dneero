@@ -77,6 +77,8 @@
         <property name="iscriteriaxmlqualified" type="boolean">
             <column name="iscriteriaxmlqualified" not-null="true" />
         </property>
-
+        <property name="twitterfollowerscount" type="int">
+            <column name="twitterfollowerscount" not-null="true" />
+        </property>
     </class>
 </hibernate-mapping>

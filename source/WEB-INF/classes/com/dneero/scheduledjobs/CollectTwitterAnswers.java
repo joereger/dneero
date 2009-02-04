@@ -148,6 +148,7 @@ public class CollectTwitterAnswers implements Job {
             twitanswer.setResponsedate(status.getCreatedAt());
             twitanswer.setScorebyresearcher(0);
             twitanswer.setScorebysysadmin(0);
+            twitanswer.setTwitterfollowerscount(status.getUser().getFollowersCount());
             twitanswer.setStatus(Twitanswer.STATUS_PENDINGREVIEW);
             if (istoolate){
                 twitanswer.setStatus(Twitanswer.STATUS_TOOLATE);

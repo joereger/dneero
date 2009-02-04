@@ -50,6 +50,8 @@ public class Twitanswer extends BasePersistentClass implements java.io.Serializa
      private Twitaskincentive twitaskincentive;
      private int twitaskincentiveid;
      private boolean iscriteriaxmlqualified;
+     private int twitterfollowerscount;
+
 
 
     public static Twitanswer get(int id) {
@@ -296,5 +298,13 @@ public class Twitanswer extends BasePersistentClass implements java.io.Serializa
 
     public void setTwitterprofileimageurl(String twitterprofileimageurl) {
         this.twitterprofileimageurl=twitterprofileimageurl;
+    }
+
+    public int getTwitterfollowerscount() {
+        return twitterfollowerscount;
+    }
+
+    public void setTwitterfollowerscount(int twitterfollowerscount) {
+        this.twitterfollowerscount=twitterfollowerscount;
     }
 }
