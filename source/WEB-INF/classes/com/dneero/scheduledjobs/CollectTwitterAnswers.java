@@ -119,15 +119,19 @@ public class CollectTwitterAnswers implements Job {
             }
             //See if it's too late
             boolean istoolate = false;
-            int respondentssofar = NumFromUniqueResult.getInt("select count(*) from Twitanswer where twitaskid='"+twitask.getTwitaskid()+"' and status='"+Twitanswer.STATUS_APPROVED+"'");
-            if (respondentssofar>=twitask.getNumberofrespondentsrequested()){
-                istoolate = true;
+            if (twitask!=null){
+                int respondentssofar = NumFromUniqueResult.getInt("select count(*) from Twitanswer where twitaskid='"+twitask.getTwitaskid()+"' and status='"+Twitanswer.STATUS_APPROVED+"'");
+                if (respondentssofar>=twitask.getNumberofrespondentsrequested()){
+                    istoolate = true;
+                }
             }
             //See if it's alreadyanswered
             boolean isalreadyanswered = false;
-            int answers = NumFromUniqueResult.getInt("select count(*) from Twitanswer where twitaskid='"+twitask.getTwitaskid()+"' and status='"+Twitanswer.STATUS_APPROVED+"' and userid='"+userid+"'");
-            if (answers>0){
-                isalreadyanswered = true;
+            if (twitask!=null){
+                int answers = NumFromUniqueResult.getInt("select count(*) from Twitanswer where twitaskid='"+twitask.getTwitaskid()+"' and status='"+Twitanswer.STATUS_APPROVED+"' and userid='"+userid+"'");
+                if (answers>0){
+                    isalreadyanswered = true;
+                }
             }
             //Record the answer
             Twitanswer twitanswer = new Twitanswer();
@@ -167,7 +171,11 @@ public class CollectTwitterAnswers implements Job {
             twitanswer.setTwittertext(status.getText());
             twitanswer.setTwitterprofileimageurl(status.getUser().getProfileImageURL().toString());
             twitanswer.setTwitterusername(status.getUser().getScreenName());
-            twitanswer.setTwitaskincentiveid(twitask.getIncentive().getTwitaskincentive().getTwitaskincentiveid());
+            int twitaskincentiveid = 0;
+            if (twitask!=null){
+               twitaskincentiveid = twitask.getIncentive().getTwitaskincentive().getTwitaskincentiveid();
+            }
+            twitanswer.setTwitaskincentiveid(twitaskincentiveid);
             try{twitanswer.save();}catch(Exception ex){logger.error("", ex);}
             //Send status messages
             sentTwitterDMAAfterCollect(twitanswer);
@@ -271,8 +279,6 @@ public class CollectTwitterAnswers implements Job {
             sendTwitterDM(twitanswer.getTwitterusername(), msg, pl);
             return;
         }
-
-
     }
 
     public static void sendTwitterDM(String twitterusername, String msg, Pl pl){

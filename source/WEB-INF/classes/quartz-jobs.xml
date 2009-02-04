@@ -359,8 +359,8 @@
             <group>collectTwitterAnswers</group>
             <job-name>systemStats</job-name>
             <job-group>surveyJobs</job-group>
-            <!-- on 40th minute at specified hours -->
-            <cron-expression>0 56 8,10,12,14,16,18,20,22 * * ?</cron-expression>
+            <!-- on 56th minute of all hours -->
+            <cron-expression>0 12,18,34,56 * * * ?</cron-expression>
           </cron>
         </trigger>
     </job>
