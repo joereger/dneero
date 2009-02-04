@@ -17,7 +17,7 @@ if (publicTwitask==null || publicTwitask.getTwitask()==null || publicTwitask.get
 %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
-String pagetitle = "Twitter Question:<br/>"+publicTwitask.getTwitask().getQuestion();
+String pagetitle = "Twitter Question";
 String navtab = "home";
 String acl = "public";
 %>
@@ -39,10 +39,13 @@ String acl = "public";
 
 
 
-       <br/>
-        <table cellpadding="10" cellspacing="0" border="0">
+        <table cellpadding="10" cellspacing="0" border="0" width="100%">
             <tr>
-                <td valign="top" width="75%">
+                <td valign="top">
+                    <%--<div class="rounded" style="background: #e6e6e6; text-align: left; padding: 10px;">--%>
+                    <font class="mediumfont" style="color: #666666; font-size: 30px; font-weight: bold;"><%=publicTwitask.getTwitask().getQuestion()%></font>
+                    <!--</div>-->
+                    <br/><br/><br/>
                     <%if (publicTwitask.getTwitanswers()==null || publicTwitask.getTwitanswers().size()==0){%>
                         <font class="normalfont">Nobody's answered... yet.  Want to answer?  <ol><li>Add your <a href="http://twitter.com">Twitter</a> username to <a href="/account/accountsettings.jsp">your account</a></li><li>follow us at <a href="http://twitter.com/dNeero">http://twitter.com/dNeero</a></li><li>reply to questions you see us ask</li></ol></font>
                    <%} else {%>
@@ -68,17 +71,42 @@ String acl = "public";
                         <%=Grid.render(publicTwitask.getTwitanswers(), cols, 200, "/twitask.jsp?twitaskid="+ publicTwitask.getTwitask().getTwitaskid(), "pagetwitanswers")%>
                     <%}%>
                 </td>
-                <td valign="top">
-                    <div class="rounded" style="background: #e6e6e6; text-align: center; padding: 10px;">
+                <td valign="top" width="270">
+                    <div class="rounded" style="background: #00ff00; text-align: left; padding: 10px;">
                         <div class="rounded" style="background: #ffffff; padding: 10px; text-align: left;">
-                            <font class="mediumfont" style="font-color: #cccccc;">Twitter Questions</font><br/>
-                            <font class="tinyfont" style="font-color: #000000;">
-                                A powerful and quick way for companies and organizations to engage an existing productive panel of Twitter users in social market research.
+                            <img src="/images/twitterbird.gif" width="250" height="157" alt=""><br/>
+                            <font class="mediumfont" style="color: #cccccc;">Twitter Questions</font><br/>
+                            <font class="tinyfont" style="color: #000000;">
+                                A powerful and quick way for companies and organizations to engage an existing and productive panel of Twitter users in social market research.
                                 <ol><li>Add your <a href="http://twitter.com">Twitter</a> username to <a href="/account/accountsettings.jsp">your account</a></li><li>follow us at <a href="http://twitter.com/dNeero">http://twitter.com/dNeero</a></li><li>reply to questions you see us ask</li></ol>
                             </font>
                         </div>
                         <br/><br/>
+                        <font class="tinyfont" style="font-color: #000000; font-weight: bold;">Who creates Twitter Questions?</font><br/>
+                        <font class="tinyfont" style="font-color: #000000;">Any company or organization can create and launch a question using their dNeero.com account.  It takes minutes.</font>
+                        <br/><br/>
+                        <font class="tinyfont" style="font-color: #000000; font-weight: bold;">Where is the question announced?</font><br/>
+                        <font class="tinyfont" style="font-color: #000000;">The question is posted to our Twitter account where anybody following us can see it.</font>
+                        <br/><br/>
+                        <font class="tinyfont" style="font-color: #000000; font-weight: bold;">How is the question answered?</font><br/>
+                        <font class="tinyfont" style="font-color: #000000;">From within Twitter anybody can simply click reply and type their answer.  That's it.</font>
+                        <br/><br/>
+                        <font class="tinyfont" style="font-color: #000000; font-weight: bold;">How is this better than just asking it on Twitter without dNeero?</font><br/>
+                        <font class="tinyfont" style="font-color: #000000;">There are a number of reasons to use dNeero.com's tools:
+                            <ul>
+                                <li>You gain access to an existing universe of Twitter users that we've carefully cultivated.</li>
+                                <li>We have demographic information on people who respond and are awarded an incentive so you can slice and dice responses according to market segment.</li>
+                                <li>You can offer cash, charity or coupon incentives to get people involved.</li>
+                                <li>You can limit the number of people who are able to get the award incentive.  After that, it's just too late.</li>
+                                <li>You get an aggregate results page to point people to.  All answers that people provided will be listed.</li>
+                                <li>You can ask multiple questions at once and we'll take care of sorting it out.  With Twitter alone you'd end up with a single list of possibly-confusing answers (in Twitter they're called @replies).</li>
+                            </ul>
 
+                        </font>
+                        <br/><br/>
+                        <font class="tinyfont" style="font-color: #000000; font-weight: bold;">I've already got tons of Twitter users... can I pose the question on my own Twitter account?</font><br/>
+                        <font class="tinyfont" style="font-color: #000000;">We do have a private label solution.  Let's talk: <a href="mailto:info@dneero.com">info@dneero.com</a></font>
+                        <br/><br/>
 
                     </div>
 

@@ -185,6 +185,15 @@ function rButtonImgInact(){
                 <br/>
 
                 <div class="rounded" style="background: #e6e6e6; padding: 10px;">
+                    <div style="text-align: right; float: right; width: 100px;"><font class="tinyfont" style="color: #999999;">updated every 15 min</font></div>
+                    <% TwitterQuestionAnswers tqa = (TwitterQuestionAnswers) GetCachedStuff.get(new TwitterQuestionAnswers()); %>
+                    <font class="mediumfont" style="color: #999999;">Recent Twitter Question Responses</font><br/>
+                    <%=tqa.getHtml()%>
+                </div>
+
+                <br/>
+
+                <div class="rounded" style="background: #e6e6e6; padding: 10px;">
                     <table cellpadding="0" cellspacing="10" border="0" width="100%">
                         <tr>
                             <td width="50%">

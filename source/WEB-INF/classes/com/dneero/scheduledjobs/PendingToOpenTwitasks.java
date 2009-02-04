@@ -81,7 +81,7 @@ public class PendingToOpenTwitasks implements Job {
             twitask.setTwitterid(status.getId());
             twitask.setStatus(Twitask.STATUS_OPEN);
             twitask.setSenttotwitterdate(new Date());
-            try{ twitask.save(); } catch (GeneralException ex){ logger.error("",ex); }
+            try{ twitask.save(); twitask.refresh(); } catch (GeneralException ex){ logger.error("",ex); }
         } catch (Exception ex){ logger.error("",ex); }
     }
 
