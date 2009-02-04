@@ -18,7 +18,42 @@ String acl = "blogger";
 <%
     BloggerCompletedTwitasks bloggerCompletedTwitasks = (BloggerCompletedTwitasks) Pagez.getBeanMgr().get("BloggerCompletedTwitasks");
 %>
-
+<%
+    if (request.getParameter("action") != null && request.getParameter("action").equals("handleaward")) {
+        try {
+            if (request.getParameter("twitanswerid")!=null && Num.isinteger(request.getParameter("twitanswerid"))){
+                Twitanswer twitanswer = Twitanswer.get(Integer.parseInt(request.getParameter("twitanswerid")));
+                if (twitanswer.getUserid()==Pagez.getUserSession().getUser().getUserid()){
+                    //Note that this same if statement appears on BloggerCompletedTwitasks.java and bloggercompletedtwitasks.jsp
+                    if (twitanswer.getStatus()==Twitanswer.STATUS_APPROVED && !twitanswer.getIspaid() && !twitanswer.getIssysadminrejected() && twitanswer.getIscriteriaxmlqualified()){
+                        //Set the coupon stuff
+                        String charityname = "";
+                        if (request.getParameter("charity-charityname")!=null){
+                            charityname = request.getParameter("charity-charityname");  
+                        }
+                        twitanswer.setCharityname(charityname);
+                        twitanswer.setIsforcharity(false);
+                        if (request.getParameter("charity-isforcharity")!=null && request.getParameter("charity-isforcharity").equals("1")){
+                            twitanswer.setIsforcharity(true);
+                        }
+                        try{twitanswer.save();}catch(Exception ex){logger.error("",ex);}
+                        //Award the incentive
+                        twitanswer.getIncentive().doAwardIncentive(twitanswer);
+                        //Update paid status
+                        twitanswer.setIspaid(true);
+                        try{twitanswer.save();}catch(Exception ex){logger.error("",ex);}
+                        //Refresh the bean
+                        bloggerCompletedTwitasks.initBean();
+                    }
+                }
+            }
+            Pagez.getUserSession().setMessage("Done!  Thanks!");
+        } catch (Exception ex) {
+            Pagez.getUserSession().setMessage("Sorry, there was an error.");
+            logger.error("", ex);
+        }
+    }
+%>
 <%@ include file="/template/header.jsp" %>
 
    <%
@@ -32,6 +67,7 @@ String acl = "blogger";
     "                        <font class=\"normalfont\" style=\"font-weight: bold;\">Your Answer: <$twitanswer.answer$></font><br/>\n" +
     "                        <font class=\"tinyfont\" style=\"font-weight:bold;\">Incentive: <$earningsTxt$></font><br/>\n" +
     "                        <font class=\"tinyfont\" style=\"font-weight:bold;\">Status: <$statusTxt$></font><br/>\n" +
+    "                        <font class=\"tinyfont\" style=\"font-weight:bold;\"><$htmlpayform$></font>\n" +
     "                    </td>\n" +
     "                </tr>\n" +
     "            </table>\n" +

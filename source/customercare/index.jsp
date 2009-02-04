@@ -24,7 +24,7 @@ String acl = "customercare";
 
 <%
     long openSupportIssues = NumFromUniqueResult.getInt("select count(*) from Mail where isflaggedforcustomercare=true");
-    long openReviewItems = NumFromUniqueResult.getInt("select count(*) from Review where (isresearcherrejected=true or isresearcherwarned=true) and issysadminreviewed=false");
+    //long openReviewItems = NumFromUniqueResult.getInt("select count(*) from Review where (isresearcherrejected=true or isresearcherwarned=true) and issysadminreviewed=false");
 %>
 
 
@@ -40,7 +40,7 @@ String acl = "customercare";
                </td>
                <td valign="top" width="33%">
                 <div class="rounded" style="padding: 15px; margin: 8px; background: #BFFFBF;">
-                    <font class="largefont">~<%=openReviewItems%></font>
+                    <font class="largefont">~lots of</font>
                     <br/>
                     <font class="mediumfont">items for <a href="/customercare/reviewables-turbo.jsp">review</a></font>
                 </div>

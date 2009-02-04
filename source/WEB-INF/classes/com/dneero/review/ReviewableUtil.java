@@ -20,9 +20,10 @@ import java.util.Collections;
  */
 public class ReviewableUtil {
 
-    public static ArrayList<Reviewable> getPendingForSysadmin(){
+    public static ArrayList<Reviewable> getPendingForSysadmin(int type){
         Logger logger = Logger.getLogger(ReviewableUtil.class);
         //ArrayList<Reviewable> out = new ArrayList<Reviewable>();
+        //CLEAN UP DELETES
         List<Review> reviews = HibernateUtil.getSession().createCriteria(Review.class)
                                            .add(Restrictions.eq("issysadminreviewed", false))
                                            .addOrder(Order.asc("datelastupdated"))
@@ -43,29 +44,41 @@ public class ReviewableUtil {
         ArrayList<Reviewable> out = new ArrayList<Reviewable>();
         for (Iterator<Reviewable> iterator=ReviewableFactory.getAllTypes().iterator(); iterator.hasNext();) {
             Reviewable reviewable=iterator.next();
-            out.addAll(reviewable.getPendingForSysadmin());
+            if (type==0 || type==reviewable.getType()){
+                out.addAll(reviewable.getPendingForSysadmin());
+            }
         }
         return out;
 
     }
 
-    public static ArrayList<Reviewable> getPendingForResearcher(int researcherid){
+    public static ArrayList<Reviewable> getPendingForResearcher(int researcherid, int type){
         ArrayList<Reviewable> out = new ArrayList<Reviewable>();
         for (Iterator<Reviewable> iterator=ReviewableFactory.getAllTypes().iterator(); iterator.hasNext();) {
             Reviewable reviewable=iterator.next();
-            out.addAll(reviewable.getPendingForResearcher(researcherid));
+            if (type==0 || type==reviewable.getType()){
+                out.addAll(reviewable.getPendingForResearcher(researcherid));
+            }
         }
         return out;
     }
 
     public static ArrayList<Reviewable> getPendingForResearcherSorted(int researcherid){
-        ArrayList<Reviewable> out = getPendingForResearcher(researcherid);
+        return getPendingForResearcherSorted(researcherid, 0);
+    }
+
+    public static ArrayList<Reviewable> getPendingForResearcherSorted(int researcherid, int type){
+        ArrayList<Reviewable> out = getPendingForResearcher(researcherid, type);
         Collections.sort(out, new ReviewableDateComparator());
         return out;
     }
 
     public static ArrayList<Reviewable> getPendingForSysadminSorted(){
-        ArrayList<Reviewable> out = getPendingForSysadmin();
+        return getPendingForSysadminSorted(0);
+    }
+
+    public static ArrayList<Reviewable> getPendingForSysadminSorted(int type){
+        ArrayList<Reviewable> out = getPendingForSysadmin(type);
         Collections.sort(out, new ReviewableDateComparator());
         return out;
     }

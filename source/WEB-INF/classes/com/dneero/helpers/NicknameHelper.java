@@ -28,6 +28,18 @@ public class NicknameHelper {
         return false;
     }
 
+    public static boolean nicknameExistsAlreadyForSomebodyElse(String nickname, User user){
+        List<User> users = HibernateUtil.getSession().createCriteria(User.class)
+                                           .add(Restrictions.eq("nickname", nickname.trim().toLowerCase()))
+                                           .add(Restrictions.ne("userid", user.getUserid()))
+                                           .setCacheable(true)
+                                           .list();
+        if (users!=null && users.size()>0){
+            return true;
+        }
+        return false;
+    }
+
     public static String getNameOrNickname(User user){
         if (user!=null && user.getUserid()>0){
             if (user.getNickname()!=null && !user.getNickname().equals("")){

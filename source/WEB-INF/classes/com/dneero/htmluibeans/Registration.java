@@ -2,11 +2,9 @@ package com.dneero.htmluibeans;
 
 import org.apache.log4j.Logger;
 import org.apache.commons.validator.EmailValidator;
-import org.hibernate.criterion.Restrictions;
 import com.dneero.dao.*;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.util.*;
-import com.dneero.util.jcaptcha.CaptchaServiceSingleton;
 import com.dneero.htmlui.UserSession;
 import com.dneero.htmlui.Pagez;
 import com.dneero.htmlui.ValidationException;
@@ -15,17 +13,13 @@ import com.dneero.email.EmailActivationSend;
 import com.dneero.money.PaymentMethod;
 import com.dneero.xmpp.SendXMPPMessage;
 import com.dneero.eula.EulaHelper;
-import com.dneero.systemprops.SystemProperty;
-import com.dneero.systemprops.BaseUrl;
-import com.dneero.helpers.UserInputSafe;
 import com.dneero.helpers.NicknameHelper;
 import com.dneero.helpers.TwitanswerFinderAfterAccountInfoChange;
-import com.dneero.facebook.FacebookPendingReferrals;
-import com.dneero.cache.providers.CacheFactory;
 import com.dneero.iptrack.RecordIptrackUtil;
 import com.dneero.iptrack.Activitytype;
 import com.dneero.sir.SocialInfluenceRating;
-import com.octo.captcha.service.CaptchaServiceException;
+import com.dneero.twitter.TwitterUsernameAlreadyInUse;
+
 
 import javax.servlet.http.Cookie;
 import java.util.*;
@@ -116,6 +110,15 @@ public class Registration implements Serializable {
             }
         } else {
             nickname = "";
+        }
+
+        if (twitterusername!=null && !twitterusername.equals("")){
+            if (TwitterUsernameAlreadyInUse.usernameExistsAlready(twitterusername)){
+                vex.addValidationError("Sorry, that Twitter Username is already in use.");
+                haveErrors = true;
+            }
+        } else {
+            twitterusername = "";
         }
 
         //@todo need to check for lcase(firstname), lcase(lastname), email in the database... people are changing caps on name and creating another account.

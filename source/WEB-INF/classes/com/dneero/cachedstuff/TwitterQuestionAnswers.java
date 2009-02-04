@@ -3,6 +3,7 @@ package com.dneero.cachedstuff;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.dao.*;
 import com.dneero.util.Time;
+import com.dneero.util.Str;
 import com.dneero.helpers.NicknameHelper;
 
 import java.util.Calendar;
@@ -53,11 +54,15 @@ public class TwitterQuestionAnswers implements CachedStuff, Serializable {
             out.append("<a href=\"http://twitter.com/"+twitanswer.getTwitterusername()+"\">");
             out.append(twitanswer.getTwitterusername());
             out.append("</a>");
-            out.append(" answered to ");
+            out.append(" answered ");
             out.append("<a href=\"/twitask.jsp?twitaskid="+twitask.getTwitaskid()+"\">");
-            out.append(twitask.getQuestion());
+            out.append("\""+twitask.getQuestion()+"\"");
             out.append("</a>");
             out.append(" "+ago);
+            out.append("</font>");
+            out.append("<br/>");
+            out.append("<font class='smallfont'>");
+            out.append(twitanswer.getTwitterusername()+" said: "+ Str.cleanForHtml(twitanswer.getAnswer()));
             out.append("</font>");
             out.append("</td>");
             out.append("</tr>");

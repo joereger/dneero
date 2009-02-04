@@ -3,6 +3,7 @@ package com.dneero.htmluibeans;
 import com.dneero.htmlui.Pagez;
 import com.dneero.review.Reviewable;
 import com.dneero.review.ReviewableUtil;
+import com.dneero.util.Num;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -20,7 +21,11 @@ public class ResearcherReviewList implements Serializable {
     }
 
     public void initBean(){
-        reviewables = ReviewableUtil.getPendingForResearcherSorted(Pagez.getUserSession().getUser().getResearcherid());
+        int onlytypeid=0;
+        if (Pagez.getRequest().getParameter("onlytypeid")!=null && Num.isinteger(Pagez.getRequest().getParameter("onlytypeid"))){
+            onlytypeid = Integer.parseInt(Pagez.getRequest().getParameter("onlytypeid"));
+        }
+        reviewables = ReviewableUtil.getPendingForResearcherSorted(Pagez.getUserSession().getUser().getResearcherid(), onlytypeid);
     }
 
     public ArrayList<Reviewable> getReviewables() {

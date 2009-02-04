@@ -38,6 +38,8 @@ public class BloggerCompletedTwitasks implements Serializable {
                 BloggerCompletedTwitasksListitem listitem = new BloggerCompletedTwitasksListitem();
                 listitem.setTwitask(twitask);
                 listitem.setTwitanswer(twitanswer);
+
+                //Status
                 if (twitanswer.getStatus()==Twitanswer.STATUS_ALREADYANSWERED){
                     listitem.setStatusTxt("You've already answered this Twitter Question.");
                 }
@@ -67,12 +69,90 @@ public class BloggerCompletedTwitasks implements Serializable {
                     listitem.setStatusTxt("Too late... the Twitter Question had already gotten enough responses... you've got to be quick!");
                 }
 
-                
+                //Earnings text
                 listitem.setEarningsTxt(twitask.getIncentive().getFullSummary());
 
+                //Html pay form for user to choose award
+                listitem.setHtmlpayform(getHtmlPayForm(twitask, twitanswer));
+
+                //Add to list
                 twitanswers.add(listitem);
             }
         }
+    }
+
+
+    private String getHtmlPayForm(Twitask twitask, Twitanswer twitanswer){
+        StringBuffer htmlpayform = new StringBuffer();
+        //Note that this same if statement appears on BloggerCompletedTwitasks.java and bloggercompletedtwitasks.jsp
+        if (twitanswer.getStatus()==Twitanswer.STATUS_APPROVED && !twitanswer.getIspaid() && !twitanswer.getIssysadminrejected() && twitanswer.getIscriteriaxmlqualified()){
+            htmlpayform.append("<br/>");
+            htmlpayform.append("<div class=\"rounded\" style=\"background: #ffffff; padding: 5px;\">");
+            htmlpayform.append("<form action=\"/blogger/bloggercompletedtwitasks.jsp\" method=\"post\" name=\"surveyform\" style=\"margin: 0px; padding: 0px;\">");
+            htmlpayform.append("<input type=\"hidden\" name=\"dpage\" value=\"/blogger/bloggercompletedtwitasks.jsp\">");
+            htmlpayform.append("<input type=\"hidden\" name=\"action\" value=\"handleaward\">");
+            htmlpayform.append("<input type=\"hidden\" name=\"twitanswerid\" value=\""+twitanswer.getTwitanswerid()+"\">");
+            htmlpayform.append("<table cellpadding=\"5\" cellspacing=\"0\" border=\"0\">");
+            htmlpayform.append("<tr>");
+            htmlpayform.append("<td valign=\"top\" align=\"left\" width=\"20\">");
+            if (!twitask.getIscharityonly()){
+            htmlpayform.append("<input type=\"checkbox\" name=\"charity-isforcharity\" value=\"1\"/>");
+            }
+            if (twitask.getIscharityonly()){
+            htmlpayform.append("<input type=\"hidden\" name=\"charity-isforcharity\" value=\"1\"/>");
+            }
+            htmlpayform.append("</td>");
+            htmlpayform.append("<td valign=\"top\" width=\"155\" align=\"left\">");
+            if (!twitask.getIscharityonly()){
+            htmlpayform.append("<font class=\"formfieldnamefont\">Don't Pay Me. Give My Earnings to this Charity:</font>");
+            }
+            if (twitask.getIscharityonly()){
+            htmlpayform.append("<font class=\"formfieldnamefont\">Earnings From This Conversation Must be Given to Charity:</font>");
+            }
+            htmlpayform.append("<br/>");
+            htmlpayform.append("<select name=\"charity-charityname\">");
+            if (!twitask.getCharityonlyallowcustom()){
+            htmlpayform.append("<option value=\"Habitat for Humanity\">Habitat for Humanity</option>");
+            htmlpayform.append("<option value=\"Make-A-Wish Foundation\">Make-A-Wish Foundation</option>");
+            htmlpayform.append("<option value=\"American Cancer Society\">American Cancer Society</option>");
+            htmlpayform.append("<option value=\"PetSmart Charities\">PetSmart Charities</option>");
+            htmlpayform.append("<option value=\"Wikimedia Foundation\">Wikimedia Foundation</option>");
+            htmlpayform.append("<option value=\"The Conservation Fund\">The Conservation Fund</option>");
+            }
+            if (!twitask.getCharitycustom().equals("")){
+            htmlpayform.append("<option value=\""+Str.cleanForHtml(twitask.getCharitycustom())+"\">"+twitask.getCharitycustom()+"</option>");
+            }
+            htmlpayform.append("</select>");
+            htmlpayform.append("<br/>");
+            htmlpayform.append("<font class=\"tinyfont\">");
+            htmlpayform.append("If you check the box we'll donate all of your earnings for this conversation to the charity of your choice.");
+            htmlpayform.append("</font>");
+            htmlpayform.append("</td>");
+            htmlpayform.append("<td valign=\"top\" align=\"left\">");
+            htmlpayform.append("<font class=\"tinyfont\">");
+            htmlpayform.append("Learn about each of the charities:");
+            if (!twitask.getCharityonlyallowcustom()){
+            htmlpayform.append("<br/><a href=\"http://www.habitat.org/\" target=\"charity\">Habitat for Humanity</a>");
+            htmlpayform.append("<br/><a href=\"http://www.wish.org/\" target=\"charity\">Make-A-Wish Foundation</a>");
+            htmlpayform.append("<br/><a href=\"http://www.cancer.org/\" target=\"charity\">American Cancer Society</a>");
+            htmlpayform.append("<br/><a href=\"http://www.petsmartcharities.org/\" target=\"charity\">PetSmart Charities</a>");
+            htmlpayform.append("<br/><a href=\"http://en.wikipedia.org/wiki/Wikimedia_Foundation\" target=\"charity\">Wikimedia Foundation</a>");
+            htmlpayform.append("<br/><a href=\"http://www.conservationfund.org/\" target=\"charity\">The Conservation Fund</a>");
+            }
+            if (!twitask.getCharitycustom().equals("")){
+            htmlpayform.append("<br/><a href=\""+Str.cleanForHtml(twitask.getCharitycustomurl())+"\" target=\"charity\">"+twitask.getCharitycustom()+"</a>");
+            }
+            htmlpayform.append("</font>");
+            htmlpayform.append("</td>");
+            htmlpayform.append("<td valign=\"top\">");
+            htmlpayform.append("<input type=\"submit\" class=\"formsubmitbutton\" value=\"Claim My Award\">");
+            htmlpayform.append("</td>");
+            htmlpayform.append("</tr>");
+            htmlpayform.append("</table>");
+            htmlpayform.append("</form>");
+            htmlpayform.append("</div>");
+        }
+        return htmlpayform.toString();
     }
 
     public ArrayList<BloggerCompletedTwitasksListitem> getTwitanswers() {

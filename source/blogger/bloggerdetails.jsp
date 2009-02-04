@@ -223,7 +223,7 @@ if (!Pagez.getUserSession().getIsbloggerprofileok()){
                                     <br/><br/>
                                     <font class="formfieldnamefont">Posting Venues</font>
                                     <br/>
-                                    <font class="tinyfont">You need a place to post conversations.  Blog, profile page, website, etc.  You can only accrue impressions from posting venues that you claim here (starting March 1st, 2009.)</font>
+                                    <font class="tinyfont">You need a place to post conversations.  Blog, profile page,  Twitter page, website, etc.  You can only accrue impressions from posting venues that you claim here (starting March 1st, 2009.)</font>
                                     <table cellpadding="3" cellspacing="0" border="0">
                                         <%
                                             Blogger blogger = Blogger.get(Pagez.getUserSession().getUser().getBloggerid());

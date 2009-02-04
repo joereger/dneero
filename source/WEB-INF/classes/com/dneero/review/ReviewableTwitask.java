@@ -20,7 +20,7 @@ import java.util.List;
 public class ReviewableTwitask implements Reviewable {
 
     public static int TYPE = 8;
-    public static String TYPENAME = "New TwitterAsk Question";
+    public static String TYPENAME = "Twitter Question";
     public Twitask twitask;
 
     public ReviewableTwitask(int id){

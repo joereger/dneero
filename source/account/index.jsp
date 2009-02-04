@@ -266,11 +266,14 @@ if (accountIndex.getUserhasresponsependings()){
                     <%--<div class="rounded" style="padding: 5px; margin: 5px; background: #e6e6e6;">--%>
                     <%--<div class="rounded" style="padding: 15px; margin: 5px; background: #ffffff;">--%>
                     <br/><br/><br/>
+                    <%
+                    ResearcherSurveyList researcherSurveyList = null;
+                    %>
                     <%if (Pagez.getUserSession().getUser().getResearcherid()>0){%>
                         <font class="largefont" style="color: #cccccc;">Conversations You've Ignited</font>
                         <br/>
                         <%
-                        ResearcherSurveyList researcherSurveyList = new ResearcherSurveyList();
+                        researcherSurveyList = new ResearcherSurveyList();
                         researcherSurveyList.setMaxtodisplay(3);
                         researcherSurveyList.initBean();
                         %>
@@ -296,6 +299,36 @@ if (accountIndex.getUserhasresponsependings()){
                     <%}%>
                     <!--</div>-->
                     <!--</div>-->
+
+
+
+                    <%--<div class="rounded" style="padding: 5px; margin: 5px; background: #e6e6e6;">--%>
+                    <%--<div class="rounded" style="padding: 15px; margin: 5px; background: #ffffff;">--%>
+                    <br/><br/><br/>
+                    <%if (Pagez.getUserSession().getUser().getResearcherid()>0){%>
+                        <font class="largefont" style="color: #cccccc;">Twitter Questions You've Asked</font>
+                        <br/>
+                        <%if (researcherSurveyList.getSurveys()==null || researcherSurveyList.getSurveys().size()==0){%>
+                            <font class="normalfont">You haven't yet asked any Twitter Questions. <a href="/researcher/researchertwitaskdetail_01.jsp">Ask one now!</a></font>
+                        <%} else {%>
+                            <%
+                                ArrayList<GridCol> cols=new ArrayList<GridCol>();
+                                cols.add(new GridCol("", "<a href=\"/twitask.jsp?twitaskid=<$twitask.twitaskid$>\"><font style=\"font-weight:bold;\"><$twitask.question$></font></a>", false, "background: #ffffff;", "normalfont"));
+                                cols.add(new GridCol("", "<$status$>", false, "background: #ffffff;", "smallfont", "", ""));
+                                cols.add(new GridCol("", "<$editorreviewlink$>", false, "background: #ffffff;", "smallfont"));
+                                cols.add(new GridCol("", "<$resultslink$>", false, "background: #ffffff;", "smallfont"));
+                                cols.add(new GridCol("", "<$deletelink$>", false, "background: #ffffff;", "smallfont"));
+                            %>
+                            <%=Grid.render(researcherSurveyList.getTwitasks(), cols, 15, "/account/index.jsp", "pagetwitaskcreated")%>
+                        <%}%>
+                    <%} else {%>
+                        <font class="largefont" style="color: #cccccc;">Twitter Questions You've Asked</font>
+                        <br/><a href="/researcher/index.jsp"><font class="smallfont" style="font-weight: bold;">Get Started as a Conversation Igniter</font></a>
+                    <%}%>
+                    <!--</div>-->
+                    <!--</div>-->
+
+
                 </td>
             </tr>
         </table>

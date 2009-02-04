@@ -18,6 +18,7 @@ public class BloggerCompletedTwitasksListitem implements Serializable {
     private Twitanswer twitanswer;
     private String statusTxt;
     private String earningsTxt;
+    private String htmlpayform;
 
 
     public BloggerCompletedTwitasksListitem(){}
@@ -52,5 +53,13 @@ public class BloggerCompletedTwitasksListitem implements Serializable {
 
     public void setEarningsTxt(String earningsTxt) {
         this.earningsTxt=earningsTxt;
+    }
+
+    public String getHtmlpayform() {
+        return htmlpayform;
+    }
+
+    public void setHtmlpayform(String htmlpayform) {
+        this.htmlpayform=htmlpayform;
     }
 }

@@ -37,7 +37,11 @@ if (Num.isinteger(request.getParameter("numOnPage"))){
             reviewables.add(reviewable);
         }
     } else {
-        reviewables = ReviewableUtil.getPendingForResearcherSorted(Pagez.getUserSession().getUser().getResearcherid());
+        int onlytypeid=0;
+        if (Num.isinteger(request.getParameter("onlytypeid"))){
+            onlytypeid = Integer.parseInt(request.getParameter("onlytypeid"));
+        }
+        reviewables = ReviewableUtil.getPendingForResearcherSorted(Pagez.getUserSession().getUser().getResearcherid(), onlytypeid);
     }
 %>
 <%
@@ -173,7 +177,33 @@ if (request.getParameter("action")!=null && request.getParameter("action").equal
 %>
 
 <%@ include file="/template/header.jsp" %>
-
+    <form action="/researcher/reviewables-turbo.jsp" method="post">
+            <input type="hidden" name="dpage" value="/researcher/reviewables-turbo.jsp">
+            <input type="submit" class="formsubmitbutton" value="Show">
+            <select name="onlytypeid">
+                <%int onlytypeidsel=0;%>
+                <%if (Num.isinteger(request.getParameter("onlytypeid"))){
+                    onlytypeidsel = Integer.parseInt(request.getParameter("onlytypeid"));
+                }%>
+                <%
+                if (onlytypeidsel==0){
+                        %><option value="0" selected>All</option><%
+                    } else {
+                        %><option value="0">All</option><%
+                    }
+                %>
+                <%
+                for (Iterator<Reviewable> iterator=ReviewableFactory.getAllTypes().iterator(); iterator.hasNext();) {
+                    Reviewable reviewable=iterator.next();
+                    if (reviewable.getType()==onlytypeidsel){
+                        %><option value="<%=reviewable.getType()%>" selected><%=reviewable.getTypeName()%></option><%
+                    } else {
+                        %><option value="<%=reviewable.getType()%>"><%=reviewable.getTypeName()%></option><%
+                    }
+                }
+                %>
+            </select>
+    </form>
 
     <br/>
     <%if (reviewables==null || reviewables.size()==0){%>
@@ -188,6 +218,11 @@ if (request.getParameter("action")!=null && request.getParameter("action").equal
                 <input type="hidden" name="id" value="<%=id%>">
                 <input type="hidden" name="type" value="<%=type%>">
             <%}%>
+            <%int onlytypeid=0;%>
+            <%if (Num.isinteger(request.getParameter("onlytypeid"))){
+                onlytypeid = Integer.parseInt(request.getParameter("onlytypeid"));
+            }%>
+            <input type="hidden" name="onlytypeid" value="<%=onlytypeid%>">
 
         <font class="mediumfont" style="color: #cccccc;"><%=reviewables.size()%> reviewables remain.</font><br/><br/>
 
@@ -260,7 +295,7 @@ if (request.getParameter("action")!=null && request.getParameter("action").equal
                                    <%}%>
                                    <%=reviewable.getFullSummary()%>
                                    <br/>
-                                   <a href="/researcher/reviewables-turbo.jsp?type=<%=reviewable.getType()%>&id=<%=reviewable.getId()%>"><font class="tinyfont">Review this Alone</font></a>
+                                   <a href="/researcher/reviewables-turbo.jsp?type=<%=reviewable.getType()%>&id=<%=reviewable.getId()%>&onlytypeid=<%=onlytypeid%>"><font class="tinyfont">Review this Alone</font></a>
                                </div>
                            </div>
                         </div>

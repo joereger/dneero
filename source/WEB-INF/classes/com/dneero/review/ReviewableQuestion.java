@@ -18,7 +18,7 @@ import java.util.List;
 public class ReviewableQuestion implements Reviewable {
 
     public static int TYPE = 3;
-    public static String TYPENAME = "Question";
+    public static String TYPENAME = "User Question";
     public Question question;
 
     public ReviewableQuestion(int id){

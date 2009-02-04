@@ -232,8 +232,8 @@ if (Pagez.getUserSession().getIsloggedin() && (Pagez.getUserSession().getUser().
                     <br/><br/>
                     <font class="largefont" style="color: #cccccc;">Twitter Questions You've Asked</font>
                     <br/>
-                    <%if (researcherSurveyList.getSurveys()==null || researcherSurveyList.getSurveys().size()==0){%>
-                        <font class="normalfont">You haven't yet created any Twitter Questions. <a href="/researcher/researchertwitaskdetail_01.jsp">Ignite a New Conversation</a>.</font>
+                    <%if (researcherSurveyList.getTwitasks()==null || researcherSurveyList.getTwitasks().size()==0){%>
+                        <font class="normalfont">You haven't yet created any Twitter Questions. <a href="/researcher/researchertwitaskdetail_01.jsp">Ask one now!</a></font>
                     <%} else {%>
                         <%
                             ArrayList<GridCol> cols=new ArrayList<GridCol>();

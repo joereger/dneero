@@ -17,6 +17,7 @@ import com.dneero.helpers.UserInputSafe;
 import com.dneero.helpers.NicknameHelper;
 import com.dneero.helpers.TwitanswerFinderAfterAccountInfoChange;
 import com.dneero.money.PaymentMethod;
+import com.dneero.twitter.TwitterUsernameAlreadyInUse;
 
 import java.io.Serializable;
 import java.util.*;
@@ -95,13 +96,25 @@ public class AccountSettings implements Serializable {
                 nickname = Str.onlyKeepLettersAndDigits(nickname);
                 nickname = nickname.toLowerCase();
                 if (!nickname.equals(user.getNickname())){
-                    if (NicknameHelper.nicknameExistsAlready(nickname)){
-                        vex.addValidationError("Sorry, that nickname already exists.");
+                    if (NicknameHelper.nicknameExistsAlreadyForSomebodyElse(nickname, user)){
+                        vex.addValidationError("Sorry, that nickname is already in use.");
                     }
                 }
             } else {
                 nickname = "";
             }
+            if (instantnotifytwitterusername!=null && !instantnotifytwitterusername.equals("")){
+                if (!instantnotifytwitterusername.equals(user.getInstantnotifytwitterusername())){
+                    if (TwitterUsernameAlreadyInUse.usernameExistsAlreadyForSomebodyElse(instantnotifytwitterusername, user)){
+                        vex.addValidationError("Sorry, that Twitter Username is already in use.");
+                    }
+                }
+            }
+            //Throw validation error if necessary
+            if (vex.getErrors()!=null && vex.getErrors().length>0){
+                throw vex;
+            }
+            //Set rest of vars
             user.setFirstname(firstname);
             user.setLastname(lastname);
             user.setNotifyofnewsurveysbyemaileveryexdays(notifyofnewsurveysbyemaileveryexdays);
@@ -117,9 +130,6 @@ public class AccountSettings implements Serializable {
             try{
                 user.save();
                 userid = user.getUserid();
-                if (vex.getErrors()!=null && vex.getErrors().length>0){
-                    throw vex;
-                }
             } catch (GeneralException gex){
                 Logger logger = Logger.getLogger(this.getClass().getName());
                 logger.debug("saveAction failed: " + gex.getErrorsAsSingleString());
