@@ -1,5 +1,7 @@
 package com.dneero.cachedstuff;
 
+import com.dneero.dao.Pl;
+
 import java.util.Calendar;
 import java.io.Serializable;
 
@@ -11,7 +13,7 @@ import java.io.Serializable;
 public interface CachedStuff {
 
     public String getKey();
-    public void refresh();
+    public void refresh(Pl pl);
     public Calendar refreshedTimestamp();
     public int maxAgeInMinutes();
 

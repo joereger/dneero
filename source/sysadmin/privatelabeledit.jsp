@@ -17,6 +17,7 @@ String acl = "sysadmin";
     String defaultWebFooter = Io.textFileRead(WebAppRootDir.getWebAppRootPath()+"template/footer-dneero.vm").toString();
     String defaultEmailHeader = Io.textFileRead(WebAppRootDir.getWebAppRootPath()+"emailtemplates/emailheader.html").toString();
     String defaultEmailFooter = Io.textFileRead(WebAppRootDir.getWebAppRootPath()+"emailtemplates/emailfooter.html").toString();
+    String defaultHomepagetemplate = Io.textFileRead(WebAppRootDir.getWebAppRootPath()+"index.vm").toString();
 %>
 <%
     Pl pl = new Pl();
@@ -25,6 +26,8 @@ String acl = "sysadmin";
     pl.setIshttpson(false);
     pl.setTwitterusername("");
     pl.setTwitterpassword("");
+    pl.setHomepagetemplate("");
+    pl.setPeers("0");
     if (request.getParameter("plid")!=null && Num.isinteger(request.getParameter("plid"))){
         pl = Pl.get(Integer.parseInt(request.getParameter("plid")));
     }
@@ -33,6 +36,18 @@ String acl = "sysadmin";
     if (request.getParameter("action") != null) {
         try {
             if (request.getParameter("action").equals("save")){
+                StringBuffer peers = new StringBuffer();
+                String[] peersStrArray = Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("peers", "Peers", false));
+                if (peersStrArray!=null){
+                    for (int i=0; i<peersStrArray.length; i++) {
+                        String s=peersStrArray[i];
+                        peers.append(s);
+                        if (i<peersStrArray.length-1){
+                            peers.append(",");
+                        }
+                    }
+                }
+                pl.setPeers(peers.toString());
                 pl.setName(Textbox.getValueFromRequest("name", "Name", true, DatatypeString.DATATYPEID));
                 pl.setNameforui(Textbox.getValueFromRequest("nameforui", "Name For UI", true, DatatypeString.DATATYPEID));
                 pl.setCustomdomain1(Textbox.getValueFromRequest("customdomain1", "Customdomain1", false, DatatypeString.DATATYPEID).toLowerCase());
@@ -43,6 +58,7 @@ String acl = "sysadmin";
                 pl.setWebhtmlfooter(Textarea.getValueFromRequest("webhtmlfooter", "Web Html Footer", false));
                 pl.setEmailhtmlheader(Textarea.getValueFromRequest("emailhtmlheader", "Email Html Header", false));
                 pl.setEmailhtmlfooter(Textarea.getValueFromRequest("emailhtmlfooter", "Email Html Footer", false));
+                pl.setHomepagetemplate(Textarea.getValueFromRequest("homepagetemplate", "Homepage Html Template", false));
                 pl.setIshttpson(CheckboxBoolean.getValueFromRequest("ishttpson"));
                 pl.setTwitterusername(Textbox.getValueFromRequest("twitterusername", "Twitter Username", false, DatatypeString.DATATYPEID));
                 pl.setTwitterpassword(Textbox.getValueFromRequest("twitterpassword", "Twitter Password", false, DatatypeString.DATATYPEID));
@@ -105,6 +121,25 @@ String acl = "sysadmin";
         try {
             if (request.getParameter("action").equals("setemailhtmlheadertodefault")){
                 pl.setEmailhtmlheader(defaultEmailHeader);
+                //Validate data
+                if (PlVerification.isValid(pl)){
+                    pl.save();
+                    CacheFactory.getCacheProvider().flush(PlFinder.CACHEGROUP);
+                    Pagez.getUserSession().setMessage("Done!");
+                } else {
+                    Pagez.getUserSession().setMessage("Pl Fails Validation!");
+                }
+            }
+        } catch (Exception vex) {
+            Pagez.getUserSession().setMessage(vex.toString());
+        }
+    }
+%>
+<%
+    if (request.getParameter("action") != null) {
+        try {
+            if (request.getParameter("action").equals("sethomepagetemplatetodefault")){
+                pl.setHomepagetemplate(defaultHomepagetemplate);
                 //Validate data
                 if (PlVerification.isValid(pl)){
                     pl.save();
@@ -225,13 +260,38 @@ String acl = "sysadmin";
                 </tr>
                 <tr>
                     <td valign="top">
+                        <font class="formfieldnamefont">Private Label Peers</font>
+                        <br/><font class="tinyfont">Selecting All will make you peered with all pls.</font>
+                        <br/><font class="tinyfont"><%=pl.getPeers()%></font>
+                    </td>
+                    <td valign="top">
+                        <%
+                        String[] peersSelected = new String[0];
+                        if (pl.getPeers()!=null && pl.getPeers().length()>0){
+                            peersSelected = pl.getPeers().split(",");
+                        }
+                        %>
+                        <%
+                        TreeMap<String, String> plsToChooseFrom = new TreeMap<String, String>();
+                        plsToChooseFrom.put("0", "All Private Labels");
+                        List results = HibernateUtil.getSession().createQuery("from Pl").list();
+                        for (Iterator iterator = results.iterator(); iterator.hasNext();) {
+                            Pl plOption = (Pl) iterator.next();
+                            plsToChooseFrom.put(String.valueOf(plOption.getPlid()), Str.truncateString(plOption.getName(), 40));
+                        }
+                        %>
+                        <%=DropdownMultiselect.getHtml("peers", Util.stringArrayToArrayList(peersSelected), plsToChooseFrom, 6, "", "")%>
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top">
                         <font class="formfieldnamefont">Web Html Header</font>
                         <br/><font class="tinyfont">Uses <a href="http://velocity.apache.org/engine/releases/velocity-1.5/vtl-reference-guide.html">VTL</a></font>
                         <br/><font class="tinyfont"><a href="/sysadmin/privatelabeledit.jsp?plid=<%=pl.getPlid()%>&action=setwebhtmlheadertodefault">Set to Default</a></font>
                         <br/><font class="tinyfont">(Set to blank to always use system default)</font>
                     </td>
                     <td valign="top">
-                        <%=Textarea.getHtml("webhtmlheader", pl.getWebhtmlheader(), 8, 80, "", "")%>
+                        <%=Textarea.getHtml("webhtmlheader", pl.getWebhtmlheader(), 8, 80, "", "width: 100%;")%>
                     </td>
                 </tr>
                 <tr>
@@ -241,7 +301,17 @@ String acl = "sysadmin";
                         <br/><font class="tinyfont">(Set to blank to always use system default)</font>
                     </td>
                     <td valign="top">
-                        <%=Textarea.getHtml("webhtmlfooter", pl.getWebhtmlfooter(), 8, 80, "", "")%>
+                        <%=Textarea.getHtml("webhtmlfooter", pl.getWebhtmlfooter(), 8, 80, "", "width: 100%;")%>
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top">
+                        <font class="formfieldnamefont">Homepage Html Template</font>
+                        <br/><font class="tinyfont"><a href="/sysadmin/privatelabeledit.jsp?plid=<%=pl.getPlid()%>&action=sethomepagetemplatetodefault">Set to Default</a></font>
+                        <br/><font class="tinyfont">(Set to blank to always use system default)</font>
+                    </td>
+                    <td valign="top">
+                        <%=Textarea.getHtml("homepagetemplate", pl.getHomepagetemplate(), 8, 80, "", "width: 100%;")%>
                     </td>
                 </tr>
                 <tr>
@@ -249,9 +319,22 @@ String acl = "sysadmin";
                         <font class="formfieldnamefont">Email Html Header</font>
                         <br/><font class="tinyfont"><a href="/sysadmin/privatelabeledit.jsp?plid=<%=pl.getPlid()%>&action=setemailhtmlheadertodefault">Set to Default</a></font>
                         <br/><font class="tinyfont">(Set to blank to always use system default)</font>
+                        <br/><font class="tinyfont">
+                            totalConvoJoins,
+                            totalConvoEmbeds,
+                            usersWithMostConvos,
+                            donationsMiniReport,
+                            recentDonations,
+                            recentConvos,
+                            recentConvoJoins,
+                            twitterAnswers,
+                            recentlyPaid,
+                            newestUsers,
+                            blogPosts
+                        </font>
                     </td>
                     <td valign="top">
-                        <%=Textarea.getHtml("emailhtmlheader", pl.getEmailhtmlheader(), 8, 80, "", "")%>
+                        <%=Textarea.getHtml("emailhtmlheader", pl.getEmailhtmlheader(), 8, 80, "", "width: 100%;")%>
                     </td>
                 </tr>
                 <tr>
@@ -261,9 +344,14 @@ String acl = "sysadmin";
                         <br/><font class="tinyfont">(Set to blank to always use system default)</font>
                     </td>
                     <td valign="top">
-                        <%=Textarea.getHtml("emailhtmlfooter", pl.getEmailhtmlfooter(), 8, 80, "", "")%>
+                        <%=Textarea.getHtml("emailhtmlfooter", pl.getEmailhtmlfooter(), 8, 80, "", "width: 100%;")%>
                     </td>
                 </tr>
+
+
+
+
+
 
              </table>
              <input type="submit" class="formsubmitbutton" value="Save"><br/>

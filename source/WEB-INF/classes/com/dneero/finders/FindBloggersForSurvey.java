@@ -16,6 +16,7 @@ import com.dneero.util.DateDiff;
 import com.dneero.sir.SocialInfluenceRatingPercentile;
 import com.dneero.scheduledjobs.SystemStats;
 import com.dneero.constants.Dneerousagemethods;
+import com.dneero.privatelabel.PlPeers;
 
 /**
  * User: Joe Reger Jr
@@ -32,6 +33,7 @@ public class FindBloggersForSurvey {
     public FindBloggersForSurvey(Survey survey){
         this.bloggers = new ArrayList();
         this.survey = survey;
+        Pl plOfSurvey = Pl.get(survey.getPlid());
         //Get the surveycriteria in xml form
         //Goal here is to get a subset of all users, not to be hyper-specific
         //If I can do more with a single HQL query, I should... but I need to be careful to not knock out any possible qualifying bloggers
@@ -67,9 +69,12 @@ public class FindBloggersForSurvey {
         for (Iterator iterator = bloggers.iterator(); iterator.hasNext();) {
             Blogger blogger = (Blogger) iterator.next();
             User user = User.get(blogger.getUserid());
-            if (!scXml.isUserQualified(user)){
-                iterator.remove();
-                continue;
+            Pl plOfUser = Pl.get(user.getPlid());
+            if (PlPeers.isThereATwoWayTrustRelationship(plOfSurvey, plOfUser)){
+                if (!scXml.isUserQualified(user)){
+                    iterator.remove();
+                    continue;
+                }
             }
         }
     }

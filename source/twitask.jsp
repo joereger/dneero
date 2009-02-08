@@ -6,11 +6,18 @@
 <%@ page import="com.dneero.htmlui.*" %>
 <%@ page import="com.dneero.helpers.NicknameHelper" %>
 <%@ page import="com.dneero.helpers.IsBloggerInPanel" %>
+<%@ page import="com.dneero.privatelabel.PlPeers" %>
 <%
     PublicTwitask publicTwitask=(PublicTwitask) Pagez.getBeanMgr().get("PublicTwitask");
 %>
 <%
 if (publicTwitask==null || publicTwitask.getTwitask()==null || publicTwitask.getTwitask().getTwitaskid()==0 || publicTwitask.getTwitask().getStatus()==Twitask.STATUS_DRAFT || publicTwitask.getTwitask().getStatus()==Twitask.STATUS_REJECTED || publicTwitask.getTwitask().getStatus()==Twitask.STATUS_WAITINGFORSTARTDATE){
+    Pagez.sendRedirect("/notauthorized.jsp");
+    return;
+}
+//If the twitask isn't peered with this pl
+Pl plOfTwitask = Pl.get(publicTwitask.getTwitask().getPlid());
+if (PlPeers.isThereATwoWayTrustRelationship(plOfTwitask, Pagez.getUserSession().getPl())){
     Pagez.sendRedirect("/notauthorized.jsp");
     return;
 }

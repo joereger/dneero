@@ -1,6 +1,7 @@
 package com.dneero.cachedstuff;
 
 import com.dneero.charity.CharityReport;
+import com.dneero.dao.Pl;
 
 import java.io.Serializable;
 import java.util.Calendar;
@@ -19,7 +20,7 @@ public class DonationsToCharityMiniReport implements CachedStuff, Serializable {
         return "DonationsToCharityMiniReport";
     }
 
-    public void refresh() {
+    public void refresh(Pl pl) {
         html = CharityReport.getTotalsreport();
         refreshedTimestamp = Calendar.getInstance();
     }
@@ -29,7 +30,7 @@ public class DonationsToCharityMiniReport implements CachedStuff, Serializable {
     }
 
     public int maxAgeInMinutes() {
-        return 5;
+        return 10080; //7 days
     }
 
     public String getHtml() {

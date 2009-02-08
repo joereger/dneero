@@ -48,5 +48,11 @@
         <property name="twitterpassword" type="text">
             <column name="twitterpassword" not-null="true" />
         </property>
+        <property name="homepagetemplate" type="text">
+            <column name="homepagetemplate" not-null="true" />
+        </property>
+        <property name="peers" type="text">
+            <column name="peers" not-null="true" />
+        </property>
     </class>
 </hibernate-mapping>

@@ -4,6 +4,7 @@ import com.dneero.util.*;
 import com.dneero.dao.Survey;
 import com.dneero.dao.Blogger;
 import com.dneero.dao.Response;
+import com.dneero.dao.Pl;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.finders.FindSurveysForBlogger;
 import com.dneero.facebook.FacebookSurveyThatsBeenTaken;
@@ -14,6 +15,7 @@ import com.dneero.money.CurrentBalanceCalculator;
 import com.dneero.money.PendingBalanceCalculator;
 import com.dneero.incentive.IncentiveCash;
 import com.dneero.incentive.IncentiveCoupon;
+import com.dneero.privatelabel.PlPeers;
 import org.apache.log4j.Logger;
 
 import java.util.*;
@@ -50,11 +52,6 @@ public class PublicSurveyList implements Serializable {
         logger.debug("instanciating PublicSurveyList");
         int recordsadded = 0;
         //If user is logged-in only show them their surveys
-//        if (Pagez.getUserSession().getIsloggedin()){
-//
-//
-//        //Otherwise, get all open surveys
-//        } else {
 
             rndstr = RandomString.randomAlphanumeric(5);
 
@@ -68,117 +65,120 @@ public class PublicSurveyList implements Serializable {
             List results = HibernateUtil.getSession().createQuery("from Survey where status='"+Survey.STATUS_OPEN+"' order by surveyid desc").list();
             for (Iterator iterator = results.iterator(); iterator.hasNext();) {
                 Survey survey = (Survey) iterator.next();
+                Pl plOfSurvey = Pl.get(survey.getPlid());
+                if (PlPeers.isThereATwoWayTrustRelationship(plOfSurvey, Pagez.getUserSession().getPl())){
+                    SurveyListItem bsli = new SurveyListItem();
+                    bsli.setSurveyid(survey.getSurveyid());
+                    bsli.setTitle(survey.getTitle());
+                    bsli.setDescription(survey.getDescription());
+                    bsli.setIscharityonly(survey.getIscharityonly());
+                    //logger.debug("survey: "+survey.getTitle()+" bsli.getIscharityonly()="+bsli.getIscharityonly());
 
-                SurveyListItem bsli = new SurveyListItem();
-                bsli.setSurveyid(survey.getSurveyid());
-                bsli.setTitle(survey.getTitle());
-                bsli.setDescription(survey.getDescription());
-                bsli.setIscharityonly(survey.getIscharityonly());
-                //logger.debug("survey: "+survey.getTitle()+" bsli.getIscharityonly()="+bsli.getIscharityonly());
-
-                if (survey.getIsaccesscodeonly()){
-                    bsli.setAccessonlyhtml("<img src=\"/images/lock-16.png\" alt=\"\" width=\"16\" height=\"16\"/><font class=\"tinyfont\"><b>Access Code Required.</b></font>");
-                } else {
-                    bsli.setAccessonlyhtml("");
-                }
-
-                if (survey.getQuestions()!=null){
-                    bsli.setNumberofquestions(String.valueOf(survey.getQuestions().size()));
-                } else {
-                    bsli.setNumberofquestions("0");
-                }
-
-                double maxearningCPM = (survey.getWillingtopaypercpm()*survey.getMaxdisplaysperblog())/1000;
-                bsli.setMaxearningCPM("$"+ Str.formatForMoney(maxearningCPM));
-
-                StringBuffer earn = new StringBuffer();
-                StringBuffer earncompact = new StringBuffer();
-                if(survey.getIncentive().getSurveyincentive().getType()==IncentiveCash.ID){
-                    earn.append(survey.getIncentive().getShortSummary());
-                    earncompact.append(survey.getIncentive().getShortSummary());
-                } else if (survey.getIncentive().getSurveyincentive().getType()==IncentiveCoupon.ID){
-                    earn.append("Coupon: "+survey.getIncentive().getShortSummary());
-                    earncompact.append("Coupon");
-                } else {
-                    earn.append(survey.getIncentive().getShortSummary());
-                    earncompact.append("");
-                }
-                if (survey.getWillingtopaypercpm()>0){
-                    earn.append("<br/><font class=\"tinyfont\">plus $"+Str.formatForMoney(survey.getWillingtopaypercpm())+" per 1000 displays,<br/>max "+survey.getMaxdisplaysperblog()+" displays</font>");   
-                }
-                bsli.setEarn(earn.toString());
-                bsli.setEarncompact(earncompact.toString());
-
-
-
-                int daysleft = DateDiff.dateDiff("day", Time.getCalFromDate(survey.getEnddate()), Calendar.getInstance());
-                if (daysleft==0){
-                    bsli.setDaysuntilend("Ends today!");
-                } else if (daysleft==1){
-                    bsli.setDaysuntilend("One day left!");
-                } else {
-                    bsli.setDaysuntilend(daysleft + " days left!");
-                }
-
-                //See if user has taken survey
-                bsli.setLoggedinuserhasalreadytakensurvey(false);
-                if (Pagez.getUserSession().getIsloggedin() && Pagez.getUserSession().getUser()!=null && Pagez.getUserSession().getUser().getBloggerid()>0){
-                    Blogger blogger = Blogger.get(Pagez.getUserSession().getUser().getBloggerid());
-                    for (Iterator<Response> iterator2 = blogger.getResponses().iterator(); iterator2.hasNext();) {
-                        Response response = iterator2.next();
-                        if (response.getSurveyid()==survey.getSurveyid()){
-                            bsli.setLoggedinuserhasalreadytakensurvey(true);
-                        }
+                    if (survey.getIsaccesscodeonly()){
+                        bsli.setAccessonlyhtml("<img src=\"/images/lock-16.png\" alt=\"\" width=\"16\" height=\"16\"/><font class=\"tinyfont\"><b>Access Code Required.</b></font>");
+                    } else {
+                        bsli.setAccessonlyhtml("");
                     }
-                }
 
-                //See if user is qualified
-                boolean bloggerqualifies = false;
-                boolean bloggerqualifiesisunknown = false;
-                logger.debug("about to set isloggedinuserqualified");
-                if (!bsli.getLoggedinuserhasalreadytakensurvey()){
+                    if (survey.getQuestions()!=null){
+                        bsli.setNumberofquestions(String.valueOf(survey.getQuestions().size()));
+                    } else {
+                        bsli.setNumberofquestions("0");
+                    }
+
+                    double maxearningCPM = (survey.getWillingtopaypercpm()*survey.getMaxdisplaysperblog())/1000;
+                    bsli.setMaxearningCPM("$"+ Str.formatForMoney(maxearningCPM));
+
+                    StringBuffer earn = new StringBuffer();
+                    StringBuffer earncompact = new StringBuffer();
+                    if(survey.getIncentive().getSurveyincentive().getType()==IncentiveCash.ID){
+                        earn.append(survey.getIncentive().getShortSummary());
+                        earncompact.append(survey.getIncentive().getShortSummary());
+                    } else if (survey.getIncentive().getSurveyincentive().getType()==IncentiveCoupon.ID){
+                        earn.append("Coupon: "+survey.getIncentive().getShortSummary());
+                        earncompact.append("Coupon");
+                    } else {
+                        earn.append(survey.getIncentive().getShortSummary());
+                        earncompact.append("");
+                    }
+                    if (survey.getWillingtopaypercpm()>0){
+                        earn.append("<br/><font class=\"tinyfont\">plus $"+Str.formatForMoney(survey.getWillingtopaypercpm())+" per 1000 displays,<br/>max "+survey.getMaxdisplaysperblog()+" displays</font>");
+                    }
+                    bsli.setEarn(earn.toString());
+                    bsli.setEarncompact(earncompact.toString());
+
+
+
+                    int daysleft = DateDiff.dateDiff("day", Time.getCalFromDate(survey.getEnddate()), Calendar.getInstance());
+                    if (daysleft==0){
+                        bsli.setDaysuntilend("Ends today!");
+                    } else if (daysleft==1){
+                        bsli.setDaysuntilend("One day left!");
+                    } else {
+                        bsli.setDaysuntilend(daysleft + " days left!");
+                    }
+
+                    //See if user has taken survey
+                    bsli.setLoggedinuserhasalreadytakensurvey(false);
                     if (Pagez.getUserSession().getIsloggedin() && Pagez.getUserSession().getUser()!=null && Pagez.getUserSession().getUser().getBloggerid()>0){
-                        //Iterate surveys this blogger qualifies for
-                        for (Iterator iter = fsfb.getSurveys().iterator(); iter.hasNext();) {
-                            Survey tmpSurvey = (Survey) iter.next();
-                            if (tmpSurvey.getSurveyid()==survey.getSurveyid()){
-                                bloggerqualifies=true;
+                        Blogger blogger = Blogger.get(Pagez.getUserSession().getUser().getBloggerid());
+                        for (Iterator<Response> iterator2 = blogger.getResponses().iterator(); iterator2.hasNext();) {
+                            Response response = iterator2.next();
+                            if (response.getSurveyid()==survey.getSurveyid()){
+                                bsli.setLoggedinuserhasalreadytakensurvey(true);
                             }
                         }
-                        if (bloggerqualifies){
-                            logger.debug("yes, qualified");
-                            bsli.setIsbloggerqualifiedstring("You Qualify");
-                            bsli.setIsloggedinuserqualified(true);
+                    }
+
+                    //See if user is qualified
+                    boolean bloggerqualifies = false;
+                    boolean bloggerqualifiesisunknown = false;
+                    logger.debug("about to set isloggedinuserqualified");
+                    if (!bsli.getLoggedinuserhasalreadytakensurvey()){
+                        if (Pagez.getUserSession().getIsloggedin() && Pagez.getUserSession().getUser()!=null && Pagez.getUserSession().getUser().getBloggerid()>0){
+                            //Iterate surveys this blogger qualifies for
+                            for (Iterator iter = fsfb.getSurveys().iterator(); iter.hasNext();) {
+                                Survey tmpSurvey = (Survey) iter.next();
+                                if (tmpSurvey.getSurveyid()==survey.getSurveyid()){
+                                    bloggerqualifies=true;
+                                }
+                            }
+                            if (bloggerqualifies){
+                                logger.debug("yes, qualified");
+                                bsli.setIsbloggerqualifiedstring("You Qualify");
+                                bsli.setIsloggedinuserqualified(true);
+                            } else {
+                                logger.debug("no, not qualified");
+                                bsli.setIsbloggerqualifiedstring("You Don't Qualify");
+                                bsli.setIsloggedinuserqualified(false);
+                            }
                         } else {
-                            logger.debug("no, not qualified");
-                            bsli.setIsbloggerqualifiedstring("You Don't Qualify");
-                            bsli.setIsloggedinuserqualified(false);
+                            logger.debug("unknown");
+                            bloggerqualifiesisunknown = true;
+                            bsli.setIsbloggerqualifiedstring("");
                         }
                     } else {
-                        logger.debug("unknown");
-                        bloggerqualifiesisunknown = true;
-                        bsli.setIsbloggerqualifiedstring("");
+                        logger.debug("already taken");
+                        bsli.setIsbloggerqualifiedstring("You've Already Taken It");
                     }
-                } else {
-                    logger.debug("already taken");
-                    bsli.setIsbloggerqualifiedstring("You've Already Taken It");
+
+                    //Only add if user qualifies or if it's unknown if they qualify (i.e. they're not logged-in)
+                    if (recordsadded>=maxtodisplay){
+                        break;
+                    }
+                    if ((bloggerqualifies || bloggerqualifiesisunknown) && recordsadded<maxtodisplay){
+                        recordsadded = recordsadded + 1;
+                        surveys.add(bsli);
+                    }
                 }
-                
-                //Only add if user qualifies or if it's unknown if they qualify (i.e. they're not logged-in)
-                if (recordsadded>=maxtodisplay){
-                    break;
-                }
-                if ((bloggerqualifies || bloggerqualifiesisunknown) && recordsadded<maxtodisplay){
-                    recordsadded = recordsadded + 1;
-                    surveys.add(bsli);
-                }
+
             }
 
             //Facebook stuff
-            if (Pagez.getRequest().getParameter("addedapp")!=null && Pagez.getRequest().getParameter("addedapp").equals("1")){
-                facebookjustaddedapp = true;   
-            }
             if (Pagez.getUserSession().getIsfacebookui()){
+                if (Pagez.getRequest().getParameter("addedapp")!=null && Pagez.getRequest().getParameter("addedapp").equals("1")){
+                    facebookjustaddedapp = true;
+                }
                 //Load which friends are on dNeero and which aren't
                 //loadFacebookUsers();
                 //Get list of friend uids
@@ -204,12 +204,10 @@ public class PublicSurveyList implements Serializable {
                     pendingearningsDbl = pbc.getPendingearnings();
                     currentbalance = "$"+Str.formatForMoney(currentbalanceDbl);
                     pendingearnings = "$"+Str.formatForMoney(pendingearningsDbl);
-                } 
-
-
+                }
             }
 
-        //}
+
     }
 
 

@@ -2,7 +2,7 @@
 <%@ page import="com.dneero.htmlui.Pagez" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
-String pagetitle = "Not Authorized";
+String pagetitle = "Sorry, Not Authorized";
 String navtab = "home";
 String acl = "public";
 %>
@@ -10,7 +10,7 @@ String acl = "public";
 <%@ include file="/template/header.jsp" %>
 
 
-    <font class="normalfont">You are not authorized to view that resource.</font>
+    <font class="normalfont">You are not authorized to view that resource or that resource no longer exists.</font>
 
 
 <%@ include file="/template/footer.jsp" %>

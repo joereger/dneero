@@ -7,6 +7,7 @@
 <%@ page import="org.hibernate.criterion.Order" %>
 <%@ page import="org.hibernate.criterion.Restrictions" %>
 <%@ page import="com.dneero.helpers.NicknameHelper" %>
+<%@ page import="com.dneero.privatelabel.PlPeers" %>
 <%
 if (request.getParameter("show")!=null && request.getParameter("show").equals("results")){
     //redirect to results
@@ -31,6 +32,12 @@ if (publicSurvey==null || publicSurvey.getSurvey()==null || publicSurvey.getSurv
 //If the survey is draft or waiting
 if (publicSurvey.getSurvey().getStatus()<Survey.STATUS_OPEN){
     Pagez.sendRedirect("/surveynotopen.jsp");
+    return;
+}
+//If the survey isn't peered with this pl
+Pl plOfSurvey = Pl.get(publicSurvey.getSurvey().getPlid());
+if (PlPeers.isThereATwoWayTrustRelationship(plOfSurvey, Pagez.getUserSession().getPl())){
+    Pagez.sendRedirect("/notauthorized.jsp");
     return;
 }
 %>

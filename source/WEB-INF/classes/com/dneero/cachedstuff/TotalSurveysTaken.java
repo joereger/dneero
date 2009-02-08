@@ -1,6 +1,7 @@
 package com.dneero.cachedstuff;
 
 import com.dneero.dao.hibernate.NumFromUniqueResult;
+import com.dneero.dao.Pl;
 
 import java.io.Serializable;
 import java.util.Calendar;
@@ -20,7 +21,7 @@ public class TotalSurveysTaken implements CachedStuff, Serializable {
         return "TotalSurveysTaken";
     }
 
-    public void refresh() {
+    public void refresh(Pl pl) {
         int totalsurveystaken = NumFromUniqueResult.getInt("select count(*) from Response");
         DecimalFormat formatter = new DecimalFormat();
         formatter.applyPattern("###,###,###,###");
@@ -33,7 +34,7 @@ public class TotalSurveysTaken implements CachedStuff, Serializable {
     }
 
     public int maxAgeInMinutes() {
-        return 5;
+        return 60;
     }
 
     public String getHtml() {

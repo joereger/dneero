@@ -1,9 +1,6 @@
 package com.dneero.cachedstuff;
 
-import com.dneero.dao.Response;
-import com.dneero.dao.Blogger;
-import com.dneero.dao.User;
-import com.dneero.dao.Survey;
+import com.dneero.dao.*;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.helpers.NicknameHelper;
 
@@ -29,7 +26,7 @@ public class NewestUsers implements CachedStuff, Serializable {
         return "NewestUsers";
     }
 
-    public void refresh() {
+    public void refresh(Pl pl) {
         StringBuffer out = new StringBuffer();
 
         out.append("<table cellpadding='3' cellspacing='0' border='0'>");
@@ -62,7 +59,7 @@ public class NewestUsers implements CachedStuff, Serializable {
     }
 
     public int maxAgeInMinutes() {
-        return 5;
+        return 30;
     }
 
     public String getHtml() {

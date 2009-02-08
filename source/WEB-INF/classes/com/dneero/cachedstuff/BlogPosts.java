@@ -5,6 +5,7 @@ import com.dneero.htmluibeans.PublicBlog;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.dao.Survey;
 import com.dneero.dao.Blogpost;
+import com.dneero.dao.Pl;
 import com.dneero.util.DateDiff;
 import com.dneero.util.Time;
 import com.dneero.util.Str;
@@ -29,7 +30,7 @@ public class BlogPosts implements CachedStuff, Serializable {
         return "BlogPosts";
     }
 
-    public void refresh() {
+    public void refresh(Pl pl) {
         StringBuffer out = new StringBuffer();
 
         out.append("<table cellpadding='3' cellspacing='0' border='0' width='100%'>");
@@ -67,7 +68,7 @@ public class BlogPosts implements CachedStuff, Serializable {
     }
 
     public int maxAgeInMinutes() {
-        return 30;
+        return 1440;
     }
 
     public String getHtml() {

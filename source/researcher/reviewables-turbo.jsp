@@ -19,7 +19,12 @@ int numOnPage = 25;
 if (Num.isinteger(request.getParameter("numOnPage"))){
     numOnPage = Integer.parseInt(request.getParameter("numOnPage"));
 }
-
+%>
+<%
+int onlytypeid=0;
+if (Num.isinteger(request.getParameter("onlytypeid"))){
+    onlytypeid = Integer.parseInt(request.getParameter("onlytypeid"));
+}
 %>
 <%
     ArrayList<Reviewable> reviewables = new ArrayList<Reviewable>();
@@ -37,10 +42,6 @@ if (Num.isinteger(request.getParameter("numOnPage"))){
             reviewables.add(reviewable);
         }
     } else {
-        int onlytypeid=0;
-        if (Num.isinteger(request.getParameter("onlytypeid"))){
-            onlytypeid = Integer.parseInt(request.getParameter("onlytypeid"));
-        }
         reviewables = ReviewableUtil.getPendingForResearcherSorted(Pagez.getUserSession().getUser().getResearcherid(), onlytypeid);
     }
 %>
@@ -172,7 +173,7 @@ if (request.getParameter("action")!=null && request.getParameter("action").equal
     }
     Pagez.getUserSession().setMessage("Reviews saved.");
     //Refresh the list
-    reviewables = ReviewableUtil.getPendingForResearcherSorted(Pagez.getUserSession().getUser().getResearcherid());
+    reviewables = ReviewableUtil.getPendingForResearcherSorted(Pagez.getUserSession().getUser().getResearcherid(), onlytypeid);
 }
 %>
 
@@ -214,15 +215,12 @@ if (request.getParameter("action")!=null && request.getParameter("action").equal
         <form action="/researcher/reviewables-turbo.jsp" method="post">
             <input type="hidden" name="dpage" value="/researcher/reviewables-turbo.jsp">
             <input type="hidden" id="action" name="action" value="dostuff">
+            <input type="hidden" name="onlytypeid" value="<%=onlytypeid%>">
             <%if (id>0 && type>0){%>
                 <input type="hidden" name="id" value="<%=id%>">
                 <input type="hidden" name="type" value="<%=type%>">
             <%}%>
-            <%int onlytypeid=0;%>
-            <%if (Num.isinteger(request.getParameter("onlytypeid"))){
-                onlytypeid = Integer.parseInt(request.getParameter("onlytypeid"));
-            }%>
-            <input type="hidden" name="onlytypeid" value="<%=onlytypeid%>">
+
 
         <font class="mediumfont" style="color: #cccccc;"><%=reviewables.size()%> reviewables remain.</font><br/><br/>
 

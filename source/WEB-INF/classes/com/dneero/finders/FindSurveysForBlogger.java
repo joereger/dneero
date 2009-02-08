@@ -8,6 +8,7 @@ import com.dneero.util.DateDiff;
 import com.dneero.sir.SocialInfluenceRatingPercentile;
 import com.dneero.scheduledjobs.SystemStats;
 import com.dneero.constants.Dneerousagemethods;
+import com.dneero.privatelabel.PlPeers;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -40,7 +41,7 @@ public class FindSurveysForBlogger {
         HibernateUtil.getSession().saveOrUpdate(blogger);
         this.blogger = blogger;
         User user = User.get(blogger.getUserid());
-
+        Pl plOfUser = Pl.get(user.getPlid());
 
         //The idea here is that I'm not doing an actual XML query.
         //I'm just making sure that all of the terms are in the XML record itself.
@@ -83,10 +84,13 @@ public class FindSurveysForBlogger {
         logger.debug("initial list from db: surveys.size()=" + surveys.size());
         for (Iterator it = surveys.iterator(); it.hasNext(); ) {
             Survey survey = (Survey)it.next();
+            Pl plOfSurvey = Pl.get(survey.getPlid());
             logger.debug("Seeing if surveyid="+survey.getSurveyid()+" works for this blogger.");
-            SurveyCriteriaXML scXml = new SurveyCriteriaXML(survey.getCriteriaxml());
-            if (scXml.isUserQualified(User.get(blogger.getUserid()))){
-                this.surveys.add(survey);
+            if (PlPeers.isThereATwoWayTrustRelationship(plOfSurvey, plOfUser)){
+                SurveyCriteriaXML scXml = new SurveyCriteriaXML(survey.getCriteriaxml());
+                if (scXml.isUserQualified(User.get(blogger.getUserid()))){
+                    this.surveys.add(survey);
+                }
             }
         }
     }

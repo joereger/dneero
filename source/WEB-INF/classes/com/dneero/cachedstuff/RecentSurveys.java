@@ -1,6 +1,7 @@
 package com.dneero.cachedstuff;
 
 import com.dneero.dao.Survey;
+import com.dneero.dao.Pl;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.helpers.SlotsRemainingInConvo;
 import com.dneero.htmlui.PercentCompleteBar;
@@ -9,6 +10,7 @@ import com.dneero.incentive.IncentiveCoupon;
 import com.dneero.ui.SurveyEnhancer;
 import com.dneero.util.DateDiff;
 import com.dneero.util.Time;
+import com.dneero.privatelabel.PlPeers;
 
 import java.io.Serializable;
 import java.util.Calendar;
@@ -29,9 +31,9 @@ public class RecentSurveys implements CachedStuff, Serializable {
         return "RecentSurveys";
     }
 
-    public void refresh() {
+    public void refresh(Pl pl) {
         StringBuffer out = new StringBuffer();
-
+        int totalSurveysAdded = 0;
         out.append("<table cellpadding='2' cellspacing='1' border='0' width='100%'>");
         out.append("<tr>");
         out.append("<td><font class=\"mediumfont\" style=\"color: #999999;\">Conversations</font></td>");
@@ -43,12 +45,22 @@ public class RecentSurveys implements CachedStuff, Serializable {
         List openSurveys = HibernateUtil.getSession().createQuery("from Survey where status='"+ Survey.STATUS_OPEN+"' order by surveyid desc").list();
         for (Iterator iterator = openSurveys.iterator(); iterator.hasNext();) {
             Survey survey = (Survey) iterator.next();
-            out.append(formatSurvey(survey));
+            Pl plOfSurvey = Pl.get(survey.getPlid());
+            if (PlPeers.isThereATwoWayTrustRelationship(pl, plOfSurvey)){
+                out.append(formatSurvey(survey));
+                totalSurveysAdded = totalSurveysAdded + 1;
+            }
         }
-        List closedSurveys = HibernateUtil.getSession().createQuery("from Survey where status='"+ Survey.STATUS_CLOSED+"' order by surveyid desc").setMaxResults(7).list();
+        List closedSurveys = HibernateUtil.getSession().createQuery("from Survey where status='"+ Survey.STATUS_CLOSED+"' order by surveyid desc").setMaxResults(50).list();
         for (Iterator iterator = closedSurveys.iterator(); iterator.hasNext();) {
             Survey survey = (Survey) iterator.next();
-            out.append(formatSurvey(survey));
+            if (totalSurveysAdded<13){
+                Pl plOfSurvey = Pl.get(survey.getPlid());
+                if (PlPeers.isThereATwoWayTrustRelationship(pl, plOfSurvey)){
+                    out.append(formatSurvey(survey));
+                    totalSurveysAdded = totalSurveysAdded + 1;
+                }
+            }
         }
         out.append("</table>");
 

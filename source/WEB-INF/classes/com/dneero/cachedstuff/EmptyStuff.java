@@ -3,6 +3,7 @@ package com.dneero.cachedstuff;
 import com.dneero.htmluibeans.SurveyListItem;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.dao.Survey;
+import com.dneero.dao.Pl;
 import com.dneero.util.DateDiff;
 import com.dneero.util.Time;
 import com.dneero.util.Str;
@@ -27,7 +28,7 @@ public class EmptyStuff implements CachedStuff, Serializable {
         return "EmptyStuff";
     }
 
-    public void refresh() {
+    public void refresh(Pl pl) {
         StringBuffer out = new StringBuffer();
 
         html = out.toString();

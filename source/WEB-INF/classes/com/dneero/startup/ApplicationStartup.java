@@ -308,6 +308,8 @@ public class ApplicationStartup implements ServletContextListener {
             pl.setNameforui("dNeero.com");
             pl.setTwitterusername("");
             pl.setTwitterpassword("");
+            pl.setHomepagetemplate("");
+            pl.setPeers("0");
             try{pl.save();}catch(Exception ex){logger.error(ex);}
         }
     }

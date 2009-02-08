@@ -3,6 +3,7 @@ package com.dneero.cachedstuff;
 import com.dneero.dao.Balancetransaction;
 import com.dneero.dao.User;
 import com.dneero.dao.Charitydonation;
+import com.dneero.dao.Pl;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.util.Str;
 import com.dneero.htmluibeans.PublicCharityListItem;
@@ -30,7 +31,7 @@ public class MostRecentDonations implements CachedStuff, Serializable {
         return "MostRecentDonations";
     }
 
-    public void refresh() {
+    public void refresh(Pl pl) {
         StringBuffer out = new StringBuffer();
 
         out.append("<table cellpadding='1' cellspacing='0' border='0'>");
@@ -66,7 +67,7 @@ public class MostRecentDonations implements CachedStuff, Serializable {
     }
 
     public int maxAgeInMinutes() {
-        return 5;
+        return 600;
     }
 
     public String getHtml() {

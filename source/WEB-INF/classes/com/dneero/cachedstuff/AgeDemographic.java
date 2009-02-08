@@ -1,6 +1,7 @@
 package com.dneero.cachedstuff;
 
 import com.dneero.dao.hibernate.HibernateUtil;
+import com.dneero.dao.Pl;
 import com.dneero.reports.FieldAggregator;
 import com.dneero.reports.SimpleTableOutput;
 
@@ -23,7 +24,7 @@ public class AgeDemographic implements CachedStuff, Serializable {
         return "AgeDemographic";
     }
 
-    public void refresh() {
+    public void refresh(Pl pl) {
         //@todo Implement this efficiently... I can't run this massive query after every restart!
         //List bloggers = HibernateUtil.getSession().createQuery("from Blogger").list();
         //FieldAggregator fa = new FieldAggregator((ArrayList)bloggers);

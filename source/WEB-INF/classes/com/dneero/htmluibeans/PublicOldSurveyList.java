@@ -12,8 +12,10 @@ import com.dneero.util.DateDiff;
 import com.dneero.util.Time;
 import com.dneero.dao.Blogger;
 import com.dneero.dao.Survey;
+import com.dneero.dao.Pl;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.htmlui.Pagez;
+import com.dneero.privatelabel.PlPeers;
 
 /**
  * User: Joe Reger Jr
@@ -49,68 +51,70 @@ public class PublicOldSurveyList implements Serializable {
             List results = HibernateUtil.getSession().createQuery("from Survey where status='"+ Survey.STATUS_CLOSED+"' order by enddate desc").list();
             for (Iterator iterator = results.iterator(); iterator.hasNext();) {
                 Survey survey = (Survey) iterator.next();
+                Pl plOfSurvey = Pl.get(survey.getPlid());
+                if (PlPeers.isThereATwoWayTrustRelationship(plOfSurvey, Pagez.getUserSession().getPl())){
+                    SurveyListItem bsli = new SurveyListItem();
+                    bsli.setSurveyid(survey.getSurveyid());
+                    bsli.setTitle(survey.getTitle());
+                    bsli.setDescription(survey.getDescription());
+                    //bsli.setNumberofrespondents(survey.getResponses().size());
 
-                SurveyListItem bsli = new SurveyListItem();
-                bsli.setSurveyid(survey.getSurveyid());
-                bsli.setTitle(survey.getTitle());
-                bsli.setDescription(survey.getDescription());
-                //bsli.setNumberofrespondents(survey.getResponses().size());
+                    if (survey.getQuestions()!=null){
+                        //bsli.setNumberofquestions(String.valueOf(survey.getQuestions().size()));
+                    } else {
+                        //bsli.setNumberofquestions("0");
+                    }
 
-                if (survey.getQuestions()!=null){
-                    //bsli.setNumberofquestions(String.valueOf(survey.getQuestions().size()));
-                } else {
-                    //bsli.setNumberofquestions("0");
+                    //double maxearningNum = survey.getIncentive().getBleh()  +   ( (survey.getWillingtopaypercpm()*survey.getMaxdisplaysperblog())/1000 );
+                    //bsli.setMaxearning("$"+ Str.formatForMoney(maxearningNum));
+
+    //                int daysleft = DateDiff.dateDiff("day", Time.getCalFromDate(survey.getEnddate()), Calendar.getInstance());
+    //                if (daysleft==0){
+    //                    bsli.setDaysuntilend("Ends today!");
+    //                } else if (daysleft==1){
+    //                    bsli.setDaysuntilend("One day left!");
+    //                } else {
+    //                    bsli.setDaysuntilend(daysleft + " days left!");
+    //                }
+
+                    //See if user has taken survey
+    //                bsli.setLoggedinuserhasalreadytakensurvey(false);
+    //                if (Pagez.getUserSession().getIsloggedin() && Pagez.getUserSession().getUser()!=null && Pagez.getUserSession().getUser().getBloggerid()>0){
+    //                    Blogger blogger = Blogger.get(Pagez.getUserSession().getUser().getBloggerid());
+    //                    for (Iterator<Response> iterator2 = blogger.getResponses().iterator(); iterator2.hasNext();) {
+    //                        Response response = iterator2.next();
+    //                        if (response.getSurveyid()==survey.getSurveyid()){
+    //                            bsli.setLoggedinuserhasalreadytakensurvey(true);
+    //                        }
+    //                    }
+    //                }
+
+                    //See if user is qualified
+    //                if (!bsli.getLoggedinuserhasalreadytakensurvey()){
+    //                    if (Pagez.getUserSession().getIsloggedin() && Pagez.getUserSession().getUser()!=null && Pagez.getUserSession().getUser().getBloggerid()>0){
+    //                        //Iterate surveys this blogger qualifies for
+    //                        boolean bloggerqualifies = false;
+    //                        for (Iterator iter = fsfb.getSurveys().iterator(); iter.hasNext();) {
+    //                            Survey tmpSurvey = (Survey) iter.next();
+    //                            if (tmpSurvey.getSurveyid()==survey.getSurveyid()){
+    //                                bloggerqualifies=true;
+    //                            }
+    //                        }
+    //                        if (bloggerqualifies){
+    //                            bsli.setIsbloggerqualifiedstring("Yes");
+    //                        } else {
+    //                            bsli.setIsbloggerqualifiedstring("No");
+    //                        }
+    //                    } else {
+    //                        bsli.setIsbloggerqualifiedstring("Unknown");
+    //                    }
+    //                } else {
+    //                    bsli.setIsbloggerqualifiedstring("Already Taken");
+    //                }
+
+
+                    surveys.add(bsli);
                 }
-
-                //double maxearningNum = survey.getIncentive().getBleh()  +   ( (survey.getWillingtopaypercpm()*survey.getMaxdisplaysperblog())/1000 );
-                //bsli.setMaxearning("$"+ Str.formatForMoney(maxearningNum));
-
-//                int daysleft = DateDiff.dateDiff("day", Time.getCalFromDate(survey.getEnddate()), Calendar.getInstance());
-//                if (daysleft==0){
-//                    bsli.setDaysuntilend("Ends today!");
-//                } else if (daysleft==1){
-//                    bsli.setDaysuntilend("One day left!");
-//                } else {
-//                    bsli.setDaysuntilend(daysleft + " days left!");
-//                }
-
-                //See if user has taken survey
-//                bsli.setLoggedinuserhasalreadytakensurvey(false);
-//                if (Pagez.getUserSession().getIsloggedin() && Pagez.getUserSession().getUser()!=null && Pagez.getUserSession().getUser().getBloggerid()>0){
-//                    Blogger blogger = Blogger.get(Pagez.getUserSession().getUser().getBloggerid());
-//                    for (Iterator<Response> iterator2 = blogger.getResponses().iterator(); iterator2.hasNext();) {
-//                        Response response = iterator2.next();
-//                        if (response.getSurveyid()==survey.getSurveyid()){
-//                            bsli.setLoggedinuserhasalreadytakensurvey(true);
-//                        }
-//                    }
-//                }
-
-                //See if user is qualified
-//                if (!bsli.getLoggedinuserhasalreadytakensurvey()){
-//                    if (Pagez.getUserSession().getIsloggedin() && Pagez.getUserSession().getUser()!=null && Pagez.getUserSession().getUser().getBloggerid()>0){
-//                        //Iterate surveys this blogger qualifies for
-//                        boolean bloggerqualifies = false;
-//                        for (Iterator iter = fsfb.getSurveys().iterator(); iter.hasNext();) {
-//                            Survey tmpSurvey = (Survey) iter.next();
-//                            if (tmpSurvey.getSurveyid()==survey.getSurveyid()){
-//                                bloggerqualifies=true;
-//                            }
-//                        }
-//                        if (bloggerqualifies){
-//                            bsli.setIsbloggerqualifiedstring("Yes");
-//                        } else {
-//                            bsli.setIsbloggerqualifiedstring("No");
-//                        }
-//                    } else {
-//                        bsli.setIsbloggerqualifiedstring("Unknown");
-//                    }
-//                } else {
-//                    bsli.setIsbloggerqualifiedstring("Already Taken");
-//                }
-
-
-                surveys.add(bsli);
             }
 
         //}

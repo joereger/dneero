@@ -29,6 +29,8 @@ public class Pl extends BasePersistentClass implements java.io.Serializable, Aut
     private boolean ishttpson;
     private String twitterusername;
     private String twitterpassword;
+    private String homepagetemplate;
+    private String peers;
 
 
 
@@ -199,5 +201,21 @@ public class Pl extends BasePersistentClass implements java.io.Serializable, Aut
 
     public void setTwitterpassword(String twitterpassword) {
         this.twitterpassword=twitterpassword;
+    }
+
+    public String getHomepagetemplate() {
+        return homepagetemplate;
+    }
+
+    public void setHomepagetemplate(String homepagetemplate) {
+        this.homepagetemplate=homepagetemplate;
+    }
+
+    public String getPeers() {
+        return peers;
+    }
+
+    public void setPeers(String peers) {
+        this.peers=peers;
     }
 }
