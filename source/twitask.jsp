@@ -17,7 +17,7 @@ if (publicTwitask==null || publicTwitask.getTwitask()==null || publicTwitask.get
 }
 //If the twitask isn't peered with this pl
 Pl plOfTwitask = Pl.get(publicTwitask.getTwitask().getPlid());
-if (PlPeers.isThereATwoWayTrustRelationship(plOfTwitask, Pagez.getUserSession().getPl())){
+if (!PlPeers.isThereATwoWayTrustRelationship(plOfTwitask, Pagez.getUserSession().getPl())){
     Pagez.sendRedirect("/notauthorized.jsp");
     return;
 }

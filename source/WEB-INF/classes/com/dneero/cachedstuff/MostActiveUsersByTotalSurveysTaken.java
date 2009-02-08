@@ -39,7 +39,6 @@ public class MostActiveUsersByTotalSurveysTaken implements CachedStuff, Serializ
             Object[] row = (Object[]) iterator.next();
             Blogger blogger = Blogger.get((Integer)row[0]);
             long surveystaken = (Long)row[1];
-            System.out.println("bloggerid="+blogger.getBloggerid()+"surveystaken="+surveystaken);
             //Put into the TreeMap
             //if (surveystaken>=75){
                 tm.put(blogger.getBloggerid(), surveystaken);

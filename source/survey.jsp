@@ -36,7 +36,7 @@ if (publicSurvey.getSurvey().getStatus()<Survey.STATUS_OPEN){
 }
 //If the survey isn't peered with this pl
 Pl plOfSurvey = Pl.get(publicSurvey.getSurvey().getPlid());
-if (PlPeers.isThereATwoWayTrustRelationship(plOfSurvey, Pagez.getUserSession().getPl())){
+if (!PlPeers.isThereATwoWayTrustRelationship(plOfSurvey, Pagez.getUserSession().getPl())){
     Pagez.sendRedirect("/notauthorized.jsp");
     return;
 }
@@ -539,7 +539,7 @@ String acl = "public";
 
                             <br/><br/>
                             <div class="rounded" style="background: #ffffff; padding: 10px; margin: 5px; text-align: left;">
-                                <table cellpadding="0" cellspacing="0" border="0">
+                                <table cellpadding="0" cellspacing="5" border="0">
 
 
                                     <tr>
@@ -592,11 +592,11 @@ String acl = "public";
 
                                      <tr>
                                         <td valign="top">
-                                            <font class="formfieldnamefont">Respondents to Date</font>
+                                            <font class="formfieldnamefont">Remaining Slots</font>
                                         </td>
                                         <td valign="top">
                                             <%=PercentCompleteBar.get(String.valueOf(publicSurvey.getSurveyEnhancer().getSlotsremaining()), String.valueOf(publicSurvey.getSurvey().getNumberofrespondentsrequested()), "", "", "75")%>
-                                            <font class="smallfont">Up to <%=publicSurvey.getSurvey().getNumberofrespondentsrequested()%> people may join this conversation for pay.</font>
+                                            <font class="smallfont">Up to <%=publicSurvey.getSurvey().getNumberofrespondentsrequested()%> people may join.</font>
                                             <br/><br/>
                                         </td>
                                     </tr>
