@@ -19,7 +19,7 @@ String acl = "public";
         <td valign="top">
             <font class="mediumfont" style="color: #999999">Drive Real World Results</font>
             <br/>
-            Products and services are purchased in the real world.  dNeero can help you drive real world, trackable results.
+            Products and services are purchased in the real world.  <%=Pagez.getUserSession().getPl().getNameforui()%> can help you drive real world, trackable results.
             <br clear="all"/><br/><br/>
 
             <font class="mediumfont" style="color: #999999">Product-in-hand Reviews</font>

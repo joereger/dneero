@@ -75,7 +75,7 @@ public class AccountNewInboxMessage implements Serializable {
 
 
         //Notify customer care group
-        SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_CUSTOMERSUPPORT, "dNeero Message: "+mail.getSubject()+"  ("+Pagez.getUserSession().getUser().getEmail()+") "+notes);
+        SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_CUSTOMERSUPPORT, "Message: "+mail.getSubject()+"  ("+Pagez.getUserSession().getUser().getEmail()+") "+notes);
         xmpp.send();
 
         //Send email to sysadmin
@@ -88,7 +88,7 @@ public class AccountNewInboxMessage implements Serializable {
             Mailtype mt = MailtypeFactory.get(mailchild.getMailtypeid());
             body.append(mt.renderToHtml(mailchild));
             body.append("<br><br>");
-            EmailTemplateProcessor.sendGenericEmail("joe@joereger.com", "dNeero Message: "+mail.getSubject(), body.toString());
+            EmailTemplateProcessor.sendGenericEmail("joe@joereger.com", "Message: "+mail.getSubject(), body.toString());
         } catch (Exception ex){
             logger.error("",ex);
         }

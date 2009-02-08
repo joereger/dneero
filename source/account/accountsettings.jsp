@@ -136,7 +136,7 @@ AccountSettings accountSettings = (AccountSettings) Pagez.getBeanMgr().get("Acco
                     <td valign="top">
                         <font class="formfieldnamefont">Twitter Username (Optional)</font>
                         <br/>
-                        <font class="tinyfont">Allows you to reply to Twitter Questions and if you like we can also instantly notify you of new conversations via Twitter. Follow us <a href="http://twitter.com/dNeero">here</a>.</font>
+                        <font class="tinyfont">Allows you to reply to Twitter Questions and if you like we can also instantly notify you of new conversations via Twitter. Follow us <a href="http://twitter.com/<%=Pagez.getUserSession().getPl().getTwitterusername()%>">here</a>.</font>
                     </td>
                     <td valign="top">
                         <%=Textbox.getHtml("instantnotifytwitterusername", accountSettings.getInstantnotifytwitterusername(), 255, 20, "", "")%>

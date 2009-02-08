@@ -38,7 +38,7 @@ ResearcherResultsAnswersAdvanced researcherResultsAnswersAdvanced = (ResearcherR
             researcherResultsAnswersAdvanced.setTotalsurveystakenatleast(Textbox.getIntFromRequest("totalsurveystakenatleast", "Total Conversations Joined of At Least", true, DatatypeInteger.DATATYPEID));
             researcherResultsAnswersAdvanced.setTotalsurveystakenatmost(Textbox.getIntFromRequest("totalsurveystakenatmost", "Total Conversations Joined of At Most", true, DatatypeInteger.DATATYPEID));
             researcherResultsAnswersAdvanced.setPolitics(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("politics", "Politics", false)));
-            researcherResultsAnswersAdvanced.setDneerousagemethods(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("dneerousagemethods", "dNeero Usage Methods", false)));
+            researcherResultsAnswersAdvanced.setDneerousagemethods(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("dneerousagemethods", "Usage Methods", false)));
             researcherResultsAnswersAdvanced.setProfession(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("professions", "Professions", false)));
             researcherResultsAnswersAdvanced.setState(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("states", "States", false)));
             researcherResultsAnswersAdvanced.setFiltername(Textbox.getValueFromRequest("filtername", "Filter Name", false, DatatypeString.DATATYPEID));
@@ -296,7 +296,7 @@ ResearcherResultsAnswersAdvanced researcherResultsAnswersAdvanced = (ResearcherR
                             </td>
 
                             <td valign="top">
-                                <font class="formfieldnamefont">dNeero Usage Method</font>
+                                <font class="formfieldnamefont">Usage Method</font>
                                 <br/>
                                 <font class="tinyfont"></font>
                             </td>

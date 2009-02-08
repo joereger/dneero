@@ -318,9 +318,9 @@ ResearcherSurveyDetail05 researcherSurveyDetail05 = (ResearcherSurveyDetail05)Pa
 
         <tr>
             <td valign="top">
-                <font class="formfieldnamefont">Only if Blogger Lets dNeero Give Earnings to Charity?</font>
+                <font class="formfieldnamefont">Only if Blogger Lets <%=Pagez.getUserSession().getPl().getNameforui()%> Give Earnings to Charity?</font>
                 <br/>
-                <font class="smallfont">By checking this box only those bloggers willing let dNeero give all of their earnings from this conversation to charity will be able to take the conversation.  The blogger will be able to choose from a list of charities.</font>
+                <font class="smallfont">By checking this box only those bloggers willing let <%=Pagez.getUserSession().getPl().getNameforui()%> give all of their earnings from this conversation to charity will be able to take the conversation.  The blogger will be able to choose from a list of charities.</font>
             </td>
             <td valign="top">
                 <%if (researcherSurveyDetail05.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {%>
@@ -336,7 +336,7 @@ ResearcherSurveyDetail05 researcherSurveyDetail05 = (ResearcherSurveyDetail05)Pa
             <td valign="top">
                 <font class="formfieldnamefont">Add Your Own Custom Charity</font>
                 <br/>
-                <font class="smallfont">Add your own charity for bloggers to choose from.  You must provide a charity name and a URL where respondents can learn about the charity.  At that URL dNeero administrators must be able to easily find information that allows them to make donations to the charity.  If such information is not easily available dNeero will donate the funds to a charity of its choosing.</font>
+                <font class="smallfont">Add your own charity for bloggers to choose from.  You must provide a charity name and a URL where respondents can learn about the charity.  At that URL <%=Pagez.getUserSession().getPl().getNameforui()%> administrators must be able to easily find information that allows them to make donations to the charity.  If such information is not easily available <%=Pagez.getUserSession().getPl().getNameforui()%> will donate the funds to a charity of its choosing.</font>
             </td>
             <td valign="top">
                 <font class="smallfont">Charity Name:</font><br/>
@@ -360,7 +360,7 @@ ResearcherSurveyDetail05 researcherSurveyDetail05 = (ResearcherSurveyDetail05)Pa
             <td valign="top">
                 <font class="formfieldnamefont">Only list your custom charity?</font>
                 <br/>
-                <font class="smallfont">By checking this box dNeero will list your custom charity as the only option for bloggers to choose from.</font>
+                <font class="smallfont">By checking this box <%=Pagez.getUserSession().getPl().getNameforui()%> will list your custom charity as the only option for bloggers to choose from.</font>
             </td>
             <td valign="top">
                 <%if (researcherSurveyDetail05.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {%>

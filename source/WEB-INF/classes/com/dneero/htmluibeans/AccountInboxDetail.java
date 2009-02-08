@@ -92,7 +92,7 @@ public class AccountInboxDetail implements Serializable {
         try{mail.save();}catch(Exception ex){logger.error("",ex);}
 
         //Send xmpp message
-        SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_CUSTOMERSUPPORT, "New dNeero Customer Support Comment: "+mail.getSubject()+" (mailid="+ mailid +") ("+Pagez.getUserSession().getUser().getEmail()+") "+notes);
+        SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_CUSTOMERSUPPORT, "New Customer Support Comment: "+mail.getSubject()+" (mailid="+ mailid +") ("+Pagez.getUserSession().getUser().getEmail()+") "+notes);
         xmpp.send();
 
         //Refresh the bean

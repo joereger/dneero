@@ -127,6 +127,7 @@ public class IncentivetwitCoupon implements Incentivetwit {
         ia.setMisc5("");
         try{ia.save();}catch(Exception ex){logger.error("", ex);}
         //Notify the recipient
+        Pl pl = Pl.get(user.getPlid());
         //Create the args array to hold the dynamic stuff
         String[] args = new String[10];
         args[0] = couponcode;
@@ -135,7 +136,7 @@ public class IncentivetwitCoupon implements Incentivetwit {
         args[3] = getFullSummary();
         args[4] = twitask.getQuestion();
         //Send the email
-        EmailTemplateProcessor.sendMail("dNeero Coupon Award for "+user.getFirstname(), "incentiveaward-coupon", user, args);
+        EmailTemplateProcessor.sendMail(pl.getNameforui()+" Coupon Award for "+user.getFirstname(), "incentiveaward-coupon", user, args);
     }
 
     public void doRemoveIncentive(Twitanswer twitanswer) {

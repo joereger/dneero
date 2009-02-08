@@ -27,7 +27,7 @@ String acl = "public";
             <br/><br/><br/>
             <font class="mediumfont" style="color: #999999">Bloggers Can Give to Charity</font>
             <br/>
-            One concern from bloggers is that the money in this model presents possible bias, and that their readers will not want to feel 'monetized'. dNeero allows bloggers to give any of their earnings, from any conversation (Charity Only or not), to a good cause, avoid bias.
+            One concern from bloggers is that the money in this model presents possible bias, and that their readers will not want to feel 'monetized'. <%=Pagez.getUserSession().getPl().getNameforui()%> allows bloggers to give any of their earnings, from any conversation (Charity Only or not), to a good cause, avoid bias.
         </td>
         <td valign="top" width="30%">
             <%@ include file="/researcher/about-nav-include.jsp" %>

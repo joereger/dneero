@@ -254,9 +254,9 @@ ResearcherTwitaskDetail05 researcherTwitaskDetail05= (ResearcherTwitaskDetail05)
 
         <tr>
             <td valign="top">
-                <font class="formfieldnamefont">Only if Person Lets dNeero Give Earnings to Charity?</font>
+                <font class="formfieldnamefont">Only if Person Lets <%=Pagez.getUserSession().getPl().getNameforui()%> Give Earnings to Charity?</font>
                 <br/>
-                <font class="smallfont">By checking this box only those people willing let dNeero give all of their earnings from this conversation to charity will be able to add their answer to the results.  The person will be able to choose from a list of charities.</font>
+                <font class="smallfont">By checking this box only those people willing let <%=Pagez.getUserSession().getPl().getNameforui()%> give all of their earnings from this conversation to charity will be able to add their answer to the results.  The person will be able to choose from a list of charities.</font>
             </td>
             <td valign="top">
                 <%if (researcherTwitaskDetail05.getTwitask().getStatus()<=Twitask.STATUS_DRAFT) {%>
@@ -272,7 +272,7 @@ ResearcherTwitaskDetail05 researcherTwitaskDetail05= (ResearcherTwitaskDetail05)
             <td valign="top">
                 <font class="formfieldnamefont">Add Your Own Custom Charity</font>
                 <br/>
-                <font class="smallfont">Add your own charity for people to choose from.  You must provide a charity name and a URL where respondents can learn about the charity.  At that URL dNeero administrators must be able to easily find information that allows them to make donations to the charity.  If such information is not easily available dNeero will donate the funds to a charity of its choosing.</font>
+                <font class="smallfont">Add your own charity for people to choose from.  You must provide a charity name and a URL where respondents can learn about the charity.  At that URL <%=Pagez.getUserSession().getPl().getNameforui()%> administrators must be able to easily find information that allows them to make donations to the charity.  If such information is not easily available <%=Pagez.getUserSession().getPl().getNameforui()%> will donate the funds to a charity of its choosing.</font>
             </td>
             <td valign="top">
                 <font class="smallfont">Charity Name:</font><br/>
@@ -296,7 +296,7 @@ ResearcherTwitaskDetail05 researcherTwitaskDetail05= (ResearcherTwitaskDetail05)
             <td valign="top">
                 <font class="formfieldnamefont">Only list your custom charity?</font>
                 <br/>
-                <font class="smallfont">By checking this box dNeero will list your custom charity as the only option for people to choose from.</font>
+                <font class="smallfont">By checking this box <%=Pagez.getUserSession().getPl().getNameforui()%> will list your custom charity as the only option for people to choose from.</font>
             </td>
             <td valign="top">
                 <%if (researcherTwitaskDetail05.getTwitask().getStatus()<=Twitask.STATUS_DRAFT) {%>

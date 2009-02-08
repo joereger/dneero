@@ -169,7 +169,7 @@ public class FilterMain implements Filter {
                                                 user.setLastlogindate(new java.util.Date());
                                                 try {user.save();} catch (Exception ex) {logger.error("",ex);}
                                                 //Notify via XMPP
-                                                SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_SALES, "dNeero User Auto-Login: "+ user.getFirstname() + " " + user.getLastname() + " ("+user.getEmail()+")");
+                                                SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_SALES, "User Auto-Login: "+ user.getFirstname() + " " + user.getLastname() + " ("+user.getEmail()+")");
                                                 xmpp.send();
                                                 //Record Iptrack Activity
                                                 RecordIptrackUtil.record(Pagez.getRequest(), Pagez.getUserSession().getUser().getUserid(), Activitytype.PERSISTENTLOGIN);

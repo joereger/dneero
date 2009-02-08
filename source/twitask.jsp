@@ -63,7 +63,7 @@ String acl = "public";
                     <!--</div>-->
                     <br/><br/><br/>
                     <%if (publicTwitask.getTwitanswers()==null || publicTwitask.getTwitanswers().size()==0){%>
-                        <font class="normalfont">Nobody's answered... yet.  Want to answer?  <ol><li>Add your <a href="http://twitter.com">Twitter</a> username to <a href="/account/accountsettings.jsp">your account</a></li><li>follow us at <a href="http://twitter.com/dNeero">http://twitter.com/dNeero</a></li><li>reply to questions you see us ask</li></ol></font>
+                        <font class="normalfont">Nobody's answered... yet.  Want to answer?  <ol><li>Add your <a href="http://twitter.com">Twitter</a> username to <a href="/account/accountsettings.jsp">your account</a></li><li>follow us at <a href="http://twitter.com/<%=Pagez.getUserSession().getPl().getTwitterusername()%>">http://twitter.com/<%=Pagez.getUserSession().getPl().getTwitterusername()%></a></li><li>reply to questions you see us ask</li></ol></font>
                    <%} else {%>
                         <%
                             StringBuffer template = new StringBuffer();
@@ -94,7 +94,7 @@ String acl = "public";
                             <font class="mediumfont" style="color: #cccccc;">Twitter Questions</font><br/>
                             <font class="tinyfont" style="color: #000000;">
                                 A powerful and quick way for companies and organizations to engage an existing and productive panel of Twitter users in social market research.
-                                <ol><li>Add your <a href="http://twitter.com">Twitter</a> username to <a href="/account/accountsettings.jsp">your account</a></li><li>follow us at <a href="http://twitter.com/dNeero">http://twitter.com/dNeero</a></li><li>reply to questions you see us ask</li></ol>
+                                <ol><li>Add your <a href="http://twitter.com">Twitter</a> username to <a href="/account/accountsettings.jsp">your account</a></li><li>follow us at <a href="http://twitter.com/<%=Pagez.getUserSession().getPl().getTwitterusername()%>">http://twitter.com/<%=Pagez.getUserSession().getPl().getTwitterusername()%></a></li><li>reply to questions you see us ask</li></ol>
                             </font>
                         </div>
                         <br/><br/>

@@ -592,7 +592,7 @@ public class PublicSurvey implements Serializable {
                     }
 
                     //Notify customer care group
-                    SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_CUSTOMERSUPPORT, "New dNeero User via Facebook: "+ user.getFirstname() + " " + user.getLastname());
+                    SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_CUSTOMERSUPPORT, "New User via Facebook: "+ user.getFirstname() + " " + user.getLastname());
                     xmpp.send();
                 }
 

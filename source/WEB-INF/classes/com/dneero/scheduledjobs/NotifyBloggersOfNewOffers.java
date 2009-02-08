@@ -1,9 +1,6 @@
 package com.dneero.scheduledjobs;
 
-import com.dneero.dao.Blogger;
-import com.dneero.dao.Response;
-import com.dneero.dao.Survey;
-import com.dneero.dao.User;
+import com.dneero.dao.*;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.dao.hibernate.NumFromUniqueResult;
 import com.dneero.email.EmailTemplateProcessor;
@@ -170,6 +167,7 @@ public class NotifyBloggersOfNewOffers implements Job {
                                     debug.append("\n"+"atleastonenewsurveyforblogger="+atleastonenewsurveyforblogger);
                                     logger.debug("atleastonenewsurveyforblogger="+atleastonenewsurveyforblogger);
                                     if (atleastonenewsurveyforblogger){
+                                        Pl pl = Pl.get(user.getPlid());
                                         //Create the args array to hold the dynamic stuff
                                         String[] args = new String[10];
                                         args[0] = "$"+Str.formatForMoney(possibleearnings);
@@ -178,7 +176,7 @@ public class NotifyBloggersOfNewOffers implements Job {
                                         args[3] = userquestionsansweredHtml.toString();
                                         args[4] = userquestionsansweredTxt.toString();
                                         //Send the email
-                                        EmailTemplateProcessor.sendMail("New dNeero Conversations for "+ NicknameHelper.getNameOrNickname(user), "bloggernotifyofnewsurveys", user, args);
+                                        EmailTemplateProcessor.sendMail("New "+pl.getNameforui()+" Conversations for "+ NicknameHelper.getNameOrNickname(user), "bloggernotifyofnewsurveys", user, args);
                                         debug.append("\n"+"email sent to "+user.getFirstname()+" "+user.getLastname());
                                         //Update blogger last sent date
                                         user.setNotifyofnewsurveyslastsent(new Date());

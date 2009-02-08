@@ -82,7 +82,7 @@ public class InstantNotifyOfNewSurvey implements Runnable {
             if (user.getIsenabled()){
                 if (user.getInstantnotifybyemailison()){
                     //Send email
-                    EmailTemplateProcessor.sendMail("Instant Notification: New dNeero Conversation for "+ NicknameHelper.getNameOrNickname(user), "bloggernotifyofnewsurveys", user, args);
+                    EmailTemplateProcessor.sendMail("Instant Notification: New Conversation for "+ NicknameHelper.getNameOrNickname(user), "bloggernotifyofnewsurveys", user, args);
                 }
                 if (user.getInstantnotifybytwitterison() && !user.getInstantnotifytwitterusername().equals("")){
                     //Send Twitter

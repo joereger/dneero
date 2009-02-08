@@ -23,11 +23,11 @@ PublicCharity publicCharity = (PublicCharity) Pagez.getBeanMgr().get("PublicChar
                     <td valign="top"  width="50%">
                         <font class="mediumfont" style="color: #999999">We'll Give Your Earnings to Charity</font>
                         <br/>
-                        dNeero will, if you so choose, donate your earnings to charity.  Each time you join a conversation you'll be able to choose whether to donate and which charity to donate to.  We currently have a number of charitable options and will look to add more in the future.
+                        We will, if you so choose, donate your earnings to charity.  Each time you join a conversation you'll be able to choose whether to donate and which charity to donate to.  We currently have a number of charitable options and will look to add more in the future.
                         <br/><br/><br/>
                         <font class="mediumfont" style="color: #999999">Results</font>
                         <br/>
-                        Every quarter we'll write checks to the charities that you've chosen for the amounts that you've deferred.  We'll list your donations on this page.  When somebody clicks to dNeero from your blog we'll tell them that you donated your earnings to charity.
+                        Every quarter we'll write checks to the charities that you've chosen for the amounts that you've deferred.  We'll list your donations on this page.  When somebody clicks to this site from your blog we'll tell them that you donated your earnings to charity.
                         <br/><br/><br/>
                         <font class="mediumfont" style="color: #999999">Social People: Avoid Losing Any Credibility... and Support a Great Cause!</font>
                         <br/>
@@ -82,7 +82,7 @@ PublicCharity publicCharity = (PublicCharity) Pagez.getBeanMgr().get("PublicChar
                             <br/><a href="http://en.wikipedia.org/wiki/Wikimedia_Foundation" target="charity">Wikimedia Foundation</a>
                             <br/><a href="http://www.conservationfund.org/" target="charity">The Conservation Fund</a>
                             </blockquote>
-                            And you can add your own favorite charity when you create a dNeero conversation!
+                            And you can add your own favorite charity when you create a conversation!
                         </div>
 
                         <br/><br/>

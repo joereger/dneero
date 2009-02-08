@@ -8,7 +8,7 @@
 <%@ page import="java.util.ArrayList" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
-String pagetitle = "dNeero Reseller Program";
+String pagetitle = Pagez.getUserSession().getPl().getNameforui()+" Reseller Program";
 String navtab = "youraccount";
 String acl = "account";
 %>

@@ -172,7 +172,7 @@ ResearcherSurveyDetail06 researcherSurveyDetail06 = (ResearcherSurveyDetail06)Pa
 
             <tr>
                 <td valign="top">
-                    <font class="formfieldnamefont">Max Possible dNeero Fee</font>
+                    <font class="formfieldnamefont">Max Possible <%=Pagez.getUserSession().getPl().getNameforui()%> Fee</font>
                 </td>
                 <td valign="top">
                     <font class="normalfont"><%=researcherSurveyDetail06.getDneerofee()%></font><font class="normalfont"></font>
@@ -355,7 +355,7 @@ ResearcherSurveyDetail06 researcherSurveyDetail06 = (ResearcherSurveyDetail06)Pa
                                     <li>However, if my account balance is sufficient to complete the activities I have requested, my live (open) conversations will not be put on hold. </li>
                                 </ul>
                             </li>
-                            <li>Impressions on blogs will be paid for during a period extending 30 days from the end date of the conversation, not to exceed the limits on impressions that you've set with your conversation.  As such, dNeero will refund money after this period when the max number of conversations is not reached.</li>
+                            <li>Impressions on blogs will be paid for during a period extending 30 days from the end date of the conversation, not to exceed the limits on impressions that you've set with your conversation.  As such, <%=Pagez.getUserSession().getPl().getNameforui()%> will refund money after this period when the max number of conversations is not reached.</li>
                         </ul>
                     </font>
                 </td>

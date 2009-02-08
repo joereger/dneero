@@ -1,6 +1,6 @@
 <font class="mediumfont" style="color: #999999;">What is the Reseller Program?</font>
 <br/><font class="normalfont" style="color: #666666;">
-The dNeero Reseller Program allows you to sell dNeero conversations to organizations and earn 5% of whatever they spend to ignite the conversation.  For example, if they join a conversation and pay $1000 to social people through it then you'll earn $100.
+The <%=Pagez.getUserSession().getPl().getNameforui()%> Reseller Program allows you to sell conversations to organizations and earn 5% of whatever they spend to ignite the conversation.  For example, if they join a conversation and pay $1000 to social people through it then you'll earn $100.
 </font>
 
 <br/><br/>
@@ -9,9 +9,9 @@ The dNeero Reseller Program allows you to sell dNeero conversations to organizat
 The program is very simple for you to use.
 <ol>
     <li><b>Tell organizations about dNeero.com</b>. Send them email.  Call them on the phone.  Hand out fliers on the street.  Create a viral video and post it to YouTube.  Think outside the box.</li>
-    <li><b>Convince them to ignite a conversation</b> of their own.  They may want to generate awareness about a product or service.  Or they may want to learn about their market.  You need to convince them to use dNeero to ignite conversations.</li>
+    <li><b>Convince them to ignite a conversation</b> of their own.  They may want to generate awareness about a product or service.  Or they may want to learn about their market.  You need to convince them to use us to ignite conversations.</li>
     <li><b>Give the business your Reseller Code</b> and tell them to apply it in the last step of conversation creation.  Of course, they'll need a dNeero.com account.</li>
-    <li><b>Sit back and relax</b>... any time the organization pays a social person through the conversation you'll earn money.  You'll see the amounts added to your dNeero balance automatically.</li>
+    <li><b>Sit back and relax</b>... any time the organization pays a social person through the conversation you'll earn money.  You'll see the amounts added to your account balance automatically.</li>
 </ol>
 </font>
 
@@ -24,13 +24,13 @@ You get paid 5% of whatever the conversations pay to bloggers and social people.
 <br/><br/>
 <font class="mediumfont" style="color: #999999;">Sounds good... how do I sign up?</font>
 <br/><font class="normalfont" style="color: #666666;">
-All you need is a dNeero account.  Anybody can join the Reseller Program!  Once you have a dNeero account you need to log in, click Account and find the Reseller Program link.  On that page you'll learn what your Reseller Code is.
+All you need is an account.  Anybody can join the Reseller Program!  Once you have an account you need to log in, click Account and find the Reseller Program link.  On that page you'll learn what your Reseller Code is.
 </font>
 
 <br/><br/>
-<font class="mediumfont" style="color: #999999;">How is this different than the 'normal' dNeero where I make money?</font>
+<font class="mediumfont" style="color: #999999;">How is this different than the 'normal' <%=Pagez.getUserSession().getPl().getNameforui()%> where I make money?</font>
 <br/><font class="normalfont" style="color: #666666;">
-As a user of dNeero you normally make money joining conversations and posting them to your blog or social network profile.  With the Reseller Program you make money by getting organizations to pay to launch their own conversations.
+As a user of <%=Pagez.getUserSession().getPl().getNameforui()%> you normally make money joining conversations and posting them to your blog or social network profile.  With the Reseller Program you make money by getting organizations to pay to launch their own conversations.
 </font>
 
 <br/><br/>
@@ -42,7 +42,7 @@ Anybody who wants to ignite a conversation.  Businesses.  Charities.  Associatio
 <br/><br/>
 <font class="mediumfont" style="color: #999999;">How do I get paid?</font>
 <br/><font class="normalfont" style="color: #666666;">
-As the organization pays bloggers and social people we'll add cash to your dNeero balance.  When your balance gets over $20 we'll send the money to your PayPal account overnight.
+As the organization pays bloggers and social people we'll add cash to your account balance.  When your balance gets over $20 we'll send the money to your PayPal account overnight.
 </font>
 
 <br/><br/>
@@ -74,7 +74,7 @@ No problem.  You can get paid the same commission.  Call us if you have clients 
 <br/><br/>
 <font class="mediumfont" style="color: #999999;">What sort of businesses should I contact?</font>
 <br/><font class="normalfont" style="color: #666666;">
-We've found that most businesses can use dNeero conversations. Consumer goods work well.  Products and services targeted to the youth/college/young adult demographic work well.
+We've found that most businesses can use these conversations. Consumer goods work well.  Products and services targeted to the youth/college/young adult demographic work well.
 </font>
 
 <br/><br/>
@@ -84,7 +84,7 @@ You don't get paid.  But don't worry, most of our conversations are selling out 
 </font>
 
 <br/><br/>
-<font class="mediumfont" style="color: #999999;">Can I say I work for dNeero?</font>
+<font class="mediumfont" style="color: #999999;">Can I say I work for <%=Pagez.getUserSession().getPl().getNameforui()%>?</font>
 <br/><font class="normalfont" style="color: #666666;">
-Unfortunately, no.  While we do love you (hugs), for legal reasons we can't have you out there representing yourself as being part of the dNeero organization.  What you can say is that you're a dNeero reseller.
+Unfortunately, no.  While we do love you (hugs), for legal reasons we can't have you out there representing yourself as being part of the <%=Pagez.getUserSession().getPl().getNameforui()%> organization.  What you can say is that you're a <%=Pagez.getUserSession().getPl().getNameforui()%> reseller.
 </font>

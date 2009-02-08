@@ -1,6 +1,7 @@
 package com.dneero.email;
 
 import com.dneero.dao.User;
+import com.dneero.dao.Pl;
 import com.dneero.util.RandomString;
 import com.dneero.util.GeneralException;
 import org.apache.log4j.Logger;
@@ -17,7 +18,7 @@ public class LostPasswordSend {
 
     public static void sendLostPasswordEmail(User user){
         Logger logger = Logger.getLogger(LostPasswordSend.class);
-
+        Pl pl = Pl.get(user.getPlid());
         user.setEmailactivationkey(RandomString.randomAlphanumeric(5));
         user.setEmailactivationlastsent(new Date());
 
@@ -27,7 +28,7 @@ public class LostPasswordSend {
             logger.error("registerAction failed: " + gex.getErrorsAsSingleString());
         }
 
-        EmailTemplateProcessor.sendMail("dNeero Password Recovery", "lostpassword", user);
+        EmailTemplateProcessor.sendMail(pl.getNameforui()+" Password Recovery", "lostpassword", user);
 
     }
 

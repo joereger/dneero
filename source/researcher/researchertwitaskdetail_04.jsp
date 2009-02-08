@@ -46,7 +46,7 @@ ResearcherTwitaskDetail04 researcherTwitaskDetail04= (ResearcherTwitaskDetail04)
             researcherTwitaskDetail04.setPanels(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("panels", "Panels", false)));
             researcherTwitaskDetail04.setSuperpanels(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("superpanels", "SuperPanels", false)));
             researcherTwitaskDetail04.setPolitics(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("politics", "Politics", false)));
-            researcherTwitaskDetail04.setDneerousagemethods(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("dneerousagemethods", "dNeero Usage Methods", false)));
+            researcherTwitaskDetail04.setDneerousagemethods(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("dneerousagemethods", "Usage Methods", false)));
             researcherTwitaskDetail04.setProfession(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("professions", "Professions", false)));
             researcherTwitaskDetail04.setState(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("states", "States", false)));
             if (request.getParameter("action").equals("next")) {
@@ -115,9 +115,9 @@ ResearcherTwitaskDetail04 researcherTwitaskDetail04= (ResearcherTwitaskDetail04)
 
 
                 <td valign="top">
-                    <font class="formfieldnamefont">dNeero Usage Method</font>
+                    <font class="formfieldnamefont">Usage Method</font>
                     <br/>
-                    <font class="tinyfont">There are multiple ways that users can access dNeero social surveys.  This control allows you to target each access method individually.</font>
+                    <font class="tinyfont">There are multiple ways that users can access Twitter Questions.  This control allows you to target each access method individually.</font>
                 </td>
                 <td valign="top">
                     <%=DropdownMultiselect.getHtml("dneerousagemethods", Util.stringArrayToArrayList(researcherTwitaskDetail04.getDneerousagemethods()), Util.treeSetToTreeMap(Dneerousagemethods.get()), 3, "", "")%>

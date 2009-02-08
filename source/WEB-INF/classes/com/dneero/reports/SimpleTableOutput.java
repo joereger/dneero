@@ -31,7 +31,7 @@ public class SimpleTableOutput {
 
         out.append("<table cellpadding='3' cellspacing='0' border='0'>");
         if (onlyshow.equals("")||onlyshow.equals("dneerousagemethod")){
-            out.append(getHtmlForField(fa.getDneerousagemethods(), "dNeero Usage Method"));
+            out.append(getHtmlForField(fa.getDneerousagemethods(), "Usage Method"));
         }
         if (onlyshow.equals("")||onlyshow.equals("gender")){
             out.append(getHtmlForField(fa.getGender(), "Gender"));

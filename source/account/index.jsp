@@ -249,7 +249,7 @@ if (accountIndex.getUserhasresponsependings()){
                             
                         %>
                         <%if (bloggerCompletedTwitasks.getTwitanswers()==null || bloggerCompletedTwitasks.getTwitanswers().size()==0){%>
-                            <font class="smallfont">You haven't answered any Twitter Questions!  <ol><li>Add your <a href="http://twitter.com">Twitter</a> username to <a href="/account/accountsettings.jsp">your account</a></li><li>follow us at <a href="http://twitter.com/dNeero">http://twitter.com/dNeero</a></li><li>reply to questions you see us ask</li><li>make sure your social person <a href="/blogger/bloggerdetails.jsp">profile</a> is active</li></ol></font>
+                            <font class="smallfont">You haven't answered any Twitter Questions!  <ol><li>Add your <a href="http://twitter.com">Twitter</a> username to <a href="/account/accountsettings.jsp">your account</a></li><li>follow us at <a href="http://twitter.com/<%=Pagez.getUserSession().getPl().getTwitterusername()%>">http://twitter.com/<%=Pagez.getUserSession().getPl().getTwitterusername()%></a></li><li>reply to questions you see us ask</li><li>make sure your social person <a href="/blogger/bloggerdetails.jsp">profile</a> is active</li></ol></font>
                         <%} else {%>
                             <%
                                 ArrayList<GridCol> cols = new ArrayList<GridCol>();

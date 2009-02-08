@@ -135,7 +135,7 @@ public class Login implements Serializable {
                 }
 
                 //Notify via XMPP
-                SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_SALES, "dNeero User Login: "+ user.getFirstname() + " " + user.getLastname() + " ("+user.getEmail()+")");
+                SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_SALES, "User Login: "+ user.getFirstname() + " " + user.getLastname() + " ("+user.getEmail()+")");
                 xmpp.send();
 
                 //This is where the new UserSession is actually bound to Pagez.getUserSession()

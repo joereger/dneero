@@ -240,7 +240,7 @@ public class Registration implements Serializable {
         EmailActivationSend.sendActivationEmail(user);
 
         //Notify customer care group
-        SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_CUSTOMERSUPPORT, "New dNeero User: "+ user.getFirstname() + " " + user.getLastname() + "("+user.getEmail()+")");
+        SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_CUSTOMERSUPPORT, "New User: "+ user.getFirstname() + " " + user.getLastname() + "("+user.getEmail()+")");
         xmpp.send();
 
         //Log user in

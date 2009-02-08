@@ -105,7 +105,7 @@ String acl = "public";
     <font class="mediumfont" color="#333333">How much does it cost?</font>
     <br/>
     <font class="smallfont">
-    You can ignite a conversation as large or as small as you like and you'll be charged only for the activity that your conversation generates.  dNeero charges a 25% conversation management fee to use our technology.
+    You can ignite a conversation as large or as small as you like and you'll be charged only for the activity that your conversation generates.  <%=Pagez.getUserSession().getPl().getNameforui()%> charges a 25% conversation management fee to use our technology.
     </font>
     <br/><br/><br/>
     <!-- End FAQ Question -->
@@ -128,7 +128,7 @@ String acl = "public";
     <font class="mediumfont" color="#333333">What if I still have a positive balance when my conversation ends?</font>
     <br/>
     <font class="smallfont">
-    In general we attempt to fulfill your conversation order completely, meaning you'll have a zero balance.  But occasionally short-run conversations are closed while there's a positive balance in your account.  Impressions on blogs will be paid for during a period extending 30 days from the end date of the conversation, not to exceed the limits on impressions that you've set with your conversation.  As such, dNeero will refund money after this period has ended so long as you don't have other conversations that aren't Closed.  This means that you need to have a PayPal account set up and configured in the Account Settings section of your account.
+    In general we attempt to fulfill your conversation order completely, meaning you'll have a zero balance.  But occasionally short-run conversations are closed while there's a positive balance in your account.  Impressions on blogs will be paid for during a period extending 30 days from the end date of the conversation, not to exceed the limits on impressions that you've set with your conversation.  As such, <%=Pagez.getUserSession().getPl().getNameforui()%> will refund money after this period has ended so long as you don't have other conversations that aren't Closed.  This means that you need to have a PayPal account set up and configured in the Account Settings section of your account.
     </font>
     <br/><br/><br/>
     <!-- End FAQ Question -->

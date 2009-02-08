@@ -148,7 +148,7 @@ public class ResearcherTwitaskDetail01 implements Serializable {
 
                 if (isnewtwitask){
                     //Notify sales group
-                    SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_SALES, "New dNeero Twitask Started: "+ twitask.getQuestion()+" (twitaskid="+twitask.getTwitaskid()+")");
+                    SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_SALES, "New Twitask Started: "+ twitask.getQuestion()+" (twitaskid="+twitask.getTwitaskid()+")");
                     xmpp.send();
                 }
 

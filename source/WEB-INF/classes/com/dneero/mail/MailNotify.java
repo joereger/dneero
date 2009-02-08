@@ -3,6 +3,7 @@ package com.dneero.mail;
 import com.dneero.dao.Mail;
 import com.dneero.dao.User;
 import com.dneero.dao.Mailchild;
+import com.dneero.dao.Pl;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.email.EmailTemplateProcessor;
 import com.dneero.util.Str;
@@ -26,8 +27,8 @@ public class MailNotify {
             Mailchild mailchild=mailchildIterator.next();
             Mailtype mt = MailtypeFactory.get(mailchild.getMailtypeid());
             if (mailchild.getIsfromcustomercare()){
-                asText.append("dNeero Said:\n");
-                asHtml.append("dNeero Said:<br/>");
+                asText.append("System Administrator Said:\n");
+                asHtml.append("System Administrator Said:<br/>");
             } else {
                 asText.append("You Said:\n");
                 asHtml.append("You Said:<br/>");
@@ -37,12 +38,12 @@ public class MailNotify {
             asHtml.append(mt.renderToHtml(mailchild));
             asHtml.append("<br/><br/>");
         }
-
+        Pl pl = Pl.get(User.get(mail.getUserid()).getPlid());
         String[] args = new String[3];
         args[0]=mail.getSubject();
         args[1]=asHtml.toString();
         args[2]=asText.toString();
-        EmailTemplateProcessor.sendMail("dNeero Message: "+ Str.truncateString(mail.getSubject(),100), "inboxmessage", User.get(mail.getUserid()), args);
+        EmailTemplateProcessor.sendMail(pl.getNameforui()+" Message: "+ Str.truncateString(mail.getSubject(),100), "inboxmessage", User.get(mail.getUserid()), args);
     }
 
 }

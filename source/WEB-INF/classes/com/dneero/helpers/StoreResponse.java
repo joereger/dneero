@@ -326,7 +326,7 @@ public class StoreResponse {
         //Notify
         if (allCex.getErrors().length<=0){
             //Notify debug group
-            SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_CUSTOMERSUPPORT, "dNeero Conversation Joined: "+ survey.getTitle()+" (surveyid="+survey.getSurveyid()+") by "+Pagez.getUserSession().getUser().getFirstname()+" "+Pagez.getUserSession().getUser().getLastname()+" ("+Pagez.getUserSession().getUser().getEmail()+")");
+            SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_CUSTOMERSUPPORT, "Conversation Joined: "+ survey.getTitle()+" (surveyid="+survey.getSurveyid()+") by "+Pagez.getUserSession().getUser().getFirstname()+" "+Pagez.getUserSession().getUser().getLastname()+" ("+Pagez.getUserSession().getUser().getEmail()+")");
             xmpp.send();
         } else {
             throw allCex;

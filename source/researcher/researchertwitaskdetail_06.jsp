@@ -134,7 +134,7 @@ ResearcherTwitaskDetail06 researcherTwitaskDetail06= (ResearcherTwitaskDetail06)
 
             <tr>
                 <td valign="top">
-                    <font class="formfieldnamefont">Max Possible dNeero Fee</font>
+                    <font class="formfieldnamefont">Max Possible <%=Pagez.getUserSession().getPl().getNameforui()%> Fee</font>
                 </td>
                 <td valign="top">
                     <font class="normalfont"><%=researcherTwitaskDetail06.getDneerofee()%></font><font class="normalfont"></font>

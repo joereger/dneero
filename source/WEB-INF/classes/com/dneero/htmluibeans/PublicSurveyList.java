@@ -215,7 +215,7 @@ public class PublicSurveyList implements Serializable {
 
     private void loadFacebookUsers(){
         Logger logger = Logger.getLogger(this.getClass().getName());
-        logger.debug("Start calculating which friends are on dNeero and which aren't");
+        logger.debug("Start calculating which friends are on and which aren't");
         facebookusersnotaddedapp = new TreeMap<String, String>();
         facebookuserswhoaddedapp = new ArrayList<PublicSurveyFacebookFriendListitem>();
         //Go to facebook and get a list of the logged-in user's friends

@@ -3,6 +3,7 @@ package com.dneero.htmluibeans;
 
 import com.dneero.util.Str;
 import com.dneero.dao.User;
+import com.dneero.dao.Pl;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.email.EmailSendThread;
 import com.dneero.email.EmailSend;
@@ -46,9 +47,10 @@ public class BloggerEarningsRevshareInvite implements Serializable {
 
                 List existingusers = HibernateUtil.getSession().createQuery("from User where email='"+ Str.cleanForSQL(individualemail)+"'").list();
                 if (existingusers.size()<=0){
+                    Pl pl = Pl.get(user.getPlid());
                     String[] args = new String[10];
                     args[0]= message;
-                    EmailTemplateProcessor.sendMail("dNeero Invitation from "+user.getFirstname()+" "+user.getLastname()+" - Make Money with your Blog!", "inviteblogger", user, args, individualemail, user.getEmail());
+                    EmailTemplateProcessor.sendMail(pl.getNameforui()+" Invitation from "+user.getFirstname()+" "+user.getLastname()+" - Make Money with your Blog!", "inviteblogger", user, args, individualemail, user.getEmail());
                 } else {
                     //err.append("A user with the email address '"+individualemail+"' already exists. ");
                 }

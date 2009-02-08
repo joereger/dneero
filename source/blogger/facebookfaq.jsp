@@ -3,7 +3,7 @@
 <%@ page import="com.dneero.htmluibeans.BloggerEarningsRevshare" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
-String pagetitle = "dNeero Facebook App FAQ";
+String pagetitle = Pagez.getUserSession().getPl().getNameforui()+" Facebook App FAQ";
 String navtab = "bloggers";
 String acl = "public";
 %>
@@ -26,7 +26,7 @@ String acl = "public";
     <font class="mediumfont" color="#333333">Ok, I've joined a conversation... when do I get paid?</font>
     <br/>
     <font class="smallfont">
-    Our advertisers and market researchers pay for answers (from you) and clicks (from your friends). To qualify for payment, as described many places on the app, you must generate 5 days with clicks in the first 10 after you join the conversation. A click is generated when a friend sees the conversations listed on your profile box or mini feed and clicks on it. On your joined conversations dNeero page you'll see a list of conversations you've taken and a day-by-day status report telling you how close you are to being paid. Once you get paid for a number of conversations and accrue more than $20 we'll pay your PayPal account. We pay people every day and are generally regarded as one of the few apps that does actually pay.
+    Our advertisers and market researchers pay for answers (from you) and clicks (from your friends). To qualify for payment, as described many places on the app, you must generate 5 days with clicks in the first 10 after you join the conversation. A click is generated when a friend sees the conversations listed on your profile box or mini feed and clicks on it. On your joined conversations page you'll see a list of conversations you've taken and a day-by-day status report telling you how close you are to being paid. Once you get paid for a number of conversations and accrue more than $20 we'll pay your PayPal account. We pay people every day and are generally regarded as one of the few apps that does actually pay.
     </font>
     <br/><br/><br/>
     <!-- End FAQ Question -->
@@ -45,7 +45,7 @@ String acl = "public";
     <font class="mediumfont" color="#333333">Do I need to post positive reviews?</font>
     <br/>
     <font class="smallfont">
-    Absolutely not!  You should post whatever you actually believe. dNeero will not allow advertisers to bias you in any way.  You are being paid for your time and your opinion... not for any particular opinion.
+    Absolutely not!  You should post whatever you actually believe. We will not allow advertisers to bias you in any way.  You are being paid for your time and your opinion... not for any particular opinion.
     </font>
     <br/><br/><br/>
     <!-- End FAQ Question -->
@@ -72,7 +72,7 @@ String acl = "public";
     <font class="mediumfont" color="#333333">Will my friends/readers know I was paid?</font>
     <br/>
     <font class="smallfont">
-    Yes, they will.  Disclosure is an important element of conversations that dNeero is committed to.  Whenever somebody sees your answers we'll include an unobtrusive but clear note that this conversation was sponsored.  Of course, you can also have us give your earnings to charity which removes any concerns over money.
+    Yes, they will.  Disclosure is an important element of conversations that we're is committed to.  Whenever somebody sees your answers we'll include an unobtrusive but clear note that this conversation was sponsored.  Of course, you can also have us give your earnings to charity which removes any concerns over money.
     </font>
     <br/><br/><br/>
     <!-- End FAQ Question -->
@@ -108,7 +108,7 @@ String acl = "public";
     <!-- End FAQ Question -->
 
     <!-- Start FAQ Question -->
-    <font class="mediumfont" color="#333333">Does dNeero pay based on friends that my friends invite?</font>
+    <font class="mediumfont" color="#333333">Does <%=Pagez.getUserSession().getPl().getNameforui()%> pay based on friends that my friends invite?</font>
     <br/>
     <font class="smallfont">
     Yes. We pay you for the activity of friends of friends up to five levels deep.  The amount we pay is less each level away from you, but those little bits add up.
@@ -122,19 +122,19 @@ String acl = "public";
     <font class="smallfont">
     According to <a href="http://en.wikipedia.org/wiki/Pyramid_scheme">Wikipedia</a> a pyramid scheme "is a non-sustainable business model that involves the exchange of money primarily for enrolling other people into the scheme, usually without any product or service being delivered."  Wikipedia then continues: "There are other commercial models using cross-selling such as multi-level marketing (MLM) or party planning which are perfectly legal and sustainable." (Quotes as of Oct 31, 2006)
     <br/><br/>
-    dNeero does not charge you to take part in the program.  Pyramid schemes often include a hefty up-front charge with the promise of exponential growth from downstream users.
+    <%=Pagez.getUserSession().getPl().getNameforui()%> does not charge you to take part in the program.  Pyramid schemes often include a hefty up-front charge with the promise of exponential growth from downstream users.
     <br/><br/>
-    dNeero does not pay you simply to recruit friends... we pay you a share of our revenue that is generated by your friends.
+    <%=Pagez.getUserSession().getPl().getNameforui()%> does not pay you simply to recruit friends... we pay you a share of our revenue that is generated by your friends.
     <br/><br/>
     Nobody is ever left "holding the bag."  The model is sustainable.  We are simply choosing to share a defined percentage of our revenue with you to attract new users.
     <br/><br/>
-    Nobody is ever paying any money for an item of fictional value, as in pyramid schemes where items with little actual value are paid for.  The dNeero system works on the other side of the equation... when we pay you.  There's no "entry price."   
+    Nobody is ever paying any money for an item of fictional value, as in pyramid schemes where items with little actual value are paid for.  The <%=Pagez.getUserSession().getPl().getNameforui()%> system works on the other side of the equation... when we pay you.  There's no "entry price."
     </font>
     <br/><br/><br/>
     <!-- End FAQ Question -->
 
     <!-- Start FAQ Question -->
-    <font class="mediumfont" color="#333333">And dNeero pays me for my friends' activity forever?</font>
+    <font class="mediumfont" color="#333333">And <%=Pagez.getUserSession().getPl().getNameforui()%> pays me for my friends' activity forever?</font>
     <br/>
     <font class="smallfont">
     At this point, yes.  This is not a "one-time" payment... whenever your friend makes money, you make money.  However we are likely to impose a one or two year limit on the revenue share.</font>
@@ -142,7 +142,7 @@ String acl = "public";
     <!-- End FAQ Question -->
 
     <!-- Start FAQ Question -->
-    <font class="mediumfont" color="#333333">Does dNeero pay me for my friends' conversations and impressions?</font>
+    <font class="mediumfont" color="#333333">Does <%=Pagez.getUserSession().getPl().getNameforui()%> pay me for my friends' conversations and impressions?</font>
     <br/>
     <font class="smallfont">
     All of it.
@@ -154,7 +154,7 @@ String acl = "public";
     <font class="mediumfont" color="#333333">How do I invite friends and start living the good life?</font>
     <br/>
     <font class="smallfont">
-    When your friends click from your profile we track that they came from you.  If they haven't signed up for dNeero then you get credit for bringing them in.
+    When your friends click from your profile we track that they came from you.  If they haven't signed up for <%=Pagez.getUserSession().getPl().getNameforui()%> then you get credit for bringing them in.
     </font>
     <br/><br/><br/>
     <!-- End FAQ Question -->
@@ -172,7 +172,7 @@ String acl = "public";
     <font class="mediumfont" color="#333333">Is my friend any worse off for having been invited? In other words, will they get paid less so that I can get paid more?</font>
     <br/>
     <font class="smallfont">
-    Your friend will get paid the same amount whether they sign up alone or through your invitation.  The money paid out from this program comes from dNeero's pockets, not your friends'.
+    Your friend will get paid the same amount whether they sign up alone or through your invitation.  The money paid out from this program comes from our pockets, not your friends'.
     </font>
     <br/><br/><br/>
     <!-- End FAQ Question -->
@@ -200,7 +200,7 @@ String acl = "public";
     <font class="mediumfont" color="#333333">How do I get paid?</font>
     <br/>
     <font class="smallfont">
-    For security and ease-of-use we pay your PayPal account.  Setting up a <a href="http://www.paypal.com" target="paypal">PayPal account</a> takes minutes.  Once you have a PayPal account you simply enter your PayPal address (usually your email address) into the dNeero system so that we can send you money.
+    For security and ease-of-use we pay your PayPal account.  Setting up a <a href="http://www.paypal.com" target="paypal">PayPal account</a> takes minutes.  Once you have a PayPal account you simply enter your PayPal address (usually your email address) into the system so that we can send you money.
     </font>
     <br/><br/><br/>
     <!-- End FAQ Question -->

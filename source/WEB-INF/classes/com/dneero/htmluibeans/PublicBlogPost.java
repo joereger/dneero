@@ -89,7 +89,7 @@ public class PublicBlogPost implements Serializable {
 //            try{blogpost.save();}catch(Exception ex){logger.error("",ex);}
 //        }
 //        //Notify via XMPP
-//        SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_CUSTOMERSUPPORT, "dNeero Blog Comment: "+ name + ": " + comment + " (http://dneero.com/blogpost.jsp?blogpostid="+blogpost.getBlogpostid()+")");
+//        SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_CUSTOMERSUPPORT, "Blog Comment: "+ name + ": " + comment + " (http://dneero.com/blogpost.jsp?blogpostid="+blogpost.getBlogpostid()+")");
 //        xmpp.send();
 //        //load();
 //        Pagez.sendRedirect("/blogpost.jsp?blogpostid="+blogpost.getBlogpostid());
