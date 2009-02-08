@@ -11,6 +11,7 @@ import java.util.Collections;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.dao.Betainvite;
 import com.dneero.dao.Blogpost;
+import com.dneero.dao.Pl;
 
 import com.dneero.email.EmailTemplateProcessor;
 import com.dneero.helpers.Pingomatic;
@@ -36,8 +37,6 @@ public class SysadminBlogpost implements Serializable {
     private String categories="";
 
 
-
-
     public SysadminBlogpost() {
 
     }
@@ -49,7 +48,7 @@ public class SysadminBlogpost implements Serializable {
         logger.debug("load()");
         blogposts = HibernateUtil.getSession().createQuery("from Blogpost order by date DESC").list();
 
-        date = new Date();
+        date = new Date();                   
         blogpostid=0;
         author= Pagez.getUserSession().getUser().getFirstname() + " " + Pagez.getUserSession().getUser().getLastname();
         title="";
@@ -85,7 +84,7 @@ public class SysadminBlogpost implements Serializable {
         try{blogpost.save();}catch(Exception ex){logger.error("",ex);}
         initBean();
         //Refresh the blog posts on the homepage
-        GetCachedStuff.refresh(new BlogPosts());
+        GetCachedStuff.refresh(new BlogPosts(), Pl.get(1));
         try{
             if (doPingomatic && BaseUrl.get(false).indexOf("localhost")<=-1){
                 Pingomatic.ping("dNeero Conversations Blog", BaseUrl.get(false)+"blog.jsp", BaseUrl.get(false)+"rss.xml");

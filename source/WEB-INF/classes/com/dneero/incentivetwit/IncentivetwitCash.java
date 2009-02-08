@@ -75,7 +75,7 @@ public class IncentivetwitCash implements Incentivetwit {
         //Affect balance for blogger
         MoveMoneyInAccountBalance.pay(user, getBloggerEarningsPerResponse(), "Pay for Twitter Answer: '"+twitask.getQuestion()+"'", true, twitanswer.getIsforcharity(), twitanswer.getCharityname(), 0, false, true, false, false);
         //Affect balance for researcher
-        MoveMoneyInAccountBalance.charge(user, (TwitaskMoneyStatus.calculateAmtToChargeResearcher(getResearcherCostPerResponse(), twitask)), "User "+user.getFirstname()+" "+user.getLastname()+" responds to '"+twitask.getQuestion()+"'", true, false, false, false);
+        MoveMoneyInAccountBalance.charge(User.get(twitask.getUserid()), (TwitaskMoneyStatus.calculateAmtToChargeResearcher(getResearcherCostPerResponse(), twitask)), "User "+user.getFirstname()+" "+user.getLastname()+" responds to '"+twitask.getQuestion()+"'", true, false, false, false);
         //Affect balance for reseller
         if (twitask.getResellercode()!=null && !twitask.getResellercode().equals("")){
             //Find the user with this resellercode
@@ -125,7 +125,7 @@ public class IncentivetwitCash implements Incentivetwit {
         //Affect balance for blogger
         MoveMoneyInAccountBalance.charge(user, getBloggerEarningsPerResponse(), "Charge for award to: '"+twitask.getQuestion()+"' being removed", false, true, false, false);
         //Affect balance for researcher
-        MoveMoneyInAccountBalance.pay(user, (TwitaskMoneyStatus.calculateAmtToChargeResearcher(getResearcherCostPerResponse(), twitask)), "User "+user.getFirstname()+" "+user.getLastname()+" responds to '"+twitask.getQuestion()+"' had award removed", false, false, "", true, false, false, false);
+        MoveMoneyInAccountBalance.pay(User.get(twitask.getUserid()), (TwitaskMoneyStatus.calculateAmtToChargeResearcher(getResearcherCostPerResponse(), twitask)), "User "+user.getFirstname()+" "+user.getLastname()+" responds to '"+twitask.getQuestion()+"' had award removed", false, false, "", true, false, false, false);
         //Affect balance for reseller
         if (twitask.getResellercode()!=null && !twitask.getResellercode().equals("")){
             //Find the user with this resellercode
