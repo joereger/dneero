@@ -35,8 +35,15 @@ public class TwitterQuestionServlet extends HttpServlet {
                 twitaskid=Integer.parseInt(split[2]);
             }
         }
-        logger.debug("redirecting to twitaskid="+twitaskid);
-        Pagez.sendRedirect("/twitask.jsp?twitaskid="+twitaskid);
+        if (twitaskid>0){
+            logger.debug("redirecting to twitaskid="+twitaskid);
+            Pagez.sendRedirect("/twitask.jsp?twitaskid="+twitaskid);
+            return;
+        } else {
+            Pagez.getUserSession().setMessage("Sorry, that Twitter Question not found right now.");
+            Pagez.sendRedirect("/index.jsp");
+            return;
+        }
         //request.getRequestDispatcher("/twitask.jsp?twitaskid="+twitaskid).forward(request, response);
         //return;
     }

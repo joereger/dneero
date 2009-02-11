@@ -188,6 +188,47 @@ PublicSurveyList publicSurveyList = (PublicSurveyList)Pagez.getBeanMgr().get("Pu
                                 <input type="submit" class="formsubmitbutton" value="Go">
                             </form>
                         </div>
+
+                        <%if (1==1){%>
+                            <br/><br/>
+                            <%--<div class="rounded" style="padding: 5px; margin: 5px; background: #e6e6e6;">--%>
+                            <%--<div class="rounded" style="padding: 15px; margin: 5px; background: #ffffff;">--%>
+                            <font class="mediumfont" style="color: #cccccc;">Twitter Questions</font>
+                            <br/>
+                            <%
+                                BloggerCompletedTwitasks bloggerCompletedTwitasks = new BloggerCompletedTwitasks();
+                                bloggerCompletedTwitasks.setMaxtodisplay(3);
+                                bloggerCompletedTwitasks.initBean();
+                                StringBuffer template = new StringBuffer();
+                                template.append("" +
+                                "            <table cellpadding=\"2\" cellspacing=\"0\" border=\"0\" width=\"100%\">\n" +
+                                "                <tr>\n" +
+                                "                    <td valign=\"top\">\n" +
+                                "     <font class=\"normalfont\" style=\"font-weight: bold;\"><a href=\"/twitask.jsp?twitaskid=<$twitask.twitaskid$>\"><$twitask.question$></a></font><br/>\n" +
+                                "     <font class=\"tinyfont\" style=\"font-weight:bold; text-decoration: none;\"><$twitanswer.answer$></font>\n" +
+                                "                    </td>\n" +
+                                "                    <td valign=\"top\" width=\"40%\">\n" +
+                                "     \n" +
+                                "                    </td>\n" +
+                                "                </tr>\n" +
+                                "            </table>\n");
+
+                            %>
+                            <%if (bloggerCompletedTwitasks.getTwitanswers()==null || bloggerCompletedTwitasks.getTwitanswers().size()==0){%>
+                                <font class="smallfont">You haven't answered any Twitter Questions!  <ol><li>Add your <a href="http://twitter.com">Twitter</a> username to <a href="/account/accountsettings.jsp">your account</a></li><li>follow us at <a href="http://twitter.com/<%=Pagez.getUserSession().getPl().getTwitterusername()%>">http://twitter.com/<%=Pagez.getUserSession().getPl().getTwitterusername()%></a></li><li>reply to questions you see us ask</li><li>make sure your social person <a href="/blogger/bloggerdetails.jsp">profile</a> is active</li></ol></font>
+                            <%} else {%>
+                                <%
+                                    ArrayList<GridCol> cols = new ArrayList<GridCol>();
+                                    cols.add(new GridCol("", template.toString(), false, "", "tinyfont", "background: #ffffff;", ""));
+                                %>
+                                <%=Grid.render(bloggerCompletedTwitasks.getTwitanswers(), cols, 5, "/account/index.jsp", "pagetwitasks")%>
+                                <br/><a href="/blogger/bloggercompletedtwitasks.jsp"><font class="smallfont" style="font-weight: bold;">See All Twitter Questions You've Answered</font></a>
+                                <br/><br/><font class="tinyfont" style="font-weight: bold;">Congratulations!  Special Access Code: dtwitrks01</font>
+                            <%}%>
+                            <!--</div>-->
+                            <!--</div>-->
+                        <%}%>
+
                     </div>
                 </td>
             <% } %>

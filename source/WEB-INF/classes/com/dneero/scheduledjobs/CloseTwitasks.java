@@ -64,8 +64,8 @@ public class CloseTwitasks implements Job {
         User user = User.get(twitask.getUserid());
         Pl pl = Pl.get(user.getPlid());
         String dotdotdot = "";
-        if (twitask.getQuestion().length()>84){ dotdotdot = "..."; }
-        String msg = "http://dNeero.com/tq/"+twitask.getTwitaskid()+" - Results to question \""+ Str.truncateString(twitask.getQuestion(), 84)+dotdotdot+"\"";
+        if (twitask.getQuestion().length()>90){ dotdotdot = "...?"; }
+        String msg = "http://www.dNeero.com/tq/"+twitask.getTwitaskid()+" Results to \""+ Str.truncateString(twitask.getQuestion(), 90)+dotdotdot+"\"";
         try{
             Twitter twitter = new Twitter(pl.getTwitterusername(),pl.getTwitterpassword());
             twitter.setSource("dNeero.com");

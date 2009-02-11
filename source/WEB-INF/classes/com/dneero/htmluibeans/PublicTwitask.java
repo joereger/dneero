@@ -33,6 +33,11 @@ public class PublicTwitask implements Serializable {
 
     }
 
+    public void initBean(int twitaskid){
+        twitask = Twitask.get(twitaskid);
+        initBean();
+    }
+
 
     public void initBean(){
         Logger logger = Logger.getLogger(this.getClass().getName());

@@ -8,16 +8,30 @@
 <%@ page import="com.dneero.helpers.IsBloggerInPanel" %>
 <%@ page import="com.dneero.privatelabel.PlPeers" %>
 <%
-    PublicTwitask publicTwitask=(PublicTwitask) Pagez.getBeanMgr().get("PublicTwitask");
+    PublicTwitask publicTwitask = new PublicTwitask(); //Manually creating bean because had problem with redirect from TwitterQuestionServlet.java
+    int twitaskid = 0;
+    if (Num.isinteger(request.getParameter("twitaskid"))){
+        twitaskid = Integer.parseInt(request.getParameter("twitaskid"));
+    }
+    publicTwitask.initBean(twitaskid);
 %>
 <%
 if (publicTwitask==null || publicTwitask.getTwitask()==null || publicTwitask.getTwitask().getTwitaskid()==0 || publicTwitask.getTwitask().getStatus()==Twitask.STATUS_DRAFT || publicTwitask.getTwitask().getStatus()==Twitask.STATUS_REJECTED || publicTwitask.getTwitask().getStatus()==Twitask.STATUS_WAITINGFORSTARTDATE){
+    Pagez.getUserSession().setMessage("TA status. request.getParameter(\"twitaskid\")="+request.getParameter("twitaskid"));
+    if (publicTwitask.getTwitask()==null){
+        Pagez.getUserSession().setMessage("publicTwitask.getTwitask()==null");
+    } else if (publicTwitask.getTwitask().getTwitaskid()==0){
+        Pagez.getUserSession().setMessage("publicTwitask.getTwitask().getTwitaskid()==0");
+    } else {
+        Pagez.getUserSession().setMessage("other");
+    }
     Pagez.sendRedirect("/notauthorized.jsp");
     return;
 }
 //If the twitask isn't peered with this pl
 Pl plOfTwitask = Pl.get(publicTwitask.getTwitask().getPlid());
 if (!PlPeers.isThereATwoWayTrustRelationship(plOfTwitask, Pagez.getUserSession().getPl())){
+    Pagez.getUserSession().setMessage("Pl peering conflict.");
     Pagez.sendRedirect("/notauthorized.jsp");
     return;
 }
