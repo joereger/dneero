@@ -22,7 +22,7 @@ import com.dneero.scheduledjobs.SurveydisplayActivityObjectQueue;
 import com.dneero.session.SurveysTakenToday;
 import com.dneero.survey.servlet.RecordImpression;
 import com.dneero.survey.servlet.SurveyAsHtml;
-import com.dneero.survey.servlet.SurveyFlashServlet;
+import com.dneero.survey.servlet.v1.SurveyFlashServlet;
 import com.dneero.survey.servlet.SurveydisplayActivityObject;
 import com.dneero.ui.SocialBookmarkLinks;
 import com.dneero.ui.SurveyEnhancer;

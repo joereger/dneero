@@ -1,12 +1,7 @@
 package com.dneero.htmluibeans;
 
 import com.dneero.dao.*;
-import com.dneero.ui.SurveyEnhancer;
-import com.dneero.money.SurveyMoneyStatus;
 
-import com.dneero.survey.servlet.SurveyJavascriptServlet;
-import com.dneero.display.SurveyTakerDisplay;
-import com.dneero.finders.SurveyCriteriaXML;
 import com.dneero.htmlui.Pagez;
 import com.dneero.htmlui.ValidationException;
 

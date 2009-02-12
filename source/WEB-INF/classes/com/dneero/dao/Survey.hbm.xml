@@ -126,6 +126,9 @@
         <property name="isaggressiveslotreclamationon" type="boolean">
             <column name="isaggressiveslotreclamationon" />
         </property>
+        <property name="embedversion" type="int">
+            <column name="embedversion" not-null="true" />
+        </property>
 
     </class>
 </hibernate-mapping>

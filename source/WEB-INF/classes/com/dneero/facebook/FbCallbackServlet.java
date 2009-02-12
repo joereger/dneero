@@ -12,10 +12,8 @@ import java.io.File;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 
-import com.dneero.systemprops.BaseUrl;
 import com.dneero.systemprops.WebAppRootDir;
 import com.dneero.systemprops.SystemProperty;
-import com.dneero.survey.servlet.SurveyLinkServlet;
 import com.dneero.survey.servlet.RecordImpression;
 import com.dneero.htmlui.Pagez;
 import com.dneero.util.Num;

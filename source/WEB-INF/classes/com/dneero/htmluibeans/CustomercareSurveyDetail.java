@@ -13,7 +13,7 @@ import com.dneero.dao.*;
 import com.dneero.money.SurveyMoneyStatus;
 import com.dneero.ui.SurveyEnhancer;
 import com.dneero.finders.SurveyCriteriaXML;
-import com.dneero.survey.servlet.SurveyFlashServlet;
+import com.dneero.survey.servlet.v1.SurveyFlashServlet;
 import com.dneero.survey.servlet.EmbedCacheFlusher;
 import com.dneero.display.SurveyTakerDisplay;
 import com.dneero.htmlui.Pagez;

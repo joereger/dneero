@@ -1,4 +1,4 @@
-package com.dneero.survey.servlet;
+package com.dneero.survey.servlet.v2;
 
 import com.dneero.dao.Survey;
 import com.dneero.dao.User;
@@ -20,12 +20,16 @@ public class SurveyAsHtml {
     }
 
     public static String getHtml(Survey survey, User user, boolean makeHttpsIfSSLIsOn, boolean displayEvenIfSysadminRejected){
-        if (survey.getEmbedversion()==Survey.EMBEDVERSION_01){
-            return com.dneero.survey.servlet.v1.SurveyAsHtml.getHtml(survey, user, makeHttpsIfSSLIsOn, displayEvenIfSysadminRejected);
-        } else if (survey.getEmbedversion()==Survey.EMBEDVERSION_02){
-            return com.dneero.survey.servlet.v1.SurveyAsHtml.getHtml(survey, user, makeHttpsIfSSLIsOn, displayEvenIfSysadminRejected);
+        StringBuffer out = new StringBuffer();
+        Logger logger = Logger.getLogger(SurveyAsHtml.class);
+        if (survey!=null && user!=null){
+            SurveyTemplateProcessor stp = new SurveyTemplateProcessor(survey, Blogger.get(user.getBloggerid()));
+            out.append(stp.getSurveyForDisplay(makeHttpsIfSSLIsOn, displayEvenIfSysadminRejected));
+        } else {
+            out = new StringBuffer();
+            out.append("This embedded conversation link is not correctly formatted.");
         }
-        return "";
+        return out.toString();
     }
 
 }

@@ -3,6 +3,7 @@
 <%@ page import="com.dneero.htmlui.*" %>
 <%@ page import="com.dneero.util.Num" %>
 <%@ page import="com.dneero.util.Str" %>
+<%@ page import="com.dneero.survey.servlet.EmbedCacheFlusher" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "Survey: "+((CustomercareSurveyDetail)Pagez.getBeanMgr().get("CustomercareSurveyDetail")).getSurvey().getTitle();
@@ -34,6 +35,17 @@ String acl = "customercare";
         }
     }
 %>
+<%
+    if (request.getParameter("action") != null && request.getParameter("action").equals("clearembedcache")) {
+        try {
+            EmbedCacheFlusher.flushCache(customercareSurveyDetail.getSurvey().getSurveyid());
+            Pagez.getUserSession().setMessage("Embed cache cleared.");
+        } catch (Exception ex) {
+            Pagez.getUserSession().setMessage("Error: "+ex.getMessage());
+        }
+    }
+%>
+
 <%@ include file="/template/header.jsp" %>
 
     <script language="JavaScript" type="text/javascript">
@@ -78,6 +90,8 @@ String acl = "customercare";
                 <font class="mediumfont">Survey ID: <%=customercareSurveyDetail.getSurvey().getSurveyid()%></font>
                 <br/><br/>
                 <a href="/customercare/userdetail.jsp?userid=<%=customercareSurveyDetail.getUser().getUserid()%>"><font class="mediumfont"><%=customercareSurveyDetail.getUser().getFirstname()%> <%=customercareSurveyDetail.getUser().getLastname()%> <%=customercareSurveyDetail.getUser().getEmail()%></font></a>
+                <br/><br/>
+                <a href="/customercare/sysadminsurveydetail.jsp?action=clearembedcache&surveyid=<%=customercareSurveyDetail.getSurvey().getSurveyid()%>"><font class="tinyfont">Clear Embed Cache (Expensive)</font></a>
                 <br/><br/>
                 <div class="rounded" style="background: #e6e6e6; text-align: center; padding: 20px;">
                     <%if (customercareSurveyDetail.getSurvey().getStatus()==1){%>

@@ -1,4 +1,4 @@
-package com.dneero.survey.servlet;
+package com.dneero.survey.servlet.v1;
 
 import org.apache.log4j.Logger;
 
@@ -28,46 +28,6 @@ public class SurveyHtmlpageServlet extends HttpServlet {
         logger.debug("SurveyHtmlpageServlet called.  It shouldn't be. url="+urlSplitter.getRequestUrl()+"?"+urlSplitter.getQuerystring()+" referer="+request.getHeader("referer"));
         response.sendRedirect("/survey.jsp?s="+request.getParameter("s")+"&u="+request.getParameter("u")+"&p="+request.getParameter("p"));
         return;
-//        logger.debug("Looking for html page survey via servlet");
-//        logger.debug("request.getParameter(\"s\")="+request.getParameter("s"));
-//        logger.debug("request.getParameter(\"u\")="+request.getParameter("u"));
-//        logger.debug("request.getParameter(\"p\")="+request.getParameter("p"));
-//
-//        PrintWriter out = response.getWriter();
-//
-//        Survey survey = null;
-//        if (request.getParameter("s")!=null && com.dneero.util.Num.isinteger(request.getParameter("s"))){
-//            survey = Survey.get(Integer.parseInt(request.getParameter("s")));
-//        }
-//
-//        User user = null;
-//        if (request.getParameter("u")!=null && com.dneero.util.Num.isinteger(request.getParameter("u"))){
-//            user = User.get(Integer.parseInt(request.getParameter("u")));
-//        }
-//
-//        boolean ispreview = false;
-//        if (request.getParameter("p")!=null && com.dneero.util.Num.isinteger(request.getParameter("p"))){
-//            if (request.getParameter("p").equals("1")){
-//                ispreview = true;
-//            }
-//        }
-//
-//        if (survey!=null && !ispreview){
-//            RecordImpression.record(request);
-//        }
-//
-//        response.setContentType("text/html");
-//
-//        String surveyflashembed = SurveyFlashServlet.getEmbedSyntax(BaseUrl.get(false), survey.getSurveyid(), user.getUserid(), ispreview, true, false);
-//
-//        out.print("<html><body bgcolor=\"#ffffff\">");
-//        out.print("<center>");
-//        out.print(surveyflashembed);
-//        out.print("</center>");
-//        out.print("<script src=\"https://ssl.google-analytics.com/urchin.js\" type=\"text/javascript\"></script>\n" +
-//                "        <script type=\"text/javascript\">_uacct = \"UA-208946-2\";urchinTracker();</script>");
-//        out.print("</body></html>");
-
     }
 
     public static String getEmbedSyntax(String baseurl, int surveyid, int userid, int responseid, boolean ispreview){

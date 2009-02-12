@@ -9,13 +9,11 @@ import com.dneero.dao.Blogger;
 import com.dneero.dao.User;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.ui.SurveyEnhancer;
-import com.dneero.util.Str;
 import com.dneero.util.Num;
 import com.dneero.htmlui.UserSession;
 import com.dneero.htmlui.Pagez;
-import com.dneero.survey.servlet.SurveyFlashFacebookServlet;
+import com.dneero.survey.servlet.v1.SurveyFlashFacebookServlet;
 import com.facebook.api.FacebookRestClient;
-import com.facebook.api.FacebookSignatureUtil;
 import com.facebook.api.TemplatizedAction;
 import org.apache.log4j.Logger;
 import org.hibernate.criterion.Restrictions;
@@ -26,7 +24,6 @@ import org.jdom.output.XMLOutputter;
 import org.jdom.Element;
 
 import java.util.*;
-import java.net.URLEncoder;
 import java.net.URL;
 
 /**

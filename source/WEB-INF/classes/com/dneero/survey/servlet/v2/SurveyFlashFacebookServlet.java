@@ -1,4 +1,4 @@
-package com.dneero.survey.servlet;
+package com.dneero.survey.servlet.v2;
 
 import org.apache.log4j.Logger;
 import org.apache.catalina.connector.ClientAbortException;
@@ -9,19 +9,22 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.net.URLEncoder;
 
 import com.dneero.dao.Survey;
 import com.dneero.dao.User;
-import com.dneero.dao.Dbcache;
+import com.dneero.cache.providers.CacheFactory;
 import com.dneero.systemprops.WebAppRootDir;
 import com.dneero.systemprops.BaseUrl;
 import com.dneero.systemprops.InstanceProperties;
-import com.dneero.cache.providers.CacheFactory;
 import com.dneero.util.RandomString;
+import com.dneero.xmpp.SendXMPPMessage;
+import com.dneero.htmlui.Pagez;
 import com.dneero.pageperformance.PagePerformanceUtil;
+import com.dneero.survey.servlet.RecordImpression;
+import com.dneero.survey.servlet.SurveyAsHtml;
 import com.flagstone.transform.*;
 
 /**
@@ -29,7 +32,7 @@ import com.flagstone.transform.*;
  * Date: Jun 19, 2006
  * Time: 10:31:40 AM
  */
-public class SurveyFlashServlet extends HttpServlet {
+public class SurveyFlashFacebookServlet extends HttpServlet {
 
 
 
@@ -39,9 +42,8 @@ public class SurveyFlashServlet extends HttpServlet {
 
     public void doPost (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Logger logger = Logger.getLogger(this.getClass().getName());
-
         long timestart = new java.util.Date().getTime();
-        logger.debug("Looking for flash survey via servlet");
+        logger.debug("Looking for flash conversation via servlet");
         logger.debug("request.getParameter(\"s\")="+request.getParameter("s"));
         logger.debug("request.getParameter(\"u\")="+request.getParameter("u"));
         logger.debug("request.getParameter(\"p\")="+request.getParameter("p"));
@@ -66,9 +68,13 @@ public class SurveyFlashServlet extends HttpServlet {
             }
         }
 
+        User user = null;
         int userid = 0;
         if (request.getParameter("u")!=null && com.dneero.util.Num.isinteger(request.getParameter("u"))){
-            userid = Integer.parseInt(request.getParameter("u"));
+            user = User.get(Integer.parseInt(request.getParameter("u")));
+            if (user!=null){
+                userid = user.getUserid();
+            }
         }
 
         boolean ispreview = false;
@@ -97,24 +103,17 @@ public class SurveyFlashServlet extends HttpServlet {
         }
 
         byte[] bytes = null;
-        String nameInCache = "surveyflashservlet-s"+surveyid+"-u"+userid+"-ispreview"+ispreview;
+        String nameInCache = "surveyflashfacebookservlet-s"+surveyid+"-u"+userid+"-ispreview"+ispreview;
         String cacheGroup =  "embeddedsurveycache"+"/"+"surveyid-"+surveyid;
         Object fromCache = CacheFactory.getCacheProvider("DbcacheProvider").get(nameInCache, cacheGroup);
         if (fromCache!=null && cache){
             logger.debug("returning bytes from cache");
-
-            //String value = (String)fromCache;
-            //logger.debug("value="+value);
-            //bytes = value.getBytes("utf-8");
-
             bytes = (byte[])fromCache;
-            logger.debug("bytes.length="+bytes.length);
         } else {
             logger.debug("rebuilding bytes and putting them into cache");
             try{
                 String surveyashtml = "Sorry.  Not found. Surveyid="+request.getParameter("s");
                 if (survey!=null && survey.getSurveyid()>0){
-                    User user = User.get(userid);
                     surveyashtml = SurveyAsHtml.getHtml(survey, user, false);
                 }
                 StringBuffer surveyasxhtml = new StringBuffer();
@@ -146,14 +145,12 @@ public class SurveyFlashServlet extends HttpServlet {
                     try{
                         logger.debug("Start TransformSWF");
                         //Get the movie from the file system
-                        FSMovie movie = new FSMovie(WebAppRootDir.getWebAppRootPath() + "flashviewer/dneeroflashviewer.swf");
-                        //List the allobjects in the movie that are of type DoAction
+                        FSMovie movie = new FSMovie(WebAppRootDir.getWebAppRootPath() + "flashviewer/dneeroflashfacebookviewer.swf");
+                        //List the objects in the movie that are of type DoAction
                         ArrayList objects = movie.getObjectsOfType(FSMovieObject.DoAction);
                         for (Iterator it = objects.iterator(); it.hasNext(); ) {
                             FSDoAction obj = (FSDoAction)it.next();
                             logger.debug("object found: obj.name()="+obj.name());
-                            logger.debug("object found: obj.toString()="+obj.toString());
-
                             //Add the var to all DoAction blocks
                             ArrayList actions = obj.getActions();
                             actions.add(new FSPush("SURVEY_AS_HTML"));
@@ -161,45 +158,21 @@ public class SurveyFlashServlet extends HttpServlet {
                             actions.add(FSAction.InitVariable());
                             obj.setActions(actions);
                         }
-                        //Get all allobjects
-                        logger.debug("Start Listing All Objects");
-                        ArrayList allobjects = movie.getObjects();
-                        for (Iterator it = allobjects.iterator(); it.hasNext(); ) {
-                            FSMovieObject obj = (FSMovieObject)it.next();
-                            logger.debug("allobject found: obj.name()="+obj.name());
-                            if (obj.getType()==FSMovieObject.DefineTextField){
-                                FSDefineTextField textfield = (FSDefineTextField)obj;
-                                logger.debug("found text field: textfield.getVariableName()="+textfield.getVariableName());
-                                if (textfield.getVariableName().equals("searchenginetext_var")){
-                                    logger.debug("Setting the text of the search engine textbox");
-                                    textfield.setHTML(true);
-                                    //Set the search engine text... note that this is using surveyashtml to avoid all the wrapper xml/doc stuff
-                                    textfield.setInitialText("This is a <h1><a href=\"http://www.dneero.com/survey.jsp?surveyid="+surveyid+"\">dNeero Conversation</a></h1>.<br/><br/>"+surveyashtml);
-                                }
-                                if (textfield.getVariableName().equals("flashhtmlvar")){
-                                    logger.debug("Setting the text of the html textbox");
-                                    textfield.setHTML(true);
-                                    //Set the search engine text... note that this is using surveyashtml to avoid all the wrapper xml/doc stuff
-                                    textfield.setInitialText(surveyashtmlencoded);
-                                }
-                            }
-                        }
-                        logger.debug("End Listing All Objects");
                         //Encode the swf and put its bytes into memory
                         bytes = movie.encode();
                         //Put bytes into cache
                         CacheFactory.getCacheProvider("DbcacheProvider").put(nameInCache, cacheGroup, bytes);
                         logger.debug("End TransformSWF");
                     } catch (Exception ex){
-                        logger.error("Error with transform in bottom section",ex);
+                        logger.error("",ex);
                     }
                 }
             } catch (Exception ex){
-                logger.error("Error getting survey from cache: ex.getMessage()="+ex.getMessage(), ex);
+                logger.error("Error getting conversation from cache", ex);
             }
         }
 
-        //try{logger.debug("bytes="+bytes.toString());}catch(Exception ex){logger.error("",ex);}
+        try{logger.debug("bytes="+bytes.toString());}catch(Exception ex){logger.error("",ex);}
 
         try{
             //Get servlet outputstream, set content type and send swf to browser client
@@ -209,25 +182,35 @@ public class SurveyFlashServlet extends HttpServlet {
             outStream.close();
         } catch (ClientAbortException cex){
             logger.debug("Client aborted", cex);
-        } catch (java.net.SocketException sex){
-            logger.debug("Trouble writing survey to browser", sex);
         } catch (Exception e){
-            logger.error("Error writing survey to browser", e);
+            logger.error("Error getting conversation from cache");
         }
 
         //Performance recording
         try {
             long timeend = new java.util.Date().getTime();
             long elapsedtime = timeend - timestart;
-            PagePerformanceUtil.add("/dneerosurvey.swf", InstanceProperties.getInstancename(), elapsedtime);
+            PagePerformanceUtil.add("/dneerofacebooksurvey.swf", InstanceProperties.getInstancename(), elapsedtime);
         } catch (Exception ex) {
             logger.error("", ex);
+        }
+
+        //Notify debug group
+        if (survey!=null && user!=null){
+            SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_DEBUG, "Facebook Flash Click: "+ survey.getTitle()+" (surveyid="+survey.getSurveyid()+") from "+user.getFirstname()+" "+user.getLastname()+"'s profile");
+            xmpp.send();
+        } else if (survey!=null) {
+            SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_DEBUG, "Facebook Flash Click: "+ survey.getTitle()+" (surveyid="+survey.getSurveyid()+")");
+            xmpp.send();
+        } else {
+            SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_DEBUG, "Facebook Flash Click: unknown conversation or user");
+            xmpp.send();
         }
     }
 
 
-    private static String getUrlOfMovie(String baseurl, int surveyid, int userid, int responseid, int plid, boolean ispreview, boolean cache, boolean appendrandomstringtoforcebrowserrefresh){
-        Logger logger = Logger.getLogger(SurveyFlashServlet.class);
+    private static String getUrlOfMovie(String baseurl, int surveyid, int userid, int responseid, boolean ispreview, boolean cache, boolean appendrandomstringtoforcebrowserrefresh){
+        Logger logger = Logger.getLogger(SurveyFlashFacebookServlet.class);
         String ispreviewStr = "0";
         if (ispreview){
             ispreviewStr = "1";
@@ -235,10 +218,6 @@ public class SurveyFlashServlet extends HttpServlet {
         String cacheStr = "0";
         if (cache){
             cacheStr = "1";
-        }
-        String hdlStr = "0";
-        if (plid!=1){
-            hdlStr = "1";
         }
         if (baseurl.equals("")){
             baseurl = "/";
@@ -248,35 +227,37 @@ public class SurveyFlashServlet extends HttpServlet {
             randomStr = "&rnd="+ RandomString.randomAlphanumeric(5);
         }
 
-        String baseurlencoded = BaseUrl.get(false, plid);
-        try{baseurlencoded = URLEncoder.encode(baseurlencoded, "UTF-8");}catch(Exception ex){logger.error("",ex); baseurlencoded = BaseUrl.get(false, plid);}
+        String baseurlencoded = BaseUrl.get(false);
+        try{baseurlencoded = URLEncoder.encode(baseurlencoded, "UTF-8");}catch(Exception ex){logger.error("",ex); baseurlencoded = BaseUrl.get(false);}
 
-        String urlofmovie = baseurl+"flashviewer/dneerosurvey.swf?s="+surveyid+"&u="+userid+"&p="+ispreviewStr+"&c="+cacheStr+"&r="+responseid+"&hdl="+hdlStr+"&baseurl="+baseurlencoded+randomStr;
+        String urlofmovie = baseurl+"flashviewer/dneerosurveyfacebook.swf?s="+surveyid+"&u="+userid+"&p="+ispreviewStr+"&c="+cacheStr+"&r="+responseid+"&baseurl="+baseurlencoded+randomStr;
         return urlofmovie;
     }
 
 
 
-    public static String getEmbedSyntax(String baseurl, int surveyid, int userid, int responseid, int plid, boolean ispreview, boolean cache, boolean appendrandomstringtoforcebrowserrefresh){
-        String urlofmovie = getUrlOfMovie(baseurl, surveyid, userid, responseid, plid, ispreview, cache, appendrandomstringtoforcebrowserrefresh);
+    public static String getEmbedSyntax(String baseurl, int surveyid, int userid, int responseid, boolean ispreview, boolean cache, boolean appendrandomstringtoforcebrowserrefresh){
+        String urlofmovie = getUrlOfMovie(baseurl, surveyid, userid, responseid, ispreview, cache, appendrandomstringtoforcebrowserrefresh);
         String out = ""+
-              "<embed src=\""+urlofmovie+"\" wmode=\"transparent\" quality=\"high\" bgcolor=\"#ffffff\" width=\"425\" height=\"250\" name=\"dneeroflashviewer\" align=\"middle\" type=\"application/x-shockwave-flash\" pluginspage=\"http://www.macromedia.com/go/getflashplayer\"></embed>" +
+              "<embed src=\""+urlofmovie+"\" wmode=\"transparent\" quality=\"high\" bgcolor=\"#ffffff\" width=\"375\" height=\"150\" name=\"dneeroflashviewer\" align=\"middle\" type=\"application/x-shockwave-flash\" pluginspage=\"http://www.macromedia.com/go/getflashplayer\"></embed>" +
               "";
         return out;
     }
 
-    public static String getEmbedSyntaxWithObjectTag(String baseurl, int surveyid, int userid, int responseid, int plid, boolean ispreview, boolean cache, boolean appendrandomstringtoforcebrowserrefresh){
-        String urlofmovie = getUrlOfMovie(baseurl, surveyid, userid, responseid, plid, ispreview, cache, appendrandomstringtoforcebrowserrefresh);
-        String out = "<object type=\"application/x-shockwave-flash\" allowScriptAccess=\"never\" allowNetworking=\"internal\" width=\"425\" height=\"250\" align=\"middle\" data=\""+urlofmovie+"\">" +
-                     "<param name=\"allowScriptAccess\" value=\"never\" />" +
-                     "<param name=\"allowNetworking\" value=\"internal\" />" +
-                     "<param name=\"wmode\" value=\"transparent\">" +
-                     "<param name=\"movie\" value=\""+urlofmovie+"\" />" +
-                     "<embed src=\""+urlofmovie+"\" quality=\"high\" bgcolor=\"#ffffff\" width=\"425\" height=\"250\" name=\"dneeroflashviewer\" align=\"middle\" allowScriptAccess=\"never\" type=\"application/x-shockwave-flash\" pluginspage=\"http://www.macromedia.com/go/getflashplayer\">"+
-                     "</embed>"+
-                     "</object>";
+    public static String getFBMLSyntax(String baseurl, int surveyid, int userid, int responseid, boolean ispreview, boolean cache, boolean appendrandomstringtoforcebrowserrefresh){
+        Logger logger = Logger.getLogger(SurveyFlashFacebookServlet.class);
+        String urlofmovie = getUrlOfMovie(baseurl, surveyid, userid, responseid, ispreview, cache, appendrandomstringtoforcebrowserrefresh);
+        String out = "";
+        try{
+            String flashvars = URLEncoder.encode("baseurl="+baseurl, "UTF-8");
+            out = "<fb:swf swfbgcolor='ffffff' swfsrc='"+urlofmovie+"' imgsrc='"+baseurl+"/images/profile-placeholder3.gif"+"' width='375' height='150'/>";
+        } catch (Exception ex){
+            logger.error("", ex);
+        }
         return out;
     }
+
+
 
 
 }

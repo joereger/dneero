@@ -33,6 +33,9 @@ public class Survey extends BasePersistentClass implements java.io.Serializable,
     public static int STATUS_OPEN = 4;
     public static int STATUS_CLOSED = 5;
 
+    public static int EMBEDVERSION_01 = 1;
+    public static int EMBEDVERSION_02 = 2;
+
 
      //Fields
      private int surveyid;
@@ -67,6 +70,7 @@ public class Survey extends BasePersistentClass implements java.io.Serializable,
      private int impressionspaid;
      private int impressionstobepaid;
      private boolean isaggressiveslotreclamationon = false;
+     private int embedversion;
 
      private Set<Question> questions = new HashSet<Question>();
      private Set<Response> responses = new HashSet<Response>();
@@ -478,5 +482,13 @@ public class Survey extends BasePersistentClass implements java.io.Serializable,
 
     public void setIsaggressiveslotreclamationon(boolean isaggressiveslotreclamationon) {
         this.isaggressiveslotreclamationon=isaggressiveslotreclamationon;
+    }
+
+    public int getEmbedversion() {
+        return embedversion;
+    }
+
+    public void setEmbedversion(int embedversion) {
+        this.embedversion=embedversion;
     }
 }

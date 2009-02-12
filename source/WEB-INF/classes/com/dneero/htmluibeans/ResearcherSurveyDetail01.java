@@ -86,6 +86,7 @@ public class ResearcherSurveyDetail01 implements Serializable {
         survey.setImpressionstobepaid(0);
         survey.setPlid(Pagez.getUserSession().getPl().getPlid());
         survey.setIsaggressiveslotreclamationon(false);
+        survey.setEmbedversion(Survey.EMBEDVERSION_01);
     }
 
 

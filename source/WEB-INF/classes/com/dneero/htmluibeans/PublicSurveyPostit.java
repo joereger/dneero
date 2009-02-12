@@ -7,7 +7,10 @@ import com.dneero.ui.SurveyEnhancer;
 
 import com.dneero.util.Num;
 
-import com.dneero.survey.servlet.*;
+import com.dneero.survey.servlet.v1.SurveyFlashServlet;
+import com.dneero.survey.servlet.v1.SurveyImageServlet;
+import com.dneero.survey.servlet.v1.SurveyJavascriptServlet;
+import com.dneero.survey.servlet.v1.SurveyLinkServlet;
 import com.dneero.systemprops.BaseUrl;
 
 import com.dneero.facebook.FacebookApiWrapper;
@@ -180,11 +183,19 @@ public class PublicSurveyPostit implements Serializable {
 
         //If blogger has taken the survey already
         if (loggedinuserhasalreadytakensurvey){
-            htmltoposttoblog = SurveyJavascriptServlet.getEmbedSyntax(BaseUrl.get(false, survey.getPlid()), survey.getSurveyid(), Pagez.getUserSession().getUser().getUserid(), responseidOfLoggedinUser, false, false, true, false);
-            htmltoposttoblogflash = SurveyFlashServlet.getEmbedSyntax(BaseUrl.get(false, survey.getPlid()), survey.getSurveyid(), Pagez.getUserSession().getUser().getUserid(), responseidOfLoggedinUser, survey.getPlid(), false, true, false);
-            htmltoposttoblogflashwithembedandobjecttag = SurveyFlashServlet.getEmbedSyntaxWithObjectTag(BaseUrl.get(false, survey.getPlid()), survey.getSurveyid(), Pagez.getUserSession().getUser().getUserid(), responseidOfLoggedinUser, survey.getPlid(), false, true, false);
-            htmltoposttoblogimagelink = SurveyImageServlet.getEmbedSyntax(BaseUrl.get(false, survey.getPlid()), survey.getSurveyid(), Pagez.getUserSession().getUser().getUserid(), responseidOfLoggedinUser, false);
-            htmltoposttobloglink = SurveyLinkServlet.getEmbedSyntax(BaseUrl.get(false, survey.getPlid()), survey.getSurveyid(), Pagez.getUserSession().getUser().getUserid(), responseidOfLoggedinUser, false);
+            if (survey.getEmbedversion()==Survey.EMBEDVERSION_01){
+                htmltoposttoblog = com.dneero.survey.servlet.v1.SurveyJavascriptServlet.getEmbedSyntax(BaseUrl.get(false, survey.getPlid()), survey.getSurveyid(), Pagez.getUserSession().getUser().getUserid(), responseidOfLoggedinUser, false, false, true, false);
+                htmltoposttoblogflash = com.dneero.survey.servlet.v1.SurveyFlashServlet.getEmbedSyntax(BaseUrl.get(false, survey.getPlid()), survey.getSurveyid(), Pagez.getUserSession().getUser().getUserid(), responseidOfLoggedinUser, survey.getPlid(), false, true, false);
+                htmltoposttoblogflashwithembedandobjecttag = com.dneero.survey.servlet.v1.SurveyFlashServlet.getEmbedSyntaxWithObjectTag(BaseUrl.get(false, survey.getPlid()), survey.getSurveyid(), Pagez.getUserSession().getUser().getUserid(), responseidOfLoggedinUser, survey.getPlid(), false, true, false);
+                htmltoposttoblogimagelink = com.dneero.survey.servlet.v1.SurveyImageServlet.getEmbedSyntax(BaseUrl.get(false, survey.getPlid()), survey.getSurveyid(), Pagez.getUserSession().getUser().getUserid(), responseidOfLoggedinUser, false);
+                htmltoposttobloglink = com.dneero.survey.servlet.v1.SurveyLinkServlet.getEmbedSyntax(BaseUrl.get(false, survey.getPlid()), survey.getSurveyid(), Pagez.getUserSession().getUser().getUserid(), responseidOfLoggedinUser, false);
+            } else {
+                htmltoposttoblog = com.dneero.survey.servlet.v2.SurveyJavascriptServlet.getEmbedSyntax(BaseUrl.get(false, survey.getPlid()), survey.getSurveyid(), Pagez.getUserSession().getUser().getUserid(), responseidOfLoggedinUser, false, false, true, false);
+                htmltoposttoblogflash = com.dneero.survey.servlet.v2.SurveyFlashServlet.getEmbedSyntax(BaseUrl.get(false, survey.getPlid()), survey.getSurveyid(), Pagez.getUserSession().getUser().getUserid(), responseidOfLoggedinUser, survey.getPlid(), false, true, false);
+                htmltoposttoblogflashwithembedandobjecttag = com.dneero.survey.servlet.v2.SurveyFlashServlet.getEmbedSyntaxWithObjectTag(BaseUrl.get(false, survey.getPlid()), survey.getSurveyid(), Pagez.getUserSession().getUser().getUserid(), responseidOfLoggedinUser, survey.getPlid(), false, true, false);
+                htmltoposttoblogimagelink = com.dneero.survey.servlet.v2.SurveyImageServlet.getEmbedSyntax(BaseUrl.get(false, survey.getPlid()), survey.getSurveyid(), Pagez.getUserSession().getUser().getUserid(), responseidOfLoggedinUser, false);
+                htmltoposttobloglink = com.dneero.survey.servlet.v2.SurveyLinkServlet.getEmbedSyntax(BaseUrl.get(false, survey.getPlid()), survey.getSurveyid(), Pagez.getUserSession().getUser().getUserid(), responseidOfLoggedinUser, false);
+            }
         } else {
             htmltoposttoblog = "";
             htmltoposttoblogflash = "";

@@ -1,4 +1,4 @@
-package com.dneero.survey.servlet;
+package com.dneero.survey.servlet.v2;
 
 import com.dneero.dao.Survey;
 import com.dneero.dao.User;
@@ -6,6 +6,8 @@ import com.dneero.util.Str;
 import com.dneero.util.RandomString;
 import com.dneero.display.SurveyInBlogWrapper;
 import com.dneero.cache.providers.CacheFactory;
+import com.dneero.survey.servlet.RecordImpression;
+import com.dneero.survey.servlet.SurveyAsHtml;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletResponse;

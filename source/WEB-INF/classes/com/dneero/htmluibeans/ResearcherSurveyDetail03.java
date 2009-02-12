@@ -11,6 +11,10 @@ import com.dneero.htmlui.Pagez;
 import com.dneero.htmlui.ValidationException;
 import com.dneero.display.SurveyTemplateProcessor;
 import com.dneero.survey.servlet.*;
+import com.dneero.survey.servlet.v1.SurveyFlashServlet;
+import com.dneero.survey.servlet.v1.SurveyImageServlet;
+import com.dneero.survey.servlet.v1.SurveyJavascriptServlet;
+import com.dneero.survey.servlet.v1.SurveyLinkServlet;
 import com.dneero.helpers.UserInputSafe;
 
 import java.io.Serializable;

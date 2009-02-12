@@ -1,8 +1,8 @@
 <%@ page import="com.dneero.htmlui.Authorization" %>
 <%@ page import="com.dneero.htmlui.Pagez" %>
 <%@ page import="com.dneero.htmlui.UserSession" %>
-<%@ page import="com.dneero.survey.servlet.SurveyFlashServlet" %>
-<%@ page import="com.dneero.survey.servlet.SurveyJavascriptServlet" %>
+<%@ page import="com.dneero.survey.servlet.v1.SurveyFlashServlet" %>
+<%@ page import="com.dneero.survey.servlet.v1.SurveyJavascriptServlet" %>
 <%@ page import="com.dneero.systemprops.BaseUrl" %>
 <%@ page import="com.dneero.util.Num" %>
 <%

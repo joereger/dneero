@@ -6,12 +6,10 @@ import java.util.*;
 import java.io.Serializable;
 
 
-import com.dneero.util.SortableList;
 import com.dneero.util.Time;
 import com.dneero.util.Num;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.dao.Panel;
-import com.dneero.survey.servlet.SurveyJavascriptServlet;
 import com.dneero.htmlui.Pagez;
 import com.dneero.htmlui.ValidationException;
 
