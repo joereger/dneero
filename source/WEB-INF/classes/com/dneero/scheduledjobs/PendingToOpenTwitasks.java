@@ -9,6 +9,7 @@ import org.hibernate.criterion.Order;
 import com.dneero.dao.*;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.util.GeneralException;
+import com.dneero.util.Time;
 import com.dneero.systemprops.InstanceProperties;
 import com.dneero.instantnotify.InstantNotifyOfNewSurvey;
 import com.dneero.incentivetwit.Incentivetwit;
@@ -35,18 +36,24 @@ public class PendingToOpenTwitasks implements Job {
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
         Logger logger = Logger.getLogger(this.getClass().getName());
         if (InstanceProperties.getRunScheduledTasksOnThisInstance()){
-            logger.debug("execute() PendingToOpenSurveys called");
+            logger.debug("execute() PendingToOpenTwitasks called");
             List<Twitask> twitasks = HibernateUtil.getSession().createCriteria(Twitask.class)
                                    .add( Restrictions.eq("status", Twitask.STATUS_WAITINGFORSTARTDATE))
                                    .addOrder(Order.asc("startdate"))
                                    .list();
             for (Iterator<Twitask> iterator = twitasks.iterator(); iterator.hasNext();) {
                 Twitask twitask = iterator.next();
+                logger.debug("twitask "+twitask.getQuestion()+" in STATUS_WAITINGFORSTARTDATE");
+                logger.debug("twitask.getStartdate()="+ Time.dateformatcompactwithtime(Time.getCalFromDate(twitask.getStartdate())));
+                logger.debug("new Date()="+ Time.dateformatcompactwithtime(Time.getCalFromDate(new Date())));
                 if (twitask.getStartdate().before(new Date())){
+                    logger.debug("opening twitask");
                     //Open it up
                     openTwitask(twitask);
                     //Only want to have one open per day
                     //break;
+                } else {
+                    logger.debug("not opening because twitask.getStartdate() not before new Date()");
                 }
             }
         } else {

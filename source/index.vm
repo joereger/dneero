@@ -99,7 +99,7 @@ function rButtonImgInact(){
                     <form action="/index.jsp" method="post">
                         <input type="hidden" name="action" value="enteraccesscode">
                         <font class="mediumfont" style="color: #999999;">Got an Access Code?</font><br/>
-                        <%=Textbox.html("accesscode", Pagez.getUserSession().getAccesscode(), 255, 10, "", "")%>
+                        <input type="text" name="accesscode" size="10" maxlength="250">
                         <input type="submit" class="formsubmitbutton" value="Use Access Code" style="font-size: 11px;">
                     </form>
                 </div>
@@ -107,9 +107,9 @@ function rButtonImgInact(){
                <br/>
 
                <div class="rounded" style="background: #e6e6e6; padding: 10px;">
-                    <font class="mediumfont" style="color: #999999;">Donations to Charity</font><br/>
-                    $donationsMiniReport.html
-                    <br/>
+                   <font class="mediumfont" style="color: #999999;">Donations to Charity</font><br/>
+                   $donationsMiniReport.html
+                   <br/>
                    <div class="rounded" style="background: #ffffff; padding: 10px;">
                         <font class="tinyfont">You can choose to donate your earnings to charity with a single click!  And as a researcher you can ignite conversations that require people to donate.  We even give you the ability to add your own charity.<br/><a href="/charity.jsp">Learn more.</a></font><br/>
                    </div>

@@ -44,6 +44,7 @@ CustomercareUserDetail customercareUserDetail= (CustomercareUserDetail)Pagez.get
             customercareUserDetail.setPaypaladdress(Textbox.getValueFromRequest("paypaladdress", "PayPal Address", false, DatatypeString.DATATYPEID));
             customercareUserDetail.setReferredbyuserid(Textbox.getIntFromRequest("referredbyuserid", "Referredbyuserid", false, DatatypeString.DATATYPEID));
             customercareUserDetail.setFacebookuid(Textbox.getValueFromRequest("facebookuserid", "Facebookuserid", false, DatatypeString.DATATYPEID));
+            customercareUserDetail.setTwitterusername(Textbox.getValueFromRequest("twitterusername", "Twitter Username", false, DatatypeString.DATATYPEID));
             customercareUserDetail.save();
             Pagez.getUserSession().setMessage("User details saved");
         } catch (com.dneero.htmlui.ValidationException vex) {
@@ -204,6 +205,14 @@ CustomercareUserDetail customercareUserDetail= (CustomercareUserDetail)Pagez.get
                                         </td>
                                         <td valign="top">
                                             <%=Textbox.getHtml("email", customercareUserDetail.getEmail(), 255, 35, "", "")%>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td valign="top">
+                                            <font class="formfieldnamefont">Twitter Username</font>
+                                        </td>
+                                        <td valign="top">
+                                            <%=Textbox.getHtml("twitterusername", customercareUserDetail.getTwitterusername(), 255, 35, "", "")%>
                                         </td>
                                     </tr>
                                     <tr>

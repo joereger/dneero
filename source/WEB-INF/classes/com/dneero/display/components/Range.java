@@ -123,7 +123,6 @@ public class Range implements Component {
         out.append("</td>");
         out.append("</tr>");
         out.append("</table>");
-        
 
         return out.toString();
     }

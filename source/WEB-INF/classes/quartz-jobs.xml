@@ -296,7 +296,7 @@
             <job-name>pendingToOpenTwitasks</job-name>
             <job-group>surveyJobs</job-group>
             <!-- every x minutes-->
-            <cron-expression>0 20 * * * ?</cron-expression>
+            <cron-expression>0 7 * * * ?</cron-expression>
           </cron>
         </trigger>
     </job>
